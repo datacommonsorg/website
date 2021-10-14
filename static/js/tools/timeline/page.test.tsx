@@ -16,18 +16,20 @@
 
 jest.mock("axios");
 jest.mock("../../chart/draw");
+
 import Enzyme, { mount } from "enzyme";
+import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
+
 import Adapter from "enzyme-adapter-react-16";
+import { Page } from "./page";
 import React from "react";
 import pretty from "pretty";
-import { Page } from "./page";
-import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 const globalAny: any = global;
 
-test("Single place and single stats var", () => {
+test("Single place and single stat var", () => {
   globalAny.window = Object.create(window);
   document.body.innerHTML =
     '<button id="download-link"></button><a id="bulk-download-link"></a>';
@@ -55,6 +57,7 @@ test("Single place and single stats var", () => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
         `<div class="card">` +
+          `<span class="chart-option">Delta<button class="option-checkbox"></button></span>` +
           `<div class="chart-svg"></div><div class="statVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +
           `<span class="mdl-chip__text">Age</span>` +
@@ -167,14 +170,15 @@ test("chart options", () => {
     .then(() => {
       wrapper.update();
       // set per capita to True
-      wrapper.find("#chart-region .perCapitaCheckbox").simulate("click");
+      console.log(wrapper.find("#chart-region .option-checkbox"));
+      wrapper.find("#chart-region .option-checkbox").at(0).simulate("click");
       Promise.resolve(wrapper)
         .then(() => wrapper.update())
         .then(() => {
           wrapper.update();
           window.location.hash = "#" + window.location.hash;
           expect(window.location.hash).toBe(
-            "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3Atrue%7D"
+            "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
           );
           expect(
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
@@ -200,7 +204,7 @@ test("chart options", () => {
                 // expect(wrapper.find("#chart-region").length).toBe(0); // chart deleted
                 window.location.hash = "#" + window.location.hash;
                 expect(window.location.hash).toBe(
-                  "#place=geoId%2F05&statsVar=&chart=%7B%22count%22%3Atrue%7D"
+                  "#place=geoId%2F05&statsVar=&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
                 );
               });
           });

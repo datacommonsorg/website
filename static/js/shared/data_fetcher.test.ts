@@ -525,7 +525,6 @@ test("StatsData test", () => {
   const statData: StatData = {
     places: [],
     statVars: [],
-    dates: [],
     data: {
       "geoId/01": { data: {} },
       "geoId/02": {
@@ -540,6 +539,7 @@ test("StatsData test", () => {
         name: "Place2",
       },
     },
+    dates: [],
     sources: new Set(),
     latestCommonDate: "",
   };
