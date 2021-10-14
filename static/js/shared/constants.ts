@@ -23,3 +23,6 @@ export const EARTH_NAMED_TYPED_PLACE: NamedTypedPlace = {
   name: "Earth",
   types: ["Planet"],
 };
+
+export const MAX_YEAR = "2050";
+export const MAX_DATE = "2050-12";

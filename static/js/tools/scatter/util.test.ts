@@ -1,4 +1,3 @@
-import { ContextType } from "./context";
 /**
  * Copyright 2020 Google LLC
  *
@@ -16,6 +15,7 @@ import { ContextType } from "./context";
  */
 
 import { updateHash, applyHash } from "./util";
+import { ContextType } from "./context";
 
 const TestContext = ({
   x: {
