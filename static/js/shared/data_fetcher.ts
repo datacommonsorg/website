@@ -97,6 +97,11 @@ export function getStatVarGroupWithTime(
   return result;
 }
 
+/**
+ * For each time series of the input stat data, compute the delta beteen
+ * consecutive date and return the delta series.
+ * @param statData
+ */
 export function convertToDelta(statData: StatData): StatData {
   const result = _.cloneDeep(statData);
   for (const place in result.data) {
