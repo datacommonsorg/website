@@ -1,4 +1,3 @@
-import _ from "lodash";
 /**
  * Copyright 2021 Google LLC
  *
@@ -14,6 +13,8 @@ import _ from "lodash";
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import _ from "lodash";
 import axios from "axios";
 
 interface StatVarInfo {
