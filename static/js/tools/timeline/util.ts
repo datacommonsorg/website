@@ -90,6 +90,11 @@ export function setChartOption(
   if (!chartOptions) {
     chartOptions = {};
   }
+  if (typeof chartOptions[mprop] == "boolean") {
+    chartOptions[mprop] = {
+      pc: chartOptions[mprop],
+    };
+  }
   if (!chartOptions[mprop]) {
     chartOptions[mprop] = {};
   }
