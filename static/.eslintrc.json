@@ -12,7 +12,8 @@
     "prettier/prettier": ["error"],
     "semi": ["error", "always"],
     "@typescript-eslint/no-explicit-any": "off",
-    "no-fallthrough": "off"
+    "no-fallthrough": "off",
+    "sort-imports": "error"
   },
   "settings": {
     "react": {
