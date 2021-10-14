@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import { StatVarNode } from "../../shared/stat_var";
 import { MAX_DATE } from "../../shared/constants";
-import { isStatVarDataTooFar } from "../../shared/util";
+import { shouldCapStatVarDate } from "../../shared/util";
 import {
   ContextType,
   Axis,
@@ -57,7 +57,7 @@ async function getStatsWithinPlace(
   const promises: Promise<Record<string, PlacePointStat>>[] = [];
   for (const statVar of statVars) {
     statVarParams = `&stat_vars=${statVar}`;
-    if (isStatVarDataTooFar(statVar)) {
+    if (shouldCapStatVarDate(statVar)) {
       statVarParams += `&date=${MAX_DATE}`;
     }
     promises.push(

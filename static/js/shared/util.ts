@@ -79,6 +79,6 @@ export function isDateTooFar(date: string): boolean {
   return date.slice(0, 4) > MAX_YEAR;
 }
 
-export function isStatVarDataTooFar(statVar: string): boolean {
+export function shouldCapStatVarDate(statVar: string): boolean {
   return statVar.includes("_RCP");
 }

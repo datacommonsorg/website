@@ -449,6 +449,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         for (const statVar in this.props.trend.series) {
           const dataPoints: DataPoint[] = [];
           for (const date in this.props.trend.series[statVar]) {
+            // TODO(shifucun): consider move this to mixer so we can save the
+            // check here.
+            // This depends on if all the data in IPCC are desired by the API
+            // users.
             if (isDateTooFar(date)) {
               continue;
             }
