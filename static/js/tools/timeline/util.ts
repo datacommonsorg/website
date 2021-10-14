@@ -91,6 +91,7 @@ export function setChartOption(
     chartOptions = {};
   }
   if (typeof chartOptions[mprop] == "boolean") {
+    // To make this work with old url with only per capita option.
     chartOptions[mprop] = {
       pc: chartOptions[mprop],
     };
@@ -109,7 +110,7 @@ export function setChartOption(
 
 export function getChartOption(mprop: string, name: string): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  if (urlParams.get(name)) {
+  if (urlParams.get(name) != null) {
     return true;
   }
   const chartOptions = JSON.parse(urlParams.get("chart"));
