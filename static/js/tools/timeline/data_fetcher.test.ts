@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
+import axios from "axios";
+import _ from "lodash";
+
+import { DataGroup } from "../../chart/base";
+import { loadLocaleData } from "../../i18n/i18n";
+import { StatApiResponse, TimeSeries } from "../../shared/stat_types";
 import {
-  StatApiResponse,
   StatData,
-  TimeSeries,
   computePerCapita,
   convertToDelta,
   fetchStatData,
   getStatVarGroupWithTime,
 } from "./data_fetcher";
-
-import { DataGroup } from "../chart/base";
-import _ from "lodash";
-import axios from "axios";
-import { loadLocaleData } from "../i18n/i18n";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;

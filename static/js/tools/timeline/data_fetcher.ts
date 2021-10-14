@@ -14,39 +14,19 @@
  * limitations under the License.
  */
 
-import { DataGroup, DataPoint } from "../chart/base";
-
-import _ from "lodash";
 import axios from "axios";
-import { isDateTooFar } from "./util";
+import _ from "lodash";
+
+import { DataGroup, DataPoint } from "../../chart/base";
+import {
+  DisplayNameApiResponse,
+  StatApiResponse,
+  TimeSeries,
+} from "../../shared/stat_types";
+import { isDateTooFar } from "../../shared/util";
 
 const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
-
-export interface TimeSeries {
-  val?: {
-    [date: string]: number; // Date might be "latest" if it's from the cache
-  };
-  metadata?: {
-    importName?: string;
-    measurementMethod?: string;
-    provenanceUrl?: string;
-    unit?: string;
-  };
-}
-
-export interface StatApiResponse {
-  [place: string]: {
-    data: {
-      [statVar: string]: TimeSeries | null;
-    };
-    name?: string;
-  };
-}
-
-interface DisplayNameApiResponse {
-  [placeDcid: string]: string;
-}
 
 /**
  * Stats Data is keyed by statistical variable, then keyed by place dcid, with

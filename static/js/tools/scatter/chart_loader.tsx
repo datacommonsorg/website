@@ -33,7 +33,7 @@ import { arePlacesLoaded, getStatsWithinPlace } from "./util";
 import { Chart } from "./chart";
 import { NamedPlace } from "../../shared/types";
 import { PlotOptions } from "./plot_options";
-import { StatApiResponse } from "../../shared/data_fetcher";
+import { StatApiResponse } from "../../shared/stat_types";
 import _ from "lodash";
 import axios from "axios";
 import { saveToFile } from "../../shared/util";

@@ -18,7 +18,7 @@ import React, { Component } from "react";
 import { getChartOption, removeToken, statVarSep } from "./util";
 
 import { Chart } from "./chart";
-import { StatData } from "../../shared/data_fetcher";
+import { StatData } from "./data_fetcher";
 import { StatVarInfo } from "../../shared/stat_var";
 import _ from "lodash";
 import { saveToFile } from "../../shared/util";
