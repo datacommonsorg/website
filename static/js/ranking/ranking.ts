@@ -18,9 +18,9 @@
  * @fileoverview Entry point for Ranking pages
  */
 
+import { Page } from "./ranking_page";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Page } from "./ranking_page";
 import { loadLocaleData } from "../i18n/i18n";
 
 window.onload = () => {

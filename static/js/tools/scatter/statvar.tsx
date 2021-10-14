@@ -20,24 +20,25 @@
  * two of the three.
  */
 
-import React, { useContext, useEffect, useState } from "react";
-import _ from "lodash";
-import axios from "axios";
+import { Axis, AxisWrapper, Context, EmptyAxis } from "./context";
 import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
   Container,
   FormGroup,
-  Label,
   Input,
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
 } from "reactstrap";
+import React, { useContext, useEffect, useState } from "react";
 import { StatVarInfo, getStatVarInfo } from "../../shared/stat_var";
-import { Context, EmptyAxis, Axis, AxisWrapper } from "./context";
-import { StatVarHierarchyType } from "../../shared/types";
+
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { StatVarHierarchyType } from "../../shared/types";
+import _ from "lodash";
+import axios from "axios";
 
 // Number of enclosed places to sample when filtering the stat vars in the
 // stat var menu

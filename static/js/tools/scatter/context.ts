@@ -18,8 +18,9 @@
  * Global app context.
  */
 
-import { createContext, useState } from "react";
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
+import { createContext, useState } from "react";
+
 import { NamedPlace } from "../../shared/types";
 
 interface Axis {

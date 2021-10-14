@@ -19,16 +19,15 @@
  * lower and upper bounds for populations.
  */
 
-import React, { useContext, useState } from "react";
-import { FormGroup, Label, Input, Card, Button } from "reactstrap";
 import {
   AxisWrapper,
   Context,
   DisplayOptionsWrapper,
   PlaceInfoWrapper,
 } from "./context";
-
-import { Container, Row, Col } from "reactstrap";
+import { Button, Card, FormGroup, Input, Label } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
+import React, { useContext, useState } from "react";
 
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
 // returns the available dates for the statvar. Then, fill the datapicker with

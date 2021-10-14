@@ -18,18 +18,18 @@
  * Main component for browser.
  */
 
-import React from "react";
-import axios from "axios";
-import _ from "lodash";
 import Collapsible from "react-collapsible";
 import { ImageSection } from "./image_section";
-import { ObservationChartSection } from "./observation_chart_section";
-import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
-import { PageDisplayType } from "./types";
-import { WeatherChartSection } from "./weather_chart_section";
-import { OutArcSection } from "./out_arc_section";
 import { InArcSection } from "./in_arc_section";
+import { ObservationChartSection } from "./observation_chart_section";
+import { OutArcSection } from "./out_arc_section";
+import { PageDisplayType } from "./types";
+import React from "react";
+import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchyType } from "../shared/types";
+import { WeatherChartSection } from "./weather_chart_section";
+import _ from "lodash";
+import axios from "axios";
 
 const URL_PREFIX = "/browser/";
 const PLACE_STAT_VAR_PROPERTIES_HEADER = "Statistical Variable Properties";

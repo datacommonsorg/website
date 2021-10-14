@@ -19,27 +19,27 @@
  * section and the hierarchy section.
  */
 
-import React from "react";
-import axios from "axios";
-import _ from "lodash";
 import * as d3 from "d3";
 
-import { StatVarHierarchySearch } from "./stat_var_search";
-import { StatVarGroupNode } from "./stat_var_group_node";
 import {
   NamedPlace,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
-
-import { loadSpinner, removeSpinner } from "../browser/util";
-import { Context } from "../shared/context";
 import {
-  hideTooltip,
   SV_HIERARCHY_SECTION_ID,
-  showTooltip,
   TOOLTIP_ID,
+  hideTooltip,
+  showTooltip,
 } from "./util";
+import { loadSpinner, removeSpinner } from "../browser/util";
+
+import { Context } from "../shared/context";
+import React from "react";
+import { StatVarGroupNode } from "./stat_var_group_node";
+import { StatVarHierarchySearch } from "./stat_var_search";
+import _ from "lodash";
+import axios from "axios";
 
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;

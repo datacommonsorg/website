@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import React from "react";
+import { LocalizedLink, intl } from "../i18n/i18n";
+
 import { PageChart } from "../chart/types";
-import { intl, LocalizedLink } from "../i18n/i18n";
+import React from "react";
 
 interface MenuCategoryPropsType {
   dcid: string;

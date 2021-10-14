@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { AppWithContext } from "./app";
 import React from "react";
 import ReactDOM from "react-dom";
-import { AppWithContext } from "./app";
 
 window.onload = () => {
   ReactDOM.render(

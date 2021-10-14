@@ -18,21 +18,22 @@
  * Main app component for map explorer.
  */
 
-import React, { useContext, useEffect } from "react";
-import { Context, ContextType, getInitialContext } from "./context";
 import { Container, Row } from "reactstrap";
-import _ from "lodash";
-import { PlaceOptions } from "./place_options";
+import { Context, ContextType, getInitialContext } from "./context";
 import {
+  MAP_REDIRECT_PREFIX,
   applyHashPlaceInfo,
   applyHashStatVar,
-  MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
+import React, { useContext, useEffect } from "react";
+
 import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
+import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
+import _ from "lodash";
 
 function App(): JSX.Element {
   const { statVar, placeInfo, isLoading } = useContext(Context);

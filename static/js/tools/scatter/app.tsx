@@ -18,26 +18,27 @@
  * Main app component for scatter.
  */
 
-import React, { useContext, useEffect } from "react";
+import {
+  Axis,
+  Context,
+  IsLoadingWrapper,
+  PlaceInfo,
+  useContextStore,
+} from "./context";
 import { Container, Row } from "reactstrap";
-import { StatVarChooser } from "./statvar";
-import { PlaceOptions } from "./place_options";
+import React, { useContext, useEffect } from "react";
+import {
+  applyHash,
+  areStatVarsPicked,
+  isPlacePicked,
+  updateHash,
+} from "./util";
+
 import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
+import { PlaceOptions } from "./place_options";
 import { Spinner } from "./spinner";
-import {
-  Context,
-  useContextStore,
-  Axis,
-  PlaceInfo,
-  IsLoadingWrapper,
-} from "./context";
-import {
-  updateHash,
-  applyHash,
-  isPlacePicked,
-  areStatVarsPicked,
-} from "./util";
+import { StatVarChooser } from "./statvar";
 
 function App(): JSX.Element {
   const { x, y, place, isLoading } = useContext(Context);
