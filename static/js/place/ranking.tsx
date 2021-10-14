@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+import { LocalizedLink, intl } from "../i18n/i18n";
+
+import { FormattedMessage } from "react-intl";
 import React from "react";
 import axios from "axios";
-import { FormattedMessage } from "react-intl";
-import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface RankingPropsType {
   dcid: string;

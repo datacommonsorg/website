@@ -18,9 +18,9 @@
  * @fileoverview entrance of timeline page.
  */
 
+import { Page } from "./page";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Page } from "./page";
 
 window.onload = () => {
   ReactDOM.render(

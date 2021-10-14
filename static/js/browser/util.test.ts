@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getPageDisplayType, PageDisplayType } from "./types";
+import { PageDisplayType, getPageDisplayType } from "./types";
 import { getUnit } from "./util";
 
 test("getPageDisplayType", () => {

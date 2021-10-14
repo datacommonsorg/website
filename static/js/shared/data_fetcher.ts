@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
+import { DataGroup, DataPoint } from "../chart/base";
+
 import _ from "lodash";
 import axios from "axios";
-
-import { DataPoint, DataGroup } from "../chart/base";
 import { isDateTooFar } from "./util";
 
 const TOTAL_POPULATION_SV = "Count_Person";

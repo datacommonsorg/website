@@ -15,8 +15,6 @@
  */
 
 import * as d3 from "d3";
-import { urlToDomain } from "../shared/util";
-import _ from "lodash";
 
 import {
   DataGroup,
@@ -27,11 +25,14 @@ import {
   shouldFillInValues,
   wrap,
 } from "./base";
-import { StatVarInfo } from "../shared/stat_var";
-import { formatNumber } from "../i18n/i18n";
-import { DotDataPoint } from "./types";
+
 import { Boundary } from "../shared/types";
+import { DotDataPoint } from "./types";
+import { StatVarInfo } from "../shared/stat_var";
+import _ from "lodash";
+import { formatNumber } from "../i18n/i18n";
 import { isProjection } from "../tools/shared_util";
+import { urlToDomain } from "../shared/util";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;

@@ -15,11 +15,12 @@
  */
 
 jest.mock("axios");
-import { when } from "jest-when";
-import axios from "axios";
 
-import { drawGroupLineChart } from "../chart/draw";
 import * as d3 from "d3";
+
+import axios from "axios";
+import { drawGroupLineChart } from "../chart/draw";
+import { when } from "jest-when";
 
 export function axios_mock(): void {
   // Mock all the async axios call.

@@ -18,10 +18,9 @@
  * @fileoverview Translator javascript.
  */
 
+import { Page } from "./page";
 import React from "react";
 import ReactDOM from "react-dom";
-
-import { Page } from "./page";
 import { input } from "./constants";
 
 /**

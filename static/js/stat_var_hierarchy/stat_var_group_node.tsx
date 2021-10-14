@@ -18,23 +18,22 @@
  * Component for rendering a stat var group node in the stat var hierarchy
  */
 
-import React from "react";
-import axios from "axios";
-import Collapsible from "react-collapsible";
-import _ from "lodash";
-
+import { Context, ContextType } from "../shared/context";
 import {
-  StatVarInfo,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
   StatVarHierarchyType,
+  StatVarInfo,
 } from "../shared/types";
+
+import Collapsible from "react-collapsible";
+import { NamedPlace } from "../shared/types";
+import React from "react";
+import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarHierarchyNodeHeader } from "./node_header";
 import { StatVarSection } from "./stat_var_section";
-import { StatVarGroupSection } from "./stat_var_group_section";
-import { NamedPlace } from "../shared/types";
-
-import { Context, ContextType } from "../shared/context";
+import _ from "lodash";
+import axios from "axios";
 
 const SCROLL_DELAY = 400;
 

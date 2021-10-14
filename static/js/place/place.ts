@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
-import _ from "lodash";
+import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main";
 import { Menu } from "./topic_menu";
+import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
-import { PageSubtitle } from "./page_subtitle";
-import { isPlaceInUsa } from "./util";
-import { initSearchAutocomplete } from "./search";
-import { loadLocaleData } from "../i18n/i18n";
-
-import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
+import React from "react";
+import ReactDOM from "react-dom";
 import { USA_PLACE_DCID } from "../shared/constants";
+import _ from "lodash";
+import axios from "axios";
+import { initSearchAutocomplete } from "./search";
+import { isPlaceInUsa } from "./util";
+import { loadLocaleData } from "../i18n/i18n";
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;

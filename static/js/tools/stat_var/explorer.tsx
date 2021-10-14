@@ -18,11 +18,12 @@
  * Component that contains the content for the Stat Var Explorer.
  */
 
-import React, { Component } from "react";
-import { formatNumber } from "../../i18n/i18n";
-import { Places } from "./places";
 import { Provenance, ProvenancePropType } from "./provenance";
+import React, { Component } from "react";
+
+import { Places } from "./places";
 import { StatVarSummary } from "../../shared/types";
+import { formatNumber } from "../../i18n/i18n";
 
 interface ExplorerPropType {
   description: string;

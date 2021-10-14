@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import { SourceSeries } from "./types";
+import _ from "lodash";
 
 /**
  * Utility functions shared across different components of graph browser.

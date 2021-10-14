@@ -1,3 +1,4 @@
+import _ from "lodash";
 /**
  * Copyright 2021 Google LLC
  *
@@ -14,7 +15,6 @@
  * limitations under the License.
  */
 import axios from "axios";
-import _ from "lodash";
 
 interface StatVarInfo {
   // measurementDenominator

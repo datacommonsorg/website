@@ -16,12 +16,14 @@
 
 jest.mock("axios");
 jest.mock("../../chart/draw");
+
 import Enzyme, { mount } from "enzyme";
+import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
+
 import Adapter from "enzyme-adapter-react-16";
+import { Page } from "./page";
 import React from "react";
 import pretty from "pretty";
-import { Page } from "./page";
-import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
 
 Enzyme.configure({ adapter: new Adapter() });
 

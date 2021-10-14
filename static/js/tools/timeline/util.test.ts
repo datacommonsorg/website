@@ -15,11 +15,11 @@
  */
 
 import {
+  addToken,
   getPlaceNames,
   getTokensFromUrl,
-  setTokensToUrl,
-  addToken,
   removeToken,
+  setTokensToUrl,
 } from "./util";
 
 test("get place names", () => {
