@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
+import { DataGroup, DataPoint } from "../chart/base";
+
 import _ from "lodash";
 import axios from "axios";
-
-import { DataPoint, DataGroup } from "../chart/base";
 import { isDateTooFar } from "./util";
 
 const TOTAL_POPULATION_SV = "Count_Person";
@@ -52,61 +52,73 @@ interface DisplayNameApiResponse {
  * Stats Data is keyed by statistical variable, then keyed by place dcid, with
  * value being the ApiResponse that contains multiple place time series.
  */
-export class StatData {
+export interface StatData {
   places: string[];
   statVars: string[];
   dates: string[];
   data: StatApiResponse;
   sources: Set<string>;
   latestCommonDate: string;
+}
 
-  constructor(
-    places: string[],
-    statVars: string[],
-    dates: string[],
-    data: StatApiResponse,
-    latestCommonDate: string
-  ) {
-    this.places = places;
-    this.statVars = statVars;
-    this.dates = dates;
-    this.data = data;
-    this.sources = new Set<string>();
-    this.latestCommonDate = latestCommonDate;
+/**
+ * Group data by stats var with time.
+ *
+ * @param place? The place to get the stats.
+ */
+export function getStatVarGroupWithTime(
+  statData: StatData,
+  place?: string
+): DataGroup[] {
+  if (!place) {
+    place = statData.places[0];
   }
-
-  /**
-   * Group data by stats var with time.
-   *
-   * @param place? The place to get the stats.
-   */
-  getStatsVarGroupWithTime(place?: string): DataGroup[] {
-    if (!place) {
-      place = this.places[0];
+  const result: DataGroup[] = [];
+  for (const statVar of statData.statVars) {
+    const dataPoints: DataPoint[] = [];
+    if (!statData.data[place] || !statData.data[place].data[statVar]) {
+      continue;
     }
-    const result: DataGroup[] = [];
-    for (const statVar of this.statVars) {
-      const dataPoints: DataPoint[] = [];
-      if (!this.data[place] || !this.data[place].data[statVar]) {
-        continue;
-      }
-      const timeSeries = this.data[place].data[statVar];
-      if (timeSeries.val && Object.keys(timeSeries.val).length !== 0) {
-        for (const date of this.dates) {
-          if (isDateTooFar(date)) {
-            continue;
-          }
-          dataPoints.push({
-            label: date,
-            time: new Date(date).getTime(),
-            value: date in timeSeries.val ? timeSeries.val[date] : null,
-          });
+    const timeSeries = statData.data[place].data[statVar];
+    if (timeSeries.val && Object.keys(timeSeries.val).length !== 0) {
+      for (const date of statData.dates) {
+        if (isDateTooFar(date)) {
+          continue;
         }
-        result.push(new DataGroup(statVar, dataPoints));
+        dataPoints.push({
+          label: date,
+          time: new Date(date).getTime(),
+          value: date in timeSeries.val ? timeSeries.val[date] : null,
+        });
+      }
+      result.push(new DataGroup(statVar, dataPoints));
+    }
+  }
+  return result;
+}
+
+export function convertToDelta(statData: StatData): StatData {
+  const result = _.cloneDeep(statData);
+  for (const place in result.data) {
+    for (const statVar in result.data[place].data) {
+      const dates = Object.keys(result.data[place].data[statVar].val);
+      dates.sort();
+      const vals = _.cloneDeep(result.data[place].data[statVar].val);
+      if (dates.length > 1) {
+        for (let i = 0; i < dates.length - 1; i++) {
+          result.data[place].data[statVar].val[dates[i + 1]] =
+            vals[dates[i + 1]] - vals[dates[i]];
+        }
+      }
+      delete result.data[place].data[statVar].val[dates[0]];
+      const index = result.dates.indexOf(dates[0]);
+      if (index !== -1) {
+        result.dates.splice(index, 1);
       }
     }
-    return result;
   }
+
+  return result;
 }
 
 /**
@@ -174,6 +186,7 @@ export function fetchStatData(
   places: string[],
   statVars: string[],
   perCapita = false,
+  delta = false,
   scaling = 1,
   denominators: Record<string, string> = {}
 ): Promise<StatData> {
@@ -226,7 +239,14 @@ export function fetchStatData(
   ];
 
   return Promise.all(apiPromises).then((allResp) => {
-    const result = new StatData(places, statVars, [], {}, "");
+    let result: StatData = {
+      places: places,
+      statVars: statVars,
+      dates: [],
+      data: null,
+      sources: new Set(),
+      latestCommonDate: "",
+    };
     const numOccurencesPerDate: { [key: string]: number } = {};
     const numStatVarsPerPlace: { [key: string]: number } = {};
     const statResp = allResp[0] as StatApiResponse;
@@ -297,11 +317,17 @@ export function fetchStatData(
         numPlacesWithData * statVars.length
       ) {
         result.latestCommonDate = currDate;
+        if (delta) {
+          result = convertToDelta(result);
+        }
         return result;
       }
       idx--;
     }
     result.latestCommonDate = result.dates[result.dates.length - 1];
+    if (delta) {
+      result = convertToDelta(result);
+    }
     return result;
   });
 }

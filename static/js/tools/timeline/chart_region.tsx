@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import React, { Component } from "react";
+import { getChartOption, removeToken, statVarSep } from "./util";
+
+import { Chart } from "./chart";
 import { StatData } from "../../shared/data_fetcher";
 import { StatVarInfo } from "../../shared/stat_var";
+import _ from "lodash";
 import { saveToFile } from "../../shared/util";
-import { Chart } from "./chart";
-import { removeToken, getChartPerCapita, statVarSep } from "./util";
 
 interface ChartGroupInfo {
   chartOrder: string[];
@@ -92,7 +93,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 this.props.statVarInfo,
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              perCapita={getChartPerCapita(mprop)}
+              perCapita={getChartOption(mprop, "pc")}
+              delta={getChartOption(mprop, "delta")}
               denomMap={this.props.denomMap}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
