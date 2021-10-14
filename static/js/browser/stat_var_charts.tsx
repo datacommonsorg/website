@@ -18,13 +18,14 @@
  * Component for rendering a stat var with charts in the stat var hierarchy.
  */
 
-import React from "react";
-import { StatVarInfo, StatVarHierarchyNodeType } from "../shared/types";
-import { StatVarHierarchyNodeHeader } from "../stat_var_hierarchy/node_header";
+import { StatVarHierarchyNodeType, StatVarInfo } from "../shared/types";
+
 import Collapsible from "react-collapsible";
-import { ObservationChartSection } from "./observation_chart_section";
-import { URI_PREFIX } from "./constants";
 import { NamedPlace } from "../shared/types";
+import { ObservationChartSection } from "./observation_chart_section";
+import React from "react";
+import { StatVarHierarchyNodeHeader } from "../stat_var_hierarchy/node_header";
+import { URI_PREFIX } from "./constants";
 
 interface StatVarChartsPropType {
   place: NamedPlace;

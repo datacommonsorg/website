@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 import * as d3 from "d3";
+
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { randDomId, saveToFile, urlToDomain } from "../shared/util";
+
+import React from "react";
 import { intl } from "../i18n/i18n";
 import { wrap } from "../chart/base";
 

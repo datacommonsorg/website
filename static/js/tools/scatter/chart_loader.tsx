@@ -19,23 +19,24 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
+import {
+  Axis,
+  AxisWrapper,
+  Context,
+  IsLoadingWrapper,
+  PlaceInfo,
+} from "./context";
+import { PlacePointStat, getPopulationDate, getUnit } from "../shared_util";
 import React, { useContext, useEffect, useState } from "react";
+import { arePlacesLoaded, getStatsWithinPlace } from "./util";
+
+import { Chart } from "./chart";
+import { NamedPlace } from "../../shared/types";
+import { PlotOptions } from "./plot_options";
+import { StatApiResponse } from "../../shared/data_fetcher";
 import _ from "lodash";
 import axios from "axios";
 import { saveToFile } from "../../shared/util";
-import { StatApiResponse } from "../../shared/data_fetcher";
-import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
-import { getStatsWithinPlace, arePlacesLoaded } from "./util";
-import { Chart } from "./chart";
-import {
-  Context,
-  Axis,
-  AxisWrapper,
-  PlaceInfo,
-  IsLoadingWrapper,
-} from "./context";
-import { NamedPlace } from "../../shared/types";
-import { PlotOptions } from "./plot_options";
 
 /**
  * Represents a point in the scatter plot.

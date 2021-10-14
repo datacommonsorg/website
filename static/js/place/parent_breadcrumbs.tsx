@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+import { FormattedMessage, RawIntlProvider } from "react-intl";
+import { LocalizedLink, intl } from "../i18n/i18n";
+
 import React from "react";
 import { displayNameForPlaceType } from "./util";
-import { intl, LocalizedLink } from "../i18n/i18n";
-import { RawIntlProvider, FormattedMessage } from "react-intl";
 
 interface ParentPlacePropsType {
   parentPlaces: string[];

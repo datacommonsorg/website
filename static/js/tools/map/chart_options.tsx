@@ -18,18 +18,19 @@
  * Component to allow per capita toggling and navigating to a parent place map.
  */
 
-import React, { useContext } from "react";
-import { Context, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
-import { FormGroup, Label, Input } from "reactstrap";
-import { formatNumber } from "../../i18n/i18n";
 import {
-  updateHashPlaceInfo,
-  updateHashStatVar,
   CHILD_PLACE_TYPES,
   MAP_REDIRECT_PREFIX,
+  updateHashPlaceInfo,
+  updateHashStatVar,
 } from "./util";
+import { Context, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
+import { FormGroup, Input, Label } from "reactstrap";
+import React, { useContext } from "react";
+
 import { DataPointMetadata } from "./chart_loader";
 import _ from "lodash";
+import { formatNumber } from "../../i18n/i18n";
 
 const NO_PER_CAPITA_TYPES = ["medianValue"];
 

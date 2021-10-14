@@ -19,12 +19,12 @@
  * region with chart, or a checkbox.
  */
 
-import React from "react";
-
-import { StatVarInfo, StatVarSummary } from "../shared/types";
-import { StatVarCharts } from "../browser/stat_var_charts";
 import { NamedPlace, StatVarHierarchyType } from "../shared/types";
+import { StatVarInfo, StatVarSummary } from "../shared/types";
+
 import { Context } from "../shared/context";
+import React from "react";
+import { StatVarCharts } from "../browser/stat_var_charts";
 import { StatVarSectionInput } from "./stat_var_section_input";
 import axios from "axios";
 

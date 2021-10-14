@@ -18,12 +18,13 @@
  * Component for rendering all the groups of in arcs grouped by parentType and predicate.
  */
 
-import React from "react";
-import axios from "axios";
-import _ from "lodash";
-import { InArcSubsection } from "./in_arc_subsection";
 import { loadSpinner, removeSpinner } from "./util";
+
+import { InArcSubsection } from "./in_arc_subsection";
 import { InArcValue } from "./types";
+import React from "react";
+import _ from "lodash";
+import axios from "axios";
 
 const IGNORED_PARENT_TYPES = new Set(["StatisticalPopulation"]);
 const LOADING_CONTAINER_ID = "browser-in-arc-section";

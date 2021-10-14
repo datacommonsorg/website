@@ -15,6 +15,7 @@
  */
 
 import * as d3 from "d3";
+
 import { shouldFillInValues, wrap } from "./base";
 
 test("shouldFillInValues", () => {

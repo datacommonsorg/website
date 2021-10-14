@@ -18,18 +18,19 @@
  * Component to pick statvar for map.
  */
 
-import React, { useContext, useEffect, useState } from "react";
-import _ from "lodash";
-import { StatVarHierarchyType } from "../../shared/types";
 import { Context, StatVarWrapper } from "./context";
-import { getStatVarInfo } from "../../shared/stat_var";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import axios from "axios";
 import {
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
+import React, { useContext, useEffect, useState } from "react";
+
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { StatVarHierarchyType } from "../../shared/types";
+import _ from "lodash";
+import axios from "axios";
+import { getStatVarInfo } from "../../shared/stat_var";
 
 const SAMPLE_SIZE = 3;
 

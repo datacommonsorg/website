@@ -18,10 +18,10 @@
  * Component for rendering the header of a stat var node.
  */
 
-import React from "react";
-
-import { StatVarHierarchyNodeType } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
+
+import React from "react";
+import { StatVarHierarchyNodeType } from "../shared/types";
 import { StatVarHierarchyType } from "../shared/types";
 
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;

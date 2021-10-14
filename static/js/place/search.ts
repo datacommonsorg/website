@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import axios from "axios";
 import { intl, localizeLink } from "../i18n/i18n";
+
+import axios from "axios";
 let ac: google.maps.places.Autocomplete;
 let acs: google.maps.places.AutocompleteService;
 

@@ -18,33 +18,35 @@
  * Chart component for drawing a choropleth.
  */
 
-import React, { useEffect, useState } from "react";
+import * as d3 from "d3";
+
+import {
+  CHILD_PLACE_TYPES,
+  MAP_REDIRECT_PREFIX,
+  USA_PLACE_HIERARCHY,
+  updateHashPlaceInfo,
+  updateHashStatVar,
+} from "./util";
 import {
   GeoJsonData,
   GeoJsonFeatureProperties,
   MapPoint,
 } from "../../chart/types";
 import { PlaceInfo, StatVar } from "./context";
-import { Container } from "reactstrap";
-import _ from "lodash";
-import * as d3 from "d3";
+import React, { useEffect, useState } from "react";
 import {
   drawChoropleth,
-  getColorScale,
   generateLegendSvg,
+  getColorScale,
 } from "../../chart/draw_choropleth";
-import {
-  MAP_REDIRECT_PREFIX,
-  updateHashPlaceInfo,
-  updateHashStatVar,
-  CHILD_PLACE_TYPES,
-  USA_PLACE_HIERARCHY,
-} from "./util";
-import { urlToDomain } from "../../shared/util";
+
 import { ChartOptions } from "./chart_options";
-import { NamedPlace } from "../../shared/types";
+import { Container } from "reactstrap";
 import { DataPointMetadata } from "./chart_loader";
+import { NamedPlace } from "../../shared/types";
+import _ from "lodash";
 import { formatNumber } from "../../i18n/i18n";
+import { urlToDomain } from "../../shared/util";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;

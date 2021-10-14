@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
-import axios from "axios";
-
 import {
-  computePerCapita,
-  fetchStatData,
   StatApiResponse,
   StatData,
   TimeSeries,
+  computePerCapita,
+  fetchStatData,
 } from "./data_fetcher";
+
 import { DataGroup } from "../chart/base";
+import _ from "lodash";
+import axios from "axios";
 import { loadLocaleData } from "../i18n/i18n";
 
 jest.mock("axios");

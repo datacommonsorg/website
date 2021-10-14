@@ -18,14 +18,16 @@
  * Chart component for plotting a scatter plot.
  */
 
-import ReactDOM from "react-dom";
-import React, { useEffect, useRef, useState } from "react";
-import _ from "lodash";
-import { Container, Row, Card } from "reactstrap";
 import * as d3 from "d3";
+
+import { Card, Container, Row } from "reactstrap";
+import React, { useEffect, useRef, useState } from "react";
+
 import { Point } from "./chart_loader";
-import { urlToDomain } from "../../shared/util";
+import ReactDOM from "react-dom";
+import _ from "lodash";
 import { formatNumber } from "../../i18n/i18n";
+import { urlToDomain } from "../../shared/util";
 import { wrap } from "../../chart/base";
 
 interface ChartPropsType {

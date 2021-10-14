@@ -18,7 +18,7 @@
  * Utility functions shared across different components of map explorer.
  */
 
-import { StatVar, PlaceInfo } from "./context";
+import { PlaceInfo, StatVar } from "./context";
 import _ from "lodash";
 
 const USA_STATE_CHILD_TYPES = ["County"];
