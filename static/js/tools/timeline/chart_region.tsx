@@ -88,8 +88,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
             <Chart
               key={mprop}
               mprop={mprop}
-              placeName={this.props.placeName}
-              statVarInfo={_.pick(
+              placeNames={this.props.placeName}
+              statVarInfos={_.pick(
                 this.props.statVarInfo,
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}

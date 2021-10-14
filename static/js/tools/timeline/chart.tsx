@@ -70,9 +70,8 @@ class StatVarChip extends Component<StatVarChipPropsType> {
 
 interface ChartPropsType {
   mprop: string; // measured property
-  placeName: Record<string, string>; // An array of place dcids.
-  statVarInfo: Record<string, StatVarInfo>;
-  // Whether the chart is for the per capita of the data.
+  placeNames: Record<string, string>; // An array of place dcids.
+  statVarInfos: Record<string, StatVarInfo>;
   perCapita: boolean;
   // Whether the chart is on for the delta (increment) of the data.
   delta: boolean;
@@ -95,17 +94,17 @@ class Chart extends Component<ChartPropsType> {
   }
 
   render(): JSX.Element {
-    const statVars = Object.keys(this.props.statVarInfo);
+    const statVars = Object.keys(this.props.statVarInfos);
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
     this.plotParams = computePlotParams(
-      this.props.placeName,
+      this.props.placeNames,
       statVars,
-      this.props.statVarInfo
+      this.props.statVarInfos
     );
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
-    const placeName = Object.values(this.props.placeName)[0];
+    const placeName = Object.values(this.props.placeNames)[0];
     return (
       <div className="card">
         {PER_CAPITA_MPROP.includes(this.props.mprop) && (
@@ -148,7 +147,7 @@ class Chart extends Component<ChartPropsType> {
               <StatVarChip
                 key={statVar}
                 statVar={statVar}
-                title={this.props.statVarInfo[statVar].title}
+                title={this.props.statVarInfos[statVar].title}
                 color={color}
                 removeStatVar={this.props.removeStatVar}
               />
@@ -184,8 +183,8 @@ class Chart extends Component<ChartPropsType> {
 
   private loadDataAndDrawChart() {
     fetchStatData(
-      Object.keys(this.props.placeName),
-      Object.keys(this.props.statVarInfo),
+      Object.keys(this.props.placeNames),
+      Object.keys(this.props.statVarInfos),
       this.props.perCapita,
       this.props.delta,
       1,
@@ -216,7 +215,7 @@ class Chart extends Component<ChartPropsType> {
   private drawChart() {
     const dataGroupsDict = {};
     for (const place of this.statData.places) {
-      dataGroupsDict[this.props.placeName[place]] = getStatVarGroupWithTime(
+      dataGroupsDict[this.props.placeNames[place]] = getStatVarGroupWithTime(
         this.statData,
         place
       );
@@ -225,7 +224,7 @@ class Chart extends Component<ChartPropsType> {
       this.svgContainer.current,
       this.svgContainer.current.offsetWidth,
       CHART_HEIGHT,
-      this.props.statVarInfo,
+      this.props.statVarInfos,
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
@@ -236,11 +235,11 @@ class Chart extends Component<ChartPropsType> {
 
   private ylabel(): string {
     // get mprop from one statVar
-    const statVarSample = Object.keys(this.props.statVarInfo)[0];
-    let mprop = this.props.statVarInfo[statVarSample].mprop;
+    const statVarSample = Object.keys(this.props.statVarInfos)[0];
+    let mprop = this.props.statVarInfos[statVarSample].mprop;
     // ensure the mprop is the same for all the statVars
-    for (const statVar in this.props.statVarInfo) {
-      if (this.props.statVarInfo[statVar].mprop !== mprop) {
+    for (const statVar in this.props.statVarInfos) {
+      if (this.props.statVarInfos[statVar].mprop !== mprop) {
         mprop = "";
       }
     }
