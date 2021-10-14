@@ -15,7 +15,7 @@
  */
 
 import React, { Component } from "react";
-import { getChartPerCapita, removeToken, statVarSep } from "./util";
+import { getChartOption, removeToken, statVarSep } from "./util";
 
 import { Chart } from "./chart";
 import { StatData } from "../../shared/data_fetcher";
@@ -93,7 +93,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 this.props.statVarInfo,
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              perCapita={getChartPerCapita(mprop)}
+              perCapita={getChartOption(mprop, "pc")}
+              delta={getChartOption(mprop, "delta")}
               denomMap={this.props.denomMap}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {

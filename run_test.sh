@@ -115,8 +115,7 @@ function run_all_tests {
 }
 
 function help {
-  echo "Usage: $0 -tpwblcsaf"
-  echo "-t       Run tests in parallel"
+  echo "Usage: $0 -pwblcsaf"
   echo "-p       Run server python tests"
   echo "-w       Run webdriver tests"
   echo "-o       Build for production (ignores dev dependencies)"

@@ -19,7 +19,9 @@ import {
   StatData,
   TimeSeries,
   computePerCapita,
+  convertToDelta,
   fetchStatData,
+  getStatVarGroupWithTime,
 } from "./data_fetcher";
 
 import { DataGroup } from "../chart/base";
@@ -170,7 +172,7 @@ test("fetch stats data", () => {
       latestCommonDate: "2012",
     });
 
-    expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
+    expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
       new DataGroup("Count_Person", [
         { label: "2011", value: 31000, time: new Date("2011").getTime() },
         { label: "2012", value: 32000, time: new Date("2012").getTime() },
@@ -341,7 +343,7 @@ test("fetch stats data where latest date with data for all stat vars is not the 
         latestCommonDate: "2011",
       });
 
-      expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
+      expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
         new DataGroup("Count_Person", [
           { label: "2011", value: 31000, time: new Date("2011").getTime() },
           { label: "2012", value: null, time: new Date("2012").getTime() },
@@ -416,7 +418,7 @@ test("fetch stats data where there is no date with data for all stat vars", () =
         latestCommonDate: "2013",
       });
 
-      expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
+      expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
         new DataGroup("Count_Person", [
           { label: "2010", value: null, time: new Date("2010").getTime() },
           { label: "2011", value: 31000, time: new Date("2011").getTime() },
@@ -520,11 +522,10 @@ test("fetch stats data with per capita with population size 0", () => {
 
 test("StatsData test", () => {
   // Test partial data
-  const statData = new StatData(
-    [],
-    [],
-    [],
-    {
+  const statData: StatData = {
+    places: [],
+    statVars: [],
+    data: {
       "geoId/01": { data: {} },
       "geoId/02": {
         data: {
@@ -538,9 +539,11 @@ test("StatsData test", () => {
         name: "Place2",
       },
     },
-    ""
-  );
-  expect(statData.getStatsVarGroupWithTime("geoId/01")).toEqual([]);
+    dates: [],
+    sources: new Set(),
+    latestCommonDate: "",
+  };
+  expect(getStatVarGroupWithTime(statData, "geoId/01")).toEqual([]);
 });
 
 test("Per capita with specified denominators test", () => {
@@ -654,6 +657,7 @@ test("Per capita with specified denominators test", () => {
     ["geoId/05", "geoId/06"],
     ["Count_Person_Male", "Count_Person_Female"],
     true,
+    false,
     1,
     {
       Count_Person_Male: "Count_Person",
@@ -716,7 +720,7 @@ test("Per capita with specified denominators test", () => {
       latestCommonDate: "2012",
     });
 
-    expect(data.getStatsVarGroupWithTime("geoId/06")).toEqual([
+    expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
       new DataGroup("Count_Person_Male", [
         { label: "2011", value: 0.5, time: new Date("2011").getTime() },
         { label: "2012", value: 0.5, time: new Date("2012").getTime() },
@@ -788,6 +792,7 @@ test("Per capita with specified denominators test - missing place data", () => {
     ["geoId/05", "country/USA"],
     ["UnemploymentRate_Person_Male", "UnemploymentRate_Person_Female"],
     false,
+    false,
     1,
     {}
   ).then((data) => {
@@ -832,7 +837,7 @@ test("Per capita with specified denominators test - missing place data", () => {
       latestCommonDate: "2012",
     });
 
-    expect(data.getStatsVarGroupWithTime("geoId/05")).toEqual([
+    expect(getStatVarGroupWithTime(data, "geoId/05")).toEqual([
       new DataGroup("UnemploymentRate_Person_Female", [
         { label: "2011", value: 11000, time: new Date("2011").getTime() },
         { label: "2012", value: 12000, time: new Date("2012").getTime() },
@@ -864,4 +869,89 @@ test("compute per capita", () => {
     },
   };
   expect(computePerCapita(statSeries, popSeries)).toEqual(expected);
+});
+
+test("convert to delta", () => {
+  let statData: StatData = {
+    data: {
+      "geoId/05": {
+        data: {
+          UnemploymentRate_Person_Female: {
+            val: {
+              "2011": 11000,
+              "2012": 12000,
+            },
+            metadata: {
+              provenanceUrl: "source2",
+            },
+          },
+        },
+        name: "Arkansas",
+      },
+      "country/USA": {
+        data: {
+          UnemploymentRate_Person_Male: {
+            val: {
+              "2011": 21000,
+              "2012": 22000,
+            },
+            metadata: {
+              provenanceUrl: "source1",
+            },
+          },
+        },
+        name: "USA",
+      },
+    },
+    dates: ["2011", "2012"],
+    places: ["geoId/05", "country/USA"],
+    statVars: [
+      "UnemploymentRate_Person_Male",
+      "UnemploymentRate_Person_Female",
+    ],
+    sources: new Set(["source2", "source1"]),
+    latestCommonDate: "2012",
+  };
+
+  const expected: StatData = {
+    data: {
+      "geoId/05": {
+        data: {
+          UnemploymentRate_Person_Female: {
+            val: {
+              "2012": 1000,
+            },
+            metadata: {
+              provenanceUrl: "source2",
+            },
+          },
+        },
+        name: "Arkansas",
+      },
+      "country/USA": {
+        data: {
+          UnemploymentRate_Person_Male: {
+            val: {
+              "2012": 1000,
+            },
+            metadata: {
+              provenanceUrl: "source1",
+            },
+          },
+        },
+        name: "USA",
+      },
+    },
+    dates: ["2012"],
+    places: ["geoId/05", "country/USA"],
+    statVars: [
+      "UnemploymentRate_Person_Male",
+      "UnemploymentRate_Person_Female",
+    ],
+    sources: new Set(["source2", "source1"]),
+    latestCommonDate: "2012",
+  };
+
+  statData = convertToDelta(statData);
+  expect(statData).toEqual(expected);
 });

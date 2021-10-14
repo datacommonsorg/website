@@ -16,11 +16,15 @@
 
 import { PlotParams, computePlotParams } from "../../chart/base";
 import React, { Component } from "react";
-import { StatData, fetchStatData } from "../../shared/data_fetcher";
+import {
+  StatData,
+  fetchStatData,
+  getStatVarGroupWithTime,
+} from "../../shared/data_fetcher";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { drawGroupLineChart } from "../../chart/draw";
-import { setChartPerCapita } from "./util";
+import { setChartOption } from "./util";
 
 const CHART_HEIGHT = 300;
 
@@ -68,7 +72,10 @@ interface ChartPropsType {
   mprop: string; // measured property
   placeName: Record<string, string>; // An array of place dcids.
   statVarInfo: Record<string, StatVarInfo>;
+  // Whether the chart is for the per capita of the data.
   perCapita: boolean;
+  // Whether the chart is on for the delta (increment) of the data.
+  delta: boolean;
   denomMap: Record<string, string>;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
@@ -102,16 +109,16 @@ class Chart extends Component<ChartPropsType> {
     return (
       <div className="card">
         {PER_CAPITA_MPROP.includes(this.props.mprop) && (
-          <span className="chartPerCapita">
+          <span className="chart-option">
             Per capita
             <button
               className={
                 this.props.perCapita
-                  ? "perCapitaCheckbox checked"
-                  : "perCapitaCheckbox"
+                  ? "option-checkbox checked"
+                  : "option-checkbox"
               }
               onClick={() => {
-                setChartPerCapita(this.props.mprop, !this.props.perCapita);
+                setChartOption(this.props.mprop, "pc", !this.props.perCapita);
               }}
             ></button>
             <a href="/faq#perCapita">
@@ -119,6 +126,17 @@ class Chart extends Component<ChartPropsType> {
             </a>
           </span>
         )}
+        <span className="chart-option">
+          Delta
+          <button
+            className={
+              this.props.delta ? "option-checkbox checked" : "option-checkbox"
+            }
+            onClick={() => {
+              setChartOption(this.props.mprop, "delta", !this.props.delta);
+            }}
+          ></button>
+        </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statVarChipRegion">
           {statVars.map((statVar) => {
@@ -149,7 +167,8 @@ class Chart extends Component<ChartPropsType> {
   componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
     // reset the options to default value if the chart is removed
-    setChartPerCapita(this.props.mprop, false);
+    setChartOption(this.props.mprop, "pc", false);
+    setChartOption(this.props.mprop, "delta", false);
   }
 
   componentDidUpdate(): void {
@@ -168,6 +187,7 @@ class Chart extends Component<ChartPropsType> {
       Object.keys(this.props.placeName),
       Object.keys(this.props.statVarInfo),
       this.props.perCapita,
+      this.props.delta,
       1,
       this.props.denomMap
     ).then((statData) => {
@@ -196,9 +216,10 @@ class Chart extends Component<ChartPropsType> {
   private drawChart() {
     const dataGroupsDict = {};
     for (const place of this.statData.places) {
-      dataGroupsDict[
-        this.props.placeName[place]
-      ] = this.statData.getStatsVarGroupWithTime(place);
+      dataGroupsDict[this.props.placeName[place]] = getStatVarGroupWithTime(
+        this.statData,
+        place
+      );
     }
     drawGroupLineChart(
       this.svgContainer.current,

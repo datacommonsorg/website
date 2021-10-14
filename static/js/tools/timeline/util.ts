@@ -77,33 +77,42 @@ export function removeToken(name: string, sep: string, token: string): void {
   setTokensToUrl([{ name, sep, tokens }]);
 }
 
-// set PerCapita for a chart
-export function setChartPerCapita(mprop: string, pc: boolean): void {
+// set option for a chart, current support options are:
+// - "pc": per capita
+// - "delta": increment of consecutive point in the time series.
+export function setChartOption(
+  mprop: string,
+  name: string,
+  value: boolean
+): void {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   let chartOptions = JSON.parse(urlParams.get("chart"));
   if (!chartOptions) {
     chartOptions = {};
   }
-  chartOptions[mprop] = pc;
+  if (!chartOptions[mprop]) {
+    chartOptions[mprop] = {};
+  }
+  chartOptions[mprop][name] = value;
   urlParams.set("chart", JSON.stringify(chartOptions));
-  if (!pc) {
-    // "&pc" means per capita for all charts.
-    urlParams.delete("pc");
+  if (!value) {
+    // "&<option-name>" means set the option for all charts.
+    urlParams.delete(name);
   }
   window.location.hash = urlParams.toString();
 }
 
-export function getChartPerCapita(mprop: string): boolean {
+export function getChartOption(mprop: string, name: string): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  if (urlParams.get("pc")) {
+  if (urlParams.get(name)) {
     return true;
   }
   const chartOptions = JSON.parse(urlParams.get("chart"));
   if (!chartOptions) {
     return false;
   }
-  if (mprop in chartOptions) {
-    return chartOptions[mprop];
+  if (mprop in chartOptions && name in chartOptions[mprop]) {
+    return chartOptions[mprop][name];
   }
   return false;
 }
