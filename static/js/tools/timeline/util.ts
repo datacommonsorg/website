@@ -111,8 +111,16 @@ export function getChartOption(mprop: string, name: string): boolean {
   if (!chartOptions) {
     return false;
   }
-  if (mprop in chartOptions && name in chartOptions[mprop]) {
-    return chartOptions[mprop][name];
+  if (mprop in chartOptions) {
+    if (typeof chartOptions[mprop] == "boolean") {
+      // To make this work with old url with only per capita option.
+      if (name === "pc") {
+        return chartOptions[mprop];
+      }
+      return false;
+    } else if (name in chartOptions[mprop]) {
+      return chartOptions[mprop][name];
+    }
+    return false;
   }
-  return false;
 }
