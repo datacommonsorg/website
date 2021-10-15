@@ -20,7 +20,7 @@ import {
   StatData,
   fetchStatData,
   getStatVarGroupWithTime,
-} from "../../shared/data_fetcher";
+} from "./data_fetcher";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { drawGroupLineChart } from "../../chart/draw";
