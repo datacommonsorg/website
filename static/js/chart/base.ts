@@ -18,6 +18,7 @@ import * as d3 from "d3";
 
 import { translateVariableString } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
+import { isIpccStatVarWithMultipleModels } from "../tools/shared_util";
 
 const DEFAULT_COLOR = "#000";
 
@@ -224,22 +225,27 @@ interface PlotParams {
   legend: { [key: string]: Style };
 }
 
+/**
+ * Fixed to reddish hues for historical / projected max temperatures, and
+ * blueish hues for historical / projected min temperatures. Darker colors are
+ * for historical.
+ *
+ * Returns undefined if the stat var is not IPCC Temperature related.
+ */
 function temperatureColorMap(statVar: string): string {
-  if (statVar.indexOf("_Temperature") <= 0) {
+  if (!isIpccStatVarWithMultipleModels(statVar)) {
     return undefined;
   }
   if (statVar.indexOf("RCP") > 0) {
     if (statVar.indexOf("Max") >= 0) {
       return "#dc3545";
-    } else {
-      return "#007bff";
     }
+    return "#007bff";
   } else {
     if (statVar.indexOf("Max") >= 0) {
       return "#600";
-    } else {
-      return "#003874";
     }
+    return "#003874";
   }
 }
 

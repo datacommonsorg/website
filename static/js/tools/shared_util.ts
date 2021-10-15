@@ -94,3 +94,13 @@ export function getUnit(placePointStat: PlacePointStat): string {
     return "";
   }
 }
+
+/**
+ * Returns true if the stat var is an IPCC stat var with multiple measurement
+ * methods (each representing a different computation model).
+ */
+export function isIpccStatVarWithMultipleModels(statVar: string) {
+  return (
+    statVar.indexOf("_Temperature") > 0 && statVar.indexOf("Difference") < 0
+  );
+}

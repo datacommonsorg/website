@@ -21,6 +21,7 @@ import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
 import { StatAllApiResponse } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
+import { isIpccStatVarWithMultipleModels } from "../shared_util";
 import {
   convertToDelta,
   fetchStatData,
@@ -179,9 +180,12 @@ class Chart extends Component<ChartPropsType> {
   }
 
   /**
-   * Creates a new StatData object for all measurement methods of the stat var, with an artificial stat var
-   * StatVar-MMethod. The StatData values for the StatVar is also updated to be the mean across the measurement
-   * methods for the data.
+   * Creates a new StatData object for all measurement methods of the stat var,
+   * with an artificial stat var in the form of StatVar-MMethod. The StatData
+   * values for the StatVar is also updated to be the mean across the
+   * measurement methods for the data.
+   *
+   * This only keeps Annual data.
    */
   private prepareIpccData(ipccData: StatAllApiResponse): StatData {
     const modelData = {
@@ -237,8 +241,8 @@ class Chart extends Component<ChartPropsType> {
     const statVars = Object.keys(this.props.statVarInfos);
 
     // Also fetch all measurement methods for IPCC projectistat vars.
-    const ipccStatVars = statVars.filter(
-      (sv) => sv.indexOf("_Temperature") > 0 && sv.indexOf("Difference") < 0
+    const ipccStatVars = statVars.filter((sv) =>
+      isIpccStatVarWithMultipleModels(sv)
     );
     let ipccStatDataPromise;
     if (ipccStatVars.length > 0) {
