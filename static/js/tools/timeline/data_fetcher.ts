@@ -38,7 +38,6 @@ export interface StatData {
   dates: string[];
   data: StatApiResponse;
   sources: Set<string>;
-  latestCommonDate: string;
 }
 
 /**
@@ -230,10 +229,8 @@ export function fetchStatData(
       dates: [],
       data: null,
       sources: new Set(),
-      latestCommonDate: "",
     };
-    const numOccurencesPerDate: { [key: string]: number } = {};
-    const numStatVarsPerPlace: { [key: string]: number } = {};
+    const allDates = new Set<string>();
     const statResp = allResp[0] as StatApiResponse;
     const denomResp = allResp[1] as StatApiResponse;
     const displayNameMapping = allResp[2] as DisplayNameApiResponse;
@@ -257,59 +254,26 @@ export function fetchStatData(
           }
         }
       }
-      // Build the dates collection, get the union of available dates for all data
+
       if (!placeData) {
         continue;
-      }
-      if (!(place in numStatVarsPerPlace)) {
-        numStatVarsPerPlace[place] = 0;
       }
       if (displayNameMapping[place]) {
         statResp[place].name = displayNameMapping[place];
       }
       for (const statVar in placeData) {
         const timeSeries = placeData[statVar];
-        if (timeSeries.val && Object.keys(timeSeries.val).length > 0) {
-          numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
-        }
         if (timeSeries.metadata) {
           result.sources.add(timeSeries.metadata.provenanceUrl);
         }
         for (const date in timeSeries.val) {
-          if (date in numOccurencesPerDate) {
-            numOccurencesPerDate[date] = numOccurencesPerDate[date] + 1;
-          } else {
-            numOccurencesPerDate[date] = 1;
-          }
+          allDates.add(date);
         }
       }
     }
     result.data = statResp;
 
-    result.dates = Object.keys(numOccurencesPerDate);
-    result.dates.sort();
-    // Get the number of places that have data, then get the latest date which
-    // has data for every stat var for every place with data.
-    // If there's no such date, choose the latest date with data for any stat var
-    const numPlacesWithData: number = places.filter(
-      (place) => numStatVarsPerPlace[place] > 0
-    ).length;
-    let idx = result.dates.length - 1;
-    while (idx >= 0) {
-      const currDate = result.dates[idx];
-      if (
-        numOccurencesPerDate[currDate] ===
-        numPlacesWithData * statVars.length
-      ) {
-        result.latestCommonDate = currDate;
-        if (delta) {
-          result = convertToDelta(result);
-        }
-        return result;
-      }
-      idx--;
-    }
-    result.latestCommonDate = result.dates[result.dates.length - 1];
+    result.dates = Array.from(allDates.values()).sort();
     if (delta) {
       result = convertToDelta(result);
     }
