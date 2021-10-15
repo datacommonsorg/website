@@ -21,7 +21,8 @@ import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import { StatVarInfo } from "../../shared/stat_var";
 import _ from "lodash";
-import { saveToFile } from "../../shared/util";
+import React, { Component } from "react";
+
 
 interface ChartGroupInfo {
   chartOrder: string[];
@@ -216,4 +217,4 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   }
 }
 
-export { ChartRegionPropsType, ChartRegion, StatVarInfo };
+export { ChartRegion, ChartRegionPropsType, StatVarInfo };

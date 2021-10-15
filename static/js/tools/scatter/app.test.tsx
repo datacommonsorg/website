@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { Context, EmptyPlace, useContextStore } from "./context";
+import { waitFor } from "@testing-library/react";
+import axios from "axios";
+import Cheerio from "cheerio";
 import Enzyme, { mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import { when } from "jest-when";
 import React, { useEffect } from "react";
 
-import Adapter from "enzyme-adapter-react-16";
 import { App } from "./app";
-import Cheerio from "cheerio";
-import axios from "axios";
-import { waitFor } from "@testing-library/react";
-import { when } from "jest-when";
+import { Context, EmptyPlace, useContextStore } from "./context";
 
 Enzyme.configure({ adapter: new Adapter() });
 

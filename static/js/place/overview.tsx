@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
+import React from "react";
+
 import { Map } from "./map";
 import { Ranking } from "./ranking";
-import React from "react";
 
 interface OverviewPropType {
   /**

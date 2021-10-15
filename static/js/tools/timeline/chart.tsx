@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 import axios from "axios";
-import * as d3 from "d3";
 
-import { PlotParams, computePlotParams } from "../../chart/base";
 import React, { Component } from "react";
+
+import { computePlotParams, PlotParams } from "../../chart/base";
 import {
-  StatData,
   fetchStatData,
   getStatVarGroupWithTime,
 } from "./data_fetcher";
@@ -31,11 +30,6 @@ import { setChartOption } from "./util";
 import { StatAllApiResponse } from "../../shared/stat_types";
 
 const CHART_HEIGHT = 300;
-
-// Per capita toggle is only valid for the following measured properties. Many
-// other measured property like "income" "age" does not make sense for
-// "per capita".
-const PER_CAPITA_MPROP = ["cumulativeCount", "incrementalCount", "count"];
 
 interface StatVarChipPropsType {
   statVar: string;
@@ -112,24 +106,22 @@ class Chart extends Component<ChartPropsType> {
     const placeName = Object.values(this.props.placeNames)[0];
     return (
       <div className="card">
-        {PER_CAPITA_MPROP.includes(this.props.mprop) && (
-          <span className="chart-option">
-            Per capita
-            <button
-              className={
-                this.props.perCapita
-                  ? "option-checkbox checked"
-                  : "option-checkbox"
-              }
-              onClick={() => {
-                setChartOption(this.props.mprop, "pc", !this.props.perCapita);
-              }}
-            ></button>
-            <a href="/faq#perCapita">
-              <span> *</span>
-            </a>
-          </span>
-        )}
+        <span className="chart-option">
+          Per capita
+          <button
+            className={
+              this.props.perCapita
+                ? "option-checkbox checked"
+                : "option-checkbox"
+            }
+            onClick={() => {
+              setChartOption(this.props.mprop, "pc", !this.props.perCapita);
+            }}
+          ></button>
+          <a href="/faq#perCapita">
+            <span> *</span>
+          </a>
+        </span>
         <span className="chart-option">
           Delta
           <button

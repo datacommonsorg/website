@@ -18,9 +18,10 @@
  * Component for displaying a single group of in arcs of the same parentType and property.
  */
 
+import React from "react";
+
 import { ArcTableRow } from "./arc_table_row";
 import { InArcValue } from "./types";
-import React from "react";
 
 interface InArcSubsectionPropType {
   nodeName: string;

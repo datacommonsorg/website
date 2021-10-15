@@ -18,15 +18,15 @@
  * Place options for selecting the child place type and the enclosing place.
  */
 
-import { Container, CustomInput } from "reactstrap";
-import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
-import React, { useContext, useEffect, useState } from "react";
-
-import { Card } from "reactstrap";
-import { SearchBar } from "../timeline/search";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
+import React, { useContext, useEffect, useState } from "react";
+import { Container, CustomInput } from "reactstrap";
+import { Card } from "reactstrap";
+
+import { SearchBar } from "../timeline/search";
 import { getPlaceNames } from "../timeline/util";
+import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];

@@ -18,9 +18,10 @@
  * Main component for bio.
  */
 
-import { GraphNode } from "../shared/types";
-import React from "react";
 import axios from "axios";
+import React from "react";
+
+import { GraphNode } from "../shared/types";
 import { drawTissueScoreChart } from "./chart";
 
 interface PagePropType {

@@ -18,10 +18,11 @@
  * @fileoverview Translator javascript.
  */
 
-import { Page } from "./page";
 import React from "react";
 import ReactDOM from "react-dom";
+
 import { input } from "./constants";
+import { Page } from "./page";
 
 /**
  * Update translation results when schema mapping or query changes.

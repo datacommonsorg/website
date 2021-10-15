@@ -15,24 +15,23 @@
  */
 
 import * as d3 from "d3";
+import _ from "lodash";
 
+import { formatNumber } from "../i18n/i18n";
+import { StatVarInfo } from "../shared/stat_var";
+import { Boundary } from "../shared/types";
+import { urlToDomain } from "../shared/util";
+import { isProjection } from "../tools/shared_util";
 import {
   DataGroup,
   DataPoint,
-  PlotParams,
-  Style,
   getColorFn,
+  PlotParams,
   shouldFillInValues,
+  Style,
   wrap,
 } from "./base";
-
-import { Boundary } from "../shared/types";
 import { DotDataPoint } from "./types";
-import { StatVarInfo } from "../shared/stat_var";
-import _ from "lodash";
-import { formatNumber } from "../i18n/i18n";
-import { isProjection } from "../tools/shared_util";
-import { urlToDomain } from "../shared/util";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -396,9 +395,15 @@ function addXAxis(
   chartHeight: number,
   xScale: d3.AxisScale<any>,
   shouldRotate?: boolean,
-  labelToLink?: { [label: string]: string }
+  labelToLink?: { [label: string]: string },
+  singlePointLabel?: string
 ): number {
-  const d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
+  let d3Axis = d3.axisBottom(xScale).ticks(NUM_X_TICKS).tickSizeOuter(0);
+  if (singlePointLabel) {
+    d3Axis = d3Axis.tickFormat(() => {
+      return singlePointLabel;
+    });
+  }
   if (shouldRotate && typeof xScale.bandwidth == "function") {
     if (xScale.bandwidth() < 5) {
       d3Axis.tickValues(xScale.domain().filter((v, i) => i % 5 == 0));
@@ -885,7 +890,18 @@ function drawLineChart(
     .domain(d3.extent(dataGroups[0].value, (d) => d.time))
     .range([leftWidth, width - MARGIN.right]);
 
-  const bottomHeight = addXAxis(xAxis, height, xScale);
+  let singlePointLabel = null;
+  if (dataGroups[0].value.length === 1) {
+    singlePointLabel = dataGroups[0].value[0].label;
+  }
+  const bottomHeight = addXAxis(
+    xAxis,
+    height,
+    xScale,
+    null,
+    null,
+    singlePointLabel
+  );
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
   const legendText = dataGroups.map((dataGroup) =>
@@ -1104,7 +1120,19 @@ function drawGroupLineChart(
     .domain(d3.extent(dataGroups[0].value, (d) => d.time))
     .range([leftWidth, chartWidth]);
 
-  const bottomHeight = addXAxis(xAxis, height, xScale);
+  let singlePointLabel = null;
+  if (dataGroups[0].value.length === 1) {
+    singlePointLabel = dataGroups[0].value[0].label;
+  }
+
+  const bottomHeight = addXAxis(
+    xAxis,
+    height,
+    xScale,
+    null,
+    null,
+    singlePointLabel
+  );
 
   // Update and redraw the y-axis based on the new x-axis height.
   const yPosBottom = height - bottomHeight;

@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
+import { ContextType } from "./context";
 import {
   applyHashPlaceInfo,
   applyHashStatVar,
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
-
-import { ContextType } from "./context";
 
 const TestContext = ({
   placeInfo: {

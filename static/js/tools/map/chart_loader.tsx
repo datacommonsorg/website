@@ -19,17 +19,13 @@
  * and passing the data to a `Chart` component that draws the choropleth.
  */
 
-import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
-import { GeoJsonData, MapPoint } from "../../chart/types";
-import { PlacePointStat, getPopulationDate, getUnit } from "../shared_util";
+import axios from "axios";
+import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { Chart } from "./chart";
+import { GeoJsonData, MapPoint } from "../../chart/types";
 import { MAX_DATE } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
-import _ from "lodash";
-import axios from "axios";
-import { shouldCapStatVarDate } from "../../shared/util";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;

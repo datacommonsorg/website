@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { Page } from "./page";
 import React from "react";
 import ReactDOM from "react-dom";
+
+import { Page } from "./page";
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;

@@ -19,16 +19,15 @@
  */
 
 import * as d3 from "d3";
-
-import { Card, Container, Row } from "reactstrap";
-import React, { useEffect, useRef, useState } from "react";
-
-import { Point } from "./chart_loader";
-import ReactDOM from "react-dom";
 import _ from "lodash";
+import React, { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import { Card, Container, Row } from "reactstrap";
+
+import { wrap } from "../../chart/base";
 import { formatNumber } from "../../i18n/i18n";
 import { urlToDomain } from "../../shared/util";
-import { wrap } from "../../chart/base";
+import { Point } from "./chart_loader";
 
 interface ChartPropsType {
   points: Array<Point>;

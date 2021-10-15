@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { USA_PLACE_DCID } from "../shared/constants";
 import { defineMessages } from "react-intl";
+
 import { intl } from "../i18n/i18n";
+import { USA_PLACE_DCID } from "../shared/constants";
 
 /**
  * Given a list of parent places, return true if the place is in USA.

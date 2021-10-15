@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { initSearchAutocomplete } from "./search";
 import { loadLocaleData } from "../i18n/i18n";
+import { initSearchAutocomplete } from "./search";
 
 window.onload = () => {
   const locale = document.getElementById("locale").dataset.lc;

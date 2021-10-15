@@ -18,12 +18,12 @@ jest.mock("axios");
 jest.mock("../../chart/draw");
 
 import Enzyme, { mount } from "enzyme";
-import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
-
 import Adapter from "enzyme-adapter-react-16";
-import { Page } from "./page";
-import React from "react";
 import pretty from "pretty";
+import React from "react";
+
+import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
+import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -57,6 +57,7 @@ test("Single place and single stat var", () => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toEqual(
         `<div class="card">` +
+          `<span class="chart-option">Per capita<button class="option-checkbox"></button><a href="/faq#perCapita"><span> *</span></a></span>` +
           `<span class="chart-option">Delta<button class="option-checkbox"></button></span>` +
           `<div class="chart-svg"></div><div class="statVarChipRegion">` +
           `<div class="pv-chip mdl-chip--deletable">` +

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { Binding, Constraint, Translation } from "./translation";
-
-import React from "react";
 import axios from "axios";
+import React from "react";
+
 import { input } from "./constants";
+import { Binding, Constraint, Translation } from "./translation";
 
 interface PagePropType {
   mapping: string;

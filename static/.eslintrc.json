@@ -7,13 +7,14 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "prettier", "simple-import-sort"],
   "rules": {
     "prettier/prettier": ["error"],
     "semi": ["error", "always"],
     "@typescript-eslint/no-explicit-any": "off",
     "no-fallthrough": "off",
-    "sort-imports": "warn"
+    "simple-import-sort/exports": "error",
+    "simple-import-sort/imports": "error"
   },
   "settings": {
     "react": {

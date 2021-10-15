@@ -24,9 +24,7 @@ import React from "react";
 import { SourceSeries } from "../shared/stat_types";
 import { URI_PREFIX } from "./constants";
 import axios from "axios";
-import { drawLineChart } from "../chart/draw";
-import { getUnit } from "./util";
-import { randDomId } from "../shared/util";
+import React from "react";
 
 // Chart size
 const HEIGHT = 220;

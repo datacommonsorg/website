@@ -20,8 +20,8 @@
 
 import React, { Component } from "react";
 
-import { PlaceTypeSummary } from "../../shared/types";
 import { formatNumber } from "../../i18n/i18n";
+import { PlaceTypeSummary } from "../../shared/types";
 
 interface PlacesPropType {
   statVar: string;

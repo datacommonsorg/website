@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { RankInfo, Ranking } from "./ranking_types";
+import React from "react";
 
 import { DataPoint } from "../chart/base";
-import React from "react";
 import { drawHistogram } from "../chart/draw";
+import { RankInfo, Ranking } from "./ranking_types";
 
 interface RankingHistogramPropType {
   ranking: Ranking;

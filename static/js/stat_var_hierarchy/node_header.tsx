@@ -18,9 +18,9 @@
  * Component for rendering the header of a stat var node.
  */
 
-import { Context, ContextType } from "../shared/context";
-
 import React from "react";
+
+import { Context, ContextType } from "../shared/context";
 import { StatVarHierarchyNodeType } from "../shared/types";
 import { StatVarHierarchyType } from "../shared/types";
 
