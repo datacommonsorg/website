@@ -60,8 +60,8 @@ export interface StatAllApiResponse {
       statVarData: {
         [statVar: string]: {
           sourceSeries: SourceSeries[];
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
 }

@@ -192,12 +192,12 @@ class Chart extends Component<ChartPropsType> {
    * methods for the data.
    */
   private prepareIpccData(ipccData: StatAllApiResponse) {
-    let modelData = {
+    const modelData = {
       places: [],
       statVars: [],
       dates: [],
       data: {},
-      sources: new Set<string>()
+      sources: new Set<string>(),
     };
     for (const place in ipccData.placeData) {
       const placeData = ipccData.placeData[place];
@@ -206,10 +206,10 @@ class Chart extends Component<ChartPropsType> {
       for (const sv in ipccData.placeData[place].statVarData) {
         modelData.statVars.push(sv);
         const svData = placeData.statVarData[sv];
-        if ('sourceSeries' in svData) {
+        if ("sourceSeries" in svData) {
           const means = {};
-          let annualSeries = svData.sourceSeries.filter((data) => {
-            return data.observationPeriod == 'P1Y'
+          const annualSeries = svData.sourceSeries.filter((data) => {
+            return data.observationPeriod == "P1Y";
           });
           // HACK: Replace requested series with means for obsPeriod=P1Y across
           // models.
@@ -226,7 +226,10 @@ class Chart extends Component<ChartPropsType> {
             means[date] = _.mean(means[date]);
           }
           this.statData.data[place].data[sv].val = means;
-          this.statData.dates = _.union(this.statData.dates, Object.keys(means));
+          this.statData.dates = _.union(
+            this.statData.dates,
+            Object.keys(means)
+          );
           modelData.dates = this.statData.dates;
         }
       }
@@ -241,16 +244,23 @@ class Chart extends Component<ChartPropsType> {
     const statVars = Object.keys(this.props.statVarInfos);
 
     // Also fetch all measurement methods for IPCC projectistat vars.
-    const ipccStatVars = statVars.filter((sv) => sv.indexOf('_Temperature') > 0 && sv.indexOf('Difference') < 0);
+    const ipccStatVars = statVars.filter(
+      (sv) => sv.indexOf("_Temperature") > 0 && sv.indexOf("Difference") < 0
+    );
     let ipccStatDataPromise;
     if (ipccStatVars.length > 0) {
-      ipccStatDataPromise = axios.get(`/api/stats/all?places=${places.join('&places=')}&statVars=${ipccStatVars.join('&statVars=')}`
-      ).then((resp) => {
-        return resp.data;
-      });
+      ipccStatDataPromise = axios
+        .get(
+          `/api/stats/all?places=${places.join(
+            "&places="
+          )}&statVars=${ipccStatVars.join("&statVars=")}`
+        )
+        .then((resp) => {
+          return resp.data;
+        });
     }
 
-    let statDataPromise = fetchStatData(
+    const statDataPromise = fetchStatData(
       Object.keys(this.props.placeNames),
       Object.keys(this.props.statVarInfos),
       this.props.perCapita,
@@ -261,7 +271,7 @@ class Chart extends Component<ChartPropsType> {
 
     Promise.all([statDataPromise, ipccStatDataPromise]).then((resp) => {
       this.statData = resp[0];
-      let ipccStatAllData = resp[1];
+      const ipccStatAllData = resp[1];
 
       if (ipccStatAllData) {
         this.prepareIpccData(ipccStatAllData);
@@ -296,13 +306,12 @@ class Chart extends Component<ChartPropsType> {
         place
       );
     }
-    const modelsDataGroupsDict = {}
+    const modelsDataGroupsDict = {};
     if (this.ipccModels) {
       for (const place of this.ipccModels.places) {
-        modelsDataGroupsDict[this.props.placeNames[place]] = getStatVarGroupWithTime(
-          this.ipccModels,
-          place
-        );
+        modelsDataGroupsDict[
+          this.props.placeNames[place]
+        ] = getStatVarGroupWithTime(this.ipccModels, place);
       }
     }
     drawGroupLineChart(

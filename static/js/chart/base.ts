@@ -60,7 +60,9 @@ class DataGroup {
     this.link = link;
   }
   nonNullValues(): number[] {
-    return this.value.filter((dataPoint) => dataPoint.value !== null).map((dataPoint) => dataPoint.value);
+    return this.value
+      .filter((dataPoint) => dataPoint.value !== null)
+      .map((dataPoint) => dataPoint.value);
   }
   sum(): number {
     return this.value
@@ -223,22 +225,22 @@ interface PlotParams {
 }
 
 function temperatureColorMap(statVar: string): string {
-      if (statVar.indexOf('_Temperature') <= 0) {
-        return undefined;
-      }
-        if (statVar.indexOf('RCP') > 0) {
-          if (statVar.indexOf('Max') >= 0) {
-            return '#dc3545';
-          } else {
-            return "#007bff";
-          }
-        } else {
-          if (statVar.indexOf('Max') >= 0) {
-            return '#600';
-          } else {
-            return "#003874";
-          }
-        }
+  if (statVar.indexOf("_Temperature") <= 0) {
+    return undefined;
+  }
+  if (statVar.indexOf("RCP") > 0) {
+    if (statVar.indexOf("Max") >= 0) {
+      return "#dc3545";
+    } else {
+      return "#007bff";
+    }
+  } else {
+    if (statVar.indexOf("Max") >= 0) {
+      return "#600";
+    } else {
+      return "#003874";
+    }
+  }
 }
 
 /**
@@ -261,7 +263,7 @@ function computePlotParams(
     const placeName = placeNames[placeDcids[0]];
     const colorFn = getColorFn(statVars);
     for (const statVar of statVars) {
-      let color = temperatureColorMap(statVar) || colorFn(statVar);
+      const color = temperatureColorMap(statVar) || colorFn(statVar);
       lines[placeName + statVar] = { color: color, dash: "" };
       let legendLabel = `${statVar} (${placeName})`;
       if (statVar in statVarInfo) {
@@ -294,7 +296,7 @@ function computePlotParams(
       )}`;
       legend[placeName] = { color: DEFAULT_COLOR, dash: dashFn[i], legendLink };
       for (const statVar of statVars) {
-        let color = temperatureColorMap(statVar) || colorFn(statVar);
+        const color = temperatureColorMap(statVar) || colorFn(statVar);
         lines[placeName + statVar] = {
           color: color,
           dash: dashFn[i],

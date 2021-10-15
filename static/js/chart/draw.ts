@@ -1043,13 +1043,13 @@ function drawGroupLineChart(
   ylabel?: string,
   sources?: string[],
   unit?: string,
-  modelsDataGroupsDict?: { [place: string]: DataGroup[] },
+  modelsDataGroupsDict?: { [place: string]: DataGroup[] }
 ): void {
   // Get a non-empty array as dataGroups
   const dataGroupsAll = Object.values(dataGroupsDict).filter(
     (x) => x.length > 0
   );
-  let dataGroups = dataGroupsAll[0];
+  const dataGroups = dataGroupsAll[0];
   const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   let legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
@@ -1139,9 +1139,9 @@ function drawGroupLineChart(
           .line()
           .x((d) => xScale(d[0]))
           .y((d) => yScale(d[1]));
-        const key = place + dataGroup.label.split('-')[0];
-        let color = '#ccc';
-        color = plotParams.lines[key].color;  // super brittle - relies on how new sv's are built for model mmethods
+        const key = place + dataGroup.label.split("-")[0];
+        let color = "#ccc";
+        color = plotParams.lines[key].color; // super brittle - relies on how new sv's are built for model mmethods
 
         chart
           .append("path")
@@ -1153,7 +1153,7 @@ function drawGroupLineChart(
           .style("stroke-width", "5px")
           .style("stroke-linecap", "round")
           .style("stroke-linejoin", "round")
-          .style("opacity", ".1")
+          .style("opacity", ".1");
       }
     }
   }
@@ -1187,7 +1187,7 @@ function drawGroupLineChart(
           .style("stroke-width", "1.5px")
           .style("stroke-dasharray", lineStyle.dash)
           .style("stroke-linecap", "round")
-          .style("stroke-linejoin", "round")
+          .style("stroke-linejoin", "round");
       } else {
         chart
           .append("g")
