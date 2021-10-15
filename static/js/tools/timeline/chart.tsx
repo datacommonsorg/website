@@ -29,7 +29,6 @@ import {
   StatData,
 } from "./data_fetcher";
 import { setChartOption } from "./util";
-import { randDomId } from "../../shared/util";
 
 const CHART_HEIGHT = 300;
 
@@ -106,8 +105,8 @@ class Chart extends Component<ChartPropsType> {
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNames)[0];
-    const deltaCheckboxId = randDomId();
-    const perCapitaCheckboxId = randDomId();
+    const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
+    const perCapitaCheckboxId = `pc-cb-${this.props.mprop}`;
     return (
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
