@@ -19,9 +19,8 @@
  * NOTE: Messages in this file will not be extracted for translation.
  */
 
-import { IntlCache, IntlShape, createIntl, createIntlCache } from "react-intl";
-
 import React from "react";
+import { createIntl, createIntlCache, IntlCache, IntlShape } from "react-intl";
 
 // A single cache instance can be shared for all locales.
 // TODO(beets): might not be necessary since we create one intl object.
@@ -295,11 +294,11 @@ function translateUnit(unit: string): string {
 
 export {
   formatNumber,
+  intl,
+  loadLocaleData,
   LocalizedLink,
   localizeLink,
   localizeSearchParams,
-  loadLocaleData,
-  intl,
   translateUnit,
   translateVariableString,
 };

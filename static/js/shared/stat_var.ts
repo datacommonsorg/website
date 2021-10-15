@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
 
 interface StatVarInfo {
   // measurementDenominator
@@ -75,4 +75,4 @@ interface StatVarNode {
   [key: string]: { paths: string[][]; denominators?: string[] };
 }
 
-export { StatVarInfo, getStatVarInfo, getStatVar, StatVarNode };
+export { getStatVar, getStatVarInfo, StatVarInfo, StatVarNode };

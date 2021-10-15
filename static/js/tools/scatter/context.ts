@@ -18,9 +18,9 @@
  * Global app context.
  */
 
-import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { createContext, useState } from "react";
 
+import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
 
 interface Axis {
@@ -379,19 +379,19 @@ function getSetUpperBound(
 }
 
 export {
-  Context,
-  useContextStore,
-  ContextType,
   Axis,
   AxisWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
+  Context,
+  ContextType,
   DateInfo,
   DateInfoWrapper,
-  IsLoadingWrapper,
   DisplayOptionsWrapper,
   EmptyAxis,
-  EmptyPlace,
   EmptyDate,
+  EmptyPlace,
   FieldToAbbreviation,
+  IsLoadingWrapper,
+  PlaceInfo,
+  PlaceInfoWrapper,
+  useContextStore,
 };

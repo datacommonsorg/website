@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { applyHash, updateHash } from "./util";
 import { ContextType } from "./context";
+import { applyHash, updateHash } from "./util";
 
 const TestContext = ({
   x: {

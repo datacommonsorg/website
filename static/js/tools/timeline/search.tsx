@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import {} from "googlemaps";
-
-import React, { Component, PureComponent } from "react";
-
 import axios from "axios";
+import {} from "googlemaps";
+import React, { Component, PureComponent } from "react";
 
 interface ChipPropType {
   placeName: string;

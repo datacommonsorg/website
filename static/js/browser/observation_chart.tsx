@@ -18,15 +18,15 @@
  * Component for displaying a line chart for a single source series.
  */
 
-import { DataGroup, DataPoint } from "../chart/base";
-
-import React from "react";
-import { SourceSeries } from "./types";
-import { URI_PREFIX } from "./constants";
 import axios from "axios";
+import React from "react";
+
+import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
-import { getUnit } from "./util";
 import { randDomId } from "../shared/util";
+import { URI_PREFIX } from "./constants";
+import { SourceSeries } from "./types";
+import { getUnit } from "./util";
 
 // Chart size
 const HEIGHT = 220;

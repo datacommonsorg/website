@@ -19,6 +19,7 @@
  */
 
 import * as d3 from "d3";
+
 import { Boundary } from "../shared/types";
 
 export const TOOLTIP_ID = "tree-widget-tooltip";

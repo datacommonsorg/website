@@ -18,11 +18,11 @@
  * Component for rendering the image for the imageUrl property value.
  */
 
-import { loadSpinner, removeSpinner } from "./util";
-
-import React from "react";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
+import React from "react";
+
+import { loadSpinner, removeSpinner } from "./util";
 
 const IMAGE_URL_PROPERTY_LABEL = "imageUrl";
 const LOADING_CONTAINER_ID = "browser-image-section";

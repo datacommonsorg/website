@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { PageDisplayType, getPageDisplayType } from "./types";
-
-import { BrowserPage } from "./browser_page";
+import axios from "axios";
+import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
-import axios from "axios";
+
+import { BrowserPage } from "./browser_page";
+import { getPageDisplayType, PageDisplayType } from "./types";
 
 const TYPE_OF_UNKNOWN = "Unknown";
 const TYPE_OF_STAT_VAR = "StatisticalVariable";

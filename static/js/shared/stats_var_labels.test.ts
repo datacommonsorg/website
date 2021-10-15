@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { loadLocaleData } from "../i18n/i18n";
 import enLabels from "../i18n/strings/en/stats_var_labels.json";
 import { getStatsVarLabel } from "./stats_var_labels";
-import { loadLocaleData } from "../i18n/i18n";
 import { placeExplorerCategories } from "./util";
 
 test("stats var label: marked for translation", async () => {

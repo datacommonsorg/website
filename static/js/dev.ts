@@ -18,9 +18,10 @@
  * @fileoverview dev page.
  */
 
-import { DevPage } from "./dev_page";
 import React from "react";
 import ReactDOM from "react-dom";
+
+import { DevPage } from "./dev_page";
 
 window.onload = () => {
   ReactDOM.render(

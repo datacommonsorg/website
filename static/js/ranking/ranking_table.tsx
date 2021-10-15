@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { LocalizedLink, intl, translateUnit } from "../i18n/i18n";
-import { RankInfo, Ranking } from "./ranking_types";
-
 import React from "react";
+
+import { intl, LocalizedLink, translateUnit } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
+import { RankInfo, Ranking } from "./ranking_types";
 
 interface RankingTablePropType {
   ranking: Ranking;

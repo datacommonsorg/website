@@ -15,7 +15,6 @@
  */
 
 import { getColorFn, getDashes } from "./base";
-
 import { appendLegendElem } from "./draw";
 
 test("svg test", () => {

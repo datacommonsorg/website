@@ -18,6 +18,13 @@
  * Functions for making API calls and updating and applying URL hash.
  */
 
+import axios from "axios";
+import _ from "lodash";
+
+import { MAX_DATE } from "../../shared/constants";
+import { StatVarNode } from "../../shared/stat_var";
+import { shouldCapStatVarDate } from "../../shared/util";
+import { PlacePointStat } from "../shared_util";
 import {
   Axis,
   ContextType,
@@ -27,13 +34,6 @@ import {
   FieldToAbbreviation,
   PlaceInfo,
 } from "./context";
-
-import { MAX_DATE } from "../../shared/constants";
-import { PlacePointStat } from "../shared_util";
-import { StatVarNode } from "../../shared/stat_var";
-import _ from "lodash";
-import axios from "axios";
-import { shouldCapStatVarDate } from "../../shared/util";
 
 async function getPlacesInNames(
   dcid: string,
@@ -304,9 +304,9 @@ export function areStatVarsPicked(x: Axis, y: Axis): boolean {
 }
 
 export {
+  applyHash,
   getPlacesInNames,
   getStatsWithinPlace,
   nodeGetStatVar,
   updateHash,
-  applyHash,
 };

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { PlotParams, computePlotParams } from "../../chart/base";
 import React, { Component } from "react";
+
+import { computePlotParams, PlotParams } from "../../chart/base";
+import { drawGroupLineChart } from "../../chart/draw";
+import { StatVarInfo } from "../../shared/stat_var";
 import {
-  StatData,
   fetchStatData,
   getStatVarGroupWithTime,
+  StatData,
 } from "./data_fetcher";
-
-import { StatVarInfo } from "../../shared/stat_var";
-import { drawGroupLineChart } from "../../chart/draw";
 import { setChartOption } from "./util";
 
 const CHART_HEIGHT = 300;

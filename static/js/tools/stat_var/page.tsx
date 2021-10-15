@@ -18,13 +18,13 @@
  * Top-level wrapper component for Stat Var Explorer page.
  */
 
+import axios from "axios";
 import React, { Component } from "react";
-import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
 
+import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import axios from "axios";
 
 interface PageStateType {
   description: string;

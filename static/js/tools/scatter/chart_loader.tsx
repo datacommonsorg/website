@@ -19,6 +19,15 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
+import axios from "axios";
+import _ from "lodash";
+import React, { useContext, useEffect, useState } from "react";
+
+import { StatApiResponse } from "../../shared/stat_types";
+import { NamedPlace } from "../../shared/types";
+import { saveToFile } from "../../shared/util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
+import { Chart } from "./chart";
 import {
   Axis,
   AxisWrapper,
@@ -26,17 +35,8 @@ import {
   IsLoadingWrapper,
   PlaceInfo,
 } from "./context";
-import { PlacePointStat, getPopulationDate, getUnit } from "../shared_util";
-import React, { useContext, useEffect, useState } from "react";
-import { arePlacesLoaded, getStatsWithinPlace } from "./util";
-
-import { Chart } from "./chart";
-import { NamedPlace } from "../../shared/types";
 import { PlotOptions } from "./plot_options";
-import { StatApiResponse } from "../../shared/stat_types";
-import _ from "lodash";
-import axios from "axios";
-import { saveToFile } from "../../shared/util";
+import { arePlacesLoaded, getStatsWithinPlace } from "./util";
 
 /**
  * Represents a point in the scatter plot.

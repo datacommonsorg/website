@@ -19,10 +19,11 @@
  * the search input and dropdown results.
  */
 
-import { NamedNode } from "../shared/types";
-import React from "react";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
+import React from "react";
+
+import { NamedNode } from "../shared/types";
 
 interface StatVarHierarchySearchPropType {
   places: string[];
