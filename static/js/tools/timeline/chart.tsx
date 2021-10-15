@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 import axios from "axios";
-
+import _ from "lodash";
 import React, { Component } from "react";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
+import { drawGroupLineChart } from "../../chart/draw";
+import { StatAllApiResponse } from "../../shared/stat_types";
+import { StatVarInfo } from "../../shared/stat_var";
 import {
   fetchStatData,
   getStatVarGroupWithTime,
+  StatData,
 } from "./data_fetcher";
-import _ from "lodash";
-
-import { StatVarInfo } from "../../shared/stat_var";
-import { drawGroupLineChart } from "../../chart/draw";
 import { setChartOption } from "./util";
-import { StatAllApiResponse } from "../../shared/stat_types";
 
 const CHART_HEIGHT = 300;
 

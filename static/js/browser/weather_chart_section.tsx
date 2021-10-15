@@ -18,11 +18,13 @@
  * Component for rendering charts for various weather related properties.
  */
 
-import { ObservationChart } from "./observation_chart";
-import React from "react";
-import { SourceSeries } from "../shared/stat_types";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
+import React from "react";
+
+import { SourceSeries } from "../shared/stat_types";
+import { ObservationChart } from "./observation_chart";
+import { getUnit, loadSpinner, removeSpinner } from "./util";
 
 const WEATHER_PROPERTY_NAMES = [
   "temperature",

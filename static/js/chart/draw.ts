@@ -21,7 +21,6 @@ import { formatNumber } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
 import { Boundary } from "../shared/types";
 import { urlToDomain } from "../shared/util";
-import { isProjection } from "../tools/shared_util";
 import {
   DataGroup,
   DataPoint,

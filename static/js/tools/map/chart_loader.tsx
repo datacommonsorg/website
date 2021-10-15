@@ -26,6 +26,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { GeoJsonData, MapPoint } from "../../chart/types";
 import { MAX_DATE } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
+import { shouldCapStatVarDate } from "../../shared/util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
+import { Chart } from "./chart";
+import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
