@@ -26,7 +26,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Chart } from "./chart";
 import { MAX_DATE } from "../../shared/constants";
-import { StatApiResponse } from "../../shared/data_fetcher";
+import { StatApiResponse } from "../../shared/stat_types";
 import _ from "lodash";
 import axios from "axios";
 import { shouldCapStatVarDate } from "../../shared/util";
