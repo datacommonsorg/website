@@ -191,6 +191,7 @@ class Chart extends Component<ChartPropsType> {
       data: {},
       sources: new Set<string>(),
     };
+    this.statData.dates = [];
     for (const place in ipccData.placeData) {
       const placeData = ipccData.placeData[place];
       modelData.places.push(place);
@@ -222,10 +223,10 @@ class Chart extends Component<ChartPropsType> {
             this.statData.dates,
             Object.keys(means)
           );
-          modelData.dates = this.statData.dates;
         }
       }
     }
+    modelData.dates = this.statData.dates;
     return modelData;
   }
 
