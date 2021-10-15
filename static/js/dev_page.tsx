@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+import React from "react";
+
 import {
+  computePlotParams,
   DataGroup,
   DataPoint,
   PlotParams,
-  computePlotParams,
 } from "./chart/base";
 import {
   drawGroupBarChart,
@@ -27,13 +29,11 @@ import {
   drawLineChart,
   drawStackBarChart,
 } from "./chart/draw";
-
-import React from "react";
-import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
-import { StatVarHierarchyType } from "./shared/types";
-import { StatVarInfo } from "./shared/stat_var";
 import { chartTypeEnum } from "./chart/types";
+import { StatVarInfo } from "./shared/stat_var";
+import { StatVarHierarchyType } from "./shared/types";
 import { randDomId } from "./shared/util";
+import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
 
 interface DevChartPropType {
   id: string;

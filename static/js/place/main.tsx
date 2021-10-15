@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
+import React from "react";
+import { RawIntlProvider } from "react-intl";
+
 import {
   CachedChoroplethData,
   ChartBlockData,
   GeoJsonData,
   PageChart,
 } from "../chart/types";
-import { LocalizedLink, intl } from "../i18n/i18n";
-
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
-import { RawIntlProvider } from "react-intl";
-import React from "react";
 
 interface MainPanePropType {
   /**

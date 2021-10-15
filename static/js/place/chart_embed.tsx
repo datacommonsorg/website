@@ -15,13 +15,12 @@
  */
 
 import * as d3 from "d3";
-
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { randDomId, saveToFile, urlToDomain } from "../shared/util";
-
 import React from "react";
-import { intl } from "../i18n/i18n";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+
 import { wrap } from "../chart/base";
+import { intl } from "../i18n/i18n";
+import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;

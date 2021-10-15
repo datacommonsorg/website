@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { applyHashPlaceInfo, applyHashStatVar } from "./util";
 import { createContext, useState } from "react";
 
-import { NamedPlace } from "../../shared/types";
 import { StatVarInfo } from "../../shared/stat_var";
+import { NamedPlace } from "../../shared/types";
+import { applyHashPlaceInfo, applyHashStatVar } from "./util";
 
 /**
  * Global app context for map explorer tool.

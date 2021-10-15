@@ -31,4 +31,4 @@ interface LocationRankData {
   rankBottom1000: Ranking;
 }
 
-export { LocationRankData, Ranking, RankInfo };
+export { LocationRankData, RankInfo, Ranking };

@@ -55,8 +55,8 @@ class NoopStatsVarFilter implements StatsVarFilterInterface {
 }
 
 export {
-  StatsVarFilterInterface,
-  TimelineStatsVarFilter,
   ChoroplethStatsVarFilter,
   NoopStatsVarFilter,
+  StatsVarFilterInterface,
+  TimelineStatsVarFilter,
 };

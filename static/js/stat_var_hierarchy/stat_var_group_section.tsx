@@ -19,11 +19,11 @@
  * in the stat var hierarchy.
  */
 
-import { NamedPlace, StatVarGroupInfo } from "../shared/types";
-
-import React from "react";
-import { StatVarGroupNode } from "./stat_var_group_node";
 import _ from "lodash";
+import React from "react";
+
+import { NamedPlace, StatVarGroupInfo } from "../shared/types";
+import { StatVarGroupNode } from "./stat_var_group_node";
 
 const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
 

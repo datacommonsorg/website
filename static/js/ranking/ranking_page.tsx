@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { LocalizedLink, intl } from "../i18n/i18n";
-
-import { LocationRankData } from "./ranking_types";
-import { RankingHistogram } from "./ranking_histogram";
-import { RankingTable } from "./ranking_table";
-import React from "react";
 import axios from "axios";
+import React from "react";
 import { defineMessages } from "react-intl";
+
+import { intl, LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
+import { RankingHistogram } from "./ranking_histogram";
+import { RankingTable } from "./ranking_table";
+import { LocationRankData } from "./ranking_types";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;

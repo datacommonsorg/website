@@ -16,8 +16,8 @@
 
 import * as d3 from "d3";
 
-import { StatVarInfo } from "../shared/stat_var";
 import { translateVariableString } from "../i18n/i18n";
+import { StatVarInfo } from "../shared/stat_var";
 
 const DEFAULT_COLOR = "#000";
 
@@ -378,15 +378,15 @@ interface Range {
 }
 
 export {
-  DataGroup,
-  DataPoint,
-  Range,
-  PlotParams,
-  Style,
   computePlotParams,
+  DataGroup,
   dataGroupsToCsv,
+  DataPoint,
   getColorFn,
   getDashes,
+  PlotParams,
+  Range,
   shouldFillInValues,
+  Style,
   wrap,
 };

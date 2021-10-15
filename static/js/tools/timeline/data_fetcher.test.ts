@@ -21,11 +21,11 @@ import { DataGroup } from "../../chart/base";
 import { loadLocaleData } from "../../i18n/i18n";
 import { StatApiResponse, TimeSeries } from "../../shared/stat_types";
 import {
-  StatData,
   computePerCapita,
   convertToDelta,
   fetchStatData,
   getStatVarGroupWithTime,
+  StatData,
 } from "./data_fetcher";
 
 jest.mock("axios");

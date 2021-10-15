@@ -14,36 +14,36 @@
  * limitations under the License.
  */
 
-import {
-  CachedChoroplethData,
-  ChoroplethDataGroup,
-  GeoJsonData,
-  GeoJsonFeatureProperties,
-  SnapshotData,
-  TrendData,
-  chartTypeEnum,
-} from "../chart/types";
-import { DataGroup, DataPoint, dataGroupsToCsv } from "../chart/base";
-import {
-  LocalizedLink,
-  formatNumber,
-  intl,
-  localizeSearchParams,
-} from "../i18n/i18n";
-import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
+import _ from "lodash";
+import React from "react";
+import { FormattedMessage } from "react-intl";
+
+import { DataGroup, dataGroupsToCsv, DataPoint } from "../chart/base";
 import {
   drawGroupBarChart,
   drawLineChart,
   drawStackBarChart,
 } from "../chart/draw";
-import { isDateTooFar, urlToDomain } from "../shared/util";
-
-import { ChartEmbed } from "./chart_embed";
-import { FormattedMessage } from "react-intl";
-import { NamedPlace } from "../shared/types";
-import React from "react";
-import _ from "lodash";
+import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
+import {
+  CachedChoroplethData,
+  chartTypeEnum,
+  ChoroplethDataGroup,
+  GeoJsonData,
+  GeoJsonFeatureProperties,
+  SnapshotData,
+  TrendData,
+} from "../chart/types";
+import {
+  formatNumber,
+  intl,
+  LocalizedLink,
+  localizeSearchParams,
+} from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { NamedPlace } from "../shared/types";
+import { isDateTooFar, urlToDomain } from "../shared/util";
+import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
 
 const CHART_HEIGHT = 194;
