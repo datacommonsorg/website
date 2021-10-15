@@ -21,7 +21,7 @@
 import { DataGroup, DataPoint } from "../chart/base";
 
 import React from "react";
-import { SourceSeries } from "./types";
+import { SourceSeries } from "../shared/stat_types";
 import { URI_PREFIX } from "./constants";
 import axios from "axios";
 import { drawLineChart } from "../chart/draw";

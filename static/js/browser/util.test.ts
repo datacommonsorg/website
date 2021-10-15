@@ -42,7 +42,7 @@ test("getUnit", () => {
   const testUnit = "Millimeter";
   const baseSourceSeries = {
     provenanceDomain: "testProv",
-    val: { valKey: "val" },
+    val: { "2012-11": 123.45 },
   };
   expect(getUnit(baseSourceSeries) === "");
 

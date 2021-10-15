@@ -22,7 +22,7 @@ import { getUnit, loadSpinner, removeSpinner } from "./util";
 
 import { ObservationChart } from "./observation_chart";
 import React from "react";
-import { SourceSeries } from "./types";
+import { SourceSeries } from "../shared/stat_types";
 import _ from "lodash";
 import axios from "axios";
 

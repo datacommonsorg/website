@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SourceSeries } from "./types";
+import { SourceSeries } from "../shared/stat_types";
 import _ from "lodash";
 
 /**
