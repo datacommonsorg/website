@@ -59,16 +59,19 @@ class DataGroup {
     this.label = label;
     this.link = link;
   }
+  nonNullValues(): number[] {
+    return this.value.filter((dataPoint) => dataPoint.value !== null).map((dataPoint) => dataPoint.value);
+  }
   sum(): number {
     return this.value
       .map((dataPoint) => dataPoint.value)
       .reduce((a, b) => a + b);
   }
   max(): number {
-    return Math.max(...this.value.map((dataPoint) => dataPoint.value));
+    return Math.max(...this.nonNullValues());
   }
   min(): number {
-    return Math.min(...this.value.map((dataPoint) => dataPoint.value));
+    return Math.min(...this.nonNullValues());
   }
 }
 
