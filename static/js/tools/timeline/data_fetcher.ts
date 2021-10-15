@@ -42,6 +42,7 @@ export interface StatData {
 
 /**
  * Group data by stats var with time.
+ * TODO: Make this a function of StatData
  *
  * @param place? The place to get the stats.
  */
@@ -79,6 +80,8 @@ export function getStatVarGroupWithTime(
 /**
  * For each time series of the input stat data, compute the delta beteen
  * consecutive date and return the delta series.
+ * TODO: Make this a function of StatData
+ *
  * @param statData
  */
 export function convertToDelta(statData: StatData): StatData {
@@ -170,7 +173,6 @@ export function fetchStatData(
   places: string[],
   statVars: string[],
   perCapita = false,
-  delta = false,
   scaling = 1,
   denominators: Record<string, string> = {}
 ): Promise<StatData> {
@@ -223,7 +225,7 @@ export function fetchStatData(
   ];
 
   return Promise.all(apiPromises).then((allResp) => {
-    let result: StatData = {
+    const result: StatData = {
       places: places,
       statVars: statVars,
       dates: [],
@@ -274,9 +276,6 @@ export function fetchStatData(
     result.data = statResp;
 
     result.dates = Array.from(allDates.values()).sort();
-    if (delta) {
-      result = convertToDelta(result);
-    }
     return result;
   });
 }

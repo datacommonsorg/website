@@ -650,7 +650,6 @@ test("Per capita with specified denominators test", () => {
     ["geoId/05", "geoId/06"],
     ["Count_Person_Male", "Count_Person_Female"],
     true,
-    false,
     1,
     {
       Count_Person_Male: "Count_Person",
@@ -783,7 +782,6 @@ test("Per capita with specified denominators test - missing place data", () => {
   return fetchStatData(
     ["geoId/05", "country/USA"],
     ["UnemploymentRate_Person_Male", "UnemploymentRate_Person_Female"],
-    false,
     false,
     1,
     {}

@@ -22,6 +22,7 @@ import { drawGroupLineChart } from "../../chart/draw";
 import { StatAllApiResponse } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import {
+  convertToDelta,
   fetchStatData,
   getStatVarGroupWithTime,
   StatData,
@@ -182,7 +183,7 @@ class Chart extends Component<ChartPropsType> {
    * StatVar-MMethod. The StatData values for the StatVar is also updated to be the mean across the measurement
    * methods for the data.
    */
-  private prepareIpccData(ipccData: StatAllApiResponse) {
+  private prepareIpccData(ipccData: StatAllApiResponse): StatData {
     const modelData = {
       places: [],
       statVars: [],
@@ -225,7 +226,7 @@ class Chart extends Component<ChartPropsType> {
         }
       }
     }
-    this.ipccModels = modelData;
+    return modelData;
   }
 
   private loadDataAndDrawChart() {
@@ -255,7 +256,6 @@ class Chart extends Component<ChartPropsType> {
       Object.keys(this.props.placeNames),
       Object.keys(this.props.statVarInfos),
       this.props.perCapita,
-      this.props.delta,
       1,
       this.props.denomMap
     );
@@ -265,7 +265,13 @@ class Chart extends Component<ChartPropsType> {
       const ipccStatAllData = resp[1];
 
       if (ipccStatAllData) {
-        this.prepareIpccData(ipccStatAllData);
+        this.ipccModels = this.prepareIpccData(ipccStatAllData);
+      }
+      if (this.props.delta) {
+        this.statData = convertToDelta(this.statData);
+        if (this.ipccModels) {
+          this.ipccModels = convertToDelta(this.ipccModels);
+        }
       }
       // Get from all stat vars. In most cases there should be only one
       // unit.
