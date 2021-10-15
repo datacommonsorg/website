@@ -316,7 +316,6 @@ class Chart extends Component<ChartPropsType> {
       this.svgContainer.current.offsetWidth,
       CHART_HEIGHT,
       this.props.statVarInfos,
-      // modelsDataGroupsDict,
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
