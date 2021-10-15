@@ -42,3 +42,26 @@ export interface StatApiResponse {
 export interface DisplayNameApiResponse {
   [placeDcid: string]: string;
 }
+
+export interface SourceSeries {
+  provenanceDomain: string;
+  val: { [key: string]: number };
+  importName?: string;
+  measurementMethod?: string;
+  observationPeriod?: string;
+  scalingFactor?: string;
+  unit?: string;
+  mprop?: string;
+}
+
+export interface StatAllApiResponse {
+  placeData: {
+    [place: string]: {
+      statVarData: {
+        [statVar: string]: {
+          sourceSeries: SourceSeries[];
+        };
+      };
+    };
+  };
+}

@@ -18,6 +18,7 @@ import * as d3 from "d3";
 
 import { translateVariableString } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
+import { isIpccStatVarWithMultipleModels } from "../tools/shared_util";
 
 const DEFAULT_COLOR = "#000";
 
@@ -59,16 +60,21 @@ class DataGroup {
     this.label = label;
     this.link = link;
   }
+  nonNullValues(): number[] {
+    return this.value
+      .filter((dataPoint) => dataPoint.value !== null)
+      .map((dataPoint) => dataPoint.value);
+  }
   sum(): number {
     return this.value
       .map((dataPoint) => dataPoint.value)
       .reduce((a, b) => a + b);
   }
   max(): number {
-    return Math.max(...this.value.map((dataPoint) => dataPoint.value));
+    return Math.max(...this.nonNullValues());
   }
   min(): number {
-    return Math.min(...this.value.map((dataPoint) => dataPoint.value));
+    return Math.min(...this.nonNullValues());
   }
 }
 
@@ -220,6 +226,30 @@ interface PlotParams {
 }
 
 /**
+ * Fixed to reddish hues for historical / projected max temperatures, and
+ * blueish hues for historical / projected min temperatures. Darker colors are
+ * for historical.
+ *
+ * Returns undefined if the stat var is not IPCC Temperature related.
+ */
+function temperatureColorMap(statVar: string): string {
+  if (!isIpccStatVarWithMultipleModels(statVar)) {
+    return undefined;
+  }
+  if (statVar.indexOf("RCP") > 0) {
+    if (statVar.indexOf("Max") >= 0) {
+      return "#dc3545";
+    }
+    return "#007bff";
+  } else {
+    if (statVar.indexOf("Max") >= 0) {
+      return "#600";
+    }
+    return "#003874";
+  }
+}
+
+/**
  * Return color and dash style given place names and stats var display names.
  *
  * Detailed spec of the chart style: https://docs.google.com/document/d/1Sw6Nq0E2XY0318Kd9fiZLUgSG7rgKJbr4LAjRqND90w
@@ -239,13 +269,14 @@ function computePlotParams(
     const placeName = placeNames[placeDcids[0]];
     const colorFn = getColorFn(statVars);
     for (const statVar of statVars) {
-      lines[placeName + statVar] = { color: colorFn(statVar), dash: "" };
+      const color = temperatureColorMap(statVar) || colorFn(statVar);
+      lines[placeName + statVar] = { color: color, dash: "" };
       let legendLabel = `${statVar} (${placeName})`;
       if (statVar in statVarInfo) {
         legendLabel = `${statVarInfo[statVar].title || statVar} (${placeName})`;
       }
       const legendLink = `/browser/${placeDcids[0]}?statVar=${statVar}`;
-      legend[legendLabel] = { color: colorFn(statVar), legendLink };
+      legend[legendLabel] = { color: color, legendLink };
     }
   } else if (statVars.length === 1) {
     const colorFn = getColorFn(Object.values(placeNames));
@@ -270,9 +301,10 @@ function computePlotParams(
         "__"
       )}`;
       legend[placeName] = { color: DEFAULT_COLOR, dash: dashFn[i], legendLink };
-      for (const statsVar of statVars) {
-        lines[placeName + statsVar] = {
-          color: colorFn(statsVar),
+      for (const statVar of statVars) {
+        const color = temperatureColorMap(statVar) || colorFn(statVar);
+        lines[placeName + statVar] = {
+          color: color,
           dash: dashFn[i],
         };
       }

@@ -23,9 +23,9 @@ import React from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
+import { SourceSeries } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
 import { URI_PREFIX } from "./constants";
-import { SourceSeries } from "./types";
 import { getUnit } from "./util";
 
 // Chart size

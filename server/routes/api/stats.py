@@ -218,8 +218,8 @@ def get_stats_set():
 @bp.route('/api/stats/all')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_stats_all():
-    dcids = request.args.get("places")
-    stat_vars = request.args.get("statVars")
+    dcids = request.args.getlist("places")
+    stat_vars = request.args.getlist("statVars")
     return Response(json.dumps(dc.get_stats_all(dcids, stat_vars)),
                     200,
                     mimetype="application/json")

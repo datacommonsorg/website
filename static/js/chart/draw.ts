@@ -21,7 +21,6 @@ import { formatNumber } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
 import { Boundary } from "../shared/types";
 import { urlToDomain } from "../shared/util";
-import { isProjection } from "../tools/shared_util";
 import {
   DataGroup,
   DataPoint,
@@ -1058,13 +1057,14 @@ function drawGroupLineChart(
   plotParams: PlotParams,
   ylabel?: string,
   sources?: string[],
-  unit?: string
+  unit?: string,
+  modelsDataGroupsDict?: { [place: string]: DataGroup[] }
 ): void {
   // Get a non-empty array as dataGroups
   const dataGroupsAll = Object.values(dataGroupsDict).filter(
     (x) => x.length > 0
   );
-  let dataGroups = dataGroupsAll[0];
+  const dataGroups = dataGroupsAll[0];
   const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   let legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
@@ -1141,24 +1141,6 @@ function drawGroupLineChart(
   addYAxis(yAxis, width - legendWidth, yScale, unit);
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
-  // Denote forecasted data.
-  // TODO: Handle the case when not ALL stat vars in a chart is a projection.
-  const highlightProjection =
-    Object.values(statVarInfos).filter((i) => isProjection(i)).length > 0;
-  if (highlightProjection) {
-    const forecast = chart.append("g").attr("class", "forecast");
-    forecast
-      .append("rect")
-      .attr("width", chartWidth - leftWidth)
-      .attr("height", yPosBottom - yPosTop)
-      .attr("transform", `translate(${leftWidth}, ${yPosTop})`);
-    forecast
-      .append("text")
-      .text("Projected")
-      .attr("transform", `translate(${leftWidth + 3}, ${yPosTop + 3})`)
-      .attr("dy", "1em");
-  }
-
   // add ylabel
   svg
     .append("text")
@@ -1169,10 +1151,44 @@ function drawGroupLineChart(
     .style("text-rendering", "optimizedLegibility")
     .text(ylabel);
 
+  if (modelsDataGroupsDict) {
+    for (const place in modelsDataGroupsDict) {
+      const dGroups = modelsDataGroupsDict[place];
+      for (const dataGroup of dGroups) {
+        const dataset = dataGroup.value
+          .map((dp) => {
+            return [dp.time, dp.value];
+          })
+          .filter((dp) => {
+            return dp[1] !== null;
+          });
+        const line = d3
+          .line()
+          .x((d) => xScale(d[0]))
+          .y((d) => yScale(d[1]));
+        const key = place + dataGroup.label.split("-")[0];
+        let color = "#ccc";
+        color = plotParams.lines[key].color; // super brittle - relies on how new sv's are built for model mmethods
+
+        chart
+          .append("path")
+          .datum(dataset)
+          .attr("class", "line")
+          .attr("d", line)
+          .style("fill", "none")
+          .style("stroke", color)
+          .style("stroke-width", "5px")
+          .style("stroke-linecap", "round")
+          .style("stroke-linejoin", "round")
+          .style("opacity", ".1");
+      }
+    }
+  }
+
   const timePoints = new Set<number>();
   for (const place in dataGroupsDict) {
-    dataGroups = dataGroupsDict[place];
-    for (const dataGroup of dataGroups) {
+    const dGroups = dataGroupsDict[place];
+    for (const dataGroup of dGroups) {
       const dataset = dataGroup.value
         .map((dp) => {
           timePoints.add(dp.time);
@@ -1186,6 +1202,7 @@ function drawGroupLineChart(
         .x((d) => xScale(d[0]))
         .y((d) => yScale(d[1]));
       const lineStyle = plotParams.lines[place + dataGroup.label];
+
       if (dataset.length > 1) {
         chart
           .append("path")
@@ -1195,7 +1212,9 @@ function drawGroupLineChart(
           .style("fill", "none")
           .style("stroke", lineStyle.color)
           .style("stroke-width", "1.5px")
-          .style("stroke-dasharray", lineStyle.dash);
+          .style("stroke-dasharray", lineStyle.dash)
+          .style("stroke-linecap", "round")
+          .style("stroke-linejoin", "round");
       } else {
         chart
           .append("g")
