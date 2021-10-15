@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,31 @@
  * limitations under the License.
  */
 
-interface RankInfo {
-  rank: number;
-  value: number;
-  placeDcid: string;
-  placeName: string;
+/**
+ * Stat API related types.
+ */
+
+export interface TimeSeries {
+  val?: {
+    [date: string]: number; // Date might be "latest" if it's from the cache
+  };
+  metadata?: {
+    importName?: string;
+    measurementMethod?: string;
+    provenanceUrl?: string;
+    unit?: string;
+  };
 }
 
-interface Ranking {
-  info: RankInfo[];
+export interface StatApiResponse {
+  [place: string]: {
+    data: {
+      [statVar: string]: TimeSeries | null;
+    };
+    name?: string;
+  };
 }
 
-interface LocationRankData {
-  rankAll: Ranking;
-  rankTop1000: Ranking;
-  rankBottom1000: Ranking;
+export interface DisplayNameApiResponse {
+  [placeDcid: string]: string;
 }
-
-export { LocationRankData, RankInfo, Ranking };

@@ -15,8 +15,9 @@
  */
 
 import React from "react";
-import { displayNameForPlaceType } from "./util";
+
 import { intl, LocalizedLink } from "../i18n/i18n";
+import { displayNameForPlaceType } from "./util";
 
 interface ChildPlacePropType {
   childPlaces: { string: string[] };

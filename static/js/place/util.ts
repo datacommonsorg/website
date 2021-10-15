@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { intl } from "../i18n/i18n";
 import { defineMessages } from "react-intl";
+
+import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 
 /**

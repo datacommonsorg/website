@@ -294,11 +294,11 @@ function translateUnit(unit: string): string {
 
 export {
   formatNumber,
+  intl,
+  loadLocaleData,
   LocalizedLink,
   localizeLink,
   localizeSearchParams,
-  loadLocaleData,
-  intl,
   translateUnit,
   translateVariableString,
 };

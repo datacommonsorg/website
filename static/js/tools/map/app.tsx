@@ -18,11 +18,15 @@
  * Main app component for map explorer.
  */
 
-import React, { useContext, useEffect } from "react";
-import { Context, ContextType, getInitialContext } from "./context";
-import { Container, Row } from "reactstrap";
 import _ from "lodash";
+import React, { useContext, useEffect } from "react";
+import { Container, Row } from "reactstrap";
+
+import { ChartLoader } from "./chart_loader";
+import { Context, ContextType, getInitialContext } from "./context";
+import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
+import { StatVarChooser } from "./stat_var_chooser";
 import {
   applyHashPlaceInfo,
   applyHashStatVar,
@@ -30,9 +34,6 @@ import {
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
-import { ChartLoader } from "./chart_loader";
-import { Info } from "./info";
-import { StatVarChooser } from "./stat_var_chooser";
 
 function App(): JSX.Element {
   const { statVar, placeInfo, isLoading } = useContext(Context);

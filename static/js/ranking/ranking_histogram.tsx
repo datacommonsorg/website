@@ -15,9 +15,10 @@
  */
 
 import React from "react";
-import { Ranking, RankInfo } from "./ranking_types";
+
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
+import { RankInfo, Ranking } from "./ranking_types";
 
 interface RankingHistogramPropType {
   ranking: Ranking;

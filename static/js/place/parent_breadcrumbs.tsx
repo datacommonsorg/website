@@ -15,9 +15,10 @@
  */
 
 import React from "react";
-import { displayNameForPlaceType } from "./util";
+import { FormattedMessage, RawIntlProvider } from "react-intl";
+
 import { intl, LocalizedLink } from "../i18n/i18n";
-import { RawIntlProvider, FormattedMessage } from "react-intl";
+import { displayNameForPlaceType } from "./util";
 
 interface ParentPlacePropsType {
   parentPlaces: string[];

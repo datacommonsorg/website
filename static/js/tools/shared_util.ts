@@ -16,7 +16,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { TimeSeries } from "../shared/data_fetcher";
+import { TimeSeries } from "../shared/stat_types";
 import { StatVarInfo } from "../shared/stat_var";
 
 /**

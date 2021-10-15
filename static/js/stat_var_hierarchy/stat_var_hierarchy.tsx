@@ -19,25 +19,24 @@
  * section and the hierarchy section.
  */
 
-import React from "react";
 import axios from "axios";
-import _ from "lodash";
 import * as d3 from "d3";
+import _ from "lodash";
+import React from "react";
 
-import { StatVarHierarchySearch } from "./stat_var_search";
-import { StatVarGroupNode } from "./stat_var_group_node";
+import { loadSpinner, removeSpinner } from "../browser/util";
+import { Context } from "../shared/context";
 import {
   NamedPlace,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
-
-import { loadSpinner, removeSpinner } from "../browser/util";
-import { Context } from "../shared/context";
+import { StatVarGroupNode } from "./stat_var_group_node";
+import { StatVarHierarchySearch } from "./stat_var_search";
 import {
   hideTooltip,
-  SV_HIERARCHY_SECTION_ID,
   showTooltip,
+  SV_HIERARCHY_SECTION_ID,
   TOOLTIP_ID,
 } from "./util";
 

@@ -19,18 +19,18 @@
  * in the stat var hierarchy.
  */
 
-import React from "react";
 import * as d3 from "d3";
 import _ from "lodash";
+import React from "react";
 
+import { Context, ContextType } from "../shared/context";
 import {
   StatVarHierarchyType,
   StatVarInfo,
   StatVarSummary,
 } from "../shared/types";
-import { Context, ContextType } from "../shared/context";
-import { hideTooltip, SV_HIERARCHY_SECTION_ID, showTooltip } from "./util";
 import { CHILD_PLACE_TYPES } from "../tools/map/util";
+import { hideTooltip, showTooltip, SV_HIERARCHY_SECTION_ID } from "./util";
 
 const TOOLTIP_TOP_OFFSET = 10;
 const TOOLTIP_RIGHT_MARGIN = 20;

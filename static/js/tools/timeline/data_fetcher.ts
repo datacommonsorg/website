@@ -14,95 +14,95 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
 
-import { DataPoint, DataGroup } from "../chart/base";
+import { DataGroup, DataPoint } from "../../chart/base";
+import {
+  DisplayNameApiResponse,
+  StatApiResponse,
+  TimeSeries,
+} from "../../shared/stat_types";
+import { isDateTooFar } from "../../shared/util";
 
 const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
-
-export interface TimeSeries {
-  val?: {
-    [date: string]: number; // Date might be "latest" if it's from the cache
-  };
-  metadata?: {
-    importName?: string;
-    measurementMethod?: string;
-    provenanceUrl?: string;
-    unit?: string;
-  };
-}
-
-export interface StatApiResponse {
-  [place: string]: {
-    data: {
-      [statVar: string]: TimeSeries | null;
-    };
-    name?: string;
-  };
-}
-
-interface DisplayNameApiResponse {
-  [placeDcid: string]: string;
-}
 
 /**
  * Stats Data is keyed by statistical variable, then keyed by place dcid, with
  * value being the ApiResponse that contains multiple place time series.
  */
-export class StatData {
+export interface StatData {
   places: string[];
   statVars: string[];
   dates: string[];
   data: StatApiResponse;
   sources: Set<string>;
-  latestCommonDate: string;
+}
 
-  constructor(
-    places: string[],
-    statVars: string[],
-    dates: string[],
-    data: StatApiResponse,
-    latestCommonDate: string
-  ) {
-    this.places = places;
-    this.statVars = statVars;
-    this.dates = dates;
-    this.data = data;
-    this.sources = new Set<string>();
-    this.latestCommonDate = latestCommonDate;
+/**
+ * Group data by stats var with time.
+ *
+ * @param place? The place to get the stats.
+ */
+export function getStatVarGroupWithTime(
+  statData: StatData,
+  place?: string
+): DataGroup[] {
+  if (!place) {
+    place = statData.places[0];
   }
-
-  /**
-   * Group data by stats var with time.
-   *
-   * @param place? The place to get the stats.
-   */
-  getStatsVarGroupWithTime(place?: string): DataGroup[] {
-    if (!place) {
-      place = this.places[0];
+  const result: DataGroup[] = [];
+  for (const statVar of statData.statVars) {
+    const dataPoints: DataPoint[] = [];
+    if (!statData.data[place] || !statData.data[place].data[statVar]) {
+      continue;
     }
-    const result: DataGroup[] = [];
-    for (const statVar of this.statVars) {
-      const dataPoints: DataPoint[] = [];
-      if (!this.data[place] || !this.data[place].data[statVar]) {
-        continue;
-      }
-      const timeSeries = this.data[place].data[statVar];
-      if (timeSeries.val && Object.keys(timeSeries.val).length !== 0) {
-        for (const date of this.dates) {
-          dataPoints.push({
-            label: date,
-            time: new Date(date).getTime(),
-            value: date in timeSeries.val ? timeSeries.val[date] : null,
-          });
+    const timeSeries = statData.data[place].data[statVar];
+    if (timeSeries.val && Object.keys(timeSeries.val).length !== 0) {
+      for (const date of statData.dates) {
+        if (isDateTooFar(date)) {
+          continue;
         }
-        result.push(new DataGroup(statVar, dataPoints));
+        dataPoints.push({
+          label: date,
+          time: new Date(date).getTime(),
+          value: date in timeSeries.val ? timeSeries.val[date] : null,
+        });
+      }
+      result.push(new DataGroup(statVar, dataPoints));
+    }
+  }
+  return result;
+}
+
+/**
+ * For each time series of the input stat data, compute the delta beteen
+ * consecutive date and return the delta series.
+ * @param statData
+ */
+export function convertToDelta(statData: StatData): StatData {
+  const result = _.cloneDeep(statData);
+  for (const place in result.data) {
+    for (const statVar in result.data[place].data) {
+      const dates = Object.keys(result.data[place].data[statVar].val);
+      dates.sort();
+      const vals = _.cloneDeep(result.data[place].data[statVar].val);
+      if (dates.length > 1) {
+        for (let i = 0; i < dates.length - 1; i++) {
+          result.data[place].data[statVar].val[dates[i + 1]] =
+            vals[dates[i + 1]] - vals[dates[i]];
+        }
+      }
+      delete result.data[place].data[statVar].val[dates[0]];
+      const index = result.dates.indexOf(dates[0]);
+      if (index !== -1) {
+        result.dates.splice(index, 1);
       }
     }
-    return result;
   }
+
+  return result;
 }
 
 /**
@@ -170,6 +170,7 @@ export function fetchStatData(
   places: string[],
   statVars: string[],
   perCapita = false,
+  delta = false,
   scaling = 1,
   denominators: Record<string, string> = {}
 ): Promise<StatData> {
@@ -222,9 +223,14 @@ export function fetchStatData(
   ];
 
   return Promise.all(apiPromises).then((allResp) => {
-    const result = new StatData(places, statVars, [], {}, "");
-    const numOccurencesPerDate: { [key: string]: number } = {};
-    const numStatVarsPerPlace: { [key: string]: number } = {};
+    let result: StatData = {
+      places: places,
+      statVars: statVars,
+      dates: [],
+      data: null,
+      sources: new Set(),
+    };
+    const allDates = new Set<string>();
     const statResp = allResp[0] as StatApiResponse;
     const denomResp = allResp[1] as StatApiResponse;
     const displayNameMapping = allResp[2] as DisplayNameApiResponse;
@@ -248,56 +254,29 @@ export function fetchStatData(
           }
         }
       }
-      // Build the dates collection, get the union of available dates for all data
+
       if (!placeData) {
         continue;
-      }
-      if (!(place in numStatVarsPerPlace)) {
-        numStatVarsPerPlace[place] = 0;
       }
       if (displayNameMapping[place]) {
         statResp[place].name = displayNameMapping[place];
       }
       for (const statVar in placeData) {
         const timeSeries = placeData[statVar];
-        if (timeSeries.val && Object.keys(timeSeries.val).length > 0) {
-          numStatVarsPerPlace[place] = numStatVarsPerPlace[place] + 1;
-        }
         if (timeSeries.metadata) {
           result.sources.add(timeSeries.metadata.provenanceUrl);
         }
         for (const date in timeSeries.val) {
-          if (date in numOccurencesPerDate) {
-            numOccurencesPerDate[date] = numOccurencesPerDate[date] + 1;
-          } else {
-            numOccurencesPerDate[date] = 1;
-          }
+          allDates.add(date);
         }
       }
     }
     result.data = statResp;
 
-    result.dates = Object.keys(numOccurencesPerDate);
-    result.dates.sort();
-    // Get the number of places that have data, then get the latest date which
-    // has data for every stat var for every place with data.
-    // If there's no such date, choose the latest date with data for any stat var
-    const numPlacesWithData: number = places.filter(
-      (place) => numStatVarsPerPlace[place] > 0
-    ).length;
-    let idx = result.dates.length - 1;
-    while (idx >= 0) {
-      const currDate = result.dates[idx];
-      if (
-        numOccurencesPerDate[currDate] ===
-        numPlacesWithData * statVars.length
-      ) {
-        result.latestCommonDate = currDate;
-        return result;
-      }
-      idx--;
+    result.dates = Array.from(allDates.values()).sort();
+    if (delta) {
+      result = convertToDelta(result);
     }
-    result.latestCommonDate = result.dates[result.dates.length - 1];
     return result;
   });
 }

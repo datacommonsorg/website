@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 import axios from "axios";
-import { getTokensFromUrl } from "./util";
+
 import { saveToFile } from "../../shared/util";
+import { getTokensFromUrl } from "./util";
 
 /* Start the loading spinner and gray out the background. */
 function loadSpinner(): void {

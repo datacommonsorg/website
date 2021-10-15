@@ -20,23 +20,24 @@
 
 import React, { useContext, useEffect } from "react";
 import { Container, Row } from "reactstrap";
-import { StatVarChooser } from "./statvar";
-import { PlaceOptions } from "./place_options";
+
 import { ChartLoader } from "./chart_loader";
-import { Info } from "./info";
-import { Spinner } from "./spinner";
 import {
-  Context,
-  useContextStore,
   Axis,
-  PlaceInfo,
+  Context,
   IsLoadingWrapper,
+  PlaceInfo,
+  useContextStore,
 } from "./context";
+import { Info } from "./info";
+import { PlaceOptions } from "./place_options";
+import { Spinner } from "./spinner";
+import { StatVarChooser } from "./statvar";
 import {
-  updateHash,
   applyHash,
-  isPlacePicked,
   areStatVarsPicked,
+  isPlacePicked,
+  updateHash,
 } from "./util";
 
 function App(): JSX.Element {

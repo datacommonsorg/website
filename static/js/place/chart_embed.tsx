@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 import * as d3 from "d3";
-import { intl } from "../i18n/i18n";
+import React from "react";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+
 import { wrap } from "../chart/base";
+import { intl } from "../i18n/i18n";
+import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;

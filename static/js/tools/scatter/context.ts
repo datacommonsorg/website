@@ -19,6 +19,7 @@
  */
 
 import { createContext, useState } from "react";
+
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
 
@@ -94,10 +95,12 @@ const EmptyPlace: PlaceInfo = Object.freeze({
 interface DisplayOptionsWrapper {
   showQuadrants: boolean;
   showLabels: boolean;
+  showDensity: boolean;
 
   // Setters
   setQuadrants: Setter<boolean>;
   setLabels: Setter<boolean>;
+  setDensity: Setter<boolean>;
 }
 
 interface DateInfo {
@@ -169,6 +172,7 @@ const FieldToAbbreviation = {
   // DisplayOptions fields
   showQuadrant: "qd",
   showLabels: "ld",
+  showDensity: "dd",
 };
 
 /**
@@ -180,6 +184,7 @@ function useContextStore(): ContextType {
   const [place, setPlace] = useState(EmptyPlace);
   const [showQuadrants, setQuadrants] = useState(false);
   const [showLabels, setLabels] = useState(false);
+  const [showDensity, setDensity] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -216,6 +221,8 @@ function useContextStore(): ContextType {
       setQuadrants: (showQuadrants) => setQuadrants(showQuadrants),
       showLabels: showLabels,
       setLabels: (showLabels) => setLabels(showLabels),
+      showDensity: showDensity,
+      setDensity: (showDensity) => setDensity(showDensity),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -372,19 +379,19 @@ function getSetUpperBound(
 }
 
 export {
-  Context,
-  useContextStore,
-  ContextType,
   Axis,
   AxisWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
+  Context,
+  ContextType,
   DateInfo,
   DateInfoWrapper,
-  IsLoadingWrapper,
   DisplayOptionsWrapper,
   EmptyAxis,
-  EmptyPlace,
   EmptyDate,
+  EmptyPlace,
   FieldToAbbreviation,
+  IsLoadingWrapper,
+  PlaceInfo,
+  PlaceInfoWrapper,
+  useContextStore,
 };

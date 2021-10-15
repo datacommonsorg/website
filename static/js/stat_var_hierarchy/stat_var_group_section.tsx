@@ -19,8 +19,8 @@
  * in the stat var hierarchy.
  */
 
-import React from "react";
 import _ from "lodash";
+import React from "react";
 
 import { NamedPlace, StatVarGroupInfo } from "../shared/types";
 import { StatVarGroupNode } from "./stat_var_group_node";

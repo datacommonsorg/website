@@ -19,6 +19,7 @@
  */
 
 import React, { Component } from "react";
+
 import { formatNumber } from "../../i18n/i18n";
 import { ProvenanceSummary } from "../../shared/types";
 import { urlToDomain } from "../../shared/util";

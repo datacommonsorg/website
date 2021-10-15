@@ -18,33 +18,34 @@
  * Chart component for drawing a choropleth.
  */
 
+import * as d3 from "d3";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import { Container } from "reactstrap";
+
+import {
+  drawChoropleth,
+  generateLegendSvg,
+  getColorScale,
+} from "../../chart/draw_choropleth";
 import {
   GeoJsonData,
   GeoJsonFeatureProperties,
   MapPoint,
 } from "../../chart/types";
+import { formatNumber } from "../../i18n/i18n";
+import { NamedPlace } from "../../shared/types";
+import { urlToDomain } from "../../shared/util";
+import { DataPointMetadata } from "./chart_loader";
+import { ChartOptions } from "./chart_options";
 import { PlaceInfo, StatVar } from "./context";
-import { Container } from "reactstrap";
-import _ from "lodash";
-import * as d3 from "d3";
 import {
-  drawChoropleth,
-  getColorScale,
-  generateLegendSvg,
-} from "../../chart/draw_choropleth";
-import {
+  CHILD_PLACE_TYPES,
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVar,
-  CHILD_PLACE_TYPES,
   USA_PLACE_HIERARCHY,
 } from "./util";
-import { urlToDomain } from "../../shared/util";
-import { ChartOptions } from "./chart_options";
-import { NamedPlace } from "../../shared/types";
-import { DataPointMetadata } from "./chart_loader";
-import { formatNumber } from "../../i18n/i18n";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;

@@ -15,24 +15,25 @@
  */
 
 import React from "react";
+
 import {
-  DataPoint,
-  DataGroup,
   computePlotParams,
+  DataGroup,
+  DataPoint,
   PlotParams,
 } from "./chart/base";
-import { chartTypeEnum } from "./chart/types";
 import {
+  drawGroupBarChart,
+  drawGroupLineChart,
   drawHistogram,
   drawLineChart,
   drawStackBarChart,
-  drawGroupBarChart,
-  drawGroupLineChart,
 } from "./chart/draw";
-import { randDomId } from "./shared/util";
+import { chartTypeEnum } from "./chart/types";
 import { StatVarInfo } from "./shared/stat_var";
-import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchyType } from "./shared/types";
+import { randDomId } from "./shared/util";
+import { StatVarHierarchy } from "./stat_var_hierarchy/stat_var_hierarchy";
 
 interface DevChartPropType {
   id: string;

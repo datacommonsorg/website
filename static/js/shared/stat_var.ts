@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import axios from "axios";
 import _ from "lodash";
 
@@ -74,4 +75,4 @@ interface StatVarNode {
   [key: string]: { paths: string[][]; denominators?: string[] };
 }
 
-export { StatVarInfo, getStatVarInfo, getStatVar, StatVarNode };
+export { getStatVar, getStatVarInfo, StatVarInfo, StatVarNode };

@@ -20,10 +20,11 @@
 
 import axios from "axios";
 import React, { Component } from "react";
-import { Explorer } from "./explorer";
-import { Info } from "./info";
+
 import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { Explorer } from "./explorer";
+import { Info } from "./info";
 
 interface PageStateType {
   description: string;

@@ -182,13 +182,22 @@
   width: 0;
 }
 
-circle:hover {
+.scatter-dot:hover {
   cursor: pointer;
   fill: var(--dc-primary);
 }
 
-circle {
+.scatter-dot {
   stroke: var(--dc-primary);
+}
+
+.density-dot:hover {
+  stroke: var(--dc-gray);
+  stroke-width: 1.5;
+  cursor: pointer;
+}
+
+circle {
   r: 3.5;
 }
 

@@ -15,6 +15,7 @@
  */
 
 import _ from "lodash";
+
 import { SourceSeries } from "./types";
 
 /**

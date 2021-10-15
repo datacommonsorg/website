@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React from "react";
+import { defineMessages } from "react-intl";
+
 import {
-  chartTypeEnum,
-  ChartBlockData,
   CachedChoroplethData,
+  ChartBlockData,
+  chartTypeEnum,
   GeoJsonData,
 } from "../chart/types";
+import { intl, localizeSearchParams } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
-import _ from "lodash";
-import { intl, localizeSearchParams } from "../i18n/i18n";
-import { defineMessages } from "react-intl";
 
 interface ChartBlockPropType {
   /**

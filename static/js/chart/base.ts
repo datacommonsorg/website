@@ -15,6 +15,7 @@
  */
 
 import * as d3 from "d3";
+
 import { translateVariableString } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
 
@@ -377,15 +378,15 @@ interface Range {
 }
 
 export {
-  DataGroup,
-  DataPoint,
-  Range,
-  PlotParams,
-  Style,
   computePlotParams,
+  DataGroup,
   dataGroupsToCsv,
+  DataPoint,
   getColorFn,
   getDashes,
+  PlotParams,
+  Range,
   shouldFillInValues,
+  Style,
   wrap,
 };

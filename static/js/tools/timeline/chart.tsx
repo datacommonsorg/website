@@ -15,18 +15,18 @@
  */
 
 import React, { Component } from "react";
-import { StatVarInfo } from "../../shared/stat_var";
-import { fetchStatData, StatData } from "../../shared/data_fetcher";
+
+import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
-import { PlotParams, computePlotParams } from "../../chart/base";
-import { setChartPerCapita } from "./util";
+import { StatVarInfo } from "../../shared/stat_var";
+import {
+  fetchStatData,
+  getStatVarGroupWithTime,
+  StatData,
+} from "./data_fetcher";
+import { setChartOption } from "./util";
 
 const CHART_HEIGHT = 300;
-
-// Per capita toggle is only valid for the following measured properties. Many
-// other measured property like "income" "age" does not make sense for
-// "per capita".
-const PER_CAPITA_MPROP = ["cumulativeCount", "incrementalCount", "count"];
 
 interface StatVarChipPropsType {
   statVar: string;
@@ -67,7 +67,10 @@ interface ChartPropsType {
   mprop: string; // measured property
   placeName: Record<string, string>; // An array of place dcids.
   statVarInfo: Record<string, StatVarInfo>;
+  // Whether the chart is for the per capita of the data.
   perCapita: boolean;
+  // Whether the chart is on for the delta (increment) of the data.
+  delta: boolean;
   denomMap: Record<string, string>;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
@@ -100,24 +103,33 @@ class Chart extends Component<ChartPropsType> {
     const placeName = Object.values(this.props.placeName)[0];
     return (
       <div className="card">
-        {PER_CAPITA_MPROP.includes(this.props.mprop) && (
-          <span className="chartPerCapita">
-            Per capita
-            <button
-              className={
-                this.props.perCapita
-                  ? "perCapitaCheckbox checked"
-                  : "perCapitaCheckbox"
-              }
-              onClick={() => {
-                setChartPerCapita(this.props.mprop, !this.props.perCapita);
-              }}
-            ></button>
-            <a href="/faq#perCapita">
-              <span> *</span>
-            </a>
-          </span>
-        )}
+        <span className="chart-option">
+          Per capita
+          <button
+            className={
+              this.props.perCapita
+                ? "option-checkbox checked"
+                : "option-checkbox"
+            }
+            onClick={() => {
+              setChartOption(this.props.mprop, "pc", !this.props.perCapita);
+            }}
+          ></button>
+          <a href="/faq#perCapita">
+            <span> *</span>
+          </a>
+        </span>
+        <span className="chart-option">
+          Delta
+          <button
+            className={
+              this.props.delta ? "option-checkbox checked" : "option-checkbox"
+            }
+            onClick={() => {
+              setChartOption(this.props.mprop, "delta", !this.props.delta);
+            }}
+          ></button>
+        </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="statVarChipRegion">
           {statVars.map((statVar) => {
@@ -148,7 +160,8 @@ class Chart extends Component<ChartPropsType> {
   componentWillUnmount(): void {
     window.removeEventListener("resize", this.handleWindowResize);
     // reset the options to default value if the chart is removed
-    setChartPerCapita(this.props.mprop, false);
+    setChartOption(this.props.mprop, "pc", false);
+    setChartOption(this.props.mprop, "delta", false);
   }
 
   componentDidUpdate(): void {
@@ -167,6 +180,7 @@ class Chart extends Component<ChartPropsType> {
       Object.keys(this.props.placeName),
       Object.keys(this.props.statVarInfo),
       this.props.perCapita,
+      this.props.delta,
       1,
       this.props.denomMap
     ).then((statData) => {
@@ -195,9 +209,10 @@ class Chart extends Component<ChartPropsType> {
   private drawChart() {
     const dataGroupsDict = {};
     for (const place of this.statData.places) {
-      dataGroupsDict[
-        this.props.placeName[place]
-      ] = this.statData.getStatsVarGroupWithTime(place);
+      dataGroupsDict[this.props.placeName[place]] = getStatVarGroupWithTime(
+        this.statData,
+        place
+      );
     }
     drawGroupLineChart(
       this.svgContainer.current,

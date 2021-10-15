@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { formatNumber, translateUnit, loadLocaleData } from "./i18n";
+import { formatNumber, loadLocaleData, translateUnit } from "./i18n";
 
 /**
  * Prints a string as hex - useful to displaying non-breaking spaces and other

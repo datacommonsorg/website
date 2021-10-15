@@ -14,14 +14,27 @@
  * limitations under the License.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
+import { isDateTooFar, shouldCapStatVarDate } from "./util";
 
-import { Page } from "./page";
+test("isDateTooFar", () => {
+  const data = {
+    "2011": false,
+    "2021-10": false,
+    "2051": true,
+    "2052-12": true,
+  };
+  for (const date in data) {
+    expect(isDateTooFar(date)).toEqual(data[date]);
+  }
+});
 
-window.onload = () => {
-  ReactDOM.render(
-    React.createElement(Page),
-    document.getElementById("main-pane")
-  );
-};
+test("shouldCapStatVarDate", () => {
+  const data = {
+    Count_Person: false,
+    DifferenceRelativeToBaseDate2006_Daily_PrecipitationRate_RCP26: true,
+    Daily_PrecipitationRate: false,
+  };
+  for (const date in data) {
+    expect(shouldCapStatVarDate(date)).toEqual(data[date]);
+  }
+});

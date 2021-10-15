@@ -19,14 +19,17 @@
  * and passing the data to a `Chart` component that draws the choropleth.
  */
 
-import React, { useContext, useEffect, useState } from "react";
-import _ from "lodash";
-import { GeoJsonData, MapPoint } from "../../chart/types";
-import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
-import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
-import { Chart } from "./chart";
 import axios from "axios";
-import { StatApiResponse } from "../../shared/data_fetcher";
+import _ from "lodash";
+import React, { useContext, useEffect, useState } from "react";
+
+import { GeoJsonData, MapPoint } from "../../chart/types";
+import { MAX_DATE } from "../../shared/constants";
+import { StatApiResponse } from "../../shared/stat_types";
+import { shouldCapStatVarDate } from "../../shared/util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
+import { Chart } from "./chart";
+import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
@@ -140,10 +143,13 @@ function fetchData(
       `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
+  let statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`;
+  // Only cut the data for prediction data that extends to 2099
+  if (shouldCapStatVarDate(statVar.dcid)) {
+    statVarDataUrl += `&date=${MAX_DATE}`;
+  }
   const statVarDataPromise: Promise<PlacePointStat> = axios
-    .get(
-      `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`
-    )
+    .get(statVarDataUrl)
     .then((resp) => resp.data[statVar.dcid]);
   const breadcrumbDataPromise: Promise<PlacePointStat> = axios
     .post("/api/stats/set", {

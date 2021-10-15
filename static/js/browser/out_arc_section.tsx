@@ -18,12 +18,13 @@
  * Component for displaying the out arcs.
  */
 
-import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import React from "react";
+
 import { ArcTableRow } from "./arc_table_row";
-import { loadSpinner, removeSpinner } from "./util";
 import { ArcValue } from "./types";
+import { loadSpinner, removeSpinner } from "./util";
 
 const DCID_PREDICATE = "dcid";
 const TYPEOF_PREDICATE = "typeOf";

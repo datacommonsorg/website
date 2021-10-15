@@ -18,13 +18,14 @@
  * Component for rendering the observation charts for a place stat var.
  */
 
-import React from "react";
 import axios from "axios";
 import _ from "lodash";
-import { ObservationChart } from "./observation_chart";
-import { getUnit, loadSpinner, removeSpinner } from "./util";
-import { SourceSeries } from "./types";
+import React from "react";
+
 import { randDomId } from "../shared/util";
+import { ObservationChart } from "./observation_chart";
+import { SourceSeries } from "./types";
+import { getUnit, loadSpinner, removeSpinner } from "./util";
 
 const IGNORED_SOURCE_SERIES_MMETHODS = new Set([
   "GoogleKGHumanCurated",

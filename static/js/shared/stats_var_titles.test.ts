@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { getStatsVarTitle } from "./stats_var_titles";
-import { placeExplorerCategories } from "./util";
 import { loadLocaleData } from "../i18n/i18n";
 import enTitles from "../i18n/strings/en/stats_var_titles.json";
+import { getStatsVarTitle } from "./stats_var_titles";
+import { placeExplorerCategories } from "./util";
 
 test("stats var label: marked for translation", async () => {
   for (const file of placeExplorerCategories) {
