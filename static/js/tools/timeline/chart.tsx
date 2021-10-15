@@ -28,11 +28,6 @@ import { setChartOption } from "./util";
 
 const CHART_HEIGHT = 300;
 
-// Per capita toggle is only valid for the following measured properties. Many
-// other measured property like "income" "age" does not make sense for
-// "per capita".
-const PER_CAPITA_MPROP = ["cumulativeCount", "incrementalCount", "count"];
-
 interface StatVarChipPropsType {
   statVar: string;
   color: string;
@@ -108,24 +103,22 @@ class Chart extends Component<ChartPropsType> {
     const placeName = Object.values(this.props.placeName)[0];
     return (
       <div className="card">
-        {PER_CAPITA_MPROP.includes(this.props.mprop) && (
-          <span className="chart-option">
-            Per capita
-            <button
-              className={
-                this.props.perCapita
-                  ? "option-checkbox checked"
-                  : "option-checkbox"
-              }
-              onClick={() => {
-                setChartOption(this.props.mprop, "pc", !this.props.perCapita);
-              }}
-            ></button>
-            <a href="/faq#perCapita">
-              <span> *</span>
-            </a>
-          </span>
-        )}
+        <span className="chart-option">
+          Per capita
+          <button
+            className={
+              this.props.perCapita
+                ? "option-checkbox checked"
+                : "option-checkbox"
+            }
+            onClick={() => {
+              setChartOption(this.props.mprop, "pc", !this.props.perCapita);
+            }}
+          ></button>
+          <a href="/faq#perCapita">
+            <span> *</span>
+          </a>
+        </span>
         <span className="chart-option">
           Delta
           <button

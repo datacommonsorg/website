@@ -90,6 +90,12 @@ export function setChartOption(
   if (!chartOptions) {
     chartOptions = {};
   }
+  if (typeof chartOptions[mprop] == "boolean") {
+    // To make this work with old url with only per capita option.
+    chartOptions[mprop] = {
+      pc: chartOptions[mprop],
+    };
+  }
   if (!chartOptions[mprop]) {
     chartOptions[mprop] = {};
   }
@@ -104,15 +110,23 @@ export function setChartOption(
 
 export function getChartOption(mprop: string, name: string): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  if (urlParams.get(name)) {
+  if (urlParams.get(name) != null) {
     return true;
   }
   const chartOptions = JSON.parse(urlParams.get("chart"));
   if (!chartOptions) {
     return false;
   }
-  if (mprop in chartOptions && name in chartOptions[mprop]) {
-    return chartOptions[mprop][name];
+  if (mprop in chartOptions) {
+    if (typeof chartOptions[mprop] == "boolean") {
+      // To make this work with old url with only per capita option.
+      if (name === "pc") {
+        return chartOptions[mprop];
+      }
+      return false;
+    } else if (name in chartOptions[mprop]) {
+      return chartOptions[mprop][name];
+    }
+    return false;
   }
-  return false;
 }
