@@ -222,6 +222,25 @@ interface PlotParams {
   legend: { [key: string]: Style };
 }
 
+function temperatureColorMap(statVar: string): string {
+      if (statVar.indexOf('_Temperature') <= 0) {
+        return undefined;
+      }
+        if (statVar.indexOf('RCP') > 0) {
+          if (statVar.indexOf('Max') >= 0) {
+            return '#dc3545';
+          } else {
+            return "#007bff";
+          }
+        } else {
+          if (statVar.indexOf('Max') >= 0) {
+            return '#600';
+          } else {
+            return "#003874";
+          }
+        }
+}
+
 /**
  * Return color and dash style given place names and stats var display names.
  *
@@ -242,13 +261,14 @@ function computePlotParams(
     const placeName = placeNames[placeDcids[0]];
     const colorFn = getColorFn(statVars);
     for (const statVar of statVars) {
-      lines[placeName + statVar] = { color: colorFn(statVar), dash: "" };
+      let color = temperatureColorMap(statVar) || colorFn(statVar);
+      lines[placeName + statVar] = { color: color, dash: "" };
       let legendLabel = `${statVar} (${placeName})`;
       if (statVar in statVarInfo) {
         legendLabel = `${statVarInfo[statVar].title || statVar} (${placeName})`;
       }
       const legendLink = `/browser/${placeDcids[0]}?statVar=${statVar}`;
-      legend[legendLabel] = { color: colorFn(statVar), legendLink };
+      legend[legendLabel] = { color: color, legendLink };
     }
   } else if (statVars.length === 1) {
     const colorFn = getColorFn(Object.values(placeNames));
@@ -273,9 +293,10 @@ function computePlotParams(
         "__"
       )}`;
       legend[placeName] = { color: DEFAULT_COLOR, dash: dashFn[i], legendLink };
-      for (const statsVar of statVars) {
-        lines[placeName + statsVar] = {
-          color: colorFn(statsVar),
+      for (const statVar of statVars) {
+        let color = temperatureColorMap(statVar) || colorFn(statVar);
+        lines[placeName + statVar] = {
+          color: color,
           dash: dashFn[i],
         };
       }

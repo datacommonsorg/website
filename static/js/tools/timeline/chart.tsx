@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import axios from "axios";
+import * as d3 from "d3";
 
 import { PlotParams, computePlotParams } from "../../chart/base";
 import React, { Component } from "react";
@@ -21,10 +23,12 @@ import {
   fetchStatData,
   getStatVarGroupWithTime,
 } from "./data_fetcher";
+import _ from "lodash";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { drawGroupLineChart } from "../../chart/draw";
 import { setChartOption } from "./util";
+import { StatAllApiResponse } from "../../shared/stat_types";
 
 const CHART_HEIGHT = 300;
 
@@ -86,6 +90,7 @@ class Chart extends Component<ChartPropsType> {
   plotParams: PlotParams;
   statData: StatData;
   units: string[];
+  ipccModels: StatData;
 
   constructor(props: ChartPropsType) {
     super(props);
@@ -181,16 +186,86 @@ class Chart extends Component<ChartPropsType> {
     this.drawChart();
   }
 
+  /**
+   * Creates a new StatData object for all measurement methods of the stat var, with an artificial stat var
+   * StatVar-MMethod. The StatData values for the StatVar is also updated to be the mean across the measurement
+   * methods for the data.
+   */
+  private prepareIpccData(ipccData: StatAllApiResponse) {
+    let modelData = {
+      places: [],
+      statVars: [],
+      dates: [],
+      data: {},
+      sources: new Set<string>()
+    };
+    for (const place in ipccData.placeData) {
+      const placeData = ipccData.placeData[place];
+      modelData.places.push(place);
+      modelData.data[place] = { data: {} };
+      for (const sv in ipccData.placeData[place].statVarData) {
+        modelData.statVars.push(sv);
+        const svData = placeData.statVarData[sv];
+        if ('sourceSeries' in svData) {
+          const means = {};
+          let annualSeries = svData.sourceSeries.filter((data) => {
+            return data.observationPeriod == 'P1Y'
+          });
+          // HACK: Replace requested series with means for obsPeriod=P1Y across
+          // models.
+          for (const series of annualSeries) {
+            for (const date of Object.keys(series.val).sort()) {
+              means[date] = date in means ? means[date] : [];
+              means[date].push(series.val[date]);
+            }
+            const newSv = `${sv}-${series.measurementMethod}`;
+            modelData.data[place].data[newSv] = { val: series.val };
+            modelData.statVars.push(newSv);
+          }
+          for (const date in means) {
+            means[date] = _.mean(means[date]);
+          }
+          this.statData.data[place].data[sv].val = means;
+          this.statData.dates = _.union(this.statData.dates, Object.keys(means));
+          modelData.dates = this.statData.dates;
+        }
+      }
+    }
+    this.ipccModels = modelData;
+  }
+
   private loadDataAndDrawChart() {
-    fetchStatData(
+    // If URL param and stat var == ipcc something, also fetch historical
+    // also fetch all models
+    const places = Object.keys(this.props.placeNames);
+    const statVars = Object.keys(this.props.statVarInfos);
+
+    // Also fetch all measurement methods for IPCC projectistat vars.
+    const ipccStatVars = statVars.filter((sv) => sv.indexOf('_Temperature') > 0 && sv.indexOf('Difference') < 0);
+    let ipccStatDataPromise;
+    if (ipccStatVars.length > 0) {
+      ipccStatDataPromise = axios.get(`/api/stats/all?places=${places.join('&places=')}&statVars=${ipccStatVars.join('&statVars=')}`
+      ).then((resp) => {
+        return resp.data;
+      });
+    }
+
+    let statDataPromise = fetchStatData(
       Object.keys(this.props.placeNames),
       Object.keys(this.props.statVarInfos),
       this.props.perCapita,
       this.props.delta,
       1,
       this.props.denomMap
-    ).then((statData) => {
-      this.statData = statData;
+    );
+
+    Promise.all([statDataPromise, ipccStatDataPromise]).then((resp) => {
+      this.statData = resp[0];
+      let ipccStatAllData = resp[1];
+
+      if (ipccStatAllData) {
+        this.prepareIpccData(ipccStatAllData);
+      }
       // Get from all stat vars. In most cases there should be only one
       // unit.
       const placeData = Object.values(this.statData.data)[0];
@@ -202,7 +277,8 @@ class Chart extends Component<ChartPropsType> {
         }
       }
       this.units = Array.from(units).sort();
-      this.props.onDataUpdate(this.props.mprop, statData);
+
+      this.props.onDataUpdate(this.props.mprop, this.statData);
       if (this.svgContainer.current) {
         this.drawChart();
       }
@@ -220,16 +296,27 @@ class Chart extends Component<ChartPropsType> {
         place
       );
     }
+    const modelsDataGroupsDict = {}
+    if (this.ipccModels) {
+      for (const place of this.ipccModels.places) {
+        modelsDataGroupsDict[this.props.placeNames[place]] = getStatVarGroupWithTime(
+          this.ipccModels,
+          place
+        );
+      }
+    }
     drawGroupLineChart(
       this.svgContainer.current,
       this.svgContainer.current.offsetWidth,
       CHART_HEIGHT,
       this.props.statVarInfos,
+      // modelsDataGroupsDict,
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
       Array.from(this.statData.sources),
-      this.units.join(", ")
+      this.units.join(", "),
+      modelsDataGroupsDict
     );
   }
 
