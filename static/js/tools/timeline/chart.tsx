@@ -222,11 +222,6 @@ class Chart extends Component<ChartPropsType> {
             means[date] = _.mean(means[date]);
           }
           this.statData.data[place].data[sv].val = means;
-          // TODO: This date munging shouldn't be necessary if GetStatAll returns only P1Y data.
-          this.statData.dates = _.union(
-            this.statData.dates,
-            Object.keys(means)
-          );
         }
       }
     }
