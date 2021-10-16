@@ -101,6 +101,8 @@ export function getUnit(placePointStat: PlacePointStat): string {
  */
 export function isIpccStatVarWithMultipleModels(statVar: string) {
   return (
-    statVar.indexOf("_Temperature") > 0 && statVar.indexOf("Difference") < 0
+    statVar.indexOf("_Temperature") > 0 &&
+    statVar.indexOf("Difference") < 0 &&
+    !statVar.endsWith("Temperature")
   );
 }
