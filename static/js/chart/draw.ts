@@ -1211,7 +1211,7 @@ function drawGroupLineChart(
           .attr("d", line)
           .style("fill", "none")
           .style("stroke", lineStyle.color)
-          .style("stroke-width", "1.5px")
+          .style("stroke-width", "2px")
           .style("stroke-dasharray", lineStyle.dash)
           .style("stroke-linecap", "round")
           .style("stroke-linejoin", "round");
