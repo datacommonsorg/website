@@ -195,7 +195,6 @@ class Chart extends Component<ChartPropsType> {
       data: {},
       sources: new Set<string>(),
     };
-    this.statData.dates = [];
     for (const place in ipccData.placeData) {
       const placeData = ipccData.placeData[place];
       modelData.places.push(place);
@@ -223,10 +222,6 @@ class Chart extends Component<ChartPropsType> {
             means[date] = _.mean(means[date]);
           }
           this.statData.data[place].data[sv].val = means;
-          this.statData.dates = _.union(
-            this.statData.dates,
-            Object.keys(means)
-          );
         }
       }
     }
