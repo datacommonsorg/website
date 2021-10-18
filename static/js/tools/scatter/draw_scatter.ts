@@ -234,14 +234,14 @@ function addDensityLegend(
     .append("text")
     .attr("dominant-baseline", "hanging")
     .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
-    .text("sparse");
+    .text("dense");
 
   legend
     .append("g")
     .append("text")
     .attr("dominant-baseline", "hanging")
     .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
-    .text("dense")
+    .text("sparse")
     .attr(
       "transform",
       `translate(0, ${
@@ -255,7 +255,7 @@ function addDensityLegend(
   canvas.height = contours.length + 1;
   const context = canvas.getContext("2d");
   for (let i = 0; i <= contours.length; i++) {
-    context.fillStyle = colorScale(contours.length - i);
+    context.fillStyle = colorScale(i);
     context.fillRect(0, i, 1, 1);
   }
   legend

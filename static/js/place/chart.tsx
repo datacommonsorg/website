@@ -413,7 +413,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         colorScale,
         redirectAction,
         getTooltipHtml,
-        true,
+        () => true,
         true,
         true
       );
