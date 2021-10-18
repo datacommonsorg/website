@@ -15,11 +15,13 @@
  */
 
 import {
+  addToken,
+  getChartOption,
   getPlaceNames,
   getTokensFromUrl,
-  setTokensToUrl,
-  addToken,
   removeToken,
+  setChartOption,
+  setTokensToUrl,
 } from "./util";
 
 test("get place names", () => {
@@ -76,4 +78,44 @@ test("test removeToken", () => {
   // places
   removeToken("statsVar", "__", "Count_Person");
   expect(window.location.hash).toBe("#statsVar=Median_Age_Person");
+});
+
+test("get chart option", () => {
+  // New url format
+  window.location.hash = `#statsVar=Count_Household&place=country%2FUSA&pc`;
+  expect(getChartOption("count", "pc")).toEqual(true);
+  expect(getChartOption("count", "delta")).toEqual(false);
+
+  window.location.hash = `#statsVar=Count_Household&place=country%2FUSA&chart=%7B"count"%3A%7B"pc"%3Atrue%7D%7D`;
+  expect(getChartOption("count", "pc")).toEqual(true);
+  expect(getChartOption("count", "delta")).toEqual(false);
+
+  window.location.hash = `#statsVar=Count_Household__Median_Age_Person&place=country%2FUSA&chart=%7B"count"%3A%7B"pc"%3Atrue%7D%2C"age"%3A%7B"delta"%3Atrue%7D%7D`;
+  expect(getChartOption("count", "pc")).toEqual(true);
+  expect(getChartOption("count", "delta")).toEqual(false);
+  expect(getChartOption("age", "pc")).toEqual(false);
+  expect(getChartOption("age", "delta")).toEqual(true);
+
+  // Old url format with only pc set
+  window.location.hash = `place=country%2FUSA&statsVar=Count_CriminalActivities_CombinedCrime&chart=%7B"count"%3Atrue%7D`;
+  expect(getChartOption("count", "pc")).toEqual(true);
+  expect(getChartOption("count", "delta")).toEqual(false);
+});
+
+test("set chart option", () => {
+  // New url format
+  window.location.hash = `#statsVar=Count_Household&place=country%2FUSA`;
+  setChartOption("count", "pc", true);
+  expect(getChartOption("count", "pc")).toEqual(true);
+  setChartOption("count", "pc", false);
+  expect(getChartOption("count", "pc")).toEqual(false);
+  setChartOption("count", "delta", true);
+  expect(getChartOption("count", "delta")).toEqual(true);
+
+  // Old url format with only pc set
+  window.location.hash = `place=country%2FUSA&statsVar=Count_CriminalActivities_CombinedCrime&chart=%7B"count"%3Atrue%7D`;
+  setChartOption("count", "pc", false);
+  expect(getChartOption("count", "pc")).toEqual(false);
+  setChartOption("count", "pc", true);
+  expect(getChartOption("count", "pc")).toEqual(true);
 });

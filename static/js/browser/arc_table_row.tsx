@@ -19,8 +19,9 @@
  * the property, value, and provenance of an arc.
  */
 
-import React from "react";
 import _ from "lodash";
+import React from "react";
+
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";

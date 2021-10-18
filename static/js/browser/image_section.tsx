@@ -18,9 +18,10 @@
  * Component for rendering the image for the imageUrl property value.
  */
 
-import React from "react";
 import axios from "axios";
 import _ from "lodash";
+import React from "react";
+
 import { loadSpinner, removeSpinner } from "./util";
 
 const IMAGE_URL_PROPERTY_LABEL = "imageUrl";

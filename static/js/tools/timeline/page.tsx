@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import React, { Component } from "react";
 import axios from "axios";
 import _ from "lodash";
+import React, { Component } from "react";
+
+import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
+import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { ChartRegion } from "./chart_region";
+import { Info } from "./info";
+import { SearchBar } from "./search";
 import {
+  addToken,
   getPlaceNames,
   getTokensFromUrl,
-  addToken,
-  removeToken,
-  statVarSep,
   placeSep,
+  removeToken,
   setTokensToUrl,
+  statVarSep,
 } from "./util";
-import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
-import { SearchBar } from "./search";
-import { Info } from "./info";
-import { ChartRegion } from "./chart_region";
-
-import { StatVarHierarchyType, NamedPlace } from "../../shared/types";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 
 interface PageStateType {
   placeName: Record<string, string>;

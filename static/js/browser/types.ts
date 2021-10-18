@@ -30,16 +30,6 @@ export interface InArcValue {
   dcid: string;
   name?: string;
 }
-export interface SourceSeries {
-  provenanceDomain: string;
-  val: { [key: string]: string };
-  importName?: string;
-  measurementMethod?: string;
-  observationPeriod?: string;
-  scalingFactor?: string;
-  unit?: string;
-  mprop?: string;
-}
 
 export enum PageDisplayType {
   PLACE_STAT_VAR,

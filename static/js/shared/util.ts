@@ -16,6 +16,7 @@
 
 import { NamedTypedPlace } from "../tools/map/context";
 import { USA_PLACE_HIERARCHY } from "../tools/map/util";
+import { MAX_YEAR } from "./constants";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -95,4 +96,12 @@ export function shouldShowMapBoundaries(
     return true;
   }
   return enclosedPlaceTypeIdx - selectedPlaceTypeIdx < 2;
+}
+
+export function isDateTooFar(date: string): boolean {
+  return date.slice(0, 4) > MAX_YEAR;
+}
+
+export function shouldCapStatVarDate(statVar: string): boolean {
+  return statVar.includes("_RCP");
 }

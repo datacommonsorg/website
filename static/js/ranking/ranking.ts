@@ -20,8 +20,9 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Page } from "./ranking_page";
+
 import { loadLocaleData } from "../i18n/i18n";
+import { Page } from "./ranking_page";
 
 window.onload = () => {
   const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;

@@ -1,7 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Single place and single stats var 1`] = `
-"<div class=\\"card\\">
+exports[`Single place and single stat var 1`] = `
+"<div class=\\"card\\"><span class=\\"chart-option\\">Per capita<button class=\\"option-checkbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span><span class=\\"chart-option\\">Delta<button class=\\"option-checkbox\\"></button></span>
+  <div class=\\"chart-svg\\"></div>
+  <div class=\\"statVarChipRegion\\">
+    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+  </div>
+</div>"
+`;
+
+exports[`Single place and single stat var 2`] = `
+"<div class=\\"card\\"><span class=\\"chart-option\\">Per capita<button class=\\"option-checkbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span><span class=\\"chart-option\\">Delta<button class=\\"option-checkbox\\"></button></span>
   <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
@@ -9,16 +18,7 @@ exports[`Single place and single stats var 1`] = `
 </div>"
 `;
 
-exports[`Single place and single stats var 2`] = `
-"<div class=\\"card\\">
-  <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  <div class=\\"statVarChipRegion\\">
-    <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
-  </div>
-</div>"
-`;
-
-exports[`Single place and single stats var 3`] = `
+exports[`Single place and single stat var 3`] = `
 "<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title node-no-data\\">Demographics</span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\">
@@ -57,8 +57,8 @@ exports[`Single place and single stats var 3`] = `
 `;
 
 exports[`chart options 1`] = `
-"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
-  <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
+"<div class=\\"card\\"><span class=\\"chart-option\\">Per capita<button class=\\"option-checkbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span><span class=\\"chart-option\\">Delta<button class=\\"option-checkbox\\"></button></span>
+  <div class=\\"chart-svg\\"></div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Population</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
@@ -66,7 +66,7 @@ exports[`chart options 1`] = `
 `;
 
 exports[`statVar not in PV-tree 1`] = `
-"<div class=\\"card\\"><span class=\\"chartPerCapita\\">Per capita<button class=\\"perCapitaCheckbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span>
+"<div class=\\"card\\"><span class=\\"chart-option\\">Per capita<button class=\\"option-checkbox\\"></button><a href=\\"/faq#perCapita\\"><span> *</span></a></span><span class=\\"chart-option\\">Delta<button class=\\"option-checkbox\\"></button></span>
   <div class=\\"chart-svg\\"></div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\"></span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>

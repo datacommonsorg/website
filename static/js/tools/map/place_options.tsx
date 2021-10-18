@@ -18,14 +18,15 @@
  * Place options for selecting the enclosing place and enclosed place type.
  */
 
-import React, { useContext, useEffect, useState } from "react";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
-import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
-import { SearchBar } from "../timeline/search";
-import { CHILD_PLACE_TYPES } from "./util";
+
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { SearchBar } from "../timeline/search";
+import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
+import { CHILD_PLACE_TYPES } from "./util";
 
 export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);

@@ -77,8 +77,10 @@ class DevConfig(Config):
 
 
 class PrivateConfig(Config):
-    NAME = "International Energy Agency"
-    PRIVATE = True
+    SUSTAINABILITY = True
+    # Update to deploy sustainability site to iea.datacommons.org
+    # NAME = "International Energy Agency"
+    # PRIVATE = True
 
 
 class MinikubeConfig(Config):

@@ -155,7 +155,6 @@ localhost on port 8081. The default is 8080.
 Please note the strict syntax requirements for the script, and leave a space after the flag.
 So `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
 
-
 ## Develop with local Kubernetes
 
 This is an alternative way to bring up website stack locally and this is close

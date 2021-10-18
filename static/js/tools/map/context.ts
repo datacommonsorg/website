@@ -15,9 +15,10 @@
  */
 
 import { createContext, useState } from "react";
-import { NamedPlace } from "../../shared/types";
+
 import { StatVarInfo } from "../../shared/stat_var";
-import { applyHashStatVar, applyHashPlaceInfo } from "./util";
+import { NamedPlace } from "../../shared/types";
+import { applyHashPlaceInfo, applyHashStatVar } from "./util";
 
 /**
  * Global app context for map explorer tool.

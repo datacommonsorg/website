@@ -15,7 +15,17 @@
  */
 
 import * as d3 from "d3";
-import { shouldFillInValues, wrap } from "./base";
+
+import { DataGroup, DataPoint, shouldFillInValues, wrap } from "./base";
+
+test("minOfNullValues", () => {
+  const group = new DataGroup("label", [
+    new DataPoint("2011", null),
+    new DataPoint("2011", 100),
+    new DataPoint("2011", 300),
+  ]);
+  expect(group.min()).toBe(100);
+});
 
 test("shouldFillInValues", () => {
   let series = [

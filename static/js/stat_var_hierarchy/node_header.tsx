@@ -20,8 +20,8 @@
 
 import React from "react";
 
-import { StatVarHierarchyNodeType } from "../shared/types";
 import { Context, ContextType } from "../shared/context";
+import { StatVarHierarchyNodeType } from "../shared/types";
 import { StatVarHierarchyType } from "../shared/types";
 
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;

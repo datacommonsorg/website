@@ -20,17 +20,20 @@
 
 import axios from "axios";
 import _ from "lodash";
+
+import { MAX_DATE } from "../../shared/constants";
 import { StatVarNode } from "../../shared/stat_var";
+import { shouldCapStatVarDate } from "../../shared/util";
+import { PlacePointStat } from "../shared_util";
 import {
-  ContextType,
   Axis,
-  PlaceInfo,
+  ContextType,
+  DisplayOptionsWrapper,
   EmptyAxis,
   EmptyPlace,
   FieldToAbbreviation,
-  DisplayOptionsWrapper,
+  PlaceInfo,
 } from "./context";
-import { PlacePointStat } from "../shared_util";
 
 export enum ScatterChartType {
   SCATTER,
@@ -55,16 +58,29 @@ async function getStatsWithinPlace(
   statVars: Array<string>
 ): Promise<Record<string, PlacePointStat>> {
   let statVarParams = "";
+  // There are two stat vars for scatter plot.
+  //
+  // For IPCC stat vars, need to cut the data up to certain date, so here will
+  // always send two requests for each stat var.
+  const promises: Promise<Record<string, PlacePointStat>>[] = [];
   for (const statVar of statVars) {
-    statVarParams += `&stat_vars=${statVar}`;
+    statVarParams = `&stat_vars=${statVar}`;
+    if (shouldCapStatVarDate(statVar)) {
+      statVarParams += `&date=${MAX_DATE}`;
+    }
+    promises.push(
+      axios.get(
+        `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
+      )
+    );
   }
-  return axios
-    .get(
-      `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
-    )
-    .then((resp) => {
-      return resp.data;
-    });
+  return Promise.all(promises).then((responses) => {
+    let result: Record<string, PlacePointStat> = {};
+    for (const resp of responses) {
+      result = Object.assign(result, resp.data);
+    }
+    return result;
+  });
 }
 
 /**
@@ -98,6 +114,9 @@ function applyHash(context: ContextType): void {
       ? ScatterChartType.MAP
       : ScatterChartType.SCATTER;
   context.display.setChartType(chartType);
+  context.display.setDensity(
+    applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
 }
 
 /**
@@ -275,6 +294,9 @@ function updateHashDisplayOptions(
   val = display.showLabels ? "1" : "0";
   hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
 
+  val = display.showDensity ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showDensity, val);
+
   val = display.chartType === ScatterChartType.SCATTER ? "0" : "1";
   hash = appendEntry(hash, FieldToAbbreviation.chartType, val);
 
@@ -311,9 +333,9 @@ export function areStatVarsPicked(x: Axis, y: Axis): boolean {
 }
 
 export {
+  applyHash,
   getPlacesInNames,
   getStatsWithinPlace,
   nodeGetStatVar,
   updateHash,
-  applyHash,
 };

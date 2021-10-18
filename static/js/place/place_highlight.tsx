@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import React from "react";
-import { PageHighlight } from "../chart/types";
-import { urlToDomain } from "../shared/util";
-import { intl } from "../i18n/i18n";
 import _ from "lodash";
+import React from "react";
+
+import { PageHighlight } from "../chart/types";
+import { intl } from "../i18n/i18n";
+import { urlToDomain } from "../shared/util";
 
 interface PlaceHighlightPropsType {
   dcid: string;

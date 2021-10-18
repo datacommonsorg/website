@@ -16,6 +16,7 @@
 
 import { NamedTypedPlace } from "../tools/map/context";
 import { shouldShowMapBoundaries } from "./util";
+import { isDateTooFar, shouldCapStatVarDate } from "./util";
 
 test("shouldShowMapBoundaries", () => {
   const selectedPlace: NamedTypedPlace = {
@@ -25,4 +26,27 @@ test("shouldShowMapBoundaries", () => {
   };
   expect(shouldShowMapBoundaries(selectedPlace, "County")).toEqual(false);
   expect(shouldShowMapBoundaries(selectedPlace, "State")).toEqual(true);
+});
+
+test("isDateTooFar", () => {
+  const data = {
+    "2011": false,
+    "2021-10": false,
+    "2051": true,
+    "2052-12": true,
+  };
+  for (const date in data) {
+    expect(isDateTooFar(date)).toEqual(data[date]);
+  }
+});
+
+test("shouldCapStatVarDate", () => {
+  const data = {
+    Count_Person: false,
+    DifferenceRelativeToBaseDate2006_Daily_PrecipitationRate_RCP26: true,
+    Daily_PrecipitationRate: false,
+  };
+  for (const date in data) {
+    expect(shouldCapStatVarDate(date)).toEqual(data[date]);
+  }
 });

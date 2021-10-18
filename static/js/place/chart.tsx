@@ -14,36 +14,37 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React from "react";
-import { DataPoint, DataGroup, dataGroupsToCsv } from "../chart/base";
+import { FormattedMessage } from "react-intl";
+
+import { DataGroup, dataGroupsToCsv, DataPoint } from "../chart/base";
 import {
+  drawGroupBarChart,
   drawLineChart,
   drawStackBarChart,
-  drawGroupBarChart,
 } from "../chart/draw";
+import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
 import {
-  chartTypeEnum,
-  TrendData,
-  SnapshotData,
-  ChoroplethDataGroup,
   CachedChoroplethData,
+  chartTypeEnum,
+  ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
+  SnapshotData,
+  TrendData,
 } from "../chart/types";
-import { updatePageLayoutState } from "./place";
-import { ChartEmbed } from "./chart_embed";
-import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
-import _ from "lodash";
-import { FormattedMessage } from "react-intl";
-import { getStatsVarLabel } from "../shared/stats_var_labels";
 import {
-  LocalizedLink,
-  intl,
-  localizeSearchParams,
   formatNumber,
+  intl,
+  LocalizedLink,
+  localizeSearchParams,
 } from "../i18n/i18n";
-import { urlToDomain } from "../shared/util";
+import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
+import { isDateTooFar, urlToDomain } from "../shared/util";
+import { ChartEmbed } from "./chart_embed";
+import { updatePageLayoutState } from "./place";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -449,6 +450,13 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         for (const statVar in this.props.trend.series) {
           const dataPoints: DataPoint[] = [];
           for (const date in this.props.trend.series[statVar]) {
+            // TODO(shifucun): consider move this to mixer so we can save the
+            // check here.
+            // This depends on if all the data in IPCC are desired by the API
+            // users.
+            if (isDateTooFar(date)) {
+              continue;
+            }
             allDates.add(date);
             dataPoints.push({
               label: date,

@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-import React from "react";
 import axios from "axios";
-import { LocationRankData } from "./ranking_types";
+import React from "react";
+import { defineMessages } from "react-intl";
+
+import { intl, LocalizedLink } from "../i18n/i18n";
+import { displayNameForPlaceType } from "../place/util";
+import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
-import { displayNameForPlaceType } from "../place/util";
-import { intl, LocalizedLink } from "../i18n/i18n";
-import { defineMessages } from "react-intl";
-import { getStatsVarTitle } from "../shared/stats_var_titles";
+import { LocationRankData } from "./ranking_types";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;

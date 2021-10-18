@@ -19,14 +19,14 @@
  * region with chart, or a checkbox.
  */
 
+import axios from "axios";
 import React from "react";
 
-import { StatVarInfo, StatVarSummary } from "../shared/types";
 import { StatVarCharts } from "../browser/stat_var_charts";
-import { NamedPlace, StatVarHierarchyType } from "../shared/types";
 import { Context } from "../shared/context";
+import { NamedPlace, StatVarHierarchyType } from "../shared/types";
+import { StatVarInfo, StatVarSummary } from "../shared/types";
 import { StatVarSectionInput } from "./stat_var_section_input";
-import axios from "axios";
 
 interface StatVarSectionPropType {
   path: string[];

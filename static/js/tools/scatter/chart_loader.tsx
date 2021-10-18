@@ -19,24 +19,25 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
-import React, { useContext, useEffect, useState } from "react";
-import _ from "lodash";
 import axios from "axios";
+import _ from "lodash";
+import React, { useContext, useEffect, useState } from "react";
+import { GeoJsonData } from "../../chart/types";
+
+import { StatApiResponse } from "../../shared/stat_types";
+import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
-import { StatApiResponse } from "../../shared/data_fetcher";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
-import { getStatsWithinPlace, arePlacesLoaded } from "./util";
 import { Chart } from "./chart";
 import {
-  Context,
   Axis,
   AxisWrapper,
-  PlaceInfo,
+  Context,
   IsLoadingWrapper,
+  PlaceInfo,
 } from "./context";
-import { NamedPlace } from "../../shared/types";
 import { PlotOptions } from "./plot_options";
-import { GeoJsonData } from "../../chart/types";
+import { arePlacesLoaded, getStatsWithinPlace } from "./util";
 
 /**
  * Represents a point in the scatter plot.
@@ -122,6 +123,7 @@ function ChartLoader(): JSX.Element {
                 geoJsonData={cache.geoJsonData}
                 placeInfo={place.value}
                 chartType={display.chartType}
+                showDensity={display.showDensity}
               />
               <PlotOptions />
             </>

@@ -18,19 +18,20 @@
  * Chart component for plotting a scatter plot.
  */
 
-import ReactDOMServer from "react-dom/server";
-import React, { useEffect, useRef, useState } from "react";
-import _ from "lodash";
-import { Container, Row, Card } from "reactstrap";
 import * as d3 from "d3";
-import { Point } from "./chart_loader";
-import { shouldShowMapBoundaries, urlToDomain } from "../../shared/util";
-import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import _ from "lodash";
+import React, { useEffect, useRef, useState } from "react";
+import ReactDOMServer from "react-dom/server";
+import { Card, Container, Row } from "reactstrap";
+
 import { drawChoropleth } from "../../chart/draw_choropleth";
-import { ScatterChartType } from "./util";
+import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { NamedPlace } from "../../shared/types";
+import { shouldShowMapBoundaries, urlToDomain } from "../../shared/util";
+import { Point } from "./chart_loader";
 import { PlaceInfo } from "./context";
 import { drawScatter } from "./draw_scatter";
+import { ScatterChartType } from "./util";
 
 interface ChartPropsType {
   points: { [placeDcid: string]: Point };
@@ -49,6 +50,7 @@ interface ChartPropsType {
   geoJsonData: GeoJsonData;
   placeInfo: PlaceInfo;
   chartType: ScatterChartType;
+  showDensity: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";

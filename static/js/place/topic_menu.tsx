@@ -15,6 +15,7 @@
  */
 
 import React from "react";
+
 import { PageChart } from "../chart/types";
 import { intl, LocalizedLink } from "../i18n/i18n";
 

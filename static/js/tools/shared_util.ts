@@ -16,7 +16,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { TimeSeries } from "../shared/data_fetcher";
+import { TimeSeries } from "../shared/stat_types";
 import { StatVarInfo } from "../shared/stat_var";
 
 /**
@@ -96,12 +96,13 @@ export function getUnit(placePointStat: PlacePointStat): string {
 }
 
 /**
- * Returns true if the stat var is entirely a projection.
+ * Returns true if the stat var is an IPCC stat var with multiple measurement
+ * methods (each representing a different computation model).
  */
-export function isProjection(info: StatVarInfo): boolean {
-  // TODO: Update this to longer-term logic.
-  if (["temperature", "precipitationRate"].includes(info.mprop)) {
-    return true;
-  }
-  return false;
+export function isIpccStatVarWithMultipleModels(statVar: string) {
+  return (
+    statVar.indexOf("_Temperature") > 0 &&
+    statVar.indexOf("Difference") < 0 &&
+    !statVar.endsWith("Temperature")
+  );
 }

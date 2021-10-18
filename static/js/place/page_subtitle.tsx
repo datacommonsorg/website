@@ -15,6 +15,7 @@
  */
 
 import React from "react";
+
 import { intl, LocalizedLink } from "../i18n/i18n";
 
 interface PageSubtitlePropsType {

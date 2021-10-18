@@ -16,11 +16,12 @@
 
 import _ from "lodash";
 import React, { Component } from "react";
-import { StatData } from "../../shared/data_fetcher";
+
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
-import { removeToken, getChartPerCapita, statVarSep } from "./util";
+import { StatData } from "./data_fetcher";
+import { getChartOption, removeToken, statVarSep } from "./util";
 
 interface ChartGroupInfo {
   chartOrder: string[];
@@ -87,12 +88,13 @@ class ChartRegion extends Component<ChartRegionPropsType> {
             <Chart
               key={mprop}
               mprop={mprop}
-              placeName={this.props.placeName}
-              statVarInfo={_.pick(
+              placeNames={this.props.placeName}
+              statVarInfos={_.pick(
                 this.props.statVarInfo,
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              perCapita={getChartPerCapita(mprop)}
+              perCapita={getChartOption(mprop, "pc")}
+              delta={getChartOption(mprop, "delta")}
               denomMap={this.props.denomMap}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
@@ -214,4 +216,4 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   }
 }
 
-export { ChartRegionPropsType, ChartRegion, StatVarInfo };
+export { ChartRegion, ChartRegionPropsType, StatVarInfo };

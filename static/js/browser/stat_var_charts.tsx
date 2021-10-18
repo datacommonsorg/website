@@ -19,12 +19,13 @@
  */
 
 import React from "react";
-import { StatVarInfo, StatVarHierarchyNodeType } from "../shared/types";
-import { StatVarHierarchyNodeHeader } from "../stat_var_hierarchy/node_header";
 import Collapsible from "react-collapsible";
-import { ObservationChartSection } from "./observation_chart_section";
-import { URI_PREFIX } from "./constants";
+
+import { StatVarHierarchyNodeType, StatVarInfo } from "../shared/types";
 import { NamedPlace } from "../shared/types";
+import { StatVarHierarchyNodeHeader } from "../stat_var_hierarchy/node_header";
+import { URI_PREFIX } from "./constants";
+import { ObservationChartSection } from "./observation_chart_section";
 
 interface StatVarChartsPropType {
   place: NamedPlace;

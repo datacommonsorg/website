@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import axios from "axios";
+import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 
 import { BrowserPage } from "./browser_page";
-import axios from "axios";
 import { getPageDisplayType, PageDisplayType } from "./types";
 
 const TYPE_OF_UNKNOWN = "Unknown";

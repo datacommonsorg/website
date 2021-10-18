@@ -19,10 +19,11 @@
  */
 
 import React, { Component } from "react";
+
 import { formatNumber } from "../../i18n/i18n";
+import { StatVarSummary } from "../../shared/types";
 import { Places } from "./places";
 import { Provenance, ProvenancePropType } from "./provenance";
-import { StatVarSummary } from "../../shared/types";
 
 interface ExplorerPropType {
   description: string;

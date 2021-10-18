@@ -19,6 +19,7 @@
  */
 
 import { createContext, useState } from "react";
+
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
 import { NamedTypedPlace } from "../map/context";
@@ -98,11 +99,13 @@ interface DisplayOptionsWrapper {
   showQuadrants: boolean;
   showLabels: boolean;
   chartType: ScatterChartType;
+  showDensity: boolean;
 
   // Setters
   setQuadrants: Setter<boolean>;
   setLabels: Setter<boolean>;
   setChartType: Setter<ScatterChartType>;
+  setDensity: Setter<boolean>;
 }
 
 interface DateInfo {
@@ -176,6 +179,7 @@ const FieldToAbbreviation = {
   showQuadrant: "qd",
   showLabels: "ld",
   chartType: "ct",
+  showDensity: "dd",
 };
 
 /**
@@ -187,6 +191,7 @@ function useContextStore(): ContextType {
   const [place, setPlace] = useState(EmptyPlace);
   const [showQuadrants, setQuadrants] = useState(false);
   const [showLabels, setLabels] = useState(false);
+  const [showDensity, setDensity] = useState(false);
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
@@ -226,6 +231,8 @@ function useContextStore(): ContextType {
       setLabels: (showLabels) => setLabels(showLabels),
       chartType: chartType,
       setChartType: (chartType) => setChartType(chartType),
+      showDensity: showDensity,
+      setDensity: (showDensity) => setDensity(showDensity),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -382,19 +389,19 @@ function getSetUpperBound(
 }
 
 export {
-  Context,
-  useContextStore,
-  ContextType,
   Axis,
   AxisWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
+  Context,
+  ContextType,
   DateInfo,
   DateInfoWrapper,
-  IsLoadingWrapper,
   DisplayOptionsWrapper,
   EmptyAxis,
-  EmptyPlace,
   EmptyDate,
+  EmptyPlace,
   FieldToAbbreviation,
+  IsLoadingWrapper,
+  PlaceInfo,
+  PlaceInfoWrapper,
+  useContextStore,
 };
