@@ -38,9 +38,8 @@ import {
   updateHashPlaceInfo,
   updateHashStatVar,
   CHILD_PLACE_TYPES,
-  USA_PLACE_HIERARCHY,
 } from "./util";
-import { urlToDomain } from "../../shared/util";
+import { shouldShowMapBoundaries, urlToDomain } from "../../shared/util";
 import { ChartOptions } from "./chart_options";
 import { NamedPlace } from "../../shared/types";
 import { DataPointMetadata } from "./chart_loader";
@@ -221,7 +220,10 @@ function draw(
       ),
       props.placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES,
       false,
-      shouldShowBoundary(props.placeInfo),
+      shouldShowMapBoundaries(
+        props.placeInfo.selectedPlace,
+        props.placeInfo.enclosedPlaceType
+      ),
       props.mapPoints,
       props.mapPointValues,
       zoomDcid,
@@ -229,21 +231,6 @@ function draw(
       ZOOM_OUT_BUTTON_ID
     );
   }
-}
-
-export function shouldShowBoundary(placeInfo: PlaceInfo): boolean {
-  const selectedPlaceTypes = placeInfo.selectedPlace.types;
-  let selectedPlaceTypeIdx = -1;
-  if (selectedPlaceTypes) {
-    selectedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(selectedPlaceTypes[0]);
-  }
-  const enclosedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(
-    placeInfo.enclosedPlaceType
-  );
-  if (selectedPlaceTypeIdx < 0 || enclosedPlaceTypeIdx < 0) {
-    return true;
-  }
-  return enclosedPlaceTypeIdx - selectedPlaceTypeIdx < 2;
 }
 
 function getTitle(statVarDates: string[], statVarName: string): string {

@@ -21,7 +21,7 @@
 import React, { useContext, useEffect } from "react";
 import { Container, Row } from "reactstrap";
 import { StatVarChooser } from "./statvar";
-import { PlaceOptions } from "./place_options";
+import { PlaceOptions } from "./place_and_type_options";
 import { ChartLoader } from "./chart_loader";
 import { Info } from "./info";
 import { Spinner } from "./spinner";

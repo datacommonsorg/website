@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import { NamedTypedPlace } from "../tools/map/context";
+import { USA_PLACE_HIERARCHY } from "../tools/map/util";
+
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
   "economics",
@@ -27,7 +30,7 @@ export const placeExplorerCategories = [
   "energy",
 ];
 
-function randDomId(): string {
+export function randDomId(): string {
   return Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
@@ -40,7 +43,7 @@ function randDomId(): string {
  * @param {contents} string
  * @return void
  */
-function saveToFile(filename: string, contents: string): void {
+export function saveToFile(filename: string, contents: string): void {
   let mimeType = "text/plan";
   if (filename.match(/\.csv$/i)) {
     mimeType = "text/csv;chartset=utf-8";
@@ -62,7 +65,7 @@ function saveToFile(filename: string, contents: string): void {
 /**
  * Get the domain from a url.
  */
-function urlToDomain(url: string): string {
+export function urlToDomain(url: string): string {
   if (!url) {
     return "";
   }
@@ -73,4 +76,23 @@ function urlToDomain(url: string): string {
     .split(/[/?#]/)[0];
 }
 
-export { randDomId, saveToFile, urlToDomain };
+/**
+ * Determine whether or not map boundaries should be drawn.
+ * @param selectedPlace the place selected to show map for
+ * @param enclosedPlaceType the type of place to plot
+ */
+export function shouldShowMapBoundaries(
+  selectedPlace: NamedTypedPlace,
+  enclosedPlaceType: string
+): boolean {
+  const selectedPlaceTypes = selectedPlace.types;
+  let selectedPlaceTypeIdx = -1;
+  if (selectedPlaceTypes) {
+    selectedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(selectedPlaceTypes[0]);
+  }
+  const enclosedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(enclosedPlaceType);
+  if (selectedPlaceTypeIdx < 0 || enclosedPlaceTypeIdx < 0) {
+    return true;
+  }
+  return enclosedPlaceTypeIdx - selectedPlaceTypeIdx < 2;
+}

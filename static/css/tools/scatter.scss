@@ -17,6 +17,7 @@
 @use "../search_place";
 @import "base_tools";
 @import "stat_var_widget";
+@import "../draw_choropleth";
 
 @mixin scatter-search {
   @include search_place.search-place;
@@ -26,10 +27,12 @@
     box-shadow: none;
     border: 1px solid rgba(0, 0, 0, 0.125);
     flex-grow: 1;
+    height: 3.2rem;
   }
 
   #search #location-field {
     flex-wrap: nowrap;
+    height: 100%;
   }
 }
 
@@ -145,7 +148,7 @@
   align-items: center;
 }
 
-.place-options,
+.place-and-type-options,
 #chart,
 #plot-options {
   font-size: 0.9rem;
@@ -192,12 +195,12 @@ circle {
   r: 3.5;
 }
 
-.place-options {
+.place-and-type-options {
   display: flex;
   flex-wrap: wrap;
 }
 
-.place-options-section {
+.place-and-type-options-section {
   display: flex;
   align-items: center;
   padding: 0.5rem 0.5rem;
@@ -208,11 +211,11 @@ circle {
   flex-grow: 1;
 }
 
-.place-options-label {
+.place-and-type-options-label {
   padding-right: 1rem;
 }
 
-.place-options-card {
+.place-and-type-options-card {
   padding-right: 0;
   padding-left: 0;
 }
@@ -246,4 +249,47 @@ circle {
 
 #scatterplot .dot-label {
   font-size: 0.8em;
+}
+
+.chart-type-toggle {
+  border: 0.5px solid var(--dc-gray-lite);
+  border-radius: 8px;
+  display: flex;
+  border: 0.5px solid var(--dc-gray-lite);
+  border-radius: 8px;
+}
+
+.chart-type-option, .selected-chart-option {
+  display: flex;
+  align-items: center;
+  min-width: 4rem;
+  height: 2.4rem;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.selected-chart-option {
+  background-color: var(--dc-primary);
+  border: 0.5px solid var(--dc-gray-lite);
+  border-radius: 8px;
+  i {
+    color: white;
+  }
+}
+
+.chart-type-option i{
+  color: var(--dc-primary);
+}
+
+.chart-type-option:hover {
+  background-color: var(--dc-gray-lite);
+}
+
+.chart-title {
+  display: flex;
+  justify-content: center;
+}
+
+.chart-title h3 {
+  text-align: center;
 }

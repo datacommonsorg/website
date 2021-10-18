@@ -36,6 +36,7 @@ import {
 } from "./context";
 import { NamedPlace } from "../../shared/types";
 import { PlotOptions } from "./plot_options";
+import { GeoJsonData } from "../../chart/types";
 
 /**
  * Represents a point in the scatter plot.
@@ -63,10 +64,11 @@ type Cache = {
   statVarsData: Record<string, PlacePointStat>;
   populationData: StatApiResponse;
   noDataError: boolean;
+  geoJsonData: GeoJsonData;
 };
 
 function ChartLoader(): JSX.Element {
-  const { x, y, isLoading, display } = useContext(Context);
+  const { x, y, place, isLoading, display } = useContext(Context);
   const cache = useCache();
   const points = usePoints(cache);
 
@@ -117,6 +119,9 @@ function ChartLoader(): JSX.Element {
                 yUnits={yUnits}
                 showQuadrants={display.showQuadrants}
                 showLabels={display.showLabels}
+                geoJsonData={cache.geoJsonData}
+                placeInfo={place.value}
+                chartType={display.chartType}
               />
               <PlotOptions />
             </>
@@ -150,6 +155,7 @@ function useCache(): Cache {
         statVarsData: {},
         populationData: {},
         noDataError: false,
+        geoJsonData: null,
       });
       return;
     }
@@ -195,12 +201,18 @@ async function loadData(
     })
     .then((resp) => resp.data);
 
-  Promise.all([statVarsDataPromise, populationPromise])
-    .then(([statVarsData, populationData]) => {
+  const geoJsonPromise = axios
+    .get(
+      `/api/choropleth/geojson?placeDcid=${place.enclosingPlace.dcid}&placeType=${place.enclosedPlaceType}`
+    )
+    .then((resp) => resp.data);
+  Promise.all([statVarsDataPromise, populationPromise, geoJsonPromise])
+    .then(([statVarsData, populationData, geoJsonData]) => {
       const cache = {
         noDataError: _.isEmpty(statVarsData),
         populationData,
         statVarsData,
+        geoJsonData,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -215,9 +227,9 @@ async function loadData(
  * Hook that returns an array of points for plotting.
  * @param cache
  */
-function usePoints(cache: Cache): Array<Point> {
+function usePoints(cache: Cache): { [placeDcid: string]: Point } {
   const { x, y, place } = useContext(Context);
-  const [points, setPoints] = useState([] as Array<Point>);
+  const [points, setPoints] = useState({});
 
   const xVal = x.value;
   const yVal = y.value;
@@ -252,15 +264,19 @@ function usePoints(cache: Cache): Array<Point> {
  * @param yPerCapita
  */
 function computeCapita(
-  points: Array<Point>,
+  points: { [placeDcid: string]: Point },
   xPerCapita: boolean,
   yPerCapita: boolean
 ) {
-  return points.map((point) => ({
-    ...point,
-    xVal: xPerCapita ? point.xVal / point.xPop : point.xVal,
-    yVal: yPerCapita ? point.yVal / point.yPop : point.yVal,
-  }));
+  Object.keys(points).forEach((key) => {
+    const point = points[key];
+    points[key] = {
+      ...point,
+      xVal: xPerCapita ? point.xVal / point.xPop : point.xVal,
+      yVal: yPerCapita ? point.yVal / point.yPop : point.yVal,
+    };
+  });
+  return points;
 }
 
 /**
@@ -275,72 +291,88 @@ function getPoints(
   y: Axis,
   place: PlaceInfo,
   cache: Cache
-): Array<Point> {
+): { [placeDcid: string]: Point } {
   const xStatData = cache.statVarsData[x.statVarDcid];
   const yStatData = cache.statVarsData[y.statVarDcid];
   const lower = place.lowerBound;
   const upper = place.upperBound;
+  const points = {};
+  place.enclosedPlaces
+    // Map to `Point`s
+    .forEach((place) => {
+      const placeXStatData = xStatData.stat[place.dcid];
+      const placeYStatData = yStatData.stat[place.dcid];
+      if (_.isEmpty(placeXStatData) || _.isEmpty(placeYStatData)) {
+        return null;
+      }
+      let xPop = null;
+      let xPopSource = null;
+      let xPopDate = null;
+      const placeXPopData =
+        cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
+      if (placeXPopData) {
+        xPopDate = getPopulationDate(placeXPopData, placeXStatData);
+        xPop = placeXPopData.val[xPopDate];
+        xPopSource = placeXPopData.metadata.provenanceUrl;
+      }
+      let yPop = null;
+      let yPopSource = null;
+      let yPopDate = null;
+      const placeYPopData =
+        cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
+      if (placeYPopData) {
+        yPopDate = getPopulationDate(placeYPopData, placeYStatData);
+        yPop = placeYPopData.val[yPopDate];
+        yPopSource = placeYPopData.metadata.provenanceUrl;
+      }
+      const point = {
+        place,
+        xDate: placeXStatData.date,
+        xPop,
+        xPopDate,
+        xPopSource,
+        xSource:
+          xStatData.metadata[placeXStatData.metadata.importName].provenanceUrl,
+        xVal: placeXStatData.value,
+        yDate: placeYStatData.date,
+        yPop,
+        yPopDate,
+        yPopSource,
+        ySource:
+          yStatData.metadata[placeYStatData.metadata.importName].provenanceUrl,
+        yVal: placeYStatData.value,
+      };
+      if (isValidPoint(point, lower, upper, x.perCapita, y.perCapita)) {
+        points[place.dcid] = point;
+      }
+    });
+  return points;
+}
+
+/**
+ * For a given point, check if it is valid.
+ * @param point the point to check
+ * @param lowerBound population lower bound
+ * @param upperBound population upper bound
+ * @param xIsPerCapita whether the x value is per capita
+ * @param yIsPerCapita whether the y value is per capita
+ */
+function isValidPoint(
+  point: Point,
+  lowerBound: number,
+  upperBound: number,
+  xIsPerCapita: boolean,
+  yIsPerCapita: boolean
+): boolean {
   return (
-    place.enclosedPlaces
-      // Map to `Point`s
-      .map((place) => {
-        const placeXStatData = xStatData.stat[place.dcid];
-        const placeYStatData = yStatData.stat[place.dcid];
-        if (_.isEmpty(placeXStatData) || _.isEmpty(placeYStatData)) {
-          return null;
-        }
-        let xPop = null;
-        let xPopSource = null;
-        let xPopDate = null;
-        const placeXPopData =
-          cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
-        if (placeXPopData) {
-          xPopDate = getPopulationDate(placeXPopData, placeXStatData);
-          xPop = placeXPopData.val[xPopDate];
-          xPopSource = placeXPopData.metadata.provenanceUrl;
-        }
-        let yPop = null;
-        let yPopSource = null;
-        let yPopDate = null;
-        const placeYPopData =
-          cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
-        if (placeYPopData) {
-          yPopDate = getPopulationDate(placeYPopData, placeYStatData);
-          yPop = placeYPopData.val[yPopDate];
-          yPopSource = placeYPopData.metadata.provenanceUrl;
-        }
-        return {
-          place,
-          xDate: placeXStatData.date,
-          xPop,
-          xPopDate,
-          xPopSource,
-          xSource:
-            xStatData.metadata[placeXStatData.metadata.importName]
-              .provenanceUrl,
-          xVal: placeXStatData.value,
-          yDate: placeYStatData.date,
-          yPop,
-          yPopDate,
-          yPopSource,
-          ySource:
-            yStatData.metadata[placeYStatData.metadata.importName]
-              .provenanceUrl,
-          yVal: placeYStatData.value,
-        };
-      })
-      // Filter out unavailable data
-      .filter(
-        (point) =>
-          point &&
-          !_.isNil(point.xVal) &&
-          !_.isNil(point.yVal) &&
-          // If not per capita, allow populations to be not available
-          (!_.isNil(point.xPop) || !x.perCapita) &&
-          (!_.isNil(point.yPop) || !y.perCapita) &&
-          isBetween(point.xPop, lower, upper) &&
-          isBetween(point.yPop, lower, upper)
-      )
+    point &&
+    !_.isNil(point.xVal) &&
+    !_.isNil(point.yVal) &&
+    // If not per capita, allow populations to be not available
+    (!_.isNil(point.xPop) || !xIsPerCapita) &&
+    (!_.isNil(point.yPop) || !yIsPerCapita) &&
+    isBetween(point.xPop, lowerBound, upperBound) &&
+    isBetween(point.yPop, lowerBound, upperBound)
   );
 }
 
@@ -387,7 +419,7 @@ function downloadData(
   x: Axis,
   y: Axis,
   place: PlaceInfo,
-  points: Array<Point>
+  points: { [placeDcid: string]: Point }
 ): void {
   const xStatVar = x.statVarDcid;
   const yStatVar = y.statVarDcid;
@@ -405,9 +437,9 @@ function downloadData(
     `xPopulation-${xPopStatVar},` +
     `yPopulation-${yPopStatVar}\n`;
   // Data
-  for (const point of points) {
-    const pointPlace = point.place;
-    csv += `${pointPlace.name},${pointPlace.dcid},${point.xDate},${point.xVal},${point.yDate},${point.yVal},${point.xPop},${point.yPop}\n`;
+  for (const place of Object.keys(points)) {
+    const point = points[place];
+    csv += `${point.place.name},${point.place.dcid},${point.xDate},${point.xVal},${point.yDate},${point.yVal},${point.xPop},${point.yPop}\n`;
   }
 
   saveToFile(

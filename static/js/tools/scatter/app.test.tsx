@@ -34,6 +34,7 @@ function TestApp(): JSX.Element {
       enclosingPlace: {
         name: "Delaware",
         dcid: "geoId/10",
+        types: ["State"],
       },
     });
   }, []);

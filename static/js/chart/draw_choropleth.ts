@@ -223,7 +223,7 @@ function drawChoropleth(
     [placeDcid: string]: number;
   },
   unit: string,
-  colorScale: d3.ScaleLinear<number, number>,
+  colorScale: d3.ScaleLinear<number | string, number>,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
   canClick: boolean,
@@ -259,7 +259,12 @@ function drawChoropleth(
 
   if (shouldGenerateLegend) {
     const legendHeight = chartHeight - LEGEND_MARGIN_BOTTOM - LEGEND_MARGIN_TOP;
-    const legendWidth = generateLegend(svg, legendHeight, colorScale, unit);
+    const legendWidth = generateLegend(
+      svg,
+      legendHeight,
+      colorScale as d3.ScaleLinear<number, number>,
+      unit
+    );
     chartWidth -= legendWidth;
     svg
       .select(`.${LEGEND_CLASS_NAME}`)
@@ -312,7 +317,8 @@ function drawChoropleth(
     .attr("fill", (d: GeoJsonFeature) => {
       if (
         d.properties.geoDcid in dataValues &&
-        dataValues[d.properties.geoDcid]
+        dataValues[d.properties.geoDcid] !== undefined &&
+        dataValues[d.properties.geoDcid] !== null
       ) {
         const value = dataValues[d.properties.geoDcid];
         return colorScale(value);

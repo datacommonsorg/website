@@ -32,6 +32,13 @@ import {
 } from "./context";
 import { PlacePointStat } from "../shared_util";
 
+export enum ScatterChartType {
+  SCATTER,
+  MAP,
+}
+
+const URL_PARAM_VALUE_SEPARATOR = "-";
+
 async function getPlacesInNames(
   dcid: string,
   type: string
@@ -86,6 +93,11 @@ function applyHash(context: ContextType): void {
   context.display.setLabels(
     applyHashBoolean(params, FieldToAbbreviation.showLabels)
   );
+  const chartType =
+    params.get(FieldToAbbreviation.chartType) === "1"
+      ? ScatterChartType.MAP
+      : ScatterChartType.SCATTER;
+  context.display.setChartType(chartType);
 }
 
 /**
@@ -127,10 +139,16 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
 function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const place = _.cloneDeep(EmptyPlace);
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
+  const enclosingPlaceTypes = params.get(
+    FieldToAbbreviation.enclosingPlaceTypes
+  );
   if (dcid) {
     place.enclosingPlace = {
       dcid: dcid,
       name: params.get(FieldToAbbreviation.enclosingPlaceName),
+      types: enclosingPlaceTypes
+        ? enclosingPlaceTypes.split(URL_PARAM_VALUE_SEPARATOR)
+        : [],
     };
   }
   const type = params.get(FieldToAbbreviation.enclosedPlaceType);
@@ -220,6 +238,9 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
     return hash;
   }
   if (place.enclosingPlace.dcid) {
+    const enclosingPlaceTypes = !_.isEmpty(place.enclosingPlace.types)
+      ? place.enclosingPlace.types.join(URL_PARAM_VALUE_SEPARATOR)
+      : "";
     hash = appendEntry(
       hash,
       FieldToAbbreviation.enclosingPlaceDcid,
@@ -229,6 +250,11 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
       hash,
       FieldToAbbreviation.enclosingPlaceName,
       place.enclosingPlace.name
+    );
+    hash = appendEntry(
+      hash,
+      FieldToAbbreviation.enclosingPlaceTypes,
+      enclosingPlaceTypes
     );
   }
   for (const key of ["enclosedPlaceType", "lowerBound", "upperBound"]) {
@@ -248,6 +274,9 @@ function updateHashDisplayOptions(
 
   val = display.showLabels ? "1" : "0";
   hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
+
+  val = display.chartType === ScatterChartType.SCATTER ? "0" : "1";
+  hash = appendEntry(hash, FieldToAbbreviation.chartType, val);
 
   return hash;
 }
