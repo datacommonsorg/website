@@ -147,7 +147,9 @@ function Chart(props: ChartPropsType): JSX.Element {
       <Row>
         <Card id="no-padding">
           <div className="chart-title">
-            <h3>{`${props.yLabel} vs ${props.xLabel}`}</h3>
+            <h3>{props.yLabel}</h3>
+            <span>vs</span>
+            <h3>{props.xLabel}</h3>
           </div>
           <div>
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
@@ -171,8 +173,8 @@ function clearSVGs(): void {
 
 /**
  * Formats a number, or returns "N/A" if not an number.
- * If the number is a float, keeps three decimal places.
- * TODO: Need a utility determine decimals places based on value.
+ * If the number is a float, keeps three non-zero decimal places.
+ * eg. 0.000346546758 -> 0.000357
  * @param num
  */
 function getStringOrNA(num: number): string {
@@ -180,7 +182,7 @@ function getStringOrNA(num: number): string {
     ? "N/A"
     : Number.isInteger(num)
     ? num.toString()
-    : num.toFixed(3);
+    : num.toFixed(2 - Math.floor(Math.log(Math.abs(num % 1)) / Math.log(10)));
 }
 
 /**
@@ -449,7 +451,7 @@ function drawMapLegend(
     .attr("font-weight", MAP_LEGEND_TITLE_FONT_WEIGHT);
   const xLabelRange = legendLabels
     .append("tspan")
-    .text(`${xRange[0]} to ${xRange[1]}`)
+    .text(`${getStringOrNA(xRange[0])} to ${getStringOrNA(xRange[1])}`)
     .attr("x", 0)
     .attr("y", 15);
   const xLabelLength = Math.max(
@@ -464,7 +466,7 @@ function drawMapLegend(
     .attr("font-weight", MAP_LEGEND_TITLE_FONT_WEIGHT);
   legendLabels
     .append("tspan")
-    .text(`${yRange[0]} to ${yRange[1]}`)
+    .text(`${getStringOrNA(yRange[0])} to ${getStringOrNA(yRange[1])}`)
     .attr("x", xLabelLength + 3 * legendCellSize)
     .attr("y", 15);
 

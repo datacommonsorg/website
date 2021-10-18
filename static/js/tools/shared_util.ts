@@ -109,7 +109,11 @@ export function isIpccStatVarWithMultipleModels(statVar: string): boolean {
 }
 
 /**
- * Determine whether or not map boundaries should be drawn.
+ * Determine whether or not map boundaries should be drawn. We don't want to
+ * draw map boundaries if the selected place type and the enclosed place type
+ * are 2 or more levels away in the USA_PLACE_HIERARCHY.
+ * Eg. if selected place type has the type country and enclosed place type is
+ * county, should return false.
  * @param selectedPlace the place selected to show map for
  * @param enclosedPlaceType the type of place to plot
  */

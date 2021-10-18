@@ -297,8 +297,15 @@ circle {
 .chart-title {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .chart-title h3 {
   text-align: center;
+  padding: 0px 5px;
+}
+
+.chart-title span {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
