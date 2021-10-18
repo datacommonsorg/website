@@ -13,20 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { NamedTypedPlace } from "../tools/map/context";
-import { shouldShowMapBoundaries } from "./util";
 import { isDateTooFar, shouldCapStatVarDate } from "./util";
-
-test("shouldShowMapBoundaries", () => {
-  const selectedPlace: NamedTypedPlace = {
-    dcid: "country/USA",
-    name: "United States of America",
-    types: ["Country"],
-  };
-  expect(shouldShowMapBoundaries(selectedPlace, "County")).toEqual(false);
-  expect(shouldShowMapBoundaries(selectedPlace, "State")).toEqual(true);
-});
 
 test("isDateTooFar", () => {
   const data = {

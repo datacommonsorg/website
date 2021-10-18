@@ -18,12 +18,13 @@
  * Creates and manages scatter plot rendering.
  */
 
-import { wrap } from "../../chart/base";
 import * as d3 from "d3";
-import { formatNumber } from "../../i18n/i18n";
-import { Point } from "./chart_loader";
 import ReactDOM from "react-dom";
+
+import { wrap } from "../../chart/base";
+import { formatNumber } from "../../i18n/i18n";
 import { ChartPropsType } from "./chart";
+import { Point } from "./chart_loader";
 
 const MARGINS = {
   bottom: 30,
@@ -32,6 +33,13 @@ const MARGINS = {
   top: 30,
 };
 const Y_AXIS_WIDTH = 30;
+const STROKE_WIDTH = 1.5;
+const DEFAULT_FILL = "#FFFFFF";
+const DENSITY_LEGEND_FONT_SIZE = "0.7rem";
+const DENSITY_LEGEND_TEXT_HEIGHT = 15;
+const DENSITY_LEGEND_TEXT_PADDING = 5;
+const DENSITY_LEGEND_IMAGE_WIDTH = 10;
+const DENSITY_LEGEND_WIDTH = 75;
 
 /**
  * Adds a label for the y-axis
@@ -200,6 +208,140 @@ function addQuadrants(
 }
 
 /**
+ * Adds a legend for the density distribution
+ * @param svg svg to add the legend to
+ * @param contours the density contours to add legend for
+ * @param colorScale the color scale to use for the legend
+ * @param chartHeight the height of the chart
+ * @param marginTop top margin for the legend
+ */
+function addDensityLegend(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  contours: d3.ContourMultiPolygon[],
+  colorScale: d3.ScaleSequential<string>,
+  chartHeight: number,
+  marginTop: number
+): void {
+  const legend = svg
+    .append("g")
+    .attr("id", "density-legend")
+    .attr("width", DENSITY_LEGEND_WIDTH);
+  const legendHeight = chartHeight / 2;
+
+  // add legend title
+  legend
+    .append("g")
+    .append("text")
+    .attr("dominant-baseline", "hanging")
+    .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
+    .text("sparse");
+
+  legend
+    .append("g")
+    .append("text")
+    .attr("dominant-baseline", "hanging")
+    .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
+    .text("dense")
+    .attr(
+      "transform",
+      `translate(0, ${
+        legendHeight - DENSITY_LEGEND_TEXT_HEIGHT + DENSITY_LEGEND_TEXT_PADDING
+      })`
+    );
+
+  // generate a scale image and append to legend
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = contours.length + 1;
+  const context = canvas.getContext("2d");
+  for (let i = 0; i <= contours.length; i++) {
+    context.fillStyle = colorScale(contours.length - i);
+    context.fillRect(0, i, 1, 1);
+  }
+  legend
+    .append("image")
+    .attr("id", "legend-img")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", DENSITY_LEGEND_IMAGE_WIDTH)
+    .attr("height", legendHeight - 2 * DENSITY_LEGEND_TEXT_HEIGHT)
+    .attr("preserveAspectRatio", "none")
+    .attr("xlink:href", canvas.toDataURL())
+    .attr("transform", `translate(0, ${DENSITY_LEGEND_TEXT_HEIGHT})`);
+
+  const containerWidth = svg.node().getBoundingClientRect().width;
+  const yPosition = chartHeight / 2 + marginTop - legendHeight / 2;
+  legend.attr(
+    "transform",
+    `translate(${containerWidth - DENSITY_LEGEND_WIDTH}, ${yPosition})`
+  );
+}
+
+/**
+ * Adds visualization of density of points in each area
+ * @param svg svg with the chart to show density for
+ * @param dots the dot elements to color according to density of the area
+ * @param xScale the scale to use to calculate x coordinate of data points
+ * @param yScale the scale to use to calculate y coordinate of data points
+ * @param dataPoints the set of data points to add density for
+ * @param chartWidth the width of the chart area
+ * @param chartHeight the height of the chart area
+ * @param marginTop margin between top of the chart area and the top of the container
+ */
+function addDensity(
+  svg: d3.Selection<SVGElement, any, any, any>,
+  dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
+  xScale: d3.ScaleLinear<number, number>,
+  yScale: d3.ScaleLinear<number, number>,
+  dataPoints: Array<Point>,
+  chartWidth: number,
+  chartHeight: number,
+  marginTop: number
+): void {
+  // Generate the multipolygons (contours) to group the dots into areas of
+  // varying densities (number of dots per pixel)
+  const contours = d3
+    .contourDensity<Point>()
+    .size([chartWidth, chartHeight])
+    .x((d) => {
+      return xScale(d.xVal);
+    })
+    .y((d) => {
+      return yScale(d.yVal);
+    })(dataPoints);
+
+  // Generate a color scale to determine what color the dots in each contour
+  // will display
+  const densityColorScale = d3
+    .scaleSequential((t) => d3.hsl(t * 240, 1, 0.5).toString())
+    .domain([0, contours.length]);
+
+  // Add a legend to show what each color means
+  addDensityLegend(svg, contours, densityColorScale, chartHeight, marginTop);
+
+  // color the dots according to which contour it's in
+  dots
+    .attr("class", "density-dot")
+    .attr("fill", (point) => {
+      for (let i = contours.length - 1; i >= 0; i--) {
+        for (const coord of contours[i].coordinates) {
+          const polygon = coord as Array<[]>;
+          if (
+            d3.polygonContains(polygon[0], [
+              xScale(point.xVal),
+              yScale(point.yVal),
+            ])
+          ) {
+            return densityColorScale(contours.length - i - 1);
+          }
+        }
+      }
+      return densityColorScale(contours.length);
+    })
+    .attr("stroke-width", 0);
+}
+
+/**
  * Adds a hidden tooltip that becomse visible when hovering over a point
  * describing the point.
  * @param tooltip
@@ -294,7 +436,10 @@ export function drawScatter(
     props.yLabel,
     props.yUnits
   );
-  const width = chartWidth - MARGINS.left - MARGINS.right - yAxisWidth;
+  let width = chartWidth - MARGINS.left - MARGINS.right - yAxisWidth;
+  if (props.showDensity) {
+    width = width - DENSITY_LEGEND_WIDTH;
+  }
 
   const xAxisLabel = svg.append("g").attr("class", "x-axis-label");
   const xAxisHeight = addXLabel(
@@ -333,12 +478,28 @@ export function drawScatter(
     .attr("cx", (point) => xScale(point.xVal))
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
-    .attr("stroke-width", 1.5)
-    .attr("fill", "#FFFFFF")
     .style("opacity", "0.7")
     .on("click", (point: Point) =>
       redirectAction(props.xStatVar, props.yStatVar, point.place.dcid)
     );
+
+  if (props.showDensity) {
+    addDensity(
+      svg,
+      dots,
+      xScale,
+      yScale,
+      Object.values(props.points),
+      width,
+      height,
+      MARGINS.top
+    );
+  } else {
+    dots
+      .attr("class", "scatter-dot")
+      .attr("fill", DEFAULT_FILL)
+      .attr("stroke-width", STROKE_WIDTH);
+  }
 
   if (props.showLabels) {
     g.append("g")

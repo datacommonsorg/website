@@ -35,7 +35,8 @@ import {
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { NamedPlace } from "../../shared/types";
-import { shouldShowMapBoundaries, urlToDomain } from "../../shared/util";
+import { urlToDomain } from "../../shared/util";
+import { shouldShowMapBoundaries } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
 import { ChartOptions } from "./chart_options";
 import { PlaceInfo, StatVar } from "./context";

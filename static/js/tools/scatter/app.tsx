@@ -20,6 +20,7 @@
 
 import React, { useContext, useEffect } from "react";
 import { Container, Row } from "reactstrap";
+
 import { ChartLoader } from "./chart_loader";
 import {
   Axis,

@@ -23,8 +23,8 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import { Container, CustomInput } from "reactstrap";
 import { Card } from "reactstrap";
-import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 
+import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";

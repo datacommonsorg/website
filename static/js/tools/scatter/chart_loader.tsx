@@ -22,8 +22,8 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
-import { GeoJsonData } from "../../chart/types";
 
+import { GeoJsonData } from "../../chart/types";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
