@@ -53,21 +53,6 @@ function PlotOptions(): JSX.Element {
             <FormGroup check>
               <Label check>
                 <Input
-                  id="per-capita-x"
-                  type="checkbox"
-                  checked={x.value.perCapita}
-                  onChange={(e) => checkPerCapita(x, e)}
-                />
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "X-axis"
-                  : x.value.statVarInfo.title || x.value.statVarDcid}
-              </Label>
-            </FormGroup>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Label check>
-                <Input
                   id="per-capita-y"
                   type="checkbox"
                   checked={y.value.perCapita}
@@ -76,6 +61,21 @@ function PlotOptions(): JSX.Element {
                 {display.chartType === ScatterChartType.SCATTER
                   ? "Y-axis"
                   : y.value.statVarInfo.title || y.value.statVarDcid}
+              </Label>
+            </FormGroup>
+          </Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="per-capita-x"
+                  type="checkbox"
+                  checked={x.value.perCapita}
+                  onChange={(e) => checkPerCapita(x, e)}
+                />
+                {display.chartType === ScatterChartType.SCATTER
+                  ? "X-axis"
+                  : x.value.statVarInfo.title || x.value.statVarDcid}
               </Label>
             </FormGroup>
           </Col>
@@ -90,12 +90,12 @@ function PlotOptions(): JSX.Element {
                 <FormGroup check>
                   <Label check>
                     <Input
-                      id="log-x"
+                      id="log-y"
                       type="checkbox"
-                      checked={x.value.log}
-                      onChange={(e) => checkLog(x, e)}
+                      checked={y.value.log}
+                      onChange={(e) => checkLog(y, e)}
                     />
-                    X-axis
+                    Y-axis
                   </Label>
                 </FormGroup>
               </Col>
@@ -103,12 +103,12 @@ function PlotOptions(): JSX.Element {
                 <FormGroup check>
                   <Label check>
                     <Input
-                      id="log-y"
+                      id="log-x"
                       type="checkbox"
-                      checked={y.value.log}
-                      onChange={(e) => checkLog(y, e)}
+                      checked={x.value.log}
+                      onChange={(e) => checkLog(x, e)}
                     />
-                    Y-axis
+                    X-axis
                   </Label>
                 </FormGroup>
               </Col>

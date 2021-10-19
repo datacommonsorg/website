@@ -23,7 +23,7 @@ import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
 import { formatNumber } from "../i18n/i18n";
-import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
+import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { getColorFn } from "./base";
@@ -205,7 +205,7 @@ function addMapPoints(
  * @param colorScale the color scale to use for drawing the map and legend
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
- * @param canClick whether the regions on the map should be clickable
+ * @param canClickRegion function to determine if a region on the map is clickable
  * @param shouldGenerateLegend whether legend needs to be generated
  * @param shouldShowBoundaryLines whether each region should have boundary lines shown
  * @param mapPoints list of points to add onto the map
@@ -227,7 +227,7 @@ function drawChoropleth(
   colorScale: d3.ScaleLinear<number | string, number>,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
-  canClick: boolean,
+  canClickRegion: (placeDcid: string) => boolean,
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   mapPoints?: Array<MapPoint>,
@@ -330,23 +330,21 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .on("mouseover", onMouseOver(enclosingPlaceDcid, domContainerId, canClick))
+    .on("mouseover", onMouseOver(canClickRegion, domContainerId))
     .on("mouseout", onMouseOut(domContainerId))
     .on(
       "mousemove",
-      onMouseMove(enclosingPlaceDcid, domContainerId, getTooltipHtml, canClick)
+      onMouseMove(canClickRegion, domContainerId, getTooltipHtml)
     );
   if (shouldShowBoundaryLines) {
     mapObjects
       .attr("stroke-width", STROKE_WIDTH)
       .attr("stroke", GEO_STROKE_COLOR);
   }
-  if (canClick) {
-    mapObjects.on(
-      "click",
-      onMapClick(enclosingPlaceDcid, domContainerId, redirectAction)
-    );
-  }
+  mapObjects.on(
+    "click",
+    onMapClick(canClickRegion, domContainerId, redirectAction)
+  );
 
   // style highlighted region and bring to the front
   d3.select(domContainerId)
@@ -387,17 +385,9 @@ function drawChoropleth(
         mapObjects
           .on(
             "mousemove",
-            onMouseMove(
-              enclosingPlaceDcid,
-              domContainerId,
-              getTooltipHtml,
-              canClick
-            )
+            onMouseMove(canClickRegion, domContainerId, getTooltipHtml)
           )
-          .on(
-            "mouseover",
-            onMouseOver(enclosingPlaceDcid, domContainerId, canClick)
-          );
+          .on("mouseover", onMouseOver(canClickRegion, domContainerId));
       });
     svg.call(zoom);
     if (zoomInButtonId) {
@@ -414,16 +404,14 @@ function drawChoropleth(
 }
 
 const onMouseOver = (
-  enclosingPlaceDcid: string,
-  domContainerId: string,
-  canClick: boolean
+  canClickRegion: (placeDcid: string) => boolean,
+  domContainerId: string
 ) => (e, index): void => {
   const geoProperties = e["properties"];
   mouseHoverAction(
     domContainerId,
     index,
-    canClick &&
-      !shouldDisableRegionClick(enclosingPlaceDcid, geoProperties.geoDcid)
+    canClickRegion(geoProperties.geoDcid)
   );
 };
 
@@ -432,18 +420,13 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 };
 
 const onMouseMove = (
-  enclosingPlaceDcid: string,
+  canClickRegion: (placeDcid: string) => boolean,
   domContainerId: string,
-  getTooltipHtml: (place: NamedPlace) => string,
-  canClick: boolean
+  getTooltipHtml: (place: NamedPlace) => string
 ) => (e, index) => {
   const geoProperties = e["properties"];
   const placeDcid = geoProperties.geoDcid;
-  mouseHoverAction(
-    domContainerId,
-    index,
-    canClick && !shouldDisableRegionClick(enclosingPlaceDcid, placeDcid)
-  );
+  mouseHoverAction(domContainerId, index, canClickRegion(placeDcid));
   const place = {
     dcid: placeDcid,
     name: geoProperties.name,
@@ -452,16 +435,11 @@ const onMouseMove = (
 };
 
 const onMapClick = (
-  enclosingPlaceDcid: string,
+  canClickRegion: (placeDcid: string) => boolean,
   domContainerId: string,
   redirectAction: (properties: GeoJsonFeatureProperties) => void
 ) => (geo: GeoJsonFeature, index) => {
-  if (
-    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
-    geo.properties.geoDcid !== USA_PLACE_DCID
-  ) {
-    return;
-  }
+  if (!canClickRegion(geo.properties.geoDcid)) return;
   redirectAction(geo.properties);
   mouseOutAction(domContainerId, index);
 };
@@ -611,15 +589,5 @@ const genScaleImg = (
   }
   return canvas;
 };
-
-function shouldDisableRegionClick(
-  enclosingPlaceDcid: string,
-  placeDcid: string
-): boolean {
-  return (
-    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
-    placeDcid !== USA_PLACE_DCID
-  );
-}
 
 export { drawChoropleth, generateLegendSvg, getColorScale };

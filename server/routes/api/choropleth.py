@@ -145,35 +145,36 @@ def geojson():
     if place_dcid == 'geoId/72':
         geojson_prop = 'geoJsonCoordinatesDP1'
     names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
-    geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
     features = []
-    for geo_id, json_text in geojson_by_geo.items():
-        if json_text and geo_id in names_by_geo:
-            geo_feature = {
-                "type": "Feature",
-                "geometry": {
-                    "type": "MultiPolygon",
-                },
-                "id": geo_id,
-                "properties": {
-                    "name": names_by_geo.get(geo_id, "Unnamed Area"),
-                    "geoDcid": geo_id,
+    if geojson_prop:
+        geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
+        for geo_id, json_text in geojson_by_geo.items():
+            if json_text and geo_id in names_by_geo:
+                geo_feature = {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "MultiPolygon",
+                    },
+                    "id": geo_id,
+                    "properties": {
+                        "name": names_by_geo.get(geo_id, "Unnamed Area"),
+                        "geoDcid": geo_id,
+                    }
                 }
-            }
-            # Load, simplify, and add geoJSON coordinates.
-            # Exclude geo if no or multiple renderings are present.
-            if len(json_text) != 1:
-                continue
-            geojson = json.loads(json_text[0])
-            # The geojson data for each country varies in whether it follows the
-            # righthand rule or not. We want to ensure geojsons for all countries
-            # does follow the righthand rule.
-            if place_type == "Country":
-                geojson = rewind(geojson)
-            geo_feature['geometry']['coordinates'] = (
-                reverse_geojson_righthand_rule(geojson['coordinates'],
-                                               geojson['type']))
-            features.append(geo_feature)
+                # Load, simplify, and add geoJSON coordinates.
+                # Exclude geo if no or multiple renderings are present.
+                if len(json_text) != 1:
+                    continue
+                geojson = json.loads(json_text[0])
+                # The geojson data for each country varies in whether it follows the
+                # righthand rule or not. We want to ensure geojsons for all countries
+                # does follow the righthand rule.
+                if place_type == "Country":
+                    geojson = rewind(geojson)
+                geo_feature['geometry']['coordinates'] = (
+                    reverse_geojson_righthand_rule(geojson['coordinates'],
+                                                   geojson['type']))
+                features.append(geo_feature)
     return Response(json.dumps({
         "type": "FeatureCollection",
         "features": features,
