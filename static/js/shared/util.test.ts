@@ -31,8 +31,8 @@ test("isDateTooFar", () => {
 test("shouldCapStatVarDate", () => {
   const data = {
     Count_Person: false,
-    DifferenceRelativeToBaseDate2006_Daily_PrecipitationRate_RCP26: true,
-    Daily_PrecipitationRate: false,
+    DifferenceRelativeToBaseDate2006_PrecipitationRate_RCP26: true,
+    PrecipitationRate: false,
   };
   for (const date in data) {
     expect(shouldCapStatVarDate(date)).toEqual(data[date]);

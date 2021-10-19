@@ -608,16 +608,16 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "COVID-19（新型コロナウイルス感染症）の累積死亡者数"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
     "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 2.6"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
     "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 4.5"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
     "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 6.0"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
     "defaultMessage": "Max Temperature Change, Base Year 2006, RCP 8.5"
   },
   "FertilityRate_Person_Female": {

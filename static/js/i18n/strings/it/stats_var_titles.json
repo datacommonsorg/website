@@ -608,16 +608,16 @@
   "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
     "defaultMessage": "Decessi cumulativi per COVID-19"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
     "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
     "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
     "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)"
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
     "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)"
   },
   "FertilityRate_Person_Female": {
