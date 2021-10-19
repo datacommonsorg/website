@@ -29,6 +29,7 @@ import {
   DisplayOptionsWrapper,
   PlaceInfoWrapper,
 } from "./context";
+import { ScatterChartType } from "./util";
 
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
 // returns the available dates for the statvar. Then, fill the datapicker with
@@ -57,7 +58,9 @@ function PlotOptions(): JSX.Element {
                   checked={x.value.perCapita}
                   onChange={(e) => checkPerCapita(x, e)}
                 />
-                X-axis
+                {display.chartType === ScatterChartType.SCATTER
+                  ? "X-axis"
+                  : x.value.statVarInfo.title || x.value.statVarDcid}
               </Label>
             </FormGroup>
           </Col>
@@ -70,123 +73,133 @@ function PlotOptions(): JSX.Element {
                   checked={y.value.perCapita}
                   onChange={(e) => checkPerCapita(y, e)}
                 />
-                Y-axis
+                {display.chartType === ScatterChartType.SCATTER
+                  ? "Y-axis"
+                  : y.value.statVarInfo.title || y.value.statVarDcid}
               </Label>
             </FormGroup>
           </Col>
         </Row>
-        <Row className="plot-options-row">
-          <Col sm={1} className="plot-options-label">
-            Log scale:
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Label check>
-                <Input
-                  id="log-x"
-                  type="checkbox"
-                  checked={x.value.log}
-                  onChange={(e) => checkLog(x, e)}
-                />
-                X-axis
-              </Label>
-            </FormGroup>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Label check>
-                <Input
-                  id="log-y"
-                  type="checkbox"
-                  checked={y.value.log}
-                  onChange={(e) => checkLog(y, e)}
-                />
-                Y-axis
-              </Label>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row className="plot-options-row centered-items-row">
-          <Col sm={1} className="plot-options-label">
-            Display:
-          </Col>
-          <Col sm="auto">
-            <Button
-              id="swap-axes"
-              size="sm"
-              color="light"
-              onClick={() => swapAxes(x, y)}
-              className="plot-options-swap-button"
-            >
-              Swap X and Y axes
-            </Button>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Label check>
-                <Input
-                  id="quadrants"
-                  type="checkbox"
-                  checked={display.showQuadrants}
-                  onChange={(e) => checkQuadrants(display, e)}
-                />
-                Show quadrants
-              </Label>
-            </FormGroup>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Label check>
-                <Input
-                  id="quadrants"
-                  type="checkbox"
-                  checked={display.showLabels}
-                  onChange={(e) => checkLabels(display, e)}
-                />
-                Show labels
-              </Label>
-            </FormGroup>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Label check>
-                <Input
-                  id="density"
-                  type="checkbox"
-                  checked={display.showDensity}
-                  onChange={(e) => checkDensity(display, e)}
-                />
-                Show density
-              </Label>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row className="plot-options-row centered-items-row">
-          <Col sm={2} className="plot-options-label">
-            Filter by population:
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Input
-                type="number"
-                onChange={(e) => selectLowerBound(place, e, setLowerBound)}
-                value={lowerBound}
-                onBlur={() => setLowerBound(place.value.lowerBound.toString())}
-              />
-            </FormGroup>
-          </Col>
-          <Col sm="auto">to</Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Input
-                type="number"
-                onChange={(e) => selectUpperBound(place, e, setUpperBound)}
-                value={upperBound}
-                onBlur={() => setUpperBound(place.value.upperBound.toString())}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
+        {display.chartType === ScatterChartType.SCATTER && (
+          <>
+            <Row className="plot-options-row">
+              <Col sm={1} className="plot-options-label">
+                Log scale:
+              </Col>
+              <Col sm="auto">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="log-x"
+                      type="checkbox"
+                      checked={x.value.log}
+                      onChange={(e) => checkLog(x, e)}
+                    />
+                    X-axis
+                  </Label>
+                </FormGroup>
+              </Col>
+              <Col sm="auto">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="log-y"
+                      type="checkbox"
+                      checked={y.value.log}
+                      onChange={(e) => checkLog(y, e)}
+                    />
+                    Y-axis
+                  </Label>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row className="plot-options-row centered-items-row">
+              <Col sm={1} className="plot-options-label">
+                Display:
+              </Col>
+              <Col sm="auto">
+                <Button
+                  id="swap-axes"
+                  size="sm"
+                  color="light"
+                  onClick={() => swapAxes(x, y)}
+                  className="plot-options-swap-button"
+                >
+                  Swap X and Y axes
+                </Button>
+              </Col>
+              <Col sm="auto">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="quadrants"
+                      type="checkbox"
+                      checked={display.showQuadrants}
+                      onChange={(e) => checkQuadrants(display, e)}
+                    />
+                    Show quadrants
+                  </Label>
+                </FormGroup>
+              </Col>
+              <Col sm="auto">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="quadrants"
+                      type="checkbox"
+                      checked={display.showLabels}
+                      onChange={(e) => checkLabels(display, e)}
+                    />
+                    Show labels
+                  </Label>
+                </FormGroup>
+              </Col>
+              <Col sm="auto">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="density"
+                      type="checkbox"
+                      checked={display.showDensity}
+                      onChange={(e) => checkDensity(display, e)}
+                    />
+                    Show density
+                  </Label>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row className="plot-options-row centered-items-row">
+              <Col sm={2} className="plot-options-label">
+                Filter by population:
+              </Col>
+              <Col sm="auto">
+                <FormGroup check>
+                  <Input
+                    type="number"
+                    onChange={(e) => selectLowerBound(place, e, setLowerBound)}
+                    value={lowerBound}
+                    onBlur={() =>
+                      setLowerBound(place.value.lowerBound.toString())
+                    }
+                  />
+                </FormGroup>
+              </Col>
+              <Col sm="auto">to</Col>
+              <Col sm="auto">
+                <FormGroup check>
+                  <Input
+                    type="number"
+                    onChange={(e) => selectUpperBound(place, e, setUpperBound)}
+                    value={upperBound}
+                    onBlur={() =>
+                      setUpperBound(place.value.upperBound.toString())
+                    }
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+          </>
+        )}
       </Container>
     </Card>
   );

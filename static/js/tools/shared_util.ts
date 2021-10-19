@@ -17,7 +17,8 @@ import * as d3 from "d3";
 import _ from "lodash";
 
 import { TimeSeries } from "../shared/stat_types";
-import { StatVarInfo } from "../shared/stat_var";
+import { NamedTypedPlace } from "./map/context";
+import { USA_PLACE_HIERARCHY } from "./map/util";
 
 /**
  * Functions and interfaces shared between tools components
@@ -99,8 +100,35 @@ export function getUnit(placePointStat: PlacePointStat): string {
  * Returns true if the stat var is an IPCC stat var with multiple measurement
  * methods (each representing a different computation model).
  */
-export function isIpccStatVarWithMultipleModels(statVar: string) {
+export function isIpccStatVarWithMultipleModels(statVar: string): boolean {
   return (
-    statVar.indexOf("_Temperature") > 0 && statVar.indexOf("Difference") < 0
+    statVar.indexOf("_Temperature") > 0 &&
+    statVar.indexOf("Difference") < 0 &&
+    !statVar.endsWith("Temperature")
   );
+}
+
+/**
+ * Determine whether or not map boundaries should be drawn. We don't want to
+ * draw map boundaries if the selected place type and the enclosed place type
+ * are 2 or more levels away in the USA_PLACE_HIERARCHY.
+ * Eg. if selected place type has the type country and enclosed place type is
+ * county, should return false.
+ * @param selectedPlace the place selected to show map for
+ * @param enclosedPlaceType the type of place to plot
+ */
+export function shouldShowMapBoundaries(
+  selectedPlace: NamedTypedPlace,
+  enclosedPlaceType: string
+): boolean {
+  const selectedPlaceTypes = selectedPlace.types;
+  let selectedPlaceTypeIdx = -1;
+  if (selectedPlaceTypes) {
+    selectedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(selectedPlaceTypes[0]);
+  }
+  const enclosedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(enclosedPlaceType);
+  if (selectedPlaceTypeIdx < 0 || enclosedPlaceTypeIdx < 0) {
+    return true;
+  }
+  return enclosedPlaceTypeIdx - selectedPlaceTypeIdx < 2;
 }

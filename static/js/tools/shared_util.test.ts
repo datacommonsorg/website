@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { getPopulationDate } from "./shared_util";
+import { NamedTypedPlace } from "./map/context";
+import { getPopulationDate, shouldShowMapBoundaries } from "./shared_util";
 
 test("getPopulationDate", () => {
   const basePopData = {
@@ -99,4 +100,14 @@ test("getPopulationDate", () => {
   expect(
     getPopulationDate(popDataDateMoreSpecificNoMatching, baseStatData)
   ).toEqual("2019-02");
+});
+
+test("shouldShowMapBoundaries", () => {
+  const selectedPlace: NamedTypedPlace = {
+    dcid: "country/USA",
+    name: "United States of America",
+    types: ["Country"],
+  };
+  expect(shouldShowMapBoundaries(selectedPlace, "County")).toEqual(false);
+  expect(shouldShowMapBoundaries(selectedPlace, "State")).toEqual(true);
 });

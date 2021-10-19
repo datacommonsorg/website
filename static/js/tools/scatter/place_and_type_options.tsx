@@ -24,10 +24,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Container, CustomInput } from "reactstrap";
 import { Card } from "reactstrap";
 
+import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { SearchBar } from "../timeline/search";
-import { getPlaceNames } from "../timeline/util";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
-import { isPlacePicked } from "./util";
+import { isPlacePicked, ScatterChartType } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
@@ -67,8 +67,8 @@ const ALL_PLACE_TYPES = [
   ...NON_USA_PLACE_TYPES,
 ];
 
-function PlaceOptions(): JSX.Element {
-  const { place, isLoading } = useContext(Context);
+function PlaceAndTypeOptions(): JSX.Element {
+  const { place, isLoading, display } = useContext(Context);
   const [childPlaceTypes, setChildPlaceTypes] = useState(ALL_PLACE_TYPES);
   if (place.value.enclosingPlace.dcid && childPlaceTypes === ALL_PLACE_TYPES) {
     updateChildPlaceTypes(place.value.enclosingPlace.dcid, setChildPlaceTypes);
@@ -83,10 +83,13 @@ function PlaceOptions(): JSX.Element {
   }, [place.value]);
 
   return (
-    <Card className="place-options-card">
-      <Container className="place-options">
-        <div className="place-options-section" id="place-search-section">
-          <div className="place-options-label">Plot places in</div>
+    <Card className="place-and-type-options-card">
+      <Container className="place-and-type-options">
+        <div
+          className="place-and-type-options-section"
+          id="place-search-section"
+        >
+          <div className="place-and-type-options-label">Plot places in</div>
           <div id="search">
             <SearchBar
               places={
@@ -105,8 +108,8 @@ function PlaceOptions(): JSX.Element {
             />
           </div>
         </div>
-        <div className="place-options-section">
-          <div className="place-options-label">of type</div>
+        <div className="place-and-type-options-section">
+          <div className="place-and-type-options-label">of type</div>
           <div>
             <CustomInput
               id="enclosed-place-type"
@@ -122,6 +125,30 @@ function PlaceOptions(): JSX.Element {
                 </option>
               ))}
             </CustomInput>
+          </div>
+        </div>
+        <div className="place-and-type-options-section">
+          <div className="chart-type-toggle">
+            <div
+              className={`${
+                display.chartType === ScatterChartType.SCATTER
+                  ? "selected-chart-option"
+                  : "chart-type-option"
+              }`}
+              onClick={() => display.setChartType(ScatterChartType.SCATTER)}
+            >
+              <i className="material-icons-outlined">scatter_plot</i>
+            </div>
+            <div
+              className={`${
+                display.chartType === ScatterChartType.MAP
+                  ? "selected-chart-option"
+                  : "chart-type-option"
+              }`}
+              onClick={() => display.setChartType(ScatterChartType.MAP)}
+            >
+              <i className="material-icons-outlined">public</i>
+            </div>
           </div>
         </div>
       </Container>
@@ -204,7 +231,7 @@ function selectEnclosedPlaceType(
     place.set({
       ...place.value,
       enclosedPlaceType: placeType,
-      enclosingPlace: { name: "Earth", dcid: "Earth" },
+      enclosingPlace: EARTH_NAMED_TYPED_PLACE,
     });
   } else {
     place.setEnclosedPlaceType(placeType);
@@ -216,9 +243,21 @@ function selectEnclosedPlaceType(
  * @param place
  * @param dcid
  */
-async function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
-  const dcidToName = await getPlaceNames([dcid]);
-  place.setEnclosingPlace({ dcid: dcid, name: dcidToName[dcid] });
+function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
+  const placeTypePromise = axios
+    .get(`/api/place/type/${dcid}`)
+    .then((resp) => resp.data);
+  const placeNamePromise = axios
+    .get(`/api/place/name?dcid=${dcid}`)
+    .then((resp) => resp.data);
+  Promise.all([placeTypePromise, placeNamePromise])
+    .then(([placeType, placeName]) => {
+      const name = dcid in placeName ? placeName[dcid] : dcid;
+      place.setEnclosingPlace({ dcid, name, types: [placeType] });
+    })
+    .catch(() => {
+      place.setEnclosingPlace({ dcid, name: dcid, types: [] });
+    });
 }
 
 function updateChildPlaceTypes(
@@ -261,8 +300,8 @@ function unselectEnclosingPlace(
   place: PlaceInfoWrapper,
   setChildPlaceTypes: (childPlaceTypes: string[]) => void
 ) {
-  place.setEnclosingPlace({ dcid: "", name: "" });
+  place.setEnclosingPlace({ dcid: "", name: "", types: [] });
   setChildPlaceTypes(ALL_PLACE_TYPES);
 }
 
-export { PlaceOptions };
+export { PlaceAndTypeOptions as PlaceOptions };

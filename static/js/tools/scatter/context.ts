@@ -22,6 +22,8 @@ import { createContext, useState } from "react";
 
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
+import { NamedTypedPlace } from "../map/context";
+import { ScatterChartType } from "./util";
 
 interface Axis {
   // Additional info about the StatVar to plot for this axis
@@ -59,7 +61,7 @@ interface AxisWrapper {
 
 interface PlaceInfo {
   // Place that encloses the child places to plot
-  enclosingPlace: NamedPlace;
+  enclosingPlace: NamedTypedPlace;
   // Type of places to plot
   enclosedPlaceType: string;
   // Places to plot
@@ -74,7 +76,7 @@ interface PlaceInfoWrapper {
 
   // Setters
   set: Setter<PlaceInfo>;
-  setEnclosingPlace: Setter<NamedPlace>;
+  setEnclosingPlace: Setter<NamedTypedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<NamedPlace>>;
   setLowerBound: Setter<number>;
@@ -85,6 +87,7 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   enclosingPlace: {
     name: "",
     dcid: "",
+    types: [],
   },
   enclosedPlaceType: "",
   enclosedPlaces: [],
@@ -95,11 +98,13 @@ const EmptyPlace: PlaceInfo = Object.freeze({
 interface DisplayOptionsWrapper {
   showQuadrants: boolean;
   showLabels: boolean;
+  chartType: ScatterChartType;
   showDensity: boolean;
 
   // Setters
   setQuadrants: Setter<boolean>;
   setLabels: Setter<boolean>;
+  setChartType: Setter<ScatterChartType>;
   setDensity: Setter<boolean>;
 }
 
@@ -165,6 +170,7 @@ const FieldToAbbreviation = {
   // PlaceInfo fields
   enclosingPlaceName: "epn",
   enclosingPlaceDcid: "epd",
+  enclosingPlaceTypes: "epts",
   enclosedPlaceType: "ept",
   lowerBound: "lb",
   upperBound: "ub",
@@ -172,6 +178,7 @@ const FieldToAbbreviation = {
   // DisplayOptions fields
   showQuadrant: "qd",
   showLabels: "ld",
+  chartType: "ct",
   showDensity: "dd",
 };
 
@@ -188,6 +195,7 @@ function useContextStore(): ContextType {
   const [arePlacesLoading, setArePlacesLoading] = useState(false);
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
+  const [chartType, setChartType] = useState(ScatterChartType.SCATTER);
   return {
     x: {
       value: x,
@@ -221,6 +229,8 @@ function useContextStore(): ContextType {
       setQuadrants: (showQuadrants) => setQuadrants(showQuadrants),
       showLabels: showLabels,
       setLabels: (showLabels) => setLabels(showLabels),
+      chartType: chartType,
+      setChartType: (chartType) => setChartType(chartType),
       showDensity: showDensity,
       setDensity: (showDensity) => setDensity(showDensity),
     },
@@ -244,7 +254,7 @@ function useContextStore(): ContextType {
 function getSetEnclosingPlace(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
-): Setter<NamedPlace> {
+): Setter<NamedTypedPlace> {
   return (enclosingPlace) =>
     setPlace({
       ...place,
