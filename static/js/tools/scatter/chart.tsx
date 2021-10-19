@@ -78,9 +78,9 @@ const MAP_COLORS = [
 // These values correspond to the index of the color from MAP_COLORS that should
 // be used as the fill for that cell in the legend.
 const MAP_LEGEND_GRID_VALUES = [
-  [8, 7, 6],
-  [5, 4, 3],
-  [2, 1, 0],
+  [8, 5, 2],
+  [7, 4, 1],
+  [6, 3, 0],
 ];
 
 function Chart(props: ChartPropsType): JSX.Element {
@@ -261,7 +261,7 @@ function plot(
         props.xPerCapita,
         props.yPerCapita
       ),
-      true,
+      () => true,
       false,
       shouldShowMapBoundaries(
         props.placeInfo.enclosingPlace,
@@ -443,38 +443,38 @@ function drawMapLegend(
   // draw the labels
   const xUnitString = xUnit ? ` (${xUnit})` : "";
   const yUnitString = yUnit ? ` (${yUnit})` : "";
-  const xLabelTitle = legendLabels
+  const yLabelTitle = legendLabels
     .append("tspan")
-    .text(xLabel + xUnitString)
+    .text(yLabel + yUnitString)
     .attr("x", 0)
     .attr("y", 0)
     .attr("font-weight", MAP_LEGEND_TITLE_FONT_WEIGHT);
-  const xLabelRange = legendLabels
+  const yLabelRange = legendLabels
     .append("tspan")
-    .text(`${getStringOrNA(xRange[0])} to ${getStringOrNA(xRange[1])}`)
+    .text(`${getStringOrNA(yRange[0])} to ${getStringOrNA(yRange[1])}`)
     .attr("x", 0)
     .attr("y", 15);
-  const xLabelLength = Math.max(
-    xLabelTitle.node().getBBox().width,
-    xLabelRange.node().getBBox().width
+  const yLabelLength = Math.max(
+    yLabelTitle.node().getBBox().width,
+    yLabelRange.node().getBBox().width
   );
   legendLabels
     .append("tspan")
-    .text(yLabel + yUnitString)
-    .attr("x", xLabelLength + 3 * legendCellSize)
+    .text(xLabel + xUnitString)
+    .attr("x", yLabelLength + 3 * legendCellSize)
     .attr("y", 0)
     .attr("font-weight", MAP_LEGEND_TITLE_FONT_WEIGHT);
   legendLabels
     .append("tspan")
-    .text(`${getStringOrNA(yRange[0])} to ${getStringOrNA(yRange[1])}`)
-    .attr("x", xLabelLength + 3 * legendCellSize)
+    .text(`${getStringOrNA(xRange[0])} to ${getStringOrNA(xRange[1])}`)
+    .attr("x", yLabelLength + 3 * legendCellSize)
     .attr("y", 15);
 
   // move the legend labels to the left and down so that the legend is in the
   // of the labels
   legendLabels.attr(
     "transform",
-    `translate(-${xLabelLength + 1.5 * legendCellSize}, ${
+    `translate(-${yLabelLength + 1.5 * legendCellSize}, ${
       legend.node().getBoundingClientRect().height
     })`
   );

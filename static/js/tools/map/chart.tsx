@@ -34,6 +34,10 @@ import {
   MapPoint,
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
+import {
+  EARTH_NAMED_TYPED_PLACE,
+  USA_PLACE_DCID,
+} from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { urlToDomain } from "../../shared/util";
 import { shouldShowMapBoundaries } from "../shared_util";
@@ -220,7 +224,7 @@ function draw(
         props.mapPointValues,
         props.unit
       ),
-      props.placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES,
+      canClickRegion(props.placeInfo),
       false,
       shouldShowMapBoundaries(
         props.placeInfo.selectedPlace,
@@ -345,6 +349,15 @@ const onDateRangeMouseOver = () => {
     .style("visibility", "visible");
 };
 
+const canClickRegion = (placeInfo: PlaceInfo) => (placeDcid: string) => {
+  if (!(placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES)) {
+    return false;
+  }
+  return (
+    placeInfo.enclosingPlace.dcid !== EARTH_NAMED_TYPED_PLACE.dcid ||
+    placeDcid === USA_PLACE_DCID
+  );
+};
 const onDateRangeMouseOut = () => {
   d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`).style("visibility", "hidden");
 };
