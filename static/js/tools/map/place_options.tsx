@@ -28,13 +28,17 @@ import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { CHILD_PLACE_TYPES } from "./util";
 
+const DEFAULT_ENCLOSED_PLACE_TYPES = ["Country"];
+
 export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);
-  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState(["Country"]);
+  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState(
+    DEFAULT_ENCLOSED_PLACE_TYPES
+  );
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
       if (placeInfo.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-        setEnclosedPlaceTypes(["Country"]);
+        setEnclosedPlaceTypes(DEFAULT_ENCLOSED_PLACE_TYPES);
       } else {
         updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
       }
@@ -163,7 +167,7 @@ function unselectPlace(
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
 ): void {
   place.setSelectedPlace({ dcid: "", name: "", types: [] });
-  setEnclosedPlaceTypes([]);
+  setEnclosedPlaceTypes(DEFAULT_ENCLOSED_PLACE_TYPES);
 }
 
 function updateEnclosedPlaceTypes(
