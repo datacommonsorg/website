@@ -25,8 +25,14 @@ import { Container, CustomInput } from "reactstrap";
 import { Card } from "reactstrap";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { CHILD_PLACE_TYPES } from "../map/util";
 import { SearchBar } from "../timeline/search";
-import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
+import {
+  Context,
+  IsLoadingWrapper,
+  PlaceInfo,
+  PlaceInfoWrapper,
+} from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
@@ -81,6 +87,23 @@ function PlaceAndTypeOptions(): JSX.Element {
       loadPlaces(place, isLoading);
     }
   }, [place.value]);
+
+  /**
+   * If map view is selected, check that map view is possible before rendering
+   * the view. If map view is not possible, alert and render scatter view.
+   */
+  useEffect(() => {
+    if (
+      isPlacePicked(place.value) &&
+      display.chartType === ScatterChartType.MAP &&
+      !hasMapView(place.value)
+    ) {
+      display.setChartType(ScatterChartType.SCATTER);
+      alert(
+        `Sorry, map view is not supported for places in ${place.value.enclosingPlace.name} of type ${place.value.enclosedPlaceType}`
+      );
+    }
+  }, [place.value, display.chartType]);
 
   return (
     <Card className="place-and-type-options-card">
@@ -154,6 +177,18 @@ function PlaceAndTypeOptions(): JSX.Element {
       </Container>
     </Card>
   );
+}
+
+function hasMapView(place: PlaceInfo): boolean {
+  const allowedEnclosingPlaceTypes = place.enclosingPlace.types.filter(
+    (type) => type in CHILD_PLACE_TYPES
+  );
+  for (const type of allowedEnclosingPlaceTypes) {
+    if (CHILD_PLACE_TYPES[type].indexOf(place.enclosedPlaceType) > -1) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
