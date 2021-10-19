@@ -49,7 +49,7 @@ const LEGEND_MARGIN_TOP = 4;
 const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
 const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
-const NUM_TICKS = 5;
+const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
@@ -503,7 +503,21 @@ function generateLegend(
       ).toDataURL()
     );
 
-  const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
+  const yScale = d3
+    .scaleLinear()
+    .domain(d3.extent(color.domain()))
+    .range([0, height]);
+  // set tick values to show first tick at the start of the legend and last tick
+  // at the very bottom of the legend.
+  let tickValues = [yScale.invert(0), yScale.invert(height)];
+  tickValues = tickValues.concat(
+    color.ticks(NUM_TICKS).filter((tick) => {
+      const formattedTickValues = tickValues.map((tick) =>
+        formatNumber(tick, unit)
+      );
+      return formattedTickValues.indexOf(formatNumber(tick)) === -1;
+    })
+  );
   legend
     .append("g")
     .call(
@@ -513,7 +527,7 @@ function generateLegend(
         .tickFormat((d) => {
           return formatNumber(d.valueOf(), unit);
         })
-        .tickValues(color.ticks(NUM_TICKS).concat(yScale.domain()))
+        .tickValues(tickValues)
     )
     .call((g) =>
       g
