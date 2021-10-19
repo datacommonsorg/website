@@ -121,12 +121,13 @@ function getListItemElement(
   unitString: string,
   itemNumber?: number
 ): JSX.Element {
-  const value =
-    place.dcid in props.breadcrumbDataValues
-      ? formatNumber(props.breadcrumbDataValues[place.dcid], "") + unitString
-      : place.dcid in props.mapDataValues
-      ? formatNumber(props.mapDataValues[place.dcid], "") + unitString
-      : "N/A";
+  let value = "N/A";
+  if (place.dcid in props.breadcrumbDataValues) {
+    value =
+      formatNumber(props.breadcrumbDataValues[place.dcid], "") + unitString;
+  } else if (place.dcid in props.mapDataValues) {
+    value = formatNumber(props.mapDataValues[place.dcid], "") + unitString;
+  }
   const date =
     place.dcid in props.metadata
       ? ` (${props.metadata[place.dcid].statVarDate})`
@@ -151,7 +152,7 @@ function getListItemElement(
   );
 }
 
-export function getRedirectLink(
+function getRedirectLink(
   statVar: StatVar,
   selectedPlace: NamedTypedPlace,
   mapPointsPlaceType: string
