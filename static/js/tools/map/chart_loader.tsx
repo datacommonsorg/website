@@ -30,6 +30,7 @@ import { shouldCapStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
+import { PlaceDetails } from "./place_details";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
@@ -102,12 +103,21 @@ export function ChartLoader(): JSX.Element {
         metadata={chartData.metadata}
         breadcrumbDataValues={chartData.breadcrumbDataValues}
         placeInfo={placeInfo.value}
-        statVar={statVar.value}
+        statVar={statVar}
         dates={chartData.dates}
         sources={chartData.sources}
         unit={chartData.unit}
         mapPointValues={chartData.mapPointValues}
         mapPoints={chartData.mapPoints}
+      />
+      <PlaceDetails
+        breadcrumbDataValues={chartData.breadcrumbDataValues}
+        mapDataValues={chartData.mapValues}
+        placeInfo={placeInfo.value}
+        metadata={chartData.metadata}
+        unit={chartData.unit}
+        statVar={statVar.value}
+        geoJsonFeatures={chartData.geoJsonData.features}
       />
     </div>
   );
