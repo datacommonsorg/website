@@ -18,7 +18,7 @@ import * as d3 from "d3";
 
 import { translateVariableString } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
-import { isIpccStatVarWithMultipleModels } from "../tools/shared_util";
+import { isIpccStatVar } from "../tools/shared_util";
 
 const DEFAULT_COLOR = "#000";
 
@@ -233,7 +233,7 @@ interface PlotParams {
  * Returns undefined if the stat var is not IPCC Temperature related.
  */
 function temperatureColorMap(statVar: string): string {
-  if (!isIpccStatVarWithMultipleModels(statVar)) {
+  if (!isIpccStatVar(statVar)) {
     return undefined;
   }
   if (statVar.indexOf("RCP") > 0) {
