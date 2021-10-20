@@ -402,13 +402,6 @@ function dataGroupsToCsv(dataGroups: DataGroup[]): string {
   return result;
 }
 
-interface Range {
-  // min value of the range.
-  minV: number;
-  // max value of the range.
-  maxV: number;
-}
-
 export {
   computePlotParams,
   DataGroup,
@@ -417,7 +410,6 @@ export {
   getColorFn,
   getDashes,
   PlotParams,
-  Range,
   shouldFillInValues,
   Style,
   wrap,

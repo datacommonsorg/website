@@ -135,8 +135,18 @@ sup {
   background: url("/images/icon-checkbox-checked.svg");
 }
 
+.chart-options {
+  margin-top: -20px;
+}
+
 .chart-option {
+  float: right;
   font-size: 14px;
+  margin-left: 15px;
+}
+
+.chart-option label {
+  cursor: pointer;
 }
 
 #observation {
