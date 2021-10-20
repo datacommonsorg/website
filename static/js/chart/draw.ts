@@ -1072,7 +1072,7 @@ function drawGroupLineChart(
 
   // Adjust the width of in-chart legends.
   let yRange = computeRanges(dataGroupsDict);
-  if (modelsDataGroupsDict) {
+  if (!_.isEmpty(modelsDataGroupsDict)) {
     const modelsRange = computeRanges(modelsDataGroupsDict);
     yRange = d3.extent(yRange.concat(modelsRange)) as number[];
   }
@@ -1152,7 +1152,7 @@ function drawGroupLineChart(
     .style("text-rendering", "optimizedLegibility")
     .text(ylabel);
 
-  if (modelsDataGroupsDict) {
+  if (!_.isEmpty(modelsDataGroupsDict)) {
     for (const place in modelsDataGroupsDict) {
       const dGroups = modelsDataGroupsDict[place];
       for (const dataGroup of dGroups) {

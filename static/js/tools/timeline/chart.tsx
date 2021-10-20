@@ -210,11 +210,8 @@ class Chart extends Component<ChartPropsType> {
         const svData = placeData.statVarData[sv];
         if ("sourceSeries" in svData) {
           const means = {};
-          const annualSeries = svData.sourceSeries.filter((data) => {
-            return data.observationPeriod == "P1Y";
-          });
-          // HACK: Replace requested series with means for obsPeriod=P1Y across
-          // models.
+          const annualSeries = svData.sourceSeries;
+          // HACK: Replace requested series with means across models.
           for (const series of annualSeries) {
             for (const date of Object.keys(series.val).sort()) {
               means[date] = date in means ? means[date] : [];
