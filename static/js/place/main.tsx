@@ -130,7 +130,7 @@ class MainPane extends React.Component<MainPanePropType> {
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={topic}>{topic}</h3>;
+            subtopicHeader = <h3 id={topic.replace(/ /g, "-")}>{topic}</h3>;
           }
           const data = topicData[topic];
           data.sort((a, b) => {
