@@ -56,7 +56,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
               return (
                 <li className="nav-item" key={topic}>
                   <LocalizedLink
-                    href={`${hrefString}#${topic}`}
+                    href={`${hrefString}#${topic.replace(/ /g, "-")}`}
                     className="nav-link"
                     text={topic}
                   />

@@ -160,6 +160,7 @@ function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
 
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
+  const urlHash = window.location.hash;
   // Get topic and render menu.
   let topic = urlParams.get("topic") || "Overview";
   const dcid = document.getElementById("title").dataset.dcid;
@@ -264,6 +265,8 @@ function renderPage(): void {
         }),
         document.getElementById("main-pane")
       );
+      window.location.hash = "";
+      window.location.hash = urlHash;
     })
     .catch(() => {
       const loadingElem = document.getElementById("page-loading");
