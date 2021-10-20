@@ -1011,7 +1011,7 @@ function drawLineChart(
 }
 
 /**
- * Return a Range object defined above.
+ * Returns an array of [min, max] value from the data groups (similar to d3.extent)
  *
  * @param dataGroupsDict
  */
@@ -1030,10 +1030,7 @@ function computeRanges(dataGroupsDict: { [geoId: string]: DataGroup[] }) {
       Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
     );
   }
-  return {
-    maxV: maxV,
-    minV: minV,
-  };
+  return [minV, maxV];
 }
 
 /**
@@ -1074,9 +1071,13 @@ function drawGroupLineChart(
   legendWidth += LEGEND.marginLeft;
 
   // Adjust the width of in-chart legends.
-  const yRange = computeRanges(dataGroupsDict);
-  const minV = yRange.minV;
-  let maxV = yRange.maxV;
+  let yRange = computeRanges(dataGroupsDict);
+  if (modelsDataGroupsDict) {
+    const modelsRange = computeRanges(modelsDataGroupsDict);
+    yRange = d3.extent(yRange.concat(modelsRange)) as number[];
+  }
+  const minV = yRange[0];
+  let maxV = yRange[1];
   if (minV === maxV) {
     maxV = minV + 1;
   }
