@@ -21,7 +21,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Container } from "reactstrap";
+import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import {
   drawChoropleth,
@@ -34,12 +34,15 @@ import {
   MapPoint,
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
+import {
+  EARTH_NAMED_TYPED_PLACE,
+  USA_PLACE_DCID,
+} from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { urlToDomain } from "../../shared/util";
 import { shouldShowMapBoundaries } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
-import { ChartOptions } from "./chart_options";
-import { PlaceInfo, StatVar } from "./context";
+import { PlaceInfo, StatVar, StatVarWrapper } from "./context";
 import {
   CHILD_PLACE_TYPES,
   MAP_REDIRECT_PREFIX,
@@ -53,7 +56,7 @@ interface ChartProps {
   metadata: { [dcid: string]: DataPointMetadata };
   breadcrumbDataValues: { [dcid: string]: number };
   placeInfo: PlaceInfo;
-  statVar: StatVar;
+  statVar: StatVarWrapper;
   dates: Set<string>;
   sources: Set<string>;
   unit: string;
@@ -70,16 +73,18 @@ const LEGEND_MARGIN_LEFT = 30;
 const LEGEND_HEIGHT_SCALING = 0.6;
 const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
+const NO_PER_CAPITA_TYPES = ["medianValue"];
 
 export function Chart(props: ChartProps): JSX.Element {
+  const statVarInfo = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
   const title = getTitle(
     Array.from(props.dates),
-    props.statVar.info.title ? props.statVar.info.title : props.statVar.dcid
+    statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid
   );
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
-  const statVarDcid = props.statVar.dcid;
+  const statVarDcid = statVarInfo.dcid;
   const [chartWidth, setChartWidth] = useState(0);
   useEffect(() => {
     draw(props, setErrorMessage, true);
@@ -101,7 +106,7 @@ export function Chart(props: ChartProps): JSX.Element {
     };
   }, [props]);
   return (
-    <>
+    <Card className="chart-section-card">
       <Container>
         <div className="chart-section">
           <div className="map-title">
@@ -139,12 +144,23 @@ export function Chart(props: ChartProps): JSX.Element {
               </div>
             </div>
           )}
-          <ChartOptions
-            dataValues={props.breadcrumbDataValues}
-            placeInfo={props.placeInfo}
-            metadata={props.metadata}
-            unit={props.unit}
-          />
+          {NO_PER_CAPITA_TYPES.indexOf(statVarInfo.info.st) === -1 && (
+            <div className="per-capita-option">
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    id="per-capita"
+                    type="checkbox"
+                    checked={statVarInfo.perCapita}
+                    onChange={(e) =>
+                      props.statVar.setPerCapita(e.target.checked)
+                    }
+                  />
+                  Per capita
+                </Label>
+              </FormGroup>
+            </div>
+          )}
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
             <div
@@ -157,7 +173,7 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
         </div>
       </Container>
-    </>
+    </Card>
   );
 }
 
@@ -171,7 +187,10 @@ function draw(
   ).innerHTML = `<div id="legend-unit">${props.unit || ""}</div>`;
   const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
   const height = (width * 2) / 5;
-  const redirectAction = getMapRedirectAction(props.statVar, props.placeInfo);
+  const redirectAction = getMapRedirectAction(
+    props.statVar.value,
+    props.placeInfo
+  );
   const zoomDcid =
     props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
       ? props.placeInfo.selectedPlace.dcid
@@ -186,7 +205,9 @@ function draw(
     }
   }
   const colorScale = getColorScale(
-    props.statVar.info.title ? props.statVar.info.title : props.statVar.dcid,
+    props.statVar.value.info.title
+      ? props.statVar.value.info.title
+      : props.statVar.value.dcid,
     props.mapDataValues
   );
   const legendHeight = height * LEGEND_HEIGHT_SCALING;
@@ -215,12 +236,12 @@ function draw(
       redirectAction,
       getTooltipHtml(
         props.metadata,
-        props.statVar,
+        props.statVar.value,
         props.mapDataValues,
         props.mapPointValues,
         props.unit
       ),
-      props.placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES,
+      canClickRegion(props.placeInfo),
       false,
       shouldShowMapBoundaries(
         props.placeInfo.selectedPlace,
@@ -345,6 +366,15 @@ const onDateRangeMouseOver = () => {
     .style("visibility", "visible");
 };
 
+const canClickRegion = (placeInfo: PlaceInfo) => (placeDcid: string) => {
+  if (!(placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES)) {
+    return false;
+  }
+  return (
+    placeInfo.enclosingPlace.dcid !== EARTH_NAMED_TYPED_PLACE.dcid ||
+    placeDcid === USA_PLACE_DCID
+  );
+};
 const onDateRangeMouseOut = () => {
   d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`).style("visibility", "hidden");
 };

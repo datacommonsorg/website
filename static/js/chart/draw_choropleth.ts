@@ -23,7 +23,7 @@ import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
 import { formatNumber } from "../i18n/i18n";
-import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
+import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { getColorFn } from "./base";
@@ -49,7 +49,7 @@ const LEGEND_MARGIN_TOP = 4;
 const LEGEND_MARGIN_BOTTOM = TICK_SIZE;
 const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
-const NUM_TICKS = 5;
+const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
@@ -91,11 +91,16 @@ function getColorScale(
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
   const extent = d3.extent(Object.values(dataValues));
+  const meanValue = d3.mean(Object.values(dataValues));
   return d3
     .scaleLinear()
-    .domain([extent[0], d3.mean(extent), extent[1]])
+    .domain([extent[0], meanValue, extent[1]])
     .nice()
-    .range(([MIN_COLOR, maxColor, maxColor.darker(1.5)] as unknown) as number[])
+    .range(([
+      MIN_COLOR,
+      maxColor,
+      maxColor.darker(Math.min(extent[1] / meanValue, 1.5)),
+    ] as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
         a: unknown,
@@ -205,7 +210,7 @@ function addMapPoints(
  * @param colorScale the color scale to use for drawing the map and legend
  * @param redirectAction function that runs when region on map is clicked
  * @param getTooltipHtml function to get the html content for the tooltip
- * @param canClick whether the regions on the map should be clickable
+ * @param canClickRegion function to determine if a region on the map is clickable
  * @param shouldGenerateLegend whether legend needs to be generated
  * @param shouldShowBoundaryLines whether each region should have boundary lines shown
  * @param mapPoints list of points to add onto the map
@@ -227,7 +232,7 @@ function drawChoropleth(
   colorScale: d3.ScaleLinear<number | string, number>,
   redirectAction: (geoDcid: GeoJsonFeatureProperties) => void,
   getTooltipHtml: (place: NamedPlace) => string,
-  canClick: boolean,
+  canClickRegion: (placeDcid: string) => boolean,
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   mapPoints?: Array<MapPoint>,
@@ -330,23 +335,21 @@ function drawChoropleth(
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
-    .on("mouseover", onMouseOver(enclosingPlaceDcid, domContainerId, canClick))
+    .on("mouseover", onMouseOver(canClickRegion, domContainerId))
     .on("mouseout", onMouseOut(domContainerId))
     .on(
       "mousemove",
-      onMouseMove(enclosingPlaceDcid, domContainerId, getTooltipHtml, canClick)
+      onMouseMove(canClickRegion, domContainerId, getTooltipHtml)
     );
   if (shouldShowBoundaryLines) {
     mapObjects
       .attr("stroke-width", STROKE_WIDTH)
       .attr("stroke", GEO_STROKE_COLOR);
   }
-  if (canClick) {
-    mapObjects.on(
-      "click",
-      onMapClick(enclosingPlaceDcid, domContainerId, redirectAction)
-    );
-  }
+  mapObjects.on(
+    "click",
+    onMapClick(canClickRegion, domContainerId, redirectAction)
+  );
 
   // style highlighted region and bring to the front
   d3.select(domContainerId)
@@ -387,17 +390,9 @@ function drawChoropleth(
         mapObjects
           .on(
             "mousemove",
-            onMouseMove(
-              enclosingPlaceDcid,
-              domContainerId,
-              getTooltipHtml,
-              canClick
-            )
+            onMouseMove(canClickRegion, domContainerId, getTooltipHtml)
           )
-          .on(
-            "mouseover",
-            onMouseOver(enclosingPlaceDcid, domContainerId, canClick)
-          );
+          .on("mouseover", onMouseOver(canClickRegion, domContainerId));
       });
     svg.call(zoom);
     if (zoomInButtonId) {
@@ -414,16 +409,14 @@ function drawChoropleth(
 }
 
 const onMouseOver = (
-  enclosingPlaceDcid: string,
-  domContainerId: string,
-  canClick: boolean
+  canClickRegion: (placeDcid: string) => boolean,
+  domContainerId: string
 ) => (e, index): void => {
   const geoProperties = e["properties"];
   mouseHoverAction(
     domContainerId,
     index,
-    canClick &&
-      !shouldDisableRegionClick(enclosingPlaceDcid, geoProperties.geoDcid)
+    canClickRegion(geoProperties.geoDcid)
   );
 };
 
@@ -432,18 +425,13 @@ const onMouseOut = (domContainerId: string) => (_, index): void => {
 };
 
 const onMouseMove = (
-  enclosingPlaceDcid: string,
+  canClickRegion: (placeDcid: string) => boolean,
   domContainerId: string,
-  getTooltipHtml: (place: NamedPlace) => string,
-  canClick: boolean
+  getTooltipHtml: (place: NamedPlace) => string
 ) => (e, index) => {
   const geoProperties = e["properties"];
   const placeDcid = geoProperties.geoDcid;
-  mouseHoverAction(
-    domContainerId,
-    index,
-    canClick && !shouldDisableRegionClick(enclosingPlaceDcid, placeDcid)
-  );
+  mouseHoverAction(domContainerId, index, canClickRegion(placeDcid));
   const place = {
     dcid: placeDcid,
     name: geoProperties.name,
@@ -452,16 +440,11 @@ const onMouseMove = (
 };
 
 const onMapClick = (
-  enclosingPlaceDcid: string,
+  canClickRegion: (placeDcid: string) => boolean,
   domContainerId: string,
   redirectAction: (properties: GeoJsonFeatureProperties) => void
 ) => (geo: GeoJsonFeature, index) => {
-  if (
-    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
-    geo.properties.geoDcid !== USA_PLACE_DCID
-  ) {
-    return;
-  }
+  if (!canClickRegion(geo.properties.geoDcid)) return;
   redirectAction(geo.properties);
   mouseOutAction(domContainerId, index);
 };
@@ -525,7 +508,21 @@ function generateLegend(
       ).toDataURL()
     );
 
-  const yScale = d3.scaleLinear().domain(color.domain()).range([0, height]);
+  const yScale = d3
+    .scaleLinear()
+    .domain(d3.extent(color.domain()))
+    .range([0, height]);
+  // set tick values to show first tick at the start of the legend and last tick
+  // at the very bottom of the legend.
+  let tickValues = [yScale.invert(0), yScale.invert(height)];
+  tickValues = tickValues.concat(
+    color.ticks(NUM_TICKS).filter((tick) => {
+      const formattedTickValues = tickValues.map((tick) =>
+        formatNumber(tick, unit)
+      );
+      return formattedTickValues.indexOf(formatNumber(tick)) === -1;
+    })
+  );
   legend
     .append("g")
     .call(
@@ -535,7 +532,7 @@ function generateLegend(
         .tickFormat((d) => {
           return formatNumber(d.valueOf(), unit);
         })
-        .tickValues(color.ticks(NUM_TICKS).concat(yScale.domain()))
+        .tickValues(tickValues)
     )
     .call((g) =>
       g
@@ -597,15 +594,5 @@ const genScaleImg = (
   }
   return canvas;
 };
-
-function shouldDisableRegionClick(
-  enclosingPlaceDcid: string,
-  placeDcid: string
-): boolean {
-  return (
-    enclosingPlaceDcid === EARTH_NAMED_TYPED_PLACE.dcid &&
-    placeDcid !== USA_PLACE_DCID
-  );
-}
 
 export { drawChoropleth, generateLegendSvg, getColorScale };

@@ -1063,21 +1063,21 @@
     "defaultMessage": "AQI",
     "description": "Title for a page about a statistical variable. Variable describes the air quality index."
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": {
     "defaultMessage": "Max Temperature Change (RCP 2.6, Base Year 2016)",
-    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 2.6."
+    "description": "Title for a page about a statistical variable. Describes the relative max temperature change from year 2006, based on RCP 2.6."
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": {
     "defaultMessage": "Max Temperature Change (RCP 4.5, Base Year 2016)",
-    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 4.5."
+    "description": "Title for a page about a statistical variable. Describes the relative max temperature change from year 2006, based on RCP 4.5."
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": {
     "defaultMessage": "Max Temperature Change (RCP 6.0, Base Year 2016)",
-    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 6.0."
+    "description": "Title for a page about a statistical variable. Describes the relative max temperature change from year 2006, based on RCP 6.0."
   },
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": {
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": {
     "defaultMessage": "Max Temperature Change (RCP 8.5, Base Year 2016)",
-    "description": "Title for a page about a statistical variable. Describes the relative daily max temperature change from year 2006, based on RCP 8.5."
+    "description": "Title for a page about a statistical variable. Describes the relative max temperature change from year 2006, based on RCP 8.5."
   },
   "Mean_Concentration_AirPollutant_PM2.5": {
     "defaultMessage": "Mean PM2.5 Concentration",

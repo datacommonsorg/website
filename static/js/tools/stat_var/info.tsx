@@ -45,8 +45,8 @@ class Info extends Component {
             </a>
           </li>
           <li>
-            <a href="#Daily_PrecipitationRate_RCP85">
-              Daily Precipitation Rate Based on RCP 8.5
+            <a href="#PrecipitationRate_RCP85">
+              Precipitation Rate Based on RCP 8.5
             </a>
           </li>
           <li>
