@@ -60,28 +60,50 @@ const MAP_LEGEND_CONTAINER_ID = "legend-container";
 const MAP_LEGEND_ARROW_LENGTH = 5;
 const MAP_LEGEND_ARROW_WIDTH = 6;
 const MAP_LEGEND_TITLE_FONT_WEIGHT = 600;
-const MAP_MIN_LEGEND_CELL_SIZE = 12;
+const MAP_MIN_LEGEND_CELL_SIZE = 8;
+const MAP_LEGEND_CELL_SIZE_SCALE = 0.01;
 const MAP_LEGEND_MARKER_WIDTH = 9;
 const MAP_LEGEND_MARKER_HEIGHT = 9;
 const MAP_LEGEND_AXIS_STROKE_COLOR = "black";
 const MAP_COLORS = [
-  "#e8e8e8",
-  "#ace4e4",
-  "#5ac8c8",
-  "#dfb0d6",
-  "#a5add3",
-  "#5698b9",
-  "#be64ac",
-  "#8c62aa",
-  "#3b4994",
+  "#E8E8E8",
+  "#CCE2E2",
+  "#AFDBDB",
+  "#93D5D5",
+  "#76CECE",
+  "#5AC8C8",
+  "#E0CEDC",
+  "#C4C8D6",
+  "#A8C2D0",
+  "#8CBBCA",
+  "#70B5C4",
+  "#54AFBE",
+  "#D7B3D0",
+  "#BCADCA",
+  "#A0A7C4",
+  "#85A1BF",
+  "#699BB9",
+  "#4E95B3",
+  "#CF99C4",
+  "#B493BF",
+  "#998DB9",
+  "#7D88B4",
+  "#6282AE",
+  "#477CA9",
+  "#C67EB8",
+  "#AB78B3",
+  "#9173AE",
+  "#766DA8",
+  "#5C68A3",
+  "#41629E",
+  "#BE64AC",
+  "#A45FA7",
+  "#8A59A2",
+  "#6F549E",
+  "#554E99",
+  "#3B4994",
 ];
-// These values correspond to the index of the color from MAP_COLORS that should
-// be used as the fill for that cell in the legend.
-const MAP_LEGEND_GRID_VALUES = [
-  [8, 5, 2],
-  [7, 4, 1],
-  [6, 3, 0],
-];
+const MAP_NUM_QUANTILES = 6;
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
@@ -221,16 +243,22 @@ function plot(
       Object.values(props.points),
       (point) => point.yVal
     );
-    const xScale = d3.scaleQuantile().domain(xVals).range(d3.range(3));
-    const yScale = d3.scaleQuantile().domain(yVals).range(d3.range(3));
+    const xScale = d3
+      .scaleQuantile()
+      .domain(xVals)
+      .range(d3.range(MAP_NUM_QUANTILES));
+    const yScale = d3
+      .scaleQuantile()
+      .domain(yVals)
+      .range(d3.range(MAP_NUM_QUANTILES));
     const colorScale = d3
       .scaleLinear<string, number>()
-      .domain(d3.range(9))
+      .domain(d3.range(MAP_NUM_QUANTILES * MAP_NUM_QUANTILES))
       .range(MAP_COLORS);
     const dataPoints = {};
     Object.values(props.points).forEach((point) => {
       dataPoints[point.place.dcid] =
-        xScale(point.xVal) + yScale(point.yVal) * 3;
+        xScale(point.xVal) + yScale(point.yVal) * MAP_NUM_QUANTILES;
     });
     drawMapLegend(
       colorScale,
@@ -362,12 +390,23 @@ function drawMapLegend(
     .append("text")
     .attr("font-size", "0.7rem");
   const legend = legendContainer.append("g").attr("transform", "rotate(45)");
-  const legendCellSize = Math.max(svgWidth * 0.012, MAP_MIN_LEGEND_CELL_SIZE);
+  const legendCellSize = Math.max(
+    svgWidth * MAP_LEGEND_CELL_SIZE_SCALE,
+    MAP_MIN_LEGEND_CELL_SIZE
+  );
 
+  const mapLegendGridValues = Array<number[]>();
+  for (let x = MAP_NUM_QUANTILES - 1; x >= 0; x--) {
+    const row = [];
+    for (let y = MAP_NUM_QUANTILES - 1; y >= 0; y--) {
+      row.push(x + y * MAP_NUM_QUANTILES);
+    }
+    mapLegendGridValues.push(row);
+  }
   // draw the legend grid
   legend
     .selectAll(".row")
-    .data(MAP_LEGEND_GRID_VALUES)
+    .data(mapLegendGridValues)
     .enter()
     .append("g")
     .attr(
@@ -378,7 +417,7 @@ function drawMapLegend(
         })`
     )
     .selectAll(".cell")
-    .data((_, i) => MAP_LEGEND_GRID_VALUES[i])
+    .data((_, i) => mapLegendGridValues[i])
     .enter()
     .append("rect")
     .attr("width", legendCellSize)
@@ -414,10 +453,10 @@ function drawMapLegend(
       "d",
       d3.line()([
         [
-          legendCellSize * 3 + MAP_LEGEND_ARROW_LENGTH,
-          legendCellSize * 3 + MAP_LEGEND_ARROW_LENGTH,
+          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
+          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
         ],
-        [legendCellSize * 3 + MAP_LEGEND_ARROW_LENGTH, 0],
+        [legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH, 0],
       ])
     )
     .attr("stroke", MAP_LEGEND_AXIS_STROKE_COLOR)
@@ -430,10 +469,10 @@ function drawMapLegend(
       "d",
       d3.line()([
         [
-          legendCellSize * 3 + MAP_LEGEND_ARROW_LENGTH,
-          legendCellSize * 3 + MAP_LEGEND_ARROW_LENGTH,
+          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
+          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
         ],
-        [0, legendCellSize * 3 + MAP_LEGEND_ARROW_LENGTH],
+        [0, legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH],
       ])
     )
     .attr("stroke", MAP_LEGEND_AXIS_STROKE_COLOR)
@@ -461,20 +500,20 @@ function drawMapLegend(
   legendLabels
     .append("tspan")
     .text(xLabel + xUnitString)
-    .attr("x", yLabelLength + 3 * legendCellSize)
+    .attr("x", yLabelLength + MAP_NUM_QUANTILES * legendCellSize)
     .attr("y", 0)
     .attr("font-weight", MAP_LEGEND_TITLE_FONT_WEIGHT);
   legendLabels
     .append("tspan")
     .text(`${getStringOrNA(xRange[0])} to ${getStringOrNA(xRange[1])}`)
-    .attr("x", yLabelLength + 3 * legendCellSize)
+    .attr("x", yLabelLength + MAP_NUM_QUANTILES * legendCellSize)
     .attr("y", 15);
 
   // move the legend labels to the left and down so that the legend is in the
   // of the labels
   legendLabels.attr(
     "transform",
-    `translate(-${yLabelLength + 1.5 * legendCellSize}, ${
+    `translate(-${yLabelLength + (MAP_NUM_QUANTILES / 2) * legendCellSize}, ${
       legend.node().getBoundingClientRect().height
     })`
   );
