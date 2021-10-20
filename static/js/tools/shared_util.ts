@@ -104,7 +104,15 @@ export function isIpccStatVarWithMultipleModels(statVar: string): boolean {
   return (
     statVar.indexOf("_Temperature") > 0 &&
     statVar.indexOf("Difference") < 0 &&
-    !statVar.endsWith("Temperature")
+    statVar.indexOf("RCP") > 0
+  );
+}
+
+export function isIpccStatVar(statVar: string): boolean {
+  return (
+    isIpccStatVarWithMultipleModels(statVar) ||
+    statVar == "Min_Temperature" ||
+    statVar == "Max_Temperature"
   );
 }
 
