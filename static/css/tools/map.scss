@@ -28,10 +28,12 @@
     box-shadow: none;
     border: 1px solid rgba(0, 0, 0, 0.125);
     flex-grow: 1;
+    height: 3.2rem;
   }
 
   #search #location-field {
     flex-wrap: nowrap;
+    height: 100%;
   }
 }
 
@@ -120,18 +122,30 @@
   display: flex;
 }
 
-.chart-options,
+.place-details,
 .explore-timeline-link {
   font-size: 0.9rem;
 }
 
-.chart-options {
-  padding-top: 1rem;
+.place-details {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px 15px;
 }
 
-.breadcrumbs-title {
+.place-details-section {
+  padding: 15px;
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+
+.place-details-section-title {
   font-weight: $headings-font-weight;
-  padding-top: 0.3rem;
+  padding-bottom: 0.15rem;
+}
+
+.place-details-card {
+  padding: 0;
 }
 
 #tooltip footer {
@@ -200,6 +214,7 @@
 #choropleth-legend {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   font-size: 10px;
 }
@@ -244,4 +259,13 @@
 .dot:hover {
   fill: var(--dc-gray-lite);
   stroke: black;
+}
+
+.per-capita-option {
+  font-size: 0.8rem;
+  padding-top: 0.5rem;
+}
+
+.per-capita-option .form-check-input {
+  margin-top: 0.15rem;
 }

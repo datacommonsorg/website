@@ -105,36 +105,42 @@ class Chart extends Component<ChartPropsType> {
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNames)[0];
+    const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
+    const perCapitaCheckboxId = `pc-cb-${this.props.mprop}`;
     return (
       <div className="card">
-        <span className="chart-option">
-          Per capita
-          <button
-            className={
-              this.props.perCapita
-                ? "option-checkbox checked"
-                : "option-checkbox"
-            }
-            onClick={() => {
-              setChartOption(this.props.mprop, "pc", !this.props.perCapita);
-            }}
-          ></button>
-          <a href="/faq#perCapita">
-            <span> *</span>
-          </a>
-        </span>
-        <span className="chart-option">
-          Delta
-          <button
-            className={
-              this.props.delta ? "option-checkbox checked" : "option-checkbox"
-            }
-            onClick={() => {
-              setChartOption(this.props.mprop, "delta", !this.props.delta);
-            }}
-          ></button>
-        </span>
         <div ref={this.svgContainer} className="chart-svg"></div>
+        <div className="chart-options">
+          <span className="chart-option">
+            <label htmlFor={perCapitaCheckboxId}>Per capita</label>
+            <button
+              id={perCapitaCheckboxId}
+              className={
+                this.props.perCapita
+                  ? "option-checkbox checked"
+                  : "option-checkbox"
+              }
+              onClick={() => {
+                setChartOption(this.props.mprop, "pc", !this.props.perCapita);
+              }}
+            ></button>
+            <a href="/faq#perCapita">
+              <span> *</span>
+            </a>
+          </span>
+          <span className="chart-option">
+            <label htmlFor={deltaCheckboxId}>Consecutive Differences</label>
+            <button
+              id={deltaCheckboxId}
+              className={
+                this.props.delta ? "option-checkbox checked" : "option-checkbox"
+              }
+              onClick={() => {
+                setChartOption(this.props.mprop, "delta", !this.props.delta);
+              }}
+            ></button>
+          </span>
+        </div>
         <div className="statVarChipRegion">
           {statVars.map((statVar) => {
             let color: string;

@@ -30,6 +30,7 @@ import { shouldCapStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
+import { PlaceDetails } from "./place_details";
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
@@ -102,12 +103,21 @@ export function ChartLoader(): JSX.Element {
         metadata={chartData.metadata}
         breadcrumbDataValues={chartData.breadcrumbDataValues}
         placeInfo={placeInfo.value}
-        statVar={statVar.value}
+        statVar={statVar}
         dates={chartData.dates}
         sources={chartData.sources}
         unit={chartData.unit}
         mapPointValues={chartData.mapPointValues}
         mapPoints={chartData.mapPoints}
+      />
+      <PlaceDetails
+        breadcrumbDataValues={chartData.breadcrumbDataValues}
+        mapDataValues={chartData.mapValues}
+        placeInfo={placeInfo.value}
+        metadata={chartData.metadata}
+        unit={chartData.unit}
+        statVar={statVar.value}
+        geoJsonFeatures={chartData.geoJsonData.features}
       />
     </div>
   );
@@ -298,7 +308,9 @@ function loadChartData(
   if (_.isNull(rawData.statVarData)) {
     return;
   }
-  for (const placeDcid in rawData.statVarData.stat) {
+  // populate mapValues with data value for each geo that we have geoJson data for.
+  for (const geoFeature of rawData.geoJsonData.features) {
+    const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
       rawData.statVarData,
       placeDcid,
@@ -308,24 +320,34 @@ function loadChartData(
     if (_.isEmpty(placeChartData)) {
       continue;
     }
-    if (
-      placeInfo.parentPlaces.find((place) => place.dcid === placeDcid) ||
-      placeDcid === placeInfo.selectedPlace.dcid
-    ) {
-      breadcrumbDataValues[placeDcid] = placeChartData.value;
-    } else {
-      mapValues[placeDcid] = placeChartData.value;
-      statVarDates.add(placeChartData.date);
-    }
-    if (
-      placeDcid === placeInfo.selectedPlace.dcid &&
-      placeInfo.selectedPlace.dcid !== placeInfo.enclosingPlace.dcid
-    ) {
-      mapValues[placeDcid] = placeChartData.value;
-      statVarDates.add(placeChartData.date);
-    }
+    mapValues[placeDcid] = placeChartData.value;
+    statVarDates.add(placeChartData.date);
     if (!_.isEmpty(placeChartData.metadata)) {
       metadata[placeDcid] = placeChartData.metadata;
+    }
+    placeChartData.sources.forEach((source) => {
+      if (!_.isEmpty(source)) {
+        sourceSet.add(source);
+      }
+    });
+  }
+  // populate breadcrumbDataValues with data value for selected place and each parent place.
+  for (const place of placeInfo.parentPlaces.concat([
+    placeInfo.selectedPlace,
+  ])) {
+    const placeChartData = getPlaceChartData(
+      rawData.statVarData,
+      place.dcid,
+      isPerCapita,
+      rawData.populationData
+    );
+    if (_.isEmpty(placeChartData)) {
+      continue;
+    }
+    breadcrumbDataValues[place.dcid] = placeChartData.value;
+    statVarDates.add(placeChartData.date);
+    if (!_.isEmpty(placeChartData.metadata)) {
+      metadata[place.dcid] = placeChartData.metadata;
     }
     placeChartData.sources.forEach((source) => {
       if (!_.isEmpty(source)) {
