@@ -61,6 +61,7 @@ const MAP_LEGEND_ARROW_LENGTH = 5;
 const MAP_LEGEND_ARROW_WIDTH = 6;
 const MAP_LEGEND_TITLE_FONT_WEIGHT = 600;
 const MAP_MIN_LEGEND_CELL_SIZE = 8;
+const MAP_LEGEND_CELL_SIZE_SCALE = 0.01;
 const MAP_LEGEND_MARKER_WIDTH = 9;
 const MAP_LEGEND_MARKER_HEIGHT = 9;
 const MAP_LEGEND_AXIS_STROKE_COLOR = "black";
@@ -389,7 +390,10 @@ function drawMapLegend(
     .append("text")
     .attr("font-size", "0.7rem");
   const legend = legendContainer.append("g").attr("transform", "rotate(45)");
-  const legendCellSize = Math.max(svgWidth * 0.01, MAP_MIN_LEGEND_CELL_SIZE);
+  const legendCellSize = Math.max(
+    svgWidth * MAP_LEGEND_CELL_SIZE_SCALE,
+    MAP_MIN_LEGEND_CELL_SIZE
+  );
 
   const mapLegendGridValues = Array<number[]>();
   for (let x = MAP_NUM_QUANTILES - 1; x >= 0; x--) {
