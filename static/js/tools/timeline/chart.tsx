@@ -111,35 +111,35 @@ class Chart extends Component<ChartPropsType> {
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="chart-options">
-        <span className="chart-option">
-          <label htmlFor={perCapitaCheckboxId}>Per capita</label>
-          <button
-          id={perCapitaCheckboxId}
-            className={
-              this.props.perCapita
-                ? "option-checkbox checked"
-                : "option-checkbox"
-            }
-            onClick={() => {
-              setChartOption(this.props.mprop, "pc", !this.props.perCapita);
-            }}
-          ></button>
-          <a href="/faq#perCapita">
-            <span> *</span>
-          </a>
-        </span>
-        <span className="chart-option">
-          <label htmlFor={deltaCheckboxId}>Consecutive Differences</label>
-          <button
-          id={deltaCheckboxId}
-            className={
-              this.props.delta ? "option-checkbox checked" : "option-checkbox"
-            }
-            onClick={() => {
-              setChartOption(this.props.mprop, "delta", !this.props.delta);
-            }}
-          ></button>
-        </span>
+          <span className="chart-option">
+            <label htmlFor={perCapitaCheckboxId}>Per capita</label>
+            <button
+              id={perCapitaCheckboxId}
+              className={
+                this.props.perCapita
+                  ? "option-checkbox checked"
+                  : "option-checkbox"
+              }
+              onClick={() => {
+                setChartOption(this.props.mprop, "pc", !this.props.perCapita);
+              }}
+            ></button>
+            <a href="/faq#perCapita">
+              <span> *</span>
+            </a>
+          </span>
+          <span className="chart-option">
+            <label htmlFor={deltaCheckboxId}>Consecutive Differences</label>
+            <button
+              id={deltaCheckboxId}
+              className={
+                this.props.delta ? "option-checkbox checked" : "option-checkbox"
+              }
+              onClick={() => {
+                setChartOption(this.props.mprop, "delta", !this.props.delta);
+              }}
+            ></button>
+          </span>
         </div>
         <div className="statVarChipRegion">
           {statVars.map((statVar) => {

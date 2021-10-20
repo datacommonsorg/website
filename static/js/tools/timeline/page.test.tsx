@@ -59,21 +59,21 @@ test("Single place and single stat var", () => {
         `<div class="card">` +
           `<div class="chart-svg"></div>` +
           `<div class="chart-options">` +
-            `<span class="chart-option">` +
-              `<label for="pc-cb-age">Per capita</label>` +
-              `<button id="pc-cb-age" class="option-checkbox"></button>` +
-              `<a href="/faq#perCapita"><span> *</span></a></span>` +
-            `<span class="chart-option">` +
-              `<label for="delta-cb-age">Consecutive Differences</label>` +
-              `<button id="delta-cb-age" class="option-checkbox"></button></span>` +
+          `<span class="chart-option">` +
+          `<label for="pc-cb-age">Per capita</label>` +
+          `<button id="pc-cb-age" class="option-checkbox"></button>` +
+          `<a href="/faq#perCapita"><span> *</span></a></span>` +
+          `<span class="chart-option">` +
+          `<label for="delta-cb-age">Consecutive Differences</label>` +
+          `<button id="delta-cb-age" class="option-checkbox"></button></span>` +
           `</div>` +
           `<div class="statVarChipRegion">` +
-            `<div class="pv-chip mdl-chip--deletable">` +
-              `<span class="mdl-chip__text">Age</span>` +
-              `<button class="mdl-chip__action"><i class="material-icons">cancel</i></button>` +
-            `</div>` +
+          `<div class="pv-chip mdl-chip--deletable">` +
+          `<span class="mdl-chip__text">Age</span>` +
+          `<button class="mdl-chip__action"><i class="material-icons">cancel</i></button>` +
           `</div>` +
-        `</div>`
+          `</div>` +
+          `</div>`
       );
       wrapper
         .find("#hierarchy-section .Collapsible__trigger")
