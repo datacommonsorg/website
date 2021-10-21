@@ -210,7 +210,8 @@ def get_stat_set_within_place():
 def get_stats_set():
     places = request.json.get("places")
     stat_vars = request.json.get("stat_vars")
-    return Response(json.dumps(dc.get_stat_set(places, stat_vars)),
+    date = request.json.get("date")
+    return Response(json.dumps(dc.get_stat_set(places, stat_vars, date)),
                     200,
                     mimetype="application/json")
 

@@ -44,6 +44,8 @@ export interface StatVar {
   dcid: string;
   // Whether to plot per capita values
   perCapita: boolean;
+  // date of the stat var data to get
+  date: string;
 }
 
 // Wraps StatVarInfo with its setters
@@ -54,6 +56,7 @@ export interface StatVarWrapper {
   setInfo: Setter<StatVarInfo>;
   setDcid: Setter<string>;
   setPerCapita: Setter<boolean>;
+  setDate: Setter<string>;
 }
 
 // Information relating to the places to plot
@@ -165,6 +168,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setDcid: (dcid) => setStatVar({ ...statVar, dcid, info: null }),
       setInfo: (info) => setStatVar({ ...statVar, info }),
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
+      setDate: (date) => setStatVar({ ...statVar, date }),
     },
   };
 }

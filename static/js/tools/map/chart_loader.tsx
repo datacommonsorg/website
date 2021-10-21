@@ -153,11 +153,15 @@ function fetchData(
       `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  let statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`;
-  // Only cut the data for prediction data that extends to 2099
-  if (shouldCapStatVarDate(statVar.dcid)) {
-    statVarDataUrl += `&date=${MAX_DATE}`;
+  // Always cut the data for prediction data that extends to 2099
+  let dataDateParam = shouldCapStatVarDate(statVar.dcid)
+    ? `&date=${MAX_DATE}`
+    : "";
+  // If date is specified, get the data for that date
+  if (statVar.date) {
+    dataDateParam = `&date=${statVar.date}`;
   }
+  const statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`;
   const statVarDataPromise: Promise<PlacePointStat> = axios
     .get(statVarDataUrl)
     .then((resp) => resp.data[statVar.dcid]);
@@ -165,12 +169,13 @@ function fetchData(
     .post("/api/stats/set", {
       places: breadcrumbPlaceDcids,
       stat_vars: [statVar.dcid],
+      date: statVar.date ? statVar.date : "",
     })
     .then((resp) => (resp.data.data ? resp.data.data[statVar.dcid] : null));
   const mapPointValuesPromise: Promise<PlacePointStat> = placeInfo.mapPointsPlaceType
     ? axios
         .get(
-          `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointsPlaceType}&stat_vars=${statVar.dcid}`
+          `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointsPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`
         )
         .then((resp) => resp.data[statVar.dcid])
     : Promise.resolve({});
@@ -345,7 +350,6 @@ function loadChartData(
       continue;
     }
     breadcrumbDataValues[place.dcid] = placeChartData.value;
-    statVarDates.add(placeChartData.date);
     if (!_.isEmpty(placeChartData.metadata)) {
       metadata[place.dcid] = placeChartData.metadata;
     }
