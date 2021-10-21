@@ -51,7 +51,7 @@ const LEGEND = {
   marginTop: 40,
   defaultColor: "#000",
 };
-const SOURCE = {
+const METADATA = {
   topMargin: 15,
   height: 20,
 };
@@ -1054,6 +1054,7 @@ function drawGroupLineChart(
   plotParams: PlotParams,
   ylabel?: string,
   sources?: string[],
+  measurementMethdos?: string[],
   unit?: string,
   modelsDataGroupsDict?: { [place: string]: DataGroup[] }
 ): void {
@@ -1098,7 +1099,7 @@ function drawGroupLineChart(
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
     .attr("width", width)
-    .attr("height", height + SOURCE.height);
+    .attr("height", height + METADATA.height * 2);
 
   const yAxis = svg.append("g").attr("class", "y axis");
   const xAxis = svg.append("g").attr("class", "x axis");
@@ -1243,12 +1244,28 @@ function drawGroupLineChart(
       .attr("class", "label")
       .attr(
         "transform",
-        `translate(${MARGIN.left}, ${height + SOURCE.topMargin})`
+        `translate(${MARGIN.left}, ${height + METADATA.topMargin})`
       )
       .style("fill", "#808080")
       .style("font-size", "11px")
       .style("text-anchor", "start")
       .style("text-rendering", "optimizedLegibility")
+      .text(sourceText);
+  }
+  if (measurementMethdos) {
+    const sourceText =
+      "Measurement method: " + Array.from(measurementMethdos).join(", ");
+    svg
+      .append("text")
+      .attr("class", "label")
+      .attr(
+        "transform",
+        `translate(${MARGIN.left}, ${height + METADATA.topMargin * 2})`
+      )
+      .style("fill", "#808080")
+      .style("font-size", "11px")
+      .style("text-anchor", "start")
+      // .style("text-rendering", "optimizedLegibility")
       .text(sourceText);
   }
 

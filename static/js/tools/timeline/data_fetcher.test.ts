@@ -535,6 +535,7 @@ test("StatsData test", () => {
     },
     dates: [],
     sources: new Set(),
+    measurementMethods: new Set(),
   };
   expect(getStatVarGroupWithTime(statData, "geoId/01")).toEqual([]);
 });
@@ -899,6 +900,7 @@ test("convert to delta", () => {
       "UnemploymentRate_Person_Female",
     ],
     sources: new Set(["source2", "source1"]),
+    measurementMethods: new Set(),
   };
 
   const expected: StatData = {
@@ -937,6 +939,7 @@ test("convert to delta", () => {
       "UnemploymentRate_Person_Female",
     ],
     sources: new Set(["source2", "source1"]),
+    measurementMethods: new Set(),
   };
 
   statData = convertToDelta(statData);
