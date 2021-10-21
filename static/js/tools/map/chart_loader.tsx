@@ -153,13 +153,14 @@ function fetchData(
       `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  // Always cut the data for prediction data that extends to 2099
-  let dataDateParam = shouldCapStatVarDate(statVar.dcid)
-    ? `&date=${MAX_DATE}`
-    : "";
-  // If date is specified, get the data for that date
+
+  let dataDateParam = "";
+  // If there is a specified date, get the data for that date. If no specified
+  // date, still need to cut data for prediction data that extends to 2099
   if (statVar.date) {
     dataDateParam = `&date=${statVar.date}`;
+  } else if (shouldCapStatVarDate(statVar.dcid)) {
+    dataDateParam = `&date=${MAX_DATE}`;
   }
   const statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`;
   const statVarDataPromise: Promise<PlacePointStat> = axios
