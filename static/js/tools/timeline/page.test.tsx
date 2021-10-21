@@ -64,7 +64,7 @@ test("Single place and single stat var", () => {
           `<button id="pc-cb-age" class="option-checkbox"></button>` +
           `<a href="/faq#perCapita"><span> *</span></a></span>` +
           `<span class="chart-option">` +
-          `<label for="delta-cb-age">Consecutive Differences</label>` +
+          `<label for="delta-cb-age">Delta</label>` +
           `<button id="delta-cb-age" class="option-checkbox"></button></span>` +
           `</div>` +
           `<div class="statVarChipRegion">` +
