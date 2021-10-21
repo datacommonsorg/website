@@ -136,7 +136,7 @@ class Chart extends Component<ChartPropsType> {
             </a>
           </span>
           <span className="chart-option">
-            <label htmlFor={deltaCheckboxId}>Consecutive Differences</label>
+            <label htmlFor={deltaCheckboxId}>Delta</label>
             <button
               id={deltaCheckboxId}
               className={
@@ -207,6 +207,7 @@ class Chart extends Component<ChartPropsType> {
       dates: [],
       data: {},
       sources: new Set<string>(),
+      measurementMethods: new Set<string>(),
     };
     for (const place in ipccData.placeData) {
       const placeData = ipccData.placeData[place];
@@ -342,6 +343,7 @@ class Chart extends Component<ChartPropsType> {
       this.plotParams,
       this.ylabel(),
       Array.from(this.statData.sources),
+      Array.from(this.statData.measurementMethods),
       this.units.join(", "),
       modelsDataGroupsDict
     );

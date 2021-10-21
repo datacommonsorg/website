@@ -23,7 +23,6 @@ import {
   StatApiResponse,
   TimeSeries,
 } from "../../shared/stat_types";
-import { isDateTooFar } from "../../shared/util";
 
 const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
@@ -38,6 +37,7 @@ export interface StatData {
   dates: string[];
   data: StatApiResponse;
   sources: Set<string>;
+  measurementMethods: Set<string>;
 }
 
 /**
@@ -257,6 +257,7 @@ export function fetchStatData(
       dates: [],
       data: null,
       sources: new Set(),
+      measurementMethods: new Set(),
     };
     const allDates = new Set<string>();
     const statResp = allResp[0] as StatApiResponse;
@@ -293,6 +294,10 @@ export function fetchStatData(
         const timeSeries = placeData[statVar];
         if (timeSeries.metadata) {
           result.sources.add(timeSeries.metadata.provenanceUrl);
+          const mmethod = timeSeries.metadata.measurementMethod;
+          if (mmethod) {
+            result.measurementMethods.add(mmethod);
+          }
         }
         for (const date in timeSeries.val) {
           allDates.add(date);

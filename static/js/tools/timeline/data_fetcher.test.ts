@@ -168,6 +168,7 @@ test("fetch stats data", () => {
       places: ["geoId/05", "geoId/06"],
       statVars: ["Count_Person", "Count_Person_Male"],
       sources: new Set(["source1", "source2"]),
+      measurementMethods: new Set(),
     });
 
     expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
@@ -271,6 +272,7 @@ test("fetch stats data with state code", () => {
         places: ["geoId/05", "geoId/06085"],
         statVars: ["Count_Person"],
         sources: new Set(["source1", "source2"]),
+        measurementMethods: new Set(),
       });
     }
   );
@@ -337,6 +339,7 @@ test("fetch stats data where latest date with data for all stat vars is not the 
         places: ["geoId/05", "geoId/06"],
         statVars: ["Count_Person"],
         sources: new Set(["source1", "source2"]),
+        measurementMethods: new Set(),
       });
 
       expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
@@ -411,6 +414,7 @@ test("fetch stats data where there is no date with data for all stat vars", () =
         places: ["geoId/05", "geoId/06"],
         statVars: ["Count_Person"],
         sources: new Set(["source1", "source2"]),
+        measurementMethods: new Set(),
       });
 
       expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
@@ -506,6 +510,7 @@ test("fetch stats data with per capita with population size 0", () => {
           },
         },
         dates: ["2011", "2012"],
+        measurementMethods: new Set(),
         places: ["geoId/05"],
         sources: new Set(["source1"]),
         statVars: ["Count_Person_Male"],
@@ -535,6 +540,7 @@ test("StatsData test", () => {
     },
     dates: [],
     sources: new Set(),
+    measurementMethods: new Set(),
   };
   expect(getStatVarGroupWithTime(statData, "geoId/01")).toEqual([]);
 });
@@ -709,6 +715,7 @@ test("Per capita with specified denominators test", () => {
       places: ["geoId/05", "geoId/06"],
       statVars: ["Count_Person_Male", "Count_Person_Female"],
       sources: new Set(["source1", "source2"]),
+      measurementMethods: new Set(),
     });
 
     expect(getStatVarGroupWithTime(data, "geoId/06")).toEqual([
@@ -824,6 +831,7 @@ test("Per capita with specified denominators test - missing place data", () => {
         "UnemploymentRate_Person_Female",
       ],
       sources: new Set(["source2", "source1"]),
+      measurementMethods: new Set(),
     });
 
     expect(getStatVarGroupWithTime(data, "geoId/05")).toEqual([
@@ -899,6 +907,7 @@ test("convert to delta", () => {
       "UnemploymentRate_Person_Female",
     ],
     sources: new Set(["source2", "source1"]),
+    measurementMethods: new Set(),
   };
 
   const expected: StatData = {
@@ -937,6 +946,7 @@ test("convert to delta", () => {
       "UnemploymentRate_Person_Female",
     ],
     sources: new Set(["source2", "source1"]),
+    measurementMethods: new Set(),
   };
 
   statData = convertToDelta(statData);
