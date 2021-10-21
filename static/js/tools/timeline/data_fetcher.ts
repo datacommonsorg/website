@@ -295,7 +295,10 @@ export function fetchStatData(
         const timeSeries = placeData[statVar];
         if (timeSeries.metadata) {
           result.sources.add(timeSeries.metadata.provenanceUrl);
-          result.measurementMethods.add(timeSeries.metadata.measurementMethod);
+          const mmethod = timeSeries.metadata.measurementMethod;
+          if (mmethod) {
+            result.measurementMethods.add(mmethod);
+          }
         }
         for (const date in timeSeries.val) {
           allDates.add(date);
