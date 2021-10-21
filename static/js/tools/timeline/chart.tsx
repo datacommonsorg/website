@@ -26,6 +26,7 @@ import {
   convertToDelta,
   fetchStatData,
   getStatVarGroupWithTime,
+  shortenStatData,
   StatData,
 } from "./data_fetcher";
 import { setChartOption } from "./util";
@@ -86,11 +87,17 @@ class Chart extends Component<ChartPropsType> {
   statData: StatData;
   units: string[];
   ipccModels: StatData;
+  minYear: string; // In the format of YYYY
+  maxYear: string; // In the format of YYYY
 
   constructor(props: ChartPropsType) {
     super(props);
     this.svgContainer = React.createRef();
     this.handleWindowResize = this.handleWindowResize.bind(this);
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    this.minYear = urlParams.get("minYear");
+    this.maxYear = urlParams.get("maxYear");
   }
 
   render(): JSX.Element {
@@ -243,7 +250,7 @@ class Chart extends Component<ChartPropsType> {
     const ipccStatVars = statVars.filter((sv) =>
       isIpccStatVarWithMultipleModels(sv)
     );
-    let ipccStatDataPromise;
+    let ipccStatDataPromise: Promise<StatAllApiResponse>;
     if (ipccStatVars.length > 0) {
       ipccStatDataPromise = axios
         .get(
@@ -266,10 +273,22 @@ class Chart extends Component<ChartPropsType> {
 
     Promise.all([statDataPromise, ipccStatDataPromise]).then((resp) => {
       this.statData = resp[0];
+      if (this.minYear || this.maxYear) {
+        this.statData = shortenStatData(
+          this.statData,
+          this.minYear,
+          this.maxYear
+        );
+      }
       const ipccStatAllData = resp[1];
 
       if (ipccStatAllData) {
         this.ipccModels = this.prepareIpccData(ipccStatAllData);
+        this.ipccModels = shortenStatData(
+          this.ipccModels,
+          this.minYear,
+          this.maxYear
+        );
       }
       if (this.props.delta) {
         this.statData = convertToDelta(this.statData);

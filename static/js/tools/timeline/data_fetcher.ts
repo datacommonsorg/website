@@ -63,9 +63,6 @@ export function getStatVarGroupWithTime(
     const timeSeries = statData.data[place].data[statVar];
     if (timeSeries.val && Object.keys(timeSeries.val).length !== 0) {
       for (const date of statData.dates) {
-        if (isDateTooFar(date)) {
-          continue;
-        }
         dataPoints.push({
           label: date,
           time: new Date(date).getTime(),
@@ -105,7 +102,36 @@ export function convertToDelta(statData: StatData): StatData {
       }
     }
   }
+  return result;
+}
 
+export function shortenStatData(
+  statData: StatData,
+  minYear: string,
+  maxYear: string
+): StatData {
+  const result = _.cloneDeep(statData);
+  for (const place in result.data) {
+    for (const statVar in result.data[place].data) {
+      const val = result.data[place].data[statVar].val;
+      for (const date in val) {
+        if (minYear && date.slice(0, 4) < minYear) {
+          delete val[date];
+          const index = result.dates.indexOf(date);
+          if (index > -1) {
+            result.dates.splice(index, 1);
+          }
+        }
+        if (maxYear && date.slice(0, 4) > maxYear) {
+          delete val[date];
+          const index = result.dates.indexOf(date);
+          if (index > -1) {
+            result.dates.splice(index, 1);
+          }
+        }
+      }
+    }
+  }
   return result;
 }
 
