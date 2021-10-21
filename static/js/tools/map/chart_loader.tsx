@@ -154,7 +154,7 @@ function fetchData(
     )
     .then((resp) => resp.data);
   let statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`;
-  // Only cut the data for prediction data that extends to 2099
+  // Only cut the data for prediction data that extends to MAX_DATE
   if (shouldCapStatVarDate(statVar.dcid)) {
     statVarDataUrl += `&date=${MAX_DATE}`;
   }
