@@ -45,20 +45,23 @@ const URL_PARAM_KEYS = {
   MAP_POINTS_PLACE_TYPE: "ppt",
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
+  DATE: "dt",
 };
 
 export const MAP_REDIRECT_PREFIX = "/tools/map";
 
 export function applyHashStatVar(params: URLSearchParams): StatVar {
   const dcid = params.get(URL_PARAM_KEYS.STAT_VAR_DCID);
+  const date = params.get(URL_PARAM_KEYS.DATE);
   if (!dcid) {
-    return { dcid: "", perCapita: false, info: null };
+    return { dcid: "", perCapita: false, info: null, date: "" };
   }
   const perCapita = params.get(URL_PARAM_KEYS.PER_CAPITA);
   return {
     dcid,
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
+    date: date ? date : "",
   };
 }
 
@@ -92,9 +95,13 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
     return hash;
   }
   const perCapita = statVar.perCapita ? "1" : "0";
+  const dateParam = statVar.date
+    ? `&${URL_PARAM_KEYS.DATE}=${statVar.date}`
+    : "";
   const params =
     `&${URL_PARAM_KEYS.STAT_VAR_DCID}=${statVar.dcid}` +
-    `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}`;
+    `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}` +
+    dateParam;
   return hash + params;
 }
 

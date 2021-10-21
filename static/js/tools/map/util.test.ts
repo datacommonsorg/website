@@ -53,6 +53,7 @@ const TestContext = ({
       dcid: "Count_Person",
       perCapita: false,
       info: null,
+      date: "",
     },
   },
 } as unknown) as ContextType;

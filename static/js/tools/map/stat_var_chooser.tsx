@@ -68,6 +68,7 @@ export function StatVarChooser(): JSX.Element {
               dcid: "",
               info: {},
               perCapita: false,
+              date: "",
             });
             hash = updateHashPlaceInfo(hash, placeInfo.value);
             hash = encodeURIComponent(hash);

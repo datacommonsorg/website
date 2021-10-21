@@ -91,15 +91,15 @@ function getColorScale(
   const label = getStatsVarLabel(statVar);
   const maxColor = d3.color(getColorFn([label])(label));
   const extent = d3.extent(Object.values(dataValues));
-  const meanValue = d3.mean(Object.values(dataValues));
+  const medianValue = d3.median(Object.values(dataValues));
   return d3
     .scaleLinear()
-    .domain([extent[0], meanValue, extent[1]])
+    .domain([extent[0], medianValue, extent[1]])
     .nice()
     .range(([
       MIN_COLOR,
       maxColor,
-      maxColor.darker(Math.min(extent[1] / meanValue, 1.5)),
+      maxColor.darker(Math.min(extent[1] / medianValue, 1.5)),
     ] as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
