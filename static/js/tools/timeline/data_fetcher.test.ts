@@ -510,9 +510,9 @@ test("fetch stats data with per capita with population size 0", () => {
           },
         },
         dates: ["2011", "2012"],
+        measurementMethods: new Set(),
         places: ["geoId/05"],
         sources: new Set(["source1"]),
-        measurementMethods: new Set(),
         statVars: ["Count_Person_Male"],
       });
     }

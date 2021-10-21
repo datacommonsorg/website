@@ -23,7 +23,6 @@ import {
   StatApiResponse,
   TimeSeries,
 } from "../../shared/stat_types";
-import { isDateTooFar } from "../../shared/util";
 
 const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
