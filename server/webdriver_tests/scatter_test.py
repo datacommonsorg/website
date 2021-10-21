@@ -67,14 +67,14 @@ class TestScatter(WebdriverBaseTest):
         self.assertEqual(place_name.text, 'California')
 
         # Assert chart is correct.
-        element_present = EC.presence_of_element_located(
-            (By.ID, 'scatterplot'))
+        element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title_y = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[1]')
         chart_title_x = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[2]')
-        self.assertEqual(chart_title_y.text, "Asian Alone Population Per Capita")
+        self.assertEqual(chart_title_y.text,
+                         "Asian Alone Population Per Capita")
         self.assertEqual(chart_title_x.text, "Median Income")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
@@ -126,8 +126,7 @@ class TestScatter(WebdriverBaseTest):
             )
 
         # Assert chart is correct.
-        element_present = EC.presence_of_element_located(
-            (By.ID, 'scatterplot'))
+        element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title_y = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[1]')
