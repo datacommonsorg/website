@@ -38,10 +38,10 @@ export const CHILD_PLACE_TYPES = {
 };
 
 export const INDIA_PLACE_TYPES = {
-  State: "AdministrativeArea1",
   AdministrativeArea1: "AdministrativeArea1",
-  County: "AdministrativeArea2",
   AdministrativeArea2: "AdministrativeArea2",
+  County: "AdministrativeArea2",
+  State: "AdministrativeArea1",
 };
 
 // list of place types in the US in the order of high to low granularity.
@@ -159,43 +159,6 @@ export function updateHashPlaceInfo(
 }
 
 /**
- * Get the link to the map explorer page for a given place and stat var
- * @param statVar the stat var of the map page to redirect to
- * @param selectedPlace the place of the map page to redirect to
- * @param parentPlaces the parent places of the place we are redirecting to
- * @param mapPointsPlaceType the map points place type of the map page to redirect to
- */
-export function getRedirectLink(
-  statVar: StatVar,
-  selectedPlace: NamedTypedPlace,
-  parentPlaces: NamedPlace[],
-  mapPointsPlaceType: string
-): string {
-  let hash = updateHashStatVar("", statVar);
-  const idxInParentPlaces = parentPlaces.findIndex(
-    (parentPlace) => parentPlace.dcid === selectedPlace.dcid
-  );
-  if (idxInParentPlaces > -1) {
-    parentPlaces = parentPlaces.slice(
-      -(parentPlaces.length - idxInParentPlaces)
-    );
-  }
-  const enclosedPlaceType = getEnclosedPlaceType(
-    selectedPlace,
-    isChildPlaceOf(selectedPlace.dcid, INDIA_PLACE_DCID, parentPlaces)
-  );
-  hash = updateHashPlaceInfo(hash, {
-    enclosingPlace: { dcid: "", name: "" },
-    enclosedPlaces: [],
-    enclosedPlaceType,
-    selectedPlace,
-    parentPlaces: [],
-    mapPointsPlaceType,
-  });
-  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
-}
-
-/**
  * Get the default enclosed place type for a given place
  * @param selectedPlace place to get enclosed place type for
  * @param isIndiaPlace whether the place we're getting enclosed place type for is in India
@@ -218,6 +181,42 @@ function getEnclosedPlaceType(
     }
   }
   return "";
+}
+
+/**
+ * Get the link to the map explorer page for a given place and stat var
+ * @param statVar the stat var of the map page to redirect to
+ * @param selectedPlace the place of the map page to redirect to
+ * @param parentPlaces the parent places of the place we are redirecting to
+ * @param mapPointsPlaceType the map points place type of the map page to redirect to
+ */
+export function getRedirectLink(
+  statVar: StatVar,
+  selectedPlace: NamedTypedPlace,
+  parentPlaces: NamedPlace[],
+  mapPointsPlaceType: string
+): string {
+  let hash = updateHashStatVar("", statVar);
+  const parentPlacesList = _.cloneDeep(parentPlaces);
+  const idxInParentPlaces = parentPlaces.findIndex(
+    (parentPlace) => parentPlace.dcid === selectedPlace.dcid
+  );
+  if (idxInParentPlaces > -1) {
+    parentPlacesList.splice(parentPlaces.length - 1 - idxInParentPlaces);
+  }
+  const enclosedPlaceType = getEnclosedPlaceType(
+    selectedPlace,
+    isChildPlaceOf(selectedPlace.dcid, INDIA_PLACE_DCID, parentPlacesList)
+  );
+  hash = updateHashPlaceInfo(hash, {
+    enclosedPlaces: [],
+    enclosedPlaceType,
+    enclosingPlace: { dcid: "", name: "" },
+    mapPointsPlaceType,
+    parentPlaces: [],
+    selectedPlace,
+  });
+  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
 }
 
 /**
