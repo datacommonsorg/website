@@ -20,7 +20,9 @@
 
 import _ from "lodash";
 
+import { INDIA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
+import { isChildPlaceOf } from "../shared_util";
 import { NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
 const USA_STATE_CHILD_TYPES = ["County"];
@@ -157,36 +159,6 @@ export function updateHashPlaceInfo(
 }
 
 /**
- * Returns whether a place is in the US
- * @param selectedPlaceDcid dcid of the place
- * @param parentPlaces parents of the place
- */
-export function isUSAPlace(
-  selectedPlaceDcid: string,
-  parentPlaces: NamedPlace[]
-): boolean {
-  return (
-    selectedPlaceDcid === "country/USA" ||
-    parentPlaces.findIndex((parent) => parent.dcid === "country/USA") > -1
-  );
-}
-
-/**
- * Returns whether a place is in India
- * @param selectedPlaceDcid dcid of the place
- * @param parentPlaces parents of the place
- */
-export function isIndiaPlace(
-  selectedPlaceDcid: string,
-  parentPlaces: NamedPlace[]
-): boolean {
-  return (
-    selectedPlaceDcid === "country/IND" ||
-    parentPlaces.findIndex((parent) => parent.dcid === "country/IND") > -1
-  );
-}
-
-/**
  * Get the link to the map explorer page for a given place and stat var
  * @param statVar the stat var of the map page to redirect to
  * @param selectedPlace the place of the map page to redirect to
@@ -210,7 +182,7 @@ export function getRedirectLink(
   }
   const enclosedPlaceType = getEnclosedPlaceType(
     selectedPlace,
-    isIndiaPlace(selectedPlace.dcid, parentPlaces)
+    isChildPlaceOf(selectedPlace.dcid, INDIA_PLACE_DCID, parentPlaces)
   );
   hash = updateHashPlaceInfo(hash, {
     enclosingPlace: { dcid: "", name: "" },

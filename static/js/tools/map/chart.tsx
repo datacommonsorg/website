@@ -41,10 +41,10 @@ import {
 } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { urlToDomain } from "../../shared/util";
-import { shouldShowMapBoundaries } from "../shared_util";
+import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
 import { PlaceInfo, StatVar, StatVarWrapper } from "./context";
-import { CHILD_PLACE_TYPES, getRedirectLink, isUSAPlace } from "./util";
+import { CHILD_PLACE_TYPES, getRedirectLink } from "./util";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;
@@ -242,8 +242,9 @@ function draw(
         props.placeInfo.selectedPlace,
         props.placeInfo.enclosedPlaceType
       ),
-      isUSAPlace(
+      isChildPlaceOf(
         props.placeInfo.selectedPlace.dcid,
+        USA_PLACE_DCID,
         props.placeInfo.parentPlaces
       ),
       props.mapPoints,

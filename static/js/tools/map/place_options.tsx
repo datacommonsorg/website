@@ -23,15 +23,18 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
-import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
+import {
+  EARTH_NAMED_TYPED_PLACE,
+  INDIA_PLACE_DCID,
+  USA_PLACE_DCID,
+} from "../../shared/constants";
+import { isChildPlaceOf } from "../shared_util";
 import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import {
   CHILD_PLACE_TYPES,
   getAllChildPlaceTypes,
   INDIA_PLACE_TYPES,
-  isIndiaPlace,
-  isUSAPlace,
 } from "./util";
 
 const DEFAULT_ENCLOSED_PLACE_TYPES = ["Country"];
@@ -188,8 +191,16 @@ function updateEnclosedPlaceTypes(
     .then((resp) => resp.data);
   Promise.all([parentPlacePromise, placeTypePromise])
     .then(([parents, placeType]) => {
-      const isUSPlace = isUSAPlace(place.value.selectedPlace.dcid, parents);
-      const isIndPlace = isIndiaPlace(place.value.selectedPlace.dcid, parents);
+      const isUSPlace = isChildPlaceOf(
+        place.value.selectedPlace.dcid,
+        USA_PLACE_DCID,
+        parents
+      );
+      const isIndPlace = isChildPlaceOf(
+        place.value.selectedPlace.dcid,
+        INDIA_PLACE_DCID,
+        parents
+      );
       let hasEnclosedPlaceTypes = false;
       if (isUSPlace || isIndPlace) {
         if (placeType in CHILD_PLACE_TYPES) {

@@ -174,8 +174,6 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   if (type) {
     place.enclosedPlaceType = type;
   }
-  const isUSAPlace = params.get(FieldToAbbreviation.isUSAPlace);
-  place.isUSAPlace = isUSAPlace === "1" ? true : false;
   for (const key of ["lowerBound", "upperBound"]) {
     const value = params.get(FieldToAbbreviation[key]);
     if (value) {
@@ -278,11 +276,6 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
       enclosingPlaceTypes
     );
   }
-  hash = appendEntry(
-    hash,
-    FieldToAbbreviation.isUSAPlace,
-    place.isUSAPlace ? "1" : "0"
-  );
   for (const key of ["enclosedPlaceType", "lowerBound", "upperBound"]) {
     if (place[key] !== EmptyPlace[key]) {
       hash = appendEntry(hash, FieldToAbbreviation[key], place[key].toString());

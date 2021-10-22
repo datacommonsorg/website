@@ -66,8 +66,6 @@ interface PlaceInfo {
   enclosedPlaceType: string;
   // Places to plot
   enclosedPlaces: Array<NamedPlace>;
-  // Whether the enclosingPlace is in the USA
-  isUSAPlace: boolean;
   // Only plot places with populations between these
   lowerBound: number;
   upperBound: number;
@@ -93,7 +91,6 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   },
   enclosedPlaceType: "",
   enclosedPlaces: [],
-  isUSAPlace: false,
   lowerBound: 0,
   upperBound: 1e10,
 });
@@ -175,7 +172,6 @@ const FieldToAbbreviation = {
   enclosingPlaceDcid: "epd",
   enclosingPlaceTypes: "epts",
   enclosedPlaceType: "ept",
-  isUSAPlace: "us",
   lowerBound: "lb",
   upperBound: "ub",
 

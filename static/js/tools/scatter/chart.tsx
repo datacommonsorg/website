@@ -52,6 +52,7 @@ interface ChartPropsType {
   placeInfo: PlaceInfo;
   chartType: ScatterChartType;
   showDensity: boolean;
+  isUSAPlace: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
@@ -294,7 +295,7 @@ function plot(
         props.placeInfo.enclosingPlace,
         props.placeInfo.enclosedPlaceType
       ),
-      props.placeInfo.isUSAPlace
+      props.isUSAPlace
     );
   }
 }

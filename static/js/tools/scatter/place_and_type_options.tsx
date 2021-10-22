@@ -25,11 +25,7 @@ import { Container, CustomInput } from "reactstrap";
 import { Card } from "reactstrap";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
-import {
-  CHILD_PLACE_TYPES,
-  getAllChildPlaceTypes,
-  isUSAPlace,
-} from "../map/util";
+import { CHILD_PLACE_TYPES, getAllChildPlaceTypes } from "../map/util";
 import { SearchBar } from "../timeline/search";
 import {
   Context,
@@ -283,24 +279,16 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
-  const parentPlacePromise = axios
-    .get(`/api/place/parent/${dcid}`)
-    .then((resp) => resp.data);
   const placeTypePromise = axios
     .get(`/api/place/type/${dcid}`)
     .then((resp) => resp.data);
   const placeNamePromise = axios
     .get(`/api/place/name?dcid=${dcid}`)
     .then((resp) => resp.data);
-  Promise.all([placeTypePromise, placeNamePromise, parentPlacePromise])
-    .then(([placeType, placeName, parents]) => {
+  Promise.all([placeTypePromise, placeNamePromise])
+    .then(([placeType, placeName]) => {
       const name = dcid in placeName ? placeName[dcid] : dcid;
-      const enclosingPlace = { dcid, name, types: [placeType] };
-      place.set({
-        ...place.value,
-        enclosingPlace,
-        isUSAPlace: isUSAPlace(dcid, parents),
-      });
+      place.setEnclosingPlace({ dcid, name, types: [placeType] });
     })
     .catch(() => {
       place.setEnclosingPlace({ dcid, name: dcid, types: [] });
