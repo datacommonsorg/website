@@ -42,7 +42,7 @@ import { NamedPlace } from "../../shared/types";
 import { urlToDomain } from "../../shared/util";
 import { shouldShowMapBoundaries } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
-import { PlaceInfo, StatVar, StatVarWrapper } from "./context";
+import { DisplayOptions, PlaceInfo, StatVar, StatVarWrapper } from "./context";
 import {
   CHILD_PLACE_TYPES,
   MAP_REDIRECT_PREFIX,
@@ -62,6 +62,7 @@ interface ChartProps {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
+  display: DisplayOptions;
 }
 
 const MAP_CONTAINER_ID = "choropleth-map";
@@ -87,7 +88,13 @@ export function Chart(props: ChartProps): JSX.Element {
   const statVarDcid = statVarInfo.dcid;
   const [chartWidth, setChartWidth] = useState(0);
   useEffect(() => {
-    draw(props, setErrorMessage, true);
+    draw(
+      props,
+      setErrorMessage,
+      true,
+      props.display.color,
+      props.display.domain
+    );
   }, [props]);
   useEffect(() => {
     function _handleWindowResize() {
@@ -96,7 +103,9 @@ export function Chart(props: ChartProps): JSX.Element {
         const width = chartContainer.offsetWidth;
         if (width !== chartWidth) {
           setChartWidth(width);
-          draw(props, setErrorMessage, false);
+          draw(props, setErrorMessage, false),
+            props.display.color,
+            props.display.domain;
         }
       }
     }
@@ -180,7 +189,9 @@ export function Chart(props: ChartProps): JSX.Element {
 function draw(
   props: ChartProps,
   setErrorMessage: (errorMessage: string) => void,
-  shouldDrawMap: boolean
+  shouldDrawMap: boolean,
+  color?: string,
+  domain?: [number, number, number]
 ): void {
   document.getElementById(
     LEGEND_CONTAINER_ID
@@ -208,7 +219,9 @@ function draw(
     props.statVar.value.info.title
       ? props.statVar.value.info.title
       : props.statVar.value.dcid,
-    props.mapDataValues
+    props.mapDataValues,
+    color,
+    domain
   );
   const legendHeight = height * LEGEND_HEIGHT_SCALING;
   const legendWidth = generateLegendSvg(

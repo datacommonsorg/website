@@ -20,7 +20,7 @@
 
 import _ from "lodash";
 
-import { PlaceInfo, StatVar } from "./context";
+import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const USA_STATE_CHILD_TYPES = ["County"];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
@@ -46,6 +46,8 @@ const URL_PARAM_KEYS = {
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
   DATE: "dt",
+  COLOR: "col",
+  DOMAIN: "dom",
 };
 
 export const MAP_REDIRECT_PREFIX = "/tools/map";
@@ -90,6 +92,20 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
   };
 }
 
+export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
+  const color = params.get(URL_PARAM_KEYS.COLOR);
+  const domainParamValue = params.get(URL_PARAM_KEYS.DOMAIN);
+  const domain = domainParamValue
+    ? domainParamValue
+        .split(URL_PARAM_VALUE_SEPARATOR)
+        .map((val) => parseInt(val))
+    : [];
+  return {
+    color,
+    domain: domain.length === 3 ? (domain as [number, number, number]) : null,
+  };
+}
+
 export function updateHashStatVar(hash: string, statVar: StatVar): string {
   if (_.isEmpty(statVar.dcid)) {
     return hash;
@@ -124,6 +140,22 @@ export function updateHashPlaceInfo(
   }
   if (!_.isEmpty(placeInfo.mapPointsPlaceType)) {
     params = `${params}&${URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE}=${placeInfo.mapPointsPlaceType}`;
+  }
+  return hash + params;
+}
+
+export function updateHashDisplay(
+  hash: string,
+  display: DisplayOptions
+): string {
+  let params = "";
+  if (display.color) {
+    params = `${params}&${URL_PARAM_KEYS.COLOR}=${display.color}`;
+  }
+  if (display.domain) {
+    params = `${params}&${URL_PARAM_KEYS.DOMAIN}=${display.domain.join(
+      URL_PARAM_VALUE_SEPARATOR
+    )}`;
   }
   return hash + params;
 }
