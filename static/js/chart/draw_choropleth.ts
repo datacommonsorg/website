@@ -23,7 +23,6 @@ import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
 import { formatNumber } from "../i18n/i18n";
-import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { getColorFn } from "./base";
@@ -209,7 +208,6 @@ function addMapPoints(
 /** Draws a choropleth chart
  *
  * @param containerId id of the div to draw the choropleth in
- * @param enclosingPlaceDcid dcid of the enclosing place we are drawing choropleth for
  * @param geoJson the geojson data for drawing choropleth
  * @param chartHeight height for the chart
  * @param chartWidth width for the chart
@@ -221,6 +219,7 @@ function addMapPoints(
  * @param canClickRegion function to determine if a region on the map is clickable
  * @param shouldGenerateLegend whether legend needs to be generated
  * @param shouldShowBoundaryLines whether each region should have boundary lines shown
+ * @param isUSAPlace whether this is a map of a place in the US
  * @param mapPoints list of points to add onto the map
  * @param mapPointValues data values for the map points
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
@@ -229,7 +228,6 @@ function addMapPoints(
  */
 function drawChoropleth(
   containerId: string,
-  enclosingPlaceDcid: string,
   geoJson: GeoJsonData,
   chartHeight: number,
   chartWidth: number,
@@ -243,6 +241,7 @@ function drawChoropleth(
   canClickRegion: (placeDcid: string) => boolean,
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
+  isUSAPlace: boolean,
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
@@ -265,10 +264,9 @@ function drawChoropleth(
     .selectAll("path")
     .data(geoJson.features);
 
-  const projection =
-    enclosingPlaceDcid == EARTH_NAMED_TYPED_PLACE.dcid
-      ? d3.geoEquirectangular()
-      : geo.geoAlbersUsaTerritories();
+  const projection = isUSAPlace
+    ? geo.geoAlbersUsaTerritories()
+    : d3.geoEquirectangular();
   const geomap = d3.geoPath().projection(projection);
 
   if (shouldGenerateLegend) {

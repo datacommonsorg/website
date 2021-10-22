@@ -52,6 +52,7 @@ interface ChartPropsType {
   placeInfo: PlaceInfo;
   chartType: ScatterChartType;
   showDensity: boolean;
+  isUSAPlace: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
@@ -272,7 +273,6 @@ function plot(
     );
     drawChoropleth(
       SVG_CONTAINER_ID,
-      props.placeInfo.enclosingPlace.dcid,
       props.geoJsonData,
       chartHeight,
       svgContainerRealWidth,
@@ -294,7 +294,8 @@ function plot(
       shouldShowMapBoundaries(
         props.placeInfo.enclosingPlace,
         props.placeInfo.enclosedPlaceType
-      )
+      ),
+      props.isUSAPlace
     );
   }
 }

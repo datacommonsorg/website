@@ -17,6 +17,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 
 import { TimeSeries } from "../shared/stat_types";
+import { NamedPlace } from "../shared/types";
 import { NamedTypedPlace } from "./map/context";
 import { USA_PLACE_HIERARCHY } from "./map/util";
 
@@ -139,4 +140,21 @@ export function shouldShowMapBoundaries(
     return true;
   }
   return enclosedPlaceTypeIdx - selectedPlaceTypeIdx < 2;
+}
+
+/**
+ * Returns whether a place is a child place of another place
+ * @param selectedPlaceDcid dcid of the place
+ * @param parentPlaceDcid dcid of place to check if selected place is a child of
+ * @param parentPlaces list of parents of the selected place
+ */
+export function isChildPlaceOf(
+  selectedPlaceDcid: string,
+  parentPlaceDcid: string,
+  parentPlaces: NamedPlace[]
+): boolean {
+  return (
+    selectedPlaceDcid === parentPlaceDcid ||
+    parentPlaces.findIndex((parent) => parent.dcid === parentPlaceDcid) > -1
+  );
 }

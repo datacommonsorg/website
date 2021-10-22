@@ -207,8 +207,12 @@ function fetchData(
         mapPointValues,
         mapPoints,
       ]) => {
-        let statVarDataMetadata = mapStatVarData ? mapStatVarData.metadata : {};
-        let statVarDataStat = mapStatVarData ? mapStatVarData.stat : {};
+        let statVarDataMetadata =
+          mapStatVarData && mapStatVarData.metadata
+            ? mapStatVarData.metadata
+            : {};
+        let statVarDataStat =
+          mapStatVarData && mapStatVarData.stat ? mapStatVarData.stat : {};
         if (breadcrumbData) {
           statVarDataMetadata = Object.assign(
             statVarDataMetadata,

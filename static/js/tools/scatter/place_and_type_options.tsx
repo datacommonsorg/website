@@ -25,7 +25,7 @@ import { Container, CustomInput } from "reactstrap";
 import { Card } from "reactstrap";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { CHILD_PLACE_TYPES } from "../map/util";
+import { CHILD_PLACE_TYPES, getAllChildPlaceTypes } from "../map/util";
 import { SearchBar } from "../timeline/search";
 import {
   Context,
@@ -184,7 +184,7 @@ function hasMapView(place: PlaceInfo): boolean {
     (type) => type in CHILD_PLACE_TYPES
   );
   for (const type of allowedEnclosingPlaceTypes) {
-    if (CHILD_PLACE_TYPES[type].indexOf(place.enclosedPlaceType) > -1) {
+    if (getAllChildPlaceTypes(type).indexOf(place.enclosedPlaceType) > -1) {
       return true;
     }
   }
