@@ -40,7 +40,7 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "State": "geoJsonCoordinatesDP3",
     "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "County": "geoJsonCoordinatesDP1",
-    "AdministrativeArea2": "geoJsonCoordinatesDP2",
+    "AdministrativeArea2": "geoJsonCoordinatesDP1",
 }
 
 
@@ -166,11 +166,10 @@ def geojson():
                 if len(json_text) != 1:
                     continue
                 geojson = json.loads(json_text[0])
-                # The geojson data for each country varies in whether it follows the
-                # righthand rule or not. We want to ensure geojsons for all countries
+                # The geojson data for each place varies in whether it follows the
+                # righthand rule or not. We want to ensure geojsons for all places
                 # does follow the righthand rule.
-                if place_type == "Country":
-                    geojson = rewind(geojson)
+                geojson = rewind(geojson)
                 geo_feature['geometry']['coordinates'] = (
                     reverse_geojson_righthand_rule(geojson['coordinates'],
                                                    geojson['type']))

@@ -188,6 +188,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             this.parentPlaceDcid
           }?${rankingParam.toString()}`}
           topic={this.props.topic}
+          isUsaPlace={this.props.isUsaPlace}
         ></Chart>
       );
     }
@@ -224,6 +225,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       scaling: scaling,
       statsVars: this.props.data.statsVars,
       topic: this.props.topic,
+      isUsaPlace: this.props.isUsaPlace,
     };
     const barChartSharedProps = {
       chartType: chartType,

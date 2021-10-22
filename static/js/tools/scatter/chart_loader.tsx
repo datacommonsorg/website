@@ -24,10 +24,16 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { GeoJsonData } from "../../chart/types";
+import { USA_PLACE_DCID } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
-import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
+import {
+  getPopulationDate,
+  getUnit,
+  isChildPlaceOf,
+  PlacePointStat,
+} from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -66,6 +72,7 @@ type Cache = {
   populationData: StatApiResponse;
   noDataError: boolean;
   geoJsonData: GeoJsonData;
+  parentPlaces: Array<NamedPlace>;
 };
 
 function ChartLoader(): JSX.Element {
@@ -78,7 +85,8 @@ function ChartLoader(): JSX.Element {
   const shouldRenderChart =
     areStatVarInfoLoaded(xVal, yVal) &&
     !isLoading.areDataLoading &&
-    !isLoading.arePlacesLoading;
+    !isLoading.arePlacesLoading &&
+    !_.isEmpty(cache);
   const xStatVar = xVal.statVarDcid;
   const yStatVar = yVal.statVarDcid;
   let xUnits = null;
@@ -124,6 +132,11 @@ function ChartLoader(): JSX.Element {
                 placeInfo={place.value}
                 chartType={display.chartType}
                 showDensity={display.showDensity}
+                isUSAPlace={isChildPlaceOf(
+                  place.value.enclosingPlace.dcid,
+                  USA_PLACE_DCID,
+                  cache.parentPlaces
+                )}
               />
               <PlotOptions />
             </>
@@ -158,6 +171,7 @@ function useCache(): Cache {
         populationData: {},
         noDataError: false,
         geoJsonData: null,
+        parentPlaces: [],
       });
       return;
     }
@@ -208,13 +222,22 @@ async function loadData(
       `/api/choropleth/geojson?placeDcid=${place.enclosingPlace.dcid}&placeType=${place.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  Promise.all([statVarsDataPromise, populationPromise, geoJsonPromise])
-    .then(([statVarsData, populationData, geoJsonData]) => {
+  const parentPlacesPromise = axios
+    .get(`/api/place/parent/${place.enclosingPlace.dcid}`)
+    .then((resp) => resp.data);
+  Promise.all([
+    statVarsDataPromise,
+    populationPromise,
+    geoJsonPromise,
+    parentPlacesPromise,
+  ])
+    .then(([statVarsData, populationData, geoJsonData, parentPlaces]) => {
       const cache = {
         noDataError: _.isEmpty(statVarsData),
         populationData,
         statVarsData,
         geoJsonData,
+        parentPlaces,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);

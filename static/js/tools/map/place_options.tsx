@@ -23,10 +23,19 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
-import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
+import {
+  EARTH_NAMED_TYPED_PLACE,
+  INDIA_PLACE_DCID,
+  USA_PLACE_DCID,
+} from "../../shared/constants";
+import { isChildPlaceOf } from "../shared_util";
 import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
-import { CHILD_PLACE_TYPES } from "./util";
+import {
+  CHILD_PLACE_TYPES,
+  getAllChildPlaceTypes,
+  INDIA_PLACE_TYPES,
+} from "./util";
 
 const DEFAULT_ENCLOSED_PLACE_TYPES = ["Country"];
 
@@ -91,7 +100,7 @@ export function PlaceOptions(): JSX.Element {
                 unselectPlace(placeInfo, setEnclosedPlaceTypes)
               }
               numPlacesLimit={1}
-              countryRestrictions={["us"]}
+              countryRestrictions={["us", "ind"]}
               customPlaceHolder={"Enter a country or state to get started"}
             />
           </div>
@@ -182,17 +191,35 @@ function updateEnclosedPlaceTypes(
     .then((resp) => resp.data);
   Promise.all([parentPlacePromise, placeTypePromise])
     .then(([parents, placeType]) => {
-      const isUSPlace =
-        place.value.selectedPlace.dcid === "country/USA" ||
-        parents.findIndex((parent) => parent.dcid === "country/USA") > -1;
+      const isUSPlace = isChildPlaceOf(
+        place.value.selectedPlace.dcid,
+        USA_PLACE_DCID,
+        parents
+      );
+      const isIndPlace = isChildPlaceOf(
+        place.value.selectedPlace.dcid,
+        INDIA_PLACE_DCID,
+        parents
+      );
       let hasEnclosedPlaceTypes = false;
-      if (isUSPlace && placeType in CHILD_PLACE_TYPES) {
-        hasEnclosedPlaceTypes = true;
-        const enclosedPlacetypes = CHILD_PLACE_TYPES[placeType];
-        if (enclosedPlacetypes.length === 1) {
-          place.setEnclosedPlaceType(enclosedPlacetypes[0]);
+      if (isUSPlace || isIndPlace) {
+        if (placeType in CHILD_PLACE_TYPES) {
+          hasEnclosedPlaceTypes = true;
+          let enclosedPlacetypes = CHILD_PLACE_TYPES[placeType];
+          if (isIndPlace) {
+            const uniqueEnclosedPlaceTypes = new Set();
+            enclosedPlacetypes.forEach((type) => {
+              if (type in INDIA_PLACE_TYPES) {
+                uniqueEnclosedPlaceTypes.add(INDIA_PLACE_TYPES[type]);
+              }
+            });
+            enclosedPlacetypes = Array.from(uniqueEnclosedPlaceTypes);
+          }
+          if (enclosedPlacetypes.length === 1) {
+            place.setEnclosedPlaceType(enclosedPlacetypes[0]);
+          }
+          setEnclosedPlaceTypes(enclosedPlacetypes);
         }
-        setEnclosedPlaceTypes(enclosedPlacetypes);
       }
       if (!hasEnclosedPlaceTypes) {
         alert(
@@ -213,8 +240,8 @@ function loadEnclosingPlace(place: PlaceInfoWrapper): void {
     for (const parent of place.value.parentPlaces) {
       for (const type of parent.types) {
         if (
-          type in CHILD_PLACE_TYPES &&
-          CHILD_PLACE_TYPES[type].indexOf(place.value.enclosedPlaceType) > -1
+          getAllChildPlaceTypes(type).indexOf(place.value.enclosedPlaceType) >
+          -1
         ) {
           place.setEnclosingPlace({ dcid: parent.dcid, name: parent.name });
           return;
