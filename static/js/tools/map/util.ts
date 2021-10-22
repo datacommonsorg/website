@@ -20,10 +20,10 @@
 
 import _ from "lodash";
 
-import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 import { INDIA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { isChildPlaceOf } from "../shared_util";
+import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
 const USA_STATE_CHILD_TYPES = ["County"];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
