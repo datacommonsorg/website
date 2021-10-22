@@ -46,8 +46,8 @@ const URL_PARAM_KEYS = {
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
   DATE: "dt",
-  COLOR: "col",
-  DOMAIN: "dom",
+  COLOR: "color",
+  DOMAIN: "domain",
 };
 
 export const MAP_REDIRECT_PREFIX = "/tools/map";

@@ -83,7 +83,7 @@ test("updateHashStatVarInfo", () => {
 test("updateHashDisplay", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashDisplay("", TestContext.display.value);
-  const expectedHash = "&col=red&dom=0-50-100";
+  const expectedHash = "&color=red&domain=0-50-100";
   expect(resultHash).toEqual(expectedHash);
 });
 
@@ -119,7 +119,10 @@ test("applyHashDisplay", () => {
   const context = { statVar: {}, placeInfo: {}, display: {} } as ContextType;
   context.display.set = (value) => (context.display.value = value);
   const urlParams = new URLSearchParams(
-    decodeURIComponent("#%26dom%3D0%2D50%2D100%26col%3Dred").replace("#", "?")
+    decodeURIComponent("#%26domain%3D0%2D50%2D100%26color%3Dred").replace(
+      "#",
+      "?"
+    )
   );
   const display = applyHashDisplay(urlParams);
   expect(display).toEqual(TestContext.display.value);

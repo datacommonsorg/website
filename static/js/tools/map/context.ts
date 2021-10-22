@@ -107,9 +107,11 @@ export interface IsLoadingWrapper {
 
 // Information relating to how the map is displayed
 export interface DisplayOptions {
-  // color to use for the map
+  // middle color to use for the scale for the map
   color: string;
-  // domain to use for the scale
+  // domain to use for the scale. First number is the min, second number is the
+  // value that will correspond to the middle color, and the last number is the
+  // max.
   domain: [number, number, number];
 }
 

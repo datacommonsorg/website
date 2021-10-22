@@ -81,6 +81,9 @@ function fitSize(
  *
  * @param statVar name of the stat var we are drawing choropleth for
  * @param dataValues the values we are using to plot our choropleth
+ * @param color the color to use as the middle color in the scale
+ * @param domain the domain of the scale. The first number is the min, second
+ *               number is the middle number, and the last number is the max.
  */
 function getColorScale(
   statVar: string,
