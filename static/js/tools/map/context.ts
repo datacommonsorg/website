@@ -18,7 +18,7 @@ import { createContext, useState } from "react";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
-import { applyHashPlaceInfo, applyHashStatVar } from "./util";
+import { applyHashDisplay, applyHashPlaceInfo, applyHashStatVar } from "./util";
 
 /**
  * Global app context for map explorer tool.
@@ -105,10 +105,21 @@ export interface IsLoadingWrapper {
   setIsPlaceInfoLoading: Setter<boolean>;
 }
 
+// Information relating to how the map is displayed
+export interface DisplayOptions {
+  // middle color to use for the scale for the map
+  color: string;
+  // domain to use for the scale. First number is the min, second number is the
+  // value that will correspond to the middle color, and the last number is the
+  // max.
+  domain: [number, number, number];
+}
+
 export interface ContextType {
   statVar: StatVarWrapper;
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
+  display: { value: DisplayOptions; set: Setter<DisplayOptions> };
 }
 
 export const Context = createContext({} as ContextType);
@@ -120,6 +131,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     isDataLoading: false,
     isPlaceInfoLoading: false,
   });
+  const [display, setDisplay] = useState(applyHashDisplay(params));
   return {
     isLoading: {
       value: isLoading,
@@ -169,6 +181,10 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setInfo: (info) => setStatVar({ ...statVar, info }),
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
       setDate: (date) => setStatVar({ ...statVar, date }),
+    },
+    display: {
+      value: display,
+      set: (display) => setDisplay(display),
     },
   };
 }

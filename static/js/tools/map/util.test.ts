@@ -16,8 +16,10 @@
 
 import { ContextType } from "./context";
 import {
+  applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
+  updateHashDisplay,
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
@@ -56,6 +58,12 @@ const TestContext = ({
       date: "",
     },
   },
+  display: {
+    value: {
+      domain: [0, 50, 100],
+      color: "red",
+    },
+  },
 } as unknown) as ContextType;
 
 test("updateHashPlaceInfo", () => {
@@ -69,6 +77,13 @@ test("updateHashStatVarInfo", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashStatVar("", TestContext.statVar.value);
   const expectedHash = "&sv=Count_Person&pc=0";
+  expect(resultHash).toEqual(expectedHash);
+});
+
+test("updateHashDisplay", () => {
+  history.pushState = jest.fn();
+  const resultHash = updateHashDisplay("", TestContext.display.value);
+  const expectedHash = "&color=red&domain=0-50-100";
   expect(resultHash).toEqual(expectedHash);
 });
 
@@ -98,4 +113,17 @@ test("applyHashStatVarInfo", () => {
   );
   const statVar = applyHashStatVar(urlParams);
   expect(statVar).toEqual(TestContext.statVar.value);
+});
+
+test("applyHashDisplay", () => {
+  const context = { statVar: {}, placeInfo: {}, display: {} } as ContextType;
+  context.display.set = (value) => (context.display.value = value);
+  const urlParams = new URLSearchParams(
+    decodeURIComponent("#%26domain%3D0%2D50%2D100%26color%3Dred").replace(
+      "#",
+      "?"
+    )
+  );
+  const display = applyHashDisplay(urlParams);
+  expect(display).toEqual(TestContext.display.value);
 });

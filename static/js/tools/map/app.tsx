@@ -28,9 +28,11 @@ import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
 import {
+  applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
   MAP_REDIRECT_PREFIX,
+  updateHashDisplay,
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
@@ -98,11 +100,13 @@ function applyHash(context: ContextType): void {
   );
   context.placeInfo.set(applyHashPlaceInfo(params));
   context.statVar.set(applyHashStatVar(params));
+  context.display.set(applyHashDisplay(params));
 }
 
 function updateHash(context: ContextType): void {
   let hash = updateHashStatVar("", context.statVar.value);
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
+  hash = updateHashDisplay(hash, context.display.value);
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {

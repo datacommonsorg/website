@@ -80,25 +80,33 @@ function fitSize(
  *
  * @param statVar name of the stat var we are drawing choropleth for
  * @param dataValues the values we are using to plot our choropleth
+ * @param color the color to use as the middle color in the scale
+ * @param domain the domain of the scale. The first number is the min, second
+ *               number is the middle number, and the last number is the max.
  */
 function getColorScale(
   statVar: string,
   dataValues: {
     [placeDcid: string]: number;
-  }
+  },
+  color?: string,
+  domain?: [number, number, number]
 ): d3.ScaleLinear<number, number> {
   const label = getStatsVarLabel(statVar);
-  const maxColor = d3.color(getColorFn([label])(label));
+  const maxColor = color
+    ? d3.color(color)
+    : d3.color(getColorFn([label])(label));
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
+  const domainValues = domain || [extent[0], medianValue, extent[1]];
   return d3
     .scaleLinear()
-    .domain([extent[0], medianValue, extent[1]])
+    .domain(domainValues)
     .nice()
     .range(([
       MIN_COLOR,
       maxColor,
-      maxColor.darker(Math.min(extent[1] / medianValue, 1.5)),
+      maxColor.darker(Math.min(domainValues[2] / domainValues[1], 1.5)),
     ] as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (

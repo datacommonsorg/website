@@ -23,7 +23,7 @@ import _ from "lodash";
 import { INDIA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { isChildPlaceOf } from "../shared_util";
-import { NamedTypedPlace, PlaceInfo, StatVar } from "./context";
+import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
 const USA_STATE_CHILD_TYPES = ["County"];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
@@ -58,6 +58,8 @@ const URL_PARAM_KEYS = {
   PER_CAPITA: "pc",
   STAT_VAR_DCID: "sv",
   DATE: "dt",
+  COLOR: "color",
+  DOMAIN: "domain",
 };
 
 export const MAP_REDIRECT_PREFIX = "/tools/map";
@@ -111,6 +113,24 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
 }
 
 /**
+ * Parses the hash and produces a DisplayOptions
+ * @param params the params in the hash
+ */
+export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
+  const color = params.get(URL_PARAM_KEYS.COLOR);
+  const domainParamValue = params.get(URL_PARAM_KEYS.DOMAIN);
+  const domain = domainParamValue
+    ? domainParamValue
+        .split(URL_PARAM_VALUE_SEPARATOR)
+        .map((val) => parseInt(val))
+    : [];
+  return {
+    color,
+    domain: domain.length === 3 ? (domain as [number, number, number]) : null,
+  };
+}
+
+/**
  * Updates the hash based on a StatVar and returns the new hash
  * @param hash the current hash
  * @param statVar the StatVar to update the hash with
@@ -154,6 +174,27 @@ export function updateHashPlaceInfo(
   }
   if (!_.isEmpty(placeInfo.mapPointsPlaceType)) {
     params = `${params}&${URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE}=${placeInfo.mapPointsPlaceType}`;
+  }
+  return hash + params;
+}
+
+/**
+ * Updates the hash based on DisplayOptions and returns the new hash
+ * @param hash the current hash
+ * @param placeInfo the DisplayOptions to update the hash with
+ */
+export function updateHashDisplay(
+  hash: string,
+  display: DisplayOptions
+): string {
+  let params = "";
+  if (display.color) {
+    params = `${params}&${URL_PARAM_KEYS.COLOR}=${display.color}`;
+  }
+  if (display.domain) {
+    params = `${params}&${URL_PARAM_KEYS.DOMAIN}=${display.domain.join(
+      URL_PARAM_VALUE_SEPARATOR
+    )}`;
   }
   return hash + params;
 }

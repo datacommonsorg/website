@@ -60,7 +60,7 @@ interface ChartData {
 }
 
 export function ChartLoader(): JSX.Element {
-  const { placeInfo, statVar, isLoading } = useContext(Context);
+  const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
   useEffect(() => {
@@ -109,6 +109,7 @@ export function ChartLoader(): JSX.Element {
         unit={chartData.unit}
         mapPointValues={chartData.mapPointValues}
         mapPoints={chartData.mapPoints}
+        display={display.value}
       />
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbDataValues}
