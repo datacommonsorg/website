@@ -107,6 +107,10 @@ interface ChartPropType {
    * The topic of the page the chart is in
    */
   topic: string;
+  /**
+   * If the primary place is in USA.
+   */
+  isUsaPlace: boolean;
 }
 
 interface ChartStateType {
@@ -404,7 +408,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       );
       drawChoropleth(
         this.props.id,
-        this.props.dcid,
         this.state.geoJson,
         CHART_HEIGHT,
         elem.offsetWidth,
@@ -415,7 +418,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         getTooltipHtml,
         () => true,
         true,
-        true
+        true,
+        this.props.isUsaPlace
       );
     }
   }

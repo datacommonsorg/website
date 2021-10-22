@@ -36,6 +36,7 @@ import {
 import { formatNumber } from "../../i18n/i18n";
 import {
   EARTH_NAMED_TYPED_PLACE,
+  INDIA_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
@@ -43,12 +44,7 @@ import { urlToDomain } from "../../shared/util";
 import { shouldShowMapBoundaries } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
 import { PlaceInfo, StatVar, StatVarWrapper } from "./context";
-import {
-  CHILD_PLACE_TYPES,
-  MAP_REDIRECT_PREFIX,
-  updateHashPlaceInfo,
-  updateHashStatVar,
-} from "./util";
+import { CHILD_PLACE_TYPES, getRedirectLink, isUSAPlace } from "./util";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;
@@ -226,7 +222,6 @@ function draw(
     document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawChoropleth(
       MAP_CONTAINER_ID,
-      props.placeInfo.enclosingPlace.dcid,
       props.geoJsonData,
       height,
       width - legendWidth,
@@ -246,6 +241,10 @@ function draw(
       shouldShowMapBoundaries(
         props.placeInfo.selectedPlace,
         props.placeInfo.enclosedPlaceType
+      ),
+      isUSAPlace(
+        props.placeInfo.selectedPlace.dcid,
+        props.placeInfo.parentPlaces
       ),
       props.mapPoints,
       props.mapPointValues,
@@ -290,22 +289,17 @@ function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
 const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
   geoProperties: GeoJsonFeatureProperties
 ) => {
-  let hash = updateHashStatVar("", statVar);
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
     name: geoProperties.name,
     types: [placeInfo.enclosedPlaceType],
   };
-  const enclosedPlaceType = CHILD_PLACE_TYPES[placeInfo.enclosedPlaceType][0];
-  hash = updateHashPlaceInfo(hash, {
-    enclosingPlace: { dcid: "", name: "" },
-    enclosedPlaces: [],
-    enclosedPlaceType,
+  const redirectLink = getRedirectLink(
+    statVar,
     selectedPlace,
-    parentPlaces: [],
-    mapPointsPlaceType: placeInfo.mapPointsPlaceType,
-  });
-  const redirectLink = `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+    placeInfo.parentPlaces,
+    placeInfo.mapPointsPlaceType
+  );
   window.open(redirectLink, "_self");
 };
 
@@ -372,7 +366,8 @@ const canClickRegion = (placeInfo: PlaceInfo) => (placeDcid: string) => {
   }
   return (
     placeInfo.enclosingPlace.dcid !== EARTH_NAMED_TYPED_PLACE.dcid ||
-    placeDcid === USA_PLACE_DCID
+    placeDcid === USA_PLACE_DCID ||
+    placeDcid === INDIA_PLACE_DCID
   );
 };
 const onDateRangeMouseOut = () => {

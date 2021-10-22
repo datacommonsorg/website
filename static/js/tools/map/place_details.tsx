@@ -24,15 +24,10 @@ import { Card } from "reactstrap";
 
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
-import { USA_PLACE_DCID } from "../../shared/constants";
+import { INDIA_PLACE_DCID, USA_PLACE_DCID } from "../../shared/constants";
 import { DataPointMetadata } from "./chart_loader";
 import { NamedTypedPlace, PlaceInfo, StatVar } from "./context";
-import {
-  CHILD_PLACE_TYPES,
-  MAP_REDIRECT_PREFIX,
-  updateHashPlaceInfo,
-  updateHashStatVar,
-} from "./util";
+import { getRedirectLink } from "./util";
 
 interface PlaceDetailsPropType {
   breadcrumbDataValues: { [dcid: string]: number };
@@ -135,10 +130,13 @@ function getListItemElement(
   const redirectLink = getRedirectLink(
     props.statVar,
     place,
+    props.placeInfo.parentPlaces,
     props.placeInfo.mapPointsPlaceType
   );
   const shouldBeClickable =
-    place.types.indexOf("Country") === -1 || place.dcid === USA_PLACE_DCID;
+    place.types.indexOf("Country") === -1 ||
+    place.dcid === USA_PLACE_DCID ||
+    place.dcid === INDIA_PLACE_DCID;
   return (
     <div key={place.dcid}>
       {itemNumber && `${itemNumber}. `}
@@ -150,28 +148,4 @@ function getListItemElement(
       {date}: {value}
     </div>
   );
-}
-
-function getRedirectLink(
-  statVar: StatVar,
-  selectedPlace: NamedTypedPlace,
-  mapPointsPlaceType: string
-): string {
-  let hash = updateHashStatVar("", statVar);
-  let enclosedPlaceType = "";
-  for (const type of selectedPlace.types) {
-    if (type in CHILD_PLACE_TYPES) {
-      enclosedPlaceType = CHILD_PLACE_TYPES[type][0];
-      break;
-    }
-  }
-  hash = updateHashPlaceInfo(hash, {
-    enclosingPlace: { name: "", dcid: "" },
-    enclosedPlaces: [],
-    enclosedPlaceType,
-    parentPlaces: [],
-    selectedPlace,
-    mapPointsPlaceType,
-  });
-  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
 }
