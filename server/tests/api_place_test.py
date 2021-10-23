@@ -529,14 +529,15 @@ class TestApiGetPlacesIn(unittest.TestCase):
 
 class TestApiGetPlacesInNames(unittest.TestCase):
 
+    @patch('routes.api.place.get_display_name')
     @patch('services.datacommons.send_request')
-    def test_api_get_places_in_names(self, send_request):
+    def test_api_get_places_in_names(self, send_request, display_name):
 
-        def side_effect(req_url,
-                        req_json={},
-                        compress=False,
-                        post=True,
-                        has_payload=True):
+        def send_request_side_effect(req_url,
+                                     req_json={},
+                                     compress=False,
+                                     post=True,
+                                     has_payload=True):
             if req_url == dc.API_ROOT + "/node/places-in" and req_json == {
                     'dcids': ['geoId/10'],
                     'place_type': 'County'
@@ -551,37 +552,24 @@ class TestApiGetPlacesInNames(unittest.TestCase):
                     "dcid": "geoId/10",
                     "place": "geoId/10005"
                 }]
-            elif req_url == dc.API_ROOT + "/node/property-values" and req_json == {
-                    'dcids': ["geoId/10001", "geoId/10003", "geoId/10005"],
-                    'property': 'name',
-                    'direction': 'out'
-            } and post:
+
+        def display_name_side_effect(dcids):
+            if dcids == "geoId/10001^geoId/10003^geoId/10005":
                 return {
-                    "geoId/10001": {
-                        'out': [{
-                            'value': "Kent County"
-                        }]
-                    },
-                    "geoId/10003": {
-                        'out': [{
-                            'value': "New Castle County"
-                        }]
-                    },
-                    "geoId/10005": {
-                        'out': [{
-                            'value': "Sussex County"
-                        }]
-                    },
+                    "geoId/10001": "Kent County, DE",
+                    "geoId/10003": "New Castle County, DE",
+                    "geoId/10005": "Sussex County, DE",
                 }
 
-        send_request.side_effect = side_effect
+        send_request.side_effect = send_request_side_effect
+        display_name.side_effect = display_name_side_effect
         response = app.test_client().get(
             '/api/place/places-in-names?dcid=geoId/10&placeType=County')
         assert response.status_code == 200
         assert json.loads(response.data) == {
-            "geoId/10001": "Kent County",
-            "geoId/10003": "New Castle County",
-            "geoId/10005": "Sussex County",
+            "geoId/10001": "Kent County, DE",
+            "geoId/10003": "New Castle County, DE",
+            "geoId/10005": "Sussex County, DE",
         }
 
 

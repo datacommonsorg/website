@@ -555,7 +555,9 @@ const getMapTooltipHtml = (
 ) => (place: NamedPlace) => {
   const point = points[place.dcid];
   if (_.isEmpty(point)) {
-    return "";
+    return (
+      `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+    );
   }
   const element = getTooltipElement(
     point,

@@ -677,6 +677,6 @@ def get_places_in_names():
     dcid = request.args.get("dcid")
     place_type = request.args.get("placeType")
     child_places = dc.get_places_in([dcid], place_type)[dcid]
-    return Response(json.dumps(get_name(child_places)),
+    return Response(json.dumps(get_display_name('^'.join(child_places))),
                     200,
                     mimetype='application/json')
