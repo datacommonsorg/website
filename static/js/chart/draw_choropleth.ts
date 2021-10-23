@@ -103,11 +103,7 @@ function getColorScale(
     .scaleLinear()
     .domain(domainValues)
     .nice()
-    .range(([
-      MIN_COLOR,
-      maxColor,
-      maxColor.darker(Math.min(domainValues[2] / domainValues[1], 1.5)),
-    ] as unknown) as number[])
+    .range(([MIN_COLOR, maxColor, maxColor.darker(1.5)] as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
         a: unknown,

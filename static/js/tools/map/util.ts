@@ -122,7 +122,7 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
   const domain = domainParamValue
     ? domainParamValue
         .split(URL_PARAM_VALUE_SEPARATOR)
-        .map((val) => parseInt(val))
+        .map((val) => Number(val))
     : [];
   return {
     color,
