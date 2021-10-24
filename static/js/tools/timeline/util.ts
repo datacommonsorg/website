@@ -77,8 +77,8 @@ export function removeToken(name: string, sep: string, token: string): void {
   setTokensToUrl([{ name, sep, tokens }]);
 }
 
-// set option for a chart, current support options are:
-// - "pc": per capita
+// Set option for a chart, current support options are:
+// - "pc": per capita.
 // - "delta": increment of consecutive point in the time series.
 export function setChartOption(
   mprop: string,
@@ -108,6 +108,24 @@ export function setChartOption(
   window.location.hash = urlParams.toString();
 }
 
+// Set denom for a chart
+export function setDenom(mprop: string, denom: string): void {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  let chartOptions = JSON.parse(urlParams.get("chart"));
+  if (!chartOptions) {
+    chartOptions = {};
+  }
+  if (!chartOptions[mprop]) {
+    chartOptions[mprop] = {};
+  }
+  chartOptions[mprop]["denom"] = denom;
+  urlParams.set("chart", JSON.stringify(chartOptions));
+  window.location.hash = urlParams.toString();
+}
+
+// Get option for a chart, current support options are:
+// - "pc": per capita.
+// - "delta": increment of consecutive point in the time series.
 export function getChartOption(mprop: string, name: string): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   if (urlParams.get(name) != null) {
@@ -129,4 +147,17 @@ export function getChartOption(mprop: string, name: string): boolean {
     }
     return false;
   }
+  return false;
+}
+
+export function getDenom(mprop: string): string {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  const chartOptions = JSON.parse(urlParams.get("chart"));
+  if (!chartOptions) {
+    return "";
+  }
+  if (mprop in chartOptions && "denom" in chartOptions[mprop]) {
+    return chartOptions[mprop]["denom"];
+  }
+  return "";
 }

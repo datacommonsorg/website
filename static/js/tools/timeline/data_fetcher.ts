@@ -138,32 +138,32 @@ export function shortenStatData(
  * Returns per capita computation applied to the time series
  *
  * @param statSeries Time series to apply per capita computation to.
- * @param popSeries Population series data to use for the per capita computation.
+ * @param denomSeries Population series data to use for the per capita computation.
  *
  * @returns TimeSeries with the per capita calculation applied to its values.
  */
-export function computePerCapita(
+export function computeRatio(
   statSeries: TimeSeries,
-  popSeries: TimeSeries,
+  denomSeries: TimeSeries,
   scaling = 1
 ): TimeSeries {
-  if (!popSeries.val) {
+  if (!denomSeries.val) {
     return {};
   }
   const result = _.cloneDeep(statSeries);
-  const popYears = Object.keys(popSeries.val);
+  const popYears = Object.keys(denomSeries.val);
   popYears.sort();
   const yearMin = popYears[0];
   const yearMax = popYears[popYears.length - 1];
   for (const date in statSeries.val) {
     const year = date.split("-")[0];
     let pop: number;
-    if (year in popSeries.val) {
-      pop = popSeries.val[year];
+    if (year in denomSeries.val) {
+      pop = denomSeries.val[year];
     } else if (year < yearMin) {
-      pop = popSeries.val[yearMin];
+      pop = denomSeries.val[yearMin];
     } else if (year > yearMax) {
-      pop = popSeries.val[yearMax];
+      pop = denomSeries.val[yearMax];
     } else {
       // Choose the population year that is the closest to stat year.
       let minDiff = parseInt(yearMax);
@@ -171,7 +171,7 @@ export function computePerCapita(
         const diff = Math.abs(parseInt(y) - parseInt(year));
         if (diff < minDiff) {
           minDiff = diff;
-          pop = popSeries.val[y];
+          pop = denomSeries.val[y];
         }
       }
     }
@@ -198,19 +198,11 @@ export function computePerCapita(
 export function fetchStatData(
   places: string[],
   statVars: string[],
-  perCapita = false,
+  isRatio = false,
   scaling = 1,
-  denominators: Record<string, string> = {}
+  denom = ""
 ): Promise<StatData> {
-  let denomStatVars = [];
-  if (perCapita) {
-    denomStatVars.push(TOTAL_POPULATION_SV);
-    for (const sv in denominators) {
-      denomStatVars.push(denominators[sv]);
-    }
-  }
-  denomStatVars = Array.from(new Set(denomStatVars));
-
+  denom = denom || TOTAL_POPULATION_SV;
   const statDataPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
       places: places,
@@ -220,11 +212,11 @@ export function fetchStatData(
       return resp.data;
     });
   let denomDataPromise: Promise<StatApiResponse>;
-  if (denomStatVars.length > 0) {
+  if (isRatio) {
     denomDataPromise = axios
       .post(`/api/stats`, {
         places: places,
-        statVars: denomStatVars,
+        statVars: [denom],
       })
       .then((resp) => {
         return resp.data;
@@ -267,20 +259,12 @@ export function fetchStatData(
     for (const place in statResp) {
       const placeData = statResp[place].data;
       for (const statVar in placeData) {
-        if (perCapita) {
-          if (Object.keys(denominators).length === 0) {
-            placeData[statVar] = computePerCapita(
-              placeData[statVar],
-              denomResp[place].data[TOTAL_POPULATION_SV],
-              scaling
-            );
-          } else if (statVar in denominators) {
-            placeData[statVar] = computePerCapita(
-              placeData[statVar],
-              denomResp[place].data[denominators[statVar]],
-              scaling
-            );
-          }
+        if (isRatio) {
+          placeData[statVar] = computeRatio(
+            placeData[statVar],
+            denomResp[place].data[denom],
+            scaling
+          );
         }
       }
 
@@ -305,7 +289,6 @@ export function fetchStatData(
       }
     }
     result.data = statResp;
-
     result.dates = Array.from(allDates.values()).sort();
     return result;
   });

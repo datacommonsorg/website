@@ -21,7 +21,7 @@ import { DataGroup } from "../../chart/base";
 import { loadLocaleData } from "../../i18n/i18n";
 import { StatApiResponse, TimeSeries } from "../../shared/stat_types";
 import {
-  computePerCapita,
+  computeRatio,
   convertToDelta,
   fetchStatData,
   getStatVarGroupWithTime,
@@ -657,10 +657,7 @@ test("Per capita with specified denominators test", () => {
     ["Count_Person_Male", "Count_Person_Female"],
     true,
     1,
-    {
-      Count_Person_Male: "Count_Person",
-      Count_Person_Female: "Count_Person",
-    }
+    "Count_Person"
   ).then((data) => {
     expect(data).toEqual({
       data: {
@@ -790,8 +787,7 @@ test("Per capita with specified denominators test - missing place data", () => {
     ["geoId/05", "country/USA"],
     ["UnemploymentRate_Person_Male", "UnemploymentRate_Person_Female"],
     false,
-    1,
-    {}
+    1
   ).then((data) => {
     expect(data).toEqual({
       data: {
@@ -865,7 +861,7 @@ test("compute per capita", () => {
       "2010": 10,
     },
   };
-  expect(computePerCapita(statSeries, popSeries)).toEqual(expected);
+  expect(computeRatio(statSeries, popSeries)).toEqual(expected);
 });
 
 test("convert to delta", () => {

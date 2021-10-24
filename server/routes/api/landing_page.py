@@ -501,18 +501,20 @@ def data(dcid):
     names = place_api.get_display_name('^'.join(sorted(all_places)), g.locale)
 
     # Pick data to highlight - only population for now
-    pop_data = raw_page_data['latestPopulation'][dcid]
-    population = {
-        'date': pop_data['date'],
-        'data': [{
-            'dcid': dcid,
-            'data': {
-                'Count_Person': pop_data['value']
-            }
-        }],
-        'sources': [pop_data['metadata']['provenanceUrl']]
-    }
-    highlight = {gettext('CHART_TITLE-Population'): population}
+    highlight = {}
+    if dcid in raw_page_data['latestPopulation']:
+        pop_data = raw_page_data['latestPopulation'][dcid]
+        population = {
+            'date': pop_data['date'],
+            'data': [{
+                'dcid': dcid,
+                'data': {
+                    'Count_Person': pop_data['value']
+                }
+            }],
+            'sources': [pop_data['metadata']['provenanceUrl']]
+        }
+        highlight = {gettext('CHART_TITLE-Population'): population}
 
     response = {
         'pageChart': spec_and_stat,

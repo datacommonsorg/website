@@ -21,7 +21,7 @@ import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
-import { getChartOption, removeToken, statVarSep } from "./util";
+import { getChartOption, getDenom, removeToken, statVarSep } from "./util";
 
 interface ChartGroupInfo {
   chartOrder: string[];
@@ -34,8 +34,6 @@ interface ChartRegionPropsType {
   statVarInfo: { [key: string]: StatVarInfo };
   // Order in which stat vars were selected.
   statVarOrder: string[];
-  // Map from stat var dcid to denominator dcid.
-  denomMap: Record<string, string>;
 }
 
 class ChartRegion extends Component<ChartRegionPropsType> {
@@ -93,9 +91,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 this.props.statVarInfo,
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              perCapita={getChartOption(mprop, "pc")}
+              pc={getChartOption(mprop, "pc")}
+              denom={getDenom(mprop)}
               delta={getChartOption(mprop, "delta")}
-              denomMap={this.props.denomMap}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
                 removeToken("statsVar", statVarSep, statVar);
