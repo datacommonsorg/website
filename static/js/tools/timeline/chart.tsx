@@ -121,7 +121,7 @@ class Chart extends Component<ChartPropsType> {
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="chart-options">
-          <div className="chart-option">
+          <span className="chart-option">
             <button
               id={ratioCheckboxId}
               className={
@@ -131,17 +131,15 @@ class Chart extends Component<ChartPropsType> {
                 setChartOption(this.props.mprop, "pc", !this.props.pc);
               }}
             ></button>
-            <label>Ratio Of </label>
+            <label htmlFor={ratioCheckboxId}>Ratio Of </label>
             <input
               ref={this.denomInput}
-              type="newquantity[]"
               disabled={!this.props.pc}
-              name="newQuantity"
               placeholder={this.props.denom || "Population"}
               onChange={(evt) => this.handleDenomInput(evt)}
             ></input>
-          </div>
-          <div className="chart-option">
+          </span>
+          <span className="chart-option">
             <button
               id={deltaCheckboxId}
               className={
@@ -152,7 +150,7 @@ class Chart extends Component<ChartPropsType> {
               }}
             ></button>
             <label htmlFor={deltaCheckboxId}>Delta</label>
-          </div>
+          </span>
         </div>
         <div className="statVarChipRegion">
           {statVars.map((statVar) => {
