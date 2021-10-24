@@ -190,7 +190,7 @@ export function computeRatio(
  *
  * @param places A list of place dcids.
  * @param statVars A list of statistical variable dcids.
- * @param perCapita Whether to compute per capita result.
+ * @param isRatio Whether to compute ratio of two stat vars.
  * @param scaling Scaling factor for per capita compuation.
  *
  * @returns A Promise of StatData object.
@@ -202,7 +202,6 @@ export function fetchStatData(
   scaling = 1,
   denom = ""
 ): Promise<StatData> {
-  denom = denom || TOTAL_POPULATION_SV;
   const statDataPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
       places: places,
@@ -216,7 +215,7 @@ export function fetchStatData(
     denomDataPromise = axios
       .post(`/api/stats`, {
         places: places,
-        statVars: [denom],
+        statVars: [denom || TOTAL_POPULATION_SV],
       })
       .then((resp) => {
         return resp.data;
