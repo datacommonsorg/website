@@ -13,9 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import _ from "lodash";
-
 import { SourceSeries } from "../shared/stat_types";
 
 /**
@@ -38,32 +35,4 @@ export function getUnit(sourceSeries: SourceSeries): string {
     unit = "%";
   }
   return unit;
-}
-
-/**
- * Makes the spinner visible if there is one within the specific container with the given id.
- * @param containerId the id of the container to show spinner in
- */
-export function loadSpinner(containerId: string): void {
-  const container = document.getElementById(containerId);
-  if (container) {
-    const browserScreens = container.getElementsByClassName("screen");
-    if (!_.isEmpty(browserScreens)) {
-      browserScreens[0].classList.add("d-block");
-    }
-  }
-}
-
-/**
- * Removes the spinner if there is one within the specific container with the given id.
- * @param containerId the id of the container to remove spinner from
- */
-export function removeSpinner(containerId: string): void {
-  const container = document.getElementById(containerId);
-  if (container) {
-    const browserScreens = container.getElementsByClassName("screen");
-    if (!_.isEmpty(browserScreens)) {
-      browserScreens[0].classList.remove("d-block");
-    }
-  }
 }

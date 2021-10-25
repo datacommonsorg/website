@@ -23,8 +23,9 @@ import _ from "lodash";
 import React from "react";
 
 import { SourceSeries } from "../shared/stat_types";
+import { loadSpinner, removeSpinner } from "../shared/util";
 import { ObservationChart } from "./observation_chart";
-import { getUnit, loadSpinner, removeSpinner } from "./util";
+import { getUnit } from "./util";
 
 const WEATHER_PROPERTY_NAMES = [
   "temperature",

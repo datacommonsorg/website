@@ -18,6 +18,7 @@
  * Chart component for plotting a scatter plot.
  */
 
+import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
@@ -27,10 +28,11 @@ import { Card, Container, Row } from "reactstrap";
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { NamedPlace } from "../../shared/types";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
 import { shouldShowMapBoundaries } from "../shared_util";
 import { Point } from "./chart_loader";
-import { PlaceInfo } from "./context";
+import { DisplayOptionsWrapper, PlaceInfo } from "./context";
 import { drawScatter } from "./draw_scatter";
 import { ScatterChartType } from "./util";
 
@@ -46,12 +48,8 @@ interface ChartPropsType {
   yStatVar: string;
   xUnits?: string;
   yUnits?: string;
-  showQuadrants: boolean;
-  showLabels: boolean;
-  geoJsonData: GeoJsonData;
   placeInfo: PlaceInfo;
-  chartType: ScatterChartType;
-  showDensity: boolean;
+  display: DisplayOptionsWrapper;
   isUSAPlace: boolean;
 }
 
@@ -105,12 +103,15 @@ const MAP_COLORS = [
   "#3B4994",
 ];
 const MAP_NUM_QUANTILES = 6;
+const CONTAINER_ID = "chart";
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
   const tooltipRef = useRef<HTMLDivElement>();
   const sources: Set<string> = new Set();
   const [chartWidth, setChartWidth] = useState(0);
+  const [geoJson, setGeoJson] = useState(null);
+  const [geoJsonFetched, setGeoJsonFetched] = useState(false);
   Object.values(props.points).forEach((point) => {
     sources.add(point.xSource);
     sources.add(point.ySource);
@@ -141,13 +142,32 @@ function Chart(props: ChartPropsType): JSX.Element {
     .style("visibility", "hidden")
     .style("position", "fixed");
 
+  // Fetch geojson in the background when component is first mounted.
+  useEffect(() => {
+    axios
+      .get(
+        `/api/choropleth/geojson?placeDcid=${props.placeInfo.enclosingPlace.dcid}&placeType=${props.placeInfo.enclosedPlaceType}`
+      )
+      .then((resp) => {
+        setGeoJson(resp.data);
+        setGeoJsonFetched(true);
+      })
+      .catch(() => setGeoJsonFetched(true));
+  }, []);
+
   // Replot when data changes.
   useEffect(() => {
+    if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
+      loadSpinner(CONTAINER_ID);
+      return;
+    } else {
+      removeSpinner(CONTAINER_ID);
+    }
     if (!_.isEmpty(props.points)) {
       clearSVGs();
-      plot(svgContainerRef, tooltipRef, props);
+      plot(svgContainerRef, tooltipRef, props, geoJson);
     }
-  }, [props]);
+  }, [props, geoJsonFetched]);
 
   useEffect(() => {
     function _handleWindowResize() {
@@ -156,7 +176,7 @@ function Chart(props: ChartPropsType): JSX.Element {
         const width = svgContainerRef.current.offsetWidth;
         if (width !== chartWidth) {
           setChartWidth(width);
-          plot(svgContainerRef, tooltipRef, props);
+          plot(svgContainerRef, tooltipRef, props, geoJson);
         }
       }
     }
@@ -182,6 +202,9 @@ function Chart(props: ChartPropsType): JSX.Element {
           <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>
+      <div id="scatter-chart-screen" className="screen">
+        <div id="spinner"></div>
+      </div>
     </Container>
   );
 }
@@ -217,7 +240,8 @@ function getStringOrNA(num: number): string {
 function plot(
   svgContainerRef: React.MutableRefObject<HTMLDivElement>,
   tooltipRef: React.MutableRefObject<HTMLDivElement>,
-  props: ChartPropsType
+  props: ChartPropsType,
+  geoJsonData: GeoJsonData
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
   const scatterWidth = Math.min(
@@ -225,7 +249,7 @@ function plot(
     svgContainerRealWidth
   );
   const chartHeight = scatterWidth;
-  if (props.chartType === ScatterChartType.SCATTER) {
+  if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
       tooltipRef,
@@ -236,6 +260,11 @@ function plot(
       getTooltipElement
     );
   } else {
+    if (_.isEmpty(geoJsonData)) {
+      alert(`Sorry, there was an error loading map view.`);
+      props.display.setChartType(ScatterChartType.SCATTER);
+      return;
+    }
     const xVals = Array.from(
       Object.values(props.points),
       (point) => point.xVal
@@ -273,7 +302,7 @@ function plot(
     );
     drawChoropleth(
       SVG_CONTAINER_ID,
-      props.geoJsonData,
+      geoJsonData,
       chartHeight,
       svgContainerRealWidth,
       dataPoints,
