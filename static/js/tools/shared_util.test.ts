@@ -15,7 +15,11 @@
  */
 
 import { NamedTypedPlace } from "./map/context";
-import { getPopulationDate, shouldShowMapBoundaries, toTitleCase } from "./shared_util";
+import {
+  getPopulationDate,
+  shouldShowMapBoundaries,
+  toTitleCase,
+} from "./shared_util";
 
 test("getPopulationDate", () => {
   const basePopData = {

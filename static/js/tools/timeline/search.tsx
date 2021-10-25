@@ -18,18 +18,19 @@ import axios from "axios";
 import {} from "googlemaps";
 import React, { Component, PureComponent } from "react";
 import ReactDOM from "react-dom";
+
 import { toTitleCase } from "../shared_util";
 
 // Hardcoded results to respond to in the place autocomplete.
 const HARDCODED_RESULTS = {
-  'africa': 'africa',
-  'asia': 'asia',
-  'earth': 'Earth',
-  'europe': 'europe',
-  'north america': 'northamerica',
-  'oceania': 'oceania',
-  'south america': 'southamerica',
-}
+  africa: "africa",
+  asia: "asia",
+  earth: "Earth",
+  europe: "europe",
+  "north america": "northamerica",
+  oceania: "oceania",
+  "south america": "southamerica",
+};
 
 interface ChipPropType {
   placeName: string;
@@ -126,7 +127,10 @@ class SearchBar extends Component<SearchBarPropType> {
         this.inputElem.current,
         options
       );
-      this.inputElem.current.addEventListener('keyup', this.onAutocompleteKeyUp);
+      this.inputElem.current.addEventListener(
+        "keyup",
+        this.onAutocompleteKeyUp
+      );
       this.ac.addListener("place_changed", this.getPlaceAndRender);
     }
     this.setPlaceholder();
@@ -146,17 +150,19 @@ class SearchBar extends Component<SearchBarPropType> {
     const inputVal = (e.target as HTMLInputElement).value;
     const dcid = SearchBar.getHardcodedResultDcid(inputVal);
     if (dcid) {
-      const containers = document.getElementsByClassName('pac-container');
+      const containers = document.getElementsByClassName("pac-container");
       const displayResult = toTitleCase(inputVal);
       if (containers && containers.length) {
         const container = containers[0];
         // Keep this in sync with the Maps API results DOM.
-        const result = <div className="pac-item">
-                        <span className="pac-icon pac-icon-marker"></span>
-                        <span className="pac-item-query">
-                          <span className="pac-matched">{displayResult}</span>
-                        </span>
-                      </div>;
+        const result = (
+          <div className="pac-item">
+            <span className="pac-icon pac-icon-marker"></span>
+            <span className="pac-item-query">
+              <span className="pac-matched">{displayResult}</span>
+            </span>
+          </div>
+        );
         container.prepend(ReactDOM.render(result, container));
       }
       // It's unreliable to listen to the ENTER event here. Handling of
@@ -167,7 +173,7 @@ class SearchBar extends Component<SearchBarPropType> {
   private getPlaceAndRender() {
     // Get the place details from the autocomplete object.
     const place = this.ac.getPlace();
-    if ('place_id' in place) {
+    if ("place_id" in place) {
       axios
         .get(`/api/placeid2dcid/${place.place_id}`)
         .then((resp) => {
@@ -177,9 +183,9 @@ class SearchBar extends Component<SearchBarPropType> {
           alert("Sorry, but we don't have any data about " + place.name);
         });
     }
-    if ('name' in place) {
+    if ("name" in place) {
       // Handle hardcoded results.
-      const inputVal = place['name'];
+      const inputVal = place["name"];
       const dcid = SearchBar.getHardcodedResultDcid(inputVal);
       if (dcid) {
         this.props.addPlace(dcid);
