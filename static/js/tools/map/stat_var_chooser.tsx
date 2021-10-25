@@ -66,11 +66,11 @@ export function StatVarChooser(): JSX.Element {
         .then((resp) => {
           if (_.isEmpty(resp.data)) {
             const emptyStatVar = {
+              date: "",
               dcid: "",
+              denom: "",
               info: null,
               perCapita: false,
-              date: "",
-              denom: "",
             };
             let hash = updateHashStatVar("", emptyStatVar);
             hash = updateHashPlaceInfo(hash, placeInfo.value);
@@ -106,10 +106,10 @@ export function StatVarChooser(): JSX.Element {
 
 function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
   statVar.set({
-    info: null,
-    dcid,
-    perCapita: false,
-    denom: DEFAULT_DENOM,
     date: "",
+    dcid,
+    denom: DEFAULT_DENOM,
+    info: null,
+    perCapita: false,
   });
 }
