@@ -24,7 +24,7 @@ import _ from "lodash";
 import { MAX_DATE } from "../../shared/constants";
 import { StatVarNode } from "../../shared/stat_var";
 import { shouldCapStatVarDate } from "../../shared/util";
-import { PlacePointStat } from "../shared_util";
+import { PlacePointStat, PopData } from "../shared_util";
 import {
   Axis,
   ContextType,
@@ -69,15 +69,63 @@ async function getStatsWithinPlace(
       statVarParams += `&date=${MAX_DATE}`;
     }
     promises.push(
-      axios.get(
-        `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
-      )
+      axios
+        .get(
+          `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
+        )
+        .then((resp) => {
+          return resp.data;
+        })
     );
   }
   return Promise.all(promises).then((responses) => {
     let result: Record<string, PlacePointStat> = {};
     for (const resp of responses) {
-      result = Object.assign(result, resp.data);
+      result = Object.assign(result, resp);
+    }
+    return result;
+  });
+}
+
+// Get the stat for within places, given the dates.
+export async function getStatsWithinPlaceFromDates(
+  parent_place: string,
+  child_type: string,
+  statVar: string,
+  years: string[]
+): Promise<Record<string, PopData[]>> {
+  const promises: Promise<Record<string, PlacePointStat>>[] = [];
+  years.push(""); // Add latest date.
+  for (const year of years) {
+    promises.push(
+      axios
+        .get(
+          `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}&stat_vars=${statVar}&date=${year}`
+        )
+        .then((resp) => {
+          return resp.data;
+        })
+    );
+  }
+  return Promise.all(promises).then((responses) => {
+    const result: Record<string, PopData[]> = {};
+    for (const resp of responses) {
+      for (const statVar in resp) {
+        for (const place in resp[statVar].stat) {
+          if (!result[place]) {
+            result[place] = [];
+          }
+          const d = resp[statVar].stat[place];
+          if (d.date) {
+            result[place].push({
+              year: d.date,
+              value: d.value,
+              provenanceUrl:
+                resp[statVar].metadata[d.metadata.importName].provenanceUrl,
+            });
+          }
+        }
+      }
     }
     return result;
   });
