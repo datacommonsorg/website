@@ -131,6 +131,12 @@ export function shouldShowMapBoundaries(
   enclosedPlaceType: string
 ): boolean {
   const selectedPlaceTypes = selectedPlace.types;
+  if (
+    enclosedPlaceType == "EurostatNUTS3" &&
+    selectedPlaceTypes[0] != "EurostatNUTS2"
+  ) {
+    return false;
+  }
   let selectedPlaceTypeIdx = -1;
   if (selectedPlaceTypes) {
     selectedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(selectedPlaceTypes[0]);

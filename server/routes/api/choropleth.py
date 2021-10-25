@@ -41,6 +41,9 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "County": "geoJsonCoordinatesDP1",
     "AdministrativeArea2": "geoJsonCoordinatesDP1",
+    "EurostatNUTS1": "geoJsonCoordinatesDP2",
+    "EurostatNUTS2": "geoJsonCoordinatesDP2",
+    "EurostatNUTS3": "geoJsonCoordinatesDP2",
 }
 
 
