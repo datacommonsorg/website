@@ -31,11 +31,15 @@ export const DEFAULT_DENOM = "Count_Person";
 
 export const CHILD_PLACE_TYPES = {
   Planet: ["Country"],
+  Continent: ["Country"],
   Country: USA_COUNTRY_CHILD_TYPES,
   State: USA_STATE_CHILD_TYPES,
   County: ["County"],
   AdministrativeArea1: ["AdministrativeArea2"],
   AdministrativeArea2: ["AdministrativeArea2"],
+  EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
+  EurostatNUTS2: ["EurostatNUTS3"],
+  EurostatNUTS3: ["EurostatNUTS3"],
 };
 
 export const INDIA_PLACE_TYPES = {
@@ -43,6 +47,14 @@ export const INDIA_PLACE_TYPES = {
   AdministrativeArea2: "AdministrativeArea2",
   County: "AdministrativeArea2",
   State: "AdministrativeArea1",
+};
+
+export const EUROPE_CHILD_PLACE_TYPES = {
+  Continent: ["Country", "EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+  Country: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+  EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
+  EurostatNUTS2: ["EurostatNUTS3"],
+  EurostatNUTS3: ["EurostatNUTS3"],
 };
 
 // list of place types in the US in the order of high to low granularity.

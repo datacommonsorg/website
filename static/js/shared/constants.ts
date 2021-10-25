@@ -18,6 +18,7 @@ import { NamedTypedPlace } from "../tools/map/context";
 
 export const USA_PLACE_DCID = "country/USA";
 export const INDIA_PLACE_DCID = "country/IND";
+export const EUROPE_PLACE_DCID = "europe";
 
 export const EARTH_NAMED_TYPED_PLACE: NamedTypedPlace = {
   dcid: "Earth",

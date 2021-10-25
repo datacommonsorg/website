@@ -24,7 +24,12 @@ import { Card } from "reactstrap";
 
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
-import { INDIA_PLACE_DCID, USA_PLACE_DCID } from "../../shared/constants";
+import {
+  EUROPE_PLACE_DCID,
+  INDIA_PLACE_DCID,
+  USA_PLACE_DCID,
+} from "../../shared/constants";
+import { isChildPlaceOf } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
 import { NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 import { getRedirectLink } from "./util";
@@ -136,7 +141,8 @@ function getListItemElement(
   const shouldBeClickable =
     place.types.indexOf("Country") === -1 ||
     place.dcid === USA_PLACE_DCID ||
-    place.dcid === INDIA_PLACE_DCID;
+    place.dcid === INDIA_PLACE_DCID ||
+    isChildPlaceOf(place.dcid, EUROPE_PLACE_DCID, props.placeInfo.parentPlaces);
   return (
     <div key={place.dcid}>
       {itemNumber && `${itemNumber}. `}
