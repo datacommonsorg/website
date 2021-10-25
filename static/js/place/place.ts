@@ -227,9 +227,17 @@ function renderPage(): void {
 
       // Display child places alphabetically
       for (const placeType in data.allChildPlaces) {
-        data.allChildPlaces[placeType].sort((a, b) =>
-          a.name < b.name ? -1 : a.name > b.name ? 1 : 0
-        );
+        data.allChildPlaces[placeType].sort((a, b) => {
+          if (!a.name && !b.name) {
+            return a.dcid < b.dcid ? -1 : a.dcid > b.dcid ? 1 : 0;
+          } else if (!a.name) {
+            return 1;
+          } else if (!b.name) {
+            return -1;
+          } else {
+            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+          }
+        });
       }
       ReactDOM.render(
         React.createElement(ChildPlace, {
