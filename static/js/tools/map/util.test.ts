@@ -56,6 +56,7 @@ const TestContext = ({
       perCapita: false,
       info: null,
       date: "",
+      denom: "Count_Person",
     },
   },
   display: {
@@ -76,7 +77,7 @@ test("updateHashPlaceInfo", () => {
 test("updateHashStatVarInfo", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashStatVar("", TestContext.statVar.value);
-  const expectedHash = "&sv=Count_Person&pc=0";
+  const expectedHash = "&sv=Count_Person&pc=0&denom=Count_Person";
   expect(resultHash).toEqual(expectedHash);
 });
 
@@ -108,7 +109,7 @@ test("applyHashStatVarInfo", () => {
   context.statVar.set = (value) => (context.statVar.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent(
-      "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DCounty"
+      "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DCounty"
     ).replace("#", "?")
   );
   const statVar = applyHashStatVar(urlParams);

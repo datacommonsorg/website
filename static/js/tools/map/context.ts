@@ -44,6 +44,8 @@ export interface StatVar {
   dcid: string;
   // Whether to plot per capita values
   perCapita: boolean;
+  // dcid of the stat var to use to calculate per capita
+  denom: string;
   // date of the stat var data to get
   date: string;
 }
@@ -57,6 +59,7 @@ export interface StatVarWrapper {
   setDcid: Setter<string>;
   setPerCapita: Setter<boolean>;
   setDate: Setter<string>;
+  setDenom: Setter<string>;
 }
 
 // Information relating to the places to plot
@@ -181,6 +184,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setInfo: (info) => setStatVar({ ...statVar, info }),
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
       setDate: (date) => setStatVar({ ...statVar, date }),
+      setDenom: (denom) => setStatVar({ ...statVar, denom }),
     },
     display: {
       value: display,

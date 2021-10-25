@@ -76,6 +76,7 @@ const NO_PER_CAPITA_TYPES = ["medianValue"];
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
+  const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
   const title = getTitle(
     Array.from(props.dates),
     statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid
@@ -162,8 +163,21 @@ export function Chart(props: ChartProps): JSX.Element {
                       props.statVar.setPerCapita(e.target.checked)
                     }
                   />
-                  Per capita
+                  Ratio of
                 </Label>
+                <input
+                  className="denom-input"
+                  onBlur={() => props.statVar.setDenom(denomInput)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      props.statVar.setDenom(denomInput);
+                    }
+                  }}
+                  type="text"
+                  value={denomInput}
+                  onChange={(e) => setDenomInput(e.target.value)}
+                  disabled={!props.statVar.value.perCapita}
+                />
               </FormGroup>
             </div>
           )}

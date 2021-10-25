@@ -77,7 +77,12 @@ export function ChartLoader(): JSX.Element {
     } else {
       setRawData(undefined);
     }
-  }, [placeInfo.value.enclosedPlaces, statVar.value.dcid, statVar.value.info]);
+  }, [
+    placeInfo.value.enclosedPlaces,
+    statVar.value.dcid,
+    statVar.value.info,
+    statVar.value.denom,
+  ]);
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
       loadChartData(
@@ -135,7 +140,6 @@ function fetchData(
   if (!statVar.dcid) {
     return;
   }
-  const populationStatVar = "Count_Person";
   const breadcrumbPlaceDcids = placeInfo.parentPlaces.map(
     (namedPlace) => namedPlace.dcid
   );
@@ -145,7 +149,7 @@ function fetchData(
   );
   const populationPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
-      statVars: [populationStatVar],
+      statVars: [statVar.denom],
       places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
     })
     .then((resp) => resp.data);
@@ -265,8 +269,11 @@ function getPlaceChartData(
   let popDate = "";
   let popSource = "";
   if (isPerCapita) {
-    if (placeDcid in populationData) {
-      const popSeries = Object.values(populationData[placeDcid].data)[0];
+    const popSeries =
+      placeDcid in populationData
+        ? Object.values(populationData[placeDcid].data)[0]
+        : {};
+    if (!_.isEmpty(popSeries)) {
       popDate = getPopulationDate(popSeries, statVarData.stat[placeDcid]);
       const popValue = popSeries.val[popDate];
       popSource = popSeries.metadata.provenanceUrl;
@@ -278,19 +285,19 @@ function getPlaceChartData(
           statVarSource,
           errorMessage: "Invalid Data",
         };
-        return;
+        return { metadata, sources, date: statVarDate, value };
       }
       value = value / popValue;
       sources.push(popSource);
     } else {
-      metadata[placeDcid] = {
+      metadata = {
         popDate,
         popSource,
         statVarDate,
         statVarSource,
         errorMessage: "Population Data Missing",
       };
-      return;
+      return { metadata, sources, date: statVarDate, value };
     }
   }
   metadata = {
