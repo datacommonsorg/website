@@ -36,15 +36,20 @@ import {
 import { formatNumber } from "../../i18n/i18n";
 import {
   EARTH_NAMED_TYPED_PLACE,
-  EUROPE_PLACE_DCID,
   INDIA_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
-import { urlToDomain } from "../../shared/util";
+import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
-import { DisplayOptions, PlaceInfo, StatVar, StatVarWrapper } from "./context";
+import {
+  DisplayOptions,
+  DisplayOptionsWrapper,
+  PlaceInfo,
+  StatVar,
+  StatVarWrapper,
+} from "./context";
 import { CHILD_PLACE_TYPES, getRedirectLink } from "./util";
 
 interface ChartProps {
@@ -58,8 +63,8 @@ interface ChartProps {
   sources: Set<string>;
   unit: string;
   mapPointValues: { [dcid: string]: number };
-  mapPoints: Array<MapPoint>;
-  display: DisplayOptions;
+  mapPointsPromise: Promise<Array<MapPoint>>;
+  display: DisplayOptionsWrapper;
 }
 
 const MAP_CONTAINER_ID = "choropleth-map";
@@ -72,6 +77,7 @@ const LEGEND_HEIGHT_SCALING = 0.6;
 const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 const NO_PER_CAPITA_TYPES = ["medianValue"];
+const SECTION_CONTAINER_ID = "map-chart";
 
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
@@ -85,15 +91,38 @@ export function Chart(props: ChartProps): JSX.Element {
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVarInfo.dcid;
   const [chartWidth, setChartWidth] = useState(0);
+  const [mapPoints, setMapPoints] = useState(null);
+  const [mapPointsFetched, setMapPointsFetched] = useState(false);
+
+  // load mapPoints in the background.
   useEffect(() => {
+    props.mapPointsPromise
+      .then((mapPoints) => {
+        setMapPoints(mapPoints);
+        setMapPointsFetched(true);
+      })
+      .catch(() => setMapPointsFetched(true));
+  }, []);
+
+  // replot when data changes
+  useEffect(() => {
+    if (props.display.value.showMapPoints && !mapPointsFetched) {
+      loadSpinner(SECTION_CONTAINER_ID);
+      return;
+    } else {
+      removeSpinner(SECTION_CONTAINER_ID);
+    }
     draw(
       props,
       setErrorMessage,
       true,
-      props.display.color,
-      props.display.domain
+      mapPoints,
+      props.display.value.color,
+      props.display.value.domain
     );
-  }, [props]);
+  }, [props, mapPointsFetched]);
+
+  // replot when window size changes
   useEffect(() => {
     function _handleWindowResize() {
       const chartContainer = document.getElementById(CHART_CONTAINER_ID);
@@ -101,9 +130,9 @@ export function Chart(props: ChartProps): JSX.Element {
         const width = chartContainer.offsetWidth;
         if (width !== chartWidth) {
           setChartWidth(width);
-          draw(props, setErrorMessage, false),
-            props.display.color,
-            props.display.domain;
+          draw(props, setErrorMessage, false, mapPoints),
+            props.display.value.color,
+            props.display.value.domain;
         }
       }
     }
@@ -114,7 +143,7 @@ export function Chart(props: ChartProps): JSX.Element {
   }, [props]);
   return (
     <Card className="chart-section-card">
-      <Container>
+      <Container id={SECTION_CONTAINER_ID}>
         <div className="chart-section">
           <div className="map-title">
             <h3>
@@ -151,36 +180,55 @@ export function Chart(props: ChartProps): JSX.Element {
               </div>
             </div>
           )}
-          {NO_PER_CAPITA_TYPES.indexOf(statVarInfo.info.st) === -1 && (
-            <div className="per-capita-option">
-              <FormGroup check>
-                <Label check>
-                  <Input
-                    id="per-capita"
-                    type="checkbox"
-                    checked={statVarInfo.perCapita}
-                    onChange={(e) =>
-                      props.statVar.setPerCapita(e.target.checked)
-                    }
+          <div className="chart-options">
+            {NO_PER_CAPITA_TYPES.indexOf(statVarInfo.info.st) === -1 && (
+              <div className="per-capita-option">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="per-capita"
+                      type="checkbox"
+                      checked={statVarInfo.perCapita}
+                      onChange={(e) =>
+                        props.statVar.setPerCapita(e.target.checked)
+                      }
+                    />
+                    Ratio of
+                  </Label>
+                  <input
+                    className="denom-input"
+                    onBlur={() => props.statVar.setDenom(denomInput)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        props.statVar.setDenom(denomInput);
+                      }
+                    }}
+                    type="text"
+                    value={denomInput}
+                    onChange={(e) => setDenomInput(e.target.value)}
+                    disabled={!props.statVar.value.perCapita}
                   />
-                  Ratio of
-                </Label>
-                <input
-                  className="denom-input"
-                  onBlur={() => props.statVar.setDenom(denomInput)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      props.statVar.setDenom(denomInput);
-                    }
-                  }}
-                  type="text"
-                  value={denomInput}
-                  onChange={(e) => setDenomInput(e.target.value)}
-                  disabled={!props.statVar.value.perCapita}
-                />
-              </FormGroup>
-            </div>
-          )}
+                </FormGroup>
+              </div>
+            )}
+            {props.placeInfo.mapPointsPlaceType && (
+              <div className="installations-option">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="per-capita"
+                      type="checkbox"
+                      checked={props.display.value.showMapPoints}
+                      onChange={(e) =>
+                        props.display.setShowMapPoints(e.target.checked)
+                      }
+                    />
+                    Show Installations
+                  </Label>
+                </FormGroup>
+              </div>
+            )}
+          </div>
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
             <div
@@ -192,6 +240,9 @@ export function Chart(props: ChartProps): JSX.Element {
             </div>
           </div>
         </div>
+        <div id="map-chart-screen" className="screen">
+          <div id="spinner"></div>
+        </div>
       </Container>
     </Card>
   );
@@ -201,6 +252,7 @@ function draw(
   props: ChartProps,
   setErrorMessage: (errorMessage: string) => void,
   shouldDrawMap: boolean,
+  mapPoints: Array<MapPoint>,
   color?: string,
   domain?: [number, number, number]
 ): void {
@@ -211,7 +263,8 @@ function draw(
   const height = (width * 2) / 5;
   const redirectAction = getMapRedirectAction(
     props.statVar.value,
-    props.placeInfo
+    props.placeInfo,
+    props.display.value
   );
   const zoomDcid =
     props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
@@ -275,7 +328,7 @@ function draw(
         USA_PLACE_DCID,
         props.placeInfo.parentPlaces
       ),
-      props.mapPoints,
+      props.display.value.showMapPoints ? mapPoints : [],
       props.mapPointValues,
       zoomDcid,
       ZOOM_IN_BUTTON_ID,
@@ -315,7 +368,7 @@ function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
   window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
 }
 
-const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
+const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo, displayOptions: DisplayOptions) => (
   geoProperties: GeoJsonFeatureProperties
 ) => {
   const selectedPlace = {
@@ -327,7 +380,8 @@ const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
     statVar,
     selectedPlace,
     placeInfo.parentPlaces,
-    placeInfo.mapPointsPlaceType
+    placeInfo.mapPointsPlaceType,
+    displayOptions
   );
   window.open(redirectLink, "_self");
 };

@@ -448,14 +448,31 @@ def get_map_points():
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
     names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
-    latitude_by_geo = dc_service.get_property_values(geos, "latitude")
-    longitude_by_geo = dc_service.get_property_values(geos, "longitude")
+    # For some places, lat long is attached to the place node, but for other
+    # places, the lat long is attached to the location value of the place node.
+    # If a place has location, we will use the location value to find the lat
+    # and long.
+    location_by_geo = dc_service.get_property_values(geos, "location")
+    # dict of dcid used to get latlong to dcid of the place
+    geo_by_latlong_subject = {}
+    for geo_dcid in geos:
+        if geo_dcid in location_by_geo and len(
+                location_by_geo.get(geo_dcid)) > 0:
+            location_dcid = location_by_geo[geo_dcid][0]
+            geo_by_latlong_subject[location_dcid] = geo_dcid
+        else:
+            geo_by_latlong_subject[geo_dcid] = geo_dcid
+    latitude_by_subject = dc_service.get_property_values(
+        list(geo_by_latlong_subject.keys()), "latitude")
+    longitude_by_subject = dc_service.get_property_values(
+        list(geo_by_latlong_subject.keys()), "longitude")
 
     map_points_list = []
-    for geo_id, latitude in latitude_by_geo.items():
-        longitude = longitude_by_geo.get(geo_id, [])
-        if len(latitude_by_geo) == 0 or len(longitude) == 0:
+    for subject_dcid, latitude in latitude_by_subject.items():
+        longitude = longitude_by_subject.get(subject_dcid, [])
+        if len(latitude) == 0 or len(longitude) == 0:
             continue
+        geo_id = geo_by_latlong_subject.get(subject_dcid, "")
         map_point = {
             "placeDcid": geo_id,
             "placeName": names_by_geo.get(geo_id, "Unnamed Place"),
