@@ -27,6 +27,7 @@ import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
 const USA_STATE_CHILD_TYPES = ["County"];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
+export const DEFAULT_DENOM = "Count_Person";
 
 export const CHILD_PLACE_TYPES = {
   Planet: ["Country"],
@@ -60,6 +61,7 @@ const URL_PARAM_KEYS = {
   DATE: "dt",
   COLOR: "color",
   DOMAIN: "domain",
+  DENOM: "denom",
 };
 
 export const MAP_REDIRECT_PREFIX = "/tools/map";
@@ -71,8 +73,9 @@ export const MAP_REDIRECT_PREFIX = "/tools/map";
 export function applyHashStatVar(params: URLSearchParams): StatVar {
   const dcid = params.get(URL_PARAM_KEYS.STAT_VAR_DCID);
   const date = params.get(URL_PARAM_KEYS.DATE);
+  const denom = params.get(URL_PARAM_KEYS.DENOM);
   if (!dcid) {
-    return { dcid: "", perCapita: false, info: null, date: "" };
+    return { dcid: "", perCapita: false, info: null, date: "", denom: "" };
   }
   const perCapita = params.get(URL_PARAM_KEYS.PER_CAPITA);
   return {
@@ -80,6 +83,7 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
     date: date ? date : "",
+    denom: denom ? denom : DEFAULT_DENOM,
   };
 }
 
@@ -146,6 +150,7 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
   const params =
     `&${URL_PARAM_KEYS.STAT_VAR_DCID}=${statVar.dcid}` +
     `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}` +
+    `&${URL_PARAM_KEYS.DENOM}=${statVar.denom}` +
     dateParam;
   return hash + params;
 }
