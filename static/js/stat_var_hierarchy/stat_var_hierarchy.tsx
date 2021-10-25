@@ -24,13 +24,13 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
-import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
 import {
   NamedPlace,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
+import { loadSpinner, removeSpinner } from "../shared/util";
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {

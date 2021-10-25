@@ -22,9 +22,9 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { loadSpinner, removeSpinner } from "../shared/util";
 import { ArcTableRow } from "./arc_table_row";
 import { ArcValue } from "./types";
-import { loadSpinner, removeSpinner } from "./util";
 
 const DCID_PREDICATE = "dcid";
 const TYPEOF_PREDICATE = "typeOf";

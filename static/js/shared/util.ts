@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
+
 import { MAX_YEAR } from "./constants";
 
 // This has to be in sync with server/__init__.py
@@ -81,4 +83,32 @@ export function isDateTooFar(date: string): boolean {
 
 export function shouldCapStatVarDate(statVar: string): boolean {
   return statVar.includes("_RCP");
+}
+
+/**
+ * Makes the spinner visible if there is one within the specific container with the given id.
+ * @param containerId the id of the container to show spinner in
+ */
+export function loadSpinner(containerId: string): void {
+  const container = document.getElementById(containerId);
+  if (container) {
+    const browserScreens = container.getElementsByClassName("screen");
+    if (!_.isEmpty(browserScreens)) {
+      browserScreens[0].classList.add("d-block");
+    }
+  }
+}
+
+/**
+ * Removes the spinner if there is one within the specific container with the given id.
+ * @param containerId the id of the container to remove spinner from
+ */
+export function removeSpinner(containerId: string): void {
+  const container = document.getElementById(containerId);
+  if (container) {
+    const browserScreens = container.getElementsByClassName("screen");
+    if (!_.isEmpty(browserScreens)) {
+      browserScreens[0].classList.remove("d-block");
+    }
+  }
 }

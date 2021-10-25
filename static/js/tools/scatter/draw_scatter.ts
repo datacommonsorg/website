@@ -437,7 +437,7 @@ export function drawScatter(
     props.yUnits
   );
   let width = chartWidth - MARGINS.left - MARGINS.right - yAxisWidth;
-  if (props.showDensity) {
+  if (props.display.showDensity) {
     width = width - DENSITY_LEGEND_WIDTH;
   }
 
@@ -462,7 +462,7 @@ export function drawScatter(
   const xScale = addXAxis(g, props.xLog, height, width, xMinMax[0], xMinMax[1]);
   const yScale = addYAxis(g, props.yLog, height, yMinMax[0], yMinMax[1]);
 
-  if (props.showQuadrants) {
+  if (props.display.showQuadrants) {
     const quadrant = g.append("g");
     const xMean = d3.mean(Object.values(props.points), (point) => point.xVal);
     const yMean = d3.mean(Object.values(props.points), (point) => point.yVal);
@@ -483,7 +483,7 @@ export function drawScatter(
       redirectAction(props.xStatVar, props.yStatVar, point.place.dcid)
     );
 
-  if (props.showDensity) {
+  if (props.display.showDensity) {
     addDensity(
       svg,
       dots,
@@ -501,7 +501,7 @@ export function drawScatter(
       .attr("stroke-width", STROKE_WIDTH);
   }
 
-  if (props.showLabels) {
+  if (props.display.showLabels) {
     g.append("g")
       .attr("class", "dot-label")
       .selectAll("text")
