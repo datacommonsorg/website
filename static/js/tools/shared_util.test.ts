@@ -15,7 +15,7 @@
  */
 
 import { NamedTypedPlace } from "./map/context";
-import { getPopulationDate, shouldShowMapBoundaries } from "./shared_util";
+import { getPopulationDate, shouldShowMapBoundaries, toTitleCase } from "./shared_util";
 
 test("getPopulationDate", () => {
   const basePopData = {
@@ -110,4 +110,10 @@ test("shouldShowMapBoundaries", () => {
   };
   expect(shouldShowMapBoundaries(selectedPlace, "County")).toEqual(false);
   expect(shouldShowMapBoundaries(selectedPlace, "State")).toEqual(true);
+});
+
+test("toTitleCase", () => {
+  expect(toTitleCase("asia")).toEqual("Asia");
+  expect(toTitleCase("EARTH")).toEqual("Earth");
+  expect(toTitleCase("NoRTH AmeRIcA")).toEqual("North America");
 });

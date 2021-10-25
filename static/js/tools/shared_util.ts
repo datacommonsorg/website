@@ -164,3 +164,11 @@ export function isChildPlaceOf(
     parentPlaces.findIndex((parent) => parent.dcid === parentPlaceDcid) > -1
   );
 }
+
+/**
+ * Transforms a string to Title Case.
+ * @param str the string to transform.
+ */
+export function toTitleCase(str: string): string {
+  return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
+}
