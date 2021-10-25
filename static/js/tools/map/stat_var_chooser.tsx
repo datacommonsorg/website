@@ -27,6 +27,7 @@ import { StatVarHierarchyType } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { Context, StatVarWrapper } from "./context";
 import {
+  DEFAULT_DENOM,
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVar,
@@ -64,12 +65,14 @@ export function StatVarChooser(): JSX.Element {
         })
         .then((resp) => {
           if (_.isEmpty(resp.data)) {
-            let hash = updateHashStatVar("", {
-              dcid: "",
-              info: {},
-              perCapita: false,
+            const emptyStatVar = {
               date: "",
-            });
+              dcid: "",
+              denom: "",
+              info: null,
+              perCapita: false,
+            };
+            let hash = updateHashStatVar("", emptyStatVar);
             hash = updateHashPlaceInfo(hash, placeInfo.value);
             hash = encodeURIComponent(hash);
             history.replaceState({}, "", `${MAP_REDIRECT_PREFIX}#${hash}`);
@@ -81,7 +84,7 @@ export function StatVarChooser(): JSX.Element {
               `Sorry, the selected variable ${statVarName} ` +
                 "is not available for the chosen place."
             );
-            statVar.setDcid("");
+            statVar.set(emptyStatVar);
           }
         });
     }
@@ -102,5 +105,11 @@ export function StatVarChooser(): JSX.Element {
 }
 
 function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
-  statVar.setDcid(dcid);
+  statVar.set({
+    date: "",
+    dcid,
+    denom: DEFAULT_DENOM,
+    info: null,
+    perCapita: false,
+  });
 }
