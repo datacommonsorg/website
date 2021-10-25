@@ -379,15 +379,11 @@ const canClickRegion = (placeInfo: PlaceInfo) => (placeDcid: string) => {
   if (!(placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES)) {
     return false;
   }
+  // Add European countries to this list.
   return (
     placeInfo.enclosingPlace.dcid !== EARTH_NAMED_TYPED_PLACE.dcid ||
     placeDcid === USA_PLACE_DCID ||
-    placeDcid === INDIA_PLACE_DCID ||
-    isChildPlaceOf(
-      placeInfo.selectedPlace.dcid,
-      EUROPE_PLACE_DCID,
-      placeInfo.parentPlaces
-    )
+    placeDcid === INDIA_PLACE_DCID
   );
 };
 const onDateRangeMouseOut = () => {

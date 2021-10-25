@@ -102,8 +102,10 @@ export function PlaceOptions(): JSX.Element {
                 unselectPlace(placeInfo, setEnclosedPlaceTypes)
               }
               numPlacesLimit={1}
-              countryRestrictions={["us", "ind", "fr", "gb", "de"]} // API only allows 5 countries.
               customPlaceHolder={"Enter a country or state to get started"}
+              // Don't apply country restrictions and rely on alerts for
+              // unsupported places since the API only allows 5 countries in the
+              // restrictions list.
             />
           </div>
         </div>
@@ -209,10 +211,15 @@ function updateEnclosedPlaceTypes(
           EUROPE_PLACE_DCID,
           parents
         ) ||
-        placeType.indexOf("Eurostat") == 0 ||
-        place.value.selectedPlace.dcid == EUROPE_PLACE_DCID;
+        placeType.indexOf("Eurostat") === 0 ||
+        place.value.selectedPlace.dcid === EUROPE_PLACE_DCID;
       let hasEnclosedPlaceTypes = false;
-      if (isUSPlace || isIndPlace || isEuropePlace) {
+      if (
+        isUSPlace ||
+        isIndPlace ||
+        isEuropePlace ||
+        placeType == "Continent"
+      ) {
         if (placeType in CHILD_PLACE_TYPES) {
           hasEnclosedPlaceTypes = true;
           let enclosedPlacetypes = CHILD_PLACE_TYPES[placeType];

@@ -132,8 +132,8 @@ export function shouldShowMapBoundaries(
 ): boolean {
   const selectedPlaceTypes = selectedPlace.types;
   if (
-    enclosedPlaceType == "EurostatNUTS3" &&
-    selectedPlaceTypes[0] != "EurostatNUTS2"
+    enclosedPlaceType === "EurostatNUTS3" &&
+    selectedPlaceTypes[0] !== "EurostatNUTS2"
   ) {
     return false;
   }
