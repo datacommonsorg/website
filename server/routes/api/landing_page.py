@@ -501,7 +501,7 @@ def data(dcid):
     names = place_api.get_display_name('^'.join(sorted(all_places)), g.locale)
 
     # Pick data to highlight - only population for now
-    highlight = ""
+    highlight = {}
     pop_data = raw_page_data.get('latestPopulation', {}).get(dcid, {})
     if pop_data:
         population = {

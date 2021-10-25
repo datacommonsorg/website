@@ -53,11 +53,8 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
                 className="child-place-link"
                 href={"/place/" + place.dcid}
                 text={
-                  place.name ||
-                  place.dcid +
-                    (i < this.props.childPlaces[placeType].length - 1
-                      ? ","
-                      : "")
+                  (place.name || place.dcid) +
+                  (i < this.props.childPlaces[placeType].length - 1 ? "," : "")
                 }
               />
             ))}

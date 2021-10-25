@@ -72,7 +72,7 @@ def place(place_dcid=None):
 
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_i18n_name([place_dcid])
-    if place_names and place_names.get(place_dcid, ""):
+    if place_names and place_names.get(place_dcid):
         place_name = place_names[place_dcid]
     else:
         place_name = place_dcid
