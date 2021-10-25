@@ -143,9 +143,7 @@ class SearchBar extends Component<SearchBarPropType> {
 
   private onAutocompleteKeyUp(e) {
     // Test for, and respond to, a few hardcoded results.
-    console.log(e);
     const inputVal = (e.target as HTMLInputElement).value;
-    console.log(inputVal);
     const dcid = SearchBar.getHardcodedResultDcid(inputVal);
     if (dcid) {
       const containers = document.getElementsByClassName('pac-container');
@@ -169,18 +167,18 @@ class SearchBar extends Component<SearchBarPropType> {
   private getPlaceAndRender() {
     // Get the place details from the autocomplete object.
     const place = this.ac.getPlace();
-    console.log(place);
     if ('place_id' in place) {
-    axios
-      .get(`/api/placeid2dcid/${place.place_id}`)
-      .then((resp) => {
-        this.props.addPlace(resp.data);
-      })
-      .catch(() => {
-        alert("Sorry, but we don't have any data about " + place.name);
-      });
+      axios
+        .get(`/api/placeid2dcid/${place.place_id}`)
+        .then((resp) => {
+          this.props.addPlace(resp.data);
+        })
+        .catch(() => {
+          alert("Sorry, but we don't have any data about " + place.name);
+        });
     }
     if ('name' in place) {
+      // Handle hardcoded results.
       const inputVal = place['name'];
       const dcid = SearchBar.getHardcodedResultDcid(inputVal);
       if (dcid) {
