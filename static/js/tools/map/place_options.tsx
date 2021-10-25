@@ -25,6 +25,7 @@ import { Card, Container, CustomInput } from "reactstrap";
 
 import {
   EARTH_NAMED_TYPED_PLACE,
+  EUROPE_PLACE_DCID,
   INDIA_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
@@ -33,6 +34,7 @@ import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import {
   CHILD_PLACE_TYPES,
+  EUROPE_CHILD_PLACE_TYPES,
   getAllChildPlaceTypes,
   INDIA_PLACE_TYPES,
 } from "./util";
@@ -100,8 +102,10 @@ export function PlaceOptions(): JSX.Element {
                 unselectPlace(placeInfo, setEnclosedPlaceTypes)
               }
               numPlacesLimit={1}
-              countryRestrictions={["us", "ind"]}
               customPlaceHolder={"Enter a country or state to get started"}
+              // Don't apply country restrictions and rely on alerts for
+              // unsupported places since the API only allows 5 countries in the
+              // restrictions list.
             />
           </div>
         </div>
@@ -201,12 +205,26 @@ function updateEnclosedPlaceTypes(
         INDIA_PLACE_DCID,
         parents
       );
+      const isEuropePlace =
+        isChildPlaceOf(
+          place.value.selectedPlace.dcid,
+          EUROPE_PLACE_DCID,
+          parents
+        ) ||
+        placeType.indexOf("Eurostat") === 0 ||
+        place.value.selectedPlace.dcid === EUROPE_PLACE_DCID;
       let hasEnclosedPlaceTypes = false;
-      if (isUSPlace || isIndPlace) {
+      if (
+        isUSPlace ||
+        isIndPlace ||
+        isEuropePlace ||
+        placeType == "Continent"
+      ) {
         if (placeType in CHILD_PLACE_TYPES) {
           hasEnclosedPlaceTypes = true;
           let enclosedPlacetypes = CHILD_PLACE_TYPES[placeType];
           if (isIndPlace) {
+            // TODO: This should be statically built.
             const uniqueEnclosedPlaceTypes = new Set();
             enclosedPlacetypes.forEach((type) => {
               if (type in INDIA_PLACE_TYPES) {
@@ -214,6 +232,8 @@ function updateEnclosedPlaceTypes(
               }
             });
             enclosedPlacetypes = Array.from(uniqueEnclosedPlaceTypes);
+          } else if (isEuropePlace) {
+            enclosedPlacetypes = EUROPE_CHILD_PLACE_TYPES[placeType];
           }
           if (enclosedPlacetypes.length === 1) {
             place.setEnclosedPlaceType(enclosedPlacetypes[0]);
@@ -223,7 +243,7 @@ function updateEnclosedPlaceTypes(
       }
       if (!hasEnclosedPlaceTypes) {
         alert(
-          `Sorry, we don't support maps for ${place.value.selectedPlace.name}.` +
+          `Sorry, we don't support maps for ${place.value.selectedPlace.name}. ` +
             "Please select a different place."
         );
         setEnclosedPlaceTypes([]);
