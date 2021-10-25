@@ -23,9 +23,9 @@ import _ from "lodash";
 import React from "react";
 
 import { SourceSeries } from "../shared/stat_types";
-import { randDomId } from "../shared/util";
+import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
 import { ObservationChart } from "./observation_chart";
-import { getUnit, loadSpinner, removeSpinner } from "./util";
+import { getUnit } from "./util";
 
 const IGNORED_SOURCE_SERIES_MMETHODS = new Set([
   "GoogleKGHumanCurated",

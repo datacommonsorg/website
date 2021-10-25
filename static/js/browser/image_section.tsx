@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { loadSpinner, removeSpinner } from "./util";
+import { loadSpinner, removeSpinner } from "../shared/util";
 
 const IMAGE_URL_PROPERTY_LABEL = "imageUrl";
 const LOADING_CONTAINER_ID = "browser-image-section";
