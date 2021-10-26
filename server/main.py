@@ -210,8 +210,9 @@ def version():
                                  bigquery=os.environ.get("BIG_QUERY"))
 
 
-thread = threading.Thread(target=send_warmup_requests)
-thread.start()
+if not app.config["TEST"]:
+    thread = threading.Thread(target=send_warmup_requests)
+    thread.start()
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to GKE,
