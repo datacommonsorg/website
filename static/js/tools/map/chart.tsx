@@ -36,6 +36,7 @@ import {
 import { formatNumber } from "../../i18n/i18n";
 import {
   EARTH_NAMED_TYPED_PLACE,
+  EUROPE_PLACE_DCID,
   INDIA_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
