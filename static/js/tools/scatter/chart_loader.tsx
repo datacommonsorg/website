@@ -198,16 +198,13 @@ async function loadData(
     place.enclosedPlaceType,
     [x.value.statVarDcid, y.value.statVarDcid]
   );
-  const childPlaceDcids = place.enclosedPlaces.map(
-    (placeInfo) => placeInfo.dcid
-  );
-  const xPopulationStatVar = DEFAULT_POPULATION_DCID;
-  const yPopulationStatVar = DEFAULT_POPULATION_DCID;
   const populationPromise: Promise<StatApiResponse> = axios
-    .post(`/api/stats`, {
-      statVars: [xPopulationStatVar, yPopulationStatVar],
-      places: childPlaceDcids,
-    })
+    .get(
+      "/api/stats/set/series/within-place" +
+        `?parent_place=${place.enclosingPlace.dcid}` +
+        `&child_type=${place.enclosedPlaceType}` +
+        `&stat_vars=${DEFAULT_POPULATION_DCID}`
+    )
     .then((resp) => resp.data);
 
   const parentPlacesPromise = axios
