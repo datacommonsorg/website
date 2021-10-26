@@ -36,14 +36,16 @@ export function DrawerToggle(props: DrawerToggleProps): JSX.Element {
   useEffect(() => {
     const visibleElem = document.getElementById(props.visibleElemId);
     const collapseElem = document.getElementById(props.collapseElemId);
-    if (isCollapsed) {
-      visibleElem.classList.add(HIDE_CLASS);
-      collapseElem.classList.add(COLLAPSE_CLASS);
-    } else {
-      collapseElem.classList.remove(COLLAPSE_CLASS);
-      setTimeout(() => {
-        visibleElem.classList.remove(HIDE_CLASS);
-      }, VISIBLE_DELAY_MS);
+    if (visibleElem && collapseElem) {
+      if (isCollapsed) {
+        visibleElem.classList.add(HIDE_CLASS);
+        collapseElem.classList.add(COLLAPSE_CLASS);
+      } else {
+        collapseElem.classList.remove(COLLAPSE_CLASS);
+        setTimeout(() => {
+          visibleElem.classList.remove(HIDE_CLASS);
+        }, VISIBLE_DELAY_MS);
+      }
     }
   }, [isCollapsed]);
 
