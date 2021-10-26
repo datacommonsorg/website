@@ -43,7 +43,10 @@ import {
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
-
+const HIDE_UNAVAILABLE_SV_TYPES = [
+  StatVarHierarchyType.BROWSER,
+  StatVarHierarchyType.MAP,
+];
 interface StatVarHierarchyPropType {
   type: string;
   places: NamedPlace[];
@@ -92,7 +95,9 @@ export class StatVarHierarchy extends React.Component<
       rootSVGs: [],
       togglePath: this.togglePath,
       showAllSV:
-        this.props.type === StatVarHierarchyType.BROWSER ? false : true,
+        HIDE_UNAVAILABLE_SV_TYPES.indexOf(this.props.type) === -1
+          ? true
+          : false,
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
