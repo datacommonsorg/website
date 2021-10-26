@@ -89,8 +89,8 @@ async function getStatsWithinPlace(
 
 // Get the stat for within places, given the dates.
 export async function getStatsWithinPlaceFromDates(
-  parent_place: string,
-  child_type: string,
+  parentPlace: string,
+  childType: string,
   statVar: string,
   years: string[]
 ): Promise<Record<string, PopData[]>> {
@@ -100,7 +100,7 @@ export async function getStatsWithinPlaceFromDates(
     promises.push(
       axios
         .get(
-          `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}&stat_vars=${statVar}&date=${year}`
+          `/api/stats/within-place?parent_place=${parentPlace}&child_type=${childType}&stat_vars=${statVar}&date=${year}`
         )
         .then((resp) => {
           return resp.data;
@@ -118,10 +118,10 @@ export async function getStatsWithinPlaceFromDates(
           const d = resp[statVar].stat[place];
           if (d.date) {
             result[place].push({
-              year: d.date,
-              value: d.value,
               provenanceUrl:
                 resp[statVar].metadata[d.metadata.importName].provenanceUrl,
+              value: d.value,
+              year: d.date,
             });
           }
         }
