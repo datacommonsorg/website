@@ -210,10 +210,13 @@ def version():
                                  bigquery=os.environ.get("BIG_QUERY"))
 
 
+if not app.config["TEST"]:
+    thread = threading.Thread(target=send_warmup_requests)
+    thread.start()
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to GKE,
     # a webserver process such as Gunicorn will serve the app.
+    logging.info("Run web server in local mode")
     port = sys.argv[1] if len(sys.argv) >= 2 else 8080
-    thread = threading.Thread(target=send_warmup_requests)
-    thread.start()
     app.run(host='127.0.0.1', port=port, debug=True)
