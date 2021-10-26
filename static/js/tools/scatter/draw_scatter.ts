@@ -313,7 +313,7 @@ function addDensity(
   // Generate a color scale to determine what color the dots in each contour
   // will display
   const densityColorScale = d3
-    .scaleSequential(d3.interpolatePlasma)
+    .scaleSequential(d3.interpolateTurbo)
     .domain([contours.length, 0]);
 
   // Add a legend to show what each color means
