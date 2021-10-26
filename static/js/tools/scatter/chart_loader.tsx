@@ -24,14 +24,14 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { USA_PLACE_DCID } from "../../shared/constants";
+import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
 import {
-  getPopulation,
+  getPopulationDate,
   getUnit,
   isChildPlaceOf,
   PlacePointStat,
-  PopData,
 } from "../shared_util";
 import { Chart } from "./chart";
 import {
@@ -42,11 +42,7 @@ import {
   PlaceInfo,
 } from "./context";
 import { PlotOptions } from "./plot_options";
-import {
-  arePlacesLoaded,
-  getStatsWithinPlace,
-  getStatsWithinPlaceFromDates,
-} from "./util";
+import { arePlacesLoaded, getStatsWithinPlace } from "./util";
 
 /**
  * Represents a point in the scatter plot.
@@ -72,8 +68,7 @@ const DEFAULT_POPULATION_DCID = "Count_Person";
 type Cache = {
   // key here is stat var.
   statVarsData: Record<string, PlacePointStat>;
-  // Key is place dcid.
-  populationData: Record<string, PopData[]>;
+  populationData: StatApiResponse;
   noDataError: boolean;
   parentPlaces: Array<NamedPlace>;
 };
@@ -181,17 +176,6 @@ function useCache(): Cache {
   return cache;
 }
 
-// Get all the dates from the scatter plot data result.
-function getAllYear(statData: Record<string, PlacePointStat>): string[] {
-  const result = new Set<string>();
-  for (const statVar in statData) {
-    for (const place in statData[statVar].stat) {
-      result.add(statData[statVar].stat[place].date.slice(0, 4));
-    }
-  }
-  return Array.from(result);
-}
-
 /**
  * Fills cache with population and statvar data.
  * @param x
@@ -209,34 +193,36 @@ async function loadData(
   setCache: (cache: Cache) => void
 ) {
   isLoading.setAreDataLoading(true);
-  // Fetch stat data and parent places.
   const statVarsDataPromise = getStatsWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     [x.value.statVarDcid, y.value.statVarDcid]
   );
+  const childPlaceDcids = place.enclosedPlaces.map(
+    (placeInfo) => placeInfo.dcid
+  );
+  const xPopulationStatVar = DEFAULT_POPULATION_DCID;
+  const yPopulationStatVar = DEFAULT_POPULATION_DCID;
+  const populationPromise: Promise<StatApiResponse> = axios
+    .post(`/api/stats`, {
+      statVars: [xPopulationStatVar, yPopulationStatVar],
+      places: childPlaceDcids,
+    })
+    .then((resp) => resp.data);
+
   const parentPlacesPromise = axios
     .get(`/api/place/parent/${place.enclosingPlace.dcid}`)
     .then((resp) => resp.data);
-
-  Promise.all([statVarsDataPromise, parentPlacesPromise])
-    .then(([statVarsData, parentPlaces]) => {
-      const years = getAllYear(statVarsData);
-      getStatsWithinPlaceFromDates(
-        place.enclosingPlace.dcid,
-        place.enclosedPlaceType,
-        DEFAULT_POPULATION_DCID,
-        years
-      ).then((populationData) => {
-        const cache = {
-          noDataError: _.isEmpty(statVarsData),
-          populationData,
-          statVarsData,
-          parentPlaces,
-        };
-        isLoading.setAreDataLoading(false);
-        setCache(cache);
-      });
+  Promise.all([statVarsDataPromise, populationPromise, parentPlacesPromise])
+    .then(([statVarsData, populationData, parentPlaces]) => {
+      const cache = {
+        noDataError: _.isEmpty(statVarsData),
+        populationData,
+        statVarsData,
+        parentPlaces,
+      };
+      isLoading.setAreDataLoading(false);
+      setCache(cache);
     })
     .catch(() => {
       alert("Error fetching data.");
@@ -326,27 +312,39 @@ function getPoints(
       if (_.isEmpty(placeXStatData) || _.isEmpty(placeYStatData)) {
         return null;
       }
-      const xPopData = getPopulation(
-        cache.populationData[place.dcid],
-        placeXStatData
-      );
-      const yPopData = getPopulation(
-        cache.populationData[place.dcid],
-        placeYStatData
-      );
+      let xPop = null;
+      let xPopSource = null;
+      let xPopDate = null;
+      const placeXPopData =
+        cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
+      if (placeXPopData) {
+        xPopDate = getPopulationDate(placeXPopData, placeXStatData);
+        xPop = placeXPopData.val[xPopDate];
+        xPopSource = placeXPopData.metadata.provenanceUrl;
+      }
+      let yPop = null;
+      let yPopSource = null;
+      let yPopDate = null;
+      const placeYPopData =
+        cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
+      if (placeYPopData) {
+        yPopDate = getPopulationDate(placeYPopData, placeYStatData);
+        yPop = placeYPopData.val[yPopDate];
+        yPopSource = placeYPopData.metadata.provenanceUrl;
+      }
       const point = {
         place,
         xDate: placeXStatData.date,
-        xPop: xPopData.value,
-        xPopDate: xPopData.year,
-        xPopSource: xPopData.provenanceUrl,
+        xPop,
+        xPopDate,
+        xPopSource,
         xSource:
           xStatData.metadata[placeXStatData.metadata.importName].provenanceUrl,
         xVal: placeXStatData.value,
         yDate: placeYStatData.date,
-        yPop: yPopData.value,
-        yPopDate: yPopData.year,
-        yPopSource: yPopData.provenanceUrl,
+        yPop,
+        yPopDate,
+        yPopSource,
         ySource:
           yStatData.metadata[placeYStatData.metadata.importName].provenanceUrl,
         yVal: placeYStatData.value,
