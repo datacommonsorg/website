@@ -19,6 +19,6 @@ region:
   primary: us-central1
   others:
     - europe-west2
-nodes: 1
+nodes: 3
 storage_project: datcom-store
 gcs_bucket: datcom-website-autopush-resources
