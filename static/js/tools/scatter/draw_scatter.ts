@@ -313,8 +313,8 @@ function addDensity(
   // Generate a color scale to determine what color the dots in each contour
   // will display
   const densityColorScale = d3
-    .scaleSequential((t) => d3.hsl(t * 240, 1, 0.5).toString())
-    .domain([0, contours.length]);
+    .scaleSequential(d3.interpolateTurbo)
+    .domain([contours.length, 0]);
 
   // Add a legend to show what each color means
   addDensityLegend(svg, contours, densityColorScale, chartHeight, marginTop);

@@ -19,7 +19,7 @@ import _ from "lodash";
 
 import { NamedTypedPlace } from "../tools/map/context";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
-import { EARTH_NAMED_TYPED_PLACE, MAX_YEAR } from "./constants";
+import { EARTH_NAMED_TYPED_PLACE, MAX_YEAR, MAX_DATE } from "./constants";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -89,8 +89,16 @@ export function isDateTooFar(date: string): boolean {
   return date.slice(0, 4) > MAX_YEAR;
 }
 
-export function shouldCapStatVarDate(statVar: string): boolean {
-  return statVar.includes("_RCP");
+export function getCappedStatVarDate(statVar: string): string {
+  // Only want to cap stat var date for stat vars with RCP.
+  if (!statVar.includes("_RCP")) {
+    return "";
+  }
+  // Wet bulb temperature is observed at P1Y, so need to use year for the date.
+  if (statVar.includes("WetBulbTemperature")) {
+    return MAX_YEAR;
+  }
+  return MAX_DATE;
 }
 
 /**

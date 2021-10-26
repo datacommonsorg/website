@@ -46,9 +46,9 @@ patchesStrategicMerge:
     metadata:
       name: website-app
     spec:
-      replicas: 6
+      replicas: 18
       strategy:
         type: RollingUpdate
         rollingUpdate:
-          maxSurge: 3
-          maxUnavailable: 75%
+          maxSurge: 6
+          maxUnavailable: 50%
