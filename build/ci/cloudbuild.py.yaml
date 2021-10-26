@@ -17,7 +17,6 @@ steps:
   - id: flask_test
     name: python:3.7
     entrypoint: /bin/sh
-    waitFor: ["-"]
     args:
       - -c
       - |
