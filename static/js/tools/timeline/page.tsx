@@ -33,6 +33,7 @@ import {
   setTokensToUrl,
   statVarSep,
 } from "./util";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 
 interface PageStateType {
   placeName: Record<string, string>;
@@ -117,6 +118,10 @@ class Page extends Component<unknown, PageStateType> {
     return (
       <>
         <div className="explore-menu-container" id="explore">
+          <DrawerToggle
+            collapseElemId="explore"
+            visibleElemId="stat-var-hierarchy-section"
+          />
           <StatVarHierarchy
             type={StatVarHierarchyType.TIMELINE}
             places={namedPlaces}
@@ -131,7 +136,7 @@ class Page extends Component<unknown, PageStateType> {
           />
         </div>
         <div id="plot-container">
-          <div className="container">
+          <div className="container-fluid">
             {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
             <div id="search">
               <SearchBar
