@@ -216,7 +216,7 @@ export function Chart(props: ChartProps): JSX.Element {
                 <FormGroup check>
                   <Label check>
                     <Input
-                      id="per-capita"
+                      id="show-installations"
                       type="checkbox"
                       checked={props.display.value.showMapPoints}
                       onChange={(e) =>
