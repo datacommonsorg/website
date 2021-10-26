@@ -27,6 +27,7 @@
     "@types/js-cookie": "^2.2.6",
     "@types/lodash": "^4.14.161",
     "@types/reactstrap": "^8.5.1",
+    "@types/resize-observer-browser": "^0.1.6",
     "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "babel-polyfill": "^6.26.0",

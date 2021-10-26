@@ -23,7 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
-import { Card, Container, Row } from "reactstrap";
+import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
@@ -108,6 +108,7 @@ const CONTAINER_ID = "chart";
 function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
   const tooltipRef = useRef<HTMLDivElement>();
+  const chartContainerRef = useRef<HTMLDivElement>();
   const sources: Set<string> = new Set();
   const [chartWidth, setChartWidth] = useState(0);
   const [geoJson, setGeoJson] = useState(null);
@@ -170,23 +171,27 @@ function Chart(props: ChartPropsType): JSX.Element {
   }, [props, geoJsonFetched]);
 
   useEffect(() => {
-    function _handleWindowResize() {
+    const resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+      // TODO: Debounce
       if (svgContainerRef.current) {
-        clearSVGs();
         const width = svgContainerRef.current.offsetWidth;
         if (width !== chartWidth) {
           setChartWidth(width);
+          clearSVGs();
           plot(svgContainerRef, tooltipRef, props, geoJson);
         }
       }
+    });
+    if (chartContainerRef.current) {
+      resizeObserver.observe(chartContainerRef.current);
     }
-    window.addEventListener("resize", _handleWindowResize);
     return () => {
-      window.removeEventListener("resize", _handleWindowResize);
-    };
-  }, [props]);
+      resizeObserver.unobserve(chartContainerRef.current);
+    }
+  }, [chartContainerRef, props]);
+
   return (
-    <Container id="chart">
+    <div id="chart" className="container-fluid" ref={chartContainerRef}>
       <Row>
         <Card id="no-padding">
           <div className="chart-title">
@@ -205,7 +210,7 @@ function Chart(props: ChartPropsType): JSX.Element {
       <div id="scatter-chart-screen" className="screen">
         <div id="spinner"></div>
       </div>
-    </Container>
+    </div>
   );
 }
 
@@ -244,11 +249,13 @@ function plot(
   geoJsonData: GeoJsonData
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
-  const scatterWidth = Math.min(
+  // TODO: Use CSS to set the height of the chart so it's visible (< 1 vh).
+  const scatterHeight = Math.min(
     window.innerHeight * 0.6,
     svgContainerRealWidth
   );
-  const chartHeight = scatterWidth;
+  const scatterWidth = svgContainerRealWidth;
+  const chartHeight = scatterHeight;
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
