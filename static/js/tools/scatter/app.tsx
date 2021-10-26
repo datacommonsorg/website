@@ -50,10 +50,10 @@ function App(): JSX.Element {
   );
   const showInfo = !showChart && !showChooseStatVarMessage;
   return (
-    <div>
+    <>
       <StatVarChooser />
       <div id="plot-container">
-        <Container>
+        <Container fluid={true}>
           {!showChart && (
             <Row>
               <h1 className="mb-4">Scatter Plot Explorer</h1>
@@ -80,7 +80,7 @@ function App(): JSX.Element {
         </Container>
       </div>
       <Spinner isOpen={shouldDisplaySpinner(isLoading)} />
-    </div>
+    </>
   );
 }
 
