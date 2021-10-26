@@ -25,9 +25,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { Context, StatVarWrapper } from "./context";
+import {
+  Context,
+  DisplayOptionsWrapper,
+  PlaceInfoWrapper,
+  StatVarWrapper,
+} from "./context";
 import {
   DEFAULT_DENOM,
+  DEFAULT_DISPLAY_OPTIONS,
+  getMapPointsPlaceType,
   MAP_REDIRECT_PREFIX,
   updateHashPlaceInfo,
   updateHashStatVar,
@@ -36,7 +43,7 @@ import {
 const SAMPLE_SIZE = 3;
 
 export function StatVarChooser(): JSX.Element {
-  const { statVar, placeInfo } = useContext(Context);
+  const { statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState(
     _.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)
   );
@@ -96,7 +103,7 @@ export function StatVarChooser(): JSX.Element {
         places={samplePlaces}
         selectedSVs={[statVar.value.dcid]}
         selectSV={(svDcid) => {
-          selectStatVar(statVar, svDcid);
+          selectStatVar(statVar, display, placeInfo, svDcid);
         }}
         searchLabel="Statistical Variables"
       />
@@ -104,7 +111,14 @@ export function StatVarChooser(): JSX.Element {
   );
 }
 
-function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
+function selectStatVar(
+  statVar: StatVarWrapper,
+  displayOptions: DisplayOptionsWrapper,
+  placeInfo: PlaceInfoWrapper,
+  dcid: string
+): void {
+  displayOptions.set(DEFAULT_DISPLAY_OPTIONS);
+  placeInfo.setMapPointsPlaceType(getMapPointsPlaceType(dcid));
   statVar.set({
     date: "",
     dcid,

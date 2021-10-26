@@ -37,7 +37,7 @@ interface ChartRawData {
   statVarData: PlacePointStat;
   populationData: StatApiResponse;
   mapPointValues: PlacePointStat;
-  mapPoints: Array<MapPoint>;
+  mapPointsPromise: Promise<Array<MapPoint>>;
 }
 
 export interface DataPointMetadata {
@@ -56,7 +56,7 @@ interface ChartData {
   geoJsonData: GeoJsonData;
   unit: string;
   mapPointValues: { [dcid: string]: number };
-  mapPoints: Array<MapPoint>;
+  mapPointsPromise: Promise<Array<MapPoint>>;
 }
 
 export function ChartLoader(): JSX.Element {
@@ -113,8 +113,8 @@ export function ChartLoader(): JSX.Element {
         sources={chartData.sources}
         unit={chartData.unit}
         mapPointValues={chartData.mapPointValues}
-        mapPoints={chartData.mapPoints}
-        display={display.value}
+        display={display}
+        mapPointsPromise={chartData.mapPointsPromise}
       />
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbDataValues}
@@ -124,6 +124,7 @@ export function ChartLoader(): JSX.Element {
         unit={chartData.unit}
         statVar={statVar.value}
         geoJsonFeatures={chartData.geoJsonData.features}
+        displayOptions={display.value}
       />
     </div>
   );
@@ -200,7 +201,6 @@ function fetchData(
     statVarDataPromise,
     breadcrumbDataPromise,
     mapPointValuesPromise,
-    mapPointsPromise,
   ])
     .then(
       ([
@@ -209,7 +209,6 @@ function fetchData(
         mapStatVarData,
         breadcrumbData,
         mapPointValues,
-        mapPoints,
       ]) => {
         let statVarDataMetadata =
           mapStatVarData && mapStatVarData.metadata
@@ -232,9 +231,9 @@ function fetchData(
         setRawData({
           geoJsonData,
           mapPointValues,
-          mapPoints,
           populationData,
           statVarData,
+          mapPointsPromise,
         });
       }
     )
@@ -401,7 +400,7 @@ function loadChartData(
     breadcrumbDataValues,
     dates: statVarDates,
     geoJsonData: rawData.geoJsonData,
-    mapPoints: rawData.mapPoints,
+    mapPointsPromise: rawData.mapPointsPromise,
     mapPointValues,
     mapValues,
     metadata,

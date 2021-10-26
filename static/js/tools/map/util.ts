@@ -27,7 +27,32 @@ import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
 const USA_STATE_CHILD_TYPES = ["County"];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
+const URL_PARAM_VALUE_SEPARATOR = "-";
+const URL_PARAM_KEYS = {
+  SELECTED_PLACE_DCID: "pd",
+  SELECTED_PLACE_NAME: "pn",
+  SELECTED_PLACE_TYPES: "pt",
+  ENCLOSED_PLACE_TYPE: "ept",
+  MAP_POINTS_PLACE_TYPE: "ppt",
+  PER_CAPITA: "pc",
+  STAT_VAR_DCID: "sv",
+  DATE: "dt",
+  COLOR: "color",
+  DOMAIN: "domain",
+  DENOM: "denom",
+  MAP_POINTS: "mp",
+};
+const SV_REGEX_INSTALLATION_MAPPING = {
+  Emissions: "EpaReportingFacility",
+  AirPollutant: "AirQualitySite",
+};
+
 export const DEFAULT_DENOM = "Count_Person";
+export const DEFAULT_DISPLAY_OPTIONS = {
+  color: "",
+  domain: null,
+  showMapPoints: false,
+};
 
 export const CHILD_PLACE_TYPES = {
   Planet: ["Country"],
@@ -59,23 +84,6 @@ export const EUROPE_CHILD_PLACE_TYPES = {
 
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
-
-const URL_PARAM_VALUE_SEPARATOR = "-";
-
-const URL_PARAM_KEYS = {
-  SELECTED_PLACE_DCID: "pd",
-  SELECTED_PLACE_NAME: "pn",
-  SELECTED_PLACE_TYPES: "pt",
-  ENCLOSED_PLACE_TYPE: "ept",
-  MAP_POINTS_PLACE_TYPE: "ppt",
-  PER_CAPITA: "pc",
-  STAT_VAR_DCID: "sv",
-  DATE: "dt",
-  COLOR: "color",
-  DOMAIN: "domain",
-  DENOM: "denom",
-};
-
 export const MAP_REDIRECT_PREFIX = "/tools/map";
 
 /**
@@ -140,9 +148,11 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
         .split(URL_PARAM_VALUE_SEPARATOR)
         .map((val) => Number(val))
     : [];
+  const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
+    showMapPoints: showMapPoints && showMapPoints === "1" ? true : false,
   };
 }
 
@@ -205,6 +215,11 @@ export function updateHashDisplay(
   display: DisplayOptions
 ): string {
   let params = "";
+  if (display.showMapPoints) {
+    params = `${params}&${URL_PARAM_KEYS.MAP_POINTS}=${
+      display.showMapPoints ? "1" : "0"
+    }`;
+  }
   if (display.color) {
     params = `${params}&${URL_PARAM_KEYS.COLOR}=${display.color}`;
   }
@@ -252,9 +267,11 @@ export function getRedirectLink(
   statVar: StatVar,
   selectedPlace: NamedTypedPlace,
   parentPlaces: NamedPlace[],
-  mapPointsPlaceType: string
+  mapPointsPlaceType: string,
+  displayOptions: DisplayOptions
 ): string {
   let hash = updateHashStatVar("", statVar);
+  hash = updateHashDisplay(hash, displayOptions);
   const parentPlacesList = _.cloneDeep(parentPlaces);
   const idxInParentPlaces = parentPlaces.findIndex(
     (parentPlace) => parentPlace.dcid === selectedPlace.dcid
@@ -291,4 +308,17 @@ export function getAllChildPlaceTypes(type: string): string[] {
     .filter((childType) => childType in INDIA_PLACE_TYPES)
     .forEach((childType) => uniquePlaceTypes.add(INDIA_PLACE_TYPES[childType]));
   return Array.from(uniquePlaceTypes);
+}
+
+/**
+ * Given a stat var, get the place type for plotting map points
+ * @param svDcid dcid of the stat var to plot map points for
+ */
+export function getMapPointsPlaceType(svDcid: string): string {
+  for (const svRegex in SV_REGEX_INSTALLATION_MAPPING) {
+    if (svDcid.match(svRegex)) {
+      return SV_REGEX_INSTALLATION_MAPPING[svRegex];
+    }
+  }
+  return "";
 }
