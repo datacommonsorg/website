@@ -63,6 +63,7 @@ const TestContext = ({
     value: {
       domain: [0, 50, 100],
       color: "red",
+      showMapPoints: false,
     },
   },
 } as unknown) as ContextType;

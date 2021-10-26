@@ -18,7 +18,12 @@ import { createContext, useState } from "react";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
-import { applyHashDisplay, applyHashPlaceInfo, applyHashStatVar } from "./util";
+import {
+  applyHashDisplay,
+  applyHashPlaceInfo,
+  applyHashStatVar,
+  getMapPointsPlaceType,
+} from "./util";
 
 /**
  * Global app context for map explorer tool.
@@ -116,13 +121,22 @@ export interface DisplayOptions {
   // value that will correspond to the middle color, and the last number is the
   // max.
   domain: [number, number, number];
+  // whether we want to show map points on the chart
+  showMapPoints: boolean;
+}
+
+export interface DisplayOptionsWrapper {
+  value: DisplayOptions;
+
+  set: Setter<DisplayOptions>;
+  setShowMapPoints: Setter<boolean>;
 }
 
 export interface ContextType {
   statVar: StatVarWrapper;
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
-  display: { value: DisplayOptions; set: Setter<DisplayOptions> };
+  display: DisplayOptionsWrapper;
 }
 
 export const Context = createContext({} as ContextType);
@@ -135,6 +149,11 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     isPlaceInfoLoading: false,
   });
   const [display, setDisplay] = useState(applyHashDisplay(params));
+  // If map points place type was set in the url, use that type. Otherwise,
+  // infer map points place type based on stat var
+  const mapPointsPlaceType = placeInfo.mapPointsPlaceType
+    ? placeInfo.mapPointsPlaceType
+    : getMapPointsPlaceType(statVar.dcid);
   return {
     isLoading: {
       value: isLoading,
@@ -145,7 +164,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setIsLoading({ ...isLoading, isPlaceInfoLoading }),
     },
     placeInfo: {
-      value: placeInfo,
+      value: { ...placeInfo, mapPointsPlaceType },
       set: (placeInfo) => setPlaceInfo(placeInfo),
       setSelectedPlace: (selectedPlace) =>
         setPlaceInfo({
@@ -189,6 +208,8 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     display: {
       value: display,
       set: (display) => setDisplay(display),
+      setShowMapPoints: (showMapPoints) =>
+        setDisplay({ ...display, showMapPoints }),
     },
   };
 }
