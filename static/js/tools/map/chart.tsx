@@ -368,9 +368,11 @@ function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
   window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
 }
 
-const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo, displayOptions: DisplayOptions) => (
-  geoProperties: GeoJsonFeatureProperties
-) => {
+const getMapRedirectAction = (
+  statVar: StatVar,
+  placeInfo: PlaceInfo,
+  displayOptions: DisplayOptions
+) => (geoProperties: GeoJsonFeatureProperties) => {
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
     name: geoProperties.name,
