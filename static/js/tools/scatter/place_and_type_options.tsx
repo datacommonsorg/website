@@ -96,7 +96,7 @@ function PlaceAndTypeOptions(): JSX.Element {
   useEffect(() => {
     if (
       isPlacePicked(place.value) &&
-      display.chartType === ScatterChartType.MAP && 
+      display.chartType === ScatterChartType.MAP &&
       !_.isNull(place.value.parentPlaces)
     ) {
       const hasMapView =
