@@ -200,7 +200,7 @@ async function loadData(
   );
   const populationPromise: Promise<StatApiResponse> = axios
     .get(
-      `/api/stats/set/series/within-place` +
+      "/api/stats/set/series/within-place" +
         `?parent_place=${place.enclosingPlace.dcid}` +
         `&child_type=${place.enclosedPlaceType}` +
         `&stat_vars=${DEFAULT_POPULATION_DCID}`
