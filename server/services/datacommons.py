@@ -45,6 +45,7 @@ API_ENDPOINTS = {
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
     'get_stat_set_within_place': '/stat/set/within-place',
+    'get_stat_set_series_within_place': '/stat/set/series/within-place',
     'get_stat_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
@@ -140,6 +141,24 @@ def get_stat_set_within_place(parent_place, child_type, stat_vars, date):
         'stat_vars': stat_vars
     }
     return send_request(url, req_json=req_json, has_payload=False)
+
+
+def get_stat_set_series_within_place(parent_place, child_type, stat_vars):
+    """Gets the statistical variable series for child places of a certain place
+    type contained in a parent place.
+
+    Args:
+        parent_place: Parent place DCID as a string.
+        child_type: Type of child places as a string.
+        stat_vars: List of statistical variable DCIDs each as a string.
+    """
+    url = API_ROOT + API_ENDPOINTS['get_stat_set_series_within_place']
+    req_json = {
+        'parent_place': parent_place,
+        'child_type': child_type,
+        'stat_vars': stat_vars
+    }
+    return send_request(url, req_json=req_json, has_payload=False, post=False)
 
 
 def get_stat_set(places, stat_vars, date=None):
