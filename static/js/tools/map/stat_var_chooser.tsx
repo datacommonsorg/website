@@ -39,6 +39,7 @@ import {
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 
 const SAMPLE_SIZE = 3;
 
@@ -98,6 +99,10 @@ export function StatVarChooser(): JSX.Element {
   }, [samplePlaces]);
   return (
     <div className="explore-menu-container" id="explore">
+      <DrawerToggle
+        collapseElemId="explore"
+        visibleElemId="stat-var-hierarchy-section"
+      />
       <StatVarHierarchy
         type={StatVarHierarchyType.MAP}
         places={samplePlaces}
