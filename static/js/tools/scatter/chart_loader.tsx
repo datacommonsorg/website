@@ -72,6 +72,7 @@ const DEFAULT_POPULATION_DCID = "Count_Person";
 type Cache = {
   // key here is stat var.
   statVarsData: Record<string, PlacePointStat>;
+  // Key is place dcid.
   populationData: Record<string, PopData[]>;
   noDataError: boolean;
   parentPlaces: Array<NamedPlace>;

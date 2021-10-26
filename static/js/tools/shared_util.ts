@@ -85,7 +85,7 @@ export function getPopulation(
       bestPoint = pt;
     }
   }
-  console.log(`Date diff: ${statData.date}, ${bestPoint.year}`);
+  // console.log(`Date diff: ${statData.date}, ${bestPoint.year}`);
   return bestPoint;
 }
 
