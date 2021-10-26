@@ -25,14 +25,10 @@ import { Container, CustomInput } from "reactstrap";
 import { Card } from "reactstrap";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { CHILD_PLACE_TYPES, getAllChildPlaceTypes } from "../map/util";
+import { loadParentPlaces } from "../../shared/util";
+import { getAllChildPlaceTypes } from "../map/util";
 import { SearchBar } from "../timeline/search";
-import {
-  Context,
-  IsLoadingWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
-} from "./context";
+import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
@@ -83,7 +79,12 @@ function PlaceAndTypeOptions(): JSX.Element {
    * Reloads child places if the enclosing place or child place type changes.
    */
   useEffect(() => {
-    if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
+    if (place.value.enclosingPlace.dcid && _.isNull(place.value.parentPlaces)) {
+      loadParentPlaces(place.value.enclosingPlace.dcid, place.setParentPlaces);
+    } else if (
+      isPlacePicked(place.value) &&
+      _.isEmpty(place.value.enclosedPlaces)
+    ) {
       loadPlaces(place, isLoading);
     }
   }, [place.value]);
@@ -95,13 +96,20 @@ function PlaceAndTypeOptions(): JSX.Element {
   useEffect(() => {
     if (
       isPlacePicked(place.value) &&
-      display.chartType === ScatterChartType.MAP &&
-      !hasMapView(place.value)
+      display.chartType === ScatterChartType.MAP && 
+      !_.isNull(place.value.parentPlaces)
     ) {
-      display.setChartType(ScatterChartType.SCATTER);
-      alert(
-        `Sorry, map view is not supported for places in ${place.value.enclosingPlace.name} of type ${place.value.enclosedPlaceType}`
-      );
+      const hasMapView =
+        getAllChildPlaceTypes(
+          place.value.enclosingPlace,
+          place.value.parentPlaces
+        ).indexOf(place.value.enclosedPlaceType) > -1;
+      if (!hasMapView) {
+        display.setChartType(ScatterChartType.SCATTER);
+        alert(
+          `Sorry, map view is not supported for places in ${place.value.enclosingPlace.name} of type ${place.value.enclosedPlaceType}`
+        );
+      }
     }
   }, [place.value, display.chartType]);
 
@@ -177,18 +185,6 @@ function PlaceAndTypeOptions(): JSX.Element {
       </Container>
     </Card>
   );
-}
-
-function hasMapView(place: PlaceInfo): boolean {
-  const allowedEnclosingPlaceTypes = place.enclosingPlace.types.filter(
-    (type) => type in CHILD_PLACE_TYPES
-  );
-  for (const type of allowedEnclosingPlaceTypes) {
-    if (getAllChildPlaceTypes(type).indexOf(place.enclosedPlaceType) > -1) {
-      return true;
-    }
-  }
-  return false;
 }
 
 /**

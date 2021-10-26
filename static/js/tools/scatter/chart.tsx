@@ -27,10 +27,11 @@ import { Card, Container, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
-import { shouldShowMapBoundaries } from "../shared_util";
+import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { Point } from "./chart_loader";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
 import { drawScatter } from "./draw_scatter";
@@ -50,7 +51,6 @@ interface ChartPropsType {
   yUnits?: string;
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
-  isUSAPlace: boolean;
 }
 
 const DOT_REDIRECT_PREFIX = "/tools/timeline";
@@ -324,7 +324,11 @@ function plot(
         props.placeInfo.enclosingPlace,
         props.placeInfo.enclosedPlaceType
       ),
-      props.isUSAPlace
+      isChildPlaceOf(
+        props.placeInfo.enclosingPlace.dcid,
+        USA_PLACE_DCID,
+        props.placeInfo.parentPlaces
+      )
     );
   }
 }
