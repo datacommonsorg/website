@@ -138,15 +138,7 @@ function selectEnclosedPlaceType(
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   const placeType = event.target.value;
-  if (placeType == "Country") {
-    placeInfo.set({
-      ...placeInfo.value,
-      enclosedPlaceType: placeType,
-      selectedPlace: EARTH_NAMED_TYPED_PLACE,
-    });
-  } else {
-    placeInfo.setEnclosedPlaceType(event.target.value);
-  }
+  placeInfo.setEnclosedPlaceType(placeType);
 }
 
 /**

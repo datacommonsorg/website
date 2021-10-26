@@ -47,6 +47,48 @@ export interface SourceSeries {
   provenanceUrl: string;
 }
 
+export interface PopData {
+  year: string;
+  value: number;
+  provenanceUrl: string;
+}
+
+/**
+ * TODO(shifucun):
+ *
+ * This function is a corase version of getPopulationDate().
+ * The result here is based on pre-determined dates from stat var data and can
+ * be far off from the population date.
+ *
+ * Can improve this by pre-fetching the populuation over, say 10 years, as
+ * server warm requests
+ *
+ *
+ * Helper function to fetch population related data.
+ * @param popData
+ * @param statData
+ */
+export function getPopulation(
+  popData: PopData[],
+  statData: PlacePointStatData
+): PopData {
+  let bestPoint: PopData;
+  let minDiff = 1000;
+  const targetYear = statData.date.slice(0, 4);
+  for (const pt of popData) {
+    if (pt.year === targetYear) {
+      return pt;
+    }
+    const diff = Math.abs(Number(pt.year) - Number(targetYear));
+    if (diff < minDiff) {
+      minDiff = diff;
+      bestPoint = pt;
+    }
+  }
+  // console.log(`Date diff: ${statData.date}, ${bestPoint.year}`);
+  return bestPoint;
+}
+
 /**
  * Helper function to choose the date to use for population data.
  * @param popData
@@ -163,4 +205,12 @@ export function isChildPlaceOf(
     selectedPlaceDcid === parentPlaceDcid ||
     parentPlaces.findIndex((parent) => parent.dcid === parentPlaceDcid) > -1
   );
+}
+
+/**
+ * Transforms a string to Title Case.
+ * @param str the string to transform.
+ */
+export function toTitleCase(str: string): string {
+  return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
 }

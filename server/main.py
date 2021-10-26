@@ -19,7 +19,10 @@ This module contains the request handler codes and the main app.
 import json
 import logging
 import os
+import requests
 import sys
+import threading
+import time
 
 import flask
 from flask import request
@@ -42,6 +45,24 @@ app.jinja_env.globals['BASE_HTML'] = 'sustainability/base.html' if app.config[
 
 GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
+
+WARM_UP_ENDPOINTS = [
+    "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
+    "/api/place/places-in-names?dcid=country/USA&placeType=County",
+]
+
+
+def send_warmup_requests():
+    logging.info("Sending warm up requests:")
+    for endpoint in WARM_UP_ENDPOINTS:
+        while True:
+            try:
+                resp = requests.get("http://127.0.0.1:8080" + endpoint)
+                if resp.status_code == 200:
+                    break
+            except:
+                pass
+            time.sleep(1)
 
 
 @app.before_request
@@ -189,8 +210,13 @@ def version():
                                  bigquery=os.environ.get("BIG_QUERY"))
 
 
+if not app.config["TEST"]:
+    thread = threading.Thread(target=send_warmup_requests)
+    thread.start()
+
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to GKE,
     # a webserver process such as Gunicorn will serve the app.
+    logging.info("Run web server in local mode")
     port = sys.argv[1] if len(sys.argv) >= 2 else 8080
     app.run(host='127.0.0.1', port=port, debug=True)
