@@ -17,17 +17,8 @@ steps:
   - id: flask_test
     name: python:3.7
     entrypoint: /bin/sh
-    waitFor: ['-']
+    waitFor: ["-"]
     args:
       - -c
       - |
         ./run_test.sh -p
-
-  - id: pv_tree_generator
-    name: python:3.7-slim
-    entrypoint: /bin/sh
-    waitFor: ['-']
-    args:
-      - -c
-      - set -e
-      - "cd tools/pv_tree_generator && pip install -r requirements.txt && python -m pytest"
