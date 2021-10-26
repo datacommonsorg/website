@@ -24,7 +24,7 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
-import { MAX_DATE } from "../../shared/constants";
+import { MAX_DATE, MAX_YEAR } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { shouldCapStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
@@ -166,7 +166,12 @@ function fetchData(
   if (statVar.date) {
     dataDateParam = `&date=${statVar.date}`;
   } else if (shouldCapStatVarDate(statVar.dcid)) {
-    dataDateParam = `&date=${MAX_DATE}`;
+    // Wet bulb temperature is observed at P1Y, so need to use year for the date.
+    if (statVar.dcid.includes("WetBulbTemperature")) {
+      dataDateParam = `&date=${MAX_YEAR}`;
+    } else {
+      dataDateParam = `&date=${MAX_DATE}`;
+    }
   }
   const statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`;
   const statVarDataPromise: Promise<PlacePointStat> = axios
