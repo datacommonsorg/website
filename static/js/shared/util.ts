@@ -16,7 +16,7 @@
 
 import _ from "lodash";
 
-import { MAX_YEAR } from "./constants";
+import { MAX_DATE, MAX_YEAR } from "./constants";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -81,8 +81,16 @@ export function isDateTooFar(date: string): boolean {
   return date.slice(0, 4) > MAX_YEAR;
 }
 
-export function shouldCapStatVarDate(statVar: string): boolean {
-  return statVar.includes("_RCP");
+export function getCappedStatVarDate(statVar: string): string {
+  // Only want to cap stat var date for stat vars with RCP.
+  if (!statVar.includes("_RCP")) {
+    return "";
+  }
+  // Wet bulb temperature is observed at P1Y, so need to use year for the date.
+  if (statVar.includes("WetBulbTemperature")) {
+    return MAX_YEAR;
+  }
+  return MAX_DATE;
 }
 
 /**
