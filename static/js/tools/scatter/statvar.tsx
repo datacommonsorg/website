@@ -35,9 +35,9 @@ import {
   ModalHeader,
 } from "reactstrap";
 
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { Axis, AxisWrapper, Context, EmptyAxis } from "./context";
 
@@ -175,7 +175,10 @@ function StatVarChooser(): JSX.Element {
   }
   return (
     <div className="explore-menu-container" id="explore">
-      <DrawerToggle collapseElemId="explore" visibleElemId="stat-var-hierarchy-section" />
+      <DrawerToggle
+        collapseElemId="explore"
+        visibleElemId="stat-var-hierarchy-section"
+      />
       <StatVarHierarchy
         type={StatVarHierarchyType.SCATTER}
         places={samplePlaces}

@@ -16,21 +16,21 @@
 
 /* A simple component to toggle the visibility state of the stat var widget */
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from "react";
 
 // NOTE: Timing is also used in stat_var_widget.scss
 const VISIBLE_DELAY_MS = 225;
-const COLLAPSE_CLASS = 'collapsed';
-const HIDE_CLASS = 'hidden';
+const COLLAPSE_CLASS = "collapsed";
+const HIDE_CLASS = "hidden";
 
 interface DrawerToggleProps {
   // ID of the DOM Element to toggle by applying the class "collapsed" to.
   collapseElemId: string;
   // ID of the DOM Element to toggle visibility by applying the class "hide" during transitions.
   visibleElemId: string;
-};
+}
 
-export function DrawerToggle(props: DrawerToggleProps) {
+export function DrawerToggle(props: DrawerToggleProps): JSX.Element {
   const [isCollapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
@@ -43,14 +43,20 @@ export function DrawerToggle(props: DrawerToggleProps) {
       collapseElem.classList.remove(COLLAPSE_CLASS);
       setTimeout(() => {
         visibleElem.classList.remove(HIDE_CLASS);
-      }, VISIBLE_DELAY_MS)
+      }, VISIBLE_DELAY_MS);
     }
   }, [isCollapsed]);
 
-  return <button id="explore-menu-toggle"
-     onClick={() => { setCollapsed(!isCollapsed); }}>
-       <span className="material-icons">
-          {isCollapsed ? "chevron_right" : "chevron_left"}
-        </span>
-    </button>;
+  return (
+    <button
+      id="explore-menu-toggle"
+      onClick={() => {
+        setCollapsed(!isCollapsed);
+      }}
+    >
+      <span className="material-icons">
+        {isCollapsed ? "chevron_right" : "chevron_left"}
+      </span>
+    </button>
+  );
 }

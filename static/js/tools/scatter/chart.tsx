@@ -156,10 +156,10 @@ function Chart(props: ChartPropsType): JSX.Element {
   }, []);
 
   function replot() {
-      if (svgContainerRef.current) {
-        clearSVGs();
-        plot(svgContainerRef, tooltipRef, props, geoJson);
-      }
+    if (svgContainerRef.current) {
+      clearSVGs();
+      plot(svgContainerRef, tooltipRef, props, geoJson);
+    }
   }
 
   // Replot when data changes.
@@ -186,7 +186,7 @@ function Chart(props: ChartPropsType): JSX.Element {
     }
     return () => {
       resizeObserver.unobserve(chartContainerRef.current);
-    }
+    };
   }, [chartContainerRef, props]);
 
   // Replot when window size changes (this is needed only for height changes now).
@@ -196,7 +196,7 @@ function Chart(props: ChartPropsType): JSX.Element {
     function _handleWindowResize() {
       // TODO: Debounce
       replot();
-    };
+    }
     window.addEventListener("resize", _handleWindowResize);
     return () => {
       window.removeEventListener("resize", _handleWindowResize);
