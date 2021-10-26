@@ -31,7 +31,7 @@ import {
 } from "../../shared/constants";
 import { isChildPlaceOf } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
-import { NamedTypedPlace, PlaceInfo, StatVar } from "./context";
+import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 import { getRedirectLink } from "./util";
 
 interface PlaceDetailsPropType {
@@ -42,6 +42,7 @@ interface PlaceDetailsPropType {
   unit: string;
   statVar: StatVar;
   geoJsonFeatures: GeoJsonFeature[];
+  displayOptions: DisplayOptions;
 }
 export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const selectedPlace = props.placeInfo.selectedPlace;
@@ -136,7 +137,8 @@ function getListItemElement(
     props.statVar,
     place,
     props.placeInfo.parentPlaces,
-    props.placeInfo.mapPointsPlaceType
+    props.placeInfo.mapPointsPlaceType,
+    props.displayOptions
   );
   const shouldBeClickable =
     place.types.indexOf("Country") === -1 ||
