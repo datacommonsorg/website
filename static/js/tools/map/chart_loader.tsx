@@ -24,6 +24,7 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
+import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
@@ -37,6 +38,7 @@ interface ChartRawData {
   populationData: StatApiResponse;
   mapPointValues: PlacePointStat;
   mapPointsPromise: Promise<Array<MapPoint>>;
+  europeanCountries: Array<string>;
 }
 
 export interface DataPointMetadata {
@@ -56,6 +58,7 @@ interface ChartData {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
+  europeanCountries: Array<string>;
 }
 
 export function ChartLoader(): JSX.Element {
@@ -114,6 +117,7 @@ export function ChartLoader(): JSX.Element {
         mapPointValues={chartData.mapPointValues}
         display={display}
         mapPointsPromise={chartData.mapPointsPromise}
+        europeanCountries={chartData.europeanCountries}
       />
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbDataValues}
@@ -124,6 +128,7 @@ export function ChartLoader(): JSX.Element {
         statVar={statVar.value}
         geoJsonFeatures={chartData.geoJsonData.features}
         displayOptions={display.value}
+        europeanCountries={chartData.europeanCountries}
       />
     </div>
   );
@@ -200,6 +205,11 @@ function fetchData(
         )
         .then((resp) => resp.data)
     : Promise.resolve({});
+  const europeanCountriesPromise: Promise<Array<string>> = axios
+    .get(
+      `/api/place/places-in?dcid=${EUROPE_NAMED_TYPED_PLACE.dcid}&placeType=Country`
+    )
+    .then((resp) => resp.data[EUROPE_NAMED_TYPED_PLACE.dcid]);
   Promise.all([
     breadcrumbPopPromise,
     enclosedPlacesPopPromise,
@@ -207,6 +217,7 @@ function fetchData(
     statVarDataPromise,
     breadcrumbDataPromise,
     mapPointValuesPromise,
+    europeanCountriesPromise,
   ])
     .then(
       ([
@@ -216,6 +227,7 @@ function fetchData(
         mapStatVarData,
         breadcrumbData,
         mapPointValues,
+        europeanCountries,
       ]) => {
         let statVarDataMetadata =
           mapStatVarData && mapStatVarData.metadata
@@ -241,6 +253,7 @@ function fetchData(
           populationData: { ...enclosedPlacesPopData, ...breadcrumbPopData },
           statVarData,
           mapPointsPromise,
+          europeanCountries,
         });
       }
     )
@@ -413,5 +426,6 @@ function loadChartData(
     metadata,
     sources: sourceSet,
     unit,
+    europeanCountries: rawData.europeanCountries,
   });
 }
