@@ -19,7 +19,7 @@ import _ from "lodash";
 
 import { NamedTypedPlace } from "../tools/map/context";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
-import { EARTH_NAMED_TYPED_PLACE, MAX_YEAR, MAX_DATE } from "./constants";
+import { EARTH_NAMED_TYPED_PLACE, MAX_DATE, MAX_YEAR } from "./constants";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [

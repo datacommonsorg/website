@@ -21,7 +21,6 @@
 import _ from "lodash";
 
 import {
-  EARTH_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
   INDIA_PLACE_DCID,
   USA_PLACE_DCID,
@@ -84,9 +83,8 @@ export const USA_CHILD_PLACE_TYPES = {
 export const INDIA_CHILD_PLACE_TYPES = {
   Country: ["AdministrativeArea1", "AdministrativeArea2"],
   AdministrativeArea1: ["AdministrativeArea2"],
-  State: ["AdministrativeArea1"],
+  State: ["AdministrativeArea2"],
   AdministrativeArea2: ["AdministrativeArea2"],
-  County: ["AdministrativeArea2"],
 };
 
 export const EUROPE_CHILD_PLACE_TYPES = {
@@ -101,7 +99,6 @@ export const CHILD_PLACE_TYPE_MAPPING = {
   [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPES,
   [INDIA_PLACE_DCID]: INDIA_CHILD_PLACE_TYPES,
   [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
-  [EARTH_NAMED_TYPED_PLACE.dcid]: EARTH_CHILD_PLACE_TYPES,
 };
 
 // list of place types in the US in the order of high to low granularity.
@@ -323,10 +320,8 @@ export function getAllChildPlaceTypes(
       }
     }
   }
-  const mapTypeChildTypes = CHILD_PLACE_TYPE_MAPPING[mapType];
-  if (_.isEmpty(mapTypeChildTypes)) {
-    return [];
-  }
+  const mapTypeChildTypes =
+    CHILD_PLACE_TYPE_MAPPING[mapType] || EARTH_CHILD_PLACE_TYPES;
   for (const type of place.types) {
     if (type in mapTypeChildTypes) {
       return mapTypeChildTypes[type];
