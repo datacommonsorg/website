@@ -24,6 +24,7 @@ $container-outer-horizontal-margin: 8px;
 $container-outer-vert-margin: 15px;
 // NOTE: timing is also used in drawer_toggle.tsx.
 $transition-animation: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+$explore-toggle-width: 27px;
 
 // opaque version of dc-red-lite
 $transparent-gray: rgba(204, 204, 204, 0.2);
@@ -49,7 +50,12 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   position: absolute;
   top: 10px;
   transition: left $transition-animation;
+  width: $explore-toggle-width;
   z-index: 100;
+}
+
+#plot-container {
+  width: calc(1vw - $widget-min-width);
 }
 
 .explore-menu-container.collapsed {
