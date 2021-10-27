@@ -36,7 +36,6 @@ import {
 import { formatNumber } from "../../i18n/i18n";
 import {
   EARTH_NAMED_TYPED_PLACE,
-  EUROPE_PLACE_DCID,
   INDIA_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
@@ -400,7 +399,7 @@ const getTooltipHtml = (
   const titleHtml = `<b>${place.name}</b><br/>`;
   let hasValue = false;
   let value = "Data Missing";
-  if (dataValues[place.dcid]) {
+  if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
     value = formatNumber(dataValues[place.dcid], unit);
     hasValue = true;
   } else if (mapPointValues[place.dcid]) {
