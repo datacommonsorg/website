@@ -149,14 +149,19 @@ function fetchData(
     (namedPlace) => namedPlace.dcid
   );
   breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
-  const enclosedPlaceDcids = placeInfo.enclosedPlaces.map(
-    (namedPlace) => namedPlace.dcid
-  );
-  const populationPromise: Promise<StatApiResponse> = axios
+  const breadcrumbPopPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
       statVars: [statVar.denom],
-      places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
+      places: breadcrumbPlaceDcids,
     })
+    .then((resp) => resp.data);
+  const enclosedPlacesPopPromise: Promise<StatApiResponse> = axios
+    .get(
+      "/api/stats/set/series/within-place" +
+        `?parent_place=${placeInfo.enclosingPlace.dcid}` +
+        `&child_type=${placeInfo.enclosedPlaceType}` +
+        `&stat_vars=${statVar.denom}`
+    )
     .then((resp) => resp.data);
   const geoJsonPromise = axios
     .get(
@@ -206,7 +211,8 @@ function fetchData(
     )
     .then((resp) => resp.data[EUROPE_NAMED_TYPED_PLACE.dcid]);
   Promise.all([
-    populationPromise,
+    breadcrumbPopPromise,
+    enclosedPlacesPopPromise,
     geoJsonPromise,
     statVarDataPromise,
     breadcrumbDataPromise,
@@ -215,7 +221,8 @@ function fetchData(
   ])
     .then(
       ([
-        populationData,
+        breadcrumbPopData,
+        enclosedPlacesPopData,
         geoJsonData,
         mapStatVarData,
         breadcrumbData,
@@ -243,7 +250,7 @@ function fetchData(
         setRawData({
           geoJsonData,
           mapPointValues,
-          populationData,
+          populationData: { ...enclosedPlacesPopData, ...breadcrumbPopData },
           statVarData,
           mapPointsPromise,
           europeanCountries,
