@@ -47,7 +47,7 @@ function App(): JSX.Element {
     <>
       <StatVarChooser />
       <div id="plot-container">
-        <Container>
+        <Container fluid={true}>
           {!showChart && (
             <Row>
               <h1 className="mb-4">Map Explorer</h1>

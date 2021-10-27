@@ -24,6 +24,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import {
   Context,
@@ -98,6 +99,10 @@ export function StatVarChooser(): JSX.Element {
   }, [samplePlaces]);
   return (
     <div className="explore-menu-container" id="explore">
+      <DrawerToggle
+        collapseElemId="explore"
+        visibleElemId="stat-var-hierarchy-section"
+      />
       <StatVarHierarchy
         type={StatVarHierarchyType.MAP}
         places={samplePlaces}
