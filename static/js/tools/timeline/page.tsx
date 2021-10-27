@@ -20,6 +20,7 @@ import React, { Component } from "react";
 
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { ChartRegion } from "./chart_region";
 import { Info } from "./info";
@@ -33,7 +34,6 @@ import {
   setTokensToUrl,
   statVarSep,
 } from "./util";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 
 interface PageStateType {
   placeName: Record<string, string>;

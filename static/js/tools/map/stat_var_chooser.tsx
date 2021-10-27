@@ -24,6 +24,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import {
   Context,
@@ -39,7 +40,6 @@ import {
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 
 const SAMPLE_SIZE = 3;
 
