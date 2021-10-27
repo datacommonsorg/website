@@ -20,13 +20,15 @@
 
 import _ from "lodash";
 
-import { INDIA_PLACE_DCID } from "../../shared/constants";
+import {
+  EUROPE_NAMED_TYPED_PLACE,
+  INDIA_PLACE_DCID,
+  USA_PLACE_DCID,
+} from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
-const USA_STATE_CHILD_TYPES = ["County"];
-const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
 const URL_PARAM_VALUE_SEPARATOR = "-";
 const URL_PARAM_KEYS = {
   SELECTED_PLACE_DCID: "pd",
@@ -54,24 +56,35 @@ export const DEFAULT_DISPLAY_OPTIONS = {
   showMapPoints: false,
 };
 
-export const CHILD_PLACE_TYPES = {
-  Planet: ["Country"],
-  Continent: ["Country"],
-  Country: USA_COUNTRY_CHILD_TYPES,
-  State: USA_STATE_CHILD_TYPES,
-  County: ["County"],
-  AdministrativeArea1: ["AdministrativeArea2"],
-  AdministrativeArea2: ["AdministrativeArea2"],
-  EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
-  EurostatNUTS2: ["EurostatNUTS3"],
-  EurostatNUTS3: ["EurostatNUTS3"],
+export const ALL_MAP_PLACE_TYPES = {
+  Planet: "",
+  Continent: "",
+  Country: "",
+  State: "",
+  County: "",
+  AdministrativeArea1: "",
+  AdministrativeArea2: "",
+  EurostatNUTS1: "",
+  EurostatNUTS2: "",
+  EurostatNUTS3: "",
 };
 
-export const INDIA_PLACE_TYPES = {
-  AdministrativeArea1: "AdministrativeArea1",
-  AdministrativeArea2: "AdministrativeArea2",
-  County: "AdministrativeArea2",
-  State: "AdministrativeArea1",
+export const EARTH_CHILD_PLACE_TYPES = {
+  Planet: ["Country"],
+  Continent: ["Country"],
+};
+
+export const USA_CHILD_PLACE_TYPES = {
+  Country: ["State", "County"],
+  State: ["County"],
+  County: ["County"],
+};
+
+export const INDIA_CHILD_PLACE_TYPES = {
+  Country: ["AdministrativeArea1", "AdministrativeArea2"],
+  AdministrativeArea1: ["AdministrativeArea2"],
+  State: ["AdministrativeArea2"],
+  AdministrativeArea2: ["AdministrativeArea2"],
 };
 
 export const EUROPE_CHILD_PLACE_TYPES = {
@@ -80,6 +93,12 @@ export const EUROPE_CHILD_PLACE_TYPES = {
   EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
   EurostatNUTS2: ["EurostatNUTS3"],
   EurostatNUTS3: ["EurostatNUTS3"],
+};
+
+export const CHILD_PLACE_TYPE_MAPPING = {
+  [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPES,
+  [INDIA_PLACE_DCID]: INDIA_CHILD_PLACE_TYPES,
+  [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
 };
 
 // list of place types in the US in the order of high to low granularity.
@@ -232,31 +251,6 @@ export function updateHashDisplay(
 }
 
 /**
- * Get the default enclosed place type for a given place
- * @param selectedPlace place to get enclosed place type for
- * @param isIndiaPlace whether the place we're getting enclosed place type for is in India
- */
-function getEnclosedPlaceType(
-  selectedPlace: NamedTypedPlace,
-  isIndiaPlace: boolean
-): string {
-  for (const type of selectedPlace.types) {
-    if (type in CHILD_PLACE_TYPES) {
-      let enclosedPlacetypes = CHILD_PLACE_TYPES[type];
-      if (isIndiaPlace) {
-        enclosedPlacetypes = enclosedPlacetypes
-          .filter((type) => type in INDIA_PLACE_TYPES)
-          .map((type) => INDIA_PLACE_TYPES[type]);
-      }
-      if (enclosedPlacetypes.length >= 1) {
-        return enclosedPlacetypes[0];
-      }
-    }
-  }
-  return "";
-}
-
-/**
  * Get the link to the map explorer page for a given place and stat var
  * @param statVar the stat var of the map page to redirect to
  * @param selectedPlace the place of the map page to redirect to
@@ -272,42 +266,18 @@ export function getRedirectLink(
 ): string {
   let hash = updateHashStatVar("", statVar);
   hash = updateHashDisplay(hash, displayOptions);
-  const parentPlacesList = _.cloneDeep(parentPlaces);
-  const idxInParentPlaces = parentPlaces.findIndex(
-    (parentPlace) => parentPlace.dcid === selectedPlace.dcid
-  );
-  if (idxInParentPlaces > -1) {
-    parentPlacesList.splice(parentPlaces.length - 1 - idxInParentPlaces);
-  }
-  const enclosedPlaceType = getEnclosedPlaceType(
-    selectedPlace,
-    isChildPlaceOf(selectedPlace.dcid, INDIA_PLACE_DCID, parentPlacesList)
-  );
+  const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parentPlaces);
   hash = updateHashPlaceInfo(hash, {
     enclosedPlaces: [],
-    enclosedPlaceType,
+    enclosedPlaceType: !_.isEmpty(enclosedPlaceTypes)
+      ? enclosedPlaceTypes[0]
+      : "",
     enclosingPlace: { dcid: "", name: "" },
     mapPointsPlaceType,
     parentPlaces: [],
     selectedPlace,
   });
   return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
-}
-
-/**
- * Get all the possible child place types for a given place type
- * @param type the place type to get the child place types for
- */
-export function getAllChildPlaceTypes(type: string): string[] {
-  const childTypes = CHILD_PLACE_TYPES[type];
-  if (_.isEmpty(childTypes)) {
-    return [];
-  }
-  const uniquePlaceTypes: Set<string> = new Set(childTypes);
-  childTypes
-    .filter((childType) => childType in INDIA_PLACE_TYPES)
-    .forEach((childType) => uniquePlaceTypes.add(INDIA_PLACE_TYPES[childType]));
-  return Array.from(uniquePlaceTypes);
 }
 
 /**
@@ -321,4 +291,72 @@ export function getMapPointsPlaceType(svDcid: string): string {
     }
   }
   return "";
+}
+
+/**
+ * For a place, get its list of child place types that a map can be drawn for
+ * @param place place to get the child place types for
+ * @param parentPlaces parent places of the place of interest
+ */
+export function getAllChildPlaceTypes(
+  place: NamedTypedPlace,
+  parentPlaces: NamedPlace[]
+): string[] {
+  let mapType = "";
+  if (place.dcid in CHILD_PLACE_TYPE_MAPPING) {
+    mapType = place.dcid;
+  } else {
+    for (const mapPlaceDcid in CHILD_PLACE_TYPE_MAPPING) {
+      if (
+        mapPlaceDcid === EUROPE_NAMED_TYPED_PLACE.dcid &&
+        place.types.indexOf("Eurostat") === 0
+      ) {
+        mapType = mapPlaceDcid;
+        break;
+      }
+      if (isChildPlaceOf(place.dcid, mapPlaceDcid, parentPlaces)) {
+        mapType = mapPlaceDcid;
+        break;
+      }
+    }
+  }
+  const mapTypeChildTypes =
+    CHILD_PLACE_TYPE_MAPPING[mapType] || EARTH_CHILD_PLACE_TYPES;
+  for (const type of place.types) {
+    if (type in mapTypeChildTypes) {
+      return mapTypeChildTypes[type];
+    }
+  }
+  return [];
+}
+
+/**
+ * For a place and related parent place list (this related parent place list can
+ * be the parent place list for the selected place or a child or parent of the
+ * selected place) get the parent place list for the selected place
+ * @param place place to get parent place list for
+ * @param enclosingPlace parent of selected place
+ * @param parentPlaces related parent place list
+ */
+export function getParentPlaces(
+  place: NamedPlace,
+  enclosingPlace: NamedPlace,
+  parentPlaces: NamedPlace[]
+): NamedPlace[] {
+  const parentPlacesList = _.cloneDeep(parentPlaces);
+  const idxInParentPlaces = parentPlaces.findIndex(
+    (parentPlace) => parentPlace.dcid === place.dcid
+  );
+  if (idxInParentPlaces > -1) {
+    parentPlacesList.splice(0, idxInParentPlaces + 1);
+  } else {
+    if (
+      !parentPlacesList.find(
+        (parentPlace) => parentPlace.dcid === enclosingPlace.dcid
+      )
+    ) {
+      parentPlacesList.unshift(enclosingPlace);
+    }
+  }
+  return parentPlacesList;
 }

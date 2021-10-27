@@ -23,16 +23,10 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { USA_PLACE_DCID } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
-import {
-  getPopulationDate,
-  getUnit,
-  isChildPlaceOf,
-  PlacePointStat,
-} from "../shared_util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -70,7 +64,6 @@ type Cache = {
   statVarsData: Record<string, PlacePointStat>;
   populationData: StatApiResponse;
   noDataError: boolean;
-  parentPlaces: Array<NamedPlace>;
 };
 
 function ChartLoader(): JSX.Element {
@@ -126,11 +119,6 @@ function ChartLoader(): JSX.Element {
                 yUnits={yUnits}
                 placeInfo={place.value}
                 display={display}
-                isUSAPlace={isChildPlaceOf(
-                  place.value.enclosingPlace.dcid,
-                  USA_PLACE_DCID,
-                  cache.parentPlaces
-                )}
               />
               <PlotOptions />
             </>
@@ -164,7 +152,6 @@ function useCache(): Cache {
         statVarsData: {},
         populationData: {},
         noDataError: false,
-        parentPlaces: [],
       });
       return;
     }
@@ -206,17 +193,12 @@ async function loadData(
         `&stat_vars=${DEFAULT_POPULATION_DCID}`
     )
     .then((resp) => resp.data);
-
-  const parentPlacesPromise = axios
-    .get(`/api/place/parent/${place.enclosingPlace.dcid}`)
-    .then((resp) => resp.data);
-  Promise.all([statVarsDataPromise, populationPromise, parentPlacesPromise])
-    .then(([statVarsData, populationData, parentPlaces]) => {
+  Promise.all([statVarsDataPromise, populationPromise])
+    .then(([statVarsData, populationData]) => {
       const cache = {
         noDataError: _.isEmpty(statVarsData),
         populationData,
         statVarsData,
-        parentPlaces,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);

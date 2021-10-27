@@ -24,15 +24,14 @@ import { Card } from "reactstrap";
 
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
-import {
-  EUROPE_PLACE_DCID,
-  INDIA_PLACE_DCID,
-  USA_PLACE_DCID,
-} from "../../shared/constants";
-import { isChildPlaceOf } from "../shared_util";
+import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { DataPointMetadata } from "./chart_loader";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
-import { getRedirectLink } from "./util";
+import {
+  getAllChildPlaceTypes,
+  getParentPlaces,
+  getRedirectLink,
+} from "./util";
 
 interface PlaceDetailsPropType {
   breadcrumbDataValues: { [dcid: string]: number };
@@ -43,6 +42,7 @@ interface PlaceDetailsPropType {
   statVar: StatVar;
   geoJsonFeatures: GeoJsonFeature[];
   displayOptions: DisplayOptions;
+  europeanCountries: Array<string>;
 }
 export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const selectedPlace = props.placeInfo.selectedPlace;
@@ -133,18 +133,25 @@ function getListItemElement(
     place.dcid in props.metadata
       ? ` (${props.metadata[place.dcid].statVarDate})`
       : "";
+  const enclosingPlace =
+    props.europeanCountries.indexOf(place.dcid) > -1
+      ? EUROPE_NAMED_TYPED_PLACE
+      : props.placeInfo.enclosingPlace;
+  const parentPlaces = getParentPlaces(
+    place,
+    enclosingPlace,
+    props.placeInfo.parentPlaces
+  );
   const redirectLink = getRedirectLink(
     props.statVar,
     place,
-    props.placeInfo.parentPlaces,
+    parentPlaces,
     props.placeInfo.mapPointsPlaceType,
     props.displayOptions
   );
-  const shouldBeClickable =
-    place.types.indexOf("Country") === -1 ||
-    place.dcid === USA_PLACE_DCID ||
-    place.dcid === INDIA_PLACE_DCID ||
-    isChildPlaceOf(place.dcid, EUROPE_PLACE_DCID, props.placeInfo.parentPlaces);
+  const shouldBeClickable = !_.isEmpty(
+    getAllChildPlaceTypes(place, parentPlaces)
+  );
   return (
     <div key={place.dcid}>
       {itemNumber && `${itemNumber}. `}
