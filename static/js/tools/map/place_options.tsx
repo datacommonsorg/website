@@ -84,7 +84,7 @@ export function PlaceOptions(): JSX.Element {
   }, placeInfoDeps);
   return (
     <Card className="place-options-card">
-      <Container className="place-options">
+      <Container className="place-options" fluid={true}>
         <div className="place-options-section" id="place-search-section">
           <div className="place-options-label">Plot places in</div>
           <div id="search">
