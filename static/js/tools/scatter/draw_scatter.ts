@@ -19,6 +19,7 @@
  */
 
 import * as d3 from "d3";
+import * as d3Regression from "d3-regression";
 import ReactDOM from "react-dom";
 
 import { wrap } from "../../chart/base";
@@ -40,6 +41,7 @@ const DENSITY_LEGEND_TEXT_HEIGHT = 15;
 const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
+const R_LINE_LABEL_MARGIN = 3;
 
 /**
  * Adds a label for the y-axis
@@ -387,6 +389,75 @@ function addTooltip(
 }
 
 /**
+ * Draw regression line.
+ */
+function addRegressionLine(
+  regressionLine: d3.Selection<SVGGElement, any, any, any>,
+  xScale: d3.ScaleLinear<any, any>,
+  yScale: d3.ScaleLinear<any, any>,
+  points: { [placeDcid: string]: Point },
+  xMinMax: [number, number]
+) {
+  const regression = d3Regression
+    .regressionLinear()
+    .x((point) => point.xVal)
+    .y((point) => point.yVal)
+    .domain(xMinMax)(Object.values(points));
+  const yScaleStart = yScale.domain()[0];
+  const xScaleStart = xScale.domain()[0];
+  const xIntercept = (yScaleStart - regression.b) / regression.a;
+  const yIntercept = regression.predict(xScaleStart);
+
+  // The line should be within the chart space, so update the start and end
+  // points of the line if they're outside of the xScale or yScales
+  let startX = regression[0][0];
+  let startY = regression[0][1];
+  if (startY < yScaleStart) {
+    startX = xIntercept;
+    startY = yScaleStart;
+  } else if (startX < xScaleStart) {
+    startX = xScaleStart;
+    startY = yIntercept;
+  }
+  let endX = regression[1][0];
+  let endY = regression[1][1];
+  if (endY < yScaleStart) {
+    endX = xIntercept;
+    endY = yScaleStart;
+  }
+
+  regressionLine
+    .append("line")
+    .attr("class", "regression-line")
+    .attr("x1", xScale(startX))
+    .attr("y1", yScale(startY))
+    .attr("x2", xScale(endX))
+    .attr("y2", yScale(endY));
+
+  const bValueString = Math.abs(regression.b).toFixed(
+    2 - Math.floor(Math.log(Math.abs(regression.b % 1)) / Math.log(10))
+  );
+  const aValueString = regression.a.toFixed(
+    2 - Math.floor(Math.log(Math.abs(regression.a % 1)) / Math.log(10))
+  );
+
+  const label = regressionLine
+    .append("text")
+    .text(
+      `y = ${aValueString}x ${regression.b > 0 ? "+" : "-"} ${bValueString}`
+    )
+    .attr("class", "regression-label");
+  label.attr(
+    "transform",
+    `translate(${xScale(endX) - label.node().getBBox().width}, ${
+      regression.a > 0
+        ? yScale(endY) - R_LINE_LABEL_MARGIN
+        : yScale(endY) + R_LINE_LABEL_MARGIN
+    })`
+  );
+}
+
+/**
  * Plots a scatter plot.
  * @param svg
  * @param tooltip
@@ -512,6 +583,11 @@ export function drawScatter(
       .attr("x", (point) => xScale(point.xVal) + 7)
       .attr("y", (point) => yScale(point.yVal))
       .text((point) => point.place.name);
+  }
+
+  if (props.display.showRegression) {
+    const regressionLine = g.append("g");
+    addRegressionLine(regressionLine, xScale, yScale, props.points, xMinMax);
   }
 
   addTooltip(

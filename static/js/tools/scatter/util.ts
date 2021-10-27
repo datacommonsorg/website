@@ -117,6 +117,9 @@ function applyHash(context: ContextType): void {
   context.display.setDensity(
     applyHashBoolean(params, FieldToAbbreviation.showDensity)
   );
+  context.display.setRegression(
+    applyHashBoolean(params, FieldToAbbreviation.showRegression)
+  );
 }
 
 /**
@@ -299,6 +302,9 @@ function updateHashDisplayOptions(
 
   val = display.chartType === ScatterChartType.SCATTER ? "0" : "1";
   hash = appendEntry(hash, FieldToAbbreviation.chartType, val);
+
+  val = display.showRegression ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showRegression, val);
 
   return hash;
 }
