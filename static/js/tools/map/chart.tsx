@@ -144,7 +144,7 @@ export function Chart(props: ChartProps): JSX.Element {
   }, [props]);
   return (
     <Card className="chart-section-card">
-      <Container id={SECTION_CONTAINER_ID}>
+      <Container id={SECTION_CONTAINER_ID} fluid={true}>
         <div className="chart-section">
           <div className="map-title">
             <h3>
