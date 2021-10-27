@@ -24,9 +24,8 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
-import { MAX_DATE } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
-import { shouldCapStatVarDate } from "../../shared/util";
+import { getCappedStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
@@ -161,12 +160,13 @@ function fetchData(
     .then((resp) => resp.data);
 
   let dataDateParam = "";
+  const cappedDate = getCappedStatVarDate(statVar.dcid);
   // If there is a specified date, get the data for that date. If no specified
   // date, still need to cut data for prediction data that extends to 2099
   if (statVar.date) {
     dataDateParam = `&date=${statVar.date}`;
-  } else if (shouldCapStatVarDate(statVar.dcid)) {
-    dataDateParam = `&date=${MAX_DATE}`;
+  } else if (cappedDate) {
+    dataDateParam = `&date=${cappedDate}`;
   }
   const statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`;
   const statVarDataPromise: Promise<PlacePointStat> = axios
