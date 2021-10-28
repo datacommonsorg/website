@@ -99,13 +99,19 @@ function getColorScale(
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
   const domainValues = domain || [extent[0], medianValue, extent[1]];
-  if (statVar.indexOf('Temperature') >= 0) {
+  if (statVar.indexOf("Temperature") >= 0) {
     let domain = [];
     let range = [];
     if (domainValues[0] < 0 && domainValues[2] > 0) {
       const absMax = Math.max(Math.abs(domainValues[0]), domainValues[2]);
-      domain = [-absMax, -absMax/2, 0, absMax/2, absMax];
-      range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR, d3.interpolateReds(0.8), d3.interpolateReds(1)];
+      domain = [-absMax, -absMax / 2, 0, absMax / 2, absMax];
+      range = [
+        d3.interpolateBlues(1),
+        d3.interpolateBlues(0.8),
+        MIN_COLOR,
+        d3.interpolateReds(0.8),
+        d3.interpolateReds(1),
+      ];
     } else if (domainValues[0] > 0) {
       domain = [0, domainValues[2]];
       range = [MIN_COLOR, d3.interpolateReds(1)];
@@ -113,11 +119,7 @@ function getColorScale(
       domain = [domainValues[0], 0];
       range = [d3.interpolateBlues(1), MIN_COLOR];
     }
-    return d3
-      .scaleLinear()
-      .domain(domain)
-      .nice()
-      .range(range)
+    return d3.scaleLinear().domain(domain).nice().range(range);
   }
   return d3
     .scaleLinear()
