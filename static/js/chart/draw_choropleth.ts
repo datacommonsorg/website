@@ -492,7 +492,21 @@ function generateLegend(
   color: d3.ScaleLinear<number, number>,
   unit: string
 ): number {
-  const n = Math.min(color.domain().length, color.range().length);
+  // To get the yScale range, we want an array of heights that have the same
+  // percent difference between each height as the percent difference between
+  // each value in the domain of the color scale. The range also should start
+  // at 0 and end at height.
+  const yScaleRange = [];
+  yScaleRange.unshift(height);
+  for (let i = color.domain().length - 1; i > 1; i--) {
+    const currDomain = color.domain()[i];
+    const prevDomain = color.domain()[i - 1];
+    yScaleRange.unshift(
+      yScaleRange[0] / ((currDomain - prevDomain) / currDomain + 1)
+    );
+  }
+  yScaleRange.unshift(0);
+  const yScale = d3.scaleLinear().domain(color.domain()).range(yScaleRange);
 
   const legend = svg.append("g").attr("class", LEGEND_CLASS_NAME);
   legend
@@ -503,17 +517,8 @@ function generateLegend(
     .attr("width", LEGEND_IMG_WIDTH)
     .attr("height", height)
     .attr("preserveAspectRatio", "none")
-    .attr(
-      "xlink:href",
-      genScaleImg(
-        color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))
-      ).toDataURL()
-    );
+    .attr("xlink:href", genScaleImg(color, yScale, height).toDataURL());
 
-  const yScale = d3
-    .scaleLinear()
-    .domain(d3.extent(color.domain()))
-    .range([0, height]);
   // set tick values to show first tick at the start of the legend and last tick
   // at the very bottom of the legend.
   let tickValues = [yScale.invert(0), yScale.invert(height)];
@@ -584,14 +589,19 @@ function generateLegendSvg(
 
 const genScaleImg = (
   color: d3.ScaleLinear<number, number>,
-  n = 256
+  yScale: d3.ScaleLinear<number, number>,
+  height: number
 ): HTMLCanvasElement => {
   const canvas = document.createElement("canvas");
   canvas.width = 1;
-  canvas.height = n;
+  canvas.height = height;
   const context = canvas.getContext("2d");
-  for (let i = 0; i < n; ++i) {
-    context.fillStyle = (color(i / (n - 1)) as unknown) as string;
+  for (let i = 0; i < height; ++i) {
+    // yScale maps from color domain values to height values. Therefore, to get
+    // the color at a certain height, we want to first get the color domain
+    // value for that height and then get hte color for that value.
+    const colorDomainVal = yScale.invert(i);
+    context.fillStyle = (color(colorDomainVal) as unknown) as string;
     context.fillRect(0, i, 1, 1);
   }
   return canvas;
