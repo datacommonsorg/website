@@ -319,14 +319,14 @@ function getPoints(
         xPopSource,
         xSource:
           xStatData.metadata[placeXStatData.metadata.importName].provenanceUrl,
-        xVal: placeXStatData.value,
+        xVal: placeXStatData.value === undefined ? 0 : placeXStatData.value,
         yDate: placeYStatData.date,
         yPop,
         yPopDate,
         yPopSource,
         ySource:
           yStatData.metadata[placeYStatData.metadata.importName].provenanceUrl,
-        yVal: placeYStatData.value,
+        yVal: placeYStatData.value === undefined ? 0 : placeYStatData.value,
       };
       if (isValidPoint(point, lower, upper, x.perCapita, y.perCapita)) {
         points[place.dcid] = point;

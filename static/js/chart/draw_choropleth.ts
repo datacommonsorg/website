@@ -99,11 +99,20 @@ function getColorScale(
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
   const domainValues = domain || [extent[0], medianValue, extent[1]];
+  if (medianValue === domainValues[0]) {
+    domainValues.splice(0, 1);
+  } else if (medianValue === domainValues[2]) {
+    domainValues.splice(2, 1);
+  }
+  const rangeValues =
+    domainValues.length === 3
+      ? [MIN_COLOR, maxColor, maxColor.darker(1.5)]
+      : [MIN_COLOR, maxColor.darker(1.5)];
   return d3
     .scaleLinear()
     .domain(domainValues)
     .nice()
-    .range(([MIN_COLOR, maxColor, maxColor.darker(1.5)] as unknown) as number[])
+    .range((rangeValues as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
         a: unknown,

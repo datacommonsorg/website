@@ -289,12 +289,12 @@ function plot(
       (point) => point.yVal
     );
     const xScale = d3
-      .scaleQuantile()
-      .domain(xVals)
+      .scaleQuantize()
+      .domain(d3.extent(xVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const yScale = d3
-      .scaleQuantile()
-      .domain(yVals)
+      .scaleQuantize()
+      .domain(d3.extent(yVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const colorScale = d3
       .scaleLinear<string, number>()
