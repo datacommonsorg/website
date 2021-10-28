@@ -280,21 +280,19 @@ function plot(
       props.display.setChartType(ScatterChartType.SCATTER);
       return;
     }
-    const xVals = Array.from(
-      Object.values(props.points),
-      (point) => point.xVal
+    const xVals = Array.from(Object.values(props.points), (point) =>
+      props.xLog ? Math.log10(point.xVal) : point.xVal
     );
-    const yVals = Array.from(
-      Object.values(props.points),
-      (point) => point.yVal
+    const yVals = Array.from(Object.values(props.points), (point) =>
+      props.yLog ? Math.log10(point.yVal) : point.yVal
     );
     const xScale = d3
-      .scaleQuantile()
-      .domain(xVals)
+      .scaleQuantize()
+      .domain(d3.extent(xVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const yScale = d3
-      .scaleQuantile()
-      .domain(yVals)
+      .scaleQuantize()
+      .domain(d3.extent(yVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const colorScale = d3
       .scaleLinear<string, number>()

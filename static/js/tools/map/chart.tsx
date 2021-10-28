@@ -414,7 +414,7 @@ const getTooltipHtml = (
   const titleHtml = `<b>${place.name}</b><br/>`;
   let hasValue = false;
   let value = "Data Missing";
-  if (dataValues[place.dcid]) {
+  if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
     value = formatNumber(dataValues[place.dcid], unit);
     hasValue = true;
   } else if (mapPointValues[place.dcid]) {
