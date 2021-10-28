@@ -98,22 +98,24 @@ function getColorScale(
     : d3.color(getColorFn([label])(label));
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
-  const domainValues = domain || [extent[0], medianValue, extent[1]];
+  let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
   if (statVar.indexOf("Temperature") >= 0) {
-    let domain = [];
-    let range = [];
-    if (domainValues[0] < 0 && domainValues[2] > 0) {
-      const absMax = Math.max(Math.abs(domainValues[0]), domainValues[2]);
-      domain = [-absMax, 0, absMax];
-      range = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
-    } else if (domainValues[0] > 0) {
-      domain = [0, domainValues[2], 0];
-      range = [d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
+    let range: any[] = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
+    if (statVar.indexOf("DifferenceRelativeToBaseDate") >= 0) {
+      domainValues = domain || [-14, 0, 14];
+    } else if (statVar.indexOf("DifferenceAcrossModels") >= 0) {
+      domainValues = domain || [1, 0, 15];  // Hack to get a positive-only scale.
     } else {
-      domain = [domainValues[0], 0];
+      domainValues = domain || [-40, 0, 40];
+    }
+    if (domainValues[0] > 0) {
+      domainValues = [0, domainValues[2], 0];
+      range = [d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
+    } else if (domainValues[2] < 0) {
+      domainValues = [domainValues[0], 0];
       range = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5)];
     }
-    return d3.scaleLinear().domain(domain).nice().range(range);
+    return d3.scaleLinear().domain(domainValues).nice().range(range);
   }
   return d3
     .scaleLinear()
