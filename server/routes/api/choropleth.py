@@ -151,6 +151,11 @@ def geojson():
     features = []
     if geojson_prop:
         geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
+        # geoId/46102 is known to only have unsimplified geojson so need to use
+        # geoJsonCoordinates as the prop for this one place
+        if 'geoId/46102' in geojson_by_geo:
+            geojson_by_geo['geoId/46102'] = dc_service.get_property_values(
+                ['geoId/46102'], 'geoJsonCoordinates').get('geoId/46102', '')
         for geo_id, json_text in geojson_by_geo.items():
             if json_text and geo_id in names_by_geo:
                 geo_feature = {
