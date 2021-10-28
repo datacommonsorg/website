@@ -280,13 +280,11 @@ function plot(
       props.display.setChartType(ScatterChartType.SCATTER);
       return;
     }
-    const xVals = Array.from(
-      Object.values(props.points),
-      (point) => point.xVal
+    const xVals = Array.from(Object.values(props.points), (point) =>
+      props.xLog ? Math.log10(point.xVal) : point.xVal
     );
-    const yVals = Array.from(
-      Object.values(props.points),
-      (point) => point.yVal
+    const yVals = Array.from(Object.values(props.points), (point) =>
+      props.yLog ? Math.log10(point.yVal) : point.yVal
     );
     const xScale = d3
       .scaleQuantize()
