@@ -50,6 +50,7 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
+export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
@@ -343,6 +344,11 @@ function drawChoropleth(
         return MISSING_DATA_COLOR;
       }
     })
+    .attr("data-geodcid", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in dataValues) {
+        return d.properties.geoDcid;
+      }
+    })
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
@@ -394,7 +400,7 @@ function drawChoropleth(
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
           .selectAll("path,circle")
-          .classed("region-highlighted", false)
+          .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
@@ -462,7 +468,9 @@ const onMapClick = (
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
-  container.select("#geoPath" + index).classed("region-highlighted", false);
+  container
+    .select("#geoPath" + index)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
@@ -474,7 +482,10 @@ function mouseHoverAction(
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
   if (canClick) {
-    container.select("#geoPath" + index).classed("region-highlighted", true);
+    container
+      .select("#geoPath" + index)
+      .raise()
+      .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
   }
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
