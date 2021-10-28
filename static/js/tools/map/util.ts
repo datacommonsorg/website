@@ -245,7 +245,7 @@ export function updateHashDisplay(
   }
   if (display.domain) {
     params = `${params}&${URL_PARAM_KEYS.DOMAIN}=${display.domain.join(
-      URL_PARAM_VALUE_SEPARATOR
+      URL_PARAM_DOMAIN_SEPARATOR
     )}`;
   }
   return hash + params;

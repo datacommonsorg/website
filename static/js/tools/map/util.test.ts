@@ -61,7 +61,7 @@ const TestContext = ({
   },
   display: {
     value: {
-      domain: [0, 50, 100],
+      domain: [-10, 50, 100],
       color: "red",
       showMapPoints: false,
     },
@@ -85,7 +85,7 @@ test("updateHashStatVarInfo", () => {
 test("updateHashDisplay", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashDisplay("", TestContext.display.value);
-  const expectedHash = "&color=red&domain=0-50-100";
+  const expectedHash = "&color=red&domain=-10:50:100";
   expect(resultHash).toEqual(expectedHash);
 });
 
@@ -121,7 +121,7 @@ test("applyHashDisplay", () => {
   const context = { statVar: {}, placeInfo: {}, display: {} } as ContextType;
   context.display.set = (value) => (context.display.value = value);
   const urlParams = new URLSearchParams(
-    decodeURIComponent("#%26domain%3D0%2D50%2D100%26color%3Dred").replace(
+    decodeURIComponent("%23%26domain%3D0%3A50%3A100%26color%3Dred").replace(
       "#",
       "?"
     )
