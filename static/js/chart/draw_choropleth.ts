@@ -107,9 +107,9 @@ function getColorScale(
       domain = [-absMax, -absMax / 2, 0, absMax / 2, absMax];
       range = [
         d3.interpolateBlues(1),
-        d3.interpolateBlues(0.8),
+        d3.interpolateBlues(0.8),  // add more weight to the saturated end of the color scale
         MIN_COLOR,
-        d3.interpolateReds(0.8),
+        d3.interpolateReds(0.8),  // add more weight to the saturated end of the color scale
         d3.interpolateReds(1),
       ];
     } else if (domainValues[0] > 0) {
