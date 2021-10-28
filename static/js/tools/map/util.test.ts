@@ -121,7 +121,7 @@ test("applyHashDisplay", () => {
   const context = { statVar: {}, placeInfo: {}, display: {} } as ContextType;
   context.display.set = (value) => (context.display.value = value);
   const urlParams = new URLSearchParams(
-    decodeURIComponent("%23%26domain%3D0%3A50%3A100%26color%3Dred").replace(
+    decodeURIComponent("%23%26domain%3D-10%3A50%3A100%26color%3Dred").replace(
       "#",
       "?"
     )
