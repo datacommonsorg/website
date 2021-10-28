@@ -104,20 +104,14 @@ function getColorScale(
     let range = [];
     if (domainValues[0] < 0 && domainValues[2] > 0) {
       const absMax = Math.max(Math.abs(domainValues[0]), domainValues[2]);
-      domain = [-absMax, -absMax / 2, 0, absMax / 2, absMax];
-      range = [
-        d3.interpolateBlues(1),
-        d3.interpolateBlues(0.8),  // add more weight to the saturated end of the color scale
-        MIN_COLOR,
-        d3.interpolateReds(0.8),  // add more weight to the saturated end of the color scale
-        d3.interpolateReds(1),
-      ];
+      domain = [-absMax, 0, absMax];
+      range = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
     } else if (domainValues[0] > 0) {
-      domain = [0, domainValues[2]];
-      range = [MIN_COLOR, d3.interpolateReds(1)];
+      domain = [0, domainValues[2], 0];
+      range = [d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
     } else {
       domain = [domainValues[0], 0];
-      range = [d3.interpolateBlues(1), MIN_COLOR];
+      range = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5)];
     }
     return d3.scaleLinear().domain(domain).nice().range(range);
   }
