@@ -55,7 +55,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 #plot-container {
-  width: calc(1vw - $widget-min-width);
+  width: calc(1vw - #{$widget-min-width});
 }
 
 .explore-menu-container.collapsed {
