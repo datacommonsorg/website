@@ -80,39 +80,43 @@ function PlotOptions(): JSX.Element {
             </FormGroup>
           </Col>
         </Row>
+        <Row className="plot-options-row">
+          <Col sm={1} className="plot-options-label">
+            Log scale:
+          </Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="log-y"
+                  type="checkbox"
+                  checked={y.value.log}
+                  onChange={(e) => checkLog(y, e)}
+                />
+                {display.chartType === ScatterChartType.SCATTER
+                  ? "Y-axis"
+                  : y.value.statVarInfo.title || y.value.statVarDcid}
+              </Label>
+            </FormGroup>
+          </Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="log-x"
+                  type="checkbox"
+                  checked={x.value.log}
+                  onChange={(e) => checkLog(x, e)}
+                />
+                {display.chartType === ScatterChartType.SCATTER
+                  ? "X-axis"
+                  : x.value.statVarInfo.title || x.value.statVarDcid}
+              </Label>
+            </FormGroup>
+          </Col>
+        </Row>
         {display.chartType === ScatterChartType.SCATTER && (
           <>
-            <Row className="plot-options-row">
-              <Col sm={1} className="plot-options-label">
-                Log scale:
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="log-y"
-                      type="checkbox"
-                      checked={y.value.log}
-                      onChange={(e) => checkLog(y, e)}
-                    />
-                    Y-axis
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="log-x"
-                      type="checkbox"
-                      checked={x.value.log}
-                      onChange={(e) => checkLog(x, e)}
-                    />
-                    X-axis
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
             <Row className="plot-options-row centered-items-row">
               <Col sm={1} className="plot-options-label">
                 Display:
