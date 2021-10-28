@@ -30,6 +30,7 @@ import { isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_VALUE_SEPARATOR = "-";
+const URL_PARAM_DOMAIN_SEPARATOR = ":";
 const URL_PARAM_KEYS = {
   SELECTED_PLACE_DCID: "pd",
   SELECTED_PLACE_NAME: "pn",
@@ -164,7 +165,7 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
   const domainParamValue = params.get(URL_PARAM_KEYS.DOMAIN);
   const domain = domainParamValue
     ? domainParamValue
-        .split(URL_PARAM_VALUE_SEPARATOR)
+        .split(URL_PARAM_DOMAIN_SEPARATOR)
         .map((val) => Number(val))
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
