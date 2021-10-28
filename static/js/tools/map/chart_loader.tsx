@@ -264,7 +264,10 @@ function getPlaceChartData(
   const statVarDate = statVarData.stat[placeDcid].date;
   const importName = statVarData.stat[placeDcid].metadata.importName;
   const statVarSource = statVarData.metadata[importName].provenanceUrl;
-  let value = statVarData.stat[placeDcid].value || 0;
+  let value =
+    statVarData.stat[placeDcid].value === undefined
+      ? 0
+      : statVarData.stat[placeDcid].value;
   let popDate = "";
   let popSource = "";
   if (isPerCapita) {
