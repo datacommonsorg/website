@@ -162,7 +162,7 @@ function Chart(props: ChartPropsType): JSX.Element {
     }
   }
 
-  // Replot when data changes.
+  // Replot when data or chart width changes on sv widget toggle.
   useEffect(() => {
     if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
       loadSpinner(CONTAINER_ID);
@@ -170,16 +170,11 @@ function Chart(props: ChartPropsType): JSX.Element {
     } else {
       removeSpinner(CONTAINER_ID);
     }
-    if (!_.isEmpty(props.points)) {
-      replot();
-    }
-  }, [props, geoJsonFetched]);
-
-  // Replot when chart width changes on sv widget toggle.
-  useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
       // TODO: Debounce
-      replot();
+      if (!_.isEmpty(props.points)) {
+        replot();
+      }
     });
     if (chartContainerRef.current) {
       resizeObserver.observe(chartContainerRef.current);
@@ -187,7 +182,7 @@ function Chart(props: ChartPropsType): JSX.Element {
     return () => {
       resizeObserver.unobserve(chartContainerRef.current);
     };
-  }, [chartContainerRef, props]);
+  }, [chartContainerRef, props, geoJsonFetched]);
 
   // Replot when window size changes (this is needed only for height changes now).
   // TODO: Collapse this with ResizeObserver above (needs a way to listen to
