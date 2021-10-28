@@ -171,11 +171,18 @@ function addMapPoints(
   mapPoints: Array<MapPoint>,
   mapPointValues: { [placeDcid: string]: number },
   projection: d3.GeoProjection,
-  getTooltipHtml: (place: NamedPlace) => string
+  getTooltipHtml: (place: NamedPlace) => string,
+  minDotSize: number
 ): void {
   const filteredMapPoints = mapPoints.filter(
-    (point) => !_.isNull(projection([point.longitude, point.latitude]))
+    (point) =>
+      !_.isNull(projection([point.longitude, point.latitude])) &&
+      point.placeDcid in mapPointValues
   );
+  const pointSizeScale = d3
+    .scaleLinear()
+    .domain(d3.extent(Object.values(mapPointValues)))
+    .range([minDotSize, minDotSize * 3]);
   d3.select(`#${MAP_ITEMS_GROUP_ID}`)
     .append("g")
     .attr("class", "map-points-layer")
@@ -195,7 +202,13 @@ function addMapPoints(
       "cx",
       (point: MapPoint) => projection([point.longitude, point.latitude])[0]
     )
-    .attr("cy", (point) => projection([point.longitude, point.latitude])[1])
+    .attr(
+      "cy",
+      (point: MapPoint) => projection([point.longitude, point.latitude])[1]
+    )
+    .attr("r", (point: MapPoint) =>
+      pointSizeScale(mapPointValues[point.placeDcid])
+    )
     .on("mouseover", (point: MapPoint) => {
       const place = {
         dcid: point.placeDcid,
@@ -372,12 +385,22 @@ function drawChoropleth(
 
   // add map points if there are any to add
   if (!_.isEmpty(mapPoints) && !_.isUndefined(mapPointValues)) {
+    // calculate the min dot size based on the sizes of the regions on the map
+    let minRegionDiagonal = Number.MAX_VALUE;
+    mapObjects.each((_, idx, paths) => {
+      const pathClientRect = paths[idx].getBoundingClientRect();
+      minRegionDiagonal = Math.sqrt(
+        Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
+      );
+    });
+    const minDotSize = minRegionDiagonal * 0.05;
     addMapPoints(
       domContainerId,
       mapPoints,
       mapPointValues,
       projection,
-      getTooltipHtml
+      getTooltipHtml,
+      minDotSize
     );
   }
 

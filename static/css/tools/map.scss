@@ -252,8 +252,8 @@
 }
 
 .dot {
-  r: 4;
   stroke: var(--dc-gray-lite);
+  stroke-width: 0.03rem;
 }
 
 .dot:hover {
