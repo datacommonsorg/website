@@ -35,8 +35,7 @@ import {
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import {
-  EARTH_NAMED_TYPED_PLACE,
-  INDIA_PLACE_DCID,
+  EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
@@ -50,7 +49,11 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
-import { CHILD_PLACE_TYPES, getRedirectLink } from "./util";
+import {
+  getAllChildPlaceTypes,
+  getParentPlaces,
+  getRedirectLink,
+} from "./util";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;
@@ -65,6 +68,7 @@ interface ChartProps {
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
   display: DisplayOptionsWrapper;
+  europeanCountries: Array<string>;
 }
 
 const MAP_CONTAINER_ID = "choropleth-map";
@@ -264,7 +268,8 @@ function draw(
   const redirectAction = getMapRedirectAction(
     props.statVar.value,
     props.placeInfo,
-    props.display.value
+    props.display.value,
+    props.europeanCountries
   );
   const zoomDcid =
     props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
@@ -317,7 +322,7 @@ function draw(
         props.mapPointValues,
         props.unit
       ),
-      canClickRegion(props.placeInfo),
+      canClickRegion(props.placeInfo, props.europeanCountries),
       false,
       shouldShowMapBoundaries(
         props.placeInfo.selectedPlace,
@@ -371,17 +376,27 @@ function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
 const getMapRedirectAction = (
   statVar: StatVar,
   placeInfo: PlaceInfo,
-  displayOptions: DisplayOptions
+  displayOptions: DisplayOptions,
+  europeanCountries: Array<string>
 ) => (geoProperties: GeoJsonFeatureProperties) => {
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
     name: geoProperties.name,
     types: [placeInfo.enclosedPlaceType],
   };
+  const enclosingPlace =
+    europeanCountries.indexOf(selectedPlace.dcid) > -1
+      ? EUROPE_NAMED_TYPED_PLACE
+      : placeInfo.enclosingPlace;
+  const parentPlaces = getParentPlaces(
+    selectedPlace,
+    enclosingPlace,
+    placeInfo.parentPlaces
+  );
   const redirectLink = getRedirectLink(
     statVar,
     selectedPlace,
-    placeInfo.parentPlaces,
+    parentPlaces,
     placeInfo.mapPointsPlaceType,
     displayOptions
   );
@@ -445,17 +460,29 @@ const onDateRangeMouseOver = () => {
     .style("visibility", "visible");
 };
 
-const canClickRegion = (placeInfo: PlaceInfo) => (placeDcid: string) => {
-  if (!(placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES)) {
-    return false;
-  }
-  // Add European countries to this list.
-  return (
-    placeInfo.enclosingPlace.dcid !== EARTH_NAMED_TYPED_PLACE.dcid ||
-    placeDcid === USA_PLACE_DCID ||
-    placeDcid === INDIA_PLACE_DCID
+const canClickRegion = (
+  placeInfo: PlaceInfo,
+  europeanCountries: Array<string>
+) => (placeDcid: string) => {
+  const enclosingPlace =
+    europeanCountries.indexOf(placeDcid) > -1
+      ? EUROPE_NAMED_TYPED_PLACE
+      : placeInfo.enclosingPlace;
+  const parentPlaces = getParentPlaces(
+    placeInfo.selectedPlace,
+    enclosingPlace,
+    placeInfo.parentPlaces
+  );
+  const placeAsNamedTypedPlace = {
+    dcid: placeDcid,
+    name: placeDcid,
+    types: [placeInfo.enclosedPlaceType],
+  };
+  return !_.isEmpty(
+    getAllChildPlaceTypes(placeAsNamedTypedPlace, parentPlaces)
   );
 };
+
 const onDateRangeMouseOut = () => {
   d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`).style("visibility", "hidden");
 };

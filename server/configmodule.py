@@ -11,7 +11,7 @@ class Config:
     WEBDRIVER = False
     LOCAL = False
     LITE = False
-    CACHE_TYPE = 'simple'  # Flask-Caching related configs
+
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
 

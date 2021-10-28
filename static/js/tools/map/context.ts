@@ -18,6 +18,7 @@ import { createContext, useState } from "react";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
+import { Setter } from "../../shared/util";
 import {
   applyHashDisplay,
   applyHashPlaceInfo,
@@ -28,11 +29,6 @@ import {
 /**
  * Global app context for map explorer tool.
  */
-
-// used to set fields in context
-interface Setter<T> {
-  (value: T): void;
-}
 
 // Place with name and its type.
 export interface NamedTypedPlace {
