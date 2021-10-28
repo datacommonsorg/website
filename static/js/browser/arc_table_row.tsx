@@ -56,7 +56,15 @@ export class ArcTableRow extends React.Component<
     return (
       <div className="arc-text" key={value.text}>
         {value.dcid ? (
-          <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
+          <>
+            <a href={HREF_PREFIX + value.dcid}>{value.text}</a>
+            {value.dcid != value.text && (
+              <span>
+                {" "}
+                (<b>{value.dcid}</b>)
+              </span>
+            )}
+          </>
         ) : (
           <span>{value.text}</span>
         )}
