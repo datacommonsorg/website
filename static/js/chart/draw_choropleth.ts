@@ -100,11 +100,15 @@ function getColorScale(
   const medianValue = d3.median(Object.values(dataValues));
   let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
   if (statVar.indexOf("Temperature") >= 0) {
-    let range: any[] = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
+    let range: any[] = [
+      d3.interpolateRdBu(1),
+      d3.interpolateRdBu(0.5),
+      d3.interpolateRdBu(0),
+    ];
     if (statVar.indexOf("DifferenceRelativeToBaseDate") >= 0) {
       domainValues = domain || [-14, 0, 14];
     } else if (statVar.indexOf("DifferenceAcrossModels") >= 0) {
-      domainValues = domain || [1, 0, 15];  // Hack to get a positive-only scale.
+      domainValues = domain || [1, 0, 15]; // Hack to get a positive-only scale.
     } else {
       domainValues = domain || [-40, 0, 40];
     }
