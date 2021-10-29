@@ -102,23 +102,29 @@ function getColorScale(
   let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
   if (statVar.indexOf("Temperature") >= 0) {
     let range: any[] = [
-      d3.interpolateRdBu(1),
-      d3.interpolateRdBu(0.5),
-      d3.interpolateRdBu(0),
+      d3.interpolateBlues(1),
+      d3.interpolateBlues(0.8),
+      MIN_COLOR,
+      d3.interpolateReds(0.8),
+      d3.interpolateReds(1),
     ];
-    if (statVar.indexOf("DifferenceRelativeToBaseDate") >= 0) {
-      domainValues = domain || [-14, 0, 14];
-    } else if (statVar.indexOf("DifferenceAcrossModels") >= 0) {
-      domainValues = domain || [1, 0, 15]; // Hack to get a positive-only scale.
+    if (statVar.indexOf("Difference") >= 0) {
+      if (statVar.indexOf("Base") >= 0) {
+        domainValues = domain || [-14, -7, 0, 7, 14];
+      } else {
+        domainValues = domain || [0, 15];
+      }
     } else {
-      domainValues = domain || [-40, 0, 40];
+      domainValues = domain || [-40, -20, 0, 20, 40];
     }
-    if (domainValues[0] > 0) {
-      domainValues = [0, domainValues[2], 0];
-      range = [d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
-    } else if (domainValues[2] < 0) {
-      domainValues = [domainValues[0], 0];
-      range = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5)];
+    const min = domainValues[0];
+    const max = domainValues[domainValues.length - 1];
+    if (min >= 0) {
+      domainValues = [0, max / 2, max];
+      range = [MIN_COLOR, d3.interpolateReds(0.8), d3.interpolateReds(1)];
+    } else if (max < 0) {
+      domainValues = [min, min / 2, 0];
+      range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR];
     }
     return d3.scaleLinear().domain(domainValues).nice().range(range);
   }
