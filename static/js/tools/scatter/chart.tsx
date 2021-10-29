@@ -257,18 +257,12 @@ function plot(
   geoJsonData: GeoJsonData
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
-  // TODO: Use CSS to set the height of the chart so it's visible (< 1 vh).
-  const scatterHeight = Math.min(
-    window.innerHeight * 0.6,
-    svgContainerRealWidth
-  );
-  const scatterWidth = svgContainerRealWidth;
-  const chartHeight = scatterHeight;
+  const chartHeight = svgContainerRef.current.offsetHeight;
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
       tooltipRef,
-      scatterWidth,
+      svgContainerRealWidth,
       chartHeight,
       props,
       redirectAction,

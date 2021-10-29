@@ -89,7 +89,7 @@ function ChartLoader(): JSX.Element {
     yUnits = yStatData ? getUnit(yStatData) : null;
   }
   return (
-    <div>
+    <>
       {shouldRenderChart && (
         <>
           {cache.noDataError ? (
@@ -125,7 +125,7 @@ function ChartLoader(): JSX.Element {
           )}
         </>
       )}
-    </div>
+    </>
   );
 }
 

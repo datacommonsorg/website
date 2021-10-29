@@ -49,6 +49,10 @@
   display: block;
 }
 
+#scatter-plot-container {
+  height: 60vh;
+}
+
 .no-padding {
   padding: 0;
 }
@@ -271,7 +275,7 @@ circle {
 .chart-type-option, .selected-chart-option {
   display: flex;
   align-items: center;
-  min-width: 4rem;
+  min-width: 3.5rem;
   height: 2.4rem;
   justify-content: center;
   cursor: pointer;

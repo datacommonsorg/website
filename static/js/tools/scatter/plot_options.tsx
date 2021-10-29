@@ -44,7 +44,7 @@ function PlotOptions(): JSX.Element {
   );
   return (
     <Card id="plot-options">
-      <Container>
+      <Container fluid={true}>
         <Row className="plot-options-row">
           <Col sm={1} className="plot-options-label">
             Per capita:
