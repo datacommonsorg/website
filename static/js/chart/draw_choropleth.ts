@@ -421,7 +421,7 @@ function drawChoropleth(
         Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
       );
     });
-    const minDotSize = minRegionDiagonal * 0.05;
+    const minDotSize = minRegionDiagonal * 0.02;
     addMapPoints(
       domContainerId,
       mapPoints,
