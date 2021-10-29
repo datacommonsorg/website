@@ -235,13 +235,17 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
-            <div
-              className="explore-timeline-link"
-              onClick={() => exploreTimelineOnClick(placeDcid, statVarDcid)}
-            >
-              <span className="explore-timeline-text">Explore timeline</span>
-              <i className="material-icons">keyboard_arrow_right</i>
-            </div>
+            {(props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
+              props.placeInfo.selectedPlace.dcid in
+                props.breadcrumbDataValues) && (
+              <div
+                className="explore-timeline-link"
+                onClick={() => exploreTimelineOnClick(placeDcid, statVarDcid)}
+              >
+                <span className="explore-timeline-text">Explore timeline</span>
+                <i className="material-icons">keyboard_arrow_right</i>
+              </div>
+            )}
           </div>
         </div>
         <div id="map-chart-screen" className="screen">
