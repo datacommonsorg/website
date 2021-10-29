@@ -110,7 +110,7 @@ function getColorScale(
     ];
     if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
-        domainValues = domain || [-14, -7, 0, 7, 14];
+        domainValues = domain || [-10, -5, 0, 5, 10];
       } else {
         domainValues = domain || [0, 15];
       }
@@ -122,7 +122,7 @@ function getColorScale(
     if (min >= 0) {
       domainValues = [0, max / 2, max];
       range = [MIN_COLOR, d3.interpolateReds(0.8), d3.interpolateReds(1)];
-    } else if (max < 0) {
+    } else if (max <= 0) {
       domainValues = [min, min / 2, 0];
       range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR];
     }
