@@ -15,7 +15,8 @@
  */
 
 .region-highlighted {
-  fill: rgba(0, 0, 0, .5) !important;
+  stroke: var(--warning);
+  stroke-width: 3px;
   cursor: pointer;
 }
 

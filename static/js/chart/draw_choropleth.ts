@@ -50,6 +50,7 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
+export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
@@ -98,7 +99,29 @@ function getColorScale(
     : d3.color(getColorFn([label])(label));
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
-  const domainValues = domain || [extent[0], medianValue, extent[1]];
+  let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
+  if (statVar.indexOf("Temperature") >= 0) {
+    let range: any[] = [
+      d3.interpolateRdBu(1),
+      d3.interpolateRdBu(0.5),
+      d3.interpolateRdBu(0),
+    ];
+    if (statVar.indexOf("DifferenceRelativeToBaseDate") >= 0) {
+      domainValues = domain || [-14, 0, 14];
+    } else if (statVar.indexOf("DifferenceAcrossModels") >= 0) {
+      domainValues = domain || [1, 0, 15]; // Hack to get a positive-only scale.
+    } else {
+      domainValues = domain || [-40, 0, 40];
+    }
+    if (domainValues[0] > 0) {
+      domainValues = [0, domainValues[2], 0];
+      range = [d3.interpolateRdBu(0.5), d3.interpolateRdBu(0)];
+    } else if (domainValues[2] < 0) {
+      domainValues = [domainValues[0], 0];
+      range = [d3.interpolateRdBu(1), d3.interpolateRdBu(0.5)];
+    }
+    return d3.scaleLinear().domain(domainValues).nice().range(range);
+  }
   if (medianValue === domainValues[0]) {
     domainValues.splice(0, 1);
   } else if (medianValue === domainValues[2]) {
@@ -356,6 +379,11 @@ function drawChoropleth(
         return MISSING_DATA_COLOR;
       }
     })
+    .attr("data-geodcid", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in dataValues) {
+        return d.properties.geoDcid;
+      }
+    })
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
@@ -417,7 +445,7 @@ function drawChoropleth(
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
           .selectAll("path,circle")
-          .classed("region-highlighted", false)
+          .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
@@ -485,7 +513,9 @@ const onMapClick = (
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
-  container.select("#geoPath" + index).classed("region-highlighted", false);
+  container
+    .select("#geoPath" + index)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
@@ -497,7 +527,10 @@ function mouseHoverAction(
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
   if (canClick) {
-    container.select("#geoPath" + index).classed("region-highlighted", true);
+    container
+      .select("#geoPath" + index)
+      .raise()
+      .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
   }
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
