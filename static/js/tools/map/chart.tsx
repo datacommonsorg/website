@@ -71,7 +71,7 @@ interface ChartProps {
   europeanCountries: Array<string>;
 }
 
-const MAP_CONTAINER_ID = "choropleth-map";
+export const MAP_CONTAINER_ID = "choropleth-map";
 const LEGEND_CONTAINER_ID = "choropleth-legend";
 const CHART_CONTAINER_ID = "chart-container";
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
