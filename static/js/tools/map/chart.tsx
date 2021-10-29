@@ -94,7 +94,6 @@ export function Chart(props: ChartProps): JSX.Element {
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVarInfo.dcid;
-  const [chartWidth, setChartWidth] = useState(0);
   const [mapPoints, setMapPoints] = useState(null);
   const [mapPointsFetched, setMapPointsFetched] = useState(false);
 
@@ -126,25 +125,6 @@ export function Chart(props: ChartProps): JSX.Element {
     );
   }, [props, mapPointsFetched]);
 
-  // replot when window size changes
-  useEffect(() => {
-    function _handleWindowResize() {
-      const chartContainer = document.getElementById(CHART_CONTAINER_ID);
-      if (chartContainer) {
-        const width = chartContainer.offsetWidth;
-        if (width !== chartWidth) {
-          setChartWidth(width);
-          draw(props, setErrorMessage, false, mapPoints),
-            props.display.value.color,
-            props.display.value.domain;
-        }
-      }
-    }
-    window.addEventListener("resize", _handleWindowResize);
-    return () => {
-      window.removeEventListener("resize", _handleWindowResize);
-    };
-  }, [props]);
   return (
     <Card className="chart-section-card">
       <Container id={SECTION_CONTAINER_ID} fluid={true}>
