@@ -50,6 +50,7 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
+export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
@@ -193,11 +194,18 @@ function addMapPoints(
   mapPoints: Array<MapPoint>,
   mapPointValues: { [placeDcid: string]: number },
   projection: d3.GeoProjection,
-  getTooltipHtml: (place: NamedPlace) => string
+  getTooltipHtml: (place: NamedPlace) => string,
+  minDotSize: number
 ): void {
   const filteredMapPoints = mapPoints.filter(
-    (point) => !_.isNull(projection([point.longitude, point.latitude]))
+    (point) =>
+      !_.isNull(projection([point.longitude, point.latitude])) &&
+      point.placeDcid in mapPointValues
   );
+  const pointSizeScale = d3
+    .scaleLinear()
+    .domain(d3.extent(Object.values(mapPointValues)))
+    .range([minDotSize, minDotSize * 3]);
   d3.select(`#${MAP_ITEMS_GROUP_ID}`)
     .append("g")
     .attr("class", "map-points-layer")
@@ -217,7 +225,13 @@ function addMapPoints(
       "cx",
       (point: MapPoint) => projection([point.longitude, point.latitude])[0]
     )
-    .attr("cy", (point) => projection([point.longitude, point.latitude])[1])
+    .attr(
+      "cy",
+      (point: MapPoint) => projection([point.longitude, point.latitude])[1]
+    )
+    .attr("r", (point: MapPoint) =>
+      pointSizeScale(mapPointValues[point.placeDcid])
+    )
     .on("mouseover", (point: MapPoint) => {
       const place = {
         dcid: point.placeDcid,
@@ -365,6 +379,11 @@ function drawChoropleth(
         return MISSING_DATA_COLOR;
       }
     })
+    .attr("data-geodcid", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in dataValues) {
+        return d.properties.geoDcid;
+      }
+    })
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
@@ -394,12 +413,22 @@ function drawChoropleth(
 
   // add map points if there are any to add
   if (!_.isEmpty(mapPoints) && !_.isUndefined(mapPointValues)) {
+    // calculate the min dot size based on the sizes of the regions on the map
+    let minRegionDiagonal = Number.MAX_VALUE;
+    mapObjects.each((_, idx, paths) => {
+      const pathClientRect = paths[idx].getBoundingClientRect();
+      minRegionDiagonal = Math.sqrt(
+        Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
+      );
+    });
+    const minDotSize = minRegionDiagonal * 0.02;
     addMapPoints(
       domContainerId,
       mapPoints,
       mapPointValues,
       projection,
-      getTooltipHtml
+      getTooltipHtml,
+      minDotSize
     );
   }
 
@@ -416,7 +445,7 @@ function drawChoropleth(
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
           .selectAll("path,circle")
-          .classed("region-highlighted", false)
+          .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
@@ -484,7 +513,9 @@ const onMapClick = (
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
-  container.select("#geoPath" + index).classed("region-highlighted", false);
+  container
+    .select("#geoPath" + index)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
@@ -496,7 +527,10 @@ function mouseHoverAction(
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
   if (canClick) {
-    container.select("#geoPath" + index).classed("region-highlighted", true);
+    container
+      .select("#geoPath" + index)
+      .raise()
+      .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
   }
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
