@@ -156,47 +156,36 @@ function Chart(props: ChartPropsType): JSX.Element {
   }, []);
 
   function replot() {
-    if (svgContainerRef.current) {
-      clearSVGs();
-      plot(svgContainerRef, tooltipRef, props, geoJson);
-    }
-  }
-
-  // Replot when data or chart width changes on sv widget toggle.
-  useEffect(() => {
     if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
       loadSpinner(CONTAINER_ID);
       return;
     } else {
       removeSpinner(CONTAINER_ID);
     }
-    const resizeObserver = new ResizeObserver(() => {
-      // TODO: Debounce
+    if (!_.isEmpty(props.points)) {
+      if (svgContainerRef.current) {
+        clearSVGs();
+        plot(svgContainerRef, tooltipRef, props, geoJson);
+      }
+    }
+  }
+
+  // Replot when data or chart width changes on sv widget toggle.
+  useEffect(() => {
+    const debouncedHandler = _.debounce(() => {
       if (!_.isEmpty(props.points)) {
         replot();
       }
-    });
+    }, 120);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
       resizeObserver.observe(chartContainerRef.current);
     }
     return () => {
       resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
     };
   }, [chartContainerRef, props, geoJsonFetched]);
-
-  // Replot when window size changes (this is needed only for height changes now).
-  // TODO: Collapse this with ResizeObserver above (needs a way to listen to
-  // chart div height changes).
-  useEffect(() => {
-    function _handleWindowResize() {
-      // TODO: Debounce
-      replot();
-    }
-    window.addEventListener("resize", _handleWindowResize);
-    return () => {
-      window.removeEventListener("resize", _handleWindowResize);
-    };
-  }, [props]);
 
   return (
     <div id="chart" className="container-fluid" ref={chartContainerRef}>
