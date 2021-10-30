@@ -104,6 +104,7 @@ const MAP_COLORS = [
 ];
 const MAP_NUM_QUANTILES = 6;
 const CONTAINER_ID = "chart";
+const DEBOUNCE_INTERVAL_MS = 30;
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
@@ -176,7 +177,7 @@ function Chart(props: ChartPropsType): JSX.Element {
       if (!_.isEmpty(props.points)) {
         replot();
       }
-    }, 120);
+    }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
       resizeObserver.observe(chartContainerRef.current);
