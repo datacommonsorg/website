@@ -70,7 +70,7 @@ def send_warmup_requests():
 
 @app.before_request
 def before_request():
-    if current_app.config['AUTH'] and not any([
+    if current_app.config.get('AUTH', None) and not any([
             request.endpoint.startswith('static/'),
             request.endpoint.startswith('auth'),
             request.endpoint == 'healthz',

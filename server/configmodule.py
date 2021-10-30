@@ -108,8 +108,11 @@ class LocalPrivateConfig(Config):
     WARMUP = False
 
 
-class LocalLiteConfig(LocalConfig):
+class LocalLiteConfig(Config):
+    LOCAL = True
     LITE = True
+    API_ROOT = 'https://autopush.api.datacommons.org'
+    SCHEME = 'http'
 
 
 class WebdriverConfig(Config):
@@ -133,3 +136,5 @@ class TestConfig(Config):
 
 class SustainabilityTestConfig(TestConfig):
     SUSTAINABILITY = True
+    WARMUP = False
+    AUTH = False
