@@ -13,6 +13,13 @@
 # limitations under the License.
 """Authentication related routes"""
 
+# Referenced from https://github.com/realpython/materials/tree/master/flask-google-login
+#
+# Instead of using a database, we just save the users to the global config.
+#
+# As a prerequist, need to config consent screen and OAuth client from GCP console.
+# After that, secrets are stored in Cloud Secret Manager.
+
 import json
 
 # Third party libraries
@@ -25,7 +32,6 @@ from flask_login import (
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 
-from google.cloud import storage
 from google.cloud import secretmanager
 
 # Internal imports
