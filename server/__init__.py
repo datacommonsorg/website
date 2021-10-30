@@ -20,15 +20,19 @@ import urllib
 
 from flask import Flask, request, g
 from flask_babel import Babel
-from google.cloud import storage
+from flask_login import LoginManager
 
+from google.cloud import storage
 from google.cloud import secretmanager
+
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
+
+from routes.user import User
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -63,7 +67,7 @@ def register_routes_common(app):
 
 def register_routes_main_app(app):
     # apply the blueprints for main and private app
-    from routes import (protein, browser, dev, factcheck, place, placelist,
+    from routes import (browser, dev, factcheck, place, placelist, protein,
                         ranking, redirects, static, tools)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
@@ -74,6 +78,11 @@ def register_routes_main_app(app):
     app.register_blueprint(redirects.bp)
     app.register_blueprint(static.bp)
     app.register_blueprint(tools.bp)
+
+    if app.config['AUTH']:
+        from routes import auth
+        app.register_blueprint(auth.bp)
+
     from routes.api import (protein as protein_api, browser as browser_api,
                             choropleth, place as place_api, landing_page,
                             ranking as ranking_api, stats, translator)
@@ -96,6 +105,7 @@ def register_routes_sustainability(app):
 
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
+    app.secret_key = os.urandom(24)
 
     if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
         createMiddleWare(app, StackdriverExporter())
@@ -116,6 +126,19 @@ def create_app():
     # Init extentions
     from cache import cache
     cache.init_app(app)
+
+    # Login manager
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return "You must be logged in to access this content.", 403
+
+    # Flask-Login helper to retrieve a user from our db
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.get(user_id)
 
     register_routes_common(app)
     if cfg.SUSTAINABILITY:

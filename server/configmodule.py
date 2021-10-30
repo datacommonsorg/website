@@ -31,12 +31,18 @@ class Config:
     SUSTAINABILITY = False
     # Name of the site. The name is changed for private instance.
     NAME = "Data Commons"
+    AUTH = True
+    WARMUP = True
+    # A simple map to keep the current users. As there is very limited users,
+    # do not bother to use any database.
+    USERS = {}
 
 
 class ProductionConfig(Config):
     GA_ACCOUNT = 'UA-117119267-1'
     NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = True
+    AUTH = False
 
 
 class ProdSustainabilityConfig(ProductionConfig):
@@ -82,6 +88,8 @@ class LocalConfig(Config):
     API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = 'datcom-website-autopush-resources'
     SCHEME = 'http'
+    AUTH = True
+    WARMUP = False
 
 
 class LocalSustainabilityConfig(LocalConfig):
@@ -96,6 +104,8 @@ class LocalPrivateConfig(Config):
     NAME = "International Energy Agency"
     PRIVATE = True
     SCHEME = 'http'
+    AUTH = False
+    WARMUP = False
 
 
 class LocalLiteConfig(Config):
@@ -111,6 +121,8 @@ class WebdriverConfig(Config):
     API_ROOT = 'https://autopush.api.datacommons.org'
     GCS_BUCKET = ''
     SCHEME = 'http'
+    WARMUP = False
+    AUTH = False
 
 
 class TestConfig(Config):
@@ -118,7 +130,11 @@ class TestConfig(Config):
     API_ROOT = 'api-root'
     GCS_BUCKET = 'gcs-bucket'
     SCHEME = 'http'
+    WARMUP = False
+    AUTH = False
 
 
 class SustainabilityTestConfig(TestConfig):
     SUSTAINABILITY = True
+    WARMUP = False
+    AUTH = False
