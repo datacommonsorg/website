@@ -19,13 +19,15 @@ This module contains the request handler codes and the main app.
 import json
 import logging
 import os
+from flask.globals import current_app
 import requests
 import sys
 import threading
 import time
 
 import flask
-from flask import request
+from flask import request, redirect, url_for
+from flask_login import current_user
 
 import services.datacommons as dc
 from lib import translator
@@ -43,7 +45,6 @@ app.jinja_env.globals['NAME'] = app.config['NAME']
 app.jinja_env.globals['BASE_HTML'] = 'sustainability/base.html' if app.config[
     'SUSTAINABILITY'] else 'base.html'
 
-GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
 
 WARM_UP_ENDPOINTS = [
@@ -69,11 +70,18 @@ def send_warmup_requests():
 
 @app.before_request
 def before_request():
+    if current_app.config['AUTH'] and not any([
+            request.endpoint.startswith('static/'),
+            request.endpoint.startswith('auth'),
+            current_user.is_authenticated  # From Flask-Login
+    ]):
+        return redirect(url_for('auth.login'))
+
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
         url = request.url.replace('http://', 'https://', 1)
         code = 301
-        return flask.redirect(url, code=code)
+        return redirect(url, code=code)
 
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.
@@ -212,7 +220,7 @@ def version():
                                  bigquery=os.environ.get("BIG_QUERY"))
 
 
-if not (app.config["TEST"] or app.config["WEBDRIVER"]):
+if app.config["WARMUP"]:
     thread = threading.Thread(target=send_warmup_requests)
     thread.start()
 
@@ -221,4 +229,4 @@ if __name__ == '__main__':
     # a webserver process such as Gunicorn will serve the app.
     logging.info("Run web server in local mode")
     port = sys.argv[1] if len(sys.argv) >= 2 else 8080
-    app.run(host='127.0.0.1', port=port, debug=True)
+    app.run(host='127.0.0.1', port=port, debug=True, ssl_context="adhoc")
