@@ -73,6 +73,7 @@ def before_request():
     if current_app.config['AUTH'] and not any([
             request.endpoint.startswith('static/'),
             request.endpoint.startswith('auth'),
+            request.endpoint == 'healthz',
             current_user.is_authenticated  # From Flask-Login
     ]):
         return redirect(url_for('auth.login'))
