@@ -45,7 +45,6 @@ const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
 const SHOW_ALL_SV_TYPES = [
   StatVarHierarchyType.STAT_VAR,
-  StatVarHierarchyType.TIMELINE,
 ];
 interface StatVarHierarchyPropType {
   type: string;
