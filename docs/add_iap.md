@@ -62,3 +62,8 @@ Verfify backend config
 ```bash
 kubectl -n website -ojson get backendconfig | grep '"iap":' -C 5
 ```
+
+### Verify IAP
+
+IAP takes effect in a few minutes. To verify, access the web page in an in-cognito browser page, a Google auth windown would appear with the configured consent screen
+from the step above.
