@@ -74,6 +74,8 @@ $container-max-widths: (
 #main-nav .navbar-brand {
   font-size: 1.1rem;
   line-height: 24px;
+  display: flex;
+  align-items: center;
 }
 
 #main-nav .navbar-brand a {
@@ -82,7 +84,7 @@ $container-max-widths: (
 }
 
 :root.private .navbar-brand > a {
-  display: block;
+  display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
   background-position: -900px -100px;
   width: 120px;
