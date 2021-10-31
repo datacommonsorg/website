@@ -29,8 +29,8 @@
 }
 
 :root.private {
-  --dc-primary: #4285f4;
-  --link-color: #4285f4;
+  --dc-primary: rgb(68, 97, 45);
+  --link-color: rgb(68, 97, 45);
 }
 
 :root.sustainability {
@@ -79,6 +79,15 @@ $container-max-widths: (
 #main-nav .navbar-brand a {
   color: #fff;
   font-weight: 500;
+}
+
+:root.private .navbar-brand > a {
+  display: block;
+  background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
+  background-position: -900px -100px;
+  width: 120px;
+  height: 65px;
+  color: transparent !important;
 }
 
 #main-nav .navbar-brand span,
