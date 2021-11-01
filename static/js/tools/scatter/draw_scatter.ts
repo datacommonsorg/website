@@ -415,8 +415,6 @@ export function drawScatter(
   chartHeight: number,
   props: ChartPropsType,
   redirectAction: (
-    xStatVar: string,
-    yStatVar: string,
     placeDcid: string
   ) => void,
   getTooltipElement: (
@@ -496,7 +494,7 @@ export function drawScatter(
     .attr("stroke", "rgb(147, 0, 0)")
     .style("opacity", "0.7")
     .on("click", (point: Point) =>
-      redirectAction(props.xStatVar, props.yStatVar, point.place.dcid)
+      redirectAction(point.place.dcid)
     );
 
   if (props.display.showDensity) {

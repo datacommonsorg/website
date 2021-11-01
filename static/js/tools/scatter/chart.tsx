@@ -53,7 +53,7 @@ interface ChartPropsType {
   display: DisplayOptionsWrapper;
 }
 
-const DOT_REDIRECT_PREFIX = "/tools/timeline";
+const DOT_REDIRECT_PREFIX = "/place/";
 const SVG_CONTAINER_ID = "scatter-plot-container";
 const MAP_LEGEND_CONTAINER_ID = "legend-container";
 const MAP_LEGEND_ARROW_LENGTH = 5;
@@ -316,7 +316,7 @@ function plot(
       "",
       colorScale,
       (geoDcid: GeoJsonFeatureProperties) => {
-        redirectAction(props.xStatVar, props.yStatVar, geoDcid.geoDcid);
+        redirectAction(geoDcid.geoDcid);
       },
       getMapTooltipHtml(
         props.points,
@@ -578,11 +578,9 @@ function drawMapLegend(
 }
 
 function redirectAction(
-  xStatVar: string,
-  yStatVar: string,
   placeDcid: string
 ): void {
-  const uri = `${DOT_REDIRECT_PREFIX}#place=${placeDcid}&statsVar=${xStatVar}__${yStatVar}`;
+  const uri = `${DOT_REDIRECT_PREFIX}${placeDcid}`;
   window.open(uri);
 }
 
