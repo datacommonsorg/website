@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import {
@@ -71,7 +71,7 @@ interface ChartProps {
   europeanCountries: Array<string>;
 }
 
-const MAP_CONTAINER_ID = "choropleth-map";
+export const MAP_CONTAINER_ID = "choropleth-map";
 const LEGEND_CONTAINER_ID = "choropleth-legend";
 const CHART_CONTAINER_ID = "chart-container";
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
@@ -82,6 +82,7 @@ const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 const NO_PER_CAPITA_TYPES = ["medianValue"];
 const SECTION_CONTAINER_ID = "map-chart";
+const DEBOUNCE_INTERVAL_MS = 30;
 
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
@@ -94,9 +95,9 @@ export function Chart(props: ChartProps): JSX.Element {
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVarInfo.dcid;
-  const [chartWidth, setChartWidth] = useState(0);
   const [mapPoints, setMapPoints] = useState(null);
   const [mapPointsFetched, setMapPointsFetched] = useState(false);
+  const chartContainerRef = useRef<HTMLDivElement>();
 
   // load mapPoints in the background.
   useEffect(() => {
@@ -108,7 +109,17 @@ export function Chart(props: ChartProps): JSX.Element {
       .catch(() => setMapPointsFetched(true));
   }, []);
 
-  // replot when data changes
+  function replot() {
+    draw(
+      props,
+      setErrorMessage,
+      mapPoints,
+      props.display.value.color,
+      props.display.value.domain
+    );
+  }
+
+  // Replot when data changes.
   useEffect(() => {
     if (props.display.value.showMapPoints && !mapPointsFetched) {
       loadSpinner(SECTION_CONTAINER_ID);
@@ -116,35 +127,23 @@ export function Chart(props: ChartProps): JSX.Element {
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
-    draw(
-      props,
-      setErrorMessage,
-      true,
-      mapPoints,
-      props.display.value.color,
-      props.display.value.domain
-    );
   }, [props, mapPointsFetched]);
 
-  // replot when window size changes
+  // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
-    function _handleWindowResize() {
-      const chartContainer = document.getElementById(CHART_CONTAINER_ID);
-      if (chartContainer) {
-        const width = chartContainer.offsetWidth;
-        if (width !== chartWidth) {
-          setChartWidth(width);
-          draw(props, setErrorMessage, false, mapPoints),
-            props.display.value.color,
-            props.display.value.domain;
-        }
-      }
+    const debouncedHandler = _.debounce(() => {
+      replot();
+    }, DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    if (chartContainerRef.current) {
+      resizeObserver.observe(chartContainerRef.current);
     }
-    window.addEventListener("resize", _handleWindowResize);
     return () => {
-      window.removeEventListener("resize", _handleWindowResize);
+      resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
     };
-  }, [props]);
+  }, [chartContainerRef]);
+
   return (
     <Card className="chart-section-card">
       <Container id={SECTION_CONTAINER_ID} fluid={true}>
@@ -170,7 +169,7 @@ export function Chart(props: ChartProps): JSX.Element {
             <div className="error-message">{errorMessage}</div>
           ) : (
             <div className="map-section-container">
-              <div id={CHART_CONTAINER_ID}>
+              <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
                 <div id={MAP_CONTAINER_ID}></div>
                 <div id={LEGEND_CONTAINER_ID}></div>
               </div>
@@ -235,13 +234,17 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
-            <div
-              className="explore-timeline-link"
-              onClick={() => exploreTimelineOnClick(placeDcid, statVarDcid)}
-            >
-              <span className="explore-timeline-text">Explore timeline</span>
-              <i className="material-icons">keyboard_arrow_right</i>
-            </div>
+            {(props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
+              props.placeInfo.selectedPlace.dcid in
+                props.breadcrumbDataValues) && (
+              <div
+                className="explore-timeline-link"
+                onClick={() => exploreTimelineOnClick(placeDcid, statVarDcid)}
+              >
+                <span className="explore-timeline-text">Explore timeline</span>
+                <i className="material-icons">keyboard_arrow_right</i>
+              </div>
+            )}
           </div>
         </div>
         <div id="map-chart-screen" className="screen">
@@ -255,7 +258,6 @@ export function Chart(props: ChartProps): JSX.Element {
 function draw(
   props: ChartProps,
   setErrorMessage: (errorMessage: string) => void,
-  shouldDrawMap: boolean,
   mapPoints: Array<MapPoint>,
   color?: string,
   domain?: [number, number, number]
@@ -300,11 +302,7 @@ function draw(
     "",
     LEGEND_MARGIN_LEFT
   );
-  if (
-    shouldDrawMap &&
-    !_.isEmpty(props.geoJsonData) &&
-    !_.isEmpty(props.mapDataValues)
-  ) {
+  if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
     document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawChoropleth(
       MAP_CONTAINER_ID,

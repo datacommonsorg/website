@@ -491,6 +491,10 @@ function updateXAxis(
   yScale: d3.AxisScale<any>
 ): void {
   const xDomain = xAxis.select(".domain");
+  if (yScale.domain()[0] > 0) {
+    xDomain.remove();
+    return;
+  }
   const xDomainPath = xDomain.attr("d");
   xDomain
     .attr("d", xDomainPath.replace(/^M[^,]+,/, `M${MARGIN.left},`))
@@ -1265,7 +1269,7 @@ function drawGroupLineChart(
       .style("fill", "#808080")
       .style("font-size", "11px")
       .style("text-anchor", "start")
-      // .style("text-rendering", "optimizedLegibility")
+      .style("text-rendering", "optimizedLegibility")
       .text(sourceText);
   }
 

@@ -18,13 +18,16 @@
  * Component to allow per capita toggling and navigating to a parent place map.
  */
 
+import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 import { Card } from "reactstrap";
 
+import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_choropleth";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { MAP_CONTAINER_ID } from "./chart";
 import { DataPointMetadata } from "./chart_loader";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 import {
@@ -116,6 +119,25 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   );
 }
 
+function highlightPlaceToggle(
+  target: HTMLAnchorElement,
+  shouldHighlight: boolean
+) {
+  const geodcid = target.dataset.geodcid;
+  d3.select(`#${MAP_CONTAINER_ID}`)
+    .select(`path[data-geodcid="${geodcid}"]`)
+    .raise()
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
+}
+
+function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
+  highlightPlaceToggle(e.target as HTMLAnchorElement, true);
+}
+
+function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
+  highlightPlaceToggle(e.target as HTMLAnchorElement, false);
+}
+
 function getListItemElement(
   place: NamedTypedPlace,
   props: PlaceDetailsPropType,
@@ -156,7 +178,14 @@ function getListItemElement(
     <div key={place.dcid}>
       {itemNumber && `${itemNumber}. `}
       {shouldBeClickable ? (
-        <a href={redirectLink}>{place.name}</a>
+        <a
+          href={redirectLink}
+          data-geodcid={place.dcid}
+          onMouseEnter={highlightPlace}
+          onMouseLeave={unhighlightPlace}
+        >
+          {place.name}
+        </a>
       ) : (
         `${place.name}`
       )}
