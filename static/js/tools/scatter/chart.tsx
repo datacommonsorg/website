@@ -355,20 +355,6 @@ function getTooltipElement(
   xPerCapita: boolean,
   yPerCapita: boolean
 ): JSX.Element {
-  let xSource = urlToDomain(point.xSource);
-  if (xPerCapita && point.xPopSource) {
-    const xPopDomain = urlToDomain(point.xPopSource);
-    if (xPopDomain !== xSource) {
-      xSource += `, ${xPopDomain}`;
-    }
-  }
-  let ySource = urlToDomain(point.ySource);
-  if (yPerCapita && point.yPopSource) {
-    const yPopDomain = urlToDomain(point.yPopSource);
-    if (yPopDomain !== ySource) {
-      ySource += `, ${yPopDomain}`;
-    }
-  }
   const showXPopDateMessage =
     xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
   const showYPopDateMessage =
@@ -382,10 +368,6 @@ function getTooltipElement(
       <br />
       {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
       <footer>
-        {xLabel} data from: {xSource}
-        <br />
-        {yLabel} data from: {ySource}
-        <br />
         {showXPopDateMessage && (
           <>
             <sup>*</sup> {xLabel} uses population data from: {point.xPopDate}
