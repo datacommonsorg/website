@@ -120,7 +120,7 @@ function ChartLoader(): JSX.Element {
                 placeInfo={place.value}
                 display={display}
               />
-              <PlotOptions />
+              <PlotOptions points={points} />
             </>
           )}
         </>
