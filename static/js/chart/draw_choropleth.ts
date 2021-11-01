@@ -77,7 +77,9 @@ function fitSize(
   projection.scale(s).translate([translateX, translateY]);
 }
 
-/** Generates a color scale to be used for drawing choropleth map and legend.
+/**
+ * Generates a color scale to be used for drawing choropleth map and legend.
+ * NOTE: Only return linear scales.
  *
  * @param statVar name of the stat var we are drawing choropleth for
  * @param dataValues the values we are using to plot our choropleth
@@ -98,8 +100,7 @@ function getColorScale(
     ? d3.color(color)
     : d3.color(getColorFn([label])(label));
   const extent = d3.extent(Object.values(dataValues));
-  const medianValue = d3.median(Object.values(dataValues));
-  let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
+  let domainValues: number[] = domain || [extent[0], extent[1]];
   if (statVar.indexOf("Temperature") >= 0) {
     let range: any[] = [
       d3.interpolateBlues(1),
@@ -127,11 +128,6 @@ function getColorScale(
       range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR];
     }
     return d3.scaleLinear().domain(domainValues).nice().range(range);
-  }
-  if (medianValue === domainValues[0]) {
-    domainValues.splice(0, 1);
-  } else if (medianValue === domainValues[2]) {
-    domainValues.splice(2, 1);
   }
   const rangeValues =
     domainValues.length === 3
@@ -569,20 +565,13 @@ function generateLegend(
   color: d3.ScaleLinear<number, number>,
   unit: string
 ): number {
-  // To get the yScale range, we want an array of heights that have the same
-  // percent difference between each height as the percent difference between
-  // each value in the domain of the color scale. The range also should start
-  // at 0 and end at height.
+  // Build a scale from color.domain() to the canvas height (from [height, 0]).
+  // NOTE: This assumes the color domain is linear.
   const yScaleRange = [];
-  yScaleRange.unshift(height);
-  for (let i = color.domain().length - 1; i > 1; i--) {
-    const currDomain = color.domain()[i];
-    const prevDomain = color.domain()[i - 1];
-    yScaleRange.unshift(
-      yScaleRange[0] / ((currDomain - prevDomain) / currDomain + 1)
-    );
+  const heightBucket = height / (color.domain().length - 1);
+  for (let i = 0, currBucket = 0; i < color.domain().length; i++, currBucket += heightBucket) {
+    yScaleRange.unshift(currBucket);
   }
-  yScaleRange.unshift(0);
   const yScale = d3.scaleLinear().domain(color.domain()).range(yScaleRange);
 
   const legend = svg.append("g").attr("class", LEGEND_CLASS_NAME);
@@ -636,7 +625,8 @@ function generateLegend(
   return legendWidth;
 }
 
-/** Generate a svg that contains a color scale legend
+/**
+ * Generate a svg that contains a color scale legend
  *
  * @param containerId id of the container to draw the legend in
  * @param height height of the legend
