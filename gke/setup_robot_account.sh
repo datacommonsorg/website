@@ -44,6 +44,7 @@ declare -a roles=(
     "roles/endpoints.serviceAgent"
     # Website resource: placeid2dcid.json, etc...
     "roles/storage.objectViewer"
+    "roles/storage.legacyBucketReader"
     # Secret manager accessor
     "roles/secretmanager.secretAccessor"
     # Logging and monitoring
@@ -53,6 +54,7 @@ declare -a roles=(
     "roles/compute.networkViewer"
     "roles/cloudtrace.agent"
     "roles/bigquery.jobUser"   # Query BigQuery
+    "roles/pubsub.editor" # Private DC data change subscription
 )
 for role in "${roles[@]}"
 do
