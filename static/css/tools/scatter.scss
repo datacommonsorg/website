@@ -49,6 +49,14 @@
   display: block;
 }
 
+#chart {
+  overflow: hidden; // svg might be temporarily too large during sv widget toggle.
+}
+
+#scatter-plot-container {
+  height: 60vh;
+}
+
 .no-padding {
   padding: 0;
 }
@@ -100,6 +108,8 @@
   opacity: 0.9;
   z-index: 2;
   border: 0.5px solid var(--dc-gray-lite);
+  word-break: break-word;  
+  white-space: normal;
 }
 
 #tooltip header {
@@ -271,7 +281,7 @@ circle {
 .chart-type-option, .selected-chart-option {
   display: flex;
   align-items: center;
-  min-width: 4rem;
+  min-width: 3.5rem;
   height: 2.4rem;
   justify-content: center;
   cursor: pointer;
@@ -308,4 +318,8 @@ circle {
 .chart-title span {
   font-size: 1rem;
   margin-bottom: 0.5rem;
+}
+
+.scatter-chart-container {
+  position: relative;
 }

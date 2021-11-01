@@ -115,7 +115,7 @@ function PlaceAndTypeOptions(): JSX.Element {
 
   return (
     <Card className="place-and-type-options-card">
-      <Container className="place-and-type-options">
+      <Container className="place-and-type-options" fluid={true}>
         <div
           className="place-and-type-options-section"
           id="place-search-section"
