@@ -577,9 +577,7 @@ function drawMapLegend(
   );
 }
 
-function redirectAction(
-  placeDcid: string
-): void {
+function redirectAction(placeDcid: string): void {
   const uri = `${DOT_REDIRECT_PREFIX}${placeDcid}`;
   window.open(uri);
 }

@@ -39,7 +39,7 @@ import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { Axis, AxisWrapper, Context, EmptyAxis } from "./context";
+import { AxisWrapper, Context, EmptyAxis } from "./context";
 
 // Number of enclosed places to sample when filtering the stat vars in the
 // stat var menu

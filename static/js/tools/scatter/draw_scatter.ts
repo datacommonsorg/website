@@ -377,13 +377,20 @@ function addTooltip(
     );
 
     ReactDOM.render(element, tooltip.current);
-    let tooltipHeight = (div.node() as HTMLDivElement).getBoundingClientRect().height;
-    let tooltipWidth = (div.node() as HTMLDivElement).getBoundingClientRect().width;
-    const containerWidth = (d3.select(svgContainerRef.current).node() as HTMLDivElement).getBoundingClientRect().width;
-    let left = Math.min(d3.event.offsetX + TOOLTIP_OFFSET, containerWidth - tooltipWidth);
+    const tooltipHeight = (div.node() as HTMLDivElement).getBoundingClientRect()
+      .height;
+    const tooltipWidth = (div.node() as HTMLDivElement).getBoundingClientRect()
+      .width;
+    const containerWidth = (d3
+      .select(svgContainerRef.current)
+      .node() as HTMLDivElement).getBoundingClientRect().width;
+    let left = Math.min(
+      d3.event.offsetX + TOOLTIP_OFFSET,
+      containerWidth - tooltipWidth
+    );
     if (left < 0) {
       left = 0;
-      div.style("width", containerWidth + "px"); 
+      div.style("width", containerWidth + "px");
     } else {
       div.style("width", "fit-content");
     }
@@ -414,9 +421,7 @@ export function drawScatter(
   chartWidth: number,
   chartHeight: number,
   props: ChartPropsType,
-  redirectAction: (
-    placeDcid: string
-  ) => void,
+  redirectAction: (placeDcid: string) => void,
   getTooltipElement: (
     point: Point,
     xLabel: string,
@@ -493,9 +498,7 @@ export function drawScatter(
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
     .style("opacity", "0.7")
-    .on("click", (point: Point) =>
-      redirectAction(point.place.dcid)
-    );
+    .on("click", (point: Point) => redirectAction(point.place.dcid));
 
   if (props.display.showDensity) {
     addDensity(
