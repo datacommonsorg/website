@@ -140,7 +140,7 @@ function Chart(props: ChartPropsType): JSX.Element {
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
-    .style("position", "fixed");
+    .style("position", "absolute");
 
   // Fetch geojson in the background when component is first mounted.
   useEffect(() => {
@@ -207,11 +207,11 @@ function Chart(props: ChartPropsType): JSX.Element {
             <span>vs</span>
             <h3>{props.xLabel}</h3>
           </div>
-          <div>
+          <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
             <div id={MAP_LEGEND_CONTAINER_ID}></div>
+            <div id="tooltip" ref={tooltipRef} />
           </div>
-          <div id="tooltip" ref={tooltipRef} />
           <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>

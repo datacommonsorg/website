@@ -40,6 +40,7 @@ const DENSITY_LEGEND_TEXT_HEIGHT = 15;
 const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
+const TOOLTIP_OFFSET = 5;
 
 /**
  * Adds a label for the y-axis
@@ -350,6 +351,7 @@ function addDensity(
  * @param yLabel
  */
 function addTooltip(
+  svgContainerRef: React.MutableRefObject<HTMLDivElement>,
   tooltip: React.MutableRefObject<HTMLDivElement>,
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
   xLabel: string,
@@ -375,9 +377,23 @@ function addTooltip(
     );
 
     ReactDOM.render(element, tooltip.current);
+    let tooltipHeight = (div.node() as HTMLDivElement).getBoundingClientRect().height;
+    let tooltipWidth = (div.node() as HTMLDivElement).getBoundingClientRect().width;
+    const containerWidth = (d3.select(svgContainerRef.current).node() as HTMLDivElement).getBoundingClientRect().width;
+    let left = Math.min(d3.event.offsetX + TOOLTIP_OFFSET, containerWidth - tooltipWidth);
+    if (left < 0) {
+      left = 0;
+      div.style("width", containerWidth + "px"); 
+    } else {
+      div.style("width", "fit-content");
+    }
+    let top = d3.event.offsetY - tooltipHeight - TOOLTIP_OFFSET;
+    if (top < 0) {
+      top = d3.event.offsetY + TOOLTIP_OFFSET;
+    }
     div
-      .style("left", d3.event.pageX + 15 + "px")
-      .style("top", d3.event.pageY - 28 + "px")
+      .style("left", left + "px")
+      .style("top", top + "px")
       .style("visibility", "visible");
   };
   const onTooltipMouseout = () => {
@@ -515,6 +531,7 @@ export function drawScatter(
   }
 
   addTooltip(
+    svgContainerRef,
     tooltipRef,
     dots,
     props.xLabel,
