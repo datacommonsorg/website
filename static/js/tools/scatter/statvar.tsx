@@ -349,47 +349,22 @@ function confirmStatVars(
   setModalSelected: (modalSelected: ModalSelected) => void,
   setModalOpened: (open: boolean) => void
 ): void {
-  const values: Array<Axis> = [];
-  const axes = [x, y];
-  if (modalSelected.x) {
-    values.push(x.value);
-  } else {
-    values.push({
-      ...EmptyAxis,
-      statVarInfo: thirdStatVar.info,
-      statVarDcid: thirdStatVar.dcid,
-    });
-  }
   if (modalSelected.y) {
-    values.push(y.value);
-  } else {
-    values.push({
+    x.set({
+      ...EmptyAxis,
+      statVarInfo: thirdStatVar.info,
+      statVarDcid: thirdStatVar.dcid,
+    });
+  } else if (modalSelected.x) {
+    y.set({
       ...EmptyAxis,
       statVarInfo: thirdStatVar.info,
       statVarDcid: thirdStatVar.dcid,
     });
   }
-  assignAxes(axes, values);
-  assignAxes(axes, values);
   setThirdStatVar(emptyStatVar);
   setModalSelected(defaultModalSelected);
   setModalOpened(false);
-}
-
-/**
- * Assigns the first `Axis` in `values` to the first `AxisWrapper` in axes while
- * keeping the log and per capita options in the original `AxisWrapper`.
- * The `Axis` and `AxisWrapper` involved are removed from the arrays.
- * @param axes
- * @param values
- */
-function assignAxes(axes: Array<AxisWrapper>, values: Array<Axis>) {
-  const axis = axes.shift();
-  axis.set({
-    ...values.shift(),
-    log: axis.value.log,
-    perCapita: axis.value.perCapita,
-  });
 }
 
 export { StatVarChooser };
