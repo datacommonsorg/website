@@ -15,10 +15,10 @@
 # mixer tmcf+csv args
 - op: add
   path: /spec/template/spec/containers/1/args/0
-  value: --use_gcs_data=true
+  value: --use_tmcf_csv_data=true
 - op: add
   path: /spec/template/spec/containers/1/args/0
-  value: --gcs_bucket=datcom-public
+  value: --tmcf_csv_bucket=datcom-website-private-resources
 - op: add
   path: /spec/template/spec/containers/1/args/0
-  value: --gcs_object_prefix=iea
+  value: --tmcf_csv_folder=food

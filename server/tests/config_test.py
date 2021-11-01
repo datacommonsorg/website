@@ -17,6 +17,38 @@ import os
 import unittest
 from unittest.mock import patch
 import lib.config as libconfig
+from werkzeug.utils import import_string
+
+
+class TestConfigModule(unittest.TestCase):
+
+    @parameterized.expand([
+        ("production", "configmodule.ProductionConfig"),
+        ("prod-sustainability", "configmodule.ProdSustainabilityConfig"),
+        ('staging', "configmodule.StagingConfig"),
+        ('staging-sustainability', "configmodule.StagingSustainabilityConfig"),
+        ('autopush', "configmodule.AutopushConfig"),
+        ('autopush-sustainability',
+         "configmodule.AutopushSustainabilityConfig"),
+        ('private', "configmodule.PrivateConfig"),
+        ('dev', "configmodule.DevConfig"),
+        ('test', "configmodule.TestConfig"),
+        ('test-sustainability', "configmodule.TestSustainabilityConfig"),
+        ('webdriver', "configmodule.WebdriverConfig"),
+        ('minikube', "configmodule.MinikubeConfig"),
+        ('local', "configmodule.LocalConfig"),
+        ('local-lite', "configmodule.LocalLiteConfig"),
+        ('local-private', "configmodule.LocalPrivateConfig"),
+        ('local-sustainability', "configmodule.LocalSustainabilityConfig"),
+    ])
+    def test_config_string(self, env, expected):
+        with patch.dict(os.environ, {
+                "FLASK_ENV": env,
+        }):
+            self.assertTrue(env in libconfig.ENV)
+            module_string = libconfig.map_config_string(env)
+            self.assertEqual(module_string, expected)
+            import_string(module_string)
 
 
 class TestConfig(unittest.TestCase):

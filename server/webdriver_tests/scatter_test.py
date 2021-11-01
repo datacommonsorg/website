@@ -82,7 +82,7 @@ class TestScatter(WebdriverBaseTest):
 
     def test_manually_enter_options(self):
         """
-        Test entering place and stat var options manually will cause chart to 
+        Test entering place and stat var options manually will cause chart to
         show up.
         """
         self.driver.get(self.url_ + SCATTER_URL)
@@ -113,14 +113,30 @@ class TestScatter(WebdriverBaseTest):
         selects.select_by_value('County')
 
         # Choose stat vars
-        demographics = self.driver.find_element_by_class_name('node-title')
-        demographics.click()
+        hierarchy = self.driver.find_element_by_xpath(
+            '//*[@id="hierarchy-section"]')
+        demographics_button = hierarchy.find_elements_by_class_name(
+            'Collapsible')[0]
+        demographics_button.click()
+
+        # Click on median age button
+        # [brittle] Sleep to account for page refresh and element can get stale.
+        # Consider to have explicit wait
+        time.sleep(2)
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         self.driver.find_element_by_id(
             'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
-        time.sleep(3)
+
+        # Click on median income button
+        # [brittle] Sleep to account for page refresh and element can get stale.
+        # Consider to have explicit wait
+        time.sleep(2)
+        element_present = EC.presence_of_element_located(
+            (By.ID,
+             'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         self.driver.find_element_by_id(
             'Median_Income_Persondc/g/Demographics-Median_Income_Person').click(
             )
@@ -137,7 +153,3 @@ class TestScatter(WebdriverBaseTest):
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 20)
-
-
-if __name__ == '__main__':
-    unittest.main()
