@@ -49,6 +49,10 @@
   display: block;
 }
 
+#chart {
+  overflow: hidden; // svg might be temporarily too large during sv widget toggle.
+}
+
 #scatter-plot-container {
   height: 60vh;
 }
