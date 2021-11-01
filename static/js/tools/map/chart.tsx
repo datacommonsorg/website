@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import {
@@ -82,6 +82,7 @@ const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 const NO_PER_CAPITA_TYPES = ["medianValue"];
 const SECTION_CONTAINER_ID = "map-chart";
+const DEBOUNCE_INTERVAL_MS = 30;
 
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
@@ -96,6 +97,7 @@ export function Chart(props: ChartProps): JSX.Element {
   const statVarDcid = statVarInfo.dcid;
   const [mapPoints, setMapPoints] = useState(null);
   const [mapPointsFetched, setMapPointsFetched] = useState(false);
+  const chartContainerRef = useRef<HTMLDivElement>();
 
   // load mapPoints in the background.
   useEffect(() => {
@@ -107,7 +109,17 @@ export function Chart(props: ChartProps): JSX.Element {
       .catch(() => setMapPointsFetched(true));
   }, []);
 
-  // replot when data changes
+  function replot() {
+    draw(
+      props,
+      setErrorMessage,
+      mapPoints,
+      props.display.value.color,
+      props.display.value.domain
+    );
+  }
+
+  // Replot when data changes.
   useEffect(() => {
     if (props.display.value.showMapPoints && !mapPointsFetched) {
       loadSpinner(SECTION_CONTAINER_ID);
@@ -115,15 +127,22 @@ export function Chart(props: ChartProps): JSX.Element {
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
-    draw(
-      props,
-      setErrorMessage,
-      true,
-      mapPoints,
-      props.display.value.color,
-      props.display.value.domain
-    );
   }, [props, mapPointsFetched]);
+
+  // Replot when chart width changes on sv widget toggle.
+  useEffect(() => {
+    const debouncedHandler = _.debounce(() => {
+      replot();
+    }, DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    if (chartContainerRef.current) {
+      resizeObserver.observe(chartContainerRef.current);
+    }
+    return () => {
+      resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
+    };
+  }, [chartContainerRef]);
 
   return (
     <Card className="chart-section-card">
@@ -150,7 +169,7 @@ export function Chart(props: ChartProps): JSX.Element {
             <div className="error-message">{errorMessage}</div>
           ) : (
             <div className="map-section-container">
-              <div id={CHART_CONTAINER_ID}>
+              <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
                 <div id={MAP_CONTAINER_ID}></div>
                 <div id={LEGEND_CONTAINER_ID}></div>
               </div>
@@ -239,7 +258,6 @@ export function Chart(props: ChartProps): JSX.Element {
 function draw(
   props: ChartProps,
   setErrorMessage: (errorMessage: string) => void,
-  shouldDrawMap: boolean,
   mapPoints: Array<MapPoint>,
   color?: string,
   domain?: [number, number, number]
@@ -285,7 +303,6 @@ function draw(
     LEGEND_MARGIN_LEFT
   );
   if (
-    shouldDrawMap &&
     !_.isEmpty(props.geoJsonData) &&
     !_.isEmpty(props.mapDataValues)
   ) {
