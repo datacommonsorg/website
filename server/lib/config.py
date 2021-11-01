@@ -16,7 +16,7 @@ import os
 
 from werkzeug.utils import import_string
 
-_ENV = {
+ENV = {
     # Production
     'production',
     'prod-sustainability',
@@ -45,14 +45,17 @@ _ENV = {
 }
 
 
-def get_config():
+def map_config_string(env):
+    index = env.find('-')
+    env_list = list(env)
+    env_list[index + 1] = env[index + 1].upper()
+    env_list[0] = env[0].upper()
+    env_updated = "".join(env_list).replace('-', '')
+    return 'configmodule.{}Config'.format(env_updated)
 
+
+def get_config():
     env = os.environ.get('FLASK_ENV')
-    if env in _ENV:
-        index = env.find('-')
-        env_list = list(env)
-        env_list[index + 1] = env[index + 1].upper()
-        env_list[0] = env[0].upper()
-        env = "".join(env_list).replace('-', '')
-        return import_string('configmodule.{}Config'.format(env))()
+    if env in ENV:
+        return import_string(map_config_string(env))()
     raise ValueError("No valid FLASK_ENV is specified: %s" % env)
