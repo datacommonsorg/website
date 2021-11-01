@@ -89,6 +89,10 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
           </Col>
         </Row>
         <Row className="plot-options-row">
+          {/* only allow log scale option for axes where the data values are all
+              positive or all negative. The d3.scaleLog() function will throw an
+              error if trying to work with both positive and negative numbers or
+              0. */}
           <Col sm={1} className="plot-options-label">
             Log scale:
           </Col>
