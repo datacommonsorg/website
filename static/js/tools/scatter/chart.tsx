@@ -53,7 +53,7 @@ interface ChartPropsType {
   display: DisplayOptionsWrapper;
 }
 
-const DOT_REDIRECT_PREFIX = "/tools/timeline";
+const DOT_REDIRECT_PREFIX = "/place/";
 const SVG_CONTAINER_ID = "scatter-plot-container";
 const MAP_LEGEND_CONTAINER_ID = "legend-container";
 const MAP_LEGEND_ARROW_LENGTH = 5;
@@ -140,7 +140,7 @@ function Chart(props: ChartPropsType): JSX.Element {
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
-    .style("position", "fixed");
+    .style("position", "absolute");
 
   // Fetch geojson in the background when component is first mounted.
   useEffect(() => {
@@ -207,11 +207,11 @@ function Chart(props: ChartPropsType): JSX.Element {
             <span>vs</span>
             <h3>{props.xLabel}</h3>
           </div>
-          <div>
+          <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
             <div id={MAP_LEGEND_CONTAINER_ID}></div>
+            <div id="tooltip" ref={tooltipRef} />
           </div>
-          <div id="tooltip" ref={tooltipRef} />
           <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>
@@ -316,7 +316,7 @@ function plot(
       "",
       colorScale,
       (geoDcid: GeoJsonFeatureProperties) => {
-        redirectAction(props.xStatVar, props.yStatVar, geoDcid.geoDcid);
+        redirectAction(geoDcid.geoDcid);
       },
       getMapTooltipHtml(
         props.points,
@@ -577,12 +577,8 @@ function drawMapLegend(
   );
 }
 
-function redirectAction(
-  xStatVar: string,
-  yStatVar: string,
-  placeDcid: string
-): void {
-  const uri = `${DOT_REDIRECT_PREFIX}#place=${placeDcid}&statsVar=${xStatVar}__${yStatVar}`;
+function redirectAction(placeDcid: string): void {
+  const uri = `${DOT_REDIRECT_PREFIX}${placeDcid}`;
   window.open(uri);
 }
 
