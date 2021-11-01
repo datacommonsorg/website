@@ -179,7 +179,7 @@ function showTooltip(
   );
   if (left < 0) {
     left = 0;
-    tooltipSelect.style("width", containerWidth + "px"); 
+    tooltipSelect.style("width", containerWidth + "px");
   } else {
     tooltipSelect.style("width", "fit-content");
   }
