@@ -78,11 +78,6 @@ $container-max-widths: (
   align-items: center;
 }
 
-#main-nav .navbar-brand a {
-  color: #fff;
-  font-weight: 500;
-}
-
 :root.private .navbar-brand > a {
   display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
@@ -90,6 +85,11 @@ $container-max-widths: (
   width: 120px;
   height: 65px;
   color: transparent !important;
+}
+
+#main-nav .navbar-brand a {
+  color: #fff;
+  font-weight: 500;
 }
 
 #main-nav .navbar-brand span,
