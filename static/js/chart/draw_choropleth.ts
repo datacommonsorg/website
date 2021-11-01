@@ -569,7 +569,11 @@ function generateLegend(
   // NOTE: This assumes the color domain is linear.
   const yScaleRange = [];
   const heightBucket = height / (color.domain().length - 1);
-  for (let i = 0, currBucket = 0; i < color.domain().length; i++, currBucket += heightBucket) {
+  for (
+    let i = 0, currBucket = 0;
+    i < color.domain().length;
+    i++, currBucket += heightBucket
+  ) {
     yScaleRange.unshift(currBucket);
   }
   const yScale = d3.scaleLinear().domain(color.domain()).range(yScaleRange);
