@@ -173,10 +173,16 @@ function showTooltip(
   const offset = 5;
   const leftOffset = offset;
   const topOffset = -tooltipHeight - offset;
-  const left = Math.min(
+  let left = Math.min(
     d3.event.offsetX + leftOffset,
     containerWidth - tooltipWidth
   );
+  if (left < 0) {
+    left = 0;
+    tooltipSelect.style("width", containerWidth + "px");
+  } else {
+    tooltipSelect.style("width", "fit-content");
+  }
   let top = d3.event.offsetY + topOffset;
   if (top < 0) {
     top = d3.event.offsetY + offset;
