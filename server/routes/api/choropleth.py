@@ -32,7 +32,8 @@ bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
-    "AdministrativeArea2": "AdministrativeArea2"
+    "AdministrativeArea2": "AdministrativeArea2",
+    "AdministrativeArea3": "AdministrativeArea3"
 }
 # GeoJSON property to use, keyed by display level.
 CHOROPLETH_GEOJSON_PROPERTY_MAP = {
@@ -41,6 +42,7 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "County": "geoJsonCoordinatesDP1",
     "AdministrativeArea2": "geoJsonCoordinatesDP1",
+    "AdministrativeArea3": "geoJsonCoordinatesDP1",
     "EurostatNUTS1": "geoJsonCoordinatesDP2",
     "EurostatNUTS2": "geoJsonCoordinatesDP2",
     "EurostatNUTS3": "geoJsonCoordinatesDP1",

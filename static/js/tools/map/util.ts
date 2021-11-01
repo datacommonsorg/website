@@ -22,6 +22,9 @@ import _ from "lodash";
 
 import {
   EUROPE_NAMED_TYPED_PLACE,
+  BANGLADESH_PLACE_DCID,
+  NEPAL_PLACE_DCID,
+  PAKISTAN_PLACE_DCID,
   INDIA_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
@@ -81,11 +84,18 @@ export const USA_CHILD_PLACE_TYPES = {
   County: ["County"],
 };
 
-export const INDIA_CHILD_PLACE_TYPES = {
+export const AA1_AA2_CHILD_PLACE_TYPES = {
   Country: ["AdministrativeArea1", "AdministrativeArea2"],
   AdministrativeArea1: ["AdministrativeArea2"],
   State: ["AdministrativeArea2"],
   AdministrativeArea2: ["AdministrativeArea2"],
+};
+
+export const AA1_AA3_CHILD_PLACE_TYPES = {
+  Country: ["AdministrativeArea1", "AdministrativeArea3"],
+  AdministrativeArea1: ["AdministrativeArea3"],
+  State: ["AdministrativeArea3"],
+  AdministrativeArea2: ["AdministrativeArea3"],
 };
 
 export const EUROPE_CHILD_PLACE_TYPES = {
@@ -98,7 +108,10 @@ export const EUROPE_CHILD_PLACE_TYPES = {
 
 export const CHILD_PLACE_TYPE_MAPPING = {
   [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPES,
-  [INDIA_PLACE_DCID]: INDIA_CHILD_PLACE_TYPES,
+  [INDIA_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
+  [BANGLADESH_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
+  [NEPAL_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
+  [PAKISTAN_PLACE_DCID]: AA1_AA3_CHILD_PLACE_TYPES,
   [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
 };
 
