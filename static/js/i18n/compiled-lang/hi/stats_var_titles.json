@@ -128,7 +128,7 @@
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean Diesel PM Concentration"
+      "value": "Mean Carbon Dioxide PM Concentration"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
@@ -140,13 +140,13 @@
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean methane Concentration"
+      "value": "Mean Methane Concentration"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean methane Concentration"
+      "value": "Mean Nitrous Oxide Concentration"
     }
   ],
   "Annual_Generation_Electricity": [

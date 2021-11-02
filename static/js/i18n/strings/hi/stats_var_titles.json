@@ -63,16 +63,16 @@
     "defaultMessage": "Annual Electricity Generation"
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Mean Diesel PM Concentration"
+    "defaultMessage": "Mean Carbon Dioxide PM Concentration"
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
     "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Mean methane Concentration"
+    "defaultMessage": "Mean Methane Concentration"
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Mean methane Concentration"
+    "defaultMessage": "Mean Nitrous Oxide Concentration"
   },
   "Annual_Generation_Electricity": {
     "defaultMessage": "Annual Electricity Generation"

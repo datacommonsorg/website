@@ -128,7 +128,7 @@
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "CO2 (non-biogenic)"
+      "value": "Carbon Dioxide (Non-biogenic)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
@@ -140,13 +140,13 @@
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Methane (non-biogenic)"
+      "value": "Methane (Non-biogenic)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "N2O (non-biogenic)"
+      "value": "Nitrous Oxide (Non-biogenic)"
     }
   ],
   "Annual_Generation_Electricity": [

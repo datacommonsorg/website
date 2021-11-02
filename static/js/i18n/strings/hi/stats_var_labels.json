@@ -63,16 +63,16 @@
     "defaultMessage": "Electricity Price"
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "CO2 (non-biogenic)"
+    "defaultMessage": "Carbon Dioxide (Non-biogenic)"
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
     "defaultMessage": "Greenhouse Gas (Non-biogenic)"
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane (non-biogenic)"
+    "defaultMessage": "Methane (Non-biogenic)"
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "N2O (non-biogenic)"
+    "defaultMessage": "Nitrous Oxide (Non-biogenic)"
   },
   "Annual_Generation_Electricity": {
     "defaultMessage": "Annual Electricity Generation"

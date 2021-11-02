@@ -23,9 +23,7 @@ Though this should be run with the overall extract script:
 """
 
 import json
-import os
 import sys
-import io
 from typing import Dict, Tuple
 
 DEFAULT_LOCALE = 'en'
