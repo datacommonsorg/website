@@ -107,7 +107,11 @@ function getColorScale(
     : d3.color(getColorFn([label])(label));
   const allValues = Object.values(dataValues);
   const extent = d3.extent(allValues);
-  let domainValues: number[] = domain || [extent[0], d3.mean(allValues), extent[1]];
+  let domainValues: number[] = domain || [
+    extent[0],
+    d3.mean(allValues),
+    extent[1],
+  ];
   const isTemp = isTemperatureStatVar(statVar);
   const isWetBulb = isWetBulbStatVar(statVar);
   if (isTemp || isWetBulb) {
@@ -141,9 +145,10 @@ function getColorScale(
     }
     return d3.scaleLinear().domain(domainValues).nice().range(range);
   }
-  const rangeValues = domainValues.length == 3
-     ? [MIN_COLOR, maxColor, maxColor.darker(2)]
-     : [MIN_COLOR, maxColor.darker(2)];
+  const rangeValues =
+    domainValues.length == 3
+      ? [MIN_COLOR, maxColor, maxColor.darker(2)]
+      : [MIN_COLOR, maxColor.darker(2)];
   return d3
     .scaleLinear()
     .domain(domainValues)
