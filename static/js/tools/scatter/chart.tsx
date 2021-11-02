@@ -179,7 +179,12 @@ function Chart(props: ChartPropsType): JSX.Element {
   // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
     const debouncedHandler = _.debounce(() => {
-      replot();
+      if (
+        props.display.chartType === ScatterChartType.SCATTER ||
+        geoJsonFetched
+      ) {
+        replot();
+      }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
@@ -189,7 +194,7 @@ function Chart(props: ChartPropsType): JSX.Element {
       resizeObserver.unobserve(chartContainerRef.current);
       debouncedHandler.cancel();
     };
-  }, [chartContainerRef]);
+  }, [props, chartContainerRef]);
 
   return (
     <div id="chart" className="container-fluid" ref={chartContainerRef}>
