@@ -32,7 +32,8 @@ bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
-    "AdministrativeArea2": "AdministrativeArea2"
+    "AdministrativeArea2": "AdministrativeArea2",
+    "AdministrativeArea3": "AdministrativeArea3"
 }
 # GeoJSON property to use, keyed by display level.
 CHOROPLETH_GEOJSON_PROPERTY_MAP = {
@@ -41,6 +42,7 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "County": "geoJsonCoordinatesDP1",
     "AdministrativeArea2": "geoJsonCoordinatesDP1",
+    "AdministrativeArea3": "geoJsonCoordinatesDP1",
     "EurostatNUTS1": "geoJsonCoordinatesDP2",
     "EurostatNUTS2": "geoJsonCoordinatesDP2",
     "EurostatNUTS3": "geoJsonCoordinatesDP1",
@@ -151,6 +153,11 @@ def geojson():
     features = []
     if geojson_prop:
         geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
+        # geoId/46102 is known to only have unsimplified geojson so need to use
+        # geoJsonCoordinates as the prop for this one place
+        if 'geoId/46102' in geojson_by_geo:
+            geojson_by_geo['geoId/46102'] = dc_service.get_property_values(
+                ['geoId/46102'], 'geoJsonCoordinates').get('geoId/46102', '')
         for geo_id, json_text in geojson_by_geo.items():
             if json_text and geo_id in names_by_geo:
                 geo_feature = {

@@ -17,6 +17,38 @@ import os
 import unittest
 from unittest.mock import patch
 import lib.config as libconfig
+from werkzeug.utils import import_string
+
+
+class TestConfigModule(unittest.TestCase):
+
+    @parameterized.expand([
+        ("production", "configmodule.ProductionConfig"),
+        ("prod-sustainability", "configmodule.ProdSustainabilityConfig"),
+        ('staging', "configmodule.StagingConfig"),
+        ('staging-sustainability', "configmodule.StagingSustainabilityConfig"),
+        ('autopush', "configmodule.AutopushConfig"),
+        ('autopush-sustainability',
+         "configmodule.AutopushSustainabilityConfig"),
+        ('private', "configmodule.PrivateConfig"),
+        ('dev', "configmodule.DevConfig"),
+        ('test', "configmodule.TestConfig"),
+        ('test-sustainability', "configmodule.TestSustainabilityConfig"),
+        ('webdriver', "configmodule.WebdriverConfig"),
+        ('minikube', "configmodule.MinikubeConfig"),
+        ('local', "configmodule.LocalConfig"),
+        ('local-lite', "configmodule.LocalLiteConfig"),
+        ('local-private', "configmodule.LocalPrivateConfig"),
+        ('local-sustainability', "configmodule.LocalSustainabilityConfig"),
+    ])
+    def test_config_string(self, env, expected):
+        with patch.dict(os.environ, {
+                "FLASK_ENV": env,
+        }):
+            self.assertTrue(env in libconfig.ENV)
+            module_string = libconfig.map_config_string(env)
+            self.assertEqual(module_string, expected)
+            import_string(module_string)
 
 
 class TestConfig(unittest.TestCase):
@@ -27,7 +59,6 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': False,
             'LOCAL': False,
             'LITE': False,
-            'CACHE_TYPE': 'simple',
             'API_ROOT': 'api-root',
             'GCS_BUCKET': 'gcs-bucket',
             'SECRET_PROJECT': '',
@@ -40,7 +71,6 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': False,
             'LOCAL': True,
             'LITE': False,
-            'CACHE_TYPE': 'simple',
             'API_ROOT': 'https://autopush.api.datacommons.org',
             'GCS_BUCKET': 'datcom-website-autopush-resources',
             'SECRET_PROJECT': 'datcom-website-dev',
@@ -53,7 +83,6 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': False,
             'LOCAL': True,
             'LITE': True,
-            'CACHE_TYPE': 'simple',
             'API_ROOT': 'https://autopush.api.datacommons.org',
             'GCS_BUCKET': '',
             'SECRET_PROJECT': '',
@@ -66,7 +95,6 @@ class TestConfig(unittest.TestCase):
             'WEBDRIVER': True,
             'LOCAL': False,
             'LITE': False,
-            'CACHE_TYPE': 'simple',
             'API_ROOT': 'https://autopush.api.datacommons.org',
             'GCS_BUCKET': '',
             'SECRET_PROJECT': 'datcom-website-dev',
@@ -86,7 +114,6 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.WEBDRIVER, expected['WEBDRIVER'])
         self.assertEqual(config.LOCAL, expected['LOCAL'])
         self.assertEqual(config.LITE, expected['LITE'])
-        self.assertEqual(config.CACHE_TYPE, expected['CACHE_TYPE'])
         self.assertEqual(config.API_ROOT, expected['API_ROOT'])
         self.assertEqual(config.GCS_BUCKET, expected['GCS_BUCKET'])
         self.assertEqual(config.SECRET_PROJECT, expected['SECRET_PROJECT'])

@@ -27,10 +27,11 @@ import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
-import { shouldShowMapBoundaries } from "../shared_util";
+import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { Point } from "./chart_loader";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
 import { drawScatter } from "./draw_scatter";
@@ -50,10 +51,9 @@ interface ChartPropsType {
   yUnits?: string;
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
-  isUSAPlace: boolean;
 }
 
-const DOT_REDIRECT_PREFIX = "/tools/timeline";
+const DOT_REDIRECT_PREFIX = "/place/";
 const SVG_CONTAINER_ID = "scatter-plot-container";
 const MAP_LEGEND_CONTAINER_ID = "legend-container";
 const MAP_LEGEND_ARROW_LENGTH = 5;
@@ -104,6 +104,7 @@ const MAP_COLORS = [
 ];
 const MAP_NUM_QUANTILES = 6;
 const CONTAINER_ID = "chart";
+const DEBOUNCE_INTERVAL_MS = 30;
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
@@ -140,7 +141,7 @@ function Chart(props: ChartPropsType): JSX.Element {
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
-    .style("position", "fixed");
+    .style("position", "absolute");
 
   // Fetch geojson in the background when component is first mounted.
   useEffect(() => {
@@ -156,9 +157,11 @@ function Chart(props: ChartPropsType): JSX.Element {
   }, []);
 
   function replot() {
-    if (svgContainerRef.current) {
-      clearSVGs();
-      plot(svgContainerRef, tooltipRef, props, geoJson);
+    if (!_.isEmpty(props.points)) {
+      if (svgContainerRef.current) {
+        clearSVGs();
+        plot(svgContainerRef, tooltipRef, props, geoJson);
+      }
     }
   }
 
@@ -170,38 +173,23 @@ function Chart(props: ChartPropsType): JSX.Element {
     } else {
       removeSpinner(CONTAINER_ID);
     }
-    if (!_.isEmpty(props.points)) {
-      replot();
-    }
+    replot();
   }, [props, geoJsonFetched]);
 
   // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(() => {
-      // TODO: Debounce
+    const debouncedHandler = _.debounce(() => {
       replot();
-    });
+    }, DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
       resizeObserver.observe(chartContainerRef.current);
     }
     return () => {
       resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
     };
-  }, [chartContainerRef, props]);
-
-  // Replot when window size changes (this is needed only for height changes now).
-  // TODO: Collapse this with ResizeObserver above (needs a way to listen to
-  // chart div height changes).
-  useEffect(() => {
-    function _handleWindowResize() {
-      // TODO: Debounce
-      replot();
-    }
-    window.addEventListener("resize", _handleWindowResize);
-    return () => {
-      window.removeEventListener("resize", _handleWindowResize);
-    };
-  }, [props]);
+  }, [chartContainerRef]);
 
   return (
     <div id="chart" className="container-fluid" ref={chartContainerRef}>
@@ -212,11 +200,11 @@ function Chart(props: ChartPropsType): JSX.Element {
             <span>vs</span>
             <h3>{props.xLabel}</h3>
           </div>
-          <div>
+          <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
             <div id={MAP_LEGEND_CONTAINER_ID}></div>
+            <div id="tooltip" ref={tooltipRef} />
           </div>
-          <div id="tooltip" ref={tooltipRef} />
           <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>
@@ -262,18 +250,12 @@ function plot(
   geoJsonData: GeoJsonData
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
-  // TODO: Use CSS to set the height of the chart so it's visible (< 1 vh).
-  const scatterHeight = Math.min(
-    window.innerHeight * 0.6,
-    svgContainerRealWidth
-  );
-  const scatterWidth = svgContainerRealWidth;
-  const chartHeight = scatterHeight;
+  const chartHeight = svgContainerRef.current.offsetHeight;
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
       tooltipRef,
-      scatterWidth,
+      svgContainerRealWidth,
       chartHeight,
       props,
       redirectAction,
@@ -285,21 +267,19 @@ function plot(
       props.display.setChartType(ScatterChartType.SCATTER);
       return;
     }
-    const xVals = Array.from(
-      Object.values(props.points),
-      (point) => point.xVal
+    const xVals = Array.from(Object.values(props.points), (point) =>
+      props.xLog ? Math.log10(point.xVal) : point.xVal
     );
-    const yVals = Array.from(
-      Object.values(props.points),
-      (point) => point.yVal
+    const yVals = Array.from(Object.values(props.points), (point) =>
+      props.yLog ? Math.log10(point.yVal) : point.yVal
     );
     const xScale = d3
-      .scaleQuantile()
-      .domain(xVals)
+      .scaleQuantize()
+      .domain(d3.extent(xVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const yScale = d3
-      .scaleQuantile()
-      .domain(yVals)
+      .scaleQuantize()
+      .domain(d3.extent(yVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const colorScale = d3
       .scaleLinear<string, number>()
@@ -329,7 +309,7 @@ function plot(
       "",
       colorScale,
       (geoDcid: GeoJsonFeatureProperties) => {
-        redirectAction(props.xStatVar, props.yStatVar, geoDcid.geoDcid);
+        redirectAction(geoDcid.geoDcid);
       },
       getMapTooltipHtml(
         props.points,
@@ -344,7 +324,11 @@ function plot(
         props.placeInfo.enclosingPlace,
         props.placeInfo.enclosedPlaceType
       ),
-      props.isUSAPlace
+      isChildPlaceOf(
+        props.placeInfo.enclosingPlace.dcid,
+        USA_PLACE_DCID,
+        props.placeInfo.parentPlaces
+      )
     );
   }
 }
@@ -364,20 +348,6 @@ function getTooltipElement(
   xPerCapita: boolean,
   yPerCapita: boolean
 ): JSX.Element {
-  let xSource = urlToDomain(point.xSource);
-  if (xPerCapita && point.xPopSource) {
-    const xPopDomain = urlToDomain(point.xPopSource);
-    if (xPopDomain !== xSource) {
-      xSource += `, ${xPopDomain}`;
-    }
-  }
-  let ySource = urlToDomain(point.ySource);
-  if (yPerCapita && point.yPopSource) {
-    const yPopDomain = urlToDomain(point.yPopSource);
-    if (yPopDomain !== ySource) {
-      ySource += `, ${yPopDomain}`;
-    }
-  }
   const showXPopDateMessage =
     xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
   const showYPopDateMessage =
@@ -391,10 +361,6 @@ function getTooltipElement(
       <br />
       {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
       <footer>
-        {xLabel} data from: {xSource}
-        <br />
-        {yLabel} data from: {ySource}
-        <br />
         {showXPopDateMessage && (
           <>
             <sup>*</sup> {xLabel} uses population data from: {point.xPopDate}
@@ -586,12 +552,8 @@ function drawMapLegend(
   );
 }
 
-function redirectAction(
-  xStatVar: string,
-  yStatVar: string,
-  placeDcid: string
-): void {
-  const uri = `${DOT_REDIRECT_PREFIX}#place=${placeDcid}&statsVar=${xStatVar}__${yStatVar}`;
+function redirectAction(placeDcid: string): void {
+  const uri = `${DOT_REDIRECT_PREFIX}${placeDcid}`;
   window.open(uri);
 }
 

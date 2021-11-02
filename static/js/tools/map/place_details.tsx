@@ -18,21 +18,23 @@
  * Component to allow per capita toggling and navigating to a parent place map.
  */
 
+import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 import { Card } from "reactstrap";
 
+import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_choropleth";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
-import {
-  EUROPE_PLACE_DCID,
-  INDIA_PLACE_DCID,
-  USA_PLACE_DCID,
-} from "../../shared/constants";
-import { isChildPlaceOf } from "../shared_util";
+import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { MAP_CONTAINER_ID } from "./chart";
 import { DataPointMetadata } from "./chart_loader";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
-import { getRedirectLink } from "./util";
+import {
+  getAllChildPlaceTypes,
+  getParentPlaces,
+  getRedirectLink,
+} from "./util";
 
 interface PlaceDetailsPropType {
   breadcrumbDataValues: { [dcid: string]: number };
@@ -43,6 +45,7 @@ interface PlaceDetailsPropType {
   statVar: StatVar;
   geoJsonFeatures: GeoJsonFeature[];
   displayOptions: DisplayOptions;
+  europeanCountries: Array<string>;
 }
 export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const selectedPlace = props.placeInfo.selectedPlace;
@@ -116,6 +119,25 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   );
 }
 
+function highlightPlaceToggle(
+  target: HTMLAnchorElement,
+  shouldHighlight: boolean
+) {
+  const geodcid = target.dataset.geodcid;
+  d3.select(`#${MAP_CONTAINER_ID}`)
+    .select(`path[data-geodcid="${geodcid}"]`)
+    .raise()
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
+}
+
+function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
+  highlightPlaceToggle(e.target as HTMLAnchorElement, true);
+}
+
+function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
+  highlightPlaceToggle(e.target as HTMLAnchorElement, false);
+}
+
 function getListItemElement(
   place: NamedTypedPlace,
   props: PlaceDetailsPropType,
@@ -133,23 +155,37 @@ function getListItemElement(
     place.dcid in props.metadata
       ? ` (${props.metadata[place.dcid].statVarDate})`
       : "";
+  const enclosingPlace =
+    props.europeanCountries.indexOf(place.dcid) > -1
+      ? EUROPE_NAMED_TYPED_PLACE
+      : props.placeInfo.enclosingPlace;
+  const parentPlaces = getParentPlaces(
+    place,
+    enclosingPlace,
+    props.placeInfo.parentPlaces
+  );
   const redirectLink = getRedirectLink(
     props.statVar,
     place,
-    props.placeInfo.parentPlaces,
+    parentPlaces,
     props.placeInfo.mapPointsPlaceType,
     props.displayOptions
   );
-  const shouldBeClickable =
-    place.types.indexOf("Country") === -1 ||
-    place.dcid === USA_PLACE_DCID ||
-    place.dcid === INDIA_PLACE_DCID ||
-    isChildPlaceOf(place.dcid, EUROPE_PLACE_DCID, props.placeInfo.parentPlaces);
+  const shouldBeClickable = !_.isEmpty(
+    getAllChildPlaceTypes(place, parentPlaces)
+  );
   return (
     <div key={place.dcid}>
       {itemNumber && `${itemNumber}. `}
       {shouldBeClickable ? (
-        <a href={redirectLink}>{place.name}</a>
+        <a
+          href={redirectLink}
+          data-geodcid={place.dcid}
+          onMouseEnter={highlightPlace}
+          onMouseLeave={unhighlightPlace}
+        >
+          {place.name}
+        </a>
       ) : (
         `${place.name}`
       )}

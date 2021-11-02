@@ -52,6 +52,7 @@ const TestContext = ({
           dcid: "geoId/10005",
         },
       ],
+      parentPlaces: null,
       lowerBound: 0,
       upperBound: 99999,
     },

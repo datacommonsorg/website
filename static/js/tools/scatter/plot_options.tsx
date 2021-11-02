@@ -19,10 +19,12 @@
  * lower and upper bounds for populations.
  */
 
+import * as d3 from "d3";
 import React, { useContext, useState } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Col, Container, Row } from "reactstrap";
 
+import { Point } from "./chart_loader";
 import {
   AxisWrapper,
   Context,
@@ -31,10 +33,14 @@ import {
 } from "./context";
 import { ScatterChartType } from "./util";
 
+interface PlotOptionsProps {
+  points: { [placeDcid: string]: Point };
+}
+
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
 // returns the available dates for the statvar. Then, fill the datapicker with
 // the dates.
-function PlotOptions(): JSX.Element {
+function PlotOptions(props: PlotOptionsProps): JSX.Element {
   const { place, x, y, display } = useContext(Context);
   const [lowerBound, setLowerBound] = useState(
     place.value.lowerBound.toString()
@@ -42,9 +48,11 @@ function PlotOptions(): JSX.Element {
   const [upperBound, setUpperBound] = useState(
     place.value.upperBound.toString()
   );
+  const xMinMax = d3.extent(Object.values(props.points), (point) => point.xVal);
+  const yMinMax = d3.extent(Object.values(props.points), (point) => point.yVal);
   return (
     <Card id="plot-options">
-      <Container>
+      <Container fluid={true}>
         <Row className="plot-options-row">
           <Col sm={1} className="plot-options-label">
             Per capita:
@@ -80,39 +88,51 @@ function PlotOptions(): JSX.Element {
             </FormGroup>
           </Col>
         </Row>
+        <Row className="plot-options-row">
+          {/* only allow log scale option for axes where the data values are all
+              positive or all negative. The d3.scaleLog() function will throw an
+              error if trying to work with both positive and negative numbers or
+              0. */}
+          <Col sm={1} className="plot-options-label">
+            Log scale:
+          </Col>
+          {yMinMax[0] * yMinMax[1] > 0 && (
+            <Col sm="auto">
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    id="log-y"
+                    type="checkbox"
+                    checked={y.value.log}
+                    onChange={(e) => checkLog(y, e)}
+                  />
+                  {display.chartType === ScatterChartType.SCATTER
+                    ? "Y-axis"
+                    : y.value.statVarInfo.title || y.value.statVarDcid}
+                </Label>
+              </FormGroup>
+            </Col>
+          )}
+          {xMinMax[0] * xMinMax[1] > 0 && (
+            <Col sm="auto">
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    id="log-x"
+                    type="checkbox"
+                    checked={x.value.log}
+                    onChange={(e) => checkLog(x, e)}
+                  />
+                  {display.chartType === ScatterChartType.SCATTER
+                    ? "X-axis"
+                    : x.value.statVarInfo.title || x.value.statVarDcid}
+                </Label>
+              </FormGroup>
+            </Col>
+          )}
+        </Row>
         {display.chartType === ScatterChartType.SCATTER && (
           <>
-            <Row className="plot-options-row">
-              <Col sm={1} className="plot-options-label">
-                Log scale:
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="log-y"
-                      type="checkbox"
-                      checked={y.value.log}
-                      onChange={(e) => checkLog(y, e)}
-                    />
-                    Y-axis
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="log-x"
-                      type="checkbox"
-                      checked={x.value.log}
-                      onChange={(e) => checkLog(x, e)}
-                    />
-                    X-axis
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
             <Row className="plot-options-row centered-items-row">
               <Col sm={1} className="plot-options-label">
                 Display:

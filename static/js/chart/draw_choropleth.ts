@@ -50,6 +50,7 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
+export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
@@ -98,12 +99,49 @@ function getColorScale(
     : d3.color(getColorFn([label])(label));
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
-  const domainValues = domain || [extent[0], medianValue, extent[1]];
+  let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
+  if (statVar.indexOf("Temperature") >= 0) {
+    let range: any[] = [
+      d3.interpolateBlues(1),
+      d3.interpolateBlues(0.8),
+      MIN_COLOR,
+      d3.interpolateReds(0.8),
+      d3.interpolateReds(1),
+    ];
+    if (statVar.indexOf("Difference") >= 0) {
+      if (statVar.indexOf("Base") >= 0) {
+        domainValues = domain || [-10, -5, 0, 5, 10];
+      } else {
+        domainValues = domain || [0, 15];
+      }
+    } else {
+      domainValues = domain || [-40, -20, 0, 20, 40];
+    }
+    const min = domainValues[0];
+    const max = domainValues[domainValues.length - 1];
+    if (min >= 0) {
+      domainValues = [0, max / 2, max];
+      range = [MIN_COLOR, d3.interpolateReds(0.8), d3.interpolateReds(1)];
+    } else if (max <= 0) {
+      domainValues = [min, min / 2, 0];
+      range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR];
+    }
+    return d3.scaleLinear().domain(domainValues).nice().range(range);
+  }
+  if (medianValue === domainValues[0]) {
+    domainValues.splice(0, 1);
+  } else if (medianValue === domainValues[2]) {
+    domainValues.splice(2, 1);
+  }
+  const rangeValues =
+    domainValues.length === 3
+      ? [MIN_COLOR, maxColor, maxColor.darker(1.5)]
+      : [MIN_COLOR, maxColor.darker(1.5)];
   return d3
     .scaleLinear()
     .domain(domainValues)
     .nice()
-    .range(([MIN_COLOR, maxColor, maxColor.darker(1.5)] as unknown) as number[])
+    .range((rangeValues as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
         a: unknown,
@@ -135,10 +173,16 @@ function showTooltip(
   const offset = 5;
   const leftOffset = offset;
   const topOffset = -tooltipHeight - offset;
-  const left = Math.min(
+  let left = Math.min(
     d3.event.offsetX + leftOffset,
     containerWidth - tooltipWidth
   );
+  if (left < 0) {
+    left = 0;
+    tooltipSelect.style("width", containerWidth + "px");
+  } else {
+    tooltipSelect.style("width", "fit-content");
+  }
   let top = d3.event.offsetY + topOffset;
   if (top < 0) {
     top = d3.event.offsetY + offset;
@@ -162,11 +206,18 @@ function addMapPoints(
   mapPoints: Array<MapPoint>,
   mapPointValues: { [placeDcid: string]: number },
   projection: d3.GeoProjection,
-  getTooltipHtml: (place: NamedPlace) => string
+  getTooltipHtml: (place: NamedPlace) => string,
+  minDotSize: number
 ): void {
   const filteredMapPoints = mapPoints.filter(
-    (point) => !_.isNull(projection([point.longitude, point.latitude]))
+    (point) =>
+      !_.isNull(projection([point.longitude, point.latitude])) &&
+      point.placeDcid in mapPointValues
   );
+  const pointSizeScale = d3
+    .scaleLinear()
+    .domain(d3.extent(Object.values(mapPointValues)))
+    .range([minDotSize, minDotSize * 3]);
   d3.select(`#${MAP_ITEMS_GROUP_ID}`)
     .append("g")
     .attr("class", "map-points-layer")
@@ -186,7 +237,13 @@ function addMapPoints(
       "cx",
       (point: MapPoint) => projection([point.longitude, point.latitude])[0]
     )
-    .attr("cy", (point) => projection([point.longitude, point.latitude])[1])
+    .attr(
+      "cy",
+      (point: MapPoint) => projection([point.longitude, point.latitude])[1]
+    )
+    .attr("r", (point: MapPoint) =>
+      pointSizeScale(mapPointValues[point.placeDcid])
+    )
     .on("mouseover", (point: MapPoint) => {
       const place = {
         dcid: point.placeDcid,
@@ -334,6 +391,11 @@ function drawChoropleth(
         return MISSING_DATA_COLOR;
       }
     })
+    .attr("data-geodcid", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in dataValues) {
+        return d.properties.geoDcid;
+      }
+    })
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
@@ -363,12 +425,22 @@ function drawChoropleth(
 
   // add map points if there are any to add
   if (!_.isEmpty(mapPoints) && !_.isUndefined(mapPointValues)) {
+    // calculate the min dot size based on the sizes of the regions on the map
+    let minRegionDiagonal = Number.MAX_VALUE;
+    mapObjects.each((_, idx, paths) => {
+      const pathClientRect = paths[idx].getBoundingClientRect();
+      minRegionDiagonal = Math.sqrt(
+        Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
+      );
+    });
+    const minDotSize = minRegionDiagonal * 0.02;
     addMapPoints(
       domContainerId,
       mapPoints,
       mapPointValues,
       projection,
-      getTooltipHtml
+      getTooltipHtml,
+      minDotSize
     );
   }
 
@@ -385,7 +457,7 @@ function drawChoropleth(
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
           .selectAll("path,circle")
-          .classed("region-highlighted", false)
+          .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
@@ -453,7 +525,9 @@ const onMapClick = (
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
-  container.select("#geoPath" + index).classed("region-highlighted", false);
+  container
+    .select("#geoPath" + index)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
@@ -465,7 +539,10 @@ function mouseHoverAction(
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
   if (canClick) {
-    container.select("#geoPath" + index).classed("region-highlighted", true);
+    container
+      .select("#geoPath" + index)
+      .raise()
+      .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
   }
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");

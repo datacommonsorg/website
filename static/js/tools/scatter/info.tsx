@@ -104,7 +104,7 @@ function Info(): JSX.Element {
           <b>Covid-19 Cases vs African American Per Capita</b> for{" "}
           <a
             href={
-              "#&svx=Count_Person_BlackOrAfricanAmericanAlone&svpx=0-14-2&svdx=Count_Person&svnx=Black_Or_African_American_Alone&pcx=1&svy=CumulativeCount_MedicalTest_ConditionCOVID_19_Positive&svpy=5-2-0-1&svdy=Count_Person&svny=Positive&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=State"
+              "#&svx=Count_Person_BlackOrAfricanAmericanAlone&svpx=0-14-2&svdx=Count_Person&svnx=Black_Or_African_American_Alone&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&svpy=5-2-0-1&svdy=Count_Person&svny=Positive&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=State"
             }
           >
             US states
@@ -112,7 +112,7 @@ function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&svx=Count_Person_BlackOrAfricanAmericanAlone&svpx=0-14-2&svdx=Count_Person&svnx=Black_Or_African_American_Alone&pcx=1&svy=CumulativeCount_MedicalTest_ConditionCOVID_19_Positive&svpy=5-2-0-1&svdy=Count_Person&svny=Positive&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County"
+              "#&svx=Count_Person_BlackOrAfricanAmericanAlone&svpx=0-14-2&svdx=Count_Person&svnx=Black_Or_African_American_Alone&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&svpy=5-2-0-1&svdy=Count_Person&svny=Positive&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County"
             }
           >
             US counties

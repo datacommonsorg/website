@@ -221,6 +221,14 @@ View the deployoment at [link](https://dev.datacommons.org)
 
 The GKE configuration is stored [here](deploy/gke/prod.yaml).
 
+### Private Instance
+
+Create a pub/sub topic for mixer to listen to data change.
+
+```bash
+gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
+```
+
 ### placeid2dcid.json
 
 This file is stored in GCS bucket. The bucket is set in the config files

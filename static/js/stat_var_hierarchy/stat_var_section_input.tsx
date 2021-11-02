@@ -29,7 +29,7 @@ import {
   StatVarInfo,
   StatVarSummary,
 } from "../shared/types";
-import { CHILD_PLACE_TYPES } from "../tools/map/util";
+import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
 import { hideTooltip, showTooltip, SV_HIERARCHY_SECTION_ID } from "./util";
 
 const TOOLTIP_TOP_OFFSET = 10;
@@ -170,7 +170,7 @@ export class StatVarSectionInput extends React.Component<
       this.props.summary.placeTypeSummary
     ).filter((placeType) => {
       if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
-        return placeType in CHILD_PLACE_TYPES;
+        return placeType in ALL_MAP_PLACE_TYPES;
       }
       return ALLOWED_PLACE_TYPES.has(placeType);
     });

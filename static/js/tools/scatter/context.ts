@@ -22,6 +22,7 @@ import { createContext, useState } from "react";
 
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
+import { Setter } from "../../shared/util";
 import { NamedTypedPlace } from "../map/context";
 import { ScatterChartType } from "./util";
 
@@ -43,10 +44,6 @@ const EmptyAxis: Axis = Object.freeze({
   perCapita: false,
 });
 
-interface Setter<T> {
-  (value: T): void;
-}
-
 interface AxisWrapper {
   value: Axis;
 
@@ -66,6 +63,8 @@ interface PlaceInfo {
   enclosedPlaceType: string;
   // Places to plot
   enclosedPlaces: Array<NamedPlace>;
+  // The parent places of the selected place
+  parentPlaces: Array<NamedTypedPlace>;
   // Only plot places with populations between these
   lowerBound: number;
   upperBound: number;
@@ -79,6 +78,7 @@ interface PlaceInfoWrapper {
   setEnclosingPlace: Setter<NamedTypedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<NamedPlace>>;
+  setParentPlaces: Setter<Array<NamedTypedPlace>>;
   setLowerBound: Setter<number>;
   setUpperBound: Setter<number>;
 }
@@ -91,6 +91,7 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   },
   enclosedPlaceType: "",
   enclosedPlaces: [],
+  parentPlaces: null,
   lowerBound: 0,
   upperBound: 1e10,
 });
@@ -227,6 +228,7 @@ function useContextStore(): ContextType {
       setEnclosedPlaces: getSetEnclosedPlaces(place, setPlace),
       setLowerBound: getSetLowerBound(place, setPlace),
       setUpperBound: getSetUpperBound(place, setPlace),
+      setParentPlaces: (parentPlaces) => setPlace({ ...place, parentPlaces }),
     },
     display: {
       showQuadrants: showQuadrants,
@@ -266,6 +268,7 @@ function getSetEnclosingPlace(
       ...place,
       enclosedPlaces: [],
       enclosingPlace: enclosingPlace,
+      parentPlaces: null,
     });
 }
 

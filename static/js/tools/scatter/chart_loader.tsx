@@ -23,16 +23,10 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { USA_PLACE_DCID } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
-import {
-  getPopulationDate,
-  getUnit,
-  isChildPlaceOf,
-  PlacePointStat,
-} from "../shared_util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -42,7 +36,7 @@ import {
   PlaceInfo,
 } from "./context";
 import { PlotOptions } from "./plot_options";
-import { arePlacesLoaded, getStatsWithinPlace } from "./util";
+import { arePlacesLoaded, getStatsWithinPlace, ScatterChartType } from "./util";
 
 /**
  * Represents a point in the scatter plot.
@@ -70,7 +64,6 @@ type Cache = {
   statVarsData: Record<string, PlacePointStat>;
   populationData: StatApiResponse;
   noDataError: boolean;
-  parentPlaces: Array<NamedPlace>;
 };
 
 function ChartLoader(): JSX.Element {
@@ -96,7 +89,7 @@ function ChartLoader(): JSX.Element {
     yUnits = yStatData ? getUnit(yStatData) : null;
   }
   return (
-    <div>
+    <>
       {shouldRenderChart && (
         <>
           {cache.noDataError ? (
@@ -126,18 +119,13 @@ function ChartLoader(): JSX.Element {
                 yUnits={yUnits}
                 placeInfo={place.value}
                 display={display}
-                isUSAPlace={isChildPlaceOf(
-                  place.value.enclosingPlace.dcid,
-                  USA_PLACE_DCID,
-                  cache.parentPlaces
-                )}
               />
-              <PlotOptions />
+              <PlotOptions points={points} />
             </>
           )}
         </>
       )}
-    </div>
+    </>
   );
 }
 
@@ -164,7 +152,6 @@ function useCache(): Cache {
         statVarsData: {},
         populationData: {},
         noDataError: false,
-        parentPlaces: [],
       });
       return;
     }
@@ -206,17 +193,12 @@ async function loadData(
         `&stat_vars=${DEFAULT_POPULATION_DCID}`
     )
     .then((resp) => resp.data);
-
-  const parentPlacesPromise = axios
-    .get(`/api/place/parent/${place.enclosingPlace.dcid}`)
-    .then((resp) => resp.data);
-  Promise.all([statVarsDataPromise, populationPromise, parentPlacesPromise])
-    .then(([statVarsData, populationData, parentPlaces]) => {
+  Promise.all([statVarsDataPromise, populationPromise])
+    .then(([statVarsData, populationData]) => {
       const cache = {
         noDataError: _.isEmpty(statVarsData),
         populationData,
         statVarsData,
-        parentPlaces,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -232,7 +214,7 @@ async function loadData(
  * @param cache
  */
 function usePoints(cache: Cache): { [placeDcid: string]: Point } {
-  const { x, y, place } = useContext(Context);
+  const { x, y, place, display } = useContext(Context);
   const [points, setPoints] = useState({});
 
   const xVal = x.value;
@@ -247,7 +229,7 @@ function usePoints(cache: Cache): { [placeDcid: string]: Point } {
     if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal)) {
       return;
     }
-    const points = getPoints(xVal, yVal, placeVal, cache);
+    const points = getPoints(xVal, yVal, placeVal, display.chartType, cache);
     setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
 
     const downloadButton = document.getElementById("download-link");
@@ -255,7 +237,7 @@ function usePoints(cache: Cache): { [placeDcid: string]: Point } {
       downloadButton.style.visibility = "visible";
       downloadButton.onclick = () => downloadData(xVal, yVal, placeVal, points);
     }
-  }, [cache, xVal, yVal, placeVal]);
+  }, [cache, xVal, yVal, placeVal, display.chartType]);
 
   return points;
 }
@@ -288,12 +270,14 @@ function computeCapita(
  * @param x
  * @param y
  * @param place
+ * @param chartType
  * @param cache
  */
 function getPoints(
   x: Axis,
   y: Axis,
   place: PlaceInfo,
+  chartType: ScatterChartType,
   cache: Cache
 ): { [placeDcid: string]: Point } {
   const xStatData = cache.statVarsData[x.statVarDcid];
@@ -337,16 +321,18 @@ function getPoints(
         xPopSource,
         xSource:
           xStatData.metadata[placeXStatData.metadata.importName].provenanceUrl,
-        xVal: placeXStatData.value,
+        xVal: placeXStatData.value === undefined ? 0 : placeXStatData.value,
         yDate: placeYStatData.date,
         yPop,
         yPopDate,
         yPopSource,
         ySource:
           yStatData.metadata[placeYStatData.metadata.importName].provenanceUrl,
-        yVal: placeYStatData.value,
+        yVal: placeYStatData.value === undefined ? 0 : placeYStatData.value,
       };
-      if (isValidPoint(point, lower, upper, x.perCapita, y.perCapita)) {
+      if (
+        isValidPoint(point, lower, upper, x.perCapita, y.perCapita, chartType)
+      ) {
         points[place.dcid] = point;
       }
     });
@@ -360,13 +346,15 @@ function getPoints(
  * @param upperBound population upper bound
  * @param xIsPerCapita whether the x value is per capita
  * @param yIsPerCapita whether the y value is per capita
+ * @param chartType the type of chart to check if a point is valid for
  */
 function isValidPoint(
   point: Point,
   lowerBound: number,
   upperBound: number,
   xIsPerCapita: boolean,
-  yIsPerCapita: boolean
+  yIsPerCapita: boolean,
+  chartType: ScatterChartType
 ): boolean {
   return (
     point &&
@@ -375,8 +363,10 @@ function isValidPoint(
     // If not per capita, allow populations to be not available
     (!_.isNil(point.xPop) || !xIsPerCapita) &&
     (!_.isNil(point.yPop) || !yIsPerCapita) &&
-    isBetween(point.xPop, lowerBound, upperBound) &&
-    isBetween(point.yPop, lowerBound, upperBound)
+    // If map chart type, allow populations to be outside upper and lower bounds
+    (chartType === ScatterChartType.MAP ||
+      (isBetween(point.xPop, lowerBound, upperBound) &&
+        isBetween(point.yPop, lowerBound, upperBound)))
   );
 }
 
