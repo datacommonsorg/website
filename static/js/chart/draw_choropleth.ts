@@ -108,7 +108,6 @@ function getColorScale(
   const allValues = Object.values(dataValues);
   const extent = d3.extent(allValues);
   let domainValues: number[] = domain || [extent[0], d3.mean(allValues), extent[1]];
-  if (statVar.indexOf("Temperature") >= 0) {
   const isTemp = isTemperatureStatVar(statVar);
   const isWetBulb = isWetBulbStatVar(statVar);
   if (isTemp || isWetBulb) {
