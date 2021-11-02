@@ -183,7 +183,7 @@ function showTooltip(
   const topOffset = -tooltipHeight - offset;
   let left = Math.min(
     d3.event.offsetX + leftOffset,
-    containerWidth - tooltipWidth
+    containerWidth - tooltipWidth - offset // account for decoration around the tooltip
   );
   if (left < 0) {
     left = 0;
