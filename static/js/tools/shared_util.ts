@@ -15,8 +15,8 @@
  */
 import * as d3 from "d3";
 import _ from "lodash";
-import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
 
+import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
 import { TimeSeries } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
 import { NamedTypedPlace } from "./map/context";
