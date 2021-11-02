@@ -1092,8 +1092,8 @@
     "description": "Title for a page about a statistical variable. Describes the mean diesel PM concentration."
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Mean CO2 PM Concentration",
-    "description": "Title for a page about a statistical variable. Describes the total annual emissions of CO2 (non-biogenic)."
+    "defaultMessage": "Mean Carbon Dioxide PM Concentration",
+    "description": "Title for a page about a statistical variable. Describes the total annual emissions of carbon dioxide (non-biogenic)."
   },
   "Annual_Emissions_Methane_NonBiogenic": {
     "defaultMessage": "Mean Methane Concentration",

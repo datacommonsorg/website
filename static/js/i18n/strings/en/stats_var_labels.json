@@ -48,7 +48,7 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gross national income, using purchasing power parity on a per capita basis."
   },
   "Amount_Emissions_CarbonDioxide_PerCapita": {
-    "defaultMessage": "CO2 Emissions",
+    "defaultMessage": "Carbon Dioxide Emissions",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount of Carbon Dioxide emissions, per capita."
   },
   "Amount_Remittance_InwardRemittance": {
@@ -1092,15 +1092,15 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean diesel PM concentration."
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "CO2 (non-biogenic)",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic CO2 emissions including CO2 emissions from the combustion of fossil fuels, from the use of sorbent, from some other non-combustion processes."
+    "defaultMessage": "Carbon dioxide (non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic carbon dioxide emissions including carbon dioxide emissions from the combustion of fossil fuels, from the use of sorbent, from some other non-combustion processes."
   },
   "Annual_Emissions_Methane_NonBiogenic": {
     "defaultMessage": "Methane (non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic methane emissions."
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "N2O (non-biogenic)",
+    "defaultMessage": "N₂O (non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic nitrous oxide emissions."
   },
   "WithdrawalRate_Water": {

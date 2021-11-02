@@ -128,7 +128,7 @@
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean CO2 PM Concentration"
+      "value": "Mean Carbon Dioxide PM Concentration"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [

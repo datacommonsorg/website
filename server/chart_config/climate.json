@@ -112,9 +112,9 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-CO2_emissions_nonbiogenic",
-    "title": "CO2 emissions (non-biogenic)",
-    "description": "Annual amount of carbon dioxied emissions (non-biogenic)",
+    "titleId": "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic",
+    "title": "Carbon dioxide emissions (non-biogenic)",
+    "description": "Annual amount of carbon dioxide emissions (non-biogenic)",
     "statsVars": ["Annual_Emissions_CarbonDioxide_NonBiogenic"],
     "unit": "t",
     "relatedChart": {
@@ -135,7 +135,7 @@
   {
     "category": "Climate",
     "titleId": "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic",
-    "title": "N2O emissions (non-biogenic)",
+    "title": "Nitrous oxide emissions (non-biogenic)",
     "description": "Annual amount of nitrous oxide emissions (non-biogenic)",
     "statsVars": ["Annual_Emissions_NitrousOxide_NonBiogenic"],
     "unit": "MTCO2e",
@@ -171,9 +171,9 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-CO2_emissions_per_capita",
-    "title": "CO2 emissions per capita",
-    "description": "Total amount of carbon dioxied emissions per person",
+    "titleId": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
+    "title": "Carbon dioxide emissions per capita",
+    "description": "Total amount of carbon dioxide emissions per person",
     "statsVars": ["Amount_Emissions_CarbonDioxide_PerCapita"],
     "unit": "t",
     "isOverview": true,

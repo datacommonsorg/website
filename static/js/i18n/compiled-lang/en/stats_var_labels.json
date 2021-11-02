@@ -86,7 +86,7 @@
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "CO2 Emissions"
+      "value": "Carbon Dioxide Emissions"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
@@ -128,7 +128,7 @@
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "CO2 (non-biogenic)"
+      "value": "Carbon dioxide (non-biogenic)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
@@ -146,7 +146,7 @@
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "N2O (non-biogenic)"
+      "value": "N₂O (non-biogenic)"
     }
   ],
   "Annual_Generation_Electricity": [

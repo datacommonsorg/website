@@ -307,12 +307,6 @@ msgstr "घर"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "खास जानकारी"
 
-msgid "CHART_TITLE-CO2_emissions_nonbiogenic"
-msgstr "CO2 emissions (non-biogenic)"
-
-msgid "CHART_TITLE-CO2_emissions_per_capita"
-msgstr "CO2 emissions per capita"
-
 msgid "CHART_TITLE-Children_employed"
 msgstr "नौकरी करने वाले बच्चों की संख्या"
 
@@ -700,11 +694,17 @@ msgstr "कामकाजी व्यक्ति का औसत वेत�
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
 
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
 msgstr "Methane emissions (non-biogenic)"
 
 msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
-msgstr "N2O emissions (non-biogenic)"
+msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"

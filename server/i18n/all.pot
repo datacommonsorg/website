@@ -413,14 +413,6 @@ msgstr "Housing"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Overview"
 
-#. Title of a place chart: Annual amount of carbon dioxied emissions (non-biogenic)
-msgid "CHART_TITLE-CO2_emissions_nonbiogenic"
-msgstr "CO2 emissions (non-biogenic)"
-
-#. Title of a place chart: Total amount of carbon dioxied emissions per person
-msgid "CHART_TITLE-CO2_emissions_per_capita"
-msgstr "CO2 emissions per capita"
-
 #. Title of a place chart: Number of children who are employed
 msgid "CHART_TITLE-Children_employed"
 msgstr "Children in employment"
@@ -937,13 +929,21 @@ msgstr "Worker wages (monthly): urban vs rural"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
 
+#. Title of a place chart: Annual amount of carbon dioxide emissions (non-biogenic)
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
+
+#. Title of a place chart: Total amount of carbon dioxide emissions per person
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
 #. Title of a place chart: Annual amount of methane emissions (non-biogenic)
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
 msgstr "Methane emissions (non-biogenic)"
 
 #. Title of a place chart: Annual amount of nitrous oxide emissions (non-biogenic)
 msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
-msgstr "N2O emissions (non-biogenic)"
+msgstr "Nitrous oxide emissions (non-biogenic)"
 
 #. Title of a place chart: Water withdrawal rate
 msgid "CHART_TITLE-water_withdrawal_rate"
