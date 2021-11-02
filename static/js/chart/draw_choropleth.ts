@@ -32,6 +32,7 @@ import {
   GeoJsonFeatureProperties,
   MapPoint,
 } from "./types";
+import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
@@ -55,6 +56,11 @@ const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
 const MAP_ITEMS_GROUP_ID = "map-items";
+
+// Curated temperature domains.
+const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
+const TEMP_MODEL_DIFF_DOMAIN = [0, 15];
+const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -100,11 +106,9 @@ function getColorScale(
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
   let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
-  if (
-    statVar.indexOf("Temperature") >= 0 ||
-    statVar.indexOf("Number of Months Based on") >= 0
-  ) {
-    // SV Name of "Wet Bulb Temps"
+  const isTemp = isTemperatureStatVar(statVar);
+  const isWetBulb = isWetBulbStatVar(statVar);
+  if (isTemp || isWetBulb) {
     let range: any[] = [
       d3.interpolateBlues(1),
       d3.interpolateBlues(0.8),
@@ -113,17 +117,16 @@ function getColorScale(
       d3.interpolateReds(1),
     ];
 
-    if (statVar.indexOf("Number of Months Based on") >= 0) {
-      // SV Name of "Wet Bulb Temps"
-      domainValues = domain || [0, 15];
+    if (isWetBulb) {
+      domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
     } else if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
-        domainValues = domain || [-10, -5, 0, 5, 10];
+        domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
       } else {
-        domainValues = domain || [0, 15];
+        domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
       }
     } else {
-      domainValues = domain || [-40, -20, 0, 20, 40];
+      domainValues = domain || TEMP_DOMAIN;
     }
     const min = domainValues[0];
     const max = domainValues[domainValues.length - 1];
