@@ -130,6 +130,12 @@ def create_app():
                   encoding='utf-8') as f:
             chart_config.extend(json.load(f))
     app.config['CHART_CONFIG'] = chart_config
+    ranked_statvars = set()
+    for chart in chart_config:
+        ranked_statvars = ranked_statvars.union(chart['statsVars'])
+        if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
+            ranked_statvars.add(chart['relatedChart']['denominator'])
+    app.config['RANKED_STAT_VARS'] = ranked_statvars
 
     if not cfg.TEST and not cfg.LITE:
         secret_client = secretmanager.SecretManagerServiceClient()
