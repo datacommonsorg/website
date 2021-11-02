@@ -151,13 +151,19 @@ function getGeoJsonDataFeatures(
   }
   const geoJsonFeatures = [];
   for (const placeDcid of placeDcids) {
-    if (!placeDcid.includes("/") || !placeDcid.includes("_")) {
+    const dcidPrefixSuffix = placeDcid.split("/");
+    if (dcidPrefixSuffix.length < 2) {
       continue;
     }
-    const latlon = placeDcid.split("/")[1].split("_");
+    const latlon = dcidPrefixSuffix[1].split("_");
+    if (latlon.length < 2) {
+      continue;
+    }
     const neLat = Number(latlon[0]) + distance / 2;
     const neLon = Number(latlon[1]) + distance / 2;
     const placeName = `${latlon[0]}, ${latlon[1]} (${distance} resolution)`;
+    // TODO: handle cases of overflowing 180 near the international date line
+    // becasuse not sure if drawing libraries can handle this
     geoJsonFeatures.push({
       geometry: {
         type: "MultiPolygon",
