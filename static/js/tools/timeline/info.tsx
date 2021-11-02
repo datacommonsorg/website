@@ -31,7 +31,7 @@ class Info extends Component {
           Or you can start your exploration from these interesting points ...
         </p>
         <ul>
-        <li>
+          <li>
             <b>Withdrawal Rates</b> for
             <a
               href={

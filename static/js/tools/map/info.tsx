@@ -40,7 +40,7 @@ export function Info(): JSX.Element {
       </ol>
       <p>Or you can start your exploration from these interesting points ...</p>
       <ul>
-      <li>
+        <li>
           <b>Max Temperature Relative To 2006, RCP 4.5</b> across counties in{" "}
           <a
             href={
@@ -59,7 +59,8 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Annual Amount of Non Biogenic Emission Source, Carbon Dioxide</b> across states in{" "}
+          <b>Annual Amount of Non Biogenic Emission Source, Carbon Dioxide</b>{" "}
+          across states in{" "}
           <a
             href={
               "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26pn%3DUnited%20States%20of%20America%26pt%3DCountry%26ept%3DState%26ppt%3DEpaReportingFacility"
