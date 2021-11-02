@@ -63,7 +63,7 @@
   {
     "category": "Climate",
     "titleId": "CHART_TITLE-Mean_concentration_Ozone",
-    "title": "Mean Ozone concentration",
+    "title": "Mean ozone concentration",
     "description": "Used to quantify air quality with measures of concentrations of ozone in air",
     "statsVars": ["Mean_Concentration_AirPollutant_Ozone"],
     "unit": "ppb",
@@ -76,7 +76,7 @@
   {
     "category": "Climate",
     "titleId": "CHART_TITLE-Mean_concentration_DieselPM",
-    "title": "Mean Diesel PM concentration",
+    "title": "Mean diesel PM concentration",
     "description": "Annual mean Diesel PM concentration in air measured from EPA NATA",
     "statsVars": ["Mean_Concentration_AirPollutant_DieselPM"],
     "unit": "μg/m³",
