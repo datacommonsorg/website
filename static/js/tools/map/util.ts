@@ -24,6 +24,7 @@ import {
   BANGLADESH_PLACE_DCID,
   EUROPE_NAMED_TYPED_PLACE,
   INDIA_PLACE_DCID,
+  IPCC_PLACE_50_TYPE_DCID,
   NEPAL_PLACE_DCID,
   PAKISTAN_PLACE_DCID,
   USA_PLACE_DCID,
@@ -73,9 +74,10 @@ export const ALL_MAP_PLACE_TYPES = {
   EurostatNUTS3: "",
 };
 
-export const EARTH_CHILD_PLACE_TYPES = {
+export const ALL_PLACE_CHILD_TYPES = {
   Planet: ["Country"],
   Continent: ["Country"],
+  Country: [IPCC_PLACE_50_TYPE_DCID],
 };
 
 export const USA_CHILD_PLACE_TYPES = {
@@ -99,7 +101,7 @@ export const AA1_AA3_CHILD_PLACE_TYPES = {
 };
 
 export const EUROPE_CHILD_PLACE_TYPES = {
-  Continent: ["Country", "EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+  Continent: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
   Country: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
   EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
   EurostatNUTS2: ["EurostatNUTS3"],
@@ -113,6 +115,10 @@ export const CHILD_PLACE_TYPE_MAPPING = {
   [NEPAL_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
   [PAKISTAN_PLACE_DCID]: AA1_AA3_CHILD_PLACE_TYPES,
   [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
+};
+
+export const ENCLOSED_PLACE_TYPE_NAMES = {
+  [IPCC_PLACE_50_TYPE_DCID]: "IPCC Place (0.5 degree resolution)",
 };
 
 // list of place types in the US in the order of high to low granularity.
@@ -334,14 +340,20 @@ export function getAllChildPlaceTypes(
       }
     }
   }
-  const mapTypeChildTypes =
-    CHILD_PLACE_TYPE_MAPPING[mapType] || EARTH_CHILD_PLACE_TYPES;
+  const childPlaceTypes = [];
+  const mapTypeChildTypes = CHILD_PLACE_TYPE_MAPPING[mapType] || {};
   for (const type of place.types) {
     if (type in mapTypeChildTypes) {
-      return mapTypeChildTypes[type];
+      childPlaceTypes.push(...mapTypeChildTypes[type]);
+      break;
     }
   }
-  return [];
+  for (const type in ALL_PLACE_CHILD_TYPES) {
+    if (place.types.indexOf(type) > -1) {
+      childPlaceTypes.push(...ALL_PLACE_CHILD_TYPES[type]);
+    }
+  }
+  return childPlaceTypes;
 }
 
 /**

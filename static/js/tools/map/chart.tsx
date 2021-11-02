@@ -417,7 +417,7 @@ const getTooltipHtml = (
   mapPointValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
-  const titleHtml = `<b>${place.name}</b><br/>`;
+  const titleHtml = `<b>${place.name || place.dcid}</b><br/>`;
   let hasValue = false;
   let value = "Data Missing";
   if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
