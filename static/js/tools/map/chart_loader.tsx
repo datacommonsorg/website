@@ -38,6 +38,7 @@ import { PlaceDetails } from "./place_details";
 const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
 };
+
 interface ChartRawData {
   geoJsonData: GeoJsonData;
   statVarData: PlacePointStat;
@@ -156,6 +157,7 @@ function getGeoJsonDataFeatures(
     const latlon = placeDcid.split("/")[1].split("_");
     const neLat = Number(latlon[0]) + distance / 2;
     const neLon = Number(latlon[1]) + distance / 2;
+    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} resolution)`;
     geoJsonFeatures.push({
       geometry: {
         type: "MultiPolygon",
@@ -172,7 +174,7 @@ function getGeoJsonDataFeatures(
         ],
       },
       id: placeDcid,
-      properties: { geoDcid: placeDcid },
+      properties: { geoDcid: placeDcid, name: placeName },
       type: "Feature",
     });
   }
@@ -208,14 +210,11 @@ function fetchData(
         `&stat_vars=${statVar.denom}`
     )
     .then((resp) => resp.data);
-  const geoJsonPromise =
-    placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
-      ? Promise.resolve({})
-      : axios
-          .get(
-            `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
-          )
-          .then((resp) => resp.data);
+  const geoJsonPromise = axios
+    .get(
+      `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
+    )
+    .then((resp) => resp.data);
 
   let dataDateParam = "";
   const cappedDate = getCappedStatVarDate(statVar.dcid);
@@ -295,7 +294,7 @@ function fetchData(
           stat: statVarDataStat,
         };
         if (
-          _.isEmpty(geoJsonData) &&
+          _.isEmpty(geoJsonData.features) &&
           placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
         ) {
           const geoJsonFeatures = getGeoJsonDataFeatures(

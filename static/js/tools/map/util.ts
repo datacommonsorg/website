@@ -117,6 +117,10 @@ export const CHILD_PLACE_TYPE_MAPPING = {
   [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
 };
 
+export const ENCLOSED_PLACE_TYPE_NAMES = {
+  [IPCC_PLACE_50_TYPE_DCID]: "IPCC Place (0.5 degree resolution)",
+};
+
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 export const MAP_REDIRECT_PREFIX = "/tools/map";
