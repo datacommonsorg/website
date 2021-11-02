@@ -79,6 +79,7 @@ export function StatVarChooser(): JSX.Element {
               denom: "",
               info: null,
               perCapita: false,
+              ranked: false,
             };
             let hash = updateHashStatVar("", emptyStatVar);
             hash = updateHashPlaceInfo(hash, placeInfo.value);

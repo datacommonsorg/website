@@ -14,7 +14,7 @@
 
 import json
 
-from flask import Blueprint, request, Response
+from flask import Blueprint, current_app, request, Response
 from cache import cache
 import services.datacommons as dc
 
@@ -101,6 +101,7 @@ def stats_var_property_wrapper(dcids):
     },
                          compress=False,
                          post=True)
+    ranked_statvars = current_app.config['RANKED_STAT_VARS']
     result = {}
     # Get all the constraint properties
     for dcid, triples in data.items():
@@ -141,6 +142,7 @@ def stats_var_property_wrapper(dcids):
             'mq': mq,
             'pvs': pvs,
             'title': name,
+            'ranked': dcid in ranked_statvars
         }
     return result
 

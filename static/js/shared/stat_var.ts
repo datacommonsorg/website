@@ -32,6 +32,8 @@ interface StatVarInfo {
   st?: string;
   // measurementQualifier
   mq?: string;
+  // true if the stat var has ranking pages
+  ranked?: boolean;
 }
 
 function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {
