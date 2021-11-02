@@ -117,7 +117,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       : this.props.placeName;
     this.rankingPlaceType = isEarth ? "Country" : this.props.placeType;
     this.displayDataTitle = this.props.data.title;
-    // TODO(tjann): Localize unit after we have a high level approach
   }
 
   render(): JSX.Element {
