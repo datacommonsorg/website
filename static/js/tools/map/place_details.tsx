@@ -128,7 +128,7 @@ function highlightPlaceToggle(
   const region = container
     .select(`path[data-geodcid="${geodcid}"]`)
     .raise()
-    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
   if (region.size()) {
     container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
   }

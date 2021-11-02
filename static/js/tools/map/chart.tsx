@@ -427,7 +427,7 @@ const getTooltipHtml = (
     !metadata.popDate.includes(metadata.statVarDate);
   let statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
   if (showPopDateMessage) {
-    statVarTitle += '<sup>1</sup>';
+    statVarTitle += "<sup>1</sup>";
   }
   if (!hasValue || !(place.dcid in metadataMapping)) {
     return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
