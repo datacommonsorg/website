@@ -416,8 +416,7 @@ const getTooltipHtml = (
   mapPointValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
-  const statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
-  const titleHtml = `<b>${place.name || place.dcid}</b><br/>`;
+  const titleHtml = `<b>${place.name || place.dcid}</b>`;
   let hasValue = false;
   let value = "Data Missing";
   if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
@@ -428,11 +427,11 @@ const getTooltipHtml = (
     hasValue = true;
   }
   if (!hasValue || !(place.dcid in metadataMapping)) {
-    return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
+    return `${titleHtml}: <wbr>${value}<br />`;
   }
   const metadata = metadataMapping[place.dcid];
   if (!_.isEmpty(metadata.errorMessage)) {
-    return titleHtml + `${statVarTitle}: <wbr>${metadata.errorMessage}<br />`;
+    return `${titleHtml}: <wbr>${metadata.errorMessage}<br />`;
   }
   let sources = urlToDomain(metadata.statVarSource);
   if (statVar.perCapita && !_.isEmpty(metadata.popSource)) {
@@ -446,13 +445,11 @@ const getTooltipHtml = (
     !_.isEmpty(metadata.popDate) &&
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
-  const popDateHtml = showPopDateMessage
-    ? `<sup>*</sup> Uses population data from: <wbr>${metadata.popDate}`
+  const footer = showPopDateMessage
+    ? `<footer><sup>*</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
     : "";
   const html =
-    titleHtml +
-    `${statVarTitle} (${metadata.statVarDate}): <wbr>${value}<br />` +
-    `<footer>Data from: <wbr>${sources} <br/>${popDateHtml}</footer>`;
+    `${titleHtml} (${metadata.statVarDate}): <wbr>${value}<br />` + footer;
   return html;
 };
 
