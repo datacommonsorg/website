@@ -28,7 +28,7 @@
   "cent-per-kilowatt-display": [
     {
       "type": 0,
-      "value": " ¢/kWh"
+      "value": "¢/kWh"
     }
   ],
   "gigawatt-hour": [
@@ -159,6 +159,22 @@
       "value": "μg/m³"
     }
   ],
+  "million-gallon-per-day": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " MGD"
+    }
+  ],
+  "million-gallon-per-day-display": [
+    {
+      "type": 0,
+      "value": "MGD"
+    }
+  ],
   "per-million": [
     {
       "type": 1,
@@ -173,6 +189,22 @@
     {
       "type": 0,
       "value": "/million"
+    }
+  ],
+  "ppb": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " ppb"
+    }
+  ],
+  "ppb-display": [
+    {
+      "type": 0,
+      "value": "ppb"
     }
   ]
 }

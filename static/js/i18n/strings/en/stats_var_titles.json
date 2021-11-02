@@ -1083,13 +1083,37 @@
     "defaultMessage": "Mean PM2.5 Concentration",
     "description": "Title for a page about a statistical variable. Describes the mean PM2.5 concentration."
   },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Mean Ozone Concentration",
+    "description": "Title for a page about a statistical variable. Describes the mean ozone concentration."
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Mean Diesel PM Concentration",
+    "description": "Title for a page about a statistical variable. Describes the mean diesel PM concentration."
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Carbon Dioxide Emissions (Large Facilitys, Non-biogenic)",
+    "description": "Title for a page about a statistical variable. Describes the total annual emissions of carbon dioxide (non-biogenic)."
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methane Emissions (Large Facilitys, Non-biogenic)",
+    "description": "Title for a page about a statistical variable. Describes the total annual emissions of methane (non-biogenic)."
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Nitrous Oxide Emissions (Large Facilitys, Non-biogenic)",
+    "description": "Title for a page about a statistical variable. Describes the total annual emissions of nitrous oxide (non-biogenic)."
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilitys, Non-biogenic)",
+    "description": "Title for a page about a statistical variable. Describes the annual emissions of greenhouse gas (non-biogenic)."
+  },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Water Withdrawal Rate",
+    "description": "Title for a page about a statistical variable. Describes the daily water withdraw rate."
+  },
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "The Palmer Drought Severity Index",
     "description": "Title for a page about a statistical variable. Describes the Palmer Drought Severity Index."
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)",
-    "description": "Title for a page about a statistical variable. Describes the Annual Emissions of Greenhouse Gas (Non-Biogenic)."
   },
   "AirPollutant_Cancer_Risk": {
     "defaultMessage": "Air Toxics Cancer Risk",

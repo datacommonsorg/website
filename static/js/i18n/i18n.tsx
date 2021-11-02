@@ -230,6 +230,13 @@ function formatNumber(
       shouldAddUnit = true;
       unitKey = "cent-per-kilowatt";
       break;
+    case "ppb":
+      shouldAddUnit = true;
+      unitKey = "ppb";
+      break;
+    case "mgd":
+      shouldAddUnit = true;
+      unitKey = "million-gallon-per-day";
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
   if (shouldAddUnit) {

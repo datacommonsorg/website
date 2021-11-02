@@ -127,6 +127,7 @@ export function Chart(props: ChartProps): JSX.Element {
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
+    replot();
   }, [props, mapPointsFetched]);
 
   // Replot when chart width changes on sv widget toggle.
@@ -426,30 +427,29 @@ const getTooltipHtml = (
     value = formatNumber(mapPointValues[place.dcid], unit);
     hasValue = true;
   }
-  if (!hasValue || !(place.dcid in metadataMapping)) {
-    return `${titleHtml}: <wbr>${value}<br />`;
-  }
   const metadata = metadataMapping[place.dcid];
-  if (!_.isEmpty(metadata.errorMessage)) {
-    return `${titleHtml}: <wbr>${metadata.errorMessage}<br />`;
-  }
-  let sources = urlToDomain(metadata.statVarSource);
-  if (statVar.perCapita && !_.isEmpty(metadata.popSource)) {
-    const popDomain = urlToDomain(metadata.popSource);
-    if (popDomain !== sources) {
-      sources += `, ${popDomain}`;
-    }
-  }
   const showPopDateMessage =
     statVar.perCapita &&
     !_.isEmpty(metadata.popDate) &&
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
-  const footer = showPopDateMessage
-    ? `<footer><sup>*</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
+  let statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
+  if (showPopDateMessage) {
+    statVarTitle += "<sup>1</sup>";
+  }
+  if (!hasValue || !(place.dcid in metadataMapping)) {
+    return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
+  }
+  if (!_.isEmpty(metadata.errorMessage)) {
+    return titleHtml + `${statVarTitle}: <wbr>${metadata.errorMessage}<br />`;
+  }
+  const popDateHtml = showPopDateMessage
+    ? `<sup>1</sup> Uses population data from: <wbr>${metadata.popDate}`
     : "";
   const html =
-    `${titleHtml} (${metadata.statVarDate}): <wbr>${value}<br />` + footer;
+    titleHtml +
+    `${statVarTitle} (${metadata.statVarDate}): <wbr><b>${value}</b><br />` +
+    `<footer>${popDateHtml}</footer>`;
   return html;
 };
 
