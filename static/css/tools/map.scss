@@ -117,9 +117,11 @@
 }
 
 .explore-timeline-link {
+  color: inherit;
   cursor: pointer;
-  font-weight: $headings-font-weight;
   display: flex;
+  font-weight: $headings-font-weight;
+  text-decoration: none !important;
 }
 
 .place-details,
