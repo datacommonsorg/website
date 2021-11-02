@@ -121,7 +121,7 @@ function StatVarChooser(): JSX.Element {
           y.setStatVarInfo({});
         }
       });
-  }, [x.value.statVarDcid, y.value.statVarDcid]);
+  }, [x.value, y.value]);
 
   useEffect(() => {
     if (!_.isEmpty(samplePlaces) && !_.isEmpty(menuSelected)) {

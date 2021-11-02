@@ -261,9 +261,14 @@ circle {
   stroke-dasharray: 1;
 }
 
-#scatterplot .quadrant-label {
+#scatterplot .quadrant-label,
+#scatterplot .regression-label {
   fill: red;
   font-size: 0.8em;
+}
+
+#scatterplot .regression-line {
+  stroke: red;
 }
 
 #scatterplot .dot-label {
