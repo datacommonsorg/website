@@ -39,7 +39,7 @@ const TOOLTIP_ID = "tooltip";
 const MIN_COLOR = "#f0f0f0";
 const GEO_STROKE_COLOR = "#fff";
 const HIGHLIGHTED_STROKE_COLOR = "#202020";
-const STROKE_WIDTH = "1px";
+const STROKE_WIDTH = "0.5px";
 const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
@@ -178,8 +178,8 @@ function showTooltip(
   const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
   const tooltipWidth = (tooltipSelect.node() as HTMLDivElement).clientWidth;
   const containerWidth = (container.node() as HTMLDivElement).clientWidth;
-  const offset = 5;
-  const leftOffset = offset;
+  const offset = 15;
+  const leftOffset = 2 * offset;
   const topOffset = -tooltipHeight - offset;
   let left = Math.min(
     d3.event.offsetX + leftOffset,
@@ -533,6 +533,7 @@ const onMapClick = (
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
+  container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
   container
     .select("#geoPath" + index)
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
@@ -547,6 +548,7 @@ function mouseHoverAction(
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
   if (canClick) {
+    container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
     container
       .select("#geoPath" + index)
       .raise()
