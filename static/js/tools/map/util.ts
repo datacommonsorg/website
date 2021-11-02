@@ -118,7 +118,7 @@ export const CHILD_PLACE_TYPE_MAPPING = {
 };
 
 export const ENCLOSED_PLACE_TYPE_NAMES = {
-  [IPCC_PLACE_50_TYPE_DCID]: "IPCC Place (0.5 degree resolution)",
+  [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
 };
 
 // list of place types in the US in the order of high to low granularity.
