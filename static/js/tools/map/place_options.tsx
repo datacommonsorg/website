@@ -27,7 +27,7 @@ import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { loadParentPlaces } from "../../shared/util";
 import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
-import { getAllChildPlaceTypes } from "./util";
+import { ENCLOSED_PLACE_TYPE_NAMES, getAllChildPlaceTypes } from "./util";
 
 const DEFAULT_ENCLOSED_PLACE_TYPES = ["Country"];
 
@@ -115,7 +115,7 @@ export function PlaceOptions(): JSX.Element {
               <option value="">Select a place type</option>
               {enclosedPlaceTypes.map((type) => (
                 <option value={type} key={type}>
-                  {type}
+                  {ENCLOSED_PLACE_TYPE_NAMES[type] || type}
                 </option>
               ))}
             </CustomInput>
