@@ -333,5 +333,7 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
                 },
                 'title':
                     'Min Temperature of 2006-01, RCP 2.6 (Difference Relative To Base Date & Daily)',
+                'ranked':
+                    False
             }
         }

@@ -235,17 +235,29 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
-            {(props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
-              props.placeInfo.selectedPlace.dcid in
-                props.breadcrumbDataValues) && (
-              <div
+            {statVarInfo.info.ranked && (
+              <a
                 className="explore-timeline-link"
-                onClick={() => exploreTimelineOnClick(placeDcid, statVarDcid)}
+                href={`/ranking/${statVarDcid}/${props.placeInfo.enclosedPlaceType}/${placeDcid}`}
               >
-                <span className="explore-timeline-text">Explore timeline</span>
+                <span className="explore-timeline-text">Explore rankings</span>
                 <i className="material-icons">keyboard_arrow_right</i>
-              </div>
+              </a>
             )}
+            {!statVarInfo.info.ranked &&
+              (props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
+                props.placeInfo.selectedPlace.dcid in
+                  props.breadcrumbDataValues) && (
+                <a
+                  className="explore-timeline-link"
+                  href={`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`}
+                >
+                  <span className="explore-timeline-text">
+                    Explore timeline
+                  </span>
+                  <i className="material-icons">keyboard_arrow_right</i>
+                </a>
+              )}
           </div>
         </div>
         <div id="map-chart-screen" className="screen">
@@ -366,10 +378,6 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
     );
   });
   return sourcesJsx;
-}
-
-function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
-  window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
 }
 
 const getMapRedirectAction = (
