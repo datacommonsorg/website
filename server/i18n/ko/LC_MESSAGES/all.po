@@ -676,9 +676,6 @@ msgstr "폭력 범죄"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "10만 명당 폭력 범죄 수"
 
-msgid "CHART_TITLE-Water withdrawal rate per capita"
-msgstr "Water withdrawal rate per capita"
-
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "노동자 일당"
 

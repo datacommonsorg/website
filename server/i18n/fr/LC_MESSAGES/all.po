@@ -676,9 +676,6 @@ msgstr "Crimes avec violence"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crimes violents par 100 000 habitants"
 
-msgid "CHART_TITLE-Water withdrawal rate per capita"
-msgstr "Water withdrawal rate per capita"
-
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Salaires des travailleurs (par jour)"
 

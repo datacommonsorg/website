@@ -1092,16 +1092,20 @@
     "description": "Title for a page about a statistical variable. Describes the mean diesel PM concentration."
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Mean Carbon Dioxide PM Concentration",
+    "defaultMessage": "Carbon Dioxide Emissions (Large Facilitys, Non-biogenic)",
     "description": "Title for a page about a statistical variable. Describes the total annual emissions of carbon dioxide (non-biogenic)."
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Mean Methane Concentration",
+    "defaultMessage": "Methane Emissions (Large Facilitys, Non-biogenic)",
     "description": "Title for a page about a statistical variable. Describes the total annual emissions of methane (non-biogenic)."
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Mean Nitrous Oxide Concentration",
+    "defaultMessage": "Nitrous Oxide Emissions (Large Facilitys, Non-biogenic)",
     "description": "Title for a page about a statistical variable. Describes the total annual emissions of nitrous oxide (non-biogenic)."
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilitys, Non-biogenic)",
+    "description": "Title for a page about a statistical variable. Describes the annual emissions of greenhouse gas (non-biogenic)."
   },
   "WithdrawalRate_Water": {
     "defaultMessage": "Water Withdrawal Rate",
@@ -1110,10 +1114,6 @@
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "The Palmer Drought Severity Index",
     "description": "Title for a page about a statistical variable. Describes the Palmer Drought Severity Index."
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)",
-    "description": "Title for a page about a statistical variable. Describes the annual emissions of greenhouse gas (non-biogenic)."
   },
   "AirPollutant_Cancer_Risk": {
     "defaultMessage": "Air Toxics Cancer Risk",

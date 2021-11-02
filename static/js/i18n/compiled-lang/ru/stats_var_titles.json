@@ -128,25 +128,25 @@
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean Carbon Dioxide PM Concentration"
+      "value": "Carbon Dioxide Emissions (Large Facilitys, Non-biogenic)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+      "value": "Annual Emissions of Greenhouse Gas (Large Facilitys, Non-biogenic)"
     }
   ],
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean Methane Concentration"
+      "value": "Methane Emissions (Large Facilitys, Non-biogenic)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean Nitrous Oxide Concentration"
+      "value": "Nitrous Oxide Emissions (Large Facilitys, Non-biogenic)"
     }
   ],
   "Annual_Generation_Electricity": [

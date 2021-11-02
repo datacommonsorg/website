@@ -1092,16 +1092,20 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean diesel PM concentration."
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide (Non-biogenic)",
+    "defaultMessage": "Carbon Dioxide (Large Facilities, Non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic carbon dioxide emissions including carbon dioxide emissions from the combustion of fossil fuels, from the use of sorbent, from some other non-combustion processes."
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane (Non-biogenic)",
+    "defaultMessage": "Methane (Large Facilities, Non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic methane emissions."
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide (Non-biogenic)",
+    "defaultMessage": "Nitrous Oxide (Large Facilities, Non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic nitrous oxide emissions."
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Greenhouse Gas (Large Facilities, Non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)."
   },
   "WithdrawalRate_Water": {
     "defaultMessage": "Water Withdrawal Rate",
@@ -1110,10 +1114,6 @@
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "PDSI",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the Palmer drought severity index."
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Greenhouse Gas (Non-biogenic)",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)."
   },
   "AirPollutant_Cancer_Risk": {
     "defaultMessage": "Air Toxics Cancer Risk",

@@ -676,9 +676,6 @@ msgstr "Насильственные преступления"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Количество насильственных преступлений на 100 000 человек"
 
-msgid "CHART_TITLE-Water withdrawal rate per capita"
-msgstr "Water withdrawal rate per capita"
-
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Средний заработок (в день)"
 
