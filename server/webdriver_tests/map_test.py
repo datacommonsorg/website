@@ -138,6 +138,8 @@ class TestMap(WebdriverBaseTest):
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        # TODO: make this a function in base so it can be used for other tests
+        # that are flakey because of the screen
         screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(screen_hidden)
         self.driver.find_element_by_id(
