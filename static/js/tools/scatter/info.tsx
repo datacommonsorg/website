@@ -85,7 +85,7 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Literate Population Per Capita vs Count Of School Per Capita</b>{" "}
+          <b>Literate Population Per Capita vs Count Of Schools Per Capita</b>{" "}
           for states in{" "}
           <a
             href={

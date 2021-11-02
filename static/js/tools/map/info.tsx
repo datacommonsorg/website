@@ -59,7 +59,7 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Annual Amount of Non Biogenic Emission Source, Carbon Dioxide</b>{" "}
+          <b>Annual Amount of Non-Biogenic Emission Source, Carbon Dioxide</b>{" "}
           across states in{" "}
           <a
             href={
