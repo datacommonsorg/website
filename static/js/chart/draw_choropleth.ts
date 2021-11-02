@@ -100,8 +100,11 @@ function getColorScale(
   const extent = d3.extent(Object.values(dataValues));
   const medianValue = d3.median(Object.values(dataValues));
   let domainValues: number[] = domain || [extent[0], medianValue, extent[1]];
-  if (statVar.indexOf("Temperature") >= 0 ||
-      statVar.indexOf("Number of Months Based on") >= 0) {  // SV Name of "Wet Bulb Temps"
+  if (
+    statVar.indexOf("Temperature") >= 0 ||
+    statVar.indexOf("Number of Months Based on") >= 0
+  ) {
+    // SV Name of "Wet Bulb Temps"
     let range: any[] = [
       d3.interpolateBlues(1),
       d3.interpolateBlues(0.8),
@@ -110,7 +113,8 @@ function getColorScale(
       d3.interpolateReds(1),
     ];
 
-    if (statVar.indexOf("Number of Months Based on") >= 0) {  // SV Name of "Wet Bulb Temps"
+    if (statVar.indexOf("Number of Months Based on") >= 0) {
+      // SV Name of "Wet Bulb Temps"
       domainValues = domain || [0, 15];
     } else if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
