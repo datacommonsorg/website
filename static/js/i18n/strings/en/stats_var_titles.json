@@ -1084,7 +1084,7 @@
     "description": "Title for a page about a statistical variable. Describes the mean PM2.5 concentration."
   },
   "Mean_Concentration_AirPollutant_Ozone": {
-    "defaultMessage": "Mean ozone Concentration",
+    "defaultMessage": "Mean Ozone Concentration",
     "description": "Title for a page about a statistical variable. Describes the mean ozone concentration."
   },
   "Mean_Concentration_AirPollutant_DieselPM": {
@@ -1096,15 +1096,15 @@
     "description": "Title for a page about a statistical variable. Describes the total annual emissions of CO2 (non-biogenic)."
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Mean methane Concentration",
+    "defaultMessage": "Mean Methane Concentration",
     "description": "Title for a page about a statistical variable. Describes the total annual emissions of methane (non-biogenic)."
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Mean methane Concentration",
+    "defaultMessage": "Mean Nitrous Oxide Concentration",
     "description": "Title for a page about a statistical variable. Describes the total annual emissions of nitrous oxide (non-biogenic)."
   },
   "WithdrawalRate_Water": {
-    "defaultMessage": "Water withdrawal rate",
+    "defaultMessage": "Water Withdrawal Rate",
     "description": "Title for a page about a statistical variable. Describes the daily water withdraw rate."
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {

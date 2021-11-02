@@ -140,13 +140,13 @@
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean methane Concentration"
+      "value": "Mean Methane Concentration"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Mean methane Concentration"
+      "value": "Mean Nitrous Oxide Concentration"
     }
   ],
   "Annual_Generation_Electricity": [
@@ -1298,7 +1298,7 @@
   "Mean_Concentration_AirPollutant_Ozone": [
     {
       "type": 0,
-      "value": "Mean ozone Concentration"
+      "value": "Mean Ozone Concentration"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
@@ -1640,7 +1640,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water withdrawal rate"
+      "value": "Water Withdrawal Rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
