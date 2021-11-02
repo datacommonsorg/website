@@ -125,10 +125,28 @@
       "value": "Electricity Price"
     }
   ],
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "CO2 (non-biogenic)"
+    }
+  ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
       "value": "Greenhouse Gas (Non-biogenic)"
+    }
+  ],
+  "Annual_Emissions_Methane_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Methane (non-biogenic)"
+    }
+  ],
+  "Annual_Emissions_NitrousOxide_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "N2O (non-biogenic)"
     }
   ],
   "Annual_Generation_Electricity": [
@@ -1217,25 +1235,25 @@
       "value": "Decessi cumulativi per COVID-19"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
       "value": "Max Temperature Change, Base Year 2006, RCP 2.6"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
       "value": "Max Temperature Change, Base Year 2006, RCP 4.5"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
       "value": "Max Temperature Change, Base Year 2006, RCP 6.0"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
       "value": "Max Temperature Change, Base Year 2006, RCP 8.5"
@@ -1269,6 +1287,18 @@
     {
       "type": 0,
       "value": "Speranza di vita"
+    }
+  ],
+  "Mean_Concentration_AirPollutant_DieselPM": [
+    {
+      "type": 0,
+      "value": "Ozone"
+    }
+  ],
+  "Mean_Concentration_AirPollutant_Ozone": [
+    {
+      "type": 0,
+      "value": "Ozone"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
@@ -1605,6 +1635,12 @@
     {
       "type": 0,
       "value": "Urbana"
+    }
+  ],
+  "WithdrawalRate_Water": [
+    {
+      "type": 0,
+      "value": "Water withdrawal rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

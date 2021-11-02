@@ -1083,6 +1083,30 @@
     "defaultMessage": "PM2.5",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean PM2.5 concentration."
   },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Ozone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean ozone concentration."
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Ozone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean diesel PM concentration."
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "CO2 (non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic CO2 emissions including CO2 emissions from the combustion of fossil fuels, from the use of sorbent, from some other non-combustion processes."
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methane (non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic methane emissions."
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "N2O (non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic nitrous oxide emissions."
+  },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Water withdrawal rate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the daily water withdraw rate."
+  },
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "PDSI",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the Palmer drought severity index."

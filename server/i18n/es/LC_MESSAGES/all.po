@@ -307,6 +307,12 @@ msgstr "Vivienda"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Descripción general"
 
+msgid "CHART_TITLE-CO2_emissions_nonbiogenic"
+msgstr "CO2 emissions (non-biogenic)"
+
+msgid "CHART_TITLE-CO2_emissions_per_capita"
+msgstr "CO2 emissions per capita"
+
 msgid "CHART_TITLE-Children_employed"
 msgstr "Niños trabajadores"
 
@@ -330,9 +336,6 @@ msgstr "Estado de ciudadanía"
 
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Distribución de la población por estado de ciudadanía"
-
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "Emisiones de CO2 per cápita"
 
 msgid "CHART_TITLE-Covid_cases"
 msgstr "Casos acumulados de COVID-19"
@@ -495,6 +498,12 @@ msgstr "Capitalización en el mercado de las empresas nacionales"
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Capitalización en el mercado de las empresas nacionales (% del PIB)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -673,6 +682,9 @@ msgstr "Crímenes violentos"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Crímenes violentos por 100.000 habitantes"
 
+msgid "CHART_TITLE-Water withdrawal rate per capita"
+msgstr "Water withdrawal rate per capita"
+
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Salario de las personas trabajadoras (diario)"
 
@@ -687,4 +699,13 @@ msgstr "Salario de las personas trabajadoras (mensual): comparación entre zonas
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Personas trabajadoras y no trabajadoras"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
+msgstr "N2O emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 

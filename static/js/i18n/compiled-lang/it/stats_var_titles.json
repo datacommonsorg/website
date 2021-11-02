@@ -125,10 +125,28 @@
       "value": "Annual Electricity Generation"
     }
   ],
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Mean Diesel PM Concentration"
+    }
+  ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
       "value": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+    }
+  ],
+  "Annual_Emissions_Methane_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Mean methane Concentration"
+    }
+  ],
+  "Annual_Emissions_NitrousOxide_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Mean methane Concentration"
     }
   ],
   "Annual_Generation_Electricity": [
@@ -1217,25 +1235,25 @@
       "value": "Decessi cumulativi per COVID-19"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 2.6, Base Year 2016)"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 4.5, Base Year 2016)"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 6.0, Base Year 2016)"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
@@ -1269,6 +1287,18 @@
     {
       "type": 0,
       "value": "Aspettativa di vita"
+    }
+  ],
+  "Mean_Concentration_AirPollutant_DieselPM": [
+    {
+      "type": 0,
+      "value": "Mean Diesel PM Concentration"
+    }
+  ],
+  "Mean_Concentration_AirPollutant_Ozone": [
+    {
+      "type": 0,
+      "value": "Mean Ozone Concentration"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
@@ -1605,6 +1635,12 @@
     {
       "type": 0,
       "value": "Tasso di disoccupazione (urbano)"
+    }
+  ],
+  "WithdrawalRate_Water": [
+    {
+      "type": 0,
+      "value": "Water withdrawal rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

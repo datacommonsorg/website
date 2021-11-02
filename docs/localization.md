@@ -1,10 +1,12 @@
 # Data Commons Website Localization
 
 There are 2 internationalization libraries used
+
 - FormatJS/react-intl for client-side strings (React in static/)
 - pybabel for server-side strings (Jinja / Python in server/)
 
 Background reading:
+
 - [Babel](https://readthedocs.org/projects/python-babel/downloads/pdf/stable/)
 - [Flask-Babel](https://flask-user.readthedocs.io/en/v0.6/internationalization.html)
 - [Marking up strings for extraction](https://docs.ckan.org/en/2.9/contributing/string-i18n.html)
@@ -20,7 +22,7 @@ For pybabel, use "TRANSLATORS:" right above the string to leave descriptions.
 
 Prepare mesages for translation by extracting from both python and react with:
 
-```
+```bash
 ./scripts/extract_messages.sh
 ```
 
@@ -29,7 +31,7 @@ Prepare mesages for translation by extracting from both python and react with:
 In order to use the extracted strings (regardless of translation status),
 compile the messages to be used by both libraries.
 
-```
+```bash
 ./scripts/compile_messages.sh
 ```
 

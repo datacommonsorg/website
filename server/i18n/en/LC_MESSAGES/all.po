@@ -412,6 +412,14 @@ msgstr "Housing"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Overview"
 
+#. Title of a place chart: Annual amount of carbon dioxied emissions (non-biogenic)
+msgid "CHART_TITLE-CO2_emissions_nonbiogenic"
+msgstr "CO2 emissions (non-biogenic)"
+
+#. Title of a place chart: Total amount of carbon dioxied emissions per person
+msgid "CHART_TITLE-CO2_emissions_per_capita"
+msgstr "CO2 emissions per capita"
+
 #. Title of a place chart: Number of children who are employed
 msgid "CHART_TITLE-Children_employed"
 msgstr "Children in employment"
@@ -443,10 +451,6 @@ msgstr "Citizenship status"
 #. Title of a place chart: Percentage of population, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Distribution of population by citizenship status"
-
-#. Title of a place chart: Total amount of carbon dioxied emissions per person
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "CO2 emissions per capita"
 
 #. Title of a place chart: Cumulative count of COVID-19 cases
 msgid "CHART_TITLE-Covid_cases"
@@ -663,6 +667,14 @@ msgstr "Market capitalization of domestic companies"
 #. Title of a place chart: Market capitalization of domestic companies (as a percentage of GDP)
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Market capitalization of domestic companies (% of GDP)"
+
+#. Title of a place chart: Annual mean Diesel PM concentration in air measured from EPA NATA
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+#. Title of a place chart: Used to quantify air quality with measures of concentrations of ozone in air
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 #. Title of a place chart: Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
@@ -900,6 +912,10 @@ msgstr "Violent crime"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Violent crimes per 100,000 people"
 
+#. Title of a place chart:
+msgid "CHART_TITLE-Water withdrawal rate per capita"
+msgstr "Water withdrawal rate per capita"
+
 #. Title of a place chart: Mean daily worker wages
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Worker wages (daily)"
@@ -920,9 +936,24 @@ msgstr "Worker wages (monthly): urban vs rural"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
 
+#. Title of a place chart: Annual amount of methane emissions (non-biogenic)
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+#. Title of a place chart: Annual amount of nitrous oxide emissions (non-biogenic)
+msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
+msgstr "N2O emissions (non-biogenic)"
+
+#. Title of a place chart: Water withdrawal rate
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
+
 #~ msgid "CHART_TITLE-CHART_CATEGORY-Environment"
 #~ msgstr "Environment"
 
 #~ msgid "CHART_TITLE-Disasters"
 #~ msgstr "Disasters"
+
+#~ msgid "CHART_TITLE-Co2_emissions_per_capita"
+#~ msgstr "CO2 emissions per capita"
 

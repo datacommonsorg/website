@@ -307,6 +307,12 @@ msgstr "Жилье"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Обзор"
 
+msgid "CHART_TITLE-CO2_emissions_nonbiogenic"
+msgstr "CO2 emissions (non-biogenic)"
+
+msgid "CHART_TITLE-CO2_emissions_per_capita"
+msgstr "CO2 emissions per capita"
+
 msgid "CHART_TITLE-Children_employed"
 msgstr "Количество работающих детей"
 
@@ -330,9 +336,6 @@ msgstr "Статус гражданства"
 
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Распределение населения по статусу гражданства"
-
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "Выбросы углекислого газа на душу населения"
 
 msgid "CHART_TITLE-Covid_cases"
 msgstr "Общее количество случаев заболевания COVID-19"
@@ -495,6 +498,12 @@ msgstr "Рыночная капитализация отечественных �
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Рыночная капитализация отечественных компаний (в % от ВВП)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -673,6 +682,9 @@ msgstr "Насильственные преступления"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "Количество насильственных преступлений на 100 000 человек"
 
+msgid "CHART_TITLE-Water withdrawal rate per capita"
+msgstr "Water withdrawal rate per capita"
+
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "Средний заработок (в день)"
 
@@ -687,4 +699,13 @@ msgstr "Заработок в месяц: город и сельская мес�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
+msgstr "N2O emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 

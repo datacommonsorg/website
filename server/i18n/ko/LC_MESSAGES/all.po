@@ -307,6 +307,12 @@ msgstr "주택"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "개요"
 
+msgid "CHART_TITLE-CO2_emissions_nonbiogenic"
+msgstr "CO2 emissions (non-biogenic)"
+
+msgid "CHART_TITLE-CO2_emissions_per_capita"
+msgstr "CO2 emissions per capita"
+
 msgid "CHART_TITLE-Children_employed"
 msgstr "고용 아동 수"
 
@@ -330,9 +336,6 @@ msgstr "시민권 상태"
 
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "시민권 취득 기준 인구 분포"
-
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "1인당 이산화탄소 배출량"
 
 msgid "CHART_TITLE-Covid_cases"
 msgstr "코로나19 누적 사례 수"
@@ -495,6 +498,12 @@ msgstr "국내 기업 시가총액"
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "국내 기업 시가총액(GDP 대비 %)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -673,6 +682,9 @@ msgstr "폭력 범죄"
 msgid "CHART_TITLE-Violent_crime_rate"
 msgstr "10만 명당 폭력 범죄 수"
 
+msgid "CHART_TITLE-Water withdrawal rate per capita"
+msgstr "Water withdrawal rate per capita"
+
 msgid "CHART_TITLE-Worker wages (daily)"
 msgstr "노동자 일당"
 
@@ -687,4 +699,13 @@ msgstr "노동자 월급: 도시 및 농촌 비교"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "노동자 및 비노동자 인구 비교"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
+msgstr "N2O emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 
