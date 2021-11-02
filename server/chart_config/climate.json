@@ -134,7 +134,7 @@
   },
   {
     "category": "Climate",
-    "titleId": "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic",
+    "titleId": "CHART_TITLE-nitrous_oxide_emissions_non_biogenic",
     "title": "Nitrous oxide emissions (non-biogenic)",
     "description": "Annual amount of nitrous oxide emissions (non-biogenic)",
     "statsVars": ["Annual_Emissions_NitrousOxide_NonBiogenic"],

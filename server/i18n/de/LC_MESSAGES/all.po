@@ -703,9 +703,10 @@ msgstr "Carbon dioxide emissions per capita"
 msgid "CHART_TITLE-methane_emissions_nonbiogenic"
 msgstr "Methane emissions (non-biogenic)"
 
-msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
 msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
 

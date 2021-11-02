@@ -1092,19 +1092,19 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean diesel PM concentration."
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon dioxide (non-biogenic)",
+    "defaultMessage": "Carbon Dioxide (Non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic carbon dioxide emissions including carbon dioxide emissions from the combustion of fossil fuels, from the use of sorbent, from some other non-combustion processes."
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane (non-biogenic)",
+    "defaultMessage": "Methane (Non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic methane emissions."
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "N₂O (non-biogenic)",
+    "defaultMessage": "Nitrous Oxide (Non-biogenic)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic nitrous oxide emissions."
   },
   "WithdrawalRate_Water": {
-    "defaultMessage": "Water withdrawal rate",
+    "defaultMessage": "Water Withdrawal Rate",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the daily water withdraw rate."
   },
   "PalmerDroughtSeverityIndex_Atmosphere": {
