@@ -365,12 +365,12 @@ function getTooltipElement(
       <footer>
         {xPopDateMessage && (
           <>
-            <sup>{xPopDateMessage}</sup> uses population data from: {point.xPopDate}<br />
+            <sup>{xPopDateMessage}</sup> Uses population data from: {point.xPopDate}<br />
           </>
         )}
         {yPopDateMessage && (
           <>
-            <sup>{yPopDateMessage}</sup> uses population data from: {point.yPopDate}
+            <sup>{yPopDateMessage}</sup> Uses population data from: {point.yPopDate}
           </>
         )}
       </footer>
