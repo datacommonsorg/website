@@ -688,7 +688,7 @@ const genScaleImg = (
   for (let i = 0; i < height; ++i) {
     // yScale maps from color domain values to height values. Therefore, to get
     // the color at a certain height, we want to first get the color domain
-    // value for that height and then get hte color for that value.
+    // value for that height and then get the color for that value.
     const colorDomainVal = yScale.invert(i);
     context.fillStyle = (color(colorDomainVal) as unknown) as string;
     context.fillRect(0, i, 1, 1);
