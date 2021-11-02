@@ -41,7 +41,7 @@ function Info(): JSX.Element {
       <p>Or you can start your exploration from these interesting points ...</p>
       <ul>
       <li>
-          <b>Prevalence Of Coronary Heart Disease vs Max Temperature Relative To 2006 RCP 4 5 Difference Relative To Base Date</b> for counties in{" "}
+          <b>Prevalence Of Coronary Heart Disease vs Max Temperature Relative To 2006 RCP4.5 Difference Relative To Base Date</b> for counties in{" "}
           <a
             href={
               "#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26svy%3DPercent_Person_WithCoronaryHeartDisease%26epd%3Dcountry%2FUSA%26epn%3DUnited%20States%20of%20America%26epts%3DCountry%26ept%3DCounty%26qd%3D1%26ld%3D0%26dd%3D1%26ct%3D0"
