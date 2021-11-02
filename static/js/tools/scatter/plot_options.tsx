@@ -50,6 +50,14 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
   );
   const xMinMax = d3.extent(Object.values(props.points), (point) => point.xVal);
   const yMinMax = d3.extent(Object.values(props.points), (point) => point.yVal);
+  const xLogDisabled = xMinMax[0] * xMinMax[1] <= 0;
+  const yLogDisabled = yMinMax[0] * yMinMax[1] <= 0;
+  if (xLogDisabled && x.value.log) {
+    x.setLog(false);
+  }
+  if (yLogDisabled && y.value.log) {
+    y.setLog(false);
+  }
   return (
     <Card id="plot-options">
       <Container fluid={true}>
@@ -96,40 +104,38 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
           <Col sm={1} className="plot-options-label">
             Log scale:
           </Col>
-          {yMinMax[0] * yMinMax[1] > 0 && (
-            <Col sm="auto">
-              <FormGroup check>
-                <Label check>
-                  <Input
-                    id="log-y"
-                    type="checkbox"
-                    checked={y.value.log}
-                    onChange={(e) => checkLog(y, e)}
-                  />
-                  {display.chartType === ScatterChartType.SCATTER
-                    ? "Y-axis"
-                    : y.value.statVarInfo.title || y.value.statVarDcid}
-                </Label>
-              </FormGroup>
-            </Col>
-          )}
-          {xMinMax[0] * xMinMax[1] > 0 && (
-            <Col sm="auto">
-              <FormGroup check>
-                <Label check>
-                  <Input
-                    id="log-x"
-                    type="checkbox"
-                    checked={x.value.log}
-                    onChange={(e) => checkLog(x, e)}
-                  />
-                  {display.chartType === ScatterChartType.SCATTER
-                    ? "X-axis"
-                    : x.value.statVarInfo.title || x.value.statVarDcid}
-                </Label>
-              </FormGroup>
-            </Col>
-          )}
+          <Col sm="auto">
+            <FormGroup check>
+              <Input
+                id="log-y"
+                type="checkbox"
+                checked={y.value.log}
+                onChange={(e) => checkLog(y, e)}
+                disabled={yLogDisabled}
+              />
+              <Label check>
+                {display.chartType === ScatterChartType.SCATTER
+                  ? "Y-axis"
+                  : y.value.statVarInfo.title || y.value.statVarDcid}
+              </Label>
+            </FormGroup>
+          </Col>
+          <Col sm="auto">
+            <FormGroup check>
+              <Input
+                id="log-x"
+                type="checkbox"
+                checked={x.value.log}
+                onChange={(e) => checkLog(x, e)}
+                disabled={xLogDisabled}
+              />
+              <Label check>
+                {display.chartType === ScatterChartType.SCATTER
+                  ? "X-axis"
+                  : x.value.statVarInfo.title || x.value.statVarDcid}
+              </Label>
+            </FormGroup>
+          </Col>
         </Row>
         {display.chartType === ScatterChartType.SCATTER && (
           <>
