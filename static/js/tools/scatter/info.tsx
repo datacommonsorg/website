@@ -43,7 +43,7 @@ function Info(): JSX.Element {
         <li>
           <b>
             Prevalence Of Coronary Heart Disease vs Max Temperature Relative To
-            2006 RCP4.5 Difference Relative To Base Date
+            2006 RCP 4.5 Difference Relative To Base Date
           </b>{" "}
           for counties in{" "}
           <a
