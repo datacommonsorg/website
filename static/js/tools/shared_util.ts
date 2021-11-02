@@ -118,6 +118,22 @@ export function isIpccStatVar(statVar: string): boolean {
 }
 
 /**
+ * All Temperature Stat Vars get a fixed color scale.
+ * TODO: Reconcile these various utils.
+ */
+export function isTemperatureStatVar(statVar: string): boolean {
+  return statVar.indexOf("Temperature") >= 0;
+}
+
+/**
+ * All Wet Bulb Temperature Stat Vars get temperature color scales.
+ * TODO: Reconcile these various utils.
+ */
+export function isWetBulbStatVar(statVar: string): boolean {
+  return statVar.indexOf("Number of Months Based on") >= 0;
+}
+
+/**
  * Determine whether or not map boundaries should be drawn. We don't want to
  * draw map boundaries if the selected place type and the enclosed place type
  * are 2 or more levels away in the USA_PLACE_HIERARCHY.

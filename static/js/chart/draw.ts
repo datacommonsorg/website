@@ -1256,7 +1256,7 @@ function drawGroupLineChart(
       .style("text-rendering", "optimizedLegibility")
       .text(sourceText);
   }
-  if (measurementMethods) {
+  if (measurementMethods && measurementMethods.length > 0) {
     const sourceText =
       "Measurement method: " + Array.from(measurementMethods).join(", ");
     svg
