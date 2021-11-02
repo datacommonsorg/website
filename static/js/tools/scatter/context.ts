@@ -101,12 +101,14 @@ interface DisplayOptionsWrapper {
   showLabels: boolean;
   chartType: ScatterChartType;
   showDensity: boolean;
+  showRegression: boolean;
 
   // Setters
   setQuadrants: Setter<boolean>;
   setLabels: Setter<boolean>;
   setChartType: Setter<ScatterChartType>;
   setDensity: Setter<boolean>;
+  setRegression: Setter<boolean>;
 }
 
 interface DateInfo {
@@ -181,6 +183,7 @@ const FieldToAbbreviation = {
   showLabels: "ld",
   chartType: "ct",
   showDensity: "dd",
+  showRegression: "rg",
 };
 
 /**
@@ -197,6 +200,7 @@ function useContextStore(): ContextType {
   const [areStatVarsLoading, setAreStatVarsLoading] = useState(false);
   const [areDataLoading, setAreDataLoading] = useState(false);
   const [chartType, setChartType] = useState(ScatterChartType.SCATTER);
+  const [showRegression, setRegression] = useState(false);
   return {
     x: {
       value: x,
@@ -235,6 +239,8 @@ function useContextStore(): ContextType {
       setChartType: (chartType) => setChartType(chartType),
       showDensity: showDensity,
       setDensity: (showDensity) => setDensity(showDensity),
+      showRegression: showRegression,
+      setRegression: (showRegression) => setRegression(showRegression),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
