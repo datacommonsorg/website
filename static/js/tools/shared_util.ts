@@ -131,10 +131,11 @@ export function shouldShowMapBoundaries(
   enclosedPlaceType: string
 ): boolean {
   const selectedPlaceTypes = selectedPlace.types;
-  if (
+  if ((
     enclosedPlaceType === "EurostatNUTS3" &&
     selectedPlaceTypes[0] !== "EurostatNUTS2"
-  ) {
+  ) ||
+  (enclosedPlaceType !== "AdministrativeArea1" && selectedPlaceTypes[0] === "Country")) {
     return false;
   }
   let selectedPlaceTypeIdx = -1;
