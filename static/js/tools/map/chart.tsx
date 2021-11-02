@@ -127,6 +127,7 @@ export function Chart(props: ChartProps): JSX.Element {
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
+    replot();
   }, [props, mapPointsFetched]);
 
   // Replot when chart width changes on sv widget toggle.
