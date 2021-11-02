@@ -331,9 +331,6 @@ msgstr "市民権ステータス"
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "市民権ステータス別の人口分布"
 
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "1 人あたりの CO2 排出量"
-
 msgid "CHART_TITLE-Covid_cases"
 msgstr "COVID-19（新型コロナウイルス感染症）の累積感染者数"
 
@@ -495,6 +492,12 @@ msgstr "国内企業の時価総額"
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "国内企業の時価総額（GDP 比）"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -687,4 +690,19 @@ msgstr "労働者の賃金（月単位）: 都市部と農村部の比較"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "労働者と非労働者の人口の比較"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 

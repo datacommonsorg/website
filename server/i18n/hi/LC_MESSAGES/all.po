@@ -331,9 +331,6 @@ msgstr "नागरिकता का दर्जा"
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "नागरिकता के दर्जे के हिसाब से जनसंख्या का वितरण"
 
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "प्रति व्यक्ति CO2 उत्सर्जन"
-
 msgid "CHART_TITLE-Covid_cases"
 msgstr "COVID-19 के बढ़ते मामले"
 
@@ -495,6 +492,12 @@ msgstr "घरेलू कंपनियों का बाज़ार प�
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का प्रतिशत)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -687,4 +690,19 @@ msgstr "कामकाजी व्यक्ति का औसत वेत�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 

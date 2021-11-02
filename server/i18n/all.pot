@@ -353,9 +353,9 @@ msgstr "Air quality index"
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alcohol consumption per capita (annual)"
 
-#. Title of a place chart: Measures the total annual greenhouse gas emissions (non-biogenic) from large facilities
+#. Title of a place chart: Measures the total annual greenhouse gas emissions (large facilities, non-biogenic)
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr "Annual greenhouse gas emissions (large facilities, non-biogenic)"
 
 #. Title of a place chart: Total number of arson incidents
 msgid "CHART_TITLE-Arson"
@@ -444,10 +444,6 @@ msgstr "Citizenship status"
 #. Title of a place chart: Percentage of population, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Distribution of population by citizenship status"
-
-#. Title of a place chart: Total amount of carbon dioxied emissions per person
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "CO2 emissions per capita"
 
 #. Title of a place chart: Cumulative count of COVID-19 cases
 msgid "CHART_TITLE-Covid_cases"
@@ -664,6 +660,14 @@ msgstr "Market capitalization of domestic companies"
 #. Title of a place chart: Market capitalization of domestic companies (as a percentage of GDP)
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Market capitalization of domestic companies (% of GDP)"
+
+#. Title of a place chart: Annual mean Diesel PM concentration in air measured from EPA NATA
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean diesel PM concentration"
+
+#. Title of a place chart: Used to quantify air quality with measures of concentrations of ozone in air
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean ozone concentration"
 
 #. Title of a place chart: Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
@@ -920,3 +924,23 @@ msgstr "Worker wages (monthly): urban vs rural"
 #. Title of a place chart: Compares worker vs nonworker population in an area
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
+
+#. Title of a place chart: Annual amount of carbon dioxide emissions (large facilities, non-biogenic)
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (large facilities, non-biogenic)"
+
+#. Title of a place chart: Total amount of carbon dioxide emissions per person
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+#. Title of a place chart: Annual amount of methane emissions (large facilities, non-biogenic)
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (large facilities, non-biogenic)"
+
+#. Title of a place chart: Annual amount of nitrous oxide emissions (large facilities, non-biogenic)
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (large facilities, non-biogenic)"
+
+#. Title of a place chart: Water withdrawal rate
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"

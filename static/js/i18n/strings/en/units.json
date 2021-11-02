@@ -59,11 +59,22 @@
   "per-million-display": {
     "defaultMessage": "/million"
   },
-
   "cent-per-kilowatt": {
     "defaultMessage": "{0} ¢/kWh"
   },
   "cent-per-kilowatt-display": {
-    "defaultMessage": " ¢/kWh"
+    "defaultMessage": "¢/kWh"
+  },
+  "ppb": {
+    "defaultMessage": "{0} ppb"
+  },
+  "ppb-display": {
+    "defaultMessage": "ppb"
+  },
+  "million-gallon-per-day": {
+    "defaultMessage": "{0} MGD"
+  },
+  "million-gallon-per-day-display": {
+    "defaultMessage": "MGD"
   }
 }

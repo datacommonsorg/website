@@ -331,9 +331,6 @@ msgstr "Статус гражданства"
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Распределение населения по статусу гражданства"
 
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "Выбросы углекислого газа на душу населения"
-
 msgid "CHART_TITLE-Covid_cases"
 msgstr "Общее количество случаев заболевания COVID-19"
 
@@ -495,6 +492,12 @@ msgstr "Рыночная капитализация отечественных �
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Рыночная капитализация отечественных компаний (в % от ВВП)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -687,4 +690,19 @@ msgstr "Заработок в месяц: город и сельская мес�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Доля работающих и неработающих"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 
