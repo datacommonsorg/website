@@ -124,10 +124,14 @@ function highlightPlaceToggle(
   shouldHighlight: boolean
 ) {
   const geodcid = target.dataset.geodcid;
-  d3.select(`#${MAP_CONTAINER_ID}`)
+  const container = d3.select(`#${MAP_CONTAINER_ID}`);
+  const region = container
     .select(`path[data-geodcid="${geodcid}"]`)
     .raise()
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
+  if (region.size()) {
+    container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
+  }
 }
 
 function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {

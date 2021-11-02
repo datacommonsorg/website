@@ -127,6 +127,7 @@ export function Chart(props: ChartProps): JSX.Element {
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
+    replot();
   }, [props, mapPointsFetched]);
 
   // Replot when chart width changes on sv widget toggle.
@@ -416,7 +417,6 @@ const getTooltipHtml = (
   mapPointValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
-  const statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
   const titleHtml = `<b>${place.name || place.dcid}</b><br/>`;
   let hasValue = false;
   let value = "Data Missing";
@@ -427,32 +427,29 @@ const getTooltipHtml = (
     value = formatNumber(mapPointValues[place.dcid], unit);
     hasValue = true;
   }
-  if (!hasValue || !(place.dcid in metadataMapping)) {
-    return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
-  }
   const metadata = metadataMapping[place.dcid];
-  if (!_.isEmpty(metadata.errorMessage)) {
-    return titleHtml + `${statVarTitle}: <wbr>${metadata.errorMessage}<br />`;
-  }
-  let sources = urlToDomain(metadata.statVarSource);
-  if (statVar.perCapita && !_.isEmpty(metadata.popSource)) {
-    const popDomain = urlToDomain(metadata.popSource);
-    if (popDomain !== sources) {
-      sources += `, ${popDomain}`;
-    }
-  }
   const showPopDateMessage =
     statVar.perCapita &&
     !_.isEmpty(metadata.popDate) &&
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
+  let statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
+  if (showPopDateMessage) {
+    statVarTitle += "<sup>1</sup>";
+  }
+  if (!hasValue || !(place.dcid in metadataMapping)) {
+    return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
+  }
+  if (!_.isEmpty(metadata.errorMessage)) {
+    return titleHtml + `${statVarTitle}: <wbr>${metadata.errorMessage}<br />`;
+  }
   const popDateHtml = showPopDateMessage
-    ? `<sup>*</sup> Uses population data from: <wbr>${metadata.popDate}`
+    ? `<sup>1</sup> Uses population data from: <wbr>${metadata.popDate}`
     : "";
   const html =
     titleHtml +
-    `${statVarTitle} (${metadata.statVarDate}): <wbr>${value}<br />` +
-    `<footer>Data from: <wbr>${sources} <br/>${popDateHtml}</footer>`;
+    `${statVarTitle} (${metadata.statVarDate}): <wbr><b>${value}</b><br />` +
+    `<footer>${popDateHtml}</footer>`;
   return html;
 };
 

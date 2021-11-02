@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-.region-highlighted {
-  stroke: var(--warning);
+path.region-highlighted {
+  stroke: var(--dark);
   stroke-width: 3px;
   cursor: pointer;
+  opacity: 1 !important;
+}
+
+div.region-highlighted path {
+  opacity: 0.5;
 }
 
 #tooltip {
@@ -28,6 +33,7 @@
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
   white-space: nowrap;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 }
 
 .choropleth-legend {
