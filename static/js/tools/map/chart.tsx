@@ -133,7 +133,9 @@ export function Chart(props: ChartProps): JSX.Element {
   // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
     const debouncedHandler = _.debounce(() => {
-      replot();
+      if (!props.display.value.showMapPoints || mapPointsFetched) {
+        replot();
+      }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
@@ -143,7 +145,7 @@ export function Chart(props: ChartProps): JSX.Element {
       resizeObserver.unobserve(chartContainerRef.current);
       debouncedHandler.cancel();
     };
-  }, [chartContainerRef]);
+  }, [props, chartContainerRef]);
 
   return (
     <Card className="chart-section-card">
@@ -443,7 +445,9 @@ const getTooltipHtml = (
     ? `<footer><sup>1</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
     : "";
   const html =
-    `${titleHtml} (${metadata.statVarDate}): <wbr><b>${value}</b>${showPopDateMessage ? "<sup>1</sup>" : ""}<br />` + footer;
+    `${titleHtml} (${metadata.statVarDate}): <wbr><b>${value}</b>${
+      showPopDateMessage ? "<sup>1</sup>" : ""
+    }<br />` + footer;
   return html;
 };
 
