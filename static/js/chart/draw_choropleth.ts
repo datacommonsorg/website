@@ -99,8 +99,9 @@ function getColorScale(
   const maxColor = color
     ? d3.color(color)
     : d3.color(getColorFn([label])(label));
-  const extent = d3.extent(Object.values(dataValues));
-  let domainValues: number[] = domain || [extent[0], extent[1]];
+  const allValues = Object.values(dataValues);
+  const extent = d3.extent(allValues);
+  let domainValues: number[] = domain || [extent[0], d3.mean(allValues), extent[1]];
   if (statVar.indexOf("Temperature") >= 0) {
     let range: any[] = [
       d3.interpolateBlues(1),
@@ -129,10 +130,9 @@ function getColorScale(
     }
     return d3.scaleLinear().domain(domainValues).nice().range(range);
   }
-  const rangeValues =
-    domainValues.length === 3
-      ? [MIN_COLOR, maxColor, maxColor.darker(1.5)]
-      : [MIN_COLOR, maxColor.darker(1.5)];
+  const rangeValues = domainValues.length == 3
+     ? [MIN_COLOR, maxColor, maxColor.darker(2)]
+     : [MIN_COLOR, maxColor.darker(2)];
   return d3
     .scaleLinear()
     .domain(domainValues)
