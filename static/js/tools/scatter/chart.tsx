@@ -295,8 +295,8 @@ function plot(
       svgContainerRealWidth,
       props.xLabel,
       props.yLabel,
-      d3.extent(xVals),
-      d3.extent(yVals),
+      d3.extent(Object.values(props.points), (point) => point.xVal),
+      d3.extent(Object.values(props.points), (point) => point.yVal),
       props.xUnits,
       props.yUnits
     );
