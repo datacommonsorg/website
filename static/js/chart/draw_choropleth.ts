@@ -25,6 +25,7 @@ import _ from "lodash";
 import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
+import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
 import {
   GeoJsonData,
@@ -32,7 +33,6 @@ import {
   GeoJsonFeatureProperties,
   MapPoint,
 } from "./types";
-import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
