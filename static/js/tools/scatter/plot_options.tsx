@@ -193,19 +193,6 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
                   </Label>
                 </FormGroup>
               </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="regression"
-                      type="checkbox"
-                      checked={display.showRegression}
-                      onChange={(e) => display.setRegression(e.target.checked)}
-                    />
-                    Show regression line
-                  </Label>
-                </FormGroup>
-              </Col>
             </Row>
             <Row className="plot-options-row centered-items-row">
               <Col sm={2} className="plot-options-label">
