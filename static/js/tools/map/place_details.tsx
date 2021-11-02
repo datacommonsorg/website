@@ -80,7 +80,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
               getListItemElement(
                 {
                   dcid: place.properties.geoDcid,
-                  name: place.properties.name,
+                  name: place.properties.name || place.properties.geoDcid,
                   types: [props.placeInfo.enclosedPlaceType],
                 },
                 props,
@@ -95,7 +95,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
             getListItemElement(
               {
                 dcid: place.properties.geoDcid,
-                name: place.properties.name,
+                name: place.properties.name || place.properties.geoDcid,
                 types: [props.placeInfo.enclosedPlaceType],
               },
               props,
