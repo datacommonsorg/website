@@ -113,7 +113,13 @@
 }
 
 .sources {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  color: var(--dc-gray);
+}
+
+.sources a {
+  color: var(--dc-gray);
+  text-decoration: underline;
 }
 
 .explore-timeline-link {
