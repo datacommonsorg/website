@@ -23,14 +23,21 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { GeoJsonData, MapPoint } from "../../chart/types";
-import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
+import {
+  EUROPE_NAMED_TYPED_PLACE,
+  IPCC_PLACE_50_TYPE_DCID,
+} from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";
+
+const MANUAL_GEOJSON_DISTANCES = {
+  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+};
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
@@ -132,6 +139,52 @@ export function ChartLoader(): JSX.Element {
       />
     </div>
   );
+}
+
+function getGeoJsonDataFeatures(
+  placeDcids: string[],
+  enclosedPlaceType: string
+): GeoJsonFeature[] {
+  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
+  if (!distance) {
+    return [];
+  }
+  const geoJsonFeatures = [];
+  for (const placeDcid of placeDcids) {
+    const dcidPrefixSuffix = placeDcid.split("/");
+    if (dcidPrefixSuffix.length < 2) {
+      continue;
+    }
+    const latlon = dcidPrefixSuffix[1].split("_");
+    if (latlon.length < 2) {
+      continue;
+    }
+    const neLat = Number(latlon[0]) + distance / 2;
+    const neLon = Number(latlon[1]) + distance / 2;
+    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} resolution)`;
+    // TODO: handle cases of overflowing 180 near the international date line
+    // becasuse not sure if drawing libraries can handle this
+    geoJsonFeatures.push({
+      geometry: {
+        type: "MultiPolygon",
+        coordinates: [
+          [
+            [
+              [neLon, neLat],
+              [neLon, neLat - distance],
+              [neLon - distance, neLat - distance],
+              [neLon - distance, neLat],
+              [neLon, neLat],
+            ],
+          ],
+        ],
+      },
+      id: placeDcid,
+      properties: { geoDcid: placeDcid, name: placeName },
+      type: "Feature",
+    });
+  }
+  return geoJsonFeatures;
 }
 
 // Fetches the data needed for the charts.
@@ -246,6 +299,20 @@ function fetchData(
           metadata: statVarDataMetadata,
           stat: statVarDataStat,
         };
+        if (
+          _.isEmpty(geoJsonData.features) &&
+          placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
+        ) {
+          const geoJsonFeatures = getGeoJsonDataFeatures(
+            Object.keys(mapStatVarData.stat),
+            placeInfo.enclosedPlaceType
+          );
+          geoJsonData = {
+            type: "FeatureCollection",
+            properties: { current_geo: placeInfo.enclosingPlace.dcid },
+            features: geoJsonFeatures,
+          };
+        }
         isLoading.setIsDataLoading(false);
         setRawData({
           geoJsonData,
