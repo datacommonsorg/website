@@ -46,6 +46,7 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "EurostatNUTS1": "geoJsonCoordinatesDP2",
     "EurostatNUTS2": "geoJsonCoordinatesDP2",
     "EurostatNUTS3": "geoJsonCoordinatesDP1",
+    "IPCCPlace_50": "geoJsonCoordinates",
 }
 
 
