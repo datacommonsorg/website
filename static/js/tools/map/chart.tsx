@@ -409,7 +409,7 @@ const getTooltipHtml = (
   unit: string
 ) => (place: NamedPlace) => {
   const statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
-  const titleHtml = `<b>${place.name}</b><br/>`;
+  const titleHtml = `<b>${place.name || place.dcid}</b><br/>`;
   let hasValue = false;
   let value = "Data Missing";
   if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {

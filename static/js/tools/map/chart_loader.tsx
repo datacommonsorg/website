@@ -23,8 +23,11 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { GeoJsonData, MapPoint } from "../../chart/types";
-import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
+import {
+  EUROPE_NAMED_TYPED_PLACE,
+  IPCC_PLACE_50_TYPE_DCID,
+} from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
@@ -32,6 +35,9 @@ import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";
 
+const MANUAL_GEOJSON_DISTANCES = {
+  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+};
 interface ChartRawData {
   geoJsonData: GeoJsonData;
   statVarData: PlacePointStat;
@@ -134,6 +140,45 @@ export function ChartLoader(): JSX.Element {
   );
 }
 
+function getGeoJsonDataFeatures(
+  placeDcids: string[],
+  enclosedPlaceType: string
+): GeoJsonFeature[] {
+  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
+  if (!distance) {
+    return [];
+  }
+  const geoJsonFeatures = [];
+  for (const placeDcid of placeDcids) {
+    if (!placeDcid.includes("/") || !placeDcid.includes("_")) {
+      continue;
+    }
+    const latlon = placeDcid.split("/")[1].split("_");
+    const neLat = Number(latlon[0]) + distance / 2;
+    const neLon = Number(latlon[1]) + distance / 2;
+    geoJsonFeatures.push({
+      geometry: {
+        type: "MultiPolygon",
+        coordinates: [
+          [
+            [
+              [neLon, neLat],
+              [neLon, neLat - distance],
+              [neLon - distance, neLat - distance],
+              [neLon - distance, neLat],
+              [neLon, neLat],
+            ],
+          ],
+        ],
+      },
+      id: placeDcid,
+      properties: { geoDcid: placeDcid },
+      type: "Feature",
+    });
+  }
+  return geoJsonFeatures;
+}
+
 // Fetches the data needed for the charts.
 function fetchData(
   placeInfo: PlaceInfo,
@@ -163,11 +208,14 @@ function fetchData(
         `&stat_vars=${statVar.denom}`
     )
     .then((resp) => resp.data);
-  const geoJsonPromise = axios
-    .get(
-      `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
-    )
-    .then((resp) => resp.data);
+  const geoJsonPromise =
+    placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
+      ? Promise.resolve({})
+      : axios
+          .get(
+            `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
+          )
+          .then((resp) => resp.data);
 
   let dataDateParam = "";
   const cappedDate = getCappedStatVarDate(statVar.dcid);
@@ -246,6 +294,20 @@ function fetchData(
           metadata: statVarDataMetadata,
           stat: statVarDataStat,
         };
+        if (
+          _.isEmpty(geoJsonData) &&
+          placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
+        ) {
+          const geoJsonFeatures = getGeoJsonDataFeatures(
+            Object.keys(mapStatVarData.stat),
+            placeInfo.enclosedPlaceType
+          );
+          geoJsonData = {
+            type: "FeatureCollection",
+            properties: { current_geo: placeInfo.enclosingPlace.dcid },
+            features: geoJsonFeatures,
+          };
+        }
         isLoading.setIsDataLoading(false);
         setRawData({
           geoJsonData,
