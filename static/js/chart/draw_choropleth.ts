@@ -52,6 +52,7 @@ const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
 export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
+const HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME = "region-highlighted-no-click";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
@@ -469,6 +470,7 @@ function drawChoropleth(
         map
           .selectAll("path,circle")
           .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
+          .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false)
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
@@ -539,7 +541,8 @@ function mouseOutAction(domContainerId: string, index: number): void {
   container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
   container
     .select("#geoPath" + index)
-    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
+    .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
@@ -548,14 +551,15 @@ function mouseHoverAction(
   index: number,
   canClick: boolean
 ): void {
-  const container = d3.select(domContainerId);
+  const container = d3
+    .select(domContainerId)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
+  const geoPath = container.select("#geoPath" + index).raise();
   // show highlighted border and show cursor as a pointer
   if (canClick) {
-    container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
-    container
-      .select("#geoPath" + index)
-      .raise()
-      .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
+    geoPath.classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
+  } else {
+    geoPath.classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, true);
   }
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
