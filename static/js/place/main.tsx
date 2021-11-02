@@ -145,7 +145,6 @@ class MainPane extends React.Component<MainPanePropType> {
               {subtopicHeader}
               <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
                 {topicData[topic].map((data: ChartBlockData) => {
-                  console.log(data);
                   return (
                     <ChartBlock
                       key={data.title}
