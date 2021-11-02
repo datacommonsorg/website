@@ -40,6 +40,60 @@ export function Info(): JSX.Element {
       </ol>
       <p>Or you can start your exploration from these interesting points ...</p>
       <ul>
+      <li>
+          <b>Max Temperature Relative To 2006, RCP 4.5</b> across counties in{" "}
+          <a
+            href={
+              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26pn%3DUnited%20States%20of%20America%26pt%3DCountry%26ept%3DCounty"
+            }
+          >
+            USA
+          </a>
+          ,{" districts in "}
+          <a
+            href={
+              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26pn%3DIndia%26pt%3DCountry%26ept%3DAdministrativeArea2"
+            }
+          >
+            India
+          </a>
+        </li>
+        <li>
+          <b>Annual Amount of Non Biogenic Emission Source, Carbon Dioxide</b> across states in{" "}
+          <a
+            href={
+              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26pn%3DUnited%20States%20of%20America%26pt%3DCountry%26ept%3DState%26ppt%3DEpaReportingFacility"
+            }
+          >
+            USA
+          </a>
+          ,{" facilities in "}
+          <a
+            href={
+              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F48%26pn%3DTexas%26pt%3DState%26ept%3DCounty%26ppt%3DEpaReportingFacility%26mp%3D1"
+            }
+          >
+            Texas
+          </a>
+        </li>
+        <li>
+          <b>Withdrawal Rate of Water</b> across counties in{" "}
+          <a
+            href={
+              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26pn%3DUnited%20States%20of%20America%26pt%3DCountry%26ept%3DCounty"
+            }
+          >
+            USA
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F06%26pn%3DCalifornia%26pt%3DState%26ept%3DCounty"
+            }
+          >
+            California
+          </a>
+        </li>
         <li>
           <b>Median Age</b> across counties in{" "}
           <a

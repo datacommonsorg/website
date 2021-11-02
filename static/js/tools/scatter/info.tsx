@@ -40,6 +40,52 @@ function Info(): JSX.Element {
       </ol>
       <p>Or you can start your exploration from these interesting points ...</p>
       <ul>
+      <li>
+          <b>Prevalence Of Coronary Heart Disease vs Max Temperature Relative To 2006 RCP 4 5 Difference Relative To Base Date</b> for counties in{" "}
+          <a
+            href={
+              "#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26svy%3DPercent_Person_WithCoronaryHeartDisease%26epd%3Dcountry%2FUSA%26epn%3DUnited%20States%20of%20America%26epts%3DCountry%26ept%3DCounty%26qd%3D1%26ld%3D0%26dd%3D1%26ct%3D0"
+            }
+          >
+            USA
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26svy%3DPercent_Person_WithCoronaryHeartDisease%26epd%3DgeoId%2F12%26epn%3DFlorida%26epts%3DState%26ept%3DCounty%26qd%3D0%26ld%3D0%26dd%3D0%26ct%3D0"
+            }
+          >
+            Florida
+          </a>
+        </li>
+        <li>
+          <b>Below Poverty Level In The Past 12 Months Population Per Capita vs Mean Solar Insolation</b> for counties in{" "}
+          <a
+            href={
+              "#%26svx%3DMean_SolarInsolation%26svy%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcy%3D1%26epd%3Dcountry%2FUSA%26epn%3DUnited%20States%20of%20America%26epts%3DCountry%26ept%3DCounty%26qd%3D0%26ld%3D0%26dd%3D0%26ct%3D1"
+            }
+          >
+            USA
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#%26svx%3DMean_SolarInsolation%26svy%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcy%3D1%26epd%3DgeoId%2F06%26epn%3DCalifornia%26epts%3DState%26ept%3DCounty%26qd%3D0%26ld%3D0%26dd%3D0%26ct%3D1"
+            }
+          >
+            California
+          </a>
+        </li>
+        <li>
+          <b>Literate Population Per Capita vs Count Of School Per Capita</b> for states in{" "}
+          <a
+            href={
+              "#%26svx%3DCount_School%26pcx%3D1%26svy%3DCount_Person_Literate%26pcy%3D1%26epd%3Dcountry%2FIND%26epn%3DIndia%26epts%3DCountry%26ept%3DAdministrativeArea1%26qd%3D0%26ld%3D0%26dd%3D0%26ct%3D1"
+            }
+          >
+            India
+          </a>
+        </li>
         <li>
           <b>Asians Per Capita vs Median Income</b> for counties in{" "}
           <a
