@@ -348,27 +348,29 @@ function getTooltipElement(
   xPerCapita: boolean,
   yPerCapita: boolean
 ): JSX.Element {
-  const showXPopDateMessage =
-    xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
-  const showYPopDateMessage =
-    yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate);
+  let supIndex = 0;
+  const xPopDateMessage =
+    xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate) ? ++supIndex : null;
+  const yPopDateMessage =
+    yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate) ? ++supIndex : null;
   return (
     <>
       <header>
         <b>{point.place.name || point.place.dcid}</b>
       </header>
-      {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}
-      <br />
-      {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
+      {xLabel}{xPopDateMessage && (<sup>{xPopDateMessage}</sup>)}: ({point.xDate}): <b>{getStringOrNA(point.xVal)}</b>
+        <br />
+      {yLabel}{yPopDateMessage && (<sup>{yPopDateMessage}</sup>)}: ({point.yDate}): <b>{getStringOrNA(point.yVal)}</b>
+        <br />
       <footer>
-        {showXPopDateMessage && (
+        {xPopDateMessage && (
           <>
-            <sup>*</sup> {xLabel} uses population data from: {point.xPopDate}
+            <sup>{xPopDateMessage}</sup> uses population data from: {point.xPopDate}<br />
           </>
         )}
-        {showYPopDateMessage && (
+        {yPopDateMessage && (
           <>
-            <sup>*</sup> {yLabel} uses population data from: {point.yPopDate}
+            <sup>{yPopDateMessage}</sup> uses population data from: {point.yPopDate}
           </>
         )}
       </footer>
