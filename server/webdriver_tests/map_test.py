@@ -98,16 +98,8 @@ class TestMap(WebdriverBaseTest):
         # Click explore timeline
         self.driver.find_element_by_class_name('explore-timeline-text').click()
 
-        # Wait for the new page to open in a new tab
-        new_page_opened = EC.number_of_windows_to_be(2)
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
-
-        # Switch tabs to the page for the timeline tool
-        new_page = self.driver.window_handles[-1]
-        self.driver.switch_to.window(new_page)
-
-        # Assert timelines page loaded
-        NEW_PAGE_TITLE = 'Timelines Explorer - Data Commons'
+        # Assert rankings page loaded
+        NEW_PAGE_TITLE = 'Ranking by Median Age - States in United States of America - Place Rankings - Data Commons'
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
         self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
@@ -146,6 +138,10 @@ class TestMap(WebdriverBaseTest):
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        # TODO: make this a function in base so it can be used for other tests
+        # that are flakey because of the screen
+        screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(screen_hidden)
         self.driver.find_element_by_id(
             'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 

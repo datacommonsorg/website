@@ -25,6 +25,7 @@ import _ from "lodash";
 import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
+import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
 import {
   GeoJsonData,
@@ -39,7 +40,7 @@ const TOOLTIP_ID = "tooltip";
 const MIN_COLOR = "#f0f0f0";
 const GEO_STROKE_COLOR = "#fff";
 const HIGHLIGHTED_STROKE_COLOR = "#202020";
-const STROKE_WIDTH = "1px";
+const STROKE_WIDTH = "0.5px";
 const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
@@ -55,6 +56,11 @@ const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
 const MAP_ITEMS_GROUP_ID = "map-items";
+
+// Curated temperature domains.
+const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
+const TEMP_MODEL_DIFF_DOMAIN = [0, 15];
+const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -103,6 +109,9 @@ function getColorScale(
   const extent = d3.extent(allValues);
   let domainValues: number[] = domain || [extent[0], d3.mean(allValues), extent[1]];
   if (statVar.indexOf("Temperature") >= 0) {
+  const isTemp = isTemperatureStatVar(statVar);
+  const isWetBulb = isWetBulbStatVar(statVar);
+  if (isTemp || isWetBulb) {
     let range: any[] = [
       d3.interpolateBlues(1),
       d3.interpolateBlues(0.8),
@@ -110,14 +119,17 @@ function getColorScale(
       d3.interpolateReds(0.8),
       d3.interpolateReds(1),
     ];
-    if (statVar.indexOf("Difference") >= 0) {
+
+    if (isWetBulb) {
+      domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
+    } else if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
-        domainValues = domain || [-10, -5, 0, 5, 10];
+        domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
       } else {
-        domainValues = domain || [0, 15];
+        domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
       }
     } else {
-      domainValues = domain || [-40, -20, 0, 20, 40];
+      domainValues = domain || TEMP_DOMAIN;
     }
     const min = domainValues[0];
     const max = domainValues[domainValues.length - 1];
@@ -166,12 +178,12 @@ function showTooltip(
   const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
   const tooltipWidth = (tooltipSelect.node() as HTMLDivElement).clientWidth;
   const containerWidth = (container.node() as HTMLDivElement).clientWidth;
-  const offset = 5;
-  const leftOffset = offset;
+  const offset = 15;
+  const leftOffset = 2 * offset;
   const topOffset = -tooltipHeight - offset;
   let left = Math.min(
     d3.event.offsetX + leftOffset,
-    containerWidth - tooltipWidth
+    containerWidth - tooltipWidth - offset // account for decoration around the tooltip
   );
   if (left < 0) {
     left = 0;
@@ -521,6 +533,7 @@ const onMapClick = (
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
+  container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
   container
     .select("#geoPath" + index)
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
@@ -535,6 +548,7 @@ function mouseHoverAction(
   const container = d3.select(domContainerId);
   // show highlighted border and show cursor as a pointer
   if (canClick) {
+    container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
     container
       .select("#geoPath" + index)
       .raise()

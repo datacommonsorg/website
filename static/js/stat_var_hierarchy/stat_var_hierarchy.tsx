@@ -318,7 +318,6 @@ export class StatVarHierarchy extends React.Component<
       .node() as HTMLElement).getBoundingClientRect().y;
     showTooltip(html, {
       left: TOOLTIP_MARGIN,
-      right: TOOLTIP_MARGIN,
       top: iconY - containerY + TOOLTIP_TOP_OFFSET,
     });
   };

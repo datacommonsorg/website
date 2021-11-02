@@ -125,10 +125,28 @@
       "value": "Annual Electricity Generation"
     }
   ],
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Carbon Dioxide Emissions (Large Facilitys, Non-biogenic)"
+    }
+  ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+      "value": "Annual Emissions of Greenhouse Gas (Large Facilitys, Non-biogenic)"
+    }
+  ],
+  "Annual_Emissions_Methane_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Methane Emissions (Large Facilitys, Non-biogenic)"
+    }
+  ],
+  "Annual_Emissions_NitrousOxide_NonBiogenic": [
+    {
+      "type": 0,
+      "value": "Nitrous Oxide Emissions (Large Facilitys, Non-biogenic)"
     }
   ],
   "Annual_Generation_Electricity": [
@@ -1217,25 +1235,25 @@
       "value": "코로나19 누적 사망자 수"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP26": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 2.6, Base Year 2016)"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP45": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 4.5, Base Year 2016)"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP60": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 6.0, Base Year 2016)"
     }
   ],
-  "DifferenceRelativeToBaseDate2006_Daily_Max_Temperature_RCP85": [
+  "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85": [
     {
       "type": 0,
       "value": "Max Temperature Change (RCP 8.5, Base Year 2016)"
@@ -1269,6 +1287,18 @@
     {
       "type": 0,
       "value": "기대수명"
+    }
+  ],
+  "Mean_Concentration_AirPollutant_DieselPM": [
+    {
+      "type": 0,
+      "value": "Mean Diesel PM Concentration"
+    }
+  ],
+  "Mean_Concentration_AirPollutant_Ozone": [
+    {
+      "type": 0,
+      "value": "Mean Ozone Concentration"
     }
   ],
   "Mean_Concentration_AirPollutant_PM2.5": [
@@ -1605,6 +1635,12 @@
     {
       "type": 0,
       "value": "실업률(도시)"
+    }
+  ],
+  "WithdrawalRate_Water": [
+    {
+      "type": 0,
+      "value": "Water withdrawal rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [
