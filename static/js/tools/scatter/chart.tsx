@@ -334,7 +334,7 @@ function plot(
         USA_PLACE_DCID,
         props.placeInfo.parentPlaces
       ),
-      props.placeInfo.enclosingPlace.dcid == EUROPE_NAMED_TYPED_PLACE.dcid,
+      props.placeInfo.enclosingPlace.dcid,
     );
   }
 }

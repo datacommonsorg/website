@@ -346,7 +346,7 @@ function draw(
         USA_PLACE_DCID,
         props.placeInfo.parentPlaces
       ),
-      props.placeInfo.selectedPlace.dcid == EUROPE_NAMED_TYPED_PLACE.dcid,
+      props.placeInfo.selectedPlace.dcid,
       props.display.value.showMapPoints ? mapPoints : [],
       props.mapPointValues,
       zoomDcid,

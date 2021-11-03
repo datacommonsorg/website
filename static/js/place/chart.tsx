@@ -421,7 +421,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         true,
         true,
         this.props.isUsaPlace,
-        this.props.dcid == EUROPE_NAMED_TYPED_PLACE.dcid
+        this.props.dcid
       );
     }
   }
