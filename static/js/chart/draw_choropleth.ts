@@ -103,9 +103,11 @@ function getColorScale(
   domain?: [number, number, number]
 ): d3.ScaleLinear<number, number> {
   const label = getStatsVarLabel(statVar);
-  let maxColor = color
+  const maxColor = color
     ? d3.color(color)
-    : isWetBulbStatVar(statVar) ? d3.color(d3.interpolateReds(1)) : d3.color(getColorFn([label])(label));
+    : isWetBulbStatVar(statVar)
+    ? d3.color(d3.interpolateReds(1))
+    : d3.color(getColorFn([label])(label));
   const allValues = Object.values(dataValues);
   const extent = d3.extent(allValues);
   let domainValues: number[] = domain || [
