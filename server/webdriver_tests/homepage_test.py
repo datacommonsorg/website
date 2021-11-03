@@ -80,7 +80,10 @@ class TestPlaceLanding(WebdriverBaseTest):
 
         nyc_edu = self.driver.find_element_by_xpath(
             '//*[@id="homepage"]/section[4]/ul/li/ul/li[3]/a')
-        self.assertEqual(nyc_edu.text, 'Consiglio di amministrazione della pubblica istruzione della Città di New York')
+        self.assertEqual(
+            nyc_edu.text,
+            'Consiglio di amministrazione della pubblica istruzione della Città di New York'
+        )
         self.assertEqual(nyc_edu.get_attribute('href'),
                          self.url_ + '/browser/geoId/sch3620580?hl=it')
 
