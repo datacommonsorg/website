@@ -1088,7 +1088,7 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean ozone concentration."
   },
   "Mean_Concentration_AirPollutant_DieselPM": {
-    "defaultMessage": "Ozone",
+    "defaultMessage": "Diesel PM",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean diesel PM concentration."
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {

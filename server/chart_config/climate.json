@@ -18,7 +18,10 @@
     "description": "Projected max temperature change under RCP 2.6 (based on year 2006)",
     "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26"],
     "unit": "celsius",
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Climate",
@@ -27,7 +30,10 @@
     "description": "Projected max temperature change under RCP 4.5 (based on year 2006)",
     "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"],
     "unit": "celsius",
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Climate",
@@ -36,7 +42,10 @@
     "description": "Projected max temperature change under RCP 6.0 (based on year 2006)",
     "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60"],
     "unit": "celsius",
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Climate",
@@ -45,7 +54,10 @@
     "description": "Projected max temperature change under RCP 8.5 (based on year 2006)",
     "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85"],
     "unit": "celsius",
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Climate",
