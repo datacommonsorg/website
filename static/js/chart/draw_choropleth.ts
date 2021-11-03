@@ -61,7 +61,6 @@ const MAP_ITEMS_GROUP_ID = "map-items";
 // Curated temperature domains.
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
 const TEMP_MODEL_DIFF_DOMAIN = [0, 15];
-const TEMP_WET_BULB_DOMAIN = [0, 8];
 const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
 
 /**
@@ -104,9 +103,9 @@ function getColorScale(
   domain?: [number, number, number]
 ): d3.ScaleLinear<number, number> {
   const label = getStatsVarLabel(statVar);
-  const maxColor = color
+  let maxColor = color
     ? d3.color(color)
-    : d3.color(getColorFn([label])(label));
+    : isWetBulbStatVar(statVar) ? d3.color(d3.interpolateReds(1)) : d3.color(getColorFn([label])(label));
   const allValues = Object.values(dataValues);
   const extent = d3.extent(allValues);
   let domainValues: number[] = domain || [
@@ -114,9 +113,7 @@ function getColorScale(
     d3.mean(allValues),
     extent[1],
   ];
-  const isTemp = isTemperatureStatVar(statVar);
-  const isWetBulb = isWetBulbStatVar(statVar);
-  if (isTemp || isWetBulb) {
+  if (isTemperatureStatVar(statVar)) {
     let range: any[] = [
       d3.interpolateBlues(1),
       d3.interpolateBlues(0.8),
@@ -125,9 +122,7 @@ function getColorScale(
       d3.interpolateReds(1),
     ];
 
-    if (isWetBulb) {
-      domainValues = domain || TEMP_WET_BULB_DOMAIN;
-    } else if (statVar.indexOf("Difference") >= 0) {
+    if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
         domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
       } else {
