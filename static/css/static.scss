@@ -79,13 +79,17 @@ h2 {
   margin-bottom: .4rem;
 }
 
-#homepage section a.main {
+#homepage section .main {
   font-weight: bold;
   margin-top: .5em;
 }
 
 #homepage section a.sub {
   font-weight: 300;
+}
+
+#homepage section.examples ul li ul li {
+  display: block;
 }
 
 #homepage section ul li ul li {
