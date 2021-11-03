@@ -27,12 +27,12 @@ bp = Blueprint('static', __name__)
 _HOMEPAGE_PLACE_DCIDS = [
     'country/IND',  # India
     'country/USA',  # USA
-    'geoId/06029', # Kern County, CA
+    'geoId/06029',  # Kern County, CA
     'geoId/06085',  # Santa Clara County, CA
     'geoId/0668000',  # San Jose, CA
     'geoId/22095',  # St John the Baptist Parish, LA
-    'geoId/3651000', # New York City
-    'wikidataId/Q1445', # Tamil Nadu
+    'geoId/3651000',  # New York City
+    'wikidataId/Q1445',  # Tamil Nadu
 ]
 
 

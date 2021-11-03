@@ -68,18 +68,18 @@
     <li>
       <span class="main">IPCC Temperature projections</span>:
       <ul>
-        <li>Max Temperatures under RCP 4.5 in
+        <li>Max Temperatures (RCP 4.5) in
           <a class="sub" href="{{ url_for('tools.map') }}#sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea2">{{ place_names['country/IND'] }}</a> and
           <a class="sub" href="{{ url_for('tools.map') }}#sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County">{{ place_names['country/USA'] }}</a>
         </li>
         <li>
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&qd=1&ld=0&dd=1&ct=0&rg=0">Prevalence Of Coronary Heart Disease vs Max Temperature under RCP 4.5 for USA Counties</a>
+          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&qd=1&ld=0&dd=1&ct=0&rg=0">Heart Disease Prevalence vs. Max Temperature (RCP 4.5) for USA Counties</a>
         </li>
         <li>
-          <a class="sub" href="{{ url_for('tools.timeline') }}#statsVar=DifferenceAcrossModels_Max_Temperature&place=geoId/0668000">Difference across models for {{ place_names['geoId/0668000'] }}</a>
+          <a class="sub" href="{{ url_for('tools.timeline') }}#statsVar=DifferenceAcrossModels_Max_Temperature&place=geoId/0668000">Difference across IPCC Projection Models for {{ place_names['geoId/0668000'] }}</a>
         </li>
         <li>
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MinRelativeHumidity&pc=0&denom=Count_Person&dt=2099&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea2">Districts in {{ place_names['country/IND'] }} with Wet Bulb Temp > 35°C</a>
+          <a class="sub" href="{{ url_for('tools.map') }}#&sv=NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MinRelativeHumidity&pc=0&denom=Count_Person&dt=2099&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea2">Districts in {{ place_names['country/IND'] }} with <a href="https://en.wikipedia.org/wiki/Wet-bulb_temperature">Wet-bulb Temp</a> > 35°C</a>
         </li>
       </ul>
     </li>
@@ -87,10 +87,10 @@
       <span class="main">Emissions</span>:
       <ul>
         <li>
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&denom=Count_Person&pd=geoId/48&pn=Texas&pt=State&ept=County&ppt=EpaReportingFacility&mp=1">Carbon Dioxide Emissions from Large Facilities in Texas</a>
+          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&denom=Count_Person&pd=geoId/48&pn=Texas&pt=State&ept=County&ppt=EpaReportingFacility&mp=1">CO<sub>2</sub> Emissions from Large Facilities in Texas</a>
         </li>
         <li>
-          <a class="sub" href="{{ url_for('ranking.ranking', stat_var='Annual_Emissions_GreenhouseGas_NonBiogenic', place_type='State', place_dcid='country/USA') }}">Greenhouse gas emission ranking for US States</a>
+          <a class="sub" href="{{ url_for('ranking.ranking', stat_var='Annual_Emissions_GreenhouseGas_NonBiogenic', place_type='State', place_dcid='country/USA') }}">Greenhouse Gas Emissions from Large Facilities ranking across US States</a>
         </li>
         <li>
           <a class="sub" href="{{ url_for('tools.timeline') }}#place=geoId/48201&statsVar=AirQualityIndex_AirPollutant">Air Quality Index for Harris County, TX</a>
@@ -108,8 +108,8 @@
       <span class="main">Health</span>:
       <ul>
         <li>
-          Covid-19 Cases vs
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_BlackOrAfricanAmericanAlone&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&lb=100000&qd=1&ld=0&dd=1&ct=0&rg=0">Black or African American Population</a>,
+          Covid-19 Cases vs.
+          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_BlackOrAfricanAmericanAlone&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&qd=0&ld=0&dd=0&ct=1&rg=0">Black or African American Population</a>,
           <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_NoHealthInsurance&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&lb=100000&qd=1&ld=0&dd=1&ct=0&rg=0">Uninsured Population</a>,
           <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_BelowPovertyLevelInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&lb=100000&qd=1&ld=0&dd=1&ct=0&rg=0">Poverty</a>
         </li>
@@ -154,7 +154,7 @@
           <a class="sub" href="{{ url_for('tools.timeline') }}#place=country/IND,country/CHN,country/USA&statsVar=Annual_Generation_Electricity_SolarPhotovoltaic_MainActivityProducer">Energy Generated from Solar in China, India, USA</a>
         </li>
         <li>
-          <a class="sub" href="{{ url_for('tools.scatter') }}#%26svx%3DMean_SolarInsolation%26svy%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcy%3D1%26epd%3DgeoId%2F06%26epn%3DCalifornia%26epts%3DState%26ept%3DCounty%26qd%3D0%26ld%3D0%26dd%3D0%26ct%3D1%26rg%3D0">Poverty vs Solar Energy Potential across California Counties</a>
+          <a class="sub" href="{{ url_for('tools.scatter') }}#%26svx%3DMean_SolarInsolation%26svy%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcy%3D1%26epd%3DgeoId%2F06%26epn%3DCalifornia%26epts%3DState%26ept%3DCounty%26qd%3D0%26ld%3D0%26dd%3D0%26ct%3D1%26rg%3D0">Poverty vs. Solar Energy Potential across California Counties</a>
         </li>
         <li>
           <a class="sub" href="{{ url_for('tools.map') }}#&sv=Amount_Production_ElectricityFromOilGasOrCoalSources_AsFractionOf_Amount_Production_Energy&pc=0&denom=Count_Person&pd=Earth&pn=Earth&pt=Place&ept=Country">Energy Produced from Oil, Gas or Coal Worldwide</a>
@@ -168,14 +168,16 @@
           <a class="sub" href="{{ url_for('ranking.ranking', stat_var='Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', place_type='Country') }}">Countries with Highest Government Spending on Education</a>
         </li>
         <li>
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_School&pcx=1&svy=Count_Person_Literate&pcy=1&epd=country/IND&epn=India&epts=Country&ept=AdministrativeArea1&qd=0&ld=0&dd=0&ct=1&rg=0">Literacy vs Schools Per Capita in India</a>
+          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_School&pcx=1&svy=Count_Person_Literate&pcy=1&epd=country/IND&epn=India&epts=Country&ept=AdministrativeArea1&qd=0&ld=0&dd=0&ct=1&rg=0">Literacy vs. Schools Per Capita among Indian States</a>
         </li>
         <li>
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=DropoutRate_Student_Female_PrimarySchool&svy=Count_School_HasFunctionalToilet&pcy=1&epd=country/IND&epn=India&epts=Country&ept=AdministrativeArea1&qd=0&ld=0&dd=0&ct=0&rg=0">Schools with Functional Toilets vs Female Dropout in India</a>
+          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Count_School_HasFunctionalToilet&pc=1&denom=Count_School&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea1">Schools with Functional Toilets</a> and 
+          <a class="sub" href="{{ url_for('tools.map') }}#&sv=DropoutRate_Student_PrimarySchool&pc=0&denom=Count_Person&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea1">Primary School Dropout Rate</a>
+          across Indian States
         </li>
         <li>
           {# TRANSLATORS: Link to a scatter plot comparing bachelor degree attained vs females per capita across counties in California. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County">{% trans %}Bachelor Degree Attained vs Females per capita for California Counties{% endtrans %}</a>
+          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County">{% trans %}Bachelor Degree Attained vs. Females per capita for California Counties{% endtrans %}</a>
         </li>
         <li>
           {# TRANSLATORS: Link to a map showing the attainment of Bachelor Degrees or higher across counties in Washington. Please see this string in action at https://datacommons.org #}
@@ -196,7 +198,7 @@
         </li>
         <li>
           {# TRANSLATORS: Link to a scatter plot comparing foreign born vs unemployment rate across states in the US. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=State">{% trans %}Foreign Born vs Unemployment Rate for US States{% endtrans %}</a>
+          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=State">{% trans %}Foreign Born vs. Unemployment Rate for US States{% endtrans %}</a>
         </li>
       </ul>
     </li>

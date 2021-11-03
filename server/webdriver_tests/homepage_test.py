@@ -72,7 +72,7 @@ class TestPlaceLanding(WebdriverBaseTest):
             ))
 
         explore_callout_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[3]/p')
+            '//*[@id="homepage"]/section[4]/p')
         self.assertTrue(
             explore_callout_msg.text.startswith(
                 'Abbiamo pulito ed elaborato i dati al tuo posto, così non dovrai farlo tu.'
