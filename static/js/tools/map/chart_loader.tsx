@@ -161,7 +161,7 @@ function getGeoJsonDataFeatures(
     }
     const neLat = Number(latlon[0]) + distance / 2;
     const neLon = Number(latlon[1]) + distance / 2;
-    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} resolution)`;
+    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} arc degree)`;
     // TODO: handle cases of overflowing 180 near the international date line
     // becasuse not sure if drawing libraries can handle this
     geoJsonFeatures.push({
