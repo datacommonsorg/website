@@ -128,25 +128,25 @@
   "Annual_Emissions_CarbonDioxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Carbon Dioxide Emissions (Large Facilitys, Non-biogenic)"
+      "value": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
     }
   ],
   "Annual_Emissions_GreenhouseGas_NonBiogenic": [
     {
       "type": 0,
-      "value": "Annual Emissions of Greenhouse Gas (Large Facilitys, Non-biogenic)"
+      "value": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
     }
   ],
   "Annual_Emissions_Methane_NonBiogenic": [
     {
       "type": 0,
-      "value": "Methane Emissions (Large Facilitys, Non-biogenic)"
+      "value": "Methane Emissions (Large Facilities, Non-biogenic)"
     }
   ],
   "Annual_Emissions_NitrousOxide_NonBiogenic": [
     {
       "type": 0,
-      "value": "Nitrous Oxide Emissions (Large Facilitys, Non-biogenic)"
+      "value": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
     }
   ],
   "Annual_Generation_Electricity": [

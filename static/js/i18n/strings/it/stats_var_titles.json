@@ -63,16 +63,16 @@
     "defaultMessage": "Annual Electricity Generation"
   },
   "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-    "defaultMessage": "Carbon Dioxide Emissions (Large Facilitys, Non-biogenic)"
+    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
   },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilitys, Non-biogenic)"
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
   },
   "Annual_Emissions_Methane_NonBiogenic": {
-    "defaultMessage": "Methane Emissions (Large Facilitys, Non-biogenic)"
+    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
   },
   "Annual_Emissions_NitrousOxide_NonBiogenic": {
-    "defaultMessage": "Nitrous Oxide Emissions (Large Facilitys, Non-biogenic)"
+    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
   },
   "Annual_Generation_Electricity": {
     "defaultMessage": "Annual Electricity Generation"
