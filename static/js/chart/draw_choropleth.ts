@@ -306,6 +306,7 @@ function drawChoropleth(
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   isUSAPlace: boolean,
+  isEuropeanPlace: boolean,
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
@@ -330,7 +331,17 @@ function drawChoropleth(
 
   const projection = isUSAPlace
     ? geo.geoAlbersUsaTerritories()
+    : isEuropeanPlace
+    ? d3.geoAzimuthalEqualArea()
     : d3.geoEquirectangular();
+
+  if (isEuropeanPlace) {
+    projection
+    .rotate([-20.0, -52.0])
+    .translate([chartWidth / 2, chartHeight / 2])
+    .scale(chartWidth / 1.5)
+    .precision(.1)
+  }
   const geomap = d3.geoPath().projection(projection);
 
   if (shouldGenerateLegend) {
@@ -348,7 +359,7 @@ function drawChoropleth(
   }
 
   // Scale and center the map
-  let isMapFitted = false;
+  let isMapFitted = false || isEuropeanPlace;
   if (zoomDcid) {
     const geoJsonFeature = geoJson.features.find(
       (feature) => feature.properties.geoDcid === zoomDcid

@@ -27,7 +27,7 @@ import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
-import { USA_PLACE_DCID } from "../../shared/constants";
+import { EUROPE_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
@@ -333,7 +333,8 @@ function plot(
         props.placeInfo.enclosingPlace.dcid,
         USA_PLACE_DCID,
         props.placeInfo.parentPlaces
-      )
+      ),
+      props.placeInfo.enclosingPlace.dcid == EUROPE_NAMED_TYPED_PLACE.dcid,
     );
   }
 }

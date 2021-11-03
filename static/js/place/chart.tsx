@@ -45,6 +45,7 @@ import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
+import { EUROPE_NAMED_TYPED_PLACE } from "../shared/constants";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -419,7 +420,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         () => true,
         true,
         true,
-        this.props.isUsaPlace
+        this.props.isUsaPlace,
+        this.props.dcid == EUROPE_NAMED_TYPED_PLACE.dcid
       );
     }
   }
