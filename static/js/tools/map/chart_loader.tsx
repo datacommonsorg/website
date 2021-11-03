@@ -222,15 +222,16 @@ function fetchData(
     )
     .then((resp) => resp.data);
 
-  let dataDateParam = "";
+  let dataDate = "";
   const cappedDate = getCappedStatVarDate(statVar.dcid);
   // If there is a specified date, get the data for that date. If no specified
   // date, still need to cut data for prediction data that extends to 2099
   if (statVar.date) {
-    dataDateParam = `&date=${statVar.date}`;
+    dataDate = statVar.date;
   } else if (cappedDate) {
-    dataDateParam = `&date=${cappedDate}`;
+    dataDate = cappedDate;
   }
+  const dataDateParam = dataDate ? `&date=${dataDate}` : "";
   const statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`;
   const statVarDataPromise: Promise<PlacePointStat> = axios
     .get(statVarDataUrl)
@@ -239,7 +240,7 @@ function fetchData(
     .post("/api/stats/set", {
       places: breadcrumbPlaceDcids,
       stat_vars: [statVar.dcid],
-      date: statVar.date ? statVar.date : "",
+      date: dataDate,
     })
     .then((resp) => (resp.data.data ? resp.data.data[statVar.dcid] : null));
   const mapPointValuesPromise: Promise<PlacePointStat> = placeInfo.mapPointsPlaceType
