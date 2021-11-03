@@ -25,7 +25,14 @@ _MAX_BLOBS = 1
 bp = Blueprint('static', __name__)
 
 _HOMEPAGE_PLACE_DCIDS = [
-    'geoId/1150000', 'geoId/3651000', 'geoId/0649670', 'geoId/4805000'
+    'country/IND',  # India
+    'country/USA',  # USA
+    'geoId/06029', # Kern County, CA
+    'geoId/06085',  # Santa Clara County, CA
+    'geoId/0668000',  # San Jose, CA
+    'geoId/22095',  # St John the Baptist Parish, LA
+    'geoId/3651000', # New York City
+    'wikidataId/Q1445', # Tamil Nadu
 ]
 
 
