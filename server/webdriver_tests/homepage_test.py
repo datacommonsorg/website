@@ -88,7 +88,7 @@ class TestPlaceLanding(WebdriverBaseTest):
                          self.url_ + '/browser/geoId/sch3620580?hl=it')
 
         schema_org = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[5]/ul/li[2]')
+            '//*[@id="homepage"]/section[6]/ul/li[2]')
         self.assertEqual(schema_org.text,
                          'Progetto open source realizzato con Schema.org.')
 
