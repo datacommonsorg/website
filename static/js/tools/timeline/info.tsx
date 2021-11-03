@@ -87,7 +87,7 @@ class Info extends Component {
               Berkeley &amp; Piedmont:
               <a
                 href={
-                  "#&&place=geoId/0606000,geoId/0656938&statsVar=Count_Person__BelowPovertyLine"
+                  "#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Count_Person_BelowPovertyLevelInThePast12Months&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
                 }
               >
                 {" "}

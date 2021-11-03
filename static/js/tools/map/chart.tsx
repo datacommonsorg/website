@@ -133,7 +133,9 @@ export function Chart(props: ChartProps): JSX.Element {
   // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
     const debouncedHandler = _.debounce(() => {
-      replot();
+      if (!props.display.value.showMapPoints || mapPointsFetched) {
+        replot();
+      }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
@@ -143,7 +145,7 @@ export function Chart(props: ChartProps): JSX.Element {
       resizeObserver.unobserve(chartContainerRef.current);
       debouncedHandler.cancel();
     };
-  }, [chartContainerRef]);
+  }, [props, chartContainerRef]);
 
   return (
     <Card className="chart-section-card">
@@ -417,7 +419,7 @@ const getTooltipHtml = (
   mapPointValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
-  const titleHtml = `<b>${place.name || place.dcid}</b><br/>`;
+  const titleHtml = `<b>${place.name || place.dcid}</b>`;
   let hasValue = false;
   let value = "Data Missing";
   if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
@@ -433,23 +435,19 @@ const getTooltipHtml = (
     !_.isEmpty(metadata.popDate) &&
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
-  let statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
-  if (showPopDateMessage) {
-    statVarTitle += "<sup>1</sup>";
-  }
   if (!hasValue || !(place.dcid in metadataMapping)) {
-    return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
+    return `${titleHtml}: <wbr>${value}<br />`;
   }
   if (!_.isEmpty(metadata.errorMessage)) {
-    return titleHtml + `${statVarTitle}: <wbr>${metadata.errorMessage}<br />`;
+    return `${titleHtml}: <wbr>${metadata.errorMessage}<br />`;
   }
-  const popDateHtml = showPopDateMessage
-    ? `<sup>1</sup> Uses population data from: <wbr>${metadata.popDate}`
+  const footer = showPopDateMessage
+    ? `<footer><sup>1</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
     : "";
   const html =
-    titleHtml +
-    `${statVarTitle} (${metadata.statVarDate}): <wbr><b>${value}</b><br />` +
-    `<footer>${popDateHtml}</footer>`;
+    `${titleHtml} (${metadata.statVarDate}): <wbr><b>${value}</b>${
+      showPopDateMessage ? "<sup>1</sup>" : ""
+    }<br />` + footer;
   return html;
 };
 

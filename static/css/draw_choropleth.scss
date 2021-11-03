@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-path.region-highlighted {
+path.region-highlighted,
+path.region-highlighted-no-click {
   stroke: var(--dark);
   stroke-width: 3px;
-  cursor: pointer;
   opacity: 1 !important;
+}
+
+path.region-highlighted {
+  cursor: pointer;
+}
+
+path.region-highlighted-no-click {
+  cursor: default;
 }
 
 div.region-highlighted path {
