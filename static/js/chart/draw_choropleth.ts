@@ -60,6 +60,7 @@ const MAP_ITEMS_GROUP_ID = "map-items";
 // Curated temperature domains.
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
 const TEMP_MODEL_DIFF_DOMAIN = [0, 15];
+const TEMP_WET_BULB_DOMAIN = [0, 8];
 const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
 
 /**
@@ -124,7 +125,7 @@ function getColorScale(
     ];
 
     if (isWetBulb) {
-      domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
+      domainValues = domain || TEMP_WET_BULB_DOMAIN;
     } else if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
         domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
