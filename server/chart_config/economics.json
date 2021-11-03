@@ -55,7 +55,10 @@
     "statsVars": ["UnemploymentRate_Person"],
     "unit": "%",
     "isOverview": true,
-    "isChoropleth": true
+    "isChoropleth": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Economics",
@@ -67,7 +70,10 @@
       "UnemploymentRate_Person_Urban"
     ],
     "unit": "%",
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Economics",
