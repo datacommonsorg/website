@@ -63,6 +63,8 @@ changes dependent on mixer changes).
 ## Run Tests
 
 ### Install web browser and webdriver
+:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is compatible with your **local
+Google Chrome version**.**
 
 Before running the tests, install the browser and webdriver. Here we recommend
 you use Google Chrome browser and ChromeDriver.
@@ -76,6 +78,10 @@ you use Google Chrome browser and ChromeDriver.
   ```bash
   npm install chromedriver
   ```
+
+You can view the latest ChromeDriver version
+[here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Also make
+sure PATH is updated with ChromeDriver location.
 
 If using Linux system, you can run the following commands to download Chrome
 browser and ChromeDriver, this will also include the path setup:
@@ -91,11 +97,6 @@ sudo mv chromedriver /usr/bin/chromedriver
 sudo chown root:root /usr/bin/chromedriver
 sudo chmod +x /usr/bin/chromedriver
 ```
-
-Note: Make sure that your ChromeDriver version is compatible with your local
-Google Chrome version. You can change view the lastet ChromeDriver version
-[here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Also make
-sure PATH is updated with ChromeDriver location.
 
 ### Run all tests
 
