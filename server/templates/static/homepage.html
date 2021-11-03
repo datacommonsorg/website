@@ -61,15 +61,12 @@
   {# TRANSLATORS: Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org #}
   <h2>{% trans %}Explore the data{% endtrans %}</h2>
   <p>
-    {# TRANSLATORS: Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org #}
-    {% trans -%}
-    HOME-EXPLORE_CALLOUT
-    {%- endtrans %}
+    We aggregated data across a wide range of topics for easy exploration.
   </p>
 
   <ul class="mt-4">
     <li>
-      <span class="main">{% trans %}IPCC Temperature projections{% endtrans %}</span>:
+      <span class="main">IPCC Temperature projections</span>:
       <ul>
         <li>Max Temperatures under RCP 4.5 in
           <a class="sub" href="{{ url_for('tools.map') }}#sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea2">{{ place_names['country/IND'] }}</a> and
