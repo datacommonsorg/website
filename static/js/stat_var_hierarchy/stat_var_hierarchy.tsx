@@ -122,7 +122,13 @@ export class StatVarHierarchy extends React.Component<
     }
     let rootSVGs = this.state.rootSVGs;
     if (!this.state.showAllSV) {
-      rootSVGs = rootSVGs.filter((svg) => svg.numDescendentStatVars > 0);
+      const svgOnSvPath = new Set();
+      for (const sv in this.state.svPath) {
+        svgOnSvPath.add(this.state.svPath[sv][0]);
+      }
+      rootSVGs = rootSVGs.filter(
+        (svg) => svg.numDescendentStatVars > 0 || svgOnSvPath.has(svg.id)
+      );
     }
     return (
       <div id={SV_HIERARCHY_SECTION_ID} className="loading-spinner-container">

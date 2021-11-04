@@ -40,6 +40,7 @@ import {
   LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
+import { EUROPE_NAMED_TYPED_PLACE } from "../shared/constants";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
@@ -419,7 +420,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         () => true,
         true,
         true,
-        this.props.isUsaPlace
+        this.props.isUsaPlace,
+        this.props.dcid
       );
     }
   }

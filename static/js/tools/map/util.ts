@@ -289,9 +289,8 @@ export function getRedirectLink(
   const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parentPlaces);
   hash = updateHashPlaceInfo(hash, {
     enclosedPlaces: [],
-    enclosedPlaceType: !_.isEmpty(enclosedPlaceTypes)
-      ? enclosedPlaceTypes[0]
-      : "",
+    enclosedPlaceType:
+      enclosedPlaceTypes.length == 1 ? enclosedPlaceTypes[0] : "",
     enclosingPlace: { dcid: "", name: "" },
     mapPointsPlaceType,
     parentPlaces: [],

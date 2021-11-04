@@ -102,12 +102,24 @@ export function ChartLoader(): JSX.Element {
       );
     }
   }, [rawData, statVar.value.perCapita]);
-  if (
+  if (chartData === undefined) {
+    return null;
+  } else if (
     _.isEmpty(chartData) ||
     _.isEmpty(chartData.mapValues) ||
     _.isEmpty(chartData.geoJsonData)
   ) {
-    return null;
+    return (
+      <div className="p-5">
+        {`Sorry, the selected variable ${
+          statVar.value.info.title || statVar.value.dcid
+        } is not available for places in ${
+          placeInfo.value.selectedPlace.name
+        } of type ${
+          placeInfo.value.enclosedPlaceType
+        }. Please try a different variable or different place options.`}
+      </div>
+    );
   }
   return (
     <div className="chart-region">
