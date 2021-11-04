@@ -167,14 +167,21 @@ function Chart(props: ChartPropsType): JSX.Element {
 
   // Replot when props or chart width changes.
   useEffect(() => {
-    const debouncedHandler = _.debounce(() => {
-      if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
-        loadSpinner(CONTAINER_ID);
-        return;
-      } else {
-        removeSpinner(CONTAINER_ID);
-      }
+    const entrySet = new Set();
+    if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
+      loadSpinner(CONTAINER_ID);
+      return;
+    } else {
+      removeSpinner(CONTAINER_ID);
       replot();
+    }
+    const debouncedHandler = _.debounce((entries) => {
+      if (_.isEmpty(entries)) return;
+      if (entrySet.has(entries[0].target)) {
+        replot();
+      } else {
+        entrySet.add(entries[0].target);
+      }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
