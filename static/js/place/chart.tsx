@@ -40,12 +40,12 @@ import {
   LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
+import { EUROPE_NAMED_TYPED_PLACE } from "../shared/constants";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
-import { EUROPE_NAMED_TYPED_PLACE } from "../shared/constants";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
