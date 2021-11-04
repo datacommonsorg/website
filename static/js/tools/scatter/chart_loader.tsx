@@ -464,9 +464,6 @@ function isBetween(num: number, lower: number, upper: number): boolean {
  * @param perCapita
  */
 function getLabel(name: string, perCapita: boolean): string {
-  if (!name.endsWith("$")) {
-    name = _.startCase(name);
-  }
   return `${name}${perCapita ? " Per Capita" : ""}`;
 }
 
