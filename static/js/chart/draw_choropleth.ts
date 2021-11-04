@@ -26,6 +26,10 @@ import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
+import {
+  ASIA_NAMED_TYPED_PLACE,
+  EUROPE_NAMED_TYPED_PLACE,
+} from "./../shared/constants";
 import { getColorFn } from "./base";
 import {
   GeoJsonData,
@@ -306,6 +310,7 @@ function drawChoropleth(
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   isUSAPlace: boolean,
+  enclosingPlaceDcid?: string, // DCID of enclosing place that might have special projections
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
@@ -328,9 +333,34 @@ function drawChoropleth(
     .selectAll("path")
     .data(geoJson.features);
 
+  const isEurope = enclosingPlaceDcid == EUROPE_NAMED_TYPED_PLACE.dcid;
+  const isAsia = enclosingPlaceDcid == ASIA_NAMED_TYPED_PLACE.dcid;
+
+  // TODO(beets): Refactor projection selection / modification to a helper function.
   const projection = isUSAPlace
     ? geo.geoAlbersUsaTerritories()
+    : isEurope
+    ? d3.geoAzimuthalEqualArea()
     : d3.geoEquirectangular();
+
+  if (isEurope) {
+    // Reference:
+    // https://observablehq.com/@toja/five-map-projections-for-europe#_lambertAzimuthalEqualArea
+    projection
+      .rotate([-20.0, -52.0])
+      .translate([chartWidth / 2, chartHeight / 2])
+      .scale(chartWidth / 1.5)
+      .precision(0.1);
+  } else if (isAsia) {
+    // Reference:
+    // https://stackoverflow.com/questions/39958471/d3-js-map-with-albers-projection-how-to-rotate-it/41133970#41133970
+    projection
+      .rotate([-85, 0])
+      .center([0, 35])
+      .translate([chartWidth / 2, chartHeight / 2])
+      .scale(chartHeight / 1.5)
+      .precision(0.1);
+  }
   const geomap = d3.geoPath().projection(projection);
 
   if (shouldGenerateLegend) {
@@ -348,7 +378,7 @@ function drawChoropleth(
   }
 
   // Scale and center the map
-  let isMapFitted = false;
+  let isMapFitted = false || isEurope || isAsia;
   if (zoomDcid) {
     const geoJsonFeature = geoJson.features.find(
       (feature) => feature.properties.geoDcid === zoomDcid
