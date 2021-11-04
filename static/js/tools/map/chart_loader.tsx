@@ -110,7 +110,7 @@ export function ChartLoader(): JSX.Element {
     _.isEmpty(chartData.geoJsonData)
   ) {
     return (
-      <div>
+      <div className="p-5">
         {`Sorry, the selected variable ${
           statVar.value.info.title || statVar.value.dcid
         } is not available for places in ${
