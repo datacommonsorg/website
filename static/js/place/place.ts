@@ -23,12 +23,12 @@ import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { ChildPlace } from "./child_places_menu";
-import { MainPane } from "./main";
+import { MainPane } from "./main_pane";
+import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { initSearchAutocomplete } from "./search";
-import { Menu } from "./topic_menu";
 import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.

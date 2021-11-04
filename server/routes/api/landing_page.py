@@ -21,7 +21,7 @@ import collections
 import copy
 import json
 import logging
-import urllib
+import urllib.parse
 
 from flask import Blueprint, current_app, Response, url_for, g
 from flask_babel import gettext

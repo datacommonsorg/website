@@ -212,7 +212,7 @@ def version():
                                  bigquery=os.environ.get("BIG_QUERY"))
 
 
-if not (app.config["TEST"] or app.config["WEBDRIVER"]):
+if not (app.config["TEST"] or app.config["WEBDRIVER"] or app.config["LOCAL"]):
     thread = threading.Thread(target=send_warmup_requests)
     thread.start()
 

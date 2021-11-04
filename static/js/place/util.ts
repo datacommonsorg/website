@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { defineMessages } from "react-intl";
 
+import { ChartBlockData } from "../chart/types";
 import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
+import { NamedNode } from "../shared/types";
 
 /**
  * Given a list of parent places, return true if the place is in USA.
@@ -246,4 +247,48 @@ export function displayNameForPlaceType(
       : singularPlaceTypeMessages["Place"];
   }
   return intl.formatMessage(retMessage);
+}
+
+// Get ordered display topics give a set of chart configs.
+export function getDisplayTopics(
+  topicData: {
+    [key: string]: ChartBlockData[];
+  },
+  isOverview: boolean
+): NamedNode[] {
+  const topics = Object.keys(topicData);
+  if (!isOverview) {
+    // For non overview page, each topic should have only one chart (group)
+    // The topics should be ordered by group, then by the title.
+    topics.sort((a, b) => {
+      if (topicData[a][0].group === topicData[b][0].group) {
+        if (a < b) {
+          return -1;
+        } else if (a > b) {
+          return 1;
+        }
+        return 0;
+      } else {
+        if (topicData[a][0].group < topicData[b][0].group) {
+          return -1;
+        }
+        return 1;
+      }
+    });
+  }
+  const result = [];
+  for (const topic of topics) {
+    if (isOverview) {
+      result.push({ name: topic, dcid: topic });
+    } else {
+      const name = topicData[topic][0].group
+        ? `[${topicData[topic][0].group}] ${topic}`
+        : topic;
+      result.push({
+        name: name,
+        dcid: topic,
+      });
+    }
+  }
+  return result;
 }

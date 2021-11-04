@@ -48,6 +48,7 @@ export interface SnapshotData {
 
 export interface ChartBlockData {
   title: string;
+  group: string;
   statsVars: string[];
   denominator?: string[];
   unit: string;

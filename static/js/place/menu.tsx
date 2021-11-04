@@ -18,12 +18,14 @@ import React from "react";
 
 import { PageChart } from "../chart/types";
 import { intl, LocalizedLink } from "../i18n/i18n";
+import { NamedNode } from "../shared/types";
+import { getDisplayTopics } from "./util";
 
 interface MenuCategoryPropsType {
   dcid: string;
   selectCategory: string;
   category: string;
-  topics: string[];
+  topics: NamedNode[];
   categoryDisplayStr: string;
 }
 
@@ -52,13 +54,13 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           data-parent="#nav-topics"
         >
           <div className="d-block">
-            {topics.map((topic: string) => {
+            {topics.map((topic: NamedNode) => {
               return (
-                <li className="nav-item" key={topic}>
+                <li className="nav-item" key={topic.dcid}>
                   <LocalizedLink
-                    href={`${hrefString}#${topic.replace(/ /g, "-")}`}
+                    href={`${hrefString}#${topic.dcid.replace(/ /g, "-")}`}
                     className="nav-link"
-                    text={topic}
+                    text={topic.name}
                   />
                 </li>
               );
@@ -100,13 +102,13 @@ class Menu extends React.Component<MenuPropsType> {
           </li>
         )}
         {categories.map((category: string) => {
-          let topics = Object.keys(this.props.pageChart[category]);
-          if (!showOverviewSubmenu) {
-            topics.sort();
-          }
-          if (category === "Overview") {
-            topics = topics.map((t) => this.props.categories[t]);
-          }
+          const topics = getDisplayTopics(
+            this.props.pageChart[category],
+            false
+          );
+          // if (category === "Overview") {
+          //   topics = topics.map((t) => this.props.categories[t.name]);
+          // }
           const categoryDisplayStr = this.props.categories[category];
           if (showOverviewSubmenu || category !== "Overview") {
             return (

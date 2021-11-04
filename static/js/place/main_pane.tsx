@@ -24,8 +24,10 @@ import {
   PageChart,
 } from "../chart/types";
 import { intl, LocalizedLink } from "../i18n/i18n";
+import { NamedNode } from "../shared/types";
 import { ChartBlock } from "./chart_block";
 import { Overview } from "./overview";
+import { getDisplayTopics } from "./util";
 
 interface MainPanePropType {
   /**
@@ -91,10 +93,7 @@ class MainPane extends React.Component<MainPanePropType> {
     const topicData = this.props.pageChart[this.props.topic];
     const currentPageTopic = this.props.topic;
     const isOverview = currentPageTopic === "Overview";
-    const topics = Object.keys(topicData);
-    if (!isOverview) {
-      topics.sort();
-    }
+    const namedTopics = getDisplayTopics(topicData, isOverview);
     return (
       <RawIntlProvider value={intl}>
         {this.props.isUsaPlace &&
@@ -103,19 +102,19 @@ class MainPane extends React.Component<MainPanePropType> {
             // Only Show map and ranking for US places.
             <Overview dcid={this.props.dcid} locale={this.props.locale} />
           )}
-        {topics.map((topic: string) => {
+        {namedTopics.map((topic: NamedNode) => {
           let subtopicHeader: JSX.Element;
           if (isOverview) {
             subtopicHeader = (
-              <h3 id={topic}>
+              <h3 id={topic.name}>
                 <LocalizedLink
-                  href={`/place/${this.props.dcid}?topic=${topic}`}
-                  text={this.props.categoryStrings[topic]}
+                  href={`/place/${this.props.dcid}?topic=${topic.name}`}
+                  text={this.props.categoryStrings[topic.dcid]}
                 />
                 {Object.keys(this.props.pageChart).length === 1 ? null : (
                   <span className="more">
                     <LocalizedLink
-                      href={`/place/${this.props.dcid}?topic=${topic}`}
+                      href={`/place/${this.props.dcid}?topic=${topic.name}`}
                       text={
                         intl.formatMessage({
                           id: "more_charts",
@@ -130,9 +129,11 @@ class MainPane extends React.Component<MainPanePropType> {
               </h3>
             );
           } else {
-            subtopicHeader = <h3 id={topic.replace(/ /g, "-")}>{topic}</h3>;
+            subtopicHeader = (
+              <h3 id={topic.dcid.replace(/ /g, "-")}>{topic.dcid}</h3>
+            );
           }
-          const data = topicData[topic];
+          const data = topicData[topic.dcid];
           data.sort((a, b) => {
             if (a.title < b.title) {
               return -1;
@@ -141,10 +142,10 @@ class MainPane extends React.Component<MainPanePropType> {
             }
           });
           return (
-            <section className="subtopic col-12" key={topic}>
+            <section className="subtopic col-12" key={topic.name}>
               {subtopicHeader}
               <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
-                {topicData[topic].map((data: ChartBlockData) => {
+                {topicData[topic.dcid].map((data: ChartBlockData) => {
                   return (
                     <ChartBlock
                       key={data.title}
