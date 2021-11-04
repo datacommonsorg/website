@@ -269,6 +269,7 @@ function getSetEnclosingPlace(
       enclosedPlaces: [],
       enclosingPlace: enclosingPlace,
       parentPlaces: null,
+      enclosedPlaceType: "",
     });
 }
 
