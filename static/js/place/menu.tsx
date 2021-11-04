@@ -106,9 +106,6 @@ class Menu extends React.Component<MenuPropsType> {
             this.props.pageChart[category],
             false
           );
-          // if (category === "Overview") {
-          //   topics = topics.map((t) => this.props.categories[t.name]);
-          // }
           const categoryDisplayStr = this.props.categories[category];
           if (showOverviewSubmenu || category !== "Overview") {
             return (

@@ -79,15 +79,15 @@ function run_py_test {
   setup_python
   cd server
   export FLASK_ENV=test
-  python3 -m pytest tests/util_test.py -s --ignore=sustainability
-  # export FLASK_ENV=test-sustainability
-  # python3 -m pytest tests/sustainability/**.py
-  # cd ..
-  # echo -e "#### Checking Python style"
-  # if ! yapf --recursive --diff --style=google -p server/ tools/; then
-  #   echo "Fix lint errors by running ./run_test.sh -f"
-  #   exit 1
-  # fi
+  python3 -m pytest tests/**.py -s --ignore=sustainability
+  export FLASK_ENV=test-sustainability
+  python3 -m pytest tests/sustainability/**.py
+  cd ..
+  echo -e "#### Checking Python style"
+  if ! yapf --recursive --diff --style=google -p server/ tools/; then
+    echo "Fix lint errors by running ./run_test.sh -f"
+    exit 1
+  fi
 }
 
 # Run test for webdriver automation test codes.
