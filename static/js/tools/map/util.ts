@@ -76,7 +76,7 @@ export const ALL_MAP_PLACE_TYPES = {
 
 export const ALL_PLACE_CHILD_TYPES = {
   Planet: ["Country"],
-  Continent: ["Country"],
+  Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
   Country: [IPCC_PLACE_50_TYPE_DCID],
 };
 
