@@ -165,26 +165,16 @@ function Chart(props: ChartPropsType): JSX.Element {
     }
   }
 
-  // Replot when data changes.
-  useEffect(() => {
-    if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
-      loadSpinner(CONTAINER_ID);
-      return;
-    } else {
-      removeSpinner(CONTAINER_ID);
-    }
-    replot();
-  }, [props, geoJsonFetched]);
-
-  // Replot when chart width changes on sv widget toggle.
+  // Replot when props or chart width changes.
   useEffect(() => {
     const debouncedHandler = _.debounce(() => {
-      if (
-        props.display.chartType === ScatterChartType.SCATTER ||
-        geoJsonFetched
-      ) {
-        replot();
+      if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
+        loadSpinner(CONTAINER_ID);
+        return;
+      } else {
+        removeSpinner(CONTAINER_ID);
       }
+      replot();
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
     if (chartContainerRef.current) {
@@ -194,7 +184,7 @@ function Chart(props: ChartPropsType): JSX.Element {
       resizeObserver.unobserve(chartContainerRef.current);
       debouncedHandler.cancel();
     };
-  }, [props, chartContainerRef]);
+  }, [props, chartContainerRef, geoJsonFetched]);
 
   return (
     <div id="chart" className="container-fluid" ref={chartContainerRef}>
