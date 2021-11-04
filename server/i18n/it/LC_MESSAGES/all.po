@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "Dati demografici di %(cityName)s"
-
-msgid "%(cityName)s Health"
-msgstr "Salute a %(cityName)s"
-
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s è un progetto supportato da Google"
 
@@ -19,8 +13,8 @@ msgstr "Informazioni su Data Commons"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "Conseguimento di lauree triennali o titoli superiori nelle contee di Washington"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "Contee della California: lauree triennali conseguite - donne pro capite"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "Blog"
@@ -42,15 +36,6 @@ msgstr "Contee, Stati Uniti"
 
 msgid "Countries"
 msgstr "Paesi"
-
-msgid "Create Maps"
-msgstr "Crea mappe"
-
-msgid "Create Scatter Plots"
-msgstr "Crea grafici a dispersione"
-
-msgid "Create Timeline Charts"
-msgstr "Crea grafici a cronologia"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -79,9 +64,6 @@ msgstr "Inserisci un paese, uno stato, una contea o una città"
 msgid "Explore"
 msgstr "Esplora"
 
-msgid "Explore Places"
-msgstr "Esplora luoghi"
-
 msgid "Explore the data"
 msgstr "Esplora i dati"
 
@@ -91,8 +73,8 @@ msgstr "Domande frequenti"
 msgid "Feedback"
 msgstr "Feedback"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "Stati Uniti: nati all'estero - tasso di disoccupazione"
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "Domande frequenti"
