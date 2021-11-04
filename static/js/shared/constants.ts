@@ -21,6 +21,11 @@ export const INDIA_PLACE_DCID = "country/IND";
 export const BANGLADESH_PLACE_DCID = "country/BGD";
 export const NEPAL_PLACE_DCID = "country/NPL";
 export const PAKISTAN_PLACE_DCID = "country/PAK";
+export const ASIA_NAMED_TYPED_PLACE: NamedTypedPlace = {
+  dcid: "asia",
+  name: "Asia",
+  types: ["Continent"],
+};
 export const EUROPE_NAMED_TYPED_PLACE: NamedTypedPlace = {
   dcid: "europe",
   name: "Europe",
