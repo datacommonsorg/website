@@ -27,10 +27,7 @@ import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
-import {
-  EUROPE_NAMED_TYPED_PLACE,
-  USA_PLACE_DCID,
-} from "../../shared/constants";
+import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";

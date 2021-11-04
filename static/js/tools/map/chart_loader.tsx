@@ -34,6 +34,7 @@ import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";
+import { ENCLOSED_PLACE_TYPE_NAMES } from "./util";
 
 const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
@@ -116,6 +117,7 @@ export function ChartLoader(): JSX.Element {
         } is not available for places in ${
           placeInfo.value.selectedPlace.name
         } of type ${
+          ENCLOSED_PLACE_TYPE_NAMES[placeInfo.value.enclosedPlaceType] ||
           placeInfo.value.enclosedPlaceType
         }. Please try a different variable or different place options.`}
       </div>

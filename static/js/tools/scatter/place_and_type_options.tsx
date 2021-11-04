@@ -274,6 +274,10 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
+  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    place.setEnclosingPlace(EARTH_NAMED_TYPED_PLACE);
+    return;
+  }
   const placeTypePromise = axios
     .get(`/api/place/type/${dcid}`)
     .then((resp) => resp.data);
