@@ -29,20 +29,12 @@ import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { ENCLOSED_PLACE_TYPE_NAMES, getAllChildPlaceTypes } from "./util";
 
-const DEFAULT_ENCLOSED_PLACE_TYPES = ["Country"];
-
 export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);
-  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState(
-    DEFAULT_ENCLOSED_PLACE_TYPES
-  );
+  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState([]);
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
-      if (placeInfo.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-        setEnclosedPlaceTypes(DEFAULT_ENCLOSED_PLACE_TYPES);
-      } else {
-        updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
-      }
+      updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
     }
   }, [placeInfo.value.selectedPlace]);
   const placeInfoDeps = [
@@ -140,6 +132,10 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectPlace(place: PlaceInfoWrapper, dcid: string): void {
+  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    place.setSelectedPlace(EARTH_NAMED_TYPED_PLACE);
+    return;
+  }
   const placeTypePromise = axios
     .get(`/api/place/type/${dcid}`)
     .then((resp) => resp.data);
@@ -165,7 +161,7 @@ function unselectPlace(
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
 ): void {
   place.setSelectedPlace({ dcid: "", name: "", types: [] });
-  setEnclosedPlaceTypes(DEFAULT_ENCLOSED_PLACE_TYPES);
+  setEnclosedPlaceTypes([]);
 }
 
 function updateEnclosedPlaceTypes(
@@ -180,11 +176,14 @@ function updateEnclosedPlaceTypes(
     .then((resp) => resp.data);
   Promise.all([parentPlacePromise, placeTypePromise])
     .then(([parents, placeType]) => {
-      const selectedPlace = {
-        dcid: place.value.selectedPlace.dcid,
-        name: place.value.selectedPlace.name,
-        types: [placeType],
-      };
+      const selectedPlace =
+        place.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid
+          ? EARTH_NAMED_TYPED_PLACE
+          : {
+              dcid: place.value.selectedPlace.dcid,
+              name: place.value.selectedPlace.name,
+              types: [placeType],
+            };
       const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parents);
       if (enclosedPlaceTypes.length === 1) {
         place.setEnclosedPlaceType(enclosedPlaceTypes[0]);
