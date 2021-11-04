@@ -176,6 +176,8 @@ function updateEnclosedPlaceTypes(
     .then((resp) => resp.data);
   Promise.all([parentPlacePromise, placeTypePromise])
     .then(([parents, placeType]) => {
+      // TODO: manage state better here to avoid duplicate calls.
+      // TODO: move Earth info to Flask (or update KG) to keep things consistent
       const selectedPlace =
         place.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid
           ? EARTH_NAMED_TYPED_PLACE
