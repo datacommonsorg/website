@@ -25,9 +25,9 @@ ROOT="$(dirname "$DIR")"
 # Update mixer
 cd $ROOT/mixer
 git checkout master
-git pull origin master --ff-only
+git pull origin master
 git fetch --all --tags
-git pull origin $(git describe --tags --abbrev=0) --ff-only
+git pull origin $(git describe --tags --abbrev=0)
 cd ..
 git add *
 git commit -m "Update mixer at $(cd mixer && git describe --tags --abbrev=0)"
