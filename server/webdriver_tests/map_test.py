@@ -17,6 +17,7 @@ from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import webdriver_tests.shared as shared
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
@@ -80,18 +81,28 @@ class TestMap(WebdriverBaseTest):
         # Click United States breadcrumb
         self.driver.find_element_by_xpath(
             '//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
+
         # Assert redirect was correct
-        element_present = EC.text_to_be_present_in_element(
-            (By.XPATH, '//*[@id="chart-row"]/div/div/div/div[3]/div[2]'),
-            'United States')
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'mdl-chip__text'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
-        self.assertEqual(place_name.text, 'United States')
+        place_name_chip = self.driver.find_element_by_class_name('mdl-chip__text')
+        self.assertEqual(place_name_chip.text, 'United States')
+
+        # Select State place type
+        element_present = EC.text_to_be_present_in_element((By.ID, 'enclosed-place-type'), "State")
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        self.driver.find_element_by_id('enclosed-place-type').click()
+        self.driver.find_element_by_xpath('//*[@id="enclosed-place-type"]/option[2]').click()
+
+        # Assert that a map chart is loaded
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'map-items'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="chart-row"]/div/div[1]/div/div/div[1]/h3')
         self.assertEqual(chart_title.text, "Median Age (2019)")
-        chart_map = self.driver.find_element_by_id('choropleth-map')
+        chart_map = self.driver.find_element_by_id('map-items')
         map_regions = chart_map.find_elements_by_tag_name('path')
         self.assertEqual(len(map_regions), 52)
 
@@ -133,15 +144,12 @@ class TestMap(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Choose stat var
+        shared.wait_for_loading(self.driver)
         demographics = self.driver.find_element_by_class_name('node-title')
         demographics.click()
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        # TODO: make this a function in base so it can be used for other tests
-        # that are flakey because of the screen
-        screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(screen_hidden)
         self.driver.find_element_by_id(
             'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 

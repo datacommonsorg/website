@@ -19,6 +19,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import webdriver_tests.shared as shared
 
 SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
@@ -109,10 +110,13 @@ class TestScatter(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Choose place type
+        element_present = EC.text_to_be_present_in_element((By.ID, 'enclosed-place-type'), "County")
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         selects = Select(self.driver.find_element_by_id('enclosed-place-type'))
         selects.select_by_value('County')
 
         # Choose stat vars
+        shared.wait_for_loading(self.driver)
         hierarchy = self.driver.find_element_by_xpath(
             '//*[@id="hierarchy-section"]')
         demographics_button = hierarchy.find_elements_by_class_name(
