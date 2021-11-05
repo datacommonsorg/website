@@ -333,7 +333,8 @@ function plot(
         props.placeInfo.enclosingPlace.dcid,
         USA_PLACE_DCID,
         props.placeInfo.parentPlaces
-      )
+      ),
+      props.placeInfo.enclosingPlace.dcid
     );
   }
 }

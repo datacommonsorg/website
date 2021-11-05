@@ -34,6 +34,7 @@ import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";
+import { ENCLOSED_PLACE_TYPE_NAMES } from "./util";
 
 const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
@@ -102,12 +103,25 @@ export function ChartLoader(): JSX.Element {
       );
     }
   }, [rawData, statVar.value.perCapita]);
-  if (
+  if (chartData === undefined) {
+    return null;
+  } else if (
     _.isEmpty(chartData) ||
     _.isEmpty(chartData.mapValues) ||
     _.isEmpty(chartData.geoJsonData)
   ) {
-    return null;
+    return (
+      <div className="p-5">
+        {`Sorry, the selected variable ${
+          statVar.value.info.title || statVar.value.dcid
+        } is not available for places in ${
+          placeInfo.value.selectedPlace.name
+        } of type ${
+          ENCLOSED_PLACE_TYPE_NAMES[placeInfo.value.enclosedPlaceType] ||
+          placeInfo.value.enclosedPlaceType
+        }. Please try a different variable or different place options.`}
+      </div>
+    );
   }
   return (
     <div className="chart-region">
@@ -222,15 +236,16 @@ function fetchData(
     )
     .then((resp) => resp.data);
 
-  let dataDateParam = "";
+  let dataDate = "";
   const cappedDate = getCappedStatVarDate(statVar.dcid);
   // If there is a specified date, get the data for that date. If no specified
   // date, still need to cut data for prediction data that extends to 2099
   if (statVar.date) {
-    dataDateParam = `&date=${statVar.date}`;
+    dataDate = statVar.date;
   } else if (cappedDate) {
-    dataDateParam = `&date=${cappedDate}`;
+    dataDate = cappedDate;
   }
+  const dataDateParam = dataDate ? `&date=${dataDate}` : "";
   const statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`;
   const statVarDataPromise: Promise<PlacePointStat> = axios
     .get(statVarDataUrl)
@@ -239,7 +254,7 @@ function fetchData(
     .post("/api/stats/set", {
       places: breadcrumbPlaceDcids,
       stat_vars: [statVar.dcid],
-      date: statVar.date ? statVar.date : "",
+      date: dataDate,
     })
     .then((resp) => (resp.data.data ? resp.data.data[statVar.dcid] : null));
   const mapPointValuesPromise: Promise<PlacePointStat> = placeInfo.mapPointsPlaceType

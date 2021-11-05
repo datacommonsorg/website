@@ -56,9 +56,10 @@ export class StatVarHierarchyNodeHeader extends React.Component<
 
     let className = "title";
     if (!this.props.childrenStatVarCount) {
-      className = "title node-no-data";
-    } else if (showSelectionCount) {
-      className = "title selected-node-title";
+      className += " node-no-data";
+    }
+    if (showSelectionCount) {
+      className += " selected-node-title";
     }
     return (
       <div

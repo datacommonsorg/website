@@ -76,7 +76,7 @@ export const ALL_MAP_PLACE_TYPES = {
 
 export const ALL_PLACE_CHILD_TYPES = {
   Planet: ["Country"],
-  Continent: ["Country"],
+  Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
   Country: [IPCC_PLACE_50_TYPE_DCID],
 };
 
@@ -289,9 +289,8 @@ export function getRedirectLink(
   const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parentPlaces);
   hash = updateHashPlaceInfo(hash, {
     enclosedPlaces: [],
-    enclosedPlaceType: !_.isEmpty(enclosedPlaceTypes)
-      ? enclosedPlaceTypes[0]
-      : "",
+    enclosedPlaceType:
+      enclosedPlaceTypes.length == 1 ? enclosedPlaceTypes[0] : "",
     enclosingPlace: { dcid: "", name: "" },
     mapPointsPlaceType,
     parentPlaces: [],

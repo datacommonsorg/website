@@ -419,7 +419,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         () => true,
         true,
         true,
-        this.props.isUsaPlace
+        this.props.isUsaPlace,
+        this.props.dcid
       );
     }
   }

@@ -23,10 +23,14 @@ class TestStaticPages(unittest.TestCase):
     @patch('routes.api.place.get_display_name')
     def test_homepage(self, mock_get_display_name):
         mock_get_display_name.return_value = {
-            'geoId/1150000': 'Washington, DC',
-            'geoId/3651000': 'New York City, NY',
-            'geoId/0649670': 'Mountain View, CA',
-            'geoId/4805000': 'Austin, TX'
+            'country/IND': 'India',
+            'country/USA': 'USA',
+            'geoId/06029': 'Kern County, CA',
+            'geoId/06085': 'Santa Clara County, CA',
+            'geoId/0668000': 'San Jose, CA',
+            'geoId/22095': 'St John the Baptist Parish, LA',
+            'geoId/3651000': 'New York City',
+            'wikidataId/Q1445': 'Tamil Nadu',
         }
 
         response = app.test_client().get('/')
@@ -40,7 +44,7 @@ class TestStaticPages(unittest.TestCase):
         assert b"Open sourced" in response.data
         assert b"Schema.org" in response.data
         assert b"Explore the data" in response.data
-        assert b"Mountain View, CA" in response.data
+        assert b"St John the Baptist Parish, LA" in response.data
         assert b"more ..." in response.data
 
         assert not b"Sustainability Data Commons" in response.data
@@ -48,10 +52,14 @@ class TestStaticPages(unittest.TestCase):
     @patch('routes.api.place.get_display_name')
     def test_homepage_i18n(self, mock_get_display_name):
         mock_get_display_name.return_value = {
-            'geoId/1150000': 'Washington, Distrito de Columbia',
-            'geoId/3651000': 'New York City, New York',
-            'geoId/0649670': 'Mountain View, California',
-            'geoId/4805000': 'Austin, Texas'
+            'country/IND': 'India',
+            'country/USA': 'Estados Unidos',
+            'geoId/06029': 'Condado de Kern, CA',
+            'geoId/06085': 'Condado de Santa Clara, California',
+            'geoId/0668000': 'San José, California',
+            'geoId/22095': 'Parroquia de St. John the Baptist, Luisiana',
+            'geoId/3651000': 'Nueva York, Nueva York',
+            'wikidataId/Q1445': 'Tamil Nadu',
         }
 
         response = app.test_client().get('/?hl=es')
@@ -67,7 +75,8 @@ class TestStaticPages(unittest.TestCase):
         assert "código abierto".encode() in response.data
         assert "Schema.org".encode() in response.data
         assert "Consulta los datos".encode() in response.data
-        assert "Washington, Distrito de Columbia".encode() in response.data
+        assert "Parroquia de St. John the Baptist, Luisiana".encode(
+        ) in response.data
         assert "más...".encode() in response.data
 
     def test_about(self):
