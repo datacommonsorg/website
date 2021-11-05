@@ -86,18 +86,20 @@ class TestMap(WebdriverBaseTest):
         element_present = EC.presence_of_element_located(
             (By.CLASS_NAME, 'mdl-chip__text'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        place_name_chip = self.driver.find_element_by_class_name('mdl-chip__text')
+        place_name_chip = self.driver.find_element_by_class_name(
+            'mdl-chip__text')
         self.assertEqual(place_name_chip.text, 'United States')
 
         # Select State place type
-        element_present = EC.text_to_be_present_in_element((By.ID, 'enclosed-place-type'), "State")
+        element_present = EC.text_to_be_present_in_element(
+            (By.ID, 'enclosed-place-type'), "State")
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         self.driver.find_element_by_id('enclosed-place-type').click()
-        self.driver.find_element_by_xpath('//*[@id="enclosed-place-type"]/option[2]').click()
+        self.driver.find_element_by_xpath(
+            '//*[@id="enclosed-place-type"]/option[2]').click()
 
         # Assert that a map chart is loaded
-        element_present = EC.presence_of_element_located(
-            (By.ID, 'map-items'))
+        element_present = EC.presence_of_element_located((By.ID, 'map-items'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="chart-row"]/div/div[1]/div/div/div[1]/h3')

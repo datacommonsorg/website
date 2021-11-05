@@ -17,15 +17,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 LOADING_WAIT_TIME = 3
-
 """Common library for functions used by multiple webdriver tests"""
 
-def wait_for_loading(driver): 
-  screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
-  screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
-  while (True):
-    try:
-      WebDriverWait(driver, LOADING_WAIT_TIME).until(screen_present)
-      WebDriverWait(driver, LOADING_WAIT_TIME).until(screen_hidden)
-    except:
-      break
+
+def wait_for_loading(driver):
+    screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
+    screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
+    while (True):
+        try:
+            WebDriverWait(driver, LOADING_WAIT_TIME).until(screen_present)
+            WebDriverWait(driver, LOADING_WAIT_TIME).until(screen_hidden)
+        except:
+            break

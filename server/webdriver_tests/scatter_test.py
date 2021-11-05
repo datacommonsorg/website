@@ -110,7 +110,8 @@ class TestScatter(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Choose place type
-        element_present = EC.text_to_be_present_in_element((By.ID, 'enclosed-place-type'), "County")
+        element_present = EC.text_to_be_present_in_element(
+            (By.ID, 'enclosed-place-type'), "County")
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         selects = Select(self.driver.find_element_by_id('enclosed-place-type'))
         selects.select_by_value('County')
