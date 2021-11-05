@@ -58,22 +58,33 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
   if (yLogDisabled && y.value.log) {
     y.setLog(false);
   }
+  const hasYPopData =
+    Object.values(props.points).filter(
+      (point) => point.yPop !== undefined && point.yPop !== null
+    ).length > 0;
+  const hasXPopData =
+    Object.values(props.points).filter(
+      (point) => point.xPop !== undefined && point.xPop !== null
+    ).length > 0;
   return (
     <Card id="plot-options">
       <Container fluid={true}>
         <Row className="plot-options-row">
+          {/* only allow per capita option for axes where there is population
+              data. */}
           <Col sm={1} className="plot-options-label">
             Per capita:
           </Col>
           <Col sm="auto">
             <FormGroup check>
+              <Input
+                id="per-capita-y"
+                type="checkbox"
+                checked={y.value.perCapita}
+                onChange={(e) => checkPerCapita(y, e)}
+                disabled={!hasYPopData}
+              />
               <Label check>
-                <Input
-                  id="per-capita-y"
-                  type="checkbox"
-                  checked={y.value.perCapita}
-                  onChange={(e) => checkPerCapita(y, e)}
-                />
                 {display.chartType === ScatterChartType.SCATTER
                   ? "Y-axis"
                   : y.value.statVarInfo.title || y.value.statVarDcid}
@@ -82,13 +93,14 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
           </Col>
           <Col sm="auto">
             <FormGroup check>
+              <Input
+                id="per-capita-x"
+                type="checkbox"
+                checked={x.value.perCapita}
+                onChange={(e) => checkPerCapita(x, e)}
+                disabled={!hasXPopData}
+              />
               <Label check>
-                <Input
-                  id="per-capita-x"
-                  type="checkbox"
-                  checked={x.value.perCapita}
-                  onChange={(e) => checkPerCapita(x, e)}
-                />
                 {display.chartType === ScatterChartType.SCATTER
                   ? "X-axis"
                   : x.value.statVarInfo.title || x.value.statVarDcid}
