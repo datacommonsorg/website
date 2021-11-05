@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "%(cityName)s の人口統計"
-
-msgid "%(cityName)s Health"
-msgstr "%(cityName)s の健康状態"
-
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s は Google がサポートするプロジェクトです"
 
@@ -19,8 +13,8 @@ msgstr "データコモンズについて"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "ワシントンの各郡における学士号以上の学位の取得"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "カリフォルニア州の各郡における一人当たりの学士号取得数と女性の割合"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "ブログ"
@@ -42,15 +36,6 @@ msgstr "米国の郡"
 
 msgid "Countries"
 msgstr "国"
-
-msgid "Create Maps"
-msgstr "地図を作成"
-
-msgid "Create Scatter Plots"
-msgstr "散布図を作成する"
-
-msgid "Create Timeline Charts"
-msgstr "タイムライン グラフを作成"
 
 msgid "Data Commons"
 msgstr "データコモンズ"
@@ -79,9 +64,6 @@ msgstr "国、州、郡、都市のいずれかを入力してください"
 msgid "Explore"
 msgstr "探索"
 
-msgid "Explore Places"
-msgstr "地域を検索"
-
 msgid "Explore the data"
 msgstr "データを検索"
 
@@ -91,8 +73,8 @@ msgstr "よくある質問"
 msgid "Feedback"
 msgstr "フィードバック"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "米国の各州における外国人と失業率の比較"
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "よくある質問"

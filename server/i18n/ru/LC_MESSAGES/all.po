@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "%(cityName)s: демография"
-
-msgid "%(cityName)s Health"
-msgstr "%(cityName)s: здоровье"
-
 msgid "%(project)s is a Google supported project"
 msgstr "Проект %(project)s поддерживается Google"
 
@@ -19,8 +13,8 @@ msgstr "О Data Commons"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "Доля людей со степенью бакалавра или более высоким уровнем образования в округах штата Вашингтон"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "Выпускницы со степенью бакалавра по округам Калифорнии"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "Блог"
@@ -42,15 +36,6 @@ msgstr "Округа в США"
 
 msgid "Countries"
 msgstr "Страны"
-
-msgid "Create Maps"
-msgstr "Создавайте карты"
-
-msgid "Create Scatter Plots"
-msgstr "Создавайте точечные диаграммы"
-
-msgid "Create Timeline Charts"
-msgstr "Создавайте диаграммы"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -79,9 +64,6 @@ msgstr "Укажите страну, штат, округ или город"
 msgid "Explore"
 msgstr "Обзор"
 
-msgid "Explore Places"
-msgstr "Узнавайте о новых местах"
-
 msgid "Explore the data"
 msgstr "Изучайте данные"
 
@@ -91,8 +73,8 @@ msgstr "Часто задаваемые вопросы"
 msgid "Feedback"
 msgstr "Отправить отзыв"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "Безработица среди родившихся за границей по штатам"
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "Часто задаваемые вопросы"

@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "%(cityName)s 인구통계"
-
-msgid "%(cityName)s Health"
-msgstr "%(cityName)s 건강"
-
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s은(는) Google에서 지원하는 프로젝트입니다"
 
@@ -19,8 +13,8 @@ msgstr "Data Commons 정보"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "워싱턴 카운티별 학사 이상 학위 취득률"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "캘리포니아 카운티 학사 학위 취득률 및 인구당 여성 비율"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "블로그"
@@ -42,15 +36,6 @@ msgstr "국가, 미국"
 
 msgid "Countries"
 msgstr "국가"
-
-msgid "Create Maps"
-msgstr "지도 만들기"
-
-msgid "Create Scatter Plots"
-msgstr "분산형 차트 만들기"
-
-msgid "Create Timeline Charts"
-msgstr "타임라인 차트 만들기"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -79,9 +64,6 @@ msgstr "국가나 시/도/구를 입력하세요"
 msgid "Explore"
 msgstr "탐색"
 
-msgid "Explore Places"
-msgstr "장소 살펴보기"
-
 msgid "Explore the data"
 msgstr "데이터 살펴보기"
 
@@ -91,8 +73,8 @@ msgstr "FAQ"
 msgid "Feedback"
 msgstr "의견"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "미국 해외 출생자 비율 및 실업률"
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "자주 묻는 질문(FAQ)"

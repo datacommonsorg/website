@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "Données démographiques pour %(cityName)s"
-
-msgid "%(cityName)s Health"
-msgstr "Données de santé pour %(cityName)s"
-
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s est un projet développé par Google"
 
@@ -19,8 +13,8 @@ msgstr "À propos de Data Commons"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "Niveau de scolarité équivalent ou supérieur à la licence dans les comtés de Washington"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "Diplôme de licence obtenu et Nombre de femmes par habitant pour les Comtés de Californie"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "Blog"
@@ -42,15 +36,6 @@ msgstr "Comtés des États-Unis"
 
 msgid "Countries"
 msgstr "Pays"
-
-msgid "Create Maps"
-msgstr "Créer des cartes"
-
-msgid "Create Scatter Plots"
-msgstr "Générer des graphiques à nuage de points"
-
-msgid "Create Timeline Charts"
-msgstr "Créez des graphiques chronologiques"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -79,9 +64,6 @@ msgstr "Saisissez un pays, un État, un comté ou une ville"
 msgid "Explore"
 msgstr "Outils d'exploration"
 
-msgid "Explore Places"
-msgstr "Explorez les lieux"
-
 msgid "Explore the data"
 msgstr "Explorez les données"
 
@@ -91,8 +73,8 @@ msgstr "Questions fréquentes"
 msgid "Feedback"
 msgstr "Commentaires"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "Personnes nées à l'étranger et Taux de chômage pour les États américains"
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "Questions fréquentes"

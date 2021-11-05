@@ -42,7 +42,6 @@ class Config:
 
 class ProductionConfig(Config):
     GA_ACCOUNT = 'UA-117119267-1'
-    NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = True
 
 
