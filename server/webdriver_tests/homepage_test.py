@@ -36,24 +36,24 @@ class TestPlaceLanding(WebdriverBaseTest):
                 'Data Commons is an open knowledge repository'))
 
         explore_callout_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[4]/p')
+            '//*[@id="homepage"]/section[3]/p')
         self.assertTrue(
             explore_callout_msg.text.startswith(
                 'We cleaned and processed the data so you don\'t have to'))
 
         nyc_edu = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[4]/ul/li/ul/li[3]/a')
+            '//*[@id="homepage"]/section[3]/ul/li/ul/li[3]/a')
         self.assertEqual(nyc_edu.text, 'New York City Department of Education')
         self.assertEqual(nyc_edu.get_attribute('href'),
                          self.url_ + '/browser/geoId/sch3620580')
 
         schema_org = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[6]/ul/li[2]')
+            '//*[@id="homepage"]/section[5]/ul/li[2]')
         self.assertEqual(schema_org.text,
                          'Open sourced, built using Schema.org.')
 
         more_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[4]/ul/li/ul/li[5]/a')
+            '//*[@id="homepage"]/section[3]/ul/li/ul/li[5]/a')
         self.assertEqual(more_msg.text, 'more ...')
 
     def test_homepage_it(self):
@@ -72,14 +72,14 @@ class TestPlaceLanding(WebdriverBaseTest):
             ))
 
         explore_callout_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[4]/p')
+            '//*[@id="homepage"]/section[3]/p')
         self.assertTrue(
             explore_callout_msg.text.startswith(
                 'Abbiamo pulito ed elaborato i dati al tuo posto, così non dovrai farlo tu.'
             ))
 
         nyc_edu = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[4]/ul/li/ul/li[3]/a')
+            '//*[@id="homepage"]/section[3]/ul/li/ul/li[3]/a')
         self.assertEqual(
             nyc_edu.text,
             'Consiglio di amministrazione della pubblica istruzione della Città di New York'
@@ -88,12 +88,12 @@ class TestPlaceLanding(WebdriverBaseTest):
                          self.url_ + '/browser/geoId/sch3620580?hl=it')
 
         schema_org = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[6]/ul/li[2]')
+            '//*[@id="homepage"]/section[5]/ul/li[2]')
         self.assertEqual(schema_org.text,
                          'Progetto open source realizzato con Schema.org.')
 
         more_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[4]/ul/li/ul/li[5]/a')
+            '//*[@id="homepage"]/section[3]/ul/li/ul/li[5]/a')
         self.assertEqual(more_msg.text, 'altro…')
 
     def test_hero_all_langs(self):

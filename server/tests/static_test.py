@@ -36,8 +36,8 @@ class TestStaticPages(unittest.TestCase):
         response = app.test_client().get('/')
         assert response.status_code == 200
         assert b"Data Commons is an open knowledge repository" in response.data
-        assert b"July 26, 2021" in response.data
-        assert b"We have launched exciting new features" in response.data
+        # assert b"July 26, 2021" in response.data
+        # assert b"We have launched exciting new features" in response.data
         assert b"Use the Python and REST API's to do your own custom analysis" in response.data
         assert b"We cleaned and processed the data so you don't have to" in response.data
         assert b"Join the effort." in response.data
@@ -66,7 +66,7 @@ class TestStaticPages(unittest.TestCase):
         assert response.status_code == 200
         assert "Data Commons es un repositorio abierto en el que se aglutina información procedente".encode(
         ) in response.data
-        assert b"26 de julio de 2021" in response.data
+        # assert b"26 de julio de 2021" in response.data
         assert "Usa las API REST y Python para hacer análisis personalizados".encode(
         ) in response.data
         assert "Hemos filtrado y organizado los datos para que no tengas que hacerlo tú.".encode(
