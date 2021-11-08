@@ -175,6 +175,8 @@ function Chart(props: ChartPropsType): JSX.Element {
       removeSpinner(CONTAINER_ID);
       replot();
     }
+    // ResizeObserver callback function documentation:
+    // https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/ResizeObserver
     const debouncedHandler = _.debounce((entries) => {
       if (_.isEmpty(entries)) return;
       if (entrySet.has(entries[0].target)) {
