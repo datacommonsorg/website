@@ -16,16 +16,25 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-LOADING_WAIT_TIME = 3
+LOADING_WAIT_TIME_SEC = 3
+MAX_NUM_SPINNERS = 3
 """Common library for functions used by multiple webdriver tests"""
 
 
 def wait_for_loading(driver):
+    """
+    Wait for loading spinners to appear then disappear. Sometimes, more
+    than one spinner will appear and disappear, so wait for MAX_NUM_SPINNERS
+    spinners to appear and disappear. Or finish waiting if it takes more than
+    LOADING_WAIT_TIME_SEC seconds for the next spinner to appear.
+    """
     screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
     screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
-    while (True):
+    num_tries = 0
+    while (num_tries < MAX_NUM_SPINNERS):
         try:
-            WebDriverWait(driver, LOADING_WAIT_TIME).until(screen_present)
-            WebDriverWait(driver, LOADING_WAIT_TIME).until(screen_hidden)
+            WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_present)
+            WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_hidden)
+            num_tries += 1
         except:
             break
