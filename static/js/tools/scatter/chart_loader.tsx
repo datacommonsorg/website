@@ -254,6 +254,9 @@ function computeCapita(
   xPerCapita: boolean,
   yPerCapita: boolean
 ) {
+  if (!xPerCapita && !yPerCapita) {
+    return points;
+  }
   Object.keys(points).forEach((key) => {
     const point = points[key];
     points[key] = {
@@ -298,20 +301,24 @@ function getPoints(
       let xPopDate = null;
       const placeXPopData =
         cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
-      if (placeXPopData) {
+      if (placeXPopData && placeXPopData.val) {
         xPopDate = getPopulationDate(placeXPopData, placeXStatData);
         xPop = placeXPopData.val[xPopDate];
-        xPopSource = placeXPopData.metadata.provenanceUrl;
+        xPopSource = placeXPopData.metadata
+          ? placeXPopData.metadata.provenanceUrl
+          : null;
       }
       let yPop = null;
       let yPopSource = null;
       let yPopDate = null;
       const placeYPopData =
         cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
-      if (placeYPopData) {
+      if (placeYPopData && placeYPopData.val) {
         yPopDate = getPopulationDate(placeYPopData, placeYStatData);
         yPop = placeYPopData.val[yPopDate];
-        yPopSource = placeYPopData.metadata.provenanceUrl;
+        yPopSource = placeYPopData.metadata
+          ? placeYPopData.metadata.provenanceUrl
+          : null;
       }
       const point = {
         place,
@@ -464,9 +471,6 @@ function isBetween(num: number, lower: number, upper: number): boolean {
  * @param perCapita
  */
 function getLabel(name: string, perCapita: boolean): string {
-  if (!name.endsWith("$")) {
-    name = _.startCase(name);
-  }
   return `${name}${perCapita ? " Per Capita" : ""}`;
 }
 
