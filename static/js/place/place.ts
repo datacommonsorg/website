@@ -161,8 +161,8 @@ function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   const urlHash = window.location.hash;
-  // Get topic and render menu.
-  let topic = urlParams.get("topic") || "Overview";
+  // Get category and render menu.
+  const category = urlParams.get("category") || "Overview";
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
@@ -190,17 +190,14 @@ function renderPage(): void {
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-      if (Object.keys(data.pageChart).length == 1) {
-        topic = "Overview";
-      }
       ReactDOM.render(
         React.createElement(Menu, {
           pageChart: data.pageChart,
           categories: data.categories,
           dcid,
-          topic,
+          selectCategory: category,
         }),
-        document.getElementById("topics")
+        document.getElementById("menu")
       );
 
       // Earth has no parent places.
@@ -249,15 +246,15 @@ function renderPage(): void {
 
       ReactDOM.render(
         React.createElement(PageSubtitle, {
-          category: topic,
-          categoryDisplayStr: data.categories[topic],
+          category: category,
+          categoryDisplayStr: data.categories[category],
           dcid,
         }),
         document.getElementById("subtitle")
       );
       ReactDOM.render(
         React.createElement(MainPane, {
-          topic,
+          category,
           dcid,
           isUsaPlace,
           names: data.names,

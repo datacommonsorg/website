@@ -23,11 +23,10 @@ import {
   GeoJsonData,
   PageChart,
 } from "../chart/types";
-import { intl, LocalizedLink } from "../i18n/i18n";
-import { NamedNode } from "../shared/types";
+import { intl } from "../i18n/i18n";
 import { ChartBlock } from "./chart_block";
+import { ChartHeader } from "./chart_header";
 import { Overview } from "./overview";
-import { getDisplayTopics } from "./util";
 
 interface MainPanePropType {
   /**
@@ -45,7 +44,7 @@ interface MainPanePropType {
   /**
    * The topic of the current page.
    */
-  topic: string;
+  category: string;
   /**
    * The config and stat data.
    */
@@ -89,85 +88,89 @@ class MainPane extends React.Component<MainPanePropType> {
   constructor(props: MainPanePropType) {
     super(props);
   }
+
+  showOverview(): boolean {
+    // Only Show map and ranking for US places.
+    return (
+      this.props.isUsaPlace &&
+      this.props.placeType !== "Country" &&
+      this.props.category === "Overview"
+    );
+  }
+
+  renderChartBlock(data: ChartBlockData, category: string): JSX.Element {
+    return (
+      <ChartBlock
+        key={data.title}
+        dcid={this.props.dcid}
+        placeName={this.props.placeName}
+        placeType={this.props.placeType}
+        isUsaPlace={this.props.isUsaPlace}
+        names={this.props.names}
+        data={data}
+        locale={this.props.locale}
+        geoJsonData={this.props.geoJsonData}
+        choroplethData={this.props.choroplethData}
+        childPlaceType={this.props.childPlacesType}
+        parentPlaces={this.props.parentPlaces}
+        category={category}
+      />
+    );
+  }
+
   render(): JSX.Element {
-    const topicData = this.props.pageChart[this.props.topic];
-    const currentPageTopic = this.props.topic;
-    const isOverview = currentPageTopic === "Overview";
-    const namedTopics = getDisplayTopics(topicData, isOverview);
+    const categoryData = this.props.pageChart[this.props.category];
+    const isOverview = this.props.category === "Overview";
+    const topics = Object.keys(categoryData);
+    if (!isOverview) {
+      topics.sort();
+    }
     return (
       <RawIntlProvider value={intl}>
-        {this.props.isUsaPlace &&
-          this.props.placeType != "Country" &&
-          isOverview && (
-            // Only Show map and ranking for US places.
-            <Overview dcid={this.props.dcid} locale={this.props.locale} />
-          )}
-        {namedTopics.map((topic: NamedNode) => {
-          let subtopicHeader: JSX.Element;
+        {this.showOverview() && (
+          <Overview dcid={this.props.dcid} locale={this.props.locale} />
+        )}
+        {topics.map((topic: string) => {
           if (isOverview) {
-            subtopicHeader = (
-              <h3 id={topic.name}>
-                <LocalizedLink
-                  href={`/place/${this.props.dcid}?topic=${topic.name}`}
-                  text={this.props.categoryStrings[topic.dcid]}
+            return (
+              <section className="subtopic col-12" key={topic}>
+                <ChartHeader
+                  text={topic}
+                  place={this.props.dcid}
+                  isOverview={true}
+                  categoryStrings={this.props.categoryStrings}
                 />
-                {Object.keys(this.props.pageChart).length === 1 ? null : (
-                  <span className="more">
-                    <LocalizedLink
-                      href={`/place/${this.props.dcid}?topic=${topic.name}`}
-                      text={
-                        intl.formatMessage({
-                          id: "more_charts",
-                          defaultMessage: "More charts",
-                          description:
-                            "Link to explore more charts about a particular domain, such as Education or Health.",
-                        }) + " ›"
-                      }
-                    />
-                  </span>
-                )}
-              </h3>
+                <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
+                  {categoryData[topic].map((data: ChartBlockData) => {
+                    return this.renderChartBlock(data, this.props.category);
+                  })}
+                </div>
+              </section>
             );
           } else {
-            subtopicHeader = (
-              <h3 id={topic.dcid.replace(/ /g, "-")}>{topic.dcid}</h3>
-            );
-          }
-          const data = topicData[topic.dcid];
-          data.sort((a, b) => {
-            if (a.title < b.title) {
-              return -1;
-            } else {
-              return 1;
-            }
-          });
-          return (
-            <section className="subtopic col-12" key={topic.name}>
-              {subtopicHeader}
-              <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
-                {topicData[topic.dcid].map((data: ChartBlockData) => {
+            // For non overview page, each chart config makes a chart block,
+            // The topic is only used for grouping, which is not displayed on
+            // UI.
+            return (
+              <div key={topic}>
+                {categoryData[topic].map((data: ChartBlockData) => {
                   return (
-                    <ChartBlock
-                      key={data.title}
-                      isOverview={isOverview}
-                      dcid={this.props.dcid}
-                      placeName={this.props.placeName}
-                      placeType={this.props.placeType}
-                      isUsaPlace={this.props.isUsaPlace}
-                      names={this.props.names}
-                      data={data}
-                      locale={this.props.locale}
-                      geoJsonData={this.props.geoJsonData}
-                      choroplethData={this.props.choroplethData}
-                      childPlaceType={this.props.childPlacesType}
-                      parentPlaces={this.props.parentPlaces}
-                      topic={currentPageTopic}
-                    />
+                    <section className="subtopic col-12" key={data.title}>
+                      <ChartHeader
+                        text={data.title}
+                        place={this.props.dcid}
+                        isOverview={false}
+                        categoryStrings={this.props.categoryStrings}
+                      />
+                      <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
+                        {this.renderChartBlock(data, this.props.category)}
+                      </div>
+                    </section>
                   );
                 })}
               </div>
-            </section>
-          );
+            );
+          }
         })}
       </RawIntlProvider>
     );

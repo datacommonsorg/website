@@ -75,23 +75,34 @@ def fill_translation(chart):
 
 
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
-def build_spec(chart_config):
+def build_spec(chart_config, i18n=True):
     """Builds hierachical spec based on chart config."""
     spec = defaultdict(lambda: defaultdict(list))
     # Map: category -> topic -> [config]
+    # Within each category, the topics are sorted.
     for conf in chart_config:
         config = copy.deepcopy(conf)
-        config = fill_translation(config)
-        if 'relatedChart' in config and config['relatedChart']['scale']:
-            config['relatedChart'] = fill_translation(config['relatedChart'])
-        is_overview = ('isOverview' in config and config['isOverview'])
+        if i18n:
+            config = fill_translation(config)
+            if 'relatedChart' in config and config['relatedChart']['scale']:
+                config['relatedChart'] = fill_translation(
+                    config['relatedChart'])
+        is_overview = config.get('isOverview', False)
         category = config['category']
         if 'isOverview' in config:
             del config['isOverview']
         del config['category']
         if is_overview:
+            # In "Overview", category is used as topic.
             spec[OVERVIEW][category].append(copy.deepcopy(config))
-        spec[category][config['title']].append(config)
+        topic = config.get('topic', '')
+        if 'topic' in config:
+            del config['topic']
+        spec[category][topic].append(config)
+    # Sort the config within each topic by title
+    for category, topic_data in spec.items():
+        for topic in topic_data:
+            topic_data[topic].sort(key=lambda x: x['title'])
     return spec
 
 
