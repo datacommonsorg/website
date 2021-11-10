@@ -38,6 +38,13 @@ import {
   MapPoint,
 } from "./types";
 
+export interface MapZoomParams {
+  startingTransformation: d3.ZoomTransform;
+  onZoomEnd: (zoomTransformation: d3.ZoomTransform) => void;
+  zoomInButtonId: string;
+  zoomOutButtonId: string;
+}
+
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
@@ -315,8 +322,7 @@ function drawChoropleth(
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
-  zoomInButtonId?: string,
-  zoomOutButtonId?: string
+  zoomParams?: MapZoomParams
 ): void {
   // Add svg for the map to the div holding the chart.
   const domContainerId = `#${containerId}`;
@@ -486,7 +492,7 @@ function drawChoropleth(
     );
   }
 
-  if (zoomInButtonId || zoomOutButtonId) {
+  if (!_.isEmpty(zoomParams)) {
     const zoom = d3
       .zoom()
       .scaleExtent([1, Infinity])
@@ -504,6 +510,7 @@ function drawChoropleth(
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
+        zoomParams.onZoomEnd(d3.event.transform);
         mapObjects
           .on(
             "mousemove",
@@ -511,14 +518,14 @@ function drawChoropleth(
           )
           .on("mouseover", onMouseOver(canClickRegion, domContainerId));
       });
-    svg.call(zoom);
-    if (zoomInButtonId) {
-      d3.select(`#${zoomInButtonId}`).on("click", () => {
+    svg.call(zoom).call(zoom.transform, zoomParams.startingTransformation);
+    if (zoomParams.zoomInButtonId) {
+      d3.select(`#${zoomParams.zoomInButtonId}`).on("click", () => {
         svg.call(zoom.scaleBy, 2);
       });
     }
-    if (zoomOutButtonId) {
-      d3.select(`#${zoomOutButtonId}`).on("click", () => {
+    if (zoomParams.zoomOutButtonId) {
+      d3.select(`#${zoomParams.zoomOutButtonId}`).on("click", () => {
         svg.call(zoom.scaleBy, 0.5);
       });
     }
