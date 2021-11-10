@@ -191,6 +191,13 @@ function applyHashBoolean(params: URLSearchParams, key: string): boolean {
   return val === "1";
 }
 
+function updateHashBoolean(hash: string, key: string, value: boolean): string {
+  if (value) {
+    return appendEntry(hash, key, "1");
+  }
+  return hash;
+}
+
 /**
  * Updates the hash based on the context and returns the new hash.
  * If there are multiple denominators for a statvar, only the first
@@ -291,20 +298,31 @@ function updateHashDisplayOptions(
   hash: string,
   display: DisplayOptionsWrapper
 ) {
-  let val = display.showQuadrants ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showQuadrant, val);
-
-  val = display.showLabels ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
-
-  val = display.showDensity ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showDensity, val);
-
-  val = display.chartType === ScatterChartType.SCATTER ? "0" : "1";
-  hash = appendEntry(hash, FieldToAbbreviation.chartType, val);
-
-  val = display.showRegression ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showRegression, val);
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showQuadrant,
+    display.showQuadrants
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showLabels,
+    display.showLabels
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showDensity,
+    display.showDensity
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showRegression,
+    display.showRegression
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.chartType,
+    display.chartType === ScatterChartType.MAP
+  );
 
   return hash;
 }
