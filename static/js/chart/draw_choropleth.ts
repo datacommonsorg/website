@@ -61,6 +61,7 @@ const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
 const MAP_ITEMS_GROUP_ID = "map-items";
+const LEGEND_TICK_LABEL_MARGIN = 10;
 
 // Curated temperature domains.
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
@@ -642,12 +643,18 @@ function generateLegend(
   // set tick values to show first tick at the start of the legend and last tick
   // at the very bottom of the legend.
   let tickValues = [yScale.invert(0), yScale.invert(height)];
+  const formattedTickValues = tickValues.map((tick) =>
+    formatNumber(tick, unit)
+  );
   tickValues = tickValues.concat(
     color.ticks(NUM_TICKS).filter((tick) => {
-      const formattedTickValues = tickValues.map((tick) =>
-        formatNumber(tick, unit)
+      const formattedTick = formatNumber(tick, unit);
+      const tickHeight = yScale(tick);
+      return (
+        formattedTickValues.indexOf(formattedTick) === -1 &&
+        tickHeight > LEGEND_TICK_LABEL_MARGIN &&
+        tickHeight < height - LEGEND_TICK_LABEL_MARGIN
       );
-      return formattedTickValues.indexOf(formatNumber(tick)) === -1;
     })
   );
   legend
