@@ -76,7 +76,12 @@ def fill_translation(chart):
 
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
 def build_spec(chart_config, i18n=True):
-    """Builds hierachical spec based on chart config."""
+    """Builds hierachical spec based on chart config.
+
+    Args:
+        chart_config: A list of chart config.
+        i18: Whether to i18n the strings, only set to true for testing.
+    """
     spec = defaultdict(lambda: defaultdict(list))
     # Map: category -> topic -> [config]
     # Within each category, the topics are sorted.
@@ -87,18 +92,20 @@ def build_spec(chart_config, i18n=True):
             if 'relatedChart' in config and config['relatedChart']['scale']:
                 config['relatedChart'] = fill_translation(
                     config['relatedChart'])
+        # Delete non-necessary fields
         is_overview = config.get('isOverview', False)
-        category = config['category']
         if 'isOverview' in config:
             del config['isOverview']
+        category = config['category']
         del config['category']
-        if is_overview:
-            # In "Overview", category is used as topic.
-            spec[OVERVIEW][category].append(copy.deepcopy(config))
         topic = config.get('topic', '')
         if 'topic' in config:
             del config['topic']
-        spec[category][topic].append(config)
+        # Assign the config to "Overview" and corresponding category.
+        if is_overview:
+            # In "Overview", category is used as topic.
+            spec[OVERVIEW][category].append(copy.deepcopy(config))
+        spec[category][topic].append(copy.deepcopy(config))
     # Sort the config within each topic by title
     for category, topic_data in spec.items():
         for topic in topic_data:
@@ -480,24 +487,26 @@ def data(dcid):
     # Get the overview charts
     for topic, charts in spec_and_stat[OVERVIEW].items():
         for chart in charts:
-            overview_set.add((topic, chart['title']))
+            overview_set.add(chart['title'])
             chart_count += 1
     # Get the non overview charts
     for category, topic_data in spec_and_stat.items():
         if category == OVERVIEW:
             continue
-        for topic in topic_data:
-            if (category, topic) not in overview_set:
-                non_overview_set.add((category, topic))
-                chart_count += 1
+        for topic, charts in topic_data.items():
+            for chart in charts:
+                if chart['title'] not in overview_set:
+                    non_overview_set.add(chart['title'])
+                    chart_count += 1
     # If the total number of chart is too small, then merge all charts to
     # the overview category and remove other categories
     if chart_count < MIN_CHART_TO_KEEP_TOPICS:
-        for category, topic in non_overview_set:
-            spec_and_stat[OVERVIEW][category].extend(
-                spec_and_stat[category][topic])
         for category in list(spec_and_stat.keys()):
             if category != OVERVIEW:
+                for topic, charts in spec_and_stat[category].items():
+                    for chart in charts:
+                        if chart['title'] in non_overview_set:
+                            spec_and_stat[OVERVIEW][category].append(chart)
                 del spec_and_stat[category]
 
     # Get chart category name translations

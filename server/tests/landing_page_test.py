@@ -73,7 +73,7 @@ class TestBuildSpec(unittest.TestCase):
                 expected = json.load(f)
                 assert expected == result
 
-    def test_menu_text(self):
+    def test_menu_hierarchy(self):
         chart_config = libutil.get_chart_config()
         spec = landing_page.build_spec(chart_config, False)
         got = {}

@@ -106,7 +106,7 @@ class TestPlaceLanding(WebdriverBaseTest):
     def test_place_landing_explore_more(self):
         """Test place landing explore more link."""
 
-        self.driver.get(self.url_ + '/place/geoId/1714000?topic=Education')
+        self.driver.get(self.url_ + '/place/geoId/1714000?category=Education')
 
         # Wait until the chart has loaded.
         element_present = EC.presence_of_element_located(

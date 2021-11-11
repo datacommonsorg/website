@@ -2,7 +2,6 @@
   "Overview": {
     "Economics": [
       {
-        "topic": "Employment",
         "title": "Unemployment rate",
         "statsVars": ["UnemploymentRate_Person"]
       }

@@ -151,25 +151,23 @@ class MainPane extends React.Component<MainPanePropType> {
             // For non overview page, each chart config makes a chart block,
             // The topic is only used for grouping, which is not displayed on
             // UI.
-            return (
-              <div key={topic}>
-                {categoryData[topic].map((data: ChartBlockData) => {
-                  return (
-                    <section className="subtopic col-12" key={data.title}>
-                      <ChartHeader
-                        text={data.title}
-                        place={this.props.dcid}
-                        isOverview={false}
-                        categoryStrings={this.props.categoryStrings}
-                      />
-                      <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
-                        {this.renderChartBlock(data, this.props.category)}
-                      </div>
-                    </section>
-                  );
-                })}
-              </div>
-            );
+            return [
+              categoryData[topic].map((data: ChartBlockData, index) => {
+                return (
+                  <section className="subtopic col-12" key={index + data.title}>
+                    <ChartHeader
+                      text={data.title}
+                      place={this.props.dcid}
+                      isOverview={false}
+                      categoryStrings={this.props.categoryStrings}
+                    />
+                    <div className="row row-cols-xl-3 row-cols-md-2 row-cols-1">
+                      {this.renderChartBlock(data, this.props.category)}
+                    </div>
+                  </section>
+                );
+              }),
+            ];
           }
         })}
       </RawIntlProvider>
