@@ -43,10 +43,6 @@ interface ChartBlockPropType {
    */
   placeType: string;
   /**
-   * If the chart block is in overview page.
-   */
-  isOverview: boolean;
-  /**
    * All place names
    */
   names: { [key: string]: string };
@@ -77,7 +73,7 @@ interface ChartBlockPropType {
   /**
    * The topic of the page the chart block is in
    */
-  topic: string;
+  category: string;
   /**
    * The locale of the page
    */
@@ -186,7 +182,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${
             this.parentPlaceDcid
           }?${rankingParam.toString()}`}
-          topic={this.props.topic}
+          category={this.props.category}
           isUsaPlace={this.props.isUsaPlace}
         ></Chart>
       );
@@ -223,7 +219,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       names: this.props.names,
       scaling: scaling,
       statsVars: this.props.data.statsVars,
-      topic: this.props.topic,
+      category: this.props.category,
       isUsaPlace: this.props.isUsaPlace,
     };
     const barChartSharedProps = {
@@ -252,7 +248,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             placeName: this.displayPlaceName,
           });
 
-    if (this.props.isOverview) {
+    if (this.props.category === "Overview") {
       // Show one related place for overview page, the preference is
       // choropleth -> nearby -> child -> similar -> parent
       let gotChart = false;
