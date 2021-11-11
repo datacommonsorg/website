@@ -46,11 +46,15 @@ _PLACE_LANDING_DCIDS = [
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def place(place_dcid=None):
+    if 'topic' in flask.request.args:
+        redirect_args = dict(flask.request.args)
+        redirect_args['category'] = flask.request.args.get('topic', '')
+        redirect_args['place_dcid'] = place_dcid
+        del redirect_args['topic']
+        return flask.redirect(flask.url_for('place.place', **redirect_args))
+
     dcid = flask.request.args.get('dcid', None)
     category = flask.request.args.get('category', None)
-    if not category:
-        # Used to use topic as the url param.
-        category = flask.request.args.get('topic', None)
     if dcid:
         # Traffic from "explore more" in Search. Forward along all parameters,
         # except for dcid, to the new URL format.
