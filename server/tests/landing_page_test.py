@@ -15,8 +15,9 @@
 import unittest
 import json
 import routes.api.landing_page as landing_page
+import lib.util as libutil
 
-from flask import Flask, request, g
+from flask import Flask
 from flask_babel import Babel
 from main import app
 from unittest.mock import patch
@@ -36,12 +37,14 @@ class TestBuildSpec(unittest.TestCase):
     def test_chart_config_transform(self):
         chart_config = [{
             'category': 'Economics',
+            'topic': 'Employment',
             'titleId': 'CHART_TITLE-Unemployment_rate',
             'title': 'Unemployment Rate',
             'statsVars': ['UnemploymentRate_Person'],
             'isOverview': True
         }, {
             'category': 'Economics',
+            'topic': 'Employment',
             'titleId': 'CHART_TITLE-Labor_force',
             'title': 'Labor Force',
             'statsVars': ['Count_Person_InLaborForce'],
@@ -49,6 +52,7 @@ class TestBuildSpec(unittest.TestCase):
             'unit': '%',
         }, {
             'category': 'Economics',
+            'topic': 'Employment',
             'titleId': 'CHART_TITLE-Total_employed',
             'title': 'Number of people employed',
             'description': 'Number of people employed',
@@ -68,6 +72,20 @@ class TestBuildSpec(unittest.TestCase):
             with open('tests/test_data/golden_config.json') as f:
                 expected = json.load(f)
                 assert expected == result
+
+    def test_menu_hierarchy(self):
+        chart_config = libutil.get_chart_config()
+        spec = landing_page.build_spec(chart_config, False)
+        got = {}
+        for category, topic_data in spec.items():
+            got[category] = {}
+            for topic, configs in topic_data.items():
+                got[category][topic] = [c['title'] for c in configs]
+        # Get expected text
+        with open('tests/test_data/golden_menu_text.json',
+                  encoding='utf-8') as f:
+            expect = json.load(f)
+            self.assertEqual(got, expect)
 
 
 class TestI18n(unittest.TestCase):

@@ -104,9 +104,9 @@ interface ChartPropType {
    */
   rankingTemplateUrl: string;
   /**
-   * The topic of the page the chart is in
+   * The category of the page the chart is in
    */
-  topic: string;
+  category: string;
   /**
    * If the primary place is in USA.
    */
@@ -169,7 +169,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
     const linkSuffix = localizeSearchParams(
       new URLSearchParams(
-        this.props.topic === "Overview" ? "" : "topic=" + this.props.topic
+        this.props.category === "Overview"
+          ? ""
+          : "category=" + this.props.category
       )
     ).toString();
     this.placeLinkSearch = linkSuffix ? `?${linkSuffix}` : "";

@@ -79,7 +79,7 @@ function run_py_test {
   setup_python
   cd server
   export FLASK_ENV=test
-  python3 -m pytest -n 20 tests/**.py --ignore=sustainability
+  python3 -m pytest -n 20 tests/**.py -s --ignore=sustainability
   export FLASK_ENV=test-sustainability
   python3 -m pytest -n 20 tests/sustainability/**.py
   cd ..
