@@ -38,6 +38,16 @@ import {
   MapPoint,
 } from "./types";
 
+/**
+ * Information used for the zoom functionality on a map
+ * 
+ * @param startingTransformation the zoom scale and translation to initially
+ *        draw the map at
+ * @param onZoomEnd callback function that gets called at the end of each zoom
+ *        in or zoom out and takes as an argument the zoom transformation
+ * @param zoomInButtonId id of a button that can be clicked to zoom in
+ * @param zoomOutButtonId id of a button that can be clicked to zoom out
+ */
 export interface MapZoomParams {
   startingTransformation: d3.ZoomTransform;
   onZoomEnd: (zoomTransformation: d3.ZoomTransform) => void;
