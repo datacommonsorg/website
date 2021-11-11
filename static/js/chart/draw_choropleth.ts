@@ -40,7 +40,7 @@ import {
 
 /**
  * Information used for the zoom functionality on a map
- * 
+ *
  * @param startingTransformation the zoom scale and translation to initially
  *        draw the map at
  * @param onZoomEnd callback function that gets called at the end of each zoom
