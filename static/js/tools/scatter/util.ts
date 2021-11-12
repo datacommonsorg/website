@@ -21,8 +21,10 @@
 import axios from "axios";
 import _ from "lodash";
 
+import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { StatVarNode } from "../../shared/stat_var";
 import { getCappedStatVarDate } from "../../shared/util";
+import { NamedTypedPlace } from "../map/context";
 import { PlacePointStat } from "../shared_util";
 import {
   Axis,
@@ -38,8 +40,6 @@ export enum ScatterChartType {
   SCATTER,
   MAP,
 }
-
-const URL_PARAM_VALUE_SEPARATOR = "-";
 
 async function getPlacesInNames(
   dcid: string,
@@ -161,16 +161,11 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
 function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const place = _.cloneDeep(EmptyPlace);
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
-  const enclosingPlaceTypes = params.get(
-    FieldToAbbreviation.enclosingPlaceTypes
-  );
   if (dcid) {
     place.enclosingPlace = {
       dcid: dcid,
-      name: params.get(FieldToAbbreviation.enclosingPlaceName),
-      types: enclosingPlaceTypes
-        ? enclosingPlaceTypes.split(URL_PARAM_VALUE_SEPARATOR)
-        : [],
+      name: "",
+      types: null,
     };
   }
   const type = params.get(FieldToAbbreviation.enclosedPlaceType);
@@ -267,23 +262,10 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
     return hash;
   }
   if (place.enclosingPlace.dcid) {
-    const enclosingPlaceTypes = !_.isEmpty(place.enclosingPlace.types)
-      ? place.enclosingPlace.types.join(URL_PARAM_VALUE_SEPARATOR)
-      : "";
     hash = appendEntry(
       hash,
       FieldToAbbreviation.enclosingPlaceDcid,
       place.enclosingPlace.dcid
-    );
-    hash = appendEntry(
-      hash,
-      FieldToAbbreviation.enclosingPlaceName,
-      place.enclosingPlace.name
-    );
-    hash = appendEntry(
-      hash,
-      FieldToAbbreviation.enclosingPlaceTypes,
-      enclosingPlaceTypes
     );
   }
   for (const key of ["enclosedPlaceType", "lowerBound", "upperBound"]) {
@@ -354,6 +336,28 @@ export function arePlacesLoaded(place: PlaceInfo): boolean {
  */
 export function areStatVarsPicked(x: Axis, y: Axis): boolean {
   return !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo);
+}
+
+export function getNamedTypedPlace(
+  placeDcid: string
+): Promise<NamedTypedPlace> {
+  if (placeDcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    return Promise.resolve(EARTH_NAMED_TYPED_PLACE);
+  }
+  const placeTypePromise = axios
+    .get(`/api/place/type/${placeDcid}`)
+    .then((resp) => resp.data);
+  const placeNamePromise = axios
+    .get(`/api/place/name?dcid=${placeDcid}`)
+    .then((resp) => resp.data);
+  return Promise.all([placeTypePromise, placeNamePromise])
+    .then(([placeType, placeName]) => {
+      const name = placeDcid in placeName ? placeName[placeDcid] : placeDcid;
+      return { dcid: placeDcid, name, types: [placeType] };
+    })
+    .catch(() => {
+      return { dcid: placeDcid, name: "", types: [] };
+    });
 }
 
 export {

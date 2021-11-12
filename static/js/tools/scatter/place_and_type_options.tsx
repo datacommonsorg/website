@@ -28,8 +28,13 @@ import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { loadParentPlaces } from "../../shared/util";
 import { getAllChildPlaceTypes } from "../map/util";
 import { SearchBar } from "../timeline/search";
-import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
-import { isPlacePicked, ScatterChartType } from "./util";
+import {
+  Context,
+  IsLoadingWrapper,
+  PlaceInfo,
+  PlaceInfoWrapper,
+} from "./context";
+import { getNamedTypedPlace, isPlacePicked, ScatterChartType } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
@@ -71,25 +76,31 @@ const CHILD_PLACE_TYPES = {
 function PlaceAndTypeOptions(): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
   const [childPlaceTypes, setChildPlaceTypes] = useState([]);
-  useEffect(() => {
-    if (place.value.enclosingPlace.dcid) {
-      updateChildPlaceTypes(
-        place.value.enclosingPlace.dcid,
-        setChildPlaceTypes
-      );
-    }
-  }, [place.value.enclosingPlace.dcid]);
 
   /**
-   * Reloads child places if the enclosing place or child place type changes.
+   * Watch and update place info
    */
   useEffect(() => {
-    if (place.value.enclosingPlace.dcid && _.isNull(place.value.parentPlaces)) {
+    if (!place.value.enclosingPlace.dcid) {
+      return;
+    }
+    if (_.isNull(place.value.enclosingPlace.types)) {
+      getNamedTypedPlace(place.value.enclosingPlace.dcid).then(
+        (enclosingPlace) => {
+          place.set({ ...place.value, enclosingPlace });
+        }
+      );
+      return;
+    }
+    if (_.isNull(place.value.parentPlaces)) {
       loadParentPlaces(place.value.enclosingPlace.dcid, place.setParentPlaces);
-    } else if (
-      isPlacePicked(place.value) &&
-      _.isEmpty(place.value.enclosedPlaces)
-    ) {
+      return;
+    }
+    const newChildPlaceTypes = getChildPlaceTypes(place.value);
+    if (newChildPlaceTypes !== childPlaceTypes) {
+      setChildPlaceTypes(newChildPlaceTypes);
+    }
+    if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
       loadPlaces(place, isLoading);
     }
   }, [place.value]);
@@ -274,56 +285,28 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
-  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    place.setEnclosingPlace(EARTH_NAMED_TYPED_PLACE);
-    return;
-  }
-  const placeTypePromise = axios
-    .get(`/api/place/type/${dcid}`)
-    .then((resp) => resp.data);
-  const placeNamePromise = axios
-    .get(`/api/place/name?dcid=${dcid}`)
-    .then((resp) => resp.data);
-  Promise.all([placeTypePromise, placeNamePromise])
-    .then(([placeType, placeName]) => {
-      const name = dcid in placeName ? placeName[dcid] : dcid;
-      place.setEnclosingPlace({ dcid, name, types: [placeType] });
-    })
-    .catch(() => {
-      place.setEnclosingPlace({ dcid, name: dcid, types: [] });
-    });
+  getNamedTypedPlace(dcid).then((enclosingPlace) =>
+    place.setEnclosingPlace(enclosingPlace)
+  );
 }
 
-function updateChildPlaceTypes(
-  dcid: string,
-  setChildPlaceTypes: (childPlaceTypes: string[]) => void
-) {
-  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    setChildPlaceTypes(CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]]);
-    return;
+function getChildPlaceTypes(place: PlaceInfo) {
+  if (place.enclosingPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    return CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]];
   }
-  const parentPlacePromise = axios
-    .get(`/api/place/parent/${dcid}`)
-    .then((resp) => resp.data);
-  const placeTypePromise = axios
-    .get(`/api/place/type/${dcid}`)
-    .then((resp) => resp.data);
-  Promise.all([parentPlacePromise, placeTypePromise])
-    .then(([parents, placeType]) => {
-      const isUSPlace =
-        dcid === "country/USA" ||
-        parents.findIndex((parent) => parent.dcid === "country/USA") > -1;
-      if (isUSPlace) {
-        if (placeType in USA_CHILD_PLACE_TYPES) {
-          setChildPlaceTypes(USA_CHILD_PLACE_TYPES[placeType]);
-        }
-      } else {
-        setChildPlaceTypes(CHILD_PLACE_TYPES[placeType]);
-      }
-    })
-    .catch(() => {
-      setChildPlaceTypes([]);
-    });
+  const isUSPlace =
+    place.enclosingPlace.dcid === "country/USA" ||
+    place.parentPlaces.findIndex((parent) => parent.dcid === "country/USA") >
+      -1;
+  if (_.isEmpty(place.enclosingPlace.types)) return;
+  const placeType = place.enclosingPlace.types[0];
+  if (isUSPlace) {
+    if (placeType in USA_CHILD_PLACE_TYPES) {
+      return USA_CHILD_PLACE_TYPES[placeType];
+    }
+  } else {
+    return CHILD_PLACE_TYPES[placeType];
+  }
 }
 
 /**
