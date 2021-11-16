@@ -27,6 +27,7 @@ import { Card } from "reactstrap";
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { loadParentPlaces } from "../../shared/util";
 import { getAllChildPlaceTypes } from "../map/util";
+import { getNamedTypedPlace } from "../shared_util";
 import { SearchBar } from "../timeline/search";
 import {
   Context,
@@ -34,7 +35,7 @@ import {
   PlaceInfo,
   PlaceInfoWrapper,
 } from "./context";
-import { getNamedTypedPlace, isPlacePicked, ScatterChartType } from "./util";
+import { isPlacePicked, ScatterChartType } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];

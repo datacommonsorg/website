@@ -21,10 +21,8 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { StatVarNode } from "../../shared/stat_var";
 import { getCappedStatVarDate } from "../../shared/util";
-import { NamedTypedPlace } from "../map/context";
 import { PlacePointStat } from "../shared_util";
 import {
   Axis,
@@ -315,9 +313,7 @@ function updateHashDisplayOptions(
  */
 export function isPlacePicked(place: PlaceInfo): boolean {
   return (
-    place.enclosedPlaceType === "Country" ||
-    (!_.isEmpty(place.enclosedPlaceType) &&
-      !_.isEmpty(place.enclosingPlace.dcid))
+    !_.isEmpty(place.enclosedPlaceType) && !_.isEmpty(place.enclosingPlace.dcid)
   );
 }
 
@@ -336,28 +332,6 @@ export function arePlacesLoaded(place: PlaceInfo): boolean {
  */
 export function areStatVarsPicked(x: Axis, y: Axis): boolean {
   return !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo);
-}
-
-export function getNamedTypedPlace(
-  placeDcid: string
-): Promise<NamedTypedPlace> {
-  if (placeDcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    return Promise.resolve(EARTH_NAMED_TYPED_PLACE);
-  }
-  const placeTypePromise = axios
-    .get(`/api/place/type/${placeDcid}`)
-    .then((resp) => resp.data);
-  const placeNamePromise = axios
-    .get(`/api/place/name?dcid=${placeDcid}`)
-    .then((resp) => resp.data);
-  return Promise.all([placeTypePromise, placeNamePromise])
-    .then(([placeType, placeName]) => {
-      const name = placeDcid in placeName ? placeName[placeDcid] : placeDcid;
-      return { dcid: placeDcid, name, types: [placeType] };
-    })
-    .catch(() => {
-      return { dcid: placeDcid, name: "", types: [] };
-    });
 }
 
 export {

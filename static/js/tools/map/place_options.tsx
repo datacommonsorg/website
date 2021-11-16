@@ -25,7 +25,7 @@ import { Card, Container, CustomInput } from "reactstrap";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { loadParentPlaces } from "../../shared/util";
-import { getNamedTypedPlace } from "../scatter/util";
+import { getNamedTypedPlace } from "../shared_util";
 import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { ENCLOSED_PLACE_TYPE_NAMES, getAllChildPlaceTypes } from "./util";
@@ -142,7 +142,9 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectPlace(place: PlaceInfoWrapper, dcid: string): void {
-  getNamedTypedPlace(dcid).then((namedTypedPlace) => place.setSelectedPlace(namedTypedPlace));
+  getNamedTypedPlace(dcid).then((namedTypedPlace) =>
+    place.setSelectedPlace(namedTypedPlace)
+  );
 }
 
 /**
@@ -171,7 +173,10 @@ function getEnclosedPlaceTypes(place: PlaceInfoWrapper): string[] {
           name: place.value.selectedPlace.name,
           types: [placeType],
         };
-  const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, place.value.parentPlaces);
+  const enclosedPlaceTypes = getAllChildPlaceTypes(
+    selectedPlace,
+    place.value.parentPlaces
+  );
   if (_.isEmpty(enclosedPlaceTypes)) {
     alert(
       `Sorry, we don't support maps for ${place.value.selectedPlace.name}. ` +
@@ -179,7 +184,10 @@ function getEnclosedPlaceTypes(place: PlaceInfoWrapper): string[] {
     );
     return [];
   } else {
-    if (enclosedPlaceTypes.length === 1 && _.isEmpty(place.value.enclosedPlaceType)) {
+    if (
+      enclosedPlaceTypes.length === 1 &&
+      _.isEmpty(place.value.enclosedPlaceType)
+    ) {
       place.setEnclosedPlaceType(enclosedPlaceTypes[0]);
     }
     return enclosedPlaceTypes;

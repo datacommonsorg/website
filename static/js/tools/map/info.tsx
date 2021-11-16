@@ -97,69 +97,37 @@ export function Info(): JSX.Element {
         </li>
         <li>
           <b>Median Age</b> across counties in{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=County"}>
             USA
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=geoId/06&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/06&ept=County"}>
             California
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=geoId/12&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/12&ept=County"}>
             Florida
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=geoId/36&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/36&ept=County"}>
             New York
           </a>
         </li>
         <li>
           <b>Median Income</b> across counties in{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=County"}>
             USA
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=geoId/36&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/36&ept=County"}>
             New York
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=geoId/48&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/48&ept=County"}>
             Texas
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=geoId/53&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/53&ept=County"}>
             Washington
           </a>
         </li>
@@ -200,44 +168,26 @@ export function Info(): JSX.Element {
         <li>
           <b>Unemployment Rate</b> across counties in{" "}
           <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=country/USA&ept=County"
-            }
+            href={"#&sv=UnemploymentRate_Person&pc=0&pd=country/USA&ept=County"}
           >
             USA
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/48&ept=County"
-            }
-          >
+          <a href={"#&sv=UnemploymentRate_Person&pc=0&pd=geoId/48&ept=County"}>
             Texas
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/06&ept=County"
-            }
-          >
+          <a href={"#&sv=UnemploymentRate_Person&pc=0&pd=geoId/06&ept=County"}>
             California
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/34&ept=County"
-            }
-          >
+          <a href={"#&sv=UnemploymentRate_Person&pc=0&pd=geoId/34&ept=County"}>
             New Jersey
           </a>
         </li>
         <li>
           <b>Distribution across states in the US</b> for{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=State"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=State"}>
             Median Age
           </a>
           ,{" "}
@@ -249,11 +199,7 @@ export function Info(): JSX.Element {
             No Schooling Completed
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=State"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=State"}>
             Median Income
           </a>
         </li>

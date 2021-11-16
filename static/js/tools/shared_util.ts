@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
+import {
+  EARTH_NAMED_TYPED_PLACE,
+  IPCC_PLACE_50_TYPE_DCID,
+} from "../shared/constants";
 import { TimeSeries } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
 import { NamedTypedPlace } from "./map/context";
@@ -191,4 +195,31 @@ export function isChildPlaceOf(
  */
 export function toTitleCase(str: string): string {
   return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
+}
+
+/**
+ * Given the dcid of a place, returns a promise with the rest of the place
+ * information
+ * @param placeDcid
+ */
+export function getNamedTypedPlace(
+  placeDcid: string
+): Promise<NamedTypedPlace> {
+  if (placeDcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    return Promise.resolve(EARTH_NAMED_TYPED_PLACE);
+  }
+  const placeTypePromise = axios
+    .get(`/api/place/type/${placeDcid}`)
+    .then((resp) => resp.data);
+  const placeNamePromise = axios
+    .get(`/api/place/name?dcid=${placeDcid}`)
+    .then((resp) => resp.data);
+  return Promise.all([placeTypePromise, placeNamePromise])
+    .then(([placeType, placeName]) => {
+      const name = placeDcid in placeName ? placeName[placeDcid] : placeDcid;
+      return { dcid: placeDcid, name, types: [placeType] };
+    })
+    .catch(() => {
+      return { dcid: placeDcid, name: "", types: [] };
+    });
 }
