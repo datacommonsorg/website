@@ -37,8 +37,9 @@ import {
 
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { Axis, AxisWrapper, Context, EmptyAxis } from "./context";
+import { AxisWrapper, Context } from "./context";
 
 // Number of enclosed places to sample when filtering the stat vars in the
 // stat var menu
@@ -120,7 +121,7 @@ function StatVarChooser(): JSX.Element {
           y.setStatVarInfo({});
         }
       });
-  }, [x.value.statVarDcid, y.value.statVarDcid]);
+  }, [x.value, y.value]);
 
   useEffect(() => {
     if (!_.isEmpty(samplePlaces) && !_.isEmpty(menuSelected)) {
@@ -174,6 +175,10 @@ function StatVarChooser(): JSX.Element {
   }
   return (
     <div className="explore-menu-container" id="explore">
+      <DrawerToggle
+        collapseElemId="explore"
+        visibleElemId="stat-var-hierarchy-section"
+      />
       <StatVarHierarchy
         type={StatVarHierarchyType.SCATTER}
         places={samplePlaces}
@@ -344,47 +349,22 @@ function confirmStatVars(
   setModalSelected: (modalSelected: ModalSelected) => void,
   setModalOpened: (open: boolean) => void
 ): void {
-  const values: Array<Axis> = [];
-  const axes = [x, y];
-  if (modalSelected.x) {
-    values.push(x.value);
-  } else {
-    values.push({
-      ...EmptyAxis,
-      statVarInfo: thirdStatVar.info,
-      statVarDcid: thirdStatVar.dcid,
-    });
-  }
   if (modalSelected.y) {
-    values.push(y.value);
-  } else {
-    values.push({
-      ...EmptyAxis,
+    x.set({
+      ...x.value,
+      statVarInfo: thirdStatVar.info,
+      statVarDcid: thirdStatVar.dcid,
+    });
+  } else if (modalSelected.x) {
+    y.set({
+      ...y.value,
       statVarInfo: thirdStatVar.info,
       statVarDcid: thirdStatVar.dcid,
     });
   }
-  assignAxes(axes, values);
-  assignAxes(axes, values);
   setThirdStatVar(emptyStatVar);
   setModalSelected(defaultModalSelected);
   setModalOpened(false);
-}
-
-/**
- * Assigns the first `Axis` in `values` to the first `AxisWrapper` in axes while
- * keeping the log and per capita options in the original `AxisWrapper`.
- * The `Axis` and `AxisWrapper` involved are removed from the arrays.
- * @param axes
- * @param values
- */
-function assignAxes(axes: Array<AxisWrapper>, values: Array<Axis>) {
-  const axis = axes.shift();
-  axis.set({
-    ...values.shift(),
-    log: axis.value.log,
-    perCapita: axis.value.perCapita,
-  });
 }
 
 export { StatVarChooser };

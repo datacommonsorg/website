@@ -48,7 +48,7 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes gross national income, using purchasing power parity on a per capita basis."
   },
   "Amount_Emissions_CarbonDioxide_PerCapita": {
-    "defaultMessage": "CO2 Emissions",
+    "defaultMessage": "Carbon Dioxide Emissions",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes amount of Carbon Dioxide emissions, per capita."
   },
   "Amount_Remittance_InwardRemittance": {
@@ -1083,13 +1083,37 @@
     "defaultMessage": "PM2.5",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean PM2.5 concentration."
   },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Ozone",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean ozone concentration."
+  },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Diesel PM",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the mean diesel PM concentration."
+  },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Carbon Dioxide (Large Facilities, Non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic carbon dioxide emissions including carbon dioxide emissions from the combustion of fossil fuels, from the use of sorbent, from some other non-combustion processes."
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methane (Large Facilities, Non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic methane emissions."
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Nitrous Oxide (Large Facilities, Non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the non-biogenic nitrous oxide emissions."
+  },
+  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
+    "defaultMessage": "Greenhouse Gas (Large Facilities, Non-biogenic)",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)."
+  },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Water Withdrawal Rate",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the daily water withdraw rate."
+  },
   "PalmerDroughtSeverityIndex_Atmosphere": {
     "defaultMessage": "PDSI",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the Palmer drought severity index."
-  },
-  "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Greenhouse Gas (Non-biogenic)",
-    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the annual emissions of greenhouse gas (non-biogenic)."
   },
   "AirPollutant_Cancer_Risk": {
     "defaultMessage": "Air Toxics Cancer Risk",

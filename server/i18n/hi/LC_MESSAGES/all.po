@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "%(cityName)s की जनसांख्यिकी (उम्र, लिंग, आय, शिक्षा वगैरह)"
-
-msgid "%(cityName)s Health"
-msgstr "%(cityName)s के लोगों के स्वास्थ्य की जानकारी"
-
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s एक ऐसा प्रोजेक्ट है जिसे Google से सहायता मिलती है"
 
@@ -19,8 +13,8 @@ msgstr "Data Commons के बारे में जानकारी"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "वॉशिंगटन काउंटी में ग्रेजुएशन की डिग्री या उससे आगे की शिक्षा को पाना"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "कैलिफ़ोर्निया काउंटी में, स्नातक डिग्री वाले लोग और प्रति व्यक्ति महिलाओं की संख्या के बीच तुलना"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "ब्लॉग"
@@ -42,15 +36,6 @@ msgstr "संयुक्त राज्य अमेरिका की क�
 
 msgid "Countries"
 msgstr "देश"
-
-msgid "Create Maps"
-msgstr "मैप बनाएं"
-
-msgid "Create Scatter Plots"
-msgstr "स्कैटर प्लॉट बनाएं"
-
-msgid "Create Timeline Charts"
-msgstr "टाइमलाइन चार्ट बनाएं"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -79,9 +64,6 @@ msgstr "देश, राज्य, काउंटी या शहर का �
 msgid "Explore"
 msgstr "एक्सप्लोर करें"
 
-msgid "Explore Places"
-msgstr "जगहों के बारे में और जानें"
-
 msgid "Explore the data"
 msgstr "डेटा को एक्सप्लोर करें"
 
@@ -91,8 +73,8 @@ msgstr "अक्सर पूछे जाने वाले सवाल"
 msgid "Feedback"
 msgstr "सुझाव/राय दें या शिकायत करें"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "अमेरिका के राज्यों में, विदेशियों और बेरोज़गारी दर के बीच तुलना"
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "अक्सर पूछे जाने वाले सवाल"
@@ -331,9 +313,6 @@ msgstr "नागरिकता का दर्जा"
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "नागरिकता के दर्जे के हिसाब से जनसंख्या का वितरण"
 
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "प्रति व्यक्ति CO2 उत्सर्जन"
-
 msgid "CHART_TITLE-Covid_cases"
 msgstr "COVID-19 के बढ़ते मामले"
 
@@ -495,6 +474,12 @@ msgstr "घरेलू कंपनियों का बाज़ार प�
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "घरेलू कंपनियों का बाज़ार पूंजीकरण (GDP का प्रतिशत)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -687,4 +672,19 @@ msgstr "कामकाजी व्यक्ति का औसत वेत�
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "कामकाजी बनाम गैर-कामकाजी लोगों की जनसंख्या"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 

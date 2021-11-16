@@ -18,24 +18,29 @@
  * Component to pick statvar for map.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { Context, StatVarWrapper } from "./context";
 import {
-  MAP_REDIRECT_PREFIX,
-  updateHashPlaceInfo,
-  updateHashStatVar,
+  Context,
+  DisplayOptionsWrapper,
+  PlaceInfoWrapper,
+  StatVarWrapper,
+} from "./context";
+import {
+  DEFAULT_DENOM,
+  DEFAULT_DISPLAY_OPTIONS,
+  getMapPointsPlaceType,
 } from "./util";
 
 const SAMPLE_SIZE = 3;
 
 export function StatVarChooser(): JSX.Element {
-  const { statVar, placeInfo } = useContext(Context);
+  const { statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState(
     _.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)
   );
@@ -55,45 +60,18 @@ export function StatVarChooser(): JSX.Element {
         });
     }
   }, [statVar.value]);
-  useEffect(() => {
-    if (!_.isEmpty(samplePlaces) && !_.isEmpty(statVar.value.dcid)) {
-      axios
-        .post("/api/place/stat-vars/union", {
-          dcids: samplePlaces.map((place) => place.dcid),
-          statVars: statVar.value.dcid,
-        })
-        .then((resp) => {
-          if (_.isEmpty(resp.data)) {
-            let hash = updateHashStatVar("", {
-              dcid: "",
-              info: {},
-              perCapita: false,
-              date: "",
-            });
-            hash = updateHashPlaceInfo(hash, placeInfo.value);
-            hash = encodeURIComponent(hash);
-            history.replaceState({}, "", `${MAP_REDIRECT_PREFIX}#${hash}`);
-            let statVarName = statVar.value.dcid;
-            if (statVar.value.info) {
-              statVarName = statVar.value.info.title || statVar.value.dcid;
-            }
-            alert(
-              `Sorry, the selected variable ${statVarName} ` +
-                "is not available for the chosen place."
-            );
-            statVar.setDcid("");
-          }
-        });
-    }
-  }, [samplePlaces]);
   return (
     <div className="explore-menu-container" id="explore">
+      <DrawerToggle
+        collapseElemId="explore"
+        visibleElemId="stat-var-hierarchy-section"
+      />
       <StatVarHierarchy
         type={StatVarHierarchyType.MAP}
         places={samplePlaces}
         selectedSVs={[statVar.value.dcid]}
         selectSV={(svDcid) => {
-          selectStatVar(statVar, svDcid);
+          selectStatVar(statVar, display, placeInfo, svDcid);
         }}
         searchLabel="Statistical Variables"
       />
@@ -101,6 +79,19 @@ export function StatVarChooser(): JSX.Element {
   );
 }
 
-function selectStatVar(statVar: StatVarWrapper, dcid: string): void {
-  statVar.setDcid(dcid);
+function selectStatVar(
+  statVar: StatVarWrapper,
+  displayOptions: DisplayOptionsWrapper,
+  placeInfo: PlaceInfoWrapper,
+  dcid: string
+): void {
+  displayOptions.set(DEFAULT_DISPLAY_OPTIONS);
+  placeInfo.setMapPointsPlaceType(getMapPointsPlaceType(dcid));
+  statVar.set({
+    date: "",
+    dcid,
+    denom: DEFAULT_DENOM,
+    info: null,
+    perCapita: false,
+  });
 }

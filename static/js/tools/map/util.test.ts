@@ -56,12 +56,14 @@ const TestContext = ({
       perCapita: false,
       info: null,
       date: "",
+      denom: "Count_Person",
     },
   },
   display: {
     value: {
-      domain: [0, 50, 100],
+      domain: [-10, 50, 100],
       color: "red",
+      showMapPoints: false,
     },
   },
 } as unknown) as ContextType;
@@ -76,14 +78,14 @@ test("updateHashPlaceInfo", () => {
 test("updateHashStatVarInfo", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashStatVar("", TestContext.statVar.value);
-  const expectedHash = "&sv=Count_Person&pc=0";
+  const expectedHash = "&sv=Count_Person&pc=0&denom=Count_Person";
   expect(resultHash).toEqual(expectedHash);
 });
 
 test("updateHashDisplay", () => {
   history.pushState = jest.fn();
   const resultHash = updateHashDisplay("", TestContext.display.value);
-  const expectedHash = "&color=red&domain=0-50-100";
+  const expectedHash = "&color=red&domain=-10:50:100";
   expect(resultHash).toEqual(expectedHash);
 });
 
@@ -108,7 +110,7 @@ test("applyHashStatVarInfo", () => {
   context.statVar.set = (value) => (context.statVar.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent(
-      "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DCounty"
+      "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DCounty"
     ).replace("#", "?")
   );
   const statVar = applyHashStatVar(urlParams);
@@ -119,7 +121,7 @@ test("applyHashDisplay", () => {
   const context = { statVar: {}, placeInfo: {}, display: {} } as ContextType;
   context.display.set = (value) => (context.display.value = value);
   const urlParams = new URLSearchParams(
-    decodeURIComponent("#%26domain%3D0%2D50%2D100%26color%3Dred").replace(
+    decodeURIComponent("%23%26domain%3D-10%3A50%3A100%26color%3Dred").replace(
       "#",
       "?"
     )

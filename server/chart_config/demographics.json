@@ -30,7 +30,10 @@
     "description": "Measurement of people per km²",
     "statsVars": ["Count_Person_PerArea"],
     "nonDividable": true,
-    "isOverview": true
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
   },
   {
     "category": "Demographics",

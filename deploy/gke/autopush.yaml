@@ -13,12 +13,12 @@
 # limitations under the License.
 
 project: datcom-website-autopush
-ip: 35.186.255.58
+ip: 34.117.132.33
 domain: autopush.datacommons.org
 region:
   primary: us-central1
   others:
     - europe-west2
-nodes: 1
+nodes: 3
 storage_project: datcom-store
 gcs_bucket: datcom-website-autopush-resources

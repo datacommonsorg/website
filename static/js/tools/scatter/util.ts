@@ -21,9 +21,8 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { MAX_DATE } from "../../shared/constants";
 import { StatVarNode } from "../../shared/stat_var";
-import { shouldCapStatVarDate } from "../../shared/util";
+import { getCappedStatVarDate } from "../../shared/util";
 import { PlacePointStat } from "../shared_util";
 import {
   Axis,
@@ -65,8 +64,9 @@ async function getStatsWithinPlace(
   const promises: Promise<Record<string, PlacePointStat>>[] = [];
   for (const statVar of statVars) {
     statVarParams = `&stat_vars=${statVar}`;
-    if (shouldCapStatVarDate(statVar)) {
-      statVarParams += `&date=${MAX_DATE}`;
+    const cappedDate = getCappedStatVarDate(statVar);
+    if (cappedDate) {
+      statVarParams += `&date=${cappedDate}`;
     }
     promises.push(
       axios.get(
@@ -116,6 +116,9 @@ function applyHash(context: ContextType): void {
   context.display.setChartType(chartType);
   context.display.setDensity(
     applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
+  context.display.setRegression(
+    applyHashBoolean(params, FieldToAbbreviation.showRegression)
   );
 }
 
@@ -299,6 +302,9 @@ function updateHashDisplayOptions(
 
   val = display.chartType === ScatterChartType.SCATTER ? "0" : "1";
   hash = appendEntry(hash, FieldToAbbreviation.chartType, val);
+
+  val = display.showRegression ? "1" : "0";
+  hash = appendEntry(hash, FieldToAbbreviation.showRegression, val);
 
   return hash;
 }

@@ -16,7 +16,6 @@ from flask_testing import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from main import app
-from os import environ
 
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200

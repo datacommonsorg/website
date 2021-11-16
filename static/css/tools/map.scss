@@ -113,13 +113,21 @@
 }
 
 .sources {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  color: var(--dc-gray);
+}
+
+.sources a {
+  color: var(--dc-gray);
+  text-decoration: underline;
 }
 
 .explore-timeline-link {
+  color: inherit;
   cursor: pointer;
-  font-weight: $headings-font-weight;
   display: flex;
+  font-weight: $headings-font-weight;
+  text-decoration: none !important;
 }
 
 .place-details,
@@ -252,8 +260,8 @@
 }
 
 .dot {
-  r: 4;
   stroke: var(--dc-gray-lite);
+  stroke-width: 0.05rem;
 }
 
 .dot:hover {
@@ -261,11 +269,15 @@
   stroke: black;
 }
 
-.per-capita-option {
+.chart-options {
   font-size: 0.8rem;
   padding-top: 0.5rem;
 }
 
-.per-capita-option .form-check-input {
+.chart-options .form-check-input {
   margin-top: 0.15rem;
+}
+
+.denom-input {
+  margin-left: 0.3rem;
 }

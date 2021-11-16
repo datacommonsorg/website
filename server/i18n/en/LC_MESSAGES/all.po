@@ -1,13 +1,3 @@
-#. Link to a Place page showing data related to Demographics for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "Washington, DC Demographics" at https://datacommons.org
-#, python-format
-msgid "%(cityName)s Demographics"
-msgstr ""
-
-#. Link to a Place page showing data related to Health for a place { cityName }. Please keep the string `%(cityName)s` as is in the final translation. Please see this string in action as "New York City Health" at https://datacommons.org
-#, python-format
-msgid "%(cityName)s Health"
-msgstr ""
-
 #. The label for a link to project homepage.
 #, python-format
 msgid "%(project)s is a Google supported project"
@@ -29,14 +19,13 @@ msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr ""
 
 #. Link to a scatter plot comparing bachelor degree attained vs females per capita across counties in California. Please see this string in action at https://datacommons.org
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
 msgstr ""
 
 #. The label for a link to the project's blog.
 msgid "Blog"
 msgstr "Blog"
 
-#. Header for a set of links to the Data Commons Graph Browser product. Each page in the graph describes an entity (or node). Please see this string in action at https://datacommons.org
 #, python-format
 msgid "Browse entities in the %(project)s Graph"
 msgstr ""
@@ -60,18 +49,6 @@ msgstr "Counties, United States"
 #. Heading for a list of countries.
 msgid "Countries"
 msgstr "Countries"
-
-#. Header for a set of links to the Data Commons Map Explorer tool, where users are able to create maps on many topics. Please see this string in action at https://datacommons.org
-msgid "Create Maps"
-msgstr ""
-
-#. Header for a set of links to the Data Commons Scatter Plot Explorer tool, where users are able to create scatter plots on many topics. Please see this string in action at https://datacommons.org
-msgid "Create Scatter Plots"
-msgstr ""
-
-#. Header for a list of links to the Timeline Explorer tool, where users are able to create timeline charts on many topics. Please see this string in action at https://datacommons.org
-msgid "Create Timeline Charts"
-msgstr ""
 
 #. The label for a link to informational pages about the Data Commons project.
 msgid "Data Commons"
@@ -110,10 +87,6 @@ msgstr "Enter a country, state, county or city"
 msgid "Explore"
 msgstr "Explore"
 
-#. Header for a list of links to the Place Explorer product. Please see this string in action at https://datacommons.org
-msgid "Explore Places"
-msgstr ""
-
 #. Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org
 msgid "Explore the data"
 msgstr ""
@@ -126,7 +99,7 @@ msgid "Feedback"
 msgstr "Feedback"
 
 #. Link to a scatter plot comparing foreign born vs unemployment rate across states in the US. Please see this string in action at https://datacommons.org
-msgid "Foreign Born vs Unemployment Rate for US States"
+msgid "Foreign Born vs. Unemployment Rate for US States"
 msgstr ""
 
 #. The label for a link to project FAQ page.
@@ -205,7 +178,6 @@ msgstr "Life Expectancy"
 msgid "Loading..."
 msgstr "Loading..."
 
-#. String showing that there are many more links available. Feel free to replace ellipsis with other language appropriate equivalents. Will always be preceded by a comma. Please see this string in action at https://datacommons.org
 msgid "MORE"
 msgstr "more ..."
 
@@ -352,7 +324,7 @@ msgstr "Air quality index"
 msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "Alcohol consumption per capita (annual)"
 
-#. Title of a place chart: Measures the total annual greenhouse gas emissions (non-biogenic) from large facilities
+#. Title of a place chart: Measures the total annual greenhouse gas emissions (large facilities, non-biogenic)
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
 msgstr "Annual greenhouse gas emissions"
 
@@ -443,10 +415,6 @@ msgstr "Citizenship status"
 #. Title of a place chart: Percentage of population, broken down by citizenship status
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Distribution of population by citizenship status"
-
-#. Title of a place chart: Total amount of carbon dioxied emissions per person
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "CO2 emissions per capita"
 
 #. Title of a place chart: Cumulative count of COVID-19 cases
 msgid "CHART_TITLE-Covid_cases"
@@ -663,6 +631,14 @@ msgstr "Market capitalization of domestic companies"
 #. Title of a place chart: Market capitalization of domestic companies (as a percentage of GDP)
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Market capitalization of domestic companies (% of GDP)"
+
+#. Title of a place chart: Annual mean Diesel PM concentration in air measured from EPA NATA
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+#. Title of a place chart: Used to quantify air quality with measures of concentrations of ozone in air
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 #. Title of a place chart: Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
@@ -920,9 +896,53 @@ msgstr "Worker wages (monthly): urban vs rural"
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Worker vs nonworker population"
 
-#~ msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-#~ msgstr "Environment"
+#. Title of a place chart: Annual amount of carbon dioxide emissions (large facilities, non-biogenic)
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
 
-#~ msgid "CHART_TITLE-Disasters"
-#~ msgstr "Disasters"
+#. Title of a place chart: Total amount of carbon dioxide emissions per person
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+#. Title of a place chart: Annual amount of methane emissions (large facilities, non-biogenic)
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+#. Title of a place chart: Annual amount of nitrous oxide emissions (large facilities, non-biogenic)
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (non-biogenic)"
+
+#. Title of a place chart: Water withdrawal rate
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
+
+#~ msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
+#~ msgstr "Nitrous oxide emissions (non-biogenic)"
+
+#~ msgid "CHART_TITLE-Water withdrawal rate per capita"
+#~ msgstr "Water withdrawal rate per capita"
+
+#~ msgid "%(cityName)s Demographics"
+#~ msgstr ""
+
+#~ msgid "%(cityName)s Health"
+#~ msgstr ""
+
+#~ msgid "Bachelor Degree Attained vs Females per capita for California Counties"
+#~ msgstr ""
+
+#~ msgid "Create Maps"
+#~ msgstr ""
+
+#~ msgid "Create Scatter Plots"
+#~ msgstr ""
+
+#~ msgid "Create Timeline Charts"
+#~ msgstr ""
+
+#~ msgid "Explore Places"
+#~ msgstr ""
+
+#~ msgid "Foreign Born vs Unemployment Rate for US States"
+#~ msgstr ""
 

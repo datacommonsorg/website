@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { isDateTooFar, shouldCapStatVarDate } from "./util";
+import { MAX_DATE, MAX_YEAR } from "./constants";
+import { getCappedStatVarDate, isDateTooFar } from "./util";
 
 test("isDateTooFar", () => {
   const data = {
@@ -28,13 +29,14 @@ test("isDateTooFar", () => {
   }
 });
 
-test("shouldCapStatVarDate", () => {
+test("getCappedStatVarDate", () => {
   const data = {
-    Count_Person: false,
-    DifferenceRelativeToBaseDate2006_PrecipitationRate_RCP26: true,
-    PrecipitationRate: false,
+    Count_Person: "",
+    DifferenceRelativeToBaseDate2006_PrecipitationRate_RCP26: MAX_DATE,
+    NumberOfMonths_WetBulbTemperature_35COrMore_RCP85: MAX_YEAR,
+    PrecipitationRate: "",
   };
   for (const date in data) {
-    expect(shouldCapStatVarDate(date)).toEqual(data[date]);
+    expect(getCappedStatVarDate(date)).toEqual(data[date]);
   }
 });

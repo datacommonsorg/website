@@ -23,21 +23,30 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { GeoJsonData, MapPoint } from "../../chart/types";
-import { MAX_DATE } from "../../shared/constants";
+import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
+import {
+  EUROPE_NAMED_TYPED_PLACE,
+  IPCC_PLACE_50_TYPE_DCID,
+} from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
-import { shouldCapStatVarDate } from "../../shared/util";
+import { getCappedStatVarDate } from "../../shared/util";
 import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";
+import { ENCLOSED_PLACE_TYPE_NAMES } from "./util";
+
+const MANUAL_GEOJSON_DISTANCES = {
+  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+};
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
   statVarData: PlacePointStat;
   populationData: StatApiResponse;
   mapPointValues: PlacePointStat;
-  mapPoints: Array<MapPoint>;
+  mapPointsPromise: Promise<Array<MapPoint>>;
+  europeanCountries: Array<string>;
 }
 
 export interface DataPointMetadata {
@@ -56,7 +65,8 @@ interface ChartData {
   geoJsonData: GeoJsonData;
   unit: string;
   mapPointValues: { [dcid: string]: number };
-  mapPoints: Array<MapPoint>;
+  mapPointsPromise: Promise<Array<MapPoint>>;
+  europeanCountries: Array<string>;
 }
 
 export function ChartLoader(): JSX.Element {
@@ -77,7 +87,12 @@ export function ChartLoader(): JSX.Element {
     } else {
       setRawData(undefined);
     }
-  }, [placeInfo.value.enclosedPlaces, statVar.value.dcid, statVar.value.info]);
+  }, [
+    placeInfo.value.enclosedPlaces,
+    statVar.value.dcid,
+    statVar.value.info,
+    statVar.value.denom,
+  ]);
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
       loadChartData(
@@ -88,12 +103,25 @@ export function ChartLoader(): JSX.Element {
       );
     }
   }, [rawData, statVar.value.perCapita]);
-  if (
+  if (chartData === undefined) {
+    return null;
+  } else if (
     _.isEmpty(chartData) ||
     _.isEmpty(chartData.mapValues) ||
     _.isEmpty(chartData.geoJsonData)
   ) {
-    return null;
+    return (
+      <div className="p-5">
+        {`Sorry, the selected variable ${
+          statVar.value.info.title || statVar.value.dcid
+        } is not available for places in ${
+          placeInfo.value.selectedPlace.name
+        } of type ${
+          ENCLOSED_PLACE_TYPE_NAMES[placeInfo.value.enclosedPlaceType] ||
+          placeInfo.value.enclosedPlaceType
+        }. Please try a different variable or different place options.`}
+      </div>
+    );
   }
   return (
     <div className="chart-region">
@@ -108,8 +136,9 @@ export function ChartLoader(): JSX.Element {
         sources={chartData.sources}
         unit={chartData.unit}
         mapPointValues={chartData.mapPointValues}
-        mapPoints={chartData.mapPoints}
-        display={display.value}
+        display={display}
+        mapPointsPromise={chartData.mapPointsPromise}
+        europeanCountries={chartData.europeanCountries}
       />
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbDataValues}
@@ -119,9 +148,57 @@ export function ChartLoader(): JSX.Element {
         unit={chartData.unit}
         statVar={statVar.value}
         geoJsonFeatures={chartData.geoJsonData.features}
+        displayOptions={display.value}
+        europeanCountries={chartData.europeanCountries}
       />
     </div>
   );
+}
+
+function getGeoJsonDataFeatures(
+  placeDcids: string[],
+  enclosedPlaceType: string
+): GeoJsonFeature[] {
+  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
+  if (!distance) {
+    return [];
+  }
+  const geoJsonFeatures = [];
+  for (const placeDcid of placeDcids) {
+    const dcidPrefixSuffix = placeDcid.split("/");
+    if (dcidPrefixSuffix.length < 2) {
+      continue;
+    }
+    const latlon = dcidPrefixSuffix[1].split("_");
+    if (latlon.length < 2) {
+      continue;
+    }
+    const neLat = Number(latlon[0]) + distance / 2;
+    const neLon = Number(latlon[1]) + distance / 2;
+    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} arc degree)`;
+    // TODO: handle cases of overflowing 180 near the international date line
+    // becasuse not sure if drawing libraries can handle this
+    geoJsonFeatures.push({
+      geometry: {
+        type: "MultiPolygon",
+        coordinates: [
+          [
+            [
+              [neLon, neLat],
+              [neLon, neLat - distance],
+              [neLon - distance, neLat - distance],
+              [neLon - distance, neLat],
+              [neLon, neLat],
+            ],
+          ],
+        ],
+      },
+      id: placeDcid,
+      properties: { geoDcid: placeDcid, name: placeName },
+      type: "Feature",
+    });
+  }
+  return geoJsonFeatures;
 }
 
 // Fetches the data needed for the charts.
@@ -135,19 +212,23 @@ function fetchData(
   if (!statVar.dcid) {
     return;
   }
-  const populationStatVar = "Count_Person";
   const breadcrumbPlaceDcids = placeInfo.parentPlaces.map(
     (namedPlace) => namedPlace.dcid
   );
   breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
-  const enclosedPlaceDcids = placeInfo.enclosedPlaces.map(
-    (namedPlace) => namedPlace.dcid
-  );
-  const populationPromise: Promise<StatApiResponse> = axios
+  const breadcrumbPopPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
-      statVars: [populationStatVar],
-      places: enclosedPlaceDcids.concat(breadcrumbPlaceDcids),
+      statVars: [statVar.denom],
+      places: breadcrumbPlaceDcids,
     })
+    .then((resp) => resp.data);
+  const enclosedPlacesPopPromise: Promise<StatApiResponse> = axios
+    .get(
+      "/api/stats/set/series/within-place" +
+        `?parent_place=${placeInfo.enclosingPlace.dcid}` +
+        `&child_type=${placeInfo.enclosedPlaceType}` +
+        `&stat_vars=${statVar.denom}`
+    )
     .then((resp) => resp.data);
   const geoJsonPromise = axios
     .get(
@@ -155,14 +236,16 @@ function fetchData(
     )
     .then((resp) => resp.data);
 
-  let dataDateParam = "";
+  let dataDate = "";
+  const cappedDate = getCappedStatVarDate(statVar.dcid);
   // If there is a specified date, get the data for that date. If no specified
   // date, still need to cut data for prediction data that extends to 2099
   if (statVar.date) {
-    dataDateParam = `&date=${statVar.date}`;
-  } else if (shouldCapStatVarDate(statVar.dcid)) {
-    dataDateParam = `&date=${MAX_DATE}`;
+    dataDate = statVar.date;
+  } else if (cappedDate) {
+    dataDate = cappedDate;
   }
+  const dataDateParam = dataDate ? `&date=${dataDate}` : "";
   const statVarDataUrl = `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}${dataDateParam}`;
   const statVarDataPromise: Promise<PlacePointStat> = axios
     .get(statVarDataUrl)
@@ -171,7 +254,7 @@ function fetchData(
     .post("/api/stats/set", {
       places: breadcrumbPlaceDcids,
       stat_vars: [statVar.dcid],
-      date: statVar.date ? statVar.date : "",
+      date: dataDate,
     })
     .then((resp) => (resp.data.data ? resp.data.data[statVar.dcid] : null));
   const mapPointValuesPromise: Promise<PlacePointStat> = placeInfo.mapPointsPlaceType
@@ -190,22 +273,29 @@ function fetchData(
         )
         .then((resp) => resp.data)
     : Promise.resolve({});
+  const europeanCountriesPromise: Promise<Array<string>> = axios
+    .get(
+      `/api/place/places-in?dcid=${EUROPE_NAMED_TYPED_PLACE.dcid}&placeType=Country`
+    )
+    .then((resp) => resp.data[EUROPE_NAMED_TYPED_PLACE.dcid]);
   Promise.all([
-    populationPromise,
+    breadcrumbPopPromise,
+    enclosedPlacesPopPromise,
     geoJsonPromise,
     statVarDataPromise,
     breadcrumbDataPromise,
     mapPointValuesPromise,
-    mapPointsPromise,
+    europeanCountriesPromise,
   ])
     .then(
       ([
-        populationData,
+        breadcrumbPopData,
+        enclosedPlacesPopData,
         geoJsonData,
         mapStatVarData,
         breadcrumbData,
         mapPointValues,
-        mapPoints,
+        europeanCountries,
       ]) => {
         let statVarDataMetadata =
           mapStatVarData && mapStatVarData.metadata
@@ -224,13 +314,28 @@ function fetchData(
           metadata: statVarDataMetadata,
           stat: statVarDataStat,
         };
+        if (
+          _.isEmpty(geoJsonData.features) &&
+          placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
+        ) {
+          const geoJsonFeatures = getGeoJsonDataFeatures(
+            Object.keys(mapStatVarData.stat),
+            placeInfo.enclosedPlaceType
+          );
+          geoJsonData = {
+            type: "FeatureCollection",
+            properties: { current_geo: placeInfo.enclosingPlace.dcid },
+            features: geoJsonFeatures,
+          };
+        }
         isLoading.setIsDataLoading(false);
         setRawData({
           geoJsonData,
           mapPointValues,
-          mapPoints,
-          populationData,
+          populationData: { ...enclosedPlacesPopData, ...breadcrumbPopData },
           statVarData,
+          mapPointsPromise,
+          europeanCountries,
         });
       }
     )
@@ -261,12 +366,18 @@ function getPlaceChartData(
   const statVarDate = statVarData.stat[placeDcid].date;
   const importName = statVarData.stat[placeDcid].metadata.importName;
   const statVarSource = statVarData.metadata[importName].provenanceUrl;
-  let value = statVarData.stat[placeDcid].value;
+  let value =
+    statVarData.stat[placeDcid].value === undefined
+      ? 0
+      : statVarData.stat[placeDcid].value;
   let popDate = "";
   let popSource = "";
   if (isPerCapita) {
-    if (placeDcid in populationData) {
-      const popSeries = Object.values(populationData[placeDcid].data)[0];
+    const popSeries =
+      placeDcid in populationData
+        ? Object.values(populationData[placeDcid].data)[0]
+        : {};
+    if (!_.isEmpty(popSeries)) {
       popDate = getPopulationDate(popSeries, statVarData.stat[placeDcid]);
       const popValue = popSeries.val[popDate];
       popSource = popSeries.metadata.provenanceUrl;
@@ -278,19 +389,19 @@ function getPlaceChartData(
           statVarSource,
           errorMessage: "Invalid Data",
         };
-        return;
+        return { metadata, sources, date: statVarDate, value };
       }
       value = value / popValue;
       sources.push(popSource);
     } else {
-      metadata[placeDcid] = {
+      metadata = {
         popDate,
         popSource,
         statVarDate,
         statVarSource,
         errorMessage: "Population Data Missing",
       };
-      return;
+      return { metadata, sources, date: statVarDate, value };
     }
   }
   metadata = {
@@ -394,11 +505,12 @@ function loadChartData(
     breadcrumbDataValues,
     dates: statVarDates,
     geoJsonData: rawData.geoJsonData,
-    mapPoints: rawData.mapPoints,
+    mapPointsPromise: rawData.mapPointsPromise,
     mapPointValues,
     mapValues,
     metadata,
     sources: sourceSet,
     unit,
+    europeanCountries: rawData.europeanCountries,
   });
 }

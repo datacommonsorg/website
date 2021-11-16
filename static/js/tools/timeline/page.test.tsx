@@ -188,7 +188,7 @@ test("chart options", () => {
             wrapper.update();
             // remove the statVar
             wrapper
-              .find("#hierarchy-section input")
+              .find("#hierarchy-section input[checked=true]")
               .at(0)
               .simulate("change", { target: { checked: false } });
             Promise.resolve(wrapper)

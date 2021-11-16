@@ -64,6 +64,8 @@ changes dependent on mixer changes).
 
 ### Install web browser and webdriver
 
+:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is compatible with your **local Google Chrome version**.
+
 Before running the tests, install the browser and webdriver. Here we recommend
 you use Google Chrome browser and ChromeDriver.
 
@@ -76,6 +78,10 @@ you use Google Chrome browser and ChromeDriver.
   ```bash
   npm install chromedriver
   ```
+
+You can view the latest ChromeDriver version
+[here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Also make
+sure PATH is updated with ChromeDriver location.
 
 If using Linux system, you can run the following commands to download Chrome
 browser and ChromeDriver, this will also include the path setup:
@@ -91,11 +97,6 @@ sudo mv chromedriver /usr/bin/chromedriver
 sudo chown root:root /usr/bin/chromedriver
 sudo chmod +x /usr/bin/chromedriver
 ```
-
-Note: Make sure that your ChromeDriver version is compatible with your local
-Google Chrome version. You can change view the lastet ChromeDriver version
-[here](https://chromedriver.storage.googleapis.com/LATEST_RELEASE). Also make
-sure PATH is updated with ChromeDriver location.
 
 ### Run all tests
 
@@ -172,10 +173,10 @@ website changes.
 This takes a few minutes to complete, as it involves building several docker
 images. If only website code is changed, can use the [alternative approach](<##-Develop-with-Flask-(simple/lite)>).
 
-**NOTE** Make sure the local Docker engine has more than 5G of memory.
+**NOTE** Make sure the local Docker engine has more than 12G of memory.
 
 ```bash
-minikube start --memory=5G
+minikube start --memory=11G
 minikube addons enable gcp-auth
 eval $(minikube docker-env)
 kubectl config use-context minikube
@@ -220,6 +221,14 @@ View the deployoment at [link](https://dev.datacommons.org)
 ### GKE config
 
 The GKE configuration is stored [here](deploy/gke/prod.yaml).
+
+### Private Instance
+
+Create a pub/sub topic for mixer to listen to data change.
+
+```bash
+gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
+```
 
 ### placeid2dcid.json
 

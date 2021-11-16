@@ -23,34 +23,18 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
-import {
-  EARTH_NAMED_TYPED_PLACE,
-  INDIA_PLACE_DCID,
-  USA_PLACE_DCID,
-} from "../../shared/constants";
-import { isChildPlaceOf } from "../shared_util";
+import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { loadParentPlaces } from "../../shared/util";
 import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
-import {
-  CHILD_PLACE_TYPES,
-  getAllChildPlaceTypes,
-  INDIA_PLACE_TYPES,
-} from "./util";
-
-const DEFAULT_ENCLOSED_PLACE_TYPES = ["Country"];
+import { ENCLOSED_PLACE_TYPE_NAMES, getAllChildPlaceTypes } from "./util";
 
 export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);
-  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState(
-    DEFAULT_ENCLOSED_PLACE_TYPES
-  );
+  const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState([]);
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
-      if (placeInfo.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-        setEnclosedPlaceTypes(DEFAULT_ENCLOSED_PLACE_TYPES);
-      } else {
-        updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
-      }
+      updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
     }
   }, [placeInfo.value.selectedPlace]);
   const placeInfoDeps = [
@@ -62,7 +46,10 @@ export function PlaceOptions(): JSX.Element {
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
       if (_.isNull(placeInfo.value.parentPlaces)) {
-        loadParentPlaces(placeInfo);
+        loadParentPlaces(
+          placeInfo.value.selectedPlace.dcid,
+          placeInfo.setParentPlaces
+        );
       }
       if (
         placeInfo.value.enclosedPlaceType &&
@@ -82,7 +69,7 @@ export function PlaceOptions(): JSX.Element {
   }, placeInfoDeps);
   return (
     <Card className="place-options-card">
-      <Container className="place-options">
+      <Container className="place-options" fluid={true}>
         <div className="place-options-section" id="place-search-section">
           <div className="place-options-label">Plot places in</div>
           <div id="search">
@@ -100,8 +87,10 @@ export function PlaceOptions(): JSX.Element {
                 unselectPlace(placeInfo, setEnclosedPlaceTypes)
               }
               numPlacesLimit={1}
-              countryRestrictions={["us", "ind"]}
               customPlaceHolder={"Enter a country or state to get started"}
+              // Don't apply country restrictions and rely on alerts for
+              // unsupported places since the API only allows 5 countries in the
+              // restrictions list.
             />
           </div>
         </div>
@@ -118,7 +107,7 @@ export function PlaceOptions(): JSX.Element {
               <option value="">Select a place type</option>
               {enclosedPlaceTypes.map((type) => (
                 <option value={type} key={type}>
-                  {type}
+                  {ENCLOSED_PLACE_TYPE_NAMES[type] || type}
                 </option>
               ))}
             </CustomInput>
@@ -134,15 +123,7 @@ function selectEnclosedPlaceType(
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   const placeType = event.target.value;
-  if (placeType == "Country") {
-    placeInfo.set({
-      ...placeInfo.value,
-      enclosedPlaceType: placeType,
-      selectedPlace: EARTH_NAMED_TYPED_PLACE,
-    });
-  } else {
-    placeInfo.setEnclosedPlaceType(event.target.value);
-  }
+  placeInfo.setEnclosedPlaceType(placeType);
 }
 
 /**
@@ -151,6 +132,10 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectPlace(place: PlaceInfoWrapper, dcid: string): void {
+  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    place.setSelectedPlace(EARTH_NAMED_TYPED_PLACE);
+    return;
+  }
   const placeTypePromise = axios
     .get(`/api/place/type/${dcid}`)
     .then((resp) => resp.data);
@@ -176,7 +161,7 @@ function unselectPlace(
   setEnclosedPlaceTypes: (placeTypes: string[]) => void
 ): void {
   place.setSelectedPlace({ dcid: "", name: "", types: [] });
-  setEnclosedPlaceTypes(DEFAULT_ENCLOSED_PLACE_TYPES);
+  setEnclosedPlaceTypes([]);
 }
 
 function updateEnclosedPlaceTypes(
@@ -191,39 +176,24 @@ function updateEnclosedPlaceTypes(
     .then((resp) => resp.data);
   Promise.all([parentPlacePromise, placeTypePromise])
     .then(([parents, placeType]) => {
-      const isUSPlace = isChildPlaceOf(
-        place.value.selectedPlace.dcid,
-        USA_PLACE_DCID,
-        parents
-      );
-      const isIndPlace = isChildPlaceOf(
-        place.value.selectedPlace.dcid,
-        INDIA_PLACE_DCID,
-        parents
-      );
-      let hasEnclosedPlaceTypes = false;
-      if (isUSPlace || isIndPlace) {
-        if (placeType in CHILD_PLACE_TYPES) {
-          hasEnclosedPlaceTypes = true;
-          let enclosedPlacetypes = CHILD_PLACE_TYPES[placeType];
-          if (isIndPlace) {
-            const uniqueEnclosedPlaceTypes = new Set();
-            enclosedPlacetypes.forEach((type) => {
-              if (type in INDIA_PLACE_TYPES) {
-                uniqueEnclosedPlaceTypes.add(INDIA_PLACE_TYPES[type]);
-              }
-            });
-            enclosedPlacetypes = Array.from(uniqueEnclosedPlaceTypes);
-          }
-          if (enclosedPlacetypes.length === 1) {
-            place.setEnclosedPlaceType(enclosedPlacetypes[0]);
-          }
-          setEnclosedPlaceTypes(enclosedPlacetypes);
-        }
+      // TODO: manage state better here to avoid duplicate calls.
+      // TODO: move Earth info to Flask (or update KG) to keep things consistent
+      const selectedPlace =
+        place.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid
+          ? EARTH_NAMED_TYPED_PLACE
+          : {
+              dcid: place.value.selectedPlace.dcid,
+              name: place.value.selectedPlace.name,
+              types: [placeType],
+            };
+      const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parents);
+      if (enclosedPlaceTypes.length === 1) {
+        place.setEnclosedPlaceType(enclosedPlaceTypes[0]);
       }
-      if (!hasEnclosedPlaceTypes) {
+      setEnclosedPlaceTypes(enclosedPlaceTypes);
+      if (_.isEmpty(enclosedPlaceTypes)) {
         alert(
-          `Sorry, we don't support maps for ${place.value.selectedPlace.name}.` +
+          `Sorry, we don't support maps for ${place.value.selectedPlace.name}. ` +
             "Please select a different place."
         );
         setEnclosedPlaceTypes([]);
@@ -238,14 +208,13 @@ function loadEnclosingPlace(place: PlaceInfoWrapper): void {
   const selectedPlace = place.value.selectedPlace;
   if (selectedPlace.types.indexOf(place.value.enclosedPlaceType) > -1) {
     for (const parent of place.value.parentPlaces) {
-      for (const type of parent.types) {
-        if (
-          getAllChildPlaceTypes(type).indexOf(place.value.enclosedPlaceType) >
-          -1
-        ) {
-          place.setEnclosingPlace({ dcid: parent.dcid, name: parent.name });
-          return;
-        }
+      if (
+        getAllChildPlaceTypes(parent, place.value.parentPlaces).indexOf(
+          place.value.enclosedPlaceType
+        ) > -1
+      ) {
+        place.setEnclosingPlace({ dcid: parent.dcid, name: parent.name });
+        return;
       }
     }
   }
@@ -253,32 +222,6 @@ function loadEnclosingPlace(place: PlaceInfoWrapper): void {
     dcid: selectedPlace.dcid,
     name: selectedPlace.name,
   });
-}
-
-function loadParentPlaces(place: PlaceInfoWrapper): void {
-  const placeDcid = place.value.selectedPlace.dcid;
-  axios
-    .get(`/api/place/parent/${placeDcid}`)
-    .then((resp) => {
-      const parentsData = resp.data;
-      const possibleTypes = Object.keys(CHILD_PLACE_TYPES);
-      const filteredParentsData = parentsData.filter((parent) => {
-        for (const type of parent.types) {
-          if (possibleTypes.includes(type)) {
-            return true;
-          }
-        }
-        return false;
-      });
-      const parentPlaces = filteredParentsData.map((parent) => {
-        return { dcid: parent.dcid, name: parent.name, types: parent.types };
-      });
-      if (placeDcid !== EARTH_NAMED_TYPED_PLACE.dcid) {
-        parentPlaces.push(EARTH_NAMED_TYPED_PLACE);
-      }
-      place.setParentPlaces(parentPlaces);
-    })
-    .catch(() => place.setParentPlaces([]));
 }
 
 function loadEnclosedPlaces(

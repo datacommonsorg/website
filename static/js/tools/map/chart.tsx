@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import {
@@ -35,16 +35,25 @@ import {
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import {
-  EARTH_NAMED_TYPED_PLACE,
-  INDIA_PLACE_DCID,
+  EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
-import { urlToDomain } from "../../shared/util";
+import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { DataPointMetadata } from "./chart_loader";
-import { DisplayOptions, PlaceInfo, StatVar, StatVarWrapper } from "./context";
-import { CHILD_PLACE_TYPES, getRedirectLink } from "./util";
+import {
+  DisplayOptions,
+  DisplayOptionsWrapper,
+  PlaceInfo,
+  StatVar,
+  StatVarWrapper,
+} from "./context";
+import {
+  getAllChildPlaceTypes,
+  getParentPlaces,
+  getRedirectLink,
+} from "./util";
 
 interface ChartProps {
   geoJsonData: GeoJsonData;
@@ -57,11 +66,12 @@ interface ChartProps {
   sources: Set<string>;
   unit: string;
   mapPointValues: { [dcid: string]: number };
-  mapPoints: Array<MapPoint>;
-  display: DisplayOptions;
+  mapPointsPromise: Promise<Array<MapPoint>>;
+  display: DisplayOptionsWrapper;
+  europeanCountries: Array<string>;
 }
 
-const MAP_CONTAINER_ID = "choropleth-map";
+export const MAP_CONTAINER_ID = "choropleth-map";
 const LEGEND_CONTAINER_ID = "choropleth-legend";
 const CHART_CONTAINER_ID = "chart-container";
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
@@ -71,10 +81,13 @@ const LEGEND_HEIGHT_SCALING = 0.6;
 const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 const NO_PER_CAPITA_TYPES = ["medianValue"];
-
+const SECTION_CONTAINER_ID = "map-chart";
+const DEBOUNCE_INTERVAL_MS = 30;
+const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
+  const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
   const title = getTitle(
     Array.from(props.dates),
     statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid
@@ -82,37 +95,66 @@ export function Chart(props: ChartProps): JSX.Element {
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVarInfo.dcid;
-  const [chartWidth, setChartWidth] = useState(0);
+  const [mapPoints, setMapPoints] = useState(null);
+  const [mapPointsFetched, setMapPointsFetched] = useState(false);
+  const [zoomTransformation, setZoomTransformation] = useState(
+    DEFAULT_ZOOM_TRANSFORMATION
+  );
+  const chartContainerRef = useRef<HTMLDivElement>();
+
+  // load mapPoints in the background.
   useEffect(() => {
+    props.mapPointsPromise
+      .then((mapPoints) => {
+        setMapPoints(mapPoints);
+        setMapPointsFetched(true);
+      })
+      .catch(() => setMapPointsFetched(true));
+  }, []);
+
+  function replot() {
     draw(
       props,
       setErrorMessage,
-      true,
-      props.display.color,
-      props.display.domain
+      mapPoints,
+      zoomTransformation,
+      setZoomTransformation,
+      props.display.value.color,
+      props.display.value.domain
     );
-  }, [props]);
+  }
+
+  // Replot when data changes.
   useEffect(() => {
-    function _handleWindowResize() {
-      const chartContainer = document.getElementById(CHART_CONTAINER_ID);
-      if (chartContainer) {
-        const width = chartContainer.offsetWidth;
-        if (width !== chartWidth) {
-          setChartWidth(width);
-          draw(props, setErrorMessage, false),
-            props.display.color,
-            props.display.domain;
-        }
-      }
+    if (props.display.value.showMapPoints && !mapPointsFetched) {
+      loadSpinner(SECTION_CONTAINER_ID);
+      return;
+    } else {
+      removeSpinner(SECTION_CONTAINER_ID);
     }
-    window.addEventListener("resize", _handleWindowResize);
+    replot();
+  }, [props, mapPointsFetched]);
+
+  // Replot when chart width changes on sv widget toggle.
+  useEffect(() => {
+    const debouncedHandler = _.debounce(() => {
+      if (!props.display.value.showMapPoints || mapPointsFetched) {
+        replot();
+      }
+    }, DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    if (chartContainerRef.current) {
+      resizeObserver.observe(chartContainerRef.current);
+    }
     return () => {
-      window.removeEventListener("resize", _handleWindowResize);
+      resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
     };
-  }, [props]);
+  }, [props, chartContainerRef]);
+
   return (
     <Card className="chart-section-card">
-      <Container>
+      <Container id={SECTION_CONTAINER_ID} fluid={true}>
         <div className="chart-section">
           <div className="map-title">
             <h3>
@@ -135,7 +177,7 @@ export function Chart(props: ChartProps): JSX.Element {
             <div className="error-message">{errorMessage}</div>
           ) : (
             <div className="map-section-container">
-              <div id={CHART_CONTAINER_ID}>
+              <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
                 <div id={MAP_CONTAINER_ID}></div>
                 <div id={LEGEND_CONTAINER_ID}></div>
               </div>
@@ -149,33 +191,84 @@ export function Chart(props: ChartProps): JSX.Element {
               </div>
             </div>
           )}
-          {NO_PER_CAPITA_TYPES.indexOf(statVarInfo.info.st) === -1 && (
-            <div className="per-capita-option">
-              <FormGroup check>
-                <Label check>
-                  <Input
-                    id="per-capita"
-                    type="checkbox"
-                    checked={statVarInfo.perCapita}
-                    onChange={(e) =>
-                      props.statVar.setPerCapita(e.target.checked)
-                    }
+          <div className="chart-options">
+            {NO_PER_CAPITA_TYPES.indexOf(statVarInfo.info.st) === -1 && (
+              <div className="per-capita-option">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="per-capita"
+                      type="checkbox"
+                      checked={statVarInfo.perCapita}
+                      onChange={(e) =>
+                        props.statVar.setPerCapita(e.target.checked)
+                      }
+                    />
+                    Ratio of
+                  </Label>
+                  <input
+                    className="denom-input"
+                    onBlur={() => props.statVar.setDenom(denomInput)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        props.statVar.setDenom(denomInput);
+                      }
+                    }}
+                    type="text"
+                    value={denomInput}
+                    onChange={(e) => setDenomInput(e.target.value)}
+                    disabled={!props.statVar.value.perCapita}
                   />
-                  Per capita
-                </Label>
-              </FormGroup>
-            </div>
-          )}
+                </FormGroup>
+              </div>
+            )}
+            {props.placeInfo.mapPointsPlaceType && (
+              <div className="installations-option">
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      id="show-installations"
+                      type="checkbox"
+                      checked={props.display.value.showMapPoints}
+                      onChange={(e) =>
+                        props.display.setShowMapPoints(e.target.checked)
+                      }
+                    />
+                    Show Installations
+                  </Label>
+                </FormGroup>
+              </div>
+            )}
+          </div>
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
-            <div
-              className="explore-timeline-link"
-              onClick={() => exploreTimelineOnClick(placeDcid, statVarDcid)}
-            >
-              <span className="explore-timeline-text">Explore timeline</span>
-              <i className="material-icons">keyboard_arrow_right</i>
-            </div>
+            {statVarInfo.info.ranked && (
+              <a
+                className="explore-timeline-link"
+                href={`/ranking/${statVarDcid}/${props.placeInfo.enclosedPlaceType}/${placeDcid}`}
+              >
+                <span className="explore-timeline-text">Explore rankings</span>
+                <i className="material-icons">keyboard_arrow_right</i>
+              </a>
+            )}
+            {!statVarInfo.info.ranked &&
+              (props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
+                props.placeInfo.selectedPlace.dcid in
+                  props.breadcrumbDataValues) && (
+                <a
+                  className="explore-timeline-link"
+                  href={`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`}
+                >
+                  <span className="explore-timeline-text">
+                    Explore timeline
+                  </span>
+                  <i className="material-icons">keyboard_arrow_right</i>
+                </a>
+              )}
           </div>
+        </div>
+        <div id="map-chart-screen" className="screen">
+          <div id="spinner"></div>
         </div>
       </Container>
     </Card>
@@ -185,7 +278,9 @@ export function Chart(props: ChartProps): JSX.Element {
 function draw(
   props: ChartProps,
   setErrorMessage: (errorMessage: string) => void,
-  shouldDrawMap: boolean,
+  mapPoints: Array<MapPoint>,
+  zoomTransformation: d3.ZoomTransform,
+  setZoomTransformation: (zoomTransformation: d3.ZoomTransform) => void,
   color?: string,
   domain?: [number, number, number]
 ): void {
@@ -196,7 +291,9 @@ function draw(
   const height = (width * 2) / 5;
   const redirectAction = getMapRedirectAction(
     props.statVar.value,
-    props.placeInfo
+    props.placeInfo,
+    props.display.value,
+    props.europeanCountries
   );
   const zoomDcid =
     props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
@@ -227,11 +324,14 @@ function draw(
     "",
     LEGEND_MARGIN_LEFT
   );
-  if (
-    shouldDrawMap &&
-    !_.isEmpty(props.geoJsonData) &&
-    !_.isEmpty(props.mapDataValues)
-  ) {
+  const zoomParams = {
+    startingTransformation: zoomTransformation,
+    onZoomEnd: (zoomTransformation: d3.ZoomTransform) =>
+      setZoomTransformation(zoomTransformation),
+    zoomInButtonId: ZOOM_IN_BUTTON_ID,
+    zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
+  };
+  if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
     document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawChoropleth(
       MAP_CONTAINER_ID,
@@ -249,7 +349,7 @@ function draw(
         props.mapPointValues,
         props.unit
       ),
-      canClickRegion(props.placeInfo),
+      canClickRegion(props.placeInfo, props.europeanCountries),
       false,
       shouldShowMapBoundaries(
         props.placeInfo.selectedPlace,
@@ -260,11 +360,11 @@ function draw(
         USA_PLACE_DCID,
         props.placeInfo.parentPlaces
       ),
-      props.mapPoints,
+      props.placeInfo.enclosingPlace.dcid,
+      props.display.value.showMapPoints ? mapPoints : [],
       props.mapPointValues,
       zoomDcid,
-      ZOOM_IN_BUTTON_ID,
-      ZOOM_OUT_BUTTON_ID
+      zoomParams
     );
   }
 }
@@ -296,23 +396,32 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
   return sourcesJsx;
 }
 
-function exploreTimelineOnClick(placeDcid: string, statVarDcid: string): void {
-  window.open(`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`);
-}
-
-const getMapRedirectAction = (statVar: StatVar, placeInfo: PlaceInfo) => (
-  geoProperties: GeoJsonFeatureProperties
-) => {
+const getMapRedirectAction = (
+  statVar: StatVar,
+  placeInfo: PlaceInfo,
+  displayOptions: DisplayOptions,
+  europeanCountries: Array<string>
+) => (geoProperties: GeoJsonFeatureProperties) => {
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
     name: geoProperties.name,
     types: [placeInfo.enclosedPlaceType],
   };
+  const enclosingPlace =
+    europeanCountries.indexOf(selectedPlace.dcid) > -1
+      ? EUROPE_NAMED_TYPED_PLACE
+      : placeInfo.enclosingPlace;
+  const parentPlaces = getParentPlaces(
+    selectedPlace,
+    enclosingPlace,
+    placeInfo.parentPlaces
+  );
   const redirectLink = getRedirectLink(
     statVar,
     selectedPlace,
-    placeInfo.parentPlaces,
-    placeInfo.mapPointsPlaceType
+    parentPlaces,
+    placeInfo.mapPointsPlaceType,
+    displayOptions
   );
   window.open(redirectLink, "_self");
 };
@@ -324,43 +433,35 @@ const getTooltipHtml = (
   mapPointValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
-  const statVarTitle = statVar.info.title ? statVar.info.title : statVar.dcid;
-  const titleHtml = `<b>${place.name}</b><br/>`;
+  const titleHtml = `<b>${place.name || place.dcid}</b>`;
   let hasValue = false;
   let value = "Data Missing";
-  if (dataValues[place.dcid]) {
+  if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
     value = formatNumber(dataValues[place.dcid], unit);
     hasValue = true;
   } else if (mapPointValues[place.dcid]) {
     value = formatNumber(mapPointValues[place.dcid], unit);
     hasValue = true;
   }
-  if (!hasValue || !(place.dcid in metadataMapping)) {
-    return titleHtml + `${statVarTitle}: <wbr>${value}<br />`;
-  }
   const metadata = metadataMapping[place.dcid];
-  if (!_.isEmpty(metadata.errorMessage)) {
-    return titleHtml + `${statVarTitle}: <wbr>${metadata.errorMessage}<br />`;
-  }
-  let sources = urlToDomain(metadata.statVarSource);
-  if (statVar.perCapita && !_.isEmpty(metadata.popSource)) {
-    const popDomain = urlToDomain(metadata.popSource);
-    if (popDomain !== sources) {
-      sources += `, ${popDomain}`;
-    }
-  }
   const showPopDateMessage =
     statVar.perCapita &&
     !_.isEmpty(metadata.popDate) &&
     !metadata.statVarDate.includes(metadata.popDate) &&
     !metadata.popDate.includes(metadata.statVarDate);
-  const popDateHtml = showPopDateMessage
-    ? `<sup>*</sup> Uses population data from: <wbr>${metadata.popDate}`
+  if (!hasValue || !(place.dcid in metadataMapping)) {
+    return `${titleHtml}: <wbr>${value}<br />`;
+  }
+  if (!_.isEmpty(metadata.errorMessage)) {
+    return `${titleHtml}: <wbr>${metadata.errorMessage}<br />`;
+  }
+  const footer = showPopDateMessage
+    ? `<footer><sup>1</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
     : "";
   const html =
-    titleHtml +
-    `${statVarTitle} (${metadata.statVarDate}): <wbr>${value}<br />` +
-    `<footer>Data from: <wbr>${sources} <br/>${popDateHtml}</footer>`;
+    `${titleHtml} (${metadata.statVarDate}): <wbr><b>${value}</b>${
+      showPopDateMessage ? "<sup>1</sup>" : ""
+    }<br />` + footer;
   return html;
 };
 
@@ -374,16 +475,29 @@ const onDateRangeMouseOver = () => {
     .style("visibility", "visible");
 };
 
-const canClickRegion = (placeInfo: PlaceInfo) => (placeDcid: string) => {
-  if (!(placeInfo.enclosedPlaceType in CHILD_PLACE_TYPES)) {
-    return false;
-  }
-  return (
-    placeInfo.enclosingPlace.dcid !== EARTH_NAMED_TYPED_PLACE.dcid ||
-    placeDcid === USA_PLACE_DCID ||
-    placeDcid === INDIA_PLACE_DCID
+const canClickRegion = (
+  placeInfo: PlaceInfo,
+  europeanCountries: Array<string>
+) => (placeDcid: string) => {
+  const enclosingPlace =
+    europeanCountries.indexOf(placeDcid) > -1
+      ? EUROPE_NAMED_TYPED_PLACE
+      : placeInfo.enclosingPlace;
+  const parentPlaces = getParentPlaces(
+    placeInfo.selectedPlace,
+    enclosingPlace,
+    placeInfo.parentPlaces
+  );
+  const placeAsNamedTypedPlace = {
+    dcid: placeDcid,
+    name: placeDcid,
+    types: [placeInfo.enclosedPlaceType],
+  };
+  return !_.isEmpty(
+    getAllChildPlaceTypes(placeAsNamedTypedPlace, parentPlaces)
   );
 };
+
 const onDateRangeMouseOut = () => {
   d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`).style("visibility", "hidden");
 };

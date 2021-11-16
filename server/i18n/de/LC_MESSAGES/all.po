@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "Demografische Werte für %(cityName)s"
-
-msgid "%(cityName)s Health"
-msgstr "Gesundheit in %(cityName)s"
-
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s ist ein von Google unterstütztes Projekt"
 
@@ -19,8 +13,8 @@ msgstr "Informationen zu Data Commons"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "Erreichen eines Bachelor-Abschlusses oder höher in den Countys von Washington"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "Personen mit Bachelor-Abschluss im Vergleich zu Frauen pro Kopf in kalifornischen Countys"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "Blog"
@@ -42,15 +36,6 @@ msgstr "Counties, USA"
 
 msgid "Countries"
 msgstr "Länder"
-
-msgid "Create Maps"
-msgstr "Karten erstellen"
-
-msgid "Create Scatter Plots"
-msgstr "Streudiagramme erstellen"
-
-msgid "Create Timeline Charts"
-msgstr "Zeitachsendiagramm erstellen"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -79,9 +64,6 @@ msgstr "Geben Sie ein Land, einen Bundesstaat, ein County oder eine Stadt ein"
 msgid "Explore"
 msgstr "Erkunden"
 
-msgid "Explore Places"
-msgstr "Orte erkunden"
-
 msgid "Explore the data"
 msgstr "Daten ansehen"
 
@@ -91,8 +73,8 @@ msgstr "FAQ"
 msgid "Feedback"
 msgstr "Feedback"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "Im Ausland Geborene im Vergleich zur Arbeitslosenquote in US-Bundesstaaten"
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "FAQ"
@@ -331,9 +313,6 @@ msgstr "Staatsbürgerlicher Status"
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Bevölkerungsverteilung nach Staatsangehörigkeit"
 
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "Kohlendioxidemissionen pro Kopf"
-
 msgid "CHART_TITLE-Covid_cases"
 msgstr "Kumulative COVID-19-Fälle"
 
@@ -495,6 +474,12 @@ msgstr "Marktkapitalisierung der inländischen Unternehmen"
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Marktkapitalisierung inländischer Unternehmen (% des BIP)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -687,4 +672,19 @@ msgstr "Arbeitsentgelt (monatlich): städtisch und ländlich im Vergleich"
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Arbeitende und nicht arbeitende Bevölkerung im Vergleich"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (large facilities, non-biogenic)"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (large facilities, non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (large facilities, non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 

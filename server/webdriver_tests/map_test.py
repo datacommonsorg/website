@@ -17,6 +17,7 @@ from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import webdriver_tests.shared as shared
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
@@ -80,34 +81,38 @@ class TestMap(WebdriverBaseTest):
         # Click United States breadcrumb
         self.driver.find_element_by_xpath(
             '//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
+
         # Assert redirect was correct
-        element_present = EC.text_to_be_present_in_element(
-            (By.XPATH, '//*[@id="chart-row"]/div/div/div/div[3]/div[2]'),
-            'United States')
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'mdl-chip__text'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
-        self.assertEqual(place_name.text, 'United States')
+        place_name_chip = self.driver.find_element_by_class_name(
+            'mdl-chip__text')
+        self.assertEqual(place_name_chip.text, 'United States')
+
+        # Select State place type
+        element_present = EC.text_to_be_present_in_element(
+            (By.ID, 'enclosed-place-type'), "State")
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        self.driver.find_element_by_id('enclosed-place-type').click()
+        self.driver.find_element_by_xpath(
+            '//*[@id="enclosed-place-type"]/option[2]').click()
+
+        # Assert that a map chart is loaded
+        element_present = EC.presence_of_element_located((By.ID, 'map-items'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="chart-row"]/div/div[1]/div/div/div[1]/h3')
         self.assertEqual(chart_title.text, "Median Age (2019)")
-        chart_map = self.driver.find_element_by_id('choropleth-map')
+        chart_map = self.driver.find_element_by_id('map-items')
         map_regions = chart_map.find_elements_by_tag_name('path')
         self.assertEqual(len(map_regions), 52)
 
         # Click explore timeline
         self.driver.find_element_by_class_name('explore-timeline-text').click()
 
-        # Wait for the new page to open in a new tab
-        new_page_opened = EC.number_of_windows_to_be(2)
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
-
-        # Switch tabs to the page for the timeline tool
-        new_page = self.driver.window_handles[-1]
-        self.driver.switch_to.window(new_page)
-
-        # Assert timelines page loaded
-        NEW_PAGE_TITLE = 'Timelines Explorer - Data Commons'
+        # Assert rankings page loaded
+        NEW_PAGE_TITLE = 'Ranking by Median Age - States in United States of America - Place Rankings - Data Commons'
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
         self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
@@ -141,6 +146,7 @@ class TestMap(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Choose stat var
+        shared.wait_for_loading(self.driver)
         demographics = self.driver.find_element_by_class_name('node-title')
         demographics.click()
         element_present = EC.presence_of_element_located(

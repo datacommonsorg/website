@@ -25,6 +25,11 @@ import _ from "lodash";
 import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
+import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
+import {
+  ASIA_NAMED_TYPED_PLACE,
+  EUROPE_NAMED_TYPED_PLACE,
+} from "./../shared/constants";
 import { getColorFn } from "./base";
 import {
   GeoJsonData,
@@ -33,13 +38,30 @@ import {
   MapPoint,
 } from "./types";
 
+/**
+ * Information used for the zoom functionality on a map
+ *
+ * @param startingTransformation the zoom scale and translation to initially
+ *        draw the map at
+ * @param onZoomEnd callback function that gets called at the end of each zoom
+ *        in or zoom out and takes as an argument the zoom transformation
+ * @param zoomInButtonId id of a button that can be clicked to zoom in
+ * @param zoomOutButtonId id of a button that can be clicked to zoom out
+ */
+export interface MapZoomParams {
+  startingTransformation: d3.ZoomTransform;
+  onZoomEnd: (zoomTransformation: d3.ZoomTransform) => void;
+  zoomInButtonId: string;
+  zoomOutButtonId: string;
+}
+
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
 const MIN_COLOR = "#f0f0f0";
 const GEO_STROKE_COLOR = "#fff";
 const HIGHLIGHTED_STROKE_COLOR = "#202020";
-const STROKE_WIDTH = "1px";
+const STROKE_WIDTH = "0.5px";
 const HIGHLIGHTED_STROKE_WIDTH = "1.25px";
 const AXIS_TEXT_FILL = "#2b2929";
 const AXIS_GRID_FILL = "#999";
@@ -50,10 +72,18 @@ const LEGEND_MARGIN_RIGHT = 5;
 const LEGEND_IMG_WIDTH = 10;
 const NUM_TICKS = 4;
 const HIGHLIGHTED_CLASS_NAME = "highlighted";
+export const HOVER_HIGHLIGHTED_CLASS_NAME = "region-highlighted";
+const HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME = "region-highlighted-no-click";
 const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
 const MAP_ITEMS_GROUP_ID = "map-items";
+const LEGEND_TICK_LABEL_MARGIN = 10;
+
+// Curated temperature domains.
+const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
+const TEMP_MODEL_DIFF_DOMAIN = [0, 15];
+const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -76,7 +106,9 @@ function fitSize(
   projection.scale(s).translate([translateX, translateY]);
 }
 
-/** Generates a color scale to be used for drawing choropleth map and legend.
+/**
+ * Generates a color scale to be used for drawing choropleth map and legend.
+ * NOTE: Only return linear scales.
  *
  * @param statVar name of the stat var we are drawing choropleth for
  * @param dataValues the values we are using to plot our choropleth
@@ -95,15 +127,54 @@ function getColorScale(
   const label = getStatsVarLabel(statVar);
   const maxColor = color
     ? d3.color(color)
+    : isWetBulbStatVar(statVar)
+    ? d3.color(d3.interpolateReds(1))
     : d3.color(getColorFn([label])(label));
-  const extent = d3.extent(Object.values(dataValues));
-  const medianValue = d3.median(Object.values(dataValues));
-  const domainValues = domain || [extent[0], medianValue, extent[1]];
+  const allValues = Object.values(dataValues);
+  const extent = d3.extent(allValues);
+  let domainValues: number[] = domain || [
+    extent[0],
+    d3.mean(allValues),
+    extent[1],
+  ];
+  if (isTemperatureStatVar(statVar)) {
+    let range: any[] = [
+      d3.interpolateBlues(1),
+      d3.interpolateBlues(0.8),
+      MIN_COLOR,
+      d3.interpolateReds(0.8),
+      d3.interpolateReds(1),
+    ];
+
+    if (statVar.indexOf("Difference") >= 0) {
+      if (statVar.indexOf("Base") >= 0) {
+        domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
+      } else {
+        domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
+      }
+    } else {
+      domainValues = domain || TEMP_DOMAIN;
+    }
+    const min = domainValues[0];
+    const max = domainValues[domainValues.length - 1];
+    if (min >= 0) {
+      domainValues = [0, max / 2, max];
+      range = [MIN_COLOR, d3.interpolateReds(0.8), d3.interpolateReds(1)];
+    } else if (max <= 0) {
+      domainValues = [min, min / 2, 0];
+      range = [d3.interpolateBlues(1), d3.interpolateBlues(0.8), MIN_COLOR];
+    }
+    return d3.scaleLinear().domain(domainValues).nice().range(range);
+  }
+  const rangeValues =
+    domainValues.length == 3
+      ? [MIN_COLOR, maxColor, maxColor.darker(2)]
+      : [MIN_COLOR, maxColor.darker(2)];
   return d3
     .scaleLinear()
     .domain(domainValues)
     .nice()
-    .range(([MIN_COLOR, maxColor, maxColor.darker(1.5)] as unknown) as number[])
+    .range((rangeValues as unknown) as number[])
     .interpolate(
       (d3.interpolateHslLong as unknown) as (
         a: unknown,
@@ -132,13 +203,19 @@ function showTooltip(
   const tooltipHeight = (tooltipSelect.node() as HTMLDivElement).clientHeight;
   const tooltipWidth = (tooltipSelect.node() as HTMLDivElement).clientWidth;
   const containerWidth = (container.node() as HTMLDivElement).clientWidth;
-  const offset = 5;
-  const leftOffset = offset;
+  const offset = 15;
+  const leftOffset = 2 * offset;
   const topOffset = -tooltipHeight - offset;
-  const left = Math.min(
+  let left = Math.min(
     d3.event.offsetX + leftOffset,
-    containerWidth - tooltipWidth
+    containerWidth - tooltipWidth - offset // account for decoration around the tooltip
   );
+  if (left < 0) {
+    left = 0;
+    tooltipSelect.style("width", containerWidth + "px");
+  } else {
+    tooltipSelect.style("width", "fit-content");
+  }
   let top = d3.event.offsetY + topOffset;
   if (top < 0) {
     top = d3.event.offsetY + offset;
@@ -162,11 +239,18 @@ function addMapPoints(
   mapPoints: Array<MapPoint>,
   mapPointValues: { [placeDcid: string]: number },
   projection: d3.GeoProjection,
-  getTooltipHtml: (place: NamedPlace) => string
+  getTooltipHtml: (place: NamedPlace) => string,
+  minDotSize: number
 ): void {
   const filteredMapPoints = mapPoints.filter(
-    (point) => !_.isNull(projection([point.longitude, point.latitude]))
+    (point) =>
+      !_.isNull(projection([point.longitude, point.latitude])) &&
+      point.placeDcid in mapPointValues
   );
+  const pointSizeScale = d3
+    .scaleLinear()
+    .domain(d3.extent(Object.values(mapPointValues)))
+    .range([minDotSize, minDotSize * 3]);
   d3.select(`#${MAP_ITEMS_GROUP_ID}`)
     .append("g")
     .attr("class", "map-points-layer")
@@ -186,7 +270,13 @@ function addMapPoints(
       "cx",
       (point: MapPoint) => projection([point.longitude, point.latitude])[0]
     )
-    .attr("cy", (point) => projection([point.longitude, point.latitude])[1])
+    .attr(
+      "cy",
+      (point: MapPoint) => projection([point.longitude, point.latitude])[1]
+    )
+    .attr("r", (point: MapPoint) =>
+      pointSizeScale(mapPointValues[point.placeDcid])
+    )
     .on("mouseover", (point: MapPoint) => {
       const place = {
         dcid: point.placeDcid,
@@ -238,11 +328,11 @@ function drawChoropleth(
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   isUSAPlace: boolean,
+  enclosingPlaceDcid?: string, // DCID of enclosing place that might have special projections
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
-  zoomInButtonId?: string,
-  zoomOutButtonId?: string
+  zoomParams?: MapZoomParams
 ): void {
   // Add svg for the map to the div holding the chart.
   const domContainerId = `#${containerId}`;
@@ -260,9 +350,34 @@ function drawChoropleth(
     .selectAll("path")
     .data(geoJson.features);
 
+  const isEurope = enclosingPlaceDcid == EUROPE_NAMED_TYPED_PLACE.dcid;
+  const isAsia = enclosingPlaceDcid == ASIA_NAMED_TYPED_PLACE.dcid;
+
+  // TODO(beets): Refactor projection selection / modification to a helper function.
   const projection = isUSAPlace
     ? geo.geoAlbersUsaTerritories()
+    : isEurope
+    ? d3.geoAzimuthalEqualArea()
     : d3.geoEquirectangular();
+
+  if (isEurope) {
+    // Reference:
+    // https://observablehq.com/@toja/five-map-projections-for-europe#_lambertAzimuthalEqualArea
+    projection
+      .rotate([-20.0, -52.0])
+      .translate([chartWidth / 2, chartHeight / 2])
+      .scale(chartWidth / 1.5)
+      .precision(0.1);
+  } else if (isAsia) {
+    // Reference:
+    // https://stackoverflow.com/questions/39958471/d3-js-map-with-albers-projection-how-to-rotate-it/41133970#41133970
+    projection
+      .rotate([-85, 0])
+      .center([0, 35])
+      .translate([chartWidth / 2, chartHeight / 2])
+      .scale(chartHeight / 1.5)
+      .precision(0.1);
+  }
   const geomap = d3.geoPath().projection(projection);
 
   if (shouldGenerateLegend) {
@@ -280,7 +395,7 @@ function drawChoropleth(
   }
 
   // Scale and center the map
-  let isMapFitted = false;
+  let isMapFitted = false || isEurope || isAsia;
   if (zoomDcid) {
     const geoJsonFeature = geoJson.features.find(
       (feature) => feature.properties.geoDcid === zoomDcid
@@ -334,6 +449,11 @@ function drawChoropleth(
         return MISSING_DATA_COLOR;
       }
     })
+    .attr("data-geodcid", (d: GeoJsonFeature) => {
+      if (d.properties.geoDcid in dataValues) {
+        return d.properties.geoDcid;
+      }
+    })
     .attr("id", (_, index) => {
       return "geoPath" + index;
     })
@@ -363,16 +483,26 @@ function drawChoropleth(
 
   // add map points if there are any to add
   if (!_.isEmpty(mapPoints) && !_.isUndefined(mapPointValues)) {
+    // calculate the min dot size based on the sizes of the regions on the map
+    let minRegionDiagonal = Number.MAX_VALUE;
+    mapObjects.each((_, idx, paths) => {
+      const pathClientRect = paths[idx].getBoundingClientRect();
+      minRegionDiagonal = Math.sqrt(
+        Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
+      );
+    });
+    const minDotSize = minRegionDiagonal * 0.02;
     addMapPoints(
       domContainerId,
       mapPoints,
       mapPointValues,
       projection,
-      getTooltipHtml
+      getTooltipHtml,
+      minDotSize
     );
   }
 
-  if (zoomInButtonId || zoomOutButtonId) {
+  if (!_.isEmpty(zoomParams)) {
     const zoom = d3
       .zoom()
       .scaleExtent([1, Infinity])
@@ -385,10 +515,12 @@ function drawChoropleth(
         d3.select(`#${TOOLTIP_ID}`).style("display", "none");
         map
           .selectAll("path,circle")
-          .classed("region-highlighted", false)
+          .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
+          .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false)
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
+        zoomParams.onZoomEnd(d3.event.transform);
         mapObjects
           .on(
             "mousemove",
@@ -396,14 +528,14 @@ function drawChoropleth(
           )
           .on("mouseover", onMouseOver(canClickRegion, domContainerId));
       });
-    svg.call(zoom);
-    if (zoomInButtonId) {
-      d3.select(`#${zoomInButtonId}`).on("click", () => {
+    svg.call(zoom).call(zoom.transform, zoomParams.startingTransformation);
+    if (zoomParams.zoomInButtonId) {
+      d3.select(`#${zoomParams.zoomInButtonId}`).on("click", () => {
         svg.call(zoom.scaleBy, 2);
       });
     }
-    if (zoomOutButtonId) {
-      d3.select(`#${zoomOutButtonId}`).on("click", () => {
+    if (zoomParams.zoomOutButtonId) {
+      d3.select(`#${zoomParams.zoomOutButtonId}`).on("click", () => {
         svg.call(zoom.scaleBy, 0.5);
       });
     }
@@ -453,7 +585,11 @@ const onMapClick = (
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
-  container.select("#geoPath" + index).classed("region-highlighted", false);
+  container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, false);
+  container
+    .select("#geoPath" + index)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
+    .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false);
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 
@@ -462,10 +598,15 @@ function mouseHoverAction(
   index: number,
   canClick: boolean
 ): void {
-  const container = d3.select(domContainerId);
+  const container = d3
+    .select(domContainerId)
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
+  const geoPath = container.select("#geoPath" + index).raise();
   // show highlighted border and show cursor as a pointer
   if (canClick) {
-    container.select("#geoPath" + index).classed("region-highlighted", true);
+    geoPath.classed(HOVER_HIGHLIGHTED_CLASS_NAME, true);
+  } else {
+    geoPath.classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, true);
   }
   // show tooltip
   container.select(`#${TOOLTIP_ID}`).style("display", "block");
@@ -492,7 +633,18 @@ function generateLegend(
   color: d3.ScaleLinear<number, number>,
   unit: string
 ): number {
-  const n = Math.min(color.domain().length, color.range().length);
+  // Build a scale from color.domain() to the canvas height (from [height, 0]).
+  // NOTE: This assumes the color domain is linear.
+  const yScaleRange = [];
+  const heightBucket = height / (color.domain().length - 1);
+  for (
+    let i = 0, currBucket = 0;
+    i < color.domain().length;
+    i++, currBucket += heightBucket
+  ) {
+    yScaleRange.unshift(currBucket);
+  }
+  const yScale = d3.scaleLinear().domain(color.domain()).range(yScaleRange);
 
   const legend = svg.append("g").attr("class", LEGEND_CLASS_NAME);
   legend
@@ -503,26 +655,23 @@ function generateLegend(
     .attr("width", LEGEND_IMG_WIDTH)
     .attr("height", height)
     .attr("preserveAspectRatio", "none")
-    .attr(
-      "xlink:href",
-      genScaleImg(
-        color.copy().domain(d3.quantize(d3.interpolate(0, 1), n))
-      ).toDataURL()
-    );
+    .attr("xlink:href", genScaleImg(color, yScale, height).toDataURL());
 
-  const yScale = d3
-    .scaleLinear()
-    .domain(d3.extent(color.domain()))
-    .range([0, height]);
   // set tick values to show first tick at the start of the legend and last tick
   // at the very bottom of the legend.
   let tickValues = [yScale.invert(0), yScale.invert(height)];
+  const formattedTickValues = tickValues.map((tick) =>
+    formatNumber(tick, unit)
+  );
   tickValues = tickValues.concat(
     color.ticks(NUM_TICKS).filter((tick) => {
-      const formattedTickValues = tickValues.map((tick) =>
-        formatNumber(tick, unit)
+      const formattedTick = formatNumber(tick, unit);
+      const tickHeight = yScale(tick);
+      return (
+        formattedTickValues.indexOf(formattedTick) === -1 &&
+        tickHeight > LEGEND_TICK_LABEL_MARGIN &&
+        tickHeight < height - LEGEND_TICK_LABEL_MARGIN
       );
-      return formattedTickValues.indexOf(formatNumber(tick)) === -1;
     })
   );
   legend
@@ -554,7 +703,8 @@ function generateLegend(
   return legendWidth;
 }
 
-/** Generate a svg that contains a color scale legend
+/**
+ * Generate a svg that contains a color scale legend
  *
  * @param containerId id of the container to draw the legend in
  * @param height height of the legend
@@ -584,14 +734,19 @@ function generateLegendSvg(
 
 const genScaleImg = (
   color: d3.ScaleLinear<number, number>,
-  n = 256
+  yScale: d3.ScaleLinear<number, number>,
+  height: number
 ): HTMLCanvasElement => {
   const canvas = document.createElement("canvas");
   canvas.width = 1;
-  canvas.height = n;
+  canvas.height = height;
   const context = canvas.getContext("2d");
-  for (let i = 0; i < n; ++i) {
-    context.fillStyle = (color(i / (n - 1)) as unknown) as string;
+  for (let i = 0; i < height; ++i) {
+    // yScale maps from color domain values to height values. Therefore, to get
+    // the color at a certain height, we want to first get the color domain
+    // value for that height and then get the color for that value.
+    const colorDomainVal = yScale.invert(i);
+    context.fillStyle = (color(colorDomainVal) as unknown) as string;
     context.fillRect(0, i, 1, 1);
   }
   return canvas;

@@ -14,7 +14,7 @@
 
 steps:
   - id: "client-test"
-    name: gcr.io/datcom-ci/node:2021-04-30
+    name: gcr.io/datcom-ci/node:2021-10-29
     entrypoint: /bin/sh
     args:
       - -c

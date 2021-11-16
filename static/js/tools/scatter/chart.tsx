@@ -18,19 +18,22 @@
  * Chart component for plotting a scatter plot.
  */
 
+import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
-import { Card, Container, Row } from "reactstrap";
+import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
-import { shouldShowMapBoundaries } from "../shared_util";
+import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { Point } from "./chart_loader";
-import { PlaceInfo } from "./context";
+import { DisplayOptionsWrapper, PlaceInfo } from "./context";
 import { drawScatter } from "./draw_scatter";
 import { ScatterChartType } from "./util";
 
@@ -46,16 +49,11 @@ interface ChartPropsType {
   yStatVar: string;
   xUnits?: string;
   yUnits?: string;
-  showQuadrants: boolean;
-  showLabels: boolean;
-  geoJsonData: GeoJsonData;
   placeInfo: PlaceInfo;
-  chartType: ScatterChartType;
-  showDensity: boolean;
-  isUSAPlace: boolean;
+  display: DisplayOptionsWrapper;
 }
 
-const DOT_REDIRECT_PREFIX = "/tools/timeline";
+const DOT_REDIRECT_PREFIX = "/place/";
 const SVG_CONTAINER_ID = "scatter-plot-container";
 const MAP_LEGEND_CONTAINER_ID = "legend-container";
 const MAP_LEGEND_ARROW_LENGTH = 5;
@@ -105,12 +103,16 @@ const MAP_COLORS = [
   "#3B4994",
 ];
 const MAP_NUM_QUANTILES = 6;
+const CONTAINER_ID = "chart";
+const DEBOUNCE_INTERVAL_MS = 30;
 
 function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
   const tooltipRef = useRef<HTMLDivElement>();
+  const chartContainerRef = useRef<HTMLDivElement>();
   const sources: Set<string> = new Set();
-  const [chartWidth, setChartWidth] = useState(0);
+  const [geoJson, setGeoJson] = useState(null);
+  const [geoJsonFetched, setGeoJsonFetched] = useState(false);
   Object.values(props.points).forEach((point) => {
     sources.add(point.xSource);
     sources.add(point.ySource);
@@ -139,34 +141,62 @@ function Chart(props: ChartPropsType): JSX.Element {
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
-    .style("position", "fixed");
+    .style("position", "absolute");
 
-  // Replot when data changes.
+  // Fetch geojson in the background when component is first mounted.
   useEffect(() => {
+    axios
+      .get(
+        `/api/choropleth/geojson?placeDcid=${props.placeInfo.enclosingPlace.dcid}&placeType=${props.placeInfo.enclosedPlaceType}`
+      )
+      .then((resp) => {
+        setGeoJson(resp.data);
+        setGeoJsonFetched(true);
+      })
+      .catch(() => setGeoJsonFetched(true));
+  }, []);
+
+  function replot() {
     if (!_.isEmpty(props.points)) {
-      clearSVGs();
-      plot(svgContainerRef, tooltipRef, props);
-    }
-  }, [props]);
-
-  useEffect(() => {
-    function _handleWindowResize() {
       if (svgContainerRef.current) {
         clearSVGs();
-        const width = svgContainerRef.current.offsetWidth;
-        if (width !== chartWidth) {
-          setChartWidth(width);
-          plot(svgContainerRef, tooltipRef, props);
-        }
+        plot(svgContainerRef, tooltipRef, props, geoJson);
       }
     }
-    window.addEventListener("resize", _handleWindowResize);
+  }
+
+  // Replot when props or chart width changes.
+  useEffect(() => {
+    const entrySet = new Set();
+    if (props.display.chartType === ScatterChartType.MAP && !geoJsonFetched) {
+      loadSpinner(CONTAINER_ID);
+      return;
+    } else {
+      removeSpinner(CONTAINER_ID);
+      replot();
+    }
+    // ResizeObserver callback function documentation:
+    // https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver/ResizeObserver
+    const debouncedHandler = _.debounce((entries) => {
+      if (_.isEmpty(entries)) return;
+      if (entrySet.has(entries[0].target)) {
+        replot();
+      } else {
+        entrySet.add(entries[0].target);
+      }
+    }, DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    if (chartContainerRef.current) {
+      resizeObserver.observe(chartContainerRef.current);
+    }
     return () => {
-      window.removeEventListener("resize", _handleWindowResize);
+      resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
     };
-  }, [props]);
+  }, [props, chartContainerRef, geoJsonFetched]);
+
   return (
-    <Container id="chart">
+    <div id="chart" className="container-fluid" ref={chartContainerRef}>
       <Row>
         <Card id="no-padding">
           <div className="chart-title">
@@ -174,15 +204,18 @@ function Chart(props: ChartPropsType): JSX.Element {
             <span>vs</span>
             <h3>{props.xLabel}</h3>
           </div>
-          <div>
+          <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
             <div id={MAP_LEGEND_CONTAINER_ID}></div>
+            <div id="tooltip" ref={tooltipRef} />
           </div>
-          <div id="tooltip" ref={tooltipRef} />
           <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
       </Row>
-    </Container>
+      <div id="scatter-chart-screen" className="screen">
+        <div id="spinner"></div>
+      </div>
+    </div>
   );
 }
 
@@ -217,40 +250,40 @@ function getStringOrNA(num: number): string {
 function plot(
   svgContainerRef: React.MutableRefObject<HTMLDivElement>,
   tooltipRef: React.MutableRefObject<HTMLDivElement>,
-  props: ChartPropsType
+  props: ChartPropsType,
+  geoJsonData: GeoJsonData
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
-  const scatterWidth = Math.min(
-    window.innerHeight * 0.6,
-    svgContainerRealWidth
-  );
-  const chartHeight = scatterWidth;
-  if (props.chartType === ScatterChartType.SCATTER) {
+  const chartHeight = svgContainerRef.current.offsetHeight;
+  if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
       tooltipRef,
-      scatterWidth,
+      svgContainerRealWidth,
       chartHeight,
       props,
       redirectAction,
       getTooltipElement
     );
   } else {
-    const xVals = Array.from(
-      Object.values(props.points),
-      (point) => point.xVal
+    if (_.isEmpty(geoJsonData)) {
+      alert(`Sorry, there was an error loading map view.`);
+      props.display.setChartType(ScatterChartType.SCATTER);
+      return;
+    }
+    const xVals = Array.from(Object.values(props.points), (point) =>
+      props.xLog ? Math.log10(point.xVal) : point.xVal
     );
-    const yVals = Array.from(
-      Object.values(props.points),
-      (point) => point.yVal
+    const yVals = Array.from(Object.values(props.points), (point) =>
+      props.yLog ? Math.log10(point.yVal) : point.yVal
     );
     const xScale = d3
-      .scaleQuantile()
-      .domain(xVals)
+      .scaleQuantize()
+      .domain(d3.extent(xVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const yScale = d3
-      .scaleQuantile()
-      .domain(yVals)
+      .scaleQuantize()
+      .domain(d3.extent(yVals))
       .range(d3.range(MAP_NUM_QUANTILES));
     const colorScale = d3
       .scaleLinear<string, number>()
@@ -266,21 +299,21 @@ function plot(
       svgContainerRealWidth,
       props.xLabel,
       props.yLabel,
-      d3.extent(xVals),
-      d3.extent(yVals),
+      d3.extent(Object.values(props.points), (point) => point.xVal),
+      d3.extent(Object.values(props.points), (point) => point.yVal),
       props.xUnits,
       props.yUnits
     );
     drawChoropleth(
       SVG_CONTAINER_ID,
-      props.geoJsonData,
+      geoJsonData,
       chartHeight,
       svgContainerRealWidth,
       dataPoints,
       "",
       colorScale,
       (geoDcid: GeoJsonFeatureProperties) => {
-        redirectAction(props.xStatVar, props.yStatVar, geoDcid.geoDcid);
+        redirectAction(geoDcid.geoDcid);
       },
       getMapTooltipHtml(
         props.points,
@@ -295,7 +328,12 @@ function plot(
         props.placeInfo.enclosingPlace,
         props.placeInfo.enclosedPlaceType
       ),
-      props.isUSAPlace
+      isChildPlaceOf(
+        props.placeInfo.enclosingPlace.dcid,
+        USA_PLACE_DCID,
+        props.placeInfo.parentPlaces
+      ),
+      props.placeInfo.enclosingPlace.dcid
     );
   }
 }
@@ -315,45 +353,40 @@ function getTooltipElement(
   xPerCapita: boolean,
   yPerCapita: boolean
 ): JSX.Element {
-  let xSource = urlToDomain(point.xSource);
-  if (xPerCapita && point.xPopSource) {
-    const xPopDomain = urlToDomain(point.xPopSource);
-    if (xPopDomain !== xSource) {
-      xSource += `, ${xPopDomain}`;
-    }
-  }
-  let ySource = urlToDomain(point.ySource);
-  if (yPerCapita && point.yPopSource) {
-    const yPopDomain = urlToDomain(point.yPopSource);
-    if (yPopDomain !== ySource) {
-      ySource += `, ${yPopDomain}`;
-    }
-  }
-  const showXPopDateMessage =
-    xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate);
-  const showYPopDateMessage =
-    yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate);
+  let supIndex = 0;
+  const xPopDateMessage =
+    xPerCapita && point.xPopDate && !point.xDate.includes(point.xPopDate)
+      ? ++supIndex
+      : null;
+  const yPopDateMessage =
+    yPerCapita && point.yPopDate && !point.yDate.includes(point.yPopDate)
+      ? ++supIndex
+      : null;
   return (
     <>
       <header>
         <b>{point.place.name || point.place.dcid}</b>
       </header>
-      {xLabel}({point.xDate}): {getStringOrNA(point.xVal)}
+      {xLabel}
+      {xPopDateMessage && <sup>{xPopDateMessage}</sup>}: ({point.xDate}):{" "}
+      <b>{getStringOrNA(point.xVal)}</b>
       <br />
-      {yLabel} ({point.yDate}): {getStringOrNA(point.yVal)} <br />
+      {yLabel}
+      {yPopDateMessage && <sup>{yPopDateMessage}</sup>}: ({point.yDate}):{" "}
+      <b>{getStringOrNA(point.yVal)}</b>
+      <br />
       <footer>
-        {xLabel} data from: {xSource}
-        <br />
-        {yLabel} data from: {ySource}
-        <br />
-        {showXPopDateMessage && (
+        {xPopDateMessage && (
           <>
-            <sup>*</sup> {xLabel} uses population data from: {point.xPopDate}
+            <sup>{xPopDateMessage}</sup> Uses population data from:{" "}
+            {point.xPopDate}
+            <br />
           </>
         )}
-        {showYPopDateMessage && (
+        {yPopDateMessage && (
           <>
-            <sup>*</sup> {yLabel} uses population data from: {point.yPopDate}
+            <sup>{yPopDateMessage}</sup> Uses population data from:{" "}
+            {point.yPopDate}
           </>
         )}
       </footer>
@@ -537,12 +570,8 @@ function drawMapLegend(
   );
 }
 
-function redirectAction(
-  xStatVar: string,
-  yStatVar: string,
-  placeDcid: string
-): void {
-  const uri = `${DOT_REDIRECT_PREFIX}#place=${placeDcid}&statsVar=${xStatVar}__${yStatVar}`;
+function redirectAction(placeDcid: string): void {
+  const uri = `${DOT_REDIRECT_PREFIX}${placeDcid}`;
   window.open(uri);
 }
 

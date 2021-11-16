@@ -16,7 +16,8 @@ import json
 import logging
 import os
 import time
-import urllib
+import urllib.request
+import urllib.error
 
 from flask import Flask, request, g
 from flask_babel import Babel
@@ -29,21 +30,9 @@ from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
+import lib.util as libutil
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
-
-# This has to be in sync with static/js/shared/util.ts
-PLACE_EXPLORER_CATEGORIES = [
-    "economics",
-    "health",
-    "equity",
-    "crime",
-    "education",
-    "demographics",
-    "housing",
-    "climate",
-    "energy",
-]
 
 
 def createMiddleWare(app, exporter):
@@ -124,12 +113,14 @@ def create_app():
         register_routes_main_app(app)
 
     # Load chart config
-    chart_config = []
-    for filename in PLACE_EXPLORER_CATEGORIES:
-        with open(os.path.join('chart_config', filename + '.json'),
-                  encoding='utf-8') as f:
-            chart_config.extend(json.load(f))
+    chart_config = libutil.get_chart_config()
     app.config['CHART_CONFIG'] = chart_config
+    ranked_statvars = set()
+    for chart in chart_config:
+        ranked_statvars = ranked_statvars.union(chart['statsVars'])
+        if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
+            ranked_statvars.add(chart['relatedChart']['denominator'])
+    app.config['RANKED_STAT_VARS'] = ranked_statvars
 
     if not cfg.TEST and not cfg.LITE:
         secret_client = secretmanager.SecretManagerServiceClient()

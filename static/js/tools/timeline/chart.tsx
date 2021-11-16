@@ -91,11 +91,13 @@ class Chart extends Component<ChartPropsType> {
   minYear: string; // In the format of YYYY
   maxYear: string; // In the format of YYYY
   delayTimer: NodeJS.Timeout;
+  resizeObserver: ResizeObserver;
 
   constructor(props: ChartPropsType) {
     super(props);
     this.svgContainer = React.createRef();
     this.denomInput = React.createRef();
+    this.drawChart = this.drawChart.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -175,11 +177,14 @@ class Chart extends Component<ChartPropsType> {
 
   componentDidMount(): void {
     this.loadDataAndDrawChart();
-    window.addEventListener("resize", this.handleWindowResize);
+    this.resizeObserver = new ResizeObserver(this.handleWindowResize);
+    this.resizeObserver.observe(this.svgContainer.current);
   }
 
   componentWillUnmount(): void {
-    window.removeEventListener("resize", this.handleWindowResize);
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
     // reset the options to default value if the chart is removed
     setChartOption(this.props.mprop, "pc", false);
     setChartOption(this.props.mprop, "delta", false);
@@ -334,6 +339,9 @@ class Chart extends Component<ChartPropsType> {
    */
   private drawChart() {
     const dataGroupsDict = {};
+    if (!this.statData) {
+      return;
+    }
     for (const place of this.statData.places) {
       dataGroupsDict[this.props.placeNames[place]] = getStatVarGroupWithTime(
         this.statData,

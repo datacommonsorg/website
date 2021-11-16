@@ -16,48 +16,46 @@ import os
 
 from werkzeug.utils import import_string
 
+ENV = {
+    # Production
+    'production',
+    'prod-sustainability',
+    # Staging
+    'staging',
+    'staging-sustainability',
+    # Autopush
+    'autopush',
+    'autopush-sustainability',
+    # Private
+    'private',
+    # Dev
+    'dev',
+    # Test
+    'test',
+    'test-sustainability',
+    # Webdriver
+    'webdriver',
+    # Minikube
+    'minikube',
+    # Local
+    'local',
+    'local-lite',
+    'local-private',
+    'local-sustainability',
+}
+
+
+def map_config_string(env):
+    index = env.find('-')
+    env_list = list(env)
+    env_list[index + 1] = env[index + 1].upper()
+    env_list[0] = env[0].upper()
+    env_updated = "".join(env_list).replace('-', '')
+    return 'configmodule.{}Config'.format(env_updated)
+
 
 def get_config():
-    # Setup flask config
-    if os.environ.get('FLASK_ENV') == 'production':
-        return import_string('configmodule.ProductionConfig')()
-    elif os.environ.get('FLASK_ENV') == 'prod-sustainability':
-        return import_string('configmodule.ProdSustainabilityConfig')()
-
-    elif os.environ.get('FLASK_ENV') == 'staging':
-        return import_string('configmodule.StagingConfig')()
-    elif os.environ.get('FLASK_ENV') == 'staging-sustainability':
-        return import_string('configmodule.StagingSustainabilityConfig')()
-
-    elif os.environ.get('FLASK_ENV') == 'autopush':
-        return import_string('configmodule.AutopushConfig')()
-    elif os.environ.get('FLASK_ENV') == 'autopush-sustainability':
-        return import_string('configmodule.AutopushSustainabilityConfig')()
-
-    elif os.environ.get('FLASK_ENV') == 'test':
-        return import_string('configmodule.TestConfig')()
-    elif os.environ.get('FLASK_ENV') == 'test-sustainability':
-        return import_string('configmodule.SustainabilityTestConfig')()
-
-    elif os.environ.get('FLASK_ENV') == 'dev':
-        return import_string('configmodule.DevConfig')()
-    elif os.environ.get('FLASK_ENV') == 'webdriver':
-        return import_string('configmodule.WebdriverConfig')()
-    elif os.environ.get('FLASK_ENV') == 'minikube':
-        return import_string('configmodule.MinikubeConfig')()
-
-    elif os.environ.get('FLASK_ENV') == 'private':
-        return import_string('configmodule.PrivateConfig')()
-
-    elif os.environ.get('FLASK_ENV') == 'local':
-        return import_string('configmodule.LocalConfig')()
-    elif os.environ.get('FLASK_ENV') == 'local-lite':
-        return import_string('configmodule.LocalLiteConfig')()
-    elif os.environ.get('FLASK_ENV') == 'local-private':
-        return import_string('configmodule.LocalPrivateConfig')()
-    elif os.environ.get('FLASK_ENV') == 'local-sustainability':
-        return import_string('configmodule.LocalSustainabilityConfig')()
-
-    else:
-        raise ValueError("No valid FLASK_ENV is specified: %s" %
-                         os.environ.get('FLASK_ENV'))
+    env = os.environ.get('FLASK_ENV')
+    if env in ENV:
+        return import_string(map_config_string(env))()
+    raise ValueError("No valid FLASK_ENV is specified: %s" % env)

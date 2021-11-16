@@ -32,6 +32,26 @@ class Info extends Component {
         </p>
         <ul>
           <li>
+            <b>Withdrawal Rates</b> for
+            <a
+              href={
+                "#place=geoId%2F06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Aquaculture"
+              }
+            >
+              {" "}
+              California
+            </a>
+            ,
+            <a
+              href={
+                '#place=geoId%2F06025&statsVar=WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Irrigation_FreshWater_GroundWater__WithdrawalRate_Water_Irrigation_SurfaceWater&chart=%7B"withdrawalRate"%3A%7B"pc"%3Afalse%2C"delta"%3Afalse%7D%7D'
+              }
+            >
+              {" "}
+              Imperial County
+            </a>
+          </li>
+          <li>
             <b>University towns</b> by
             <a
               href={
@@ -67,7 +87,7 @@ class Info extends Component {
               Berkeley &amp; Piedmont:
               <a
                 href={
-                  "#&&place=geoId/0606000,geoId/0656938&statsVar=Count_Person__BelowPovertyLine"
+                  "#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Count_Person_BelowPovertyLevelInThePast12Months&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
                 }
               >
                 {" "}

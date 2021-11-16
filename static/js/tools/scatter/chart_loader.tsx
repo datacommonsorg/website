@@ -23,17 +23,10 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { GeoJsonData } from "../../chart/types";
-import { USA_PLACE_DCID } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
-import {
-  getPopulationDate,
-  getUnit,
-  isChildPlaceOf,
-  PlacePointStat,
-} from "../shared_util";
+import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -43,7 +36,7 @@ import {
   PlaceInfo,
 } from "./context";
 import { PlotOptions } from "./plot_options";
-import { arePlacesLoaded, getStatsWithinPlace } from "./util";
+import { arePlacesLoaded, getStatsWithinPlace, ScatterChartType } from "./util";
 
 /**
  * Represents a point in the scatter plot.
@@ -71,8 +64,6 @@ type Cache = {
   statVarsData: Record<string, PlacePointStat>;
   populationData: StatApiResponse;
   noDataError: boolean;
-  geoJsonData: GeoJsonData;
-  parentPlaces: Array<NamedPlace>;
 };
 
 function ChartLoader(): JSX.Element {
@@ -98,7 +89,7 @@ function ChartLoader(): JSX.Element {
     yUnits = yStatData ? getUnit(yStatData) : null;
   }
   return (
-    <div>
+    <>
       {shouldRenderChart && (
         <>
           {cache.noDataError ? (
@@ -126,24 +117,15 @@ function ChartLoader(): JSX.Element {
                 yStatVar={yStatVar}
                 xUnits={xUnits}
                 yUnits={yUnits}
-                showQuadrants={display.showQuadrants}
-                showLabels={display.showLabels}
-                geoJsonData={cache.geoJsonData}
                 placeInfo={place.value}
-                chartType={display.chartType}
-                showDensity={display.showDensity}
-                isUSAPlace={isChildPlaceOf(
-                  place.value.enclosingPlace.dcid,
-                  USA_PLACE_DCID,
-                  cache.parentPlaces
-                )}
+                display={display}
               />
-              <PlotOptions />
+              <PlotOptions points={points} />
             </>
           )}
         </>
       )}
-    </div>
+    </>
   );
 }
 
@@ -170,8 +152,6 @@ function useCache(): Cache {
         statVarsData: {},
         populationData: {},
         noDataError: false,
-        geoJsonData: null,
-        parentPlaces: [],
       });
       return;
     }
@@ -205,39 +185,20 @@ async function loadData(
     place.enclosedPlaceType,
     [x.value.statVarDcid, y.value.statVarDcid]
   );
-  const childPlaceDcids = place.enclosedPlaces.map(
-    (placeInfo) => placeInfo.dcid
-  );
-  const xPopulationStatVar = DEFAULT_POPULATION_DCID;
-  const yPopulationStatVar = DEFAULT_POPULATION_DCID;
   const populationPromise: Promise<StatApiResponse> = axios
-    .post(`/api/stats`, {
-      statVars: [xPopulationStatVar, yPopulationStatVar],
-      places: childPlaceDcids,
-    })
-    .then((resp) => resp.data);
-
-  const geoJsonPromise = axios
     .get(
-      `/api/choropleth/geojson?placeDcid=${place.enclosingPlace.dcid}&placeType=${place.enclosedPlaceType}`
+      "/api/stats/set/series/within-place" +
+        `?parent_place=${place.enclosingPlace.dcid}` +
+        `&child_type=${place.enclosedPlaceType}` +
+        `&stat_vars=${DEFAULT_POPULATION_DCID}`
     )
     .then((resp) => resp.data);
-  const parentPlacesPromise = axios
-    .get(`/api/place/parent/${place.enclosingPlace.dcid}`)
-    .then((resp) => resp.data);
-  Promise.all([
-    statVarsDataPromise,
-    populationPromise,
-    geoJsonPromise,
-    parentPlacesPromise,
-  ])
-    .then(([statVarsData, populationData, geoJsonData, parentPlaces]) => {
+  Promise.all([statVarsDataPromise, populationPromise])
+    .then(([statVarsData, populationData]) => {
       const cache = {
         noDataError: _.isEmpty(statVarsData),
         populationData,
         statVarsData,
-        geoJsonData,
-        parentPlaces,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -253,7 +214,7 @@ async function loadData(
  * @param cache
  */
 function usePoints(cache: Cache): { [placeDcid: string]: Point } {
-  const { x, y, place } = useContext(Context);
+  const { x, y, place, display } = useContext(Context);
   const [points, setPoints] = useState({});
 
   const xVal = x.value;
@@ -268,7 +229,7 @@ function usePoints(cache: Cache): { [placeDcid: string]: Point } {
     if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal)) {
       return;
     }
-    const points = getPoints(xVal, yVal, placeVal, cache);
+    const points = getPoints(xVal, yVal, placeVal, display.chartType, cache);
     setPoints(computeCapita(points, xVal.perCapita, yVal.perCapita));
 
     const downloadButton = document.getElementById("download-link");
@@ -276,7 +237,7 @@ function usePoints(cache: Cache): { [placeDcid: string]: Point } {
       downloadButton.style.visibility = "visible";
       downloadButton.onclick = () => downloadData(xVal, yVal, placeVal, points);
     }
-  }, [cache, xVal, yVal, placeVal]);
+  }, [cache, xVal, yVal, placeVal, display.chartType]);
 
   return points;
 }
@@ -293,6 +254,9 @@ function computeCapita(
   xPerCapita: boolean,
   yPerCapita: boolean
 ) {
+  if (!xPerCapita && !yPerCapita) {
+    return points;
+  }
   Object.keys(points).forEach((key) => {
     const point = points[key];
     points[key] = {
@@ -309,12 +273,14 @@ function computeCapita(
  * @param x
  * @param y
  * @param place
+ * @param chartType
  * @param cache
  */
 function getPoints(
   x: Axis,
   y: Axis,
   place: PlaceInfo,
+  chartType: ScatterChartType,
   cache: Cache
 ): { [placeDcid: string]: Point } {
   const xStatData = cache.statVarsData[x.statVarDcid];
@@ -335,20 +301,24 @@ function getPoints(
       let xPopDate = null;
       const placeXPopData =
         cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
-      if (placeXPopData) {
+      if (placeXPopData && placeXPopData.val) {
         xPopDate = getPopulationDate(placeXPopData, placeXStatData);
         xPop = placeXPopData.val[xPopDate];
-        xPopSource = placeXPopData.metadata.provenanceUrl;
+        xPopSource = placeXPopData.metadata
+          ? placeXPopData.metadata.provenanceUrl
+          : null;
       }
       let yPop = null;
       let yPopSource = null;
       let yPopDate = null;
       const placeYPopData =
         cache.populationData[place.dcid].data[DEFAULT_POPULATION_DCID];
-      if (placeYPopData) {
+      if (placeYPopData && placeYPopData.val) {
         yPopDate = getPopulationDate(placeYPopData, placeYStatData);
         yPop = placeYPopData.val[yPopDate];
-        yPopSource = placeYPopData.metadata.provenanceUrl;
+        yPopSource = placeYPopData.metadata
+          ? placeYPopData.metadata.provenanceUrl
+          : null;
       }
       const point = {
         place,
@@ -358,16 +328,18 @@ function getPoints(
         xPopSource,
         xSource:
           xStatData.metadata[placeXStatData.metadata.importName].provenanceUrl,
-        xVal: placeXStatData.value,
+        xVal: placeXStatData.value === undefined ? 0 : placeXStatData.value,
         yDate: placeYStatData.date,
         yPop,
         yPopDate,
         yPopSource,
         ySource:
           yStatData.metadata[placeYStatData.metadata.importName].provenanceUrl,
-        yVal: placeYStatData.value,
+        yVal: placeYStatData.value === undefined ? 0 : placeYStatData.value,
       };
-      if (isValidPoint(point, lower, upper, x.perCapita, y.perCapita)) {
+      if (
+        isValidPoint(point, lower, upper, x.perCapita, y.perCapita, chartType)
+      ) {
         points[place.dcid] = point;
       }
     });
@@ -381,13 +353,15 @@ function getPoints(
  * @param upperBound population upper bound
  * @param xIsPerCapita whether the x value is per capita
  * @param yIsPerCapita whether the y value is per capita
+ * @param chartType the type of chart to check if a point is valid for
  */
 function isValidPoint(
   point: Point,
   lowerBound: number,
   upperBound: number,
   xIsPerCapita: boolean,
-  yIsPerCapita: boolean
+  yIsPerCapita: boolean,
+  chartType: ScatterChartType
 ): boolean {
   return (
     point &&
@@ -396,8 +370,10 @@ function isValidPoint(
     // If not per capita, allow populations to be not available
     (!_.isNil(point.xPop) || !xIsPerCapita) &&
     (!_.isNil(point.yPop) || !yIsPerCapita) &&
-    isBetween(point.xPop, lowerBound, upperBound) &&
-    isBetween(point.yPop, lowerBound, upperBound)
+    // If map chart type, allow populations to be outside upper and lower bounds
+    (chartType === ScatterChartType.MAP ||
+      (isBetween(point.xPop, lowerBound, upperBound) &&
+        isBetween(point.yPop, lowerBound, upperBound)))
   );
 }
 
@@ -495,9 +471,6 @@ function isBetween(num: number, lower: number, upper: number): boolean {
  * @param perCapita
  */
 function getLabel(name: string, perCapita: boolean): string {
-  if (!name.endsWith("$")) {
-    name = _.startCase(name);
-  }
   return `${name}${perCapita ? " Per Capita" : ""}`;
 }
 

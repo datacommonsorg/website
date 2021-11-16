@@ -32,7 +32,8 @@ bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "Country": "AdministrativeArea1",
     "AdministrativeArea1": "AdministrativeArea2",
-    "AdministrativeArea2": "AdministrativeArea2"
+    "AdministrativeArea2": "AdministrativeArea2",
+    "AdministrativeArea3": "AdministrativeArea3"
 }
 # GeoJSON property to use, keyed by display level.
 CHOROPLETH_GEOJSON_PROPERTY_MAP = {
@@ -41,6 +42,11 @@ CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "AdministrativeArea1": "geoJsonCoordinatesDP3",
     "County": "geoJsonCoordinatesDP1",
     "AdministrativeArea2": "geoJsonCoordinatesDP1",
+    "AdministrativeArea3": "geoJsonCoordinatesDP1",
+    "EurostatNUTS1": "geoJsonCoordinatesDP2",
+    "EurostatNUTS2": "geoJsonCoordinatesDP2",
+    "EurostatNUTS3": "geoJsonCoordinatesDP1",
+    "IPCCPlace_50": "geoJsonCoordinates",
 }
 
 
@@ -148,6 +154,11 @@ def geojson():
     features = []
     if geojson_prop:
         geojson_by_geo = dc_service.get_property_values(geos, geojson_prop)
+        # geoId/46102 is known to only have unsimplified geojson so need to use
+        # geoJsonCoordinates as the prop for this one place
+        if 'geoId/46102' in geojson_by_geo:
+            geojson_by_geo['geoId/46102'] = dc_service.get_property_values(
+                ['geoId/46102'], 'geoJsonCoordinates').get('geoId/46102', '')
         for geo_id, json_text in geojson_by_geo.items():
             if json_text and geo_id in names_by_geo:
                 geo_feature = {
@@ -445,14 +456,34 @@ def get_map_points():
     if not geos:
         return Response(json.dumps({}), 200, mimetype='application/json')
     names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
-    latitude_by_geo = dc_service.get_property_values(geos, "latitude")
-    longitude_by_geo = dc_service.get_property_values(geos, "longitude")
+    # For some places, lat long is attached to the place node, but for other
+    # places, the lat long is attached to the location value of the place node.
+    # If a place has location, we will use the location value to find the lat
+    # and long.
+    # eg. epaGhgrpFacilityId/1003010 has latitude and longitude but no location
+    # epa/120814013 which is an AirQualitySite has a location, but no latitude
+    # or longitude
+    location_by_geo = dc_service.get_property_values(geos, "location")
+    # dict of <dcid used to get latlon>: <dcid of the place>
+    geo_by_latlon_subject = {}
+    for geo_dcid in geos:
+        if geo_dcid in location_by_geo and len(
+                location_by_geo.get(geo_dcid)) > 0:
+            location_dcid = location_by_geo[geo_dcid][0]
+            geo_by_latlon_subject[location_dcid] = geo_dcid
+        else:
+            geo_by_latlon_subject[geo_dcid] = geo_dcid
+    lat_by_subject = dc_service.get_property_values(
+        list(geo_by_latlon_subject.keys()), "latitude")
+    lon_by_subject = dc_service.get_property_values(
+        list(geo_by_latlon_subject.keys()), "longitude")
 
     map_points_list = []
-    for geo_id, latitude in latitude_by_geo.items():
-        longitude = longitude_by_geo.get(geo_id, [])
-        if len(latitude_by_geo) == 0 or len(longitude) == 0:
+    for subject_dcid, latitude in lat_by_subject.items():
+        longitude = lon_by_subject.get(subject_dcid, [])
+        if len(latitude) == 0 or len(longitude) == 0:
             continue
+        geo_id = geo_by_latlon_subject.get(subject_dcid, "")
         map_point = {
             "placeDcid": geo_id,
             "placeName": names_by_geo.get(geo_id, "Unnamed Place"),

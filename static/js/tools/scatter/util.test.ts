@@ -52,6 +52,7 @@ const TestContext = ({
           dcid: "geoId/10005",
         },
       ],
+      parentPlaces: null,
       lowerBound: 0,
       upperBound: 99999,
     },
@@ -61,10 +62,11 @@ const TestContext = ({
     showLabels: true,
     showDensity: true,
     chartType: ScatterChartType.SCATTER,
+    showRegression: true,
   },
 } as unknown) as ContextType;
 const Hash =
-  "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26epn%3DDelaware%26epts%3DState%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26ct%3D0";
+  "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26epn%3DDelaware%26epts%3DState%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26ct%3D0%26rg%3D1";
 
 test("updateHash", () => {
   history.pushState = jest.fn();
@@ -86,6 +88,8 @@ test("applyHash", () => {
   context.display.setLabels = (value) => (context.display.showLabels = value);
   context.display.setChartType = (value) => (context.display.chartType = value);
   context.display.setDensity = (value) => (context.display.showDensity = value);
+  context.display.setRegression = (value) =>
+    (context.display.showRegression = value);
   location.hash = Hash;
   applyHash(context);
   expect(context.x.value).toEqual(TestContext.x.value);
@@ -98,4 +102,7 @@ test("applyHash", () => {
     TestContext.display.showQuadrants
   );
   expect(context.display.showDensity).toEqual(TestContext.display.showDensity);
+  expect(context.display.showRegression).toEqual(
+    TestContext.display.showRegression
+  );
 });

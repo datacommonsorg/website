@@ -19,6 +19,7 @@
  */
 
 import * as d3 from "d3";
+import * as d3Regression from "d3-regression";
 import ReactDOM from "react-dom";
 
 import { wrap } from "../../chart/base";
@@ -40,6 +41,8 @@ const DENSITY_LEGEND_TEXT_HEIGHT = 15;
 const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
+const R_LINE_LABEL_MARGIN = 3;
+const TOOLTIP_OFFSET = 5;
 
 /**
  * Adds a label for the y-axis
@@ -313,8 +316,8 @@ function addDensity(
   // Generate a color scale to determine what color the dots in each contour
   // will display
   const densityColorScale = d3
-    .scaleSequential((t) => d3.hsl(t * 240, 1, 0.5).toString())
-    .domain([0, contours.length]);
+    .scaleSequential(d3.interpolateTurbo)
+    .domain([contours.length, 0]);
 
   // Add a legend to show what each color means
   addDensityLegend(svg, contours, densityColorScale, chartHeight, marginTop);
@@ -350,6 +353,7 @@ function addDensity(
  * @param yLabel
  */
 function addTooltip(
+  svgContainerRef: React.MutableRefObject<HTMLDivElement>,
   tooltip: React.MutableRefObject<HTMLDivElement>,
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
   xLabel: string,
@@ -375,15 +379,105 @@ function addTooltip(
     );
 
     ReactDOM.render(element, tooltip.current);
+    const tooltipHeight = (div.node() as HTMLDivElement).getBoundingClientRect()
+      .height;
+    const tooltipWidth = (div.node() as HTMLDivElement).getBoundingClientRect()
+      .width;
+    const containerWidth = (d3
+      .select(svgContainerRef.current)
+      .node() as HTMLDivElement).getBoundingClientRect().width;
+    let left = Math.min(
+      d3.event.offsetX + TOOLTIP_OFFSET,
+      containerWidth - tooltipWidth
+    );
+    if (left < 0) {
+      left = 0;
+      div.style("width", containerWidth + "px");
+    } else {
+      div.style("width", "fit-content");
+    }
+    let top = d3.event.offsetY - tooltipHeight - TOOLTIP_OFFSET;
+    if (top < 0) {
+      top = d3.event.offsetY + TOOLTIP_OFFSET;
+    }
     div
-      .style("left", d3.event.pageX + 15 + "px")
-      .style("top", d3.event.pageY - 28 + "px")
+      .style("left", left + "px")
+      .style("top", top + "px")
       .style("visibility", "visible");
   };
   const onTooltipMouseout = () => {
     div.style("visibility", "hidden");
   };
   dots.on("mouseover", onTooltipMouseover).on("mouseout", onTooltipMouseout);
+}
+
+/**
+ * Draw regression line.
+ */
+function addRegressionLine(
+  regressionLine: d3.Selection<SVGGElement, any, any, any>,
+  xScale: d3.ScaleLinear<any, any>,
+  yScale: d3.ScaleLinear<any, any>,
+  points: { [placeDcid: string]: Point },
+  xMinMax: [number, number]
+) {
+  const regression = d3Regression
+    .regressionLinear()
+    .x((point) => point.xVal)
+    .y((point) => point.yVal)
+    .domain(xMinMax)(Object.values(points));
+  const yScaleStart = yScale.domain()[0];
+  const xScaleStart = xScale.domain()[0];
+  const xIntercept = (yScaleStart - regression.b) / regression.a;
+  const yIntercept = regression.predict(xScaleStart);
+
+  // The line should be within the chart space, so update the start and end
+  // points of the line if they're outside of the xScale or yScales
+  let startX = regression[0][0];
+  let startY = regression[0][1];
+  if (startY < yScaleStart) {
+    startX = xIntercept;
+    startY = yScaleStart;
+  } else if (startX < xScaleStart) {
+    startX = xScaleStart;
+    startY = yIntercept;
+  }
+  let endX = regression[1][0];
+  let endY = regression[1][1];
+  if (endY < yScaleStart) {
+    endX = xIntercept;
+    endY = yScaleStart;
+  }
+
+  regressionLine
+    .append("line")
+    .attr("class", "regression-line")
+    .attr("x1", xScale(startX))
+    .attr("y1", yScale(startY))
+    .attr("x2", xScale(endX))
+    .attr("y2", yScale(endY));
+
+  const bValueString = Math.abs(regression.b).toFixed(
+    2 - Math.floor(Math.log(Math.abs(regression.b % 1)) / Math.log(10))
+  );
+  const aValueString = regression.a.toFixed(
+    2 - Math.floor(Math.log(Math.abs(regression.a % 1)) / Math.log(10))
+  );
+
+  const label = regressionLine
+    .append("text")
+    .text(
+      `y = ${aValueString}x ${regression.b > 0 ? "+" : "-"} ${bValueString}`
+    )
+    .attr("class", "regression-label");
+  label.attr(
+    "transform",
+    `translate(${xScale(endX) - label.node().getBBox().width}, ${
+      regression.a > 0
+        ? yScale(endY) - R_LINE_LABEL_MARGIN
+        : yScale(endY) + R_LINE_LABEL_MARGIN
+    })`
+  );
 }
 
 /**
@@ -398,11 +492,7 @@ export function drawScatter(
   chartWidth: number,
   chartHeight: number,
   props: ChartPropsType,
-  redirectAction: (
-    xStatVar: string,
-    yStatVar: string,
-    placeDcid: string
-  ) => void,
+  redirectAction: (placeDcid: string) => void,
   getTooltipElement: (
     point: Point,
     xLabel: string,
@@ -437,7 +527,7 @@ export function drawScatter(
     props.yUnits
   );
   let width = chartWidth - MARGINS.left - MARGINS.right - yAxisWidth;
-  if (props.showDensity) {
+  if (props.display.showDensity) {
     width = width - DENSITY_LEGEND_WIDTH;
   }
 
@@ -462,7 +552,7 @@ export function drawScatter(
   const xScale = addXAxis(g, props.xLog, height, width, xMinMax[0], xMinMax[1]);
   const yScale = addYAxis(g, props.yLog, height, yMinMax[0], yMinMax[1]);
 
-  if (props.showQuadrants) {
+  if (props.display.showQuadrants) {
     const quadrant = g.append("g");
     const xMean = d3.mean(Object.values(props.points), (point) => point.xVal);
     const yMean = d3.mean(Object.values(props.points), (point) => point.yVal);
@@ -479,11 +569,9 @@ export function drawScatter(
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
     .style("opacity", "0.7")
-    .on("click", (point: Point) =>
-      redirectAction(props.xStatVar, props.yStatVar, point.place.dcid)
-    );
+    .on("click", (point: Point) => redirectAction(point.place.dcid));
 
-  if (props.showDensity) {
+  if (props.display.showDensity) {
     addDensity(
       svg,
       dots,
@@ -501,7 +589,7 @@ export function drawScatter(
       .attr("stroke-width", STROKE_WIDTH);
   }
 
-  if (props.showLabels) {
+  if (props.display.showLabels) {
     g.append("g")
       .attr("class", "dot-label")
       .selectAll("text")
@@ -514,7 +602,13 @@ export function drawScatter(
       .text((point) => point.place.name);
   }
 
+  if (props.display.showRegression) {
+    const regressionLine = g.append("g");
+    addRegressionLine(regressionLine, xScale, yScale, props.points, xMinMax);
+  }
+
   addTooltip(
+    svgContainerRef,
     tooltipRef,
     dots,
     props.xLabel,

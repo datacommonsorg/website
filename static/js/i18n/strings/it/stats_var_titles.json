@@ -62,8 +62,17 @@
   "Annual_Average_RetailPrice_Electricity": {
     "defaultMessage": "Annual Electricity Generation"
   },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Carbon Dioxide Emissions (Large Facilities, Non-biogenic)"
+  },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Annual Emissions of Greenhouse Gas (Non-Biogenic)"
+    "defaultMessage": "Annual Emissions of Greenhouse Gas (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methane Emissions (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Nitrous Oxide Emissions (Large Facilities, Non-biogenic)"
   },
   "Annual_Generation_Electricity": {
     "defaultMessage": "Annual Electricity Generation"
@@ -635,6 +644,12 @@
   "LifeExpectancy_Person": {
     "defaultMessage": "Aspettativa di vita"
   },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Mean Diesel PM Concentration"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Mean Ozone Concentration"
+  },
   "Mean_Concentration_AirPollutant_PM2.5": {
     "defaultMessage": "Mean PM2.5 Concentration"
   },
@@ -802,6 +817,9 @@
   },
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "Tasso di disoccupazione (urbano)"
+  },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Water withdrawal rate"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "Popolazione (buddista)"

@@ -62,8 +62,17 @@
   "Annual_Average_RetailPrice_Electricity": {
     "defaultMessage": "Electricity Price"
   },
+  "Annual_Emissions_CarbonDioxide_NonBiogenic": {
+    "defaultMessage": "Carbon Dioxide (Large Facilities, Non-biogenic)"
+  },
   "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-    "defaultMessage": "Greenhouse Gas (Non-biogenic)"
+    "defaultMessage": "Greenhouse Gas (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_Methane_NonBiogenic": {
+    "defaultMessage": "Methane (Large Facilities, Non-biogenic)"
+  },
+  "Annual_Emissions_NitrousOxide_NonBiogenic": {
+    "defaultMessage": "Nitrous Oxide (Large Facilities, Non-biogenic)"
   },
   "Annual_Generation_Electricity": {
     "defaultMessage": "Annual Electricity Generation"
@@ -635,6 +644,12 @@
   "LifeExpectancy_Person": {
     "defaultMessage": "औसत उम्र"
   },
+  "Mean_Concentration_AirPollutant_DieselPM": {
+    "defaultMessage": "Diesel PM"
+  },
+  "Mean_Concentration_AirPollutant_Ozone": {
+    "defaultMessage": "Ozone"
+  },
   "Mean_Concentration_AirPollutant_PM2.5": {
     "defaultMessage": "PM2.5"
   },
@@ -802,6 +817,9 @@
   },
   "UnemploymentRate_Person_Urban": {
     "defaultMessage": "शहरी"
+  },
+  "WithdrawalRate_Water": {
+    "defaultMessage": "Water withdrawal rate"
   },
   "indianCensus/Count_Person_Religion_Buddhist": {
     "defaultMessage": "बौद्ध"

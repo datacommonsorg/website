@@ -29,11 +29,10 @@ import {
   StatVarInfo,
   StatVarSummary,
 } from "../shared/types";
-import { CHILD_PLACE_TYPES } from "../tools/map/util";
+import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
 import { hideTooltip, showTooltip, SV_HIERARCHY_SECTION_ID } from "./util";
 
 const TOOLTIP_TOP_OFFSET = 10;
-const TOOLTIP_RIGHT_MARGIN = 20;
 const STATE_OR_EQUIVALENT = "State or equivalent";
 const COUNTY_OR_EQUIVALENT = "County or equivalent";
 const CITY_OR_EQUIVALENT = "City or equivalent";
@@ -170,7 +169,7 @@ export class StatVarSectionInput extends React.Component<
       this.props.summary.placeTypeSummary
     ).filter((placeType) => {
       if (this.context.statVarHierarchyType === StatVarHierarchyType.MAP) {
-        return placeType in CHILD_PLACE_TYPES;
+        return placeType in ALL_MAP_PLACE_TYPES;
       }
       return ALLOWED_PLACE_TYPES.has(placeType);
     });
@@ -250,7 +249,7 @@ export class StatVarSectionInput extends React.Component<
       .select(`#${SV_HIERARCHY_SECTION_ID}`)
       .node() as HTMLElement).getBoundingClientRect().y;
     const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
-    showTooltip(html, { left, top, right: TOOLTIP_RIGHT_MARGIN });
+    showTooltip(html, { left, top });
   };
 }
 

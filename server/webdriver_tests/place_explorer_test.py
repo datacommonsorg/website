@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import urllib
+import urllib.request
 
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
 MTV_URL = '/place/geoId/0649670'
@@ -168,13 +167,13 @@ class TestPlaceExplorer(WebdriverBaseTest):
         Test a place page with demographics after a redirect.
         """
         # Load California's Demographics page.
-        start_url = self.url_ + '/place?dcid=geoId/06&topic=Demographics&utm_medium=um'
+        start_url = self.url_ + '/place?dcid=geoId/06&category=Demographics&utm_medium=um'
         self.driver.get(start_url)
 
         # Wait for redirect.
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
             lambda driver: driver.current_url != start_url)
-        self.assertTrue("topic=Demographics" in self.driver.current_url)
+        self.assertTrue("category=Demographics" in self.driver.current_url)
         self.assertTrue("utm_medium=um" in self.driver.current_url)
 
         element_present = EC.presence_of_element_located(

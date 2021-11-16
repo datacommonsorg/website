@@ -20,6 +20,7 @@ import React, { Component } from "react";
 
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { ChartRegion } from "./chart_region";
 import { Info } from "./info";
@@ -98,6 +99,10 @@ class Page extends Component<unknown, PageStateType> {
     return (
       <>
         <div className="explore-menu-container" id="explore">
+          <DrawerToggle
+            collapseElemId="explore"
+            visibleElemId="stat-var-hierarchy-section"
+          />
           <StatVarHierarchy
             type={StatVarHierarchyType.TIMELINE}
             places={namedPlaces}
@@ -112,7 +117,7 @@ class Page extends Component<unknown, PageStateType> {
           />
         </div>
         <div id="plot-container">
-          <div className="container">
+          <div className="container-fluid">
             {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
             <div id="search">
               <SearchBar

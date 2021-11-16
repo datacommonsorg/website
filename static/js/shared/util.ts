@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { MAX_YEAR } from "./constants";
+import axios from "axios";
+import _ from "lodash";
+
+import { NamedTypedPlace } from "../tools/map/context";
+import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
+import { EARTH_NAMED_TYPED_PLACE, MAX_DATE, MAX_YEAR } from "./constants";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -28,6 +33,11 @@ export const placeExplorerCategories = [
   "climate",
   "energy",
 ];
+
+// used to set fields in an object
+export interface Setter<T> {
+  (value: T): void;
+}
 
 export function randDomId(): string {
   return Math.random()
@@ -79,6 +89,74 @@ export function isDateTooFar(date: string): boolean {
   return date.slice(0, 4) > MAX_YEAR;
 }
 
-export function shouldCapStatVarDate(statVar: string): boolean {
-  return statVar.includes("_RCP");
+export function getCappedStatVarDate(statVar: string): string {
+  // Only want to cap stat var date for stat vars with RCP.
+  if (!statVar.includes("_RCP")) {
+    return "";
+  }
+  // Wet bulb temperature is observed at P1Y, so need to use year for the date.
+  if (statVar.includes("WetBulbTemperature")) {
+    return MAX_YEAR;
+  }
+  return MAX_DATE;
+}
+
+/**
+ * Makes the spinner visible if there is one within the specific container with the given id.
+ * @param containerId the id of the container to show spinner in
+ */
+export function loadSpinner(containerId: string): void {
+  const container = document.getElementById(containerId);
+  if (container) {
+    const browserScreens = container.getElementsByClassName("screen");
+    if (!_.isEmpty(browserScreens)) {
+      browserScreens[0].classList.add("d-block");
+    }
+  }
+}
+
+/**
+ * Removes the spinner if there is one within the specific container with the given id.
+ * @param containerId the id of the container to remove spinner from
+ */
+export function removeSpinner(containerId: string): void {
+  const container = document.getElementById(containerId);
+  if (container) {
+    const browserScreens = container.getElementsByClassName("screen");
+    if (!_.isEmpty(browserScreens)) {
+      browserScreens[0].classList.remove("d-block");
+    }
+  }
+}
+
+/**
+ * Used to get and set parent places
+ * @param placeDcid the place to get parent places for
+ * @param setParentPlaces the function to set parent places
+ */
+export function loadParentPlaces(
+  placeDcid: string,
+  setParentPlaces: Setter<Array<NamedTypedPlace>>
+): void {
+  axios
+    .get(`/api/place/parent/${placeDcid}`)
+    .then((resp) => {
+      const parentsData = resp.data;
+      const filteredParentsData = parentsData.filter((parent) => {
+        for (const type of parent.types) {
+          if (type in ALL_MAP_PLACE_TYPES) {
+            return true;
+          }
+        }
+        return false;
+      });
+      const parentPlaces = filteredParentsData.map((parent) => {
+        return { dcid: parent.dcid, name: parent.name, types: parent.types };
+      });
+      if (placeDcid !== EARTH_NAMED_TYPED_PLACE.dcid) {
+        parentPlaces.push(EARTH_NAMED_TYPED_PLACE);
+      }
+      setParentPlaces(parentPlaces);
+    })
+    .catch(() => setParentPlaces([]));
 }

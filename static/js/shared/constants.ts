@@ -18,12 +18,25 @@ import { NamedTypedPlace } from "../tools/map/context";
 
 export const USA_PLACE_DCID = "country/USA";
 export const INDIA_PLACE_DCID = "country/IND";
-
+export const BANGLADESH_PLACE_DCID = "country/BGD";
+export const NEPAL_PLACE_DCID = "country/NPL";
+export const PAKISTAN_PLACE_DCID = "country/PAK";
+export const ASIA_NAMED_TYPED_PLACE: NamedTypedPlace = {
+  dcid: "asia",
+  name: "Asia",
+  types: ["Continent"],
+};
+export const EUROPE_NAMED_TYPED_PLACE: NamedTypedPlace = {
+  dcid: "europe",
+  name: "Europe",
+  types: ["Continent"],
+};
 export const EARTH_NAMED_TYPED_PLACE: NamedTypedPlace = {
   dcid: "Earth",
   name: "Earth",
   types: ["Planet"],
 };
+export const IPCC_PLACE_50_TYPE_DCID = "IPCCPlace_50";
 
 export const MAX_YEAR = "2050";
-export const MAX_DATE = "2050-12";
+export const MAX_DATE = "2050-06";

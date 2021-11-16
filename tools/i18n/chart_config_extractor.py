@@ -27,13 +27,9 @@ MESSAGES_POT_RELATIVE_PATH = '../../server/i18n/all.pot'
 
 
 def extract_message_from_chart(config):
-    try:
-        id = config['titleId']
-        message = config['title']
-        description = config.get('description', '')
-    except:
-        print(f"Misconfigured chart: {config}")
-        return (None, None)
+    id = config['titleId']
+    message = config['title']
+    description = config.get('description', '')
     return (id, {
         'message': message,
         'description': f'Title of a place chart: {description}'

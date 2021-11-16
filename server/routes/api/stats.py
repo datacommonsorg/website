@@ -14,7 +14,7 @@
 
 import json
 
-from flask import Blueprint, request, Response
+from flask import Blueprint, current_app, request, Response
 from cache import cache
 import services.datacommons as dc
 
@@ -101,6 +101,7 @@ def stats_var_property_wrapper(dcids):
     },
                          compress=False,
                          post=True)
+    ranked_statvars = current_app.config['RANKED_STAT_VARS']
     result = {}
     # Get all the constraint properties
     for dcid, triples in data.items():
@@ -141,6 +142,7 @@ def stats_var_property_wrapper(dcids):
             'mq': mq,
             'pvs': pvs,
             'title': name,
+            'ranked': dcid in ranked_statvars
         }
     return result
 
@@ -202,6 +204,34 @@ def get_stat_set_within_place():
     return Response(json.dumps(
         dc.get_stat_set_within_place(parent_place, child_type, stat_vars,
                                      date).get('data', {})),
+                    200,
+                    mimetype='application/json')
+
+
+@bp.route('/api/stats/set/series/within-place')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_stat_set_series_within_place():
+    """Gets the statistical variable series for child places of a certain place
+    type contained in a parent place.
+    """
+    parent_place = request.args.get("parent_place")
+    if not parent_place:
+        return Response(json.dumps("error: must provide a parent_place field"),
+                        400,
+                        mimetype='application/json')
+    child_type = request.args.get("child_type")
+    if not child_type:
+        return Response(json.dumps("error: must provide a child_type field"),
+                        400,
+                        mimetype='application/json')
+    stat_vars = request.args.getlist("stat_vars")
+    if not stat_vars:
+        return Response(json.dumps("error: must provide a stat_vars field"),
+                        400,
+                        mimetype='application/json')
+    return Response(json.dumps(
+        dc.get_stat_set_series_within_place(parent_place, child_type,
+                                            stat_vars).get('data', {})),
                     200,
                     mimetype='application/json')
 

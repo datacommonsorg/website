@@ -11,7 +11,7 @@ opencensus==0.7.13
 opencensus-ext-flask==0.7.5
 opencensus-ext-stackdriver==0.7.4
 parameterized==0.8.1
-pytest-parallel==0.1.0
+pytest-xdist==2.4.0
 redis==3.5.3
 requests==2.26.0
 selenium==3.141.0

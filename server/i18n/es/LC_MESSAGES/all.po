@@ -1,9 +1,3 @@
-msgid "%(cityName)s Demographics"
-msgstr "Datos demográficos de %(cityName)s"
-
-msgid "%(cityName)s Health"
-msgstr "%(cityName)s: salud"
-
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s es un proyecto respaldado por Google"
 
@@ -19,8 +13,8 @@ msgstr "Acerca de Data Commons"
 msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
 msgstr "Consecución de un título universitario o superior en los condados de Washington (Estados Unidos)"
 
-msgid "Bachelor Degree Attained vs Females per capita for California Counties"
-msgstr "Licenciatura obtenida en comparación con Mujeres per cápita en los condados de California"
+msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
+msgstr ""
 
 msgid "Blog"
 msgstr "Blog"
@@ -42,15 +36,6 @@ msgstr "Condados (Estados Unidos)"
 
 msgid "Countries"
 msgstr "Países"
-
-msgid "Create Maps"
-msgstr "Crear mapas"
-
-msgid "Create Scatter Plots"
-msgstr "Crear gráficos de dispersión"
-
-msgid "Create Timeline Charts"
-msgstr "Crea cronologías"
 
 msgid "Data Commons"
 msgstr "Data Commons"
@@ -79,9 +64,6 @@ msgstr "Introduce un país, un estado, un condado o una ciudad"
 msgid "Explore"
 msgstr "Ver"
 
-msgid "Explore Places"
-msgstr "Consulta información sobre lugares"
-
 msgid "Explore the data"
 msgstr "Consulta los datos"
 
@@ -91,8 +73,8 @@ msgstr "Preguntas frecuentes"
 msgid "Feedback"
 msgstr "Comentarios"
 
-msgid "Foreign Born vs Unemployment Rate for US States"
-msgstr "Personas nacidas en el extranjero en comparación con Tasa de desempleo en los estados de EE. UU."
+msgid "Foreign Born vs. Unemployment Rate for US States"
+msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "Preguntas frecuentes"
@@ -331,9 +313,6 @@ msgstr "Estado de ciudadanía"
 msgid "CHART_TITLE-Citizenship_distribution"
 msgstr "Distribución de la población por estado de ciudadanía"
 
-msgid "CHART_TITLE-Co2_emissions_per_capita"
-msgstr "Emisiones de CO2 per cápita"
-
 msgid "CHART_TITLE-Covid_cases"
 msgstr "Casos acumulados de COVID-19"
 
@@ -495,6 +474,12 @@ msgstr "Capitalización en el mercado de las empresas nacionales"
 
 msgid "CHART_TITLE-Market_capitalization_per_gdp"
 msgstr "Capitalización en el mercado de las empresas nacionales (% del PIB)"
+
+msgid "CHART_TITLE-Mean_concentration_DieselPM"
+msgstr "Mean Diesel PM concentration"
+
+msgid "CHART_TITLE-Mean_concentration_Ozone"
+msgstr "Mean Ozone concentration"
 
 msgid "CHART_TITLE-Mean_concentration_PM2.5"
 msgstr "Mean PM2.5 concentration"
@@ -687,4 +672,19 @@ msgstr "Salario de las personas trabajadoras (mensual): comparación entre zonas
 
 msgid "CHART_TITLE-Worker-vs-nonworker-population"
 msgstr "Personas trabajadoras y no trabajadoras"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic"
+msgstr "Carbon dioxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-carbon_dioxide_emissions_per_capita"
+msgstr "Carbon dioxide emissions per capita"
+
+msgid "CHART_TITLE-methane_emissions_nonbiogenic"
+msgstr "Methane emissions (non-biogenic)"
+
+msgid "CHART_TITLE-nitrous_oxide_emissions_non_biogenic"
+msgstr "Nitrous oxide emissions (non-biogenic)"
+
+msgid "CHART_TITLE-water_withdrawal_rate"
+msgstr "Water withdrawal rate"
 

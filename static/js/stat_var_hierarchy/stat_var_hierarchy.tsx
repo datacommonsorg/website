@@ -24,13 +24,13 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
-import { loadSpinner, removeSpinner } from "../browser/util";
 import { Context } from "../shared/context";
 import {
   NamedPlace,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
+import { loadSpinner, removeSpinner } from "../shared/util";
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
@@ -43,7 +43,7 @@ import {
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
-
+const SHOW_ALL_SV_TYPES = [StatVarHierarchyType.STAT_VAR];
 interface StatVarHierarchyPropType {
   type: string;
   places: NamedPlace[];
@@ -91,8 +91,7 @@ export class StatVarHierarchy extends React.Component<
       svPath: null,
       rootSVGs: [],
       togglePath: this.togglePath,
-      showAllSV:
-        this.props.type === StatVarHierarchyType.BROWSER ? false : true,
+      showAllSV: SHOW_ALL_SV_TYPES.indexOf(this.props.type) > -1,
     };
     this.onSearchSelectionChange = this.onSearchSelectionChange.bind(this);
     this.togglePath = this.togglePath.bind(this);
@@ -123,47 +122,53 @@ export class StatVarHierarchy extends React.Component<
     }
     let rootSVGs = this.state.rootSVGs;
     if (!this.state.showAllSV) {
-      rootSVGs = rootSVGs.filter((svg) => svg.numDescendentStatVars > 0);
+      const svgOnSvPath = new Set();
+      for (const sv in this.state.svPath) {
+        svgOnSvPath.add(this.state.svPath[sv][0]);
+      }
+      rootSVGs = rootSVGs.filter(
+        (svg) => svg.numDescendentStatVars > 0 || svgOnSvPath.has(svg.id)
+      );
     }
     return (
       <div id={SV_HIERARCHY_SECTION_ID} className="loading-spinner-container">
         {!_.isEmpty(this.state.errorMessage) && (
           <div className="error-message">{this.state.errorMessage}</div>
         )}
-        {!_.isEmpty(rootSVGs) && (
-          <div className="stat-var-hierarchy-container">
-            <StatVarHierarchySearch
-              places={this.props.places.map((x) => x.dcid)}
-              onSelectionChange={this.onSearchSelectionChange}
-              searchLabel={this.props.searchLabel}
-            />
-            {this.props.type !== StatVarHierarchyType.BROWSER &&
-              this.props.type !== StatVarHierarchyType.STAT_VAR && (
-                <div className="stat-var-hierarchy-options">
-                  <div className="show-sv-toggle">
-                    <i
-                      className={`material-icons-outlined ${
-                        this.state.showAllSV ? "toggle-on" : "toggle-off"
-                      }`}
-                      onClick={() =>
-                        this.setState({ showAllSV: !this.state.showAllSV })
-                      }
-                    >
-                      {this.state.showAllSV ? "toggle_on" : "toggle_off"}
-                    </i>
-                    Show all statistical variables
-                  </div>
-                  <div id="tree-widget-info">
-                    <i
-                      onMouseOver={this.onMouseOverInfoIcon}
-                      onMouseOut={() => hideTooltip()}
-                      className="material-icons-outlined"
-                    >
-                      info
-                    </i>
-                  </div>
+        <div className="stat-var-hierarchy-container">
+          <StatVarHierarchySearch
+            places={this.props.places.map((x) => x.dcid)}
+            onSelectionChange={this.onSearchSelectionChange}
+            searchLabel={this.props.searchLabel}
+          />
+          {this.props.type !== StatVarHierarchyType.BROWSER &&
+            this.props.type !== StatVarHierarchyType.STAT_VAR && (
+              <div className="stat-var-hierarchy-options">
+                <div className="show-sv-toggle">
+                  <i
+                    className={`material-icons-outlined ${
+                      this.state.showAllSV ? "toggle-on" : "toggle-off"
+                    }`}
+                    onClick={() =>
+                      this.setState({ showAllSV: !this.state.showAllSV })
+                    }
+                  >
+                    {this.state.showAllSV ? "toggle_on" : "toggle_off"}
+                  </i>
+                  Show all statistical variables
                 </div>
-              )}
+                <div id="tree-widget-info">
+                  <i
+                    onMouseOver={this.onMouseOverInfoIcon}
+                    onMouseOut={() => hideTooltip()}
+                    className="material-icons-outlined"
+                  >
+                    info
+                  </i>
+                </div>
+              </div>
+            )}
+          {!_.isEmpty(rootSVGs) ? (
             <div id="stat-var-hierarchy-scroll-container">
               <div id="hierarchy-section">
                 {rootSVGs.map((svg) => {
@@ -198,8 +203,12 @@ export class StatVarHierarchy extends React.Component<
                 }, this)}
               </div>
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="no-sv-message">
+              No Available Statistical Variables
+            </div>
+          )}
+        </div>
         <div id="browser-screen" className="screen">
           <div id="spinner"></div>
         </div>
@@ -319,7 +328,6 @@ export class StatVarHierarchy extends React.Component<
       .node() as HTMLElement).getBoundingClientRect().y;
     showTooltip(html, {
       left: TOOLTIP_MARGIN,
-      right: TOOLTIP_MARGIN,
       top: iconY - containerY + TOOLTIP_TOP_OFFSET,
     });
   };

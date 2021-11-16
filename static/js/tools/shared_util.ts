@@ -16,6 +16,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
 import { TimeSeries } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
 import { NamedTypedPlace } from "./map/context";
@@ -118,6 +119,22 @@ export function isIpccStatVar(statVar: string): boolean {
 }
 
 /**
+ * All Temperature Stat Vars get a fixed color scale.
+ * TODO: Reconcile these various utils.
+ */
+export function isTemperatureStatVar(statVar: string): boolean {
+  return statVar.indexOf("Temperature") >= 0;
+}
+
+/**
+ * All Wet Bulb Temperature Stat Vars get temperature color scales.
+ * TODO: Reconcile these various utils.
+ */
+export function isWetBulbStatVar(statVar: string): boolean {
+  return statVar.indexOf("Number of Months Based on") >= 0;
+}
+
+/**
  * Determine whether or not map boundaries should be drawn. We don't want to
  * draw map boundaries if the selected place type and the enclosed place type
  * are 2 or more levels away in the USA_PLACE_HIERARCHY.
@@ -130,7 +147,16 @@ export function shouldShowMapBoundaries(
   selectedPlace: NamedTypedPlace,
   enclosedPlaceType: string
 ): boolean {
+  if (enclosedPlaceType === IPCC_PLACE_50_TYPE_DCID) {
+    return false;
+  }
   const selectedPlaceTypes = selectedPlace.types;
+  if (
+    enclosedPlaceType === "EurostatNUTS3" &&
+    selectedPlaceTypes[0] !== "EurostatNUTS2"
+  ) {
+    return false;
+  }
   let selectedPlaceTypeIdx = -1;
   if (selectedPlaceTypes) {
     selectedPlaceTypeIdx = USA_PLACE_HIERARCHY.indexOf(selectedPlaceTypes[0]);
@@ -157,4 +183,12 @@ export function isChildPlaceOf(
     selectedPlaceDcid === parentPlaceDcid ||
     parentPlaces.findIndex((parent) => parent.dcid === parentPlaceDcid) > -1
   );
+}
+
+/**
+ * Transforms a string to Title Case.
+ * @param str the string to transform.
+ */
+export function toTitleCase(str: string): string {
+  return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
 }

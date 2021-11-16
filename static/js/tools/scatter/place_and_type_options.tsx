@@ -25,14 +25,10 @@ import { Container, CustomInput } from "reactstrap";
 import { Card } from "reactstrap";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { CHILD_PLACE_TYPES, getAllChildPlaceTypes } from "../map/util";
+import { loadParentPlaces } from "../../shared/util";
+import { getAllChildPlaceTypes } from "../map/util";
 import { SearchBar } from "../timeline/search";
-import {
-  Context,
-  IsLoadingWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
-} from "./context";
+import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
@@ -47,43 +43,53 @@ const USA_CHILD_PLACE_TYPES = {
   City: USA_CITY_CHILD_TYPES,
 };
 
-const NON_USA_PLACE_TYPES = [
-  "EurostatNUTS1",
-  "EurostatNUTS2",
-  "EurostatNUTS3",
+const AA4_CHILD_PLACE_TYPES = ["AdministrativeArea5"];
+const AA3_CHILD_PLACE_TYPES = ["AdministrativeArea4", ...AA4_CHILD_PLACE_TYPES];
+const AA2_CHILD_PLACE_TYPES = ["AdministrativeArea3", ...AA3_CHILD_PLACE_TYPES];
+const AA1_CHILD_PLACE_TYPES = ["AdministrativeArea2", ...AA2_CHILD_PLACE_TYPES];
+const NUTS2_CHILD_PLACE_TYPES = ["EurostatNUTS3"];
+const NUTS1_CHILD_PLACE_TYPES = ["EurostatNUTS2", ...NUTS2_CHILD_PLACE_TYPES];
+const NON_USA_COUNTRY_PLACE_TYPES = [
   "AdministrativeArea1",
-  "AdministrativeArea2",
-  "AdministrativeArea3",
-  "AdministrativeArea4",
-  "AdministrativeArea5",
+  ...AA1_CHILD_PLACE_TYPES,
+  "EurostatNUTS1",
+  ...NUTS1_CHILD_PLACE_TYPES,
 ];
-
-/**
- * Possible child place types.
- */
-const ALL_PLACE_TYPES = [
-  "Country",
-  "State",
-  "County",
-  "City",
-  "Town",
-  "Village",
-  "Borough",
-  "CensusZipCodeTabulationArea",
-  ...NON_USA_PLACE_TYPES,
-];
+const CONTINENT_PLACE_TYPES = ["Country", ...NON_USA_COUNTRY_PLACE_TYPES];
+const CHILD_PLACE_TYPES = {
+  Planet: ["Continent", ...CONTINENT_PLACE_TYPES, ...USA_COUNTRY_CHILD_TYPES],
+  Continent: CONTINENT_PLACE_TYPES,
+  Country: NON_USA_COUNTRY_PLACE_TYPES,
+  EurostatNUTS1: NUTS1_CHILD_PLACE_TYPES,
+  EurostatNUTS2: NUTS2_CHILD_PLACE_TYPES,
+  AdministrativeArea1: AA1_CHILD_PLACE_TYPES,
+  AdministrativeArea2: AA2_CHILD_PLACE_TYPES,
+  AdministrativeArea3: AA3_CHILD_PLACE_TYPES,
+  AdministrativeArea4: AA4_CHILD_PLACE_TYPES,
+};
 
 function PlaceAndTypeOptions(): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
-  const [childPlaceTypes, setChildPlaceTypes] = useState(ALL_PLACE_TYPES);
-  if (place.value.enclosingPlace.dcid && childPlaceTypes === ALL_PLACE_TYPES) {
-    updateChildPlaceTypes(place.value.enclosingPlace.dcid, setChildPlaceTypes);
-  }
+  const [childPlaceTypes, setChildPlaceTypes] = useState([]);
+  useEffect(() => {
+    if (place.value.enclosingPlace.dcid) {
+      updateChildPlaceTypes(
+        place.value.enclosingPlace.dcid,
+        setChildPlaceTypes
+      );
+    }
+  }, [place.value.enclosingPlace.dcid]);
+
   /**
    * Reloads child places if the enclosing place or child place type changes.
    */
   useEffect(() => {
-    if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
+    if (place.value.enclosingPlace.dcid && _.isNull(place.value.parentPlaces)) {
+      loadParentPlaces(place.value.enclosingPlace.dcid, place.setParentPlaces);
+    } else if (
+      isPlacePicked(place.value) &&
+      _.isEmpty(place.value.enclosedPlaces)
+    ) {
       loadPlaces(place, isLoading);
     }
   }, [place.value]);
@@ -96,18 +102,25 @@ function PlaceAndTypeOptions(): JSX.Element {
     if (
       isPlacePicked(place.value) &&
       display.chartType === ScatterChartType.MAP &&
-      !hasMapView(place.value)
+      !_.isNull(place.value.parentPlaces)
     ) {
-      display.setChartType(ScatterChartType.SCATTER);
-      alert(
-        `Sorry, map view is not supported for places in ${place.value.enclosingPlace.name} of type ${place.value.enclosedPlaceType}`
-      );
+      const hasMapView =
+        getAllChildPlaceTypes(
+          place.value.enclosingPlace,
+          place.value.parentPlaces
+        ).indexOf(place.value.enclosedPlaceType) > -1;
+      if (!hasMapView) {
+        display.setChartType(ScatterChartType.SCATTER);
+        alert(
+          `Sorry, map view is not supported for places in ${place.value.enclosingPlace.name} of type ${place.value.enclosedPlaceType}`
+        );
+      }
     }
   }, [place.value, display.chartType]);
 
   return (
     <Card className="place-and-type-options-card">
-      <Container className="place-and-type-options">
+      <Container className="place-and-type-options" fluid={true}>
         <div
           className="place-and-type-options-section"
           id="place-search-section"
@@ -142,11 +155,12 @@ function PlaceAndTypeOptions(): JSX.Element {
               className="pac-target-input"
             >
               <option value="">Select a place type</option>
-              {childPlaceTypes.map((type) => (
-                <option value={type} key={type}>
-                  {type}
-                </option>
-              ))}
+              {childPlaceTypes &&
+                childPlaceTypes.map((type) => (
+                  <option value={type} key={type}>
+                    {type}
+                  </option>
+                ))}
             </CustomInput>
           </div>
         </div>
@@ -177,18 +191,6 @@ function PlaceAndTypeOptions(): JSX.Element {
       </Container>
     </Card>
   );
-}
-
-function hasMapView(place: PlaceInfo): boolean {
-  const allowedEnclosingPlaceTypes = place.enclosingPlace.types.filter(
-    (type) => type in CHILD_PLACE_TYPES
-  );
-  for (const type of allowedEnclosingPlaceTypes) {
-    if (getAllChildPlaceTypes(type).indexOf(place.enclosedPlaceType) > -1) {
-      return true;
-    }
-  }
-  return false;
 }
 
 /**
@@ -236,6 +238,7 @@ async function loadPlaces(
         if (!_.isEmpty(enclosedPlaces)) {
           place.setEnclosedPlaces(enclosedPlaces);
         } else {
+          place.setEnclosedPlaceType("");
           alert(
             `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
               `${childPlaceType}. Try picking another type or place.`
@@ -262,15 +265,7 @@ function selectEnclosedPlaceType(
   event: React.ChangeEvent<HTMLInputElement>
 ) {
   const placeType = event.target.value;
-  if (placeType === "Country") {
-    place.set({
-      ...place.value,
-      enclosedPlaceType: placeType,
-      enclosingPlace: EARTH_NAMED_TYPED_PLACE,
-    });
-  } else {
-    place.setEnclosedPlaceType(placeType);
-  }
+  place.setEnclosedPlaceType(placeType);
 }
 
 /**
@@ -279,6 +274,10 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
+  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    place.setEnclosingPlace(EARTH_NAMED_TYPED_PLACE);
+    return;
+  }
   const placeTypePromise = axios
     .get(`/api/place/type/${dcid}`)
     .then((resp) => resp.data);
@@ -299,7 +298,8 @@ function updateChildPlaceTypes(
   dcid: string,
   setChildPlaceTypes: (childPlaceTypes: string[]) => void
 ) {
-  if (dcid === "Earth") {
+  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    setChildPlaceTypes(CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]]);
     return;
   }
   const parentPlacePromise = axios
@@ -318,11 +318,11 @@ function updateChildPlaceTypes(
           setChildPlaceTypes(USA_CHILD_PLACE_TYPES[placeType]);
         }
       } else {
-        setChildPlaceTypes(NON_USA_PLACE_TYPES);
+        setChildPlaceTypes(CHILD_PLACE_TYPES[placeType]);
       }
     })
     .catch(() => {
-      setChildPlaceTypes(ALL_PLACE_TYPES);
+      setChildPlaceTypes([]);
     });
 }
 
@@ -336,7 +336,7 @@ function unselectEnclosingPlace(
   setChildPlaceTypes: (childPlaceTypes: string[]) => void
 ) {
   place.setEnclosingPlace({ dcid: "", name: "", types: [] });
-  setChildPlaceTypes(ALL_PLACE_TYPES);
+  setChildPlaceTypes([]);
 }
 
 export { PlaceAndTypeOptions as PlaceOptions };

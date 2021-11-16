@@ -18,16 +18,17 @@ import { createContext, useState } from "react";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace } from "../../shared/types";
-import { applyHashDisplay, applyHashPlaceInfo, applyHashStatVar } from "./util";
+import { Setter } from "../../shared/util";
+import {
+  applyHashDisplay,
+  applyHashPlaceInfo,
+  applyHashStatVar,
+  getMapPointsPlaceType,
+} from "./util";
 
 /**
  * Global app context for map explorer tool.
  */
-
-// used to set fields in context
-interface Setter<T> {
-  (value: T): void;
-}
 
 // Place with name and its type.
 export interface NamedTypedPlace {
@@ -44,6 +45,8 @@ export interface StatVar {
   dcid: string;
   // Whether to plot per capita values
   perCapita: boolean;
+  // dcid of the stat var to use to calculate per capita
+  denom: string;
   // date of the stat var data to get
   date: string;
 }
@@ -57,6 +60,7 @@ export interface StatVarWrapper {
   setDcid: Setter<string>;
   setPerCapita: Setter<boolean>;
   setDate: Setter<string>;
+  setDenom: Setter<string>;
 }
 
 // Information relating to the places to plot
@@ -113,13 +117,22 @@ export interface DisplayOptions {
   // value that will correspond to the middle color, and the last number is the
   // max.
   domain: [number, number, number];
+  // whether we want to show map points on the chart
+  showMapPoints: boolean;
+}
+
+export interface DisplayOptionsWrapper {
+  value: DisplayOptions;
+
+  set: Setter<DisplayOptions>;
+  setShowMapPoints: Setter<boolean>;
 }
 
 export interface ContextType {
   statVar: StatVarWrapper;
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
-  display: { value: DisplayOptions; set: Setter<DisplayOptions> };
+  display: DisplayOptionsWrapper;
 }
 
 export const Context = createContext({} as ContextType);
@@ -132,6 +145,11 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     isPlaceInfoLoading: false,
   });
   const [display, setDisplay] = useState(applyHashDisplay(params));
+  // If map points place type was set in the url, use that type. Otherwise,
+  // infer map points place type based on stat var
+  const mapPointsPlaceType = placeInfo.mapPointsPlaceType
+    ? placeInfo.mapPointsPlaceType
+    : getMapPointsPlaceType(statVar.dcid);
   return {
     isLoading: {
       value: isLoading,
@@ -142,7 +160,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setIsLoading({ ...isLoading, isPlaceInfoLoading }),
     },
     placeInfo: {
-      value: placeInfo,
+      value: { ...placeInfo, mapPointsPlaceType },
       set: (placeInfo) => setPlaceInfo(placeInfo),
       setSelectedPlace: (selectedPlace) =>
         setPlaceInfo({
@@ -181,10 +199,13 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setInfo: (info) => setStatVar({ ...statVar, info }),
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
       setDate: (date) => setStatVar({ ...statVar, date }),
+      setDenom: (denom) => setStatVar({ ...statVar, denom }),
     },
     display: {
       value: display,
       set: (display) => setDisplay(display),
+      setShowMapPoints: (showMapPoints) =>
+        setDisplay({ ...display, showMapPoints }),
     },
   };
 }

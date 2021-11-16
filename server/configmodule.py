@@ -22,7 +22,14 @@ class Config:
     SCHEME = 'https'
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
-    NEW_STAT_VARS = []
+    NEW_STAT_VARS = [
+        "Mean_Concentration_AirPollutant_Ozone",
+        "Mean_Concentration_AirPollutant_DieselPM",
+        "Annual_Emissions_CarbonDioxide_NonBiogenic",
+        "Annual_Emissions_Methane_NonBiogenic",
+        "Annual_Emissions_NitrousOxide_NonBiogenic",
+        "WithdrawalRate_Water",
+    ]
     ENABLE_BLOCKLIST = False
     # If the deployment is a private instance
     PRIVATE = False
@@ -34,7 +41,6 @@ class Config:
 
 class ProductionConfig(Config):
     GA_ACCOUNT = 'UA-117119267-1'
-    NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = True
 
 
@@ -64,15 +70,21 @@ class DevConfig(Config):
 
 
 class PrivateConfig(Config):
-    SUSTAINABILITY = True
-    # Update to deploy sustainability site to iea.datacommons.org
-    # NAME = "International Energy Agency"
-    # PRIVATE = True
+    NAME = "Feeding America"
+    PRIVATE = True
 
 
 class MinikubeConfig(Config):
     LOCAL = True
     SCHEME = 'http'
+
+
+######
+#
+# All the config below runs as non-GKE deployment, hence needs to set fields
+# like  `SECRET_PROJECT` and `GCS_BUCKET`
+#
+#####
 
 
 class LocalConfig(Config):
@@ -87,12 +99,15 @@ class LocalSustainabilityConfig(LocalConfig):
     SUSTAINABILITY = True
 
 
-# [Private DC] use a local mixer.
 class LocalPrivateConfig(Config):
+    # This needs to talk to local mixer that is setup as a private mixer, which
+    # loads csv + tmcf files from GCS
+    # API_ROOT = 'http://127.0.0.1:8081'
+    API_ROOT = 'https://autopush.api.datacommons.org'
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-private'
     GCS_BUCKET = 'datcom-website-private-resources'
-    NAME = "International Energy Agency"
+    NAME = "Feeding America"
     PRIVATE = True
     SCHEME = 'http'
 
@@ -119,5 +134,5 @@ class TestConfig(Config):
     SCHEME = 'http'
 
 
-class SustainabilityTestConfig(TestConfig):
+class TestSustainabilityConfig(TestConfig):
     SUSTAINABILITY = True

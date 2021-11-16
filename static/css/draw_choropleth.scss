@@ -14,9 +14,23 @@
  * limitations under the License.
  */
 
-.region-highlighted {
-  fill: rgba(0, 0, 0, .5) !important;
+path.region-highlighted,
+path.region-highlighted-no-click {
+  stroke: var(--dark);
+  stroke-width: 3px;
+  opacity: 1 !important;
+}
+
+path.region-highlighted {
   cursor: pointer;
+}
+
+path.region-highlighted-no-click {
+  cursor: default;
+}
+
+div.region-highlighted path {
+  opacity: 0.5;
 }
 
 #tooltip {
@@ -27,6 +41,7 @@
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
   white-space: nowrap;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 }
 
 .choropleth-legend {
