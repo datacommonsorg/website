@@ -79,9 +79,9 @@ function run_py_test {
   setup_python
   cd server
   export FLASK_ENV=test
-  python3 -m pytest -n 20 tests/**.py --ignore=sustainability
+  python3 -m pytest tests/**.py -s --ignore=sustainability
   export FLASK_ENV=test-sustainability
-  python3 -m pytest -n 20 tests/sustainability/**.py
+  python3 -m pytest tests/sustainability/**.py
   cd ..
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style=google -p server/ tools/; then

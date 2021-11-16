@@ -63,8 +63,8 @@ changes dependent on mixer changes).
 ## Run Tests
 
 ### Install web browser and webdriver
-:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is compatible with your **local
-Google Chrome version**.**
+
+:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is compatible with your **local Google Chrome version**.
 
 Before running the tests, install the browser and webdriver. Here we recommend
 you use Google Chrome browser and ChromeDriver.

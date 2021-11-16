@@ -1,0 +1,200 @@
+{
+  "Overview": {
+    "Economics": [
+      "Children in employment",
+      "Government debt",
+      "Gross domestic product per capita",
+      "Labor force participation rate",
+      "Market capitalization of domestic companies",
+      "Median individual income",
+      "Number of people employed",
+      "Poverty rate",
+      "State unemployment insurance claims",
+      "Unemployment rate"
+    ],
+    "Health": [
+      "Alcohol consumption per capita (annual)",
+      "COVID-19 cumulative cases",
+      "COVID-19 cumulative deaths",
+      "Health behaviors",
+      "Health outcomes",
+      "Infant mortality rate",
+      "Life expectancy (years)",
+      "Mortality events",
+      "Prescribed drugs (quarterly)",
+      "Severe wasting among children under 5",
+      "Wasting among children under 5"
+    ],
+    "Equity": [
+      "Gini index",
+      "Median household income by race",
+      "Median income by gender",
+      "Percentage of people without health insurance by gender",
+      "Percentage of people without health insurance by race",
+      "Unemployment rate by gender"
+    ],
+    "Crime": ["Arson", "Property crime", "Total crime", "Violent crime"],
+    "Education": ["Education attainment", "School enrollment"],
+    "Demographics": [
+      "Citizenship status",
+      "Fertility rate",
+      "Marital status",
+      "Median Age",
+      "Population",
+      "Population density (people per km²)",
+      "Population growth rate",
+      "Urban and rural population"
+    ],
+    "Housing": ["Housing units", "Housing units by householder race"],
+    "Climate": [
+      "Air quality index",
+      "Carbon dioxide emissions per capita",
+      "Mean PM2.5 concentration"
+    ],
+    "Energy": [
+      "Electricity generation per capita",
+      "Electricity price",
+      "Energy use (kg of oil equivalent per capita)"
+    ]
+  },
+  "Economics": {
+    "": [
+      "Children in employment",
+      "Children in employment by gender",
+      "Government debt",
+      "Government expenditures on education (% of GDP)",
+      "Government expenditures on education (% of government expenditure)",
+      "Government expenditures on military",
+      "Government expenditures on military (% of GDP)",
+      "Gross domestic product growth rate",
+      "Gross domestic product per capita",
+      "Gross national income (purchasing power parity)",
+      "Gross national income per capita (purchasing power parity)",
+      "Household income",
+      "Individual income",
+      "Inward remittance",
+      "Inward remittance (% of GDP)",
+      "Labor force",
+      "Labor force participation rate",
+      "Market capitalization of domestic companies",
+      "Market capitalization of domestic companies (% of GDP)",
+      "Median household income",
+      "Median individual income",
+      "Number of people employed",
+      "Outward remittance",
+      "Poverty rate",
+      "State unemployment insurance claims",
+      "Unemployment rate",
+      "Unemployment rate by gender",
+      "Unemployment rate: urban vs rural",
+      "Worker vs nonworker population",
+      "Worker wages (daily)",
+      "Worker wages (monthly)",
+      "Worker wages (monthly): female vs male",
+      "Worker wages (monthly): urban vs rural"
+    ]
+  },
+  "Health": {
+    "": [
+      "Alcohol consumption per capita (annual)",
+      "COVID-19 cumulative cases",
+      "COVID-19 cumulative deaths",
+      "Health behaviors",
+      "Health outcomes",
+      "Infant mortality rate",
+      "Infant mortality rate by gender",
+      "Life expectancy (years)",
+      "Mortality events",
+      "Prescribed drugs (quarterly)",
+      "Severe wasting among children under 5",
+      "Severe wasting among children under 5 by gender",
+      "Wasting among children under 5",
+      "Wasting among children under 5 by gender"
+    ]
+  },
+  "Equity": {
+    "Income": [
+      "Gini index",
+      "Median household income by race",
+      "Median income by gender"
+    ],
+    "Poverty": [
+      "Percentage of people without health insurance by gender",
+      "Percentage of people without health insurance by race",
+      "Poverty rate by gender",
+      "Poverty rate by race",
+      "Unemployment rate by gender",
+      "Urban vs rural homeless population",
+      "Urban vs rural poverty population"
+    ],
+    "Education": [
+      "Rate of associate degree attainment by gender",
+      "Rate of bachelor's degree attainment by gender",
+      "Rate of graduate or professional degree attainment by gender"
+    ]
+  },
+  "Crime": { "": ["Arson", "Property crime", "Total crime", "Violent crime"] },
+  "Education": { "": ["Education attainment", "School enrollment"] },
+  "Demographics": {
+    "": [
+      "Citizenship status",
+      "Fertility rate",
+      "Literacy",
+      "Marital status",
+      "Median Age",
+      "Median age by gender",
+      "Median age by race",
+      "Population",
+      "Population by age",
+      "Population by gender",
+      "Population by race",
+      "Population density (people per km²)",
+      "Population growth rate",
+      "Religion",
+      "Social Category",
+      "Urban and rural households",
+      "Urban and rural population"
+    ]
+  },
+  "Housing": {
+    "": [
+      "Housing units",
+      "Housing units by date built",
+      "Housing units by householder race",
+      "Housing units by price",
+      "Housing units by rental status"
+    ]
+  },
+  "Climate": {
+    "Air": [
+      "Air quality index",
+      "Carbon dioxide emissions per capita",
+      "Lifetime air toxics cancer risk",
+      "Mean PM2.5 concentration",
+      "Mean diesel PM concentration",
+      "Mean ozone concentration"
+    ],
+    "Temperature": [
+      "Projected max temperature change under RCP 2.6 (based on year 2006)",
+      "Projected max temperature change under RCP 4.5 (based on year 2006)",
+      "Projected max temperature change under RCP 6.0 (based on year 2006)",
+      "Projected max temperature change under RCP 8.5 (based on year 2006)"
+    ],
+    "Water": ["Palmer drought severity index", "Water withdrawal rate"],
+    "Emissions": [
+      "Annual greenhouse gas emissions (large facilities, non-biogenic)",
+      "Carbon dioxide emissions (large facilities, non-biogenic)",
+      "Methane emissions (large facilities, non-biogenic)",
+      "Nitrous oxide emissions (large facilities, non-biogenic)"
+    ],
+    "Disasters": ["Cyclones", "Earthquakes"]
+  },
+  "Energy": {
+    "": [
+      "Electricity consumption per capita",
+      "Electricity generation per capita",
+      "Electricity price",
+      "Energy use (kg of oil equivalent per capita)"
+    ]
+  }
+}

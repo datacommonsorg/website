@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { defineMessages } from "react-intl";
 
 import { intl } from "../i18n/i18n";

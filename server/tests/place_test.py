@@ -81,6 +81,11 @@ class TestPlacePage(unittest.TestCase):
         assert response.status_code == 200
         assert b"<title>California Demographics" in response.data
 
+        response = app.test_client().get(
+            '/place?dcid=geoId/06&category=Demographics', follow_redirects=True)
+        assert response.status_code == 200
+        assert b"<title>California Demographics" in response.data
+
         response = app.test_client().get('/place/geoId/06',
                                          follow_redirects=False)
         assert response.status_code == 200
@@ -92,12 +97,17 @@ class TestPlacePage(unittest.TestCase):
         assert b"<title>California" in response.data
 
         response = app.test_client().get('/place/geoId/06?topic=Demographics',
-                                         follow_redirects=False)
+                                         follow_redirects=True)
+        assert response.status_code == 200
+        assert b"<title>California Demographics" in response.data
+
+        response = app.test_client().get(
+            '/place/geoId/06?category=Demographics', follow_redirects=False)
         assert response.status_code == 200
         assert b"<title>California Demographics" in response.data
 
         response = app.test_client().get('/place/geoId/06/?topic=Demographics',
-                                         follow_redirects=False)
+                                         follow_redirects=True)
         assert response.status_code == 200
         assert b"<title>California Demographics" in response.data
 

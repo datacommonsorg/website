@@ -69,7 +69,7 @@ $chart-border: 0.5px solid #dee2e6;
   text-decoration: underline;
 }
 
-#topics a {
+#menu a {
   color: var(--dc-gray);
   display: inline-block;
   font-size: 0.9rem;
@@ -79,13 +79,13 @@ $chart-border: 0.5px solid #dee2e6;
   text-decoration: none;
 }
 
-#topics .nav-item .nav-item a {
+#menu .nav-item .nav-item a {
   font-weight: 300;
   padding: 0.25rem 0 0.25rem 0.5rem;
   font-size: 0.8rem;
 }
 
-#topics a.active {
+#menu a.active {
   color: var(--link-color);
 }
 

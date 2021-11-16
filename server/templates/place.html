@@ -16,7 +16,7 @@
 {%- extends 'base.html' -%}
 
 {% set main_id = 'dc-places' %}
-{% set title = place_name + ' ' + topic + ' - ' + _('Place Explorer') %}
+{% set title = place_name + ' ' + category + ' - ' + _('Place Explorer') %}
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
 {% set hide_search = True %}
@@ -31,7 +31,7 @@
     <div id="sidebar-outer" class="col-md-3x col-lg-2 order-last order-lg-0">
       <div id="sidebar-top-spacer" class="d-none d-lg-block"></div>
       <div id="sidebar-region">
-        <div id="topics"></div>
+        <div id="menu"></div>
         <div id="child-place"></div>
       </div>
     </div>
