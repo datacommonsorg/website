@@ -24,7 +24,6 @@ import {
   TimeSeries,
 } from "../../shared/stat_types";
 
-const TOTAL_POPULATION_SV = "Count_Person";
 const ZERO_POPULATION = 0;
 
 /**
@@ -191,7 +190,8 @@ export function computeRatio(
  * @param places A list of place dcids.
  * @param statVars A list of statistical variable dcids.
  * @param isRatio Whether to compute ratio of two stat vars.
- * @param scaling Scaling factor for per capita compuation.
+ * @param scaling Scaling factor for per capita computation.
+ * @param denom Denominator stat var, only used when isRatio = true.
  *
  * @returns A Promise of StatData object.
  */
@@ -211,11 +211,11 @@ export function fetchStatData(
       return resp.data;
     });
   let denomDataPromise: Promise<StatApiResponse>;
-  if (isRatio) {
+  if (isRatio && denom) {
     denomDataPromise = axios
       .post(`/api/stats`, {
         places: places,
-        statVars: [denom || TOTAL_POPULATION_SV],
+        statVars: [denom],
       })
       .then((resp) => {
         return resp.data;

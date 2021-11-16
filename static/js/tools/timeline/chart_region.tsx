@@ -92,7 +92,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
               pc={getChartOption(mprop, "pc")}
-              denom={getDenom(mprop)}
+              denom={getDenom(mprop) || "Count_Person"}
               delta={getChartOption(mprop, "delta")}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {

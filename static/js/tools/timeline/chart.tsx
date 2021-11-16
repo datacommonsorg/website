@@ -137,7 +137,7 @@ class Chart extends Component<ChartPropsType> {
             <input
               ref={this.denomInput}
               disabled={!this.props.pc}
-              placeholder={this.props.denom || "Population"}
+              placeholder={this.props.denom}
               onChange={(evt) => this.handleDenomInput(evt)}
             ></input>
           </span>
