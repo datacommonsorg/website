@@ -83,12 +83,13 @@ class TestMap(WebdriverBaseTest):
             '//*[@id="chart-row"]/div/div/div/div[3]/div[3]/a').click()
 
         # Assert redirect was correct
-        element_present = EC.presence_of_element_located(
-            (By.CLASS_NAME, 'mdl-chip__text'))
+        element_present = EC.text_to_be_present_in_element(
+            (By.XPATH, '//*[@id="place-list"]/span/span'),
+            'United States of America')
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        place_name_chip = self.driver.find_element_by_class_name(
-            'mdl-chip__text')
-        self.assertEqual(place_name_chip.text, 'United States')
+        place_name = self.driver.find_element_by_xpath(
+            '//*[@id="place-list"]/span/span')
+        self.assertEqual(place_name.text, 'United States of America')
 
         # Select State place type
         element_present = EC.text_to_be_present_in_element(
@@ -168,3 +169,22 @@ class TestMap(WebdriverBaseTest):
         chart_legend = self.driver.find_element_by_id('choropleth-legend')
         legend_ticks = chart_legend.find_elements_by_class_name('tick')
         self.assertGreater(len(legend_ticks), 5)
+
+    def test_landing_page_link(self):
+        self.driver.get(self.url_ + MAP_URL)
+
+        # Click on first link on landing page
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'placeholder-container'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        self.driver.find_element_by_xpath(
+            '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+
+        # Assert chart loads
+        shared.wait_for_loading(self.driver)
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'choropleth-map'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        chart_map = self.driver.find_element_by_id('choropleth-map')
+        map_regions = chart_map.find_elements_by_tag_name('path')
+        self.assertGreater(len(map_regions), 1)

@@ -158,3 +158,21 @@ class TestScatter(WebdriverBaseTest):
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 20)
+
+    def test_landing_page_link(self):
+        self.driver.get(self.url_ + SCATTER_URL)
+
+        # Click on first link on landing page
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'placeholder-container'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        self.driver.find_element_by_xpath(
+            '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
+
+        # Assert chart loads
+        shared.wait_for_loading(self.driver)
+        element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
+        circles = chart.find_elements_by_tag_name('circle')
+        self.assertGreater(len(circles), 1)
