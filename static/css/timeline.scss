@@ -128,7 +128,7 @@ sup {
   border: none;
   background: url("/images/icon-checkbox.svg");
   outline: none;
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .option-checkbox.checked {
@@ -147,6 +147,11 @@ sup {
 
 .chart-option label {
   cursor: pointer;
+}
+
+.chart-option input {
+  margin-left: 5px;
+  line-height: 10px;
 }
 
 #observation {

@@ -42,7 +42,7 @@ while getopts ":e:p:" OPTION; do
   esac
 done
 
-export GOOGLE_CLOUD_PROJECT=datcom-website-staging
+export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 if [[ $ENV == "lite" ]]; then
   export FLASK_ENV=local-lite
 elif [[ $ENV == "private" ]]; then
