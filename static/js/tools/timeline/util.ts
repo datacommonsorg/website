@@ -111,6 +111,9 @@ export function setChartOption(
 // Set denom for a chart
 export function setDenom(mprop: string, denom: string): void {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  if (urlParams.get("denom") != null) {
+    urlParams.delete("denom");
+  }
   let chartOptions = JSON.parse(urlParams.get("chart"));
   if (!chartOptions) {
     chartOptions = {};
