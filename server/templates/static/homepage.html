@@ -31,12 +31,17 @@
           {# TRANSLATORS: Description of the Data Commons project. Please see this string in action at https://datacommons.org #}
           {% trans -%}
           Data Commons aggregates data from a <a href="">wide range of sources</a> into a unified database to make it more accessible and useful.
-          <br><br>
           More on <a href="">why we are building Data Commons</a>.
           {%- endtrans %}
         </p>
       </div>
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Explore the data</h2>
     <div class="row">
       <div class="col-3">
         <a href="{{ url_for('tools.scatter') }}" id="scatter-button" class="card text-center">
@@ -86,7 +91,7 @@
 
 <section>
   <div class="container">
-    <h2>Explore the data</h2>
+    <h2>Building connections</h2>
     <p>Data commons cover many topics, from Demographics and Economics to
     Emissions and the Climate. Here are some of our favorite data excursions …
     some alarming, some sad, but always illuminating</p>
@@ -94,9 +99,9 @@
     <article>
       <h3>Climate change</h3>
       <p class="clearfix">
-        <span class="img-card float-right ml-3" style="width: 300px">
+        <span class="img-card float-right" style="width: 300px">
           <span id="us-temp-anim" class="img-thumbnail"></span>
-          <small class="text-muted">Max projected summer temperatures for US counties (RCP 4.5)</small>
+          <small class="caption">Max projected summer temperatures for US counties (RCP 4.5)</small>
         </span>
         Climate change is not just about reducing carbon emissions. It is also
         about adaptation to the change that is already happening. The change in
@@ -110,9 +115,9 @@
         progression in Europe over time (<a href="#">2040</a>, <a href="#">2045</a>, <a href="#">2050</a>).
       </p>
       <p class="clearfix">
-        <span class="img-card float-left mr-3" style="width: 300px">
+        <span class="img-card float-left" style="width: 300px">
           <img class="img-thumbnail" src="/images/us-heart-disease-temp.png" />
-          <small class="text-muted">Heart condition vs. max projected summer temperature for US counties (RCP 4.5)</small>
+          <small class="caption">Heart condition vs. max projected summer temperature for US counties (RCP 4.5)</small>
         </span>
         Climate change is not just about reducing carbon emissions. It is also
         about adaptation to the change that is already happening. <a href="#">heart
@@ -122,6 +127,88 @@
         of the highest the highest temperature rises.
       </p>
     </article>
+
+    <article>
+      <h3>Emissions</h3>
+      <p>
+        Emissions are responsible for the climate crisis. If we look at <a href="#">large
+        industrial emissions</a>, we see that Texas is the highest emitter, at almost
+        four times the next. In fact Texas is as much as <a href="#">Turkey and the UK</a>. In
+        Texas, we see that  <a href="#">harris county</a>, which has one of the highest
+        concentrations of <a href="#">petrochemical refineries</a>.
+      </p>
+
+      <p>
+        Emissions are responsible not just for climate change, but are also
+        correlated with a range of health conditions --- from <a href="#">cardiac conditions</a>
+        and <a href="#">hypertension</a> to <a href="#">mental unhealthiness</a>. If we look at <a href="#">lifetime
+        cancer risks</a> across different counties, we find <a href="#">st john parish, LA</a> to
+        be one of the most dangerous counties from a cancer perspective.
+      </p>
+
+      <p>
+        Biogenic emissions, i.e., emissions from biological sources, are also a
+        big contributor to climate change. Interestingly, <a href="#">florida</a> and <a href="#">georgia</a>
+        are the biggest emitters of <a href="#">biogenic greenhouse gases</a>, thanks to the
+        sugar and paper mills. Florida is also the biggest producer of industrial
+        Nitrous Oxide, thanks to the production of industrial chemicals in
+        Escambia county. This is followed closely by Ascension Parish in
+        Louisiana. These two counties produce more NO2 than most other states!
+        (need to add NO2 state rankings). Maybe some line chart about some health
+        stats for these two counties, compared to some other counties.
+      </p>
+    </article>
+
+    <article>
+      <h3>Water</h3>
+      <p>
+        Scarcity of water, for crops, animals and humans, could well be one of
+        the things most at risk from climate change. <a href="#">California and
+        the Southwest</a> are some of the biggest consumers of water. However,
+        we can see that utilization is improving. <a href="#">California</a> in
+        particular, has seen irrigation water consumption go down, while
+        increasing <a href="#">agriculture</a> yields. Household water
+        consumption has stayed flat over the last 30+ years, while <a
+        href="#">population</a> has gone up substantially. 
+      </p>
+      <p>
+        However, digging deeper, we find that <a href="#">Imperial County</a> in
+        California, which is the <a href="#">third highest county</a> in terms
+        of water consumption, we find that though overall water consumption has
+        reduced, we <a href="#">find</a> that while surface water use has gone
+        down, the use of groundwater has risen sharply. 
+      </p>
+      <p>
+        Which are the places where the  might be most impacted by temperature
+        changes? While a temperature rise does not immediately imply This <a
+        href="#">bivariate map</a> shows the places that use the most water for
+        irrigation, correlated with the places that might have the highest
+        temperature increases.
+      </p>
+    </article>
+
+    <article>
+      <h3>Covid-19</h3>
+      <p>
+        As many insightful articles from the New York times and others pointed
+        out, Covid-19 affected African American communities much more.
+        Unfortunately, Covid-19 prevalence is correlated with many other
+        indicators. For example, we see that Covid-19 infection rates are highly
+        correlated with the fraction of the population that is <a
+        href="#">uninsured</a>, with the fraction of the population that is <a
+        href="#">below the poverty line</a>, the fraction of the population on
+        <a href="#">food stamps</a>, etc.
+      </p>
+      <p>
+        Of course, these are just correlations. This <a href="#">colab
+        notebook</a> digs deeper, performing a causal analysis to discover the
+        most variables most causally predictive of covid occurrence and
+        morbidity.
+      </p>
+    </article>
+                    
+
+
   </div>
 </section>
 

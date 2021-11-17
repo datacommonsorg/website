@@ -153,10 +153,9 @@ h2 {
   font-weight: 800;
   font-size: 1.2rem;
   text-transform: uppercase;
-  margin: 3rem -12px 1rem -12px;
-  padding: 6px 0.6rem;
-  border-radius: 3px;
-  background: rgb(66 66 66 / 5%);
+  margin-top: 3rem;
+  padding: .5rem 0;
+  // border-bottom: 1px solid var(--dc-gray);
 }
 
 #homepage article p {
@@ -222,7 +221,7 @@ h2 {
 }
 
 #homepage #us-temp-anim {
-  animation: us-temp-anim-play 1s steps(5) infinite;
+  animation: us-temp-anim-play 3s steps(5) infinite;
   background-image: url('/images/home-us_max_temp.png');
   display: block;
   height: 225px;
@@ -230,7 +229,6 @@ h2 {
 }
 @keyframes us-temp-anim-play {
   100% {
-    // background-position: 0 -1134px;
     background-position: 0 -1125px;
   }
 }
@@ -240,7 +238,17 @@ h2 {
   flex-direction: column;
 }
 
-#homepage .img-card .text-muted {
+#homepage .img-card.float-left {
+  margin-right: 3rem;
+}
+
+#homepage .img-card.float-right {
+  margin-left: 3rem;
+}
+
+#homepage .img-card .caption {
+  line-height: 1.2;
+  margin-top: .8rem;
   font-style: italic;
   text-align: center;
 }
