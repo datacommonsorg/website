@@ -208,6 +208,8 @@ export function getNamedTypedPlace(
   if (placeDcid === EARTH_NAMED_TYPED_PLACE.dcid) {
     return Promise.resolve(EARTH_NAMED_TYPED_PLACE);
   }
+  // TODO: do both these together in a new flask endpoint after new cache with
+  // parents, name, and type information is added.
   const placeTypePromise = axios
     .get(`/api/place/type/${placeDcid}`)
     .then((resp) => resp.data);
