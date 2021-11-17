@@ -16,6 +16,15 @@
 
 @import 'base';
 
+$color-scatter: #FF8E6B;
+$color-map: #A0DCB0;
+$color-timeline: #FCBF71;
+$color-api: #6BC8DD;
+
+// from place.scss
+$subtopic-background: rgba(0, 0, 0, 0.05);
+$subtopic-color: #222;
+
 h1 {
   margin-bottom: 3rem;
 }
@@ -30,12 +39,13 @@ h2 {
 
 .lead {
   font-size: 1.4rem;
+  font-family: $headings-font-family;
 }
 
 /* HOMEPAGE */
 #homepage-top {
   margin: -3rem auto 3rem;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 
 #homepage-top .lead-col {
@@ -136,6 +146,103 @@ h2 {
 
 #homepage h1 {
   margin-bottom: 0;
+}
+
+#homepage h3 {
+  color: $subtopic-color;
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin: 3rem -12px 1rem -12px;
+  padding: 6px 0.6rem;
+  border-radius: 3px;
+  background: rgb(66 66 66 / 5%);
+}
+
+#homepage article p {
+  padding-bottom: 1rem;
+}
+
+#homepage a.card {
+  border-width: 0;
+}
+
+#homepage a.card:hover {
+  border-width: 0;
+  box-shadow: $hover-box-shadow;
+}
+
+#homepage a.card span {
+  font-family: $headings-font-family;
+  font-weight: 600;
+  color: var(--dc-gray);
+  margin-top: 1rem;
+  display: block;
+}
+
+#homepage .tool-button-img {
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 100px;
+}
+
+#homepage #scatter-button {
+  background-color: $color-scatter;
+}
+
+#homepage #scatter-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -50px 0;
+}
+
+#homepage #map-button {
+  background-color: $color-map;
+}
+
+#homepage #map-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -225px 0;
+  width: 150px;
+}
+
+#homepage #timeline-button {
+  background-color: $color-timeline;
+}
+
+#homepage #timeline-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -450px 0;
+}
+
+#homepage #api-button {
+  background-color: $color-api;
+}
+
+#homepage #api-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -650px 0;
+}
+
+#homepage #us-temp-anim {
+  animation: us-temp-anim-play 1s steps(5) infinite;
+  background-image: url('/images/home-us_max_temp.png');
+  display: block;
+  height: 225px;
+  width: 300px;
+}
+@keyframes us-temp-anim-play {
+  100% {
+    // background-position: 0 -1134px;
+    background-position: 0 -1125px;
+  }
+}
+
+#homepage .img-card {
+  display: flex;
+  flex-direction: column;
+}
+
+#homepage .img-card .text-muted {
+  font-style: italic;
+  text-align: center;
 }
 
 #special_announcement_faq dd {

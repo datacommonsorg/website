@@ -150,6 +150,10 @@ def geojson():
     # too fragmented
     if place_dcid == 'geoId/72':
         geojson_prop = 'geoJsonCoordinatesDP1'
+    # geos.remove('geoId/72')
+    # geos.remove('geoId/15')
+    # geos.remove('geoId/02')
+    geos = [g for g in geos if not g.startswith('geoId/72') and not g.startswith('geoId/15') and not g.startswith('geoId/02')]
     names_by_geo = place_api.get_display_name('^'.join(geos), g.locale)
     features = []
     if geojson_prop:

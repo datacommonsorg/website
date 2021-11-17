@@ -26,258 +26,106 @@
 <section id="homepage-top">
   <div class="container">
     <div class="row">
-      <div class="lead-col col-12 col-lg-6">
-        <p class="lead mr-lg-3">
+      <div class="lead-col col-12">
+        <p class="lead">
           {# TRANSLATORS: Description of the Data Commons project. Please see this string in action at https://datacommons.org #}
           {% trans -%}
-          HOME-HERO_MESSAGE
+          Data Commons aggregates data from a <a href="">wide range of sources</a> into a unified database to make it more accessible and useful.
+          <br><br>
+          More on <a href="">why we are building Data Commons</a>.
           {%- endtrans %}
         </p>
       </div>
-      <div class="img-col col-12 col-lg-6 mt-4 mt-lg-0">
-        <img class="img-fluid" src="{{ url_for('static', filename='images/homepage_knowledge_graph.png') }}" />
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <a href="{{ url_for('tools.scatter') }}" id="scatter-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>Scatter Plots</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="{{ url_for('tools.map') }}" id="map-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>Map Explorer</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="{{ url_for('tools.timeline') }}" id="timeline-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>Timelines</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="https://docs.datacommons.org/api/rest" id="api-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>REST API</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p>
+          Explore the data using one of our visualization tools (Map, Timeline,
+          Scatter) or use the APIs via Python notebooks or build your own
+          application. Explore the over 70k vars in the Data Dictionary
+          Exploration Tool.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="container examples">
-  {# TRANSLATORS: Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org #}
-  <h2>{% trans %}Explore the data{% endtrans %}</h2>
-  <p>
-    We aggregated data across a wide range of topics for easy exploration.
-  </p>
+<section>
+  <div class="container">
+    <h2>Explore the data</h2>
+    <p>Data commons cover many topics, from Demographics and Economics to
+    Emissions and the Climate. Here are some of our favorite data excursions …
+    some alarming, some sad, but always illuminating</p>
 
-  <ul class="mt-4">
-    <li>
-      <span class="main">IPCC Temperature projections</span>:
-      <ul>
-        <li>Change in Max Temperatures (RCP 4.5) across
-          <a class="sub" href="{{ url_for('tools.map') }}#sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea2">{{ place_names['country/IND'] }}</a> and
-          <a class="sub" href="{{ url_for('tools.map') }}#sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County">{{ place_names['country/USA'] }}</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&qd=1&ld=0&dd=1&ct=0&rg=0">Heart Disease Prevalence vs. Temperature Change (RCP 4.5) for USA Counties</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.timeline') }}#statsVar=DifferenceAcrossModels_Max_Temperature_RCP45&place=geoId/0668000">Difference across IPCC Projection Models (RCP 4.5) for {{ place_names['geoId/0668000'] }}</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <span class="main">Emissions</span>:
-      <ul>
-        <li>
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&denom=Count_Person&pd=geoId/48&pn=Texas&pt=State&ept=County&ppt=EpaReportingFacility&mp=1">CO<sub>2</sub> Emissions from Large Facilities in Texas</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('ranking.ranking', stat_var='Annual_Emissions_GreenhouseGas_NonBiogenic', place_type='State', place_dcid='country/USA') }}">Greenhouse Gas Emissions from Large Facilities ranking across US States</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.timeline') }}#place=geoId/48201&statsVar=AirQualityIndex_AirPollutant">Air Quality Index for Harris County, TX</a>
-        </li>
-        <li>
-          Climate metrics for
-          {% set place_id='geoId/06085' %}
-          <a class="sub" href="{{ url_for('place.place', place_dcid=place_id, topic='Climate') }}">{{ place_names[place_id] }}</a> and
-          {% set place_id='geoId/22095' %}
-          <a class="sub" href="{{ url_for('place.place', place_dcid=place_id, topic='Climate') }}">{{ place_names[place_id] }}</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <span class="main">Health</span>:
-      <ul>
-        <li>
-          Covid-19 Cases vs.
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_BlackOrAfricanAmericanAlone&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&qd=0&ld=0&dd=0&ct=1&rg=0">Black or African American Population</a>,
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_NoHealthInsurance&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&lb=100000&qd=1&ld=0&dd=1&ct=0&rg=0">Uninsured Population</a>,
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_BelowPovertyLevelInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&epn=United%20States%20of%20America&epts=Country&ept=County&lb=100000&qd=1&ld=0&dd=1&ct=0&rg=0">Poverty</a>
-        </li>
-        <li>
-          <a class="sub" href="https://colab.research.google.com/drive/1LLteGjXifwSsD-YsGwBnI-i96G777Q7j">Covid-19 Feature Exploration Analysis</a>
-        </li>
-        <li>
-          Health metrics for
-          {% set place_id='geoId/06085' %}
-          <a class="sub" href="{{ url_for('place.place', place_dcid=place_id, topic='Health') }}">{{ place_names[place_id] }}</a> and
-          {% set place_id='geoId/3651000' %}
-          <a class="sub" href="{{ url_for('place.place', place_dcid=place_id, topic='Health') }}">{{ place_names[place_id] }}</a>
-        </li>
-        <li>
-          Ranking of US Counties by
-          <a class="sub" href="{{ url_for('ranking.ranking', stat_var='Percent_Person_Obesity', place_type='County', place_dcid='country/USA', unit='%') }}">Prevalence of Obesity</a> and
-          <a class="sub" href="{{ url_for('ranking.ranking', stat_var='RetailDrugDistribution_DrugDistribution_Oxycodone', place_type='County', place_dcid='country/USA', pc=1, unit='g') }}">Oxycodone Prescriptions</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('ranking.ranking', stat_var='LifeExpectancy_Person', place_type='Country') }}">Countries with Highest Life Expectancy</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <span class="main">Water</span>:
-      <ul>
-        <li>
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=WithdrawalRate_Water&pc=0&denom=Count_Person&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County">Water Withdrawal Rate of US Counties</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.timeline') }}#place=geoId%2F06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Aquaculture">Water Withdrawal Trends in California</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=PalmerDroughtSeverityIndex_Atmosphere&pc=0&denom=Count_Person&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County">Palmer Drought Severity Index for US Counties</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <span class="main">Energy</span>:
-      <ul>
-        <li>
-          <a class="sub" href="{{ url_for('tools.timeline') }}#place=country/IND,country/CHN,country/USA&statsVar=Annual_Generation_Electricity_SolarPhotovoltaic_MainActivityProducer">Energy Generated from Solar in China, India, USA</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.scatter') }}#%26svx%3DMean_SolarInsolation%26svy%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcy%3D1%26epd%3DgeoId%2F06%26epn%3DCalifornia%26epts%3DState%26ept%3DCounty%26qd%3D0%26ld%3D0%26dd%3D0%26ct%3D1%26rg%3D0">Poverty vs. Solar Energy Potential across California Counties</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Amount_Production_ElectricityFromOilGasOrCoalSources_AsFractionOf_Amount_Production_Energy&pc=0&denom=Count_Person&pd=Earth&pn=Earth&pt=Place&ept=Country">Energy Produced from Oil, Gas or Coal Worldwide</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <span class="main">Education</span>:
-      <ul>
-        <li>
-          <a class="sub" href="{{ url_for('ranking.ranking', stat_var='Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', place_type='Country') }}">Countries with Highest Government Spending on Education</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_School&pcx=1&svy=Count_Person_Literate&pcy=1&epd=country/IND&epn=India&epts=Country&ept=AdministrativeArea1&qd=0&ld=0&dd=0&ct=1&rg=0">Literacy vs. Schools Per Capita among Indian States</a>
-        </li>
-        <li>
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Count_School_HasFunctionalToilet&pc=1&denom=Count_School&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea1">Schools with Functional Toilets</a> and 
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=DropoutRate_Student_PrimarySchool&pc=0&denom=Count_Person&pd=country/IND&pn=India&pt=Country&ept=AdministrativeArea1">Primary School Dropout Rate</a>
-          across Indian States
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a scatter plot comparing bachelor degree attained vs females per capita across counties in California. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=Count_Person_Female&svpx=0-8-0&svdx=Count_Person&svnx=Female&pcx=1&svy=Count_Person_EducationalAttainmentBachelorsDegree&svpy=2-0-6&svdy=Count_Person_25OrMoreYears&svny=Bachelors_Degree&pcy=1&epd=geoId%2F06&epn=California&ept=County&epts=State">{% trans %}Bachelor Degree Attained vs. Females per capita for California Counties{% endtrans %}</a>
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a map showing the attainment of Bachelor Degrees or higher across counties in Washington. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/53&pn=Washington&pt=State&ept=County">{% trans %}Attainment of Bachelor Degree or Higher across Washington Counties{% endtrans %}</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <span class="main">Employment</span>:
-      <ul>
-        <li>
-          {# TRANSLATORS: Link to a chart comparing the differences in employment rate across the neighboring California cities (one city is much richer than the other). Please see this string in action at https://datacommons.org #}
-          <a class="sub" href='{{ url_for("tools.timeline") }}#place=geoId%2F0655282%2CgeoId%2F0620956&statsVar=Count_Person_Employed&chart={"count":{"pc":true}}'>{% trans %}Employment Differences Across Neighboring Cities{% endtrans %}</a>
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a map showing the unemployment rate across states in USA. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=UnemploymentRate_Person&pc=0&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=State">{% trans %}Unemployment Rate across US States{% endtrans %}</a>
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a scatter plot comparing foreign born vs unemployment rate across states in the US. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.scatter') }}#&svx=UnemploymentRate_Person&svpx=3-3&svnx=Unemployment_Rate&svy=Count_Person_ForeignBorn&svpy=0-12-2&svdy=Count_Person&svny=Foreign_Born&pcy=1&epd=country%2FUSA&epn=United_States_of_America&ept=State">{% trans %}Foreign Born vs. Unemployment Rate for US States{% endtrans %}</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <span class="main">Income</span>:
-      <ul>
-        <li>
-          {# TRANSLATORS: Link to a chart comparing median income across various university towns in the US. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person">{% trans %}US University Towns by Income{% endtrans %}</a>
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a chart comparing the differences in median income across the richest and poorest California counties. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.timeline') }}#&place=geoId/06085,geoId/06025&statsVar=Median_Income_Person">{% trans %}Richest vs. Poorest California Counties{% endtrans %}</a>
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a map showing the median income across counties in the USA. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('tools.map') }}#&sv=Median_Income_Person&pc=0&pd=country/USA&pn=United%20States&pt=Country&ept=County">{% trans %}Median Income across US Counties{% endtrans %}</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
+    <article>
+      <h3>Climate change</h3>
+      <p class="clearfix">
+        <span class="img-card float-right ml-3" style="width: 300px">
+          <span id="us-temp-anim" class="img-thumbnail"></span>
+          <small class="text-muted">Max projected summer temperatures for US counties (RCP 4.5)</small>
+        </span>
+        Climate change is not just about reducing carbon emissions. It is also
+        about adaptation to the change that is already happening. The change in
+        temperature is not as simple as 1.5 vs 2 vs 2.5 degrees centigrade.
+        These are global averages. At every one of those levels, there will be
+        places that become much hotter and places that become colder.
+        <br/>
+        <br/>
+        Explore what temperatures in the US might be in 2050 (<a href="#">optimistic</a>,
+        <a href="#">pessimistic</a>), in Europe (<a href="#">optimistic</a>, <a href="#">pessimistic</a>). See the
+        progression in Europe over time (<a href="#">2040</a>, <a href="#">2045</a>, <a href="#">2050</a>).
+      </p>
+      <p class="clearfix">
+        <span class="img-card float-left mr-3" style="width: 300px">
+          <img class="img-thumbnail" src="/images/us-heart-disease-temp.png" />
+          <small class="text-muted">Heart condition vs. max projected summer temperature for US counties (RCP 4.5)</small>
+        </span>
+        Climate change is not just about reducing carbon emissions. It is also
+        about adaptation to the change that is already happening. <a href="#">heart
+        condition and temperature</a>. Note the outlier in the upper right quadrant
+        … counties like <a href="#">Todd county</a> and <a href="#">Olgala
+        county</a> with high incidence of coronary disease can also expect some
+        of the highest the highest temperature rises.
+      </p>
+    </article>
+  </div>
 </section>
 
-
-<section class="container">
-  {# TRANSLATORS: Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org #}
-  <h2>Dive in to the graph</h2>
-  <p>
-    {# TRANSLATORS: Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org #}
-    {% trans -%}
-    HOME-EXPLORE_CALLOUT
-    {%- endtrans %}
-  </p>
-  <p>
-  </p>
-  <ul>
-    <li>
-      <a class="main" href="{{ url_for('browser.browser_main') }}">{% trans project="Data Commons" %}Browse entities in the {{ project }} Graph{% endtrans %}</a>:
-      {# TRANSLATORS: Header for a set of links to the Data Commons Graph Browser product. Each page in the graph describes an entity (or node). Please see this string in action at https://datacommons.org #}
-      <ul>
-        <li>
-          {% set geoid='geoId/06029' %}
-          <a class="sub" href="{{ url_for('browser.browser_node', dcid=geoid) }}">{{ place_names[geoid] }}</a>,
-        </li>
-        <li>
-          {% set geoid='wikidataId/Q1445' %}
-          <a class="sub" href="{{ url_for('browser.browser_node', dcid=geoid) }}">{{ place_names[geoid] }} {{ place_names['country/IND'] }}</a>,
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a node for the entity (the New York City school district, https://www.schools.nyc.gov/) in the Data Commons Graph. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('browser.browser_node', dcid='geoId/sch3620580') }}">{% trans %}New York City Department of Education{% endtrans %}</a>,
-        </li>
-        <li>
-          {# TRANSLATORS: Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org #}
-          <a class="sub" href="{{ url_for('browser.browser_node', dcid='EncodeBiosampleType') }}">{% trans %}Encyclopedia of DNA Elements (Biosamples){% endtrans %}</a>,
-        </li>
-        <li><a class="sub" href="{{ url_for('browser.browser_main') }}">{% trans %}MORE{% endtrans %}</a>
-        </li>
-      </ul>
-    </li>
-
-  </ul>
-</section>
-
-<section class="container">
-  {# TRANSLATORS: Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org #}
-  <h2>{% trans %}Build your own{% endtrans %}</h2>
-  <p>
-    {# TRANSLATORS: Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org #}
-    {% trans -%}
-    HOME-BUILD_CALLOUT
-    {%- endtrans %}
-  </p>
-  <ul>
-    {# TRANSLATORS: The label for a link to our API documentation. See this string at https://datacommons.org #}
-    <li><a href="http://docs.datacommons.org/api/">{% trans %}See API documentation.{% endtrans %}</a></li>
-    {# TRANSLATORS: Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
-    <li><a href="http://docs.datacommons.org/tutorials">{% trans %}See some sample Python notebooks.{% endtrans %}</a></li>
-  </ul>
-</section>
-
-<section class="container">
-  {# TRANSLATORS: The header for a section on how Data Commons is an open, community effort. See this string at https://datacommons.org #}
-  <h2>{% trans %}Open{% endtrans %}</h2>
-  <ul>
-    {# TRANSLATORS: Describes that the data in the graph is open (the code importing the data into the graph is open sourced). See this string at https://datacommons.org #}
-    <li>{% trans %}Open Data.{% endtrans %}</li>
-    <li>
-      {# TRANSLATORS: Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org #}
-      {% trans github_url='http://github.com/datacommonsorg',schemaorg_url="https://schema.org",tool='Schema.org' -%}
-      HOME-OPEN_SOURCED
-      {%- endtrans %}
-    </li>
-    <li>
-      {# TRANSLATORS: A link soliciting contributions to the project from the community. See this string at https://datacommons.org #}
-      <a class="main" href="https://docs.datacommons.org/contributing">{% trans %}HOME-JOIN_EFFORT{% endtrans %}</a>
-    </li>
-  </ul>
+<section>
 </section>
 
 {% endblock %}
