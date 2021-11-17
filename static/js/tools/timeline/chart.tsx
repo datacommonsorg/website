@@ -29,7 +29,7 @@ import {
   shortenStatData,
   StatData,
 } from "./data_fetcher";
-import { setChartOption } from "./util";
+import { setChartOption, setDenom } from "./util";
 
 const CHART_HEIGHT = 300;
 
@@ -72,10 +72,10 @@ interface ChartPropsType {
   mprop: string; // measured property
   placeNames: Record<string, string>; // An array of place dcids.
   statVarInfos: Record<string, StatVarInfo>;
-  perCapita: boolean;
+  pc: boolean;
+  denom: string;
   // Whether the chart is on for the delta (increment) of the data.
   delta: boolean;
-  denomMap: Record<string, string>;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
 }
@@ -83,6 +83,7 @@ interface ChartPropsType {
 class Chart extends Component<ChartPropsType> {
   data: StatData;
   svgContainer: React.RefObject<HTMLDivElement>;
+  denomInput: React.RefObject<HTMLInputElement>;
   plotParams: PlotParams;
   statData: StatData;
   units: string[];
@@ -94,6 +95,7 @@ class Chart extends Component<ChartPropsType> {
   constructor(props: ChartPropsType) {
     super(props);
     this.svgContainer = React.createRef();
+    this.denomInput = React.createRef();
     this.drawChart = this.drawChart.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
     const queryString = window.location.search;
@@ -115,30 +117,35 @@ class Chart extends Component<ChartPropsType> {
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNames)[0];
     const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
-    const perCapitaCheckboxId = `pc-cb-${this.props.mprop}`;
+    const ratioCheckboxId = `pc-cb-${this.props.mprop}`;
     return (
       <div className="card">
         <div ref={this.svgContainer} className="chart-svg"></div>
         <div className="chart-options">
           <span className="chart-option">
-            <label htmlFor={perCapitaCheckboxId}>Per capita</label>
             <button
-              id={perCapitaCheckboxId}
+              id={ratioCheckboxId}
               className={
-                this.props.perCapita
-                  ? "option-checkbox checked"
-                  : "option-checkbox"
+                this.props.pc ? "option-checkbox checked" : "option-checkbox"
               }
               onClick={() => {
-                setChartOption(this.props.mprop, "pc", !this.props.perCapita);
+                setChartOption(this.props.mprop, "pc", !this.props.pc);
               }}
             ></button>
-            <a href="/faq#perCapita">
-              <span> *</span>
-            </a>
+            <label htmlFor={ratioCheckboxId}>Ratio of </label>
+            <input
+              ref={this.denomInput}
+              disabled={!this.props.pc}
+              placeholder={this.props.denom}
+              onBlur={(e) => this.handleDenomInput(e)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  this.handleDenomInput(e);
+                }
+              }}
+            ></input>
           </span>
           <span className="chart-option">
-            <label htmlFor={deltaCheckboxId}>Delta</label>
             <button
               id={deltaCheckboxId}
               className={
@@ -148,6 +155,7 @@ class Chart extends Component<ChartPropsType> {
                 setChartOption(this.props.mprop, "delta", !this.props.delta);
               }}
             ></button>
+            <label htmlFor={deltaCheckboxId}>Delta</label>
           </span>
         </div>
         <div className="statVarChipRegion">
@@ -188,6 +196,10 @@ class Chart extends Component<ChartPropsType> {
 
   componentDidUpdate(): void {
     this.loadDataAndDrawChart();
+  }
+
+  private handleDenomInput(evt) {
+    setDenom(this.props.mprop, evt.target.value);
   }
 
   private handleWindowResize() {
@@ -271,9 +283,9 @@ class Chart extends Component<ChartPropsType> {
     const statDataPromise = fetchStatData(
       Object.keys(this.props.placeNames),
       Object.keys(this.props.statVarInfos),
-      this.props.perCapita,
+      this.props.pc,
       1,
-      this.props.denomMap
+      this.props.denom
     );
 
     Promise.all([statDataPromise, ipccStatDataPromise]).then((resp) => {
