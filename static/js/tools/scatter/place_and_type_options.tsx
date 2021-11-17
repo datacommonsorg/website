@@ -83,6 +83,7 @@ function PlaceAndTypeOptions(): JSX.Element {
    */
   useEffect(() => {
     if (!place.value.enclosingPlace.dcid) {
+      // Do nothing here because no place has been chosen yet.
       return;
     }
     if (_.isNull(place.value.enclosingPlace.types)) {
