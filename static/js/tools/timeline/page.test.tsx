@@ -56,7 +56,7 @@ test("Single place and single stat var", () => {
     .then(() => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toContain(
-        `<label for="pc-cb-age">Ratio Of </label><input disabled="" placeholder="Population"></span>`
+        `<label for="pc-cb-age">Ratio of </label><input disabled="" placeholder="Count_Person"></span>`
       );
       wrapper
         .find("#hierarchy-section .Collapsible__trigger")

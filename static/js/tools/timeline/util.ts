@@ -152,6 +152,9 @@ export function getChartOption(mprop: string, name: string): boolean {
 
 export function getDenom(mprop: string): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  if (urlParams.get("denom") != null) {
+    return urlParams.get("denom");
+  }
   const chartOptions = JSON.parse(urlParams.get("chart"));
   if (!chartOptions) {
     return "";

@@ -90,7 +90,6 @@ class Chart extends Component<ChartPropsType> {
   ipccModels: StatData;
   minYear: string; // In the format of YYYY
   maxYear: string; // In the format of YYYY
-  delayTimer: NodeJS.Timeout;
   resizeObserver: ResizeObserver;
 
   constructor(props: ChartPropsType) {
@@ -138,7 +137,12 @@ class Chart extends Component<ChartPropsType> {
               ref={this.denomInput}
               disabled={!this.props.pc}
               placeholder={this.props.denom}
-              onBlur={(evt) => this.handleDenomInput(evt)}
+              onBlur={(e) => this.handleDenomInput(e)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  this.handleDenomInput(e);
+                }
+              }}
             ></input>
           </span>
           <span className="chart-option">
@@ -195,13 +199,7 @@ class Chart extends Component<ChartPropsType> {
   }
 
   private handleDenomInput(evt) {
-    const statVar = evt.target.value; // this is the search text
-    if (this.delayTimer) {
-      clearTimeout(this.delayTimer);
-    }
-    this.delayTimer = setTimeout(() => {
-      setDenom(this.props.mprop, statVar);
-    }, 1000);
+    setDenom(this.props.mprop, evt.target.value);
   }
 
   private handleWindowResize() {
