@@ -133,12 +133,12 @@ class Chart extends Component<ChartPropsType> {
                 setChartOption(this.props.mprop, "pc", !this.props.pc);
               }}
             ></button>
-            <label htmlFor={ratioCheckboxId}>Ratio Of </label>
+            <label htmlFor={ratioCheckboxId}>Ratio of </label>
             <input
               ref={this.denomInput}
               disabled={!this.props.pc}
               placeholder={this.props.denom}
-              onChange={(evt) => this.handleDenomInput(evt)}
+              onBlur={(evt) => this.handleDenomInput(evt)}
             ></input>
           </span>
           <span className="chart-option">
