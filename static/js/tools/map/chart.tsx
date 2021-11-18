@@ -83,7 +83,7 @@ const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 const NO_PER_CAPITA_TYPES = ["medianValue"];
 const SECTION_CONTAINER_ID = "map-chart";
 const DEBOUNCE_INTERVAL_MS = 30;
-
+const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
@@ -97,6 +97,9 @@ export function Chart(props: ChartProps): JSX.Element {
   const statVarDcid = statVarInfo.dcid;
   const [mapPoints, setMapPoints] = useState(null);
   const [mapPointsFetched, setMapPointsFetched] = useState(false);
+  const [zoomTransformation, setZoomTransformation] = useState(
+    DEFAULT_ZOOM_TRANSFORMATION
+  );
   const chartContainerRef = useRef<HTMLDivElement>();
 
   // load mapPoints in the background.
@@ -114,6 +117,8 @@ export function Chart(props: ChartProps): JSX.Element {
       props,
       setErrorMessage,
       mapPoints,
+      zoomTransformation,
+      setZoomTransformation,
       props.display.value.color,
       props.display.value.domain
     );
@@ -274,6 +279,8 @@ function draw(
   props: ChartProps,
   setErrorMessage: (errorMessage: string) => void,
   mapPoints: Array<MapPoint>,
+  zoomTransformation: d3.ZoomTransform,
+  setZoomTransformation: (zoomTransformation: d3.ZoomTransform) => void,
   color?: string,
   domain?: [number, number, number]
 ): void {
@@ -317,6 +324,13 @@ function draw(
     "",
     LEGEND_MARGIN_LEFT
   );
+  const zoomParams = {
+    startingTransformation: zoomTransformation,
+    onZoomEnd: (zoomTransformation: d3.ZoomTransform) =>
+      setZoomTransformation(zoomTransformation),
+    zoomInButtonId: ZOOM_IN_BUTTON_ID,
+    zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
+  };
   if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
     document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawChoropleth(
@@ -350,8 +364,7 @@ function draw(
       props.display.value.showMapPoints ? mapPoints : [],
       props.mapPointValues,
       zoomDcid,
-      ZOOM_IN_BUTTON_ID,
-      ZOOM_OUT_BUTTON_ID
+      zoomParams
     );
   }
 }

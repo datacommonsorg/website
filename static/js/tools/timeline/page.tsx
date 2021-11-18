@@ -38,7 +38,6 @@ import {
 interface PageStateType {
   placeName: Record<string, string>;
   statVarInfo: Record<string, StatVarInfo>;
-  denomMap: Record<string, string>;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -47,7 +46,6 @@ class Page extends Component<unknown, PageStateType> {
     this.fetchDataAndRender = this.fetchDataAndRender.bind(this);
     this.addPlaceAction = this.addPlaceAction.bind(this);
     this.state = {
-      denomMap: {},
       placeName: {},
       statVarInfo: {},
     };
@@ -60,23 +58,7 @@ class Page extends Component<unknown, PageStateType> {
 
   private fetchDataAndRender(): void {
     const places = Array.from(getTokensFromUrl("place", placeSep));
-    // A stat var token could also have a denominator attached to it  by "|".
-    // Ex: Count_Person_Female|Count_Person
-    const statVarsAndDenoms = Array.from(
-      getTokensFromUrl("statsVar", statVarSep)
-    );
-    const statVars: string[] = [];
-    const denomMap: Record<string, string> = {};
-    for (const token of statVarsAndDenoms) {
-      if (token.includes("|")) {
-        const parts = token.split("|");
-        statVars.push(parts[0]);
-        denomMap[parts[0]] = parts[1];
-      } else {
-        statVars.push(token);
-      }
-    }
-
+    const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
     let statVarInfoPromise = Promise.resolve({});
     if (statVars.length !== 0) {
       statVarInfoPromise = getStatVarInfo(statVars);
@@ -98,7 +80,6 @@ class Page extends Component<unknown, PageStateType> {
         this.setState({
           statVarInfo,
           placeName,
-          denomMap,
         });
       }
     );
@@ -156,7 +137,6 @@ class Page extends Component<unknown, PageStateType> {
                   placeName={this.state.placeName}
                   statVarInfo={this.state.statVarInfo}
                   statVarOrder={statVars}
-                  denomMap={this.state.denomMap}
                 ></ChartRegion>
               </div>
             )}

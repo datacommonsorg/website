@@ -38,6 +38,23 @@ import {
   MapPoint,
 } from "./types";
 
+/**
+ * Information used for the zoom functionality on a map
+ *
+ * @param startingTransformation the zoom scale and translation to initially
+ *        draw the map at
+ * @param onZoomEnd callback function that gets called at the end of each zoom
+ *        in or zoom out and takes as an argument the zoom transformation
+ * @param zoomInButtonId id of a button that can be clicked to zoom in
+ * @param zoomOutButtonId id of a button that can be clicked to zoom out
+ */
+export interface MapZoomParams {
+  startingTransformation: d3.ZoomTransform;
+  onZoomEnd: (zoomTransformation: d3.ZoomTransform) => void;
+  zoomInButtonId: string;
+  zoomOutButtonId: string;
+}
+
 const MISSING_DATA_COLOR = "#999";
 const DOT_COLOR = "black";
 const TOOLTIP_ID = "tooltip";
@@ -61,6 +78,7 @@ const REGULAR_SCALE_AMOUNT = 1;
 const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
 const MAP_ITEMS_GROUP_ID = "map-items";
+const LEGEND_TICK_LABEL_MARGIN = 10;
 
 // Curated temperature domains.
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
@@ -314,8 +332,7 @@ function drawChoropleth(
   mapPoints?: Array<MapPoint>,
   mapPointValues?: { [placeDcid: string]: number },
   zoomDcid?: string,
-  zoomInButtonId?: string,
-  zoomOutButtonId?: string
+  zoomParams?: MapZoomParams
 ): void {
   // Add svg for the map to the div holding the chart.
   const domContainerId = `#${containerId}`;
@@ -485,7 +502,7 @@ function drawChoropleth(
     );
   }
 
-  if (zoomInButtonId || zoomOutButtonId) {
+  if (!_.isEmpty(zoomParams)) {
     const zoom = d3
       .zoom()
       .scaleExtent([1, Infinity])
@@ -503,6 +520,7 @@ function drawChoropleth(
           .attr("transform", d3.event.transform);
       })
       .on("end", function (): void {
+        zoomParams.onZoomEnd(d3.event.transform);
         mapObjects
           .on(
             "mousemove",
@@ -510,14 +528,14 @@ function drawChoropleth(
           )
           .on("mouseover", onMouseOver(canClickRegion, domContainerId));
       });
-    svg.call(zoom);
-    if (zoomInButtonId) {
-      d3.select(`#${zoomInButtonId}`).on("click", () => {
+    svg.call(zoom).call(zoom.transform, zoomParams.startingTransformation);
+    if (zoomParams.zoomInButtonId) {
+      d3.select(`#${zoomParams.zoomInButtonId}`).on("click", () => {
         svg.call(zoom.scaleBy, 2);
       });
     }
-    if (zoomOutButtonId) {
-      d3.select(`#${zoomOutButtonId}`).on("click", () => {
+    if (zoomParams.zoomOutButtonId) {
+      d3.select(`#${zoomParams.zoomOutButtonId}`).on("click", () => {
         svg.call(zoom.scaleBy, 0.5);
       });
     }
@@ -642,12 +660,18 @@ function generateLegend(
   // set tick values to show first tick at the start of the legend and last tick
   // at the very bottom of the legend.
   let tickValues = [yScale.invert(0), yScale.invert(height)];
+  const formattedTickValues = tickValues.map((tick) =>
+    formatNumber(tick, unit)
+  );
   tickValues = tickValues.concat(
     color.ticks(NUM_TICKS).filter((tick) => {
-      const formattedTickValues = tickValues.map((tick) =>
-        formatNumber(tick, unit)
+      const formattedTick = formatNumber(tick, unit);
+      const tickHeight = yScale(tick);
+      return (
+        formattedTickValues.indexOf(formattedTick) === -1 &&
+        tickHeight > LEGEND_TICK_LABEL_MARGIN &&
+        tickHeight < height - LEGEND_TICK_LABEL_MARGIN
       );
-      return formattedTickValues.indexOf(formatNumber(tick)) === -1;
     })
   );
   legend

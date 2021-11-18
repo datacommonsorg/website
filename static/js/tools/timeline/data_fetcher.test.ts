@@ -21,7 +21,7 @@ import { DataGroup } from "../../chart/base";
 import { loadLocaleData } from "../../i18n/i18n";
 import { StatApiResponse, TimeSeries } from "../../shared/stat_types";
 import {
-  computePerCapita,
+  computeRatio,
   convertToDelta,
   fetchStatData,
   getStatVarGroupWithTime,
@@ -490,33 +490,37 @@ test("fetch stats data with per capita with population size 0", () => {
     }
   });
 
-  return fetchStatData(["geoId/05"], ["Count_Person_Male"], true).then(
-    (data) => {
-      expect(data).toEqual({
-        data: {
-          "geoId/05": {
-            data: {
-              Count_Person_Male: {
-                val: {
-                  "2011": 10,
-                  "2012": 10,
-                },
-                metadata: {
-                  provenanceUrl: "source1",
-                },
+  return fetchStatData(
+    ["geoId/05"],
+    ["Count_Person_Male"],
+    true,
+    1,
+    "Count_Person"
+  ).then((data) => {
+    expect(data).toEqual({
+      data: {
+        "geoId/05": {
+          data: {
+            Count_Person_Male: {
+              val: {
+                "2011": 10,
+                "2012": 10,
+              },
+              metadata: {
+                provenanceUrl: "source1",
               },
             },
-            name: "Arkansas",
           },
+          name: "Arkansas",
         },
-        dates: ["2011", "2012"],
-        measurementMethods: new Set(),
-        places: ["geoId/05"],
-        sources: new Set(["source1"]),
-        statVars: ["Count_Person_Male"],
-      });
-    }
-  );
+      },
+      dates: ["2011", "2012"],
+      measurementMethods: new Set(),
+      places: ["geoId/05"],
+      sources: new Set(["source1"]),
+      statVars: ["Count_Person_Male"],
+    });
+  });
 });
 
 test("StatsData test", () => {
@@ -657,10 +661,7 @@ test("Per capita with specified denominators test", () => {
     ["Count_Person_Male", "Count_Person_Female"],
     true,
     1,
-    {
-      Count_Person_Male: "Count_Person",
-      Count_Person_Female: "Count_Person",
-    }
+    "Count_Person"
   ).then((data) => {
     expect(data).toEqual({
       data: {
@@ -790,8 +791,7 @@ test("Per capita with specified denominators test - missing place data", () => {
     ["geoId/05", "country/USA"],
     ["UnemploymentRate_Person_Male", "UnemploymentRate_Person_Female"],
     false,
-    1,
-    {}
+    1
   ).then((data) => {
     expect(data).toEqual({
       data: {
@@ -865,7 +865,7 @@ test("compute per capita", () => {
       "2010": 10,
     },
   };
-  expect(computePerCapita(statSeries, popSeries)).toEqual(expected);
+  expect(computeRatio(statSeries, popSeries)).toEqual(expected);
 });
 
 test("convert to delta", () => {
