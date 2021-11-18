@@ -233,6 +233,12 @@ h2 {
   }
 }
 
+#homepage .source {
+  font-size: 0.7rem;
+  color: var(--dc-gray);
+  margin-top: 0.5rem;
+}
+
 #homepage .img-card {
   display: flex;
   flex-direction: column;
