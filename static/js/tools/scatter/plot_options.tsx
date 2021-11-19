@@ -19,7 +19,6 @@
  * lower and upper bounds for populations.
  */
 
-import * as d3 from "d3";
 import React, { useContext, useState } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Col, Container, Row } from "reactstrap";
@@ -48,16 +47,6 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
   const [upperBound, setUpperBound] = useState(
     place.value.upperBound.toString()
   );
-  const xMinMax = d3.extent(Object.values(props.points), (point) => point.xVal);
-  const yMinMax = d3.extent(Object.values(props.points), (point) => point.yVal);
-  const xLogDisabled = xMinMax[0] * xMinMax[1] <= 0;
-  const yLogDisabled = yMinMax[0] * yMinMax[1] <= 0;
-  if (xLogDisabled && x.value.log) {
-    x.setLog(false);
-  }
-  if (yLogDisabled && y.value.log) {
-    y.setLog(false);
-  }
   const hasYPopData =
     Object.values(props.points).filter(
       (point) => point.yPop !== undefined && point.yPop !== null
@@ -123,7 +112,6 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
                 type="checkbox"
                 checked={y.value.log}
                 onChange={(e) => checkLog(y, e)}
-                disabled={yLogDisabled}
               />
               <Label check>
                 {display.chartType === ScatterChartType.SCATTER
@@ -139,7 +127,6 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
                 type="checkbox"
                 checked={x.value.log}
                 onChange={(e) => checkLog(x, e)}
-                disabled={xLogDisabled}
               />
               <Label check>
                 {display.chartType === ScatterChartType.SCATTER
