@@ -66,7 +66,7 @@ const TestContext = ({
   },
 } as unknown) as ContextType;
 const Hash =
-  "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26epn%3DDelaware%26epts%3DState%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26ct%3D0%26rg%3D1";
+  "#%26svx%3DCount_Person%26lx%3D1%26svy%3DCount_HousingUnit%26pcy%3D1%26epd%3DgeoId%2F10%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26rg%3D1";
 
 test("updateHash", () => {
   history.pushState = jest.fn();
@@ -96,7 +96,12 @@ test("applyHash", () => {
   expect(context.y.value).toEqual(TestContext.y.value);
   expect(context.place.value).toEqual({
     ...TestContext.place.value,
-    enclosedPlaces: [],
+    enclosedPlaces: null,
+    enclosingPlace: {
+      dcid: "geoId/10",
+      name: "",
+      types: null,
+    },
   });
   expect(context.display.showQuadrants).toEqual(
     TestContext.display.showQuadrants
