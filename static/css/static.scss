@@ -84,7 +84,6 @@ h2 {
 }
 
 #homepage section p {
-// #homepage section a {
   display: block;
   margin-bottom: .4rem;
 }
@@ -98,28 +97,10 @@ h2 {
   font-weight: 300;
 }
 
-#homepage section.examples ul li ul li {
-  display: block;
-}
-
-#homepage section ul li ul li {
-  display: inline-block;
-  margin-right: .25em;
-}
-
-#homepage section ul li {
-  margin-bottom: .25em;
-}
-
 #homepage section ul {
   padding-left: 0;
-  padding-right: .25em;
-  list-style-type: none;
-}
-
-#homepage section ul ul {
-  display: inline;
-  // padding-left: 0;
+  list-style-position: inside;
+  margin-top: -1rem;
 }
 
 #homepage section .row {

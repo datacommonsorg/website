@@ -79,10 +79,10 @@
     <div class="row">
       <div class="col-12">
         <p>
-          Explore the data using one of our visualization tools (Map, Timeline,
-          Scatter) or use the APIs via Python notebooks or build your own
-          application. Explore the over 70k vars in the Data Dictionary
-          Exploration Tool.
+          Explore the data using one of our visualization tools (<a href="{{ url_for('tools.map') }}">Map</a>, <a href="{{ url_for('tools.timeline') }}">Timeline</a>,
+          <a href="{{ url_for('tools.map') }}">Scatter</a>) or use the <a href="https://docs.datacommons.org/api">APIs</a> via Python notebooks or build your own
+          application. Explore the over 70k vars in the <a href="{{ url_for('tools.stat_var') }}">Data Dictionary
+          Exploration Tool</a>.
         </p>
       </div>
     </div>
@@ -92,42 +92,67 @@
 <section>
   <div class="container">
     <h2>Building connections</h2>
-    <p>Data commons cover many topics, from Demographics and Economics to
-    Emissions and the Climate. Here are some of our favorite data excursions …
-    some alarming, some sad, but always illuminating</p>
+    <p>
+      Data Commons cover many topics, from Demographics and Economics to
+      Emissions and the Climate. Here are some of our favorite data excursions …
+      some alarming, some sad, but always illuminating.
+    </p>
 
     <article>
       <h3>Climate change</h3>
-      <p class="clearfix">
+      <p>
         <span class="img-card float-right" style="width: 300px">
-          <span>
+          <a href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=country/USA&pt=Country&ept=County">
             <span id="us-temp-anim" class="img-thumbnail"></span>
-            <span class="source">Data from nccs.nasa.gov</span>
-          </span>
+          </a>
           <small class="caption">Max projected summer temperatures for US counties (RCP 4.5) (source: NASA)</small>
         </span>
         Climate change is not just about reducing carbon emissions. It is also
         about adaptation to the change that is already happening. The change in
-        temperature is not as simple as 1.5 vs 2 vs 2.5 degrees centigrade.
-        These are global averages. At every one of those levels, there will be
-        places that become much hotter and places that become colder.
-        <br/>
-        <br/>
-        Explore what temperatures in the US might be in 2050 (<a href="#">optimistic</a>,
-        <a href="#">pessimistic</a>), in Europe (<a href="#">optimistic</a>, <a href="#">pessimistic</a>). See the
-        progression in Europe over time (<a href="#">2040</a>, <a href="#">2045</a>, <a href="#">2050</a>).
+        temperature is not as simple as 1.5°C vs 2°C vs 2.5°C.  These are global
+        averages. At every one of those levels, there will be places that become
+        much hotter and places that become colder.
+      </p>
+      <p>
+        Explore what temperatures might be:
+        <ul>
+          <li>
+        In the US in 2050 (<a
+        href="/tools/map#dt=2050-06&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=country/USA&pt=Country&ept=County">optimistic</a>,
+        <a
+        href="/tools/map#dt=2050-06&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85&pc=0&denom=Count_Person&pd=country/USA&pt=Country&ept=County">pessimistic</a>)
+          </li>
+          <li>
+        In Europe might be in 2050 (<a
+        href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=europe&pt=Continent&ept=IPCCPlace_50">optimistic</a>,
+        <a
+        href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85&pc=0&denom=Count_Person&pd=europe&pt=Continent&ept=IPCCPlace_50">pessimistic</a>)
+          </li>
+          <li>
+        Or the progression in Europe over time (<a
+        href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&dt=2040-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2040</a>,
+        <a
+        href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&dt=2045-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2045</a>,
+        <a
+        href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&dt=2050-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2050</a>)
+          </li>
+        </ul>
+        <span class="clearfix"></span>
       </p>
       <p class="clearfix">
         <span class="img-card float-left" style="width: 300px">
-          <img class="img-thumbnail" src="/images/us-heart-disease-temp.png" />
+          <a href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&dd=1">
+            <img class="img-thumbnail" src="/images/home-us_heart_disease_temp.png" />
+          </a>
           <small class="caption">Heart condition vs. max projected summer temperature for US counties (RCP 4.5) (source: CDC, NASA)</small>
         </span>
         Climate change is not just about reducing carbon emissions. It is also
-        about adaptation to the change that is already happening. <a href="#">heart
-        condition and temperature</a>. Note the outlier in the upper right quadrant
-        … counties like <a href="#">Todd county</a> and <a href="#">Olgala
-        county</a> with high incidence of coronary disease can also expect some
-        of the highest the highest temperature rises.
+        about adaptation to the change that is already happening. Note the
+        outliers in the upper right quadrant of this chart: counties like <a
+        href="{{ url_for('place.place', place_dcid='geoId/46121') }}">Todd County,
+        SD</a> and <a href="{{ url_for('place.place', place_dcid='geoId/46102')
+        }}">Oglala Lakota County, SD</a> with high incidence of coronary disease can
+        also expect some of the highest the highest temperature rises.
       </p>
     </article>
 
@@ -135,36 +160,48 @@
       <h3>Emissions</h3>
       <p>
         <span class="img-card float-right" style="width: 300px">
-          <img class="img-thumbnail" src="/images/home-us_emissions.png" />
+          <a href="/tools/map#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&denom=Count_Person&pd=country/USA&pt=Country&ept=State&ppt=EpaReportingFacility">
+            <img class="img-thumbnail" src="/images/home-us_emissions.png" />
+          </a>
           <small class="caption">Annual non-biogenic CO<sub>2</sub> emissions from large facilities across US states (source: EPA)</small>
         </span>
         Emissions are responsible for the climate crisis. If we look at <a
-        href="#">large industrial emissions</a>, we see that Texas is the
+        href="/tools/map#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&denom=Count_Person&pd=country/USA&ept=State">large industrial emissions</a>, we see that Texas is the
         highest emitter, at almost four times more than the next. In fact Texas
-        emits as much as <a href="#">Turkey and the UK</a> combined. In Texas,
-        we see that  <a href="#">Harris County</a>, which has one of the highest
-        concentrations of <a href="#">petrochemical refineries</a>.
+        emits as much as both <a href="/tools/timeline#place=country/TUR,country/GBR,geoId/48&statsVar=Annual_Emissions_CarbonDioxide_NonBiogenic__eia/INTL.4008-8-MMTCD.A">Turkey and the UK</a>. In Texas,
+        we see that  <a href="/place/geoId/48201">Harris County</a> has one of the highest
+        concentrations of <a href="/tools/map#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&denom=Count_Person&pd=geoId/48&ept=County&ppt=EpaReportingFacility&mp=1">petrochemical refineries</a>.
       </p>
 
       <p>
         Emissions are responsible not just for climate change, but are also
-        correlated with a range of health conditions -- from <a href="#">cardiac conditions</a>
-        and <a href="#">hypertension</a> to <a href="#">mental unhealthiness</a>. If we look at <a href="#">lifetime
-        cancer risks</a> across different counties, we find <a href="#">St John Parish, LA</a> to
-        be one of the most dangerous counties from a cancer perspective.
+        correlated with a range of health conditions -- from <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&lb=10000&dd=1">cardiac
+        conditions</a> and <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithHighBloodPressure&epd=country/USA&ept=County&lb=10000&dd=1">hypertension</a>
+        to <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithMentalHealthNotGood&epd=country/USA&ept=County&lb=10000&dd=1">mental
+        unhealthiness</a>. If we look at <a href="/tools/map#&sv=AirPollutant_Cancer_Risk&pc=0&denom=Count_Person&pd=country/USA&ept=County&ppt=AirQualitySite">lifetime cancer risks</a>
+        across different counties, we find <a
+        href="/place/geoId/22095?category=Climate">St John Parish, LA</a> to be
+        one of the most dangerous counties from a cancer perspective.
       </p>
 
-      <p>
+      <p class="clearfix">
         <span class="img-card float-left" style="width: 300px">
-          <img class="img-thumbnail" src="/images/home-us_biogenic_emissions.png" />
+          <a href="/tools/map#&sv=Annual_Emissions_CarbonDioxide_Biogenic&pc=0&denom=Count_Person&pd=country/USA&ept=State">
+            <img class="img-thumbnail" src="/images/home-us_biogenic_emissions.png" />
+          </a>
           <small class="caption">Annual biogenic CO<sub>2</sub> emissions from large facilities across US states (source: EPA)</small>
         </span>
         Biogenic emissions, i.e., emissions from biological sources, are also a
-        big contributor to climate change. Interestingly, <a href="#">Florida</a> and <a href="#">Georgia</a>
-        are the biggest emitters of <a href="#">biogenic greenhouse gases</a>, thanks to the
-        sugar and paper mills. Florida is also the biggest producer of industrial
-        Nitrous Oxide, thanks to the production of industrial chemicals in
-        Escambia County. This is followed closely by Ascension Parish in
+        big contributor to climate change. Interestingly, <a href="/place/geoId/12?category=Climate">Florida</a> and
+        <a href="/place/geoId/13?category=Climate">Georgia</a> are the biggest
+        emitters of <a href="/tools/timeline#place=geoId/48,geoId/12,geoId/13&statsVar=Annual_Emissions_CarbonDioxide_Biogenic">biogenic
+        greenhouse gases</a>, thanks to the sugar and paper mills. Florida is also the
+        biggest producer of industrial Nitrous Oxide (NO<sub>2</sub>), thanks to
+        the production of industrial chemicals in <a href="/place/geoId/12033?category=Climate">Escambia County</a>.
+        This is followed closely by <a href="place/geoId/22005?category=Climate">Ascension Parish</a> in
         Louisiana. These two counties produce more NO<sub>2</sub> than most other states!
       </p>
     </article>
@@ -173,32 +210,35 @@
       <h3>Water</h3>
       <p>
         <span class="img-card float-right" style="width: 300px">
-          <img class="img-thumbnail" src="/images/home-ca_water_utilization.png" />
+          <a href="/tools/timeline#place=geoId/06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Aquaculture">
+            <img class="img-thumbnail" src="/images/home-ca_water_utilization.png" />
+          </a>
           <small class="caption">Water withdrawal trends in California (source: USGS)</small>
         </span>
         Scarcity of water, for crops, animals and humans, could well be one of
-        the things most at risk from climate change. <a href="#">California and
+        the things most at risk from climate change. <a href="/tools/map#&sv=WithdrawalRate_Water&pc=0&denom=Count_Person&pd=country/USA&ept=State">California and
         the Southwest</a> are some of the biggest consumers of water. However,
-        we can see that utilization is improving. <a href="#">California</a> in
+        we can see that utilization is improving. <a href="/tools/timeline#place=geoId/06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Aquaculture">California</a> in
         particular, has seen irrigation water consumption go down, while
-        increasing <a href="#">agriculture</a> yields. Household water
+        increasing <a href="/tools/timeline#place=geoId/06&statsVar=USStateQuarterlyIndustryGDP_NAICS_11">agriculture yields</a>. Household water
         consumption has stayed flat over the last 30+ years, while <a
-        href="#">population</a> has gone up substantially.
+        href="/tools/timeline#place=geoId/06&statsVar=Count_Person">population</a> has gone up substantially.
       </p>
       <p>
-        However, digging deeper, we find that in <a href="#">Imperial County,
-        CA</a> (the <a href="#">third highest county</a> in terms of water
-        consumption), though overall water consumption, including surface water
-        use, has gone down, the use of groundwater has risen sharply.
+        However, digging deeper we find that in <a href="/place/geoId/06025?category=Climate">Imperial County</a> (the <a href="/ranking/WithdrawalRate_Water/County/geoId/06?h=geoId/06025&unit=mgd">third highest county</a> in terms of water
+        consumption), the use of groundwater has risen sharply even though overall water consumption, including surface water
+        use, has gone down.
       </p>
       <p class="clearfix">
         <span class="img-card float-left" style="width: 300px">
-          <img class="img-thumbnail" src="/images/home-water_withdrawal_temp.png" />
+          <a href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=country/USA&ept=County&ct=1">
+            <img class="img-thumbnail" src="/images/home-water_withdrawal_temp.png" />
+          </a>
           <small class="caption">Water withdrawal for irrigation vs. projected temperature rise in California (source: USGS, NASA)</small>
         </span>
         Which are the places that might be most impacted by temperature
         changes? While a temperature rise does not immediately imply it, <a
-        href="#">this bivariate map</a> shows the places that use the most water for
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=country/USA&ept=County&ct=1">this bivariate map</a> shows places that use the most water for
         irrigation, correlated with the places that might have the highest
         temperature increases.
       </p>
@@ -208,20 +248,22 @@
       <h3>Covid-19</h3>
       <p>
         <span class="img-card float-right" style="width: 300px">
-          <img class="img-thumbnail" src="/images/home-covid_uninsured.png" />
-          <small class="caption">Positive Covid-19 cases vs. Percentage uninsured across US counties (source: US Census, New York Times)</small>
+          <a href="/tools/scatter#&svx=Count_Person_NoHealthInsurance&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=100000&qd=1&dd=1">
+            <img class="img-thumbnail" src="/images/home-covid_uninsured.png" />
+          </a>
+          <small class="caption">Percentage positive Covid-19 cases vs. Percentage uninsured across US counties (source: US Census, New York Times)</small>
         </span>
-        As many insightful articles from the New York Times and others pointed
+        As many insightful articles from the <a href="https://www.nytimes.com/news-event/coronavirus">New York Times</a> and others pointed
         out, Covid-19 affected African American communities much more.
         Unfortunately, Covid-19 prevalence is correlated with many other
         indicators. For example, we see that Covid-19 infection rates are highly
         correlated with the fraction of the population that is <a
-        href="#">uninsured</a>, with the fraction of the population that is <a
-        href="#">below the poverty line</a>, the fraction of the population on
-        <a href="#">food stamps</a>, etc.
+        href="/tools/scatter#&svx=Count_Person_NoHealthInsurance&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=100000&qd=1&dd=1">uninsured</a>, with the fraction of the population that is <a
+        href="/tools/scatter#&svx=Count_Person_BelowPovertyLevelInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=100000&qd=1&dd=1">below the poverty line</a>, the fraction of the population on
+        <a href="/tools/scatter#&svx=Count_Household_WithFoodStampsInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=100000&qd=1&dd=1">food stamps</a>, etc.
       </p>
       <p>
-        Of course, these are just correlations. This <a href="#">colab
+        Of course, these are just correlations. This <a href="https://colab.research.google.com/drive/1LLteGjXifwSsD-YsGwBnI-i96G777Q7j">Colab
         notebook</a> digs deeper, performing a causal analysis to discover the
         most variables most causally predictive of Covid-19 occurrence and
         morbidity.
@@ -231,14 +273,43 @@
     <article>
       <h3>Income and other inequalities</h3>
       <p>
-        Studies from <a href="#">CDC</a> and others have shown a correlation
-        between obesity and poverty. In this <a href="#">colab</a> notebook, we
-        explore the relation between poverty, unemployment and obesity.
-        Unfortunately, many other medical conditions are inversely correlated
-        with economic well being. Explore the relation between <a
-        href="#">diabetes and median income</a>, <a href="#">coronary disease
-        and income</a>, <a href="#">coronary disease and gdp</a> of counties
-        across the US.
+        Studies from <a
+        href="https://www.cdc.gov/pcd/issues/2018/18_0217.htm">CDC</a> and
+        others have shown a correlation between obesity and poverty. In this <a
+        href="https://colab.research.google.com/drive/1_oZYWrrwO80DBaW0rIirTYHlfHCibXxY">Colab
+        notebook</a>, we explore the relation between poverty, unemployment and
+        obesity.  Unfortunately, many other medical conditions are inversely
+        correlated with economic well being.
+      </p>
+      <p>Explore the relation between these variables for counties across the US:
+        <ul>
+          <li>
+            <a href="/tools/scatter#&svx=Median_Income_Person&svy=Percent_Person_WithDiabetes&epd=country/USA&ept=County&lb=10000&dd=1">Diabetes and Median Income</a>
+          </li>
+          <li>
+            <a href="/tools/scatter#&svx=Median_Income_Person&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&lb=10000&dd=1">Coronary Heart Disease and Median Income</a>
+          </li>
+          <li>
+            <a href="/tools/scatter#&svx=Amount_EconomicActivity_GrossDomesticProduction_RealValue&lx=1&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&lb=10000&dd=1">Coronary Heart Disease and GDP</a>
+          </li>
+        </ul>
+      </p>
+    </article>
+
+    <article>
+      <h3>Europe</h3>
+      <p class="clearfix">
+        <span class="img-card float-right" style="width: 400px">
+          <a href="/tools/map#&sv=LifeExpectancy_Person&pc=0&denom=Count_Person&pd=Earth&ept=Country">
+            <img class="img-thumbnail" src="/images/home-global_life_expectancy.png" />
+          </a>
+          <small class="caption">Life expectancy across the world (source: World Bank)</small>
+        </span>
+        <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=LifeExpectancy_Person__Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person">Life is getting better</a> in Europe, with high life expectancy, in addition to decreasing crime.
+        People are living healthier as well and <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA,country/IDN&statsVar=Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male">smoking less</a>.  However, some
+        economies just have <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=UnemploymentRate_Person">more ups and downs than others</a>.  Additionally,
+        <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=FertilityRate_Person_Female">fertility rates</a> have come down quite a bit, though not as much as in
+        <a href="/tools/timeline#place=country/IND,country/BGD,country/IDN,country/CHN&statsVar=FertilityRate_Person_Female">these places</a>.
       </p>
     </article>
 
