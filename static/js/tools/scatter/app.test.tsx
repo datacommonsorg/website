@@ -34,8 +34,8 @@ function TestApp(): JSX.Element {
       ...EmptyPlace,
       enclosingPlace: {
         name: "Delaware",
-        dcid: "geoId/10",
-        types: ["State"],
+        dcid: "",
+        types: null,
       },
     });
   }, []);
@@ -468,7 +468,9 @@ test("all functionalities", async () => {
   mockAxios();
   const app = mount(<TestApp />);
   await waitFor(() => {
-    expect(axios.get).toHaveBeenCalledWith("/api/place/type/geoId/10");
+    expect(axios.get).toHaveBeenCalledWith(
+      "/api/browser/statvar/group?stat_var_group=dc/g/Root"
+    );
   });
   return Promise.resolve(app)
     .then(() => app.update())

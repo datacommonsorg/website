@@ -33,12 +33,9 @@ import { NamedPlace } from "../../shared/types";
 import { isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
-const URL_PARAM_VALUE_SEPARATOR = "-";
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
 const URL_PARAM_KEYS = {
   SELECTED_PLACE_DCID: "pd",
-  SELECTED_PLACE_NAME: "pn",
-  SELECTED_PLACE_TYPES: "pt",
   ENCLOSED_PLACE_TYPE: "ept",
   MAP_POINTS_PLACE_TYPE: "ppt",
   PER_CAPITA: "pc",
@@ -152,17 +149,13 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
  */
 export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
   const selectedPlaceDcid = params.get(URL_PARAM_KEYS.SELECTED_PLACE_DCID);
-  const selectedPlaceName = params.get(URL_PARAM_KEYS.SELECTED_PLACE_NAME);
-  const selectedPlaceTypes = params.get(URL_PARAM_KEYS.SELECTED_PLACE_TYPES);
   const enclosedPlaceType = params.get(URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE);
   const mapPointsPlaceType = params.get(URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE);
   return {
     selectedPlace: {
       dcid: selectedPlaceDcid ? selectedPlaceDcid : "",
-      name: selectedPlaceName ? selectedPlaceName : "",
-      types: selectedPlaceTypes
-        ? selectedPlaceTypes.split(URL_PARAM_VALUE_SEPARATOR)
-        : [],
+      name: "",
+      types: null,
     },
     enclosingPlace: {
       dcid: "",
@@ -228,13 +221,7 @@ export function updateHashPlaceInfo(
   if (_.isEmpty(placeInfo.selectedPlace.dcid)) {
     return hash;
   }
-  const selectedPlaceTypes = !_.isEmpty(placeInfo.selectedPlace.types)
-    ? placeInfo.selectedPlace.types.join(URL_PARAM_VALUE_SEPARATOR)
-    : "";
-  let params =
-    `&${URL_PARAM_KEYS.SELECTED_PLACE_DCID}=${placeInfo.selectedPlace.dcid}` +
-    `&${URL_PARAM_KEYS.SELECTED_PLACE_NAME}=${placeInfo.selectedPlace.name}` +
-    `&${URL_PARAM_KEYS.SELECTED_PLACE_TYPES}=${selectedPlaceTypes}`;
+  let params = `&${URL_PARAM_KEYS.SELECTED_PLACE_DCID}=${placeInfo.selectedPlace.dcid}`;
   if (!_.isEmpty(placeInfo.enclosedPlaceType)) {
     params = `${params}&${URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE}=${placeInfo.enclosedPlaceType}`;
   }

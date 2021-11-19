@@ -25,6 +25,7 @@ import { Card, Container, CustomInput } from "reactstrap";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { loadParentPlaces } from "../../shared/util";
+import { getNamedTypedPlace } from "../shared_util";
 import { SearchBar } from "../timeline/search";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { ENCLOSED_PLACE_TYPE_NAMES, getAllChildPlaceTypes } from "./util";
@@ -32,24 +33,32 @@ import { ENCLOSED_PLACE_TYPE_NAMES, getAllChildPlaceTypes } from "./util";
 export function PlaceOptions(): JSX.Element {
   const { placeInfo, isLoading } = useContext(Context);
   const [enclosedPlaceTypes, setEnclosedPlaceTypes] = useState([]);
-  useEffect(() => {
-    if (placeInfo.value.selectedPlace.dcid) {
-      updateEnclosedPlaceTypes(placeInfo, setEnclosedPlaceTypes);
-    }
-  }, [placeInfo.value.selectedPlace]);
   const placeInfoDeps = [
     placeInfo.value.enclosedPlaceType,
-    placeInfo.value.enclosingPlace.dcid,
-    placeInfo.value.selectedPlace.dcid,
+    placeInfo.value.enclosingPlace,
+    placeInfo.value.selectedPlace,
     placeInfo.value.parentPlaces,
   ];
   useEffect(() => {
     if (placeInfo.value.selectedPlace.dcid) {
+      if (_.isNull(placeInfo.value.selectedPlace.types)) {
+        getNamedTypedPlace(placeInfo.value.selectedPlace.dcid).then(
+          (selectedPlace) => {
+            placeInfo.set({ ...placeInfo.value, selectedPlace });
+          }
+        );
+        return;
+      }
       if (_.isNull(placeInfo.value.parentPlaces)) {
         loadParentPlaces(
           placeInfo.value.selectedPlace.dcid,
           placeInfo.setParentPlaces
         );
+        return;
+      }
+      const newEnclosedPlaceTypes = getEnclosedPlaceTypes(placeInfo);
+      if (newEnclosedPlaceTypes !== enclosedPlaceTypes) {
+        setEnclosedPlaceTypes(newEnclosedPlaceTypes);
       }
       if (
         placeInfo.value.enclosedPlaceType &&
@@ -57,6 +66,7 @@ export function PlaceOptions(): JSX.Element {
         !placeInfo.value.enclosingPlace.dcid
       ) {
         loadEnclosingPlace(placeInfo);
+        return;
       }
       if (
         placeInfo.value.enclosingPlace.dcid &&
@@ -132,24 +142,9 @@ function selectEnclosedPlaceType(
  * @param dcid
  */
 function selectPlace(place: PlaceInfoWrapper, dcid: string): void {
-  if (dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    place.setSelectedPlace(EARTH_NAMED_TYPED_PLACE);
-    return;
-  }
-  const placeTypePromise = axios
-    .get(`/api/place/type/${dcid}`)
-    .then((resp) => resp.data);
-  const placeNamePromise = axios
-    .get(`/api/place/name?dcid=${dcid}`)
-    .then((resp) => resp.data);
-  Promise.all([placeTypePromise, placeNamePromise])
-    .then(([placeType, placeName]) => {
-      const name = dcid in placeName ? placeName[dcid] : dcid;
-      place.setSelectedPlace({ dcid, name, types: [placeType] });
-    })
-    .catch(() => {
-      place.setSelectedPlace({ dcid, name: dcid, types: [] });
-    });
+  getNamedTypedPlace(dcid).then((namedTypedPlace) =>
+    place.setSelectedPlace(namedTypedPlace)
+  );
 }
 
 /**
@@ -164,44 +159,39 @@ function unselectPlace(
   setEnclosedPlaceTypes([]);
 }
 
-function updateEnclosedPlaceTypes(
-  place: PlaceInfoWrapper,
-  setEnclosedPlaceTypes: (placeTypes: string[]) => void
-): void {
-  const parentPlacePromise = axios
-    .get(`/api/place/parent/${place.value.selectedPlace.dcid}`)
-    .then((resp) => resp.data);
-  const placeTypePromise = axios
-    .get(`/api/place/type/${place.value.selectedPlace.dcid}`)
-    .then((resp) => resp.data);
-  Promise.all([parentPlacePromise, placeTypePromise])
-    .then(([parents, placeType]) => {
-      // TODO: manage state better here to avoid duplicate calls.
-      // TODO: move Earth info to Flask (or update KG) to keep things consistent
-      const selectedPlace =
-        place.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid
-          ? EARTH_NAMED_TYPED_PLACE
-          : {
-              dcid: place.value.selectedPlace.dcid,
-              name: place.value.selectedPlace.name,
-              types: [placeType],
-            };
-      const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parents);
-      if (enclosedPlaceTypes.length === 1) {
-        place.setEnclosedPlaceType(enclosedPlaceTypes[0]);
-      }
-      setEnclosedPlaceTypes(enclosedPlaceTypes);
-      if (_.isEmpty(enclosedPlaceTypes)) {
-        alert(
-          `Sorry, we don't support maps for ${place.value.selectedPlace.name}. ` +
-            "Please select a different place."
-        );
-        setEnclosedPlaceTypes([]);
-      }
-    })
-    .catch(() => {
-      setEnclosedPlaceTypes([]);
-    });
+function getEnclosedPlaceTypes(place: PlaceInfoWrapper): string[] {
+  // TODO: move Earth info to Flask (or update KG) to keep things consistent
+  if (_.isEmpty(place.value.selectedPlace.types)) {
+    return [];
+  }
+  const placeType = place.value.selectedPlace.types[0];
+  const selectedPlace =
+    place.value.selectedPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid
+      ? EARTH_NAMED_TYPED_PLACE
+      : {
+          dcid: place.value.selectedPlace.dcid,
+          name: place.value.selectedPlace.name,
+          types: [placeType],
+        };
+  const enclosedPlaceTypes = getAllChildPlaceTypes(
+    selectedPlace,
+    place.value.parentPlaces
+  );
+  if (_.isEmpty(enclosedPlaceTypes)) {
+    alert(
+      `Sorry, we don't support maps for ${place.value.selectedPlace.name}. ` +
+        "Please select a different place."
+    );
+    return [];
+  } else {
+    if (
+      enclosedPlaceTypes.length === 1 &&
+      _.isEmpty(place.value.enclosedPlaceType)
+    ) {
+      place.setEnclosedPlaceType(enclosedPlaceTypes[0]);
+    }
+    return enclosedPlaceTypes;
+  }
 }
 
 function loadEnclosingPlace(place: PlaceInfoWrapper): void {
