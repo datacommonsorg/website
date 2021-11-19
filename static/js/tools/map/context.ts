@@ -183,7 +183,6 @@ export function getInitialContext(params: URLSearchParams): ContextType {
           enclosingPlace: { dcid: "", name: "" },
           enclosedPlaces: [],
           enclosedPlaceType,
-          parentPlaces: null,
         }),
       setEnclosedPlaces: (enclosedPlaces) =>
         setPlaceInfo({ ...placeInfo, enclosedPlaces }),

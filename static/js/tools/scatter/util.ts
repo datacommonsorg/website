@@ -39,8 +39,6 @@ export enum ScatterChartType {
   MAP,
 }
 
-const URL_PARAM_VALUE_SEPARATOR = "-";
-
 async function getPlacesInNames(
   dcid: string,
   type: string
@@ -161,16 +159,11 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
 function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const place = _.cloneDeep(EmptyPlace);
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
-  const enclosingPlaceTypes = params.get(
-    FieldToAbbreviation.enclosingPlaceTypes
-  );
   if (dcid) {
     place.enclosingPlace = {
       dcid: dcid,
-      name: params.get(FieldToAbbreviation.enclosingPlaceName),
-      types: enclosingPlaceTypes
-        ? enclosingPlaceTypes.split(URL_PARAM_VALUE_SEPARATOR)
-        : [],
+      name: "",
+      types: null,
     };
   }
   const type = params.get(FieldToAbbreviation.enclosedPlaceType);
@@ -189,6 +182,13 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
 function applyHashBoolean(params: URLSearchParams, key: string): boolean {
   const val = params.get(key);
   return val === "1";
+}
+
+function updateHashBoolean(hash: string, key: string, value: boolean): string {
+  if (value) {
+    return appendEntry(hash, key, "1");
+  }
+  return hash;
 }
 
 /**
@@ -260,23 +260,10 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
     return hash;
   }
   if (place.enclosingPlace.dcid) {
-    const enclosingPlaceTypes = !_.isEmpty(place.enclosingPlace.types)
-      ? place.enclosingPlace.types.join(URL_PARAM_VALUE_SEPARATOR)
-      : "";
     hash = appendEntry(
       hash,
       FieldToAbbreviation.enclosingPlaceDcid,
       place.enclosingPlace.dcid
-    );
-    hash = appendEntry(
-      hash,
-      FieldToAbbreviation.enclosingPlaceName,
-      place.enclosingPlace.name
-    );
-    hash = appendEntry(
-      hash,
-      FieldToAbbreviation.enclosingPlaceTypes,
-      enclosingPlaceTypes
     );
   }
   for (const key of ["enclosedPlaceType", "lowerBound", "upperBound"]) {
@@ -291,20 +278,31 @@ function updateHashDisplayOptions(
   hash: string,
   display: DisplayOptionsWrapper
 ) {
-  let val = display.showQuadrants ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showQuadrant, val);
-
-  val = display.showLabels ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showLabels, val);
-
-  val = display.showDensity ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showDensity, val);
-
-  val = display.chartType === ScatterChartType.SCATTER ? "0" : "1";
-  hash = appendEntry(hash, FieldToAbbreviation.chartType, val);
-
-  val = display.showRegression ? "1" : "0";
-  hash = appendEntry(hash, FieldToAbbreviation.showRegression, val);
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showQuadrant,
+    display.showQuadrants
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showLabels,
+    display.showLabels
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showDensity,
+    display.showDensity
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.showRegression,
+    display.showRegression
+  );
+  hash = updateHashBoolean(
+    hash,
+    FieldToAbbreviation.chartType,
+    display.chartType === ScatterChartType.MAP
+  );
 
   return hash;
 }
@@ -315,9 +313,7 @@ function updateHashDisplayOptions(
  */
 export function isPlacePicked(place: PlaceInfo): boolean {
   return (
-    place.enclosedPlaceType === "Country" ||
-    (!_.isEmpty(place.enclosedPlaceType) &&
-      !_.isEmpty(place.enclosingPlace.dcid))
+    !_.isEmpty(place.enclosedPlaceType) && !_.isEmpty(place.enclosingPlace.dcid)
   );
 }
 

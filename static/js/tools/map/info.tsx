@@ -44,7 +44,7 @@ export function Info(): JSX.Element {
           <b>Max Temperature Relative To 2006, RCP 4.5</b> across counties in{" "}
           <a
             href={
-              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26pn%3DUnited%20States%20of%20America%26pt%3DCountry%26ept%3DCounty"
+              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
             }
           >
             USA
@@ -52,7 +52,7 @@ export function Info(): JSX.Element {
           ,{" districts in "}
           <a
             href={
-              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26pn%3DIndia%26pt%3DCountry%26ept%3DAdministrativeArea2"
+              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
             }
           >
             India
@@ -63,7 +63,7 @@ export function Info(): JSX.Element {
           across states in{" "}
           <a
             href={
-              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26pn%3DUnited%20States%20of%20America%26pt%3DCountry%26ept%3DState%26ppt%3DEpaReportingFacility"
+              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
             }
           >
             USA
@@ -71,7 +71,7 @@ export function Info(): JSX.Element {
           ,{" facilities in "}
           <a
             href={
-              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F48%26pn%3DTexas%26pt%3DState%26ept%3DCounty%26ppt%3DEpaReportingFacility%26mp%3D1"
+              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F48%26ppt%3DEpaReportingFacility%26mp%3D1"
             }
           >
             Texas
@@ -81,7 +81,7 @@ export function Info(): JSX.Element {
           <b>Withdrawal Rate of Water</b> across counties in{" "}
           <a
             href={
-              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26pn%3DUnited%20States%20of%20America%26pt%3DCountry%26ept%3DCounty"
+              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
             }
           >
             USA
@@ -89,7 +89,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F06%26pn%3DCalifornia%26pt%3DState%26ept%3DCounty"
+              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F06%26ept%3DCounty"
             }
           >
             California
@@ -97,69 +97,37 @@ export function Info(): JSX.Element {
         </li>
         <li>
           <b>Median Age</b> across counties in{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=County"}>
             USA
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/06&ept=County"}>
             California
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=geoId/12&pn=Florida&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/12&ept=County"}>
             Florida
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=geoId/36&pn=New%20York&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/36&ept=County"}>
             New York
           </a>
         </li>
         <li>
           <b>Median Income</b> across counties in{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=country/USA&pn=United%20States&pt=Country&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=County"}>
             USA
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=geoId/36&pn=New%20York&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/36&ept=County"}>
             New York
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=geoId/48&pn=Texas&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/48&ept=County"}>
             Texas
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=geoId/53&pn=Washington&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/53&ept=County"}>
             Washington
           </a>
         </li>
@@ -167,7 +135,7 @@ export function Info(): JSX.Element {
           <b>Attainment of Bachelor Degree or Higher</b> across counties in{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=country/USA&ept=County"
             }
           >
             USA
@@ -175,7 +143,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/53&pn=Washington&pt=State&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/53&ept=County"
             }
           >
             Washington
@@ -183,7 +151,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/17&pn=Illinois&pt=State&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/17&ept=County"
             }
           >
             Illinois
@@ -191,7 +159,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/08&pn=Colorado&pt=State&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/08&ept=County"
             }
           >
             Colorado
@@ -200,60 +168,38 @@ export function Info(): JSX.Element {
         <li>
           <b>Unemployment Rate</b> across counties in{" "}
           <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=County"
-            }
+            href={"#&sv=UnemploymentRate_Person&pc=0&pd=country/USA&ept=County"}
           >
             USA
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/48&pn=Texas&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=UnemploymentRate_Person&pc=0&pd=geoId/48&ept=County"}>
             Texas
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=UnemploymentRate_Person&pc=0&pd=geoId/06&ept=County"}>
             California
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/34&pn=New%20Jersey&pt=State&ept=County"
-            }
-          >
+          <a href={"#&sv=UnemploymentRate_Person&pc=0&pd=geoId/34&ept=County"}>
             New Jersey
           </a>
         </li>
         <li>
           <b>Distribution across states in the US</b> for{" "}
-          <a
-            href={
-              "#&sv=Median_Age_Person&pc=0&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=State"
-            }
-          >
+          <a href={"#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=State"}>
             Median Age
           </a>
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentNoSchoolingCompleted&pc=1&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=State"
+              "#&sv=Count_Person_EducationalAttainmentNoSchoolingCompleted&pc=1&pd=country/USA&ept=State"
             }
           >
             No Schooling Completed
           </a>
           ,{" "}
-          <a
-            href={
-              "#&sv=Median_Income_Person&pc=0&pd=country/USA&pn=United%20States%20of%20America&pt=Country&ept=State"
-            }
-          >
+          <a href={"#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=State"}>
             Median Income
           </a>
         </li>
@@ -261,7 +207,7 @@ export function Info(): JSX.Element {
           <b>Greenhouse Gas Emissions</b> across{" "}
           <a
             href={
-              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=country/USA&pn=United%20States&pt=Country&ept=State&ppt=EpaReportingFacility"
+              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=country/USA&ept=State&ppt=EpaReportingFacility"
             }
           >
             states in USA
@@ -269,7 +215,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06&pn=California&pt=State&ept=County&ppt=EpaReportingFacility"
+              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06&ept=County&ppt=EpaReportingFacility"
             }
           >
             counties in California
@@ -277,7 +223,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06029&pn=Kern%20County%2C%20CA&pt=County&ept=County&ppt=EpaReportingFacility"
+              "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06029&ept=County&ppt=EpaReportingFacility"
             }
           >
             Kern County

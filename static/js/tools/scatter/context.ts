@@ -87,10 +87,10 @@ const EmptyPlace: PlaceInfo = Object.freeze({
   enclosingPlace: {
     name: "",
     dcid: "",
-    types: [],
+    types: null,
   },
   enclosedPlaceType: "",
-  enclosedPlaces: [],
+  enclosedPlaces: null,
   parentPlaces: null,
   lowerBound: 0,
   upperBound: 1e10,
@@ -171,9 +171,7 @@ const FieldToAbbreviation = {
   perCapita: "pc",
 
   // PlaceInfo fields
-  enclosingPlaceName: "epn",
   enclosingPlaceDcid: "epd",
-  enclosingPlaceTypes: "epts",
   enclosedPlaceType: "ept",
   lowerBound: "lb",
   upperBound: "ub",
