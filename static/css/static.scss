@@ -145,6 +145,7 @@ h2 {
 
 #homepage a.card {
   border-width: 0;
+  margin-bottom: 1rem;
 }
 
 #homepage a.card:hover {
@@ -223,14 +224,17 @@ h2 {
 #homepage .img-card {
   display: flex;
   flex-direction: column;
+  margin: 0 auto 1rem;
 }
 
-#homepage .img-card.float-md-left {
-  margin-right: 3rem;
-}
+@include media-breakpoint-up(md) {
+  #homepage .img-card.float-md-left {
+    margin-right: 3rem;
+  }
 
-#homepage .img-card.float-md-right {
-  margin-left: 3rem;
+  #homepage .img-card.float-md-right {
+    margin-left: 3rem;
+  }
 }
 
 #homepage .img-card .caption {

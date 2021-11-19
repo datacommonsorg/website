@@ -43,7 +43,7 @@
   <div class="container">
     <h2>Explore the data</h2>
     <div class="row">
-      <div class="col-3">
+      <div class="col-12 col-md-6 col-lg-3">
         <a href="{{ url_for('tools.scatter') }}" id="scatter-button" class="card text-center">
           <div class="card-body">
             <div class="tool-button-img"></div>
@@ -51,7 +51,7 @@
           </div>
         </a>
       </div>
-      <div class="col-3">
+      <div class="col-12 col-md-6 col-lg-3">
         <a href="{{ url_for('tools.map') }}" id="map-button" class="card text-center">
           <div class="card-body">
             <div class="tool-button-img"></div>
@@ -59,7 +59,7 @@
           </div>
         </a>
       </div>
-      <div class="col-3">
+      <div class="col-12 col-md-6 col-lg-3">
         <a href="{{ url_for('tools.timeline') }}" id="timeline-button" class="card text-center">
           <div class="card-body">
             <div class="tool-button-img"></div>
@@ -67,7 +67,7 @@
           </div>
         </a>
       </div>
-      <div class="col-3">
+      <div class="col-12 col-md-6 col-lg-3">
         <a href="https://docs.datacommons.org/api/rest" id="api-button" class="card text-center">
           <div class="card-body">
             <div class="tool-button-img"></div>
@@ -270,9 +270,9 @@
       </p>
     </article>
 
-    <article>
+    <article class="clearfix">
       <h3>Income and other inequalities</h3>
-      <p class="clearfix">
+      <p>
         <span class="img-card float-md-left" style="width: 312px">
           <a href="/tools/scatter#&svx=Count_Person_BelowPovertyLevelInThePast12Months&pcx=1&svy=Percent_Person_Obesity&epd=country/USA&ept=County&lb=1000&dd=1">
             <img class="img-thumbnail" src="/images/home-obesity_poverty.png" />
