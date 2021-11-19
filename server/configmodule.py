@@ -11,10 +11,8 @@ class Config:
     WEBDRIVER = False
     LOCAL = False
     LITE = False
-
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
-
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
     GCS_BUCKET = os.environ.get('GCS_BUCKET') or ''
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''

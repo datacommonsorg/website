@@ -53,16 +53,20 @@ def get_landing_page_data(dcid, new_stat_vars):
 
 
 def build_url(dcids, statvar_to_denom, is_scaled=False):
-    anchor = '&place=' + ','.join(dcids)
-    parts = []
-    for statvar, denom in statvar_to_denom.items():
-        part = statvar
-        if denom:
-            part += '|' + denom
-        parts.append(part)
-    anchor += ('&statsVar=' + '__'.join(parts))
+    # Landing page chart could have multiple denominator for multiple numerator.
+    # This is not supported in timeline tool, in which case, fallback to use
+    # Count_Person.
+    # TODO(shifucun): support more complicated denominator case when "Calculator"
+    # tool is available
+    anchor = '&place={}&statsVar={}'.format(','.join(dcids),
+                                            '__'.join(statvar_to_denom.keys()))
     if is_scaled:
-        anchor = anchor + '&pc'
+        denoms = set(statvar_to_denom.values())
+        if len(denoms) > 1:
+            denom = "Count_Person"
+        else:
+            denom = denoms.pop()
+        anchor += '&pc&denom={}'.format(denom)
     return urllib.parse.unquote(url_for('tools.timeline', _anchor=anchor))
 
 

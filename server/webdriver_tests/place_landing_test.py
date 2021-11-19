@@ -150,3 +150,24 @@ class TestPlaceLanding(WebdriverBaseTest):
         # Assert first chart has 36 lines (ie. has data)
         chart_lines = charts[0].find_elements_by_class_name('line')
         self.assertGreater(len(chart_lines), 10)
+
+    def test_place_landing_url_param(self):
+        """Test place landing url parameters."""
+
+        # Test for ?category=Education
+        self.driver.get(self.url_ + '/place/geoId/1714000?category=Education')
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'chart-container'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        link = self.driver.find_element_by_xpath(
+            '//*[@id="nav-topics"]/li[6]/ul/div/li[1]/a')
+        self.assertEqual(link.text, 'Education attainment')
+
+        # Test for ?topic=Education
+        self.driver.get(self.url_ + '/place/geoId/1714000?topic=Education')
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'chart-container'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        link = self.driver.find_element_by_xpath(
+            '//*[@id="nav-topics"]/li[6]/ul/div/li[1]/a')
+        self.assertEqual(link.text, 'Education attainment')
