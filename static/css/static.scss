@@ -225,11 +225,11 @@ h2 {
   flex-direction: column;
 }
 
-#homepage .img-card.float-left {
+#homepage .img-card.float-md-left {
   margin-right: 3rem;
 }
 
-#homepage .img-card.float-right {
+#homepage .img-card.float-md-right {
   margin-left: 3rem;
 }
 
@@ -238,6 +238,10 @@ h2 {
   margin-top: .8rem;
   font-style: italic;
   text-align: center;
+}
+
+#homepage .img-thumbnail {
+  padding: 5px !important;
 }
 
 #special_announcement_faq dd {
