@@ -207,6 +207,8 @@ useful for monitoring and controlling the containers.
 Commit all changes locally. Then run
 
 ```bash
+gcloud auth login
+gcloud auth configure-docker
 ./scripts/push_image.sh
 ./scripts/deploy_gke.sh dev us-central1
 ```

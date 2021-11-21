@@ -28,8 +28,8 @@
     <div class="row">
       <div class="lead-col col-12">
         <p class="lead">
-          Data Commons aggregates data from a <a href="">wide range of sources</a> into a unified database to make it more accessible and useful.
-          More on <a href="">why we are building Data Commons</a>.
+          Data Commons aggregates data from a <a href="{{ url_for('static.datasets') }}">wide range of sources</a> into a unified database to make it more accessible and useful.
+          More on <a href="{{ url_for('static.about') }}">why we are building Data Commons</a>.
         </p>
       </div>
     </div>
@@ -76,9 +76,9 @@
     <div class="row">
       <div class="col-12">
         <p>
-          Explore the data using one of our visualization tools (<a href="{{ url_for('tools.map') }}">Map</a>, <a href="{{ url_for('tools.timeline') }}">Timeline</a>,
-          <a href="{{ url_for('tools.map') }}">Scatter</a>) or use the <a href="https://docs.datacommons.org/api">APIs</a> via Python notebooks or build your own
-          application. Explore the over 70k vars in the <a href="{{ url_for('tools.stat_var') }}">Data Dictionary
+          Explore the data using one of our visualization tools (<a href="{{ url_for('tools.scatter') }}">Scatter</a>, <a href="{{ url_for('tools.map') }}">Map</a>,
+          <a href="{{ url_for('tools.timeline') }}">Timeline</a>) or use the <a href="https://docs.datacommons.org/api">APIs</a> via Python notebooks or build your own
+          application. Explore the over 70k variables in the <a href="{{ url_for('tools.stat_var') }}">Data Dictionary
           Exploration Tool</a>.
         </p>
       </div>
@@ -120,13 +120,13 @@
             href="/tools/map#dt=2050-06&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85&pc=0&denom=Count_Person&pd=country/USA&pt=Country&ept=County">pessimistic</a>)<a href="#fn-rcp"><sup>1</sup></a>
           </li>
           <li>
-            In Europe might be in 2050 (<a
+            In Europe in 2050 (<a
             href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&pd=europe&pt=Continent&ept=IPCCPlace_50">optimistic</a>,
             <a
             href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85&pc=0&denom=Count_Person&pd=europe&pt=Continent&ept=IPCCPlace_50">pessimistic</a>)<a href="#fn-rcp"><sup>1</sup></a>
           </li>
           <li>
-            Or the progression in Europe over time (<a
+            The progression in Europe over time (<a
             href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&dt=2040-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2040</a>,
             <a
             href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&denom=Count_Person&dt=2045-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2045</a>,
@@ -143,13 +143,14 @@
           </a>
           <small class="caption">Heart condition vs. max projected summer temperature for US counties (RCP 4.5) (source: CDC, NASA)</small>
         </span>
-        Climate change is not just about reducing carbon emissions. It is also
-        about adaptation to the change that is already happening. Note the
-        outliers in the upper right quadrant of this chart: counties like <a
-        href="{{ url_for('place.place', place_dcid='geoId/46121') }}">Todd County,
-        SD</a> and <a href="{{ url_for('place.place', place_dcid='geoId/46102')
-        }}">Oglala Lakota County, SD</a> with high incidence of coronary disease can
-        also expect some of the highest the highest temperature rises.
+        Climate change is also about adaptation to the change that is already
+        happening. Note the outliers in the upper right quadrant of <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&dd=1">this
+        chart</a>: counties like <a href="{{ url_for('place.place',
+        place_dcid='geoId/46121') }}">Todd County, SD</a> and <a href="{{
+        url_for('place.place', place_dcid='geoId/46102') }}">Oglala Lakota
+        County, SD</a> with high incidence of coronary disease can also expect
+        some of the highest temperature rises.
       </p>
     </article>
 
@@ -302,15 +303,15 @@
     </article>
 
     <article>
-      <h3>Europe</h3>
+      <h3>Demographics (Europe)</h3>
       <p class="clearfix">
-        <span class="img-card float-md-right" style="width: 412px">
+        <span class="img-card float-md-right" style="width: 300px">
           <a href="/tools/map#&sv=LifeExpectancy_Person&pc=0&denom=Count_Person&pd=Earth&ept=Country">
-            <img class="img-thumbnail" src="/images/home-global_life_expectancy.png" />
+            <img class="img-thumbnail" src="/images/home-europe_life_expectancy.png" />
           </a>
-          <small class="caption">Life expectancy across the world (source: World Bank)</small>
+          <small class="caption">Life expectancy across Europe (source: World Bank)</small>
         </span>
-        <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=LifeExpectancy_Person__Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person">Life is getting better</a> in Europe, with high life expectancy, in addition to decreasing crime.
+        <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=LifeExpectancy_Person__Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person">Life is getting better</a> in Europe, with high life expectancy in addition to decreasing crime.
         People are living healthier as well and <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA,country/IDN&statsVar=Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male">smoking less</a>.  However, some
         economies just have <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=UnemploymentRate_Person">more ups and downs than others</a>.  Additionally,
         <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=FertilityRate_Person_Female">fertility rates</a> have come down quite a bit, though not as much as in
