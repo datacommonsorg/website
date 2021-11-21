@@ -26,7 +26,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { saveToFile } from "../../shared/util";
-import { getPopulationDate, getUnit, PlacePointStat } from "../shared_util";
+import {
+  getPopulationDate,
+  getUnit,
+  PlacePointStat,
+  StatMetadata,
+} from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -62,6 +67,7 @@ const DEFAULT_POPULATION_DCID = "Count_Person";
 type Cache = {
   // key here is stat var.
   statVarsData: Record<string, PlacePointStat>;
+  metadataMap: Record<string, StatMetadata>;
   populationData: StatApiResponse;
   noDataError: boolean;
 };
@@ -85,8 +91,8 @@ function ChartLoader(): JSX.Element {
   if (cache.statVarsData) {
     const xStatData = cache.statVarsData[xStatVar];
     const yStatData = cache.statVarsData[yStatVar];
-    xUnits = xStatData ? getUnit(xStatData) : null;
-    yUnits = yStatData ? getUnit(yStatData) : null;
+    xUnits = xStatData ? getUnit(xStatData.stat, cache.metadataMap) : null;
+    yUnits = yStatData ? getUnit(yStatData.stat, cache.metadataMap) : null;
   }
   return (
     <>
@@ -152,6 +158,7 @@ function useCache(): Cache {
         statVarsData: {},
         populationData: {},
         noDataError: false,
+        metadataMap: {},
       });
       return;
     }
@@ -180,7 +187,7 @@ async function loadData(
   setCache: (cache: Cache) => void
 ) {
   isLoading.setAreDataLoading(true);
-  const statVarsDataPromise = getStatsWithinPlace(
+  const statResponsePromise = getStatsWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     [x.value.statVarDcid, y.value.statVarDcid]
@@ -193,12 +200,13 @@ async function loadData(
         `&stat_vars=${DEFAULT_POPULATION_DCID}`
     )
     .then((resp) => resp.data);
-  Promise.all([statVarsDataPromise, populationPromise])
-    .then(([statVarsData, populationData]) => {
+  Promise.all([statResponsePromise, populationPromise])
+    .then(([statResponse, populationData]) => {
       const cache = {
-        noDataError: _.isEmpty(statVarsData),
+        noDataError: _.isEmpty(statResponse.data),
         populationData,
-        statVarsData,
+        statVarsData: statResponse.data,
+        metadataMap: statResponse.metadata,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -326,15 +334,13 @@ function getPoints(
         xPop,
         xPopDate,
         xPopSource,
-        xSource:
-          xStatData.metadata[placeXStatData.metadata.importName].provenanceUrl,
+        xSource: cache.metadataMap[placeXStatData.metaHash].provenanceUrl,
         xVal: placeXStatData.value === undefined ? 0 : placeXStatData.value,
         yDate: placeYStatData.date,
         yPop,
         yPopDate,
         yPopSource,
-        ySource:
-          yStatData.metadata[placeYStatData.metadata.importName].provenanceUrl,
+        ySource: cache.metadataMap[placeYStatData.metaHash].provenanceUrl,
         yVal: placeYStatData.value === undefined ? 0 : placeYStatData.value,
       };
       if (

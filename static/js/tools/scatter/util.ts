@@ -23,7 +23,7 @@ import _ from "lodash";
 
 import { StatVarNode } from "../../shared/stat_var";
 import { getCappedStatVarDate } from "../../shared/util";
-import { PlacePointStat } from "../shared_util";
+import { GetStatSetResponse } from "../shared_util";
 import {
   Axis,
   ContextType,
@@ -53,13 +53,13 @@ async function getStatsWithinPlace(
   parent_place: string,
   child_type: string,
   statVars: Array<string>
-): Promise<Record<string, PlacePointStat>> {
+): Promise<GetStatSetResponse> {
   let statVarParams = "";
   // There are two stat vars for scatter plot.
   //
   // For IPCC stat vars, need to cut the data up to certain date, so here will
   // always send two requests for each stat var.
-  const promises: Promise<Record<string, PlacePointStat>>[] = [];
+  const promises: Promise<GetStatSetResponse>[] = [];
   for (const statVar of statVars) {
     statVarParams = `&stat_vars=${statVar}`;
     const cappedDate = getCappedStatVarDate(statVar);
@@ -73,9 +73,10 @@ async function getStatsWithinPlace(
     );
   }
   return Promise.all(promises).then((responses) => {
-    let result: Record<string, PlacePointStat> = {};
+    const result: GetStatSetResponse = { data: {}, metadata: {} };
     for (const resp of responses) {
-      result = Object.assign(result, resp.data);
+      result.data = Object.assign(result.data, resp.data.data);
+      result.metadata = Object.assign(result.metadata, resp.data.metadata);
     }
     return result;
   });
