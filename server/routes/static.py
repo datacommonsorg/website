@@ -34,8 +34,7 @@ def homepage():
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
                                         locale=g.locale)
-    return render_template('static/homepage.html',
-                           blog_date=blog_date)
+    return render_template('static/homepage.html', blog_date=blog_date)
 
 
 @bp.route('/about')

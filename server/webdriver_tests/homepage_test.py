@@ -32,29 +32,7 @@ class TestPlaceLanding(WebdriverBaseTest):
 
         hero_msg = self.driver.find_elements_by_class_name('lead')[0]
         self.assertTrue(
-            hero_msg.text.startswith(
-                'Data Commons is an open knowledge repository'))
-
-        explore_callout_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[3]/p')
-        self.assertTrue(
-            explore_callout_msg.text.startswith(
-                'We cleaned and processed the data so you don\'t have to'))
-
-        nyc_edu = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[3]/ul/li/ul/li[3]/a')
-        self.assertEqual(nyc_edu.text, 'New York City Department of Education')
-        self.assertEqual(nyc_edu.get_attribute('href'),
-                         self.url_ + '/browser/geoId/sch3620580')
-
-        schema_org = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[5]/ul/li[2]')
-        self.assertEqual(schema_org.text,
-                         'Open sourced, built using Schema.org.')
-
-        more_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[3]/ul/li/ul/li[5]/a')
-        self.assertEqual(more_msg.text, 'more ...')
+            hero_msg.text.startswith('Data Commons aggregates data'))
 
     def test_homepage_it(self):
         """Test homepage in IT."""
@@ -67,74 +45,47 @@ class TestPlaceLanding(WebdriverBaseTest):
 
         hero_msg = self.driver.find_elements_by_class_name('lead')[0]
         self.assertTrue(
-            hero_msg.text.startswith(
-                'Data Commons è un repository di conoscenza aperto che combina i dati provenienti'
-            ))
+            hero_msg.text.startswith('Data Commons aggregates data'))
 
-        explore_callout_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[3]/p')
-        self.assertTrue(
-            explore_callout_msg.text.startswith(
-                'Abbiamo pulito ed elaborato i dati al tuo posto, così non dovrai farlo tu.'
-            ))
+    # def test_hero_all_langs(self):
+    #     """Test hero message translation in *all* languages.
 
-        nyc_edu = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[3]/ul/li/ul/li[3]/a')
-        self.assertEqual(
-            nyc_edu.text,
-            'Consiglio di amministrazione della pubblica istruzione della Città di New York'
-        )
-        self.assertEqual(nyc_edu.get_attribute('href'),
-                         self.url_ + '/browser/geoId/sch3620580?hl=it')
+    #     NOTE: EN and IT are tested in other tests in this module.
+    #     """
 
-        schema_org = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[5]/ul/li[2]')
-        self.assertEqual(schema_org.text,
-                         'Progetto open source realizzato con Schema.org.')
+    #     self.driver.get(self.url_ + '/?hl=de')
+    #     hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+    #     self.assertTrue(
+    #         hero_msg.text.startswith(
+    #             'Data Commons ist ein Open Knowledge Repository'))
 
-        more_msg = self.driver.find_element_by_xpath(
-            '//*[@id="homepage"]/section[3]/ul/li/ul/li[5]/a')
-        self.assertEqual(more_msg.text, 'altro…')
+    #     self.driver.get(self.url_ + '/?hl=es')
+    #     hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+    #     self.assertTrue(
+    #         hero_msg.text.startswith('Data Commons es un repositorio abierto'))
 
-    def test_hero_all_langs(self):
-        """Test hero message translation in *all* languages.
+    #     self.driver.get(self.url_ + '/?hl=fr')
+    #     hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+    #     self.assertTrue(
+    #         hero_msg.text.startswith(
+    #             'Data Commons est un dépôt de connaissances'))
 
-        NOTE: EN and IT are tested in other tests in this module.
-        """
+    #     self.driver.get(self.url_ + '/?hl=hi')
+    #     hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+    #     self.assertTrue(
+    #         hero_msg.text.startswith(
+    #             'Data Commons, एक ऐसा प्रोजेक्ट है जिसमें डेटा'))
 
-        self.driver.get(self.url_ + '/?hl=de')
-        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
-        self.assertTrue(
-            hero_msg.text.startswith(
-                'Data Commons ist ein Open Knowledge Repository'))
+    #     self.driver.get(self.url_ + '/?hl=ja')
+    #     hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+    #     self.assertTrue(hero_msg.text.startswith('データコモンズは、マッピングされた共通'))
 
-        self.driver.get(self.url_ + '/?hl=es')
-        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
-        self.assertTrue(
-            hero_msg.text.startswith('Data Commons es un repositorio abierto'))
+    #     self.driver.get(self.url_ + '/?hl=ko')
+    #     hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+    #     self.assertTrue(
+    #         hero_msg.text.startswith('Data Commons는 매핑된 공통 항목을 사용해'))
 
-        self.driver.get(self.url_ + '/?hl=fr')
-        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
-        self.assertTrue(
-            hero_msg.text.startswith(
-                'Data Commons est un dépôt de connaissances'))
-
-        self.driver.get(self.url_ + '/?hl=hi')
-        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
-        self.assertTrue(
-            hero_msg.text.startswith(
-                'Data Commons, एक ऐसा प्रोजेक्ट है जिसमें डेटा'))
-
-        self.driver.get(self.url_ + '/?hl=ja')
-        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
-        self.assertTrue(hero_msg.text.startswith('データコモンズは、マッピングされた共通'))
-
-        self.driver.get(self.url_ + '/?hl=ko')
-        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
-        self.assertTrue(
-            hero_msg.text.startswith('Data Commons는 매핑된 공통 항목을 사용해'))
-
-        self.driver.get(self.url_ + '/?hl=ru')
-        hero_msg = self.driver.find_elements_by_class_name('lead')[0]
-        self.assertTrue(
-            hero_msg.text.startswith('Data Commons – это открытая база данных'))
+    #     self.driver.get(self.url_ + '/?hl=ru')
+    #     hero_msg = self.driver.find_elements_by_class_name('lead')[0]
+    #     self.assertTrue(
+    #         hero_msg.text.startswith('Data Commons – это открытая база данных'))
