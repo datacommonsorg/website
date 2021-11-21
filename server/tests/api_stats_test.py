@@ -100,7 +100,7 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
             '/api/stats/within-place?parent_place=geoId/10&child_type=County'
             '&date=2018&stat_vars=Count_Person&stat_vars=Count_Person_Male')
         assert response.status_code == 200
-        assert json.loads(response.data) == result['data']
+        assert json.loads(response.data) == result
 
     @mock.patch('services.datacommons.send_request')
     def test_api_get_stat_set_within_place_no_date(self, send_request):
@@ -153,7 +153,7 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
             '/api/stats/within-place?parent_place=geoId/10&child_type=County'
             '&stat_vars=Count_Person&stat_vars=Count_Person_Male')
         assert response.status_code == 200
-        assert json.loads(response.data) == result['data']
+        assert json.loads(response.data) == result
 
     @mock.patch('services.datacommons.send_request')
     def test_api_get_stats_property(self, send_request):
