@@ -203,7 +203,7 @@ def get_stat_set_within_place():
     date = request.args.get("date")
     return Response(json.dumps(
         dc.get_stat_set_within_place(parent_place, child_type, stat_vars,
-                                     date).get('data', {})),
+                                     date)),
                     200,
                     mimetype='application/json')
 

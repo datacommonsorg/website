@@ -222,7 +222,7 @@ export function Chart(props: ChartProps): JSX.Element {
                 </FormGroup>
               </div>
             )}
-            {props.placeInfo.mapPointsPlaceType && (
+            {props.placeInfo.mapPointPlaceType && (
               <div className="installations-option">
                 <FormGroup check>
                   <Label check>
@@ -420,7 +420,7 @@ const getMapRedirectAction = (
     statVar,
     selectedPlace,
     parentPlaces,
-    placeInfo.mapPointsPlaceType,
+    placeInfo.mapPointPlaceType,
     displayOptions
   );
   window.open(redirectLink, "_self");
@@ -447,8 +447,8 @@ const getTooltipHtml = (
   const showPopDateMessage =
     statVar.perCapita &&
     !_.isEmpty(metadata.popDate) &&
-    !metadata.statVarDate.includes(metadata.popDate) &&
-    !metadata.popDate.includes(metadata.statVarDate);
+    !metadata.placeStatDate.includes(metadata.popDate) &&
+    !metadata.popDate.includes(metadata.placeStatDate);
   if (!hasValue || !(place.dcid in metadataMapping)) {
     return `${titleHtml}: <wbr>${value}<br />`;
   }
@@ -459,7 +459,7 @@ const getTooltipHtml = (
     ? `<footer><sup>1</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
     : "";
   const html =
-    `${titleHtml} (${metadata.statVarDate}): <wbr><b>${value}</b>${
+    `${titleHtml} (${metadata.placeStatDate}): <wbr><b>${value}</b>${
       showPopDateMessage ? "<sup>1</sup>" : ""
     }<br />` + footer;
   return html;

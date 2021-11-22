@@ -34,7 +34,7 @@ import {
 import {
   DEFAULT_DENOM,
   DEFAULT_DISPLAY_OPTIONS,
-  getMapPointsPlaceType,
+  getMapPointPlaceType,
 } from "./util";
 
 const SAMPLE_SIZE = 3;
@@ -86,7 +86,7 @@ function selectStatVar(
   dcid: string
 ): void {
   displayOptions.set(DEFAULT_DISPLAY_OPTIONS);
-  placeInfo.setMapPointsPlaceType(getMapPointsPlaceType(dcid));
+  placeInfo.setMapPointPlaceType(getMapPointPlaceType(dcid));
   statVar.set({
     date: "",
     dcid,
