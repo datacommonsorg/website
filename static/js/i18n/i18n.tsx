@@ -164,7 +164,7 @@ function formatNumber(
   const formatOptions: any = {
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
-    maximumSignificantDigits: 2,
+    maximumSignificantDigits: 3,
     notation: "compact",
     style: "decimal",
   };
