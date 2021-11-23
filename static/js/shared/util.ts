@@ -99,6 +99,8 @@ export function getCappedStatVarDate(statVar: string): string {
     statVar.includes("WetBulbTemperature") ||
     statVar.includes("AggregateMin_Percentile") ||
     statVar.includes("AggregateMax_Percentile") ||
+    statVar.includes("AggregateMin_Median") ||
+    statVar.includes("AggregateMax_Median") ||
     statVar.includes("NumberOfMonths_")
   ) {
     return MAX_YEAR;
