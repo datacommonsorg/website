@@ -95,7 +95,12 @@ export function getCappedStatVarDate(statVar: string): string {
     return "";
   }
   // Wet bulb temperature is observed at P1Y, so need to use year for the date.
-  if (statVar.includes("WetBulbTemperature")) {
+  if (
+    statVar.includes("WetBulbTemperature") ||
+    statVar.includes("AggregateMin_Percentile") ||
+    statVar.includes("AggregateMax_Percentile") ||
+    statVar.includes("NumberOfMonths_")
+  ) {
     return MAX_YEAR;
   }
   return MAX_DATE;
