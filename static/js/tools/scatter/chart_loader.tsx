@@ -91,8 +91,8 @@ function ChartLoader(): JSX.Element {
   if (cache.statVarsData) {
     const xStatData = cache.statVarsData[xStatVar];
     const yStatData = cache.statVarsData[yStatVar];
-    xUnits = xStatData ? getUnit(xStatData.stat, cache.metadataMap) : null;
-    yUnits = yStatData ? getUnit(yStatData.stat, cache.metadataMap) : null;
+    xUnits = xStatData ? getUnit(xStatData, cache.metadataMap) : null;
+    yUnits = yStatData ? getUnit(yStatData, cache.metadataMap) : null;
   }
   return (
     <>

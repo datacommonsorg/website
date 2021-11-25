@@ -84,6 +84,7 @@ const NO_PER_CAPITA_TYPES = ["medianValue"];
 const SECTION_CONTAINER_ID = "map-chart";
 const DEBOUNCE_INTERVAL_MS = 30;
 const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
+
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");

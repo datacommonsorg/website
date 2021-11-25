@@ -50,8 +50,17 @@ export interface PlacePointStat {
   stat: Record<string, PlacePointStatData>;
 }
 
+export interface PlacePointStatAll {
+  statList: PlacePointStat[];
+}
+
 export interface GetStatSetResponse {
   data: Record<string, PlacePointStat>;
+  metadata: Record<number, StatMetadata>;
+}
+
+export interface GetStatSetAllResponse {
+  data: Record<string, PlacePointStatAll>;
   metadata: Record<number, StatMetadata>;
 }
 
@@ -99,11 +108,15 @@ export function getPopulationDate(
  * @param placePointStat
  */
 export function getUnit(
-  placePoints: Record<string, PlacePointStatData>,
+  pps: PlacePointStat,
   metadataMap: Record<string, StatMetadata>
 ): string {
-  for (const place in placePoints) {
-    const metaHash = placePoints[place].metaHash;
+  let metaHash = pps.metaHash;
+  if (metaHash) {
+    return metadataMap[metaHash].unit;
+  }
+  for (const place in pps.stat) {
+    metaHash = pps.stat[place].metaHash;
     if (metaHash in metadataMap) {
       return metadataMap[metaHash].unit;
     }
