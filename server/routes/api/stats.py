@@ -208,6 +208,38 @@ def get_stat_set_within_place():
                     mimetype='application/json')
 
 
+@bp.route('/api/stats/within-place/all')
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+def get_stat_set_within_place_all():
+    """Gets the statistical variable values for child places of a certain place
+    type contained in a parent place at a given date. If no date given, will
+    return values for most recent date.
+
+    This API returns the values for all sources.
+    """
+    parent_place = request.args.get("parent_place")
+    if not parent_place:
+        return Response(json.dumps("error: must provide a parent_place field"),
+                        400,
+                        mimetype='application/json')
+    child_type = request.args.get("child_type")
+    if not child_type:
+        return Response(json.dumps("error: must provide a child_type field"),
+                        400,
+                        mimetype='application/json')
+    stat_vars = request.args.getlist("stat_vars")
+    if not stat_vars:
+        return Response(json.dumps("error: must provide a stat_vars field"),
+                        400,
+                        mimetype='application/json')
+    date = request.args.get("date")
+    return Response(json.dumps(
+        dc.get_stat_set_within_place_all(parent_place, child_type, stat_vars,
+                                         date)),
+                    200,
+                    mimetype='application/json')
+
+
 @bp.route('/api/stats/set/series/within-place')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def get_stat_set_series_within_place():
