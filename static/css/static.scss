@@ -201,17 +201,16 @@ h2 {
   background: url('/images/home-tool_icons.png') -650px 0;
 }
 
+#homepage svg.icon {
+  padding-bottom: 0.2rem;
+}
+
 #homepage #us-temp-anim {
-  animation: us-temp-anim-play 3s steps(5) infinite;
   background-image: url('/images/home-us_max_temp.png');
+  background-position: 0 -1130px;
   display: block;
   height: 225px;
   width: 300px;
-}
-@keyframes us-temp-anim-play {
-  100% {
-    background-position: 0 -1125px;
-  }
 }
 
 #homepage .source {
