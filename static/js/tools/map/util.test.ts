@@ -47,7 +47,7 @@ const TestContext = ({
           name: "another county",
         },
       ],
-      mapPointsPlaceType: "",
+      mapPointPlaceType: "",
     },
   },
   statVar: {

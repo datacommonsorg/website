@@ -23,7 +23,7 @@ import {
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
-  getMapPointsPlaceType,
+  getMapPointPlaceType,
 } from "./util";
 
 /**
@@ -76,7 +76,7 @@ export interface PlaceInfo {
   // The places to plot
   enclosedPlaces: Array<NamedPlace>;
   // The type of place to show points on the map for
-  mapPointsPlaceType: string;
+  mapPointPlaceType: string;
 }
 
 // Wraps PlaceInfo with its setters
@@ -89,7 +89,7 @@ export interface PlaceInfoWrapper {
   setEnclosingPlace: Setter<NamedPlace>;
   setEnclosedPlaceType: Setter<string>;
   setEnclosedPlaces: Setter<Array<NamedPlace>>;
-  setMapPointsPlaceType: Setter<string>;
+  setMapPointPlaceType: Setter<string>;
 }
 
 // Information relating to things loading
@@ -147,9 +147,9 @@ export function getInitialContext(params: URLSearchParams): ContextType {
   const [display, setDisplay] = useState(applyHashDisplay(params));
   // If map points place type was set in the url, use that type. Otherwise,
   // infer map points place type based on stat var
-  const mapPointsPlaceType = placeInfo.mapPointsPlaceType
-    ? placeInfo.mapPointsPlaceType
-    : getMapPointsPlaceType(statVar.dcid);
+  const mapPointPlaceType = placeInfo.mapPointPlaceType
+    ? placeInfo.mapPointPlaceType
+    : getMapPointPlaceType(statVar.dcid);
   return {
     isLoading: {
       value: isLoading,
@@ -160,7 +160,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setIsLoading({ ...isLoading, isPlaceInfoLoading }),
     },
     placeInfo: {
-      value: { ...placeInfo, mapPointsPlaceType },
+      value: { ...placeInfo, mapPointPlaceType },
       set: (placeInfo) => setPlaceInfo(placeInfo),
       setSelectedPlace: (selectedPlace) =>
         setPlaceInfo({
@@ -188,8 +188,8 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setPlaceInfo({ ...placeInfo, enclosedPlaces }),
       setParentPlaces: (parentPlaces) =>
         setPlaceInfo({ ...placeInfo, parentPlaces }),
-      setMapPointsPlaceType: (mapPointsPlaceType) =>
-        setPlaceInfo({ ...placeInfo, mapPointsPlaceType }),
+      setMapPointPlaceType: (mapPointPlaceType) =>
+        setPlaceInfo({ ...placeInfo, mapPointPlaceType }),
     },
     statVar: {
       value: statVar,

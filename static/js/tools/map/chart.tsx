@@ -84,6 +84,7 @@ const NO_PER_CAPITA_TYPES = ["medianValue"];
 const SECTION_CONTAINER_ID = "map-chart";
 const DEBOUNCE_INTERVAL_MS = 30;
 const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
+
 export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
@@ -222,7 +223,7 @@ export function Chart(props: ChartProps): JSX.Element {
                 </FormGroup>
               </div>
             )}
-            {props.placeInfo.mapPointsPlaceType && (
+            {props.placeInfo.mapPointPlaceType && (
               <div className="installations-option">
                 <FormGroup check>
                   <Label check>
@@ -420,7 +421,7 @@ const getMapRedirectAction = (
     statVar,
     selectedPlace,
     parentPlaces,
-    placeInfo.mapPointsPlaceType,
+    placeInfo.mapPointPlaceType,
     displayOptions
   );
   window.open(redirectLink, "_self");
@@ -447,8 +448,8 @@ const getTooltipHtml = (
   const showPopDateMessage =
     statVar.perCapita &&
     !_.isEmpty(metadata.popDate) &&
-    !metadata.statVarDate.includes(metadata.popDate) &&
-    !metadata.popDate.includes(metadata.statVarDate);
+    !metadata.placeStatDate.includes(metadata.popDate) &&
+    !metadata.popDate.includes(metadata.placeStatDate);
   if (!hasValue || !(place.dcid in metadataMapping)) {
     return `${titleHtml}: <wbr>${value}<br />`;
   }
@@ -459,7 +460,7 @@ const getTooltipHtml = (
     ? `<footer><sup>1</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
     : "";
   const html =
-    `${titleHtml} (${metadata.statVarDate}): <wbr><b>${value}</b>${
+    `${titleHtml} (${metadata.placeStatDate}): <wbr><b>${value}</b>${
       showPopDateMessage ? "<sup>1</sup>" : ""
     }<br />` + footer;
   return html;

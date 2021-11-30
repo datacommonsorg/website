@@ -69,6 +69,8 @@ $container-max-widths: (
   xl: 1500px,
 );
 
+$hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66 / 10%);
+
 @import "~bootstrap/scss/bootstrap";
 
 #main-nav .navbar-brand {

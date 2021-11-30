@@ -40,7 +40,7 @@ ROOT="$(dirname "$DIR")"
 
 
 cd $ROOT
-WEBSITE_HASH=$(git rev-parse --short HEAD)
+WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
 
 if [[ $3 != "" ]]; then
   WEBSITE_HASH=$3
@@ -49,7 +49,7 @@ fi
 
 
 cd $ROOT/mixer
-MIXER_HASH=$(git rev-parse --short HEAD)
+MIXER_HASH=$(git rev-parse --short=7 HEAD)
 
 cd $ROOT/deploy/git
 

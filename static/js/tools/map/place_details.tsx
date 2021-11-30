@@ -57,7 +57,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
       : "N/A";
   const selectedPlaceDate =
     selectedPlace.dcid in props.metadata
-      ? ` (${props.metadata[selectedPlace.dcid].statVarDate})`
+      ? ` (${props.metadata[selectedPlace.dcid].placeStatDate})`
       : "";
   const rankedPlaces = props.geoJsonFeatures.filter(
     (feature) =>
@@ -157,7 +157,7 @@ function getListItemElement(
   }
   const date =
     place.dcid in props.metadata
-      ? ` (${props.metadata[place.dcid].statVarDate})`
+      ? ` (${props.metadata[place.dcid].placeStatDate})`
       : "";
   const enclosingPlace =
     props.europeanCountries.indexOf(place.dcid) > -1
@@ -172,7 +172,7 @@ function getListItemElement(
     props.statVar,
     place,
     parentPlaces,
-    props.placeInfo.mapPointsPlaceType,
+    props.placeInfo.mapPointPlaceType,
     props.displayOptions
   );
   const shouldBeClickable = !_.isEmpty(

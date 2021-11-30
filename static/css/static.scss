@@ -16,6 +16,15 @@
 
 @import 'base';
 
+$color-scatter: #FF8E6B;
+$color-map: #A0DCB0;
+$color-timeline: #FCBF71;
+$color-api: #6BC8DD;
+
+// from place.scss
+$subtopic-background: rgba(0, 0, 0, 0.05);
+$subtopic-color: #222;
+
 h1 {
   margin-bottom: 3rem;
 }
@@ -30,12 +39,13 @@ h2 {
 
 .lead {
   font-size: 1.4rem;
+  font-family: $headings-font-family;
 }
 
 /* HOMEPAGE */
 #homepage-top {
   margin: -3rem auto 3rem;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 
 #homepage-top .lead-col {
@@ -74,7 +84,6 @@ h2 {
 }
 
 #homepage section p {
-// #homepage section a {
   display: block;
   margin-bottom: .4rem;
 }
@@ -88,28 +97,10 @@ h2 {
   font-weight: 300;
 }
 
-#homepage section.examples ul li ul li {
-  display: block;
-}
-
-#homepage section ul li ul li {
-  display: inline-block;
-  margin-right: .25em;
-}
-
-#homepage section ul li {
-  margin-bottom: .25em;
-}
-
 #homepage section ul {
   padding-left: 0;
-  padding-right: .25em;
-  list-style-type: none;
-}
-
-#homepage section ul ul {
-  display: inline;
-  // padding-left: 0;
+  list-style-position: inside;
+  margin-top: -1rem;
 }
 
 #homepage section .row {
@@ -136,6 +127,123 @@ h2 {
 
 #homepage h1 {
   margin-bottom: 0;
+}
+
+#homepage h3 {
+  color: $subtopic-color;
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-top: 3rem;
+  padding: .5rem 0;
+}
+
+#homepage article p {
+  padding-bottom: 1rem;
+}
+
+#homepage a.card {
+  border-width: 0;
+  margin-bottom: 1rem;
+}
+
+#homepage a.card:hover {
+  border-width: 0;
+  box-shadow: $hover-box-shadow;
+}
+
+#homepage a.card span {
+  font-family: $headings-font-family;
+  font-weight: 600;
+  color: var(--dc-gray);
+  margin-top: 1rem;
+  display: block;
+}
+
+#homepage .tool-button-img {
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 100px;
+}
+
+#homepage #scatter-button {
+  background-color: $color-scatter;
+}
+
+#homepage #scatter-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -50px 0;
+}
+
+#homepage #map-button {
+  background-color: $color-map;
+}
+
+#homepage #map-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -225px 0;
+  width: 150px;
+}
+
+#homepage #timeline-button {
+  background-color: $color-timeline;
+}
+
+#homepage #timeline-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -450px 0;
+}
+
+#homepage #api-button {
+  background-color: $color-api;
+}
+
+#homepage #api-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -650px 0;
+}
+
+#homepage svg.icon {
+  padding-bottom: 0.2rem;
+}
+
+#homepage #us-temp-anim {
+  background-image: url('/images/home-us_max_temp.png');
+  background-position: 0 -1130px;
+  display: block;
+  height: 225px;
+  width: 300px;
+}
+
+#homepage .source {
+  font-size: 0.7rem;
+  color: var(--dc-gray);
+  margin-top: 0.5rem;
+}
+
+#homepage .img-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 1rem;
+}
+
+@include media-breakpoint-up(md) {
+  #homepage .img-card.float-md-left {
+    margin-right: 3rem;
+  }
+
+  #homepage .img-card.float-md-right {
+    margin-left: 3rem;
+  }
+}
+
+#homepage .img-card .caption {
+  line-height: 1.2;
+  margin-top: .8rem;
+  font-style: italic;
+  text-align: center;
+}
+
+#homepage .img-thumbnail {
+  padding: 5px !important;
 }
 
 #special_announcement_faq dd {

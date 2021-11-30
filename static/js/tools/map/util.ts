@@ -150,7 +150,7 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
 export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
   const selectedPlaceDcid = params.get(URL_PARAM_KEYS.SELECTED_PLACE_DCID);
   const enclosedPlaceType = params.get(URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE);
-  const mapPointsPlaceType = params.get(URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE);
+  const mapPointPlaceType = params.get(URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE);
   return {
     selectedPlace: {
       dcid: selectedPlaceDcid ? selectedPlaceDcid : "",
@@ -164,7 +164,7 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
     enclosedPlaces: [],
     enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
     parentPlaces: null,
-    mapPointsPlaceType: mapPointsPlaceType ? mapPointsPlaceType : "",
+    mapPointPlaceType: mapPointPlaceType ? mapPointPlaceType : "",
   };
 }
 
@@ -225,8 +225,8 @@ export function updateHashPlaceInfo(
   if (!_.isEmpty(placeInfo.enclosedPlaceType)) {
     params = `${params}&${URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE}=${placeInfo.enclosedPlaceType}`;
   }
-  if (!_.isEmpty(placeInfo.mapPointsPlaceType)) {
-    params = `${params}&${URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE}=${placeInfo.mapPointsPlaceType}`;
+  if (!_.isEmpty(placeInfo.mapPointPlaceType)) {
+    params = `${params}&${URL_PARAM_KEYS.MAP_POINTS_PLACE_TYPE}=${placeInfo.mapPointPlaceType}`;
   }
   return hash + params;
 }
@@ -268,7 +268,7 @@ export function getRedirectLink(
   statVar: StatVar,
   selectedPlace: NamedTypedPlace,
   parentPlaces: NamedPlace[],
-  mapPointsPlaceType: string,
+  mapPointPlaceType: string,
   displayOptions: DisplayOptions
 ): string {
   let hash = updateHashStatVar("", statVar);
@@ -279,7 +279,7 @@ export function getRedirectLink(
     enclosedPlaceType:
       enclosedPlaceTypes.length == 1 ? enclosedPlaceTypes[0] : "",
     enclosingPlace: { dcid: "", name: "" },
-    mapPointsPlaceType,
+    mapPointPlaceType,
     parentPlaces: [],
     selectedPlace,
   });
@@ -290,7 +290,7 @@ export function getRedirectLink(
  * Given a stat var, get the place type for plotting map points
  * @param svDcid dcid of the stat var to plot map points for
  */
-export function getMapPointsPlaceType(svDcid: string): string {
+export function getMapPointPlaceType(svDcid: string): string {
   for (const svRegex in SV_REGEX_INSTALLATION_MAPPING) {
     if (svDcid.match(svRegex)) {
       return SV_REGEX_INSTALLATION_MAPPING[svRegex];

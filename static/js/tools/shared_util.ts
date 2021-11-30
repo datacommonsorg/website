@@ -30,20 +30,38 @@ import { USA_PLACE_HIERARCHY } from "./map/util";
  * Functions and interfaces shared between tools components
  */
 
-interface PlacePointStatMetadata {
-  provenanceUrl: string;
-  measurementMethod: string;
+export interface StatMetadata {
+  importName?: string;
+  provenanceUrl?: string;
+  measurementMethod?: string;
+  observationPeriod?: string;
+  scalingFactor?: string;
   unit?: string;
 }
 
 export interface PlacePointStatData {
   date: string;
   value: number;
-  metadata: { importName: string };
+  metaHash?: number;
+  metadata?: StatMetadata;
 }
 export interface PlacePointStat {
-  metadata: { [importName: string]: PlacePointStatMetadata };
-  stat: { [dcid: string]: PlacePointStatData };
+  metaHash?: number;
+  stat: Record<string, PlacePointStatData>;
+}
+
+export interface PlacePointStatAll {
+  statList: PlacePointStat[];
+}
+
+export interface GetStatSetResponse {
+  data: Record<string, PlacePointStat>;
+  metadata: Record<number, StatMetadata>;
+}
+
+export interface GetStatSetAllResponse {
+  data: Record<string, PlacePointStatAll>;
+  metadata: Record<number, StatMetadata>;
 }
 
 export interface SourceSeries {
@@ -89,17 +107,21 @@ export function getPopulationDate(
  * Helper function to get units given a PlacePointStat
  * @param placePointStat
  */
-export function getUnit(placePointStat: PlacePointStat): string {
-  const metadata = placePointStat.metadata;
-  if (_.isEmpty(metadata)) {
-    return "";
+export function getUnit(
+  pps: PlacePointStat,
+  metadataMap: Record<string, StatMetadata>
+): string {
+  let metaHash = pps.metaHash;
+  if (metaHash) {
+    return metadataMap[metaHash].unit;
   }
-  const metadataKeys = Object.keys(metadata);
-  if (metadataKeys.length > 0) {
-    return metadata[metadataKeys[0]].unit;
-  } else {
-    return "";
+  for (const place in pps.stat) {
+    metaHash = pps.stat[place].metaHash;
+    if (metaHash in metadataMap) {
+      return metadataMap[metaHash].unit;
+    }
   }
+  return "";
 }
 
 /**
