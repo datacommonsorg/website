@@ -409,6 +409,9 @@ function fetchData(
             breadcrumbPlaceData.metadata
           );
         }
+        if (mapPointData && mapPointData.metadata) {
+          Object.assign(metadataMap, mapPointData.metadata);
+        }
         if (
           _.isEmpty(geoJsonData.features) &&
           placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
@@ -581,7 +584,7 @@ function loadChartData(
   }
   const mapPointValues = {};
   if (!_.isEmpty(rawData.mapPointStat)) {
-    for (const placeDcid in rawData.mapPointStat) {
+    for (const placeDcid in rawData.mapPointStat.stat) {
       const placeChartData = getPlaceChartData(
         rawData.mapPointStat,
         placeDcid,
