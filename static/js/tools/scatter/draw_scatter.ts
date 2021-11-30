@@ -53,6 +53,11 @@ enum ScaleType {
   LINEAR,
 }
 
+type ScatterScale =
+  | d3.ScaleSymLog<number, number>
+  | d3.ScaleLinear<number, number>
+  | d3.ScaleLogarithmic<number, number>;
+
 /**
  * Adds a label for the y-axis
  * @param labelElement d3 selection with an SVG to add the label to
@@ -129,10 +134,7 @@ function getScale(
   scaleType: ScaleType,
   domainExtent: [number, number],
   rangeExtent: [number, number]
-):
-  | d3.ScaleSymLog<number, number>
-  | d3.ScaleLinear<number, number>
-  | d3.ScaleLogarithmic<number, number> {
+): ScatterScale {
   let scale;
   let domainMin = domainExtent[0];
   let domainMax = domainExtent[1];
@@ -186,10 +188,7 @@ function addXAxis(
   width: number,
   min: number,
   max: number
-):
-  | d3.ScaleSymLog<number, number>
-  | d3.ScaleLinear<number, number>
-  | d3.ScaleLogarithmic<number, number> {
+): ScatterScale {
   let scaleType = ScaleType.LINEAR;
   if (log) {
     // If using a log scale and there's both positive and negative numbers in
@@ -217,17 +216,14 @@ function addYAxis(
   height: number,
   min: number,
   max: number
-):
-  | d3.ScaleSymLog<number, number>
-  | d3.ScaleLinear<number, number>
-  | d3.ScaleLogarithmic<number, number> {
+): ScatterScale {
   let scaleType = ScaleType.LINEAR;
   if (log) {
     // If using a log scale and there's both positive and negative numbers in
     // the domain, use symlog
     scaleType = min * max < 0 ? ScaleType.SYMLOG : ScaleType.LOG;
   }
-  const yScale = getScale(scaleType, [min, max], [0, height]);
+  const yScale = getScale(scaleType, [min, max], [height, 0]);
   const yAxis = d3.axisLeft(yScale);
   formatAxisTicks(yAxis, scaleType);
   g.append("g").call(yAxis);
@@ -239,14 +235,8 @@ function addYAxis(
  */
 function addQuadrants(
   quadrant: d3.Selection<SVGGElement, any, any, any>,
-  xScale:
-    | d3.ScaleSymLog<number, number>
-    | d3.ScaleLinear<number, number>
-    | d3.ScaleLogarithmic<number, number>,
-  yScale:
-    | d3.ScaleSymLog<number, number>
-    | d3.ScaleLinear<number, number>
-    | d3.ScaleLogarithmic<number, number>,
+  xScale: ScatterScale,
+  yScale: ScatterScale,
   xMean: number,
   yMean: number,
   chartWidth: number,
@@ -360,14 +350,8 @@ function addDensityLegend(
 function addDensity(
   svg: d3.Selection<SVGElement, any, any, any>,
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
-  xScale:
-    | d3.ScaleSymLog<number, number>
-    | d3.ScaleLinear<number, number>
-    | d3.ScaleLogarithmic<number, number>,
-  yScale:
-    | d3.ScaleSymLog<number, number>
-    | d3.ScaleLinear<number, number>
-    | d3.ScaleLogarithmic<number, number>,
+  xScale: ScatterScale,
+  yScale: ScatterScale,
   dataPoints: Array<Point>,
   chartWidth: number,
   chartHeight: number,
@@ -488,14 +472,8 @@ function addTooltip(
  */
 function addRegressionLine(
   regressionLine: d3.Selection<SVGGElement, any, any, any>,
-  xScale:
-    | d3.ScaleSymLog<number, number>
-    | d3.ScaleLinear<number, number>
-    | d3.ScaleLogarithmic<number, number>,
-  yScale:
-    | d3.ScaleSymLog<number, number>
-    | d3.ScaleLinear<number, number>
-    | d3.ScaleLogarithmic<number, number>,
+  xScale: ScatterScale,
+  yScale: ScatterScale,
   points: { [placeDcid: string]: Point },
   xMinMax: [number, number]
 ) {
