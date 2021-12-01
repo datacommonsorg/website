@@ -43,6 +43,20 @@ const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
 const R_LINE_LABEL_MARGIN = 3;
 const TOOLTIP_OFFSET = 5;
+// When using log scale, can't have zero, so use this value in place of 0. This
+// number is chosen because should be smaller than any values in our data.
+const MIN_LOGSCALE_VAL = 1e-11;
+
+enum ScaleType {
+  LOG,
+  SYMLOG,
+  LINEAR,
+}
+
+type ScatterScale =
+  | d3.ScaleSymLog<number, number>
+  | d3.ScaleLinear<number, number>
+  | d3.ScaleLogarithmic<number, number>;
 
 /**
  * Adds a label for the y-axis
@@ -111,6 +125,54 @@ function addXLabel(
 }
 
 /**
+ * Get a d3 scale given the type of scale, domain, and range
+ * @param scaleType type of scale to return
+ * @param domainExtent the min and max of the domain
+ * @param rangeExtent the min and max of the range
+ */
+function getScale(
+  scaleType: ScaleType,
+  domainExtent: [number, number],
+  rangeExtent: [number, number]
+): ScatterScale {
+  let scale;
+  let domainMin = domainExtent[0];
+  let domainMax = domainExtent[1];
+  if (scaleType === ScaleType.SYMLOG) {
+    scale = d3.scaleSymlog();
+  } else if (scaleType === ScaleType.LOG) {
+    scale = d3.scaleLog().clamp(true);
+    domainMin = domainMin === 0 ? MIN_LOGSCALE_VAL : domainMin;
+    domainMax = domainMax === 0 ? -MIN_LOGSCALE_VAL : domainMax;
+  } else {
+    scale = d3.scaleLinear();
+  }
+  scale.domain([domainMin, domainMax]);
+  scale.range(rangeExtent);
+  scale.nice();
+  return scale;
+}
+
+/**
+ * Add tick formatting for an axis based on the type of scale used
+ * @param axis axis to format ticks for
+ * @param scaleType type of scale used in the axis
+ */
+function formatAxisTicks(axis: d3.Axis<d3.AxisDomain>, scaleType: ScaleType) {
+  if (scaleType === ScaleType.SYMLOG) {
+    axis.tickFormat((d: number) => {
+      return formatNumber(d.valueOf());
+    });
+  } else if (scaleType === ScaleType.LOG) {
+    axis.ticks(5, formatNumber);
+  } else {
+    axis.ticks(10).tickFormat((d: number) => {
+      return formatNumber(d.valueOf());
+    });
+  }
+}
+
+/**
  * Adds the x axis to the plot.
  * @param g plot container
  * @param log
@@ -126,19 +188,16 @@ function addXAxis(
   width: number,
   min: number,
   max: number
-): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const xScale = (log ? d3.scaleLog() : d3.scaleLinear())
-    .domain([min, max])
-    .range([0, width])
-    .nice();
-  const xAxis = d3.axisBottom(xScale);
+): ScatterScale {
+  let scaleType = ScaleType.LINEAR;
   if (log) {
-    xAxis.ticks(5, formatNumber);
-  } else {
-    xAxis.ticks(10).tickFormat((d) => {
-      return formatNumber(d.valueOf());
-    });
+    // If using a log scale and there's both positive and negative numbers in
+    // the domain, use symlog
+    scaleType = min * max < 0 ? ScaleType.SYMLOG : ScaleType.LOG;
   }
+  const xScale = getScale(scaleType, [min, max], [0, width]);
+  const xAxis = d3.axisBottom(xScale);
+  formatAxisTicks(xAxis, scaleType);
   g.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
   return xScale;
 }
@@ -157,19 +216,16 @@ function addYAxis(
   height: number,
   min: number,
   max: number
-): d3.ScaleLinear<number, number> | d3.ScaleLogarithmic<number, number> {
-  const yScale = (log ? d3.scaleLog() : d3.scaleLinear())
-    .domain([min, max])
-    .range([height, 0])
-    .nice();
-  const yAxis = d3.axisLeft(yScale).ticks(10);
+): ScatterScale {
+  let scaleType = ScaleType.LINEAR;
   if (log) {
-    yAxis.ticks(5, formatNumber);
-  } else {
-    yAxis.ticks(10).tickFormat((d) => {
-      return formatNumber(d.valueOf());
-    });
+    // If using a log scale and there's both positive and negative numbers in
+    // the domain, use symlog
+    scaleType = min * max < 0 ? ScaleType.SYMLOG : ScaleType.LOG;
   }
+  const yScale = getScale(scaleType, [min, max], [height, 0]);
+  const yAxis = d3.axisLeft(yScale);
+  formatAxisTicks(yAxis, scaleType);
   g.append("g").call(yAxis);
   return yScale;
 }
@@ -179,8 +235,8 @@ function addYAxis(
  */
 function addQuadrants(
   quadrant: d3.Selection<SVGGElement, any, any, any>,
-  xScale: d3.ScaleLinear<any, any>,
-  yScale: d3.ScaleLinear<any, any>,
+  xScale: ScatterScale,
+  yScale: ScatterScale,
   xMean: number,
   yMean: number,
   chartWidth: number,
@@ -294,8 +350,8 @@ function addDensityLegend(
 function addDensity(
   svg: d3.Selection<SVGElement, any, any, any>,
   dots: d3.Selection<SVGCircleElement, Point, SVGGElement, unknown>,
-  xScale: d3.ScaleLinear<number, number>,
-  yScale: d3.ScaleLinear<number, number>,
+  xScale: ScatterScale,
+  yScale: ScatterScale,
   dataPoints: Array<Point>,
   chartWidth: number,
   chartHeight: number,
@@ -416,8 +472,8 @@ function addTooltip(
  */
 function addRegressionLine(
   regressionLine: d3.Selection<SVGGElement, any, any, any>,
-  xScale: d3.ScaleLinear<any, any>,
-  yScale: d3.ScaleLinear<any, any>,
+  xScale: ScatterScale,
+  yScale: ScatterScale,
   points: { [placeDcid: string]: Point },
   xMinMax: [number, number]
 ) {
