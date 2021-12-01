@@ -334,7 +334,7 @@ class TestBrowser(WebdriverBaseTest):
         self.driver.switch_to.window(new_page)
 
         # Assert the title of the new page is correct
-        NEW_PAGE_TITLE = 'dc/o/75nyhng64bygb - Graph Browser - Data Commons'
+        NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
         self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
@@ -343,10 +343,10 @@ class TestBrowser(WebdriverBaseTest):
         element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
-        self.assertEqual(about_title.text, 'About: dc/o/75nyhng64bygb')
+        self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
         dcid_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[1]')
-        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/75nyhng64bygb')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
         self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
@@ -379,7 +379,7 @@ class TestBrowser(WebdriverBaseTest):
         self.driver.switch_to.window(new_page)
 
         # Assert the title of the new page is correct
-        NEW_PAGE_TITLE = 'dc/o/75nyhng64bygb - Graph Browser - Data Commons'
+        NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
         self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
@@ -388,10 +388,10 @@ class TestBrowser(WebdriverBaseTest):
         element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
-        self.assertEqual(about_title.text, 'About: dc/o/75nyhng64bygb')
+        self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
         dcid_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[1]')
-        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/75nyhng64bygb')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
         self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
