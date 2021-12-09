@@ -14,12 +14,9 @@
 
 import os
 import flask
-from flask import Blueprint, request
-from werkzeug.utils import import_string
+from flask import Blueprint
 
-from cache import cache
 from lib.gcs import list_png
-from google.cloud import secretmanager
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 
@@ -40,30 +37,3 @@ def screenshot(folder):
         flask.abort(404)
     images = list_png(SCREENSHOT_BUCKET, folder)
     return flask.render_template('dev/screenshot.html', images=images)
-
-
-# TODO(shifucun): Add Flask API Authentication with Firebase
-@bp.route('/clearcache')
-def clearcache():
-    return flask.render_template('dev/clearcache.html')
-
-
-@bp.route('/clearcache/action', methods=['POST'])
-def clearcacheaction():
-    user_input = request.form.get('secret')
-    env = os.environ.get('FLASK_ENV')
-    if env == 'production':
-        cfg = import_string('configmodule.ProductionConfig')()
-    else:
-        cfg = None
-        flask.abort(500, 'clear cache not working for env %s' % env)
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'clearcache', '1')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    token = secret_response.payload.data.decode('UTF-8')
-    if user_input == token:
-        success = cache.clear()
-        if success:
-            return "Success"
-    return "Fail"
