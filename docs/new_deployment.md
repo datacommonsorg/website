@@ -19,7 +19,6 @@ clusters. After the process, rename and copy `config.yaml` to
   configure the following fields:
 
   - nameSuffix
-  - configMapGenerator[website-configmap].literals.gcsBucket
   - configMapGenerator[website-configmap].literals.secretProject
   - configMapGenerator[mixer-configmap].literals.mixerProject
   - configMapGenerator[mixer-configmap].literals.serviceName

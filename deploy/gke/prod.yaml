@@ -21,4 +21,3 @@ region:
     - europe-west2
 nodes: 10
 storage_project: datcom-store
-gcs_bucket: datcom-website-prod-resources

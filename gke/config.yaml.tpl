@@ -25,4 +25,3 @@ region:
     -
 nodes: 1
 storage_project:
-gcs_bucket:

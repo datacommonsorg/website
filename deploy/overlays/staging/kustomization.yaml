@@ -31,7 +31,6 @@ configMapGenerator:
     behavior: create
     literals:
       - flaskEnv=staging
-      - gcsBucket=datcom-website-staging-resources
       - secretProject=datcom-website-staging
   - name: mixer-configmap
     behavior: create

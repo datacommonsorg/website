@@ -30,9 +30,6 @@ You should have owner/editor role to perform the following tasks.
 
 - Update the domain in `cluster.yaml` **domain** field.
 
-- Create a GCS bucket, copy resource files (placeid2dcid.json, etc) to it and
-  update `config.yaml` **gcs_bucket** field.
-
 - Create api key for "Maps API" and "Place API" and put them in GCP "Secret
   Manager" with name **maps-api-key**.
 
@@ -41,11 +38,6 @@ You should have owner/editor role to perform the following tasks.
 ```bash
 ./first_time_setup.sh
 ```
-
-**NOTE** In IAM, Give the robot account
-`website-robot@PROJECT_ID.iam.gserviceaccount.com` "GCE Storage Lister" role.
-TODO(shifucun): Figure out how to do this with gcloud, without giving
-"objectAdmin" role.
 
 This step creates clusters and runs all the one time tasks, including:
 

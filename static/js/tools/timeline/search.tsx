@@ -175,7 +175,7 @@ class SearchBar extends Component<SearchBarPropType> {
     const place = this.ac.getPlace();
     if ("place_id" in place) {
       axios
-        .get(`/api/placeid2dcid/${place.place_id}`)
+        .get(`/api/place/placeid2dcid/${place.place_id}`)
         .then((resp) => {
           this.props.addPlace(resp.data);
         })

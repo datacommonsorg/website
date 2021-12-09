@@ -60,7 +60,6 @@ class TestConfig(unittest.TestCase):
             'LOCAL': False,
             'LITE': False,
             'API_ROOT': 'api-root',
-            'GCS_BUCKET': 'gcs-bucket',
             'SECRET_PROJECT': '',
             'GA_ACCOUNT': '',
             'MAPS_API_KEY': '',
@@ -72,7 +71,6 @@ class TestConfig(unittest.TestCase):
             'LOCAL': True,
             'LITE': False,
             'API_ROOT': 'https://autopush.api.datacommons.org',
-            'GCS_BUCKET': 'datcom-website-autopush-resources',
             'SECRET_PROJECT': 'datcom-website-dev',
             'GA_ACCOUNT': '',
             'MAPS_API_KEY': '',
@@ -84,7 +82,6 @@ class TestConfig(unittest.TestCase):
             'LOCAL': True,
             'LITE': True,
             'API_ROOT': 'https://autopush.api.datacommons.org',
-            'GCS_BUCKET': '',
             'SECRET_PROJECT': '',
             'GA_ACCOUNT': '',
             'MAPS_API_KEY': '',
@@ -96,7 +93,6 @@ class TestConfig(unittest.TestCase):
             'LOCAL': False,
             'LITE': False,
             'API_ROOT': 'https://autopush.api.datacommons.org',
-            'GCS_BUCKET': '',
             'SECRET_PROJECT': 'datcom-website-dev',
             'GA_ACCOUNT': '',
             'MAPS_API_KEY': '',
@@ -115,7 +111,6 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(config.LOCAL, expected['LOCAL'])
         self.assertEqual(config.LITE, expected['LITE'])
         self.assertEqual(config.API_ROOT, expected['API_ROOT'])
-        self.assertEqual(config.GCS_BUCKET, expected['GCS_BUCKET'])
         self.assertEqual(config.SECRET_PROJECT, expected['SECRET_PROJECT'])
         self.assertEqual(config.GA_ACCOUNT, expected['GA_ACCOUNT'])
         self.assertEqual(config.MAPS_API_KEY, expected['MAPS_API_KEY'])
