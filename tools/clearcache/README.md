@@ -5,6 +5,8 @@ deployed as a cloud function. Much of the steps are borrowed from [here](https:/
 
 ## Deploy the function to Cloud Function
 
+This is only needed when main.py is changed.
+
 ```bash
 gcloud config set project datcom-website-prod
 
@@ -20,3 +22,6 @@ gcloud functions deploy clear_cache \
 ```bash
 gcloud functions call clear_cache
 ```
+
+If successful, the response displays `result: OK`. Otherwise, go to the GCP
+console to check [logs](https://pantheon.corp.google.com/functions/details/us-central1/clear_cache?project=datcom-website-prod&tab=logs).
