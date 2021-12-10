@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+# Grant service account permission to access Data Commons data storage, including
+# Cloud BigTable and BigQuery.
+
 set -e
 
 PROJECT_ID=$1

@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Create an API key for maps and places API and store it in the config.
+
 
 PROJECT_ID=$(yq eval '.project' config.yaml)
 DOMAIN=$(yq eval '.project' domain.yaml)
