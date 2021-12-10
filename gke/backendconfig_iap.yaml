@@ -26,3 +26,7 @@ spec:
     port: 8080
     type: HTTP
     requestPath: /healthz
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: iap-secret

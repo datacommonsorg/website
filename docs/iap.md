@@ -47,7 +47,7 @@ Deploy backend config and service
 
 ```bash
 # In <REPO_ROOT>/gke
-kubectl apply -f backendconfig.yaml
+kubectl apply -f backendconfig_iap.yaml
 kubectl apply -f mcs.yaml
 
 cp mci.yaml.tpl mci.yaml

@@ -1,18 +1,17 @@
 # Add a New Deployment Instance
 
-This doc details the steps involved to bring up a new deployment instance named
+This doc details the steps involved to bring up a new Data Commons instance
 `<new_instance>`.
 
 ## Setup GCP and GKE
 
-Follow this [instruction](../gke/README.md) to set up a new GCP project and GKE
-clusters. After the process, rename and copy `config.yaml` to
-[deploy/gke](../deploy/gke).
+Follow the [GKE Setup Guide](../gke/README.md) to set up a new GCP project and GKE
+clusters. When all steps are completed, put `config.yaml` in [deploy/gke](../deploy/gke)
+and rename it as `<new_instance>.yaml`.
 
-## Setup deployment
+## Setup Deployment
 
-- Make a new folder `<new_instance>` under
-  [deploy/overlays](../deploy/overlays).
+- Make a new folder `<new_instance>` under [deploy/overlays](../deploy/overlays).
 
 - Copy the [kustomization.yaml
   template](../deploy/overlays/kustomization.yaml.tpl) to the new folder and
@@ -45,3 +44,7 @@ Then go to GCP Kubernetes page and check the workload, load balancer status and
 managed certificate status.
 
 If everything works, try to access the website from the configured domain.
+
+## Restrict Access
+
+Follow the [IAP setup](./iap.md) to use Cloud IAP to restrict access to the new instance.
