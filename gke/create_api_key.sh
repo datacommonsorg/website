@@ -13,15 +13,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Create an API key for maps and places API and store it in the config.
+
 
 PROJECT_ID=$(yq eval '.project' config.yaml)
+DOMAIN=$(yq eval '.project' domain.yaml)
 
 gcloud config set project $PROJECT_ID
 
-# Create a static IP address for the API
-gcloud compute addresses create website-ip --global
+# Create API key for maps and places API
+gcloud alpha services api-keys create \
+  --display-name=maps-api-key \
+  --allowed-referrers=$DOMAIN \
+  --api-target=service=maps_backend \
+  --api-target=service=places_backend
 
-# Record the IP address.
-export IP=$(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
+API_KEY_NAME=$(gcloud alpha services api-keys list --filter='displayName=maps-api-key' --format='value(name)')
+export KEY_STRING=$(gcloud alpha services api-keys get-key-string $API_KEY_NAME)
 
-yq eval -i '.ip = env(IP)' config.yaml
+yq eval -i '.maps_api_key = env(KEY_STRING)' config.yaml

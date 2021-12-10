@@ -17,12 +17,14 @@
 # Copy this file to `config.yaml` and use that.
 
 project:
-ip:
 domain:
+ip:
 region:
   primary:
   others:
     -
 nodes: 1
 storage_project:
-gcs_bucket:
+maps_api_key:
+tmcf_csv_bucket:
+tmcf_csv_folder:

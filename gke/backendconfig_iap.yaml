@@ -1,5 +1,4 @@
-#!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,15 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# BackendConfig for connection timeout and healthcheck and IAP
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-
-gcloud config set project $PROJECT_ID
-
-# Create a static IP address for the API
-gcloud compute addresses create website-ip --global
-
-# Record the IP address.
-export IP=$(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
-
-yq eval -i '.ip = env(IP)' config.yaml
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: backendconfig
+  namespace: website
+spec:
+  timeoutSec: 60
+  connectionDraining:
+    drainingTimeoutSec: 60
+  healthCheck:
+    checkIntervalSec: 15
+    port: 8080
+    type: HTTP
+    requestPath: /healthz
+  iap:
+    enabled: true
+    oauthclientCredentials:
+      secretName: iap-secret

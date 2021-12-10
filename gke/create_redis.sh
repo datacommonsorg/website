@@ -16,6 +16,9 @@
 set -e
 
 REGION=$1
+if [[ $REGION == "" ]]; then
+  REGION=$(yq eval '.region.primary' config.yaml)
+fi
 
 PROJECT_ID=$(yq eval '.project' config.yaml)
 
@@ -23,8 +26,8 @@ gcloud config set project $PROJECT_ID
 
 gcloud services enable redis.googleapis.com
 
-# Create 5G redis cache
-gcloud redis instances create webserver-cache --size=5 --region=$REGION \
+# Create 10G redis cache
+gcloud redis instances create webserver-cache --size=10 --region=$REGION \
     --redis-version=redis_5_0
 
 gcloud redis instances describe webserver-cache --region=$REGION

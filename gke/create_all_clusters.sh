@@ -15,30 +15,6 @@
 
 set -e
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-
-# Update gcloud
-gcloud components update
-
-# Auth
-gcloud auth login
-
-# Project level setup
-./enable_services.sh
-
-# Create robot account
-./create_robot_account.sh
-
-# Config robot account IAM
-./setup_robot_account.sh
-
-# Create certificate
-# !! This is crucial to get the ingress external IP working.
-./setup_ssl.sh
-
-# Deploy esp service
-./setup_esp.sh
-
 # Setup cluster in primary region
 PRIMARY_REGION=$(yq eval '.region.primary' config.yaml)
 ./create_cluster.sh $PRIMARY_REGION
@@ -51,5 +27,3 @@ do
   REGION=$(yq eval '.region.others[env(index)]' config.yaml)
   ./create_cluster.sh $REGION
 done
-
-./setup_config_cluster.sh
