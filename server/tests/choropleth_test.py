@@ -375,49 +375,38 @@ class TestChoroplethData(unittest.TestCase):
                         geo1: {
                             'date': sv1_date1,
                             'value': sv1_val,
-                            'metadata': {
-                                'importName': 'importName1'
-                            }
+                            'metaHash': 1
                         },
                         geo2: {
                             'date': sv1_date2,
                             'value': sv1_val,
-                            'metadata': {
-                                'importName': 'importName1'
-                            }
+                            'metaHash': 1
                         }
                     },
-                    'metadata': {
-                        'importName1': {
-                            'provenanceUrl': source1
-                        },
-                    }
                 },
                 sv2: {
                     'stat': {
                         geo1: {
                             'date': sv2_date,
                             'value': sv2_val1,
-                            'metadata': {
-                                'importName': 'importName1'
-                            }
+                            'metaHash': 1
                         },
                         geo2: {
                             'date': sv2_date,
                             'value': sv2_val2,
-                            'metadata': {
-                                'importName': 'importName2'
-                            }
-                        }
-                    },
-                    'metadata': {
-                        'importName1': {
-                            'provenanceUrl': source1
-                        },
-                        'importName2': {
-                            'provenanceUrl': source2
+                            'metaHash': 2
                         }
                     }
+                }
+            },
+            'metadata': {
+                '1': {
+                    'importName': 'importName1',
+                    'provenanceUrl': source1
+                },
+                '2': {
+                    'importName': 'importName2',
+                    'provenanceUrl': source2
                 }
             }
         }
