@@ -89,10 +89,11 @@ export function Chart(props: ChartProps): JSX.Element {
   const statVarInfo = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
   const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
-  const title = getTitle(
+  const chart_title=   getTitle(
     Array.from(props.dates),
     statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid
   );
+  const title = props.statVar.value.perCapita? 'Per Capita ' + chart_title : chart_title; 
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVarInfo.dcid;
