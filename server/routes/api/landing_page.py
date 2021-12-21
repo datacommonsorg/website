@@ -41,11 +41,11 @@ OVERVIEW = 'Overview'
 
 
 def get_landing_page_data(dcid, new_stat_vars):
-    return get_landing_page_data_helpfer(dcid, '^'.join(new_stat_vars))
+    return get_landing_page_data_helper(dcid, '^'.join(new_stat_vars))
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_landing_page_data_helpfer(dcid, stat_vars_string):
+def get_landing_page_data_helper(dcid, stat_vars_string):
     data = {'place': dcid}
     if stat_vars_string:
         data['newStatVars'] = '^'.split(stat_vars_string)
