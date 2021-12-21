@@ -53,7 +53,7 @@ def register_routes_common(app):
 def register_routes_main_app(app):
     # apply the blueprints for main and private app
     from routes import (protein, browser, dev, factcheck, place, placelist,
-                        ranking, redirects, static, tools)
+                        ranking, redirects, static, tools, topic_page)
     app.register_blueprint(browser.bp)
     app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
@@ -63,6 +63,7 @@ def register_routes_main_app(app):
     app.register_blueprint(redirects.bp)
     app.register_blueprint(static.bp)
     app.register_blueprint(tools.bp)
+    app.register_blueprint(topic_page.bp)
     from routes.api import (protein as protein_api, browser as browser_api,
                             choropleth, place as place_api, landing_page,
                             ranking as ranking_api, stats, translator)
