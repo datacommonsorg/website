@@ -1,0 +1,83 @@
+// Copyright 2021 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+
+syntax = "proto3";
+package datacommons;
+
+
+message PageMetadata {
+  string topic_id = 1;
+  string topic_name = 2;
+  // List of places supported by this config.
+  repeated string place_dcid = 3;
+  // Contained places to load for each parent place type.
+  // This might need to be overwritten by blocks.
+  map<string, string> contained_place_types = 4;
+}
+
+
+message StatVarMetadata {
+  // Applies to all tiles in the block.
+  repeated string stat_vars = 1;
+  repeated string denominator = 2;
+  string unit = 3;
+  double scaling = 4;
+}
+
+
+message RankingMetadata {
+  bool show_highest = 1;
+  bool show_lowest = 2;
+  bool show_increase = 3;
+  bool show_decrease = 4;
+  string diff_base_date = 5; // For comparisons
+}
+
+message HighlightMetadata {
+  string description = 1;
+}
+
+message Tile {
+  enum TitleType {
+    TYPE_NONE = 0;
+    LINE = 1;
+    BAR = 2;
+    MAP = 3;
+    SCATTER = 4;
+    BIVARIATE = 5;
+    RANKING = 6;
+    HIGHLIGHT = 7;
+  }
+  string title = 1;
+  string description = 2;
+  TitleType type = 3;
+  StatVarMetadata stat_var_override = 4;
+  RankingMetadata ranking_metadata = 5;
+  HighlightMetadata highlight_metadata = 6;
+}
+
+message Block {
+  string title = 1;
+  string description = 2;
+  repeated Tile left_tiles = 3;
+  repeated Tile right_tiles = 4;
+  StatVarMetadata stat_var_metadata = 5;
+}
+
+message TopicPageConfig {
+  PageMetadata metadata = 1;
+  Block overview_block = 2;
+  repeated Block blocks = 3;
+}
