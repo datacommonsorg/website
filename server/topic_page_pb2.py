@@ -19,14 +19,14 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10topic_page.proto\x12\x0b\x64\x61tacommons\"\xd7\x01\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"X\n\x0fStatVarMetadata\x12\x11\n\tstat_vars\x18\x01 \x03(\t\x12\x13\n\x0b\x64\x65nominator\x18\x02 \x03(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\"\x82\x01\n\x0fRankingMetadata\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\"(\n\x11HighlightMetadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\xf2\x02\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12)\n\x04type\x18\x03 \x01(\x0e\x32\x1b.datacommons.Tile.TitleType\x12\x37\n\x11stat_var_override\x18\x04 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\x12\x36\n\x10ranking_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingMetadata\x12:\n\x12highlight_metadata\x18\x06 \x01(\x0b\x32\x1e.datacommons.HighlightMetadata\"n\n\tTitleType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\"\xb3\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12%\n\nleft_tiles\x18\x03 \x03(\x0b\x32\x11.datacommons.Tile\x12&\n\x0bright_tiles\x18\x04 \x03(\x0b\x32\x11.datacommons.Tile\x12\x37\n\x11stat_var_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\"\x8e\x01\n\x0fTopicPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12*\n\x0eoverview_block\x18\x02 \x01(\x0b\x32\x12.datacommons.Block\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Blockb\x06proto3'
+  serialized_pb=b'\n\x10topic_page.proto\x12\x0b\x64\x61tacommons\"\xd7\x01\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"X\n\x0fStatVarMetadata\x12\x11\n\tstat_vars\x18\x01 \x03(\t\x12\x13\n\x0b\x64\x65nominator\x18\x02 \x03(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\"\x82\x01\n\x0fRankingMetadata\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\"(\n\x11HighlightMetadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\xf0\x02\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x37\n\x11stat_var_override\x18\x04 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\x12\x36\n\x10ranking_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingMetadata\x12:\n\x12highlight_metadata\x18\x06 \x01(\x0b\x32\x1e.datacommons.HighlightMetadata\"m\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\"\xb3\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12%\n\nleft_tiles\x18\x03 \x03(\x0b\x32\x11.datacommons.Tile\x12&\n\x0bright_tiles\x18\x04 \x03(\x0b\x32\x11.datacommons.Tile\x12\x37\n\x11stat_var_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\"\x8e\x01\n\x0fTopicPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12*\n\x0eoverview_block\x18\x02 \x01(\x0b\x32\x12.datacommons.Block\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Blockb\x06proto3'
 )
 
 
 
-_TILE_TITLETYPE = _descriptor.EnumDescriptor(
-  name='TitleType',
-  full_name='datacommons.Tile.TitleType',
+_TILE_TILETYPE = _descriptor.EnumDescriptor(
+  name='TileType',
+  full_name='datacommons.Tile.TileType',
   filename=None,
   file=DESCRIPTOR,
   create_key=_descriptor._internal_create_key,
@@ -74,10 +74,10 @@ _TILE_TITLETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=777,
-  serialized_end=887,
+  serialized_start=776,
+  serialized_end=885,
 )
-_sym_db.RegisterEnumDescriptor(_TILE_TITLETYPE)
+_sym_db.RegisterEnumDescriptor(_TILE_TILETYPE)
 
 
 _PAGEMETADATA_CONTAINEDPLACETYPESENTRY = _descriptor.Descriptor(
@@ -371,7 +371,7 @@ _TILE = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _TILE_TITLETYPE,
+    _TILE_TILETYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -380,7 +380,7 @@ _TILE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=517,
-  serialized_end=887,
+  serialized_end=885,
 )
 
 
@@ -439,8 +439,8 @@ _BLOCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=890,
-  serialized_end=1069,
+  serialized_start=888,
+  serialized_end=1067,
 )
 
 
@@ -485,17 +485,17 @@ _TOPICPAGECONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1072,
-  serialized_end=1214,
+  serialized_start=1070,
+  serialized_end=1212,
 )
 
 _PAGEMETADATA_CONTAINEDPLACETYPESENTRY.containing_type = _PAGEMETADATA
 _PAGEMETADATA.fields_by_name['contained_place_types'].message_type = _PAGEMETADATA_CONTAINEDPLACETYPESENTRY
-_TILE.fields_by_name['type'].enum_type = _TILE_TITLETYPE
+_TILE.fields_by_name['type'].enum_type = _TILE_TILETYPE
 _TILE.fields_by_name['stat_var_override'].message_type = _STATVARMETADATA
 _TILE.fields_by_name['ranking_metadata'].message_type = _RANKINGMETADATA
 _TILE.fields_by_name['highlight_metadata'].message_type = _HIGHLIGHTMETADATA
-_TILE_TITLETYPE.containing_type = _TILE
+_TILE_TILETYPE.containing_type = _TILE
 _BLOCK.fields_by_name['left_tiles'].message_type = _TILE
 _BLOCK.fields_by_name['right_tiles'].message_type = _TILE
 _BLOCK.fields_by_name['stat_var_metadata'].message_type = _STATVARMETADATA

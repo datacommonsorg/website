@@ -50,7 +50,7 @@ message HighlightMetadata {
 }
 
 message Tile {
-  enum TitleType {
+  enum TileType {
     TYPE_NONE = 0;
     LINE = 1;
     BAR = 2;
@@ -62,7 +62,7 @@ message Tile {
   }
   string title = 1;
   string description = 2;
-  TitleType type = 3;
+  TileType type = 3;
   StatVarMetadata stat_var_override = 4;
   RankingMetadata ranking_metadata = 5;
   HighlightMetadata highlight_metadata = 6;
