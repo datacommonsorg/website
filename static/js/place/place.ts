@@ -143,10 +143,11 @@ async function getChoroplethData(
  */
 async function getLandingPageData(
   dcid: string,
+  category: string,
   locale: string
 ): Promise<PageData> {
   return axios
-    .get(`/api/landingpage/data/${dcid}?hl=${locale}`)
+    .get(`/api/landingpage/data/${dcid}?category=${category}&hl=${locale}`)
     .then((resp) => {
       return resp.data;
     });
@@ -167,7 +168,7 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
-  const landingPagePromise = getLandingPageData(dcid, locale);
+  const landingPagePromise = getLandingPageData(dcid, category, locale);
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType, locale);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
 
