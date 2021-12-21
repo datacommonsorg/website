@@ -14,7 +14,6 @@
 """Topic page related handlers."""
 
 import flask
-from flask import current_app
 import os
 import routes.api.place as place_api
 
@@ -27,6 +26,9 @@ def topic_page(place_dcid=None):
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
     topic = flask.request.args.get('topic', '')
+    # TODO: maybe direct to the landing page.
+    if not place_dcid:
+        place_dcid = 'country/USA'
     # TODO: should use place metadata API to fetch these data in one call.
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_i18n_name([place_dcid])
