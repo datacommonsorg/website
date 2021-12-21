@@ -36,6 +36,12 @@ import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarSection } from "./stat_var_section";
 
 const SCROLL_DELAY = 400;
+// Stat var hierarchy types where nodes containing selected SV should be
+// expanded on initial render of the page.
+const INITIAL_EXPANSION_TYPES = [
+  StatVarHierarchyType.BROWSER,
+  StatVarHierarchyType.MAP,
+];
 
 interface StatVarGroupNodePropType {
   // The path of this stat var group node.
@@ -68,6 +74,8 @@ interface StatVarGroupNodeStateType {
   errorMessage: string;
   // Whether the next level of information is fetched.
   dataFetchedPlaces: NamedPlace[];
+  // Number of SVs under this stat var group node has been selected.
+  selectionCount: number;
 }
 
 export class StatVarGroupNode extends React.Component<
@@ -78,7 +86,6 @@ export class StatVarGroupNode extends React.Component<
   delayTimer: NodeJS.Timeout;
   context: ContextType;
   hasData: boolean;
-  selectionCount: number;
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
@@ -88,6 +95,7 @@ export class StatVarGroupNode extends React.Component<
       childSV: [],
       errorMessage: "",
       dataFetchedPlaces: null,
+      selectionCount: 0,
     };
     this.highlightedStatVar = React.createRef();
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
@@ -96,15 +104,30 @@ export class StatVarGroupNode extends React.Component<
 
   componentDidMount(): void {
     this.fetchDataIfNecessary();
-    if (
-      this.context.statVarHierarchyType == StatVarHierarchyType.BROWSER &&
-      this.selectionCount > 0
-    ) {
-      this.setState({ toggledOpen: true });
+    const selectionCount = this.getSelectionCount();
+    if (selectionCount > 0) {
+      this.setState({
+        selectionCount,
+        toggledOpen: INITIAL_EXPANSION_TYPES.includes(
+          this.context.statVarHierarchyType
+        ),
+      });
     }
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps: StatVarGroupNodePropType): void {
+    const newSelectionCount = this.getSelectionCount();
+    if (newSelectionCount !== this.state.selectionCount) {
+      this.setState({
+        selectionCount: newSelectionCount,
+        toggledOpen:
+          this.state.toggledOpen ||
+          (INITIAL_EXPANSION_TYPES.includes(
+            this.context.statVarHierarchyType
+          ) &&
+            newSelectionCount > this.state.selectionCount),
+      });
+    }
     this.fetchDataIfNecessary();
     this.scrollToHighlighted();
   }
@@ -118,6 +141,18 @@ export class StatVarGroupNode extends React.Component<
     }
   }
 
+  getSelectionCount(): number {
+    let count = 0;
+    const level = this.props.path.length;
+    for (const sv in this.context.svPath) {
+      const path = this.context.svPath[sv];
+      if (_.isEqual(path.slice(0, level), this.props.path)) {
+        count += 1;
+      }
+    }
+    return count;
+  }
+
   render(): JSX.Element {
     let triggerTitle = this.props.data.specializedEntity
       ? this.props.data.specializedEntity
@@ -128,12 +163,8 @@ export class StatVarGroupNode extends React.Component<
 
     const level = this.props.path.length;
     const svgOnSvPath = new Set();
-    this.selectionCount = 0;
     for (const sv in this.context.svPath) {
       const path = this.context.svPath[sv];
-      if (_.isEqual(path.slice(0, level), this.props.path)) {
-        this.selectionCount += 1;
-      }
       if (level < path.length) {
         svgOnSvPath.add(path[level]);
       }
@@ -154,7 +185,7 @@ export class StatVarGroupNode extends React.Component<
         highlighted: this.props.isSelected,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,
         opened,
-        selectionCount: this.selectionCount,
+        selectionCount: this.state.selectionCount,
         title: triggerTitle,
       });
     };
@@ -181,9 +212,9 @@ export class StatVarGroupNode extends React.Component<
               : {}
           }
         >
-          {(this.props.startsOpened || this.state.toggledOpen) && (
-            <>
-              {this.props.pathToSelection.length < 2 && this.state.childSV && (
+          <>
+            {this.props.pathToSelection.length < 2 &&
+              !_.isEmpty(this.state.childSV) && (
                 <StatVarSection
                   path={this.props.path}
                   data={childSV}
@@ -192,18 +223,17 @@ export class StatVarGroupNode extends React.Component<
                   highlightedStatVar={this.highlightedStatVar}
                 />
               )}
-              {this.state.childSVG && (
-                <StatVarGroupSection
-                  path={this.props.path}
-                  data={childSVG}
-                  pathToSelection={this.props.pathToSelection}
-                  highlightedStatVar={this.highlightedStatVar}
-                  places={this.props.places}
-                  showAllSV={this.props.showAllSV}
-                />
-              )}
-            </>
-          )}
+            {!_.isEmpty(this.state.childSVG) && (
+              <StatVarGroupSection
+                path={this.props.path}
+                data={childSVG}
+                pathToSelection={this.props.pathToSelection}
+                highlightedStatVar={this.highlightedStatVar}
+                places={this.props.places}
+                showAllSV={this.props.showAllSV}
+              />
+            )}
+          </>
         </Collapsible>
       </>
     );

@@ -207,7 +207,10 @@ export class StatVarSectionInput extends React.Component<
    * string.
    */
   private getTooltipHtml(hasData: boolean): string {
-    let html = hasData
+    let html = `<b>${
+      this.props.statVar.displayName || this.props.statVar.id
+    }</b></br>`;
+    html += hasData
       ? ""
       : "This statistical variable has no data for any of the chosen places.";
     if (_.isEmpty(this.props.summary)) {
