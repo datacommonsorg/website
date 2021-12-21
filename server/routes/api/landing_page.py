@@ -17,20 +17,19 @@ TODO(shifucun): once this is well tested, can deprecate corresponding code
 in chart.py and place.py
 """
 
-import collections
 import copy
 import json
 import logging
 import urllib.parse
-
-from flask import Blueprint, current_app, Response, url_for, g
-from flask_babel import gettext
 from collections import defaultdict
+import time
 
-from cache import cache
-import services.datacommons as dc_service
-import routes.api.place as place_api
 import lib.range as lib_range
+import routes.api.place as place_api
+import services.datacommons as dc_service
+from cache import cache
+from flask import Blueprint, Response, current_app, g, url_for, request
+from flask_babel import gettext
 
 # Define blueprint
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
@@ -42,10 +41,16 @@ OVERVIEW = 'Overview'
 
 
 def get_landing_page_data(dcid, new_stat_vars):
-    response = dc_service.fetch_data('/landing-page', {
-        'place': dcid,
-        'newStatVars': new_stat_vars,
-    },
+    return get_landing_page_data_helpfer(dcid, '^'.join(new_stat_vars))
+
+
+@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+def get_landing_page_data_helpfer(dcid, stat_vars_string):
+    data = {'place': dcid}
+    if stat_vars_string:
+        data['newStatVars'] = '^'.split(stat_vars_string)
+    response = dc_service.fetch_data('/landing-page',
+                                     data,
                                      compress=False,
                                      post=True,
                                      has_payload=False)
@@ -111,7 +116,7 @@ def build_spec(chart_config, i18n=True):
             spec[OVERVIEW][category].append(copy.deepcopy(config))
         spec[category][topic].append(copy.deepcopy(config))
     # Sort the config within each topic by title
-    for category, topic_data in spec.items():
+    for _, topic_data in spec.items():
         for topic in topic_data:
             topic_data[topic].sort(key=lambda x: x['title'])
     return spec
@@ -211,8 +216,7 @@ def get_snapshot_across_places(cc, data, places):
     #         "geoId/08":[("Count_Person", 400), ("Count_Person_Female", 200)],
     #     },
     # }
-    date_to_data = collections.defaultdict(
-        lambda: collections.defaultdict(list))
+    date_to_data = defaultdict(lambda: defaultdict(list))
 
     # TODO(shifucun/beets): add a unittest to ensure denominator is set
     # explicitly when scale==True
@@ -397,11 +401,12 @@ def data(dcid):
     """
     logging.info("Landing Page: cache miss for %s, fetch and process data ...",
                  dcid)
+    target_category = request.args.get("category")
     spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
     new_stat_vars = current_app.config['NEW_STAT_VARS']
     raw_page_data = get_landing_page_data(dcid, new_stat_vars)
 
-    if not 'statVarSeries' in raw_page_data:
+    if 'statVarSeries' not in raw_page_data:
         logging.info("Landing Page: No data for %s", dcid)
         return Response(json.dumps({}), 200, mimetype='application/json')
 
@@ -418,9 +423,34 @@ def data(dcid):
         if place == 'country/USA':
             is_usa_place = True
             break
-    # Populate the data for each chart
+
     all_stat = raw_page_data['statVarSeries']
+
+    # Remove empty category and topics
+    for category in list(spec_and_stat.keys()):
+        for topic in list(spec_and_stat[category].keys()):
+            filtered_charts = []
+            for chart in spec_and_stat[category][topic]:
+                keep_chart = False
+                for stat_var in chart['statsVars']:
+                    if all_stat[dcid].get('data', {}).get(stat_var, {}):
+                        keep_chart = True
+                        break
+                if keep_chart:
+                    filtered_charts.append(chart)
+            if not filtered_charts:
+                del spec_and_stat[category][topic]
+            else:
+                spec_and_stat[category][topic] = filtered_charts
+        if not spec_and_stat[category]:
+            del spec_and_stat[category]
+
+    # Populate the data for each chart.
+    # This is heavy lifting, takes time to process.
     for category in spec_and_stat:
+        # Only process the target category.
+        if category != target_category:
+            continue
         if category == OVERVIEW:
             if is_usa_place:
                 chart_types = ['nearby', 'child']
@@ -464,54 +494,6 @@ def data(dcid):
                                 chart[t] = {}
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
-
-    # Remove empty category and topics
-    for category in list(spec_and_stat.keys()):
-        for topic in list(spec_and_stat[category].keys()):
-            filtered_charts = []
-            for chart in spec_and_stat[category][topic]:
-                keep_chart = False
-                for t in ['trend'] + BAR_CHART_TYPES:
-                    if chart.get(t, None):
-                        keep_chart = True
-                        break
-                if keep_chart:
-                    filtered_charts.append(chart)
-            if not filtered_charts:
-                del spec_and_stat[category][topic]
-            else:
-                spec_and_stat[category][topic] = filtered_charts
-        if not spec_and_stat[category]:
-            del spec_and_stat[category]
-    # Only keep the "Overview" category if the number of total chart is less
-    # than certain threshold.
-    overview_set = set()
-    non_overview_set = set()
-    chart_count = 0
-    # Get the overview charts
-    for topic, charts in spec_and_stat[OVERVIEW].items():
-        for chart in charts:
-            overview_set.add(chart['title'])
-            chart_count += 1
-    # Get the non overview charts
-    for category, topic_data in spec_and_stat.items():
-        if category == OVERVIEW:
-            continue
-        for topic, charts in topic_data.items():
-            for chart in charts:
-                if chart['title'] not in overview_set:
-                    non_overview_set.add(chart['title'])
-                    chart_count += 1
-    # If the total number of chart is too small, then merge all charts to
-    # the overview category and remove other categories
-    if chart_count < MIN_CHART_TO_KEEP_TOPICS:
-        for category in list(spec_and_stat.keys()):
-            if category != OVERVIEW:
-                for topic, charts in spec_and_stat[category].items():
-                    for chart in charts:
-                        if chart['title'] in non_overview_set:
-                            spec_and_stat[OVERVIEW][category].append(chart)
-                del spec_and_stat[category]
 
     # Get chart category name translations
     categories = {}
