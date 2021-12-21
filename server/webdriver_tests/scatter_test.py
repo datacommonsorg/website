@@ -125,9 +125,7 @@ class TestScatter(WebdriverBaseTest):
         demographics_button.click()
 
         # Click on median age button
-        # [brittle] Sleep to account for page refresh and element can get stale.
-        # Consider to have explicit wait
-        time.sleep(2)
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
@@ -135,9 +133,7 @@ class TestScatter(WebdriverBaseTest):
             'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
         # Click on median income button
-        # [brittle] Sleep to account for page refresh and element can get stale.
-        # Consider to have explicit wait
-        time.sleep(2)
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.ID,
              'Median_Income_Persondc/g/Demographics-Median_Income_Person'))

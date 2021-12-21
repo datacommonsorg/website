@@ -115,7 +115,7 @@ export class StatVarGroupNode extends React.Component<
     }
   }
 
-  componentDidUpdate(prevProps: StatVarGroupNodePropType): void {
+  componentDidUpdate(): void {
     const newSelectionCount = this.getSelectionCount();
     if (newSelectionCount !== this.state.selectionCount) {
       this.setState({
