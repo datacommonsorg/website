@@ -256,6 +256,9 @@ async function loadPlaces(
             `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
               `${childPlaceType}. Try picking another type or place.`
           );
+          document.getElementById("place-list").innerHTML = "";
+          var select  = document.getElementById("enclosed-place-type") as HTMLInputElement;
+          select.value = "";
         }
       }
       isLoading.setArePlacesLoading(false);
