@@ -257,7 +257,9 @@ async function loadPlaces(
               `${childPlaceType}. Try picking another type or place.`
           );
           document.getElementById("place-list").innerHTML = "";
-          var select  = document.getElementById("enclosed-place-type") as HTMLInputElement;
+          const select = document.getElementById(
+            "enclosed-place-type"
+          ) as HTMLInputElement;
           select.value = "";
         }
       }
