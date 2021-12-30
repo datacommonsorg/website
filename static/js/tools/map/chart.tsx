@@ -91,7 +91,8 @@ export function Chart(props: ChartProps): JSX.Element {
   const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
   const title = getTitle(
     Array.from(props.dates),
-    statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid
+    statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid,
+    statVarInfo.perCapita
   );
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
@@ -370,12 +371,18 @@ function draw(
   }
 }
 
-function getTitle(statVarDates: string[], statVarName: string): string {
+function getTitle(
+  statVarDates: string[],
+  statVarName: string,
+  isPerCapita: boolean
+): string {
   const minDate = _.min(statVarDates);
   const maxDate = _.max(statVarDates);
   const dateRange =
     minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
-  return `${statVarName} ${dateRange}`;
+  return isPerCapita
+    ? `${statVarName} Per Capita ${dateRange}`
+    : `${statVarName} ${dateRange}`;
 }
 
 function getSourcesJsx(sources: Set<string>): JSX.Element[] {
