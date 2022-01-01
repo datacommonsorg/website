@@ -242,6 +242,11 @@ function loadEnclosedPlaces(
           `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
             `${enclosedPlaceType}. Try picking another type or place.`
         );
+        document.getElementById("place-list").innerHTML = "";
+        const select = document.getElementById(
+          "enclosed-place-type"
+        ) as HTMLInputElement;
+        select.value = "";
       }
     })
     .catch(() => {
