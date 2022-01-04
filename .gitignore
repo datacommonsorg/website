@@ -34,3 +34,4 @@ deploy/overlays/staging/staging.yaml
 deploy/overlays/autopush/autopush.yaml
 deploy/overlays/dev/dev.yaml
 deploy/overlays/private/private.yaml
+deploy/overlays/tidal/tidal.yaml
