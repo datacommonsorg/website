@@ -28,9 +28,9 @@ import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { MAP_CONTAINER_ID } from "./chart";
-import { DataPointMetadata } from "./chart_loader";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 import {
+  DataPointMetadata,
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,
