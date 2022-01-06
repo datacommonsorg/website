@@ -51,6 +51,7 @@ interface ChartPropsType {
   yUnits?: string;
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
+  date: string;
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -203,6 +204,9 @@ function Chart(props: ChartPropsType): JSX.Element {
             <h3>{props.yLabel}</h3>
             <span>vs</span>
             <h3>{props.xLabel}</h3>
+            <span className="subtitle">
+              {props.date && <h3>({props.date})</h3>}
+            </span>
           </div>
           <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>

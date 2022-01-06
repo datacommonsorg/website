@@ -52,7 +52,8 @@ async function getPlacesInNames(
 async function getStatsWithinPlace(
   parent_place: string,
   child_type: string,
-  statVars: Array<string>
+  statVars: Array<string>,
+  date: string
 ): Promise<GetStatSetResponse> {
   let statVarParams = "";
   // There are two stat vars for scatter plot.
@@ -62,10 +63,12 @@ async function getStatsWithinPlace(
   const promises: Promise<GetStatSetResponse>[] = [];
   for (const statVar of statVars) {
     statVarParams = `&stat_vars=${statVar}`;
-    const cappedDate = getCappedStatVarDate(statVar);
-    if (cappedDate) {
-      statVarParams += `&date=${cappedDate}`;
+    let dataDate = getCappedStatVarDate(statVar);
+    // If there is a specified date, get the data for that date.
+    if (date) {
+      dataDate = date;
     }
+    statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
       axios.get(
         `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
@@ -119,6 +122,7 @@ function applyHash(context: ContextType): void {
   context.display.setRegression(
     applyHashBoolean(params, FieldToAbbreviation.showRegression)
   );
+  context.date.set(params.get(FieldToAbbreviation.date) || "");
 }
 
 /**
@@ -202,10 +206,14 @@ function updateHash(context: ContextType): void {
   const x = context.x.value;
   const y = context.y.value;
   const place = context.place.value;
+  const date = context.date.value;
   let hash = updateHashAxis("", x, true);
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
   hash = updateHashDisplayOptions(hash, context.display);
+  hash = _.isEmpty(date)
+    ? hash
+    : appendEntry(hash, FieldToAbbreviation.date, date);
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {

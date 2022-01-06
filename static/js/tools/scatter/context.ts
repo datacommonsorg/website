@@ -111,28 +111,6 @@ interface DisplayOptionsWrapper {
   setRegression: Setter<boolean>;
 }
 
-interface DateInfo {
-  year: number;
-  month: number;
-  day: number;
-}
-
-interface DateInfoWrapper {
-  value: DateInfo;
-
-  // Setters
-  set: Setter<DateInfo>;
-  setYear: Setter<number>;
-  setMonth: Setter<number>;
-  setDay: Setter<number>;
-}
-
-const EmptyDate: DateInfo = Object.freeze({
-  year: 0,
-  month: 0,
-  day: 0,
-});
-
 interface IsLoadingWrapper {
   // Whether child places and their names are being retrieved
   arePlacesLoading: boolean;
@@ -147,6 +125,13 @@ interface IsLoadingWrapper {
   setAreDataLoading: Setter<boolean>;
 }
 
+interface DateWrapper {
+  value: string;
+
+  // Setter
+  set: Setter<string>;
+}
+
 // Global app state
 interface ContextType {
   // X axis
@@ -157,6 +142,8 @@ interface ContextType {
   place: PlaceInfoWrapper;
   // Plot display options
   display: DisplayOptionsWrapper;
+  // Date of the data to plot
+  date: DateWrapper;
   // Whether there are currently active network tasks
   isLoading: IsLoadingWrapper;
 }
@@ -182,6 +169,9 @@ const FieldToAbbreviation = {
   chartType: "ct",
   showDensity: "dd",
   showRegression: "rg",
+
+  // Date fields
+  date: "date",
 };
 
 /**
@@ -199,6 +189,7 @@ function useContextStore(): ContextType {
   const [areDataLoading, setAreDataLoading] = useState(false);
   const [chartType, setChartType] = useState(ScatterChartType.SCATTER);
   const [showRegression, setRegression] = useState(false);
+  const [date, setDate] = useState("");
   return {
     x: {
       value: x,
@@ -239,6 +230,10 @@ function useContextStore(): ContextType {
       setDensity: (showDensity) => setDensity(showDensity),
       showRegression: showRegression,
       setRegression: (showRegression) => setRegression(showRegression),
+    },
+    date: {
+      value: date,
+      set: (date) => setDate(date),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -401,11 +396,8 @@ export {
   AxisWrapper,
   Context,
   ContextType,
-  DateInfo,
-  DateInfoWrapper,
   DisplayOptionsWrapper,
   EmptyAxis,
-  EmptyDate,
   EmptyPlace,
   FieldToAbbreviation,
   IsLoadingWrapper,
