@@ -23,12 +23,12 @@
   --dc-gray-lite: #ccc;
   --dc-white: #fff;
   --dc-blue: #67adff;
-  // Following vars are override in "private" and "sustainability" mode
+  // Following vars are override in "feeding-america" and "sustainability" mode
   --dc-primary: #660000;
   --link-color: #660000;
 }
 
-:root.private {
+:root.feeding-america {
   --dc-primary: rgb(68, 97, 45);
   --link-color: rgb(68, 97, 45);
 }
@@ -80,7 +80,7 @@ $hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66
   align-items: center;
 }
 
-:root.private .navbar-brand > a {
+:root.feeding-america .navbar-brand > a {
   display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
   background-position: -900px -100px;

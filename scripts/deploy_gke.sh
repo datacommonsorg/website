@@ -30,8 +30,8 @@ set -e
 ENV=$1
 REGION=$2
 
-if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "dev" && $ENV != "private" ]]; then
-  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'dev' or 'private' "
+if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "dev" && $ENV != "feeding-america" && $ENV != "tidal" ]]; then
+  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'dev' or 'feeding-america' or 'tidal'"
   exit
 fi
 
@@ -44,7 +44,6 @@ WEBSITE_HASH=$(git rev-parse --short=7 HEAD)
 
 if [[ $3 != "" ]]; then
   WEBSITE_HASH=$3
-  git checkout "$WEBSITE_HASH"
 fi
 
 
