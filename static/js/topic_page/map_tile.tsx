@@ -55,17 +55,17 @@ interface MapTilePropType {
 }
 
 interface RawData {
-  geoJsonData: GeoJsonData;
-  placeStatData: PlacePointStat;
+  geoJson: GeoJsonData;
+  placeStat: PlacePointStat;
   metadataMap: Record<string, StatMetadata>;
-  populationData: StatApiResponse;
+  population: StatApiResponse;
 }
 
 interface ChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
-  geoJsonData: GeoJsonData;
+  geoJson: GeoJsonData;
   chartTitle: string;
 }
 
@@ -150,15 +150,16 @@ function fetchData(
         .then((resp) => resp.data)
     : Promise.resolve({});
   Promise.all([geoJsonDataPromise, enclosedPlaceDataPromise, populationPromise])
-    .then(([geoJsonData, placeStatData, populationData]) => {
+    .then(([geoJson, placeStatData, population]) => {
       setRawData({
-        geoJsonData,
-        placeStatData: placeStatData.data[statVarDcid],
+        geoJson,
+        placeStat: placeStatData.data[statVarDcid],
         metadataMap: placeStatData.metadata,
-        populationData,
+        population,
       });
     })
     .catch(() => {
+      // TODO: add error message
       setRawData(null);
     });
 }
@@ -174,13 +175,13 @@ function processData(
   const metadata = {};
   const sources: Set<string> = new Set();
   const dates: Set<string> = new Set();
-  for (const geoFeature of rawData.geoJsonData.features) {
+  for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
-      rawData.placeStatData,
+      rawData.placeStat,
       placeDcid,
       isPerCapita,
-      rawData.populationData,
+      rawData.population,
       rawData.metadataMap
     );
     if (_.isEmpty(placeChartData)) {
@@ -204,7 +205,7 @@ function processData(
     metadata,
     sources,
     chartTitle: getTitle(Array.from(dates), chartTitle, false),
-    geoJsonData: rawData.geoJsonData,
+    geoJson: rawData.geoJson,
   });
 }
 
@@ -224,7 +225,7 @@ function drawMap(chartData: ChartData, props: MapTilePropType): void {
   };
   drawChoropleth(
     props.tileId,
-    chartData.geoJsonData,
+    chartData.geoJson,
     CHART_HEIGHT,
     width,
     chartData.dataValues,

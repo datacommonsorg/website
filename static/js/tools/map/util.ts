@@ -128,6 +128,7 @@ export const ENCLOSED_PLACE_TYPE_NAMES = {
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 export const MAP_REDIRECT_PREFIX = "/tools/map";
 
+// metadata associated with a single data point in the map charts
 export interface DataPointMetadata {
   popDate: string;
   popSource: string;
