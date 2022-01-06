@@ -35,6 +35,8 @@ interface Axis {
   log: boolean;
   // Whether to plot per capita values
   perCapita: boolean;
+  // The date of the StatVar data to plot for this axis
+  date: string;
 }
 
 const EmptyAxis: Axis = Object.freeze({
@@ -42,6 +44,7 @@ const EmptyAxis: Axis = Object.freeze({
   statVarDcid: "",
   log: false,
   perCapita: false,
+  date: "",
 });
 
 interface AxisWrapper {
@@ -54,6 +57,7 @@ interface AxisWrapper {
   setStatVarInfo: Setter<StatVarInfo>;
   setLog: Setter<boolean>;
   setPerCapita: Setter<boolean>;
+  setDate: Setter<string>;
 }
 
 interface PlaceInfo {
@@ -125,13 +129,6 @@ interface IsLoadingWrapper {
   setAreDataLoading: Setter<boolean>;
 }
 
-interface DateWrapper {
-  value: string;
-
-  // Setter
-  set: Setter<string>;
-}
-
 // Global app state
 interface ContextType {
   // X axis
@@ -142,8 +139,6 @@ interface ContextType {
   place: PlaceInfoWrapper;
   // Plot display options
   display: DisplayOptionsWrapper;
-  // Date of the data to plot
-  date: DateWrapper;
   // Whether there are currently active network tasks
   isLoading: IsLoadingWrapper;
 }
@@ -156,6 +151,7 @@ const FieldToAbbreviation = {
   statVarDcid: "sv",
   log: "l",
   perCapita: "pc",
+  date: "date",
 
   // PlaceInfo fields
   enclosingPlaceDcid: "epd",
@@ -169,9 +165,6 @@ const FieldToAbbreviation = {
   chartType: "ct",
   showDensity: "dd",
   showRegression: "rg",
-
-  // Date fields
-  date: "date",
 };
 
 /**
@@ -189,7 +182,6 @@ function useContextStore(): ContextType {
   const [areDataLoading, setAreDataLoading] = useState(false);
   const [chartType, setChartType] = useState(ScatterChartType.SCATTER);
   const [showRegression, setRegression] = useState(false);
-  const [date, setDate] = useState("");
   return {
     x: {
       value: x,
@@ -199,6 +191,7 @@ function useContextStore(): ContextType {
       setStatVarInfo: getSetStatVarInfo(x, setX),
       setLog: getSetLog(x, setX),
       setPerCapita: getSetPerCapita(x, setX),
+      setDate: getSetDate(x, setX),
     },
     y: {
       value: y,
@@ -208,6 +201,7 @@ function useContextStore(): ContextType {
       setStatVarInfo: getSetStatVarInfo(y, setY),
       setLog: getSetLog(y, setY),
       setPerCapita: getSetPerCapita(y, setY),
+      setDate: getSetDate(y, setY),
     },
     place: {
       value: place,
@@ -230,10 +224,6 @@ function useContextStore(): ContextType {
       setDensity: (showDensity) => setDensity(showDensity),
       showRegression: showRegression,
       setRegression: (showRegression) => setRegression(showRegression),
-    },
-    date: {
-      value: date,
-      set: (date) => setDate(date),
     },
     isLoading: {
       arePlacesLoading: arePlacesLoading,
@@ -365,6 +355,18 @@ function getSetPerCapita(
     setAxis({
       ...axis,
       perCapita: perCapita,
+    });
+  };
+}
+
+function getSetDate(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): Setter<string> {
+  return (date) => {
+    setAxis({
+      ...axis,
+      date,
     });
   };
 }

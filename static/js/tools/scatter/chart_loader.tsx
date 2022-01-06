@@ -70,7 +70,8 @@ type Cache = {
   metadataMap: Record<string, StatMetadata>;
   populationData: StatApiResponse;
   noDataError: boolean;
-  date: string;
+  xDate: string;
+  yDate: string;
 };
 
 function ChartLoader(): JSX.Element {
@@ -126,7 +127,8 @@ function ChartLoader(): JSX.Element {
                 yUnits={yUnits}
                 placeInfo={place.value}
                 display={display}
-                date={cache.date}
+                xDate={cache.xDate}
+                yDate={cache.yDate}
               />
               <PlotOptions points={points} />
             </>
@@ -141,7 +143,7 @@ function ChartLoader(): JSX.Element {
  * Hook that returns a cache containing population and statvar data.
  */
 function useCache(): Cache {
-  const { x, y, place, isLoading, date } = useContext(Context);
+  const { x, y, place, isLoading } = useContext(Context);
 
   // From statvar DCIDs to `SourceSeries` data
   const [cache, setCache] = useState({} as Cache);
@@ -149,7 +151,6 @@ function useCache(): Cache {
   const xVal = x.value;
   const yVal = y.value;
   const placeVal = place.value;
-  const dateVal = date.value;
 
   /**
    * When statvars, enclosing place, child place type, or any plot options change,
@@ -162,14 +163,15 @@ function useCache(): Cache {
         populationData: {},
         noDataError: false,
         metadataMap: {},
-        date: "",
+        xDate: "",
+        yDate: "",
       });
       return;
     }
-    if (!areDataLoaded(cache, xVal, yVal, dateVal)) {
-      loadData(x, y, placeVal, isLoading, dateVal, setCache);
+    if (!areDataLoaded(cache, xVal, yVal)) {
+      loadData(x, y, placeVal, isLoading, setCache);
     }
-  }, [xVal, yVal, placeVal, dateVal]);
+  }, [xVal, yVal, placeVal]);
 
   return cache;
 }
@@ -188,15 +190,13 @@ async function loadData(
   y: AxisWrapper,
   place: PlaceInfo,
   isLoading: IsLoadingWrapper,
-  date: string,
   setCache: (cache: Cache) => void
 ) {
   isLoading.setAreDataLoading(true);
   const statResponsePromise = getStatsWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    [x.value.statVarDcid, y.value.statVarDcid],
-    date
+    [x.value, y.value]
   );
   const populationPromise: Promise<StatApiResponse> = axios
     .get(
@@ -213,7 +213,8 @@ async function loadData(
         populationData,
         statVarsData: statResponse.data,
         metadataMap: statResponse.metadata,
-        date: date,
+        xDate: x.value.date,
+        yDate: y.value.date,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -229,20 +230,19 @@ async function loadData(
  * @param cache
  */
 function usePoints(cache: Cache): { [placeDcid: string]: Point } {
-  const { x, y, place, display, date } = useContext(Context);
+  const { x, y, place, display } = useContext(Context);
   const [points, setPoints] = useState({});
 
   const xVal = x.value;
   const yVal = y.value;
   const placeVal = place.value;
-  const dateVal = date.value;
 
   /**
    * Regenerates points after population and statvar data are retrieved
    * and after plot options change.
    */
   useEffect(() => {
-    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal, dateVal)) {
+    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal)) {
       return;
     }
     const points = getPoints(xVal, yVal, placeVal, display.chartType, cache);
@@ -412,7 +412,7 @@ function areStatVarInfoLoaded(x: Axis, y: Axis): boolean {
  * @param x
  * @param y
  */
-function areDataLoaded(cache: Cache, x: Axis, y: Axis, date: string): boolean {
+function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
   if (_.isEmpty(cache)) {
     return false;
   }
@@ -423,7 +423,8 @@ function areDataLoaded(cache: Cache, x: Axis, y: Axis, date: string): boolean {
     !_.isEmpty(cache.statVarsData[xStatVar]) &&
     yStatVar in cache.statVarsData &&
     !_.isEmpty(cache.statVarsData[yStatVar]) &&
-    cache.date === date
+    cache.xDate === x.date &&
+    cache.yDate === y.date
   );
 }
 

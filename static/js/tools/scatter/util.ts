@@ -52,8 +52,7 @@ async function getPlacesInNames(
 async function getStatsWithinPlace(
   parent_place: string,
   child_type: string,
-  statVars: Array<string>,
-  date: string
+  statVars: Array<Axis>
 ): Promise<GetStatSetResponse> {
   let statVarParams = "";
   // There are two stat vars for scatter plot.
@@ -62,11 +61,11 @@ async function getStatsWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<GetStatSetResponse>[] = [];
   for (const statVar of statVars) {
-    statVarParams = `&stat_vars=${statVar}`;
-    let dataDate = getCappedStatVarDate(statVar);
+    statVarParams = `&stat_vars=${statVar.statVarDcid}`;
+    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
     // If there is a specified date, get the data for that date.
-    if (date) {
-      dataDate = date;
+    if (statVar.date) {
+      dataDate = statVar.date;
     }
     statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
@@ -122,7 +121,6 @@ function applyHash(context: ContextType): void {
   context.display.setRegression(
     applyHashBoolean(params, FieldToAbbreviation.showRegression)
   );
-  context.date.set(params.get(FieldToAbbreviation.date) || "");
 }
 
 /**
@@ -153,6 +151,8 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
       axis[key] = value === "1" ? true : value;
     }
   }
+  const date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
+  axis.date = date;
 
   return axis;
 }
@@ -206,14 +206,10 @@ function updateHash(context: ContextType): void {
   const x = context.x.value;
   const y = context.y.value;
   const place = context.place.value;
-  const date = context.date.value;
   let hash = updateHashAxis("", x, true);
   hash = updateHashAxis(hash, y, false);
   hash = updateHashPlace(hash, place);
   hash = updateHashDisplayOptions(hash, context.display);
-  hash = _.isEmpty(date)
-    ? hash
-    : appendEntry(hash, FieldToAbbreviation.date, date);
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
@@ -255,6 +251,13 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
         axis[key] === true ? "1" : axis[key]
       );
     }
+  }
+  if (axis.date) {
+    hash = appendEntry(
+      hash,
+      addSuffix(FieldToAbbreviation.date, isX),
+      axis.date
+    );
   }
   return hash;
 }
