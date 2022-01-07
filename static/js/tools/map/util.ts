@@ -29,8 +29,14 @@ import {
   PAKISTAN_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
+import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
-import { isChildPlaceOf } from "../shared_util";
+import {
+  getPopulationDate,
+  isChildPlaceOf,
+  PlacePointStat,
+  StatMetadata,
+} from "../shared_util";
 import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
@@ -122,6 +128,14 @@ export const ENCLOSED_PLACE_TYPE_NAMES = {
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 export const MAP_REDIRECT_PREFIX = "/tools/map";
 
+// metadata associated with a single data point in the map charts
+export interface DataPointMetadata {
+  popDate: string;
+  popSource: string;
+  placeStatDate: string;
+  statVarSource: string;
+  errorMessage?: string;
+}
 /**
  * Parses the hash and produces a StatVar
  * @param params the params in the hash
@@ -371,4 +385,101 @@ export function getParentPlaces(
     }
   }
   return parentPlacesList;
+}
+
+interface PlaceChartData {
+  metadata: DataPointMetadata;
+  sources: Array<string>;
+  date: string;
+  value: number;
+}
+
+/**
+ * For a place, extract the chart data for that place
+ * @param placeStatData values for each statistical variable for each place
+ * @param placeDcid place to extract the chart data for
+ * @param isPerCapita whether the chart is a per capita chart
+ * @param populationData population (for per capita calculation) data for each
+ *                       place
+ * @param metadataMap map of metahash to stat metadata
+ */
+export function getPlaceChartData(
+  placeStatData: PlacePointStat,
+  placeDcid: string,
+  isPerCapita: boolean,
+  populationData: StatApiResponse,
+  metadataMap: Record<string, StatMetadata>
+): PlaceChartData {
+  const stat = placeStatData.stat[placeDcid];
+  let metadata = null;
+  if (_.isEmpty(stat)) {
+    return null;
+  }
+  const sources = [];
+  const placeStatDate = stat.date;
+  const metaHash = placeStatData.metaHash || stat.metaHash;
+  const statVarSource = metadataMap[metaHash].provenanceUrl;
+  let value = stat.value === undefined ? 0 : stat.value;
+  let popDate = "";
+  let popSource = "";
+  if (isPerCapita) {
+    const popSeries =
+      placeDcid in populationData
+        ? Object.values(populationData[placeDcid].data)[0]
+        : {};
+    if (!_.isEmpty(popSeries)) {
+      popDate = getPopulationDate(popSeries, stat);
+      const popValue = popSeries.val[popDate];
+      popSource = popSeries.metadata.provenanceUrl;
+      if (popValue === 0) {
+        metadata = {
+          popDate,
+          popSource,
+          placeStatDate,
+          statVarSource,
+          errorMessage: "Invalid Data",
+        };
+        return { metadata, sources, date: placeStatDate, value };
+      }
+      value = value / popValue;
+      sources.push(popSource);
+    } else {
+      metadata = {
+        popDate,
+        popSource,
+        placeStatDate,
+        statVarSource,
+        errorMessage: "Population Data Missing",
+      };
+      return { metadata, sources, date: placeStatDate, value };
+    }
+  }
+  metadata = {
+    popDate,
+    popSource,
+    placeStatDate,
+    statVarSource,
+  };
+  sources.push(statVarSource);
+  return { metadata, sources, date: placeStatDate, value };
+}
+
+/**
+ * Get the chart title
+ * @param statVarDates set of all dates of data values in the chart
+ * @param statVarName name of the stat var
+ * @param isPerCapita whether the chart is a per capita chart
+ */
+export function getTitle(
+  statVarDates: string[],
+  statVarName: string,
+  isPerCapita: boolean
+): string {
+  const minDate = _.min(statVarDates);
+  const maxDate = _.max(statVarDates);
+  const dateRange =
+    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
+  return isPerCapita
+    ? `${statVarName} Per Capita ${dateRange}`
+    : `${statVarName} ${dateRange}`;
 }

@@ -41,7 +41,6 @@ import {
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
-import { DataPointMetadata } from "./chart_loader";
 import {
   DisplayOptions,
   DisplayOptionsWrapper,
@@ -50,9 +49,11 @@ import {
   StatVarWrapper,
 } from "./context";
 import {
+  DataPointMetadata,
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,
+  getTitle,
 } from "./util";
 
 interface ChartProps {
@@ -369,20 +370,6 @@ function draw(
       zoomParams
     );
   }
-}
-
-function getTitle(
-  statVarDates: string[],
-  statVarName: string,
-  isPerCapita: boolean
-): string {
-  const minDate = _.min(statVarDates);
-  const maxDate = _.max(statVarDates);
-  const dateRange =
-    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
-  return isPerCapita
-    ? `${statVarName} Per Capita ${dateRange}`
-    : `${statVarName} ${dateRange}`;
 }
 
 function getSourcesJsx(sources: Set<string>): JSX.Element[] {

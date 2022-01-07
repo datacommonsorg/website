@@ -32,7 +32,6 @@ import {
 import { StatApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
-  getPopulationDate,
   GetStatSetAllResponse,
   GetStatSetResponse,
   getUnit,
@@ -43,7 +42,11 @@ import {
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";
-import { ENCLOSED_PLACE_TYPE_NAMES } from "./util";
+import {
+  DataPointMetadata,
+  ENCLOSED_PLACE_TYPE_NAMES,
+  getPlaceChartData,
+} from "./util";
 
 const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
@@ -61,13 +64,6 @@ interface ChartRawData {
   europeanCountries: Array<string>;
 }
 
-export interface DataPointMetadata {
-  popDate: string;
-  popSource: string;
-  placeStatDate: string;
-  statVarSource: string;
-  errorMessage?: string;
-}
 interface ChartData {
   mapValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
@@ -444,74 +440,6 @@ function fetchData(
       alert("Error fetching data.");
       isLoading.setIsDataLoading(false);
     });
-}
-
-interface PlaceChartData {
-  metadata: DataPointMetadata;
-  sources: Array<string>;
-  date: string;
-  value: number;
-}
-
-function getPlaceChartData(
-  placeStatData: PlacePointStat,
-  placeDcid: string,
-  isPerCapita: boolean,
-  populationData: StatApiResponse,
-  metadataMap: Record<string, StatMetadata>
-): PlaceChartData {
-  const stat = placeStatData.stat[placeDcid];
-  let metadata = null;
-  if (_.isEmpty(stat)) {
-    return null;
-  }
-  const sources = [];
-  const placeStatDate = stat.date;
-  const metaHash = placeStatData.metaHash || stat.metaHash;
-  const statVarSource = metadataMap[metaHash].provenanceUrl;
-  let value = stat.value === undefined ? 0 : stat.value;
-  let popDate = "";
-  let popSource = "";
-  if (isPerCapita) {
-    const popSeries =
-      placeDcid in populationData
-        ? Object.values(populationData[placeDcid].data)[0]
-        : {};
-    if (!_.isEmpty(popSeries)) {
-      popDate = getPopulationDate(popSeries, stat);
-      const popValue = popSeries.val[popDate];
-      popSource = popSeries.metadata.provenanceUrl;
-      if (popValue === 0) {
-        metadata = {
-          popDate,
-          popSource,
-          placeStatDate,
-          statVarSource,
-          errorMessage: "Invalid Data",
-        };
-        return { metadata, sources, date: placeStatDate, value };
-      }
-      value = value / popValue;
-      sources.push(popSource);
-    } else {
-      metadata = {
-        popDate,
-        popSource,
-        placeStatDate,
-        statVarSource,
-        errorMessage: "Population Data Missing",
-      };
-      return { metadata, sources, date: placeStatDate, value };
-    }
-  }
-  metadata = {
-    popDate,
-    popSource,
-    placeStatDate,
-    statVarSource,
-  };
-  sources.push(statVarSource);
-  return { metadata, sources, date: placeStatDate, value };
 }
 
 // Takes fetched data and processes it to be in a form that can be used for
