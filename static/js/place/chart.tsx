@@ -18,7 +18,12 @@ import _ from "lodash";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import { DataGroup, dataGroupsToCsv, DataPoint } from "../chart/base";
+import {
+  DataGroup,
+  dataGroupsToCsv,
+  DataPoint,
+  expandDataPoints,
+} from "../chart/base";
 import {
   drawGroupBarChart,
   drawLineChart,
@@ -427,26 +432,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
   }
 
-  private expandDataPoints(
-    dataPoints: DataPoint[],
-    dates: Set<string>
-  ): DataPoint[] {
-    const result: DataPoint[] = dataPoints;
-    for (const dp of dataPoints) {
-      if (dates.has(dp.label)) {
-        dates.delete(dp.label);
-      }
-    }
-    dates.forEach((date) => {
-      result.push({ label: date, time: new Date(date).getTime(), value: null });
-    });
-
-    result.sort(function (a, b) {
-      return a.label > b.label ? -1 : 1;
-    });
-    return result;
-  }
-
   private processData(): void {
     const dataGroups: DataGroup[] = [];
     const allDates = new Set<string>();
@@ -480,10 +465,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           );
         }
         for (let i = 0; i < dataGroups.length; i++) {
-          dataGroups[i].value = this.expandDataPoints(
-            dataGroups[i].value,
-            allDates
-          );
+          dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
         }
         this.setState({
           dataGroups,

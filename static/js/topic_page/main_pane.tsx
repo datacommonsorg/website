@@ -15,6 +15,9 @@
  */
 import React from "react";
 
+import { LineTile } from "./line_tile";
+import { StatVarMetadata } from "./types";
+
 interface MainPanePropType {
   /**
    * The place dcid.
@@ -39,12 +42,40 @@ class MainPane extends React.Component<MainPanePropType> {
     super(props);
   }
   render(): JSX.Element {
+    const lineId = "line-1";
+    const lineTitle = "line-title";
+    const statVarMetadata: StatVarMetadata = {
+      statVars: [
+        "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+        "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+        "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+      ],
+      denominator: [
+        "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+        "Count_Person_AsianAlone",
+        "Count_Person_BlackOrAfricanAmericanAlone",
+        "Count_Person_HispanicOrLatino",
+        "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+        "Count_Person_WhiteAlone",
+      ],
+      unit: "%",
+      scaling: 100,
+    };
     return (
       <>
         <div>{this.props.dcid}</div>
         <div>{this.props.placeName}</div>
         <div>{this.props.placeType}</div>
         <div>{this.props.topic}</div>
+        <LineTile
+          id={lineId}
+          title={lineTitle}
+          placeDcid={this.props.dcid}
+          statVarMetadata={statVarMetadata}
+        />
       </>
     );
   }

@@ -58,7 +58,6 @@ blocks {
 blocks {
   title: "Poverty by race"
   stat_var_metadata {
-    stat_vars: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
     stat_vars: [
       "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",

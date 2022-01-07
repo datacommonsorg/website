@@ -28,9 +28,9 @@ export interface Series {
 }
 
 export interface TrendData {
-  series: { string: Series };
+  series: { [key: string]: Series };
   sources: string[];
-  exploreUrl: string;
+  exploreUrl?: string;
   statsVars?: string[];
 }
 
