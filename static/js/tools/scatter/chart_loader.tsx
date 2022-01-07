@@ -127,8 +127,6 @@ function ChartLoader(): JSX.Element {
                 yUnits={yUnits}
                 placeInfo={place.value}
                 display={display}
-                xDate={cache.xDate}
-                yDate={cache.yDate}
               />
               <PlotOptions points={points} />
             </>
