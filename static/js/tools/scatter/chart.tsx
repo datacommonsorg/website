@@ -110,12 +110,16 @@ function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
   const tooltipRef = useRef<HTMLDivElement>();
   const chartContainerRef = useRef<HTMLDivElement>();
-  const sources: Set<string> = new Set();
   const [geoJson, setGeoJson] = useState(null);
   const [geoJsonFetched, setGeoJsonFetched] = useState(false);
+  const sources: Set<string> = new Set();
+  const xDates: Set<string> = new Set();
+  const yDates: Set<string> = new Set();
   Object.values(props.points).forEach((point) => {
     sources.add(point.xSource);
     sources.add(point.ySource);
+    xDates.add(point.xDate);
+    yDates.add(point.yDate);
     if (props.xPerCapita && point.xPopSource) {
       sources.add(point.xPopSource);
     }
@@ -123,21 +127,9 @@ function Chart(props: ChartPropsType): JSX.Element {
       sources.add(point.yPopSource);
     }
   });
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
-      </span>
-    );
-  });
+  const sourcesJsx = getSourcesJsx(sources);
+  const xTitle = getTitle(Array.from(xDates), props.xLabel);
+  const yTitle = getTitle(Array.from(yDates), props.yLabel);
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
@@ -200,9 +192,9 @@ function Chart(props: ChartPropsType): JSX.Element {
       <Row>
         <Card id="no-padding">
           <div className="chart-title">
-            <h3>{props.yLabel}</h3>
+            <h3>{yTitle}</h3>
             <span>vs</span>
-            <h3>{props.xLabel}</h3>
+            <h3>{xTitle}</h3>
           </div>
           <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
@@ -573,6 +565,33 @@ function drawMapLegend(
 function redirectAction(placeDcid: string): void {
   const uri = `${DOT_REDIRECT_PREFIX}${placeDcid}`;
   window.open(uri);
+}
+
+function getTitle(dates: string[], statVarLabel: string) {
+  const minDate = _.min(dates);
+  const maxDate = _.max(dates);
+  const dateRange =
+    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
+  return `${statVarLabel} ${dateRange}`;
+}
+
+function getSourcesJsx(sources: Set<string>): JSX.Element[] {
+  const sourceList: string[] = Array.from(sources);
+  const seenSourceDomains = new Set();
+  const sourcesJsx = sourceList.map((source, index) => {
+    const domain = urlToDomain(source);
+    if (seenSourceDomains.has(domain)) {
+      return null;
+    }
+    seenSourceDomains.add(domain);
+    return (
+      <span key={source}>
+        {index > 0 ? ", " : ""}
+        <a href={source}>{domain}</a>
+      </span>
+    );
+  });
+  return sourcesJsx;
 }
 
 const getMapTooltipHtml = (

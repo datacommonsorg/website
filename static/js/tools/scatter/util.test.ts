@@ -24,6 +24,7 @@ const TestContext = ({
       statVarInfo: null,
       log: true,
       perCapita: false,
+      date: "",
     },
   },
   y: {
@@ -32,6 +33,7 @@ const TestContext = ({
       statVarInfo: null,
       log: false,
       perCapita: true,
+      date: "",
     },
   },
   place: {

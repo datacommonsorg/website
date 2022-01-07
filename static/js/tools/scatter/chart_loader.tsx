@@ -70,6 +70,8 @@ type Cache = {
   metadataMap: Record<string, StatMetadata>;
   populationData: StatApiResponse;
   noDataError: boolean;
+  xDate: string;
+  yDate: string;
 };
 
 function ChartLoader(): JSX.Element {
@@ -159,6 +161,8 @@ function useCache(): Cache {
         populationData: {},
         noDataError: false,
         metadataMap: {},
+        xDate: "",
+        yDate: "",
       });
       return;
     }
@@ -190,7 +194,7 @@ async function loadData(
   const statResponsePromise = getStatsWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
-    [x.value.statVarDcid, y.value.statVarDcid]
+    [x.value, y.value]
   );
   const populationPromise: Promise<StatApiResponse> = axios
     .get(
@@ -207,6 +211,8 @@ async function loadData(
         populationData,
         statVarsData: statResponse.data,
         metadataMap: statResponse.metadata,
+        xDate: x.value.date,
+        yDate: y.value.date,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -414,7 +420,9 @@ function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
     xStatVar in cache.statVarsData &&
     !_.isEmpty(cache.statVarsData[xStatVar]) &&
     yStatVar in cache.statVarsData &&
-    !_.isEmpty(cache.statVarsData[yStatVar])
+    !_.isEmpty(cache.statVarsData[yStatVar]) &&
+    cache.xDate === x.date &&
+    cache.yDate === y.date
   );
 }
 

@@ -52,7 +52,7 @@ async function getPlacesInNames(
 async function getStatsWithinPlace(
   parent_place: string,
   child_type: string,
-  statVars: Array<string>
+  statVars: Array<Axis>
 ): Promise<GetStatSetResponse> {
   let statVarParams = "";
   // There are two stat vars for scatter plot.
@@ -61,11 +61,13 @@ async function getStatsWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<GetStatSetResponse>[] = [];
   for (const statVar of statVars) {
-    statVarParams = `&stat_vars=${statVar}`;
-    const cappedDate = getCappedStatVarDate(statVar);
-    if (cappedDate) {
-      statVarParams += `&date=${cappedDate}`;
+    statVarParams = `&stat_vars=${statVar.statVarDcid}`;
+    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
+    // If there is a specified date, get the data for that date.
+    if (statVar.date) {
+      dataDate = statVar.date;
     }
+    statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
       axios.get(
         `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
@@ -149,6 +151,8 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
       axis[key] = value === "1" ? true : value;
     }
   }
+  const date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
+  axis.date = date;
 
   return axis;
 }
@@ -247,6 +251,13 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
         axis[key] === true ? "1" : axis[key]
       );
     }
+  }
+  if (axis.date) {
+    hash = appendEntry(
+      hash,
+      addSuffix(FieldToAbbreviation.date, isX),
+      axis.date
+    );
   }
   return hash;
 }
