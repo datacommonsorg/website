@@ -15,8 +15,8 @@
  */
 import React from "react";
 
+import { StatVarMetadata } from "../types/stat_var";
 import { LineTile } from "./line_tile";
-import { StatVarMetadata } from "./types";
 
 interface MainPanePropType {
   /**
@@ -46,20 +46,34 @@ class MainPane extends React.Component<MainPanePropType> {
     const lineTitle = "line-title";
     const statVarMetadata: StatVarMetadata = {
       statVars: [
-        "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-        "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-        "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-        "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-        "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-      ],
-      denominator: [
-        "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-        "Count_Person_AsianAlone",
-        "Count_Person_BlackOrAfricanAmericanAlone",
-        "Count_Person_HispanicOrLatino",
-        "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_Person_WhiteAlone",
+        {
+          main:
+            "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+          denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+        },
+        {
+          main: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+          denom: "Count_Person_AsianAlone",
+        },
+        {
+          main:
+            "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          denom: "Count_Person_BlackOrAfricanAmericanAlone",
+        },
+        {
+          main:
+            "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          denom: "Count_Person_HispanicOrLatino",
+        },
+        {
+          main:
+            "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+        },
+        {
+          main: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          denom: "Count_Person_WhiteAlone",
+        },
       ],
       unit: "%",
       scaling: 100,

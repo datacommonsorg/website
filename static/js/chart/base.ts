@@ -15,6 +15,7 @@
  */
 
 import * as d3 from "d3";
+import _ from "lodash";
 
 import { translateVariableString } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
@@ -402,20 +403,18 @@ export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
   return result;
 }
 
+// Expand an array of DataPoints based on given dates.
+// If a date is not present in the array, add a null data point for it.
 export function expandDataPoints(
   dataPoints: DataPoint[],
   dates: Set<string>
 ): DataPoint[] {
-  const result: DataPoint[] = dataPoints;
-  for (const dp of dataPoints) {
-    if (dates.has(dp.label)) {
-      dates.delete(dp.label);
-    }
-  }
+  const result: DataPoint[] = _.cloneDeep(dataPoints);
   dates.forEach((date) => {
-    result.push({ label: date, time: new Date(date).getTime(), value: null });
+    if (!dates.has(date)) {
+      result.push({ label: date, time: new Date(date).getTime(), value: null });
+    }
   });
-
   result.sort(function (a, b) {
     return a.label > b.label ? -1 : 1;
   });

@@ -26,8 +26,8 @@ import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { StatVarMetadata } from "../types/stat_var";
 import { CHART_HEIGHT } from "./constants";
-import { StatVarMetadata } from "./types";
 
 const SVG_CONTAINER_ELEMENT: React.RefObject<HTMLDivElement> = React.createRef();
 
@@ -50,13 +50,13 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     if (rawData) {
       processData(rawData);
     }
-  });
+  }, [rawData]);
 
   useEffect(() => {
     if (chartData) {
       drawChart(chartData);
     }
-  });
+  }, [chartData]);
 
   return (
     <div className="chart-container">
@@ -76,10 +76,17 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   );
 
   function fetchData(statVarMetaData: StatVarMetadata): void {
+    const statVars = [];
+    for (const item of statVarMetaData.statVars) {
+      statVars.push(item.main);
+      if (item.denom) {
+        statVars.push(item.denom);
+      }
+    }
     axios
       .post(`/api/stats`, {
         // Fetch both numerator stat vars and denominator stat vars
-        statVars: statVarMetaData.statVars.concat(statVarMetaData.denominator),
+        statVars: statVars,
         places: [props.placeDcid],
       })
       .then((resp) => {
@@ -98,6 +105,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   function drawChart(chartData: DataGroup[]): void {
     const elem = document.getElementById(props.id);
+    // TODO: Remove all cases of setting innerHTML directly.
     elem.innerHTML = "";
     const isCompleteLine = drawLineChart(
       props.id,
@@ -123,24 +131,16 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     const dataGroups: DataGroup[] = [];
     const sources = new Set<string>();
     const metadata = props.statVarMetadata;
-    const computeRatio =
-      metadata.statVars.length === metadata.denominator.length;
     const allDates = new Set<string>();
-    for (let i = 0; i < metadata.statVars.length; i++) {
-      const numSV = metadata.statVars[i];
-      console.log(numSV);
+    for (const item of metadata.statVars) {
       // Do not modify the React state. Create a clone.
-      const series = raw[props.placeDcid].data[numSV];
-      console.log(series.val);
-      if (computeRatio) {
-        const denomSV = metadata.denominator[i];
-        console.log(denomSV);
-        const denomSeries = raw[props.placeDcid].data[denomSV];
+      const series = raw[props.placeDcid].data[item.main];
+      if (item.denom) {
+        const denomSeries = raw[props.placeDcid].data[item.denom];
         // (TODO): Here expects exact date match. We should implement a generic
         // function that takes two Series and compute the ratio.
-        console.log(denomSeries.val);
         for (const date in series.val) {
-          if (date in denomSeries.val) {
+          if (date in denomSeries.val && denomSeries.val[date] !== 0) {
             series.val[date] /= denomSeries.val[date];
           } else {
             delete series.val[date];
@@ -157,7 +157,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
           });
           allDates.add(date);
         }
-        dataGroups.push(new DataGroup(getStatsVarLabel(numSV), dataPoints));
+        dataGroups.push(new DataGroup(getStatsVarLabel(item.main), dataPoints));
         sources.add(series.metadata.provenanceUrl);
       }
     }

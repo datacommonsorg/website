@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-// Typescript type for topic page StatVarMetadata protobuf.
+// StatVarMetadata corresponds to the protobuf definition for topic page
+// stat var metadata spec.
 export interface StatVarMetadata {
-  statVars: string[];
-  denominator: string[];
+  statVars: {
+    main: string;
+    denom: string;
+  }[];
   unit: string;
   scaling: number;
 }
