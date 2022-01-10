@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:12-slim
+FROM node:16.13.1-slim
 
 # GCB should read files from /resources.
 WORKDIR /resources
@@ -27,7 +27,7 @@ RUN apt-get -y install curl
 RUN curl -O https://raw.githubusercontent.com/datacommonsorg/website/master/static/package.json
 RUN curl -O https://raw.githubusercontent.com/datacommonsorg/website/master/static/package-lock.json
 
-# Install only the prodution dependencies using package.json.
+# Install only the production dependencies using package.json.
 RUN npm install
 
 # Remove anything other than node_modules.
