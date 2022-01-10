@@ -15,6 +15,7 @@
  */
 
 import * as d3 from "d3";
+import _ from "lodash";
 
 import { translateVariableString } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
@@ -22,7 +23,7 @@ import { isIpccStatVar } from "../tools/shared_util";
 
 const DEFAULT_COLOR = "#000";
 
-class DataPoint {
+export class DataPoint {
   value: number;
   label: string;
   // Optional DCID to add to a chart as a data atttribute
@@ -47,7 +48,7 @@ class DataPoint {
   }
 }
 
-class DataGroup {
+export class DataGroup {
   value: DataPoint[];
   // Label of the DataGroup. This could be different from the DataPoint label.
   // For example, the label of a data point could be date string, while the
@@ -96,7 +97,7 @@ function joinLineForWrap(line: string[]): string {
  * From https://bl.ocks.org/mbostock/7555321
  * Wraps axis text by fitting as many words per line as would fit a given width.
  */
-function wrap(
+export function wrap(
   textSelection: d3.Selection<SVGTextElement, any, any, any>,
   width: number
 ): void {
@@ -157,7 +158,7 @@ function wrap(
 /**
  * Return an array of dashes.
  */
-function getDashes(n: number): string[] {
+export function getDashes(n: number): string[] {
   if (n === 0) {
     return [];
   }
@@ -175,7 +176,7 @@ function getDashes(n: number): string[] {
   }
 }
 
-function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
+export function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
   let domain = labels;
   let range;
   if (
@@ -214,13 +215,13 @@ function getColorFn(labels: string[]): d3.ScaleOrdinal<string, string> {
   return d3.scaleOrdinal<string, string>().domain(domain).range(range);
 }
 
-interface Style {
+export interface Style {
   color: string;
   dash?: string;
   legendLink?: string;
 }
 
-interface PlotParams {
+export interface PlotParams {
   lines: { [key: string]: Style };
   legend: { [key: string]: Style };
 }
@@ -257,7 +258,7 @@ function temperatureColorMap(statVar: string): string {
  * the dcids. The client needs a mapping from stats var dcid to the display text,
  * which can be used together with this function in drawGroupLineChart().
  */
-function computePlotParams(
+export function computePlotParams(
   placeNames: Record<string, string>,
   statVars: string[],
   statVarInfo: Record<string, StatVarInfo>
@@ -313,7 +314,7 @@ function computePlotParams(
   return { lines, legend };
 }
 
-function shouldFillInValues(series: number[][]): boolean {
+export function shouldFillInValues(series: number[][]): boolean {
   const defined = (d) => {
     return d[1] !== null;
   };
@@ -364,7 +365,7 @@ function findDataPointOrNull(
 /**
  * Returns dataGroups as a CSV.
  */
-function dataGroupsToCsv(dataGroups: DataGroup[]): string {
+export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
   if (!dataGroups || dataGroups.length == 0) {
     return "";
   }
@@ -402,15 +403,20 @@ function dataGroupsToCsv(dataGroups: DataGroup[]): string {
   return result;
 }
 
-export {
-  computePlotParams,
-  DataGroup,
-  dataGroupsToCsv,
-  DataPoint,
-  getColorFn,
-  getDashes,
-  PlotParams,
-  shouldFillInValues,
-  Style,
-  wrap,
-};
+// Expand an array of DataPoints based on given dates.
+// If a date is not present in the array, add a null data point for it.
+export function expandDataPoints(
+  dataPoints: DataPoint[],
+  dates: Set<string>
+): DataPoint[] {
+  const result: DataPoint[] = _.cloneDeep(dataPoints);
+  dates.forEach((date) => {
+    if (!dates.has(date)) {
+      result.push({ label: date, time: new Date(date).getTime(), value: null });
+    }
+  });
+  result.sort(function (a, b) {
+    return a.label > b.label ? -1 : 1;
+  });
+  return result;
+}

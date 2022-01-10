@@ -27,13 +27,20 @@ message PageMetadata {
   map<string, string> contained_place_types = 4;
 }
 
+// Represents stat from the expression of multiple stat vars.
+message CompositeStatVar {
+  // The main stat var. This is required.
+  string main = 1;
+  // [Optional] Denominator stat var
+  string denom = 2;
+}
+
 
 message StatVarMetadata {
   // Applies to all tiles in the block.
-  repeated string stat_vars = 1;
-  repeated string denominator = 2;
-  string unit = 3;
-  double scaling = 4;
+  repeated CompositeStatVar stat_vars = 1;
+  string unit = 2;
+  double scaling = 3;
 }
 
 
