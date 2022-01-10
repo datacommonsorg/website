@@ -29,21 +29,17 @@ interface RankingTilePropType {
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
-  // TODO: define and use the actual type instead of Record<string, string>
-  const [rawData, setRawData] = useState<Record<string, string> | undefined>(
-    null
-  );
-  const [rankingData, setRankingData] = useState<
-    Record<string, string> | undefined
-  >(null);
+  // TODO: define and use the actual type instead of any
+  const [rawData, setRawData] = useState<any | undefined>(null);
+  const [rankingData, setRankingData] = useState<any | undefined>(null);
 
   useEffect(() => {
-    fetchData(props.statVarMetadata);
-  }, []);
+    fetchData(props.statVarMetadata, setRawData);
+  }, [props.statVarMetadata]);
 
   useEffect(() => {
     if (rawData) {
-      processData(rawData);
+      processData(rawData, setRankingData);
     }
   }, [rawData]);
 
@@ -52,20 +48,21 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       {rankingData && <>{Object.keys(rankingData).join(",")}</>}
     </div>
   );
+}
 
-  function fetchData(statVarMetaData: StatVarMetadata): void {
-    console.log(statVarMetaData);
-    setRawData(null);
-  }
+function fetchData(
+  statVarMetaData: StatVarMetadata,
+  setRawData: (data: any) => void
+): void {
+  console.log(statVarMetaData);
+  setRawData(null);
+}
 
-  function processData(rawData: Record<string, string>): void {
-    setRankingData(rawToRanking(rawData));
-  }
+function processData(rawData: any, setRankingData: (data: any) => void): void {
+  setRankingData(rawToRanking(rawData));
+}
 
-  function rawToRanking(
-    rawData: Record<string, string>
-  ): Record<string, string> {
-    console.log(rawData);
-    return {};
-  }
+function rawToRanking(rawData: Record<string, string>): Record<string, string> {
+  console.log(rawData);
+  return {};
 }

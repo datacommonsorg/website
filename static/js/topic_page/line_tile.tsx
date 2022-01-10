@@ -44,30 +44,34 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     fetchData(props, setRawData);
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     if (rawData) {
       processData(props, rawData, setChartData);
     }
-  }, [rawData]);
+  }, [props, rawData]);
 
   useEffect(() => {
     if (chartData) {
       draw(props, chartData);
     }
-  });
+  }, [props, chartData]);
 
   return (
     <div className="chart-container">
-      <div className="line-title">
-        <h4>{props.title}</h4>
-      </div>
-      <div
-        id={props.id}
-        className="svg-container"
-        ref={SVG_CONTAINER_ELEMENT}
-      ></div>
+      {chartData && (
+        <>
+          <div className="line-title">
+            <h4>{props.title}</h4>
+          </div>
+          <div
+            id={props.id}
+            className="svg-container"
+            ref={SVG_CONTAINER_ELEMENT}
+          ></div>
+        </>
+      )}
     </div>
   );
 }

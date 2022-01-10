@@ -80,7 +80,11 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       props.statVarMetadata.statVars[0].denom,
       setRawData
     );
-  }, []);
+  }, [
+    props.placeDcid,
+    props.enclosedPlaceType,
+    props.statVarMetadata.statVars,
+  ]);
 
   useEffect(() => {
     if (rawData) {
@@ -92,13 +96,13 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         setChartData
       );
     }
-  }, [rawData]);
+  }, [rawData, props.statVarMetadata, props.title]);
 
   useEffect(() => {
     if (chartData) {
       draw(chartData, props);
     }
-  }, [chartData]);
+  }, [chartData, props]);
 
   return (
     <div className="chart-container">
