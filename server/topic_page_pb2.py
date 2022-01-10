@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10topic_page.proto\x12\x0b\x64\x61tacommons\"\xd7\x01\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"X\n\x0fStatVarMetadata\x12\x11\n\tstat_vars\x18\x01 \x03(\t\x12\x13\n\x0b\x64\x65nominator\x18\x02 \x03(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\"\x82\x01\n\x0fRankingMetadata\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\"(\n\x11HighlightMetadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\xf0\x02\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x37\n\x11stat_var_override\x18\x04 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\x12\x36\n\x10ranking_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingMetadata\x12:\n\x12highlight_metadata\x18\x06 \x01(\x0b\x32\x1e.datacommons.HighlightMetadata\"m\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\"\xb3\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12%\n\nleft_tiles\x18\x03 \x03(\x0b\x32\x11.datacommons.Tile\x12&\n\x0bright_tiles\x18\x04 \x03(\x0b\x32\x11.datacommons.Tile\x12\x37\n\x11stat_var_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\"\x8e\x01\n\x0fTopicPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12*\n\x0eoverview_block\x18\x02 \x01(\x0b\x32\x12.datacommons.Block\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Blockb\x06proto3'
+  serialized_pb=b'\n\x10topic_page.proto\x12\x0b\x64\x61tacommons\"\xd7\x01\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"/\n\x10\x43ompositeStatVar\x12\x0c\n\x04main\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\"b\n\x0fStatVarMetadata\x12\x30\n\tstat_vars\x18\x01 \x03(\x0b\x32\x1d.datacommons.CompositeStatVar\x12\x0c\n\x04unit\x18\x02 \x01(\t\x12\x0f\n\x07scaling\x18\x03 \x01(\x01\"\x82\x01\n\x0fRankingMetadata\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\"(\n\x11HighlightMetadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\xf0\x02\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x37\n\x11stat_var_override\x18\x04 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\x12\x36\n\x10ranking_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingMetadata\x12:\n\x12highlight_metadata\x18\x06 \x01(\x0b\x32\x1e.datacommons.HighlightMetadata\"m\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\"\xb3\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12%\n\nleft_tiles\x18\x03 \x03(\x0b\x32\x11.datacommons.Tile\x12&\n\x0bright_tiles\x18\x04 \x03(\x0b\x32\x11.datacommons.Tile\x12\x37\n\x11stat_var_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.StatVarMetadata\"\x8e\x01\n\x0fTopicPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12*\n\x0eoverview_block\x18\x02 \x01(\x0b\x32\x12.datacommons.Block\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Blockb\x06proto3'
 )
 
 
@@ -74,8 +74,8 @@ _TILE_TILETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=776,
-  serialized_end=885,
+  serialized_start=835,
+  serialized_end=944,
 )
 _sym_db.RegisterEnumDescriptor(_TILE_TILETYPE)
 
@@ -171,39 +171,25 @@ _PAGEMETADATA = _descriptor.Descriptor(
 )
 
 
-_STATVARMETADATA = _descriptor.Descriptor(
-  name='StatVarMetadata',
-  full_name='datacommons.StatVarMetadata',
+_COMPOSITESTATVAR = _descriptor.Descriptor(
+  name='CompositeStatVar',
+  full_name='datacommons.CompositeStatVar',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='stat_vars', full_name='datacommons.StatVarMetadata.stat_vars', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='denominator', full_name='datacommons.StatVarMetadata.denominator', index=1,
-      number=2, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='unit', full_name='datacommons.StatVarMetadata.unit', index=2,
-      number=3, type=9, cpp_type=9, label=1,
+      name='main', full_name='datacommons.CompositeStatVar.main', index=0,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='scaling', full_name='datacommons.StatVarMetadata.scaling', index=3,
-      number=4, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
+      name='denom', full_name='datacommons.CompositeStatVar.denom', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -220,7 +206,53 @@ _STATVARMETADATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=251,
-  serialized_end=339,
+  serialized_end=298,
+)
+
+
+_STATVARMETADATA = _descriptor.Descriptor(
+  name='StatVarMetadata',
+  full_name='datacommons.StatVarMetadata',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='stat_vars', full_name='datacommons.StatVarMetadata.stat_vars', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='unit', full_name='datacommons.StatVarMetadata.unit', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='scaling', full_name='datacommons.StatVarMetadata.scaling', index=2,
+      number=3, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=300,
+  serialized_end=398,
 )
 
 
@@ -279,8 +311,8 @@ _RANKINGMETADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=342,
-  serialized_end=472,
+  serialized_start=401,
+  serialized_end=531,
 )
 
 
@@ -311,8 +343,8 @@ _HIGHLIGHTMETADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=474,
-  serialized_end=514,
+  serialized_start=533,
+  serialized_end=573,
 )
 
 
@@ -379,8 +411,8 @@ _TILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=517,
-  serialized_end=885,
+  serialized_start=576,
+  serialized_end=944,
 )
 
 
@@ -439,8 +471,8 @@ _BLOCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=888,
-  serialized_end=1067,
+  serialized_start=947,
+  serialized_end=1126,
 )
 
 
@@ -485,12 +517,13 @@ _TOPICPAGECONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1070,
-  serialized_end=1212,
+  serialized_start=1129,
+  serialized_end=1271,
 )
 
 _PAGEMETADATA_CONTAINEDPLACETYPESENTRY.containing_type = _PAGEMETADATA
 _PAGEMETADATA.fields_by_name['contained_place_types'].message_type = _PAGEMETADATA_CONTAINEDPLACETYPESENTRY
+_STATVARMETADATA.fields_by_name['stat_vars'].message_type = _COMPOSITESTATVAR
 _TILE.fields_by_name['type'].enum_type = _TILE_TILETYPE
 _TILE.fields_by_name['stat_var_override'].message_type = _STATVARMETADATA
 _TILE.fields_by_name['ranking_metadata'].message_type = _RANKINGMETADATA
@@ -503,6 +536,7 @@ _TOPICPAGECONFIG.fields_by_name['metadata'].message_type = _PAGEMETADATA
 _TOPICPAGECONFIG.fields_by_name['overview_block'].message_type = _BLOCK
 _TOPICPAGECONFIG.fields_by_name['blocks'].message_type = _BLOCK
 DESCRIPTOR.message_types_by_name['PageMetadata'] = _PAGEMETADATA
+DESCRIPTOR.message_types_by_name['CompositeStatVar'] = _COMPOSITESTATVAR
 DESCRIPTOR.message_types_by_name['StatVarMetadata'] = _STATVARMETADATA
 DESCRIPTOR.message_types_by_name['RankingMetadata'] = _RANKINGMETADATA
 DESCRIPTOR.message_types_by_name['HighlightMetadata'] = _HIGHLIGHTMETADATA
@@ -525,6 +559,13 @@ PageMetadata = _reflection.GeneratedProtocolMessageType('PageMetadata', (_messag
   })
 _sym_db.RegisterMessage(PageMetadata)
 _sym_db.RegisterMessage(PageMetadata.ContainedPlaceTypesEntry)
+
+CompositeStatVar = _reflection.GeneratedProtocolMessageType('CompositeStatVar', (_message.Message,), {
+  'DESCRIPTOR' : _COMPOSITESTATVAR,
+  '__module__' : 'topic_page_pb2'
+  # @@protoc_insertion_point(class_scope:datacommons.CompositeStatVar)
+  })
+_sym_db.RegisterMessage(CompositeStatVar)
 
 StatVarMetadata = _reflection.GeneratedProtocolMessageType('StatVarMetadata', (_message.Message,), {
   'DESCRIPTOR' : _STATVARMETADATA,

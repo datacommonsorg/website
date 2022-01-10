@@ -38,8 +38,8 @@ import {
   PlacePointStat,
   StatMetadata,
 } from "../tools/shared_util";
+import { CHART_HEIGHT } from "./constants";
 
-const CHART_HEIGHT = 400;
 const SVG_CONTAINER_ELEMENT: React.RefObject<HTMLDivElement> = React.createRef();
 
 interface MapTilePropType {
