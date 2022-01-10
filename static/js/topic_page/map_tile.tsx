@@ -38,20 +38,18 @@ import {
   PlacePointStat,
   StatMetadata,
 } from "../tools/shared_util";
+import { StatVarMetadata } from "../types/stat_var";
 import { CHART_HEIGHT } from "./constants";
 
 const SVG_CONTAINER_ELEMENT: React.RefObject<HTMLDivElement> = React.createRef();
 
 interface MapTilePropType {
-  tileId: string;
+  id: string;
+  title: string;
   placeDcid: string;
   enclosedPlaceType: string;
-  statVarDcid: string;
-  chartTitle: string;
   isUsaPlace: boolean;
-  denomDcid?: string;
-  unit?: string;
-  scaling?: number;
+  statVarMetadata: StatVarMetadata;
 }
 
 interface RawData {
@@ -78,9 +76,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     fetchData(
       props.placeDcid,
       props.enclosedPlaceType,
-      props.statVarDcid,
-      setRawData,
-      props.denomDcid
+      props.statVarMetadata.statVars[0].main,
+      props.statVarMetadata.statVars[0].denom,
+      setRawData
     );
   }, []);
 
@@ -88,17 +86,17 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     if (rawData) {
       processData(
         rawData,
-        !_.isEmpty(props.denomDcid),
-        props.chartTitle,
-        setChartData,
-        props.scaling
+        !_.isEmpty(props.statVarMetadata.statVars[0].denom),
+        props.title,
+        props.statVarMetadata.scaling,
+        setChartData
       );
     }
   }, [rawData]);
 
   useEffect(() => {
     if (chartData) {
-      drawMap(chartData, props);
+      draw(chartData, props);
     }
   }, [chartData]);
 
@@ -110,7 +108,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
             <h4>{chartData.chartTitle}</h4>
           </div>
           <div
-            id={props.tileId}
+            id={props.id}
             className="svg-container"
             ref={SVG_CONTAINER_ELEMENT}
           ></div>
@@ -126,26 +124,26 @@ export function MapTile(props: MapTilePropType): JSX.Element {
 function fetchData(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarDcid: string,
-  setRawData: (data: RawData) => void,
-  denomDcid?: string
+  mainStatVar: string,
+  denomStatVar: string,
+  setRawData: (data: RawData) => void
 ): void {
   const geoJsonDataPromise = axios
     .get(
       `/api/choropleth/geojson?placeDcid=${placeDcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  const dataDate = getCappedStatVarDate(statVarDcid);
+  const dataDate = getCappedStatVarDate(mainStatVar);
   const dateParam = dataDate ? `&date=${dataDate}` : "";
   const enclosedPlaceDataPromise: Promise<GetStatSetResponse> = axios
     .get(
-      `/api/stats/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${statVarDcid}${dateParam}`
+      `/api/stats/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${mainStatVar}${dateParam}`
     )
     .then((resp) => resp.data);
-  const populationPromise: Promise<StatApiResponse> = denomDcid
+  const populationPromise: Promise<StatApiResponse> = denomStatVar
     ? axios
         .get(
-          `/api/stats/set/series/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${denomDcid}`
+          `/api/stats/set/series/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${denomStatVar}`
         )
         .then((resp) => resp.data)
     : Promise.resolve({});
@@ -153,7 +151,7 @@ function fetchData(
     .then(([geoJson, placeStatData, population]) => {
       setRawData({
         geoJson,
-        placeStat: placeStatData.data[statVarDcid],
+        placeStat: placeStatData.data[mainStatVar],
         metadataMap: placeStatData.metadata,
         population,
       });
@@ -168,8 +166,8 @@ function processData(
   rawData: RawData,
   isPerCapita: boolean,
   chartTitle: string,
-  setChartData: (data: ChartData) => void,
-  scaling?: number
+  scaling: number,
+  setChartData: (data: ChartData) => void
 ): void {
   const dataValues = {};
   const metadata = {};
@@ -209,27 +207,28 @@ function processData(
   });
 }
 
-function drawMap(chartData: ChartData, props: MapTilePropType): void {
+function draw(chartData: ChartData, props: MapTilePropType): void {
+  const mainStatVar = props.statVarMetadata.statVars[0].main;
   const width = SVG_CONTAINER_ELEMENT.current.offsetWidth;
-  const colorScale = getColorScale(props.statVarDcid, chartData.dataValues);
+  const colorScale = getColorScale(mainStatVar, chartData.dataValues);
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Missing";
     if (place.dcid in chartData.dataValues) {
       value = formatNumber(
         Math.round((chartData.dataValues[place.dcid] + Number.EPSILON) * 100) /
           100,
-        props.unit
+        props.statVarMetadata.unit
       );
     }
     return place.name + ": " + value;
   };
   drawChoropleth(
-    props.tileId,
+    props.id,
     chartData.geoJson,
     CHART_HEIGHT,
     width,
     chartData.dataValues,
-    props.unit,
+    props.statVarMetadata.unit,
     colorScale,
     _.noop,
     getTooltipHtml,

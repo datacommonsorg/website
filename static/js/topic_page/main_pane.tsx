@@ -17,6 +17,7 @@ import React from "react";
 
 import { StatVarMetadata } from "../types/stat_var";
 import { LineTile } from "./line_tile";
+import { MapTile } from "./map_tile";
 
 interface MainPanePropType {
   /**
@@ -44,6 +45,8 @@ class MainPane extends React.Component<MainPanePropType> {
   render(): JSX.Element {
     const lineId = "line-1";
     const lineTitle = "line-title";
+    const mapId = "map-1";
+    const mapTitle = "map-title";
     const statVarMetadata: StatVarMetadata = {
       statVars: [
         {
@@ -88,6 +91,14 @@ class MainPane extends React.Component<MainPanePropType> {
           id={lineId}
           title={lineTitle}
           placeDcid={this.props.dcid}
+          statVarMetadata={statVarMetadata}
+        />
+        <MapTile
+          id={mapId}
+          title={mapTitle}
+          placeDcid={this.props.dcid}
+          enclosedPlaceType={"State"}
+          isUsaPlace={true}
           statVarMetadata={statVarMetadata}
         />
       </>
