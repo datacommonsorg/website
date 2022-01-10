@@ -238,6 +238,7 @@ function loadEnclosedPlaces(
           })
         );
       } else {
+        place.setEnclosedPlaceType("");
         alert(
           `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
             `${enclosedPlaceType}. Try picking another type or place.`
