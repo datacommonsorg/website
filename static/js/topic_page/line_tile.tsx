@@ -54,7 +54,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     if (chartData) {
-      drawChart(chartData);
+      draw(chartData);
     }
   }, [chartData]);
 
@@ -103,7 +103,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     setChartData(trendData);
   }
 
-  function drawChart(chartData: DataGroup[]): void {
+  function draw(chartData: DataGroup[]): void {
     const elem = document.getElementById(props.id);
     // TODO: Remove all cases of setting innerHTML directly.
     elem.innerHTML = "";
