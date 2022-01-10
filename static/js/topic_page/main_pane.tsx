@@ -98,6 +98,7 @@ class MainPane extends React.Component<MainPanePropType> {
           title={mapTitle}
           placeDcid={this.props.dcid}
           enclosedPlaceType={"State"}
+          isUsaPlace={true}
           statVarMetadata={statVarMetadata}
         />
       </>

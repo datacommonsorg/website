@@ -48,6 +48,7 @@ interface MapTilePropType {
   title: string;
   placeDcid: string;
   enclosedPlaceType: string;
+  isUsaPlace: boolean;
   statVarMetadata: StatVarMetadata;
 }
 
@@ -72,7 +73,13 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const sourcesJsx = chartData ? getSourcesJsx(chartData.sources) : [];
 
   useEffect(() => {
-    fetchData(props.statVarMetadata);
+    fetchData(
+      props.placeDcid,
+      props.enclosedPlaceType,
+      props.statVarMetadata.statVars[0].main,
+      props.statVarMetadata.statVars[0].denom,
+      setRawData
+    );
   }, []);
 
   useEffect(() => {
@@ -81,15 +88,15 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         rawData,
         !_.isEmpty(props.statVarMetadata.statVars[0].denom),
         props.title,
-        setChartData,
-        props.statVarMetadata.scaling
+        props.statVarMetadata.scaling,
+        setChartData
       );
     }
   }, [rawData]);
 
   useEffect(() => {
     if (chartData) {
-      drawMap(chartData);
+      draw(chartData, props);
     }
   }, [chartData]);
 
@@ -112,143 +119,142 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       )}
     </div>
   );
+}
 
-  function fetchData(statVarMetaData: StatVarMetadata): void {
-    const mainStatVar = statVarMetaData.statVars[0].main;
-    const denomStatVar = statVarMetaData.statVars[0].denom;
-    const geoJsonDataPromise = axios
-      .get(
-        `/api/choropleth/geojson?placeDcid=${props.placeDcid}&placeType=${props.enclosedPlaceType}`
-      )
-      .then((resp) => resp.data);
-    const dataDate = getCappedStatVarDate(mainStatVar);
-    const dateParam = dataDate ? `&date=${dataDate}` : "";
-    const enclosedPlaceDataPromise: Promise<GetStatSetResponse> = axios
-      .get(
-        `/api/stats/within-place?parent_place=${props.placeDcid}&child_type=${props.enclosedPlaceType}&stat_vars=${mainStatVar}${dateParam}`
-      )
-      .then((resp) => resp.data);
-    const populationPromise: Promise<StatApiResponse> = denomStatVar
-      ? axios
-          .get(
-            `/api/stats/set/series/within-place?parent_place=${props.placeDcid}&child_type=${props.enclosedPlaceType}&stat_vars=${denomStatVar}`
-          )
-          .then((resp) => resp.data)
-      : Promise.resolve({});
-    Promise.all([
-      geoJsonDataPromise,
-      enclosedPlaceDataPromise,
-      populationPromise,
-    ])
-      .then(([geoJson, placeStatData, population]) => {
-        setRawData({
-          geoJson,
-          placeStat: placeStatData.data[mainStatVar],
-          metadataMap: placeStatData.metadata,
-          population,
-        });
-      })
-      .catch(() => {
-        // TODO: add error message
-        setRawData(null);
+function fetchData(
+  placeDcid: string,
+  enclosedPlaceType: string,
+  mainStatVar: string,
+  denomStatVar: string,
+  setRawData: (data: RawData) => void
+): void {
+  const geoJsonDataPromise = axios
+    .get(
+      `/api/choropleth/geojson?placeDcid=${placeDcid}&placeType=${enclosedPlaceType}`
+    )
+    .then((resp) => resp.data);
+  const dataDate = getCappedStatVarDate(mainStatVar);
+  const dateParam = dataDate ? `&date=${dataDate}` : "";
+  const enclosedPlaceDataPromise: Promise<GetStatSetResponse> = axios
+    .get(
+      `/api/stats/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${mainStatVar}${dateParam}`
+    )
+    .then((resp) => resp.data);
+  const populationPromise: Promise<StatApiResponse> = denomStatVar
+    ? axios
+        .get(
+          `/api/stats/set/series/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${denomStatVar}`
+        )
+        .then((resp) => resp.data)
+    : Promise.resolve({});
+  Promise.all([geoJsonDataPromise, enclosedPlaceDataPromise, populationPromise])
+    .then(([geoJson, placeStatData, population]) => {
+      setRawData({
+        geoJson,
+        placeStat: placeStatData.data[mainStatVar],
+        metadataMap: placeStatData.metadata,
+        population,
       });
-  }
-
-  function processData(
-    rawData: RawData,
-    isPerCapita: boolean,
-    chartTitle: string,
-    setChartData: (data: ChartData) => void,
-    scaling?: number
-  ): void {
-    const dataValues = {};
-    const metadata = {};
-    const sources: Set<string> = new Set();
-    const dates: Set<string> = new Set();
-    for (const geoFeature of rawData.geoJson.features) {
-      const placeDcid = geoFeature.properties.geoDcid;
-      const placeChartData = getPlaceChartData(
-        rawData.placeStat,
-        placeDcid,
-        isPerCapita,
-        rawData.population,
-        rawData.metadataMap
-      );
-      if (_.isEmpty(placeChartData)) {
-        continue;
-      }
-      let value = placeChartData.value;
-      if (scaling !== null && scaling !== undefined) {
-        value = value * scaling;
-      }
-      dataValues[placeDcid] = value;
-      metadata[placeDcid] = placeChartData.metadata;
-      dates.add(placeChartData.date);
-      placeChartData.sources.forEach((source) => {
-        if (!_.isEmpty(source)) {
-          sources.add(source);
-        }
-      });
-    }
-    setChartData({
-      dataValues,
-      metadata,
-      sources,
-      chartTitle: getTitle(Array.from(dates), chartTitle, false),
-      geoJson: rawData.geoJson,
+    })
+    .catch(() => {
+      // TODO: add error message
+      setRawData(null);
     });
-  }
+}
 
-  function drawMap(chartData: ChartData): void {
-    const mainStatVar = props.statVarMetadata.statVars[0].main;
-    const width = SVG_CONTAINER_ELEMENT.current.offsetWidth;
-    const colorScale = getColorScale(mainStatVar, chartData.dataValues);
-    const getTooltipHtml = (place: NamedPlace) => {
-      let value = "Data Missing";
-      if (place.dcid in chartData.dataValues) {
-        value = formatNumber(
-          Math.round(
-            (chartData.dataValues[place.dcid] + Number.EPSILON) * 100
-          ) / 100,
-          props.statVarMetadata.unit
-        );
-      }
-      return place.name + ": " + value;
-    };
-    drawChoropleth(
-      props.id,
-      chartData.geoJson,
-      CHART_HEIGHT,
-      width,
-      chartData.dataValues,
-      props.statVarMetadata.unit,
-      colorScale,
-      _.noop,
-      getTooltipHtml,
-      () => false,
-      true,
-      true,
-      true,
-      props.placeDcid
+function processData(
+  rawData: RawData,
+  isPerCapita: boolean,
+  chartTitle: string,
+  scaling: number,
+  setChartData: (data: ChartData) => void
+): void {
+  const dataValues = {};
+  const metadata = {};
+  const sources: Set<string> = new Set();
+  const dates: Set<string> = new Set();
+  for (const geoFeature of rawData.geoJson.features) {
+    const placeDcid = geoFeature.properties.geoDcid;
+    const placeChartData = getPlaceChartData(
+      rawData.placeStat,
+      placeDcid,
+      isPerCapita,
+      rawData.population,
+      rawData.metadataMap
     );
-  }
-
-  function getSourcesJsx(sources: Set<string>): JSX.Element[] {
-    const sourceList: string[] = Array.from(sources);
-    const seenSourceDomains = new Set();
-    const sourcesJsx = sourceList.map((source, index) => {
-      const domain = urlToDomain(source);
-      if (seenSourceDomains.has(domain)) {
-        return null;
+    if (_.isEmpty(placeChartData)) {
+      continue;
+    }
+    let value = placeChartData.value;
+    if (scaling !== null && scaling !== undefined) {
+      value = value * scaling;
+    }
+    dataValues[placeDcid] = value;
+    metadata[placeDcid] = placeChartData.metadata;
+    dates.add(placeChartData.date);
+    placeChartData.sources.forEach((source) => {
+      if (!_.isEmpty(source)) {
+        sources.add(source);
       }
-      seenSourceDomains.add(domain);
-      return (
-        <span key={source}>
-          {index > 0 ? ", " : ""}
-          <a href={source}>{domain}</a>
-        </span>
-      );
     });
-    return sourcesJsx;
   }
+  setChartData({
+    dataValues,
+    metadata,
+    sources,
+    chartTitle: getTitle(Array.from(dates), chartTitle, false),
+    geoJson: rawData.geoJson,
+  });
+}
+
+function draw(chartData: ChartData, props: MapTilePropType): void {
+  const mainStatVar = props.statVarMetadata.statVars[0].main;
+  const width = SVG_CONTAINER_ELEMENT.current.offsetWidth;
+  const colorScale = getColorScale(mainStatVar, chartData.dataValues);
+  const getTooltipHtml = (place: NamedPlace) => {
+    let value = "Data Missing";
+    if (place.dcid in chartData.dataValues) {
+      value = formatNumber(
+        Math.round((chartData.dataValues[place.dcid] + Number.EPSILON) * 100) /
+          100,
+        props.statVarMetadata.unit
+      );
+    }
+    return place.name + ": " + value;
+  };
+  drawChoropleth(
+    props.id,
+    chartData.geoJson,
+    CHART_HEIGHT,
+    width,
+    chartData.dataValues,
+    props.statVarMetadata.unit,
+    colorScale,
+    _.noop,
+    getTooltipHtml,
+    () => false,
+    true,
+    true,
+    props.isUsaPlace,
+    props.placeDcid
+  );
+}
+
+function getSourcesJsx(sources: Set<string>): JSX.Element[] {
+  const sourceList: string[] = Array.from(sources);
+  const seenSourceDomains = new Set();
+  const sourcesJsx = sourceList.map((source, index) => {
+    const domain = urlToDomain(source);
+    if (seenSourceDomains.has(domain)) {
+      return null;
+    }
+    seenSourceDomains.add(domain);
+    return (
+      <span key={source}>
+        {index > 0 ? ", " : ""}
+        <a href={source}>{domain}</a>
+      </span>
+    );
+  });
+  return sourcesJsx;
 }
