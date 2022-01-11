@@ -32,6 +32,7 @@ export interface BlockPropType {
   placeDcid: string;
   enclosedPlaceType: string;
   title: string;
+  description: string;
   leftTiles: Tile[];
   rightTiles: Tile[];
   statVarMetadata: StatVarMetadata;

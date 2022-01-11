@@ -62,6 +62,7 @@ export function MainPane(props: MainPanePropType): JSX.Element {
             placeDcid={props.dcid}
             enclosedPlaceType={"State"}
             title={block.title}
+            description={block.description}
             leftTiles={block.leftTiles}
             rightTiles={block.rightTiles}
             statVarMetadata={block.statVarMetadata}
