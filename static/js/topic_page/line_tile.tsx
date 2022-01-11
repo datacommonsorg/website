@@ -44,19 +44,19 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     fetchData(props, setRawData);
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     if (rawData) {
       processData(props, rawData, setChartData);
     }
-  }, [rawData]);
+  }, [props, rawData]);
 
   useEffect(() => {
     if (chartData) {
       draw(props, chartData);
     }
-  }, [chartData]);
+  }, [props, chartData]);
 
   return (
     <div className="chart-container">
