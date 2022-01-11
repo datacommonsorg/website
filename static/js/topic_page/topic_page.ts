@@ -30,6 +30,9 @@ function renderPage(): void {
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
+  const pageConfig = JSON.parse(
+    document.getElementById("main-pane").dataset.config
+  );
 
   ReactDOM.render(
     React.createElement(MainPane, {
@@ -37,6 +40,7 @@ function renderPage(): void {
       dcid,
       placeName,
       placeType,
+      pageConfig,
     }),
     document.getElementById("main-pane")
   );

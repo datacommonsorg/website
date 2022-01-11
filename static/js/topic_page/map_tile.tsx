@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
 import { GeoJsonData } from "../chart/types";
@@ -40,8 +40,6 @@ import {
 } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { CHART_HEIGHT } from "./constants";
-
-const SVG_CONTAINER_ELEMENT: React.RefObject<HTMLDivElement> = React.createRef();
 
 interface MapTilePropType {
   id: string;
@@ -68,6 +66,7 @@ interface ChartData {
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
+  const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
   const [chartData, setChartData] = useState<ChartData | undefined>(null);
   const sourcesJsx = chartData ? getSourcesJsx(chartData.sources) : [];
@@ -100,7 +99,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
 
   useEffect(() => {
     if (chartData) {
-      draw(chartData, props);
+      draw(chartData, props, svgContainer);
     }
   }, [chartData, props]);
 
@@ -111,11 +110,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           <div className="map-title">
             <h4>{chartData.chartTitle}</h4>
           </div>
-          <div
-            id={props.id}
-            className="svg-container"
-            ref={SVG_CONTAINER_ELEMENT}
-          ></div>
+          <div id={props.id} className="svg-container" ref={svgContainer}></div>
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
           </div>
@@ -211,9 +206,13 @@ function processData(
   });
 }
 
-function draw(chartData: ChartData, props: MapTilePropType): void {
+function draw(
+  chartData: ChartData,
+  props: MapTilePropType,
+  svgContainer: React.RefObject<HTMLElement>
+): void {
   const mainStatVar = props.statVarMetadata.statVars[0].main;
-  const width = SVG_CONTAINER_ELEMENT.current.offsetWidth;
+  const width = svgContainer.current.offsetWidth;
   const colorScale = getColorScale(mainStatVar, chartData.dataValues);
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Missing";

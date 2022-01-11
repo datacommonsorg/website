@@ -13,46 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@import "./base";
-@import "./draw";
-@import "./draw_choropleth";
 
-.chart-container h4 {
-  color: var(--dc-gray);
-  font-weight: 600;
-  font-size: 1rem;
+import { StatVarMetadata } from "../types/stat_var";
+
+interface RankingMetadata {
+  showHighlight: boolean;
+  showLowlight: boolean;
+  showIncrease: boolean;
+  showDecrease: boolean;
+  diffBaseDate: string;
 }
 
-#main-pane {
-  flex-direction: column;
+interface HighlightMetadata {
+  description: string;
 }
 
-.chart-container {
-  padding: 10px;
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-}
-
-.svg-container {
-  flex: 1 1 auto;
-  width: 100%;
-}
-
-.map-title {
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-.block-body {
-  display: flex;
-}
-
-.left-tiles,
-.right-tiles {
-  display: flex;
-  flex-direction: column;
+export interface Tile {
+  title: string;
+  description: string;
+  type: string;
+  statVarOverride?: StatVarMetadata;
+  rankingMetadata?: RankingMetadata;
+  highlightMetadata?: HighlightMetadata;
 }

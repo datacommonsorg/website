@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
@@ -28,8 +28,6 @@ import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarMetadata } from "../types/stat_var";
 import { CHART_HEIGHT } from "./constants";
-
-const SVG_CONTAINER_ELEMENT: React.RefObject<HTMLDivElement> = React.createRef();
 
 interface LineTilePropType {
   id: string;
@@ -39,6 +37,7 @@ interface LineTilePropType {
 }
 
 export function LineTile(props: LineTilePropType): JSX.Element {
+  const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<StatApiResponse | undefined>(null);
   const [chartData, setChartData] = useState<DataGroup[] | undefined>(null);
 
@@ -54,7 +53,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     if (chartData) {
-      draw(props, chartData);
+      draw(props, chartData, svgContainer);
     }
   }, [props, chartData]);
 
@@ -65,11 +64,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
           <div className="line-title">
             <h4>{props.title}</h4>
           </div>
-          <div
-            id={props.id}
-            className="svg-container"
-            ref={SVG_CONTAINER_ELEMENT}
-          ></div>
+          <div id={props.id} className="svg-container" ref={svgContainer}></div>
         </>
       )}
     </div>
@@ -111,7 +106,11 @@ function processData(
   setChartData(trendData);
 }
 
-function draw(props: LineTilePropType, chartData: DataGroup[]): void {
+function draw(
+  props: LineTilePropType,
+  chartData: DataGroup[],
+  svgContainer: React.RefObject<HTMLElement>
+): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
@@ -125,9 +124,8 @@ function draw(props: LineTilePropType, chartData: DataGroup[]): void {
     props.statVarMetadata.unit
   );
   if (!isCompleteLine) {
-    SVG_CONTAINER_ELEMENT.current.querySelectorAll(
-      ".dotted-warning"
-    )[0].className += " d-inline";
+    svgContainer.current.querySelectorAll(".dotted-warning")[0].className +=
+      " d-inline";
   }
 }
 
