@@ -23,6 +23,7 @@ from flask import Flask, request, g
 from flask_babel import Babel
 from google.cloud import storage
 from google.protobuf import text_format
+from google.protobuf.json_format import MessageToJson
 
 from google.cloud import secretmanager
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
@@ -91,7 +92,7 @@ def load_topic_page_config():
     with open('topic_page_config.textproto', 'r') as f:
         data = f.read()
     text_format.Parse(data, topic_page_config)
-    return topic_page_config
+    return MessageToJson(topic_page_config)
 
 
 def create_app():
