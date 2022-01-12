@@ -25,6 +25,8 @@ following steps are required:
 
 - Install [`nodejs`](https://nodejs.org/en/download/)
 
+- Install [`protoc`](https://grpc.io/docs/protoc-installation/)
+
 - Initialize the mixer submodule
 
   ```bash
