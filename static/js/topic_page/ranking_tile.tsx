@@ -27,7 +27,8 @@ import { RankingMetadata } from "./tile";
 
 const RANKING_COUNT = 5;
 
-interface Point {
+// TODO: move this as a general data type.
+export interface Point {
   placeDcid: string;
   placeName?: string;
   stat: number;
