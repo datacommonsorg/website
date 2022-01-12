@@ -23,6 +23,7 @@ import { formatNumber, LocalizedLink } from "../i18n/i18n";
 
 const NUM_FRACTION_DIGITS = 2;
 
+// TODO: move this as a general data type.
 export interface Point {
   placeDcid: string;
   placeName?: string;
