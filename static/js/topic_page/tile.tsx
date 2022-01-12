@@ -16,15 +16,15 @@
 
 import { StatVarMetadata } from "../types/stat_var";
 
-interface RankingMetadata {
-  showHighlight: boolean;
-  showLowlight: boolean;
+export interface RankingMetadata {
+  showHighest: boolean;
+  showLowest: boolean;
   showIncrease: boolean;
   showDecrease: boolean;
   diffBaseDate: string;
 }
 
-interface HighlightMetadata {
+export interface HighlightMetadata {
   description: string;
 }
 

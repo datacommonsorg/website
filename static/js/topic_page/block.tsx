@@ -84,7 +84,10 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             id={id}
             title={tile.title}
+            placeDcid={props.placeDcid}
+            enclosedPlaceType={props.enclosedPlaceType}
             statVarMetadata={props.statVarMetadata}
+            rankingMetadata={tile.rankingMetadata}
           />
         );
       default:
