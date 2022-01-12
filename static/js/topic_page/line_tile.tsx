@@ -27,8 +27,8 @@ import { drawLineChart } from "../chart/draw";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarMetadata } from "../types/stat_var";
-import { CHART_HEIGHT } from "./constants";
 import { ChartTileContainer } from "./chart_tile";
+import { CHART_HEIGHT } from "./constants";
 
 interface LineTilePropType {
   id: string;
@@ -45,7 +45,9 @@ interface LineChartData {
 export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<StatApiResponse | undefined>(null);
-  const [lineChartData, setLineChartData] = useState<LineChartData | undefined>(null);
+  const [lineChartData, setLineChartData] = useState<LineChartData | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(props, setRawData);
@@ -67,12 +69,9 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     return null;
   }
   return (
-        <ChartTileContainer
-          title={props.title}
-          sources={lineChartData.sources}
-        >
-          <div id={props.id} className="svg-container" ref={svgContainer}></div>
-        </ChartTileContainer>
+    <ChartTileContainer title={props.title} sources={lineChartData.sources}>
+      <div id={props.id} className="svg-container" ref={svgContainer}></div>
+    </ChartTileContainer>
   );
 }
 
@@ -180,6 +179,6 @@ function rawToChart(
   }
   return {
     dataGroup: dataGroups,
-    sources: sources
+    sources: sources,
   };
 }

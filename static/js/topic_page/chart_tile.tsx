@@ -15,6 +15,7 @@
  */
 
 import React from "react";
+
 import { urlToDomain } from "../shared/util";
 
 interface ChartTileContainerProp {
@@ -26,15 +27,18 @@ interface ChartTileContainerProp {
 /**
  * A container for any tile containing a chart.
  */
-export function ChartTileContainer(props: ChartTileContainerProp) {
+export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   return (
     <div className="chart-container">
       <h4>{props.title}</h4>
       {props.children}
       {props.sources && (
-      <footer>
-        <div className="sources">Data from {getSourcesJsx(props.sources)}</div>
-      </footer>)}
+        <footer>
+          <div className="sources">
+            Data from {getSourcesJsx(props.sources)}
+          </div>
+        </footer>
+      )}
     </div>
   );
 }

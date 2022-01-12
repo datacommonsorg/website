@@ -162,7 +162,7 @@ function formatNumber(
   if (useDefaultFormat) {
     return Intl.NumberFormat(intl.locale).format(value);
   }
-  let formatOptions: any = {
+  const formatOptions: any = {
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
     maximumSignificantDigits: 3,

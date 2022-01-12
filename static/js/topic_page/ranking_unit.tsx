@@ -19,6 +19,7 @@
  */
 
 import React from "react";
+
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 
 const NUM_FRACTION_DIGITS = 2;
@@ -38,32 +39,37 @@ interface RankingUnitPropType {
   scaling?: number;
 }
 
-export function RankingUnit(props:RankingUnitPropType) {
+export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   return (
-      <div className="ranking-list">
-        <h4>{props.title}</h4>
-        <table>
-          <tbody>
-            {props.points.map((point, i) => {
-              return (
-                <tr key={point.placeDcid}>
-                  <td className="rank">{i + 1}.</td>
-                  <td className="place-name">
-                    <LocalizedLink
-                      href={`/place/${point.placeDcid}`}
-                      text={point.placeName || point.placeDcid}
-                    />
-                  </td>
-                  <td className="stat">
-                    <span className="num-value">
-                      {formatNumber(point.stat * props.scaling, props.unit, false, NUM_FRACTION_DIGITS)}
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+    <div className="ranking-list">
+      <h4>{props.title}</h4>
+      <table>
+        <tbody>
+          {props.points.map((point, i) => {
+            return (
+              <tr key={point.placeDcid}>
+                <td className="rank">{i + 1}.</td>
+                <td className="place-name">
+                  <LocalizedLink
+                    href={`/place/${point.placeDcid}`}
+                    text={point.placeName || point.placeDcid}
+                  />
+                </td>
+                <td className="stat">
+                  <span className="num-value">
+                    {formatNumber(
+                      point.stat * props.scaling,
+                      props.unit,
+                      false,
+                      NUM_FRACTION_DIGITS
+                    )}
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }

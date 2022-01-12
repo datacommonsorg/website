@@ -39,8 +39,8 @@ import {
   StatMetadata,
 } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
-import { CHART_HEIGHT } from "./constants";
 import { ChartTileContainer } from "./chart_tile";
+import { CHART_HEIGHT } from "./constants";
 
 interface MapTilePropType {
   id: string;
@@ -69,7 +69,9 @@ interface MapChartData {
 export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(null);
+  const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(
@@ -107,12 +109,12 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     return null;
   }
   return (
-        <ChartTileContainer
-          title={mapChartData.chartTitle}
-          sources={mapChartData.sources}
-        >
-          <div id={props.id} className="svg-container" ref={svgContainer}></div>
-        </ChartTileContainer>
+    <ChartTileContainer
+      title={mapChartData.chartTitle}
+      sources={mapChartData.sources}
+    >
+      <div id={props.id} className="svg-container" ref={svgContainer}></div>
+    </ChartTileContainer>
   );
 }
 

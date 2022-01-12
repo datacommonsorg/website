@@ -17,8 +17,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { MainPane } from "./main_pane";
 import { loadLocaleData } from "../i18n/i18n";
+import { MainPane } from "./main_pane";
 
 window.onload = () => {
   renderPage();
@@ -37,7 +37,7 @@ function renderPage(): void {
   );
 
   // TODO(beets): use locale from URL
-  const locale = 'en';
+  const locale = "en";
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
     // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.

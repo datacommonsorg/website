@@ -24,13 +24,13 @@ import React, { useEffect, useState } from "react";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
-import { RankingMetadata } from "./tile";
 import { Point, RankingUnit } from "./ranking_unit";
+import { RankingMetadata } from "./tile";
 
 const RANKING_COUNT = 5;
 
 interface RankingData {
-  [key: string]: Point[];  // Key is main statVarDcid
+  [key: string]: Point[]; // Key is main statVarDcid
 }
 
 interface RankingTilePropType {
@@ -56,7 +56,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const points = rankingData[statVar];
           return (
             <React.Fragment key={statVar}>
-              {props.rankingMetadata.showHighest &&
+              {props.rankingMetadata.showHighest && (
                 <RankingUnit
                   key={`${statVar}-highest`}
                   statVar={statVar}
@@ -64,9 +64,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   scaling={props.statVarMetadata.scaling}
                   title={`Highest ${getStatsVarLabel(statVar)}`}
                   points={points.slice(-RANKING_COUNT).reverse()}
-                  />
-              }
-              {props.rankingMetadata.showLowest &&
+                />
+              )}
+              {props.rankingMetadata.showLowest && (
                 <RankingUnit
                   key={`${statVar}-lowest`}
                   statVar={statVar}
@@ -74,12 +74,11 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   scaling={props.statVarMetadata.scaling}
                   title={`Lowest ${getStatsVarLabel(statVar)}`}
                   points={points.slice(0, RANKING_COUNT)}
-                  />
-              }
+                />
+              )}
             </React.Fragment>
-          )
-        })
-      }
+          );
+        })}
     </div>
   );
 }

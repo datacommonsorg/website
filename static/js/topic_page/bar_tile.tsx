@@ -27,9 +27,9 @@ import { drawGroupBarChart } from "../chart/draw";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { Point } from "./ranking_unit";
-import { ChartTileContainer } from "./chart_tile";
 
 const NUM_PLACES = 6;
 
@@ -50,7 +50,9 @@ interface BarChartData {
 
 export function BarTile(props: BarTilePropType): JSX.Element {
   const [rawData, setRawData] = useState<GetStatSetResponse | undefined>(null);
-  const [barChartData, setBarChartData] = useState<BarChartData | undefined>(null);
+  const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(props, setRawData);
@@ -72,11 +74,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     return null;
   }
   return (
-    <ChartTileContainer
-    title={props.title}
-    sources={barChartData.sources}
-    >
-          <div id={props.id} className="svg-container"></div>
+    <ChartTileContainer title={props.title} sources={barChartData.sources}>
+      <div id={props.id} className="svg-container"></div>
     </ChartTileContainer>
   );
 }
@@ -151,7 +150,7 @@ function processData(
     }
     setBarChartData({
       dataGroup: dataGroups,
-      sources: sources
+      sources: sources,
     });
   });
 }
