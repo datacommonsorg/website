@@ -31,7 +31,7 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const pageConfig = JSON.parse(
-    document.getElementById("main-pane").dataset.config
+    document.getElementById("topic-config").dataset.config
   );
 
   ReactDOM.render(

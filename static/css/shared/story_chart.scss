@@ -1,0 +1,53 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.svg-container {
+  flex: 1 1 auto;
+}
+
+.chart-container {
+}
+
+.chart-container h4 {
+  color: var(--dc-gray);
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline;
+  min-height: 2.2rem;
+}
+
+.chart-container h4 .sub-title {
+  color: #999;
+  padding-left: 0.25rem;
+}
+
+.chart-container label {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.chart-container select {
+  font-size: 0.9rem;
+  border-radius: 3px;
+  padding: 0.1rem;
+  border-color: var(--dc-gray-lite);
+}
+
+.chart-container footer {
+  font-size: 0.7rem;
+  color: var(--dc-gray);
+  margin-top: 0.5rem;
+}

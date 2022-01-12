@@ -16,35 +16,31 @@
 @import "./base";
 @import "./draw";
 @import "./draw_choropleth";
+@import "./shared/story_block";
+@import "./shared/story_chart";
 
-.chart-container h4 {
-  color: var(--dc-gray);
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-#main-pane {
-  flex-direction: column;
+#dc-topic-page a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .chart-container {
-  padding: 10px;
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
+  // display: flex;
+  // flex-grow: 1;
+  // flex-direction: column;
   position: relative;
+  padding: 10px;
   width: 100%;
 }
 
 .svg-container {
-  flex: 1 1 auto;
+  // flex: 1 1 auto;
+  min-height: 200px;
   width: 100%;
 }
 
-.map-title {
-  display: flex;
-  justify-content: center;
-  position: relative;
+.chart-container h4 {
+  text-align: center;
 }
 
 .block-body {
@@ -55,4 +51,17 @@
 .right-tiles {
   display: flex;
   flex-direction: column;
+}
+
+// SHARED WITH PLACE
+#dc-places h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+#dc-places h3 {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4rem;
 }

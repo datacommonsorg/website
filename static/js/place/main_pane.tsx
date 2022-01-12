@@ -133,7 +133,7 @@ class MainPane extends React.Component<MainPanePropType> {
         {topics.map((topic: string) => {
           if (isOverview) {
             return (
-              <section className="subtopic col-12" key={topic}>
+              <section className="block col-12" key={topic}>
                 <ChartHeader
                   text={topic}
                   place={this.props.dcid}
@@ -154,7 +154,7 @@ class MainPane extends React.Component<MainPanePropType> {
             return [
               categoryData[topic].map((data: ChartBlockData, index) => {
                 return (
-                  <section className="subtopic col-12" key={index + data.title}>
+                  <section className="block col-12" key={index + data.title}>
                     <ChartHeader
                       text={data.title}
                       place={this.props.dcid}
