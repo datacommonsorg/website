@@ -34,9 +34,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   }, [props]);
 
   return (
-    <div className="chart-container">
-      <h1>{props.description}</h1>
-      {highlightData && <div>{highlightData}</div>}
+    <div className="chart-container highlight-tile">
+      {highlightData && <span className="stat">{highlightData}</span>}
+      <span className="desc">{props.description}</span>
     </div>
   );
 }

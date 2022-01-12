@@ -37,7 +37,7 @@ interface LineTilePropType {
   statVarMetadata: StatVarMetadata;
 }
 
-interface ChartData {
+interface LineChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
 }
@@ -45,7 +45,7 @@ interface ChartData {
 export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<StatApiResponse | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
+  const [lineChartData, setLineChartData] = useState<LineChartData | undefined>(null);
 
   useEffect(() => {
     fetchData(props, setRawData);
@@ -53,23 +53,23 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     if (rawData) {
-      processData(props, rawData, setChartData);
+      processData(props, rawData, setLineChartData);
     }
   }, [props, rawData]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(props, chartData.dataGroup, svgContainer);
+    if (lineChartData) {
+      draw(props, lineChartData.dataGroup, svgContainer);
     }
-  }, [props, chartData]);
+  }, [props, lineChartData]);
 
-  if (!chartData) {
+  if (!lineChartData) {
     return null;
   }
   return (
         <ChartTileContainer
           title={props.title}
-          sources={chartData.sources}
+          sources={lineChartData.sources}
         >
           <div id={props.id} className="svg-container" ref={svgContainer}></div>
         </ChartTileContainer>
@@ -105,7 +105,7 @@ function fetchData(
 function processData(
   props: LineTilePropType,
   rawData: StatApiResponse,
-  setChartData: (data: ChartData) => void
+  setChartData: (data: LineChartData) => void
 ): void {
   const chartData = rawToChart(rawData, props);
   setChartData(chartData);
@@ -137,7 +137,7 @@ function draw(
 function rawToChart(
   rawData: StatApiResponse,
   props: LineTilePropType
-): ChartData {
+): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
   // together.

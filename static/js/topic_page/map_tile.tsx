@@ -58,7 +58,7 @@ interface RawData {
   population: StatApiResponse;
 }
 
-interface ChartData {
+interface MapChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
@@ -69,7 +69,7 @@ interface ChartData {
 export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
+  const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(null);
 
   useEffect(() => {
     fetchData(
@@ -92,24 +92,24 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         !_.isEmpty(props.statVarMetadata.statVars[0].denom),
         props.title,
         props.statVarMetadata.scaling,
-        setChartData
+        setMapChartData
       );
     }
   }, [rawData, props.statVarMetadata, props.title]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(chartData, props, svgContainer);
+    if (mapChartData) {
+      draw(mapChartData, props, svgContainer);
     }
-  }, [chartData, props]);
+  }, [mapChartData, props]);
 
-  if (!chartData) {
+  if (!mapChartData) {
     return null;
   }
   return (
         <ChartTileContainer
-          title={chartData.chartTitle}
-          sources={chartData.sources}
+          title={mapChartData.chartTitle}
+          sources={mapChartData.sources}
         >
           <div id={props.id} className="svg-container" ref={svgContainer}></div>
         </ChartTileContainer>
@@ -162,7 +162,7 @@ function processData(
   isPerCapita: boolean,
   chartTitle: string,
   scaling: number,
-  setChartData: (data: ChartData) => void
+  setChartData: (data: MapChartData) => void
 ): void {
   const dataValues = {};
   const metadata = {};
@@ -203,7 +203,7 @@ function processData(
 }
 
 function draw(
-  chartData: ChartData,
+  chartData: MapChartData,
   props: MapTilePropType,
   svgContainer: React.RefObject<HTMLElement>
 ): void {

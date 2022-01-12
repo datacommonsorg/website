@@ -77,3 +77,19 @@ $chart-container-top-margin: 20px;
 .ranking-list td.stat {
   width: 25%;
 }
+
+.highlight-tile {
+  display: flex;
+  font-family: $headings-font-family;
+  padding-top: 20%;
+}
+
+.highlight-tile .stat {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.highlight-tile .desc {
+  padding-left: .4em;
+  font-size: 1.2rem;
+}
