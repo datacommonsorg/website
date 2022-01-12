@@ -19,6 +19,9 @@ import React, { useEffect, useState } from "react";
 
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { formatNumber } from "../i18n/i18n";
+
+const NUM_FRACTION_DIGITS = 1;
 
 interface HighlightTilePropType {
   description: string;
@@ -35,7 +38,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
 
   return (
     <div className="chart-container highlight-tile">
-      {highlightData && <span className="stat">{highlightData}</span>}
+      {highlightData && <span className="stat">
+                      {formatNumber(highlightData, props.statVarMetadata.unit, false, NUM_FRACTION_DIGITS)}
+                      </span>}
       <span className="desc">{props.description}</span>
     </div>
   );
