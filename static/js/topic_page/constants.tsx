@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export const CHART_HEIGHT = 400;
+export const CHART_HEIGHT = 200;

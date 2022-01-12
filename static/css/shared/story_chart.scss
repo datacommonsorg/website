@@ -18,15 +18,12 @@
   flex: 1 1 auto;
 }
 
-.chart-container {
-}
-
 .chart-container h4 {
   color: var(--dc-gray);
   font-weight: 600;
   font-size: 0.85rem;
-  display: inline;
-  min-height: 2.2rem;
+  display: block;
+  height: 2.2rem;
 }
 
 .chart-container h4 .sub-title {

@@ -19,22 +19,20 @@
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
+$chart-container-top-margin: 20px;
+
 #dc-topic-page a {
   color: inherit;
   text-decoration: underline;
 }
 
 .chart-container {
-  // display: flex;
-  // flex-grow: 1;
-  // flex-direction: column;
+  margin-top: $chart-container-top-margin;
   position: relative;
-  padding: 10px;
   width: 100%;
 }
 
 .svg-container {
-  // flex: 1 1 auto;
   min-height: 200px;
   width: 100%;
 }
@@ -53,15 +51,29 @@
   flex-direction: column;
 }
 
-// SHARED WITH PLACE
-#dc-places h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
+.ranking-tile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: $chart-container-top-margin;
+  grid-row-gap: $chart-container-top-margin;
 }
 
-#dc-places h3 {
-  color: var(--secondary);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.4rem;
+.ranking-list {
+  width: 100%;
+}
+
+.ranking-list td {
+  font-size: .9rem;
+}
+
+.ranking-list table {
+  width: 100%;
+}
+
+.ranking-list td.rank {
+  width: 10%;
+}
+
+.ranking-list td.stat {
+  width: 25%;
 }

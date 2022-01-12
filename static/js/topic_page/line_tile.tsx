@@ -63,17 +63,16 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     }
   }, [props, chartData]);
 
+  if (!chartData) {
+    return null;
+  }
   return (
-    <div className="chart-container">
-      {chartData && (
         <ChartTileContainer
           title={props.title}
           sources={chartData.sources}
         >
           <div id={props.id} className="svg-container" ref={svgContainer}></div>
         </ChartTileContainer>
-      )}
-    </div>
   );
 }
 

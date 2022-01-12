@@ -156,18 +156,25 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
 function formatNumber(
   value: number,
   unit?: string,
-  useDefaultFormat?: boolean
+  useDefaultFormat?: boolean,
+  numFractionDigits?: number
 ): string {
   if (useDefaultFormat) {
     return Intl.NumberFormat(intl.locale).format(value);
   }
-  const formatOptions: any = {
+  let formatOptions: any = {
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
     maximumSignificantDigits: 3,
     notation: "compact",
     style: "decimal",
   };
+
+  if (numFractionDigits !== undefined) {
+    formatOptions.maximumFractionDigits = numFractionDigits;
+    formatOptions.minimumFractionDigits = numFractionDigits;
+    delete formatOptions.maximumSignificantDigits;
+  }
 
   let shouldAddUnit = false;
   let unitKey: string;
