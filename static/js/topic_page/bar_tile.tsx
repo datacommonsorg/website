@@ -27,8 +27,9 @@ import { drawGroupBarChart } from "../chart/draw";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
-import { Point } from "./ranking_tile";
+import { Point } from "./ranking_unit";
 
 const NUM_PLACES = 6;
 
@@ -42,9 +43,16 @@ interface BarTilePropType {
   statVarMetadata: StatVarMetadata;
 }
 
+interface BarChartData {
+  dataGroup: DataGroup[];
+  sources: Set<string>;
+}
+
 export function BarTile(props: BarTilePropType): JSX.Element {
   const [rawData, setRawData] = useState<GetStatSetResponse | undefined>(null);
-  const [chartData, setChartData] = useState<DataGroup[] | undefined>(null);
+  const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(props, setRawData);
@@ -52,27 +60,23 @@ export function BarTile(props: BarTilePropType): JSX.Element {
 
   useEffect(() => {
     if (rawData) {
-      processData(props, rawData, setChartData);
+      processData(props, rawData, setBarChartData);
     }
   }, [props, rawData]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(props, chartData);
+    if (barChartData) {
+      draw(props, barChartData);
     }
-  }, [props, chartData]);
+  }, [props, barChartData]);
 
+  if (!barChartData) {
+    return null;
+  }
   return (
-    <div className="chart-container">
-      {chartData && (
-        <>
-          <div className="line-title">
-            <h4>{props.title}</h4>
-          </div>
-          <div id={props.id} className="svg-container"></div>
-        </>
-      )}
-    </div>
+    <ChartTileContainer title={props.title} sources={barChartData.sources}>
+      <div id={props.id} className="svg-container"></div>
+    </ChartTileContainer>
   );
 }
 
@@ -102,10 +106,12 @@ function fetchData(
 function processData(
   props: BarTilePropType,
   rawData: GetStatSetResponse,
-  setChartData: (data: DataGroup[]) => void
+  setBarChartData: (data: BarChartData) => void
 ): void {
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
+  const sources = new Set<string>();
+  // TODO(beets): Fill in source URLs.
 
   // Find the most populated places.
   let popPoints: Point[] = [];
@@ -142,11 +148,14 @@ function processData(
       }
       dataGroups.push(new DataGroup(placeNames[placeDcid], dataPoints));
     }
-    setChartData(dataGroups);
+    setBarChartData({
+      dataGroup: dataGroups,
+      sources: sources,
+    });
   });
 }
 
-function draw(props: BarTilePropType, chartData: DataGroup[]): void {
+function draw(props: BarTilePropType, chartData: BarChartData): void {
   const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
   elem.innerHTML = "";
@@ -154,7 +163,7 @@ function draw(props: BarTilePropType, chartData: DataGroup[]): void {
     props.id,
     elem.offsetWidth,
     CHART_HEIGHT,
-    chartData,
+    chartData.dataGroup,
     props.statVarMetadata.unit
   );
 }

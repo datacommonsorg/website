@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,4 +14,37 @@
  * limitations under the License.
  */
 
-export const CHART_HEIGHT = 200;
+.svg-container {
+  flex: 1 1 auto;
+}
+
+.chart-container h4 {
+  color: var(--dc-gray);
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: block;
+  height: 2.2rem;
+}
+
+.chart-container h4 .sub-title {
+  color: #999;
+  padding-left: 0.25rem;
+}
+
+.chart-container label {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.chart-container select {
+  font-size: 0.9rem;
+  border-radius: 3px;
+  padding: 0.1rem;
+  border-color: var(--dc-gray-lite);
+}
+
+.chart-container footer {
+  font-size: 0.7rem;
+  color: var(--dc-gray);
+  margin-top: 0.5rem;
+}

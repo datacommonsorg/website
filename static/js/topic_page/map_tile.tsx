@@ -27,7 +27,7 @@ import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
 import { StatApiResponse } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
-import { getCappedStatVarDate, urlToDomain } from "../shared/util";
+import { getCappedStatVarDate } from "../shared/util";
 import {
   DataPointMetadata,
   getPlaceChartData,
@@ -39,6 +39,7 @@ import {
   StatMetadata,
 } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 
 interface MapTilePropType {
@@ -57,7 +58,7 @@ interface RawData {
   population: StatApiResponse;
 }
 
-interface ChartData {
+interface MapChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
@@ -68,8 +69,9 @@ interface ChartData {
 export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
-  const sourcesJsx = chartData ? getSourcesJsx(chartData.sources) : [];
+  const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(
@@ -92,31 +94,27 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         !_.isEmpty(props.statVarMetadata.statVars[0].denom),
         props.title,
         props.statVarMetadata.scaling,
-        setChartData
+        setMapChartData
       );
     }
   }, [rawData, props.statVarMetadata, props.title]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(chartData, props, svgContainer);
+    if (mapChartData) {
+      draw(mapChartData, props, svgContainer);
     }
-  }, [chartData, props]);
+  }, [mapChartData, props]);
 
+  if (!mapChartData) {
+    return null;
+  }
   return (
-    <div className="chart-container">
-      {chartData && (
-        <>
-          <div className="map-title">
-            <h4>{chartData.chartTitle}</h4>
-          </div>
-          <div id={props.id} className="svg-container" ref={svgContainer}></div>
-          <div className="map-footer">
-            <div className="sources">Data from {sourcesJsx}</div>
-          </div>
-        </>
-      )}
-    </div>
+    <ChartTileContainer
+      title={mapChartData.chartTitle}
+      sources={mapChartData.sources}
+    >
+      <div id={props.id} className="svg-container" ref={svgContainer}></div>
+    </ChartTileContainer>
   );
 }
 
@@ -166,7 +164,7 @@ function processData(
   isPerCapita: boolean,
   chartTitle: string,
   scaling: number,
-  setChartData: (data: ChartData) => void
+  setChartData: (data: MapChartData) => void
 ): void {
   const dataValues = {};
   const metadata = {};
@@ -207,7 +205,7 @@ function processData(
 }
 
 function draw(
-  chartData: ChartData,
+  chartData: MapChartData,
   props: MapTilePropType,
   svgContainer: React.RefObject<HTMLElement>
 ): void {
@@ -241,23 +239,4 @@ function draw(
     props.isUsaPlace,
     props.placeDcid
   );
-}
-
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
-      </span>
-    );
-  });
-  return sourcesJsx;
 }

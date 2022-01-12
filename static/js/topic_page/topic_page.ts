@@ -17,6 +17,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../i18n/i18n";
 import { MainPane } from "./main_pane";
 
 window.onload = () => {
@@ -27,12 +28,22 @@ function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
   const topic = urlParams.get("topic");
+  // TODO(beets): remove these if they remain unused.
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const pageConfig = JSON.parse(
-    document.getElementById("main-pane").dataset.config
+    document.getElementById("topic-config").dataset.config
   );
+
+  // TODO(beets): use locale from URL
+  const locale = "en";
+  loadLocaleData(locale, [
+    import(`../i18n/compiled-lang/${locale}/place.json`),
+    // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.
+    import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    import(`../i18n/compiled-lang/${locale}/units.json`),
+  ]);
 
   ReactDOM.render(
     React.createElement(MainPane, {

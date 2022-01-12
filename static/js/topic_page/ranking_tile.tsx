@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,21 +21,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { Point, RankingUnit } from "./ranking_unit";
 import { RankingMetadata } from "./tile";
 
 const RANKING_COUNT = 5;
 
-// TODO: move this as a general data type.
-export interface Point {
-  placeDcid: string;
-  placeName?: string;
-  stat: number;
-}
-
 interface RankingData {
-  [key: string]: Point[];
+  [key: string]: Point[]; // Key is main statVarDcid
 }
 
 interface RankingTilePropType {
@@ -47,57 +42,6 @@ interface RankingTilePropType {
   rankingMetadata: RankingMetadata;
 }
 
-function renderRankingUnit(
-  props: RankingTilePropType,
-  statVar: string,
-  points: Point[]
-): JSX.Element {
-  let highlightJsx: JSX.Element = <></>;
-  let lowlightJsx: JSX.Element = <></>;
-  if (props.rankingMetadata.showHighest) {
-    highlightJsx = (
-      <div>
-        <h3>{statVar}</h3>
-        <ul>
-          {points.slice(-5).map((point) => {
-            return (
-              <li key={point.placeDcid}>
-                {point.placeName}
-                {"  "}
-                {point.stat}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  }
-  if (props.rankingMetadata.showLowest) {
-    lowlightJsx = (
-      <div>
-        <h3>{statVar}</h3>
-        <ul>
-          {points.slice(0, 5).map((point) => {
-            return (
-              <li key={point.placeDcid}>
-                {point.placeName}
-                {"  "}
-                {point.stat}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  }
-  return (
-    <div>
-      {highlightJsx}
-      {lowlightJsx}
-    </div>
-  );
-}
-
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
 
@@ -106,13 +50,33 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   }, [props]);
 
   return (
-    <div className="chart-container">
+    <div className="chart-container ranking-tile">
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
+          const points = rankingData[statVar];
           return (
-            <div key={statVar}>
-              {renderRankingUnit(props, statVar, rankingData[statVar])}
-            </div>
+            <React.Fragment key={statVar}>
+              {props.rankingMetadata.showHighest && (
+                <RankingUnit
+                  key={`${statVar}-highest`}
+                  statVar={statVar}
+                  unit={props.statVarMetadata.unit}
+                  scaling={props.statVarMetadata.scaling}
+                  title={`Highest ${getStatsVarLabel(statVar)}`}
+                  points={points.slice(-RANKING_COUNT).reverse()}
+                />
+              )}
+              {props.rankingMetadata.showLowest && (
+                <RankingUnit
+                  key={`${statVar}-lowest`}
+                  statVar={statVar}
+                  unit={props.statVarMetadata.unit}
+                  scaling={props.statVarMetadata.scaling}
+                  title={`Lowest ${getStatsVarLabel(statVar)}`}
+                  points={points.slice(0, RANKING_COUNT)}
+                />
+              )}
+            </React.Fragment>
           );
         })}
     </div>
@@ -155,7 +119,7 @@ function fetchData(
           return a.stat - b.stat;
         });
         if (arr.length > RANKING_COUNT * 2) {
-          arr = arr.slice(0, 5).concat(arr.slice(-5));
+          arr = arr.slice(0, RANKING_COUNT).concat(arr.slice(-RANKING_COUNT));
         }
         rankingData[item.main] = arr;
       }

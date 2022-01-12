@@ -17,8 +17,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import { formatNumber } from "../i18n/i18n";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+
+const NUM_FRACTION_DIGITS = 1;
 
 interface HighlightTilePropType {
   description: string;
@@ -34,9 +37,18 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   }, [props]);
 
   return (
-    <div className="chart-container">
-      <h1>{props.description}</h1>
-      {highlightData && <div>{highlightData}</div>}
+    <div className="chart-container highlight-tile">
+      {highlightData && (
+        <span className="stat">
+          {formatNumber(
+            highlightData,
+            props.statVarMetadata.unit,
+            false,
+            NUM_FRACTION_DIGITS
+          )}
+        </span>
+      )}
+      <span className="desc">{props.description}</span>
     </div>
   );
 }

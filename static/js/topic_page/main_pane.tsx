@@ -49,10 +49,6 @@ interface MainPanePropType {
 export function MainPane(props: MainPanePropType): JSX.Element {
   return (
     <>
-      <div>{props.dcid}</div>
-      <div>{props.placeName}</div>
-      <div>{props.placeType}</div>
-      <div>{props.topic}</div>
       {props.pageConfig.blocks.map((block) => {
         const id = randDomId();
         return (
