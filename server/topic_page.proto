@@ -85,6 +85,5 @@ message Block {
 
 message TopicPageConfig {
   PageMetadata metadata = 1;
-  Block overview_block = 2;
-  repeated Block blocks = 3;
+  repeated Block blocks = 2;
 }
