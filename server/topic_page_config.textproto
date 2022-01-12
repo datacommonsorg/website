@@ -15,13 +15,15 @@
 ## This file specifies the config for topic page
 
 
-overview_block {
+blocks {
   description: "Some intro text about poverty. … "
   stat_var_metadata {
     stat_vars: {
       main: "Count_Person_BelowPovertyLevelInThePast12Months"
       denom: "Count_Person"
     }
+    unit: "%"
+    scaling: 100
   }
   left_tiles: {
     type: HIGHLIGHT
