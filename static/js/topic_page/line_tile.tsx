@@ -28,6 +28,7 @@ import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarMetadata } from "../types/stat_var";
 import { CHART_HEIGHT } from "./constants";
+import { ChartTileContainer } from "./chart_tile";
 
 interface LineTilePropType {
   id: string;
@@ -36,10 +37,15 @@ interface LineTilePropType {
   statVarMetadata: StatVarMetadata;
 }
 
+interface ChartData {
+  dataGroup: DataGroup[];
+  sources: Set<string>;
+}
+
 export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<StatApiResponse | undefined>(null);
-  const [chartData, setChartData] = useState<DataGroup[] | undefined>(null);
+  const [chartData, setChartData] = useState<ChartData | undefined>(null);
 
   useEffect(() => {
     fetchData(props, setRawData);
@@ -53,19 +59,19 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     if (chartData) {
-      draw(props, chartData, svgContainer);
+      draw(props, chartData.dataGroup, svgContainer);
     }
   }, [props, chartData]);
 
   return (
     <div className="chart-container">
       {chartData && (
-        <>
-          <div className="line-title">
-            <h4>{props.title}</h4>
-          </div>
+        <ChartTileContainer
+          title={props.title}
+          sources={chartData.sources}
+        >
           <div id={props.id} className="svg-container" ref={svgContainer}></div>
-        </>
+        </ChartTileContainer>
       )}
     </div>
   );
@@ -100,10 +106,10 @@ function fetchData(
 function processData(
   props: LineTilePropType,
   rawData: StatApiResponse,
-  setChartData: (data: DataGroup[]) => void
+  setChartData: (data: ChartData) => void
 ): void {
-  const trendData = rawToChart(rawData, props);
-  setChartData(trendData);
+  const chartData = rawToChart(rawData, props);
+  setChartData(chartData);
 }
 
 function draw(
@@ -132,7 +138,7 @@ function draw(
 function rawToChart(
   rawData: StatApiResponse,
   props: LineTilePropType
-): DataGroup[] {
+): ChartData {
   // (TODO): We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
   // together.
@@ -173,5 +179,8 @@ function rawToChart(
   for (let i = 0; i < dataGroups.length; i++) {
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
   }
-  return dataGroups;
+  return {
+    dataGroup: dataGroups,
+    sources: sources
+  };
 }
