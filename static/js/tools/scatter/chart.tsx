@@ -26,15 +26,15 @@ import ReactDOMServer from "react-dom/server";
 import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
+import { drawScatter, Point } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
+import { getStringOrNA } from "../../utils/number_utils";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
-import { Point } from "./chart_loader";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
-import { drawScatter } from "./draw_scatter";
 import { ScatterChartType } from "./util";
 
 interface ChartPropsType {
@@ -45,12 +45,11 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
-  xStatVar: string;
-  yStatVar: string;
   xUnits?: string;
   yUnits?: string;
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
+  sources: Set<string>;
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -112,24 +111,15 @@ function Chart(props: ChartPropsType): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>();
   const [geoJson, setGeoJson] = useState(null);
   const [geoJsonFetched, setGeoJsonFetched] = useState(false);
-  const sources: Set<string> = new Set();
   const xDates: Set<string> = new Set();
   const yDates: Set<string> = new Set();
   Object.values(props.points).forEach((point) => {
-    sources.add(point.xSource);
-    sources.add(point.ySource);
     xDates.add(point.xDate);
     yDates.add(point.yDate);
-    if (props.xPerCapita && point.xPopSource) {
-      sources.add(point.xPopSource);
-    }
-    if (props.yPerCapita && point.yPopSource) {
-      sources.add(point.yPopSource);
-    }
   });
-  const sourcesJsx = getSourcesJsx(sources);
   const xTitle = getTitle(Array.from(xDates), props.xLabel);
   const yTitle = getTitle(Array.from(yDates), props.yLabel);
+  const sourcesJsx = getSourcesJsx(props.sources);
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
@@ -220,20 +210,6 @@ function clearSVGs(): void {
 }
 
 /**
- * Formats a number, or returns "N/A" if not an number.
- * If the number is a float, keeps three non-zero decimal places.
- * eg. 0.000346546758 -> 0.000357
- * @param num
- */
-function getStringOrNA(num: number): string {
-  return _.isNil(num)
-    ? "N/A"
-    : Number.isInteger(num)
-    ? num.toString()
-    : num.toFixed(2 - Math.floor(Math.log(Math.abs(num % 1)) / Math.log(10)));
-}
-
-/**
  * Plots the chart which could either be a scatter plot or map.
  * @param svgContainerRef Ref for the container to plot the chart within
  * @param tooltipRef Ref for the tooltip div
@@ -247,13 +223,28 @@ function plot(
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
   const chartHeight = svgContainerRef.current.offsetHeight;
+  const scatterPlotOptions = {
+    xPerCapita: props.xPerCapita,
+    yPerCapita: props.yPerCapita,
+    xLog: props.xLog,
+    yLog: props.yLog,
+    showQuadrants: props.display.showQuadrants,
+    showDensity: props.display.showDensity,
+    showLabels: props.display.showLabels,
+    showRegression: props.display.showRegression,
+  };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
       tooltipRef,
       svgContainerRealWidth,
       chartHeight,
-      props,
+      props.points,
+      props.yLabel,
+      props.xLabel,
+      props.yUnits,
+      props.xUnits,
+      scatterPlotOptions,
       redirectAction,
       getTooltipElement
     );
@@ -360,11 +351,11 @@ function getTooltipElement(
         <b>{point.place.name || point.place.dcid}</b>
       </header>
       {xLabel}
-      {xPopDateMessage && <sup>{xPopDateMessage}</sup>}: ({point.xDate}):{" "}
+      {xPopDateMessage && <sup>{xPopDateMessage}</sup>} ({point.xDate}):{" "}
       <b>{getStringOrNA(point.xVal)}</b>
       <br />
       {yLabel}
-      {yPopDateMessage && <sup>{yPopDateMessage}</sup>}: ({point.yDate}):{" "}
+      {yPopDateMessage && <sup>{yPopDateMessage}</sup>} ({point.yDate}):{" "}
       <b>{getStringOrNA(point.yVal)}</b>
       <br />
       <footer>

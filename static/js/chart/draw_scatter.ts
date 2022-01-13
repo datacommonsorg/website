@@ -22,10 +22,24 @@ import * as d3 from "d3";
 import * as d3Regression from "d3-regression";
 import ReactDOM from "react-dom";
 
-import { wrap } from "../../chart/base";
-import { formatNumber } from "../../i18n/i18n";
-import { ChartPropsType } from "./chart";
-import { Point } from "./chart_loader";
+import { formatNumber } from "../i18n/i18n";
+import { NamedPlace } from "../shared/types";
+import { wrap } from "./base";
+
+/**
+ * Represents a point in the scatter plot.
+ */
+export interface Point {
+  place: NamedPlace;
+  xVal: number;
+  yVal: number;
+  xDate: string;
+  yDate: string;
+  xPop?: number;
+  yPop?: number;
+  xPopDate?: string;
+  yPopDate?: string;
+}
 
 const MARGINS = {
   bottom: 30,
@@ -424,7 +438,7 @@ function addTooltip(
   xPerCapita: boolean,
   yPerCapita: boolean
 ): void {
-  const div = d3.select(tooltip.current);
+  const div = d3.select(tooltip.current).style("visibility", "hidden");
   const onTooltipMouseover = (point: Point) => {
     const element = getTooltipElement(
       point,
@@ -537,17 +551,36 @@ function addRegressionLine(
 }
 
 /**
+ * Options that can be set for how the scatter plot is drawn.
+ */
+interface ScatterPlotOptions {
+  xPerCapita: boolean;
+  yPerCapita: boolean;
+  xLog: boolean;
+  yLog: boolean;
+  showQuadrants: boolean;
+  showDensity: boolean;
+  showLabels: boolean;
+  showRegression: boolean;
+}
+
+/**
  * Plots a scatter plot.
  * @param svg
  * @param tooltip
  * @param props
  */
 export function drawScatter(
-  svgContainerRef: React.MutableRefObject<HTMLDivElement>,
-  tooltipRef: React.MutableRefObject<HTMLDivElement>,
+  svgContainerRef: React.RefObject<HTMLDivElement>,
+  tooltipRef: React.RefObject<HTMLDivElement>,
   chartWidth: number,
   chartHeight: number,
-  props: ChartPropsType,
+  points: { [placeDcid: string]: Point },
+  yLabel: string,
+  xLabel: string,
+  yUnits: string,
+  xUnits: string,
+  options: ScatterPlotOptions,
   redirectAction: (placeDcid: string) => void,
   getTooltipElement: (
     point: Point,
@@ -569,8 +602,8 @@ export function drawScatter(
     .attr("transform", `translate(${svgXTranslation},0)`);
 
   // TODO: Handle log domain 0.
-  const xMinMax = d3.extent(Object.values(props.points), (point) => point.xVal);
-  const yMinMax = d3.extent(Object.values(props.points), (point) => point.yVal);
+  const xMinMax = d3.extent(Object.values(points), (point) => point.xVal);
+  const yMinMax = d3.extent(Object.values(points), (point) => point.yVal);
 
   let height = chartHeight - MARGINS.top - MARGINS.bottom;
   const minXAxisHeight = 30;
@@ -579,11 +612,11 @@ export function drawScatter(
     yAxisLabel,
     height - minXAxisHeight,
     MARGINS.top,
-    props.yLabel,
-    props.yUnits
+    yLabel,
+    yUnits
   );
   let width = chartWidth - MARGINS.left - MARGINS.right - yAxisWidth;
-  if (props.display.showDensity) {
+  if (options.showDensity) {
     width = width - DENSITY_LEGEND_WIDTH;
   }
 
@@ -593,8 +626,8 @@ export function drawScatter(
     width,
     MARGINS.left + yAxisWidth,
     chartHeight,
-    props.xLabel,
-    props.xUnits
+    xLabel,
+    xUnits
   );
   height = height - xAxisHeight;
 
@@ -605,19 +638,26 @@ export function drawScatter(
       `translate(${MARGINS.left + yAxisWidth},${MARGINS.top})`
     );
 
-  const xScale = addXAxis(g, props.xLog, height, width, xMinMax[0], xMinMax[1]);
-  const yScale = addYAxis(g, props.yLog, height, yMinMax[0], yMinMax[1]);
+  const xScale = addXAxis(
+    g,
+    options.xLog,
+    height,
+    width,
+    xMinMax[0],
+    xMinMax[1]
+  );
+  const yScale = addYAxis(g, options.yLog, height, yMinMax[0], yMinMax[1]);
 
-  if (props.display.showQuadrants) {
+  if (options.showQuadrants) {
     const quadrant = g.append("g");
-    const xMean = d3.mean(Object.values(props.points), (point) => point.xVal);
-    const yMean = d3.mean(Object.values(props.points), (point) => point.yVal);
+    const xMean = d3.mean(Object.values(points), (point) => point.xVal);
+    const yMean = d3.mean(Object.values(points), (point) => point.yVal);
     addQuadrants(quadrant, xScale, yScale, xMean, yMean, width, height);
   }
 
   const dots = g
     .selectAll("dot")
-    .data(Object.values(props.points))
+    .data(Object.values(points))
     .enter()
     .append("circle")
     .attr("r", 5)
@@ -627,13 +667,13 @@ export function drawScatter(
     .style("opacity", "0.7")
     .on("click", (point: Point) => redirectAction(point.place.dcid));
 
-  if (props.display.showDensity) {
+  if (options.showDensity) {
     addDensity(
       svg,
       dots,
       xScale,
       yScale,
-      Object.values(props.points),
+      Object.values(points),
       width,
       height,
       MARGINS.top
@@ -645,11 +685,11 @@ export function drawScatter(
       .attr("stroke-width", STROKE_WIDTH);
   }
 
-  if (props.display.showLabels) {
+  if (options.showLabels) {
     g.append("g")
       .attr("class", "dot-label")
       .selectAll("text")
-      .data(Object.values(props.points))
+      .data(Object.values(points))
       .enter()
       .append("text")
       .attr("dy", "0.35em")
@@ -658,19 +698,19 @@ export function drawScatter(
       .text((point) => point.place.name);
   }
 
-  if (props.display.showRegression) {
+  if (options.showRegression) {
     const regressionLine = g.append("g");
-    addRegressionLine(regressionLine, xScale, yScale, props.points, xMinMax);
+    addRegressionLine(regressionLine, xScale, yScale, points, xMinMax);
   }
 
   addTooltip(
     svgContainerRef,
     tooltipRef,
     dots,
-    props.xLabel,
-    props.yLabel,
+    xLabel,
+    yLabel,
     getTooltipElement,
-    props.xPerCapita,
-    props.yPerCapita
+    options.xPerCapita,
+    options.yPerCapita
   );
 }

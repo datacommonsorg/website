@@ -40,3 +40,5 @@ export const IPCC_PLACE_50_TYPE_DCID = "IPCCPlace_50";
 
 export const MAX_YEAR = "2050";
 export const MAX_DATE = "2050-06";
+
+export const DEFAULT_POPULATION_DCID = "Count_Person";
