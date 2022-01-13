@@ -89,16 +89,23 @@ h3 {
 }
 
 #menu .nav-item .nav-item a {
-  font-weight: 300;
   padding: 0.25rem 0 0.25rem 0.5rem;
   font-size: 0.8rem;
+}
+
+#menu .nav-item .nav-item a.topic {
+  font-weight: 600;
+}
+
+#menu .nav-item .nav-item a {
+  font-weight: 300;
 }
 
 #menu a.active {
   color: var(--link-color);
 }
 
-#main h2 {
+#main h2.category {
   color: var(--dc-gray);
   font-weight: 600;
   font-size: 1.1rem;
@@ -319,4 +326,12 @@ h3 {
   font-style: italic;
   text-align: right;
   text-decoration: none !important;
+}
+
+.block.topic-header {
+  margin-bottom: -1rem;
+}
+
+.block h3 {
+  color: inherit;
 }

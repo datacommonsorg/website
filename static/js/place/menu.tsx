@@ -23,7 +23,8 @@ interface MenuCategoryPropsType {
   dcid: string;
   selectCategory: string;
   category: string;
-  items: string[];
+  items: string[][];
+  topics: string[];
   categoryDisplayStr: string;
 }
 
@@ -52,15 +53,28 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           data-parent="#nav-topics"
         >
           <div className="d-block">
-            {items.map((topic: string) => {
+            {this.props.topics.map((topic: string) => {
               return (
-                <li className="nav-item" key={topic}>
+                <React.Fragment key={topic}>
+                <li className="nav-item">
                   <LocalizedLink
                     href={`${hrefString}#${topic.replace(/ /g, "-")}`}
-                    className="nav-link"
+                    className="nav-link topic"
                     text={topic}
                   />
                 </li>
+                {items[topic].map((block: string) => {
+                  return (
+                    <li className="nav-item" key={block}>
+                      <LocalizedLink
+                        href={`${hrefString}#${block.replace(/ /g, "-")}`}
+                        className="nav-link"
+                        text={block}
+                      />
+                    </li>
+                  );
+                })}
+                </React.Fragment>
               );
             })}
           </div>
@@ -100,16 +114,17 @@ class Menu extends React.Component<MenuPropsType> {
           </li>
         )}
         {categories.map((category: string) => {
-          let items: string[] = [];
+          let items: string[][] = [];
+          let topics: string[] = [];
           if (category === "Overview") {
             items = Object.keys(this.props.pageChart[category]).map(
               (t) => this.props.categories[t]
             );
           } else {
-            const topics = Object.keys(this.props.pageChart[category]);
-            topics.sort();
+            topics = Object.keys(this.props.pageChart[category]);
             for (const topic of topics) {
-              items.push(
+              items[topic] = [];
+              items[topic].push(
                 ...this.props.pageChart[category][topic].map((c) => c.title)
               );
             }
@@ -123,6 +138,7 @@ class Menu extends React.Component<MenuPropsType> {
                 selectCategory={selectCategory}
                 category={category}
                 items={items}
+                topics={topics}
                 categoryDisplayStr={categoryDisplayStr}
               />
             );
