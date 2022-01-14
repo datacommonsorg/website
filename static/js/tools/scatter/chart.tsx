@@ -26,7 +26,7 @@ import ReactDOMServer from "react-dom/server";
 import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
-import { drawScatter, Point } from "../../chart/draw_scatter";
+import { drawScatter, Point, ScatterPlotOptions, ScatterPlotProperties } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
@@ -223,7 +223,7 @@ function plot(
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
   const chartHeight = svgContainerRef.current.offsetHeight;
-  const scatterPlotOptions = {
+  const scatterPlotOptions: ScatterPlotOptions = {
     xPerCapita: props.xPerCapita,
     yPerCapita: props.yPerCapita,
     xLog: props.xLog,
@@ -233,18 +233,21 @@ function plot(
     showLabels: props.display.showLabels,
     showRegression: props.display.showRegression,
   };
+  const ScatterPlotProperties: ScatterPlotProperties = {
+    width: svgContainerRealWidth,
+    height: chartHeight,
+    xLabel: props.xLabel,
+    yLabel: props.yLabel,
+    xUnit: props.xUnits,
+    yUnit: props.yUnits
+  }
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
       tooltipRef,
-      svgContainerRealWidth,
-      chartHeight,
-      props.points,
-      props.yLabel,
-      props.xLabel,
-      props.yUnits,
-      props.xUnits,
+      ScatterPlotProperties,
       scatterPlotOptions,
+      props.points,
       redirectAction,
       getTooltipElement
     );

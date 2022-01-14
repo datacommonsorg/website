@@ -553,7 +553,7 @@ function addRegressionLine(
 /**
  * Options that can be set for how the scatter plot is drawn.
  */
-interface ScatterPlotOptions {
+export interface ScatterPlotOptions {
   xPerCapita: boolean;
   yPerCapita: boolean;
   xLog: boolean;
@@ -565,22 +565,33 @@ interface ScatterPlotOptions {
 }
 
 /**
- * Plots a scatter plot.
- * @param svg
- * @param tooltip
- * @param props
+ * Properties of the scatter plot to be drawn.
+ */
+export interface ScatterPlotProperties {
+  width: number;
+  height: number;
+  xLabel: string;
+  yLabel: string;
+  xUnit: string;
+  yUnit: string;
+}
+
+/**
+ * Draws a scatter plot.
+ * @param svgContainerRef the ref to draw the scatter plot in
+ * @param tooltipRef the ref for the tooltip
+ * @param properties the properties of the scatter plot to draw
+ * @param options the options that are set for how the scatter plot is drawn
+ * @param points the points to plot
+ * @param redirectAction function to run when dot on the scatter plot is clicked
+ * @param getTooltipElement function to get the element to show in the tooltip
  */
 export function drawScatter(
   svgContainerRef: React.RefObject<HTMLDivElement>,
   tooltipRef: React.RefObject<HTMLDivElement>,
-  chartWidth: number,
-  chartHeight: number,
-  points: { [placeDcid: string]: Point },
-  yLabel: string,
-  xLabel: string,
-  yUnits: string,
-  xUnits: string,
+  properties: ScatterPlotProperties,
   options: ScatterPlotOptions,
+  points: { [placeDcid: string]: Point },
   redirectAction: (placeDcid: string) => void,
   getTooltipElement: (
     point: Point,
@@ -592,30 +603,32 @@ export function drawScatter(
 ): void {
   const svgContainerWidth = svgContainerRef.current.offsetWidth;
   const svgXTranslation =
-    chartWidth < svgContainerWidth ? (svgContainerWidth - chartWidth) / 2 : 0;
+    properties.width < svgContainerWidth
+      ? (svgContainerWidth - properties.width) / 2
+      : 0;
   const svg = d3
     .select(svgContainerRef.current)
     .append("svg")
     .attr("id", "scatterplot")
-    .attr("width", chartWidth)
-    .attr("height", chartHeight)
+    .attr("width", properties.width)
+    .attr("height", properties.height)
     .attr("transform", `translate(${svgXTranslation},0)`);
 
   // TODO: Handle log domain 0.
   const xMinMax = d3.extent(Object.values(points), (point) => point.xVal);
   const yMinMax = d3.extent(Object.values(points), (point) => point.yVal);
 
-  let height = chartHeight - MARGINS.top - MARGINS.bottom;
+  let height = properties.height - MARGINS.top - MARGINS.bottom;
   const minXAxisHeight = 30;
   const yAxisLabel = svg.append("g").attr("class", "y-axis-label");
   const yAxisWidth = addYLabel(
     yAxisLabel,
     height - minXAxisHeight,
     MARGINS.top,
-    yLabel,
-    yUnits
+    properties.yLabel,
+    properties.yUnit
   );
-  let width = chartWidth - MARGINS.left - MARGINS.right - yAxisWidth;
+  let width = properties.width - MARGINS.left - MARGINS.right - yAxisWidth;
   if (options.showDensity) {
     width = width - DENSITY_LEGEND_WIDTH;
   }
@@ -625,9 +638,9 @@ export function drawScatter(
     xAxisLabel,
     width,
     MARGINS.left + yAxisWidth,
-    chartHeight,
-    xLabel,
-    xUnits
+    properties.height,
+    properties.xLabel,
+    properties.xUnit
   );
   height = height - xAxisHeight;
 
@@ -707,8 +720,8 @@ export function drawScatter(
     svgContainerRef,
     tooltipRef,
     dots,
-    xLabel,
-    yLabel,
+    properties.xLabel,
+    properties.yLabel,
     getTooltipElement,
     options.xPerCapita,
     options.yPerCapita

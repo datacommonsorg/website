@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawScatter, Point } from "../chart/draw_scatter";
+import { drawScatter, Point, ScatterPlotOptions, ScatterPlotProperties } from "../chart/draw_scatter";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { getStatsWithinPlace } from "../tools/scatter/util";
@@ -224,7 +224,7 @@ function draw(
   tooltip: React.RefObject<HTMLDivElement>
 ): void {
   const width = svgContainer.current.offsetWidth;
-  const plotOptions = {
+  const plotOptions: ScatterPlotOptions = {
     xPerCapita: !_.isEmpty(chartData.xStatVar.denom),
     yPerCapita: !_.isEmpty(chartData.yStatVar.denom),
     xLog: false,
@@ -242,17 +242,20 @@ function draw(
     ? " Per Capita"
     : "";
   const xLabel = `${getStatsVarLabel(chartData.xStatVar.main)}${xLabelSuffix}`;
+  const plotProperties: ScatterPlotProperties = {
+    width,
+    height: CHART_HEIGHT,
+    xLabel,
+    yLabel,
+    xUnit: props.statVarMetadata.unit,
+    yUnit: props.statVarMetadata.unit
+  }
   drawScatter(
     svgContainer,
     tooltip,
-    width,
-    CHART_HEIGHT,
-    chartData.points,
-    yLabel,
-    xLabel,
-    props.statVarMetadata.unit,
-    props.statVarMetadata.unit,
+    plotProperties,
     plotOptions,
+    chartData.points,
     _.noop,
     getTooltipElement
   );
