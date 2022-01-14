@@ -20,6 +20,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React from "react";
 
 import { StatVarCharts } from "../browser/stat_var_charts";
@@ -38,18 +39,20 @@ interface StatVarSectionPropType {
 
 interface StatVarSectionStateType {
   svSummary: { [sv: string]: StatVarSummary };
-  svSummaryFetched: boolean;
+  svSummaryFetched: string[];
 }
 
 export class StatVarSection extends React.Component<
   StatVarSectionPropType,
   StatVarSectionStateType
 > {
+  svSummaryFetching: string[];
+
   constructor(props: StatVarSectionPropType) {
     super(props);
     this.state = {
       svSummary: {},
-      svSummaryFetched: false,
+      svSummaryFetched: [],
     };
   }
 
@@ -58,7 +61,16 @@ export class StatVarSection extends React.Component<
   }
 
   componentDidUpdate(): void {
-    if (!this.state.svSummaryFetched) {
+    // Check if there are any stat vars in this section for which the summary
+    // hasn't been fetched yet or isn't in the process of being fetched. If so,
+    // fetch summary.
+    let svToFetch = this.props.data.map((sv) => sv.id);
+    if (this.svSummaryFetching === null) {
+      svToFetch = _.difference(svToFetch, this.state.svSummaryFetched);
+    } else {
+      svToFetch = _.difference(svToFetch, this.svSummaryFetching);
+    }
+    if (!_.isEmpty(svToFetch)) {
       this.fetchSummary();
     }
   }
@@ -103,13 +115,18 @@ export class StatVarSection extends React.Component<
       return;
     }
     const statVarList = this.props.data.map((sv) => sv.id);
+    this.svSummaryFetching = statVarList;
     axios
       .post("/api/stats/stat-var-summary", { statVars: statVarList })
       .then((resp) => {
         const data = resp.data;
-        this.setState({ svSummary: data, svSummaryFetched: true });
+        this.svSummaryFetching = null;
+        this.setState({ svSummary: data, svSummaryFetched: statVarList });
       })
-      .catch(() => this.setState({ svSummaryFetched: true }));
+      .catch(() => {
+        this.svSummaryFetching = null;
+        this.setState({ svSummaryFetched: statVarList });
+      });
   }
 }
 
