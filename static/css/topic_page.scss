@@ -16,6 +16,7 @@
 @import "./base";
 @import "./draw";
 @import "./draw_choropleth";
+@import "./draw_scatter";
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
@@ -92,4 +93,17 @@ $chart-container-top-margin: 20px;
 .highlight-tile .desc {
   padding-left: .4em;
   font-size: 1.2rem;
+}
+
+.scatter-svg-container {
+  font-size: 0.75rem;
+}
+
+.scatter-svg-container circle:hover {
+  stroke: var(--dc-gray);
+  stroke-width: 1.5;
+}
+
+.scatter-svg-container circle {
+  r: 3.5;
 }

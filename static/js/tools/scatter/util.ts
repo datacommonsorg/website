@@ -21,7 +21,6 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { StatVarNode } from "../../shared/stat_var";
 import { getCappedStatVarDate } from "../../shared/util";
 import { GetStatSetResponse } from "../shared_util";
 import {
@@ -39,20 +38,10 @@ export enum ScatterChartType {
   MAP,
 }
 
-async function getPlacesInNames(
-  dcid: string,
-  type: string
-): Promise<Record<string, string>> {
-  const resp = await axios.get(
-    `/api/place/places-in-names?dcid=${dcid}&placeType=${type}`
-  );
-  return resp.data;
-}
-
 async function getStatsWithinPlace(
   parent_place: string,
   child_type: string,
-  statVars: Array<Axis>
+  statVars: { statVarDcid: string; date?: string }[]
 ): Promise<GetStatSetResponse> {
   let statVarParams = "";
   // There are two stat vars for scatter plot.
@@ -82,15 +71,6 @@ async function getStatsWithinPlace(
     }
     return result;
   });
-}
-
-/**
- * Given a `StatsVarNode` that only has one key,
- * return the key.
- * @param node
- */
-function nodeGetStatVar(node: StatVarNode): string {
-  return _.findKey(node);
 }
 
 /**
@@ -346,10 +326,4 @@ export function areStatVarsPicked(x: Axis, y: Axis): boolean {
   return !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo);
 }
 
-export {
-  applyHash,
-  getPlacesInNames,
-  getStatsWithinPlace,
-  nodeGetStatVar,
-  updateHash,
-};
+export { applyHash, getStatsWithinPlace, updateHash };
