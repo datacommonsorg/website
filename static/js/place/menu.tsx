@@ -56,24 +56,24 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
             {this.props.topics.map((topic: string) => {
               return (
                 <React.Fragment key={topic}>
-                <li className="nav-item">
-                  <LocalizedLink
-                    href={`${hrefString}#${topic.replace(/ /g, "-")}`}
-                    className="nav-link topic"
-                    text={topic}
-                  />
-                </li>
-                {items[topic].map((block: string) => {
-                  return (
-                    <li className="nav-item" key={block}>
-                      <LocalizedLink
-                        href={`${hrefString}#${block.replace(/ /g, "-")}`}
-                        className="nav-link"
-                        text={block}
-                      />
-                    </li>
-                  );
-                })}
+                  <li className="nav-item">
+                    <LocalizedLink
+                      href={`${hrefString}#${topic.replace(/ /g, "-")}`}
+                      className="nav-link topic"
+                      text={topic}
+                    />
+                  </li>
+                  {items[topic].map((block: string) => {
+                    return (
+                      <li className="nav-item" key={block}>
+                        <LocalizedLink
+                          href={`${hrefString}#${block.replace(/ /g, "-")}`}
+                          className="nav-link"
+                          text={block}
+                        />
+                      </li>
+                    );
+                  })}
                 </React.Fragment>
               );
             })}

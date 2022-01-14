@@ -150,7 +150,9 @@ class MainPane extends React.Component<MainPanePropType> {
             // UI.
             return [
               <section className="block topic-header col-12" key={topic}>
-                <h2 key={topic} id={topic} className="topic">{topic}</h2>
+                <h2 key={topic} id={topic} className="topic">
+                  {topic}
+                </h2>
               </section>,
               categoryData[topic].map((data: ChartBlockData, index) => {
                 return (
