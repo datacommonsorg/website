@@ -85,7 +85,8 @@ export class StatVarGroupNode extends React.Component<
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   delayTimer: NodeJS.Timeout;
   context: ContextType;
-  hasData: boolean;
+  // the list of places for which data fetch has begun, but not finished.
+  dataFetchingPlaces: NamedPlace[];
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
@@ -98,6 +99,7 @@ export class StatVarGroupNode extends React.Component<
       selectionCount: 0,
     };
     this.highlightedStatVar = React.createRef();
+    this.dataFetchingPlaces = null;
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
     this.fetchData = this.fetchData.bind(this);
   }
@@ -133,10 +135,12 @@ export class StatVarGroupNode extends React.Component<
   }
 
   fetchDataIfNecessary(): void {
-    if (
-      (this.props.startsOpened || this.state.toggledOpen) &&
-      !_.isEqual(this.state.dataFetchedPlaces, this.props.places)
-    ) {
+    // Check if data for current list of places is being fetched or has already
+    // finished fetching. If so, don't fetch again.
+    const placesFetched =
+      _.isEqual(this.state.dataFetchedPlaces, this.props.places) ||
+      _.isEqual(this.dataFetchingPlaces, this.props.places);
+    if ((this.props.startsOpened || this.state.toggledOpen) && !placesFetched) {
       this.fetchData();
     }
   }
@@ -249,23 +253,30 @@ export class StatVarGroupNode extends React.Component<
     for (const place of placeList) {
       url += `&places=${place.dcid}`;
     }
+    this.dataFetchingPlaces = placeList;
     axios
       .get(url)
       .then((resp) => {
         const data = resp.data;
         const childSV: StatVarInfo[] = data["childStatVars"] || [];
         const childSVG: StatVarGroupInfo[] = data["childStatVarGroups"] || [];
-        this.setState({
-          childSV,
-          childSVG,
-          dataFetchedPlaces: placeList,
-        });
+        this.dataFetchingPlaces = null;
+        if (_.isEqual(placeList, this.props.places)) {
+          this.setState({
+            childSV,
+            childSVG,
+            dataFetchedPlaces: placeList,
+          });
+        }
       })
       .catch(() => {
-        this.setState({
-          errorMessage: "Error retrieving stat var group children",
-          dataFetchedPlaces: placeList,
-        });
+        this.dataFetchingPlaces = null;
+        if (_.isEqual(placeList, this.props.places)) {
+          this.setState({
+            errorMessage: "Error retrieving stat var group children",
+            dataFetchedPlaces: placeList,
+          });
+        }
       });
   }
 
