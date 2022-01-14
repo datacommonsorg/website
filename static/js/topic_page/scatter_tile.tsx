@@ -22,7 +22,12 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawScatter, Point, ScatterPlotOptions, ScatterPlotProperties } from "../chart/draw_scatter";
+import {
+  drawScatter,
+  Point,
+  ScatterPlotOptions,
+  ScatterPlotProperties,
+} from "../chart/draw_scatter";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { getStatsWithinPlace } from "../tools/scatter/util";
@@ -248,8 +253,8 @@ function draw(
     xLabel,
     yLabel,
     xUnit: props.statVarMetadata.unit,
-    yUnit: props.statVarMetadata.unit
-  }
+    yUnit: props.statVarMetadata.unit,
+  };
   drawScatter(
     svgContainer,
     tooltip,

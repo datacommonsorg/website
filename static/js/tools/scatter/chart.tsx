@@ -26,7 +26,12 @@ import ReactDOMServer from "react-dom/server";
 import { Card, Row } from "reactstrap";
 
 import { drawChoropleth } from "../../chart/draw_choropleth";
-import { drawScatter, Point, ScatterPlotOptions, ScatterPlotProperties } from "../../chart/draw_scatter";
+import {
+  drawScatter,
+  Point,
+  ScatterPlotOptions,
+  ScatterPlotProperties,
+} from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
@@ -239,8 +244,8 @@ function plot(
     xLabel: props.xLabel,
     yLabel: props.yLabel,
     xUnit: props.xUnits,
-    yUnit: props.yUnits
-  }
+    yUnit: props.yUnits,
+  };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
