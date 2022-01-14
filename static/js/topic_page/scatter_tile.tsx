@@ -94,7 +94,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   return (
     <ChartTileContainer title={props.title} sources={chartData.sources}>
       <div id={props.id} className="scatter-svg-container" ref={svgContainer} />
-      <div className="scatter-tooltip" ref={tooltip} />
+      <div id="scatter-tooltip" ref={tooltip} />
     </ChartTileContainer>
   );
 }
@@ -128,6 +128,7 @@ function fetchData(
   setRawData: (data: RawData) => void
 ): void {
   if (statVarMetadata.statVars.length < 2) {
+    // TODO: add error message
     return;
   }
   const placeStatsPromise = getStatsWithinPlace(placeDcid, enclosedPlaceType, [

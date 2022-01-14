@@ -16,6 +16,7 @@
 @import "./base";
 @import "./draw";
 @import "./draw_choropleth";
+@import "./draw_scatter";
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
@@ -92,29 +93,6 @@ $chart-container-top-margin: 20px;
 .highlight-tile .desc {
   padding-left: .4em;
   font-size: 1.2rem;
-}
-
-.scatter-tooltip {
-  position: absolute;
-  background-color: var(--dc-gray-lite);
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
-  font-size: 0.75rem;
-  padding: 0.4rem;
-  border-radius: 8px;
-  opacity: 0.9;
-  z-index: 2;
-  border: 0.5px solid var(--dc-gray-lite);
-  word-break: break-word;  
-  white-space: normal;
-}
-
-.scatter-tooltip header {
-  font-weight: bold;
-  margin-bottom: 0.4rem;
-}
-
-.scatter-tooltip footer {
-  margin-top: 0.4rem;
 }
 
 .scatter-svg-container {

@@ -189,7 +189,7 @@ function Chart(props: ChartPropsType): JSX.Element {
           <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
             <div id={MAP_LEGEND_CONTAINER_ID}></div>
-            <div id="tooltip" ref={tooltipRef} />
+            <div id="scatter-tooltip" ref={tooltipRef} />
           </div>
           <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
