@@ -27,6 +27,7 @@ import { HighlightTile } from "./highlight_tile";
 import { LineTile } from "./line_tile";
 import { MapTile } from "./map_tile";
 import { RankingTile } from "./ranking_tile";
+import { ScatterTile } from "./scatter_tile";
 import { Tile } from "./tile";
 
 export interface BlockPropType {
@@ -106,6 +107,17 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
       case "BAR":
         return (
           <BarTile
+            key={id}
+            id={id}
+            title={tile.title}
+            placeDcid={props.placeDcid}
+            enclosedPlaceType={props.enclosedPlaceType}
+            statVarMetadata={props.statVarMetadata}
+          />
+        );
+      case "SCATTER":
+        return (
+          <ScatterTile
             key={id}
             id={id}
             title={tile.title}
