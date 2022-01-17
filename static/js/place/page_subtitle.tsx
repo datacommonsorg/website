@@ -41,7 +41,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
       );
     } else {
       elem = (
-        <h2 className="col-12 pt-2">
+        <h2 className="category col-12 pt-2">
           {this.props.categoryDisplayStr}
           <span className="more">
             <LocalizedLink
