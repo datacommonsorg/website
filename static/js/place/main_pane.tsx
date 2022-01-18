@@ -122,9 +122,6 @@ class MainPane extends React.Component<MainPanePropType> {
     const categoryData = this.props.pageChart[this.props.category];
     const isOverview = this.props.category === "Overview";
     const topics = Object.keys(categoryData);
-    if (!isOverview) {
-      topics.sort();
-    }
     return (
       <RawIntlProvider value={intl}>
         {this.showOverview() && (
@@ -152,6 +149,13 @@ class MainPane extends React.Component<MainPanePropType> {
             // The topic is only used for grouping, which is not displayed on
             // UI.
             return [
+              topic && (
+                <section className="block topic-header col-12" key={topic}>
+                  <h2 key={topic} id={topic} className="topic">
+                    {topic}
+                  </h2>
+                </section>
+              ),
               categoryData[topic].map((data: ChartBlockData, index) => {
                 return (
                   <section className="block col-12" key={index + data.title}>
