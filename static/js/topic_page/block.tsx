@@ -23,6 +23,7 @@ import React from "react";
 import { randDomId } from "../shared/util";
 import { StatVarMetadata } from "../types/stat_var";
 import { BarTile } from "./bar_tile";
+import { BivariateTile } from "./bivariate_tile";
 import { HighlightTile } from "./highlight_tile";
 import { LineTile } from "./line_tile";
 import { MapTile } from "./map_tile";
@@ -78,7 +79,6 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             title={tile.title}
             placeDcid={props.placeDcid}
             enclosedPlaceType={props.enclosedPlaceType}
-            isUsaPlace={true}
             statVarMetadata={props.statVarMetadata}
           />
         );
@@ -118,6 +118,17 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
       case "SCATTER":
         return (
           <ScatterTile
+            key={id}
+            id={id}
+            title={tile.title}
+            placeDcid={props.placeDcid}
+            enclosedPlaceType={props.enclosedPlaceType}
+            statVarMetadata={props.statVarMetadata}
+          />
+        );
+      case "BIVARIATE":
+        return (
+          <BivariateTile
             key={id}
             id={id}
             title={tile.title}
