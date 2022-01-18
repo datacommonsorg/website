@@ -25,17 +25,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
 import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
+import { USA_PLACE_DCID } from "../shared/constants";
 import { StatApiResponse } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
+import { NamedTypedPlace } from "../tools/map/context";
 import {
   DataPointMetadata,
   getPlaceChartData,
   getTitle,
 } from "../tools/map/util";
 import {
+  getNamedTypedPlace,
   GetStatSetResponse,
+  isChildPlaceOf,
   PlacePointStat,
+  shouldShowMapBoundaries,
   StatMetadata,
 } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
@@ -47,7 +52,6 @@ interface MapTilePropType {
   title: string;
   placeDcid: string;
   enclosedPlaceType: string;
-  isUsaPlace: boolean;
   statVarMetadata: StatVarMetadata;
 }
 
@@ -56,6 +60,8 @@ interface RawData {
   placeStat: PlacePointStat;
   metadataMap: Record<string, StatMetadata>;
   population: StatApiResponse;
+  place: NamedTypedPlace;
+  parentPlaces: NamedTypedPlace[];
 }
 
 interface MapChartData {
@@ -64,6 +70,8 @@ interface MapChartData {
   sources: Set<string>;
   geoJson: GeoJsonData;
   chartTitle: string;
+  isUsaPlace: boolean;
+  showMapBoundaries: boolean;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -94,10 +102,11 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         !_.isEmpty(props.statVarMetadata.statVars[0].denom),
         props.title,
         props.statVarMetadata.scaling,
+        props.enclosedPlaceType,
         setMapChartData
       );
     }
-  }, [rawData, props.statVarMetadata, props.title]);
+  }, [rawData, props]);
 
   useEffect(() => {
     if (mapChartData) {
@@ -125,7 +134,7 @@ function fetchData(
   denomStatVar: string,
   setRawData: (data: RawData) => void
 ): void {
-  const geoJsonDataPromise = axios
+  const geoJsonPromise = axios
     .get(
       `/api/choropleth/geojson?placeDcid=${placeDcid}&placeType=${enclosedPlaceType}`
     )
@@ -144,13 +153,25 @@ function fetchData(
         )
         .then((resp) => resp.data)
     : Promise.resolve({});
-  Promise.all([geoJsonDataPromise, enclosedPlaceDataPromise, populationPromise])
-    .then(([geoJson, placeStatData, population]) => {
+  const parentPlacesPromise = axios
+    .get(`/api/place/parent/${placeDcid}`)
+    .then((resp) => resp.data);
+  const namedTypedPlacePromise = getNamedTypedPlace(placeDcid);
+  Promise.all([
+    geoJsonPromise,
+    enclosedPlaceDataPromise,
+    populationPromise,
+    parentPlacesPromise,
+    namedTypedPlacePromise,
+  ])
+    .then(([geoJson, placeStatData, population, parentPlaces, place]) => {
       setRawData({
         geoJson,
         placeStat: placeStatData.data[mainStatVar],
         metadataMap: placeStatData.metadata,
         population,
+        parentPlaces,
+        place,
       });
     })
     .catch(() => {
@@ -164,6 +185,7 @@ function processData(
   isPerCapita: boolean,
   chartTitle: string,
   scaling: number,
+  enclosedPlaceType: string,
   setChartData: (data: MapChartData) => void
 ): void {
   const dataValues = {};
@@ -201,6 +223,15 @@ function processData(
     sources,
     chartTitle: getTitle(Array.from(dates), chartTitle, false),
     geoJson: rawData.geoJson,
+    isUsaPlace: isChildPlaceOf(
+      rawData.place.dcid,
+      USA_PLACE_DCID,
+      rawData.parentPlaces
+    ),
+    showMapBoundaries: shouldShowMapBoundaries(
+      rawData.place,
+      enclosedPlaceType
+    ),
   });
 }
 
@@ -235,8 +266,8 @@ function draw(
     getTooltipHtml,
     () => false,
     true,
-    true,
-    props.isUsaPlace,
+    chartData.showMapBoundaries,
+    chartData.isUsaPlace,
     props.placeDcid
   );
 }
