@@ -62,6 +62,7 @@ interface RawData {
 }
 
 interface ChartData {
+  // TODO: update xStatVar and yStatVar types to be StatVarMetadata
   xStatVar: {
     main: string;
     denom: string;
