@@ -310,8 +310,7 @@ export function drawBivariate(
   Object.values(points).forEach((point) => {
     const xVal = properties.xLog ? Math.log10(point.xVal) : point.xVal;
     const yVal = properties.yLog ? Math.log10(point.yVal) : point.yVal;
-    dataPoints[point.place.dcid] =
-      xScale(xVal) + yScale(yVal) * NUM_QUANTILES;
+    dataPoints[point.place.dcid] = xScale(xVal) + yScale(yVal) * NUM_QUANTILES;
   });
   drawMapLegend(
     legendRef,
