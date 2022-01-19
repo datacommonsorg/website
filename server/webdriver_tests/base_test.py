@@ -17,6 +17,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from main import app
 
+import sys
+import multiprocessing
+
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
 
@@ -24,6 +27,12 @@ DEFAULT_WIDTH = 1200
 # Base test class to setup the server.
 # Please refer to README.md to see the order of method execution during test.
 class WebdriverBaseTest(LiveServerTestCase):
+
+    # Explicitly set multiprocessing start method to 'fork' so tests work with
+    # python3.8+ on MacOS.
+    # https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
+    if sys.version_info >= (3, 8) and sys.platform == "darwin":
+        multiprocessing.set_start_method("fork")
 
     def create_app(self):
         """Returns the Flask Server running Data Commons."""
