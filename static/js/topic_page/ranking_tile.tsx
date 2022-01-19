@@ -29,12 +29,15 @@ import { RankingMetadata } from "./tile";
 
 const RANKING_COUNT = 5;
 
-interface RankingData {
+interface RankingGroup {
   points: Point[];
   unit: string;
   scaling: number;
 }
 
+interface RankingData {
+  [key: string]: RankingGroup; // Key is main statVarDcid.
+}
 interface RankingTilePropType {
   id: string;
   placeDcid: string;
@@ -45,9 +48,7 @@ interface RankingTilePropType {
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
-  const [rankingData, setRankingData] = useState<
-    Record<string, RankingData> | undefined
-  >(null);
+  const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
 
   useEffect(() => {
     fetchData(props, setRankingData);
@@ -91,7 +92,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
 function fetchData(
   props: RankingTilePropType,
-  setRankingData: (data: Record<string, RankingData>) => void
+  setRankingData: (data: RankingData) => void
 ): void {
   let url = `/api/stats/within-place?parent_place=${props.placeDcid}&child_type=${props.enclosedPlaceType}`;
   for (const item of props.statVarMetadata) {
@@ -103,7 +104,7 @@ function fetchData(
   axios
     .get<GetStatSetResponse>(url)
     .then((resp) => {
-      const rankingData: Record<string, RankingData> = {};
+      const rankingData: RankingData = {};
       const statData = resp.data.data;
       // Get Ranking data
       for (const item of props.statVarMetadata) {
