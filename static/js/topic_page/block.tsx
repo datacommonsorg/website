@@ -39,7 +39,7 @@ export interface BlockPropType {
   description: string;
   leftTiles: Tile[];
   rightTiles: Tile[];
-  statVarMetadata: StatVarMetadata;
+  statVarMetadata: StatVarMetadata[];
 }
 
 export function Block(props: BlockPropType): JSX.Element {

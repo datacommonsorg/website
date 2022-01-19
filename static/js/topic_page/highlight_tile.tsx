@@ -26,7 +26,7 @@ const NUM_FRACTION_DIGITS = 1;
 interface HighlightTilePropType {
   description: string;
   placeDcid: string;
-  statVarMetadata: StatVarMetadata;
+  statVarMetadata: StatVarMetadata[];
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
@@ -42,7 +42,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
         <span className="stat">
           {formatNumber(
             highlightData,
-            props.statVarMetadata.unit,
+            props.statVarMetadata[0].unit,
             false,
             NUM_FRACTION_DIGITS
           )}
@@ -58,8 +58,8 @@ function fetchData(
   setHighlightData: (data: number) => void
 ): void {
   // Now assume highlight only talks about one stat var.
-  const mainStatVar = props.statVarMetadata.statVars[0].main;
-  const denomStatVar = props.statVarMetadata.statVars[0].denom;
+  const mainStatVar = props.statVarMetadata[0].statVar;
+  const denomStatVar = props.statVarMetadata[0].denom;
   const statVars = [mainStatVar];
   if (denomStatVar) {
     statVars.push(denomStatVar);
@@ -75,8 +75,8 @@ function fetchData(
       if (denomStatVar) {
         value /= statData[denomStatVar].stat[props.placeDcid].value;
       }
-      if (props.statVarMetadata.scaling) {
-        value *= props.statVarMetadata.scaling;
+      if (props.statVarMetadata[0].scaling) {
+        value *= props.statVarMetadata[0].scaling;
       }
       setHighlightData(value);
     });

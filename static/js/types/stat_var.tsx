@@ -17,10 +17,9 @@
 // StatVarMetadata corresponds to the protobuf definition for topic page
 // stat var metadata spec.
 export interface StatVarMetadata {
-  statVars: {
-    main: string;
-    denom: string;
-  }[];
+  statVar: string;
+  denom: string;
   unit: string;
   scaling: number;
+  log: boolean;
 }

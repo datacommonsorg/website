@@ -34,7 +34,7 @@ interface LineTilePropType {
   id: string;
   title: string;
   placeDcid: string;
-  statVarMetadata: StatVarMetadata;
+  statVarMetadata: StatVarMetadata[];
 }
 
 interface LineChartData {
@@ -80,8 +80,8 @@ function fetchData(
   setRawData: (data: StatApiResponse) => void
 ): void {
   const statVars = [];
-  for (const item of props.statVarMetadata.statVars) {
-    statVars.push(item.main);
+  for (const item of props.statVarMetadata) {
+    statVars.push(item.statVar);
     if (item.denom) {
       statVars.push(item.denom);
     }
@@ -125,7 +125,7 @@ function draw(
     chartData,
     false,
     false,
-    props.statVarMetadata.unit
+    props.statVarMetadata[0].unit
   );
   if (!isCompleteLine) {
     svgContainer.current.querySelectorAll(".dotted-warning")[0].className +=
@@ -145,9 +145,9 @@ function rawToChart(
   const sources = new Set<string>();
   const metadata = props.statVarMetadata;
   const allDates = new Set<string>();
-  for (const item of metadata.statVars) {
+  for (const item of metadata) {
     // Do not modify the React state. Create a clone.
-    const series = raw[props.placeDcid].data[item.main];
+    const series = raw[props.placeDcid].data[item.statVar];
     if (item.denom) {
       const denomSeries = raw[props.placeDcid].data[item.denom];
       // (TODO): Here expects exact date match. We should implement a generic
@@ -166,11 +166,13 @@ function rawToChart(
         dataPoints.push({
           label: date,
           time: new Date(date).getTime(),
-          value: series.val[date] * metadata.scaling,
+          value: series.val[date] * item.scaling,
         });
         allDates.add(date);
       }
-      dataGroups.push(new DataGroup(getStatsVarLabel(item.main), dataPoints));
+      dataGroups.push(
+        new DataGroup(getStatsVarLabel(item.statVar), dataPoints)
+      );
       sources.add(series.metadata.provenanceUrl);
     }
   }

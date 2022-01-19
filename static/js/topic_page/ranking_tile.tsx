@@ -30,7 +30,9 @@ import { RankingMetadata } from "./tile";
 const RANKING_COUNT = 5;
 
 interface RankingData {
-  [key: string]: Point[]; // Key is main statVarDcid
+  points: Point[];
+  unit: string;
+  scaling: number;
 }
 
 interface RankingTilePropType {
@@ -38,12 +40,14 @@ interface RankingTilePropType {
   placeDcid: string;
   enclosedPlaceType: string;
   title: string;
-  statVarMetadata: StatVarMetadata;
+  statVarMetadata: StatVarMetadata[];
   rankingMetadata: RankingMetadata;
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
-  const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
+  const [rankingData, setRankingData] = useState<
+    Record<string, RankingData> | undefined
+  >(null);
 
   useEffect(() => {
     fetchData(props, setRankingData);
@@ -53,15 +57,17 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     <div className="chart-container ranking-tile">
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
-          const points = rankingData[statVar];
+          const points = rankingData[statVar].points;
+          const unit = rankingData[statVar].unit;
+          const scaling = rankingData[statVar].scaling;
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
                 <RankingUnit
                   key={`${statVar}-highest`}
                   statVar={statVar}
-                  unit={props.statVarMetadata.unit}
-                  scaling={props.statVarMetadata.scaling}
+                  unit={unit}
+                  scaling={scaling}
                   title={`Highest ${getStatsVarLabel(statVar)}`}
                   points={points.slice(-RANKING_COUNT).reverse()}
                 />
@@ -70,8 +76,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                 <RankingUnit
                   key={`${statVar}-lowest`}
                   statVar={statVar}
-                  unit={props.statVarMetadata.unit}
-                  scaling={props.statVarMetadata.scaling}
+                  unit={unit}
+                  scaling={scaling}
                   title={`Lowest ${getStatsVarLabel(statVar)}`}
                   points={points.slice(0, RANKING_COUNT)}
                 />
@@ -85,11 +91,11 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
 function fetchData(
   props: RankingTilePropType,
-  setRankingData: (data: RankingData) => void
+  setRankingData: (data: Record<string, RankingData>) => void
 ): void {
   let url = `/api/stats/within-place?parent_place=${props.placeDcid}&child_type=${props.enclosedPlaceType}`;
-  for (const item of props.statVarMetadata.statVars) {
-    url += `&stat_vars=${item.main}`;
+  for (const item of props.statVarMetadata) {
+    url += `&stat_vars=${item.statVar}`;
     if (item.denom) {
       url += `&stat_vars=${item.denom}`;
     }
@@ -97,18 +103,18 @@ function fetchData(
   axios
     .get<GetStatSetResponse>(url)
     .then((resp) => {
-      const rankingData: RankingData = {};
+      const rankingData: Record<string, RankingData> = {};
       const statData = resp.data.data;
       // Get Ranking data
-      for (const item of props.statVarMetadata.statVars) {
-        if (!(item.main in statData)) {
+      for (const item of props.statVarMetadata) {
+        if (!(item.statVar in statData)) {
           continue;
         }
         let arr = [];
-        for (const place in statData[item.main].stat) {
+        for (const place in statData[item.statVar].stat) {
           const rankingPoint = {
             placeDcid: place,
-            stat: statData[item.main].stat[place].value,
+            stat: statData[item.statVar].stat[place].value,
           };
           if (item.denom && item.denom in statData) {
             rankingPoint.stat /= statData[item.denom].stat[place].value;
@@ -121,7 +127,11 @@ function fetchData(
         if (arr.length > RANKING_COUNT * 2) {
           arr = arr.slice(0, RANKING_COUNT).concat(arr.slice(-RANKING_COUNT));
         }
-        rankingData[item.main] = arr;
+        rankingData[item.statVar] = {
+          points: arr,
+          unit: item.unit,
+          scaling: item.scaling,
+        };
       }
       return rankingData;
     })
@@ -129,7 +139,7 @@ function fetchData(
       // Fetch place names.
       const places = new Set();
       for (const statVar in rankingData) {
-        for (const item of rankingData[statVar]) {
+        for (const item of rankingData[statVar].points) {
           places.add(item.placeDcid);
         }
       }
@@ -139,7 +149,7 @@ function fetchData(
       axios.get(`/api/place/name?${placeParam}`).then((resp) => {
         const placeNames = resp.data;
         for (const statVar in rankingData) {
-          for (const item of rankingData[statVar]) {
+          for (const item of rankingData[statVar].points) {
             item.placeName = placeNames[item.placeDcid] || item.placeDcid;
           }
         }

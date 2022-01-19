@@ -106,7 +106,8 @@ export function getPlaceScatterData(
   xDenom?: string,
   yDenom?: string,
   popBounds?: [number, number],
-  scaling?: number
+  xScaling?: number,
+  yScaling?: number
 ): { point: Point; sources: string[] } {
   const xChartData = getPlaceAxisChartData(
     xStatVarData,
@@ -115,7 +116,7 @@ export function getPlaceScatterData(
     metadataMap,
     popBounds,
     xDenom,
-    scaling
+    xScaling
   );
   if (_.isEmpty(xChartData)) {
     return null;
@@ -127,7 +128,7 @@ export function getPlaceScatterData(
     metadataMap,
     popBounds,
     yDenom,
-    scaling
+    yScaling
   );
   if (_.isEmpty(yChartData)) {
     return null;

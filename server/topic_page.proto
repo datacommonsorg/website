@@ -27,20 +27,16 @@ message PageMetadata {
   map<string, string> contained_place_types = 4;
 }
 
-// Represents stat from the expression of multiple stat vars.
-message CompositeStatVar {
-  // The main stat var. This is required.
-  string main = 1;
-  // [Optional] Denominator stat var
-  string denom = 2;
-}
-
 
 message StatVarMetadata {
-  // Applies to all tiles in the block.
-  repeated CompositeStatVar stat_vars = 1;
-  string unit = 2;
-  double scaling = 3;
+  // The main stat var.
+  string stat_var = 1;
+  // [Optional] Denominator stat var.
+  string denom = 2;
+  string unit = 3;
+  double scaling = 4;
+  // [Optional] Whether or not to show this stat var on a log scale
+  bool log = 5;
 }
 
 
@@ -70,7 +66,7 @@ message Tile {
   string title = 1;
   string description = 2;
   TileType type = 3;
-  StatVarMetadata stat_var_override = 4;
+  repeated StatVarMetadata stat_var_override = 4;
   RankingMetadata ranking_metadata = 5;
   HighlightMetadata highlight_metadata = 6;
 }
@@ -80,7 +76,7 @@ message Block {
   string description = 2;
   repeated Tile left_tiles = 3;
   repeated Tile right_tiles = 4;
-  StatVarMetadata stat_var_metadata = 5;
+  repeated StatVarMetadata stat_var_metadata = 5;
 }
 
 message TopicPageConfig {

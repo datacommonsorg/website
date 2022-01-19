@@ -40,7 +40,7 @@ interface BarTilePropType {
   title: string;
   placeDcid: string;
   enclosedPlaceType: string;
-  statVarMetadata: StatVarMetadata;
+  statVarMetadata: StatVarMetadata[];
 }
 
 interface BarChartData {
@@ -85,8 +85,8 @@ function fetchData(
   setRawData: (data: GetStatSetResponse) => void
 ): void {
   let url = `/api/stats/within-place?parent_place=${props.placeDcid}&child_type=${props.enclosedPlaceType}`;
-  for (const item of props.statVarMetadata.statVars) {
-    url += `&stat_vars=${item.main}`;
+  for (const item of props.statVarMetadata) {
+    url += `&stat_vars=${item.statVar}`;
     if (item.denom) {
       url += `&stat_vars=${item.denom}`;
     }
@@ -134,8 +134,8 @@ function processData(
     for (const point of popPoints) {
       const placeDcid = point.placeDcid;
       const dataPoints: DataPoint[] = [];
-      for (const item of props.statVarMetadata.statVars) {
-        const statVar = item.main;
+      for (const item of props.statVarMetadata) {
+        const statVar = item.statVar;
         const dataPoint = {
           label: getStatsVarLabel(statVar),
           value: raw.data[statVar].stat[placeDcid].value,
@@ -143,6 +143,9 @@ function processData(
         };
         if (item.denom && item.denom in raw.data) {
           dataPoint.value /= raw.data[item.denom].stat[placeDcid].value;
+        }
+        if (item.scaling) {
+          dataPoint.value *= item.scaling;
         }
         dataPoints.push(dataPoint);
       }
@@ -164,6 +167,6 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
     elem.offsetWidth,
     CHART_HEIGHT,
     chartData.dataGroup,
-    props.statVarMetadata.unit
+    props.statVarMetadata[0].unit
   );
 }
