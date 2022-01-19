@@ -49,7 +49,7 @@ interface ScatterTilePropType {
   title: string;
   placeDcid: string;
   enclosedPlaceType: string;
-  statVarMetadata: StatVarMetadata;
+  statVarMetadata: StatVarMetadata[];
 }
 
 interface RawData {
@@ -62,15 +62,8 @@ interface RawData {
 }
 
 interface ChartData {
-  // TODO: update xStatVar and yStatVar types to be StatVarMetadata
-  xStatVar: {
-    main: string;
-    denom: string;
-  };
-  yStatVar: {
-    main: string;
-    denom: string;
-  };
+  xStatVar: StatVarMetadata;
+  yStatVar: StatVarMetadata;
   points: { [placeDcid: string]: Point };
   geoJson: GeoJsonData;
   sources: Set<string>;
@@ -129,10 +122,10 @@ export function BivariateTile(props: ScatterTilePropType): JSX.Element {
 function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarMetadata: StatVarMetadata
+  statVarMetadata: StatVarMetadata[]
 ): Promise<StatApiResponse> {
   let statVarParams = "";
-  for (const sv of statVarMetadata.statVars) {
+  for (const sv of statVarMetadata) {
     if (sv.denom) {
       statVarParams += `&stat_vars=${sv.denom}`;
     }
@@ -151,10 +144,10 @@ function getPopulationPromise(
 function fetchData(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarMetadata: StatVarMetadata,
+  statVarMetadata: StatVarMetadata[],
   setRawData: (data: RawData) => void
 ): void {
-  if (statVarMetadata.statVars.length < 2) {
+  if (statVarMetadata.length < 2) {
     // TODO: add error message
     return;
   }
@@ -167,8 +160,8 @@ function fetchData(
     placeDcid,
     enclosedPlaceType,
     [
-      { statVarDcid: statVarMetadata.statVars[0].main },
-      { statVarDcid: statVarMetadata.statVars[1].main },
+      { statVarDcid: statVarMetadata[0].statVar },
+      { statVarDcid: statVarMetadata[1].statVar },
     ]
   );
   const populationPromise: Promise<StatApiResponse> = getPopulationPromise(
@@ -213,14 +206,14 @@ function fetchData(
 
 function processData(
   rawData: RawData,
-  statVarMetadata: StatVarMetadata,
+  statVarMetadata: StatVarMetadata[],
   enclosedPlaceType: string,
   setChartdata: (data: ChartData) => void
 ): void {
-  const xStatVar = statVarMetadata.statVars[0];
-  const yStatVar = statVarMetadata.statVars[1];
-  const xPlacePointStat = rawData.placeStats.data[xStatVar.main];
-  const yPlacePointStat = rawData.placeStats.data[yStatVar.main];
+  const xStatVar = statVarMetadata[0];
+  const yStatVar = statVarMetadata[1];
+  const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
+  const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
   if (!xPlacePointStat || !yPlacePointStat) {
     return;
   }
@@ -240,7 +233,8 @@ function processData(
       xStatVar.denom,
       yStatVar.denom,
       null,
-      statVarMetadata.scaling
+      xStatVar.scaling,
+      yStatVar.scaling
     );
     placeChartData.sources.forEach((source) => {
       if (!_.isEmpty(source)) {
@@ -302,20 +296,24 @@ function draw(
   const yLabelSuffix = !_.isEmpty(chartData.yStatVar.denom)
     ? " Per Capita"
     : "";
-  const yLabel = `${getStatsVarLabel(chartData.yStatVar.main)}${yLabelSuffix}`;
+  const yLabel = `${getStatsVarLabel(
+    chartData.yStatVar.statVar
+  )}${yLabelSuffix}`;
   const xLabelSuffix = !_.isEmpty(chartData.xStatVar.denom)
     ? " Per Capita"
     : "";
-  const xLabel = `${getStatsVarLabel(chartData.xStatVar.main)}${xLabelSuffix}`;
+  const xLabel = `${getStatsVarLabel(
+    chartData.xStatVar.statVar
+  )}${xLabelSuffix}`;
   const properties: BivariateProperties = {
     width,
     height: CHART_HEIGHT,
     xLabel,
     yLabel,
-    xUnit: props.statVarMetadata.unit,
-    yUnit: props.statVarMetadata.unit,
-    xLog: false,
-    yLog: false,
+    xUnit: chartData.xStatVar.unit,
+    yUnit: chartData.yStatVar.unit,
+    xLog: chartData.xStatVar.log,
+    yLog: chartData.yStatVar.log,
     isUsaPlace: chartData.isUsaPlace,
     showMapBoundaries: chartData.showMapBoundaries,
     placeDcid: props.placeDcid,

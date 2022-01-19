@@ -52,7 +52,7 @@ interface MapTilePropType {
   title: string;
   placeDcid: string;
   enclosedPlaceType: string;
-  statVarMetadata: StatVarMetadata;
+  statVarMetadata: StatVarMetadata[];
 }
 
 interface RawData {
@@ -85,23 +85,19 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     fetchData(
       props.placeDcid,
       props.enclosedPlaceType,
-      props.statVarMetadata.statVars[0].main,
-      props.statVarMetadata.statVars[0].denom,
+      props.statVarMetadata[0].statVar,
+      props.statVarMetadata[0].denom,
       setRawData
     );
-  }, [
-    props.placeDcid,
-    props.enclosedPlaceType,
-    props.statVarMetadata.statVars,
-  ]);
+  }, [props.placeDcid, props.enclosedPlaceType, props.statVarMetadata]);
 
   useEffect(() => {
     if (rawData) {
       processData(
         rawData,
-        !_.isEmpty(props.statVarMetadata.statVars[0].denom),
+        !_.isEmpty(props.statVarMetadata[0].denom),
         props.title,
-        props.statVarMetadata.scaling,
+        props.statVarMetadata[0].scaling,
         props.enclosedPlaceType,
         setMapChartData
       );
@@ -240,7 +236,7 @@ function draw(
   props: MapTilePropType,
   svgContainer: React.RefObject<HTMLElement>
 ): void {
-  const mainStatVar = props.statVarMetadata.statVars[0].main;
+  const mainStatVar = props.statVarMetadata[0].statVar;
   const width = svgContainer.current.offsetWidth;
   const colorScale = getColorScale(mainStatVar, chartData.dataValues);
   const getTooltipHtml = (place: NamedPlace) => {
@@ -249,7 +245,7 @@ function draw(
       value = formatNumber(
         Math.round((chartData.dataValues[place.dcid] + Number.EPSILON) * 100) /
           100,
-        props.statVarMetadata.unit
+        props.statVarMetadata[0].unit
       );
     }
     return place.name + ": " + value;
@@ -260,7 +256,7 @@ function draw(
     CHART_HEIGHT,
     width,
     chartData.dataValues,
-    props.statVarMetadata.unit,
+    props.statVarMetadata[0].unit,
     colorScale,
     _.noop,
     getTooltipHtml,

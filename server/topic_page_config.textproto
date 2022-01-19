@@ -17,11 +17,9 @@
 
 blocks {
   description: "Some intro text about poverty. … "
-  stat_var_metadata {
-    stat_vars: {
-      main: "Count_Person_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person"
-    }
+  stat_var_metadata: {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person"
     unit: "%"
     scaling: 100
   }
@@ -38,10 +36,8 @@ blocks {
 blocks {
   title: "Poverty across states"
   stat_var_metadata {
-    stat_vars: {
-      main: "Count_Person_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person"
-    }
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person"
     unit: "%"
     scaling: 100
   }
@@ -64,32 +60,38 @@ blocks {
 blocks {
   title: "Poverty by race"
   stat_var_metadata {
-    stat_vars: [
-      {
-        main: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
-        denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-      },
-      {
-        main: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-        denom: "Count_Person_AsianAlone"
-      },
-      {
-        main: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-        denom: "Count_Person_BlackOrAfricanAmericanAlone"
-      },
-      {
-        main: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-        denom: "Count_Person_HispanicOrLatino"
-      },
-      {
-        main: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-        denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-      },
-      {
-        main: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-        denom: "Count_Person_WhiteAlone"
-      }
-    ]
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
+    denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+    denom: "Count_Person_AsianAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+    denom: "Count_Person_BlackOrAfricanAmericanAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+    denom: "Count_Person_HispanicOrLatino"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+    denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+    denom: "Count_Person_WhiteAlone"
     scaling: 100
     unit: "%"
   }
