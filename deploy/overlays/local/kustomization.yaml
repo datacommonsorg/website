@@ -32,14 +32,11 @@ resources:
   - service.yaml
   - serviceaccount.yaml
 
-# local instance shares some config with "dev" project and uses the gcsBucket
-# in "autopush" project, since that should have the latest version.
 configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
       - flaskEnv=minikube
-      - gcsBucket=datcom-website-autopush-resources
       - secretProject=datcom-website-dev
   - name: mixer-configmap
     behavior: create

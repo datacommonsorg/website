@@ -145,18 +145,6 @@ def create_app():
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
 
-    if cfg.TEST or cfg.WEBDRIVER or cfg.LITE:
-        app.config['PLACEID2DCID'] = {
-            "ChIJCzYy5IS16lQRQrfeQ5K5Oxw": "country/USA",
-            "ChIJPV4oX_65j4ARVW8IJ6IJUYs": "geoId/06"
-        }
-    else:
-        # Load placeid2dcid mapping from GCS
-        storage_client = storage.Client()
-        bucket = storage_client.get_bucket(app.config['GCS_BUCKET'])
-        blob = bucket.get_blob('placeid2dcid.json')
-        app.config['PLACEID2DCID'] = json.loads(blob.download_as_bytes())
-
     # Initialize translations
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE

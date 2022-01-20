@@ -31,7 +31,6 @@ import services.datacommons as dc
 from lib import translator
 
 from __init__ import create_app
-from cache import cache
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
@@ -44,7 +43,6 @@ app.jinja_env.globals['TOPIC_PAGE_CONFIG'] = app.config['TOPIC_PAGE_CONFIG']
 app.jinja_env.globals['BASE_HTML'] = (
     'sustainability/base.html' if app.config['SUSTAINABILITY'] else 'base.html')
 
-GCS_BUCKET = app.config['GCS_BUCKET']
 _MAX_SEARCH_RESULTS = 1000
 
 WARM_UP_ENDPOINTS = [
@@ -75,22 +73,6 @@ def before_request():
         url = request.url.replace('http://', 'https://', 1)
         code = 301
         return flask.redirect(url, code=code)
-
-
-# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
-@cache.cached(timeout=3600 * 24)
-@app.route('/api/placeid2dcid/<path:placeid>')
-def api_placeid2dcid(placeid):
-    """
-    API endpoint to get dcid based on place id.
-
-    This is to use together with the Google Maps Autocomplete API:
-    https://developers.google.com/places/web-service/autocomplete.
-    """
-    if placeid in app.config['PLACEID2DCID']:
-        return app.config['PLACEID2DCID'][placeid]
-    else:
-        flask.abort(404, 'dcid not found for %s' % placeid)
 
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.

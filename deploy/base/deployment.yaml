@@ -70,11 +70,6 @@ spec:
                 configMapKeyRef:
                   name: website-configmap
                   key: flaskEnv
-            - name: GCS_BUCKET
-              valueFrom:
-                configMapKeyRef:
-                  name: website-configmap
-                  key: gcsBucket
             # This is the GCP project that holds the secrets: api key, etc...
             - name: SECRET_PROJECT
               valueFrom:
@@ -120,6 +115,7 @@ spec:
             - --store_project=$(STORE_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
             - --base_table=$(BIG_TABLE)
+            - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
           volumeMounts:
             - name: schema-mapping
