@@ -12,8 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-## This file specifies the config for topic page
+## This file specifies the topic page config for poverty in USA
 
+metadata {
+  topic_id: 'poverty'
+  topic_name: 'Poverty'
+  place_dcid: 'country/USA'
+  place_dcid: 'geoId/06'
+}
 
 blocks {
   description: "Some intro text about poverty. … "
