@@ -56,11 +56,6 @@ def disclaimers():
     return render_template('static/disclaimers.html')
 
 
-@bp.route('/datasets')
-def datasets():
-    return render_template('static/datasets.html')
-
-
 @bp.route('/feedback')
 def feedback():
     return render_template('static/feedback.html')
