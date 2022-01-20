@@ -13,22 +13,36 @@
 # limitations under the License.
 """Topic page related handlers."""
 
+from flask import current_app
 import flask
 import os
 import routes.api.place as place_api
+from google.protobuf.json_format import MessageToJson
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
 
 @bp.route('', strict_slashes=False)
-@bp.route('/<path:place_dcid>', strict_slashes=False)
-def topic_page(place_dcid=None):
+@bp.route('/<string:topic_id>/<path:place_dcid>', strict_slashes=False)
+def topic_page(topic_id=None, place_dcid=None):
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    topic = flask.request.args.get('topic', '')
-    # TODO: maybe direct to the landing page.
-    if not place_dcid:
-        place_dcid = 'country/USA'
+
+    # Redirect to the landing page.
+    if not place_dcid or not topic_id:
+        return flask.render_template('topic_page_landing.html')
+
+    # Find the config for the topic & place.
+    all_configs = current_app.config['TOPIC_PAGE_CONFIG']
+    topic_configs = all_configs.get(topic_id, [])
+    topic_place_config = None
+    for config in topic_configs:
+        if place_dcid in config.metadata.place_dcid:
+            topic_place_config = config
+            break
+    if not topic_place_config:
+        return "Error: no config found"
+
     # TODO: should use place metadata API to fetch these data in one call.
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_i18n_name([place_dcid])
@@ -40,4 +54,5 @@ def topic_page(place_dcid=None):
                                  place_type=place_type,
                                  place_name=place_name,
                                  place_dcid=place_dcid,
-                                 topic=topic)
+                                 topic_name=topic_place_config.metadata.topic_name,
+                                 config=MessageToJson(topic_place_config))

@@ -22,8 +22,6 @@ import urllib.error
 from flask import Flask, request, g
 from flask_babel import Babel
 from google.cloud import storage
-from google.protobuf import text_format
-from google.protobuf.json_format import MessageToJson
 
 from google.cloud import secretmanager
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
@@ -33,7 +31,6 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
-import topic_page_pb2
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -87,14 +84,6 @@ def register_routes_sustainability(app):
     app.register_blueprint(static.bp)
 
 
-def load_topic_page_config():
-    topic_page_config = topic_page_pb2.TopicPageConfig()
-    with open('topic_page_config.textproto', 'r') as f:
-        data = f.read()
-    text_format.Parse(data, topic_page_config)
-    return MessageToJson(topic_page_config)
-
-
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
 
@@ -125,7 +114,7 @@ def create_app():
         register_routes_main_app(app)
 
     # Load topic page config
-    app.config['TOPIC_PAGE_CONFIG'] = load_topic_page_config()
+    app.config['TOPIC_PAGE_CONFIG'] = libutil.get_topic_page_config()
 
     # Load chart config
     chart_config = libutil.get_chart_config()
