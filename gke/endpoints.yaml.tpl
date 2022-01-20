@@ -28,6 +28,7 @@ title:
 
 apis:
 - name: datacommons.Mixer
+- name: datacommons.Recon
 
 usage:
   rules:
