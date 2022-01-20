@@ -27,7 +27,6 @@ configMapGenerator:
   - behavior: create
     literals:
       - flaskEnv=tidal
-      - gcsBucket=poc-datasets
       - secretProject=tidal-dc-poc
     name: website-configmap
   - behavior: create

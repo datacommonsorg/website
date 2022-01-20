@@ -691,7 +691,7 @@ def placeid2dcid(place_id):
     This is to use together with the Google Maps Autocomplete API:
     https://developers.google.com/places/web-service/autocomplete.
     """
-    resp = requests.post(current_app.config['RECON_API_URL'],
+    resp = requests.post(current_app.config['RECON_API_ROOT'] + '/id/resolve',
                          json={
                              "in_prop": "placeId",
                              "out_prop": "dcid",

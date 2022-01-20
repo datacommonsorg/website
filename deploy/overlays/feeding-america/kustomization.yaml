@@ -27,7 +27,6 @@ configMapGenerator:
   - behavior: create
     literals:
       - flaskEnv=feeding-america
-      - gcsBucket=datcom-website-private-resources
       - secretProject=datcom-website-private
     name: website-configmap
   - behavior: create

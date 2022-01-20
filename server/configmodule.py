@@ -14,8 +14,7 @@ class Config:
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
-    # TODO: Use prod recon api in prod.
-    RECON_API_URL = 'https://autopush.recon.datacommons.org/id/resolve'
+    RECON_API_ROOT = 'http://127.0.0.1:8081'
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
     MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
     GA_ACCOUNT = ''
@@ -92,6 +91,7 @@ class LocalConfig(Config):
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://autopush.api.datacommons.org'
+    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
     SCHEME = 'http'
 
 
@@ -104,6 +104,7 @@ class LocalPrivateConfig(Config):
     # loads csv + tmcf files from GCS
     # API_ROOT = 'http://127.0.0.1:8081'
     API_ROOT = 'https://autopush.api.datacommons.org'
+    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-private'
     NAME = "Feeding America"
@@ -115,6 +116,7 @@ class LocalLiteConfig(Config):
     LOCAL = True
     LITE = True
     API_ROOT = 'https://autopush.api.datacommons.org'
+    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
     SCHEME = 'http'
 
 
@@ -122,6 +124,7 @@ class WebdriverConfig(Config):
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://autopush.api.datacommons.org'
+    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
     SCHEME = 'http'
 
 

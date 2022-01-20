@@ -115,6 +115,7 @@ spec:
             - --store_project=$(STORE_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
             - --base_table=$(BIG_TABLE)
+            - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
           volumeMounts:
             - name: schema-mapping
