@@ -47,11 +47,6 @@ class TestStaticPages(unittest.TestCase):
         assert response.status_code == 200
         assert b"Disclaimers" in response.data
 
-    def test_datasets(self):
-        response = app.test_client().get('/datasets')
-        assert response.status_code == 200
-        assert b"Datasets" in response.data
-
     def test_feedback(self):
         response = app.test_client().get('/feedback')
         assert response.status_code == 200

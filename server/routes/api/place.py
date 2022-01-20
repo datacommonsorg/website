@@ -14,9 +14,9 @@
 
 import collections
 import json
-import re
+import requests
 
-from flask import Blueprint, request, Response, url_for, g
+from flask import Blueprint, request, Response, url_for, g, current_app, abort
 from flask_babel import gettext
 
 from cache import cache
@@ -680,3 +680,26 @@ def get_places_in_names():
     return Response(json.dumps(get_display_name('^'.join(child_places))),
                     200,
                     mimetype='application/json')
+
+
+@bp.route('/placeid2dcid/<path:place_id>')
+@cache.cached(timeout=3600 * 24)
+def placeid2dcid(place_id):
+    """
+    API endpoint to get dcid based on place id.
+
+    This is to use together with the Google Maps Autocomplete API:
+    https://developers.google.com/places/web-service/autocomplete.
+    """
+    resp = requests.post(current_app.config['RECON_API_ROOT'] + '/id/resolve',
+                         json={
+                             "in_prop": "placeId",
+                             "out_prop": "dcid",
+                             "ids": [place_id]
+                         },
+                         headers={'Content-Type': 'application/json'})
+    if resp.status_code == 200:
+        entities = resp.json().get('entities', [])
+        if entities and 'outIds' in entities[0]:
+            return entities[0]['outIds'][0]
+    abort(404, 'no valid dcid not found for %s' % place_id)

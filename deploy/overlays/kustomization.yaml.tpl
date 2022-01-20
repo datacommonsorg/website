@@ -27,7 +27,6 @@ configMapGenerator:
     behavior: create
     literals:
       - flaskEnv=autopush
-      - gcsBucket=
       - secretProject=
   - name: mixer-configmap
     behavior: create

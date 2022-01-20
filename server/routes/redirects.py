@@ -51,6 +51,11 @@ def scatter():
                 code=302))
 
 
+@bp.route('/datasets')
+def datasets():
+    return redirect('https://docs.datacommons.org/datasets/', code=302)
+
+
 @bp.route('/documentation')
 def documentation():
     return redirect('https://docs.datacommons.org/', code=302)
