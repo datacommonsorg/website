@@ -234,12 +234,6 @@ Create a pub/sub topic for mixer to listen to data change.
 gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
 ```
 
-### placeid2dcid.json
-
-This file is stored in GCS bucket. The bucket is set in the config files
-[autopush](deploy/gke/autopush.yaml), [staging](deploy/gke/staging.yaml) and
-[prod](deploy/gke/prod.yaml).
-
 ### Redis memcache
 
 [Redis

@@ -76,7 +76,7 @@ const queryAutocompleteCallback = (place_name) => (predictions, status) => {
 // Get url for a given place_id if we have data for the place. Otherwise, alert that the place is not found.
 function getPlaceAndRender(place_id, place_name): void {
   axios
-    .get(`/api/placeid2dcid/${place_id}`)
+    .get(`/api/place/placeid2dcid/${place_id}`)
     .then((resp) => {
       window.location.href = localizeLink(`/place/${resp.data}`);
     })
