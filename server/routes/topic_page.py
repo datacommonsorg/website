@@ -50,9 +50,10 @@ def topic_page(topic_id=None, place_dcid=None):
         place_name = place_names[place_dcid]
     else:
         place_name = place_dcid
-    return flask.render_template('topic_page.html',
-                                 place_type=place_type,
-                                 place_name=place_name,
-                                 place_dcid=place_dcid,
-                                 topic_name=topic_place_config.metadata.topic_name,
-                                 config=MessageToJson(topic_place_config))
+    return flask.render_template(
+        'topic_page.html',
+        place_type=place_type,
+        place_name=place_name,
+        place_dcid=place_dcid,
+        topic_name=topic_place_config.metadata.topic_name,
+        config=MessageToJson(topic_place_config))

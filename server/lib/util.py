@@ -30,6 +30,8 @@ PLACE_EXPLORER_CATEGORIES = [
     "energy",
 ]
 
+# key is topic_id, which should match the folder name under config/topic_page
+# property is the list of filenames in that folder to load.
 TOPIC_PAGE_CONFIGS = {
     'poverty': ['USA'],
     'climate': ['USA'],
@@ -45,16 +47,19 @@ def get_chart_config():
     return chart_config
 
 
+# Returns topic pages loaded as TopicPageConfig protos:
+# { topic_id: [TopicPageConfig,...] }
 def get_topic_page_config():
     topic_configs = {}
     for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
         configs = []
         for filename in filenames:
-            with open(os.path.join('config', 'topic_page', topic_id, filename + '.textproto'), 'r') as f:
+            with open(
+                    os.path.join('config', 'topic_page', topic_id,
+                                 filename + '.textproto'), 'r') as f:
                 data = f.read()
                 topic_page_config = topic_page_pb2.TopicPageConfig()
                 text_format.Parse(data, topic_page_config)
                 configs.append(topic_page_config)
-                # configs.append(MessageToJson(topic_page_config))
         topic_configs[topic_id] = configs
     return topic_configs
