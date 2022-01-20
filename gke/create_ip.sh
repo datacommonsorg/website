@@ -22,4 +22,6 @@ gcloud config set project $PROJECT_ID
 gcloud compute addresses create website-ip --global
 
 # Record the IP address.
-echo $(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
+export IP=$(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
+
+yq eval -i '.ip = env(IP)' config.yaml

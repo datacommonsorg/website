@@ -41,7 +41,6 @@ import {
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
-import { DataPointMetadata } from "./chart_loader";
 import {
   DisplayOptions,
   DisplayOptionsWrapper,
@@ -50,9 +49,11 @@ import {
   StatVarWrapper,
 } from "./context";
 import {
+  DataPointMetadata,
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,
+  getTitle,
 } from "./util";
 
 interface ChartProps {
@@ -91,7 +92,8 @@ export function Chart(props: ChartProps): JSX.Element {
   const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
   const title = getTitle(
     Array.from(props.dates),
-    statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid
+    statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid,
+    statVarInfo.perCapita
   );
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
@@ -368,14 +370,6 @@ function draw(
       zoomParams
     );
   }
-}
-
-function getTitle(statVarDates: string[], statVarName: string): string {
-  const minDate = _.min(statVarDates);
-  const maxDate = _.max(statVarDates);
-  const dateRange =
-    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
-  return `${statVarName} ${dateRange}`;
 }
 
 function getSourcesJsx(sources: Set<string>): JSX.Element[] {

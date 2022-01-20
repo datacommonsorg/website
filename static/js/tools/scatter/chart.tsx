@@ -25,16 +25,22 @@ import React, { useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 import { Card, Row } from "reactstrap";
 
+import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { drawChoropleth } from "../../chart/draw_choropleth";
+import {
+  drawScatter,
+  Point,
+  ScatterPlotOptions,
+  ScatterPlotProperties,
+} from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
+import { getStringOrNA } from "../../utils/number_utils";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
-import { Point } from "./chart_loader";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
-import { drawScatter } from "./draw_scatter";
 import { ScatterChartType } from "./util";
 
 interface ChartPropsType {
@@ -45,64 +51,16 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
-  xStatVar: string;
-  yStatVar: string;
   xUnits?: string;
   yUnits?: string;
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
+  sources: Set<string>;
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
 const SVG_CONTAINER_ID = "scatter-plot-container";
 const MAP_LEGEND_CONTAINER_ID = "legend-container";
-const MAP_LEGEND_ARROW_LENGTH = 5;
-const MAP_LEGEND_ARROW_WIDTH = 6;
-const MAP_LEGEND_TITLE_FONT_WEIGHT = 600;
-const MAP_MIN_LEGEND_CELL_SIZE = 8;
-const MAP_LEGEND_CELL_SIZE_SCALE = 0.01;
-const MAP_LEGEND_MARKER_WIDTH = 9;
-const MAP_LEGEND_MARKER_HEIGHT = 9;
-const MAP_LEGEND_AXIS_STROKE_COLOR = "black";
-const MAP_COLORS = [
-  "#E8E8E8",
-  "#CCE2E2",
-  "#AFDBDB",
-  "#93D5D5",
-  "#76CECE",
-  "#5AC8C8",
-  "#E0CEDC",
-  "#C4C8D6",
-  "#A8C2D0",
-  "#8CBBCA",
-  "#70B5C4",
-  "#54AFBE",
-  "#D7B3D0",
-  "#BCADCA",
-  "#A0A7C4",
-  "#85A1BF",
-  "#699BB9",
-  "#4E95B3",
-  "#CF99C4",
-  "#B493BF",
-  "#998DB9",
-  "#7D88B4",
-  "#6282AE",
-  "#477CA9",
-  "#C67EB8",
-  "#AB78B3",
-  "#9173AE",
-  "#766DA8",
-  "#5C68A3",
-  "#41629E",
-  "#BE64AC",
-  "#A45FA7",
-  "#8A59A2",
-  "#6F549E",
-  "#554E99",
-  "#3B4994",
-];
-const MAP_NUM_QUANTILES = 6;
 const CONTAINER_ID = "chart";
 const DEBOUNCE_INTERVAL_MS = 30;
 
@@ -110,34 +68,18 @@ function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
   const tooltipRef = useRef<HTMLDivElement>();
   const chartContainerRef = useRef<HTMLDivElement>();
-  const sources: Set<string> = new Set();
+  const mapLegendRef = useRef<HTMLDivElement>();
   const [geoJson, setGeoJson] = useState(null);
   const [geoJsonFetched, setGeoJsonFetched] = useState(false);
+  const xDates: Set<string> = new Set();
+  const yDates: Set<string> = new Set();
   Object.values(props.points).forEach((point) => {
-    sources.add(point.xSource);
-    sources.add(point.ySource);
-    if (props.xPerCapita && point.xPopSource) {
-      sources.add(point.xPopSource);
-    }
-    if (props.yPerCapita && point.yPopSource) {
-      sources.add(point.yPopSource);
-    }
+    xDates.add(point.xDate);
+    yDates.add(point.yDate);
   });
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
-      </span>
-    );
-  });
+  const xTitle = getTitle(Array.from(xDates), props.xLabel);
+  const yTitle = getTitle(Array.from(yDates), props.yLabel);
+  const sourcesJsx = getSourcesJsx(props.sources);
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
@@ -160,7 +102,7 @@ function Chart(props: ChartPropsType): JSX.Element {
     if (!_.isEmpty(props.points)) {
       if (svgContainerRef.current) {
         clearSVGs();
-        plot(svgContainerRef, tooltipRef, props, geoJson);
+        plot(svgContainerRef, tooltipRef, mapLegendRef, props, geoJson);
       }
     }
   }
@@ -200,14 +142,14 @@ function Chart(props: ChartPropsType): JSX.Element {
       <Row>
         <Card id="no-padding">
           <div className="chart-title">
-            <h3>{props.yLabel}</h3>
+            <h3>{yTitle}</h3>
             <span>vs</span>
-            <h3>{props.xLabel}</h3>
+            <h3>{xTitle}</h3>
           </div>
           <div className="scatter-chart-container">
             <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
-            <div id={MAP_LEGEND_CONTAINER_ID}></div>
-            <div id="tooltip" ref={tooltipRef} />
+            <div id={MAP_LEGEND_CONTAINER_ID} ref={mapLegendRef}></div>
+            <div id="scatter-tooltip" ref={tooltipRef} />
           </div>
           <div className="provenance">Data from {sourcesJsx}</div>
         </Card>
@@ -228,20 +170,6 @@ function clearSVGs(): void {
 }
 
 /**
- * Formats a number, or returns "N/A" if not an number.
- * If the number is a float, keeps three non-zero decimal places.
- * eg. 0.000346546758 -> 0.000357
- * @param num
- */
-function getStringOrNA(num: number): string {
-  return _.isNil(num)
-    ? "N/A"
-    : Number.isInteger(num)
-    ? num.toString()
-    : num.toFixed(2 - Math.floor(Math.log(Math.abs(num % 1)) / Math.log(10)));
-}
-
-/**
  * Plots the chart which could either be a scatter plot or map.
  * @param svgContainerRef Ref for the container to plot the chart within
  * @param tooltipRef Ref for the tooltip div
@@ -250,18 +178,37 @@ function getStringOrNA(num: number): string {
 function plot(
   svgContainerRef: React.MutableRefObject<HTMLDivElement>,
   tooltipRef: React.MutableRefObject<HTMLDivElement>,
+  mapLegendRef: React.MutableRefObject<HTMLDivElement>,
   props: ChartPropsType,
   geoJsonData: GeoJsonData
 ): void {
   const svgContainerRealWidth = svgContainerRef.current.offsetWidth;
   const chartHeight = svgContainerRef.current.offsetHeight;
+  const scatterPlotOptions: ScatterPlotOptions = {
+    xPerCapita: props.xPerCapita,
+    yPerCapita: props.yPerCapita,
+    xLog: props.xLog,
+    yLog: props.yLog,
+    showQuadrants: props.display.showQuadrants,
+    showDensity: props.display.showDensity,
+    showLabels: props.display.showLabels,
+    showRegression: props.display.showRegression,
+  };
+  const ScatterPlotProperties: ScatterPlotProperties = {
+    width: svgContainerRealWidth,
+    height: chartHeight,
+    xLabel: props.xLabel,
+    yLabel: props.yLabel,
+    xUnit: props.xUnits,
+    yUnit: props.yUnits,
+  };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
       svgContainerRef,
       tooltipRef,
-      svgContainerRealWidth,
-      chartHeight,
-      props,
+      ScatterPlotProperties,
+      scatterPlotOptions,
+      props.points,
       redirectAction,
       getTooltipElement
     );
@@ -271,47 +218,32 @@ function plot(
       props.display.setChartType(ScatterChartType.SCATTER);
       return;
     }
-    const xVals = Array.from(Object.values(props.points), (point) =>
-      props.xLog ? Math.log10(point.xVal) : point.xVal
-    );
-    const yVals = Array.from(Object.values(props.points), (point) =>
-      props.yLog ? Math.log10(point.yVal) : point.yVal
-    );
-    const xScale = d3
-      .scaleQuantize()
-      .domain(d3.extent(xVals))
-      .range(d3.range(MAP_NUM_QUANTILES));
-    const yScale = d3
-      .scaleQuantize()
-      .domain(d3.extent(yVals))
-      .range(d3.range(MAP_NUM_QUANTILES));
-    const colorScale = d3
-      .scaleLinear<string, number>()
-      .domain(d3.range(MAP_NUM_QUANTILES * MAP_NUM_QUANTILES))
-      .range(MAP_COLORS);
-    const dataPoints = {};
-    Object.values(props.points).forEach((point) => {
-      dataPoints[point.place.dcid] =
-        xScale(point.xVal) + yScale(point.yVal) * MAP_NUM_QUANTILES;
-    });
-    drawMapLegend(
-      colorScale,
-      svgContainerRealWidth,
-      props.xLabel,
-      props.yLabel,
-      d3.extent(Object.values(props.points), (point) => point.xVal),
-      d3.extent(Object.values(props.points), (point) => point.yVal),
-      props.xUnits,
-      props.yUnits
-    );
-    drawChoropleth(
+    const bivariateProperties: BivariateProperties = {
+      width: svgContainerRealWidth,
+      height: chartHeight,
+      xLog: props.xLog,
+      yLog: props.yLog,
+      xLabel: props.xLabel,
+      yLabel: props.yLabel,
+      xUnit: props.xUnits,
+      yUnit: props.yUnits,
+      placeDcid: props.placeInfo.enclosingPlace.dcid,
+      isUsaPlace: isChildPlaceOf(
+        props.placeInfo.enclosingPlace.dcid,
+        USA_PLACE_DCID,
+        props.placeInfo.parentPlaces
+      ),
+      showMapBoundaries: shouldShowMapBoundaries(
+        props.placeInfo.enclosingPlace,
+        props.placeInfo.enclosedPlaceType
+      ),
+    };
+    drawBivariate(
       SVG_CONTAINER_ID,
+      mapLegendRef,
+      props.points,
       geoJsonData,
-      chartHeight,
-      svgContainerRealWidth,
-      dataPoints,
-      "",
-      colorScale,
+      bivariateProperties,
       (geoDcid: GeoJsonFeatureProperties) => {
         redirectAction(geoDcid.geoDcid);
       },
@@ -321,19 +253,7 @@ function plot(
         props.yLabel,
         props.xPerCapita,
         props.yPerCapita
-      ),
-      () => true,
-      false,
-      shouldShowMapBoundaries(
-        props.placeInfo.enclosingPlace,
-        props.placeInfo.enclosedPlaceType
-      ),
-      isChildPlaceOf(
-        props.placeInfo.enclosingPlace.dcid,
-        USA_PLACE_DCID,
-        props.placeInfo.parentPlaces
-      ),
-      props.placeInfo.enclosingPlace.dcid
+      )
     );
   }
 }
@@ -368,11 +288,11 @@ function getTooltipElement(
         <b>{point.place.name || point.place.dcid}</b>
       </header>
       {xLabel}
-      {xPopDateMessage && <sup>{xPopDateMessage}</sup>}: ({point.xDate}):{" "}
+      {xPopDateMessage && <sup>{xPopDateMessage}</sup>} ({point.xDate}):{" "}
       <b>{getStringOrNA(point.xVal)}</b>
       <br />
       {yLabel}
-      {yPopDateMessage && <sup>{yPopDateMessage}</sup>}: ({point.yDate}):{" "}
+      {yPopDateMessage && <sup>{yPopDateMessage}</sup>} ({point.yDate}):{" "}
       <b>{getStringOrNA(point.yVal)}</b>
       <br />
       <footer>
@@ -394,185 +314,36 @@ function getTooltipElement(
   );
 }
 
-/**
- * Draw the legend for the map view
- * @param colorScale the color scale used for the map
- * @param svgWidth the width of the map
- * @param xLabel the label for the x stat var
- * @param yLabel the label for the y stat var
- * @param xRange the range of the x values
- * @param yRange the range of the y values
- * @param xUnit the unit for the x values
- * @param yUnit the unit for the y values
- */
-function drawMapLegend(
-  colorScale: d3.ScaleLinear<string, number>,
-  svgWidth: number,
-  xLabel: string,
-  yLabel: string,
-  xRange: [number, number],
-  yRange: [number, number],
-  xUnit?: string,
-  yUnit?: string
-): void {
-  const legendSvg = d3
-    .select(`#${MAP_LEGEND_CONTAINER_ID}`)
-    .append("svg")
-    .attr("width", svgWidth);
-  const legendContainer = legendSvg.append("g");
-  const legendLabels = legendContainer
-    .append("text")
-    .attr("font-size", "0.7rem");
-  const legend = legendContainer.append("g").attr("transform", "rotate(45)");
-  const legendCellSize = Math.max(
-    svgWidth * MAP_LEGEND_CELL_SIZE_SCALE,
-    MAP_MIN_LEGEND_CELL_SIZE
-  );
-
-  const mapLegendGridValues = Array<number[]>();
-  for (let x = MAP_NUM_QUANTILES - 1; x >= 0; x--) {
-    const row = [];
-    for (let y = MAP_NUM_QUANTILES - 1; y >= 0; y--) {
-      row.push(x + y * MAP_NUM_QUANTILES);
-    }
-    mapLegendGridValues.push(row);
-  }
-  // draw the legend grid
-  legend
-    .selectAll(".row")
-    .data(mapLegendGridValues)
-    .enter()
-    .append("g")
-    .attr(
-      "transform",
-      (_, i) =>
-        `translate(${MAP_LEGEND_ARROW_LENGTH}, ${
-          i * legendCellSize + MAP_LEGEND_ARROW_LENGTH
-        })`
-    )
-    .selectAll(".cell")
-    .data((_, i) => mapLegendGridValues[i])
-    .enter()
-    .append("rect")
-    .attr("width", legendCellSize)
-    .attr("height", legendCellSize)
-    .attr("x", (_, i) => i * legendCellSize)
-    .attr("fill", (d) => colorScale(d));
-
-  // add the arrowhead marker definition
-  legend
-    .append("defs")
-    .append("marker")
-    .attr("id", "arrow")
-    .attr("refX", MAP_LEGEND_ARROW_LENGTH - 2)
-    .attr("refY", MAP_LEGEND_ARROW_WIDTH / 2)
-    .attr("markerWidth", MAP_LEGEND_MARKER_WIDTH)
-    .attr("markerHeight", MAP_LEGEND_MARKER_HEIGHT)
-    .attr("orient", "auto-start-reverse")
-    .append("path")
-    .attr(
-      "d",
-      d3.line()([
-        [0, 0],
-        [0, MAP_LEGEND_ARROW_WIDTH],
-        [MAP_LEGEND_ARROW_LENGTH, MAP_LEGEND_ARROW_WIDTH / 2],
-      ])
-    )
-    .attr("stroke", MAP_LEGEND_AXIS_STROKE_COLOR);
-
-  // draw the two axis on the legend
-  legend
-    .append("path")
-    .attr(
-      "d",
-      d3.line()([
-        [
-          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
-          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
-        ],
-        [legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH, 0],
-      ])
-    )
-    .attr("stroke", MAP_LEGEND_AXIS_STROKE_COLOR)
-    .attr("stroke-width", 1.5)
-    .attr("marker-end", "url(#arrow)");
-
-  legend
-    .append("path")
-    .attr(
-      "d",
-      d3.line()([
-        [
-          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
-          legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH,
-        ],
-        [0, legendCellSize * MAP_NUM_QUANTILES + MAP_LEGEND_ARROW_LENGTH],
-      ])
-    )
-    .attr("stroke", MAP_LEGEND_AXIS_STROKE_COLOR)
-    .attr("stroke-width", 1.5)
-    .attr("marker-end", "url(#arrow)");
-
-  // draw the labels
-  const xUnitString = xUnit ? ` (${xUnit})` : "";
-  const yUnitString = yUnit ? ` (${yUnit})` : "";
-  const yLabelTitle = legendLabels
-    .append("tspan")
-    .text(yLabel + yUnitString)
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("font-weight", MAP_LEGEND_TITLE_FONT_WEIGHT);
-  const yLabelRange = legendLabels
-    .append("tspan")
-    .text(`${getStringOrNA(yRange[0])} to ${getStringOrNA(yRange[1])}`)
-    .attr("x", 0)
-    .attr("y", 15);
-  const yLabelLength = Math.max(
-    yLabelTitle.node().getBBox().width,
-    yLabelRange.node().getBBox().width
-  );
-  legendLabels
-    .append("tspan")
-    .text(xLabel + xUnitString)
-    .attr("x", yLabelLength + MAP_NUM_QUANTILES * legendCellSize)
-    .attr("y", 0)
-    .attr("font-weight", MAP_LEGEND_TITLE_FONT_WEIGHT);
-  legendLabels
-    .append("tspan")
-    .text(`${getStringOrNA(xRange[0])} to ${getStringOrNA(xRange[1])}`)
-    .attr("x", yLabelLength + MAP_NUM_QUANTILES * legendCellSize)
-    .attr("y", 15);
-
-  // move the legend labels to the left and down so that the legend is in the
-  // of the labels
-  legendLabels.attr(
-    "transform",
-    `translate(-${yLabelLength + (MAP_NUM_QUANTILES / 2) * legendCellSize}, ${
-      legend.node().getBoundingClientRect().height
-    })`
-  );
-
-  const legendSvgClientRect = legendSvg.node().getBoundingClientRect();
-  const legendContainerClientRect = legendContainer
-    .node()
-    .getBoundingClientRect();
-
-  // Move the entire legend against the right side of the svg container
-  const legendContainerShiftX =
-    legendSvgClientRect.width -
-    legendContainerClientRect.width +
-    (legendSvgClientRect.x - legendContainerClientRect.x);
-  legendContainer.attr("transform", `translate(${legendContainerShiftX},0)`);
-  // Set the svg height to be the legend height
-  legendSvg.attr(
-    "height",
-    legendContainer.node().getBoundingClientRect().height
-  );
-}
-
 function redirectAction(placeDcid: string): void {
   const uri = `${DOT_REDIRECT_PREFIX}${placeDcid}`;
   window.open(uri);
+}
+
+function getTitle(dates: string[], statVarLabel: string) {
+  const minDate = _.min(dates);
+  const maxDate = _.max(dates);
+  const dateRange =
+    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
+  return `${statVarLabel} ${dateRange}`;
+}
+
+function getSourcesJsx(sources: Set<string>): JSX.Element[] {
+  const sourceList: string[] = Array.from(sources);
+  const seenSourceDomains = new Set();
+  const sourcesJsx = sourceList.map((source, index) => {
+    const domain = urlToDomain(source);
+    if (seenSourceDomains.has(domain)) {
+      return null;
+    }
+    seenSourceDomains.add(domain);
+    return (
+      <span key={source}>
+        {index > 0 ? ", " : ""}
+        <a href={source}>{domain}</a>
+      </span>
+    );
+  });
+  return sourcesJsx;
 }
 
 const getMapTooltipHtml = (

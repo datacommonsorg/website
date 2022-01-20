@@ -26,13 +26,14 @@ resources:
 configMapGenerator:
   - behavior: create
     literals:
-      - flaskEnv=private
-      - secretProject=datcom-website-private
+      - flaskEnv=tidal
+      - gcsBucket=poc-datasets
+      - secretProject=tidal-dc-poc
     name: website-configmap
   - behavior: create
     literals:
-      - mixerProject=datcom-website-private
-      - serviceName=website-esp.endpoints.datcom-website-private.cloud.goog
+      - mixerProject=tidal-dc-poc
+      - serviceName=website-esp.endpoints.tidal-dc-poc.cloud.goog
     name: mixer-configmap
 
 patchesStrategicMerge:
@@ -42,7 +43,7 @@ patchesStrategicMerge:
     metadata:
       name: website-app
     spec:
-      replicas: 6
+      replicas: 2
       strategy:
         type: RollingUpdate
         rollingUpdate:

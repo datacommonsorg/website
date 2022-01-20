@@ -31,7 +31,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} {% if PRIVATE %} class="private" {% endif %}>
+<html lang={{ locale }} {% if FEEDING_AMERICA %} class="feeding-america" {% endif %}>
 
 <head>
   <title>{{ title }} - Data Commons</title>
@@ -196,13 +196,16 @@
   {%- if not hide_search -%}
   <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
   {%- endif -%}
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117119267-1"></script>
   {%- if GA_ACCOUNT -%}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', '{{ GA_ACCOUNT }}');
+    gtag('consent', 'default', {'ad_storage': 'denied'});
+    gtag('consent', 'default', {'analytics_storage': 'denied'});
+    gtag('set', {'allow_google_signals': false});
   </script>
   {%- endif -%}
   {% block footer %}

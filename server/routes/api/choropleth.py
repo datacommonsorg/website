@@ -371,8 +371,9 @@ def choropleth_data(dcid):
         return Response(json.dumps({}), 200, mimetype='application/json')
     # Get data for all the stat vars for every place we will need and process the data
     sv_data = dc_service.get_stat_set_within_place(display_dcid, display_level,
-                                                   list(stat_vars),
-                                                   "").get('data', {})
+                                                   list(stat_vars), "")
+    sv_data_values = sv_data.get('data', {})
+    sv_metadata = sv_data.get('metadata', {})
     denoms_data = get_denoms_data(geos, denoms)
 
     result = {}
@@ -380,8 +381,7 @@ def choropleth_data(dcid):
     for cc in configs:
         # we should only be making choropleths for configs with a single stat var
         sv = cc['statsVars'][0]
-        cc_sv_data_values = sv_data.get(sv, {}).get('stat', {})
-        cc_sv_data_metadata = sv_data.get(sv, {}).get('metadata', {})
+        cc_sv_data_values = sv_data_values.get(sv, {}).get('stat', {})
         denom = landing_page_api.get_denom(cc, True)
         cc_denom_data = denoms_data.get(denom, {})
         scaling = cc.get('scaling', 1)
@@ -405,9 +405,9 @@ def choropleth_data(dcid):
             dates.add(dcid_sv_data.get("date", ""))
             # add stat var source and denom source (if there is a denom) to the
             # set of sources
-            import_name = dcid_sv_data.get("metadata", {}).get("importName", "")
-            source = cc_sv_data_metadata.get(import_name,
-                                             {}).get("provenanceUrl", "")
+            metadata_hash = dcid_sv_data.get('metaHash', "")
+            source = sv_metadata.get(str(metadata_hash),
+                                     {}).get('provenanceUrl', "")
             sources.add(source)
             if denom:
                 sources.add(

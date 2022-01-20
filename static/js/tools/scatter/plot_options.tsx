@@ -23,7 +23,7 @@ import React, { useContext, useState } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Col, Container, Row } from "reactstrap";
 
-import { Point } from "./chart_loader";
+import { Point } from "../../chart/draw_scatter";
 import {
   AxisWrapper,
   Context,

@@ -19,41 +19,18 @@ PROJECT_ID=$(yq eval '.project' config.yaml)
 STORE_PROJECT_ID=$(yq eval '.storage_project' config.yaml)
 TMCF_CSV_BUCKET=$(yq eval '.tmcf_csv_bucket' config.yaml)
 
-
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
-# Data store project roles
 declare -a roles=(
-    "roles/bigquery.admin"   # Query BigQuery
-    "roles/bigtable.reader" # Query Bigtable
-    "roles/storage.objectViewer" # Branch Cache Read
-    "roles/pubsub.editor" # Branch Cache subscription
-)
-for role in "${roles[@]}"
-do
-  gcloud projects add-iam-policy-binding $STORE_PROJECT_ID \
-    --member serviceAccount:$SERVICE_ACCOUNT \
-    --role $role
-done
-
-# Self project roles
-declare -a roles=(
-   # service control report for endpoints.
-    "roles/endpoints.serviceAgent"
-    # TMCF + CSV for private instance
-    "roles/storage.objectViewer"
-    "roles/storage.legacyBucketReader"
-    # Secret manager accessor
-    "roles/secretmanager.secretAccessor"
-    # Logging and monitoring
-    "roles/logging.logWriter"
+    "roles/endpoints.serviceAgent" # service control report for endpoints.
+    "roles/logging.logWriter" # Logging and monitoring
     "roles/monitoring.metricWriter"
     "roles/stackdriver.resourceMetadata.writer"
     "roles/compute.networkViewer"
     "roles/cloudtrace.agent"
     "roles/bigquery.jobUser"   # Query BigQuery
-    "roles/pubsub.editor" # Private DC data change subscription
+    "roles/pubsub.editor" # TMCF + CSV GCS data change subscription
 )
 for role in "${roles[@]}"
 do
@@ -62,6 +39,7 @@ do
     --role $role
 done
 
+# Read CSV and TMCF from GCS
 if [[ $TMCF_CSV_BUCKET != 'null' ]]; then
   gsutil iam ch serviceAccount:$SERVICE_ACCOUNT:roles/storage.objectViewer gs://$TMCF_CSV_BUCKET
 fi

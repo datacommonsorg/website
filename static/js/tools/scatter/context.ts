@@ -35,6 +35,8 @@ interface Axis {
   log: boolean;
   // Whether to plot per capita values
   perCapita: boolean;
+  // The date of the StatVar data to plot for this axis
+  date: string;
 }
 
 const EmptyAxis: Axis = Object.freeze({
@@ -42,6 +44,7 @@ const EmptyAxis: Axis = Object.freeze({
   statVarDcid: "",
   log: false,
   perCapita: false,
+  date: "",
 });
 
 interface AxisWrapper {
@@ -54,6 +57,7 @@ interface AxisWrapper {
   setStatVarInfo: Setter<StatVarInfo>;
   setLog: Setter<boolean>;
   setPerCapita: Setter<boolean>;
+  setDate: Setter<string>;
 }
 
 interface PlaceInfo {
@@ -111,28 +115,6 @@ interface DisplayOptionsWrapper {
   setRegression: Setter<boolean>;
 }
 
-interface DateInfo {
-  year: number;
-  month: number;
-  day: number;
-}
-
-interface DateInfoWrapper {
-  value: DateInfo;
-
-  // Setters
-  set: Setter<DateInfo>;
-  setYear: Setter<number>;
-  setMonth: Setter<number>;
-  setDay: Setter<number>;
-}
-
-const EmptyDate: DateInfo = Object.freeze({
-  year: 0,
-  month: 0,
-  day: 0,
-});
-
 interface IsLoadingWrapper {
   // Whether child places and their names are being retrieved
   arePlacesLoading: boolean;
@@ -169,6 +151,7 @@ const FieldToAbbreviation = {
   statVarDcid: "sv",
   log: "l",
   perCapita: "pc",
+  date: "date",
 
   // PlaceInfo fields
   enclosingPlaceDcid: "epd",
@@ -208,6 +191,7 @@ function useContextStore(): ContextType {
       setStatVarInfo: getSetStatVarInfo(x, setX),
       setLog: getSetLog(x, setX),
       setPerCapita: getSetPerCapita(x, setX),
+      setDate: getSetDate(x, setX),
     },
     y: {
       value: y,
@@ -217,6 +201,7 @@ function useContextStore(): ContextType {
       setStatVarInfo: getSetStatVarInfo(y, setY),
       setLog: getSetLog(y, setY),
       setPerCapita: getSetPerCapita(y, setY),
+      setDate: getSetDate(y, setY),
     },
     place: {
       value: place,
@@ -374,6 +359,18 @@ function getSetPerCapita(
   };
 }
 
+function getSetDate(
+  axis: Axis,
+  setAxis: React.Dispatch<React.SetStateAction<Axis>>
+): Setter<string> {
+  return (date) => {
+    setAxis({
+      ...axis,
+      date,
+    });
+  };
+}
+
 function getSetLowerBound(
   place: PlaceInfo,
   setPlace: React.Dispatch<React.SetStateAction<PlaceInfo>>
@@ -401,11 +398,8 @@ export {
   AxisWrapper,
   Context,
   ContextType,
-  DateInfo,
-  DateInfoWrapper,
   DisplayOptionsWrapper,
   EmptyAxis,
-  EmptyDate,
   EmptyPlace,
   FieldToAbbreviation,
   IsLoadingWrapper,

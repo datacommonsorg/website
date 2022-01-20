@@ -22,18 +22,13 @@ class Config:
     SCHEME = 'https'
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
-    NEW_STAT_VARS = [
-        "Mean_Concentration_AirPollutant_Ozone",
-        "Mean_Concentration_AirPollutant_DieselPM",
-        "Annual_Emissions_CarbonDioxide_NonBiogenic",
-        "Annual_Emissions_Methane_NonBiogenic",
-        "Annual_Emissions_NitrousOxide_NonBiogenic",
-        "WithdrawalRate_Water",
-    ]
+    NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = False
-    # If the deployment is a private instance
+    # If the deployment is a private instance.
     PRIVATE = False
-    # If the deployment is for sustainability.datacommons.org
+    # If the deployment is for "feeding america" instance.
+    FEEDING_AMERICA = False
+    # If the deployment is for sustainability.datacommons.org.
     SUSTAINABILITY = False
     # Name of the site. The name is changed for private instance.
     NAME = "Data Commons"
@@ -69,8 +64,14 @@ class DevConfig(Config):
     pass
 
 
-class PrivateConfig(Config):
+class FeedingAmericaConfig(Config):
     NAME = "Feeding America"
+    FEEDING_AMERICA = True
+    PRIVATE = True
+
+
+class TidalConfig(Config):
+    NAME = "Tidal"
     PRIVATE = True
 
 

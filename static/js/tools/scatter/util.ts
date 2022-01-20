@@ -21,7 +21,6 @@
 import axios from "axios";
 import _ from "lodash";
 
-import { StatVarNode } from "../../shared/stat_var";
 import { getCappedStatVarDate } from "../../shared/util";
 import { GetStatSetResponse } from "../shared_util";
 import {
@@ -39,20 +38,10 @@ export enum ScatterChartType {
   MAP,
 }
 
-async function getPlacesInNames(
-  dcid: string,
-  type: string
-): Promise<Record<string, string>> {
-  const resp = await axios.get(
-    `/api/place/places-in-names?dcid=${dcid}&placeType=${type}`
-  );
-  return resp.data;
-}
-
 async function getStatsWithinPlace(
   parent_place: string,
   child_type: string,
-  statVars: Array<string>
+  statVars: { statVarDcid: string; date?: string }[]
 ): Promise<GetStatSetResponse> {
   let statVarParams = "";
   // There are two stat vars for scatter plot.
@@ -61,11 +50,13 @@ async function getStatsWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<GetStatSetResponse>[] = [];
   for (const statVar of statVars) {
-    statVarParams = `&stat_vars=${statVar}`;
-    const cappedDate = getCappedStatVarDate(statVar);
-    if (cappedDate) {
-      statVarParams += `&date=${cappedDate}`;
+    statVarParams = `&stat_vars=${statVar.statVarDcid}`;
+    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
+    // If there is a specified date, get the data for that date.
+    if (statVar.date) {
+      dataDate = statVar.date;
     }
+    statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
       axios.get(
         `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
@@ -80,15 +71,6 @@ async function getStatsWithinPlace(
     }
     return result;
   });
-}
-
-/**
- * Given a `StatsVarNode` that only has one key,
- * return the key.
- * @param node
- */
-function nodeGetStatVar(node: StatVarNode): string {
-  return _.findKey(node);
 }
 
 /**
@@ -149,6 +131,8 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
       axis[key] = value === "1" ? true : value;
     }
   }
+  const date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
+  axis.date = date;
 
   return axis;
 }
@@ -248,6 +232,13 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
       );
     }
   }
+  if (axis.date) {
+    hash = appendEntry(
+      hash,
+      addSuffix(FieldToAbbreviation.date, isX),
+      axis.date
+    );
+  }
   return hash;
 }
 
@@ -335,10 +326,4 @@ export function areStatVarsPicked(x: Axis, y: Axis): boolean {
   return !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo);
 }
 
-export {
-  applyHash,
-  getPlacesInNames,
-  getStatsWithinPlace,
-  nodeGetStatVar,
-  updateHash,
-};
+export { applyHash, getStatsWithinPlace, updateHash };

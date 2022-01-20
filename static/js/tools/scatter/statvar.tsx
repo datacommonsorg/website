@@ -298,6 +298,7 @@ function addStatVarHelper(
       statVarDcid: svDcid,
       log: x.value.log,
       perCapita: x.value.perCapita,
+      date: x.value.date,
     });
   } else if (_.isEmpty(y.value.statVarDcid)) {
     y.set({
@@ -305,6 +306,7 @@ function addStatVarHelper(
       statVarDcid: svDcid,
       log: y.value.log,
       perCapita: y.value.perCapita,
+      date: y.value.date,
     });
   } else {
     setThirdStatVar({ info: svInfo, dcid: svDcid });

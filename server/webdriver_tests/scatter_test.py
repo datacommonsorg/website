@@ -75,8 +75,8 @@ class TestScatter(WebdriverBaseTest):
         chart_title_x = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[2]')
         self.assertEqual(chart_title_y.text,
-                         "Asian Alone Population Per Capita")
-        self.assertEqual(chart_title_x.text, "Median Income")
+                         "Asian Alone Population Per Capita (2020)")
+        self.assertEqual(chart_title_x.text, "Median Income (2019)")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 20)
@@ -125,9 +125,7 @@ class TestScatter(WebdriverBaseTest):
         demographics_button.click()
 
         # Click on median age button
-        # [brittle] Sleep to account for page refresh and element can get stale.
-        # Consider to have explicit wait
-        time.sleep(2)
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
@@ -135,9 +133,7 @@ class TestScatter(WebdriverBaseTest):
             'Median_Age_Persondc/g/Demographics-Median_Age_Person').click()
 
         # Click on median income button
-        # [brittle] Sleep to account for page refresh and element can get stale.
-        # Consider to have explicit wait
-        time.sleep(2)
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.ID,
              'Median_Income_Persondc/g/Demographics-Median_Income_Person'))
@@ -153,8 +149,8 @@ class TestScatter(WebdriverBaseTest):
             '//*[@id="no-padding"]/div[1]/h3[1]')
         chart_title_x = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[2]')
-        self.assertEqual(chart_title_y.text, "Median Income")
-        self.assertEqual(chart_title_x.text, "Median Age")
+        self.assertEqual(chart_title_y.text, "Median Income (2019)")
+        self.assertEqual(chart_title_x.text, "Median Age (2019)")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 20)

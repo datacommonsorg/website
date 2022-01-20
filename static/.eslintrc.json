@@ -7,14 +7,16 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": ["react", "prettier", "simple-import-sort"],
+  "plugins": ["react", "prettier", "simple-import-sort", "react-hooks"],
   "rules": {
     "prettier/prettier": ["error"],
     "semi": ["error", "always"],
     "@typescript-eslint/no-explicit-any": "off",
     "no-fallthrough": "off",
     "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": "error"
+    "simple-import-sort/imports": "error",
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "react": {

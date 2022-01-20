@@ -18,12 +18,12 @@
 @import "../draw";
 @import "../draw_choropleth";
 @import "place_search";
+@import "../shared/story_block.scss";
+@import "../shared/story_chart.scss";
 
 $vertical-section-border: 1px solid var(--dc-gray-lite);
 $vertical-section-margin: 2rem;
 $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
-$subtopic-background: rgba(0, 0, 0, 0.05);
-$subtopic-color: #222;
 $chart-border: 0.5px solid #dee2e6;
 
 #dc-places {
@@ -36,12 +36,16 @@ $chart-border: 0.5px solid #dee2e6;
   }
 }
 
-#dc-places h1 {
+#dc-places a {
+  text-decoration: underline;
+}
+
+h1 {
   font-size: 1.8rem;
   font-weight: 700;
 }
 
-#dc-places h3 {
+h3 {
   color: var(--secondary);
   font-size: 1rem;
   font-weight: 600;
@@ -66,6 +70,11 @@ $chart-border: 0.5px solid #dee2e6;
 #title a,
 #main-pane a {
   color: inherit;
+  // text-decoration: underline;
+}
+
+.factoid a,
+#title a {
   text-decoration: underline;
 }
 
@@ -80,16 +89,23 @@ $chart-border: 0.5px solid #dee2e6;
 }
 
 #menu .nav-item .nav-item a {
-  font-weight: 300;
   padding: 0.25rem 0 0.25rem 0.5rem;
   font-size: 0.8rem;
+}
+
+#menu .nav-item .nav-item a.topic {
+  font-weight: 600;
+}
+
+#menu .nav-item .nav-item a {
+  font-weight: 300;
 }
 
 #menu a.active {
   color: var(--link-color);
 }
 
-#main h2 {
+#main h2.category {
   color: var(--dc-gray);
   font-weight: 600;
   font-size: 1.1rem;
@@ -108,47 +124,6 @@ $chart-border: 0.5px solid #dee2e6;
 
 #main-pane section:first-of-type {
   margin-top: 0;
-}
-
-#body .subtopic h3 {
-  color: $subtopic-color;
-  font-weight: 600;
-  font-size: 1rem;
-  text-transform: uppercase;
-  margin: 15px -12px 10px -12px;
-  padding: 6px 12px;
-  border-radius: 3px;
-  background: $subtopic-background;
-}
-
-#body .subtopic h3 a {
-  line-height: 1.2rem;
-}
-
-#main h2 .more a,
-#body .subtopic h3 .more a {
-  color: var(--dc-gray);
-  font-weight: 300;
-  font-size: 0.8rem;
-  float: right;
-  margin-top: 2px;
-  text-decoration: none;
-}
-
-#body .subtopic h3 .more a:hover {
-  text-decoration: underline;
-}
-
-.chart-container footer,
-.subtopic .row {
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-}
-
-.subtopic .row .col {
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem;
 }
 
 .btn-dc {
@@ -171,48 +146,18 @@ $chart-border: 0.5px solid #dee2e6;
   margin-top: -3px;
 }
 
-.svg-container {
-  flex: 1 1 auto;
-}
-
 .chart-container {
   border: $chart-border;
   border-radius: 3px;
-  padding: 10px;
   display: flex;
   flex-grow: 1;
   flex-direction: column;
   position: relative;
-}
-
-.chart-container h4 {
-  color: var(--dc-gray);
-  font-weight: 600;
-  font-size: 0.85rem;
-  display: inline;
-  min-height: 2.2rem;
-}
-
-.chart-container h4 .sub-title {
-  color: #999;
-  padding-left: 0.25rem;
-}
-
-.chart-container label {
-  font-size: 0.9rem;
-  margin-right: 0.5rem;
-}
-
-.chart-container select {
-  font-size: 0.9rem;
-  border-radius: 3px;
-  padding: 0.1rem;
-  border-color: var(--dc-gray-lite);
+  padding: 10px;
 }
 
 .feedback,
-.factoid footer,
-.chart-container footer {
+.factoid footer {
   font-size: 0.7rem;
   color: var(--dc-gray);
   margin-top: 0.5rem;
@@ -381,4 +326,12 @@ $chart-border: 0.5px solid #dee2e6;
   font-style: italic;
   text-align: right;
   text-decoration: none !important;
+}
+
+.block.topic-header {
+  margin-bottom: -1rem;
+}
+
+.block h3 {
+  color: inherit;
 }
