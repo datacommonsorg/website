@@ -18,6 +18,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../i18n/i18n";
+import { NamedTypedPlace } from "../shared/types";
 import { MainPane } from "./main_pane";
 
 window.onload = () => {
@@ -44,13 +45,16 @@ function renderPage(): void {
     import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
     import(`../i18n/compiled-lang/${locale}/units.json`),
   ]);
+  const place: NamedTypedPlace = {
+    dcid,
+    name: placeName || dcid,
+    types: [placeType],
+  };
 
   ReactDOM.render(
     React.createElement(MainPane, {
       topic,
-      dcid,
-      placeName,
-      placeType,
+      place,
       pageConfig,
     }),
     document.getElementById("main-pane")

@@ -27,16 +27,10 @@ import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { StatApiResponse } from "../shared/stat_types";
-import { NamedPlace } from "../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
-import { NamedTypedPlace } from "../tools/map/context";
+import { DataPointMetadata, getPlaceChartData } from "../tools/map/util";
 import {
-  DataPointMetadata,
-  getPlaceChartData,
-  getTitle,
-} from "../tools/map/util";
-import {
-  getNamedTypedPlace,
   GetStatSetResponse,
   isChildPlaceOf,
   PlacePointStat,
@@ -44,13 +38,15 @@ import {
   StatMetadata,
 } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { getDateRange } from "../utils/string_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
+import { ReplacementStrings } from "./string_utils";
 
 interface MapTilePropType {
   id: string;
   title: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarMetadata: StatVarMetadata[];
 }
@@ -60,16 +56,15 @@ interface RawData {
   placeStat: PlacePointStat;
   metadataMap: Record<string, StatMetadata>;
   population: StatApiResponse;
-  place: NamedTypedPlace;
   parentPlaces: NamedTypedPlace[];
 }
 
-interface MapChartData {
+interface ChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
   geoJson: GeoJsonData;
-  chartTitle: string;
+  dateRange: string;
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
 }
@@ -77,46 +72,49 @@ interface MapChartData {
 export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
-    null
-  );
+  const [chartData, setChartData] = useState<ChartData | undefined>(null);
 
   useEffect(() => {
     fetchData(
-      props.placeDcid,
+      props.place.dcid,
       props.enclosedPlaceType,
       props.statVarMetadata[0].statVar,
       props.statVarMetadata[0].denom,
       setRawData
     );
-  }, [props.placeDcid, props.enclosedPlaceType, props.statVarMetadata]);
+  }, [props.place, props.enclosedPlaceType, props.statVarMetadata]);
 
   useEffect(() => {
     if (rawData) {
       processData(
         rawData,
         !_.isEmpty(props.statVarMetadata[0].denom),
-        props.title,
+        props.place,
         props.statVarMetadata[0].scaling,
         props.enclosedPlaceType,
-        setMapChartData
+        setChartData
       );
     }
   }, [rawData, props]);
 
   useEffect(() => {
-    if (mapChartData) {
-      draw(mapChartData, props, svgContainer);
+    if (chartData) {
+      draw(chartData, props, svgContainer);
     }
-  }, [mapChartData, props]);
+  }, [chartData, props]);
 
-  if (!mapChartData) {
+  if (!chartData) {
     return null;
   }
+  const rs: ReplacementStrings = {
+    place: props.place.name,
+    date: chartData.dateRange,
+  };
   return (
     <ChartTileContainer
-      title={mapChartData.chartTitle}
-      sources={mapChartData.sources}
+      title={props.title}
+      sources={chartData.sources}
+      replacementStrings={rs}
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
@@ -152,22 +150,19 @@ function fetchData(
   const parentPlacesPromise = axios
     .get(`/api/place/parent/${placeDcid}`)
     .then((resp) => resp.data);
-  const namedTypedPlacePromise = getNamedTypedPlace(placeDcid);
   Promise.all([
     geoJsonPromise,
     enclosedPlaceDataPromise,
     populationPromise,
     parentPlacesPromise,
-    namedTypedPlacePromise,
   ])
-    .then(([geoJson, placeStatData, population, parentPlaces, place]) => {
+    .then(([geoJson, placeStatData, population, parentPlaces]) => {
       setRawData({
         geoJson,
         placeStat: placeStatData.data[mainStatVar],
         metadataMap: placeStatData.metadata,
         population,
         parentPlaces,
-        place,
       });
     })
     .catch(() => {
@@ -179,10 +174,10 @@ function fetchData(
 function processData(
   rawData: RawData,
   isPerCapita: boolean,
-  chartTitle: string,
+  place: NamedTypedPlace,
   scaling: number,
   enclosedPlaceType: string,
-  setChartData: (data: MapChartData) => void
+  setChartData: (data: ChartData) => void
 ): void {
   const dataValues = {};
   const metadata = {};
@@ -217,22 +212,19 @@ function processData(
     dataValues,
     metadata,
     sources,
-    chartTitle: getTitle(Array.from(dates), chartTitle, false),
+    dateRange: getDateRange(Array.from(dates)),
     geoJson: rawData.geoJson,
     isUsaPlace: isChildPlaceOf(
-      rawData.place.dcid,
+      place.dcid,
       USA_PLACE_DCID,
       rawData.parentPlaces
     ),
-    showMapBoundaries: shouldShowMapBoundaries(
-      rawData.place,
-      enclosedPlaceType
-    ),
+    showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
   });
 }
 
 function draw(
-  chartData: MapChartData,
+  chartData: ChartData,
   props: MapTilePropType,
   svgContainer: React.RefObject<HTMLElement>
 ): void {
@@ -264,6 +256,6 @@ function draw(
     true,
     chartData.showMapBoundaries,
     chartData.isUsaPlace,
-    props.placeDcid
+    props.place.dcid
   );
 }

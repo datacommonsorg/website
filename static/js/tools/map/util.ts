@@ -30,14 +30,15 @@ import {
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
-import { NamedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { getDateRange } from "../../utils/string_utils";
 import {
   getPopulationDate,
   isChildPlaceOf,
   PlacePointStat,
   StatMetadata,
 } from "../shared_util";
-import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
+import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
 const URL_PARAM_KEYS = {
@@ -475,10 +476,7 @@ export function getTitle(
   statVarName: string,
   isPerCapita: boolean
 ): string {
-  const minDate = _.min(statVarDates);
-  const maxDate = _.max(statVarDates);
-  const dateRange =
-    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
+  const dateRange = `(${getDateRange(statVarDates)})`;
   return isPerCapita
     ? `${statVarName} Per Capita ${dateRange}`
     : `${statVarName} ${dateRange}`;

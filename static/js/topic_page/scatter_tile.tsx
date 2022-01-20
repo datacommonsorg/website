@@ -30,6 +30,7 @@ import {
 } from "../chart/draw_scatter";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { NamedTypedPlace } from "../shared/types";
 import { getStatsWithinPlace } from "../tools/scatter/util";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
@@ -37,11 +38,12 @@ import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
+import { ReplacementStrings } from "./string_utils";
 
 interface ScatterTilePropType {
   id: string;
   title: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarMetadata: StatVarMetadata[];
 }
@@ -67,7 +69,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   useEffect(() => {
     fetchData(
-      props.placeDcid,
+      props.place.dcid,
       props.enclosedPlaceType,
       props.statVarMetadata,
       setRawData
@@ -82,16 +84,24 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   useEffect(() => {
     if (chartData) {
-      draw(chartData, props, svgContainer, tooltip);
+      draw(chartData, svgContainer, tooltip);
     }
-  }, [chartData, props]);
+  }, [chartData]);
 
   if (!chartData) {
     return null;
   }
+  const rs: ReplacementStrings = {
+    place: props.place.name,
+    date: "",
+  };
 
   return (
-    <ChartTileContainer title={props.title} sources={chartData.sources}>
+    <ChartTileContainer
+      title={props.title}
+      sources={chartData.sources}
+      replacementStrings={rs}
+    >
       <div id={props.id} className="scatter-svg-container" ref={svgContainer} />
       <div id="scatter-tooltip" ref={tooltip} />
     </ChartTileContainer>
@@ -219,7 +229,6 @@ function getTooltipElement(
 
 function draw(
   chartData: ChartData,
-  props: ScatterTilePropType,
   svgContainer: React.RefObject<HTMLDivElement>,
   tooltip: React.RefObject<HTMLDivElement>
 ): void {

@@ -27,6 +27,12 @@ export interface NamedNode {
 
 export type NamedPlace = NamedNode;
 
+// Place with name and its type.
+export interface NamedTypedPlace {
+  dcid: string;
+  name: string;
+  types: Array<string>;
+}
 /**
  * Enum type of the stat var hierarchy wizard.
  */

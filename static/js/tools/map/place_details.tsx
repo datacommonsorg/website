@@ -27,8 +27,9 @@ import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_choropleth";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
+import { NamedTypedPlace } from "../../shared/types";
 import { MAP_CONTAINER_ID } from "./chart";
-import { DisplayOptions, NamedTypedPlace, PlaceInfo, StatVar } from "./context";
+import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
   DataPointMetadata,
   getAllChildPlaceTypes,

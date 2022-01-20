@@ -15,6 +15,7 @@
  */
 import React from "react";
 
+import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
 import { Block, BlockPropType } from "./block";
 
@@ -25,17 +26,9 @@ export interface PageConfig {
 
 interface MainPanePropType {
   /**
-   * The place dcid.
+   * The place to show the page for.
    */
-  dcid: string;
-  /**
-   * The place name.
-   */
-  placeName: string;
-  /**
-   * The place type.
-   */
-  placeType: string;
+  place: NamedTypedPlace;
   /**
    * The topic of the current page.
    */
@@ -55,7 +48,7 @@ export function MainPane(props: MainPanePropType): JSX.Element {
           <Block
             key={id}
             id={id}
-            placeDcid={props.dcid}
+            place={props.place}
             enclosedPlaceType={"State"}
             title={block.title}
             description={block.description}
