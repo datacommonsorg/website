@@ -1,0 +1,119 @@
+# Copyright 2021 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the config for topic page
+
+metadata {
+  topic_id: 'poverty'
+  topic_name: 'Poverty'
+  place_dcid: 'country/USA'
+  place_dcid: 'geoId/06'
+}
+
+blocks {
+  description: "Some intro text about poverty. … "
+  stat_var_metadata: {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person"
+    unit: "%"
+    scaling: 100
+  }
+  left_tiles: {
+    type: HIGHLIGHT
+    description: "of Americans lived under the poverty line (${date})"
+  }
+  right_tiles: {
+    type: LINE
+    title: "Poverty rate in ${place}"
+  }
+}
+
+blocks {
+  title: "Poverty across states"
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person"
+    unit: "%"
+    scaling: 100
+  }
+  left_tiles {
+    type: MAP
+    title: "Poverty across states (${date})"
+  }
+  right_tiles {
+    type: RANKING
+    ranking_metadata {
+      show_highest: true
+      show_lowest: true
+      show_increase: true
+      show_decrease: true
+      diff_base_date: "2014"
+    }
+  }
+}
+
+blocks {
+  title: "Poverty by race"
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
+    denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+    denom: "Count_Person_AsianAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+    denom: "Count_Person_BlackOrAfricanAmericanAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+    denom: "Count_Person_HispanicOrLatino"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+    denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
+    scaling: 100
+    unit: "%"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+    denom: "Count_Person_WhiteAlone"
+    scaling: 100
+    unit: "%"
+  }
+  left_tiles {
+    type: LINE
+    title: "Poverty rate by race in ${place}"
+  }
+  left_tiles {
+    type: BAR
+    title: "Poverty rate by race across states in ${place}"
+  }
+  right_tiles {
+    type: RANKING
+    description: "Some note about how US Census defines race…"
+    ranking_metadata {
+      show_highest: true
+    }
+  }
+}

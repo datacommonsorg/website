@@ -14,9 +14,15 @@
 
 ## This file specifies the config for topic page
 
+metadata {
+  topic_id: 'climate'
+  topic_name: 'Climate'
+  place_dcid: 'country/USA'
+  place_dcid: 'geoId/06'
+}
 
 blocks {
-  description: "Some intro text about poverty. … "
+  description: "Some intro text about climate. … "
   stat_var_metadata: {
     stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
     denom: "Count_Person"
@@ -29,7 +35,7 @@ blocks {
   }
   right_tiles: {
     type: LINE
-    title: "Poverty rate in ${place}"
+    title: "Climate rate in ${place}"
   }
 }
 
