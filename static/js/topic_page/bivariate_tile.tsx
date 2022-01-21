@@ -59,7 +59,7 @@ interface RawData {
   parentPlaces: NamedTypedPlace[];
 }
 
-interface ChartData {
+interface BivariateChartData {
   xStatVar: StatVarMetadata;
   yStatVar: StatVarMetadata;
   points: { [placeDcid: string]: Point };
@@ -73,7 +73,9 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const legend = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
+  const [bivariateChartData, setBivariateChartData] = useState<
+    BivariateChartData | undefined
+  >(null);
 
   useEffect(() => {
     fetchData(
@@ -91,18 +93,18 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
         props.statVarMetadata,
         props.place,
         props.enclosedPlaceType,
-        setChartData
+        setBivariateChartData
       );
     }
   }, [props, rawData]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(chartData, props, svgContainer, legend);
+    if (bivariateChartData) {
+      draw(bivariateChartData, props, svgContainer, legend);
     }
-  }, [chartData, props]);
+  }, [bivariateChartData, props]);
 
-  if (!chartData) {
+  if (!bivariateChartData) {
     return null;
   }
   const rs: ReplacementStrings = {
@@ -112,7 +114,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       title={props.title}
-      sources={chartData.sources}
+      sources={bivariateChartData.sources}
       replacementStrings={rs}
     >
       <div
@@ -210,7 +212,7 @@ function processData(
   statVarMetadata: StatVarMetadata[],
   place: NamedTypedPlace,
   enclosedPlaceType: string,
-  setChartdata: (data: ChartData) => void
+  setChartdata: (data: BivariateChartData) => void
 ): void {
   const xStatVar = statVarMetadata[0];
   const yStatVar = statVarMetadata[1];
@@ -286,7 +288,7 @@ const getTooltipHtml = (
 };
 
 function draw(
-  chartData: ChartData,
+  chartData: BivariateChartData,
   props: BivariateTilePropType,
   svgContainer: React.RefObject<HTMLDivElement>,
   legend: React.RefObject<HTMLDivElement>

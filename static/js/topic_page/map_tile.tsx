@@ -59,7 +59,7 @@ interface RawData {
   parentPlaces: NamedTypedPlace[];
 }
 
-interface ChartData {
+interface MapChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
@@ -72,7 +72,9 @@ interface ChartData {
 export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
+  const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(
@@ -92,28 +94,28 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         props.place,
         props.statVarMetadata[0].scaling,
         props.enclosedPlaceType,
-        setChartData
+        setMapChartData
       );
     }
   }, [rawData, props]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(chartData, props, svgContainer);
+    if (mapChartData) {
+      draw(mapChartData, props, svgContainer);
     }
-  }, [chartData, props]);
+  }, [mapChartData, props]);
 
-  if (!chartData) {
+  if (!mapChartData) {
     return null;
   }
   const rs: ReplacementStrings = {
     place: props.place.name,
-    date: chartData.dateRange,
+    date: mapChartData.dateRange,
   };
   return (
     <ChartTileContainer
       title={props.title}
-      sources={chartData.sources}
+      sources={mapChartData.sources}
       replacementStrings={rs}
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
@@ -177,7 +179,7 @@ function processData(
   place: NamedTypedPlace,
   scaling: number,
   enclosedPlaceType: string,
-  setChartData: (data: ChartData) => void
+  setChartData: (data: MapChartData) => void
 ): void {
   const dataValues = {};
   const metadata = {};
@@ -224,7 +226,7 @@ function processData(
 }
 
 function draw(
-  chartData: ChartData,
+  chartData: MapChartData,
   props: MapTilePropType,
   svgContainer: React.RefObject<HTMLElement>
 ): void {

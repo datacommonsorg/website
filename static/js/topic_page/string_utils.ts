@@ -21,7 +21,7 @@ export interface ReplacementStrings {
   date: string;
 }
 
-export function formatString(s: string, rs: ReplacementStrings) {
+export function formatString(s: string, rs: ReplacementStrings): string {
   let formattedString = s;
   for (const key in rs) {
     const re = new RegExp(`\\$\\{${key}\\}`, "g");

@@ -54,7 +54,7 @@ interface RawData {
   placeNames: { [placeDcid: string]: string };
 }
 
-interface ChartData {
+interface ScatterChartData {
   xStatVar: StatVarMetadata;
   yStatVar: StatVarMetadata;
   points: { [placeDcid: string]: Point };
@@ -65,7 +65,9 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const tooltip = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
+  const [scatterChartData, setScatterChartData] = useState<
+    ScatterChartData | undefined
+  >(null);
 
   useEffect(() => {
     fetchData(
@@ -78,17 +80,17 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   useEffect(() => {
     if (rawData) {
-      processData(rawData, props.statVarMetadata, setChartData);
+      processData(rawData, props.statVarMetadata, setScatterChartData);
     }
   }, [props, rawData]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(chartData, svgContainer, tooltip);
+    if (scatterChartData) {
+      draw(scatterChartData, svgContainer, tooltip);
     }
-  }, [chartData]);
+  }, [scatterChartData]);
 
-  if (!chartData) {
+  if (!scatterChartData) {
     return null;
   }
   const rs: ReplacementStrings = {
@@ -99,7 +101,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       title={props.title}
-      sources={chartData.sources}
+      sources={scatterChartData.sources}
       replacementStrings={rs}
     >
       <div id={props.id} className="scatter-svg-container" ref={svgContainer} />
@@ -171,7 +173,7 @@ function fetchData(
 function processData(
   rawData: RawData,
   statVarMetadata: StatVarMetadata[],
-  setChartdata: (data: ChartData) => void
+  setChartdata: (data: ScatterChartData) => void
 ): void {
   const xStatVar = statVarMetadata[0];
   const yStatVar = statVarMetadata[1];
@@ -228,7 +230,7 @@ function getTooltipElement(
 }
 
 function draw(
-  chartData: ChartData,
+  chartData: ScatterChartData,
   svgContainer: React.RefObject<HTMLDivElement>,
   tooltip: React.RefObject<HTMLDivElement>
 ): void {
