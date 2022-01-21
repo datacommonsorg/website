@@ -30,6 +30,7 @@ import {
 } from "../chart/draw_scatter";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { NamedTypedPlace } from "../shared/types";
 import { getStatsWithinPlace } from "../tools/scatter/util";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
@@ -37,11 +38,12 @@ import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
+import { ReplacementStrings } from "./string_utils";
 
 interface ScatterTilePropType {
   id: string;
   title: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarMetadata: StatVarMetadata[];
 }
@@ -52,7 +54,7 @@ interface RawData {
   placeNames: { [placeDcid: string]: string };
 }
 
-interface ChartData {
+interface ScatterChartData {
   xStatVar: StatVarMetadata;
   yStatVar: StatVarMetadata;
   points: { [placeDcid: string]: Point };
@@ -63,11 +65,13 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const tooltip = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
+  const [scatterChartData, setScatterChartData] = useState<
+    ScatterChartData | undefined
+  >(null);
 
   useEffect(() => {
     fetchData(
-      props.placeDcid,
+      props.place.dcid,
       props.enclosedPlaceType,
       props.statVarMetadata,
       setRawData
@@ -76,22 +80,30 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   useEffect(() => {
     if (rawData) {
-      processData(rawData, props.statVarMetadata, setChartData);
+      processData(rawData, props.statVarMetadata, setScatterChartData);
     }
   }, [props, rawData]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(chartData, props, svgContainer, tooltip);
+    if (scatterChartData) {
+      draw(scatterChartData, svgContainer, tooltip);
     }
-  }, [chartData, props]);
+  }, [scatterChartData]);
 
-  if (!chartData) {
+  if (!scatterChartData) {
     return null;
   }
+  const rs: ReplacementStrings = {
+    place: props.place.name,
+    date: "",
+  };
 
   return (
-    <ChartTileContainer title={props.title} sources={chartData.sources}>
+    <ChartTileContainer
+      title={props.title}
+      sources={scatterChartData.sources}
+      replacementStrings={rs}
+    >
       <div id={props.id} className="scatter-svg-container" ref={svgContainer} />
       <div id="scatter-tooltip" ref={tooltip} />
     </ChartTileContainer>
@@ -161,7 +173,7 @@ function fetchData(
 function processData(
   rawData: RawData,
   statVarMetadata: StatVarMetadata[],
-  setChartdata: (data: ChartData) => void
+  setChartdata: (data: ScatterChartData) => void
 ): void {
   const xStatVar = statVarMetadata[0];
   const yStatVar = statVarMetadata[1];
@@ -218,8 +230,7 @@ function getTooltipElement(
 }
 
 function draw(
-  chartData: ChartData,
-  props: ScatterTilePropType,
+  chartData: ScatterChartData,
   svgContainer: React.RefObject<HTMLDivElement>,
   tooltip: React.RefObject<HTMLDivElement>
 ): void {

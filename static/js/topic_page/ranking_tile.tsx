@@ -22,6 +22,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { NamedTypedPlace } from "../shared/types";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { Point, RankingUnit } from "./ranking_unit";
@@ -40,7 +41,7 @@ interface RankingData {
 }
 interface RankingTilePropType {
   id: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   enclosedPlaceType: string;
   title: string;
   statVarMetadata: StatVarMetadata[];
@@ -94,7 +95,7 @@ function fetchData(
   props: RankingTilePropType,
   setRankingData: (data: RankingData) => void
 ): void {
-  let url = `/api/stats/within-place?parent_place=${props.placeDcid}&child_type=${props.enclosedPlaceType}`;
+  let url = `/api/stats/within-place?parent_place=${props.place.dcid}&child_type=${props.enclosedPlaceType}`;
   for (const item of props.statVarMetadata) {
     url += `&stat_vars=${item.statVar}`;
     if (item.denom) {

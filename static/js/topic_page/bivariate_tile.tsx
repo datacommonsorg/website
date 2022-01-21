@@ -29,11 +29,9 @@ import { GeoJsonData } from "../chart/types";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
-import { NamedPlace } from "../shared/types";
-import { NamedTypedPlace } from "../tools/map/context";
+import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getStatsWithinPlace } from "../tools/scatter/util";
 import {
-  getNamedTypedPlace,
   GetStatSetResponse,
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -43,11 +41,12 @@ import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
+import { ReplacementStrings } from "./string_utils";
 
-interface ScatterTilePropType {
+interface BivariateTilePropType {
   id: string;
   title: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarMetadata: StatVarMetadata[];
 }
@@ -57,11 +56,10 @@ interface RawData {
   placeStats: GetStatSetResponse;
   population: StatApiResponse;
   placeNames: { [placeDcid: string]: string };
-  place: NamedTypedPlace;
   parentPlaces: NamedTypedPlace[];
 }
 
-interface ChartData {
+interface BivariateChartData {
   xStatVar: StatVarMetadata;
   yStatVar: StatVarMetadata;
   points: { [placeDcid: string]: Point };
@@ -71,15 +69,17 @@ interface ChartData {
   showMapBoundaries: boolean;
 }
 
-export function BivariateTile(props: ScatterTilePropType): JSX.Element {
+export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const legend = useRef(null);
   const [rawData, setRawData] = useState<RawData | undefined>(null);
-  const [chartData, setChartData] = useState<ChartData | undefined>(null);
+  const [bivariateChartData, setBivariateChartData] = useState<
+    BivariateChartData | undefined
+  >(null);
 
   useEffect(() => {
     fetchData(
-      props.placeDcid,
+      props.place.dcid,
       props.enclosedPlaceType,
       props.statVarMetadata,
       setRawData
@@ -91,24 +91,32 @@ export function BivariateTile(props: ScatterTilePropType): JSX.Element {
       processData(
         rawData,
         props.statVarMetadata,
+        props.place,
         props.enclosedPlaceType,
-        setChartData
+        setBivariateChartData
       );
     }
   }, [props, rawData]);
 
   useEffect(() => {
-    if (chartData) {
-      draw(chartData, props, svgContainer, legend);
+    if (bivariateChartData) {
+      draw(bivariateChartData, props, svgContainer, legend);
     }
-  }, [chartData, props]);
+  }, [bivariateChartData, props]);
 
-  if (!chartData) {
+  if (!bivariateChartData) {
     return null;
   }
-
+  const rs: ReplacementStrings = {
+    place: props.place.dcid,
+    date: "",
+  };
   return (
-    <ChartTileContainer title={props.title} sources={chartData.sources}>
+    <ChartTileContainer
+      title={props.title}
+      sources={bivariateChartData.sources}
+      replacementStrings={rs}
+    >
       <div
         id={props.id}
         className="bivariate-svg-container"
@@ -177,27 +185,22 @@ function fetchData(
   const parentPlacesPromise = axios
     .get(`/api/place/parent/${placeDcid}`)
     .then((resp) => resp.data);
-  const namedTypedPlacePromise = getNamedTypedPlace(placeDcid);
   Promise.all([
     placeStatsPromise,
     populationPromise,
     placeNamesPromise,
     geoJsonPromise,
     parentPlacesPromise,
-    namedTypedPlacePromise,
   ])
-    .then(
-      ([placeStats, population, placeNames, geoJson, parentPlaces, place]) => {
-        setRawData({
-          geoJson,
-          placeStats,
-          population,
-          placeNames,
-          parentPlaces,
-          place,
-        });
-      }
-    )
+    .then(([placeStats, population, placeNames, geoJson, parentPlaces]) => {
+      setRawData({
+        geoJson,
+        placeStats,
+        population,
+        placeNames,
+        parentPlaces,
+      });
+    })
     .catch(() => {
       // TODO: add error message
       setRawData(null);
@@ -207,8 +210,9 @@ function fetchData(
 function processData(
   rawData: RawData,
   statVarMetadata: StatVarMetadata[],
+  place: NamedTypedPlace,
   enclosedPlaceType: string,
-  setChartdata: (data: ChartData) => void
+  setChartdata: (data: BivariateChartData) => void
 ): void {
   const xStatVar = statVarMetadata[0];
   const yStatVar = statVarMetadata[1];
@@ -250,14 +254,11 @@ function processData(
     sources,
     geoJson: rawData.geoJson,
     isUsaPlace: isChildPlaceOf(
-      rawData.place.dcid,
+      place.dcid,
       USA_PLACE_DCID,
       rawData.parentPlaces
     ),
-    showMapBoundaries: shouldShowMapBoundaries(
-      rawData.place,
-      enclosedPlaceType
-    ),
+    showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
   });
 }
 
@@ -287,8 +288,8 @@ const getTooltipHtml = (
 };
 
 function draw(
-  chartData: ChartData,
-  props: ScatterTilePropType,
+  chartData: BivariateChartData,
+  props: BivariateTilePropType,
   svgContainer: React.RefObject<HTMLDivElement>,
   legend: React.RefObject<HTMLDivElement>
 ): void {
@@ -316,7 +317,7 @@ function draw(
     yLog: chartData.yStatVar.log,
     isUsaPlace: chartData.isUsaPlace,
     showMapBoundaries: chartData.showMapBoundaries,
-    placeDcid: props.placeDcid,
+    placeDcid: props.place.dcid,
   };
 
   drawBivariate(

@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { NamedTypedPlace } from "./map/context";
+import { NamedTypedPlace } from "../shared/types";
 import {
   getPopulationDate,
   shouldShowMapBoundaries,

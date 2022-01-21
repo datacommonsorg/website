@@ -20,6 +20,7 @@
 
 import React from "react";
 
+import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
 import { StatVarMetadata } from "../types/stat_var";
 import { BarTile } from "./bar_tile";
@@ -33,7 +34,7 @@ import { Tile } from "./tile";
 
 export interface BlockPropType {
   id: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   enclosedPlaceType: string;
   title: string;
   description: string;
@@ -67,7 +68,7 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
           <HighlightTile
             key={id}
             description={tile.description}
-            placeDcid={props.placeDcid}
+            place={props.place}
             statVarMetadata={props.statVarMetadata}
           />
         );
@@ -77,7 +78,7 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             id={id}
             title={tile.title}
-            placeDcid={props.placeDcid}
+            place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
             statVarMetadata={props.statVarMetadata}
           />
@@ -88,7 +89,7 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             id={id}
             title={tile.title}
-            placeDcid={props.placeDcid}
+            place={props.place}
             statVarMetadata={props.statVarMetadata}
           />
         );
@@ -98,7 +99,7 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             id={id}
             title={tile.title}
-            placeDcid={props.placeDcid}
+            place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
             statVarMetadata={props.statVarMetadata}
             rankingMetadata={tile.rankingMetadata}
@@ -110,7 +111,7 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             id={id}
             title={tile.title}
-            placeDcid={props.placeDcid}
+            place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
             statVarMetadata={props.statVarMetadata}
           />
@@ -121,7 +122,7 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             id={id}
             title={tile.title}
-            placeDcid={props.placeDcid}
+            place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
             statVarMetadata={props.statVarMetadata}
           />
@@ -132,7 +133,7 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             id={id}
             title={tile.title}
-            placeDcid={props.placeDcid}
+            place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
             statVarMetadata={props.statVarMetadata}
           />

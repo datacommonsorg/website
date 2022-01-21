@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { NamedTypedPlace } from "../tools/map/context";
+import { NamedTypedPlace } from "./types";
 
 export const USA_PLACE_DCID = "country/USA";
 export const INDIA_PLACE_DCID = "country/IND";
