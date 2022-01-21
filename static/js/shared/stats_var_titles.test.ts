@@ -22,7 +22,7 @@ import { placeExplorerCategories } from "./util";
 test("stats var label: marked for translation", async () => {
   for (const file of placeExplorerCategories) {
     const chartConfig = await import(
-      `../../../server/chart_config/${file}.json`
+      `../../../server/config/chart_config/${file}.json`
     );
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
@@ -40,7 +40,7 @@ test("stats var label: compiled to en", async () => {
   ]);
   for (const file of placeExplorerCategories) {
     const chartConfig = await import(
-      `../../../server/chart_config/${file}.json`
+      `../../../server/config/chart_config/${file}.json`
     );
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
@@ -63,7 +63,7 @@ test("stats var label: compiled to es", async () => {
   ]);
   for (const file of placeExplorerCategories) {
     const chartConfig = await import(
-      `../../../server/chart_config/${file}.json`
+      `../../../server/config/chart_config/${file}.json`
     );
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {

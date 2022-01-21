@@ -39,7 +39,6 @@ app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 app.jinja_env.globals['FEEDING_AMERICA'] = app.config['FEEDING_AMERICA']
 app.jinja_env.globals['SUSTAINABILITY'] = app.config['SUSTAINABILITY']
 app.jinja_env.globals['NAME'] = app.config['NAME']
-app.jinja_env.globals['TOPIC_PAGE_CONFIG'] = app.config['TOPIC_PAGE_CONFIG']
 app.jinja_env.globals['BASE_HTML'] = (
     'sustainability/base.html' if app.config['SUSTAINABILITY'] else 'base.html')
 

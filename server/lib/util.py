@@ -14,6 +14,8 @@
 
 import json
 import os
+from google.protobuf import text_format
+from config import topic_page_pb2
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
@@ -28,11 +30,36 @@ PLACE_EXPLORER_CATEGORIES = [
     "energy",
 ]
 
+# key is topic_id, which should match the folder name under config/topic_page
+# property is the list of filenames in that folder to load.
+TOPIC_PAGE_CONFIGS = {
+    'poverty': ['USA'],
+    'climate': ['USA'],
+}
+
 
 def get_chart_config():
     chart_config = []
     for filename in PLACE_EXPLORER_CATEGORIES:
-        with open(os.path.join('chart_config', filename + '.json'),
+        with open(os.path.join('config', 'chart_config', filename + '.json'),
                   encoding='utf-8') as f:
             chart_config.extend(json.load(f))
     return chart_config
+
+
+# Returns topic pages loaded as TopicPageConfig protos:
+# { topic_id: [TopicPageConfig,...] }
+def get_topic_page_config():
+    topic_configs = {}
+    for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
+        configs = []
+        for filename in filenames:
+            with open(
+                    os.path.join('config', 'topic_page', topic_id,
+                                 filename + '.textproto'), 'r') as f:
+                data = f.read()
+                topic_page_config = topic_page_pb2.TopicPageConfig()
+                text_format.Parse(data, topic_page_config)
+                configs.append(topic_page_config)
+        topic_configs[topic_id] = configs
+    return topic_configs

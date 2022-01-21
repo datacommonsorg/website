@@ -243,7 +243,7 @@ the same region.
 
 ### Adding new charts
 
-1. Update [server/chart_config/](../server/chart_config)`<category>.json` with the new chart.
+1. Update [server/config/chart_config/](../server/config/chart_config)`<category>.json` with the new chart.
 
    ```javascript
       {

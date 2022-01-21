@@ -23,9 +23,10 @@ class TestChart(unittest.TestCase):
 
     def setUp(self):
         self.charts = []
-        for filename in os.listdir("chart_config"):
+        chart_config_dir = os.path.join("config", "chart_config")
+        for filename in os.listdir(chart_config_dir):
             if filename.endswith(".json"):
-                with open(os.path.join('chart_config', filename),
+                with open(os.path.join(chart_config_dir, filename),
                           encoding='utf-8') as f:
                     self.charts.extend(json.load(f))
 
