@@ -100,7 +100,10 @@ export function ChartLoader(): JSX.Element {
                 display={display}
                 sources={chartData.sources}
               />
-              <PlotOptions points={chartData.points} />
+              <PlotOptions
+                points={chartData.points}
+                populationData={cache.populationData}
+              />
             </>
           )}
         </>

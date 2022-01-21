@@ -19,11 +19,14 @@
  * lower and upper bounds for populations.
  */
 
+import _ from "lodash";
 import React, { useContext, useState } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Col, Container, Row } from "reactstrap";
 
 import { Point } from "../../chart/draw_scatter";
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import { StatApiResponse } from "../../shared/stat_types";
 import {
   AxisWrapper,
   Context,
@@ -34,6 +37,7 @@ import { ScatterChartType } from "./util";
 
 interface PlotOptionsProps {
   points: { [placeDcid: string]: Point };
+  populationData: StatApiResponse;
 }
 
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
@@ -47,14 +51,7 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
   const [upperBound, setUpperBound] = useState(
     place.value.upperBound.toString()
   );
-  const hasYPopData =
-    Object.values(props.points).filter(
-      (point) => point.yPop !== undefined && point.yPop !== null
-    ).length > 0;
-  const hasXPopData =
-    Object.values(props.points).filter(
-      (point) => point.xPop !== undefined && point.xPop !== null
-    ).length > 0;
+
   return (
     <Card id="plot-options">
       <Container fluid={true}>
@@ -71,7 +68,7 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
                 type="checkbox"
                 checked={y.value.perCapita}
                 onChange={(e) => checkPerCapita(y, e)}
-                disabled={!hasYPopData}
+                disabled={!hasPopData(props.populationData)}
               />
               <Label check>
                 {display.chartType === ScatterChartType.SCATTER
@@ -87,7 +84,7 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
                 type="checkbox"
                 checked={x.value.perCapita}
                 onChange={(e) => checkPerCapita(x, e)}
-                disabled={!hasXPopData}
+                disabled={!hasPopData(props.populationData)}
               />
               <Label check>
                 {display.chartType === ScatterChartType.SCATTER
@@ -325,6 +322,15 @@ function selectUpperBound(
     place.setUpperBound(parseInt(event.target.value));
   }
   setUpperBound(event.target.value);
+}
+
+function hasPopData(populationData: StatApiResponse): boolean {
+  const placesWithPopData = Object.keys(populationData).filter(
+    (place) =>
+      !_.isEmpty(populationData[place].data) &&
+      !_.isEmpty(populationData[place].data[DEFAULT_POPULATION_DCID])
+  );
+  return !_.isEmpty(placesWithPopData);
 }
 
 export { PlotOptions };
