@@ -18,44 +18,56 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { formatNumber } from "../i18n/i18n";
-import { GetStatSetResponse } from "../tools/shared_util";
+import { NamedTypedPlace } from "../shared/types";
+import { GetStatSetResponse, PlacePointStatData } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { formatString, ReplacementStrings } from "./string_utils";
 
 const NUM_FRACTION_DIGITS = 1;
 
 interface HighlightTilePropType {
   description: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   statVarMetadata: StatVarMetadata[];
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
-  const [highlightData, setHighlightData] = useState<number | undefined>(null);
+  const [highlightData, setHighlightData] = useState<
+    PlacePointStatData | undefined
+  >(null);
 
   useEffect(() => {
     fetchData(props, setHighlightData);
   }, [props]);
 
+  if (!highlightData) {
+    return null;
+  }
+  const rs: ReplacementStrings = {
+    place: props.place.name,
+    date: highlightData.date,
+  };
+  const description = formatString(props.description, rs);
   return (
     <div className="chart-container highlight-tile">
       {highlightData && (
         <span className="stat">
           {formatNumber(
-            highlightData,
+            highlightData.value,
             props.statVarMetadata[0].unit,
             false,
             NUM_FRACTION_DIGITS
           )}
         </span>
       )}
-      <span className="desc">{props.description}</span>
+      <span className="desc">{description}</span>
     </div>
   );
 }
 
 function fetchData(
   props: HighlightTilePropType,
-  setHighlightData: (data: number) => void
+  setHighlightData: (data: PlacePointStatData) => void
 ): void {
   // Now assume highlight only talks about one stat var.
   const mainStatVar = props.statVarMetadata[0].statVar;
@@ -66,18 +78,23 @@ function fetchData(
   }
   axios
     .post<GetStatSetResponse>("/api/stats/set", {
-      places: [props.placeDcid],
+      places: [props.place.dcid],
       stat_vars: statVars,
     })
     .then((resp) => {
       const statData = resp.data.data;
-      let value = statData[mainStatVar].stat[props.placeDcid].value;
+      const mainStatData = statData[mainStatVar].stat[props.place.dcid];
+      let value = mainStatData.value;
       if (denomStatVar) {
-        value /= statData[denomStatVar].stat[props.placeDcid].value;
+        value /= statData[denomStatVar].stat[props.place.dcid].value;
       }
       if (props.statVarMetadata[0].scaling) {
         value *= props.statVarMetadata[0].scaling;
       }
-      setHighlightData(value);
+      setHighlightData({ value, date: mainStatData.date });
+    })
+    .catch(() => {
+      // TODO: add error message
+      setHighlightData(null);
     });
 }

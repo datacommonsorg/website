@@ -25,11 +25,13 @@ import React, { useEffect, useState } from "react";
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawGroupBarChart } from "../chart/draw";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { NamedTypedPlace } from "../shared/types";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { Point } from "./ranking_unit";
+import { ReplacementStrings } from "./string_utils";
 
 const NUM_PLACES = 6;
 
@@ -38,7 +40,7 @@ const FILTER_STAT_VAR = "Count_Person";
 interface BarTilePropType {
   id: string;
   title: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarMetadata: StatVarMetadata[];
 }
@@ -73,8 +75,16 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   if (!barChartData) {
     return null;
   }
+  const rs: ReplacementStrings = {
+    place: props.place.name,
+    date: "",
+  };
   return (
-    <ChartTileContainer title={props.title} sources={barChartData.sources}>
+    <ChartTileContainer
+      title={props.title}
+      sources={barChartData.sources}
+      replacementStrings={rs}
+    >
       <div id={props.id} className="svg-container"></div>
     </ChartTileContainer>
   );
@@ -84,7 +94,7 @@ function fetchData(
   props: BarTilePropType,
   setRawData: (data: GetStatSetResponse) => void
 ): void {
-  let url = `/api/stats/within-place?parent_place=${props.placeDcid}&child_type=${props.enclosedPlaceType}`;
+  let url = `/api/stats/within-place?parent_place=${props.place.dcid}&child_type=${props.enclosedPlaceType}`;
   for (const item of props.statVarMetadata) {
     url += `&stat_vars=${item.statVar}`;
     if (item.denom) {

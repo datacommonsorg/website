@@ -21,9 +21,8 @@
 import { createContext, useState } from "react";
 
 import { StatVarInfo, StatVarNode } from "../../shared/stat_var";
-import { NamedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { Setter } from "../../shared/util";
-import { NamedTypedPlace } from "../map/context";
 import { ScatterChartType } from "./util";
 
 interface Axis {

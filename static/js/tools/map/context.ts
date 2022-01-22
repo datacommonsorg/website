@@ -17,7 +17,7 @@
 import { createContext, useState } from "react";
 
 import { StatVarInfo } from "../../shared/stat_var";
-import { NamedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { Setter } from "../../shared/util";
 import {
   applyHashDisplay,
@@ -29,13 +29,6 @@ import {
 /**
  * Global app context for map explorer tool.
  */
-
-// Place with name and its type.
-export interface NamedTypedPlace {
-  dcid: string;
-  name: string;
-  types: Array<string>;
-}
 
 // Information relating to the stat var to plot
 export interface StatVar {

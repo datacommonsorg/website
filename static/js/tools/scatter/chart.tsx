@@ -39,6 +39,7 @@ import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { urlToDomain } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
+import { getDateRange } from "../../utils/string_utils";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
 import { ScatterChartType } from "./util";
@@ -320,10 +321,7 @@ function redirectAction(placeDcid: string): void {
 }
 
 function getTitle(dates: string[], statVarLabel: string) {
-  const minDate = _.min(dates);
-  const maxDate = _.max(dates);
-  const dateRange =
-    minDate === maxDate ? `(${minDate})` : `(${minDate} to ${maxDate})`;
+  const dateRange = `(${getDateRange(dates)})`;
   return `${statVarLabel} ${dateRange}`;
 }
 

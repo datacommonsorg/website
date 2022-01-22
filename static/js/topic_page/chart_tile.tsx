@@ -17,20 +17,23 @@
 import React from "react";
 
 import { urlToDomain } from "../shared/util";
+import { formatString, ReplacementStrings } from "./string_utils";
 
 interface ChartTileContainerProp {
   title: string;
   sources: Set<string>;
   children: React.ReactNode;
+  replacementStrings: ReplacementStrings;
 }
 
 /**
  * A container for any tile containing a chart.
  */
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
+  const title = formatString(props.title, props.replacementStrings);
   return (
     <div className="chart-container">
-      <h4>{props.title}</h4>
+      <h4>{title}</h4>
       {props.children}
       {props.sources && (
         <footer>

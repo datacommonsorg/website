@@ -26,14 +26,16 @@ import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { NamedTypedPlace } from "../shared/types";
 import { StatVarMetadata } from "../types/stat_var";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
+import { ReplacementStrings } from "./string_utils";
 
 interface LineTilePropType {
   id: string;
   title: string;
-  placeDcid: string;
+  place: NamedTypedPlace;
   statVarMetadata: StatVarMetadata[];
 }
 
@@ -68,8 +70,16 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   if (!lineChartData) {
     return null;
   }
+  const rs: ReplacementStrings = {
+    place: props.place.name,
+    date: "",
+  };
   return (
-    <ChartTileContainer title={props.title} sources={lineChartData.sources}>
+    <ChartTileContainer
+      title={props.title}
+      sources={lineChartData.sources}
+      replacementStrings={rs}
+    >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
   );
@@ -90,7 +100,7 @@ function fetchData(
     .post(`/api/stats`, {
       // Fetch both numerator stat vars and denominator stat vars
       statVars: statVars,
-      places: [props.placeDcid],
+      places: [props.place.dcid],
     })
     .then((resp) => {
       setRawData(resp.data);
@@ -147,9 +157,9 @@ function rawToChart(
   const allDates = new Set<string>();
   for (const item of metadata) {
     // Do not modify the React state. Create a clone.
-    const series = raw[props.placeDcid].data[item.statVar];
+    const series = raw[props.place.dcid].data[item.statVar];
     if (item.denom) {
-      const denomSeries = raw[props.placeDcid].data[item.denom];
+      const denomSeries = raw[props.place.dcid].data[item.denom];
       // (TODO): Here expects exact date match. We should implement a generic
       // function that takes two Series and compute the ratio.
       for (const date in series.val) {
