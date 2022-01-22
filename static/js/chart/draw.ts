@@ -753,6 +753,9 @@ function drawGroupBarChart(
   dataGroups: DataGroup[],
   unit?: string
 ): void {
+  if (_.isEmpty(dataGroups)) {
+    return;
+  }
   const labelToLink = {};
   for (const dataGroup of dataGroups) {
     labelToLink[dataGroup.label] = dataGroup.link;
@@ -859,6 +862,9 @@ function drawLineChart(
   unit?: string,
   handleDotClick?: (dotData: DotDataPoint) => void
 ): boolean {
+  if (_.isEmpty(dataGroups)) {
+    return true;
+  }
   let maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
   let minV = Math.min(...dataGroups.map((dataGroup) => dataGroup.min()));
   if (minV > 0) {

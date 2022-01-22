@@ -170,7 +170,7 @@ function rawToChart(
         }
       }
     }
-    if (Object.keys(series.val).length > 0) {
+    if (series.val && Object.keys(series.val).length > 0) {
       const dataPoints: DataPoint[] = [];
       for (const date in series.val) {
         dataPoints.push({
