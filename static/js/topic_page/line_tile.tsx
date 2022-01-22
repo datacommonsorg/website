@@ -166,7 +166,7 @@ function rawToChart(
         dataPoints.push({
           label: date,
           time: new Date(date).getTime(),
-          value: series.val[date] * item.scaling,
+          value: item.scaling ? series.val[date] * item.scaling : series.val[date],
         });
         allDates.add(date);
       }

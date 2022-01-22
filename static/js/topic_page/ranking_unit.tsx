@@ -58,7 +58,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                 <td className="stat">
                   <span className="num-value">
                     {formatNumber(
-                      point.stat * props.scaling,
+                      props.scaling ? point.stat * props.scaling : point.stat,
                       props.unit,
                       false,
                       NUM_FRACTION_DIGITS
