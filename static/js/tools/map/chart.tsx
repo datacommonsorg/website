@@ -92,9 +92,7 @@ export function Chart(props: ChartProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
   const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
   const mainSvInfo: StatVarInfo =
-  statVar.dcid in statVar.info
-      ? statVar.info[statVar.dcid]
-      : {};
+    statVar.dcid in statVar.info ? statVar.info[statVar.dcid] : {};
   const title = getTitle(
     Array.from(props.dates),
     mainSvInfo.title || statVar.dcid,
