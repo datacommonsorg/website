@@ -15,7 +15,6 @@
  */
 import _ from "lodash";
 import React from "react";
-import { ErrorBoundary } from "../shared/error_boundary";
 
 import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
