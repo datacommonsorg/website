@@ -40,6 +40,8 @@ message StatVarMetadata {
   double scaling = 4;
   // [Optional] Whether or not to show this stat var on a log scale
   bool log = 5;
+  // The name to use for the stat var in labels and titles.
+  string name = 6;
 }
 
 
@@ -48,7 +50,13 @@ message RankingMetadata {
   bool show_lowest = 2;
   bool show_increase = 3;
   bool show_decrease = 4;
+
   string diff_base_date = 5; // For comparisons
+
+  string highest_title = 6;
+  string lowest_title = 7;
+  string increase_title = 8;
+  string decrease_title = 9;
 }
 
 message HighlightMetadata {
@@ -67,6 +75,7 @@ message Tile {
     HIGHLIGHT = 7;
   }
   string title = 1;
+  // TODO(beets): Implement tile-level descriptions.
   string description = 2;
   TileType type = 3;
   repeated StatVarMetadata stat_var_override = 4;

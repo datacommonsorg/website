@@ -21,6 +21,7 @@
 import React from "react";
 
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
+import { formatString } from "./string_utils";
 
 const NUM_FRACTION_DIGITS = 2;
 
@@ -34,7 +35,7 @@ export interface Point {
 interface RankingUnitPropType {
   title: string;
   points: Point[];
-  statVar: string;
+  statVarName: string;
   unit?: string;
   scaling?: number;
 }
@@ -42,7 +43,13 @@ interface RankingUnitPropType {
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   return (
     <div className="ranking-list">
-      <h4>{props.title}</h4>
+      <h4>
+        {formatString(props.title, {
+          place: "",
+          date: "",
+          statVar: props.statVarName,
+        })}
+      </h4>
       <table>
         <tbody>
           {props.points.map((point, i) => {
@@ -58,7 +65,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                 <td className="stat">
                   <span className="num-value">
                     {formatNumber(
-                      point.stat * props.scaling,
+                      props.scaling ? point.stat * props.scaling : point.stat,
                       props.unit,
                       false,
                       NUM_FRACTION_DIGITS

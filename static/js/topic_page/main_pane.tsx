@@ -16,6 +16,7 @@
 import _ from "lodash";
 import React from "react";
 
+import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
 import { Block, BlockPropType } from "./block";
@@ -58,17 +59,18 @@ export function MainPane(props: MainPanePropType): JSX.Element {
         props.pageConfig.blocks.map((block) => {
           const id = randDomId();
           return (
-            <Block
-              key={id}
-              id={id}
-              place={props.place}
-              enclosedPlaceType={"State"}
-              title={block.title}
-              description={block.description}
-              leftTiles={block.leftTiles}
-              rightTiles={block.rightTiles}
-              statVarMetadata={block.statVarMetadata}
-            />
+            <ErrorBoundary key={id}>
+              <Block
+                id={id}
+                place={props.place}
+                enclosedPlaceType={"State"}
+                title={block.title}
+                description={block.description}
+                leftTiles={block.leftTiles}
+                rightTiles={block.rightTiles}
+                statVarMetadata={block.statVarMetadata}
+              />
+            </ErrorBoundary>
           );
         })}
     </>

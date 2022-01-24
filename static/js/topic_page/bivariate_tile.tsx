@@ -116,6 +116,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       title={props.title}
       sources={bivariateChartData.sources}
       replacementStrings={rs}
+      className="bivariate-chart"
     >
       <div
         id={props.id}

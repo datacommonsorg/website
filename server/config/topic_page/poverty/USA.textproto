@@ -18,16 +18,16 @@ metadata {
   topic_id: 'poverty'
   topic_name: 'Poverty'
   place_dcid: 'country/USA'
-  place_dcid: 'geoId/06'
 }
 
 blocks {
-  description: "Some intro text about poverty. … "
+  description: "In the US, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. (US Census)"
   stat_var_metadata: {
     stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
     denom: "Count_Person"
     unit: "%"
     scaling: 100
+    name: "Poverty rate"
   }
   left_tiles: {
     type: HIGHLIGHT
@@ -41,30 +41,75 @@ blocks {
 
 blocks {
   title: "Poverty across states"
-  stat_var_metadata {
+  description: "Poverty thresholds are uniform across the country. There is a big range in terms of the percentage of the population who live in poverty (9 - 44%). Looking at the total number of people in poverty though, the rankings closely match state populations."
+  stat_var_metadata: {
     stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
     denom: "Count_Person"
     unit: "%"
     scaling: 100
+    name: "Poverty rate"
   }
   left_tiles {
     type: MAP
-    title: "Poverty across states (${date})"
+    title: "Poverty rate across states (${date})"
+  }
+  right_tiles {
+    type: RANKING
+    ranking_metadata {
+      show_highest: true
+      highest_title: "Highest by poverty rate"
+      show_lowest: true
+      lowest_title: "Lowest by poverty rate"
+    }
+  }
+  right_tiles {
+    type: RANKING
+    stat_var_override {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "people in poverty"
+    }
+    ranking_metadata {
+      show_highest: true
+      highest_title: "Most ${statVar}"
+      show_lowest: true
+      lowest_title: "Fewest ${statVar}"
+    }
+  }
+}
+
+blocks {
+  title: "Poverty rate by sex"
+  stat_var_metadata {
+    stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person_Female"
+    unit: "%"
+    scaling: 100
+    name: "females"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person_Male"
+    unit: "%"
+    scaling: 100
+    name: "males"
+  }
+  left_tiles {
+    type: LINE
+    title: "Poverty rate by sex in ${place}"
   }
   right_tiles {
     type: RANKING
     ranking_metadata {
       show_highest: true
       show_lowest: true
-      show_increase: true
-      show_decrease: true
-      diff_base_date: "2014"
+      highest_title: "Most ${statVar} in poverty"
+      lowest_title: "Least ${statVar} in poverty"
     }
   }
 }
 
 blocks {
-  title: "Poverty by race"
+  title: "Poverty rate by race"
   stat_var_metadata {
     stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
     denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
@@ -105,15 +150,164 @@ blocks {
     type: LINE
     title: "Poverty rate by race in ${place}"
   }
-  left_tiles {
-    type: BAR
-    title: "Poverty rate by race across states in ${place}"
-  }
   right_tiles {
     type: RANKING
-    description: "Some note about how US Census defines race…"
     ranking_metadata {
       show_highest: true
+      highest_title: "Highest among ${statVar}"
     }
+  }
+}
+
+blocks {
+  title: "Households in poverty by work status"
+  stat_var_metadata {
+    stat_var: "Count_Household_FullTimeYearRoundWorker_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "All Family Households"
+    denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_FullTimeYearRoundWorker_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "Households with Married Couple"
+    denom: "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_FullTimeYearRoundWorker_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "Households with Single Mother"
+    denom: "Count_Household_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+  }
+  left_tiles {
+    title: "Percentage of households in poverty with full time year round workers (${date})"
+    type: MAP
+  }
+  right_tiles {
+    title: "Percentage of households in poverty with full time year round workers"
+    type: LINE
+  }
+}
+
+blocks {
+  title: "Households in poverty by number of children"
+  stat_var_metadata {
+    stat_var: "Count_Household_Householder0OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "No children"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_Householder1To2OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "1-2 children"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_Householder3To4OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "3-4 children"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_Householder5OrMoreOwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "5+ children"
+  }
+  left_tiles {
+    type: LINE
+    title: "Number of households in poverty by number of children"
+  }
+  right_tiles {
+    title: ""
+    type: RANKING
+    ranking_metadata {
+      show_highest: true
+      highest_title: "Highest: ${statVar}"
+    }
+  }
+}
+
+# TODO(beets): The charts here would be better as percentages, but there is no denominator: Count_Household_BelowPovertyLevelInThePast12Months
+blocks {
+  title: "Food assistance for households below poverty"
+  description: "Number of households living under the poverty level and receiving food stamps in the last 12 months."
+  stat_var_metadata {
+    stat_var: "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+  }
+  left_tiles {
+    type: MAP
+    title: "Number of households in poverty receiving food stamps (${date})"
+  }
+  right_tiles {
+    type: MAP
+    title: "Number of households in poverty without food stamps (${date})"
+    stat_var_override {
+      stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+    }
+  }
+}
+
+blocks {
+  title: "Social security income for households below poverty"
+  description: "Number of households living under the poverty level and receiving social security income in the last 12 months."
+  stat_var_metadata {
+    stat_var: "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+    name: "All family households"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+    name: "Married couple households"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+    name: "Single mother households"
+  }
+  left_tiles {
+    type: MAP
+    title: "Number of households in poverty with social security income (${date})"
+  }
+  right_tiles {
+    type: LINE
+    title: "Number of households in poverty with social security income"
+  }
+}
+
+blocks {
+  title: "Supplemental social security income for households below poverty"
+  description: "Received supplemental social security income (SSI) and/or public cash assistance in the past 12 months."
+  stat_var_metadata {
+    stat_var: "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+    name: "All family households"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+    name: "Married couple households"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    unit: "%"
+    scaling: 100
+    name: "Single mother households"
+  }
+  left_tiles {
+    type: MAP
+    title: "Percentage of households in poverty with supplemental social security income (${date})"
+  }
+  right_tiles {
+    type: LINE
+    title: "Percentage of households in poverty with supplemental social security income"
   }
 }

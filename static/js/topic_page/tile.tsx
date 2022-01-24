@@ -21,7 +21,13 @@ export interface RankingMetadata {
   showLowest: boolean;
   showIncrease: boolean;
   showDecrease: boolean;
+
   diffBaseDate: string;
+
+  highestTitle?: string;
+  lowestTitle?: string;
+  increaseTitle?: string;
+  decreaseTitle?: string;
 }
 
 export interface HighlightMetadata {
@@ -29,10 +35,10 @@ export interface HighlightMetadata {
 }
 
 export interface Tile {
-  title: string;
+  title?: string;
   description: string;
   type: string;
-  statVarOverride?: StatVarMetadata;
+  statVarOverride?: StatVarMetadata[];
   rankingMetadata?: RankingMetadata;
   highlightMetadata?: HighlightMetadata;
 }

@@ -103,6 +103,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       title={props.title}
       sources={scatterChartData.sources}
       replacementStrings={rs}
+      className="scatter-chart"
     >
       <div id={props.id} className="scatter-svg-container" ref={svgContainer} />
       <div id="scatter-tooltip" ref={tooltip} />
