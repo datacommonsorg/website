@@ -176,12 +176,17 @@ function rawToChart(
         dataPoints.push({
           label: date,
           time: new Date(date).getTime(),
-          value: item.scaling ? series.val[date] * item.scaling : series.val[date],
+          value: item.scaling
+            ? series.val[date] * item.scaling
+            : series.val[date],
         });
         allDates.add(date);
       }
       dataGroups.push(
-        new DataGroup(getStatVarName(item.statVar, props.statVarMetadata), dataPoints)
+        new DataGroup(
+          getStatVarName(item.statVar, props.statVarMetadata),
+          dataPoints
+        )
       );
       sources.add(series.metadata.provenanceUrl);
     }

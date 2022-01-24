@@ -146,7 +146,11 @@ function processData(
       const dataPoints: DataPoint[] = [];
       for (const item of props.statVarMetadata) {
         const statVar = item.statVar;
-        if (!raw.data[statVar] || !raw.data[statVar].stat || !raw.data[statVar].stat[placeDcid]) {
+        if (
+          !raw.data[statVar] ||
+          !raw.data[statVar].stat ||
+          !raw.data[statVar].stat[placeDcid]
+        ) {
           continue;
         }
         const dataPoint = {

@@ -36,7 +36,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     ? formatString(props.title, props.replacementStrings)
     : "";
   return (
-    <div className={`chart-container ${props.className ? props.className : ""}`}>
+    <div
+      className={`chart-container ${props.className ? props.className : ""}`}
+    >
       <h4>{title}</h4>
       {props.children}
       {props.sources && (

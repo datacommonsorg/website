@@ -23,14 +23,16 @@
 
 import React from "react";
 
-interface ErrorBoundaryPropType {
-}
+interface ErrorBoundaryPropType {}
 
 interface ErrorBoundaryStateType {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends React.Component<ErrorBoundaryPropType, ErrorBoundaryStateType> {
+export class ErrorBoundary extends React.Component<
+  ErrorBoundaryPropType,
+  ErrorBoundaryStateType
+> {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -46,10 +48,10 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryPropType, ErrorB
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-      <div className="alert alert-warning" role="alert">
-        Error rendering this component.
-      </div>
-      )
+        <div className="alert alert-warning" role="alert">
+          Error rendering this component.
+        </div>
+      );
     }
     return this.props.children;
   }

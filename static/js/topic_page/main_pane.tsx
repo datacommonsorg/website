@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import React from "react";
-import { ErrorBoundary } from "../shared/error_boundary";
 
+import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
 import { Block, BlockPropType } from "./block";

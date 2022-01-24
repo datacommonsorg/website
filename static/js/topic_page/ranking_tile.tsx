@@ -71,7 +71,11 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={props.rankingMetadata.highestTitle ? props.rankingMetadata.highestTitle : "Highest ${statVar}"}
+                  title={
+                    props.rankingMetadata.highestTitle
+                      ? props.rankingMetadata.highestTitle
+                      : "Highest ${statVar}"
+                  }
                   points={points.slice(-RANKING_COUNT).reverse()}
                 />
               )}
@@ -81,7 +85,11 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                   statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={props.rankingMetadata.lowestTitle ? props.rankingMetadata.lowestTitle : "Lowest ${statVar}"}
+                  title={
+                    props.rankingMetadata.lowestTitle
+                      ? props.rankingMetadata.lowestTitle
+                      : "Lowest ${statVar}"
+                  }
                   points={points.slice(0, RANKING_COUNT)}
                 />
               )}

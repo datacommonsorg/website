@@ -1,5 +1,5 @@
-import { getStatsVarLabel } from '../shared/stats_var_labels';
-import { StatVarMetadata } from './../types/stat_var';
+import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { StatVarMetadata } from "./../types/stat_var";
 /**
  * Copyright 2022 Google LLC
  *
@@ -33,7 +33,10 @@ export function formatString(s: string, rs: ReplacementStrings): string {
   return formattedString;
 }
 
-export function getStatVarName(statVarDcid: string, statVars: StatVarMetadata[]): string {
+export function getStatVarName(
+  statVarDcid: string,
+  statVars: StatVarMetadata[]
+): string {
   for (const svm of statVars) {
     if (svm.statVar === statVarDcid) {
       return svm.name ? svm.name : getStatsVarLabel(statVarDcid);

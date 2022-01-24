@@ -43,7 +43,13 @@ interface RankingUnitPropType {
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   return (
     <div className="ranking-list">
-      <h4>{formatString(props.title, {place: "", date: "", statVar: props.statVarName})}</h4>
+      <h4>
+        {formatString(props.title, {
+          place: "",
+          date: "",
+          statVar: props.statVarName,
+        })}
+      </h4>
       <table>
         <tbody>
           {props.points.map((point, i) => {

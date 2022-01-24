@@ -70,7 +70,11 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             key={id}
             description={tile.description}
             place={props.place}
-            statVarMetadata={tile.statVarOverride ? tile.statVarOverride : props.statVarMetadata}
+            statVarMetadata={
+              tile.statVarOverride
+                ? tile.statVarOverride
+                : props.statVarMetadata
+            }
           />
         );
       case "MAP":
@@ -81,7 +85,11 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
-            statVarMetadata={tile.statVarOverride ? tile.statVarOverride : props.statVarMetadata}
+            statVarMetadata={
+              tile.statVarOverride
+                ? tile.statVarOverride
+                : props.statVarMetadata
+            }
           />
         );
       case "LINE":
@@ -91,7 +99,11 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
-            statVarMetadata={tile.statVarOverride ? tile.statVarOverride : props.statVarMetadata}
+            statVarMetadata={
+              tile.statVarOverride
+                ? tile.statVarOverride
+                : props.statVarMetadata
+            }
           />
         );
       case "RANKING":
@@ -102,7 +114,11 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
-            statVarMetadata={tile.statVarOverride ? tile.statVarOverride : props.statVarMetadata}
+            statVarMetadata={
+              tile.statVarOverride
+                ? tile.statVarOverride
+                : props.statVarMetadata
+            }
             rankingMetadata={tile.rankingMetadata}
           />
         );
@@ -114,7 +130,11 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
-            statVarMetadata={tile.statVarOverride ? tile.statVarOverride : props.statVarMetadata}
+            statVarMetadata={
+              tile.statVarOverride
+                ? tile.statVarOverride
+                : props.statVarMetadata
+            }
           />
         );
       case "SCATTER":
@@ -125,7 +145,11 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
-            statVarMetadata={tile.statVarOverride ? tile.statVarOverride : props.statVarMetadata}
+            statVarMetadata={
+              tile.statVarOverride
+                ? tile.statVarOverride
+                : props.statVarMetadata
+            }
           />
         );
       case "BIVARIATE":
@@ -136,7 +160,11 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={props.enclosedPlaceType}
-            statVarMetadata={tile.statVarOverride ? tile.statVarOverride : props.statVarMetadata}
+            statVarMetadata={
+              tile.statVarOverride
+                ? tile.statVarOverride
+                : props.statVarMetadata
+            }
           />
         );
       default:
