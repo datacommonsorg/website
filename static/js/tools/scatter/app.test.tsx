@@ -316,78 +316,78 @@ function mockAxios(): () => void {
     });
 
   when(axios.get)
-    .calledWith("/api/browser/statvar/group?stat_var_group=dc/g/Root")
+    .calledWith("/api/stats/stat-var-group?stat_var_group=dc/g/Root")
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10001&places=geoId/10003&places=geoId/10005"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/10001&places=geoId/10003&places=geoId/10005"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10001&places=geoId/10005&places=geoId/10003"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/10001&places=geoId/10005&places=geoId/10003"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10003&places=geoId/10001&places=geoId/10005"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/10003&places=geoId/10001&places=geoId/10005"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10003&places=geoId/10005&places=geoId/10001"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/10003&places=geoId/10005&places=geoId/10001"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10005&places=geoId/10003&places=geoId/10001"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/10005&places=geoId/10003&places=geoId/10001"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/10005&places=geoId/10001&places=geoId/10003"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/10005&places=geoId/10001&places=geoId/10003"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10001&places=geoId/10003&places=geoId/10005"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10001&places=geoId/10003&places=geoId/10005"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10001&places=geoId/10005&places=geoId/10003"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10001&places=geoId/10005&places=geoId/10003"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10003&places=geoId/10001&places=geoId/10005"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10003&places=geoId/10001&places=geoId/10005"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10003&places=geoId/10005&places=geoId/10001"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10003&places=geoId/10005&places=geoId/10001"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10005&places=geoId/10003&places=geoId/10001"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10005&places=geoId/10003&places=geoId/10001"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10005&places=geoId/10001&places=geoId/10003"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/10005&places=geoId/10001&places=geoId/10003"
     )
     .mockResolvedValue(demographicsGroupsData);
 
@@ -404,15 +404,15 @@ function mockAxios(): () => void {
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/browser/statvar/path?id=Count_Establishment")
+    .calledWith("/api/stats/stat-var-path?id=Count_Establishment")
     .mockResolvedValue({ data: pathsData.Count_Establishment });
 
   when(axios.get)
-    .calledWith("/api/browser/statvar/path?id=Count_HousingUnit")
+    .calledWith("/api/stats/stat-var-path?id=Count_HousingUnit")
     .mockResolvedValue({ data: pathsData.Count_HousingUnit });
 
   when(axios.get)
-    .calledWith("/api/browser/statvar/path?id=Count_Person_Employed")
+    .calledWith("/api/stats/stat-var-path?id=Count_Person_Employed")
     .mockResolvedValue({ data: pathsData.Count_Person_Employed });
 
   when(axios.post)
@@ -469,7 +469,7 @@ test("all functionalities", async () => {
   const app = mount(<TestApp />);
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root"
     );
   });
   return Promise.resolve(app)
