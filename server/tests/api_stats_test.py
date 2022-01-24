@@ -1,6 +1,7 @@
 import json
 import unittest
 from unittest import mock
+from unittest.mock import patch
 
 from main import app
 from services import datacommons as dc
@@ -337,3 +338,92 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
                     False
             }
         }
+
+
+class TestSearchStatVar(unittest.TestCase):
+
+    @mock.patch('routes.api.stats.dc.search_statvar')
+    def test_search_statvar_single_token(self, mock_search_result):
+        expected_query = 'person'
+        expected_places = ["geoId/06"]
+        expected_result = {'statVarGroups': ['group_1', 'group_2']}
+        expected_blocklist_places = ["geoId/07"]
+        expected_blocklist_result = {'statVarGroups': ['group_1']}
+
+        def side_effect(query, places, enable_blocklist):
+            if query == expected_query and places == expected_places and not enable_blocklist:
+                return expected_result
+            elif query == expected_query and places == expected_blocklist_places and enable_blocklist:
+                return expected_blocklist_result
+            else:
+                return []
+
+        with app.app_context():
+            mock_search_result.side_effect = side_effect
+            app.config['ENABLE_BLOCKLIST'] = False
+            response = app.test_client().get(
+                'api/stats/stat-var-search?query=person&places=geoId/06')
+            assert response.status_code == 200
+            result = json.loads(response.data)
+            assert result == expected_result
+            app.config['ENABLE_BLOCKLIST'] = True
+            response = app.test_client().get(
+                'api/stats/stat-var-search?query=person&places=geoId/07')
+            assert response.status_code == 200
+            result = json.loads(response.data)
+            assert result == expected_blocklist_result
+
+
+class TestGetStatVarGroup(unittest.TestCase):
+
+    @mock.patch('routes.api.stats.dc.get_statvar_group')
+    def test_statvar_path(self, mock_result):
+        expected_svg = 'dc/g/Root'
+        expected_places = ["geoId/06"]
+        expected_result = {
+            "absoluteName":
+                "Data Commons Variables",
+            "childStatVarGroups": [{
+                "id": "dc/g/Crime",
+                "specializedEntity": "Crime",
+                "displayName": "Crime"
+            }, {
+                "id": "dc/g/Demographics",
+                "specializedEntity": "Demographics",
+                "displayName": "Demographics"
+            }]
+        }
+
+        def side_effect(svg, places):
+            if svg == expected_svg and places == expected_places:
+                return expected_result
+            else:
+                return {}
+
+        mock_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/06')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result
+
+
+class TestStatVarPath(unittest.TestCase):
+
+    @mock.patch('routes.api.stats.dc.get_statvar_path')
+    def test_statvar_path(self, mock_result):
+        expected_id = 'Count_Person'
+        expected_result = {"path": ["Count_Person", "dc/g/Demographics"]}
+
+        def side_effect(id):
+            if id == expected_id:
+                return expected_result
+            else:
+                return {}
+
+        mock_result.side_effect = side_effect
+        response = app.test_client().get(
+            'api/stats/stat-var-path?id=Count_Person')
+        assert response.status_code == 200
+        result = json.loads(response.data)
+        assert result == expected_result
