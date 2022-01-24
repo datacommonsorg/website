@@ -185,6 +185,9 @@ function processData(
   const metadata = {};
   const sources: Set<string> = new Set();
   const dates: Set<string> = new Set();
+  if (_.isEmpty(rawData.geoJson)) {
+    return;
+  }
   for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(

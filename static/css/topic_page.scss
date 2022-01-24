@@ -107,3 +107,19 @@ $chart-container-top-margin: 20px;
 .scatter-svg-container circle {
   r: 3.5;
 }
+
+.page-selector-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.page-selector-section {
+  display: flex;
+}
+
+.page-selector-container h1 {
+  margin-bottom: 0;
+  padding-right: 0.5rem;
+}

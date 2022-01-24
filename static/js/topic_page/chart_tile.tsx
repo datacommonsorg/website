@@ -30,7 +30,9 @@ interface ChartTileContainerProp {
  * A container for any tile containing a chart.
  */
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
-  const title = formatString(props.title, props.replacementStrings);
+  const title = props.title
+    ? formatString(props.title, props.replacementStrings)
+    : "";
   return (
     <div className="chart-container">
       <h4>{title}</h4>
