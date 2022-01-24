@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import _ from "lodash";
 import React from "react";
 
 import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
 import { Block, BlockPropType } from "./block";
+import { PageSelector } from "./page_selector";
+import { TopicsSummary } from "./topic_page";
 
 export interface PageConfig {
   overviewBlock: BlockPropType;
@@ -38,14 +41,24 @@ interface MainPanePropType {
    * Config of the page
    */
   pageConfig: PageConfig;
+  /**
+   * Summary for all topic page configs
+   */
+  topicsSummary: TopicsSummary;
 }
 
 export function MainPane(props: MainPanePropType): JSX.Element {
   return (
     <>
-      {props.pageConfig.blocks.map((block) => {
-        const id = randDomId();
-        return (
+      <PageSelector
+        selectedPlace={props.place}
+        selectedTopic={props.topic}
+        topicsSummary={props.topicsSummary}
+      />
+      {!_.isEmpty(props.pageConfig) &&
+        props.pageConfig.blocks.map((block) => {
+          const id = randDomId();
+          return (
           <ErrorBoundary key={id}>
             <Block
               id={id}
@@ -58,8 +71,8 @@ export function MainPane(props: MainPanePropType): JSX.Element {
               statVarMetadata={block.statVarMetadata}
             />
           </ErrorBoundary>
-        );
-      })}
+          );
+        })}
     </>
   );
 }
