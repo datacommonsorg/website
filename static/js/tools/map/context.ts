@@ -32,8 +32,8 @@ import {
 
 // Information relating to the stat var to plot
 export interface StatVar {
-  // additional information about the chosen stat var
-  info: StatVarInfo;
+  // additional information about stat vars. key is stat var dcid.
+  info: Record<string, StatVarInfo>;
   // dcid of the chosen stat var
   dcid: string;
   // Whether to plot per capita values
@@ -42,6 +42,8 @@ export interface StatVar {
   denom: string;
   // date of the stat var data to get
   date: string;
+  // dcid of the stat var to use for map points
+  mapPointSv: string;
 }
 
 // Wraps StatVarInfo with its setters
@@ -49,11 +51,12 @@ export interface StatVarWrapper {
   value: StatVar;
 
   set: Setter<StatVar>;
-  setInfo: Setter<StatVarInfo>;
+  setInfo: Setter<Record<string, StatVarInfo>>;
   setDcid: Setter<string>;
   setPerCapita: Setter<boolean>;
   setDate: Setter<string>;
   setDenom: Setter<string>;
+  setMapPointSv: Setter<string>;
 }
 
 // Information relating to the places to plot
@@ -192,6 +195,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
       setDate: (date) => setStatVar({ ...statVar, date }),
       setDenom: (denom) => setStatVar({ ...statVar, denom }),
+      setMapPointSv: (sv) => setStatVar({ ...statVar, mapPointSv: sv }),
     },
     display: {
       value: display,

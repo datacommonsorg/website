@@ -41,6 +41,7 @@ import {
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
+import { StatVarInfo } from "../timeline/chart_region";
 import {
   DisplayOptions,
   DisplayOptionsWrapper,
@@ -87,17 +88,21 @@ const DEBOUNCE_INTERVAL_MS = 30;
 const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 
 export function Chart(props: ChartProps): JSX.Element {
-  const statVarInfo = props.statVar.value;
+  const statVar = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
   const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
+  const mainSvInfo: StatVarInfo =
+  statVar.dcid in statVar.info
+      ? statVar.info[statVar.dcid]
+      : {};
   const title = getTitle(
     Array.from(props.dates),
-    statVarInfo.info.title ? statVarInfo.info.title : statVarInfo.dcid,
-    statVarInfo.perCapita
+    mainSvInfo.title || statVar.dcid,
+    statVar.perCapita
   );
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
-  const statVarDcid = statVarInfo.dcid;
+  const statVarDcid = statVar.dcid;
   const [mapPoints, setMapPoints] = useState(null);
   const [mapPointsFetched, setMapPointsFetched] = useState(false);
   const [zoomTransformation, setZoomTransformation] = useState(
@@ -195,14 +200,14 @@ export function Chart(props: ChartProps): JSX.Element {
             </div>
           )}
           <div className="chart-options">
-            {NO_PER_CAPITA_TYPES.indexOf(statVarInfo.info.st) === -1 && (
+            {NO_PER_CAPITA_TYPES.indexOf(mainSvInfo.st) === -1 && (
               <div className="per-capita-option">
                 <FormGroup check>
                   <Label check>
                     <Input
                       id="per-capita"
                       type="checkbox"
-                      checked={statVarInfo.perCapita}
+                      checked={statVar.perCapita}
                       onChange={(e) =>
                         props.statVar.setPerCapita(e.target.checked)
                       }
@@ -245,7 +250,7 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
-            {statVarInfo.info.ranked && (
+            {mainSvInfo.ranked && (
               <a
                 className="explore-timeline-link"
                 href={`/ranking/${statVarDcid}/${props.placeInfo.enclosedPlaceType}/${placeDcid}`}
@@ -254,7 +259,7 @@ export function Chart(props: ChartProps): JSX.Element {
                 <i className="material-icons">keyboard_arrow_right</i>
               </a>
             )}
-            {!statVarInfo.info.ranked &&
+            {!mainSvInfo.ranked &&
               (props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
                 props.placeInfo.selectedPlace.dcid in
                   props.breadcrumbDataValues) && (
@@ -311,10 +316,12 @@ function draw(
       return;
     }
   }
+  const svTitle =
+    props.statVar.value.dcid in props.statVar.value.info
+      ? props.statVar.value.info[props.statVar.value.dcid].title
+      : "";
   const colorScale = getColorScale(
-    props.statVar.value.info.title
-      ? props.statVar.value.info.title
-      : props.statVar.value.dcid,
+    svTitle || props.statVar.value.dcid,
     props.mapDataValues,
     color,
     domain
@@ -428,13 +435,21 @@ const getTooltipHtml = (
   mapPointValues: { [dcid: string]: number },
   unit: string
 ) => (place: NamedPlace) => {
-  const titleHtml = `<b>${place.name || place.dcid}</b>`;
+  let titleHtml = `<b>${place.name || place.dcid}</b>`;
   let hasValue = false;
   let value = "Data Missing";
   if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
     value = formatNumber(dataValues[place.dcid], unit);
     hasValue = true;
   } else if (mapPointValues[place.dcid]) {
+    if (statVar.mapPointSv !== statVar.dcid) {
+      const mapPointSvTitle =
+        statVar.mapPointSv in statVar.info
+          ? statVar.info[statVar.mapPointSv].title
+          : "";
+      titleHtml =
+        `<b>${mapPointSvTitle || statVar.mapPointSv}</b><br />` + titleHtml;
+    }
     value = formatNumber(mapPointValues[place.dcid], unit);
     hasValue = true;
   }
