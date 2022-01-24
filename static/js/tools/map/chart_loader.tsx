@@ -101,6 +101,7 @@ export function ChartLoader(): JSX.Element {
     statVar.value.dcid,
     statVar.value.info,
     statVar.value.denom,
+    statVar.value.mapPointSv,
   ]);
 
   useEffect(() => {
@@ -339,10 +340,11 @@ function fetchData(
       return resp.data;
     });
 
+  const mapPointSv = statVar.mapPointSv || statVar.dcid;
   const mapPointDataPromise: Promise<GetStatSetResponse> = placeInfo.mapPointPlaceType
     ? axios
         .get(
-          `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointPlaceType}&stat_vars=${statVar.dcid}${dateParam}`
+          `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointPlaceType}&stat_vars=${mapPointSv}`
         )
         .then((resp) => {
           return resp.data;
@@ -393,11 +395,13 @@ function fetchData(
         const allEnclosedPlaceStat: PlacePointStatAll =
           allEnclosedPlaceData.data[statVar.dcid];
         const allPlaceStat: Record<string, PlacePointStat> = {};
-        for (const stat of allEnclosedPlaceStat.statList) {
-          allPlaceStat[stat.metaHash] = stat;
+        if (!_.isEmpty(allEnclosedPlaceStat)) {
+          for (const stat of allEnclosedPlaceStat.statList) {
+            allPlaceStat[stat.metaHash] = stat;
+          }
         }
         // Metadata map
-        let metadataMap = enclosedPlaceData.metadata;
+        let metadataMap = enclosedPlaceData.metadata || {};
         metadataMap = Object.assign(metadataMap, allEnclosedPlaceData.metadata);
         if (breadcrumbPlaceData.metadata) {
           metadataMap = Object.assign(
@@ -430,7 +434,7 @@ function fetchData(
           breadcrumbPlaceStat,
           metadataMap,
           population: { ...enclosedPlacesPop, ...breadcrumbPlacePop },
-          mapPointStat: mapPointData ? mapPointData.data[statVar.dcid] : null,
+          mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
           mapPointsPromise,
           europeanCountries,
         });
@@ -524,7 +528,6 @@ function loadChartData(
         continue;
       }
       mapPointValues[placeDcid] = placeChartData.value;
-      statVarDates.add(placeChartData.date);
       if (!_.isEmpty(placeChartData.metadata)) {
         metadata[placeDcid] = placeChartData.metadata;
       }

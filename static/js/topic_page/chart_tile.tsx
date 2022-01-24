@@ -24,15 +24,21 @@ interface ChartTileContainerProp {
   sources: Set<string>;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 /**
  * A container for any tile containing a chart.
  */
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
-  const title = formatString(props.title, props.replacementStrings);
+  const title = props.title
+    ? formatString(props.title, props.replacementStrings)
+    : "";
   return (
-    <div className="chart-container">
+    <div
+      className={`chart-container ${props.className ? props.className : ""}`}
+    >
       <h4>{title}</h4>
       {props.children}
       {props.sources && (

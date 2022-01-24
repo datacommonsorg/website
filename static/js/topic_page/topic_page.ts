@@ -21,20 +21,27 @@ import { loadLocaleData } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
 import { MainPane } from "./main_pane";
 
+export interface TopicsSummary {
+  topicPlaceMap: Record<string, string[]>;
+  topicNameMap: Record<string, string>;
+}
+
 window.onload = () => {
   renderPage();
 };
 
 function renderPage(): void {
-  const urlParams = new URLSearchParams(window.location.search);
   // Get topic and render menu.
-  const topic = urlParams.get("topic");
+  const topic = document.getElementById("title").dataset.topicId;
   // TODO(beets): remove these if they remain unused.
-  const dcid = document.getElementById("title").dataset.dcid;
+  const dcid = document.getElementById("title").dataset.placeDcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const pageConfig = JSON.parse(
     document.getElementById("topic-config").dataset.config
+  );
+  const topicsSummary: TopicsSummary = JSON.parse(
+    document.getElementById("topic-config").dataset.topicsSummary
   );
 
   // TODO(beets): use locale from URL
@@ -56,6 +63,7 @@ function renderPage(): void {
       topic,
       place,
       pageConfig,
+      topicsSummary,
     }),
     document.getElementById("main-pane")
   );

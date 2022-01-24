@@ -117,6 +117,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       title={props.title}
       sources={mapChartData.sources}
       replacementStrings={rs}
+      className="map-chart"
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
@@ -185,6 +186,9 @@ function processData(
   const metadata = {};
   const sources: Set<string> = new Set();
   const dates: Set<string> = new Set();
+  if (_.isEmpty(rawData.geoJson)) {
+    return;
+  }
   for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(

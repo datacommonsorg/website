@@ -1,3 +1,5 @@
+import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { StatVarMetadata } from "./../types/stat_var";
 /**
  * Copyright 2022 Google LLC
  *
@@ -19,6 +21,7 @@
 export interface ReplacementStrings {
   place: string;
   date: string;
+  statVar?: string;
 }
 
 export function formatString(s: string, rs: ReplacementStrings): string {
@@ -28,4 +31,16 @@ export function formatString(s: string, rs: ReplacementStrings): string {
     formattedString = formattedString.replace(re, rs[key]);
   }
   return formattedString;
+}
+
+export function getStatVarName(
+  statVarDcid: string,
+  statVars: StatVarMetadata[]
+): string {
+  for (const svm of statVars) {
+    if (svm.statVar === statVarDcid) {
+      return svm.name ? svm.name : getStatsVarLabel(statVarDcid);
+    }
+  }
+  return getStatsVarLabel(statVarDcid);
 }

@@ -24,14 +24,13 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawGroupBarChart } from "../chart/draw";
-import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace } from "../shared/types";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { Point } from "./ranking_unit";
-import { ReplacementStrings } from "./string_utils";
+import { getStatVarName, ReplacementStrings } from "./string_utils";
 
 const NUM_PLACES = 6;
 
@@ -84,6 +83,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       title={props.title}
       sources={barChartData.sources}
       replacementStrings={rs}
+      className="bar-chart"
     >
       <div id={props.id} className="svg-container"></div>
     </ChartTileContainer>
@@ -146,8 +146,15 @@ function processData(
       const dataPoints: DataPoint[] = [];
       for (const item of props.statVarMetadata) {
         const statVar = item.statVar;
+        if (
+          !raw.data[statVar] ||
+          !raw.data[statVar].stat ||
+          !raw.data[statVar].stat[placeDcid]
+        ) {
+          continue;
+        }
         const dataPoint = {
-          label: getStatsVarLabel(statVar),
+          label: getStatVarName(statVar, props.statVarMetadata),
           value: raw.data[statVar].stat[placeDcid].value,
           dcid: placeDcid,
         };

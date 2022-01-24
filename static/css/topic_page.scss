@@ -27,6 +27,10 @@ $chart-container-top-margin: 20px;
   text-decoration: underline;
 }
 
+#dc-topic-page p {
+  font-size: .95rem;
+}
+
 .chart-container {
   margin-top: $chart-container-top-margin;
   position: relative;
@@ -50,6 +54,10 @@ $chart-container-top-margin: 20px;
 .right-tiles {
   display: flex;
   flex-direction: column;
+}
+
+section.subtopic {
+  padding-bottom: 1.5rem;
 }
 
 .ranking-tile {
@@ -82,7 +90,8 @@ $chart-container-top-margin: 20px;
 .highlight-tile {
   display: flex;
   font-family: $headings-font-family;
-  padding-top: 20%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 .highlight-tile .stat {
@@ -106,4 +115,34 @@ $chart-container-top-margin: 20px;
 
 .scatter-svg-container circle {
   r: 3.5;
+}
+
+.page-selector-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.page-selector-section {
+  display: flex;
+}
+
+.page-selector-container h1 {
+  margin-bottom: 0;
+  padding-right: 0.5rem;
+}
+
+.chart-container.map-chart,
+.chart-container.scatter-chart,
+.chart-container.bivariate-chart,
+.chart-container.line-chart,
+.chart-container.bar-chart {
+  border: 0.5px solid #dee2e6;
+  border-radius: 3px;
+  padding: 15px;
+}
+
+.chart-container footer {
+  margin-left: inherit !important;
 }
