@@ -393,11 +393,13 @@ function fetchData(
         const allEnclosedPlaceStat: PlacePointStatAll =
           allEnclosedPlaceData.data[statVar.dcid];
         const allPlaceStat: Record<string, PlacePointStat> = {};
-        for (const stat of allEnclosedPlaceStat.statList) {
-          allPlaceStat[stat.metaHash] = stat;
+        if (!_.isEmpty(allEnclosedPlaceStat)) {
+          for (const stat of allEnclosedPlaceStat.statList) {
+            allPlaceStat[stat.metaHash] = stat;
+          }
         }
         // Metadata map
-        let metadataMap = enclosedPlaceData.metadata;
+        let metadataMap = enclosedPlaceData.metadata || {};
         metadataMap = Object.assign(metadataMap, allEnclosedPlaceData.metadata);
         if (breadcrumbPlaceData.metadata) {
           metadataMap = Object.assign(
