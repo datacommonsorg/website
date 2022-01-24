@@ -63,3 +63,26 @@ def get_topic_page_config():
                 configs.append(topic_page_config)
         topic_configs[topic_id] = configs
     return topic_configs
+
+
+# Returns a summary of the available topic page summaries as an object:
+# {
+#   topicPlaceMap: {
+#        <topic_id>: list of places that this config can be used for
+#   },
+#   topicNameMap: {
+#       <topic_id>: <topic_name>
+#   }
+# }
+def get_topics_summary(topic_page_configs):
+    topic_place_map = {}
+    topic_name_map = {}
+    for topic_id, config_list in topic_page_configs.items():
+        if len(config_list) < 1:
+            continue
+        topic_name_map[topic_id] = config_list[0].metadata.topic_name
+        if topic_id not in topic_place_map:
+            topic_place_map[topic_id] = []
+        for config in config_list:
+            topic_place_map[topic_id].extend(config.metadata.place_dcid)
+    return {"topicPlaceMap": topic_place_map, "topicNameMap": topic_name_map}

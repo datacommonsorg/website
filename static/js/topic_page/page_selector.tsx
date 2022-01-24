@@ -115,6 +115,7 @@ function getPlaceOptions(
   const placeParams = placeOptionDcids
     .map((place) => "dcid=" + place)
     .join("&");
+  // TODO: make this call in flask and pass it down with the topicsSummary
   axios
     .get(`/api/place/name?${placeParams}`)
     .then((resp) => {

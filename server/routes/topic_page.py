@@ -30,7 +30,7 @@ def topic_page(topic_id=None, place_dcid=None):
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
 
-    topics_summary = json.dumps(get_topics_summary())
+    topics_summary = json.dumps(current_app.config['TOPIC_PAGE_SUMMARY'])
     # Redirect to the landing page.
     if not place_dcid and not topic_id:
         return flask.render_template('topic_page_landing.html')
@@ -76,18 +76,3 @@ def topic_page(topic_id=None, place_dcid=None):
         topic_name=topic_place_config.metadata.topic_name or "",
         config=MessageToJson(topic_place_config),
         topics_summary=topics_summary)
-
-
-def get_topics_summary():
-    topic_place_map = {}
-    topic_name_map = {}
-    all_configs = current_app.config['TOPIC_PAGE_CONFIG']
-    for topic, config_list in all_configs.items():
-        if len(config_list) < 1:
-            continue
-        topic_name_map[topic] = config_list[0].metadata.topic_name
-        if topic not in topic_place_map:
-            topic_place_map[topic] = []
-        for config in config_list:
-            topic_place_map[topic].extend(config.metadata.place_dcid)
-    return {"topicPlaceMap": topic_place_map, "topicNameMap": topic_name_map}

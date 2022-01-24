@@ -114,7 +114,10 @@ def create_app():
         register_routes_main_app(app)
 
     # Load topic page config
-    app.config['TOPIC_PAGE_CONFIG'] = libutil.get_topic_page_config()
+    topic_page_configs = libutil.get_topic_page_config()
+    app.config['TOPIC_PAGE_CONFIG'] = topic_page_configs
+    app.config['TOPIC_PAGE_SUMMARY'] = libutil.get_topics_summary(
+        topic_page_configs)
 
     # Load chart config
     chart_config = libutil.get_chart_config()
