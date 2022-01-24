@@ -117,6 +117,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       title={props.title}
       sources={mapChartData.sources}
       replacementStrings={rs}
+      className="map-chart"
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>

@@ -766,6 +766,9 @@ function drawGroupBarChart(
     Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
   );
   const maxV = Math.max(...dataGroups.map((dataGroup) => dataGroup.max()));
+  if (maxV === undefined || minV === undefined) {
+    return;
+  }
 
   const svg = d3
     .select("#" + id)

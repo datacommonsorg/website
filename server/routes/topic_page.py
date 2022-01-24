@@ -19,6 +19,7 @@ import os
 import json
 import routes.api.place as place_api
 from google.protobuf.json_format import MessageToJson
+import lib.util as libutil
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
@@ -36,6 +37,8 @@ def topic_page(topic_id=None, place_dcid=None):
         return flask.render_template('topic_page_landing.html')
 
     all_configs = current_app.config['TOPIC_PAGE_CONFIG']
+    if os.environ.get('FLASK_ENV') == 'local':
+        all_configs = libutil.get_topic_page_config()
     topic_configs = all_configs.get(topic_id, [])
     if len(topic_configs) < 1:
         return "Error: no config found"

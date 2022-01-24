@@ -24,6 +24,8 @@ interface ChartTileContainerProp {
   sources: Set<string>;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 /**
@@ -34,7 +36,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     ? formatString(props.title, props.replacementStrings)
     : "";
   return (
-    <div className="chart-container">
+    <div
+      className={`chart-container ${props.className ? props.className : ""}`}
+    >
       <h4>{title}</h4>
       {props.children}
       {props.sources && (
