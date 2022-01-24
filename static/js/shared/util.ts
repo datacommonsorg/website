@@ -34,6 +34,10 @@ export const placeExplorerCategories = [
   "energy",
 ];
 
+const NO_DATE_CAP_RCP_STATVARS = [
+  "NumberOfMonths_5CelsiusOrMore_Percentile10AcrossModels_",
+];
+
 // used to set fields in an object
 export interface Setter<T> {
   (value: T): void;
@@ -93,6 +97,11 @@ export function getCappedStatVarDate(statVar: string): string {
   // Only want to cap stat var date for stat vars with RCP.
   if (!statVar.includes("_RCP")) {
     return "";
+  }
+  for (const svSubstring of NO_DATE_CAP_RCP_STATVARS) {
+    if (statVar.includes(svSubstring)) {
+      return "";
+    }
   }
   // Wet bulb temperature is observed at P1Y, so need to use year for the date.
   if (
