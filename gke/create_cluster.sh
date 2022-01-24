@@ -33,18 +33,19 @@ gcloud container clusters create $CLUSTER_NAME \
   --workload-pool=$PROJECT_ID.svc.id.goog \
   --scopes=https://www.googleapis.com/auth/trace.append
 
-# Register cluster using Workload Identity ([Documentation](https://cloud.google.com/anthos/multicluster-management/connect/registering-a-cluster#register_cluster))
-gcloud beta container hub memberships register $CLUSTER_NAME \
-  --gke-uri=https://container.googleapis.com/v1/projects/$PROJECT_ID/locations/$REGION/clusters/$CLUSTER_NAME \
-  --enable-workload-identity
+gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+
+# Register cluster using Workload Identity ([Documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress-setup#fleet-registration))
+gcloud container hub memberships register $CLUSTER_NAME \
+    --gke-cluster $REGION/$CLUSTER_NAME \
+    --enable-workload-identity \
+    --project=$PROJECT_ID
 
 # IAM for gke connect
 gcloud projects add-iam-policy-binding \
   $PROJECT_ID \
   --member "serviceAccount:$PROJECT_ID.hub.id.goog[gke-connect/connect-agent-sa]" \
   --role "roles/gkehub.connect"
-
-gcloud container clusters get-credentials $CLUSTER_NAME --region=$REGION
 
 # Create namespace
 kubectl create namespace website
