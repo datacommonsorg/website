@@ -39,31 +39,6 @@ blocks {
   }
 }
 
-# blocks {
-#   description: "In the US, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. (US Census)"
-#   stat_var_metadata: {
-#     stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-#     denom: "Count_Person"
-#     unit: "%"
-#     scaling: 100
-#     name: "Poverty rate"
-#   }
-#   left_tiles: {
-#     type: LINE
-#     title: "Poverty rate in ${place}"
-#   }
-#   right_tiles: {
-#     type: LINE
-#     title: "Population in poverty ${place}"
-#     stat_var_override {
-#       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-#     }
-#     stat_var_override {
-#       stat_var: "Count_Person"
-#     }
-#   }
-# }
-
 blocks {
   title: "Poverty across states"
   description: "Poverty thresholds are uniform across the country. There is a big range in terms of the percentage of the population who live in poverty (9 - 44%). Looking at the total number of people in poverty though, the rankings closely match state populations."
