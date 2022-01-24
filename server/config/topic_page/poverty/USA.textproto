@@ -152,7 +152,6 @@ blocks {
   }
   right_tiles {
     type: RANKING
-    description: "Some note about how US Census defines race…"
     ranking_metadata {
       show_highest: true
       highest_title: "Highest among ${statVar}"

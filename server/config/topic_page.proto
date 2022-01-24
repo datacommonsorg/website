@@ -75,6 +75,7 @@ message Tile {
     HIGHLIGHT = 7;
   }
   string title = 1;
+  // TODO(beets): Implement tile-level descriptions.
   string description = 2;
   TileType type = 3;
   repeated StatVarMetadata stat_var_override = 4;
