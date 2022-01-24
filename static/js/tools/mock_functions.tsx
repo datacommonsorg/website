@@ -202,7 +202,7 @@ export function axios_mock(): void {
       },
     });
   when(axios.get)
-    .calledWith("/api/browser/statvar/group?stat_var_group=dc/g/Root")
+    .calledWith("/api/stats/stat-var-group?stat_var_group=dc/g/Root")
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -223,7 +223,7 @@ export function axios_mock(): void {
     });
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/05"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/05"
     )
     .mockResolvedValue({
       data: {
@@ -259,7 +259,7 @@ export function axios_mock(): void {
     });
   when(axios.get)
     .calledWith(
-      "/api/browser/statvar/group?stat_var_group=dc/g/Root&places=geoId/05"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/05"
     )
     .mockResolvedValue({
       data: {
@@ -281,7 +281,7 @@ export function axios_mock(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/browser/statvar/path?id=Count_Person")
+    .calledWith("/api/stats/stat-var-path?id=Count_Person")
     .mockResolvedValue({
       data: {
         path: ["Count_Person", "dc/g/Demographics"],
@@ -289,7 +289,7 @@ export function axios_mock(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/browser/statvar/path?id=Median_Age_Person")
+    .calledWith("/api/stats/stat-var-path?id=Median_Age_Person")
     .mockResolvedValue({
       data: {
         path: ["Median_Age_Person", "dc/g/Demographics"],
@@ -297,7 +297,7 @@ export function axios_mock(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/browser/statvar/path?id=NotInTheTree")
+    .calledWith("/api/stats/stat-var-path?id=NotInTheTree")
     .mockResolvedValue({
       data: {
         path: ["NotInTheTree"],
