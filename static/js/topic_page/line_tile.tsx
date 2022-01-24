@@ -25,12 +25,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
 import { StatApiResponse } from "../shared/stat_types";
-import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace } from "../shared/types";
 import { StatVarMetadata } from "../types/stat_var";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
-import { ReplacementStrings } from "./string_utils";
+import { getStatVarName, ReplacementStrings } from "./string_utils";
 
 interface LineTilePropType {
   id: string;
@@ -79,6 +78,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       title={props.title}
       sources={lineChartData.sources}
       replacementStrings={rs}
+      className="line-chart"
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
@@ -170,7 +170,7 @@ function rawToChart(
         }
       }
     }
-    if (Object.keys(series.val).length > 0) {
+    if (series.val && Object.keys(series.val).length > 0) {
       const dataPoints: DataPoint[] = [];
       for (const date in series.val) {
         dataPoints.push({
@@ -181,7 +181,7 @@ function rawToChart(
         allDates.add(date);
       }
       dataGroups.push(
-        new DataGroup(getStatsVarLabel(item.statVar), dataPoints)
+        new DataGroup(getStatVarName(item.statVar, props.statVarMetadata), dataPoints)
       );
       sources.add(series.metadata.provenanceUrl);
     }

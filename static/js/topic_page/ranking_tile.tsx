@@ -21,11 +21,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace } from "../shared/types";
 import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { Point, RankingUnit } from "./ranking_unit";
+import { getStatVarName } from "./string_utils";
 import { RankingMetadata } from "./tile";
 
 const RANKING_COUNT = 5;
@@ -62,25 +62,26 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const points = rankingData[statVar].points;
           const unit = rankingData[statVar].unit;
           const scaling = rankingData[statVar].scaling;
+          const svName = getStatVarName(statVar, props.statVarMetadata);
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
                 <RankingUnit
                   key={`${statVar}-highest`}
-                  statVar={statVar}
+                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={`Highest ${getStatsVarLabel(statVar)}`}
+                  title={props.rankingMetadata.highestTitle ? props.rankingMetadata.highestTitle : "Highest ${statVar}"}
                   points={points.slice(-RANKING_COUNT).reverse()}
                 />
               )}
               {props.rankingMetadata.showLowest && (
                 <RankingUnit
                   key={`${statVar}-lowest`}
-                  statVar={statVar}
+                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={`Lowest ${getStatsVarLabel(statVar)}`}
+                  title={props.rankingMetadata.lowestTitle ? props.rankingMetadata.lowestTitle : "Lowest ${statVar}"}
                   points={points.slice(0, RANKING_COUNT)}
                 />
               )}

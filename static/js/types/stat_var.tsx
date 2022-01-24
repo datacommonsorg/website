@@ -22,4 +22,5 @@ export interface StatVarMetadata {
   unit: string;
   scaling: number;
   log: boolean;
+  name?: string;
 }
