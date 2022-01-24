@@ -49,12 +49,16 @@ export function Block(props: BlockPropType): JSX.Element {
       {props.title && <h2 className="block-title">{props.title}</h2>}
       {props.description && <p className="block-desc">{props.description}</p>}
       <div className="block-body row">
+        {props.leftTiles && (
         <div className="left-tiles col-6">
           {renderTiles(props.leftTiles, props)}
         </div>
+        )}
+        {props.rightTiles && (
         <div className="right-tiles col-6">
           {renderTiles(props.rightTiles, props)}
         </div>
+        )}
       </div>
     </section>
   );
