@@ -16,7 +16,7 @@
 {%- extends 'base.html' -%}
 
 {% set main_id = 'dc-topic-page' %}
-{% set title = place_name + ' ' + topic_name + ' - ' + _('Topic Explorer') %}
+{% set title = topic_name + ' in ' + place_name + ' - ' + _('Topic Explorer') %}
 {% set subpage_title = _('Topic Explorer') %}
 {% set subpage_url = url_for('topic_page.topic_page') %}
 {% set hide_search = True %}
