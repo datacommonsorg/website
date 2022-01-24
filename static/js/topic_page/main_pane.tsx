@@ -59,18 +59,18 @@ export function MainPane(props: MainPanePropType): JSX.Element {
         props.pageConfig.blocks.map((block) => {
           const id = randDomId();
           return (
-          <ErrorBoundary key={id}>
-            <Block
-              id={id}
-              place={props.place}
-              enclosedPlaceType={"State"}
-              title={block.title}
-              description={block.description}
-              leftTiles={block.leftTiles}
-              rightTiles={block.rightTiles}
-              statVarMetadata={block.statVarMetadata}
-            />
-          </ErrorBoundary>
+            <ErrorBoundary key={id}>
+              <Block
+                id={id}
+                place={props.place}
+                enclosedPlaceType={"State"}
+                title={block.title}
+                description={block.description}
+                leftTiles={block.leftTiles}
+                rightTiles={block.rightTiles}
+                statVarMetadata={block.statVarMetadata}
+              />
+            </ErrorBoundary>
           );
         })}
     </>
