@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -20,25 +19,25 @@ nameSuffix: -karnataka
 namespace: website
 
 resources:
-- ../../base
+  - ../../base
 
 configMapGenerator:
-- behavior: create
-  literals:
-  - flaskEnv=autopush
-  - secretProject=datcom-karnataka
-  name: website-configmap
-- behavior: create
-  literals:
-  - mixerProject=datcom-karnataka
-  - serviceName=website-esp.endpoints.datcom-karnataka.cloud.goog
-  name: mixer-configmap
+  - behavior: create
+    literals:
+      - flaskEnv=private
+      - secretProject=datcom-karnataka
+    name: website-configmap
+  - behavior: create
+    literals:
+      - mixerProject=datcom-karnataka
+      - serviceName=website-esp.endpoints.datcom-karnataka.cloud.goog
+    name: mixer-configmap
 
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: website-app
-  spec:
-    replicas: 6
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: website-app
+    spec:
+      replicas: 6

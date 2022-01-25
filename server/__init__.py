@@ -104,8 +104,9 @@ def create_app():
     app.config.from_object(cfg)
 
     # Init extentions
-    from cache import cache
-    cache.init_app(app)
+    if app.config['PRIVATE']:
+        from cache import cache
+        cache.init_app(app)
 
     register_routes_common(app)
     if cfg.SUSTAINABILITY:

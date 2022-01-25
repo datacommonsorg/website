@@ -63,20 +63,17 @@ class DevConfig(Config):
     pass
 
 
-class FeedingAmericaConfig(Config):
+class PrivateConfig(Config):
+    PRIVATE = True
+
+
+class FeedingAmericaConfig(PrivateConfig):
     NAME = "Feeding America"
     FEEDING_AMERICA = True
-    PRIVATE = True
 
 
 class TidalConfig(Config):
     NAME = "Tidal"
-    PRIVATE = True
-
-
-class MinikubeConfig(Config):
-    LOCAL = True
-    SCHEME = 'http'
 
 
 ######
@@ -85,6 +82,11 @@ class MinikubeConfig(Config):
 # like  `SECRET_PROJECT`
 #
 #####
+
+
+class MinikubeConfig(Config):
+    LOCAL = True
+    SCHEME = 'http'
 
 
 class LocalConfig(Config):
@@ -99,16 +101,14 @@ class LocalSustainabilityConfig(LocalConfig):
     SUSTAINABILITY = True
 
 
-class LocalPrivateConfig(Config):
+class LocalPrivateConfig(PrivateConfig):
     # This needs to talk to local mixer that is setup as a private mixer, which
     # loads csv + tmcf files from GCS
-    # API_ROOT = 'http://127.0.0.1:8081'
-    API_ROOT = 'https://autopush.api.datacommons.org'
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
     RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-private'
     NAME = "Feeding America"
-    PRIVATE = True
     SCHEME = 'http'
 
 
