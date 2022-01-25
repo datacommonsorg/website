@@ -57,7 +57,8 @@ interface MainPanePropType {
 
 export function MainPane(props: MainPanePropType): JSX.Element {
   const placeType = props.place.types[0];
-  const enclosedPlaceType = props.pageConfig.metadata.containedPlaceTypes[placeType];
+  const enclosedPlaceType =
+    props.pageConfig.metadata.containedPlaceTypes[placeType];
   return (
     <>
       <PageSelector

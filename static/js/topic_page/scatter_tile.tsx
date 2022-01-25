@@ -202,7 +202,9 @@ function processData(
       yStatVar.scaling
     );
     if (!placeChartData) {
-      console.log(`SCATTER: no data ${xStatVar} / ${yStatVar} for ${place}. skipping.`);
+      console.log(
+        `SCATTER: no data ${xStatVar} / ${yStatVar} for ${place}. skipping.`
+      );
       continue;
     }
     placeChartData.sources.forEach((source) => {
@@ -250,9 +252,15 @@ function draw(
     showRegression: false,
   };
   const yLabel = getStatVarName(
-    chartData.yStatVar.statVar, [chartData.yStatVar], !_.isEmpty(chartData.yStatVar.denom));
+    chartData.yStatVar.statVar,
+    [chartData.yStatVar],
+    !_.isEmpty(chartData.yStatVar.denom)
+  );
   const xLabel = getStatVarName(
-    chartData.xStatVar.statVar, [chartData.xStatVar], !_.isEmpty(chartData.xStatVar.denom));
+    chartData.xStatVar.statVar,
+    [chartData.xStatVar],
+    !_.isEmpty(chartData.xStatVar.denom)
+  );
   const plotProperties: ScatterPlotProperties = {
     width,
     height: CHART_HEIGHT,

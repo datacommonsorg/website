@@ -67,8 +67,10 @@ export function Block(props: BlockPropType): JSX.Element {
 function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
   const tilesJsx = tiles.map((tile) => {
     const id = randDomId();
-    const enclosedPlaceType = tile.containedPlaceTypes && tile.containedPlaceTypes[props.place.types[0]] ?
-    tile.containedPlaceTypes[props.place.types[0]] : props.enclosedPlaceType;
+    const enclosedPlaceType =
+      tile.containedPlaceTypes && tile.containedPlaceTypes[props.place.types[0]]
+        ? tile.containedPlaceTypes[props.place.types[0]]
+        : props.enclosedPlaceType;
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
