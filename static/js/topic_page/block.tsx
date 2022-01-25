@@ -171,6 +171,10 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             }
           />
         );
+      case "DESCRIPTION":
+        return (
+          <p key={id} className="description-tile">{tile.description}</p>
+        );
       default:
         console.log("Tile type not supported:" + tile.type);
     }
