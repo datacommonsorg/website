@@ -73,6 +73,7 @@ message Tile {
     BIVARIATE = 5;
     RANKING = 6;
     HIGHLIGHT = 7;
+    DESCRIPTION = 8;
   }
   string title = 1;
   // TODO(beets): Implement tile-level descriptions.
