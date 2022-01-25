@@ -49,12 +49,16 @@ export function Block(props: BlockPropType): JSX.Element {
       {props.title && <h2 className="block-title">{props.title}</h2>}
       {props.description && <p className="block-desc">{props.description}</p>}
       <div className="block-body row">
-        <div className="left-tiles col-6">
-          {renderTiles(props.leftTiles, props)}
-        </div>
-        <div className="right-tiles col-6">
-          {renderTiles(props.rightTiles, props)}
-        </div>
+        {props.leftTiles && (
+          <div className="left-tiles col-6">
+            {renderTiles(props.leftTiles, props)}
+          </div>
+        )}
+        {props.rightTiles && (
+          <div className="right-tiles col-6">
+            {renderTiles(props.rightTiles, props)}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -166,6 +170,12 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
                 : props.statVarMetadata
             }
           />
+        );
+      case "DESCRIPTION":
+        return (
+          <p key={id} className="description-tile">
+            {tile.description}
+          </p>
         );
       default:
         console.log("Tile type not supported:" + tile.type);

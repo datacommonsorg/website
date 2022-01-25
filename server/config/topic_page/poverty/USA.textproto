@@ -160,6 +160,28 @@ blocks {
 }
 
 blocks {
+  title: "Families in poverty"
+  stat_var_metadata {
+    stat_var: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Household_FamilyHousehold"
+    scaling: 100
+    unit: "%"
+  }
+  left_tiles: {
+    type: HIGHLIGHT
+    description: "of American families lived under the poverty line (${date})"
+  }
+  left_tiles {
+    type: MAP
+    title: ""
+  }
+  right_tiles: {
+    type: LINE
+    title: "Poverty rate in ${place}"
+  }
+}
+
+blocks {
   title: "Households in poverty by work status"
   stat_var_metadata {
     stat_var: "Count_Household_FullTimeYearRoundWorker_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -246,7 +268,7 @@ blocks {
 
 blocks {
   title: "Social security income for households below poverty"
-  description: "Number of households living under the poverty level and receiving social security income in the last 12 months."
+  description: "Number of households living under the poverty level and receiving social security income in the last 12 months. Social Security taxes pays benefits to those who are currently retired, to people with disabilities and to the surviving spouses and children of workers who have died."
   stat_var_metadata {
     stat_var: "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
     denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -280,7 +302,7 @@ blocks {
 
 blocks {
   title: "Supplemental social security income for households below poverty"
-  description: "Received supplemental social security income (SSI) and/or public cash assistance in the past 12 months."
+  description: "Received supplemental social security income (SSI) and/or public cash assistance in the past 12 months. The Supplemental Security Income (SSI) program provides monthly payments to adults and children with a disability or blindness who have income and resources below specific financial limits. SSI payments are also made to people aged 65 and older without disabilities who meet the financial qualifications."
   stat_var_metadata {
     stat_var: "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
     denom: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -311,3 +333,43 @@ blocks {
     title: "Percentage of households in poverty with supplemental social security income"
   }
 }
+
+blocks {
+  title: "Education attainment"
+  stat_var_metadata {
+    stat_var: "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "Bachelor's Degree or higher"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "High school graduate"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "Less than high school"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+    name: "Some college or associate's degree"
+  }
+  left_tiles {
+    type: LINE
+    title: "Education attainment for households in poverty"
+  }
+  right_tiles {
+    type: BAR
+    title: ""
+  }
+}
+
+# TODO(beets): Finish configuring a block with these stat vars.
+# blocks {
+#   Count_Household_0.5OrLessRatioToPovertyLine_FamilyHousehold
+#   Count_Household_1.25OrLessRatioToPovertyLine_FamilyHousehold
+#   Count_Household_1.5OrLessRatioToPovertyLine_FamilyHousehold
+#   Count_Household_1.85OrLessRatioToPovertyLine_FamilyHousehold
+#   Count_Household_2OrLessRatioToPovertyLine_FamilyHousehold
+#   Count_Household_3OrLessRatioToPovertyLine_FamilyHousehold
+#   Count_Household_4OrLessRatioToPovertyLine_FamilyHousehold
+#   Count_Household_5OrLessRatioToPovertyLine_FamilyHousehold
+# }
