@@ -72,7 +72,7 @@ class FeedingAmericaConfig(PrivateConfig):
     FEEDING_AMERICA = True
 
 
-class TidalConfig(Config):
+class TidalConfig(PrivateConfig):
     NAME = "Tidal"
 
 
