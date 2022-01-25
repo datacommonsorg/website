@@ -41,7 +41,7 @@ patchesStrategicMerge:
   metadata:
     name: website-app
   spec:
-    replicas: 9
+    replicas: 6
 images:
 - name: gcr.io/datcom-ci/datacommons-mixer
   newName: gcr.io/datcom-ci/datacommons-mixer
