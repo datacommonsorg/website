@@ -57,6 +57,7 @@ const TestContext = ({
       info: null,
       date: "",
       denom: "Count_Person",
+      mapPointSv: "",
     },
   },
   display: {

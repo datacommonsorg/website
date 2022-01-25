@@ -48,15 +48,25 @@ export function StatVarChooser(): JSX.Element {
     setSamplePlaces(_.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE));
   }, [placeInfo.value.enclosedPlaces]);
   useEffect(() => {
-    if (statVar.value.dcid && _.isNull(statVar.value.info)) {
-      getStatVarInfo([statVar.value.dcid])
+    const svWithInfo = _.isNull(statVar.value.info)
+      ? []
+      : Object.keys(statVar.value.info);
+    const svDcids = [statVar.value.dcid, statVar.value.mapPointSv].filter(
+      (svDcid) => !_.isEmpty(svDcid)
+    );
+    if (_.difference(svDcids, svWithInfo).length > 0) {
+      getStatVarInfo(svDcids)
         .then((info) => {
-          const statVarInfo =
-            statVar.value.dcid in info ? info[statVar.value.dcid] : {};
-          statVar.setInfo(statVarInfo);
+          const svInfo = {};
+          svDcids.forEach(
+            (svDcid) => (svInfo[svDcid] = svDcid in info ? info[svDcid] : {})
+          );
+          statVar.setInfo(svInfo);
         })
         .catch(() => {
-          statVar.setInfo({});
+          const emptyInfo = {};
+          svDcids.forEach((svDcid) => (emptyInfo[svDcid] = {}));
+          statVar.setInfo(emptyInfo);
         });
     }
   }, [statVar.value]);
@@ -93,5 +103,6 @@ function selectStatVar(
     denom: DEFAULT_DENOM,
     info: null,
     perCapita: false,
+    mapPointSv: "",
   });
 }
