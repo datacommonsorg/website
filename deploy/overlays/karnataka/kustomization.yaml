@@ -20,25 +20,32 @@ nameSuffix: -karnataka
 namespace: website
 
 resources:
-  - ../../base
+- ../../base
 
 configMapGenerator:
-  - name: website-configmap
-    behavior: create
-    literals:
-      - flaskEnv=autopush
-      - secretProject=datcom-karnataka
-  - name: mixer-configmap
-    behavior: create
-    literals:
-      - mixerProject=datcom-karnataka
-      - serviceName=website-esp.endpoints.datcom-karnataka.cloud.goog
+- behavior: create
+  literals:
+  - flaskEnv=autopush
+  - secretProject=datcom-karnataka
+  name: website-configmap
+- behavior: create
+  literals:
+  - mixerProject=datcom-karnataka
+  - serviceName=website-esp.endpoints.datcom-karnataka.cloud.goog
+  name: mixer-configmap
 
 patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: website-app
-    spec:
-      replicas: 9
+- |-
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: website-app
+  spec:
+    replicas: 9
+images:
+- name: gcr.io/datcom-ci/datacommons-mixer
+  newName: gcr.io/datcom-ci/datacommons-mixer
+  newTag: b2ca773
+- name: gcr.io/datcom-ci/datacommons-website
+  newName: gcr.io/datcom-ci/datacommons-website
+  newTag: 64a7cd1
