@@ -57,7 +57,11 @@ export function StatVarChooser(): JSX.Element {
     if (_.difference(svDcids, svWithInfo).length > 0) {
       getStatVarInfo(svDcids)
         .then((info) => {
-          statVar.setInfo(info);
+          const svInfo = {};
+          svDcids.forEach(
+            (svDcid) => (svInfo[svDcid] = svDcid in info ? info[svDcid] : {})
+          );
+          statVar.setInfo(svInfo);
         })
         .catch(() => {
           const emptyInfo = {};
