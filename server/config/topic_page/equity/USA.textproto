@@ -278,6 +278,52 @@ blocks {
 # }
 
 blocks {
+  title: "Median household income by race"
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+    unit: "$"
+    name: "American Indian or Alaska Native"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
+    unit: "$"
+    name: "Asian"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+    unit: "$"
+    name: "Black or African American"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
+    unit: "$"
+    name: "Hispanic or Latino"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+    unit: "$"
+    name: "Native Hawaiian or Pacific Islander"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
+    unit: "$"
+    name: "White"
+  }
+  # TODO: This data is not available at the country level!
+  left_tiles {
+    type: BAR
+    title: "Median household income by race"
+  }
+  right_tiles {
+    type: RANKING
+    ranking_metadata {
+      show_highest: true
+      highest_title: "Highest among ${statVar}"
+    }
+  }
+}
+
+blocks {
   title: "Poverty rate by race"
   description: "Percentage of the population of each race living in poverty"
   stat_var_metadata {
@@ -330,7 +376,7 @@ blocks {
 }
 
 blocks {
-  title: "Juvenile facility residents by race"
+  title: "Correctional facility residents by race"
   # TODO(beets): investigate high numbes for this
   # stat_var_metadata {
   #   stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
@@ -417,4 +463,52 @@ blocks {
       name: "White"
     }
   }
+}
+
+blocks {
+  title: "Health and poverty"
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person"
+    unit: "%"
+    scaling: 100
+    name: "Poverty rate"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_NoHealthInsurance"
+    denom: "Count_Person"
+    unit: "%"
+    scaling: 100
+    name: "Uninsurance rate"
+  }
+  left_tiles {
+    type: SCATTER
+    title: "Poverty rate vs Uninsured rate"
+  }
+  right_tiles {
+    type: SCATTER
+    title: "Poverty rate vs Death from diseases of the digestive system"
+    stat_var_override {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+    stat_var_override {
+      stat_var: "Count_Death_DiseasesOfTheDigestiveSystem"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Death from diseases of the digestive system per capita"
+    }
+  }
+  # right_tiles {
+  #   type: SCATTER
+  #   title: ""
+  #   stat_var_override {
+  #     stat_var: ""
+  #   }
+  # }
+  #   https://datacommons.org/tools/scatter#%26svx%3DInflationAdjustedGDP%26lx%3D1%26svy%3DCumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase%26epd%3Dcountry%2FUSA%26ept%3DState%26lb%3D10000
 }
