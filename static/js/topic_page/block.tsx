@@ -148,7 +148,6 @@ function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
-            // enclosedPlaceType="County"
             enclosedPlaceType={props.enclosedPlaceType}
             statVarMetadata={
               tile.statVarOverride
