@@ -175,10 +175,10 @@ function processData(
   statVarMetadata: StatVarMetadata[],
   setChartdata: (data: ScatterChartData) => void
 ): void {
-  const xStatVar = statVarMetadata[0];
-  const yStatVar = statVarMetadata[1];
-  const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
+  const yStatVar = statVarMetadata[0];
+  const xStatVar = statVarMetadata[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
+  const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
   if (!xPlacePointStat || !yPlacePointStat) {
     return;
   }
