@@ -42,10 +42,3 @@ patchesStrategicMerge:
     name: website-app
   spec:
     replicas: 6
-images:
-- name: gcr.io/datcom-ci/datacommons-mixer
-  newName: gcr.io/datcom-ci/datacommons-mixer
-  newTag: b2ca773
-- name: gcr.io/datcom-ci/datacommons-website
-  newName: gcr.io/datcom-ci/datacommons-website
-  newTag: 64a7cd1
