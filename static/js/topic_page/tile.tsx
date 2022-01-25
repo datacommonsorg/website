@@ -41,4 +41,6 @@ export interface Tile {
   statVarOverride?: StatVarMetadata[];
   rankingMetadata?: RankingMetadata;
   highlightMetadata?: HighlightMetadata;
+  // Map of parent type to child place type - overrides the page-level setting.
+  containedPlaceTypes: Record<string, string>;
 }

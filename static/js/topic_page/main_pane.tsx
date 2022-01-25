@@ -23,7 +23,15 @@ import { Block, BlockPropType } from "./block";
 import { PageSelector } from "./page_selector";
 import { TopicsSummary } from "./topic_page";
 
+export interface PageMetadata {
+  topicId: string;
+  topicName: string;
+  // Map of parent type to child place type.
+  containedPlaceTypes: Record<string, string>;
+}
+
 export interface PageConfig {
+  metadata: PageMetadata;
   overviewBlock: BlockPropType;
   blocks: BlockPropType[];
 }
@@ -48,6 +56,8 @@ interface MainPanePropType {
 }
 
 export function MainPane(props: MainPanePropType): JSX.Element {
+  const placeType = props.place.types[0];
+  const enclosedPlaceType = props.pageConfig.metadata.containedPlaceTypes[placeType];
   return (
     <>
       <PageSelector
@@ -63,7 +73,7 @@ export function MainPane(props: MainPanePropType): JSX.Element {
               <Block
                 id={id}
                 place={props.place}
-                enclosedPlaceType={"State"}
+                enclosedPlaceType={enclosedPlaceType}
                 title={block.title}
                 description={block.description}
                 leftTiles={block.leftTiles}
