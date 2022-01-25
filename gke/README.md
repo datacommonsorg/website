@@ -54,7 +54,7 @@ gcloud auth login
 ./setup_esp.sh
 
 # Create clusters
-./create_all_clusters
+./create_all_clusters.sh
 
 # Set up multi-cluster ingress and service
 ./setup_config_cluster.sh
@@ -69,7 +69,7 @@ gcloud auth login
 
   **NOTE** Make sure the certificate is [associated with a target
   proxy](https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting#certificate-managed-status).
-  The certificate is linked the target proxy through the [GKE
+  The certificate is linked to the target proxy through the [GKE
   Ingress](mci.yaml.tpl). If they are not linked, need to manually add the
   certificate to the load balancing ([example setup in GCP](ssl.png)).
 

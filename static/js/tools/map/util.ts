@@ -52,6 +52,7 @@ const URL_PARAM_KEYS = {
   DOMAIN: "domain",
   DENOM: "denom",
   MAP_POINTS: "mp",
+  MAP_POINTS_SV: "mapsv",
 };
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
@@ -145,8 +146,16 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
   const dcid = params.get(URL_PARAM_KEYS.STAT_VAR_DCID);
   const date = params.get(URL_PARAM_KEYS.DATE);
   const denom = params.get(URL_PARAM_KEYS.DENOM);
+  const mapPointSv = params.get(URL_PARAM_KEYS.MAP_POINTS_SV);
   if (!dcid) {
-    return { dcid: "", perCapita: false, info: null, date: "", denom: "" };
+    return {
+      dcid: "",
+      perCapita: false,
+      info: null,
+      date: "",
+      denom: "",
+      mapPointSv: "",
+    };
   }
   const perCapita = params.get(URL_PARAM_KEYS.PER_CAPITA);
   return {
@@ -155,6 +164,7 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     info: null,
     date: date ? date : "",
     denom: denom ? denom : DEFAULT_DENOM,
+    mapPointSv: mapPointSv ? mapPointSv : "",
   };
 }
 
@@ -216,11 +226,15 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
   const dateParam = statVar.date
     ? `&${URL_PARAM_KEYS.DATE}=${statVar.date}`
     : "";
+  const mapPointParam = statVar.mapPointSv
+    ? `&${URL_PARAM_KEYS.MAP_POINTS_SV}=${statVar.mapPointSv}`
+    : "";
   const params =
     `&${URL_PARAM_KEYS.STAT_VAR_DCID}=${statVar.dcid}` +
     `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}` +
     `&${URL_PARAM_KEYS.DENOM}=${statVar.denom}` +
-    dateParam;
+    dateParam +
+    mapPointParam;
   return hash + params;
 }
 

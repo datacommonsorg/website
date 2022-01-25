@@ -79,6 +79,7 @@ const ZOOMED_SCALE_AMOUNT = 0.7;
 const LEGEND_CLASS_NAME = "legend";
 const MAP_ITEMS_GROUP_ID = "map-items";
 const LEGEND_TICK_LABEL_MARGIN = 10;
+const MIN_DOT_SIZE = 1.1;
 
 // Curated temperature domains.
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
@@ -491,7 +492,7 @@ function drawChoropleth(
         Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
       );
     });
-    const minDotSize = minRegionDiagonal * 0.02;
+    const minDotSize = Math.max(minRegionDiagonal * 0.02, 1.1);
     addMapPoints(
       domContainerId,
       mapPoints,
