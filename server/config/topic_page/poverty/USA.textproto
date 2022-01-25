@@ -362,6 +362,7 @@ blocks {
   }
 }
 
+# TODO(beets): Finish configuring a block with these stat vars.
 # blocks {
 #   Count_Household_0.5OrLessRatioToPovertyLine_FamilyHousehold
 #   Count_Household_1.25OrLessRatioToPovertyLine_FamilyHousehold

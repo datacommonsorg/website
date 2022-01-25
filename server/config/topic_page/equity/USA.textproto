@@ -68,12 +68,7 @@ blocks {
       unit: "%"
     }
   }
-  # right_tiles {
-  #   type: RANKING
-  #   ranking_metadata {
-  #     show_highest: true
-  #   }
-  # }
+  # There is only state-level data for Median Income, not unemployment rate.
 }
 
 blocks {
