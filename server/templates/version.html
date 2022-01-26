@@ -41,10 +41,22 @@
         </tr>
         <tr>
           <td width="200px">
-            Bigtable Table:
+            Base Bigtable:
+          </td>
+          <br>
+          {% for base_table in base_tables %}
+            <td>
+              {% if loop.index != 1 %}{{", "}}{% endif %}
+              {{base_table}}
+            </td>
+          {% endfor %}
+        </tr>
+        <tr>
+          <td width="200px">
+            Branch Bigtable:
           </td>
           <td>
-            {{bigtable}}
+            {{branch_table}}
           </td>
         </tr>
         <tr>
@@ -58,5 +70,4 @@
       </tbody>
     </table>
   </div>
-  <script src={{url_for('static', filename='translator.js', t=config['VERSION'])}}></script>
 {% endblock %}

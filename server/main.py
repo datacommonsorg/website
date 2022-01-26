@@ -187,11 +187,14 @@ def mcf_playground():
 # TODO(shifucun): get branch cache version from mixer
 @app.route('/version')
 def version():
+    mixer_version = dc.version()
+
     return flask.render_template('version.html',
                                  website_hash=os.environ.get("WEBSITE_HASH"),
-                                 mixer_hash=os.environ.get("MIXER_HASH"),
-                                 bigtable=os.environ.get("BIG_TABLE"),
-                                 bigquery=os.environ.get("BIG_QUERY"))
+                                 mixer_hash=mixer_version['gitHash'],
+                                 base_tables=mixer_version['baseTables'],
+                                 branch_table=mixer_version['branchTable'],
+                                 bigquery=mixer_version['bigQuery'])
 
 
 if not (app.config["TEST"] or app.config["WEBDRIVER"] or app.config["LOCAL"]):

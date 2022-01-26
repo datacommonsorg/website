@@ -56,6 +56,7 @@ API_ENDPOINTS = {
     'get_statvar_path': '/stat-var/path',
     'search_statvar': '/stat-var/search',
     'get_statvar_summary': '/stat-var/summary',
+    'version': '/version',
 }
 
 # The default value to limit to
@@ -81,6 +82,11 @@ def translate(sparql, mapping):
     url = API_ROOT + API_ENDPOINTS['translate']
     req_json = {'schema_mapping': mapping, 'sparql': sparql}
     return send_request(url, req_json=req_json, has_payload=False)
+
+
+def version():
+    url = API_ROOT + API_ENDPOINTS['version']
+    return send_request(url, req_json={}, post=False, has_payload=False)
 
 
 def get_stat_set_series(places, stat_vars):
