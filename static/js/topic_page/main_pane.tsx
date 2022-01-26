@@ -20,10 +20,19 @@ import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
 import { Block, BlockPropType } from "./block";
+import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { PageSelector } from "./page_selector";
 import { TopicsSummary } from "./topic_page";
 
+export interface PageMetadata {
+  topicId: string;
+  topicName: string;
+  // Map of parent type to child place type.
+  containedPlaceTypes: Record<string, string>;
+}
+
 export interface PageConfig {
+  metadata: PageMetadata;
   overviewBlock: BlockPropType;
   blocks: BlockPropType[];
 }
@@ -48,6 +57,11 @@ interface MainPanePropType {
 }
 
 export function MainPane(props: MainPanePropType): JSX.Element {
+  const placeType = props.place.types
+    ? props.place.types[0]
+    : DEFAULT_PAGE_PLACE_TYPE;
+  const enclosedPlaceType =
+    props.pageConfig.metadata.containedPlaceTypes[placeType];
   return (
     <>
       <PageSelector
@@ -63,7 +77,7 @@ export function MainPane(props: MainPanePropType): JSX.Element {
               <Block
                 id={id}
                 place={props.place}
-                enclosedPlaceType={"State"}
+                enclosedPlaceType={enclosedPlaceType}
                 title={block.title}
                 description={block.description}
                 leftTiles={block.leftTiles}
