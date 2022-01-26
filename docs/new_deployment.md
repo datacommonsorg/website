@@ -77,4 +77,4 @@ Each TMCF file should have one node entry for each Statistical Variable in the i
 CSV files should be structured so that each Statistical Variable has its own column. The first few columns should be reserved for other StatVarObservation properties, such as  `observationAbout`, `observationDate`, `observationPeriod`, `unit`, etc. 
 
 ## Merging Configs
-When submitting configs for a new instance, please include `/deploy/gke/<new_instance>.yaml` and `deploy/overlays/<new_instance>/kustomization.yaml`.
+When submitting configs for a new instance, please include `deploy/gke/<new_instance>.yaml` and `deploy/overlays/<new_instance>/kustomization.yaml`.
