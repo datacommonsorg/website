@@ -25,6 +25,7 @@ import { randDomId } from "../shared/util";
 import { StatVarMetadata } from "../types/stat_var";
 import { BarTile } from "./bar_tile";
 import { BivariateTile } from "./bivariate_tile";
+import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { HighlightTile } from "./highlight_tile";
 import { LineTile } from "./line_tile";
 import { MapTile } from "./map_tile";
@@ -67,9 +68,13 @@ export function Block(props: BlockPropType): JSX.Element {
 function renderTiles(tiles: Tile[], props: BlockPropType): JSX.Element {
   const tilesJsx = tiles.map((tile) => {
     const id = randDomId();
+    const placeType =
+      props.place && props.place.types
+        ? props.place.types[0]
+        : DEFAULT_PAGE_PLACE_TYPE;
     const enclosedPlaceType =
-      tile.containedPlaceTypes && tile.containedPlaceTypes[props.place.types[0]]
-        ? tile.containedPlaceTypes[props.place.types[0]]
+      tile.containedPlaceTypes && tile.containedPlaceTypes[placeType]
+        ? tile.containedPlaceTypes[placeType]
         : props.enclosedPlaceType;
     switch (tile.type) {
       case "HIGHLIGHT":

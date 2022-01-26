@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
+import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { MainPane } from "./main_pane";
 
 export interface TopicsSummary {
@@ -36,7 +36,8 @@ function renderPage(): void {
   // TODO(beets): remove these if they remain unused.
   const dcid = document.getElementById("title").dataset.placeDcid;
   const placeName = document.getElementById("place-name").dataset.pn;
-  const placeType = document.getElementById("place-type").dataset.pt;
+  const placeType =
+    document.getElementById("place-type").dataset.pt || DEFAULT_PAGE_PLACE_TYPE;
   const pageConfig = JSON.parse(
     document.getElementById("topic-config").dataset.config
   );
@@ -60,8 +61,8 @@ function renderPage(): void {
 
   ReactDOM.render(
     React.createElement(MainPane, {
-      topic,
       place,
+      topic,
       pageConfig,
       topicsSummary,
     }),
