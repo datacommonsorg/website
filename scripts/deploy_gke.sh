@@ -64,10 +64,11 @@ cd $ROOT/deploy/overlays/$ENV
 # Deploy to GKE
 kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/datcom-ci/datacommons-website:$WEBSITE_HASH
 kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/datacommons-mixer:$MIXER_HASH
-kustomize build > $ENV.yaml
+kustomize build > kustomize-build.yaml
+cp kustomization.yaml kustomize-deployed.yaml
 gcloud config set project $PROJECT_ID
 gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
-kubectl apply -f $ENV.yaml
+kubectl apply -f kustomize-build.yaml
 
 # Deploy Cloud Endpoints
 export SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
@@ -79,3 +80,8 @@ yq eval -i '.title = env(API_TITLE)' endpoints.yaml
 # Deploy ESP configuration
 gsutil cp gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.$MIXER_HASH.pb .
 gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --project $PROJECT_ID
+
+# Reset changed file
+git checkout HEAD -- kustomization.yaml
+cd $ROOT
+git checkout HEAD -- deploy/git/mixer_hash.txt

@@ -106,12 +106,14 @@ function StatVarChooser(): JSX.Element {
     }
     getStatVarInfo(statVarsToGetInfo)
       .then((info) => {
-        if (x.value.statVarDcid in info) {
-          x.setStatVarInfo(info[x.value.statVarDcid]);
-        }
-        if (y.value.statVarDcid in info) {
-          y.setStatVarInfo(info[y.value.statVarDcid]);
-        }
+        statVarsToGetInfo.forEach((sv) => {
+          const svInfo = sv in info ? info[sv] : {};
+          if (sv === x.value.statVarDcid) {
+            x.setStatVarInfo(svInfo);
+          } else {
+            y.setStatVarInfo(svInfo);
+          }
+        });
       })
       .catch(() => {
         if (statVarsToGetInfo.indexOf(x.value.statVarDcid) > -1) {
