@@ -26,7 +26,7 @@ message PageMetadata {
   // List of places supported by this config.
   repeated string place_dcid = 3;
   // Contained places to load for each parent place type.
-  // This might need to be overwritten by blocks.
+  // This can be overwritten by tiles.
   map<string, string> contained_place_types = 4;
 }
 
@@ -82,6 +82,8 @@ message Tile {
   repeated StatVarMetadata stat_var_override = 4;
   RankingMetadata ranking_metadata = 5;
   HighlightMetadata highlight_metadata = 6;
+  // Overrides the contained_place_types for the page.
+  map<string, string> contained_place_types = 7;
 }
 
 message Block {

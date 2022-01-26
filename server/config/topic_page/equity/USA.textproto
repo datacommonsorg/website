@@ -18,6 +18,10 @@ metadata {
   topic_id: 'equity'
   topic_name: 'Equity'
   place_dcid: 'country/USA'
+  contained_place_types {
+    key: 'Country'
+    value: 'State'
+  }
 }
 
 blocks {
@@ -39,6 +43,101 @@ blocks {
     title: "Gini index of economic activity for ${place}"
   }
   # TODO: Add rankings of other /Countries/
+}
+
+blocks {
+  title: "Health and poverty"
+  description: "Studies from CDC  and others have shown a correlation between obesity and poverty. Unfortunately, many other medical conditions are inversely correlated with economic well being."
+  stat_var_metadata {
+    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+    denom: "Count_Person"
+    unit: "%"
+    scaling: 100
+    name: "Poverty rate"
+  }
+  stat_var_metadata {
+    stat_var: "Count_Person_NoHealthInsurance"
+    denom: "Count_Person"
+    unit: "%"
+    scaling: 100
+    name: "Uninsurance rate"
+  }
+  left_tiles {
+    type: SCATTER
+    title: "Poverty rate vs. Uninsurance rate"
+  }
+  right_tiles {
+    type: SCATTER
+    title: "Inflation adjusted GDP vs. Death from Covid-19"
+    stat_var_override {
+      stat_var: "InflationAdjustedGDP"
+      unit: "$"
+      name: "Inflation adjusted GDP"
+    }
+    stat_var_override {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Cumulative death from Covid-19"
+    }
+  }
+  right_tiles {
+    type: SCATTER
+    title: "Poverty rate vs. Death from diseases of the circulatory system"
+    stat_var_override {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+    stat_var_override {
+      stat_var: "Count_Death_DiseasesOfTheCirculatorySystem"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Death from diseases of the circulatory system"
+    }
+  }
+  left_tiles {
+    type: SCATTER
+    title: "Poverty rate vs. Death from diseases of the digestive system"
+    stat_var_override {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+    stat_var_override {
+      stat_var: "Count_Death_DiseasesOfTheDigestiveSystem"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Death from diseases of the digestive system per capita"
+    }
+  }
+}
+
+blocks {
+  title: "Income inequality between sexes"
+  description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
+  stat_var_metadata {
+    stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
+    name: "Income inequality between sexes"
+  }
+  left_tiles {
+    type: MAP
+    title: "Income inequality between sexes (${date})"
+  }
+  right_tiles {
+    type: RANKING
+    ranking_metadata {
+      show_highest: true
+      show_lowest: true
+    }
+  }
 }
 
 blocks {
@@ -86,11 +185,25 @@ blocks {
   }
   left_tiles {
     type: LINE
+    title: "Poverty rate, by sex"
   }
-  right_tiles {
+  left_tiles {
     type: RANKING
     ranking_metadata {
       show_highest: true
+    }
+  }
+  right_tiles {
+    type: MAP
+    title: "Percentage of the population in poverty who are female (${date})"
+  }
+  right_tiles {
+    type: MAP
+    title: "Percentage of the population in poverty who are male (${date})"
+    stat_var_override {
+      stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_BelowPovertyLevelInThePast12Months"
+      unit: "%"
     }
   }
 }
@@ -278,6 +391,52 @@ blocks {
 # }
 
 blocks {
+  title: "Median household income by race"
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+    unit: "$"
+    name: "American Indian or Alaska Native"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
+    unit: "$"
+    name: "Asian"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+    unit: "$"
+    name: "Black or African American"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
+    unit: "$"
+    name: "Hispanic or Latino"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+    unit: "$"
+    name: "Native Hawaiian or Pacific Islander"
+  }
+  stat_var_metadata {
+    stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
+    unit: "$"
+    name: "White"
+  }
+  # TODO: This data is not available at the country level!
+  left_tiles {
+    type: BAR
+    title: "Median household income by race"
+  }
+  right_tiles {
+    type: RANKING
+    ranking_metadata {
+      show_highest: true
+      highest_title: "Highest among ${statVar}"
+    }
+  }
+}
+
+blocks {
   title: "Poverty rate by race"
   description: "Percentage of the population of each race living in poverty"
   stat_var_metadata {
@@ -330,7 +489,7 @@ blocks {
 }
 
 blocks {
-  title: "Juvenile facility residents by race"
+  title: "Correctional facility residents by race"
   # TODO(beets): investigate high numbes for this
   # stat_var_metadata {
   #   stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"

@@ -98,9 +98,9 @@ h2 {
 }
 
 #homepage section ul {
-  padding-left: 0;
+  column-count: 2;
   list-style-position: inside;
-  margin-top: -1rem;
+  padding-left: 0;
 }
 
 #homepage section .row {
@@ -244,6 +244,17 @@ h2 {
 
 #homepage .img-thumbnail {
   padding: 5px !important;
+}
+
+#homepage #by-the-numbers .highlight {
+  background: #fff5d7;
+  border-radius: 10px;
+  padding: 1em 2em;
+}
+
+#homepage #by-the-numbers h3 {
+  margin-top: 0;
+  padding-top: 0;
 }
 
 #special_announcement_faq dd {

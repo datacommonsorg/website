@@ -15,3 +15,6 @@
  */
 
 export const CHART_HEIGHT = 200;
+
+// Default place type to use for the featured place of the page.
+export const DEFAULT_PAGE_PLACE_TYPE = "Place";
