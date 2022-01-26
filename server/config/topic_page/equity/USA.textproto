@@ -121,6 +121,26 @@ blocks {
 }
 
 blocks {
+  title: "Income inequality between sexes"
+  description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
+  stat_var_metadata {
+    stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
+    name: "Income inequality between sexes"
+  }
+  left_tiles {
+    type: MAP
+    title: "Income inequality between sexes (${date})"
+  }
+  right_tiles {
+    type: RANKING
+    ranking_metadata {
+      show_highest: true
+      show_lowest: true
+    }
+  }
+}
+
+blocks {
   title: "Income and employment, by sex"
   description: "Median incomes of individuals, broken down by sex"
   stat_var_metadata {
@@ -165,11 +185,25 @@ blocks {
   }
   left_tiles {
     type: LINE
+    title: "Poverty rate, by sex"
   }
-  right_tiles {
+  left_tiles {
     type: RANKING
     ranking_metadata {
       show_highest: true
+    }
+  }
+  right_tiles {
+    type: MAP
+    title: "Percentage of the population in poverty who are female (${date})"
+  }
+  right_tiles {
+    type: MAP
+    title: "Percentage of the population in poverty who are male (${date})"
+    stat_var_override {
+      stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_BelowPovertyLevelInThePast12Months"
+      unit: "%"
     }
   }
 }
