@@ -44,7 +44,7 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
   render(): JSX.Element {
     if (this.props.isOverview) {
       return (
-        <h3 id={this.props.text}>
+        <h2 id={this.props.text}>
           <LocalizedLink
             href={`/place/${this.props.place}?category=${this.props.text}`}
             text={this.props.categoryStrings[this.props.text]}
@@ -62,7 +62,7 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
               }
             />
           </span>
-        </h3>
+        </h2>
       );
     }
     return <h3 id={this.props.text.replace(/ /g, "-")}>{this.props.text}</h3>;
