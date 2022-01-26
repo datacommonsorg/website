@@ -27,6 +27,7 @@ ENV = {
     'autopush',
     'autopush-sustainability',
     # Private
+    'private',
     'feeding-america',
     'tidal',
     # Dev
