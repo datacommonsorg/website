@@ -29,9 +29,7 @@ gke/mci.yaml
 
 mixer-grpc.*.pb
 deploy/overlays/**/endpoints.yaml
-deploy/overlays/prod/prod.yaml
-deploy/overlays/staging/staging.yaml
-deploy/overlays/autopush/autopush.yaml
-deploy/overlays/dev/dev.yaml
-deploy/overlays/feeding-america/feeding-america.yaml
-deploy/overlays/tidal/tidal.yaml
+deploy/overlays/**/kustomize-build.yaml
+deploy/overlays/**/kustomize-deployed.yaml
+
+deploy/git/mixer_hash.txt
