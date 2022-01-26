@@ -37,19 +37,6 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
       elem = (
         <h2 className="col-12 pt-2" id="overview">
           {this.props.categoryDisplayStr}
-          <span className="more">
-            <LocalizedLink
-              href={"/browser/" + dcid}
-              text={
-                intl.formatMessage({
-                  id: "link-page-graph-browser",
-                  defaultMessage: "Graph Browser",
-                  description:
-                    "Text for the link to see the page in the Graph Browser.",
-                }) + " ›"
-              }
-            />
-          </span>
         </h2>
       );
     } else {
