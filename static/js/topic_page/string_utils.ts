@@ -35,12 +35,20 @@ export function formatString(s: string, rs: ReplacementStrings): string {
 
 export function getStatVarName(
   statVarDcid: string,
-  statVars: StatVarMetadata[]
+  statVars: StatVarMetadata[],
+  isPerCapita?: boolean
 ): string {
   for (const svm of statVars) {
     if (svm.statVar === statVarDcid) {
-      return svm.name ? svm.name : getStatsVarLabel(statVarDcid);
+      if (svm.name) {
+        return svm.name;
+      }
+      break;
     }
   }
-  return getStatsVarLabel(statVarDcid);
+  const label = getStatsVarLabel(statVarDcid);
+  if (isPerCapita) {
+    return `${label} Per Capita`;
+  }
+  return label;
 }

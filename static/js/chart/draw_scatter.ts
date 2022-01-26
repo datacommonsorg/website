@@ -45,7 +45,7 @@ const MARGINS = {
   bottom: 30,
   left: 60,
   right: 30,
-  top: 30,
+  top: 10,
 };
 const Y_AXIS_WIDTH = 30;
 const STROKE_WIDTH = 1.5;
