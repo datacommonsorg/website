@@ -6,11 +6,14 @@ You should have owner/editor role to perform the following tasks.
 
 - Register a website domain on Google Domain or other registrars.
 
-- Make a copy of the `config.yaml.tpl` as `config.yaml` and fill out the following
+- Make a copy of the `config.yaml.tpl` as `config.yaml` in the same folder and fill out the following
   fields
 
-  - `project`: the hosting GCP website
+  - `project`: the hosting GCP project
   - `domain`: domain of the the website
+  - `region.primary`: region for Kubernetes cluster
+  - `storage-project`: base Data Commons project (set this to `datcom-store`)
+  - `tmcf_csv_bucket`: GCS bucket which contains the TMCF and CSV files for the instance
 
 - Install the following tools:
 
@@ -61,6 +64,8 @@ gcloud auth login
 ```
 
 ## DNS setup
+- [Configure the DNS in the domain
+  registrar](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#update-dns)).
 
 - Make sure the managed SSL certificate is "ACTIVE" by checking ["Load
   balancing" in
@@ -73,9 +78,6 @@ gcloud auth login
   Ingress](mci.yaml.tpl). If they are not linked, need to manually add the
   certificate to the load balancing ([example setup in GCP](ssl.png)).
 
-- [Configure the DNS in the domain
-  registrar](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#update-dns)).
-
 ## Add a new cluster
 
 If new cluster is needed to scale, then run:
@@ -84,3 +86,5 @@ If new cluster is needed to scale, then run:
 ./create_cluster.sh <REGION>
 ../scripts/deploy_gke.sh <ENV> <REGION>
 ```
+
+where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
