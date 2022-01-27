@@ -76,11 +76,6 @@ spec:
                 configMapKeyRef:
                   name: website-configmap
                   key: secretProject
-            - name: MIXER_HASH
-              valueFrom:
-                configMapKeyRef:
-                  name: githash-configmap
-                  key: mixer_hash.txt
             - name: WEBSITE_HASH
               valueFrom:
                 configMapKeyRef:
@@ -141,6 +136,11 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigtable.version
+            - name: MIXER_HASH
+              valueFrom:
+                configMapKeyRef:
+                  name: githash-configmap
+                  key: mixer_hash.txt
           ports:
             - containerPort: 12345
           readinessProbe:
