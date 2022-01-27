@@ -43,7 +43,7 @@
           <h3 id="locale" data-lc="{{ locale }}"></h3>
           <div id="place-highlight"></div>
         </div>
-        <div class="col-12 col-md-6 order-first order-md-last pb-3">
+        <div class="col-12 col-md-6 order-first order-md-last pb-3 pb-md-0">
           <div class="search border">
             <div id="location-field">
               <div id="search-icon"></div>
@@ -51,6 +51,8 @@
               <input id="place-autocomplete" placeholder="{% trans %}Enter a country, state, county or city{% endtrans %}" type="text" />
             </div>
           </div>
+          <!-- <h4>Graph browser</h4> -->
+          <h4 id="place-dcid" class="mt-3 mt-m-0"><span><a href="/browser/{{place_dcid}}">{% trans %}Graph Browser{% endtrans %} ›</a></span></h4>
         </div>
       </div>
       <div id="subtitle" class="row"></div>

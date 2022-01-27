@@ -33,3 +33,4 @@ deploy/overlays/**/kustomize-build.yaml
 deploy/overlays/**/kustomize-deployed.yaml
 
 deploy/git/mixer_hash.txt
+deploy/git/website_hash.txt

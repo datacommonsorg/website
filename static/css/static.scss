@@ -98,9 +98,12 @@ h2 {
 }
 
 #homepage section ul {
-  column-count: 2;
   list-style-position: inside;
   padding-left: 0;
+}
+
+#homepage #by-the-numbers ul {
+  column-count: 2;
 }
 
 #homepage section .row {
