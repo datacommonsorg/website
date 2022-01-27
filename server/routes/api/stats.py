@@ -33,7 +33,7 @@ NUM_DESCENDENTS_TO_SUBTRACT = 12123
 # TODO(shifucun): add unittest for this module
 
 
-def get_stats_latest(dcid_str, stats_var):
+def get_stats_latest(dcid_str, stat_var):
     """ Returns the most recent data as from a DataCommons API payload.
     Args:
         dcid_str: place dcids concatenated by "^".
@@ -42,13 +42,14 @@ def get_stats_latest(dcid_str, stats_var):
         An object keyed by dcid, with the most recent value available for
         that dcid.
     """
-    response = json.loads(get_stats_wrapper(dcid_str, stats_var))
+    response = json.loads(get_stats_wrapper(dcid_str, stat_var))
     result = {}
     for dcid, stats in response.items():
-        if not stats or not 'data' in stats:
+        if (not stats or not 'data' in stats or stat_var not in stats['data'] or
+                'val' not in stats['data'][stat_var]):
             result[dcid] = 0
         else:
-            data = stats['data']
+            data = stats['data'][stat_var]['val']
             max_date = max(data.keys())
             result[dcid] = data[max_date]
     return result
