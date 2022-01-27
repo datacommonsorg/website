@@ -24,556 +24,570 @@ metadata {
   }
 }
 
-blocks {
-  title: "Gini index of economic activity"
-  stat_var_metadata: {
-    stat_var: "GiniIndex_EconomicActivity"
-    name: "Gini index of economic activity"
+categories {
+  title: "Overview"
+
+  blocks {
+    title: "Gini index of economic activity"
+    stat_var_metadata: {
+      stat_var: "GiniIndex_EconomicActivity"
+      name: "Gini index of economic activity"
+    }
+    left_tiles {
+      type: HIGHLIGHT
+      description: "Gini index of economic activity for ${place} (${date})"
+    }
+    left_tiles {
+      type: DESCRIPTION
+      description: "In economics, the Gini index is a measure of income inequality within a nation or social group. It measures the inequality among values of a frequency distribution (e.g. a Gini index of 0 represents perfect equality, while 100 represents perfect inequality)."
+    }
+    right_tiles: {
+      type: LINE
+      title: "Gini index of economic activity for ${place}"
+    }
+    # TODO: Add rankings of other /Countries/
   }
-  left_tiles {
-    type: HIGHLIGHT
-    description: "Gini index of economic activity for ${place} (${date})"
-  }
-  left_tiles {
-    type: DESCRIPTION
-    description: "In economics, the Gini index is a measure of income inequality within a nation or social group. It measures the inequality among values of a frequency distribution (e.g. a Gini index of 0 represents perfect equality, while 100 represents perfect inequality)."
-  }
-  right_tiles: {
-    type: LINE
-    title: "Gini index of economic activity for ${place}"
-  }
-  # TODO: Add rankings of other /Countries/
 }
 
-blocks {
-  title: "Health and poverty"
-  description: "Studies from CDC  and others have shown a correlation between obesity and poverty. Unfortunately, many other medical conditions are inversely correlated with economic well being."
-  stat_var_metadata {
-    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-    denom: "Count_Person"
-    unit: "%"
-    scaling: 100
-    name: "Poverty rate"
+categories {
+  title: "Health"
+
+  blocks {
+    title: "Health and poverty"
+    description: "Studies from CDC  and others have shown a correlation between obesity and poverty. Unfortunately, many other medical conditions are inversely correlated with economic well being."
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_NoHealthInsurance"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Uninsurance rate"
+    }
+    left_tiles {
+      type: SCATTER
+      title: "Poverty rate vs. Uninsurance rate"
+    }
+    right_tiles {
+      type: SCATTER
+      title: "Inflation adjusted GDP vs. Death from Covid-19"
+      stat_var_override {
+        stat_var: "InflationAdjustedGDP"
+        unit: "$"
+        name: "Inflation adjusted GDP"
+      }
+      stat_var_override {
+        stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Cumulative death from Covid-19"
+      }
+    }
+    right_tiles {
+      type: SCATTER
+      title: "Poverty rate vs. Death from diseases of the circulatory system"
+      stat_var_override {
+        stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Poverty rate"
+      }
+      stat_var_override {
+        stat_var: "Count_Death_DiseasesOfTheCirculatorySystem"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Death from diseases of the circulatory system"
+      }
+    }
+    left_tiles {
+      type: SCATTER
+      title: "Poverty rate vs. Death from diseases of the digestive system"
+      stat_var_override {
+        stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Poverty rate"
+      }
+      stat_var_override {
+        stat_var: "Count_Death_DiseasesOfTheDigestiveSystem"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Death from diseases of the digestive system per capita"
+      }
+    }
   }
-  stat_var_metadata {
-    stat_var: "Count_Person_NoHealthInsurance"
-    denom: "Count_Person"
-    unit: "%"
-    scaling: 100
-    name: "Uninsurance rate"
+}
+
+categories {
+  title: "Equity between sexes"
+  blocks {
+    title: "Income inequality between sexes"
+    description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
+    stat_var_metadata {
+      stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
+      name: "Income inequality between sexes"
+    }
+    left_tiles {
+      type: MAP
+      title: "Income inequality between sexes (${date})"
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+    }
   }
-  left_tiles {
-    type: SCATTER
-    title: "Poverty rate vs. Uninsurance rate"
-  }
-  right_tiles {
-    type: SCATTER
-    title: "Inflation adjusted GDP vs. Death from Covid-19"
-    stat_var_override {
-      stat_var: "InflationAdjustedGDP"
+
+  blocks {
+    title: "Income and employment, by sex"
+    description: "Median incomes of individuals, broken down by sex"
+    stat_var_metadata {
+      stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
       unit: "$"
-      name: "Inflation adjusted GDP"
     }
-    stat_var_override {
-      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
-      denom: "Count_Person"
-      unit: "%"
-      scaling: 100
-      name: "Cumulative death from Covid-19"
+    stat_var_metadata {
+      stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+      unit: "$"
     }
+    left_tiles {
+      title: "Median income by sex"
+      type: LINE
+    }
+    right_tiles {
+      title: "Unemployment rate by sex"
+      type: LINE
+      stat_var_override {
+        stat_var: "UnemploymentRate_Person_Female"
+        unit: "%"
+      }
+      stat_var_override {
+        stat_var: "UnemploymentRate_Person_Male"
+        unit: "%"
+      }
+    }
+    # There is only state-level data for Median Income, not unemployment rate.
   }
-  right_tiles {
-    type: SCATTER
-    title: "Poverty rate vs. Death from diseases of the circulatory system"
-    stat_var_override {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person"
-      unit: "%"
-      scaling: 100
-      name: "Poverty rate"
-    }
-    stat_var_override {
-      stat_var: "Count_Death_DiseasesOfTheCirculatorySystem"
-      denom: "Count_Person"
-      unit: "%"
-      scaling: 100
-      name: "Death from diseases of the circulatory system"
-    }
-  }
-  left_tiles {
-    type: SCATTER
-    title: "Poverty rate vs. Death from diseases of the digestive system"
-    stat_var_override {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person"
-      unit: "%"
-      scaling: 100
-      name: "Poverty rate"
-    }
-    stat_var_override {
-      stat_var: "Count_Death_DiseasesOfTheDigestiveSystem"
-      denom: "Count_Person"
-      unit: "%"
-      scaling: 100
-      name: "Death from diseases of the digestive system per capita"
-    }
-  }
-}
 
-blocks {
-  title: "Income inequality between sexes"
-  description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
-  stat_var_metadata {
-    stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
-    name: "Income inequality between sexes"
-  }
-  left_tiles {
-    type: MAP
-    title: "Income inequality between sexes (${date})"
-  }
-  right_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
-      show_lowest: true
-    }
-  }
-}
-
-blocks {
-  title: "Income and employment, by sex"
-  description: "Median incomes of individuals, broken down by sex"
-  stat_var_metadata {
-    stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
-    unit: "$"
-  }
-  stat_var_metadata {
-    stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-    unit: "$"
-  }
-  left_tiles {
-    title: "Median income by sex"
-    type: LINE
-  }
-  right_tiles {
-    title: "Unemployment rate by sex"
-    type: LINE
-    stat_var_override {
-      stat_var: "UnemploymentRate_Person_Female"
-      unit: "%"
-    }
-    stat_var_override {
-      stat_var: "UnemploymentRate_Person_Male"
-      unit: "%"
-    }
-  }
-  # There is only state-level data for Median Income, not unemployment rate.
-}
-
-blocks {
-  title: "Poverty rate, by sex"
-  description: "Percentage of the population living below the poverty level, broken down by sex."
-  stat_var_metadata {
-    stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-    denom: "Count_Person_BelowPovertyLevelInThePast12Months"
-    unit: "%"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-    denom: "Count_Person_BelowPovertyLevelInThePast12Months"
-    unit: "%"
-  }
-  left_tiles {
-    type: LINE
+  blocks {
     title: "Poverty rate, by sex"
-  }
-  left_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
+    description: "Percentage of the population living below the poverty level, broken down by sex."
+    stat_var_metadata {
+      stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_BelowPovertyLevelInThePast12Months"
+      unit: "%"
     }
-  }
-  right_tiles {
-    type: MAP
-    title: "Percentage of the population in poverty who are female (${date})"
-  }
-  right_tiles {
-    type: MAP
-    title: "Percentage of the population in poverty who are male (${date})"
-    stat_var_override {
+    stat_var_metadata {
       stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
       denom: "Count_Person_BelowPovertyLevelInThePast12Months"
       unit: "%"
     }
+    left_tiles {
+      type: LINE
+      title: "Poverty rate, by sex"
+    }
+    left_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+      }
+    }
+    right_tiles {
+      type: MAP
+      title: "Percentage of the population in poverty who are female (${date})"
+    }
+    right_tiles {
+      type: MAP
+      title: "Percentage of the population in poverty who are male (${date})"
+      stat_var_override {
+        stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        denom: "Count_Person_BelowPovertyLevelInThePast12Months"
+        unit: "%"
+      }
+    }
   }
-}
 
-blocks {
-  title: "Uninsured, by sex"
-  description: "Of those without insurance, how many are male or female?"
-  stat_var_metadata {
-    stat_var: "Count_Person_Female_NoHealthInsurance"
-    denom: "Count_Person_NoHealthInsurance"
-    unit: "%"
-    scaling: 100
-    name: "Female, uninsured"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_Male_NoHealthInsurance"
-    denom: "Count_Person_NoHealthInsurance"
-    unit: "%"
-    scaling: 100
-    name: "Male, uninsured"
-  }
-  # TODO(beets): This isn't available at the country level
-  # stat_var_metadata {
-  #   stat_var: "Count_Person_Female_WithHealthInsurance"
-  #   denom: "Count_Person_Female"
-  #   unit: "%"
-  #   scaling: 100
-  #   name: "Female, insured"
-  # }
-  # stat_var_metadata {
-  #   stat_var: "Count_Person_Male_WithHealthInsurance"
-  #   denom: "Count_Person_Male"
-  #   unit: "%"
-  #   scaling: 100
-  #   name: "Male, insured"
-  # }
-  right_tiles {
-    type: LINE
+  blocks {
     title: "Uninsured, by sex"
-  }
-  left_tiles {
-    type: HIGHLIGHT
-    stat_var_override {
-      stat_var: "Count_Person_NoHealthInsurance"
+    description: "Of those without insurance, how many are male or female?"
+    stat_var_metadata {
+      stat_var: "Count_Person_Female_NoHealthInsurance"
+      denom: "Count_Person_NoHealthInsurance"
+      unit: "%"
+      scaling: 100
+      name: "Female, uninsured"
     }
-    description: "Americans have no health insurance (${date})"
-  }
-  left_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
+    stat_var_metadata {
+      stat_var: "Count_Person_Male_NoHealthInsurance"
+      denom: "Count_Person_NoHealthInsurance"
+      unit: "%"
+      scaling: 100
+      name: "Male, uninsured"
     }
-  }
-}
-
-blocks {
-  title: "Education attainment by sex: Associate's degree"
-  stat_var_metadata {
-    stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female"
-    denom: "Count_Person_25To34Years_Female"
-    unit: "%"
-    scaling: 100
-    name: "Female"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
-    denom: "Count_Person_25To34Years_Male"
-    unit: "%"
-    scaling: 100
-    name: "Male"
-  }
-  left_tiles {
-    type: LINE
-    title: "Associate's degree holders by sex"
-  }
-  right_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
-      show_lowest: true
+    # TODO(beets): This isn't available at the country level
+    # stat_var_metadata {
+    #   stat_var: "Count_Person_Female_WithHealthInsurance"
+    #   denom: "Count_Person_Female"
+    #   unit: "%"
+    #   scaling: 100
+    #   name: "Female, insured"
+    # }
+    # stat_var_metadata {
+    #   stat_var: "Count_Person_Male_WithHealthInsurance"
+    #   denom: "Count_Person_Male"
+    #   unit: "%"
+    #   scaling: 100
+    #   name: "Male, insured"
+    # }
+    right_tiles {
+      type: LINE
+      title: "Uninsured, by sex"
     }
-  }
-}
-
-blocks {
-  title: "Education attainment by sex: Bachelors's degree"
-  stat_var_metadata {
-    stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female"
-    denom: "Count_Person_25To34Years_Female"
-    unit: "%"
-    scaling: 100
-    name: "Female"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
-    denom: "Count_Person_25To34Years_Male"
-    unit: "%"
-    scaling: 100
-    name: "Male"
-  }
-  left_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
-      show_lowest: true
+    left_tiles {
+      type: HIGHLIGHT
+      stat_var_override {
+        stat_var: "Count_Person_NoHealthInsurance"
+      }
+      description: "Americans have no health insurance (${date})"
+    }
+    left_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+      }
     }
   }
-  right_tiles {
-    title: "Bachelor's degree holders by sex"
-    type: LINE
-  }
-}
 
-blocks {
-  title: "Education attainment by sex: Graduate or professional degree"
-  stat_var_metadata {
-    stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female"
-    denom: "Count_Person_25To34Years_Female"
-    unit: "%"
-    scaling: 100
-    name: "Female"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
-    denom: "Count_Person_25To34Years_Male"
-    unit: "%"
-    scaling: 100
-    name: "Male"
-  }
-  left_tiles {
-    type: LINE
-    title: "Graduate or professional degree holders by sex"
-  }
-  right_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
-      show_lowest: true
+  blocks {
+    title: "Education attainment by sex: Associate's degree"
+    stat_var_metadata {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+    left_tiles {
+      type: LINE
+      title: "Associate's degree holders by sex"
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
     }
   }
-}
 
-# TODO: Not available at the country level
-# blocks {
-#   title: "Median income, by race"
-#   description: "Median incomes of households, broken down by race"
-#   stat_var_metadata {
-#     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-#     unit: "$"
-#   }
-#   stat_var_metadata {
-#     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-#     unit: "$"
-#   }
-#   stat_var_metadata {
-#     stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
-#     unit: "$"
-#   }
-#   stat_var_metadata {
-#     stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-#     unit: "$"
-#   }
-#   stat_var_metadata {
-#     stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-#     unit: "$"
-#   }
-#   stat_var_metadata {
-#     stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
-#     unit: "$"
-#   }
-#   stat_var_metadata {
-#     stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
-#     unit: "$"
-#   }
-#   left_tiles {
-#     type: LINE
-#     title: "Median household income by race"
-#   }
-#   right_tiles {
-#     type: RANKING
-#     ranking_metadata {
-#       show_highest: true
-#     }
-#   }
-# }
+  blocks {
+    title: "Education attainment by sex: Bachelors's degree"
+    stat_var_metadata {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+    left_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+    }
+    right_tiles {
+      title: "Bachelor's degree holders by sex"
+      type: LINE
+    }
+  }
 
-blocks {
-  title: "Median household income by race"
-  stat_var_metadata {
-    stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-    unit: "$"
-    name: "American Indian or Alaska Native"
-  }
-  stat_var_metadata {
-    stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
-    unit: "$"
-    name: "Asian"
-  }
-  stat_var_metadata {
-    stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-    unit: "$"
-    name: "Black or African American"
-  }
-  stat_var_metadata {
-    stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-    unit: "$"
-    name: "Hispanic or Latino"
-  }
-  stat_var_metadata {
-    stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
-    unit: "$"
-    name: "Native Hawaiian or Pacific Islander"
-  }
-  stat_var_metadata {
-    stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
-    unit: "$"
-    name: "White"
-  }
-  # TODO: This data is not available at the country level!
-  left_tiles {
-    type: BAR
-    title: "Median household income by race"
-  }
-  right_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
-      highest_title: "Highest among ${statVar}"
+  blocks {
+    title: "Education attainment by sex: Graduate or professional degree"
+    stat_var_metadata {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+    left_tiles {
+      type: LINE
+      title: "Graduate or professional degree holders by sex"
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
     }
   }
 }
 
-blocks {
-  title: "Poverty rate by race"
-  description: "Percentage of the population of each race living in poverty"
-  stat_var_metadata {
-    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
-    denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-    scaling: 100
-    unit: "%"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-    denom: "Count_Person_AsianAlone"
-    scaling: 100
-    unit: "%"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-    denom: "Count_Person_BlackOrAfricanAmericanAlone"
-    scaling: 100
-    unit: "%"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-    denom: "Count_Person_HispanicOrLatino"
-    scaling: 100
-    unit: "%"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-    denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-    scaling: 100
-    unit: "%"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-    denom: "Count_Person_WhiteAlone"
-    scaling: 100
-    unit: "%"
-  }
-  left_tiles {
-    type: LINE
-    title: "Poverty rate by race in ${place}"
-  }
-  right_tiles {
-    type: RANKING
-    ranking_metadata {
-      show_highest: true
-      highest_title: "Highest among ${statVar}"
-    }
-  }
-}
-
-blocks {
-  title: "Correctional facility residents by race"
-  # TODO(beets): investigate high numbes for this
-  # stat_var_metadata {
-  #   stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
-  #   denom: "Count_Person_ResidesInJuvenileFacilities"
-  #   scaling: 100
-  #   unit: "%"
-  #   name: "American Indian or Alaska Native"
+categories {
+  title: "Equity between races"
+  # TODO: Not available at the country level
+  # blocks {
+  #   title: "Median income, by race"
+  #   description: "Median incomes of households, broken down by race"
+  #   stat_var_metadata {
+  #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+  #     unit: "$"
+  #   }
+  #   stat_var_metadata {
+  #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+  #     unit: "$"
+  #   }
+  #   stat_var_metadata {
+  #     stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
+  #     unit: "$"
+  #   }
+  #   stat_var_metadata {
+  #     stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+  #     unit: "$"
+  #   }
+  #   stat_var_metadata {
+  #     stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
+  #     unit: "$"
+  #   }
+  #   stat_var_metadata {
+  #     stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+  #     unit: "$"
+  #   }
+  #   stat_var_metadata {
+  #     stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
+  #     unit: "$"
+  #   }
+  #   left_tiles {
+  #     type: LINE
+  #     title: "Median household income by race"
+  #   }
+  #   right_tiles {
+  #     type: RANKING
+  #     ranking_metadata {
+  #       show_highest: true
+  #     }
+  #   }
   # }
-  stat_var_metadata {
-    stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
-    denom: "Count_Person_ResidesInJuvenileFacilities"
-    scaling: 100
-    unit: "%"
-    name: "Asian"
+
+  blocks {
+    title: "Median household income by race"
+    stat_var_metadata {
+      stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+      unit: "$"
+      name: "American Indian or Alaska Native"
+    }
+    stat_var_metadata {
+      stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
+      unit: "$"
+      name: "Asian"
+    }
+    stat_var_metadata {
+      stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+      unit: "$"
+      name: "Black or African American"
+    }
+    stat_var_metadata {
+      stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
+      unit: "$"
+      name: "Hispanic or Latino"
+    }
+    stat_var_metadata {
+      stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+      unit: "$"
+      name: "Native Hawaiian or Pacific Islander"
+    }
+    stat_var_metadata {
+      stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
+      unit: "$"
+      name: "White"
+    }
+    # TODO: This data is not available at the country level!
+    left_tiles {
+      type: BAR
+      title: "Median household income by race"
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        highest_title: "Highest among ${statVar}"
+      }
+    }
   }
-  stat_var_metadata {
-    stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
-    denom: "Count_Person_ResidesInJuvenileFacilities"
-    scaling: 100
-    unit: "%"
-    name: "Black or African American"
+
+  blocks {
+    title: "Poverty rate by race"
+    description: "Percentage of the population of each race living in poverty"
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
+      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
+      scaling: 100
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+      denom: "Count_Person_AsianAlone"
+      scaling: 100
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+      denom: "Count_Person_BlackOrAfricanAmericanAlone"
+      scaling: 100
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+      denom: "Count_Person_HispanicOrLatino"
+      scaling: 100
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
+      scaling: 100
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+      denom: "Count_Person_WhiteAlone"
+      scaling: 100
+      unit: "%"
+    }
+    left_tiles {
+      type: LINE
+      title: "Poverty rate by race in ${place}"
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        highest_title: "Highest among ${statVar}"
+      }
+    }
   }
-  stat_var_metadata {
-    stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
-    denom: "Count_Person_ResidesInJuvenileFacilities"
-    scaling: 100
-    unit: "%"
-    name: "Hispanic or Latino"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
-    denom: "Count_Person_ResidesInJuvenileFacilities"
-    scaling: 100
-    unit: "%"
-    name: "Native Hawaiian or Pacific Islander"
-  }
-  stat_var_metadata {
-    stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
-    denom: "Count_Person_ResidesInJuvenileFacilities"
-    scaling: 100
-    unit: "%"
-    name: "White"
-  }
-  left_tiles {
-    title: "Racial breakdown of juvenile facility residents"
-    type: LINE
-  }
-  right_tiles {
-    title: "Racial breakdown of adult correctional facility residents"
-    type: LINE
-    stat_var_override {
-      stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+
+  blocks {
+    title: "Correctional facility residents by race"
+    # TODO(beets): investigate high numbes for this
+    # stat_var_metadata {
+    #   stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
+    #   denom: "Count_Person_ResidesInJuvenileFacilities"
+    #   scaling: 100
+    #   unit: "%"
+    #   name: "American Indian or Alaska Native"
+    # }
+    stat_var_metadata {
+      stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
       scaling: 100
       unit: "%"
       name: "Asian"
     }
-    stat_var_override {
-      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+    stat_var_metadata {
+      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
       scaling: 100
       unit: "%"
       name: "Black or African American"
     }
-    stat_var_override {
-      stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+    stat_var_metadata {
+      stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
       scaling: 100
       unit: "%"
       name: "Hispanic or Latino"
     }
-    stat_var_override {
-      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+    stat_var_metadata {
+      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
       scaling: 100
       unit: "%"
       name: "Native Hawaiian or Pacific Islander"
     }
-    stat_var_override {
-      stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
-      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+    stat_var_metadata {
+      stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
       scaling: 100
       unit: "%"
       name: "White"
+    }
+    left_tiles {
+      title: "Racial breakdown of juvenile facility residents"
+      type: LINE
+    }
+    right_tiles {
+      title: "Racial breakdown of adult correctional facility residents"
+      type: LINE
+      stat_var_override {
+        stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
+        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+        scaling: 100
+        unit: "%"
+        name: "Asian"
+      }
+      stat_var_override {
+        stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
+        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+        scaling: 100
+        unit: "%"
+        name: "Black or African American"
+      }
+      stat_var_override {
+        stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
+        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+        scaling: 100
+        unit: "%"
+        name: "Hispanic or Latino"
+      }
+      stat_var_override {
+        stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
+        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+        scaling: 100
+        unit: "%"
+        name: "Native Hawaiian or Pacific Islander"
+      }
+      stat_var_override {
+        stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
+        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+        scaling: 100
+        unit: "%"
+        name: "White"
+      }
     }
   }
 }

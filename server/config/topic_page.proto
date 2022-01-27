@@ -94,7 +94,13 @@ message Block {
   repeated StatVarMetadata stat_var_metadata = 5;
 }
 
+message Category {
+  string title = 1;
+  string description = 2;
+  repeated Block blocks = 3;
+}
+
 message TopicPageConfig {
   PageMetadata metadata = 1;
-  repeated Block blocks = 2;
+  repeated Category categories = 2;
 }
