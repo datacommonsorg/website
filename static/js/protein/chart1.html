@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="chart1.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+  </head>
+  <body>
+    <div class="container"></div>
+
+    <script>
+      const data = [
+        { name: "Cartilage", value: 3 },
+        { name: "Eye", value: 2 },
+        { name: "Liver", value: 1 },
+        { name: "Skin", value: 0 },
+      ];
+
+      drawChart(".container", data);
+    </script>
+  </body>
+</html>
