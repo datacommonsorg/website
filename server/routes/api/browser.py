@@ -126,6 +126,6 @@ def get_observation_id():
 def get_num_stat_vars(dcid):
     """Returns number of stat vars for a dcid
     """
-    stat_vars = place_api.statVars(dcid)
+    stat_vars = place_api.stat_vars(dcid)
     num_stat_vars = len(stat_vars)
     return Response(json.dumps(num_stat_vars), 200, mimetype='application/json')

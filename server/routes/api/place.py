@@ -202,7 +202,7 @@ def stat_vars(dcid):
     """
     Get all the statistical variable dcids for a place.
     """
-    response = fetch_data('/place/stat-var', {
+    response = fetch_data('/place/stat-vars', {
         'dcids': [dcid],
     },
                           compress=False,
