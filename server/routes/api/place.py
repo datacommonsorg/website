@@ -192,13 +192,13 @@ def statsvars_route(dcid):
     Returns:
       A list of statistical variable dcids.
     """
-    return Response(json.dumps(statVars(dcid)),
+    return Response(json.dumps(stat_vars(dcid)),
                     200,
                     mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def statVars(dcid):
+def stat_vars(dcid):
     """
     Get all the statistical variable dcids for a place.
     """
