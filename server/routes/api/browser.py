@@ -123,9 +123,9 @@ def get_observation_id():
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/num_stat_vars/<path:dcid>')
-def get_num_statvars(dcid):
+def get_num_stat_vars(dcid):
     """Returns number of stat vars for a dcid
     """
-    statsvars = place_api.statsvars(dcid)
-    num_statvars = len(statsvars)
-    return Response(json.dumps(num_statvars), 200, mimetype='application/json')
+    stat_vars = place_api.statVars(dcid)
+    num_stat_vars = len(stat_vars)
+    return Response(json.dumps(num_stat_vars), 200, mimetype='application/json')
