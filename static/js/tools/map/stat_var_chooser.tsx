@@ -25,6 +25,7 @@ import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { getSamplePlaces } from "../../utils/place_utils";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -37,15 +38,22 @@ import {
   getMapPointPlaceType,
 } from "./util";
 
-const SAMPLE_SIZE = 3;
-
 export function StatVarChooser(): JSX.Element {
   const { statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState(
-    _.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE)
+    getSamplePlaces(
+      placeInfo.value.enclosingPlace.dcid,
+      placeInfo.value.enclosedPlaceType,
+      placeInfo.value.enclosedPlaces
+    )
   );
   useEffect(() => {
-    setSamplePlaces(_.sampleSize(placeInfo.value.enclosedPlaces, SAMPLE_SIZE));
+    const samplePlaces = getSamplePlaces(
+      placeInfo.value.enclosingPlace.dcid,
+      placeInfo.value.enclosedPlaceType,
+      placeInfo.value.enclosedPlaces
+    );
+    setSamplePlaces(samplePlaces);
   }, [placeInfo.value.enclosedPlaces]);
   useEffect(() => {
     const svWithInfo = _.isNull(statVar.value.info)

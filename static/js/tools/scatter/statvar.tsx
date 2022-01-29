@@ -39,14 +39,8 @@ import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { getSamplePlaces } from "../../utils/place_utils";
 import { AxisWrapper, Context } from "./context";
-
-// Number of enclosed places to sample when filtering the stat vars in the
-// stat var menu
-// Use a large sample size here. Performance wise this is okay. When the filtered
-// stat vars are set, mixer can use the existence cache to check if stat vars
-// exist for the place, which is only a point read.
-const SAMPLE_SIZE = 50;
 
 interface StatVar {
   // Always contains a single statvar.
@@ -78,10 +72,19 @@ function StatVarChooser(): JSX.Element {
   const [modalSelected, setModalSelected] = useState(defaultModalSelected);
   const [modalOpen, setModalOpen] = useState(false);
   const [samplePlaces, setSamplePlaces] = useState(
-    _.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE)
+    getSamplePlaces(
+      place.value.enclosingPlace.dcid,
+      place.value.enclosedPlaceType,
+      place.value.enclosedPlaces
+    )
   );
   useEffect(() => {
-    setSamplePlaces(_.sampleSize(place.value.enclosedPlaces, SAMPLE_SIZE));
+    const samplePlaces = getSamplePlaces(
+      place.value.enclosingPlace.dcid,
+      place.value.enclosedPlaceType,
+      place.value.enclosedPlaces
+    );
+    setSamplePlaces(samplePlaces);
   }, [place.value.enclosedPlaces]);
   const menuSelected = [
     x.value.statVarDcid,
