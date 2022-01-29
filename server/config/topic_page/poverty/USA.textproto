@@ -379,3 +379,82 @@ categories {
   #   Count_Household_4OrLessRatioToPovertyLine_FamilyHousehold
   #   Count_Household_5OrLessRatioToPovertyLine_FamilyHousehold
   # }
+
+categories {
+  title: "Poverty and health"
+
+  blocks {
+    title: "Health and poverty"
+    description: "Studies from CDC  and others have shown a correlation between obesity and poverty. Unfortunately, many other medical conditions are inversely correlated with economic well being."
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_NoHealthInsurance"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Uninsurance rate"
+    }
+    left_tiles {
+      type: SCATTER
+      title: "Poverty rate vs. Uninsurance rate"
+    }
+    right_tiles {
+      type: SCATTER
+      title: "Inflation adjusted GDP vs. Death from Covid-19"
+      stat_var_override {
+        stat_var: "InflationAdjustedGDP"
+        unit: "$"
+        name: "Inflation adjusted GDP"
+      }
+      stat_var_override {
+        stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Cumulative death from Covid-19"
+      }
+    }
+    right_tiles {
+      type: SCATTER
+      title: "Poverty rate vs. Death from diseases of the circulatory system"
+      stat_var_override {
+        stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Poverty rate"
+      }
+      stat_var_override {
+        stat_var: "Count_Death_DiseasesOfTheCirculatorySystem"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Death from diseases of the circulatory system"
+      }
+    }
+    left_tiles {
+      type: SCATTER
+      title: "Poverty rate vs. Death from diseases of the digestive system"
+      stat_var_override {
+        stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Poverty rate"
+      }
+      stat_var_override {
+        stat_var: "Count_Death_DiseasesOfTheDigestiveSystem"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Death from diseases of the digestive system per capita"
+      }
+    }
+  }
+}
