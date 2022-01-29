@@ -153,13 +153,17 @@ function processData(
         ) {
           continue;
         }
+        const stat = raw.data[statVar].stat[placeDcid];
         const dataPoint = {
           label: getStatVarName(statVar, props.statVarMetadata),
-          value: raw.data[statVar].stat[placeDcid].value,
+          value: stat.value,
           dcid: placeDcid,
         };
+        sources.add(raw.metadata[stat.metaHash].provenanceUrl);
         if (item.denom && item.denom in raw.data) {
-          dataPoint.value /= raw.data[item.denom].stat[placeDcid].value;
+          const denomStat = raw.data[item.denom].stat[placeDcid];
+          dataPoint.value /= denomStat.value;
+          sources.add(raw.metadata[denomStat.metaHash].provenanceUrl);
         }
         if (item.scaling) {
           dataPoint.value *= item.scaling;

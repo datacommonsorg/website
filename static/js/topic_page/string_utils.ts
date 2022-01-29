@@ -52,3 +52,7 @@ export function getStatVarName(
   }
   return label;
 }
+
+export function getRelLink(title: string) {
+  return title.replace(/ /g, "-");
+}

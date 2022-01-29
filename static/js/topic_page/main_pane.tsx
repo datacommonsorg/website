@@ -19,7 +19,7 @@ import React from "react";
 import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
-import { Block, BlockPropType } from "./block";
+import { Category } from "./category";
 import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { PageSelector } from "./page_selector";
 import { TopicsSummary } from "./topic_page";
@@ -33,8 +33,7 @@ export interface PageMetadata {
 
 export interface PageConfig {
   metadata: PageMetadata;
-  overviewBlock: BlockPropType;
-  blocks: BlockPropType[];
+  categories: Category[];
 }
 
 interface MainPanePropType {
@@ -70,19 +69,14 @@ export function MainPane(props: MainPanePropType): JSX.Element {
         topicsSummary={props.topicsSummary}
       />
       {!_.isEmpty(props.pageConfig) &&
-        props.pageConfig.blocks.map((block) => {
+        props.pageConfig.categories.map((category) => {
           const id = randDomId();
           return (
             <ErrorBoundary key={id}>
-              <Block
-                id={id}
+              <Category
                 place={props.place}
                 enclosedPlaceType={enclosedPlaceType}
-                title={block.title}
-                description={block.description}
-                leftTiles={block.leftTiles}
-                rightTiles={block.rightTiles}
-                statVarMetadata={block.statVarMetadata}
+                config={category}
               />
             </ErrorBoundary>
           );

@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10topic_page.proto\x12\x0b\x64\x61tacommons\"\xd7\x01\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"l\n\x0fStatVarMetadata\x12\x10\n\x08stat_var\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\x12\x0b\n\x03log\x18\x05 \x01(\x08\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xdf\x01\n\x0fRankingMetadata\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\x12\x15\n\rhighest_title\x18\x06 \x01(\t\x12\x14\n\x0clowest_title\x18\x07 \x01(\t\x12\x16\n\x0eincrease_title\x18\x08 \x01(\t\x12\x16\n\x0e\x64\x65\x63rease_title\x18\t \x01(\t\"(\n\x11HighlightMetadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\x88\x04\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x37\n\x11stat_var_override\x18\x04 \x03(\x0b\x32\x1c.datacommons.StatVarMetadata\x12\x36\n\x10ranking_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingMetadata\x12:\n\x12highlight_metadata\x18\x06 \x01(\x0b\x32\x1e.datacommons.HighlightMetadata\x12I\n\x15\x63ontained_place_types\x18\x07 \x03(\x0b\x32*.datacommons.Tile.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"~\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\x12\x0f\n\x0b\x44\x45SCRIPTION\x10\x08\"\xb3\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12%\n\nleft_tiles\x18\x03 \x03(\x0b\x32\x11.datacommons.Tile\x12&\n\x0bright_tiles\x18\x04 \x03(\x0b\x32\x11.datacommons.Tile\x12\x37\n\x11stat_var_metadata\x18\x05 \x03(\x0b\x32\x1c.datacommons.StatVarMetadata\"b\n\x0fTopicPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12\"\n\x06\x62locks\x18\x02 \x03(\x0b\x32\x12.datacommons.Blockb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10topic_page.proto\x12\x0b\x64\x61tacommons\"\xd7\x01\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"l\n\x0fStatVarMetadata\x12\x10\n\x08stat_var\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\x12\x0b\n\x03log\x18\x05 \x01(\x08\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xdf\x01\n\x0fRankingMetadata\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\x12\x15\n\rhighest_title\x18\x06 \x01(\t\x12\x14\n\x0clowest_title\x18\x07 \x01(\t\x12\x16\n\x0eincrease_title\x18\x08 \x01(\t\x12\x16\n\x0e\x64\x65\x63rease_title\x18\t \x01(\t\"(\n\x11HighlightMetadata\x12\x13\n\x0b\x64\x65scription\x18\x01 \x01(\t\"\x88\x04\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x37\n\x11stat_var_override\x18\x04 \x03(\x0b\x32\x1c.datacommons.StatVarMetadata\x12\x36\n\x10ranking_metadata\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingMetadata\x12:\n\x12highlight_metadata\x18\x06 \x01(\x0b\x32\x1e.datacommons.HighlightMetadata\x12I\n\x15\x63ontained_place_types\x18\x07 \x03(\x0b\x32*.datacommons.Tile.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"~\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\x12\x0f\n\x0b\x44\x45SCRIPTION\x10\x08\"\xb3\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12%\n\nleft_tiles\x18\x03 \x03(\x0b\x32\x11.datacommons.Tile\x12&\n\x0bright_tiles\x18\x04 \x03(\x0b\x32\x11.datacommons.Tile\x12\x37\n\x11stat_var_metadata\x18\x05 \x03(\x0b\x32\x1c.datacommons.StatVarMetadata\"R\n\x08\x43\x61tegory\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Block\"i\n\x0fTopicPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12)\n\ncategories\x18\x02 \x03(\x0b\x32\x15.datacommons.Categoryb\x06proto3')
 
 
 
@@ -26,6 +26,7 @@ _HIGHLIGHTMETADATA = DESCRIPTOR.message_types_by_name['HighlightMetadata']
 _TILE = DESCRIPTOR.message_types_by_name['Tile']
 _TILE_CONTAINEDPLACETYPESENTRY = _TILE.nested_types_by_name['ContainedPlaceTypesEntry']
 _BLOCK = DESCRIPTOR.message_types_by_name['Block']
+_CATEGORY = DESCRIPTOR.message_types_by_name['Category']
 _TOPICPAGECONFIG = DESCRIPTOR.message_types_by_name['TopicPageConfig']
 _TILE_TILETYPE = _TILE.enum_types_by_name['TileType']
 PageMetadata = _reflection.GeneratedProtocolMessageType('PageMetadata', (_message.Message,), {
@@ -86,6 +87,13 @@ Block = _reflection.GeneratedProtocolMessageType('Block', (_message.Message,), {
   })
 _sym_db.RegisterMessage(Block)
 
+Category = _reflection.GeneratedProtocolMessageType('Category', (_message.Message,), {
+  'DESCRIPTOR' : _CATEGORY,
+  '__module__' : 'topic_page_pb2'
+  # @@protoc_insertion_point(class_scope:datacommons.Category)
+  })
+_sym_db.RegisterMessage(Category)
+
 TopicPageConfig = _reflection.GeneratedProtocolMessageType('TopicPageConfig', (_message.Message,), {
   'DESCRIPTOR' : _TOPICPAGECONFIG,
   '__module__' : 'topic_page_pb2'
@@ -118,6 +126,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _TILE_TILETYPE._serialized_end=1150
   _BLOCK._serialized_start=1153
   _BLOCK._serialized_end=1332
-  _TOPICPAGECONFIG._serialized_start=1334
-  _TOPICPAGECONFIG._serialized_end=1432
+  _CATEGORY._serialized_start=1334
+  _CATEGORY._serialized_end=1416
+  _TOPICPAGECONFIG._serialized_start=1418
+  _TOPICPAGECONFIG._serialized_end=1523
 # @@protoc_insertion_point(module_scope)

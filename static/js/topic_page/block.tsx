@@ -46,8 +46,8 @@ export interface BlockPropType {
 
 export function Block(props: BlockPropType): JSX.Element {
   return (
-    <section className="block subtopic col-12">
-      {props.title && <h2 className="block-title">{props.title}</h2>}
+    <section className="block subtopic" id={props.id}>
+      {props.title && <h3>{props.title}</h3>}
       {props.description && <p className="block-desc">{props.description}</p>}
       <div className="block-body row">
         {props.leftTiles && (
