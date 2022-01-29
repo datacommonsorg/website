@@ -23,7 +23,6 @@ import { Category } from "./category";
 import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { PageSelector } from "./page_selector";
 import { TopicsSummary } from "./topic_page";
-import { Category } from "./category";
 
 export interface PageMetadata {
   topicId: string;
