@@ -28,9 +28,6 @@ bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 @bp.route('/<string:topic_id>', strict_slashes=False)
 @bp.route('/<string:topic_id>/<path:place_dcid>', strict_slashes=False)
 def topic_page(topic_id=None, place_dcid=None):
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-
     topics_summary = json.dumps(current_app.config['TOPIC_PAGE_SUMMARY'])
     # Redirect to the landing page.
     if not place_dcid and not topic_id:
