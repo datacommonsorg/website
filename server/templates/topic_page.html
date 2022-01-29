@@ -26,17 +26,20 @@
 {% endblock %}
 
 {% block content %}
-<div id="body" class="container">
-  <div id="title" class="row" data-place-dcid="{{ place_dcid }}" data-topic-id="{{ topic_id }}">
-    <div class="col-12 col-md-6 order-last order-md-2">
-      <h1 id="place-name" data-pn="{{ place_name }}"></h1>
-      <h3 id="place-type" data-pt="{{ place_type }}"></h3>
-      <h3 id="locale" data-lc="{{ locale }}"></h3>
-    </div>
+<div id="body" class="container-fluid">
+  <div id="body-row" class="row">
+    <div id="sidebar" class="col-md-3x col-lg-2 order-last order-lg-0"></div>
+    <main class="col-md-9x col-lg-10">
+      <div id="main-pane" class="row"></div>
+    </main>
   </div>
-  <div id="main-pane" class="row"></div>
 </div>
-<div id="topic-config" data-config="{{ config }}" data-topics-summary=" {{ topics_summary }}"></div>
+<div id="metadata" class="d-none" data-place-dcid="{{ place_dcid }}" data-topic-id="{{ topic_id }}">
+  <div id="place-name" data-pn="{{ place_name }}"></div>
+  <div id="place-type" data-pt="{{ place_type }}"></div>
+  <div id="locale" data-lc="{{ locale }}"></div>
+  <div id="topic-config" data-config="{{ config }}" data-topics-summary=" {{ topics_summary }}"></div>
+</div>
 {% endblock %}
 
 {% block footer %}

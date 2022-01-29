@@ -19,10 +19,10 @@ import React from "react";
 import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
+import { Category } from "./category";
 import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { PageSelector } from "./page_selector";
 import { TopicsSummary } from "./topic_page";
-import { Category } from "./category";
 
 export interface PageMetadata {
   topicId: string;

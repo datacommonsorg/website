@@ -20,6 +20,7 @@ import { loadLocaleData } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
 import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { MainPane } from "./main_pane";
+import { Sidebar } from "./sidebar";
 
 export interface TopicsSummary {
   topicPlaceMap: Record<string, string[]>;
@@ -32,9 +33,9 @@ window.onload = () => {
 
 function renderPage(): void {
   // Get topic and render menu.
-  const topic = document.getElementById("title").dataset.topicId;
+  const topic = document.getElementById("metadata").dataset.topicId;
   // TODO(beets): remove these if they remain unused.
-  const dcid = document.getElementById("title").dataset.placeDcid;
+  const dcid = document.getElementById("metadata").dataset.placeDcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType =
     document.getElementById("place-type").dataset.pt || DEFAULT_PAGE_PLACE_TYPE;
@@ -58,6 +59,13 @@ function renderPage(): void {
     name: placeName || dcid,
     types: [placeType],
   };
+
+  ReactDOM.render(
+    React.createElement(Sidebar, {
+      categories: pageConfig.categories,
+    }),
+    document.getElementById("sidebar")
+  );
 
   ReactDOM.render(
     React.createElement(MainPane, {

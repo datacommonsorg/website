@@ -20,10 +20,11 @@
 
 import React from "react";
 
-import { randDomId } from "../shared/util";
 import { ErrorBoundary } from "../shared/error_boundary";
-import { Block, BlockPropType } from "./block";
 import { NamedTypedPlace } from "../shared/types";
+import { randDomId } from "../shared/util";
+import { Block, BlockPropType } from "./block";
+import { getRelLink } from "./string_utils";
 
 export interface Category {
   title: string;
@@ -42,15 +43,15 @@ export interface CategoryPropType {
 
 export function Category(props: CategoryPropType): JSX.Element {
   return (
-    <article>
-      <h2>{props.config.title}</h2>
+    <article className="category col-12" id={getRelLink(props.config.title)}>
+      <h2 className="block-title">{props.config.title}</h2>
       {props.config.description && <p>props.description</p>}
       {props.config.blocks.map((block) => {
         const id = randDomId();
         return (
           <ErrorBoundary key={id}>
             <Block
-              id={id}
+              id={getRelLink(block.title)}
               place={props.place}
               enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
