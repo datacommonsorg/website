@@ -92,7 +92,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
         # Find and click on the Demographics URL.
         demographics = self.driver.find_element_by_xpath(
             '//*[@id="Demographics"]/a')
-        self.assertEqual(demographics.text, 'Données démographiques')
+        self.assertEqual(demographics.text, 'DONNÉES DÉMOGRAPHIQUES')
         demographics.click()
 
         # Wait until the new page has loaded.
