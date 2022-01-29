@@ -192,23 +192,23 @@ def statsvars_route(dcid):
     Returns:
       A list of statistical variable dcids.
     """
-    return Response(json.dumps(statsvars(dcid)),
+    return Response(json.dumps(stat_vars(dcid)),
                     200,
                     mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def statsvars(dcid):
+def stat_vars(dcid):
     """
     Get all the statistical variable dcids for a place.
     """
-    response = fetch_data('/place/stats-var', {
+    response = fetch_data('/place/stat-vars', {
         'dcids': [dcid],
     },
                           compress=False,
                           post=False,
                           has_payload=False)
-    return response['places'][dcid].get('statsVars', [])
+    return response['places'][dcid].get('statVars', [])
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
