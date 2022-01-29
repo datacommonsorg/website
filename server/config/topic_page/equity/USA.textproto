@@ -51,6 +51,7 @@ categories {
 
 categories {
   title: "Equity between sexes"
+  description: "Gender is often confused with the concept of sex. Gender is a social construct, whereas sex is based on the biological attributes of men and women. The US Census intends to capture a person's biological sex and not gender. For more information, see https://www.census.gov/topics/population/age-and-sex/about.html"
   blocks {
     title: "Income inequality between sexes"
     description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
@@ -345,6 +346,7 @@ categories {
 
 categories {
   title: "Equity between races"
+  description: "The US Census Bureau measures race and ethnicity based on self-identification and may choose to identify with more than one race. The races are White, Black or African American, American Indian or Alaska Native, Asian and Native Hawaiian or Other Pacific Islander. As well, two ethnicities are included: Hispanic or Latino, and Not Hispanic or Latino. For more information, see https://www.census.gov/topics/population/race/about.html and https://www.census.gov/topics/population/hispanic-origin/about.html"
 
   # TODO: Not available at the country level
   # blocks {

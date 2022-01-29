@@ -216,6 +216,6 @@ article.category > h2 {
   text-decoration: none;
 }
 
-.subtopic.notitle {
+.subtopic.notitle:not(:first-of-type) {
   border-top: 0.5px dotted #dee2e6 !important;
 }
