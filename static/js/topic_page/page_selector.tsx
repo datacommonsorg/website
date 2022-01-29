@@ -48,8 +48,8 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
   return (
     <div className="page-selector-container">
       <div className="page-selector-section">
-        <h1>{topicName} in</h1>
-        <div>
+        <h1>{topicName} in {props.selectedPlace.name}</h1>
+        {/* <div>
           <CustomInput
             id="place-selector"
             type="select"
@@ -100,7 +100,7 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
                 {props.topicsSummary.topicNameMap[topic] || topic}
               </option>
             ))}
-        </CustomInput>
+        </CustomInput> */}
       </div>
     </div>
   );
