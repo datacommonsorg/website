@@ -194,16 +194,6 @@ categories {
       unit: "%"
     }
     left_tiles {
-      type: LINE
-      title: "Poverty rate, by sex"
-    }
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-      }
-    }
-    right_tiles {
       type: MAP
       title: "Percentage of the population in poverty who are female (${date})"
     }
@@ -214,6 +204,16 @@ categories {
         stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
         denom: "Count_Person_BelowPovertyLevelInThePast12Months"
         unit: "%"
+      }
+    }
+    left_tiles {
+      type: LINE
+      title: "Poverty rate, by sex"
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
       }
     }
   }
@@ -342,6 +342,21 @@ categories {
       unit: "%"
       scaling: 100
       name: "Male"
+    }
+    left_tiles {
+      type: MAP
+      title: "Percentage of females who are graduate or professional degree holders"
+    }
+    right_tiles {
+      type: MAP
+      title: "Percentage of males who are graduate or professional degree holders"
+      stat_var_override {
+        stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
+        denom: "Count_Person_25To34Years_Male"
+        unit: "%"
+        scaling: 100
+        name: "Male"
+      }
     }
     left_tiles {
       type: LINE
