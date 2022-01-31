@@ -21,7 +21,7 @@
 import axios from "axios";
 import React from "react";
 
-import { GraphNode } from "../shared/types";
+import { GraphNodes } from "../shared/types";
 import { drawTissueScoreChart } from "./chart";
 
 interface PagePropType {
@@ -30,7 +30,7 @@ interface PagePropType {
 }
 
 interface PageStateType {
-  data: GraphNode;
+  data: GraphNodes;
 }
 
 export class Page extends React.Component<PagePropType, PageStateType> {
@@ -76,14 +76,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       return {};
     }
     const result = {};
-    for (const neighbour of this.state.data.neighbours) {
+    for (const neighbour of this.state.data.nodes[0].neighbors) {
       if (neighbour.property !== "detectedProtein") {
         continue;
       }
       for (const node of neighbour.nodes) {
         let tissue = null;
         let score = null;
-        for (const n of node.neighbours) {
+        for (const n of node.neighbors) {
           if (n.property === "humanTissue") {
             tissue = n.nodes[0].value;
           } else if (n.property === "proteinExpressionScore") {
