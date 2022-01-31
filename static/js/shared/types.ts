@@ -130,17 +130,17 @@ export interface StatVarSummary {
   provenanceSummary?: { [provId: string]: ProvenanceSummary };
 }
 
+// One node in a Graph.
+export interface GraphNode {
+  neighbors: LinkedNodes[];
+  value: string;
+}
+
 // Linked nodes for a Graph
 export interface LinkedNodes {
   property: string;
   direction: number;
   nodes: GraphNode[];
-}
-
-// One node in a Graph.
-export interface GraphNode {
-  neighbors: LinkedNodes[];
-  value: string;
 }
 
 export interface GraphNodes {
