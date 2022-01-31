@@ -23,7 +23,6 @@
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
-  hide_search: boolean, if true, will remove the nav header search box
 
   Blocks to override:
   head - additional head elements
@@ -103,9 +102,6 @@
                 </div>
               </li>
             </ul>
-            {%- if not hide_search -%}
-            <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
-            {%- endif -%}
           </div>
         </div>
       </nav>
@@ -193,9 +189,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-  {%- if not hide_search -%}
-  <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
-  {%- endif -%}
   {%- if GA_ACCOUNT -%}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
   <script>

@@ -19,7 +19,6 @@ limitations under the License.
 {% set search_query = request.args.get('q') %}
 {% set main_id = 'search' %}
 {% set title = search_query + ' - Search Results' %}
-{% set hide_search = True %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/search.min.css', t=config['VERSION'])}} >
