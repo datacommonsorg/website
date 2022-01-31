@@ -25,12 +25,12 @@ _MAX_SEARCH_RESULTS = 1000
 @bp.route('/s')
 def search_landing():
     """Combined landing page for various searchboxes"""
-    return flask.render_template('search_landing.html',
-            maps_api_key=current_app.config['MAPS_API_KEY'])
+    return flask.render_template(
+        'search_landing.html', maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/search')
-def search():
+def search_cse():
     """Landing + results page for CSE search"""
     return flask.render_template('search.html')
 
@@ -40,7 +40,10 @@ def search_dc():
     """Add DC API powered search for non-place searches temporarily"""
     query_text = request.args.get('q', '')
     max_results = int(request.args.get('l', _MAX_SEARCH_RESULTS))
-    search_response = dc.search(query_text, max_results)
+    if query_text:
+        search_response = dc.search(query_text, max_results)
+    else:
+        search_response = {}
 
     # Convert from search results to template dictionary.
     results = []

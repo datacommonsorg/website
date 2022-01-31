@@ -42,7 +42,6 @@ app.jinja_env.globals['NAME'] = app.config['NAME']
 app.jinja_env.globals['BASE_HTML'] = (
     'sustainability/base.html' if app.config['SUSTAINABILITY'] else 'base.html')
 
-
 WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
     "/api/place/parent/country/USA",
