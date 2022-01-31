@@ -25,7 +25,7 @@
 {% block content %}
 <div class="container">
   <h1>Search the Data Commons Graph</h1>
-    <form id="search-box" class="input-group mt-3 mb-5" action="{{ url_for('search_dc') }}" method="get">
+    <form id="search-box" class="input-group mt-3 mb-5" action="{{ url_for('search.search_dc') }}" method="get">
       <input id="search-input" class="form-control" placeholder="Enter search query..." type="text" name="q" value="{{query_text}}"/>
       <div class="input-group-append">
         <button type="submit" class="btn btn-primary">Search</button>
@@ -34,7 +34,7 @@
   {% if query_text and not results %}
     <h5>Sorry, no results were found in DataCommons.org for "{{ query_text }}".</h5>
     <div>You can try your search on
-      <a href="{{ url_for('search') }}?q={{query_text}}">Data Commons full search</a>,
+      <a href="{{ url_for('search.search') }}?q={{query_text}}">Data Commons full search</a>,
       <a href="https://scholar.google.com/scholar?q={{query_text}}">Google Scholar</a>,
       <a href="https://toolbox.google.com/datasetsearch/search?query={{query_text}}">
         Google Dataset search</a>,

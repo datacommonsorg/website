@@ -18,6 +18,7 @@ limitations under the License.
 
 {% set search_query = request.args.get('q') %}
 {% set main_id = 'search' %}
+{% set search_query = search_query if search_query else '' %}
 {% set title = search_query + ' - Search Results' %}
 
 {% block head %}
