@@ -36,7 +36,9 @@ export function Sidebar(props: SidebarPropsType): JSX.Element {
           const elements = [renderItem(category.title, true)];
           // Add all child blocks
           category.blocks.forEach((block) => {
-            elements.push(renderItem(block.title, false));
+            if (block.title) {
+              elements.push(renderItem(block.title, false));
+            }
           });
           return elements;
         })}

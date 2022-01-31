@@ -37,7 +37,7 @@ export interface BlockPropType {
   id: string;
   place: NamedTypedPlace;
   enclosedPlaceType: string;
-  title: string;
+  title?: string;
   description: string;
   leftTiles: Tile[];
   rightTiles: Tile[];
@@ -46,7 +46,10 @@ export interface BlockPropType {
 
 export function Block(props: BlockPropType): JSX.Element {
   return (
-    <section className="block subtopic" id={props.id}>
+    <section
+      className={`block subtopic ${props.title ? "" : "notitle"}`}
+      id={props.id}
+    >
       {props.title && <h3>{props.title}</h3>}
       {props.description && <p className="block-desc">{props.description}</p>}
       <div className="block-body row">

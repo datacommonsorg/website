@@ -51,7 +51,7 @@ export function Category(props: CategoryPropType): JSX.Element {
         return (
           <ErrorBoundary key={id}>
             <Block
-              id={getRelLink(block.title)}
+              id={block.title ? getRelLink(block.title) : randDomId()}
               place={props.place}
               enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
