@@ -18,6 +18,10 @@ metadata {
   topic_id: 'poverty'
   topic_name: 'Poverty'
   place_dcid: 'country/USA'
+  contained_place_types {
+    key: 'Country'
+    value: 'State'
+  }
 }
 
 categories {
@@ -384,7 +388,7 @@ categories {
   title: "Poverty and health"
 
   blocks {
-    title: "Health and poverty"
+    title: "Poverty and health"
     description: "Studies from CDC  and others have shown a correlation between obesity and poverty. Unfortunately, many other medical conditions are inversely correlated with economic well being."
     stat_var_metadata {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
