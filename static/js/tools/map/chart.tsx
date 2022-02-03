@@ -71,6 +71,7 @@ interface ChartProps {
   mapPointsPromise: Promise<Array<MapPoint>>;
   display: DisplayOptionsWrapper;
   europeanCountries: Array<string>;
+  rankingLink: string;
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -251,7 +252,7 @@ export function Chart(props: ChartProps): JSX.Element {
             {mainSvInfo.ranked && (
               <a
                 className="explore-timeline-link"
-                href={`/ranking/${statVarDcid}/${props.placeInfo.enclosedPlaceType}/${placeDcid}`}
+                href={props.rankingLink}
               >
                 <span className="explore-timeline-text">Explore rankings</span>
                 <i className="material-icons">keyboard_arrow_right</i>

@@ -15,18 +15,23 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React from "react";
 import { defineMessages } from "react-intl";
 
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
+import { DEFAULT_POPULATION_DCID } from "../shared/constants";
+import { StatApiResponse } from "../shared/stat_types";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
+import { getPopulationDate, GetStatSetResponse } from "../tools/shared_util";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
-import { LocationRankData } from "./ranking_types";
+import { LocationRankData, RankInfo } from "./ranking_types";
 
 const GET_BOTTOM_PARAM = "bottom";
 const RANK_SIZE = 100;
+const MIN_POPULATION = 1000;
 
 interface RankingPagePropType {
   placeName: string;
@@ -36,6 +41,7 @@ interface RankingPagePropType {
   isPerCapita: boolean;
   scaling: number;
   unit: string;
+  date: string;
 }
 
 interface RankingPageStateType {
@@ -45,6 +51,7 @@ interface RankingPageStateType {
 class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
   svTitle: string;
   pluralPlaceType: string;
+  isBottom: boolean;
 
   constructor(props: RankingPagePropType) {
     super(props);
@@ -56,6 +63,10 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       this.props.placeType,
       true /* isPlural */
     );
+    const params = new URLSearchParams(window.location.search);
+    this.isBottom = params.get(GET_BOTTOM_PARAM) !== null;
+    this.loadData = this.loadData.bind(this);
+    this.fetchDataFromRankingCache = this.fetchDataFromRankingCache.bind(this);
   }
 
   subtitleMessages = defineMessages({
@@ -114,7 +125,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
   private renderToggle(): JSX.Element {
     const svData = this.state.data;
     if (svData.rankAll) return;
-    if (svData.rankBottom1000) {
+    if (this.isBottom) {
       // show link to top 100
       const params = new URLSearchParams(window.location.search);
       params.delete(GET_BOTTOM_PARAM);
@@ -165,7 +176,13 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
     let ranking;
     if (svData) {
-      ranking = svData.rankAll || svData.rankTop1000 || svData.rankBottom1000;
+      if (!_.isEmpty(svData.rankAll)) {
+        ranking = svData.rankAll;
+      } else if (this.isBottom) {
+        ranking = svData.rankBottom1000;
+      } else {
+        ranking = svData.rankTop1000;
+      }
     }
 
     let subtitleMessage;
@@ -232,7 +249,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
             isPerCapita={this.props.isPerCapita}
             placeType={this.props.placeType}
             scaling={this.props.scaling}
-            sortAscending={!svData.rankBottom1000}
+            sortAscending={!this.isBottom}
             statVar={this.props.statVar}
             unit={this.props.unit}
           />
@@ -265,6 +282,14 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
   }
 
   componentDidMount(): void {
+    if (this.props.date) {
+      this.loadData();
+    } else {
+      this.fetchDataFromRankingCache();
+    }
+  }
+
+  private fetchDataFromRankingCache(): void {
     const url =
       `/api/ranking/${this.props.statVar}/${this.props.placeType}/${this.props.withinPlace}` +
       window.location.search;
@@ -304,6 +329,78 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           data: null,
         });
       });
+  }
+
+  private loadData(): void {
+    const popPromise: Promise<StatApiResponse> = axios
+      .get(
+        "/api/stats/set/series/within-place" +
+          `?parent_place=${this.props.withinPlace}` +
+          `&child_type=${this.props.placeType}` +
+          `&stat_vars=${DEFAULT_POPULATION_DCID}`
+      )
+      .then((resp) => resp.data);
+    const statPromise: Promise<GetStatSetResponse> = axios
+      .get(
+        `/api/stats/within-place?parent_place=${this.props.withinPlace}&child_type=${this.props.placeType}&stat_vars=${this.props.statVar}&date=${this.props.date}`
+      )
+      .then((resp) => resp.data);
+    const placeNamesPromise: Promise<Record<string, string>> = axios
+      .get(
+        `/api/place/places-in-names?dcid=${this.props.withinPlace}&placeType=${this.props.placeType}`
+      )
+      .then((resp) => resp.data);
+    Promise.all([popPromise, statPromise, placeNamesPromise]).then(
+      ([population, stat, placeNames]) => {
+        let rankInfo: Array<RankInfo> = [];
+        const statData = stat.data[this.props.statVar].stat;
+        // Get RankInfo without the actual rank for each place that there is
+        // data for
+        for (const place in statData) {
+          const placeStat = statData[place];
+          if (_.isEmpty(placeStat)) {
+            continue;
+          }
+          let value = placeStat.value === undefined ? 0 : placeStat.value;
+          const popSeries =
+            this.props.withinPlace in population
+              ? Object.values(population[this.props.withinPlace].data)[0]
+              : {};
+          if (!_.isEmpty(popSeries)) {
+            const popDate = getPopulationDate(popSeries, placeStat);
+            const popValue = popSeries.val[popDate];
+            if (popValue < MIN_POPULATION) {
+              continue;
+            }
+            if (this.props.isPerCapita) {
+              value /= popValue;
+            }
+          } else if (this.props.isPerCapita) {
+            // empty pop series but is per capita
+            continue;
+          }
+          rankInfo.push({
+            rank: null,
+            value: value,
+            placeDcid: place,
+            placeName: placeNames[place] || place,
+          });
+        }
+        // Sort the RankInfo by their values and update each RankInfo with their
+        // rank in the sorted list
+        rankInfo.sort((a, b) => b.value - a.value);
+        rankInfo = rankInfo.map((r, i) => {
+          return { ...r, rank: i + 1 };
+        });
+        this.setState({
+          data: {
+            rankTop1000: { info: rankInfo.slice(0, RANK_SIZE) },
+            rankBottom1000: { info: rankInfo.slice(-RANK_SIZE) },
+            rankAll: rankInfo.length < RANK_SIZE ? { info: rankInfo } : null,
+          },
+        });
+      }
+    );
   }
 }
 
