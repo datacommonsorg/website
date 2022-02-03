@@ -397,7 +397,9 @@ function fetchData(
         const allPlaceStat: Record<string, PlacePointStat> = {};
         if (!_.isEmpty(allEnclosedPlaceStat)) {
           for (const stat of allEnclosedPlaceStat.statList) {
-            allPlaceStat[stat.metaHash] = stat;
+            if (stat.metaHash) {
+              allPlaceStat[stat.metaHash] = stat;
+            }
           }
         }
         // Metadata map
