@@ -299,12 +299,8 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
       .get(url)
       .then((resp) => {
         let respData = null;
-        if (
-          resp.data &&
-          resp.data.payload &&
-          this.props.statVar in resp.data.payload
-        ) {
-          respData = resp.data.payload[this.props.statVar];
+        if (resp.data && this.props.statVar in resp.data) {
+          respData = resp.data[this.props.statVar];
           const title = intl.formatMessage(
             {
               id: "ranking-document_title",
