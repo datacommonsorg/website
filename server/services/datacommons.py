@@ -362,14 +362,14 @@ def query(query_string):
     return res_json['header'], res_json.get('rows', [])
 
 
-def get_related_place(dcid, stats_vars, within_place=None, is_per_capita=None):
+def get_related_place(dcid, stat_vars, within_place=None, is_per_capita=None):
     url = API_ROOT + API_ENDPOINTS['get_related_places']
-    req_json = {'dcid': dcid, 'stat_var_dcids': stats_vars}
+    req_json = {'dcid': dcid, 'stat_var_dcids': stat_vars}
     if within_place:
         req_json['within_place'] = within_place
     if is_per_capita:
         req_json['is_per_capita'] = is_per_capita
-    return send_request(url, req_json)
+    return send_request(url, req_json, has_payload=False)
 
 
 def get_interesting_places(dcids):
@@ -451,7 +451,6 @@ def send_request(req_url,
                                             response.json()['message']))
     # Get the JSON
     res_json = response.json()
-
     # If the payload is compressed, decompress and decode it
     if has_payload:
         res_json = res_json['payload']

@@ -47,32 +47,32 @@ def ranking_api(stat_var, place_type, place=None):
 
     ranking_results = dc.get_place_ranking([stat_var], place_type, place,
                                            is_per_capita)
-    if not 'payload' in ranking_results:
+    if 'data' not in ranking_results:
         flask.abort(500)
-    payload = ranking_results['payload']
-    if not stat_var in ranking_results['payload']:
+    data = ranking_results['data']
+    if stat_var not in ranking_results['data']:
         flask.abort(500)
 
     # split rankAll to top/bottom if it's larger than RANK_SIZE
-    if 'rankAll' in payload[stat_var]:
-        rank_all = payload[stat_var]['rankAll']
+    if 'rankAll' in data[stat_var]:
+        rank_all = data[stat_var]['rankAll']
         if 'info' in rank_all and len(rank_all['info']) > RANK_SIZE:
             if is_show_bottom:
-                payload[stat_var]['rankBottom1000'] = rank_all
+                data[stat_var]['rankBottom1000'] = rank_all
             else:
-                payload[stat_var]['rankTop1000'] = rank_all
-            del payload[stat_var]['rankAll']
+                data[stat_var]['rankTop1000'] = rank_all
+            del data[stat_var]['rankAll']
 
     for k in delete_keys:
         try:
-            del payload[stat_var][k]
+            del data[stat_var][k]
         except KeyError:
             pass  # key might not exist for fewer than 1000 places
 
     dcids = set()
     for k in rank_keys:
-        if k in payload[stat_var] and 'info' in payload[stat_var][k]:
-            info = payload[stat_var][k]['info']
+        if k in data[stat_var] and 'info' in data[stat_var][k]:
+            info = data[stat_var][k]['info']
             if is_show_bottom:
                 # truncate and reverse the bottom RANK_SIZE elems
                 info = info[-RANK_SIZE:]
@@ -80,14 +80,13 @@ def ranking_api(stat_var, place_type, place=None):
                 info = info[:RANK_SIZE]
             for r in info:
                 dcids.add(r['placeDcid'])
-            payload[stat_var][k]['info'] = info
+            data[stat_var][k]['info'] = info
             # payload[stat_var][k]['count'] = count
     place_names = place_api.get_display_name('^'.join(sorted(list(dcids))),
                                              flask.g.locale)
     for k in rank_keys:
-        if k in payload[stat_var] and 'info' in payload[stat_var][k]:
-            for r in payload[stat_var][k]['info']:
+        if k in data[stat_var] and 'info' in data[stat_var][k]:
+            for r in data[stat_var][k]['info']:
                 r['placeName'] = place_names[r['placeDcid']]
-    return flask.Response(json.dumps(ranking_results),
-                          200,
-                          mimetype='application/json')
+
+    return flask.Response(json.dumps(data), 200, mimetype='application/json')
