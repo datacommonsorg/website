@@ -124,7 +124,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
   private renderToggle(): JSX.Element {
     const svData = this.state.data;
-    if (svData.rankAll) return;
+    if (!_.isEmpty(svData.rankAll)) return;
     if (this.isBottom) {
       // show link to top 100
       const params = new URLSearchParams(window.location.search);
@@ -377,6 +377,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
             }
           } else if (this.props.isPerCapita) {
             // empty pop series but is per capita
+            console.log(
+              `${place} excluded from ranking because of missing population data.`
+            );
             continue;
           }
           rankInfo.push({
