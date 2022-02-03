@@ -25,6 +25,14 @@ import React from "react";
 
 import { NamedNode } from "../shared/types";
 
+const NUM_EXAMPLE_SV_RESULTS = 2;
+
+interface SvgSearchResult {
+  dcid: string;
+  name: string;
+  statVars?: Array<NamedNode>;
+}
+
 interface StatVarHierarchySearchPropType {
   places: string[];
   // Optional label to add above the search box
@@ -34,8 +42,9 @@ interface StatVarHierarchySearchPropType {
 
 interface StatVarHierarchySearchStateType {
   query: string;
-  svgResults: NamedNode[];
+  svgResults: SvgSearchResult[];
   svResults: NamedNode[];
+  showResults: boolean;
   showNoResultsMessage: boolean;
 }
 
@@ -50,6 +59,7 @@ export class StatVarHierarchySearch extends React.Component<
     this.state = {
       query: "",
       showNoResultsMessage: false,
+      showResults: false,
       svResults: [],
       svgResults: [],
     };
@@ -61,9 +71,11 @@ export class StatVarHierarchySearch extends React.Component<
 
   render(): JSX.Element {
     const renderResults =
-      !_.isEmpty(this.state.svResults) ||
-      !_.isEmpty(this.state.svgResults) ||
-      this.state.showNoResultsMessage;
+      this.state.showResults && !_.isEmpty(this.state.query);
+    const showLoading =
+      !this.state.showNoResultsMessage &&
+      _.isEmpty(this.state.svResults) &&
+      _.isEmpty(this.state.svgResults);
     return (
       <div className="statvar-hierarchy-search-section">
         {this.props.searchLabel && (
@@ -76,7 +88,8 @@ export class StatVarHierarchySearch extends React.Component<
             value={this.state.query}
             onChange={this.onInputChanged}
             placeholder="Search or explore below"
-            onBlur={() => this.setState({ showNoResultsMessage: false })}
+            onBlur={() => this.setState({ showResults: false })}
+            onFocus={() => this.setState({ showResults: true })}
           />
           {!_.isEmpty(this.state.query) && (
             <span
@@ -94,17 +107,7 @@ export class StatVarHierarchySearch extends React.Component<
                 <h5 className="search-results-heading">
                   Statistical Variable Groups
                 </h5>
-                {this.state.svgResults.map((svg) => {
-                  return (
-                    <div
-                      className="search-result-value"
-                      onClick={this.onResultSelected(svg.dcid)}
-                      key={svg.dcid}
-                    >
-                      {svg.name}
-                    </div>
-                  );
-                })}
+                {this.getSvgResultJsx(this.state.svgResults)}
               </div>
             )}
             {!_.isEmpty(this.state.svResults) && (
@@ -127,6 +130,12 @@ export class StatVarHierarchySearch extends React.Component<
             )}
             {this.state.showNoResultsMessage && (
               <div className="no-results-message">No Results</div>
+            )}
+            {showLoading && (
+              <div className="sv-search-loading">
+                <div id="sv-search-spinner"></div>
+                <span>Loading</span>
+              </div>
             )}
           </div>
         )}
@@ -164,7 +173,7 @@ export class StatVarHierarchySearch extends React.Component<
         const currQuery = this.state.query;
         const data = resp.data;
         if (query === currQuery) {
-          const svgResults: NamedNode[] = data.statVarGroups;
+          const svgResults: SvgSearchResult[] = data.statVarGroups;
           const svResults: NamedNode[] = data.statVars;
           this.setState({
             svResults,
@@ -188,6 +197,7 @@ export class StatVarHierarchySearch extends React.Component<
     this.setState({
       query: "",
       showNoResultsMessage: false,
+      showResults: false,
       svResults: [],
       svgResults: [],
     });
@@ -218,4 +228,39 @@ export class StatVarHierarchySearch extends React.Component<
       svgResults: [],
     });
   };
+
+  private getSvgResultJsx(svgResults: SvgSearchResult[]): JSX.Element[] {
+    const svgResultJsx = svgResults.map((svg) => {
+      let subtitle = "";
+      if (svg.statVars && svg.statVars.length > 0) {
+        subtitle +=
+          svg.statVars.length > 1
+            ? "includes statistical variables:"
+            : "includes statistical variables:";
+        for (const sv of svg.statVars.slice(0, NUM_EXAMPLE_SV_RESULTS)) {
+          subtitle += ` ${sv.name} |`;
+        }
+        if (svg.statVars.length > 3) {
+          subtitle += ` and ${
+            svg.statVars.length - NUM_EXAMPLE_SV_RESULTS
+          } more`;
+        } else {
+          subtitle = subtitle.slice(0, -1);
+        }
+      }
+      return (
+        <div
+          className="search-result-value"
+          onClick={this.onResultSelected(svg.dcid)}
+          key={svg.dcid}
+        >
+          <div className="svg-search-result-title">{svg.name}</div>
+          {subtitle && (
+            <div className="svg-search-result-subtitle">{subtitle}</div>
+          )}
+        </div>
+      );
+    });
+    return svgResultJsx;
+  }
 }

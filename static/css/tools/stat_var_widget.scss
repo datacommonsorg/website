@@ -87,10 +87,8 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 .statvar-hierarchy-search-section {
-  font-size: 0.9rem;
   padding: $container-outer-vert-margin $container-outer-horizontal-margin 0;
 }
-
 #hierarchy-section {
   padding: 0 $container-outer-horizontal-margin $container-outer-vert-margin;
   width: fit-content;
@@ -98,19 +96,15 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 
 .stat-var-hierarchy-container .title {
   margin-bottom: 3px;
-  font-size: 1rem;
+  font-size: $large-font-size;
   letter-spacing: 0;
   line-height: 26px;
   padding-bottom: 8px;
 }
 
-.statvar-hierarchy-search-section .statvar-search-input {
-  font-size: 1rem;
-}
-
 .statvar-hierarchy-search-results {
   max-height: max(90%, 50vh) !important;
-  width: $widget-min-width - 2 * $container-outer-horizontal-margin !important;
+  width: 60% !important;
 }
 
 #explore-menu-toggle,
@@ -138,11 +132,11 @@ form.node-title {
 
 
 #stat-var-hierarchy-section .node-title label {
-  font-size: .85rem;
+  font-size: $medium-font-size;
 }
 
 #stat-var-hierarchy-section .node-title .material-icons + .title {
-  font-size: .9rem;
+  font-size: $medium-font-size;
   line-height: 2em;
 }
 
@@ -151,7 +145,7 @@ form.node-title {
   position: absolute;
   background-color: #fff;
   color: #3b3b3b;
-  font-size: 0.8rem;
+  font-size: $small-font-size;
   border-radius: 3px;
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
@@ -174,7 +168,7 @@ form.node-title {
 
 .show-sv-toggle {
   color: white;
-  font-size: 0.9rem;
+  font-size: $medium-font-size;
   display: flex;
   align-items: center;
 }
