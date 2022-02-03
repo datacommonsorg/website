@@ -250,10 +250,7 @@ export function Chart(props: ChartProps): JSX.Element {
           <div className="map-footer">
             <div className="sources">Data from {sourcesJsx}</div>
             {mainSvInfo.ranked && (
-              <a
-                className="explore-timeline-link"
-                href={props.rankingLink}
-              >
+              <a className="explore-timeline-link" href={props.rankingLink}>
                 <span className="explore-timeline-text">Explore rankings</span>
                 <i className="material-icons">keyboard_arrow_right</i>
               </a>

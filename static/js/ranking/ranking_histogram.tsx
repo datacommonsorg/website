@@ -68,7 +68,7 @@ class RankingHistogram extends React.Component<
 
   drawChart(): void {
     const rankList = this.props.ranking.info;
-    const dataPoints = rankList.map( (d) => {
+    const dataPoints = rankList.map((d) => {
       const value = d.value || 0;
       return new DataPoint(d.placeName, value * this.props.scaling);
     });

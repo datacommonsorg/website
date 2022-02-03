@@ -108,12 +108,7 @@ export function ChartLoader(): JSX.Element {
 
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
-      loadChartData(
-        rawData,
-        placeInfo.value,
-        statVar.value,
-        setChartData
-      );
+      loadChartData(rawData, placeInfo.value, statVar.value, setChartData);
     }
   }, [rawData, statVar.value.perCapita]);
 
@@ -442,7 +437,7 @@ function fetchData(
           mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
           mapPointsPromise,
           europeanCountries,
-          dataDate
+          dataDate,
         });
       }
     )
@@ -556,14 +551,26 @@ function loadChartData(
     sources: sourceSet,
     unit,
     europeanCountries: rawData.europeanCountries,
-    rankingLink: getRankingLink(statVar, placeInfo.selectedPlace.dcid, placeInfo.enclosedPlaceType, rawData.dataDate, unit)
+    rankingLink: getRankingLink(
+      statVar,
+      placeInfo.selectedPlace.dcid,
+      placeInfo.enclosedPlaceType,
+      rawData.dataDate,
+      unit
+    ),
   });
 }
 
-function getRankingLink(statVar: StatVar, placeDcid: string, placeType: string, date: string, unit: string): string {
+function getRankingLink(
+  statVar: StatVar,
+  placeDcid: string,
+  placeType: string,
+  date: string,
+  unit: string
+): string {
   let params = "";
   params += statVar.perCapita ? "&pc=1" : "";
   params += unit ? `&unit=${unit}` : "";
-  params += date ? `&date=${date}` : ""; 
-  return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`
+  params += date ? `&date=${date}` : "";
+  return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
 }
