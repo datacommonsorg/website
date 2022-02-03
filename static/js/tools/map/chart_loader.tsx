@@ -447,6 +447,20 @@ function fetchData(
     });
 }
 
+function getRankingLink(
+  statVar: StatVar,
+  placeDcid: string,
+  placeType: string,
+  date: string,
+  unit: string
+): string {
+  let params = "";
+  params += statVar.perCapita ? "&pc=1" : "";
+  params += unit ? `&unit=${unit}` : "";
+  params += date ? `&date=${date}` : "";
+  return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
+}
+
 // Takes fetched data and processes it to be in a form that can be used for
 // rendering the chart component
 function loadChartData(
@@ -559,18 +573,4 @@ function loadChartData(
       unit
     ),
   });
-}
-
-function getRankingLink(
-  statVar: StatVar,
-  placeDcid: string,
-  placeType: string,
-  date: string,
-  unit: string
-): string {
-  let params = "";
-  params += statVar.perCapita ? "&pc=1" : "";
-  params += unit ? `&unit=${unit}` : "";
-  params += date ? `&date=${date}` : "";
-  return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
 }

@@ -124,7 +124,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
   private renderToggle(): JSX.Element {
     const svData = this.state.data;
-    if (!_.isEmpty(svData.rankAll)) return;
+    if (!_.isEmpty(svData.rankAll)) {
+      return;
+    }
     if (this.isBottom) {
       // show link to top 100
       const params = new URLSearchParams(window.location.search);
@@ -361,7 +363,7 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
           if (_.isEmpty(placeStat)) {
             continue;
           }
-          let value = placeStat.value === undefined ? 0 : placeStat.value;
+          let value = _.isUndefined(placeStat.value) ? 0 : placeStat.value;
           const popSeries =
             this.props.withinPlace in population
               ? Object.values(population[this.props.withinPlace].data)[0]
@@ -383,10 +385,10 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
             continue;
           }
           rankInfo.push({
-            rank: null,
-            value: value,
             placeDcid: place,
             placeName: placeNames[place] || place,
+            rank: null,
+            value,
           });
         }
         // Sort the RankInfo by their values and update each RankInfo with their
@@ -397,9 +399,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
         });
         this.setState({
           data: {
-            rankTop1000: { info: rankInfo.slice(0, RANK_SIZE) },
-            rankBottom1000: { info: rankInfo.slice(-RANK_SIZE) },
             rankAll: rankInfo.length < RANK_SIZE ? { info: rankInfo } : null,
+            rankBottom1000: { info: rankInfo.slice(-RANK_SIZE) },
+            rankTop1000: { info: rankInfo.slice(0, RANK_SIZE) },
           },
         });
       }
