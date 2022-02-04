@@ -77,19 +77,24 @@ export class StatVarHierarchySearch extends React.Component<
       _.isEmpty(this.state.svResults) &&
       _.isEmpty(this.state.svgResults);
     return (
-      <div className="statvar-hierarchy-search-section">
+      <div
+        className="statvar-hierarchy-search-section"
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.setState({ showResults: false });
+          }
+        }}
+      >
         {this.props.searchLabel && (
           <div className="title">{this.props.searchLabel}</div>
         )}
-        <div className="search-input-container">
+        <div className="search-input-container" tabIndex={-1}>
           <input
             className="statvar-search-input form-control"
             type="text"
             value={this.state.query}
             onChange={this.onInputChanged}
             placeholder="Search or explore below"
-            onBlur={() => this.setState({ showResults: false })}
-            onFocus={() => this.setState({ showResults: true })}
           />
           {!_.isEmpty(this.state.query) && (
             <span
@@ -101,7 +106,7 @@ export class StatVarHierarchySearch extends React.Component<
           )}
         </div>
         {renderResults && (
-          <div className="statvar-hierarchy-search-results">
+          <div className="statvar-hierarchy-search-results" tabIndex={-1}>
             {!_.isEmpty(this.state.svgResults) && (
               <div className="svg-search-results">
                 <h5 className="search-results-heading">
@@ -144,6 +149,7 @@ export class StatVarHierarchySearch extends React.Component<
   }
 
   private onInputChanged = (event) => {
+    this.setState({ showResults: true });
     const query = event.target.value;
     // When the seach text is fully removed, should call onSelectChange to
     // show the clean hierarchy.
@@ -226,6 +232,7 @@ export class StatVarHierarchySearch extends React.Component<
       query: displayName,
       svResults: [],
       svgResults: [],
+      showResults: false,
     });
   };
 
