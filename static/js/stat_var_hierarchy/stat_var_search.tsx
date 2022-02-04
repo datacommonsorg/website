@@ -25,6 +25,14 @@ import React from "react";
 
 import { NamedNode } from "../shared/types";
 
+const NUM_EXAMPLE_SV_RESULTS = 2;
+
+interface SvgSearchResult {
+  dcid: string;
+  name: string;
+  statVars?: Array<NamedNode>;
+}
+
 interface StatVarHierarchySearchPropType {
   places: string[];
   // Optional label to add above the search box
@@ -34,8 +42,9 @@ interface StatVarHierarchySearchPropType {
 
 interface StatVarHierarchySearchStateType {
   query: string;
-  svgResults: NamedNode[];
+  svgResults: SvgSearchResult[];
   svResults: NamedNode[];
+  showResults: boolean;
   showNoResultsMessage: boolean;
 }
 
@@ -50,6 +59,7 @@ export class StatVarHierarchySearch extends React.Component<
     this.state = {
       query: "",
       showNoResultsMessage: false,
+      showResults: false,
       svResults: [],
       svgResults: [],
     };
@@ -61,22 +71,30 @@ export class StatVarHierarchySearch extends React.Component<
 
   render(): JSX.Element {
     const renderResults =
-      !_.isEmpty(this.state.svResults) ||
-      !_.isEmpty(this.state.svgResults) ||
-      this.state.showNoResultsMessage;
+      this.state.showResults && !_.isEmpty(this.state.query);
+    const showLoading =
+      !this.state.showNoResultsMessage &&
+      _.isEmpty(this.state.svResults) &&
+      _.isEmpty(this.state.svgResults);
     return (
-      <div className="statvar-hierarchy-search-section">
+      <div
+        className="statvar-hierarchy-search-section"
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.setState({ showResults: false });
+          }
+        }}
+      >
         {this.props.searchLabel && (
           <div className="title">{this.props.searchLabel}</div>
         )}
-        <div className="search-input-container">
+        <div className="search-input-container" tabIndex={-1}>
           <input
             className="statvar-search-input form-control"
             type="text"
             value={this.state.query}
             onChange={this.onInputChanged}
             placeholder="Search or explore below"
-            onBlur={() => this.setState({ showNoResultsMessage: false })}
           />
           {!_.isEmpty(this.state.query) && (
             <span
@@ -88,23 +106,13 @@ export class StatVarHierarchySearch extends React.Component<
           )}
         </div>
         {renderResults && (
-          <div className="statvar-hierarchy-search-results">
+          <div className="statvar-hierarchy-search-results" tabIndex={-1}>
             {!_.isEmpty(this.state.svgResults) && (
               <div className="svg-search-results">
                 <h5 className="search-results-heading">
                   Statistical Variable Groups
                 </h5>
-                {this.state.svgResults.map((svg) => {
-                  return (
-                    <div
-                      className="search-result-value"
-                      onClick={this.onResultSelected(svg.dcid)}
-                      key={svg.dcid}
-                    >
-                      {svg.name}
-                    </div>
-                  );
-                })}
+                {this.getSvgResultJsx(this.state.svgResults)}
               </div>
             )}
             {!_.isEmpty(this.state.svResults) && (
@@ -128,6 +136,12 @@ export class StatVarHierarchySearch extends React.Component<
             {this.state.showNoResultsMessage && (
               <div className="no-results-message">No Results</div>
             )}
+            {showLoading && (
+              <div className="sv-search-loading">
+                <div id="sv-search-spinner"></div>
+                <span>Loading</span>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -135,6 +149,7 @@ export class StatVarHierarchySearch extends React.Component<
   }
 
   private onInputChanged = (event) => {
+    this.setState({ showResults: true });
     const query = event.target.value;
     // When the seach text is fully removed, should call onSelectChange to
     // show the clean hierarchy.
@@ -164,7 +179,7 @@ export class StatVarHierarchySearch extends React.Component<
         const currQuery = this.state.query;
         const data = resp.data;
         if (query === currQuery) {
-          const svgResults: NamedNode[] = data.statVarGroups;
+          const svgResults: SvgSearchResult[] = data.statVarGroups;
           const svResults: NamedNode[] = data.statVars;
           this.setState({
             svResults,
@@ -188,6 +203,7 @@ export class StatVarHierarchySearch extends React.Component<
     this.setState({
       query: "",
       showNoResultsMessage: false,
+      showResults: false,
       svResults: [],
       svgResults: [],
     });
@@ -214,8 +230,44 @@ export class StatVarHierarchySearch extends React.Component<
     }
     this.setState({
       query: displayName,
+      showResults: false,
       svResults: [],
       svgResults: [],
     });
   };
+
+  private getSvgResultJsx(svgResults: SvgSearchResult[]): JSX.Element[] {
+    const svgResultJsx = svgResults.map((svg) => {
+      let subtitle = "";
+      if (svg.statVars && svg.statVars.length > 0) {
+        subtitle +=
+          svg.statVars.length > 1
+            ? "includes statistical variables:"
+            : "includes statistical variable:";
+        for (const sv of svg.statVars.slice(0, NUM_EXAMPLE_SV_RESULTS)) {
+          subtitle += ` ${sv.name} |`;
+        }
+        if (svg.statVars.length > 3) {
+          subtitle += ` and ${
+            svg.statVars.length - NUM_EXAMPLE_SV_RESULTS
+          } more`;
+        } else {
+          subtitle = subtitle.slice(0, -1);
+        }
+      }
+      return (
+        <div
+          className="search-result-value"
+          onClick={this.onResultSelected(svg.dcid)}
+          key={svg.dcid}
+        >
+          <div className="svg-search-result-title">{svg.name}</div>
+          {subtitle && (
+            <div className="svg-search-result-subtitle">{subtitle}</div>
+          )}
+        </div>
+      );
+    });
+    return svgResultJsx;
+  }
 }

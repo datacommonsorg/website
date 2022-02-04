@@ -16,14 +16,18 @@
 
 $vertical-spacing: 15px;
 $horizontal-spacing: 15px;
+$large-font-size: 0.9rem;
+$medium-font-size: 0.85rem;
+$small-font-size: 0.75rem;
 
 .stat-var-hierarchy-container {
   min-height: 20rem;
-  font-size: 0.95rem;
+  font-size: $medium-font-size;
   line-height: 1.8rem;
 }
 
 .statvar-hierarchy-search-section {
+  font-size: $medium-font-size;
   margin-bottom: $vertical-spacing;
 }
 
@@ -31,8 +35,12 @@ $horizontal-spacing: 15px;
   position: relative;
 }
 
+.statvar-hierarchy-search-section .statvar-search-input {
+  font-size: $medium-font-size;
+}
+
 .stat-var-hierarchy-container .material-icons {
-  font-size: 18px;
+  font-size: 15px;
   vertical-align: middle;
 }
 
@@ -50,11 +58,11 @@ $horizontal-spacing: 15px;
 }
 
 .node-title .bullet + .title {
-  font-size: .9rem;
+  font-size: $medium-font-size;
 }
 
 .node-title .material-icons + .title {
-  font-size: 0.9rem;
+  font-size: $medium-font-size;
   font-weight: 600;
   line-height: 2rem;
 }
@@ -97,7 +105,7 @@ $horizontal-spacing: 15px;
 
 .search-results-heading {
   background-color: #f0f0f0;
-  font-size: 1rem;
+  font-size: $medium-font-size;
   margin-bottom: 0;
   line-height: 1.8;
 }
@@ -123,7 +131,7 @@ $horizontal-spacing: 15px;
 .node-title .sv-count {
   margin-left: 1ch;
   font-weight: 300;
-  font-size: 85%;
+  font-size: $medium-font-size;
 }
 
 .node-title:hover {
@@ -141,4 +149,39 @@ $horizontal-spacing: 15px;
 
 .node-no-data {
   opacity: 30%;
+}
+
+.svg-search-result-subtitle {
+  font-size: $small-font-size;
+  padding-left: 0.5rem;
+  font-weight: 300;
+}
+
+.svg-search-result-title {
+  font-weight: 500;
+}
+
+.sv-search-loading {
+  padding: 0.4rem 15px;
+  display: flex;
+  align-items: center;
+}
+
+.sv-search-loading span {
+  padding: 0 0.5rem;
+}
+
+#sv-search-spinner {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--dc-gray-lite);
+  border-top: 2px solid var(--dc-primary);
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
