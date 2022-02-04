@@ -48,7 +48,7 @@ function getPlaceAxisChartData(
   scaling?: number
 ): PlaceAxisChartData {
   const placePointStatData = placePointStat.stat[placeDcid];
-  const popSeries = populationData[placeDcid].data[DEFAULT_POPULATION_DCID];
+  const popSeries = populationData[placeDcid] ? populationData[placeDcid].data[DEFAULT_POPULATION_DCID] : null
   const denomSeries = denom ? populationData[placeDcid].data[denom] : null;
   if (_.isEmpty(placePointStatData)) {
     return null;
@@ -74,11 +74,15 @@ function getPlaceAxisChartData(
   if (scaling) {
     value *= scaling;
   }
-  if (popBounds && popSeries && popSeries.val) {
-    const popDate = getPopulationDate(popSeries, placePointStatData);
-    const popValue = popSeries.val[popDate];
-    if (!isBetween(popValue, popBounds[0], popBounds[1])) {
-      return null;
+  if (popBounds) {
+    if (popSeries && popSeries.val) {
+      const popDate = getPopulationDate(popSeries, placePointStatData);
+      const popValue = popSeries.val[popDate];
+      if (!isBetween(popValue, popBounds[0], popBounds[1])) {
+        return null;
+      }
+    } else {
+      console.log(`No population data for ${placeDcid}`);
     }
   }
   return { value, statDate, sources, denomDate, denomValue };

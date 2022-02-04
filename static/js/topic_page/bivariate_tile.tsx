@@ -28,7 +28,6 @@ import { Point } from "../chart/draw_scatter";
 import { GeoJsonData } from "../chart/types";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { StatApiResponse } from "../shared/stat_types";
-import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getStatsWithinPlace } from "../tools/scatter/util";
 import {
@@ -41,7 +40,7 @@ import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
-import { ReplacementStrings } from "./string_utils";
+import { getStatVarName, ReplacementStrings } from "./string_utils";
 
 interface BivariateTilePropType {
   id: string;
@@ -241,6 +240,10 @@ function processData(
       xStatVar.scaling,
       yStatVar.scaling
     );
+    if (!placeChartData) {
+      console.log(`BIVARIATE: No data for ${place}, skipping`);
+      continue;
+    }
     placeChartData.sources.forEach((source) => {
       if (!_.isEmpty(source)) {
         sources.add(source);
@@ -295,18 +298,16 @@ function draw(
   legend: React.RefObject<HTMLDivElement>
 ): void {
   const width = svgContainer.current.offsetWidth;
-  const yLabelSuffix = !_.isEmpty(chartData.yStatVar.denom)
-    ? " Per Capita"
-    : "";
-  const yLabel = `${getStatsVarLabel(
-    chartData.yStatVar.statVar
-  )}${yLabelSuffix}`;
-  const xLabelSuffix = !_.isEmpty(chartData.xStatVar.denom)
-    ? " Per Capita"
-    : "";
-  const xLabel = `${getStatsVarLabel(
-    chartData.xStatVar.statVar
-  )}${xLabelSuffix}`;
+  const yLabel = getStatVarName(
+    chartData.yStatVar.statVar,
+    [chartData.yStatVar],
+    !_.isEmpty(chartData.yStatVar.denom)
+  );
+  const xLabel = getStatVarName(
+    chartData.xStatVar.statVar,
+    [chartData.xStatVar],
+    !_.isEmpty(chartData.xStatVar.denom)
+  );
   const properties: BivariateProperties = {
     width,
     height: CHART_HEIGHT,
