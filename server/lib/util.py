@@ -34,7 +34,7 @@ PLACE_EXPLORER_CATEGORIES = [
 # property is the list of filenames in that folder to load.
 TOPIC_PAGE_CONFIGS = {
     'equity': ['USA'],
-    'poverty': ['USA'],
+    'poverty': ['USA', 'India'],
 }
 
 

@@ -1,0 +1,496 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: 'poverty'
+  topic_name: 'Poverty'
+  place_dcid: 'country/IND'
+  contained_place_types {
+    key: 'Country'
+    value: 'State'
+  }
+}
+
+categories {
+  title: "Individual poverty"
+  blocks {
+    stat_var_metadata: {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "Poverty rate"
+    }
+    left_tiles {
+      type: HIGHLIGHT
+      description: "of Indians lived under the poverty line (${date})"
+    }
+    right_tiles {
+      type: LINE
+      title: "Poverty rate in ${place}"
+    }
+  }
+
+  blocks {
+    title: "Poverty across states"
+    stat_var_metadata: {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "poverty rate"
+    }
+    left_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+    }
+    left_tiles {
+      type: RANKING
+      stat_var_override {
+        stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+        name: "people in poverty"
+      }
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+        highest_title: "Most ${statVar}"
+        lowest_title: "Fewest ${statVar}"
+      }
+    }
+    right_tiles {
+      type: MAP
+      title: "Poverty rate across states (${date})"
+    }
+  }
+
+  blocks {
+    title: "Wages"
+    description: "Mean monthly wages"
+    stat_var_metadata {
+      stat_var: "Mean_WagesMonthly_Worker"
+      name: "Mean monthly wages"
+      unit: "₹"
+    }
+    left_tiles {
+      title: "Mean monthly wages in ${place}"
+      type: LINE
+    }
+    right_tiles {
+      type: HIGHLIGHT
+      description: "Mean monthly wages across India (${date})"
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+    }
+  }
+
+  blocks {
+    title: "Urban vs. Rural"
+    description: "Percentage of those below poverty who live in urban vs. rural areas"
+    stat_var_metadata {
+      stat_var: "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_BelowPovertyLevelInThePast12Months"
+      unit: "%"
+      scaling: 100
+      name: "Share of poor in urban areas"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_BelowPovertyLevelInThePast12Months"
+      unit: "%"
+      scaling: 100
+      name: "Share of poor in rural areas"
+    }
+    left_tiles: {
+      title: "Urban vs. Rural among those below poverty in ${place}"
+      type: LINE
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+      }
+    }
+  }
+
+  blocks {
+    title: "Literacy and poverty"
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      name: "Poverty rate"
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_Illiterate"
+      denom: "Count_Person"
+      name: "Illiteracy rate"
+      unit: "%"
+    }
+    left_tiles {
+      title: "Poverty rate vs. Illiteracy rate"
+      type: SCATTER
+    }
+    right_tiles {
+      title: "Poverty rate vs. Illiteracy rate"
+      type: BIVARIATE
+    }
+  }
+
+  blocks {
+    title: "Temperature rise and poverty"
+    stat_var_metadata {
+      stat_var: "DifferenceRelativeToBaseDate2015_Max_Temperature_SSP585"
+      unit: "C"
+      name: "Max temp relative to 2015, RCP 8.5, SSP 5"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "Poverty rate"
+    }
+    left_tiles {
+      title: "Max temp relative to 2015 (RCP 8.5, SSP 5) vs. Poverty rate"
+      type: SCATTER
+    }
+    right_tiles {
+      title: "Max temp relative to 2015 (RCP 8.5, SSP 5) vs. Poverty rate"
+      type: BIVARIATE
+    }
+  }
+}
+
+categories {
+  title: "Education and Poverty"
+
+  blocks {
+    title: "Schools per capita"
+    stat_var_metadata {
+      stat_var: "Count_School"
+      denom: "Count_Person"
+      name: "Schools per capita"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "Poverty rate"
+    }
+    left_tiles {
+      title: "Schools per capita vs. Poverty rate"
+      type: SCATTER
+    }
+    right_tiles {
+      title: "Schools per capita vs. Poverty rate"
+      type: BIVARIATE
+    }
+  }
+
+  blocks {
+    title: "School amenities"
+    stat_var_metadata {
+      stat_var: "Count_School_HasComputer"
+      denom: "Count_School"
+      name: "Schools with computers"
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "Poverty rate"
+    }
+    left_tiles {
+      title: "Schools with computers vs. Poverty rate"
+      type: SCATTER
+    }
+    right_tiles {
+      title: "Schools with computers vs. Poverty rate"
+      type: BIVARIATE
+    }
+  }
+
+  blocks {
+    stat_var_metadata {
+      stat_var: "Count_School_HasFunctionalToilet"
+      denom: "Count_School"
+      name: "Schools with toilets"
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "Poverty rate"
+    }
+    left_tiles {
+      title: "Schools with toilets vs. Poverty rate"
+      type: SCATTER
+    }
+    right_tiles {
+      title: "Schools with toilets vs. Poverty rate"
+      type: BIVARIATE
+    }
+  }
+
+  blocks {
+    title: "School dropout rates"
+    description: "Percentage of students no longer enrolled at each level of school"
+    stat_var_metadata {
+      stat_var: "DropoutRate_Student_PrimarySchool"
+      name: "Dropout from primary school"
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "DropoutRate_Student_MiddleSchool"
+      name: "Dropout from middle school"
+      unit: "%"
+    }
+    stat_var_metadata {
+      stat_var: "DropoutRate_Student_SecondarySchool"
+      name: "Dropout from secondary school"
+      unit: "%"
+    }
+    left_tiles {
+      title: "School dropout rates"
+      type: BAR
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+    }
+  }
+}
+
+categories {
+  title: "Health and poverty"
+
+  blocks {
+    stat_var_metadata {
+      stat_var: "CumulativeCount_MedicalTest_ConditionCOVID_19_Positive"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Cumulative COVID-19 cases per capita"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "Poverty rate"
+    }
+    left_tiles {
+      title: "Cumulative COVID-19 cases per capita vs. Poverty rate"
+      type: SCATTER
+    }
+    right_tiles {
+      title: "Cumulative COVID-19 deaths per capita vs. Poverty rate"
+      type: SCATTER
+      stat_var_override {
+        stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+        denom: "Count_Person"
+        unit: "%"
+        scaling: 100
+        name: "Cumulative COVID-19 deaths per capita"
+      }
+      stat_var_override {
+        stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+        unit: "%"
+        name: "Poverty rate"
+      }
+    }
+  }
+}
+
+categories {
+  title: "Houselessness"
+
+  blocks {
+    stat_var_metadata {
+      stat_var: "Count_Person_Houseless"
+      denom: "Count_Person"
+      name: "Houseless"
+      unit: "%"
+      scaling: 100
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+      unit: "%"
+      name: "Poverty rate"
+    }
+    left_tiles {
+      type: HIGHLIGHT
+      description: "people in India were houseless (${date})"
+      stat_var_override {
+        stat_var: "Count_Person_Houseless"
+        name: "Houseless"
+      }
+    }
+    left_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+      stat_var_override {
+        stat_var: "Count_Person_Houseless"
+        denom: "Count_Person"
+        name: "Houseless"
+        unit: "%"
+        scaling: 100
+      }
+    }
+    right_tiles {
+      type: MAP
+      title: "Houseless rate in ${place} (${date})"
+    }
+    left_tiles {
+      title: "Houseless rate vs. Poverty rate"
+      type: SCATTER
+    }
+    right_tiles {
+      title: "Houseless rate vs. Poverty rate"
+      type: BIVARIATE
+    }
+  }
+
+  blocks {
+    title: "Houseless by sex"
+    description: "Percentage of the houseless population by sex"
+    stat_var_metadata {
+      stat_var: "Count_Person_Houseless_Male"
+      denom: "Count_Person_Houseless"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_Houseless_Female"
+      denom: "Count_Person_Houseless"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+    left_tiles {
+      type: MAP
+      title: "Percentage of the houseless population who are male (${date})"
+    }
+    right_tiles {
+      type: MAP
+      title: "Percentage of the houseless population who are female (${date})"
+      stat_var_override {
+        stat_var: "Count_Person_Houseless_Female"
+        denom: "Count_Person_Houseless"
+        unit: "%"
+        scaling: 100
+        name: "Female"
+      }
+    }
+    left_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+      stat_var_override {
+        stat_var: "Count_Person_Houseless_Male"
+        denom: "Count_Person_Houseless"
+        unit: "%"
+        scaling: 100
+        name: "Male"
+      }
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+        show_lowest: true
+      }
+      stat_var_override {
+        stat_var: "Count_Person_Houseless_Female"
+        denom: "Count_Person_Houseless"
+        unit: "%"
+        scaling: 100
+        name: "Female"
+      }
+    }
+    # TODO: Rank by Count_Person_Houseless
+    # right_tiles {
+    #   type: BAR
+    # }
+  }
+
+  blocks {
+    title: "Houseless by literacy"
+    description: "Percentage of the houseless population by literacy"
+    stat_var_metadata {
+      stat_var: "Count_Person_Houseless_Literate"
+      denom: "Count_Person_Houseless"
+      unit: "%"
+      scaling: 100
+      name: "Literate"
+    }
+    stat_var_metadata {
+      stat_var: "Count_Person_Houseless_Illiterate"
+      denom: "Count_Person_Houseless"
+      unit: "%"
+      scaling: 100
+      name: "Illiterate"
+    }
+    left_tiles {
+      type: MAP
+      title: "Percentage of the houseless population who are literate (${date})"
+    }
+    right_tiles {
+      type: MAP
+      title: "Percentage of the houseless population who are illiterate (${date})"
+      stat_var_override {
+      stat_var: "Count_Person_Houseless_Illiterate"
+        denom: "Count_Person_Houseless"
+        unit: "%"
+        scaling: 100
+        name: "Illiterate"
+      }
+    }
+    left_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+      }
+    }
+    right_tiles {
+      type: RANKING
+      ranking_metadata {
+        show_highest: true
+      }
+      stat_var_override {
+        stat_var: "Count_Person_Houseless_Illiterate_Male"
+        denom: "Count_Person_Houseless_Illiterate"
+        unit: "%"
+        scaling: 100
+        name: "Male, Illiterate"
+      }
+      stat_var_override {
+        stat_var: "Count_Person_Houseless_Illiterate_Female"
+        denom: "Count_Person_Houseless_Illiterate"
+        unit: "%"
+        scaling: 100
+        name: "Female, Illiterate"
+      }
+    }
+ }
+}

@@ -127,8 +127,17 @@ function fetchData(
             placeDcid: place,
             stat: statData[item.statVar].stat[place].value,
           };
-          if (item.denom && item.denom in statData) {
-            rankingPoint.stat /= statData[item.denom].stat[place].value;
+          if (rankingPoint.stat === undefined) {
+            console.log(`Skipping ${place}, missing ${item.statVar}`);
+            continue;
+          }
+          if (item.denom) {
+            if (item.denom in statData) {
+              rankingPoint.stat /= statData[item.denom].stat[place].value;
+            } else {
+              console.log(`Skipping ${place}, missing ${item.denom}`);
+              continue;
+            }
           }
           arr.push(rankingPoint);
         }
