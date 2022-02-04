@@ -156,7 +156,7 @@ function processData(
         const stat = raw.data[statVar].stat[placeDcid];
         const dataPoint = {
           label: getStatVarName(statVar, props.statVarMetadata),
-          value: stat.value,
+          value: stat.value || 0,
           dcid: placeDcid,
         };
         sources.add(raw.metadata[stat.metaHash].provenanceUrl);
@@ -170,7 +170,7 @@ function processData(
         }
         dataPoints.push(dataPoint);
       }
-      dataGroups.push(new DataGroup(placeNames[placeDcid], dataPoints));
+      dataGroups.push(new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints));
     }
     setBarChartData({
       dataGroup: dataGroups,
