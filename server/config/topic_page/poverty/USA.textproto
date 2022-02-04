@@ -18,6 +18,10 @@ metadata {
   topic_id: 'poverty'
   topic_name: 'Poverty'
   place_dcid: 'country/USA'
+  contained_place_types {
+    key: 'Country'
+    value: 'State'
+  }
 }
 
 categories {
@@ -178,7 +182,7 @@ categories {
     }
     left_tiles {
       type: MAP
-      title: ""
+      title: "Poverty rate in ${place}"
     }
     right_tiles: {
       type: LINE
@@ -363,7 +367,7 @@ categories {
     }
     right_tiles {
       type: BAR
-      title: ""
+      title: "Education attainment for households in poverty"
     }
   }
 }
