@@ -236,7 +236,7 @@ export class StatVarHierarchySearch extends React.Component<
         subtitle +=
           svg.statVars.length > 1
             ? "includes statistical variables:"
-            : "includes statistical variables:";
+            : "includes statistical variable:";
         for (const sv of svg.statVars.slice(0, NUM_EXAMPLE_SV_RESULTS)) {
           subtitle += ` ${sv.name} |`;
         }
