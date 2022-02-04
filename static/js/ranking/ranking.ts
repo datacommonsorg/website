@@ -37,7 +37,7 @@ window.onload = () => {
   const unit = urlParams.get("unit");
   let scaling = Number(urlParams.get("scaling"));
   scaling = isNaN(scaling) || scaling == 0 ? 1 : scaling;
-
+  const date = urlParams.get("date");
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
     import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
@@ -52,6 +52,7 @@ window.onload = () => {
         isPerCapita,
         unit,
         scaling,
+        date,
       }),
       document.getElementById("main-pane")
     );
