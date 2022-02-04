@@ -50,8 +50,8 @@ categories {
   }
 
   blocks {
-    title: "Urban vs Rural"
-    description: "Percentage of those below poverty who live in urban vs rural areas"
+    title: "Urban vs. Rural"
+    description: "Percentage of those below poverty who live in urban vs. rural areas"
     stat_var_metadata {
       stat_var: "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
       denom: "Count_Person_BelowPovertyLevelInThePast12Months"
@@ -67,6 +67,7 @@ categories {
       name: "Share of poor in rural areas"
     }
     left_tiles: {
+      title: "Urban vs. Rural among those below poverty in ${place}"
       type: LINE
     }
     right_tiles {

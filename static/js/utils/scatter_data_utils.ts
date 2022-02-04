@@ -48,7 +48,9 @@ function getPlaceAxisChartData(
   scaling?: number
 ): PlaceAxisChartData {
   const placePointStatData = placePointStat.stat[placeDcid];
-  const popSeries = populationData[placeDcid] ? populationData[placeDcid].data[DEFAULT_POPULATION_DCID] : null
+  const popSeries = populationData[placeDcid]
+    ? populationData[placeDcid].data[DEFAULT_POPULATION_DCID]
+    : null;
   const denomSeries = denom ? populationData[placeDcid].data[denom] : null;
   if (_.isEmpty(placePointStatData)) {
     return null;
