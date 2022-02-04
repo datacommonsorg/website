@@ -230,9 +230,9 @@ export class StatVarHierarchySearch extends React.Component<
     }
     this.setState({
       query: displayName,
+      showResults: false,
       svResults: [],
       svgResults: [],
-      showResults: false,
     });
   };
 
