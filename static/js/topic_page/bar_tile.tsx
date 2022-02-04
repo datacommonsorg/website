@@ -170,7 +170,9 @@ function processData(
         }
         dataPoints.push(dataPoint);
       }
-      dataGroups.push(new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints));
+      dataGroups.push(
+        new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints)
+      );
     }
     setBarChartData({
       dataGroup: dataGroups,
