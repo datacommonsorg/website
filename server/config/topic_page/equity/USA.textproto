@@ -15,12 +15,12 @@
 ## This file specifies the topic page config for poverty in USA
 
 metadata {
-  topic_id: 'equity'
-  topic_name: 'Equity'
-  place_dcid: 'country/USA'
+  topic_id: "equity"
+  topic_name: "Equity"
+  place_dcid: "country/USA"
   contained_place_types {
-    key: 'Country'
-    value: 'State'
+    key: "Country"
+    value: "State"
   }
 }
 
@@ -29,13 +29,10 @@ categories {
 
   blocks {
     title: "Gini index of economic activity"
-    stat_var_metadata: {
-      stat_var: "GiniIndex_EconomicActivity"
-      name: "Gini index of economic activity"
-    }
     left_tiles {
       type: HIGHLIGHT
       description: "Gini index of economic activity for ${place} (${date})"
+      stat_var_key: "gini"
     }
     left_tiles {
       type: DESCRIPTION
@@ -44,8 +41,17 @@ categories {
     right_tiles: {
       type: LINE
       title: "Gini index of economic activity for ${place}"
+      stat_var_key: "gini"
     }
     # TODO: Add rankings of other /Countries/
+  }
+
+  stat_var_metadata {
+    key: "gini"
+    value {
+      stat_var: "GiniIndex_EconomicActivity"
+      name: "Gini index of economic activity"
+    }
   }
 }
 
@@ -55,13 +61,10 @@ categories {
   blocks {
     title: "Income inequality between sexes"
     description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
-    stat_var_metadata {
-      stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
-      name: "Income inequality between sexes"
-    }
     left_tiles {
       type: MAP
       title: "Income inequality between sexes (${date})"
+      stat_var_key: "income_inequality"
     }
     right_tiles {
       type: RANKING
@@ -69,35 +72,24 @@ categories {
         show_highest: true
         show_lowest: true
       }
+      stat_var_key: "income_inequality"
     }
   }
 
   blocks {
     title: "Income and employment, by sex"
     description: "Median incomes of individuals, broken down by sex"
-    stat_var_metadata {
-      stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
-      unit: "$"
-    }
-    stat_var_metadata {
-      stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
-      unit: "$"
-    }
     left_tiles {
       title: "Median income by sex"
       type: LINE
+      stat_var_key: "median_income_female"
+      stat_var_key: "median_income_male"
     }
     right_tiles {
       title: "Unemployment rate by sex"
       type: LINE
-      stat_var_override {
-        stat_var: "UnemploymentRate_Person_Female"
-        unit: "%"
-      }
-      stat_var_override {
-        stat_var: "UnemploymentRate_Person_Male"
-        unit: "%"
-      }
+      stat_var_key: "unemployment_female"
+      stat_var_key: "unemployment_male"
     }
     # There is only state-level data for Median Income, not unemployment rate.
   }
@@ -105,60 +97,35 @@ categories {
   blocks {
     title: "Poverty rate, by sex"
     description: "Percentage of the population of each sex living below the poverty level."
-    stat_var_metadata {
-      stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person_Female"
-      scaling: 100
-      unit: "%"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-      denom: "Count_Person_Male"
-      scaling: 100
-      unit: "%"
-    }
     left_tiles {
       type: MAP
       title: "Percentage of the female population in poverty (${date})"
+      stat_var_key: "poverty_rate_female"
     }
     right_tiles {
       type: MAP
       title: "Percentage of the male population in poverty (${date})"
-      stat_var_override {
-        stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-        denom: "Count_Person_Male"
-        unit: "%"
-      }
+      stat_var_key: "poverty_rate_male"
     }
     left_tiles {
       type: LINE
       title: "Poverty rate, by sex"
+      stat_var_key: "poverty_rate_female"
+      stat_var_key: "poverty_rate_male"
     }
     right_tiles {
       type: RANKING
       ranking_metadata {
         show_highest: true
       }
+      stat_var_key: "poverty_rate_female"
+      stat_var_key: "poverty_rate_male"
     }
   }
 
   blocks {
     title: "Uninsured, by sex"
     description: "Of those without insurance, how many are male or female?"
-    stat_var_metadata {
-      stat_var: "Count_Person_Female_NoHealthInsurance"
-      denom: "Count_Person_NoHealthInsurance"
-      unit: "%"
-      scaling: 100
-      name: "Female, uninsured"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_Male_NoHealthInsurance"
-      denom: "Count_Person_NoHealthInsurance"
-      unit: "%"
-      scaling: 100
-      name: "Male, uninsured"
-    }
     # TODO(beets): This isn't available at the country level
     # stat_var_metadata {
     #   stat_var: "Count_Person_Female_WithHealthInsurance"
@@ -177,40 +144,28 @@ categories {
     right_tiles {
       type: LINE
       title: "Uninsured, by sex"
+      stat_var_key: "uninsured_rate_female"
+      stat_var_key: "uninsured_rate_male"
     }
     left_tiles {
       type: HIGHLIGHT
-      stat_var_override {
-        stat_var: "Count_Person_NoHealthInsurance"
-      }
       description: "Americans have no health insurance (${date})"
+      stat_var_key: "uninsured_count"
     }
     left_tiles {
       type: RANKING
       ranking_metadata {
         show_highest: true
       }
+      stat_var_key: "uninsured_rate_female"
+      stat_var_key: "uninsured_rate_male"
     }
   }
 
   blocks {
     title: "With disabilities, by sex"
     description: "Percentage of the population of each sex with disabilities"
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_Female"
-      denom: "Count_Person_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female, with disability"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_Male"
-      denom: "Count_Person_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male, with disability"
-    }
-    # TODO(beets): This isn't available at the country level
+    # TODO(beets): This isn"t available at the country level
     # stat_var_metadata {
     #   stat_var: "Count_Person_Female_WithHealthInsurance"
     #   denom: "Count_Person_Female"
@@ -228,12 +183,16 @@ categories {
     left_tiles {
       type: LINE
       title: "With disability, by sex in ${place}"
+      stat_var_key: "disability_rate_female"
+      stat_var_key: "disability_rate_male"
     }
     right_tiles {
       type: RANKING
       ranking_metadata {
         show_highest: true
       }
+      stat_var_key: "disability_rate_female"
+      stat_var_key: "disability_rate_male"
     }
   }
 
@@ -241,23 +200,11 @@ categories {
   blocks {
     title: "Education attainment by sex"
     description: "Percentage of the population of each sex with an associate's degree"
-    stat_var_metadata {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female"
-      denom: "Count_Person_25To34Years_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
-      denom: "Count_Person_25To34Years_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male"
-    }
     left_tiles {
       type: LINE
       title: "Associate's degree holders by sex"
+      stat_var_key: "associates_female"
+      stat_var_key: "associates_male"
     }
     right_tiles {
       type: RANKING
@@ -265,74 +212,49 @@ categories {
         show_highest: true
         show_lowest: true
       }
+      stat_var_key: "associates_female"
+      stat_var_key: "associates_male"
     }
   }
 
   blocks {
     # Note: title intentionally left out
     description: "Percentage of the population of each sex with an bachelors's degree"
-    stat_var_metadata {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female"
-      denom: "Count_Person_25To34Years_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
-      denom: "Count_Person_25To34Years_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male"
-    }
     left_tiles {
       type: RANKING
       ranking_metadata {
         show_highest: true
         show_lowest: true
       }
+      stat_var_key: "bachelors_female"
+      stat_var_key: "bachelors_male"
     }
     right_tiles {
       title: "Bachelor's degree holders by sex"
       type: LINE
+      stat_var_key: "bachelors_female"
+      stat_var_key: "bachelors_male"
     }
   }
 
   blocks {
     # Note: title intentionally left out
     description: "Percentage of the population of each sex with a graduate or professional degree"
-    stat_var_metadata {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female"
-      denom: "Count_Person_25To34Years_Female"
-      unit: "%"
-      scaling: 100
-      name: "Female"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
-      denom: "Count_Person_25To34Years_Male"
-      unit: "%"
-      scaling: 100
-      name: "Male"
-    }
     left_tiles {
       type: MAP
       title: "Percentage of females who are graduate or professional degree holders"
+      stat_var_key: "graduate_female"
     }
     right_tiles {
       type: MAP
       title: "Percentage of males who are graduate or professional degree holders"
-      stat_var_override {
-        stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
-        denom: "Count_Person_25To34Years_Male"
-        unit: "%"
-        scaling: 100
-        name: "Male"
-      }
+      stat_var_key: "graduate_male"
     }
     left_tiles {
       type: LINE
       title: "Graduate or professional degree holders by sex"
+      stat_var_key: "graduate_female"
+      stat_var_key: "graduate_male"
     }
     right_tiles {
       type: RANKING
@@ -340,6 +262,168 @@ categories {
         show_highest: true
         show_lowest: true
       }
+      stat_var_key: "graduate_female"
+      stat_var_key: "graduate_male"
+    }
+  }
+
+  stat_var_metadata {
+    key: "income_inequality"
+    value {
+      stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
+      name: "Income inequality between sexes"
+    }
+  }
+  stat_var_metadata {
+    key: "median_income_female"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      unit: "$"
+    }
+  }
+  stat_var_metadata {
+    key: "median_income_male"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+      unit: "$"
+    }
+  }
+  stat_var_metadata {
+    key: "unemployment_female"
+    value {
+      stat_var: "UnemploymentRate_Person_Female"
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "unemployment_male"
+    value {
+      stat_var: "UnemploymentRate_Person_Male"
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "poverty_rate_female"
+    value {
+      stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_Female"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "poverty_rate_male"
+    value {
+      stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_Male"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "uninsured_rate_female"
+    value {
+      stat_var: "Count_Person_Female_NoHealthInsurance"
+      denom: "Count_Person_NoHealthInsurance"
+      unit: "%"
+      scaling: 100
+      name: "Female, uninsured"
+    }
+  }
+  stat_var_metadata {
+    key: "uninsured_rate_male"
+    value {
+      stat_var: "Count_Person_Male_NoHealthInsurance"
+      denom: "Count_Person_NoHealthInsurance"
+      unit: "%"
+      scaling: 100
+      name: "Male, uninsured"
+    }
+  }
+  stat_var_metadata {
+    key: "uninsured_count"
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+    }
+  }
+  stat_var_metadata {
+    key: "disability_rate_female"
+    value {
+      stat_var: "Count_Person_WithDisability_Female"
+      denom: "Count_Person_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female, with disability"
+    }
+  }
+  stat_var_metadata {
+    key: "disability_rate_male"
+    value {
+      stat_var: "Count_Person_WithDisability_Male"
+      denom: "Count_Person_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male, with disability"
+    }
+  }
+  stat_var_metadata {
+    key: "associates_female"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+  }
+  stat_var_metadata {
+    key: "associates_male"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+  }
+  stat_var_metadata {
+    key: "bachelors_female"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+  }
+  stat_var_metadata {
+    key: "bachelors_male"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+  }
+  stat_var_metadata {
+    key: "graduate_female"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+  }
+  stat_var_metadata {
+    key: "graduate_male"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
     }
   }
 }
@@ -394,40 +478,16 @@ categories {
 
   blocks {
     title: "Median household income by race"
-    stat_var_metadata {
-      stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-      unit: "$"
-      name: "American Indian or Alaska Native"
-    }
-    stat_var_metadata {
-      stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
-      unit: "$"
-      name: "Asian"
-    }
-    stat_var_metadata {
-      stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-      unit: "$"
-      name: "Black or African American"
-    }
-    stat_var_metadata {
-      stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-      unit: "$"
-      name: "Hispanic or Latino"
-    }
-    stat_var_metadata {
-      stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
-      unit: "$"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-    stat_var_metadata {
-      stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
-      unit: "$"
-      name: "White"
-    }
     # TODO: This data is not available at the country level!
     left_tiles {
       type: BAR
       title: "Median household income by race"
+      stat_var_key: "income_aian"
+      stat_var_key: "income_a"
+      stat_var_key: "income_baa"
+      stat_var_key: "income_hl"
+      stat_var_key: "income_nhpi"
+      stat_var_key: "income_w"
     }
     right_tiles {
       type: RANKING
@@ -435,51 +495,27 @@ categories {
         show_highest: true
         highest_title: "Highest among ${statVar}"
       }
+      stat_var_key: "income_aian"
+      stat_var_key: "income_a"
+      stat_var_key: "income_baa"
+      stat_var_key: "income_hl"
+      stat_var_key: "income_nhpi"
+      stat_var_key: "income_w"
     }
   }
 
   blocks {
     title: "Poverty rate by race"
     description: "Percentage of the population of each race living in poverty"
-    stat_var_metadata {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
-      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-      scaling: 100
-      unit: "%"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-      denom: "Count_Person_AsianAlone"
-      scaling: 100
-      unit: "%"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-      denom: "Count_Person_BlackOrAfricanAmericanAlone"
-      scaling: 100
-      unit: "%"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-      denom: "Count_Person_HispanicOrLatino"
-      scaling: 100
-      unit: "%"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-      scaling: 100
-      unit: "%"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-      denom: "Count_Person_WhiteAlone"
-      scaling: 100
-      unit: "%"
-    }
     left_tiles {
       type: LINE
       title: "Poverty rate by race in ${place}"
+      stat_var_key: "poverty_aian"
+      stat_var_key: "poverty_a"
+      stat_var_key: "poverty_baa"
+      stat_var_key: "poverty_hl"
+      stat_var_key: "poverty_nhpi"
+      stat_var_key: "poverty_w"
     }
     right_tiles {
       type: RANKING
@@ -487,57 +523,27 @@ categories {
         show_highest: true
         highest_title: "Highest among ${statVar}"
       }
+      stat_var_key: "poverty_aian"
+      stat_var_key: "poverty_a"
+      stat_var_key: "poverty_baa"
+      stat_var_key: "poverty_hl"
+      stat_var_key: "poverty_nhpi"
+      stat_var_key: "poverty_w"
     }
   }
 
   blocks {
     title: "Disability status by race"
     description: "Percentage of the population of each race with disabilities"
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
-      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-      scaling: 100
-      unit: "%"
-      name: "American Indian or Alaska Native"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_AsianAlone"
-      denom: "Count_Person_AsianAlone"
-      scaling: 100
-      unit: "%"
-      name: "Asian"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
-      denom: "Count_Person_BlackOrAfricanAmericanAlone"
-      scaling: 100
-      unit: "%"
-      name: "Black or African American"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_HispanicOrLatino"
-      denom: "Count_Person_HispanicOrLatino"
-      scaling: 100
-      unit: "%"
-      name: "Hispanic or Latino"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_NativeHawaiianOrOtherPacificIslanderAlone"
-      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-      scaling: 100
-      unit: "%"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_WhiteAlone"
-      denom: "Count_Person_WhiteAlone"
-      scaling: 100
-      unit: "%"
-      name: "White"
-    }
     left_tiles {
       type: LINE
       title: "Percentage of the population of each race with disabilities in ${place}"
+      stat_var_key: "disability_aian"
+      stat_var_key: "disability_a"
+      stat_var_key: "disability_baa"
+      stat_var_key: "disability_hl"
+      stat_var_key: "disability_nhpi"
+      stat_var_key: "disability_w"
     }
     right_tiles {
       type: RANKING
@@ -545,54 +551,18 @@ categories {
         show_highest: true
         highest_title: "Highest among ${statVar}"
       }
+      stat_var_key: "disability_aian"
+      stat_var_key: "disability_a"
+      stat_var_key: "disability_baa"
+      stat_var_key: "disability_hl"
+      stat_var_key: "disability_nhpi"
+      stat_var_key: "disability_w"
     }
   }
 
   blocks {
     title: "Correctional facility residents by race"
     description: "Percentage of the population of each facility type, broken down by race"
-    stat_var_metadata {
-      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "American Indian or Alaska Native"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Asian"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Black or African American"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Hispanic or Latino"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "Native Hawaiian or Pacific Islander"
-    }
-    stat_var_metadata {
-      stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "White"
-    }
     # TODO(bhoot): Count_Person_ResidesInJuvenileFacilities is not available at the country level
     # left_tiles {
     #   title: "Percentage of the population in juvenile facilities, ${place} (${date})"
@@ -607,6 +577,12 @@ categories {
     left_tiles {
       title: "Racial breakdown of juvenile facility residents"
       type: LINE
+      stat_var_key: "juvie_aian"
+      stat_var_key: "juvie_a"
+      stat_var_key: "juvie_baa"
+      stat_var_key: "juvie_hl"
+      stat_var_key: "juvie_nhpi"
+      stat_var_key: "juvie_w"
     }
     # TODO: Enable when juvenile map is available.
     # right_tiles {
@@ -622,144 +598,445 @@ categories {
     right_tiles {
       title: "Racial breakdown of adult correctional facility residents"
       type: LINE
-      stat_var_override {
-        stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_ResidesInJuvenileFacilities"
-        scaling: 100
-        unit: "%"
-        name: "American Indian or Alaska Native"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-        scaling: 100
-        unit: "%"
-        name: "Asian"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-        scaling: 100
-        unit: "%"
-        name: "Black or African American"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-        scaling: 100
-        unit: "%"
-        name: "Hispanic or Latino"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-        scaling: 100
-        unit: "%"
-        name: "Native Hawaiian or Pacific Islander"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-        scaling: 100
-        unit: "%"
-        name: "White"
-      }
+      stat_var_key: "jail_aian"
+      stat_var_key: "jail_a"
+      stat_var_key: "jail_baa"
+      stat_var_key: "jail_hl"
+      stat_var_key: "jail_nhpi"
+      stat_var_key: "jail_w"
     }
   }
   blocks {
     # Title intentionally left out to "merge" with previous block
     description: "Percentage of the population of each race living in correctional facilities"
-    stat_var_metadata {
+    left_tiles {
+      title: "Percentage of each race in correctional facilities"
+      type: LINE
+      stat_var_key: "juvie_rate_aian"
+      stat_var_key: "juvie_rate_a"
+      stat_var_key: "juvie_rate_baa"
+      stat_var_key: "juvie_rate_hl"
+      stat_var_key: "juvie_rate_nhpi"
+      stat_var_key: "juvie_rate_w"
+    }
+    right_tiles {
+      title: "Percentage of each race in correctional facilities"
+      type: LINE
+      stat_var_key: "jail_rate_aian"
+      stat_var_key: "jail_rate_a"
+      stat_var_key: "jail_rate_baa"
+      stat_var_key: "jail_rate_hl"
+      stat_var_key: "jail_rate_nhpi"
+      stat_var_key: "jail_rate_w"
+    }
+  }
+
+  stat_var_metadata {
+    key: "income_aian"
+    value {
+      stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+      unit: "$"
+      name: "American Indian or Alaska Native"
+    }
+  }
+  stat_var_metadata {
+    key: "income_a"
+    value {
+      stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
+      unit: "$"
+      name: "Asian"
+    }
+  }
+  stat_var_metadata {
+    key: "income_baa"
+    value {
+      stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+      unit: "$"
+      name: "Black or African American"
+    }
+  }
+  stat_var_metadata {
+    key: "income_hl"
+    value {
+      stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
+      unit: "$"
+      name: "Hispanic or Latino"
+    }
+  }
+  stat_var_metadata {
+    key: "income_nhpi"
+    value {
+      stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+      unit: "$"
+      name: "Native Hawaiian or Pacific Islander"
+    }
+  }
+  stat_var_metadata {
+    key: "income_w"
+    value {
+      stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
+      unit: "$"
+      name: "White"
+    }
+  }
+
+  stat_var_metadata {
+    key: "poverty_aian"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
+      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "poverty_a"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+      denom: "Count_Person_AsianAlone"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "poverty_baa"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+      denom: "Count_Person_BlackOrAfricanAmericanAlone"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "poverty_hl"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+      denom: "Count_Person_HispanicOrLatino"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "poverty_nhpi"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_metadata {
+    key: "poverty_w"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+      denom: "Count_Person_WhiteAlone"
+      scaling: 100
+      unit: "%"
+    }
+  }
+
+  stat_var_metadata {
+    key: "disability_aian"
+    value {
+      stat_var: "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
+      scaling: 100
+      unit: "%"
+      name: "American Indian or Alaska Native"
+    }
+  }
+  stat_var_metadata {
+    key: "disability_a"
+    value {
+      stat_var: "Count_Person_WithDisability_AsianAlone"
+      denom: "Count_Person_AsianAlone"
+      scaling: 100
+      unit: "%"
+      name: "Asian"
+    }
+  }
+  stat_var_metadata {
+    key: "disability_baa"
+    value {
+      stat_var: "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+      denom: "Count_Person_BlackOrAfricanAmericanAlone"
+      scaling: 100
+      unit: "%"
+      name: "Black or African American"
+    }
+  }
+  stat_var_metadata {
+    key: "disability_hl"
+    value {
+      stat_var: "Count_Person_WithDisability_HispanicOrLatino"
+      denom: "Count_Person_HispanicOrLatino"
+      scaling: 100
+      unit: "%"
+      name: "Hispanic or Latino"
+    }
+  }
+  stat_var_metadata {
+    key: "disability_nhpi"
+    value {
+      stat_var: "Count_Person_WithDisability_NativeHawaiianOrOtherPacificIslanderAlone"
+      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
+      scaling: 100
+      unit: "%"
+      name: "Native Hawaiian or Pacific Islander"
+    }
+  }
+  stat_var_metadata {
+    key: "disability_w"
+    value {
+      stat_var: "Count_Person_WithDisability_WhiteAlone"
+      denom: "Count_Person_WhiteAlone"
+      scaling: 100
+      unit: "%"
+      name: "White"
+    }
+  }
+
+  stat_var_metadata {
+    key: "juvie_aian"
+    value {
+      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
+      scaling: 100
+      unit: "%"
+      name: "American Indian or Alaska Native"
+    }
+  }
+  stat_var_metadata {
+    key: "juvie_a"
+    value {
+      stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Asian"
+    }
+  }
+  stat_var_metadata {
+    key: "juvie_baa"
+    value {
+      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Black or African American"
+    }
+  }
+  stat_var_metadata {
+    key: "juvie_hl"
+    value {
+      stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Hispanic or Latino"
+    }
+  }
+  stat_var_metadata {
+    key: "juvie_nhpi"
+    value {
+      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Native Hawaiian or Pacific Islander"
+    }
+  }
+  stat_var_metadata {
+    key: "juvie_w"
+    value {
+      stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
+      scaling: 100
+      unit: "%"
+      name: "White"
+    }
+  }
+
+  stat_var_metadata {
+    key: "jail_aian"
+    value {
+      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+      scaling: 100
+      unit: "%"
+      name: "American Indian or Alaska Native"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_a"
+    value {
+      stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Asian"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_baa"
+    value {
+      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Black or African American"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_hl"
+    value {
+      stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Hispanic or Latino"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_nhpi"
+    value {
+      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+      scaling: 100
+      unit: "%"
+      name: "Native Hawaiian or Pacific Islander"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_w"
+    value {
+      stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+      scaling: 100
+      unit: "%"
+      name: "White"
+    }
+  }
+
+  stat_var_metadata {
+    key: "juvie_rate_aian"
+    value {
       stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities"
       denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
       scaling: 100
       unit: "%"
       name: "American Indian or Alaska Native"
     }
-    stat_var_metadata {
+  }
+  stat_var_metadata {
+    key: "juvie_rate_a"
+    value {
       stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
       denom: "Count_Person_AsianAlone"
       scaling: 100
       unit: "%"
       name: "Asian"
     }
-    stat_var_metadata {
+  }
+  stat_var_metadata {
+    key: "juvie_rate_baa"
+    value {
       stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
       denom: "Count_Person_BlackOrAfricanAmericanAlone"
       scaling: 100
       unit: "%"
       name: "Black or African American"
     }
-    stat_var_metadata {
+  }
+  stat_var_metadata {
+    key: "juvie_rate_hl"
+    value {
       stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
       denom: "Count_Person_HispanicOrLatino"
       scaling: 100
       unit: "%"
       name: "Hispanic or Latino"
     }
-    stat_var_metadata {
+  }
+  stat_var_metadata {
+    key: "juvie_rate_nhpi"
+    value {
       stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
       denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
       scaling: 100
       unit: "%"
       name: "Native Hawaiian or Pacific Islander"
     }
-    stat_var_metadata {
+  }
+  stat_var_metadata {
+    key: "juvie_rate_w"
+    value {
       stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
       denom: "Count_Person_WhiteAlone"
       scaling: 100
       unit: "%"
       name: "White"
     }
-    left_tiles {
-      title: "Percentage of each race in correctional facilities"
-      type: LINE
+  }
+
+  stat_var_metadata {
+    key: "jail_rate_aian"
+    value {
+      stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
+      scaling: 100
+      unit: "%"
+      name: "American Indian or Alaska Native"
     }
-    right_tiles {
-      title: "Percentage of each race in correctional facilities"
-      type: LINE
-      stat_var_override {
-        stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_AmericanIndianOrAlaskaNativeAlone"
-        scaling: 100
-        unit: "%"
-        name: "American Indian or Alaska Native"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_AsianAlone"
-        scaling: 100
-        unit: "%"
-        name: "Asian"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_BlackOrAfricanAmericanAlone"
-        scaling: 100
-        unit: "%"
-        name: "Black or African American"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_HispanicOrLatino"
-        scaling: 100
-        unit: "%"
-        name: "Hispanic or Latino"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-        scaling: 100
-        unit: "%"
-        name: "Native Hawaiian or Pacific Islander"
-      }
-      stat_var_override {
-        stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_WhiteAlone"
-        scaling: 100
-        unit: "%"
-        name: "White"
-      }
+  }
+  stat_var_metadata {
+    key: "jail_rate_a"
+    value {
+      stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_AsianAlone"
+      scaling: 100
+      unit: "%"
+      name: "Asian"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_rate_baa"
+    value {
+      stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_BlackOrAfricanAmericanAlone"
+      scaling: 100
+      unit: "%"
+      name: "Black or African American"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_rate_hl"
+    value {
+      stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_HispanicOrLatino"
+      scaling: 100
+      unit: "%"
+      name: "Hispanic or Latino"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_rate_nhpi"
+    value {
+      stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
+      scaling: 100
+      unit: "%"
+      name: "Native Hawaiian or Pacific Islander"
+    }
+  }
+  stat_var_metadata {
+    key: "jail_rate_w"
+    value {
+      stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_WhiteAlone"
+      scaling: 100
+      unit: "%"
+      name: "White"
     }
   }
 }
@@ -769,22 +1046,16 @@ categories {
   description: "The US Census Bureau collects data on disability through a few programs which have different definitions of disability. The data in this section is from the American Community Survey (ACS) which includes six questions on the topic. Respondents reporting hearing, vision, cognitive, ambulatory, self-care or independent living difficulties are considered to have a disability. For more information, see https://www.census.gov/topics/health/disability/guidance/data-collection-acs.html"
 
   blocks {
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability"
-      denom: "Count_Person"
-      name: "Percentage of people with disability"
-      unit: "%"
-      scaling: 100
-    }
-
     left_tiles {
       title: "Percentage of the population with disabilities (${date})"
       type: MAP
+      stat_var_key: "disability_rate"
     }
 
     right_tiles {
       type: HIGHLIGHT
       description: "of Americans have disabilities (${date})"
+      stat_var_key: "disability_rate"
     }
 
     right_tiles {
@@ -793,27 +1064,23 @@ categories {
         show_highest: true
         show_lowest: true
       }
+      stat_var_key: "disability_rate"
     }
   }
 
   blocks {
     title: "Without health insurance"
-    stat_var_metadata {
-      stat_var: "Count_Person_NoHealthInsurance_WithDisability"
-      denom: "Count_Person_WithDisability"
-      name: "Percentage of people with disabilities and no health insurance"
-      unit: "%"
-      scaling: 100
-    }
 
     right_tiles {
       title: "Percentage of the population with disabilities (${date})"
       type: MAP
+      stat_var_key: "disabled_uninsured_rate"
     }
 
     left_tiles {
       type: HIGHLIGHT
       description: "of Americans with disabilities have no health insurance (${date})"
+      stat_var_key: "disabled_uninsured_rate"
     }
 
     left_tiles {
@@ -822,6 +1089,7 @@ categories {
         show_highest: true
         show_lowest: true
       }
+      stat_var_key: "disabled_uninsured_rate"
     }
   }
 
@@ -860,19 +1128,15 @@ categories {
   blocks {
     title: "Food assistance for households with disabilities"
     description: "Number of households with one or more people with a disability receiving food stamps in the last 12 months."
-    stat_var_metadata {
-      stat_var: "Count_Household_WithFoodStampsInThePast12Months_WithDisability"
-    }
     left_tiles {
       type: MAP
       title: "Number of households with one or more people with a disability receiving food stamps (${date})"
+      stat_var_key: "disabled_foodstamps"
     }
     right_tiles {
       type: MAP
       title: "Number of households with one or more people with a disability not receiving food stamps (${date})"
-      stat_var_override {
-        stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_WithDisability"
-      }
+      stat_var_key: "disabled_nofoodstamps"
     }
   }
 
@@ -880,14 +1144,7 @@ categories {
   blocks {
     title: "Correctional facility residents with disabilities"
     description: "Percentage of the population of each facility type with disabiliites"
-    stat_var_metadata {
-      stat_var: "Count_Person_WithDisability_ResidesInJuvenileFacilities"
-      denom: "Count_Person_ResidesInJuvenileFacilities"
-      scaling: 100
-      unit: "%"
-      name: "With disability"
-    }
-    # TODO(bhoot): This data is not available at the state level. Neither is the 'no disability' corrolary data.
+    # TODO(bhoot): This data is not available at the state level. Neither is the "no disability" corrolary data.
     # left_tiles {
     #   title: "Percentage of the juvenile facility residents with disabiliites (${date})"
     #   type: MAP
@@ -895,17 +1152,64 @@ categories {
     left_tiles {
       title: "Percentage of the juvenile facility residents with disabiliites"
       type: LINE
+      stat_var_key: "disabled_juvie"
     }
     right_tiles {
       title: "Percentage of the adult correctional facility residents with disabiliites (${date})"
       type: MAP
-      stat_var_override {
-        stat_var: "Count_Person_WithDisability_ResidesInAdultCorrectionalFacilities"
-        denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
-        scaling: 100
-        unit: "%"
-        name: "Asian"
-      }
+      stat_var_key: "disabled_jail"
+    }
+  }
+
+  stat_var_metadata {
+    key: "disability_rate"
+    value {
+      stat_var: "Count_Person_WithDisability"
+      denom: "Count_Person"
+      name: "Percentage of people with disability"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_metadata {
+    key: "disabled_uninsured_rate"
+    value {
+      stat_var: "Count_Person_NoHealthInsurance_WithDisability"
+      denom: "Count_Person_WithDisability"
+      name: "Percentage of people with disabilities and no health insurance"
+      unit: "%"
+      scaling: 100
+    }
+  }
+  stat_var_metadata {
+    key: "disabled_foodstamps"
+    value {
+      stat_var: "Count_Household_WithFoodStampsInThePast12Months_WithDisability"
+    }
+  }
+  stat_var_metadata {
+    key: "disabled_nofoodstamps"
+    value {
+      stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_WithDisability"
+    }
+  }
+  stat_var_metadata {
+    key: "disabled_juvie"
+    value {
+      stat_var: "Count_Person_WithDisability_ResidesInJuvenileFacilities"
+      denom: "Count_Person_ResidesInJuvenileFacilities"
+      scaling: 100
+      unit: "%"
+      name: "With disability"
+    }
+  }
+  stat_var_metadata {
+    key: "disabled_jail"
+    value {
+      stat_var: "Count_Person_WithDisability_ResidesInAdultCorrectionalFacilities"
+      denom: "Count_Person_ResidesInAdultCorrectionalFacilities"
+      scaling: 100
+      unit: "%"
     }
   }
 }
