@@ -22,19 +22,9 @@ import { randDomId } from "../shared/util";
 import { Category } from "./category";
 import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { PageSelector } from "./page_selector";
+import { TopicPageConfig } from "./topic_config";
 import { TopicsSummary } from "./topic_page";
 
-export interface PageMetadata {
-  topicId: string;
-  topicName: string;
-  // Map of parent type to child place type.
-  containedPlaceTypes: Record<string, string>;
-}
-
-export interface PageConfig {
-  metadata: PageMetadata;
-  categories: Category[];
-}
 
 interface MainPanePropType {
   /**
@@ -48,7 +38,7 @@ interface MainPanePropType {
   /**
    * Config of the page
    */
-  pageConfig: PageConfig;
+  pageConfig: TopicPageConfig;
   /**
    * Summary for all topic page configs
    */
