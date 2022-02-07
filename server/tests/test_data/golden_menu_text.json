@@ -34,16 +34,16 @@
       "Unemployment rate by gender"
     ],
     "Crime": ["Arson",
+      "Property crime",
+      "Total crime",
+      "Violent crime",
       "Hate Crime",
       "Hate Crime motivated by gender",
       "Hate Crime motivated by race",
       "Hate Crime motivated by religion",
       "Hate Crime motivated by ethnicity",
       "Hate Crime motivated by sexual orientation",
-      "Hate Crime motivated by disability",
-      "Property crime",
-      "Total crime",
-      "Violent crime"
+      "Hate Crime motivated by disability"
     ],
     "Education": ["Education attainment", "School enrollment"],
     "Demographics": [
