@@ -35,13 +35,37 @@
        { name: "Liver", value: 1 },
        { name: "Skin", value: 0 },
      ];
-     const size = Object.keys(tmpData);
+      var testData = data;
+      function convertData(val) {
+        if(val == "ProteinExpressionNotDetected") {
+          return 0;
+        } else if(val == "ProteinExpressionLow") {
+          return 1;
+        } else if(val == "ProteinExpressionMedium") {
+          return 2;
+        } else if (val == "ProteinExpressionHigh") {
+          return 3;
+        }
+      }
+      const reformat = data.map(item => {
+        let newObj: any = {};
+        newObj["name"] = item.name;
+        newObj["value"] = convertData(item.value);
+        return newObj;
+
+      })
+      console.log(tmpData);
+      console.log(reformat);
+
+      const size = reformat.map(x => {
+        console.log(x) ; return x.name;});
+    
      const barHeight = 35;
      const margin = { top: 70, right: 50, bottom: 10, left: 50 };
      const height = 400 - margin.top - margin.bottom;
      const width = 460 - margin.left - margin.right;
      const x = d3.scaleLinear()
-         .domain([0, d3.max(tmpData, (d) => d.value)])
+         .domain([0, d3.max(reformat, (d) => d.value)])
          .range([margin.left, width - margin.right]);
      const y = d3.scaleBand()
          .domain(size)
@@ -54,7 +78,7 @@
              return "Low";
          } else if (d == 2) {
              return "Medium";
-         } else {
+         } else if (d == 3) {
              return "High";
          }
          };
@@ -67,7 +91,7 @@
      
      svg.append("g")
          .selectAll("rect")
-         .data(tmpData.sort((a, b) => d3.descending(a.value, b.value)))
+         .data(reformat.sort((a, b) => d3.descending(a.value, b.value)))
          .enter()
          .append("rect")
          .attr("x", x(0))
@@ -98,7 +122,7 @@
          .attr("font-family", "sans-serif")
          .attr("font-size", 3)
          .selectAll("text")
-         .data(tmpData.sort((a, b) => d3.descending(a.value, b.value)))
+         .data(reformat.sort((a, b) => d3.descending(a.value, b.value)))
          .join("text")
          .attr("x", (d) => x(d.value))
          .attr("y", (d, i) => i + y.bandwidth() / 2)
@@ -128,7 +152,8 @@
          .call(
              d3
              .axisLeft(y)
-             .tickFormat((i) => tmpData[i].name)
+             //.tickFormat((i) => { console.log(tmpData[i]); console.log(i);
+             // return tmpData[i].name})
              .tickSizeOuter(0)
          )
          .on("mouseover", function () {

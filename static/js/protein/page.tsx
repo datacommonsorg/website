@@ -44,12 +44,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
 
   componentDidUpdate(): void {
-    const data: { name: string; value: string }[] = [];
     const tissueScore = this.getTissueScore();
-    for (const tissue in tissueScore) {
-      data.push({ name: tissue, value: tissueScore[tissue] });
-    }
-    drawTissueScoreChart("tissue-score-chart", data);
+    drawTissueScoreChart("tissue-score-chart", tissueScore);
   }
 
   render(): JSX.Element {
@@ -70,10 +66,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     });
   }
 
-  private getTissueScore(): Record<string, string> {
+  private getTissueScore(): { name: string; value: string }[] {
     // Tissue to score mapping.
     if (!this.state.data) {
-      return {};
+      return [];
     }
     const result = {};
     for (const neighbour of this.state.data.nodes[0].neighbors) {
@@ -92,8 +88,12 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         }
         result[tissue] = score;
       }
-      return result;
+      const data: { name: string; value: string }[] = [];
+      for (const tissue in result) {
+        data.push({ name: tissue, value: result[tissue] });
+      }
+      return data;
     }
-    return {};
+    return [];
   }
 }
