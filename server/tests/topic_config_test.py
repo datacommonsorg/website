@@ -32,7 +32,6 @@ class TestTopicConfig(unittest.TestCase):
             defined_svs[svm_id] = svm
         return defined_svs
 
-
     def verify_tile(self, tile, stat_vars, msg):
         """Verifies a single tile"""
         self.assertNotEqual(tile.type, TileType.TYPE_NONE, msg)
@@ -51,7 +50,6 @@ class TestTopicConfig(unittest.TestCase):
 
         for i, sv_id in enumerate(tile.stat_var_key):
             self.assertTrue(sv_id in stat_vars, f"{msg}[sv={i},{sv_id}]")
-
 
     def test_required_fields(self):
         """Tests all configs loaded at server start"""

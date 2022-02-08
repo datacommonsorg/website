@@ -25,7 +25,6 @@ import { PageSelector } from "./page_selector";
 import { TopicPageConfig } from "./topic_config";
 import { TopicsSummary } from "./topic_page";
 
-
 interface MainPanePropType {
   /**
    * The place to show the page for.
