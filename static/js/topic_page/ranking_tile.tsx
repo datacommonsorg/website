@@ -26,7 +26,7 @@ import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { Point, RankingUnit } from "./ranking_unit";
 import { getStatVarName } from "./string_utils";
-import { RankingMetadata } from "./tile";
+import { RankingMetadataConfig } from "./topic_config";
 
 const RANKING_COUNT = 5;
 
@@ -45,7 +45,7 @@ interface RankingTilePropType {
   enclosedPlaceType: string;
   title: string;
   statVarMetadata: StatVarMetadata[];
-  rankingMetadata: RankingMetadata;
+  rankingMetadata: RankingMetadataConfig;
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
@@ -127,8 +127,17 @@ function fetchData(
             placeDcid: place,
             stat: statData[item.statVar].stat[place].value,
           };
-          if (item.denom && item.denom in statData) {
-            rankingPoint.stat /= statData[item.denom].stat[place].value;
+          if (rankingPoint.stat === undefined) {
+            console.log(`Skipping ${place}, missing ${item.statVar}`);
+            continue;
+          }
+          if (item.denom) {
+            if (item.denom in statData) {
+              rankingPoint.stat /= statData[item.denom].stat[place].value;
+            } else {
+              console.log(`Skipping ${place}, missing ${item.denom}`);
+              continue;
+            }
           }
           arr.push(rankingPoint);
         }

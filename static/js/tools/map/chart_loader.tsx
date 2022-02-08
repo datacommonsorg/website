@@ -62,6 +62,7 @@ interface ChartRawData {
   mapPointStat: PlacePointStat;
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<string>;
+  dataDate: string;
 }
 
 interface ChartData {
@@ -75,6 +76,7 @@ interface ChartData {
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<string>;
+  rankingLink: string;
 }
 
 export function ChartLoader(): JSX.Element {
@@ -106,12 +108,7 @@ export function ChartLoader(): JSX.Element {
 
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
-      loadChartData(
-        rawData,
-        statVar.value.perCapita,
-        placeInfo.value,
-        setChartData
-      );
+      loadChartData(rawData, placeInfo.value, statVar.value, setChartData);
     }
   }, [rawData, statVar.value.perCapita]);
 
@@ -155,6 +152,7 @@ export function ChartLoader(): JSX.Element {
         display={display}
         mapPointsPromise={chartData.mapPointsPromise}
         europeanCountries={chartData.europeanCountries}
+        rankingLink={chartData.rankingLink}
       />
       <div id="source-picker">
         <span>Pick Source</span>
@@ -165,8 +163,8 @@ export function ChartLoader(): JSX.Element {
           onChange={(e) => {
             loadChartData(
               rawData,
-              statVar.value.perCapita,
               placeInfo.value,
+              statVar.value,
               setChartData,
               e.target.value
             );
@@ -439,6 +437,7 @@ function fetchData(
           mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
           mapPointsPromise,
           europeanCountries,
+          dataDate,
         });
       }
     )
@@ -448,12 +447,26 @@ function fetchData(
     });
 }
 
+function getRankingLink(
+  statVar: StatVar,
+  placeDcid: string,
+  placeType: string,
+  date: string,
+  unit: string
+): string {
+  let params = "";
+  params += statVar.perCapita ? "&pc=1" : "";
+  params += unit ? `&unit=${unit}` : "";
+  params += date ? `&date=${date}` : "";
+  return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
+}
+
 // Takes fetched data and processes it to be in a form that can be used for
 // rendering the chart component
 function loadChartData(
   rawData: ChartRawData,
-  isPerCapita: boolean,
   placeInfo: PlaceInfo,
+  statVar: StatVar,
   setChartData: (data: ChartData) => void,
   metaHash?: string
 ): void {
@@ -473,7 +486,7 @@ function loadChartData(
         ? rawData.allPlaceStat[metaHash]
         : rawData.placeStat,
       placeDcid,
-      isPerCapita,
+      statVar.perCapita,
       rawData.population,
       rawData.metadataMap
     );
@@ -499,7 +512,7 @@ function loadChartData(
     const placeChartData = getPlaceChartData(
       rawData.breadcrumbPlaceStat,
       place.dcid,
-      isPerCapita,
+      statVar.perCapita,
       rawData.population,
       rawData.metadataMap
     );
@@ -552,5 +565,12 @@ function loadChartData(
     sources: sourceSet,
     unit,
     europeanCountries: rawData.europeanCountries,
+    rankingLink: getRankingLink(
+      statVar,
+      placeInfo.selectedPlace.dcid,
+      placeInfo.enclosedPlaceType,
+      rawData.dataDate,
+      unit
+    ),
   });
 }

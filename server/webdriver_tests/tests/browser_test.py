@@ -23,7 +23,7 @@ MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
 AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
-SEARCH_INPUT = 'male asian '
+SEARCH_INPUT = 'male asian count '
 
 
 # Class to test Graph Browser.
@@ -272,13 +272,11 @@ class TestBrowser(WebdriverBaseTest):
 
         # Search for "male asian " and select the first result
         search_input.send_keys(SEARCH_INPUT)
-        element_present = EC.presence_of_element_located((
-            By.XPATH,
-            '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div[2]/div[1]'
-        ))
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        loading_finished = EC.invisibility_of_element_located(
+            (By.ID, 'sv-search-spinner'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(loading_finished)
         first_result = self.driver.find_element_by_xpath(
-            '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div[2]/div[1]'
+            '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div/div[1]'
         )
         first_result.click()
 

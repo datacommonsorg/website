@@ -23,17 +23,13 @@ import React from "react";
 import { ErrorBoundary } from "../shared/error_boundary";
 import { NamedTypedPlace } from "../shared/types";
 import { randDomId } from "../shared/util";
-import { Block, BlockPropType } from "./block";
+import { Block } from "./block";
+import { StatVarProvider } from "./stat_var_provider";
 import { getRelLink } from "./string_utils";
-
-export interface Category {
-  title: string;
-  description?: string;
-  blocks: BlockPropType[];
-}
+import { CategoryConfig } from "./topic_config";
 
 export interface CategoryPropType {
-  config: Category;
+  config: CategoryConfig;
   /**
    * The place to show the page for.
    */
@@ -42,6 +38,7 @@ export interface CategoryPropType {
 }
 
 export function Category(props: CategoryPropType): JSX.Element {
+  const svProvider = new StatVarProvider(props.config.statVarMetadata);
   return (
     <article className="category col-12" id={getRelLink(props.config.title)}>
       <h2 className="block-title">{props.config.title}</h2>
@@ -58,7 +55,7 @@ export function Category(props: CategoryPropType): JSX.Element {
               description={block.description}
               leftTiles={block.leftTiles}
               rightTiles={block.rightTiles}
-              statVarMetadata={block.statVarMetadata}
+              statVarProvider={svProvider}
             />
           </ErrorBoundary>
         );
