@@ -85,8 +85,7 @@
     "title": "Hate Crime motivated by gender",
     "description": "Total number of hate crime incidents motivated by gender",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationGender_IsHateCrime"],
-    "isOverview": false,
-    "relatedChart": { }
+    "isOverview": false
   },
   {
     "category": "Crime",
@@ -94,8 +93,7 @@
     "title": "Hate Crime motivated by race",
     "description": "Total number of hate crime incidents motivated by race",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationRace_IsHateCrime"],
-    "isOverview": false,
-    "relatedChart": { }
+    "isOverview": false
   },
   {
     "category": "Crime",
@@ -103,8 +101,7 @@
     "title": "Hate Crime motivated by religion",
     "description": "Total number of hate crime incidents motivated by religion",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime"],
-    "isOverview": false,
-    "relatedChart": { }
+    "isOverview": false
   },
   {
     "category": "Crime",
@@ -112,8 +109,7 @@
     "title": "Hate Crime motivated by ethnicity",
     "description": "Total number of hate crime incidents motivated by ethnicity",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime"],
-    "isOverview": false,
-    "relatedChart": { }
+    "isOverview": false
   },
   {
     "category": "Crime",
@@ -121,8 +117,7 @@
     "title": "Hate Crime motivated by sexual orientation",
     "description": "Total number of hate crime incidents motivated by sexual orientation",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime"],
-    "isOverview": false,
-    "relatedChart": { }
+    "isOverview": false
   },
   {
     "category": "Crime",
@@ -130,7 +125,6 @@
     "title": "Hate Crime motivated by disability",
     "description": "Total number of hate crime incidents motivated by disability",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"],
-    "isOverview": false,
-    "relatedChart": { }
+    "isOverview": false
   }
 ]
