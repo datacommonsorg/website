@@ -24,7 +24,15 @@ TileType = topic_page_pb2.Tile.TileType
 
 class TestTopicConfig(unittest.TestCase):
 
-    def verify_tile(self, tile, msg):
+    def verify_statvars(self, category, msg):
+        defined_svs = {}
+        for i, (svm_id, svm) in enumerate(category.stat_var_metadata.items()):
+            svm_msg = f"{msg}[sv={i},{svm_id}]"
+            self.assertFalse(svm_id in defined_svs, svm_msg)
+            defined_svs[svm_id] = svm
+        return defined_svs
+
+    def verify_tile(self, tile, stat_vars, msg):
         """Verifies a single tile"""
         self.assertNotEqual(tile.type, TileType.TYPE_NONE, msg)
 
@@ -39,6 +47,9 @@ class TestTopicConfig(unittest.TestCase):
         if (tile.type == TileType.HIGHLIGHT or
                 tile.type == TileType.DESCRIPTION):
             self.assertNotEqual(tile.description, '', msg)
+
+        for i, sv_id in enumerate(tile.stat_var_key):
+            self.assertTrue(sv_id in stat_vars, f"{msg}[sv={i},{sv_id}]")
 
     def test_required_fields(self):
         """Tests all configs loaded at server start"""
@@ -56,13 +67,15 @@ class TestTopicConfig(unittest.TestCase):
                     cat_msg = f"{page_msg}[category={cat_i}]"
                     self.assertNotEqual(cat.title, '', cat_msg)
 
+                    stat_vars = self.verify_statvars(cat, cat_msg)
+
                     for block_i, block in enumerate(cat.blocks):
                         block_msg = f"{cat_msg}[block={block_i}]"
 
                         for t_i, tile in enumerate(block.left_tiles):
                             tile_msg = f"{block_msg}[left={t_i}]"
-                            self.verify_tile(tile, tile_msg)
+                            self.verify_tile(tile, stat_vars, tile_msg)
 
                         for t_i, tile in enumerate(block.right_tiles):
                             tile_msg = f"{block_msg}[right={t_i}]"
-                            self.verify_tile(tile, tile_msg)
+                            self.verify_tile(tile, stat_vars, tile_msg)

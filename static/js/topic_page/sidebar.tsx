@@ -17,14 +17,14 @@ import _ from "lodash";
 import React from "react";
 
 import { randDomId } from "../shared/util";
-import { Category } from "./category";
 import { getRelLink } from "./string_utils";
+import { CategoryConfig } from "./topic_config";
 
 interface SidebarPropsType {
   /**
    * Categories from the page config.
    */
-  categories: Category[];
+  categories: CategoryConfig[];
 }
 
 export function Sidebar(props: SidebarPropsType): JSX.Element {
