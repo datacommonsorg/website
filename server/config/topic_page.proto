@@ -76,7 +76,8 @@ message Tile {
   // Must be set for HIHGLIGHT tiles
   string description = 2;
   TileType type = 3;
-  repeated StatVarMetadata stat_var_override = 4;
+  // Key for a StatVarMetadata defined in the containing Category
+  repeated string stat_var_key = 4;
   RankingMetadata ranking_metadata = 5;
   // Overrides the contained_place_types for the page.
   map<string, string> contained_place_types = 7;
@@ -87,12 +88,12 @@ message Block {
   string description = 2;
   repeated Tile left_tiles = 3;
   repeated Tile right_tiles = 4;
-  repeated StatVarMetadata stat_var_metadata = 5;
 }
 
 message Category {
   string title = 1;
   string description = 2;
+  map<string, StatVarMetadata> stat_var_metadata = 4;
   repeated Block blocks = 3;
 }
 
