@@ -14,9 +14,18 @@
  * limitations under the License.
  */
 
+// Typing for topic_page.proto
+
 import { StatVarMetadata } from "../types/stat_var";
 
-export interface RankingMetadata {
+export interface PageMetadataConfig {
+  topicId: string;
+  topicName: string;
+  // Map of parent type to child place type.
+  containedPlaceTypes: Record<string, string>;
+}
+
+export interface RankingMetadataConfig {
   showHighest: boolean;
   showLowest: boolean;
   showIncrease: boolean;
@@ -30,17 +39,33 @@ export interface RankingMetadata {
   decreaseTitle?: string;
 }
 
-export interface HighlightMetadata {
-  description: string;
-}
-
-export interface Tile {
+export interface TileConfig {
   title?: string;
   description: string;
   type: string;
-  statVarOverride?: StatVarMetadata[];
-  rankingMetadata?: RankingMetadata;
-  highlightMetadata?: HighlightMetadata;
+  statVarKey: string[];
+  rankingMetadata?: RankingMetadataConfig;
   // Map of parent type to child place type - overrides the page-level setting.
   containedPlaceTypes: Record<string, string>;
+}
+
+export interface BlockConfig {
+  title?: string;
+  description: string;
+  leftTiles: TileConfig[];
+  rightTiles: TileConfig[];
+}
+
+export type StatVarMetadataMap = Record<string, StatVarMetadata>;
+
+export interface CategoryConfig {
+  title: string;
+  description?: string;
+  statVarMetadata: StatVarMetadataMap;
+  blocks: BlockConfig[];
+}
+
+export interface TopicPageConfig {
+  metadata: PageMetadataConfig;
+  categories: CategoryConfig[];
 }
