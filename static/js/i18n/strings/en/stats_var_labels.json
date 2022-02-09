@@ -87,6 +87,10 @@
     "defaultMessage": "Violent Crimes",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of violent crimes."
   },
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Hate Crime Incidents",
+    "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents."
+  },
   "Count_CycloneEvent": {
     "defaultMessage": "Cyclone",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the number of cyclone events."
