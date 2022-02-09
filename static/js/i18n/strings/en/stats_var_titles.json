@@ -87,6 +87,10 @@
     "defaultMessage": "Number of Criminal Activities (Violent Crimes)",
     "description": "Title for a page about a statistical variable. Variable describes total number of violent crimes in a place."
   },
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Hate Crime Incidents",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents in a place."
+  },
   "Count_CycloneEvent": {
     "defaultMessage": "Number of Cyclone Events",
     "description": "Title for a page about a statistical variable. The number of cyclone events that happened in a place."
