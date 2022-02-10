@@ -119,17 +119,9 @@ export class StatVarGroupNode extends React.Component<
 
   componentDidUpdate(prevProps: StatVarGroupNodePropType): void {
     const newSelectionCount = this.getSelectionCount();
-    const openedByParent =
-      (!_.isEqual(prevProps.pathToSelection, this.props.pathToSelection) ||
-        !_.isEqual(prevProps.expandedPath, this.props.expandedPath)) &&
-      this.props.startsOpened;
-    const openedByNewSelection =
-      INITIAL_EXPANSION_TYPES.includes(this.context.statVarHierarchyType) &&
-      newSelectionCount > this.state.selectionCount;
     const newState = { ...this.state };
     newState.selectionCount = newSelectionCount;
-    newState.isOpen =
-      openedByParent || openedByNewSelection || this.state.isOpen;
+    newState.isOpen = this.getIsNodeOpen(prevProps, newSelectionCount);
     if (!_.isEqual(this.state, newState)) {
       this.setState(newState);
     }
@@ -293,6 +285,26 @@ export class StatVarGroupNode extends React.Component<
         }
       }
     }, SCROLL_DELAY);
+  }
+
+  private getIsNodeOpen(
+    prevProps: StatVarGroupNodePropType,
+    newSelectionCount: number
+  ): boolean {
+    // A parent component may open a node when either the selection path or
+    // expanded path has changed.
+    const openedByParent =
+      (!_.isEqual(prevProps.pathToSelection, this.props.pathToSelection) ||
+        !_.isEqual(prevProps.expandedPath, this.props.expandedPath)) &&
+      this.props.startsOpened;
+    // If this is a stat var hierarchy that wants the path to the selected
+    // statistical variable expanded, then if the selection count for this node
+    // increases, we want to open this node
+    const openedByNewSelection =
+      INITIAL_EXPANSION_TYPES.includes(this.context.statVarHierarchyType) &&
+      newSelectionCount > this.state.selectionCount;
+    // If this node is already open, keep it open
+    return openedByParent || openedByNewSelection || this.state.isOpen;
   }
 }
 
