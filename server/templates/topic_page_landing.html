@@ -16,8 +16,8 @@
 {%- extends 'base.html' -%}
 
 {% set main_id = 'dc-topic-landing' %}
-{% set title = _('Topic Explorer') %}
-{% set subpage_title = _('Topic Explorer') %}
+{% set title = 'Topic Explorer' %}
+{% set subpage_title = 'Topic Explorer' %}
 {% set subpage_url = url_for('topic_page.topic_page') %}
 
 {% block head %}
@@ -26,7 +26,7 @@
 
 {% block content %}
 <div id="body" class="container">
-  <h1 class="mb-4">{% trans %}Topic Explorer{% endtrans %}</h1>
+  <h1 class="mb-4">Topic Explorer</h1>
   <h3>Equity</h2>
   <p><a href="/topic/equity/country/USA">in United States of America</a></p>
 {% endblock %}
