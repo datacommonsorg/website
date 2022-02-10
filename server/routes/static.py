@@ -17,7 +17,6 @@ from datetime import date
 from flask import Blueprint, render_template, current_app, g
 from lib.gcs import list_blobs
 import babel.dates as babel_dates
-import routes.api.place as place_api
 
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
 _MAX_BLOBS = 1
