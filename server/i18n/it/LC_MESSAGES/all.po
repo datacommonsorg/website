@@ -1,7 +1,7 @@
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s è un progetto supportato da Google"
 
-msgid "API's"
+msgid "APIs"
 msgstr "API"
 
 msgid "About"
@@ -10,20 +10,8 @@ msgstr "Informazioni"
 msgid "About Data Commons"
 msgstr "Informazioni su Data Commons"
 
-msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr "Conseguimento di lauree triennali o titoli superiori nelle contee di Washington"
-
-msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
-msgstr ""
-
 msgid "Blog"
 msgstr "Blog"
-
-msgid "Browse entities in the %(project)s Graph"
-msgstr "Sfoglia le entità nel grafico di %(project)s"
-
-msgid "Build your own"
-msgstr "Crea ciò di cui hai bisogno"
 
 msgid "Cities, United States"
 msgstr "Città, Stati Uniti"
@@ -52,12 +40,6 @@ msgstr "Documentazione"
 msgid "Economic Indicators, Worldwide"
 msgstr "Indicatori economici, Tutto il mondo"
 
-msgid "Employment Differences Across Neighboring Cities"
-msgstr "Differenze occupazionali tra città limitrofe"
-
-msgid "Encyclopedia of DNA Elements (Biosamples)"
-msgstr "Enciclopedia degli elementi del DNA (campioni biologici)"
-
 msgid "Enter a country, state, county or city"
 msgstr "Inserisci un paese, uno stato, una contea o una città"
 
@@ -72,9 +54,6 @@ msgstr "Domande frequenti"
 
 msgid "Feedback"
 msgstr "Feedback"
-
-msgid "Foreign Born vs. Unemployment Rate for US States"
-msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "Domande frequenti"
@@ -97,21 +76,6 @@ msgstr "Graph Browser"
 msgid "Gross National Income"
 msgstr "Reddito nazionale lordo"
 
-msgid "HOME-BUILD_CALLOUT"
-msgstr "Utilizza le API REST e Python per condurre le tue analisi personalizzate, realizzare i tuoi strumenti personali e molto altro."
-
-msgid "HOME-EXPLORE_CALLOUT"
-msgstr "Abbiamo pulito ed elaborato i dati al tuo posto, così non dovrai farlo tu. I dati relativi a entità particolari sono stati aggregati da origini diverse per offrire una visualizzazione unificata."
-
-msgid "HOME-HERO_MESSAGE"
-msgstr "Data Commons è un repository di conoscenza aperto che combina i dati provenienti da set pubblici utilizzando entità comuni mappate. Include strumenti utili per esplorare e analizzare facilmente i dati provenienti da diversi set senza doverli pulire o unire."
-
-msgid "HOME-JOIN_EFFORT"
-msgstr "Partecipa a questa iniziativa."
-
-msgid "HOME-OPEN_SOURCED"
-msgstr "Progetto <a href=%(github_url)s>open source</a> realizzato con <a href=%(schemaorg_url)s>%(tool)s</a>."
-
 msgid "Highest Crime Per Capita"
 msgstr "Numero più alto di crimini pro capite"
 
@@ -133,26 +97,11 @@ msgstr "Speranza di vita"
 msgid "Loading..."
 msgstr "Caricamento in corso…"
 
-msgid "MORE"
-msgstr "altro…"
-
 msgid "Map Explorer"
 msgstr "Strumento di esplorazione delle mappe"
 
-msgid "Median Income across US Counties"
-msgstr "Reddito medio nelle contee degli Stati Uniti"
-
 msgid "Median Income, United States"
 msgstr "Reddito medio, Stati Uniti"
-
-msgid "New York City Department of Education"
-msgstr "Consiglio di amministrazione della pubblica istruzione della Città di New York"
-
-msgid "Open"
-msgstr "La forza della collettività"
-
-msgid "Open Data."
-msgstr "Dati aperti."
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>Lo strumento Place Explorer ti consente di conoscere i dati fondamentali relativi a un luogo. Raccoglie una serie di grafici relativi a dati demografici, istruzione, aspetti economici e altro ancora, collocandoli nel contesto e confrontandoli con altri luoghi. Puoi anche conoscere il posizionamento di luoghi differenti in merito a diverse metriche quali disoccupazione, criminalità e reddito.</p><p>Puoi analizzare in dettaglio i grafici per città, codice postale, contea, stato o paese che preferisci usando la casella di ricerca in alto.</p><p>In alternativa puoi iniziare a esplorare alcuni luoghi molto noti.</p>"
@@ -172,20 +121,14 @@ msgstr "Norme sulla privacy"
 msgid "Rankings"
 msgstr "Posizioni"
 
-msgid "Richest vs. Poorest California Counties"
-msgstr "Confronto tra contee californiane più ricche e quelle più povere"
-
 msgid "Scatter Plot Explorer"
 msgstr "Strumento di esplorazione dei grafici a dispersione"
 
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "See API documentation."
-msgstr "Consulta la documentazione dell'API."
-
-msgid "See some sample Python notebooks."
-msgstr "Visualizza alcuni esempi di blocchi note di Python."
+msgid "Search"
+msgstr ""
 
 msgid "States, United States"
 msgstr "Stati, Stati Uniti"
@@ -205,20 +148,8 @@ msgstr "Timelines Explorer"
 msgid "Tutorials"
 msgstr "Tutorial"
 
-msgid "US University Towns by Income"
-msgstr "Città universitarie statunitensi per reddito"
-
-msgid "Unemployment Rate across US States"
-msgstr "Tasso di disoccupazione negli Stati degli USA"
-
 msgid "Unemployment Rate, United States"
 msgstr "Tasso di disoccupazione, Stati Uniti"
-
-msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr "Abbiamo lanciato nuove funzionalità entusiasmanti, tra cui uno strumento di esplorazione delle mappe, un menu di variabili statistiche utilizzato in tutti i nostri strumenti di visualizzazione (gli strumenti di esplorazione per sequenze temporali, grafici a dispersione e mappe) e nuovi dati. <a href=%(blog_url)s>Leggi il nostro post del blog per maggiori dettagli</a>."
-
-msgid "What's new"
-msgstr "Novità"
 
 msgid "Worldwide"
 msgstr "Tutto il mondo"

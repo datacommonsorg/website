@@ -1,7 +1,7 @@
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s は Google がサポートするプロジェクトです"
 
-msgid "API's"
+msgid "APIs"
 msgstr "API"
 
 msgid "About"
@@ -10,20 +10,8 @@ msgstr "基本情報"
 msgid "About Data Commons"
 msgstr "データコモンズについて"
 
-msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr "ワシントンの各郡における学士号以上の学位の取得"
-
-msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
-msgstr ""
-
 msgid "Blog"
 msgstr "ブログ"
-
-msgid "Browse entities in the %(project)s Graph"
-msgstr "%(project)s のグラフでエンティティをブラウジング"
-
-msgid "Build your own"
-msgstr "自分で作成"
 
 msgid "Cities, United States"
 msgstr "米国の都市"
@@ -52,12 +40,6 @@ msgstr "ドキュメント"
 msgid "Economic Indicators, Worldwide"
 msgstr "全世界の経済指標"
 
-msgid "Employment Differences Across Neighboring Cities"
-msgstr "近隣都市間の雇用率の差"
-
-msgid "Encyclopedia of DNA Elements (Biosamples)"
-msgstr "DNA 要素エンサイクロペディア（生体サンプル）"
-
 msgid "Enter a country, state, county or city"
 msgstr "国、州、郡、都市のいずれかを入力してください"
 
@@ -72,9 +54,6 @@ msgstr "よくある質問"
 
 msgid "Feedback"
 msgstr "フィードバック"
-
-msgid "Foreign Born vs. Unemployment Rate for US States"
-msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "よくある質問"
@@ -97,21 +76,6 @@ msgstr "グラフブラウザ"
 msgid "Gross National Income"
 msgstr "国民総所得"
 
-msgid "HOME-BUILD_CALLOUT"
-msgstr "Python API と REST API を使用して、独自のカスタム分析を実行したり、独自のツールを構築したりできます。"
-
-msgid "HOME-EXPLORE_CALLOUT"
-msgstr "データのクリーンアップと処理は Google によって行われるので、ご自身で行う必要はありません。特定のエンティティに関するデータは、さまざまなソースから集約されて一元的なビューに表示されます。"
-
-msgid "HOME-HERO_MESSAGE"
-msgstr "データコモンズは、マッピングされた共通エンティティを使用して公開データセットからのデータを結合するオープン ナレッジ リポジトリです。データのクリーニングや結合を行わなくても、さまざまなデータセットのデータを簡単に検索して分析できるツールが含まれています。"
-
-msgid "HOME-JOIN_EFFORT"
-msgstr "取り組みに参加しましょう。"
-
-msgid "HOME-OPEN_SOURCED"
-msgstr "<a href=%(github_url)s>オープンソース</a>、<a href=%(schemaorg_url)s>%(tool)s</a>で作成。"
-
 msgid "Highest Crime Per Capita"
 msgstr "1 人あたりの犯罪件数上位"
 
@@ -133,26 +97,11 @@ msgstr "平均寿命"
 msgid "Loading..."
 msgstr "読み込んでいます…"
 
-msgid "MORE"
-msgstr "その他"
-
 msgid "Map Explorer"
 msgstr "マップ エクスプローラ"
 
-msgid "Median Income across US Counties"
-msgstr "米国の各郡における所得の中央値"
-
 msgid "Median Income, United States"
 msgstr "米国の所得の中央値"
-
-msgid "New York City Department of Education"
-msgstr "ニューヨーク市教育局"
-
-msgid "Open"
-msgstr "オープン"
-
-msgid "Open Data."
-msgstr "データはオープンソースです。"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>プレイス エクスプローラは、地域の基礎的なコアデータを把握するために役立つツールです。特定の地域の人口統計、教育、経済などに関する一連のグラフをまとめて、他の地域と比較できるように配置します。また、失業、犯罪、所得などのさまざまな指標で、個々の地域がどのようにランク付けされるかを確認できます。</p><p>上の検索ボックスで都市、郵便番号、郡、州、国を指定して、該当するグラフを表示できます。</p><p>また、よく知られている地域を探索することもできます。</p>"
@@ -172,20 +121,14 @@ msgstr "プライバシー ポリシー"
 msgid "Rankings"
 msgstr "ランキング"
 
-msgid "Richest vs. Poorest California Counties"
-msgstr "カリフォルニア州の最も富裕な郡と最も貧しい郡"
-
 msgid "Scatter Plot Explorer"
 msgstr "散布図エクスプローラ"
 
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "See API documentation."
-msgstr "API ドキュメントをご覧ください。"
-
-msgid "See some sample Python notebooks."
-msgstr "サンプル Python ノートブックをご覧ください。"
+msgid "Search"
+msgstr ""
 
 msgid "States, United States"
 msgstr "米国の州"
@@ -205,20 +148,8 @@ msgstr "タイムライン エクスプローラ"
 msgid "Tutorials"
 msgstr "チュートリアル"
 
-msgid "US University Towns by Income"
-msgstr "所得別の米国の大学都市"
-
-msgid "Unemployment Rate across US States"
-msgstr "米国の各州における失業率"
-
 msgid "Unemployment Rate, United States"
 msgstr "米国の失業率"
-
-msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr "新しいマップ エクスプローラ、すべての可視化ツール（タイムライン エクスプローラ、散布図エクスプローラ、マップ エクスプローラ）で使用される新しい統計的な変数のメニュー、新しいデータなど、新機能をリリースしました。<a href=%(blog_url)s>詳細はブログ投稿をご覧ください</a>。"
-
-msgid "What's new"
-msgstr "最新情報"
 
 msgid "Worldwide"
 msgstr "全世界"

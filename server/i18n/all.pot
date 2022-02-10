@@ -4,7 +4,7 @@ msgid "%(project)s is a Google supported project"
 msgstr ""
 
 #. The label for a link to our API documentation.
-msgid "API's"
+msgid "APIs"
 msgstr ""
 
 msgid "About"
@@ -14,24 +14,8 @@ msgstr ""
 msgid "About Data Commons"
 msgstr ""
 
-#. Link to a map showing the attainment of Bachelor Degrees or higher across counties in Washington. Please see this string in action at https://datacommons.org
-msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr ""
-
-#. Link to a scatter plot comparing bachelor degree attained vs females per capita across counties in California. Please see this string in action at https://datacommons.org
-msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
-msgstr ""
-
 #. The label for a link to the project's blog.
 msgid "Blog"
-msgstr ""
-
-#, python-format
-msgid "Browse entities in the %(project)s Graph"
-msgstr ""
-
-#. Header for a section on building your own tools and analysis using our API. Please see this string in action at https://datacommons.org
-msgid "Build your own"
 msgstr ""
 
 #. Heading for a list of cities in the US. See this message on https://datacommons.org/place
@@ -71,14 +55,6 @@ msgstr ""
 msgid "Economic Indicators, Worldwide"
 msgstr ""
 
-#. Link to a chart comparing the differences in employment rate across the neighboring California cities (one city is much richer than the other). Please see this string in action at https://datacommons.org
-msgid "Employment Differences Across Neighboring Cities"
-msgstr ""
-
-#. Link to a node for the entity (describing the ENCODE project, https://www.encodeproject.org/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
-msgid "Encyclopedia of DNA Elements (Biosamples)"
-msgstr ""
-
 #. A hint shown in the search box, asking users to search for places.
 msgid "Enter a country, state, county or city"
 msgstr ""
@@ -87,7 +63,6 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
-#. Header for a list of links to Data Commons data displays. Please see this string in action at https://datacommons.org
 msgid "Explore the data"
 msgstr ""
 
@@ -96,10 +71,6 @@ msgstr ""
 
 #. The label for a link to instructions about sending feedback.
 msgid "Feedback"
-msgstr ""
-
-#. Link to a scatter plot comparing foreign born vs unemployment rate across states in the US. Please see this string in action at https://datacommons.org
-msgid "Foreign Born vs. Unemployment Rate for US States"
 msgstr ""
 
 #. The label for a link to project FAQ page.
@@ -130,26 +101,6 @@ msgstr ""
 msgid "Gross National Income"
 msgstr ""
 
-#. Describes building your own tools and analysis using our API (here Python refers to the programming language - see python.org, and REST is an acronym for REST is an acronym for REpresentational State Transfer). Please see this string in action at https://datacommons.org
-msgid "HOME-BUILD_CALLOUT"
-msgstr ""
-
-#. Describes how we clean and process data for import once, usually a painful part of data analysis. Data is imported into a unified graph (e.g. data about California from many sources are all added to the same node in our graph. Please see this string in action at https://datacommons.org
-msgid "HOME-EXPLORE_CALLOUT"
-msgstr ""
-
-#. Description of the Data Commons project. Please see this string in action at https://datacommons.org
-msgid "HOME-HERO_MESSAGE"
-msgstr ""
-
-#. A link soliciting contributions to the project from the community. See this string at https://datacommons.org
-msgid "HOME-JOIN_EFFORT"
-msgstr ""
-
-#. Describes that the project is open sourced, and what it is built on top of (it extends a schema defined by schema.org). Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-msgid "HOME-OPEN_SOURCED"
-msgstr ""
-
 #. Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
 msgid "Highest Crime Per Capita"
 msgstr ""
@@ -178,31 +129,12 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-msgid "MORE"
-msgstr ""
-
 #. The name of a tool to explore maps of statistical variables for places.
 msgid "Map Explorer"
 msgstr ""
 
-#. Link to a map showing the median income across counties in the USA. Please see this string in action at https://datacommons.org
-msgid "Median Income across US Counties"
-msgstr ""
-
 #. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
 msgid "Median Income, United States"
-msgstr ""
-
-#. Link to a node for the entity (the New York City school district, https://www.schools.nyc.gov/) in the Data Commons Graph. Please see this string in action at https://datacommons.org
-msgid "New York City Department of Education"
-msgstr ""
-
-#. The header for a section on how Data Commons is an open, community effort. See this string at https://datacommons.org
-msgid "Open"
-msgstr ""
-
-#. Describes that the data in the graph is open (the code importing the data into the graph is open sourced). See this string at https://datacommons.org
-msgid "Open Data."
 msgstr ""
 
 #. The name of a tool to browse statistics about a place.
@@ -229,10 +161,6 @@ msgstr ""
 msgid "Rankings"
 msgstr ""
 
-#. Link to a chart comparing the differences in median income across the richest and poorest California counties. Please see this string in action at https://datacommons.org
-msgid "Richest vs. Poorest California Counties"
-msgstr ""
-
 #. The name of a tool to explore scatter plots of statistical variables for places.
 msgid "Scatter Plot Explorer"
 msgstr ""
@@ -240,12 +168,8 @@ msgstr ""
 msgid "Scatter Plots"
 msgstr ""
 
-#. The label for a link to our API documentation. See this string at https://datacommons.org
-msgid "See API documentation."
-msgstr ""
-
-#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-msgid "See some sample Python notebooks."
+#. Title of a page for searching the site, or search results.
+msgid "Search"
 msgstr ""
 
 #. Heading for a list of states in the US. See this message on https://datacommons.org/place
@@ -271,25 +195,8 @@ msgstr ""
 msgid "Tutorials"
 msgstr ""
 
-#. Link to a chart comparing median income across various university towns in the US. Please see this string in action at https://datacommons.org
-msgid "US University Towns by Income"
-msgstr ""
-
-#. Link to a map showing the unemployment rate across states in USA. Please see this string in action at https://datacommons.org
-msgid "Unemployment Rate across US States"
-msgstr ""
-
 #. Heading for a list of links to rankings of places in the US, by their unemployment rate. See this message on https://datacommons.org/place
 msgid "Unemployment Rate, United States"
-msgstr ""
-
-#. Blog post entry. Please take care to maintain valid <a> tags in translation. See this string in action at https://datacommons.org
-#, python-format
-msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr ""
-
-#. Header for list of blog posts and project updates. Please see this string in action at https://datacommons.org
-msgid "What's new"
 msgstr ""
 
 #. Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place
