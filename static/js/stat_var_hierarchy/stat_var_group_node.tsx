@@ -59,13 +59,13 @@ interface StatVarGroupNodePropType {
   startsOpened: boolean;
   // whether we should show all stat vars, even the ones without data.
   showAllSV: boolean;
+  // path of svgs that should be expanded.
+  expandedPath: string[];
 }
 
 interface StatVarGroupNodeStateType {
-  // whether user has manually expanded this node. If this node has been toggled
-  // open, we want to render an expanded collapsible by passing in true for the
-  // open prop.
-  toggledOpen: boolean;
+  // whether this node should be open.
+  isOpen: boolean;
   // A list of child stat var group nodes.
   childSVG: StatVarGroupInfo[];
   // A list of child stat var nodes.
@@ -91,7 +91,7 @@ export class StatVarGroupNode extends React.Component<
   constructor(props: StatVarGroupNodePropType) {
     super(props);
     this.state = {
-      toggledOpen: false,
+      isOpen: this.props.startsOpened,
       childSVG: [],
       childSV: [],
       errorMessage: "",
@@ -110,25 +110,20 @@ export class StatVarGroupNode extends React.Component<
     if (selectionCount > 0) {
       this.setState({
         selectionCount,
-        toggledOpen: INITIAL_EXPANSION_TYPES.includes(
+        isOpen: INITIAL_EXPANSION_TYPES.includes(
           this.context.statVarHierarchyType
         ),
       });
     }
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps: StatVarGroupNodePropType): void {
     const newSelectionCount = this.getSelectionCount();
-    if (newSelectionCount !== this.state.selectionCount) {
-      this.setState({
-        selectionCount: newSelectionCount,
-        toggledOpen:
-          this.state.toggledOpen ||
-          (INITIAL_EXPANSION_TYPES.includes(
-            this.context.statVarHierarchyType
-          ) &&
-            newSelectionCount > this.state.selectionCount),
-      });
+    const newState = { ...this.state };
+    newState.selectionCount = newSelectionCount;
+    newState.isOpen = this.getIsNodeOpen(prevProps, newSelectionCount);
+    if (!_.isEqual(this.state, newState)) {
+      this.setState(newState);
     }
     this.fetchDataIfNecessary();
     this.scrollToHighlighted();
@@ -140,7 +135,7 @@ export class StatVarGroupNode extends React.Component<
     const placesFetched =
       _.isEqual(this.state.dataFetchedPlaces, this.props.places) ||
       _.isEqual(this.dataFetchingPlaces, this.props.places);
-    if ((this.props.startsOpened || this.state.toggledOpen) && !placesFetched) {
+    if (this.state.isOpen && !placesFetched) {
       this.fetchData();
     }
   }
@@ -201,12 +196,9 @@ export class StatVarGroupNode extends React.Component<
         <Collapsible
           trigger={getTrigger(false)}
           triggerWhenOpen={getTrigger(true)}
-          open={
-            (this.props.startsOpened || this.state.toggledOpen) &&
-            !_.isNull(this.state.dataFetchedPlaces)
-          }
+          open={this.state.isOpen && !_.isNull(this.state.dataFetchedPlaces)}
           handleTriggerClick={() => {
-            this.setState({ toggledOpen: !this.state.toggledOpen });
+            this.setState({ isOpen: !this.state.isOpen });
           }}
           transitionTime={200}
           onOpen={this.scrollToHighlighted}
@@ -235,6 +227,7 @@ export class StatVarGroupNode extends React.Component<
                 highlightedStatVar={this.highlightedStatVar}
                 places={this.props.places}
                 showAllSV={this.props.showAllSV}
+                expandedPath={this.props.expandedPath}
               />
             )}
           </>
@@ -292,6 +285,26 @@ export class StatVarGroupNode extends React.Component<
         }
       }
     }, SCROLL_DELAY);
+  }
+
+  private getIsNodeOpen(
+    prevProps: StatVarGroupNodePropType,
+    newSelectionCount: number
+  ): boolean {
+    // A parent component may open a node when either the selection path or
+    // expanded path has changed.
+    const openedByParent =
+      (!_.isEqual(prevProps.pathToSelection, this.props.pathToSelection) ||
+        !_.isEqual(prevProps.expandedPath, this.props.expandedPath)) &&
+      this.props.startsOpened;
+    // If this is a stat var hierarchy that wants the path to the selected
+    // statistical variable expanded, then if the selection count for this node
+    // increases, we want to open this node
+    const openedByNewSelection =
+      INITIAL_EXPANSION_TYPES.includes(this.context.statVarHierarchyType) &&
+      newSelectionCount > this.state.selectionCount;
+    // If this node is already open, keep it open
+    return openedByParent || openedByNewSelection || this.state.isOpen;
   }
 }
 
