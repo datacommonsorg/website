@@ -248,6 +248,7 @@ the same region.
    ```javascript
       {
         "category": "", // The top level category this chart belongs to. Order of charts in the spec matters.
+        "topic": "",  // Strongly encouraged - A page-level grouping for this chart.
         "titleId": "", // Strictly for translation purposes.
         "title": "", // Default (EN) display string
         "description": "", // Strictly for translation purposes.
@@ -271,8 +272,9 @@ the same region.
 
    - If a new stat var is introduced, also update:
 
-     - [static/js/i18n/strings/en/stats_var_labels.json](../static/js/i18n/strings/en/stats_var_labels.json)
-     - [static/js/i18n/strings/en/stats_var_titles.json](../static/js/i18n/strings/en/stats_var_titles.json)
+     - Labels that appear as chips under comparison charts: [static/js/i18n/strings/en/stats_var_labels.json](../static/js/i18n/strings/en/stats_var_labels.json)
+     - Titles on ranking pages: [static/js/i18n/strings/en/stats_var_titles.json](../static/js/i18n/strings/en/stats_var_titles.json)
+     - New stat vars which have not been cached: [NEW_STAT_VARS](../server/configmodule.py)
 
    - If a new unit is required, update:
      - [static/js/i18n/i18n.tsx](../static/js/i18n/i18n.tsx)
@@ -287,7 +289,7 @@ the same region.
    ./scripts/compile_messages.sh
    ```
 
-1. **IMPORTANT**: Manually restart the flask or minikube instance to reload the config and translations.
+1. **IMPORTANT**: Manually restart the flask or minikube instance to reload the config and translations. Most likely, this means re-running `run_server.py`
 
 1. Test the data on a place page!
 
