@@ -529,7 +529,7 @@ categories {
   title: "Poverty and health"
 
   blocks {
-    title: "Health and poverty"
+    title: "Poverty and health"
     description: "Studies from CDC  and others have shown a correlation between obesity and poverty. Unfortunately, many other medical conditions are inversely correlated with economic well being."
     left_tiles {
       type: SCATTER

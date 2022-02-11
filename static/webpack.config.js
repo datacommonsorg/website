@@ -60,7 +60,12 @@ const config = {
       __dirname + "/js/protein/protein.ts",
       __dirname + "/css/protein.scss",
     ],
-    search: __dirname + "/css/search.scss",
+    search: [
+      __dirname + "/css/search.scss",
+    ],
+    search_landing: [
+      __dirname + "/js/search_landing.ts",
+    ],
     static: __dirname + "/css/static.scss",
     translator: [
       __dirname + "/js/translator/translator.ts",
