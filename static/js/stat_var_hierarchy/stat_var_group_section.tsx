@@ -34,6 +34,7 @@ interface StatVarGroupSectionPropType {
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   places: NamedPlace[];
   showAllSV: boolean;
+  expandedPath: string[];
 }
 
 export class StatVarGroupSection extends React.Component<
@@ -72,10 +73,12 @@ export class StatVarGroupSection extends React.Component<
                   data={childStatVarGroup}
                   pathToSelection={this.props.pathToSelection.slice(1)}
                   startsOpened={
-                    this.props.pathToSelection[0] === childStatVarGroup.id
+                    this.props.pathToSelection[0] === childStatVarGroup.id ||
+                    this.props.expandedPath[0] === childStatVarGroup.id
                   }
                   isSelected={this.props.pathToSelection.length === 1}
                   showAllSV={this.props.showAllSV}
+                  expandedPath={this.props.expandedPath.slice(1)}
                 />
               </div>
             );

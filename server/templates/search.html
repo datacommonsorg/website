@@ -18,8 +18,7 @@ limitations under the License.
 
 {% set search_query = request.args.get('q') %}
 {% set main_id = 'search' %}
-{% set title = search_query + ' - Search Results' %}
-{% set hide_search = True %}
+{% set title = search_query + ' - Search Results' if search_query else 'Search' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/search.min.css', t=config['VERSION'])}} >
@@ -27,7 +26,12 @@ limitations under the License.
 
 {% block content %}
 <div class="container">
+
+  {% if search_query %}
   <h1>Showing results for {{ search_query }}</h1>
+  {% else %}
+  <h1>Search Data Commons content</h1>
+  {% endif %}
 
   <div class="gcse-searchbox-only" data-resultsUrl="/search"></div>
 

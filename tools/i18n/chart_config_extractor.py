@@ -22,7 +22,7 @@ Though this should be run with the overall extract script:
 import json
 import os
 
-CHART_CONFIG_RELATIVE_PATH = '../../server/chart_config'
+CHART_CONFIG_RELATIVE_PATH = '../../server/config/chart_config'
 MESSAGES_POT_RELATIVE_PATH = '../../server/i18n/all.pot'
 
 

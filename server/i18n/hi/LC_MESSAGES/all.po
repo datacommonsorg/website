@@ -1,8 +1,8 @@
 msgid "%(project)s is a Google supported project"
 msgstr "%(project)s एक ऐसा प्रोजेक्ट है जिसे Google से सहायता मिलती है"
 
-msgid "API's"
-msgstr "API's"
+msgid "APIs"
+msgstr "APIs"
 
 msgid "About"
 msgstr "इसके बारे में जानकारी"
@@ -10,20 +10,8 @@ msgstr "इसके बारे में जानकारी"
 msgid "About Data Commons"
 msgstr "Data Commons के बारे में जानकारी"
 
-msgid "Attainment of Bachelor Degree or Higher across Washington Counties"
-msgstr "वॉशिंगटन काउंटी में ग्रेजुएशन की डिग्री या उससे आगे की शिक्षा को पाना"
-
-msgid "Bachelor Degree Attained vs. Females per capita for California Counties"
-msgstr ""
-
 msgid "Blog"
 msgstr "ब्लॉग"
-
-msgid "Browse entities in the %(project)s Graph"
-msgstr "%(project)s के ग्राफ़ में इकाइयां ब्राउज़ करें"
-
-msgid "Build your own"
-msgstr "अपना टूल बनाएं"
 
 msgid "Cities, United States"
 msgstr "संयुक्त राज्य अमेरिका के शहर"
@@ -52,12 +40,6 @@ msgstr "दस्तावेज़"
 msgid "Economic Indicators, Worldwide"
 msgstr "दुनिया भर में इकॉनमिक इंडिकेटर"
 
-msgid "Employment Differences Across Neighboring Cities"
-msgstr "दो पड़ोसी शहरों के बीच रोज़गार में फ़र्क़"
-
-msgid "Encyclopedia of DNA Elements (Biosamples)"
-msgstr "एन्साइक्लोपीडिया ऑफ़ डीएनए एलिमेंट (बायोसैंपल)"
-
 msgid "Enter a country, state, county or city"
 msgstr "देश, राज्य, काउंटी या शहर का नाम डालें"
 
@@ -72,9 +54,6 @@ msgstr "अक्सर पूछे जाने वाले सवाल"
 
 msgid "Feedback"
 msgstr "सुझाव/राय दें या शिकायत करें"
-
-msgid "Foreign Born vs. Unemployment Rate for US States"
-msgstr ""
 
 msgid "Frequently Asked Questions"
 msgstr "अक्सर पूछे जाने वाले सवाल"
@@ -97,21 +76,6 @@ msgstr "ग्राफ़ ब्राउज़र"
 msgid "Gross National Income"
 msgstr "सकल राष्ट्रीय आय"
 
-msgid "HOME-BUILD_CALLOUT"
-msgstr "अपने हिसाब से विश्लेषण करने के लिए, Python और REST API का इस्तेमाल करें. इनके इस्तेमाल से आप अपने टूल बनाने के साथ-साथ बहुत कुछ कर सकते हैं."
-
-msgid "HOME-EXPLORE_CALLOUT"
-msgstr "हमने डेटा को अच्छी तरह से प्रोसेस कर लिया है, ताकि इसमें कोई गड़बड़ी ना रह जाए. खास तरह से दिखाने के लिए, डेटा को अलग-अलग स्रोतों से इकट्ठा किया जाता है. ये डेटा किसी खास इकाइयों के लिए होते हैं."
-
-msgid "HOME-HERO_MESSAGE"
-msgstr "Data Commons, एक ऐसा प्रोजेक्ट है जिसमें डेटा स्टोर किया जाता है. इस प्रोजेक्ट में सार्वजनिक डेटासेट से डेटा इकट्ठा किया जाता है. ऐसा करने के लिए, एक जैसी इकाइयों को मैप किया जाता है. इसमें मौजूद डेटा को कोई भी ऐक्सेस कर सकता है. इस प्रोजेक्ट में मौजूद टूल, डेटा को आसानी से विश्लेषण करने की सुविधा देते हैं. इसमें अलग-अलग डेटासेट में डेटा को हटाने या जोड़ने की प्रोसेस पूरी नहीं करनी पड़ती है."
-
-msgid "HOME-JOIN_EFFORT"
-msgstr "Data Commons को बेहतर बनाने में अपना योगदान दें."
-
-msgid "HOME-OPEN_SOURCED"
-msgstr "<a href=%(github_url)s>सभी के लिए उपलब्ध डेटा</a>, <a href=%(schemaorg_url)s>%(tool)s</a> का इस्तेमाल करके बनाएं."
-
 msgid "Highest Crime Per Capita"
 msgstr "प्रति व्यक्ति आपराधिक गतिविधियों की सबसे ज़्यादा संख्या"
 
@@ -133,26 +97,11 @@ msgstr "औसत उम्र"
 msgid "Loading..."
 msgstr "लोड हो रहा है..."
 
-msgid "MORE"
-msgstr "ऐसे और भी लिंक हैं ..."
-
 msgid "Map Explorer"
 msgstr "मैप एक्सप्लोरर"
 
-msgid "Median Income across US Counties"
-msgstr "संयुक्त राज्य अमेरिका के अलग-अलग काउंटी में लोगों की औसत आय"
-
 msgid "Median Income, United States"
 msgstr "संयुक्त राज्य अमेरिका में औसत आय"
-
-msgid "New York City Department of Education"
-msgstr "न्यूयॉर्क शहर का शिक्षा विभाग"
-
-msgid "Open"
-msgstr "ओपन डेटा के बारे में जानकारी"
-
-msgid "Open Data."
-msgstr "सभी के लिए उपलब्ध डेटा (ओपन डेटा)"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>जगह एक्सप्लोर करने वाले टूल से आपको किसी जगह का सबसे ज़रूरी डेटा समझने में मदद मिलती है. यह टूल किसी जगह के बारे में शिक्षा और अर्थशास्त्र से जुड़ा डेटा, चार्ट में दिखाता है. इस डेटा में लोगों की जानकारी (जैसे, उम्र, लिंग, आय, शिक्षा वगैरह) भी शामिल होती है. साथ ही, अन्य जगहों का डेटा भी दिखाया जाता है, ताकि तुलना की जा सके. आप मेट्रिक के हिसाब से अलग-अलग जगहों की रैंक भी देख सकते हैं. इन मेट्रिक में बेरोज़गारी, अपराध, और आय शामिल हैं.</p><p>आप ऊपर दिए गए खोज बॉक्स का इस्तेमाल करके, अपने पसंदीदा शहर, पिन कोड, देश, राज्य या देश के हिसाब से डेटा के चार्ट देख सकते हैं.</p><p>इसके अलावा, आप सबसे मशहूर कुछ जगहों को एक्सप्लोर कर सकते हैं ...</p>"
@@ -172,20 +121,14 @@ msgstr "निजता नीति"
 msgid "Rankings"
 msgstr "रैंकिंग"
 
-msgid "Richest vs. Poorest California Counties"
-msgstr "कैलिफ़ोर्निया की काउंटी के सबसे अमीर बनाम सबसे गरीब"
-
 msgid "Scatter Plot Explorer"
 msgstr "स्कैटर प्लॉट एक्सप्लोरर"
 
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "See API documentation."
-msgstr "एपीआई दस्तावेज़ देखें"
-
-msgid "See some sample Python notebooks."
-msgstr "Python के कुछ सैंपल नोटबुक देखें"
+msgid "Search"
+msgstr ""
 
 msgid "States, United States"
 msgstr "संयुक्त राज्य अमेरिका के राज्य"
@@ -205,20 +148,8 @@ msgstr "टाइमलाइन एक्सप्लोर करने वा
 msgid "Tutorials"
 msgstr "ट्यूटोरियल"
 
-msgid "US University Towns by Income"
-msgstr "आमदनी के हिसाब से अमेरिकी यूनिवर्सिटी वाले टाउन"
-
-msgid "Unemployment Rate across US States"
-msgstr "संयुक्त राज्य अमेरिका के अलग-अलग राज्यों में बेरोज़गारी दर"
-
 msgid "Unemployment Rate, United States"
 msgstr "संयुक्त राज्य अमेरिका में बेरोज़गारी की दर"
-
-msgid "We have launched exciting new features, including a new map explorer, a new statistical variable menu that is used in all of our visualization tools (timeline explorer, scatter plot explorer, and map explorer), and new data. <a href=%(blog_url)s>Read our blog post for more details</a>."
-msgstr "हमने कुछ बेहतरीन सुविधाएं लॉन्च की हैं. इनमें, एक नया मैप एक्सप्लोरर, एक नया स्टैटिस्टिकल वैरिएबल मेन्यू जो हमारे सभी विज़ुअलाइज़ेशन टूल (टाइमलाइन एक्सप्लोरर, स्कैटर प्लॉट एक्सप्लोरर, और मैप एक्सप्लोरर) में इस्तेमाल होता है, और नया डेटा शामिल हैं. <a href=%(blog_url)s>ज़्यादा जानकारी के लिए हमारी ब्लॉग पोस्ट पढ़ें</a>."
-
-msgid "What's new"
-msgstr "नया क्या है"
 
 msgid "Worldwide"
 msgstr "दुनिया भर में"

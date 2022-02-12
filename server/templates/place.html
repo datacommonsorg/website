@@ -19,7 +19,6 @@
 {% set title = place_name + ' ' + category + ' - ' + _('Place Explorer') %}
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}
-{% set hide_search = True %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/place.min.css', t=config['VERSION'])}}>
