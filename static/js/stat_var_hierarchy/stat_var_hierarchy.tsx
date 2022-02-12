@@ -69,6 +69,8 @@ interface StatVarHierarchyStateType {
   errorMessage: string;
   // Indicates when search input was cleared after a result was selected.
   searchSelectionCleared: boolean;
+  // A path of svgs which should be expanded
+  expandedPath: string[];
   // A list of stat var group nodes.
   rootSVGs: StatVarGroupInfo[];
   // Select or de-select a stat var with its path.
@@ -88,6 +90,7 @@ export class StatVarHierarchy extends React.Component<
       focus: "",
       focusPath: [],
       searchSelectionCleared: false,
+      expandedPath: [],
       svPath: null,
       rootSVGs: [],
       togglePath: this.togglePath,
@@ -194,8 +197,12 @@ export class StatVarHierarchy extends React.Component<
                           data={svg}
                           pathToSelection={this.state.focusPath.slice(1)}
                           isSelected={this.state.focusPath.length === 1}
-                          startsOpened={this.state.focusPath[0] === svg.id}
+                          startsOpened={
+                            this.state.focusPath[0] === svg.id ||
+                            this.state.expandedPath[0] === svg.id
+                          }
                           showAllSV={this.state.showAllSV}
+                          expandedPath={this.state.expandedPath.slice(1)}
                         />
                       </Context.Provider>
                     );
@@ -272,6 +279,7 @@ export class StatVarHierarchy extends React.Component<
         focus: selection,
         focusPath: path,
         searchSelectionCleared,
+        expandedPath: searchSelectionCleared ? this.state.focusPath : [],
       });
     });
   }
