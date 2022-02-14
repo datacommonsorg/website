@@ -48,7 +48,7 @@ def get_landing_page_data(dcid, new_stat_vars):
 def get_landing_page_data_helper(dcid, stat_vars_string):
     data = {'place': dcid}
     if stat_vars_string:
-        data['newStatVars'] = '^'.split(stat_vars_string)
+        data['newStatVars'] = stat_vars_string.split('^')
     response = dc_service.fetch_data('/landing-page',
                                      data,
                                      compress=False,
