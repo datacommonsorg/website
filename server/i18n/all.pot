@@ -428,6 +428,62 @@ msgstr "Government expenditures on military (% of GDP)"
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "Rate of graduate or professional degree attainment by gender"
 
+#. Title of a place chart: Total number of hate crime incidents
+msgid "CHART_TITLE-Hate_Crime"
+msgstr "Hate Crime"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by disability
+msgid "CHART_TITLE-Hate_Crime_Disability"
+msgstr "Hate Crime motivated by disability"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by disability per 100,000 people
+msgid "CHART_TITLE-Hate_Crime_Disability_rate"
+msgstr "Hate crimes motivated by disability per 100,000 people"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by ethnicity
+msgid "CHART_TITLE-Hate_Crime_Ethnicity"
+msgstr "Hate Crime motivated by ethnicity"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by ethnicity per 100,000 people
+msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
+msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by gender
+msgid "CHART_TITLE-Hate_Crime_Gender"
+msgstr "Hate Crime motivated by gender"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by gender per 100,000 people
+msgid "CHART_TITLE-Hate_Crime_Gender_rate"
+msgstr "Hate crimes motivated by gender per 100,000 people"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by race
+msgid "CHART_TITLE-Hate_Crime_Race"
+msgstr "Hate Crime motivated by race"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by race per 100,000 people
+msgid "CHART_TITLE-Hate_Crime_Race_rate"
+msgstr "Hate crimes motivated by race per 100,000 people"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by religion
+msgid "CHART_TITLE-Hate_Crime_Religion"
+msgstr "Hate Crime motivated by religion"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by religion per 100,000 people
+msgid "CHART_TITLE-Hate_Crime_Religion_rate"
+msgstr "Hate crimes motivated by religion per 100,000 people"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by sexual orientation
+msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
+msgstr "Hate Crime motivated by sexual orientation"
+
+#. Title of a place chart: Total number of hate crime incidents motivated by sexual orientation per 100,000 people
+msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
+msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+
+#. Title of a place chart: Total number of hate crime incidents per 100,000 people
+msgid "CHART_TITLE-Hate_Crime_rate"
+msgstr "Hate crimes per 100,000 people"
+
 #. Title of a place chart: Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "Health behaviors"
@@ -752,7 +808,7 @@ msgstr "Unemployment rate"
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
 msgstr "Unemployment rate: urban vs rural"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed. Broken down by gender
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Unemployment rate by gender"
 
