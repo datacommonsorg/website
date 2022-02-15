@@ -85,7 +85,15 @@
     "title": "Hate Crime motivated by gender",
     "description": "Total number of hate crime incidents motivated by gender",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationGender_IsHateCrime"],
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Hate_Crime_Gender_rate",
+      "title": "Hate crimes motivated by gender per 100,000 people",
+      "description": "Total number of hate crime incidents motivated by gender per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
   },
   {
     "category": "Crime",
@@ -93,7 +101,15 @@
     "title": "Hate Crime motivated by race",
     "description": "Total number of hate crime incidents motivated by race",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationRace_IsHateCrime"],
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Hate_Crime_Race_rate",
+      "title": "Hate crimes motivated by race per 100,000 people",
+      "description": "Total number of hate crime incidents motivated by race per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
   },
   {
     "category": "Crime",
@@ -101,7 +117,15 @@
     "title": "Hate Crime motivated by religion",
     "description": "Total number of hate crime incidents motivated by religion",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime"],
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Hate_Crime_Religion_rate",
+      "title": "Hate crimes motivated by religion per 100,000 people",
+      "description": "Total number of hate crime incidents motivated by religion per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
   },
   {
     "category": "Crime",
@@ -109,7 +133,15 @@
     "title": "Hate Crime motivated by ethnicity",
     "description": "Total number of hate crime incidents motivated by ethnicity",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime"],
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Hate_Crime_Ethnicity_rate",
+      "title": "Hate crimes motivated by ethnicity per 100,000 people",
+      "description": "Total number of hate crime incidents motivated by ethnicity per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
   },
   {
     "category": "Crime",
@@ -117,7 +149,15 @@
     "title": "Hate Crime motivated by sexual orientation",
     "description": "Total number of hate crime incidents motivated by sexual orientation",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime"],
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate",
+      "title": "Hate crimes motivated by sexual orientation per 100,000 people",
+      "description": "Total number of hate crime incidents motivated by sexual orientation per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
   },
   {
     "category": "Crime",
@@ -125,6 +165,14 @@
     "title": "Hate Crime motivated by disability",
     "description": "Total number of hate crime incidents motivated by disability",
     "statsVars": ["Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"],
-    "isOverview": false
+    "isOverview": false,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Hate_Crime_Disability_rate",
+      "title": "Hate crimes motivated by disability per 100,000 people",
+      "description": "Total number of hate crime incidents motivated by disability per 100,000 people",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100000
+    }
   }
 ]

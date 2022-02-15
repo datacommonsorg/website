@@ -88,31 +88,31 @@
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of violent crimes."
   },
   "Count_CriminalIncidents_IsHateCrime": {
-    "defaultMessage": "Hate Crime Incidents",
+    "defaultMessage": "Hate Crimes",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents."
   },
   "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
-    "defaultMessage": "Hate Crime Incidents",
+    "defaultMessage": "Hate Crimes (Motivated by Gender)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents motivated by gender bias."
   },
   "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
-    "defaultMessage": "Hate Crime Incidents",
+    "defaultMessage": "Hate Crimes (Motivated by Race)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents motivated by racial bias."
   },
   "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
-    "defaultMessage": "Hate Crime Incidents",
+    "defaultMessage": "Hate Crimes (Motivated by Religion)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents motivated by religious bias."
   },
   "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
-    "defaultMessage": "Hate Crime Incidents",
+    "defaultMessage": "Hate Crimes (Motivated by Ethnicity)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents motivated by ethnicity bias."
   },
   "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
-    "defaultMessage": "Hate Crime Incidents",
+    "defaultMessage": "Hate Crimes (Motivated by Sexual Orientation)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents motivated by sexual orientation bias."
   },
   "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-    "defaultMessage": "Hate Crime Incidents",
+    "defaultMessage": "Hate Crimes (Motivated by Disability)",
     "description": "Label used to describe statistical variables in chart legends, string should be short. Describes the total number of hate crime incidents motivated by bias against disabilities."
   },
   "Count_CycloneEvent": {
