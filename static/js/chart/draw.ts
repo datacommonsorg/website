@@ -1085,7 +1085,7 @@ function drawGroupLineChart(
   legendWidth += LEGEND.marginLeft;
 
   // Adjust the width of in-chart legends.
-  let yRange = computeRanges(dataGroupsDict);
+  const yRange = computeRanges(dataGroupsDict);
   // if (!_.isEmpty(modelsDataGroupsDict)) {
   //   const modelsRange = computeRanges(modelsDataGroupsDict);
   //   yRange = d3.extent(yRange.concat(modelsRange)) as number[];
