@@ -60,8 +60,10 @@ spec:
           resources:
             limits:
               memory: "3G"
+              cpu: "500m"
             requests:
               memory: "3G"
+              cpu: "500m"
           env:
             - name: FLASK_ENV
               valueFrom:
@@ -99,8 +101,10 @@ spec:
           resources:
             limits:
               memory: "6G"
+              cpu: "800m"
             requests:
               memory: "6G"
+              cpu: "800m"
           args:
             - --mixer_project=$(MIXER_PROJECT)
             - --store_project=$(STORE_PROJECT)
@@ -173,8 +177,10 @@ spec:
           resources:
             limits:
               memory: "2G"
+              cpu: "200m"
             requests:
               memory: "2G"
+              cpu: "200m"
           readinessProbe:
             httpGet:
               path: /healthz
