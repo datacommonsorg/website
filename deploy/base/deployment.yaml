@@ -60,10 +60,8 @@ spec:
           resources:
             limits:
               memory: "3G"
-              cpu: "500m"
             requests:
               memory: "3G"
-              cpu: "500m"
           env:
             - name: FLASK_ENV
               valueFrom:
@@ -101,10 +99,8 @@ spec:
           resources:
             limits:
               memory: "6G"
-              cpu: "800m"
             requests:
               memory: "6G"
-              cpu: "800m"
           args:
             - --mixer_project=$(MIXER_PROJECT)
             - --store_project=$(STORE_PROJECT)
@@ -112,6 +108,8 @@ spec:
             - --base_table=$(BIG_TABLE)
             - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
+            - --import_group_tables=$(IMPORT_GROUP_TABLES)
+            - --use_import_group=true
           volumeMounts:
             - name: schema-mapping
               mountPath: /datacommons/mapping
@@ -136,6 +134,11 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigtable.version
+            - name: IMPORT_GROUP_TABLES
+              valueFrom:
+                configMapKeyRef:
+                  name: store-configmap
+                  key: bigtable_import_groups.json
             - name: MIXER_HASH
               valueFrom:
                 configMapKeyRef:
@@ -169,11 +172,9 @@ spec:
                   key: serviceName
           resources:
             limits:
-              memory: "1G"
-              cpu: "200m"
+              memory: "2G"
             requests:
-              memory: "1G"
-              cpu: "200m"
+              memory: "2G"
           readinessProbe:
             httpGet:
               path: /healthz

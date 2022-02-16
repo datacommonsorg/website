@@ -41,24 +41,21 @@
         </tr>
         <tr>
           <td width="200px">
-            Base Bigtable:
-          </td>
-          <br>
-          {% for base_table in base_tables %}
-            <td>
-              {% if loop.index != 1 %}{{", "}}{% endif %}
-              {{base_table}}
-            </td>
-          {% endfor %}
-        </tr>
-        <tr>
-          <td width="200px">
-            Branch Bigtable:
+            BigTable tables:
           </td>
           <td>
-            {{branch_table}}
+            {{tables[0]}}
+          </td>
+          <br>
+        </tr>
+        {% for table in tables[1:] %}
+        <tr>
+          <td></td>
+          <td>
+            {{table}}
           </td>
         </tr>
+        {% endfor %}
         <tr>
           <td width="200px">
             Bigquery Dataset:
