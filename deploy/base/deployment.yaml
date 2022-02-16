@@ -176,10 +176,10 @@ spec:
                   key: serviceName
           resources:
             limits:
-              memory: "2G"
+              memory: "1G"
               cpu: "200m"
             requests:
-              memory: "2G"
+              memory: "1G"
               cpu: "200m"
           readinessProbe:
             httpGet:
