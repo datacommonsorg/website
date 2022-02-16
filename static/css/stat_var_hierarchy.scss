@@ -153,12 +153,12 @@ $small-font-size: 0.75rem;
 
 .svg-search-result-subtitle {
   font-size: $small-font-size;
-  padding-left: 0.5rem;
-  font-weight: 300;
+  color: #7b7b7b;
 }
 
 .svg-search-result-title {
-  font-weight: 500;
+  display: flex;
+  align-items: center;
 }
 
 .sv-search-loading {
@@ -184,4 +184,13 @@ $small-font-size: 0.75rem;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.result-count-message {
+  padding: 0.4rem 15px 0 15px;
+}
+
+.svg-search-result-title .material-icons-outlined {
+  font-size: 1rem;
+  padding-right: 0.2rem;
 }
