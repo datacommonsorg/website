@@ -1085,11 +1085,13 @@ function drawGroupLineChart(
   legendWidth += LEGEND.marginLeft;
 
   // Adjust the width of in-chart legends.
-  const yRange = computeRanges(dataGroupsDict);
-  // if (!_.isEmpty(modelsDataGroupsDict)) {
-  //   const modelsRange = computeRanges(modelsDataGroupsDict);
-  //   yRange = d3.extent(yRange.concat(modelsRange)) as number[];
-  // }
+  let yRange = computeRanges(dataGroupsDict);
+  if (!_.isEmpty(modelsDataGroupsDict)) {
+    console.log(modelsDataGroupsDict);
+    const modelsRange = computeRanges(modelsDataGroupsDict);
+    yRange = d3.extent(yRange.concat(modelsRange)) as number[];
+    console.log(yRange);
+  }
   const minV = yRange[0];
   let maxV = yRange[1];
   if (minV === maxV) {
@@ -1177,6 +1179,7 @@ function drawGroupLineChart(
           .filter((dp) => {
             return dp[1] !== null;
           });
+          console.log(dataset);
         const line = d3
           .line()
           .x((d) => xScale(d[0]))
@@ -1184,6 +1187,7 @@ function drawGroupLineChart(
         const key = place + dataGroup.label.split("-")[0];
         let color = "#ccc";
         color = plotParams.lines[key].color; // super brittle - relies on how new sv's are built for model mmethods
+        console.log(color);
 
         chart
           .append("path")

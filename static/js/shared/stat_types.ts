@@ -27,6 +27,7 @@ export interface TimeSeries {
     measurementMethod?: string;
     provenanceUrl?: string;
     unit?: string;
+    observationPeriod?: string;
   };
 }
 

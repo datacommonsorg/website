@@ -81,7 +81,6 @@ interface ChartPropsType {
 }
 
 class Chart extends Component<ChartPropsType> {
-  data: StatData;
   svgContainer: React.RefObject<HTMLDivElement>;
   denomInput: React.RefObject<HTMLInputElement>;
   plotParams: PlotParams;
@@ -214,8 +213,6 @@ class Chart extends Component<ChartPropsType> {
    * with an artificial stat var in the form of StatVar-MMethod. The StatData
    * values for the StatVar is also updated to be the mean across the
    * measurement methods for the data.
-   *
-   * This only keeps Annual data.
    */
   private prepareIpccData(ipccData: StatAllApiResponse): StatData {
     const modelData = {
@@ -226,18 +223,27 @@ class Chart extends Component<ChartPropsType> {
       sources: new Set<string>(),
       measurementMethods: new Set<string>(),
     };
+    if (!this.statData.dates.length) {
+      return modelData;
+    }
     for (const place in ipccData.placeData) {
       const placeData = ipccData.placeData[place];
       modelData.places.push(place);
       modelData.data[place] = { data: {} };
       for (const sv in ipccData.placeData[place].statVarData) {
+        const mainObsPeriod = this.statData.data[place].data[sv].metadata.observationPeriod;
         modelData.statVars.push(sv);
         const svData = placeData.statVarData[sv];
         if ("sourceSeries" in svData) {
           const means = {};
-          const annualSeries = svData.sourceSeries;
+          const sourceSeries = svData.sourceSeries;
           // HACK: Replace requested series with means across models.
-          for (const series of annualSeries) {
+          const keepSeries = [];
+          for (const series of sourceSeries) {
+            if (series.observationPeriod !== mainObsPeriod) {
+              continue;
+            }
+            keepSeries.push(series);
             for (const date of Object.keys(series.val).sort()) {
               means[date] = date in means ? means[date] : [];
               means[date].push(series.val[date]);
@@ -249,10 +255,12 @@ class Chart extends Component<ChartPropsType> {
           for (const date in means) {
             means[date] = _.mean(means[date]);
           }
+          svData.sourceSeries = keepSeries;
           this.statData.data[place].data[sv].val = means;
         }
       }
     }
+    modelData.statVars = Array.from(new Set(modelData.statVars));
     modelData.dates = this.statData.dates;
     return modelData;
   }
@@ -306,6 +314,7 @@ class Chart extends Component<ChartPropsType> {
           this.minYear,
           this.maxYear
         );
+        console.log(this.ipccModels);
       }
       if (this.props.delta) {
         this.statData = convertToDelta(this.statData);
