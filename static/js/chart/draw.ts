@@ -1086,10 +1086,10 @@ function drawGroupLineChart(
 
   // Adjust the width of in-chart legends.
   let yRange = computeRanges(dataGroupsDict);
-  if (!_.isEmpty(modelsDataGroupsDict)) {
-    const modelsRange = computeRanges(modelsDataGroupsDict);
-    yRange = d3.extent(yRange.concat(modelsRange)) as number[];
-  }
+  // if (!_.isEmpty(modelsDataGroupsDict)) {
+  //   const modelsRange = computeRanges(modelsDataGroupsDict);
+  //   yRange = d3.extent(yRange.concat(modelsRange)) as number[];
+  // }
   const minV = yRange[0];
   let maxV = yRange[1];
   if (minV === maxV) {
