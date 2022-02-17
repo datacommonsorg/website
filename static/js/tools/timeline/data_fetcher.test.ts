@@ -19,13 +19,14 @@ import _ from "lodash";
 
 import { DataGroup } from "../../chart/base";
 import { loadLocaleData } from "../../i18n/i18n";
-import { StatApiResponse, TimeSeries } from "../../shared/stat_types";
+import { StatAllApiResponse, StatApiResponse, TimeSeries } from "../../shared/stat_types";
 import {
   computeRatio,
   convertToDelta,
   fetchStatData,
   getStatVarGroupWithTime,
   StatData,
+  statDataFromModels,
 } from "./data_fetcher";
 
 jest.mock("axios");
@@ -951,4 +952,320 @@ test("convert to delta", () => {
 
   statData = convertToDelta(statData);
   expect(statData).toEqual(expected);
+});
+
+test("transform from models - multiple places", () => {
+  let statData: StatData = {
+    data: {
+      "geoId/05": {
+        data: {
+          'Max_Temperature_RCP26': {
+            val: {
+              "2011-01": 1.0,
+              "2012-01": 3.0,
+            },
+            metadata: {
+              provenanceUrl: 'nasa.gov',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1M',
+            },
+          },
+        },
+        name: "Arkansas",
+      },
+      "country/USA": {
+        data: {
+          'Max_Temperature_RCP26': {
+            val: {
+              "2011-01": 4.0,
+              "2012-01": 6.0,
+            },
+            metadata: {
+              provenanceUrl: 'nasa.gov',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1M',
+            },
+          },
+        },
+        name: "USA",
+      },
+    },
+    dates: ["2011-01", "2012-01"],
+    places: ["geoId/05", "country/USA"],
+    statVars: [
+      'Max_Temperature_RCP26',
+    ],
+    sources: new Set(['nasa.gov']),
+    measurementMethods: new Set(['NASA_Mean_CCSM4']),
+  };
+
+  let modelStatAllResponse: StatAllApiResponse = {
+    placeData: {
+      'geoId/05': {
+        statVarData: {
+          'Max_Temperature_RCP26': {
+            sourceSeries: [{
+              importName: 'model1',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1M',
+              provenanceDomain: 'model.nasa.gov',
+              val: {
+                '2011-01': 10.0,
+                '2012-01': 12.0
+              }
+            },
+            {
+              importName: 'model2',
+              measurementMethod: 'NASA_Mean_HadGEM2-AO',
+              observationPeriod: 'P1M',
+              provenanceDomain: 'model.nasa.gov',
+              val: {
+                '2011-01': 12.0,
+                '2012-01': 14.0
+              }
+            }],
+          }
+        }
+      },
+      'country/USA': {
+        statVarData: {
+          'Max_Temperature_RCP26': {
+            sourceSeries: [{
+              importName: 'model1',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1M',
+              provenanceDomain: 'model.nasa.gov',
+              val: {
+                '2011-01': 20.0,
+                '2012-01': 22.0
+              }
+            },
+            {
+              importName: 'model2',
+              measurementMethod: 'NASA_Mean_HadGEM2-AO',
+              observationPeriod: 'P1M',
+              provenanceDomain: 'model.nasa.gov',
+              val: {
+                '2011-01': 22.0,
+                '2012-01': 24.0
+              }
+            }],
+          }
+        }
+      }
+    }
+  }
+
+  const expected: [StatData, StatData] = [{
+    // Modified mainStatData
+    data: {
+      "geoId/05": {
+        data: {
+          'Max_Temperature_RCP26': {
+            val: {
+              "2011-01": 11.0,
+              "2012-01": 13.0,
+            },
+            metadata: {
+              provenanceUrl: 'nasa.gov',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1M',
+            },
+          },
+        },
+        name: "Arkansas",
+      },
+      "country/USA": {
+        data: {
+          'Max_Temperature_RCP26': {
+            val: {
+              "2011-01": 21.0,
+              "2012-01": 23.0,
+            },
+            metadata: {
+              provenanceUrl: 'nasa.gov',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1M',
+            },
+          },
+        },
+        name: "USA",
+      },
+    },
+    dates: ["2011-01", "2012-01"],
+    places: ["geoId/05", "country/USA"],
+    statVars: [
+      'Max_Temperature_RCP26',
+    ],
+    sources: new Set(['model.nasa.gov']),
+    measurementMethods: new Set(['Mean across models']),
+  },
+  {
+    // model StatData
+    data: {
+      "geoId/05": {
+        data: {
+          'Max_Temperature_RCP26-NASA_Mean_CCSM4': {
+            val: modelStatAllResponse.placeData['geoId/05'].statVarData['Max_Temperature_RCP26'].sourceSeries[0].val,
+          },
+          'Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO': {
+            val: modelStatAllResponse.placeData['geoId/05'].statVarData['Max_Temperature_RCP26'].sourceSeries[1].val,
+          },
+        },
+      },
+      "country/USA": {
+        data: {
+          'Max_Temperature_RCP26-NASA_Mean_CCSM4': {
+            val: modelStatAllResponse.placeData['country/USA'].statVarData['Max_Temperature_RCP26'].sourceSeries[0].val,
+          },
+          'Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO': {
+            val: modelStatAllResponse.placeData['country/USA'].statVarData['Max_Temperature_RCP26'].sourceSeries[1].val,
+          },
+        },
+      },
+    },
+    dates: ["2011-01", "2012-01"],
+    places: ["geoId/05", "country/USA"],
+    statVars: [
+      'Max_Temperature_RCP26', 'Max_Temperature_RCP26-NASA_Mean_CCSM4', 'Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO',
+    ],
+    sources: new Set(['model.nasa.gov']),
+    measurementMethods: new Set(['NASA_Mean_CCSM4', 'NASA_Mean_HadGEM2-AO']),
+  }];
+
+  expect(statDataFromModels(statData, modelStatAllResponse)).toEqual(expected);
+});
+
+test("transform from models - multiple obs periods", () => {
+  let statData: StatData = {
+    data: {
+      "geoId/05": {
+        data: {
+          'Max_Temperature_RCP26': {
+            val: {
+              "2011": 1.0,
+              "2012": 3.0,
+            },
+            metadata: {
+              provenanceUrl: 'nasa.gov',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1Y',
+            },
+          },
+        },
+        name: "Arkansas",
+      },
+    },
+    dates: ["2011", "2012"],
+    places: ["geoId/05"],
+    statVars: [
+      'Max_Temperature_RCP26',
+    ],
+    sources: new Set(['nasa.gov']),
+    measurementMethods: new Set(['NASA_Mean_CCSM4']),
+  };
+
+  let modelStatAllResponse: StatAllApiResponse = {
+    placeData: {
+      'geoId/05': {
+        statVarData: {
+          'Max_Temperature_RCP26': {
+            sourceSeries: [{
+              importName: 'model1',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1M',
+              provenanceDomain: 'p1m.nasa.gov',
+              val: {
+                '2011': 10.0,
+                '2012': 12.0
+              }
+            },
+            {
+              importName: 'model2',
+              measurementMethod: 'NASA_Mean_HadGEM2-AO',
+              observationPeriod: 'P1M',
+              provenanceDomain: 'p1m.nasa.gov',
+              val: {
+                '2011': 12.0,
+                '2012': 14.0
+              }
+            },
+            {
+              importName: 'model1',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1Y',
+              provenanceDomain: 'p1y.nasa.gov',
+              val: {
+                '2011': 20.0,
+                '2012': 22.0
+              }
+            },
+            {
+              importName: 'model2',
+              measurementMethod: 'NASA_Mean_HadGEM2-AO',
+              observationPeriod: 'P1Y',
+              provenanceDomain: 'p1y.nasa.gov',
+              val: {
+                '2011': 22.0,
+                '2012': 24.0
+              }
+            }],
+          }
+        }
+      },
+    }
+  }
+
+  const expected: [StatData, StatData] = [{
+    // Modified mainStatData
+    data: {
+      "geoId/05": {
+        data: {
+          'Max_Temperature_RCP26': {
+            val: {
+              "2011": 21.0,
+              "2012": 23.0,
+            },
+            metadata: {
+              provenanceUrl: 'nasa.gov',
+              measurementMethod: 'NASA_Mean_CCSM4',
+              observationPeriod: 'P1Y',
+            },
+          },
+        },
+        name: "Arkansas",
+      },
+    },
+    dates: ["2011", "2012"],
+    places: ["geoId/05"],
+    statVars: [
+      'Max_Temperature_RCP26',
+    ],
+    sources: new Set(['p1y.nasa.gov']),
+    measurementMethods: new Set(['Mean across models']),
+  },
+  {
+    // model StatData
+    data: {
+      "geoId/05": {
+        data: {
+          'Max_Temperature_RCP26-NASA_Mean_CCSM4': {
+            val: modelStatAllResponse.placeData['geoId/05'].statVarData['Max_Temperature_RCP26'].sourceSeries[2].val,
+          },
+          'Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO': {
+            val: modelStatAllResponse.placeData['geoId/05'].statVarData['Max_Temperature_RCP26'].sourceSeries[3].val,
+          },
+        },
+      },
+    },
+    dates: ["2011", "2012"],
+    places: ["geoId/05"],
+    statVars: [
+      'Max_Temperature_RCP26', 'Max_Temperature_RCP26-NASA_Mean_CCSM4', 'Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO',
+    ],
+    sources: new Set(['p1y.nasa.gov']),
+    measurementMethods: new Set(['NASA_Mean_CCSM4', 'NASA_Mean_HadGEM2-AO']),
+  }];
+
+  expect(statDataFromModels(statData, modelStatAllResponse)).toEqual(expected);
 });

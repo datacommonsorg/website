@@ -28,6 +28,7 @@ import {
   getStatVarGroupWithTime,
   shortenStatData,
   StatData,
+  statDataFromModels,
 } from "./data_fetcher";
 import { setChartOption, setDenom } from "./util";
 
@@ -208,63 +209,6 @@ class Chart extends Component<ChartPropsType> {
     this.drawChart();
   }
 
-  /**
-   * Creates a new StatData object for all measurement methods of the stat var,
-   * with an artificial stat var in the form of StatVar-MMethod. The StatData
-   * values for the StatVar is also updated to be the mean across the
-   * measurement methods for the data.
-   */
-  private prepareIpccData(ipccData: StatAllApiResponse): StatData {
-    const modelData = {
-      places: [],
-      statVars: [],
-      dates: [],
-      data: {},
-      sources: new Set<string>(),
-      measurementMethods: new Set<string>(),
-    };
-    if (!this.statData.dates.length) {
-      return modelData;
-    }
-    for (const place in ipccData.placeData) {
-      const placeData = ipccData.placeData[place];
-      modelData.places.push(place);
-      modelData.data[place] = { data: {} };
-      for (const sv in ipccData.placeData[place].statVarData) {
-        const mainObsPeriod = this.statData.data[place].data[sv].metadata.observationPeriod;
-        modelData.statVars.push(sv);
-        const svData = placeData.statVarData[sv];
-        if ("sourceSeries" in svData) {
-          const means = {};
-          const sourceSeries = svData.sourceSeries;
-          // HACK: Replace requested series with means across models.
-          const keepSeries = [];
-          for (const series of sourceSeries) {
-            if (series.observationPeriod !== mainObsPeriod) {
-              continue;
-            }
-            keepSeries.push(series);
-            for (const date of Object.keys(series.val).sort()) {
-              means[date] = date in means ? means[date] : [];
-              means[date].push(series.val[date]);
-            }
-            const newSv = `${sv}-${series.measurementMethod}`;
-            modelData.data[place].data[newSv] = { val: series.val };
-            modelData.statVars.push(newSv);
-          }
-          for (const date in means) {
-            means[date] = _.mean(means[date]);
-          }
-          svData.sourceSeries = keepSeries;
-          this.statData.data[place].data[sv].val = means;
-        }
-      }
-    }
-    modelData.statVars = Array.from(new Set(modelData.statVars));
-    modelData.dates = this.statData.dates;
-    return modelData;
-  }
-
   private loadDataAndDrawChart() {
     // If URL param and stat var == ipcc something, also fetch historical
     // also fetch all models
@@ -308,13 +252,14 @@ class Chart extends Component<ChartPropsType> {
       const ipccStatAllData = resp[1];
 
       if (ipccStatAllData) {
-        this.ipccModels = this.prepareIpccData(ipccStatAllData);
+        const [processedStat, modelStat] = statDataFromModels(this.statData, ipccStatAllData);
+        this.statData = processedStat;
+        this.ipccModels = modelStat;
         this.ipccModels = shortenStatData(
           this.ipccModels,
           this.minYear,
           this.maxYear
         );
-        console.log(this.ipccModels);
       }
       if (this.props.delta) {
         this.statData = convertToDelta(this.statData);
