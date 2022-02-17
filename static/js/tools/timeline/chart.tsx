@@ -252,7 +252,10 @@ class Chart extends Component<ChartPropsType> {
       const ipccStatAllData = resp[1];
 
       if (ipccStatAllData) {
-        const [processedStat, modelStat] = statDataFromModels(this.statData, ipccStatAllData);
+        const [processedStat, modelStat] = statDataFromModels(
+          this.statData,
+          ipccStatAllData
+        );
         this.statData = processedStat;
         this.ipccModels = modelStat;
         this.ipccModels = shortenStatData(
