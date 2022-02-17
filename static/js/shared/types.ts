@@ -58,7 +58,7 @@ export interface StatVarGroupInfo {
   id: string;
   specializedEntity: string;
   displayName: string;
-  numDescendentStatVars: number;
+  descendentStatVarCount: number;
 }
 
 export interface StatVarGroupNodeType {
