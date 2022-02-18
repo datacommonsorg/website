@@ -56,12 +56,12 @@ export class StatVarHierarchySearch extends React.Component<
   constructor(props: StatVarHierarchySearchPropType) {
     super(props);
     this.state = {
+      matches: [],
       query: "",
       showNoResultsMessage: false,
       showResults: false,
       svResults: [],
       svgResults: [],
-      matches: [],
     };
     this.onInputChanged = this.onInputChanged.bind(this);
     this.search = this.search.bind(this);
@@ -194,22 +194,22 @@ export class StatVarHierarchySearch extends React.Component<
           const svResults: NamedNode[] = data.statVars || [];
           const matches: string[] = data.matches || [];
           this.setState({
-            svResults,
-            svgResults,
             matches,
             showNoResultsMessage:
               _.isEmpty(svgResults) &&
               _.isEmpty(svResults) &&
               !_.isEmpty(query),
+            svgResults,
+            svResults,
           });
         }
       })
       .catch(() => {
         this.setState({
-          svResults: [],
-          svgResults: [],
           matches: [],
           showNoResultsMessage: true,
+          svgResults: [],
+          svResults: [],
         });
       });
   };
