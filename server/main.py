@@ -143,12 +143,10 @@ def mcf_playground():
 @app.route('/version')
 def version():
     mixer_version = dc.version()
-
     return flask.render_template('version.html',
                                  website_hash=os.environ.get("WEBSITE_HASH"),
                                  mixer_hash=mixer_version['gitHash'],
-                                 base_tables=mixer_version['baseTables'],
-                                 branch_table=mixer_version['branchTable'],
+                                 tables=mixer_version['tables'],
                                  bigquery=mixer_version['bigQuery'])
 
 
