@@ -256,11 +256,7 @@ export class StatVarHierarchySearch extends React.Component<
   // highlighted.
   // eg. s: "test string abc def", matches: ["abc", "blank"]
   //     would return s with "abc" highlighted
-  private getHighlightedJSX(
-    id: string,
-    s: string,
-    matches: string[]
-  ): JSX.Element {
+  getHighlightedJSX(id: string, s: string, matches: string[]): JSX.Element {
     let prevResult = [s];
     let currResult = [];
     matches.sort((a, b) => b.length - a.length);
