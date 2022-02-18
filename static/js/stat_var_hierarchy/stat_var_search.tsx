@@ -116,8 +116,10 @@ export class StatVarHierarchySearch extends React.Component<
           <div className="statvar-hierarchy-search-results" tabIndex={-1}>
             {showResultCount && (
               <div className="result-count-message">
-                Matches {this.state.svgResults.length} groups and {numStatVars}{" "}
-                statistical variables
+                {this.getResultCountString(
+                  this.state.svgResults.length,
+                  numStatVars
+                )}
               </div>
             )}
             {!_.isEmpty(this.state.svgResults) && (
@@ -320,5 +322,20 @@ export class StatVarHierarchySearch extends React.Component<
       );
     });
     return svgResultJsx;
+  }
+
+  getResultCountString(numSvg: number, numSv: number): string {
+    let result = "Matches ";
+    if (numSvg > 0) {
+      const suffix = numSvg > 1 ? " groups" : " group";
+      result += numSvg + suffix;
+    }
+    if (numSv > 0) {
+      const prefix = numSvg > 0 ? " and " : "";
+      const suffix =
+        numSv > 1 ? " statistical variables" : " statistical variable";
+      result += prefix + numSv + suffix;
+    }
+    return result;
   }
 }

@@ -95,3 +95,63 @@ test("getHighlightedJSX", () => {
     }
   }
 });
+
+test("getResultCountString", () => {
+  const wrapper = shallow(
+    <StatVarHierarchySearch places={[]} onSelectionChange={_.noop} />
+  );
+  const cases: {
+    numSvg: number;
+    numSv: number;
+    wantString: string;
+  }[] = [
+    {
+      numSvg: 2,
+      numSv: 3,
+      wantString: "Matches 2 groups and 3 statistical variables",
+    },
+    {
+      numSvg: 2,
+      numSv: 1,
+      wantString: "Matches 2 groups and 1 statistical variable",
+    },
+    {
+      numSvg: 1,
+      numSv: 3,
+      wantString: "Matches 1 group and 3 statistical variables",
+    },
+    {
+      numSvg: 0,
+      numSv: 3,
+      wantString: "Matches 3 statistical variables",
+    },
+    {
+      numSvg: 0,
+      numSv: 1,
+      wantString: "Matches 1 statistical variable",
+    },
+    {
+      numSvg: 3,
+      numSv: 0,
+      wantString: "Matches 3 groups",
+    },
+    {
+      numSvg: 1,
+      numSv: 0,
+      wantString: "Matches 1 group",
+    },
+  ];
+  for (const c of cases) {
+    const resultCountString = wrapper
+      .instance()
+      .getResultCountString(c.numSvg, c.numSv);
+    try {
+      expect(resultCountString).toEqual(c.wantString);
+    } catch (e) {
+      console.log(
+        `Got different result count string than expected for <numSvg: ${c.numSvg}, numSv: ${c.numSv}>`
+      );
+      throw e;
+    }
+  }
+});
