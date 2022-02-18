@@ -430,11 +430,11 @@ msgstr "Rate of graduate or professional degree attainment by gender"
 
 #. Title of a place chart: Total number of hate crime incidents
 msgid "CHART_TITLE-Hate_Crime"
-msgstr "Hate Crime"
+msgstr "Hate crime"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by disability
 msgid "CHART_TITLE-Hate_Crime_Disability"
-msgstr "Hate Crime motivated by disability"
+msgstr "Hate crime motivated by disability"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by disability per 100,000 people
 msgid "CHART_TITLE-Hate_Crime_Disability_rate"
@@ -442,7 +442,7 @@ msgstr "Hate crimes motivated by disability per 100,000 people"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by ethnicity
 msgid "CHART_TITLE-Hate_Crime_Ethnicity"
-msgstr "Hate Crime motivated by ethnicity"
+msgstr "Hate crime motivated by ethnicity"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by ethnicity per 100,000 people
 msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
@@ -450,7 +450,7 @@ msgstr "Hate crimes motivated by ethnicity per 100,000 people"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by gender
 msgid "CHART_TITLE-Hate_Crime_Gender"
-msgstr "Hate Crime motivated by gender"
+msgstr "Hate crime motivated by gender"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by gender per 100,000 people
 msgid "CHART_TITLE-Hate_Crime_Gender_rate"
@@ -458,7 +458,7 @@ msgstr "Hate crimes motivated by gender per 100,000 people"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by race
 msgid "CHART_TITLE-Hate_Crime_Race"
-msgstr "Hate Crime motivated by race"
+msgstr "Hate crime motivated by race"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by race per 100,000 people
 msgid "CHART_TITLE-Hate_Crime_Race_rate"
@@ -466,7 +466,7 @@ msgstr "Hate crimes motivated by race per 100,000 people"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by religion
 msgid "CHART_TITLE-Hate_Crime_Religion"
-msgstr "Hate Crime motivated by religion"
+msgstr "Hate crime motivated by religion"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by religion per 100,000 people
 msgid "CHART_TITLE-Hate_Crime_Religion_rate"
@@ -474,7 +474,7 @@ msgstr "Hate crimes motivated by religion per 100,000 people"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by sexual orientation
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
-msgstr "Hate Crime motivated by sexual orientation"
+msgstr "Hate crime motivated by sexual orientation"
 
 #. Title of a place chart: Total number of hate crime incidents motivated by sexual orientation per 100,000 people
 msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
