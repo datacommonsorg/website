@@ -176,11 +176,11 @@ export class StatVarGroupNode extends React.Component<
     const childSVG = this.props.showAllSV
       ? this.state.childSVG
       : this.state.childSVG.filter((svg) => {
-          return svg.numDescendentStatVars > 0 || svgOnSvPath.has(svg.id);
+          return svg.descendentStatVarCount > 0 || svgOnSvPath.has(svg.id);
         });
     const getTrigger = (opened: boolean) => {
       return React.createElement(StatVarHierarchyNodeHeader, {
-        childrenStatVarCount: this.props.data.numDescendentStatVars,
+        childrenStatVarCount: this.props.data.descendentStatVarCount,
         highlighted: this.props.isSelected,
         nodeType: StatVarHierarchyNodeType.STAT_VAR_GROUP,
         opened,

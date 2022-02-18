@@ -112,6 +112,8 @@ spec:
             - --base_table=$(BIG_TABLE)
             - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
+            - --import_group_tables=$(IMPORT_GROUP_TABLES)
+            - --use_import_group=false
           volumeMounts:
             - name: schema-mapping
               mountPath: /datacommons/mapping
@@ -136,6 +138,11 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigtable.version
+            - name: IMPORT_GROUP_TABLES
+              valueFrom:
+                configMapKeyRef:
+                  name: store-configmap
+                  key: bigtable_import_groups.json
             - name: MIXER_HASH
               valueFrom:
                 configMapKeyRef:

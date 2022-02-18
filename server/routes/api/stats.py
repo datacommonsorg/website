@@ -346,9 +346,9 @@ def get_statvar_group():
             svg_id = svg.get("id", "")
             if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
                 continue
-            svg_num_descendents = svg.get("numDescendentStatVars", 0)
+            svg_num_descendents = svg.get("descendentStatVarCount", 0)
             if svg_id in UPDATE_NUM_DESCENDENTS_SVG and svg_num_descendents > NUM_DESCENDENTS_TO_SUBTRACT:
-                svg["numDescendentStatVars"] = svg_num_descendents - NUM_DESCENDENTS_TO_SUBTRACT
+                svg["descendentStatVarCount"] = svg_num_descendents - NUM_DESCENDENTS_TO_SUBTRACT
             filteredChildSVG.append(svg)
         result["childStatVarGroups"] = filteredChildSVG
     return Response(json.dumps(result), 200, mimetype='application/json')

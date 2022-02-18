@@ -130,7 +130,7 @@ export class StatVarHierarchy extends React.Component<
         svgOnSvPath.add(this.state.svPath[sv][0]);
       }
       rootSVGs = rootSVGs.filter(
-        (svg) => svg.numDescendentStatVars > 0 || svgOnSvPath.has(svg.id)
+        (svg) => svg.descendentStatVarCount > 0 || svgOnSvPath.has(svg.id)
       );
     }
     return (
