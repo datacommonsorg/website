@@ -101,43 +101,43 @@ test("getResultCountString", () => {
     <StatVarHierarchySearch places={[]} onSelectionChange={_.noop} />
   );
   const cases: {
-    numSvg: number;
     numSv: number;
+    numSvg: number;
     wantString: string;
   }[] = [
     {
-      numSvg: 2,
       numSv: 3,
+      numSvg: 2,
       wantString: "Matches 2 groups and 3 statistical variables",
     },
     {
-      numSvg: 2,
       numSv: 1,
+      numSvg: 2,
       wantString: "Matches 2 groups and 1 statistical variable",
     },
     {
-      numSvg: 1,
       numSv: 3,
+      numSvg: 1,
       wantString: "Matches 1 group and 3 statistical variables",
     },
     {
-      numSvg: 0,
       numSv: 3,
+      numSvg: 0,
       wantString: "Matches 3 statistical variables",
     },
     {
-      numSvg: 0,
       numSv: 1,
+      numSvg: 0,
       wantString: "Matches 1 statistical variable",
     },
     {
-      numSvg: 3,
       numSv: 0,
+      numSvg: 3,
       wantString: "Matches 3 groups",
     },
     {
-      numSvg: 1,
       numSv: 0,
+      numSvg: 1,
       wantString: "Matches 1 group",
     },
   ];
