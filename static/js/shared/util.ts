@@ -94,8 +94,8 @@ export function isDateTooFar(date: string): boolean {
 }
 
 export function getCappedStatVarDate(statVar: string): string {
-  // Only want to cap stat var date for stat vars with RCP.
-  if (!statVar.includes("_RCP")) {
+  // Only want to cap stat var date for stat vars with RCP or SSP.
+  if (!statVar.includes("_RCP") && !statVar.includes("_SSP")) {
     return "";
   }
   for (const svSubstring of NO_DATE_CAP_RCP_STATVARS) {
