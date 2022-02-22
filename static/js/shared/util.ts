@@ -35,6 +35,9 @@ export const placeExplorerCategories = [
 ];
 
 const NO_DATE_CAP_RCP_STATVARS = [
+  // This stat var only has data for 2100. while other stat vars along the same
+  // lines (eg. NumberOfMonths_5CelsiusOrMore_Percentile90AcrossModels_) have
+  // data for 2030, 2050, and 2100 so we want to cap the date for those at 2050.
   "NumberOfMonths_5CelsiusOrMore_Percentile10AcrossModels_",
 ];
 
@@ -94,8 +97,8 @@ export function isDateTooFar(date: string): boolean {
 }
 
 export function getCappedStatVarDate(statVar: string): string {
-  // Only want to cap stat var date for stat vars with RCP.
-  if (!statVar.includes("_RCP")) {
+  // Only want to cap stat var date for stat vars with RCP or SSP.
+  if (!statVar.includes("_RCP") && !statVar.includes("_SSP")) {
     return "";
   }
   for (const svSubstring of NO_DATE_CAP_RCP_STATVARS) {
