@@ -116,8 +116,10 @@ export class StatVarHierarchySearch extends React.Component<
           <div className="statvar-hierarchy-search-results" tabIndex={-1}>
             {showResultCount && (
               <div className="result-count-message">
-                Matches {this.state.svgResults.length} groups and {numStatVars}{" "}
-                statistical variables
+                {this.getResultCountString(
+                  this.state.svgResults.length,
+                  numStatVars
+                )}
               </div>
             )}
             {!_.isEmpty(this.state.svgResults) && (
@@ -156,6 +158,50 @@ export class StatVarHierarchySearch extends React.Component<
           </div>
         )}
       </div>
+    );
+  }
+
+  getResultCountString(numSvg: number, numSv: number): string {
+    let result = "Matches ";
+    if (numSvg > 0) {
+      const suffix = numSvg > 1 ? " groups" : " group";
+      result += numSvg + suffix;
+    }
+    if (numSv > 0) {
+      const prefix = numSvg > 0 ? " and " : "";
+      const suffix =
+        numSv > 1 ? " statistical variables" : " statistical variable";
+      result += prefix + numSv + suffix;
+    }
+    return result;
+  }
+
+  // Creates a jsx element with parts of the string matching a set of words
+  // highlighted.
+  // eg. s: "test string abc def", matches: ["abc", "blank"]
+  //     would return s with "abc" highlighted
+  getHighlightedJSX(id: string, s: string, matches: string[]): JSX.Element {
+    let prevResult = [s];
+    let currResult = [];
+    matches.sort((a, b) => b.length - a.length);
+    for (const match of matches) {
+      const re = new RegExp(`(${match})`, "gi");
+      prevResult.forEach((stringPart) =>
+        currResult.push(...stringPart.split(re))
+      );
+      prevResult = currResult;
+      currResult = [];
+    }
+    return (
+      <>
+        {prevResult.map((stringPart, i) => {
+          if (matches.indexOf(stringPart) > -1) {
+            return <b key={`${id}-${i}`}>{stringPart}</b>;
+          } else {
+            return stringPart;
+          }
+        })}
+      </>
     );
   }
 
@@ -251,35 +297,6 @@ export class StatVarHierarchySearch extends React.Component<
       svgResults: [],
     });
   };
-
-  // Creates a jsx element with parts of the string matching a set of words
-  // highlighted.
-  // eg. s: "test string abc def", matches: ["abc", "blank"]
-  //     would return s with "abc" highlighted
-  getHighlightedJSX(id: string, s: string, matches: string[]): JSX.Element {
-    let prevResult = [s];
-    let currResult = [];
-    matches.sort((a, b) => b.length - a.length);
-    for (const match of matches) {
-      const re = new RegExp(`(${match})`, "gi");
-      prevResult.forEach((stringPart) =>
-        currResult.push(...stringPart.split(re))
-      );
-      prevResult = currResult;
-      currResult = [];
-    }
-    return (
-      <>
-        {prevResult.map((stringPart, i) => {
-          if (matches.indexOf(stringPart) > -1) {
-            return <b key={`${id}-${i}`}>{stringPart}</b>;
-          } else {
-            return stringPart;
-          }
-        })}
-      </>
-    );
-  }
 
   private getSvgResultJsx(svgResults: SvgSearchResult[]): JSX.Element[] {
     const svgResultJsx = svgResults.map((svg) => {
