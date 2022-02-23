@@ -113,7 +113,6 @@ spec:
             - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
             - --import_group_tables=$(IMPORT_GROUP_TABLES)
-            - --use_import_group=false
           volumeMounts:
             - name: schema-mapping
               mountPath: /datacommons/mapping
