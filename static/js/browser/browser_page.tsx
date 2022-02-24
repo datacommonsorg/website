@@ -217,7 +217,11 @@ export class BrowserPage extends React.Component<
       .then(([labelsData, ProvenanceData]) => {
         const provDomain = {};
         for (const prov of ProvenanceData) {
-          if (prov["predicate"] === "typeOf" && !!prov["subjectName"]) {
+          if (
+            prov["subjectTypes"] &&
+            prov["subjectTypes"][0] === "Provenance" &&
+            !!prov["subjectName"]
+          ) {
             provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
           }
         }

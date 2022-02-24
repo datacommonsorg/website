@@ -85,3 +85,4 @@ gcloud endpoints services deploy mixer-grpc.$MIXER_HASH.pb endpoints.yaml --proj
 git checkout HEAD -- kustomization.yaml
 cd $ROOT
 git checkout HEAD -- deploy/git/mixer_hash.txt
+git checkout HEAD -- deploy/git/website_hash.txt
