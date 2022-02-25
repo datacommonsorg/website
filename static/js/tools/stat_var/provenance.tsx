@@ -58,14 +58,18 @@ class Provenance extends Component<ProvenancePropType, unknown> {
             <li>
               Total observations:{" "}
               {formatNumber(
-                this.props.summary.numObservations,
+                this.props.summary.observationCount,
                 undefined,
                 true
               )}
             </li>
             <li>
               Total time series:{" "}
-              {formatNumber(this.props.summary.numTimeSeries, undefined, true)}
+              {formatNumber(
+                this.props.summary.timeSeriesCount,
+                undefined,
+                true
+              )}
             </li>
             {this.props.summary.releaseFrequency && (
               <li>Release frequency: {this.props.summary.releaseFrequency}</li>
@@ -115,10 +119,10 @@ class Provenance extends Component<ProvenancePropType, unknown> {
                     </ul>
                   </td>
                   <td className="number-column">
-                    {formatNumber(element.numObservations, undefined, true)}
+                    {formatNumber(element.observationCount, undefined, true)}
                   </td>
                   <td className="number-column">
-                    {formatNumber(element.numTimeSeries, undefined, true)}
+                    {formatNumber(element.timeSeriesCount, undefined, true)}
                   </td>
                   <td>
                     <span>{element.earliestDate}</span>

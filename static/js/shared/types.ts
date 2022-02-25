@@ -92,11 +92,10 @@ export interface Boundary {
 interface PlaceSummary {
   dcid: string;
   name: string;
-  personCount: number;
 }
 
 export interface PlaceTypeSummary {
-  numPlaces: number;
+  placeCount: number;
   topPlaces: PlaceSummary[];
 }
 
@@ -112,15 +111,15 @@ interface SeriesSummary {
   seriesKey: SeriesKey;
   earliestDate: string;
   latestDate: string;
-  numObservations: number;
-  numTimeSeries: number;
+  observationCount: number;
+  timeSeriesCount: number;
   placeTypeSummary: { [placeType: string]: PlaceTypeSummary };
 }
 
 export interface ProvenanceSummary {
   importName: string;
-  numObservations: number;
-  numTimeSeries: number;
+  observationCount: number;
+  timeSeriesCount: number;
   releaseFrequency?: number;
   seriesSummary: SeriesSummary[];
 }
