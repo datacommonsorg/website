@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -50,3 +50,12 @@ patchesStrategicMerge:
           maxSurge: 2
           # maximum number of Pods that can be unavailable during the update process
           maxUnavailable: 75%
+
+# Patch to update the binary start up argument
+patchesJson6902:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: website-app
+    path: patch_args.yaml
