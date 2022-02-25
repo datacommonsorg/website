@@ -124,7 +124,9 @@ class Explorer extends Component<ExplorerPropType, unknown> {
     }
     let count = 0;
     for (const placeType in this.props.summary.placeTypeSummary) {
-      count += Number(this.props.summary.placeTypeSummary[placeType].numPlaces);
+      count += Number(
+        this.props.summary.placeTypeSummary[placeType].placeCount
+      );
     }
     return count;
   }
