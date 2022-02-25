@@ -206,6 +206,14 @@ export class BrowserPage extends React.Component<
       : this.props.dcid;
   }
 
+  private isProvenanceEntity(prov): boolean {
+    return (
+      prov["subjectTypes"] &&
+      prov["subjectTypes"][0] === "Provenance" &&
+      !!prov["subjectName"]
+    );
+  }
+
   private fetchData(): void {
     const provenancePromise = axios
       .get("/api/browser/triples/Provenance")
@@ -217,11 +225,7 @@ export class BrowserPage extends React.Component<
       .then(([labelsData, ProvenanceData]) => {
         const provDomain = {};
         for (const prov of ProvenanceData) {
-          if (
-            prov["subjectTypes"] &&
-            prov["subjectTypes"][0] === "Provenance" &&
-            !!prov["subjectName"]
-          ) {
+          if (this.isProvenanceEntity(prov)) {
             provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
           }
         }
