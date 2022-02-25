@@ -20,6 +20,7 @@ import _ from "lodash";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
   DisplayNameApiResponse,
+  StatAllApiResponse,
   StatApiResponse,
   TimeSeries,
 } from "../../shared/stat_types";
@@ -291,4 +292,80 @@ export function fetchStatData(
     result.dates = Array.from(allDates.values()).sort();
     return result;
   });
+}
+
+/**
+ * Creates a new StatData object for all measurement methods of the stat var,
+ * with an artificial stat var in the form of StatVar-MMethod. The StatData
+ * values for the StatVar is also updated to be the mean across the
+ * measurement methods for the data.
+ *
+ * @param mainStatData StatData for the main data line to plot.
+ * @param modelStatAllResponse StatAllApiResponse for all available measurement methods for the mainStatData.
+ *
+ * @return pair of (transformed mainStatData with mean values, processed model StatData)
+ */
+export function statDataFromModels(
+  mainStatData: StatData,
+  modelStatAllResponse: StatAllApiResponse
+): [StatData, StatData] {
+  const modelData = {
+    places: [],
+    statVars: [],
+    dates: [],
+    data: {},
+    sources: new Set<string>(),
+    measurementMethods: new Set<string>(),
+  };
+  if (!mainStatData.dates.length) {
+    return [mainStatData, modelData];
+  }
+  for (const place in modelStatAllResponse.placeData) {
+    const placeData = modelStatAllResponse.placeData[place];
+    modelData.places.push(place);
+    modelData.data[place] = { data: {} };
+    for (const sv in modelStatAllResponse.placeData[place].statVarData) {
+      if (!(place in mainStatData.data)) {
+        continue;
+      }
+      const mainObsPeriod =
+        mainStatData.data[place].data[sv].metadata.observationPeriod;
+      modelData.statVars.push(sv);
+      const svData = placeData.statVarData[sv];
+      if ("sourceSeries" in svData) {
+        const dateVals = {};
+        const means = {};
+        const sourceSeries = svData.sourceSeries;
+        // Replace requested series with means across models.
+        const keepSeries = [];
+        for (const series of sourceSeries) {
+          if (series.observationPeriod !== mainObsPeriod) {
+            continue;
+          }
+          keepSeries.push(series);
+          mainStatData.measurementMethods.delete(series.measurementMethod);
+          modelData.measurementMethods.add(series.measurementMethod);
+          modelData.sources.add(series.provenanceDomain);
+          for (const date of Object.keys(series.val).sort()) {
+            dateVals[date] = date in dateVals ? dateVals[date] : [];
+            dateVals[date].push(series.val[date]);
+          }
+          const newSv = `${sv}-${series.measurementMethod}`;
+          modelData.data[place].data[newSv] = { val: series.val };
+          modelData.statVars.push(newSv);
+        }
+        for (const date in dateVals) {
+          means[date] = _.mean(dateVals[date]);
+        }
+        // Update modelStatAllResponse to drop the series with non-matching obs period.
+        svData.sourceSeries = keepSeries;
+        mainStatData.data[place].data[sv].val = means;
+        mainStatData.measurementMethods.add("Mean across models");
+      }
+    }
+  }
+  modelData.statVars = Array.from(new Set(modelData.statVars));
+  mainStatData.sources = modelData.sources;
+  modelData.dates = mainStatData.dates;
+  return [mainStatData, modelData];
 }

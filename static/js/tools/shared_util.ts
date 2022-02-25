@@ -129,9 +129,10 @@ export function getUnit(
  */
 export function isIpccStatVarWithMultipleModels(statVar: string): boolean {
   return (
-    statVar.indexOf("_Temperature") > 0 &&
-    statVar.indexOf("Difference") < 0 &&
-    statVar.indexOf("RCP") > 0
+    statVar.startsWith("PrecipitationRate") ||
+    (statVar.indexOf("_Temperature") > 0 &&
+      statVar.indexOf("Difference") < 0 &&
+      statVar.indexOf("RCP") > 0)
   );
 }
 
