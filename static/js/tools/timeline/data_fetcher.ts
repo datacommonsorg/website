@@ -325,11 +325,15 @@ export function statDataFromModels(
     modelData.places.push(place);
     modelData.data[place] = { data: {} };
     for (const sv in modelStatAllResponse.placeData[place].statVarData) {
+      if (!(place in mainStatData.data)) {
+        continue;
+      }
       const mainObsPeriod =
         mainStatData.data[place].data[sv].metadata.observationPeriod;
       modelData.statVars.push(sv);
       const svData = placeData.statVarData[sv];
       if ("sourceSeries" in svData) {
+        const dateVals = {};
         const means = {};
         const sourceSeries = svData.sourceSeries;
         // Replace requested series with means across models.
@@ -343,16 +347,17 @@ export function statDataFromModels(
           modelData.measurementMethods.add(series.measurementMethod);
           modelData.sources.add(series.provenanceDomain);
           for (const date of Object.keys(series.val).sort()) {
-            means[date] = date in means ? means[date] : [];
-            means[date].push(series.val[date]);
+            dateVals[date] = date in dateVals ? dateVals[date] : [];
+            dateVals[date].push(series.val[date]);
           }
           const newSv = `${sv}-${series.measurementMethod}`;
           modelData.data[place].data[newSv] = { val: series.val };
           modelData.statVars.push(newSv);
         }
-        for (const date in means) {
-          means[date] = _.mean(means[date]);
+        for (const date in dateVals) {
+          means[date] = _.mean(dateVals[date]);
         }
+        // Update modelStatAllResponse to drop the series with non-matching obs period.
         svData.sourceSeries = keepSeries;
         mainStatData.data[place].data[sv].val = means;
         mainStatData.measurementMethods.add("Mean across models");
