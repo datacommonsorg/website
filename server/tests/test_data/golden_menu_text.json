@@ -35,7 +35,7 @@
     ],
     "Crime": [
       "Arson",
-      "Hate Crime",
+      "Hate crime",
       "Property crime",
       "Total crime",
       "Violent crime"
@@ -141,13 +141,13 @@
   },
   "Crime": { "": [
     "Arson",
-    "Hate Crime",
-    "Hate Crime motivated by disability",
-    "Hate Crime motivated by ethnicity",
-    "Hate Crime motivated by gender",
-    "Hate Crime motivated by race",
-    "Hate Crime motivated by religion",
-    "Hate Crime motivated by sexual orientation",
+    "Hate crime",
+    "Hate crime motivated by disability",
+    "Hate crime motivated by ethnicity",
+    "Hate crime motivated by gender",
+    "Hate crime motivated by race",
+    "Hate crime motivated by religion",
+    "Hate crime motivated by sexual orientation",
     "Property crime",
     "Total crime",
     "Violent crime"
