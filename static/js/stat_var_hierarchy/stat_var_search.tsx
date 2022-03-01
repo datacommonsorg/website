@@ -184,6 +184,7 @@ export class StatVarHierarchySearch extends React.Component<
     let prevResult = [s];
     let currResult = [];
     matches.sort((a, b) => b.length - a.length);
+    // Escape any invalid symbols in the returned matches
     matches = matches.map((match) =>
       match.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
     );
