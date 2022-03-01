@@ -184,6 +184,9 @@ export class StatVarHierarchySearch extends React.Component<
     let prevResult = [s];
     let currResult = [];
     matches.sort((a, b) => b.length - a.length);
+    matches = matches.map((match) =>
+      match.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
+    );
     for (const match of matches) {
       const re = new RegExp(`(${match})`, "gi");
       prevResult.forEach((stringPart) =>
@@ -195,7 +198,7 @@ export class StatVarHierarchySearch extends React.Component<
     return (
       <>
         {prevResult.map((stringPart, i) => {
-          if (matches.indexOf(stringPart) > -1) {
+          if (matches.indexOf(stringPart.toLowerCase()) > -1) {
             return <b key={`${id}-${i}`}>{stringPart}</b>;
           } else {
             return stringPart;
