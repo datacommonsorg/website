@@ -185,16 +185,22 @@ export class StatVarHierarchySearch extends React.Component<
     let currResult = [];
     matches.sort((a, b) => b.length - a.length);
     // Escape any invalid symbols in the returned matches
-    matches = matches.map((match) =>
+    const processedMatches = matches.map((match) =>
       match.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
     );
-    for (const match of matches) {
-      const re = new RegExp(`(${match})`, "gi");
-      prevResult.forEach((stringPart) =>
-        currResult.push(...stringPart.split(re))
-      );
-      prevResult = currResult;
-      currResult = [];
+    for (const match of processedMatches) {
+      try {
+        const re = new RegExp(`(${match})`, "gi");
+        prevResult.forEach((stringPart) =>
+          currResult.push(...stringPart.split(re))
+        );
+        prevResult = currResult;
+        currResult = [];
+      } catch (e) {
+        // If trying to split the string on one of the returned matches fails,
+        // should just continue through the rest of the matches
+        continue;
+      }
     }
     return (
       <>

@@ -69,6 +69,12 @@ test("getHighlightedJSX", () => {
       wantElementContent: ["test ", "match1", " matchABC test"],
       wantHighlightedElements: new Set([1]),
     },
+    {
+      s: "test match1) matchABC test",
+      matches: ["match1)", "match2"],
+      wantElementContent: ["test ", "match1)", " matchABC test"],
+      wantHighlightedElements: new Set([1]),
+    },
   ];
   for (const c of cases) {
     const highlightedResult = wrapper
