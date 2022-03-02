@@ -34,39 +34,45 @@ test("getHighlightedJSX", () => {
     wantHighlightedElements: Set<number>;
   }[] = [
     {
-      s: "test",
       matches: ["match"],
+      s: "test",
       wantElementContent: ["test"],
       wantHighlightedElements: new Set(),
     },
     {
-      s: "test match test",
       matches: ["match"],
+      s: "test match test",
       wantElementContent: ["test ", "match", " test"],
       wantHighlightedElements: new Set([1]),
     },
     {
-      s: "test match match test",
       matches: ["match"],
+      s: "test match match test",
       wantElementContent: ["test ", "match", " ", "match", " test"],
       wantHighlightedElements: new Set([1, 3]),
     },
     {
-      s: "test match1match2 test test",
       matches: ["match1", "match2"],
+      s: "test match1match2 test test",
       wantElementContent: ["test ", "match1", "", "match2", " test test"],
       wantHighlightedElements: new Set([1, 3]),
     },
     {
-      s: "test match123 test",
       matches: ["match"],
+      s: "test match123 test",
       wantElementContent: ["test ", "match", "123 test"],
       wantHighlightedElements: new Set([1]),
     },
     {
-      s: "test match1 matchABC test",
       matches: ["match1", "match2"],
+      s: "test match1 matchABC test",
       wantElementContent: ["test ", "match1", " matchABC test"],
+      wantHighlightedElements: new Set([1]),
+    },
+    {
+      matches: ["match1)", "match2"],
+      s: "test match1) matchABC test",
+      wantElementContent: ["test ", "match1)", " matchABC test"],
       wantHighlightedElements: new Set([1]),
     },
   ];
