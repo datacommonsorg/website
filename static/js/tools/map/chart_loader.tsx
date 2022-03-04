@@ -80,6 +80,8 @@ interface ChartData {
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<string>;
   rankingLink: string;
+  sampleDates: Array<string>;
+  metahash: string;
 }
 
 export function ChartLoader(): JSX.Element {
@@ -143,6 +145,13 @@ export function ChartLoader(): JSX.Element {
     Object.keys(rawData.allPlaceStat),
     rawData.metadataMap
   );
+
+  const onPlay = async (metahash: string, callback: () => void) => {
+  };
+
+  const updateDate = (metahash: string, date: string) => {
+  };
+
   return (
     <div className="chart-region">
       <Chart
@@ -160,6 +169,10 @@ export function ChartLoader(): JSX.Element {
         mapPointsPromise={chartData.mapPointsPromise}
         europeanCountries={chartData.europeanCountries}
         rankingLink={chartData.rankingLink}
+        sampleDates={chartData.sampleDates}
+        metahash={chartData.metahash}
+        onPlay={onPlay}
+        updateDate={updateDate}
       />
       <div id="source-picker">
         <span>Pick Source</span>
@@ -559,5 +572,7 @@ function loadChartData(
       rawData.dataDate,
       unit
     ),
+    sampleDates: [],
+    metahash: "",
   });
 }

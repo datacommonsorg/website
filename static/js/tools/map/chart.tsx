@@ -73,6 +73,10 @@ interface ChartProps {
   display: DisplayOptionsWrapper;
   europeanCountries: Array<string>;
   rankingLink: string;
+  sampleDates: Array<string>;
+  metahash: string;
+  onPlay(metahash: string, callback: () => void): any;
+  updateDate(metahash: string, date: string): any;
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
