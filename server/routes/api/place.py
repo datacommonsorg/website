@@ -496,8 +496,8 @@ def api_ranking(dcid):
     parent_names = {}
     for parent in parents:
         parent_dcid = parent['dcid']
-        parent_types = parent['types'][0]
-        if parent_types == 'Continent':
+        parent_type = parent['types'][0]
+        if parent_type not in WANTED_PLACE_TYPES:
             continue
         if parent_dcid.startswith('zip'):
             continue
