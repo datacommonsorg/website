@@ -30,6 +30,7 @@ import {
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
+import { StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
   GetStatSetAllResponse,
@@ -45,7 +46,9 @@ import { PlaceDetails } from "./place_details";
 import {
   DataPointMetadata,
   ENCLOSED_PLACE_TYPE_NAMES,
+  getMetaText,
   getPlaceChartData,
+  getSampleDates,
 } from "./util";
 
 const MANUAL_GEOJSON_DISTANCES = {
@@ -83,6 +86,10 @@ export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
+  const [sampleDatesChartData, setSampleDatesChartData] = useState<
+    Record<string, Record<string, ChartRawData>>
+  >({});
+  const [onPlayCallback, setOnPlayCallback] = useState<() => void>(undefined);
 
   useEffect(() => {
     const placesLoaded =
@@ -237,26 +244,6 @@ function getGeoJsonDataFeatures(
     });
   }
   return geoJsonFeatures;
-}
-
-function getMetaText(metadata: StatMetadata): string {
-  let result = `[${metadata.importName}]`;
-  let first = true;
-  for (const text of [
-    metadata.measurementMethod,
-    metadata.observationPeriod,
-    metadata.scalingFactor,
-    metadata.unit,
-  ]) {
-    if (text) {
-      if (!first) {
-        result += ", ";
-      }
-      result += text;
-      first = false;
-    }
-  }
-  return result;
 }
 
 function getMetaList(

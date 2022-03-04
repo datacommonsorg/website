@@ -49,6 +49,7 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
+import { TimeSlider } from "./time_slider";
 import {
   DataPointMetadata,
   getAllChildPlaceTypes,

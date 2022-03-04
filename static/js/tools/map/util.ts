@@ -30,7 +30,11 @@ import {
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import {
+  NamedPlace,
+  NamedTypedPlace,
+  ProvenanceSummary,
+} from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getPopulationDate,
@@ -494,4 +498,99 @@ export function getTitle(
   return isPerCapita
     ? `${statVarName} Per Capita ${dateRange}`
     : `${statVarName} ${dateRange}`;
+}
+
+export function getMetaText(metadata: StatMetadata): string {
+  let result = `[${metadata.importName}]`;
+  let first = true;
+  for (const text of [
+    metadata.measurementMethod,
+    metadata.observationPeriod,
+    metadata.scalingFactor,
+    metadata.unit,
+  ]) {
+    if (text) {
+      if (!first) {
+        result += ", ";
+      }
+      result += text;
+      first = false;
+    }
+  }
+  return result;
+}
+
+/**
+ * Given a stat var ProvenanceSummary and place type, return a map of sources
+ * to sample dates to display on the time slider.
+ * @param provenanceSummary
+ * @param placeType
+ */
+export function getSampleDates(
+  provenanceSummary: ProvenanceSummary,
+  placeType: string,
+  metadataMap: Record<string, StatMetadata>
+): Record<string, Array<string>> {
+  // Generate map of metatext to metahash
+  const metahashMap: Record<string, string> = {};
+  for (const metahash in metadataMap) {
+    const metatext = getMetaText(metadataMap[metahash]);
+    metahashMap[metatext] = metahash;
+  }
+
+  const sampleDates: Record<string, Array<string>> = {};
+  let bestAvailable: Array<string> = [];
+  for (const provId in provenanceSummary) {
+    const provenance = provenanceSummary[provId];
+    for (const i in provenance.seriesSummary) {
+      const series = provenance.seriesSummary[i];
+      if (!(placeType in series.placeTypeSummary)) {
+        continue;
+      }
+      const dates: Array<string> = [];
+      const earliestYear = parseInt(series.earliestDate.slice(0, 4));
+      const monthAndDay = series.earliestDate.slice(
+        4,
+        series.earliestDate.length
+      );
+      const latestYear = parseInt(series.latestDate.slice(0, 4));
+
+      // Get observation period years, if present, otherwise divide equally
+      const observationPeriod = series.seriesKey.observationPeriod;
+      const increment =
+        observationPeriod &&
+        observationPeriod[observationPeriod.length - 1] == "Y" &&
+        parseInt(observationPeriod.slice(1, observationPeriod.length - 1)) != 1
+          ? parseInt(observationPeriod.slice(1, observationPeriod.length - 1))
+          : Math.ceil((latestYear - earliestYear) / 9);
+
+      for (let i = earliestYear; i < latestYear; i += increment) {
+        dates.push(i + monthAndDay);
+      }
+      if (series.earlistDate != series.latestDate) {
+        dates.push(series.latestDate);
+      }
+      const metatext = getMetaText({
+        importName: provenance.importName,
+        measurementMethod: series.seriesKey.measurementMethod,
+        observationPeriod: observationPeriod,
+        scalingFactor: series.seriesKey.scalingFactor,
+        unit: series.seriesKey.unit,
+      });
+      if (metatext in metahashMap) {
+        sampleDates[metahashMap[metatext]] = dates;
+      }
+      // Set best available dates as longest list with most recent and specific dates
+      if (
+        dates.length >= bestAvailable.length &&
+        (bestAvailable.length == 0 ||
+          (dates[0].length >= bestAvailable[0].length &&
+            dates[dates.length - 1] >= bestAvailable[bestAvailable.length - 1]))
+      ) {
+        bestAvailable = Object.assign(bestAvailable, dates);
+      }
+    }
+  }
+  sampleDates["Best Available"] = bestAvailable;
+  return sampleDates;
 }
