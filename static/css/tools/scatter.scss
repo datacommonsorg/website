@@ -14,30 +14,11 @@
  * limitations under the License.
  */
 
-@use "../search_place";
 @import "base_tools";
 @import "stat_var_widget";
 @import "../draw_choropleth";
 @import "../draw_scatter.scss";
-
-@mixin scatter-search {
-  @include search_place.search-place;
-
-  #search {
-    margin-bottom: 0;
-    box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    flex-grow: 1;
-    height: 3.2rem;
-  }
-
-  #search #location-field {
-    flex-wrap: nowrap;
-    height: 100%;
-  }
-}
-
-@include scatter-search;
+@import "../place_selector.scss";
 
 #main-pane #plot-container {
   background: #f8f8f8;
@@ -138,7 +119,6 @@
   align-items: center;
 }
 
-.place-and-type-options,
 #chart,
 #plot-options {
   font-size: 0.9rem;
@@ -194,31 +174,6 @@ circle {
   r: 3.5;
 }
 
-.place-and-type-options {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.place-and-type-options-section {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0.5rem;
-  overflow: hidden;
-}
-
-#place-search-section {
-  flex-grow: 1;
-}
-
-.place-and-type-options-label {
-  padding-right: 1rem;
-}
-
-.place-and-type-options-card {
-  padding-right: 0;
-  padding-left: 0;
-}
-
 .search-icon {
   padding: 0.5rem;
 }
@@ -256,11 +211,11 @@ circle {
 }
 
 .chart-type-toggle {
-  border: 0.5px solid var(--dc-gray-lite);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   display: flex;
-  border: 0.5px solid var(--dc-gray-lite);
-  border-radius: 8px;
+  margin-left: 0.5rem;
+  height: fit-content;
 }
 
 .chart-type-option, .selected-chart-option {

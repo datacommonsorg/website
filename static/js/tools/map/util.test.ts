@@ -37,16 +37,6 @@ const TestContext = ({
         name: "",
       },
       enclosedPlaceType: "County",
-      enclosedPlaces: [
-        {
-          dcid: "geoId/10003",
-          name: "a county",
-        },
-        {
-          dcid: "geoId/10005",
-          name: "another county",
-        },
-      ],
       mapPointPlaceType: "",
     },
   },
@@ -106,7 +96,6 @@ test("applyHashPlaceInfo", () => {
       name: "",
       types: null,
     },
-    enclosedPlaces: [],
     parentPlaces: null,
   });
 });

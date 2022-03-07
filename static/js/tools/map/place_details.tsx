@@ -27,7 +27,7 @@ import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_choropleth";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { MAP_CONTAINER_ID } from "./chart";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
@@ -46,7 +46,7 @@ interface PlaceDetailsPropType {
   statVar: StatVar;
   geoJsonFeatures: GeoJsonFeature[];
   displayOptions: DisplayOptions;
-  europeanCountries: Array<string>;
+  europeanCountries: Array<NamedPlace>;
 }
 export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const selectedPlace = props.placeInfo.selectedPlace;
@@ -161,7 +161,9 @@ function getListItemElement(
       ? ` (${props.metadata[place.dcid].placeStatDate})`
       : "";
   const enclosingPlace =
-    props.europeanCountries.indexOf(place.dcid) > -1
+    props.europeanCountries.findIndex(
+      (country) => country.dcid === place.dcid
+    ) > -1
       ? EUROPE_NAMED_TYPED_PLACE
       : props.placeInfo.enclosingPlace;
   const parentPlaces = getParentPlaces(

@@ -186,7 +186,6 @@ export function applyHashPlaceInfo(params: URLSearchParams): PlaceInfo {
       dcid: "",
       name: "",
     },
-    enclosedPlaces: [],
     enclosedPlaceType: enclosedPlaceType ? enclosedPlaceType : "",
     parentPlaces: null,
     mapPointPlaceType: mapPointPlaceType ? mapPointPlaceType : "",
@@ -304,7 +303,6 @@ export function getRedirectLink(
   hash = updateHashDisplay(hash, displayOptions);
   const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parentPlaces);
   hash = updateHashPlaceInfo(hash, {
-    enclosedPlaces: [],
     enclosedPlaceType:
       enclosedPlaceTypes.length == 1 ? enclosedPlaceTypes[0] : "",
     enclosingPlace: { dcid: "", name: "" },
@@ -368,7 +366,9 @@ export function getAllChildPlaceTypes(
       childPlaceTypes.push(...ALL_PLACE_CHILD_TYPES[type]);
     }
   }
-  return childPlaceTypes;
+  return childPlaceTypes.filter(
+    (type, idx) => childPlaceTypes.indexOf(type) === idx
+  );
 }
 
 /**
