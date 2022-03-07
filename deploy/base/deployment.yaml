@@ -138,7 +138,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: store-configmap
-                  key: bigtable_import_groups.json
+                  key: bigtable_import_groups.version
             - name: MIXER_HASH
               valueFrom:
                 configMapKeyRef:

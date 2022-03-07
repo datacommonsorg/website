@@ -179,6 +179,48 @@
       "value": "Violent Crimes"
     }
   ],
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": [
+    {
+      "type": 0,
+      "value": "Hate Crimes (Motivated by Disability)"
+    }
+  ],
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": [
+    {
+      "type": 0,
+      "value": "Hate Crimes (Motivated by Ethnicity)"
+    }
+  ],
+  "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": [
+    {
+      "type": 0,
+      "value": "Hate Crimes (Motivated by Gender)"
+    }
+  ],
+  "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": [
+    {
+      "type": 0,
+      "value": "Hate Crimes (Motivated by Race)"
+    }
+  ],
+  "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": [
+    {
+      "type": 0,
+      "value": "Hate Crimes (Motivated by Religion)"
+    }
+  ],
+  "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": [
+    {
+      "type": 0,
+      "value": "Hate Crimes (Motivated by Sexual Orientation)"
+    }
+  ],
+  "Count_CriminalIncidents_IsHateCrime": [
+    {
+      "type": 0,
+      "value": "Hate Crimes"
+    }
+  ],
   "Count_CycloneEvent": [
     {
       "type": 0,

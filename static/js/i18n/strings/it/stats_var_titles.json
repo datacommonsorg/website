@@ -89,6 +89,27 @@
   "Count_CriminalActivities_ViolentCrime": {
     "defaultMessage": "Numero di attività criminali (crimini violenti)"
   },
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)"
+  },
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)"
+  },
+  "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)"
+  },
+  "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)"
+  },
+  "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)"
+  },
+  "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)"
+  },
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)"
+  },
   "Count_CycloneEvent": {
     "defaultMessage": "Numero di cicloni"
   },

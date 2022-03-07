@@ -322,6 +322,48 @@ msgstr "政府の軍事支出（GDP 比）"
 msgid "CHART_TITLE-Graduate_or_professional_degree_rate_gender"
 msgstr "学位または専門職学位の取得率（性別ごと）"
 
+msgid "CHART_TITLE-Hate_Crime"
+msgstr "Hate Crime"
+
+msgid "CHART_TITLE-Hate_Crime_Disability"
+msgstr "Hate Crime motivated by disability"
+
+msgid "CHART_TITLE-Hate_Crime_Disability_rate"
+msgstr "Hate crimes motivated by disability per 100,000 people"
+
+msgid "CHART_TITLE-Hate_Crime_Ethnicity"
+msgstr "Hate Crime motivated by ethnicity"
+
+msgid "CHART_TITLE-Hate_Crime_Ethnicity_rate"
+msgstr "Hate crimes motivated by ethnicity per 100,000 people"
+
+msgid "CHART_TITLE-Hate_Crime_Gender"
+msgstr "Hate Crime motivated by gender"
+
+msgid "CHART_TITLE-Hate_Crime_Gender_rate"
+msgstr "Hate crimes motivated by gender per 100,000 people"
+
+msgid "CHART_TITLE-Hate_Crime_Race"
+msgstr "Hate Crime motivated by race"
+
+msgid "CHART_TITLE-Hate_Crime_Race_rate"
+msgstr "Hate crimes motivated by race per 100,000 people"
+
+msgid "CHART_TITLE-Hate_Crime_Religion"
+msgstr "Hate Crime motivated by religion"
+
+msgid "CHART_TITLE-Hate_Crime_Religion_rate"
+msgstr "Hate crimes motivated by religion per 100,000 people"
+
+msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation"
+msgstr "Hate Crime motivated by sexual orientation"
+
+msgid "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate"
+msgstr "Hate crimes motivated by sexual orientation per 100,000 people"
+
+msgid "CHART_TITLE-Hate_Crime_rate"
+msgstr "Hate crimes per 100,000 people"
+
 msgid "CHART_TITLE-Health_behaviors"
 msgstr "健康習慣"
 
