@@ -66,6 +66,7 @@ interface ChartRawData {
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<string>;
   dataDate: string;
+  sampleDates: Record<string, Array<string>>;
 }
 
 interface ChartData {
@@ -362,6 +363,9 @@ function fetchData(
       `/api/place/places-in?dcid=${EUROPE_NAMED_TYPED_PLACE.dcid}&placeType=Country`
     )
     .then((resp) => resp.data[EUROPE_NAMED_TYPED_PLACE.dcid]);
+  const statVarSummaryPromise: Promise<StatVarSummary> = axios
+    .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
+    .then((resp) => resp.data);
   Promise.all([
     geoJsonDataPromise,
     breadcrumbPopPromise,
@@ -371,6 +375,7 @@ function fetchData(
     allEnclosedPlaceDataPromise,
     mapPointDataPromise,
     europeanCountriesPromise,
+    statVarSummaryPromise,
   ])
     .then(
       ([
@@ -382,6 +387,7 @@ function fetchData(
         allEnclosedPlaceData,
         mapPointData,
         europeanCountries,
+        statVarSummary,
       ]) => {
         // Stat data
         const enclosedPlaceStat: PlacePointStat =
@@ -426,6 +432,11 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
+        const sampleDates: Record<string, Array<string>> = getSampleDates(
+          statVarSummary[statVar.dcid].provenanceSummary,
+          placeInfo.enclosedPlaceType,
+          metadataMap
+        );
         isLoading.setIsDataLoading(false);
         setRawData({
           geoJsonData,
@@ -438,6 +449,7 @@ function fetchData(
           mapPointsPromise,
           europeanCountries,
           dataDate,
+          sampleDates,
         });
       }
     )
@@ -554,6 +566,9 @@ function loadChartData(
     }
   }
   const unit = getUnit(rawData.placeStat, rawData.metadataMap);
+  const sampleDates = metaHash
+    ? rawData.sampleDates[metaHash]
+    : rawData.sampleDates["Best Available"];
   setChartData({
     breadcrumbValues,
     dates: statVarDates,
@@ -572,7 +587,7 @@ function loadChartData(
       rawData.dataDate,
       unit
     ),
-    sampleDates: [],
-    metahash: "",
+    sampleDates,
+    metahash: metaHash || "Best Available",
   });
 }
