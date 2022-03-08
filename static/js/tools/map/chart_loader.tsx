@@ -122,6 +122,12 @@ export function ChartLoader(): JSX.Element {
     }
   }, [rawData, statVar.value.perCapita]);
 
+  useEffect(() => {
+    if (onPlayCallback) {
+      onPlayCallback();
+    }
+  }, [sampleDatesChartData]);
+
   if (chartData === undefined) {
     return null;
   } else if (
@@ -148,9 +154,31 @@ export function ChartLoader(): JSX.Element {
   );
 
   const onPlay = async (metahash: string, callback: () => void) => {
+    setOnPlayCallback(() => callback);
+    if (metahash in sampleDatesChartData) {
+      callback();
+      return;
+    }
+    fetchData(
+      placeInfo.value,
+      statVar.value,
+      isLoading,
+      setRawData,
+      metahash,
+      rawData.sampleDates[metahash],
+      sampleDatesChartData,
+      setSampleDatesChartData
+    );
   };
 
   const updateDate = (metahash: string, date: string) => {
+    loadChartData(
+      sampleDatesChartData[metahash][date],
+      placeInfo.value,
+      statVar.value,
+      setChartData,
+      metahash == "BestAvailable" ? "" : metahash
+    );
   };
 
   return (
@@ -279,7 +307,13 @@ function fetchData(
   placeInfo: PlaceInfo,
   statVar: StatVar,
   isLoading: IsLoadingWrapper,
-  setRawData: (data: ChartRawData) => void
+  setRawData: (data: ChartRawData) => void,
+  metahash?: string,
+  currentSampleDates?: Array<string>,
+  sampleDatesChartData?: Record<string, Record<string, ChartRawData>>,
+  setSampleDatesChartData?: (
+    data: Record<string, Record<string, ChartRawData>>
+  ) => void
 ): void {
   isLoading.setIsDataLoading(true);
   if (!statVar.dcid) {
@@ -339,6 +373,43 @@ function fetchData(
       return resp.data;
     });
 
+  // Optionally compute for each sample date
+  const enclosedPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
+  const allEnclosedPlaceDatesList: Array<Promise<GetStatSetAllResponse>> = [];
+  const breadcrumbPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
+  if (metahash && currentSampleDates) {
+    for (const i in currentSampleDates) {
+      enclosedPlaceDatesList.push(
+        axios
+          .get(
+            `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}&date=${currentSampleDates[i]}`
+          )
+          .then((resp) => resp.data)
+      );
+      allEnclosedPlaceDatesList.push(
+        axios
+          .get(
+            `/api/stats/within-place/all?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}&date=${currentSampleDates[i]}`
+          )
+          .then((resp) => resp.data)
+      );
+      breadcrumbPlaceDatesList.push(
+        axios
+          .post("/api/stats/set", {
+            places: breadcrumbPlaceDcids,
+            stat_vars: [statVar.dcid],
+            date: currentSampleDates[i],
+          })
+          .then((resp) => {
+            return resp.data;
+          })
+      );
+    }
+  }
+  const enclosedPlaceDatesPromise = Promise.all(enclosedPlaceDatesList);
+  const allEnclosedPlaceDatesPromise = Promise.all(allEnclosedPlaceDatesList);
+  const breadcrumbPlaceDatesPromise = Promise.all(breadcrumbPlaceDatesList);
+
   const mapPointSv = statVar.mapPointSv || statVar.dcid;
   const mapPointDataPromise: Promise<GetStatSetResponse> = placeInfo.mapPointPlaceType
     ? axios
@@ -376,6 +447,9 @@ function fetchData(
     mapPointDataPromise,
     europeanCountriesPromise,
     statVarSummaryPromise,
+    enclosedPlaceDatesPromise,
+    allEnclosedPlaceDatesPromise,
+    breadcrumbPlaceDatesPromise,
   ])
     .then(
       ([
@@ -388,6 +462,9 @@ function fetchData(
         mapPointData,
         europeanCountries,
         statVarSummary,
+        enclosedPlaceDatesData,
+        allEnclosedPlaceDatesData,
+        breadcrumbPlaceDatesData,
       ]) => {
         // Stat data
         const enclosedPlaceStat: PlacePointStat =
@@ -438,19 +515,64 @@ function fetchData(
           metadataMap
         );
         isLoading.setIsDataLoading(false);
-        setRawData({
-          geoJsonData,
-          placeStat: enclosedPlaceStat,
-          allPlaceStat,
-          breadcrumbPlaceStat,
-          metadataMap,
-          population: { ...enclosedPlacesPop, ...breadcrumbPlacePop },
-          mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
-          mapPointsPromise,
-          europeanCountries,
-          dataDate,
-          sampleDates,
-        });
+        if (metahash && currentSampleDates) {
+          const currentSampleDatesData: Record<string, ChartRawData> = {};
+          for (const i in currentSampleDates) {
+            const enclosedPlaceStatSample: PlacePointStat =
+              enclosedPlaceDatesData[i].data[statVar.dcid];
+            const breadcrumbPlaceStatSample: PlacePointStat =
+              breadcrumbPlaceDatesData[i].data[statVar.dcid];
+            const allEnclosedPlaceStatSample: PlacePointStatAll =
+              allEnclosedPlaceDatesData[i].data[statVar.dcid];
+            const allPlaceStatSample: Record<string, PlacePointStat> = {};
+            if (!_.isEmpty(allEnclosedPlaceStatSample)) {
+              for (const stat of allEnclosedPlaceStatSample.statList) {
+                if (stat.metaHash) {
+                  allPlaceStatSample[stat.metaHash] = stat;
+                }
+              }
+            }
+            currentSampleDatesData[currentSampleDates[i]] = {
+              geoJsonData,
+              placeStat: enclosedPlaceStatSample,
+              allPlaceStat: allPlaceStatSample,
+              breadcrumbPlaceStat: breadcrumbPlaceStatSample,
+              metadataMap,
+              population: { ...enclosedPlacesPop, ...breadcrumbPlacePop },
+              mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
+              mapPointsPromise,
+              europeanCountries,
+              dataDate,
+              sampleDates,
+            };
+          }
+          let newSampleDatesChartData: Record<
+            string,
+            Record<string, ChartRawData>
+          > = {};
+          if (Object.entries(sampleDatesChartData).length > 0) {
+            newSampleDatesChartData = Object.assign(
+              newSampleDatesChartData,
+              sampleDatesChartData
+            );
+          }
+          newSampleDatesChartData[metahash] = currentSampleDatesData;
+          setSampleDatesChartData(newSampleDatesChartData);
+        } else {
+          setRawData({
+            geoJsonData,
+            placeStat: enclosedPlaceStat,
+            allPlaceStat,
+            breadcrumbPlaceStat,
+            metadataMap,
+            population: { ...enclosedPlacesPop, ...breadcrumbPlacePop },
+            mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
+            mapPointsPromise,
+            europeanCountries,
+            dataDate,
+            sampleDates,
+          });
+        }
       }
     )
     .catch(() => {
