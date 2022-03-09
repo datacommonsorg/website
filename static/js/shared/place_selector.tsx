@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Component to select a place and a place type within the selected place.
+ */
+
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
