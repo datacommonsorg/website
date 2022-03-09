@@ -18,173 +18,172 @@
  * Time slider component.
  */
 
- import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
- interface TimeSliderProps {
-   // Current date of map
-   currentDate: string;
- 
-   // Selected dates to display on time slider
-   dates: Array<string>;
- 
-   // Hash representing current time series
-   metahash: string;
- 
-   // Whether the slider is enabled on refresh
-   // False if the map is displaying multiple dates (e.g. 'Best Available')
-   startEnabled: boolean;
- 
-   // Fetches data for slider dates when play is pressed
-   onPlay(metahash: string, callback: () => void): any;
- 
-   // Updates map date to date on slider
-   updateDate(metahash: string, date: string): any;
- }
- 
- export function TimeSlider(props: TimeSliderProps): JSX.Element {
-   const start = props.dates[0];
-   const end = props.dates[props.dates.length - 1];
-   const startDate = new Date(start).valueOf();
-   const endDate = new Date(end).valueOf();
-   const dateDenom = endDate - startDate;
- 
-   const [currentDate, setCurrentDate] = useState(
-     props.startEnabled ? props.currentDate : "--"
-   );
-   const [enabled, setEnabled] = useState(props.startEnabled);
-   const [index, setIndex] = useState(
-     props.startEnabled ? getIndex(props.currentDate) : -1
-   );
-   const [loaded, setLoaded] = useState(false);
-   const [offset, setOffset] = useState(null);
-   const [play, setPlay] = useState(true);
-   const [timer, setTimer] = useState(null);
- 
-   const firstUpdate = useRef(true);
- 
-   useEffect(() => {
-     setLoaded(false);
-     setIndex(props.startEnabled ? getIndex(props.currentDate) : -1);
-     setCurrentDate(props.startEnabled ? props.currentDate : "--");
-   }, [props.metahash]);
- 
-   useEffect(() => {
-     setOffset(getOffset(currentDate));
-   }, [currentDate, getOffset]);
- 
-   useEffect(() => {
-     function handleResize() {
-       setOffset(getOffset(currentDate));
-     }
-     window.addEventListener("resize", handleResize);
-   });
- 
-   useEffect(() => {
-     // Don't update pre-selected date until user presses play
-     if (firstUpdate.current) {
-       firstUpdate.current = false;
-       return;
-     }
-     if (index >= 0) {
-       setCurrentDate(props.dates[index]);
-       if (loaded) {
-         props.updateDate(props.metahash, props.dates[index]);
-       }
-     }
-     setEnabled(true);
-     if (index == props.dates.length - 1) {
-       setPlay(true);
-       clearInterval(timer);
-     }
-   }, [index]);
- 
-   function getIndex(currentDate: string): number {
-     // Get closest previous date from selected dates
-     for (let i = props.dates.length - 1; i > -1; i--) {
-       if (props.dates[i] <= currentDate) {
-         return i;
-       }
-     }
-     return props.dates.length - 1;
-   }
- 
-   function getOffset(current: string): number {
-     if (!enabled) {
-       return;
-     }
-     const width = document.getElementById("slider").offsetWidth;
-     const currentDate = new Date(current).valueOf();
-     const ratio = Math.min(
-       Math.max((currentDate - startDate) / dateDenom, 0),
-       1
-     );
-     return (width - 16) * ratio + 14;
-   }
- 
-   async function handlePlay() {
-     if (play) {
-       setLoaded(true);
-       await props.onPlay(props.metahash, () => {
-         // Reset animation
-         if (index == props.dates.length - 1) {
-           setIndex(0);
-         }
-         setTimer(
-           setInterval(() => {
-             setIndex((index) => index + 1);
-           }, 1000)
-         );
-       });
-     } else {
-       clearInterval(timer);
-     }
-     setPlay(!play);
-   }
- 
-   return (
-     <div id="time-slider-container">
-       <div id="time-slider">
-         <span
-           className="slider-left"
-           id="current-date"
-           style={{ width: `${start.length}ch` }}
-         >
-           {currentDate}
-         </span>
-         <div className="slider-break"></div>
-         <div className="slider-left" onClick={handlePlay}>
-           {play && <i className="material-icons play-button">play_arrow</i>}
-           {!play && <i className="material-icons play-button">pause</i>}
-         </div>
-         <span className="slider-left" id="start-date">
-           {start}
-         </span>
-         <span id="end-date">{end}</span>
-         <div id="slider">
-           <svg id="svg">
-             <g>
-               <line className="track" x1={16} x2="100%"></line>
-               <line className="track-inset" x1={16} x2="100%"></line>
-               {enabled && (
-                 <line
-                   className="handle"
-                   x1={offset || 0}
-                   x2={offset + 4 || 0}
-                 ></line>
-               )}
-               {enabled && (
-                 <line
-                   className="handle-inset"
-                   id="handle"
-                   x1={offset || 0}
-                   x2={offset + 4 || 0}
-                 ></line>
-               )}
-             </g>
-           </svg>
-         </div>
-       </div>
-     </div>
-   );
- }
- 
+interface TimeSliderProps {
+  // Current date of map
+  currentDate: string;
+
+  // Selected dates to display on time slider
+  dates: Array<string>;
+
+  // Hash representing current time series
+  metahash: string;
+
+  // Whether the slider is enabled on refresh
+  // False if the map is displaying multiple dates (e.g. 'Best Available')
+  startEnabled: boolean;
+
+  // Fetches data for slider dates when play is pressed
+  onPlay(metahash: string, callback: () => void): any;
+
+  // Updates map date to date on slider
+  updateDate(metahash: string, date: string): any;
+}
+
+export function TimeSlider(props: TimeSliderProps): JSX.Element {
+  const start = props.dates[0];
+  const end = props.dates[props.dates.length - 1];
+  const startDate = new Date(start).valueOf();
+  const endDate = new Date(end).valueOf();
+  const dateDenom = endDate - startDate;
+
+  const [currentDate, setCurrentDate] = useState(
+    props.startEnabled ? props.currentDate : "--"
+  );
+  const [enabled, setEnabled] = useState(props.startEnabled);
+  const [index, setIndex] = useState(
+    props.startEnabled ? getIndex(props.currentDate) : -1
+  );
+  const [loaded, setLoaded] = useState(false);
+  const [offset, setOffset] = useState(null);
+  const [play, setPlay] = useState(true);
+  const [timer, setTimer] = useState(null);
+
+  const firstUpdate = useRef(true);
+
+  useEffect(() => {
+    setLoaded(false);
+    setIndex(props.startEnabled ? getIndex(props.currentDate) : -1);
+    setCurrentDate(props.startEnabled ? props.currentDate : "--");
+  }, [props.metahash]);
+
+  useEffect(() => {
+    setOffset(getOffset(currentDate));
+  }, [currentDate, getOffset]);
+
+  useEffect(() => {
+    function handleResize() {
+      setOffset(getOffset(currentDate));
+    }
+    window.addEventListener("resize", handleResize);
+  });
+
+  useEffect(() => {
+    // Don't update pre-selected date until user presses play
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    if (index >= 0) {
+      setCurrentDate(props.dates[index]);
+      if (loaded) {
+        props.updateDate(props.metahash, props.dates[index]);
+      }
+    }
+    setEnabled(true);
+    if (index == props.dates.length - 1) {
+      setPlay(true);
+      clearInterval(timer);
+    }
+  }, [index]);
+
+  function getIndex(currentDate: string): number {
+    // Get closest previous date from selected dates
+    for (let i = props.dates.length - 1; i > -1; i--) {
+      if (props.dates[i] <= currentDate) {
+        return i;
+      }
+    }
+    return props.dates.length - 1;
+  }
+
+  function getOffset(current: string): number {
+    if (!enabled) {
+      return;
+    }
+    const width = document.getElementById("slider").offsetWidth;
+    const currentDate = new Date(current).valueOf();
+    const ratio = Math.min(
+      Math.max((currentDate - startDate) / dateDenom, 0),
+      1
+    );
+    return (width - 16) * ratio + 14;
+  }
+
+  async function handlePlay() {
+    if (play) {
+      setLoaded(true);
+      await props.onPlay(props.metahash, () => {
+        // Reset animation
+        if (index == props.dates.length - 1) {
+          setIndex(0);
+        }
+        setTimer(
+          setInterval(() => {
+            setIndex((index) => index + 1);
+          }, 1000)
+        );
+      });
+    } else {
+      clearInterval(timer);
+    }
+    setPlay(!play);
+  }
+
+  return (
+    <div id="time-slider-container">
+      <div id="time-slider">
+        <span
+          className="slider-left"
+          id="current-date"
+          style={{ width: `${end.length}ch` }}
+        >
+          {currentDate}
+        </span>
+        <div className="slider-break"></div>
+        <div className="slider-left" onClick={handlePlay}>
+          {play && <i className="material-icons play-button">play_arrow</i>}
+          {!play && <i className="material-icons play-button">pause</i>}
+        </div>
+        <span className="slider-left" id="start-date">
+          {start}
+        </span>
+        <span id="end-date">{end}</span>
+        <div id="slider">
+          <svg id="svg">
+            <g>
+              <line className="track" x1={16} x2="100%"></line>
+              <line className="track-inset" x1={16} x2="100%"></line>
+              {enabled && (
+                <line
+                  className="handle"
+                  x1={offset || 0}
+                  x2={offset + 4 || 0}
+                ></line>
+              )}
+              {enabled && (
+                <line
+                  className="handle-inset"
+                  id="handle"
+                  x1={offset || 0}
+                  x2={offset + 4 || 0}
+                ></line>
+              )}
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -119,6 +119,29 @@ export function ChartLoader(): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
       loadChartData(rawData, placeInfo.value, statVar.value, setChartData);
+      const stat = rawData.placeStat.stat;
+      let minValue: number = Number.MAX_SAFE_INTEGER,
+        meanValue = 0,
+        maxValue = 0;
+      for (const place in stat) {
+        if (!stat[place].value) {
+          continue;
+        }
+        if (stat[place].value < minValue) {
+          minValue = stat[place].value;
+        }
+        if (stat[place].value > maxValue) {
+          maxValue = stat[place].value;
+        }
+        meanValue += stat[place].value;
+      }
+      // Using Best Available data as estimate - give some padding for other dates
+      minValue = minValue > 0 ? minValue * 0.9 : minValue * 1.1;
+      maxValue = maxValue > 0 ? maxValue * 1.1 : maxValue * 0.9;
+      display.set({
+        ...display.value,
+        domain: [minValue, meanValue / Object.keys(stat).length, maxValue],
+      });
     }
   }, [rawData, statVar.value.perCapita]);
 
@@ -172,13 +195,28 @@ export function ChartLoader(): JSX.Element {
   };
 
   const updateDate = (metahash: string, date: string) => {
-    loadChartData(
-      sampleDatesChartData[metahash][date],
-      placeInfo.value,
-      statVar.value,
-      setChartData,
-      metahash == "BestAvailable" ? "" : metahash
-    );
+    // Check if any data is fetched at all for the date
+    let placeStatData = false;
+    for (const place in sampleDatesChartData[metahash][date].placeStat.stat) {
+      if (sampleDatesChartData[metahash][date].placeStat.stat[place].value) {
+        placeStatData = true;
+        break;
+      }
+    }
+
+    // Skip update if date has no data
+    if (
+      (metahash == "Best Available" && placeStatData) ||
+      !_.isEmpty(sampleDatesChartData[metahash][date].allPlaceStat)
+    ) {
+      loadChartData(
+        sampleDatesChartData[metahash][date],
+        placeInfo.value,
+        statVar.value,
+        setChartData,
+        metahash == "BestAvailable" ? "" : metahash
+      );
+    }
   };
 
   return (

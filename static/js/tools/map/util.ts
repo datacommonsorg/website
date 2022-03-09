@@ -63,6 +63,13 @@ const SV_REGEX_INSTALLATION_MAPPING = {
   AirPollutant: "AirQualitySite",
 };
 
+// Series with unlikely/rare date ranges should be excluded from "Best Available"
+const EXCLUDED_SERIES = {
+  HumanCuratedStats: "",
+  WikidataPopulation: "",
+  WikipediaStatsData: "",
+};
+
 export const DEFAULT_DENOM = "Count_Person";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
@@ -580,12 +587,15 @@ export function getSampleDates(
       if (metatext in metahashMap) {
         sampleDates[metahashMap[metatext]] = dates;
       }
-      // Set best available dates as longest list with most recent and specific dates
+      // Set best available dates as longest list and range with most recent and specific dates
       if (
         dates.length >= bestAvailable.length &&
         (bestAvailable.length == 0 ||
           (dates[0].length >= bestAvailable[0].length &&
-            dates[dates.length - 1] >= bestAvailable[bestAvailable.length - 1]))
+            (dates[0] < bestAvailable[0] ||
+              dates[dates.length - 1] >
+                bestAvailable[bestAvailable.length - 1]))) &&
+        !(provenance.importName in EXCLUDED_SERIES)
       ) {
         bestAvailable = Object.assign(bestAvailable, dates);
       }
