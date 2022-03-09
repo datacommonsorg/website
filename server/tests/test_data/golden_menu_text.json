@@ -33,7 +33,13 @@
       "Percentage of people without health insurance by race",
       "Unemployment rate by gender"
     ],
-    "Crime": ["Arson", "Property crime", "Total crime", "Violent crime"],
+    "Crime": [
+      "Arson",
+      "Hate crime",
+      "Property crime",
+      "Total crime",
+      "Violent crime"
+    ],
     "Education": ["Education attainment", "School enrollment"],
     "Demographics": [
       "Citizenship status",
@@ -133,7 +139,20 @@
       "Rate of graduate or professional degree attainment by gender"
     ]
   },
-  "Crime": { "": ["Arson", "Property crime", "Total crime", "Violent crime"] },
+  "Crime": { "": [
+    "Arson",
+    "Hate crime",
+    "Hate crime motivated by disability",
+    "Hate crime motivated by ethnicity",
+    "Hate crime motivated by gender",
+    "Hate crime motivated by race",
+    "Hate crime motivated by religion",
+    "Hate crime motivated by sexual orientation",
+    "Property crime",
+    "Total crime",
+    "Violent crime"
+    ]
+  },
   "Education": { "": ["Education attainment", "School enrollment"] },
   "Demographics": {
     "": [

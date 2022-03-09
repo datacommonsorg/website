@@ -21,7 +21,15 @@ class Config:
     SCHEME = 'https'
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
-    NEW_STAT_VARS = []
+    NEW_STAT_VARS = [
+        "Count_CriminalIncidents_IsHateCrime",
+        "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime",
+        "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime",
+        "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime",
+        "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime",
+        "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime",
+        "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
+    ]
     ENABLE_BLOCKLIST = False
     # If the deployment is a private instance.
     PRIVATE = False

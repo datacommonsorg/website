@@ -87,6 +87,34 @@
     "defaultMessage": "Number of Criminal Activities (Violent Crimes)",
     "description": "Title for a page about a statistical variable. Variable describes total number of violent crimes in a place."
   },
+  "Count_CriminalIncidents_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents in a place."
+  },
+  "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Gender)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents motivated by bias against a gender in a place."
+  },
+  "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Race)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents motivated by bias against a race in a place."
+  },
+  "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Religion)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents motivated by bias against a religion in a place."
+  },
+  "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Ethnicity)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents motivated by bias against an ethnicity in a place."
+  },
+  "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Sexual Orientation)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents motivated by bias against a sexual orientaion in a place."
+  },
+  "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
+    "defaultMessage": "Number of Criminal Incidents (Hate Crimes Motivated by Disability)",
+    "description": "Title for a page about a statistical variable. Variable describes total number of hate crime incidents motivated by bias against a disabilty in a place."
+  },
   "Count_CycloneEvent": {
     "defaultMessage": "Number of Cyclone Events",
     "description": "Title for a page about a statistical variable. The number of cyclone events that happened in a place."
