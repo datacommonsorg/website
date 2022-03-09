@@ -20,6 +20,14 @@ from flask import current_app
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
 
+@bp.route('/rich_search')
+def rich_search():
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template(
+        'tools/rich_search.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+
+
 @bp.route('/timeline')
 def timeline():
     return flask.render_template(

@@ -78,6 +78,10 @@ interface ChartBlockPropType {
    * The locale of the page
    */
   locale: string;
+  /**
+   * If the chart should update the page layour with a sidebar.
+   */
+  doUpdatePageLayoutState: boolean;
 }
 
 class ChartBlock extends React.Component<ChartBlockPropType> {
@@ -184,6 +188,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           }?${rankingParam.toString()}`}
           category={this.props.category}
           isUsaPlace={this.props.isUsaPlace}
+          doUpdatePageLayoutState={this.props.doUpdatePageLayoutState}
         ></Chart>
       );
     }
@@ -221,6 +226,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       statsVars: this.props.data.statsVars,
       category: this.props.category,
       isUsaPlace: this.props.isUsaPlace,
+      doUpdatePageLayoutState: this.props.doUpdatePageLayoutState,
     };
     const barChartSharedProps = {
       chartType: chartType,
