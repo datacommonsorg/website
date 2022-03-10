@@ -119,17 +119,15 @@ class Page extends Component<unknown, PageStateType> {
         <div id="plot-container">
           <div className="container-fluid">
             {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
-            <div id="search">
-              <SearchBar
-                places={this.state.placeName}
-                addPlace={(place) => {
-                  this.addPlaceAction(place);
-                }}
-                removePlace={(place) => {
-                  removeToken("place", placeSep, place);
-                }}
-              />
-            </div>
+            <SearchBar
+              places={this.state.placeName}
+              addPlace={(place) => {
+                this.addPlaceAction(place);
+              }}
+              removePlace={(place) => {
+                removeToken("place", placeSep, place);
+              }}
+            />
             {numPlaces === 0 && <Info />}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">

@@ -35,41 +35,47 @@
     flex-wrap: nowrap;
     height: 100%;
   }
+
+  .search-icon {
+    padding: 0.5rem;
+  }
+  
+  #location-field #ac {
+    background: none;
+  }
 }
 
 @include place-search;
 
-.place-options {
+.place-selector-container {
   display: flex;
   flex-wrap: wrap;
   font-size: 0.9rem;
   align-items: center;
 }
 
-.place-options-section {
+.place-selector-section {
   display: flex;
   align-items: center;
   padding: 0.5rem 0.5rem;
   overflow: hidden;
 }
 
-#place-search-section {
+#place-selector-search-section {
   flex-grow: 1;
 }
 
-.place-options-label {
+.place-selector-label {
   padding-right: 1rem;
 }
 
-.place-options-card {
+.place-selector-card {
   padding-right: 0;
   padding-left: 0;
 }
 
-.search-icon {
-  padding: 0.5rem;
-}
-
-#location-field #ac {
-  background: none;
+.place-selector-dropdown{
+  height: 100%;
+  font-size: 1rem;
+  width: 225px;
 }

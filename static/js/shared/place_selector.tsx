@@ -31,6 +31,7 @@ import {
 import { NamedTypedPlace } from "./types";
 
 const EMPTY_NAMED_TYPED_PLACE = { dcid: "", name: "", types: null };
+const SELECTOR_PREFIX = "place-selector";
 
 interface PlaceSelectorProps {
   selectedPlace: NamedTypedPlace;
@@ -55,31 +56,32 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
   }, [props.selectedPlace]);
 
   return (
-    <Card className="place-options-card">
-      <Container className="place-options" fluid={true}>
-        <div className="place-options-section" id="place-search-section">
-          <div className="place-options-label">Plot places in</div>
-          <div id="search">
-            <SearchBar
-              places={
-                props.selectedPlace.dcid
-                  ? { [props.selectedPlace.dcid]: props.selectedPlace.name }
-                  : {}
-              }
-              addPlace={(e) => selectPlace(e, props.onPlaceSelected)}
-              removePlace={() =>
-                unselectPlace(props.onPlaceSelected, setChildPlaceTypes)
-              }
-              numPlacesLimit={1}
-              customPlaceHolder={props.customSearchPlaceholder}
-            />
-          </div>
+    <Card className={`${SELECTOR_PREFIX}-card`}>
+      <Container className={`${SELECTOR_PREFIX}-container`} fluid={true}>
+        <div
+          className={`${SELECTOR_PREFIX}-section`}
+          id={`${SELECTOR_PREFIX}-search-section`}
+        >
+          <div className={`${SELECTOR_PREFIX}-label`}>Plot places in</div>
+          <SearchBar
+            places={
+              props.selectedPlace.dcid
+                ? { [props.selectedPlace.dcid]: props.selectedPlace.name }
+                : {}
+            }
+            addPlace={(e) => selectPlace(e, props.onPlaceSelected)}
+            removePlace={() =>
+              unselectPlace(props.onPlaceSelected, setChildPlaceTypes)
+            }
+            numPlacesLimit={1}
+            customPlaceHolder={props.customSearchPlaceholder}
+          />
         </div>
-        <div className="place-options-section">
-          <div className="place-options-label">of type</div>
+        <div className={`${SELECTOR_PREFIX}-section`}>
+          <div className={`${SELECTOR_PREFIX}-label`}>of type</div>
           <div>
             <CustomInput
-              id="enclosed-place-type"
+              id={`${SELECTOR_PREFIX}-dropdown`}
               type="select"
               value={props.enclosedPlaceType}
               onChange={(e) =>
