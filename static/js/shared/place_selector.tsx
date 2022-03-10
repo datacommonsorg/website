@@ -81,7 +81,7 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
           <div className={`${SELECTOR_PREFIX}-label`}>of type</div>
           <div>
             <CustomInput
-              id={`${SELECTOR_PREFIX}-dropdown`}
+              id={`${SELECTOR_PREFIX}-place-type`}
               type="select"
               value={props.enclosedPlaceType}
               onChange={(e) =>

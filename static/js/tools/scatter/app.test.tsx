@@ -481,7 +481,7 @@ test("all functionalities", async () => {
       app.update();
       // Select county as child place type
       app
-        .find("#enclosed-place-type")
+        .find("#place-selector-place-type")
         .at(0)
         .simulate("change", { target: { value: "County" } });
       waitFor(() => {
