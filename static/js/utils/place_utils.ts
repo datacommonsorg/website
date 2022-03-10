@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
+import axios from "axios";
 import _ from "lodash";
 
-import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
-import { NamedPlace } from "../shared/types";
+import {
+  EARTH_NAMED_TYPED_PLACE,
+  IPCC_PLACE_50_TYPE_DCID,
+} from "../shared/constants";
+import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
 
 const DEFAULT_SAMPLE_SIZE = 50;
 const CURATED_SAMPLE_PLACES = {
@@ -36,6 +41,10 @@ const CURATED_SAMPLE_PLACES = {
       { dcid: "country/AUS", name: "Australia" },
     ],
   },
+};
+
+export const ENCLOSED_PLACE_TYPE_NAMES = {
+  [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
 };
 
 /**
@@ -59,4 +68,88 @@ export function getSamplePlaces(
     return CURATED_SAMPLE_PLACES[parentPlace][childPlaceType];
   }
   return _.sampleSize(childrenPlaces, sampleSize || DEFAULT_SAMPLE_SIZE);
+}
+
+/**
+ * Used to get parent places
+ * @param placeDcid the place to get parent places for
+ */
+export function getParentPlacesPromise(
+  placeDcid: string
+): Promise<Array<NamedTypedPlace>> {
+  return axios
+    .get(`/api/place/parent/${placeDcid}`)
+    .then((resp) => {
+      const parentsData = resp.data;
+      const filteredParentsData = parentsData.filter((parent) => {
+        for (const type of parent.types) {
+          if (type in ALL_MAP_PLACE_TYPES) {
+            return true;
+          }
+        }
+        return false;
+      });
+      const parentPlaces = filteredParentsData.map((parent) => {
+        return { dcid: parent.dcid, name: parent.name, types: parent.types };
+      });
+      if (placeDcid !== EARTH_NAMED_TYPED_PLACE.dcid) {
+        parentPlaces.push(EARTH_NAMED_TYPED_PLACE);
+      }
+      return parentPlaces;
+    })
+    .catch(() => []);
+}
+
+/**
+ * Used to get enclosed places
+ * @param placeDcid the place to get enclosed places for
+ * @param childPlaceType the type of enclosed places to get
+ */
+export function getEnclosedPlacesPromise(
+  placeDcid: string,
+  childPlaceType: string
+): Promise<Array<NamedPlace>> {
+  return axios
+    .get(`/api/place/places-in?dcid=${placeDcid}&placeType=${childPlaceType}`)
+    .then((resp) => {
+      const enclosedPlaces = resp.data[placeDcid];
+      if (_.isEmpty(enclosedPlaces)) {
+        return [];
+      }
+      return enclosedPlaces.map((dcid) => {
+        return {
+          dcid: dcid,
+          name: dcid,
+        };
+      });
+    });
+}
+
+/**
+ * Given the dcid of a place, returns a promise with the rest of the place
+ * information
+ * @param placeDcid
+ */
+export function getNamedTypedPlace(
+  placeDcid: string
+): Promise<NamedTypedPlace> {
+  if (placeDcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+    return Promise.resolve(EARTH_NAMED_TYPED_PLACE);
+  }
+  // TODO: do both these together in a new flask endpoint after new cache with
+  // parents, name, and type information is added.
+  const placeTypePromise = axios
+    .get(`/api/place/type/${placeDcid}`)
+    .then((resp) => resp.data);
+  const placeNamePromise = axios
+    .get(`/api/place/name?dcid=${placeDcid}`)
+    .then((resp) => resp.data);
+  return Promise.all([placeTypePromise, placeNamePromise])
+    .then(([placeType, placeName]) => {
+      const name = placeDcid in placeName ? placeName[placeDcid] : placeDcid;
+      return { dcid: placeDcid, name, types: [placeType] };
+    })
+    .catch(() => {
+      return { dcid: placeDcid, name: "", types: [] };
+    });
 }

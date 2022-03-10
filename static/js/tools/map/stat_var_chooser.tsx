@@ -25,7 +25,10 @@ import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { getSamplePlaces } from "../../utils/place_utils";
+import {
+  getEnclosedPlacesPromise,
+  getSamplePlaces,
+} from "../../utils/place_utils";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -40,21 +43,26 @@ import {
 
 export function StatVarChooser(): JSX.Element {
   const { statVar, placeInfo, display } = useContext(Context);
-  const [samplePlaces, setSamplePlaces] = useState(
-    getSamplePlaces(
-      placeInfo.value.enclosingPlace.dcid,
-      placeInfo.value.enclosedPlaceType,
-      placeInfo.value.enclosedPlaces
-    )
-  );
+  const [samplePlaces, setSamplePlaces] = useState([]);
+
   useEffect(() => {
-    const samplePlaces = getSamplePlaces(
-      placeInfo.value.enclosingPlace.dcid,
-      placeInfo.value.enclosedPlaceType,
-      placeInfo.value.enclosedPlaces
+    const enclosingPlaceDcid = placeInfo.value.enclosingPlace.dcid;
+    const enclosedPlaceType = placeInfo.value.enclosedPlaceType;
+    if (_.isEmpty(enclosingPlaceDcid) || _.isEmpty(enclosedPlaceType)) {
+      return;
+    }
+    getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType).then(
+      (enclosedPlaces) => {
+        const samplePlaces = getSamplePlaces(
+          enclosingPlaceDcid,
+          enclosedPlaceType,
+          enclosedPlaces
+        );
+        setSamplePlaces(samplePlaces);
+      }
     );
-    setSamplePlaces(samplePlaces);
-  }, [placeInfo.value.enclosedPlaces]);
+  }, [placeInfo.value.enclosingPlace, placeInfo.value.enclosedPlaceType]);
+
   useEffect(() => {
     const svWithInfo = _.isNull(statVar.value.info)
       ? []

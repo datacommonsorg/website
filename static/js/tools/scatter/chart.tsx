@@ -26,7 +26,6 @@ import ReactDOMServer from "react-dom/server";
 import { Card, Row } from "reactstrap";
 
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
-import { drawChoropleth } from "../../chart/draw_choropleth";
 import {
   drawScatter,
   Point,
