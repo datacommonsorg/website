@@ -21,6 +21,8 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 
 const HEIGHT = 224;
 const WIDTH = 500;
+const BAR_HEIGHT = 35;
+const MARGIN = { top: 70, right: 50, bottom: 10, left: 50 };
 
 /**
  * Draw bar chart for tissue score.
@@ -29,13 +31,11 @@ export function drawTissueScoreChart(
   id: string,
   data: { name: string; value: string }[]
 ): void {
-  const tmpData = [
-    { name: "Cartilage", value: 3 },
-    { name: "Eye", value: 2 },
-    { name: "Liver", value: 1 },
-    { name: "Skin", value: 0 },
-  ];
   const testData = data;
+  /*
+  Convert the tissue expression level to numerical values 
+  * @param val value of the data array 
+  */
   function convertData(val) {
     if (val == "ProteinExpressionNotDetected") {
       return 0;
@@ -47,29 +47,33 @@ export function drawTissueScoreChart(
       return 3;
     }
   }
-  const reformat = data.map((item) => {
-    const newObj: any = {};
+
+  interface newData{
+    name: string;
+    value: number;
+  }
+  const reformattedData = data.map((item) => {
+    var newObj = {} as newData
+    //var newObj: any = {};
     newObj["name"] = item.name;
     newObj["value"] = convertData(item.value);
     return newObj;
   });
 
-  const size = reformat.map((x) => {
+  const arr_name = reformattedData.map((x) => {
     return x.name;
   });
 
-  const barHeight = 35;
-  const margin = { top: 70, right: 50, bottom: 10, left: 50 };
-  const height = 400 - margin.top - margin.bottom;
-  const width = 460 - margin.left - margin.right;
+  const height = 400 - MARGIN.top - MARGIN.bottom;
+  const width = 460 - MARGIN.left - MARGIN.right;
   const x = d3
     .scaleLinear()
-    .domain([0, d3.max(reformat, (d) => d.value)])
-    .range([margin.left, width - margin.right]);
+    .domain([0, d3.max(reformattedData, (d) => d.value)])
+    .range([MARGIN.left, width - MARGIN.right]);
   const y = d3
     .scaleBand()
-    .domain(size)
-    .rangeRound([margin.top, height - margin.bottom])
+    .domain(arr_name)
+    .rangeRound([MARGIN.top, height - MARGIN.bottom])
     .padding(0.1);
   function formatTick(d) {
     if (d == 0) {
@@ -93,7 +97,7 @@ export function drawTissueScoreChart(
   svg
     .append("g")
     .selectAll("rect")
-    .data(reformat.sort((a, b) => d3.descending(a.value, b.value)))
+    .data(reformattedData.sort((a, b) => d3.descending(a.value, b.value)))
     .enter()
     .append("rect")
     .attr("x", x(0))
@@ -125,7 +129,7 @@ export function drawTissueScoreChart(
     .attr("font-family", "sans-serif")
     .attr("font-size", 3)
     .selectAll("text")
-    .data(reformat.sort((a, b) => d3.descending(a.value, b.value)))
+    .data(reformattedData.sort((a, b) => d3.descending(a.value, b.value)))
     .join("text")
     .attr("x", (d) => x(d.value))
     .attr("y", (d, i) => i + y.bandwidth() / 2)
@@ -141,7 +145,7 @@ export function drawTissueScoreChart(
 
   svg
     .append("g")
-    .attr("transform", `translate(0,${margin.top})`)
+    .attr("transform", `translate(0,${MARGIN.top})`)
     .call(d3.axisTop(x).ticks(3).tickFormat(formatTick))
     .call((g) => g.select(".domain").remove())
     .on("mouseover", function () {
@@ -153,8 +157,8 @@ export function drawTissueScoreChart(
 
   svg
     .append("g")
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y).tickSizeOuter(0))
+    .attr("transform", `translate(${MARGIN.left},0)`)
+    .call(d3.axisLeft(y).ticks(50).tickSizeOuter(0))
     .on("mouseover", function () {
       d3.select(this).select("rect").style("fill", "red");
     })
