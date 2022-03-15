@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- /**
+/**
  * Styling for source selector component
  */
 
@@ -23,8 +23,8 @@ $font-size-small: 11px;
 $color-byline: #7b7b7b;
 
 .source-selector-modal .form-group {
-   margin: 0;
- }
+  margin: 0;
+}
 
 .source-selector-modal .form-check-input {
   position: relative;
@@ -53,7 +53,7 @@ $color-byline: #7b7b7b;
   margin-bottom: 0.25rem;
 }
 
-.source-selector-option-title{
+.source-selector-option-title {
   display: flex;
   align-items: center;
   padding-top: 0.3rem;

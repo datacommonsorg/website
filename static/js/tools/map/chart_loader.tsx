@@ -234,12 +234,12 @@ function getSourceSelectorSvInfo(
   });
   return {
     dcid: statVar.dcid,
+    metadataMap: filteredMetadataMap,
+    metahash: statVar.metahash,
     name:
       statVar.dcid in statVar.info
         ? statVar.info[statVar.dcid].title
         : statVar.dcid,
-    metahash: statVar.metahash,
-    metadataMap: filteredMetadataMap,
   };
 }
 

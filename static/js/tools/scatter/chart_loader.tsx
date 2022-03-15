@@ -234,14 +234,14 @@ async function loadData(
         }
       }
       const cache = {
+        allStatVarsData,
+        metadataMap,
         noDataError: _.isEmpty(statResponse.data),
         populationData,
         statVarsData: statResponse.data,
-        allStatVarsData,
-        metadataMap,
         xDate: x.value.date,
-        yDate: y.value.date,
         xMetahash: x.value.metahash,
+        yDate: y.value.date,
         yMetahash: y.value.metahash,
       };
       isLoading.setAreDataLoading(false);
@@ -367,9 +367,9 @@ function getSourceSelectorSvInfo(
   });
   return {
     dcid: axis.statVarDcid,
-    name: axis.statVarInfo.title || axis.statVarDcid,
-    metahash: axis.metahash,
     metadataMap: filteredMetadataMap,
+    metahash: axis.metahash,
+    name: axis.statVarInfo.title || axis.statVarDcid,
   };
 }
 /**

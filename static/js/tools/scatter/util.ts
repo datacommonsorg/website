@@ -39,8 +39,8 @@ export enum ScatterChartType {
 }
 
 async function getStatsWithinPlace(
-  parent_place: string,
-  child_type: string,
+  parentPlace: string,
+  childType: string,
   statVars: { statVarDcid: string; date?: string }[]
 ): Promise<GetStatSetResponse> {
   let statVarParams = "";
@@ -59,7 +59,7 @@ async function getStatsWithinPlace(
     statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
       axios.get(
-        `/api/stats/within-place?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
+        `/api/stats/within-place?parent_place=${parentPlace}&child_type=${childType}${statVarParams}`
       )
     );
   }
