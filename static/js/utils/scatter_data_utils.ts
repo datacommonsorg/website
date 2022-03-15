@@ -51,7 +51,10 @@ function getPlaceAxisChartData(
   const popSeries = populationData[placeDcid]
     ? populationData[placeDcid].data[DEFAULT_POPULATION_DCID]
     : null;
-  const denomSeries = denom ? populationData[placeDcid].data[denom] : null;
+  const denomSeries =
+    denom && populationData[placeDcid]
+      ? populationData[placeDcid].data[denom]
+      : null;
   if (_.isEmpty(placePointStatData)) {
     return null;
   }

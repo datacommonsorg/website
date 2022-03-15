@@ -14,65 +14,12 @@
  * limitations under the License.
  */
 
-@use "../search_place";
 @import "base_tools";
 @import "stat_var_widget";
 @import "../draw";
 @import "../draw_choropleth";
+@import "../place_selector";
 @import "../source_selector";
-
-@mixin map-search {
-  @include search_place.search-place;
-
-  #search {
-    margin-bottom: 0;
-    box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    flex-grow: 1;
-    height: 3.2rem;
-  }
-
-  #search #location-field {
-    flex-wrap: nowrap;
-    height: 100%;
-  }
-}
-
-@include map-search;
-
-.place-options {
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 0.9rem;
-}
-
-.place-options-section {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0.5rem;
-  overflow: hidden;
-}
-
-#place-search-section {
-  flex-grow: 1;
-}
-
-.place-options-label {
-  padding-right: 1rem;
-}
-
-.place-options-card {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.search-icon {
-  padding: 0.5rem;
-}
-
-#location-field #ac {
-  background: none;
-}
 
 // TODO(chejennifer): factor out some common styling
 .card {

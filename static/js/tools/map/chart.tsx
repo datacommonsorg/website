@@ -74,7 +74,7 @@ interface ChartProps {
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
   display: DisplayOptionsWrapper;
-  europeanCountries: Array<string>;
+  europeanCountries: Array<NamedPlace>;
   rankingLink: string;
   sourceSelectorSvInfo: SourceSelectorSvInfo;
 }
@@ -413,7 +413,7 @@ const getMapRedirectAction = (
   statVar: StatVar,
   placeInfo: PlaceInfo,
   displayOptions: DisplayOptions,
-  europeanCountries: Array<string>
+  europeanCountries: Array<NamedPlace>
 ) => (geoProperties: GeoJsonFeatureProperties) => {
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
@@ -421,7 +421,9 @@ const getMapRedirectAction = (
     types: [placeInfo.enclosedPlaceType],
   };
   const enclosingPlace =
-    europeanCountries.indexOf(selectedPlace.dcid) > -1
+    europeanCountries.findIndex(
+      (country) => country.dcid === selectedPlace.dcid
+    ) > -1
       ? EUROPE_NAMED_TYPED_PLACE
       : placeInfo.enclosingPlace;
   const parentPlaces = getParentPlaces(
@@ -498,10 +500,10 @@ const onDateRangeMouseOver = () => {
 
 const canClickRegion = (
   placeInfo: PlaceInfo,
-  europeanCountries: Array<string>
+  europeanCountries: Array<NamedPlace>
 ) => (placeDcid: string) => {
   const enclosingPlace =
-    europeanCountries.indexOf(placeDcid) > -1
+    europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
       ? EUROPE_NAMED_TYPED_PLACE
       : placeInfo.enclosingPlace;
   const parentPlaces = getParentPlaces(

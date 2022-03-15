@@ -86,26 +86,31 @@ class SearchBar extends Component<SearchBarPropType> {
       ? placeIds.length >= this.props.numPlacesLimit
       : false;
     return (
-      <div id="location-field" className={hideInput ? "input-area-hidden" : ""}>
-        <div id="search-icon"></div>
-        <span id="prompt">Find : </span>
-        <span id="place-list">
-          {placeIds.map((placeId) => (
-            <Chip
-              placeId={placeId}
-              placeName={
-                this.props.places[placeId]
-                  ? this.props.places[placeId]
-                  : placeId
-              }
-              key={placeId}
-              removePlace={this.props.removePlace}
-            ></Chip>
-          ))}
-        </span>
-        <input ref={this.inputElem} id="ac" type="text" />
-        {!hideInput && <i className="material-icons search-icon">search</i>}
-        <span id="place-name"></span>
+      <div id="search">
+        <div
+          id="location-field"
+          className={hideInput ? "input-area-hidden" : ""}
+        >
+          <div id="search-icon"></div>
+          <span id="prompt">Find : </span>
+          <span id="place-list">
+            {placeIds.map((placeId) => (
+              <Chip
+                placeId={placeId}
+                placeName={
+                  this.props.places[placeId]
+                    ? this.props.places[placeId]
+                    : placeId
+                }
+                key={placeId}
+                removePlace={this.props.removePlace}
+              ></Chip>
+            ))}
+          </span>
+          <input ref={this.inputElem} id="ac" type="text" />
+          {!hideInput && <i className="material-icons search-icon">search</i>}
+          <span id="place-name"></span>
+        </div>
       </div>
     );
   }

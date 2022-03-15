@@ -31,7 +31,6 @@ git pull origin master
 git checkout master
 
 # Deploy autopush instance
-gsutil cp gs://datcom-control/latest_base_cache_version.txt deploy/storage/bigtable.version
 gsutil cp gs://datcom-control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
 # Import Group
 > deploy/storage/bigtable_import_groups.version
