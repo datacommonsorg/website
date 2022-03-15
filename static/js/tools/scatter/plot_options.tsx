@@ -26,6 +26,10 @@ import { Col, Container, Row } from "reactstrap";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import {
+  SourceSelector,
+  SourceSelectorSvInfo,
+} from "../../shared/source_selector";
 import { StatApiResponse } from "../../shared/stat_types";
 import {
   AxisWrapper,
@@ -38,6 +42,7 @@ import { ScatterChartType } from "./util";
 interface PlotOptionsProps {
   points: { [placeDcid: string]: Point };
   populationData: StatApiResponse;
+  sourceSelectorSvInfo: SourceSelectorSvInfo[];
 }
 
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
@@ -52,6 +57,15 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
     place.value.upperBound.toString()
   );
 
+  const onSvMetahashUpdated = (update) => {
+    for (const sv of Object.keys(update)) {
+      if (x.value.statVarDcid === sv) {
+        x.setMetahash(update[sv]);
+      } else if (y.value.statVarDcid === sv) {
+        y.setMetahash(update[sv]);
+      }
+    }
+  };
   return (
     <Card id="plot-options">
       <Container fluid={true}>
@@ -222,6 +236,14 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
             </Row>
           </>
         )}
+        <Row className="plot-options-row centered-items-row">
+          <Col sm="auto">
+            <SourceSelector
+              svInfoList={props.sourceSelectorSvInfo}
+              onSvMetahashUpdated={onSvMetahashUpdated}
+            />
+          </Col>
+        </Row>
       </Container>
     </Card>
   );

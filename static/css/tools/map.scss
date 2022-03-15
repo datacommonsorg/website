@@ -19,6 +19,7 @@
 @import "stat_var_widget";
 @import "../draw";
 @import "../draw_choropleth";
+@import "../source_selector";
 
 @mixin map-search {
   @include search_place.search-place;
@@ -282,6 +283,12 @@
   margin-left: 0.3rem;
 }
 
-#source-picker {
-  margin-bottom: 10px;
+.map-footer .source-selector-open-modal-button {
+  font-size: 11px;
+  padding: 0.25rem;
+  color: var(--link-color);
+}
+
+.sources-string {
+  padding-left: 0.25rem;
 }

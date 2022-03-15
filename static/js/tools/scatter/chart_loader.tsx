@@ -25,6 +25,10 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import {
+  SourceSelector,
+  SourceSelectorSvInfo,
+} from "../../shared/source_selector";
 import { StatApiResponse } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
@@ -38,16 +42,24 @@ import {
   PlaceInfo,
 } from "./context";
 import { PlotOptions } from "./plot_options";
-import { arePlacesLoaded, getStatsWithinPlace, ScatterChartType } from "./util";
+import {
+  arePlacesLoaded,
+  getAllStatsWithinPlace,
+  getStatsWithinPlace,
+  ScatterChartType,
+} from "./util";
 
 type Cache = {
   // key here is stat var.
   statVarsData: Record<string, PlacePointStat>;
+  allStatVarsData: Record<string, Record<string, PlacePointStat>>;
   metadataMap: Record<string, StatMetadata>;
   populationData: StatApiResponse;
   noDataError: boolean;
   xDate: string;
   yDate: string;
+  xMetahash: string;
+  yMetahash: string;
 };
 
 type ChartData = {
@@ -69,6 +81,20 @@ export function ChartLoader(): JSX.Element {
     !isLoading.areDataLoading &&
     !isLoading.arePlacesLoading &&
     !_.isEmpty(chartData);
+  if (!shouldRenderChart) {
+    return <></>;
+  }
+
+  const xSourceSelectorSvInfo = getSourceSelectorSvInfo(
+    xVal,
+    cache.allStatVarsData,
+    cache.metadataMap
+  );
+  const ySourceSelectorSvInfo = getSourceSelectorSvInfo(
+    yVal,
+    cache.allStatVarsData,
+    cache.metadataMap
+  );
   return (
     <>
       {shouldRenderChart && (
@@ -103,6 +129,10 @@ export function ChartLoader(): JSX.Element {
               <PlotOptions
                 points={chartData.points}
                 populationData={cache.populationData}
+                sourceSelectorSvInfo={[
+                  xSourceSelectorSvInfo,
+                  ySourceSelectorSvInfo,
+                ]}
               />
             </>
           )}
@@ -132,12 +162,15 @@ function useCache(): Cache {
   useEffect(() => {
     if (!arePlacesLoaded(placeVal) || !areStatVarInfoLoaded(xVal, yVal)) {
       setCache({
+        allStatVarsData: {},
         statVarsData: {},
         populationData: {},
         noDataError: false,
         metadataMap: {},
         xDate: "",
         yDate: "",
+        xMetahash: "",
+        yMetahash: "",
       });
       return;
     }
@@ -171,6 +204,11 @@ async function loadData(
     place.enclosedPlaceType,
     [x.value, y.value]
   );
+  const statAllResponsePromise = getAllStatsWithinPlace(
+    place.enclosingPlace.dcid,
+    place.enclosedPlaceType,
+    [x.value, y.value]
+  );
   const populationPromise: Promise<StatApiResponse> = axios
     .get(
       "/api/stats/set/series/within-place" +
@@ -179,15 +217,32 @@ async function loadData(
         `&stat_vars=${DEFAULT_POPULATION_DCID}`
     )
     .then((resp) => resp.data);
-  Promise.all([statResponsePromise, populationPromise])
-    .then(([statResponse, populationData]) => {
+  Promise.all([statResponsePromise, statAllResponsePromise, populationPromise])
+    .then(([statResponse, statAllResponse, populationData]) => {
+      let metadataMap = statResponse.metadata || {};
+      metadataMap = Object.assign(metadataMap, statAllResponse.metadata);
+      const allStatVarsData: Record<
+        string,
+        Record<string, PlacePointStat>
+      > = {};
+      for (const sv of Object.keys(statAllResponse.data)) {
+        allStatVarsData[sv] = {};
+        for (const stat of statAllResponse.data[sv].statList) {
+          if (stat.metaHash) {
+            allStatVarsData[sv][stat.metaHash] = stat;
+          }
+        }
+      }
       const cache = {
         noDataError: _.isEmpty(statResponse.data),
         populationData,
         statVarsData: statResponse.data,
-        metadataMap: statResponse.metadata,
+        allStatVarsData,
+        metadataMap,
         xDate: x.value.date,
         yDate: y.value.date,
+        xMetahash: x.value.metahash,
+        yMetahash: y.value.metahash,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -254,8 +309,14 @@ function getChartData(
   chartType: ScatterChartType,
   cache: Cache
 ): ChartData {
-  const xStatData = cache.statVarsData[x.statVarDcid];
-  const yStatData = cache.statVarsData[y.statVarDcid];
+  const xStatData =
+    x.metahash && x.metahash in cache.allStatVarsData[x.statVarDcid]
+      ? cache.allStatVarsData[x.statVarDcid][x.metahash]
+      : cache.statVarsData[x.statVarDcid];
+  const yStatData =
+    y.metahash && y.metahash in cache.allStatVarsData[y.statVarDcid]
+      ? cache.allStatVarsData[y.statVarDcid][y.metahash]
+      : cache.statVarsData[y.statVarDcid];
   const popBounds: [number, number] =
     chartType === ScatterChartType.MAP
       ? null
@@ -290,6 +351,27 @@ function getChartData(
   return { points, sources, xUnits, yUnits };
 }
 
+function getSourceSelectorSvInfo(
+  axis: Axis,
+  allStatVarsData: Record<string, Record<string, PlacePointStat>>,
+  metadataMap: Record<string, StatMetadata>
+): SourceSelectorSvInfo {
+  const filteredMetadataMap: Record<string, StatMetadata> = {};
+  const metahashList = allStatVarsData[axis.statVarDcid]
+    ? Object.keys(allStatVarsData[axis.statVarDcid])
+    : [];
+  metahashList.forEach((metahash) => {
+    if (metahash in metadataMap) {
+      filteredMetadataMap[metahash] = metadataMap[metahash];
+    }
+  });
+  return {
+    dcid: axis.statVarDcid,
+    name: axis.statVarInfo.title || axis.statVarDcid,
+    metahash: axis.metahash,
+    metadataMap: filteredMetadataMap,
+  };
+}
 /**
  * Checks if the stat var info for an axis has been loaded.
  * @param axis
@@ -323,7 +405,9 @@ function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
     yStatVar in cache.statVarsData &&
     !_.isEmpty(cache.statVarsData[yStatVar]) &&
     cache.xDate === x.date &&
-    cache.yDate === y.date
+    cache.yDate === y.date &&
+    cache.xMetahash === x.metahash &&
+    cache.yMetahash === y.metahash
   );
 }
 

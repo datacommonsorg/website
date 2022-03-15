@@ -36,6 +36,8 @@ interface Axis {
   perCapita: boolean;
   // The date of the StatVar data to plot for this axis
   date: string;
+  // The metahash of the source to get data from
+  metahash: string;
 }
 
 const EmptyAxis: Axis = Object.freeze({
@@ -44,6 +46,7 @@ const EmptyAxis: Axis = Object.freeze({
   log: false,
   perCapita: false,
   date: "",
+  metahash: "",
 });
 
 interface AxisWrapper {
@@ -57,6 +60,7 @@ interface AxisWrapper {
   setLog: Setter<boolean>;
   setPerCapita: Setter<boolean>;
   setDate: Setter<string>;
+  setMetahash: Setter<string>;
 }
 
 interface PlaceInfo {
@@ -151,6 +155,7 @@ const FieldToAbbreviation = {
   log: "l",
   perCapita: "pc",
   date: "date",
+  metahash: "src",
 
   // PlaceInfo fields
   enclosingPlaceDcid: "epd",
@@ -191,6 +196,7 @@ function useContextStore(): ContextType {
       setLog: getSetLog(x, setX),
       setPerCapita: getSetPerCapita(x, setX),
       setDate: getSetDate(x, setX),
+      setMetahash: (metahash) => setX({ ...x, metahash }),
     },
     y: {
       value: y,
@@ -201,6 +207,7 @@ function useContextStore(): ContextType {
       setLog: getSetLog(y, setY),
       setPerCapita: getSetPerCapita(y, setY),
       setDate: getSetDate(y, setY),
+      setMetahash: (metahash) => setY({ ...y, metahash }),
     },
     place: {
       value: place,

@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import { getCappedStatVarDate } from "../../shared/util";
-import { GetStatSetResponse } from "../shared_util";
+import { GetStatSetAllResponse, GetStatSetResponse } from "../shared_util";
 import {
   Axis,
   ContextType,
@@ -65,6 +65,41 @@ async function getStatsWithinPlace(
   }
   return Promise.all(promises).then((responses) => {
     const result: GetStatSetResponse = { data: {}, metadata: {} };
+    for (const resp of responses) {
+      result.data = Object.assign(result.data, resp.data.data);
+      result.metadata = Object.assign(result.metadata, resp.data.metadata);
+    }
+    return result;
+  });
+}
+
+export async function getAllStatsWithinPlace(
+  parent_place: string,
+  child_type: string,
+  statVars: { statVarDcid: string; date?: string }[]
+): Promise<GetStatSetAllResponse> {
+  let statVarParams = "";
+  // There are two stat vars for scatter plot.
+  //
+  // For IPCC stat vars, need to cut the data up to certain date, so here will
+  // always send two requests for each stat var.
+  const promises: Promise<GetStatSetAllResponse>[] = [];
+  for (const statVar of statVars) {
+    statVarParams = `&stat_vars=${statVar.statVarDcid}`;
+    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
+    // If there is a specified date, get the data for that date.
+    if (statVar.date) {
+      dataDate = statVar.date;
+    }
+    statVarParams += dataDate ? `&date=${dataDate}` : "";
+    promises.push(
+      axios.get(
+        `/api/stats/within-place/all?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
+      )
+    );
+  }
+  return Promise.all(promises).then((responses) => {
+    const result: GetStatSetAllResponse = { data: {}, metadata: {} };
     for (const resp of responses) {
       result.data = Object.assign(result.data, resp.data.data);
       result.metadata = Object.assign(result.metadata, resp.data.metadata);
@@ -131,8 +166,9 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
       axis[key] = value === "1" ? true : value;
     }
   }
-  const date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
-  axis.date = date;
+  axis.date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
+  axis.metahash =
+    params.get(addSuffix(FieldToAbbreviation.metahash, isX)) || "";
 
   return axis;
 }
@@ -232,12 +268,14 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
       );
     }
   }
-  if (axis.date) {
-    hash = appendEntry(
-      hash,
-      addSuffix(FieldToAbbreviation.date, isX),
-      axis.date
-    );
+  for (const key of ["date", "metahash"]) {
+    if (axis[key]) {
+      hash = appendEntry(
+        hash,
+        addSuffix(FieldToAbbreviation[key], isX),
+        axis[key]
+      );
+    }
   }
   return hash;
 }
