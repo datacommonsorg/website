@@ -84,11 +84,6 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigquery.version
-            - name: BIG_TABLE
-              valueFrom:
-                configMapKeyRef:
-                  name: store-configmap
-                  key: bigtable.version
             # A dummy config used to bounce the server without any docker image
             # or data config change.
             - name: BOUNCE
@@ -105,7 +100,6 @@ spec:
             - --mixer_project=$(MIXER_PROJECT)
             - --store_project=$(STORE_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
-            - --base_table=$(BIG_TABLE)
             - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
             - --import_group_tables=$(IMPORT_GROUP_TABLES)
@@ -128,16 +122,11 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigquery.version
-            - name: BIG_TABLE
-              valueFrom:
-                configMapKeyRef:
-                  name: store-configmap
-                  key: bigtable.version
             - name: IMPORT_GROUP_TABLES
               valueFrom:
                 configMapKeyRef:
                   name: store-configmap
-                  key: bigtable_import_groups.json
+                  key: bigtable_import_groups.version
             - name: MIXER_HASH
               valueFrom:
                 configMapKeyRef:

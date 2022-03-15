@@ -30,7 +30,12 @@ import {
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
 import { StatApiResponse } from "../../shared/stat_types";
+import { NamedPlace } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
+import {
+  ENCLOSED_PLACE_TYPE_NAMES,
+  getEnclosedPlacesPromise,
+} from "../../utils/place_utils";
 import {
   GetStatSetAllResponse,
   GetStatSetResponse,
@@ -42,11 +47,7 @@ import {
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";
-import {
-  DataPointMetadata,
-  ENCLOSED_PLACE_TYPE_NAMES,
-  getPlaceChartData,
-} from "./util";
+import { DataPointMetadata, getPlaceChartData } from "./util";
 
 const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
@@ -61,7 +62,7 @@ interface ChartRawData {
   breadcrumbPlaceStat: PlacePointStat;
   mapPointStat: PlacePointStat;
   mapPointsPromise: Promise<Array<MapPoint>>;
-  europeanCountries: Array<string>;
+  europeanCountries: Array<NamedPlace>;
   dataDate: string;
 }
 
@@ -75,7 +76,7 @@ interface ChartData {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
-  europeanCountries: Array<string>;
+  europeanCountries: Array<NamedPlace>;
   rankingLink: string;
 }
 
@@ -85,12 +86,11 @@ export function ChartLoader(): JSX.Element {
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
 
   useEffect(() => {
-    const placesLoaded =
+    const placeSelected =
       !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
-      !_.isEmpty(placeInfo.value.enclosedPlaces) &&
-      !_.isNull(placeInfo.value.parentPlaces);
+      !_.isEmpty(placeInfo.value.enclosedPlaceType);
     if (
-      placesLoaded &&
+      placeSelected &&
       !_.isEmpty(statVar.value.dcid) &&
       !_.isNull(statVar.value.info)
     ) {
@@ -99,7 +99,8 @@ export function ChartLoader(): JSX.Element {
       setRawData(undefined);
     }
   }, [
-    placeInfo.value.enclosedPlaces,
+    placeInfo.value.enclosingPlace,
+    placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
     statVar.value.info,
     statVar.value.denom,
@@ -114,11 +115,11 @@ export function ChartLoader(): JSX.Element {
 
   if (chartData === undefined) {
     return null;
-  } else if (
-    _.isEmpty(chartData) ||
-    _.isEmpty(chartData.mapValues) ||
-    _.isEmpty(chartData.geoJsonData)
-  ) {
+  } else if (_.isEmpty(chartData.geoJsonData)) {
+    <div className="p-5">
+      {`Sorry, maps are not available for ${placeInfo.value.enclosedPlaceType} in ${placeInfo.value.selectedPlace.name}. Try picking another place or type of place.`}
+    </div>;
+  } else if (_.isEmpty(chartData) || _.isEmpty(chartData.mapValues)) {
     return (
       <div className="p-5">
         {`Sorry, the selected variable ${
@@ -357,11 +358,9 @@ function fetchData(
           return resp.data;
         })
     : Promise.resolve({});
-  const europeanCountriesPromise: Promise<Array<string>> = axios
-    .get(
-      `/api/place/places-in?dcid=${EUROPE_NAMED_TYPED_PLACE.dcid}&placeType=Country`
-    )
-    .then((resp) => resp.data[EUROPE_NAMED_TYPED_PLACE.dcid]);
+  const europeanCountriesPromise: Promise<Array<
+    NamedPlace
+  >> = getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
   Promise.all([
     geoJsonDataPromise,
     breadcrumbPopPromise,
