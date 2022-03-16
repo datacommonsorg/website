@@ -63,7 +63,7 @@ function getPlaceAxisChartData(
   }
   const sources = [];
   const statDate = placePointStatData.date;
-  const metaHash = placePointStatData.metaHash;
+  const metaHash = placePointStat.metaHash || placePointStatData.metaHash;
   if (metaHash && metaHash in metadataMap) {
     sources.push(metadataMap[metaHash].provenanceUrl);
   }
