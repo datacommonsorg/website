@@ -34,17 +34,27 @@ import {
 
 import { StatMetadata } from "../tools/shared_util";
 
-const MODAL_MAX_WIDTH = "700px";
+const MODAL_MAX_WIDTH = "90vw";
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
 const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const MINUS_HTML = <i className="material-icons">remove</i>;
 const PLUS_HTML = <i className="material-icons">add</i>;
 const SELECTOR_PREFIX = "source-selector";
+const MAX_SOURCES_UNGROUPED = 3;
+// Best Available means the source is picked by the API and different sources
+// can be used for different data points.
+const EMPTY_METADATA_TITLE = "Best Available";
 
+// The information needed in SourceSelector component for a single stat var
 export interface SourceSelectorSvInfo {
+  // dcid of the stat var
   dcid: string;
+  // name of the stat var
   name: string;
+  // string to identify the metadata of the source used for this stat var
   metahash: string;
+  // mapping of metahashes to corresponding metadata for available sources for
+  // this stat var
   metadataMap: Record<string, StatMetadata>;
 }
 
@@ -104,8 +114,17 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
                 open={props.svInfoList.length < 2}
               >
                 <div className={`${SELECTOR_PREFIX}-options-section`}>
-                  {getSourceOptionJsx(svInfo, "")}
-                  {getSourceOptionSectionJsx(svInfo)}
+                  {getSourceOptionJsx(
+                    svInfo,
+                    "",
+                    modalSelections,
+                    setModalSelections
+                  )}
+                  {getSourceOptionSectionJsx(
+                    svInfo,
+                    modalSelections,
+                    setModalSelections
+                  )}
                 </div>
               </Collapsible>
             );
@@ -120,108 +139,134 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
     </>
   );
 
-  function getSourceOptionJsx(
-    svInfo: SourceSelectorSvInfo,
-    metahash: string
-  ): JSX.Element {
-    const metadata = svInfo.metadataMap[metahash] || {};
-    const sourceTitle = getSourceTitle(metadata);
-    return (
-      <FormGroup radio="true" row key={svInfo.dcid + metahash}>
-        <Label radio="true" className={`${SELECTOR_PREFIX}-option`}>
-          <div className={`${SELECTOR_PREFIX}-option-title`}>
-            <Input
-              type="radio"
-              name={svInfo.dcid}
-              defaultChecked={svInfo.metahash === metahash}
-              onClick={() => {
-                setModalSelections({
-                  ...modalSelections,
-                  [svInfo.dcid]: metahash,
-                });
-              }}
-            />
-            <div>{sourceTitle}</div>
-          </div>
-          <div className={`${SELECTOR_PREFIX}-option-details`}>
-            {metadata.importName && (
-              <div>importName: {metadata.importName}</div>
-            )}
-            {metadata.measurementMethod && (
-              <div>measurementMethod: {metadata.measurementMethod}</div>
-            )}
-            {metadata.observationPeriod && (
-              <div>observationPeriod: {metadata.observationPeriod}</div>
-            )}
-            {metadata.scalingFactor && (
-              <div>scalingFactor: {metadata.scalingFactor}</div>
-            )}
-            {metadata.unit && <div>unit: {metadata.unit}</div>}
-          </div>
-        </Label>
-      </FormGroup>
-    );
-  }
-
-  function getSourceOptionSectionJsx(
-    svInfo: SourceSelectorSvInfo
-  ): JSX.Element {
-    const importNameToSourceOptions: Record<string, string[]> = {};
-    const sourceOptionsNoImportName: string[] = [];
-    let shouldShowSections = false;
-    Object.keys(svInfo.metadataMap).forEach((metahash) => {
-      const importName = svInfo.metadataMap[metahash].importName;
-      if (!importName) {
-        sourceOptionsNoImportName.push(metahash);
-        return;
-      }
-      if (!(importName in importNameToSourceOptions)) {
-        importNameToSourceOptions[importName] = [];
-      }
-      importNameToSourceOptions[importName].push(metahash);
-      if (importNameToSourceOptions[importName].length > 3) {
-        shouldShowSections = true;
-      }
-    });
-    if (shouldShowSections) {
-      const sortedImportNames = Object.keys(importNameToSourceOptions).sort();
-      return (
-        <>
-          {sortedImportNames.map((importName) => (
-            <Collapsible
-              key={svInfo.dcid + importName}
-              trigger={getImportTriggerJsx(false, importName)}
-              triggerWhenOpen={getImportTriggerJsx(true, importName)}
-            >
-              {importNameToSourceOptions[importName].map((metahash) =>
-                getSourceOptionJsx(svInfo, metahash)
-              )}
-            </Collapsible>
-          ))}
-          {sourceOptionsNoImportName.map(
-            (metahash) =>
-              metahash in svInfo.metadataMap &&
-              getSourceOptionJsx(svInfo, metahash)
-          )}
-        </>
-      );
-    } else {
-      return (
-        <>
-          {Object.keys(svInfo.metadataMap).map((metahash) =>
-            getSourceOptionJsx(svInfo, metahash)
-          )}
-        </>
-      );
-    }
-  }
-
   function onConfirm(): void {
     props.onSvMetahashUpdated(modalSelections);
     setModalOpen(false);
   }
 }
 
+/**
+ * Gets the element for a single source option
+ */
+function getSourceOptionJsx(
+  svInfo: SourceSelectorSvInfo,
+  metahash: string,
+  modalSelections: Record<string, string>,
+  setModalSelections: (selections: Record<string, string>) => void
+): JSX.Element {
+  const metadata = svInfo.metadataMap[metahash] || {};
+  const sourceTitle = getSourceTitle(metadata);
+  return (
+    <FormGroup radio="true" row key={svInfo.dcid + metahash}>
+      <Label radio="true" className={`${SELECTOR_PREFIX}-option`}>
+        <div className={`${SELECTOR_PREFIX}-option-title`}>
+          <Input
+            type="radio"
+            name={svInfo.dcid}
+            defaultChecked={svInfo.metahash === metahash}
+            onClick={() => {
+              setModalSelections({
+                ...modalSelections,
+                [svInfo.dcid]: metahash,
+              });
+            }}
+          />
+          <div>{sourceTitle}</div>
+        </div>
+        <div className={`${SELECTOR_PREFIX}-option-details`}>
+          {metadata.importName && <div>importName: {metadata.importName}</div>}
+          {metadata.measurementMethod && (
+            <div>measurementMethod: {metadata.measurementMethod}</div>
+          )}
+          {metadata.observationPeriod && (
+            <div>observationPeriod: {metadata.observationPeriod}</div>
+          )}
+          {metadata.scalingFactor && (
+            <div>scalingFactor: {metadata.scalingFactor}</div>
+          )}
+          {metadata.unit && <div>unit: {metadata.unit}</div>}
+        </div>
+      </Label>
+    </FormGroup>
+  );
+}
+
+/**
+ * Gets the element for source options section for a single stat var
+ */
+function getSourceOptionSectionJsx(
+  svInfo: SourceSelectorSvInfo,
+  modalSelections: Record<string, string>,
+  setModalSelections: (selections: Record<string, string>) => void
+): JSX.Element {
+  const importNameToSourceOptions: Record<string, string[]> = {};
+  const sourceOptionsNoImportName: string[] = [];
+  let shouldShowSections = false;
+  Object.keys(svInfo.metadataMap).forEach((metahash) => {
+    const importName = svInfo.metadataMap[metahash].importName;
+    if (!importName) {
+      sourceOptionsNoImportName.push(metahash);
+      return;
+    }
+    if (!(importName in importNameToSourceOptions)) {
+      importNameToSourceOptions[importName] = [];
+    }
+    importNameToSourceOptions[importName].push(metahash);
+    if (importNameToSourceOptions[importName].length > MAX_SOURCES_UNGROUPED) {
+      shouldShowSections = true;
+    }
+  });
+  if (shouldShowSections) {
+    const sortedImportNames = Object.keys(importNameToSourceOptions).sort();
+    return (
+      <>
+        {sortedImportNames.map((importName) => (
+          <Collapsible
+            key={svInfo.dcid + importName}
+            trigger={getImportTriggerJsx(false, importName)}
+            triggerWhenOpen={getImportTriggerJsx(true, importName)}
+          >
+            {importNameToSourceOptions[importName].map((metahash) =>
+              getSourceOptionJsx(
+                svInfo,
+                metahash,
+                modalSelections,
+                setModalSelections
+              )
+            )}
+          </Collapsible>
+        ))}
+        {sourceOptionsNoImportName.map(
+          (metahash) =>
+            metahash in svInfo.metadataMap &&
+            getSourceOptionJsx(
+              svInfo,
+              metahash,
+              modalSelections,
+              setModalSelections
+            )
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        {Object.keys(svInfo.metadataMap).map((metahash) =>
+          getSourceOptionJsx(
+            svInfo,
+            metahash,
+            modalSelections,
+            setModalSelections
+          )
+        )}
+      </>
+    );
+  }
+}
+
+/**
+ * Gets the element for the trigger for a collapsible stat var section
+ */
 function getSVTriggerJsx(
   opened: boolean,
   svName: string,
@@ -230,11 +275,9 @@ function getSVTriggerJsx(
   const sourceTitle = getSourceTitle(selectedMetadata);
   return (
     <div
-      className={
-        opened
-          ? `${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-sv-trigger-opened`
-          : `${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-sv-trigger-closed`
-      }
+      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-sv-trigger-${
+        opened ? "opened" : "closed"
+      }`}
     >
       <div className={`${SELECTOR_PREFIX}-trigger-title`}>
         {svName}
@@ -247,14 +290,16 @@ function getSVTriggerJsx(
   );
 }
 
+/**
+ * Gets the element for the trigger for a collapsible import section in the list
+ * of source options
+ */
 function getImportTriggerJsx(opened: boolean, title: string): JSX.Element {
   return (
     <div
-      className={
-        opened
-          ? `${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-import-trigger-opened`
-          : `${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-import-trigger-closed`
-      }
+      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-import-trigger-${
+        opened ? "opened" : "closed"
+      }`}
     >
       {opened ? MINUS_HTML : PLUS_HTML}
       <div className={`${SELECTOR_PREFIX}-trigger-title`}>{title}</div>
@@ -262,6 +307,10 @@ function getImportTriggerJsx(opened: boolean, title: string): JSX.Element {
   );
 }
 
+/**
+ * Given a list of SourceSelectorSvInfo, gets a map of stat var to selected
+ * source metahash
+ */
 function getModalSelections(
   svInfo: SourceSelectorSvInfo[]
 ): Record<string, string> {
@@ -270,9 +319,12 @@ function getModalSelections(
   return result;
 }
 
+/**
+ * Given the metadata for a source, gets a title for the source
+ */
 function getSourceTitle(metadata: StatMetadata): string {
   if (_.isEmpty(metadata)) {
-    return "Best Available";
+    return EMPTY_METADATA_TITLE;
   }
   let result = `[${metadata.importName}]`;
   let first = true;

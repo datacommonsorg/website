@@ -22,6 +22,11 @@ $font-size-large: 13px;
 $font-size-small: 11px;
 $color-byline: #7b7b7b;
 
+.source-selector-modal {
+  display: flex;
+  justify-content: center;
+}
+
 .source-selector-modal .form-group {
   margin: 0;
 }
@@ -35,10 +40,14 @@ $color-byline: #7b7b7b;
 
 .source-selector-modal .modal-body {
   height: 500px;
-  width: 100%;
+  width: fit-content;
   overflow-y: scroll;
   word-break: break-word;
   padding: 1rem 1.5rem;
+}
+
+.source-selector-modal .modal-content {
+  width: fit-content;
 }
 
 .source-selector-options-section {

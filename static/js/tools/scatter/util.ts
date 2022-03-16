@@ -73,9 +73,16 @@ async function getStatsWithinPlace(
   });
 }
 
+/**
+ * Returns a promise that will get all the data from all available sources for
+ * a place type within a place for a list of stat vars.
+ * @param parentPlace the place to get data within
+ * @param childType the type of place to get data for
+ * @param statVars the stat vars to get data for
+ */
 export async function getAllStatsWithinPlace(
-  parent_place: string,
-  child_type: string,
+  parentPlace: string,
+  childType: string,
   statVars: { statVarDcid: string; date?: string }[]
 ): Promise<GetStatSetAllResponse> {
   let statVarParams = "";
@@ -94,7 +101,7 @@ export async function getAllStatsWithinPlace(
     statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
       axios.get(
-        `/api/stats/within-place/all?parent_place=${parent_place}&child_type=${child_type}${statVarParams}`
+        `/api/stats/within-place/all?parent_place=${parentPlace}&child_type=${childType}${statVarParams}`
       )
     );
   }
