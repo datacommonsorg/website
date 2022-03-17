@@ -17,7 +17,7 @@
 import _ from "lodash";
 import React, { memo } from "react";
 
-import { CachedChoroplethData, GeoJsonData, PageData } from "../../chart/types";
+import { PageData } from "../../chart/types";
 import { ChartBlock } from "../../place/chart_block";
 import { isPlaceInUsa } from "../../place/util";
 

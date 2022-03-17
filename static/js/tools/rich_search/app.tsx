@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
@@ -76,7 +76,6 @@ function App({
   chartsData,
 }: AppPropType): JSX.Element {
   const [placeNames, setPlaceNames] = useState({});
-  const [attemptedSearch, setAttemptedSearch] = useState(false);
   useEffect(() => {
     places.length
       ? getPlaceNames(places).then(setPlaceNames)
@@ -157,35 +156,41 @@ async function getLandingPageData(
     .then((resp) => resp.data);
 }
 
+function getQueryFromUrl(): string {
+  return [...Array.from(getTokensFromUrl("query", placeSep)), ""][0]
+}
+
+function getPlacesFromUrl(): string[] {
+  return [...Array.from(getTokensFromUrl("place", placeSep))]
+}
+
 export function AppWithContext(): JSX.Element {
-  const [query, setQuery] = useState(
-    [...Array.from(getTokensFromUrl("query", placeSep)), ""][0]
-  );
-  const [places, setPlaces] = useState([
-    ...Array.from(getTokensFromUrl("place", placeSep)),
-  ]);
+  const [query, setQuery] = useState(getQueryFromUrl());
+  const [places, setPlaces] = useState(getPlacesFromUrl());
   const [loading, setLoading] = useState(false);
   const [inputInvalid, setInputInvalid] = useState(false);
   const [chartsData, setChartsData] = useState<ChartsPropType | undefined>();
   window.onhashchange = () => {
     // Minimize state updates to preven unnecessary re-renders.
-    const q = [...Array.from(getTokensFromUrl("query", placeSep)), ""][0];
+    const q = getQueryFromUrl();
     if (q !== query) setQuery(q);
-    const p = [...Array.from(getTokensFromUrl("place", placeSep))];
+    const p = getPlacesFromUrl();
     if (!_.isEqual(places, p)) setPlaces(p);
     if (inputInvalid) setInputInvalid(false);
   };
 
-  const locale = document.getElementById("locale").dataset.lc;
   const search = () => {
-    if (query && places.length) {
+    const locale = document.getElementById("locale").dataset.lc;
+    const q = getQueryFromUrl();
+    const p = getPlacesFromUrl();
+    if (q && p.length) {
       setLoading(true);
       setChartsData(null);
       Promise.all([
-        getLandingPageData(places, query, locale),
-        getPlaceTypes(places),
+        getLandingPageData(p, q, locale),
+        getPlaceTypes(p),
       ]).then(([pageData, placeTypes]) => {
-        setChartsData({ pageData, placeTypes, places });
+        setChartsData({ pageData, placeTypes, places: p });
         setLoading(false);
       });
     }
