@@ -18,13 +18,14 @@
  * Main app component for map explorer.
  */
 
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
 import { PageData } from "../../chart/types";
+import { NamedNode } from "../../shared/types";
 import { intl } from "../../i18n/i18n";
 import { SearchBar } from "../timeline/search";
 import {
@@ -35,7 +36,7 @@ import {
   removeToken,
   setTokensToUrl,
 } from "../timeline/util";
-import { ChartsPropType, MemoCharts } from "./charts";
+import { StatVarsPropType, MemoStatVars } from "./stat_vars";
 
 interface AppPropType {
   query: string;
@@ -46,7 +47,7 @@ interface AppPropType {
   loading: boolean;
   onClickSearch: () => void;
   inputInvalid: boolean;
-  chartsData: ChartsPropType;
+  chartsData: StatVarsPropType;
 }
 
 function getPlaceTypes(places: string[]): Promise<{ [key: string]: string }> {
@@ -98,7 +99,7 @@ function App({
                       <Input
                         invalid={inputInvalid}
                         placeholder={
-                          'For example "People with Doctorate Degrees"'
+                          "For example \"People with Doctorate Degrees\""
                         }
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
@@ -131,7 +132,7 @@ function App({
             <Card>
               <RawIntlProvider value={intl}>
                 <div id="main" className="col-md-9x col-lg-10">
-                  {chartsData && !loading && <MemoCharts {...chartsData} />}
+                  {chartsData && !loading && <MemoStatVars {...chartsData} />}
                 </div>
               </RawIntlProvider>
             </Card>
@@ -148,12 +149,26 @@ function App({
 async function getLandingPageData(
   dcids: string[],
   query: string,
-  locale: string
+  locale: string,
 ): Promise<PageData> {
   //TODO: Incorporate the query into the API.
   return axios
     .get(`/api/landingpage/data/${dcids[0]}?category=Health&hl=${locale}`)
     .then((resp) => resp.data);
+}
+
+async function getStatVars(
+  dcids: string[],
+  query: string,
+): Promise<NamedNode[]> {
+  //TODO: Incorporate plots into the API.
+  const params = new URLSearchParams({query});
+  for (const place of dcids) {
+    params.append("place", place);
+  }
+  return axios
+    .get(`/api/stats/stat-var-search?${params.toString()}`)
+    .then((resp) => resp.data.statVars || []);
 }
 
 function getQueryFromUrl(): string {
@@ -169,7 +184,7 @@ export function AppWithContext(): JSX.Element {
   const [places, setPlaces] = useState(getPlacesFromUrl());
   const [loading, setLoading] = useState(false);
   const [inputInvalid, setInputInvalid] = useState(false);
-  const [chartsData, setChartsData] = useState<ChartsPropType | undefined>();
+  const [chartsData, setChartsData] = useState<StatVarsPropType | undefined>();
   window.onhashchange = () => {
     // Minimize state updates to preven unnecessary re-renders.
     const q = getQueryFromUrl();
@@ -184,18 +199,18 @@ export function AppWithContext(): JSX.Element {
   };
 
   const search = () => {
-    const locale = document.getElementById("locale").dataset.lc;
+    // const locale = document.getElementById("locale").dataset.lc;
     const q = getQueryFromUrl();
     const p = getPlacesFromUrl();
     if (q && p.length) {
       setLoading(true);
       setChartsData(null);
-      Promise.all([getLandingPageData(p, q, locale), getPlaceTypes(p)]).then(
-        ([pageData, placeTypes]) => {
-          setChartsData({ pageData, placeTypes, places: p });
-          setLoading(false);
-        }
-      );
+      Promise.all([
+        getStatVars(p, q),
+      ]).then(([statVars]) => {
+        setChartsData({ statVars, places: p });
+        setLoading(false);
+      });
     }
   };
   useEffect(search, []);
