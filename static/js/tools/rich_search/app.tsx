@@ -157,11 +157,11 @@ async function getLandingPageData(
 }
 
 function getQueryFromUrl(): string {
-  return [...Array.from(getTokensFromUrl("query", placeSep)), ""][0]
+  return [...Array.from(getTokensFromUrl("query", placeSep)), ""][0];
 }
 
 function getPlacesFromUrl(): string[] {
-  return [...Array.from(getTokensFromUrl("place", placeSep))]
+  return [...Array.from(getTokensFromUrl("place", placeSep))];
 }
 
 export function AppWithContext(): JSX.Element {
@@ -173,9 +173,13 @@ export function AppWithContext(): JSX.Element {
   window.onhashchange = () => {
     // Minimize state updates to preven unnecessary re-renders.
     const q = getQueryFromUrl();
-    if (q !== query) setQuery(q);
+    if (q !== query) {
+      setQuery(q);
+    }
     const p = getPlacesFromUrl();
-    if (!_.isEqual(places, p)) setPlaces(p);
+    if (!_.isEqual(places, p)) {
+      setPlaces(p);
+    }
     if (inputInvalid) setInputInvalid(false);
   };
 
@@ -186,13 +190,12 @@ export function AppWithContext(): JSX.Element {
     if (q && p.length) {
       setLoading(true);
       setChartsData(null);
-      Promise.all([
-        getLandingPageData(p, q, locale),
-        getPlaceTypes(p),
-      ]).then(([pageData, placeTypes]) => {
-        setChartsData({ pageData, placeTypes, places: p });
-        setLoading(false);
-      });
+      Promise.all([getLandingPageData(p, q, locale), getPlaceTypes(p)]).then(
+        ([pageData, placeTypes]) => {
+          setChartsData({ pageData, placeTypes, places: p });
+          setLoading(false);
+        }
+      );
     }
   };
   useEffect(search, []);
