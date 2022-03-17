@@ -18,15 +18,15 @@
  * Main app component for map explorer.
  */
 
-import React, { useEffect, useState } from "react";
 import axios from "axios";
 import _ from "lodash";
+import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
 import { PageData } from "../../chart/types";
-import { NamedNode } from "../../shared/types";
 import { intl } from "../../i18n/i18n";
+import { NamedNode } from "../../shared/types";
 import { SearchBar } from "../timeline/search";
 import {
   addToken,
@@ -36,7 +36,7 @@ import {
   removeToken,
   setTokensToUrl,
 } from "../timeline/util";
-import { StatVarsPropType, MemoStatVars } from "./stat_vars";
+import { MemoStatVars, StatVarsPropType } from "./stat_vars";
 
 interface AppPropType {
   query: string;
@@ -50,20 +50,31 @@ interface AppPropType {
   chartsData: StatVarsPropType;
 }
 
-function getPlaceTypes(places: string[]): Promise<{ [key: string]: string }> {
-  //TODO: Should we make this a single call.
-  return Promise.all(
-    places.map((dcid) =>
-      axios.get(`/api/place/type/${dcid}`).then((resp) => [dcid, resp.data])
-    )
-  ).then((entries) => {
-    const result = {};
-    entries.forEach((pair) => {
-      result[pair[0]] = pair[1];
-    });
-    return result;
-  });
-}
+// function getPlaceTypes(places: string[]): Promise<{ [key: string]: string }> {
+//   //TODO: Should we make this a single call.
+//   return Promise.all(
+//     places.map((dcid) =>
+//       axios.get(`/api/place/type/${dcid}`).then((resp) => [dcid, resp.data])
+//     )
+//   ).then((entries) => {
+//     const result = {};
+//     entries.forEach((pair) => {
+//       result[pair[0]] = pair[1];
+//     });
+//     return result;
+//   });
+// }
+//
+// async function getLandingPageData(
+//   dcids: string[],
+//   query: string,
+//   locale: string,
+// ): Promise<PageData> {
+//   //TODO: Incorporate the query into the API.
+//   return axios
+//     .get(`/api/landingpage/data/${dcids[0]}?category=Health&hl=${locale}`)
+//     .then((resp) => resp.data);
+// }
 
 function App({
   query,
@@ -99,7 +110,7 @@ function App({
                       <Input
                         invalid={inputInvalid}
                         placeholder={
-                          "For example \"People with Doctorate Degrees\""
+                          'For example "People with Doctorate Degrees"'
                         }
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
@@ -146,23 +157,12 @@ function App({
   );
 }
 
-async function getLandingPageData(
-  dcids: string[],
-  query: string,
-  locale: string,
-): Promise<PageData> {
-  //TODO: Incorporate the query into the API.
-  return axios
-    .get(`/api/landingpage/data/${dcids[0]}?category=Health&hl=${locale}`)
-    .then((resp) => resp.data);
-}
-
 async function getStatVars(
   dcids: string[],
-  query: string,
+  query: string
 ): Promise<NamedNode[]> {
   //TODO: Incorporate plots into the API.
-  const params = new URLSearchParams({query});
+  const params = new URLSearchParams({ query });
   for (const place of dcids) {
     params.append("place", place);
   }
@@ -205,9 +205,7 @@ export function AppWithContext(): JSX.Element {
     if (q && p.length) {
       setLoading(true);
       setChartsData(null);
-      Promise.all([
-        getStatVars(p, q),
-      ]).then(([statVars]) => {
+      Promise.all([getStatVars(p, q)]).then(([statVars]) => {
         setChartsData({ statVars, places: p });
         setLoading(false);
       });
