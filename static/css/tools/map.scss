@@ -19,6 +19,7 @@
 @import "../draw";
 @import "../draw_choropleth";
 @import "../place_selector";
+@import "../source_selector";
 
 // TODO(chejennifer): factor out some common styling
 .card {
@@ -229,6 +230,12 @@
   margin-left: 0.3rem;
 }
 
-#source-picker {
-  margin-bottom: 10px;
+.map-footer .source-selector-open-modal-button {
+  font-size: 11px;
+  padding: 0.25rem;
+  color: var(--link-color);
+}
+
+.sources-string {
+  padding-left: 0.25rem;
 }

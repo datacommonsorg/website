@@ -120,5 +120,6 @@ function selectStatVar(
     info: null,
     perCapita: false,
     mapPointSv: "",
+    metahash: "",
   });
 }

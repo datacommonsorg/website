@@ -19,6 +19,7 @@
 @import "../draw_choropleth";
 @import "../draw_scatter.scss";
 @import "../place_selector.scss";
+@import "../source_selector";
 
 #main-pane #plot-container {
   background: #f8f8f8;
@@ -256,4 +257,10 @@ circle {
 
 .scatter-chart-container {
   position: relative;
+}
+
+#plot-options .plot-options-row .source-selector-open-modal-button {
+  background-color: #f8f8f8;
+  font-size: 0.9rem;
+  margin-left: -0.5rem;
 }

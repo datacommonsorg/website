@@ -22,13 +22,16 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
-import { CustomInput } from "reactstrap";
 
 import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
+import {
+  SourceSelector,
+  SourceSelectorSvInfo,
+} from "../../shared/source_selector";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
@@ -111,7 +114,7 @@ export function ChartLoader(): JSX.Element {
     if (!_.isEmpty(rawData)) {
       loadChartData(rawData, placeInfo.value, statVar.value, setChartData);
     }
-  }, [rawData, statVar.value.perCapita]);
+  }, [rawData, statVar.value.metahash, statVar.value.perCapita]);
 
   if (chartData === undefined) {
     return null;
@@ -133,7 +136,8 @@ export function ChartLoader(): JSX.Element {
       </div>
     );
   }
-  const sourceList = getMetaList(
+  const sourceSelectorSvInfo = getSourceSelectorSvInfo(
+    statVar.value,
     Object.keys(rawData.allPlaceStat),
     rawData.metadataMap
   );
@@ -154,31 +158,8 @@ export function ChartLoader(): JSX.Element {
         mapPointsPromise={chartData.mapPointsPromise}
         europeanCountries={chartData.europeanCountries}
         rankingLink={chartData.rankingLink}
+        sourceSelectorSvInfo={sourceSelectorSvInfo}
       />
-      <div id="source-picker">
-        <span>Pick Source</span>
-        <CustomInput
-          id="source-select"
-          type="select"
-          defaultValue="Best Available"
-          onChange={(e) => {
-            loadChartData(
-              rawData,
-              placeInfo.value,
-              statVar.value,
-              setChartData,
-              e.target.value
-            );
-          }}
-        >
-          <option value="Best Available">Best Available</option>
-          {sourceList.map((source) => (
-            <option value={source.metaHash} key={source.metaHash}>
-              {source.text}
-            </option>
-          ))}
-        </CustomInput>
-      </div>
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbValues}
         mapDataValues={chartData.mapValues}
@@ -240,38 +221,26 @@ function getGeoJsonDataFeatures(
   return geoJsonFeatures;
 }
 
-function getMetaText(metadata: StatMetadata): string {
-  let result = `[${metadata.importName}]`;
-  let first = true;
-  for (const text of [
-    metadata.measurementMethod,
-    metadata.observationPeriod,
-    metadata.scalingFactor,
-    metadata.unit,
-  ]) {
-    if (text) {
-      if (!first) {
-        result += ", ";
-      }
-      result += text;
-      first = false;
-    }
-  }
-  return result;
-}
-
-function getMetaList(
+function getSourceSelectorSvInfo(
+  statVar: StatVar,
   metaHashList: string[],
   metadataMap: Record<string, StatMetadata>
-): { metaHash: string; text: string }[] {
-  const result = metaHashList.map((m) => {
-    return {
-      metaHash: m,
-      text: getMetaText(metadataMap[m]),
-    };
+): SourceSelectorSvInfo {
+  const filteredMetadataMap: Record<string, StatMetadata> = {};
+  metaHashList.forEach((metahash) => {
+    if (metahash in metadataMap) {
+      filteredMetadataMap[metahash] = metadataMap[metahash];
+    }
   });
-  result.sort((a, b) => (a.text > b.text ? 1 : -1));
-  return result;
+  return {
+    dcid: statVar.dcid,
+    metadataMap: filteredMetadataMap,
+    metahash: statVar.metahash,
+    name:
+      statVar.dcid in statVar.info
+        ? statVar.info[statVar.dcid].title
+        : statVar.dcid,
+  };
 }
 
 // Fetches the data needed for the charts.
@@ -466,8 +435,7 @@ function loadChartData(
   rawData: ChartRawData,
   placeInfo: PlaceInfo,
   statVar: StatVar,
-  setChartData: (data: ChartData) => void,
-  metaHash?: string
+  setChartData: (data: ChartData) => void
 ): void {
   const mapValues = {};
   const metadata = {};
@@ -481,8 +449,8 @@ function loadChartData(
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
-      metaHash && metaHash in rawData.allPlaceStat
-        ? rawData.allPlaceStat[metaHash]
+      statVar.metahash && statVar.metahash in rawData.allPlaceStat
+        ? rawData.allPlaceStat[statVar.metahash]
         : rawData.placeStat,
       placeDcid,
       statVar.perCapita,
