@@ -24,7 +24,6 @@ import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
-import { PageData } from "../../chart/types";
 import { intl } from "../../i18n/i18n";
 import { NamedNode } from "../../shared/types";
 import { SearchBar } from "../timeline/search";
