@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 /**
- * Main app component for map explorer.
+ * Main app component for rich search.
  */
 
 import axios from "axios";
@@ -49,32 +49,6 @@ interface AppPropType {
   inputInvalid: boolean;
   chartsData: StatVarsPropType;
 }
-
-// function getPlaceTypes(places: string[]): Promise<{ [key: string]: string }> {
-//   //TODO: Should we make this a single call.
-//   return Promise.all(
-//     places.map((dcid) =>
-//       axios.get(`/api/place/type/${dcid}`).then((resp) => [dcid, resp.data])
-//     )
-//   ).then((entries) => {
-//     const result = {};
-//     entries.forEach((pair) => {
-//       result[pair[0]] = pair[1];
-//     });
-//     return result;
-//   });
-// }
-//
-// async function getLandingPageData(
-//   dcids: string[],
-//   query: string,
-//   locale: string,
-// ): Promise<PageData> {
-//   //TODO: Incorporate the query into the API.
-//   return axios
-//     .get(`/api/landingpage/data/${dcids[0]}?category=Health&hl=${locale}`)
-//     .then((resp) => resp.data);
-// }
 
 function App({
   query,
@@ -161,7 +135,6 @@ async function getStatVars(
   dcids: string[],
   query: string
 ): Promise<NamedNode[]> {
-  //TODO: Incorporate plots into the API.
   const params = new URLSearchParams({ query });
   for (const place of dcids) {
     params.append("place", place);

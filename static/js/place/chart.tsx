@@ -117,7 +117,7 @@ interface ChartPropType {
    */
   isUsaPlace: boolean;
   /**
-   * If the chart should update the page layour with a sidebar.
+   * If the chart should update the page layout with a sidebar.
    */
   doUpdatePageLayoutState: boolean;
 }
