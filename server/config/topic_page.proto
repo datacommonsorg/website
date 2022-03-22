@@ -20,14 +20,23 @@ package datacommons;
 // placeholder as a field in the ReplacementStrings interface in 
 // static/js/topic_page/string_utils.ts.
 
+message PlacesWithin {
+  // Place dcid of the parent.
+  string parent_dcid = 1;
+  // Type of child places within parent_dcid to support.
+  string children_type = 2;
+}
+
 message PageMetadata {
   string topic_id = 1;
   string topic_name = 2;
   // List of places supported by this config.
   repeated string place_dcid = 3;
-  // Contained places to load for each parent place type.
+  // List of places within a containing place to generate topics for.
+  repeated PlacesWithin places_within = 4;
+  // Contained places to load for each parent place type, for use in charts.
   // This can be overwritten by tiles.
-  map<string, string> contained_place_types = 4;
+  map<string, string> contained_place_types = 5;
 }
 
 

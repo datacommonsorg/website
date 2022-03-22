@@ -14,6 +14,7 @@
 
 import json
 import os
+import services.datacommons as dc_service
 from google.protobuf import text_format
 from config import topic_page_pb2
 
@@ -33,7 +34,7 @@ PLACE_EXPLORER_CATEGORIES = [
 # key is topic_id, which should match the folder name under config/topic_page
 # property is the list of filenames in that folder to load.
 TOPIC_PAGE_CONFIGS = {
-    'equity': ['USA'],
+    'equity': ['USA', 'USA_states'],
     'poverty': ['USA', 'India'],
 }
 
@@ -47,8 +48,22 @@ def get_chart_config():
     return chart_config
 
 
+# Expands the places_within field in topic.metadata with the full list of
+# places, which is appended to the place_dcid list.
+# TODO: sort children by name
+# TODO: clear the place_within field after expansion?
+def _expand_topic_places_within(topic_page_config):
+    metadata = topic_page_config.metadata
+    for places_within in metadata.places_within:
+        contained_places = dc_service.get_places_in([places_within.parent_dcid], places_within.children_type)
+        if places_within.parent_dcid in contained_places:
+            metadata.place_dcid.extend(contained_places[places_within.parent_dcid])
+
+
 # Returns topic pages loaded as TopicPageConfig protos:
 # { topic_id: [TopicPageConfig,...] }
+# Note: the metadata.places_within fields in each config is replaced with a
+# fully expanded list of child places.
 def get_topic_page_config():
     topic_configs = {}
     for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
@@ -60,6 +75,7 @@ def get_topic_page_config():
                 data = f.read()
                 topic_page_config = topic_page_pb2.TopicPageConfig()
                 text_format.Parse(data, topic_page_config)
+                _expand_topic_places_within(topic_page_config)
                 configs.append(topic_page_config)
         topic_configs[topic_id] = configs
     return topic_configs

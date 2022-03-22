@@ -38,7 +38,7 @@ categories {
       type: DESCRIPTION
       description: "In economics, the Gini index is a measure of income inequality within a nation or social group. It measures the inequality among values of a frequency distribution (e.g. a Gini index of 0 represents perfect equality, while 100 represents perfect inequality)."
     }
-    right_tiles: {
+    right_tiles {
       type: LINE
       title: "Gini index of economic activity for ${place}"
       stat_var_key: "gini"
@@ -610,7 +610,7 @@ categories {
     # Title intentionally left out to "merge" with previous block
     description: "Percentage of the population of each race living in correctional facilities"
     left_tiles {
-      title: "Percentage of each race in correctional facilities"
+      title: "Percentage of each race in juvenile correctional facilities"
       type: LINE
       stat_var_key: "juvie_rate_aian"
       stat_var_key: "juvie_rate_a"
@@ -620,7 +620,7 @@ categories {
       stat_var_key: "juvie_rate_w"
     }
     right_tiles {
-      title: "Percentage of each race in correctional facilities"
+      title: "Percentage of each race in adult correctional facilities"
       type: LINE
       stat_var_key: "jail_rate_aian"
       stat_var_key: "jail_rate_a"
