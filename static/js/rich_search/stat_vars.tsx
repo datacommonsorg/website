@@ -16,7 +16,7 @@
 
 import React, { memo } from "react";
 
-import { NamedNode } from "../../shared/types";
+import { NamedNode } from "../shared/types";
 
 export interface StatVarsPropType {
   places: string[];

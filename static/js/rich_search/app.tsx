@@ -23,8 +23,8 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
-import { NamedNode } from "../../shared/types";
-import { SearchBar } from "../timeline/search";
+import { NamedNode } from "../shared/types";
+import { SearchBar } from "../tools/timeline/search";
 import {
   addToken,
   getPlaceNames,
@@ -32,7 +32,7 @@ import {
   placeSep,
   removeToken,
   setTokensToUrl,
-} from "../timeline/util";
+} from "../tools/timeline/util";
 import { MemoStatVars, StatVarsPropType } from "./stat_vars";
 
 interface AppPropType {
