@@ -96,7 +96,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
               onChange={this.onModeChange}
               ref={this.defaultRadioElem}
             />
-            Place Observation
+            Observation
             <br />
             <input
               type="radio"
