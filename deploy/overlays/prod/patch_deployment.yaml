@@ -31,8 +31,13 @@ spec:
         - name: redis-config
           configMap:
             name: redis-config
+        - name: ai-config
+          configMap:
+            name: ai-config
       containers:
         - name: website
           volumeMounts:
             - name: redis-config
               mountPath: /datacommons/redis
+            - name: ai-config
+              mountPath: /datacommons/ai
