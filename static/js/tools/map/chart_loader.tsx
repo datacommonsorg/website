@@ -206,8 +206,8 @@ export function ChartLoader(): JSX.Element {
 
     // Skip update if date has no data
     if (
-      (metahash == "Best Available" && placeStatData) ||
-      !_.isEmpty(sampleDatesChartData[metahash][date].allPlaceStat)
+      (placeStatData || (metahash != "Best Available" &&
+      sampleDatesChartData[metahash][date].allPlaceStat[metahash].stat))
     ) {
       loadChartData(
         sampleDatesChartData[metahash][date],
@@ -654,7 +654,7 @@ function loadChartData(
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
-      metaHash && metaHash in rawData.allPlaceStat
+      metaHash && metaHash in rawData.allPlaceStat && rawData.allPlaceStat[metaHash].stat
         ? rawData.allPlaceStat[metaHash]
         : rawData.placeStat,
       placeDcid,

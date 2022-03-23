@@ -132,7 +132,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
         setTimer(
           setInterval(() => {
             setIndex((index) => index + 1);
-          }, 1000)
+          }, 500)
         );
       });
     } else {
