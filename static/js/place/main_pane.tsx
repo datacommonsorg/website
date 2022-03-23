@@ -114,7 +114,6 @@ class MainPane extends React.Component<MainPanePropType> {
         childPlaceType={this.props.childPlacesType}
         parentPlaces={this.props.parentPlaces}
         category={category}
-        doUpdatePageLayoutState={true}
       />
     );
   }

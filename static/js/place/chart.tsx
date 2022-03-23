@@ -116,10 +116,6 @@ interface ChartPropType {
    * If the primary place is in USA.
    */
   isUsaPlace: boolean;
-  /**
-   * If the chart should update the page layout with a sidebar.
-   */
-  doUpdatePageLayoutState: boolean;
 }
 
 interface ChartStateType {
@@ -282,9 +278,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     } catch (e) {
       return;
     }
-    if (this.props.doUpdatePageLayoutState) {
-      updatePageLayoutState();
-    }
+    updatePageLayoutState();
   }
 
   componentWillUnmount(): void {
