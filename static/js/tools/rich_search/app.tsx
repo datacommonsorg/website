@@ -21,10 +21,8 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { RawIntlProvider } from "react-intl";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
-import { intl } from "../../i18n/i18n";
 import { NamedNode } from "../../shared/types";
 import { SearchBar } from "../timeline/search";
 import {
@@ -114,11 +112,9 @@ function App({
           </Row>
           <Row>
             <Card>
-              <RawIntlProvider value={intl}>
-                <div id="main" className="col-md-9x col-lg-10">
-                  {chartsData && !loading && <MemoStatVars {...chartsData} />}
-                </div>
-              </RawIntlProvider>
+              <div id="main" className="col-md-9x col-lg-10">
+                {chartsData && !loading && <MemoStatVars {...chartsData} />}
+              </div>
             </Card>
           </Row>
           <div id="screen" style={{ display: loading ? "block" : "none" }}>
@@ -171,7 +167,6 @@ export function AppWithContext(): JSX.Element {
   };
 
   const search = () => {
-    // const locale = document.getElementById("locale").dataset.lc;
     const q = getQueryFromUrl();
     const p = getPlacesFromUrl();
     if (q && p.length) {

@@ -17,18 +17,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { loadLocaleData } from "../../i18n/i18n";
 import { AppWithContext } from "./app";
 
 window.onload = () => {
-  const locale = document.getElementById("locale").dataset.lc;
-  loadLocaleData(locale, [
-    import(`../../i18n/compiled-lang/${locale}/place.json`),
-    // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.
-    import(`../../i18n/compiled-lang/${locale}/stats_var_labels.json`),
-    import(`../../i18n/compiled-lang/${locale}/units.json`),
-  ]);
-
   ReactDOM.render(
     React.createElement(AppWithContext),
     document.getElementById("main-pane")
