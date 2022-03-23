@@ -127,14 +127,29 @@ export function ChartLoader(): JSX.Element {
         if (!stat[place].value) {
           continue;
         }
-        if (stat[place].value < minValue) {
-          minValue = stat[place].value;
+        let value = stat[place].value;
+        if (statVar.value.perCapita) {
+          const populationData = rawData.population[place].data;
+          const date = stat[place].date;
+          if (
+            statVar.value.denom in populationData &&
+            populationData[statVar.value.denom].val &&
+            date in populationData[statVar.value.denom].val
+          ) {
+            value /= populationData[statVar.value.denom].val[date];
+          } else {
+            continue;
+          }
         }
-        if (stat[place].value > maxValue) {
-          maxValue = stat[place].value;
+        if (value < minValue) {
+          minValue = value;
         }
-        meanValue += stat[place].value;
+        if (value > maxValue) {
+          maxValue = value;
+        }
+        meanValue += value;
       }
+
       // Using Best Available data as estimate - give some padding for other dates
       minValue = minValue > 0 ? minValue * 0.9 : minValue * 1.1;
       maxValue = maxValue > 0 ? maxValue * 1.1 : maxValue * 0.9;
@@ -206,8 +221,9 @@ export function ChartLoader(): JSX.Element {
 
     // Skip update if date has no data
     if (
-      (placeStatData || (metahash != "Best Available" &&
-      sampleDatesChartData[metahash][date].allPlaceStat[metahash].stat))
+      placeStatData ||
+      (metahash != "Best Available" &&
+        sampleDatesChartData[metahash][date].allPlaceStat[metahash].stat)
     ) {
       loadChartData(
         sampleDatesChartData[metahash][date],
@@ -654,7 +670,9 @@ function loadChartData(
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
-      metaHash && metaHash in rawData.allPlaceStat && rawData.allPlaceStat[metaHash].stat
+      metaHash &&
+        metaHash in rawData.allPlaceStat &&
+        rawData.allPlaceStat[metaHash].stat
         ? rawData.allPlaceStat[metaHash]
         : rawData.placeStat,
       placeDcid,
