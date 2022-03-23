@@ -140,6 +140,7 @@ class WebdriverConfig(Config):
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://autopush.api.datacommons.org'
     RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
+    AI_CONFIG_PATH = None  # No models in this configuration.
     SCHEME = 'http'
 
 
