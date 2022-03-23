@@ -169,3 +169,13 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
 
 if not cfg.TEST and cfg.AI_CONFIG_PATH:
     _INFERENCE_CLIENT = create_inference_client(cfg.AI_CONFIG_PATH)
+
+
+def search(query: str) -> Optional[Any]:
+    global _INFERENCE_CLIENT
+
+    if _INFERENCE_CLIENT:
+        response = _INFERENCE_CLIENT.request(query)
+        # This is a fake response for the moment.
+        # It will change once we have the API in place.
+        return {'type': f'Model response: {response}', 'entities': []}

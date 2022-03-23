@@ -16,6 +16,7 @@
 from flask import Blueprint, current_app, request
 import flask
 import services.datacommons as dc
+import services.ai as ai
 
 bp = Blueprint('search', __name__)
 
@@ -45,8 +46,10 @@ def search_dc():
     else:
         search_response = {}
 
-    # Convert from search results to template dictionary.
     results = []
+    results.append(ai.search(query_text))
+
+    # Convert from search results to template dictionary.
     query_tokens = set(query_text.lower().split())
     for section in search_response.get('section', []):
         entities = []
