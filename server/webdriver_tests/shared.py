@@ -38,3 +38,14 @@ def wait_for_loading(driver):
             num_tries += 1
         except:
             break
+
+
+def click_sv_group(driver, svg_name):
+    """
+    In the stat var widget, click on the stat var group titled svg_name
+    """
+    sv_groups = driver.find_elements_by_class_name('node-title')
+    for group in sv_groups:
+        if svg_name in group.text:
+            group.click()
+            break
