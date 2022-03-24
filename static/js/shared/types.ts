@@ -145,3 +145,15 @@ export interface LinkedNodes {
 export interface GraphNodes {
   nodes: GraphNode[];
 }
+
+export interface SvgSearchResult {
+  dcid: string;
+  name: string;
+  statVars?: Array<NamedNode>;
+}
+
+export interface StatVarSearchResult {
+  statVarGroups: SvgSearchResult[];
+  statVars: NamedNode[];
+  matches: string[];
+}

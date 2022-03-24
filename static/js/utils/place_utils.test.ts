@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-import { loadLocaleData } from "../i18n/i18n";
-import { initSearchAutocomplete } from "./place_autocomplete";
+import { getPlaceNames } from "./place_utils";
 
-window.onload = () => {
-  const locale = document.getElementById("locale").dataset.lc;
-  loadLocaleData(locale, [
-    import(`../i18n/compiled-lang/${locale}/place.json`),
-  ]).then(() => {
-    initSearchAutocomplete();
+test("get place names", () => {
+  const dcids = ["geoId/4459000", "country/USA"];
+  const placesPromise = getPlaceNames(dcids);
+  placesPromise.then((places) => {
+    expect(places).toStrictEqual({
+      "geoId/4459000": "Providence",
+      "country/USA": "United States",
+    });
   });
-};
+});

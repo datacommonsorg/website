@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-import Enzyme, { shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import _ from "lodash";
-import React from "react";
-
-import { StatVarHierarchySearch } from "./stat_var_search";
-
-Enzyme.configure({ adapter: new Adapter() });
+import { getHighlightedJSX } from "./search_utils";
 
 test("getHighlightedJSX", () => {
-  const wrapper = shallow(
-    <StatVarHierarchySearch places={[]} onSelectionChange={_.noop} />
-  );
   const cases: {
     s: string;
     matches: string[];
@@ -77,10 +67,8 @@ test("getHighlightedJSX", () => {
     },
   ];
   for (const c of cases) {
-    const highlightedResult = wrapper
-      .instance()
-      .getHighlightedJSX("test", c.s, c.matches);
-    const resultElements = highlightedResult.props.children;
+    const result = getHighlightedJSX("", c.s, c.matches);
+    const resultElements = result.props.children;
     try {
       expect(resultElements.length).toEqual(c.wantElementContent.length);
       let numHighlighted = 0;
@@ -97,66 +85,6 @@ test("getHighlightedJSX", () => {
       expect(numHighlighted).toEqual(c.wantHighlightedElements.size);
     } catch (e) {
       console.log(`Failed for case with string: ${c.s}`);
-      throw e;
-    }
-  }
-});
-
-test("getResultCountString", () => {
-  const wrapper = shallow(
-    <StatVarHierarchySearch places={[]} onSelectionChange={_.noop} />
-  );
-  const cases: {
-    numSv: number;
-    numSvg: number;
-    wantString: string;
-  }[] = [
-    {
-      numSv: 3,
-      numSvg: 2,
-      wantString: "Matches 2 groups and 3 statistical variables",
-    },
-    {
-      numSv: 1,
-      numSvg: 2,
-      wantString: "Matches 2 groups and 1 statistical variable",
-    },
-    {
-      numSv: 3,
-      numSvg: 1,
-      wantString: "Matches 1 group and 3 statistical variables",
-    },
-    {
-      numSv: 3,
-      numSvg: 0,
-      wantString: "Matches 3 statistical variables",
-    },
-    {
-      numSv: 1,
-      numSvg: 0,
-      wantString: "Matches 1 statistical variable",
-    },
-    {
-      numSv: 0,
-      numSvg: 3,
-      wantString: "Matches 3 groups",
-    },
-    {
-      numSv: 0,
-      numSvg: 1,
-      wantString: "Matches 1 group",
-    },
-  ];
-  for (const c of cases) {
-    const resultCountString = wrapper
-      .instance()
-      .getResultCountString(c.numSvg, c.numSv);
-    try {
-      expect(resultCountString).toEqual(c.wantString);
-    } catch (e) {
-      console.log(
-        `Got different result count string than expected for <numSvg: ${c.numSvg}, numSv: ${c.numSv}>`
-      );
       throw e;
     }
   }
