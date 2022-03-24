@@ -34,9 +34,9 @@ export function getStatVarSearchResults(
   return axios.get(url).then((resp) => {
     const data = resp.data;
     return {
-      statVarGroups: data.statVarGroups || [],
-      statVars: data.statVars || [],
       matches: data.matches || [],
+      statVars: data.statVars || [],
+      statVarGroups: data.statVarGroups || [],
     };
   });
 }

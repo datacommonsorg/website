@@ -21,8 +21,8 @@ test("get place names", () => {
   const placesPromise = getPlaceNames(dcids);
   placesPromise.then((places) => {
     expect(places).toStrictEqual({
-      "geoId/4459000": "Providence",
       "country/USA": "United States",
+      "geoId/4459000": "Providence",
     });
   });
 });

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import axios from "axios";
-
 import { intl, localizeLink } from "../i18n/i18n";
 import { getPlaceDcids } from "../utils/place_utils";
 let ac: google.maps.places.Autocomplete;
@@ -75,13 +73,13 @@ const queryAutocompleteCallback = (place_name) => (predictions, status) => {
 };
 
 // Get url for a given place_id if we have data for the place. Otherwise, alert that the place is not found.
-function getPlaceAndRender(place_id, place_name): void {
-  getPlaceDcids([place_id])
+function getPlaceAndRender(placeId, placeName): void {
+  getPlaceDcids([placeId])
     .then((data) => {
-      window.location.href = localizeLink(`/place/${data[place_id]}`);
+      window.location.href = localizeLink(`/place/${data[placeId]}`);
     })
     .catch(() => {
-      placeNotFoundAlert(place_name);
+      placeNotFoundAlert(placeName);
     });
 }
 
