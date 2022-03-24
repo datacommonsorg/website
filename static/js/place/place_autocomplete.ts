@@ -73,7 +73,7 @@ const queryAutocompleteCallback = (place_name) => (predictions, status) => {
 };
 
 // Get url for a given place_id if we have data for the place. Otherwise, alert that the place is not found.
-function getPlaceAndRender(placeId, placeName): void {
+function getPlaceAndRender(placeId: string, placeName: string): void {
   getPlaceDcids([placeId])
     .then((data) => {
       window.location.href = localizeLink(`/place/${data[placeId]}`);
