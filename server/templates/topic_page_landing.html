@@ -27,6 +27,16 @@
 {% block content %}
 <div id="body" class="container">
   <h1 class="mb-4">Topic Explorer</h1>
+  <p>
+    The Topic Explorer helps you understand the core data underlying a specific
+    topic for a place.  It pulls together a set of charts from Data Commons
+    into a dashbord to help you dive into a topic. Each page is focused on a
+    single place.
+  </p>
+  <p>
+    Start exploring some topics for the places below.
+  </p>
+
   {% for topic_id, topic_name in summaries['topicNameMap'] | dictsort %}
     <h3>{{ topic_name }}</h3>
     <ul class="row">
