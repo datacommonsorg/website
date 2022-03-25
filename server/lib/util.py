@@ -52,8 +52,6 @@ def get_chart_config():
 
 # Expands the places_within field in topic.metadata with the full list of
 # places, which is appended to the place_dcid list.
-# TODO: sort children by name
-# TODO: clear the place_within field after expansion?
 def _expand_topic_places_within(topic_page_config):
     metadata = topic_page_config.metadata
     for places_within in metadata.places_within:
