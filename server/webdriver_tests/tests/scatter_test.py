@@ -119,11 +119,7 @@ class TestScatter(WebdriverBaseTest):
 
         # Choose stat vars
         shared.wait_for_loading(self.driver)
-        hierarchy = self.driver.find_element_by_xpath(
-            '//*[@id="hierarchy-section"]')
-        demographics_button = hierarchy.find_elements_by_class_name(
-            'Collapsible')[0]
-        demographics_button.click()
+        shared.click_sv_group(self.driver, "Demographics")
 
         # Click on median age button
         shared.wait_for_loading(self.driver)
