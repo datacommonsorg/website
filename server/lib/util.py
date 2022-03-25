@@ -64,8 +64,8 @@ def _expand_topic_places_within(topic_page_config):
 
 # Returns topic pages loaded as TopicPageConfig protos:
 # { topic_id: [TopicPageConfig,...] }
-# Note: the metadata.places_within fields in each config is replaced with a
-# fully expanded list of child places.
+# Note: the metadata.place_dcid list in each config is expanded with all child
+# places.
 def get_topic_page_config():
     topic_configs = {}
     for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
