@@ -34,17 +34,13 @@ PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
 PROJECT_NUMBER=$(gcloud projects list --filter="${PROJECT_ID}" --format="value(PROJECT_NUMBER)")
 
 MODEL_NAME=$(yq eval '.model_name' $ROOT/deploy/gke/$ENV.yaml)
-NETWORK_NAME=$(yq eval '.network_name' $ROOT/deploy/gke/$ENV.yaml)
+MODEL_BUCKET=$(yq eval '.model_bucket' $ROOT/deploy/gke/$ENV.yaml)
 
-MODEL_BUCKET="gs://${PROJECT_ID}-modelstore"
+NETWORK_NAME="default"
 MODEL_PATH="${MODEL_BUCKET}/${MODEL_NAME}"
 
 if ! gsutil -q stat "${MODEL_PATH}/*" ; then
-  echo "Model path does not exists ${MODEL_PATH}"
-  
-  # This might fail, meaning that the bucket already exists.
-  gsutil mb -p "${PROJECT_ID}" -c STANDARD -l US -b on "${MODEL_BUCKET}"
-  
+  echo "Model path does not exists ${MODEL_PATH}."
   exit
 fi
 

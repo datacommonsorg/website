@@ -47,7 +47,6 @@ def search_dc():
         search_response = {}
 
     results = []
-    results.append(ai.search(query_text))
 
     # Convert from search results to template dictionary.
     query_tokens = set(query_text.lower().split())
@@ -72,6 +71,17 @@ def search_dc():
                 'type': section['typeName'],
                 'entities': entities,
             })
+    return flask.render_template('search_dc.html',
+                                 query_text=query_text,
+                                 results=results)
+
+
+@bp.route('/search_ai')
+def search_ai():
+    """Add DC API powered search for non-place searches temporarily"""
+    query_text = request.args.get('q', '')
+    results = [ai.search(query_text)]
+    # TODO: Change the contents of the template as well
     return flask.render_template('search_dc.html',
                                  query_text=query_text,
                                  results=results)

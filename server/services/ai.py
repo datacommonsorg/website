@@ -53,7 +53,7 @@ class InferenceClient(object):
     def initialize(self) -> None:
         pass
 
-    def request(self, data):
+    def request(self, query: str):
         pass
 
 

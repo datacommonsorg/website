@@ -33,19 +33,11 @@ if [[ $REGION == "" ]]; then
 fi
 
 PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
-NETWORK_NAME=$(yq eval '.network_name' $ROOT/deploy/gke/$ENV.yaml)
+NETWORK_NAME="default"
 PEERING_RANGE_NAME="${NETWORK_NAME}-internal-ip"
 
 gcloud services enable servicenetworking.googleapis.com --project=${PROJECT_ID}
 gcloud services enable dns.googleapis.com --project=${PROJECT_ID}
-
-if [[ ${NETWORK_NAME} != "default" ]]; then
-  gcloud compute networks create ${NETWORK_NAME} \
-    --project=$PROJECT_ID \
-    --subnet-mode=auto \
-    --mtu=1460 \
-    --bgp-routing-mode=regional
-fi
 
 gcloud compute addresses create ${PEERING_RANGE_NAME} \
   --global \

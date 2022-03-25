@@ -37,6 +37,9 @@ configMapGenerator:
     literals:
       - mixerProject=datcom-website-autopush
       - serviceName=website-esp.endpoints.datcom-website-autopush.cloud.goog
+  - name: ai-config
+    files:
+      - ai.yaml
 
 patchesStrategicMerge:
   - |-

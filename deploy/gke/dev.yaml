@@ -21,7 +21,5 @@ region:
     - europe-west2
 nodes: 1
 storage_project: datcom-store
-# Network name used for VPC peerings.
-network_name: "default"
-# Assumes a directory with this name exists in gs://datcom-website-dev-modelstore/
+model_bucket: "gs://datcom-website-dev-modelstore"
 model_name: "dc_t5_ir2_bs1bm1_gpu"
