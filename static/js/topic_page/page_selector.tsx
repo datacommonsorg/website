@@ -33,13 +33,11 @@ interface PageSelectorPropType {
 }
 
 export function PageSelector(props: PageSelectorPropType): JSX.Element {
-  const [placeOptions, setPlaceOptions] = useState<
-    Record<string, string> | undefined
-  >({});
-
-  useEffect(() => {
-    getPlaceOptions(props.selectedTopic, props.topicsSummary, setPlaceOptions);
-  }, [props]);
+  // {place_id: place_name}
+  const placeOptions = getPlaceOptions(
+    props.selectedTopic,
+    props.topicsSummary
+  );
 
   const topicName =
     props.topicsSummary.topicNameMap[props.selectedTopic] ||
@@ -51,58 +49,27 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
         <h1>
           {topicName} in {props.selectedPlace.name}
         </h1>
-        {/* <div>
-          <CustomInput
-            id="place-selector"
-            type="select"
-            value={props.selectedPlace ? props.selectedPlace.dcid : ""}
-            onChange={(e) => selectPlace(props.selectedTopic, e)}
-            className="pac-target-input"
-          >
-            {_.isEmpty(props.selectedPlace.dcid) ? (
-              <option value="" key="empty">
-                Select a place
-              </option>
-            ) : (
-              <option
-                value={props.selectedPlace.dcid}
-                key={props.selectedPlace.dcid}
-              >
-                {props.selectedPlace.name}
-              </option>
-            )}
-            {placeOptions &&
-              Object.keys(placeOptions)
-                .filter((place) => place !== props.selectedPlace.dcid)
-                .map((place) => (
-                  <option value={place} key={place}>
-                    {placeOptions[place]}
-                  </option>
-                ))}
-          </CustomInput>
-        </div>
       </div>
       <div className="page-selector-section">
         <CustomInput
-          id="topic-selector"
+          id="place-selector"
           type="select"
-          value={props.selectedTopic}
-          onChange={(e) =>
-            selectTopic(props.selectedPlace.dcid, props.topicsSummary, e)
-          }
+          value=""
+          onChange={(e) => selectPlace(props.selectedTopic, e)}
           className="pac-target-input"
         >
-          <option value={props.selectedTopic} key={props.selectedTopic}>
-            {topicName}
+          <option value="" key="empty">
+            {topicName} in other places
           </option>
-          {Object.keys(props.topicsSummary.topicNameMap)
-            .filter((topic) => topic !== props.selectedTopic)
-            .map((topic) => (
-              <option value={topic} key={topic}>
-                {props.topicsSummary.topicNameMap[topic] || topic}
-              </option>
-            ))}
-        </CustomInput> */}
+          {placeOptions &&
+            Object.keys(placeOptions)
+              .sort((a, b) => placeOptions[a].localeCompare(placeOptions[b]))
+              .map((place) => (
+                <option value={place} key={place}>
+                  {placeOptions[place]}
+                </option>
+              ))}
+        </CustomInput>
       </div>
     </div>
   );
@@ -110,24 +77,14 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
 
 function getPlaceOptions(
   selectedTopic: string,
-  topicsSummary: TopicsSummary,
-  setPlaceOptions: (placeOptions: Record<string, string>) => void
-): void {
+  topicsSummary: TopicsSummary
+): Record<string, string> {
+  const placeOptions: Record<string, string> = {};
   const placeOptionDcids = topicsSummary.topicPlaceMap[selectedTopic] || [];
-  const placeParams = placeOptionDcids
-    .map((place) => "dcid=" + place)
-    .join("&");
-  // TODO: make this call in flask and pass it down with the topicsSummary
-  axios
-    .get(`/api/place/name?${placeParams}`)
-    .then((resp) => {
-      setPlaceOptions(resp.data);
-    })
-    .catch(() => {
-      const placeOptions = {};
-      placeOptionDcids.forEach((place) => (placeOptions[place] = place));
-      setPlaceOptions(placeOptions);
-    });
+  for (const placeDcid of placeOptionDcids) {
+    placeOptions[placeDcid] = topicsSummary.topicPlaceNames[placeDcid] || "";
+  }
+  return placeOptions;
 }
 
 function selectPlace(
@@ -136,21 +93,4 @@ function selectPlace(
 ): void {
   const place = event.target.value;
   window.open(`/topic/${currentTopic}/${place}`, "_self");
-}
-
-function selectTopic(
-  currentPlace: string,
-  topicsSummary: TopicsSummary,
-  event: React.ChangeEvent<HTMLInputElement>
-): void {
-  const topic = event.target.value;
-  const possiblePlaces = topicsSummary.topicPlaceMap[topic];
-  if (
-    _.isEmpty(currentPlace) ||
-    !possiblePlaces.find((place) => place === currentPlace)
-  ) {
-    window.open(`/topic/${topic}`, "_self");
-  } else {
-    window.open(`/topic/${topic}/${currentPlace}`, "_self");
-  }
 }

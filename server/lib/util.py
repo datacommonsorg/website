@@ -14,7 +14,9 @@
 
 import json
 import os
+import routes.api.place as place_api
 import services.datacommons as dc_service
+import lib.i18n as i18n
 from google.protobuf import text_format
 from config import topic_page_pb2
 
@@ -55,9 +57,11 @@ def get_chart_config():
 def _expand_topic_places_within(topic_page_config):
     metadata = topic_page_config.metadata
     for places_within in metadata.places_within:
-        contained_places = dc_service.get_places_in([places_within.parent_dcid], places_within.children_type)
+        contained_places = dc_service.get_places_in([places_within.parent_dcid],
+                                                    places_within.children_type)
         if places_within.parent_dcid in contained_places:
-            metadata.place_dcid.extend(contained_places[places_within.parent_dcid])
+            metadata.place_dcid.extend(
+                contained_places[places_within.parent_dcid])
 
 
 # Returns topic pages loaded as TopicPageConfig protos:
@@ -84,15 +88,19 @@ def get_topic_page_config():
 # Returns a summary of the available topic page summaries as an object:
 # {
 #   topicPlaceMap: {
-#        <topic_id>: list of places that this config can be used for
+#       <topic_id>: list of places that this config can be used for
 #   },
 #   topicNameMap: {
 #       <topic_id>: <topic_name>
+#   },
+#   topicPlaceNames: {
+#       <place_dcid>: <place_name>
 #   }
 # }
 def get_topics_summary(topic_page_configs):
     topic_place_map = {}
     topic_name_map = {}
+    place_ids = set()
     for topic_id, config_list in topic_page_configs.items():
         if len(config_list) < 1:
             continue
@@ -101,4 +109,11 @@ def get_topics_summary(topic_page_configs):
             topic_place_map[topic_id] = []
         for config in config_list:
             topic_place_map[topic_id].extend(config.metadata.place_dcid)
-    return {"topicPlaceMap": topic_place_map, "topicNameMap": topic_name_map}
+            place_ids.update(config.metadata.place_dcid)
+    topic_place_names = place_api.get_display_name('^'.join(place_ids),
+                                                   i18n.DEFAULT_LOCALE)
+    return {
+        "topicPlaceMap": topic_place_map,
+        "topicNameMap": topic_name_map,
+        "topicPlaceNames": topic_place_names
+    }

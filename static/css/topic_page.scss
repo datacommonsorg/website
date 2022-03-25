@@ -220,3 +220,8 @@ article.category > h2 {
 .subtopic.notitle:not(:first-of-type) {
   border-top: 0.5px dotted #dee2e6 !important;
 }
+
+#dc-topic-landing ul {
+  list-style: none;
+  padding-inline-start: 0;
+}

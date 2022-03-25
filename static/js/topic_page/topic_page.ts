@@ -23,8 +23,12 @@ import { MainPane } from "./main_pane";
 import { Sidebar } from "./sidebar";
 
 export interface TopicsSummary {
+  // Topic ID: [Place DCIDs]
   topicPlaceMap: Record<string, string[]>;
+  // Topic ID: Topic Name
   topicNameMap: Record<string, string>;
+  // Place DCID: Place Name
+  topicPlaceNames: Record<string, string>;
 }
 
 window.onload = () => {
