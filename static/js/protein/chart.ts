@@ -21,9 +21,19 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 
 const HEIGHT = 224;
 const WIDTH = 500;
-const BAR_HEIGHT = 35;
 const MARGIN = { top: 70, right: 50, bottom: 10, left: 50 };
 
+// interface for protein page datatypes which return number values
+export interface ProteinPropDataNumType {
+  name: string;
+  value: number;
+}
+
+// interface for protein page datatypes which return string values
+export interface ProteinPropDataStrType {
+  name: string;
+  value: string;
+}
 /**
  * Draw bar chart for tissue score.
  */
@@ -31,7 +41,6 @@ export function drawTissueScoreChart(
   id: string,
   data: { name: string; value: string }[]
 ): void {
-  const testData = data;
   /*
   Convert the tissue expression level to numerical values 
   * @param val value of the data array 
@@ -48,12 +57,8 @@ export function drawTissueScoreChart(
     }
   }
 
-  interface newData{
-    name: string;
-    value: number;
-  }
   const reformattedData = data.map((item) => {
-    var newObj = {} as newData
+    const newObj = {} as ProteinPropDataNumType;
     //var newObj: any = {};
     newObj["name"] = item.name;
     newObj["value"] = convertData(item.value);
@@ -64,8 +69,10 @@ export function drawTissueScoreChart(
     return x.name;
   });
 
-  const height = 400 - MARGIN.top - MARGIN.bottom;
-  const width = 460 - MARGIN.left - MARGIN.right;
+  const max_height = 400;
+  const max_width = 460;
+  const height = max_height - MARGIN.top - MARGIN.bottom;
+  const width = max_width - MARGIN.left - MARGIN.right;
   const x = d3
     .scaleLinear()
     .domain([0, d3.max(reformattedData, (d) => d.value)])

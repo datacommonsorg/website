@@ -22,6 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../shared/types";
+import { ProteinPropDataStrType } from "./chart";
 import { drawTissueScoreChart } from "./chart";
 
 interface PagePropType {
@@ -88,7 +89,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         }
         result[tissue] = score;
       }
-      const data: { name: string; value: string }[] = [];
+      //const data: { name: string; value: string }[] = [];
+      // var complexPetsArray: pet[] = [];
+      const data: ProteinPropDataStrType[] = [];
+
       for (const tissue in result) {
         data.push({ name: tissue, value: result[tissue] });
       }
