@@ -25,15 +25,26 @@ import routes.api.place as place_api
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 
 
+def _load_topic_data():
+    # Load topic page config
+    if not 'TOPIC_PAGE_LOADED' in current_app.config or \
+        os.environ.get('FLASK_ENV') == 'local':
+        topic_page_configs = libutil.get_topic_page_config()
+        topic_summaries = libutil.get_topics_summary(topic_page_configs)
+        current_app.config['TOPIC_PAGE_CONFIG'] = topic_page_configs
+        current_app.config['TOPIC_PAGE_SUMMARY'] = topic_summaries
+        current_app.config['TOPIC_PAGE_LOADED'] = True
+    else:
+        topic_page_configs = current_app.config['TOPIC_PAGE_CONFIG']
+        topic_summaries = current_app.config['TOPIC_PAGE_SUMMARY']
+    return (topic_page_configs, topic_summaries)
+
+
 @bp.route('', strict_slashes=False)
 @bp.route('/<string:topic_id>', strict_slashes=False)
 @bp.route('/<string:topic_id>/<path:place_dcid>', strict_slashes=False)
 def topic_page(topic_id=None, place_dcid=None):
-    all_configs = current_app.config['TOPIC_PAGE_CONFIG']
-    all_summaries = current_app.config['TOPIC_PAGE_SUMMARY']
-    if os.environ.get('FLASK_ENV') == 'local':
-        all_configs = libutil.get_topic_page_config()
-        all_summaries = libutil.get_topics_summary(all_configs)
+    (all_configs, all_summaries) = _load_topic_data()
 
     # Return the landing page.
     # TODO: Group places by containing place.

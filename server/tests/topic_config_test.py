@@ -14,8 +14,8 @@
 
 import unittest
 
-from google.protobuf import text_format
 from config import topic_page_pb2
+from unittest.mock import patch
 
 import lib.util as libutil
 
@@ -51,8 +51,17 @@ class TestTopicConfig(unittest.TestCase):
         for i, sv_id in enumerate(tile.stat_var_key):
             self.assertTrue(sv_id in stat_vars, f"{msg}[sv={i},{sv_id}]")
 
-    def test_required_fields(self):
-        """Tests all configs loaded at server start"""
+    @patch('services.datacommons.get_places_in')
+    def test_required_fields(self, mock_places_in):
+        """Tests all configs loaded"""
+
+        def side_effect(parent_dcids, children_type):
+            if parent_dcids == ['country/USA'] and children_type == 'State':
+                return {'country/USA': ['geoId/01', 'geoId/02']}
+            return {}
+
+        mock_places_in.side_effect = side_effect
+
         all_configs = libutil.get_topic_page_config()
         for id, configs in all_configs.items():
             for page_i, page in enumerate(configs):
@@ -62,6 +71,11 @@ class TestTopicConfig(unittest.TestCase):
                 self.assertGreater(len(page.metadata.place_dcid), 0, page_msg)
                 self.assertGreater(len(page.metadata.contained_place_types), 0,
                                    page_msg)
+                # Test that metadata.contained_place_types are set for places_within
+                for pw_i, pw in enumerate(page.metadata.places_within):
+                    self.assertIn(pw.children_type,
+                                  page.metadata.contained_place_types,
+                                  f"{page_msg}[places_within={pw_i}]")
 
                 for cat_i, cat in enumerate(page.categories):
                     cat_msg = f"{page_msg}[category={cat_i}]"
