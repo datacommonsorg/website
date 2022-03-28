@@ -15,7 +15,8 @@
  */
 
 /**
- * Results section of the search page
+ * Results section of the search page. This contains all results besides the
+ * custom search results.
  */
 
 import _ from "lodash";
@@ -34,7 +35,7 @@ interface ResultsProps {
 
 let acs: google.maps.places.AutocompleteService;
 
-export function Results(props: ResultsProps): JSX.Element {
+export function AllResults(props: ResultsProps): JSX.Element {
   const [places, setPlaces] = useState(null);
   const [statVars, setStatVars] = useState(null);
 
@@ -55,7 +56,17 @@ export function Results(props: ResultsProps): JSX.Element {
             );
             getPlaceDcids(placeIds)
               .then((dcids) => {
-                setPlaces(Object.values(dcids));
+                const namedPlaces = predictions
+                  .map((prediction) => {
+                    if (prediction.place_id in dcids) {
+                      return {
+                        dcid: dcids[prediction.place_id],
+                        name: prediction.description,
+                      };
+                    }
+                  })
+                  .filter((place) => !_.isEmpty(place));
+                setPlaces(namedPlaces);
               })
               .catch(() => {
                 setPlaces([]);

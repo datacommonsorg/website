@@ -88,6 +88,11 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
   color: #212529;
 }
 
+.search-results-place-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
 .search-results-place-selected .search-results-item-title {
   font-size: $font-size-section-title;
 }
@@ -98,6 +103,11 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
 
 .search-results-item-byline {
   font-size: $font-size-small;
+  color: $color-byline;
+  width: fit-content;
+}
+
+.search-results-place-item-info .search-results-item-byline:hover {
   color: $color-byline;
 }
 

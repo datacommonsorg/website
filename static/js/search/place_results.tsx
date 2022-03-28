@@ -21,42 +21,50 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
+import { NamedNode, NamedPlace } from "../shared/types";
 import { getPlaceNames } from "../utils/place_utils";
 
 const PLACE_REDIRECT_PREFIX = "/place/";
 const MAP_REDIRECT_PREFIX = "/tools/map#pd=";
 const SCATTER_REDIRECT_PREFIX = "/tools/scatter#epd=";
 const TIMELINE_REDIRECT_PREFIX = "/tools/timeline#place=";
+const BROWSER_REDIRECT_PREFIX = "/browser/";
 
 interface PlaceResultsProps {
-  places: string[];
+  places: NamedNode[];
   selectedPlace: string;
 }
 
 export function PlaceResults(props: PlaceResultsProps): JSX.Element {
-  const [placeNames, setPlaceNames] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   useEffect(() => {
-    const placeDcids = props.selectedPlace
-      ? [props.selectedPlace]
-      : props.places;
-    getPlaceNames(placeDcids)
-      .then((placeNames) => setPlaceNames(placeNames))
-      .catch(() => setPlaceNames({}));
+    if (props.selectedPlace) {
+      getPlaceNames([props.selectedPlace])
+        .then((placeName) =>
+          setSelectedPlace({
+            name: placeName[props.selectedPlace] || props.selectedPlace,
+            dcid: props.selectedPlace,
+          })
+        )
+        .catch(() =>
+          setSelectedPlace({
+            name: props.selectedPlace,
+            dcid: props.selectedPlace,
+          })
+        );
+    }
   }, [props]);
 
-  if (_.isEmpty(placeNames)) {
+  if (_.isEmpty(selectedPlace) && _.isEmpty(props.places)) {
     return <></>;
   }
 
   return (
     <div className="search-results-place search-results-section">
-      {props.selectedPlace ? (
+      {selectedPlace ? (
         <div className="search-results-place-selected">
-          {getResultItemContentJsx(
-            props.selectedPlace,
-            placeNames[props.selectedPlace]
-          )}
+          {getResultItemContentJsx(selectedPlace)}
         </div>
       ) : (
         <>
@@ -64,7 +72,7 @@ export function PlaceResults(props: PlaceResultsProps): JSX.Element {
           <div className="search-results-section-content">
             <div className="search-results-list">
               {props.places.map((place) => {
-                return getResultItemContentJsx(place, placeNames[place]);
+                return getResultItemContentJsx(place);
               })}
             </div>
             <a
@@ -80,40 +88,42 @@ export function PlaceResults(props: PlaceResultsProps): JSX.Element {
   );
 }
 
-function getResultItemContentJsx(
-  placeDcid: string,
-  placeName: string
-): JSX.Element {
+function getResultItemContentJsx(place: NamedPlace): JSX.Element {
   return (
-    <div className="search-results-item" key={`place-result-${placeDcid}`}>
+    <div className="search-results-item" key={`place-result-${place.dcid}`}>
       <div className="search-results-place-item-info">
         <div className="search-results-item-title">
-          {placeName || placeDcid}
+          {place.name || place.dcid}
         </div>
-        <div className="search-results-item-byline">dcid: {placeDcid}</div>
-        <a href={PLACE_REDIRECT_PREFIX + placeDcid}>Open in place explorer</a>
+        <a
+          href={BROWSER_REDIRECT_PREFIX + place.dcid}
+          className="search-results-item-byline"
+        >
+          dcid: {place.dcid}
+        </a>
+        <a href={PLACE_REDIRECT_PREFIX + place.dcid}>Open in place explorer</a>
       </div>
       <div className="search-results-place-links">
         <a
-          href={MAP_REDIRECT_PREFIX + placeDcid}
+          href={TIMELINE_REDIRECT_PREFIX + place.dcid}
           className="search-results-link-icon"
-          id={`map-${placeDcid}`}
+          id={`timeline-${place.dcid}`}
+        >
+          <i className="material-icons-outlined">timeline</i>
+        </a>
+        <a
+          href={MAP_REDIRECT_PREFIX + place.dcid}
+          className="search-results-link-icon"
+          id={`map-${place.dcid}`}
         >
           <i className="material-icons-outlined">public</i>
         </a>
         <a
-          href={SCATTER_REDIRECT_PREFIX + placeDcid}
+          href={SCATTER_REDIRECT_PREFIX + place.dcid}
           className="search-results-link-icon"
-          id={`scatter-${placeDcid}`}
+          id={`scatter-${place.dcid}`}
         >
           <i className="material-icons-outlined">scatter_plot</i>
-        </a>
-        <a
-          href={TIMELINE_REDIRECT_PREFIX + placeDcid}
-          className="search-results-link-icon"
-          id={`timeline-${placeDcid}`}
-        >
-          <i className="material-icons-outlined">timeline</i>
         </a>
       </div>
     </div>

@@ -18,20 +18,22 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Results } from "./results";
+import { AllResults } from "./all_results";
 import { SearchInput } from "./search_input";
 
 window.onload = () => {
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q") || "";
+  // TODO: match the selectedPlace behavior for a selected stat var.
   const selectedPlace = searchParams.get("placeDcid") || "";
+  // TODO: preload search box
   ReactDOM.render(
     React.createElement(SearchInput, { query }),
     document.getElementById("search-input-container")
   );
   if (!_.isEmpty(query)) {
     ReactDOM.render(
-      React.createElement(Results, { query, selectedPlace }),
+      React.createElement(AllResults, { query, selectedPlace }),
       document.getElementById("search-results-container")
     );
   }

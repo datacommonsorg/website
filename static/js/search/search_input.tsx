@@ -22,7 +22,7 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { NamedNode, NamedPlace } from "../shared/types";
-import { getPlaceDcids, getPlaceNames } from "../utils/place_utils";
+import { getPlaceDcids } from "../utils/place_utils";
 import {
   getHighlightedJSX,
   getStatVarSearchResults,
@@ -38,10 +38,15 @@ const REDIRECT_PREFIX = "/search2?";
 export function SearchInput(props: SearchInputPropType): JSX.Element {
   const delayTimer = useRef(null);
   const placeAutocompleteService = useRef(null);
+  // Most recent query entered by user
   const latestQuery = useRef(null);
+  // The result index that user has hovered
   const [hoveredIdx, setHoveredIdx] = useState(0);
+  // The results that match the current query
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
+  // The text user has entered in the input box
   const [inputText, setInputText] = useState(props.query);
+  // Whether autocomplete results should be shown
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
@@ -75,12 +80,12 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
               type="text"
               value={inputText}
               onChange={(event) => onInputChanged(event.target.value)}
-              placeholder="Search Data Commons"
+              placeholder="Search for places, variables, and more on Data Commons"
             />
           </form>
           {!_.isEmpty(inputText) && (
             <span
-              className="material-icons search-input-box-clear"
+              className="material-icons-outlined search-input-box-clear"
               onClick={() => onInputChanged("")}
             >
               clear
@@ -134,7 +139,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
         )}
       </div>
       <span
-        className="material-icons search-input-search-button"
+        className="material-icons-outlined search-input-search-button"
         onClick={() => redirectAction(inputText, "")}
       >
         search
@@ -161,7 +166,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
       placeAutocompleteService.current.getPredictions(
         { input: query, types: ["(regions)"] },
         (predictions, status) =>
-          onAutocompleteCompleted(query, predictions, status)
+          onPlaceAutocompleteCompleted(query, predictions, status)
       );
     } else {
       getSvResultsPromise(query)
@@ -181,7 +186,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
     }
   }
 
-  function onAutocompleteCompleted(
+  function onPlaceAutocompleteCompleted(
     query: string,
     predictions: google.maps.places.AutocompletePrediction[],
     status: google.maps.places.PlacesServiceStatus
@@ -190,17 +195,16 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       const placeIds = predictions.map((prediction) => prediction.place_id);
       namedPlacePromise = getPlaceDcids(placeIds).then((dcids) => {
-        const placeDcids = Object.values(dcids);
-        return getPlaceNames(placeDcids).then((names) => {
-          return Object.keys(names)
-            .map((dcid) => {
+        return predictions
+          .map((prediction) => {
+            if (prediction.place_id in dcids) {
               return {
-                dcid,
-                name: names[dcid],
+                dcid: dcids[prediction.place_id],
+                name: prediction.description,
               };
-            })
-            .filter((place) => !_.isEmpty(place));
-        });
+            }
+          })
+          .filter((place) => !_.isEmpty(place));
       });
     }
     Promise.all([namedPlacePromise, getSvResultsPromise(query)])
@@ -227,32 +231,33 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
   function handleKeydownEvent(
     event: React.KeyboardEvent<HTMLDivElement>
   ): void {
-    if (showResults) {
-      const numResults =
-        results.placeResults.length + results.svResults.length + 1;
-      if (event.key === "ArrowDown") {
-        setHoveredIdx((curr) => (curr + 1) % numResults);
-      } else if (event.key === "ArrowUp") {
-        setHoveredIdx((curr) => {
-          const newIdx = curr - 1;
-          if (newIdx < 0) {
-            return Math.abs(newIdx + numResults) % numResults;
-          } else {
-            return newIdx % numResults;
-          }
-        });
-      } else if (event.key === "Enter") {
-        event.preventDefault();
-        if (hoveredIdx === 0) {
-          redirectAction(inputText, "");
-        } else if (hoveredIdx < results.placeResults.length + 1) {
-          const result = results.placeResults[hoveredIdx - 1];
-          redirectAction(result.name, result.dcid);
+    if (!showResults) {
+      return;
+    }
+    const numResults =
+      results.placeResults.length + results.svResults.length + 1;
+    if (event.key === "ArrowDown") {
+      setHoveredIdx((curr) => (curr + 1) % numResults);
+    } else if (event.key === "ArrowUp") {
+      setHoveredIdx((curr) => {
+        const newIdx = curr - 1;
+        if (newIdx < 0) {
+          return Math.abs(newIdx + numResults) % numResults;
         } else {
-          const result =
-            results.svResults[hoveredIdx - (results.placeResults.length + 1)];
-          redirectAction(result.name, "");
+          return newIdx % numResults;
         }
+      });
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      if (hoveredIdx === 0) {
+        redirectAction(inputText, "");
+      } else if (hoveredIdx < results.placeResults.length + 1) {
+        const result = results.placeResults[hoveredIdx - 1];
+        redirectAction(result.name, result.dcid);
+      } else {
+        const result =
+          results.svResults[hoveredIdx - (results.placeResults.length + 1)];
+        redirectAction(result.name, "");
       }
     }
   }

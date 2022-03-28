@@ -146,12 +146,14 @@ export interface GraphNodes {
   nodes: GraphNode[];
 }
 
+// Result for a single stat var group. From /api/stats/stat-var-search
 export interface SvgSearchResult {
   dcid: string;
   name: string;
   statVars?: Array<NamedNode>;
 }
 
+// Full result from /api/stats/stat-var-search
 export interface StatVarSearchResult {
   statVarGroups: SvgSearchResult[];
   statVars: NamedNode[];

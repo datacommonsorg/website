@@ -18,12 +18,11 @@
 
 {% set main_id = 'search' %}
 {% set title = 'Search' %}
-{% set subpage_title = 'Search' %}
 {# TRANSLATORS: Title of a page for searching the site, or search results. #}
+{% set subpage_title = 'Search' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/search2.min.css', t=config['VERSION'])}} >
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 {% endblock %}
 
