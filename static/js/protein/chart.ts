@@ -57,12 +57,12 @@ export function drawTissueScoreChart(
     }
   }
 
-  const reformattedData = data.map((item) => {
-    const newObj = {} as ProteinPropDataNumType;
-    //var newObj: any = {};
-    newObj["name"] = item.name;
-    newObj["value"] = convertData(item.value);
-    return newObj;
+  var reformattedData = {} as ProteinPropDataNumType[];
+  reformattedData = data.map((item) => {
+    return {
+    name: item.name,
+    value: convertData(item.value),
+    }
   });
 
   const arr_name = reformattedData.map((x) => {
