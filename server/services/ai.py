@@ -15,7 +15,8 @@
 
 import json
 import logging
-from typing import Any, Mapping, Optional
+import re
+from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
 
 import google.auth
 import grpc
@@ -26,6 +27,8 @@ import tensorflow as tf
 import urllib3
 import yaml
 from tensorflow_serving.apis import predict_pb2, prediction_service_pb2_grpc
+
+import services.datacommons as dc
 
 cfg = libconfig.get_config()
 
@@ -171,11 +174,47 @@ if not cfg.TEST and cfg.AI_CONFIG_PATH:
     _INFERENCE_CLIENT = create_inference_client(cfg.AI_CONFIG_PATH)
 
 
+# ----------------------------- SEARCH FUNCTIONS -----------------------------
+
+_MAX_SEARCH_RESULTS = 1000
+_RE_KV_ASSIGNMENT = re.compile(r"(\w+)=([^=]*\b(?!=))")
+_RE_PLACEHOLDER_NORMALIZE = re.compile(r"<(extra_id_.*?)>")
+
+def _iterate_property_value(
+    text: str,
+    include: Optional[Sequence[str]] = None,
+    exclude: Optional[Sequence[str]] = ()) -> Iterator[Tuple[str, str]]:
+  """Returns a series of (key, value) tuples from a k = v string."""
+  # Normalize spaces around equal sign so that the negative lookahead works
+  text = text.replace(" =", "=").replace("= ", "=")
+  # We remove <> brackets used for placeholder as they break the other regex.
+  text = re.sub(_RE_PLACEHOLDER_NORMALIZE, r"\1", text)
+  for match in re.finditer(_RE_KV_ASSIGNMENT, text):
+    key = match.group(1).strip()
+    value = match.group(2).strip()
+    if (include is None or key in include) and key not in exclude:
+      yield (key, value)
+
 def search(query: str) -> Optional[Any]:
     global _INFERENCE_CLIENT
 
-    if _INFERENCE_CLIENT:
-        response = _INFERENCE_CLIENT.request(query)
-        # This is a fake response for the moment.
-        # It will change once we have the API in place.
-        return {'type': f'Model response: {response}', 'entities': []}
+    if not _INFERENCE_CLIENT:
+        return
+    
+    response = _INFERENCE_CLIENT.request(query)
+    property_value = dict(_iterate_property_value(response["predictions"][0]["output_0"][0], exclude='place'))
+    limit = 100
+    matches = dc.match_statvar(query, property_value, limit)
+    
+    # This is a fake response for the moment.
+    # It will change once we have the API in place.
+    return {
+        'type': f'Model response: {response}',
+        'entities': [
+            {
+                "name": m["statVar"],
+                "dcid": m["statVar"],
+                "rank": m["matchCount"],
+            } for m in matches["matchInfo"]
+        ]
+    }
