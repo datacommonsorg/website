@@ -362,3 +362,38 @@ def get_statvar_path():
     id = request.args.get("id")
     result = dc.get_statvar_path(id)
     return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/api/stat/date/within-place')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def get_place_stat_date_within_place():
+    """
+    Given ancestor place, child place type and stat vars, return the dates that
+	have data for each stat var across all child places.
+    """
+    ancestor_place = request.args.get('ancestor_place')
+    if not ancestor_place:
+        return Response(json.dumps('error: must provide a ancestor_place field'),
+                        400,
+                        mimetype='application/json')
+    place_type = request.args.get('childPlaceType')
+    if not place_type:
+        return Response(json.dumps('error: must provide a place_type field'),
+                        400,
+                        mimetype='application/json')
+    stat_vars = request.args.getlist('stat_vars')
+    if not stat_vars:
+        return Response(json.dumps('error: must provide a stat_vars field'),
+                        400,
+                        mimetype='application/json')
+    response = dc.fetch_data('/v1/stat/date/within-place', req_json = {
+        'ancestor_place': ancestor_place,
+        'childPlaceType': place_type,
+        'stat_vars': stat_vars,
+    },
+                          compress=False,
+                          post=False,
+                          has_payload=False)
+    return Response(json.dumps(response),
+                    200,
+                    mimetype='application/json')

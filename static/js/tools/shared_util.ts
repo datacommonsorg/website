@@ -53,6 +53,11 @@ export interface PlacePointStatAll {
   statList: PlacePointStat[];
 }
 
+export interface PlaceStatDateWithinPlace {
+  datePlaceCount: Record<string, number>;
+  metadata: StatMetadata;
+}
+
 export interface GetStatSetResponse {
   data: Record<string, PlacePointStat>;
   metadata: Record<number, StatMetadata>;
@@ -61,6 +66,10 @@ export interface GetStatSetResponse {
 export interface GetStatSetAllResponse {
   data: Record<string, PlacePointStatAll>;
   metadata: Record<number, StatMetadata>;
+}
+
+export interface GetPlaceStatDateWithinPlaceResponse {
+  data: Record<string, Record<string, Array<PlaceStatDateWithinPlace>>>;
 }
 
 export interface SourceSeries {

@@ -33,6 +33,7 @@ import { StatApiResponse } from "../../shared/stat_types";
 import { StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
+  GetPlaceStatDateWithinPlaceResponse,
   GetStatSetAllResponse,
   GetStatSetResponse,
   getUnit,
@@ -491,6 +492,11 @@ function fetchData(
   const statVarSummaryPromise: Promise<StatVarSummary> = axios
     .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
     .then((resp) => resp.data);
+  const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> = axios
+    .get(
+      `/api/stat/date/within-place?ancestor_place=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`
+    )
+    .then((resp) => resp.data);
   Promise.all([
     geoJsonDataPromise,
     breadcrumbPopPromise,
@@ -501,6 +507,7 @@ function fetchData(
     mapPointDataPromise,
     europeanCountriesPromise,
     statVarSummaryPromise,
+    placeStatDateWithinPlacePromise,
     enclosedPlaceDatesPromise,
     allEnclosedPlaceDatesPromise,
     breadcrumbPlaceDatesPromise,
@@ -516,6 +523,7 @@ function fetchData(
         mapPointData,
         europeanCountries,
         statVarSummary,
+        placeStatDateWithinPlace,
         enclosedPlaceDatesData,
         allEnclosedPlaceDatesData,
         breadcrumbPlaceDatesData,
@@ -564,9 +572,8 @@ function fetchData(
           };
         }
         const sampleDates: Record<string, Array<string>> = getSampleDates(
-          statVarSummary[statVar.dcid].provenanceSummary,
-          placeInfo.enclosedPlaceType,
-          metadataMap
+          metadataMap,
+          placeStatDateWithinPlace.data[statVar.dcid].statDate,
         );
         isLoading.setIsDataLoading(false);
         if (metahash && currentSampleDates) {
