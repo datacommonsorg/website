@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import axios from "axios";
 
 export const statVarSep = "__";
 export const placeSep = ",";
@@ -22,20 +21,6 @@ export interface TokenInfo {
   name: string;
   sep: string;
   tokens: Set<string>;
-}
-
-export function getPlaceNames(
-  dcids: string[]
-): Promise<{ [key: string]: string }> {
-  let url = "/api/place/name?";
-  const urls = [];
-  for (const place of dcids) {
-    urls.push(`dcid=${place}`);
-  }
-  url += urls.join("&");
-  return axios.get(url).then((resp) => {
-    return resp.data;
-  });
 }
 
 export function getTokensFromUrl(name: string, sep: string): Set<string> {
