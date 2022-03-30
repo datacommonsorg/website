@@ -40,6 +40,6 @@ do
 done
 
 # Read CSV and TMCF from GCS
-if [[ $TMCF_CSV_BUCKET != 'null' ]]; then
+if [[ $TMCF_CSV_BUCKET != '' ]]; then
   gsutil iam ch serviceAccount:$SERVICE_ACCOUNT:roles/storage.objectViewer gs://$TMCF_CSV_BUCKET
 fi
