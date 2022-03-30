@@ -26,7 +26,7 @@ configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=autopush
+      - flaskEnv=
       - secretProject=
   - name: mixer-configmap
     behavior: create

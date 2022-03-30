@@ -18,6 +18,7 @@ and rename it as `<new_instance>.yaml`.
   configure the following fields:
 
   - `nameSuffix`
+  - `configMapGenerator[website-configmap].literals.flaskEnv`: a unique ID of the deployment, usually `<new_instance>`. This is used by Flask to config web server.
   - `configMapGenerator[website-configmap].literals.secretProject`: the hosting GCP project
   - `configMapGenerator[mixer-configmap].literals.mixerProject`: the hosting GCP project
   - `configMapGenerator[mixer-configmap].literals.serviceName`: set this to `website-esp.endpoints.<the_hosting_GCP_project>.cloud.goog`

@@ -25,7 +25,7 @@ configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=autopush
+      - flaskEnv=iitm
       - secretProject=datcom-iitm
   - name: mixer-configmap
     behavior: create
