@@ -28,7 +28,6 @@ import flask
 from flask import request
 
 import services.datacommons as dc
-from lib import translator
 
 from __init__ import create_app
 
@@ -75,9 +74,7 @@ def before_request():
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/translator')
 def translator_handler():
-    return flask.render_template('translator.html',
-                                 schema_mapping=translator.SCHEMA_MAPPING,
-                                 sample_query=translator.SAMPLE_QUERY)
+    return flask.render_template('translator.html')
 
 
 @app.route('/healthz')

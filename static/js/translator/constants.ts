@@ -15,65 +15,7 @@
  */
 
 export const input = {
-  place: {
-    mapping: `
-Node: E:Place->E1
-typeOf: Place
-subType: C:Place->type
-dcid: C:Place->id
-name: C:Place->name
-functionalDeps: dcid
-
-Node: E:Observation->E1
-typeOf: Observation
-dcid: C:Observation->id
-measuredProperty: C:Observation->measured_prop
-observationDate: C:Observation->observation_date
-measuredValue: C:Observation->measured_value
-observedNode: E:Observation->E2
-functionalDeps: dcid
-
-Node: E:Observation->E2
-typeOf: Place
-dcid: C:Observation->observed_node_key
-functionalDeps: dcid
-    `,
-    sparql: `
-SELECT ?name ?date ?value
-WHERE {
-  ?o typeOf Observation .
-  ?p typeOf State .
-  ?o observedNode ?p .
-  ?p name ?name .
-  ?o measuredProperty Count_EarthquakeEvent_M3To4 .
-  ?o observationDate ?date .
-  ?o measuredValue ?value .
-}
-    `,
-  },
-  sv: {
-    mapping: `
-Node: E:Triple->E1
-dcid: C:Triple->subject_id
-provenance: E:Triple->E2
-C:Triple->predicate: C:Triple->object_value
-functionalDeps: dcid
-
-Node: E:Triple->E2
-typeOf: Provenance
-dcid: C:Triple->prov_id
-functionalDeps: dcid
-    `,
-    sparql: `
-SELECT ?sv
-WHERE {
-  ?sv typeOf StatisticalVariable .
-  ?sv measuredProperty count .
-  ?sv populationType Person .
-}
-    `,
-  },
-  all: {
+  observation: {
     mapping: `
 Node: E:StatisticalVariable->E1
 typeOf: StatisticalVariable
@@ -322,5 +264,27 @@ WHERE {
   ?obs2 value ?median_age .
 }
 `,
+  },
+  sv: {
+    mapping: `
+Node: E:Triple->E1
+dcid: C:Triple->subject_id
+provenance: E:Triple->E2
+C:Triple->predicate: C:Triple->object_value
+functionalDeps: dcid
+
+Node: E:Triple->E2
+typeOf: Provenance
+dcid: C:Triple->prov_id
+functionalDeps: dcid
+    `,
+    sparql: `
+SELECT ?sv
+WHERE {
+  ?sv typeOf StatisticalVariable .
+  ?sv measuredProperty count .
+  ?sv populationType Person .
+}
+    `,
   },
 };

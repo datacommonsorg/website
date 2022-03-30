@@ -148,8 +148,7 @@ class TestMap(WebdriverBaseTest):
 
         # Choose stat var
         shared.wait_for_loading(self.driver)
-        demographics = self.driver.find_element_by_class_name('node-title')
-        demographics.click()
+        shared.click_sv_group(self.driver, "Demographics")
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)

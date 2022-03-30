@@ -91,12 +91,12 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           <label id="select-input">
             <input
               type="radio"
-              value="place"
+              value="observation"
               name="mode"
               onChange={this.onModeChange}
               ref={this.defaultRadioElem}
             />
-            Place Observation
+            Observation
             <br />
             <input
               type="radio"
@@ -105,14 +105,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
               onChange={this.onModeChange}
             />
             Statistical Variable
-            <br />
-            <input
-              type="radio"
-              value="all"
-              name="mode"
-              onChange={this.onModeChange}
-            />{" "}
-            All
           </label>
         </form>
         <div id="input-box" className="row">
@@ -140,10 +132,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           bindings={this.state.bindings}
           constraints={this.state.constraints}
         ></Translation>
-        <a href="https://console.cloud.google.com/bigquery?sq=443333369001:c5d2972c96704d65a3091ee15d6f0c87">
-          {" "}
-          BigQuery Link
-        </a>
       </div>
     );
   }
