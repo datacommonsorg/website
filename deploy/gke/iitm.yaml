@@ -11,34 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-nameSuffix:
-namespace: website
-
-resources:
-  - ../../base
-
-configMapGenerator:
-  - name: website-configmap
-    behavior: create
-    literals:
-      - flaskEnv=
-      - secretProject=
-  - name: mixer-configmap
-    behavior: create
-    literals:
-      - mixerProject=
-      - serviceName=
-
-patchesStrategicMerge:
-  - |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: website-app
-    spec:
-      replicas:
+project: datcom-iitm
+domain: datacommons.iitm.ac.in
+ip: 34.111.65.19
+region:
+  primary: us-central1
+  others:
+    -
+nodes: 1
+storage_project: datcom-store
+tmcf_csv_bucket:
+tmcf_csv_folder:
