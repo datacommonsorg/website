@@ -17,23 +17,11 @@
 import {
   addToken,
   getChartOption,
-  getPlaceNames,
   getTokensFromUrl,
   removeToken,
   setChartOption,
   setTokensToUrl,
 } from "./util";
-
-test("get place names", () => {
-  const dcids = ["geoId/4459000", "country/USA"];
-  const placesPromise = getPlaceNames(dcids);
-  placesPromise.then((places) => {
-    expect(places).toStrictEqual({
-      "geoId/4459000": "Providence",
-      "country/USA": "United States",
-    });
-  });
-});
 
 test("test getTokensFromUrl", () => {
   window.location.hash =
