@@ -95,7 +95,11 @@ interface ChartData {
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<string>;
   rankingLink: string;
+
+  // Map of metahash to list of ~10 dates for time slider
   sampleDates: Array<string>;
+  
+  // Current metahash
   metahash: string;
 }
 
