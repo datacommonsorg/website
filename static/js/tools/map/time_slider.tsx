@@ -62,7 +62,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   );
   const [loaded, setLoaded] = useState(false);
 
-  // Number of pixels the handle is offset across the slider bar
+  // Number of pixels the handle is offset from the left edge of the slider bar
   const [offset, setOffset] = useState(null);
   const [play, setPlay] = useState(true);
   const [timer, setTimer] = useState(null);
