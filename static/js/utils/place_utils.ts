@@ -153,3 +153,34 @@ export function getNamedTypedPlace(
       return { dcid: placeDcid, name: "", types: [] };
     });
 }
+
+/**
+ * Given a list of place dcids, returns a promise with a map of dcids to place
+ * names
+ */
+export function getPlaceNames(
+  dcids: string[]
+): Promise<{ [key: string]: string }> {
+  let url = "/api/place/name?";
+  const urls = [];
+  for (const place of dcids) {
+    urls.push(`dcid=${place}`);
+  }
+  url += urls.join("&");
+  return axios.get(url).then((resp) => {
+    return resp.data;
+  });
+}
+
+/**
+ * Given a list of autocomplete placeIds, returns a promise with a map of those
+ * placeIds to dcids
+ */
+export function getPlaceDcids(
+  placeIds: string[]
+): Promise<Record<string, string>> {
+  const param = placeIds.map((placeId) => "placeIds=" + placeId).join("&");
+  return axios
+    .get(`/api/place/placeid2dcid?${param}`)
+    .then((resp) => resp.data);
+}

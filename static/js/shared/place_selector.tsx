@@ -22,12 +22,12 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
-import { SearchBar } from "../tools/timeline/search";
 import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../utils/place_utils";
+import { SearchBar } from "./place_search_bar";
 import { NamedTypedPlace } from "./types";
 
 const EMPTY_NAMED_TYPED_PLACE = { dcid: "", name: "", types: null };
