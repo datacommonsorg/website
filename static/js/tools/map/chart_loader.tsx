@@ -42,11 +42,12 @@ import {
   StatMetadata,
 } from "../shared_util";
 import { Chart } from "./chart";
-import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
+import { Context, DisplayOptionsWrapper, IsLoadingWrapper, PlaceInfo, StatVar, StatVarWrapper } from "./context";
 import { PlaceDetails } from "./place_details";
 import {
   DataPointMetadata,
   ENCLOSED_PLACE_TYPE_NAMES,
+  getLegendBounds,
   getMetaText,
   getPlaceChartData,
   getSampleDates,
@@ -68,6 +69,7 @@ interface ChartRawData {
   europeanCountries: Array<string>;
   dataDate: string;
   sampleDates: Record<string, Array<string>>;
+  legendBounds: Record<string, [number, number, number]>;
 }
 
 interface ChartData {
@@ -119,45 +121,10 @@ export function ChartLoader(): JSX.Element {
 
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
-      loadChartData(rawData, placeInfo.value, statVar.value, setChartData);
-      const stat = rawData.placeStat.stat;
-      let minValue: number = Number.MAX_SAFE_INTEGER,
-        meanValue = 0,
-        maxValue = 0;
-      for (const place in stat) {
-        if (!stat[place].value) {
-          continue;
-        }
-        let value = stat[place].value;
-        if (statVar.value.perCapita) {
-          const populationData = rawData.population[place].data;
-          const date = stat[place].date;
-          if (
-            statVar.value.denom in populationData &&
-            populationData[statVar.value.denom].val &&
-            date in populationData[statVar.value.denom].val
-          ) {
-            value /= populationData[statVar.value.denom].val[date];
-          } else {
-            continue;
-          }
-        }
-        if (value < minValue) {
-          minValue = value;
-        }
-        if (value > maxValue) {
-          maxValue = value;
-        }
-        meanValue += value;
+      loadChartData(rawData, placeInfo.value, statVar.value, setChartData, display);
+      if (statVar.value.perCapita) {
+        setLegendBoundsPerCapita(rawData, statVar, display);
       }
-
-      // Using Best Available data as estimate - give some padding for other dates
-      minValue = minValue > 0 ? minValue * 0.9 : minValue * 1.1;
-      maxValue = maxValue > 0 ? maxValue * 1.1 : maxValue * 0.9;
-      display.set({
-        ...display.value,
-        domain: [minValue, meanValue / Object.keys(stat).length, maxValue],
-      });
     }
   }, [rawData, statVar.value.perCapita]);
 
@@ -231,7 +198,8 @@ export function ChartLoader(): JSX.Element {
         placeInfo.value,
         statVar.value,
         setChartData,
-        metahash == "BestAvailable" ? "" : metahash
+        display,
+        metahash == "BestAvailable" ? "" : metahash,
       );
     }
   };
@@ -270,7 +238,8 @@ export function ChartLoader(): JSX.Element {
               placeInfo.value,
               statVar.value,
               setChartData,
-              e.target.value
+              display,
+              e.target.value,
             );
           }}
         >
@@ -575,6 +544,9 @@ function fetchData(
           metadataMap,
           placeStatDateWithinPlace.data[statVar.dcid].statDate,
         );
+        const bestAvailableHash = sampleDates["Best Available"][0];
+        sampleDates["Best Available"] = sampleDates[sampleDates["Best Available"][0]];
+        const legendBounds: Record<string, [number, number, number]> = getLegendBounds(metadataMap, statVarSummary[statVar.dcid].provenanceSummary, placeInfo.enclosedPlaceType, bestAvailableHash);
         isLoading.setIsDataLoading(false);
         if (metahash && currentSampleDates) {
           const currentSampleDatesData: Record<string, ChartRawData> = {};
@@ -605,6 +577,7 @@ function fetchData(
               europeanCountries,
               dataDate,
               sampleDates,
+              legendBounds,
             };
           }
           let newSampleDatesChartData: Record<
@@ -632,6 +605,7 @@ function fetchData(
             europeanCountries,
             dataDate,
             sampleDates,
+            legendBounds,
           });
         }
       }
@@ -663,7 +637,8 @@ function loadChartData(
   placeInfo: PlaceInfo,
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
-  metaHash?: string
+  display: DisplayOptionsWrapper,
+  metaHash?: string,
 ): void {
   const mapValues = {};
   const metadata = {};
@@ -754,6 +729,14 @@ function loadChartData(
   const sampleDates = metaHash
     ? rawData.sampleDates[metaHash]
     : rawData.sampleDates["Best Available"];
+  if (!statVar.perCapita) {
+    display.set({
+      ...display.value,
+      domain: metaHash
+      ? rawData.legendBounds[metaHash]
+      : rawData.legendBounds["Best Available"],
+    });
+  }
   setChartData({
     breadcrumbValues,
     dates: statVarDates,
@@ -774,5 +757,48 @@ function loadChartData(
     ),
     sampleDates,
     metahash: metaHash || "Best Available",
+  });
+}
+
+/**
+ * Set legend bounds when per capita is selected. This will use an estimate based on
+ * Best Available instead of the min/max from the StatVarSummary.
+ * @param rawData
+ * @param display
+ */
+ export function setLegendBoundsPerCapita(rawData: ChartRawData, statVar: StatVarWrapper, display: DisplayOptionsWrapper): void {
+  const stat = rawData.placeStat.stat;
+  let minValue: number = Number.MAX_SAFE_INTEGER,
+    maxValue = 0;
+  for (const place in stat) {
+    if (!stat[place].value) {
+      continue;
+    }
+    let value = stat[place].value;
+    const populationData = rawData.population[place].data;
+    const date = stat[place].date;
+    if (
+      statVar.value.denom in populationData &&
+      populationData[statVar.value.denom].val &&
+      date in populationData[statVar.value.denom].val
+    ) {
+      value /= populationData[statVar.value.denom].val[date];
+    } else {
+      continue;
+    }
+    if (value < minValue) {
+      minValue = value;
+    }
+    if (value > maxValue) {
+      maxValue = value;
+    }
+  }
+
+  // Using Best Available data as estimate - give some padding for other dates
+  minValue = minValue > 0 ? minValue * 0.9 : minValue * 1.1;
+  maxValue = maxValue > 0 ? maxValue * 1.1 : maxValue * 0.9;
+  display.set({
+    ...display.value,
+    domain: [minValue, (minValue + maxValue) / 2, maxValue],
   });
 }

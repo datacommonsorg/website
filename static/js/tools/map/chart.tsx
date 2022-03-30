@@ -203,7 +203,7 @@ export function Chart(props: ChartProps): JSX.Element {
               </div>
             </div>
           )}
-          {props.sampleDates.length > 1 && (
+          {props.sampleDates && props.sampleDates.length > 1 && (
             <TimeSlider
               currentDate={_.max(Array.from(props.dates))}
               dates={props.sampleDates}

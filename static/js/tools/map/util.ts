@@ -18,7 +18,6 @@
  * Utility functions shared across different components of map explorer.
  */
 
-import { select } from "d3";
 import _ from "lodash";
 
 import {
@@ -35,7 +34,7 @@ import { StatApiResponse } from "../../shared/stat_types";
 import {
   NamedPlace,
   NamedTypedPlace,
-  ProvenanceSummary,
+  ProvenanceSummary
 } from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
 import {
@@ -64,13 +63,6 @@ const URL_PARAM_KEYS = {
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
   AirPollutant: "AirQualitySite",
-};
-
-// Series with unlikely/rare date ranges should be excluded from "Best Available"
-const EXCLUDED_SERIES = {
-  HumanCuratedStats: "",
-  WikidataPopulation: "",
-  WikipediaStatsData: "",
 };
 
 const NUM_SAMPLE_DATES = 10;
@@ -533,6 +525,19 @@ export function getMetaText(metadata: StatMetadata): string {
   return result;
 }
 
+/** 
+ * Return a map of metahash to metatext
+ * @param metadataMap
+ */
+function getMetahashMap(metadataMap: Record<string, StatMetadata>): Record<string, string> {
+  const metahashMap: Record<string, string> = {};
+  for (const metahash in metadataMap) {
+    const metatext = getMetaText(metadataMap[metahash]);
+    metahashMap[metatext] = metahash;
+  }
+  return metahashMap;
+}
+
 /**
  * Return a map of sources to sample dates to display on the time slider.
  * @param metadataMap
@@ -542,16 +547,10 @@ export function getSampleDates(
   metadataMap: Record<string, StatMetadata>,
   placeStatDateWithinPlace: Array<PlaceStatDateWithinPlace>,
 ): Record<string, Array<string>> {
-  // Generate map of metatext to metahash
-  const metahashMap: Record<string, string> = {};
-  for (const metahash in metadataMap) {
-    const metatext = getMetaText(metadataMap[metahash]);
-    metahashMap[metatext] = metahash;
-  }
-
+  const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
   const sampleDates: Record<string, Array<string>> = {};
   let bestCount = 0;
-  let bestAvailable: Array<string> = [];
+  let bestAvailable = "";
   for (const i in placeStatDateWithinPlace) {
     const series = placeStatDateWithinPlace[i];
     const metatext = getMetaText(series.metadata);
@@ -578,9 +577,48 @@ export function getSampleDates(
     }
     if (seriesWeight > bestCount) {
       bestCount = seriesWeight;
-      bestAvailable = sampleDates[metahashMap[metatext]];
+      bestAvailable = metahashMap[metatext];
     } 
   } 
-  sampleDates['Best Available'] = bestAvailable;
+  sampleDates["Best Available"] = [bestAvailable];
   return sampleDates;
+}
+
+/**
+ * Return a map of sources to legend bounds.
+ * @param metadataMap
+ * @param provenanceSummary
+ * @param placeType
+ * @param bestAvailableHash
+ */
+export function getLegendBounds(
+  metadataMap: Record<string, StatMetadata> ,
+  provenanceSummary: ProvenanceSummary, 
+  placeType: string, 
+  bestAvailableHash: string): Record<string, [number, number, number]> {
+  const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
+  const legendBounds: Record<string, [number, number, number]> = {};
+  for (const provId in provenanceSummary) {
+    const provenance = provenanceSummary[provId];
+    for (const i in provenance.seriesSummary) {
+      const series = provenance.seriesSummary[i];
+      if (!(placeType in series.placeTypeSummary)) {
+        continue;
+      }
+      const metatext = getMetaText({
+        ...series.seriesKey,
+        importName: provenance.importName,
+      });
+      if (!(metatext in metahashMap)) {
+        continue;
+      }
+      const minValue = series.placeTypeSummary[placeType].minValue || 0;
+      const maxValue = series.placeTypeSummary[placeType].maxValue;
+      legendBounds[metahashMap[metatext]] = [minValue, (minValue + maxValue) / 2, maxValue];
+      if (metahashMap[metatext] == bestAvailableHash) {
+        legendBounds["Best Available"] = [minValue, (minValue + maxValue) / 2, maxValue];
+      }
+    }
+  }
+  return legendBounds;
 }
