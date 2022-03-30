@@ -119,7 +119,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
     if (!enabled) {
       return;
     }
-    const width = document.getElementById("slider").offsetWidth;
+    const width = document.getElementById("time-slider-slide").offsetWidth;
     const currentDate = new Date(current).valueOf();
     const ratio = Math.min(
       Math.max((currentDate - startDate) / dateDenom, 0),
@@ -149,40 +149,38 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   }
 
   return (
-    <div id="time-slider-container">
-      <div id="time-slider">
+    <div className="time-slider-container">
+      <div className="time-slider">
         <span
-          className="slider-left"
-          id="current-date"
+          className="time-slider-left time-slider-current-date"
           style={{ width: `${end.length}ch` }}
         >
           {currentDate}
         </span>
-        <div className="slider-break"></div>
-        <div className="slider-left" onClick={handlePlay}>
-          {play && <i className="material-icons play-button">play_arrow</i>}
-          {!play && <i className="material-icons play-button">pause</i>}
+        <div className="time-slider-break"></div>
+        <div className="time-slider-left" onClick={handlePlay}>
+          {play && <i className="material-icons time-slider-play-button">play_arrow</i>}
+          {!play && <i className="material-icons time-slider-play-button">pause</i>}
         </div>
-        <span className="slider-left" id="start-date">
+        <span className="time-slider-left time-slider-start-date">
           {start}
         </span>
-        <span id="end-date">{end}</span>
-        <div id="slider">
-          <svg id="svg">
+        <span className="time-slider-end-date">{end}</span>
+        <div id="time-slider-slide">
+          <svg className="time-slider-svg">
             <g>
-              <line className="track" x1={SLIDER_MARGIN} x2="100%"></line>
-              <line className="track-inset" x1={SLIDER_MARGIN} x2="100%"></line>
+              <line className="time-slider-track" x1={SLIDER_MARGIN} x2="100%"></line>
+              <line className="time-slider-track-inset" x1={SLIDER_MARGIN} x2="100%"></line>
               {enabled && (
                 <line
-                  className="handle"
+                  className="time-slider-handle"
                   x1={offset || 0}
                   x2={offset + HANDLE_WIDTH || 0}
                 ></line>
               )}
               {enabled && (
                 <line
-                  className="handle-inset"
-                  id="handle"
+                  className="time-slider-handle-inset"
                   x1={offset || 0}
                   x2={offset + HANDLE_WIDTH || 0}
                 ></line>

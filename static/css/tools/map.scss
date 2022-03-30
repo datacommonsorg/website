@@ -286,13 +286,15 @@
   margin-bottom: 10px;
 }
 
-#time-slider-container {
+/* Time Slider Styles */
+
+.time-slider-container {
   align-items: center;
   justify-content: center;
   margin: 20px 100px;
 }
 
-#time-slider {
+.time-slider {
   background-color: #f8f8f8;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 15px;
@@ -301,73 +303,73 @@
   padding: 10px;
 }
 
-#svg {
+.time-slider-svg {
   height: 14px;
   width: 100%;
 }
 
-.play-button {
+.time-slider-play-button {
   color: #808080;
   cursor: pointer;
   margin: -3px 5px 0;
 }  
 
-.track,
-.track-inset,
-.handle,
-.handle-inset {
+.time-slider-track,
+.time-slider-track-inset,
+.time-slider-handle,
+.time-slider-handle-inset {
   stroke-linecap: round;
   transform: translate(-8px, 6px);
 }
 
-.track {
+.time-slider-track {
   stroke: #808080;
   stroke-width: 6px;
 }
 
-.track-inset {
+.time-slider-track-inset {
   stroke: #dcdcdc;
   stroke-width: 4px;
 }
 
-.handle {
+.time-slider-handle {
   stroke: #808080;
   stroke-width: 12px;
   cursor: pointer; 
 }
 
-.handle-inset {
+.time-slider-handle-inset {
   stroke: #dcdcdc;
   stroke-width: 10px;
 }
 
-.slider-left,
-.slider-break {
+.time-slider-left,
+.time-slider-break {
   float: left;
 }
 
-.slider-break {
+.time-slider-break {
   border-right: 1px solid rgba(0, 0, 0, 0.4);
   height: 40px;
   margin-top: -10px;
   padding: 0 5px;
 }
 
-#current-date {
+.time-slider-current-date {
   text-align: center;
 }
 
-#start-date {
+.time-slider-start-date {
   color: #808080;
   margin-right: 5px;
 }
 
-#end-date {
+.time-slider-end-date {
   float: right;
   margin-left: 5px;
   color: #808080;
 }
 
-#slider {
+#time-slider-slide {
   overflow: hidden;
 }
