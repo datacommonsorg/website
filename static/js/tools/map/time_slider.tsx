@@ -42,6 +42,11 @@ interface TimeSliderProps {
 }
 
 export function TimeSlider(props: TimeSliderProps): JSX.Element {
+  const INTERVAL_MS = 500;
+  const SLIDER_MARGIN = 16;
+  const HANDLE_WIDTH = 4;
+  const HANDLE_MARGIN = SLIDER_MARGIN - (HANDLE_WIDTH / 2);
+
   const start = props.dates[0];
   const end = props.dates[props.dates.length - 1];
   const startDate = new Date(start).valueOf();
@@ -120,7 +125,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       Math.max((currentDate - startDate) / dateDenom, 0),
       1
     );
-    return (width - 16) * ratio + 14;
+    return (width - SLIDER_MARGIN) * ratio + HANDLE_MARGIN;
   }
 
   async function handlePlay() {
@@ -134,7 +139,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
         setTimer(
           setInterval(() => {
             setIndex((index) => index + 1);
-          }, 500)
+          }, INTERVAL_MS)
         );
       });
     } else {
@@ -165,13 +170,13 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
         <div id="slider">
           <svg id="svg">
             <g>
-              <line className="track" x1={16} x2="100%"></line>
-              <line className="track-inset" x1={16} x2="100%"></line>
+              <line className="track" x1={SLIDER_MARGIN} x2="100%"></line>
+              <line className="track-inset" x1={SLIDER_MARGIN} x2="100%"></line>
               {enabled && (
                 <line
                   className="handle"
                   x1={offset || 0}
-                  x2={offset + 4 || 0}
+                  x2={offset + HANDLE_WIDTH || 0}
                 ></line>
               )}
               {enabled && (
@@ -179,7 +184,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
                   className="handle-inset"
                   id="handle"
                   x1={offset || 0}
-                  x2={offset + 4 || 0}
+                  x2={offset + HANDLE_WIDTH || 0}
                 ></line>
               )}
             </g>

@@ -505,6 +505,10 @@ export function getTitle(
     : `${statVarName} ${dateRange}`;
 }
 
+/**
+ * Builds metatext from StatMetadata used for the source selector.
+ * @param metadata 
+ */
 export function getMetaText(metadata: StatMetadata): string {
   let result = `[${metadata.importName}]`;
   let first = true;
@@ -526,7 +530,7 @@ export function getMetaText(metadata: StatMetadata): string {
 }
 
 /**
- * Return a map of metahash to metatext
+ * Return a map of metahash to metatext.
  * @param metadataMap
  */
 function getMetahashMap(
