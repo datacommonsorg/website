@@ -42,7 +42,14 @@ import {
   StatMetadata,
 } from "../shared_util";
 import { Chart } from "./chart";
-import { Context, DisplayOptionsWrapper, IsLoadingWrapper, PlaceInfo, StatVar, StatVarWrapper } from "./context";
+import {
+  Context,
+  DisplayOptionsWrapper,
+  IsLoadingWrapper,
+  PlaceInfo,
+  StatVar,
+  StatVarWrapper,
+} from "./context";
 import { PlaceDetails } from "./place_details";
 import {
   DataPointMetadata,
@@ -68,7 +75,11 @@ interface ChartRawData {
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<string>;
   dataDate: string;
+
+  // Map of metahash to list of ~10 dates for time slider
   sampleDates: Record<string, Array<string>>;
+
+  // Map of metahash to display domain for the map legend
   legendBounds: Record<string, [number, number, number]>;
 }
 
@@ -121,7 +132,13 @@ export function ChartLoader(): JSX.Element {
 
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
-      loadChartData(rawData, placeInfo.value, statVar.value, setChartData, display);
+      loadChartData(
+        rawData,
+        placeInfo.value,
+        statVar.value,
+        setChartData,
+        display
+      );
       if (statVar.value.perCapita) {
         setLegendBoundsPerCapita(rawData, statVar, display);
       }
@@ -199,7 +216,7 @@ export function ChartLoader(): JSX.Element {
         statVar.value,
         setChartData,
         display,
-        metahash == "BestAvailable" ? "" : metahash,
+        metahash == "BestAvailable" ? "" : metahash
       );
     }
   };
@@ -239,7 +256,7 @@ export function ChartLoader(): JSX.Element {
               statVar.value,
               setChartData,
               display,
-              e.target.value,
+              e.target.value
             );
           }}
         >
@@ -542,11 +559,20 @@ function fetchData(
         }
         const sampleDates: Record<string, Array<string>> = getSampleDates(
           metadataMap,
-          placeStatDateWithinPlace.data[statVar.dcid].statDate,
+          placeStatDateWithinPlace.data[statVar.dcid].statDate
         );
         const bestAvailableHash = sampleDates["Best Available"][0];
-        sampleDates["Best Available"] = sampleDates[sampleDates["Best Available"][0]];
-        const legendBounds: Record<string, [number, number, number]> = getLegendBounds(metadataMap, statVarSummary[statVar.dcid].provenanceSummary, placeInfo.enclosedPlaceType, bestAvailableHash);
+        sampleDates["Best Available"] =
+          sampleDates[sampleDates["Best Available"][0]];
+        const legendBounds: Record<
+          string,
+          [number, number, number]
+        > = getLegendBounds(
+          metadataMap,
+          statVarSummary[statVar.dcid].provenanceSummary,
+          placeInfo.enclosedPlaceType,
+          bestAvailableHash
+        );
         isLoading.setIsDataLoading(false);
         if (metahash && currentSampleDates) {
           const currentSampleDatesData: Record<string, ChartRawData> = {};
@@ -638,7 +664,7 @@ function loadChartData(
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
   display: DisplayOptionsWrapper,
-  metaHash?: string,
+  metaHash?: string
 ): void {
   const mapValues = {};
   const metadata = {};
@@ -733,8 +759,8 @@ function loadChartData(
     display.set({
       ...display.value,
       domain: metaHash
-      ? rawData.legendBounds[metaHash]
-      : rawData.legendBounds["Best Available"],
+        ? rawData.legendBounds[metaHash]
+        : rawData.legendBounds["Best Available"],
     });
   }
   setChartData({
@@ -766,7 +792,11 @@ function loadChartData(
  * @param rawData
  * @param display
  */
- export function setLegendBoundsPerCapita(rawData: ChartRawData, statVar: StatVarWrapper, display: DisplayOptionsWrapper): void {
+export function setLegendBoundsPerCapita(
+  rawData: ChartRawData,
+  statVar: StatVarWrapper,
+  display: DisplayOptionsWrapper
+): void {
   const stat = rawData.placeStat.stat;
   let minValue: number = Number.MAX_SAFE_INTEGER,
     maxValue = 0;

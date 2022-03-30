@@ -373,9 +373,10 @@ def get_place_stat_date_within_place():
     """
     ancestor_place = request.args.get('ancestor_place')
     if not ancestor_place:
-        return Response(json.dumps('error: must provide a ancestor_place field'),
-                        400,
-                        mimetype='application/json')
+        return Response(
+            json.dumps('error: must provide a ancestor_place field'),
+            400,
+            mimetype='application/json')
     place_type = request.args.get('childPlaceType')
     if not place_type:
         return Response(json.dumps('error: must provide a place_type field'),
@@ -386,14 +387,13 @@ def get_place_stat_date_within_place():
         return Response(json.dumps('error: must provide a stat_vars field'),
                         400,
                         mimetype='application/json')
-    response = dc.fetch_data('/v1/stat/date/within-place', req_json = {
-        'ancestor_place': ancestor_place,
-        'childPlaceType': place_type,
-        'stat_vars': stat_vars,
-    },
-                          compress=False,
-                          post=False,
-                          has_payload=False)
-    return Response(json.dumps(response),
-                    200,
-                    mimetype='application/json')
+    response = dc.fetch_data('/v1/stat/date/within-place',
+                             req_json={
+                                 'ancestor_place': ancestor_place,
+                                 'childPlaceType': place_type,
+                                 'stat_vars': stat_vars,
+                             },
+                             compress=False,
+                             post=False,
+                             has_payload=False)
+    return Response(json.dumps(response), 200, mimetype='application/json')

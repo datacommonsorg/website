@@ -34,7 +34,7 @@ import { StatApiResponse } from "../../shared/stat_types";
 import {
   NamedPlace,
   NamedTypedPlace,
-  ProvenanceSummary
+  ProvenanceSummary,
 } from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
 import {
@@ -525,11 +525,13 @@ export function getMetaText(metadata: StatMetadata): string {
   return result;
 }
 
-/** 
+/**
  * Return a map of metahash to metatext
  * @param metadataMap
  */
-function getMetahashMap(metadataMap: Record<string, StatMetadata>): Record<string, string> {
+function getMetahashMap(
+  metadataMap: Record<string, StatMetadata>
+): Record<string, string> {
   const metahashMap: Record<string, string> = {};
   for (const metahash in metadataMap) {
     const metatext = getMetaText(metadataMap[metahash]);
@@ -545,7 +547,7 @@ function getMetahashMap(metadataMap: Record<string, StatMetadata>): Record<strin
  */
 export function getSampleDates(
   metadataMap: Record<string, StatMetadata>,
-  placeStatDateWithinPlace: Array<PlaceStatDateWithinPlace>,
+  placeStatDateWithinPlace: Array<PlaceStatDateWithinPlace>
 ): Record<string, Array<string>> {
   const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
   const sampleDates: Record<string, Array<string>> = {};
@@ -558,8 +560,7 @@ export function getSampleDates(
     let seriesWeight = 0;
     if (dates.length <= NUM_SAMPLE_DATES) {
       sampleDates[metahashMap[metatext]] = dates;
-    }
-    else {
+    } else {
       const increment = Math.floor(dates.length / NUM_SAMPLE_DATES);
       const selectedDates: Array<string> = [];
       for (let i = 0; i < dates.length; i += increment) {
@@ -573,13 +574,14 @@ export function getSampleDates(
       sampleDates[metahashMap[metatext]] = selectedDates;
     }
     for (const i in sampleDates[metahashMap[metatext]]) {
-      seriesWeight += series.datePlaceCount[sampleDates[metahashMap[metatext]][i]];
+      seriesWeight +=
+        series.datePlaceCount[sampleDates[metahashMap[metatext]][i]];
     }
     if (seriesWeight > bestCount) {
       bestCount = seriesWeight;
       bestAvailable = metahashMap[metatext];
-    } 
-  } 
+    }
+  }
   sampleDates["Best Available"] = [bestAvailable];
   return sampleDates;
 }
@@ -592,10 +594,11 @@ export function getSampleDates(
  * @param bestAvailableHash
  */
 export function getLegendBounds(
-  metadataMap: Record<string, StatMetadata> ,
-  provenanceSummary: ProvenanceSummary, 
-  placeType: string, 
-  bestAvailableHash: string): Record<string, [number, number, number]> {
+  metadataMap: Record<string, StatMetadata>,
+  provenanceSummary: ProvenanceSummary,
+  placeType: string,
+  bestAvailableHash: string
+): Record<string, [number, number, number]> {
   const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
   const legendBounds: Record<string, [number, number, number]> = {};
   for (const provId in provenanceSummary) {
@@ -614,9 +617,17 @@ export function getLegendBounds(
       }
       const minValue = series.placeTypeSummary[placeType].minValue || 0;
       const maxValue = series.placeTypeSummary[placeType].maxValue;
-      legendBounds[metahashMap[metatext]] = [minValue, (minValue + maxValue) / 2, maxValue];
+      legendBounds[metahashMap[metatext]] = [
+        minValue,
+        (minValue + maxValue) / 2,
+        maxValue,
+      ];
       if (metahashMap[metatext] == bestAvailableHash) {
-        legendBounds["Best Available"] = [minValue, (minValue + maxValue) / 2, maxValue];
+        legendBounds["Best Available"] = [
+          minValue,
+          (minValue + maxValue) / 2,
+          maxValue,
+        ];
       }
     }
   }
