@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { StatMetadata } from "../tools/shared_util";
+
 /**
  * Stat API related types.
  */
@@ -22,13 +24,7 @@ export interface TimeSeries {
   val?: {
     [date: string]: number; // Date might be "latest" if it's from the cache
   };
-  metadata?: {
-    importName?: string;
-    measurementMethod?: string;
-    provenanceUrl?: string;
-    unit?: string;
-    observationPeriod?: string;
-  };
+  metadata?: StatMetadata;
 }
 
 export interface StatApiResponse {

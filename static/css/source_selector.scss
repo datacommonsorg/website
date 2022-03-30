@@ -40,7 +40,7 @@ $color-byline: #7b7b7b;
 
 .source-selector-modal .modal-body {
   height: 500px;
-  width: fit-content;
+  min-width: 50vw;
   overflow-y: scroll;
   word-break: break-word;
   padding: 1rem 1.5rem;

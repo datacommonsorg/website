@@ -3,7 +3,9 @@
 exports[`Single place and single stat var 1`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"chart-options\\"><span class=\\"chart-option\\"><button id=\\"pc-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-age\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-age\\">Delta</label></span></div>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+    <div><span class=\\"chart-option\\"><button id=\\"pc-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-age\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-age\\">Delta</label></span></div>
+  </div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
@@ -12,8 +14,10 @@ exports[`Single place and single stat var 1`] = `
 
 exports[`Single place and single stat var 2`] = `
 "<div class=\\"card\\">
-  <div class=\\"chart-svg\\"><svg width=\\"500\\" height=\\"500\\"><text>svg text</text></svg></div>
-  <div class=\\"chart-options\\"><span class=\\"chart-option\\"><button id=\\"pc-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-age\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-age\\">Delta</label></span></div>
+  <div class=\\"chart-svg\\"></div>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+    <div><span class=\\"chart-option\\"><button id=\\"pc-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-age\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-age\\">Delta</label></span></div>
+  </div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
@@ -61,7 +65,9 @@ exports[`Single place and single stat var 3`] = `
 exports[`chart options 1`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"chart-options\\"><span class=\\"chart-option\\"><button id=\\"pc-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-count\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-count\\">Delta</label></span></div>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+    <div><span class=\\"chart-option\\"><button id=\\"pc-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-count\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-count\\">Delta</label></span></div>
+  </div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\">Population</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>
@@ -71,7 +77,9 @@ exports[`chart options 1`] = `
 exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"chart-options\\"><span class=\\"chart-option\\"><button id=\\"pc-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-count\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-count\\">Delta</label></span></div>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+    <div><span class=\\"chart-option\\"><button id=\\"pc-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-count\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-count\\">Delta</label></span></div>
+  </div>
   <div class=\\"statVarChipRegion\\">
     <div class=\\"pv-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text\\"></span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
   </div>

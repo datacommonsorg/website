@@ -56,6 +56,8 @@ export interface SourceSelectorSvInfo {
   // mapping of metahashes to corresponding metadata for available sources for
   // this stat var
   metadataMap: Record<string, StatMetadata>;
+  // mapping of metahash to the display name to use for the corresponding source
+  displayNames?: Record<string, string>;
 }
 
 interface SourceSelectorPropType {
@@ -98,18 +100,14 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
         <ModalBody>
           {props.svInfoList.map((svInfo) => {
             const selectedMetahash = modalSelections[svInfo.dcid];
-            const selectedMetadata =
-              selectedMetahash in svInfo.metadataMap
-                ? svInfo.metadataMap[selectedMetahash]
-                : {};
             return (
               <Collapsible
                 key={svInfo.dcid}
-                trigger={getSVTriggerJsx(false, svInfo.name, selectedMetadata)}
+                trigger={getSVTriggerJsx(false, svInfo, selectedMetahash)}
                 triggerWhenOpen={getSVTriggerJsx(
                   true,
-                  svInfo.name,
-                  selectedMetadata
+                  svInfo,
+                  selectedMetahash
                 )}
                 open={props.svInfoList.length < 2}
               >
@@ -155,7 +153,10 @@ function getSourceOptionJsx(
   setModalSelections: (selections: Record<string, string>) => void
 ): JSX.Element {
   const metadata = svInfo.metadataMap[metahash] || {};
-  const sourceTitle = getSourceTitle(metadata);
+  let sourceTitle = getSourceTitle(metadata);
+  if (svInfo.displayNames && metahash in svInfo.displayNames) {
+    sourceTitle = svInfo.displayNames[metahash];
+  }
   return (
     <FormGroup radio="true" row key={svInfo.dcid + metahash}>
       <Label radio="true" className={`${SELECTOR_PREFIX}-option`}>
@@ -269,10 +270,14 @@ function getSourceOptionSectionJsx(
  */
 function getSVTriggerJsx(
   opened: boolean,
-  svName: string,
-  selectedMetadata: StatMetadata
+  svInfo: SourceSelectorSvInfo,
+  selectedMetahash: string
 ): JSX.Element {
-  const sourceTitle = getSourceTitle(selectedMetadata);
+  const metadata = svInfo.metadataMap[selectedMetahash] || {};
+  let sourceTitle = getSourceTitle(metadata);
+  if (svInfo.displayNames && selectedMetahash in svInfo.displayNames) {
+    sourceTitle = svInfo.displayNames[selectedMetahash];
+  }
   return (
     <div
       className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-sv-trigger-${
@@ -280,7 +285,7 @@ function getSVTriggerJsx(
       }`}
     >
       <div className={`${SELECTOR_PREFIX}-trigger-title`}>
-        {svName}
+        {svInfo.name}
         <div className={`${SELECTOR_PREFIX}-trigger-byline`}>
           source: {sourceTitle}
         </div>

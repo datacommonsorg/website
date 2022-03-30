@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import axios from "axios";
+import _ from "lodash";
 
 export const statVarSep = "__";
 export const placeSep = ",";
@@ -166,4 +167,36 @@ export function getDenom(mprop: string): string {
     return chartOptions[mprop]["denom"];
   }
   return "";
+}
+
+// Set metahash map (a map of stat var dcid to hash representing the source to
+// of data to use) in the URL
+export function setMetahash(metahash: Record<string, string>): void {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  let metahashMap = JSON.parse(urlParams.get("metahash"));
+  if (metahashMap) {
+    urlParams.delete("metahash");
+  } else {
+    metahashMap = {};
+  }
+  for (const sv of Object.keys(metahash)) {
+    metahashMap[sv] = metahash[sv];
+    if (!metahashMap[sv]) {
+      delete metahashMap[sv];
+    }
+  }
+  if (!_.isEmpty(metahashMap)) {
+    urlParams.set("metahash", JSON.stringify(metahashMap));
+  }
+  window.location.hash = urlParams.toString();
+}
+
+// Get the metahash map from the URL.
+export function getMetahash(): Record<string, string> {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  const metahashMap = urlParams.get("metahash");
+  if (!metahashMap) {
+    return {};
+  }
+  return JSON.parse(metahashMap);
 }

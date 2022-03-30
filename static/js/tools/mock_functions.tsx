@@ -194,8 +194,92 @@ export function axios_mock(): void {
       },
     });
 
+  // get stats all data, geoId/05,Median_Age_Person
   when(axios.get)
-    .calledWith("/api/place/displayname?&dcid=geoId/05")
+    .calledWith("/api/stats/all?places=geoId/05&statVars=Median_Age_Person")
+    .mockResolvedValue({
+      placeData: {
+        "geoId/05": {
+          statVarData: {
+            Count_Person: {
+              sourceSeries: [
+                {
+                  val: {
+                    "2015": 37.7,
+                    "2016": 37.7,
+                    "2017": 37.9,
+                    "2018": 37.9,
+                    "2013": 37.5,
+                    "2012": 37.4,
+                    "2014": 37.6,
+                    "2019": 38.1,
+                    "2011": 37.3,
+                  },
+                  importName: "CensusACS5YearSurvey",
+                  provenanceUrl: "https://www.census.gov/",
+                  measurementMethod: "CensusACS5yrSurvey",
+                  unit: "Year",
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+
+  // get stats all data, geoId/05,Count_Person
+  when(axios.get)
+    .calledWith("/api/stats/all?places=geoId/05&statVars=Count_Person")
+    .mockResolvedValue({
+      placeData: {
+        "geoId/05": {
+          statVarData: {
+            Count_Person: {
+              sourceSeries: [
+                {
+                  val: {
+                    "2001": 2690743,
+                    "2012": 2952164,
+                  },
+                  importName: "CensusPEP",
+                  provenanceUrl:
+                    "https://www.census.gov/programs-surveys/popest.html",
+                  measurementMethod: "CensusPEPSurvey",
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+
+  when(axios.get)
+    .calledWith("/api/stats/all?places=geoId/05&statVars=NotInTheTree")
+    .mockResolvedValue({
+      placeData: {
+        "geoId/05": {
+          statVarData: {
+            NotInTheTree: {
+              sourceSeries: [
+                {
+                  val: {
+                    "2001": 2690743,
+                    "2012": 2952164,
+                  },
+                  importName: "CensusPEP",
+                  provenanceUrl:
+                    "https://www.census.gov/programs-surveys/popest.html",
+                  measurementMethod: "CensusPEPSurvey",
+                },
+              ],
+            },
+          },
+        },
+      },
+    });
+
+  when(axios.get)
+    .calledWith("/api/place/displayname?dcid=geoId/05")
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",
