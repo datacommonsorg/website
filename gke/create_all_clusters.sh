@@ -25,5 +25,7 @@ for index in $(seq 0 $(($len-1)));
 do
   export index=$index
   REGION=$(yq eval '.region.others[env(index)]' config.yaml)
-  ./create_cluster.sh $REGION
+  if [[ $REGION != '' ]]; then
+    ./create_cluster.sh $REGION
+  fi
 done

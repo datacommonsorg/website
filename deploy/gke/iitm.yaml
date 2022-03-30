@@ -11,19 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
-# This is a yaml template to create gcp/gke configuration.
-# Copy this file to `config.yaml` and use that.
-
-project:
-domain:
-ip:
+project: datcom-iitm
+domain: datacommons.iitm.ac.in
+ip: 34.111.65.19
 region:
-  primary:
+  primary: us-central1
   others:
     -
 nodes: 1
-storage_project:
+storage_project: datcom-store
 tmcf_csv_bucket:
 tmcf_csv_folder:

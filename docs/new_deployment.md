@@ -14,7 +14,7 @@ and rename it as `<new_instance>.yaml`.
 - Make a new folder `<new_instance>` under [deploy/overlays](../deploy/overlays).
 
 - Copy the [kustomization.yaml
-  template](../deploy/overlays/kustomization.yaml.tpl) to the new folder and
+  template](../deploy/overlays/kustomization.yaml.tpl) to the new folder as `kustomization.yaml` and
   configure the following fields:
 
   - `nameSuffix`
@@ -31,7 +31,8 @@ and rename it as `<new_instance>.yaml`.
   kustomize build deploy/overlays/<new_instance>
   ```
 
-## [Private Instance] Setup Pub/Sub 
+## [Private Instance] Setup Pub/Sub
+
 Create a pub/sub topic for mixer to listen to data changes:
 
 ```bash
@@ -58,15 +59,16 @@ If everything works, try to access the website from the configured domain.
 Follow the [IAP setup](./iap.md) to use Cloud IAP to restrict access to the new instance.
 
 ## [Private Instance] Adding Data
-Each data import should be contained within a top-level folder in the GCS bucket associated with the instance. Within each folder, there should be exactly one `manifest.json`, exactly one TMCF file, and one or more CSV files. 
 
-Each `manifest.json` should be structured as follows: 
+Each data import should be contained within a top-level folder in the GCS bucket associated with the instance. Within each folder, there should be exactly one `manifest.json`, exactly one TMCF file, and one or more CSV files.
 
-```
+Each `manifest.json` should be structured as follows:
+
+```json
 {
-    "importName": "<IMPORT_NAME>",
-    "provenanceUrl": "<PROVENANCE_URL>",
-    "dataDownloadUrl": "<DATA_DOWNLOAD_URL>"
+  "importName": "<IMPORT_NAME>",
+  "provenanceUrl": "<PROVENANCE_URL>",
+  "dataDownloadUrl": "<DATA_DOWNLOAD_URL>"
 }
 ```
 
@@ -74,7 +76,8 @@ Each `manifest.json` should be structured as follows:
 
 Each TMCF file should have one node entry for each Statistical Variable in the import.
 
-CSV files should be structured so that each Statistical Variable has its own column. The first few columns should be reserved for other StatVarObservation properties, such as  `observationAbout`, `observationDate`, `observationPeriod`, `unit`, etc. 
+CSV files should be structured so that each Statistical Variable has its own column. The first few columns should be reserved for other StatVarObservation properties, such as `observationAbout`, `observationDate`, `observationPeriod`, `unit`, etc.
 
 ## Merging Configs
+
 When submitting configs for a new instance, please include `deploy/gke/<new_instance>.yaml` and `deploy/overlays/<new_instance>/kustomization.yaml`.

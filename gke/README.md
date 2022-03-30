@@ -64,8 +64,9 @@ gcloud auth login
 ```
 
 ## DNS setup
+
 - [Configure the DNS in the domain
-  registrar](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#update-dns)).
+  registrar](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#update-dns).
 
 - Make sure the managed SSL certificate is "ACTIVE" by checking ["Load
   balancing" in
