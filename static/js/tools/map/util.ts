@@ -554,7 +554,7 @@ export function getSampleDates(
   for (const i in placeStatDateWithinPlace) {
     const series = placeStatDateWithinPlace[i];
     const metatext = getMetaText(series.metadata);
-    const dates = Object.keys(series.datePlaceCount);
+    const dates = Object.keys(series.datePlaceCount).sort();
     let seriesWeight = 0;
     if (dates.length <= NUM_SAMPLE_DATES) {
       sampleDates[metahashMap[metatext]] = dates;
