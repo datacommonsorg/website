@@ -81,6 +81,7 @@ interface StatVarSectionInputPropType {
   statVar: StatVarInfo;
   selected: boolean;
   summary: StatVarSummary;
+  prefix: string;
 }
 
 interface StatVarSectionInputStateType {
@@ -138,6 +139,13 @@ export class StatVarSectionInput extends React.Component<
     } else if (this.props.selected) {
       className = "node-title highlighted-node-title";
     }
+    let displayName = this.props.statVar.displayName;
+    if (
+      !_.isEmpty(this.props.prefix) &&
+      this.props.prefix.length < displayName.length
+    ) {
+      displayName = "..." + displayName.slice(this.props.prefix.length);
+    }
     return (
       <form className={className}>
         <input
@@ -154,7 +162,7 @@ export class StatVarSectionInput extends React.Component<
           onMouseMove={this.mouseMoveAction(this.props.statVar.hasData)}
           onMouseOut={() => hideTooltip()}
         >
-          {this.props.statVar.displayName}
+          {displayName}
         </label>
       </form>
     );

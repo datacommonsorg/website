@@ -27,6 +27,7 @@ import { StatVarCharts } from "../browser/stat_var_charts";
 import { Context } from "../shared/context";
 import { NamedPlace, StatVarHierarchyType } from "../shared/types";
 import { StatVarInfo, StatVarSummary } from "../shared/types";
+import { getCommonPrefix } from "../utils/string_utils";
 import { StatVarSectionInput } from "./stat_var_section_input";
 
 interface StatVarSectionPropType {
@@ -77,6 +78,8 @@ export class StatVarSection extends React.Component<
 
   render(): JSX.Element {
     const context = this.context;
+    const svNamesList = this.props.data.map((sv) => sv.displayName);
+    const svNamesCommonPrefix = getCommonPrefix(svNamesList);
     return (
       <div className="svg-node-child">
         {this.props.data.map((statVar) => {
@@ -101,6 +104,7 @@ export class StatVarSection extends React.Component<
                   selected={isSelected}
                   statVar={statVar}
                   summary={summary}
+                  prefix={svNamesCommonPrefix}
                 />
               )}
             </div>
