@@ -20,6 +20,7 @@ PROJECT_ID=$(yq eval '.project' config.yaml)
 gcloud services enable --project=$PROJECT_ID \
   anthos.googleapis.com \
   multiclusteringress.googleapis.com \
+  multiclusterservicediscovery.googleapis.com \
   container.googleapis.com \
   gkeconnect.googleapis.com \
   gkehub.googleapis.com \

@@ -30,6 +30,7 @@ ENV = {
     'private',
     'feeding-america',
     'tidal',
+    'iitm',
     # Dev
     'dev',
     # Test
@@ -44,6 +45,7 @@ ENV = {
     'local-lite',
     'local-private',
     'local-sustainability',
+    'local-iitm',
 }
 
 

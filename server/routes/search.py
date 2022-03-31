@@ -13,6 +13,7 @@
 # limitations under the License.
 """Data Commons search related routes."""
 
+import os
 from flask import Blueprint, current_app, request
 import flask
 import services.datacommons as dc
@@ -34,6 +35,15 @@ def search_landing():
 def search_cse():
     """Landing + results page for CSE search"""
     return flask.render_template('search.html')
+
+
+@bp.route('/search2')
+def search2():
+    """Custom search page"""
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template(
+        'search2.html', maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/search_dc')

@@ -85,6 +85,11 @@ class TidalConfig(PrivateConfig):
     NAME = "Tidal"
 
 
+class IitmConfig(Config):
+    IITM = True
+    NAME = "IITM"
+
+
 ######
 #
 # All the config below runs as non-GKE deployment, hence needs to set fields
@@ -110,6 +115,10 @@ class LocalConfig(Config):
 
 class LocalSustainabilityConfig(LocalConfig):
     SUSTAINABILITY = True
+
+
+class LocalIitmConfig(LocalConfig):
+    IITM = True
 
 
 class LocalPrivateConfig(PrivateConfig):
