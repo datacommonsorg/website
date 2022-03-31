@@ -63,26 +63,40 @@ class InferenceClient(object):
 class GrpcInferenceClient(InferenceClient):
 
     def initialize(self):
-        grpc_channel = grpc.insecure_channel(
-            f"{self.endpoint_id}.aiplatform.googleapis.com:8500")
+        self.url = f"{self.endpoint_id}.aiplatform.googleapis.com:8500"
+        logging.info("GrpcInferenceClient will use URL: %s", self.url)
+        self._create_stub()
+
+    def _create_stub(self):
+        grpc_channel = grpc.insecure_channel(self.url)
         self.stub = prediction_service_pb2_grpc.PredictionServiceStub(
             grpc_channel)
         self.metadata = [("grpc-destination",
                           f"{self.endpoint_id}-{self.deployed_model_id}")]
+
+    def _predict(self, request, reconnect_if_inactive: bool = True):
+        try:
+            return self.stub.Predict(request,
+                                     timeout=self.predict_timeout,
+                                     metadata=self.metadata)
+        except grpc._channel._InactiveRpcError as exc:
+            if reconnect_if_inactive:
+                self._create_stub()
+                return self._predict(request, False)
+            else:
+                raise exc
 
     def request(self, query: str):
         request = predict_pb2.PredictRequest()
         request.model_spec.name = "default"
         request.inputs["text_batch"].CopyFrom(
             tf.make_tensor_proto([query], tf.string))
-        predict_response = self.stub.Predict(request,
-                                             timeout=self.predict_timeout,
-                                             metadata=self.metadata)
+        predict_response = self._predict(request)
         return {
             "predictions": [{
-                k: np.squeeze(tf.make_ndarray(predict_response.outputs[k]),
-                              axis=-1).tolist()
-                for k in predict_response.outputs.keys()
+                k: np.squeeze(
+                    tf.make_ndarray(predict_response.outputs[k]).astype(str),
+                    axis=-1).tolist() for k in predict_response.outputs.keys()
             }]
         }
 
@@ -97,7 +111,7 @@ class RestInferenceClient(InferenceClient):
         else:
             self.url = f"http://{self.endpoint_id}.aiplatform.googleapis.com/v1/models/{self.deployed_model_id}:predict"
 
-        logging.info("Model connection via URL: %s", self.url)
+        logging.info("RestInferenceClient will use URL: %s", self.url)
         self.session = self._get_session()
 
     def _get_session(self) -> requests.Session:
@@ -160,6 +174,7 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
         ai = yaml.full_load(f)
         # We use a fake region when locally testing with LocalConfig.
         region = ai["local"]["region"] if cfg.LOCAL else get_region()
+        logging.info("Searching for model specification for region %s", region)
         if region in ai:
             endpoint_id = ai[region]["endpoint_id"]
             deployed_model_id = ai[region].get("deployed_model_id", "")
@@ -168,11 +183,12 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
             if cls:
                 return cls(region, endpoint_id, deployed_model_id)
             raise ValueError(f"Unknown protocol {protocol}")
+        else:
+            logging.info("No configuration found for region %s", region)
 
 
 if not cfg.TEST and cfg.AI_CONFIG_PATH:
     _INFERENCE_CLIENT = create_inference_client(cfg.AI_CONFIG_PATH)
-
 
 # ----------------------------- SEARCH FUNCTIONS -----------------------------
 
@@ -180,41 +196,45 @@ _MAX_SEARCH_RESULTS = 1000
 _RE_KV_ASSIGNMENT = re.compile(r"(\w+)=([^=]*\b(?!=))")
 _RE_PLACEHOLDER_NORMALIZE = re.compile(r"<(extra_id_.*?)>")
 
+
 def _iterate_property_value(
     text: str,
     include: Optional[Sequence[str]] = None,
-    exclude: Optional[Sequence[str]] = ()) -> Iterator[Tuple[str, str]]:
-  """Returns a series of (key, value) tuples from a k = v string."""
-  # Normalize spaces around equal sign so that the negative lookahead works
-  text = text.replace(" =", "=").replace("= ", "=")
-  # We remove <> brackets used for placeholder as they break the other regex.
-  text = re.sub(_RE_PLACEHOLDER_NORMALIZE, r"\1", text)
-  for match in re.finditer(_RE_KV_ASSIGNMENT, text):
-    key = match.group(1).strip()
-    value = match.group(2).strip()
-    if (include is None or key in include) and key not in exclude:
-      yield (key, value)
+    exclude: Optional[Sequence[str]] = ()
+) -> Iterator[Tuple[str, str]]:
+    """Returns a series of (key, value) tuples from a k = v string."""
+    # Normalize spaces around equal sign so that the negative lookahead works
+    text = text.replace(" =", "=").replace("= ", "=")
+    # We remove <> brackets used for placeholder as they break the other regex.
+    text = re.sub(_RE_PLACEHOLDER_NORMALIZE, r"\1", text)
+    for match in re.finditer(_RE_KV_ASSIGNMENT, text):
+        key = match.group(1).strip()
+        value = match.group(2).strip()
+        if (include is None or key in include) and key not in exclude:
+            yield (key, value)
+
 
 def search(query: str) -> Optional[Any]:
     global _INFERENCE_CLIENT
 
     if not _INFERENCE_CLIENT:
         return
-    
+
     response = _INFERENCE_CLIENT.request(query)
-    property_value = dict(_iterate_property_value(response["predictions"][0]["output_0"][0], exclude='place'))
+    property_value = dict(
+        _iterate_property_value(response["predictions"][0]["output_0"][0],
+                                exclude='place'))
     limit = 100
-    matches = dc.match_statvar(query, property_value, limit)
-    
+    matches = dc.match_statvar(property_value, limit)
+
     # This is a fake response for the moment.
     # It will change once we have the API in place.
     return {
-        'type': f'Model response: {response}',
-        'entities': [
-            {
-                "name": m["statVar"],
-                "dcid": m["statVar"],
-                "rank": m["matchCount"],
-            } for m in matches["matchInfo"]
-        ]
+        'type':
+            f'Model response: {response}',
+        'entities': [{
+            "name": m["statVar"],
+            "dcid": m["statVar"],
+            "rank": m["matchCount"],
+        } for m in matches["matchInfo"]]
     }

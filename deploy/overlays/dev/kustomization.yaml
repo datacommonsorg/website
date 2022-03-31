@@ -34,6 +34,9 @@ configMapGenerator:
     literals:
       - mixerProject=datcom-website-dev
       - serviceName=website-esp.endpoints.datcom-website-dev.cloud.goog
+  - name: ai-config
+    files:
+      - ai.yaml
 
 patchesStrategicMerge:
   - |-
@@ -50,3 +53,6 @@ patchesStrategicMerge:
           maxSurge: 2
           # maximum number of Pods that can be unavailable during the update process
           maxUnavailable: 75%
+
+patchesStrategicMerge:
+  - patch_deployment.yaml
