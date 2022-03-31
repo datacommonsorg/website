@@ -31,6 +31,7 @@ import { StatVarResults } from "./statvar_results";
 interface ResultsProps {
   query: string;
   selectedPlace: string;
+  selectedStatVar: string;
 }
 
 let acs: google.maps.places.AutocompleteService;
@@ -82,22 +83,26 @@ export function AllResults(props: ResultsProps): JSX.Element {
   }, [props]);
 
   useEffect(() => {
-    getStatVarSearchResults(props.query, [])
-      .then((data) => {
-        const statVars: NamedNode[] = [];
-        data.statVarGroups.forEach((svg) => {
-          if (!_.isEmpty(svg.statVars)) {
-            statVars.push(...svg.statVars);
+    if (!props.selectedStatVar) {
+      getStatVarSearchResults(props.query, [])
+        .then((data) => {
+          const statVars: NamedNode[] = [];
+          data.statVarGroups.forEach((svg) => {
+            if (!_.isEmpty(svg.statVars)) {
+              statVars.push(...svg.statVars);
+            }
+          });
+          if (!_.isEmpty(data.statVars)) {
+            statVars.push(...data.statVars);
           }
+          setStatVars(statVars);
+        })
+        .catch(() => {
+          setStatVars([]);
         });
-        if (!_.isEmpty(data.statVars)) {
-          statVars.push(...data.statVars);
-        }
-        setStatVars(statVars);
-      })
-      .catch(() => {
-        setStatVars([]);
-      });
+    } else {
+      setStatVars([]);
+    }
   }, [props]);
 
   if (_.isNull(places) || _.isNull(statVars)) {
@@ -112,8 +117,23 @@ export function AllResults(props: ResultsProps): JSX.Element {
 
   return (
     <>
-      <PlaceResults places={places} selectedPlace={props.selectedPlace} />
-      <StatVarResults statVars={statVars} />
+      {props.selectedStatVar ? (
+        <>
+          <StatVarResults
+            statVars={statVars}
+            selectedSV={props.selectedStatVar}
+          />
+          <PlaceResults places={places} selectedPlace={props.selectedPlace} />
+        </>
+      ) : (
+        <>
+          <PlaceResults places={places} selectedPlace={props.selectedPlace} />
+          <StatVarResults
+            statVars={statVars}
+            selectedSV={props.selectedStatVar}
+          />
+        </>
+      )}
     </>
   );
 }

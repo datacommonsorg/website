@@ -24,8 +24,8 @@ import { SearchInput } from "./search_input";
 window.onload = () => {
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q") || "";
-  // TODO: match the selectedPlace behavior for a selected stat var.
   const selectedPlace = searchParams.get("placeDcid") || "";
+  const selectedStatVar = searchParams.get("svDcid") || "";
   // TODO: preload search box
   ReactDOM.render(
     React.createElement(SearchInput, { query }),
@@ -33,7 +33,11 @@ window.onload = () => {
   );
   if (!_.isEmpty(query)) {
     ReactDOM.render(
-      React.createElement(AllResults, { query, selectedPlace }),
+      React.createElement(AllResults, {
+        query,
+        selectedPlace,
+        selectedStatVar,
+      }),
       document.getElementById("search-results-container")
     );
   }
