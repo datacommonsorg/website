@@ -73,9 +73,17 @@ interface ChartProps {
   display: DisplayOptionsWrapper;
   europeanCountries: Array<string>;
   rankingLink: string;
+
+  // Map of metahash to list of ~10 dates for time slider
   sampleDates: Array<string>;
+
+  // Current metahash
   metahash: string;
+
+  // Fetches data for slider dates when play is pressed
   onPlay(metahash: string, callback: () => void): any;
+
+  // Updates map date to slider date
   updateDate(metahash: string, date: string): any;
 }
 

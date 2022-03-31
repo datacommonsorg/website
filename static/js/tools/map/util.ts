@@ -507,7 +507,7 @@ export function getTitle(
 
 /**
  * Builds metatext from StatMetadata used for the source selector.
- * @param metadata 
+ * @param metadata
  */
 export function getMetaText(metadata: StatMetadata): string {
   let result = `[${metadata.importName}]`;

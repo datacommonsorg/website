@@ -98,7 +98,7 @@ interface ChartData {
 
   // Map of metahash to list of ~10 dates for time slider
   sampleDates: Array<string>;
-  
+
   // Current metahash
   metahash: string;
 }

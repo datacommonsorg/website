@@ -37,7 +37,7 @@ interface TimeSliderProps {
   // Fetches data for slider dates when play is pressed
   onPlay(metahash: string, callback: () => void): any;
 
-  // Updates map date to date on slider
+  // Updates map date to slider date
   updateDate(metahash: string, date: string): any;
 }
 
@@ -45,20 +45,17 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   const INTERVAL_MS = 500;
   const SLIDER_MARGIN = 16;
   const HANDLE_WIDTH = 4;
-  const HANDLE_MARGIN = SLIDER_MARGIN - (HANDLE_WIDTH / 2);
+  const HANDLE_MARGIN = SLIDER_MARGIN - HANDLE_WIDTH / 2;
 
   const start = props.dates[0];
   const end = props.dates[props.dates.length - 1];
-  const startDate = new Date(start).valueOf();
-  const endDate = new Date(end).valueOf();
-  const dateDenom = endDate - startDate;
 
   const [currentDate, setCurrentDate] = useState(
     props.startEnabled ? props.currentDate : "--"
   );
   const [enabled, setEnabled] = useState(props.startEnabled);
   const [index, setIndex] = useState(
-    props.startEnabled ? getIndex(props.currentDate) : -1
+    props.startEnabled ? getIndex(props.dates, props.currentDate) : -1
   );
   const [loaded, setLoaded] = useState(false);
 
@@ -71,17 +68,27 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
 
   useEffect(() => {
     setLoaded(false);
-    setIndex(props.startEnabled ? getIndex(props.currentDate) : -1);
+    setIndex(
+      props.startEnabled ? getIndex(props.dates, props.currentDate) : -1
+    );
     setCurrentDate(props.startEnabled ? props.currentDate : "--");
   }, [props.metahash]);
 
   useEffect(() => {
-    setOffset(getOffset(currentDate));
+    if (enabled) {
+      setOffset(
+        getOffset(start, end, currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
+      );
+    }
   }, [currentDate, getOffset]);
 
   useEffect(() => {
     function handleResize() {
-      setOffset(getOffset(currentDate));
+      if (enabled) {
+        setOffset(
+          getOffset(start, end, currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
+        );
+      }
     }
     window.addEventListener("resize", handleResize);
   });
@@ -104,29 +111,6 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       clearInterval(timer);
     }
   }, [index]);
-
-  function getIndex(currentDate: string): number {
-    // Get closest previous date from selected dates
-    for (let i = props.dates.length - 1; i > -1; i--) {
-      if (props.dates[i] <= currentDate) {
-        return i;
-      }
-    }
-    return props.dates.length - 1;
-  }
-
-  function getOffset(current: string): number {
-    if (!enabled) {
-      return;
-    }
-    const width = document.getElementById("time-slider-slide").offsetWidth;
-    const currentDate = new Date(current).valueOf();
-    const ratio = Math.min(
-      Math.max((currentDate - startDate) / dateDenom, 0),
-      1
-    );
-    return (width - SLIDER_MARGIN) * ratio + HANDLE_MARGIN;
-  }
 
   async function handlePlay() {
     if (play) {
@@ -159,18 +143,28 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
         </span>
         <div className="time-slider-break"></div>
         <div className="time-slider-left" onClick={handlePlay}>
-          {play && <i className="material-icons time-slider-play-button">play_arrow</i>}
-          {!play && <i className="material-icons time-slider-play-button">pause</i>}
+          {play && (
+            <i className="material-icons time-slider-play-button">play_arrow</i>
+          )}
+          {!play && (
+            <i className="material-icons time-slider-play-button">pause</i>
+          )}
         </div>
-        <span className="time-slider-left time-slider-start-date">
-          {start}
-        </span>
+        <span className="time-slider-left time-slider-start-date">{start}</span>
         <span className="time-slider-end-date">{end}</span>
         <div id="time-slider-slide">
           <svg className="time-slider-svg">
             <g>
-              <line className="time-slider-track" x1={SLIDER_MARGIN} x2="100%"></line>
-              <line className="time-slider-track-inset" x1={SLIDER_MARGIN} x2="100%"></line>
+              <line
+                className="time-slider-track"
+                x1={SLIDER_MARGIN}
+                x2="100%"
+              ></line>
+              <line
+                className="time-slider-track-inset"
+                x1={SLIDER_MARGIN}
+                x2="100%"
+              ></line>
               {enabled && (
                 <line
                   className="time-slider-handle"
@@ -191,4 +185,43 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       </div>
     </div>
   );
+}
+
+/**
+ * Get index of closest previous date from selected dates.
+ * @param dates Array of selected dates
+ * @param currentDate Current selected date
+ */
+function getIndex(dates: Array<string>, currentDate: string): number {
+  for (let i = dates.length - 1; i > -1; i--) {
+    if (dates[i] <= currentDate) {
+      return i;
+    }
+  }
+  return dates.length - 1;
+}
+
+/**
+ * Get number of pixels the handle is offset from the left edge of the slider bar.
+ * @param start Starting date
+ * @param end Ending date
+ * @param current Current date
+ * @param sliderMargin Margin for slider in pixels
+ * @param handleMargin Margin for slider handle in pixels
+ */
+function getOffset(
+  start: string,
+  end: string,
+  current: string,
+  sliderMargin: number,
+  handleMargin: number
+): number {
+  const startDate = new Date(start).valueOf();
+  const endDate = new Date(end).valueOf();
+  const currentDate = new Date(current).valueOf();
+  const dateDenom = endDate - startDate;
+  const width =
+    document.getElementById("time-slider-slide").offsetWidth - sliderMargin;
+  const ratio = Math.min(Math.max((currentDate - startDate) / dateDenom, 0), 1);
+  return (width - sliderMargin) * ratio + handleMargin;
 }
