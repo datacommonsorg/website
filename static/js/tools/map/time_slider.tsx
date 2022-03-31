@@ -75,14 +75,6 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   }, [props.metahash]);
 
   useEffect(() => {
-    if (enabled) {
-      setOffset(
-        getOffset(start, end, currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
-      );
-    }
-  }, [currentDate]);
-
-  useEffect(() => {
     const handleResize = () => {
       if (enabled) {
         setOffset(
@@ -90,11 +82,12 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
         );
       }
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  });
+  }, [currentDate]);
 
   useEffect(() => {
     // Don't update pre-selected date until user presses play
