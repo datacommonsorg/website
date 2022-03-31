@@ -21,6 +21,9 @@ $font-size-small: 14px;
 $font-size-section-title: 1.3rem;
 $color-byline: #7b7b7b;
 $border: 1px solid rgba(0, 0, 0, 0.125);
+$highlighted-box-max-width: 600px;
+
+/* custom search results section styling */
 
 .gcsc-branding a,
 .gcsc-more-maybe-branding-root a {
@@ -61,6 +64,8 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
   font-size: 1rem;
 }
 
+/* shared search results section styling */
+
 #search-results-container {
   padding-top: 2rem;
   padding-left: 1rem;
@@ -70,11 +75,6 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
   word-break: break-all;
 }
 
-.search-results-sv .search-results-list {
-  max-height: 37rem;
-  overflow-y: auto;
-}
-
 .search-results-item {
   padding: 0.3rem 0;
   border-bottom: $border;
@@ -82,25 +82,6 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
 
 .search-results-item-title {
   font-size: $font-size-large;
-}
-
-.search-results-sv .search-results-item-title {
-  color: #212529;
-}
-
-.search-results-place-item-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.search-results-place-selected .search-results-item-title,
-.search-results-sv-selected .search-results-item-title {
-  font-size: $font-size-section-title;
-  padding-bottom: 0.1rem;
-}
-
-.search-results-sv .search-results-item-title:hover {
-  text-decoration: underline;
 }
 
 .search-results-item-byline {
@@ -121,21 +102,28 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
 
 .search-results-section {
   width: 100%;
-  max-width: 600px;
+  max-width: $highlighted-box-max-width;
   padding-bottom: 2rem;
 }
 
-.search-results-sv-show-more {
-  cursor: pointer;
-  font-size: $font-size-small;
-  width: fit-content;
-  border-radius: 0.2rem;
-  padding: 0 0.2rem;
-  margin-left: -0.2rem;
+.search-results-place-selected .search-results-item-title,
+.search-results-sv-selected .search-results-item-title {
+  font-size: $font-size-section-title;
+  padding-bottom: 0.1rem;
 }
 
-.search-results-sv-show-more:hover {
-  background-color: #cbcbcb;
+.search-results-place-selected .search-results-item,
+.search-results-sv-selected .search-results-item {
+  border: $border;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+/* place search results section styling */
+
+.search-results-place-item-info {
+  display: flex;
+  flex-direction: column;
 }
 
 .search-results-place .search-results-item {
@@ -171,12 +159,56 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
   padding: 0.3rem 0;
 }
 
-.search-results-place-selected .search-results-item,
-.search-results-sv-selected .search-results-item {
-  border: $border;
-  border-radius: 0.5rem;
-  padding: 1rem;
+/* stat var search results section styling */
+
+.search-results-sv .search-results-list {
+  max-height: 37rem;
+  overflow-y: auto;
 }
+
+.search-results-sv .search-results-item-title {
+  color: #212529;
+}
+
+.search-results-sv .search-results-item-title:hover {
+  text-decoration: underline;
+}
+
+.search-results-sv-show-more {
+  cursor: pointer;
+  font-size: $font-size-small;
+  width: fit-content;
+  border-radius: 0.2rem;
+  padding: 0 0.2rem;
+  margin-left: -0.2rem;
+}
+
+.search-results-sv-show-more:hover {
+  background-color: #cbcbcb;
+}
+
+.search-results-sv .search-results-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-results-sv-selected .search-results-item-title:hover{
+  text-decoration: none;
+}
+
+.search-results-sv-selected a {
+  font-size: $font-size-small;
+}
+
+.search-results-sv.search-results-section {
+  max-width: 100%;
+}
+
+.search-results-sv-selected .search-results-item {
+  max-width: $highlighted-box-max-width;
+}
+
+/* search input styling */
 
 .search-input-box-clear {
   cursor: pointer;
@@ -264,17 +296,4 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
 .search-results-spinner #spinner::after {
   border: 2px solid var(--dc-gray-lite);
   border-top: 3px solid var(--dc-primary);
-}
-
-.search-results-sv .search-results-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.search-results-sv-selected .search-results-item-title:hover{
-  text-decoration: none;
-}
-
-.search-results-sv-selected a {
-  font-size: $font-size-small;
 }
