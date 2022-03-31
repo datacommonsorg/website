@@ -22,14 +22,6 @@ test("getPageDisplayType", () => {
   expect(getPageDisplayType(["Country"], "testStatVar")).toEqual(
     PageDisplayType.PLACE_STAT_VAR
   );
-  // list of types contains City
-  expect(getPageDisplayType(["City", "AdminArea1"], "")).toEqual(
-    PageDisplayType.PLACE_WITH_WEATHER_INFO
-  );
-  // list of types contains CensusZipCodeTabulationArea
-  expect(
-    getPageDisplayType(["CensusZipCodeTabulationArea", "Zipcode"], "")
-  ).toEqual(PageDisplayType.PLACE_WITH_WEATHER_INFO);
   // list of types contains BiologicalSpecimen
   expect(getPageDisplayType(["BiologicalSpecimen"], "")).toEqual(
     PageDisplayType.BIOLOGICAL_SPECIMEN
