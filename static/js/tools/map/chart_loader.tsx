@@ -52,6 +52,7 @@ import {
 } from "./context";
 import { PlaceDetails } from "./place_details";
 import {
+  BEST_AVAILABLE_METAHASH,
   DataPointMetadata,
   ENCLOSED_PLACE_TYPE_NAMES,
   getLegendBounds,
@@ -76,7 +77,7 @@ interface ChartRawData {
   europeanCountries: Array<string>;
   dataDate: string;
 
-  // Map of metahash to list of ~10 dates for time slider
+  // Map of metahash to array of ~10 dates for time slider
   sampleDates: Record<string, Array<string>>;
 
   // Map of metahash to display domain for the map legend
@@ -96,7 +97,7 @@ interface ChartData {
   europeanCountries: Array<string>;
   rankingLink: string;
 
-  // Map of metahash to list of ~10 dates for time slider
+  // Array of ~10 dates for time slider
   sampleDates: Array<string>;
 
   // Current metahash
@@ -107,6 +108,8 @@ export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
+
+  // Map of metahash -> date -> ChartRawData
   const [sampleDatesChartData, setSampleDatesChartData] = useState<
     Record<string, Record<string, ChartRawData>>
   >({});
@@ -211,7 +214,7 @@ export function ChartLoader(): JSX.Element {
     // Skip update if date has no data
     if (
       placeStatData ||
-      (metahash != "Best Available" &&
+      (metahash != BEST_AVAILABLE_METAHASH &&
         sampleDatesChartData[metahash][date].allPlaceStat[metahash].stat)
     ) {
       loadChartData(
@@ -220,7 +223,7 @@ export function ChartLoader(): JSX.Element {
         statVar.value,
         setChartData,
         display,
-        metahash == "BestAvailable" ? "" : metahash
+        metahash == BEST_AVAILABLE_METAHASH ? "" : metahash
       );
     }
   };
@@ -252,7 +255,7 @@ export function ChartLoader(): JSX.Element {
         <CustomInput
           id="source-select"
           type="select"
-          defaultValue="Best Available"
+          defaultValue={BEST_AVAILABLE_METAHASH}
           onChange={(e) => {
             loadChartData(
               rawData,
@@ -264,7 +267,9 @@ export function ChartLoader(): JSX.Element {
             );
           }}
         >
-          <option value="Best Available">Best Available</option>
+          <option value={BEST_AVAILABLE_METAHASH}>
+            {BEST_AVAILABLE_METAHASH}
+          </option>
           {sourceList.map((source) => (
             <option value={source.metaHash} key={source.metaHash}>
               {source.text}
@@ -348,6 +353,7 @@ function getMetaList(
 }
 
 // Fetches the data needed for the charts.
+// TODO: extract groups of cohesive promises
 function fetchData(
   placeInfo: PlaceInfo,
   statVar: StatVar,
@@ -484,7 +490,7 @@ function fetchData(
     .then((resp) => resp.data);
   const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> = axios
     .get(
-      `/api/stat/date/within-place?ancestor_place=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}`
+      `/api/stat/date/within-place?ancestorPlace=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&statVars=${statVar.dcid}`
     )
     .then((resp) => resp.data);
   Promise.all([
@@ -565,9 +571,9 @@ function fetchData(
           metadataMap,
           placeStatDateWithinPlace.data[statVar.dcid].statDate
         );
-        const bestAvailableHash = sampleDates["Best Available"][0];
-        sampleDates["Best Available"] =
-          sampleDates[sampleDates["Best Available"][0]];
+        const bestAvailableHash = sampleDates[BEST_AVAILABLE_METAHASH][0];
+        sampleDates[BEST_AVAILABLE_METAHASH] =
+          sampleDates[sampleDates[BEST_AVAILABLE_METAHASH][0]];
         const legendBounds: Record<
           string,
           [number, number, number]
@@ -758,13 +764,13 @@ function loadChartData(
   const unit = getUnit(rawData.placeStat, rawData.metadataMap);
   const sampleDates = metaHash
     ? rawData.sampleDates[metaHash]
-    : rawData.sampleDates["Best Available"];
+    : rawData.sampleDates[BEST_AVAILABLE_METAHASH];
   if (!statVar.perCapita) {
     display.set({
       ...display.value,
       domain: metaHash
         ? rawData.legendBounds[metaHash]
-        : rawData.legendBounds["Best Available"],
+        : rawData.legendBounds[BEST_AVAILABLE_METAHASH],
     });
   }
   setChartData({
@@ -786,7 +792,7 @@ function loadChartData(
       unit
     ),
     sampleDates,
-    metahash: metaHash || "Best Available",
+    metahash: metaHash || BEST_AVAILABLE_METAHASH,
   });
 }
 
@@ -801,6 +807,8 @@ export function setLegendBoundsPerCapita(
   statVar: StatVarWrapper,
   display: DisplayOptionsWrapper
 ): void {
+  const paddingScaleSmall = 0.9;
+  const paddingScaleLarge = 1.1;
   const stat = rawData.placeStat.stat;
   let minValue: number = Number.MAX_SAFE_INTEGER,
     maxValue = 0;
@@ -829,8 +837,10 @@ export function setLegendBoundsPerCapita(
   }
 
   // Using Best Available data as estimate - give some padding for other dates
-  minValue = minValue > 0 ? minValue * 0.9 : minValue * 1.1;
-  maxValue = maxValue > 0 ? maxValue * 1.1 : maxValue * 0.9;
+  minValue =
+    minValue > 0 ? minValue * paddingScaleSmall : minValue * paddingScaleLarge;
+  maxValue =
+    maxValue > 0 ? maxValue * paddingScaleLarge : maxValue * paddingScaleSmall;
   display.set({
     ...display.value,
     domain: [minValue, (minValue + maxValue) / 2, maxValue],

@@ -35,10 +35,10 @@ interface TimeSliderProps {
   startEnabled: boolean;
 
   // Fetches data for slider dates when play is pressed
-  onPlay(metahash: string, callback: () => void): any;
+  onPlay(metahash: string, callback: () => void): void;
 
   // Updates map date to slider date
-  updateDate(metahash: string, date: string): any;
+  updateDate(metahash: string, date: string): void;
 }
 
 export function TimeSlider(props: TimeSliderProps): JSX.Element {
@@ -80,17 +80,20 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
         getOffset(start, end, currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
       );
     }
-  }, [currentDate, getOffset]);
+  }, [currentDate]);
 
   useEffect(() => {
-    function handleResize() {
+    const handleResize = () => {
       if (enabled) {
         setOffset(
           getOffset(start, end, currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
         );
       }
-    }
+    };
     window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   });
 
   useEffect(() => {
@@ -106,7 +109,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       }
     }
     setEnabled(true);
-    if (index == props.dates.length - 1) {
+    if (index === props.dates.length - 1) {
       setPlay(true);
       clearInterval(timer);
     }
@@ -115,9 +118,9 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   async function handlePlay() {
     if (play) {
       setLoaded(true);
-      await props.onPlay(props.metahash, () => {
+      props.onPlay(props.metahash, () => {
         // Reset animation
-        if (index == props.dates.length - 1) {
+        if (index === props.dates.length - 1) {
           setIndex(0);
         }
         setTimer(
@@ -220,8 +223,7 @@ function getOffset(
   const endDate = new Date(end).valueOf();
   const currentDate = new Date(current).valueOf();
   const dateDenom = endDate - startDate;
-  const width =
-    document.getElementById("time-slider-slide").offsetWidth - sliderMargin;
+  const width = document.getElementById("time-slider-slide").offsetWidth;
   const ratio = Math.min(Math.max((currentDate - startDate) / dateDenom, 0), 1);
   return (width - sliderMargin) * ratio + handleMargin;
 }

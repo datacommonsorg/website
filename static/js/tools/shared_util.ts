@@ -68,6 +68,7 @@ export interface GetStatSetAllResponse {
   metadata: Record<number, StatMetadata>;
 }
 
+// Response from /v1/stat/date/within-place
 export interface GetPlaceStatDateWithinPlaceResponse {
   data: Record<string, Record<string, Array<PlaceStatDateWithinPlace>>>;
 }

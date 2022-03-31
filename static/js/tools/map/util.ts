@@ -135,6 +135,8 @@ export const ENCLOSED_PLACE_TYPE_NAMES = {
   [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
 };
 
+export const BEST_AVAILABLE_METAHASH = "Best Available";
+
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 export const MAP_REDIRECT_PREFIX = "/tools/map";
@@ -557,8 +559,7 @@ export function getSampleDates(
   const sampleDates: Record<string, Array<string>> = {};
   let bestCount = 0;
   let bestAvailable = "";
-  for (const i in placeStatDateWithinPlace) {
-    const series = placeStatDateWithinPlace[i];
+  for (const series of placeStatDateWithinPlace) {
     const metatext = getMetaText(series.metadata);
     const dates = Object.keys(series.datePlaceCount).sort();
     let seriesWeight = 0;
@@ -577,16 +578,15 @@ export function getSampleDates(
       }
       sampleDates[metahashMap[metatext]] = selectedDates;
     }
-    for (const i in sampleDates[metahashMap[metatext]]) {
-      seriesWeight +=
-        series.datePlaceCount[sampleDates[metahashMap[metatext]][i]];
+    for (const date of sampleDates[metahashMap[metatext]]) {
+      seriesWeight += series.datePlaceCount[date];
     }
     if (seriesWeight > bestCount) {
       bestCount = seriesWeight;
       bestAvailable = metahashMap[metatext];
     }
   }
-  sampleDates["Best Available"] = [bestAvailable];
+  sampleDates[BEST_AVAILABLE_METAHASH] = [bestAvailable];
   return sampleDates;
 }
 
@@ -607,8 +607,7 @@ export function getLegendBounds(
   const legendBounds: Record<string, [number, number, number]> = {};
   for (const provId in provenanceSummary) {
     const provenance = provenanceSummary[provId];
-    for (const i in provenance.seriesSummary) {
-      const series = provenance.seriesSummary[i];
+    for (const series of provenance.seriesSummary) {
       if (!(placeType in series.placeTypeSummary)) {
         continue;
       }
@@ -626,8 +625,8 @@ export function getLegendBounds(
         (minValue + maxValue) / 2,
         maxValue,
       ];
-      if (metahashMap[metatext] == bestAvailableHash) {
-        legendBounds["Best Available"] = [
+      if (metahashMap[metatext] === bestAvailableHash) {
+        legendBounds[BEST_AVAILABLE_METAHASH] = [
           minValue,
           (minValue + maxValue) / 2,
           maxValue,

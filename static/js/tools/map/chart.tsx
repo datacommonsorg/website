@@ -74,17 +74,17 @@ interface ChartProps {
   europeanCountries: Array<string>;
   rankingLink: string;
 
-  // Map of metahash to list of ~10 dates for time slider
+  // Array of ~10 dates for time slider
   sampleDates: Array<string>;
 
   // Current metahash
   metahash: string;
 
   // Fetches data for slider dates when play is pressed
-  onPlay(metahash: string, callback: () => void): any;
+  onPlay(metahash: string, callback: () => void): void;
 
   // Updates map date to slider date
-  updateDate(metahash: string, date: string): any;
+  updateDate(metahash: string, date: string): void;
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -217,7 +217,7 @@ export function Chart(props: ChartProps): JSX.Element {
               dates={props.sampleDates}
               metahash={props.metahash}
               onPlay={props.onPlay}
-              startEnabled={props.dates.size == 1}
+              startEnabled={props.dates.size === 1}
               updateDate={props.updateDate}
             />
           )}
