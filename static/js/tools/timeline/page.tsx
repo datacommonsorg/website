@@ -18,16 +18,16 @@ import axios from "axios";
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { getPlaceNames } from "../../utils/place_utils";
 import { ChartRegion } from "./chart_region";
 import { Info } from "./info";
-import { SearchBar } from "./search";
 import {
   addToken,
-  getPlaceNames,
   getTokensFromUrl,
   placeSep,
   removeToken,

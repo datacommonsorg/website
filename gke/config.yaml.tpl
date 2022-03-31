@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,5 @@ region:
     -
 nodes: 1
 storage_project:
-maps_api_key:
 tmcf_csv_bucket:
 tmcf_csv_folder:
