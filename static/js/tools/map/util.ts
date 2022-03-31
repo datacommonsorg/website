@@ -551,7 +551,7 @@ function getMetahashMap(
  * @param metadataMap
  * @param placeStatDateWithinPlace
  */
-export function getSampleDates(
+export function getTimeSliderDates(
   metadataMap: Record<string, StatMetadata>,
   placeStatDateWithinPlace: Array<PlaceStatDateWithinPlace>
 ): Record<string, Array<string>> {

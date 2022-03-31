@@ -58,7 +58,7 @@ import {
   getLegendBounds,
   getMetaText,
   getPlaceChartData,
-  getSampleDates,
+  getTimeSliderDates,
 } from "./util";
 
 const MANUAL_GEOJSON_DISTANCES = {
@@ -204,10 +204,15 @@ export function ChartLoader(): JSX.Element {
   const updateDate = (metahash: string, date: string) => {
     // Check if any data is fetched at all for the date
     let placeStatData = false;
-    for (const place in sampleDatesChartData[metahash][date].placeStat.stat) {
-      if (sampleDatesChartData[metahash][date].placeStat.stat[place].value) {
-        placeStatData = true;
-        break;
+    if (
+      metahash in sampleDatesChartData &&
+      date in sampleDatesChartData[metahash]
+    ) {
+      for (const place in sampleDatesChartData[metahash][date].placeStat.stat) {
+        if (sampleDatesChartData[metahash][date].placeStat.stat[place].value) {
+          placeStatData = true;
+          break;
+        }
       }
     }
 
@@ -567,7 +572,7 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
-        const sampleDates: Record<string, Array<string>> = getSampleDates(
+        const sampleDates: Record<string, Array<string>> = getTimeSliderDates(
           metadataMap,
           placeStatDateWithinPlace.data[statVar.dcid].statDate
         );
@@ -813,10 +818,10 @@ export function setLegendBoundsPerCapita(
   let minValue: number = Number.MAX_SAFE_INTEGER,
     maxValue = 0;
   for (const place in stat) {
-    if (!stat[place].value) {
+    let value = stat[place].value;
+    if (!value) {
       continue;
     }
-    let value = stat[place].value;
     const populationData = rawData.population[place].data;
     const date = stat[place].date;
     if (
