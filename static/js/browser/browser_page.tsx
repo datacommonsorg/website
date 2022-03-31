@@ -21,7 +21,6 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
-import Collapsible from "react-collapsible";
 
 import { StatVarHierarchyType } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
@@ -30,7 +29,6 @@ import { InArcSection } from "./in_arc_section";
 import { ObservationChartSection } from "./observation_chart_section";
 import { OutArcSection } from "./out_arc_section";
 import { PageDisplayType } from "./types";
-import { WeatherChartSection } from "./weather_chart_section";
 
 const URL_PREFIX = "/browser/";
 const PLACE_STAT_VAR_PROPERTIES_HEADER = "Statistical Variable Properties";
@@ -51,7 +49,6 @@ interface BrowserPageStateType {
   dataFetched: boolean;
   inLabels: string[];
   outLabels: string[];
-  isWeatherChartsSectionOpen: boolean;
 }
 
 export class BrowserPage extends React.Component<
@@ -65,7 +62,6 @@ export class BrowserPage extends React.Component<
       inLabels: [],
       outLabels: [],
       provDomain: {},
-      isWeatherChartsSectionOpen: false,
     };
   }
 
@@ -85,12 +81,6 @@ export class BrowserPage extends React.Component<
         ? PLACE_STAT_VAR_PROPERTIES_HEADER
         : GENERAL_PROPERTIES_HEADER;
     const arcDcid = this.getArcDcid();
-    const getWeatherChartTrigger = (opened: boolean) => {
-      return React.createElement(BrowserSectionTrigger, {
-        opened,
-        title: "Weather Observations",
-      });
-    };
     const urlParams = new URLSearchParams(window.location.search);
     let selectedSVs = [];
     const selectedSvString = urlParams.get("openSv") || "";
@@ -166,26 +156,6 @@ export class BrowserPage extends React.Component<
                 statVarId={this.props.statVarId}
                 placeName={this.props.nodeName}
               />
-            </div>
-          )}
-          {this.props.pageDisplayType ===
-            PageDisplayType.PLACE_WITH_WEATHER_INFO && (
-            <div className="table-page-section">
-              <Collapsible
-                trigger={getWeatherChartTrigger(false)}
-                triggerWhenOpen={getWeatherChartTrigger(true)}
-                open={false}
-                onOpening={() =>
-                  this.setState({ isWeatherChartsSectionOpen: true })
-                }
-              >
-                {this.state.isWeatherChartsSectionOpen && (
-                  <WeatherChartSection
-                    dcid={this.props.dcid}
-                    provDomain={this.state.provDomain}
-                  />
-                )}
-              </Collapsible>
             </div>
           )}
           {this.props.pageDisplayType ===
