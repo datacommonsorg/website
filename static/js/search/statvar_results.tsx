@@ -66,7 +66,7 @@ export function StatVarResults(props: StatVarResultsProps): JSX.Element {
             onClick={() => setShowAll(true)}
             className="search-results-sv-show-more"
           >
-            show more
+            show {props.statVars.length - NUM_EXAMPLE_SV} more
           </div>
         )}
         {showAll && (

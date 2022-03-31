@@ -248,3 +248,17 @@ $border: 1px solid rgba(0, 0, 0, 0.125);
   background-color: var(--dc-gray-lite);
 }
 
+.search-results-spinner {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+}
+
+.search-results-spinner .screen {
+  background: white;
+}
+
+.search-results-spinner #spinner::after {
+  border: 2px solid var(--dc-gray-lite);
+  border-top: 3px solid var(--dc-primary);
+}

@@ -101,7 +101,13 @@ export function AllResults(props: ResultsProps): JSX.Element {
   }, [props]);
 
   if (_.isNull(places) || _.isNull(statVars)) {
-    return <></>;
+    return (
+      <div className="search-results-spinner">
+        <div className="screen d-block">
+          <div id="spinner"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
