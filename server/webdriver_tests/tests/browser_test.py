@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import urllib
+import urllib.request
 
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
@@ -124,27 +125,6 @@ class TestBrowser(WebdriverBaseTest):
             'browser-in-arc-section')
         in_arc_cards = in_arc_section.find_elements_by_class_name('card')
         self.assertTrue(len(in_arc_cards) > 0)
-
-        # Assert weather charts start off collapsed
-        element_present = EC.presence_of_element_located(
-            (By.CLASS_NAME, 'browser-section-trigger'))
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        weather_charts = self.driver.find_elements_by_class_name(
-            'observation-chart')
-        self.assertEqual(len(weather_charts), 0)
-
-        # expand weather charts section and assert there are charts present
-        trigger = self.driver.find_element_by_xpath(
-            '//*[@id="node-content"]/div[4]/div/span')
-        trigger.click()
-        element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="weather-chart-section"]/div[@class="card"]'))
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        weather_charts_section = self.driver.find_element_by_id(
-            'weather-chart-section')
-        weather_charts = weather_charts_section.find_elements_by_class_name(
-            'observation-chart')
-        self.assertEqual(len(weather_charts), 10)
 
     def test_page_serve_ca_population(self):
         """Test the browser page for California population can be loaded successfully."""
