@@ -21,7 +21,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { input } from "./constants";
+import { mapping, sparql } from "./constants";
 import { Page } from "./page";
 
 /**
@@ -30,8 +30,8 @@ import { Page } from "./page";
 window.onload = function () {
   ReactDOM.render(
     React.createElement(Page, {
-      mapping: input.observation.mapping,
-      sparql: input.observation.sparql,
+      mapping,
+      sparql: sparql.observation,
     }),
     document.getElementById("translator")
   );
