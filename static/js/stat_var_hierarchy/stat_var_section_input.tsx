@@ -147,8 +147,7 @@ export class StatVarSectionInput extends React.Component<
       !_.isEmpty(this.props.prefixToReplace) &&
       this.props.prefixToReplace.length < displayName.length
     ) {
-      const regex = new RegExp(`^${this.props.prefixToReplace}`);
-      displayName = displayName.replace(regex, "…");
+      displayName = "…" + displayName.slice(this.props.prefixToReplace.length);
     }
     return (
       <form className={className}>
