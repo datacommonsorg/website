@@ -28,25 +28,22 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
+import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import {
-  SourceSelector,
-  SourceSelectorSvInfo,
-} from "../../shared/source_selector";
-import { StatApiResponse } from "../../shared/stat_types";
+  GetStatSetAllResponse,
+  GetStatSetResponse,
+  PlacePointStat,
+  PlacePointStatAll,
+  StatApiResponse,
+  StatMetadata,
+} from "../../shared/stat_types";
 import { NamedPlace } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getEnclosedPlacesPromise,
 } from "../../utils/place_utils";
-import {
-  GetStatSetAllResponse,
-  GetStatSetResponse,
-  getUnit,
-  PlacePointStat,
-  PlacePointStatAll,
-  StatMetadata,
-} from "../shared_util";
+import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
 import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
 import { PlaceDetails } from "./place_details";

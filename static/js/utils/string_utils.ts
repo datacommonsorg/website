@@ -24,3 +24,28 @@ export function getDateRange(dates: string[]): string {
   const maxDate = _.max(dates);
   return minDate === maxDate ? `${minDate}` : `${minDate} to ${maxDate}`;
 }
+
+/**
+ * Given a list of words, returns the common prefix between the words. If there
+ * is only one word in the list, return that word.
+ */
+export function getCommonPrefix(words: string[]): string {
+  if (_.isEmpty(words)) {
+    return "";
+  }
+  if (words.length === 1) {
+    return words[0];
+  }
+  const sortedWordsList = words.sort();
+  const firstWord = sortedWordsList[0];
+  const lastWord = sortedWordsList[sortedWordsList.length - 1];
+  let idx = 0;
+  while (
+    idx < firstWord.length &&
+    idx < lastWord.length &&
+    firstWord.charAt(idx) === lastWord.charAt(idx)
+  ) {
+    idx++;
+  }
+  return firstWord.slice(0, idx);
+}

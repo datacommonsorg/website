@@ -18,6 +18,7 @@
 @import "tools/base_tools";
 @import "tools/stat_var_widget";
 @import "draw";
+@import "source_selector";
 
 @include search_place.search-place;
 
@@ -201,4 +202,16 @@ sup {
 .forecast text {
   font-size: 10px;
   color: var(--dc-gray);
+}
+
+.chart-options {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.chart-options .source-selector-open-modal-button {
+  font-size: 0.8rem;
+  color: var(--link-color);
+  margin-left: -0.5rem;
 }

@@ -21,8 +21,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import { GetStatSetResponse } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
-import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
