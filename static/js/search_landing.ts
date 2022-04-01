@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { initSearchAutocomplete } from "./place/search";
+import { initSearchAutocomplete } from "./place/place_autocomplete";
 
 window.onload = () => {
   initSearchAutocomplete();

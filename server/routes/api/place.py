@@ -681,24 +681,30 @@ def get_places_in_names():
                     mimetype='application/json')
 
 
-@bp.route('/placeid2dcid/<path:place_id>')
-@cache.cached(timeout=3600 * 24)
-def placeid2dcid(place_id):
+@bp.route('/placeid2dcid')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def placeid2dcid():
     """
     API endpoint to get dcid based on place id.
 
     This is to use together with the Google Maps Autocomplete API:
     https://developers.google.com/places/web-service/autocomplete.
     """
+    place_ids = request.args.getlist("placeIds")
     resp = requests.post(current_app.config['RECON_API_ROOT'] + '/id/resolve',
                          json={
                              "in_prop": "placeId",
                              "out_prop": "dcid",
-                             "ids": [place_id]
+                             "ids": place_ids
                          },
                          headers={'Content-Type': 'application/json'})
     if resp.status_code == 200:
         entities = resp.json().get('entities', [])
-        if entities and 'outIds' in entities[0]:
-            return entities[0]['outIds'][0]
+        result = {}
+        for entity in entities:
+            inId = entity.get('inId', "")
+            outIds = entity.get('outIds', [])
+            if outIds and inId:
+                result[inId] = outIds[0]
+        return Response(json.dumps(result), 200, mimetype='application/json')
     abort(404, 'no valid dcid not found for %s' % place_id)

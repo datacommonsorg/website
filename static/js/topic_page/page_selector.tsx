@@ -22,6 +22,7 @@ import React from "react";
 import { CustomInput } from "reactstrap";
 
 import { NamedTypedPlace } from "../shared/types";
+import { getPlaceNames } from "../utils/place_utils";
 import { TopicsSummary } from "./topic_page";
 
 interface PageSelectorPropType {

@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-nameSuffix:
+nameSuffix: iitm
 namespace: website
 
 resources:
@@ -26,13 +25,13 @@ configMapGenerator:
   - name: website-configmap
     behavior: create
     literals:
-      - flaskEnv=
-      - secretProject=
+      - flaskEnv=iitm
+      - secretProject=datcom-iitm
   - name: mixer-configmap
     behavior: create
     literals:
-      - mixerProject=
-      - serviceName=
+      - mixerProject=datcom-iitm
+      - serviceName=website-esp.endpoints.datcom-iitm.cloud.goog
 
 patchesStrategicMerge:
   - |-
@@ -41,4 +40,4 @@ patchesStrategicMerge:
     metadata:
       name: website-app
     spec:
-      replicas:
+      replicas: 6
