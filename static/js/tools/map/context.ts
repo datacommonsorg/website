@@ -44,6 +44,8 @@ export interface StatVar {
   date: string;
   // dcid of the stat var to use for map points
   mapPointSv: string;
+  // metahash of the source to get data from
+  metahash: string;
 }
 
 // Wraps StatVarInfo with its setters
@@ -57,6 +59,7 @@ export interface StatVarWrapper {
   setDate: Setter<string>;
   setDenom: Setter<string>;
   setMapPointSv: Setter<string>;
+  setMetahash: Setter<string>;
 }
 
 // Information relating to the places to plot
@@ -69,8 +72,6 @@ export interface PlaceInfo {
   enclosingPlace: NamedPlace;
   // The type of place to plot
   enclosedPlaceType: string;
-  // The places to plot
-  enclosedPlaces: Array<NamedPlace>;
   // The type of place to show points on the map for
   mapPointPlaceType: string;
 }
@@ -84,7 +85,6 @@ export interface PlaceInfoWrapper {
   setParentPlaces: Setter<Array<NamedTypedPlace>>;
   setEnclosingPlace: Setter<NamedPlace>;
   setEnclosedPlaceType: Setter<string>;
-  setEnclosedPlaces: Setter<Array<NamedPlace>>;
   setMapPointPlaceType: Setter<string>;
 }
 
@@ -162,7 +162,6 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setPlaceInfo({
           ...placeInfo,
           selectedPlace,
-          enclosedPlaces: [],
           enclosedPlaceType: "",
           parentPlaces: null,
           enclosingPlace: { dcid: "", name: "" },
@@ -171,17 +170,13 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setPlaceInfo({
           ...placeInfo,
           enclosingPlace,
-          enclosedPlaces: [],
         }),
       setEnclosedPlaceType: (enclosedPlaceType) =>
         setPlaceInfo({
           ...placeInfo,
           enclosingPlace: { dcid: "", name: "" },
-          enclosedPlaces: [],
           enclosedPlaceType,
         }),
-      setEnclosedPlaces: (enclosedPlaces) =>
-        setPlaceInfo({ ...placeInfo, enclosedPlaces }),
       setParentPlaces: (parentPlaces) =>
         setPlaceInfo({ ...placeInfo, parentPlaces }),
       setMapPointPlaceType: (mapPointPlaceType) =>
@@ -196,6 +191,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setDate: (date) => setStatVar({ ...statVar, date }),
       setDenom: (denom) => setStatVar({ ...statVar, denom }),
       setMapPointSv: (sv) => setStatVar({ ...statVar, mapPointSv: sv }),
+      setMetahash: (metahash) => setStatVar({ ...statVar, metahash }),
     },
     display: {
       value: display,

@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,8 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# mixer import groups
-- op: add
-  path: /spec/template/spec/containers/1/args/0
-  value: --use_import_group=true
+project: datcom-iitm
+domain: datacommons.iitm.ac.in
+ip: 34.111.65.19
+region:
+  primary: us-central1
+  others:
+    -
+nodes: 1
+storage_project: datcom-store
+tmcf_csv_bucket:
+tmcf_csv_folder:

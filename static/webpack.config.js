@@ -71,6 +71,10 @@ const config = {
       __dirname + "/js/translator/translator.ts",
       __dirname + "/css/translator.scss",
     ],
+    search2: [
+      __dirname + "/js/search/search.ts",
+      __dirname + "/css/search2.scss",
+    ]
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",

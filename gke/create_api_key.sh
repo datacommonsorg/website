@@ -17,7 +17,7 @@
 
 
 PROJECT_ID=$(yq eval '.project' config.yaml)
-DOMAIN=$(yq eval '.project' domain.yaml)
+DOMAIN=$(yq eval '.domain' config.yaml)
 
 gcloud config set project $PROJECT_ID
 
@@ -29,6 +29,9 @@ gcloud alpha services api-keys create \
   --api-target=service=places_backend
 
 API_KEY_NAME=$(gcloud alpha services api-keys list --filter='displayName=maps-api-key' --format='value(name)')
-export KEY_STRING=$(gcloud alpha services api-keys get-key-string $API_KEY_NAME)
+KEY_STRING=$(gcloud alpha services api-keys get-key-string $API_KEY_NAME)
 
-yq eval -i '.maps_api_key = env(KEY_STRING)' config.yaml
+touch /tmp/dc-website-api-key
+> /tmp/dc-website-api-key
+echo "$KEY_STRING" >> /tmp/dc-website-api-key
+gcloud secrets create maps-api-key --data-file=/tmp/dc-website-api-key

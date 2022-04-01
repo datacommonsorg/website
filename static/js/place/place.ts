@@ -27,8 +27,8 @@ import { MainPane } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
+import { initSearchAutocomplete } from "./place_autocomplete";
 import { PlaceHighlight } from "./place_highlight";
-import { initSearchAutocomplete } from "./search";
 import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.

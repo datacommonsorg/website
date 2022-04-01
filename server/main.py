@@ -28,7 +28,6 @@ import flask
 from flask import request
 
 import services.datacommons as dc
-from lib import translator
 
 from __init__ import create_app
 
@@ -75,62 +74,12 @@ def before_request():
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/translator')
 def translator_handler():
-    return flask.render_template('translator.html',
-                                 schema_mapping=translator.SCHEMA_MAPPING,
-                                 sample_query=translator.SAMPLE_QUERY)
+    return flask.render_template('translator.html')
 
 
 @app.route('/healthz')
 def healthz():
     return "very healthy"
-
-
-# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
-@app.route('/weather')
-def get_weather():
-    dcid = request.args.get('dcid')
-    prop = request.args.get('prop')
-    period = request.args.get('period')
-    if not dcid:
-        flask.abort(400, 'Missing url parameter "dcid"')
-    if not prop:
-        flask.abort(400, 'Missing url parameter "prop"')
-    if not period:
-        flask.abort(400, 'Missing url parameter "period"')
-
-    query_string = ('SELECT ?date ?mean ?unit ?provId '
-                    'WHERE {{'
-                    ' ?o typeOf {period}WeatherObservation .'
-                    ' ?o observedNode {dcid} .'
-                    ' ?o measuredProperty {prop} .'
-                    ' ?o observationDate ?date .'
-                    ' ?o unit ?unit .'
-                    ' ?o meanValue ?mean .'
-                    ' ?o provenance ?provId .}}').format(period=period,
-                                                         dcid=dcid,
-                                                         prop=prop)
-
-    _, rows = dc.query(query_string)
-
-    observations = []
-    for row in rows:
-        if ('value' not in row['cells'][0] or 'value' not in row['cells'][1] or
-                'value' not in row['cells'][2]):
-            continue
-        date = row['cells'][0]['value']
-        if date < '2000':
-            continue
-        text = 'mean {}: {} {}'.format(prop, row['cells'][1]['value'],
-                                       row['cells'][2]['value'])
-        observations.append({
-            'measuredProperty': prop,
-            'observationDate': date,
-            'meanValue': row['cells'][1]['value'],
-            'unit': row['cells'][2]['value'],
-            'text': text,
-            'provId': row['cells'][3]['value'],
-        })
-    return json.dumps(observations)
 
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.

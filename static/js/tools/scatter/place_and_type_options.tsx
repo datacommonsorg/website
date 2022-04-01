@@ -20,21 +20,22 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
-import { Container, CustomInput } from "reactstrap";
-import { Card } from "reactstrap";
+import React, { useContext, useEffect } from "react";
 
-import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { loadParentPlaces } from "../../shared/util";
-import { getAllChildPlaceTypes } from "../map/util";
-import { getNamedTypedPlace } from "../shared_util";
-import { SearchBar } from "../timeline/search";
 import {
-  Context,
-  IsLoadingWrapper,
-  PlaceInfo,
-  PlaceInfoWrapper,
-} from "./context";
+  EARTH_NAMED_TYPED_PLACE,
+  USA_PLACE_DCID,
+} from "../../shared/constants";
+import { PlaceSelector } from "../../shared/place_selector";
+import { NamedTypedPlace } from "../../shared/types";
+import {
+  getEnclosedPlacesPromise,
+  getNamedTypedPlace,
+  getParentPlacesPromise,
+} from "../../utils/place_utils";
+import { getAllChildPlaceTypes } from "../map/util";
+import { isChildPlaceOf } from "../shared_util";
+import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
@@ -76,7 +77,6 @@ const CHILD_PLACE_TYPES = {
 
 function PlaceAndTypeOptions(): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
-  const [childPlaceTypes, setChildPlaceTypes] = useState([]);
 
   /**
    * Watch and update place info
@@ -87,23 +87,19 @@ function PlaceAndTypeOptions(): JSX.Element {
       return;
     }
     if (_.isNull(place.value.enclosingPlace.types)) {
-      getNamedTypedPlace(place.value.enclosingPlace.dcid).then(
-        (enclosingPlace) => {
-          place.set({ ...place.value, enclosingPlace });
-        }
-      );
+      getNamedTypedPlace(
+        place.value.enclosingPlace.dcid
+      ).then((enclosingPlace) => place.set({ ...place.value, enclosingPlace }));
       return;
     }
     if (_.isNull(place.value.parentPlaces)) {
-      loadParentPlaces(place.value.enclosingPlace.dcid, place.setParentPlaces);
+      getParentPlacesPromise(
+        place.value.enclosingPlace.dcid
+      ).then((parentPlaces) => place.setParentPlaces(parentPlaces));
       return;
     }
-    const newChildPlaceTypes = getChildPlaceTypes(place.value);
-    if (newChildPlaceTypes !== childPlaceTypes) {
-      setChildPlaceTypes(newChildPlaceTypes);
-    }
     if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
-      loadPlaces(place, isLoading);
+      loadEnclosedPlaces(place, isLoading);
     }
   }, [place.value]);
 
@@ -132,196 +128,109 @@ function PlaceAndTypeOptions(): JSX.Element {
   }, [place.value, display.chartType]);
 
   return (
-    <Card className="place-and-type-options-card">
-      <Container className="place-and-type-options" fluid={true}>
+    <PlaceSelector
+      selectedPlace={place.value.enclosingPlace}
+      enclosedPlaceType={place.value.enclosedPlaceType}
+      onPlaceSelected={place.setEnclosingPlace}
+      onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
+      getEnclosedPlaceTypes={getEnclosedPlaceTypes}
+    >
+      <div className="chart-type-toggle">
         <div
-          className="place-and-type-options-section"
-          id="place-search-section"
+          className={`${
+            display.chartType === ScatterChartType.SCATTER
+              ? "selected-chart-option"
+              : "chart-type-option"
+          }`}
+          onClick={() => display.setChartType(ScatterChartType.SCATTER)}
         >
-          <div className="place-and-type-options-label">Plot places in</div>
-          <div id="search">
-            <SearchBar
-              places={
-                place.value.enclosingPlace.dcid
-                  ? {
-                      [place.value.enclosingPlace.dcid]:
-                        place.value.enclosingPlace.name,
-                    }
-                  : {}
-              }
-              addPlace={(e) => selectEnclosingPlace(place, e)}
-              removePlace={() =>
-                unselectEnclosingPlace(place, setChildPlaceTypes)
-              }
-              numPlacesLimit={1}
-            />
-          </div>
+          <i className="material-icons-outlined">scatter_plot</i>
         </div>
-        <div className="place-and-type-options-section">
-          <div className="place-and-type-options-label">of type</div>
-          <div>
-            <CustomInput
-              id="enclosed-place-type"
-              type="select"
-              value={place.value.enclosedPlaceType}
-              onChange={(e) => selectEnclosedPlaceType(place, e)}
-              className="pac-target-input"
-            >
-              <option value="">Select a place type</option>
-              {childPlaceTypes &&
-                childPlaceTypes.map((type) => (
-                  <option value={type} key={type}>
-                    {type}
-                  </option>
-                ))}
-            </CustomInput>
-          </div>
+        <div
+          className={`${
+            display.chartType === ScatterChartType.MAP
+              ? "selected-chart-option"
+              : "chart-type-option"
+          }`}
+          onClick={() => display.setChartType(ScatterChartType.MAP)}
+        >
+          <i className="material-icons-outlined">public</i>
         </div>
-        <div className="place-and-type-options-section">
-          <div className="chart-type-toggle">
-            <div
-              className={`${
-                display.chartType === ScatterChartType.SCATTER
-                  ? "selected-chart-option"
-                  : "chart-type-option"
-              }`}
-              onClick={() => display.setChartType(ScatterChartType.SCATTER)}
-            >
-              <i className="material-icons-outlined">scatter_plot</i>
-            </div>
-            <div
-              className={`${
-                display.chartType === ScatterChartType.MAP
-                  ? "selected-chart-option"
-                  : "chart-type-option"
-              }`}
-              onClick={() => display.setChartType(ScatterChartType.MAP)}
-            >
-              <i className="material-icons-outlined">public</i>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </Card>
+      </div>
+    </PlaceSelector>
   );
 }
 
-/**
- * Loads child places.
- * @param place
- * @param isLoading
- */
-async function loadPlaces(
+function loadEnclosedPlaces(
   place: PlaceInfoWrapper,
   isLoading: IsLoadingWrapper
-): Promise<void> {
+): void {
   const placeDcid = place.value.enclosingPlace.dcid;
-  const childPlaceType = place.value.enclosedPlaceType;
+  const enclosedPlaceType = place.value.enclosedPlaceType;
   let placeNamesRetrieved = false;
   axios
     .get(
-      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${childPlaceType}`
+      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => {
-      const childPlacesToNames = resp.data;
-      if (!_.isEmpty(childPlacesToNames)) {
-        const enclosedPlaces = Object.keys(childPlacesToNames).map((dcid) => {
-          return {
-            dcid: dcid,
-            name: childPlacesToNames[dcid],
-          };
-        });
+      const enclosedPlacesToNames = resp.data;
+      if (!_.isEmpty(enclosedPlacesToNames)) {
+        const enclosedPlaces = Object.keys(enclosedPlacesToNames).map(
+          (dcid) => {
+            return {
+              dcid: dcid,
+              name: enclosedPlacesToNames[dcid],
+            };
+          }
+        );
         place.setEnclosedPlaces(enclosedPlaces);
         placeNamesRetrieved = true;
       }
     })
     .catch(() => (placeNamesRetrieved = false));
   isLoading.setArePlacesLoading(true);
-  axios
-    .get(`/api/place/places-in?dcid=${placeDcid}&placeType=${childPlaceType}`)
-    .then((resp) => {
-      const childPlaces = resp.data[placeDcid];
+  getEnclosedPlacesPromise(placeDcid, enclosedPlaceType)
+    .then((enclosedPlaces) => {
+      isLoading.setArePlacesLoading(false);
       if (!placeNamesRetrieved) {
-        const enclosedPlaces = childPlaces.map((dcid) => {
-          return {
-            dcid: dcid,
-            name: dcid,
-          };
-        });
         if (!_.isEmpty(enclosedPlaces)) {
           place.setEnclosedPlaces(enclosedPlaces);
         } else {
           place.setEnclosedPlaceType("");
           alert(
             `Sorry, ${place.value.enclosingPlace.name} does not contain places of type ` +
-              `${childPlaceType}. Try picking another type or place.`
+              `${enclosedPlaceType}. Try picking another type or place.`
           );
         }
       }
-      isLoading.setArePlacesLoading(false);
     })
     .catch(() => {
       isLoading.setArePlacesLoading(false);
       alert(
-        `Error fetching places of type ${childPlaceType} for ${place.value.enclosingPlace.name}.`
+        `Error fetching places of type ${enclosedPlaceType} for ${place.value.enclosingPlace.name}.`
       );
     });
 }
 
-/**
- * Selects child place type.
- * @param place
- * @param event
- */
-function selectEnclosedPlaceType(
-  place: PlaceInfoWrapper,
-  event: React.ChangeEvent<HTMLInputElement>
-) {
-  const placeType = event.target.value;
-  place.setEnclosedPlaceType(placeType);
-}
-
-/**
- * Selects the enclosing place.
- * @param place
- * @param dcid
- */
-function selectEnclosingPlace(place: PlaceInfoWrapper, dcid: string) {
-  getNamedTypedPlace(dcid).then((enclosingPlace) =>
-    place.setEnclosingPlace(enclosingPlace)
-  );
-}
-
-function getChildPlaceTypes(place: PlaceInfo) {
-  if (place.enclosingPlace.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
+function getEnclosedPlaceTypes(
+  place: NamedTypedPlace,
+  parentPlaces: NamedTypedPlace[]
+): string[] {
+  if (place.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
     return CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]];
   }
-  const isUSPlace =
-    place.enclosingPlace.dcid === "country/USA" ||
-    place.parentPlaces.findIndex((parent) => parent.dcid === "country/USA") >
-      -1;
-  if (_.isEmpty(place.enclosingPlace.types)) return;
-  const placeType = place.enclosingPlace.types[0];
+  if (_.isEmpty(place.types)) {
+    return [];
+  }
+  const isUSPlace = isChildPlaceOf(place.dcid, USA_PLACE_DCID, parentPlaces);
+  const placeType = place.types[0];
   if (isUSPlace) {
     if (placeType in USA_CHILD_PLACE_TYPES) {
-      return USA_CHILD_PLACE_TYPES[placeType];
+      return USA_CHILD_PLACE_TYPES[placeType] || [];
     }
   } else {
-    return CHILD_PLACE_TYPES[placeType];
+    return CHILD_PLACE_TYPES[placeType] || [];
   }
-}
-
-/**
- * Removes the enclosing place
- * @param place
- * @param setChildPlaceTypes
- */
-function unselectEnclosingPlace(
-  place: PlaceInfoWrapper,
-  setChildPlaceTypes: (childPlaceTypes: string[]) => void
-) {
-  place.setEnclosingPlace({ dcid: "", name: "", types: [] });
-  setChildPlaceTypes([]);
 }
 
 export { PlaceAndTypeOptions as PlaceOptions };

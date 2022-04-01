@@ -38,6 +38,10 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
+import {
+  SourceSelector,
+  SourceSelectorSvInfo,
+} from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
@@ -71,8 +75,9 @@ interface ChartProps {
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
   display: DisplayOptionsWrapper;
-  europeanCountries: Array<string>;
+  europeanCountries: Array<NamedPlace>;
   rankingLink: string;
+  sourceSelectorSvInfo: SourceSelectorSvInfo;
 
   // Array of ~10 dates for time slider
   sampleDates: Array<string>;
@@ -271,7 +276,17 @@ export function Chart(props: ChartProps): JSX.Element {
             )}
           </div>
           <div className="map-footer">
-            <div className="sources">Data from {sourcesJsx}</div>
+            <div className="sources">
+              <div className="sources-string">Data from {sourcesJsx}</div>
+              <SourceSelector
+                svInfoList={[props.sourceSelectorSvInfo]}
+                onSvMetahashUpdated={(svMetahashMap) =>
+                  props.statVar.setMetahash(
+                    svMetahashMap[props.statVar.value.dcid]
+                  )
+                }
+              />
+            </div>
             {mainSvInfo.ranked && (
               <a className="explore-timeline-link" href={props.rankingLink}>
                 <span className="explore-timeline-text">Explore rankings</span>
@@ -421,7 +436,7 @@ const getMapRedirectAction = (
   statVar: StatVar,
   placeInfo: PlaceInfo,
   displayOptions: DisplayOptions,
-  europeanCountries: Array<string>
+  europeanCountries: Array<NamedPlace>
 ) => (geoProperties: GeoJsonFeatureProperties) => {
   const selectedPlace = {
     dcid: geoProperties.geoDcid,
@@ -429,7 +444,9 @@ const getMapRedirectAction = (
     types: [placeInfo.enclosedPlaceType],
   };
   const enclosingPlace =
-    europeanCountries.indexOf(selectedPlace.dcid) > -1
+    europeanCountries.findIndex(
+      (country) => country.dcid === selectedPlace.dcid
+    ) > -1
       ? EUROPE_NAMED_TYPED_PLACE
       : placeInfo.enclosingPlace;
   const parentPlaces = getParentPlaces(
@@ -506,10 +523,10 @@ const onDateRangeMouseOver = () => {
 
 const canClickRegion = (
   placeInfo: PlaceInfo,
-  europeanCountries: Array<string>
+  europeanCountries: Array<NamedPlace>
 ) => (placeDcid: string) => {
   const enclosingPlace =
-    europeanCountries.indexOf(placeDcid) > -1
+    europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
       ? EUROPE_NAMED_TYPED_PLACE
       : placeInfo.enclosingPlace;
   const parentPlaces = getParentPlaces(

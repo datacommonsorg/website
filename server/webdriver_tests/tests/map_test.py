@@ -93,11 +93,11 @@ class TestMap(WebdriverBaseTest):
 
         # Select State place type
         element_present = EC.text_to_be_present_in_element(
-            (By.ID, 'enclosed-place-type'), "State")
+            (By.ID, 'place-selector-place-type'), "State")
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        self.driver.find_element_by_id('enclosed-place-type').click()
+        self.driver.find_element_by_id('place-selector-place-type').click()
         self.driver.find_element_by_xpath(
-            '//*[@id="enclosed-place-type"]/option[2]').click()
+            '//*[@id="place-selector-place-type"]/option[2]').click()
 
         # Assert that a map chart is loaded
         element_present = EC.presence_of_element_located((By.ID, 'map-items'))
@@ -148,8 +148,7 @@ class TestMap(WebdriverBaseTest):
 
         # Choose stat var
         shared.wait_for_loading(self.driver)
-        demographics = self.driver.find_element_by_class_name('node-title')
-        demographics.click()
+        shared.click_sv_group(self.driver, "Demographics")
         element_present = EC.presence_of_element_located(
             (By.ID, 'Median_Age_Persondc/g/Demographics-Median_Age_Person'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)

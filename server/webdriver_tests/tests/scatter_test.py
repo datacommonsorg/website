@@ -111,18 +111,15 @@ class TestScatter(WebdriverBaseTest):
 
         # Choose place type
         element_present = EC.text_to_be_present_in_element(
-            (By.ID, 'enclosed-place-type'), "County")
+            (By.ID, 'place-selector-place-type'), "County")
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        selects = Select(self.driver.find_element_by_id('enclosed-place-type'))
+        selects = Select(
+            self.driver.find_element_by_id('place-selector-place-type'))
         selects.select_by_value('County')
 
         # Choose stat vars
         shared.wait_for_loading(self.driver)
-        hierarchy = self.driver.find_element_by_xpath(
-            '//*[@id="hierarchy-section"]')
-        demographics_button = hierarchy.find_elements_by_class_name(
-            'Collapsible')[0]
-        demographics_button.click()
+        shared.click_sv_group(self.driver, "Demographics")
 
         # Click on median age button
         shared.wait_for_loading(self.driver)

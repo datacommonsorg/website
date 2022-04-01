@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import axios from "axios";
 import {} from "googlemaps";
 import React, { Component, PureComponent } from "react";
 import ReactDOM from "react-dom";
 
-import { toTitleCase } from "../shared_util";
+import { toTitleCase } from "../tools/shared_util";
+import { getPlaceDcids } from "../utils/place_utils";
 
 // Hardcoded results to respond to in the place autocomplete.
 const HARDCODED_RESULTS = {
@@ -60,7 +60,7 @@ class Chip extends PureComponent<ChipPropType, Record<string, unknown>> {
   }
 }
 
-interface SearchBarPropType {
+interface PlaceSearchBarPropType {
   places: Record<string, string>;
   addPlace: (place: string) => void;
   removePlace: (place: string) => void;
@@ -69,11 +69,11 @@ interface SearchBarPropType {
   customPlaceHolder?: string;
 }
 
-class SearchBar extends Component<SearchBarPropType> {
+class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
   inputElem: React.RefObject<HTMLInputElement>;
   ac: google.maps.places.Autocomplete;
 
-  constructor(props: SearchBarPropType) {
+  constructor(props: PlaceSearchBarPropType) {
     super(props);
     this.getPlaceAndRender = this.getPlaceAndRender.bind(this);
     this.inputElem = React.createRef();
@@ -86,26 +86,31 @@ class SearchBar extends Component<SearchBarPropType> {
       ? placeIds.length >= this.props.numPlacesLimit
       : false;
     return (
-      <div id="location-field" className={hideInput ? "input-area-hidden" : ""}>
-        <div id="search-icon"></div>
-        <span id="prompt">Find : </span>
-        <span id="place-list">
-          {placeIds.map((placeId) => (
-            <Chip
-              placeId={placeId}
-              placeName={
-                this.props.places[placeId]
-                  ? this.props.places[placeId]
-                  : placeId
-              }
-              key={placeId}
-              removePlace={this.props.removePlace}
-            ></Chip>
-          ))}
-        </span>
-        <input ref={this.inputElem} id="ac" type="text" />
-        {!hideInput && <i className="material-icons search-icon">search</i>}
-        <span id="place-name"></span>
+      <div id="search">
+        <div
+          id="location-field"
+          className={hideInput ? "input-area-hidden" : ""}
+        >
+          <div id="search-icon"></div>
+          <span id="prompt">Find : </span>
+          <span id="place-list">
+            {placeIds.map((placeId) => (
+              <Chip
+                placeId={placeId}
+                placeName={
+                  this.props.places[placeId]
+                    ? this.props.places[placeId]
+                    : placeId
+                }
+                key={placeId}
+                removePlace={this.props.removePlace}
+              ></Chip>
+            ))}
+          </span>
+          <input ref={this.inputElem} id="ac" type="text" />
+          {!hideInput && <i className="material-icons search-icon">search</i>}
+          <span id="place-name"></span>
+        </div>
       </div>
     );
   }
@@ -148,7 +153,7 @@ class SearchBar extends Component<SearchBarPropType> {
   private onAutocompleteKeyUp(e) {
     // Test for, and respond to, a few hardcoded results.
     const inputVal = (e.target as HTMLInputElement).value;
-    const dcid = SearchBar.getHardcodedResultDcid(inputVal);
+    const dcid = PlaceSearchBar.getHardcodedResultDcid(inputVal);
     if (dcid) {
       const containers = document.getElementsByClassName("pac-container");
       const displayResult = toTitleCase(inputVal);
@@ -174,10 +179,9 @@ class SearchBar extends Component<SearchBarPropType> {
     // Get the place details from the autocomplete object.
     const place = this.ac.getPlace();
     if ("place_id" in place) {
-      axios
-        .get(`/api/place/placeid2dcid/${place.place_id}`)
-        .then((resp) => {
-          this.props.addPlace(resp.data);
+      getPlaceDcids([place.place_id])
+        .then((data) => {
+          this.props.addPlace(data[place.place_id]);
         })
         .catch(() => {
           alert("Sorry, but we don't have any data about " + place.name);
@@ -186,7 +190,7 @@ class SearchBar extends Component<SearchBarPropType> {
     if ("name" in place) {
       // Handle hardcoded results.
       const inputVal = place["name"];
-      const dcid = SearchBar.getHardcodedResultDcid(inputVal);
+      const dcid = PlaceSearchBar.getHardcodedResultDcid(inputVal);
       if (dcid) {
         this.props.addPlace(dcid);
       }
@@ -214,4 +218,4 @@ class SearchBar extends Component<SearchBarPropType> {
     }
   }
 }
-export { SearchBar };
+export { PlaceSearchBar as SearchBar };

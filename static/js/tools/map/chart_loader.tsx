@@ -22,16 +22,23 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
-import { CustomInput } from "reactstrap";
 
 import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
+import {
+  SourceSelector,
+  SourceSelectorSvInfo,
+} from "../../shared/source_selector";
 import { StatApiResponse } from "../../shared/stat_types";
-import { StatVarSummary } from "../../shared/types";
+import { NamedPlace, StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
+import {
+  ENCLOSED_PLACE_TYPE_NAMES,
+  getEnclosedPlacesPromise,
+} from "../../utils/place_utils";
 import {
   GetPlaceStatDateWithinPlaceResponse,
   GetStatSetAllResponse,
@@ -74,7 +81,7 @@ interface ChartRawData {
   breadcrumbPlaceStat: PlacePointStat;
   mapPointStat: PlacePointStat;
   mapPointsPromise: Promise<Array<MapPoint>>;
-  europeanCountries: Array<string>;
+  europeanCountries: Array<NamedPlace>;
   dataDate: string;
 
   // Map of metahash to array of ~10 dates for time slider
@@ -94,7 +101,7 @@ interface ChartData {
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
-  europeanCountries: Array<string>;
+  europeanCountries: Array<NamedPlace>;
   rankingLink: string;
 
   // Array of ~10 dates for time slider
@@ -116,12 +123,11 @@ export function ChartLoader(): JSX.Element {
   const [onPlayCallback, setOnPlayCallback] = useState<() => void>(undefined);
 
   useEffect(() => {
-    const placesLoaded =
+    const placeSelected =
       !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
-      !_.isEmpty(placeInfo.value.enclosedPlaces) &&
-      !_.isNull(placeInfo.value.parentPlaces);
+      !_.isEmpty(placeInfo.value.enclosedPlaceType);
     if (
-      placesLoaded &&
+      placeSelected &&
       !_.isEmpty(statVar.value.dcid) &&
       !_.isNull(statVar.value.info)
     ) {
@@ -130,7 +136,8 @@ export function ChartLoader(): JSX.Element {
       setRawData(undefined);
     }
   }, [
-    placeInfo.value.enclosedPlaces,
+    placeInfo.value.enclosingPlace,
+    placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
     statVar.value.info,
     statVar.value.denom,
@@ -150,7 +157,7 @@ export function ChartLoader(): JSX.Element {
         setLegendBoundsPerCapita(rawData, statVar, display);
       }
     }
-  }, [rawData, statVar.value.perCapita]);
+  }, [rawData, statVar.value.metahash, statVar.value.perCapita]);
 
   useEffect(() => {
     if (onPlayCallback) {
@@ -160,11 +167,11 @@ export function ChartLoader(): JSX.Element {
 
   if (chartData === undefined) {
     return null;
-  } else if (
-    _.isEmpty(chartData) ||
-    _.isEmpty(chartData.mapValues) ||
-    _.isEmpty(chartData.geoJsonData)
-  ) {
+  } else if (_.isEmpty(chartData.geoJsonData)) {
+    <div className="p-5">
+      {`Sorry, maps are not available for ${placeInfo.value.enclosedPlaceType} in ${placeInfo.value.selectedPlace.name}. Try picking another place or type of place.`}
+    </div>;
+  } else if (_.isEmpty(chartData) || _.isEmpty(chartData.mapValues)) {
     return (
       <div className="p-5">
         {`Sorry, the selected variable ${
@@ -178,7 +185,8 @@ export function ChartLoader(): JSX.Element {
       </div>
     );
   }
-  const sourceList = getMetaList(
+  const sourceSelectorSvInfo = getSourceSelectorSvInfo(
+    statVar.value,
     Object.keys(rawData.allPlaceStat),
     rawData.metadataMap
   );
@@ -250,38 +258,12 @@ export function ChartLoader(): JSX.Element {
         mapPointsPromise={chartData.mapPointsPromise}
         europeanCountries={chartData.europeanCountries}
         rankingLink={chartData.rankingLink}
+        sourceSelectorSvInfo={sourceSelectorSvInfo}
         sampleDates={chartData.sampleDates}
         metahash={chartData.metahash}
         onPlay={onPlay}
         updateDate={updateDate}
       />
-      <div id="source-picker">
-        <span>Pick Source</span>
-        <CustomInput
-          id="source-select"
-          type="select"
-          defaultValue={BEST_AVAILABLE_METAHASH}
-          onChange={(e) => {
-            loadChartData(
-              rawData,
-              placeInfo.value,
-              statVar.value,
-              setChartData,
-              display,
-              e.target.value
-            );
-          }}
-        >
-          <option value={BEST_AVAILABLE_METAHASH}>
-            {BEST_AVAILABLE_METAHASH}
-          </option>
-          {sourceList.map((source) => (
-            <option value={source.metaHash} key={source.metaHash}>
-              {source.text}
-            </option>
-          ))}
-        </CustomInput>
-      </div>
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbValues}
         mapDataValues={chartData.mapValues}
@@ -343,18 +325,26 @@ function getGeoJsonDataFeatures(
   return geoJsonFeatures;
 }
 
-function getMetaList(
+function getSourceSelectorSvInfo(
+  statVar: StatVar,
   metaHashList: string[],
   metadataMap: Record<string, StatMetadata>
-): { metaHash: string; text: string }[] {
-  const result = metaHashList.map((m) => {
-    return {
-      metaHash: m,
-      text: getMetaText(metadataMap[m]),
-    };
+): SourceSelectorSvInfo {
+  const filteredMetadataMap: Record<string, StatMetadata> = {};
+  metaHashList.forEach((metahash) => {
+    if (metahash in metadataMap) {
+      filteredMetadataMap[metahash] = metadataMap[metahash];
+    }
   });
-  result.sort((a, b) => (a.text > b.text ? 1 : -1));
-  return result;
+  return {
+    dcid: statVar.dcid,
+    metadataMap: filteredMetadataMap,
+    metahash: statVar.metahash,
+    name:
+      statVar.dcid in statVar.info
+        ? statVar.info[statVar.dcid].title
+        : statVar.dcid,
+  };
 }
 
 // Fetches the data needed for the charts.
@@ -485,11 +475,9 @@ function fetchData(
           return resp.data;
         })
     : Promise.resolve({});
-  const europeanCountriesPromise: Promise<Array<string>> = axios
-    .get(
-      `/api/place/places-in?dcid=${EUROPE_NAMED_TYPED_PLACE.dcid}&placeType=Country`
-    )
-    .then((resp) => resp.data[EUROPE_NAMED_TYPED_PLACE.dcid]);
+  const europeanCountriesPromise: Promise<Array<
+    NamedPlace
+  >> = getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
   const statVarSummaryPromise: Promise<StatVarSummary> = axios
     .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
     .then((resp) => resp.data);
@@ -693,10 +681,8 @@ function loadChartData(
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(
-      metaHash &&
-        metaHash in rawData.allPlaceStat &&
-        rawData.allPlaceStat[metaHash].stat
-        ? rawData.allPlaceStat[metaHash]
+      statVar.metahash && statVar.metahash in rawData.allPlaceStat
+        ? rawData.allPlaceStat[statVar.metahash]
         : rawData.placeStat,
       placeDcid,
       statVar.perCapita,

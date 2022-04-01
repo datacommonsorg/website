@@ -51,7 +51,10 @@ function getPlaceAxisChartData(
   const popSeries = populationData[placeDcid]
     ? populationData[placeDcid].data[DEFAULT_POPULATION_DCID]
     : null;
-  const denomSeries = denom ? populationData[placeDcid].data[denom] : null;
+  const denomSeries =
+    denom && populationData[placeDcid]
+      ? populationData[placeDcid].data[denom]
+      : null;
   if (_.isEmpty(placePointStatData)) {
     return null;
   }
@@ -60,7 +63,7 @@ function getPlaceAxisChartData(
   }
   const sources = [];
   const statDate = placePointStatData.date;
-  const metaHash = placePointStatData.metaHash;
+  const metaHash = placePointStat.metaHash || placePointStatData.metaHash;
   if (metaHash && metaHash in metadataMap) {
     sources.push(metadataMap[metaHash].provenanceUrl);
   }

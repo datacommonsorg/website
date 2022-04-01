@@ -206,8 +206,8 @@ function StatVarChooser(): JSX.Element {
               Please choose 1 more statistical variable to keep:
             </div>
             <div className="radio-selection-section">
-              <FormGroup radio row>
-                <Label radio>
+              <FormGroup radio="true" row>
+                <Label radio="true">
                   <Input
                     id="x-radio-button"
                     type="radio"
@@ -218,8 +218,8 @@ function StatVarChooser(): JSX.Element {
                   {xTitle}
                 </Label>
               </FormGroup>
-              <FormGroup radio row>
-                <Label radio>
+              <FormGroup radio="true" row>
+                <Label radio="true">
                   <Input
                     id="y-radio-button"
                     type="radio"
@@ -304,6 +304,7 @@ function addStatVarHelper(
       log: x.value.log,
       perCapita: x.value.perCapita,
       date: x.value.date,
+      metahash: "",
     });
   } else if (_.isEmpty(y.value.statVarDcid)) {
     y.set({
@@ -312,6 +313,7 @@ function addStatVarHelper(
       log: y.value.log,
       perCapita: y.value.perCapita,
       date: y.value.date,
+      metahash: "",
     });
   } else {
     setThirdStatVar({ info: svInfo, dcid: svDcid });
