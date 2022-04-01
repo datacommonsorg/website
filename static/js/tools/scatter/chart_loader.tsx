@@ -25,14 +25,15 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import {
-  SourceSelector,
-  SourceSelectorSvInfo,
-} from "../../shared/source_selector";
-import { StatApiResponse } from "../../shared/stat_types";
+  PlacePointStat,
+  StatApiResponse,
+  StatMetadata,
+} from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
-import { getUnit, PlacePointStat, StatMetadata } from "../shared_util";
+import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,

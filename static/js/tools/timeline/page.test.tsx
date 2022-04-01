@@ -53,6 +53,7 @@ test("Single place and single stat var", () => {
     .then(() => wrapper.update())
     .then(() => wrapper.update())
     .then(() => wrapper.update())
+    .then(() => wrapper.update())
     .then(() => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toContain(

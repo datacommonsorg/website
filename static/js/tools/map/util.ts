@@ -30,15 +30,14 @@ import {
   PAKISTAN_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { StatApiResponse } from "../../shared/stat_types";
+import {
+  PlacePointStat,
+  StatApiResponse,
+  StatMetadata,
+} from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
-import {
-  getPopulationDate,
-  isChildPlaceOf,
-  PlacePointStat,
-  StatMetadata,
-} from "../shared_util";
+import { getPopulationDate, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";

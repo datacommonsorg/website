@@ -24,8 +24,8 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawGroupBarChart } from "../chart/draw";
+import { GetStatSetResponse } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
-import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { getPlaceNames } from "../utils/place_utils";
 import { ChartTileContainer } from "./chart_tile";

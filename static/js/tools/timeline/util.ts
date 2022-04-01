@@ -13,10 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import _ from "lodash";
 
 export const statVarSep = "__";
 export const placeSep = ",";
-
+export const TIMELINE_URL_PARAM_KEYS = {
+  METAHASH: "mh",
+  STAT_VAR: "statsVar",
+  PLACE: "place",
+  CHART_OPTIONS: "chart",
+  DENOM: "denom",
+};
 export interface TokenInfo {
   name: string;
   sep: string;
@@ -71,7 +78,9 @@ export function setChartOption(
   value: boolean
 ): void {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  let chartOptions = JSON.parse(urlParams.get("chart"));
+  let chartOptions = JSON.parse(
+    urlParams.get(TIMELINE_URL_PARAM_KEYS.CHART_OPTIONS)
+  );
   if (!chartOptions) {
     chartOptions = {};
   }
@@ -85,7 +94,10 @@ export function setChartOption(
     chartOptions[mprop] = {};
   }
   chartOptions[mprop][name] = value;
-  urlParams.set("chart", JSON.stringify(chartOptions));
+  urlParams.set(
+    TIMELINE_URL_PARAM_KEYS.CHART_OPTIONS,
+    JSON.stringify(chartOptions)
+  );
   if (!value) {
     // "&<option-name>" means set the option for all charts.
     urlParams.delete(name);
@@ -96,18 +108,23 @@ export function setChartOption(
 // Set denom for a chart
 export function setDenom(mprop: string, denom: string): void {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  if (urlParams.get("denom") != null) {
-    urlParams.delete("denom");
+  if (urlParams.get(TIMELINE_URL_PARAM_KEYS.DENOM) != null) {
+    urlParams.delete(TIMELINE_URL_PARAM_KEYS.DENOM);
   }
-  let chartOptions = JSON.parse(urlParams.get("chart"));
+  let chartOptions = JSON.parse(
+    urlParams.get(TIMELINE_URL_PARAM_KEYS.CHART_OPTIONS)
+  );
   if (!chartOptions) {
     chartOptions = {};
   }
   if (!chartOptions[mprop]) {
     chartOptions[mprop] = {};
   }
-  chartOptions[mprop]["denom"] = denom;
-  urlParams.set("chart", JSON.stringify(chartOptions));
+  chartOptions[mprop][TIMELINE_URL_PARAM_KEYS.DENOM] = denom;
+  urlParams.set(
+    TIMELINE_URL_PARAM_KEYS.CHART_OPTIONS,
+    JSON.stringify(chartOptions)
+  );
   window.location.hash = urlParams.toString();
 }
 
@@ -119,7 +136,9 @@ export function getChartOption(mprop: string, name: string): boolean {
   if (urlParams.get(name) != null) {
     return true;
   }
-  const chartOptions = JSON.parse(urlParams.get("chart"));
+  const chartOptions = JSON.parse(
+    urlParams.get(TIMELINE_URL_PARAM_KEYS.CHART_OPTIONS)
+  );
   if (!chartOptions) {
     return false;
   }
@@ -140,15 +159,55 @@ export function getChartOption(mprop: string, name: string): boolean {
 
 export function getDenom(mprop: string): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  if (urlParams.get("denom") != null) {
-    return urlParams.get("denom");
+  if (urlParams.get(TIMELINE_URL_PARAM_KEYS.DENOM) != null) {
+    return urlParams.get(TIMELINE_URL_PARAM_KEYS.DENOM);
   }
-  const chartOptions = JSON.parse(urlParams.get("chart"));
+  const chartOptions = JSON.parse(
+    urlParams.get(TIMELINE_URL_PARAM_KEYS.CHART_OPTIONS)
+  );
   if (!chartOptions) {
     return "";
   }
-  if (mprop in chartOptions && "denom" in chartOptions[mprop]) {
-    return chartOptions[mprop]["denom"];
+  if (
+    mprop in chartOptions &&
+    TIMELINE_URL_PARAM_KEYS.DENOM in chartOptions[mprop]
+  ) {
+    return chartOptions[mprop][TIMELINE_URL_PARAM_KEYS.DENOM];
   }
   return "";
+}
+
+// Set metahash map (a map of stat var dcid to hash representing the source
+// of data to use) in the URL
+export function setMetahash(metahash: Record<string, string>): void {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  let metahashMap = JSON.parse(urlParams.get(TIMELINE_URL_PARAM_KEYS.METAHASH));
+  if (metahashMap) {
+    urlParams.delete(TIMELINE_URL_PARAM_KEYS.METAHASH);
+  } else {
+    metahashMap = {};
+  }
+  for (const sv of Object.keys(metahash)) {
+    metahashMap[sv] = metahash[sv];
+    if (!metahashMap[sv]) {
+      delete metahashMap[sv];
+    }
+  }
+  if (!_.isEmpty(metahashMap)) {
+    urlParams.set(
+      TIMELINE_URL_PARAM_KEYS.METAHASH,
+      JSON.stringify(metahashMap)
+    );
+  }
+  window.location.hash = urlParams.toString();
+}
+
+// Get the metahash map from the URL.
+export function getMetahash(): Record<string, string> {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  const metahashMap = urlParams.get(TIMELINE_URL_PARAM_KEYS.METAHASH);
+  if (!metahashMap) {
+    return {};
+  }
+  return JSON.parse(metahashMap);
 }

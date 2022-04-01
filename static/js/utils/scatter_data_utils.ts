@@ -18,13 +18,13 @@ import _ from "lodash";
 
 import { Point } from "../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../shared/constants";
-import { StatApiResponse } from "../shared/stat_types";
-import { NamedPlace } from "../shared/types";
 import {
-  getPopulationDate,
   PlacePointStat,
+  StatApiResponse,
   StatMetadata,
-} from "../tools/shared_util";
+} from "../shared/stat_types";
+import { NamedPlace } from "../shared/types";
+import { getPopulationDate } from "../tools/shared_util";
 import { isBetween } from "./number_utils";
 
 interface PlaceAxisChartData {
