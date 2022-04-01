@@ -24,15 +24,15 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
 import { NamedNode } from "../shared/types";
-import { SearchBar } from "../tools/timeline/search";
+import { SearchBar } from "../shared/place_search_bar";
 import {
   addToken,
-  getPlaceNames,
   getTokensFromUrl,
   placeSep,
   removeToken,
   setTokensToUrl,
 } from "../tools/timeline/util";
+import { getPlaceNames } from "../utils/place_utils";
 import { MemoStatVars, StatVarsPropType } from "./stat_vars";
 
 interface AppPropType {
@@ -110,13 +110,13 @@ function App({
               </Container>
             </Card>
           </Row>
-          <Row>
+          {chartsData && !loading && <Row>
             <Card>
               <div id="main" className="col-md-9x col-lg-10">
-                {chartsData && !loading && <MemoStatVars {...chartsData} />}
+                <MemoStatVars {...chartsData} />
               </div>
             </Card>
-          </Row>
+          </Row>}
           <div id="screen" style={{ display: loading ? "block" : "none" }}>
             <div id="spinner"></div>
           </div>
