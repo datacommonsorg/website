@@ -30,7 +30,7 @@ import { Page } from "./page";
 window.onload = function () {
   ReactDOM.render(
     React.createElement(Page, {
-      mapping: mapping,
+      mapping,
       sparql: sparql.observation,
     }),
     document.getElementById("translator")
