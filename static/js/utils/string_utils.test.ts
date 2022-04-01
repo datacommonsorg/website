@@ -22,32 +22,32 @@ test("get common prefix", () => {
     wantedPrefix: string;
   }[] = [
     {
+      wantedPrefix: "",
       wordList: [],
-      wantedPrefix: "",
     },
     {
-      wordList: ["abc"],
       wantedPrefix: "abc",
+      wordList: ["abc"],
     },
     {
+      wantedPrefix: "",
       wordList: ["abc", "xyz", "123"],
-      wantedPrefix: "",
     },
     {
+      wantedPrefix: "",
       wordList: ["abc", "abdsdfs", "123"],
-      wantedPrefix: "",
     },
     {
-      wordList: ["abc", "abbbb", "abtest"],
       wantedPrefix: "ab",
+      wordList: ["abc", "abbbb", "abtest"],
     },
     {
-      wordList: ["abc, def, gh", "abc, this is a test", "abc, test blah"],
       wantedPrefix: "abc, ",
+      wordList: ["abc, def, gh", "abc, this is a test", "abc, test blah"],
     },
     {
-      wordList: ["abc", "xyz", "abcde"],
       wantedPrefix: "",
+      wordList: ["abc", "xyz", "abcde"],
     },
   ];
 
