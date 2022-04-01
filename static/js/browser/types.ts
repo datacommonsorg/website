@@ -33,7 +33,6 @@ export interface InArcValue {
 
 export enum PageDisplayType {
   PLACE_STAT_VAR,
-  PLACE_WITH_WEATHER_INFO,
   GENERAL,
   BIOLOGICAL_SPECIMEN,
 }
@@ -43,8 +42,6 @@ export enum PageDisplayType {
  * More mappings may be added as more display types are added.
  */
 const NODE_TYPE_TO_PAGE_DISPLAY_TYPE = {
-  CensusZipCodeTabulationArea: PageDisplayType.PLACE_WITH_WEATHER_INFO,
-  City: PageDisplayType.PLACE_WITH_WEATHER_INFO,
   BiologicalSpecimen: PageDisplayType.BIOLOGICAL_SPECIMEN,
 };
 
