@@ -26,10 +26,12 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-    if current_app.config['PRIVATE']:
+    if current_app.config.get('PRIVATE', None):
         return render_template('static/private.html')
-    if current_app.config['SUSTAINABILITY']:
+    if current_app.config.get('SUSTAINABILITY', None):
         return render_template('sustainability/homepage.html')
+    if current_app.config.get('IITM', None):
+        return render_template('static/iitm.html')
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
                                         locale=g.locale)

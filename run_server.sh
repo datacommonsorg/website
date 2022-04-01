@@ -49,6 +49,8 @@ elif [[ $ENV == "private" ]]; then
   export FLASK_ENV=local-private
 elif [[ $ENV == "sustainability" ]]; then
   export FLASK_ENV=local-sustainability
+elif [[ $ENV == "iitm" ]]; then
+  export FLASK_ENV=local-iitm
 else
   export FLASK_ENV=local
 fi
