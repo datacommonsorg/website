@@ -132,8 +132,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           bindings={this.state.bindings}
           constraints={this.state.constraints}
         ></Translation>
+        <a href={this.createBqUrl()}> BigQuery Link</a>
       </div>
     );
+  }
+
+  private createBqUrl() {
+    const query = encodeURIComponent(this.state.sql);
+    return `https://pantheon.corp.google.com/bigquery;create-new-query-tab=${query}`;
   }
 
   private updateTranslation() {

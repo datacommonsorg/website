@@ -254,7 +254,7 @@ WHERE {
   ?obs1 typeOf StatVarObservation .
   ?obs1 observationAbout ?node .
   ?obs1 variableMeasured LifeExpectancy_Person .
-  ?obs1 observationDate "2018" .
+  ?obs1 observationDate "2010" .
   ?obs1 value ?life_expectancy .
 
   ?obs2 typeOf StatVarObservation .
