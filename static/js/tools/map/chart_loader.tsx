@@ -61,9 +61,7 @@ import { PlaceDetails } from "./place_details";
 import {
   BEST_AVAILABLE_METAHASH,
   DataPointMetadata,
-  ENCLOSED_PLACE_TYPE_NAMES,
   getLegendBounds,
-  getMetaText,
   getPlaceChartData,
   getTimeSliderDates,
 } from "./util";
