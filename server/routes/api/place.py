@@ -113,7 +113,7 @@ def cached_i18n_name(dcids, locale, should_resolve_all):
     Returns:
         A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
     """
-    if not dcids: 
+    if not dcids:
         return {}
     dcids = dcids.split('^')
     response = fetch_data('/node/property-values', {
