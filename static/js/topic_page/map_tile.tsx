@@ -26,17 +26,16 @@ import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
 import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
-import { StatApiResponse } from "../shared/stat_types";
+import {
+  GetStatSetResponse,
+  PlacePointStat,
+  StatApiResponse,
+  StatMetadata,
+} from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
 import { DataPointMetadata, getPlaceChartData } from "../tools/map/util";
-import {
-  GetStatSetResponse,
-  isChildPlaceOf,
-  PlacePointStat,
-  shouldShowMapBoundaries,
-  StatMetadata,
-} from "../tools/shared_util";
+import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { getDateRange } from "../utils/string_utils";
 import { ChartTileContainer } from "./chart_tile";

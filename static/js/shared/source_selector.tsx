@@ -32,7 +32,7 @@ import {
   ModalHeader,
 } from "reactstrap";
 
-import { StatMetadata } from "../tools/shared_util";
+import { StatMetadata } from "./stat_types";
 
 const MODAL_MAX_WIDTH = "90vw";
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;

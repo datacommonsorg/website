@@ -28,10 +28,9 @@ import {
   ScatterPlotOptions,
   ScatterPlotProperties,
 } from "../chart/draw_scatter";
-import { StatApiResponse } from "../shared/stat_types";
+import { GetStatSetResponse, StatApiResponse } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
 import { getStatsWithinPlace } from "../tools/scatter/util";
-import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";

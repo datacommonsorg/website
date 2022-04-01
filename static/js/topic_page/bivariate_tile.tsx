@@ -27,14 +27,10 @@ import { BivariateProperties, drawBivariate } from "../chart/draw_bivariate";
 import { Point } from "../chart/draw_scatter";
 import { GeoJsonData } from "../chart/types";
 import { USA_PLACE_DCID } from "../shared/constants";
-import { StatApiResponse } from "../shared/stat_types";
+import { GetStatSetResponse, StatApiResponse } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getStatsWithinPlace } from "../tools/scatter/util";
-import {
-  GetStatSetResponse,
-  isChildPlaceOf,
-  shouldShowMapBoundaries,
-} from "../tools/shared_util";
+import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";

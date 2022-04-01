@@ -23,9 +23,9 @@ import {
   SourceSeries,
   StatAllApiResponse,
   StatApiResponse,
+  StatMetadata,
   TimeSeries,
 } from "../../shared/stat_types";
-import { StatMetadata } from "../shared_util";
 
 const ZERO_POPULATION = 0;
 

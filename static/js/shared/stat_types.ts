@@ -14,11 +14,18 @@
  * limitations under the License.
  */
 
-import { StatMetadata } from "../tools/shared_util";
-
 /**
  * Stat API related types.
  */
+
+export interface StatMetadata {
+  importName?: string;
+  provenanceUrl?: string;
+  measurementMethod?: string;
+  observationPeriod?: string;
+  scalingFactor?: string;
+  unit?: string;
+}
 
 export interface TimeSeries {
   val?: {
@@ -27,6 +34,7 @@ export interface TimeSeries {
   metadata?: StatMetadata;
 }
 
+// rsponse from /api/stats
 export interface StatApiResponse {
   [place: string]: {
     data: {
@@ -36,6 +44,7 @@ export interface StatApiResponse {
   };
 }
 
+// response from /place/displayname
 export interface DisplayNameApiResponse {
   [placeDcid: string]: string;
 }
@@ -51,6 +60,7 @@ export interface SourceSeries {
   mprop?: string;
 }
 
+// response from /api/stats/all
 export interface StatAllApiResponse {
   placeData: {
     [place: string]: {
@@ -61,4 +71,31 @@ export interface StatAllApiResponse {
       };
     };
   };
+}
+
+export interface PlacePointStatData {
+  date: string;
+  value: number;
+  metaHash?: number;
+  metadata?: StatMetadata;
+}
+export interface PlacePointStat {
+  metaHash?: number;
+  stat: Record<string, PlacePointStatData>;
+}
+
+export interface PlacePointStatAll {
+  statList: PlacePointStat[];
+}
+
+// response from /api/stats/within-place and /api/stats/set
+export interface GetStatSetResponse {
+  data: Record<string, PlacePointStat>;
+  metadata: Record<number, StatMetadata>;
+}
+
+// response from /api/stats/within-place/all
+export interface GetStatSetAllResponse {
+  data: Record<string, PlacePointStatAll>;
+  metadata: Record<number, StatMetadata>;
 }
