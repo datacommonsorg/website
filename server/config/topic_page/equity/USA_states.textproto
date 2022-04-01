@@ -57,13 +57,13 @@ categories {
     title: "Income, by sex"
     description: "Median incomes of individuals, broken down by sex"
     left_tiles {
-      title: "Median income by sex"
+      title: "Median income, by sex"
       type: LINE
       stat_var_key: "median_income_female"
       stat_var_key: "median_income_male"
     }
     right_tiles {
-      title: "Median income by sex"
+      title: "Median income, by sex"
       type: RANKING
       stat_var_key: "median_income_female"
       stat_var_key: "median_income_male"
@@ -81,7 +81,7 @@ categories {
   }
   blocks {
     right_tiles {
-      title: "Median earnings of females, down by establishment"
+      title: "Median earnings of females, by establishment"
       type: LINE
       stat_var_key: "female-earnings-privateforprofit-owner"
       stat_var_key: "female-earnings-privateforprofit-employee"
@@ -204,11 +204,11 @@ categories {
 
   # Note: This data is not available by race.
   blocks {
-    title: "Education attainment by sex"
+    title: "Education attainment, by sex"
     description: "Percentage of the population of each sex with an associate's degree"
     left_tiles {
       type: LINE
-      title: "Associate's degree holders by sex"
+      title: "Associate's degree holders, by sex"
       stat_var_key: "associates_female"
       stat_var_key: "associates_male"
     }
@@ -225,7 +225,7 @@ categories {
 
   blocks {
     # Note: title intentionally left out
-    description: "Percentage of the population of each sex with an bachelors's degree"
+    description: "Percentage of the population of each sex with a bachelors's degree"
     left_tiles {
       type: RANKING
       ranking_metadata {
@@ -236,7 +236,7 @@ categories {
       stat_var_key: "bachelors_male"
     }
     right_tiles {
-      title: "Bachelor's degree holders by sex"
+      title: "Bachelor's degree holders, by sex"
       type: LINE
       stat_var_key: "bachelors_female"
       stat_var_key: "bachelors_male"
