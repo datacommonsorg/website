@@ -23,8 +23,8 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
 
-import { NamedNode } from "../shared/types";
 import { SearchBar } from "../shared/place_search_bar";
+import { NamedNode } from "../shared/types";
 import {
   addToken,
   getTokensFromUrl,
@@ -110,13 +110,15 @@ function App({
               </Container>
             </Card>
           </Row>
-          {chartsData && !loading && <Row>
-            <Card>
-              <div id="main" className="col-md-9x col-lg-10">
-                <MemoStatVars {...chartsData} />
-              </div>
-            </Card>
-          </Row>}
+          {chartsData && !loading && (
+            <Row>
+              <Card>
+                <div id="main" className="col-md-9x col-lg-10">
+                  <MemoStatVars {...chartsData} />
+                </div>
+              </Card>
+            </Row>
+          )}
           <div id="screen" style={{ display: loading ? "block" : "none" }}>
             <div id="spinner"></div>
           </div>
