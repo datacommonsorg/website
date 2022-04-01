@@ -293,7 +293,7 @@ export function fetchRawData(
           // the rest of the object contains the metadata of that source
           // series.
           delete metadata.val;
-          // StatMetdata uses provenanceUrl for what SourceSeries stores in
+          // StatMetadata uses provenanceUrl for what SourceSeries stores in
           // provenanceDomain.
           delete metadata.provenanceDomain;
           const metahash = getMetahash(metadata);
@@ -323,7 +323,7 @@ export function fetchRawData(
  * @param places places to get data for
  * @param statVars stat vars to get data for
  * @param metahashMap map of stat var dcid to metahash
- * @param isRatio whhether or not to calculate ratio
+ * @param isRatio whether or not to calculate ratio
  * @param denom denominator to use when calculating ratio
  * @param scaling scaling factor to use when calculating ratio
  */
@@ -379,6 +379,8 @@ export function getStatData(
         const hasDenomSeries =
           place in rawData.denomData && denom in rawData.denomData[place].data;
         if (!hasDenomSeries) {
+          // TODO: add error message or some way to show that denom data is
+          // is missing
           continue;
         }
         timeSeries = computeRatio(
