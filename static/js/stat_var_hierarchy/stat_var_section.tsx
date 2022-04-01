@@ -78,8 +78,7 @@ export class StatVarSection extends React.Component<
 
   render(): JSX.Element {
     const context = this.context;
-    const svNamesList = this.props.data.map((sv) => sv.displayName);
-    const svNamesCommonPrefix = getCommonPrefix(svNamesList);
+
     return (
       <div className="svg-node-child">
         {this.props.data.map((statVar) => {
@@ -104,7 +103,7 @@ export class StatVarSection extends React.Component<
                   selected={isSelected}
                   statVar={statVar}
                   summary={summary}
-                  prefix={svNamesCommonPrefix}
+                  prefixToReplace={this.getPrefixToReplace()}
                 />
               )}
             </div>
@@ -131,6 +130,21 @@ export class StatVarSection extends React.Component<
         this.svSummaryFetching = null;
         this.setState({ svSummaryFetched: statVarList });
       });
+  }
+
+  private getPrefixToReplace(): string {
+    const svNamesList = this.props.data.map((sv) => sv.displayName);
+    // Only get prefix if there is more than 1 stat var.
+    if (svNamesList.length < 2) {
+      return "";
+    }
+    const svNamesCommonPrefix = getCommonPrefix(svNamesList);
+    // Cut the prefix at the last complete word.
+    let idx = svNamesCommonPrefix.length - 1;
+    while (idx >= 0 && svNamesCommonPrefix[idx] !== " ") {
+      idx--;
+    }
+    return svNamesCommonPrefix.slice(0, idx);
   }
 }
 

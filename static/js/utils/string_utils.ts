@@ -26,7 +26,8 @@ export function getDateRange(dates: string[]): string {
 }
 
 /**
- * Given a list of words, returns the common prefix between the words.
+ * Given a list of words, returns the common prefix between the words. If there
+ * is only one word in the list, return that word.
  */
 export function getCommonPrefix(words: string[]): string {
   if (_.isEmpty(words)) {

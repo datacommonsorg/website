@@ -45,6 +45,10 @@ test("get common prefix", () => {
       wordList: ["abc, def, gh", "abc, this is a test", "abc, test blah"],
       wantedPrefix: "abc, ",
     },
+    {
+      wordList: ["abc", "xyz", "abcde"],
+      wantedPrefix: "",
+    },
   ];
 
   for (const c of cases) {
