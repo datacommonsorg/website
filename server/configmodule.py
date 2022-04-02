@@ -51,6 +51,7 @@ class ProdSustainabilityConfig(ProductionConfig):
 
 
 class StagingConfig(Config):
+    GA_ACCOUNT = 'UA-117119267-2'
     ENABLE_BLOCKLIST = True
     pass
 
