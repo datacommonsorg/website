@@ -18,6 +18,7 @@ from flask import Blueprint, current_app, request
 import flask
 import os
 import services.datacommons as dc
+import services.ai as ai
 
 bp = Blueprint('search', __name__)
 
@@ -59,8 +60,9 @@ def search_dc():
     else:
         search_response = {}
 
-    # Convert from search results to template dictionary.
     results = []
+
+    # Convert from search results to template dictionary.
     query_tokens = set(query_text.lower().split())
     for section in search_response.get('section', []):
         entities = []
@@ -83,6 +85,17 @@ def search_dc():
                 'type': section['typeName'],
                 'entities': entities,
             })
+    return flask.render_template('search_dc.html',
+                                 query_text=query_text,
+                                 results=results)
+
+
+@bp.route('/search_ai')
+def search_ai():
+    """Add DC API powered search for non-place searches temporarily"""
+    query_text = request.args.get('q', '')
+    results = [ai.search(query_text)]
+    # TODO: Change the contents of the template as well
     return flask.render_template('search_dc.html',
                                  query_text=query_text,
                                  results=results)

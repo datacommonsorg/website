@@ -99,3 +99,13 @@ export interface GetStatSetAllResponse {
   data: Record<string, PlacePointStatAll>;
   metadata: Record<number, StatMetadata>;
 }
+
+export interface PlaceStatDateWithinPlace {
+  datePlaceCount: Record<string, number>;
+  metadata: StatMetadata;
+}
+
+// response from /v1/stat/date/within-place
+export interface GetPlaceStatDateWithinPlaceResponse {
+  data: Record<string, Record<string, Array<PlaceStatDateWithinPlace>>>;
+}
