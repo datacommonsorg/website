@@ -30,6 +30,7 @@ import {
 } from "../../shared/constants";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import {
+  GetPlaceStatDateWithinPlaceResponse,
   GetStatSetAllResponse,
   GetStatSetResponse,
   PlacePointStat,
@@ -37,7 +38,7 @@ import {
   StatApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { NamedPlace } from "../../shared/types";
+import { NamedPlace, StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
   ENCLOSED_PLACE_TYPE_NAMES,
