@@ -113,9 +113,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
                         : ""
                     }`}
                     key={"search-input-result-" + result.dcid}
-                    onClick={() =>
-                      redirectAction(result.name, result.dcid, "")
-                    }
+                    onClick={() => redirectAction(result.name, result.dcid, "")}
                   >
                     {getHighlightedJSX(result.dcid, result.name, matches)}
                   </div>
@@ -141,10 +139,10 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
         )}
       </div>
       <span
-        className="material-icons-outlined search-input-search-button"
+        className="search-input-search-button"
         onClick={() => redirectAction(inputText, "", "")}
       >
-        search
+        <img src="/images/icon-search.svg" />
       </span>
     </>
   );

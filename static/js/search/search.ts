@@ -23,10 +23,9 @@ import { SearchInput } from "./search_input";
 
 window.onload = () => {
   const searchParams = new URLSearchParams(location.search);
-  const query = searchParams.get("q") || "";
+  const query = document.getElementById("search-input-container").dataset.query;
   const selectedPlace = searchParams.get("placeDcid") || "";
   const selectedStatVar = searchParams.get("svDcid") || "";
-  // TODO: preload search box
   ReactDOM.render(
     React.createElement(SearchInput, { query }),
     document.getElementById("search-input-container")
