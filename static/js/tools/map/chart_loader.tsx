@@ -575,7 +575,6 @@ function fetchData(
           : {};
         let legendBounds: Record<string, [number, number, number]> = {};
         if (BEST_AVAILABLE_METAHASH in sampleDates) {
-
           // Set dates for "Best Available" to best series
           const bestAvailableHash = sampleDates[BEST_AVAILABLE_METAHASH][0];
           sampleDates[BEST_AVAILABLE_METAHASH] =

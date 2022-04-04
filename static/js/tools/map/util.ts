@@ -36,7 +36,11 @@ import {
   StatApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { NamedPlace, NamedTypedPlace, ProvenanceSummary } from "../../shared/types";
+import {
+  NamedPlace,
+  NamedTypedPlace,
+  ProvenanceSummary,
+} from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
 import { getPopulationDate, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
