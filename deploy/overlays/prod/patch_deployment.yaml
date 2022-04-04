@@ -31,9 +31,6 @@ spec:
         - name: redis-config
           configMap:
             name: redis-config
-        - name: ai-config
-          configMap:
-            name: ai-config
       containers:
         - name: website
           volumeMounts:
