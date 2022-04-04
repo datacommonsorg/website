@@ -20,11 +20,6 @@ set -e
 ENV=$1
 REGION=$2
 
-if [[ $ENV != "staging" && $ENV != "prod" && $ENV != "autopush" && $ENV != "dev" && $ENV != "feeding-america" && $ENV != "tidal" && $ENV != "karnataka" ]]; then
-  echo "First argument should be 'staging' or 'prod' or 'autopush' or 'dev' or 'feeding-america' or 'tidal' or 'karnataka'"
-  exit
-fi
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 

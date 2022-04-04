@@ -53,6 +53,3 @@ patchesStrategicMerge:
           maxSurge: 2
           # maximum number of Pods that can be unavailable during the update process
           maxUnavailable: 75%
-
-patchesStrategicMerge:
-  - patch_deployment.yaml
