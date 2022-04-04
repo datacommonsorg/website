@@ -13,6 +13,9 @@
 # limitations under the License.
 """Vertex AI inference client and utilities."""
 
+# TODO(shifucun): should remove "numpy", "tensorflow" and use lower level
+# operations since they add big dependency but are only used in a few instances,
+# which can be replaced with basic Python operations.
 import json
 import logging
 import re
