@@ -565,6 +565,7 @@ export function getTimeSliderDates(
 ): Record<string, Array<string>> {
   const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
   const sampleDates: Record<string, Array<string>> = {};
+  let bestDate = "0";
   let bestCount = 0;
   let bestAvailable = "";
   for (const series of placeStatDateWithinPlace) {
@@ -581,7 +582,7 @@ export function getTimeSliderDates(
       }
 
       // Include most recent date
-      if (selectedDates[selectedDates.length - 1] != dates[dates.length - 1]) {
+      if (selectedDates[selectedDates.length - 1] !== dates[dates.length - 1]) {
         selectedDates.push(dates[dates.length - 1]);
       }
       sampleDates[metahashMap[metatext]] = selectedDates;
@@ -589,7 +590,13 @@ export function getTimeSliderDates(
     for (const date of sampleDates[metahashMap[metatext]]) {
       seriesWeight += series.datePlaceCount[date];
     }
-    if (seriesWeight > bestCount) {
+
+    // Select series with most recent date and greatest number of places
+    if (
+      dates[dates.length - 1] > bestDate ||
+      (dates[dates.length - 1] === bestDate && seriesWeight > bestCount)
+    ) {
+      bestDate = dates[dates.length - 1];
       bestCount = seriesWeight;
       bestAvailable = metahashMap[metatext];
     }

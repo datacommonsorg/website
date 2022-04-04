@@ -35,10 +35,10 @@ interface TimeSliderProps {
   startEnabled: boolean;
 
   // Fetches data for slider dates when play is pressed
-  onPlay(metahash: string, callback: () => void): void;
+  onPlay(callback: () => void): void;
 
   // Updates map date to slider date
-  updateDate(metahash: string, date: string): void;
+  updateDate(date: string): void;
 }
 
 export function TimeSlider(props: TimeSliderProps): JSX.Element {
@@ -60,7 +60,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   const [loaded, setLoaded] = useState(false);
 
   // Number of pixels the handle is offset from the left edge of the slider bar
-  const [offset, setOffset] = useState(null);
+  const [handleLeftOffset, setHandleLeftOffset] = useState(null);
   const [play, setPlay] = useState(true);
   const [timer, setTimer] = useState(null);
 
@@ -77,7 +77,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   useEffect(() => {
     const handleResize = () => {
       if (enabled) {
-        setOffset(
+        setHandleLeftOffset(
           getOffset(start, end, currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
         );
       }
@@ -98,7 +98,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
     if (index >= 0) {
       setCurrentDate(props.dates[index]);
       if (loaded) {
-        props.updateDate(props.metahash, props.dates[index]);
+        props.updateDate(props.dates[index]);
       }
     }
     setEnabled(true);
@@ -108,10 +108,10 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
     }
   }, [index]);
 
-  async function handlePlay() {
+  async function handlePlay(): Promise<void> {
     if (play) {
       setLoaded(true);
-      props.onPlay(props.metahash, () => {
+      props.onPlay(() => {
         // Reset animation
         if (index === props.dates.length - 1) {
           setIndex(0);
@@ -164,15 +164,15 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
               {enabled && (
                 <line
                   className="time-slider-handle"
-                  x1={offset || 0}
-                  x2={offset + HANDLE_WIDTH || 0}
+                  x1={handleLeftOffset || 0}
+                  x2={handleLeftOffset + HANDLE_WIDTH || 0}
                 ></line>
               )}
               {enabled && (
                 <line
                   className="time-slider-handle-inset"
-                  x1={offset || 0}
-                  x2={offset + HANDLE_WIDTH || 0}
+                  x1={handleLeftOffset || 0}
+                  x2={handleLeftOffset + HANDLE_WIDTH || 0}
                 ></line>
               )}
             </g>

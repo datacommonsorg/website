@@ -86,10 +86,10 @@ interface ChartProps {
   metahash: string;
 
   // Fetches data for slider dates when play is pressed
-  onPlay(metahash: string, callback: () => void): void;
+  onPlay(callback: () => void): void;
 
   // Updates map date to slider date
-  updateDate(metahash: string, date: string): void;
+  updateDate(date: string): void;
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";

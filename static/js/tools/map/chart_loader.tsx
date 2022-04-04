@@ -28,10 +28,7 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
-import {
-  SourceSelector,
-  SourceSelectorSvInfo,
-} from "../../shared/source_selector";
+import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { StatApiResponse } from "../../shared/stat_types";
 import { NamedPlace, StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
@@ -118,7 +115,7 @@ export function ChartLoader(): JSX.Element {
   const [sampleDatesChartData, setSampleDatesChartData] = useState<
     Record<string, Record<string, ChartRawData>>
   >({});
-  const [onPlayCallback, setOnPlayCallback] = useState<() => void>(undefined);
+  const [onPlayCallback, setOnPlayCallback] = useState<() => void>();
 
   useEffect(() => {
     const placeSelected =
@@ -143,9 +140,18 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
+    statVar.setDate("");
+  }, [statVar.value.dcid, statVar.value.metahash]);
+
+  useEffect(() => {
     if (!_.isEmpty(rawData)) {
+      const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
+      const dateRawData =
+        statVar.value.date && sampleDatesChartData[metahash]
+          ? sampleDatesChartData[metahash][statVar.value.date]
+          : rawData;
       loadChartData(
-        rawData,
+        dateRawData,
         placeInfo.value,
         statVar.value,
         setChartData,
@@ -189,9 +195,10 @@ export function ChartLoader(): JSX.Element {
     rawData.metadataMap
   );
 
-  const onPlay = async (metahash: string, callback: () => void) => {
+  const onPlay = async (callback: () => void) => {
     setOnPlayCallback(() => callback);
-    if (metahash in sampleDatesChartData) {
+    const metaHash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
+    if (metaHash in sampleDatesChartData) {
       callback();
       return;
     }
@@ -200,41 +207,41 @@ export function ChartLoader(): JSX.Element {
       statVar.value,
       isLoading,
       setRawData,
-      metahash,
-      rawData.sampleDates[metahash],
+      rawData.sampleDates[metaHash],
       sampleDatesChartData,
       setSampleDatesChartData
     );
   };
 
-  const updateDate = (metahash: string, date: string) => {
+  const updateDate = (date: string) => {
     // Check if any data is fetched at all for the date
+    const metaHash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
     let placeStatData = false;
     if (
-      metahash in sampleDatesChartData &&
-      date in sampleDatesChartData[metahash]
+      metaHash in sampleDatesChartData &&
+      date in sampleDatesChartData[metaHash]
     ) {
-      for (const place in sampleDatesChartData[metahash][date].placeStat.stat) {
-        if (sampleDatesChartData[metahash][date].placeStat.stat[place].value) {
+      for (const place in sampleDatesChartData[metaHash][date].placeStat.stat) {
+        if (sampleDatesChartData[metaHash][date].placeStat.stat[place].value) {
           placeStatData = true;
           break;
         }
       }
     }
 
+    statVar.setDate(date);
     // Skip update if date has no data
     if (
       placeStatData ||
-      (metahash != BEST_AVAILABLE_METAHASH &&
-        sampleDatesChartData[metahash][date].allPlaceStat[metahash].stat)
+      (metaHash !== BEST_AVAILABLE_METAHASH &&
+        sampleDatesChartData[metaHash][date].allPlaceStat[metaHash].stat)
     ) {
       loadChartData(
-        sampleDatesChartData[metahash][date],
+        sampleDatesChartData[metaHash][date],
         placeInfo.value,
         statVar.value,
         setChartData,
-        display,
-        metahash == BEST_AVAILABLE_METAHASH ? "" : metahash
+        display
       );
     }
   };
@@ -352,7 +359,6 @@ function fetchData(
   statVar: StatVar,
   isLoading: IsLoadingWrapper,
   setRawData: (data: ChartRawData) => void,
-  metahash?: string,
   currentSampleDates?: Array<string>,
   sampleDatesChartData?: Record<string, Record<string, ChartRawData>>,
   setSampleDatesChartData?: (
@@ -421,7 +427,7 @@ function fetchData(
   const enclosedPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
   const allEnclosedPlaceDatesList: Array<Promise<GetStatSetAllResponse>> = [];
   const breadcrumbPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
-  if (metahash && currentSampleDates) {
+  if (currentSampleDates) {
     for (const i in currentSampleDates) {
       enclosedPlaceDatesList.push(
         axios
@@ -440,9 +446,9 @@ function fetchData(
       breadcrumbPlaceDatesList.push(
         axios
           .post("/api/stats/set", {
+            date: currentSampleDates[i],
             places: breadcrumbPlaceDcids,
             stat_vars: [statVar.dcid],
-            date: currentSampleDates[i],
           })
           .then((resp) => {
             return resp.data;
@@ -575,7 +581,7 @@ function fetchData(
           bestAvailableHash
         );
         isLoading.setIsDataLoading(false);
-        if (metahash && currentSampleDates) {
+        if (currentSampleDates) {
           const currentSampleDatesData: Record<string, ChartRawData> = {};
           for (const i in currentSampleDates) {
             const enclosedPlaceStatSample: PlacePointStat =
@@ -617,7 +623,9 @@ function fetchData(
               sampleDatesChartData
             );
           }
-          newSampleDatesChartData[metahash] = currentSampleDatesData;
+          newSampleDatesChartData[
+            statVar.metahash || BEST_AVAILABLE_METAHASH
+          ] = currentSampleDatesData;
           setSampleDatesChartData(newSampleDatesChartData);
         } else {
           setRawData({
@@ -664,8 +672,7 @@ function loadChartData(
   placeInfo: PlaceInfo,
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
-  display: DisplayOptionsWrapper,
-  metaHash?: string
+  display: DisplayOptionsWrapper
 ): void {
   const mapValues = {};
   const metadata = {};
@@ -751,15 +758,12 @@ function loadChartData(
     }
   }
   const unit = getUnit(rawData.placeStat, rawData.metadataMap);
-  const sampleDates = metaHash
-    ? rawData.sampleDates[metaHash]
-    : rawData.sampleDates[BEST_AVAILABLE_METAHASH];
+  const metahash = statVar.metahash || BEST_AVAILABLE_METAHASH;
+  const sampleDates = rawData.sampleDates[metahash];
   if (!statVar.perCapita) {
     display.set({
       ...display.value,
-      domain: metaHash
-        ? rawData.legendBounds[metaHash]
-        : rawData.legendBounds[BEST_AVAILABLE_METAHASH],
+      domain: rawData.legendBounds[metahash],
     });
   }
   setChartData({
@@ -781,7 +785,7 @@ function loadChartData(
       unit
     ),
     sampleDates,
-    metahash: metaHash || BEST_AVAILABLE_METAHASH,
+    metahash,
   });
 }
 
