@@ -81,6 +81,8 @@ interface StatVarSectionInputPropType {
   statVar: StatVarInfo;
   selected: boolean;
   summary: StatVarSummary;
+  // prefix of the display name that should be replaced with "…"
+  prefixToReplace: string;
 }
 
 interface StatVarSectionInputStateType {
@@ -138,6 +140,15 @@ export class StatVarSectionInput extends React.Component<
     } else if (this.props.selected) {
       className = "node-title highlighted-node-title";
     }
+    let displayName = this.props.statVar.displayName;
+    // Only replace prefix in display name if prefix is shorter than display
+    // name.
+    if (
+      !_.isEmpty(this.props.prefixToReplace) &&
+      this.props.prefixToReplace.length < displayName.length
+    ) {
+      displayName = "…" + displayName.slice(this.props.prefixToReplace.length);
+    }
     return (
       <form className={className}>
         <input
@@ -154,7 +165,7 @@ export class StatVarSectionInput extends React.Component<
           onMouseMove={this.mouseMoveAction(this.props.statVar.hasData)}
           onMouseOut={() => hideTooltip()}
         >
-          {this.props.statVar.displayName}
+          {displayName}
         </label>
       </form>
     );

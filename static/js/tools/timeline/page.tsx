@@ -33,6 +33,7 @@ import {
   removeToken,
   setTokensToUrl,
   statVarSep,
+  TIMELINE_URL_PARAM_KEYS,
 } from "./util";
 
 interface PageStateType {
@@ -57,8 +58,12 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   private fetchDataAndRender(): void {
-    const places = Array.from(getTokensFromUrl("place", placeSep));
-    const statVars = Array.from(getTokensFromUrl("statsVar", statVarSep));
+    const places = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep)
+    );
+    const statVars = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
+    );
     let statVarInfoPromise = Promise.resolve({});
     if (statVars.length !== 0) {
       statVarInfoPromise = getStatVarInfo(statVars);
@@ -92,7 +97,9 @@ class Page extends Component<unknown, PageStateType> {
     for (const place in this.state.placeName) {
       namedPlaces.push({ dcid: place, name: this.state.placeName[place] });
     }
-    const statVarTokens = Array.from(getTokensFromUrl("statsVar", statVarSep));
+    const statVarTokens = Array.from(
+      getTokensFromUrl(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep)
+    );
     const statVars = statVarTokens.map((sv) =>
       sv.includes("|") ? sv.split("|")[0] : sv
     );
@@ -108,10 +115,10 @@ class Page extends Component<unknown, PageStateType> {
             places={namedPlaces}
             selectedSVs={statVars}
             selectSV={(sv) => {
-              addToken("statsVar", statVarSep, sv);
+              addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
             }}
             deselectSV={(sv) => {
-              removeToken("statsVar", statVarSep, sv);
+              removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
             }}
             searchLabel="Statistical Variables"
           />
@@ -125,7 +132,7 @@ class Page extends Component<unknown, PageStateType> {
                 this.addPlaceAction(place);
               }}
               removePlace={(place) => {
-                removeToken("place", placeSep, place);
+                removeToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
               }}
             />
             {numPlaces === 0 && <Info />}
@@ -163,12 +170,12 @@ class Page extends Component<unknown, PageStateType> {
             }
           }
           const placeTokenInfo = {
-            name: "place",
+            name: TIMELINE_URL_PARAM_KEYS.PLACE,
             sep: placeSep,
             tokens: new Set([place]),
           };
           const statVarTokenInfo = {
-            name: "statsVar",
+            name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
             sep: statVarSep,
             tokens: new Set(availableSVs),
           };
@@ -180,9 +187,9 @@ class Page extends Component<unknown, PageStateType> {
             );
           }
         })
-        .catch(() => addToken("place", placeSep, place));
+        .catch(() => addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place));
     } else {
-      addToken("place", placeSep, place);
+      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
     }
   }
 }

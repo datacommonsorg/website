@@ -21,7 +21,14 @@ import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
-import { getChartOption, getDenom, removeToken, statVarSep } from "./util";
+import {
+  getChartOption,
+  getDenom,
+  getMetahash,
+  removeToken,
+  setMetahash,
+  statVarSep,
+} from "./util";
 
 interface ChartGroupInfo {
   chartOrder: string[];
@@ -97,7 +104,12 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
                 removeToken("statsVar", statVarSep, statVar);
+                setMetahash({ [statVar]: "" });
               }}
+              metahashMap={_.pick(
+                getMetahash(),
+                chartGroupInfo.chartIdToStatVars[mprop]
+              )}
             ></Chart>
           );
         }, this)}

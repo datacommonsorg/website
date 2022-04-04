@@ -16,6 +16,7 @@
 import os
 from flask import Blueprint, current_app, request
 import flask
+import os
 import services.datacommons as dc
 import services.ai as ai
 
@@ -95,3 +96,11 @@ def search_ai():
     return flask.render_template('search_dc.html',
                                  query_text=query_text,
                                  results=results)
+
+
+@bp.route('/rich_search')
+def rich_search():
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template(
+        'rich_search.html', maps_api_key=current_app.config['MAPS_API_KEY'])

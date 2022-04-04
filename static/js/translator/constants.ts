@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-export const input = {
-  observation: {
-    mapping: `
+export const mapping = `
 Node: E:StatisticalVariable->E1
 typeOf: StatisticalVariable
 dcid: C:StatisticalVariable->id
@@ -245,8 +243,10 @@ Node: E:Triple->E2
 typeOf: Provenance
 dcid: C:Triple->prov_id
 functionalDeps: dcid
-`,
-    sparql: `
+`;
+
+export const sparql = {
+  observation: `
 SELECT ?node ?life_expectancy ?median_age
 WHERE {
   ?node typeOf State .
@@ -254,7 +254,7 @@ WHERE {
   ?obs1 typeOf StatVarObservation .
   ?obs1 observationAbout ?node .
   ?obs1 variableMeasured LifeExpectancy_Person .
-  ?obs1 observationDate "2018" .
+  ?obs1 observationDate "2010" .
   ?obs1 value ?life_expectancy .
 
   ?obs2 typeOf StatVarObservation .
@@ -262,29 +262,13 @@ WHERE {
   ?obs2 variableMeasured Median_Age_Person .
   ?obs2 observationDate "2018" .
   ?obs2 value ?median_age .
-}
-`,
-  },
-  sv: {
-    mapping: `
-Node: E:Triple->E1
-dcid: C:Triple->subject_id
-provenance: E:Triple->E2
-C:Triple->predicate: C:Triple->object_value
-functionalDeps: dcid
-
-Node: E:Triple->E2
-typeOf: Provenance
-dcid: C:Triple->prov_id
-functionalDeps: dcid
-    `,
-    sparql: `
+}`,
+  sv: `
 SELECT ?sv
 WHERE {
   ?sv typeOf StatisticalVariable .
   ?sv measuredProperty count .
   ?sv populationType Person .
 }
-    `,
-  },
+`,
 };
