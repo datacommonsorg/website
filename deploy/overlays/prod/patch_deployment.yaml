@@ -39,5 +39,3 @@ spec:
           volumeMounts:
             - name: redis-config
               mountPath: /datacommons/redis
-            - name: ai-config
-              mountPath: /datacommons/ai
