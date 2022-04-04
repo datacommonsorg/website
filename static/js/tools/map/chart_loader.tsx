@@ -30,6 +30,7 @@ import {
 } from "../../shared/constants";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import {
+  GetPlaceStatDateWithinPlaceResponse,
   GetStatSetAllResponse,
   GetStatSetResponse,
   PlacePointStat,
@@ -37,7 +38,7 @@ import {
   StatApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { NamedPlace } from "../../shared/types";
+import { NamedPlace, StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import {
   ENCLOSED_PLACE_TYPE_NAMES,
@@ -45,9 +46,22 @@ import {
 } from "../../utils/place_utils";
 import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
-import { Context, IsLoadingWrapper, PlaceInfo, StatVar } from "./context";
+import {
+  Context,
+  DisplayOptionsWrapper,
+  IsLoadingWrapper,
+  PlaceInfo,
+  StatVar,
+  StatVarWrapper,
+} from "./context";
 import { PlaceDetails } from "./place_details";
-import { DataPointMetadata, getPlaceChartData } from "./util";
+import {
+  BEST_AVAILABLE_METAHASH,
+  DataPointMetadata,
+  getLegendBounds,
+  getPlaceChartData,
+  getTimeSliderDates,
+} from "./util";
 
 const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
@@ -64,6 +78,12 @@ interface ChartRawData {
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<NamedPlace>;
   dataDate: string;
+
+  // Map of metahash to array of ~10 dates for time slider
+  sampleDates: Record<string, Array<string>>;
+
+  // Map of metahash to display domain for the map legend
+  legendBounds: Record<string, [number, number, number]>;
 }
 
 interface ChartData {
@@ -78,12 +98,24 @@ interface ChartData {
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
+
+  // Array of ~10 dates for time slider
+  sampleDates: Array<string>;
+
+  // Current metahash
+  metahash: string;
 }
 
 export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
+
+  // Map of metahash -> date -> ChartRawData
+  const [sampleDatesChartData, setSampleDatesChartData] = useState<
+    Record<string, Record<string, ChartRawData>>
+  >({});
+  const [onPlayCallback, setOnPlayCallback] = useState<() => void>();
 
   useEffect(() => {
     const placeSelected =
@@ -108,10 +140,34 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
+    statVar.setDate("");
+  }, [statVar.value.dcid, statVar.value.metahash]);
+
+  useEffect(() => {
     if (!_.isEmpty(rawData)) {
-      loadChartData(rawData, placeInfo.value, statVar.value, setChartData);
+      const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
+      const dateRawData =
+        statVar.value.date && sampleDatesChartData[metahash]
+          ? sampleDatesChartData[metahash][statVar.value.date]
+          : rawData;
+      loadChartData(
+        dateRawData,
+        placeInfo.value,
+        statVar.value,
+        setChartData,
+        display
+      );
+      if (statVar.value.perCapita) {
+        setLegendBoundsPerCapita(rawData, statVar, display);
+      }
     }
   }, [rawData, statVar.value.metahash, statVar.value.perCapita]);
+
+  useEffect(() => {
+    if (onPlayCallback) {
+      onPlayCallback();
+    }
+  }, [sampleDatesChartData]);
 
   if (chartData === undefined) {
     return null;
@@ -138,6 +194,58 @@ export function ChartLoader(): JSX.Element {
     Object.keys(rawData.allPlaceStat),
     rawData.metadataMap
   );
+
+  const onPlay = async (callback: () => void) => {
+    setOnPlayCallback(() => callback);
+    const metaHash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
+    if (metaHash in sampleDatesChartData) {
+      callback();
+      return;
+    }
+    fetchData(
+      placeInfo.value,
+      statVar.value,
+      isLoading,
+      setRawData,
+      rawData.sampleDates[metaHash],
+      sampleDatesChartData,
+      setSampleDatesChartData
+    );
+  };
+
+  const updateDate = (date: string) => {
+    // Check if any data is fetched at all for the date
+    const metaHash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
+    let placeStatData = false;
+    if (
+      metaHash in sampleDatesChartData &&
+      date in sampleDatesChartData[metaHash]
+    ) {
+      for (const place in sampleDatesChartData[metaHash][date].placeStat.stat) {
+        if (sampleDatesChartData[metaHash][date].placeStat.stat[place].value) {
+          placeStatData = true;
+          break;
+        }
+      }
+    }
+    statVar.setDate(date);
+
+    // Skip update if date has no data
+    if (
+      placeStatData ||
+      (metaHash !== BEST_AVAILABLE_METAHASH &&
+        sampleDatesChartData[metaHash][date].allPlaceStat[metaHash].stat)
+    ) {
+      loadChartData(
+        sampleDatesChartData[metaHash][date],
+        placeInfo.value,
+        statVar.value,
+        setChartData,
+        display
+      );
+    }
+  };
+
   return (
     <div className="chart-region">
       <Chart
@@ -156,6 +264,10 @@ export function ChartLoader(): JSX.Element {
         europeanCountries={chartData.europeanCountries}
         rankingLink={chartData.rankingLink}
         sourceSelectorSvInfo={sourceSelectorSvInfo}
+        sampleDates={chartData.sampleDates}
+        metahash={chartData.metahash}
+        onPlay={onPlay}
+        updateDate={updateDate}
       />
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbValues}
@@ -241,11 +353,17 @@ function getSourceSelectorSvInfo(
 }
 
 // Fetches the data needed for the charts.
+// TODO: extract groups of cohesive promises
 function fetchData(
   placeInfo: PlaceInfo,
   statVar: StatVar,
   isLoading: IsLoadingWrapper,
-  setRawData: (data: ChartRawData) => void
+  setRawData: (data: ChartRawData) => void,
+  currentSampleDates?: Array<string>,
+  sampleDatesChartData?: Record<string, Record<string, ChartRawData>>,
+  setSampleDatesChartData?: (
+    data: Record<string, Record<string, ChartRawData>>
+  ) => void
 ): void {
   isLoading.setIsDataLoading(true);
   if (!statVar.dcid) {
@@ -305,6 +423,43 @@ function fetchData(
       return resp.data;
     });
 
+  // Optionally compute for each sample date
+  const enclosedPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
+  const allEnclosedPlaceDatesList: Array<Promise<GetStatSetAllResponse>> = [];
+  const breadcrumbPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
+  if (currentSampleDates) {
+    for (const i in currentSampleDates) {
+      enclosedPlaceDatesList.push(
+        axios
+          .get(
+            `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}&date=${currentSampleDates[i]}`
+          )
+          .then((resp) => resp.data)
+      );
+      allEnclosedPlaceDatesList.push(
+        axios
+          .get(
+            `/api/stats/within-place/all?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.enclosedPlaceType}&stat_vars=${statVar.dcid}&date=${currentSampleDates[i]}`
+          )
+          .then((resp) => resp.data)
+      );
+      breadcrumbPlaceDatesList.push(
+        axios
+          .post("/api/stats/set", {
+            date: currentSampleDates[i],
+            places: breadcrumbPlaceDcids,
+            stat_vars: [statVar.dcid],
+          })
+          .then((resp) => {
+            return resp.data;
+          })
+      );
+    }
+  }
+  const enclosedPlaceDatesPromise = Promise.all(enclosedPlaceDatesList);
+  const allEnclosedPlaceDatesPromise = Promise.all(allEnclosedPlaceDatesList);
+  const breadcrumbPlaceDatesPromise = Promise.all(breadcrumbPlaceDatesList);
+
   const mapPointSv = statVar.mapPointSv || statVar.dcid;
   const mapPointDataPromise: Promise<GetStatSetResponse> = placeInfo.mapPointPlaceType
     ? axios
@@ -327,6 +482,14 @@ function fetchData(
   const europeanCountriesPromise: Promise<Array<
     NamedPlace
   >> = getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
+  const statVarSummaryPromise: Promise<StatVarSummary> = axios
+    .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
+    .then((resp) => resp.data);
+  const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> = axios
+    .get(
+      `/api/stat/date/within-place?ancestorPlace=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&statVars=${statVar.dcid}`
+    )
+    .then((resp) => resp.data);
   Promise.all([
     geoJsonDataPromise,
     breadcrumbPopPromise,
@@ -336,6 +499,11 @@ function fetchData(
     allEnclosedPlaceDataPromise,
     mapPointDataPromise,
     europeanCountriesPromise,
+    statVarSummaryPromise,
+    placeStatDateWithinPlacePromise,
+    enclosedPlaceDatesPromise,
+    allEnclosedPlaceDatesPromise,
+    breadcrumbPlaceDatesPromise,
   ])
     .then(
       ([
@@ -347,6 +515,11 @@ function fetchData(
         allEnclosedPlaceData,
         mapPointData,
         europeanCountries,
+        statVarSummary,
+        placeStatDateWithinPlace,
+        enclosedPlaceDatesData,
+        allEnclosedPlaceDatesData,
+        breadcrumbPlaceDatesData,
       ]) => {
         // Stat data
         const enclosedPlaceStat: PlacePointStat =
@@ -391,19 +564,91 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
+        const sampleDates: Record<
+          string,
+          Array<string>
+        > = placeStatDateWithinPlace.data[statVar.dcid].statDate
+          ? getTimeSliderDates(
+              metadataMap,
+              placeStatDateWithinPlace.data[statVar.dcid].statDate
+            )
+          : {};
+        let legendBounds: Record<string, [number, number, number]> = {};
+        if (BEST_AVAILABLE_METAHASH in sampleDates) {
+          // Set dates for "Best Available" to best series
+          const bestAvailableHash = sampleDates[BEST_AVAILABLE_METAHASH][0];
+          sampleDates[BEST_AVAILABLE_METAHASH] =
+            sampleDates[sampleDates[BEST_AVAILABLE_METAHASH][0]];
+          legendBounds = getLegendBounds(
+            metadataMap,
+            statVarSummary[statVar.dcid].provenanceSummary,
+            placeInfo.enclosedPlaceType,
+            bestAvailableHash
+          );
+        }
         isLoading.setIsDataLoading(false);
-        setRawData({
-          geoJsonData,
-          placeStat: enclosedPlaceStat,
-          allPlaceStat,
-          breadcrumbPlaceStat,
-          metadataMap,
-          population: { ...enclosedPlacesPop, ...breadcrumbPlacePop },
-          mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
-          mapPointsPromise,
-          europeanCountries,
-          dataDate,
-        });
+        if (currentSampleDates) {
+          const currentSampleDatesData: Record<string, ChartRawData> = {};
+          for (const i in currentSampleDates) {
+            const enclosedPlaceStatSample: PlacePointStat =
+              enclosedPlaceDatesData[i].data[statVar.dcid];
+            const breadcrumbPlaceStatSample: PlacePointStat =
+              breadcrumbPlaceDatesData[i].data[statVar.dcid];
+            const allEnclosedPlaceStatSample: PlacePointStatAll =
+              allEnclosedPlaceDatesData[i].data[statVar.dcid];
+            const allPlaceStatSample: Record<string, PlacePointStat> = {};
+            if (!_.isEmpty(allEnclosedPlaceStatSample)) {
+              for (const stat of allEnclosedPlaceStatSample.statList) {
+                if (stat.metaHash) {
+                  allPlaceStatSample[stat.metaHash] = stat;
+                }
+              }
+            }
+            currentSampleDatesData[currentSampleDates[i]] = {
+              geoJsonData,
+              placeStat: enclosedPlaceStatSample,
+              allPlaceStat: allPlaceStatSample,
+              breadcrumbPlaceStat: breadcrumbPlaceStatSample,
+              metadataMap,
+              population: { ...enclosedPlacesPop, ...breadcrumbPlacePop },
+              mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
+              mapPointsPromise,
+              europeanCountries,
+              dataDate,
+              sampleDates,
+              legendBounds,
+            };
+          }
+          let newSampleDatesChartData: Record<
+            string,
+            Record<string, ChartRawData>
+          > = {};
+          if (Object.entries(sampleDatesChartData).length > 0) {
+            newSampleDatesChartData = Object.assign(
+              newSampleDatesChartData,
+              sampleDatesChartData
+            );
+          }
+          newSampleDatesChartData[
+            statVar.metahash || BEST_AVAILABLE_METAHASH
+          ] = currentSampleDatesData;
+          setSampleDatesChartData(newSampleDatesChartData);
+        } else {
+          setRawData({
+            geoJsonData,
+            placeStat: enclosedPlaceStat,
+            allPlaceStat,
+            breadcrumbPlaceStat,
+            metadataMap,
+            population: { ...enclosedPlacesPop, ...breadcrumbPlacePop },
+            mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
+            mapPointsPromise,
+            europeanCountries,
+            dataDate,
+            sampleDates,
+            legendBounds,
+          });
+        }
       }
     )
     .catch(() => {
@@ -432,7 +677,8 @@ function loadChartData(
   rawData: ChartRawData,
   placeInfo: PlaceInfo,
   statVar: StatVar,
-  setChartData: (data: ChartData) => void
+  setChartData: (data: ChartData) => void,
+  display: DisplayOptionsWrapper
 ): void {
   const mapValues = {};
   const metadata = {};
@@ -518,6 +764,17 @@ function loadChartData(
     }
   }
   const unit = getUnit(rawData.placeStat, rawData.metadataMap);
+  const metahash = statVar.metahash || BEST_AVAILABLE_METAHASH;
+  const sampleDates = rawData.sampleDates[metahash];
+  if (!statVar.perCapita) {
+    display.set({
+      ...display.value,
+      domain:
+        metahash in rawData.legendBounds
+          ? rawData.legendBounds[metahash]
+          : undefined,
+    });
+  }
   setChartData({
     breadcrumbValues,
     dates: statVarDates,
@@ -536,5 +793,58 @@ function loadChartData(
       rawData.dataDate,
       unit
     ),
+    sampleDates,
+    metahash,
+  });
+}
+
+/**
+ * Set legend bounds when per capita is selected. This will use an estimate based on
+ * Best Available instead of the min/max from the StatVarSummary.
+ * @param rawData
+ * @param display
+ */
+export function setLegendBoundsPerCapita(
+  rawData: ChartRawData,
+  statVar: StatVarWrapper,
+  display: DisplayOptionsWrapper
+): void {
+  const paddingScaleSmall = 0.9;
+  const paddingScaleLarge = 1.1;
+  const stat = rawData.placeStat.stat;
+  let minValue: number = Number.MAX_SAFE_INTEGER,
+    maxValue = 0;
+  for (const place in stat) {
+    let value = stat[place].value;
+    if (!value) {
+      continue;
+    }
+    const populationData = rawData.population[place].data;
+    const date = stat[place].date;
+    if (
+      statVar.value.denom in populationData &&
+      populationData[statVar.value.denom].val &&
+      date in populationData[statVar.value.denom].val
+    ) {
+      value /= populationData[statVar.value.denom].val[date];
+    } else {
+      continue;
+    }
+    if (value < minValue) {
+      minValue = value;
+    }
+    if (value > maxValue) {
+      maxValue = value;
+    }
+  }
+
+  // Using Best Available data as estimate - give some padding for other dates
+  minValue =
+    minValue > 0 ? minValue * paddingScaleSmall : minValue * paddingScaleLarge;
+  maxValue =
+    maxValue > 0 ? maxValue * paddingScaleLarge : maxValue * paddingScaleSmall;
+  display.set({
+    ...display.value,
+    domain: [minValue, (minValue + maxValue) / 2, maxValue],
   });
 }
