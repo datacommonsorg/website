@@ -13,71 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
 import {
-  EARTH_NAMED_TYPED_PLACE,
-  IPCC_PLACE_50_TYPE_DCID,
-} from "../shared/constants";
-import { TimeSeries } from "../shared/stat_types";
+  PlacePointStat,
+  PlacePointStatData,
+  StatMetadata,
+  TimeSeries,
+} from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { USA_PLACE_HIERARCHY } from "./map/util";
 
 /**
- * Functions and interfaces shared between tools components
+ * Functions shared between tools components
  */
-
-export interface StatMetadata {
-  importName?: string;
-  provenanceUrl?: string;
-  measurementMethod?: string;
-  observationPeriod?: string;
-  scalingFactor?: string;
-  unit?: string;
-}
-
-export interface PlacePointStatData {
-  date: string;
-  value: number;
-  metaHash?: number;
-  metadata?: StatMetadata;
-}
-export interface PlacePointStat {
-  metaHash?: number;
-  stat: Record<string, PlacePointStatData>;
-}
-
-export interface PlacePointStatAll {
-  statList: PlacePointStat[];
-}
-
-export interface PlaceStatDateWithinPlace {
-  datePlaceCount: Record<string, number>;
-  metadata: StatMetadata;
-}
-
-export interface GetStatSetResponse {
-  data: Record<string, PlacePointStat>;
-  metadata: Record<number, StatMetadata>;
-}
-
-export interface GetStatSetAllResponse {
-  data: Record<string, PlacePointStatAll>;
-  metadata: Record<number, StatMetadata>;
-}
-
-// Response from /v1/stat/date/within-place
-export interface GetPlaceStatDateWithinPlaceResponse {
-  data: Record<string, Record<string, Array<PlaceStatDateWithinPlace>>>;
-}
-
-export interface SourceSeries {
-  data: { [date: string]: number };
-  placeName: string;
-  provenanceUrl: string;
-}
 
 /**
  * Helper function to choose the date to use for population data.
