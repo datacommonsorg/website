@@ -228,8 +228,8 @@ export function ChartLoader(): JSX.Element {
         }
       }
     }
-
     statVar.setDate(date);
+
     // Skip update if date has no data
     if (
       placeStatData ||
@@ -564,22 +564,29 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
-        const sampleDates: Record<string, Array<string>> = getTimeSliderDates(
-          metadataMap,
-          placeStatDateWithinPlace.data[statVar.dcid].statDate
-        );
-        const bestAvailableHash = sampleDates[BEST_AVAILABLE_METAHASH][0];
-        sampleDates[BEST_AVAILABLE_METAHASH] =
-          sampleDates[sampleDates[BEST_AVAILABLE_METAHASH][0]];
-        const legendBounds: Record<
+        const sampleDates: Record<
           string,
-          [number, number, number]
-        > = getLegendBounds(
-          metadataMap,
-          statVarSummary[statVar.dcid].provenanceSummary,
-          placeInfo.enclosedPlaceType,
-          bestAvailableHash
-        );
+          Array<string>
+        > = placeStatDateWithinPlace.data[statVar.dcid].statDate
+          ? getTimeSliderDates(
+              metadataMap,
+              placeStatDateWithinPlace.data[statVar.dcid].statDate
+            )
+          : {};
+        let legendBounds: Record<string, [number, number, number]> = {};
+        if (BEST_AVAILABLE_METAHASH in sampleDates) {
+
+          // Set dates for "Best Available" to best series
+          const bestAvailableHash = sampleDates[BEST_AVAILABLE_METAHASH][0];
+          sampleDates[BEST_AVAILABLE_METAHASH] =
+            sampleDates[sampleDates[BEST_AVAILABLE_METAHASH][0]];
+          legendBounds = getLegendBounds(
+            metadataMap,
+            statVarSummary[statVar.dcid].provenanceSummary,
+            placeInfo.enclosedPlaceType,
+            bestAvailableHash
+          );
+        }
         isLoading.setIsDataLoading(false);
         if (currentSampleDates) {
           const currentSampleDatesData: Record<string, ChartRawData> = {};
@@ -763,7 +770,10 @@ function loadChartData(
   if (!statVar.perCapita) {
     display.set({
       ...display.value,
-      domain: rawData.legendBounds[metahash],
+      domain:
+        metahash in rawData.legendBounds
+          ? rawData.legendBounds[metahash]
+          : undefined,
     });
   }
   setChartData({
