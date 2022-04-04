@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * @fileoverview Translator javascript.
- */
-
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { mapping, sparql } from "./constants";
-import { Page } from "./page";
+import { AppWithContext } from "./app";
 
-/**
- * Update translation results when schema mapping or query changes.
- */
-window.onload = function () {
+window.onload = () => {
   ReactDOM.render(
-    React.createElement(Page, {
-      mapping,
-      sparql: sparql.observation,
-    }),
-    document.getElementById("translator")
+    React.createElement(AppWithContext),
+    document.getElementById("main-pane")
   );
 };

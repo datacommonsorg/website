@@ -21,8 +21,11 @@
 import axios from "axios";
 import _ from "lodash";
 
+import {
+  GetStatSetAllResponse,
+  GetStatSetResponse,
+} from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
-import { GetStatSetAllResponse, GetStatSetResponse } from "../shared_util";
 import {
   Axis,
   ContextType,
