@@ -172,6 +172,8 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
 
     with open(config_path) as f:
         ai = yaml.full_load(f)
+        if not ai:
+            logging.info("No configuration found for ai model")
         # We use a fake region when locally testing with LocalConfig.
         region = ai["local"]["region"] if cfg.LOCAL else get_region()
         logging.info("Searching for model specification for region %s", region)
