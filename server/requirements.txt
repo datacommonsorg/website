@@ -24,4 +24,6 @@ yapf==0.31.0
 geojson_rewind==1.0.1
 markupsafe==2.0.1
 grpcio==1.44.0
+tensorflow==2.8.0
 tensorflow-serving-api==2.8.0
+numpy==1.21.5
