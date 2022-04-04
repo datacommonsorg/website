@@ -194,18 +194,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-  {%- if GA_ACCOUNT -%}
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GA_ACCOUNT %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}');
-    gtag('consent', 'default', {'ad_storage': 'denied'});
-    gtag('consent', 'default', {'analytics_storage': 'denied'});
-    gtag('set', {'allow_google_signals': false});
+    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
   </script>
-  {%- endif -%}
+  {% endif %}
   {% block footer %}
   {% endblock %}
 </body>
