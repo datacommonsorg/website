@@ -28,7 +28,28 @@
 
 {% block content %}
 <div id="body" class="container">
-  <div id="search-input-container"></div>
+  <div id="search-input-container" data-query="{{query}}">
+    <div class="search-input-section">
+        <div class="search-input-wrapper">
+          <form>
+            <input
+              class="search-input-box"
+              type="text"
+              value="{{query}}"
+              placeholder="Search for places, variables, and more on Data Commons"
+            />
+          </form>
+          {% if query %}
+          <span class="material-icons-outlined search-input-box-clear">
+            clear
+          </span>
+          {% endif %}
+        </div>
+      </div>
+      <span class="search-input-search-button">
+        <img src="/images/icon-search.svg" />
+      </span>
+  </div>
   <div id="search-results-container"></div>
   <script async src="https://cse.google.com/cse.js?cx=010079880385165835740%3Aosnv3q-sw08"></script>
   <div class="gcse-searchresults-only"></div>

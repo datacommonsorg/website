@@ -31,13 +31,14 @@ import { StatVarResults } from "./statvar_results";
 interface ResultsProps {
   query: string;
   selectedPlace: string;
+  selectedStatVar: string;
 }
 
 let acs: google.maps.places.AutocompleteService;
 
 export function AllResults(props: ResultsProps): JSX.Element {
-  const [places, setPlaces] = useState(null);
-  const [statVars, setStatVars] = useState(null);
+  const [placeResults, setPlaceResults] = useState(null);
+  const [statVarResults, setStatVarResults] = useState(null);
 
   useEffect(() => {
     if (google.maps) {
@@ -66,48 +67,81 @@ export function AllResults(props: ResultsProps): JSX.Element {
                     }
                   })
                   .filter((place) => !_.isEmpty(place));
-                setPlaces(namedPlaces);
+                setPlaceResults(namedPlaces);
               })
               .catch(() => {
-                setPlaces([]);
+                setPlaceResults([]);
               });
           } else {
-            setPlaces([]);
+            setPlaceResults([]);
           }
         }
       );
     } else {
-      setPlaces([]);
+      setPlaceResults([]);
     }
   }, [props]);
 
   useEffect(() => {
-    getStatVarSearchResults(props.query, [])
-      .then((data) => {
-        const statVars: NamedNode[] = [];
-        data.statVarGroups.forEach((svg) => {
-          if (!_.isEmpty(svg.statVars)) {
-            statVars.push(...svg.statVars);
+    if (!props.selectedStatVar) {
+      getStatVarSearchResults(props.query, [])
+        .then((data) => {
+          const statVars: NamedNode[] = [];
+          data.statVarGroups.forEach((svg) => {
+            if (!_.isEmpty(svg.statVars)) {
+              statVars.push(...svg.statVars);
+            }
+          });
+          if (!_.isEmpty(data.statVars)) {
+            statVars.push(...data.statVars);
           }
+          setStatVarResults(statVars);
+        })
+        .catch(() => {
+          setStatVarResults([]);
         });
-        if (!_.isEmpty(data.statVars)) {
-          statVars.push(...data.statVars);
-        }
-        setStatVars(statVars);
-      })
-      .catch(() => {
-        setStatVars([]);
-      });
+    } else {
+      setStatVarResults([]);
+    }
   }, [props]);
 
-  if (_.isNull(places) || _.isNull(statVars)) {
-    return <></>;
+  // For both placeResults and statVarResults, null means results have not been
+  // fetched yet and [] means no results to display.
+  if (_.isNull(placeResults) || _.isNull(statVarResults)) {
+    return (
+      <div className="search-results-spinner">
+        <div className="screen d-block">
+          <div id="spinner"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <>
-      <PlaceResults places={places} selectedPlace={props.selectedPlace} />
-      <StatVarResults statVars={statVars} />
+      {props.selectedStatVar ? (
+        <>
+          <StatVarResults
+            statVars={statVarResults}
+            selectedSV={props.selectedStatVar}
+          />
+          <PlaceResults
+            places={placeResults}
+            selectedPlace={props.selectedPlace}
+          />
+        </>
+      ) : (
+        <>
+          <PlaceResults
+            places={placeResults}
+            selectedPlace={props.selectedPlace}
+          />
+          <StatVarResults
+            statVars={statVarResults}
+            selectedSV={props.selectedStatVar}
+          />
+        </>
+      )}
     </>
   );
 }

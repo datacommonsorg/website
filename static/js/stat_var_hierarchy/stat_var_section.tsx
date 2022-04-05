@@ -78,9 +78,14 @@ export class StatVarSection extends React.Component<
 
   render(): JSX.Element {
     const context = this.context;
-
+    const prefix = this.getPrefix();
+    const showPrefix =
+      context.statVarHierarchyType !== StatVarHierarchyType.BROWSER && prefix;
     return (
       <div className="svg-node-child">
+        {showPrefix && (
+          <div className="stat-var-section-prefix">{prefix} …</div>
+        )}
         {this.props.data.map((statVar) => {
           const isSelected =
             this.props.pathToSelection.length === 1 &&
@@ -91,7 +96,7 @@ export class StatVarSection extends React.Component<
               key={statVar.id}
               ref={isSelected ? this.props.highlightedStatVar : null}
             >
-              {context.statVarHierarchyType == StatVarHierarchyType.BROWSER ? (
+              {context.statVarHierarchyType === StatVarHierarchyType.BROWSER ? (
                 <StatVarCharts
                   place={this.props.places[0]}
                   selected={isSelected || statVar.id in context.svPath}
@@ -103,7 +108,7 @@ export class StatVarSection extends React.Component<
                   selected={isSelected}
                   statVar={statVar}
                   summary={summary}
-                  prefixToReplace={this.getPrefixToReplace()}
+                  prefixToReplace={prefix}
                 />
               )}
             </div>
@@ -132,7 +137,7 @@ export class StatVarSection extends React.Component<
       });
   }
 
-  private getPrefixToReplace(): string {
+  private getPrefix(): string {
     const svNamesList = this.props.data.map((sv) => sv.displayName);
     // Only get prefix if there is more than 1 stat var.
     if (svNamesList.length < 2) {
