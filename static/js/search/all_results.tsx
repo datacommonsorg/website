@@ -37,8 +37,8 @@ interface ResultsProps {
 let acs: google.maps.places.AutocompleteService;
 
 export function AllResults(props: ResultsProps): JSX.Element {
-  const [places, setPlaces] = useState(null);
-  const [statVars, setStatVars] = useState(null);
+  const [placeResults, setPlaceResults] = useState(null);
+  const [statVarResults, setStatVarResults] = useState(null);
 
   useEffect(() => {
     if (google.maps) {
@@ -67,18 +67,18 @@ export function AllResults(props: ResultsProps): JSX.Element {
                     }
                   })
                   .filter((place) => !_.isEmpty(place));
-                setPlaces(namedPlaces);
+                setPlaceResults(namedPlaces);
               })
               .catch(() => {
-                setPlaces([]);
+                setPlaceResults([]);
               });
           } else {
-            setPlaces([]);
+            setPlaceResults([]);
           }
         }
       );
     } else {
-      setPlaces([]);
+      setPlaceResults([]);
     }
   }, [props]);
 
@@ -95,17 +95,19 @@ export function AllResults(props: ResultsProps): JSX.Element {
           if (!_.isEmpty(data.statVars)) {
             statVars.push(...data.statVars);
           }
-          setStatVars(statVars);
+          setStatVarResults(statVars);
         })
         .catch(() => {
-          setStatVars([]);
+          setStatVarResults([]);
         });
     } else {
-      setStatVars([]);
+      setStatVarResults([]);
     }
   }, [props]);
 
-  if (_.isNull(places) || _.isNull(statVars)) {
+  // For both placeResults and statVarResults, null means results have not been
+  // fetched yet and [] means no results to display.
+  if (_.isNull(placeResults) || _.isNull(statVarResults)) {
     return (
       <div className="search-results-spinner">
         <div className="screen d-block">
@@ -120,16 +122,22 @@ export function AllResults(props: ResultsProps): JSX.Element {
       {props.selectedStatVar ? (
         <>
           <StatVarResults
-            statVars={statVars}
+            statVars={statVarResults}
             selectedSV={props.selectedStatVar}
           />
-          <PlaceResults places={places} selectedPlace={props.selectedPlace} />
+          <PlaceResults
+            places={placeResults}
+            selectedPlace={props.selectedPlace}
+          />
         </>
       ) : (
         <>
-          <PlaceResults places={places} selectedPlace={props.selectedPlace} />
+          <PlaceResults
+            places={placeResults}
+            selectedPlace={props.selectedPlace}
+          />
           <StatVarResults
-            statVars={statVars}
+            statVars={statVarResults}
             selectedSV={props.selectedStatVar}
           />
         </>
