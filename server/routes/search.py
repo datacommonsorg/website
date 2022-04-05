@@ -43,8 +43,11 @@ def search2():
     """Custom search page"""
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
+    query = request.args.get('q', '')
     return flask.render_template(
-        'search2.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'search2.html',
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        query=query)
 
 
 @bp.route('/search_dc')

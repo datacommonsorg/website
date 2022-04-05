@@ -19,21 +19,43 @@
  */
 
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
+import { getStatVarInfo } from "../shared/stat_var";
 import { NamedNode } from "../shared/types";
 
 const NUM_EXAMPLE_SV = 10;
-const REDIRECT_PREFIX = "/tools/statvar#";
+const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#";
+const BROWSER_REDIRECT_PREFIX = "/browser/";
 
 interface StatVarResultsProps {
   statVars: NamedNode[];
+  selectedSV: string;
 }
 
 export function StatVarResults(props: StatVarResultsProps): JSX.Element {
   const [showAll, setShowAll] = useState(false);
+  const [selectedSv, setSelectedSv] = useState(null);
 
-  if (_.isEmpty(props.statVars)) {
+  useEffect(() => {
+    if (props.selectedSV) {
+      getStatVarInfo([props.selectedSV])
+        .then((svInfo) => {
+          setSelectedSv({
+            dcid: props.selectedSV,
+            name: svInfo[props.selectedSV].title || props.selectedSV,
+          });
+        })
+        .catch(() => {
+          setSelectedSv({
+            dcid: props.selectedSV,
+            name: props.selectedSV,
+          });
+        });
+    }
+  }, [props]);
+
+  if (_.isEmpty(selectedSv) && _.isEmpty(props.statVars)) {
     return <></>;
   }
   const shownStatVars = showAll
@@ -42,42 +64,71 @@ export function StatVarResults(props: StatVarResultsProps): JSX.Element {
   const canExpand = props.statVars.length > NUM_EXAMPLE_SV && !showAll;
   return (
     <div className="search-results-sv search-results-section">
-      <div className="search-results-section-title">Statistical Variables</div>
-      <div className="search-results-section-content">
-        <div className="search-results-list">
-          {shownStatVars.map((sv) => {
-            return (
-              <div key={`sv-result-${sv.dcid}`} className="search-results-item">
-                <a
-                  href={REDIRECT_PREFIX + sv.dcid}
-                  className="search-results-item-title"
-                >
-                  {sv.name}
-                </a>
-                <div className="search-results-item-byline">
-                  dcid: {sv.dcid}
-                </div>
-              </div>
-            );
-          })}
+      {selectedSv ? (
+        <div className="search-results-sv-selected">
+          {getResultItemContentJsx(selectedSv, true)}
         </div>
-        {canExpand && (
-          <div
-            onClick={() => setShowAll(true)}
-            className="search-results-sv-show-more"
-          >
-            show more
+      ) : (
+        <>
+          <div className="search-results-section-title">
+            Statistical Variables
           </div>
-        )}
-        {showAll && (
-          <div
-            onClick={() => setShowAll(false)}
-            className="search-results-sv-show-more"
-          >
-            show less
+          <div className="search-results-section-content">
+            <div className="search-results-list">
+              {shownStatVars.map((sv) => {
+                return getResultItemContentJsx(sv, false);
+              })}
+            </div>
+            {canExpand && (
+              <div
+                onClick={() => setShowAll(true)}
+                className="search-results-sv-show-more"
+              >
+                show {props.statVars.length - NUM_EXAMPLE_SV} more
+              </div>
+            )}
+            {showAll && (
+              <div
+                onClick={() => setShowAll(false)}
+                className="search-results-sv-show-more"
+              >
+                show less
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function getResultItemContentJsx(
+  sv: NamedNode,
+  isFullSize: boolean
+): JSX.Element {
+  return (
+    <div key={`sv-result-${sv.dcid}`} className="search-results-item">
+      {isFullSize ? (
+        <div className="search-results-item-title">{sv.name}</div>
+      ) : (
+        <a
+          href={SV_EXPLORER_REDIRECT_PREFIX + sv.dcid}
+          className="search-results-item-title"
+        >
+          {sv.name}
+        </a>
+      )}
+      <a
+        href={BROWSER_REDIRECT_PREFIX + sv.dcid}
+        className="search-results-item-byline"
+      >
+        dcid: {sv.dcid}
+      </a>
+      {isFullSize && (
+        <a href={SV_EXPLORER_REDIRECT_PREFIX + sv.dcid}>
+          Open in stat var explorer
+        </a>
+      )}
     </div>
   );
 }
