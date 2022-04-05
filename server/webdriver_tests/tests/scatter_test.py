@@ -23,8 +23,8 @@ import webdriver_tests.shared as shared
 
 SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
-'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
-'&epd=geoId/06&epn=California&ept=County'
+    'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
+    '&epd=geoId/06&epn=California&ept=County'
 PLACE_SEARCH_CA = 'California'
 
 
@@ -68,7 +68,8 @@ class TestScatter(WebdriverBaseTest):
         self.assertEqual(place_name.text, 'California')
 
         # Assert chart is correct.
-        element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title_y = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[1]')
@@ -137,10 +138,11 @@ class TestScatter(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         self.driver.find_element_by_id(
             'Median_Income_Persondc/g/Demographics-Median_Income_Person').click(
-            )
+        )
 
         # Assert chart is correct.
-        element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title_y = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[1]')
@@ -164,7 +166,8 @@ class TestScatter(WebdriverBaseTest):
 
         # Assert chart loads
         shared.wait_for_loading(self.driver)
-        element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
+        element_present = EC.presence_of_element_located(
+            (By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
