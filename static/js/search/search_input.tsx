@@ -33,7 +33,7 @@ interface SearchInputPropType {
 }
 const NUM_SV_RESULTS = 5;
 const DELAY_MS = 200;
-const REDIRECT_PREFIX = "/search2?";
+const REDIRECT_PREFIX = "/search?";
 
 export function SearchInput(props: SearchInputPropType): JSX.Element {
   const delayTimer = useRef(null);
