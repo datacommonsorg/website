@@ -138,6 +138,10 @@ $highlighted-box-max-width: 600px;
   display: flex;
 }
 
+.search-results-link-icon {
+  border-bottom: 2px solid transparent;
+}
+
 .search-results-link-icon:hover {
   border-bottom: 2px solid var(--link-color);
 }
