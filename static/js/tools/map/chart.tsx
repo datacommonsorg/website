@@ -216,16 +216,18 @@ export function Chart(props: ChartProps): JSX.Element {
               </div>
             </div>
           )}
-          {props.sampleDates && props.sampleDates.length > 1 && (
-            <TimeSlider
-              currentDate={_.max(Array.from(props.dates))}
-              dates={props.sampleDates}
-              metahash={props.metahash}
-              onPlay={props.onPlay}
-              startEnabled={props.dates.size === 1}
-              updateDate={props.updateDate}
-            />
-          )}
+          {props.display.value.showTimeSlider &&
+            props.sampleDates &&
+            props.sampleDates.length > 1 && (
+              <TimeSlider
+                currentDate={_.max(Array.from(props.dates))}
+                dates={props.sampleDates}
+                metahash={props.metahash}
+                onPlay={props.onPlay}
+                startEnabled={props.dates.size === 1}
+                updateDate={props.updateDate}
+              />
+            )}
           <div className="chart-options">
             {NO_PER_CAPITA_TYPES.indexOf(mainSvInfo.st) === -1 && (
               <div className="per-capita-option">

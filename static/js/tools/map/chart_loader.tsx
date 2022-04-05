@@ -126,7 +126,7 @@ export function ChartLoader(): JSX.Element {
       !_.isEmpty(statVar.value.dcid) &&
       !_.isNull(statVar.value.info)
     ) {
-      fetchData(placeInfo.value, statVar.value, isLoading, setRawData);
+      fetchData(placeInfo.value, statVar.value, isLoading, setRawData, display);
     } else {
       setRawData(undefined);
     }
@@ -207,6 +207,7 @@ export function ChartLoader(): JSX.Element {
       statVar.value,
       isLoading,
       setRawData,
+      display,
       rawData.sampleDates[metaHash],
       sampleDatesChartData,
       setSampleDatesChartData
@@ -359,6 +360,7 @@ function fetchData(
   statVar: StatVar,
   isLoading: IsLoadingWrapper,
   setRawData: (data: ChartRawData) => void,
+  display: DisplayOptionsWrapper,
   currentSampleDates?: Array<string>,
   sampleDatesChartData?: Record<string, Record<string, ChartRawData>>,
   setSampleDatesChartData?: (
@@ -427,7 +429,7 @@ function fetchData(
   const enclosedPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
   const allEnclosedPlaceDatesList: Array<Promise<GetStatSetAllResponse>> = [];
   const breadcrumbPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
-  if (currentSampleDates) {
+  if (currentSampleDates && display.value.showTimeSlider) {
     for (const i in currentSampleDates) {
       enclosedPlaceDatesList.push(
         axios
@@ -564,15 +566,14 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
-        const sampleDates: Record<
-          string,
-          Array<string>
-        > = placeStatDateWithinPlace.data[statVar.dcid].statDate
-          ? getTimeSliderDates(
-              metadataMap,
-              placeStatDateWithinPlace.data[statVar.dcid].statDate
-            )
-          : {};
+        const sampleDates: Record<string, Array<string>> =
+          placeStatDateWithinPlace.data[statVar.dcid].statDate &&
+          display.value.showTimeSlider
+            ? getTimeSliderDates(
+                metadataMap,
+                placeStatDateWithinPlace.data[statVar.dcid].statDate
+              )
+            : {};
         let legendBounds: Record<string, [number, number, number]> = {};
         if (BEST_AVAILABLE_METAHASH in sampleDates) {
           // Set dates for "Best Available" to best series
@@ -587,7 +588,7 @@ function fetchData(
           );
         }
         isLoading.setIsDataLoading(false);
-        if (currentSampleDates) {
+        if (currentSampleDates && display.value.showTimeSlider) {
           const currentSampleDatesData: Record<string, ChartRawData> = {};
           for (const i in currentSampleDates) {
             const enclosedPlaceStatSample: PlacePointStat =
