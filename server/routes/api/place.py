@@ -710,4 +710,4 @@ def placeid2dcid():
             if outIds and inId:
                 result[inId] = outIds[0]
         return Response(json.dumps(result), 200, mimetype='application/json')
-    abort(404, 'no valid dcid not found for %s' % place_ids)
+    abort(404, 'no valid dcids found for %s' % place_ids)
