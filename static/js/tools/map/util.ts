@@ -73,6 +73,7 @@ export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
   domain: null,
   showMapPoints: false,
+  showTimeSlider: false,
 };
 
 export const ALL_MAP_PLACE_TYPES = {
