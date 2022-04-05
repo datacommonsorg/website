@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -44,6 +44,9 @@ spec:
         - name: schema-mapping
           configMap:
             name: schema-mapping
+        - name: ai-config
+          configMap:
+            name: ai-config
       containers:
         - name: website
           image: gcr.io/datcom-ci/datacommons-website:latest
@@ -62,6 +65,9 @@ spec:
               memory: "3G"
             requests:
               memory: "3G"
+          volumeMounts:
+            - name: ai-config
+              mountPath: /datacommons/ai
           env:
             - name: FLASK_ENV
               valueFrom:
