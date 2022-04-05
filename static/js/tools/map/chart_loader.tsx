@@ -126,7 +126,13 @@ export function ChartLoader(): JSX.Element {
       !_.isEmpty(statVar.value.dcid) &&
       !_.isNull(statVar.value.info)
     ) {
-      fetchData(placeInfo.value, statVar.value, isLoading, setRawData, display);
+      fetchData(
+        placeInfo.value,
+        statVar.value,
+        isLoading,
+        setRawData,
+        display.value.showTimeSlider
+      );
     } else {
       setRawData(undefined);
     }
@@ -207,7 +213,7 @@ export function ChartLoader(): JSX.Element {
       statVar.value,
       isLoading,
       setRawData,
-      display,
+      display.value.showTimeSlider,
       rawData.sampleDates[metaHash],
       sampleDatesChartData,
       setSampleDatesChartData
@@ -360,7 +366,7 @@ function fetchData(
   statVar: StatVar,
   isLoading: IsLoadingWrapper,
   setRawData: (data: ChartRawData) => void,
-  display: DisplayOptionsWrapper,
+  showTimeSlider: boolean,
   currentSampleDates?: Array<string>,
   sampleDatesChartData?: Record<string, Record<string, ChartRawData>>,
   setSampleDatesChartData?: (
@@ -429,7 +435,7 @@ function fetchData(
   const enclosedPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
   const allEnclosedPlaceDatesList: Array<Promise<GetStatSetAllResponse>> = [];
   const breadcrumbPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
-  if (currentSampleDates && display.value.showTimeSlider) {
+  if (currentSampleDates && showTimeSlider) {
     for (const i in currentSampleDates) {
       enclosedPlaceDatesList.push(
         axios
@@ -567,8 +573,7 @@ function fetchData(
           };
         }
         const sampleDates: Record<string, Array<string>> =
-          placeStatDateWithinPlace.data[statVar.dcid].statDate &&
-          display.value.showTimeSlider
+          placeStatDateWithinPlace.data[statVar.dcid].statDate && showTimeSlider
             ? getTimeSliderDates(
                 metadataMap,
                 placeStatDateWithinPlace.data[statVar.dcid].statDate
@@ -588,7 +593,7 @@ function fetchData(
           );
         }
         isLoading.setIsDataLoading(false);
-        if (currentSampleDates && display.value.showTimeSlider) {
+        if (currentSampleDates && showTimeSlider) {
           const currentSampleDatesData: Record<string, ChartRawData> = {};
           for (const i in currentSampleDates) {
             const enclosedPlaceStatSample: PlacePointStat =
