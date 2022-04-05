@@ -23,17 +23,20 @@ import { SearchInput } from "./search_input";
 
 window.onload = () => {
   const searchParams = new URLSearchParams(location.search);
-  const query = searchParams.get("q") || "";
-  // TODO: match the selectedPlace behavior for a selected stat var.
+  const query = document.getElementById("search-input-container").dataset.query;
   const selectedPlace = searchParams.get("placeDcid") || "";
-  // TODO: preload search box
+  const selectedStatVar = searchParams.get("svDcid") || "";
   ReactDOM.render(
     React.createElement(SearchInput, { query }),
     document.getElementById("search-input-container")
   );
   if (!_.isEmpty(query)) {
     ReactDOM.render(
-      React.createElement(AllResults, { query, selectedPlace }),
+      React.createElement(AllResults, {
+        query,
+        selectedPlace,
+        selectedStatVar,
+      }),
       document.getElementById("search-results-container")
     );
   }
