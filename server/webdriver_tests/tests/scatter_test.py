@@ -75,7 +75,7 @@ class TestScatter(WebdriverBaseTest):
         chart_title_x = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[2]')
         self.assertEqual(chart_title_y.text,
-                         "Asian Alone Population Per Capita (2020)")
+                         "Population: Asian Alone Per Capita (2020)")
         self.assertEqual(chart_title_x.text, "Median Income (2019)")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
