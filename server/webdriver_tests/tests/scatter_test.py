@@ -23,8 +23,8 @@ import webdriver_tests.shared as shared
 
 SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
-'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
-'&epd=geoId/06&epn=California&ept=County'
+    'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
+    '&epd=geoId/06&epn=California&ept=County'
 PLACE_SEARCH_CA = 'California'
 
 
