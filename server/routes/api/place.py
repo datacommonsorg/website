@@ -121,8 +121,8 @@ def cached_i18n_name(dcids, locale, should_resolve_all):
         'property': 'nameWithLanguage',
         'direction': 'out'
     },
-        compress=False,
-        post=True)
+                          compress=False,
+                          post=True)
     result = {}
     dcids_default_name = []
     locales = i18n.locale_choices(locale)
@@ -207,9 +207,9 @@ def stat_vars(dcid):
     response = fetch_data('/place/stat-vars', {
         'dcids': [dcid],
     },
-        compress=False,
-        post=False,
-        has_payload=False)
+                          compress=False,
+                          post=False,
+                          has_payload=False)
     return response['places'][dcid].get('statVars', [])
 
 
@@ -230,9 +230,9 @@ def get_stat_vars_union(places, stat_vars):
         'dcids': places,
         'statVars': stat_vars,
     },
-        compress=False,
-        post=True,
-        has_payload=False).get('statVars', [])
+                      compress=False,
+                      post=True,
+                      has_payload=False).get('statVars', [])
 
 
 @bp.route('/stat-vars/union', methods=['POST'])
@@ -271,8 +271,8 @@ def child_fetch(dcid):
         'property': 'containedInPlace',
         'direction': 'in'
     },
-        compress=False,
-        post=True)
+                                    compress=False,
+                                    post=True)
     places = contained_response[dcid].get('in', [])
 
     overlaps_response = fetch_data('/node/property-values', {
@@ -280,8 +280,8 @@ def child_fetch(dcid):
         'property': 'geoOverlaps',
         'direction': 'in'
     },
-        compress=False,
-        post=True)
+                                   compress=False,
+                                   post=True)
     places = places + overlaps_response[dcid].get('in', [])
 
     dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
@@ -390,8 +390,8 @@ def get_parent_place(dcids):
         'property': 'containedInPlace',
         'direction': 'out'
     },
-        compress=False,
-        post=True)
+                          compress=False,
+                          post=True)
     result = {}
     for dcid in dcids:
         parents = response[dcid].get('out', [])
@@ -528,7 +528,7 @@ def api_ranking(dcid):
     crime_statsvar = {
         # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
         'Count_CriminalActivities_CombinedCrime':
-        gettext('Highest Crime Per Capita')
+            gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
         stat_vars_string = '^'.join(ranking_stats.keys())
@@ -594,7 +594,7 @@ def get_state_code(dcids):
         if iso_code:
             split_iso_code = iso_code[0].split("-")
             if len(split_iso_code
-                   ) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
+                  ) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
                 state_code = split_iso_code[1]
         result[dcid] = state_code
 
@@ -699,8 +699,8 @@ def placeid2dcid():
                              "in_prop": "placeId",
                              "out_prop": "dcid",
                              "ids": place_ids
-    },
-        headers={'Content-Type': 'application/json'})
+                         },
+                         headers={'Content-Type': 'application/json'})
     if resp.status_code == 200:
         entities = resp.json().get('entities', [])
         result = {}
