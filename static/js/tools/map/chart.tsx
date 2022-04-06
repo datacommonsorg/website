@@ -114,8 +114,7 @@ export function Chart(props: ChartProps): JSX.Element {
     statVar.dcid in statVar.info ? statVar.info[statVar.dcid] : {};
   const title = getTitle(
     Array.from(props.dates),
-    mainSvInfo.title || statVar.dcid,
-    statVar.perCapita
+    mainSvInfo.title || statVar.dcid
   );
   const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
@@ -255,6 +254,7 @@ export function Chart(props: ChartProps): JSX.Element {
                     value={denomInput}
                     onChange={(e) => setDenomInput(e.target.value)}
                     disabled={!props.statVar.value.perCapita}
+                    placeholder="Enter a stat var dcid eg. Count_Person"
                   />
                 </FormGroup>
               </div>

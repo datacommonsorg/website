@@ -89,6 +89,7 @@ interface ChartPropsType {
 
 interface ChartStateType {
   rawData: TimelineRawData;
+  denomInput: string;
 }
 
 class Chart extends Component<ChartPropsType, ChartStateType> {
@@ -114,7 +115,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
     this.maxYear = urlParams.get("maxYear");
-    this.state = { rawData: null };
+    this.state = { rawData: null, denomInput: this.props.denom };
   }
 
   render(): JSX.Element {
@@ -155,13 +156,15 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               <input
                 ref={this.denomInput}
                 disabled={!this.props.pc}
-                placeholder={this.props.denom}
+                placeholder={"Enter a stat var dcid eg. Count_Person"}
                 onBlur={(e) => this.handleDenomInput(e)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     this.handleDenomInput(e);
                   }
                 }}
+                value={this.state.denomInput}
+                onChange={(e) => this.setState({ denomInput: e.target.value })}
               ></input>
             </span>
             <span className="chart-option">
@@ -216,7 +219,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     setChartOption(this.props.mprop, "delta", false);
   }
 
-  componentDidUpdate(prevProps: ChartPropsType): void {
+  componentDidUpdate(
+    prevProps: ChartPropsType,
+    prevState: ChartStateType
+  ): void {
+    if (prevState.denomInput !== this.state.denomInput) {
+      return;
+    }
     // We only need to fetch the raw data when place, statvars or denom changes.
     const shouldLoadData =
       !_.isEqual(prevProps.placeNames, this.props.placeNames) ||

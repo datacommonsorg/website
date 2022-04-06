@@ -163,7 +163,7 @@ export function ChartLoader(): JSX.Element {
         setChartData,
         display
       );
-      if (statVar.value.perCapita) {
+      if (statVar.value.perCapita && statVar.value.denom) {
         setLegendBoundsPerCapita(rawData, statVar, display);
       }
     }
@@ -694,6 +694,7 @@ function loadChartData(
   if (_.isNull(rawData.placeStat)) {
     return;
   }
+  const calculateRatio = statVar.perCapita && statVar.denom ? true : false;
   // populate mapValues with data value for each geo that we have geoJson data for.
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
@@ -702,7 +703,7 @@ function loadChartData(
         ? rawData.allPlaceStat[statVar.metahash]
         : rawData.placeStat,
       placeDcid,
-      statVar.perCapita,
+      calculateRatio,
       rawData.population,
       rawData.metadataMap
     );
@@ -728,7 +729,7 @@ function loadChartData(
     const placeChartData = getPlaceChartData(
       rawData.breadcrumbPlaceStat,
       place.dcid,
-      statVar.perCapita,
+      calculateRatio,
       rawData.population,
       rawData.metadataMap
     );
@@ -772,7 +773,7 @@ function loadChartData(
   const unit = getUnit(rawData.placeStat, rawData.metadataMap);
   const metahash = statVar.metahash || BEST_AVAILABLE_METAHASH;
   const sampleDates = rawData.sampleDates[metahash];
-  if (!statVar.perCapita) {
+  if (!statVar.perCapita || !statVar.denom) {
     display.set({
       ...display.value,
       domain:

@@ -25,7 +25,6 @@ import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Col, Container, Row } from "reactstrap";
 
 import { Point } from "../../chart/draw_scatter";
-import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import {
   SourceSelector,
   SourceSelectorSvInfo,
@@ -56,6 +55,8 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
   const [upperBound, setUpperBound] = useState(
     place.value.upperBound.toString()
   );
+  const [xDenomInput, setXDenomInput] = useState(x.value.denom);
+  const [yDenomInput, setYDenomInput] = useState(y.value.denom);
 
   const onSvMetahashUpdated = (update) => {
     for (const sv of Object.keys(update)) {
@@ -70,51 +71,37 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
     <Card id="plot-options">
       <Container fluid={true}>
         <Row className="plot-options-row">
-          {/* only allow per capita option for axes where there is population
-              data. */}
           <Col sm={1} className="plot-options-label">
-            Per capita:
+            {display.chartType === ScatterChartType.SCATTER
+              ? "Y-axis"
+              : y.value.statVarInfo.title || y.value.statVarDcid}
           </Col>
           <Col sm="auto">
-            <FormGroup check>
-              <Input
-                id="per-capita-y"
-                type="checkbox"
-                checked={y.value.perCapita}
-                onChange={(e) => checkPerCapita(y, e)}
-                disabled={!hasPopData(props.populationData)}
-              />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "Y-axis"
-                  : y.value.statVarInfo.title || y.value.statVarDcid}
+            <FormGroup check={true}>
+              <Label check={true}>
+                <Input
+                  id="per-capita-y"
+                  type="checkbox"
+                  checked={y.value.perCapita}
+                  onChange={(e) => y.setPerCapita(e.target.checked)}
+                />
+                Ratio of
               </Label>
-            </FormGroup>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Input
-                id="per-capita-x"
-                type="checkbox"
-                checked={x.value.perCapita}
-                onChange={(e) => checkPerCapita(x, e)}
-                disabled={!hasPopData(props.populationData)}
+              <input
+                className="denom-input"
+                onBlur={() => y.setDenom(yDenomInput)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    y.setDenom(yDenomInput);
+                  }
+                }}
+                type="text"
+                value={yDenomInput}
+                onChange={(e) => setYDenomInput(e.target.value)}
+                disabled={!y.value.perCapita}
+                placeholder="Enter a stat var dcid eg. Count_Person"
               />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "X-axis"
-                  : x.value.statVarInfo.title || x.value.statVarDcid}
-              </Label>
             </FormGroup>
-          </Col>
-        </Row>
-        <Row className="plot-options-row">
-          {/* only allow log scale option for axes where the data values are all
-              positive or all negative. The d3.scaleLog() function will throw an
-              error if trying to work with both positive and negative numbers or
-              0. */}
-          <Col sm={1} className="plot-options-label">
-            Log scale:
           </Col>
           <Col sm="auto">
             <FormGroup check>
@@ -124,11 +111,41 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
                 checked={y.value.log}
                 onChange={(e) => checkLog(y, e)}
               />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "Y-axis"
-                  : y.value.statVarInfo.title || y.value.statVarDcid}
+              <Label check>Log scale</Label>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row className="plot-options-row">
+          <Col sm={1} className="plot-options-label">
+            {display.chartType === ScatterChartType.SCATTER
+              ? "X-axis"
+              : x.value.statVarInfo.title || x.value.statVarDcid}
+          </Col>
+          <Col sm="auto">
+            <FormGroup check={true}>
+              <Label check={true}>
+                <Input
+                  id="per-capita-x"
+                  type="checkbox"
+                  checked={x.value.perCapita}
+                  onChange={(e) => x.setPerCapita(e.target.checked)}
+                />
+                Ratio of
               </Label>
+              <input
+                className="denom-input"
+                onBlur={() => x.setDenom(xDenomInput)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    x.setDenom(xDenomInput);
+                  }
+                }}
+                type="text"
+                value={xDenomInput}
+                onChange={(e) => setXDenomInput(e.target.value)}
+                disabled={!x.value.perCapita}
+                placeholder="Enter a stat var dcid eg. Count_Person"
+              />
             </FormGroup>
           </Col>
           <Col sm="auto">
@@ -139,11 +156,7 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
                 checked={x.value.log}
                 onChange={(e) => checkLog(x, e)}
               />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "X-axis"
-                  : x.value.statVarInfo.title || x.value.statVarDcid}
-              </Label>
+              <Label check>Log scale</Label>
             </FormGroup>
           </Col>
         </Row>
@@ -344,15 +357,6 @@ function selectUpperBound(
     place.setUpperBound(parseInt(event.target.value));
   }
   setUpperBound(event.target.value);
-}
-
-function hasPopData(populationData: StatApiResponse): boolean {
-  const placesWithPopData = Object.keys(populationData).filter(
-    (place) =>
-      !_.isEmpty(populationData[place].data) &&
-      !_.isEmpty(populationData[place].data[DEFAULT_POPULATION_DCID])
-  );
-  return !_.isEmpty(placesWithPopData);
 }
 
 export { PlotOptions };

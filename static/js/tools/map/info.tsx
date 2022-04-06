@@ -44,7 +44,7 @@ export function Info(): JSX.Element {
           <b>Max Temperature Relative To 2006, RCP 4.5</b> across counties in{" "}
           <a
             href={
-              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
+              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DCounty"
             }
           >
             USA
@@ -52,7 +52,7 @@ export function Info(): JSX.Element {
           ,{" districts in "}
           <a
             href={
-              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
+              "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
             }
           >
             India
@@ -63,7 +63,7 @@ export function Info(): JSX.Element {
           across states in{" "}
           <a
             href={
-              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
+              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
             }
           >
             USA
@@ -71,7 +71,7 @@ export function Info(): JSX.Element {
           ,{" facilities in "}
           <a
             href={
-              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F48%26ppt%3DEpaReportingFacility%26mp%3D1"
+              "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3DgeoId%2F48%26ppt%3DEpaReportingFacility%26mp%3D1"
             }
           >
             Texas
@@ -81,7 +81,7 @@ export function Info(): JSX.Element {
           <b>Withdrawal Rate of Water</b> across counties in{" "}
           <a
             href={
-              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty"
+              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DCounty"
             }
           >
             USA
@@ -89,7 +89,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F06%26ept%3DCounty"
+              "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26pd%3DgeoId%2F06%26ept%3DCounty"
             }
           >
             California

@@ -1075,6 +1075,28 @@ function drawGroupLineChart(
   const dataGroupsAll = Object.values(dataGroupsDict).filter(
     (x) => x.length > 0
   );
+
+  let container: d3.Selection<any, any, any, any>;
+  if (typeof selector === "string") {
+    container = d3.select("#" + selector);
+  } else if (selector instanceof HTMLDivElement) {
+    container = d3.select(selector);
+  } else {
+    return;
+  }
+
+  container.selectAll("svg").remove();
+
+  const svg = container
+    .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
+    .attr("width", width)
+    .attr("height", height + METADATA.height * 2);
+
+  if (_.isEmpty(dataGroupsAll)) {
+    return;
+  }
   const dataGroups = dataGroupsAll[0];
   const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   let legendWidth =
@@ -1095,24 +1117,6 @@ function drawGroupLineChart(
   if (minV === maxV) {
     maxV = minV + 1;
   }
-
-  let container: d3.Selection<any, any, any, any>;
-  if (typeof selector === "string") {
-    container = d3.select("#" + selector);
-  } else if (selector instanceof HTMLDivElement) {
-    container = d3.select(selector);
-  } else {
-    return;
-  }
-
-  container.selectAll("svg").remove();
-
-  const svg = container
-    .append("svg")
-    .attr("xmlns", SVGNS)
-    .attr("xmlns:xlink", XLINKNS)
-    .attr("width", width)
-    .attr("height", height + METADATA.height * 2);
 
   const yAxis = svg.append("g").attr("class", "y axis");
   const xAxis = svg.append("g").attr("class", "x axis");
