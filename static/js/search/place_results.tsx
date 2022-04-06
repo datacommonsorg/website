@@ -106,7 +106,7 @@ function getResultItemContentJsx(place: NamedPlace): JSX.Element {
       <div className="search-results-place-links">
         <a
           href={TIMELINE_REDIRECT_PREFIX + place.dcid}
-          title="Timeline Tool"
+          title="Timelines Explorer"
           className="search-results-link-icon"
           id={`timeline-${place.dcid}`}
         >
@@ -114,7 +114,7 @@ function getResultItemContentJsx(place: NamedPlace): JSX.Element {
         </a>
         <a
           href={MAP_REDIRECT_PREFIX + place.dcid}
-          title="Map Tool"
+          title="Map Explorer"
           className="search-results-link-icon"
           id={`map-${place.dcid}`}
         >
@@ -122,7 +122,7 @@ function getResultItemContentJsx(place: NamedPlace): JSX.Element {
         </a>
         <a
           href={SCATTER_REDIRECT_PREFIX + place.dcid}
-          title="Scatter Tool"
+          title="Scatter Explorer"
           className="search-results-link-icon"
           id={`scatter-${place.dcid}`}
         >
