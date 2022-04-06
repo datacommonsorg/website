@@ -390,12 +390,13 @@ def get_statvar_groups(dcids):
     return response.get('statVarGroups', {})
 
 
-def search_statvar(query, places, enable_blocklist):
+def search_statvar(query, places, enable_blocklist, sv_only):
     url = API_ROOT + API_ENDPOINTS['search_statvar']
     req_json = {
         'query': query,
         'places': places,
         'enable_blocklist': enable_blocklist,
+        "sv_only": sv_only,
     }
     return send_request(url, req_json, has_payload=False)
 

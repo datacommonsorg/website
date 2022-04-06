@@ -190,7 +190,7 @@ export class StatVarHierarchySearch extends React.Component<
   };
 
   private search = (query: string) => () => {
-    getStatVarSearchResults(query, this.props.places)
+    getStatVarSearchResults(query, this.props.places, false)
       .then((data) => {
         const currQuery = this.state.query;
         if (query === currQuery) {
