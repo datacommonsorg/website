@@ -75,7 +75,7 @@ def get_place_type(place_dcid):
     chosen_type = None
     for place_type in place_types:
         if not chosen_type or chosen_type.startswith('AdministrativeArea') \
-            or chosen_type == 'Place':
+                or chosen_type == 'Place':
             chosen_type = place_type
     return chosen_type
 
@@ -526,7 +526,8 @@ def api_ranking(dcid):
     # option.
     # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
     crime_statsvar = {
-        'Count_CriminalActivities_CombinedCrime':  # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+        # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+        'Count_CriminalActivities_CombinedCrime':
             gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
@@ -709,4 +710,4 @@ def placeid2dcid():
             if outIds and inId:
                 result[inId] = outIds[0]
         return Response(json.dumps(result), 200, mimetype='application/json')
-    abort(404, 'no valid dcid not found for %s' % place_id)
+    abort(404, 'no valid dcids found for %s' % place_ids)
