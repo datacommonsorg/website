@@ -29,7 +29,7 @@ $highlighted-box-max-width: 600px;
 .gcsc-more-maybe-branding-root a {
   border-bottom: none !important;
 }
- 
+
 .gsc-control-cse {
   padding-left: 1rem;
 }
@@ -136,9 +136,6 @@ $highlighted-box-max-width: 600px;
   padding: 0.2rem 0.5rem;
   color: var(--dc-primary);
   display: flex;
-}
-
-.search-results-link-icon {
   border-bottom: 2px solid transparent;
 }
 
@@ -150,12 +147,12 @@ $highlighted-box-max-width: 600px;
   font-size: $font-size-small;
 }
 
-.search-results-place-links a:hover {
-  text-decoration: none;
-}
-
 .search-results-place-links {
   display: flex;
+}
+
+.search-results-place-links a:hover {
+  text-decoration: none;
 }
 
 .search-results-place-explore-all {
@@ -197,7 +194,7 @@ $highlighted-box-max-width: 600px;
   flex-direction: column;
 }
 
-.search-results-sv-selected .search-results-item-title:hover{
+.search-results-sv-selected .search-results-item-title:hover {
   text-decoration: none;
 }
 
