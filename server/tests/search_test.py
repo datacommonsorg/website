@@ -20,21 +20,15 @@ from main import app
 
 class TestSearchPages(unittest.TestCase):
 
-    def test_search_landing(self):
-        response = app.test_client().get('/s')
-        assert response.status_code == 200
-        assert b"Search Data Commons content" in response.data
-        assert b"Search Places in Data Commons" in response.data
-
     def test_search(self):
         response = app.test_client().get('/search')
         assert response.status_code == 200
-        assert b"Search Data Commons content" in response.data
+        assert b"Search - Data Commons" in response.data
 
     def test_search_query(self):
         response = app.test_client().get('/search?q=foobar')
         assert response.status_code == 200
-        assert b"Showing results for foobar" in response.data
+        assert b'data-query="foobar"' in response.data
 
     def test_search_dc(self):
         response = app.test_client().get('/search_dc')
