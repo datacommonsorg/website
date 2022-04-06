@@ -56,6 +56,7 @@ const TestContext = ({
       domain: [-10, 50, 100],
       color: "red",
       showMapPoints: false,
+      showTimeSlider: false,
     },
   },
 } as unknown) as ContextType;

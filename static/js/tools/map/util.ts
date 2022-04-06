@@ -59,6 +59,7 @@ const URL_PARAM_KEYS = {
   MAP_POINTS: "mp",
   MAP_POINTS_SV: "mapsv",
   SV_METAHASH: "src",
+  TIME_SLIDER: "ts",
 };
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
@@ -72,6 +73,7 @@ export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
   domain: null,
   showMapPoints: false,
+  showTimeSlider: false,
 };
 
 export const ALL_MAP_PLACE_TYPES = {
@@ -219,10 +221,12 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
         .map((val) => Number(val))
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
+  const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
     showMapPoints: showMapPoints && showMapPoints === "1" ? true : false,
+    showTimeSlider: showTimeSlider && showTimeSlider === "1" ? true : false,
   };
 }
 
