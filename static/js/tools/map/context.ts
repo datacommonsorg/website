@@ -115,6 +115,8 @@ export interface DisplayOptions {
   domain: [number, number, number];
   // whether we want to show map points on the chart
   showMapPoints: boolean;
+  // TEMPORARY: whether to show the time slider
+  showTimeSlider: boolean;
 }
 
 export interface DisplayOptionsWrapper {
@@ -122,6 +124,7 @@ export interface DisplayOptionsWrapper {
 
   set: Setter<DisplayOptions>;
   setShowMapPoints: Setter<boolean>;
+  setShowTimeSlider: Setter<boolean>;
 }
 
 export interface ContextType {
@@ -198,6 +201,8 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       set: (display) => setDisplay(display),
       setShowMapPoints: (showMapPoints) =>
         setDisplay({ ...display, showMapPoints }),
+      setShowTimeSlider: (showTimeSlider) =>
+        setDisplay({ ...display, showTimeSlider }),
     },
   };
 }
