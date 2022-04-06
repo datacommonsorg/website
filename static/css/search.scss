@@ -33,7 +33,7 @@ $highlighted-box-max-width: 600px;
 .gsc-control-cse {
   padding-left: 1rem;
 }
- 
+
 #search .gsc-webResult * {
   padding-left: 0;
 }
@@ -119,47 +119,6 @@ $highlighted-box-max-width: 600px;
   padding: 1rem;
 }
 
-/* place search results section styling */
-
-.search-results-place-item-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.search-results-place .search-results-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.search-results-link-icon {
-  padding: 0.2rem 0.5rem;
-  color: var(--dc-primary);
-  display: flex;
-  border-bottom: 2px solid transparent;
-}
-
-.search-results-link-icon:hover {
-  border-bottom: 2px solid var(--link-color);
-}
-
-.search-results-place-item-info a {
-  font-size: $font-size-small;
-}
-
-.search-results-place-links {
-  display: flex;
-}
-
-.search-results-place-links a:hover {
-  text-decoration: none;
-}
-
-.search-results-place-explore-all {
-  font-size: $font-size-small;
-  padding: 0.3rem 0;
-}
-
 /* stat var search results section styling */
 
 .search-results-sv .search-results-list {
@@ -208,6 +167,47 @@ $highlighted-box-max-width: 600px;
 
 .search-results-sv-selected .search-results-item {
   max-width: $highlighted-box-max-width;
+}
+
+/* place search results section styling */
+
+.search-results-place-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-results-place .search-results-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-results-link-icon {
+  padding: 0.2rem 0.5rem;
+  color: var(--dc-primary);
+  display: flex;
+  border-bottom: 2px solid transparent;
+}
+
+.search-results-link-icon:hover {
+  border-bottom: 2px solid var(--link-color);
+}
+
+.search-results-place-item-info a {
+  font-size: $font-size-small;
+}
+
+.search-results-place-links {
+  display: flex;
+}
+
+.search-results-place-links a:hover {
+  text-decoration: none;
+}
+
+.search-results-place-explore-all {
+  font-size: $font-size-small;
+  padding: 0.3rem 0;
 }
 
 /* search input styling */
