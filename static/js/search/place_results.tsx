@@ -122,7 +122,7 @@ function getResultItemContentJsx(place: NamedPlace): JSX.Element {
         </a>
         <a
           href={SCATTER_REDIRECT_PREFIX + place.dcid}
-          title="Scatter Explorer"
+          title="Scatter Plot Explorer"
           className="search-results-link-icon"
           id={`scatter-${place.dcid}`}
         >
