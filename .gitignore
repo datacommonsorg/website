@@ -10,6 +10,7 @@ server/dist/**
 !server/dist/.empty
 
 **/node_modules/**
+npm-debug.log
 
 # Local env.
 .vscode
