@@ -1,4 +1,4 @@
 us-central1:
-  protocol: grpc
+  protocol: rest
   endpoint_id: "2436913591337615360"
   deployed_model_id: "8060554927597944832"
