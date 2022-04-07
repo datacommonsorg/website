@@ -239,3 +239,91 @@
 .sources-string {
   padding-left: 0.25rem;
 }
+
+/* Time Slider Styles */
+
+.time-slider-container {
+  align-items: center;
+  justify-content: center;
+  margin: 20px 100px;
+}
+
+.time-slider {
+  background-color: #f8f8f8;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  padding: 10px;
+}
+
+.time-slider-svg {
+  height: 14px;
+  width: 100%;
+}
+
+.time-slider-play-button {
+  color: #808080;
+  cursor: pointer;
+  margin: -3px 5px 0;
+}
+
+.time-slider-track,
+.time-slider-track-inset,
+.time-slider-handle,
+.time-slider-handle-inset {
+  stroke-linecap: round;
+  transform: translate(-8px, 6px);
+}
+
+.time-slider-track {
+  stroke: #808080;
+  stroke-width: 6px;
+}
+
+.time-slider-track-inset {
+  stroke: #dcdcdc;
+  stroke-width: 4px;
+}
+
+.time-slider-handle {
+  stroke: #808080;
+  stroke-width: 12px;
+  cursor: pointer;
+}
+
+.time-slider-handle-inset {
+  stroke: #dcdcdc;
+  stroke-width: 10px;
+}
+
+.time-slider-left,
+.time-slider-break {
+  float: left;
+}
+
+.time-slider-break {
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+  height: 40px;
+  margin-top: -10px;
+  padding: 0 5px;
+}
+
+.time-slider-current-date {
+  text-align: center;
+}
+
+.time-slider-start-date {
+  color: #808080;
+  margin-right: 5px;
+}
+
+.time-slider-end-date {
+  float: right;
+  margin-left: 5px;
+  color: #808080;
+}
+
+#time-slider-slide {
+  overflow: hidden;
+}

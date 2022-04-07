@@ -23,8 +23,8 @@ import webdriver_tests.shared as shared
 
 SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
-'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
-'&epd=geoId/06&epn=California&ept=County'
+    'Count_Person_AsianAlone&svpy=0-14-1&svdy=Count_Person&svny=Asian_Alone&pcy=1'\
+    '&epd=geoId/06&epn=California&ept=County'
 PLACE_SEARCH_CA = 'California'
 
 
@@ -75,7 +75,7 @@ class TestScatter(WebdriverBaseTest):
         chart_title_x = self.driver.find_element_by_xpath(
             '//*[@id="no-padding"]/div[1]/h3[2]')
         self.assertEqual(chart_title_y.text,
-                         "Asian Alone Population Per Capita (2020)")
+                         "Population: Asian Alone Per Capita (2020)")
         self.assertEqual(chart_title_x.text, "Median Income (2019)")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
@@ -119,11 +119,7 @@ class TestScatter(WebdriverBaseTest):
 
         # Choose stat vars
         shared.wait_for_loading(self.driver)
-        hierarchy = self.driver.find_element_by_xpath(
-            '//*[@id="hierarchy-section"]')
-        demographics_button = hierarchy.find_elements_by_class_name(
-            'Collapsible')[0]
-        demographics_button.click()
+        shared.click_sv_group(self.driver, "Demographics")
 
         # Click on median age button
         shared.wait_for_loading(self.driver)

@@ -44,6 +44,10 @@ const config = {
       __dirname + "/css/place/place.scss",
     ],
     place_landing: [__dirname + "/js/place/place_landing.ts"],
+    rich_search: [
+      __dirname + "/js/rich_search/rich_search.ts",
+      __dirname + "/css/rich_search.scss",
+    ],
     topic_page: [
       __dirname + "/js/topic_page/topic_page.ts",
       __dirname + "/css/topic_page.scss",
@@ -60,17 +64,15 @@ const config = {
       __dirname + "/js/protein/protein.ts",
       __dirname + "/css/protein.scss",
     ],
-    search: [
-      __dirname + "/css/search.scss",
-    ],
-    search_landing: [
-      __dirname + "/js/search_landing.ts",
-    ],
     static: __dirname + "/css/static.scss",
     translator: [
       __dirname + "/js/translator/translator.ts",
       __dirname + "/css/translator.scss",
     ],
+    search: [
+      __dirname + "/js/search/search.ts",
+      __dirname + "/css/search.scss",
+    ]
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",

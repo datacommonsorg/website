@@ -21,9 +21,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import { GetStatSetResponse } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
-import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
 import { getStatVarName } from "./string_utils";
 import { RankingMetadataConfig } from "./topic_config";
@@ -157,17 +158,13 @@ function fetchData(
     })
     .then((rankingData) => {
       // Fetch place names.
-      const places = new Set();
+      const places: Set<string> = new Set();
       for (const statVar in rankingData) {
         for (const item of rankingData[statVar].points) {
           places.add(item.placeDcid);
         }
       }
-      const placeParam = Array.from(places)
-        .map((x) => "dcid=" + x)
-        .join("&");
-      axios.get(`/api/place/name?${placeParam}`).then((resp) => {
-        const placeNames = resp.data;
+      getPlaceNames(Array.from(places)).then((placeNames) => {
         for (const statVar in rankingData) {
           for (const item of rankingData[statVar].points) {
             item.placeName = placeNames[item.placeDcid] || item.placeDcid;

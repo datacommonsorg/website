@@ -20,8 +20,10 @@ import _ from "lodash";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
   DisplayNameApiResponse,
+  SourceSeries,
   StatAllApiResponse,
   StatApiResponse,
+  StatMetadata,
   TimeSeries,
 } from "../../shared/stat_types";
 
@@ -184,25 +186,51 @@ export function computeRatio(
   return result;
 }
 
+interface TimelineStatAllData {
+  [place: string]: {
+    [statVar: string]: { [metahash: string]: SourceSeries };
+  };
+}
+
+export interface TimelineRawData {
+  // Map of place dcid to display name
+  displayNames: DisplayNameApiResponse;
+  // Data for a single time series for each stat var for each place
+  statData: StatApiResponse;
+  // Map of stat var dcid to a map of metahash (identifying string) to source
+  // metadata for sources available for that stat var.
+  metadataMap: Record<string, Record<string, StatMetadata>>;
+  // Data for all available source series for each stat var for each place
+  statAllData: TimelineStatAllData;
+  // Data for a single time series for the denom stat var for each place
+  denomData: StatApiResponse;
+}
+
 /**
- * Fetch statistical time series given a set of places and a set of statistical
- * variables.
- *
- * @param places A list of place dcids.
- * @param statVars A list of statistical variable dcids.
- * @param isRatio Whether to compute ratio of two stat vars.
- * @param scaling Scaling factor for per capita computation.
- * @param denom Denominator stat var, only used when isRatio = true.
- *
- * @returns A Promise of StatData object.
+ * Given the metadata for a source, returns a string to identify that source
  */
-export function fetchStatData(
+function getMetahash(metadata: StatMetadata): string {
+  let metahash = "";
+  for (const key of [
+    "importName",
+    "measurementMethod",
+    "observationPeriod",
+    "scalingFactor",
+    "unit",
+  ]) {
+    metahash += metadata[key];
+  }
+  return metahash;
+}
+
+/**
+ * Promise that returns the raw data needed for Timeline tool
+ */
+export function fetchRawData(
   places: string[],
   statVars: string[],
-  isRatio = false,
-  scaling = 1,
   denom = ""
-): Promise<StatData> {
+): Promise<TimelineRawData> {
   const statDataPromise: Promise<StatApiResponse> = axios
     .post(`/api/stats`, {
       places: places,
@@ -211,8 +239,8 @@ export function fetchStatData(
     .then((resp) => {
       return resp.data;
     });
-  let denomDataPromise: Promise<StatApiResponse>;
-  if (isRatio && denom) {
+  let denomDataPromise: Promise<StatApiResponse> = Promise.resolve({});
+  if (denom) {
     denomDataPromise = axios
       .post(`/api/stats`, {
         places: places,
@@ -221,77 +249,172 @@ export function fetchStatData(
       .then((resp) => {
         return resp.data;
       });
-  } else {
-    denomDataPromise = Promise.resolve({});
-  }
-
-  let placeParams = `?`;
-  for (const place of places) {
-    placeParams += `&dcid=${place}`;
   }
   const displayNamesPromise: Promise<DisplayNameApiResponse> = axios
-    .get(`/api/place/displayname${placeParams}`)
+    .get(`/api/place/displayname?dcid=${places.join("&dcid=")}`)
     .then((resp) => {
       return resp.data;
     });
-
-  // create list of promises containing apiDataPromises followed by displayNamesPromise
-  const apiPromises: Promise<StatApiResponse | DisplayNameApiResponse>[] = [
+  const statAllDataPromise: Promise<StatAllApiResponse> = axios
+    .get(
+      `/api/stats/all?places=${places.join(
+        "&places="
+      )}&statVars=${statVars.join("&statVars=")}`
+    )
+    .then((resp) => {
+      return resp.data;
+    });
+  return Promise.all([
     statDataPromise,
     denomDataPromise,
     displayNamesPromise,
-  ];
-
-  return Promise.all(apiPromises).then((allResp) => {
-    const result: StatData = {
-      places: places,
-      statVars: statVars,
-      dates: [],
-      data: null,
-      sources: new Set(),
-      measurementMethods: new Set(),
-    };
-    const allDates = new Set<string>();
-    const statResp = allResp[0] as StatApiResponse;
-    const denomResp = allResp[1] as StatApiResponse;
-    const displayNameMapping = allResp[2] as DisplayNameApiResponse;
-
-    for (const place in statResp) {
-      const placeData = statResp[place].data;
-      for (const statVar in placeData) {
-        if (isRatio) {
-          placeData[statVar] = computeRatio(
-            placeData[statVar],
-            denomResp[place].data[denom],
-            scaling
-          );
-        }
-      }
-
-      if (!placeData) {
+    statAllDataPromise,
+  ]).then(([statData, denomData, displayNames, statAllData]) => {
+    const metadataMap = {};
+    const processedStatAllData = {};
+    for (const place in statAllData.placeData) {
+      const placeData = statAllData.placeData[place].statVarData;
+      if (_.isEmpty(placeData)) {
         continue;
       }
-      if (displayNameMapping[place]) {
-        statResp[place].name = displayNameMapping[place];
-      }
-      for (const statVar in placeData) {
-        const timeSeries = placeData[statVar];
-        if (timeSeries.metadata) {
-          result.sources.add(timeSeries.metadata.provenanceUrl);
-          const mmethod = timeSeries.metadata.measurementMethod;
-          if (mmethod) {
-            result.measurementMethods.add(mmethod);
+      const processedPlaceData = {};
+      for (const sv in placeData) {
+        const sourceSeries = placeData[sv].sourceSeries;
+        if (_.isEmpty(sourceSeries)) {
+          continue;
+        }
+        const processedSourceSeries = {};
+        for (const series of sourceSeries) {
+          const metadata = {
+            ...series,
+            provenanceUrl: series.provenanceDomain,
+          };
+          // a SourceSeries object holds the data values in the val field and
+          // the rest of the object contains the metadata of that source
+          // series.
+          delete metadata.val;
+          // StatMetadata uses provenanceUrl for what SourceSeries stores in
+          // provenanceDomain.
+          delete metadata.provenanceDomain;
+          const metahash = getMetahash(metadata);
+          if (!metadataMap[sv]) {
+            metadataMap[sv] = {};
           }
+          metadataMap[sv][metahash] = metadata;
+          processedSourceSeries[metahash] = series;
         }
-        for (const date in timeSeries.val) {
-          allDates.add(date);
+        processedPlaceData[sv] = processedSourceSeries;
+      }
+      processedStatAllData[place] = processedPlaceData;
+    }
+    return {
+      displayNames,
+      statData,
+      metadataMap,
+      statAllData: processedStatAllData,
+      denomData,
+    };
+  });
+}
+
+/**
+ * Given raw data and timeline chart options, gets the StatData for the chart.
+ * @param rawData raw timeline data
+ * @param places places to get data for
+ * @param statVars stat vars to get data for
+ * @param metahashMap map of stat var dcid to metahash
+ * @param isRatio whether or not to calculate ratio
+ * @param denom denominator to use when calculating ratio
+ * @param scaling scaling factor to use when calculating ratio
+ */
+export function getStatData(
+  rawData: TimelineRawData,
+  places: string[],
+  statVars: string[],
+  metahashMap: Record<string, string>,
+  isRatio: boolean,
+  denom = "",
+  scaling = 1
+): StatData {
+  const result: StatData = {
+    places: places,
+    statVars: statVars,
+    dates: [],
+    data: {},
+    sources: new Set(),
+    measurementMethods: new Set(),
+  };
+
+  const allDates = new Set<string>();
+
+  for (const place of places) {
+    const placeData = {};
+    for (const sv of statVars) {
+      let timeSeries = null;
+      const metahash = metahashMap[sv];
+      if (!_.isEmpty(metahash)) {
+        const metadata = rawData.metadataMap[sv][metahash];
+        const haveSeries =
+          place in rawData.statAllData &&
+          sv in rawData.statAllData[place] &&
+          metahash in rawData.statAllData[place][sv];
+        if (haveSeries) {
+          timeSeries = {
+            val: rawData.statAllData[place][sv][metahash].val,
+            metadata,
+          };
         }
+      } else if (
+        !_.isEmpty(rawData.statData[place]) &&
+        !_.isEmpty(rawData.statData[place].data[sv])
+      ) {
+        timeSeries = rawData.statData[place].data[sv];
+      }
+
+      if (_.isEmpty(timeSeries)) {
+        continue;
+      }
+
+      if (isRatio) {
+        const hasDenomSeries =
+          place in rawData.denomData && denom in rawData.denomData[place].data;
+        if (!hasDenomSeries) {
+          // TODO: add error message or some way to show that denom data is
+          // is missing
+          continue;
+        }
+        timeSeries = computeRatio(
+          timeSeries,
+          rawData.denomData[place].data[denom],
+          scaling
+        );
+      }
+      placeData[sv] = timeSeries;
+    }
+    if (_.isEmpty(placeData)) {
+      continue;
+    }
+    for (const statVar in placeData) {
+      const timeSeries = placeData[statVar];
+      if (timeSeries.metadata) {
+        result.sources.add(timeSeries.metadata.provenanceUrl);
+        const mmethod = timeSeries.metadata.measurementMethod;
+        if (mmethod) {
+          result.measurementMethods.add(mmethod);
+        }
+      }
+      for (const date in timeSeries.val) {
+        allDates.add(date);
       }
     }
-    result.data = statResp;
-    result.dates = Array.from(allDates.values()).sort();
-    return result;
-  });
+    const placeName = rawData.displayNames[place] || "";
+    result.data[place] = {
+      data: placeData,
+      name: placeName,
+    };
+  }
+  result.dates = Array.from(allDates.values()).sort();
+  return result;
 }
 
 /**
@@ -307,7 +430,8 @@ export function fetchStatData(
  */
 export function statDataFromModels(
   mainStatData: StatData,
-  modelStatAllResponse: StatAllApiResponse
+  modelStatAllResponse: TimelineStatAllData,
+  modelStatVars: string[]
 ): [StatData, StatData] {
   const modelData = {
     places: [],
@@ -320,29 +444,25 @@ export function statDataFromModels(
   if (!mainStatData.dates.length) {
     return [mainStatData, modelData];
   }
-  for (const place in modelStatAllResponse.placeData) {
-    const placeData = modelStatAllResponse.placeData[place];
+  for (const place in modelStatAllResponse) {
+    const placeData = modelStatAllResponse[place];
     modelData.places.push(place);
     modelData.data[place] = { data: {} };
-    for (const sv in modelStatAllResponse.placeData[place].statVarData) {
+    for (const sv of modelStatVars) {
       if (!(place in mainStatData.data)) {
         continue;
       }
       const mainObsPeriod =
         mainStatData.data[place].data[sv].metadata.observationPeriod;
       modelData.statVars.push(sv);
-      const svData = placeData.statVarData[sv];
-      if ("sourceSeries" in svData) {
+      if (sv in placeData) {
         const dateVals = {};
         const means = {};
-        const sourceSeries = svData.sourceSeries;
-        // Replace requested series with means across models.
-        const keepSeries = [];
-        for (const series of sourceSeries) {
+        const sourceSeries = placeData[sv];
+        for (const series of Object.values(sourceSeries)) {
           if (series.observationPeriod !== mainObsPeriod) {
             continue;
           }
-          keepSeries.push(series);
           mainStatData.measurementMethods.delete(series.measurementMethod);
           modelData.measurementMethods.add(series.measurementMethod);
           modelData.sources.add(series.provenanceDomain);
@@ -357,8 +477,6 @@ export function statDataFromModels(
         for (const date in dateVals) {
           means[date] = _.mean(dateVals[date]);
         }
-        // Update modelStatAllResponse to drop the series with non-matching obs period.
-        svData.sourceSeries = keepSeries;
         mainStatData.data[place].data[sv].val = means;
         mainStatData.measurementMethods.add("Mean across models");
       }

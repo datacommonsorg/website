@@ -30,15 +30,19 @@ import {
   PAKISTAN_PLACE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { StatApiResponse } from "../../shared/stat_types";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { getDateRange } from "../../utils/string_utils";
 import {
-  getPopulationDate,
-  isChildPlaceOf,
   PlacePointStat,
+  PlaceStatDateWithinPlace,
+  StatApiResponse,
   StatMetadata,
-} from "../shared_util";
+} from "../../shared/stat_types";
+import {
+  NamedPlace,
+  NamedTypedPlace,
+  ProvenanceSummary,
+} from "../../shared/types";
+import { getDateRange } from "../../utils/string_utils";
+import { getPopulationDate, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
@@ -55,17 +59,21 @@ const URL_PARAM_KEYS = {
   MAP_POINTS: "mp",
   MAP_POINTS_SV: "mapsv",
   SV_METAHASH: "src",
+  TIME_SLIDER: "ts",
 };
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
   AirPollutant: "AirQualitySite",
 };
 
+const NUM_SAMPLE_DATES = 10;
+
 export const DEFAULT_DENOM = "Count_Person";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
   domain: null,
   showMapPoints: false,
+  showTimeSlider: false,
 };
 
 export const ALL_MAP_PLACE_TYPES = {
@@ -128,6 +136,8 @@ export const CHILD_PLACE_TYPE_MAPPING = {
 export const ENCLOSED_PLACE_TYPE_NAMES = {
   [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
 };
+
+export const BEST_AVAILABLE_METAHASH = "Best Available";
 
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
@@ -211,10 +221,12 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
         .map((val) => Number(val))
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
+  const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
     showMapPoints: showMapPoints && showMapPoints === "1" ? true : false,
+    showTimeSlider: showTimeSlider && showTimeSlider === "1" ? true : false,
   };
 }
 
@@ -504,4 +516,141 @@ export function getTitle(
   return isPerCapita
     ? `${statVarName} Per Capita ${dateRange}`
     : `${statVarName} ${dateRange}`;
+}
+
+/**
+ * Builds metatext from StatMetadata used for the source selector.
+ * @param metadata
+ */
+export function getMetaText(metadata: StatMetadata): string {
+  let result = `[${metadata.importName}]`;
+  let first = true;
+  for (const text of [
+    metadata.measurementMethod,
+    metadata.observationPeriod,
+    metadata.scalingFactor,
+    metadata.unit,
+  ]) {
+    if (text) {
+      if (!first) {
+        result += ", ";
+      }
+      result += text;
+      first = false;
+    }
+  }
+  return result;
+}
+
+/**
+ * Return a map of metahash to metatext.
+ * @param metadataMap
+ */
+function getMetahashMap(
+  metadataMap: Record<string, StatMetadata>
+): Record<string, string> {
+  const metahashMap: Record<string, string> = {};
+  for (const metahash in metadataMap) {
+    const metatext = getMetaText(metadataMap[metahash]);
+    metahashMap[metatext] = metahash;
+  }
+  return metahashMap;
+}
+
+/**
+ * Return a map of sources to sample dates to display on the time slider.
+ * @param metadataMap
+ * @param placeStatDateWithinPlace
+ */
+export function getTimeSliderDates(
+  metadataMap: Record<string, StatMetadata>,
+  placeStatDateWithinPlace: Array<PlaceStatDateWithinPlace>
+): Record<string, Array<string>> {
+  const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
+  const sampleDates: Record<string, Array<string>> = {};
+  let bestDate = "0";
+  let bestCount = 0;
+  let bestAvailable = "";
+  for (const series of placeStatDateWithinPlace) {
+    const metatext = getMetaText(series.metadata);
+    const dates = Object.keys(series.datePlaceCount).sort();
+    let seriesWeight = 0;
+    if (dates.length <= NUM_SAMPLE_DATES) {
+      sampleDates[metahashMap[metatext]] = dates;
+    } else {
+      const increment = Math.floor(dates.length / NUM_SAMPLE_DATES);
+      const selectedDates: Array<string> = [];
+      for (let i = 0; i < dates.length; i += increment) {
+        selectedDates.push(dates[i]);
+      }
+
+      // Include most recent date
+      if (selectedDates[selectedDates.length - 1] !== dates[dates.length - 1]) {
+        selectedDates.push(dates[dates.length - 1]);
+      }
+      sampleDates[metahashMap[metatext]] = selectedDates;
+    }
+    for (const date of sampleDates[metahashMap[metatext]]) {
+      seriesWeight += series.datePlaceCount[date];
+    }
+
+    // Select series with most recent date and greatest number of places
+    if (
+      dates[dates.length - 1] > bestDate ||
+      (dates[dates.length - 1] === bestDate && seriesWeight > bestCount)
+    ) {
+      bestDate = dates[dates.length - 1];
+      bestCount = seriesWeight;
+      bestAvailable = metahashMap[metatext];
+    }
+  }
+  sampleDates[BEST_AVAILABLE_METAHASH] = [bestAvailable];
+  return sampleDates;
+}
+
+/**
+ * Return a map of sources to legend bounds.
+ * @param metadataMap
+ * @param provenanceSummary
+ * @param placeType
+ * @param bestAvailableHash
+ */
+export function getLegendBounds(
+  metadataMap: Record<string, StatMetadata>,
+  provenanceSummary: ProvenanceSummary,
+  placeType: string,
+  bestAvailableHash: string
+): Record<string, [number, number, number]> {
+  const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
+  const legendBounds: Record<string, [number, number, number]> = {};
+  for (const provId in provenanceSummary) {
+    const provenance = provenanceSummary[provId];
+    for (const series of provenance.seriesSummary) {
+      if (!(placeType in series.placeTypeSummary)) {
+        continue;
+      }
+      const metatext = getMetaText({
+        ...series.seriesKey,
+        importName: provenance.importName,
+      });
+      if (!(metatext in metahashMap)) {
+        continue;
+      }
+      const minValue = series.placeTypeSummary[placeType].minValue || 0;
+      const maxValue = series.placeTypeSummary[placeType].maxValue;
+      legendBounds[metahashMap[metatext]] = [
+        minValue,
+        (minValue + maxValue) / 2,
+        maxValue,
+      ];
+      if (metahashMap[metatext] === bestAvailableHash) {
+        legendBounds[BEST_AVAILABLE_METAHASH] = [
+          minValue,
+          (minValue + maxValue) / 2,
+          maxValue,
+        ];
+      }
+    }
+  }
+  return legendBounds;
 }

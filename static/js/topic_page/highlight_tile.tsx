@@ -18,8 +18,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { formatNumber } from "../i18n/i18n";
+import { GetStatSetResponse, PlacePointStatData } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
-import { GetStatSetResponse, PlacePointStatData } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
 import { formatString, ReplacementStrings } from "./string_utils";
 

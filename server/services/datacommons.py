@@ -17,11 +17,12 @@ import base64
 import collections
 import json
 import logging
-import zlib
 import urllib.parse
+import zlib
+from typing import Mapping
 
-import requests
 import lib.config as libconfig
+import requests
 
 cfg = libconfig.get_config()
 
@@ -55,6 +56,7 @@ API_ENDPOINTS = {
     'get_statvar_group': '/stat-var/group',
     'get_statvar_path': '/stat-var/path',
     'search_statvar': '/stat-var/search',
+    'match_statvar': '/stat-var/match',
     'get_statvar_summary': '/stat-var/summary',
     'version': '/version',
 }
@@ -388,12 +390,22 @@ def get_statvar_groups(dcids):
     return response.get('statVarGroups', {})
 
 
-def search_statvar(query, places, enable_blocklist):
+def search_statvar(query, places, enable_blocklist, sv_only):
     url = API_ROOT + API_ENDPOINTS['search_statvar']
     req_json = {
         'query': query,
         'places': places,
         'enable_blocklist': enable_blocklist,
+        "sv_only": sv_only,
+    }
+    return send_request(url, req_json, has_payload=False)
+
+
+def match_statvar(property_value: Mapping[str, str], limit: int):
+    url = API_ROOT + API_ENDPOINTS['match_statvar']
+    req_json = {
+        'property_value': property_value,
+        'limit': limit,
     }
     return send_request(url, req_json, has_payload=False)
 

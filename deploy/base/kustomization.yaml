@@ -25,3 +25,8 @@ resources:
   - ../../mixer/deploy/mapping
   - deployment.yaml
   - namespace.yaml
+
+configMapGenerator:
+  - name: ai-config
+    files:
+      - ai.yaml

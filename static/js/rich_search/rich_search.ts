@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-import { initSearchAutocomplete } from "./place/search";
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { AppWithContext } from "./app";
 
 window.onload = () => {
-  initSearchAutocomplete();
+  ReactDOM.render(
+    React.createElement(AppWithContext),
+    document.getElementById("main-pane")
+  );
 };

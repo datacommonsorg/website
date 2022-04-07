@@ -75,7 +75,7 @@ def get_place_type(place_dcid):
     chosen_type = None
     for place_type in place_types:
         if not chosen_type or chosen_type.startswith('AdministrativeArea') \
-            or chosen_type == 'Place':
+                or chosen_type == 'Place':
             chosen_type = place_type
     return chosen_type
 
@@ -113,6 +113,8 @@ def cached_i18n_name(dcids, locale, should_resolve_all):
     Returns:
         A dictionary of place names, keyed by dcid (potentially sparse if should_resolve_all=False)
     """
+    if not dcids:
+        return {}
     dcids = dcids.split('^')
     response = fetch_data('/node/property-values', {
         'dcids': dcids,
@@ -524,7 +526,8 @@ def api_ranking(dcid):
     # option.
     # TOOD(shifucun): merge this once https://github.com/datacommonsorg/mixer/issues/262 is fixed.
     crime_statsvar = {
-        'Count_CriminalActivities_CombinedCrime':  # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+        # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
+        'Count_CriminalActivities_CombinedCrime':
             gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
@@ -681,24 +684,30 @@ def get_places_in_names():
                     mimetype='application/json')
 
 
-@bp.route('/placeid2dcid/<path:place_id>')
-@cache.cached(timeout=3600 * 24)
-def placeid2dcid(place_id):
+@bp.route('/placeid2dcid')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def placeid2dcid():
     """
     API endpoint to get dcid based on place id.
 
     This is to use together with the Google Maps Autocomplete API:
     https://developers.google.com/places/web-service/autocomplete.
     """
+    place_ids = request.args.getlist("placeIds")
     resp = requests.post(current_app.config['RECON_API_ROOT'] + '/id/resolve',
                          json={
                              "in_prop": "placeId",
                              "out_prop": "dcid",
-                             "ids": [place_id]
+                             "ids": place_ids
                          },
                          headers={'Content-Type': 'application/json'})
     if resp.status_code == 200:
         entities = resp.json().get('entities', [])
-        if entities and 'outIds' in entities[0]:
-            return entities[0]['outIds'][0]
-    abort(404, 'no valid dcid not found for %s' % place_id)
+        result = {}
+        for entity in entities:
+            inId = entity.get('inId', "")
+            outIds = entity.get('outIds', [])
+            if outIds and inId:
+                result[inId] = outIds[0]
+        return Response(json.dumps(result), 200, mimetype='application/json')
+    abort(404, 'no valid dcids found for %s' % place_ids)

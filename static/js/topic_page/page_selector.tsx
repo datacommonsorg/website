@@ -24,6 +24,7 @@ import React, { useEffect, useState } from "react";
 import { CustomInput } from "reactstrap";
 
 import { NamedTypedPlace } from "../shared/types";
+import { getPlaceNames } from "../utils/place_utils";
 import { TopicsSummary } from "./topic_page";
 
 interface PageSelectorPropType {
@@ -114,14 +115,10 @@ function getPlaceOptions(
   setPlaceOptions: (placeOptions: Record<string, string>) => void
 ): void {
   const placeOptionDcids = topicsSummary.topicPlaceMap[selectedTopic] || [];
-  const placeParams = placeOptionDcids
-    .map((place) => "dcid=" + place)
-    .join("&");
   // TODO: make this call in flask and pass it down with the topicsSummary
-  axios
-    .get(`/api/place/name?${placeParams}`)
-    .then((resp) => {
-      setPlaceOptions(resp.data);
+  getPlaceNames(placeOptionDcids)
+    .then((placeNames) => {
+      setPlaceOptions(placeNames);
     })
     .catch(() => {
       const placeOptions = {};

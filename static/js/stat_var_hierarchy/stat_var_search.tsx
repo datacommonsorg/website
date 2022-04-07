@@ -19,17 +19,14 @@
  * the search input and dropdown results.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { NamedNode } from "../shared/types";
-
-interface SvgSearchResult {
-  dcid: string;
-  name: string;
-  statVars?: Array<NamedNode>;
-}
+import { NamedNode, SvgSearchResult } from "../shared/types";
+import {
+  getHighlightedJSX,
+  getStatVarSearchResults,
+} from "../utils/search_utils";
 
 interface StatVarHierarchySearchPropType {
   places: string[];
@@ -136,11 +133,7 @@ export class StatVarHierarchySearch extends React.Component<
                       onClick={this.onResultSelected(sv.dcid)}
                       key={sv.dcid}
                     >
-                      {this.getHighlightedJSX(
-                        sv.dcid,
-                        sv.name,
-                        this.state.matches
-                      )}
+                      {getHighlightedJSX(sv.dcid, sv.name, this.state.matches)}
                     </div>
                   );
                 })}
@@ -176,45 +169,6 @@ export class StatVarHierarchySearch extends React.Component<
     return result;
   }
 
-  // Creates a jsx element with parts of the string matching a set of words
-  // highlighted.
-  // eg. s: "test string abc def", matches: ["abc", "blank"]
-  //     would return s with "abc" highlighted
-  getHighlightedJSX(id: string, s: string, matches: string[]): JSX.Element {
-    let prevResult = [s];
-    let currResult = [];
-    matches.sort((a, b) => b.length - a.length);
-    // Escape any invalid symbols in the returned matches
-    const processedMatches = matches.map((match) =>
-      match.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1")
-    );
-    for (const match of processedMatches) {
-      try {
-        const re = new RegExp(`(${match})`, "gi");
-        prevResult.forEach((stringPart) =>
-          currResult.push(...stringPart.split(re))
-        );
-        prevResult = currResult;
-        currResult = [];
-      } catch (e) {
-        // If trying to split the string on one of the returned matches fails,
-        // should just continue through the rest of the matches
-        continue;
-      }
-    }
-    return (
-      <>
-        {prevResult.map((stringPart, i) => {
-          if (matches.indexOf(stringPart.toLowerCase()) > -1) {
-            return <b key={`${id}-${i}`}>{stringPart}</b>;
-          } else {
-            return stringPart;
-          }
-        })}
-      </>
-    );
-  }
-
   private onInputChanged = (event) => {
     this.setState({ showResults: true });
     const query = event.target.value;
@@ -236,27 +190,18 @@ export class StatVarHierarchySearch extends React.Component<
   };
 
   private search = (query: string) => () => {
-    let url = `/api/stats/stat-var-search?query=${query}`;
-    for (const place of this.props.places) {
-      url += `&places=${place}`;
-    }
-    axios
-      .get(url)
-      .then((resp) => {
+    getStatVarSearchResults(query, this.props.places, false)
+      .then((data) => {
         const currQuery = this.state.query;
-        const data = resp.data;
         if (query === currQuery) {
-          const svgResults: SvgSearchResult[] = data.statVarGroups || [];
-          const svResults: NamedNode[] = data.statVars || [];
-          const matches: string[] = data.matches || [];
           this.setState({
-            matches,
+            matches: data.matches,
             showNoResultsMessage:
-              _.isEmpty(svgResults) &&
-              _.isEmpty(svResults) &&
+              _.isEmpty(data.statVarGroups) &&
+              _.isEmpty(data.statVars) &&
               !_.isEmpty(query),
-            svgResults,
-            svResults,
+            svgResults: data.statVarGroups,
+            svResults: data.statVars,
           });
         }
       })
@@ -310,7 +255,7 @@ export class StatVarHierarchySearch extends React.Component<
 
   private getSvgResultJsx(svgResults: SvgSearchResult[]): JSX.Element[] {
     const svgResultJsx = svgResults.map((svg) => {
-      const titleJsx = this.getHighlightedJSX(
+      const titleJsx = getHighlightedJSX(
         svg.dcid,
         svg.name,
         this.state.matches
@@ -318,7 +263,7 @@ export class StatVarHierarchySearch extends React.Component<
       let subtitleJsx = null;
       let subtitleSuffix = "";
       if (svg.statVars && svg.statVars.length > 0) {
-        subtitleJsx = this.getHighlightedJSX(
+        subtitleJsx = getHighlightedJSX(
           svg.dcid + "-subtitle",
           svg.statVars[0].name,
           this.state.matches

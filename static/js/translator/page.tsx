@@ -17,7 +17,7 @@
 import axios from "axios";
 import React from "react";
 
-import { input } from "./constants";
+import { mapping, sparql } from "./constants";
 import { Binding, Constraint, Translation } from "./translation";
 
 interface PagePropType {
@@ -70,10 +70,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
 
   onModeChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    this.mappingInputElem.current.value = input[event.target.value].mapping;
-    this.sparqlInputElem.current.value = input[event.target.value].sparql;
-    this.mapping = input[event.target.value].mapping;
-    this.sparql = input[event.target.value].sparql;
+    this.mappingInputElem.current.value = mapping;
+    this.sparqlInputElem.current.value = sparql[event.target.value];
+    this.mapping = mapping;
+    this.sparql = sparql[event.target.value];
     this.updateTranslation();
   }
 
@@ -132,8 +132,17 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           bindings={this.state.bindings}
           constraints={this.state.constraints}
         ></Translation>
+        <a href={this.createBqUrl()} target="_blank" rel="noreferrer">
+          {" "}
+          BigQuery Link
+        </a>
       </div>
     );
+  }
+
+  private createBqUrl(): string {
+    const query = encodeURIComponent(this.state.sql);
+    return `https://pantheon.corp.google.com/bigquery;create-new-query-tab=${query}`;
   }
 
   private updateTranslation() {

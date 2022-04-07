@@ -24,9 +24,10 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawGroupBarChart } from "../chart/draw";
+import { GetStatSetResponse } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
-import { GetStatSetResponse } from "../tools/shared_util";
 import { StatVarMetadata } from "../types/stat_var";
+import { getPlaceNames } from "../utils/place_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { Point } from "./ranking_unit";
@@ -136,49 +137,47 @@ function processData(
   popPoints = popPoints.slice(0, NUM_PLACES);
 
   // Fetch the place names
-  const placeParam = Array.from(popPoints)
-    .map((x) => "dcid=" + x.placeDcid)
-    .join("&");
-  axios.get(`/api/place/name?${placeParam}`).then((resp) => {
-    const placeNames = resp.data;
-    for (const point of popPoints) {
-      const placeDcid = point.placeDcid;
-      const dataPoints: DataPoint[] = [];
-      for (const item of props.statVarMetadata) {
-        const statVar = item.statVar;
-        if (
-          !raw.data[statVar] ||
-          !raw.data[statVar].stat ||
-          !raw.data[statVar].stat[placeDcid]
-        ) {
-          continue;
+  getPlaceNames(Array.from(popPoints).map((x) => x.placeDcid)).then(
+    (placeNames) => {
+      for (const point of popPoints) {
+        const placeDcid = point.placeDcid;
+        const dataPoints: DataPoint[] = [];
+        for (const item of props.statVarMetadata) {
+          const statVar = item.statVar;
+          if (
+            !raw.data[statVar] ||
+            !raw.data[statVar].stat ||
+            !raw.data[statVar].stat[placeDcid]
+          ) {
+            continue;
+          }
+          const stat = raw.data[statVar].stat[placeDcid];
+          const dataPoint = {
+            label: getStatVarName(statVar, props.statVarMetadata),
+            value: stat.value || 0,
+            dcid: placeDcid,
+          };
+          sources.add(raw.metadata[stat.metaHash].provenanceUrl);
+          if (item.denom && item.denom in raw.data) {
+            const denomStat = raw.data[item.denom].stat[placeDcid];
+            dataPoint.value /= denomStat.value;
+            sources.add(raw.metadata[denomStat.metaHash].provenanceUrl);
+          }
+          if (item.scaling) {
+            dataPoint.value *= item.scaling;
+          }
+          dataPoints.push(dataPoint);
         }
-        const stat = raw.data[statVar].stat[placeDcid];
-        const dataPoint = {
-          label: getStatVarName(statVar, props.statVarMetadata),
-          value: stat.value || 0,
-          dcid: placeDcid,
-        };
-        sources.add(raw.metadata[stat.metaHash].provenanceUrl);
-        if (item.denom && item.denom in raw.data) {
-          const denomStat = raw.data[item.denom].stat[placeDcid];
-          dataPoint.value /= denomStat.value;
-          sources.add(raw.metadata[denomStat.metaHash].provenanceUrl);
-        }
-        if (item.scaling) {
-          dataPoint.value *= item.scaling;
-        }
-        dataPoints.push(dataPoint);
+        dataGroups.push(
+          new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints)
+        );
       }
-      dataGroups.push(
-        new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints)
-      );
+      setBarChartData({
+        dataGroup: dataGroups,
+        sources: sources,
+      });
     }
-    setBarChartData({
-      dataGroup: dataGroups,
-      sources: sources,
-    });
-  });
+  );
 }
 
 function draw(props: BarTilePropType, chartData: BarChartData): void {
