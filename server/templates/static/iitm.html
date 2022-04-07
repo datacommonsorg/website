@@ -13,12 +13,13 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-{% extends 'base.html' %}
+{% extends 'base_iitm.html' %}
 
 {% set main_id = 'homepage' %}
 {% set title = 'Home' %}
-{% set is_hide_full_footer = true %}
-{% set is_hide_sub_footer = true %}
+{% set NAME = 'IITM Data Commons' %}
+{% set is_hide_full_footer = false %}
+{% set is_hide_sub_footer = false %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
