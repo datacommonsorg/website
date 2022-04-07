@@ -68,7 +68,7 @@ export function PlaceResults(props: PlaceResultsProps): JSX.Element {
         </div>
       ) : (
         <>
-          <div className="search-results-section-title">Places</div>
+          <h2 className="search-results-section-title">Places</h2>
           <div className="search-results-section-content">
             <div className="search-results-list">
               {props.places.map((place) => {
