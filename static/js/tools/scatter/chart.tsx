@@ -23,7 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
-import { Card, Row } from "reactstrap";
+import { Card } from "reactstrap";
 
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import {
@@ -33,14 +33,16 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import { ChartFooter } from "../../shared/chart_footer";
 import { USA_PLACE_DCID } from "../../shared/constants";
+import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import { urlToDomain } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
+import { PlotOptions } from "./plot_options";
 import { ScatterChartType } from "./util";
 
 interface ChartPropsType {
@@ -56,6 +58,8 @@ interface ChartPropsType {
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
   sources: Set<string>;
+  sourceSelectorSvInfo: SourceSelectorSvInfo[];
+  onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -79,7 +83,6 @@ function Chart(props: ChartPropsType): JSX.Element {
   });
   const xTitle = getTitle(Array.from(xDates), props.xLabel);
   const yTitle = getTitle(Array.from(yDates), props.yLabel);
-  const sourcesJsx = getSourcesJsx(props.sources);
   // Tooltip needs to start off hidden
   d3.select(tooltipRef.current)
     .style("visibility", "hidden")
@@ -138,22 +141,29 @@ function Chart(props: ChartPropsType): JSX.Element {
   }, [props, chartContainerRef, geoJsonFetched]);
 
   return (
-    <div id="chart" className="container-fluid" ref={chartContainerRef}>
-      <Row>
-        <Card id="no-padding">
-          <div className="chart-title">
-            <h3>{yTitle}</h3>
-            <span>vs</span>
-            <h3>{xTitle}</h3>
-          </div>
-          <div className="scatter-chart-container">
-            <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
-            <div id={MAP_LEGEND_CONTAINER_ID} ref={mapLegendRef}></div>
-            <div id="scatter-tooltip" ref={tooltipRef} />
-          </div>
-          <div className="provenance">Data from {sourcesJsx}</div>
-        </Card>
-      </Row>
+    <div id="chart" className="chart-section-container" ref={chartContainerRef}>
+      <Card className="chart-card">
+        <div className="chart-title">
+          <h3>{yTitle}</h3>
+          <span>vs</span>
+          <h3>{xTitle}</h3>
+        </div>
+        <div className="scatter-chart-container">
+          <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
+          <div id={MAP_LEGEND_CONTAINER_ID} ref={mapLegendRef}></div>
+          <div id="scatter-tooltip" ref={tooltipRef} />
+        </div>
+      </Card>
+      <ChartFooter
+        chartId="scatter"
+        sources={props.sources}
+        mMethods={null}
+        sourceSelectorSvInfoList={props.sourceSelectorSvInfo}
+        onSvMetahashUpdated={props.onSvMetahashUpdated}
+        hideIsRatio={true}
+      >
+        <PlotOptions />
+      </ChartFooter>
       <div id="scatter-chart-screen" className="screen">
         <div id="spinner"></div>
       </div>
@@ -322,25 +332,6 @@ function redirectAction(placeDcid: string): void {
 function getTitle(dates: string[], statVarLabel: string) {
   const dateRange = `(${getDateRange(dates)})`;
   return `${statVarLabel} ${dateRange}`;
-}
-
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
-      </span>
-    );
-  });
-  return sourcesJsx;
 }
 
 const getMapTooltipHtml = (

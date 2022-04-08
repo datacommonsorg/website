@@ -34,14 +34,12 @@ import {
   MapPoint,
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
+import { ChartFooter } from "../../shared/chart_footer";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import {
-  SourceSelector,
-  SourceSelectorSvInfo,
-} from "../../shared/source_selector";
+import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
@@ -101,7 +99,6 @@ const LEGEND_MARGIN_LEFT = 30;
 const LEGEND_HEIGHT_SCALING = 0.6;
 const DATE_RANGE_INFO_ID = "date-range-info";
 const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
-const NO_PER_CAPITA_TYPES = ["medianValue"];
 const SECTION_CONTAINER_ID = "map-chart";
 const DEBOUNCE_INTERVAL_MS = 30;
 const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
@@ -109,14 +106,12 @@ const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 export function Chart(props: ChartProps): JSX.Element {
   const statVar = props.statVar.value;
   const [errorMessage, setErrorMessage] = useState("");
-  const [denomInput, setDenomInput] = useState(props.statVar.value.denom);
   const mainSvInfo: StatVarInfo =
     statVar.dcid in statVar.info ? statVar.info[statVar.dcid] : {};
   const title = getTitle(
     Array.from(props.dates),
     mainSvInfo.title || statVar.dcid
   );
-  const sourcesJsx = getSourcesJsx(props.sources);
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVar.dcid;
   const [mapPoints, setMapPoints] = useState(null);
@@ -177,145 +172,123 @@ export function Chart(props: ChartProps): JSX.Element {
   }, [props, chartContainerRef]);
 
   return (
-    <Card className="chart-section-card">
-      <Container id={SECTION_CONTAINER_ID} fluid={true}>
-        <div className="chart-section">
-          <div className="map-title">
-            <h3>
-              {title}
-              {props.dates.size > 1 && (
-                <span
-                  onMouseOver={onDateRangeMouseOver}
-                  onMouseOut={onDateRangeMouseOut}
-                  id={DATE_RANGE_INFO_ID}
-                >
-                  <i className="material-icons-outlined">info</i>
-                </span>
+    <div className="chart-section-container">
+      <Card className="chart-section-card">
+        <Container id={SECTION_CONTAINER_ID} fluid={true}>
+          <div className="chart-section">
+            <div className="map-title">
+              <h3>
+                {title}
+                {props.dates.size > 1 && (
+                  <span
+                    onMouseOver={onDateRangeMouseOver}
+                    onMouseOut={onDateRangeMouseOut}
+                    id={DATE_RANGE_INFO_ID}
+                  >
+                    <i className="material-icons-outlined">info</i>
+                  </span>
+                )}
+              </h3>
+              <div id={DATE_RANGE_INFO_TEXT_ID}>
+                The date range represents the dates of the data shown in this
+                map.
+              </div>
+            </div>
+            {errorMessage ? (
+              <div className="error-message">{errorMessage}</div>
+            ) : (
+              <div className="map-section-container">
+                <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
+                  <div id={MAP_CONTAINER_ID}></div>
+                  <div id={LEGEND_CONTAINER_ID}></div>
+                </div>
+                <div className="zoom-button-section">
+                  <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
+                    <i className="material-icons">add</i>
+                  </div>
+                  <div id={ZOOM_OUT_BUTTON_ID} className="zoom-button">
+                    <i className="material-icons">remove</i>
+                  </div>
+                </div>
+              </div>
+            )}
+            {props.display.value.showTimeSlider &&
+              props.sampleDates &&
+              props.sampleDates.length > 1 && (
+                <TimeSlider
+                  currentDate={_.max(Array.from(props.dates))}
+                  dates={props.sampleDates}
+                  metahash={props.metahash}
+                  onPlay={props.onPlay}
+                  startEnabled={props.dates.size === 1}
+                  updateDate={props.updateDate}
+                />
               )}
-            </h3>
-            <div id={DATE_RANGE_INFO_TEXT_ID}>
-              The date range represents the dates of the data shown in this map.
-            </div>
-          </div>
-          {errorMessage ? (
-            <div className="error-message">{errorMessage}</div>
-          ) : (
-            <div className="map-section-container">
-              <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
-                <div id={MAP_CONTAINER_ID}></div>
-                <div id={LEGEND_CONTAINER_ID}></div>
-              </div>
-              <div className="zoom-button-section">
-                <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
-                  <i className="material-icons">add</i>
-                </div>
-                <div id={ZOOM_OUT_BUTTON_ID} className="zoom-button">
-                  <i className="material-icons">remove</i>
-                </div>
-              </div>
-            </div>
-          )}
-          {props.display.value.showTimeSlider &&
-            props.sampleDates &&
-            props.sampleDates.length > 1 && (
-              <TimeSlider
-                currentDate={_.max(Array.from(props.dates))}
-                dates={props.sampleDates}
-                metahash={props.metahash}
-                onPlay={props.onPlay}
-                startEnabled={props.dates.size === 1}
-                updateDate={props.updateDate}
-              />
-            )}
-          <div className="chart-options">
-            {NO_PER_CAPITA_TYPES.indexOf(mainSvInfo.st) === -1 && (
-              <div className="per-capita-option">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="per-capita"
-                      type="checkbox"
-                      checked={statVar.perCapita}
-                      onChange={(e) =>
-                        props.statVar.setPerCapita(e.target.checked)
-                      }
-                    />
-                    Ratio of
-                  </Label>
-                  <input
-                    className="denom-input"
-                    onBlur={() => props.statVar.setDenom(denomInput)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        props.statVar.setDenom(denomInput);
-                      }
-                    }}
-                    type="text"
-                    value={denomInput}
-                    onChange={(e) => setDenomInput(e.target.value)}
-                    disabled={!props.statVar.value.perCapita}
-                    placeholder="Enter a stat var dcid eg. Count_Person"
-                  />
-                </FormGroup>
-              </div>
-            )}
-            {props.placeInfo.mapPointPlaceType && (
-              <div className="installations-option">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="show-installations"
-                      type="checkbox"
-                      checked={props.display.value.showMapPoints}
-                      onChange={(e) =>
-                        props.display.setShowMapPoints(e.target.checked)
-                      }
-                    />
-                    Show Installations
-                  </Label>
-                </FormGroup>
-              </div>
-            )}
-          </div>
-          <div className="map-footer">
-            <div className="sources">
-              <div className="sources-string">Data from {sourcesJsx}</div>
-              <SourceSelector
-                svInfoList={[props.sourceSelectorSvInfo]}
-                onSvMetahashUpdated={(svMetahashMap) =>
-                  props.statVar.setMetahash(
-                    svMetahashMap[props.statVar.value.dcid]
-                  )
-                }
-              />
-            </div>
-            {mainSvInfo.ranked && (
-              <a className="explore-timeline-link" href={props.rankingLink}>
-                <span className="explore-timeline-text">Explore rankings</span>
-                <i className="material-icons">keyboard_arrow_right</i>
-              </a>
-            )}
-            {!mainSvInfo.ranked &&
-              (props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
-                props.placeInfo.selectedPlace.dcid in
-                  props.breadcrumbDataValues) && (
-                <a
-                  className="explore-timeline-link"
-                  href={`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`}
-                >
+            <div className="map-links">
+              {mainSvInfo.ranked && (
+                <a className="explore-timeline-link" href={props.rankingLink}>
                   <span className="explore-timeline-text">
-                    Explore timeline
+                    Explore rankings
                   </span>
                   <i className="material-icons">keyboard_arrow_right</i>
                 </a>
               )}
+              {!mainSvInfo.ranked &&
+                (props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
+                  props.placeInfo.selectedPlace.dcid in
+                    props.breadcrumbDataValues) && (
+                  <a
+                    className="explore-timeline-link"
+                    href={`/tools/timeline#place=${placeDcid}&statsVar=${statVarDcid}`}
+                  >
+                    <span className="explore-timeline-text">
+                      Explore timeline
+                    </span>
+                    <i className="material-icons">keyboard_arrow_right</i>
+                  </a>
+                )}
+            </div>
           </div>
-        </div>
-        <div id="map-chart-screen" className="screen">
-          <div id="spinner"></div>
-        </div>
-      </Container>
-    </Card>
+        </Container>
+      </Card>
+      <ChartFooter
+        chartId="map"
+        sources={props.sources}
+        mMethods={null}
+        sourceSelectorSvInfoList={[props.sourceSelectorSvInfo]}
+        onSvMetahashUpdated={(svMetahashMap) =>
+          props.statVar.setMetahash(svMetahashMap[props.statVar.value.dcid])
+        }
+        hideIsRatio={false}
+        isRatio={props.statVar.value.perCapita}
+        onIsRatioUpdated={(isRatio: boolean) =>
+          props.statVar.setPerCapita(isRatio)
+        }
+        denom={props.statVar.value.denom}
+        onDenomUpdated={(denom: string) => props.statVar.setDenom(denom)}
+      >
+        {props.placeInfo.mapPointPlaceType && (
+          <div className="chart-option">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id="show-installations"
+                  type="checkbox"
+                  checked={props.display.value.showMapPoints}
+                  onChange={(e) =>
+                    props.display.setShowMapPoints(e.target.checked)
+                  }
+                />
+                Show Installations
+              </Label>
+            </FormGroup>
+          </div>
+        )}
+      </ChartFooter>
+      <div id="map-chart-screen" className="screen">
+        <div id="spinner"></div>
+      </div>
+    </div>
   );
 }
 
@@ -413,25 +386,6 @@ function draw(
       zoomParams
     );
   }
-}
-
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
-      </span>
-    );
-  });
-  return sourcesJsx;
 }
 
 const getMapRedirectAction = (

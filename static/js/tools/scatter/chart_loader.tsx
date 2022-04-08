@@ -94,6 +94,15 @@ export function ChartLoader(): JSX.Element {
     cache.allStatVarsData,
     cache.metadataMap
   );
+  const onSvMetahashUpdated = (update) => {
+    for (const sv of Object.keys(update)) {
+      if (x.value.statVarDcid === sv) {
+        x.setMetahash(update[sv]);
+      } else if (y.value.statVarDcid === sv) {
+        y.setMetahash(update[sv]);
+      }
+    }
+  };
   return (
     <>
       {shouldRenderChart && (
@@ -118,14 +127,11 @@ export function ChartLoader(): JSX.Element {
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
-              />
-              <PlotOptions
-                points={chartData.points}
-                populationData={cache.populationData}
                 sourceSelectorSvInfo={[
                   xSourceSelectorSvInfo,
                   ySourceSelectorSvInfo,
                 ]}
+                onSvMetahashUpdated={onSvMetahashUpdated}
               />
             </>
           )}

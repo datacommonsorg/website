@@ -20,6 +20,7 @@
 @import "../draw_choropleth";
 @import "../place_selector";
 @import "../source_selector";
+@import "../chart_footer";
 
 // TODO(chejennifer): factor out some common styling
 .card {
@@ -45,13 +46,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0;
-}
-
-.map-footer {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1.5rem;
+  padding-top: 0.5rem;
 }
 
 .map-title {
@@ -60,22 +55,13 @@
   position: relative;
 }
 
-.sources {
-  font-size: 0.7rem;
-  color: var(--dc-gray);
-}
-
-.sources a {
-  color: var(--dc-gray);
-  text-decoration: underline;
-}
-
 .explore-timeline-link {
   color: inherit;
   cursor: pointer;
   display: flex;
   font-weight: $headings-font-weight;
   text-decoration: none !important;
+  justify-content: flex-end;
 }
 
 .place-details,
@@ -140,12 +126,12 @@
 
 .map-section-container {
   position: relative;
+  padding: 0 15px;
 }
 
 .zoom-button-section {
   position: absolute;
   bottom: 0;
-  left: 0;
   background-color: #f8f8f8;
 }
 
@@ -217,28 +203,6 @@
   stroke: black;
 }
 
-.chart-options {
-  font-size: 0.8rem;
-  padding-top: 0.5rem;
-}
-
-.chart-options .form-check-input {
-  margin-top: 0.15rem;
-}
-
-.denom-input {
-  margin-left: 0.3rem;
-}
-
-.map-footer .source-selector-open-modal-button {
-  font-size: 11px;
-  padding: 0.25rem;
-  color: var(--link-color);
-}
-
-.sources-string {
-  padding-left: 0.25rem;
-}
 
 /* Time Slider Styles */
 
@@ -326,4 +290,18 @@
 
 #time-slider-slide {
   overflow: hidden;
+}
+
+.chart-section-container {
+  margin-bottom: 15px;
+}
+
+.chart-section-card.card {
+  margin-bottom: 0;
+  border-bottom: none;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+#map-chart {
+  padding: 0;
 }
