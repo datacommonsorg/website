@@ -27,7 +27,7 @@ const TISSUE_SCORE_TO_LABEL = {
   1: "Low",
   2: "Medium",
   3: "High"
-}
+} 
 
 // interface for protein page datatypes which return number values
 export interface ProteinPropDataNumType {
