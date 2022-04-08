@@ -149,7 +149,7 @@ export class StatVarSection extends React.Component<
     while (idx >= 0 && svNamesCommonPrefix[idx] !== " ") {
       idx--;
     }
-    return svNamesCommonPrefix.slice(0, idx);
+    return idx > 0 ? svNamesCommonPrefix.slice(0, idx) : "";
   }
 }
 
