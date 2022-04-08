@@ -178,7 +178,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               <Label check>
                 <Input
                   id={deltaCheckboxId}
-                  class="is-delta-input"
+                  className="is-delta-input"
                   type="checkbox"
                   checked={this.props.delta}
                   onChange={() =>
