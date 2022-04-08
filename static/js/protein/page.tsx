@@ -89,8 +89,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         }
         result[tissue] = score;
       }
-      //const data: { name: string; value: string }[] = [];
-      // var complexPetsArray: pet[] = [];
       const data: ProteinPropDataStrType[] = [];
 
       for (const tissue in result) {

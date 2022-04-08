@@ -22,6 +22,12 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 const HEIGHT = 224;
 const WIDTH = 500;
 const MARGIN = { top: 70, right: 50, bottom: 10, left: 50 };
+const TISSUE_SCORE_TO_LABEL = {
+  0: "NotDetected",
+  1: "Low",
+  2: "Medium",
+  3: "High"
+}
 
 // interface for protein page datatypes which return number values
 export interface ProteinPropDataNumType {
@@ -83,16 +89,8 @@ export function drawTissueScoreChart(
     .rangeRound([MARGIN.top, height - MARGIN.bottom])
     .padding(0.1);
   function formatTick(d) {
-    if (d == 0) {
-      return "NotDetected";
-    } else if (d == 1) {
-      return "Low";
-    } else if (d == 2) {
-      return "Medium";
-    } else if (d == 3) {
-      return "High";
-    }
-  }
+    return(TISSUE_SCORE_TO_LABEL[d])
+  };
   const svg = d3
     .selectAll("#" + id)
     .append("svg")
