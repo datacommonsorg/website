@@ -72,3 +72,19 @@ gcloud beta ai endpoints deploy-model "${ENDPOINT_ID}" \
     --display-name="${MODEL_NAME}" \
     --machine-type="${MACHINE_TYPE}" \
     --accelerator="count=1,type=nvidia-tesla-t4"
+
+# Extract model id from an URL like:  http://ENDPOINT_ID.aiplatform.googleapis.com/v1/models/DEPLOYED_MODEL_ID:predict
+DEPLOYED_MODEL_ID=$(gcloud beta ai endpoints describe ${ENDPOINT_ID} --project="${PROJECT_ID}" --region="${REGION}" --format="value(deployedModels.privateEndpoints.predictHttpUri)" | sed -e 's|.*models/\(.*\):predict|\1|g')
+
+YAML_FILE=$(cat << EOF
+${REGION}:
+  protocol: rest
+  endpoint_id: "${ENDPOINT_ID}"
+  deployed_model_id: "${DEPLOYED_MODEL_ID}"
+EOF
+)
+
+echo "You can use the following ai.yaml file:"
+echo "--------------------------------------------------"
+echo "${YAML_FILE}"
+echo "--------------------------------------------------"
