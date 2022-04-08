@@ -42,9 +42,7 @@ import {
   IsLoadingWrapper,
   PlaceInfo,
 } from "./context";
-import { PlotOptions } from "./plot_options";
 import {
-  arePlacesLoaded,
   getAllStatsWithinPlace,
   getStatsWithinPlace,
   ScatterChartType,
@@ -69,17 +67,14 @@ type ChartData = {
 };
 
 export function ChartLoader(): JSX.Element {
-  const { x, y, place, isLoading, display } = useContext(Context);
+  const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
 
   const xVal = x.value;
   const yVal = y.value;
   const shouldRenderChart =
-    areStatVarInfoLoaded(xVal, yVal) &&
-    !isLoading.areDataLoading &&
-    !isLoading.arePlacesLoading &&
-    !_.isEmpty(chartData);
+    areStatVarInfoLoaded(xVal, yVal) && !_.isEmpty(chartData);
   if (!shouldRenderChart) {
     return <></>;
   }
@@ -147,7 +142,15 @@ export function ChartLoader(): JSX.Element {
 function useCache(): Cache {
   const { x, y, place, isLoading } = useContext(Context);
 
-  const [cache, setCache] = useState({} as Cache);
+  const [cache, setCache] = useState({
+    allStatVarsData: {},
+    statVarsData: {},
+    populationData: {},
+    noDataError: false,
+    metadataMap: {},
+    xAxis: null,
+    yAxis: null,
+  });
 
   const xVal = x.value;
   const yVal = y.value;
@@ -158,18 +161,6 @@ function useCache(): Cache {
    * re-retreive data.
    */
   useEffect(() => {
-    if (!arePlacesLoaded(placeVal) || !areStatVarInfoLoaded(xVal, yVal)) {
-      setCache({
-        allStatVarsData: {},
-        statVarsData: {},
-        populationData: {},
-        noDataError: false,
-        metadataMap: {},
-        xAxis: null,
-        yAxis: null,
-      });
-      return;
-    }
     if (!areDataLoaded(cache, xVal, yVal)) {
       loadData(x, y, placeVal, isLoading, setCache);
     }
@@ -449,13 +440,4 @@ function downloadData(
       `${place.enclosedPlaceType}.csv`,
     csv
   );
-}
-
-/**
- * Formats a statvar name passed by the statvar menu to be an axis label.
- * @param name
- * @param perCapita
- */
-function getLabel(name: string, perCapita: boolean): string {
-  return `${name}${perCapita ? " Per Capita" : ""}`;
 }
