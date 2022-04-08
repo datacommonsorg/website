@@ -76,8 +76,6 @@ gcloud beta ai endpoints deploy-model "${ENDPOINT_ID}" \
 # Extract model id from an URL like:  http://ENDPOINT_ID.aiplatform.googleapis.com/v1/models/DEPLOYED_MODEL_ID:predict
 DEPLOYED_MODEL_ID=$(gcloud beta ai endpoints describe ${ENDPOINT_ID} --project="${PROJECT_ID}" --region="${REGION}" --format="value(deployedModels.privateEndpoints.predictHttpUri)" | sed -e 's|.*models/\(.*\):predict|\1|g')
 
-ENDPOINT_ID=123
-DEPLOYED_MODEL_ID=1234
 YAML_FILE=$(cat << EOF
 ${REGION}:
   protocol: rest
