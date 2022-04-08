@@ -70,9 +70,9 @@ export function StatVarResults(props: StatVarResultsProps): JSX.Element {
         </div>
       ) : (
         <>
-          <div className="search-results-section-title">
+          <h2 className="search-results-section-title">
             Statistical Variables
-          </div>
+          </h2>
           <div className="search-results-section-content">
             <div className="search-results-list">
               {shownStatVars.map((sv) => {

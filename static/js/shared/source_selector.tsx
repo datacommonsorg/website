@@ -87,7 +87,7 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
         color="light"
         onClick={() => setModalOpen(true)}
       >
-        Edit {props.svInfoList.length > 1 ? "Sources" : "Source"}
+        Select {props.svInfoList.length > 1 ? "Sources" : "Source"}
       </Button>
       <Modal
         isOpen={modalOpen}
