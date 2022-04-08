@@ -19,15 +19,22 @@ import * as d3 from "d3";
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
-const HEIGHT = 224;
+const HEIGHT = 400;
 const WIDTH = 500;
 const MARGIN = { top: 70, right: 50, bottom: 10, left: 50 };
+
 const TISSUE_SCORE_TO_LABEL = {
   0: "NotDetected",
   1: "Low",
   2: "Medium",
-  3: "High"
-} 
+  3: "High",
+};
+const TISSUE_VAL_TO_SCORE = {
+  ProteinExpressionNotDetected: 0,
+  ProteinExpressionLow: 1,
+  ProteinExpressionMedium: 2,
+  ProteinExpressionHigh: 3,
+};
 
 // interface for protein page datatypes which return number values
 export interface ProteinPropDataNumType {
@@ -47,38 +54,20 @@ export function drawTissueScoreChart(
   id: string,
   data: { name: string; value: string }[]
 ): void {
-  /*
-  Convert the tissue expression level to numerical values 
-  * @param val value of the data array 
-  */
-  function convertData(val) {
-    if (val == "ProteinExpressionNotDetected") {
-      return 0;
-    } else if (val == "ProteinExpressionLow") {
-      return 1;
-    } else if (val == "ProteinExpressionMedium") {
-      return 2;
-    } else if (val == "ProteinExpressionHigh") {
-      return 3;
-    }
-  }
-
-  var reformattedData = {} as ProteinPropDataNumType[];
+  let reformattedData = {} as ProteinPropDataNumType[];
   reformattedData = data.map((item) => {
     return {
-    name: item.name,
-    value: convertData(item.value),
-    }
+      name: item.name,
+      value: TISSUE_VAL_TO_SCORE[item.value],
+    };
   });
 
   const arr_name = reformattedData.map((x) => {
     return x.name;
   });
 
-  const max_height = 400;
-  const max_width = 460;
-  const height = max_height - MARGIN.top - MARGIN.bottom;
-  const width = max_width - MARGIN.left - MARGIN.right;
+  const height = HEIGHT - MARGIN.top - MARGIN.bottom;
+  const width = WIDTH - MARGIN.left - MARGIN.right;
   const x = d3
     .scaleLinear()
     .domain([0, d3.max(reformattedData, (d) => d.value)])
@@ -89,8 +78,8 @@ export function drawTissueScoreChart(
     .rangeRound([MARGIN.top, height - MARGIN.bottom])
     .padding(0.1);
   function formatTick(d) {
-    return(TISSUE_SCORE_TO_LABEL[d])
-  };
+    return TISSUE_SCORE_TO_LABEL[d];
+  }
   const svg = d3
     .selectAll("#" + id)
     .append("svg")

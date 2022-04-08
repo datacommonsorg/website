@@ -45,7 +45,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
 
   componentDidUpdate(): void {
-    const tissueScore = this.getTissueScore();
+    const tissueScore = this.getTissueScore(this.state.data);
     drawTissueScoreChart("tissue-score-chart", tissueScore);
   }
 
@@ -67,13 +67,13 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     });
   }
 
-  private getTissueScore(): { name: string; value: string }[] {
+  private getTissueScore(data: GraphNodes): { name: string; value: string }[] {
     // Tissue to score mapping.
-    if (!this.state.data) {
+    if (!data) {
       return [];
     }
     const result = {};
-    for (const neighbour of this.state.data.nodes[0].neighbors) {
+    for (const neighbour of data.nodes[0].neighbors) {
       if (neighbour.property !== "detectedProtein") {
         continue;
       }
@@ -96,6 +96,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       }
       return data;
     }
+    console.log(data);
     return [];
   }
 }
