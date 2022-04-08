@@ -25,11 +25,15 @@ import { StatVarSearchResult } from "../shared/types";
  */
 export function getStatVarSearchResults(
   query: string,
-  places: string[]
+  places: string[],
+  svOnly: boolean
 ): Promise<StatVarSearchResult> {
   let url = `/api/stats/stat-var-search?query=${query}`;
   for (const place of places) {
     url += `&places=${place}`;
+  }
+  if (svOnly) {
+    url += `&svOnly=1`;
   }
   return axios.get(url).then((resp) => {
     const data = resp.data;

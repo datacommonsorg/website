@@ -84,18 +84,9 @@ export function AllResults(props: ResultsProps): JSX.Element {
 
   useEffect(() => {
     if (!props.selectedStatVar) {
-      getStatVarSearchResults(props.query, [])
+      getStatVarSearchResults(props.query, [], true)
         .then((data) => {
-          const statVars: NamedNode[] = [];
-          data.statVarGroups.forEach((svg) => {
-            if (!_.isEmpty(svg.statVars)) {
-              statVars.push(...svg.statVars);
-            }
-          });
-          if (!_.isEmpty(data.statVars)) {
-            statVars.push(...data.statVars);
-          }
-          setStatVarResults(statVars);
+          setStatVarResults(data.statVars);
         })
         .catch(() => {
           setStatVarResults([]);

@@ -33,7 +33,7 @@ interface SearchInputPropType {
 }
 const NUM_SV_RESULTS = 5;
 const DELAY_MS = 200;
-const REDIRECT_PREFIX = "/search2?";
+const REDIRECT_PREFIX = "/search?";
 
 export function SearchInput(props: SearchInputPropType): JSX.Element {
   const delayTimer = useRef(null);
@@ -282,16 +282,10 @@ function redirectAction(
 }
 
 function getSvResultsPromise(query: string): Promise<NamedNode[]> {
-  return getStatVarSearchResults(query, []).then((data) => {
-    const statVars: NamedNode[] = [];
-    data.statVarGroups.forEach((svg) => {
-      if (!_.isEmpty(svg.statVars)) {
-        statVars.push(...svg.statVars);
-      }
-    });
-    if (!_.isEmpty(data.statVars)) {
-      statVars.push(...data.statVars);
-    }
-    return statVars.slice(0, Math.min(NUM_SV_RESULTS, statVars.length));
+  return getStatVarSearchResults(query, [], true).then((data) => {
+    return data.statVars.slice(
+      0,
+      Math.min(NUM_SV_RESULTS, data.statVars.length)
+    );
   });
 }

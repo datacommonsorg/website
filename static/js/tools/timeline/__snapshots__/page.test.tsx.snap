@@ -3,7 +3,7 @@
 exports[`Single place and single stat var 1`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button>
     <div><span class=\\"chart-option\\"><button id=\\"pc-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-age\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-age\\">Delta</label></span></div>
   </div>
   <div class=\\"statVarChipRegion\\">
@@ -15,7 +15,7 @@ exports[`Single place and single stat var 1`] = `
 exports[`Single place and single stat var 2`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button>
     <div><span class=\\"chart-option\\"><button id=\\"pc-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-age\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-age\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-age\\">Delta</label></span></div>
   </div>
   <div class=\\"statVarChipRegion\\">
@@ -65,7 +65,7 @@ exports[`Single place and single stat var 3`] = `
 exports[`chart options 1`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button>
     <div><span class=\\"chart-option\\"><button id=\\"pc-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-count\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-count\\">Delta</label></span></div>
   </div>
   <div class=\\"statVarChipRegion\\">
@@ -77,7 +77,7 @@ exports[`chart options 1`] = `
 exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"card\\">
   <div class=\\"chart-svg\\"></div>
-  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Edit Source</button>
+  <div class=\\"chart-options\\"><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button>
     <div><span class=\\"chart-option\\"><button id=\\"pc-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"pc-cb-count\\">Ratio of </label><input disabled=\\"\\" placeholder=\\"Count_Person\\"></span><span class=\\"chart-option\\"><button id=\\"delta-cb-count\\" class=\\"option-checkbox\\"></button><label for=\\"delta-cb-count\\">Delta</label></span></div>
   </div>
   <div class=\\"statVarChipRegion\\">
