@@ -20,7 +20,6 @@ import _ from "lodash";
 import { formatNumber } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
 import { Boundary } from "../shared/types";
-import { urlToDomain } from "../shared/util";
 import {
   DataGroup,
   DataPoint,
@@ -50,10 +49,6 @@ const LEGEND = {
   marginLeft: 10,
   marginTop: 40,
   defaultColor: "#000",
-};
-const METADATA = {
-  topMargin: 15,
-  height: 20,
 };
 const YLABEL = {
   topMargin: 10,
@@ -1066,8 +1061,6 @@ function drawGroupLineChart(
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   ylabel?: string,
-  sources?: string[],
-  measurementMethods?: string[],
   unit?: string,
   modelsDataGroupsDict?: { [place: string]: DataGroup[] }
 ): void {
@@ -1075,6 +1068,28 @@ function drawGroupLineChart(
   const dataGroupsAll = Object.values(dataGroupsDict).filter(
     (x) => x.length > 0
   );
+
+  let container: d3.Selection<any, any, any, any>;
+  if (typeof selector === "string") {
+    container = d3.select("#" + selector);
+  } else if (selector instanceof HTMLDivElement) {
+    container = d3.select(selector);
+  } else {
+    return;
+  }
+
+  container.selectAll("svg").remove();
+
+  const svg = container
+    .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
+    .attr("width", width)
+    .attr("height", height);
+
+  if (_.isEmpty(dataGroupsAll)) {
+    return;
+  }
   const dataGroups = dataGroupsAll[0];
   const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   let legendWidth =
@@ -1095,24 +1110,6 @@ function drawGroupLineChart(
   if (minV === maxV) {
     maxV = minV + 1;
   }
-
-  let container: d3.Selection<any, any, any, any>;
-  if (typeof selector === "string") {
-    container = d3.select("#" + selector);
-  } else if (selector instanceof HTMLDivElement) {
-    container = d3.select(selector);
-  } else {
-    return;
-  }
-
-  container.selectAll("svg").remove();
-
-  const svg = container
-    .append("svg")
-    .attr("xmlns", SVGNS)
-    .attr("xmlns:xlink", XLINKNS)
-    .attr("width", width)
-    .attr("height", height + METADATA.height * 2);
 
   const yAxis = svg.append("g").attr("class", "y axis");
   const xAxis = svg.append("g").attr("class", "x axis");
@@ -1245,41 +1242,6 @@ function drawGroupLineChart(
           .style("stroke", "#fff");
       }
     }
-  }
-  // add source info to the chart
-  if (sources) {
-    const domains = new Set(
-      sources.map((source) => urlToDomain(source)).filter(Boolean)
-    );
-    const sourceText = "Data source: " + Array.from(domains).join(", ");
-    svg
-      .append("text")
-      .attr("class", "label")
-      .attr(
-        "transform",
-        `translate(${MARGIN.left}, ${height + METADATA.topMargin})`
-      )
-      .style("fill", "#808080")
-      .style("font-size", "11px")
-      .style("text-anchor", "start")
-      .style("text-rendering", "optimizedLegibility")
-      .text(sourceText);
-  }
-  if (measurementMethods && measurementMethods.length > 0) {
-    const sourceText =
-      "Measurement method: " + Array.from(measurementMethods).join(", ");
-    svg
-      .append("text")
-      .attr("class", "label")
-      .attr(
-        "transform",
-        `translate(${MARGIN.left}, ${height + METADATA.topMargin * 2})`
-      )
-      .style("fill", "#808080")
-      .style("font-size", "11px")
-      .style("text-anchor", "start")
-      .style("text-rendering", "optimizedLegibility")
-      .text(sourceText);
   }
 
   const legend = svg

@@ -179,7 +179,7 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
   axis.date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
   axis.metahash =
     params.get(addSuffix(FieldToAbbreviation.metahash, isX)) || "";
-
+  axis.denom = params.get(addSuffix(FieldToAbbreviation.denom, isX)) || "";
   return axis;
 }
 
@@ -278,7 +278,7 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
       );
     }
   }
-  for (const key of ["date", "metahash"]) {
+  for (const key of ["date", "metahash", "denom"]) {
     if (axis[key]) {
       hash = appendEntry(
         hash,
