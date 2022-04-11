@@ -44,11 +44,14 @@ interface TimeSliderProps {
 export function TimeSlider(props: TimeSliderProps): JSX.Element {
   const INTERVAL_MS = 500;
   const SLIDER_MARGIN = 16;
+  const TICK_OFFSET = 3;
+  const TICK_MARGIN = 6;
   const HANDLE_WIDTH = 4;
   const HANDLE_MARGIN = SLIDER_MARGIN - HANDLE_WIDTH / 2;
 
   const start = props.dates[0];
   const end = props.dates[props.dates.length - 1];
+  const ticks = props.dates.slice(1, props.dates.length - 1);
 
   const [currentDate, setCurrentDate] = useState(
     props.startEnabled ? props.currentDate : "--"
@@ -161,6 +164,27 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
                 x1={SLIDER_MARGIN}
                 x2="100%"
               ></line>
+              {document.getElementById("time-slider-slide") &&
+                ticks.map((element) => {
+                  const offset =
+                    getOffset(
+                      start,
+                      end,
+                      element,
+                      SLIDER_MARGIN,
+                      HANDLE_MARGIN
+                    ) - TICK_MARGIN;
+                  return (
+                    <line
+                      className="time-slider-tick-mark"
+                      x1={offset}
+                      x2={offset}
+                      y1={TICK_OFFSET}
+                      y2={TICK_OFFSET + TICK_MARGIN}
+                      key={element}
+                    ></line>
+                  );
+                })}
               {enabled && (
                 <line
                   className="time-slider-handle"
