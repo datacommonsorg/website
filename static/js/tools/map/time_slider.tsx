@@ -165,12 +165,12 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
                 x2="100%"
               ></line>
               {document.getElementById("time-slider-slide") &&
-                ticks.map((element) => {
+                ticks.map((date) => {
                   const offset =
                     getOffset(
                       start,
                       end,
-                      element,
+                      date,
                       SLIDER_MARGIN,
                       HANDLE_MARGIN
                     ) - TICK_MARGIN;
@@ -181,7 +181,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
                       x2={offset}
                       y1={TICK_OFFSET}
                       y2={TICK_OFFSET + TICK_MARGIN}
-                      key={element}
+                      key={date}
                     ></line>
                   );
                 })}
