@@ -22,6 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../shared/types";
+import { ProteinPropDataStrType } from "./chart";
 import { drawTissueScoreChart } from "./chart";
 
 interface PagePropType {
@@ -44,12 +45,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
 
   componentDidUpdate(): void {
-    const data: { name: string; value: string }[] = [];
-    const tissueScore = this.getTissueScore();
-    for (const tissue in tissueScore) {
-      data.push({ name: tissue, value: tissueScore[tissue] });
-    }
-    drawTissueScoreChart("tissue-score-chart", data);
+    const tissueScore = this.getTissueScore(this.state.data);
+    drawTissueScoreChart("tissue-score-chart", tissueScore);
   }
 
   render(): JSX.Element {
@@ -70,13 +67,13 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     });
   }
 
-  private getTissueScore(): Record<string, string> {
+  private getTissueScore(data: GraphNodes): { name: string; value: string }[] {
     // Tissue to score mapping.
-    if (!this.state.data) {
-      return {};
+    if (!data) {
+      return [];
     }
     const result = {};
-    for (const neighbour of this.state.data.nodes[0].neighbors) {
+    for (const neighbour of data.nodes[0].neighbors) {
       if (neighbour.property !== "detectedProtein") {
         continue;
       }
@@ -92,8 +89,13 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         }
         result[tissue] = score;
       }
-      return result;
+      const data: ProteinPropDataStrType[] = [];
+
+      for (const tissue in result) {
+        data.push({ name: tissue, value: result[tissue] });
+      }
+      return data;
     }
-    return {};
+    return [];
   }
 }
