@@ -132,6 +132,7 @@ const config = {
         { from: "sitemap/*.txt" },
         { from: "*favicon.ico" },
         { from: "robots.txt" },
+        { from: "iitm/*" },
       ],
     }),
     new FixStyleOnlyEntriesPlugin({

@@ -13,6 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
+
 {% extends 'base_iitm.html' %}
 
 {% set main_id = 'homepage' %}
@@ -22,11 +23,12 @@
 {% set is_hide_sub_footer = false %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+<!-- <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}> -->
 {% endblock %}
 
 {% block content %}
-<section id="homepage-top">
+
+<!-- <section id="homepage-top">
   <div class="container">
     <div class="row">
       <div class="lead-col col-12 col-lg-6">
@@ -36,6 +38,113 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
+
+<section id="demographics" class="bg-E8F2F5 d-flex justify-content-center align-items-center">
+  <div class="row container">
+      <div class="col-lg-5 position-relative text-end" ddata-aos="zoom-in" ddata-aos-delay="100" >
+          <a href="/tools/map#%26sv%3DCount_Person%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea1"> <img src="images/iitm-india-population.svg" alt="" style="max-width: 100%;"> </a>
+          <span style="left:auto; right:0!important;">Population growth rate in India</span>
+      </div>
+      <div class="col-lg-7 d-flex" ddata-aos="zoom-in" ddata-aos-delay="100">
+          <div style="margin:auto auto">
+              <h2>DEMOGRAPHICS</h2><br/>
+              <div class="pre-line-6C63FF">
+              <h4>India is the world’s second most populous country with a <a class="linked-text" href="/ranking/Count_Person/Country/?h=country%2FIND" target="_blank" >population of over 1.2 billion.</a> <br/> The population growth rate has been in <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=GrowthRate_Count_Person" target="_blank" >steady decline</a> for decades now. The ratio between urban and rural population has changed considerably in the last 20 years. The ratio <a class="linked-text" href="/tools/timeline#&place=country/IND&statsVar=Count_Person_Urban__Count_Person_Rural" target="_blank" >grew from 1:3 to 1:2 during the period of 1999-2019.</a> Life expectancy has <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=LifeExpectancy_Person" target="_blank" >increased by 45%</a> in the past 50 years. <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years" target="_blank" >Child labour is in decline</a> for the past decade.</h4>
+              <a href="#main" class="btn-know-more">Know more</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section><!-- End Demographics -->  
+
+<section id="health" class="bg-E8F2F5 d-flex justify-content-center align-items-center">
+  <div class="row container">
+      <div class="col-lg-7 d-flex" ddata-aos="zoom-in" ddata-aos-delay="100">
+          <div style="margin:auto auto">
+              <h2>HEALTH</h2><br/>
+              <div class="pre-line-6C63FF">
+              <h4>India has been working towards betterment of its health infrastructure. Infant mortality rate has <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=Count_Death_0Years" target="_blank" >declined more than 50%</a> in the past decade and the gap between male and female infant mortality rates <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male__Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female" target="_blank" >is closing</a>. Health behavior is also showing appreciable trends in some cases. <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male" target="_blank" >Smoking prevalence is dropping</a> among Indian adult males.</h4>
+              <a href="#main" class="btn-know-more">Know more</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-5 position-relative text-end" ddata-aos="zoom-in" ddata-aos-delay="100" >
+          <a href="/tools/timeline#&place=country/IND&statsVar=Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"> <img src="images/iitm-health.svg" alt="" style="max-width: 100%;"> </a>
+          
+          <span>Infant mortality rate in India</span>
+      </div>
+  </div>
+</section><!-- End health -->
+
+
+<section id="economy" class="bg-E8F2F5 d-flex justify-content-center align-items-center">
+  <div class="row container">
+      <div class="col-lg-5 position-relative text-end" ddata-aos="zoom-in" ddata-aos-delay="100" >
+          <img src="images/iitm-economy.svg" alt="" style="max-width: 100%;">
+          <span>Gross domestic product per capita in India</span>
+      </div>
+      <div class="col-lg-7 d-flex" ddata-aos="zoom-in" ddata-aos-delay="100">
+          <div style="margin:auto auto">
+              <h2>ECONOMY</h2><br/>
+              <div class="pre-line-6C63FF">
+              <h4>The Indian economy has been witnessing a <a class="linked-text" href="/tools/timeline#&place=country/IND&statsVar=Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita" target="_blank" >steep increase in GDP per capita</a> for the past couple of decades. After the launch of Make In India initiative in 2014, the domestic companies <a class="linked-text" href="/tools/timeline#&place=country/IND&statsVar=Amount_Stock" target="_blank" >enjoyed a boost in market capitalization</a>. Despite that, the unemployment rate (both urban and rural) <a class="linked-text" href="/tools/timeline#&place=country/IND&statsVar=UnemploymentRate_Person_Rural__UnemploymentRate_Person_Urban" target="_blank" >grew over twice its value</a> in the past decade. Manipur has the <a class="linked-text" href="/ranking/Count_Person_Workers/State/country/IND?h=country%2FIND&pc=1&scaling=100&unit=%25" target="_blank" >highest working population</a> whereas Bihar houses the <a class="linked-text" href="/ranking/Count_Person_NonWorker/State/country/IND?h=country%2FIND&pc=1&scaling=100&unit=%25" target="_blank" >highest non-working population</a> in India.</h4>
+              <a href="#main" class="btn-know-more">Know more</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section><!-- End Economy -->  
+
+
+<section id="education" class="bg-E8F2F5 d-flex justify-content-center align-items-center">
+  <div class="row container">
+      <div class="col-lg-7 d-flex" ddata-aos="zoom-in" ddata-aos-delay="100">
+          <div style="margin:auto auto">
+              <h2>EDUCATION</h2><br/>
+              <div class="pre-line-6C63FF">
+              <h4>According to the 2011 Census, India enjoys an <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=Count_Person_Literate__Count_Person_Illiterate" target="_blank" >
+                  overall literacy rate of 74%
+                  </a> - a 10% increase from 2001 Census. <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=Count_Person_25OrMoreYears_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears" target="_blank" >
+                      9.1% of Indian adults over 25 years
+                      </a> hold a bachelor’s degree or higher education qualification whereas the fraction of same group with <a class="linked-text" href="/tools/timeline#place=country%2FIND&statsVar=Count_Person_25OrMoreYears_TertiaryEducation_AsFractionOf_Count_Person_25OrMoreYears" target="_blank" >
+                          tertiary education occupies 9.9%
+                          </a> of the total population for that age group. Gross Enrolment Ratio (GER) denotes the fraction of high school students enrolling into colleges. All India Survey on Higher Education tells us that <a class="linked-text" href="https://www.education.gov.in/sites/upload_files/mhrd/files/statistics-new/aishe_eng.pdf" target="_blank" >
+                              GER for the year 2019-20 is 27.1
+                              </a>↗.</h4>
+              <a href="#main" class="btn-know-more">Know more</a>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-5 position-relative text-end" ddata-aos="zoom-in" ddata-aos-delay="100" >
+          <img src="images/iitm-education.svg" alt="" style="max-width: 100%;">
+          <span>Percentage of literate and illiterate population in India</span>
+      </div>
+  </div>
+</section><!-- End education -->
+
+<section id="energy" class="bg-E8F2F5 d-flex justify-content-center align-items-center">
+  <div class="row container">
+      <div class="col-lg-5 position-relative text-end" ddata-aos="zoom-in" ddata-aos-delay="100" >
+          <img src="images/iitm-energy.svg" alt="" style="max-width: 100%;">
+          <span>Electricity consumption per capita in India</span>
+      </div>
+      <div class="col-lg-7 d-flex" ddata-aos="zoom-in" ddata-aos-delay="100">
+          <div style="margin:auto auto">
+              <h2>ENERGY</h2><br/>
+              <div class="pre-line-6C63FF">
+              <h4>India has been adopting sustainable energy alternatives for the past few years. Clean Energy initiatives by the Ministry of New & Renewable Energy has pushed India to <a class="linked-text" href="https://mnre.gov.in/" target="_blank" >
+                  4th Global Position
+                  </a>↗ in for overall installed renewable energy capacity. Wind (48%) and Solar Energy (36%) are the <a class="linked-text" href="https://niti.gov.in/edm/#reGeneration" target="_blank" >
+                      two biggest sources of Renewable Energy Generation
+                      </a>↗ in India. Yet, India still uses Coal for <a class="linked-text" href="https://niti.gov.in/edm/#elecGeneration" target="_blank" >
+                          74% of its electricity generation
+                          </a>↗ and we have a long way to go to successfully adopt the sustainable energy model.</h4>
+              <a href="#main" class="btn-know-more">Know more</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section><!-- End Energy -->  
 
 {% endblock %}
