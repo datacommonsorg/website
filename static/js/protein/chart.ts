@@ -62,7 +62,7 @@ export function drawTissueScoreChart(
     };
   });
 
-  const arr_name = reformattedData.map((x) => {
+  const arrName = reformattedData.map((x) => {
     return x.name;
   });
 
@@ -74,7 +74,7 @@ export function drawTissueScoreChart(
     .range([MARGIN.left, width - MARGIN.right]);
   const y = d3
     .scaleBand()
-    .domain(arr_name)
+    .domain(arrName)
     .rangeRound([MARGIN.top, height - MARGIN.bottom])
     .padding(0.1);
   function formatTick(d) {
@@ -99,20 +99,20 @@ export function drawTissueScoreChart(
     .attr("width", (d) => x(d.value) - x(0))
     .attr("height", y.bandwidth())
     .style("fill", function (d) {
-      if (d.name == "Eye") {
+      if (d.name === "Eye") {
         return "green";
-      } else if (d.name == "Cartilage") {
+      } else if (d.name === "Cartilage") {
         return "yellow";
-      } else if (d.name == "Liver") {
+      } else if (d.name === "Liver") {
         return "steelblue";
       } else {
         return "red";
       }
     })
-    .on("mouseover", function (d, i) {
+    .on("mouseover", function () {
       d3.select(this).transition().duration(50).style("opacity", 0.5);
     })
-    .on("mouseout", function (d, i) {
+    .on("mouseout", function () {
       d3.select(this).transition().duration(50).style("opacity", 1);
     });
 
@@ -145,7 +145,7 @@ export function drawTissueScoreChart(
     .on("mouseover", function () {
       d3.select(this).select("rect").style("fill", "red");
     })
-    .on("mouseout", function (d, i) {
+    .on("mouseout", function () {
       d3.select(this).select("rect").style("fill", "blue");
     });
 
@@ -156,7 +156,7 @@ export function drawTissueScoreChart(
     .on("mouseover", function () {
       d3.select(this).select("rect").style("fill", "red");
     })
-    .on("mouseout", function (d, i) {
+    .on("mouseout", function () {
       d3.select(this).select("rect").style("fill", "blue");
     });
 }

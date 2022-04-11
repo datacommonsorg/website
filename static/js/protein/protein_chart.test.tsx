@@ -6,10 +6,7 @@ import React from "react";
 Enzyme.configure({ adapter: new Adapter() });
 
 import { GraphNodes } from "../shared/types";
-import { GraphNode } from "../shared/types";
-import { LinkedNodes } from "../shared/types";
 import { ProteinPropDataStrType } from "./chart";
-import { drawTissueScoreChart } from "./chart";
 import { Page } from "./page";
 
 test("getTissueScore", () => {

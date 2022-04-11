@@ -96,7 +96,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       }
       return data;
     }
-    console.log(data);
     return [];
   }
 }
