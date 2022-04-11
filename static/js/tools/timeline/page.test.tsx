@@ -59,7 +59,7 @@ test("Single place and single stat var", () => {
       wrapper.update();
       wrapper.find(".chart-footer-options-button").at(0).simulate("click");
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toContain(
-        `<label class="form-check-label"><input id="age-ratio" type="checkbox" class="form-check-input">Ratio of</label><input class="denom-input" disabled="" placeholder=${DENOM_INPUT_PLACEHOLDER} value="">`
+        `<label class="form-check-label"><input id="age-ratio" type="checkbox" class="form-check-input">Ratio of</label><input class="denom-input" disabled=""`
       );
       wrapper
         .find("#hierarchy-section .Collapsible__trigger")
