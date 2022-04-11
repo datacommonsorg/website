@@ -14,7 +14,7 @@
   limitations under the License.
 #}
 
-{% extends 'base_iitm.html' %}
+{% extends 'base.html' %}
 
 {% set main_id = 'about' %}
 {% set title = 'About Us' %}
@@ -27,24 +27,20 @@
 {% block content %}
 <div class="container">
   <h1>About IITM Data Commons</h1>
-  <section>
-    <h2>Why Data Commons</h2>
+  <div style="padding: 2rem;">
+    <h2>Why IITM Data Commons</h2>
     <p>
-      Publicly available data from open sources (census.gov, cdc.gov,
-      data.gov, etc.) are vital resources for students and researchers in a
-      variety of disciplines. Unfortunately, processing these datasets is
-      often tedious and cumbersome. Organizations follow distinctive
-      practices for codifying datasets. Combining data from different sources
-      requires mapping common entities (city, county, etc.) and resolving
-      different types of keys/identifiers. This process is time consuming,
-      tedious and done over and over. Our goal with Data Commons is to
-      address this problem.
+      IIT-Madras Data Commons (IITM DC) is an effort by <a href="https://rbcdsai.iitm.ac.in/" target="_blank">Robert Bosch Center 
+        for Data Science and Artificial Intelligence, IIT Madras</a> 
+      to highlight India-specific data in Data Commons knowledge graph. IITM DC features datasets published by Indian Ministries
+      and governmental organizations and provides it through DC knowledge Graph. IITM DC is a part of 
+      <a href="https://datacommons.org" target="_blank">Data Commons</a>.
     </p>
     <p>
       Data Commons synthesizes a single graph from
-      these different data sources. It links references to the same entities
+      different data sources. It links references to the same entities
       (such
-      as cities, counties, organizations, etc.) across different datasets to
+      as cities, districts, states, etc.) across different datasets to
       nodes
       on the graph, so that users can access data about a particular entity
       aggregated from different sources without data cleaning or joining. We
@@ -52,8 +48,8 @@
       contained within Data Commons will be useful to students, researchers, and
       enthusiasts across different disciplines.
     </p>
-  </section>
-  <section>
+  </div>
+  <div style="padding: 2rem;">
     <h2>Who can use it?</h2>
     <p>
       Data Commons can be accessed by anyone via the tools available on
@@ -61,29 +57,24 @@
       <a href="https://docs.datacommons.org/api/" target="_blank">REST, Python and Google Sheets APIs</a>, all of which are free for educational,
       academic and journalistic research purposes.
     </p>
-  </section>
-  <section>
-    <h2>Collaborations</h2>
+  </div>
+  <div style="padding: 2rem;">
+    <h2>Contributing to IITM DC</h2>
     <p>
-      Data Commons has benefited greatly from many collaborations. In
-      addition to help from US Department of Commerce (notably the
-      Census Bureau), we have received help from our many academic
-      collaborations, including, UC San Francisco, Stanford University,
-      UC Berkeley and Harvard.
+      Data Commons is entirely open-source. Any Indian dataset added to DC's 
+      knowledge graph will be featured in IITM DC. You can contribute to our
+      database through our <a href="https://github.com/datacommonsorg/data" target="_blank">GitHub repo</a>.
+      More information on contributing can be found in our <a href="https://docs.datacommons.org/contributing/" target="_blank">documentation</a>.
     </p>
     <p>
-      We are looking for more collaborators, both for adding new data to
-      Data Commons and for building new and interesting applications of Data
-      Commons. Contact us if you are interested in working with us.
+      We are always looking for more collaborators, both for adding new data to
+      Data Commons and for building new and interesting applications of IITM Data
+      Commons. <a href="mailto:iitm.datacommons@gmail.com?subject=Contributing to IITM Data Commons">Contact us</a> 
+      if you are interested in working with us.
     </p>
-  </section>
+  </div>
 
-  <section>
-    <h3>See also</h3>
-    <ul>
-      <li><a href="https://docs.datacommons.org/datasets/">Data Sources</a>
-      <li><a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
-      <li><a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
-    </ul>
-  </section>
+  <div style="padding: 2rem;">
+    <p>For more information on Data Commons project, please visit <a href="https://datacommons.org/about" target="_blank">this page</a>.</p>
+  </div>
   {% endblock %}
