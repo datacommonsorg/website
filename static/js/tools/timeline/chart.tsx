@@ -19,9 +19,9 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
-import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { StatVarInfo } from "../../shared/stat_var";
+import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
 import {
   convertToDelta,

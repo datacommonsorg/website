@@ -21,9 +21,12 @@
 import _ from "lodash";
 import React, { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
-import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 
-import { SourceSelector, SourceSelectorSvInfo } from "../../shared/source_selector";
+import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
+import {
+  SourceSelector,
+  SourceSelectorSvInfo,
+} from "../../shared/source_selector";
 import { urlToDomain } from "../../shared/util";
 
 interface ToolChartFooterPropType {

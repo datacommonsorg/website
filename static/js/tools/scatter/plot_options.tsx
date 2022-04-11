@@ -23,8 +23,8 @@ import _ from "lodash";
 import React, { useContext, useState } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Container } from "reactstrap";
-import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 
+import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 import {
   AxisWrapper,
   Context,

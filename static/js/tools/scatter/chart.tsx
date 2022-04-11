@@ -33,13 +33,13 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
-import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getDateRange } from "../../utils/string_utils";
+import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { DisplayOptionsWrapper, PlaceInfo } from "./context";
 import { PlotOptions } from "./plot_options";

@@ -34,14 +34,14 @@ import {
   MapPoint,
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
-import { ToolChartFooter } from "../shared/tool_chart_footer";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
-import { loadSpinner, removeSpinner, urlToDomain } from "../../shared/util";
+import { loadSpinner, removeSpinner } from "../../shared/util";
+import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { StatVarInfo } from "../timeline/chart_region";
 import {

@@ -21,8 +21,8 @@ import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 import React from "react";
-import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 
+import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
 import { Page } from "./page";
 

@@ -253,7 +253,11 @@ function useChartData(cache: Cache): ChartData {
    * and after plot options change.
    */
   useEffect(() => {
-    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal) || _.isNull(placeVal.enclosedPlaces)) {
+    if (
+      _.isEmpty(cache) ||
+      !areDataLoaded(cache, xVal, yVal) ||
+      _.isNull(placeVal.enclosedPlaces)
+    ) {
       return;
     }
     const chartData = getChartData(
