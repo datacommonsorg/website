@@ -167,13 +167,8 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
               {document.getElementById("time-slider-slide") &&
                 ticks.map((date) => {
                   const offset =
-                    getOffset(
-                      start,
-                      end,
-                      date,
-                      SLIDER_MARGIN,
-                      HANDLE_MARGIN
-                    ) - TICK_MARGIN;
+                    getOffset(start, end, date, SLIDER_MARGIN, HANDLE_MARGIN) -
+                    TICK_MARGIN;
                   return (
                     <line
                       className="time-slider-tick-mark"
