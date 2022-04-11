@@ -42,9 +42,7 @@ import {
   IsLoadingWrapper,
   PlaceInfo,
 } from "./context";
-import { PlotOptions } from "./plot_options";
 import {
-  arePlacesLoaded,
   getAllStatsWithinPlace,
   getStatsWithinPlace,
   ScatterChartType,
@@ -57,10 +55,8 @@ type Cache = {
   metadataMap: Record<string, StatMetadata>;
   populationData: StatApiResponse;
   noDataError: boolean;
-  xDate: string;
-  yDate: string;
-  xMetahash: string;
-  yMetahash: string;
+  xAxis: Axis;
+  yAxis: Axis;
 };
 
 type ChartData = {
@@ -71,17 +67,14 @@ type ChartData = {
 };
 
 export function ChartLoader(): JSX.Element {
-  const { x, y, place, isLoading, display } = useContext(Context);
+  const { x, y, place, display } = useContext(Context);
   const cache = useCache();
   const chartData = useChartData(cache);
 
   const xVal = x.value;
   const yVal = y.value;
   const shouldRenderChart =
-    areStatVarInfoLoaded(xVal, yVal) &&
-    !isLoading.areDataLoading &&
-    !isLoading.arePlacesLoading &&
-    !_.isEmpty(chartData);
+    areStatVarInfoLoaded(xVal, yVal) && !_.isEmpty(chartData);
   if (!shouldRenderChart) {
     return <></>;
   }
@@ -96,6 +89,15 @@ export function ChartLoader(): JSX.Element {
     cache.allStatVarsData,
     cache.metadataMap
   );
+  const onSvMetahashUpdated = (update) => {
+    for (const sv of Object.keys(update)) {
+      if (x.value.statVarDcid === sv) {
+        x.setMetahash(update[sv]);
+      } else if (y.value.statVarDcid === sv) {
+        y.setMetahash(update[sv]);
+      }
+    }
+  };
   return (
     <>
       {shouldRenderChart && (
@@ -109,14 +111,8 @@ export function ChartLoader(): JSX.Element {
             <>
               <Chart
                 points={chartData.points}
-                xLabel={getLabel(
-                  xVal.statVarInfo.title || xVal.statVarDcid,
-                  xVal.perCapita
-                )}
-                yLabel={getLabel(
-                  yVal.statVarInfo.title || yVal.statVarDcid,
-                  yVal.perCapita
-                )}
+                xLabel={xVal.statVarInfo.title || xVal.statVarDcid}
+                yLabel={yVal.statVarInfo.title || yVal.statVarDcid}
                 xLog={xVal.log}
                 yLog={yVal.log}
                 xPerCapita={xVal.perCapita}
@@ -126,14 +122,11 @@ export function ChartLoader(): JSX.Element {
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
-              />
-              <PlotOptions
-                points={chartData.points}
-                populationData={cache.populationData}
                 sourceSelectorSvInfo={[
                   xSourceSelectorSvInfo,
                   ySourceSelectorSvInfo,
                 ]}
+                onSvMetahashUpdated={onSvMetahashUpdated}
               />
             </>
           )}
@@ -149,8 +142,7 @@ export function ChartLoader(): JSX.Element {
 function useCache(): Cache {
   const { x, y, place, isLoading } = useContext(Context);
 
-  // From statvar DCIDs to `SourceSeries` data
-  const [cache, setCache] = useState({} as Cache);
+  const [cache, setCache] = useState(null);
 
   const xVal = x.value;
   const yVal = y.value;
@@ -161,20 +153,6 @@ function useCache(): Cache {
    * re-retreive data.
    */
   useEffect(() => {
-    if (!arePlacesLoaded(placeVal) || !areStatVarInfoLoaded(xVal, yVal)) {
-      setCache({
-        allStatVarsData: {},
-        statVarsData: {},
-        populationData: {},
-        noDataError: false,
-        metadataMap: {},
-        xDate: "",
-        yDate: "",
-        xMetahash: "",
-        yMetahash: "",
-      });
-      return;
-    }
     if (!areDataLoaded(cache, xVal, yVal)) {
       loadData(x, y, placeVal, isLoading, setCache);
     }
@@ -210,12 +188,18 @@ async function loadData(
     place.enclosedPlaceType,
     [x.value, y.value]
   );
+  let populationSvParam = `&stat_vars=${DEFAULT_POPULATION_DCID}`;
+  for (const axis of [x.value, y.value]) {
+    if (axis.denom) {
+      populationSvParam += `&stat_vars=${axis.denom}`;
+    }
+  }
   const populationPromise: Promise<StatApiResponse> = axios
     .get(
       "/api/stats/set/series/within-place" +
         `?parent_place=${place.enclosingPlace.dcid}` +
         `&child_type=${place.enclosedPlaceType}` +
-        `&stat_vars=${DEFAULT_POPULATION_DCID}`
+        populationSvParam
     )
     .then((resp) => resp.data);
   Promise.all([statResponsePromise, statAllResponsePromise, populationPromise])
@@ -240,10 +224,8 @@ async function loadData(
         noDataError: _.isEmpty(statResponse.data),
         populationData,
         statVarsData: statResponse.data,
-        xDate: x.value.date,
-        xMetahash: x.value.metahash,
-        yDate: y.value.date,
-        yMetahash: y.value.metahash,
+        xAxis: x.value,
+        yAxis: y.value,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -271,7 +253,11 @@ function useChartData(cache: Cache): ChartData {
    * and after plot options change.
    */
   useEffect(() => {
-    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal)) {
+    if (
+      _.isEmpty(cache) ||
+      !areDataLoaded(cache, xVal, yVal) ||
+      _.isNull(placeVal.enclosedPlaces)
+    ) {
       return;
     }
     const chartData = getChartData(
@@ -325,8 +311,8 @@ function getChartData(
   const points = {};
   const sources: Set<string> = new Set();
   for (const namedPlace of place.enclosedPlaces) {
-    const xDenom = x.perCapita ? DEFAULT_POPULATION_DCID : null;
-    const yDenom = y.perCapita ? DEFAULT_POPULATION_DCID : null;
+    const xDenom = x.perCapita ? x.denom : null;
+    const yDenom = y.perCapita ? y.denom : null;
     const placeChartData = getPlaceScatterData(
       namedPlace,
       xStatData,
@@ -395,7 +381,7 @@ function areStatVarInfoLoaded(x: Axis, y: Axis): boolean {
  * @param y
  */
 function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
-  if (_.isEmpty(cache)) {
+  if (_.isEmpty(cache) || _.isEmpty(cache.xAxis) || _.isEmpty(cache.yAxis)) {
     return false;
   }
   const xStatVar = x.statVarDcid;
@@ -405,10 +391,10 @@ function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
     !_.isEmpty(cache.statVarsData[xStatVar]) &&
     yStatVar in cache.statVarsData &&
     !_.isEmpty(cache.statVarsData[yStatVar]) &&
-    cache.xDate === x.date &&
-    cache.yDate === y.date &&
-    cache.xMetahash === x.metahash &&
-    cache.yMetahash === y.metahash
+    cache.xAxis.date === x.date &&
+    cache.yAxis.date === y.date &&
+    cache.xAxis.denom === x.denom &&
+    cache.yAxis.denom === y.denom
   );
 }
 
@@ -450,13 +436,4 @@ function downloadData(
       `${place.enclosedPlaceType}.csv`,
     csv
   );
-}
-
-/**
- * Formats a statvar name passed by the statvar menu to be an axis label.
- * @param name
- * @param perCapita
- */
-function getLabel(name: string, perCapita: boolean): string {
-  return `${name}${perCapita ? " Per Capita" : ""}`;
 }

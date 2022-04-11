@@ -78,7 +78,7 @@ export class StatVarSection extends React.Component<
 
   render(): JSX.Element {
     const context = this.context;
-    const prefix = this.getPrefix();
+    const prefix = this.getPrefix(this.props.data);
     const showPrefix =
       context.statVarHierarchyType !== StatVarHierarchyType.BROWSER && prefix;
     return (
@@ -137,8 +137,8 @@ export class StatVarSection extends React.Component<
       });
   }
 
-  private getPrefix(): string {
-    const svNamesList = this.props.data.map((sv) => sv.displayName);
+  private getPrefix(svList: StatVarInfo[]): string {
+    const svNamesList = svList.map((sv) => sv.displayName);
     // Only get prefix if there is more than 1 stat var.
     if (svNamesList.length < 2) {
       return "";
@@ -149,7 +149,7 @@ export class StatVarSection extends React.Component<
     while (idx >= 0 && svNamesCommonPrefix[idx] !== " ") {
       idx--;
     }
-    return svNamesCommonPrefix.slice(0, idx);
+    return idx > 0 ? svNamesCommonPrefix.slice(0, idx) : "";
   }
 }
 
