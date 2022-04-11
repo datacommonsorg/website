@@ -375,7 +375,7 @@ export function getStatData(
         continue;
       }
 
-      if (isRatio) {
+      if (isRatio && denom) {
         const hasDenomSeries =
           place in rawData.denomData && denom in rawData.denomData[place].data;
         if (!hasDenomSeries) {

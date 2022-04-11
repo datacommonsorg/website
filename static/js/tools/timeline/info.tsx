@@ -87,7 +87,7 @@ class Info extends Component {
               Berkeley &amp; Piedmont:
               <a
                 href={
-                  "#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Count_Person_BelowPovertyLevelInThePast12Months&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
+                  "#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Count_Person_BelowPovertyLevelInThePast12Months&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%2C%22denom%22%3A%22Count_Person%22%7D%7D"
                 }
               >
                 {" "}
@@ -105,7 +105,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0606000,geoId/0656938&pc=1&statsVar=Count_Person_EducationalAttainmentBachelorsDegree__Count_Person_EducationalAttainmentMastersDegree__Count_Person_EducationalAttainmentDoctorateDegree"
+                  "#&&place=geoId/0606000,geoId/0656938&pc=1&statsVar=Count_Person_EducationalAttainmentBachelorsDegree__Count_Person_EducationalAttainmentMastersDegree__Count_Person_EducationalAttainmentDoctorateDegree&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
                 }
               >
                 {" "}
@@ -117,7 +117,7 @@ class Info extends Component {
               Palo Alto &amp; East Palo Alto:
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianOrOtherPacificIslanderAlone__Count_Person_WhiteAlone"
+                  "#&&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianOrOtherPacificIslanderAlone__Count_Person_WhiteAlone&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%2C%22denom%22%3A%22Count_Person%22%7D%7D"
                 }
               >
                 {" "}
@@ -126,7 +126,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&pc=0&statsVar=Median_Income_Person"
+                  "#&&place=geoId/0655282,geoId/0620956&&statsVar=Median_Income_Person"
                 }
               >
                 {" "}
@@ -135,7 +135,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Employed"
+                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Employed&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
                 }
               >
                 {" "}
@@ -144,7 +144,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Divorced__Count_Person_MarriedAndNotSeparated__Count_Person_NeverMarried"
+                  "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Divorced__Count_Person_MarriedAndNotSeparated__Count_Person_NeverMarried&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
                 }
               >
                 {" "}
@@ -188,7 +188,7 @@ class Info extends Component {
               ,
               <a
                 href={
-                  "#&&place=geoId/1304000,geoId/4982950&pc=1&statsVar=Count_Person_Female__Count_Person_Male"
+                  "#&&place=geoId/1304000,geoId/4982950&pc=1&statsVar=Count_Person_Female__Count_Person_Male&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
                 }
               >
                 {" "}
