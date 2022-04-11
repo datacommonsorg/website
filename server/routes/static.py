@@ -42,7 +42,7 @@ def homepage():
 def about():
     if current_app.config.get('IITM', None):
         return render_template('static/about_iitm.html')
-        
+
     return render_template('static/about.html')
 
 
