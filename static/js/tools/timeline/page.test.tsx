@@ -21,6 +21,7 @@ import Enzyme, { mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 import React from "react";
+import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 
 import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
 import { Page } from "./page";
@@ -58,7 +59,7 @@ test("Single place and single stat var", () => {
       wrapper.update();
       wrapper.find(".chart-footer-options-button").at(0).simulate("click");
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toContain(
-        `<label class="form-check-label"><input id="age-ratio" type="checkbox" class="form-check-input">Ratio of</label><input class="denom-input" disabled="" placeholder="Enter a stat var dcid eg. Count_Person" value="">`
+        `<label class="form-check-label"><input id="age-ratio" type="checkbox" class="form-check-input">Ratio of</label><input class="denom-input" disabled="" placeholder=${DENOM_INPUT_PLACEHOLDER} value="">`
       );
       wrapper
         .find("#hierarchy-section .Collapsible__trigger")

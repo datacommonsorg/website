@@ -21,11 +21,12 @@
 import _ from "lodash";
 import React, { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
+import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 
-import { SourceSelector, SourceSelectorSvInfo } from "./source_selector";
-import { urlToDomain } from "./util";
+import { SourceSelector, SourceSelectorSvInfo } from "../../shared/source_selector";
+import { urlToDomain } from "../../shared/util";
 
-interface ChartFooterPropType {
+interface ToolChartFooterPropType {
   // Id of the chart this footer is being added to.
   chartId: string;
   // Sources the chart got its data from.
@@ -55,7 +56,7 @@ const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
 const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const SELECTOR_PREFIX = "chart-footer";
 
-export function ChartFooter(props: ChartFooterPropType): JSX.Element {
+export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
   const mMethods = !_.isEmpty(props.mMethods)
     ? Array.from(props.mMethods).join(", ")
     : "";
@@ -109,7 +110,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 <input
                   className="denom-input"
                   disabled={!props.isRatio}
-                  placeholder={"Enter a stat var dcid eg. Count_Person"}
+                  placeholder={DENOM_INPUT_PLACEHOLDER}
                   onBlur={() => props.onDenomUpdated(denomInput)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {

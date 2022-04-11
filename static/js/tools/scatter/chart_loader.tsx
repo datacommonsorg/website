@@ -142,15 +142,7 @@ export function ChartLoader(): JSX.Element {
 function useCache(): Cache {
   const { x, y, place, isLoading } = useContext(Context);
 
-  const [cache, setCache] = useState({
-    allStatVarsData: {},
-    statVarsData: {},
-    populationData: {},
-    noDataError: false,
-    metadataMap: {},
-    xAxis: null,
-    yAxis: null,
-  });
+  const [cache, setCache] = useState(null);
 
   const xVal = x.value;
   const yVal = y.value;
@@ -261,7 +253,7 @@ function useChartData(cache: Cache): ChartData {
    * and after plot options change.
    */
   useEffect(() => {
-    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal)) {
+    if (_.isEmpty(cache) || !areDataLoaded(cache, xVal, yVal) || _.isNull(placeVal.enclosedPlaces)) {
       return;
     }
     const chartData = getChartData(

@@ -33,7 +33,7 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
-import { ChartFooter } from "../../shared/chart_footer";
+import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
@@ -154,7 +154,7 @@ function Chart(props: ChartPropsType): JSX.Element {
           <div id="scatter-tooltip" ref={tooltipRef} />
         </div>
       </Card>
-      <ChartFooter
+      <ToolChartFooter
         chartId="scatter"
         sources={props.sources}
         mMethods={null}
@@ -163,7 +163,7 @@ function Chart(props: ChartPropsType): JSX.Element {
         hideIsRatio={true}
       >
         <PlotOptions />
-      </ChartFooter>
+      </ToolChartFooter>
       <div id="scatter-chart-screen" className="screen">
         <div id="spinner"></div>
       </div>

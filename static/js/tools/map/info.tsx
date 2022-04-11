@@ -135,7 +135,7 @@ export function Info(): JSX.Element {
           <b>Attainment of Bachelor Degree or Higher</b> across counties in{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=country/USA&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=country/USA&ept=County"
             }
           >
             USA
@@ -143,7 +143,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/53&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=geoId/53&ept=County"
             }
           >
             Washington
@@ -151,7 +151,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/17&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=geoId/17&ept=County"
             }
           >
             Illinois
@@ -159,7 +159,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&pd=geoId/08&ept=County"
+              "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=geoId/08&ept=County"
             }
           >
             Colorado
@@ -193,7 +193,7 @@ export function Info(): JSX.Element {
           ,{" "}
           <a
             href={
-              "#&sv=Count_Person_EducationalAttainmentNoSchoolingCompleted&pc=1&pd=country/USA&ept=State"
+              "#&sv=Count_Person_EducationalAttainmentNoSchoolingCompleted&pc=1&denom=Count_Person&pd=country/USA&ept=State"
             }
           >
             No Schooling Completed

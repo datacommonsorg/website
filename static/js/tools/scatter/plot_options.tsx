@@ -23,6 +23,7 @@ import _ from "lodash";
 import React, { useContext, useState } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
 import { Container } from "reactstrap";
+import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 
 import {
   AxisWrapper,
@@ -101,7 +102,7 @@ function PlotOptions(): JSX.Element {
                   value={yDenomInput}
                   onChange={(e) => setYDenomInput(e.target.value)}
                   disabled={!y.value.perCapita}
-                  placeholder="Enter a stat var dcid eg. Count_Person"
+                  placeholder={DENOM_INPUT_PLACEHOLDER}
                 />
               </FormGroup>
             </div>
@@ -146,7 +147,7 @@ function PlotOptions(): JSX.Element {
                   value={xDenomInput}
                   onChange={(e) => setXDenomInput(e.target.value)}
                   disabled={!x.value.perCapita}
-                  placeholder="Enter a stat var dcid eg. Count_Person"
+                  placeholder={DENOM_INPUT_PLACEHOLDER}
                 />
               </FormGroup>
             </div>

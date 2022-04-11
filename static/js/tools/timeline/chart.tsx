@@ -19,7 +19,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
-import { ChartFooter } from "../../shared/chart_footer";
+import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { StatVarInfo } from "../../shared/stat_var";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
@@ -153,7 +153,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           </div>
           <div ref={this.svgContainer} className="chart-svg"></div>
         </div>
-        <ChartFooter
+        <ToolChartFooter
           chartId={this.props.mprop}
           sources={
             this.state.statData ? this.state.statData.sources : new Set()
@@ -189,7 +189,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               </Label>
             </FormGroup>
           </span>
-        </ChartFooter>
+        </ToolChartFooter>
       </div>
     );
   }

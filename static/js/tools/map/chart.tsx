@@ -34,7 +34,7 @@ import {
   MapPoint,
 } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
-import { ChartFooter } from "../../shared/chart_footer";
+import { ToolChartFooter } from "../shared/tool_chart_footer";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
@@ -251,7 +251,7 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
         </Container>
       </Card>
-      <ChartFooter
+      <ToolChartFooter
         chartId="map"
         sources={props.sources}
         mMethods={null}
@@ -284,7 +284,7 @@ export function Chart(props: ChartProps): JSX.Element {
             </FormGroup>
           </div>
         )}
-      </ChartFooter>
+      </ToolChartFooter>
       <div id="map-chart-screen" className="screen">
         <div id="spinner"></div>
       </div>
