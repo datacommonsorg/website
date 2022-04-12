@@ -19,6 +19,53 @@ import { getPlaceDcids } from "../utils/place_utils";
 let ac: google.maps.places.Autocomplete;
 let acs: google.maps.places.AutocompleteService;
 
+// Some India cities have limited data, override to show the corresponding district page.
+const PLACE_OVERRIDE = {
+  "wikidataId/Q1156": "wikidataId/Q2341660",
+  "wikidataId/Q987": "wikidataId/Q1353",
+  "wikidataId/Q1355": "wikidataId/Q806463",
+  "wikidataId/Q1361": "wikidataId/Q15340",
+  "wikidataId/Q1070": "wikidataId/Q401686",
+  "wikidataId/Q1352": "wikidataId/Q15116",
+  "wikidataId/Q1348": "wikidataId/Q2088496",
+  "wikidataId/Q4629": "wikidataId/Q1797317",
+  "wikidataId/Q1538": "wikidataId/Q1797336",
+  "wikidataId/Q66485": "wikidataId/Q1134781",
+  "wikidataId/Q47916": "wikidataId/Q1773416",
+  "wikidataId/Q66568": "wikidataId/Q2089152",
+  "wikidataId/Q1513": "wikidataId/Q1797367",
+  "wikidataId/Q66616": "wikidataId/Q742938",
+  "wikidataId/Q207749": "wikidataId/Q943099",
+  "wikidataId/Q80989": "wikidataId/Q1797245",
+  "wikidataId/Q200016": "wikidataId/Q15394",
+  "wikidataId/Q80484": "wikidataId/Q100077",
+  "wikidataId/Q11909": "wikidataId/Q578285",
+  "wikidataId/Q207098": "wikidataId/Q1773444",
+  "wikidataId/Q200123": "wikidataId/Q172482",
+  "wikidataId/Q42941": "wikidataId/Q606343",
+  "wikidataId/Q200235": "wikidataId/Q1797269",
+  "wikidataId/Q174461": "wikidataId/Q1947380",
+  "wikidataId/Q200663": "wikidataId/Q2086173",
+  "wikidataId/Q200237": "wikidataId/Q1764627",
+  "wikidataId/Q11854": "wikidataId/Q1815245",
+  "wikidataId/Q79980": "wikidataId/Q1321140",
+  "wikidataId/Q170115": "wikidataId/Q1506029",
+  "wikidataId/Q200713": "wikidataId/Q592942",
+  "wikidataId/Q244159": "wikidataId/Q2240791",
+  "wikidataId/Q48403": "wikidataId/Q202822",
+  "wikidataId/Q162442": "wikidataId/Q1773426",
+  "wikidataId/Q205697": "wikidataId/Q1478937",
+  "wikidataId/Q158467": "wikidataId/Q2085310",
+  "wikidataId/Q200878": "wikidataId/Q632093",
+  "wikidataId/Q9885": "wikidataId/Q15136",
+  "wikidataId/Q200019": "wikidataId/Q1434965",
+  "wikidataId/Q228405": "wikidataId/Q15184",
+  "wikidataId/Q372773": "wikidataId/Q2295914",
+  "wikidataId/Q207754": "wikidataId/Q15201",
+  "wikidataId/Q41496": "wikidataId/Q15194",
+  "wikidataId/Q281796": "wikidataId/Q2981389",
+};
+
 /**
  * Setup search input autocomplete
  *
@@ -76,7 +123,11 @@ const queryAutocompleteCallback = (place_name) => (predictions, status) => {
 function getPlaceAndRender(placeId: string, placeName: string): void {
   getPlaceDcids([placeId])
     .then((data) => {
-      window.location.href = localizeLink(`/place/${data[placeId]}`);
+      let dcid = data[placeId];
+      if (dcid in PLACE_OVERRIDE) {
+        dcid = PLACE_OVERRIDE[dcid];
+      }
+      window.location.href = localizeLink(`/place/${dcid}`);
     })
     .catch(() => {
       placeNotFoundAlert(placeName);
