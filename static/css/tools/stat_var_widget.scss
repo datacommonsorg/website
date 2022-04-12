@@ -19,6 +19,7 @@
 @import "../stat_var_hierarchy";
 
 $menu-background: #525252;
+$menu-foreground: #fff;
 $widget-min-width: 375px;
 $container-outer-horizontal-margin: 8px;
 $container-outer-vert-margin: 15px;
@@ -30,6 +31,21 @@ $explore-toggle-width: 27px;
 $transparent-gray: rgba(204, 204, 204, 0.2);
 // opaque version of dc-gray-lite
 $transparent-red: rgba(240, 230, 231, 0.2);
+
+.modal-sv-widget {
+  background: $menu-background !important;
+  color: $menu-foreground !important;
+}
+
+.modal-sv-widget .close {
+  color: $menu-foreground;
+  text-shadow: none;
+}
+
+.modal-dialog-scrollable .modal-body {
+  // overflow-x: auto !important;
+  overflow: hidden !important;
+}
 
 .explore-menu-container {
   direction: initial;
@@ -51,11 +67,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   top: 10px;
   transition: left $transition-animation;
   width: $explore-toggle-width;
-  z-index: 100;
-}
-
-#plot-container {
-  width: calc(1vw - #{$widget-min-width});
+  z-index: 2;
 }
 
 .explore-menu-container.collapsed {
@@ -86,12 +98,18 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   flex-grow: 1;
 }
 
-.statvar-hierarchy-search-section {
-  padding: $container-outer-vert-margin $container-outer-horizontal-margin 0;
-}
 #hierarchy-section {
-  padding: 0 $container-outer-horizontal-margin $container-outer-vert-margin;
   width: fit-content;
+  padding: 0 8px 15px;
+}
+
+.modal-sv-widget #hierarchy-section {
+  padding: 0;
+}
+
+.statvar-hierarchy-search-section {
+  color: initial;
+  padding: $container-outer-vert-margin $container-outer-horizontal-margin 0;
 }
 
 .stat-var-hierarchy-container .title {
@@ -107,10 +125,21 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   width: 60% !important;
 }
 
+// To allow for scroll only within the hierarchy (and not the search box, etc).
+.modal-sv-widget .full-size,
+#explore .full-size {
+  width: 100%;
+  height: 100%;
+}
+
+.modal-sv-widget .statvar-hierarchy-search-results {
+  width: 80% !important;
+}
+
 #explore-menu-toggle,
 .statvar-hierarchy-search-section .title,
 #hierarchy-section {
-  color: white;
+  color: $menu-foreground;
 }
 
 #hierarchy-section .highlighted-node-title {
@@ -150,13 +179,13 @@ form.node-title {
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
   overflow-wrap: anywhere;
-  z-index: 5;
+  z-index: 5000;
   min-width: 12rem;
 }
 
 #tree-widget-info i {
   padding: 0.3rem;
-  color: white;
+  color: $menu-foreground;
   cursor: pointer;
   font-size: 1.2rem;
 }
@@ -167,7 +196,7 @@ form.node-title {
 }
 
 .show-sv-toggle {
-  color: white;
+  color: $menu-foreground;
   font-size: $medium-font-size;
   display: flex;
   align-items: center;

@@ -1,39 +1,39 @@
 @mixin search-place {
   #search {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background: white;
   }
-  
+
   #search #location-field {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
   }
-  
+
   #search #location-field #prompt {
     display: none;
   }
-  
+
   #search #location-field #place-list {
-    flex-shrink: 0;
-    margin-left: 32px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    margin-left: 36px;
+    padding: 12px 0;
   }
-  
+
   #search #location-field #search-icon {
-    width: 56px;
+    width: 24px;
     height: 56px;
-    margin-right: -32px;
+    margin-right: -28px;
+    margin-left: 8px;
     background: url("../images/icon-pin.svg") no-repeat;
     background-position: center;
+    position: absolute;
   }
-  
+
   #location-field #ac {
     display: flex;
     flex-grow: 1;
@@ -48,12 +48,12 @@
     background: url("../images/icon-search.svg") no-repeat;
     background-position: right 16px top 50%;
   }
-  
+
   #location-field #ac::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
     color: rgba(0, 0, 0, 0.25);
   }
-  
+
   .mdl-chip {
     height: 32px;
     line-height: 30px;
@@ -67,13 +67,13 @@
     font-size: 0;
     white-space: nowrap;
   }
-  
+
   #location-field .mdl-chip {
     margin-right: 6px;
     border: 0.5px solid #5384ec;
     background: rgba(66, 133, 244, 0.08);
   }
-  
+
   .material-icons {
     font-family: "Material Icons";
     font-weight: normal;
@@ -88,12 +88,12 @@
     -webkit-font-feature-settings: "liga";
     -webkit-font-smoothing: antialiased;
   }
-  
+
   .mdl-chip__action .material-icons {
     color: #3c4043;
     font-size: 18px;
   }
-  
+
   /* Maps suggestion dropdown overrides */
   .pac-container {
     border: none;
@@ -102,25 +102,25 @@
     border-bottom-right-radius: 8px;
     transform: translateX(-16px);
   }
-  
+
   .pac-item {
     padding: 4px 16px;
   }
-  
+
   .pac-icon {
     display: none;
   }
-  
+
   .pac-logo:after {
     display: none;
   }
-  
+
   .mdl-chip__text {
     font-size: 13px;
     vertical-align: middle;
     display: inline-block;
   }
-  
+
   .mdl-chip__action {
     height: 24px;
     width: 24px;
@@ -141,7 +141,7 @@
     outline: none;
     overflow: hidden;
   }
-  
+
   .mdl-chip__contact {
     height: 32px;
     width: 32px;
@@ -154,21 +154,21 @@
     font-size: 18px;
     line-height: 32px;
   }
-  
+
   .mdl-chip:focus {
     outline: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
       0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
-  
+
   .mdl-chip:active {
     background-color: #d6d6d6;
   }
-  
+
   .mdl-chip--deletable {
     padding-right: 4px;
   }
-  
+
   .mdl-chip--contact {
     padding-left: 0;
   }

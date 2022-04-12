@@ -66,6 +66,8 @@ class Explorer extends Component<ExplorerPropType, unknown> {
             {formatNumber(provenanceSummaryList.length, undefined, true)}
           </h4>
         )}
+        {/* The only children passed in should be the stat var explorer button */}
+        {this.props.children}
         {this.props.summary?.placeTypeSummary && (
           <div id="place-type-summary-section" className="table-page-section">
             <h3>Places</h3>

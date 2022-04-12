@@ -76,7 +76,7 @@ $small-font-size: 0.75rem;
   border-radius: 0 0 $border-radius $border-radius;
   border: 1px solid var(--gray);
   overflow-y: scroll;
-  z-index: 2;
+  z-index: 2000;
 }
 
 .statvar-search-input {

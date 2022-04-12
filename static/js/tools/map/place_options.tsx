@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
+import { Button, Col, Row } from "reactstrap";
 
 import { PlaceSelector } from "../../shared/place_selector";
 import {
@@ -29,7 +30,12 @@ import {
 import { Context, PlaceInfoWrapper } from "./context";
 import { getAllChildPlaceTypes } from "./util";
 
-export function PlaceOptions(): JSX.Element {
+interface PlaceOptionsProps {
+  // Callback function to toggle the stat var widget (modal for small screen sizes).
+  toggleSvHierarchyModal: () => void;
+}
+
+export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
   const { placeInfo } = useContext(Context);
 
   useEffect(() => {
@@ -71,7 +77,15 @@ export function PlaceOptions(): JSX.Element {
       onEnclosedPlaceTypeSelected={placeInfo.setEnclosedPlaceType}
       getEnclosedPlaceTypes={getAllChildPlaceTypes}
       customSearchPlaceholder={"Enter a country or state to get started"}
-    />
+    >
+      <Row className="d-lg-none">
+        <Col>
+          <Button color="primary" onClick={props.toggleSvHierarchyModal}>
+            Select variable
+          </Button>
+        </Col>
+      </Row>
+    </PlaceSelector>
   );
 }
 

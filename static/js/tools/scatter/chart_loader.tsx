@@ -271,7 +271,7 @@ function useChartData(cache: Cache): ChartData {
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
-      downloadButton.style.visibility = "visible";
+      downloadButton.style.display = "inline-block";
       downloadButton.onclick = () =>
         downloadData(xVal, yVal, placeVal, chartData.points);
     }
