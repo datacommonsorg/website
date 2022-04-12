@@ -163,3 +163,14 @@ a.linked-text:hover {
   min-height:80px;
   min-width:270px;
 }
+
+#main-header{
+  background-color:#80296E!important;
+}
+
+#main-nav .nav-link {
+  text-transform: uppercase!important; 
+  font-size: .9rem!important;
+  font-weight: 700!important;
+  font-family: "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
+}
