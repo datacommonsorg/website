@@ -34,7 +34,7 @@
 
 <head>
   {% if config['IITM'] %}
-  <title>{{ title }} - IITM Data Commons</title>
+  <title>{{ title }} - India Data Commons</title>
   {% else %}
   <title>{{ title }} - Data Commons</title>
   {% endif %}
@@ -54,7 +54,7 @@
         <div class="container-fluid">
           {% if config['IITM'] %}
           <div class="navbar-brand">
-            <a href="{{ url_for('static.homepage') }}">IITM Data Commons</a>
+            <a href="{{ url_for('static.homepage') }}">India Data Commons</a>
             {% if subpage_title %}
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
@@ -113,7 +113,7 @@
                   {% trans %}About{% endtrans %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About IITM Data Commons{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About India Data Commons{% endtrans %}</a>
                   <!-- <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a> -->
                   <!-- <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{% endtrans %}</a> -->
                   <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
@@ -222,7 +222,7 @@
             {# TRANSLATORS: The label for a link to informational pages about the Data Commons project. #}
             <h6>{% trans %}Data Commons{% endtrans %}</h6>
             {# TRANSLATORS: The label for a link to the project's about page. #}
-            <a href="{{ url_for('static.about') }}">{% trans %}About IITM Data Commons{% endtrans %}</a>
+            <a href="{{ url_for('static.about') }}">{% trans %}About India Data Commons{% endtrans %}</a>
             <!-- {# TRANSLATORS: The label for a link to the project's blog. #}
             <a href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a> -->
             <!-- {# TRANSLATORS: The label for a link to data sources included in the Data Commons knowledge graph. #}
@@ -299,7 +299,7 @@
             </div>
             {% if config['IITM'] %}
             {# TRANSLATORS: The label for a link to project homepage. #}
-            <span>{% trans project="IITM Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
+            <span>{% trans project="India Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
             {% else %}
             {# TRANSLATORS: The label for a link to project homepage. #}
             <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
