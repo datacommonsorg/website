@@ -19,7 +19,15 @@
  */
 
 import axios from "axios";
-import React, { Component } from "react";
+import React, {
+  Component,
+  createRef,
+  RefObject,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
@@ -33,9 +41,14 @@ interface PageStateType {
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
+  // Whether the SV Hierarchy Modal is opened.
+  showSvHierarchyModal: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
+  svHierarchyModalRef: RefObject<HTMLDivElement>;
+  svHierarchyContainerRef: RefObject<HTMLDivElement>;
+
   constructor(props: unknown) {
     super(props);
     this.state = {
@@ -45,7 +58,15 @@ class Page extends Component<unknown, PageStateType> {
       statVar: "",
       summary: { placeTypeSummary: {} },
       urls: {},
+      showSvHierarchyModal: false,
     };
+    // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
+    // menu but reattached to the modal when it is opened on small screens.
+    this.svHierarchyModalRef = createRef<HTMLDivElement>();
+    this.svHierarchyContainerRef = createRef<HTMLDivElement>();
+    this.onSvHierarchyModalClosed = this.onSvHierarchyModalClosed.bind(this);
+    this.onSvHierarchyModalOpened = this.onSvHierarchyModalOpened.bind(this);
+    this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
   async componentDidMount(): Promise<void> {
@@ -55,34 +76,98 @@ class Page extends Component<unknown, PageStateType> {
     this.fetchSummary();
   }
 
+  private toggleSvHierarchyModal(): void {
+    this.setState({
+      showSvHierarchyModal: !this.state.showSvHierarchyModal,
+    });
+  }
+
+  private onSvHierarchyModalOpened() {
+    if (
+      this.svHierarchyModalRef.current &&
+      this.svHierarchyContainerRef.current
+    ) {
+      this.svHierarchyModalRef.current.appendChild(
+        this.svHierarchyContainerRef.current
+      );
+    }
+  }
+
+  private onSvHierarchyModalClosed() {
+    document
+      .getElementById("explore")
+      .appendChild(this.svHierarchyContainerRef.current);
+  }
+
   render(): JSX.Element {
     return (
       <>
-        <div className="explore-menu-container" id="explore">
-          <StatVarHierarchy
-            type={StatVarHierarchyType.STAT_VAR}
-            places={[]}
-            selectedSVs={[this.state.statVar]}
-            selectSV={(sv) => {
-              this.updateHash(sv);
-            }}
-            searchLabel="Statistical Variables"
-          />
+        <div className="d-none d-lg-flex explore-menu-container" id="explore">
+          <div ref={this.svHierarchyContainerRef}>
+            <StatVarHierarchy
+              type={StatVarHierarchyType.STAT_VAR}
+              places={[]}
+              selectedSVs={[this.state.statVar]}
+              selectSV={(sv) => {
+                this.updateHash(sv);
+              }}
+              searchLabel="Statistical Variables"
+            />
+          </div>
         </div>
+        <Modal
+          isOpen={this.state.showSvHierarchyModal}
+          toggle={this.toggleSvHierarchyModal}
+          className="modal-dialog-centered modal-lg"
+          contentClassName="modal-sv-widget"
+          onOpened={this.onSvHierarchyModalOpened}
+          onClosed={this.onSvHierarchyModalClosed}
+          scrollable={true}
+        >
+          <ModalHeader toggle={this.toggleSvHierarchyModal}>
+            Select Variables
+          </ModalHeader>
+          <ModalBody>
+            <div ref={this.svHierarchyModalRef}></div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggleSvHierarchyModal}>
+              Done
+            </Button>
+          </ModalFooter>
+        </Modal>
         <div id="plot-container">
           <div className="container">
-            {!this.state.statVar && <Info />}
+            {!this.state.statVar && (
+              <>
+                <Info />
+                <Button color="primary" onClick={this.toggleSvHierarchyModal}>
+                  Select variable
+                </Button>
+              </>
+            )}
             {this.state.error && this.state.statVar && (
               <div>Error fetching data for {this.state.statVar}.</div>
             )}
             {!this.state.error && this.state.statVar && (
-              <Explorer
-                description={this.state.description}
-                displayName={this.state.displayName}
-                statVar={this.state.statVar}
-                summary={this.state.summary}
-                urls={this.state.urls}
-              />
+              <>
+                <Explorer
+                  description={this.state.description}
+                  displayName={this.state.displayName}
+                  statVar={this.state.statVar}
+                  summary={this.state.summary}
+                  urls={this.state.urls}
+                >
+                  <div className="d-lg-none pt-3">
+                    <Button
+                      color="primary"
+                      onClick={this.toggleSvHierarchyModal}
+                    >
+                      Explore another variable
+                    </Button>
+                  </div>
+                </Explorer>
+              </>
             )}
           </div>
         </div>

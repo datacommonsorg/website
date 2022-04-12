@@ -129,6 +129,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         contentClassName="modal-sv-widget"
         onOpened={onSvModalOpened}
         onClosed={onSvModalClosed}
+        scrollable={true}
       >
         <ModalHeader toggle={props.openSvHierarchyModalCallback}>
           Select Variables

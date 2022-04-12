@@ -33,8 +33,8 @@ $transparent-gray: rgba(204, 204, 204, 0.2);
 $transparent-red: rgba(240, 230, 231, 0.2);
 
 .modal-sv-widget {
-  background: $menu-background;
-  color: $menu-foreground;
+  background: $menu-background !important;
+  color: $menu-foreground !important;
 }
 
 .modal-sv-widget .close {

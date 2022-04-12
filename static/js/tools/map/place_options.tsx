@@ -81,7 +81,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
       <Row className="d-lg-none">
         <Col>
           <Button color="primary" onClick={props.toggleSvHierarchyModal}>
-            Select variables
+            Select variable
           </Button>
         </Col>
       </Row>

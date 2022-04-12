@@ -87,6 +87,9 @@ body {
 
 #plot-container {
   background: #f8f8f8;
+  // TODO(beets): Find a better way to pin footer at the bottom and reduce
+  // content jumpiness in small windows during loading transitions.
+  min-height: 80wh;
 }
 
 #plot-container h1 {

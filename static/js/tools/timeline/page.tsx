@@ -50,12 +50,13 @@ import {
 interface PageStateType {
   placeName: Record<string, string>;
   statVarInfo: Record<string, StatVarInfo>;
-  showSvWidget: boolean;
+  // Whether the SV Hierarchy Modal is opened.
+  showSvHierarchyModal: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
-  modalContentRef: RefObject<HTMLDivElement>;
-  svWidgetRef: RefObject<HTMLDivElement>;
+  svHierarchyModalRef: RefObject<HTMLDivElement>;
+  svHierarchyContainerRef: RefObject<HTMLDivElement>;
 
   constructor(props: unknown) {
     super(props);
@@ -64,15 +65,15 @@ class Page extends Component<unknown, PageStateType> {
     this.state = {
       placeName: {},
       statVarInfo: {},
-      showSvWidget: false,
+      showSvHierarchyModal: false,
     };
     // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
     // menu but reattached to the modal when it is opened on small screens.
-    this.modalContentRef = createRef<HTMLDivElement>();
-    this.svWidgetRef = createRef<HTMLDivElement>();
-    this.onSvModalClosed = this.onSvModalClosed.bind(this);
-    this.onSvModalOpened = this.onSvModalOpened.bind(this);
-    this.toggleSvWidget = this.toggleSvWidget.bind(this);
+    this.svHierarchyModalRef = createRef<HTMLDivElement>();
+    this.svHierarchyContainerRef = createRef<HTMLDivElement>();
+    this.onSvHierarchyModalClosed = this.onSvHierarchyModalClosed.bind(this);
+    this.onSvHierarchyModalOpened = this.onSvHierarchyModalOpened.bind(this);
+    this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
   componentDidMount(): void {
@@ -113,20 +114,20 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
-  private toggleSvWidget(): void {
+  private toggleSvHierarchyModal(): void {
     this.setState({
-      showSvWidget: !this.state.showSvWidget,
+      showSvHierarchyModal: !this.state.showSvHierarchyModal,
     });
   }
 
-  private onSvModalOpened() {
-    if (this.modalContentRef.current && this.svWidgetRef.current) {
-      this.modalContentRef.current.appendChild(this.svWidgetRef.current);
+  private onSvHierarchyModalOpened() {
+    if (this.svHierarchyModalRef.current && this.svHierarchyContainerRef.current) {
+      this.svHierarchyModalRef.current.appendChild(this.svHierarchyContainerRef.current);
     }
   }
 
-  private onSvModalClosed() {
-    document.getElementById("explore").appendChild(this.svWidgetRef.current);
+  private onSvHierarchyModalClosed() {
+    document.getElementById("explore").appendChild(this.svHierarchyContainerRef.current);
   }
 
   render(): JSX.Element {
@@ -150,7 +151,7 @@ class Page extends Component<unknown, PageStateType> {
             collapseElemId="explore"
             visibleElemId="stat-var-hierarchy-section"
           />
-          <div ref={this.svWidgetRef}>
+          <div ref={this.svHierarchyContainerRef}>
             <StatVarHierarchy
               type={StatVarHierarchyType.TIMELINE}
               places={namedPlaces}
@@ -166,21 +167,22 @@ class Page extends Component<unknown, PageStateType> {
           </div>
         </div>
         <Modal
-          isOpen={this.state.showSvWidget}
-          toggle={this.toggleSvWidget}
+          isOpen={this.state.showSvHierarchyModal}
+          toggle={this.toggleSvHierarchyModal}
           className="modal-dialog-centered modal-lg"
           contentClassName="modal-sv-widget"
-          onOpened={this.onSvModalOpened}
-          onClosed={this.onSvModalClosed}
+          onOpened={this.onSvHierarchyModalOpened}
+          onClosed={this.onSvHierarchyModalClosed}
+          scrollable={true}
         >
-          <ModalHeader toggle={this.toggleSvWidget}>
+          <ModalHeader toggle={this.toggleSvHierarchyModal}>
             Select Variables
           </ModalHeader>
           <ModalBody>
-            <div ref={this.modalContentRef}></div>
+            <div ref={this.svHierarchyModalRef}></div>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggleSvWidget}>
+            <Button color="primary" onClick={this.toggleSvHierarchyModal}>
               Done
             </Button>
           </ModalFooter>
@@ -211,7 +213,7 @@ class Page extends Component<unknown, PageStateType> {
               </Row>
               <Row className="d-lg-none">
                 <Col>
-                  <Button color="primary" onClick={this.toggleSvWidget}>
+                  <Button color="primary" onClick={this.toggleSvHierarchyModal}>
                     Select variables
                   </Button>
                 </Col>
