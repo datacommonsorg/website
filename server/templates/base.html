@@ -174,12 +174,12 @@
             {# TRANSLATORS: The label for a link to project homepage. #}
             <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
 
-            <div class="float-md-right mt-2 mt-md-0">
+            <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
               {# TRANSLATORS: The label for a link to site terms and conditions. #}
-              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a> ·&nbsp;
+              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
               {# TRANSLATORS: The label for a link to site privacy policy. #}
-              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a> ·&nbsp;
+              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
               {# TRANSLATORS: The label for a link to site disclaimers. #}
               <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
             </div>

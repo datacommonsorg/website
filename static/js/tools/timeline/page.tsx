@@ -16,7 +16,18 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { Component } from "react";
+import React, { Component, createRef, RefObject } from "react";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Row,
+} from "reactstrap";
 
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
@@ -39,9 +50,14 @@ import {
 interface PageStateType {
   placeName: Record<string, string>;
   statVarInfo: Record<string, StatVarInfo>;
+  // Whether the SV Hierarchy Modal is opened.
+  showSvHierarchyModal: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
+  svHierarchyModalRef: RefObject<HTMLDivElement>;
+  svHierarchyContainerRef: RefObject<HTMLDivElement>;
+
   constructor(props: unknown) {
     super(props);
     this.fetchDataAndRender = this.fetchDataAndRender.bind(this);
@@ -49,7 +65,15 @@ class Page extends Component<unknown, PageStateType> {
     this.state = {
       placeName: {},
       statVarInfo: {},
+      showSvHierarchyModal: false,
     };
+    // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
+    // menu but reattached to the modal when it is opened on small screens.
+    this.svHierarchyModalRef = createRef<HTMLDivElement>();
+    this.svHierarchyContainerRef = createRef<HTMLDivElement>();
+    this.onSvHierarchyModalClosed = this.onSvHierarchyModalClosed.bind(this);
+    this.onSvHierarchyModalOpened = this.onSvHierarchyModalOpened.bind(this);
+    this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
   componentDidMount(): void {
@@ -90,6 +114,29 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
+  private toggleSvHierarchyModal(): void {
+    this.setState({
+      showSvHierarchyModal: !this.state.showSvHierarchyModal,
+    });
+  }
+
+  private onSvHierarchyModalOpened() {
+    if (
+      this.svHierarchyModalRef.current &&
+      this.svHierarchyContainerRef.current
+    ) {
+      this.svHierarchyModalRef.current.appendChild(
+        this.svHierarchyContainerRef.current
+      );
+    }
+  }
+
+  private onSvHierarchyModalClosed() {
+    document
+      .getElementById("explore")
+      .appendChild(this.svHierarchyContainerRef.current);
+  }
+
   render(): JSX.Element {
     const numPlaces = Object.keys(this.state.placeName).length;
     const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
@@ -103,38 +150,82 @@ class Page extends Component<unknown, PageStateType> {
     const statVars = statVarTokens.map((sv) =>
       sv.includes("|") ? sv.split("|")[0] : sv
     );
+    // TODO(beets): Factor out stat var widget related elements into a separate component.
     return (
       <>
-        <div className="explore-menu-container" id="explore">
+        <div className="d-none d-lg-flex explore-menu-container" id="explore">
           <DrawerToggle
             collapseElemId="explore"
             visibleElemId="stat-var-hierarchy-section"
           />
-          <StatVarHierarchy
-            type={StatVarHierarchyType.TIMELINE}
-            places={namedPlaces}
-            selectedSVs={statVars}
-            selectSV={(sv) => {
-              addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-            }}
-            deselectSV={(sv) => {
-              removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-            }}
-            searchLabel="Statistical Variables"
-          />
-        </div>
-        <div id="plot-container">
-          <div className="container-fluid">
-            {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
-            <SearchBar
-              places={this.state.placeName}
-              addPlace={(place) => {
-                this.addPlaceAction(place);
+          <div ref={this.svHierarchyContainerRef} className="full-size">
+            <StatVarHierarchy
+              type={StatVarHierarchyType.TIMELINE}
+              places={namedPlaces}
+              selectedSVs={statVars}
+              selectSV={(sv) => {
+                addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
               }}
-              removePlace={(place) => {
-                removeToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
+              deselectSV={(sv) => {
+                removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
               }}
+              searchLabel="Statistical Variables"
             />
+          </div>
+        </div>
+        <Modal
+          isOpen={this.state.showSvHierarchyModal}
+          toggle={this.toggleSvHierarchyModal}
+          className="modal-dialog-centered modal-lg"
+          contentClassName="modal-sv-widget"
+          onOpened={this.onSvHierarchyModalOpened}
+          onClosed={this.onSvHierarchyModalClosed}
+          scrollable={true}
+        >
+          <ModalHeader toggle={this.toggleSvHierarchyModal}>
+            Select Variables
+          </ModalHeader>
+          <ModalBody>
+            <div ref={this.svHierarchyModalRef} className="full-size"></div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggleSvHierarchyModal}>
+              Done
+            </Button>
+          </ModalFooter>
+        </Modal>
+        <div id="plot-container">
+          <Container fluid={true}>
+            {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
+            <Card id="place-search">
+              <Row>
+                <Col sm={12}>
+                  <p>Select places:</p>
+                </Col>
+                <Col sm={12}>
+                  <SearchBar
+                    places={this.state.placeName}
+                    addPlace={(place) => {
+                      this.addPlaceAction(place);
+                    }}
+                    removePlace={(place) => {
+                      removeToken(
+                        TIMELINE_URL_PARAM_KEYS.PLACE,
+                        placeSep,
+                        place
+                      );
+                    }}
+                  />
+                </Col>
+              </Row>
+              <Row className="d-lg-none">
+                <Col>
+                  <Button color="primary" onClick={this.toggleSvHierarchyModal}>
+                    Select variables
+                  </Button>
+                </Col>
+              </Row>
+            </Card>
             {numPlaces === 0 && <Info />}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">
@@ -145,7 +236,7 @@ class Page extends Component<unknown, PageStateType> {
                 ></ChartRegion>
               </div>
             )}
-          </div>
+          </Container>
         </div>
       </>
     );

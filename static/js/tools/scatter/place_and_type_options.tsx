@@ -75,7 +75,12 @@ const CHILD_PLACE_TYPES = {
   AdministrativeArea4: AA4_CHILD_PLACE_TYPES,
 };
 
-function PlaceAndTypeOptions(): JSX.Element {
+interface PlaceAndTypeOptionsProps {
+  // Callback function to toggle the stat var widget (modal for small screen sizes).
+  toggleSvHierarchyModal: () => void;
+}
+
+function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
   const { place, isLoading, display } = useContext(Context);
 
   /**
@@ -135,6 +140,11 @@ function PlaceAndTypeOptions(): JSX.Element {
       onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
       getEnclosedPlaceTypes={getEnclosedPlaceTypes}
     >
+      <div className="d-lg-none" id="btn-sv-widget-modal">
+        <div className="btn btn-primary" onClick={props.toggleSvHierarchyModal}>
+          Select variables
+        </div>
+      </div>
       <div className="chart-type-toggle">
         <div
           className={`${

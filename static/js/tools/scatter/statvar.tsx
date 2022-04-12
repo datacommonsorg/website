@@ -22,7 +22,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { createRef, useContext, useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -64,8 +64,18 @@ const defaultModalSelected: ModalSelected = Object.freeze({
   y: false,
 });
 
-function StatVarChooser(): JSX.Element {
+interface StatVarChooserProps {
+  openSvHierarchyModalCallback: () => void;
+  openSvHierarchyModal: boolean;
+}
+
+export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const { x, y, place } = useContext(Context);
+
+  // Set up refs for sv widget modal. Widget is tied to the LHS menu but
+  // reattached to the modal when it is opened on small screens.
+  const svHierarchyModalRef = createRef<HTMLDivElement>();
+  const svHierarchyContainerRef = createRef<HTMLDivElement>();
 
   // Temporary variable for storing an extra statvar.
   const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
@@ -171,6 +181,21 @@ function StatVarChooser(): JSX.Element {
         });
     }
   }, [samplePlaces]);
+
+  function onSvHierarchyModalOpened() {
+    if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
+      svHierarchyModalRef.current.appendChild(svHierarchyContainerRef.current);
+    }
+  }
+
+  function onSvHierarchyModalClosed() {
+    if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
+      document
+        .getElementById("explore")
+        .appendChild(svHierarchyContainerRef.current);
+    }
+  }
+
   let yTitle = y.value.statVarDcid;
   if (y.value.statVarInfo && y.value.statVarInfo.title) {
     yTitle = y.value.statVarInfo.title;
@@ -180,19 +205,44 @@ function StatVarChooser(): JSX.Element {
     xTitle = x.value.statVarInfo.title;
   }
   return (
-    <div className="explore-menu-container" id="explore">
+    <div className="d-none d-lg-flex explore-menu-container" id="explore">
       <DrawerToggle
         collapseElemId="explore"
         visibleElemId="stat-var-hierarchy-section"
       />
-      <StatVarHierarchy
-        type={StatVarHierarchyType.SCATTER}
-        places={samplePlaces}
-        selectedSVs={menuSelected}
-        selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
-        deselectSV={(sv) => removeStatVar(x, y, sv)}
-        searchLabel="Statistical Variables"
-      ></StatVarHierarchy>
+      <div ref={svHierarchyContainerRef} className="full-size">
+        <StatVarHierarchy
+          type={StatVarHierarchyType.SCATTER}
+          places={samplePlaces}
+          selectedSVs={menuSelected}
+          selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
+          deselectSV={(sv) => removeStatVar(x, y, sv)}
+          searchLabel="Statistical Variables"
+        ></StatVarHierarchy>
+      </div>
+      {/* Modal for Stat Var Widget on small screens */}
+      <Modal
+        isOpen={props.openSvHierarchyModal}
+        toggle={props.openSvHierarchyModalCallback}
+        className="modal-dialog-centered modal-lg"
+        contentClassName="modal-sv-widget"
+        onOpened={onSvHierarchyModalOpened}
+        onClosed={onSvHierarchyModalClosed}
+        scrollable={true}
+      >
+        <ModalHeader toggle={props.openSvHierarchyModalCallback}>
+          Select Variables
+        </ModalHeader>
+        <ModalBody>
+          <div ref={svHierarchyModalRef} className="full-size"></div>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={props.openSvHierarchyModalCallback}>
+            Done
+          </Button>
+        </ModalFooter>
+      </Modal>
+      {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
         <ModalHeader toggle={closeModal}>
           Only Two Statistical Variables Supported
@@ -378,5 +428,3 @@ function confirmStatVars(
   setModalSelected(defaultModalSelected);
   setModalOpened(false);
 }
-
-export { StatVarChooser };
