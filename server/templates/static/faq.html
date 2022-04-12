@@ -26,11 +26,26 @@
 <div class="container">
   <h1>Frequently Asked Questions </h1>
 
+  {% if config['IITM'] %}
+  <p>
+    <b>Q: What is Data Commons?</b><br>
+    Please see <a href="https://datacommons.org/about">About Data Commons</a>.
+  </p>
+
+  <p>
+    <b>Q: What is the purpose of India Data Commons?</b><br>
+    India Data Commons is an effort to highlight the India-specific data in the ever-growing Data Commons
+    knowledge graph. Indian data incites a lot of interesting insights and questions, and India Data
+    Commons features those insights in an user-friendly way. More about India Data Commons on our
+    <a href="/about">About page</a>
+  </p>
+
+  {% else %}
   <p>
   <b>Q: What is Data Commons?</b><br>
   Please see <a href="/about">About Data Commons</a>.
     </p>
-
+  {% endif %}
   <p>
     <b>Q: What is the difference between Data Commons and public dataset projects like Dataverse,
       Kaggle datasets, Google Big Query Public Datasets, Dataset search etc.?</b><br>
