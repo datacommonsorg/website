@@ -35,11 +35,7 @@ import {
   PlaceInfoWrapper,
   StatVarWrapper,
 } from "./context";
-import {
-  DEFAULT_DENOM,
-  DEFAULT_DISPLAY_OPTIONS,
-  getMapPointPlaceType,
-} from "./util";
+import { DEFAULT_DISPLAY_OPTIONS, getMapPointPlaceType } from "./util";
 
 export function StatVarChooser(): JSX.Element {
   const { statVar, placeInfo, display } = useContext(Context);
@@ -116,7 +112,7 @@ function selectStatVar(
   statVar.set({
     date: "",
     dcid,
-    denom: DEFAULT_DENOM,
+    denom: "",
     info: null,
     perCapita: false,
     mapPointSv: "",

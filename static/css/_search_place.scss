@@ -1,10 +1,10 @@
 @mixin search-place {
   #search {
     margin-bottom: 2rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
     border-radius: 8px;
-    border: none;
     overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: white;
   }
   
   #search #location-field {
