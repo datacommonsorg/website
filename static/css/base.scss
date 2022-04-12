@@ -198,6 +198,15 @@ $theme-colors: (
   line-height: 2.5rem;
 }
 
+#sub-footer .btn,
+#sub-footer a {
+  margin-right: 0.75rem;
+}
+
+#sub-footer a:last-of-type {
+  margin-right: 0;
+}
+
 #main-footer section a {
   display: block;
 }
