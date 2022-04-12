@@ -507,14 +507,13 @@ def data(dcid):
                     not data[0].get('nearyby', {}) and
                     not data[0].get('child', {})):
                 populate_category_data(category)
-                sum = 0
+                total_charts = 0
                 spec_and_stat[OVERVIEW][category] = []
                 for topic in spec_and_stat[category]:
-                    # logging.info(spec_and_stat[category][topic])
                     spec_and_stat[OVERVIEW][category].extend(
                         spec_and_stat[category][topic])
-                    sum += len(spec_and_stat[category][topic])
-                    if sum > MAX_OVERVIEW_CHART_GROUP:
+                    total_charts += len(spec_and_stat[category][topic])
+                    if total_charts > MAX_OVERVIEW_CHART_GROUP:
                         break
 
     # Get chart category name translations
