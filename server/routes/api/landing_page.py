@@ -37,6 +37,7 @@ bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
 BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
+MAX_OVERVIEW_CHART_GROUP = 5
 OVERVIEW = 'Overview'
 
 
@@ -447,10 +448,7 @@ def data(dcid):
 
     # Populate the data for each chart.
     # This is heavy lifting, takes time to process.
-    for category in spec_and_stat:
-        # Only process the target category.
-        if category != target_category:
-            continue
+    def populate_category_data(category):
         if category == OVERVIEW:
             if is_usa_place:
                 chart_types = ['nearby', 'child']
@@ -494,6 +492,30 @@ def data(dcid):
                                 chart[t] = {}
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
+
+    for category in spec_and_stat:
+        if category != target_category:
+            continue
+        populate_category_data(category)
+
+    if target_category == OVERVIEW:
+        for category, data in spec_and_stat[OVERVIEW].items():
+            # If there is no data for a category in overview page, need to
+            # "borrow" it from the category page.
+            if (len(data) == 1 and not data[0].get('trend', {}) and
+                    not data[0].get('similar', {}) and
+                    not data[0].get('nearyby', {}) and
+                    not data[0].get('child', {})):
+                populate_category_data(category)
+                sum = 0
+                spec_and_stat[OVERVIEW][category] = []
+                for topic in spec_and_stat[category]:
+                    # logging.info(spec_and_stat[category][topic])
+                    spec_and_stat[OVERVIEW][category].extend(
+                        spec_and_stat[category][topic])
+                    sum += len(spec_and_stat[category][topic])
+                    if sum > MAX_OVERVIEW_CHART_GROUP:
+                        break
 
     # Get chart category name translations
     categories = {}
