@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ChartLoader } from "./chart_loader";
@@ -45,9 +45,12 @@ function App(): JSX.Element {
     !_.isEmpty(placeInfo.value.enclosedPlaceType);
   const showLoadingSpinner =
     isLoading.value.isDataLoading || isLoading.value.isPlaceInfoLoading;
+  const [isSvModalOpen, updateSvModalOpen] = useState(false);
+  const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
+
   return (
     <>
-      <StatVarChooser />
+      <StatVarChooser open={isSvModalOpen} openSvWidgetCallback={toggleSvModalCallback} />
       <div id="plot-container">
         <Container fluid={true}>
           {!showChart && (
@@ -56,7 +59,7 @@ function App(): JSX.Element {
             </Row>
           )}
           <Row>
-            <PlaceOptions />
+            <PlaceOptions toggleSvWidget={toggleSvModalCallback} />
           </Row>
           {!showChart && (
             <Row>

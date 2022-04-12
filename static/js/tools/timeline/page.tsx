@@ -123,6 +123,7 @@ class Page extends Component<unknown, PageStateType> {
     const statVars = statVarTokens.map((sv) =>
       sv.includes("|") ? sv.split("|")[0] : sv
     );
+    // TODO(beets): Factor out stat var widget related elements into a separate component.
     return (
       <>
         <div className="d-none d-lg-flex explore-menu-container" id="explore">

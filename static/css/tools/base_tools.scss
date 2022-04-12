@@ -51,10 +51,6 @@ body {
   padding-bottom: 1.5rem !important;
 }
 
-#sub-footer a {
-  margin-left: 0.75rem;
-}
-
 @include media-breakpoint-up(lg) {
   #main {
     display: flex;
@@ -107,4 +103,12 @@ body {
   flex-shrink: 1;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 15px;
+}
+
+.modal #stat-var-hierarchy-section.hidden {
+  visibility: visible !important;
+}
+
+.modal .statvar-hierarchy-search-section .title {
+  display: none;
 }
