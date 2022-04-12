@@ -39,7 +39,7 @@
       <link rel="icon" href="/iitm/favicon.ico" type="image/x-icon">
       <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
        rel="stylesheet">
-      <link href="/iitm/style.css" rel="stylesheet">
+      
 
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic">
@@ -48,11 +48,11 @@
 
       <link rel="stylesheet" href="/iitm/bootstrap.min.css">
       <link rel="stylesheet" href="/iitm/font-awesome.min.css">
-
-
+      <link href="/iitm/style.css" rel="stylesheet">
+      <!-- 
       <script>
         AOS.init();
-      </script>
+      </script> -->
 
      {% block head %}
      {% endblock %}
@@ -70,9 +70,17 @@
         <div class="container-fluid mr-5" style="padding: 0px;">
             <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
-                    <img src="images/iitm-logo-main.svg" height="100px">
-                </a>
+
+                <div class="logo-section d-flex">
+                    <a target="_blank" href="https://www.iitm.ac.in/">
+                        <!-- <img src="images/iitm-iitmadras.svg" height="55%"> -->
+                        <img src="images/iitm-iitmadras.svg" height="50px" class="m-2">
+                    </a>
+                    <a target="_blank" href="https://rbcdsai.iitm.ac.in/" class="mt-2">
+                        <img src="images/iitm-rbcdsai.svg" height="55px" >
+                    </a>
+                </div>
+                
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#">Explore</a>
                         <div role="menu" class="dropdown-menu">
@@ -185,23 +193,24 @@
 
 
      {# Compile this down (or manually implement). Used only for nav bar so far #}
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-       crossorigin="anonymous"></script>
+       crossorigin="anonymous"></script> -->
+
+       <script src="iitm/jquery.min.js"></script>
+       <script src="iitm/bootstrap.min.js"></script>
+       <script src="iitm/bs-init.js"></script>
+       
+       
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+     <script src="iitm/creative.js"></script>
+
      {# Enable Google Analytics with cookieless tracking. #}
      {% if GA_ACCOUNT %}
      <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
-
-
-      <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/creative.js"></script>
 
      <script>
        window.dataLayer = window.dataLayer || [];

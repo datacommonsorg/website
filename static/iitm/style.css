@@ -154,3 +154,12 @@ a.linked-text:hover {
   .no-decoration {
     text-decoration: none;
   }
+
+.logo-section{
+  background-image: url("./iitm-bg-logo.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0px;
+  min-height:80px;
+  min-width:270px;
+}
