@@ -37,7 +37,7 @@
 
 #main-pane #plot-container {
   direction: initial;
-    padding: 1rem 0 0 0;
+  padding: 1rem 0;
 }
 @include media-breakpoint-up(lg) {
   #main-pane #plot-container {
@@ -106,7 +106,7 @@
 .chart-option {
   float: right;
   font-size: 14px;
-  margin-left: 15px;
+  // margin-left: 15px;
 }
 
 .chart-option label {
@@ -114,7 +114,7 @@
 }
 
 .chart-option input {
-  margin-left: 5px;
+  // margin-left: 5px;
   line-height: 10px;
 }
 
@@ -130,11 +130,8 @@
   display: block !important;
 }
 
-.card {
-  padding: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+#chart-region .card {
   border-bottom: none;
-  border-radius: 0.25rem 0.25rem 0 0;
 }
 
 .pv-chip {
@@ -174,6 +171,7 @@
   color: var(--dc-gray);
 }
 
+#place-search,
 .chart-container {
   margin-bottom: 30px;
 }

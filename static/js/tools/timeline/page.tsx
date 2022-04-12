@@ -189,36 +189,34 @@ class Page extends Component<unknown, PageStateType> {
         <div id="plot-container">
           <Container fluid={true}>
             {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
-            <Card>
-              <Container fluid={true}>
-                <Row>
-                  <Col sm={12}>
-                    <p>Select places:</p>
-                  </Col>
-                  <Col sm={12}>
-                    <SearchBar
-                      places={this.state.placeName}
-                      addPlace={(place) => {
-                        this.addPlaceAction(place);
-                      }}
-                      removePlace={(place) => {
-                        removeToken(
-                          TIMELINE_URL_PARAM_KEYS.PLACE,
-                          placeSep,
-                          place
-                        );
-                      }}
-                    />
-                  </Col>
-                </Row>
-                <Row className="d-lg-none">
-                  <Col>
-                    <Button color="primary" onClick={this.showSvWidget}>
-                      Select variables
-                    </Button>
-                  </Col>
-                </Row>
-              </Container>
+            <Card id="place-search">
+              <Row>
+                <Col sm={12}>
+                  <p>Select places:</p>
+                </Col>
+                <Col sm={12}>
+                  <SearchBar
+                    places={this.state.placeName}
+                    addPlace={(place) => {
+                      this.addPlaceAction(place);
+                    }}
+                    removePlace={(place) => {
+                      removeToken(
+                        TIMELINE_URL_PARAM_KEYS.PLACE,
+                        placeSep,
+                        place
+                      );
+                    }}
+                  />
+                </Col>
+              </Row>
+              <Row className="d-lg-none">
+                <Col>
+                  <Button color="primary" onClick={this.showSvWidget}>
+                    Select variables
+                  </Button>
+                </Col>
+              </Row>
             </Card>
             {numPlaces === 0 && <Info />}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
