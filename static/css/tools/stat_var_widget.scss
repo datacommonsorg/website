@@ -97,6 +97,11 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   flex-grow: 1;
 }
 
+.modal-sv-widget #stat-var-hierarchy-scroll-container {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
 .statvar-hierarchy-search-section {
   color: initial;
   padding: $container-outer-vert-margin $container-outer-horizontal-margin 0;

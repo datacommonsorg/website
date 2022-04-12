@@ -19,11 +19,7 @@
  */
 
 import axios from "axios";
-import React, {
-  Component,
-  createRef,
-  RefObject,
-} from "react";
+import React, { Component, createRef, RefObject } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
