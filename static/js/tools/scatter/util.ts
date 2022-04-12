@@ -41,6 +41,8 @@ export enum ScatterChartType {
   MAP,
 }
 
+export const DEFAULT_DENOM_DCID = "Count_Person";
+
 async function getStatsWithinPlace(
   parentPlace: string,
   childType: string,
@@ -179,7 +181,8 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
   axis.date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
   axis.metahash =
     params.get(addSuffix(FieldToAbbreviation.metahash, isX)) || "";
-  axis.denom = params.get(addSuffix(FieldToAbbreviation.denom, isX)) || "";
+  axis.denom =
+    params.get(addSuffix(FieldToAbbreviation.denom, isX)) || DEFAULT_DENOM_DCID;
   return axis;
 }
 
