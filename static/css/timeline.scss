@@ -41,39 +41,9 @@
 }
 @include media-breakpoint-up(lg) {
   #main-pane #plot-container {
-  padding: 2rem 1rem;
-  overflow-y: scroll;
+    padding: 2rem 1rem;
+    overflow-y: scroll;
   }
-}
-
-#main-pane #plot-container .container {
-  display: flex;
-  flex-direction: column;
-  min-height: 600px;
-}
-#explore #percapita-link {
-  padding: 10px 31px 0;
-}
-
-#view #pv-list {
-  margin: 1rem 0 0 0;
-  padding: 0;
-}
-
-.menu-btn {
-  width: 64px;
-  height: 64px;
-  padding: 20px;
-  float: left;
-  line-height: 0;
-  border: 0;
-  cursor: pointer;
-}
-
-.mdc-top-app-bar button {
-  border: none;
-  background: none;
-  background: #f8f8f8;
 }
 
 #placeholder-container li span {
@@ -83,49 +53,6 @@
 
 .chart-svg {
   margin: 10px 0;
-}
-
-.option-checkbox {
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  border: none;
-  background: url("/images/icon-checkbox.svg");
-  outline: none;
-  margin-right: 5px;
-}
-
-.option-checkbox.checked {
-  background: url("/images/icon-checkbox-checked.svg");
-}
-
-.chart-options {
-  margin-top: -20px;
-}
-
-.chart-option {
-  float: right;
-  font-size: 14px;
-}
-
-.chart-option label {
-  cursor: pointer;
-}
-
-.chart-option input {
-  line-height: 10px;
-}
-
-#observation {
-  display: none;
-  width: 100%;
-  flex-grow: 1;
-  position: relative;
-}
-
-#main-pane-download #observation {
-  width: 800px;
-  display: block !important;
 }
 
 #chart-region .card {

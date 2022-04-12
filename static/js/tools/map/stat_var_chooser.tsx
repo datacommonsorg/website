@@ -112,7 +112,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
           collapseElemId="explore"
           visibleElemId="stat-var-hierarchy-section"
         />
-        <div ref={svHierarchyContainerRef}>
+        <div ref={svHierarchyContainerRef} className="full-size">
           <StatVarHierarchy
             type={StatVarHierarchyType.MAP}
             places={samplePlaces}
@@ -137,7 +137,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
           Select Variables
         </ModalHeader>
         <ModalBody>
-          <div ref={svHierarchyModalRef}></div>
+          <div ref={svHierarchyModalRef} className="full-size"></div>
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={props.openSvHierarchyModalCallback}>

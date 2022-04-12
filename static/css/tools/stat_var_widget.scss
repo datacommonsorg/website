@@ -98,8 +98,13 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   flex-grow: 1;
 }
 
-.modal-sv-widget #hierarchy-section {
+#hierarchy-section {
   width: fit-content;
+  padding: 0 8px 15px;
+}
+
+.modal-sv-widget #hierarchy-section {
+  padding: 0;
 }
 
 .statvar-hierarchy-search-section {
@@ -121,8 +126,8 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 // To allow for scroll only within the hierarchy (and not the search box, etc).
-.modal-sv-widget .modal-body > div,
-.modal-sv-widget .modal-body > div > div {
+.modal-sv-widget .full-size,
+#explore .full-size {
   width: 100%;
   height: 100%;
 }

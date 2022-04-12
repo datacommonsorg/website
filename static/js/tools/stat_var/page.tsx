@@ -96,7 +96,7 @@ class Page extends Component<unknown, PageStateType> {
     return (
       <>
         <div className="d-none d-lg-flex explore-menu-container" id="explore">
-          <div ref={this.svHierarchyContainerRef}>
+          <div ref={this.svHierarchyContainerRef} className="full-size">
             <StatVarHierarchy
               type={StatVarHierarchyType.STAT_VAR}
               places={[]}
@@ -121,7 +121,7 @@ class Page extends Component<unknown, PageStateType> {
             Select Variables
           </ModalHeader>
           <ModalBody>
-            <div ref={this.svHierarchyModalRef}></div>
+            <div ref={this.svHierarchyModalRef} className="full-size"></div>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleSvHierarchyModal}>

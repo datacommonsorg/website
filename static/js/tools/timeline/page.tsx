@@ -158,7 +158,7 @@ class Page extends Component<unknown, PageStateType> {
             collapseElemId="explore"
             visibleElemId="stat-var-hierarchy-section"
           />
-          <div ref={this.svHierarchyContainerRef}>
+          <div ref={this.svHierarchyContainerRef} className="full-size">
             <StatVarHierarchy
               type={StatVarHierarchyType.TIMELINE}
               places={namedPlaces}
@@ -186,7 +186,7 @@ class Page extends Component<unknown, PageStateType> {
             Select Variables
           </ModalHeader>
           <ModalBody>
-            <div ref={this.svHierarchyModalRef}></div>
+            <div ref={this.svHierarchyModalRef} className="full-size"></div>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleSvHierarchyModal}>
