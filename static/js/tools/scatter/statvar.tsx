@@ -41,6 +41,7 @@ import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { getSamplePlaces } from "../../utils/place_utils";
 import { AxisWrapper, Context } from "./context";
+import { DEFAULT_DENOM_DCID } from "./util";
 
 interface StatVar {
   // Always contains a single statvar.
@@ -355,7 +356,7 @@ function addStatVarHelper(
       perCapita: x.value.perCapita,
       date: x.value.date,
       metahash: "",
-      denom: x.value.denom,
+      denom: x.value.denom || DEFAULT_DENOM_DCID,
     });
   } else if (_.isEmpty(y.value.statVarDcid)) {
     y.set({
@@ -365,7 +366,7 @@ function addStatVarHelper(
       perCapita: y.value.perCapita,
       date: y.value.date,
       metahash: "",
-      denom: y.value.denom,
+      denom: y.value.denom || DEFAULT_DENOM_DCID,
     });
   } else {
     setThirdStatVar({ info: svInfo, dcid: svDcid });
