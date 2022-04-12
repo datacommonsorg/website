@@ -179,7 +179,8 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
     }
   }
   axis.date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
-  axis.metahash = params.get(addSuffix(FieldToAbbreviation.metahash, isX));
+  axis.metahash =
+    params.get(addSuffix(FieldToAbbreviation.metahash, isX)) || "";
   axis.denom =
     params.get(addSuffix(FieldToAbbreviation.denom, isX)) || DEFAULT_DENOM_DCID;
   return axis;
