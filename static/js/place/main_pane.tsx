@@ -29,7 +29,6 @@ import { ChartBlock } from "./chart_block";
 import { ChartHeader } from "./chart_header";
 import { Overview } from "./overview";
 
-
 interface MainPanePropType {
   /**
    * The place dcid.

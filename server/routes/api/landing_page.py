@@ -396,15 +396,13 @@ def get_i18n_all_child_places(raw_page_data):
 
 def has_data(data):
     for item in data:
-        if (item.get('trend', {}) or
-            item.get('similar', {}) or
-            item.get('nearyby', {}) or
-                item.get('child', {})):
+        if (item.get('trend', {}) or item.get('similar', {}) or
+                item.get('nearyby', {}) or item.get('child', {})):
             return True
     return False
 
 
-@ bp.route('/data/<path:dcid>')
+@bp.route('/data/<path:dcid>')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def data(dcid):
     """
@@ -529,8 +527,7 @@ def data(dcid):
     # Get chart category name translations
     categories = {}
     for category in list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]):
-        categories[category] = gettext(
-            f'CHART_TITLE-CHART_CATEGORY-{category}')
+        categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
 
     # Get display name for all places
     all_places = [dcid]
