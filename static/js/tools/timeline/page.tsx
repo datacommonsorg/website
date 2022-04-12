@@ -16,7 +16,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { Component } from "react";
+import React, { createRef, Component, RefObject } from "react";
 
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
@@ -54,6 +54,9 @@ interface PageStateType {
 }
 
 class Page extends Component<unknown, PageStateType> {
+  modalContentRef: RefObject<HTMLDivElement>;
+  svWidgetRef: RefObject<HTMLDivElement>;
+
   constructor(props: unknown) {
     super(props);
     this.fetchDataAndRender = this.fetchDataAndRender.bind(this);
@@ -63,6 +66,12 @@ class Page extends Component<unknown, PageStateType> {
       statVarInfo: {},
       showSvWidget: false,
     };
+    // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
+    // menu but reattached to the modal when it is opened on small screens.
+    this.modalContentRef = createRef<HTMLDivElement>();
+    this.svWidgetRef = createRef<HTMLDivElement>();
+    this.onSvModalClosed = this.onSvModalClosed.bind(this);
+    this.onSvModalOpened = this.onSvModalOpened.bind(this);
     this.toggleSvWidget = this.toggleSvWidget.bind(this);
   }
 
@@ -110,6 +119,16 @@ class Page extends Component<unknown, PageStateType> {
     });
   }
 
+  private onSvModalOpened() {
+    if (this.modalContentRef.current && this.svWidgetRef.current) {
+      this.modalContentRef.current.appendChild(this.svWidgetRef.current);
+    }
+  }
+
+  private onSvModalClosed() {
+    document.getElementById("explore").appendChild(this.svWidgetRef.current);
+  }
+
   render(): JSX.Element {
     const numPlaces = Object.keys(this.state.placeName).length;
     const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
@@ -131,29 +150,7 @@ class Page extends Component<unknown, PageStateType> {
             collapseElemId="explore"
             visibleElemId="stat-var-hierarchy-section"
           />
-          <StatVarHierarchy
-            type={StatVarHierarchyType.TIMELINE}
-            places={namedPlaces}
-            selectedSVs={statVars}
-            selectSV={(sv) => {
-              addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-            }}
-            deselectSV={(sv) => {
-              removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-            }}
-            searchLabel="Statistical Variables"
-          />
-        </div>
-        <Modal
-          isOpen={this.state.showSvWidget}
-          toggle={this.toggleSvWidget}
-          className="modal-dialog-centered modal-lg"
-          contentClassName="modal-sv-widget"
-        >
-          <ModalHeader toggle={this.toggleSvWidget}>
-            Select Variables
-          </ModalHeader>
-          <ModalBody>
+          <div ref={this.svWidgetRef}>
             <StatVarHierarchy
               type={StatVarHierarchyType.TIMELINE}
               places={namedPlaces}
@@ -164,7 +161,23 @@ class Page extends Component<unknown, PageStateType> {
               deselectSV={(sv) => {
                 removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
               }}
+              searchLabel="Statistical Variables"
             />
+          </div>
+        </div>
+        <Modal
+          isOpen={this.state.showSvWidget}
+          toggle={this.toggleSvWidget}
+          className="modal-dialog-centered modal-lg"
+          contentClassName="modal-sv-widget"
+          onOpened={this.onSvModalOpened}
+          onClosed={this.onSvModalClosed}
+        >
+          <ModalHeader toggle={this.toggleSvWidget}>
+            Select Variables
+          </ModalHeader>
+          <ModalBody>
+            <div ref={this.modalContentRef}></div>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleSvWidget}>

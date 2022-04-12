@@ -46,6 +46,8 @@ interface StatVarChooserProps {
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const { statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState([]);
+  // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
+  // menu but reattached to the modal when it is opened on small screens.
   const modalContentRef = createRef<HTMLDivElement>();
   const svhierarchyRef = createRef<HTMLDivElement>();
 
