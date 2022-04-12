@@ -67,7 +67,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   top: 10px;
   transition: left $transition-animation;
   width: $explore-toggle-width;
-  z-index: 2000;
+  z-index: 2;
 }
 
 .explore-menu-container.collapsed {
