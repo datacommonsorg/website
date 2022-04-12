@@ -22,7 +22,6 @@
 @import "../source_selector";
 
 #main-pane #plot-container {
-  background: #f8f8f8;
   direction: initial;
   padding: 2rem;
   overflow-y: scroll;
@@ -203,6 +202,10 @@ circle {
 
 #scatterplot .dot-label {
   font-size: 0.8em;
+}
+
+#btn-sv-widget-modal {
+  padding: .5rem;
 }
 
 .chart-type-toggle {
