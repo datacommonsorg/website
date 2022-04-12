@@ -394,6 +394,14 @@ def get_i18n_all_child_places(raw_page_data):
     return all_child_places
 
 
+def has_data(data):
+    for item in data:
+        if (item.get('trend', {}) or item.get('similar', {}) or
+                item.get('nearyby', {}) or item.get('child', {})):
+            return True
+    return False
+
+
 @bp.route('/data/<path:dcid>')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def data(dcid):
@@ -499,13 +507,13 @@ def data(dcid):
         populate_category_data(category)
 
     if target_category == OVERVIEW:
-        for category, data in spec_and_stat[OVERVIEW].items():
+        for category in spec_and_stat:
+            if category == OVERVIEW:
+                continue
+            data = spec_and_stat[OVERVIEW][category]
             # If there is no data for a category in overview page, need to
             # "borrow" it from the category page.
-            if (len(data) == 1 and not data[0].get('trend', {}) and
-                    not data[0].get('similar', {}) and
-                    not data[0].get('nearyby', {}) and
-                    not data[0].get('child', {})):
+            if not has_data(data):
                 populate_category_data(category)
                 total_charts = 0
                 spec_and_stat[OVERVIEW][category] = []
