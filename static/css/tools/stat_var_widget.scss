@@ -43,7 +43,8 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 }
 
 .modal-dialog-scrollable .modal-body {
-  overflow-x: auto !important;
+  // overflow-x: auto !important;
+  overflow: hidden !important;
 }
 
 .explore-menu-container {
@@ -66,7 +67,7 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   top: 10px;
   transition: left $transition-animation;
   width: $explore-toggle-width;
-  z-index: 100;
+  z-index: 2000;
 }
 
 .explore-menu-container.collapsed {
@@ -97,9 +98,8 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   flex-grow: 1;
 }
 
-.modal-sv-widget #stat-var-hierarchy-scroll-container {
-  overflow-x: auto;
-  overflow-y: visible;
+.modal-sv-widget #hierarchy-section {
+  width: fit-content;
 }
 
 .statvar-hierarchy-search-section {
@@ -118,6 +118,13 @@ $transparent-red: rgba(240, 230, 231, 0.2);
 .statvar-hierarchy-search-results {
   max-height: max(90%, 50vh) !important;
   width: 60% !important;
+}
+
+// To allow for scroll only within the hierarchy (and not the search box, etc).
+.modal-sv-widget .modal-body > div,
+.modal-sv-widget .modal-body > div > div {
+  width: 100%;
+  height: 100%;
 }
 
 .modal-sv-widget .statvar-hierarchy-search-results {
@@ -167,7 +174,7 @@ form.node-title {
   border: 0.5px solid #dee2e6;
   padding: 0.3rem;
   overflow-wrap: anywhere;
-  z-index: 5;
+  z-index: 5000;
   min-width: 12rem;
 }
 
