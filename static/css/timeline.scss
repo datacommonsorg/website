@@ -149,10 +149,12 @@
   padding: 0.5rem;
 }
 
+// Set up wrapping for long stat var names.
 .mdl-chip__text {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: calc(100% - 28px); // Account for the chip close button.
+  overflow: hidden;
 }
 
 .mdl-chip__text:hover {
