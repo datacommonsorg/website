@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import collections
-from ctypes.wintypes import PLCID
 import json
 import requests
 
