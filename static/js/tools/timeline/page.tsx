@@ -160,7 +160,6 @@ class Page extends Component<unknown, PageStateType> {
         </div>
         <Modal
           isOpen={this.state.showSvWidget}
-          scrollable
           toggle={this.toggleSvWidget}
           className="modal-dialog-centered modal-lg"
           contentClassName="modal-sv-widget"
