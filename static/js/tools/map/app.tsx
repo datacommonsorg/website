@@ -50,7 +50,7 @@ function App(): JSX.Element {
 
   return (
     <>
-      <StatVarChooser open={isSvModalOpen} openSvWidgetCallback={toggleSvModalCallback} />
+      <StatVarChooser openSvHierarchyModal={isSvModalOpen} openSvHierarchyModalCallback={toggleSvModalCallback} />
       <div id="plot-container">
         <Container fluid={true}>
           {!showChart && (
@@ -59,7 +59,7 @@ function App(): JSX.Element {
             </Row>
           )}
           <Row>
-            <PlaceOptions toggleSvWidget={toggleSvModalCallback} />
+            <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
           {!showChart && (
             <Row>

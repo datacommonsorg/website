@@ -32,7 +32,7 @@ import { getAllChildPlaceTypes } from "./util";
 
 interface PlaceOptionsProps {
   // Callback function to toggle the stat var widget (modal for small screen sizes).
-  toggleSvWidget: () => void;
+  toggleSvHierarchyModal: () => void;
 }
 
 export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
@@ -80,7 +80,7 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
     >
       <Row className="d-lg-none">
         <Col>
-          <Button color="primary" onClick={props.toggleSvWidget}>
+          <Button color="primary" onClick={props.toggleSvHierarchyModal}>
             Select variables
           </Button>
         </Col>
