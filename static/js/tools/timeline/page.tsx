@@ -27,6 +27,17 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { ChartRegion } from "./chart_region";
 import { Info } from "./info";
 import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Row,
+} from "reactstrap";
+import {
   addToken,
   getTokensFromUrl,
   placeSep,
@@ -39,6 +50,7 @@ import {
 interface PageStateType {
   placeName: Record<string, string>;
   statVarInfo: Record<string, StatVarInfo>;
+  showSvWidget: boolean;
 }
 
 class Page extends Component<unknown, PageStateType> {
@@ -49,7 +61,12 @@ class Page extends Component<unknown, PageStateType> {
     this.state = {
       placeName: {},
       statVarInfo: {},
+      showSvWidget: false,
     };
+    this.toggleSvWidget = this.toggleSvWidget.bind(this);
+    this.updateSvWidgetState = this.updateSvWidgetState.bind(this);
+    this.showSvWidget = this.showSvWidget.bind(this);
+    this.closeSvWidget = this.closeSvWidget.bind(this);
   }
 
   componentDidMount(): void {
@@ -90,6 +107,24 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
+  private updateSvWidgetState(state): void {
+    this.setState({
+      showSvWidget: state,
+    });
+  }
+
+  private showSvWidget(): void {
+    this.updateSvWidgetState(true);
+  }
+
+  private closeSvWidget(): void {
+    this.updateSvWidgetState(false);
+  }
+
+  private toggleSvWidget(): void {
+    this.updateSvWidgetState(!this.state.showSvWidget);
+  }
+
   render(): JSX.Element {
     const numPlaces = Object.keys(this.state.placeName).length;
     const numStatVarInfo = Object.keys(this.state.statVarInfo).length;
@@ -105,7 +140,7 @@ class Page extends Component<unknown, PageStateType> {
     );
     return (
       <>
-        <div className="explore-menu-container" id="explore">
+        <div className="d-none d-lg-flex explore-menu-container" id="explore">
           <DrawerToggle
             collapseElemId="explore"
             visibleElemId="stat-var-hierarchy-section"
@@ -123,18 +158,69 @@ class Page extends Component<unknown, PageStateType> {
             searchLabel="Statistical Variables"
           />
         </div>
-        <div id="plot-container">
-          <div className="container-fluid">
-            {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
-            <SearchBar
-              places={this.state.placeName}
-              addPlace={(place) => {
-                this.addPlaceAction(place);
+        <Modal
+          isOpen={this.state.showSvWidget}
+          scrollable
+          toggle={this.toggleSvWidget}
+          className="modal-dialog-centered modal-lg"
+          contentClassName="modal-sv-widget"
+        >
+          <ModalHeader toggle={this.toggleSvWidget}>
+            Select Variables
+          </ModalHeader>
+          <ModalBody>
+            <StatVarHierarchy
+              type={StatVarHierarchyType.TIMELINE}
+              places={namedPlaces}
+              selectedSVs={statVars}
+              selectSV={(sv) => {
+                addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
               }}
-              removePlace={(place) => {
-                removeToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
+              deselectSV={(sv) => {
+                removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
               }}
             />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.closeSvWidget}>
+              Done
+            </Button>
+          </ModalFooter>
+        </Modal>
+        <div id="plot-container">
+          <Container fluid={true}>
+            {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
+            <Card>
+              <Container fluid={true}>
+                <Row>
+                  <Col sm={12}>
+                    <p>Select places:</p>
+                  </Col>
+                  <Col sm={12}>
+                    <SearchBar
+                      places={this.state.placeName}
+                      addPlace={(place) => {
+                        this.addPlaceAction(place);
+                      }}
+                      removePlace={(place) => {
+                        removeToken(
+                          TIMELINE_URL_PARAM_KEYS.PLACE,
+                          placeSep,
+                          place
+                        );
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row className="d-lg-none">
+                  <Col>
+                    <Button color="primary" onClick={this.showSvWidget}>
+                      Select variables
+                    </Button>
+                  </Col>
+                </Row>
+              </Container>
+            </Card>
             {numPlaces === 0 && <Info />}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">
@@ -145,7 +231,7 @@ class Page extends Component<unknown, PageStateType> {
                 ></ChartRegion>
               </div>
             )}
-          </div>
+          </Container>
         </div>
       </>
     );

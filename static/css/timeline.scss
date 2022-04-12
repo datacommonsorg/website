@@ -23,7 +23,7 @@
 @include search_place.search-place;
 
 #location-field #ac {
-  margin-left: 16px;
+  margin-left: 12px;
   background: none;
 }
 
@@ -36,8 +36,13 @@
 
 #main-pane #plot-container {
   direction: initial;
-  padding: 2rem;
+    padding: 1rem 0 0 0;
+}
+@include media-breakpoint-up(lg) {
+  #main-pane #plot-container {
+  padding: 2rem 1rem;
   overflow-y: scroll;
+  }
 }
 
 #main-pane #plot-container .container {
@@ -116,11 +121,6 @@ sup {
   margin: 10px 0;
 }
 
-.card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  margin-bottom: 30px;
-}
 
 .option-checkbox {
   cursor: pointer;
