@@ -26,6 +26,7 @@ const TestContext = ({
       perCapita: false,
       date: "",
       metahash: "",
+      denom: "",
     },
   },
   y: {
@@ -36,6 +37,7 @@ const TestContext = ({
       perCapita: true,
       date: "",
       metahash: "",
+      denom: "",
     },
   },
   place: {

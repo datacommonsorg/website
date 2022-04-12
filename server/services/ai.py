@@ -13,23 +13,16 @@
 # limitations under the License.
 """Vertex AI inference client and utilities."""
 
-# TODO(shifucun): should remove "numpy", "tensorflow" and use lower level
-# operations since they add big dependency but are only used in a few instances,
-# which can be replaced with basic Python operations.
 import json
 import logging
 import re
 from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
 
 import google.auth
-import grpc
 import lib.config as libconfig
-import numpy as np
 import requests
-import tensorflow as tf
 import urllib3
 import yaml
-from tensorflow_serving.apis import predict_pb2, prediction_service_pb2_grpc
 
 import services.datacommons as dc
 
@@ -61,47 +54,6 @@ class InferenceClient(object):
 
     def request(self, query: str):
         pass
-
-
-class GrpcInferenceClient(InferenceClient):
-
-    def initialize(self):
-        self.url = f"{self.endpoint_id}.aiplatform.googleapis.com:8500"
-        logging.info("GrpcInferenceClient will use URL: %s", self.url)
-        self._create_stub()
-
-    def _create_stub(self):
-        grpc_channel = grpc.insecure_channel(self.url)
-        self.stub = prediction_service_pb2_grpc.PredictionServiceStub(
-            grpc_channel)
-        self.metadata = [("grpc-destination",
-                          f"{self.endpoint_id}-{self.deployed_model_id}")]
-
-    def _predict(self, request, reconnect_if_inactive: bool = True):
-        try:
-            return self.stub.Predict(request,
-                                     timeout=self.predict_timeout,
-                                     metadata=self.metadata)
-        except grpc._channel._InactiveRpcError as exc:
-            if reconnect_if_inactive:
-                self._create_stub()
-                return self._predict(request, False)
-            else:
-                raise exc
-
-    def request(self, query: str):
-        request = predict_pb2.PredictRequest()
-        request.model_spec.name = "default"
-        request.inputs["text_batch"].CopyFrom(
-            tf.make_tensor_proto([query], tf.string))
-        predict_response = self._predict(request)
-        return {
-            "predictions": [{
-                k: np.squeeze(
-                    tf.make_ndarray(predict_response.outputs[k]).astype(str),
-                    axis=-1).tolist() for k in predict_response.outputs.keys()
-            }]
-        }
 
 
 class RestInferenceClient(InferenceClient):
@@ -169,7 +121,6 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
     logging.info("Loading InferenceClient using config file %s", config_path)
 
     factory = {
-        "grpc": GrpcInferenceClient,
         "rest": RestInferenceClient,
     }
 
@@ -177,6 +128,7 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
         ai = yaml.full_load(f)
         if not ai:
             logging.info("No configuration found for ai model")
+            return
         # We use a fake region when locally testing with LocalConfig.
         region = ai["local"]["region"] if cfg.LOCAL else get_region()
         logging.info("Searching for model specification for region %s", region)

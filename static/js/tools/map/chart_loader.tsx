@@ -126,7 +126,13 @@ export function ChartLoader(): JSX.Element {
       !_.isEmpty(statVar.value.dcid) &&
       !_.isNull(statVar.value.info)
     ) {
-      fetchData(placeInfo.value, statVar.value, isLoading, setRawData);
+      fetchData(
+        placeInfo.value,
+        statVar.value,
+        isLoading,
+        setRawData,
+        display.value.showTimeSlider
+      );
     } else {
       setRawData(undefined);
     }
@@ -157,7 +163,7 @@ export function ChartLoader(): JSX.Element {
         setChartData,
         display
       );
-      if (statVar.value.perCapita) {
+      if (statVar.value.perCapita && statVar.value.denom) {
         setLegendBoundsPerCapita(rawData, statVar, display);
       }
     }
@@ -207,6 +213,7 @@ export function ChartLoader(): JSX.Element {
       statVar.value,
       isLoading,
       setRawData,
+      display.value.showTimeSlider,
       rawData.sampleDates[metaHash],
       sampleDatesChartData,
       setSampleDatesChartData
@@ -359,6 +366,7 @@ function fetchData(
   statVar: StatVar,
   isLoading: IsLoadingWrapper,
   setRawData: (data: ChartRawData) => void,
+  showTimeSlider: boolean,
   currentSampleDates?: Array<string>,
   sampleDatesChartData?: Record<string, Record<string, ChartRawData>>,
   setSampleDatesChartData?: (
@@ -427,7 +435,7 @@ function fetchData(
   const enclosedPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
   const allEnclosedPlaceDatesList: Array<Promise<GetStatSetAllResponse>> = [];
   const breadcrumbPlaceDatesList: Array<Promise<GetStatSetResponse>> = [];
-  if (currentSampleDates) {
+  if (currentSampleDates && showTimeSlider) {
     for (const i in currentSampleDates) {
       enclosedPlaceDatesList.push(
         axios
@@ -564,15 +572,13 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
-        const sampleDates: Record<
-          string,
-          Array<string>
-        > = placeStatDateWithinPlace.data[statVar.dcid].statDate
-          ? getTimeSliderDates(
-              metadataMap,
-              placeStatDateWithinPlace.data[statVar.dcid].statDate
-            )
-          : {};
+        const sampleDates: Record<string, Array<string>> =
+          placeStatDateWithinPlace.data[statVar.dcid].statDate && showTimeSlider
+            ? getTimeSliderDates(
+                metadataMap,
+                placeStatDateWithinPlace.data[statVar.dcid].statDate
+              )
+            : {};
         let legendBounds: Record<string, [number, number, number]> = {};
         if (BEST_AVAILABLE_METAHASH in sampleDates) {
           // Set dates for "Best Available" to best series
@@ -587,7 +593,7 @@ function fetchData(
           );
         }
         isLoading.setIsDataLoading(false);
-        if (currentSampleDates) {
+        if (currentSampleDates && showTimeSlider) {
           const currentSampleDatesData: Record<string, ChartRawData> = {};
           for (const i in currentSampleDates) {
             const enclosedPlaceStatSample: PlacePointStat =
@@ -688,6 +694,7 @@ function loadChartData(
   if (_.isNull(rawData.placeStat)) {
     return;
   }
+  const calculateRatio = statVar.perCapita && statVar.denom ? true : false;
   // populate mapValues with data value for each geo that we have geoJson data for.
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
@@ -696,7 +703,7 @@ function loadChartData(
         ? rawData.allPlaceStat[statVar.metahash]
         : rawData.placeStat,
       placeDcid,
-      statVar.perCapita,
+      calculateRatio,
       rawData.population,
       rawData.metadataMap
     );
@@ -722,7 +729,7 @@ function loadChartData(
     const placeChartData = getPlaceChartData(
       rawData.breadcrumbPlaceStat,
       place.dcid,
-      statVar.perCapita,
+      calculateRatio,
       rawData.population,
       rawData.metadataMap
     );
@@ -766,7 +773,7 @@ function loadChartData(
   const unit = getUnit(rawData.placeStat, rawData.metadataMap);
   const metahash = statVar.metahash || BEST_AVAILABLE_METAHASH;
   const sampleDates = rawData.sampleDates[metahash];
-  if (!statVar.perCapita) {
+  if (!statVar.perCapita || !statVar.denom) {
     display.set({
       ...display.value,
       domain:

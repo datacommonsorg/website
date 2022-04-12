@@ -33,7 +33,7 @@ interface SearchInputPropType {
 }
 const NUM_SV_RESULTS = 5;
 const DELAY_MS = 200;
-const REDIRECT_PREFIX = "/search2?";
+const REDIRECT_PREFIX = "/search?";
 
 export function SearchInput(props: SearchInputPropType): JSX.Element {
   const delayTimer = useRef(null);
@@ -71,7 +71,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              redirectAction(inputText, "");
+              redirectAction(inputText, "", "");
             }}
             tabIndex={-1}
           >
@@ -98,7 +98,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
               className={`search-input-result ${
                 0 === hoveredIdx ? "search-input-result-highlighted" : ""
               }`}
-              onClick={() => redirectAction(inputText, "")}
+              onClick={() => redirectAction(inputText, "", "")}
               key={"search-input-result-0"}
             >
               {inputText}
@@ -113,7 +113,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
                         : ""
                     }`}
                     key={"search-input-result-" + result.dcid}
-                    onClick={() => redirectAction(result.name, result.dcid)}
+                    onClick={() => redirectAction(result.name, result.dcid, "")}
                   >
                     {getHighlightedJSX(result.dcid, result.name, matches)}
                   </div>
@@ -128,7 +128,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
                         ? "search-input-result-highlighted"
                         : ""
                     }`}
-                    onClick={() => redirectAction(result.name, "")}
+                    onClick={() => redirectAction(result.name, "", result.dcid)}
                     key={"search-input-result-" + result.dcid}
                   >
                     {getHighlightedJSX(result.dcid, result.name, matches)}
@@ -139,10 +139,10 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
         )}
       </div>
       <span
-        className="material-icons-outlined search-input-search-button"
-        onClick={() => redirectAction(inputText, "")}
+        className="search-input-search-button"
+        onClick={() => redirectAction(inputText, "", "")}
       >
-        search
+        <img src="/images/icon-search.svg" />
       </span>
     </>
   );
@@ -250,20 +250,24 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
     } else if (event.key === "Enter") {
       event.preventDefault();
       if (hoveredIdx === 0) {
-        redirectAction(inputText, "");
+        redirectAction(inputText, "", "");
       } else if (hoveredIdx < results.placeResults.length + 1) {
         const result = results.placeResults[hoveredIdx - 1];
-        redirectAction(result.name, result.dcid);
+        redirectAction(result.name, result.dcid, "");
       } else {
         const result =
           results.svResults[hoveredIdx - (results.placeResults.length + 1)];
-        redirectAction(result.name, "");
+        redirectAction(result.name, "", result.dcid);
       }
     }
   }
 }
 
-function redirectAction(query: string, placeDcid: string): void {
+function redirectAction(
+  query: string,
+  placeDcid: string,
+  svDcid: string
+): void {
   let url = REDIRECT_PREFIX;
   if (query) {
     url += `q=${query}`;
@@ -271,20 +275,17 @@ function redirectAction(query: string, placeDcid: string): void {
   if (placeDcid) {
     url += `&placeDcid=${placeDcid}`;
   }
+  if (svDcid) {
+    url += `&svDcid=${svDcid}`;
+  }
   window.open(url, "_self");
 }
 
 function getSvResultsPromise(query: string): Promise<NamedNode[]> {
-  return getStatVarSearchResults(query, []).then((data) => {
-    const statVars: NamedNode[] = [];
-    data.statVarGroups.forEach((svg) => {
-      if (!_.isEmpty(svg.statVars)) {
-        statVars.push(...svg.statVars);
-      }
-    });
-    if (!_.isEmpty(data.statVars)) {
-      statVars.push(...data.statVars);
-    }
-    return statVars.slice(0, Math.min(NUM_SV_RESULTS, statVars.length));
+  return getStatVarSearchResults(query, [], true).then((data) => {
+    return data.statVars.slice(
+      0,
+      Math.min(NUM_SV_RESULTS, data.statVars.length)
+    );
   });
 }

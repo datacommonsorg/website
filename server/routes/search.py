@@ -25,26 +25,14 @@ bp = Blueprint('search', __name__)
 _MAX_SEARCH_RESULTS = 1000
 
 
-@bp.route('/s')
-def search_landing():
-    """Combined landing page for various searchboxes"""
-    return flask.render_template(
-        'search_landing.html', maps_api_key=current_app.config['MAPS_API_KEY'])
-
-
 @bp.route('/search')
-def search_cse():
-    """Landing + results page for CSE search"""
-    return flask.render_template('search.html')
-
-
-@bp.route('/search2')
-def search2():
+def search():
     """Custom search page"""
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
+    query = request.args.get('q', '')
     return flask.render_template(
-        'search2.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'search.html',
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        query=query)
 
 
 @bp.route('/search_dc')

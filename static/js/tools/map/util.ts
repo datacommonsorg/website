@@ -59,6 +59,7 @@ const URL_PARAM_KEYS = {
   MAP_POINTS: "mp",
   MAP_POINTS_SV: "mapsv",
   SV_METAHASH: "src",
+  TIME_SLIDER: "ts",
 };
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
@@ -67,11 +68,11 @@ const SV_REGEX_INSTALLATION_MAPPING = {
 
 const NUM_SAMPLE_DATES = 10;
 
-export const DEFAULT_DENOM = "Count_Person";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
   domain: null,
   showMapPoints: false,
+  showTimeSlider: false,
 };
 
 export const ALL_MAP_PLACE_TYPES = {
@@ -176,7 +177,7 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
     date: date ? date : "",
-    denom: denom ? denom : DEFAULT_DENOM,
+    denom: denom ? denom : "",
     mapPointSv: mapPointSv ? mapPointSv : "",
     metahash: metahash ? metahash : "",
   };
@@ -219,10 +220,12 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
         .map((val) => Number(val))
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
+  const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
     showMapPoints: showMapPoints && showMapPoints === "1" ? true : false,
+    showTimeSlider: showTimeSlider && showTimeSlider === "1" ? true : false,
   };
 }
 
@@ -245,10 +248,13 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
   const metahashParam = statVar.metahash
     ? `&${URL_PARAM_KEYS.SV_METAHASH}=${statVar.metahash}`
     : "";
+  const denomParam = statVar.denom
+    ? `&${URL_PARAM_KEYS.DENOM}=${statVar.denom}`
+    : "";
   const params =
     `&${URL_PARAM_KEYS.STAT_VAR_DCID}=${statVar.dcid}` +
     `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}` +
-    `&${URL_PARAM_KEYS.DENOM}=${statVar.denom}` +
+    denomParam +
     metahashParam +
     dateParam +
     mapPointParam;
@@ -432,14 +438,14 @@ interface PlaceChartData {
  * @param placeStatData values for each statistical variable for each place
  * @param placeDcid place to extract the chart data for
  * @param isPerCapita whether the chart is a per capita chart
- * @param populationData population (for per capita calculation) data for each
+ * @param populationData population (for ratio calculation) data for each
  *                       place
  * @param metadataMap map of metahash to stat metadata
  */
 export function getPlaceChartData(
   placeStatData: PlacePointStat,
   placeDcid: string,
-  isPerCapita: boolean,
+  calculateRatio: boolean,
   populationData: StatApiResponse,
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
@@ -455,7 +461,7 @@ export function getPlaceChartData(
   let value = stat.value === undefined ? 0 : stat.value;
   let popDate = "";
   let popSource = "";
-  if (isPerCapita) {
+  if (calculateRatio) {
     const popSeries =
       placeDcid in populationData
         ? Object.values(populationData[placeDcid].data)[0]
@@ -503,15 +509,9 @@ export function getPlaceChartData(
  * @param statVarName name of the stat var
  * @param isPerCapita whether the chart is a per capita chart
  */
-export function getTitle(
-  statVarDates: string[],
-  statVarName: string,
-  isPerCapita: boolean
-): string {
+export function getTitle(statVarDates: string[], statVarName: string): string {
   const dateRange = `(${getDateRange(statVarDates)})`;
-  return isPerCapita
-    ? `${statVarName} Per Capita ${dateRange}`
-    : `${statVarName} ${dateRange}`;
+  return `${statVarName} ${dateRange}`;
 }
 
 /**

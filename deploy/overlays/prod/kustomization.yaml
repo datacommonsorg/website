@@ -41,6 +41,7 @@ configMapGenerator:
     files:
       - redis.json
   - name: ai-config
+    behavior: replace
     files:
       - ai.yaml
 
