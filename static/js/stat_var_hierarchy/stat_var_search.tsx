@@ -83,11 +83,11 @@ export class StatVarHierarchySearch extends React.Component<
     return (
       <div
         className="statvar-hierarchy-search-section"
-        // onBlur={(event) => {
-        //   if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-        //     this.setState({ showResults: false });
-        //   }
-        // }}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+            this.setState({ showResults: false });
+          }
+        }}
       >
         {this.props.searchLabel && (
           <div className="title">{this.props.searchLabel}</div>
