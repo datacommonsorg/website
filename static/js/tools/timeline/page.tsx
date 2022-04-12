@@ -64,9 +64,6 @@ class Page extends Component<unknown, PageStateType> {
       showSvWidget: false,
     };
     this.toggleSvWidget = this.toggleSvWidget.bind(this);
-    this.updateSvWidgetState = this.updateSvWidgetState.bind(this);
-    this.showSvWidget = this.showSvWidget.bind(this);
-    this.closeSvWidget = this.closeSvWidget.bind(this);
   }
 
   componentDidMount(): void {
@@ -107,22 +104,10 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
-  private updateSvWidgetState(state): void {
-    this.setState({
-      showSvWidget: state,
-    });
-  }
-
-  private showSvWidget(): void {
-    this.updateSvWidgetState(true);
-  }
-
-  private closeSvWidget(): void {
-    this.updateSvWidgetState(false);
-  }
-
   private toggleSvWidget(): void {
-    this.updateSvWidgetState(!this.state.showSvWidget);
+    this.setState({
+      showSvWidget: !this.state.showSvWidget,
+    });
   }
 
   render(): JSX.Element {
@@ -181,7 +166,7 @@ class Page extends Component<unknown, PageStateType> {
             />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.closeSvWidget}>
+            <Button color="primary" onClick={this.toggleSvWidget}>
               Done
             </Button>
           </ModalFooter>
@@ -212,7 +197,7 @@ class Page extends Component<unknown, PageStateType> {
               </Row>
               <Row className="d-lg-none">
                 <Col>
-                  <Button color="primary" onClick={this.showSvWidget}>
+                  <Button color="primary" onClick={this.toggleSvWidget}>
                     Select variables
                   </Button>
                 </Col>
