@@ -16,16 +16,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { createRef, Component, RefObject } from "react";
-
-import { SearchBar } from "../../shared/place_search_bar";
-import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
-import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { getPlaceNames } from "../../utils/place_utils";
-import { ChartRegion } from "./chart_region";
-import { Info } from "./info";
+import React, { Component, createRef, RefObject } from "react";
 import {
   Button,
   Card,
@@ -37,6 +28,15 @@ import {
   ModalHeader,
   Row,
 } from "reactstrap";
+
+import { SearchBar } from "../../shared/place_search_bar";
+import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
+import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { getPlaceNames } from "../../utils/place_utils";
+import { ChartRegion } from "./chart_region";
+import { Info } from "./info";
 import {
   addToken,
   getTokensFromUrl,
@@ -121,13 +121,20 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   private onSvHierarchyModalOpened() {
-    if (this.svHierarchyModalRef.current && this.svHierarchyContainerRef.current) {
-      this.svHierarchyModalRef.current.appendChild(this.svHierarchyContainerRef.current);
+    if (
+      this.svHierarchyModalRef.current &&
+      this.svHierarchyContainerRef.current
+    ) {
+      this.svHierarchyModalRef.current.appendChild(
+        this.svHierarchyContainerRef.current
+      );
     }
   }
 
   private onSvHierarchyModalClosed() {
-    document.getElementById("explore").appendChild(this.svHierarchyContainerRef.current);
+    document
+      .getElementById("explore")
+      .appendChild(this.svHierarchyContainerRef.current);
   }
 
   render(): JSX.Element {

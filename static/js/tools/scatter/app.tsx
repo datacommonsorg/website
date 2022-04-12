@@ -53,7 +53,10 @@ function App(): JSX.Element {
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
   return (
     <>
-      <StatVarChooser openSvHierarchyModal={isSvModalOpen} openSvHierarchyModalCallback={toggleSvModalCallback} />
+      <StatVarChooser
+        openSvHierarchyModal={isSvModalOpen}
+        openSvHierarchyModalCallback={toggleSvModalCallback}
+      />
       <div id="plot-container">
         <Container fluid={true}>
           {!showChart && (

@@ -100,7 +100,9 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   }
 
   function onSvModalClosed() {
-    document.getElementById("explore").appendChild(svHierarchyContainerRef.current);
+    document
+      .getElementById("explore")
+      .appendChild(svHierarchyContainerRef.current);
   }
 
   return (
