@@ -19,6 +19,7 @@
 @import "tools/stat_var_widget";
 @import "draw";
 @import "source_selector";
+@import "tool_chart_footer";
 
 @include search_place.search-place;
 
@@ -72,6 +73,7 @@
 .mdc-top-app-bar button {
   border: none;
   background: none;
+  background: #f8f8f8;
 }
 
 #placeholder-container li span {
@@ -79,48 +81,9 @@
   text-indent: 50px;
 }
 
-.top {
-  font-size: 18px;
-}
-
-sup {
-  font-size: 10px;
-  color: #999;
-  font-weight: bold;
-}
-
-.for-search {
-  color: #d93025 !important;
-}
-
-#gchart-container img {
-  margin-bottom: 20px;
-}
-
-.shadow-card {
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
-  padding: 15px 20px;
-  margin-bottom: 50px;
-}
-
-.shadow-card img {
-  display: block;
-}
-
-.attribution {
-  margin: 10px;
-  font-size: 12px;
-  color: #666;
-}
-
-#timeline-lower-pane {
-  display: flex;
-}
-
 .chart-svg {
   margin: 10px 0;
 }
-
 
 .option-checkbox {
   cursor: pointer;
@@ -167,6 +130,13 @@ sup {
   display: block !important;
 }
 
+.card {
+  padding: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
 .pv-chip {
   height: 36px;
   line-height: 36px;
@@ -204,14 +174,6 @@ sup {
   color: var(--dc-gray);
 }
 
-.chart-options {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-}
-
-.chart-options .source-selector-open-modal-button {
-  font-size: 0.8rem;
-  color: var(--link-color);
-  margin-left: -0.5rem;
+.chart-container {
+  margin-bottom: 30px;
 }

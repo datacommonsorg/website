@@ -305,6 +305,7 @@ function addStatVarHelper(
       perCapita: x.value.perCapita,
       date: x.value.date,
       metahash: "",
+      denom: x.value.denom,
     });
   } else if (_.isEmpty(y.value.statVarDcid)) {
     y.set({
@@ -314,6 +315,7 @@ function addStatVarHelper(
       perCapita: y.value.perCapita,
       date: y.value.date,
       metahash: "",
+      denom: y.value.denom,
     });
   } else {
     setThirdStatVar({ info: svInfo, dcid: svDcid });

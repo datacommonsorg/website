@@ -38,6 +38,8 @@ interface Axis {
   date: string;
   // The metahash of the source to get data from
   metahash: string;
+  // The dcid of the stat var to use to calculate ratio of
+  denom: string;
 }
 
 const EmptyAxis: Axis = Object.freeze({
@@ -47,6 +49,7 @@ const EmptyAxis: Axis = Object.freeze({
   perCapita: false,
   date: "",
   metahash: "",
+  denom: "",
 });
 
 interface AxisWrapper {
@@ -61,6 +64,7 @@ interface AxisWrapper {
   setPerCapita: Setter<boolean>;
   setDate: Setter<string>;
   setMetahash: Setter<string>;
+  setDenom: Setter<string>;
 }
 
 interface PlaceInfo {
@@ -156,6 +160,7 @@ const FieldToAbbreviation = {
   perCapita: "pc",
   date: "date",
   metahash: "src",
+  denom: "d",
 
   // PlaceInfo fields
   enclosingPlaceDcid: "epd",
@@ -197,6 +202,7 @@ function useContextStore(): ContextType {
       setPerCapita: getSetPerCapita(x, setX),
       setDate: getSetDate(x, setX),
       setMetahash: (metahash) => setX({ ...x, metahash }),
+      setDenom: (denom) => setX({ ...x, denom }),
     },
     y: {
       value: y,
@@ -208,6 +214,7 @@ function useContextStore(): ContextType {
       setPerCapita: getSetPerCapita(y, setY),
       setDate: getSetDate(y, setY),
       setMetahash: (metahash) => setY({ ...y, metahash }),
+      setDenom: (denom) => setY({ ...y, denom }),
     },
     place: {
       value: place,

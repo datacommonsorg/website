@@ -15,14 +15,13 @@
  */
 import _ from "lodash";
 import React, { Component } from "react";
+import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
-import {
-  SourceSelector,
-  SourceSelectorSvInfo,
-} from "../../shared/source_selector";
+import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { StatVarInfo } from "../../shared/stat_var";
+import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
 import {
   convertToDelta,
@@ -89,15 +88,15 @@ interface ChartPropsType {
 
 interface ChartStateType {
   rawData: TimelineRawData;
+  statData: StatData;
+  ipccModels: StatData;
 }
 
 class Chart extends Component<ChartPropsType, ChartStateType> {
   svgContainer: React.RefObject<HTMLDivElement>;
   denomInput: React.RefObject<HTMLInputElement>;
   plotParams: PlotParams;
-  statData: StatData;
   units: string[];
-  ipccModels: StatData;
   minYear: string; // In the format of YYYY
   maxYear: string; // In the format of YYYY
   resizeObserver: ResizeObserver;
@@ -109,12 +108,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.drawChart = this.drawChart.bind(this);
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.loadRawData = this.loadRawData.bind(this);
-    this.processDataAndDrawChart = this.processDataAndDrawChart.bind(this);
+    this.processData = this.processData.bind(this);
+    this.drawChart = this.drawChart.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
     this.maxYear = urlParams.get("maxYear");
-    this.state = { rawData: null };
+    this.state = { rawData: null, statData: null, ipccModels: null };
   }
 
   render(): JSX.Element {
@@ -130,73 +130,66 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNames)[0];
     const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
-    const ratioCheckboxId = `pc-cb-${this.props.mprop}`;
     const sourceSelectorSvInfoList = this.getSourceSelectorSvInfo(statVars);
     return (
-      <div className="card">
-        <div ref={this.svgContainer} className="chart-svg"></div>
-        <div className="chart-options">
-          <SourceSelector
-            svInfoList={sourceSelectorSvInfoList}
-            onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
-          />
-          <div>
-            <span className="chart-option">
-              <button
-                id={ratioCheckboxId}
-                className={
-                  this.props.pc ? "option-checkbox checked" : "option-checkbox"
-                }
-                onClick={() => {
-                  setChartOption(this.props.mprop, "pc", !this.props.pc);
-                }}
-              ></button>
-              <label htmlFor={ratioCheckboxId}>Ratio of </label>
-              <input
-                ref={this.denomInput}
-                disabled={!this.props.pc}
-                placeholder={this.props.denom}
-                onBlur={(e) => this.handleDenomInput(e)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    this.handleDenomInput(e);
-                  }
-                }}
-              ></input>
-            </span>
-            <span className="chart-option">
-              <button
-                id={deltaCheckboxId}
-                className={
-                  this.props.delta
-                    ? "option-checkbox checked"
-                    : "option-checkbox"
-                }
-                onClick={() => {
-                  setChartOption(this.props.mprop, "delta", !this.props.delta);
-                }}
-              ></button>
-              <label htmlFor={deltaCheckboxId}>Delta</label>
-            </span>
+      <div className="chart-container">
+        <div className="card">
+          <div className="statVarChipRegion">
+            {statVars.map((statVar) => {
+              let color: string;
+              if (statVars.length > 1) {
+                color = this.plotParams.lines[placeName + statVar].color;
+              }
+              return (
+                <StatVarChip
+                  key={statVar}
+                  statVar={statVar}
+                  title={this.props.statVarInfos[statVar].title}
+                  color={color}
+                  removeStatVar={this.props.removeStatVar}
+                />
+              );
+            })}
           </div>
+          <div ref={this.svgContainer} className="chart-svg"></div>
         </div>
-        <div className="statVarChipRegion">
-          {statVars.map((statVar) => {
-            let color: string;
-            if (statVars.length > 1) {
-              color = this.plotParams.lines[placeName + statVar].color;
-            }
-            return (
-              <StatVarChip
-                key={statVar}
-                statVar={statVar}
-                title={this.props.statVarInfos[statVar].title}
-                color={color}
-                removeStatVar={this.props.removeStatVar}
-              />
-            );
-          })}
-        </div>
+        <ToolChartFooter
+          chartId={this.props.mprop}
+          sources={
+            this.state.statData ? this.state.statData.sources : new Set()
+          }
+          mMethods={
+            this.state.statData
+              ? this.state.statData.measurementMethods
+              : new Set()
+          }
+          sourceSelectorSvInfoList={sourceSelectorSvInfoList}
+          onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
+          hideIsRatio={false}
+          isRatio={this.props.pc}
+          onIsRatioUpdated={(isRatio: boolean) =>
+            setChartOption(this.props.mprop, "pc", isRatio)
+          }
+          denom={this.props.denom}
+          onDenomUpdated={(denom: string) => setDenom(this.props.mprop, denom)}
+        >
+          <span className="chart-option">
+            <FormGroup check>
+              <Label check>
+                <Input
+                  id={deltaCheckboxId}
+                  className="is-delta-input"
+                  type="checkbox"
+                  checked={this.props.delta}
+                  onChange={() =>
+                    setChartOption(this.props.mprop, "delta", !this.props.delta)
+                  }
+                />
+                Delta
+              </Label>
+            </FormGroup>
+          </span>
+        </ToolChartFooter>
       </div>
     );
   }
@@ -216,7 +209,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     setChartOption(this.props.mprop, "delta", false);
   }
 
-  componentDidUpdate(prevProps: ChartPropsType): void {
+  componentDidUpdate(
+    prevProps: ChartPropsType,
+    prevState: ChartStateType
+  ): void {
     // We only need to fetch the raw data when place, statvars or denom changes.
     const shouldLoadData =
       !_.isEqual(prevProps.placeNames, this.props.placeNames) ||
@@ -224,13 +220,17 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       !_.isEqual(prevProps.denom, this.props.denom);
     if (shouldLoadData) {
       this.loadRawData();
-    } else {
-      this.processDataAndDrawChart();
+      return;
     }
-  }
-
-  private handleDenomInput(evt) {
-    setDenom(this.props.mprop, evt.target.value);
+    // If stat data or ipccModels data changes, need to redraw the chart
+    const shouldDrawChart =
+      this.state.statData !== prevState.statData ||
+      this.state.ipccModels !== prevState.ipccModels;
+    if (shouldDrawChart) {
+      this.drawChart();
+      return;
+    }
+    this.processData();
   }
 
   private handleWindowResize() {
@@ -271,13 +271,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       });
   }
 
-  private processDataAndDrawChart() {
+  private processData() {
     if (!this.state.rawData) {
       return;
     }
     const places = Object.keys(this.props.placeNames);
     const statVars = Object.keys(this.props.statVarInfos);
-    this.statData = getStatData(
+    let statData = getStatData(
       this.state.rawData,
       places,
       statVars,
@@ -286,13 +286,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.props.denom
     );
     if (this.minYear || this.maxYear) {
-      this.statData = shortenStatData(
-        this.statData,
-        this.minYear,
-        this.maxYear
-      );
+      statData = shortenStatData(statData, this.minYear, this.maxYear);
     }
 
+    let ipccModels = null;
     // We only want to do multiple model computations on IPCC stat vars with
     // multiple models and only when no source is specified for that stat var.
     const ipccStatVars = statVars.filter(
@@ -300,31 +297,25 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         isIpccStatVarWithMultipleModels(sv) &&
         _.isEmpty(this.props.metahashMap[sv])
     );
-    if (_.isEmpty(ipccStatVars)) {
-      this.ipccModels = null;
-    } else {
+    if (!_.isEmpty(ipccStatVars)) {
       const [processedStat, modelStat] = statDataFromModels(
-        this.statData,
+        statData,
         this.state.rawData.statAllData,
         ipccStatVars
       );
-      this.statData = processedStat;
-      this.ipccModels = modelStat;
-      this.ipccModels = shortenStatData(
-        this.ipccModels,
-        this.minYear,
-        this.maxYear
-      );
+      statData = processedStat;
+      ipccModels = modelStat;
+      ipccModels = shortenStatData(ipccModels, this.minYear, this.maxYear);
     }
     if (this.props.delta) {
-      this.statData = convertToDelta(this.statData);
-      if (this.ipccModels) {
-        this.ipccModels = convertToDelta(this.ipccModels);
+      statData = convertToDelta(statData);
+      if (ipccModels) {
+        ipccModels = convertToDelta(ipccModels);
       }
     }
     // Get from all stat vars. In most cases there should be only one
     // unit.
-    const placeData = Object.values(this.statData.data)[0];
+    const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
     for (const series of Object.values(placeData.data)) {
@@ -334,10 +325,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     }
     this.units = Array.from(units).sort();
 
-    this.props.onDataUpdate(this.props.mprop, this.statData);
-    if (this.svgContainer.current) {
-      this.drawChart();
-    }
+    this.props.onDataUpdate(this.props.mprop, statData);
+    this.setState({ statData, ipccModels });
   }
 
   /**
@@ -345,21 +334,21 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
    */
   private drawChart() {
     const dataGroupsDict = {};
-    if (!this.statData) {
+    if (!this.state.statData) {
       return;
     }
-    for (const place of this.statData.places) {
+    for (const place of this.state.statData.places) {
       dataGroupsDict[this.props.placeNames[place]] = getStatVarGroupWithTime(
-        this.statData,
+        this.state.statData,
         place
       );
     }
     const modelsDataGroupsDict = {};
-    if (this.ipccModels) {
-      for (const place of this.ipccModels.places) {
+    if (this.state.ipccModels) {
+      for (const place of this.state.ipccModels.places) {
         modelsDataGroupsDict[
           this.props.placeNames[place]
-        ] = getStatVarGroupWithTime(this.ipccModels, place);
+        ] = getStatVarGroupWithTime(this.state.ipccModels, place);
       }
     }
     drawGroupLineChart(
@@ -370,8 +359,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       dataGroupsDict,
       this.plotParams,
       this.ylabel(),
-      Array.from(this.statData.sources),
-      Array.from(this.statData.measurementMethods),
       this.units.join(", "),
       modelsDataGroupsDict
     );
