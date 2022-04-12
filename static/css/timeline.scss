@@ -106,7 +106,6 @@
 .chart-option {
   float: right;
   font-size: 14px;
-  // margin-left: 15px;
 }
 
 .chart-option label {
@@ -114,7 +113,6 @@
 }
 
 .chart-option input {
-  // margin-left: 5px;
   line-height: 10px;
 }
 
@@ -137,19 +135,24 @@
 .pv-chip {
   height: 36px;
   line-height: 36px;
-  padding: 0 15px;
-  border: 20;
+  padding: 0 8px 0 15px;
   border-radius: 18px;
   background-color: #999;
   display: inline-block;
   color: white;
   margin: 0 8px 8px 0;
   font-size: 0;
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 .search-icon {
   padding: 0.5rem;
+}
+
+.mdl-chip__text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 28px); // Account for the chip close button.
 }
 
 .mdl-chip__text:hover {
