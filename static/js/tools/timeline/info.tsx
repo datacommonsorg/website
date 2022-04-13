@@ -32,7 +32,7 @@ class Info extends Component {
         </p>
         <ul>
           <li>
-            <b>Withdrawal Rates</b> for
+            <b>Water Withdrawal Rates</b> for
             <a
               href={
                 "#place=geoId%2F06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Aquaculture"

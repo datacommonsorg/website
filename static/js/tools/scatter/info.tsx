@@ -42,8 +42,7 @@ function Info(): JSX.Element {
       <ul>
         <li>
           <b>
-            Prevalence Of Coronary Heart Disease vs. Max Temperature Relative To
-            2006 RCP 4.5 Difference Relative To Base Date
+            Prevalence Of Coronary Heart Disease vs. Projected Temperature Rise (RCP 4.5)
           </b>{" "}
           for counties in{" "}
           <a
@@ -82,7 +81,7 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Water Withdrawal for Irrigation vs. Projected Temperature Rise</b>{" "}
+          <b>Water Withdrawal for Irrigation vs. Projected Temperature Rise (RCP 4.5)</b>{" "}
           for counties in{" "}
           <a
             href={
