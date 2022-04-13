@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import urllib
+import urllib.request
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By

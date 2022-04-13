@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import logging
 import os
 import time
@@ -182,5 +181,10 @@ def create_app():
     @app.context_processor
     def inject_locale():
         return dict(locale=get_locale())
+
+    @app.teardown_request
+    def log_unhandled(e):
+        if e is not None:
+            logging.error("Error thrown for request: %s, error: %s", request, e)
 
     return app
