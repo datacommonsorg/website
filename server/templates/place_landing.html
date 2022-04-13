@@ -50,6 +50,38 @@
 
   {# TRANSLATORS: Heading for a list of places #}
   <h3>{% trans %}Places{% endtrans %}</h3>
+
+  {% if config['IITM'] %}
+  <ul>
+    {# TRANSLATORS: Heading for a list of cities in the India. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}Cities, India:{% endtrans %}</strong>
+      <a href="/place/wikidataId/Q1353">Delhi</a>,
+      <a href="/place/wikidataId/Q43433">Chandigarh</a>,
+      <a href="/browser/City"> More ...</a>
+    </li>
+    {# TRANSLATORS: Heading for a list of districts in the India. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}Districts, India:{% endtrans %}</strong>
+      <a href="/place/wikidataId/Q1797336">Pune, Maharashtra</a>,
+      <a href="/place/wikidataId/Q15341">Guntur, Andhra Pradesh</a>,
+      <a href="/place/wikidataId/Q1920789">Jaintia Hills, Meghalaya</a>,
+    </li>
+    {# TRANSLATORS: Heading for a list of states in the India. See this message on https://datacommons.org/place #}
+    <li><strong>{% trans %}States, India:{% endtrans %}</strong>
+      <a href="/place/wikidataId/Q1445">Tamil Nadu</a>,
+      <a href="/place/wikidataId/Q1061">Gujarat</a>,
+      <a href="/place/wikidataId/Q1177">Himachal Pradesh</a>,
+    </li>
+    {# TRANSLATORS: Heading for a list of countries. #}
+    <li><strong>{% trans %}Countries:{% endtrans %}</strong>
+      {% for dcid in ['country/IND', 'country/USA', 'country/DEU', 'country/CAN'] %}
+      <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
+      {%- if not loop.last %},{% endif -%}
+      {% endfor %}
+    </li>
+  </ul>
+
+  {% else %}
+
   <ul>
     {# TRANSLATORS: Heading for a list of cities in the US. See this message on https://datacommons.org/place #}
     <li><strong>{% trans %}Cities, United States{% endtrans %}</strong>
@@ -81,8 +113,43 @@
     </li>
   </ul>
 
+  {% endif %}
+
   {# TRANSLATORS: Heading for a list of place rankings. #}
   <h3>{% trans %}Rankings{% endtrans %}</h3>
+
+  {% if config['IITM'] %}
+  <ul>
+    {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their life expectancy. #}
+    <li><strong>{%- trans %}Life Expectancy:{% endtrans -%}</strong>
+      <a class="landing-link" href="{{ ranking_url('LifeExpectancy_Person', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place #}
+        {%- trans %}Worldwide{% endtrans -%}
+      </a>
+    </li>
+    {# TRANSLATORS: Heading for a list of links to rankings of places worldwide, by their economic indicators. #}
+    <li><strong>{%- trans %}Economic Indicators, Worldwide:{% endtrans -%}</strong>
+      <a class="landing-link" href="{{ ranking_url('GiniIndex_EconomicActivity', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Gini Index, by country. #}
+        {%- trans %}Gini Index{% endtrans -%}
+      </a>,
+      <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Gross National Income, by country. #}
+        {%- trans %}Gross National Income{% endtrans -%}
+      </a>,
+      <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Government Expenditures on Education, by country. #}
+        {%- trans %}Government Expenditures on Education{% endtrans -%}
+      </a>,
+      <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal', 'Country') }}">
+        {# TRANSLATORS: Link to worldwide rankings for Government Expenditures on Military, by country. #}
+        {%- trans %}Government Expenditures on Military{% endtrans -%}
+      </a>
+    </li>
+  </ul>
+
+  {% else %}
+
   <ul>
     {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place #}
     <li><strong>{% trans %}Median Income, United States{% endtrans %}</strong>
@@ -142,6 +209,8 @@
       </a>
     </li>
   </ul>
+  {% endif %}
+
 </div>
 {% endblock %}
 
