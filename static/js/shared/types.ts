@@ -131,14 +131,14 @@ export interface StatVarSummary {
 
 // One node in a Graph.
 export interface GraphNode {
-  neighbors: LinkedNodes[];
   value: string;
+  neighbors?: LinkedNodes[];
 }
 
 // Linked nodes for a Graph
 export interface LinkedNodes {
   property: string;
-  direction: number;
+  direction: string;
   nodes: GraphNode[];
 }
 

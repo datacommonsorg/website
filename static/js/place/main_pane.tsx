@@ -24,6 +24,7 @@ import {
   PageChart,
 } from "../chart/types";
 import { intl } from "../i18n/i18n";
+import { randDomId } from "../shared/util";
 import { ChartBlock } from "./chart_block";
 import { ChartHeader } from "./chart_header";
 import { Overview } from "./overview";
@@ -101,7 +102,7 @@ class MainPane extends React.Component<MainPanePropType> {
   renderChartBlock(data: ChartBlockData, category: string): JSX.Element {
     return (
       <ChartBlock
-        key={data.title}
+        key={data.title + randDomId()}
         dcid={this.props.dcid}
         placeName={this.props.placeName}
         placeType={this.props.placeType}
@@ -127,10 +128,10 @@ class MainPane extends React.Component<MainPanePropType> {
         {this.showOverview() && (
           <Overview dcid={this.props.dcid} locale={this.props.locale} />
         )}
-        {topics.map((topic: string) => {
+        {topics.map((topic: string, index: number) => {
           if (isOverview) {
             return (
-              <section className="block col-12" key={topic}>
+              <section className="block col-12" key={topic + index}>
                 <ChartHeader
                   text={topic}
                   place={this.props.dcid}
@@ -150,8 +151,11 @@ class MainPane extends React.Component<MainPanePropType> {
             // UI.
             return [
               topic && (
-                <section className="block topic-header col-12" key={topic}>
-                  <h2 key={topic} id={topic} className="topic">
+                <section
+                  className="block topic-header col-12"
+                  key={topic + index}
+                >
+                  <h2 id={topic} className="topic">
                     {topic}
                   </h2>
                 </section>

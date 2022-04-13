@@ -57,7 +57,7 @@ test("Single place and single stat var", () => {
     .then(() => {
       wrapper.update();
       expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toContain(
-        `<label for="pc-cb-age">Ratio of </label><input disabled="" placeholder="Count_Person"></span>`
+        '<label class="form-check-label"><input id="age-ratio" type="checkbox" class="form-check-input">Per Capita</label>'
       );
       wrapper
         .find("#hierarchy-section .Collapsible__trigger")
@@ -165,8 +165,7 @@ test("chart options", () => {
     .then(() => {
       wrapper.update();
       // set per capita to True
-      console.log(wrapper.find("#chart-region .option-checkbox"));
-      wrapper.find("#chart-region .option-checkbox").at(0).simulate("click");
+      wrapper.find("#count-ratio").at(0).simulate("change");
       Promise.resolve(wrapper)
         .then(() => wrapper.update())
         .then(() => {

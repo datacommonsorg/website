@@ -21,6 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import {
   GetStatSetAllResponse,
   GetStatSetResponse,
@@ -179,7 +180,9 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
   axis.date = params.get(addSuffix(FieldToAbbreviation.date, isX)) || "";
   axis.metahash =
     params.get(addSuffix(FieldToAbbreviation.metahash, isX)) || "";
-
+  axis.denom =
+    params.get(addSuffix(FieldToAbbreviation.denom, isX)) ||
+    DEFAULT_POPULATION_DCID;
   return axis;
 }
 
@@ -278,7 +281,7 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
       );
     }
   }
-  for (const key of ["date", "metahash"]) {
+  for (const key of ["date", "metahash", "denom"]) {
     if (axis[key]) {
       hash = appendEntry(
         hash,

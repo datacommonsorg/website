@@ -22,15 +22,9 @@
 import _ from "lodash";
 import React, { useContext, useState } from "react";
 import { Button, Card, FormGroup, Input, Label } from "reactstrap";
-import { Col, Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 
-import { Point } from "../../chart/draw_scatter";
-import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
-import {
-  SourceSelector,
-  SourceSelectorSvInfo,
-} from "../../shared/source_selector";
-import { StatApiResponse } from "../../shared/stat_types";
+import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 import {
   AxisWrapper,
   Context,
@@ -39,16 +33,13 @@ import {
 } from "./context";
 import { ScatterChartType } from "./util";
 
-interface PlotOptionsProps {
-  points: { [placeDcid: string]: Point };
-  populationData: StatApiResponse;
-  sourceSelectorSvInfo: SourceSelectorSvInfo[];
-}
+const MIN_WIDTH_LABEL_LENGTH = 20;
+const MAX_WIDTH_LABEL_LENGTH = 40;
 
 // TODO: Add a new API that given a statvar, a parent place, and a child type,
 // returns the available dates for the statvar. Then, fill the datapicker with
 // the dates.
-function PlotOptions(props: PlotOptionsProps): JSX.Element {
+function PlotOptions(): JSX.Element {
   const { place, x, y, display } = useContext(Context);
   const [lowerBound, setLowerBound] = useState(
     place.value.lowerBound.toString()
@@ -56,194 +47,190 @@ function PlotOptions(props: PlotOptionsProps): JSX.Element {
   const [upperBound, setUpperBound] = useState(
     place.value.upperBound.toString()
   );
+  const [xDenomInput, setXDenomInput] = useState(x.value.denom);
+  const [yDenomInput, setYDenomInput] = useState(y.value.denom);
+  const yAxisLabel =
+    display.chartType === ScatterChartType.SCATTER
+      ? "Y-axis"
+      : y.value.statVarInfo.title || y.value.statVarDcid;
+  const xAxisLabel =
+    display.chartType === ScatterChartType.SCATTER
+      ? "X-axis"
+      : x.value.statVarInfo.title || x.value.statVarDcid;
+  const axisLabelStyle = {};
+  if (
+    yAxisLabel.length > MIN_WIDTH_LABEL_LENGTH ||
+    xAxisLabel.length > MIN_WIDTH_LABEL_LENGTH
+  ) {
+    axisLabelStyle["width"] =
+      Math.min(
+        MAX_WIDTH_LABEL_LENGTH,
+        Math.max(xAxisLabel.length, yAxisLabel.length)
+      ) /
+        2 +
+      "rem";
+  }
 
-  const onSvMetahashUpdated = (update) => {
-    for (const sv of Object.keys(update)) {
-      if (x.value.statVarDcid === sv) {
-        x.setMetahash(update[sv]);
-      } else if (y.value.statVarDcid === sv) {
-        y.setMetahash(update[sv]);
-      }
-    }
-  };
   return (
     <Card id="plot-options">
       <Container fluid={true}>
-        <Row className="plot-options-row">
-          {/* only allow per capita option for axes where there is population
-              data. */}
-          <Col sm={1} className="plot-options-label">
-            Per capita:
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Input
-                id="per-capita-y"
-                type="checkbox"
-                checked={y.value.perCapita}
-                onChange={(e) => checkPerCapita(y, e)}
-                disabled={!hasPopData(props.populationData)}
-              />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "Y-axis"
-                  : y.value.statVarInfo.title || y.value.statVarDcid}
-              </Label>
-            </FormGroup>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Input
-                id="per-capita-x"
-                type="checkbox"
-                checked={x.value.perCapita}
-                onChange={(e) => checkPerCapita(x, e)}
-                disabled={!hasPopData(props.populationData)}
-              />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "X-axis"
-                  : x.value.statVarInfo.title || x.value.statVarDcid}
-              </Label>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row className="plot-options-row">
-          {/* only allow log scale option for axes where the data values are all
-              positive or all negative. The d3.scaleLog() function will throw an
-              error if trying to work with both positive and negative numbers or
-              0. */}
-          <Col sm={1} className="plot-options-label">
-            Log scale:
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Input
-                id="log-y"
-                type="checkbox"
-                checked={y.value.log}
-                onChange={(e) => checkLog(y, e)}
-              />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "Y-axis"
-                  : y.value.statVarInfo.title || y.value.statVarDcid}
-              </Label>
-            </FormGroup>
-          </Col>
-          <Col sm="auto">
-            <FormGroup check>
-              <Input
-                id="log-x"
-                type="checkbox"
-                checked={x.value.log}
-                onChange={(e) => checkLog(x, e)}
-              />
-              <Label check>
-                {display.chartType === ScatterChartType.SCATTER
-                  ? "X-axis"
-                  : x.value.statVarInfo.title || x.value.statVarDcid}
-              </Label>
-            </FormGroup>
-          </Col>
-        </Row>
+        <div className="plot-options-row">
+          <div className="plot-options-label" style={axisLabelStyle}>
+            {yAxisLabel}:
+          </div>
+          <div className="plot-options-input-section">
+            <div className="plot-options-input">
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    id="per-capita-y"
+                    type="checkbox"
+                    checked={y.value.perCapita}
+                    onChange={(e) => y.setPerCapita(e.target.checked)}
+                  />
+                  Per Capita
+                </Label>
+              </FormGroup>
+            </div>
+            <div className="plot-options-input">
+              <FormGroup check>
+                <Input
+                  id="log-y"
+                  type="checkbox"
+                  checked={y.value.log}
+                  onChange={(e) => checkLog(y, e)}
+                />
+                <Label check>Log scale</Label>
+              </FormGroup>
+            </div>
+          </div>
+        </div>
+        <div className="plot-options-row">
+          <div className="plot-options-label" style={axisLabelStyle}>
+            {xAxisLabel}:
+          </div>
+          <div className="plot-options-input-section">
+            <div className="plot-options-input">
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    id="per-capita-x"
+                    type="checkbox"
+                    checked={x.value.perCapita}
+                    onChange={(e) => x.setPerCapita(e.target.checked)}
+                  />
+                  Per Capita
+                </Label>
+              </FormGroup>
+            </div>
+            <div className="plot-options-input">
+              <FormGroup check>
+                <Input
+                  id="log-x"
+                  type="checkbox"
+                  checked={x.value.log}
+                  onChange={(e) => checkLog(x, e)}
+                />
+                <Label check>Log scale</Label>
+              </FormGroup>
+            </div>
+          </div>
+        </div>
         {display.chartType === ScatterChartType.SCATTER && (
           <>
-            <Row className="plot-options-row centered-items-row">
-              <Col sm={1} className="plot-options-label">
-                Display:
-              </Col>
-              <Col sm="auto">
-                <Button
-                  id="swap-axes"
-                  size="sm"
-                  color="light"
-                  onClick={() => swapAxes(x, y)}
-                  className="plot-options-swap-button"
-                >
-                  Swap X and Y axes
-                </Button>
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
+            <div className="plot-options-row">
+              <div className="plot-options-label">Display:</div>
+              <div className="plot-options-input-section">
+                <div className="plot-options-input">
+                  <Button
+                    id="swap-axes"
+                    size="sm"
+                    color="light"
+                    onClick={() => swapAxes(x, y)}
+                    className="plot-options-swap-button"
+                  >
+                    Swap X and Y axes
+                  </Button>
+                </div>
+                <div className="plot-options-input">
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        id="quadrants"
+                        type="checkbox"
+                        checked={display.showQuadrants}
+                        onChange={(e) => checkQuadrants(display, e)}
+                      />
+                      Show quadrants
+                    </Label>
+                  </FormGroup>
+                </div>
+                <div className="plot-options-input">
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        id="quadrants"
+                        type="checkbox"
+                        checked={display.showLabels}
+                        onChange={(e) => checkLabels(display, e)}
+                      />
+                      Show labels
+                    </Label>
+                  </FormGroup>
+                </div>
+                <div className="plot-options-input">
+                  <FormGroup check>
+                    <Label check>
+                      <Input
+                        id="density"
+                        type="checkbox"
+                        checked={display.showDensity}
+                        onChange={(e) => checkDensity(display, e)}
+                      />
+                      Show density
+                    </Label>
+                  </FormGroup>
+                </div>
+              </div>
+            </div>
+            <div className="plot-options-row">
+              <div className="plot-options-label">Filter by population:</div>
+              <div className="plot-options-input-section pop-filter">
+                <div className="plot-options-input">
+                  <FormGroup check>
                     <Input
-                      id="quadrants"
-                      type="checkbox"
-                      checked={display.showQuadrants}
-                      onChange={(e) => checkQuadrants(display, e)}
+                      className="pop-filter-input"
+                      type="number"
+                      onChange={(e) =>
+                        selectLowerBound(place, e, setLowerBound)
+                      }
+                      value={lowerBound}
+                      onBlur={() =>
+                        setLowerBound(place.value.lowerBound.toString())
+                      }
                     />
-                    Show quadrants
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
+                  </FormGroup>
+                </div>
+                <span>to</span>
+                <div className="plot-options-input">
+                  <FormGroup check>
                     <Input
-                      id="quadrants"
-                      type="checkbox"
-                      checked={display.showLabels}
-                      onChange={(e) => checkLabels(display, e)}
+                      className="pop-filter-input"
+                      type="number"
+                      onChange={(e) =>
+                        selectUpperBound(place, e, setUpperBound)
+                      }
+                      value={upperBound}
+                      onBlur={() =>
+                        setUpperBound(place.value.upperBound.toString())
+                      }
                     />
-                    Show labels
-                  </Label>
-                </FormGroup>
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Label check>
-                    <Input
-                      id="density"
-                      type="checkbox"
-                      checked={display.showDensity}
-                      onChange={(e) => checkDensity(display, e)}
-                    />
-                    Show density
-                  </Label>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row className="plot-options-row centered-items-row">
-              <Col sm={2} className="plot-options-label">
-                Filter by population:
-              </Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Input
-                    type="number"
-                    onChange={(e) => selectLowerBound(place, e, setLowerBound)}
-                    value={lowerBound}
-                    onBlur={() =>
-                      setLowerBound(place.value.lowerBound.toString())
-                    }
-                  />
-                </FormGroup>
-              </Col>
-              <Col sm="auto">to</Col>
-              <Col sm="auto">
-                <FormGroup check>
-                  <Input
-                    type="number"
-                    onChange={(e) => selectUpperBound(place, e, setUpperBound)}
-                    value={upperBound}
-                    onBlur={() =>
-                      setUpperBound(place.value.upperBound.toString())
-                    }
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
+                  </FormGroup>
+                </div>
+              </div>
+            </div>
           </>
         )}
-        <Row className="plot-options-row centered-items-row">
-          <Col sm="auto">
-            <SourceSelector
-              svInfoList={props.sourceSelectorSvInfo}
-              onSvMetahashUpdated={onSvMetahashUpdated}
-            />
-          </Col>
-        </Row>
       </Container>
     </Card>
   );
@@ -344,15 +331,6 @@ function selectUpperBound(
     place.setUpperBound(parseInt(event.target.value));
   }
   setUpperBound(event.target.value);
-}
-
-function hasPopData(populationData: StatApiResponse): boolean {
-  const placesWithPopData = Object.keys(populationData).filter(
-    (place) =>
-      !_.isEmpty(populationData[place].data) &&
-      !_.isEmpty(populationData[place].data[DEFAULT_POPULATION_DCID])
-  );
-  return !_.isEmpty(placesWithPopData);
 }
 
 export { PlotOptions };

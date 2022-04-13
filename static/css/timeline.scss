@@ -19,11 +19,12 @@
 @import "tools/stat_var_widget";
 @import "draw";
 @import "source_selector";
+@import "tool_chart_footer";
 
 @include search_place.search-place;
 
 #location-field #ac {
-  margin-left: 16px;
+  margin-left: 12px;
   background: none;
 }
 
@@ -36,37 +37,13 @@
 
 #main-pane #plot-container {
   direction: initial;
-  padding: 2rem;
-  overflow-y: scroll;
+  padding: 1rem 0;
 }
-
-#main-pane #plot-container .container {
-  display: flex;
-  flex-direction: column;
-  min-height: 600px;
-}
-#explore #percapita-link {
-  padding: 10px 31px 0;
-}
-
-#view #pv-list {
-  margin: 1rem 0 0 0;
-  padding: 0;
-}
-
-.menu-btn {
-  width: 64px;
-  height: 64px;
-  padding: 20px;
-  float: left;
-  line-height: 0;
-  border: 0;
-  cursor: pointer;
-}
-
-.mdc-top-app-bar button {
-  border: none;
-  background: none;
+@include media-breakpoint-up(lg) {
+  #main-pane #plot-container {
+    padding: 2rem 1rem;
+    overflow-y: scroll;
+  }
 }
 
 #placeholder-container li span {
@@ -74,115 +51,43 @@
   text-indent: 50px;
 }
 
-.top {
-  font-size: 18px;
-}
-
-sup {
-  font-size: 10px;
-  color: #999;
-  font-weight: bold;
-}
-
-.for-search {
-  color: #d93025 !important;
-}
-
-#gchart-container img {
-  margin-bottom: 20px;
-}
-
-.shadow-card {
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
-  padding: 15px 20px;
-  margin-bottom: 50px;
-}
-
-.shadow-card img {
-  display: block;
-}
-
-.attribution {
-  margin: 10px;
-  font-size: 12px;
-  color: #666;
-}
-
-#timeline-lower-pane {
-  display: flex;
-}
-
 .chart-svg {
   margin: 10px 0;
 }
 
-.card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  padding: 15px;
-  margin-bottom: 30px;
-}
-
-.option-checkbox {
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  border: none;
-  background: url("/images/icon-checkbox.svg");
-  outline: none;
-  margin-right: 5px;
-}
-
-.option-checkbox.checked {
-  background: url("/images/icon-checkbox-checked.svg");
-}
-
-.chart-options {
-  margin-top: -20px;
-}
-
-.chart-option {
-  float: right;
-  font-size: 14px;
-  margin-left: 15px;
-}
-
-.chart-option label {
-  cursor: pointer;
-}
-
-.chart-option input {
-  margin-left: 5px;
-  line-height: 10px;
-}
-
-#observation {
-  display: none;
-  width: 100%;
-  flex-grow: 1;
-  position: relative;
-}
-
-#main-pane-download #observation {
-  width: 800px;
-  display: block !important;
+#chart-region .card {
+  border-bottom: none;
 }
 
 .pv-chip {
   height: 36px;
   line-height: 36px;
-  padding: 0 15px;
-  border: 20;
+  padding: 0 8px 0 15px;
   border-radius: 18px;
   background-color: #999;
   display: inline-block;
   color: white;
   margin: 0 8px 8px 0;
   font-size: 0;
-  white-space: nowrap;
+  max-width: 100%;
 }
 
+// Place marker
+#search-icon {
+  top: 3px;
+}
+
+// Magnifying glass
 .search-icon {
   padding: 0.5rem;
+}
+
+// Set up wrapping for long stat var names.
+.mdl-chip__text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 28px); // Account for the chip close button.
+  overflow: hidden;
 }
 
 .mdl-chip__text:hover {
@@ -204,14 +109,7 @@ sup {
   color: var(--dc-gray);
 }
 
-.chart-options {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-}
-
-.chart-options .source-selector-open-modal-button {
-  font-size: 0.8rem;
-  color: var(--link-color);
-  margin-left: -0.5rem;
+#place-search,
+.chart-container {
+  margin-bottom: 15px;
 }

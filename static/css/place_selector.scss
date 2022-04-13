@@ -25,7 +25,6 @@
 
   #search {
     margin-bottom: 0;
-    box-shadow: none;
     border: 1px solid rgba(0, 0, 0, 0.125);
     flex-grow: 1;
     height: 3.2rem;
@@ -38,6 +37,7 @@
 
   .search-icon {
     padding: 0.5rem;
+    line-height: 36px;
   }
   
   #location-field #ac {
@@ -72,6 +72,7 @@
 .place-selector-card {
   padding-right: 0;
   padding-left: 0;
+  margin-bottom: 15px;
 }
 
 .place-selector-place-type{

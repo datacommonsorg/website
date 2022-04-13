@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import urllib
+import urllib.request
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -69,7 +70,7 @@ class TestMap(WebdriverBaseTest):
             (By.ID, 'choropleth-map'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
-            '//*[@id="chart-row"]/div/div[1]/div/div/div[1]/h3')
+            '//*[@id="map-chart"]/div/div[1]/h3')
         self.assertEqual(chart_title.text, "Median Age (2019)")
         chart_map = self.driver.find_element_by_id('choropleth-map')
         map_regions = chart_map.find_elements_by_tag_name('path')
@@ -103,7 +104,7 @@ class TestMap(WebdriverBaseTest):
         element_present = EC.presence_of_element_located((By.ID, 'map-items'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
-            '//*[@id="chart-row"]/div/div[1]/div/div/div[1]/h3')
+            '//*[@id="map-chart"]/div/div[1]/h3')
         self.assertEqual(chart_title.text, "Median Age (2019)")
         chart_map = self.driver.find_element_by_id('map-items')
         map_regions = chart_map.find_elements_by_tag_name('path')
@@ -160,7 +161,7 @@ class TestMap(WebdriverBaseTest):
             (By.ID, 'choropleth-map'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
-            '//*[@id="chart-row"]/div/div[1]/div/div/div[1]/h3')
+            '//*[@id="map-chart"]/div/div[1]/h3')
         self.assertEqual(chart_title.text, "Median Age (2019)")
         chart_map = self.driver.find_element_by_id('choropleth-map')
         map_regions = chart_map.find_elements_by_tag_name('path')

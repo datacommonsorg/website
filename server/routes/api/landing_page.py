@@ -37,6 +37,7 @@ bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')
 BAR_CHART_TYPES = ['parent', 'similar', 'nearby', 'child']
 MAX_DENOMINATOR_BACK_YEAR = 3
 MIN_CHART_TO_KEEP_TOPICS = 30
+MAX_OVERVIEW_CHART_GROUP = 5
 OVERVIEW = 'Overview'
 
 
@@ -393,6 +394,14 @@ def get_i18n_all_child_places(raw_page_data):
     return all_child_places
 
 
+def has_data(data):
+    for item in data:
+        if (item.get('trend', {}) or item.get('similar', {}) or
+                item.get('nearyby', {}) or item.get('child', {})):
+            return True
+    return False
+
+
 @bp.route('/data/<path:dcid>')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def data(dcid):
@@ -447,10 +456,7 @@ def data(dcid):
 
     # Populate the data for each chart.
     # This is heavy lifting, takes time to process.
-    for category in spec_and_stat:
-        # Only process the target category.
-        if category != target_category:
-            continue
+    def populate_category_data(category):
         if category == OVERVIEW:
             if is_usa_place:
                 chart_types = ['nearby', 'child']
@@ -494,6 +500,29 @@ def data(dcid):
                                 chart[t] = {}
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
+
+    for category in spec_and_stat:
+        if category != target_category:
+            continue
+        populate_category_data(category)
+
+    if target_category == OVERVIEW:
+        for category in spec_and_stat:
+            if category == OVERVIEW:
+                continue
+            data = spec_and_stat[OVERVIEW][category]
+            # If there is no data for a category in overview page, need to
+            # "borrow" it from the category page.
+            if not has_data(data):
+                populate_category_data(category)
+                total_charts = 0
+                spec_and_stat[OVERVIEW][category] = []
+                for topic in spec_and_stat[category]:
+                    spec_and_stat[OVERVIEW][category].extend(
+                        spec_and_stat[category][topic])
+                    total_charts += len(spec_and_stat[category][topic])
+                    if total_charts > MAX_OVERVIEW_CHART_GROUP:
+                        break
 
     # Get chart category name translations
     categories = {}

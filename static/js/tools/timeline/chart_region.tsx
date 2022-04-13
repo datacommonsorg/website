@@ -17,6 +17,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
@@ -99,7 +100,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
               pc={getChartOption(mprop, "pc")}
-              denom={getDenom(mprop) || "Count_Person"}
+              denom={getDenom(mprop) || DEFAULT_POPULATION_DCID}
               delta={getChartOption(mprop, "delta")}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
@@ -120,11 +121,11 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   private onDataUpdate(groupId: string, data: StatData) {
     this.allStatData[groupId] = data;
     if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
-      this.downloadLink.style.visibility = "visible";
-      this.bulkDownloadLink.style.visibility = "visible";
+      this.downloadLink.style.display = "inline-block";
+      this.bulkDownloadLink.style.display = "inline-block";
     } else {
-      this.downloadLink.style.visibility = "hidden";
-      this.bulkDownloadLink.style.visibility = "hidden";
+      this.downloadLink.style.display = "none";
+      this.bulkDownloadLink.style.display = "none";
     }
   }
 

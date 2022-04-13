@@ -18,7 +18,7 @@
  * Main app component for scatter.
  */
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ChartLoader } from "./chart_loader";
@@ -49,9 +49,14 @@ function App(): JSX.Element {
     place.value
   );
   const showInfo = !showChart && !showChooseStatVarMessage;
+  const [isSvModalOpen, updateSvModalOpen] = useState(false);
+  const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
   return (
     <>
-      <StatVarChooser />
+      <StatVarChooser
+        openSvHierarchyModal={isSvModalOpen}
+        openSvHierarchyModalCallback={toggleSvModalCallback}
+      />
       <div id="plot-container">
         <Container fluid={true}>
           {!showChart && (
@@ -60,7 +65,7 @@ function App(): JSX.Element {
             </Row>
           )}
           <Row>
-            <PlaceOptions />
+            <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
           {showChooseStatVarMessage && (
             <Row className="info-message">
