@@ -100,7 +100,9 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                     id={ratioCheckboxId}
                     type="checkbox"
                     checked={props.isPerCapita}
-                    onChange={() => props.onIsPerCapitaUpdated(!props.isPerCapita)}
+                    onChange={() =>
+                      props.onIsPerCapitaUpdated(!props.isPerCapita)
+                    }
                   />
                   Per Capita
                 </Label>
