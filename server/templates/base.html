@@ -93,8 +93,8 @@
                   {% trans %}Explore{% endtrans %}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <!-- <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a> -->
-                  <!-- <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a> -->
+                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
@@ -195,6 +195,10 @@
                 <div class="col-sm-6 col-md-4">
                     <h3 class="text-info pb-2 ">{% trans %}Explore{% endtrans %}</h3>
                     <ul class="list-unstyled d-inline-block d-sm-block">
+                      {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
+                      <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
+                      {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
+                      <a href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
                       {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
                       <li class="mb-2"><a class="footer-links" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a></li>
                       {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
@@ -241,19 +245,17 @@
                     <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
                         <img src="/images/iitm-rbcdsai.svg" height="55%" >
                     </a>
-                    
-                    <div class="footer-links">India Data Commons is a Google supported project</div>
                 </div>
                 
                 <div class="col-md-6 text-right pb-4">
                     <div class="float-md-right mt-2 mt-md-0">
                         {% block subfooter_extra_iitm %}{% endblock %}
-                        {# TRANSLATORS: The label for a link to site terms and conditions. #}
-                        <a class="footer-links" href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a> ·&nbsp;
+                        {# TRANSLATORS: The label for a link to site terms of use. #}
+                        <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">{% trans %}Terms Of Use{% endtrans %}</a> ·&nbsp;
                         {# TRANSLATORS: The label for a link to site privacy policy. #}
-                        <a class="footer-links" href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
-                        <!-- {# TRANSLATORS: The label for a link to site disclaimers. #}
-                        <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a> -->
+                        <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a> ·&nbsp;
+                        {# TRANSLATORS: The label for a link to site disclaimers. #}
+                        <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
                         <h5>India Data Commons</h5>
                         
                     </div>
