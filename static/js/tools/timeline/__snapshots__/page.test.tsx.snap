@@ -12,7 +12,7 @@ exports[`Single place and single stat var 1`] = `
     <div class=\\"chart-footer-metadata-section\\"></div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Ratio of</label><input class=\\"denom-input\\" disabled=\\"\\" placeholder=\\"Enter a variable dcid e.g. Count_Person\\" value=\\"\\"></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button></div>
 </div>"
 `;
 
@@ -28,7 +28,7 @@ exports[`Single place and single stat var 2`] = `
     <div class=\\"chart-footer-metadata-section\\"></div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Ratio of</label><input class=\\"denom-input\\" disabled=\\"\\" placeholder=\\"Enter a variable dcid e.g. Count_Person\\" value=\\"\\"></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"age-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-age\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button></div>
 </div>"
 `;
 
@@ -82,7 +82,7 @@ exports[`chart options 1`] = `
     <div class=\\"chart-footer-metadata-section\\"></div>
     <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
-  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Ratio of</label><input class=\\"denom-input\\" disabled=\\"\\" placeholder=\\"Enter a variable dcid e.g. Count_Person\\" value=\\"\\"></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button></div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button></div>
 </div>"
 `;
 
@@ -94,10 +94,11 @@ exports[`statVar not in PV-tree 1`] = `
     </div>
     <div class=\\"chart-svg\\"></div>
   </div>
-  <div class=\\"chart-footer-container \\">
+  <div class=\\"chart-footer-container no-bottom-border\\">
     <div class=\\"chart-footer-metadata-section\\"></div>
-    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_more</i></div>
+    <div class=\\"chart-footer-options-button\\"><span>Chart Options</span><i class=\\"material-icons\\">expand_less</i></div>
   </div>
+  <div class=\\"chart-footer-options-section\\"><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"count-ratio\\" type=\\"checkbox\\" class=\\"form-check-input\\">Per Capita</label></div></span><span class=\\"chart-option\\"><div class=\\"form-check\\"><label class=\\"form-check-label\\"><input id=\\"delta-cb-count\\" type=\\"checkbox\\" class=\\"is-delta-input form-check-input\\">Delta</label></div></span><button type=\\"button\\" class=\\"source-selector-open-modal-button btn btn-light btn-sm\\">Select Source</button></div>
 </div>"
 `;
 
