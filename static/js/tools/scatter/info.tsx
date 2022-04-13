@@ -63,10 +63,8 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>
-            Population in Poverty Per Capita vs. Mean Solar Insolation
-          </b>{" "}
-          for counties in{" "}
+          <b>Population in Poverty Per Capita vs. Mean Solar Insolation</b> for
+          counties in{" "}
           <a
             href={
               "#&svx=Mean_SolarInsolation&svy=Count_Person_BelowPovertyLevelInThePast12Months&pcy=1&dy=Count_Person&epd=country/USA&ept=County&ct=1"
@@ -84,18 +82,27 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Water Withdrawal for Irrigation vs. Projected Temperature Rise</b> for counties in{" "}
-          <a href={"#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=country/USA&ept=County&ct=1"}>
+          <b>Water Withdrawal for Irrigation vs. Projected Temperature Rise</b>{" "}
+          for counties in{" "}
+          <a
+            href={
+              "#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=country/USA&ept=County&ct=1"
+            }
+          >
             USA
-          </a>,{" "}
-          <a href={"#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=geoId/06&ept=County&ct=1"}>
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=geoId/06&ept=County&ct=1"
+            }
+          >
             California
           </a>
-
         </li>
         <li>
-          <b>Literate Population Per Capita vs. Schools Per Capita</b>{" "}
-          for states in{" "}
+          <b>Literate Population Per Capita vs. Schools Per Capita</b> for
+          states in{" "}
           <a
             href={
               "#&svx=Count_School&pcx=1&dx=Count_Person&svy=Count_Person_Literate&pcy=1&dy=Count_Person&epd=country/IND&ept=AdministrativeArea1&ct=1"
@@ -139,7 +146,8 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Bachelor's Degree Attainment vs. Female Population Per Capita</b> for counties in{" "}
+          <b>Bachelor&apos;s Degree Attainment vs. Female Population Per Capita</b>{" "}
+          for counties in{" "}
           <a
             href={
               "#&svx=Count_Person_Female&pcx=1&dx=Count_Person&svy=Count_Person_EducationalAttainmentBachelorsDegree&pcy=1&dy=Count_Person&epd=geoId/06&ept=County"
