@@ -110,7 +110,8 @@ export function Chart(props: ChartProps): JSX.Element {
     statVar.dcid in statVar.info ? statVar.info[statVar.dcid] : {};
   const title = getTitle(
     Array.from(props.dates),
-    mainSvInfo.title || statVar.dcid
+    mainSvInfo.title || statVar.dcid,
+    statVar.perCapita
   );
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVar.dcid;
