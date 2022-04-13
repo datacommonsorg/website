@@ -54,6 +54,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
+    console.log(this.downloadLink);
     if (this.downloadLink) {
       this.downloadLink.onclick = () => {
         saveToFile("export.csv", this.createDataCsv());
@@ -120,11 +121,11 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   private onDataUpdate(groupId: string, data: StatData) {
     this.allStatData[groupId] = data;
     if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
-      this.downloadLink.style.visibility = "visible";
-      this.bulkDownloadLink.style.visibility = "visible";
+      this.downloadLink.style.display = "inline-block";
+      this.bulkDownloadLink.style.display = "inline-block";
     } else {
-      this.downloadLink.style.visibility = "hidden";
-      this.bulkDownloadLink.style.visibility = "hidden";
+      this.downloadLink.style.display = "none";
+      this.bulkDownloadLink.style.display = "none";
     }
   }
 

@@ -23,16 +23,8 @@
 @import "../tool_chart_footer";
 
 // TODO(chejennifer): factor out some common styling
-.card {
-  flex-grow: 1;
-  flex-shrink: 1;
-  margin-bottom: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 15px;
-}
 
 #main-pane #plot-container {
-  background: #f8f8f8;
   direction: initial;
   padding: 2rem;
   overflow-y: scroll;

@@ -21,7 +21,7 @@
 {% set title = "Timelines Explorer" %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css', t=config['VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css')}}>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 {% endblock %}
@@ -39,4 +39,11 @@
 {% block subfooter_extra %}
 <button id="download-link" class="btn-subfooter btn btn-dark" style="visibility: hidden">Download Data</button>
 <a id="bulk-download-link" href="javascript:void(0)" style="visibility: hidden">Bulk Download</a>
+{% endblock %}
+
+{% block subfooter_extra_iitm %}
+<div padding="10">
+<button id="download-link" class="btn btn-secondary" style="visibility: hidden">Download Data</button>
+<a id="bulk-download-link" class="btn btn-secondary" href="javascript:void(0)" style="visibility: hidden">Bulk Download</a>
+</div>
 {% endblock %}

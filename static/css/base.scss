@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+$dc-primary-color: #660000;
+
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
   --breakpoint-xl: 1040px;
@@ -24,8 +26,8 @@
   --dc-white: #fff;
   --dc-blue: #67adff;
   // Following vars are override in "feeding-america" and "sustainability" mode
-  --dc-primary: #660000;
-  --link-color: #660000;
+  --dc-primary: #{$dc-primary-color};
+  --link-color: #{$dc-primary-color};
 }
 
 :root.feeding-america {
@@ -70,6 +72,10 @@ $container-max-widths: (
 );
 
 $hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66 / 10%);
+
+$theme-colors: (
+  "primary": $dc-primary-color
+);
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -189,6 +195,16 @@ $hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66
   border-top: 1px solid $gray-300;
   padding-top: 1.5rem;
   padding-bottom: 3rem;
+  line-height: 2.5rem;
+}
+
+#sub-footer .btn,
+#sub-footer a {
+  margin-right: 0.75rem;
+}
+
+#sub-footer a:last-of-type {
+  margin-right: 0;
 }
 
 #main-footer section a {
