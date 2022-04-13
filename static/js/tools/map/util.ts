@@ -42,6 +42,7 @@ import {
   ProvenanceSummary,
 } from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
+import { DEFAULT_DENOM_DCID } from "../scatter/util";
 import { getPopulationDate, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
@@ -177,7 +178,7 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
     date: date ? date : "",
-    denom: denom ? denom : "",
+    denom: denom ? denom : DEFAULT_DENOM_DCID,
     mapPointSv: mapPointSv ? mapPointSv : "",
     metahash: metahash ? metahash : "",
   };

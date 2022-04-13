@@ -42,15 +42,10 @@ interface ToolChartFooterPropType {
   onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
   // Whether to hide isRatio option.
   hideIsRatio: boolean;
-  // Whether or not the chart is showing ratio calculation. Used when
-  // hideIsRatio is false.
-  isRatio?: boolean;
+  // Whether or not the chart is showing per capita calculation.
+  isPerCapita?: boolean;
   // Callback when isRatio is updated. Used when hideIsRatio is false.
-  onIsRatioUpdated?: (isRatio: boolean) => void;
-  // The denominator used to calculate ratio. Used when hideIsRatio is false.
-  denom?: string;
-  // Callback when denom is updated. Used when hideIsRatio is false.
-  onDenomUpdated?: (denom: string) => void;
+  onIsPerCapitaUpdated?: (isPerCapita: boolean) => void;
   // children components
   children?: React.ReactNode;
   // Whether the chart options section should start opened
@@ -69,7 +64,6 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
   const [chartOptionsOpened, setChartOptionsOpened] = useState(
     props.optionsOpened
   );
-  const [denomInput, setDenomInput] = useState(props.denom);
 
   return (
     <>
@@ -109,24 +103,11 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                   <Input
                     id={ratioCheckboxId}
                     type="checkbox"
-                    checked={props.isRatio}
-                    onChange={() => props.onIsRatioUpdated(!props.isRatio)}
+                    checked={props.isPerCapita}
+                    onChange={() => props.onIsPerCapitaUpdated(!props.isPerCapita)}
                   />
-                  Ratio of
+                  Per Capita
                 </Label>
-                <input
-                  className="denom-input"
-                  disabled={!props.isRatio}
-                  placeholder={DENOM_INPUT_PLACEHOLDER}
-                  onBlur={() => props.onDenomUpdated(denomInput)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      props.onDenomUpdated(denomInput);
-                    }
-                  }}
-                  value={denomInput}
-                  onChange={(e) => setDenomInput(e.target.value)}
-                />
               </FormGroup>
             </span>
           )}

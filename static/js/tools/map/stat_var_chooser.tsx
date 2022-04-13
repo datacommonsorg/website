@@ -30,6 +30,7 @@ import {
   getEnclosedPlacesPromise,
   getSamplePlaces,
 } from "../../utils/place_utils";
+import { DEFAULT_DENOM_DCID } from "../scatter/util";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -160,7 +161,7 @@ function selectStatVar(
   statVar.set({
     date: "",
     dcid,
-    denom: "",
+    denom: DEFAULT_DENOM_DCID,
     info: null,
     perCapita: false,
     mapPointSv: "",
