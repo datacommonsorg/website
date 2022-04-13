@@ -285,19 +285,19 @@
       <h3>Covid-19</h3>
       <p>
         <span class="img-card float-md-right" style="width: 312px">
-          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_NoHealthInsurance%26pcx%3D1%26dx%3DCount_Person%26svy%3DCumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase%26pcy%3D1%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D1000%26qd%3D1%26dd%3D1' %}
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_NoHealthInsurance%26pcx%3D1%26dx%3DCount_Person%26svy%3DCumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase%26pcy%3D1%26datey%3D2022-04-10%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D10000%26dd%3D1' %}
           <a href="{{ chart_link }}">
             <img class="img-thumbnail" src="/images/home-covid_uninsured.png" />
           </a>
-          <small class="caption"><a href="{{ chart_link }}">Percentage positive Covid-19 cases vs. Percentage uninsured across US counties</a> (source: US Census, New York Times)</small>
+          <small class="caption"><a href="{{ chart_link }}">Fraction of positive Covid-19 cases vs. Fraction of uninsured across US counties</a> (source: US Census, New York Times)</small>
         </span>
         As many insightful articles from the <a href="https://www.nytimes.com/news-event/coronavirus">New York Times</a> and others pointed
         out, Covid-19 affected African American communities much more.
         Unfortunately, Covid-19 prevalence is correlated<a href="#fn-correlation"><sup>3</sup></a> with many other
         indicators. For example, we see that Covid-19 infection rates are highly
         correlated with the fraction of the population that is <a
-        href="/tools/scatter#&svx=Count_Person_NoHealthInsurance&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">uninsured</a>, with the fraction of the population that is <a
-        href="/tools/scatter#&svx=Count_Person_BelowPovertyLevelInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">below the poverty line</a>, the fraction of the population on
+        href="/tools/scatter#&svx=Count_Person_NoHealthInsurance&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">uninsured</a>, with the fraction of the population <a
+        href="/tools/scatter#&svx=Count_Person_BelowPovertyLevelInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">in poverty</a>, the fraction of the population on
         <a href="/tools/scatter#&svx=Count_Household_WithFoodStampsInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">food stamps</a>, etc.
       </p>
       <p>
@@ -312,11 +312,11 @@
       <h3>Income and other inequalities</h3>
       <p>
         <span class="img-card float-md-left" style="width: 312px">
-          {% set chart_link='/tools/scatter#&svx=Count_Person_BelowPovertyLevelInThePast12Months&pcx=1&svy=Percent_Person_Obesity&epd=country/USA&ept=County&lb=1000&dd=1' %}
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcx%3D1%26dx%3DCount_Person%26svy%3DPercent_Person_Obesity%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D1000%26dd%3D1' %}
           <a href="{{ chart_link }}">
             <img class="img-thumbnail" src="/images/home-obesity_poverty.png" />
           </a>
-          <small class="caption"><a href="{{ chart_link }}">Prevalence of obesity vs. Percentage below poverty level</a> (source: US Census, CDC)</small>
+          <small class="caption"><a href="{{ chart_link }}">Prevalence of obesity vs. Fraction of population in poverty</a> (source: US Census, CDC)</small>
         </span>
         Studies from <a
         target="blank" href="https://www.cdc.gov/pcd/issues/2018/18_0217.htm">CDC {{ external_icon() }}</a> and
