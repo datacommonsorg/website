@@ -19,6 +19,7 @@ import React, { Component } from "react";
 
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
+import { DEFAULT_DENOM_DCID } from "../scatter/util";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -99,7 +100,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
               pc={getChartOption(mprop, "pc")}
-              denom={getDenom(mprop) || ""}
+              denom={getDenom(mprop) || DEFAULT_DENOM_DCID}
               delta={getChartOption(mprop, "delta")}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {

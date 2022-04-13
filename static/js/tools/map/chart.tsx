@@ -264,7 +264,6 @@ export function Chart(props: ChartProps): JSX.Element {
         onIsPerCapitaUpdated={(isPerCapita: boolean) =>
           props.statVar.setPerCapita(isPerCapita)
         }
-        optionsOpened={true}
       >
         {props.placeInfo.mapPointPlaceType && (
           <div className="chart-option">

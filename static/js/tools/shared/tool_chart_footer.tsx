@@ -48,8 +48,6 @@ interface ToolChartFooterPropType {
   onIsPerCapitaUpdated?: (isPerCapita: boolean) => void;
   // children components
   children?: React.ReactNode;
-  // Whether the chart options section should start opened
-  optionsOpened?: boolean;
 }
 
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
@@ -61,9 +59,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
     ? Array.from(props.mMethods).join(", ")
     : "";
   const ratioCheckboxId = props.chartId + "-ratio";
-  const [chartOptionsOpened, setChartOptionsOpened] = useState(
-    props.optionsOpened
-  );
+  const [chartOptionsOpened, setChartOptionsOpened] = useState(true);
 
   return (
     <>

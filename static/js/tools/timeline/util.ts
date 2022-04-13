@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import _ from "lodash";
+import { DEFAULT_DENOM_DCID } from "../scatter/util";
 
 export const statVarSep = "__";
 export const placeSep = ",";

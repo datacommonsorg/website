@@ -166,12 +166,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           sourceSelectorSvInfoList={sourceSelectorSvInfoList}
           onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
           hideIsRatio={false}
-          isRatio={this.props.pc}
-          onIsRatioUpdated={(isRatio: boolean) =>
-            setChartOption(this.props.mprop, "pc", isRatio)
+          isPerCapita={this.props.pc}
+          onIsPerCapitaUpdated={(isPerCapita: boolean) =>
+            setChartOption(this.props.mprop, "pc", isPerCapita)
           }
-          denom={this.props.denom}
-          onDenomUpdated={(denom: string) => setDenom(this.props.mprop, denom)}
         >
           <span className="chart-option">
             <FormGroup check>
