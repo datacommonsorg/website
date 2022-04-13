@@ -15,13 +15,14 @@
 """
 
 import json
+import urllib.parse
 import services.datacommons as dc_service
 import routes.api.place as place_api
 import routes.api.landing_page as landing_page_api
 
 from geojson_rewind import rewind
 from cache import cache
-from flask import Blueprint, current_app, request, Response, g
+from flask import Blueprint, current_app, request, Response, g, url_for
 from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
@@ -416,7 +417,11 @@ def choropleth_data(dcid):
         is_scaled = (('relatedChart' in cc and
                       cc['relatedChart'].get('scale', False)) or
                      ('denominator' in cc))
-        exploreUrl = landing_page_api.build_url([dcid], {sv: denom}, is_scaled)
+        url_anchor = '&pd={}&ept={}&sv={}'.format(dcid, display_level, sv)
+        if is_scaled:
+            url_anchor += "&pc=1"
+        explore_url = urllib.parse.unquote(
+            url_for('tools.map', _anchor=url_anchor))
         # process the set of sources and set of dates collected for this chart
         # config
         sources = filter(lambda x: x != "", sources)
@@ -427,7 +432,7 @@ def choropleth_data(dcid):
             'data': data_dict,
             'numDataPoints': len(data_dict.values()),
             # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
-            'exploreUrl': exploreUrl,
+            'exploreUrl': explore_url,
             'sources': sorted(list(sources))
         }
         result[sv] = cc_result
