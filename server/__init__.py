@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import logging
 import os
 import time
@@ -136,7 +135,8 @@ def create_app():
     if not cfg.TEST and not cfg.LITE:
         secret_client = secretmanager.SecretManagerServiceClient()
         secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                        'maps-api-key', '1')
+                                                        'maps-api-key',
+                                                        'latest')
         secret_response = secret_client.access_secret_version(name=secret_name)
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
@@ -181,5 +181,10 @@ def create_app():
     @app.context_processor
     def inject_locale():
         return dict(locale=get_locale())
+
+    @app.teardown_request
+    def log_unhandled(e):
+        if e is not None:
+            logging.error("Error thrown for request: %s, error: %s", request, e)
 
     return app

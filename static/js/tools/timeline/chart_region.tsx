@@ -17,6 +17,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { Chart } from "./chart";
@@ -99,7 +100,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
               pc={getChartOption(mprop, "pc")}
-              denom={getDenom(mprop) || ""}
+              denom={getDenom(mprop) || DEFAULT_POPULATION_DCID}
               delta={getChartOption(mprop, "delta")}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
