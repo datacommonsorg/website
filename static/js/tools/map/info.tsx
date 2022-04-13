@@ -59,8 +59,7 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Annual Non-Biogenic Carbon Dioxide Emissions</b>{" "}
-          across states in{" "}
+          <b>Annual Non-Biogenic Carbon Dioxide Emissions</b> across states in{" "}
           <a
             href={
               "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
@@ -132,7 +131,8 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Attainment of Bachelor&apos;s Degree or Higher</b> across counties in{" "}
+          <b>Attainment of Bachelor&apos;s Degree or Higher</b> across counties
+          in{" "}
           <a
             href={
               "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=country/USA&ept=County"

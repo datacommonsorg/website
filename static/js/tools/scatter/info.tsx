@@ -42,7 +42,8 @@ function Info(): JSX.Element {
       <ul>
         <li>
           <b>
-            Prevalence Of Coronary Heart Disease vs. Projected Temperature Rise (RCP 4.5)
+            Prevalence Of Coronary Heart Disease vs. Projected Temperature Rise
+            (RCP 4.5)
           </b>{" "}
           for counties in{" "}
           <a
@@ -81,7 +82,10 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Water Withdrawal for Irrigation vs. Projected Temperature Rise (RCP 4.5)</b>{" "}
+          <b>
+            Water Withdrawal for Irrigation vs. Projected Temperature Rise (RCP
+            4.5)
+          </b>{" "}
           for counties in{" "}
           <a
             href={
@@ -145,7 +149,9 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Bachelor&apos;s Degree Attainment vs. Female Population Per Capita</b>{" "}
+          <b>
+            Bachelor&apos;s Degree Attainment vs. Female Population Per Capita
+          </b>{" "}
           for counties in{" "}
           <a
             href={
