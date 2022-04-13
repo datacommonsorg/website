@@ -29,7 +29,7 @@ gcloud alpha services api-keys create \
   --api-target=service=places_backend
 
 API_KEY_NAME=$(gcloud alpha services api-keys list --filter='displayName=maps-api-key' --format='value(name)')
-KEY_STRING=$(gcloud alpha services api-keys get-key-string $API_KEY_NAME)
+KEY_STRING=$(gcloud alpha services api-keys get-key-string $API_KEY_NAME --format='value(keyString)')
 
 touch /tmp/dc-website-api-key
 > /tmp/dc-website-api-key
