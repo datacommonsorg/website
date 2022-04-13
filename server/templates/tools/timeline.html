@@ -21,7 +21,7 @@
 {% set title = "Timelines Explorer" %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css')}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css', t=config['VERSION'])}}>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 {% endblock %}

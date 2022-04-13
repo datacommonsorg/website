@@ -26,12 +26,16 @@
 <div class="container">
   <h1>We would love to get your feedback!</h1>
 
-  <section>
+  <div padding="2rem">
     <h2>Data Issues</h2>
     <p>If you noticed some error in the data or something that looked odd,
     you can
       <ul>
-        <li>Send us an email to <em class="email">support at datacommons dot org</em>,
+        <li>Send us an email to       {% if config['IITM'] %}
+          <em class="email">iitm.datacommons at gmail dot com</em>
+          {% else %}
+          <em class="email">collaborations at datacommons dot org</em>
+          {% endif %},
           or
         </li>
         <li>File an <a
@@ -44,19 +48,24 @@
       Please make sure you include enough details, including a url or screenshot of
       the issue.
     </p>
-    </section>
+    </div>
 
-  <section>
+  <div padding="2rem">
     <h2>Contributing Data</h2>
     <p>
       We are actively looking to partner with Government organizations,
       Universities and NGOs to add authoritative data. If you are
-      interested, please email us at <em class="email">collaborations at datacommons
-        dot org</em>
+      interested, please email us at 
+      {% if config['IITM'] %}
+      <em class="email">iitm.datacommons at gmail dot com</em>
+      {% else %}
+      <em class="email">collaborations at datacommons dot org</em>
+      {% endif %}
     </p>
-    </section>
+    </div>
 
-  <section>
+  {% if not config['IITM'] %}
+  <div padding="2rem">
     <h2>Other Participation</h2>
     <p>
       Data Commons has benefited greatly from our collaborations with
@@ -66,5 +75,6 @@
       using Data Commons, for improving documentation and more. Click
       <a href="https://docs.datacommons.org/contributing/">here for more details</a>.
     </p>
-  </section>
+  </div>
+  {% endif %}
   {% endblock %}

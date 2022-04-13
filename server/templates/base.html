@@ -85,6 +85,52 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
+            {% if config['IITM'] %}
+            <ul class="navbar-nav float-md-right">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% trans %}Explore{% endtrans %}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
+                  <!-- <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a> -->
+                  <!-- <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a> -->
+                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">{% trans %}Documentation{% endtrans %}</a>
+                <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
+                  <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {% trans %}About{% endtrans %}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
+                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
+                  <!-- <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{% endtrans %}</a> -->
+                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
+                </div>
+              </li>
+              <li id="navbar-search-icon">
+                <a href="{{ url_for('search.search') }}">
+                  <img src="/images/icon-search-navbar.svg" />
+                </a>
+              </li>
+            </ul>
+            {% else %}
             <ul class="navbar-nav float-md-right">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
@@ -129,6 +175,7 @@
                 </a>
               </li>
             </ul>
+            {% endif %}
           </div>
         </div>
       </nav>
@@ -204,9 +251,9 @@
                         {# TRANSLATORS: The label for a link to site terms and conditions. #}
                         <a class="footer-links" href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a> ·&nbsp;
                         {# TRANSLATORS: The label for a link to site privacy policy. #}
-                        <a class="footer-links" href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a> ·&nbsp;
-                        {# TRANSLATORS: The label for a link to site disclaimers. #}
-                        <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
+                        <a class="footer-links" href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
+                        <!-- {# TRANSLATORS: The label for a link to site disclaimers. #}
+                        <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a> -->
                         <h5>India Data Commons</h5>
                         
                     </div>
@@ -313,6 +360,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="/iitm/creative.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     
   {% endif %}
 
