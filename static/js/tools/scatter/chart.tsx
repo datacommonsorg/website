@@ -161,6 +161,7 @@ function Chart(props: ChartPropsType): JSX.Element {
         sourceSelectorSvInfoList={props.sourceSelectorSvInfo}
         onSvMetahashUpdated={props.onSvMetahashUpdated}
         hideIsRatio={true}
+        optionsOpened={true}
       >
         <PlotOptions />
       </ToolChartFooter>

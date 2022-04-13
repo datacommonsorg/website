@@ -53,6 +53,8 @@ interface ToolChartFooterPropType {
   onDenomUpdated?: (denom: string) => void;
   // children components
   children?: React.ReactNode;
+  // Whether the chart options section should start opened
+  optionsOpened?: boolean;
 }
 
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
@@ -64,7 +66,9 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
     ? Array.from(props.mMethods).join(", ")
     : "";
   const ratioCheckboxId = props.chartId + "-ratio";
-  const [chartOptionsOpened, setChartOptionsOpened] = useState(false);
+  const [chartOptionsOpened, setChartOptionsOpened] = useState(
+    props.optionsOpened
+  );
   const [denomInput, setDenomInput] = useState(props.denom);
 
   return (
