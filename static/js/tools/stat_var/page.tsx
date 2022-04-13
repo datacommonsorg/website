@@ -124,7 +124,7 @@ class Page extends Component<unknown, PageStateType> {
             <div ref={this.svHierarchyModalRef} className="full-size"></div>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggleSvHierarchyModal}>
+            <Button className="d-lg-none" color="primary" onClick={this.toggleSvHierarchyModal}>
               Done
             </Button>
           </ModalFooter>
@@ -134,7 +134,7 @@ class Page extends Component<unknown, PageStateType> {
             {!this.state.statVar && (
               <>
                 <Info />
-                <Button color="primary" onClick={this.toggleSvHierarchyModal}>
+                <Button className="d-lg-none" color="primary" onClick={this.toggleSvHierarchyModal}>
                   Select variable
                 </Button>
               </>
