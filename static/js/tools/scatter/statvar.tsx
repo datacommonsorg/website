@@ -34,8 +34,8 @@ import {
   ModalFooter,
   ModalHeader,
 } from "reactstrap";
-import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
