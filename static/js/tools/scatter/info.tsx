@@ -145,7 +145,7 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Bachelor&apos;s Degree Attainment vs. Female Population Per Capita</b>{" "}
+          <b>Bachelor&apos;s Degree Attainment vs. Population of Women Per Capita</b>{" "}
           for counties in{" "}
           <a
             href={
@@ -172,7 +172,7 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Covid-19 Cases vs. African American Population Per Capita</b> for{" "}
+          <b>Covid-19 Cases vs. Population of African Americans Per Capita</b> for{" "}
           <a
             href={
               "#&svx=Count_Person_BlackOrAfricanAmericanAlone&pcx=1&dx=Count_Person&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&dy=Count_Person&epd=country/USA&ept=State"
