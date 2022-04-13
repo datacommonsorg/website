@@ -15,8 +15,6 @@
  */
 import _ from "lodash";
 
-import { DEFAULT_DENOM_DCID } from "../scatter/util";
-
 export const statVarSep = "__";
 export const placeSep = ",";
 export const TIMELINE_URL_PARAM_KEYS = {

@@ -21,6 +21,7 @@
 import _ from "lodash";
 import React, { createRef, useContext, useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
@@ -30,7 +31,6 @@ import {
   getEnclosedPlacesPromise,
   getSamplePlaces,
 } from "../../utils/place_utils";
-import { DEFAULT_DENOM_DCID } from "../scatter/util";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -161,7 +161,7 @@ function selectStatVar(
   statVar.set({
     date: "",
     dcid,
-    denom: DEFAULT_DENOM_DCID,
+    denom: DEFAULT_POPULATION_DCID,
     info: null,
     perCapita: false,
     mapPointSv: "",

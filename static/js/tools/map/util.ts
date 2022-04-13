@@ -23,6 +23,7 @@ import _ from "lodash";
 import {
   BANGLADESH_PLACE_DCID,
   CHINA_PLACE_DCID,
+  DEFAULT_POPULATION_DCID,
   EUROPE_NAMED_TYPED_PLACE,
   INDIA_PLACE_DCID,
   IPCC_PLACE_50_TYPE_DCID,
@@ -42,7 +43,6 @@ import {
   ProvenanceSummary,
 } from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
-import { DEFAULT_DENOM_DCID } from "../scatter/util";
 import { getPopulationDate, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
@@ -178,7 +178,7 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
     date: date ? date : "",
-    denom: denom ? denom : DEFAULT_DENOM_DCID,
+    denom: denom ? denom : DEFAULT_POPULATION_DCID,
     mapPointSv: mapPointSv ? mapPointSv : "",
     metahash: metahash ? metahash : "",
   };

@@ -20,6 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 
 import {
   GetStatSetAllResponse,
@@ -40,8 +41,6 @@ export enum ScatterChartType {
   SCATTER,
   MAP,
 }
-
-export const DEFAULT_DENOM_DCID = "Count_Person";
 
 async function getStatsWithinPlace(
   parentPlace: string,
@@ -182,7 +181,7 @@ function applyHashAxis(params: URLSearchParams, isX: boolean): Axis {
   axis.metahash =
     params.get(addSuffix(FieldToAbbreviation.metahash, isX)) || "";
   axis.denom =
-    params.get(addSuffix(FieldToAbbreviation.denom, isX)) || DEFAULT_DENOM_DCID;
+    params.get(addSuffix(FieldToAbbreviation.denom, isX)) || DEFAULT_POPULATION_DCID;
   return axis;
 }
 
