@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { createRef, useContext, useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
@@ -160,7 +161,7 @@ function selectStatVar(
   statVar.set({
     date: "",
     dcid,
-    denom: "",
+    denom: DEFAULT_POPULATION_DCID,
     info: null,
     perCapita: false,
     mapPointSv: "",
