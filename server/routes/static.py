@@ -22,13 +22,14 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-    # if current_app.config.get('PRIVATE', None):
-    #     return render_template('private_dc/default/homepage.html')
-    # if current_app.config.get('PRIVATE', None):
     if current_app.config.get('PRIVATE', None):
+        return render_template('private_dc/default/homepage.html')
+    if current_app.config.get('FEEDING_AMERICA', None):
         return render_template('private_dc/feeding_america/homepage.html')
     if current_app.config.get('IITM', None):
-        return render_template('private_dc/iitm/homepage.html')
+        # TODO: Update to:
+        # return render_template('private_dc/iitm/homepage.html')
+        return render_template('static/iitm.html')
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
                                         locale=g.locale)
