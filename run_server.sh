@@ -23,7 +23,7 @@ ENV=local
 
 function help {
   echo "Usage: $0 -ep"
-  echo "-e       Run with a specified environment. Options are: lite private sustainability. Default: local"
+  echo "-e       Run with a specified environment. Options are: lite private. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   exit 1
 }
@@ -47,8 +47,6 @@ if [[ $ENV == "lite" ]]; then
   export FLASK_ENV=local-lite
 elif [[ $ENV == "private" ]]; then
   export FLASK_ENV=local-private
-elif [[ $ENV == "sustainability" ]]; then
-  export FLASK_ENV=local-sustainability
 elif [[ $ENV == "iitm" ]]; then
   export FLASK_ENV=local-iitm
 else

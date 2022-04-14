@@ -41,7 +41,7 @@ export function Info(): JSX.Element {
       <p>Or you can start your exploration from these interesting points ...</p>
       <ul>
         <li>
-          <b>Max Temperature Relative To 2006, RCP 4.5</b> across counties in{" "}
+          <b>Projected Temperature Rise (RCP 4.5)</b> across counties in{" "}
           <a
             href={
               "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DCounty"
@@ -59,8 +59,7 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Annual Amount of Non-Biogenic Emission Source, Carbon Dioxide</b>{" "}
-          across states in{" "}
+          <b>Annual Non-Biogenic Carbon Dioxide Emissions</b> across states in{" "}
           <a
             href={
               "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
@@ -78,7 +77,7 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Withdrawal Rate of Water</b> across counties in{" "}
+          <b>Water Withdrawal Rate</b> across counties in{" "}
           <a
             href={
               "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DCounty"
@@ -132,7 +131,8 @@ export function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Attainment of Bachelor Degree or Higher</b> across counties in{" "}
+          <b>Attainment of Bachelor&apos;s Degree or Higher</b> across counties
+          in{" "}
           <a
             href={
               "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=country/USA&ept=County"

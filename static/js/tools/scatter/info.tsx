@@ -42,8 +42,8 @@ function Info(): JSX.Element {
       <ul>
         <li>
           <b>
-            Prevalence Of Coronary Heart Disease vs Max Temperature Relative To
-            2006 RCP 4.5 Difference Relative To Base Date
+            Prevalence Of Coronary Heart Disease vs. Projected Temperature Rise
+            (RCP 4.5)
           </b>{" "}
           for counties in{" "}
           <a
@@ -63,11 +63,8 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>
-            Below Poverty Level In The Past 12 Months Population Per Capita vs
-            Mean Solar Insolation
-          </b>{" "}
-          for counties in{" "}
+          <b>Population in Poverty Per Capita vs. Mean Solar Insolation</b> for
+          counties in{" "}
           <a
             href={
               "#&svx=Mean_SolarInsolation&svy=Count_Person_BelowPovertyLevelInThePast12Months&pcy=1&dy=Count_Person&epd=country/USA&ept=County&ct=1"
@@ -85,8 +82,30 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Literate Population Per Capita vs Count Of Schools Per Capita</b>{" "}
-          for states in{" "}
+          <b>
+            Water Withdrawal for Irrigation vs. Projected Temperature Rise (RCP
+            4.5)
+          </b>{" "}
+          for counties in{" "}
+          <a
+            href={
+              "#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=country/USA&ept=County&ct=1"
+            }
+          >
+            USA
+          </a>
+          ,{" "}
+          <a
+            href={
+              "#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=geoId/06&ept=County&ct=1"
+            }
+          >
+            California
+          </a>
+        </li>
+        <li>
+          <b>Literate Population Per Capita vs. Schools Per Capita</b> for
+          states in{" "}
           <a
             href={
               "#&svx=Count_School&pcx=1&dx=Count_Person&svy=Count_Person_Literate&pcy=1&dy=Count_Person&epd=country/IND&ept=AdministrativeArea1&ct=1"
@@ -96,7 +115,7 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Asians Per Capita vs Median Income</b> for counties in{" "}
+          <b>Asians Per Capita vs. Median Income</b> for counties in{" "}
           <a
             href={
               "#&svx=Median_Income_Person&svy=Count_Person_AsianAlone&pcy=1&dy=Count_Person&epd=geoId/06&ept=County"
@@ -130,7 +149,10 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Bachelor Degree Attained vs Females Per Capita</b> for counties in{" "}
+          <b>
+            Bachelor&apos;s Degree Attainment vs. Female Population Per Capita
+          </b>{" "}
+          for counties in{" "}
           <a
             href={
               "#&svx=Count_Person_Female&pcx=1&dx=Count_Person&svy=Count_Person_EducationalAttainmentBachelorsDegree&pcy=1&dy=Count_Person&epd=geoId/06&ept=County"
@@ -156,7 +178,7 @@ function Info(): JSX.Element {
           </a>
         </li>
         <li>
-          <b>Covid-19 Cases vs African American Per Capita</b> for{" "}
+          <b>Covid-19 Cases vs. African American Population Per Capita</b> for{" "}
           <a
             href={
               "#&svx=Count_Person_BlackOrAfricanAmericanAlone&pcx=1&dx=Count_Person&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&dy=Count_Person&epd=country/USA&ept=State"
