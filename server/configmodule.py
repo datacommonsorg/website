@@ -24,12 +24,12 @@ class Config:
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = False
+    ENV_NAME = 'BASE_DC'
     # If the deployment is a private instance.
     PRIVATE = False
-    # If the deployment is for "feeding america" instance.
-    FEEDING_AMERICA = False
     # Name of the site. The name is changed for private instance.
-    NAME = "Data Commons"
+    NAME = 'Data Commons'
+    BASE_HTML_PATH = 'base.html'
 
 
 class ProductionConfig(Config):

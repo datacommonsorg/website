@@ -14,12 +14,8 @@
 """Data Commons static content routes."""
 
 from datetime import date
-from flask import Blueprint, render_template, current_app, g
-from lib.gcs import list_blobs
+from flask import Blueprint, render_template, g, current_app
 import babel.dates as babel_dates
-
-_SA_FEED_BUCKET = 'datacommons-frog-feed'
-_MAX_BLOBS = 1
 
 bp = Blueprint('static', __name__)
 
@@ -59,14 +55,3 @@ def disclaimers():
 def feedback():
     return render_template('static/feedback.html')
 
-
-@bp.route('/special_announcement')
-def special_announcement():
-    recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-    return render_template('static/special_announcement.html',
-                           recent_blobs=recent_blobs)
-
-
-@bp.route('/special_announcement/faq')
-def special_announcement_faq():
-    return render_template('static/special_announcement_faq.html')
