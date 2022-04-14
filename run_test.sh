@@ -80,8 +80,9 @@ function run_py_test {
   cd server
   export FLASK_ENV=test
   python3 -m pytest tests/**.py -s --ignore=sustainability
-  export FLASK_ENV=test-sustainability
-  python3 -m pytest tests/sustainability/**.py
+  # TODO(beets): add tests for other private dc instances
+  # export FLASK_ENV=test-sustainability
+  # python3 -m pytest tests/sustainability/**.py
   cd ..
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style=google -p server/ tools/ -e=*pb2.py; then
