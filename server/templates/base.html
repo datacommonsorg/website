@@ -108,7 +108,7 @@
                   <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
+                  <a class="dropdown-item" href="/about#contribute">{% trans %}Contribute{% endtrans %}</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -188,10 +188,10 @@
 
     {% if config['IITM'] %}
 
-      <footer class="bg-navy text-white border-top">
-        <div class="container text-center text-sm-left position-relative pt-5">
+      <footer class="bg-navy text-white border-top" id="main-footer-iitm">
+        <div class="container text-center text-sm-left position-relative">
           {% if not is_hide_full_footer %}
-            <div class="row">
+            <div class="row pt-5">
                 <div class="col-sm-6 col-md-4">
                     <h3 class="text-info pb-2 ">{% trans %}Explore{% endtrans %}</h3>
                     <ul class="list-unstyled d-inline-block d-sm-block">
@@ -206,18 +206,18 @@
                       {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
                       <li class="mb-2"><a class="footer-links" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a></li>
                       {# TRANSLATORS: The name of a tool that provides observation and import information about statistical variables. #}
-                      <li class="mb-2"><a class="footer-links" href="{{ url_for('tools.map') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a></li>
+                      <li class="mb-2"><a class="footer-links" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a></li>
                     </ul>
                     
                     
                 </div>
                 <div class="col-sm-6 col-md-4">
-                    <h3 class="text-info pb-2 ">Documentations</h3>
+                    <h3 class="text-info pb-2 ">Documentation</h3>
                     <ul class="list-unstyled d-inline-block d-sm-block">
                         <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org">Documentation</a></li>
                         <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/api">APIs</a></li>
                         <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/tutorials">Tutorials</a></li>
-                        <li class="mb-2"><a class="footer-links" href="https://docs.datacommons.org/contributing/">Contribute</a></li>
+                        <li class="mb-2"><a class="footer-links" href="/about#contribute">Contribute</a></li>
                         <li class="mb-2"><a class="footer-links" href="http://github.com/datacommonsorg">Github Repository</a></li>
                     </ul>
                 </div>
@@ -237,9 +237,8 @@
 
             {% if not is_hide_sub_footer %}
             <div class="row">
-                <div class="col-md-6 text-left text-md-left no-decoration">
+                <div class="col-md-6 text-left text-md-left no-decoration pt-3 pb-1">
                     <a target="_blank" href="https://www.iitm.ac.in/">
-                        <!-- <img src="images/iitm-iitmadras.svg" height="55%"> -->
                         <img src="/images/iitm-iitmadras.svg" height="55%">
                     </a>
                     <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
@@ -247,19 +246,22 @@
                     </a>
                 </div>
                 
-                <div class="col-md-6 text-right pb-4">
+                <div class="col-md-6 text-right pb-4 pt-1">
                     <div class="float-md-right mt-2 mt-md-0">
-                        {% block subfooter_extra_iitm %}{% endblock %}
+                        <div style="padding: 10px;">
+                          {% block subfooter_extra_iitm %}{% endblock %}
+                        </div>
                         {# TRANSLATORS: The label for a link to site terms of use. #}
                         <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">{% trans %}Terms Of Use{% endtrans %}</a> ·&nbsp;
                         {# TRANSLATORS: The label for a link to site privacy policy. #}
                         <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a> ·&nbsp;
                         {# TRANSLATORS: The label for a link to site disclaimers. #}
                         <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
-                        <h5>India Data Commons</h5>
+                        <p style="display: inline; font-weight: 600;">&nbsp;&nbsp;| &nbsp;&nbsp;India Data Commons</p>
                         
                     </div>
                 </div>
+              </div>
             </div>
 
             {% endif %}

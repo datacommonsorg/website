@@ -60,7 +60,15 @@ function updatePageLayoutState(): void {
     .offsetHeight;
   const sidebarRegionHeight = document.getElementById("sidebar-region")
     .offsetHeight;
-  const footerHeight = document.getElementById("main-footer").offsetHeight;
+
+  // Unique ID for IITM place page
+  // Without this, the charts don't load
+  var iitm = document.getElementById("main-footer-iitm");
+  if (iitm) {
+    const footerHeight = document.getElementById("main-footer-iitm").offsetHeight;
+  } else {
+    const footerHeight = document.getElementById("main-footer").offsetHeight;
+  }
   sidebarTopMax =
     sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN - footerHeight;
 }
