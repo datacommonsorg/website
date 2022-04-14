@@ -57,7 +57,8 @@ class PrivateConfig(Config):
 
 class FeedingAmericaConfig(PrivateConfig):
     NAME = "Feeding America"
-    FEEDING_AMERICA = True
+    ENV_NAME = 'FEEDING_AMERICA'
+    BASE_HTML_PATH = 'private_dc/feeding_america/base.html'
 
 
 class TidalConfig(PrivateConfig):
@@ -107,6 +108,8 @@ class LocalPrivateConfig(PrivateConfig):
     SECRET_PROJECT = 'datcom-website-private'
     NAME = "Feeding America"
     SCHEME = 'http'
+    ENV_NAME = 'FEEDING_AMERICA'
+    BASE_HTML_PATH = 'private_dc/feeding_america/base.html'
 
 
 class LocalLiteConfig(Config):
