@@ -55,7 +55,7 @@ class PrivateConfig(Config):
     PRIVATE = True
 
 
-class FeedingAmericaConfig(Config):
+class FeedingamericaConfig(Config):
     FEEDING_AMERICA = True
     NAME = "Feeding America"
 
@@ -96,7 +96,7 @@ class LocalIitmConfig(LocalConfig):
     IITM = True
 
 
-class LocalFeedingAmericaConfig(LocalConfig):
+class LocalFeedingamericaConfig(LocalConfig):
     FEEDING_AMERICA = True
 
 
