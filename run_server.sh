@@ -51,6 +51,8 @@ elif [[ $ENV == "sustainability" ]]; then
   export FLASK_ENV=local-sustainability
 elif [[ $ENV == "iitm" ]]; then
   export FLASK_ENV=local-iitm
+elif [[ ! -z ${ENV+x} ]]; then
+  export FLASK_ENV=$ENV
 else
   export FLASK_ENV=local
 fi
