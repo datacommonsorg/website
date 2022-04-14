@@ -95,6 +95,7 @@ class LocalConfig(Config):
 class LocalIitmConfig(LocalConfig):
     IITM = True
 
+
 class LocalFeedingAmericaConfig(LocalConfig):
     FEEDING_AMERICA = True
 
@@ -107,7 +108,7 @@ class LocalPrivateConfig(PrivateConfig):
     AI_CONFIG_PATH = os.path.abspath(
         os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
     LOCAL = True
-    SECRET_PROJECT = 'datcom-website-private '
+    SECRET_PROJECT = 'datcom-website-private'
     NAME = "Feeding America"
     SCHEME = 'http'
 
