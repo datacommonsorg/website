@@ -32,6 +32,8 @@ bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 # this works for US places, but hierarchy of places in other countries may be different
 CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "Country": "AdministrativeArea1",
+    "State": "County",
+    "County": "County",
     "AdministrativeArea1": "AdministrativeArea2",
     "AdministrativeArea2": "AdministrativeArea2",
     "AdministrativeArea3": "AdministrativeArea3"
@@ -82,6 +84,12 @@ def get_choropleth_display_level(geoDcid):
 
     if place_type == display_level:
         parents_places = place_api.parent_places(geoDcid)
+        # Multiple place types can be equivalent (eg. County and AA2) and we
+        # want to find the parent who's display level is equivalent to the
+        # geoDcid display_level
+        target_display_levels = set([display_level])
+        if display_level in EQUIVALENT_PLACE_TYPES:
+            target_display_levels.add(EQUIVALENT_PLACE_TYPES[display_level])
         for parent in parents_places.get(geoDcid, []):
             parent_dcid = parent.get('dcid', None)
             if not parent_dcid:
@@ -93,7 +101,7 @@ def get_choropleth_display_level(geoDcid):
                 if not parent_display_level:
                     parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
                         EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
-                if parent_display_level == display_level:
+                if parent_display_level in target_display_levels:
                     return parent_dcid, display_level
         return None, None
     else:

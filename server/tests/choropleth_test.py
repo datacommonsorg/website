@@ -75,7 +75,7 @@ class TestChoroplethPlaces(unittest.TestCase):
             }]
         }
         result = choropleth_api.get_choropleth_display_level(dcid)
-        assert result == (parent_dcid, "AdministrativeArea2")
+        assert result == (parent_dcid, "County")
 
     @patch('routes.api.choropleth.place_api.parent_places')
     @patch('routes.api.choropleth.place_api.get_place_type')
@@ -92,7 +92,7 @@ class TestChoroplethPlaces(unittest.TestCase):
             }]
         }
         result = choropleth_api.get_choropleth_display_level(dcid)
-        assert result == (parent_dcid, "AdministrativeArea2")
+        assert result == (parent_dcid, "County")
 
     class TestGetGeoJson(unittest.TestCase):
 
