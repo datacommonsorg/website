@@ -127,9 +127,6 @@ msgstr "Просмотр точечных диаграмм"
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "Search"
-msgstr ""
-
 msgid "States, United States"
 msgstr "Штаты в США"
 
@@ -190,9 +187,6 @@ msgstr "Процент людей с неоконченным высшим об�
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Процент имеющих степень бакалавра людей по полу"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Преступления"
 
@@ -207,6 +201,9 @@ msgstr "Образование"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Собственный капитал"
@@ -660,4 +657,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+
 

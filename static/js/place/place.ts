@@ -40,6 +40,9 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 // Margin to apply to the fixed sidebar top.
 const Y_SCROLL_MARGIN = 100;
 const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
+const CATEGORY_REDIRECT = {
+  Climate: "Environment",
+};
 
 window.onload = () => {
   renderPage();
@@ -159,11 +162,24 @@ function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
   return isInUSA && placeTypesWithChoropleth.has(placeType);
 }
 
-function renderPage(): void {
+/**
+ * Gets the category of the page. If redirection is needed, returns the
+ * redirected to category.
+ */
+function getCategory(): string {
   const urlParams = new URLSearchParams(window.location.search);
+  let category = urlParams.get("category") || "Overview";
+  if (category in CATEGORY_REDIRECT) {
+    category = CATEGORY_REDIRECT[category];
+    urlParams.set("category", category);
+    window.location.search = urlParams.toString();
+  }
+  return category;
+}
+
+function renderPage(): void {
   const urlHash = window.location.hash;
-  // Get category and render menu.
-  const category = urlParams.get("category") || "Overview";
+  const category = getCategory();
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;

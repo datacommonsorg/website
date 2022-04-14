@@ -1,6 +1,6 @@
 [
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Air",
     "titleId": "CHART_TITLE-Air_quality_index",
     "title": "Air quality index",
@@ -13,7 +13,7 @@
     "isChoropleth": true
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Temperature",
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006",
     "title": "Projected max temperature change under RCP 2.6 (based on year 2006)",
@@ -26,7 +26,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Temperature",
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006",
     "title": "Projected max temperature change under RCP 4.5 (based on year 2006)",
@@ -39,7 +39,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Temperature",
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006",
     "title": "Projected max temperature change under RCP 6.0 (based on year 2006)",
@@ -52,7 +52,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Temperature",
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006",
     "title": "Projected max temperature change under RCP 8.5 (based on year 2006)",
@@ -65,7 +65,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Air",
     "titleId": "CHART_TITLE-Mean_concentration_PM2.5",
     "title": "Mean PM2.5 concentration",
@@ -79,7 +79,7 @@
     "isChoropleth": true
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Air",
     "titleId": "CHART_TITLE-Mean_concentration_Ozone",
     "title": "Mean ozone concentration",
@@ -93,7 +93,7 @@
     "isChoropleth": true
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Air",
     "titleId": "CHART_TITLE-Mean_concentration_DieselPM",
     "title": "Mean diesel PM concentration",
@@ -108,7 +108,7 @@
   },
 
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Water",
     "titleId": "CHART_TITLE-Palmer_drought_severity_index",
     "title": "Palmer drought severity index",
@@ -120,7 +120,7 @@
     "isChoropleth": true
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Emissions",
     "titleId": "CHART_TITLE-Annual_emissions_greenhouse_gas",
     "title": "Annual greenhouse gas emissions (large facilities, non-biogenic)",
@@ -133,7 +133,7 @@
     "isChoropleth": true
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Emissions",
     "titleId": "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic",
     "title": "Carbon dioxide emissions (large facilities, non-biogenic)",
@@ -145,7 +145,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Emissions",
     "titleId": "CHART_TITLE-methane_emissions_nonbiogenic",
     "title": "Methane emissions (large facilities, non-biogenic)",
@@ -157,7 +157,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Emissions",
     "titleId": "CHART_TITLE-nitrous_oxide_emissions_non_biogenic",
     "title": "Nitrous oxide emissions (large facilities, non-biogenic)",
@@ -169,7 +169,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Water",
     "titleId": "CHART_TITLE-water_withdrawal_rate",
     "title": "Water withdrawal rate",
@@ -181,7 +181,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Air",
     "titleId": "CHART_TITLE-Air pollutant cancer risk",
     "title": "Lifetime air toxics cancer risk",
@@ -194,7 +194,7 @@
     "isChoropleth": true
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Air",
     "titleId": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
     "title": "Carbon dioxide emissions per capita",
@@ -207,7 +207,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Disasters",
     "titleId": "CHART_TITLE-Earthquakes",
     "title": "Earthquakes",
@@ -218,7 +218,7 @@
     }
   },
   {
-    "category": "Climate",
+    "category": "Environment",
     "topic": "Disasters",
     "titleId": "CHART_TITLE-Cyclones",
     "title": "Cyclones",
