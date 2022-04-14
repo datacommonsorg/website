@@ -422,6 +422,7 @@ def choropleth_data(dcid):
                 sources.add(
                     cc_denom_data.get(place_dcid, {}).get('provenanceUrl', ""))
         # build the exploreUrl
+        # TODO: webdriver test to test that the right choropleth loads
         is_scaled = (('relatedChart' in cc and
                       cc['relatedChart'].get('scale', False)) or
                      ('denominator' in cc))
