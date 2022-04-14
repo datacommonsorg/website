@@ -381,20 +381,24 @@ function fetchData(
     (namedPlace) => namedPlace.dcid
   );
   breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
-  const breadcrumbPopPromise: Promise<StatApiResponse> = axios
-    .post(`/api/stats`, {
-      statVars: [statVar.denom],
-      places: breadcrumbPlaceDcids,
-    })
-    .then((resp) => resp.data);
-  const enclosedPlacesPopPromise: Promise<StatApiResponse> = axios
-    .get(
-      "/api/stats/set/series/within-place" +
-        `?parent_place=${placeInfo.enclosingPlace.dcid}` +
-        `&child_type=${placeInfo.enclosedPlaceType}` +
-        `&stat_vars=${statVar.denom}`
-    )
-    .then((resp) => resp.data);
+  const breadcrumbPopPromise: Promise<StatApiResponse> = statVar.denom
+    ? axios
+        .post(`/api/stats`, {
+          statVars: [statVar.denom],
+          places: breadcrumbPlaceDcids,
+        })
+        .then((resp) => resp.data)
+    : Promise.resolve({});
+  const enclosedPlacesPopPromise: Promise<StatApiResponse> = statVar.denom
+    ? axios
+        .get(
+          "/api/stats/set/series/within-place" +
+            `?parent_place=${placeInfo.enclosingPlace.dcid}` +
+            `&child_type=${placeInfo.enclosedPlaceType}` +
+            `&stat_vars=${statVar.denom}`
+        )
+        .then((resp) => resp.data)
+    : Promise.resolve({});
   const geoJsonDataPromise = axios
     .get(
       `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`

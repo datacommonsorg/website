@@ -27,7 +27,7 @@ export const placeExplorerCategories = [
   "education",
   "demographics",
   "housing",
-  "climate",
+  "environment",
   "energy",
 ];
 
