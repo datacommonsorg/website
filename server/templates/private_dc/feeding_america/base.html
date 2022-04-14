@@ -39,16 +39,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
   <link href="/css/private_dc/feeding_america/base.css" rel="stylesheet">
-  <link href="/css/private_dc/feeding_america/footer.css" rel="stylesheet">
+  <!-- <link href="/css/private_dc/feeding_america/footer.css" rel="stylesheet"> -->
   {% block head %}
   {% endblock %}
 </head>
 
-<body>
+<body id="dc">
   <header id="main-nav">
     <div class="container max-w-[960px]">
         <div id="logo">
-            <a href="https://www.feedingamerica.org/"></a>
+            <a href="https://www.feedingamerica.org/">
+              <img src="/images/fa/logo-2020.svg" />
+            </a>
         </div>
         <!--/#logo-->
         <div id="header_right">
@@ -96,17 +98,17 @@
                     <div class="collapse navbar-collapse" id="nav1">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/hunger-in-america/" id="drop1" class="nav-link-main "><span>Hunger</span> <span>in America</span></a>
+                                <a href="https://www.feedingamerica.org/hunger-in-america/" id="drop1" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
                             </li>
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/our-work/" id="drop2" class="nav-link-main"><span>Our</span> <span>Work</span></a>
+                                <a href="https://www.feedingamerica.org/our-work/" id="drop2" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
                             </li>
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/take-action/" id="drop3" class="nav-link-main "><span>Take</span> <span>Action</span></a>
+                                <a href="https://www.feedingamerica.org/take-action/" id="drop3" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
                             </li>
-                            <li class="dropdown"><a href="https://www.feedingamerica.org/find-your-local-foodbank/"><span>Find a</span> <span>Food Bank</span></a></li>
+                            <li class="dropdown"><a href="https://www.feedingamerica.org/find-your-local-foodbank/"><span>About</span></a></li>
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/hunger-blog/" id="drop4" class="nav-link-main "><span>Hunger</span> <span>Blog</span></a>
+                                <a href="https://www.feedingamerica.org/hunger-blog/" id="drop4" class="nav-link-main "><span>FAQ</span></a>
                             </li>
                         </ul>
                         <!--/.nav-->
@@ -123,75 +125,8 @@
     </div>
     <!--/.container-->
   </header>
-  FEEDING AMERICA BASE
-  <div id="main">
-    <header id="main-header">
-      <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
-        <div class="container-fluid">
-          <div class="navbar-brand">
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            {% if subpage_title %}
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
-            </a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-            <ul class="navbar-nav float-md-right">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {% trans %}Explore{% endtrans %}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">{% trans %}Documentation{% endtrans %}</a>
-                <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
-                  <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
-                  <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
-                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {% trans %}About{% endtrans %}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
-                </div>
-              </li>
-              <li id="navbar-search-icon">
-                <a href="{{ url_for('search.search') }}">
-                  <img src="/images/icon-search-navbar.svg" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
 
+  <div id="main">
     <main id="{{ main_id }}" class="main-content">
       {% block content %}
       {% endblock %}
@@ -203,9 +138,10 @@
     <div class="container max-w-[960px]">
         <div id="footer_col_one">
             <div id="footer_logo">
-                <a href="https://www.feedingamerica.org/"></a>
+                <a href="https://www.feedingamerica.org/">
+                  <img src="/images/fa/logo-white-2020.svg" />
+                </a>
             </div>
-            <!--/#footer_logo-->
             <div id="footer_social">
                 <ul class="social_icons first">
                     <li class="fbk"><a href="https://www.facebook.com/FeedingAmerica" title="Facebook">facebook</a></li>
@@ -213,9 +149,10 @@
                     <li class="igm"><a href="http://instagram.com/feedingamerica" title="Instagram">instagram</a></li>
                 </ul>
             </div>
-            <!--/#footer_social-->
-            <div id="footer_badges"><a href="http://www.charitynavigator.org/index.cfm?bay=search.summary&amp;orgid=5271" class="charity-navigator"></a><a href="http://www.bbb.org/charity-reviews/national/human-services/feeding-america-in-chicago-il-2331" class="bbb"></a></div>
-            <!--/#footer_badges-->
+            <div id="footer_badges">
+              <a href="http://www.charitynavigator.org/index.cfm?bay=search.summary&amp;orgid=5271" class="charity-navigator"></a>
+              <a href="http://www.bbb.org/charity-reviews/national/human-services/feeding-america-in-chicago-il-2331" class="bbb"></a>
+            </div>
         </div>
         <div id="footer_col_two">
             <ul class="footer_nav_redesign">
@@ -232,8 +169,8 @@
                 <li class="footer-head"><a href="https://www.feedingamerica.org/research/">Research</a></li>
                 <li><a href="https://map.feedingamerica.org/">Map the Meal Gap</a></li>
                 <li><a href="https://www.feedingamerica.org/research/coronavirus-hunger-research">Coronavirus and Food Insecurity</a></li>
-	      <li><a href="https://www.feedingamerica.org/research/charitable-food-access">Charitable Food Assistance</a></li>
-	      <li><a href="https://www.feedingamerica.org/research/hunger-in-america/">Hunger in America Study</a></li>
+                <li><a href="https://www.feedingamerica.org/research/charitable-food-access">Charitable Food Assistance</a></li>
+                <li><a href="https://www.feedingamerica.org/research/hunger-in-america/">Hunger in America Study</a></li>
                 <li><a href="https://www.feedingamerica.org/research/interactive-data/">Interactive Data</a></li>
                 <li><a href="https://www.feedingamerica.org/research/senior-hunger-research/">Senior Hunger Research</a></li>
                 <li><a href="https://www.feedingamerica.org/research/college-hunger-research/">College Hunger Research</a></li>
@@ -254,22 +191,21 @@
                 <li><a href="https://www.feedingamerica.org/ways-to-give/planned-giving/">Planned Giving</a></li>
                 <li><a href="https://www.feedingamerica.org/ways-to-give/give-stocks">Give Stocks and Funds</a></li>
                 <li><a href="https://www.feedingamerica.org/ways-to-give/give-offline">Give by Mail or Phone</a></li>
-	       <li><a href="https://www.feedingamerica.org/ways-to-give/bitcoin-cryptocurrency">Give Cryptocurrency</a></li>
-	       <li><a href="https://www.feedingamerica.org/ways-to-give/corporate-and-foundations">Corporate Partnerships</a></li>
+                <li><a href="https://www.feedingamerica.org/ways-to-give/bitcoin-cryptocurrency">Give Cryptocurrency</a></li>
+                <li><a href="https://www.feedingamerica.org/ways-to-give/corporate-and-foundations">Corporate Partnerships</a></li>
                 <li><a href="https://www.feedingamerica.org/ways-to-give/workplace-giving">Workplace Giving</a></li>
                 <li><a href="https://www.feedingamerica.org/ways-to-give/food-drives">Food Drives</a></li>
                 <li><a href="https://www.feedingamerica.org/ways-to-give/faq">FAQ</a></li>
             </ul>
             <ul class="footer_nav_redesign">
                 <li class="footer-head"><a href="https://www.feedingamerica.org/hunger-in-america/facts">Hunger Facts</a></li>
-
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/child-hunger-facts">Children</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/senior-hunger-facts">Seniors</a></li>
-	       <li><a href="https://www.feedingamerica.org/hunger-in-america/african-american">African Americans</a></li>
-	       <li><a href="https://www.feedingamerica.org/hunger-in-america/latino-hunger-facts">Latinos</a></li>
-	       <li><a href="https://www.feedingamerica.org/hunger-in-america/native-american">Native Americans</a></li>
+                <a href="https://www.feedingamerica.org/hunger-in-america/african-american">African Americans</a></li>
+                <li><a href="https://www.feedingamerica.org/hunger-in-america/latino-hunger-facts">Latinos</a></li>
+                <li><a href="https://www.feedingamerica.org/hunger-in-america/native-american">Native Americans</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/rural-hunger-facts">Rural Communities</a></li>
-	       <li><a href="https://www.feedingamerica.org/hunger-in-america/impact-of-hunger/hunger-and-nutrition">Hunger and Nutrition</a></li>
+                <li><a href="https://www.feedingamerica.org/hunger-in-america/impact-of-hunger/hunger-and-nutrition">Hunger and Nutrition</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/impact-of-hunger">Impact of Hunger</a></li>
 
             </ul>
@@ -279,7 +215,7 @@
         <div id="footer_links">
             <a href="https://www.feedingamerica.org/privacy-policy/">Privacy Policy</a>
             <a href="https://www.feedingamerica.org/privacy-policy/donor-privacy-policy">Donor Privacy</a>
-             <a href="https://feedingamerica.org/contact">Contact Us</a>
+            <a href="https://feedingamerica.org/contact">Contact Us</a>
             <a href="https://www.feedingamerica.org/en-espanol/">En Espa&ntilde;ol</a>
         </div>
         <!--/#footer_links-->
@@ -299,26 +235,28 @@
     <!--/.container-->
         {% endif %}
         {% if not is_hide_sub_footer %}
+        {#
         <div class="row">
-		<div id="footer_col_one">
-			<div id="footer_logo">
-				<a href="https://feedingamerica.org"><img src="/images/fa/logo-2020.svg" alt="Feeding America" border="0" /></a>
-			</div><!--/#footer_logo-->
-		</div>
-		<hr>
-		<div id="footer_links">
-			<a href="http://www.feedingamerica.org/privacy-policy/">Privacy Policy&nbsp;&#8250;</a>
-			<a href="http://www.feedingamerica.org/privacy-policy/donor-privacy-policy.html">Donor Privacy&nbsp;&#8250;</a>
-			<a href="https://feedingamerica.org/contact">Contact Us&nbsp;&#8250;</a>
-		</div>
-		<div id="footer_text">
-			<div id="footer_copyright">
-				<p>Copyright &copy; 2022 Feeding America. All Rights Reserved. Feeding America is a 501 (c)(3) non-profit recognized by the IRS. <BR>Tax ID Number: 36-3673599</p>
-			</div><!--/#footer_copyright-->
-			<div id="footer_disclaimer">
-				<p>Photos associated with client stories feature the actual person referenced. Other images are for illustrative purposes only.</p>
-			</div><!--/#footer_disclaimer-->
-		</div><!--/#footer_text-->
+    <div id="footer_col_one">
+      <div id="footer_logo">
+        <a href="https://feedingamerica.org"><img src="/images/fa/logo-2020.svg" alt="Feeding America" border="0" /></a>
+      </div><!--/#footer_logo-->
+    </div>
+    <hr>
+    <div id="footer_links">
+      <a href="http://www.feedingamerica.org/privacy-policy/">Privacy Policy&nbsp;&#8250;</a>
+      <a href="http://www.feedingamerica.org/privacy-policy/donor-privacy-policy.html">Donor Privacy&nbsp;&#8250;</a>
+      <a href="https://feedingamerica.org/contact">Contact Us&nbsp;&#8250;</a>
+    </div>
+    <div id="footer_text">
+      <div id="footer_copyright">
+        <p>Copyright &copy; 2022 Feeding America. All Rights Reserved. Feeding America is a 501 (c)(3) non-profit recognized by the IRS. <BR>Tax ID Number: 36-3673599</p>
+      </div><!--/#footer_copyright-->
+      <div id="footer_disclaimer">
+        <p>Photos associated with client stories feature the actual person referenced. Other images are for illustrative purposes only.</p>
+      </div><!--/#footer_disclaimer-->
+    </div><!--/#footer_text-->
+    #}
         {% endif %}
       </div>
     </footer>
