@@ -55,9 +55,9 @@ class PrivateConfig(Config):
     PRIVATE = True
 
 
-class FeedingAmericaConfig(PrivateConfig):
-    NAME = "Feeding America"
+class FeedingAmericaConfig(Config):
     FEEDING_AMERICA = True
+    NAME = "Feeding America"
 
 
 class TidalConfig(PrivateConfig):
@@ -94,6 +94,9 @@ class LocalConfig(Config):
 
 class LocalIitmConfig(LocalConfig):
     IITM = True
+
+class LocalFeedingAmericaConfig(LocalConfig):
+    FEEDING_AMERICA = True
 
 
 class LocalPrivateConfig(PrivateConfig):
