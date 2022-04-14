@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization for private website running on GCP `datcom-website-private` project.
+# Kustomization for the Feeding America deployment.
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
@@ -27,12 +27,12 @@ configMapGenerator:
   - behavior: create
     literals:
       - flaskEnv=feeding-america
-      - secretProject=datcom-website-private
+      - secretProject=datcom-feedingamerica
     name: website-configmap
   - behavior: create
     literals:
-      - mixerProject=datcom-website-private
-      - serviceName=website-esp.endpoints.datcom-website-private.cloud.goog
+      - mixerProject=datcom-feedingamerica
+      - serviceName=website-esp.endpoints.datcom-feedingamerica.cloud.goog
     name: mixer-configmap
 
 patchesStrategicMerge:
