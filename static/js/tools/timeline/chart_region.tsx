@@ -54,7 +54,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
-    console.log(this.downloadLink);
     if (this.downloadLink) {
       this.downloadLink.onclick = () => {
         saveToFile("export.csv", this.createDataCsv());
