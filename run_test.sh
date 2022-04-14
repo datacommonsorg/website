@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
 # limitations under the License.
 
 set -e
+
+export NODE_OPTIONS=--openssl-legacy-provider
 
 function setup_python {
   python3 -m venv .env
@@ -80,8 +82,9 @@ function run_py_test {
   cd server
   export FLASK_ENV=test
   python3 -m pytest tests/**.py -s --ignore=sustainability
-  export FLASK_ENV=test-sustainability
-  python3 -m pytest tests/sustainability/**.py
+  # TODO(beets): add tests for other private dc instances
+  # export FLASK_ENV=test-sustainability
+  # python3 -m pytest tests/sustainability/**.py
   cd ..
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style=google -p server/ tools/ -e=*pb2.py; then
