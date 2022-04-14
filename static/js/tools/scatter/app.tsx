@@ -29,7 +29,7 @@ import {
   PlaceInfo,
   useContextStore,
 } from "./context";
-import { Info } from "./info";
+import { Info } from "./iitm_info";
 import { PlaceOptions } from "./place_and_type_options";
 import { Spinner } from "./spinner";
 import { StatVarChooser } from "./statvar";

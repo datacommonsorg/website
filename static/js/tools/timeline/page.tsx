@@ -36,7 +36,7 @@ import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { getPlaceNames } from "../../utils/place_utils";
 import { ChartRegion } from "./chart_region";
-import { Info } from "./info";
+import { Info } from "./iitm_info";
 import {
   addToken,
   getTokensFromUrl,

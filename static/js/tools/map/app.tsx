@@ -24,7 +24,7 @@ import { Container, Row } from "reactstrap";
 
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, getInitialContext } from "./context";
-import { Info } from "./info";
+import { Info } from "./iitm_info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
 import {
