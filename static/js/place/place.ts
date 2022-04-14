@@ -63,11 +63,13 @@ function updatePageLayoutState(): void {
 
   // Unique ID for IITM place page
   // Without this, the charts don't load
-  var iitm = document.getElementById("main-footer-iitm");
+  const iitm = document.getElementById("main-footer-iitm");
+  var footerHeight;
   if (iitm) {
-    const footerHeight = document.getElementById("main-footer-iitm").offsetHeight;
+    footerHeight = document.getElementById("main-footer-iitm")
+      .offsetHeight;
   } else {
-    const footerHeight = document.getElementById("main-footer").offsetHeight;
+    footerHeight = document.getElementById("main-footer").offsetHeight;
   }
   sidebarTopMax =
     sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN - footerHeight;
