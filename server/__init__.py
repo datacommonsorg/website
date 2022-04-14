@@ -78,12 +78,6 @@ def register_routes_main_app(app):
     app.register_blueprint(translator.bp)
 
 
-def register_routes_sustainability(app):
-    # apply the blueprints for sustainability app
-    from routes.sustainability import (static)
-    app.register_blueprint(static.bp)
-
-
 def create_app():
     app = Flask(__name__, static_folder="dist", static_url_path="")
 
@@ -111,10 +105,7 @@ def create_app():
         cache.init_app(app)
 
     register_routes_common(app)
-    if cfg.SUSTAINABILITY:
-        register_routes_sustainability(app)
-    else:
-        register_routes_main_app(app)
+    register_routes_main_app(app)
 
     # Load topic page config
     topic_page_configs = libutil.get_topic_page_config()
