@@ -36,6 +36,7 @@ app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 app.jinja_env.globals['FEEDING_AMERICA'] = app.config['FEEDING_AMERICA']
 app.jinja_env.globals['NAME'] = app.config['NAME']
+app.jinja_env.globals['BASE_HTML'] = 'base.html'
 
 WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
