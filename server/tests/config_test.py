@@ -24,23 +24,17 @@ class TestConfigModule(unittest.TestCase):
 
     @parameterized.expand([
         ("production", "configmodule.ProductionConfig"),
-        ("prod-sustainability", "configmodule.ProdSustainabilityConfig"),
         ('staging', "configmodule.StagingConfig"),
-        ('staging-sustainability', "configmodule.StagingSustainabilityConfig"),
         ('autopush', "configmodule.AutopushConfig"),
-        ('autopush-sustainability',
-         "configmodule.AutopushSustainabilityConfig"),
         ('feeding-america', "configmodule.FeedingAmericaConfig"),
         ('tidal', "configmodule.TidalConfig"),
         ('dev', "configmodule.DevConfig"),
         ('test', "configmodule.TestConfig"),
-        ('test-sustainability', "configmodule.TestSustainabilityConfig"),
         ('webdriver', "configmodule.WebdriverConfig"),
         ('minikube', "configmodule.MinikubeConfig"),
         ('local', "configmodule.LocalConfig"),
         ('local-lite', "configmodule.LocalLiteConfig"),
         ('local-private', "configmodule.LocalPrivateConfig"),
-        ('local-sustainability', "configmodule.LocalSustainabilityConfig"),
     ])
     def test_config_string(self, env, expected):
         with patch.dict(os.environ, {

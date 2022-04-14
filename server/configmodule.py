@@ -28,8 +28,6 @@ class Config:
     PRIVATE = False
     # If the deployment is for "feeding america" instance.
     FEEDING_AMERICA = False
-    # If the deployment is for sustainability.datacommons.org.
-    SUSTAINABILITY = False
     # Name of the site. The name is changed for private instance.
     NAME = "Data Commons"
 
@@ -39,26 +37,14 @@ class ProductionConfig(Config):
     ENABLE_BLOCKLIST = True
 
 
-class ProdSustainabilityConfig(ProductionConfig):
-    SUSTAINABILITY = True
-
-
 class StagingConfig(Config):
     GA_ACCOUNT = 'UA-117119267-2'
     ENABLE_BLOCKLIST = True
     pass
 
 
-class StagingSustainabilityConfig(StagingConfig):
-    SUSTAINABILITY = True
-
-
 class AutopushConfig(Config):
     pass
-
-
-class AutopushSustainabilityConfig(AutopushConfig):
-    SUSTAINABILITY = True
 
 
 class DevConfig(Config):
@@ -106,10 +92,6 @@ class LocalConfig(Config):
     SCHEME = 'http'
 
 
-class LocalSustainabilityConfig(LocalConfig):
-    SUSTAINABILITY = True
-
-
 class LocalIitmConfig(LocalConfig):
     IITM = True
 
@@ -150,7 +132,3 @@ class TestConfig(Config):
     TEST = True
     API_ROOT = 'api-root'
     SCHEME = 'http'
-
-
-class TestSustainabilityConfig(TestConfig):
-    SUSTAINABILITY = True

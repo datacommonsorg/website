@@ -510,9 +510,14 @@ export function getPlaceChartData(
  * @param statVarName name of the stat var
  * @param isPerCapita whether the chart is a per capita chart
  */
-export function getTitle(statVarDates: string[], statVarName: string): string {
+export function getTitle(
+  statVarDates: string[],
+  statVarName: string,
+  isPerCapita
+): string {
   const dateRange = `(${getDateRange(statVarDates)})`;
-  return `${statVarName} ${dateRange}`;
+  const perCapitaString = isPerCapita ? " Per Capita" : "";
+  return `${statVarName}${perCapitaString} ${dateRange}`;
 }
 
 /**
