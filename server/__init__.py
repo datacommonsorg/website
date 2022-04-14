@@ -133,14 +133,14 @@ def create_app():
             ranked_statvars.add(chart['relatedChart']['denominator'])
     app.config['RANKED_STAT_VARS'] = ranked_statvars
 
-    # if not cfg.TEST and not cfg.LITE:
-    #     secret_client = secretmanager.SecretManagerServiceClient()
-    #     secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-    #                                                     'maps-api-key',
-    #                                                     'latest')
-    #     secret_response = secret_client.access_secret_version(name=secret_name)
-    #     app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
-    #         'UTF-8')
+    if not cfg.TEST and not cfg.LITE:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                        'maps-api-key',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
+            'UTF-8')
 
     # Initialize translations
     babel = Babel(app, default_domain='all')
