@@ -299,7 +299,6 @@ class TestChoroplethData(unittest.TestCase):
 
     @patch('routes.api.choropleth.dc_service.get_places_in')
     @patch('routes.api.choropleth.landing_page_api.get_denom')
-    @patch('routes.api.choropleth.landing_page_api.build_url')
     @patch('routes.api.choropleth.dc_service.get_stat_set_within_place')
     @patch('routes.api.choropleth.dc_service.get_stat_set_series')
     @patch('routes.api.choropleth.get_choropleth_display_level')
@@ -308,7 +307,7 @@ class TestChoroplethData(unittest.TestCase):
     @patch('routes.api.choropleth.get_denom_val')
     def testRoute(self, mock_denom_val, mock_stat_vars, mock_configs,
                   mock_display_level, mock_stats, mock_stats_within_place,
-                  mock_explore_url, mock_denom, mock_places_in):
+                  mock_denom, mock_places_in):
         test_dcid = 'test_dcid'
         geo1 = 'dcid1'
         geo2 = 'dcid2'
@@ -464,42 +463,33 @@ class TestChoroplethData(unittest.TestCase):
 
         mock_denom_val.side_effect = get_denom_val_side_effect
 
-        test_url = 'test/url/1'
-        test_url2 = 'test/url/2'
-
-        def build_url_side_effect(*args):
-            if args[0] == [test_dcid] and args[1] == {sv1: None}:
-                return test_url
-            elif args[0] == [test_dcid] and args[1] == {
-                    sv2: sv3
-            } and args[2] == True:
-                return test_url2
-            else:
-                return None
-
-        mock_explore_url.side_effect = build_url_side_effect
-
         response = app.test_client().get('/api/choropleth/data/' + test_dcid)
         assert response.status_code == 200
         response_data = json.loads(response.data)
         expected_data = {
             sv1: {
-                'date': f'{sv1_date1} – {sv1_date2}',
+                'date':
+                    f'{sv1_date1} – {sv1_date2}',
                 'data': {
                     geo1: sv1_val,
                     geo2: sv1_val
                 },
-                'numDataPoints': 2,
-                'exploreUrl': test_url,
+                'numDataPoints':
+                    2,
+                'exploreUrl':
+                    "/tools/map#&pd=test_dcid&ept=AdministrativeArea1&sv=StatVar1",
                 'sources': [source1]
             },
             sv2: {
-                'date': sv2_date,
+                'date':
+                    sv2_date,
                 'data': {
                     geo1: (sv2_val1 / denom_val) * scaling_val
                 },
-                'numDataPoints': 1,
-                'exploreUrl': test_url2,
+                'numDataPoints':
+                    1,
+                'exploreUrl':
+                    "/tools/map#&pd=test_dcid&ept=AdministrativeArea1&sv=StatVar2&pc=1",
                 'sources': [source1, source3]
             }
         }
