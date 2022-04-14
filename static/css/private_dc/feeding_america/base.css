@@ -9084,13 +9084,17 @@ div.paragraph--type--two-up-partner-block .headline a {
   content: "";
 }
 
+.float-right {
+  float: right;
+}
+
 @media (min-width: 768px) {
-.float-md-left {
+#main #homepage .float-md-left {
   float: left;
   margin-right: 3rem;
 }
 
-.float-md-right {
+#main #homepage .float-md-right {
   float: right;
   margin-left: 3rem;
 }
