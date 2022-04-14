@@ -41,6 +41,7 @@ ENV = {
     'local-lite',
     'local-private',
     'local-iitm',
+    'local-feeding-america',
 }
 
 

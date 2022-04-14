@@ -18,7 +18,7 @@
   value: --use_tmcf_csv_data=true
 - op: add
   path: /spec/template/spec/containers/1/args/0
-  value: --tmcf_csv_bucket=datcom-website-private-resources
+  value: --tmcf_csv_bucket=datcom-feedingamerica-resources
 - op: add
   path: /spec/template/spec/containers/1/args/0
   value: --tmcf_csv_folder=food

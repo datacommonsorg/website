@@ -15,6 +15,7 @@
 # limitations under the License.
 
 set -e
+export NODE_OPTIONS=--openssl-legacy-provider
 
 export NODE_OPTIONS=--openssl-legacy-provider
 
