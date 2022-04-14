@@ -25,7 +25,7 @@ $dc-primary-color: #660000;
   --dc-gray-lite: #ccc;
   --dc-white: #fff;
   --dc-blue: #67adff;
-  // Following vars are override in "feeding-america" and "sustainability" mode
+  // Following vars are overwritten in private dc modes
   --dc-primary: #{$dc-primary-color};
   --link-color: #{$dc-primary-color};
 }
@@ -33,11 +33,6 @@ $dc-primary-color: #660000;
 :root.feeding-america {
   --dc-primary: rgb(68, 97, 45);
   --link-color: rgb(68, 97, 45);
-}
-
-:root.sustainability {
-  --dc-primary: #166328;
-  --link-color: #166328;
 }
 
 /** Bootstrap overrides **/

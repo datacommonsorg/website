@@ -24,7 +24,6 @@ class TestStaticPages(unittest.TestCase):
         response = app.test_client().get('/')
         assert response.status_code == 200
         assert b"Data Commons aggregates data" in response.data
-        assert not b"Sustainability Data Commons" in response.data
 
     def test_homepage_i18n(self):
         response = app.test_client().get('/?hl=es')

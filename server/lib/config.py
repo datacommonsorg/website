@@ -19,13 +19,10 @@ from werkzeug.utils import import_string
 ENV = {
     # Production
     'production',
-    'prod-sustainability',
     # Staging
     'staging',
-    'staging-sustainability',
     # Autopush
     'autopush',
-    'autopush-sustainability',
     # Private
     'private',
     'feeding-america',
@@ -35,7 +32,6 @@ ENV = {
     'dev',
     # Test
     'test',
-    'test-sustainability',
     # Webdriver
     'webdriver',
     # Minikube
@@ -44,7 +40,6 @@ ENV = {
     'local',
     'local-lite',
     'local-private',
-    'local-sustainability',
     'local-iitm',
 }
 
