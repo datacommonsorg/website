@@ -55,6 +55,8 @@ $transparent-red: rgba(240, 230, 231, 0.2);
   background: $menu-background;
   letter-spacing: 0;
   transition: width $transition-animation;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 #explore-menu-toggle {
