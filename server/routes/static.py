@@ -58,4 +58,3 @@ def disclaimers():
 @bp.route('/feedback')
 def feedback():
     return render_template('static/feedback.html')
-
