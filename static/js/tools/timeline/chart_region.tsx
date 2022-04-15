@@ -75,6 +75,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
         );
       };
     }
+    // TODO: add webdriver test for BigQuery button to ensure query works
     this.getSqlQuery = this.getSqlQuery.bind(this);
     this.bqLink = setUpBqButton(this.getSqlQuery);
   }

@@ -49,7 +49,8 @@ function App(): JSX.Element {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
 
-  // Show the Big Query button when there is a chart
+  // Show the BigQuery button when there is a chart
+  // TODO: add webdriver test for BigQuery button to ensure query works
   const bqLink = useRef(setUpBqButton(getSqlQuery));
   if (bqLink.current && showChart) {
     bqLink.current.style.display = "inline-block";
