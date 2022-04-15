@@ -96,7 +96,8 @@ function App(): JSX.Element {
 
   function getSqlQuery(): string {
     return (
-      BQ_QUERY_HEADER_COMMENT + `
+      BQ_QUERY_HEADER_COMMENT +
+      `
 WITH ChildPlace AS (
   SELECT id AS PlaceId FROM \`data_commons.Place\`
   WHERE EXISTS(SELECT * FROM UNNEST(all_types) AS T WHERE T = '${placeInfo.value.enclosedPlaceType}') AND
@@ -118,7 +119,8 @@ WHERE O.is_preferred_obs_across_facets AND
     O.observation_about = ChildPlace.PlaceId AND
     O.observation_about = P.id AND
     O.prov_id = I.id
-ORDER BY PlaceName`);
+ORDER BY PlaceName`
+    );
   }
 }
 

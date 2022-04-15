@@ -247,7 +247,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       )
       .join(" OR ");
     return (
-      BQ_QUERY_HEADER_COMMENT + `
+      BQ_QUERY_HEADER_COMMENT +
+      `
 SELECT O.observation_about AS PlaceId,
     P.name AS PlaceName,
     O.variable_measured AS VariableId,
@@ -267,7 +268,8 @@ WHERE
     O.variable_measured = V.id AND
     O.prov_id = I.prov_id AND
     (${placeSvQueryString})
-ORDER BY PlaceId, VariableId, Date;`);
+ORDER BY PlaceId, VariableId, Date;`
+    );
   }
 }
 
