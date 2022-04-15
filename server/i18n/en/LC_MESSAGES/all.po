@@ -101,7 +101,6 @@ msgstr "Graph Browser"
 msgid "Gross National Income"
 msgstr "Gross National Income"
 
-#. Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
 msgid "Highest Crime Per Capita"
 msgstr ""
 
@@ -166,10 +165,6 @@ msgid "Scatter Plot Explorer"
 msgstr ""
 
 msgid "Scatter Plots"
-msgstr ""
-
-#. Title of a page for searching the site, or search results.
-msgid "Search"
 msgstr ""
 
 #. Heading for a list of states in the US. See this message on https://datacommons.org/place
@@ -252,10 +247,6 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Rate of bachelor's degree attainment by gender"
 
 #. The category for a group of statistical charts.
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
-#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crime"
 
@@ -274,6 +265,10 @@ msgstr "Education"
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
@@ -807,7 +802,7 @@ msgstr "Unemployment rate"
 msgid "CHART_TITLE-Unemployment_rate-urban-v-rural"
 msgstr "Unemployment rate: urban vs rural"
 
-#. Title of a place chart: Percentage of the population, of working age, who are unemployed, broken down by gender
+#. Title of a place chart: Percentage of the population, of working age, who are unemployed. Broken down by gender
 msgid "CHART_TITLE-Unemployment_rate_gender"
 msgstr "Unemployment rate by gender"
 
@@ -989,4 +984,7 @@ msgstr "Water withdrawal rate"
 
 #~ msgid "Topic Explorer"
 #~ msgstr ""
+
+#~ msgid "CHART_TITLE-CHART_CATEGORY-Climate"
+#~ msgstr "Climate"
 

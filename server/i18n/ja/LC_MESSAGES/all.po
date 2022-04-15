@@ -127,9 +127,6 @@ msgstr "散布図エクスプローラ"
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "Search"
-msgstr ""
-
 msgid "States, United States"
 msgstr "米国の州"
 
@@ -190,9 +187,6 @@ msgstr "準学士号の取得率（性別ごと）"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "学士号の取得率（性別ごと）"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "犯罪"
 
@@ -207,6 +201,9 @@ msgstr "学歴"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "資産"
@@ -660,4 +657,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+
 

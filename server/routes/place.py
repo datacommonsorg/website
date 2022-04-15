@@ -42,19 +42,31 @@ _PLACE_LANDING_DCIDS = [
     'country/DEU',
 ]
 
+CATEGORY_REDIRECTS = {
+    "Climate": "Environment",
+}
+
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def place(place_dcid=None):
+    redirect_args = dict(flask.request.args)
+    should_redirect = False
     if 'topic' in flask.request.args:
-        redirect_args = dict(flask.request.args)
         redirect_args['category'] = flask.request.args.get('topic', '')
-        redirect_args['place_dcid'] = place_dcid
         del redirect_args['topic']
+        should_redirect = True
+
+    category = redirect_args.get('category', None)
+    if category in CATEGORY_REDIRECTS:
+        redirect_args['category'] = CATEGORY_REDIRECTS[category]
+        should_redirect = True
+
+    if should_redirect:
+        redirect_args['place_dcid'] = place_dcid
         return flask.redirect(flask.url_for('place.place', **redirect_args))
 
     dcid = flask.request.args.get('dcid', None)
-    category = flask.request.args.get('category', None)
     if dcid:
         # Traffic from "explore more" in Search. Forward along all parameters,
         # except for dcid, to the new URL format.
