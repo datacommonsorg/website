@@ -24,16 +24,17 @@ resources:
   - ../../base
 
 configMapGenerator:
-  - behavior: create
+  - name: website-configmap
+    behavior: create
     literals:
       - flaskEnv=feeding-america
       - secretProject=datcom-feedingamerica
-    name: website-configmap
-  - behavior: create
+  - name: mixer-configmap
+    behavior: create
     literals:
       - mixerProject=datcom-feedingamerica
       - serviceName=website-esp.endpoints.datcom-feedingamerica.cloud.goog
-    name: mixer-configmap
+
 
 patchesStrategicMerge:
   - |-
