@@ -34,9 +34,7 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
-app.jinja_env.globals['ENV_NAME'] = app.config['ENV_NAME']
 app.jinja_env.globals['NAME'] = app.config['NAME']
-# XXX
 app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
 
 WARM_UP_ENDPOINTS = [

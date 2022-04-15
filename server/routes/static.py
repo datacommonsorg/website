@@ -22,6 +22,7 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
+    # TODO: Update this to use ENV_NAME
     if current_app.config.get('PRIVATE', None):
         return render_template('private_dc/default/homepage.html')
     if current_app.config.get('FEEDING_AMERICA', None):

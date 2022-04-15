@@ -24,6 +24,7 @@ class Config:
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = False
+    # A constant to group a set of configs.
     ENV_NAME = 'BASE_DC'
     # If the deployment is a private instance.
     PRIVATE = False
