@@ -2,3 +2,213 @@
   --dc-primary: rgb(68, 97, 45);
   --link-color: rgb(68, 97, 45);
 }
+
+header {
+  padding: 9px 0 18px 0;
+  position: relative;
+  z-index: 2;
+  -moz-box-shadow: 0 5px 5px 0 rgba(6, 6, 6, 0.18);
+  -webkit-box-shadow: 0 5px 5px 0 rgba(6, 6, 6, 0.18);
+  box-shadow: 0 5px 5px 0 rgba(6, 6, 6, 0.18);
+}
+
+header#main-nav {
+  width: 100%;
+  overflow: hidden;
+  height: 114px;
+}
+header #logo {
+  transition: all 0.3s;
+}
+/* header nav {
+  float: right;
+}
+header nav a {
+  transition: all 0.3s;
+} */
+
+header .container {
+  padding: 0;
+}
+header a,
+header a * {
+  text-decoration: none;
+}
+#logo {
+  float: left;
+  margin-top: 0;
+  width: 197px;
+  height: auto;
+  padding-left: 9px;
+}
+#logo a {
+  display: block;
+}
+#logo a img {
+  display: block;
+  width: 100%;
+}
+
+header nav a:focus,
+header nav a:hover {
+  color: #ffffff;
+}
+
+.nav {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+.navbar-default .navbar-nav > li > a {
+  padding: 8px 24px;
+  color: #4e5b31;
+  font-size: 18px;
+  line-height: 19px;
+  display: block;
+}
+@media only screen and (max-width: 768px) {
+  .navbar-default .navbar-nav > li {
+    border-top: 1px solid #d9d9d9;
+    border-left: none !important;
+    border-right: none !important;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .navbar-default .navbar-nav > li > a {
+    font-size: 14px !important;
+    padding: 8px 12px;
+  }
+  .navbar-default .navbar-nav > li {
+    border: none !important;
+  }
+}
+
+.navbar-default .navbar-nav > li > a span {
+  display: block;
+  text-align: center;
+}
+.navbar-default .navbar-nav > li > a.dropdown-toggle,
+.navbar-default .navbar-nav > li > a.dropdown-toggle span {
+  display: initial;
+  padding: 0;
+}
+.navbar-default .navbar-nav {
+  text-transform: uppercase;
+}
+.navbar-default .navbar-nav > li:first-child {
+  border-left: 1px solid #d9d9d9;
+}
+.navbar-default .navbar-nav > li {
+  border-right: 1px solid #d9d9d9;
+}
+.navbar.dropdown {
+  z-index: 101;
+}
+.navbar-nav > li {
+  float: left;
+}
+.nav > li {
+  position: relative;
+  display: block;
+}
+.navbar-header {
+  float: left;
+}
+.navbar-toggler {
+  border-color: rgba(78, 97, 45, .5);
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2878, 91, 49, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+}
+.navbar-toggle {
+  display: none;
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background-image: none;
+}
+.navbar-toggle:focus,
+.navbar-toggle:hover {
+  background-color: transparent;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+#dc-fa header #logo {
+  margin-top: 0;
+  width: 157px;
+}
+
+#dc-fa header #logo a img {
+  width: 75%;
+  height: 75%;
+}
+
+#dc-fa #main-nav .container-fluid {
+  padding-left: 15px;
+}
+
+#dc-fa #main-nav h1 {
+  font-size: 17.6px;
+  font-weight: 500;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  display: inline-block;
+  line-height: 56px;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+#dc-fa #main-nav h1 a {
+  color: #4e5b31
+}
+
+/* #dc-fa #header_right {
+  padding-top: 18px;
+  padding-right: 45px;
+  float: right;
+} */
+
+#dc-fa header#main-nav {
+  height: auto;
+}
+
+#dc-fa header .navbar-collapse {
+  margin-top: 6px;
+}
+
+#dc-fa .btn.btn-primary {
+  background-color: rgba(233,131,0);
+}
+
+#dc-fa footer {
+  background-color: #333333;
+  color: #ffffff;
+}
+#dc-fa footer .container .container {
+  padding: 29px 0 70px 0;
+}
+#dc-fa footer .separator {
+  background: white;
+  width: 100%;
+  height: 1px;
+  margin: 2.5rem 0;
+}
+#dc-fa .navbar {
+  padding: 0 1rem;
+}
