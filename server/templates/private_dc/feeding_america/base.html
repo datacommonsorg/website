@@ -45,15 +45,18 @@
 </head>
 
 <body id="dc">
+  <div id="main">
   <header id="main-nav">
-    <div class="container max-w-[960px]">
+    <div class="container-fluid">
         <div id="logo">
             <a href="https://www.feedingamerica.org/">
               <img src="/images/fa/logo-2020.svg" />
             </a>
         </div>
+        <h1><a href="/">Data Commons</a></h1>
         <!--/#logo-->
         <div id="header_right">
+          {#
             <div id="util">
                 <div class="container">
                     <div id="util_search">
@@ -84,8 +87,9 @@
                 <!--/.container-->
             </div>
             <!--/#util-->
+            #}
             <div id="mainmenu">
-                <nav class="navbar navbar-default" role="navigation">
+                <nav class="xnavbar xnavbar-default" role="navigation">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav1">
                             <span class="sr-only">Toggle navigation</span>
@@ -95,20 +99,20 @@
                         </button>
                     </div>
                     <!--/.navbar-header-->
-                    <div class="collapse navbar-collapse" id="nav1">
-                        <ul class="nav navbar-nav">
+                    <div class="xcollapse xnavbar-collapse" id="nav1">
+                        <ul class="xnav xnavbar-nav">
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/hunger-in-america/" id="drop1" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
+                                <a href="{{ url_for('tools.timeline') }}" id="drop1" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
                             </li>
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/our-work/" id="drop2" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
+                                <a href="{{ url_for('tools.scatter') }}" id="drop2" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
                             </li>
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/take-action/" id="drop3" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
+                                <a href="{{ url_for('tools.map') }}" id="drop3" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
                             </li>
-                            <li class="dropdown"><a href="https://www.feedingamerica.org/find-your-local-foodbank/"><span>About</span></a></li>
+                            <li class="dropdown"><a href="{{ url_for('static.about') }}"><span>About</span></a></li>
                             <li class="dropdown">
-                                <a href="https://www.feedingamerica.org/hunger-blog/" id="drop4" class="nav-link-main "><span>FAQ</span></a>
+                                <a href="{{ url_for('static.faq') }}" id="drop4" class="nav-link-main "><span>FAQ</span></a>
                             </li>
                         </ul>
                         <!--/.nav-->
@@ -126,7 +130,6 @@
     <!--/.container-->
   </header>
 
-  <div id="main">
     <main id="{{ main_id }}" class="main-content">
       {% block content %}
       {% endblock %}
@@ -215,7 +218,7 @@
             </ul>
         </div>
         <div class="clearfix"></div>
-        <div class="h-[1px] bg-white w-full my-10"></div>
+        <div class="h-[1px] bg-white w-full my-10 separator"></div>
         <div id="footer_links">
             <a href="https://www.feedingamerica.org/privacy-policy/">Privacy Policy</a>
             <a href="https://www.feedingamerica.org/privacy-policy/donor-privacy-policy">Donor Privacy</a>
@@ -237,20 +240,34 @@
         <!--/#footer_text-->
     </div>
     <!--/.container-->
-        {% endif %}
-        {% if not is_hide_sub_footer %}
-        {#
+        {% else %}
+        <div class="row">
+          <div id="sub-footer" class="col-12">
+            <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
+            {# TRANSLATORS: The label for a link to project homepage. #}
+            <span>Feeding America Data Commons is a Google supported project</span>
+
+            <div class="float-md-right mt-3 mt-md-0">
+              {% block subfooter_extra %}{% endblock %}
+              <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy ›</a>
+              <a href="https://policies.google.com/terms">Donor Privacy ›</a>
+              <a href="{{ url_for('static.disclaimers') }}">Disclaimers ›</a>
+              <a href="{{ url_for('static.disclaimers') }}">Contact Us ›</a>
+            </div>
+          </div>
+        </div>
+  {#
         <div class="row">
     <div id="footer_col_one">
       <div id="footer_logo">
-        <a href="https://feedingamerica.org"><img src="/images/fa/logo-2020.svg" alt="Feeding America" border="0" /></a>
+        <a href="https://feedingamerica.org"><img src="/images/fa/logo-white-2020.svg" alt="Feeding America" style="height: 40px; width: 79px" /></a>
       </div><!--/#footer_logo-->
     </div>
     <hr>
     <div id="footer_links">
-      <a href="http://www.feedingamerica.org/privacy-policy/">Privacy Policy&nbsp;&#8250;</a>
-      <a href="http://www.feedingamerica.org/privacy-policy/donor-privacy-policy.html">Donor Privacy&nbsp;&#8250;</a>
-      <a href="https://feedingamerica.org/contact">Contact Us&nbsp;&#8250;</a>
+      <a href="http://www.feedingamerica.org/privacy-policy/">Privacy Policy</a>
+      <a href="http://www.feedingamerica.org/privacy-policy/donor-privacy-policy.html">Donor Privacy</a>
+      <a href="https://feedingamerica.org/contact">Contact Us</a>
     </div>
     <div id="footer_text">
       <div id="footer_copyright">
