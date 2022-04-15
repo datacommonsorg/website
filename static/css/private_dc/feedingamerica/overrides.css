@@ -20,13 +20,6 @@ header#main-nav {
 header #logo {
   transition: all 0.3s;
 }
-/* header nav {
-  float: right;
-}
-header nav a {
-  transition: all 0.3s;
-} */
-
 header .container {
   padding: 0;
 }
@@ -177,12 +170,6 @@ header nav a:hover {
 #dc-fa #main-nav h1 a {
   color: #4e5b31
 }
-
-/* #dc-fa #header_right {
-  padding-top: 18px;
-  padding-right: 45px;
-  float: right;
-} */
 
 #dc-fa header#main-nav {
   height: auto;

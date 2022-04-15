@@ -46,126 +46,81 @@
 <body id="dc-fa">
   <div id="main">
   <header id="main-nav">
-                <nav class="navbar navbar-default navbar-expand-md" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-brand">
-        <div id="logo">
-            <a href="https://www.feedingamerica.org/">
-              <img src="/images/feedingamerica/logo-2020.svg" />
-            </a>
+    <nav class="navbar navbar-default navbar-expand-md" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-brand">
+          <div id="logo">
+              <a href="https://www.feedingamerica.org/">
+                <img src="/images/feedingamerica/logo-2020.svg" />
+              </a>
+          </div>
+          <h1><a href="/">Data Commons</a></h1>
         </div>
-        <h1><a href="/">Data Commons</a></h1>
-      </div>
-        <!--/#logo-->
-        <!-- <div id="header_right"> -->
-          {#
-            <div id="util">
-                <div class="container">
-                    <div id="util_search">
-                        <!-- Secure Page -->
-                    </div>
-                    <!--/#util_search-->
-                    <div id="util_findfood">
-                        <a href="https://www.feedingamerica.org/need-help-find-food/">Need Help</a>
-                    </div>
-                    <!--/#util_findfood-->
-                    <div id="util_sign_up">
-                        <a href="https://www.feedingamerica.org/take-action/signup?s_subsrc=datacommons" target="_blank" id="util_sign_up_expand">Sign Up</a>
-                    </div>
-                    <!--/#util_sign_up-->
-                    <div id="util_donate" class="donate_giving_pref">
-                       <ul>
-                            <li id="util_donate_button">
-                                <a href="https://feedingamerica.org/dc_donate">Donate</a>
-                                <ul class="util_donate_dropdown">
-                                    <li><a href="https://feedingamerica.org/dc_givetoday">Give Today</a></li>
-                                    <li><a href="https://feedingamerica.org/dc_givemonthly">Give Monthly</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--/#util_donate-->
-                </div>
-                <!--/.container-->
-            </div>
-            <!--/#util-->
-            #}
-            <!-- <div id="mainmenu"> -->
-              {#
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-                <ul class="navbar-nav float-md-right">
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {% trans %}Explore{% endtrans %}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                      <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
-                      <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
-                      <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
-                      <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
-                      <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
-                      <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
-                    </div>
-                  </li>
-                </ul>
+        {#
+        <div id="util">
+          <div class="container">
+              <div id="util_search">
+                  <!-- Secure Page -->
               </div>
-              #}
-                    <!-- <div class="navbar-header"> -->
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav1">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-                        <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button> -->
-                    <!-- </div> -->
-                    <!--/.navbar-header-->
-                    <div class="collapse navbar-collapse justify-content-md-end" id="nav1">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="{{ url_for('tools.timeline') }}" id="drop1" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="{{ url_for('tools.scatter') }}" id="drop2" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="{{ url_for('tools.map') }}" id="drop3" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
-                            </li>
-                            <li class="dropdown"><a href="{{ url_for('static.about') }}"><span>About</span></a></li>
-                            <li class="dropdown">
-                                <a href="{{ url_for('static.faq') }}" id="drop4" class="nav-link-main "><span>FAQ</span></a>
-                            </li>
-                        </ul>
-                        <!--/.nav-->
-                    </div>
-                    <!--/collapse-->
-                <!-- </nav> -->
-                <!--/.navbar-->
-            <!-- </div> -->
-            <!--/#mainmenu-->
-            <!-- <div class="clearfix"></div> -->
+              <!--/#util_search-->
+              <div id="util_findfood">
+                  <a href="https://www.feedingamerica.org/need-help-find-food/">Need Help</a>
+              </div>
+              <!--/#util_findfood-->
+              <div id="util_sign_up">
+                  <a href="https://www.feedingamerica.org/take-action/signup?s_subsrc=datacommons" target="_blank" id="util_sign_up_expand">Sign Up</a>
+              </div>
+              <!--/#util_sign_up-->
+              <div id="util_donate" class="donate_giving_pref">
+                  <ul>
+                      <li id="util_donate_button">
+                          <a href="https://feedingamerica.org/dc_donate">Donate</a>
+                          <ul class="util_donate_dropdown">
+                              <li><a href="https://feedingamerica.org/dc_givetoday">Give Today</a></li>
+                              <li><a href="https://feedingamerica.org/dc_givemonthly">Give Monthly</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+              <!--/#util_donate-->
+          </div>
+          <!--/.container-->
         </div>
-        <!--/#header_right-->
-        <!-- <div class="clearfix"></div> -->
+        <!--/#util-->
+        #}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav1">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-end" id="nav1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="{{ url_for('tools.timeline') }}" id="drop1" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ url_for('tools.scatter') }}" id="drop2" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ url_for('tools.map') }}" id="drop3" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
+                </li>
+                <li class="dropdown"><a href="{{ url_for('static.about') }}"><span>About</span></a></li>
+                <li class="dropdown">
+                    <a href="{{ url_for('static.faq') }}" id="drop4" class="nav-link-main "><span>FAQ</span></a>
+                </li>
+            </ul>
+        </div>
+      </div>
     </div>
-    <!--/.container-->
   </header>
 
-    <main id="{{ main_id }}" class="main-content">
-      {% block content %}
-      {% endblock %}
-    </main>
+  <main id="{{ main_id }}" class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
 
-    <footer id="main-footer">
-      <div class="container">
-        {% if not is_hide_full_footer %}
-    <div class="container max-w-[960px]">
+  <footer id="main-footer">
+    <div class="container">
+      {% if not is_hide_full_footer %}
+      <div class="container max-w-[960px]">
         <div id="footer_col_one">
             <div id="footer_logo">
                 <a href="https://www.feedingamerica.org/">
