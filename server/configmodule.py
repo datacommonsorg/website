@@ -24,12 +24,13 @@ class Config:
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = False
+    # A constant to group a set of configs.
+    ENV_NAME = 'BASE_DC'
     # If the deployment is a private instance.
     PRIVATE = False
-    # If the deployment is for "feeding america" instance.
-    FEEDINGAMERICA = False
     # Name of the site. The name is changed for private instance.
-    NAME = "Data Commons"
+    NAME = 'Data Commons'
+    BASE_HTML_PATH = 'base.html'
 
 
 class ProductionConfig(Config):
@@ -53,11 +54,13 @@ class DevConfig(Config):
 
 class PrivateConfig(Config):
     PRIVATE = True
+    ENV_NAME = 'PRIVATE'
 
 
 class FeedingamericaConfig(PrivateConfig):
     NAME = "Feeding America"
-    FEEDINGAMERICA = True
+    ENV_NAME = 'FEEDINGAMERICA'
+    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
 
 
 class TidalConfig(PrivateConfig):
@@ -67,6 +70,7 @@ class TidalConfig(PrivateConfig):
 class IitmConfig(Config):
     IITM = True
     NAME = "IITM"
+    ENV_NAME = 'IITM'
 
 
 ######
@@ -119,6 +123,8 @@ class LocalFeedingamericaConfig(PrivateConfig):
     SECRET_PROJECT = 'datcom-feedingamerica'
     NAME = "Feeding America"
     SCHEME = 'http'
+    ENV_NAME = 'FEEDINGAMERICA'
+    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
 
 
 class LocalLiteConfig(Config):

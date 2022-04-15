@@ -17,7 +17,6 @@
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
-  deployment: "private" or "public"
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
@@ -30,7 +29,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} {% if FEEDINGAMERICA %} class="feedingamerica" {% endif %}>
+<html lang={{ locale }}>
 
 <head>
   <title>{{ title }} - Data Commons</title>
