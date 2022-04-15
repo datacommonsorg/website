@@ -54,12 +54,13 @@ class DevConfig(Config):
 
 class PrivateConfig(Config):
     PRIVATE = True
+    ENV_NAME = 'PRIVATE'
 
 
 class FeedingamericaConfig(PrivateConfig):
     NAME = "Feeding America"
-    ENV_NAME = 'FEEDING_AMERICA'
-    BASE_HTML_PATH = 'private_dc/feeding_america/base.html'
+    ENV_NAME = 'FEEDINGAMERICA'
+    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
 
 
 class TidalConfig(PrivateConfig):
@@ -69,6 +70,7 @@ class TidalConfig(PrivateConfig):
 class IitmConfig(Config):
     IITM = True
     NAME = "IITM"
+    ENV_NAME = 'IITM'
 
 
 ######
@@ -121,8 +123,8 @@ class LocalFeedingamericaConfig(PrivateConfig):
     SECRET_PROJECT = 'datcom-feedingamerica'
     NAME = "Feeding America"
     SCHEME = 'http'
-    ENV_NAME = 'FEEDING_AMERICA'
-    BASE_HTML_PATH = 'private_dc/feeding_america/base.html'
+    ENV_NAME = 'FEEDINGAMERICA'
+    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
 
 
 class LocalLiteConfig(Config):
