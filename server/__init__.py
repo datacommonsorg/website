@@ -46,10 +46,14 @@ def createMiddleWare(app, exporter):
 
 def register_routes_base_dc(app):
     # apply the blueprints for all apps
-    from routes import (protein, redirects, special_announcement)
+    from routes import (dev, placelist, protein, redirects,
+                        special_announcement, topic_page)
+    app.register_blueprint(dev.bp)
+    app.register_blueprint(placelist.bp)
     app.register_blueprint(protein.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(special_announcement.bp)
+    app.register_blueprint(topic_page.bp)
     from routes.api import (protein as protein_api)
     app.register_blueprint(protein_api.bp)
 
@@ -61,17 +65,14 @@ def register_routes_private_dc(app):
 
 def register_routes_common(app):
     # apply the blueprints for main app
-    from routes import (browser, dev, factcheck, place, placelist, ranking,
-                        search, static, tools, topic_page)
+    from routes import (browser, factcheck, place, ranking, search, static,
+                        tools)
     app.register_blueprint(browser.bp)
-    app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
-    app.register_blueprint(placelist.bp)
     app.register_blueprint(ranking.bp)
     app.register_blueprint(search.bp)
     app.register_blueprint(static.bp)
     app.register_blueprint(tools.bp)
-    app.register_blueprint(topic_page.bp)
     # TODO: Extract more out to base_dc
     from routes.api import (browser as browser_api, choropleth, place as
                             place_api, landing_page, ranking as ranking_api,
