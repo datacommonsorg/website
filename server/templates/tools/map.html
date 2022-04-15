@@ -37,3 +37,7 @@
   <script src={{url_for('static', filename='map.js', t=config['VERSION'])}}></script>
   <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places" async defer></script>
 {% endblock %}
+
+{% block subfooter_extra %}
+<button id="bq-link" class="btn-subfooter btn btn-primary" style="display: none">Open in BigQuery</button>
+{% endblock %}
