@@ -1,8 +1,6 @@
 
 {% extends BASE_HTML %}
 
-feeding america homepage
-
 {% set main_id = 'homepage' %}
 {% set title = 'Home' %}
 
@@ -11,6 +9,7 @@ feeding america homepage
 {%- endmacro %}
 
 {% block head %}
+<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
 {% endblock %}
 
 {% block content %}

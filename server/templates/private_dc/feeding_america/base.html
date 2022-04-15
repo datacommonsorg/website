@@ -38,9 +38,9 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
-  <link href="/css/private_dc/feeding_america/overrides.css" rel="stylesheet">
   {% block head %}
   {% endblock %}
+  <link href="/css/private_dc/feeding_america/overrides.css" rel="stylesheet">
 </head>
 
 <body id="dc-fa">
@@ -281,20 +281,21 @@
       </div>
     </footer>
   </div>
-  {# Compile this down (or manually implement). Used only for nav bar so far #}
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {# Compile this down (or manually implement). Used only for nav bar so far
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script> -->
+    crossorigin="anonymous"></script>
+  #}
   {# Enable Google Analytics with cookieless tracking. #}
   {% if GA_ACCOUNT %}
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {#<script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
-  </script> -->
+  </script>#}
   {% endif %}
   {% block footer %}
   {% endblock %}
