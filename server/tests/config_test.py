@@ -26,7 +26,7 @@ class TestConfigModule(unittest.TestCase):
         ("production", "configmodule.ProductionConfig"),
         ('staging', "configmodule.StagingConfig"),
         ('autopush', "configmodule.AutopushConfig"),
-        ('feeding-america', "configmodule.FeedingAmericaConfig"),
+        ('feedingamerica', "configmodule.FeedingamericaConfig"),
         ('tidal', "configmodule.TidalConfig"),
         ('dev', "configmodule.DevConfig"),
         ('test', "configmodule.TestConfig"),
@@ -35,6 +35,7 @@ class TestConfigModule(unittest.TestCase):
         ('local', "configmodule.LocalConfig"),
         ('local-lite', "configmodule.LocalLiteConfig"),
         ('local-private', "configmodule.LocalPrivateConfig"),
+        ('local-feedingamerica', "configmodule.LocalFeedingamericaConfig"),
     ])
     def test_config_string(self, env, expected):
         with patch.dict(os.environ, {
