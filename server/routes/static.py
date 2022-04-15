@@ -30,6 +30,8 @@ def homepage():
         return render_template('static/private.html')
     if current_app.config.get('IITM', None):
         return render_template('static/iitm.html')
+    if current_app.config.get('FEEDINGAMERICA', None):
+        return render_template('static/feedingamerica.html')
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
                                         locale=g.locale)
