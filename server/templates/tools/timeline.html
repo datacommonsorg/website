@@ -19,6 +19,8 @@
 {% set subpage_title = "Timelines" %}
 {% set subpage_url = url_for('tools.timeline') %}
 {% set title = "Timelines Explorer" %}
+{% set main_id = 'main-timeline' %}
+{% set page_id = 'page-timeline' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css', t=config['VERSION'])}}>

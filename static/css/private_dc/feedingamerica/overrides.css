@@ -59,6 +59,11 @@ header nav a:hover {
   font-size: 16px;
   line-height: 19px;
   display: block;
+  min-height: 2em;
+}
+#nav-about,
+#nav-faq {
+  line-height: 2em;
 }
 @media only screen and (max-width: 768px) {
   .navbar-default .navbar-nav > li {
@@ -441,6 +446,15 @@ footer .social_icons {
 
 #dc-fa #main-nav h1 a {
   color: #4e5b31
+}
+
+#page-about #nav-about,
+#page-faq #nav-faq,
+#page-timeline #nav-timeline,
+#page-scatter #nav-scatter,
+#page-map #nav-map {
+  background: #4e5b31;
+  color: #fff;
 }
 
 #dc-fa header#main-nav {

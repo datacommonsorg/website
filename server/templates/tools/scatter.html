@@ -19,6 +19,8 @@
 {% set subpage_title = "Scatter" %}
 {% set subpage_url = url_for('tools.scatter') %}
 {% set title = "Scatter Plot Explorer" %}
+{% set main_id = 'main-scatter' %}
+{% set page_id = 'page-scatter' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/scatter.min.css', t=config['VERSION'])}}>

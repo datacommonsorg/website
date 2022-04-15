@@ -17,11 +17,13 @@
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
+  page_id: DOM Element ID for the html element
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  locale: string, value for html lang attr
 
   Blocks to override:
   head - additional head elements
@@ -29,7 +31,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }}>
+<html lang={{ locale }} id={{ page_id }}>
 
 <head>
   <title>{{ title }} - Feeding America Data Commons</title>
@@ -94,17 +96,17 @@
           <div class="collapse navbar-collapse justify-content-md-end" id="nav1">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="{{ url_for('tools.timeline') }}" id="drop1" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
+                    <a href="{{ url_for('tools.timeline') }}" id="nav-timeline" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
                 </li>
                 <li class="dropdown">
-                    <a href="{{ url_for('tools.scatter') }}" id="drop2" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
+                    <a href="{{ url_for('tools.scatter') }}" id="nav-scatter" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
                 </li>
                 <li class="dropdown">
-                    <a href="{{ url_for('tools.map') }}" id="drop3" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
+                    <a href="{{ url_for('tools.map') }}" id="nav-map" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
                 </li>
-                <li class="dropdown"><a href="{{ url_for('static.about') }}"><span>About</span></a></li>
+                <li class="dropdown"><a id="nav-about" href="{{ url_for('static.about') }}"><span>About</span></a></li>
                 <li class="dropdown">
-                    <a href="{{ url_for('static.faq') }}" id="drop4" class="nav-link-main "><span>FAQ</span></a>
+                    <a href="{{ url_for('static.faq') }}" id="nav-faq" class="nav-link-main "><span>FAQ</span></a>
                 </li>
             </ul>
           </div>
