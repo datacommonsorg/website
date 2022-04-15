@@ -25,7 +25,7 @@ ENV = {
     'autopush',
     # Private
     'private',
-    'feeding-america',
+    'feedingamerica',
     'tidal',
     'iitm',
     # Dev
@@ -41,6 +41,7 @@ ENV = {
     'local-lite',
     'local-private',
     'local-iitm',
+    'local-feedingamerica',
 }
 
 

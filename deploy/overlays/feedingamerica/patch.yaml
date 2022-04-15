@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-project: datcom-website-private
-ip: 34.117.119.97
-domain: fa.datacommons.org
-region:
-  primary: us-central1
-nodes: 1
-storage_project: datcom-store
-tmcf_csv_bucket: datcom-website-private-resources
+# mixer tmcf+csv args
+- op: add
+  path: /spec/template/spec/containers/1/args/0
+  value: --use_tmcf_csv_data=true
+- op: add
+  path: /spec/template/spec/containers/1/args/0
+  value: --tmcf_csv_bucket=datcom-feedingamerica-resources
+- op: add
+  path: /spec/template/spec/containers/1/args/0
+  value: --tmcf_csv_folder=food

@@ -49,6 +49,8 @@ elif [[ $ENV == "private" ]]; then
   export FLASK_ENV=local-private
 elif [[ $ENV == "iitm" ]]; then
   export FLASK_ENV=local-iitm
+elif [[ $ENV == "feedingamerica" ]]; then
+  export FLASK_ENV=local-feedingamerica
 elif [[ ! -z ${ENV+x} ]]; then  # Use any specified env.
   export FLASK_ENV=$ENV
 else

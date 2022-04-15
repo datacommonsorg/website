@@ -61,10 +61,11 @@ $container-max-widths: (
   xl: 1500px,
 );
 
-$hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66 / 10%);
+$hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%),
+  0 2px 8px 4px rgb(66 66 66 / 10%);
 
 $theme-colors: (
-  "primary": $dc-primary-color
+  "primary": $dc-primary-color,
 );
 
 @import "~bootstrap/scss/bootstrap";
@@ -76,7 +77,7 @@ $theme-colors: (
   align-items: center;
 }
 
-:root.feeding-america .navbar-brand > a {
+:root.feedingamerica .navbar-brand > a {
   display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
   background-position: -900px -100px;
