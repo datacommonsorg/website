@@ -34,9 +34,8 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
-app.jinja_env.globals['FEEDING_AMERICA'] = app.config['FEEDING_AMERICA']
 app.jinja_env.globals['NAME'] = app.config['NAME']
-app.jinja_env.globals['BASE_HTML'] = 'base.html'
+app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
 
 WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
