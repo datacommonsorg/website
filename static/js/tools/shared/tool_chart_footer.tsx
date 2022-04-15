@@ -22,7 +22,6 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 import {
   SourceSelector,
   SourceSelectorSvInfo,
@@ -53,6 +52,7 @@ interface ToolChartFooterPropType {
 const DOWN_ARROW_HTML = <i className="material-icons">expand_more</i>;
 const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const SELECTOR_PREFIX = "chart-footer";
+const FEEDBACK_LINK = "/feedback";
 
 export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
   const mMethods = !_.isEmpty(props.mMethods)
@@ -116,6 +116,9 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           />
         </div>
       )}
+      <div className="feedback-link">
+        <a href={FEEDBACK_LINK}>Feedback</a>
+      </div>
     </>
   );
 }

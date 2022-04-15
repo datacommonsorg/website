@@ -127,9 +127,6 @@ msgstr "Explorador de gráficos de dispersión"
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "Search"
-msgstr ""
-
 msgid "States, United States"
 msgstr "Estados (Estados Unidos)"
 
@@ -190,9 +187,6 @@ msgstr "Tasa de diplomados por sexo"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Tasa de personas con grados por sexo"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Criminalidad"
 
@@ -207,6 +201,9 @@ msgstr "Educación"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Patrimonio"
@@ -660,4 +657,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+
 

@@ -16,7 +16,7 @@
 
 set -e
 
-export NODE_OPTIONS=--openssl-legacy-provider
+# export NODE_OPTIONS=--openssl-legacy-provider
 
 function setup_python {
   python3 -m venv .env

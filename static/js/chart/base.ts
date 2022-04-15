@@ -19,10 +19,15 @@ import _ from "lodash";
 
 import { translateVariableString } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
-import { isIpccStatVar } from "../tools/shared_util";
+import {
+  isIpccStatVar,
+  isTemperaturePredictionModel,
+} from "../tools/shared_util";
 
 const DEFAULT_COLOR = "#000";
 
+const MAX_PREDICTION_COLORS = ["#dc3545", "#fac575"];
+const MIN_PREDICTION_COLORS = ["#007bff", "#66c2a5"];
 export class DataPoint {
   value: number;
   label: string;
@@ -233,21 +238,35 @@ export interface PlotParams {
  *
  * Returns undefined if the stat var is not IPCC Temperature related.
  */
-function temperatureColorMap(statVar: string): string {
-  if (!isIpccStatVar(statVar)) {
-    return undefined;
-  }
-  if (statVar.indexOf("RCP") > 0) {
-    if (statVar.indexOf("Max") >= 0) {
-      return "#dc3545";
+function getTempColorFn(statVars: string[]): (sv: string) => string {
+  const tempColorMap = {};
+  const seenColors = new Set();
+  const reversedSvList = _.clone(statVars).reverse();
+  for (const sv of reversedSvList) {
+    if (!isIpccStatVar(sv)) {
+      continue;
     }
-    return "#007bff";
-  } else {
-    if (statVar.indexOf("Max") >= 0) {
-      return "#600";
+    if (isTemperaturePredictionModel(sv)) {
+      if (sv.indexOf("Max") >= 0) {
+        tempColorMap[sv] =
+          MAX_PREDICTION_COLORS.find((color) => !seenColors.has(color)) ||
+          MAX_PREDICTION_COLORS[0];
+        seenColors.add(tempColorMap[sv]);
+      } else {
+        tempColorMap[sv] =
+          MIN_PREDICTION_COLORS.find((color) => !seenColors.has(color)) ||
+          MIN_PREDICTION_COLORS[0];
+        seenColors.add(tempColorMap[sv]);
+      }
+      continue;
     }
-    return "#003874";
+    if (sv.indexOf("Max") >= 0) {
+      tempColorMap[sv] = "#600";
+    } else {
+      tempColorMap[sv] = "#003874";
+    }
   }
+  return (label: string) => tempColorMap[label];
 }
 
 /**
@@ -269,8 +288,9 @@ export function computePlotParams(
   if (placeDcids.length === 1) {
     const placeName = placeNames[placeDcids[0]];
     const colorFn = getColorFn(statVars);
+    const tempColorFn = getTempColorFn(statVars);
     for (const statVar of statVars) {
-      const color = temperatureColorMap(statVar) || colorFn(statVar);
+      const color = tempColorFn(statVar) || colorFn(statVar);
       lines[placeName + statVar] = { color: color, dash: "" };
       let legendLabel = `${statVar} (${placeName})`;
       if (statVar in statVarInfo) {
@@ -295,6 +315,7 @@ export function computePlotParams(
     }
   } else {
     const colorFn = getColorFn(statVars);
+    const tempColorFn = getTempColorFn(statVars);
     const dashFn = getDashes(placeDcids.length);
     for (let i = 0; i < placeDcids.length; i++) {
       const placeName = placeNames[placeDcids[i]];
@@ -303,7 +324,7 @@ export function computePlotParams(
       )}`;
       legend[placeName] = { color: DEFAULT_COLOR, dash: dashFn[i], legendLink };
       for (const statVar of statVars) {
-        const color = temperatureColorMap(statVar) || colorFn(statVar);
+        const color = tempColorFn(statVar) || colorFn(statVar);
         lines[placeName + statVar] = {
           color: color,
           dash: dashFn[i],
