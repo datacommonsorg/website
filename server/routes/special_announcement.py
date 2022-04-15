@@ -19,10 +19,12 @@ from lib.gcs import list_blobs
 _SA_FEED_BUCKET = 'datacommons-frog-feed'
 _MAX_BLOBS = 1
 
-bp = Blueprint('static', __name__, url_prefix='/special_announcement')
+bp = Blueprint('special_announcement',
+               __name__,
+               url_prefix='/special_announcement')
 
 
-@bp.route('/')
+@bp.route('', strict_slashes=False)
 def special_announcement():
     recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
     return render_template('static/special_announcement.html',
