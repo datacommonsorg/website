@@ -526,3 +526,7 @@ footer .social_icons {
 #dc-fa #main-footer #sub-footer {
   border: none! important;
 }
+
+#dc-fa #bq-link {
+  display: none;
+}
