@@ -237,7 +237,7 @@ function draw(
   const width = svgContainer.current.offsetWidth;
   const colorScale = getColorScale(mainStatVar, chartData.dataValues);
   const getTooltipHtml = (place: NamedPlace) => {
-    let value = "Data Missing";
+    let value = "Data Unavailable";
     if (place.dcid in chartData.dataValues) {
       value = formatNumber(
         Math.round((chartData.dataValues[place.dcid] + Number.EPSILON) * 100) /

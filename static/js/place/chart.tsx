@@ -396,7 +396,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         window.open(redirectLink, "_blank");
       };
       const getTooltipHtml = (place: NamedPlace) => {
-        let value = "Data Missing";
+        let value = "Data Unavailable";
         if (this.state.choroplethDataGroup.data[place.dcid]) {
           value = formatNumber(
             Math.round(

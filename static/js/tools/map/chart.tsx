@@ -429,7 +429,7 @@ const getTooltipHtml = (
 ) => (place: NamedPlace) => {
   let titleHtml = `<b>${place.name || place.dcid}</b>`;
   let hasValue = false;
-  let value = "Data Missing";
+  let value = "Data Unavailable";
   if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
     value = formatNumber(dataValues[place.dcid], unit);
     hasValue = true;
