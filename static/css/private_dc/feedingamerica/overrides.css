@@ -1,6 +1,6 @@
 :root #dc-fa {
   --dc-primary: rgb(68, 97, 45);
-  --link-color: rgb(68, 97, 45);
+  --link-color: rgba(233,131,0);
 }
 
 /* header#main-nav */
@@ -43,9 +43,10 @@ header#main-nav {
   width: 100%;
 }
 
-#main-nav nav a:focus,
-#main-nav nav a:hover {
+#main-nav .navbar-nav a:focus,
+#main-nav .navbar-nav a:hover {
   color: #ffffff;
+  background-color: #4e5b31;
 }
 
 .nav {
