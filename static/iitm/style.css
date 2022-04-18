@@ -112,12 +112,22 @@ a.linked-text:hover {
     color: var(--iitm-section-text);
   }
 
-  .bg-E8F2F5 .position-relative span {
+  .bg-E8F2F5 .position-relative span a {
     position: absolute;
     bottom:0;
     text-align: center;
     right:0;
+    left:0;
     font-size:16px;
+    text-decoration: underline;
+    color: #80296E;
+  }
+  
+
+  .bg-E8F2F5 .position-relative span a:hover {
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
   }
 
   .text-info{
@@ -164,8 +174,16 @@ a.linked-text:hover {
   min-width:270px;
 }
 
-#main-header{
+/* #main-header{
   background-color:#80296E!important;
+} */
+
+#main-footer-iitm #sub-footer {
+  padding-top: 1.2rem;
+  line-height: 2.5rem;
+  border-top: none !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 1.2rem !important;
 }
 
 #main-nav .nav-link {

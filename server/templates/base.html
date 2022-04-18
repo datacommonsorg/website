@@ -30,7 +30,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} {% if FEEDING_AMERICA %} class="feeding-america" {% endif %}>
+<html lang={{ locale }} {% if FEEDING_AMERICA %} class="feeding-america" {% endif %} {% if config['IITM'] %} class="iitm-india" {% endif %}>
 
 <head>
   {% if config['IITM'] %}
@@ -237,30 +237,31 @@
 
             {% if not is_hide_sub_footer %}
             <div class="row">
-                <div class="col-md-6 text-left text-md-left no-decoration pt-3 pb-1">
+              <div id="sub-footer" class="col-12">
+                <div class="float-left no-decoration py-2">
                     <a target="_blank" href="https://www.iitm.ac.in/">
-                        <img src="/images/iitm-iitmadras.svg" height="55%">
+                        <img src="/images/iitm-iitmadras.svg" height="45px">
                     </a>
                     <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
-                        <img src="/images/iitm-rbcdsai.svg" height="55%" >
+                        <img src="/images/iitm-rbcdsai.svg" height="50px" >
                     </a>
                 </div>
                 
-                <div class="col-md-6 text-right pb-4 pt-1">
-                    <div class="float-md-right mt-2 mt-md-0">
-                        <div style="padding: 10px;">
-                          {% block subfooter_extra_iitm %}{% endblock %}
-                        </div>
-                        {# TRANSLATORS: The label for a link to site terms of use. #}
-                        <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">{% trans %}Terms Of Use{% endtrans %}</a> ·&nbsp;
-                        {# TRANSLATORS: The label for a link to site privacy policy. #}
-                        <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a> ·&nbsp;
-                        {# TRANSLATORS: The label for a link to site disclaimers. #}
-                        <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
-                        <p style="display: inline; font-weight: 600;">&nbsp;&nbsp;| &nbsp;&nbsp;India Data Commons</p>
-                        
-                    </div>
-                </div>
+                <!-- <div class="col-md-6 text-right py-2"> -->
+                  <div class="float-right no-decoration mt-2">
+                      <span class="px-3">
+                        {% block subfooter_extra_iitm %}{% endblock %}
+                      </span>
+                      {# TRANSLATORS: The label for a link to site terms of use. #}
+                      <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">{% trans %}Terms Of Use{% endtrans %}</a>
+                      {# TRANSLATORS: The label for a link to site privacy policy. #}
+                      <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a>
+                      {# TRANSLATORS: The label for a link to site disclaimers. #}
+                      <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
+                      <span style="display: inline; font-weight: 600;">&nbsp;&nbsp;| &nbsp;&nbsp;India Data Commons</span>
+                      
+                  </div>
+                <!-- </div> -->
               </div>
             </div>
 
