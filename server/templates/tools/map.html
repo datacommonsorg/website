@@ -14,12 +14,14 @@
   limitations under the License.
 #}
 
-{% extends BASE_HTML %}
+{%- extends BASE_HTML -%}
 
 {% set is_hide_full_footer = true %}
 {% set subpage_title = "Map Explorer" %}
 {% set subpage_url = url_for('tools.map') %}
 {% set title = "Map Explorer" %}
+{% set main_id = 'main-map' %}
+{% set page_id = 'page-map' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/map.min.css')}} >

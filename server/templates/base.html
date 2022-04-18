@@ -17,11 +17,13 @@
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
+  page_id: DOM Element ID for the html element
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  locale: string, value for html lang attr
 
   Blocks to override:
   head - additional head elements
@@ -29,7 +31,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }}>
+<html lang={{ locale }} id={{ page_id }}>
 
 <head>
   <title>{{ title }} - Data Commons</title>

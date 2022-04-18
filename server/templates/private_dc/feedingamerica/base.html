@@ -17,11 +17,13 @@
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
+  page_id: DOM Element ID for the html element
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  locale: string, value for html lang attr
 
   Blocks to override:
   head - additional head elements
@@ -29,7 +31,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }}>
+<html lang={{ locale }} id={{ page_id }}>
 
 <head>
   <title>{{ title }} - Feeding America Data Commons</title>
@@ -45,89 +47,72 @@
 
 <body id="dc-fa">
   <div id="main">
-  <header id="main-nav">
-    <div class="container-fluid">
-        <div id="logo">
-            <a href="https://www.feedingamerica.org/">
-              <img src="/images/feedingamerica/logo-2020.svg" />
-            </a>
-        </div>
-        <h1><a href="/">Data Commons</a></h1>
-        <!--/#logo-->
-        <div id="header_right">
+    <header id="main-nav">
+      <nav class="navbar navbar-default navbar-expand-md" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-brand">
+            <div id="logo">
+                <a href="https://www.feedingamerica.org/">
+                  <img src="/images/feedingamerica/logo-2020.svg" />
+                </a>
+            </div>
+            <h1><a href="/">Data Commons</a></h1>
+          </div>
           {#
-            <div id="util">
-                <div class="container">
-                    <div id="util_search">
-                        <!-- Secure Page -->
-                    </div>
-                    <!--/#util_search-->
-                    <div id="util_findfood">
-                        <a href="https://www.feedingamerica.org/need-help-find-food/">Need Help</a>
-                    </div>
-                    <!--/#util_findfood-->
-                    <div id="util_sign_up">
-                        <a href="https://www.feedingamerica.org/take-action/signup?s_subsrc=datacommons" target="_blank" id="util_sign_up_expand">Sign Up</a>
-                    </div>
-                    <!--/#util_sign_up-->
-                    <div id="util_donate" class="donate_giving_pref">
-                       <ul>
-                            <li id="util_donate_button">
-                                <a href="https://feedingamerica.org/dc_donate">Donate</a>
-                                <ul class="util_donate_dropdown">
-                                    <li><a href="https://feedingamerica.org/dc_givetoday">Give Today</a></li>
-                                    <li><a href="https://feedingamerica.org/dc_givemonthly">Give Monthly</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--/#util_donate-->
+          <div id="util">
+            <div class="container">
+                <div id="util_search">
+                    <!-- Secure Page -->
                 </div>
-                <!--/.container-->
+                <!--/#util_search-->
+                <div id="util_findfood">
+                    <a href="https://www.feedingamerica.org/need-help-find-food/">Need Help</a>
+                </div>
+                <!--/#util_findfood-->
+                <div id="util_sign_up">
+                    <a href="https://www.feedingamerica.org/take-action/signup?s_subsrc=datacommons" target="_blank" id="util_sign_up_expand">Sign Up</a>
+                </div>
+                <!--/#util_sign_up-->
+                <div id="util_donate" class="donate_giving_pref">
+                    <ul>
+                        <li id="util_donate_button">
+                            <a href="https://feedingamerica.org/dc_donate">Donate</a>
+                            <ul class="util_donate_dropdown">
+                                <li><a href="https://feedingamerica.org/dc_givetoday">Give Today</a></li>
+                                <li><a href="https://feedingamerica.org/dc_givemonthly">Give Monthly</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--/#util_donate-->
             </div>
-            <!--/#util-->
-            #}
-            <div id="mainmenu">
-                <nav class="xnavbar xnavbar-default" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <!--/.navbar-header-->
-                    <div class="xcollapse xnavbar-collapse" id="nav1">
-                        <ul class="xnav xnavbar-nav">
-                            <li class="dropdown">
-                                <a href="{{ url_for('tools.timeline') }}" id="drop1" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="{{ url_for('tools.scatter') }}" id="drop2" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="{{ url_for('tools.map') }}" id="drop3" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
-                            </li>
-                            <li class="dropdown"><a href="{{ url_for('static.about') }}"><span>About</span></a></li>
-                            <li class="dropdown">
-                                <a href="{{ url_for('static.faq') }}" id="drop4" class="nav-link-main "><span>FAQ</span></a>
-                            </li>
-                        </ul>
-                        <!--/.nav-->
-                    </div>
-                    <!--/collapse-->
-                </nav>
-                <!--/.navbar-->
-            </div>
-            <!--/#mainmenu-->
-            <div class="clearfix"></div>
+            <!--/.container-->
+          </div>
+          <!--/#util-->
+          #}
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav1">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-md-end" id="nav1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="{{ url_for('tools.timeline') }}" id="nav-timeline" class="nav-link-main "><span>Timeline</span> <span>Explorer</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ url_for('tools.scatter') }}" id="nav-scatter" class="nav-link-main"><span>Scatter</span> <span>Explorer</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="{{ url_for('tools.map') }}" id="nav-map" class="nav-link-main "><span>Map</span> <span>Explorer</span></a>
+                </li>
+                <li class="dropdown"><a id="nav-about" href="{{ url_for('static.about') }}"><span>About</span></a></li>
+                <li class="dropdown">
+                    <a href="{{ url_for('static.faq') }}" id="nav-faq" class="nav-link-main "><span>FAQ</span></a>
+                </li>
+            </ul>
+          </div>
         </div>
-        <!--/#header_right-->
-        <div class="clearfix"></div>
-    </div>
-    <!--/.container-->
-  </header>
+      </nav>
+    </header>
 
     <main id="{{ main_id }}" class="main-content">
       {% block content %}
@@ -135,9 +120,8 @@
     </main>
 
     <footer id="main-footer">
-      <div class="container">
-        {% if not is_hide_full_footer %}
-    <div class="container max-w-[960px]">
+      {% if not is_hide_full_footer %}
+      <div class="container max-w-[960px]">
         <div id="footer_col_one">
             <div id="footer_logo">
                 <a href="https://www.feedingamerica.org/">
@@ -161,6 +145,11 @@
             </div>
         </div>
         <div id="footer_col_two">
+            <ul class="footer_nav_redesign">
+              <li class="footer-head">
+                <a href="https://www.feedingamerica.org//contact" data-drupal-link-system-path="contact"><h2>Contact</h2></a>
+              </li>
+            </ul>
             <ul class="footer_nav_redesign">
                 <li class="footer-head"><a href="https://www.feedingamerica.org/about-us/">About Us</a></li>
                 <li><a href="https://www.feedingamerica.org/about-us/our-history/">Our History</a></li>
@@ -207,7 +196,7 @@
                 <li class="footer-head"><a href="https://www.feedingamerica.org/hunger-in-america/facts">Hunger Facts</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/child-hunger-facts">Children</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/senior-hunger-facts">Seniors</a></li>
-                <a href="https://www.feedingamerica.org/hunger-in-america/african-american">African Americans</a></li>
+                <li><a href="https://www.feedingamerica.org/hunger-in-america/african-american">African Americans</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/latino-hunger-facts">Latinos</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/native-american">Native Americans</a></li>
                 <li><a href="https://www.feedingamerica.org/hunger-in-america/rural-hunger-facts">Rural Communities</a></li>
@@ -218,75 +207,32 @@
         </div>
         <div class="clearfix"></div>
         <div class="h-[1px] bg-white w-full my-10 separator"></div>
-        <div id="footer_links">
-            <a href="https://www.feedingamerica.org/privacy-policy/">Privacy Policy</a>
-            <a href="https://www.feedingamerica.org/privacy-policy/donor-privacy-policy">Donor Privacy</a>
-            <a href="https://feedingamerica.org/contact">Contact Us</a>
-            <a href="https://www.feedingamerica.org/en-espanol/">En Espa&ntilde;ol</a>
-        </div>
-        <!--/#footer_links-->
-        <div id="footer_text">
-            <div id="footer_copyright">
-                <p>Copyright &copy; 2022
-                    Feeding America. All Rights Reserved. Feeding America is a 501 (c)(3) non-profit recognized by the IRS. <br>Tax ID Number: 36-3673599</p>
-            </div>
-            <!--/#footer_copyright-->
-            <div id="footer_disclaimer">
-                <p>Photos associated with client stories feature the actual person referenced. Other images are for illustrative purposes only.</p>
-            </div>
-            <!--/#footer_disclaimer-->
-        </div>
-        <!--/#footer_text-->
-    </div>
-    <!--/.container-->
-        {% else %}
+      </div>
+      <!--/.container-->
+      {% endif %}
+      {% if not is_hide_sub_footer %}
+      <div class="container">
         <div class="row">
           <div id="sub-footer" class="col-12">
-            <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
-            {# TRANSLATORS: The label for a link to project homepage. #}
             <span>Feeding America Data Commons is a Google supported project</span>
-
             <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
-              <a href="https://policies.google.com/privacy?hl=en-US">Privacy Policy ›</a>
-              <a href="https://policies.google.com/terms">Donor Privacy ›</a>
+              <a href="https://www.feedingamerica.org/privacy-policy/">Privacy Policy ›</a>
+              <a href="https://www.feedingamerica.org/privacy-policy/donor-privacy-policy">Donor Privacy ›</a>
               <a href="{{ url_for('static.disclaimers') }}">Disclaimers ›</a>
-              <a href="{{ url_for('static.disclaimers') }}">Contact Us ›</a>
+              <a href="{{ url_for('static.feedback') }}">Contact Us ›</a>
             </div>
           </div>
         </div>
-  {#
-        <div class="row">
-    <div id="footer_col_one">
-      <div id="footer_logo">
-        <a href="https://feedingamerica.org"><img src="/images/fa/logo-white-2020.svg" alt="Feeding America" style="height: 40px; width: 79px" /></a>
-      </div><!--/#footer_logo-->
-    </div>
-    <hr>
-    <div id="footer_links">
-      <a href="http://www.feedingamerica.org/privacy-policy/">Privacy Policy</a>
-      <a href="http://www.feedingamerica.org/privacy-policy/donor-privacy-policy.html">Donor Privacy</a>
-      <a href="https://feedingamerica.org/contact">Contact Us</a>
-    </div>
-    <div id="footer_text">
-      <div id="footer_copyright">
-        <p>Copyright &copy; 2022 Feeding America. All Rights Reserved. Feeding America is a 501 (c)(3) non-profit recognized by the IRS. <BR>Tax ID Number: 36-3673599</p>
-      </div><!--/#footer_copyright-->
-      <div id="footer_disclaimer">
-        <p>Photos associated with client stories feature the actual person referenced. Other images are for illustrative purposes only.</p>
-      </div><!--/#footer_disclaimer-->
-    </div><!--/#footer_text-->
-    #}
-        {% endif %}
       </div>
+      {% endif %}
     </footer>
   </div>
-  {# Compile this down (or manually implement). Used only for nav bar so far
+  {# Compile this down (or manually implement). Used only for nav bar so far #}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-  #}
   {# Enable Google Analytics with cookieless tracking. #}
   {% if GA_ACCOUNT %}
   {#<script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
