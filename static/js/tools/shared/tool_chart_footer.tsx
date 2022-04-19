@@ -132,10 +132,12 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
       return null;
     }
     seenSourceDomains.add(domain);
+    // handle relative url that doesn't contain https or http or www
+    const processedUrl = domain === source ? "https://" + source : source;
     return (
       <span key={source}>
         {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
+        <a href={processedUrl}>{domain}</a>
       </span>
     );
   });

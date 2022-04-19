@@ -744,11 +744,6 @@ function loadChartData(
     if (!_.isEmpty(placeChartData.metadata)) {
       metadata[place.dcid] = placeChartData.metadata;
     }
-    placeChartData.sources.forEach((source) => {
-      if (!_.isEmpty(source)) {
-        sourceSet.add(source);
-      }
-    });
   }
   const mapPointValues = {};
   if (!_.isEmpty(rawData.mapPointStat)) {
