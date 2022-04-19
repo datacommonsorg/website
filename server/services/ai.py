@@ -171,27 +171,20 @@ def _iterate_property_value(
             yield (key, value)
 
 
-def search(query: str) -> Optional[Any]:
+def search(query: str) -> Sequence[Mapping[str, str]]:
     global _INFERENCE_CLIENT
-
     if not _INFERENCE_CLIENT:
-        return
-
+        return {"statVars": []}
     response = _INFERENCE_CLIENT.request(query)
     property_value = dict(
         _iterate_property_value(response["predictions"][0]["output_0"][0],
                                 exclude='place'))
-    limit = 100
-    matches = dc.match_statvar(property_value, limit)
 
-    # This is a fake response for the moment.
-    # It will change once we have the API in place.
-    return {
-        'type':
-            f'Model response: {response}',
-        'entities': [{
-            "name": m["statVar"],
+    logging.info("Property value: %s", property_value)
+    matches = dc.match_statvar(property_value, limit=50)
+    logging.info("Matches: %s", matches)
+    statvars = [{
+            "name": f"{m['statVarName']} (ID {m['statVar']})",
             "dcid": m["statVar"],
-            "rank": m["matchCount"],
         } for m in matches["matchInfo"]]
-    }
+    return {"statVars": statvars}
