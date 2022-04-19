@@ -17,8 +17,10 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
+import { BQ_QUERY_HEADER_COMMENT, setUpBqButton } from "../shared/bq_utis";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -46,6 +48,7 @@ interface ChartRegionPropsType {
 class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
   bulkDownloadLink: HTMLAnchorElement;
+  bqLink: HTMLAnchorElement;
   allStatData: { [key: string]: StatData };
 
   constructor(props: ChartRegionPropsType) {
@@ -72,6 +75,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
         );
       };
     }
+    // TODO: add webdriver test for BigQuery button to ensure query works
+    this.getSqlQuery = this.getSqlQuery.bind(this);
+    this.bqLink = setUpBqButton(this.getSqlQuery);
   }
 
   render(): JSX.Element {
@@ -99,7 +105,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
               pc={getChartOption(mprop, "pc")}
-              denom={getDenom(mprop) || ""}
+              denom={getDenom(mprop) || DEFAULT_POPULATION_DCID}
               delta={getChartOption(mprop, "delta")}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
@@ -120,11 +126,13 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   private onDataUpdate(groupId: string, data: StatData) {
     this.allStatData[groupId] = data;
     if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
-      this.downloadLink.style.visibility = "visible";
-      this.bulkDownloadLink.style.visibility = "visible";
+      this.downloadLink.style.display = "inline-block";
+      this.bulkDownloadLink.style.display = "inline-block";
+      this.bqLink.style.display = "inline-block";
     } else {
-      this.downloadLink.style.visibility = "hidden";
-      this.bulkDownloadLink.style.visibility = "hidden";
+      this.downloadLink.style.display = "none";
+      this.bulkDownloadLink.style.display = "none";
+      this.bqLink.style.display = "none";
     }
   }
 
@@ -223,6 +231,45 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       result += row.join(",") + "\n";
     }
     return result;
+  }
+
+  private getSqlQuery(): string {
+    const placeSvPairs = [];
+    for (const place of Object.keys(this.props.placeName)) {
+      for (const sv of Object.keys(this.props.statVarInfo)) {
+        placeSvPairs.push([place, sv]);
+      }
+    }
+    const placeSvQueryString = placeSvPairs
+      .map(
+        (placeSvPair) =>
+          `(O.observation_about = "${placeSvPair[0]}" AND O.variable_measured = "${placeSvPair[1]}")`
+      )
+      .join(" OR ");
+    return (
+      BQ_QUERY_HEADER_COMMENT +
+      `
+SELECT O.observation_about AS PlaceId,
+    P.name AS PlaceName,
+    O.variable_measured AS VariableId,
+    V.name AS VariableName,
+    O.observation_date AS Date,
+    CAST(O.value AS FLOAT64) AS Value,
+    O.measurement_method AS MeasurementMethod,
+    O.unit AS Unit,
+    NET.REG_DOMAIN(I.provenance_url) AS Source
+FROM \`data_commons.Observation\` AS O
+JOIN \`data_commons.Place\` AS P ON TRUE
+JOIN \`data_commons.Variable\` AS V ON TRUE
+JOIN \`data_commons.Provenance\` AS I ON TRUE
+WHERE
+    O.facet_rank = 1 AND
+    O.observation_about = P.id AND
+    O.variable_measured = V.id AND
+    O.prov_id = I.prov_id AND
+    (${placeSvQueryString})
+ORDER BY PlaceId, VariableId, Date;`
+    );
   }
 }
 

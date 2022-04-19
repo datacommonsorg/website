@@ -127,9 +127,6 @@ msgstr "Explorateur de graphiques à nuage de points"
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "Search"
-msgstr ""
-
 msgid "States, United States"
 msgstr "États des États-Unis"
 
@@ -190,9 +187,6 @@ msgstr "Taux d'obtention d'un diplôme d'associé par sexe"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Taux d'obtention d'une licence par sexe"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crimes"
 
@@ -207,6 +201,9 @@ msgstr "Éducation"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Capitaux propres"
@@ -660,4 +657,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+
 

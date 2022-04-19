@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+$dc-primary-color: #660000;
+
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
   --breakpoint-xl: 1040px;
@@ -23,19 +25,9 @@
   --dc-gray-lite: #ccc;
   --dc-white: #fff;
   --dc-blue: #67adff;
-  // Following vars are override in "feeding-america" and "sustainability" mode
-  --dc-primary: #660000;
-  --link-color: #660000;
-}
-
-:root.feeding-america {
-  --dc-primary: rgb(68, 97, 45);
-  --link-color: rgb(68, 97, 45);
-}
-
-:root.sustainability {
-  --dc-primary: #166328;
-  --link-color: #166328;
+  // Following vars are overwritten in private dc modes
+  --dc-primary: #{$dc-primary-color};
+  --link-color: #{$dc-primary-color};
 }
 
 /** Bootstrap overrides **/
@@ -69,7 +61,12 @@ $container-max-widths: (
   xl: 1500px,
 );
 
-$hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66 / 10%);
+$hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%),
+  0 2px 8px 4px rgb(66 66 66 / 10%);
+
+$theme-colors: (
+  "primary": $dc-primary-color,
+);
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -80,7 +77,7 @@ $hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66
   align-items: center;
 }
 
-:root.feeding-america .navbar-brand > a {
+:root.feedingamerica .navbar-brand > a {
   display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
   background-position: -900px -100px;
@@ -189,6 +186,16 @@ $hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%), 0 2px 8px 4px rgb(66 66 66
   border-top: 1px solid $gray-300;
   padding-top: 1.5rem;
   padding-bottom: 3rem;
+  line-height: 2.5rem;
+}
+
+#sub-footer .btn,
+#sub-footer a {
+  margin-right: 0.75rem;
+}
+
+#sub-footer a:last-of-type {
+  margin-right: 0;
 }
 
 #main-footer section a {

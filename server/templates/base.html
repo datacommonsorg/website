@@ -17,12 +17,13 @@
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
-  deployment: "private" or "public"
+  page_id: DOM Element ID for the html element
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  locale: string, value for html lang attr
 
   Blocks to override:
   head - additional head elements
@@ -30,7 +31,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} {% if FEEDING_AMERICA %} class="feeding-america" {% endif %}>
+<html lang={{ locale }} id={{ page_id }}>
 
 <head>
   <title>{{ title }} - Data Commons</title>
@@ -174,12 +175,12 @@
             {# TRANSLATORS: The label for a link to project homepage. #}
             <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
 
-            <div class="float-md-right mt-2 mt-md-0">
+            <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
               {# TRANSLATORS: The label for a link to site terms and conditions. #}
-              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a> ·&nbsp;
+              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
               {# TRANSLATORS: The label for a link to site privacy policy. #}
-              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a> ·&nbsp;
+              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
               {# TRANSLATORS: The label for a link to site disclaimers. #}
               <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
             </div>

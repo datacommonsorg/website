@@ -13,9 +13,10 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-{%- extends 'base.html' -%}
+{%- extends BASE_HTML -%}
 
 {% set main_id = 'dc-places' %}
+{% set page_id = 'page-dc-places' %}
 {% set title = place_name + ' ' + category + ' - ' + _('Place Explorer') %}
 {% set subpage_title = _('Place Explorer') %}
 {% set subpage_url = url_for('place.place') %}

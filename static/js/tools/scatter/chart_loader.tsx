@@ -111,8 +111,8 @@ export function ChartLoader(): JSX.Element {
             <>
               <Chart
                 points={chartData.points}
-                xLabel={xVal.statVarInfo.title || xVal.statVarDcid}
-                yLabel={yVal.statVarInfo.title || yVal.statVarDcid}
+                xLabel={getLabel(xVal)}
+                yLabel={getLabel(yVal)}
                 xLog={xVal.log}
                 yLog={yVal.log}
                 xPerCapita={xVal.perCapita}
@@ -271,7 +271,7 @@ function useChartData(cache: Cache): ChartData {
 
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
-      downloadButton.style.visibility = "visible";
+      downloadButton.style.display = "inline-block";
       downloadButton.onclick = () =>
         downloadData(xVal, yVal, placeVal, chartData.points);
     }
@@ -436,4 +436,13 @@ function downloadData(
       `${place.enclosedPlaceType}.csv`,
     csv
   );
+}
+
+/**
+ * Gets the label given an axis.
+ * @param axis
+ */
+function getLabel(axis: Axis): string {
+  const name = axis.statVarInfo.title || axis.statVarDcid;
+  return `${name}${axis.perCapita ? " Per Capita" : ""}`;
 }

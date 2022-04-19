@@ -23,7 +23,7 @@
   border-top: none;
   display: flex;
   justify-content: space-between;
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  padding: 0 15px 15px 15px;
   font-size: 0.8rem;
   border-radius: 0 0 0.25rem 0.25rem;
   background: white;
@@ -41,6 +41,12 @@
 
 .chart-footer-metadata a {
   color: var(--dc-gray);
+}
+
+.feedback-link a {
+  color: #7b7b7b;
+  font-style: italic;
+  font-size: 0.8rem;
 }
 
 .chart-footer-metadata a:hover {
@@ -75,7 +81,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 0 0 0.25rem 0.25rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem 15px;
   font-size: 0.8rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background: white;
@@ -99,6 +105,7 @@
 
 .chart-option .form-check {
   display: flex;
+  margin-left: 0;
 }
 
 .chart-option .form-check-label {
@@ -116,4 +123,10 @@
   width: 17rem;
   margin-left: 0.3rem;
   padding: 0.3rem;
+}
+
+.feedback-link {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.3rem 0.2rem;
 }

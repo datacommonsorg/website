@@ -24,7 +24,7 @@
 @include search_place.search-place;
 
 #location-field #ac {
-  margin-left: 16px;
+  margin-left: 12px;
   background: none;
 }
 
@@ -37,9 +37,13 @@
 
 #main-pane #plot-container {
   direction: initial;
-  padding: 2rem;
-  overflow-y: scroll;
-  background: #f8f8f8;
+  padding: 1rem 0;
+}
+@include media-breakpoint-up(lg) {
+  #main-pane #plot-container {
+    padding: 2rem 1rem;
+    overflow-y: scroll;
+  }
 }
 
 #placeholder-container li span {
@@ -51,30 +55,39 @@
   margin: 10px 0;
 }
 
-.card {
-  padding: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+#chart-region .card {
   border-bottom: none;
-  border-radius: 0.25rem 0.25rem 0 0;
-  padding-bottom: 0;
 }
 
 .pv-chip {
   height: 36px;
   line-height: 36px;
-  padding: 0 15px;
-  border: 20;
+  padding: 0 8px 0 15px;
   border-radius: 18px;
   background-color: #999;
   display: inline-block;
   color: white;
   margin: 0 8px 8px 0;
   font-size: 0;
-  white-space: nowrap;
+  max-width: 100%;
 }
 
+// Place marker
+#search-icon {
+  top: 3px;
+}
+
+// Magnifying glass
 .search-icon {
   padding: 0.5rem;
+}
+
+// Set up wrapping for long stat var names.
+.mdl-chip__text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 28px); // Account for the chip close button.
+  overflow: hidden;
 }
 
 .mdl-chip__text:hover {
@@ -96,6 +109,7 @@
   color: var(--dc-gray);
 }
 
+#place-search,
 .chart-container {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }

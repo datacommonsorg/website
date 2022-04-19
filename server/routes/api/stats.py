@@ -325,8 +325,7 @@ def search_statvar():
     query = request.args.get("query")
     places = request.args.getlist("places")
     sv_only = request.args.get("svOnly", False)
-    # result = dc.search_statvar(query, places,
-    #                            current_app.config["ENABLE_BLOCKLIST"], sv_only)
+    # result = dc.search_statvar(query, places, sv_only)
     result = ai.search(query)
     return Response(json.dumps(result), 200, mimetype='application/json')
 

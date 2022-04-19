@@ -14,6 +14,7 @@ and track the mixer change for a new deployment:
 
 ```bash
 git submodule foreach git pull origin master
+git submodule update --init --recursive
 ```
 
 ## Prerequisites
@@ -26,12 +27,6 @@ following steps are required:
 - Install [`nodejs`](https://nodejs.org/en/download/)
 
 - Install [`protoc`](https://grpc.io/docs/protoc-installation/)
-
-- Initialize the mixer submodule
-
-  ```bash
-  git submodule update --init --recursive
-  ```
 
 ### Place Search
 
@@ -142,8 +137,8 @@ If you don't have DataCommons GCP permissions, run
 ./run_server.sh -e lite
 ```
 
-Other options for -e are `private` for private data commons, or `sustainability`
-for sustainability data commons.
+Other options for -e are `private` for private data commons, or `iitm`
+for iitm data commons.
 
 This will bring up local website without place search functionality.
 

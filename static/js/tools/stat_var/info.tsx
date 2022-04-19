@@ -28,9 +28,8 @@ class Info extends Component {
         <p>
           The statistical variable explorer provides information about each
           statistical variable, such as variable metadata, observations, etc.
-          Select a variable from the pane in the left to get started. There are
-          thousands of statistical variables to choose from, arranged in a
-          topical hierarchy.
+          Select a variable to get started. There are thousands of statistical
+          variables to choose from, arranged in a topical hierarchy.
         </p>
         <p>
           Or you can start your exploration with these statistical variables ...

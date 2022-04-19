@@ -85,15 +85,24 @@ export function getUnit(
 }
 
 /**
+ * Returns true if the stat var is an IPCC predication model for temperature.
+ */
+export function isTemperaturePredictionModel(statVar: string): boolean {
+  return (
+    statVar.indexOf("_Temperature") > 0 &&
+    statVar.indexOf("Difference") < 0 &&
+    (statVar.indexOf("RCP") > 0 || statVar.indexOf("SSP") > 0)
+  );
+}
+
+/**
  * Returns true if the stat var is an IPCC stat var with multiple measurement
  * methods (each representing a different computation model).
  */
 export function isIpccStatVarWithMultipleModels(statVar: string): boolean {
   return (
     statVar.startsWith("PrecipitationRate") ||
-    (statVar.indexOf("_Temperature") > 0 &&
-      statVar.indexOf("Difference") < 0 &&
-      statVar.indexOf("RCP") > 0)
+    isTemperaturePredictionModel(statVar)
   );
 }
 

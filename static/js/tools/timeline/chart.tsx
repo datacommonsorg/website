@@ -166,12 +166,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           sourceSelectorSvInfoList={sourceSelectorSvInfoList}
           onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
           hideIsRatio={false}
-          isRatio={this.props.pc}
-          onIsRatioUpdated={(isRatio: boolean) =>
-            setChartOption(this.props.mprop, "pc", isRatio)
+          isPerCapita={this.props.pc}
+          onIsPerCapitaUpdated={(isPerCapita: boolean) =>
+            setChartOption(this.props.mprop, "pc", isPerCapita)
           }
-          denom={this.props.denom}
-          onDenomUpdated={(denom: string) => setDenom(this.props.mprop, denom)}
         >
           <span className="chart-option">
             <FormGroup check>
@@ -318,12 +316,14 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
-    for (const series of Object.values(placeData.data)) {
-      if (series && series["metadata"] && series["metadata"].unit) {
-        units.add(series["metadata"].unit);
+    if (placeData) {
+      for (const series of Object.values(placeData.data)) {
+        if (series && series["metadata"] && series["metadata"].unit) {
+          units.add(series["metadata"].unit);
+        }
       }
+      this.units = Array.from(units).sort();
     }
-    this.units = Array.from(units).sort();
 
     this.props.onDataUpdate(this.props.mprop, statData);
     this.setState({ statData, ipccModels });

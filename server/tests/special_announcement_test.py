@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,24 +13,21 @@
 # limitations under the License.
 
 import unittest
+from unittest.mock import patch
 
 from main import app
 
 
-class TestStaticPages(unittest.TestCase):
+class TestSpecialAnnouncementPages(unittest.TestCase):
 
-    def test_homepage(self):
-        response = app.test_client().get('/')
+    @patch('routes.special_announcement.list_blobs')
+    def test_special_announcement(self, mock_list_blobs):
+        mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])
+        response = app.test_client().get('/special_announcement')
         assert response.status_code == 200
-        assert b"Sustainability Data Commons" in response.data
-        assert b"Kern County" in response.data
+        assert b"COVID-19 Special Announcements" in response.data
 
-    def test_disclaimers(self):
-        response = app.test_client().get('/disclaimers')
+    def test_special_announcement_faq(self):
+        response = app.test_client().get('/special_announcement/faq')
         assert response.status_code == 200
-        assert b"Disclaimers" in response.data
-
-    def test_feedback(self):
-        response = app.test_client().get('/feedback')
-        assert response.status_code == 200
-        assert b"We would love to get your feedback!" in response.data
+        assert b"COVID-19 Data Feed FAQ" in response.data

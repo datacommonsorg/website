@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import urllib
+import urllib.request
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -73,7 +74,8 @@ class TestScatter(WebdriverBaseTest):
             '//*[@id="chart"]/div[1]/div[1]/h3[1]')
         chart_title_x = self.driver.find_element_by_xpath(
             '//*[@id="chart"]/div[1]/div[1]/h3[2]')
-        self.assertEqual(chart_title_y.text, "Population: Asian Alone (2020)")
+        self.assertEqual(chart_title_y.text,
+                         "Population: Asian Alone Per Capita (2020)")
         self.assertEqual(chart_title_x.text, "Median Income (2019)")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
@@ -154,6 +156,7 @@ class TestScatter(WebdriverBaseTest):
         self.driver.get(self.url_ + SCATTER_URL)
 
         # Click on first link on landing page
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.ID, 'placeholder-container'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)

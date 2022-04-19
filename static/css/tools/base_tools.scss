@@ -24,21 +24,10 @@ body {
 
 #main {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  align-items: stretch;
-}
-
-#main-header,
-#main-footer {
-  flex: 0 0;
 }
 
 .main-content {
-  flex: 1 1 auto;
   margin: 0 !important;
-  position: relative;
 }
 
 #main-footer {
@@ -58,28 +47,68 @@ body {
   padding-bottom: 1.5rem !important;
 }
 
-#sub-footer a {
-  margin-left: 0.75rem;
-}
+@include media-breakpoint-up(lg) {
+  #main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: stretch;
+  }
 
-#main-pane {
-  display: flex;
-  flex-direction: row;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  #main-header,
+  #main-footer {
+    flex: 0 0;
+  }
+
+  .main-content {
+    flex: 1 1 auto;
+    position: relative;
+  }
+
+  #main-pane {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  #plot-container {
+    padding: 20px;
+    flex-grow: 1;
+    min-height: auto !important;
+  }
 }
 
 #plot-container {
-  padding: 20px;
-  flex-grow: 1;
+  background: #f8f8f8;
+  // TODO(beets): Find a better way to pin footer at the bottom and reduce
+  // content jumpiness in small windows during loading transitions.
+  min-height: 80vh;
+}
+
+#plot-container h1 {
+  padding-top: 1rem;
 }
 
 .btn-subfooter {
   font-size: 0.9rem;
-  margin: -0.375rem 0.5rem -1px;
-  background-color: var(--dc-primary);
-  border-color: var(--dc-primary);
+  margin: -0.375rem 0 -1px;
+}
+
+.card {
+  flex-grow: 1;
+  flex-shrink: 1;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 15px;
+}
+
+.modal #stat-var-hierarchy-section.hidden {
+  visibility: visible !important;
+}
+
+.modal .statvar-hierarchy-search-section .title {
+  display: none;
 }

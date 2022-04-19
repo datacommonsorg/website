@@ -88,22 +88,8 @@ function PlotOptions(): JSX.Element {
                     checked={y.value.perCapita}
                     onChange={(e) => y.setPerCapita(e.target.checked)}
                   />
-                  Ratio of
+                  Per Capita
                 </Label>
-                <input
-                  className="denom-input"
-                  onBlur={() => y.setDenom(yDenomInput)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      y.setDenom(yDenomInput);
-                    }
-                  }}
-                  type="text"
-                  value={yDenomInput}
-                  onChange={(e) => setYDenomInput(e.target.value)}
-                  disabled={!y.value.perCapita}
-                  placeholder={DENOM_INPUT_PLACEHOLDER}
-                />
               </FormGroup>
             </div>
             <div className="plot-options-input">
@@ -133,22 +119,8 @@ function PlotOptions(): JSX.Element {
                     checked={x.value.perCapita}
                     onChange={(e) => x.setPerCapita(e.target.checked)}
                   />
-                  Ratio of
+                  Per Capita
                 </Label>
-                <input
-                  className="denom-input"
-                  onBlur={() => x.setDenom(xDenomInput)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      x.setDenom(xDenomInput);
-                    }
-                  }}
-                  type="text"
-                  value={xDenomInput}
-                  onChange={(e) => setXDenomInput(e.target.value)}
-                  disabled={!x.value.perCapita}
-                  placeholder={DENOM_INPUT_PLACEHOLDER}
-                />
               </FormGroup>
             </div>
             <div className="plot-options-input">

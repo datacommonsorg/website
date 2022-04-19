@@ -16,7 +16,6 @@
 This module contains the request handler codes and the main app.
 """
 
-import json
 import logging
 import os
 import requests
@@ -35,11 +34,8 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
-app.jinja_env.globals['FEEDING_AMERICA'] = app.config['FEEDING_AMERICA']
-app.jinja_env.globals['SUSTAINABILITY'] = app.config['SUSTAINABILITY']
 app.jinja_env.globals['NAME'] = app.config['NAME']
-app.jinja_env.globals['BASE_HTML'] = (
-    'sustainability/base.html' if app.config['SUSTAINABILITY'] else 'base.html')
+app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
 
 WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",

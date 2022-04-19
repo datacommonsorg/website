@@ -52,7 +52,7 @@
       "Urban and rural population"
     ],
     "Housing": ["Housing units", "Housing units by householder race"],
-    "Climate": [
+    "Environment": [
       "Air quality index",
       "Carbon dioxide emissions per capita",
       "Mean PM2.5 concentration"
@@ -184,7 +184,7 @@
       "Housing units by rental status"
     ]
   },
-  "Climate": {
+  "Environment": {
     "Air": [
       "Air quality index",
       "Carbon dioxide emissions per capita",
