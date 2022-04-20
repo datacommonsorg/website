@@ -450,7 +450,7 @@ export function getPlaceChartData(
   populationData: StatApiResponse,
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
-  const stat = placeStatData.stat[placeDcid];
+  const stat = placeStatData.stat ? placeStatData.stat[placeDcid] : null;
   let metadata = null;
   if (_.isEmpty(stat)) {
     return null;
@@ -510,9 +510,14 @@ export function getPlaceChartData(
  * @param statVarName name of the stat var
  * @param isPerCapita whether the chart is a per capita chart
  */
-export function getTitle(statVarDates: string[], statVarName: string): string {
+export function getTitle(
+  statVarDates: string[],
+  statVarName: string,
+  isPerCapita
+): string {
   const dateRange = `(${getDateRange(statVarDates)})`;
-  return `${statVarName} ${dateRange}`;
+  const perCapitaString = isPerCapita ? " Per Capita" : "";
+  return `${statVarName}${perCapitaString} ${dateRange}`;
 }
 
 /**

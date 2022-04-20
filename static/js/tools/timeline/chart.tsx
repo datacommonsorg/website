@@ -20,6 +20,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
@@ -33,7 +34,7 @@ import {
   statDataFromModels,
   TimelineRawData,
 } from "./data_fetcher";
-import { setChartOption, setDenom, setMetahash } from "./util";
+import { setChartOption, setMetahash } from "./util";
 
 const CHART_HEIGHT = 300;
 
@@ -82,6 +83,9 @@ interface ChartPropsType {
   delta: boolean;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
+  onMetadataMapUpdate: (
+    metadataMap: Record<string, Record<string, StatMetadata>>
+  ) => void;
   // Map of stat var dcid to a hash representing a source series
   metahashMap: Record<string, string>;
 }
@@ -262,6 +266,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const statVars = Object.keys(this.props.statVarInfos);
     fetchRawData(places, statVars, this.props.denom)
       .then((rawData) => {
+        this.props.onMetadataMapUpdate(rawData.metadataMap);
         this.setState({ rawData });
       })
       .catch(() => {
@@ -316,12 +321,14 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
-    for (const series of Object.values(placeData.data)) {
-      if (series && series["metadata"] && series["metadata"].unit) {
-        units.add(series["metadata"].unit);
+    if (placeData) {
+      for (const series of Object.values(placeData.data)) {
+        if (series && series["metadata"] && series["metadata"].unit) {
+          units.add(series["metadata"].unit);
+        }
       }
+      this.units = Array.from(units).sort();
     }
-    this.units = Array.from(units).sort();
 
     this.props.onDataUpdate(this.props.mprop, statData);
     this.setState({ statData, ipccModels });

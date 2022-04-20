@@ -127,9 +127,6 @@ msgstr "Streudiagramm-Explorer"
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "Search"
-msgstr ""
-
 msgid "States, United States"
 msgstr "Bundesstaaten, USA"
 
@@ -190,9 +187,6 @@ msgstr "Anteil der Personen mit College-Abschluss nach Geschlecht"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Anteil der Personen mit Bachelor-Abschluss nach Geschlecht"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Kriminalität"
 
@@ -207,6 +201,9 @@ msgstr "Ausbildung"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "Eigenkapital"
@@ -660,4 +657,6 @@ msgstr "Nitrous oxide emissions (large facilities, non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+
 

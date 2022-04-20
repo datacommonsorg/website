@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-{% extends 'base.html' %}
+{%- extends BASE_HTML -%}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}} >

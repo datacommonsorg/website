@@ -72,7 +72,7 @@ const config = {
     search: [
       __dirname + "/js/search/search.ts",
       __dirname + "/css/search.scss",
-    ]
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -120,7 +120,7 @@ const config = {
     new CopyPlugin({
       patterns: [
         { from: "css/**/*.css" },
-        { from: "images/*" },
+        { from: "images/**/*" },
         { from: "fonts/*" },
         { from: "data/**/*" },
         { from: "sitemap/*.txt" },

@@ -127,9 +127,6 @@ msgstr "분산형 차트 탐색기"
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "Search"
-msgstr ""
-
 msgid "States, United States"
 msgstr "주, 미국"
 
@@ -190,9 +187,6 @@ msgstr "성별에 따른 2년제 학위 취득률"
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "성별에 따른 학사 학위 취득률"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "범죄"
 
@@ -207,6 +201,9 @@ msgstr "교육"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "지분"
@@ -660,4 +657,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+
 

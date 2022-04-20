@@ -1100,11 +1100,15 @@ function drawGroupLineChart(
   legendWidth += LEGEND.marginLeft;
 
   // Adjust the width of in-chart legends.
-  const yRange = computeRanges(dataGroupsDict);
-  // if (!_.isEmpty(modelsDataGroupsDict)) {
-  //   const modelsRange = computeRanges(modelsDataGroupsDict);
-  //   yRange = d3.extent(yRange.concat(modelsRange)) as number[];
-  // }
+  let yRange = computeRanges(dataGroupsDict);
+  if (!_.isEmpty(modelsDataGroupsDict)) {
+    const modelsRange = computeRanges(modelsDataGroupsDict);
+    yRange = [
+      Math.min(yRange[0], modelsRange[0]),
+      Math.max(yRange[1], modelsRange[1]),
+    ];
+  }
+
   const minV = yRange[0];
   let maxV = yRange[1];
   if (minV === maxV) {

@@ -196,7 +196,11 @@ export class BrowserPage extends React.Component<
         const provDomain = {};
         for (const prov of ProvenanceData) {
           if (this.isProvenanceEntity(prov)) {
-            provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
+            try {
+              provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
+            } catch (err) {
+              console.log("Invalid url in prov: " + prov["subjectName"]);
+            }
           }
         }
         this.setState({
@@ -206,9 +210,10 @@ export class BrowserPage extends React.Component<
           provDomain,
         });
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         this.setState({
-          dataFetched: true,
+          dataFetched: false,
         });
       });
   }

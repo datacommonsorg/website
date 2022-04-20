@@ -127,9 +127,6 @@ msgstr "स्कैटर प्लॉट एक्सप्लोरर"
 msgid "Scatter Plots"
 msgstr ""
 
-msgid "Search"
-msgstr ""
-
 msgid "States, United States"
 msgstr "संयुक्त राज्य अमेरिका के राज्य"
 
@@ -190,9 +187,6 @@ msgstr "लिंग के हिसाब से असोसिएट डि�
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की दर जो स्नातक हैं"
 
-msgid "CHART_TITLE-CHART_CATEGORY-Climate"
-msgstr "Climate"
-
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "अपराध"
 
@@ -207,6 +201,9 @@ msgstr "शिक्षा"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Environment"
+msgstr "Environment"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "इक्विटी"
@@ -660,4 +657,6 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+
 

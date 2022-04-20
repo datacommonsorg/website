@@ -48,6 +48,7 @@ function App(): JSX.Element {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
 
+  // Show the BigQuery button when there is a chart
   return (
     <>
       <StatVarChooser
