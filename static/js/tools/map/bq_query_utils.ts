@@ -156,7 +156,7 @@ SELECT ONum.observation_about AS PlaceId,
       ONum.unit AS Unit,
       NET.REG_DOMAIN(I.provenance_url) AS Source,
       ODenom.value AS DenomValue,
-      ODenom.observation_date AS DenomDate,     
+      ODenom.observation_date AS DenomDate,
 FROM \`data_commons.Observation\` AS ONum
 JOIN \`data_commons.Observation\` AS ODenom ON TRUE
 JOIN PlaceObsDatesAndDenomRank AS PODDR ON TRUE
