@@ -260,13 +260,12 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   }
 
   private shouldShowBqButton(chartGroupInfo: ChartGroupInfo): boolean {
-    if (false) {
-      for (const mprop of Object.keys(chartGroupInfo.chartIdToStatVars)) {
-        if (!getChartOption(mprop, "delta")) {
-          return true;
-        }
-      }
-    }
+    // TODO: UNCOMMENT TO RE-ENABLE BIGQUERY
+    // for (const mprop of Object.keys(chartGroupInfo.chartIdToStatVars)) {
+    //   if (!getChartOption(mprop, "delta")) {
+    //     return true;
+    //   }
+    // }
     return false;
   }
 

@@ -118,17 +118,16 @@ export function ChartLoader(): JSX.Element {
     Record<string, Record<string, ChartRawData>>
   >({});
   const [onPlayCallback, setOnPlayCallback] = useState<() => void>();
-  if (false) {
-    const bqLink = useRef(setUpBqButton(getSqlQuery));
+  // TODO: UNCOMMENT TO RE-ENABLE BIGQUERY
+  // const bqLink = useRef(setUpBqButton(getSqlQuery));
 
-    // TODO: add webdriver test for BigQuery button to ensure query works
-    useEffect(() => {
-      bqLink.current.style.display = "inline-block";
-      return () => {
-        bqLink.current.style.display = "none";
-      };
-    }, []);
-  }
+  // // TODO: add webdriver test for BigQuery button to ensure query works
+  // useEffect(() => {
+  //   bqLink.current.style.display = "inline-block";
+  //   return () => {
+  //     bqLink.current.style.display = "none";
+  //   };
+  // }, []);
 
   useEffect(() => {
     const placeSelected =
