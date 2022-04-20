@@ -184,7 +184,7 @@ def search(query: str) -> Sequence[Mapping[str, str]]:
     matches = dc.match_statvar(property_value, limit=50)
     logging.info("Matches: %s", matches)
     statvars = [{
-            "name": f"{m['statVarName']} (ID {m['statVar']})",
-            "dcid": m["statVar"],
-        } for m in matches["matchInfo"]]
+        "name": f"{m['statVarName']} (ID {m['statVar']})",
+        "dcid": m["statVar"],
+    } for m in matches["matchInfo"]]
     return {"statVars": statvars}
