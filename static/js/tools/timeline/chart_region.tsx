@@ -18,9 +18,14 @@ import _ from "lodash";
 import React, { Component } from "react";
 
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
-import { BQ_QUERY_HEADER_COMMENT, setUpBqButton } from "../shared/bq_utis";
+import {
+  BQ_QUERY_HEADER_COMMENT,
+  getSvMetadataPredicate,
+  setUpBqButton,
+} from "../shared/bq_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -50,10 +55,13 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   bulkDownloadLink: HTMLAnchorElement;
   bqLink: HTMLAnchorElement;
   allStatData: { [key: string]: StatData };
+  // map of stat var dcid to map of metahash to source metadata
+  metadataMap: Record<string, Record<string, StatMetadata>>;
 
   constructor(props: ChartRegionPropsType) {
     super(props);
     this.allStatData = {};
+    this.metadataMap = {};
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
@@ -92,6 +100,11 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       this.props.statVarOrder,
       this.props.statVarInfo
     );
+    if (this.bqLink) {
+      this.bqLink.style.display = this.shouldShowBqButton(chartGroupInfo)
+        ? "inline-block"
+        : "none";
+    }
     return (
       <React.Fragment>
         {chartGroupInfo.chartOrder.map((mprop) => {
@@ -116,6 +129,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 getMetahash(),
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
+              onMetadataMapUpdate={(metadataMap) => {
+                this.metadataMap = { ...this.metadataMap, ...metadataMap };
+              }}
             ></Chart>
           );
         }, this)}
@@ -123,16 +139,26 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     );
   }
 
+  componentWillUnmount() {
+    if (this.bqLink) {
+      this.bqLink.style.display = "none";
+    }
+    if (this.downloadLink) {
+      this.downloadLink.style.display = "none";
+    }
+    if (this.bulkDownloadLink) {
+      this.bulkDownloadLink.style.display = "none";
+    }
+  }
+
   private onDataUpdate(groupId: string, data: StatData) {
     this.allStatData[groupId] = data;
     if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
       this.downloadLink.style.display = "inline-block";
       this.bulkDownloadLink.style.display = "inline-block";
-      this.bqLink.style.display = "inline-block";
     } else {
       this.downloadLink.style.display = "none";
       this.bulkDownloadLink.style.display = "none";
-      this.bqLink.style.display = "none";
     }
   }
 
@@ -233,22 +259,46 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     return result;
   }
 
-  private getSqlQuery(): string {
-    const placeSvPairs = [];
-    for (const place of Object.keys(this.props.placeName)) {
-      for (const sv of Object.keys(this.props.statVarInfo)) {
-        placeSvPairs.push([place, sv]);
+  private shouldShowBqButton(chartGroupInfo: ChartGroupInfo): boolean {
+    for (const mprop of Object.keys(chartGroupInfo.chartIdToStatVars)) {
+      if (!getChartOption(mprop, "delta")) {
+        return true;
       }
     }
-    const placeSvQueryString = placeSvPairs
-      .map(
-        (placeSvPair) =>
-          `(O.observation_about = "${placeSvPair[0]}" AND O.variable_measured = "${placeSvPair[1]}")`
-      )
+    return false;
+  }
+
+  private getQueryForGroup(
+    svList: string[],
+    places: string[],
+    metahashMap: Record<string, string>
+  ): string {
+    const svMetadataMap = {};
+    for (const sv of svList) {
+      const metahash = metahashMap[sv];
+      svMetadataMap[sv] = this.metadataMap[sv]
+        ? this.metadataMap[sv][metahash] || {}
+        : {};
+    }
+    let svMetadataPredicate = svList
+      .map((sv) => {
+        const predicate = _.isEmpty(svMetadataMap[sv])
+          ? `O.variable_measured = '${sv}' AND O.facet_rank = 1`
+          : `O.variable_measured = '${sv}' AND
+${getSvMetadataPredicate("O", svMetadataMap[sv])}`;
+        return svList.length > 1 ? `(${predicate})` : predicate;
+      })
+      .join(" OR\n");
+    if (svList.length > 1) {
+      svMetadataPredicate = `(${svMetadataPredicate})`;
+    }
+    let placesPredicate = places
+      .map((place) => `O.observation_about = '${place}'`)
       .join(" OR ");
-    return (
-      BQ_QUERY_HEADER_COMMENT +
-      `
+    if (places.length > 1) {
+      placesPredicate = `(${placesPredicate})`;
+    }
+    return `
 SELECT O.observation_about AS PlaceId,
     P.name AS PlaceName,
     O.variable_measured AS VariableId,
@@ -257,18 +307,135 @@ SELECT O.observation_about AS PlaceId,
     CAST(O.value AS FLOAT64) AS Value,
     O.measurement_method AS MeasurementMethod,
     O.unit AS Unit,
-    NET.REG_DOMAIN(I.provenance_url) AS Source
+    NET.REG_DOMAIN(I.provenance_url) AS Source,
+    NULL as DenomDate,
+    NULL as DenomValue
 FROM \`data_commons.Observation\` AS O
 JOIN \`data_commons.Place\` AS P ON TRUE
 JOIN \`data_commons.Variable\` AS V ON TRUE
 JOIN \`data_commons.Provenance\` AS I ON TRUE
 WHERE
-    O.facet_rank = 1 AND
+    ${svMetadataPredicate} AND
     O.observation_about = P.id AND
     O.variable_measured = V.id AND
     O.prov_id = I.prov_id AND
-    (${placeSvQueryString})
-ORDER BY PlaceId, VariableId, Date;`
+    ${placesPredicate}`;
+  }
+
+  private getPcQueryForGroup(
+    svList: string[],
+    places: string[],
+    metahashMap: Record<string, string>
+  ): string {
+    const svMetadataMap = {};
+    for (const sv of svList) {
+      const metahash = metahashMap[sv];
+      svMetadataMap[sv] = this.metadataMap[sv]
+        ? this.metadataMap[sv][metahash] || {}
+        : {};
+    }
+    let svMetadataPredicate = svList
+      .map((sv) => {
+        const predicate = _.isEmpty(svMetadataMap[sv])
+          ? `ONum.variable_measured = '${sv}' AND ONum.facet_rank = 1`
+          : `ONum.variable_measured = '${sv}' AND
+${getSvMetadataPredicate("ONum", svMetadataMap[sv])}`;
+        return svList.length > 1 ? `(${predicate})` : predicate;
+      })
+      .join(" OR\n");
+    if (svList.length > 1) {
+      svMetadataPredicate = `(${svMetadataPredicate})`;
+    }
+    let placesPredicate = places
+      .map((place) => `ONum.observation_about = '${place}'`)
+      .join(" OR ");
+    if (places.length > 1) {
+      placesPredicate = `(${placesPredicate})`;
+    }
+    return `
+(WITH PlaceObsDatesAndDenomRank AS (
+    SELECT ONum.observation_about AS PlaceId,
+         ONum.variable_measured AS NumVariableId,
+         ONum.observation_date AS NumDate,
+         ODenom.variable_measured AS DenomVariableId,
+         ODenom.observation_date AS DenomDate,
+         MIN(ODenom.facet_rank) AS DenomRank
+    FROM \`data_commons.Observation\` AS ONum
+    JOIN \`data_commons.Observation\` AS ODenom ON TRUE
+    WHERE
+        ODenom.observation_date = SUBSTR(ONum.observation_date, 0, 4) AND
+        ODenom.observation_about = ONum.observation_about AND
+        ODenom.variable_measured = 'Count_Person' AND
+        ${svMetadataPredicate} AND
+        ${placesPredicate}
+    GROUP BY PlaceId, NumVariableId, NumDate, DenomVariableId, DenomDate
+)
+SELECT ONum.observation_about AS PlaceId,
+      P.name AS PlaceName,
+      ONum.variable_measured AS VariableId,
+      CONCAT(V.name, " (Per Capita)") AS VariableName,
+      ONum.observation_date AS Date,
+      IF(ODenom.value IS NOT NULL AND CAST(ODenom.value AS FLOAT64) > 0,
+        CAST(ONum.value AS FLOAT64) / CAST(ODenom.value AS FLOAT64),
+        NULL) AS Value,
+      ONum.measurement_method AS MeasurementMethod,
+      ONum.unit AS Unit,
+      NET.REG_DOMAIN(I.provenance_url) AS Source,
+      ODenom.observation_date AS DenomDate,
+      ODenom.value AS DenomValue,
+FROM \`data_commons.Observation\` AS ONum
+JOIN \`data_commons.Observation\` AS ODenom ON TRUE
+JOIN PlaceObsDatesAndDenomRank AS PODDR ON TRUE
+JOIN \`data_commons.Place\` AS P ON TRUE
+JOIN \`data_commons.Variable\` AS V ON TRUE
+JOIN \`data_commons.Provenance\` AS I ON TRUE
+WHERE
+    PODDR.PlaceId = ONum.observation_about AND
+    PODDR.NumVariableId = ONum.variable_measured AND
+    PODDR.NumDate = ONum.observation_date AND
+    PODDR.PlaceId = ODenom.observation_about AND    
+    PODDR.DenomVariableId = ODenom.variable_measured AND
+    PODDR.DenomDate = ODenom.observation_date AND
+    PODDR.DenomRank = ODenom.facet_rank AND
+    ${svMetadataPredicate} AND
+    ONum.observation_about = P.id AND
+    ONum.variable_measured = V.id AND
+    ONum.prov_id = I.prov_id AND
+    ${placesPredicate})`;
+  }
+
+  // TODO: Add unit tests for this function
+  private getSqlQuery(): string {
+    const chartGroupInfo = this.groupStatVars(
+      this.props.statVarOrder,
+      this.props.statVarInfo
+    );
+    const places = Object.keys(this.props.placeName);
+    const metahashMap = getMetahash();
+    const query = Object.keys(chartGroupInfo.chartIdToStatVars)
+      .map((mprop) => {
+        if (getChartOption(mprop, "delta")) {
+          return "";
+        }
+        const isPc = getChartOption(mprop, "pc");
+        if (isPc) {
+          return this.getPcQueryForGroup(
+            chartGroupInfo.chartIdToStatVars[mprop],
+            places,
+            metahashMap
+          );
+        } else {
+          return this.getQueryForGroup(
+            chartGroupInfo.chartIdToStatVars[mprop],
+            places,
+            metahashMap
+          );
+        }
+      })
+      .filter((s) => s !== "")
+      .join("\n\nUNION ALL\n");
+    return (
+      BQ_QUERY_HEADER_COMMENT + query + "\nORDER BY PlaceId, VariableId, Date"
     );
   }
 }

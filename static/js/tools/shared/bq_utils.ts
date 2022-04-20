@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { StatMetadata } from "../../shared/stat_types";
+
 export const BQ_QUERY_HEADER_COMMENT =
   "#\n# To use this query, please link Data Commons to your GCP Project (https://bit.ly/dc-bq-ah).\n# For more information on querying Data Commons, see https://bit.ly/dc-bq-doc.\n#\n";
 const BQ_LINK =
-  "https://console.cloud.google.com/bigquery;create-new-query-tab=";
+  "https://pantheon.corp.google.com/bigquery;create-new-query-tab=";
 
 /**
  * Sets up the bq button if it is in the html.
@@ -35,4 +38,30 @@ export function setUpBqButton(getSqlQuery: () => string): HTMLAnchorElement {
     };
   }
   return bqLink;
+}
+
+/**
+ * Gets the predicate string for matching stat metadata in a table
+ * @param obsTableName
+ * @param metadata
+ * @returns
+ */
+export function getSvMetadataPredicate(
+  obsTableName: string,
+  metadata: StatMetadata
+): string {
+  const mMethodString = metadata.measurementMethod
+    ? `= '${metadata.measurementMethod}'`
+    : "IS NULL";
+  const unitString = metadata.unit ? `= '${metadata.unit}'` : "IS NULL";
+  const obsPeriodString = metadata.observationPeriod
+    ? `= '${metadata.observationPeriod}'`
+    : "IS NULL";
+  const sFactorString = metadata.scalingFactor
+    ? `= '${metadata.scalingFactor}'`
+    : "IS NULL";
+  return `${obsTableName}.measurement_method ${mMethodString} AND
+${obsTableName}.unit ${unitString} AND
+${obsTableName}.observation_period ${obsPeriodString} AND
+${obsTableName}.scaling_factor ${sFactorString}`;
 }
