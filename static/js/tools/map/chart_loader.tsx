@@ -21,7 +21,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
 import {
@@ -44,7 +44,9 @@ import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getEnclosedPlacesPromise,
 } from "../../utils/place_utils";
+import { setUpBqButton } from "../shared/bq_utis";
 import { getUnit } from "../shared_util";
+import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
 import {
   Context,
@@ -116,6 +118,15 @@ export function ChartLoader(): JSX.Element {
     Record<string, Record<string, ChartRawData>>
   >({});
   const [onPlayCallback, setOnPlayCallback] = useState<() => void>();
+  const bqLink = useRef(setUpBqButton(getSqlQuery));
+
+  // TODO: add webdriver test for BigQuery button to ensure query works
+  useEffect(() => {
+    bqLink.current.style.display = "inline-block";
+    return () => {
+      bqLink.current.style.display = "none";
+    };
+  }, []);
 
   useEffect(() => {
     const placeSelected =
@@ -144,10 +155,6 @@ export function ChartLoader(): JSX.Element {
     statVar.value.denom,
     statVar.value.mapPointSv,
   ]);
-
-  useEffect(() => {
-    statVar.setDate("");
-  }, [statVar.value.dcid, statVar.value.metahash]);
 
   useEffect(() => {
     if (!_.isEmpty(rawData)) {
@@ -289,6 +296,28 @@ export function ChartLoader(): JSX.Element {
       />
     </div>
   );
+
+  // TODO: add unit test for this
+  function getSqlQuery(): string {
+    let date = "";
+    const cappedDate = getCappedStatVarDate(statVar.value.dcid);
+    // If there is a specified date, get the data for that date. If no specified
+    // date, still need to cut data for prediction data that extends to 2099
+    if (statVar.value.date) {
+      date = statVar.value.date;
+    } else if (cappedDate) {
+      date = cappedDate;
+    }
+    let metadata: StatMetadata = {};
+    if (rawData && statVar.value.metahash in rawData.metadataMap) {
+      metadata = rawData.metadataMap[statVar.value.metahash];
+    }
+    if (statVar.value.perCapita) {
+      return getPcQuery(statVar.value, placeInfo.value, date, metadata);
+    } else {
+      return getNonPcQuery(statVar.value, placeInfo.value, date, metadata);
+    }
+  }
 }
 
 function getGeoJsonDataFeatures(

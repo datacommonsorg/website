@@ -20,6 +20,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
@@ -33,7 +34,7 @@ import {
   statDataFromModels,
   TimelineRawData,
 } from "./data_fetcher";
-import { setChartOption, setDenom, setMetahash } from "./util";
+import { setChartOption, setMetahash } from "./util";
 
 const CHART_HEIGHT = 300;
 
@@ -82,6 +83,9 @@ interface ChartPropsType {
   delta: boolean;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
+  onMetadataMapUpdate: (
+    metadataMap: Record<string, Record<string, StatMetadata>>
+  ) => void;
   // Map of stat var dcid to a hash representing a source series
   metahashMap: Record<string, string>;
 }
@@ -262,6 +266,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const statVars = Object.keys(this.props.statVarInfos);
     fetchRawData(places, statVars, this.props.denom)
       .then((rawData) => {
+        this.props.onMetadataMapUpdate(rawData.metadataMap);
         this.setState({ rawData });
       })
       .catch(() => {

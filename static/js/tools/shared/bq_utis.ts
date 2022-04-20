@@ -1,3 +1,5 @@
+import { StatMetadata } from "../../shared/stat_types";
+
 /**
  * Copyright 2022 Google LLC
  *
@@ -35,4 +37,30 @@ export function setUpBqButton(getSqlQuery: () => string): HTMLAnchorElement {
     };
   }
   return bqLink;
+}
+
+/**
+ * Gets the predicate string for matching stat metadata in a table
+ * @param obsTableName
+ * @param metadata
+ * @returns
+ */
+export function getSvMetadataPredicate(
+  obsTableName: string,
+  metadata: StatMetadata
+): string {
+  const mMethodString = metadata.measurementMethod
+    ? `= '${metadata.measurementMethod}'`
+    : "IS NULL";
+  const unitString = metadata.unit ? `= '${metadata.unit}'` : "IS NULL";
+  const obsPeriodString = metadata.observationPeriod
+    ? `= '${metadata.observationPeriod}'`
+    : "IS NULL";
+  const sFactorString = metadata.scalingFactor
+    ? `= '${metadata.scalingFactor}'`
+    : "IS NULL";
+  return `${obsTableName}.measurement_method ${mMethodString} AND
+${obsTableName}.unit ${unitString} AND
+${obsTableName}.observation_period ${obsPeriodString} AND
+${obsTableName}.scaling_factor ${sFactorString}`;
 }

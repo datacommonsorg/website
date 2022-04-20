@@ -450,7 +450,7 @@ export function getPlaceChartData(
   populationData: StatApiResponse,
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
-  const stat = placeStatData.stat[placeDcid];
+  const stat = placeStatData.stat ? placeStatData.stat[placeDcid] : null;
   let metadata = null;
   if (_.isEmpty(stat)) {
     return null;

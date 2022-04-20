@@ -50,13 +50,6 @@ function App(): JSX.Element {
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
 
   // Show the BigQuery button when there is a chart
-  // TODO: add webdriver test for BigQuery button to ensure query works
-  const bqLink = useRef(setUpBqButton(getSqlQuery));
-  if (bqLink.current && showChart) {
-    bqLink.current.style.display = "inline-block";
-  } else {
-    bqLink.current.style.display = "none";
-  }
   return (
     <>
       <StatVarChooser
@@ -93,35 +86,6 @@ function App(): JSX.Element {
       </div>
     </>
   );
-
-  function getSqlQuery(): string {
-    return (
-      BQ_QUERY_HEADER_COMMENT +
-      `
-WITH ChildPlace AS (
-  SELECT id AS PlaceId FROM \`data_commons.Place\`
-  WHERE EXISTS(SELECT * FROM UNNEST(all_types) AS T WHERE T = '${placeInfo.value.enclosedPlaceType}') AND
-  EXISTS(SELECT * FROM UNNEST(linked_contained_in_place) AS C WHERE C = '${placeInfo.value.enclosingPlace.dcid}')
-)
-SELECT O.observation_about AS PlaceId,
-    P.name AS PlaceName,
-    O.observation_date AS LatestDate,
-    CAST(O.value AS FLOAT64) AS Value,
-    O.measurement_method AS MeasurementMethod,
-    O.unit AS Unit,
-    NET.REG_DOMAIN(I.provenance_url) AS Source       
-FROM \`data_commons.Observation\` AS O
-JOIN ChildPlace ON TRUE
-JOIN \`data_commons.Place\` AS P ON TRUE
-JOIN \`data_commons.Provenance\` AS I ON TRUE
-WHERE O.is_preferred_obs_across_facets AND
-    O.variable_measured = '${statVar.value.dcid}' AND
-    O.observation_about = ChildPlace.PlaceId AND
-    O.observation_about = P.id AND
-    O.prov_id = I.id
-ORDER BY PlaceName`
-    );
-  }
 }
 
 export function AppWithContext(): JSX.Element {
