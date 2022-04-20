@@ -61,6 +61,7 @@ class FeedingamericaConfig(PrivateConfig):
     NAME = "Feeding America"
     ENV_NAME = 'FEEDINGAMERICA'
     BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    GA_ACCOUNT = 'G-444S6716SQ'
 
 
 class TidalConfig(PrivateConfig):
