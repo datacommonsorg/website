@@ -23,7 +23,7 @@ ENV=local
 
 function help {
   echo "Usage: $0 -ep"
-  echo "-e       Run with a specified environment. Options are: lite private. Default: local"
+  echo "-e       Run with a specified environment. Options are: lite private or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   exit 1
 }
@@ -51,6 +51,8 @@ elif [[ $ENV == "iitm" ]]; then
   export FLASK_ENV=local-iitm
 elif [[ $ENV == "feedingamerica" ]]; then
   export FLASK_ENV=local-feedingamerica
+elif [[ ! -z ${ENV+x} ]]; then  # Use any specified env.
+  export FLASK_ENV=$ENV
 else
   export FLASK_ENV=local
 fi

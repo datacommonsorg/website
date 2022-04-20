@@ -1,5 +1,5 @@
 {#
- Copyright 2021 Google LLC
+ Copyright 2022 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,9 +13,10 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-{% extends 'base.html' %}
+{%- extends BASE_HTML -%}
 
 {% set main_id = 'homepage' %}
+{% set page_id = 'page-homepage' %}
 {% set title = 'Home' %}
 {% set is_hide_full_footer = true %}
 {% set is_hide_sub_footer = true %}
@@ -30,27 +31,11 @@
     <div class="row">
       <div class="lead-col col-12 col-lg-6">
         <p class="lead mr-lg-3">
-          Private Data Commons Demo. The data is loaded from a private Google Cloud Storage</a>.
+          IITM Data Commons Demo
         </p>
       </div>
     </div>
   </div>
-</section>
-
-<section class="container">
-  <h2>{% trans %}Explore the data{% endtrans %}</h2>
-  <p>
-    Private data is merged with public data from Data Commons and served in a unified format.
-  </p>
-  <br>
-  <ul>
-    <li>
-      <a class="main" href="{{ url_for('tools.timeline') }}">{% trans %}Timeline Charts{% endtrans %}</a>
-    </li>
-    <li>
-      <a class="main" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plots{% endtrans %}</a>
-    </li>
-  </ul>
 </section>
 
 {% endblock %}

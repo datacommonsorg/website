@@ -13,12 +13,14 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-{%- extends 'base.html' -%}
+{%- extends BASE_HTML -%}
 
 {% set is_hide_full_footer = true %}
 {% set subpage_title = "Timelines" %}
 {% set subpage_url = url_for('tools.timeline') %}
 {% set title = "Timelines Explorer" %}
+{% set main_id = 'main-timeline' %}
+{% set page_id = 'page-timeline' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/timeline.min.css', t=config['VERSION'])}}>
@@ -37,6 +39,7 @@
 {% endblock %}
 
 {% block subfooter_extra %}
+<button id="bq-link" class="btn-subfooter btn btn-primary" style="display: none"> Open in BigQuery</button>
 <button id="download-link" class="btn-subfooter btn btn-primary" style="display: none">Download Data</button>
 <a id="bulk-download-link" href="javascript:void(0)" style="display: none">Bulk Download</a>
 {% endblock %}

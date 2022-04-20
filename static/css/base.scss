@@ -30,11 +30,6 @@ $dc-primary-color: #660000;
   --link-color: #{$dc-primary-color};
 }
 
-:root.feedingamerica {
-  --dc-primary: rgb(68, 97, 45);
-  --link-color: rgb(68, 97, 45);
-}
-
 /** Bootstrap overrides **/
 $link-color: var(--link-color);
 $link-hover-color: $link-color;
