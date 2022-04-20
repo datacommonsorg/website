@@ -44,7 +44,7 @@ import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getEnclosedPlacesPromise,
 } from "../../utils/place_utils";
-import { setUpBqButton } from "../shared/bq_utis";
+import { setUpBqButton } from "../shared/bq_utils";
 import { getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart } from "./chart";

@@ -25,7 +25,7 @@ import {
   BQ_QUERY_HEADER_COMMENT,
   getSvMetadataPredicate,
   setUpBqButton,
-} from "../shared/bq_utis";
+} from "../shared/bq_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -404,7 +404,7 @@ WHERE
     ${placesPredicate})`;
   }
 
-  // TODO: Add unit tests for this funciton
+  // TODO: Add unit tests for this function
   private getSqlQuery(): string {
     const chartGroupInfo = this.groupStatVars(
       this.props.statVarOrder,

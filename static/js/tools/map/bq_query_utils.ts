@@ -20,7 +20,7 @@ import { StatMetadata } from "../../shared/stat_types";
 import {
   BQ_QUERY_HEADER_COMMENT,
   getSvMetadataPredicate,
-} from "../shared/bq_utis";
+} from "../shared/bq_utils";
 import { PlaceInfo, StatVar } from "./context";
 
 const LATEST_OBS_DATE_VIEW_NAME = "LatestObsDate";

@@ -19,10 +19,9 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
-import { BQ_QUERY_HEADER_COMMENT, setUpBqButton } from "../shared/bq_utis";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, getInitialContext } from "./context";
 import { Info } from "./info";
