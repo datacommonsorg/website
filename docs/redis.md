@@ -14,7 +14,7 @@ found in config.yaml.
 
 Record the **host** and **port** as deployment config file
 ([example](../deploy/overlays/prod/redis.json)) and make a patch to the
-deployment ([example](../deploy/overlays/patch_deployment.yaml)).
+deployment ([example](../deploy/overlays/prod/patch_deployment.yaml)).
 
 ## Clear the cache
 

@@ -17,44 +17,14 @@
 <section id="homepage-top">
   <div class="container">
     <div class="row">
-      <div class="lead-col col-12">
-        <p>
-          <img src="https://d1r7ij2w6po6qt.cloudfront.net/36514517-262f-48f6-896e-47d0bb31dc19/assets/img/logo-mapthemealgap.svg" alt="Map The Meal Gap Logo" class="float-right" width="150px">
-          The NIH recently <a href="#">reported</a> that America's most food insecure
-          populations also tend to have a higher risk of cardiovascular disease.
-          You wonder how long it might take to identify counties suffering from
-          both high food insecurity <i>and</i> high prevalence of heart disease? Turns
-          out, it could be a while. While Feeding America’s <a href="#">Map the Meal Gap</a>
-          provides high quality data on food insecure counties in the US,
-          information on the prevalence of heart disease is harder to find. You
-          Search and it points you to the <a href="#">CDC</a>. After much digging around, you
-          find the data and then spend a while downloading, cleaning and joining
-          it with Feeding America's information on food insecurity. You may have
-          given up well before you could answer the question.
-        </p>
-
-          <p>
-Feeding America Data Commons is here to help! It is an evolving collaboration
-between Feeding America’s <a href="#">Map the Meal Gap Research Study</a> and <a href="#">Data Commons</a>, the
-world's largest data knowledge graph, aiming to help everyone, whoever you are -
-journalist, citizen scientist, student, researcher - to explore food security in
-the United States and its relationship to climate data and health indicators
-through scatter plots, timelines, and maps.
-        </p>
-
-          <p>
-The Feeding America Map the Meal Gap annual study aims to understand food
-insecurity and food costs at the local level in the United States. Data Commons
-is a free and public resource with over 3 billion time-series, across 90,000
-variables from 100+ sources about demographics, health, climate, crops,
-emissions and much more. This site makes available, in a unified format, Map the
-Meal Gap data merged with public data from Data Commons.
-        </p>
-
-          <p>
-Oh, and the answer to your question above? It takes a mere minute to show all
-counties in the US with the prevalence of heart disease and rates of food
-insecurity. Check it out below. 
+      <div class="col-12 col-md-3 text-center">
+        <img src="https://d1r7ij2w6po6qt.cloudfront.net/36514517-262f-48f6-896e-47d0bb31dc19/assets/img/logo-mapthemealgap.svg" alt="Map The Meal Gap Logo" class="pb-5 pb-md-0" style="max-width: 300px">
+      </div>
+      <div class="lead-col col-12 col-md-9">
+        <p class="lead">
+          Feeding America Data Commons provides access to data from <a href="https://map.feedingamerica.org" target="_blank">Map the Meal
+          Gap</a>, overlayed with data from a wide range of additional sources into a single
+          portal under a common scheme.<br/><a href="{{ url_for('static.about') }}">Learn more ›</a>
         </p>
       </div>
     </div>
@@ -63,11 +33,14 @@ insecurity. Check it out below.
 
 <section class="container">
   <h2>{% trans %}Explore the data{% endtrans %}</h2>
+  <p>
+    Whoever you are - journalist, citizen scientist, student or researcher - here are a few starter examples to explore food security in the United States and its relationship to climate data and health indicators.
+  </p>
   <article>
     <h3>Climate change and food insecurity in California</h3>
-  <p>
+    <p>
         <span class="img-card float-md-right" style="width: 312px">
-          {% set chart_link='/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&pd=country/USA&pt=Country&ept=County' %}
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_FoodInsecure%26pcx%3D1%26dx%3DCount_Person%26svy%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dy%3DCount_Person%26epd%3DgeoId%2F06%26ept%3DCounty%26qd%3D1' %}
           <a href="{{ chart_link }}">
             <img class="img-thumbnail" src="/images/feedingamerica/home-temp-food-ca.png" />
           </a>
@@ -90,7 +63,7 @@ insecurity. Check it out below.
           <a href="{{ chart_link }}">
             <img class="img-thumbnail" src="/images/feedingamerica/home-heart-food.png" />
           </a>
-          <small class="caption"><a href="{{ chart_link }}">Heart condition vs. Food Insecurity for US counties</a> (source: CDC, FA)</small>
+          <small class="caption"><a href="{{ chart_link }}">Heart condition vs. Food insecure for US counties</a> (source: CDC, FA)</small>
         </span>
       Combining datasets from the CDC and Map the Meal gap, the
       correlation between heart health and food insecurity is clear. With Data
@@ -102,27 +75,22 @@ insecurity. Check it out below.
     </p>
   </article>
   <article>
-    <h3>Low Income with no Health Insurance and food insecurity in the United States</h3>
+    <h3>Food insecure individuals with low income and no health insurance</h3>
     <p>
         <span class="img-card float-md-right" style="width: 312px">
-          {% set chart_link='tools/scatter#%26svx%3DCount_Person_FoodInsecure%26pcx%3D1%26dx%3DCount_Person%26svy%3Ddc%2Fzf3hfsl3dh74g%26pcy%3D1%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D1000%26dd%3D1%26ct%3D1' %}
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_FoodInsecure%26dx%3DCount_Person%26svy%3Ddc%2Fzf3hfsl3dh74g%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D1000%26dd%3D1%26ct%3D1' %}
           <a href="{{ chart_link }}">
             <img class="img-thumbnail" src="/images/feedingamerica/home-uninsured-insecure.png" />
           </a>
-          <small class="caption"><a href="{{ chart_link }}">Populaiton of low income without health insurance vs. Food insecure, per capita, for US counties</a> (source: CDC, FA, NASA)</small>
+          <small class="caption"><a href="{{ chart_link }}">Population of low income without health insurance vs. Food insecure, for US counties</a> (source: CDC, FA, NASA)</small>
         </span>
-      Combining data from the US Census and Map the Meal gap, one can easily
-      (visually and analytically) identify the parts of the US that are not only
-      the most food insecure, but also have large segments of population with
-      low household income (less than $25,000/year) and have no health
-      insurance. It is clear that large parts of middle-America are suffering
-      from these multitude of problems, one often exacerbating the other. Note
-      also that we can view the same information without normalizing over the
-      total county population to see the raw counts of food insecure residents
-      and those making less than $25,000/year while having no health insurance.
-      Los Angeles County, with its large total population, stands out
-      immediately because it has large numbers of people meeting this
-      unfortunate criteria.
+        Combining data from the US Census and Map the Meal gap, it is
+        immediately apparent that large parts of middle America are struggling
+        from these interrelated challenges. Instead of per capita numbers, one
+        could also view the actual counts of food insecure residents without
+        health insurance and making less than $25,000/year. Los Angeles County
+        stands out immediately.
+        <span class="clearfix"></span>
     </p>
   </article>
   <br>

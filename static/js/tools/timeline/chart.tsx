@@ -321,12 +321,14 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
-    for (const series of Object.values(placeData.data)) {
-      if (series && series["metadata"] && series["metadata"].unit) {
-        units.add(series["metadata"].unit);
+    if (placeData) {
+      for (const series of Object.values(placeData.data)) {
+        if (series && series["metadata"] && series["metadata"].unit) {
+          units.add(series["metadata"].unit);
+        }
       }
+      this.units = Array.from(units).sort();
     }
-    this.units = Array.from(units).sort();
 
     this.props.onDataUpdate(this.props.mprop, statData);
     this.setState({ statData, ipccModels });
