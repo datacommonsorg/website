@@ -142,7 +142,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
 
   private createBqUrl(): string {
     const query = encodeURIComponent(this.state.sql);
-    return `https://pantheon.corp.google.com/bigquery;create-new-query-tab=${query}`;
+    return `https://console.cloud.google.com/bigquery;create-new-query-tab=${query}`;
   }
 
   private updateTranslation() {
