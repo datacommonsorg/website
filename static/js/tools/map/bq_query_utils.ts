@@ -75,7 +75,7 @@ function getLatestObsDateView(
         O.observation_about as PlaceId,
         MAX(O.Observation_date) as LatestDate
   FROM \`data_commons.Observation\` as O
-  JOIN ChildPlace ON TRUE
+  JOIN ${CHILD_PLACE_VIEW_NAME} ON TRUE
   WHERE ${getSvMetadataPredicate("O", metadata)} AND
         O.variable_measured = '${sv.dcid}' AND
         O.observation_about = ${CHILD_PLACE_VIEW_NAME}.PlaceId

@@ -1,5 +1,3 @@
-import { StatMetadata } from "../../shared/stat_types";
-
 /**
  * Copyright 2022 Google LLC
  *
@@ -15,6 +13,9 @@ import { StatMetadata } from "../../shared/stat_types";
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { StatMetadata } from "../../shared/stat_types";
+
 export const BQ_QUERY_HEADER_COMMENT =
   "#\n# To use this query, please link Data Commons to your GCP Project (https://bit.ly/dc-bq-ah).\n# For more information on querying Data Commons, see https://bit.ly/dc-bq-doc.\n#\n";
 const BQ_LINK =

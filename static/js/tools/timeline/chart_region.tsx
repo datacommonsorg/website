@@ -55,6 +55,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   bulkDownloadLink: HTMLAnchorElement;
   bqLink: HTMLAnchorElement;
   allStatData: { [key: string]: StatData };
+  // map of stat var dcid to map of metahash to source metadata
   metadataMap: Record<string, Record<string, StatMetadata>>;
 
   constructor(props: ChartRegionPropsType) {
@@ -99,10 +100,10 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       this.props.statVarOrder,
       this.props.statVarInfo
     );
-    if (this.shouldShowBqButton(chartGroupInfo)) {
-      this.bqLink.style.display = "inline-block";
-    } else {
-      this.bqLink.style.display = "none";
+    if (this.bqLink) {
+      this.bqLink.style.display = this.shouldShowBqButton(chartGroupInfo)
+        ? "inline-block"
+        : "none";
     }
     return (
       <React.Fragment>
