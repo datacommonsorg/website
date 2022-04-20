@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 export const BQ_QUERY_HEADER_COMMENT =
-  "# To use this query, navigate to your project and replace data_commons with the name of your dataset.\n";
+  "#\n# To use this query, please link Data Commons to your GCP Project (https://bit.ly/dc-bq-ah).\n# For more information on querying Data Commons, see https://bit.ly/dc-bq-doc.\n#\n";
 const BQ_LINK =
-  "https://pantheon.corp.google.com/bigquery;create-new-query-tab=";
+  "https://console.cloud.google.com/bigquery;create-new-query-tab=";
 
 /**
  * Sets up the bq button if it is in the html.
