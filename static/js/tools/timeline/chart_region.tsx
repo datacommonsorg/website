@@ -21,11 +21,8 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
-import {
-  BQ_QUERY_HEADER_COMMENT,
-  getSvMetadataPredicate,
-  setUpBqButton,
-} from "../shared/bq_utils";
+import { BqModal } from "../shared/bq_modal";
+import { getSvMetadataPredicate, setUpBqButton } from "../shared/bq_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -85,7 +82,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     }
     // TODO: add webdriver test for BigQuery button to ensure query works
     this.getSqlQuery = this.getSqlQuery.bind(this);
-    this.bqLink = setUpBqButton(this.getSqlQuery);
+    // TODO: uncomment to re-enable opening big query
+    // this.bqLink = setUpBqButton(this.getSqlQuery);
   }
 
   render(): JSX.Element {
@@ -135,6 +133,10 @@ class ChartRegion extends Component<ChartRegionPropsType> {
             ></Chart>
           );
         }, this)}
+        <BqModal
+          getSqlQuery={this.getSqlQuery}
+          showButton={this.shouldShowBqButton(chartGroupInfo)}
+        />
       </React.Fragment>
     );
   }
@@ -299,8 +301,7 @@ ${getSvMetadataPredicate("O", svMetadataMap[sv])}`;
     if (places.length > 1) {
       placesPredicate = `(${placesPredicate})`;
     }
-    return `
-SELECT O.observation_about AS PlaceId,
+    return `SELECT O.observation_about AS PlaceId,
     P.name AS PlaceName,
     O.variable_measured AS VariableId,
     V.name AS VariableName,
@@ -353,23 +354,24 @@ ${getSvMetadataPredicate("ONum", svMetadataMap[sv])}`;
     if (places.length > 1) {
       placesPredicate = `(${placesPredicate})`;
     }
-    return `
-(WITH PlaceObsDatesAndDenomRank AS (
-    SELECT ONum.observation_about AS PlaceId,
-         ONum.variable_measured AS NumVariableId,
-         ONum.observation_date AS NumDate,
-         ODenom.variable_measured AS DenomVariableId,
-         ODenom.observation_date AS DenomDate,
-         MIN(ODenom.facet_rank) AS DenomRank
-    FROM \`data_commons.Observation\` AS ONum
-    JOIN \`data_commons.Observation\` AS ODenom ON TRUE
-    WHERE
-        ODenom.observation_date = SUBSTR(ONum.observation_date, 0, 4) AND
-        ODenom.observation_about = ONum.observation_about AND
-        ODenom.variable_measured = 'Count_Person' AND
-        ${svMetadataPredicate} AND
-        ${placesPredicate}
-    GROUP BY PlaceId, NumVariableId, NumDate, DenomVariableId, DenomDate
+    return (
+      `(WITH PlaceObsDatesAndDenomRank AS (` +
+      `
+SELECT ONum.observation_about AS PlaceId,
+      ONum.variable_measured AS NumVariableId,
+      ONum.observation_date AS NumDate,
+      ODenom.variable_measured AS DenomVariableId,
+      ODenom.observation_date AS DenomDate,
+      MIN(ODenom.facet_rank) AS DenomRank
+FROM \`data_commons.Observation\` AS ONum
+JOIN \`data_commons.Observation\` AS ODenom ON TRUE
+WHERE
+    ODenom.observation_date = SUBSTR(ONum.observation_date, 0, 4) AND
+    ODenom.observation_about = ONum.observation_about AND
+    ODenom.variable_measured = 'Count_Person' AND
+    ${svMetadataPredicate} AND
+    ${placesPredicate}
+GROUP BY PlaceId, NumVariableId, NumDate, DenomVariableId, DenomDate
 )
 SELECT ONum.observation_about AS PlaceId,
       P.name AS PlaceName,
@@ -402,7 +404,8 @@ WHERE
     ONum.observation_about = P.id AND
     ONum.variable_measured = V.id AND
     ONum.prov_id = I.prov_id AND
-    ${placesPredicate})`;
+    ${placesPredicate})`
+    );
   }
 
   // TODO: Add unit tests for this function
@@ -435,9 +438,7 @@ WHERE
       })
       .filter((s) => s !== "")
       .join("\n\nUNION ALL\n");
-    return (
-      BQ_QUERY_HEADER_COMMENT + query + "\nORDER BY PlaceId, VariableId, Date"
-    );
+    return query + "\nORDER BY PlaceId, VariableId, Date";
   }
 }
 
