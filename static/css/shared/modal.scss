@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-/* Styles for <BqModal> */
+/* Shared styles for <Modal> */
 
-@import "shared/modal.scss";
+$border: 0.5px solid #dee2e6;
 
-.big-query-modal .modal-content {
-  height: 90vh;
+.modal-dialog {
+  @include media-breakpoint-down(md) {
+    max-width: calc(100% - 30px);
+    margin: auto;
+  }
 }
 
-.modal-body {
+.modal textarea {
+  background: #efefef;
+  border-radius: 3px;
+  border: $border;
   display: flex;
-  flex-direction: column;
-}
-
-.big-query-modal textarea {
-  width: 100%;
-  height: 100%;
-  flex: 1 1 auto;
-}
-
-.big-query-sql-instructions {
-  word-wrap: break-word;
-  white-space: normal;
-  flex: 0 0 auto;
+  font-family: monospace;
+  margin: auto;
+  padding: 0.5rem;
 }

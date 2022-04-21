@@ -18,8 +18,6 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 
-const MODAL_MAX_WIDTH = "90vw";
-
 interface BqModalPropType {
   showButton: boolean;
   getSqlQuery: () => string;
@@ -62,47 +60,49 @@ export function BqModal(props: BqModalPropType): JSX.Element {
   return (
     <Modal
       isOpen={modalOpen}
-      className="big-query-modal"
-      style={{ maxWidth: MODAL_MAX_WIDTH }}
+      className="big-query-modal modal-dialog-centered modal-lg"
     >
       <ModalHeader toggle={() => setModalOpen(false)}>
         Analyze this data in BigQuery
       </ModalHeader>
       <ModalBody>
-        <div className="big-query-sql-instructions">
-          <div>
-            To run this query, first{" "}
-            <a
-              href={
-                "https://console.cloud.google.com/bigquery/analytics-hub/exchanges(analyticshub:projects/841968438789/locations/us/dataExchanges/data_commons_17d0b72b0b2/listings/data_commons_1803e67fbc9)"
-              }
-            >
-              link Data Commons to Your GCP Project
-            </a>
-            , then copy and paste the query into the{" "}
-            <a
-              href={
-                "https://console.cloud.google.com/bigquery;create-new-query-tab"
-              }
-            >
-              BigQuery Editor
-            </a>
-            .
-          </div>
-          <div>
+        <div className="big-query-sql-instructions mb-3">
+          <p>To run this query:</p>
+          <ol>
+            <li>
+              <a
+                href={
+                  "https://console.cloud.google.com/bigquery/analytics-hub/exchanges(analyticshub:projects/841968438789/locations/us/dataExchanges/data_commons_17d0b72b0b2/listings/data_commons_1803e67fbc9)"
+                }
+              >
+                Link Data Commons to your Google Cloud Project
+              </a>
+              .
+            </li>
+            <li>
+              Copy and paste the query into the{" "}
+              <a
+                href={
+                  "https://console.cloud.google.com/bigquery;create-new-query-tab"
+                }
+              >
+                BigQuery Editor
+              </a>
+              .
+            </li>
+          </ol>
+          <p>
             For more information on querying Data Commons, see{" "}
             <a href={"https://docs.datacommons.org/bigquery/"}>this guide</a>.
-          </div>
+          </p>
         </div>
-        <div className="sql-text-area">
-          <textarea
-            className="copy-svg mt-3"
-            value={query}
-            readOnly
-            ref={textAreaRef}
-            onClick={textAreaOnClick}
-          />
-        </div>
+        <textarea
+          className="copy-svg"
+          value={query}
+          readOnly
+          ref={textAreaRef}
+          onClick={textAreaOnClick}
+        />
       </ModalBody>
     </Modal>
   );
