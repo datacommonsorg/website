@@ -21,6 +21,7 @@ $border: 0.5px solid #dee2e6;
 .modal-dialog {
   @include media-breakpoint-down(md) {
     max-width: calc(100% - 30px);
+    margin: auto;
   }
 }
 
