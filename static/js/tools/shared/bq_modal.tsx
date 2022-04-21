@@ -18,8 +18,6 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 
-const MODAL_MAX_WIDTH = "90vw";
-
 interface BqModalPropType {
   showButton: boolean;
   getSqlQuery: () => string;
@@ -62,14 +60,13 @@ export function BqModal(props: BqModalPropType): JSX.Element {
   return (
     <Modal
       isOpen={modalOpen}
-      className="big-query-modal"
-      style={{ maxWidth: MODAL_MAX_WIDTH }}
+      className="big-query-modal modal-dialog-centered modal-lg"
     >
       <ModalHeader toggle={() => setModalOpen(false)}>
         Analyze this data in BigQuery
       </ModalHeader>
       <ModalBody>
-        <div className="big-query-sql-instructions">
+        <div className="big-query-sql-instructions mb-3">
           <div>
             To run this query, first{" "}
             <a
@@ -94,15 +91,13 @@ export function BqModal(props: BqModalPropType): JSX.Element {
             <a href={"https://docs.datacommons.org/bigquery/"}>this guide</a>.
           </div>
         </div>
-        <div className="sql-text-area">
-          <textarea
-            className="copy-svg mt-3"
-            value={query}
-            readOnly
-            ref={textAreaRef}
-            onClick={textAreaOnClick}
-          />
-        </div>
+        <textarea
+          className="copy-svg"
+          value={query}
+          readOnly
+          ref={textAreaRef}
+          onClick={textAreaOnClick}
+        />
       </ModalBody>
     </Modal>
   );
