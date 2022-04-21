@@ -15,7 +15,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useRef,useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 
 const MODAL_MAX_WIDTH = "90vw";
@@ -76,7 +76,7 @@ export function BqModal(props: BqModalPropType): JSX.Element {
             To run this query, first{" "}
             <a
               href={
-                "https://console.cloud.google.com/bigquery/analytics-hub/exchanges(analyticshub:projects/841968438789/locations/us/dataExchanges/data_commons_17d0b72b0b2/listings/data_commons_1803e67fbc9)?project=datcom-store"
+                "https://console.cloud.google.com/bigquery/analytics-hub/exchanges(analyticshub:projects/841968438789/locations/us/dataExchanges/data_commons_17d0b72b0b2/listings/data_commons_1803e67fbc9)"
               }
             >
               link Data Commons to Your GCP Project
