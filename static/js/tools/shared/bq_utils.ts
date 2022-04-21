@@ -29,7 +29,7 @@ export function setUpBqButton(getSqlQuery: () => string): HTMLAnchorElement {
   const bqLink = document.getElementById("bq-link") as HTMLAnchorElement;
   if (bqLink) {
     bqLink.onclick = () => {
-      const query = BQ_QUERY_HEADER_COMMENT + getSqlQuery();
+      const query = getSqlQuery();
       const encodedQuery = encodeURIComponent(query)
         .replace(/\(/g, "%28")
         .replace(/\)/g, "%29");

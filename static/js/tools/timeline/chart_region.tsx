@@ -22,7 +22,11 @@ import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { BqModal } from "../shared/bq_modal";
-import { getSvMetadataPredicate, setUpBqButton } from "../shared/bq_utils";
+import {
+  BQ_QUERY_HEADER_COMMENT,
+  getSvMetadataPredicate,
+  setUpBqButton
+} from "../shared/bq_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -300,7 +304,8 @@ ${getSvMetadataPredicate("O", svMetadataMap[sv])}`;
     if (places.length > 1) {
       placesPredicate = `(${placesPredicate})`;
     }
-    return `SELECT O.observation_about AS PlaceId,
+    return `
+SELECT O.observation_about AS PlaceId,
     P.name AS PlaceName,
     O.variable_measured AS VariableId,
     V.name AS VariableName,
@@ -354,7 +359,8 @@ ${getSvMetadataPredicate("ONum", svMetadataMap[sv])}`;
       placesPredicate = `(${placesPredicate})`;
     }
     return (
-      `(WITH PlaceObsDatesAndDenomRank AS (` +
+      `
+(WITH PlaceObsDatesAndDenomRank AS (` +
       `
 SELECT ONum.observation_about AS PlaceId,
       ONum.variable_measured AS NumVariableId,
@@ -437,7 +443,9 @@ WHERE
       })
       .filter((s) => s !== "")
       .join("\n\nUNION ALL\n");
-    return query + "\nORDER BY PlaceId, VariableId, Date";
+    return (
+      BQ_QUERY_HEADER_COMMENT + query + "\nORDER BY PlaceId, VariableId, Date"
+    );
   }
 }
 

@@ -144,8 +144,9 @@ export function getPcQuery(
     true
   );
   let query =
-    getPlaceObsDatesAndDenomRankView(sv, place, date, metadata) +
+    BQ_QUERY_HEADER_COMMENT +
     `
+    ${getPlaceObsDatesAndDenomRankView(sv, place, date, metadata)}
 SELECT ONum.observation_about AS PlaceId,
       P.name AS PlaceName,
       ONum.observation_date AS LatestDate,
@@ -194,8 +195,9 @@ export function getNonPcQuery(
       : getChildPlaceView(place);
   const optionalPredicates = getOptionalPredicates("O", date, metadata, false);
   let query =
-    tempView +
+    BQ_QUERY_HEADER_COMMENT +
     `
+    ${tempView}
 SELECT O.observation_about AS PlaceId,
       P.name AS PlaceName,
       O.observation_date AS LatestDate,
