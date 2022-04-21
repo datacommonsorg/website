@@ -395,7 +395,7 @@ WHERE
     PODDR.PlaceId = ONum.observation_about AND
     PODDR.NumVariableId = ONum.variable_measured AND
     PODDR.NumDate = ONum.observation_date AND
-    PODDR.PlaceId = ODenom.observation_about AND
+    PODDR.PlaceId = ODenom.observation_about AND    
     PODDR.DenomVariableId = ODenom.variable_measured AND
     PODDR.DenomDate = ODenom.observation_date AND
     PODDR.DenomRank = ODenom.facet_rank AND
