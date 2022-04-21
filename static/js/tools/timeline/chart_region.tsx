@@ -157,7 +157,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     this.allStatData[groupId] = data;
     const displayStyle =
       Object.keys(this.allStatData).length > 0 ? "inline-block" : "none";
-
     if (this.downloadLink) {
       this.downloadLink.style.display = displayStyle;
     }
