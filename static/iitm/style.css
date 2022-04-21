@@ -192,3 +192,47 @@ a.linked-text:hover {
   font-weight: 700!important;
   font-family: "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
 }
+
+/* 
+#particles-js{
+  width: 100%;
+  height: 100%;
+  background-color: #b61924;
+  background-image: url('');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+} */
+
+#particles-js{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* background-color: rgb(167, 10, 10); */
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+
+.img-container {
+ width: 450px;
+ height: 450px;
+ 
+ /* background-color: lightgreen; */
+ 
+ overflow: hidden;
+}
+
+.clipped-img {
+ clip-path: url('#header-clip-svg');
+     max-width: 100%;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .india-network {
+    display:none;
+  }
+  
+}
