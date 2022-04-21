@@ -19,8 +19,14 @@
 @import "tools/stat_var_widget";
 @import "draw";
 @import "draw_choropleth";
+@import "source_selector";
+@import "tool_chart_footer";
 @import "shared/story_block.scss";
 @import "shared/story_chart.scss";
+
+#chart-region {
+  font-weight: 400;
+}
 
 @mixin map-search {
   @include search_place.search-place;
@@ -37,6 +43,16 @@
     flex-wrap: nowrap;
     height: 100%;
   }
+}
+
+// Hide chips since statvar search results cannot be deleted
+.statVarChipRegion {
+  display: none;
+}
+
+// Temporarily hide chart options to simplify search UI
+.chart-option {
+  display: none;
 }
 
 @include map-search;

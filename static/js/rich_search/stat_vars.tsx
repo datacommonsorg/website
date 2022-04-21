@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-import React, { memo } from "react";
+import React from "react";
 
-import { NamedNode } from "../shared/types";
+import { StatVarInfo } from "../shared/stat_var";
+import { ChartRegion } from "../tools/timeline/chart_region";
 
 export interface StatVarsPropType {
-  places: string[];
-  statVars: NamedNode[];
+  // Map from place dcid to place name.
+  placeName: Record<string, string>;
+  // Map from stat var dcid to info.
+  statVarInfo: { [key: string]: StatVarInfo };
+  // Order in which stat vars were selected.
+  statVarOrder: string[];
 }
 
 function getURL(places: string[], statsVar: string): string {
@@ -31,21 +36,31 @@ function getURL(places: string[], statsVar: string): string {
   return `/tools/timeline#${params}`;
 }
 
-function StatVars({ places, statVars }: StatVarsPropType): JSX.Element {
-  if (!statVars.length) {
+export function StatVars({
+  placeName,
+  statVarInfo,
+  statVarOrder,
+}: StatVarsPropType): JSX.Element {
+  if (!statVarOrder.length) {
     return <section className="block col-12">No results found.</section>;
   }
+  const places = Object.keys(placeName);
   return (
     <section className="block col-12">
+      <div id="chart-region">
+        <ChartRegion
+          placeName={placeName}
+          statVarInfo={statVarInfo}
+          statVarOrder={statVarOrder}
+        ></ChartRegion>
+      </div>
       <ul>
-        {statVars.slice(0, 20).map((sv) => (
-          <li key={sv.dcid}>
-            <a href={getURL(places, sv.dcid)}>{sv.name}</a>
+        {statVarOrder.map((sv) => (
+          <li key={sv}>
+            <a href={getURL(places, sv)}>{statVarInfo[sv].title}</a>
           </li>
         ))}
       </ul>
     </section>
   );
 }
-
-export const MemoStatVars = memo(StatVars);

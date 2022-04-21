@@ -135,8 +135,15 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const placeName = Object.values(this.props.placeNames)[0];
     const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
     const sourceSelectorSvInfoList = this.getSourceSelectorSvInfo(statVars);
+    // Hides empty plots
+    const style =
+      this.state.statData &&
+      _.isEmpty(this.state.statData.dates) &&
+      _.isEmpty(this.state.statData.data)
+        ? { display: "none" }
+        : {};
     return (
-      <div className="chart-container">
+      <div className="chart-container" style={style}>
         <div className="card">
           <div className="statVarChipRegion">
             {statVars.map((statVar) => {
