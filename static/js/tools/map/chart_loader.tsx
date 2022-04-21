@@ -44,6 +44,7 @@ import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getEnclosedPlacesPromise,
 } from "../../utils/place_utils";
+import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
 import { getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
@@ -295,6 +296,7 @@ export function ChartLoader(): JSX.Element {
         displayOptions={display.value}
         europeanCountries={chartData.europeanCountries}
       />
+      <BqModal getSqlQuery={getSqlQuery} showButton={true} />
     </div>
   );
 
