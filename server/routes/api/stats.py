@@ -335,8 +335,6 @@ def search_statvar_ai():
     """Gets the statvars and statvar groups that match the tokens in the query
     """
     query = request.args.get("query")
-    places = request.args.getlist("places")
-    sv_only = request.args.get("svOnly", False)
     result = ai.search(query)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
