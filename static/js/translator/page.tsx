@@ -142,7 +142,9 @@ export class Page extends React.Component<PagePropType, PageStateType> {
 
   private createBqUrl(): string {
     const query = encodeURIComponent(this.state.sql);
-    return `https://pantheon.corp.google.com/bigquery;create-new-query-tab=${query}`;
+    // TODO: This link could result in truncations for long queries. Consider
+    // putting the query in a modal instead.
+    return `https://console.cloud.google.com/bigquery;create-new-query-tab=${query}`;
   }
 
   private updateTranslation() {

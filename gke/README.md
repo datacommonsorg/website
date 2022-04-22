@@ -88,4 +88,7 @@ If new cluster is needed to scale, then run:
 ../scripts/deploy_gke.sh <ENV> <REGION>
 ```
 
+If the instance uses Redis as memcache, then should follow this [instruction](../docs/redis.md)
+to create a new Redis instance.
+
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.

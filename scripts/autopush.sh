@@ -40,4 +40,4 @@ for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.
 done
 $ROOT/scripts/deploy_gke.sh autopush us-central1
 $ROOT/scripts/deploy_gke.sh autopush europe-west2
-$ROOT/scripts/deploy_gke.sh feedingamerica us-central1
+# $ROOT/scripts/deploy_gke.sh feedingamerica us-central1

@@ -67,6 +67,7 @@ const CHILD_PLACE_TYPES = {
   Planet: ["Continent", ...CONTINENT_PLACE_TYPES, ...USA_COUNTRY_CHILD_TYPES],
   Continent: CONTINENT_PLACE_TYPES,
   Country: NON_USA_COUNTRY_PLACE_TYPES,
+  State: AA1_CHILD_PLACE_TYPES,
   EurostatNUTS1: NUTS1_CHILD_PLACE_TYPES,
   EurostatNUTS2: NUTS2_CHILD_PLACE_TYPES,
   AdministrativeArea1: AA1_CHILD_PLACE_TYPES,
@@ -233,14 +234,18 @@ function getEnclosedPlaceTypes(
     return [];
   }
   const isUSPlace = isChildPlaceOf(place.dcid, USA_PLACE_DCID, parentPlaces);
-  const placeType = place.types[0];
-  if (isUSPlace) {
-    if (placeType in USA_CHILD_PLACE_TYPES) {
-      return USA_CHILD_PLACE_TYPES[placeType] || [];
+  for (const type of place.types) {
+    if (isUSPlace) {
+      if (type in USA_CHILD_PLACE_TYPES) {
+        return USA_CHILD_PLACE_TYPES[type];
+      }
+    } else {
+      if (type in CHILD_PLACE_TYPES) {
+        return CHILD_PLACE_TYPES[type];
+      }
     }
-  } else {
-    return CHILD_PLACE_TYPES[placeType] || [];
   }
+  return [];
 }
 
 export { PlaceAndTypeOptions as PlaceOptions };
