@@ -207,7 +207,7 @@ a.linked-text:hover {
 #particles-js{
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: auto;
   /* background-color: rgb(167, 10, 10); */
   background-size: cover;
   background-position: 50% 50%;
