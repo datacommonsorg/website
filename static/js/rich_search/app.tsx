@@ -157,7 +157,7 @@ async function getStatVars(
     params.append("place", place);
   }
   return axios
-    .get(`/api/stats/stat-var-search?${params.toString()}`)
+    .get(`/api/stats/stat-var-search-ai?${params.toString()}`)
     .then((resp) => (resp.data.statVars || []).map((v) => v.dcid).slice(0, 6))
     .then((vars) => Promise.all([Promise.resolve(vars), getStatVarInfo(vars)]));
 }
