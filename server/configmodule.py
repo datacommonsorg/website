@@ -81,6 +81,7 @@ class TidalConfig(PrivateConfig):
 class IitmConfig(Config):
     IITM = True
     NAME = "IITM"
+    GA_ACCOUNT = 'G-32HPL4K4Y1'
 
 
 ######
