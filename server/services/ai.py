@@ -177,15 +177,16 @@ def get_places(query: str) -> Sequence[language_v1.Entity]:
     global _LANGUAGE_CLIENT
     if not _LANGUAGE_CLIENT:
         return []
-    document = language_v1.Document(
-        content=query, type_=language_v1.Document.Type.PLAIN_TEXT
-    )
+    document = language_v1.Document(content=query,
+                                    type_=language_v1.Document.Type.PLAIN_TEXT)
     response = _LANGUAGE_CLIENT.analyze_entities(request={
         "document": document,
         "encoding_type": language_v1.EncodingType.UTF8
     })
-    locations = [e for e in response.entities
-                 if e.type == language_v1.Entity.Type.LOCATION]
+    locations = [
+        e for e in response.entities
+        if e.type == language_v1.Entity.Type.LOCATION
+    ]
     return locations
 
 
@@ -223,12 +224,10 @@ def search(query: str) -> Sequence[Mapping[str, str]]:
         "name": f"{m['statVarName']} (ID {m['statVar']})",
         "dcid": m["statVar"],
     } for m in matches["matchInfo"]]
-    places = [
-        {
-            "name": entity.name,
-            "dcid": entity.metadata["mid"]
-        } for entity in place_entities
-    ]
+    places = [{
+        "name": entity.name,
+        "dcid": entity.metadata["mid"]
+    } for entity in place_entities]
     response = {"statVars": statvars, "places": places}
     logging.info("Response: %s", response)
     return response
