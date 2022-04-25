@@ -42,6 +42,8 @@ def about():
     env_name = current_app.config.get('ENV_NAME', None)
     if env_name == 'FEEDINGAMERICA':
         return render_template('private_dc/feedingamerica/about.html')
+    if env_name == 'IITM':
+        return render_template('private_dc/iitm/about.html')
     return render_template('static/about.html')
 
 
