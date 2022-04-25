@@ -225,8 +225,7 @@ def search(query: str) -> Sequence[Mapping[str, str]]:
         "dcid": m["statVar"],
     } for m in matches["matchInfo"]]
     places = [{
-        "name": entity.name,
-        "dcid": entity.metadata["mid"]
+        "name": entity.name
     } for entity in place_entities]
     response = {"statVars": statvars, "places": places}
     logging.info("Response: %s", response)
