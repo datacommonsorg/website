@@ -15,13 +15,14 @@
  */
 
 /**
- * Main app component for rich search.
+ * Main app component for rich search which renders a search box and graphics
+ * for the resulting statistical variables and locations.
  */
 
 import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
+import { Card, Container, Row } from "reactstrap";
 
 import { SearchBar } from "../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../shared/stat_var";
@@ -33,7 +34,8 @@ import {
   setTokensToUrl,
 } from "../tools/timeline/util";
 import { getPlaceNames } from "../utils/place_utils";
-import { StatVars, StatVarsPropType } from "./stat_vars";
+import { StatVarResults, StatVarResultsPropType } from "./stat_vars";
+import { TextSearchBar } from "./text_search_bar";
 
 interface AppPropType {
   query: string;
@@ -42,46 +44,10 @@ interface AppPropType {
   removePlace: (string) => void;
   loading: boolean;
   onSearch: (string) => void;
-  chartsData: StatVarsPropType;
-}
-
-interface TextSearchBarPropType {
-  onSearch: (string) => void;
-  initialValue: string;
-  placeholder: string;
+  chartsData: StatVarResultsPropType;
 }
 
 const memoizedGetPlaceNames = _.memoize(getPlaceNames);
-
-function TextSearchBar({
-  onSearch,
-  initialValue,
-  placeholder,
-}: TextSearchBarPropType): JSX.Element {
-  const [invalid, setInvalid] = useState(false);
-  const [value, setValue] = useState(initialValue);
-  const callback = () => (value ? onSearch(value) : setInvalid(true));
-  return (
-    <div className="input-query">
-      <InputGroup>
-        <Input
-          invalid={invalid}
-          placeholder={placeholder}
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-            setInvalid(false);
-          }}
-          onKeyPress={(e) => e.key === "Enter" && callback()}
-          className="pac-target-input"
-        />
-        <Button onClick={callback}>
-          <span className="material-icons search rich-search-icon">search</span>
-        </Button>
-      </InputGroup>
-    </div>
-  );
-}
 
 function App({
   query,
@@ -134,7 +100,7 @@ function App({
             <Row>
               <Card>
                 <div id="main" className="col-md-9x col-lg-10">
-                  <StatVars {...chartsData} />
+                  <StatVarResults {...chartsData} />
                 </div>
               </Card>
             </Row>
@@ -148,6 +114,9 @@ function App({
   );
 }
 
+/**
+ * Queries the search API and fetch the necessary data to render the graphics.
+ */
 async function getStatVars(
   dcids: string[],
   query: string
@@ -158,7 +127,12 @@ async function getStatVars(
   }
   return axios
     .get(`/api/stats/stat-var-search-ai?${params.toString()}`)
-    .then((resp) => (resp.data.statVars || []).map((v) => v.dcid).slice(0, 6))
+    .then((resp) =>
+      (resp.data.statVars || [])
+        .map((v) => v.dcid)
+        .filter((dcid) => !!dcid)
+        .slice(0, 6)
+    )
     .then((vars) => Promise.all([Promise.resolve(vars), getStatVarInfo(vars)]));
 }
 
@@ -173,7 +147,9 @@ function getPlacesFromUrl(): string[] {
 export function AppWithContext(): JSX.Element {
   const [places, setPlaces] = useState(getPlacesFromUrl());
   const [loading, setLoading] = useState(false);
-  const [chartsData, setChartsData] = useState<StatVarsPropType | undefined>();
+  const [chartsData, setChartsData] = useState<
+    StatVarResultsPropType | undefined
+  >();
 
   window.onhashchange = () => {
     const p = getPlacesFromUrl();

@@ -19,7 +19,7 @@ import React from "react";
 import { StatVarInfo } from "../shared/stat_var";
 import { ChartRegion } from "../tools/timeline/chart_region";
 
-export interface StatVarsPropType {
+export interface StatVarResultsPropType {
   // Map from place dcid to place name.
   placeName: Record<string, string>;
   // Map from stat var dcid to info.
@@ -36,11 +36,14 @@ function getURL(places: string[], statsVar: string): string {
   return `/tools/timeline#${params}`;
 }
 
-export function StatVars({
+/**
+ * Component for rendering results associated with a rich search query.
+ */
+export function StatVarResults({
   placeName,
   statVarInfo,
   statVarOrder,
-}: StatVarsPropType): JSX.Element {
+}: StatVarResultsPropType): JSX.Element {
   if (!statVarOrder.length) {
     return <section className="block col-12">No results found.</section>;
   }
