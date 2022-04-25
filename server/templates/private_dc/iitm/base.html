@@ -1,0 +1,202 @@
+{#-
+ Copyright 2022 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-#}
+{#-
+  Required variables:
+  title: page title
+  main_id: DOM Element ID for the main content block
+  deployment: "private" or "public"
+
+  Optional variables:
+  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+  is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
+  subpage_title: string, if specified, will be displayed in the header next to Data Commons
+
+  Blocks to override:
+  head - additional head elements
+  content - main page content
+-#}
+<!DOCTYPE html>
+
+<head>
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GA_ACCOUNT %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+  </script>
+  {% endif %}
+  <title>{{ title }} - India Data Commons</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="/iitm/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+
+  <link rel="stylesheet" href="/iitm/bootstrap.min.css">
+  <link href="/iitm/style.css" rel="stylesheet">
+
+  {% block head %}
+  {% endblock %}
+
+</head>
+
+<body id="page-top">
+  <div id="main">
+
+  <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav" style="padding: 0px 0px;">
+    <div class="container-fluid mr-5" style="padding: 0px;">
+        <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarResponsive">
+
+            <div class="logo-section d-flex">
+                <a target="_blank" href="https://www.iitm.ac.in/">
+                    <img src="images/iitm-iitmadras.svg" height="50px" class="m-2">
+                </a>
+                <a target="_blank" href="https://rbcdsai.iitm.ac.in/" class="mt-2">
+                    <img src="images/iitm-rbcdsai.svg" height="55px" >
+                </a>
+            </div>
+            <ul class="nav navbar-nav ml-auto pl-2">
+                <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#">Explore</a>
+                    <div role="menu" class="dropdown-menu">
+                        <a role="presentation" class="dropdown-item" href="/place">Place Explorer</a>
+                        <a role="presentation" class="dropdown-item" href="/browser/">Graph Browser</a>
+                        <a role="presentation" class="dropdown-item" href="/tools/timeline">Timelines Explorer</a>
+                        <a role="presentation" class="dropdown-item" href="/tools/scatter">Scatter Plot Explorer</a>
+                        <a role="presentation" class="dropdown-item" href="/tools/map">Map Explorer</a>
+                        <a role="presentation" class="dropdown-item" href="/tools/statvar">Statistical Variable Explorer</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#">Documentation</a>
+                    <div role="menu" class="dropdown-menu">
+                        <a class="dropdown-item" href="http://docs.datacommons.org">Documentation</a>
+                        <a class="dropdown-item" href="http://docs.datacommons.org/api">APIs</a>
+                        <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">Tutorials</a>
+                        <a class="dropdown-item" href="/about#contribute">Contribute</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      About
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
+                      <a class="dropdown-item" href="/about">About India Data Commons</a>
+                      <a class="dropdown-item" href="/faq">FAQ</a>
+                      <a class="dropdown-item" href="/feedback">Feedback</a>
+                    </div>
+                </li>
+                <li id="navbar-search-icon">
+                    <a href="/search">
+                      <img src="images/iitm-icon-search-navbar.svg" width="35px">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </nav>
+
+  <main id="{{ main_id }}" class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="bg-navy text-white border-top">
+    <div class="container text-center text-sm-left position-relative pt-5">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <h3 class="text-info pb-2 ">Explore</h3>
+                <ul class="list-unstyled d-inline-block d-sm-block">
+                    <li class="mb-2"><a class="footer-links" href="/place">Place Explorer</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/browser/">Graph Browser</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/tools/timeline">Timelines Explorer</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/tools/scatter">Scatter Plot Explorer</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/tools/map">Map Explorer</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/tools/statvar">Statistical Variable Explorer</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <h3 class="text-info pb-2 ">Documentation</h3>
+                <ul class="list-unstyled d-inline-block d-sm-block">
+                    <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org">Documentation</a></li>
+                    <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/api">APIs</a></li>
+                    <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/tutorials">Tutorials</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/about#contribute">Contribute</a></li>
+                    <li class="mb-2"><a class="footer-links" href="http://github.com/datacommonsorg">Github Repository</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <h3 class="text-info pb-2 ">Data Commons</h3>
+                <!-- <h3 class="text-info pb-2 border-bottom">Data Commons</h3> -->
+                <ul class="list-unstyled d-inline-block d-sm-block">
+                    <li class="mb-2 "><a class="footer-links" href="/about">About India Data Commons</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/feedback">Feedback</a></li>
+                    <li class="mb-2"><a class="footer-links" href="/faq">Frequently Asked Questions</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6 text-left text-md-left no-decoration">
+                <a target="_blank" href="https://www.iitm.ac.in/">
+                    <!-- <img src="images/iitm-iitmadras.svg" height="55%"> -->
+                    <img src="images/iitm-iitmadras.svg" height="55%">
+                </a>
+                <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
+                    <img src="images/iitm-rbcdsai.svg" height="55%" >
+                </a>
+            </div>
+            <div class="col-md-6 text-right pb-4">
+                <div class="float-md-right mt-2 mt-md-0">
+                    <h5>India Data Commons</h5>
+                    <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">Terms Of Use</a> ·&nbsp;
+                    <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">Privacy Policy</a> ·&nbsp;
+                    <a class="footer-links" href="/disclaimers">Disclaimers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </footer>
+</div>
+
+
+
+  {# Compile this down (or manually implement). Used only for nav bar so far #}
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script> -->
+
+  <script src="iitm/jquery.min.js"></script>
+  <script src="iitm/bootstrap.min.js"></script>
+  <script src="iitm/bs-init.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+  <script src="iitm/creative.js"></script>
+
+  {% block footer %}
+  {% endblock %}
+</body>
+
+</html>
