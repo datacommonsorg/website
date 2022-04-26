@@ -173,7 +173,8 @@ def _iterate_property_value(
             yield (key, value)
 
 
-def get_places(query: str) -> Sequence[language_v1.Entity]:
+def _get_places(query: str) -> Sequence[language_v1.Entity]:
+    """Returns a list of entities that are of type LOCATION."""
     global _LANGUAGE_CLIENT
     if not _LANGUAGE_CLIENT:
         return []
@@ -190,7 +191,9 @@ def get_places(query: str) -> Sequence[language_v1.Entity]:
     return locations
 
 
-def delexicalize_query(query: str, places: Sequence[language_v1.Entity]) -> str:
+def _delexicalize_query(query: str,
+                        places: Sequence[language_v1.Entity]) -> str:
+    """Returns a delexicalized version of query where place mentions are replaced by special IDs."""
     place_spans = [m.text for e in places for m in e.mentions]
     place_spans.sort(key=lambda ts: ts.begin_offset)
 
@@ -212,8 +215,8 @@ def search(query: str) -> Sequence[Mapping[str, str]]:
     global _INFERENCE_CLIENT
     if not _INFERENCE_CLIENT:
         return {"statVars": [], "places": []}
-    place_entities = get_places(query)
-    delexicalized_query = delexicalize_query(query, place_entities)
+    place_entities = _get_places(query)
+    delexicalized_query = _delexicalize_query(query, place_entities)
     response = _INFERENCE_CLIENT.request(delexicalized_query)
     property_value = dict(
         _iterate_property_value(response["predictions"][0]["output_0"][0],
@@ -224,9 +227,7 @@ def search(query: str) -> Sequence[Mapping[str, str]]:
         "name": f"{m['statVarName']} (ID {m['statVar']})",
         "dcid": m["statVar"],
     } for m in matches["matchInfo"]]
-    places = [{
-        "name": entity.name
-    } for entity in place_entities]
+    places = [{"name": entity.name} for entity in place_entities]
     response = {"statVars": statvars, "places": places}
     logging.info("Response: %s", response)
     return response
