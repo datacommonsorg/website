@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@use "search_place";
 @import "tools/base_tools";
 @import "tools/stat_var_widget";
 @import "draw";
@@ -28,23 +27,6 @@
   font-weight: 400;
 }
 
-@mixin map-search {
-  @include search_place.search-place;
-
-  #search {
-    margin-bottom: 0;
-    box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    flex-grow: 1;
-    height: 3.2rem;
-  }
-
-  #search #location-field {
-    flex-wrap: nowrap;
-    height: 100%;
-  }
-}
-
 // Hide chips since statvar search results cannot be deleted
 .statVarChipRegion {
   display: none;
@@ -55,8 +37,6 @@
   display: none;
 }
 
-@include map-search;
-
 .place-options {
   display: flex;
   flex-wrap: wrap;
@@ -65,7 +45,7 @@
 
 .place-options-section {
   display: flex;
-  flex-grow: 0.5;
+  flex-grow: 1.0;
   align-items: center;
   padding: 0.5rem 0.5rem;
   overflow: hidden;
@@ -99,6 +79,16 @@
   margin-bottom: 15px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 15px;
+}
+
+.rich-search-button {
+  padding: 0 1rem;
+  align-items: center;
+  display: flex;
+  background-color: var(--dc-primary);
+  color: var(--dc-red-fade);
+  cursor: pointer;
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 
 #main-pane #plot-container {

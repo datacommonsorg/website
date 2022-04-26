@@ -49,7 +49,7 @@ export function TextSearchBar({
           onKeyPress={(e) => e.key === "Enter" && callback()}
           className="pac-target-input"
         />
-        <Button onClick={callback}>
+        <Button onClick={callback} className="rich-search-button">
           <span className="material-icons search rich-search-icon">search</span>
         </Button>
       </InputGroup>

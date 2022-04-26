@@ -20,50 +20,36 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Card, Container, Row } from "reactstrap";
 
-import { SearchBar } from "../shared/place_search_bar";
-import { getStatVarInfo, StatVarInfo } from "../shared/stat_var";
+import { getStatVarInfo } from "../shared/stat_var";
 import {
-  addToken,
   getTokensFromUrl,
   placeSep,
-  removeToken,
   setTokensToUrl,
 } from "../tools/timeline/util";
-import { getPlaceNames } from "../utils/place_utils";
+import {
+  getPlaceDcids,
+  getPlaceIdsFromNames,
+  getPlaceNames,
+} from "../utils/place_utils";
 import { StatVarResults, StatVarResultsPropType } from "./stat_vars";
 import { TextSearchBar } from "./text_search_bar";
 
 interface AppPropType {
   query: string;
-  places: string[];
-  addPlace: (string) => void;
-  removePlace: (string) => void;
   loading: boolean;
   onSearch: (string) => void;
   chartsData: StatVarResultsPropType;
 }
 
-const memoizedGetPlaceNames = _.memoize(getPlaceNames);
-
 function App({
   query,
-  places,
-  addPlace,
-  removePlace,
   loading,
   onSearch,
   chartsData,
 }: AppPropType): JSX.Element {
-  const [placeNames, setPlaceNames] = useState({});
-  useEffect(() => {
-    places.length
-      ? memoizedGetPlaceNames(places).then(setPlaceNames)
-      : setPlaceNames({});
-  }, [places]);
   return (
     <>
       <div id="plot-container">
@@ -75,23 +61,11 @@ function App({
             <Card className="place-options-card">
               <Container className="place-options" fluid={true}>
                 <div className="place-options-section">
-                  <div className="place-options-label">Question:</div>
                   <TextSearchBar
                     onSearch={onSearch}
                     initialValue={query}
-                    placeholder='For example "People with Doctorate Degrees"'
+                    placeholder='For example "People with Doctorate Degrees in France"'
                   />
-                </div>
-                <div className="place-options-section">
-                  <div className="place-options-label">Place:</div>
-                  <div id="search">
-                    <SearchBar
-                      places={placeNames}
-                      removePlace={removePlace}
-                      addPlace={addPlace}
-                      numPlacesLimit={1}
-                    />
-                  </div>
                 </div>
               </Container>
             </Card>
@@ -115,71 +89,61 @@ function App({
 }
 
 /**
- * Queries the search API and fetch the necessary data to render the graphics.
+ * Queries the search API and fetched the data to render the graphics.
  */
-async function getStatVars(
-  dcids: string[],
-  query: string
-): Promise<[string[], { [key: string]: StatVarInfo }]> {
+async function fetchChartsData(query: string): Promise<StatVarResultsPropType> {
   const params = new URLSearchParams({ query });
-  for (const place of dcids) {
-    params.append("place", place);
-  }
   return axios
     .get(`/api/stats/stat-var-search-ai?${params.toString()}`)
-    .then((resp) =>
-      (resp.data.statVars || [])
+    .then((resp) => {
+      const vars = (resp.data.statVars || [])
         .map((v) => v.dcid)
         .filter((dcid) => !!dcid)
-        .slice(0, 6)
-    )
-    .then((vars) => Promise.all([Promise.resolve(vars), getStatVarInfo(vars)]));
+        .slice(0, 6);
+      const placeName = getPlaceIdsFromNames(
+        resp.data.places.map((p) => p.name)
+      )
+        .then(Object.values)
+        .then(getPlaceDcids)
+        .then(Object.values)
+        .then(getPlaceNames);
+      const statVarInfo = getStatVarInfo(vars);
+      return Promise.all([Promise.resolve(vars), statVarInfo, placeName]);
+    })
+    .then(([statVarOrder, statVarInfo, placeName]) => ({
+      statVarOrder,
+      statVarInfo,
+      placeName,
+    }));
 }
 
 function getQueryFromUrl(): string {
   return [...Array.from(getTokensFromUrl("query", placeSep)), ""][0];
 }
 
-function getPlacesFromUrl(): string[] {
-  return [...Array.from(getTokensFromUrl("place", placeSep))];
-}
-
 export function AppWithContext(): JSX.Element {
-  const [places, setPlaces] = useState(getPlacesFromUrl());
   const [loading, setLoading] = useState(false);
   const [chartsData, setChartsData] = useState<
     StatVarResultsPropType | undefined
   >();
 
-  window.onhashchange = () => {
-    const p = getPlacesFromUrl();
-    if (!_.isEqual(places, p)) {
-      setPlaces(p);
-    }
-  };
-
   const search = () => {
     const q = getQueryFromUrl();
-    const p = getPlacesFromUrl();
-    if (q && p.length) {
-      setLoading(true);
-      setChartsData(null);
-      Promise.all([getStatVars(p, q), memoizedGetPlaceNames(p)]).then(
-        ([[statVarOrder, statVarInfo], placeName]) => {
-          setChartsData({ statVarOrder, statVarInfo, placeName });
-          setLoading(false);
-        }
-      );
+    if (!q) {
+      return;
     }
+    setLoading(true);
+    setChartsData(null);
+    fetchChartsData(q).then((cd) => {
+      setChartsData(cd);
+      setLoading(false);
+    });
   };
   useEffect(search, []);
 
   return (
     <App
       query={getQueryFromUrl()}
-      places={places}
-      addPlace={(p) => addToken("place", placeSep, p)}
-      removePlace={(p) => removeToken("place", placeSep, p)}
       onSearch={(q) => {
         setTokensToUrl([
           { name: "query", sep: placeSep, tokens: new Set([q]) },
