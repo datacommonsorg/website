@@ -31,8 +31,15 @@ cfg = libconfig.get_config()
 
 # ----------------------------- INTERNAL FUNCTIONS -----------------------------
 
-_INFERENCE_CLIENT = None
-_LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
+
+class Context:
+
+    def __init__(self):
+        self.language_client = language_v1.LanguageServiceClient()
+        if not cfg.TEST and cfg.AI_CONFIG_PATH:
+            self.inference_client = create_inference_client(cfg.AI_CONFIG_PATH)
+        else:
+            self.inference_client = None
 
 
 class InferenceClient(object):
@@ -146,9 +153,6 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
             logging.info("No configuration found for region %s", region)
 
 
-if not cfg.TEST and cfg.AI_CONFIG_PATH:
-    _INFERENCE_CLIENT = create_inference_client(cfg.AI_CONFIG_PATH)
-
 # ----------------------------- SEARCH FUNCTIONS -----------------------------
 
 _MAX_SEARCH_RESULTS = 1000
@@ -173,14 +177,12 @@ def _iterate_property_value(
             yield (key, value)
 
 
-def _get_places(query: str) -> Sequence[language_v1.Entity]:
+def _get_places(language_client: language_v1.LanguageServiceClient,
+                query: str) -> Sequence[language_v1.Entity]:
     """Returns a list of entities that are of type LOCATION."""
-    global _LANGUAGE_CLIENT
-    if not _LANGUAGE_CLIENT:
-        return []
     document = language_v1.Document(content=query,
                                     type_=language_v1.Document.Type.PLAIN_TEXT)
-    response = _LANGUAGE_CLIENT.analyze_entities(request={
+    response = language_client.analyze_entities(request={
         "document": document,
         "encoding_type": language_v1.EncodingType.UTF8
     })
@@ -211,13 +213,12 @@ def _delexicalize_query(query: str,
     return ''.join(output)
 
 
-def search(query: str) -> Sequence[Mapping[str, str]]:
-    global _INFERENCE_CLIENT
-    if not _INFERENCE_CLIENT:
+def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
+    if not context.inference_client:
         return {"statVars": [], "places": []}
-    place_entities = _get_places(query)
+    place_entities = _get_places(context.language_client, query)
     delexicalized_query = _delexicalize_query(query, place_entities)
-    response = _INFERENCE_CLIENT.request(delexicalized_query)
+    response = context.inference_client.request(delexicalized_query)
     property_value = dict(
         _iterate_property_value(response["predictions"][0]["output_0"][0],
                                 exclude='place'))
