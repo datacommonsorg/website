@@ -46,10 +46,11 @@ export function setUpBqButton(getSqlQuery: () => string): HTMLAnchorElement {
  * @param metadata
  * @returns
  */
-export function getSvMetadataPredicate(
+export function getSvMetadataPredicates(
   obsTableName: string,
+  provTableName: string,
   metadata: StatMetadata
-): string {
+): string[] {
   const mMethodString = metadata.measurementMethod
     ? `= '${metadata.measurementMethod}'`
     : "IS NULL";
@@ -60,8 +61,14 @@ export function getSvMetadataPredicate(
   const sFactorString = metadata.scalingFactor
     ? `= '${metadata.scalingFactor}'`
     : "IS NULL";
-  return `${obsTableName}.measurement_method ${mMethodString} AND
-${obsTableName}.unit ${unitString} AND
-${obsTableName}.observation_period ${obsPeriodString} AND
-${obsTableName}.scaling_factor ${sFactorString}`;
+  const importNameString = metadata.importName
+    ? `= '${metadata.importName}'`
+    : "IS NULL";
+  return [
+    `${obsTableName}.measurement_method ${mMethodString}`,
+    `${obsTableName}.unit ${unitString}`,
+    `${obsTableName}.observation_period ${obsPeriodString}`,
+    `${obsTableName}.scaling_factor ${sFactorString}`,
+    `${provTableName}.name ${importNameString}`,
+  ];
 }
