@@ -43,16 +43,16 @@ test("getSqlQuery", () => {
     {
       caseName: "no chart options selected",
       chartGroupInfo: {
-        chartOrder: ["mprop1"],
-        chartIdToStatVars: {
-          mprop1: ["sv1", "sv2"],
-        },
         chartIdToOptions: {
           mprop1: {
             delta: false,
-            perCapita: true,
             denom: DEFAULT_POPULATION_DCID,
+            perCapita: true,
           },
+        },
+        chartOrder: ["mprop1"],
+        chartIdToStatVars: {
+          mprop1: ["sv1", "sv2"],
         },
       },
       wantQuery: `(WITH PlaceObsDatesAndDenomRank AS (
@@ -174,17 +174,17 @@ ORDER BY PlaceId, VariableId, Date`,
     {
       caseName: "per capita and delta selected",
       chartGroupInfo: {
-        chartOrder: ["mprop1"],
-        chartIdToStatVars: {
-          mprop1: ["sv1", "sv2"],
-        },
         chartIdToOptions: {
           mprop1: {
             delta: true,
-            perCapita: true,
             denom: DEFAULT_POPULATION_DCID,
+            perCapita: true,
           },
         },
+        chartIdToStatVars: {
+          mprop1: ["sv1", "sv2"],
+        },
+        chartOrder: ["mprop1"],
       },
       wantQuery: "",
     },
@@ -199,13 +199,13 @@ ORDER BY PlaceId, VariableId, Date`,
         chartIdToOptions: {
           mprop1: {
             delta: false,
-            perCapita: true,
             denom: DEFAULT_POPULATION_DCID,
+            perCapita: true,
           },
           mprop2: {
             delta: false,
-            perCapita: false,
             denom: DEFAULT_POPULATION_DCID,
+            perCapita: false,
           },
         },
       },
@@ -352,23 +352,23 @@ ORDER BY PlaceId, VariableId, Date`,
     {
       caseName: "per capita and delta selected for one chart",
       chartGroupInfo: {
-        chartOrder: ["mprop1", "mprop2"],
+        chartIdToOptions: {
+          mprop1: {
+            delta: true,
+            denom: DEFAULT_POPULATION_DCID,
+            perCapita: true,
+          },
+          mprop2: {
+            delta: false,
+            denom: DEFAULT_POPULATION_DCID,
+            perCapita: false,
+          },
+        },
         chartIdToStatVars: {
           mprop1: ["sv1", "sv2"],
           mprop2: ["sv3"],
         },
-        chartIdToOptions: {
-          mprop1: {
-            delta: true,
-            perCapita: true,
-            denom: DEFAULT_POPULATION_DCID,
-          },
-          mprop2: {
-            delta: false,
-            perCapita: false,
-            denom: DEFAULT_POPULATION_DCID,
-          },
-        },
+        chartOrder: ["mprop1", "mprop2"],
       },
       wantQuery: `SELECT O.observation_about AS PlaceId,
       P.name AS PlaceName,

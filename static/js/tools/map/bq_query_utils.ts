@@ -83,7 +83,7 @@ function getLatestObsDateView(
           O.variable_measured = '${sv.dcid}' AND
           O.observation_about = ${CHILD_PLACE_VIEW_NAME}.PlaceId AND
           ${getSvMetadataPredicates("O", "I", metadata).join(
-            ` AND\n          `
+            " AND\n          "
           )}
     GROUP BY StatVarId, PlaceId`
   );
@@ -135,7 +135,7 @@ function getPlaceObsDatesAndDenomRankView(
         ODenom.observation_about = ONum.observation_about AND
         ODenom.variable_measured = '${sv.denom}' AND
         ODenom.observation_date = SUBSTR(ONum.observation_date, 0, 4) AND
-        ${optionalPredicates.join(` AND\n        `)}
+        ${optionalPredicates.join(" AND\n        ")}
   GROUP BY PlaceId, NumVariableId, NumDate, DenomVariableId, DenomDate
 )`;
   return query;
@@ -166,7 +166,7 @@ function getBaseWhereClause(
       ${obsTableName}.observation_about = ${tempViewName}.PlaceId AND
       ${obsTableName}.observation_about = P.id AND
       ${obsTableName}.prov_id = I.id AND
-      ${optionalPredicates.join(` AND\n      `)}`;
+      ${optionalPredicates.join(" AND\n      ")}`;
 }
 
 export function getPcQuery(

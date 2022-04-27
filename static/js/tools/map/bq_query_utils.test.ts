@@ -19,20 +19,20 @@ import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { PlaceInfo, StatVar } from "./context";
 
 const sv: StatVar = {
-  info: {},
-  dcid: "Count_Person_Female",
-  perCapita: false,
-  denom: "",
   date: "",
+  dcid: "Count_Person_Female",
+  denom: "",
+  info: {},
   mapPointSv: "",
   metahash: "",
+  perCapita: false,
 };
 const place: PlaceInfo = {
-  selectedPlace: { dcid: "geoId/06085", name: "Santa Clara", types: [] },
-  enclosingPlace: { dcid: "geoId/06", name: "California" },
   enclosedPlaceType: "County",
-  parentPlaces: [],
+  enclosingPlace: { dcid: "geoId/06", name: "California" },
   mapPointPlaceType: "",
+  parentPlaces: [],
+  selectedPlace: { dcid: "geoId/06085", name: "Santa Clara", types: [] },
 };
 const date = "2015";
 const metadata: StatMetadata = {
@@ -105,7 +105,7 @@ ORDER BY PlaceName`,
     },
     {
       caseName: "date selected, no source selected",
-      date: date,
+      date,
       metadata: {},
       wantQuery: `WITH PlaceObsDatesAndDenomRank AS (
   WITH ChildPlace AS (
@@ -163,7 +163,7 @@ ORDER BY PlaceName`,
     {
       caseName: "no date selected, source selected",
       date: "",
-      metadata: metadata,
+      metadata,
       wantQuery: `WITH PlaceObsDatesAndDenomRank AS (
   WITH LatestObsDate AS (
     WITH ChildPlace AS (
@@ -246,8 +246,8 @@ ORDER BY PlaceName`,
     },
     {
       caseName: "date and source selected",
-      date: date,
-      metadata: metadata,
+      date,
+      metadata,
       wantQuery: `WITH PlaceObsDatesAndDenomRank AS (
   WITH ChildPlace AS (
       SELECT id AS PlaceId FROM \`data_commons.Place\`

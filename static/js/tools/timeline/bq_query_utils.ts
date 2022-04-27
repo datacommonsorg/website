@@ -48,7 +48,7 @@ function getBaseWhereClause(
 ): string {
   const svMetadataPredicate = _.isEmpty(metadata)
     ? `${obsTableName}.facet_rank = 1`
-    : getSvMetadataPredicates(obsTableName, "I", metadata).join(` AND\n      `);
+    : getSvMetadataPredicates(obsTableName, "I", metadata).join(" AND\n      ");
   return `WHERE ${obsTableName}.variable_measured = '${sv}' AND
       ${svMetadataPredicate} AND
       ${obsTableName}.observation_about = P.id AND
@@ -93,7 +93,7 @@ function getPcQueryForSv(
     provJoin = "\n    JOIN `data_commons.Provenance` AS I ON TRUE";
     numProvPredicate = "\n        ONum.prov_id = I.prov_id AND";
     svMetadataPredicate = getSvMetadataPredicates("ONum", "I", metadata).join(
-      ` AND\n        `
+      " AND\n        "
     );
   }
   const placesPredicate = getPlacesPredicate("ONum", places);

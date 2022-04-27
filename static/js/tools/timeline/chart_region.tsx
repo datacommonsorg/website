@@ -210,15 +210,15 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     const options = {};
     for (const mprop of filteredChartOrder) {
       options[mprop] = {
-        perCapita: getChartOption(mprop, "pc"),
-        denom: getDenom(mprop) || DEFAULT_POPULATION_DCID,
         delta: getChartOption(mprop, "delta"),
+        denom: getDenom(mprop) || DEFAULT_POPULATION_DCID,
+        perCapita: getChartOption(mprop, "pc"),
       };
     }
     return {
-      chartOrder: filteredChartOrder,
-      chartIdToStatVars: groups,
       chartIdToOptions: options,
+      chartIdToStatVars: groups,
+      chartOrder: filteredChartOrder,
     };
   }
 
