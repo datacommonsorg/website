@@ -31,6 +31,7 @@
 
 {% block head %}
 <!-- <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 {% endblock %}
 
 {% block content %}
@@ -209,8 +210,12 @@
       </div>
   </div>
 </div><!-- End Energy -->  
+{% endblock %}
 
+{% block footer %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
 <script src="/private_dc/iitm/particles.js"></script>
 <script src="/private_dc/iitm/app.js"></script>
-
+<script src="/private_dc/iitm/bs-init.js"></script>
+<script src="/private_dc/iitm/creative.js"></script>
 {% endblock %}
