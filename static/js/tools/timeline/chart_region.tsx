@@ -159,12 +159,13 @@ class ChartRegion extends Component<ChartRegionPropsType> {
 
   private onDataUpdate(groupId: string, data: StatData) {
     this.allStatData[groupId] = data;
-    if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
-      this.downloadLink.style.display = "inline-block";
-      this.bulkDownloadLink.style.display = "inline-block";
-    } else {
-      this.downloadLink.style.display = "none";
-      this.bulkDownloadLink.style.display = "none";
+    const displayStyle =
+      Object.keys(this.allStatData).length > 0 ? "inline-block" : "none";
+    if (this.downloadLink) {
+      this.downloadLink.style.display = displayStyle;
+    }
+    if (this.bulkDownloadLink) {
+      this.bulkDownloadLink.style.display = displayStyle;
     }
   }
 
