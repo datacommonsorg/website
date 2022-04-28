@@ -68,6 +68,12 @@ function getLatestObsDateView(
   place: PlaceInfo,
   metadata: StatMetadata
 ): string {
+  let provJoin = "";
+  let provPredicate = "";
+  if (!_.isEmpty(metadata) && !_.isEmpty(metadata.importName)) {
+    provJoin = "\n    JOIN `data_commons.Provenance` AS I ON TRUE";
+    provPredicate = "\n          O.prov_id = I.prov_id AND";
+  }
   // the trailing spaces after the newline in the string join is to maintain
   // indentation
   return (
@@ -79,10 +85,8 @@ function getLatestObsDateView(
            O.observation_about as PlaceId,
            MAX(O.Observation_date) as LatestDate
     FROM \`data_commons.Observation\` as O
-    JOIN ${CHILD_PLACE_VIEW_NAME} ON TRUE
-    JOIN \`data_commons.Provenance\` as I ON TRUE
-    WHERE O.prov_id = I.prov_id AND
-          O.variable_measured = '${sv.dcid}' AND
+    JOIN ${CHILD_PLACE_VIEW_NAME} ON TRUE${provJoin}
+    WHERE O.variable_measured = '${sv.dcid}' AND${provPredicate}
           O.observation_about = ${CHILD_PLACE_VIEW_NAME}.PlaceId AND
           ${getSvMetadataPredicates("O", "I", metadata).join(
             " AND\n          "
@@ -114,7 +118,7 @@ function getPlaceObsDatesAndDenomRankView(
   );
   let provJoin = "";
   let numProvPredicate = "";
-  if (!_.isEmpty(metadata)) {
+  if (!_.isEmpty(metadata) && !_.isEmpty(metadata.importName)) {
     provJoin = "\n  JOIN `data_commons.Provenance` AS I ON TRUE";
     numProvPredicate = "\n        ONum.prov_id = I.prov_id AND";
   }

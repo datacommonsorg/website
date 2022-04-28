@@ -92,13 +92,14 @@ function getPcQueryForSv(
   let numProvPredicate = "";
   let svMetadataPredicate = "ONum.facet_rank = 1";
   if (!_.isEmpty(metadata)) {
-    provJoin = "\n    JOIN `data_commons.Provenance` AS I ON TRUE";
-    numProvPredicate = "\n        ONum.prov_id = I.prov_id AND";
-    // the trailing spaces after the newline in the string join is to maintain
-    // indentation
+    // the trailing spaces after the newline is to maintain indentation
     svMetadataPredicate = getSvMetadataPredicates("ONum", "I", metadata).join(
       " AND\n        "
     );
+    if (!_.isEmpty(metadata.importName)) {
+      provJoin = "\n    JOIN `data_commons.Provenance` AS I ON TRUE";
+      numProvPredicate = "\n        ONum.prov_id = I.prov_id AND";
+    }
   }
   const placesPredicate = getPlacesPredicate("ONum", places);
   return `WITH PlaceObsDatesAndDenomRank AS (
