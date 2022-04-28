@@ -15,55 +15,41 @@
  */
 
 /**
- * Main app component for rich search.
+ * Main app component for rich search which renders a search box and graphics
+ * for the resulting statistical variables and locations.
  */
 
 import axios from "axios";
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Button, Card, Container, Input, InputGroup, Row } from "reactstrap";
+import { Card, Container, Row } from "reactstrap";
 
-import { SearchBar } from "../shared/place_search_bar";
-import { NamedNode } from "../shared/types";
+import { getStatVarInfo } from "../shared/stat_var";
 import {
-  addToken,
   getTokensFromUrl,
   placeSep,
-  removeToken,
   setTokensToUrl,
 } from "../tools/timeline/util";
-import { getPlaceNames } from "../utils/place_utils";
-import { MemoStatVars, StatVarsPropType } from "./stat_vars";
+import {
+  getPlaceDcids,
+  getPlaceIdsFromNames,
+  getPlaceNames,
+} from "../utils/place_utils";
+import { StatVarResults, StatVarResultsPropType } from "./stat_vars";
+import { TextSearchBar } from "./text_search_bar";
 
 interface AppPropType {
   query: string;
-  setQuery: (string) => void;
-  places: string[];
-  addPlace: (string) => void;
-  removePlace: (string) => void;
   loading: boolean;
-  onClickSearch: () => void;
-  inputInvalid: boolean;
-  chartsData: StatVarsPropType;
+  onSearch: (string) => void;
+  chartsData: StatVarResultsPropType;
 }
 
 function App({
   query,
-  setQuery,
-  places,
-  addPlace,
-  removePlace,
   loading,
-  onClickSearch,
-  inputInvalid,
+  onSearch,
   chartsData,
 }: AppPropType): JSX.Element {
-  const [placeNames, setPlaceNames] = useState({});
-  useEffect(() => {
-    places.length
-      ? getPlaceNames(places).then(setPlaceNames)
-      : setPlaceNames({});
-  }, [places]);
   return (
     <>
       <div id="plot-container">
@@ -75,37 +61,11 @@ function App({
             <Card className="place-options-card">
               <Container className="place-options" fluid={true}>
                 <div className="place-options-section">
-                  <div className="place-options-label">Question:</div>
-                  <div className="input-query">
-                    <InputGroup>
-                      <Input
-                        invalid={inputInvalid}
-                        placeholder={
-                          'For example "People with Doctorate Degrees"'
-                        }
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        onKeyPress={(e) => e.key === "Enter" && onClickSearch()}
-                        className="pac-target-input"
-                      />
-                      <Button onClick={onClickSearch}>
-                        <span className="material-icons search rich-search-icon">
-                          search
-                        </span>
-                      </Button>
-                    </InputGroup>
-                  </div>
-                </div>
-                <div className="place-options-section">
-                  <div className="place-options-label">Place:</div>
-                  <div id="search">
-                    <SearchBar
-                      places={placeNames}
-                      removePlace={removePlace}
-                      addPlace={addPlace}
-                      numPlacesLimit={1}
-                    />
-                  </div>
+                  <TextSearchBar
+                    onSearch={onSearch}
+                    initialValue={query}
+                    placeholder='For example "People with Doctorate Degrees in France"'
+                  />
                 </div>
               </Container>
             </Card>
@@ -114,7 +74,7 @@ function App({
             <Row>
               <Card>
                 <div id="main" className="col-md-9x col-lg-10">
-                  <MemoStatVars {...chartsData} />
+                  <StatVarResults {...chartsData} />
                 </div>
               </Card>
             </Row>
@@ -128,73 +88,70 @@ function App({
   );
 }
 
-async function getStatVars(
-  dcids: string[],
-  query: string
-): Promise<NamedNode[]> {
+/**
+ * Queries the search API and fetched the data to render the graphics.
+ */
+async function fetchChartsData(query: string): Promise<StatVarResultsPropType> {
   const params = new URLSearchParams({ query });
-  for (const place of dcids) {
-    params.append("place", place);
-  }
   return axios
     .get(`/api/stats/stat-var-search-ai?${params.toString()}`)
-    .then((resp) => resp.data.statVars || []);
+    .then((resp) => {
+      const vars = (resp.data.statVars || [])
+        .map((v) => v.dcid)
+        .filter((dcid) => !!dcid)
+        .slice(0, 6);
+      const placeName = getPlaceIdsFromNames(
+        resp.data.places.map((p) => p.name)
+      )
+        .then(Object.values)
+        .then(getPlaceDcids)
+        .then(Object.values)
+        .then(getPlaceNames);
+      const statVarInfo = getStatVarInfo(vars);
+      return Promise.all([Promise.resolve(vars), statVarInfo, placeName]);
+    })
+    .then(([statVarOrder, statVarInfo, placeName]) => ({
+      statVarOrder,
+      statVarInfo,
+      placeName,
+    }));
 }
 
 function getQueryFromUrl(): string {
   return [...Array.from(getTokensFromUrl("query", placeSep)), ""][0];
 }
 
-function getPlacesFromUrl(): string[] {
-  return [...Array.from(getTokensFromUrl("place", placeSep))];
-}
-
 export function AppWithContext(): JSX.Element {
-  const [query, setQuery] = useState(getQueryFromUrl());
-  const [places, setPlaces] = useState(getPlacesFromUrl());
   const [loading, setLoading] = useState(false);
-  const [inputInvalid, setInputInvalid] = useState(false);
-  const [chartsData, setChartsData] = useState<StatVarsPropType | undefined>();
-  window.onhashchange = () => {
-    // Minimize state updates to preven unnecessary re-renders.
-    const q = getQueryFromUrl();
-    if (q !== query) {
-      setQuery(q);
-    }
-    const p = getPlacesFromUrl();
-    if (!_.isEqual(places, p)) {
-      setPlaces(p);
-    }
-    if (inputInvalid) setInputInvalid(false);
-  };
+  const [chartsData, setChartsData] = useState<
+    StatVarResultsPropType | undefined
+  >();
 
   const search = () => {
     const q = getQueryFromUrl();
-    const p = getPlacesFromUrl();
-    if (q && p.length) {
-      setLoading(true);
-      setChartsData(null);
-      Promise.all([getStatVars(p, q)]).then(([statVars]) => {
-        setChartsData({ statVars, places: p });
-        setLoading(false);
-      });
+    if (!q) {
+      return;
     }
+    setLoading(true);
+    setChartsData(null);
+    fetchChartsData(q).then((cd) => {
+      setChartsData(cd);
+      setLoading(false);
+    });
   };
   useEffect(search, []);
 
   return (
     <App
-      query={query}
-      places={places}
-      addPlace={(p) => addToken("place", placeSep, p)}
-      removePlace={(p) => removeToken("place", placeSep, p)}
-      onClickSearch={() => (query ? search() : setInputInvalid(true))}
+      query={getQueryFromUrl()}
+      onSearch={(q) => {
+        setTokensToUrl([
+          { name: "query", sep: placeSep, tokens: new Set([q]) },
+        ]);
+        search();
+      }}
       loading={loading}
-      inputInvalid={inputInvalid}
       chartsData={chartsData}
-      setQuery={(q) =>
-        setTokensToUrl([{ name: "query", sep: placeSep, tokens: new Set([q]) }])
-      }
     />
   );
 }

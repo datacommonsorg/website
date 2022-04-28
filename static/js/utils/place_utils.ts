@@ -23,6 +23,7 @@ import {
 } from "../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
+let ps: google.maps.places.PlacesService;
 
 const DEFAULT_SAMPLE_SIZE = 50;
 const CURATED_SAMPLE_PLACES = {
@@ -183,4 +184,42 @@ export function getPlaceDcids(
   return axios
     .get(`/api/place/placeid2dcid?${param}`)
     .then((resp) => resp.data);
+}
+
+/**
+ * Given a place name returns a promise with its autocomplete placeId.
+ */
+function getPlaceId(query): Promise<[string, string]> {
+  const request = {
+    query,
+    fields: ["place_id", "name", "types"],
+  };
+  return new Promise((resolve, reject) => {
+    ps.findPlaceFromQuery(request, (results, status) => {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        resolve([query, results[0].place_id]);
+      } else {
+        reject(status);
+      }
+    });
+  });
+}
+
+/**
+ * Given a list of place names, returns a promise with a map of those
+ * names to placeIds
+ */
+export function getPlaceIdsFromNames(
+  names: string[]
+): Promise<Record<string, string>> {
+  if (ps === undefined) {
+    ps = new google.maps.places.PlacesService(document.createElement("div"));
+  }
+  return Promise.all(names.map(getPlaceId)).then((places) => {
+    const result = {};
+    for (const [name, place_id] of places) {
+      result[name] = place_id;
+    }
+    return result;
+  });
 }
