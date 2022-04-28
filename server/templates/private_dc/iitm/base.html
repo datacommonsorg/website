@@ -48,8 +48,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="/private_dc/iitm/favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/private_dc/iitm/bootstrap.min.css">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" href="/private_dc/iitm/bootstrap.min.css"> -->
 
   {% block head %}
   {% endblock %}
@@ -137,58 +137,68 @@
 
   <footer id="main-footer" class="bg-navy text-white border-top">
     <div class="container text-center text-sm-left position-relative pt-5">
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <h3 class="text-info pb-2 ">Explore</h3>
-                <ul class="list-unstyled d-inline-block d-sm-block">
-                    <li class="mb-2"><a class="footer-links" href="/place">Place Explorer</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/browser/">Graph Browser</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/tools/timeline">Timelines Explorer</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/tools/scatter">Scatter Plot Explorer</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/tools/map">Map Explorer</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/tools/statvar">Statistical Variable Explorer</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <h3 class="text-info pb-2 ">Documentation</h3>
-                <ul class="list-unstyled d-inline-block d-sm-block">
-                    <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org">Documentation</a></li>
-                    <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/api">APIs</a></li>
-                    <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/tutorials">Tutorials</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/about#contribute">Contribute</a></li>
-                    <li class="mb-2"><a class="footer-links" href="http://github.com/datacommonsorg">Github Repository</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <h3 class="text-info pb-2 ">Data Commons</h3>
-                <!-- <h3 class="text-info pb-2 border-bottom">Data Commons</h3> -->
-                <ul class="list-unstyled d-inline-block d-sm-block">
-                    <li class="mb-2 "><a class="footer-links" href="/about">About India Data Commons</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/feedback">Feedback</a></li>
-                    <li class="mb-2"><a class="footer-links" href="/faq">Frequently Asked Questions</a></li>
-                </ul>
-            </div>
+      {% if not is_hide_full_footer %}
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <h3 class="text-info pb-2 ">Explore</h3>
+          <ul class="list-unstyled d-inline-block d-sm-block">
+            <li class="mb-2"><a class="footer-links" href="/place">Place Explorer</a></li>
+            <li class="mb-2"><a class="footer-links" href="/browser/">Graph Browser</a></li>
+            <li class="mb-2"><a class="footer-links" href="/tools/timeline">Timelines Explorer</a></li>
+            <li class="mb-2"><a class="footer-links" href="/tools/scatter">Scatter Plot Explorer</a></li>
+            <li class="mb-2"><a class="footer-links" href="/tools/map">Map Explorer</a></li>
+            <li class="mb-2"><a class="footer-links" href="/tools/statvar">Statistical Variable Explorer</a></li>
+          </ul>
         </div>
-        <hr>
-        <div class="row">
-            <div class="col-md-6 text-left text-md-left no-decoration">
-                <a target="_blank" href="https://www.iitm.ac.in/">
-                    <!-- <img src="images/iitm-iitmadras.svg" height="55%"> -->
-                    <img src="/private_dc/iitm/iitm-iitmadras.svg" height="55%">
-                </a>
-                <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
-                    <img src="/private_dc/iitm/iitm-rbcdsai.svg" height="55%" >
-                </a>
-            </div>
-            <div class="col-md-6 text-right pb-4">
-                <div class="float-md-right mt-2 mt-md-0">
-                    <h5>India Data Commons</h5>
-                    <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">Terms Of Use</a> ·&nbsp;
-                    <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">Privacy Policy</a> ·&nbsp;
-                    <a class="footer-links" href="/disclaimers">Disclaimers</a>
-                </div>
-            </div>
+        <div class="col-sm-6 col-md-4">
+          <h3 class="text-info pb-2 ">Documentation</h3>
+          <ul class="list-unstyled d-inline-block d-sm-block">
+            <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org">Documentation</a></li>
+            <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/api">APIs</a></li>
+            <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/tutorials">Tutorials</a></li>
+            <li class="mb-2"><a class="footer-links" href="/about#contribute">Contribute</a></li>
+            <li class="mb-2"><a class="footer-links" href="http://github.com/datacommonsorg">Github Repository</a></li>
+          </ul>
         </div>
+        <div class="col-sm-6 col-md-4">
+          <h3 class="text-info pb-2 ">Data Commons</h3>
+          <!-- <h3 class="text-info pb-2 border-bottom">Data Commons</h3> -->
+          <ul class="list-unstyled d-inline-block d-sm-block">
+            <li class="mb-2 "><a class="footer-links" href="/about">About India Data Commons</a></li>
+            <li class="mb-2"><a class="footer-links" href="/feedback">Feedback</a></li>
+            <li class="mb-2"><a class="footer-links" href="/faq">Frequently Asked Questions</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      {% endif %}
+      {% if not is_hide_sub_footer %}
+      <div class="row">
+        <div id="sub-footer" class="col-12 text-left no-decoration">
+          <div class="float-left no-decoration py-2">
+            <a target="_blank" href="https://www.iitm.ac.in/">
+              <img src="/images/iitm-iitmadras.svg" height="45px">
+            </a>
+            <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
+              <img src="/images/iitm-rbcdsai.svg" height="50px" >
+            </a>
+          </div>
+          <!-- <div class="col-md-6 text-right py-2"> -->
+          <div class="float-right no-decoration mt-2">
+            <span class="px-3">
+              {% block subfooter_extra_iitm %}{% endblock %}
+            </span>
+            {# TRANSLATORS: The label for a link to site terms of use. #}
+            <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">{% trans %}Terms Of Use{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to site privacy policy. #}
+            <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a>
+            {# TRANSLATORS: The label for a link to site disclaimers. #}
+            <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
+            <span style="display: inline; font-weight: 600;">&nbsp;&nbsp;| &nbsp;&nbsp;India Data Commons</span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </footer>
 </div>

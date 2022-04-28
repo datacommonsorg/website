@@ -48,125 +48,124 @@ a.linked-text:hover {
     font-weight: 600;
     line-height: 56px;
     color: #fff;
-    /* font-family: "Poppins", sans-serif; */
-}  
-/**
-* Get Know More Button 
-*/
+}
+
+/*
+ * Get Know More Button
+ */
 .btn-know-more {
-    background: var(--iitm-btn-bg);
-    color: #fff;
-    border-radius: 7px;
-    padding: 10px 25px;
-    white-space: nowrap;
-    transition: 0.3s;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 5px;
-    display: none;
+  background: var(--iitm-btn-bg);
+  color: #fff;
+  border-radius: 7px;
+  padding: 10px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+  display: none;
+}
+.btn-know-more:hover {
+  background: var(--red);
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .btn-know-more {
+    margin: 0 15px 0 0;
+    padding: 6px 18px;
   }
-  .btn-know-more:hover {
-    background: var(--red);
-    color: #fff;
-    text-decoration: none;
-  }
-  @media (max-width: 768px) {
-    .btn-know-more {
-      margin: 0 15px 0 0;
-      padding: 6px 18px;
-    }
-  }
-  
-  .pre-line{
-    border-left: 3px solid #fff;
-    padding-left: 20px;
-  }
+}
 
-  .pre-line-6C63FF{
-    border-left: 3px solid #6C63FF;
-    padding-left: 20px;
-  }
-  
-  .pre-line-6C63FF h4, .pre-line h4 {
-    line-height: 0.8cm;
-  }
-  
-  .bg-E8F2F5{
-      background-color: #E8F2F5;
-  }
+.pre-line{
+  border-left: 3px solid #fff;
+  padding-left: 20px;
+}
 
-  .bg-navy{
-    background-color: #0B1434;
-  }
+.pre-line-6C63FF{
+  border-left: 3px solid #6C63FF;
+  padding-left: 20px;
+}
 
-  .homepage-section {
-    padding: 5rem 0!important;
-  }
+.pre-line-6C63FF h4, .pre-line h4 {
+  line-height: 0.8cm;
+}
 
-  .bg-E8F2F5 h2 {
-    font-weight: 600;
-    font-size: 28px;
-    color: var(--iitm-section-text);
-  }
+.bg-E8F2F5{
+    background-color: #E8F2F5;
+}
 
-  .bg-E8F2F5 h4 {
-    font-weight: 500;
-    font-size: 18px;
-    color: var(--iitm-section-text);
-  }
+.bg-navy{
+  background-color: #0B1434;
+}
 
-  .bg-E8F2F5 .position-relative span a {
-    position: absolute;
-    bottom:0;
-    text-align: center;
-    right:0;
-    left:0;
-    font-size:16px;
-    text-decoration: underline;
-    color: #80296E;
-  }
-  
+.homepage-section {
+  padding: 5rem 0!important;
+}
 
-  .bg-E8F2F5 .position-relative span a:hover {
-    transition: 0.3s;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.bg-E8F2F5 h2 {
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--iitm-section-text);
+}
 
-  .text-info{
-    color:#9CABE0!important;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 0.5em;
-  }
+.bg-E8F2F5 h4 {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--iitm-section-text);
+}
 
-  .footer-links{
-    color:hsl(0, 0%, 85%);
-    font-size: 16px;
-    font-weight: 500;
-    /* font-family: Open Sans,Helvetica Neue,Arial,sans-serif; */
-  }
+.bg-E8F2F5 .position-relative span a {
+  position: absolute;
+  bottom:0;
+  text-align: center;
+  right:0;
+  left:0;
+  font-size:16px;
+  text-decoration: underline;
+  color: #80296E;
+}
 
 
-  footer ul a:hover{
-    text-decoration: none;
-  }
+.bg-E8F2F5 .position-relative span a:hover {
+  transition: 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-  hr {
-    max-width: 100%!important;
-    border-width: 1px!important;
-    border-color: #9CABE0!important;
-  }
+.text-info{
+  color:#9CABE0!important;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 0.5em;
+}
 
-  div.footer-links{
-    font-size: 14px;
-  }
+.footer-links{
+  color:hsl(0, 0%, 85%);
+  font-size: 16px;
+  font-weight: 500;
+}
 
-  .no-decoration {
-    text-decoration: none;
-  }
+
+footer ul a:hover{
+  text-decoration: none;
+}
+
+hr {
+  max-width: 100%!important;
+  border-width: 1px!important;
+  border-color: #9CABE0!important;
+}
+
+div.footer-links{
+  font-size: 14px;
+}
+
+.no-decoration {
+  text-decoration: none;
+}
 
 .logo-section{
   background-image: url("./iitm-bg-logo.svg");
@@ -181,7 +180,7 @@ a.linked-text:hover {
   background-color:#80296E!important;
 } */
 
-#main-footer-iitm #sub-footer {
+#iitm-india #main-footer #sub-footer {
   padding-top: 1.2rem;
   line-height: 2.5rem;
   border-top: none !important;
@@ -190,13 +189,13 @@ a.linked-text:hover {
 }
 
 #main-nav .nav-link {
-  text-transform: uppercase!important; 
+  text-transform: uppercase!important;
   font-size: .9rem!important;
   font-weight: 700!important;
   font-family: "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
 }
 
-/* 
+/*
 #particles-js{
   width: 100%;
   height: 100%;
@@ -219,17 +218,14 @@ a.linked-text:hover {
 
 
 .img-container {
- width: 450px;
- height: 450px;
- 
- /* background-color: lightgreen; */
- 
- overflow: hidden;
+  width: 450px;
+  height: 450px;
+  overflow: hidden;
 }
 
 .clipped-img {
- clip-path: url('#header-clip-svg');
-     max-width: 100%;
+  clip-path: url('#header-clip-svg');
+  max-width: 100%;
 }
 
 
@@ -237,5 +233,4 @@ a.linked-text:hover {
   .india-network {
     display:none;
   }
-  
 }
