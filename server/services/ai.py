@@ -19,6 +19,7 @@ import re
 from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
 
 import google.auth
+from google.cloud import language_v1
 import lib.config as libconfig
 import requests
 import urllib3
@@ -31,6 +32,7 @@ cfg = libconfig.get_config()
 # ----------------------------- INTERNAL FUNCTIONS -----------------------------
 
 _INFERENCE_CLIENT = None
+_LANGUAGE_CLIENT = language_v1.LanguageServiceClient()
 
 
 class InferenceClient(object):
@@ -171,20 +173,61 @@ def _iterate_property_value(
             yield (key, value)
 
 
+def _get_places(query: str) -> Sequence[language_v1.Entity]:
+    """Returns a list of entities that are of type LOCATION."""
+    global _LANGUAGE_CLIENT
+    if not _LANGUAGE_CLIENT:
+        return []
+    document = language_v1.Document(content=query,
+                                    type_=language_v1.Document.Type.PLAIN_TEXT)
+    response = _LANGUAGE_CLIENT.analyze_entities(request={
+        "document": document,
+        "encoding_type": language_v1.EncodingType.UTF8
+    })
+    locations = [
+        e for e in response.entities
+        if e.type == language_v1.Entity.Type.LOCATION
+    ]
+    return locations
+
+
+def _delexicalize_query(query: str,
+                        places: Sequence[language_v1.Entity]) -> str:
+    """Returns a delexicalized version of query where place mentions are replaced by special IDs."""
+    place_spans = [m.text for e in places for m in e.mentions]
+    place_spans.sort(key=lambda ts: ts.begin_offset)
+
+    prev = 0
+    output = []
+    query_bytes = query.encode('utf8')
+    for index, place_span in enumerate(place_spans):
+        if prev > place_span.begin_offset:
+            continue
+        output.append(query_bytes[prev:place_span.begin_offset].decode('utf8'))
+        output.append(f"<extra_id_{index}>")
+        prev = place_span.begin_offset + len(place_span.content.encode('utf8'))
+
+    output.append(query_bytes[prev:].decode('utf8'))
+    return ''.join(output)
+
+
 def search(query: str) -> Sequence[Mapping[str, str]]:
     global _INFERENCE_CLIENT
     if not _INFERENCE_CLIENT:
-        return {"statVars": []}
-    response = _INFERENCE_CLIENT.request(query)
+        return {"statVars": [], "places": []}
+    place_entities = _get_places(query)
+    delexicalized_query = _delexicalize_query(query, place_entities)
+    response = _INFERENCE_CLIENT.request(delexicalized_query)
     property_value = dict(
         _iterate_property_value(response["predictions"][0]["output_0"][0],
                                 exclude='place'))
-
     logging.info("Property value: %s", property_value)
-    matches = dc.match_statvar(property_value, limit=50)
-    logging.info("Matches: %s", matches)
+    matches = dc.match_statvar(property_value, limit=10)
     statvars = [{
         "name": f"{m['statVarName']} (ID {m['statVar']})",
         "dcid": m["statVar"],
     } for m in matches["matchInfo"]]
-    return {"statVars": statvars}
+    places = [{"name": entity.name} for entity in place_entities]
+    response = {"statVars": statvars, "places": places}
+    logging.info("Response: %s", response)
+    return response
