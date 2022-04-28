@@ -46,6 +46,8 @@ function getBaseWhereClause(
   places: string[],
   metadata: StatMetadata
 ): string {
+  // the trailing spaces after the newline in the string join is to maintain
+  // indentation
   const svMetadataPredicate = _.isEmpty(metadata)
     ? `${obsTableName}.facet_rank = 1`
     : getSvMetadataPredicates(obsTableName, "I", metadata).join(" AND\n      ");
@@ -92,6 +94,8 @@ function getPcQueryForSv(
   if (!_.isEmpty(metadata)) {
     provJoin = "\n    JOIN `data_commons.Provenance` AS I ON TRUE";
     numProvPredicate = "\n        ONum.prov_id = I.prov_id AND";
+    // the trailing spaces after the newline in the string join is to maintain
+    // indentation
     svMetadataPredicate = getSvMetadataPredicates("ONum", "I", metadata).join(
       " AND\n        "
     );

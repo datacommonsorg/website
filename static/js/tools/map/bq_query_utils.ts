@@ -68,6 +68,8 @@ function getLatestObsDateView(
   place: PlaceInfo,
   metadata: StatMetadata
 ): string {
+  // the trailing spaces after the newline in the string join is to maintain
+  // indentation
   return (
     `WITH ${LATEST_OBS_DATE_VIEW_NAME} AS (` +
     `
@@ -116,6 +118,8 @@ function getPlaceObsDatesAndDenomRankView(
     provJoin = "\n  JOIN `data_commons.Provenance` AS I ON TRUE";
     numProvPredicate = "\n        ONum.prov_id = I.prov_id AND";
   }
+  // the trailing spaces after the newline in the string join is to maintain
+  // indentation
   const query =
     `WITH ${PODDR_VIEW_NAME} AS (` +
     `
@@ -162,6 +166,8 @@ function getBaseWhereClause(
   tempViewName: string,
   optionalPredicates: string[]
 ): string {
+  // the trailing spaces after the newline in the string join is to maintain
+  // indentation
   return `WHERE ${obsTableName}.variable_measured = '${sv}' AND
       ${obsTableName}.observation_about = ${tempViewName}.PlaceId AND
       ${obsTableName}.observation_about = P.id AND

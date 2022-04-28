@@ -18,12 +18,12 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { getTimelineSqlQuery } from "./bq_query_utils";
 import { ChartGroupInfo } from "./chart_region";
 
-const metahashMap = {
+const TEST_METAHASH_MAP = {
   sv1: "",
   sv2: "metahash1",
   sv3: "",
 };
-const metadataMap = {
+const TEST_METADATA_MAP = {
   sv2: {
     metahash1: {
       importName: "testImport",
@@ -32,7 +32,7 @@ const metadataMap = {
     },
   },
 };
-const places = ["geoId/06", "geoId/07"];
+const TEST_PLACES = ["geoId/06", "geoId/07"];
 
 test("getSqlQuery", () => {
   const cases: {
@@ -399,9 +399,9 @@ ORDER BY PlaceId, VariableId, Date`,
   for (const c of cases) {
     const gotQuery = getTimelineSqlQuery(
       c.chartGroupInfo,
-      places,
-      metahashMap,
-      metadataMap
+      TEST_PLACES,
+      TEST_METAHASH_MAP,
+      TEST_METADATA_MAP
     );
     try {
       expect(gotQuery).toEqual(c.wantQuery);

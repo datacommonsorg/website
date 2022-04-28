@@ -18,7 +18,7 @@ import { StatMetadata } from "../../shared/stat_types";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { PlaceInfo, StatVar } from "./context";
 
-const sv: StatVar = {
+const TEST_SV: StatVar = {
   date: "",
   dcid: "Count_Person_Female",
   denom: "",
@@ -27,15 +27,15 @@ const sv: StatVar = {
   metahash: "",
   perCapita: false,
 };
-const place: PlaceInfo = {
+const TEST_PLACE: PlaceInfo = {
   enclosedPlaceType: "County",
   enclosingPlace: { dcid: "geoId/06", name: "California" },
   mapPointPlaceType: "",
   parentPlaces: [],
   selectedPlace: { dcid: "geoId/06085", name: "Santa Clara", types: [] },
 };
-const date = "2015";
-const metadata: StatMetadata = {
+const TEST_DATE = "2015";
+const TEST_METADATA: StatMetadata = {
   measurementMethod: "testMMethod",
   observationPeriod: "P1Y",
 };
@@ -105,7 +105,7 @@ ORDER BY PlaceName`,
     },
     {
       caseName: "date selected, no source selected",
-      date,
+      date: TEST_DATE,
       metadata: {},
       wantQuery: `WITH PlaceObsDatesAndDenomRank AS (
   WITH ChildPlace AS (
@@ -163,7 +163,7 @@ ORDER BY PlaceName`,
     {
       caseName: "no date selected, source selected",
       date: "",
-      metadata,
+      metadata: TEST_METADATA,
       wantQuery: `WITH PlaceObsDatesAndDenomRank AS (
   WITH LatestObsDate AS (
     WITH ChildPlace AS (
@@ -246,8 +246,8 @@ ORDER BY PlaceName`,
     },
     {
       caseName: "date and source selected",
-      date,
-      metadata,
+      date: TEST_DATE,
+      metadata: TEST_METADATA,
       wantQuery: `WITH PlaceObsDatesAndDenomRank AS (
   WITH ChildPlace AS (
       SELECT id AS PlaceId FROM \`data_commons.Place\`
@@ -314,7 +314,7 @@ ORDER BY PlaceName`,
   ];
 
   for (const c of cases) {
-    const gotQuery = getPcQuery(sv, place, c.date, c.metadata);
+    const gotQuery = getPcQuery(TEST_SV, TEST_PLACE, c.date, c.metadata);
     try {
       expect(gotQuery).toEqual(c.wantQuery);
     } catch (e) {
@@ -362,7 +362,7 @@ ORDER BY PlaceName`,
     },
     {
       caseName: "date selected, no source selected",
-      date: date,
+      date: TEST_DATE,
       metadata: {},
       wantQuery: `WITH ChildPlace AS (
       SELECT id AS PlaceId FROM \`data_commons.Place\`
@@ -391,7 +391,7 @@ ORDER BY PlaceName`,
     {
       caseName: "no date selected, source selected",
       date: "",
-      metadata: metadata,
+      metadata: TEST_METADATA,
       wantQuery: `WITH LatestObsDate AS (
     WITH ChildPlace AS (
       SELECT id AS PlaceId FROM \`data_commons.Place\`
@@ -439,8 +439,8 @@ ORDER BY PlaceName`,
     },
     {
       caseName: "date and source selected",
-      date: date,
-      metadata: metadata,
+      date: TEST_DATE,
+      metadata: TEST_METADATA,
       wantQuery: `WITH ChildPlace AS (
       SELECT id AS PlaceId FROM \`data_commons.Place\`
       WHERE EXISTS(SELECT * FROM UNNEST(all_types) AS T WHERE T = 'County') AND
@@ -472,7 +472,7 @@ ORDER BY PlaceName`,
   ];
 
   for (const c of cases) {
-    const gotQuery = getNonPcQuery(sv, place, c.date, c.metadata);
+    const gotQuery = getNonPcQuery(TEST_SV, TEST_PLACE, c.date, c.metadata);
     try {
       expect(gotQuery).toEqual(c.wantQuery);
     } catch (e) {
