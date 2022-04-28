@@ -666,6 +666,8 @@ def get_display_name(dcids, locale="en"):
     result = {}
     dcid_state_mapping = {}
     for dcid in dcids:
+        if not dcid:
+            continue
         for parent_place in parents[dcid]:
             parent_dcid = parent_place['dcid']
             place_types = parent_place['types']
