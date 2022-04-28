@@ -30,23 +30,12 @@
 {% set is_homepage = true %}
 
 {% block head %}
-<!-- <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}> -->
+<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
 {% endblock %}
 
 {% block content %}
 
-<!-- <section id="homepage-top">
-  <div class="container">
-    <div class="row">
-      <div class="lead-col col-12 col-lg-6">
-        <p class="lead mr-lg-3">
-          IITM Data Commons Demo
-        </p>
-      </div>
-    </div>
-  </div>
-</section> -->
 <header id="hero" class="masthead text-white d-flex justify-content-center align-items-center" style="background: linear-gradient(217deg,#fd6585, #5365e5);">
     <div class="row container">
         <div class="col-lg-6 d-flex" data-aos="zoom-in" data-aos-delay="100">
@@ -59,10 +48,6 @@
             </div>
         </div>
         <div class="col-lg-6 position-relative text-end india-network" data-aos="zoom-in" data-aos-delay="100" >
-            <!-- <img src="/private_dc/iitm/india-network.png" alt="" style="max-width: 100%;"> -->
-            <!-- <div class="india" style="min-width: 100%; background-color: #5365e5;">
-              <div id="particles-js"></div>
-            </div> -->
             <div class="img-container float-right" style="max-width: 100%;">
 
               <!--clipping SVG-->
@@ -96,7 +81,6 @@
       <div class="col-lg-5 position-relative text-end" data-aos="zoom-in" data-aos-delay="100" >
           <a href="/tools/map#%26sv%3DCount_Person%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea1"> <img src="/private_dc/iitm/iitm-india-population.png" alt="" style="max-width: 100%;"> </a>
           <span><a href="/tools/map#%26sv%3DCount_Person%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea1">Population in India (2011-2015)</a></span>
-          <!-- style="left:auto; right:0!important;" -->
       </div>
       <div class="col-lg-7 d-flex" data-aos="zoom-in" data-aos-delay="100">
           <div style="margin:auto auto">
