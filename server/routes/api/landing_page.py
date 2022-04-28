@@ -435,6 +435,10 @@ def data(dcid):
 
     all_stat = raw_page_data['statVarSeries']
 
+    if dcid not in all_stat:
+        logging.info("Landing Page: No data for %s", dcid)
+        return Response(json.dumps({}), 200, mimetype='application/json')
+
     # Remove empty category and topics
     for category in list(spec_and_stat.keys()):
         for topic in list(spec_and_stat[category].keys()):
@@ -501,13 +505,13 @@ def data(dcid):
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
 
-    for category in spec_and_stat:
+    for category in list(spec_and_stat):
         if category != target_category:
             continue
         populate_category_data(category)
 
     if target_category == OVERVIEW:
-        for category in spec_and_stat:
+        for category in list(spec_and_stat):
             if category == OVERVIEW:
                 continue
             data = spec_and_stat[OVERVIEW][category]
