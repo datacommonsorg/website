@@ -164,9 +164,9 @@ class TestScatter(WebdriverBaseTest):
             '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
 
         # Assert chart loads
-        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        shared.wait_for_loading(self.driver)
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 1)
