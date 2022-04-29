@@ -51,24 +51,23 @@ export function getSvMetadataPredicates(
   provTableName: string,
   metadata: StatMetadata
 ): string[] {
+  const result = [];
   const mMethodString = metadata.measurementMethod
     ? `= '${metadata.measurementMethod}'`
     : "IS NULL";
+  result.push(`${obsTableName}.measurement_method ${mMethodString}`);
   const unitString = metadata.unit ? `= '${metadata.unit}'` : "IS NULL";
+  result.push(`${obsTableName}.unit ${unitString}`);
   const obsPeriodString = metadata.observationPeriod
     ? `= '${metadata.observationPeriod}'`
     : "IS NULL";
+  result.push(`${obsTableName}.observation_period ${obsPeriodString}`);
   const sFactorString = metadata.scalingFactor
     ? `= '${metadata.scalingFactor}'`
     : "IS NULL";
-  const importNameString = metadata.importName
-    ? `= '${metadata.importName}'`
-    : "IS NULL";
-  return [
-    `${obsTableName}.measurement_method ${mMethodString}`,
-    `${obsTableName}.unit ${unitString}`,
-    `${obsTableName}.observation_period ${obsPeriodString}`,
-    `${obsTableName}.scaling_factor ${sFactorString}`,
-    `${provTableName}.name ${importNameString}`,
-  ];
+  result.push(`${obsTableName}.scaling_factor ${sFactorString}`);
+  if (metadata.importName) {
+    result.push(`${provTableName}.name = '${metadata.importName}'`);
+  }
+  return result;
 }
