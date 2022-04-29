@@ -12,9 +12,47 @@
     --footer-bg: #0B1434;
 }
 
+header.masthead {
+  padding-top:10rem;
+  padding-bottom:calc(10rem - 56px);
+  background-position:50%;
+  background-size:cover
+ }
+ header.masthead hr {
+  margin-top:30px;
+  margin-bottom:30px
+ }
+ header.masthead h1 {
+  font-size:2rem
+ }
+ header.masthead p {
+  font-weight:300
+ }
+ @media (min-width:768px) {
+  header.masthead p {
+   font-size:1.15rem
+  }
+ }
+ @media (min-width:992px) {
+  header.masthead {
+   height:100vh;
+   min-height:650px;
+   padding-top:0;
+   padding-bottom:0
+  }
+  header.masthead h1 {
+   font-size:3rem
+  }
+ }
+ @media (min-width:1200px) {
+  header.masthead h1 {
+   font-size:4rem
+  }
+ }
+
 body {
     font-family: "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
@@ -144,7 +182,6 @@ a.linked-text:hover {
 
 .footer-links{
   color:hsl(0, 0%, 85%);
-  font-size: 16px;
   font-weight: 500;
 }
 
@@ -181,11 +218,11 @@ div.footer-links{
 } */
 
 #iitm-india #main-footer #sub-footer {
-  padding-top: 1.2rem;
+  padding-top: 0.5rem;
   line-height: 2.5rem;
   border-top: none !important;
   margin-bottom: 0 !important;
-  padding-bottom: 1.2rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 #main-nav .nav-link {
@@ -209,7 +246,7 @@ div.footer-links{
 #particles-js{
   position: absolute;
   height: 100%;
-  width: auto;
+  width: 100%;
   /* background-color: rgb(167, 10, 10); */
   background-size: cover;
   background-position: 50% 50%;
@@ -234,3 +271,9 @@ div.footer-links{
     display:none;
   }
 }
+
+#mainNav.navbar-shrink {
+  border-bottom:1px solid rgba(33,37,41,.1);
+  background-color:#fff
+ }
+
