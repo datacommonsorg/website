@@ -33,6 +33,7 @@ cfg = libconfig.get_config()
 
 
 class Context:
+    """Holds clients to interact with Language client and TF models."""
 
     def __init__(self):
         self.language_client = language_v1.LanguageServiceClient()
