@@ -45,7 +45,10 @@
 
   @media (min-width: 992px) {
     #mainNav .navbar-nav > li.nav-item > a.nav-link, #mainNav .navbar-nav > li.nav-item > a.nav-link:focus {
-      color: hsla(0,0%,100%,.7);
+      color: hsla(0,0%,100%,.9);
+    }
+    #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link, #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus {
+      color: #212529;
     }
   }
 
@@ -54,14 +57,17 @@
     font-size: .9rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: #212529;
+    padding: .5rem 1rem;
   }
 
   #iitm-india #main-footer {
     margin-top:0!important;
   }
 
-
+  #iitm-india { 
+    overflow-x: hidden;
+  }
+  
 
 </style>
 

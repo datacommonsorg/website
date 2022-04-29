@@ -246,7 +246,7 @@ div.footer-links{
 #particles-js{
   position: absolute;
   height: 100%;
-  width: auto;
+  width: 100%;
   /* background-color: rgb(167, 10, 10); */
   background-size: cover;
   background-position: 50% 50%;
