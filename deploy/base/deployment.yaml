@@ -47,6 +47,9 @@ spec:
         - name: ai-config
           configMap:
             name: ai-config
+        - name: memdb-config
+          configMap:
+            name: memdb-config
       containers:
         - name: website
           image: gcr.io/datcom-ci/datacommons-website:latest
@@ -109,9 +112,12 @@ spec:
             - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
             - --import_group_tables=$(IMPORT_GROUP_TABLES)
+            - --memdb_path=/datacommons/memdb
           volumeMounts:
             - name: schema-mapping
               mountPath: /datacommons/mapping
+            - name: memdb-config
+              mountPath: /datacommons/memdb
           env:
             - name: MIXER_PROJECT
               valueFrom:
