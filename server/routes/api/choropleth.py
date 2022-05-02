@@ -20,6 +20,7 @@ import services.datacommons as dc_service
 import routes.api.place as place_api
 import routes.api.landing_page as landing_page_api
 
+from routes.api.shared import is_float
 from geojson_rewind import rewind
 from cache import cache
 from flask import Blueprint, current_app, request, Response, g, url_for
@@ -496,6 +497,8 @@ def get_map_points():
     for subject_dcid, latitude in lat_by_subject.items():
         longitude = lon_by_subject.get(subject_dcid, [])
         if len(latitude) == 0 or len(longitude) == 0:
+            continue
+        if not is_float(latitude[0]) or not is_float(longitude[0]):
             continue
         geo_id = geo_by_latlon_subject.get(subject_dcid, "")
         map_point = {
