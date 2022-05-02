@@ -61,6 +61,12 @@ class TestIsFloat(unittest.TestCase):
         }, {
             'query': '-',
             'expected': False
+        }, {
+            'query': '0.0',
+            'expected': True
+        }, {
+            'query': '3',
+            'expected': True
         }]
         for test_case in cases:
             print(test_case)
