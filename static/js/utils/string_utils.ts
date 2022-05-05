@@ -19,9 +19,15 @@ import _ from "lodash";
 /**
  *  Given a list of dates as strings, returns the date range as a string
  */
+
+export function formatDate(strDate: string): string {
+  const dt = new Date(strDate);
+  return new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(dt) + "-" + new Intl.DateTimeFormat('en-US', {month: 'short'}).format(dt);  
+}
+
 export function getDateRange(dates: string[]): string {
-  const minDate = _.min(dates);
-  const maxDate = _.max(dates);
+  const minDate = formatDate(_.min(dates));
+  const maxDate = formatDate(_.max(dates));
   return minDate === maxDate ? `${minDate}` : `${minDate} to ${maxDate}`;
 }
 
