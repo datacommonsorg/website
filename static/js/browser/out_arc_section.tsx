@@ -218,6 +218,7 @@ export class OutArcSection extends React.Component<
   };
 
   private fetchDataFromTriples(): void {
+    return;
     loadSpinner(LOADING_CONTAINER_ID);
     axios
       .get("/api/browser/triples/" + this.props.dcid)

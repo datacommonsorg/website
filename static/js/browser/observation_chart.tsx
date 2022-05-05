@@ -214,6 +214,7 @@ export class ObservationChart extends React.Component<
   };
 
   private redirectToObsPage(date: string): void {
+    return;
     if (!this.props.canClickObs) {
       return;
     }
