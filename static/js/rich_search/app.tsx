@@ -55,9 +55,6 @@ function App({
       <div id="plot-container">
         <Container fluid={true}>
           <Row>
-            <h1 className="mb-4">Rich Search</h1>
-          </Row>
-          <Row>
             <Card className="place-options-card">
               <Container className="place-options" fluid={true}>
                 <div className="place-options-section">
@@ -100,6 +97,7 @@ async function fetchChartsData(query: string): Promise<StatVarResultsPropType> {
         .map((v) => v.dcid)
         .filter((dcid) => !!dcid)
         .slice(0, 6);
+      const debug = resp.data.debug || [];
       const placeName = getPlaceIdsFromNames(
         resp.data.places.map((p) => p.name)
       )
@@ -108,12 +106,18 @@ async function fetchChartsData(query: string): Promise<StatVarResultsPropType> {
         .then(Object.values)
         .then(getPlaceNames);
       const statVarInfo = getStatVarInfo(vars);
-      return Promise.all([Promise.resolve(vars), statVarInfo, placeName]);
+      return Promise.all([
+        Promise.resolve(vars),
+        Promise.resolve(debug),
+        statVarInfo,
+        placeName,
+      ]);
     })
-    .then(([statVarOrder, statVarInfo, placeName]) => ({
+    .then(([statVarOrder, debug, statVarInfo, placeName]) => ({
       statVarOrder,
       statVarInfo,
       placeName,
+      debug,
     }));
 }
 
