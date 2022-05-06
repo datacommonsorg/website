@@ -30,6 +30,7 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
+import services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -148,6 +149,9 @@ def create_app():
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
+
+    # Initialize the AI module.
+    app.config['AI_CONTEXT'] = ai.Context()
 
     if not cfg.TEST:
         timeout = 120  # seconds
