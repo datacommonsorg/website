@@ -18,84 +18,97 @@
  * Main component for bio.
  */
 
-import axios from "axios";
-import React from "react";
+ import axios from "axios";
+ import React from "react";
+ 
+ import { GraphNodes } from "../shared/types";
+ import { ProteinPropDataStrType } from "./chart";
+ import { drawTissueScoreChart } from "./chart";
+ import { drawProteinInteractionChart } from "./chart";
+ import { drawDiseaseGeneAssocChart } from "./chart";
+ import { drawVarGeneAssocChart } from "./chart";
+ import { drawVarTypeAssocChart } from "./chart";
+ import { drawVarSigAssocChart } from "./chart";
+ import { drawChemGeneAssocChart } from "./chart";
+ import {getChemicalGeneAssoc, getDiseaseGeneAssoc, getProteinInteraction, getTissueScore, getVarGeneAssoc, getVarSigAssoc, getVarTypeAssoc} from "./data_processing_utils";
+ 
+ interface PagePropType {
+   dcid: string;
+   nodeName: string;
+ }
+ 
+ interface PageStateType {
+   data: GraphNodes;
+ }
 
-import { GraphNodes } from "../shared/types";
-import { ProteinPropDataStrType } from "./chart";
-import { drawTissueScoreChart } from "./chart";
+ export interface ProteinVarType {
+  id: string;
+  name: string;
+  value: string;
+  interval: string;
+ }
 
-interface PagePropType {
-  dcid: string;
-  nodeName: string;
-}
-
-interface PageStateType {
-  data: GraphNodes;
-}
-
-export class Page extends React.Component<PagePropType, PageStateType> {
-  constructor(props: PagePropType) {
-    super(props);
-    this.state = { data: null };
-  }
-
-  componentDidMount(): void {
-    this.fetchData();
-  }
-
-  componentDidUpdate(): void {
-    const tissueScore = this.getTissueScore(this.state.data);
-    drawTissueScoreChart("tissue-score-chart", tissueScore);
-  }
-
-  render(): JSX.Element {
-    // TODO: use d3 to draw bar chart here.
-    return (
-      <>
-        <h2>{this.props.nodeName}</h2>
-        <div id="tissue-score-chart"></div>
-      </>
-    );
-  }
-
-  private fetchData(): void {
-    axios.get("/api/protein/" + this.props.dcid).then((resp) => {
-      this.setState({
-        data: resp.data,
-      });
-    });
-  }
-
-  private getTissueScore(data: GraphNodes): { name: string; value: string }[] {
-    // Tissue to score mapping.
-    if (!data) {
-      return [];
-    }
-    const result = {};
-    for (const neighbour of data.nodes[0].neighbors) {
-      if (neighbour.property !== "detectedProtein") {
-        continue;
-      }
-      for (const node of neighbour.nodes) {
-        let tissue = null;
-        let score = null;
-        for (const n of node.neighbors) {
-          if (n.property === "humanTissue") {
-            tissue = n.nodes[0].value;
-          } else if (n.property === "proteinExpressionScore") {
-            score = n.nodes[0].value;
-          }
-        }
-        result[tissue] = score;
-      }
-      const data: ProteinPropDataStrType[] = [];
-
-      for (const tissue in result) {
-        data.push({ name: tissue, value: result[tissue] });
-      }
-      return data;
-    }
-    return [];
-  }
-}
+ export interface InteractingProteinType {
+   name: string;
+   value: number;
+   parent: string;
+ }
+ 
+ export class Page extends React.Component<PagePropType, PageStateType> {
+   constructor(props: PagePropType) {
+     super(props);
+     this.state = { data: null };
+   }
+ 
+   componentDidMount(): void {
+     this.fetchData();
+   }
+ 
+   componentDidUpdate(): void {
+     const tissueScore = getTissueScore(this.state.data);
+     const interactionScore = getProteinInteraction(this.state.data, this.props.nodeName);
+     const diseaseGeneAssoc = getDiseaseGeneAssoc(this.state.data); 
+     const varGeneAssoc = getVarGeneAssoc(this.state.data);
+     const varTypeAssoc = getVarTypeAssoc(this.state.data);
+     const varSigAssoc = getVarSigAssoc(this.state.data);
+     const chemGeneAssoc = getChemicalGeneAssoc(this.state.data);
+     drawTissueScoreChart("tissue-score-chart", tissueScore);
+     drawProteinInteractionChart("protein-confidence-score-chart", interactionScore);
+     drawDiseaseGeneAssocChart("disease-gene-association-chart", diseaseGeneAssoc);
+     drawVarGeneAssocChart("variant-gene-association-chart", varGeneAssoc);
+     drawVarTypeAssocChart("variant-type-association-chart", varTypeAssoc);
+     drawVarSigAssocChart("variant-significance-association-chart", varSigAssoc);
+     drawChemGeneAssocChart("chemical-gene-association-chart", chemGeneAssoc);
+   }
+ 
+   render(): JSX.Element {
+     // TODO: use d3 to draw bar chart here.
+     return (
+       <>
+         <h2>{this.props.nodeName}</h2>
+         <h6>Protein Tissue Association</h6>
+         <div id="tissue-score-chart"></div>
+         <h6>Protein Protein Interaction</h6>
+         <div id="protein-confidence-score-chart"></div>
+         <h6>Disease Gene Association</h6>
+         <div id="disease-gene-association-chart"></div>
+         <h6>Variant Gene Association</h6>
+         <div id="variant-gene-association-chart"></div>
+         <h6>Variant Type Association</h6>
+         <div id="variant-type-association-chart"></div>
+         <h6>Variant Gene Significance Association</h6>
+         <div id="variant-significance-association-chart"></div>
+         <h6>Chemical Gene Association</h6>
+         <div id = "chemical-gene-association-chart"></div>
+       </>
+     );
+   }
+ 
+   private fetchData(): void {
+     axios.get("/api/protein/" + this.props.dcid).then((resp) => {
+       this.setState({
+         data: resp.data,
+       });
+     });
+   }
+ }
