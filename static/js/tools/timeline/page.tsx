@@ -17,24 +17,13 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { Component, createRef, RefObject } from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  Row,
-} from "reactstrap";
+import { Button, Card, Col, Container, Row } from "reactstrap";
 
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { getPlaceNames } from "../../utils/place_utils";
+import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";
 import { Info } from "./info";
 import {
@@ -150,50 +139,25 @@ class Page extends Component<unknown, PageStateType> {
     const statVars = statVarTokens.map((sv) =>
       sv.includes("|") ? sv.split("|")[0] : sv
     );
+
+    const svHierarchyProps = {
+      type: StatVarHierarchyType.TIMELINE,
+      places: namedPlaces,
+      selectedSVs: statVars,
+      selectSV: (sv) =>
+        addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv),
+      deselectSV: (sv) =>
+        removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv),
+    };
     // TODO(beets): Factor out stat var widget related elements into a separate component.
     return (
       <>
-        <div className="d-none d-lg-flex explore-menu-container" id="explore">
-          <DrawerToggle
-            collapseElemId="explore"
-            visibleElemId="stat-var-hierarchy-section"
-          />
-          <div ref={this.svHierarchyContainerRef} className="full-size">
-            <StatVarHierarchy
-              type={StatVarHierarchyType.TIMELINE}
-              places={namedPlaces}
-              selectedSVs={statVars}
-              selectSV={(sv) => {
-                addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-              }}
-              deselectSV={(sv) => {
-                removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-              }}
-              searchLabel="Statistical Variables"
-            />
-          </div>
-        </div>
-        <Modal
-          isOpen={this.state.showSvHierarchyModal}
-          toggle={this.toggleSvHierarchyModal}
-          className="modal-dialog-centered modal-lg"
-          contentClassName="modal-sv-widget"
-          onOpened={this.onSvHierarchyModalOpened}
-          onClosed={this.onSvHierarchyModalClosed}
-          scrollable={true}
-        >
-          <ModalHeader toggle={this.toggleSvHierarchyModal}>
-            Select Variables
-          </ModalHeader>
-          <ModalBody>
-            <div ref={this.svHierarchyModalRef} className="full-size"></div>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggleSvHierarchyModal}>
-              Done
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <StatVarWidget
+          openSvHierarchyModal={this.state.showSvHierarchyModal}
+          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
+          svHierarchyProps={svHierarchyProps}
+          collapsible={true}
+        />
         <div id="plot-container">
           <Container fluid={true}>
             {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}

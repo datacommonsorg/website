@@ -38,9 +38,8 @@ import {
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { getSamplePlaces } from "../../utils/place_utils";
+import { StatVarWidget } from "../shared/stat_var_widget";
 import { AxisWrapper, Context } from "./context";
 
 interface StatVar {
@@ -71,11 +70,6 @@ interface StatVarChooserProps {
 
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const { x, y, place } = useContext(Context);
-
-  // Set up refs for sv widget modal. Widget is tied to the LHS menu but
-  // reattached to the modal when it is opened on small screens.
-  const svHierarchyModalRef = createRef<HTMLDivElement>();
-  const svHierarchyContainerRef = createRef<HTMLDivElement>();
 
   // Temporary variable for storing an extra statvar.
   const [thirdStatVar, setThirdStatVar] = useState(emptyStatVar);
@@ -182,20 +176,6 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     }
   }, [samplePlaces]);
 
-  function onSvHierarchyModalOpened() {
-    if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
-      svHierarchyModalRef.current.appendChild(svHierarchyContainerRef.current);
-    }
-  }
-
-  function onSvHierarchyModalClosed() {
-    if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
-      document
-        .getElementById("explore")
-        .appendChild(svHierarchyContainerRef.current);
-    }
-  }
-
   let yTitle = y.value.statVarDcid;
   if (y.value.statVarInfo && y.value.statVarInfo.title) {
     yTitle = y.value.statVarInfo.title;
@@ -204,44 +184,21 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   if (x.value.statVarInfo && x.value.statVarInfo.title) {
     xTitle = x.value.statVarInfo.title;
   }
+  const svHierarchyProps = {
+    type: StatVarHierarchyType.SCATTER,
+    places: samplePlaces,
+    selectedSVs: menuSelected,
+    selectSV: (sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen),
+    deselectSV: (sv) => removeStatVar(x, y, sv),
+  };
   return (
-    <div className="d-none d-lg-flex explore-menu-container" id="explore">
-      <DrawerToggle
-        collapseElemId="explore"
-        visibleElemId="stat-var-hierarchy-section"
+    <>
+      <StatVarWidget
+        openSvHierarchyModal={props.openSvHierarchyModal}
+        openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
+        svHierarchyProps={svHierarchyProps}
+        collapsible={true}
       />
-      <div ref={svHierarchyContainerRef} className="full-size">
-        <StatVarHierarchy
-          type={StatVarHierarchyType.SCATTER}
-          places={samplePlaces}
-          selectedSVs={menuSelected}
-          selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
-          deselectSV={(sv) => removeStatVar(x, y, sv)}
-          searchLabel="Statistical Variables"
-        ></StatVarHierarchy>
-      </div>
-      {/* Modal for Stat Var Widget on small screens */}
-      <Modal
-        isOpen={props.openSvHierarchyModal}
-        toggle={props.openSvHierarchyModalCallback}
-        className="modal-dialog-centered modal-lg"
-        contentClassName="modal-sv-widget"
-        onOpened={onSvHierarchyModalOpened}
-        onClosed={onSvHierarchyModalClosed}
-        scrollable={true}
-      >
-        <ModalHeader toggle={props.openSvHierarchyModalCallback}>
-          Select Variables
-        </ModalHeader>
-        <ModalBody>
-          <div ref={svHierarchyModalRef} className="full-size"></div>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={props.openSvHierarchyModalCallback}>
-            Done
-          </Button>
-        </ModalFooter>
-      </Modal>
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
         <ModalHeader toggle={closeModal}>
@@ -303,7 +260,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
           </Button>
         </ModalFooter>
       </Modal>
-    </div>
+    </>
   );
 }
 

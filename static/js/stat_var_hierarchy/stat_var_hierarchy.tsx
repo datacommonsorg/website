@@ -43,7 +43,7 @@ import {
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
-interface StatVarHierarchyPropType {
+export interface StatVarHierarchyPropType {
   type: string;
   places: NamedPlace[];
   // (Optional) A list of stat vars selected from parent componenet.
