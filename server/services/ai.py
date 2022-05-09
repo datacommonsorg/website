@@ -243,9 +243,9 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     place_entities = _get_places(context.language_client, query)
     delexicalized_query = _delexicalize_query(query, place_entities)
     model_response = context.inference_client.request(delexicalized_query)
-    property_values = _iterate_property_value(
-        model_response["predictions"][0]["output_0"][0], exclude='place')
-    matches = dc.match_statvar(_build_query(query, property_value),
+    property_values = list(_iterate_property_value(
+        model_response["predictions"][0]["output_0"][0], exclude='place'))
+    matches = dc.match_statvar(_build_query(delexicalized_query, property_values),
                                limit=10,
                                debug=True)
     statvars = [{
@@ -257,11 +257,12 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
         "statVars": statvars,
         "places": places,
         "debug": {
-            "place_entities": place_entities,
+            "query": query,
             "delexicalized_query": delexicalized_query,
             "model_response": model_response,
-            "property_value": property_value,
+            "property_value": property_values,
             "matches": matches,
         }
     }
+    logging.info("Model search on query: %s - %s", query, delexicalized_query)
     return response
