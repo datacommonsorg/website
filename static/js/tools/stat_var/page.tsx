@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import React, { Component, createRef, RefObject } from "react";
+import React, { Component } from "react";
 import { Button } from "reactstrap";
 
 import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
@@ -69,8 +69,8 @@ class Page extends Component<unknown, PageStateType> {
   render(): JSX.Element {
     const svHierarchyProps = {
       places: [],
-      selectedSVs: [this.state.statVar],
       selectSV: (sv) => this.updateHash(sv),
+      selectedSVs: [this.state.statVar],
       type: StatVarHierarchyType.STAT_VAR,
     };
     return (

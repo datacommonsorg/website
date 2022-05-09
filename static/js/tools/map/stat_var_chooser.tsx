@@ -89,12 +89,12 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   }, [statVar.value]);
 
   const svHierarchyProps = {
-    type: StatVarHierarchyType.MAP,
     places: samplePlaces,
-    selectedSVs: [statVar.value.dcid],
     selectSV: (svDcid) => {
       selectStatVar(statVar, display, placeInfo, svDcid);
     },
+    selectedSVs: [statVar.value.dcid],
+    type: StatVarHierarchyType.MAP,
   };
   return (
     <StatVarWidget

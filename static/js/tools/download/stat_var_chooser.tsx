@@ -62,9 +62,9 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
 
   const svHierarchyProps = {
     deselectSV: (sv) => props.onStatVarRemoved(sv),
-    selectedSVs: props.statVars,
-    selectSV: (sv) => selectSV(sv, props.onStatVarSelected),
     places: samplePlaces,
+    selectSV: (sv) => selectSV(sv, props.onStatVarSelected),
+    selectedSVs: props.statVars,
     type: StatVarHierarchyType.TIMELINE,
   };
 

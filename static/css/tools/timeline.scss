@@ -42,6 +42,7 @@
   direction: initial;
   padding: 1rem 0;
 }
+
 @include media-breakpoint-up(lg) {
   #main-pane #plot-container {
     padding: 2rem 1rem;
@@ -62,12 +63,12 @@
   border-bottom: none;
 }
 
-// Place marker
+/* Place marker */
 #search-icon {
   top: 3px;
 }
 
-// Magnifying glass
+/* Magnifying glass */
 .search-icon {
   padding: 0.5rem;
 }

@@ -187,8 +187,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const svHierarchyProps = {
     deselectSV: (sv) => removeStatVar(x, y, sv),
     places: samplePlaces,
-    selectedSVs: menuSelected,
     selectSV: (sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen),
+    selectedSVs: menuSelected,
     type: StatVarHierarchyType.SCATTER,
   };
   return (
