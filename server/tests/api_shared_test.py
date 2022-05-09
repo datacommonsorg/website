@@ -47,3 +47,28 @@ class TestCachedName(unittest.TestCase):
 
         result = shared_api.cached_name('^'.join([dcid1, dcid2, dcid3]))
         assert result == {dcid1: 'California', dcid2: '', dcid3: 'Colorado'}
+
+
+class TestIsFloat(unittest.TestCase):
+
+    def test_is_float(self):
+        cases = [{
+            'query': 'abc',
+            'expected': False
+        }, {
+            'query': '1.26',
+            'expected': True
+        }, {
+            'query': '-',
+            'expected': False
+        }, {
+            'query': '0.0',
+            'expected': True
+        }, {
+            'query': '3',
+            'expected': True
+        }]
+        for test_case in cases:
+            print(test_case)
+            result = shared_api.is_float(test_case.get("query"))
+            assert result == test_case.get("expected")

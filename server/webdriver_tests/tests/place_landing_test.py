@@ -134,7 +134,7 @@ class TestPlaceLanding(WebdriverBaseTest):
 
         # Wait until the group of charts has loaded.
         element_present = EC.presence_of_element_located(
-            (By.CLASS_NAME, 'card'))
+            (By.ID, 'chart-region'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts.

@@ -34,6 +34,10 @@ configMapGenerator:
       - mixerProject=datcom-feedingamerica
       - serviceName=website-esp.endpoints.datcom-feedingamerica.cloud.goog
     name: mixer-configmap
+  - name: memdb-config
+    behavior: replace
+    files:
+      - memdb.json
 
 patchesStrategicMerge:
   - |-
