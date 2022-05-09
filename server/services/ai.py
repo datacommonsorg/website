@@ -213,16 +213,28 @@ def _delexicalize_query(query: str,
     output.append(query_bytes[prev:].decode('utf8'))
     return ''.join(output)
 
+
 _KEY_NORMALIZATION = {
+    "measurementDenominator": "md",
+    "measurementQualifier": "mq",
     "measuredProperty": "mp",
     "populationType": "pt",
     "statType": "st",
-    # Is this all?
 }
 
-def _normalize_keys(key_values: Iterator[Tuple[str, str]]) -> Iterator[Tuple[str, str]]:
+
+def _build_query(
+        query: str,
+        key_values: Iterator[Tuple[str, str]]) -> Iterator[Tuple[str, str]]:
+    terms = []
+    for token in query.split():
+        terms.append(f'sn:"{token}"')
     for key, value in key_values:
-        yield (_KEY_NORMALIZATION.get(key, key), value)
+        key = _KEY_NORMALIZATION.get(key, key)
+        terms.append(f'v:"{value}"')
+        terms.append(f'k:"{key}"')
+        terms.append(f'kv:"{key}_{value}"')
+    return " ".join(terms)
 
 
 def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
@@ -231,22 +243,25 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     place_entities = _get_places(context.language_client, query)
     delexicalized_query = _delexicalize_query(query, place_entities)
     model_response = context.inference_client.request(delexicalized_query)
-    property_value = dict(
-        _iterate_property_value(model_response["predictions"][0]["output_0"][0],
-                                exclude='place'))
-    property_value = _normalize_keys(property_value)
-    matches = dc.match_statvar(query, property_value, limit=10)
+    property_values = _iterate_property_value(
+        model_response["predictions"][0]["output_0"][0], exclude='place')
+    matches = dc.match_statvar(_build_query(query, property_value),
+                               limit=10,
+                               debug=True)
     statvars = [{
         "name": f"{m['statVarName']} (ID {m['statVar']})",
         "dcid": m["statVar"],
     } for m in matches["matchInfo"]]
     places = [{"name": entity.name} for entity in place_entities]
-    response = {"statVars": statvars, "places": places, "debug": {
-        "place_entities": place_entities,
-        "delexicalized_query": delexicalized_query,
-        "model_response": model_response,
-        "property_value": property_value,
-        "matches": matches,
-    }}
-    logging.info("Response: %s", response)
+    response = {
+        "statVars": statvars,
+        "places": places,
+        "debug": {
+            "place_entities": place_entities,
+            "delexicalized_query": delexicalized_query,
+            "model_response": model_response,
+            "property_value": property_value,
+            "matches": matches,
+        }
+    }
     return response
