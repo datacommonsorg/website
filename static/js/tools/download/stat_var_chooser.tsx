@@ -18,7 +18,6 @@
  * Component to pick statvar for map.
  */
 
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { getStatVarInfo } from "../../shared/stat_var";
@@ -62,11 +61,11 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   }, [props.placeDcid, props.enclosedPlaceType]);
 
   const svHierarchyProps = {
-    type: StatVarHierarchyType.TIMELINE,
-    places: samplePlaces,
+    deselectSV: (sv) => props.onStatVarRemoved(sv),
     selectedSVs: props.statVars,
     selectSV: (sv) => selectSV(sv, props.onStatVarSelected),
-    deselectSV: (sv) => props.onStatVarRemoved(sv),
+    places: samplePlaces,
+    type: StatVarHierarchyType.TIMELINE,
   };
 
   return (

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import React, { createRef } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
@@ -37,13 +36,13 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   const svHierarchyModalRef = createRef<HTMLDivElement>();
   const svHierarchyContainerRef = createRef<HTMLDivElement>();
 
-  function onSvModalOpened() {
+  function onSvModalOpened(): void {
     if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
       svHierarchyModalRef.current.appendChild(svHierarchyContainerRef.current);
     }
   }
 
-  function onSvModalClosed() {
+  function onSvModalClosed(): void {
     document
       .getElementById("explore")
       .appendChild(svHierarchyContainerRef.current);

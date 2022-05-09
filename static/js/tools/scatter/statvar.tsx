@@ -22,7 +22,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { createRef, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -185,11 +185,11 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     xTitle = x.value.statVarInfo.title;
   }
   const svHierarchyProps = {
-    type: StatVarHierarchyType.SCATTER,
+    deselectSV: (sv) => removeStatVar(x, y, sv),
     places: samplePlaces,
     selectedSVs: menuSelected,
     selectSV: (sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen),
-    deselectSV: (sv) => removeStatVar(x, y, sv),
+    type: StatVarHierarchyType.SCATTER,
   };
   return (
     <>

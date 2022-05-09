@@ -68,10 +68,10 @@ class Page extends Component<unknown, PageStateType> {
 
   render(): JSX.Element {
     const svHierarchyProps = {
-      type: StatVarHierarchyType.STAT_VAR,
       places: [],
       selectedSVs: [this.state.statVar],
       selectSV: (sv) => this.updateHash(sv),
+      type: StatVarHierarchyType.STAT_VAR,
     };
     return (
       <>

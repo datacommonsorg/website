@@ -28,12 +28,12 @@ import { StatVarInfo } from "../timeline/chart_region";
 import { StatVarChooser } from "./stat_var_chooser";
 
 const URL_PARAM_KEYS = {
+  DATE_RANGE: "dtRange",
+  MAX_DATE: "dtMax",
+  MIN_DATE: "dtMin",
   PLACE: "place",
   PLACE_TYPE: "pt",
   STAT_VARS: "sv",
-  MIN_DATE: "dtMin",
-  MAX_DATE: "dtMax",
-  DATE_RANGE: "dtRange",
 };
 
 const SEPARATOR = "__";
@@ -58,9 +58,9 @@ export function Page(): JSX.Element {
   const [previewDisabled, setPreviewDisabled] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({
-    minDate: false,
-    maxDate: false,
     incompleteSelectionMessage: "",
+    maxDate: false,
+    minDate: false,
   });
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
@@ -279,24 +279,24 @@ export function Page(): JSX.Element {
     Promise.all([placePromise, svInfoPromise])
       .then(([place, svInfo]) => {
         setSelectedOptions({
+          dateRange,
+          enclosedPlaceType,
+          maxDate,
+          minDate,
           selectedPlace: place,
           selectedStatVars: svInfo,
-          enclosedPlaceType,
-          minDate,
-          maxDate,
-          dateRange,
         });
       })
       .catch(() => {
         const emptySvInfo = {};
         statVarsList.forEach((sv) => (emptySvInfo[sv] = {}));
         setSelectedOptions({
-          selectedPlace: { dcid: place, name: place, types: [] },
-          enclosedPlaceType,
-          selectedStatVars: emptySvInfo,
-          minDate,
-          maxDate,
           dateRange,
+          enclosedPlaceType,
+          maxDate,
+          minDate,
+          selectedPlace: { dcid: place, name: place, types: [] },
+          selectedStatVars: emptySvInfo,
         });
       });
   }
@@ -331,8 +331,8 @@ export function Page(): JSX.Element {
     setValidationErrors((prev) => {
       return {
         ...prev,
-        minDate: isMinDate ? dateError : prev.minDate,
         maxDate: !isMinDate ? dateError : prev.maxDate,
+        minDate: isMinDate ? dateError : prev.minDate,
       };
     });
   }

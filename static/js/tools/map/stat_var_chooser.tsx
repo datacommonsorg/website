@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { createRef, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { getStatVarInfo } from "../../shared/stat_var";

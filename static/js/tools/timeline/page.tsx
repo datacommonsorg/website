@@ -141,13 +141,13 @@ class Page extends Component<unknown, PageStateType> {
     );
 
     const svHierarchyProps = {
-      type: StatVarHierarchyType.TIMELINE,
+      deselectSV: (sv) =>
+        removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv),
       places: namedPlaces,
       selectedSVs: statVars,
       selectSV: (sv) =>
         addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv),
-      deselectSV: (sv) =>
-        removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv),
+      type: StatVarHierarchyType.TIMELINE,
     };
     // TODO(beets): Factor out stat var widget related elements into a separate component.
     return (
