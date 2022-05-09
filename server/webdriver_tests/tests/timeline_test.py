@@ -215,12 +215,12 @@ class TestCharts(WebdriverBaseTest):
 
         # Wait until the delete button is present.
         element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="place-list"]/span/button'))
+            (By.XPATH, '//*[@id="place-list"]/div[1]/button'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click on the delete button and remove California.
         delete_button = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/button')
+            '//*[@id="place-list"]/div[1]/button')
         delete_button.click()
 
         # Wait until the second line element within the card disappears.
