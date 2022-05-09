@@ -162,6 +162,9 @@ export function getNamedTypedPlace(
 export function getPlaceNames(
   dcids: string[]
 ): Promise<{ [key: string]: string }> {
+  if (!dcids.length) {
+    return Promise.resolve({});
+  }
   let url = "/api/place/name?";
   const urls = [];
   for (const place of dcids) {
@@ -180,6 +183,9 @@ export function getPlaceNames(
 export function getPlaceDcids(
   placeIds: string[]
 ): Promise<Record<string, string>> {
+  if (!placeIds.length) {
+    return Promise.resolve({});
+  }
   const param = placeIds.map((placeId) => "placeIds=" + placeId).join("&");
   return axios
     .get(`/api/place/placeid2dcid?${param}`)

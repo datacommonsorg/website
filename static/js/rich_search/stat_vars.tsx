@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import React from "react";
+import React, { useState } from "react";
+import { Button, Card, CardBody, Collapse } from "reactstrap";
 
 import { StatVarInfo } from "../shared/stat_var";
 import { ChartRegion } from "../tools/timeline/chart_region";
@@ -26,6 +27,8 @@ export interface StatVarResultsPropType {
   statVarInfo: { [key: string]: StatVarInfo };
   // Order in which stat vars were selected.
   statVarOrder: string[];
+  // Extra debug information from the search results.
+  debug: string[];
 }
 
 function getURL(places: string[], statsVar: string): string {
@@ -43,11 +46,19 @@ export function StatVarResults({
   placeName,
   statVarInfo,
   statVarOrder,
+  debug,
 }: StatVarResultsPropType): JSX.Element {
+  const [debugOpen, setDebugOpen] = useState(false);
+  const places = Object.keys(placeName);
+  if (!places.length) {
+    return (
+      <section className="block col-12">No places found in the query.</section>
+    );
+  }
   if (!statVarOrder.length) {
     return <section className="block col-12">No results found.</section>;
   }
-  const places = Object.keys(placeName);
+
   return (
     <section className="block col-12">
       <div id="chart-region">
@@ -64,6 +75,26 @@ export function StatVarResults({
           </li>
         ))}
       </ul>
+      {!!debug.length && (
+        <div className="debug-view">
+          <Button
+            className="btn-light"
+            onClick={() => setDebugOpen(!debugOpen)}
+            size="sm"
+          >
+            {debugOpen ? "Hide Debug" : "Show Debug"}
+          </Button>
+          <Collapse isOpen={debugOpen}>
+            <Card>
+              <CardBody>
+                {debug.map((line, key) => (
+                  <div key={key}>{line}</div>
+                ))}
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
+      )}
     </section>
   );
 }
