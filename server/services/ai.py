@@ -255,16 +255,25 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
         "dcid": m["statVar"],
     } for m in matches["matchInfo"]]
     places = [{"name": entity.name} for entity in place_entities]
+
+    debug_lines = [
+        f"# query:\n{query}",
+        f"# delexicalized_query:\n{delexicalized_query}",
+        f"# model_response:\n{json.dumps(model_response, sort_keys=True, indent=4)}",
+        f"# property_value:\n{property_values}",
+        f"# Results:\n"
+    ]
+
+    for match in matches["matchInfo"]:
+        debug_lines.append(f"# ID: {match['statVar']}")
+        debug_lines.append(f"# Statvar: {match['statVarName']}")
+        debug_lines.append(f"# Score: {match['score']}")
+        debug_lines.append(f"# Explanation: {match['explanation']}")
+
     response = {
         "statVars": statvars,
         "places": places,
-        "debug": {
-            "query": query,
-            "delexicalized_query": delexicalized_query,
-            "model_response": model_response,
-            "property_value": property_values,
-            "matches": matches,
-        }
+        "debug": ['\n'.join(debug_lines)],
     }
     logging.info("Model search on query: %s - %s", query, delexicalized_query)
     return response
