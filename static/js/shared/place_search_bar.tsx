@@ -32,6 +32,7 @@ const HARDCODED_RESULTS = {
   oceania: "oceania",
   "south america": "southamerica",
 };
+const CHIP_COLOR = "rgba(66, 133, 244, 0.08)";
 
 interface PlaceSearchBarPropType {
   places: Record<string, string>;
@@ -77,7 +78,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
                 }
                 key={placeId}
                 removeChip={this.props.removePlace}
-                color={"rgba(66, 133, 244, 0.08)"}
+                color={CHIP_COLOR}
               ></Chip>
             ))}
           </span>

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Component for the stat var widget to be used by the website tools
+ */
+
 import React, { createRef } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 

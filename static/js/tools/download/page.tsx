@@ -37,6 +37,7 @@ const URL_PARAM_KEYS = {
 };
 
 const SEPARATOR = "__";
+const PARAM_VALUE_TRUE = "1";
 
 interface DownloadOptions {
   selectedPlace: NamedTypedPlace;
@@ -261,6 +262,17 @@ export function Page(): JSX.Element {
   }
 
   function getOptionsFromURL(): void {
+    const options = {
+      dateRange: false,
+      enclosedPlaceType: "",
+      maxDate: "",
+      minDate: "",
+      selectedPlace: { dcid: "", name: "", types: null },
+      selectedStatVars: {},
+    };
+    if (!window.location.hash) {
+      setSelectedOptions(options);
+    }
     const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
     const place = urlParams.get(URL_PARAM_KEYS.PLACE);
     const placePromise = place
@@ -271,18 +283,15 @@ export function Page(): JSX.Element {
     const svInfoPromise = !_.isEmpty(statVarsList)
       ? getStatVarInfo(statVarsList)
       : Promise.resolve({});
-    const enclosedPlaceType = urlParams.get(URL_PARAM_KEYS.PLACE_TYPE) || "";
-    const dateRange =
-      urlParams.get(URL_PARAM_KEYS.DATE_RANGE) === "1" ? true : false;
-    const minDate = urlParams.get(URL_PARAM_KEYS.MIN_DATE) || "";
-    const maxDate = urlParams.get(URL_PARAM_KEYS.MAX_DATE) || "";
+    options.enclosedPlaceType = urlParams.get(URL_PARAM_KEYS.PLACE_TYPE) || "";
+    options.dateRange =
+      urlParams.get(URL_PARAM_KEYS.DATE_RANGE) === PARAM_VALUE_TRUE;
+    options.minDate = urlParams.get(URL_PARAM_KEYS.MIN_DATE) || "";
+    options.maxDate = urlParams.get(URL_PARAM_KEYS.MAX_DATE) || "";
     Promise.all([placePromise, svInfoPromise])
       .then(([place, svInfo]) => {
         setSelectedOptions({
-          dateRange,
-          enclosedPlaceType,
-          maxDate,
-          minDate,
+          ...options,
           selectedPlace: place,
           selectedStatVars: svInfo,
         });
@@ -291,10 +300,7 @@ export function Page(): JSX.Element {
         const emptySvInfo = {};
         statVarsList.forEach((sv) => (emptySvInfo[sv] = {}));
         setSelectedOptions({
-          dateRange,
-          enclosedPlaceType,
-          maxDate,
-          minDate,
+          ...options,
           selectedPlace: { dcid: place, name: place, types: [] },
           selectedStatVars: emptySvInfo,
         });
@@ -311,7 +317,9 @@ export function Page(): JSX.Element {
       [URL_PARAM_KEYS.STAT_VARS]: Object.keys(
         selectedOptions.selectedStatVars
       ).join(SEPARATOR),
-      [URL_PARAM_KEYS.DATE_RANGE]: selectedOptions.dateRange ? "1" : "",
+      [URL_PARAM_KEYS.DATE_RANGE]: selectedOptions.dateRange
+        ? PARAM_VALUE_TRUE
+        : "",
       [URL_PARAM_KEYS.MIN_DATE]: selectedOptions.minDate,
       [URL_PARAM_KEYS.MAX_DATE]: selectedOptions.maxDate,
     };

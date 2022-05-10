@@ -98,7 +98,7 @@
 }
 
 .download-date-range-input-error {
-  border: 1px solid #dc3545;
+  border: 1px solid var(--dc-error);
 }
 
 .download-date-range-hint,
@@ -109,7 +109,7 @@
 }
 
 .download-date-range-hint-error {
-  color: #dc3545;
+  color: var(--dc-error);
 }
 
 .download-date-range-input:focus,

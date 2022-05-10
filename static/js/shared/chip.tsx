@@ -34,6 +34,7 @@ interface ChipPropsType {
 }
 
 export function Chip(props: ChipPropsType): JSX.Element {
+  // TODO: clean up class names - don't need to maintain mdl-chip naming
   return (
     <div
       className="mdl-chip mdl-chip--deletable"
