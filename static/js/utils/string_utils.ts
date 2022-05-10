@@ -16,10 +16,11 @@
 
 import _ from "lodash";
 
-/**
- *  Given a list of dates as strings, returns the date range as a string
- */
 
+/**
+ * If the date is in YYYY-MM format, returns YYYY-MMM format.
+ * This is to improve readability of dates in chart titles.
+ */
 export function formatDate(strDate: string): string {
   const regexDate = /^\d{4}-\d{1,2}$/;
   if (!regexDate.test(strDate)) {
@@ -34,6 +35,9 @@ export function formatDate(strDate: string): string {
   }
 }
 
+/**
+ *  Given a list of dates as strings, returns the date range as a string
+ */
 export function getDateRange(dates: string[]): string {
   const minDate = formatDate(_.min(dates));
   const maxDate = formatDate(_.max(dates));
