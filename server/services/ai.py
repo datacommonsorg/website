@@ -214,6 +214,7 @@ def _delexicalize_query(query: str,
     return ''.join(output)
 
 
+# This matches the cache builder logic.
 _KEY_NORMALIZATION = {
     "measurementDenominator": "md",
     "measurementQualifier": "mq",
@@ -229,8 +230,8 @@ def _build_query(
     terms = []
     for token in query.split():
         terms.append(f'sn:"{token}"')
-    for key, value in key_values:
-        key = _KEY_NORMALIZATION.get(key, key)
+    for raw_key, value in key_values:
+        key = _KEY_NORMALIZATION.get(raw_key, raw_key)
         terms.append(f'v:"{value}"')
         terms.append(f'k:"{key}"')
         terms.append(f'kv:"{key}_{value}"')
