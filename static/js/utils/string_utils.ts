@@ -21,13 +21,16 @@ import _ from "lodash";
  */
 
 export function formatDate(strDate: string): string {
-  var regex_date = /^\d{4}\-\d{1,2}$/;
-  if(!regex_date.test(strDate))
-  {
+  const regexDate = /^\d{4}-\d{1,2}$/;
+  if (!regexDate.test(strDate)) {
     return strDate;
-  }else{
+  } else {
     const dt = new Date(strDate);
-    return new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(dt) + "-" + new Intl.DateTimeFormat('en-US', {month: 'short'}).format(dt);  
+    return (
+      new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
+      "-" +
+      new Intl.DateTimeFormat("en-US", { month: "short" }).format(dt)
+    );
   }
 }
 
