@@ -87,8 +87,8 @@ export function StatVarResults({
           <Collapse isOpen={debugOpen}>
             <Card>
               <CardBody>
-                {debug.map((line) => (
-                  <pre>{line}</pre>
+                {debug.map((line, key) => (
+                  <div key={key}>{line}</div>
                 ))}
               </CardBody>
             </Card>
