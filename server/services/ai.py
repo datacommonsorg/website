@@ -15,6 +15,7 @@
 
 import json
 import logging
+import math
 import re
 from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
 
@@ -224,9 +225,7 @@ _KEY_NORMALIZATION = {
 }
 
 
-def _build_query(
-        query: str,
-        key_values: Iterator[Tuple[str, str]]) -> Iterator[Tuple[str, str]]:
+def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
     terms = []
     for token in query.split():
         terms.append(f'sn:"{token}"')
@@ -238,15 +237,31 @@ def _build_query(
     return " ".join(terms)
 
 
+def _parse_model_response(model_response,
+                          min_score: float = 0.30) -> Sequence[Tuple[str, str]]:
+    property_values = set()
+    scores = model_response["predictions"][0]["output_1"]
+    predictions = model_response["predictions"][0]["output_0"]
+    for raw_score, prediction in sorted(zip(scores, predictions)):
+        score = math.exp(raw_score)
+        if score < min_score:
+            continue
+        for raw_key, value in _iterate_property_value(prediction,
+                                                      exclude='place'):
+            key = _KEY_NORMALIZATION.get(raw_key, raw_key)
+            property_values.add((key, value))
+    return list(sorted(property_values))
+
+
 def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     if not context.inference_client:
         return {"statVars": [], "places": []}
     place_entities = _get_places(context.language_client, query)
+    if not place_entities:
+        return {"statVars": [], "places": []}
     delexicalized_query = _delexicalize_query(query, place_entities)
     model_response = context.inference_client.request(delexicalized_query)
-    property_values = list(
-        _iterate_property_value(model_response["predictions"][0]["output_0"][0],
-                                exclude='place'))
+    property_values = _parse_model_response(model_response)
     matches = dc.match_statvar(_build_query(delexicalized_query,
                                             property_values),
                                limit=10,
@@ -258,11 +273,9 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     places = [{"name": entity.name} for entity in place_entities]
 
     debug_lines = [
-        f"# query:\n{query}",
-        f"# delexicalized_query:\n{delexicalized_query}",
+        f"# query:\n{query}", f"# delexicalized_query:\n{delexicalized_query}",
         f"# model_response:\n{json.dumps(model_response, sort_keys=True, indent=4)}",
-        f"# property_value:\n{property_values}",
-        f"# Results:\n"
+        f"# property_value:\n{property_values}", f"# Results:\n"
     ]
 
     for match in matches["matchInfo"]:
