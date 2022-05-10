@@ -16,7 +16,6 @@
 
 import _ from "lodash";
 
-
 /**
  * If the date is in YYYY-MM format, returns YYYY-MMM format.
  * This is to improve readability of dates in chart titles.
