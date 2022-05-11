@@ -21,16 +21,15 @@ import _ from "lodash";
  * This is to improve readability of dates in chart titles.
  */
 export function formatDate(strDate: string): string {
-  const regexDate = /^\d{4}-\d{1,2}$/;
-  if (!regexDate.test(strDate)) {
-    return strDate;
-  } else {
+  if (strDate.length == 7) {
     const dt = new Date(strDate);
     return (
       new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
       "-" +
       new Intl.DateTimeFormat("en-US", { month: "short" }).format(dt)
-    );
+    );    
+  } else {
+    return strDate;
   }
 }
 
