@@ -27,7 +27,7 @@ export function formatDate(strDate: string): string {
       new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
       "-" +
       new Intl.DateTimeFormat("en-US", { month: "short" }).format(dt)
-    );    
+    );
   } else {
     return strDate;
   }
