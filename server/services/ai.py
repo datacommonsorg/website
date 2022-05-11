@@ -23,7 +23,6 @@ import google.auth
 from google.cloud import language_v1
 import lib.config as libconfig
 import requests
-import urllib3
 import yaml
 
 import services.datacommons as dc
@@ -82,19 +81,11 @@ class RestInferenceClient(InferenceClient):
 
     def _get_session(self) -> requests.Session:
         """Gets a http session."""
-        retry = urllib3.util.retry.Retry(
-            total=5,
-            status_forcelist=[429, 503],
-            backoff_factor=2,
-            method_whitelist=["POST"],
-        )
-        adapter = requests.adapters.HTTPAdapter(max_retries=retry)
         session = requests.Session()
         session.headers.update({
             "Content-Type": "application/json",
             "User-Agent": "datcom-inference-client",
         })
-        session.mount("https://", adapter)
         return session
 
     def _get_headers(self) -> Optional[Mapping[str, str]]:

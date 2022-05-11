@@ -154,7 +154,7 @@ def create_app():
     app.config['AI_CONTEXT'] = ai.Context()
 
     if not cfg.TEST:
-        timeout = 120  # seconds
+        timeout = 5 * 60  # seconds
         counter = 0
         isOpen = False
         while not isOpen:
@@ -162,7 +162,7 @@ def create_app():
                 urllib.request.urlopen(cfg.API_ROOT + "/version")
                 break
             except urllib.error.URLError:
-                time.sleep(1)
+                time.sleep(10)
                 counter += 1
             if counter > timeout:
                 raise RuntimeError("Mixer not ready after %s second" % timeout)
