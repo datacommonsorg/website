@@ -215,21 +215,25 @@ _KEY_NORMALIZATION = {
     "statType": "st",
 }
 
+# Sometimes we need to normalize also values.
+_VALUE_NORMALIZATION = {
+    'phds': 'DoctorateDegree',
+}
+
 
 def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
     terms = []
-    for token in query.split():
-        terms.append(f'sn:"{token}"')
-    for raw_key, value in key_values:
-        key = _KEY_NORMALIZATION.get(raw_key, raw_key)
+    for key, value in key_values:
+        # We skip high frequency keys that are always present for all the variables.
+        if key not in _KEY_NORMALIZATION.values():
+            terms.append(f'k:"{key}"')
         terms.append(f'v:"{value}"')
-        terms.append(f'k:"{key}"')
-        terms.append(f'kv:"{key}_{value}"')
+        terms.append(f'sn:"{value}"')
     return " ".join(terms)
 
 
 def _parse_model_response(model_response,
-                          min_score: float = 0.30) -> Sequence[Tuple[str, str]]:
+                          min_score: float = 0.001) -> Sequence[Tuple[str, str]]:
     property_values = set()
     scores = model_response["predictions"][0]["output_1"]
     predictions = model_response["predictions"][0]["output_0"]
@@ -237,9 +241,10 @@ def _parse_model_response(model_response,
         score = math.exp(raw_score)
         if score < min_score:
             continue
-        for raw_key, value in _iterate_property_value(prediction,
+        for raw_key, raw_value in _iterate_property_value(prediction,
                                                       exclude='place'):
             key = _KEY_NORMALIZATION.get(raw_key, raw_key)
+            value = _VALUE_NORMALIZATION.get(raw_value.lower(), raw_value)
             property_values.add((key, value))
     return list(sorted(property_values))
 
