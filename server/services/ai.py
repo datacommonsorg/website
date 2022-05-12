@@ -23,7 +23,6 @@ import google.auth
 from google.cloud import language_v1
 import lib.config as libconfig
 import requests
-import urllib3
 import yaml
 
 import services.datacommons as dc
@@ -82,19 +81,11 @@ class RestInferenceClient(InferenceClient):
 
     def _get_session(self) -> requests.Session:
         """Gets a http session."""
-        retry = urllib3.util.retry.Retry(
-            total=5,
-            status_forcelist=[429, 503],
-            backoff_factor=2,
-            method_whitelist=["POST"],
-        )
-        adapter = requests.adapters.HTTPAdapter(max_retries=retry)
         session = requests.Session()
         session.headers.update({
             "Content-Type": "application/json",
             "User-Agent": "datcom-inference-client",
         })
-        session.mount("https://", adapter)
         return session
 
     def _get_headers(self) -> Optional[Mapping[str, str]]:
@@ -224,21 +215,28 @@ _KEY_NORMALIZATION = {
     "statType": "st",
 }
 
+# Sometimes we need to normalize also values.
+_VALUE_NORMALIZATION = {
+    'phds': 'DoctorateDegree',
+}
+
 
 def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
+    del query  # unused
     terms = []
-    for token in query.split():
-        terms.append(f'sn:"{token}"')
-    for raw_key, value in key_values:
-        key = _KEY_NORMALIZATION.get(raw_key, raw_key)
+    for key, value in key_values:
+        # We skip high frequency keys that are always present for all the variables.
+        if key not in _KEY_NORMALIZATION.values():
+            terms.append(f'k:"{key}"')
         terms.append(f'v:"{value}"')
-        terms.append(f'k:"{key}"')
-        terms.append(f'kv:"{key}_{value}"')
-    return " ".join(terms)
+        terms.append(f'sn:"{value}"')
+    query = " ".join(terms)
+    logging.info("Using the following query for match API: %s", query)
+    return query
 
 
-def _parse_model_response(model_response,
-                          min_score: float = 0.30) -> Sequence[Tuple[str, str]]:
+def _parse_model_response(
+        model_response, min_score: float = 0.001) -> Sequence[Tuple[str, str]]:
     property_values = set()
     scores = model_response["predictions"][0]["output_1"]
     predictions = model_response["predictions"][0]["output_0"]
@@ -246,9 +244,10 @@ def _parse_model_response(model_response,
         score = math.exp(raw_score)
         if score < min_score:
             continue
-        for raw_key, value in _iterate_property_value(prediction,
-                                                      exclude='place'):
+        for raw_key, raw_value in _iterate_property_value(prediction,
+                                                          exclude='place'):
             key = _KEY_NORMALIZATION.get(raw_key, raw_key)
+            value = _VALUE_NORMALIZATION.get(raw_value.lower(), raw_value)
             property_values.add((key, value))
     return list(sorted(property_values))
 
@@ -260,12 +259,15 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     if not place_entities:
         return {"statVars": [], "places": []}
     delexicalized_query = _delexicalize_query(query, place_entities)
+    logging.info("Model search on query: %s - %s", query, delexicalized_query)
     model_response = context.inference_client.request(delexicalized_query)
     property_values = _parse_model_response(model_response)
     matches = dc.match_statvar(_build_query(delexicalized_query,
                                             property_values),
                                limit=10,
                                debug=True)
+    if "matchInfo" not in matches:
+        return {"statVars": [], "places": []}
     statvars = [{
         "name": f"{m['statVarName']} (ID {m['statVar']})",
         "dcid": m["statVar"],
@@ -289,5 +291,4 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
         "places": places,
         "debug": ['\n'.join(debug_lines)],
     }
-    logging.info("Model search on query: %s - %s", query, delexicalized_query)
     return response
