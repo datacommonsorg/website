@@ -222,6 +222,7 @@ _VALUE_NORMALIZATION = {
 
 
 def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
+    del query  # unused
     terms = []
     for key, value in key_values:
         # We skip high frequency keys that are always present for all the variables.
@@ -229,11 +230,13 @@ def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
             terms.append(f'k:"{key}"')
         terms.append(f'v:"{value}"')
         terms.append(f'sn:"{value}"')
-    return " ".join(terms)
+    query = " ".join(terms)
+    logging.info("Using the following query for match API: %s", query)
+    return query
 
 
-def _parse_model_response(model_response,
-                          min_score: float = 0.001) -> Sequence[Tuple[str, str]]:
+def _parse_model_response(
+        model_response, min_score: float = 0.001) -> Sequence[Tuple[str, str]]:
     property_values = set()
     scores = model_response["predictions"][0]["output_1"]
     predictions = model_response["predictions"][0]["output_0"]
@@ -242,7 +245,7 @@ def _parse_model_response(model_response,
         if score < min_score:
             continue
         for raw_key, raw_value in _iterate_property_value(prediction,
-                                                      exclude='place'):
+                                                          exclude='place'):
             key = _KEY_NORMALIZATION.get(raw_key, raw_key)
             value = _VALUE_NORMALIZATION.get(raw_value.lower(), raw_value)
             property_values.add((key, value))
@@ -256,12 +259,15 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     if not place_entities:
         return {"statVars": [], "places": []}
     delexicalized_query = _delexicalize_query(query, place_entities)
+    logging.info("Model search on query: %s - %s", query, delexicalized_query)
     model_response = context.inference_client.request(delexicalized_query)
     property_values = _parse_model_response(model_response)
     matches = dc.match_statvar(_build_query(delexicalized_query,
                                             property_values),
                                limit=10,
                                debug=True)
+    if "matchInfo" not in matches:
+        return {"statVars": [], "places": []}
     statvars = [{
         "name": f"{m['statVarName']} (ID {m['statVar']})",
         "dcid": m["statVar"],
@@ -285,5 +291,4 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
         "places": places,
         "debug": ['\n'.join(debug_lines)],
     }
-    logging.info("Model search on query: %s - %s", query, delexicalized_query)
     return response
