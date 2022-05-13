@@ -181,7 +181,7 @@ def _get_places(language_client: language_v1.LanguageServiceClient,
     })
     locations = [
         e for e in response.entities
-        if e.type == language_v1.Entity.Type.LOCATION
+        if e.type == language_v1.Entity.Type.LOCATION and "mid" in e.metadata
     ]
     return locations
 
