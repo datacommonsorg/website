@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-@use "search_place";
-@import "tools/base_tools";
-@import "tools/stat_var_widget";
-@import "draw";
-@import "source_selector";
-@import "tool_chart_footer";
-@import "bq_modal";
+@use "../search_place";
+
+@import "base_tools";
+@import "../draw";
+@import "../bq_modal";
+@import "../shared/chip";
+@import "stat_var_widget";
+@import "../source_selector";
+@import "../tool_chart_footer";
 
 @include search_place.search-place;
 
@@ -40,6 +42,7 @@
   direction: initial;
   padding: 1rem 0;
 }
+
 @include media-breakpoint-up(lg) {
   #main-pane #plot-container {
     padding: 2rem 1rem;
@@ -60,40 +63,14 @@
   border-bottom: none;
 }
 
-.pv-chip {
-  height: 36px;
-  line-height: 36px;
-  padding: 0 8px 0 15px;
-  border-radius: 18px;
-  background-color: #999;
-  display: inline-block;
-  color: white;
-  margin: 0 8px 8px 0;
-  font-size: 0;
-  max-width: 100%;
-}
-
-// Place marker
+/* Place marker */
 #search-icon {
   top: 3px;
 }
 
-// Magnifying glass
+/* Magnifying glass */
 .search-icon {
   padding: 0.5rem;
-}
-
-// Set up wrapping for long stat var names.
-.mdl-chip__text {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: calc(100% - 28px); // Account for the chip close button.
-  overflow: hidden;
-}
-
-.mdl-chip__text:hover {
-  cursor: pointer;
-  text-decoration: underline;
 }
 
 .legend-text:hover {

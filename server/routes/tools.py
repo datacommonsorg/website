@@ -47,3 +47,11 @@ def scatter():
 @bp.route('/statvar')
 def stat_var():
     return flask.render_template('tools/stat_var.html')
+
+
+@bp.route('/download')
+def download():
+    if os.environ.get('FLASK_ENV') == 'production':
+        flask.abort(404)
+    return flask.render_template(
+        'tools/download.html', maps_api_key=current_app.config['MAPS_API_KEY'])

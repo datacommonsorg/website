@@ -66,7 +66,7 @@ class TestScatter(WebdriverBaseTest):
 
         # Assert place name is correct.
         place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
+            '//*[@id="place-list"]/div/span')
         self.assertEqual(place_name.text, 'California')
 
         # Assert chart is correct.

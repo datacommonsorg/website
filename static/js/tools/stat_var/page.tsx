@@ -19,11 +19,11 @@
  */
 
 import axios from "axios";
-import React, { Component, createRef, RefObject } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import React, { Component } from "react";
+import { Button } from "reactstrap";
 
 import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { StatVarWidget } from "../shared/stat_var_widget";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
 
@@ -39,9 +39,6 @@ interface PageStateType {
 }
 
 class Page extends Component<unknown, PageStateType> {
-  svHierarchyModalRef: RefObject<HTMLDivElement>;
-  svHierarchyContainerRef: RefObject<HTMLDivElement>;
-
   constructor(props: unknown) {
     super(props);
     this.state = {
@@ -53,12 +50,6 @@ class Page extends Component<unknown, PageStateType> {
       urls: {},
       showSvHierarchyModal: false,
     };
-    // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
-    // menu but reattached to the modal when it is opened on small screens.
-    this.svHierarchyModalRef = createRef<HTMLDivElement>();
-    this.svHierarchyContainerRef = createRef<HTMLDivElement>();
-    this.onSvHierarchyModalClosed = this.onSvHierarchyModalClosed.bind(this);
-    this.onSvHierarchyModalOpened = this.onSvHierarchyModalOpened.bind(this);
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
@@ -75,64 +66,21 @@ class Page extends Component<unknown, PageStateType> {
     });
   }
 
-  private onSvHierarchyModalOpened() {
-    if (
-      this.svHierarchyModalRef.current &&
-      this.svHierarchyContainerRef.current
-    ) {
-      this.svHierarchyModalRef.current.appendChild(
-        this.svHierarchyContainerRef.current
-      );
-    }
-  }
-
-  private onSvHierarchyModalClosed() {
-    document
-      .getElementById("explore")
-      .appendChild(this.svHierarchyContainerRef.current);
-  }
-
   render(): JSX.Element {
+    const svHierarchyProps = {
+      places: [],
+      selectSV: (sv) => this.updateHash(sv),
+      selectedSVs: [this.state.statVar],
+      type: StatVarHierarchyType.STAT_VAR,
+    };
     return (
       <>
-        <div className="d-none d-lg-flex explore-menu-container" id="explore">
-          <div ref={this.svHierarchyContainerRef} className="full-size">
-            <StatVarHierarchy
-              type={StatVarHierarchyType.STAT_VAR}
-              places={[]}
-              selectedSVs={[this.state.statVar]}
-              selectSV={(sv) => {
-                this.updateHash(sv);
-              }}
-              searchLabel="Statistical Variables"
-            />
-          </div>
-        </div>
-        <Modal
-          isOpen={this.state.showSvHierarchyModal}
-          toggle={this.toggleSvHierarchyModal}
-          className="modal-dialog-centered modal-lg"
-          contentClassName="modal-sv-widget"
-          onOpened={this.onSvHierarchyModalOpened}
-          onClosed={this.onSvHierarchyModalClosed}
-          scrollable={true}
-        >
-          <ModalHeader toggle={this.toggleSvHierarchyModal}>
-            Select Variables
-          </ModalHeader>
-          <ModalBody>
-            <div ref={this.svHierarchyModalRef} className="full-size"></div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              className="d-lg-none"
-              color="primary"
-              onClick={this.toggleSvHierarchyModal}
-            >
-              Done
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <StatVarWidget
+          openSvHierarchyModal={this.state.showSvHierarchyModal}
+          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
+          svHierarchyProps={svHierarchyProps}
+          collapsible={false}
+        />
         <div id="plot-container">
           <div className="container">
             {!this.state.statVar && (

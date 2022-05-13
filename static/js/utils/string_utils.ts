@@ -49,3 +49,11 @@ export function getCommonPrefix(words: string[]): string {
   }
   return firstWord.slice(0, idx);
 }
+
+/**
+ * Given a date string, check that it is in the form YYYY-MM-DD or YYYY-MM or YYYY
+ */
+export function isValidDate(date: string): boolean {
+  const dateRegex = /^(\d\d\d\d)(-\d\d)?(-\d\d)?$/;
+  return dateRegex.test(date);
+}
