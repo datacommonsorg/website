@@ -57,6 +57,12 @@ spec:
           args: []
           ports:
             - containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /healthz
@@ -146,6 +152,11 @@ spec:
                   key: mixer_hash.txt
           ports:
             - containerPort: 12345
+          startupProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:12345"]
+            failureThreshold: 30
+            periodSeconds: 10
           readinessProbe:
             exec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
