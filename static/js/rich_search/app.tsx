@@ -105,7 +105,9 @@ async function fetchChartsData(query: string): Promise<StatVarResultsPropType> {
         .then(getPlaceDcids)
         .then(Object.values)
         .then(getPlaceNames);
-      const statVarInfo = getStatVarInfo(vars);
+      const statVarInfo = vars.length
+        ? getStatVarInfo(vars)
+        : Promise.resolve({});
       return Promise.all([
         Promise.resolve(vars),
         Promise.resolve(debug),
