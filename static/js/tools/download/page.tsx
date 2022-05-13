@@ -28,11 +28,17 @@ import { StatVarInfo } from "../timeline/chart_region";
 import { StatVarChooser } from "./stat_var_chooser";
 
 const URL_PARAM_KEYS = {
+  // Whether or not date range is selected
   DATE_RANGE: "dtRange",
+  // The max date in date range
   MAX_DATE: "dtMax",
+  // The min date in date range
   MIN_DATE: "dtMin",
+  // The selected place
   PLACE: "place",
+  // The type of place within the selected place to get data for
   PLACE_TYPE: "pt",
+  // The statistical variables to get the data for
   STAT_VARS: "sv",
 };
 
