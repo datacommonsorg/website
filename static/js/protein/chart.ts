@@ -283,7 +283,6 @@ export function drawProteinInteractionChart(
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
   svg
     .append("g")
-    //.attr("transform", "translate(0, " + (width - 0.1) + ")")
     .call(d3.axisLeft(y).tickFormat(formatProteinName))
     .raise();
 
