@@ -43,7 +43,9 @@ export function BqModal(props: BqModalPropType): JSX.Element {
       bqLink.current.style.display = props.showButton ? "inline-block" : "none";
     }
     return () => {
-      bqLink.current.style.display = "none";
+      if (bqLink.current) {
+        bqLink.current.style.display = "none";
+      }
     };
   });
 
@@ -66,7 +68,7 @@ export function BqModal(props: BqModalPropType): JSX.Element {
         Analyze this data in BigQuery
       </ModalHeader>
       <ModalBody>
-        <div className="big-query-sql-instructions mb-3">
+        <div className="big-query-sql-instructions">
           <p>To run this query:</p>
           <ol>
             <li>

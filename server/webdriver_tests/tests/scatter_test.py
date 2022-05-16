@@ -76,7 +76,7 @@ class TestScatter(WebdriverBaseTest):
             '//*[@id="chart"]/div[1]/div[1]/h3[2]')
         self.assertEqual(chart_title_y.text,
                          "Population: Asian Alone Per Capita (2020)")
-        self.assertEqual(chart_title_x.text, "Median Income (2019)")
+        self.assertEqual(chart_title_x.text, "Median Income (2020)")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 20)
@@ -146,8 +146,8 @@ class TestScatter(WebdriverBaseTest):
             '//*[@id="chart"]/div[1]/div[1]/h3[1]')
         chart_title_x = self.driver.find_element_by_xpath(
             '//*[@id="chart"]/div[1]/div[1]/h3[2]')
-        self.assertEqual(chart_title_y.text, "Median Income (2019)")
-        self.assertEqual(chart_title_x.text, "Median Age (2019)")
+        self.assertEqual(chart_title_y.text, "Median Income (2020)")
+        self.assertEqual(chart_title_x.text, "Median Age (2020)")
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 20)
@@ -164,9 +164,9 @@ class TestScatter(WebdriverBaseTest):
             '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
 
         # Assert chart loads
-        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        shared.wait_for_loading(self.driver)
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 1)

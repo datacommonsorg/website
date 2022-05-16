@@ -19,6 +19,7 @@ import re
 from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
 
 import google.auth
+from google.cloud import language_v1
 import lib.config as libconfig
 import requests
 import urllib3
@@ -30,7 +31,16 @@ cfg = libconfig.get_config()
 
 # ----------------------------- INTERNAL FUNCTIONS -----------------------------
 
-_INFERENCE_CLIENT = None
+
+class Context:
+    """Holds clients to interact with Language client and TF models."""
+
+    def __init__(self):
+        self.language_client = language_v1.LanguageServiceClient()
+        if not cfg.TEST and cfg.AI_CONFIG_PATH:
+            self.inference_client = create_inference_client(cfg.AI_CONFIG_PATH)
+        else:
+            self.inference_client = None
 
 
 class InferenceClient(object):
@@ -144,9 +154,6 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
             logging.info("No configuration found for region %s", region)
 
 
-if not cfg.TEST and cfg.AI_CONFIG_PATH:
-    _INFERENCE_CLIENT = create_inference_client(cfg.AI_CONFIG_PATH)
-
 # ----------------------------- SEARCH FUNCTIONS -----------------------------
 
 _MAX_SEARCH_RESULTS = 1000
@@ -171,20 +178,58 @@ def _iterate_property_value(
             yield (key, value)
 
 
-def search(query: str) -> Sequence[Mapping[str, str]]:
-    global _INFERENCE_CLIENT
-    if not _INFERENCE_CLIENT:
-        return {"statVars": []}
-    response = _INFERENCE_CLIENT.request(query)
+def _get_places(language_client: language_v1.LanguageServiceClient,
+                query: str) -> Sequence[language_v1.Entity]:
+    """Returns a list of entities that are of type LOCATION."""
+    document = language_v1.Document(content=query,
+                                    type_=language_v1.Document.Type.PLAIN_TEXT)
+    response = language_client.analyze_entities(request={
+        "document": document,
+        "encoding_type": language_v1.EncodingType.UTF8
+    })
+    locations = [
+        e for e in response.entities
+        if e.type == language_v1.Entity.Type.LOCATION
+    ]
+    return locations
+
+
+def _delexicalize_query(query: str,
+                        places: Sequence[language_v1.Entity]) -> str:
+    """Returns a delexicalized version of query where place mentions are replaced by special IDs."""
+    place_spans = [m.text for e in places for m in e.mentions]
+    place_spans.sort(key=lambda ts: ts.begin_offset)
+
+    prev = 0
+    output = []
+    query_bytes = query.encode('utf8')
+    for index, place_span in enumerate(place_spans):
+        if prev > place_span.begin_offset:
+            continue
+        output.append(query_bytes[prev:place_span.begin_offset].decode('utf8'))
+        output.append(f"<extra_id_{index}>")
+        prev = place_span.begin_offset + len(place_span.content.encode('utf8'))
+
+    output.append(query_bytes[prev:].decode('utf8'))
+    return ''.join(output)
+
+
+def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
+    if not context.inference_client:
+        return {"statVars": [], "places": []}
+    place_entities = _get_places(context.language_client, query)
+    delexicalized_query = _delexicalize_query(query, place_entities)
+    response = context.inference_client.request(delexicalized_query)
     property_value = dict(
         _iterate_property_value(response["predictions"][0]["output_0"][0],
                                 exclude='place'))
-
     logging.info("Property value: %s", property_value)
-    matches = dc.match_statvar(property_value, limit=50)
-    logging.info("Matches: %s", matches)
+    matches = dc.match_statvar(property_value, limit=10)
     statvars = [{
         "name": f"{m['statVarName']} (ID {m['statVar']})",
         "dcid": m["statVar"],
     } for m in matches["matchInfo"]]
-    return {"statVars": statvars}
+    places = [{"name": entity.name} for entity in place_entities]
+    response = {"statVars": statvars, "places": places}
+    logging.info("Response: %s", response)
+    return response

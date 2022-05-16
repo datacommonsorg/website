@@ -42,3 +42,12 @@ def cached_name(dcids):
         values = response[dcid].get('out')
         result[dcid] = values[0]['value'] if values else ''
     return result
+
+
+def is_float(query_string):
+    """Checks if a string can be converted to a float"""
+    try:
+        float(query_string)
+        return True
+    except ValueError:
+        return False

@@ -17,10 +17,7 @@
 import _ from "lodash";
 
 import { StatMetadata } from "../../shared/stat_types";
-import {
-  BQ_QUERY_HEADER_COMMENT,
-  getSvMetadataPredicate,
-} from "../shared/bq_utils";
+import { getSvMetadataPredicates } from "../shared/bq_utils";
 import { PlaceInfo, StatVar } from "./context";
 
 const LATEST_OBS_DATE_VIEW_NAME = "LatestObsDate";
@@ -28,37 +25,41 @@ const CHILD_PLACE_VIEW_NAME = "ChildPlace";
 const PODDR_VIEW_NAME = "PlaceObsDatesAndDenomRank";
 
 function getOptionalPredicates(
-  tableName: string,
+  obsTableName: string,
+  provTableName: string,
   date: string,
   metadata: StatMetadata,
   skipDatePredicate: boolean
-): string {
-  let predicate = "";
+): string[] {
+  const predicates = [];
   if (!_.isEmpty(date) && !skipDatePredicate) {
-    predicate += ` AND\n${tableName}.observation_date = '${date}'`;
+    predicates.push(`${obsTableName}.observation_date = '${date}'`);
   } else if (!_.isEmpty(metadata) && !skipDatePredicate) {
-    predicate += ` AND\n${tableName}.observation_date = ${LATEST_OBS_DATE_VIEW_NAME}.LatestDate`;
+    predicates.push(
+      `${obsTableName}.observation_date = ${LATEST_OBS_DATE_VIEW_NAME}.LatestDate`
+    );
   }
   if (!_.isEmpty(metadata)) {
-    predicate += ` AND\n${getSvMetadataPredicate(tableName, metadata)}`;
+    predicates.push(
+      ...getSvMetadataPredicates(obsTableName, provTableName, metadata)
+    );
   }
   if (!_.isEmpty(date) && _.isEmpty(metadata)) {
-    predicate += ` AND\n${tableName}.facet_rank = 1`;
+    predicates.push(`${obsTableName}.facet_rank = 1`);
   }
   if (_.isEmpty(date) && _.isEmpty(metadata)) {
-    predicate += ` AND\n${tableName}.is_preferred_obs_across_facets`;
+    predicates.push(`${obsTableName}.is_preferred_obs_across_facets`);
   }
-  return predicate;
+  return predicates;
 }
 
 function getChildPlaceView(place: PlaceInfo): string {
   return (
     `WITH ${CHILD_PLACE_VIEW_NAME} AS (` +
     `
-  SELECT id AS PlaceId FROM \`data_commons.Place\`
-  WHERE EXISTS(SELECT * FROM UNNEST(all_types) AS T WHERE T = '${place.enclosedPlaceType}') AND
-  EXISTS(SELECT * FROM UNNEST(linked_contained_in_place) AS C WHERE C = '${place.enclosingPlace.dcid}')
-)`
+      SELECT id AS PlaceId FROM \`data_commons.Place\`
+      WHERE EXISTS(SELECT * FROM UNNEST(all_types) AS T WHERE T = '${place.enclosedPlaceType}') AND
+            EXISTS(SELECT * FROM UNNEST(linked_contained_in_place) AS C WHERE C = '${place.enclosingPlace.dcid}')`
   );
 }
 
@@ -67,20 +68,30 @@ function getLatestObsDateView(
   place: PlaceInfo,
   metadata: StatMetadata
 ): string {
+  let provJoin = "";
+  let provPredicate = "";
+  if (!_.isEmpty(metadata) && !_.isEmpty(metadata.importName)) {
+    provJoin = "\n    JOIN `data_commons.Provenance` AS I ON TRUE";
+    provPredicate = "\n          O.prov_id = I.prov_id AND";
+  }
+  // the trailing spaces after the newline in the string join is to maintain
+  // indentation
   return (
     `WITH ${LATEST_OBS_DATE_VIEW_NAME} AS (` +
     `
-  ${getChildPlaceView(place)}
-  SELECT O.variable_measured as StatVarId,
-        O.observation_about as PlaceId,
-        MAX(O.Observation_date) as LatestDate
-  FROM \`data_commons.Observation\` as O
-  JOIN ${CHILD_PLACE_VIEW_NAME} ON TRUE
-  WHERE ${getSvMetadataPredicate("O", metadata)} AND
-        O.variable_measured = '${sv.dcid}' AND
-        O.observation_about = ${CHILD_PLACE_VIEW_NAME}.PlaceId
-  GROUP BY StatVarId, PlaceId
-)`
+    ${getChildPlaceView(place)}
+    )
+    SELECT O.variable_measured as StatVarId,
+           O.observation_about as PlaceId,
+           MAX(O.Observation_date) as LatestDate
+    FROM \`data_commons.Observation\` as O
+    JOIN ${CHILD_PLACE_VIEW_NAME} ON TRUE${provJoin}
+    WHERE O.variable_measured = '${sv.dcid}' AND${provPredicate}
+          O.observation_about = ${CHILD_PLACE_VIEW_NAME}.PlaceId AND
+          ${getSvMetadataPredicates("O", "I", metadata).join(
+            " AND\n          "
+          )}
+    GROUP BY StatVarId, PlaceId`
   );
 }
 
@@ -100,35 +111,72 @@ function getPlaceObsDatesAndDenomRankView(
       : getChildPlaceView(place);
   const optionalPredicates = getOptionalPredicates(
     "ONum",
+    "I",
     date,
     metadata,
     false
   );
-  let query =
+  let provJoin = "";
+  let numProvPredicate = "";
+  if (!_.isEmpty(metadata) && !_.isEmpty(metadata.importName)) {
+    provJoin = "\n  JOIN `data_commons.Provenance` AS I ON TRUE";
+    numProvPredicate = "\n        ONum.prov_id = I.prov_id AND";
+  }
+  // the trailing spaces after the newline in the string join is to maintain
+  // indentation
+  const query =
     `WITH ${PODDR_VIEW_NAME} AS (` +
     `
   ${tempView}
+  )
   SELECT ONum.observation_about AS PlaceId,
-        ONum.variable_measured AS NumVariableId,
-        ONum.observation_date AS NumDate,
-        ODenom.variable_measured AS DenomVariableId,
-        ODenom.observation_date AS DenomDate,
-        MIN(ODenom.facet_rank) AS DenomRank
+         ONum.variable_measured AS NumVariableId,
+         ONum.observation_date AS NumDate,
+         ODenom.variable_measured AS DenomVariableId,
+         ODenom.observation_date AS DenomDate,
+         MIN(ODenom.facet_rank) AS DenomRank
   FROM \`data_commons.Observation\` AS ONum
   JOIN \`data_commons.Observation\` AS ODenom ON TRUE
-  JOIN ${tempViewName} ON TRUE
-  WHERE
-      ONum.observation_about = ${tempViewName}.PlaceId AND
-      ONum.variable_measured = '${sv.dcid}' AND
-      ODenom.observation_about = ONum.observation_about AND
-      ODenom.variable_measured = '${sv.denom}' AND
-      ODenom.observation_date = SUBSTR(ONum.observation_date, 0, 4)`;
-  if (optionalPredicates) {
-    query += optionalPredicates;
-  }
-  query +=
-    "\nGROUP BY PlaceId, NumVariableId, NumDate, DenomVariableId, DenomDate)";
+  JOIN ${tempViewName} ON TRUE${provJoin}
+  WHERE ONum.observation_about = ${tempViewName}.PlaceId AND
+        ONum.variable_measured = '${sv.dcid}' AND${numProvPredicate}
+        ODenom.observation_about = ONum.observation_about AND
+        ODenom.variable_measured = '${sv.denom}' AND
+        ODenom.observation_date = SUBSTR(ONum.observation_date, 0, 4) AND
+        ${optionalPredicates.join(" AND\n        ")}
+  GROUP BY PlaceId, NumVariableId, NumDate, DenomVariableId, DenomDate
+)`;
   return query;
+}
+
+function getBaseSelectClause(obsTableName: string): string {
+  return `SELECT ${obsTableName}.observation_about AS PlaceId,
+      P.name AS PlaceName,
+      ${obsTableName}.observation_date AS LatestDate,
+      ${obsTableName}.measurement_method AS MeasurementMethod,
+      ${obsTableName}.unit AS Unit,
+      NET.REG_DOMAIN(I.provenance_url) AS Source`;
+}
+
+function getBaseTableJoins(obsTableName: string): string {
+  return `FROM \`data_commons.Observation\` AS ${obsTableName}
+JOIN \`data_commons.Place\` AS P ON TRUE
+JOIN \`data_commons.Provenance\` AS I ON TRUE`;
+}
+
+function getBaseWhereClause(
+  obsTableName: string,
+  sv: string,
+  tempViewName: string,
+  optionalPredicates: string[]
+): string {
+  // the trailing spaces after the newline in the string join is to maintain
+  // indentation
+  return `WHERE ${obsTableName}.variable_measured = '${sv}' AND
+      ${obsTableName}.observation_about = ${tempViewName}.PlaceId AND
+      ${obsTableName}.observation_about = P.id AND
+      ${obsTableName}.prov_id = I.id AND
+      ${optionalPredicates.join(" AND\n      ")}`;
 }
 
 export function getPcQuery(
@@ -139,6 +187,7 @@ export function getPcQuery(
 ): string {
   const optionalPredicates = getOptionalPredicates(
     "ONum",
+    "I",
     date,
     metadata,
     true
@@ -146,34 +195,22 @@ export function getPcQuery(
   let query =
     getPlaceObsDatesAndDenomRankView(sv, place, date, metadata) +
     `
-SELECT ONum.observation_about AS PlaceId,
-      P.name AS PlaceName,
-      ONum.observation_date AS LatestDate,
+${getBaseSelectClause("ONum")},
       IF(ODenom.value IS NOT NULL AND CAST(ODenom.value AS FLOAT64) > 0,
         CAST(ONum.value AS FLOAT64) / CAST(ODenom.value AS FLOAT64),
         NULL) AS ValuePerCapita,
-      ONum.measurement_method AS MeasurementMethod,
-      ONum.unit AS Unit,
-      NET.REG_DOMAIN(I.provenance_url) AS Source,
       ODenom.value AS DenomValue,
-      ODenom.observation_date AS DenomDate,     
-FROM \`data_commons.Observation\` AS ONum
+      ODenom.observation_date AS DenomDate,
+${getBaseTableJoins("ONum")}
 JOIN \`data_commons.Observation\` AS ODenom ON TRUE
 JOIN PlaceObsDatesAndDenomRank AS PODDR ON TRUE
-JOIN \`data_commons.Place\` AS P ON TRUE
-JOIN \`data_commons.Provenance\` AS I ON TRUE
-WHERE PODDR.PlaceId = ONum.observation_about AND
+${getBaseWhereClause("ONum", sv.dcid, "PODDR", optionalPredicates)} AND
       PODDR.NumVariableId = ONum.variable_measured AND
       PODDR.NumDate = ONum.observation_date AND
       PODDR.PlaceId = ODenom.observation_about AND
       PODDR.DenomVariableId = ODenom.variable_measured AND
       PODDR.DenomDate = ODenom.observation_date AND
-      PODDR.DenomRank = ODenom.facet_rank AND
-      ONum.observation_about = P.id AND
-      ONum.prov_id = I.id`;
-  if (optionalPredicates) {
-    query += optionalPredicates;
-  }
+      PODDR.DenomRank = ODenom.facet_rank`;
   query += "\nORDER BY PlaceName";
   return query;
 }
@@ -192,29 +229,22 @@ export function getNonPcQuery(
     tempViewName === LATEST_OBS_DATE_VIEW_NAME
       ? getLatestObsDateView(sv, place, metadata)
       : getChildPlaceView(place);
-  const optionalPredicates = getOptionalPredicates("O", date, metadata, false);
-  let query =
+  const optionalPredicates = getOptionalPredicates(
+    "O",
+    "I",
+    date,
+    metadata,
+    false
+  );
+  return (
     tempView +
     `
-SELECT O.observation_about AS PlaceId,
-      P.name AS PlaceName,
-      O.observation_date AS LatestDate,
-      CAST(O.value AS FLOAT64) AS Value,
-      O.measurement_method AS MeasurementMethod,
-      O.unit AS Unit,
-      NET.REG_DOMAIN(I.provenance_url) AS Source
-FROM \`data_commons.Observation\` AS O
+)
+${getBaseSelectClause("O")},
+      CAST(O.value AS FLOAT64) AS Value
+${getBaseTableJoins("O")}
 JOIN ${tempViewName} ON TRUE
-JOIN \`data_commons.Place\` AS P ON TRUE
-JOIN \`data_commons.Provenance\` AS I ON TRUE
-WHERE O.variable_measured = '${sv.dcid}' AND
-      O.observation_about = ${tempViewName}.PlaceId AND
-      O.observation_about = P.id AND
-      O.prov_id = I.id`;
-  if (optionalPredicates) {
-    query += optionalPredicates;
-  }
-  query += "\nORDER BY PlaceName";
-
-  return query;
+${getBaseWhereClause("O", sv.dcid, tempViewName, optionalPredicates)}
+ORDER BY PlaceName`
+  );
 }
