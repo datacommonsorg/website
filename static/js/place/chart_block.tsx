@@ -195,7 +195,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // Prepare parameters for related charts.
     let unit = this.props.data.unit;
     let scaling = this.props.data.scaling;
-    const isEarth = this.props.dcid == "Earth";
+    const isEarth = this.props.dcid === "Earth";
     if (relatedChart && relatedChart.scale) {
       unit = relatedChart.unit;
       scaling = relatedChart.scaling ? relatedChart.scaling : 1;
@@ -255,11 +255,11 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       let gotChart = false;
       if (
         !!this.props.data.isChoropleth &&
-        (this.props.isUsaPlace || isEarth) &&
-        (this.props.placeType === "Place" ||
-          this.props.placeType === "Country" ||
-          this.props.placeType === "State" ||
-          this.props.placeType === "County")
+        (isEarth ||
+          (this.props.isUsaPlace &&
+            (this.props.placeType === "Country" ||
+              this.props.placeType === "State" ||
+              this.props.placeType === "County")))
       ) {
         const id = randDomId();
         chartElements.push(
