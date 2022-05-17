@@ -39,7 +39,12 @@ let sidebarTopMax = 0;
 const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 // Margin to apply to the fixed sidebar top.
 const Y_SCROLL_MARGIN = 100;
-const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
+const placeTypesWithChoropleth = new Set([
+  "Place",
+  "Country",
+  "State",
+  "County",
+]);
 
 window.onload = () => {
   renderPage();
@@ -154,9 +159,10 @@ async function getLandingPageData(
 }
 
 function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
+  const isEarth = dcid == "Earth";
   const isInUSA: boolean =
     dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
-  return isInUSA && placeTypesWithChoropleth.has(placeType);
+  return (isEarth || isInUSA) && placeTypesWithChoropleth.has(placeType);
 }
 
 function renderPage(): void {
