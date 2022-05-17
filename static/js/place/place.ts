@@ -154,9 +154,10 @@ async function getLandingPageData(
 }
 
 function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
+  const isEarth = dcid === "Earth";
   const isInUSA: boolean =
     dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
-  return isInUSA && placeTypesWithChoropleth.has(placeType);
+  return isEarth || (isInUSA && placeTypesWithChoropleth.has(placeType));
 }
 
 function renderPage(): void {

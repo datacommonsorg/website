@@ -72,6 +72,8 @@ def get_choropleth_display_level(geoDcid):
     # Territories of the US, e.g. country/USA are also AA1. Restrict this view to only States.
     if geoDcid == 'country/USA':
         return geoDcid, 'State'
+    if geoDcid == 'Earth':
+        return geoDcid, 'Country'
     place_type = place_api.get_place_type(geoDcid)
     display_level = None
     if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
