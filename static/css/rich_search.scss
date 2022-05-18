@@ -14,32 +14,28 @@
  * limitations under the License.
  */
 
-@use "search_place";
 @import "tools/base_tools";
 @import "tools/stat_var_widget";
 @import "draw";
 @import "draw_choropleth";
+@import "source_selector";
+@import "tool_chart_footer";
 @import "shared/story_block.scss";
 @import "shared/story_chart.scss";
 
-@mixin map-search {
-  @include search_place.search-place;
-
-  #search {
-    margin-bottom: 0;
-    box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    flex-grow: 1;
-    height: 3.2rem;
-  }
-
-  #search #location-field {
-    flex-wrap: nowrap;
-    height: 100%;
-  }
+#chart-region {
+  font-weight: 400;
 }
 
-@include map-search;
+// Hide chips since statvar search results cannot be deleted
+.statVarChipRegion {
+  display: none;
+}
+
+// Temporarily hide chart options to simplify search UI
+.chart-option {
+  display: none;
+}
 
 .place-options {
   display: flex;
@@ -49,7 +45,7 @@
 
 .place-options-section {
   display: flex;
-  flex-grow: 0.5;
+  flex-grow: 1.0;
   align-items: center;
   padding: 0.5rem 0.5rem;
   overflow: hidden;
@@ -83,6 +79,31 @@
   margin-bottom: 15px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 15px;
+}
+
+.rich-search-button {
+  padding: 0 1rem;
+  align-items: center;
+  display: flex;
+  background-color: var(--dc-primary);
+  color: var(--dc-red-fade);
+  cursor: pointer;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.debug-view .btn {
+  font-size: 0.8rem;
+  color: var(--link-color);
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+.debug-view .card-body {
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: normal;
+  padding: 0;
+  white-space: pre;
 }
 
 #main-pane #plot-container {

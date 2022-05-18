@@ -17,12 +17,13 @@
   Required variables:
   title: page title
   main_id: DOM Element ID for the main content block
-  deployment: "private" or "public"
+  page_id: DOM Element ID for the html element
 
   Optional variables:
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  locale: string, value for html lang attr
 
   Blocks to override:
   head - additional head elements
@@ -30,17 +31,27 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} {% if FEEDING_AMERICA %} class="feeding-america" {% endif %} {% if config['IITM'] %} class="iitm-india" {% endif %}>
+<html lang={{ locale }} {% if config['IITM'] %} class="iitm-india" {% endif %} id={{ page_id }}>
 
 <head>
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GA_ACCOUNT %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+  </script>
+  {% endif %}
+
   {% if config['IITM'] %}
-  <title>{{ title }} - India Data Commons</title>
-  <link rel="icon" href="/iitm/favicon.ico" type="image/x-icon">
-  <link href="/iitm/style.css" rel="stylesheet">
-  
+    <title>{{ title }} - India Data Commons</title>
+    <link rel="icon" href="/iitm/favicon.ico" type="image/x-icon">
+    <link href="/iitm/style.css" rel="stylesheet">
   {% else %}
-  <title>{{ title }} - Data Commons</title>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>{{ title }} - Data Commons</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
   {% endif %}
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -151,6 +162,8 @@
                 <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
                   <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
+                  {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
+                  {#<a class="dropdown-item" href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans %}</a>#}
                   <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
                   <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
                 </div>
@@ -277,6 +290,7 @@
         <div class="container">
           {% if not is_hide_full_footer %}
               <div class="row">
+
                 <section class="col-12 col-sm-6 col-md-4">
                   {# TRANSLATORS: The label for a collection of exploration tools. #}
                   <h6>{% trans %}Explore{% endtrans %}</h6>
@@ -300,6 +314,9 @@
                   <a href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
                   {# TRANSLATORS: The label for a link to our API documentation. #}
                   <a href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
+                  {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
+                  {# TRANSLATORS: The label for a link to BigQuery integration starter docs. #}
+                  {#<a href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans %}</a>#}
                   {# TRANSLATORS: The label for a link to our API tutorials. #}
                   <a href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
                   {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
@@ -321,6 +338,7 @@
                   {# TRANSLATORS: The label for a link to project FAQ page. #}
                   <a href="{{ url_for('static.faq') }}">{% trans %}Frequently Asked Questions{% endtrans %}</a>
                 </section>
+
               </div>
           {% endif %}
 
@@ -372,18 +390,10 @@
   {% endif %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-  {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
-  </script>
-  {% endif %}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+      
   {% block footer %}
   {% endblock %}
 </body>

@@ -17,8 +17,12 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
+import { BqModal } from "../shared/bq_modal";
+import { getTimelineSqlQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -30,9 +34,15 @@ import {
   statVarSep,
 } from "./util";
 
-interface ChartGroupInfo {
+interface ChartOptions {
+  perCapita: boolean;
+  denom: string;
+  delta: boolean;
+}
+export interface ChartGroupInfo {
   chartOrder: string[];
   chartIdToStatVars: { [key: string]: string[] };
+  chartIdToOptions: { [key: string]: ChartOptions };
 }
 interface ChartRegionPropsType {
   // Map from place dcid to place name.
@@ -46,11 +56,15 @@ interface ChartRegionPropsType {
 class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
   bulkDownloadLink: HTMLAnchorElement;
+  bqLink: HTMLAnchorElement;
   allStatData: { [key: string]: StatData };
+  // map of stat var dcid to map of metahash to source metadata
+  metadataMap: Record<string, Record<string, StatMetadata>>;
 
   constructor(props: ChartRegionPropsType) {
     super(props);
     this.allStatData = {};
+    this.metadataMap = {};
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
@@ -72,6 +86,8 @@ class ChartRegion extends Component<ChartRegionPropsType> {
         );
       };
     }
+    // TODO: uncomment to re-enable opening big query
+    // this.bqLink = setUpBqButton(this.getSqlQuery);
   }
 
   render(): JSX.Element {
@@ -86,6 +102,11 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       this.props.statVarOrder,
       this.props.statVarInfo
     );
+    if (this.bqLink) {
+      this.bqLink.style.display = this.shouldShowBqButton(chartGroupInfo)
+        ? "inline-block"
+        : "none";
+    }
     return (
       <React.Fragment>
         {chartGroupInfo.chartOrder.map((mprop) => {
@@ -98,9 +119,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 this.props.statVarInfo,
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              pc={getChartOption(mprop, "pc")}
-              denom={getDenom(mprop) || ""}
-              delta={getChartOption(mprop, "delta")}
+              pc={chartGroupInfo.chartIdToOptions[mprop].perCapita}
+              denom={chartGroupInfo.chartIdToOptions[mprop].denom}
+              delta={chartGroupInfo.chartIdToOptions[mprop].delta}
               onDataUpdate={this.onDataUpdate.bind(this)}
               removeStatVar={(statVar) => {
                 removeToken("statsVar", statVarSep, statVar);
@@ -110,21 +131,41 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 getMetahash(),
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
+              onMetadataMapUpdate={(metadataMap) => {
+                this.metadataMap = { ...this.metadataMap, ...metadataMap };
+              }}
             ></Chart>
           );
         }, this)}
+        <BqModal
+          getSqlQuery={this.getSqlQuery(chartGroupInfo).bind(this)}
+          showButton={this.shouldShowBqButton(chartGroupInfo)}
+        />
       </React.Fragment>
     );
   }
 
+  componentWillUnmount() {
+    if (this.bqLink) {
+      this.bqLink.style.display = "none";
+    }
+    if (this.downloadLink) {
+      this.downloadLink.style.display = "none";
+    }
+    if (this.bulkDownloadLink) {
+      this.bulkDownloadLink.style.display = "none";
+    }
+  }
+
   private onDataUpdate(groupId: string, data: StatData) {
     this.allStatData[groupId] = data;
-    if (this.downloadLink && Object.keys(this.allStatData).length > 0) {
-      this.downloadLink.style.display = "inline-block";
-      this.bulkDownloadLink.style.display = "inline-block";
-    } else {
-      this.downloadLink.style.display = "none";
-      this.bulkDownloadLink.style.display = "none";
+    const displayStyle =
+      Object.keys(this.allStatData).length > 0 ? "inline-block" : "none";
+    if (this.downloadLink) {
+      this.downloadLink.style.display = displayStyle;
+    }
+    if (this.bulkDownloadLink) {
+      this.bulkDownloadLink.style.display = displayStyle;
     }
   }
 
@@ -167,7 +208,19 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       seenGroups.add(group);
       return keep;
     });
-    return { chartOrder: filteredChartOrder, chartIdToStatVars: groups };
+    const options = {};
+    for (const mprop of filteredChartOrder) {
+      options[mprop] = {
+        delta: getChartOption(mprop, "delta"),
+        denom: getDenom(mprop) || DEFAULT_POPULATION_DCID,
+        perCapita: getChartOption(mprop, "pc"),
+      };
+    }
+    return {
+      chartIdToOptions: options,
+      chartIdToStatVars: groups,
+      chartOrder: filteredChartOrder,
+    };
   }
 
   private createDataCsv() {
@@ -224,6 +277,24 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     }
     return result;
   }
+
+  private shouldShowBqButton(chartGroupInfo: ChartGroupInfo): boolean {
+    for (const mprop of Object.keys(chartGroupInfo.chartIdToStatVars)) {
+      if (!getChartOption(mprop, "delta")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private getSqlQuery = (chartGroupInfo: ChartGroupInfo) => () => {
+    return getTimelineSqlQuery(
+      chartGroupInfo,
+      Object.keys(this.props.placeName),
+      getMetahash(),
+      this.metadataMap
+    );
+  };
 }
 
 export { ChartRegion, ChartRegionPropsType, StatVarInfo };

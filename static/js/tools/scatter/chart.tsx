@@ -68,7 +68,7 @@ const MAP_LEGEND_CONTAINER_ID = "legend-container";
 const CONTAINER_ID = "chart";
 const DEBOUNCE_INTERVAL_MS = 30;
 
-function Chart(props: ChartPropsType): JSX.Element {
+export function Chart(props: ChartPropsType): JSX.Element {
   const svgContainerRef = useRef<HTMLDivElement>();
   const tooltipRef = useRef<HTMLDivElement>();
   const chartContainerRef = useRef<HTMLDivElement>();
@@ -356,5 +356,3 @@ const getMapTooltipHtml = (
   );
   return ReactDOMServer.renderToStaticMarkup(element);
 };
-
-export { Chart, ChartPropsType };

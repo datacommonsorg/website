@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getCommonPrefix } from "./string_utils";
+import { getCommonPrefix, isValidDate } from "./string_utils";
 
 test("get common prefix", () => {
   const cases: {
@@ -57,6 +57,63 @@ test("get common prefix", () => {
       expect(prefix).toEqual(c.wantedPrefix);
     } catch (e) {
       console.log(`Failed for case with word list: ${c.wordList}`);
+    }
+  }
+});
+
+test("is valid date", () => {
+  const cases: {
+    date: string;
+    wanted: boolean;
+  }[] = [
+    {
+      date: "2020",
+      wanted: true,
+    },
+    {
+      date: "2020-01",
+      wanted: true,
+    },
+    {
+      date: "2020-01-01",
+      wanted: true,
+    },
+    {
+      date: "",
+      wanted: false,
+    },
+    {
+      date: "20",
+      wanted: false,
+    },
+    {
+      date: "abdc",
+      wanted: false,
+    },
+    {
+      date: "2020-01-01-01",
+      wanted: false,
+    },
+    {
+      date: "2020-01-011",
+      wanted: false,
+    },
+    {
+      date: "2020-1",
+      wanted: false,
+    },
+    {
+      date: "2020-1-1",
+      wanted: false,
+    },
+  ];
+
+  for (const c of cases) {
+    const validDate = isValidDate(c.date);
+    try {
+      expect(validDate).toEqual(c.wanted);
+    } catch (e) {
+      console.log(`Failed for case with date string: ${c.date}`);
     }
   }
 });

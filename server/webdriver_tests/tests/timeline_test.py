@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import urllib
+import urllib.request
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -79,7 +80,7 @@ class TestCharts(WebdriverBaseTest):
 
         # Wait until the group of charts has loaded.
         element_present = EC.presence_of_element_located(
-            (By.CLASS_NAME, 'card'))
+            (By.ID, 'chart-region'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Store a list of all the charts.
@@ -214,15 +215,16 @@ class TestCharts(WebdriverBaseTest):
 
         # Wait until the delete button is present.
         element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="place-list"]/span/button'))
+            (By.XPATH, '//*[@id="place-list"]/div[1]/button'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click on the delete button and remove California.
         delete_button = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/button')
+            '//*[@id="place-list"]/div[1]/button')
         delete_button.click()
 
         # Wait until the second line element within the card disappears.
+        shared.wait_for_loading(self.driver)
         element_present = EC.invisibility_of_element_located(
             (By.CSS_SELECTOR, '.line:nth-child(2)'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)

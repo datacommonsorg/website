@@ -15,13 +15,15 @@
 """
 
 import json
+import urllib.parse
 import services.datacommons as dc_service
 import routes.api.place as place_api
 import routes.api.landing_page as landing_page_api
 
+from routes.api.shared import is_float
 from geojson_rewind import rewind
 from cache import cache
-from flask import Blueprint, current_app, request, Response, g
+from flask import Blueprint, current_app, request, Response, g, url_for
 from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
@@ -31,6 +33,8 @@ bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 # this works for US places, but hierarchy of places in other countries may be different
 CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "Country": "AdministrativeArea1",
+    "State": "County",
+    "County": "County",
     "AdministrativeArea1": "AdministrativeArea2",
     "AdministrativeArea2": "AdministrativeArea2",
     "AdministrativeArea3": "AdministrativeArea3"
@@ -81,6 +85,12 @@ def get_choropleth_display_level(geoDcid):
 
     if place_type == display_level:
         parents_places = place_api.parent_places(geoDcid)
+        # Multiple place types can be equivalent (eg. County and AA2) and we
+        # want to find the parent who's display level is equivalent to the
+        # geoDcid display_level
+        target_display_levels = set([display_level])
+        if display_level in EQUIVALENT_PLACE_TYPES:
+            target_display_levels.add(EQUIVALENT_PLACE_TYPES[display_level])
         for parent in parents_places.get(geoDcid, []):
             parent_dcid = parent.get('dcid', None)
             if not parent_dcid:
@@ -92,7 +102,7 @@ def get_choropleth_display_level(geoDcid):
                 if not parent_display_level:
                     parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
                         EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
-                if parent_display_level == display_level:
+                if parent_display_level in target_display_levels:
                     return parent_dcid, display_level
         return None, None
     else:
@@ -413,10 +423,15 @@ def choropleth_data(dcid):
                 sources.add(
                     cc_denom_data.get(place_dcid, {}).get('provenanceUrl', ""))
         # build the exploreUrl
+        # TODO: webdriver test to test that the right choropleth loads
         is_scaled = (('relatedChart' in cc and
                       cc['relatedChart'].get('scale', False)) or
                      ('denominator' in cc))
-        exploreUrl = landing_page_api.build_url([dcid], {sv: denom}, is_scaled)
+        url_anchor = '&pd={}&ept={}&sv={}'.format(dcid, display_level, sv)
+        if is_scaled:
+            url_anchor += "&pc=1"
+        explore_url = urllib.parse.unquote(
+            url_for('tools.map', _anchor=url_anchor))
         # process the set of sources and set of dates collected for this chart
         # config
         sources = filter(lambda x: x != "", sources)
@@ -427,7 +442,7 @@ def choropleth_data(dcid):
             'data': data_dict,
             'numDataPoints': len(data_dict.values()),
             # TODO (chejennifer): exploreUrl should link to choropleth tool once the tool is ready
-            'exploreUrl': exploreUrl,
+            'exploreUrl': explore_url,
             'sources': sorted(list(sources))
         }
         result[sv] = cc_result
@@ -482,6 +497,8 @@ def get_map_points():
     for subject_dcid, latitude in lat_by_subject.items():
         longitude = lon_by_subject.get(subject_dcid, [])
         if len(latitude) == 0 or len(longitude) == 0:
+            continue
+        if not is_float(latitude[0]) or not is_float(longitude[0]):
             continue
         geo_id = geo_by_latlon_subject.get(subject_dcid, "")
         map_point = {

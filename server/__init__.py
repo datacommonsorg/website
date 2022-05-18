@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import logging
 import os
 import time
@@ -31,6 +30,7 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
+import services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -45,30 +45,39 @@ def createMiddleWare(app, exporter):
     return middleware
 
 
-def register_routes_common(app):
+def register_routes_base_dc(app):
     # apply the blueprints for all apps
+    from routes import (dev, placelist, protein, redirects,
+                        special_announcement, topic_page)
+    app.register_blueprint(dev.bp)
+    app.register_blueprint(placelist.bp)
+    app.register_blueprint(protein.bp)
+    app.register_blueprint(redirects.bp)
+    app.register_blueprint(special_announcement.bp)
+    app.register_blueprint(topic_page.bp)
+    from routes.api import (protein as protein_api)
+    app.register_blueprint(protein_api.bp)
+
+
+def register_routes_private_dc(app):
+    ## apply the blueprints for private dc instances
     pass
 
 
-def register_routes_main_app(app):
-    # apply the blueprints for main and private app
-    from routes import (protein, browser, dev, factcheck, place, placelist,
-                        ranking, redirects, search, static, tools, topic_page)
+def register_routes_common(app):
+    # apply the blueprints for main app
+    from routes import (browser, factcheck, place, ranking, search, static,
+                        tools)
     app.register_blueprint(browser.bp)
-    app.register_blueprint(dev.bp)
     app.register_blueprint(place.bp)
-    app.register_blueprint(placelist.bp)
-    app.register_blueprint(protein.bp)
     app.register_blueprint(ranking.bp)
-    app.register_blueprint(redirects.bp)
     app.register_blueprint(search.bp)
     app.register_blueprint(static.bp)
     app.register_blueprint(tools.bp)
-    app.register_blueprint(topic_page.bp)
-    from routes.api import (protein as protein_api, browser as browser_api,
-                            choropleth, place as place_api, landing_page,
-                            ranking as ranking_api, stats, translator)
-    app.register_blueprint(protein_api.bp)
+    # TODO: Extract more out to base_dc
+    from routes.api import (browser as browser_api, choropleth, place as
+                            place_api, landing_page, ranking as ranking_api,
+                            stats, translator)
     app.register_blueprint(browser_api.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
@@ -77,12 +86,6 @@ def register_routes_main_app(app):
     app.register_blueprint(ranking_api.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(translator.bp)
-
-
-def register_routes_sustainability(app):
-    # apply the blueprints for sustainability app
-    from routes.sustainability import (static)
-    app.register_blueprint(static.bp)
 
 
 def create_app():
@@ -112,10 +115,10 @@ def create_app():
         cache.init_app(app)
 
     register_routes_common(app)
-    if cfg.SUSTAINABILITY:
-        register_routes_sustainability(app)
+    if cfg.PRIVATE:
+        register_routes_private_dc(app)
     else:
-        register_routes_main_app(app)
+        register_routes_base_dc(app)
 
     # Load topic page config
     topic_page_configs = libutil.get_topic_page_config()
@@ -147,8 +150,11 @@ def create_app():
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
+    # Initialize the AI module.
+    app.config['AI_CONTEXT'] = ai.Context()
+
     if not cfg.TEST:
-        timeout = 120  # seconds
+        timeout = 5 * 60  # seconds
         counter = 0
         isOpen = False
         while not isOpen:
@@ -156,7 +162,7 @@ def create_app():
                 urllib.request.urlopen(cfg.API_ROOT + "/version")
                 break
             except urllib.error.URLError:
-                time.sleep(1)
+                time.sleep(10)
                 counter += 1
             if counter > timeout:
                 raise RuntimeError("Mixer not ready after %s second" % timeout)
@@ -182,5 +188,10 @@ def create_app():
     @app.context_processor
     def inject_locale():
         return dict(locale=get_locale())
+
+    @app.teardown_request
+    def log_unhandled(e):
+        if e is not None:
+            logging.error("Error thrown for request: %s, error: %s", request, e)
 
     return app

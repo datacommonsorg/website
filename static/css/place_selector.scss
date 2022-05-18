@@ -75,8 +75,20 @@
   margin-bottom: 15px;
 }
 
-.place-selector-place-type{
+#place-selector-place-type {
   height: 100%;
   font-size: 1rem;
   width: 225px;
+}
+
+.place-selector-main-selectors {
+  display: flex;
+  flex-grow: 1;
+}
+
+#place-selector-place-type:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
 }

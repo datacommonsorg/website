@@ -35,7 +35,7 @@ const config = {
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
-      __dirname + "/css/timeline.scss",
+      __dirname + "/css/tools/timeline.scss",
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
@@ -72,6 +72,10 @@ const config = {
     search: [
       __dirname + "/js/search/search.ts",
       __dirname + "/css/search.scss",
+    ],
+    download: [
+      __dirname + "/js/tools/download/download.ts",
+      __dirname + "/css/tools/download.scss",
     ]
   },
   output: {
@@ -120,7 +124,7 @@ const config = {
     new CopyPlugin({
       patterns: [
         { from: "css/**/*.css" },
-        { from: "images/*" },
+        { from: "images/**/*" },
         { from: "fonts/*" },
         { from: "data/**/*" },
         { from: "sitemap/*.txt" },

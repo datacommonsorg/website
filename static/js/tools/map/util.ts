@@ -23,6 +23,7 @@ import _ from "lodash";
 import {
   BANGLADESH_PLACE_DCID,
   CHINA_PLACE_DCID,
+  DEFAULT_POPULATION_DCID,
   EUROPE_NAMED_TYPED_PLACE,
   INDIA_PLACE_DCID,
   IPCC_PLACE_50_TYPE_DCID,
@@ -177,7 +178,7 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
     date: date ? date : "",
-    denom: denom ? denom : "",
+    denom: denom ? denom : DEFAULT_POPULATION_DCID,
     mapPointSv: mapPointSv ? mapPointSv : "",
     metahash: metahash ? metahash : "",
   };
@@ -449,7 +450,7 @@ export function getPlaceChartData(
   populationData: StatApiResponse,
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
-  const stat = placeStatData.stat[placeDcid];
+  const stat = placeStatData.stat ? placeStatData.stat[placeDcid] : null;
   let metadata = null;
   if (_.isEmpty(stat)) {
     return null;
@@ -509,9 +510,14 @@ export function getPlaceChartData(
  * @param statVarName name of the stat var
  * @param isPerCapita whether the chart is a per capita chart
  */
-export function getTitle(statVarDates: string[], statVarName: string): string {
+export function getTitle(
+  statVarDates: string[],
+  statVarName: string,
+  isPerCapita
+): string {
   const dateRange = `(${getDateRange(statVarDates)})`;
-  return `${statVarName} ${dateRange}`;
+  const perCapitaString = isPerCapita ? " Per Capita" : "";
+  return `${statVarName}${perCapitaString} ${dateRange}`;
 }
 
 /**

@@ -19,17 +19,16 @@
  */
 
 import _ from "lodash";
-import React, { createRef, useContext, useEffect, useState } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import React, { useContext, useEffect, useState } from "react";
 
+import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchyType } from "../../shared/types";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import {
   getEnclosedPlacesPromise,
   getSamplePlaces,
 } from "../../utils/place_utils";
+import { StatVarWidget } from "../shared/stat_var_widget";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -46,10 +45,6 @@ interface StatVarChooserProps {
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   const { statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState([]);
-  // Set up refs for sv widget modal. Widget is tied to the LHS menu but
-  // reattached to the modal when it is opened on small screens.
-  const svHierarchyModalRef = createRef<HTMLDivElement>();
-  const svHierarchyContainerRef = createRef<HTMLDivElement>();
 
   useEffect(() => {
     const enclosingPlaceDcid = placeInfo.value.enclosingPlace.dcid;
@@ -93,59 +88,21 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     }
   }, [statVar.value]);
 
-  function onSvModalOpened() {
-    if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
-      svHierarchyModalRef.current.appendChild(svHierarchyContainerRef.current);
-    }
-  }
-
-  function onSvModalClosed() {
-    document
-      .getElementById("explore")
-      .appendChild(svHierarchyContainerRef.current);
-  }
-
+  const svHierarchyProps = {
+    places: samplePlaces,
+    selectSV: (svDcid) => {
+      selectStatVar(statVar, display, placeInfo, svDcid);
+    },
+    selectedSVs: [statVar.value.dcid],
+    type: StatVarHierarchyType.MAP,
+  };
   return (
-    <>
-      <div className="d-none d-lg-flex explore-menu-container" id="explore">
-        <DrawerToggle
-          collapseElemId="explore"
-          visibleElemId="stat-var-hierarchy-section"
-        />
-        <div ref={svHierarchyContainerRef} className="full-size">
-          <StatVarHierarchy
-            type={StatVarHierarchyType.MAP}
-            places={samplePlaces}
-            selectedSVs={[statVar.value.dcid]}
-            selectSV={(svDcid) => {
-              selectStatVar(statVar, display, placeInfo, svDcid);
-            }}
-            searchLabel="Statistical Variables"
-          />
-        </div>
-      </div>
-      <Modal
-        isOpen={props.openSvHierarchyModal}
-        toggle={props.openSvHierarchyModalCallback}
-        className="modal-dialog-centered modal-lg"
-        contentClassName="modal-sv-widget"
-        onOpened={onSvModalOpened}
-        onClosed={onSvModalClosed}
-        scrollable={true}
-      >
-        <ModalHeader toggle={props.openSvHierarchyModalCallback}>
-          Select Variables
-        </ModalHeader>
-        <ModalBody>
-          <div ref={svHierarchyModalRef} className="full-size"></div>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={props.openSvHierarchyModalCallback}>
-            Done
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </>
+    <StatVarWidget
+      openSvHierarchyModal={props.openSvHierarchyModal}
+      openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
+      svHierarchyProps={svHierarchyProps}
+      collapsible={true}
+    />
   );
 }
 
@@ -160,7 +117,7 @@ function selectStatVar(
   statVar.set({
     date: "",
     dcid,
-    denom: "",
+    denom: DEFAULT_POPULATION_DCID,
     info: null,
     perCapita: false,
     mapPointSv: "",

@@ -24,23 +24,18 @@ class Config:
     # This is only needed for local development when cache is not up to date.
     NEW_STAT_VARS = []
     ENABLE_BLOCKLIST = False
+    # A constant to group a set of configs.
+    ENV_NAME = 'BASE_DC'
     # If the deployment is a private instance.
     PRIVATE = False
-    # If the deployment is for "feeding america" instance.
-    FEEDING_AMERICA = False
-    # If the deployment is for sustainability.datacommons.org.
-    SUSTAINABILITY = False
     # Name of the site. The name is changed for private instance.
-    NAME = "Data Commons"
+    NAME = 'Data Commons'
+    BASE_HTML_PATH = 'base.html'
 
 
 class ProductionConfig(Config):
     GA_ACCOUNT = 'UA-117119267-1'
     ENABLE_BLOCKLIST = True
-
-
-class ProdSustainabilityConfig(ProductionConfig):
-    SUSTAINABILITY = True
 
 
 class StagingConfig(Config):
@@ -49,16 +44,8 @@ class StagingConfig(Config):
     pass
 
 
-class StagingSustainabilityConfig(StagingConfig):
-    SUSTAINABILITY = True
-
-
 class AutopushConfig(Config):
     pass
-
-
-class AutopushSustainabilityConfig(AutopushConfig):
-    SUSTAINABILITY = True
 
 
 class DevConfig(Config):
@@ -67,21 +54,25 @@ class DevConfig(Config):
 
 class PrivateConfig(Config):
     PRIVATE = True
+    ENV_NAME = 'PRIVATE'
 
 
-class FeedingAmericaConfig(PrivateConfig):
+class FeedingamericaConfig(PrivateConfig):
     NAME = "Feeding America"
-    FEEDING_AMERICA = True
+    ENV_NAME = 'FEEDINGAMERICA'
+    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    GA_ACCOUNT = 'G-444S6716SQ'
 
 
 class TidalConfig(PrivateConfig):
     NAME = "Tidal"
 
 
-class IitmConfig(Config):
-    IITM = True
-    NAME = "IITM"
+class IitmConfig(PrivateConfig):
+    # IITM = True
+    NAME = 'IITM'
     GA_ACCOUNT = 'G-32HPL4K4Y1'
+    ENV_NAME = 'IITM'
 
 
 ######
@@ -107,12 +98,9 @@ class LocalConfig(Config):
     SCHEME = 'http'
 
 
-class LocalSustainabilityConfig(LocalConfig):
-    SUSTAINABILITY = True
-
-
 class LocalIitmConfig(LocalConfig):
     IITM = True
+    ENV_NAME = 'IITM'
 
 
 class LocalPrivateConfig(PrivateConfig):
@@ -124,8 +112,22 @@ class LocalPrivateConfig(PrivateConfig):
         os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
     LOCAL = True
     SECRET_PROJECT = 'datcom-website-private'
+    SCHEME = 'http'
+
+
+class LocalFeedingamericaConfig(PrivateConfig):
+    # This needs to talk to local mixer that is setup as a private mixer, which
+    # loads csv + tmcf files from GCS
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
+    AI_CONFIG_PATH = os.path.abspath(
+        os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
+    LOCAL = True
+    SECRET_PROJECT = 'datcom-feedingamerica'
     NAME = "Feeding America"
     SCHEME = 'http'
+    ENV_NAME = 'FEEDINGAMERICA'
+    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
 
 
 class LocalLiteConfig(Config):
@@ -151,7 +153,3 @@ class TestConfig(Config):
     TEST = True
     API_ROOT = 'api-root'
     SCHEME = 'http'
-
-
-class TestSustainabilityConfig(TestConfig):
-    SUSTAINABILITY = True

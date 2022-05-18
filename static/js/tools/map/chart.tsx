@@ -110,7 +110,8 @@ export function Chart(props: ChartProps): JSX.Element {
     statVar.dcid in statVar.info ? statVar.info[statVar.dcid] : {};
   const title = getTitle(
     Array.from(props.dates),
-    mainSvInfo.title || statVar.dcid
+    mainSvInfo.title || statVar.dcid,
+    statVar.perCapita
   );
   const placeDcid = props.placeInfo.enclosingPlace.dcid;
   const statVarDcid = statVar.dcid;
@@ -260,12 +261,10 @@ export function Chart(props: ChartProps): JSX.Element {
           props.statVar.setMetahash(svMetahashMap[props.statVar.value.dcid])
         }
         hideIsRatio={false}
-        isRatio={props.statVar.value.perCapita}
-        onIsRatioUpdated={(isRatio: boolean) =>
-          props.statVar.setPerCapita(isRatio)
+        isPerCapita={props.statVar.value.perCapita}
+        onIsPerCapitaUpdated={(isPerCapita: boolean) =>
+          props.statVar.setPerCapita(isPerCapita)
         }
-        denom={props.statVar.value.denom}
-        onDenomUpdated={(denom: string) => props.statVar.setDenom(denom)}
       >
         {props.placeInfo.mapPointPlaceType && (
           <div className="chart-option">

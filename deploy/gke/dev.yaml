@@ -22,4 +22,4 @@ region:
 nodes: 1
 storage_project: datcom-store
 model_bucket: "gs://datcom-website-dev-modelstore"
-model_name: "dc_t5_ir2_bs1bm1_gpu"
+model_name: "dc_t5_ir2_20220219_default_bs1bm2_gpu_jit1"

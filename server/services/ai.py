@@ -15,13 +15,14 @@
 
 import json
 import logging
+import math
 import re
 from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
 
 import google.auth
+from google.cloud import language_v1
 import lib.config as libconfig
 import requests
-import urllib3
 import yaml
 
 import services.datacommons as dc
@@ -30,7 +31,16 @@ cfg = libconfig.get_config()
 
 # ----------------------------- INTERNAL FUNCTIONS -----------------------------
 
-_INFERENCE_CLIENT = None
+
+class Context:
+    """Holds clients to interact with Language client and TF models."""
+
+    def __init__(self):
+        self.language_client = language_v1.LanguageServiceClient()
+        if not cfg.TEST and cfg.AI_CONFIG_PATH:
+            self.inference_client = create_inference_client(cfg.AI_CONFIG_PATH)
+        else:
+            self.inference_client = None
 
 
 class InferenceClient(object):
@@ -71,19 +81,11 @@ class RestInferenceClient(InferenceClient):
 
     def _get_session(self) -> requests.Session:
         """Gets a http session."""
-        retry = urllib3.util.retry.Retry(
-            total=5,
-            status_forcelist=[429, 503],
-            backoff_factor=2,
-            method_whitelist=["POST"],
-        )
-        adapter = requests.adapters.HTTPAdapter(max_retries=retry)
         session = requests.Session()
         session.headers.update({
             "Content-Type": "application/json",
             "User-Agent": "datcom-inference-client",
         })
-        session.mount("https://", adapter)
         return session
 
     def _get_headers(self) -> Optional[Mapping[str, str]]:
@@ -144,9 +146,6 @@ def create_inference_client(config_path: str) -> Optional[InferenceClient]:
             logging.info("No configuration found for region %s", region)
 
 
-if not cfg.TEST and cfg.AI_CONFIG_PATH:
-    _INFERENCE_CLIENT = create_inference_client(cfg.AI_CONFIG_PATH)
-
 # ----------------------------- SEARCH FUNCTIONS -----------------------------
 
 _MAX_SEARCH_RESULTS = 1000
@@ -171,27 +170,125 @@ def _iterate_property_value(
             yield (key, value)
 
 
-def search(query: str) -> Optional[Any]:
-    global _INFERENCE_CLIENT
+def _get_places(language_client: language_v1.LanguageServiceClient,
+                query: str) -> Sequence[language_v1.Entity]:
+    """Returns a list of entities that are of type LOCATION."""
+    document = language_v1.Document(content=query,
+                                    type_=language_v1.Document.Type.PLAIN_TEXT)
+    response = language_client.analyze_entities(request={
+        "document": document,
+        "encoding_type": language_v1.EncodingType.UTF8
+    })
+    locations = [
+        e for e in response.entities
+        if e.type == language_v1.Entity.Type.LOCATION and "mid" in e.metadata
+    ]
+    return locations
 
-    if not _INFERENCE_CLIENT:
-        return
 
-    response = _INFERENCE_CLIENT.request(query)
-    property_value = dict(
-        _iterate_property_value(response["predictions"][0]["output_0"][0],
-                                exclude='place'))
-    limit = 100
-    matches = dc.match_statvar(property_value, limit)
+def _delexicalize_query(query: str,
+                        places: Sequence[language_v1.Entity]) -> str:
+    """Returns a delexicalized version of query where place mentions are replaced by special IDs."""
+    place_spans = [m.text for e in places for m in e.mentions]
+    place_spans.sort(key=lambda ts: ts.begin_offset)
 
-    # This is a fake response for the moment.
-    # It will change once we have the API in place.
-    return {
-        'type':
-            f'Model response: {response}',
-        'entities': [{
-            "name": m["statVar"],
-            "dcid": m["statVar"],
-            "rank": m["matchCount"],
-        } for m in matches["matchInfo"]]
+    prev = 0
+    output = []
+    query_bytes = query.encode('utf8')
+    for index, place_span in enumerate(place_spans):
+        if prev > place_span.begin_offset:
+            continue
+        output.append(query_bytes[prev:place_span.begin_offset].decode('utf8'))
+        output.append(f"<extra_id_{index}>")
+        prev = place_span.begin_offset + len(place_span.content.encode('utf8'))
+
+    output.append(query_bytes[prev:].decode('utf8'))
+    return ''.join(output)
+
+
+# This matches the cache builder logic.
+_KEY_NORMALIZATION = {
+    "measurementDenominator": "md",
+    "measurementQualifier": "mq",
+    "measuredProperty": "mp",
+    "populationType": "pt",
+    "statType": "st",
+}
+
+# Sometimes we need to normalize also values.
+_VALUE_NORMALIZATION = {
+    'phds': 'DoctorateDegree',
+}
+
+
+def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
+    del query  # unused
+    terms = []
+    for key, value in key_values:
+        # We skip high frequency keys that are always present for all the variables.
+        if key not in _KEY_NORMALIZATION.values():
+            terms.append(f'k:"{key}"')
+        terms.append(f'v:"{value}"')
+        terms.append(f'sn:"{value}"')
+    query = " ".join(terms)
+    logging.info("Using the following query for match API: %s", query)
+    return query
+
+
+def _parse_model_response(
+        model_response, min_score: float = 0.001) -> Sequence[Tuple[str, str]]:
+    property_values = set()
+    scores = model_response["predictions"][0]["output_1"]
+    predictions = model_response["predictions"][0]["output_0"]
+    for raw_score, prediction in sorted(zip(scores, predictions)):
+        score = math.exp(raw_score)
+        if score < min_score:
+            continue
+        for raw_key, raw_value in _iterate_property_value(prediction,
+                                                          exclude='place'):
+            key = _KEY_NORMALIZATION.get(raw_key, raw_key)
+            value = _VALUE_NORMALIZATION.get(raw_value.lower(), raw_value)
+            property_values.add((key, value))
+    return list(sorted(property_values))
+
+
+def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
+    if not context.inference_client:
+        return {"statVars": [], "places": []}
+    place_entities = _get_places(context.language_client, query)
+    if not place_entities:
+        return {"statVars": [], "places": []}
+    delexicalized_query = _delexicalize_query(query, place_entities)
+    logging.info("Model search on query: %s - %s", query, delexicalized_query)
+    model_response = context.inference_client.request(delexicalized_query)
+    property_values = _parse_model_response(model_response)
+    matches = dc.match_statvar(_build_query(delexicalized_query,
+                                            property_values),
+                               limit=10,
+                               debug=True)
+    if "matchInfo" not in matches:
+        return {"statVars": [], "places": []}
+    statvars = [{
+        "name": f"{m['statVarName']} (ID {m['statVar']})",
+        "dcid": m["statVar"],
+    } for m in matches["matchInfo"]]
+    places = [{"name": entity.name} for entity in place_entities]
+
+    debug_lines = [
+        f"# query:\n{query}", f"# delexicalized_query:\n{delexicalized_query}",
+        f"# model_response:\n{json.dumps(model_response, sort_keys=True, indent=4)}",
+        f"# property_value:\n{property_values}", f"# Results:\n"
+    ]
+
+    for match in matches["matchInfo"]:
+        debug_lines.append(f"# ID: {match['statVar']}")
+        debug_lines.append(f"# Statvar: {match['statVarName']}")
+        debug_lines.append(f"# Score: {match['score']}")
+        debug_lines.append(f"# Explanation: {match['explanation']}")
+
+    response = {
+        "statVars": statvars,
+        "places": places,
+        "debug": ['\n'.join(debug_lines)],
     }
+    return response

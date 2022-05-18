@@ -38,3 +38,8 @@ class TestStaticPage(unittest.TestCase):
         response = app.test_client().get('/tools/statvar')
         assert response.status_code == 200
         assert b"Statistical Variable Explorer - Data Commons" in response.data
+
+    def test_download(self):
+        response = app.test_client().get('/tools/download')
+        assert response.status_code == 200
+        assert b"Download Tool - Data Commons" in response.data

@@ -14,24 +14,23 @@
 """Data Commons static content routes."""
 
 from datetime import date
-from flask import Blueprint, render_template, current_app, g
-from lib.gcs import list_blobs
+from flask import Blueprint, render_template, g, current_app
 import babel.dates as babel_dates
-
-_SA_FEED_BUCKET = 'datacommons-frog-feed'
-_MAX_BLOBS = 1
 
 bp = Blueprint('static', __name__)
 
 
 @bp.route('/')
 def homepage():
-    if current_app.config.get('PRIVATE', None):
-        return render_template('static/private.html')
-    if current_app.config.get('SUSTAINABILITY', None):
-        return render_template('sustainability/homepage.html')
-    if current_app.config.get('IITM', None):
+    env_name = current_app.config.get('ENV_NAME', None)
+    if env_name == 'FEEDINGAMERICA':
+        return render_template('private_dc/feedingamerica/homepage.html')
+    if env_name == 'IITM':
+        # TODO: Update to:
+        # return render_template('private_dc/iitm/homepage.html')
         return render_template('static/iitm.html')
+    if env_name == 'PRIVATE':
+        return render_template('private_dc/default/homepage.html')
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
                                         locale=g.locale)
@@ -40,9 +39,11 @@ def homepage():
 
 @bp.route('/about')
 def about():
-    if current_app.config.get('IITM', None):
+    env_name = current_app.config.get('ENV_NAME', None)
+    if env_name == 'FEEDINGAMERICA':
+        return render_template('private_dc/feedingamerica/about.html')
+    if env_name == 'IITM':
         return render_template('static/about_iitm.html')
-
     return render_template('static/about.html')
 
 
@@ -63,15 +64,3 @@ def disclaimers():
 @bp.route('/feedback')
 def feedback():
     return render_template('static/feedback.html')
-
-
-@bp.route('/special_announcement')
-def special_announcement():
-    recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-    return render_template('static/special_announcement.html',
-                           recent_blobs=recent_blobs)
-
-
-@bp.route('/special_announcement/faq')
-def special_announcement_faq():
-    return render_template('static/special_announcement_faq.html')

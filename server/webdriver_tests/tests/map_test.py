@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import urllib
+import urllib.request
 from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -61,7 +62,7 @@ class TestMap(WebdriverBaseTest):
 
         # Assert place name is correct.
         place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
+            '//*[@id="place-list"]/div/span')
         self.assertEqual(place_name.text, 'California')
 
         # Assert chart is correct.
@@ -70,7 +71,7 @@ class TestMap(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="map-chart"]/div/div[1]/h3')
-        self.assertEqual(chart_title.text, "Median Age (2019)")
+        self.assertEqual(chart_title.text, "Median Age (2020)")
         chart_map = self.driver.find_element_by_id('choropleth-map')
         map_regions = chart_map.find_elements_by_tag_name('path')
         self.assertEqual(len(map_regions), 58)
@@ -84,11 +85,11 @@ class TestMap(WebdriverBaseTest):
 
         # Assert redirect was correct
         element_present = EC.text_to_be_present_in_element(
-            (By.XPATH, '//*[@id="place-list"]/span/span'),
+            (By.XPATH, '//*[@id="place-list"]/div/span'),
             'United States of America')
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
+            '//*[@id="place-list"]/div/span')
         self.assertEqual(place_name.text, 'United States of America')
 
         # Select State place type
@@ -104,7 +105,7 @@ class TestMap(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="map-chart"]/div/div[1]/h3')
-        self.assertEqual(chart_title.text, "Median Age (2019)")
+        self.assertEqual(chart_title.text, "Median Age (2020)")
         chart_map = self.driver.find_element_by_id('map-items')
         map_regions = chart_map.find_elements_by_tag_name('path')
         self.assertEqual(len(map_regions), 52)
@@ -161,7 +162,7 @@ class TestMap(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         chart_title = self.driver.find_element_by_xpath(
             '//*[@id="map-chart"]/div/div[1]/h3')
-        self.assertEqual(chart_title.text, "Median Age (2019)")
+        self.assertEqual(chart_title.text, "Median Age (2020)")
         chart_map = self.driver.find_element_by_id('choropleth-map')
         map_regions = chart_map.find_elements_by_tag_name('path')
         self.assertEqual(len(map_regions), 58)

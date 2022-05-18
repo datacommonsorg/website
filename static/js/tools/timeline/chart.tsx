@@ -19,7 +19,9 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
+import { Chip } from "../../shared/chip";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
@@ -33,44 +35,9 @@ import {
   statDataFromModels,
   TimelineRawData,
 } from "./data_fetcher";
-import { setChartOption, setDenom, setMetahash } from "./util";
+import { setChartOption, setMetahash } from "./util";
 
 const CHART_HEIGHT = 300;
-
-interface StatVarChipPropsType {
-  statVar: string;
-  color: string;
-  title: string;
-  removeStatVar: (statVar: string) => void;
-}
-
-class StatVarChip extends Component<StatVarChipPropsType> {
-  render() {
-    return (
-      <div
-        className="pv-chip mdl-chip--deletable"
-        style={{ backgroundColor: this.props.color }}
-      >
-        <span
-          className="mdl-chip__text"
-          onClick={() => {
-            window.open(`/tools/statvar#${this.props.statVar}`);
-          }}
-        >
-          {this.props.title}
-        </span>
-        <button className="mdl-chip__action">
-          <i
-            className="material-icons"
-            onClick={() => this.props.removeStatVar(this.props.statVar)}
-          >
-            cancel
-          </i>
-        </button>
-      </div>
-    );
-  }
-}
 
 interface ChartPropsType {
   mprop: string; // measured property
@@ -82,6 +49,9 @@ interface ChartPropsType {
   delta: boolean;
   removeStatVar: (statVar: string) => void;
   onDataUpdate: (mprop: string, data: StatData) => void;
+  onMetadataMapUpdate: (
+    metadataMap: Record<string, Record<string, StatMetadata>>
+  ) => void;
   // Map of stat var dcid to a hash representing a source series
   metahashMap: Record<string, string>;
 }
@@ -141,12 +111,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                 color = this.plotParams.lines[placeName + statVar].color;
               }
               return (
-                <StatVarChip
+                <Chip
                   key={statVar}
-                  statVar={statVar}
+                  id={statVar}
                   title={this.props.statVarInfos[statVar].title}
                   color={color}
-                  removeStatVar={this.props.removeStatVar}
+                  removeChip={this.props.removeStatVar}
+                  onTextClick={() => window.open(`/tools/statvar#${statVar}`)}
                 />
               );
             })}
@@ -166,12 +137,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           sourceSelectorSvInfoList={sourceSelectorSvInfoList}
           onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
           hideIsRatio={false}
-          isRatio={this.props.pc}
-          onIsRatioUpdated={(isRatio: boolean) =>
-            setChartOption(this.props.mprop, "pc", isRatio)
+          isPerCapita={this.props.pc}
+          onIsPerCapitaUpdated={(isPerCapita: boolean) =>
+            setChartOption(this.props.mprop, "pc", isPerCapita)
           }
-          denom={this.props.denom}
-          onDenomUpdated={(denom: string) => setDenom(this.props.mprop, denom)}
         >
           <span className="chart-option">
             <FormGroup check>
@@ -264,6 +233,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const statVars = Object.keys(this.props.statVarInfos);
     fetchRawData(places, statVars, this.props.denom)
       .then((rawData) => {
+        this.props.onMetadataMapUpdate(rawData.metadataMap);
         this.setState({ rawData });
       })
       .catch(() => {
@@ -318,12 +288,14 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
-    for (const series of Object.values(placeData.data)) {
-      if (series && series["metadata"] && series["metadata"].unit) {
-        units.add(series["metadata"].unit);
+    if (placeData) {
+      for (const series of Object.values(placeData.data)) {
+        if (series && series["metadata"] && series["metadata"].unit) {
+          units.add(series["metadata"].unit);
+        }
       }
+      this.units = Array.from(units).sort();
     }
-    this.units = Array.from(units).sort();
 
     this.props.onDataUpdate(this.props.mprop, statData);
     this.setState({ statData, ipccModels });
