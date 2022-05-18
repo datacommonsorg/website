@@ -21,6 +21,10 @@
     display: none;
   }
 
+  .input-area-hidden #place-list {
+    flex-grow: 1;
+  }
+
   #search #location-field #place-list {
     margin-left: 36px;
     padding: 12px 0;
@@ -34,6 +38,11 @@
     background: url("../images/icon-pin.svg") no-repeat;
     background-position: center;
     position: absolute;
+  }
+
+  .input-area-hidden #ac {
+    visibility: hidden;
+    width: 0;
   }
 
   #location-field #ac {
@@ -103,14 +112,5 @@
     outline: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
       0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  }
-
-  .input-area-hidden #place-list {
-    flex-grow: 1;
-  }
-  
-  .input-area-hidden #ac {
-    visibility: hidden;
-    width: 0;
   }
 }
