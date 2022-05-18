@@ -56,7 +56,7 @@
     color: rgba(0, 0, 0, 0.25);
   }
 
-  #location-field .mdl-chip {
+  #location-field .chip {
     margin-right: 6px;
     border: 0.5px solid #5384ec;
     background: rgba(66, 133, 244, 0.08);
@@ -99,9 +99,18 @@
     display: none;
   }
 
-  .mdl-chip:focus {
+  .chip:focus {
     outline: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
       0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .input-area-hidden #place-list {
+    flex-grow: 1;
+  }
+  
+  .input-area-hidden #ac {
+    visibility: hidden;
+    width: 0;
   }
 }
