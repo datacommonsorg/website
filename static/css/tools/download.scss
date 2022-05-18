@@ -20,6 +20,11 @@
 @import "../source_selector";
 @import "stat_var_widget";
 
+#main-pane #plot-container {
+  padding: 2rem;
+  overflow-y: scroll;
+}
+
 .download-options-container .place-selector-main-selectors {
   width: 100%;
 }
@@ -29,10 +34,12 @@
   align-items: flex-start;
 }
 
-.download-options-container .btn {
-  display: flex;
-  align-self: flex-end;
-  margin: 0.5rem;
+.download-options-container {
+  margin-bottom: 15px;
+}
+
+.download-options-container .place-selector-card {
+  margin-bottom: 0;
 }
 
 .download-option-section {
@@ -122,4 +129,79 @@
 .download-sv-chips {
   display: flex;
   flex-wrap: wrap;
+}
+
+
+.download-options-error-message {
+  color: var(--dc-error);
+  padding-left: 0.1rem;
+}
+
+.preview-container table {
+  overflow-x: scroll;
+  width: 100%;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.preview-container table,
+.preview-container th,
+.preview-container td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+
+.preview-container th {
+  background: #f5f6fa;
+}
+
+.preview-container th,
+.preview-container td {
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+}
+
+.preview-container th {
+  border-top: none;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr td:first-child,
+tr th:first-child {
+  border-left: none;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+}
+
+.preview-container {
+  padding: 1.5rem 1rem;
+  min-height: 20rem;
+}
+
+.preview-disabled {
+  color: var(--dc-gray-lite);
+}
+
+.preview-error {
+  min-height: 0;
+}
+
+.preview-error #spinner::after {
+  height: 60px;
+  width: 60px;
+}
+
+.download-options-container .btn,
+.preview-container .btn {
+  display: flex;
+  align-self: flex-end;
+  font-size: 1rem;
+  width: fit-content;
+  margin-top: 1rem;
 }

@@ -25,6 +25,7 @@ import { NamedTypedPlace } from "../../shared/types";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
 import { StatVarInfo } from "../timeline/chart_region";
+import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
 
 const URL_PARAM_KEYS = {
@@ -45,7 +46,7 @@ const URL_PARAM_KEYS = {
 const SEPARATOR = "__";
 const PARAM_VALUE_TRUE = "1";
 
-interface DownloadOptions {
+export interface DownloadOptions {
   selectedPlace: NamedTypedPlace;
   enclosedPlaceType: string;
   selectedStatVars: Record<string, StatVarInfo>;
@@ -62,13 +63,12 @@ interface ValidationErrors {
 
 export function Page(): JSX.Element {
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
+  const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
   const [previewDisabled, setPreviewDisabled] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({
-    incompleteSelectionMessage: "",
-    maxDate: false,
-    minDate: false,
-  });
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>(
+    null
+  );
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
 
@@ -79,10 +79,10 @@ export function Page(): JSX.Element {
   }, [selectedOptions]);
 
   useEffect(() => {
-    getOptionsFromURL();
+    loadStateFromURL();
   }, []);
 
-  if (!selectedOptions) {
+  if (!selectedOptions || !validationErrors) {
     return <></>;
   }
 
@@ -158,7 +158,10 @@ export function Page(): JSX.Element {
                         <FormGroup>
                           <Input
                             className={`download-date-range-input${
-                              validationErrors.minDate ? "-error" : ""
+                              selectedOptions.dateRange &&
+                              validationErrors.minDate
+                                ? "-error"
+                                : ""
                             }`}
                             type="text"
                             onChange={(e) => {
@@ -178,7 +181,10 @@ export function Page(): JSX.Element {
                         <FormGroup>
                           <Input
                             className={`download-date-range-input${
-                              validationErrors.maxDate ? "-error" : ""
+                              selectedOptions.dateRange &&
+                              validationErrors.maxDate
+                                ? "-error"
+                                : ""
                             }`}
                             type="text"
                             onChange={(e) => {
@@ -196,7 +202,8 @@ export function Page(): JSX.Element {
                     </div>
                     <div
                       className={`download-date-range-hint${
-                        validationErrors.minDate || validationErrors.maxDate
+                        selectedOptions.dateRange &&
+                        (validationErrors.minDate || validationErrors.maxDate)
                           ? "-error"
                           : ""
                       }`}
@@ -237,12 +244,17 @@ export function Page(): JSX.Element {
               {getDataButtonText}
             </Button>
           </PlaceSelector>
+          {!_.isEmpty(validationErrors.incompleteSelectionMessage) && (
+            <div className="download-options-error-message">
+              {validationErrors.incompleteSelectionMessage}
+            </div>
+          )}
         </div>
-        {!_.isEmpty(validationErrors.incompleteSelectionMessage) && (
-          <div>{validationErrors.incompleteSelectionMessage}</div>
-        )}
         {showPreview && (
-          <div>{previewDisabled ? "disabled preview" : "preview"}</div>
+          <Preview
+            selectedOptions={previewOptions}
+            isDisabled={previewDisabled}
+          />
         )}
         {showInfo && <div>info text</div>}
       </div>
@@ -267,7 +279,7 @@ export function Page(): JSX.Element {
     });
   }
 
-  function getOptionsFromURL(): void {
+  function loadStateFromURL(): void {
     const options = {
       dateRange: false,
       enclosedPlaceType: "",
@@ -294,22 +306,25 @@ export function Page(): JSX.Element {
       urlParams.get(URL_PARAM_KEYS.DATE_RANGE) === PARAM_VALUE_TRUE;
     options.minDate = urlParams.get(URL_PARAM_KEYS.MIN_DATE) || "";
     options.maxDate = urlParams.get(URL_PARAM_KEYS.MAX_DATE) || "";
+    setValidationErrors({
+      incompleteSelectionMessage: "",
+      maxDate: !_.isEmpty(options.maxDate) && !isValidDate(options.maxDate),
+      minDate: !_.isEmpty(options.minDate) && !isValidDate(options.minDate),
+    });
     Promise.all([placePromise, svInfoPromise])
       .then(([place, svInfo]) => {
-        setSelectedOptions({
-          ...options,
-          selectedPlace: place,
-          selectedStatVars: svInfo,
-        });
+        options.selectedPlace = place;
+        options.selectedStatVars = svInfo;
+        setSelectedOptions(options);
+        setPreviewOptions(options);
       })
       .catch(() => {
         const emptySvInfo = {};
         statVarsList.forEach((sv) => (emptySvInfo[sv] = {}));
-        setSelectedOptions({
-          ...options,
-          selectedPlace: { dcid: place, name: place, types: [] },
-          selectedStatVars: emptySvInfo,
-        });
+        options.selectedPlace = { dcid: place, name: place, types: [] };
+        options.selectedStatVars = emptySvInfo;
+        setSelectedOptions(options);
+        setPreviewOptions(options);
       });
   }
 
@@ -377,8 +392,9 @@ export function Page(): JSX.Element {
     if (!_.isEmpty(incompleteSelectionMessage)) {
       return;
     }
+    updateURL();
+    setPreviewOptions(selectedOptions);
     setShowPreview(true);
     setPreviewDisabled(false);
-    updateURL();
   }
 }
