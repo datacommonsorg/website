@@ -100,7 +100,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         break;
       }
     }
-    const isEarth = this.props.dcid == EARTH_NAMED_TYPED_PLACE.dcid;
+    const isEarth = this.props.dcid === EARTH_NAMED_TYPED_PLACE.dcid;
     // We will localize Earth to a translation of "the World".
     // However, we will not localize other Place names, as we will later
     // pull the localized names from the KG.

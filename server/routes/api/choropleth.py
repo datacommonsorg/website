@@ -41,9 +41,9 @@ CHOROPLETH_DISPLAY_LEVEL_MAP = {
 }
 
 # Place type to get choropleth for, keyed by geoDcid
-# This works for special geoDcid.
-# 1. country/USA are also AA1. Restrict this view to only States.
-# 2. display the chorpleth for earth in the country level.
+# These are the special cases.
+# 1. Territories of the US, e.g. country/USA, are also AA1. Restrict this view to only States.
+# 2. For Earth, display the countries.
 SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "country/USA": "State",
     "Earth": "Country"
