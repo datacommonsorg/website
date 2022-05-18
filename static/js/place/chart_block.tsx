@@ -25,6 +25,7 @@ import {
   GeoJsonData,
 } from "../chart/types";
 import { intl, localizeSearchParams } from "../i18n/i18n";
+import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
 import { displayNameForPlaceType } from "./util";
@@ -99,7 +100,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         break;
       }
     }
-    const isEarth = this.props.dcid == "Earth";
+    const isEarth = this.props.dcid == EARTH_NAMED_TYPED_PLACE.dcid;
     // We will localize Earth to a translation of "the World".
     // However, we will not localize other Place names, as we will later
     // pull the localized names from the KG.
@@ -195,7 +196,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // Prepare parameters for related charts.
     let unit = this.props.data.unit;
     let scaling = this.props.data.scaling;
-    const isEarth = this.props.dcid === "Earth";
+    const isEarth = this.props.dcid === EARTH_NAMED_TYPED_PLACE.dcid;
     if (relatedChart && relatedChart.scale) {
       unit = relatedChart.unit;
       scaling = relatedChart.scaling ? relatedChart.scaling : 1;

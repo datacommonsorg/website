@@ -21,7 +21,7 @@ import ReactDOM from "react-dom";
 
 import { CachedChoroplethData, GeoJsonData, PageData } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
-import { USA_PLACE_DCID } from "../shared/constants";
+import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane } from "./main_pane";
 import { Menu } from "./menu";
@@ -29,7 +29,7 @@ import { PageSubtitle } from "./page_subtitle";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { initSearchAutocomplete } from "./place_autocomplete";
 import { PlaceHighlight } from "./place_highlight";
-import { isPlaceInUsa } from "./util";
+import { isPlaceInUsa, USA_PLACE_TYPES_WITH_CHOROPLETH } from "./util";
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
@@ -39,7 +39,6 @@ let sidebarTopMax = 0;
 const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 // Margin to apply to the fixed sidebar top.
 const Y_SCROLL_MARGIN = 100;
-const placeTypesWithChoropleth = new Set(["Country", "State", "County"]);
 
 window.onload = () => {
   renderPage();
@@ -154,10 +153,10 @@ async function getLandingPageData(
 }
 
 function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
-  const isEarth = dcid === "Earth";
+  const isEarth = dcid === EARTH_NAMED_TYPED_PLACE.dcid;
   const isInUSA: boolean =
     dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
-  return isEarth || (isInUSA && placeTypesWithChoropleth.has(placeType));
+  return isEarth || (isInUSA && USA_PLACE_TYPES_WITH_CHOROPLETH.has(placeType));
 }
 
 function renderPage(): void {

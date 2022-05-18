@@ -39,6 +39,16 @@ CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "AdministrativeArea2": "AdministrativeArea2",
     "AdministrativeArea3": "AdministrativeArea3"
 }
+
+# Place type to get choropleth for, keyed by geoDcid
+# This works for special geoDcid.
+# 1. country/USA are also AA1. Restrict this view to only States.
+# 2. display the chorpleth for earth in the country level.
+SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP = {
+    "country/USA": "State",
+    "Earth": "Country"
+}
+
 # GeoJSON property to use, keyed by display level.
 CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "Country": "geoJsonCoordinatesDP3",
@@ -69,11 +79,10 @@ def get_choropleth_display_level(geoDcid):
                 parent place dcid)
             display level (AdministrativeArea1 or AdministrativeArea2)
     """
-    # Territories of the US, e.g. country/USA are also AA1. Restrict this view to only States.
-    if geoDcid == 'country/USA':
-        return geoDcid, 'State'
-    if geoDcid == 'Earth':
-        return geoDcid, 'Country'
+    if geoDcid in SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP:
+        display_level = SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP[geoDcid]
+        return geoDcid, display_level
+
     place_type = place_api.get_place_type(geoDcid)
     display_level = None
     if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
