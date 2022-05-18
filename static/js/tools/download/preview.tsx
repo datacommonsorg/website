@@ -41,6 +41,7 @@ interface PreviewProps {
 export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const csvParser = usePapaParse();
   const csvUrl = useRef("");
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     }
     csvUrl.current = getCsvUrl();
     fetchPreviewData();
-  }, [props]);
+  }, [props, errorMessage, getCsvUrl()]);
 
   // We only want to show preview once preview data has been fetched.
   const showPreview = _.isEmpty(errorMessage) && !_.isEmpty(previewData);
@@ -139,14 +140,15 @@ export function Preview(props: PreviewProps): JSX.Element {
   }
 
   function fetchPreviewData(): void {
+    console.log("FETCHING");
     loadSpinner(SECTION_ID);
     axios
       .get(csvUrl.current + `&rowLimit=${NUM_ROWS}`)
       .then((resp) => {
         if (resp.data) {
-          const parser = usePapaParse();
-          parser.readString(resp.data, {
+          csvParser.readString(resp.data, {
             complete: (results) => {
+              console.log("HERE");
               removeSpinner(SECTION_ID);
               setPreviewData(results.data as string[][]);
               setErrorMessage("");

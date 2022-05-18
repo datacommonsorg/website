@@ -529,7 +529,7 @@ def get_series_csv_rows(stat_set_series,
 @cache.cached(timeout=3600 * 24, query_string=True)
 def get_stats_within_place_csv():
     """Gets the statistical variable data as a csv for child places of a
-    certain place type contained in a parent place. If no date range specified, 
+    certain place type contained in a parent place. If no date range specified,
     gets data for all dates of a series. "latest" will get the latest date data.
     """
     parent_place = request.args.get('parentPlace')

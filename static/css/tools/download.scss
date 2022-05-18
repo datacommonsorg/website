@@ -131,7 +131,6 @@
   flex-wrap: wrap;
 }
 
-
 .download-options-error-message {
   color: var(--dc-error);
   padding-left: 0.1rem;
@@ -153,16 +152,13 @@
 
 .preview-container th {
   background: #f5f6fa;
+  border-top: none;
 }
 
 .preview-container th,
 .preview-container td {
   text-align: center;
   padding: 0.2rem 0.5rem;
-}
-
-.preview-container th {
-  border-top: none;
 }
 
 tr:last-child td {
