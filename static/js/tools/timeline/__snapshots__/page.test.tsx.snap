@@ -4,7 +4,7 @@ exports[`Single place and single stat var 1`] = `
 "<div class=\\"chart-container\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
-      <div class=\\"mdl-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text mdl-chip__text_clickable\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
     <div class=\\"chart-svg\\"></div>
   </div>
@@ -21,7 +21,7 @@ exports[`Single place and single stat var 2`] = `
 "<div class=\\"chart-container\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
-      <div class=\\"mdl-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text mdl-chip__text_clickable\\">Age</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Age</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
     <div class=\\"chart-svg\\"></div>
   </div>
@@ -76,7 +76,7 @@ exports[`chart options 1`] = `
 "<div class=\\"chart-container\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
-      <div class=\\"mdl-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text mdl-chip__text_clickable\\">Population</span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\">Population</span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
     <div class=\\"chart-svg\\"></div>
   </div>
@@ -93,7 +93,7 @@ exports[`statVar not in PV-tree 1`] = `
 "<div class=\\"chart-container\\">
   <div class=\\"card\\">
     <div class=\\"statVarChipRegion\\">
-      <div class=\\"mdl-chip mdl-chip--deletable\\"><span class=\\"mdl-chip__text mdl-chip__text_clickable\\"></span><button class=\\"mdl-chip__action\\"><i class=\\"material-icons\\">cancel</i></button></div>
+      <div class=\\"chip\\"><span class=\\"chip-text chip-clickable-text\\"></span><button class=\\"chip-action\\"><i class=\\"material-icons\\">cancel</i></button></div>
     </div>
     <div class=\\"chart-svg\\"></div>
   </div>

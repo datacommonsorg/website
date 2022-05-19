@@ -84,6 +84,7 @@
 .place-selector-main-selectors {
   display: flex;
   flex-grow: 1;
+  flex-wrap: wrap;
 }
 
 #place-selector-place-type:focus {
