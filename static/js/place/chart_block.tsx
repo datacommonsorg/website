@@ -28,7 +28,10 @@ import { intl, localizeSearchParams } from "../i18n/i18n";
 import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
-import { displayNameForPlaceType } from "./util";
+import {
+  displayNameForPlaceType,
+  USA_PLACE_TYPES_WITH_CHOROPLETH,
+} from "./util";
 
 interface ChartBlockPropType {
   /**
@@ -258,9 +261,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         !!this.props.data.isChoropleth &&
         (isEarth ||
           (this.props.isUsaPlace &&
-            (this.props.placeType === "Country" ||
-              this.props.placeType === "State" ||
-              this.props.placeType === "County")))
+            USA_PLACE_TYPES_WITH_CHOROPLETH.has(this.props.placeType)))
       ) {
         const id = randDomId();
         chartElements.push(
