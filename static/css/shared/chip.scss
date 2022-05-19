@@ -15,21 +15,22 @@
  */
 
 // Set up wrapping for long stat var names.
-.mdl-chip__text {
+.chip-text {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: calc(100% - 28px); // Account for the chip close button.
   overflow: hidden;
   font-size: 13px;
   vertical-align: middle;
+  display: inline-block;
 }
 
-.mdl-chip__text_clickable:hover {
+.chip-clickable-text:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-.mdl-chip {
+.chip {
   height: 32px;
   line-height: 30px;
   padding: 0 8px 0 15px;
@@ -43,7 +44,7 @@
   font-size: 0;
 }
 
-.mdl-chip__action {
+.chip-action {
   height: 24px;
   width: 24px;
   line-height: 33px;
@@ -64,7 +65,7 @@
   overflow: hidden;
 }
 
-.mdl-chip__action .material-icons {
+.chip-action .material-icons {
   color: #3c4043;
   font-size: 18px;
 }
