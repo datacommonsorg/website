@@ -15,7 +15,7 @@
  */
 
 /**
- * Component to pick statvar for map.
+ * Component to pick statvar for download tool.
  */
 
 import React, { useEffect, useState } from "react";
@@ -30,7 +30,7 @@ import { StatVarWidget } from "../shared/stat_var_widget";
 import { StatVarInfo } from "../timeline/chart_region";
 
 interface StatVarChooserProps {
-  statVars: string[];
+  statVars: Record<string, StatVarInfo>;
   placeDcid: string;
   enclosedPlaceType: string;
   onStatVarSelected: (sv: string, svInfo: StatVarInfo) => void;
@@ -60,20 +60,18 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       });
   }, [props.placeDcid, props.enclosedPlaceType]);
 
-  const svHierarchyProps = {
-    deselectSV: (sv) => props.onStatVarRemoved(sv),
-    places: samplePlaces,
-    selectSV: (sv) => selectSV(sv, props.onStatVarSelected),
-    selectedSVs: props.statVars,
-    type: StatVarHierarchyType.TIMELINE,
-  };
-
   return (
     <StatVarWidget
       openSvHierarchyModal={props.openSvHierarchyModal}
       openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
-      svHierarchyProps={svHierarchyProps}
       collapsible={false}
+      svHierarchyType={StatVarHierarchyType.DOWNLOAD}
+      samplePlaces={samplePlaces}
+      deselectSVs={(svList: string[]) => svList.forEach((sv) => {
+        props.onStatVarRemoved(sv)
+      })}
+      selectedSVs={props.statVars}
+      selectSV={(sv) => selectSV(sv, props.onStatVarSelected)}
     />
   );
 }

@@ -20,7 +20,6 @@
  * two of the three.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import {
@@ -91,11 +90,6 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     );
     setSamplePlaces(samplePlaces);
   }, [place.value.enclosedPlaces]);
-  const menuSelected = [
-    x.value.statVarDcid,
-    y.value.statVarDcid,
-    thirdStatVar.dcid,
-  ].filter((sv) => !_.isEmpty(sv));
   const closeModal = () => {
     setThirdStatVar(emptyStatVar);
     setModalOpen(false);
@@ -133,49 +127,6 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       });
   }, [x.value, y.value]);
 
-  useEffect(() => {
-    if (!_.isEmpty(samplePlaces) && !_.isEmpty(menuSelected)) {
-      axios
-        .post("/api/place/stat-vars/union", {
-          dcids: samplePlaces.map((place) => place.dcid),
-          statVars: menuSelected,
-        })
-        .then((resp) => {
-          const availableSVs = resp.data;
-          const unavailableSVs = [];
-          if (
-            x.value.statVarDcid &&
-            availableSVs.indexOf(x.value.statVarDcid) === -1
-          ) {
-            let name = x.value.statVarDcid;
-            if (x.value.statVarInfo) {
-              name = x.value.statVarInfo.title || x.value.statVarDcid;
-            }
-            unavailableSVs.push(name);
-            x.unsetStatVarDcid();
-          }
-          if (
-            y.value.statVarDcid &&
-            availableSVs.indexOf(y.value.statVarDcid) === -1
-          ) {
-            let name = y.value.statVarDcid;
-            if (y.value.statVarInfo) {
-              name = y.value.statVarInfo.title || y.value.statVarDcid;
-            }
-            unavailableSVs.push(name);
-            y.unsetStatVarDcid();
-          }
-          if (!_.isEmpty(unavailableSVs)) {
-            alert(
-              `Sorry, the selected variable(s) [${unavailableSVs.join(
-                ", "
-              )}] ` + "are not available for the chosen place."
-            );
-          }
-        });
-    }
-  }, [samplePlaces]);
-
   let yTitle = y.value.statVarDcid;
   if (y.value.statVarInfo && y.value.statVarInfo.title) {
     yTitle = y.value.statVarInfo.title;
@@ -184,20 +135,31 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   if (x.value.statVarInfo && x.value.statVarInfo.title) {
     xTitle = x.value.statVarInfo.title;
   }
-  const svHierarchyProps = {
-    deselectSV: (sv) => removeStatVar(x, y, sv),
-    places: samplePlaces,
-    selectSV: (sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen),
-    selectedSVs: menuSelected,
-    type: StatVarHierarchyType.SCATTER,
-  };
+
+  const selectedSvs = {};
+  if (!_.isEmpty(x.value.statVarDcid)) {
+    selectedSvs[x.value.statVarDcid] = x.value.statVarInfo;
+  }
+  if (!_.isEmpty(y.value.statVarDcid)) {
+    selectedSvs[y.value.statVarDcid] = y.value.statVarInfo;
+  }
+  if (!_.isEmpty(thirdStatVar.dcid)) {
+    selectedSvs[thirdStatVar.dcid] = thirdStatVar.info;
+  }
+
   return (
     <>
       <StatVarWidget
         openSvHierarchyModal={props.openSvHierarchyModal}
         openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
-        svHierarchyProps={svHierarchyProps}
         collapsible={true}
+        svHierarchyType={StatVarHierarchyType.SCATTER}
+        samplePlaces={samplePlaces}
+        deselectSVs={(svList: string[]) => svList.forEach((sv) => {
+          removeStatVar(x, y, sv);
+        })}
+        selectedSVs={selectedSvs}
+        selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">

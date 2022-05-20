@@ -45,7 +45,13 @@ export const StatVarHierarchyType = {
   SCATTER: "SCATTER",
   MAP: "MAP",
   STAT_VAR: "STAT_VAR",
+  DOWNLOAD: "DOWNLOAD",
 };
+
+/**
+ * The set of StatVarHierarchyTypes where selection is a radio button.
+ */
+export const RADIO_BUTTON_TYPES = new Set([StatVarHierarchyType.MAP, StatVarHierarchyType.STAT_VAR])
 
 export interface StatVarInfo {
   id: string;

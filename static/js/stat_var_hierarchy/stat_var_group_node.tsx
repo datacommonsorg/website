@@ -25,6 +25,7 @@ import Collapsible from "react-collapsible";
 
 import { Context, ContextType } from "../shared/context";
 import {
+  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
   StatVarHierarchyType,
@@ -39,8 +40,8 @@ const SCROLL_DELAY = 400;
 // Stat var hierarchy types where nodes containing selected SV should be
 // expanded on initial render of the page.
 const INITIAL_EXPANSION_TYPES = [
+  ...Array.from(RADIO_BUTTON_TYPES),
   StatVarHierarchyType.BROWSER,
-  StatVarHierarchyType.MAP,
 ];
 
 interface StatVarGroupNodePropType {

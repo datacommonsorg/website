@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
@@ -67,19 +68,17 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   render(): JSX.Element {
-    const svHierarchyProps = {
-      places: [],
-      selectSV: (sv) => this.updateHash(sv),
-      selectedSVs: [this.state.statVar],
-      type: StatVarHierarchyType.STAT_VAR,
-    };
     return (
       <>
         <StatVarWidget
           openSvHierarchyModal={this.state.showSvHierarchyModal}
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
-          svHierarchyProps={svHierarchyProps}
           collapsible={false}
+          svHierarchyType={StatVarHierarchyType.STAT_VAR}
+          samplePlaces={[]}
+          deselectSVs={() => this.updateHash("")}
+          selectedSVs={{ [this.state.statVar]: {} }}
+          selectSV={(sv) => this.updateHash(sv)}
         />
         <div id="plot-container">
           <div className="container">

@@ -25,6 +25,7 @@ import React from "react";
 
 import { Context, ContextType } from "../shared/context";
 import {
+  RADIO_BUTTON_TYPES,
   StatVarHierarchyType,
   StatVarInfo,
   StatVarSummary,
@@ -128,11 +129,7 @@ export class StatVarSectionInput extends React.Component<
   }
 
   render(): JSX.Element {
-    const inputType =
-      this.context.statVarHierarchyType === StatVarHierarchyType.MAP ||
-      this.context.statVarHierarchyType === StatVarHierarchyType.STAT_VAR
-        ? "radio"
-        : "checkbox";
+    const inputType = RADIO_BUTTON_TYPES.has(this.context.statVarHierarchyType) ? "radio" : "checkbox";
     const sectionId = this.props.statVar.id + this.props.path.join("-");
     let className = "node-title";
     if (!this.props.statVar.hasData) {

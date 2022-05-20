@@ -27,6 +27,7 @@ import React from "react";
 import { Context } from "../shared/context";
 import {
   NamedPlace,
+  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
@@ -297,7 +298,7 @@ export class StatVarHierarchy extends React.Component<
         this.props.selectSV(sv);
       }
       const svPath =
-        this.props.type === StatVarHierarchyType.MAP
+        RADIO_BUTTON_TYPES.has(this.props.type)
           ? { [sv]: path }
           : Object.assign({ [sv]: path }, this.state.svPath);
       this.setState({
