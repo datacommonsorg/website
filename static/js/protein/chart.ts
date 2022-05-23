@@ -102,19 +102,19 @@ const TISSUE_COLOR_DICT = {
   Vagina: "mistyrose",
 };
 // interface for protein page datatypes which return number values
-export interface ProteinPropDataNumType {
+export interface ProteinNumData {
   name: string;
   value: number;
 }
 
 // interface for protein page datatypes which return string values
-export interface ProteinPropDataStrType {
+export interface ProteinStrData {
   name: string;
   value: string;
 }
 
 // interface for variant gene associations for plotting error bars
-export interface VarGeneErrorBarType {
+export interface VarGeneDataPoint {
   id: string;
   name: string;
   value: number;
@@ -125,12 +125,9 @@ export interface VarGeneErrorBarType {
 /**
  * Draw bar chart for tissue score.
  */
-export function drawTissueScoreChart(
-  id: string,
-  data: ProteinPropDataStrType[]
-): void {
+export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   // reformats data to convert tissue score from string to number
-  let reformattedData = {} as ProteinPropDataNumType[];
+  let reformattedData = {} as ProteinNumData[];
   reformattedData = data.map((item) => {
     return {
       name: item.name,
@@ -143,7 +140,6 @@ export function drawTissueScoreChart(
     return TISSUE_SCORE_TO_LABEL[d];
   }
   // dictionary mapping tissues to specific colors
-  // tissues with similar origin share the same color, ex: Skin1 and Skin2
 
   // groups the tissues of a similar origin and sorts them in ascending order
   reformattedData.sort(function (x, y) {
@@ -223,6 +219,7 @@ export function drawProteinInteractionChart(
   data: InteractingProteinType[]
 ): void {
   // retrieves the parent protein name
+  // TODO: create a helper function for reformatting
   const parentProtein = data[1].parent;
   // formats the protein name by removing the parent protein name
   function formatProteinName(d: string) {
@@ -236,7 +233,7 @@ export function drawProteinInteractionChart(
     return d;
   }
   // reformats the data by removing the parent protein name and renaming the interacting proteins
-  let reformattedData = {} as ProteinPropDataNumType[];
+  let reformattedData = {} as ProteinNumData[];
   reformattedData = data.map((item) => {
     return {
       name: formatProteinName(item.name),
@@ -281,10 +278,7 @@ export function drawProteinInteractionChart(
     .style("text-anchor", "end");
   // plots y-axis for the graph - protein-protein interaction score
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
-  svg
-    .append("g")
-    .call(d3.axisLeft(y).tickFormat(formatProteinName))
-    .raise();
+  svg.append("g").call(d3.axisLeft(y).tickFormat(formatProteinName)).raise();
 
   // plotting the bars
   bars
@@ -307,7 +301,7 @@ export function drawProteinInteractionChart(
 
 export function drawDiseaseGeneAssocChart(
   id: string,
-  data: ProteinPropDataNumType[]
+  data: ProteinNumData[]
 ): void {
   // chart specific margin to display full disease names
   const margin = { top: 70, right: 50, bottom: 40, left: 150 };
@@ -373,7 +367,7 @@ export function drawVarGeneAssocChart(
   id: string,
   data: ProteinVarType[]
 ): void {
-  let reformattedData = [] as VarGeneErrorBarType[];
+  let reformattedData = [] as VarGeneDataPoint[];
   // reformats the input data into required format for error bars
   reformattedData = data.map((item) => {
     const confInterval = item.interval.split(/[\s,]+/);
@@ -395,12 +389,6 @@ export function drawVarGeneAssocChart(
     Thyroid: "lightcoral",
     "Whole Blood": "firebrick",
   };
-  // returns corresponding color for tissue
-  function circleColor(d: string) {
-    const name = d;
-    return var_color[name];
-  }
-
   const svg = d3
     .select("#variant-gene-association-chart")
     .append("svg")
@@ -432,7 +420,7 @@ export function drawVarGeneAssocChart(
   svg.append("g").call(d3.axisLeft(y));
   // adds the dots and error bars
   svg
-    .selectAll("myline")
+    .selectAll("error-bar-line")
     .data(reformattedData)
     .enter()
     .append("line")
@@ -451,7 +439,7 @@ export function drawVarGeneAssocChart(
     .attr("stroke", "grey")
     .attr("stroke-width", "1px");
   svg
-    .selectAll("mycircle")
+    .selectAll("error-bar-circle")
     .data(reformattedData)
     .enter()
     .append("circle")
@@ -463,7 +451,7 @@ export function drawVarGeneAssocChart(
     })
     .attr("r", "6")
     .style("fill", function (d) {
-      return circleColor(d.name);
+      return var_color[d.name];
     });
   // adds circles for each of the mean error values
   svg
@@ -510,10 +498,11 @@ export function drawVarGeneAssocChart(
 
 export function drawVarTypeAssocChart(
   id: string,
-  data: ProteinPropDataNumType[]
+  data: ProteinNumData[]
 ): void {
   // formats variant name
   function formatVariant(d: string) {
+    // remove the word "GeneticVariantFunctionalCategory" from say "GeneticVariantFunctionalCategorySplice5"
     d = d.substring(32);
     return d;
   }
@@ -566,12 +555,10 @@ export function drawVarTypeAssocChart(
     });
 }
 
-export function drawVarSigAssocChart(
-  id: string,
-  data: ProteinPropDataNumType[]
-): void {
+export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   // formats the variant name
   function formatVariant(d: string) {
+    // removes the word "ClinSig" from say "ClinSigUncertain"
     d = d.substring(7);
     return d;
   }
@@ -628,10 +615,11 @@ export function drawVarSigAssocChart(
 
 export function drawChemGeneAssocChart(
   id: string,
-  data: ProteinPropDataNumType[]
+  data: ProteinNumData[]
 ): void {
   // formats chemical-gene associations
   function formatChemName(d: string) {
+    // removes the word "RelationshipAssociationType" from say "RelationshipAssociationTypeAssociated"
     d = d.substring(27);
     return d;
   }

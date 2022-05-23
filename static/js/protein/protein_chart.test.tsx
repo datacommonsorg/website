@@ -6,22 +6,31 @@ import React from "react";
 Enzyme.configure({ adapter: new Adapter() });
 
 import { GraphNodes } from "../shared/types";
-import { ProteinPropDataStrType } from "./chart";
-import { getChemicalGeneAssoc, getDiseaseGeneAssoc, getProteinInteraction, getTissueScore, getVarGeneAssoc, getVarSigAssoc, getVarTypeAssoc } from "./data_processing_utils";
+import { ProteinStrData } from "./chart";
+import {
+  getChemicalGeneAssoc,
+  getDiseaseGeneAssoc,
+  getProteinInteraction,
+  getTissueScore,
+  getVarGeneAssoc,
+  getVarSigAssoc,
+  getVarTypeAssoc,
+} from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
 import { Page } from "./page";
 
-const dataP53 = require('./data_P53.json');
-const dataFGFR1 = require('./data_FGFR1.json');
+const dataP53 = require("./data_P53.json");
+const dataFGFR1 = require("./data_FGFR1.json");
 test("getTissueScore", () => {
   //const wrapper = shallow(<Page dcid={"test"} nodeName={"test-node"} />);
   const cases: {
     data: GraphNodes;
-    wantArray: ProteinPropDataStrType[];
+    wantArray: ProteinStrData[];
   }[] = [
     // Passing in P53_HUMAN data
-    {data: dataP53,
+    {
+      data: dataP53,
       wantArray: [
         {
           name: "Vagina",
@@ -546,7 +555,6 @@ test("getTissueScore", () => {
   }
 });
 
-
 test("getProteinInteraction", () => {
   const cases: {
     data: GraphNodes;
@@ -554,114 +562,115 @@ test("getProteinInteraction", () => {
     nodeName: string;
   }[] = [
     // Passing in P53_HUMAN data
-    {data: dataP53,
+    {
+      data: dataP53,
       nodeName: "P53_HUMAN",
       wantArray: [
-      {
-        name: "ZN420_HUMAN_P53_HUMAN",
-        value: 0.59,
-        parent: "P53_HUMAN"
-      },
-      {
-        name: "ZN363_HUMAN_P53_HUMAN",
-        value: 0.85,
-        parent: "P53_HUMAN"
-      },
-      {
-        name: "X_HBVA3_P53_HUMAN",
-        value: 0.40,
-        parent: "P53_HUMAN"
-      },
-    ],
+        {
+          name: "ZN420_HUMAN_P53_HUMAN",
+          value: 0.59,
+          parent: "P53_HUMAN",
+        },
+        {
+          name: "ZN363_HUMAN_P53_HUMAN",
+          value: 0.85,
+          parent: "P53_HUMAN",
+        },
+        {
+          name: "X_HBVA3_P53_HUMAN",
+          value: 0.4,
+          parent: "P53_HUMAN",
+        },
+      ],
     },
     {
       data: {
-        "nodes": [
-            {
-                "neighbors": [
-                    {
-                        "direction": "DIRECTION_IN",
-                        "nodes": [
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionNotDetected"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Vagina"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Vagina_SquamousEpithelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "UrinaryBladder"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_UrinaryBladder_UrothelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Tonsil"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells"
-                            }
+        nodes: [
+          {
+            neighbors: [
+              {
+                direction: "DIRECTION_IN",
+                nodes: [
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionNotDetected",
+                          },
                         ],
-                        "property": "detectedProtein"
-                    }
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Vagina",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Vagina_SquamousEpithelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "UrinaryBladder",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_UrinaryBladder_UrothelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Tonsil",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells",
+                  },
                 ],
-                "value": "bio/P53_HUMAN"
-            }
-        ]
-},
+                property: "detectedProtein",
+              },
+            ],
+            value: "bio/P53_HUMAN",
+          },
+        ],
+      },
       wantArray: [],
       nodeName: "P53_HUMAN",
-    }
+    },
   ];
   for (const c of cases) {
     const tissueInteraction = getProteinInteraction(c.data, c.nodeName);
@@ -676,7 +685,6 @@ test("getProteinInteraction", () => {
   }
 });
 
-
 test("getDiseaseGeneAssoc", () => {
   //const wrapper = shallow(<Page dcid={"test"} nodeName={"P53_HUMAN"} />);
   const cases: {
@@ -684,105 +692,106 @@ test("getDiseaseGeneAssoc", () => {
     wantArray: { name: string; value: number }[];
   }[] = [
     // Passing in P53_HUMAN data
-    {data: dataP53,
+    {
+      data: dataP53,
       wantArray: [
-    {
-        name: "\"hypereosinophilic syndrome\"",
-        value: 1.307
-    },
-    {
-        name: "\"hypoglycemia\"",
-        value: 1.637
-    }
-    ],
+        {
+          name: '"hypereosinophilic syndrome"',
+          value: 1.307,
+        },
+        {
+          name: '"hypoglycemia"',
+          value: 1.637,
+        },
+      ],
     },
     {
       data: {
-        "nodes": [
-            {
-                "neighbors": [
-                    {
-                        "direction": "DIRECTION_IN",
-                        "nodes": [
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionNotDetected"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Vagina"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Vagina_SquamousEpithelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "UrinaryBladder"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_UrinaryBladder_UrothelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Tonsil"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells"
-                            }
+        nodes: [
+          {
+            neighbors: [
+              {
+                direction: "DIRECTION_IN",
+                nodes: [
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionNotDetected",
+                          },
                         ],
-                        "property": "detectedProtein"
-                    }
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Vagina",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Vagina_SquamousEpithelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "UrinaryBladder",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_UrinaryBladder_UrothelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Tonsil",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells",
+                  },
                 ],
-                "value": "bio/P53_HUMAN"
-            }
-        ]
-},
-      wantArray: []
-    }
+                property: "detectedProtein",
+              },
+            ],
+            value: "bio/P53_HUMAN",
+          },
+        ],
+      },
+      wantArray: [],
+    },
   ];
   for (const c of cases) {
     const diseaseGeneAssoc = getDiseaseGeneAssoc(c.data);
@@ -803,115 +812,116 @@ test("getVarGeneAssoc", () => {
     wantArray: ProteinVarType[];
   }[] = [
     // Passing in P53_HUMAN data
-    {data: dataP53,
+    {
+      data: dataP53,
       wantArray: [
-    {
-        id: "bio/rs7211097",
-        name: "Whole Blood",
-        value: "-0.094116",
-        interval: "[-0.126789 -0.054901]"
-    },
-    {
-        id: "bio/rs62059165",
-        name: "Thyroid",
-        value: "0.160064",
-        interval: "[0.102083 0.231955]"
-    },
-    {
-        id: "bio/rs7220915",
-        name: "Pancreas",
-        value: "0.081840",
-        interval: "[0.017535 0.145954]"
-    }
-],
+        {
+          id: "bio/rs7211097",
+          name: "Whole Blood",
+          value: "-0.094116",
+          interval: "[-0.126789 -0.054901]",
+        },
+        {
+          id: "bio/rs62059165",
+          name: "Thyroid",
+          value: "0.160064",
+          interval: "[0.102083 0.231955]",
+        },
+        {
+          id: "bio/rs7220915",
+          name: "Pancreas",
+          value: "0.081840",
+          interval: "[0.017535 0.145954]",
+        },
+      ],
     },
     {
       data: {
-        "nodes": [
-            {
-                "neighbors": [
-                    {
-                        "direction": "DIRECTION_IN",
-                        "nodes": [
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionNotDetected"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Vagina"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Vagina_SquamousEpithelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "UrinaryBladder"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_UrinaryBladder_UrothelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Tonsil"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells"
-                            }
+        nodes: [
+          {
+            neighbors: [
+              {
+                direction: "DIRECTION_IN",
+                nodes: [
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionNotDetected",
+                          },
                         ],
-                        "property": "detectedProtein"
-                    }
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Vagina",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Vagina_SquamousEpithelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "UrinaryBladder",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_UrinaryBladder_UrothelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Tonsil",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells",
+                  },
                 ],
-                "value": "bio/P53_HUMAN"
-            }
-        ]
-},
-      wantArray: []
-    }
+                property: "detectedProtein",
+              },
+            ],
+            value: "bio/P53_HUMAN",
+          },
+        ],
+      },
+      wantArray: [],
+    },
   ];
   for (const c of cases) {
     const varGeneAssoc = getVarGeneAssoc(c.data);
@@ -926,112 +936,112 @@ test("getVarGeneAssoc", () => {
   }
 });
 
-
 test("getVarTypeAssoc", () => {
   const cases: {
     data: GraphNodes;
     wantArray: { name: string; value: number }[];
   }[] = [
     // Passing in P53_HUMAN data
-    {data: dataP53,
+    {
+      data: dataP53,
       wantArray: [
-    {
-        "name": "GeneticVariantFunctionalCategorySplice5",
-        "value": 2678
-    },
-    {
-        "name": "GeneticVariantFunctionalCategoryCodingSynon",
-        "value": 258
-    }
-],
+        {
+          name: "GeneticVariantFunctionalCategorySplice5",
+          value: 2678,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryCodingSynon",
+          value: 258,
+        },
+      ],
     },
     {
       data: {
-        "nodes": [
-            {
-                "neighbors": [
-                    {
-                        "direction": "DIRECTION_IN",
-                        "nodes": [
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionNotDetected"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Vagina"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Vagina_SquamousEpithelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "UrinaryBladder"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_UrinaryBladder_UrothelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Tonsil"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells"
-                            }
+        nodes: [
+          {
+            neighbors: [
+              {
+                direction: "DIRECTION_IN",
+                nodes: [
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionNotDetected",
+                          },
                         ],
-                        "property": "detectedProtein"
-                    }
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Vagina",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Vagina_SquamousEpithelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "UrinaryBladder",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_UrinaryBladder_UrothelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Tonsil",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells",
+                  },
                 ],
-                "value": "bio/P53_HUMAN"
-            }
-        ]
-},
-      wantArray: []
-    }
+                property: "detectedProtein",
+              },
+            ],
+            value: "bio/P53_HUMAN",
+          },
+        ],
+      },
+      wantArray: [],
+    },
   ];
   for (const c of cases) {
     const varTypeAssoc = getVarTypeAssoc(c.data);
@@ -1046,120 +1056,120 @@ test("getVarTypeAssoc", () => {
   }
 });
 
-
 test("getVarSigAssoc", () => {
   const cases: {
     data: GraphNodes;
     wantArray: { name: string; value: number }[];
   }[] = [
     // Passing in P53_HUMAN data
-    {data: dataP53,
+    {
+      data: dataP53,
       wantArray: [
-    {
-        "name": "ClinSigConflictingPathogenicity",
-        "value": 1146
-    },
-    {
-        "name": "ClinSigUncertain",
-        "value": 1184
-    },
-    {
-        "name": "ClinSigPathogenic",
-        "value": 560
-    },
-    {
-        "name": "ClinSigBenign",
-        "value": 58
-    }
-],
+        {
+          name: "ClinSigConflictingPathogenicity",
+          value: 1146,
+        },
+        {
+          name: "ClinSigUncertain",
+          value: 1184,
+        },
+        {
+          name: "ClinSigPathogenic",
+          value: 560,
+        },
+        {
+          name: "ClinSigBenign",
+          value: 58,
+        },
+      ],
     },
     {
       data: {
-        "nodes": [
-            {
-                "neighbors": [
-                    {
-                        "direction": "DIRECTION_IN",
-                        "nodes": [
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionNotDetected"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Vagina"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Vagina_SquamousEpithelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "UrinaryBladder"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_UrinaryBladder_UrothelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Tonsil"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells"
-                            }
+        nodes: [
+          {
+            neighbors: [
+              {
+                direction: "DIRECTION_IN",
+                nodes: [
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionNotDetected",
+                          },
                         ],
-                        "property": "detectedProtein"
-                    }
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Vagina",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Vagina_SquamousEpithelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "UrinaryBladder",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_UrinaryBladder_UrothelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Tonsil",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells",
+                  },
                 ],
-                "value": "bio/P53_HUMAN"
-            }
-        ]
-},
-      wantArray: []
-    }
+                property: "detectedProtein",
+              },
+            ],
+            value: "bio/P53_HUMAN",
+          },
+        ],
+      },
+      wantArray: [],
+    },
   ];
   for (const c of cases) {
     const varSigAssoc = getVarSigAssoc(c.data);
@@ -1174,116 +1184,116 @@ test("getVarSigAssoc", () => {
   }
 });
 
-
 test("getChemicalGeneAssoc", () => {
   const cases: {
     data: GraphNodes;
     wantArray: { name: string; value: number }[];
   }[] = [
     // Passing in P53_HUMAN data
-    {data: dataP53,
+    {
+      data: dataP53,
       wantArray: [
-    {
-        "name": "RelationshipAssociationTypeAssociated",
-        "value": 10
-    },
-    {
-        "name": "RelationshipAssociationTypeNotAssociated",
-        "value": 0
-    },
-    {
-        "name": "RelationshipAssociationTypeAmbiguous",
-        "value": 0
-    }
-],
+        {
+          name: "RelationshipAssociationTypeAssociated",
+          value: 10,
+        },
+        {
+          name: "RelationshipAssociationTypeNotAssociated",
+          value: 0,
+        },
+        {
+          name: "RelationshipAssociationTypeAmbiguous",
+          value: 0,
+        },
+      ],
     },
     {
       data: {
-        "nodes": [
-            {
-                "neighbors": [
-                    {
-                        "direction": "DIRECTION_IN",
-                        "nodes": [
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionNotDetected"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Vagina"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Vagina_SquamousEpithelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "UrinaryBladder"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_UrinaryBladder_UrothelialCells"
-                            },
-                            {
-                                "neighbors": [
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "ProteinExpressionLow"
-                                            }
-                                        ],
-                                        "property": "proteinExpressionScore"
-                                    },
-                                    {
-                                        "direction": "DIRECTION_OUT",
-                                        "nodes": [
-                                            {
-                                                "value": "Tonsil"
-                                            }
-                                        ],
-                                        "property": "humanTissue"
-                                    }
-                                ],
-                                "value": "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells"
-                            }
+        nodes: [
+          {
+            neighbors: [
+              {
+                direction: "DIRECTION_IN",
+                nodes: [
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionNotDetected",
+                          },
                         ],
-                        "property": "detectedProtein"
-                    }
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Vagina",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Vagina_SquamousEpithelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "UrinaryBladder",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_UrinaryBladder_UrothelialCells",
+                  },
+                  {
+                    neighbors: [
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "ProteinExpressionLow",
+                          },
+                        ],
+                        property: "proteinExpressionScore",
+                      },
+                      {
+                        direction: "DIRECTION_OUT",
+                        nodes: [
+                          {
+                            value: "Tonsil",
+                          },
+                        ],
+                        property: "humanTissue",
+                      },
+                    ],
+                    value: "bio/P53_HUMAN_Tonsil_SquamousEpithelialCells",
+                  },
                 ],
-                "value": "bio/P53_HUMAN"
-            }
-        ]
-},
-      wantArray: []
-    }
+                property: "detectedProtein",
+              },
+            ],
+            value: "bio/P53_HUMAN",
+          },
+        ],
+      },
+      wantArray: [],
+    },
   ];
   for (const c of cases) {
     const chemGeneAssoc = getChemicalGeneAssoc(c.data);
@@ -1297,5 +1307,3 @@ test("getChemicalGeneAssoc", () => {
     }
   }
 });
-
-

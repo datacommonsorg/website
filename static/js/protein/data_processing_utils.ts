@@ -1,8 +1,8 @@
 import _ from "lodash";
 
 import { GraphNodes } from "../shared/types";
-import { ProteinPropDataStrType } from "./chart";
-import { ProteinPropDataNumType } from "./chart";
+import { ProteinStrData } from "./chart";
+import { ProteinNumData } from "./chart";
 
 export interface ProteinVarType {
   id: string;
@@ -17,12 +17,12 @@ export interface InteractingProteinType {
   parent: string;
 }
 
-export function getTissueScore(data: GraphNodes): ProteinPropDataStrType[] {
+export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   // Tissue to score mapping.
   if (!data) {
     return [];
   }
-  const returnData: ProteinPropDataStrType[] = [];
+  const returnData: ProteinStrData[] = [];
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
@@ -78,10 +78,9 @@ export function getProteinInteraction(
       let protein_name = null;
       let confidence_score = null;
       let parent_protein = null;
-      let dupCount = 0;
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors)) {
-        return [];
+        continue;
       }
       for (const n of node.neighbors) {
         if (n.property === "name") {
@@ -91,12 +90,6 @@ export function getProteinInteraction(
           }
           protein_name = n.nodes[0].value;
           parent_protein = nodeName;
-          if (seen.has(protein_name)) {
-            dupCount = 1;
-          }
-          if (!seen.has(protein_name)) {
-            seen.add(protein_name);
-          }
         } else if (n.property === "confidenceScore") {
           // not checking for empty values because if name exists, confidence score must exist
           for (const n1 of n.nodes) {
@@ -111,12 +104,14 @@ export function getProteinInteraction(
           }
         }
       }
-      if (dupCount === 0) {
+      // checking for duplicates
+      if (!seen.has(protein_name)) {
         returnData.push({
           name: protein_name,
           value: confidence_score,
           parent: parent_protein,
         });
+        seen.add(protein_name);
       }
     }
     return returnData;
@@ -124,14 +119,12 @@ export function getProteinInteraction(
   return [];
 }
 
-export function getDiseaseGeneAssoc(
-  data: GraphNodes
-): ProteinPropDataNumType[] {
+export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
   // Disease Gene Associations
   if (!data) {
     return [];
   }
-  const returnData: ProteinPropDataNumType[] = [];
+  const returnData: ProteinNumData[] = [];
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
@@ -184,7 +177,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   if (!data) {
     return [];
   }
-  let returnData = [] as ProteinVarType[];
+  const returnData = [] as ProteinVarType[];
   const seen = new Set();
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
@@ -200,7 +193,6 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
       let variant = null;
       let tissue = null;
       let interval = null;
-      const dupCount = 0;
       for (const n of node.neighbors) {
         if (n.property === "geneSymbol") {
           for (const n1 of n.nodes) {
@@ -225,7 +217,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
                 }
               }
             }
-            if (!seen.has(variant)) {
+            if (!seen.has(variant) && !!score) {
               returnData.push({
                 id: variant,
                 name: tissue,
@@ -234,14 +226,6 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
               });
             }
             seen.add(variant);
-            // remove duplicates based on id (outside the for loop for avoid null values)
-            //const seen = new Set();
-            /*returnData = returnData.filter(element => {
-                    const duplicate = seen.has(element.id);
-                    seen.add(element.id);
-                    return !duplicate;
-                  });*/
-            returnData = returnData.filter((val) => !!val.value);
           }
         }
       }
@@ -251,12 +235,12 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   return [];
 }
 
-export function getVarTypeAssoc(data: GraphNodes): ProteinPropDataNumType[] {
+export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
   if (!data) {
     return [];
   }
-  const result: ProteinPropDataNumType[] = [];
+  const result: ProteinNumData[] = [];
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
@@ -269,18 +253,19 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinPropDataNumType[] {
     for (const node of neighbour.nodes) {
       let variant = null;
       for (const n of node.neighbors) {
-        if (n.property === "geneID") {
-          for (const n1 of n.nodes) {
-            for (const n2 of n1.neighbors) {
-              if (n2.property === "geneticVariantFunctionalCategory") {
-                //check for empty values
-                if (_.isEmpty(n2.nodes[0].value)) {
-                  continue;
-                }
-                const count = 1;
-                variant = n2.nodes[0].value;
-                result.push({ name: variant, value: count });
+        if (n.property !== "geneID") {
+          continue;
+        }
+        for (const n1 of n.nodes) {
+          for (const n2 of n1.neighbors) {
+            if (n2.property === "geneticVariantFunctionalCategory") {
+              //check for empty values
+              if (_.isEmpty(n2.nodes[0].value)) {
+                continue;
               }
+              const count = 1;
+              variant = n2.nodes[0].value;
+              result.push({ name: variant, value: count });
             }
           }
         }
@@ -300,12 +285,12 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinPropDataNumType[] {
   return [];
 }
 
-export function getVarSigAssoc(data: GraphNodes): ProteinPropDataNumType[] {
+export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
   if (!data) {
     return [];
   }
-  const result: ProteinPropDataNumType[] = [];
+  const result: ProteinNumData[] = [];
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
@@ -318,18 +303,19 @@ export function getVarSigAssoc(data: GraphNodes): ProteinPropDataNumType[] {
     for (const node of neighbour.nodes) {
       let variant = null;
       for (const n of node.neighbors) {
-        if (n.property === "geneID") {
-          for (const n1 of n.nodes) {
-            for (const n2 of n1.neighbors) {
-              if (n2.property === "clinicalSignificance") {
-                if (_.isEmpty(n2.nodes[0].value)) {
-                  continue;
-                }
-                let count = 0;
-                variant = n2.nodes[0].value;
-                count = 1;
-                result.push({ name: variant, value: count });
+        if (n.property !== "geneID") {
+          continue;
+        }
+        for (const n1 of n.nodes) {
+          for (const n2 of n1.neighbors) {
+            if (n2.property === "clinicalSignificance") {
+              if (_.isEmpty(n2.nodes[0].value)) {
+                continue;
               }
+              let count = 0;
+              variant = n2.nodes[0].value;
+              count = 1;
+              result.push({ name: variant, value: count });
             }
           }
         }
@@ -348,9 +334,7 @@ export function getVarSigAssoc(data: GraphNodes): ProteinPropDataNumType[] {
   return [];
 }
 
-export function getChemicalGeneAssoc(
-  data: GraphNodes
-): ProteinPropDataNumType[] {
+export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   // Chem Gene Associations
   if (!data) {
     return [];
@@ -371,19 +355,20 @@ export function getChemicalGeneAssoc(
     for (const node of neighbour.nodes) {
       let association = null;
       for (const n of node.neighbors) {
-        if (n.property === "geneID") {
-          for (const n1 of n.nodes) {
-            for (const n2 of n1.neighbors) {
-              if (n2.property === "relationshipAssociationType") {
-                // check for null values
-                if (_.isEmpty(n2.nodes[0].value)) {
-                  continue;
-                }
-                let count = 0;
-                association = n2.nodes[0].value;
-                count = 1;
-                result.push({ name: association, value: count });
+        if (n.property !== "geneID") {
+          continue;
+        }
+        for (const n1 of n.nodes) {
+          for (const n2 of n1.neighbors) {
+            if (n2.property === "relationshipAssociationType") {
+              // check for null values
+              if (_.isEmpty(n2.nodes[0].value)) {
+                continue;
               }
+              let count = 0;
+              association = n2.nodes[0].value;
+              count = 1;
+              result.push({ name: association, value: count });
             }
           }
         }
