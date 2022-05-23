@@ -155,9 +155,11 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         collapsible={true}
         svHierarchyType={StatVarHierarchyType.SCATTER}
         samplePlaces={samplePlaces}
-        deselectSVs={(svList: string[]) => svList.forEach((sv) => {
-          removeStatVar(x, y, sv);
-        })}
+        deselectSVs={(svList: string[]) =>
+          svList.forEach((sv) => {
+            removeStatVar(x, y, sv);
+          })
+        }
         selectedSVs={selectedSvs}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
       />

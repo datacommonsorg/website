@@ -147,13 +147,14 @@ class Page extends Component<unknown, PageStateType> {
         tokens: new Set(availableSVs),
       };
       setTokensToUrl([statVarTokenInfo]);
-    }
+    };
 
     const svToSvInfo = {};
     for (const sv of statVars) {
-      svToSvInfo[sv] = sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
+      svToSvInfo[sv] =
+        sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
     }
-    
+
     return (
       <>
         <StatVarWidget
@@ -164,7 +165,9 @@ class Page extends Component<unknown, PageStateType> {
           samplePlaces={namedPlaces}
           deselectSVs={deselectSVs}
           selectedSVs={svToSvInfo}
-          selectSV={(sv) => addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)}
+          selectSV={(sv) =>
+            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
+          }
         />
         <div id="plot-container">
           <Container fluid={true}>
@@ -177,7 +180,9 @@ class Page extends Component<unknown, PageStateType> {
                 <Col sm={12}>
                   <SearchBar
                     places={this.state.placeName}
-                    addPlace={(place) => addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place)}
+                    addPlace={(place) =>
+                      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place)
+                    }
                     removePlace={(place) => {
                       removeToken(
                         TIMELINE_URL_PARAM_KEYS.PLACE,

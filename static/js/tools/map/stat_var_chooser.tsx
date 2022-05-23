@@ -94,7 +94,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       // is deselected, just set the selected stat var to empty.
       selectStatVar(statVar, display, placeInfo, "");
     }
-  }
+  };
   return (
     <StatVarWidget
       openSvHierarchyModal={props.openSvHierarchyModal}
@@ -103,7 +103,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       svHierarchyType={StatVarHierarchyType.MAP}
       samplePlaces={samplePlaces}
       deselectSVs={deselectSVs}
-      selectedSVs={{ [statVar.value.dcid] : statVar.value.info }}
+      selectedSVs={{ [statVar.value.dcid]: statVar.value.info }}
       selectSV={(svDcid) => selectStatVar(statVar, display, placeInfo, svDcid)}
     />
   );

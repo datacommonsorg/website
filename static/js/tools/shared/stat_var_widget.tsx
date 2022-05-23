@@ -22,12 +22,10 @@ import axios from "axios";
 import _ from "lodash";
 import React, { createRef, useEffect } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { NamedPlace } from "../../shared/types";
 
+import { NamedPlace } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
-import {
-  StatVarHierarchy,
-} from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
 
 interface StatVarWidgetPropsType {
@@ -43,7 +41,7 @@ interface StatVarWidgetPropsType {
   samplePlaces: NamedPlace[];
   // Callback function when a list of stat vars are deselected
   deselectSVs: (svList: string[]) => void;
-  // (Optional) A map of stat var dcid to their StatVarInfo for stat vars 
+  // (Optional) A map of stat var dcid to their StatVarInfo for stat vars
   // selected from parent componenet.
   // For example, in timeline tool, these are stat vars parsed from URL.
   selectedSVs?: Record<string, StatVarInfo>;
@@ -72,29 +70,36 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   useEffect(() => {
     if (!_.isEmpty(props.samplePlaces) && !_.isEmpty(props.selectedSVs)) {
       axios
-      .post("/api/place/stat-vars/union", {
-        dcids: props.samplePlaces.map((place) => place.dcid),
-        statVars: Object.keys(props.selectedSVs),
-      })
-      .then((resp) => {
-        const availableSVs = resp.data;
-        const unavailableSVs = [];
-        for (const sv in props.selectedSVs) {
-          if (availableSVs.indexOf(sv) === -1) {
-            unavailableSVs.push(sv);
+        .post("/api/place/stat-vars/union", {
+          dcids: props.samplePlaces.map((place) => place.dcid),
+          statVars: Object.keys(props.selectedSVs),
+        })
+        .then((resp) => {
+          const availableSVs = resp.data;
+          const unavailableSVs = [];
+          for (const sv in props.selectedSVs) {
+            if (availableSVs.indexOf(sv) === -1) {
+              unavailableSVs.push(sv);
+            }
           }
-        }
-        if (!_.isEmpty(unavailableSVs)) {
-          props.deselectSVs(unavailableSVs);
-          alert(
-            `Sorry, the selected variable${unavailableSVs.length > 1 ? "s" : ""} [${unavailableSVs.map(sv => props.selectedSVs[sv].title || sv).join(
-              ", "
-            )}] ` + `${unavailableSVs.length > 1 ? "are" : "is"} not available for the chosen place${props.samplePlaces.length > 1 ? "s" : ""}.`
-          );
-        }
-      });
+          if (!_.isEmpty(unavailableSVs)) {
+            props.deselectSVs(unavailableSVs);
+            alert(
+              `Sorry, the selected variable${
+                unavailableSVs.length > 1 ? "s" : ""
+              } [${unavailableSVs
+                .map((sv) => props.selectedSVs[sv].title || sv)
+                .join(", ")}] ` +
+                `${
+                  unavailableSVs.length > 1 ? "are" : "is"
+                } not available for the chosen place${
+                  props.samplePlaces.length > 1 ? "s" : ""
+                }.`
+            );
+          }
+        });
     }
-  }, [props.samplePlaces])
+  }, [props.samplePlaces]);
 
   return (
     <>
