@@ -64,10 +64,9 @@ function updatePageLayoutState(): void {
   // Unique ID for IITM place page
   // Without this, the charts don't load
   const iitm = document.getElementById("main-footer-iitm");
-  var footerHeight;
+  let footerHeight;
   if (iitm) {
-    footerHeight = document.getElementById("main-footer-iitm")
-      .offsetHeight;
+    footerHeight = document.getElementById("main-footer-iitm").offsetHeight;
   } else {
     footerHeight = document.getElementById("main-footer").offsetHeight;
   }
