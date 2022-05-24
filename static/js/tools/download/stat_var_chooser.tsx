@@ -74,6 +74,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
   useEffect(() => {
     if (!props.placeDcid || !props.enclosedPlaceType) {
       setSamplePlaces([]);
+      return;
     }
     getEnclosedPlacesPromise(props.placeDcid, props.enclosedPlaceType)
       .then((enclosedPlaces) => {

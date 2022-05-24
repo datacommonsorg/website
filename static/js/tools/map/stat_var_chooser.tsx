@@ -50,6 +50,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     const enclosingPlaceDcid = placeInfo.value.enclosingPlace.dcid;
     const enclosedPlaceType = placeInfo.value.enclosedPlaceType;
     if (_.isEmpty(enclosingPlaceDcid) || _.isEmpty(enclosedPlaceType)) {
+      setSamplePlaces([]);
       return;
     }
     getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType).then(
@@ -95,6 +96,9 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       selectStatVar(statVar, display, placeInfo, "");
     }
   };
+  const selectedSVs = !_.isEmpty(statVar.value.dcid)
+    ? { [statVar.value.dcid]: statVar.value.info }
+    : {};
   return (
     <StatVarWidget
       openSvHierarchyModal={props.openSvHierarchyModal}
@@ -103,7 +107,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       svHierarchyType={StatVarHierarchyType.MAP}
       samplePlaces={samplePlaces}
       deselectSVs={deselectSVs}
-      selectedSVs={{ [statVar.value.dcid]: statVar.value.info }}
+      selectedSVs={selectedSVs}
       selectSV={(svDcid) => selectStatVar(statVar, display, placeInfo, svDcid)}
     />
   );
