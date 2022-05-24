@@ -949,7 +949,6 @@ var pJS = function(tag_id, params){
     
     }
 
-
     else if(pJS.interactivity.events.onclick.enable && isInArray('repulse', pJS.interactivity.events.onclick.mode)) {
 
       if(!pJS.tmp.repulse_finish){
