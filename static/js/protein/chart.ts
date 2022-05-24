@@ -16,8 +16,8 @@
 
 import * as d3 from "d3";
 
-import { InteractingProteinType } from "./data_processing_utils";
-import { ProteinVarType } from "./data_processing_utils";
+import { InteractingProteinType } from "./page";
+import { ProteinVarType } from "./page";
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 const HEIGHT = 224;
@@ -127,7 +127,7 @@ export interface VarGeneDataPoint {
  */
 export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   // reformats data to convert tissue score from string to number
-  let reformattedData = {} as ProteinNumData[];
+  let reformattedData = [] as ProteinNumData[];
   reformattedData = data.map((item) => {
     return {
       name: item.name,
@@ -139,7 +139,6 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   function formatTick(d) {
     return TISSUE_SCORE_TO_LABEL[d];
   }
-  // dictionary mapping tissues to specific colors
 
   // groups the tissues of a similar origin and sorts them in ascending order
   reformattedData.sort(function (x, y) {
@@ -175,11 +174,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   const x = d3
     .scaleBand()
     .range([0, width])
-    .domain(
-      reformattedData.map(function (d) {
-        return d.name;
-      })
-    )
+    .domain(reformattedData.map((d) => d.name))
     .padding(0.15);
   svg
     .append("g")
@@ -220,7 +215,7 @@ export function drawProteinInteractionChart(
 ): void {
   // retrieves the parent protein name
   // TODO: create a helper function for reformatting
-  const parentProtein = data[1].parent;
+  const parentProtein = data[0].parent;
   // formats the protein name by removing the parent protein name
   function formatProteinName(d: string) {
     d = d.replace(parentProtein, "");
@@ -233,7 +228,7 @@ export function drawProteinInteractionChart(
     return d;
   }
   // reformats the data by removing the parent protein name and renaming the interacting proteins
-  let reformattedData = {} as ProteinNumData[];
+  let reformattedData = [] as ProteinNumData[];
   reformattedData = data.map((item) => {
     return {
       name: formatProteinName(item.name),
@@ -411,11 +406,7 @@ export function drawVarGeneAssocChart(
   const y = d3
     .scaleBand()
     .range([0, height])
-    .domain(
-      reformattedData.map(function (d) {
-        return d.id;
-      })
-    )
+    .domain(reformattedData.map((d) => d.id))
     .padding(1);
   svg.append("g").call(d3.axisLeft(y));
   // adds the dots and error bars

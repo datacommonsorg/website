@@ -3,19 +3,8 @@ import _ from "lodash";
 import { GraphNodes } from "../shared/types";
 import { ProteinStrData } from "./chart";
 import { ProteinNumData } from "./chart";
-
-export interface ProteinVarType {
-  id: string;
-  name: string;
-  value: string;
-  interval: string;
-}
-
-export interface InteractingProteinType {
-  name: string;
-  value: number;
-  parent: string;
-}
+import { ProteinVarType } from "./page";
+import { InteractingProteinType } from "./page";
 
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   // Tissue to score mapping.
@@ -139,31 +128,32 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
       let disease = null;
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors)) {
-        return [];
+        continue;
       }
       for (const n of node.neighbors) {
-        if (n.property === "geneID") {
-          for (const n1 of n.nodes) {
-            for (const n2 of n1.neighbors) {
-              if (n2.property === "diseaseOntologyID") {
-                for (const n3 of n2.nodes) {
-                  if (n3.neighbors !== undefined) {
-                    for (const n4 of n3.neighbors) {
-                      if (n4.property === "commonName") {
-                        if (_.isEmpty(n4.nodes[0].value)) {
-                          continue;
-                        }
-                        disease = n4.nodes[0].value;
+        if (n.property !== "geneID") {
+          continue;
+        }
+        for (const n1 of n.nodes) {
+          for (const n2 of n1.neighbors) {
+            if (n2.property === "diseaseOntologyID") {
+              for (const n3 of n2.nodes) {
+                if (n3.neighbors !== undefined) {
+                  for (const n4 of n3.neighbors) {
+                    if (n4.property === "commonName") {
+                      if (_.isEmpty(n4.nodes[0].value)) {
+                        continue;
                       }
+                      disease = n4.nodes[0].value;
                     }
                   }
                 }
-              } else if (n2.property === "associationConfidenceInterval") {
-                score = Number(n2.nodes[0].value);
               }
+            } else if (n2.property === "associationConfidenceInterval") {
+              score = Number(n2.nodes[0].value);
             }
-            returnData.push({ name: disease, value: score });
           }
+          returnData.push({ name: disease, value: score });
         }
       }
     }
@@ -194,40 +184,44 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
       let tissue = null;
       let interval = null;
       for (const n of node.neighbors) {
-        if (n.property === "geneSymbol") {
-          for (const n1 of n.nodes) {
-            for (const n2 of n1.neighbors) {
-              if (n2.property === "referenceSNPClusterID") {
-                if (n2.nodes[0].value !== null) {
-                  variant = n2.nodes[0].value;
-                }
-              } else if (n2.property === "log2AllelicFoldChange") {
-                if (n2.nodes[0].value !== null) {
-                  score = n2.nodes[0].value;
-                }
-              } else if (
-                n2.property === "log2AllelicFoldChangeConfidenceInterval"
-              ) {
-                if (n2.nodes[0].value !== null) {
-                  interval = n2.nodes[0].value;
-                }
-              } else if (n2.property === "associatedTissue") {
-                if (n2.nodes[0].value) {
-                  tissue = n2.nodes[0].value;
-                }
+        if (n.property !== "geneSymbol") {
+          continue;
+        }
+
+        for (const n1 of n.nodes) {
+          for (const n2 of n1.neighbors) {
+            if (n2.property === "referenceSNPClusterID") {
+              if (n2.nodes[0].value !== null) {
+                variant = n2.nodes[0].value;
+              }
+            } else if (n2.property === "log2AllelicFoldChange") {
+              if (n2.nodes[0].value !== null) {
+                score = n2.nodes[0].value;
+              }
+            } else if (
+              n2.property === "log2AllelicFoldChangeConfidenceInterval"
+            ) {
+              if (n2.nodes[0].value !== null) {
+                interval = n2.nodes[0].value;
+              }
+            } else if (n2.property === "associatedTissue") {
+              if (n2.nodes[0].value) {
+                tissue = n2.nodes[0].value;
               }
             }
-            if (!seen.has(variant) && !!score) {
-              returnData.push({
-                id: variant,
-                name: tissue,
-                value: score,
-                interval: interval,
-              });
-            }
-            seen.add(variant);
           }
+          if (!seen.has(variant) && !!score) {
+            returnData.push({
+              id: variant,
+              name: tissue,
+              value: score,
+              interval: interval,
+            });
+          }
+          seen.add(variant);
         }
+
+        // end loop
       }
     }
     return returnData;
@@ -350,7 +344,7 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
       continue;
     }
     if (_.isEmpty(neighbour.nodes)) {
-      return [];
+      continue;
     }
     for (const node of neighbour.nodes) {
       let association = null;
