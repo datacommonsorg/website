@@ -84,7 +84,8 @@ test("Single place and single stat var", () => {
           // Hack to trigger hashchange event to fire
           window.dispatchEvent(
             new HashChangeEvent("hashchange", {
-              newURL: "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
+              newURL:
+                "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
               oldURL: "#place=geoId/05&statsVar=Median_Age_Person",
             })
           );
@@ -110,7 +111,8 @@ test("Single place and single stat var", () => {
                   window.dispatchEvent(
                     new HashChangeEvent("hashchange", {
                       newURL: "#place=geoId%2F05&statsVar=Count_Person",
-                      oldURL: "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
+                      oldURL:
+                        "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
                     })
                   );
                   Promise.resolve(wrapper).then(() => {
