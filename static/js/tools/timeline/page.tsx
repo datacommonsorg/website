@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
 import React, { Component, createRef, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 

@@ -19,7 +19,6 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
