@@ -14,7 +14,7 @@
 
 steps:
   - id: "client-test"
-    name: gcr.io/datcom-ci/node:2022-04-14
+    name: gcr.io/datcom-ci/node:2022-01-10
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
