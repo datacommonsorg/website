@@ -25,9 +25,13 @@ import {
   GeoJsonData,
 } from "../chart/types";
 import { intl, localizeSearchParams } from "../i18n/i18n";
+import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
-import { displayNameForPlaceType } from "./util";
+import {
+  displayNameForPlaceType,
+  USA_PLACE_TYPES_WITH_CHOROPLETH,
+} from "./util";
 
 interface ChartBlockPropType {
   /**
@@ -99,7 +103,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         break;
       }
     }
-    const isEarth = this.props.dcid == "Earth";
+    const isEarth = this.props.dcid === EARTH_NAMED_TYPED_PLACE.dcid;
     // We will localize Earth to a translation of "the World".
     // However, we will not localize other Place names, as we will later
     // pull the localized names from the KG.
@@ -195,6 +199,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // Prepare parameters for related charts.
     let unit = this.props.data.unit;
     let scaling = this.props.data.scaling;
+    const isEarth = this.props.dcid === EARTH_NAMED_TYPED_PLACE.dcid;
     if (relatedChart && relatedChart.scale) {
       unit = relatedChart.unit;
       scaling = relatedChart.scaling ? relatedChart.scaling : 1;
@@ -254,10 +259,9 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       let gotChart = false;
       if (
         !!this.props.data.isChoropleth &&
-        this.props.isUsaPlace &&
-        (this.props.placeType === "Country" ||
-          this.props.placeType === "State" ||
-          this.props.placeType === "County")
+        (isEarth ||
+          (this.props.isUsaPlace &&
+            USA_PLACE_TYPES_WITH_CHOROPLETH.has(this.props.placeType)))
       ) {
         const id = randDomId();
         chartElements.push(
@@ -422,7 +426,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           );
         }
       }
-      if (!!this.props.data.isChoropleth && this.props.isUsaPlace) {
+      if (
+        !!this.props.data.isChoropleth &&
+        (this.props.isUsaPlace || isEarth)
+      ) {
         const id = randDomId();
         chartElements.push(
           <Chart
