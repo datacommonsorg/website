@@ -6,6 +6,53 @@ import { ProteinNumData } from "./chart";
 import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 
+const VARIANT_CATEGORY = [
+  "GeneticVariantFunctionalCategoryUTR3",
+  "GeneticVariantFunctionalCategoryUTR5",
+  "GeneticVariantFunctionalCategoryCodingSynon",
+  "GeneticVariantFunctionalCategoryFrameshift",
+  "GeneticVariantFunctionalCategoryIntron",
+  "GeneticVariantFunctionalCategoryMissense",
+  "GeneticVariantFunctionalCategoryNearGene3",
+  "GeneticVariantFunctionalCategoryNearGene5",
+  "GeneticVariantFunctionalCategoryNonsense",
+  "GeneticVariantFunctionalCategorySplice3",
+  "GeneticVariantFunctionalCategorySplice5",
+  "GeneticVariantFunctionalCategoryStopLoss",
+  "GeneticVariantFunctionalCategoryUnknown",
+  "GeneticVariantFunctionalCDSIndel",
+  "GeneticVariantFunctionalCategoryCDSReference",
+  "GeneticVariantFunctionalCategoryncRNA",
+];
+
+const VARIANT_AFFECTS = [
+  "ClinSigAffects",
+  "ClinSigAssociation",
+  "ClinSigAssociationNotFound",
+  "ClinSigBenign",
+  "ClinSigBenignLikelyBenign",
+  "ClinSigConflictingPathogenicity",
+  "ClinSigDrugResponse",
+  "ClinSigHistocompatability",
+  "ClinSigLikelyBenign",
+  "ClinSigLikelyPathogenic",
+  "ClinSigNotProvided",
+  "ClinSigOther",
+  "ClinSigPathogenic",
+  "ClinSigPathogenicLikelyPathogenic",
+  "ClinSigProtective",
+  "ClinSigRiskFactor",
+  "ClinSigUncertain",
+  "ClinSigUnknown",
+  "ClinSigUntested",
+];
+
+const CHEM_RELATIONS = [
+  "RelationshipAssociationTypeAssociated",
+  "RelationshipAssociationTypeNotAssociated",
+  "RelationshipAssociationTypeAmbiguous",
+];
+
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   // Tissue to score mapping.
   if (!data) {
@@ -25,7 +72,7 @@ export function getTissueScore(data: GraphNodes): ProteinStrData[] {
       let score = null;
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors)) {
-        return [];
+        continue;
       }
       for (const n of node.neighbors) {
         if (n.property === "humanTissue") {
@@ -220,8 +267,6 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           }
           seen.add(variant);
         }
-
-        // end loop
       }
     }
     return returnData;
@@ -234,12 +279,13 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   if (!data) {
     return [];
   }
-  const result: ProteinNumData[] = [];
+  const returnData: ProteinNumData[] = [];
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
   }
 
+  const varResult = {};
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "geneID") {
       continue;
@@ -257,23 +303,27 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
               if (_.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              const count = 1;
               variant = n2.nodes[0].value;
-              result.push({ name: variant, value: count });
+              if (variant in varResult) {
+                varResult[variant] = varResult[variant] + 1;
+              } else {
+                varResult[variant] = 1;
+              }
             }
           }
         }
       }
     }
-    const returnData = [];
-    // combine all the variant counts based on similar categories
-    result.forEach(function (element) {
-      if (!this[element.name]) {
-        this[element.name] = { name: element.name, value: 0 };
-        returnData.push(this[element.name]);
+    for (const k of VARIANT_CATEGORY) {
+      if (k in varResult) {
+        continue;
       }
-      this[element.name].value += element.value;
-    }, Object.create(null));
+      varResult[k] = 0;
+    }
+
+    for (const m in varResult) {
+      returnData.push({ name: m, value: varResult[m] });
+    }
     return returnData;
   }
   return [];
@@ -290,6 +340,7 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
     return [];
   }
 
+  const varResult = {};
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "geneID") {
       continue;
@@ -306,24 +357,28 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
               if (_.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              let count = 0;
               variant = n2.nodes[0].value;
-              count = 1;
-              result.push({ name: variant, value: count });
+              if (variant in varResult) {
+                varResult[variant] = varResult[variant] + 1;
+              } else {
+                varResult[variant] = 1;
+              }
             }
           }
         }
       }
     }
-    const returnData = [];
-    result.forEach(function (element) {
-      if (!this[element.name]) {
-        this[element.name] = { name: element.name, value: 0 };
-        returnData.push(this[element.name]);
+    for (const k of VARIANT_AFFECTS) {
+      if (k in varResult) {
+        continue;
       }
-      this[element.name].value += element.value;
-    }, Object.create(null));
-    return returnData;
+      varResult[k] = 0;
+    }
+
+    for (const m in varResult) {
+      result.push({ name: m, value: varResult[m] });
+    }
+    return result;
   }
   return [];
 }
@@ -333,7 +388,8 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   if (!data) {
     return [];
   }
-  const result: { name: string; value: number }[] = [];
+  const result: ProteinNumData[] = [];
+  const chemAssoc = {};
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
@@ -359,36 +415,28 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
               if (_.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              let count = 0;
               association = n2.nodes[0].value;
-              count = 1;
-              result.push({ name: association, value: count });
+              if (association in chemAssoc) {
+                chemAssoc[association] = chemAssoc[association] + 1;
+              } else {
+                chemAssoc[association] = 1;
+              }
             }
           }
         }
       }
     }
-    const returnData = [];
-    result.forEach(function (element) {
-      if (!this[element.name]) {
-        this[element.name] = { name: element.name, value: 0 };
-        returnData.push(this[element.name]);
+    for (const k of CHEM_RELATIONS) {
+      if (k in chemAssoc) {
+        continue;
       }
-      this[element.name].value += element.value;
-    }, Object.create(null));
+      chemAssoc[k] = 0;
+    }
+    for (const m in chemAssoc) {
+      result.push({ name: m, value: chemAssoc[m] });
+    }
 
-    // add zero count for relationships not found
-    const addObject = [
-      "RelationshipAssociationTypeAssociated",
-      "RelationshipAssociationTypeNotAssociated",
-      "RelationshipAssociationTypeAmbiguous",
-    ];
-    addObject.forEach((obj1) => {
-      if (!returnData.find((obj2) => obj2.name === obj1))
-        returnData.push({ name: obj1, value: 0 });
-    });
-
-    return returnData;
+    return result;
   }
   return [];
 }
