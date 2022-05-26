@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-@import "base";
-@import "statvar_menu";
-@import "draw";
-@import "browser";
+import React from "react";
+import ReactDOM from "react-dom";
 
-.card {
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  position: relative;
-}
+import { Page } from "./page";
 
-.screenshot-image {
-  margin: 10px;
-}
+window.onload = () => {
+  ReactDOM.render(
+    React.createElement(Page),
+    document.getElementById("main-pane")
+  );
+};

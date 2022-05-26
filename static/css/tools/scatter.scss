@@ -85,15 +85,6 @@
   min-width: 10rem;
 }
 
-.input-area-hidden #place-list {
-  flex-grow: 1;
-}
-
-.input-area-hidden #ac {
-  visibility: hidden;
-  width: 0;
-}
-
 .scatter-dot:hover {
   cursor: pointer;
   fill: var(--dc-primary);

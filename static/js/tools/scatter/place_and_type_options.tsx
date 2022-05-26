@@ -22,60 +22,15 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect } from "react";
 
-import {
-  EARTH_NAMED_TYPED_PLACE,
-  USA_PLACE_DCID,
-} from "../../shared/constants";
 import { PlaceSelector } from "../../shared/place_selector";
-import { NamedTypedPlace } from "../../shared/types";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { getAllChildPlaceTypes } from "../map/util";
-import { isChildPlaceOf } from "../shared_util";
 import { Context, IsLoadingWrapper, PlaceInfoWrapper } from "./context";
 import { isPlacePicked, ScatterChartType } from "./util";
-
-const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
-const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
-const USA_STATE_CHILD_TYPES = ["County", ...USA_COUNTY_CHILD_TYPES];
-const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
-
-const USA_CHILD_PLACE_TYPES = {
-  Country: USA_COUNTRY_CHILD_TYPES,
-  State: USA_STATE_CHILD_TYPES,
-  County: USA_COUNTY_CHILD_TYPES,
-  City: USA_CITY_CHILD_TYPES,
-};
-
-const AA4_CHILD_PLACE_TYPES = ["AdministrativeArea5"];
-const AA3_CHILD_PLACE_TYPES = ["AdministrativeArea4", ...AA4_CHILD_PLACE_TYPES];
-const AA2_CHILD_PLACE_TYPES = ["AdministrativeArea3", ...AA3_CHILD_PLACE_TYPES];
-const AA1_CHILD_PLACE_TYPES = ["AdministrativeArea2", ...AA2_CHILD_PLACE_TYPES];
-const NUTS2_CHILD_PLACE_TYPES = ["EurostatNUTS3"];
-const NUTS1_CHILD_PLACE_TYPES = ["EurostatNUTS2", ...NUTS2_CHILD_PLACE_TYPES];
-const NON_USA_COUNTRY_PLACE_TYPES = [
-  "AdministrativeArea1",
-  ...AA1_CHILD_PLACE_TYPES,
-  "EurostatNUTS1",
-  ...NUTS1_CHILD_PLACE_TYPES,
-];
-const CONTINENT_PLACE_TYPES = ["Country", ...NON_USA_COUNTRY_PLACE_TYPES];
-const CHILD_PLACE_TYPES = {
-  Planet: ["Continent", ...CONTINENT_PLACE_TYPES, ...USA_COUNTRY_CHILD_TYPES],
-  Continent: CONTINENT_PLACE_TYPES,
-  Country: NON_USA_COUNTRY_PLACE_TYPES,
-  State: AA1_CHILD_PLACE_TYPES,
-  EurostatNUTS1: NUTS1_CHILD_PLACE_TYPES,
-  EurostatNUTS2: NUTS2_CHILD_PLACE_TYPES,
-  AdministrativeArea1: AA1_CHILD_PLACE_TYPES,
-  AdministrativeArea2: AA2_CHILD_PLACE_TYPES,
-  AdministrativeArea3: AA3_CHILD_PLACE_TYPES,
-  AdministrativeArea4: AA4_CHILD_PLACE_TYPES,
-};
-
 interface PlaceAndTypeOptionsProps {
   // Callback function to toggle the stat var widget (modal for small screen sizes).
   toggleSvHierarchyModal: () => void;
@@ -139,7 +94,6 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
       enclosedPlaceType={place.value.enclosedPlaceType}
       onPlaceSelected={place.setEnclosingPlace}
       onEnclosedPlaceTypeSelected={place.setEnclosedPlaceType}
-      getEnclosedPlaceTypes={getEnclosedPlaceTypes}
     >
       <div className="d-lg-none" id="btn-sv-widget-modal">
         <div className="btn btn-primary" onClick={props.toggleSvHierarchyModal}>
@@ -221,31 +175,6 @@ function loadEnclosedPlaces(
         `Error fetching places of type ${enclosedPlaceType} for ${place.value.enclosingPlace.name}.`
       );
     });
-}
-
-function getEnclosedPlaceTypes(
-  place: NamedTypedPlace,
-  parentPlaces: NamedTypedPlace[]
-): string[] {
-  if (place.dcid === EARTH_NAMED_TYPED_PLACE.dcid) {
-    return CHILD_PLACE_TYPES[EARTH_NAMED_TYPED_PLACE.types[0]];
-  }
-  if (_.isEmpty(place.types)) {
-    return [];
-  }
-  const isUSPlace = isChildPlaceOf(place.dcid, USA_PLACE_DCID, parentPlaces);
-  for (const type of place.types) {
-    if (isUSPlace) {
-      if (type in USA_CHILD_PLACE_TYPES) {
-        return USA_CHILD_PLACE_TYPES[type];
-      }
-    } else {
-      if (type in CHILD_PLACE_TYPES) {
-        return CHILD_PLACE_TYPES[type];
-      }
-    }
-  }
-  return [];
 }
 
 export { PlaceAndTypeOptions as PlaceOptions };

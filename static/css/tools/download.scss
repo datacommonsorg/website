@@ -1,0 +1,138 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
+
+@import 'base_tools';
+@import '../shared/chip';
+@import "../place_selector";
+@import "../source_selector";
+@import "stat_var_widget";
+
+.download-options-container .place-selector-main-selectors {
+  width: 100%;
+}
+
+.download-options-container .place-selector-container {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.download-options-container .btn {
+  display: flex;
+  align-self: flex-end;
+  margin: 0.5rem;
+}
+
+.download-option-section {
+  display: flex;
+  padding: 0.7rem 0.5rem;
+  width: 100%;
+}
+
+.download-option-label {
+  width: 6.3rem;
+}
+
+.download-date-options {
+  margin-left: 1.5rem;
+}
+
+.download-date-options label {
+  margin-bottom: 0;
+  padding: 0.3rem 0;
+}
+
+.download-date-options .form-check-input {
+  position: relative;
+  margin-right: 0.5rem;
+  margin-top: 0;
+}
+
+.download-date-options .form-group {
+  margin-bottom: 0;
+}
+
+.download-date-range-section {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.download-date-range-container {
+  display: flex;
+  align-items: center;
+}
+
+.download-date-range-input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.2rem 0.3rem;
+}
+
+.download-date-range-input-container {
+  display: flex;
+}
+
+.download-date-range-input-container span {
+  padding: 0 0.5rem;
+}
+
+.download-date-range-input,
+.download-date-range-input-error {
+  height: 1.8rem;
+  font-size: 0.9rem;
+  padding: 0.3rem;
+}
+
+.download-date-range-input-error {
+  border: 1px solid var(--dc-error);
+}
+
+.download-date-range-hint,
+.download-date-range-hint-error {
+  font-size: 0.75rem;
+  color: #7b7b7b;
+  padding-left: 0.1rem;
+}
+
+.download-date-range-hint-error {
+  color: var(--dc-error);
+}
+
+.download-date-range-input:focus,
+.download-date-range-input-error:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+}
+
+.download-sv-chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.radio-selection-label,
+.radio-selection-section {
+  padding-top: 0.5rem;
+}
+
+.radio-selection-section {
+  margin-left: 2rem;
+}
+
+.radio-selection-section .form-group {
+  margin-bottom: 0;
+}

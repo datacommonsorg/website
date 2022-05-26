@@ -19,6 +19,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
+import { Chip } from "../../shared/chip";
 import { SourceSelectorSvInfo } from "../../shared/source_selector";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
@@ -37,41 +38,6 @@ import {
 import { setChartOption, setMetahash } from "./util";
 
 const CHART_HEIGHT = 300;
-
-interface StatVarChipPropsType {
-  statVar: string;
-  color: string;
-  title: string;
-  removeStatVar: (statVar: string) => void;
-}
-
-class StatVarChip extends Component<StatVarChipPropsType> {
-  render() {
-    return (
-      <div
-        className="pv-chip mdl-chip--deletable"
-        style={{ backgroundColor: this.props.color }}
-      >
-        <span
-          className="mdl-chip__text"
-          onClick={() => {
-            window.open(`/tools/statvar#${this.props.statVar}`);
-          }}
-        >
-          {this.props.title}
-        </span>
-        <button className="mdl-chip__action">
-          <i
-            className="material-icons"
-            onClick={() => this.props.removeStatVar(this.props.statVar)}
-          >
-            cancel
-          </i>
-        </button>
-      </div>
-    );
-  }
-}
 
 interface ChartPropsType {
   mprop: string; // measured property
@@ -145,12 +111,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                 color = this.plotParams.lines[placeName + statVar].color;
               }
               return (
-                <StatVarChip
+                <Chip
                   key={statVar}
-                  statVar={statVar}
+                  id={statVar}
                   title={this.props.statVarInfos[statVar].title}
                   color={color}
-                  removeStatVar={this.props.removeStatVar}
+                  removeChip={this.props.removeStatVar}
+                  onTextClick={() => window.open(`/tools/statvar#${statVar}`)}
                 />
               );
             })}

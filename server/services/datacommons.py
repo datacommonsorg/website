@@ -400,11 +400,12 @@ def search_statvar(query, places, sv_only):
     return send_request(url, req_json, has_payload=False)
 
 
-def match_statvar(property_value: Mapping[str, str], limit: int):
+def match_statvar(query: str, limit: int, debug: bool):
     url = API_ROOT + API_ENDPOINTS['match_statvar']
     req_json = {
-        'property_value': property_value,
+        'query': query,
         'limit': limit,
+        'debug': debug,
     }
     return send_request(url, req_json, has_payload=False)
 
