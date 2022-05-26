@@ -186,15 +186,17 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
           for (const n2 of n1.neighbors) {
             if (n2.property === "diseaseOntologyID") {
               for (const n3 of n2.nodes) {
-                if (n3.neighbors !== undefined) {
-                  for (const n4 of n3.neighbors) {
-                    if (n4.property === "commonName") {
-                      if (_.isEmpty(n4.nodes[0].value)) {
-                        continue;
-                      }
-                      disease = n4.nodes[0].value;
-                    }
+                if (n3.neighbors === undefined) {
+                  continue;
+                }
+                for (const n4 of n3.neighbors) {
+                  if (n4.property !== "commonName") {
+                    continue;
                   }
+                  if (_.isEmpty(n4.nodes[0].value)) {
+                    continue;
+                  }
+                  disease = n4.nodes[0].value;
                 }
               }
             } else if (n2.property === "associationConfidenceInterval") {
