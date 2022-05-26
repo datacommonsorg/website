@@ -161,6 +161,7 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
     return [];
   }
   const returnData: ProteinNumData[] = [];
+  const seen = new Set();
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
@@ -200,7 +201,10 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
               score = Number(n2.nodes[0].value);
             }
           }
-          returnData.push({ name: disease, value: score });
+          if (!seen.has(disease) && !!score) {
+            returnData.push({ name: disease, value: score });
+          }
+          seen.add(disease);
         }
       }
     }

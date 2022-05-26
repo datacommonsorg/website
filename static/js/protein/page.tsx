@@ -48,6 +48,7 @@ interface PageStateType {
   data: GraphNodes;
 }
 
+// stores the variant id, tissue name, log fold change value, and log fold change confidence interval
 export interface ProteinVarType {
   id: string;
   name: string;
@@ -55,6 +56,7 @@ export interface ProteinVarType {
   interval: string;
 }
 
+// stores the interacting protein name, confidence value, and parent protein name
 export interface InteractingProteinType {
   name: string;
   value: number;

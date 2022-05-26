@@ -7,6 +7,8 @@ Enzyme.configure({ adapter: new Adapter() });
 
 import { GraphNodes } from "../shared/types";
 import { ProteinStrData } from "./chart";
+import dataFGFR1 from "./data_FGFR1.json";
+import dataP53 from "./data_P53.json";
 import {
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
@@ -19,9 +21,6 @@ import {
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
 import { Page } from "./page";
-
-const dataP53 = require("./data_P53.json");
-const dataFGFR1 = require("./data_FGFR1.json");
 test("getTissueScore", () => {
   //const wrapper = shallow(<Page dcid={"test"} nodeName={"test-node"} />);
   const cases: {
@@ -30,7 +29,7 @@ test("getTissueScore", () => {
   }[] = [
     // Passing in P53_HUMAN data
     {
-      data: dataP53,
+      data: dataP53 as GraphNodes,
       wantArray: [
         {
           name: "Vagina",
@@ -48,7 +47,7 @@ test("getTissueScore", () => {
     },
     {
       // Passing in FGFR1_HUMAN data
-      data: dataFGFR1,
+      data: dataFGFR1 as GraphNodes,
       wantArray: [
         {
           name: "UrinaryBladder",
@@ -563,7 +562,7 @@ test("getProteinInteraction", () => {
   }[] = [
     // Passing in P53_HUMAN data
     {
-      data: dataP53,
+      data: dataP53 as GraphNodes,
       nodeName: "P53_HUMAN",
       wantArray: [
         {
@@ -693,7 +692,7 @@ test("getDiseaseGeneAssoc", () => {
   }[] = [
     // Passing in P53_HUMAN data
     {
-      data: dataP53,
+      data: dataP53 as GraphNodes,
       wantArray: [
         {
           name: '"hypereosinophilic syndrome"',
@@ -813,7 +812,7 @@ test("getVarGeneAssoc", () => {
   }[] = [
     // Passing in P53_HUMAN data
     {
-      data: dataP53,
+      data: dataP53 as GraphNodes,
       wantArray: [
         {
           id: "bio/rs7211097",
@@ -943,7 +942,7 @@ test("getVarTypeAssoc", () => {
   }[] = [
     // Passing in P53_HUMAN data
     {
-      data: dataP53,
+      data: dataP53 as GraphNodes,
       wantArray: [
         {
           name: "GeneticVariantFunctionalCategorySplice5",
@@ -952,6 +951,62 @@ test("getVarTypeAssoc", () => {
         {
           name: "GeneticVariantFunctionalCategoryCodingSynon",
           value: 258,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryUTR3",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryUTR5",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryFrameshift",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryIntron",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryMissense",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryNearGene3",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryNearGene5",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryNonsense",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategorySplice3",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryStopLoss",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryUnknown",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCDSIndel",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryCDSReference",
+          value: 0,
+        },
+        {
+          name: "GeneticVariantFunctionalCategoryncRNA",
+          value: 0,
         },
       ],
     },
@@ -1063,7 +1118,7 @@ test("getVarSigAssoc", () => {
   }[] = [
     // Passing in P53_HUMAN data
     {
-      data: dataP53,
+      data: dataP53 as GraphNodes,
       wantArray: [
         {
           name: "ClinSigConflictingPathogenicity",
@@ -1080,6 +1135,66 @@ test("getVarSigAssoc", () => {
         {
           name: "ClinSigBenign",
           value: 58,
+        },
+        {
+          name: "ClinSigAffects",
+          value: 0,
+        },
+        {
+          name: "ClinSigAssociation",
+          value: 0,
+        },
+        {
+          name: "ClinSigAssociationNotFound",
+          value: 0,
+        },
+        {
+          name: "ClinSigBenignLikelyBenign",
+          value: 0,
+        },
+        {
+          name: "ClinSigDrugResponse",
+          value: 0,
+        },
+        {
+          name: "ClinSigHistocompatability",
+          value: 0,
+        },
+        {
+          name: "ClinSigLikelyBenign",
+          value: 0,
+        },
+        {
+          name: "ClinSigLikelyPathogenic",
+          value: 0,
+        },
+        {
+          name: "ClinSigNotProvided",
+          value: 0,
+        },
+        {
+          name: "ClinSigOther",
+          value: 0,
+        },
+        {
+          name: "ClinSigPathogenicLikelyPathogenic",
+          value: 0,
+        },
+        {
+          name: "ClinSigProtective",
+          value: 0,
+        },
+        {
+          name: "ClinSigRiskFactor",
+          value: 0,
+        },
+        {
+          name: "ClinSigUnknown",
+          value: 0,
+        },
+        {
+          name: "ClinSigUntested",
+          value: 0,
         },
       ],
     },
@@ -1191,7 +1306,7 @@ test("getChemicalGeneAssoc", () => {
   }[] = [
     // Passing in P53_HUMAN data
     {
-      data: dataP53,
+      data: dataP53 as GraphNodes,
       wantArray: [
         {
           name: "RelationshipAssociationTypeAssociated",

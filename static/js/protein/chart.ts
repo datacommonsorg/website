@@ -135,13 +135,9 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     };
   });
 
-  // converts the tissue score value to string label
-  function formatTick(d) {
-    return TISSUE_SCORE_TO_LABEL[d];
-  }
-
   // groups the tissues of a similar origin and sorts them in ascending order
-  reformattedData.sort(function (x, y) {
+
+  reformattedData.sort((x, y) => {
     const a = TISSUE_COLOR_DICT[x.name];
     const b = TISSUE_COLOR_DICT[y.name];
     if (a < b) {
@@ -185,7 +181,12 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .style("text-anchor", "end");
   // y-axis for the graph - tissue score
   const y = d3.scaleLinear().domain([0, 3]).range([height, 0]);
-  svg.append("g").call(d3.axisLeft(y).ticks(4).tickFormat(formatTick));
+  svg.append("g").call(
+    d3
+      .axisLeft(y)
+      .ticks(4)
+      .tickFormat((d) => TISSUE_SCORE_TO_LABEL[String(d)])
+  );
   // plotting the bars
   svg
     .selectAll("tissue-score-bar")
@@ -194,13 +195,9 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .append("rect")
     .attr("x", (d) => x(d.name))
     .attr("y", (d) => y(d.value))
-    .attr("height", function (d) {
-      return height - y(d.value);
-    })
+    .attr("height", (d) => height - y(d.value))
     .attr("width", x.bandwidth())
-    .style("fill", function (d) {
-      return TISSUE_COLOR_DICT[d.name];
-    })
+    .style("fill", (d) => TISSUE_COLOR_DICT[d.name])
     .on("mouseover", function () {
       d3.select(this).transition().duration(50).style("opacity", 0.5);
     })
@@ -415,18 +412,10 @@ export function drawVarGeneAssocChart(
     .data(reformattedData)
     .enter()
     .append("line")
-    .attr("x1", function (d) {
-      return x(d.upper);
-    })
-    .attr("x2", function (d) {
-      return x(d.lower);
-    })
-    .attr("y1", function (d) {
-      return y(d.id);
-    })
-    .attr("y2", function (d) {
-      return y(d.id);
-    })
+    .attr("x1", (d) => x(d.upper))
+    .attr("x2", (d) => x(d.lower))
+    .attr("y1", (d) => y(d.id))
+    .attr("y2", (d) => y(d.id))
     .attr("stroke", "grey")
     .attr("stroke-width", "1px");
   svg
@@ -434,16 +423,10 @@ export function drawVarGeneAssocChart(
     .data(reformattedData)
     .enter()
     .append("circle")
-    .attr("cx", function (d) {
-      return x(d.value);
-    })
-    .attr("cy", function (d) {
-      return y(d.id);
-    })
+    .attr("cx", (d) => x(d.value))
+    .attr("cy", (d) => y(d.id))
     .attr("r", "6")
-    .style("fill", function (d) {
-      return var_color[d.name];
-    });
+    .style("fill", (d) => var_color[d.name]);
   // adds circles for each of the mean error values
   svg
     .append("circle")
