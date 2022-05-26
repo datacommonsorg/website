@@ -18,20 +18,35 @@
  * Component for the stat var widget to be used by the website tools
  */
 
-import React, { createRef } from "react";
+import axios from "axios";
+import _ from "lodash";
+import React, { createRef, useEffect } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+import { NamedPlace } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
-import {
-  StatVarHierarchy,
-  StatVarHierarchyPropType,
-} from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { StatVarInfo } from "../timeline/chart_region";
 
 interface StatVarWidgetPropsType {
+  // Whether or not modal version of sv hierarchy is opened
   openSvHierarchyModal: boolean;
+  // callback function when modal version of sv hierarchy is opened
   openSvHierarchyModalCallback: () => void;
-  svHierarchyProps: StatVarHierarchyPropType;
+  // Whether or not the stat var widget should be able to be collapsed
   collapsible: boolean;
+  // The type of svHierarchy to render
+  svHierarchyType: string;
+  // List of sample places to use to figure out what stat vars are available
+  samplePlaces: NamedPlace[];
+  // Callback function when a list of stat vars are deselected
+  deselectSVs: (svList: string[]) => void;
+  // (Optional) A map of stat var dcid to their StatVarInfo for stat vars
+  // selected from parent componenet.
+  // For example, in timeline tool, these are stat vars parsed from URL.
+  selectedSVs?: Record<string, StatVarInfo>;
+  // Callback function when a stat var is selected
+  selectSV?: (sv: string) => void;
 }
 
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
@@ -52,6 +67,40 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
       .appendChild(svHierarchyContainerRef.current);
   }
 
+  useEffect(() => {
+    if (!_.isEmpty(props.samplePlaces) && !_.isEmpty(props.selectedSVs)) {
+      axios
+        .post("/api/place/stat-vars/union", {
+          dcids: props.samplePlaces.map((place) => place.dcid),
+          statVars: Object.keys(props.selectedSVs),
+        })
+        .then((resp) => {
+          const availableSVs = resp.data;
+          const unavailableSVs = [];
+          for (const sv in props.selectedSVs) {
+            if (availableSVs.indexOf(sv) === -1) {
+              unavailableSVs.push(sv);
+            }
+          }
+          if (!_.isEmpty(unavailableSVs)) {
+            props.deselectSVs(unavailableSVs);
+            alert(
+              `Sorry, the selected variable${
+                unavailableSVs.length > 1 ? "s" : ""
+              } [${unavailableSVs
+                .map((sv) => props.selectedSVs[sv].title || sv)
+                .join(", ")}] ` +
+                `${
+                  unavailableSVs.length > 1 ? "are" : "is"
+                } not available for the chosen place${
+                  props.samplePlaces.length > 1 ? "s" : ""
+                }.`
+            );
+          }
+        });
+    }
+  }, [props.samplePlaces]);
+
   return (
     <>
       <div className="d-none d-lg-flex explore-menu-container" id="explore">
@@ -63,12 +112,12 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
         )}
         <div ref={svHierarchyContainerRef} className="full-size">
           <StatVarHierarchy
-            type={props.svHierarchyProps.type}
-            places={props.svHierarchyProps.places}
-            selectedSVs={props.svHierarchyProps.selectedSVs}
-            selectSV={props.svHierarchyProps.selectSV}
+            type={props.svHierarchyType}
+            places={props.samplePlaces}
+            selectedSVs={Object.keys(props.selectedSVs)}
+            selectSV={props.selectSV}
             searchLabel={"Statistical Variables"}
-            deselectSV={props.svHierarchyProps.deselectSV}
+            deselectSV={(sv) => props.deselectSVs([sv])}
           />
         </div>
       </div>
