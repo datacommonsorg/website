@@ -15,6 +15,7 @@
  */
 
 import * as d3 from "d3";
+import _ from "lodash";
 
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
@@ -126,6 +127,10 @@ export interface VarGeneDataPoint {
  * Draw bar chart for tissue score.
  */
 export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
   // reformats data to convert tissue score from string to number
   let reformattedData = [] as ProteinNumData[];
   reformattedData = data.map((item) => {
@@ -210,6 +215,10 @@ export function drawProteinInteractionChart(
   id: string,
   data: InteractingProteinType[]
 ): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
   // retrieves the parent protein name
   // TODO: create a helper function for reformatting
   const parentProtein = data[0].parent;
@@ -295,6 +304,10 @@ export function drawDiseaseGeneAssocChart(
   id: string,
   data: ProteinNumData[]
 ): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
   // chart specific margin to display full disease names
   const margin = { top: 70, right: 50, bottom: 40, left: 150 };
   const height = 400 - margin.top - margin.bottom;
@@ -359,6 +372,10 @@ export function drawVarGeneAssocChart(
   id: string,
   data: ProteinVarType[]
 ): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
   let reformattedData = [] as VarGeneDataPoint[];
   // reformats the input data into required format for error bars
   reformattedData = data.map((item) => {
@@ -474,6 +491,10 @@ export function drawVarTypeAssocChart(
   id: string,
   data: ProteinNumData[]
 ): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
   // formats variant name
   function formatVariant(d: string) {
     // remove the word "GeneticVariantFunctionalCategory" from say "GeneticVariantFunctionalCategorySplice5"
@@ -530,6 +551,10 @@ export function drawVarTypeAssocChart(
 }
 
 export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
   // formats the variant name
   function formatVariant(d: string) {
     // removes the word "ClinSig" from say "ClinSigUncertain"
@@ -591,6 +616,10 @@ export function drawChemGeneAssocChart(
   id: string,
   data: ProteinNumData[]
 ): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
   // formats chemical-gene associations
   function formatChemName(d: string) {
     // removes the word "RelationshipAssociationType" from say "RelationshipAssociationTypeAssociated"
