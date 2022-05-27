@@ -37,7 +37,7 @@ test("Single place and single stat var", () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
+      hash: "#place=geoId/05&statsVar=Median_Age_Person",
     },
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
@@ -78,31 +78,58 @@ test("Single place and single stat var", () => {
           expect(window.location.hash).toEqual(
             "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person"
           );
-
           expect(
             pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
           ).toMatchSnapshot();
-
-          // delete one statVar from the statVar chips
-          wrapper
-            .find("#hierarchy-section input")
-            .at(1)
-            .simulate("change", { target: { checked: false } });
-          Promise.resolve(wrapper).then(() => {
-            wrapper.update();
-            // Hack to mimic the browser behavior as there is no native
-            // browser environment in jest.
-            window.location.hash = "#" + window.location.hash;
-            expect(window.location.hash).toEqual(
-              "#place=geoId%2F05&statsVar=Count_Person"
-            );
-            expect(
-              pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
-            ).toMatchSnapshot();
-            expect(
-              pretty(wrapper.find("#hierarchy-section").getDOMNode().innerHTML)
-            ).toMatchSnapshot();
-          });
+          // Hack to trigger hashchange event to fire
+          window.dispatchEvent(
+            new HashChangeEvent("hashchange", {
+              newURL:
+                "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
+              oldURL: "#place=geoId/05&statsVar=Median_Age_Person",
+            })
+          );
+          Promise.resolve(wrapper)
+            .then(() => wrapper.update())
+            .then(() => wrapper.update())
+            .then(() => {
+              // delete one statVar from the statVar chips
+              wrapper
+                .find("#hierarchy-section input")
+                .at(1)
+                .simulate("change", { target: { checked: false } });
+              Promise.resolve(wrapper)
+                .then(() => wrapper.update())
+                .then(() => {
+                  // Hack to mimic the browser behavior as there is no native
+                  // browser environment in jest.
+                  window.location.hash = "#" + window.location.hash;
+                  expect(window.location.hash).toEqual(
+                    "#place=geoId%2F05&statsVar=Count_Person"
+                  );
+                  // Hack to trigger hashchange event to fire
+                  window.dispatchEvent(
+                    new HashChangeEvent("hashchange", {
+                      newURL: "#place=geoId%2F05&statsVar=Count_Person",
+                      oldURL:
+                        "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
+                    })
+                  );
+                  Promise.resolve(wrapper).then(() => {
+                    expect(
+                      pretty(
+                        wrapper.find("#chart-region").getDOMNode().innerHTML
+                      )
+                    ).toMatchSnapshot();
+                    expect(
+                      pretty(
+                        wrapper.find("#hierarchy-section").getDOMNode()
+                          .innerHTML
+                      )
+                    ).toMatchSnapshot();
+                  });
+                });
+            });
         });
       });
     });

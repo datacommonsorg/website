@@ -123,3 +123,16 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.radio-selection-label,
+.radio-selection-section {
+  padding-top: 0.5rem;
+}
+
+.radio-selection-section {
+  margin-left: 2rem;
+}
+
+.radio-selection-section .form-group {
+  margin-bottom: 0;
+}

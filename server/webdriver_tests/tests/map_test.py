@@ -144,7 +144,7 @@ class TestMap(WebdriverBaseTest):
             '.pac-item:nth-child(1)')
         first_result.click()
         element_present = EC.presence_of_element_located(
-            (By.CLASS_NAME, 'mdl-chip'))
+            (By.CLASS_NAME, 'chip'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Choose stat var

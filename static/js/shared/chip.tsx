@@ -34,15 +34,14 @@ interface ChipPropsType {
 }
 
 export function Chip(props: ChipPropsType): JSX.Element {
-  // TODO: clean up class names - don't need to maintain mdl-chip naming
   return (
     <div
-      className="mdl-chip mdl-chip--deletable"
+      className="chip"
       style={props.color ? { backgroundColor: props.color } : {}}
     >
       <span
-        className={`mdl-chip__text ${
-          props.onTextClick && "mdl-chip__text_clickable"
+        className={`chip-text${
+          props.onTextClick ? " chip-clickable-text" : ""
         }`}
         onClick={() => {
           if (props.onTextClick) {
@@ -52,7 +51,7 @@ export function Chip(props: ChipPropsType): JSX.Element {
       >
         {props.title}
       </span>
-      <button className="mdl-chip__action">
+      <button className="chip-action">
         <i
           className="material-icons"
           onClick={() => props.removeChip(props.id)}
