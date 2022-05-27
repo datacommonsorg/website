@@ -76,12 +76,8 @@ export function getTissueScore(data: GraphNodes): ProteinStrData[] {
       }
       for (const n of node.neighbors) {
         if (n.property === "humanTissue") {
-          // check if the list is empty or not
-          if (_.isEmpty(n.nodes)) {
-            continue;
-          }
-          // check for null tissue value and move to next iteration if true
-          if (_.isEmpty(n.nodes[0].value)) {
+          // check for empty list and null tissue values
+          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
           tissue = n.nodes[0].value;
@@ -128,12 +124,8 @@ export function getProteinInteraction(
       }
       for (const n of node.neighbors) {
         if (n.property === "name") {
-          // check if the list is empty or not
-          if (_.isEmpty(n.nodes)) {
-            continue;
-          }
-          // check for null name values and move to next iteration if true
-          if (_.isEmpty(n.nodes[0].value)) {
+          // check for empty list and null tissue values
+          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
           protein_name = n.nodes[0].value;
@@ -209,10 +201,7 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
                     continue;
                   }
                   // check if the list is empty or not
-                  if (_.isEmpty(n4.nodes)) {
-                    continue;
-                  }
-                  if (_.isEmpty(n4.nodes[0].value)) {
+                  if (_.isEmpty(n4.nodes) || _.isEmpty(n4.nodes[0].value)) {
                     continue;
                   }
                   disease = n4.nodes[0].value;
@@ -344,11 +333,7 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
           for (const n2 of n1.neighbors) {
             if (n2.property === "geneticVariantFunctionalCategory") {
               // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
-              //check for empty values
-              if (_.isEmpty(n2.nodes[0].value)) {
+              if (_.isEmpty(n2.nodes) || _.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
               variant = n2.nodes[0].value;
@@ -403,10 +388,7 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
           for (const n2 of n1.neighbors) {
             if (n2.property === "clinicalSignificance") {
               // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
-              if (_.isEmpty(n2.nodes[0].value)) {
+              if (_.isEmpty(n2.nodes) || _.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
               variant = n2.nodes[0].value;
@@ -464,11 +446,7 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
           for (const n2 of n1.neighbors) {
             if (n2.property === "relationshipAssociationType") {
               // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
-              // check for null values
-              if (_.isEmpty(n2.nodes[0].value)) {
+              if (_.isEmpty(n2.nodes) || _.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
               association = n2.nodes[0].value;
