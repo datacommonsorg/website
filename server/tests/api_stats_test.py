@@ -1,10 +1,139 @@
 import json
 import unittest
+import routes.api.stats as stats_api
 from unittest import mock
 from unittest.mock import patch
 
 from main import app
 from services import datacommons as dc
+
+
+class TestIsValidGetCsvDate(unittest.TestCase):
+
+    def test_is_valid_get_csv_date(self):
+        cases = [{
+            'date': 'latest',
+            'expected': True
+        }, {
+            'date': '',
+            'expected': True
+        }, {
+            'date': '2020',
+            'expected': True
+        }, {
+            'date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2020-01-01',
+            'expected': True
+        }, {
+            'date': '20211',
+            'expected': False
+        }, {
+            'date': '2020-011',
+            'expected': False
+        }, {
+            'date': '2021-01-910',
+            'expected': False
+        }, {
+            'date': 'abc',
+            'expected': False
+        }]
+        for test_case in cases:
+            result = stats_api.is_valid_get_csv_date(test_case.get("date"))
+            assert result == test_case.get("expected")
+
+
+class TestDateGreaterEqualMin(unittest.TestCase):
+
+    def test_date_greater_equal_min(self):
+        cases = [{
+            'date': '',
+            'min_date': '',
+            'expected': False
+        }, {
+            'date': '2020',
+            'min_date': '',
+            'expected': True
+        }, {
+            'date': '2020',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2021',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2020',
+            'min_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2021',
+            'min_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2020-01',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2021-01',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2020',
+            'min_date': '2021',
+            'expected': False
+        }]
+        for test_case in cases:
+            result = stats_api.date_greater_equal_min(test_case.get("date"),
+                                                      test_case.get("min_date"))
+            assert result == test_case.get("expected")
+
+
+class TestDateLesserEqualMax(unittest.TestCase):
+
+    def test_date_lesser_equal_max(self):
+        cases = [{
+            'date': '',
+            'max_date': '',
+            'expected': False
+        }, {
+            'date': '2020',
+            'max_date': '',
+            'expected': True
+        }, {
+            'date': '2020',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2019',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2020',
+            'max_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2019',
+            'max_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2020-01',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2019-01',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2022',
+            'max_date': '2021',
+            'expected': False
+        }]
+        for test_case in cases:
+            result = stats_api.date_lesser_equal_max(test_case.get("date"),
+                                                     test_case.get("max_date"))
+            assert result == test_case.get("expected")
 
 
 class TestApiGetStatsValue(unittest.TestCase):

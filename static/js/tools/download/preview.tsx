@@ -121,6 +121,8 @@ export function Preview(props: PreviewProps): JSX.Element {
     const svParam = Object.keys(props.selectedOptions.selectedStatVars).join(
       "&statVars="
     );
+    // When both minDate and maxDate are set as "latest", the api will get the
+    // data for the latest date.
     const minDate = props.selectedOptions.dateRange
       ? props.selectedOptions.minDate
       : DATE_LATEST;

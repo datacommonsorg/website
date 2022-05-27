@@ -15,6 +15,7 @@
 import json
 import csv
 import io
+import re
 
 from flask import Blueprint, current_app, request, Response, make_response
 from cache import cache
@@ -414,15 +415,52 @@ def get_place_stat_date_within_place():
 
 
 def get_set_csv_rows(stat_set, sv_list, row_limit=None):
+    """
+    Gets the csv rows for a set of statistical variables data of a single date.
+
+    Args:
+        stat_set: set of statistical variable data points with the format: 
+            {
+                data: {
+                    [svDcid]: {
+                        stat: {
+                            [placeDcid]: {
+                                date: "",
+                                value: "",
+                                metaHash: ""
+                            } ,
+                            ...
+                        }
+                    },
+                    ...
+                },
+                metadata: {
+                    [metaHash]: {
+                        provenanceUrl: "",
+                        ...
+                    },
+                    ...
+                }
+            }
+        sv_list: list of variables in the order that they should appear from
+            left to right in each csv row.
+        row_limit (optional): number of csv rows to return
+
+    Returns:
+        An array where each item in the array is a csv row. These csv rows are
+        represented as an array where each item is the value of a cell in the
+        row.
+    """
     metadata = stat_set.get("metadata", {})
     data = stat_set.get("data", {})
-    places = []
+    places = set()
     for sv_data in data.values():
         sv_places = sv_data.get("stat", {}).keys()
-        # we want to get all the places we have data for by doing a union of
+        # we want to get all the places we have data for by doing a set union of
         # places for each stat var
-        places = places | sv_places
-    place_names = cached_name("^".join(sorted(places)))
+        places = places.union(sv_places)
+    place_list = sorted(list(places))
+    place_names = cached_name("^".join(place_list))
     result = []
     for place, place_name in place_names.items():
         if row_limit and len(result) >= row_limit:
@@ -439,11 +477,82 @@ def get_set_csv_rows(stat_set, sv_list, row_limit=None):
     return result
 
 
+def date_greater_equal_min(date, min_date):
+    """
+    Returns whether or not date is considered greater than or equal to min_date.
+    A date is considered greater than or equal to min date if:
+        1. there is no min date
+        2. date is same granularity as min date and an equal or later date
+        3. date is lower granularity and min date is either within date or date
+            is later (eg. min date is 2015-01 and date is 2015)
+        4. date is higher granularity and date is either within min date or
+            later (eg. min date is 2015 and date is 2015-01)
+
+    """
+    if not date:
+        return False
+    return not min_date or date >= min_date or date in min_date
+
+
+def date_lesser_equal_max(date, max_date):
+    """
+    Returns whether or not date is considered less than or equal to max_date.
+    A date is considered less than or equal to max date if:
+        1. there is no max date
+        2. date is same granularity as max date and an equal or earlier date
+        3. date is lower granularity and max date is either within date or date
+            is earlier (eg. max date is 2015-01 and date is 2015)
+        4. date is higher granularity and date is either within max date or
+            earlier (eg. max date is 2015 and date is 2015-01)
+
+    """
+    if not date:
+        return False
+    return not max_date or date <= max_date or max_date in date
+
+
 def get_series_csv_rows(stat_set_series,
                         sv_list,
                         min_date,
                         max_date,
                         row_limit=None):
+    """
+    Gets the csv rows for a set of statistical variable series for a certain
+    date range.
+
+    Args:
+        stat_set_series: set of statistical variable series with the format: 
+            {
+                [placeDcid] : {
+                    data: {
+                        [svDcid]: {
+                            val: {
+                                [date]: [val],
+                                ...
+                            },
+                            metadata: {
+                                provenanceUrl: "",
+                                ...
+                            }
+                        },
+                        ...
+                    }
+                },
+                ...
+            }
+        sv_list: list of variables in the order that they should appear from
+            left to right in each csv row.
+        min_date (optional): the earliest date as a string to get data for. If
+            not set get all dates up to max_date (if max_date is set).
+        max_date (optional): the latest date as a string to get data for. If not
+            set, get all dates starting at min_date (if min_date is set).
+        row_limit (optional): number of csv rows to return
+
+    Returns:
+        An array where each item in the array is a csv row. These csv rows are
+        represented as an array where each item is the value of a cell in the
+        row.
+    """
     places = stat_set_series.keys()
     place_names = cached_name("^".join(places))
     result = []
@@ -462,18 +571,8 @@ def get_series_csv_rows(stat_set_series,
                                                            {}).get(sv, {})
             want_dates = []
             for date in sv_series.get("val", {}).keys():
-                # a date is considered greater than min date if:
-                # 1. there is no min date
-                # 2. date is same granularity as min date and a later date
-                # 3. date is lower granularity and min date is either within date or date is later (eg. min date is 2015-01 and date is 2015)
-                # 4. date is higher granularity and date is either within min date or later (eg. min date is 2015 and date is 2015-01)
-                is_greater_than_min = not min_date or date >= min_date or date in min_date
-                # a date is considered less than max date if:
-                # 1. there is no max date
-                # 2. date is same granularity as max date and an earlier date
-                # 3. date is lower granularity and max date is either within date or date is earlier (eg. max date is 2015-01 and date is 2015)
-                # 4. date is higher granularity and date is either within max date or earlier (eg. max date is 2015 and date is 2015-01)
-                is_less_than_max = not max_date or date <= max_date or max_date in date
+                is_greater_than_min = date_greater_equal_min(date, min_date)
+                is_less_than_max = date_lesser_equal_max(date, max_date)
                 if is_greater_than_min and is_less_than_max:
                     want_dates.append(date)
             want_dates.sort()
@@ -525,6 +624,19 @@ def get_series_csv_rows(stat_set_series,
     return result
 
 
+def is_valid_get_csv_date(date):
+    """
+    Returns whether or not the date string is valid. Valid date strings are:
+        1. empty or
+        2. "latest" or
+        3. of the form "YYYY" or "YYYY-MM" or "YYYY-MM-DD"
+    """
+    if not date or date == "latest" or re.match(r"^(\d\d\d\d)(-\d\d)?(-\d\d)?$",
+                                                date):
+        return True
+    return False
+
+
 @bp.route('/api/stats/csv/within-place')
 @cache.cached(timeout=3600 * 24, query_string=True)
 def get_stats_within_place_csv():
@@ -548,7 +660,17 @@ def get_stats_within_place_csv():
                         400,
                         mimetype='application/json')
     min_date = request.args.get('minDate')
+    if not is_valid_get_csv_date(min_date):
+        return Response(
+            json.dumps('error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD'),
+            400,
+            mimetype='application/json')
     max_date = request.args.get('maxDate')
+    if not is_valid_get_csv_date(max_date):
+        return Response(
+            json.dumps('error: maxDate must be YYYY or YYYY-MM or YYYY-MM-DD'),
+            400,
+            mimetype='application/json')
     row_limit = request.args.get('rowLimit')
     if row_limit:
         row_limit = int(row_limit)
@@ -557,6 +679,8 @@ def get_stats_within_place_csv():
     for sv in stat_vars:
         header_row.extend(["Date:" + sv, "Value:" + sv, "Source:" + sv])
     result_csv.append(header_row)
+    # when min_date and max_date are the same and non empty, we will get the
+    # data for that one date
     if min_date and max_date and min_date == max_date:
         date = min_date
         if min_date == "latest":
