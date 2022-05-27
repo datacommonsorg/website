@@ -279,97 +279,97 @@ class TestBrowser(WebdriverBaseTest):
             'observation-chart')
         self.assertTrue(len(observation_charts) > 0)
 
-    # def test_observation_table_redirect(self):
-    #     """Test that the observation table observation row links can redirect properly"""
-    #     # Load California population browser page.
-    #     self.driver.get(self.url_ + CA_POPULATION_URL)
+    def test_observation_table_redirect(self):
+        """Test that the observation table observation row links can redirect properly"""
+        # Load California population browser page.
+        self.driver.get(self.url_ + CA_POPULATION_URL)
 
-    #     # Wait for observation charts to be loaded.
-    #     element_present = EC.presence_of_element_located(
-    #         (By.CLASS_NAME, 'observation-chart'))
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    #     observations_section = self.driver.find_element_by_xpath(
-    #         '//*[@id="node-content"]/div[2]')
+        # Wait for observation charts to be loaded.
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, 'observation-chart'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        observations_section = self.driver.find_element_by_xpath(
+            '//*[@id="node-content"]/div[2]')
 
-    #     # Switch to table view for the first chart
-    #     observation_section_chart_1 = observations_section.find_elements_by_class_name(
-    #         'card')[0]
-    #     table_view_button = observation_section_chart_1.find_element_by_tag_name(
-    #         'button')
-    #     table_view_button.click()
+        # Switch to table view for the first chart
+        observation_section_chart_1 = observations_section.find_elements_by_class_name(
+            'card')[0]
+        table_view_button = observation_section_chart_1.find_element_by_tag_name(
+            'button')
+        table_view_button.click()
 
-    #     # Click the first row in the table view to open the browser page for that observation
-    #     table = observation_section_chart_1.find_element_by_tag_name('table')
-    #     first_row = table.find_element_by_xpath('.//tbody/tr[2]/td')
-    #     first_row.click()
+        # Click the first row in the table view to open the browser page for that observation
+        table = observation_section_chart_1.find_element_by_tag_name('table')
+        first_row = table.find_element_by_xpath('.//tbody/tr[2]/td')
+        first_row.click()
 
-    #     # Wait for the new page to open in a new tab
-    #     new_page_opened = EC.number_of_windows_to_be(2)
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
+        # Wait for the new page to open in a new tab
+        new_page_opened = EC.number_of_windows_to_be(2)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
 
-    #     # Switch tabs to the page for the observation
-    #     new_page = self.driver.window_handles[-1]
-    #     self.driver.switch_to.window(new_page)
+        # Switch tabs to the page for the observation
+        new_page = self.driver.window_handles[-1]
+        self.driver.switch_to.window(new_page)
 
-    #     # Assert the title of the new page is correct
-    #     NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
-    #     WebDriverWait(self.driver,
-    #                   self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
-    #     self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
+        # Assert the title of the new page is correct
+        NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
+        self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
 
-    #     # Assert header of the new page is correct.
-    #     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    #     about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
-    #     self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
-    #     dcid_subtitle = self.driver.find_element_by_xpath(
-    #         '//*[@id="node"]/h2[1]')
-    #     self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
-    #     typeOf_subtitle = self.driver.find_element_by_xpath(
-    #         '//*[@id="node"]/h2[2]')
-    #     self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
+        # Assert header of the new page is correct.
+        element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+        self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
+        dcid_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[1]')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
+        typeOf_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[2]')
+        self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
 
-    # def test_observation_chart_redirect(self):
-    #     """Test that the observation chart observation node links can redirect properly"""
-    #     # Load California population browser page.
-    #     self.driver.get(self.url_ + CA_POPULATION_URL)
-    #     element_present = EC.presence_of_element_located(
-    #         (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    def test_observation_chart_redirect(self):
+        """Test that the observation chart observation node links can redirect properly"""
+        # Load California population browser page.
+        self.driver.get(self.url_ + CA_POPULATION_URL)
+        element_present = EC.presence_of_element_located(
+            (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-    #     # Click the point on the chart for the year 1850
-    #     element_present = EC.presence_of_element_located((
-    #         By.XPATH,
-    #         '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
-    #     ))
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    #     point = self.driver.find_element_by_xpath(
-    #         '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
-    #     )
-    #     point.click()
+        # Click the point on the chart for the year 1850
+        element_present = EC.presence_of_element_located((
+            By.XPATH,
+            '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
+        ))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        point = self.driver.find_element_by_xpath(
+            '//*[@id="node-content"]/div[2]/div/div[1]/div[2]/div/div[2]/*[name()="svg"]/*[name()="g"][4]/*[name()="g"]/*[name()="circle"][1]'
+        )
+        point.click()
 
-    #     # Wait for the new page to open in a new tab
-    #     new_page_opened = EC.number_of_windows_to_be(2)
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
+        # Wait for the new page to open in a new tab
+        new_page_opened = EC.number_of_windows_to_be(2)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(new_page_opened)
 
-    #     # Switch tabs to the page for the observation
-    #     new_page = self.driver.window_handles[-1]
-    #     self.driver.switch_to.window(new_page)
+        # Switch tabs to the page for the observation
+        new_page = self.driver.window_handles[-1]
+        self.driver.switch_to.window(new_page)
 
-    #     # Assert the title of the new page is correct
-    #     NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
-    #     WebDriverWait(self.driver,
-    #                   self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
-    #     self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
+        # Assert the title of the new page is correct
+        NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
+        self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
 
-    #     # Assert header of the new page is correct.
-    #     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
-    #     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    #     about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
-    #     self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
-    #     dcid_subtitle = self.driver.find_element_by_xpath(
-    #         '//*[@id="node"]/h2[1]')
-    #     self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
-    #     typeOf_subtitle = self.driver.find_element_by_xpath(
-    #         '//*[@id="node"]/h2[2]')
-    #     self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
+        # Assert header of the new page is correct.
+        element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
+        self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
+        dcid_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[1]')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
+        typeOf_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="node"]/h2[2]')
+        self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')

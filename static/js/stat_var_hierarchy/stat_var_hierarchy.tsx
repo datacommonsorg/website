@@ -27,6 +27,7 @@ import React from "react";
 import { Context } from "../shared/context";
 import {
   NamedPlace,
+  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
@@ -43,7 +44,7 @@ import {
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
-interface StatVarHierarchyPropType {
+export interface StatVarHierarchyPropType {
   type: string;
   places: NamedPlace[];
   // (Optional) A list of stat vars selected from parent componenet.
@@ -296,10 +297,9 @@ export class StatVarHierarchy extends React.Component<
       if (this.props.selectSV) {
         this.props.selectSV(sv);
       }
-      const svPath =
-        this.props.type === StatVarHierarchyType.MAP
-          ? { [sv]: path }
-          : Object.assign({ [sv]: path }, this.state.svPath);
+      const svPath = RADIO_BUTTON_TYPES.has(this.props.type)
+        ? { [sv]: path }
+        : Object.assign({ [sv]: path }, this.state.svPath);
       this.setState({
         svPath,
       });

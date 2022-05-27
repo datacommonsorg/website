@@ -30,6 +30,7 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
+import services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -149,8 +150,11 @@ def create_app():
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
+    # Initialize the AI module.
+    app.config['AI_CONTEXT'] = ai.Context()
+
     if not cfg.TEST:
-        timeout = 120  # seconds
+        timeout = 5 * 60  # seconds
         counter = 0
         isOpen = False
         while not isOpen:
@@ -158,7 +162,7 @@ def create_app():
                 urllib.request.urlopen(cfg.API_ROOT + "/version")
                 break
             except urllib.error.URLError:
-                time.sleep(1)
+                time.sleep(10)
                 counter += 1
             if counter > timeout:
                 raise RuntimeError("Mixer not ready after %s second" % timeout)

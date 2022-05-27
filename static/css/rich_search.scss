@@ -91,6 +91,21 @@
   border-radius: 0 0.5rem 0.5rem 0;
 }
 
+.debug-view .btn {
+  font-size: 0.8rem;
+  color: var(--link-color);
+  width: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+.debug-view .card-body {
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: normal;
+  padding: 0;
+  white-space: pre;
+}
+
 #main-pane #plot-container {
   direction: initial;
   padding: 2rem;
