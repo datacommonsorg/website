@@ -202,3 +202,16 @@ tr th:last-child {
   width: fit-content;
   margin-top: 1rem;
 }
+
+.radio-selection-label,
+.radio-selection-section {
+  padding-top: 0.5rem;
+}
+
+.radio-selection-section {
+  margin-left: 2rem;
+}
+
+.radio-selection-section .form-group {
+  margin-bottom: 0;
+}

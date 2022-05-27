@@ -97,9 +97,42 @@ export function axios_mock(): void {
 
   // get place stats vars, geoId/05
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", { dcids: ["geoId/05"] })
+    .calledWith("/api/place/stat-vars/union", {
+      dcids: ["geoId/05"],
+      statVars: ["Median_Age_Person"],
+    })
     .mockResolvedValue({
-      data: ["Count_Person", "Median_Age_Person", "NotInTheTree"],
+      data: ["Median_Age_Person"],
+    });
+
+  // get place stats vars, geoId/05
+  when(axios.post)
+    .calledWith("/api/place/stat-vars/union", {
+      dcids: ["geoId/05"],
+      statVars: ["Median_Age_Person", "Count_Person"],
+    })
+    .mockResolvedValue({
+      data: ["Count_Person", "Median_Age_Person"],
+    });
+
+  // get place stats vars, geoId/05
+  when(axios.post)
+    .calledWith("/api/place/stat-vars/union", {
+      dcids: ["geoId/05"],
+      statVars: ["NotInTheTree"],
+    })
+    .mockResolvedValue({
+      data: ["NotInTheTree"],
+    });
+
+  // get place stats vars, geoId/05
+  when(axios.post)
+    .calledWith("/api/place/stat-vars/union", {
+      dcids: ["geoId/05"],
+      statVars: ["Count_Person"],
+    })
+    .mockResolvedValue({
+      data: ["Count_Person"],
     });
 
   // get place names, geoId/05

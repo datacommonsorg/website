@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import axios from "axios";
-import _ from "lodash";
 import React, { Component, createRef, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
@@ -50,7 +48,6 @@ class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
     this.fetchDataAndRender = this.fetchDataAndRender.bind(this);
-    this.addPlaceAction = this.addPlaceAction.bind(this);
     this.state = {
       placeName: {},
       statVarInfo: {},
@@ -140,23 +137,35 @@ class Page extends Component<unknown, PageStateType> {
       sv.includes("|") ? sv.split("|")[0] : sv
     );
 
-    const svHierarchyProps = {
-      deselectSV: (sv) =>
-        removeToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv),
-      places: namedPlaces,
-      selectSV: (sv) =>
-        addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv),
-      selectedSVs: statVars,
-      type: StatVarHierarchyType.TIMELINE,
+    const deselectSVs = (svList: string[]) => {
+      const availableSVs = statVars.filter((sv) => svList.indexOf(sv) === -1);
+      const statVarTokenInfo = {
+        name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
+        sep: statVarSep,
+        tokens: new Set(availableSVs),
+      };
+      setTokensToUrl([statVarTokenInfo]);
     };
-    // TODO(beets): Factor out stat var widget related elements into a separate component.
+
+    const svToSvInfo = {};
+    for (const sv of statVars) {
+      svToSvInfo[sv] =
+        sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
+    }
+
     return (
       <>
         <StatVarWidget
           openSvHierarchyModal={this.state.showSvHierarchyModal}
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
-          svHierarchyProps={svHierarchyProps}
           collapsible={true}
+          svHierarchyType={StatVarHierarchyType.SCATTER}
+          samplePlaces={namedPlaces}
+          deselectSVs={deselectSVs}
+          selectedSVs={svToSvInfo}
+          selectSV={(sv) =>
+            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
+          }
         />
         <div id="plot-container">
           <Container fluid={true}>
@@ -169,9 +178,9 @@ class Page extends Component<unknown, PageStateType> {
                 <Col sm={12}>
                   <SearchBar
                     places={this.state.placeName}
-                    addPlace={(place) => {
-                      this.addPlaceAction(place);
-                    }}
+                    addPlace={(place) =>
+                      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place)
+                    }
                     removePlace={(place) => {
                       removeToken(
                         TIMELINE_URL_PARAM_KEYS.PLACE,
@@ -204,48 +213,6 @@ class Page extends Component<unknown, PageStateType> {
         </div>
       </>
     );
-  }
-
-  private addPlaceAction(place: string): void {
-    // We only need to check the availability of selected stat vars when adding
-    // the first place (ie. when the current list of places is empty) because
-    // we take the union of the eligible stat vars for all places.
-    if (!_.isEmpty(this.state.statVarInfo) && _.isEmpty(this.state.placeName)) {
-      axios
-        .post("/api/place/stat-vars/union", {
-          dcids: [place],
-          statVars: Object.keys(this.state.statVarInfo),
-        })
-        .then((resp) => {
-          const availableSVs: string[] = resp.data;
-          const unavailableSV = [];
-          for (const sv in this.state.statVarInfo) {
-            if (availableSVs.indexOf(sv) === -1) {
-              unavailableSV.push(this.state.statVarInfo[sv].title || sv);
-            }
-          }
-          const placeTokenInfo = {
-            name: TIMELINE_URL_PARAM_KEYS.PLACE,
-            sep: placeSep,
-            tokens: new Set([place]),
-          };
-          const statVarTokenInfo = {
-            name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
-            sep: statVarSep,
-            tokens: new Set(availableSVs),
-          };
-          setTokensToUrl([placeTokenInfo, statVarTokenInfo]);
-          if (!_.isEmpty(unavailableSV)) {
-            alert(
-              `Sorry, the selected variable(s) [${unavailableSV.join(", ")}] ` +
-                "are not available for the chosen place."
-            );
-          }
-        })
-        .catch(() => addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place));
-    } else {
-      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
-    }
   }
 }
 

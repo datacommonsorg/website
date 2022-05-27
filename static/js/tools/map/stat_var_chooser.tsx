@@ -50,6 +50,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     const enclosingPlaceDcid = placeInfo.value.enclosingPlace.dcid;
     const enclosedPlaceType = placeInfo.value.enclosedPlaceType;
     if (_.isEmpty(enclosingPlaceDcid) || _.isEmpty(enclosedPlaceType)) {
+      setSamplePlaces([]);
       return;
     }
     getEnclosedPlacesPromise(enclosingPlaceDcid, enclosedPlaceType).then(
@@ -88,20 +89,26 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     }
   }, [statVar.value]);
 
-  const svHierarchyProps = {
-    places: samplePlaces,
-    selectSV: (svDcid) => {
-      selectStatVar(statVar, display, placeInfo, svDcid);
-    },
-    selectedSVs: [statVar.value.dcid],
-    type: StatVarHierarchyType.MAP,
+  const deselectSVs = (svList: string[]) => {
+    if (!_.isEmpty(svList)) {
+      // map tool can only have one stat var selected at a time so if a stat var
+      // is deselected, just set the selected stat var to empty.
+      selectStatVar(statVar, display, placeInfo, "");
+    }
   };
+  const selectedSVs = !_.isEmpty(statVar.value.dcid)
+    ? { [statVar.value.dcid]: statVar.value.info }
+    : {};
   return (
     <StatVarWidget
       openSvHierarchyModal={props.openSvHierarchyModal}
       openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
-      svHierarchyProps={svHierarchyProps}
       collapsible={true}
+      svHierarchyType={StatVarHierarchyType.MAP}
+      samplePlaces={samplePlaces}
+      deselectSVs={deselectSVs}
+      selectedSVs={selectedSVs}
+      selectSV={(svDcid) => selectStatVar(statVar, display, placeInfo, svDcid)}
     />
   );
 }

@@ -93,7 +93,7 @@ export function Page(): JSX.Element {
     // TODO: Try to move the options into a separate component.
     <>
       <StatVarChooser
-        statVars={Object.keys(selectedOptions.selectedStatVars)}
+        statVars={selectedOptions.selectedStatVars}
         placeDcid={selectedOptions.selectedPlace.dcid}
         enclosedPlaceType={selectedOptions.enclosedPlaceType}
         onStatVarSelected={selectSV}
