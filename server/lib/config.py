@@ -26,6 +26,7 @@ ENV = {
     # Private
     'private',
     'feedingamerica',
+    'stanford',
     'tidal',
     'iitm',
     # Dev
@@ -42,6 +43,7 @@ ENV = {
     'local-private',
     'local-iitm',
     'local-feedingamerica',
+    'local-stanford'
 }
 
 
