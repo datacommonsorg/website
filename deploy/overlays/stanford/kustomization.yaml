@@ -47,3 +47,11 @@ patchesStrategicMerge:
         rollingUpdate:
           maxSurge: 3
           maxUnavailable: 75%
+
+patchesJson6902:
+  - path: patch.yaml
+    target:
+      group: apps
+      kind: Deployment
+      name: website-app
+      version: v1
