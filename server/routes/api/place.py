@@ -19,7 +19,6 @@ import urllib.parse
 
 from flask import Blueprint, request, Response, url_for, g, current_app, abort
 from flask_babel import gettext
-import urllib3
 
 from cache import cache
 import routes.api.shared as shared_api
