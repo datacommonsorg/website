@@ -247,8 +247,8 @@ def get_denom_val(stat_date, denom_data):
         return None
     if stat_date in denom_dates:
         return denom_data[stat_date]
-    encompassed_denom_dates = list(filter(lambda x: stat_date in x,
-                                          denom_dates))
+    encompassed_denom_dates = list(
+        filter(lambda x: stat_date in x, denom_dates))
     if len(encompassed_denom_dates) > 0:
         return denom_data[encompassed_denom_dates[-1]]
     denom_date = list(denom_dates)[0]
@@ -298,9 +298,8 @@ def get_value(place_dcid, sv_data, denom, denom_data, scaling):
 
 def get_denoms_data(places, denom_stat_vars):
     """Get denominator time series given stat vars"""
-    denoms_data_raw = dc_service.get_stat_set_series(list(places),
-                                                     list(denom_stat_vars)).get(
-                                                         'data', {})
+    denoms_data_raw = dc_service.get_stat_set_series(
+        list(places), list(denom_stat_vars)).get('data', {})
     denoms_data = {}
     # Covert data to compatible format
     for place, stat_data in denoms_data_raw.items():
@@ -390,9 +389,9 @@ def choropleth_data(dcid):
                     cc_denom_data.get(place_dcid, {}).get('provenanceUrl', ""))
         # build the exploreUrl
         # TODO: webdriver test to test that the right choropleth loads
-        is_scaled = (('relatedChart' in cc and
-                      cc['relatedChart'].get('scale', False)) or
-                     ('denominator' in cc))
+        is_scaled = (('relatedChart' in cc
+                      and cc['relatedChart'].get('scale', False))
+                     or ('denominator' in cc))
         url_anchor = '&pd={}&ept={}&sv={}'.format(dcid, display_level, sv)
         if is_scaled:
             url_anchor += "&pc=1"
