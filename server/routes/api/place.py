@@ -20,7 +20,6 @@ import flask
 
 from flask import Blueprint, request, Response, url_for, g, current_app, abort
 from flask_babel import gettext
-import urllib3
 
 from cache import cache
 import routes.api.shared as shared_api
@@ -34,9 +33,8 @@ CHILD_PLACE_LIMIT = 50
 
 # Place types to keep for list of child places, keyed by parent place type.
 WANTED_PLACE_TYPES = {
-    'Country': [
-        "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
-    ],
+    'Country':
+    ["State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"],
     'State': ["County"],
     'County': ["City", "Town", "Village", "Borough"],
 }
@@ -296,7 +294,8 @@ def get_stat_vars_union_route():
     dcids = sorted(request.json.get('dcids', []))
     stat_vars = (request.json.get('statVars', []))
 
-    return Response(json.dumps(get_stat_vars_union("^".join(dcids), stat_vars)),
+    return Response(json.dumps(get_stat_vars_union("^".join(dcids),
+                                                   stat_vars)),
                     200,
                     mimetype='application/json')
 
@@ -349,9 +348,12 @@ def child_fetch(dcid):
                 continue
             if place_type in wanted_types and place_pop > 0:
                 result[place_type].append({
-                    'name': place.get('name', place['dcid']),
-                    'dcid': place['dcid'],
-                    'pop': place_pop,
+                    'name':
+                    place.get('name', place['dcid']),
+                    'dcid':
+                    place['dcid'],
+                    'pop':
+                    place_pop,
                 })
 
     # Filter equivalent place types - if a child place occurs in multiple groups, keep it in the preferred group type.
@@ -579,7 +581,7 @@ def api_ranking(dcid):
     crime_statsvar = {
         # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
         'Count_CriminalActivities_CombinedCrime':
-            gettext('Highest Crime Per Capita')
+        gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
         stat_vars_string = '^'.join(ranking_stats.keys())
@@ -589,12 +591,12 @@ def api_ranking(dcid):
         for stat_var, data in response.get('data', {}).items():
             result[ranking_stats[stat_var]].append({
                 'name':
-                    parent_names[parent_dcid],
+                parent_names[parent_dcid],
                 'data':
-                    data,
+                data,
                 'rankingUrl':
-                    get_ranking_url(parent_dcid, current_place_type, stat_var,
-                                    dcid)
+                get_ranking_url(parent_dcid, current_place_type, stat_var,
+                                dcid)
             })
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),
@@ -603,15 +605,15 @@ def api_ranking(dcid):
         for stat_var, data in response.get('data', {}).items():
             result[crime_statsvar[stat_var]].append({
                 'name':
-                    parent_names[parent_dcid],
+                parent_names[parent_dcid],
                 'data':
-                    data,
+                data,
                 'rankingUrl':
-                    get_ranking_url(parent_dcid,
-                                    current_place_type,
-                                    stat_var,
-                                    dcid,
-                                    is_per_capita=True)
+                get_ranking_url(parent_dcid,
+                                current_place_type,
+                                stat_var,
+                                dcid,
+                                is_per_capita=True)
             })
 
     all_labels = list(ranking_stats.values()) + \
@@ -645,7 +647,7 @@ def get_state_code(dcids):
         if iso_code:
             split_iso_code = iso_code[0].split("-")
             if len(split_iso_code
-                  ) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
+                   ) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
                 state_code = split_iso_code[1]
         result[dcid] = state_code
 
@@ -775,7 +777,7 @@ def api_ranking_chart(dcid):
     """
     Gets the ranking data (including ranks, placename, value, date, and source) for a given place.
 
-    Return value example:  
+    Return value example:
     {
         "statvar":{
             "date":"2022-03",
