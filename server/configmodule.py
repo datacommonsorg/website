@@ -64,6 +64,12 @@ class FeedingamericaConfig(PrivateConfig):
     GA_ACCOUNT = 'G-444S6716SQ'
 
 
+class StanfordConfig(PrivateConfig):
+    NAME = "Stanford"
+    ENV_NAME = 'STANFORD'
+    # BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+
+
 class TidalConfig(PrivateConfig):
     NAME = "Tidal"
 
@@ -126,6 +132,21 @@ class LocalFeedingamericaConfig(PrivateConfig):
     SCHEME = 'http'
     ENV_NAME = 'FEEDINGAMERICA'
     BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+
+
+class LocalStanfordConfig(PrivateConfig):
+    # This needs to talk to local mixer that is setup as a private mixer, which
+    # loads csv + tmcf files from GCS
+    API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
+    AI_CONFIG_PATH = os.path.abspath(
+        os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
+    LOCAL = True
+    SECRET_PROJECT = 'datcom-stanford'
+    NAME = "Stanford"
+    SCHEME = 'http'
+    ENV_NAME = 'STANFORD'
+    # BASE_HTML_PATH = 'private_dc/stanford/base.html'
 
 
 class LocalLiteConfig(Config):
