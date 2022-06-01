@@ -71,7 +71,7 @@ class TidalConfig(PrivateConfig):
 class IitmConfig(PrivateConfig):
     # IITM = True
     NAME = 'IITM'
-    GA_ACCOUNT = 'G-32HPL4K4Y1'
+    # GA_ACCOUNT = 'G-32HPL4K4Y1'
     ENV_NAME = 'IITM'
 
 
@@ -100,7 +100,7 @@ class LocalConfig(Config):
 
 class LocalIitmConfig(LocalConfig):
     IITM = True
-    ENV_NAME = 'IITM'
+    # ENV_NAME = 'IITM'
 
 
 class LocalPrivateConfig(PrivateConfig):
