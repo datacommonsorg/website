@@ -45,7 +45,7 @@
   </script>
   {% endif %}
 
-  {% if config['IITM'] %}
+  {% current_app.config.get('ENV_NAME', None)=='IITM' %}
     <title>{{ title }} - India Data Commons</title>
     <link rel="icon" href="/iitm/favicon.ico" type="image/x-icon">
     <link href="/iitm/style.css" rel="stylesheet">
@@ -66,7 +66,7 @@
     <header id="main-header">
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
         <div class="container-fluid">
-          {% if config['IITM'] %}
+          {% current_app.config.get('ENV_NAME', None)=='IITM' %}
           <div class="navbar-brand">
             <a href="{{ url_for('static.homepage') }}">India Data Commons</a>
             {% if subpage_title %}
