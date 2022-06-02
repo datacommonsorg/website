@@ -31,7 +31,7 @@
 -#}
 <!DOCTYPE html>
 
-<html lang={{ locale }} {% if config['IITM'] %} class="iitm-india" {% endif %} id={{ page_id }}>
+<html lang={{ locale }} class="iitm-india" id={{ page_id }}>
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
@@ -46,14 +46,10 @@
   {% endif %}
 
   
-{% if config['IITM'] %}
+
     <title>{{ title }} - India Data Commons</title>
     <link rel="icon" href="/iitm/favicon.ico" type="image/x-icon">
     <link href="/iitm/style.css" rel="stylesheet">
-  {% else %}
-    <title>{{ title }} - Data Commons</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  {% endif %}
 
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -72,7 +68,7 @@
           
 
 
-{% if config['IITM'] %}
+
           <div class="navbar-brand">
             <a href="{{ url_for('static.homepage') }}">India Data Commons</a>
             {% if subpage_title %}
@@ -84,19 +80,7 @@
             {% endif %}
             </a>
           </div>
-          {% else %}
-          <div class="navbar-brand">
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            {% if subpage_title %}
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
-            </a>
-          </div>
-          {% endif %}
+
 
           
           
