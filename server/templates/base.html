@@ -46,10 +46,16 @@
   {% endif %}
 
   
+{% if config['IITM'] %}
     <title>{{ title }} - India Data Commons</title>
     <link rel="icon" href="/iitm/favicon.ico" type="image/x-icon">
     <link href="/iitm/style.css" rel="stylesheet">
-  
+  {% else %}
+    <title>{{ title }} - Data Commons</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  {% endif %}
+
+
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
@@ -64,6 +70,9 @@
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
         <div class="container-fluid">
           
+
+
+{% if config['IITM'] %}
           <div class="navbar-brand">
             <a href="{{ url_for('static.homepage') }}">India Data Commons</a>
             {% if subpage_title %}
@@ -75,6 +84,20 @@
             {% endif %}
             </a>
           </div>
+          {% else %}
+          <div class="navbar-brand">
+            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
+            {% if subpage_title %}
+            <span>
+              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
+                {{ subpage_title }}
+                {% if subpage_url %}</a>{% endif %}
+            </span>
+            {% endif %}
+            </a>
+          </div>
+          {% endif %}
+
           
           
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
