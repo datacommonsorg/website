@@ -27,7 +27,7 @@
 <div class="container">
   <h1>Frequently Asked Questions </h1>
 
-  {% if 1>0 %}
+  
   <p>
     <b>Q: What is Data Commons?</b><br>
     Please see <a href="https://datacommons.org/about" target="_blank">About Data Commons</a>.
@@ -41,12 +41,6 @@
     <a href="/about">About page</a>
   </p>
 
-  {% else %}
-  <p>
-  <b>Q: What is Data Commons?</b><br>
-  Please see <a href="/about">About Data Commons</a>.
-    </p>
-  {% endif %}
   <p>
     <b>Q: What is the difference between Data Commons and public dataset projects like Dataverse,
       Kaggle datasets, Google Big Query Public Datasets, Dataset search etc.?</b><br>
@@ -103,7 +97,7 @@
   <p>
     <b>Q: How can we access data in Data Commons?</b><br>
     The data in knowledge graph can be accessed through the <a
-      href="{{ url_for('browser.browser_main') }}">{% if 1>0 %}India {% endif %}Data Commons Graph Browser </a> and APIs for <a
+      href="{{ url_for('browser.browser_main') }}">India Data Commons Graph Browser </a> and APIs for <a
       href="https://docs.datacommons.org/api/python" target="_blank">Python</a>, <a
       href="https://docs.datacommons.org/api/rest" target="_blank">REST</a> and <a
       href="https://docs.datacommons.org/api/sheets" target="_blank">Google Sheets</a>.
@@ -112,14 +106,12 @@
   <p>
     <b>Q: How can we add our own data to knowledge graph?</b><br>
     Data Commons is intended to be a community project and seeks your involvement.
-    To know more about publishing data that can be included into {% if 1>0 %}India {% endif %}Data Commons, check out <a
+    To know more about publishing data that can be included into India Data Commons, check out <a
       href="https://docs.datacommons.org/contributing/">Contributing</a> page. You can also contact 
-    {% if 1>0 %}
+    
       <a href="mailto:datacommons@rbcdsai.org">datacommons@rbcdsai.org </a>
-    {% else %}
-      <a href="mailto:support@datacommons.org">support@datacommons.org </a>
-    {% endif %}
-    if you have an interesting dataset that you think should be included in {% if 1>0 %}India {% endif %}Data Commons and would
+    
+    if you have an interesting dataset that you think should be included in India ssssssssssssssssssssssssssssssData Commons and would
     like to help.
     In the future we plan to allow users to ingest data into the Data Commons Graph using
     an upload tool. We will update the community when this functionality is released.
@@ -152,11 +144,9 @@
     Given the size and evolving nature of the Data Commons Graph, we prefer you access
     it via the APIs.
     If your project needs local access to a large fraction of the Data Commons Graph, please contact 
-    {% if 1>0 %}
+    
     <a href="mailto:datacommons@rbcdsai.org">datacommons@rbcdsai.org </a>
-    {% else %}
-      <a href="mailto:support@datacommons.org">support@datacommons.org </a>
-    {% endif %}.
+    .
   </p>
 
   <p>
@@ -219,11 +209,9 @@
     <b>Q: I have a question / feedback. Whom do I contact?</b><br>
     You can post your question on the <a href="https://github.com/datacommonsorg/docsite/issues">
     GitHub forum</a> or contact 
-    {% if 1>0 %}
+    
     <a href="mailto:datacommons@rbcdsai.org">datacommons@rbcdsai.org </a>
-    {% else %}
-      <a href="mailto:support@datacommons.org">support@datacommons.org </a>
-    {% endif %}.
+    .
   </p>
 </div>
 {% endblock %}
