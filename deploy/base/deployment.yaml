@@ -108,9 +108,9 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "6G"
+              memory: "8G"
             requests:
-              memory: "6G"
+              memory: "8G"
           args:
             - --mixer_project=$(MIXER_PROJECT)
             - --store_project=$(STORE_PROJECT)
