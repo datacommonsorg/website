@@ -33,9 +33,8 @@ CHILD_PLACE_LIMIT = 50
 
 # Place types to keep for list of child places, keyed by parent place type.
 WANTED_PLACE_TYPES = {
-    'Country': [
-        "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
-    ],
+    'Country':
+    ["State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"],
     'State': ["County"],
     'County': ["City", "Town", "Village", "Borough"],
 }
@@ -106,6 +105,7 @@ PLACE_OVERRIDE = {
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
+EARTH_DCID = "Earth"
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -295,7 +295,8 @@ def get_stat_vars_union_route():
     dcids = sorted(request.json.get('dcids', []))
     stat_vars = (request.json.get('statVars', []))
 
-    return Response(json.dumps(get_stat_vars_union("^".join(dcids), stat_vars)),
+    return Response(json.dumps(get_stat_vars_union("^".join(dcids),
+                                                   stat_vars)),
                     200,
                     mimetype='application/json')
 
@@ -348,9 +349,12 @@ def child_fetch(dcid):
                 continue
             if place_type in wanted_types and place_pop > 0:
                 result[place_type].append({
-                    'name': place.get('name', place['dcid']),
-                    'dcid': place['dcid'],
-                    'pop': place_pop,
+                    'name':
+                    place.get('name', place['dcid']),
+                    'dcid':
+                    place['dcid'],
+                    'pop':
+                    place_pop,
                 })
 
     # Filter equivalent place types - if a child place occurs in multiple groups, keep it in the preferred group type.
@@ -578,7 +582,7 @@ def api_ranking(dcid):
     crime_statsvar = {
         # TRANSLATORS: Label for rankings of places by the number of combined criminal activities, per capita (sorted from highest to lowest).
         'Count_CriminalActivities_CombinedCrime':
-            gettext('Highest Crime Per Capita')
+        gettext('Highest Crime Per Capita')
     }
     for parent_dcid in selected_parents:
         stat_vars_string = '^'.join(ranking_stats.keys())
@@ -588,12 +592,12 @@ def api_ranking(dcid):
         for stat_var, data in response.get('data', {}).items():
             result[ranking_stats[stat_var]].append({
                 'name':
-                    parent_names[parent_dcid],
+                parent_names[parent_dcid],
                 'data':
-                    data,
+                data,
                 'rankingUrl':
-                    get_ranking_url(parent_dcid, current_place_type, stat_var,
-                                    dcid)
+                get_ranking_url(parent_dcid, current_place_type, stat_var,
+                                dcid)
             })
         response = get_related_place(dcid,
                                      '^'.join(crime_statsvar.keys()),
@@ -602,15 +606,15 @@ def api_ranking(dcid):
         for stat_var, data in response.get('data', {}).items():
             result[crime_statsvar[stat_var]].append({
                 'name':
-                    parent_names[parent_dcid],
+                parent_names[parent_dcid],
                 'data':
-                    data,
+                data,
                 'rankingUrl':
-                    get_ranking_url(parent_dcid,
-                                    current_place_type,
-                                    stat_var,
-                                    dcid,
-                                    is_per_capita=True)
+                get_ranking_url(parent_dcid,
+                                current_place_type,
+                                stat_var,
+                                dcid,
+                                is_per_capita=True)
             })
 
     all_labels = list(ranking_stats.values()) + \
@@ -644,7 +648,7 @@ def get_state_code(dcids):
         if iso_code:
             split_iso_code = iso_code[0].split("-")
             if len(split_iso_code
-                  ) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
+                   ) > 1 and split_iso_code[0] == US_ISO_CODE_PREFIX:
                 state_code = split_iso_code[1]
         result[dcid] = state_code
 
@@ -795,18 +799,19 @@ def api_ranking_chart(dcid):
     }
     """
     result = {}
-    isEarth = dcid == "Earth"
     # Get the parent place.
-    if not isEarth:
-        list_of_parent_place = get_parent_place(dcid).get(dcid, [])
+    if not dcid == EARTH_DCID:
+        parent_place_list = get_parent_place(dcid).get(dcid, [])
         # Get the last parent place returned.
-        if list_of_parent_place:
-            parent_place_dcid = list_of_parent_place[-1]["dcid"]
+        if parent_place_list:
+            parent_place_dcid = parent_place_list[-1]["dcid"]
             place_type = get_place_type(dcid)
         else:
-            flask.abort(500)
+            return Response(json.dumps(result),
+                            200,
+                            mimetype='application/json')
     else:
-        parent_place_dcid = "Earth"
+        parent_place_dcid = EARTH_DCID
         place_type = "Country"
     configs = get_ranking_chart_configs()
     # Get the first stat var of each config.
@@ -815,7 +820,14 @@ def api_ranking_chart(dcid):
                                            list(stat_vars), "")
     sv_data_values = sv_data.get("data", {})
     if not sv_data or not sv_data_values:
-        flask.abort(500)
+        return Response(json.dumps(result), 200, mimetype='application/json')
+    ## Get all the place names of dcids in the sv_data
+    place_dcids = set()
+    for value in sv_data_values.values():
+        for place_dcid in value["stat"]:
+            if place_dcid not in place_dcids:
+                place_dcids.add(place_dcid)
+    place_names = get_name(list(place_dcids))
     sv_metadata = sv_data.get("metadata", {})
     # Consider the configs with single sv but ignore denominators.
     for config in configs:
@@ -827,27 +839,29 @@ def api_ranking_chart(dcid):
         dates = set()
         data_points = []
         for place_dcid in sv_data_stat:
-            # dcid_data is a dictionary including date, value and metahash.
-            dcid_data = sv_data_stat[place_dcid]
-            dcid_value = dcid_data.get("value", None)
-            dcid_place_name = get_name([place_dcid]).get(place_dcid, "")
-            # Value and place name are required for the calculation of ranking and the display.
-            if dcid_value is None or not dcid_place_name:
+            # Example of data:{"date": "2022", "value": 123, "metahash": 123456}.
+            data = sv_data_stat[place_dcid]
+            value = data.get("value", None)
+            place_name = place_names.get(place_dcid, "")
+            # Value is required for the calculation of ranking.
+            if value is None:
                 continue
-            data_point = dict()
-            data_point["placeDcid"] = place_dcid
-            data_point["value"] = dcid_value
-            data_point["placeName"] = dcid_place_name
+            data_point = {
+                "placeDcid": place_dcid,
+                "value": value,
+                "placeName": place_name
+            }
             data_points.append(data_point)
-            dates.add(dcid_data.get("date", ""))
-            metadata_hash = dcid_data.get("metaHash", "")
+            dates.add(data.get("date", ""))
+            metadata_hash = data.get("metaHash", None)
             sources.add(
                 sv_metadata.get(str(metadata_hash),
                                 {}).get("provenanceUrl", ""))
         # Build URL for "explore more".
         scaling = config.get("scaling", None)
         unit = config.get("unit", None)
-        parent_place_dcid = None if isEarth else parent_place_dcid
+        if dcid == EARTH_DCID:
+            parent_place_dcid = None
         explore_url = urllib.parse.unquote(
             url_for('ranking.ranking',
                     stat_var=sv,
