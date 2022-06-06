@@ -22,24 +22,24 @@ class TestStaticPage(unittest.TestCase):
     def test_timeline(self):
         response = app.test_client().get('/tools/timeline')
         assert response.status_code == 200
-        assert b"Timelines Explorer - Data Commons" in response.data
+        assert b"Timelines Explorer - India Data Commons" in response.data
 
     def test_scatter(self):
         response = app.test_client().get('/tools/scatter')
         assert response.status_code == 200
-        assert b"Scatter Plot Explorer - Data Commons" in response.data
+        assert b"Scatter Plot Explorer - India Data Commons" in response.data
 
     def test_map(self):
         response = app.test_client().get('/tools/map')
         assert response.status_code == 200
-        assert b"Map Explorer - Data Commons" in response.data
+        assert b"Map Explorer - India Data Commons" in response.data
 
     def test_stat_var(self):
         response = app.test_client().get('/tools/statvar')
         assert response.status_code == 200
-        assert b"Statistical Variable Explorer - Data Commons" in response.data
+        assert b"Statistical Variable Explorer - India Data Commons" in response.data
 
     def test_download(self):
         response = app.test_client().get('/tools/download')
         assert response.status_code == 200
-        assert b"Download Tool - Data Commons" in response.data
+        assert b"Download Tool - India Data Commons" in response.data

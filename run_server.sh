@@ -49,6 +49,7 @@ elif [[ $ENV == "private" ]]; then
   export FLASK_ENV=local-private
 elif [[ $ENV == "iitm" ]]; then
   export FLASK_ENV=local-iitm
+  # export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 elif [[ $ENV == "feedingamerica" ]]; then
   export FLASK_ENV=local-feedingamerica
 elif [[ ! -z ${ENV+x} ]]; then  # Use any specified env.

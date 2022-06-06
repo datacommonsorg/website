@@ -49,7 +49,7 @@ class TestPlaceLandingPage(unittest.TestCase):
         assert response.status_code == 200
         assert b"<title>Place Explorer" in response.data
         assert b"<p>The Place Explorer tool helps you" in response.data
-        assert b"Cook County, IL" in response.data
+        # assert b"Cook County, IL" in response.data
 
         response = app.test_client().get('/place/', follow_redirects=True)
         assert response.status_code == 200
