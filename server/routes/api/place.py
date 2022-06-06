@@ -16,7 +16,6 @@ import collections
 import json
 import requests
 import urllib.parse
-import flask
 
 from flask import Blueprint, request, Response, url_for, g, current_app, abort
 from flask_babel import gettext
