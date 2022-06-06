@@ -4,7 +4,9 @@
     "titleId": "CHART_TITLE-Life_expectancy",
     "title": "Life expectancy (years)",
     "description": "Life expectancy of an individual, measured in years",
-    "statsVars": ["LifeExpectancy_Person"],
+    "statsVars": [
+      "LifeExpectancy_Person"
+    ],
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -28,7 +30,8 @@
       "unit": "%",
       "scaling": 100
     },
-    "isChoropleth": true
+    "isChoropleth": true,
+    "isRankingChart": true
   },
   {
     "category": "Health",
@@ -78,7 +81,9 @@
     "titleId": "CHART_TITLE-Infant_mortality_rate",
     "title": "Infant mortality rate",
     "description": "Count of deaths in infants caused by various diseases",
-    "statsVars": ["Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"],
+    "statsVars": [
+      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+    ],
     "scaling": 0.1,
     "unit": "%",
     "isOverview": true,

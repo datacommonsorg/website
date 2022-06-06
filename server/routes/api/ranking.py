@@ -47,6 +47,8 @@ def ranking_api(stat_var, place_type, place=None):
 
     ranking_results = dc.get_place_ranking([stat_var], place_type, place,
                                            is_per_capita)
+
+    print(f"..............{ranking_results}")
     if 'data' not in ranking_results:
         flask.abort(500)
     data = ranking_results['data']

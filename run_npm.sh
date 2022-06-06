@@ -14,7 +14,6 @@
 # limitations under the License.
 
 cd static
-export NODE_OPTIONS=--openssl-legacy-provider
 npm install --update
 npm run-script watch
 cd ..

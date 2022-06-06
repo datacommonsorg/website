@@ -21,6 +21,7 @@ export const chartTypeEnum = {
   CHOROPLETH: "CHOROPLETH",
   GROUP_LINE: "GROUP_LINE",
   HISTOGRAM: "HISTOGRAM",
+  TABLE: "TABLE",
 };
 
 export interface Series {
@@ -65,6 +66,7 @@ export interface ChartBlockData {
   };
   scaling: number;
   isChoropleth?: boolean;
+  isRankingChart?: boolean
 }
 
 export interface PageChart {
@@ -136,4 +138,21 @@ export interface MapPoint {
   placeName: string;
   latitude: number;
   longitude: number;
+}
+
+export interface CachedRankingChartData {
+  statVars: RankingChartDataGroup;
+}
+
+export interface RankingChartDataGroup {
+  date: string;
+  data: {
+    rank: number;
+    value: number;
+    placeDcid: string;
+    placeName: string;
+  }[]
+  numDataPoints: number;
+  exploreUrl: string;
+  sources: string[];
 }

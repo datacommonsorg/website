@@ -4,7 +4,9 @@
     "titleId": "CHART_TITLE-Total_employed",
     "title": "Number of people employed",
     "description": "Number of people employed",
-    "statsVars": ["Count_Person_Employed"],
+    "statsVars": [
+      "Count_Person_Employed"
+    ],
     "isOverview": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Percentage_employed",
@@ -21,7 +23,9 @@
     "titleId": "CHART_TITLE-Labor_force",
     "title": "Labor force",
     "description": "Count of people in the labor force, see https://data.oecd.org/emp/labour-force.htm",
-    "statsVars": ["Count_Person_InLaborForce"],
+    "statsVars": [
+      "Count_Person_InLaborForce"
+    ],
     "relatedChart": {
       "titleId": "CHART_TITLE-Labor_force_rate",
       "title": "Labor force participation rate",
@@ -52,10 +56,13 @@
     "titleId": "CHART_TITLE-Unemployment_rate",
     "title": "Unemployment rate",
     "description": "Percentage of the population, of working age, who are unemployed.",
-    "statsVars": ["UnemploymentRate_Person"],
+    "statsVars": [
+      "UnemploymentRate_Person"
+    ],
     "unit": "%",
     "isOverview": true,
     "isChoropleth": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -80,7 +87,10 @@
     "titleId": "CHART_TITLE-Worker-vs-nonworker-population",
     "title": "Worker vs nonworker population",
     "description": "Compares worker vs nonworker population in an area",
-    "statsVars": ["Count_Person_Workers", "Count_Person_NonWorker"],
+    "statsVars": [
+      "Count_Person_Workers",
+      "Count_Person_NonWorker"
+    ],
     "relatedChart": {
       "titleId": "CHART_TITLE-Percentage of workers and nonworkers",
       "title": "Percentage of workers and nonworkers",
@@ -96,8 +106,12 @@
     "titleId": "CHART_TITLE-Poverty_rate",
     "description": "Percentage of the population below poverty",
     "title": "Poverty rate",
-    "statsVars": ["Count_Person_BelowPovertyLevelInThePast12Months"],
-    "denominator": ["Count_Person"],
+    "statsVars": [
+      "Count_Person_BelowPovertyLevelInThePast12Months"
+    ],
+    "denominator": [
+      "Count_Person"
+    ],
     "scaling": 100,
     "unit": "%",
     "isOverview": true,
@@ -176,6 +190,7 @@
     ],
     "unit": "$",
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -185,7 +200,9 @@
     "titleId": "CHART_TITLE-Gdp_growth_rate",
     "title": "Gross domestic product growth rate",
     "description": "Annual percentage growth rate of GDP at market prices based on constant local currency",
-    "statsVars": ["GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"],
+    "statsVars": [
+      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+    ],
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -222,7 +239,9 @@
     "titleId": "CHART_TITLE-Government_debt",
     "title": "Government debt",
     "description": "Amount of government debt",
-    "statsVars": ["Amount_Debt_Government"],
+    "statsVars": [
+      "Amount_Debt_Government"
+    ],
     "isOverview": true,
     "unit": "$",
     "relatedChart": {
@@ -289,7 +308,9 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Market_capitalization",
     "title": "Market capitalization of domestic companies",
-    "statsVars": ["Amount_Stock"],
+    "statsVars": [
+      "Amount_Stock"
+    ],
     "unit": "$",
     "isOverview": true,
     "relatedChart": {
@@ -314,7 +335,9 @@
     "titleId": "CHART_TITLE-Inward_remittance",
     "title": "Inward remittance",
     "description": "Total amount of inward remittance into a place",
-    "statsVars": ["Amount_Remittance_InwardRemittance"],
+    "statsVars": [
+      "Amount_Remittance_InwardRemittance"
+    ],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -338,7 +361,9 @@
     "titleId": "CHART_TITLE-Outward_remittance_per_gdp",
     "title": "Outward remittance",
     "description": "Total amount of outward remittance from a place",
-    "statsVars": ["Amount_Remittance_OutwardRemittance"],
+    "statsVars": [
+      "Amount_Remittance_OutwardRemittance"
+    ],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -348,13 +373,16 @@
     "category": "Economics",
     "titleId": "CHART_TITLE-Median_individual_income",
     "title": "Median individual income",
-    "statsVars": ["Median_Income_Person"],
+    "statsVars": [
+      "Median_Income_Person"
+    ],
     "unit": "$",
     "isOverview": true,
     "relatedChart": {
       "scale": false
     },
-    "isChoropleth": true
+    "isChoropleth": true,
+    "isRankingChart": true
   },
   {
     "category": "Economics",
@@ -371,7 +399,7 @@
       "Count_Person_IncomeOf65000To74999USDollar",
       "Count_Person_IncomeOf75000OrMoreUSDollar"
     ],
-    "relatedChart": {
+    " Chart": {
       "titleId": "CHART_TITLE-Individual_income_by_bracket",
       "title": "Percentage of individuals by income brackets",
       "description": "Percentage of the population whose individual incomes are in certain buckets",
@@ -386,7 +414,9 @@
     "titleId": "CHART_TITLE-Median_household_income",
     "title": "Median household income",
     "description": "Median incomes of households",
-    "statsVars": ["Median_Income_Household"],
+    "statsVars": [
+      "Median_Income_Household"
+    ],
     "unit": "$",
     "relatedChart": {
       "scale": false
@@ -426,7 +456,9 @@
     "titleId": "CHART_TITLE-Worker wages (daily)",
     "title": "Worker wages (daily)",
     "description": "Mean daily worker wages",
-    "statsVars": ["Mean_WagesDaily_Worker"],
+    "statsVars": [
+      "Mean_WagesDaily_Worker"
+    ],
     "unit": "₹",
     "relatedChart": {
       "scale": false
@@ -437,7 +469,9 @@
     "titleId": "CHART_TITLE-Worker wages (monthly)",
     "title": "Worker wages (monthly)",
     "description": "Mean monthly worker wages",
-    "statsVars": ["Mean_WagesMonthly_Worker"],
+    "statsVars": [
+      "Mean_WagesMonthly_Worker"
+    ],
     "unit": "₹",
     "relatedChart": {
       "scale": false
