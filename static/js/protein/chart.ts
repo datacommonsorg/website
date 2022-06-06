@@ -16,8 +16,8 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-//import styles from './protein.scss';
 
+//import styles from './protein.scss';
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -28,24 +28,25 @@ const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar chart color for most of the charts
 const BAR_COL = "maroon";
 // tooltip style
-const TOOL_TIP = d3.select("div")
-.append("div")
-.style("opacity", 0)
-.attr("class", "tooltip")
-.attr("width", 10)
-.attr("height", 10)
-.style("background", "rgba(0, 0, 0, 0.8")
-.style("line-height", 1)
-.style("font-weight", "bold")
-.style("padding", "12px")
-.style("border", "solid")
-.style("border-radius", "1px")
-.style("color", "#fff")
-.style("box-sizing", "border-box")
-.style("display", "inline")
-.style("font-size", "8px")
-.style("position", "absolute")
-.style("text-align", "center")
+const TOOL_TIP = d3
+  .select("div")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip")
+  .attr("width", 10)
+  .attr("height", 10)
+  .style("background", "rgba(0, 0, 0, 0.8")
+  .style("line-height", 1)
+  .style("font-weight", "bold")
+  .style("padding", "12px")
+  .style("border", "solid")
+  .style("border-radius", "1px")
+  .style("color", "#fff")
+  .style("box-sizing", "border-box")
+  .style("display", "inline")
+  .style("font-size", "8px")
+  .style("position", "absolute")
+  .style("text-align", "center");
 // Dictionary mapping the tissue score to its label
 const TISSUE_SCORE_TO_LABEL = {
   0: "NotDetected",
@@ -194,28 +195,29 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-  
-  let mouseover = function(d) {
-    var tissueName = d.name;
-    var tissueValue = TISSUE_SCORE_TO_LABEL[d.value];
-    TOOL_TIP
-        .html("Name: " + tissueName + "<br>" + "Expression: " + tissueValue)
-        .style("opacity", 1)
-  }
 
-  let mousemove = function(d) {
-    TOOL_TIP
-      .style("left", (d3.mouse(this)[0] + 380) + "px") 
-      .style("top", (d3.mouse(this)[1] + 220) + "px")
-  }
+  const mouseover = function (d) {
+    const tissueName = d.name;
+    const tissueValue = TISSUE_SCORE_TO_LABEL[d.value];
+    TOOL_TIP.html(
+      "Name: " + tissueName + "<br>" + "Expression: " + tissueValue
+    ).style("opacity", 1);
+  };
 
-  let mouseout = function(d) {
-    var tissueName = d.name;
-    var tissueValue = TISSUE_SCORE_TO_LABEL[d.value];
-    TOOL_TIP
-        .html("Name: " + tissueName + "<br>" + "Expression: " + tissueValue)
-        .style("opacity", 0)
-  }
+  const mousemove = function (d) {
+    TOOL_TIP.style("left", d3.mouse(this)[0] + 380 + "px").style(
+      "top",
+      d3.mouse(this)[1] + 220 + "px"
+    );
+  };
+
+  const mouseout = function (d) {
+    const tissueName = d.name;
+    const tissueValue = TISSUE_SCORE_TO_LABEL[d.value];
+    TOOL_TIP.html(
+      "Name: " + tissueName + "<br>" + "Expression: " + tissueValue
+    ).style("opacity", 0);
+  };
   // plots x-axis for the graph - tissue names
   const x = d3
     .scaleBand()
@@ -229,15 +231,17 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
-  // Adds the x-axis text label 
-  svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + MARGIN.top +50) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Tissue Name");
-  
+  // Adds the x-axis text label
+  svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 50) + ")"
+    )
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Tissue Name");
+
   // y-axis for the graph - tissue score
   const y = d3.scaleLinear().domain([0, 3]).range([height, 0]);
   svg.append("g").call(
@@ -246,15 +250,16 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
       .ticks(4)
       .tickFormat((d) => TISSUE_SCORE_TO_LABEL[String(d)])
   );
-  // Adds the y-axis text label 
-  svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - MARGIN.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Expression Score");      
+  // Adds the y-axis text label
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - MARGIN.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Expression Score");
   // plotting the bars
   svg
     .selectAll("tissue-score-bar")
@@ -270,8 +275,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
       return TISSUE_COLOR_DICT[d.name];
     })
     .on("mouseover", mouseover)
-      .on("mousemove", mousemove)
-      .on("mouseout", mouseout);
+    .on("mousemove", mousemove)
+    .on("mouseout", mouseout);
 }
 
 export function drawProteinInteractionChart(
@@ -320,7 +325,9 @@ export function drawProteinInteractionChart(
     return b.value - a.value;
   });
   // slice the array to display the first 10 interactions only
-  if (reformattedData.length >= 10) {reformattedData = reformattedData.slice(0, 10);}
+  if (reformattedData.length >= 10) {
+    reformattedData = reformattedData.slice(0, 10);
+  }
   const arrName = reformattedData.map((x) => {
     return x.name;
   });
@@ -333,26 +340,35 @@ export function drawProteinInteractionChart(
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
 
-    let mouseover = function(d) {
-      let proteinName = d.name;
-      let confidenceScore = d.value;
-      TOOL_TIP
-          .html("Protein Name: " + proteinName + "<br>" + "Confidence Score: " + confidenceScore)
-          .style("opacity", 1)
-    }
-  
-    let mousemove = function() {
-      TOOL_TIP
-        .style("left", (d3.mouse(this)[0] + 380) + "px") 
-        .style("top", (d3.mouse(this)[1] + 550) + "px")
-    }
-    let mouseout = function(d) {
-      let proteinName = d.name;
-      let confidenceScore = d.value;
-      TOOL_TIP
-          .html("Protein Name: " + proteinName + "<br>" + "Confidence Score: " + confidenceScore)
-          .style("opacity", 0)
-    }
+  const mouseover = function (d) {
+    const proteinName = d.name;
+    const confidenceScore = d.value;
+    TOOL_TIP.html(
+      "Protein Name: " +
+        proteinName +
+        "<br>" +
+        "Confidence Score: " +
+        confidenceScore
+    ).style("opacity", 1);
+  };
+
+  const mousemove = function () {
+    TOOL_TIP.style("left", d3.mouse(this)[0] + 380 + "px").style(
+      "top",
+      d3.mouse(this)[1] + 550 + "px"
+    );
+  };
+  const mouseout = function (d) {
+    const proteinName = d.name;
+    const confidenceScore = d.value;
+    TOOL_TIP.html(
+      "Protein Name: " +
+        proteinName +
+        "<br>" +
+        "Confidence Score: " +
+        confidenceScore
+    ).style("opacity", 0);
+  };
   const bars = svg.append("g");
   // plots x-axis for the graph - protein names
   const x = d3.scaleLinear().domain([0, 1]).range([0, width]);
@@ -363,26 +379,29 @@ export function drawProteinInteractionChart(
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
-  // Adds the x-axis text label 
-  svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + MARGIN.top+ 10) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Confidence Score (IntactMiScore)");
+  // Adds the x-axis text label
+  svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 10) + ")"
+    )
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Confidence Score (IntactMiScore)");
   // plots y-axis for the graph - protein-protein interaction score
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatProteinName)).raise();
-  // Adds the y-axis text label 
-  svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - MARGIN.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Interacting protein name");  
+  // Adds the y-axis text label
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - MARGIN.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Interacting protein name");
 
   // plotting the bars
   bars
@@ -432,26 +451,35 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-  let mouseover = function(d) {
-    let diseaseName = formatDiseaseName(d.name);
-    let assocScore = d.value;
-    TOOL_TIP
-        .html("Disease Name: " + diseaseName + "<br>" + "Association Score: " + assocScore)
-        .style("opacity", 1)
-  }
+  const mouseover = function (d) {
+    const diseaseName = formatDiseaseName(d.name);
+    const assocScore = d.value;
+    TOOL_TIP.html(
+      "Disease Name: " +
+        diseaseName +
+        "<br>" +
+        "Association Score: " +
+        assocScore
+    ).style("opacity", 1);
+  };
 
-  let mousemove = function() {
-    TOOL_TIP
-      .style("left", (d3.mouse(this)[0] + 380) + "px") 
-      .style("top", (d3.mouse(this)[1] + 1050) + "px")
-  }
-  let mouseout = function(d) {
-    let diseaseName = formatDiseaseName(d.name);
-    let assocScore = d.value;
-    TOOL_TIP
-        .html("Disease Name: " + diseaseName + "<br>" + "Association Score: " + assocScore)
-        .style("opacity", 0)
-  }
+  const mousemove = function () {
+    TOOL_TIP.style("left", d3.mouse(this)[0] + 380 + "px").style(
+      "top",
+      d3.mouse(this)[1] + 1050 + "px"
+    );
+  };
+  const mouseout = function (d) {
+    const diseaseName = formatDiseaseName(d.name);
+    const assocScore = d.value;
+    TOOL_TIP.html(
+      "Disease Name: " +
+        diseaseName +
+        "<br>" +
+        "Association Score: " +
+        assocScore
+    ).style("opacity", 0);
+  };
   const bars = svg.append("g");
   // plots the axes
   const x = d3
@@ -462,14 +490,16 @@ export function drawDiseaseGeneAssocChart(
     .append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).ticks(10));
-  // Adds the x-axis text label 
-  svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + MARGIN.top+10) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Association Score");
+  // Adds the x-axis text label
+  svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 10) + ")"
+    )
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Association Score");
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
   svg
     .append("g")
@@ -477,15 +507,16 @@ export function drawDiseaseGeneAssocChart(
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-25)")
     .style("text-anchor", "end");
-  // Adds the y-axis text label 
-  svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - MARGIN.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Disease Name");  
+  // Adds the y-axis text label
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - MARGIN.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Disease Name");
   // plots the bars
   bars
     .selectAll("rect")
@@ -532,7 +563,7 @@ export function drawVarGeneAssocChart(
     Thyroid: "lightcoral",
     "Whole Blood": "firebrick",
   };
-  
+
   reformattedData.sort(function (x, y) {
     const a = var_color[x.name];
     const b = var_color[y.name];
@@ -558,27 +589,28 @@ export function drawVarGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-    reformattedData = reformattedData.slice(0, 10);
-  let mouseover = function(d) {
-    let variantName = d.id;
-    let logScore = d.value;
-    TOOL_TIP
-        .html("Variant ID: " + variantName + "<br>" + "Log2 Fold Change: " + logScore)
-        .style("opacity", 1)
-  }
+  reformattedData = reformattedData.slice(0, 10);
+  const mouseover = function (d) {
+    const variantName = d.id;
+    const logScore = d.value;
+    TOOL_TIP.html(
+      "Variant ID: " + variantName + "<br>" + "Log2 Fold Change: " + logScore
+    ).style("opacity", 1);
+  };
 
-  let mousemove = function() {
-    TOOL_TIP
-      .style("left", (d3.mouse(this)[0] + 380) + "px") 
-      .style("top", (d3.mouse(this)[1] + 1550) + "px")
-  }
-  let mouseout = function(d) {
-    let variantName = d.id;
-    let logScore = d.value;
-    TOOL_TIP
-        .html("Variant ID: " + variantName + "<br>" + "Log2 Fold Change: " + logScore)
-        .style("opacity", 0)
-  }
+  const mousemove = function () {
+    TOOL_TIP.style("left", d3.mouse(this)[0] + 380 + "px").style(
+      "top",
+      d3.mouse(this)[1] + 1550 + "px"
+    );
+  };
+  const mouseout = function (d) {
+    const variantName = d.id;
+    const logScore = d.value;
+    TOOL_TIP.html(
+      "Variant ID: " + variantName + "<br>" + "Log2 Fold Change: " + logScore
+    ).style("opacity", 0);
+  };
   // plots the axes
   const x = d3
     .scaleLinear()
@@ -591,29 +623,32 @@ export function drawVarGeneAssocChart(
     .append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
-  // Adds the x-axis text label 
-  svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + MARGIN.top+10) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Log 2 Allelic Fold Change");
+  // Adds the x-axis text label
+  svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 10) + ")"
+    )
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Log 2 Allelic Fold Change");
   const y = d3
     .scaleBand()
     .range([0, height])
     .domain(reformattedData.map((d) => d.id))
     .padding(1);
   svg.append("g").call(d3.axisLeft(y));
-  // Adds the y-axis text label 
-  svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - MARGIN.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Variant ID"); 
+  // Adds the y-axis text label
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - MARGIN.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Variant ID");
   // adds the dots and error bars
   svg
     .selectAll("error-bar-line")
@@ -638,41 +673,41 @@ export function drawVarGeneAssocChart(
     .on("mouseover", mouseover)
     .on("mousemove", mousemove)
     .on("mouseout", mouseout);
-    svg
+  svg
     .selectAll("error-bar-left-line")
     .data(reformattedData)
     .enter()
     .append("line")
     .attr("x1", function (d) {
-      return x(d.lower) ;
+      return x(d.lower);
     })
     .attr("x2", function (d) {
       return x(d.lower);
     })
     .attr("y1", function (d) {
-      return (y(d.id) - 5);
+      return y(d.id) - 5;
     })
     .attr("y2", function (d) {
-      return (y(d.id) + 5);
+      return y(d.id) + 5;
     })
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
-    svg
+  svg
     .selectAll("error-bar-right-line")
     .data(reformattedData)
     .enter()
     .append("line")
     .attr("x1", function (d) {
-      return x(d.upper) ;
+      return x(d.upper);
     })
     .attr("x2", function (d) {
       return x(d.upper);
     })
     .attr("y1", function (d) {
-      return (y(d.id) - 5);
+      return y(d.id) - 5;
     })
     .attr("y2", function (d) {
-      return (y(d.id) + 5);
+      return y(d.id) + 5;
     })
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
@@ -732,8 +767,11 @@ export function drawVarTypeAssocChart(
   function formatVariant(d: string) {
     // remove the word "GeneticVariantFunctionalCategory" from say "GeneticVariantFunctionalCategorySplice5"
     // if condition for - GeneticVariantFunctionalCDSIndel, maybe a bug that needs to be fixed on the backend
-    if(d == "GeneticVariantFunctionalCDSIndel") {d = d.substring(24)}
-    else {d = d.substring(32);}
+    if (d == "GeneticVariantFunctionalCDSIndel") {
+      d = d.substring(24);
+    } else {
+      d = d.substring(32);
+    }
     return d;
   }
   const height = 500 - MARGIN.top - MARGIN.bottom;
@@ -745,26 +783,35 @@ export function drawVarTypeAssocChart(
   const arrName = data.map((x) => {
     return x.name;
   });
-  let mouseover = function(d) {
-    let varCategory = d.name;
-    let varCount = d.value;
-    TOOL_TIP
-        .html("Variant Functional Category: " + formatVariant(varCategory) + "<br>" + "Count: " + varCount)
-        .style("opacity", 1)
-  }
+  const mouseover = function (d) {
+    const varCategory = d.name;
+    const varCount = d.value;
+    TOOL_TIP.html(
+      "Variant Functional Category: " +
+        formatVariant(varCategory) +
+        "<br>" +
+        "Count: " +
+        varCount
+    ).style("opacity", 1);
+  };
 
-  let mousemove = function() {
-    TOOL_TIP
-      .style("left", (d3.mouse(this)[0] + 380) + "px") 
-      .style("top", (d3.mouse(this)[1] + 2050) + "px")
-  }
-  let mouseout = function(d) {
-    let varCategory = d.name;
-    let varCount = d.value;
-    TOOL_TIP
-        .html("Variant Functional Category: " + formatVariant(varCategory) + "<br>" + "Count: " + varCount)
-        .style("opacity", 0)
-  }
+  const mousemove = function () {
+    TOOL_TIP.style("left", d3.mouse(this)[0] + 380 + "px").style(
+      "top",
+      d3.mouse(this)[1] + 2050 + "px"
+    );
+  };
+  const mouseout = function (d) {
+    const varCategory = d.name;
+    const varCount = d.value;
+    TOOL_TIP.html(
+      "Variant Functional Category: " +
+        formatVariant(varCategory) +
+        "<br>" +
+        "Count: " +
+        varCount
+    ).style("opacity", 0);
+  };
   const svg = d3
     .select("#variant-type-association-chart")
     .append("svg")
@@ -785,25 +832,28 @@ export function drawVarTypeAssocChart(
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
-  // Adds the x-axis text label 
-  svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + MARGIN.top+ 10) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Count");
+  // Adds the x-axis text label
+  svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 10) + ")"
+    )
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Count");
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatVariant));
-  // Adds the y-axis text label 
-  svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - MARGIN.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Variant Functional Category");
+  // Adds the y-axis text label
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - MARGIN.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Variant Functional Category");
   // plots the bars
   bars
     .selectAll("rect")
@@ -841,26 +891,35 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   const arrName = data.map((x) => {
     return x.name;
   });
-  let mouseover = function(d) {
-    let clinicalCategory = d.name;
-    let varCount = d.value;
-    TOOL_TIP
-        .html("Variant Clinical Significance: " + formatVariant(clinicalCategory) + "<br>" + "Count: " + varCount)
-        .style("opacity", 1)
-  }
+  const mouseover = function (d) {
+    const clinicalCategory = d.name;
+    const varCount = d.value;
+    TOOL_TIP.html(
+      "Variant Clinical Significance: " +
+        formatVariant(clinicalCategory) +
+        "<br>" +
+        "Count: " +
+        varCount
+    ).style("opacity", 1);
+  };
 
-  let mousemove = function() {
-    TOOL_TIP
-      .style("left", (d3.mouse(this)[0] + 380) + "px") 
-      .style("top", (d3.mouse(this)[1] + 2650) + "px")
-  }
-  let mouseout = function(d) {
-    let clinicalCategory = d.name;
-    let varCount = d.value;
-    TOOL_TIP
-        .html("Variant Clinical Significance: " + formatVariant(clinicalCategory) + "<br>" + "Count: " + varCount)
-        .style("opacity", 0)
-  }
+  const mousemove = function () {
+    TOOL_TIP.style("left", d3.mouse(this)[0] + 380 + "px").style(
+      "top",
+      d3.mouse(this)[1] + 2650 + "px"
+    );
+  };
+  const mouseout = function (d) {
+    const clinicalCategory = d.name;
+    const varCount = d.value;
+    TOOL_TIP.html(
+      "Variant Clinical Significance: " +
+        formatVariant(clinicalCategory) +
+        "<br>" +
+        "Count: " +
+        varCount
+    ).style("opacity", 0);
+  };
   const svg = d3
     .select("#variant-significance-association-chart")
     .append("svg")
@@ -881,25 +940,28 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
-  // Adds the x-axis text label 
-  svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + MARGIN.top+ 10) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Count");
+  // Adds the x-axis text label
+  svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 10) + ")"
+    )
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Count");
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatVariant));
-  // Adds the y-axis text label 
-  svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - MARGIN.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Variant Clinical Significance");
+  // Adds the y-axis text label
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - MARGIN.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Variant Clinical Significance");
   // plots the bars
   bars
     .selectAll("rect")
@@ -920,12 +982,12 @@ export function drawChemGeneAssocChart(
   id: string,
   data: ProteinNumData[]
 ): void {
-  console.log("check1")
+  console.log("check1");
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;
   }
-  console.log("check2")
+  console.log("check2");
   // formats chemical-gene associations
   function formatChemName(d: string) {
     // removes the word "RelationshipAssociationType" from say "RelationshipAssociationTypeAssociated"
@@ -944,26 +1006,27 @@ export function drawChemGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-    let mouseover = function(d) {
-      let assocName = formatChemName(d.name);
-      let count = d.value;
-      TOOL_TIP
-          .html("Association Type: " + assocName + "<br>" + "Count: " + count)
-          .style("opacity", 1)
-    }
-  
-    let mousemove = function() {
-      
-      TOOL_TIP
-        .style("left", (d3.mouse(this)[0] + 380) + "px") 
-        .style("top", (d3.mouse(this)[1] + 3250) + "px")
-    }
-    let mouseout = function(d) {
-      let assocName = formatChemName(d.name);
-      let count = d.value;
-      TOOL_TIP.html("Association Type: " + assocName + "<br>" + "Count: " + count)
-      .style("opacity", 0)
-    }
+  const mouseover = function (d) {
+    const assocName = formatChemName(d.name);
+    const count = d.value;
+    TOOL_TIP.html(
+      "Association Type: " + assocName + "<br>" + "Count: " + count
+    ).style("opacity", 1);
+  };
+
+  const mousemove = function () {
+    TOOL_TIP.style("left", d3.mouse(this)[0] + 380 + "px").style(
+      "top",
+      d3.mouse(this)[1] + 3250 + "px"
+    );
+  };
+  const mouseout = function (d) {
+    const assocName = formatChemName(d.name);
+    const count = d.value;
+    TOOL_TIP.html(
+      "Association Type: " + assocName + "<br>" + "Count: " + count
+    ).style("opacity", 0);
+  };
   const bars = svg.append("g");
   // plots the axes
   const x = d3
@@ -977,25 +1040,28 @@ export function drawChemGeneAssocChart(
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
-  // Adds the x-axis text label 
-  svg.append("text")             
-      .attr("transform",
-            "translate(" + (width/2) + " ," + 
-                           (height + MARGIN.top+10) + ")")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Count");
+  // Adds the x-axis text label
+  svg
+    .append("text")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 10) + ")"
+    )
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Count");
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatChemName));
-  // Adds the y-axis text label 
-  svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - MARGIN.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .style("font-size", "12px")
-      .text("Drug-Gene Relationship"); 
+  // Adds the y-axis text label
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - MARGIN.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Drug-Gene Relationship");
   // plots the bars
   bars
     .selectAll("rect")
