@@ -18,9 +18,11 @@
  * Component for rendering a single ranking list.
  */
 
-import React from "react";
+import { throttle } from "lodash";
+import React, { useEffect, useState } from "react";
 
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
+import { statVarSep } from "../tools/timeline/util";
 import { formatString } from "../topic_page/string_utils";
 
 const NUM_FRACTION_DIGITS = 2;
@@ -42,10 +44,25 @@ interface RankingTablePropType {
     scaling?: number;
     numDataPoints?: number;// if not provided and no rank, for the lowest ranking, the rank will be 1,2,3,4..., start from the lowest value
     isHighest: boolean; // True if the table is for the highest ranking. False if the table is for the lowest ranking.
+    currentDcid?: string; // Bold the row if it is the current place
 }
 
-
+const WINDOW_BREAKPOINT = 992;
 export function RankingTable(props: RankingTablePropType): JSX.Element {
+    // Not show the value if the window size is less than the breakpoint
+    const [shouldShowValue, setShouldShowValue] = useState(window.innerWidth >= WINDOW_BREAKPOINT ? true : false);
+    useEffect(() => {
+        function handleWindowResize() {
+            console.log(shouldShowValue)
+            if (window.innerWidth < WINDOW_BREAKPOINT && shouldShowValue) {
+                setShouldShowValue(false);
+            } else if (window.innerWidth >= WINDOW_BREAKPOINT && !shouldShowValue) {
+                setShouldShowValue(true);
+            }
+        };
+        window.addEventListener("resize", handleWindowResize)
+        return () => { window.removeEventListener("resize", handleWindowResize) }
+    })
     // 
     function getRank(isHighest: boolean, index: number, numberOfTotalDataPoints?: number): number {
         if (isHighest) {
@@ -69,25 +86,28 @@ export function RankingTable(props: RankingTablePropType): JSX.Element {
                     {props.points.map((point, i) => {
                         return (
                             <tr key={point.dcid}>
-                                <td className="rank">{point.rank === undefined ? getRank(props.isHighest, i, props.numDataPoints) : point.rank}.</td>
+                                <td className="rank">
+                                    <span className={point.dcid === props.currentDcid ? "rank-bold" : "rank-normal"}>{point.rank === undefined ? getRank(props.isHighest, i, props.numDataPoints) : point.rank}.</span>
+                                </td>
                                 <td className={"label"}>
-                                    {point.redirectLink === undefined ?
+                                    <span className={point.dcid === props.currentDcid ? "label-bold" : "label-normal"}>{point.redirectLink === undefined ?
                                         point.label || point.dcid :
                                         <LocalizedLink
                                             href={point.redirectLink}
                                             text={point.label || point.dcid}
                                         />}
+                                    </span>
                                 </td>
-                                <td className="stat">
-                                    <span className="value">
-                                        {formatNumber(
+                                {shouldShowValue &&
+                                    <td className="value">
+                                        <span className={point.dcid === props.currentDcid ? "rank-bold" : "rank-normal"}>{formatNumber(
                                             props.scaling ? point.value * props.scaling : point.value,
                                             props.unit,
                                             false,
                                             NUM_FRACTION_DIGITS
                                         )}
-                                    </span>
-                                </td>
+                                        </span>
+                                    </td>}
                             </tr>
                         );
                     })}

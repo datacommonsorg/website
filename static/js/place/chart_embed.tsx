@@ -151,8 +151,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       .append("g")
       .attr(
         "transform",
-        `translate(${CHART_PADDING}, ${
-          titleHeight + TITLE_MARGIN + this.state.chartHeight + SOURCES_MARGIN
+        `translate(${CHART_PADDING}, ${titleHeight + TITLE_MARGIN + this.state.chartHeight + SOURCES_MARGIN
         })`
       )
       .append("text")
@@ -176,10 +175,10 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     svg.attr(
       "height",
       this.state.chartHeight +
-        titleHeight +
-        TITLE_MARGIN +
-        sourcesHeight +
-        SOURCES_MARGIN
+      titleHeight +
+      TITLE_MARGIN +
+      sourcesHeight +
+      SOURCES_MARGIN
     );
 
     const s = new XMLSerializer();
@@ -202,6 +201,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
     }
 
     this.chartDownloadXml = this.decorateSvgChart();
+    console.log(this.chartDownloadXml);
 
     const imageElement = document.createElement("img");
     const chartBase64 =
