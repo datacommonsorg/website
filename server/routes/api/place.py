@@ -796,7 +796,10 @@ def api_ranking_chart(dcid):
     """
     result = {}
     # Get the parent place.
-    if not dcid == EARTH_DCID:
+    if dcid == EARTH_DCID:
+        parent_place_dcid = EARTH_DCID
+        place_type = "Country"
+    else:
         parent_place_list = get_parent_place(dcid).get(dcid, [])
         # Get the last parent place returned.
         if parent_place_list:
@@ -806,9 +809,6 @@ def api_ranking_chart(dcid):
             return Response(json.dumps(result),
                             200,
                             mimetype='application/json')
-    else:
-        parent_place_dcid = EARTH_DCID
-        place_type = "Country"
     configs = get_ranking_chart_configs()
     # Get the first stat var of each config.
     stat_vars, _ = shared_api.get_stat_vars(configs)
@@ -819,10 +819,9 @@ def api_ranking_chart(dcid):
         return Response(json.dumps(result), 200, mimetype='application/json')
     ## Get all the place names of dcids in the sv_data
     place_dcids = set()
-    for value in sv_data_values.values():
-        for place_dcid in value["stat"]:
-            if place_dcid not in place_dcids:
-                place_dcids.add(place_dcid)
+    for sv_value in sv_data_values.values():
+        sv_place_dcids = sv_value.get("stat", {}).keys()
+        place_dcids = place_dcids.union(sv_place_dcids)
     place_names = get_name(list(place_dcids))
     sv_metadata = sv_data.get("metadata", {})
     # Consider the configs with single sv but ignore denominators.
