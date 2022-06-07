@@ -135,7 +135,7 @@ export function getProteinInteraction(
           for (const n1 of n.nodes) {
             for (const n2 of n1.neighbors) {
               if (n2.property === "value") {
-                if (_.isEmpty(n.nodes)) {
+                if (_.isEmpty(n2.nodes)) {
                   continue;
                 }
                 const num = Number(n2.nodes[0].value);
@@ -192,6 +192,9 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
         for (const n1 of n.nodes) {
           for (const n2 of n1.neighbors) {
             if (n2.property === "diseaseOntologyID") {
+              if (_.isEmpty(n2.nodes)) {
+                continue;
+              }
               for (const n3 of n2.nodes) {
                 if (n3.neighbors === undefined) {
                   continue;
@@ -248,60 +251,21 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
       let tissue = null;
       let interval = null;
       for (const n of node.neighbors) {
-        /*
         if (n.property !== "geneSymbol") {
           continue;
         }
         for (const n1 of n.nodes) {
+          if (n1.neighbors.length !== 4) {
+            continue;
+          }
           for (const n2 of n1.neighbors) {
-            if (n2.property === "referenceSNPClusterID") {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
-              if (n2.nodes[0].value !== null) {
-                variant = n2.nodes[0].value;
-              }
-            } else if (n2.property === "log2AllelicFoldChange") {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
+            if (_.isEmpty(n2.nodes)) {
+              continue;
+            }
+            if (n2.property === "log2AllelicFoldChange") {
               if (n2.nodes[0].value !== null) {
                 score = n2.nodes[0].value;
               }
-            } else if (
-              n2.property === "log2AllelicFoldChangeConfidenceInterval"
-            ) {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
-              if (n2.nodes[0].value !== null) {
-                interval = n2.nodes[0].value;
-              }
-            } else if (n2.property === "associatedTissue") {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
-              if (n2.nodes[0].value) {
-                tissue = n2.nodes[0].value;
-        */
-        if (n.property !== "geneSymbol") {
-          continue;
-        }
-        for (const n1 of n.nodes) {
-          for (const n2 of n1.neighbors) {
-            if (n1.neighbors.length !== 4) {
-              continue;
-            }
-            console.log(n1.neighbors);
-            if (n2.property === "log2AllelicFoldChange") {
-              if (_.isEmpty(n2.nodes[0].value)) {
-                continue;
-              }
-              score = n2.nodes[0].value;
             } else if (n2.property === "referenceSNPClusterID") {
               if (n2.nodes[0].value !== null) {
                 variant = n2.nodes[0].value;

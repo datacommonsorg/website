@@ -100,8 +100,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
 
   render(): JSX.Element {
-    const name = this.props.nodeName;
-    const result = name.split("_");
+    /* this.props.nodeName is formatted as ProteinName_SpeciesName
+    Using the split we get the ProteinName and SpeciesName separately
+    */
+    const result = this.props.nodeName.split("_");
     return (
       <>
         <h2>{result[0] + " (" + result[1] + ")"}</h2>
@@ -110,14 +112,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           {result[0]} expression level (none, low, medium, or high) detected in
           each tissue as reported by The Human Protein Atlas. The color of the
           bar indicates the organ from which the tissue derives (legend bottom
-          panel)
+          panel).
         </p>
         <div id="tissue-score-chart"></div>
         <h5>Protein Protein Interaction</h5>
         <p>
           The interaction score of {result[0]} with other proteins as reported
           by The Molecular INTeraction Database (MINT). The top 10 associations
-          by interaction score are displayed
+          by interaction score are displayed.
         </p>
         <div id="protein-confidence-score-chart"></div>
         <h5>Disease Gene Association</h5>
@@ -125,34 +127,34 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           The association score of {result[0]} with diseases as reported by
           DISEASES by Jensen Lab. Associations were determined by text mining of
           the literature. The top 10 associations by association score are
-          displayed
+          displayed.
         </p>
         <div id="disease-gene-association-chart"></div>
         <h5>Variant Gene Association</h5>
         <p>
           Genetic variants that are associated with expression level of{" "}
           {result[0]} in a specific tissue in humans (legend top right panel) as
-          reported by the Genotype Expression (GTEx) project
+          reported by the Genotype Expression (GTEx) project.
         </p>
         <div id="variant-gene-association-chart"></div>
         <h5>Variant Type Association</h5>
         <p>
           The count of genetic variants by functional category as reported by
           NCBI dbSNP, which are associated with regulation of {result[0]}{" "}
-          expression by the Genotype Expression (GTEx) project
+          expression by the Genotype Expression (GTEx) project.
         </p>
         <div id="variant-type-association-chart"></div>
         <h5>Variant Gene Significance Association</h5>
         <p>
           The count of genetic variants by clinical significance as reported by
           NCBI ClinVar, which are associated with regulation of {result[0]}{" "}
-          expression by the Genotype Expression (GTEx) project
+          expression by the Genotype Expression (GTEx) project.
         </p>
         <div id="variant-significance-association-chart"></div>
         <h5>Drug Gene Association</h5>
         <p>
           The number of drugs that are associated, ambiguously associated, or
-          not associated with regulation of {result[0]} as reported by pharmGKB
+          not associated with regulation of {result[0]} as reported by pharmGKB.
         </p>
         <div id="chemical-gene-association-chart"></div>
       </>
