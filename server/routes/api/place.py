@@ -15,11 +15,13 @@
 import collections
 import json
 import requests
+import urllib.parse
 
 from flask import Blueprint, request, Response, url_for, g, current_app, abort
 from flask_babel import gettext
 
 from cache import cache
+import routes.api.shared as shared_api
 import services.datacommons as dc
 from services.datacommons import fetch_data
 from routes.api.shared import cached_name
@@ -103,6 +105,7 @@ PLACE_OVERRIDE = {
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
+EARTH_DCID = "Earth"
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -763,3 +766,133 @@ def placeid2dcid():
                 result[inId] = dcid
         return Response(json.dumps(result), 200, mimetype='application/json')
     abort(404, 'no valid dcids found for %s' % place_ids)
+
+
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@bp.route('/ranking_chart/<path:dcid>')
+def api_ranking_chart(dcid):
+    """
+    Gets the ranking data (including ranks, placename, value, date, and source) for a given place.
+
+    Return value example:
+    {
+        "statvar":{
+            "date":"2022-03",
+            "data":[
+                {
+                    "rank":1,
+                    "value":0.1,
+                    "placeDcid":"geoId/06",
+                    "placename":"California"
+                }
+            ],
+            "numDataPoints":1,
+            "exploreUrl":"/ranking/UnemploymentRate_Person_Rural/State/country/USA?h=geoId/06&unit=%",
+            "sources":[
+                "https://www.bls.gov/lau/"
+            ]
+        }
+    }
+    """
+    result = {}
+    # Get the parent place.
+    if dcid == EARTH_DCID:
+        parent_place_dcid = EARTH_DCID
+        place_type = "Country"
+    else:
+        parent_place_list = get_parent_place(dcid).get(dcid, [])
+        # Get the last parent place returned.
+        if parent_place_list:
+            parent_place_dcid = parent_place_list[-1]["dcid"]
+            place_type = get_place_type(dcid)
+        else:
+            return Response(json.dumps(result),
+                            200,
+                            mimetype='application/json')
+    configs = get_ranking_chart_configs()
+    # Get the first stat var of each config.
+    stat_vars, _ = shared_api.get_stat_vars(configs)
+    sv_data = dc.get_stat_set_within_place(parent_place_dcid, place_type,
+                                           list(stat_vars), "")
+    sv_data_values = sv_data.get("data", {})
+    if not sv_data or not sv_data_values:
+        return Response(json.dumps(result), 200, mimetype='application/json')
+    ## Get all the place names of dcids in the sv_data
+    place_dcids = set()
+    for sv_value in sv_data_values.values():
+        sv_place_dcids = sv_value.get("stat", {}).keys()
+        place_dcids = place_dcids.union(sv_place_dcids)
+    place_names = get_name(list(place_dcids))
+    sv_metadata = sv_data.get("metadata", {})
+    # Consider the configs with single sv but ignore denominators.
+    for config in configs:
+        sv = config["statsVars"][0]
+        sv_data_stat = sv_data_values.get(sv, {}).get("stat", {})
+        if not sv_data_stat:
+            continue
+        sources = set()
+        dates = set()
+        data_points = []
+        for place_dcid in sv_data_stat:
+            # Example of data:{"date": "2022", "value": 123, "metahash": 123456}.
+            data = sv_data_stat[place_dcid]
+            value = data.get("value", None)
+            place_name = place_names.get(place_dcid, "")
+            # Value is required for the calculation of ranking.
+            if value is None:
+                continue
+            data_point = {
+                "placeDcid": place_dcid,
+                "value": value,
+                "placeName": place_name
+            }
+            data_points.append(data_point)
+            dates.add(data.get("date", ""))
+            metadata_hash = data.get("metaHash", None)
+            sources.add(
+                sv_metadata.get(str(metadata_hash),
+                                {}).get("provenanceUrl", ""))
+        # Build URL for "explore more".
+        scaling = config.get("scaling", None)
+        unit = config.get("unit", None)
+        if dcid == EARTH_DCID:
+            parent_place_dcid = None
+        explore_url = urllib.parse.unquote(
+            url_for('ranking.ranking',
+                    stat_var=sv,
+                    place_type=place_type,
+                    place_dcid=parent_place_dcid,
+                    h=dcid,
+                    scaling=scaling,
+                    unit=unit))
+        # Calculate the ranking.
+        sorted_data_points = sorted(data_points,
+                                    key=lambda x: x['value'],
+                                    reverse=True)
+        for i, data_point in enumerate(sorted_data_points):
+            data_point['rank'] = i + 1
+        sources = filter(lambda x: x != "", sources)
+        date_range = shared_api.get_date_range(dates)
+        sv_result = {
+            "date": date_range,
+            "data": sorted_data_points,
+            'numDataPoints': len(data_points),
+            'exploreUrl': explore_url,
+            'sources': sorted(list(sources))
+        }
+        result[sv] = sv_result
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+def get_ranking_chart_configs():
+    """ Gets all the chart configs that have ranking charts.
+
+    Returns:
+        List of chart configs that are ranking chart configs.
+    """
+    chart_config = current_app.config['CHART_CONFIG']
+    chart_configs = []
+    for config in chart_config:
+        if config.get('isRankingChart', False):
+            chart_configs.append(config)
+    return chart_configs

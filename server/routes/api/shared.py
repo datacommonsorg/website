@@ -51,3 +51,51 @@ def is_float(query_string):
         return True
     except ValueError:
         return False
+
+
+def get_stat_vars(configs):
+    """  Gets all the stat vars and denominators in the given list of chart
+    configs
+
+    Args:
+        configs: list of chart configs
+
+    Returns:
+        tuple consisting of
+            set of all stat var dcids(if there are multiple stat vars in a config, only return the first one)
+            set of all denominator stat var dcids
+    """
+    stat_vars = set()
+    denoms = set()
+    for config in configs:
+        # only add the first sv
+        if len(config.get('statsVars', [])) > 0:
+            stat_vars.add(config['statsVars'][0])
+        # can be deleted
+        if 'relatedChart' in config and config['relatedChart'].get(
+                'scale', False):
+            denoms.add(config['relatedChart'].get('denominator',
+                                                  'Count_Person'))
+        if len(config.get('denominator', [])) > 0:
+            denoms.add(config['denominator'][0])
+    return stat_vars, denoms
+
+
+def get_date_range(dates):
+    """ Gets the date range from a set of dates
+
+    Args:
+        dates: set of dates (strings)
+
+    Returns:
+        date range as a string. Either a single date or
+        [earliest date] - [latest date]
+    """
+    dates = filter(lambda x: x != "", dates)
+    sorted_dates_list = sorted(list(dates))
+    if not sorted_dates_list:
+        return ""
+    date_range = sorted_dates_list[0]
+    if len(sorted_dates_list) > 1:
+        date_range = f'{sorted_dates_list[0]} – {sorted_dates_list[-1]}'
+    return date_range

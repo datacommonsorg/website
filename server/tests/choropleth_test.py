@@ -17,7 +17,7 @@ import json
 from unittest.mock import patch
 
 from main import app
-
+import routes.api.shared as shared_api
 import routes.api.choropleth as choropleth_api
 
 
@@ -242,7 +242,7 @@ class TestChoroplethDataHelpers(unittest.TestCase):
         }
         expected_sv_set = {'StatVar4', 'StatVar5', 'StatVar7', 'StatVar8'}
         expected_denom_set = {'StatVar6', 'Count_Person', 'Test_Denominator'}
-        actual_sv_set, actual_denom_set = choropleth_api.get_stat_vars(
+        actual_sv_set, actual_denom_set = shared_api.get_stat_vars(
             [cc1, cc2, cc3, cc4])
         assert expected_sv_set == actual_sv_set
         assert expected_denom_set == actual_denom_set
@@ -280,17 +280,16 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 
     def test_get_date_range(self):
         test_single_date = {"2019"}
-        single_date_result = choropleth_api.get_date_range(test_single_date)
+        single_date_result = shared_api.get_date_range(test_single_date)
         assert single_date_result == "2019"
         test_multiple_dates = {"2019", "2018", "2017"}
-        multiple_date_result = choropleth_api.get_date_range(
-            test_multiple_dates)
+        multiple_date_result = shared_api.get_date_range(test_multiple_dates)
         assert multiple_date_result == "2017 – 2019"
         test_empty_dates = {}
-        empty_date_result = choropleth_api.get_date_range(test_empty_dates)
+        empty_date_result = shared_api.get_date_range(test_empty_dates)
         assert empty_date_result == ""
         test_empty_valid_dates = {""}
-        empty_valid_date_result = choropleth_api.get_date_range(
+        empty_valid_date_result = shared_api.get_date_range(
             test_empty_valid_dates)
         assert empty_valid_date_result == ""
 
@@ -303,7 +302,7 @@ class TestChoroplethData(unittest.TestCase):
     @patch('routes.api.choropleth.dc_service.get_stat_set_series')
     @patch('routes.api.choropleth.get_choropleth_display_level')
     @patch('routes.api.choropleth.get_choropleth_configs')
-    @patch('routes.api.choropleth.get_stat_vars')
+    @patch('routes.api.shared.get_stat_vars')
     @patch('routes.api.choropleth.get_denom_val')
     def testRoute(self, mock_denom_val, mock_stat_vars, mock_configs,
                   mock_display_level, mock_stats, mock_stats_within_place,
