@@ -192,9 +192,6 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
         for (const n1 of n.nodes) {
           for (const n2 of n1.neighbors) {
             if (n2.property === "diseaseOntologyID") {
-              if (_.isEmpty(n2.nodes)) {
-                continue;
-              }
               for (const n3 of n2.nodes) {
                 if (n3.neighbors === undefined) {
                   continue;
