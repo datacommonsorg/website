@@ -263,23 +263,27 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
               continue;
             }
             if (n2.property === "log2AllelicFoldChange") {
-              if (n2.nodes[0].value !== null) {
-                score = n2.nodes[0].value;
+              if (_.isEmpty(n2.nodes[0].value)) {
+                continue;
               }
+              score = n2.nodes[0].value;
             } else if (n2.property === "referenceSNPClusterID") {
-              if (n2.nodes[0].value !== null) {
-                variant = n2.nodes[0].value;
+              if (_.isEmpty(n2.nodes[0].value)) {
+                continue;
               }
+              variant = n2.nodes[0].value;
             } else if (
               n2.property === "log2AllelicFoldChangeConfidenceInterval"
             ) {
-              if (n2.nodes[0].value !== null) {
-                interval = n2.nodes[0].value;
+              if (_.isEmpty(n2.nodes[0].value)) {
+                continue;
               }
+              interval = n2.nodes[0].value;
             } else if (n2.property === "associatedTissue") {
-              if (n2.nodes[0].value !== null) {
-                tissue = n2.nodes[0].value;
+              if (_.isEmpty(n2.nodes[0].value)) {
+                continue;
               }
+              tissue = n2.nodes[0].value;
             }
           }
           if (!seen.has(variant) && !!score) {
