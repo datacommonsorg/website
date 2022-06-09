@@ -64,8 +64,8 @@ const NUM_FRACTION_DIGITS = 2;
 
 interface ChartPropType {
   /**
-    * The place dcid.
-    */
+   * The place dcid.
+   */
   dcid: string;
   /**
    * The svg dom element id.
