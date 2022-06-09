@@ -81,9 +81,9 @@ interface MainPanePropType {
    */
   categoryStrings: { string: string };
   /**
-   * Promise for ranking chart data for current dcid
+   * Promise for ranking chart data.
    */
-  rankingChartData: Promise<CachedRankingChartData>
+  rankingChartData: Promise<CachedRankingChartData>;
   /**
    * The locale of the page.
    */

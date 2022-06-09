@@ -59,11 +59,13 @@ const MIN_CHOROPLETH_DATAPOINTS = 9;
 const CHOROPLETH_REDIRECT_BASE_URL = "/place/";
 const MIN_RANKINGCHART_DATAPOINTS = 6;
 const MAX_RANKINGCHART_DATAPOINTS = 10;
+const MIN_WIDTH_TO_SHOW_RANKINGCHART_VALUE = 450;
+const NUM_FRACTION_DIGITS = 2;
 
 interface ChartPropType {
   /**
-   * The place dcid.
-   */
+    * The place dcid.
+    */
   dcid: string;
   /**
    * The svg dom element id.
@@ -123,7 +125,7 @@ interface ChartPropType {
   isUsaPlace: boolean;
   /**
    ** Promise for ranking chart data for current dcid
-   */
+  */
   rankingChartData?: Promise<CachedRankingChartData>;
 }
 
@@ -146,14 +148,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   rankingUrlByStatVar: { [key: string]: string };
   statsVars: string[];
   placeLinkSearch: string; // Search parameter string including '?'
-  testRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: ChartPropType) {
     super(props);
     this.chartElement = React.createRef();
     this.svgContainerElement = React.createRef();
     this.embedModalElement = React.createRef();
-    this.testRef = React.createRef();
 
     this.state = {
       display: true,
@@ -223,20 +223,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           </h4>
           <div id={this.props.id} ref={this.svgContainerElement} className="svg-container">
             {this.props.chartType === chartTypeEnum.TABLE && this.state.rankingChartDataGroup &&
-              <>
-                <h4>
-                  {!_.isEmpty(this.props.names) ? this.props.names[this.props.dcid] : this.props.dcid} ranks {this.getCurrentPlaceRankAndValue().rank} ({formatNumber(
-                    this.getCurrentPlaceRankAndValue().value,
-                    this.props.unit,
-                    false,
-                    2,
-                  )})
+              <div className="ranking-chart-container">
+                <h4 >
+                  {this.getRankingChartContainerTitle()}
                 </h4>
-                <div className="ranking-chart" id="test-id" ref={this.testRef}>
-                  <RankingTable title="Highest" points={this.getRankingTableData().highest} isHighest={true} unit={this.props.unit} currentDcid={this.props.dcid} />
-                  <RankingTable title="Lowest" points={this.getRankingTableData().lowest} isHighest={false} unit={this.props.unit} numDataPoints={this.state.rankingChartDataGroup.numDataPoints} currentDcid={this.props.dcid} />
+                <div className="ranking-chart">
+                  <RankingTable title="Highest" points={this.getRankingTableData().highest} isHighest={true} unit={this.props.unit} currentDcid={this.props.dcid} notShowValue={this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKINGCHART_VALUE} />
+                  <RankingTable title="Lowest" points={this.getRankingTableData().lowest} isHighest={false} unit={this.props.unit} numDataPoints={this.state.rankingChartDataGroup.numDataPoints} currentDcid={this.props.dcid} notShowValue={this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKINGCHART_VALUE} />
                 </div>
-              </>}
+              </div>}
           </div>
           <footer className="row explore-more-container">
             <div>
@@ -296,6 +291,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   componentDidUpdate(): void {
+    // Table is a react component. Prevent the inner HTML of the svg-container from being changed by drawchart().
     if (this.props.chartType === chartTypeEnum.TABLE) {
       return;
     }
@@ -315,6 +311,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   componentDidMount(): void {
     window.addEventListener("resize", this._handleWindowResize);
     this.processData();
+    if (this.props.chartType === chartTypeEnum.TABLE) {
+      this._handleWindowResize();
+    }
   }
 
   private _handleWindowResize(): void {
@@ -351,6 +350,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       }
       return rows.join("\n");
     }
+    if (this.state.rankingChartDataGroup) {
+      const data = this.state.rankingChartDataGroup.data;
+      const rows = ["rank,place,data"];
+      for (const dp of data) {
+        const placeName = dp.placeName ? dp.placeName : dp.placeDcid;
+        rows.push(`${dp.rank}, ${placeName}, ${dp.value}`);
+      }
+      return rows.join("\n");
+    }
     return dataGroupsToCsv(this.state.dataGroups);
   }
 
@@ -367,24 +375,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     let svgXml: string;
     if (svgElems.length) {
       svgXml = svgElems.item(0).outerHTML;
-      console.log(svgXml)
-    }
-    if (this.props.chartType == chartTypeEnum.TABLE) {
-      const d = document.getElementById("test-id");
-      const style = {
-        "display": "grid",
-        "grid-template-columns": "1fr 1fr",
-        "font-family": '"Public Sans", -apple-system, BlinkMacSystemFont',
-        // "font-size": "10rem",
-        "vertical-align": "top"
-      };
-      for (const k of Object.keys(style)) {
-        d.style[k] = style[k]
-      }
-      // for (const k of Object.keys(this.testRef.current.style)) {
-      //   d.style[k] = window.getComputedStyle(this.testRef.current)[k];
-      // }
-      svgXml = `<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"><foreignObject width=\"100%\" height=\"auto\">${d.outerHTML}</foreignObject></svg>`
     }
     this.embedModalElement.current.show(
       svgXml,
@@ -578,6 +568,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             for (const data of svData.data) {
               data.value = data.value * scaling;
             }
+            // Do not display the ranking chart if total data points is less than the MIN_RANKINGCHART_DATAPOINTS
             if (_.isEmpty(svData) || svData.numDataPoints < MIN_RANKINGCHART_DATAPOINTS) {
               this.setState({ display: false });
             } else if (svData.numDataPoints >= MIN_RANKINGCHART_DATAPOINTS) {
@@ -637,10 +628,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
     }
   }
+
   // Prepare data for the ranking table
   private getRankingTableData(): { lowest: Point[], highest: Point[] } {
     let lowestAndHighestDataPoints = { lowest: [], highest: [] };
-    let dataPoints: Point[] = this.state.rankingChartDataGroup.data.map((datapoint) => { const data_point = { rank: datapoint.rank, value: datapoint.value, label: datapoint.placeName, dcid: datapoint.placeDcid, redirectLink: "/place/" + datapoint.placeDcid }; return data_point; })
+    let dataPoints: Point[] = this.state.rankingChartDataGroup.data.map((datapoint) => { const data_point = { rank: datapoint.rank, value: datapoint.value, label: datapoint.placeName, dcid: datapoint.placeDcid, redirectLink: "/place/" + datapoint.placeDcid }; return data_point; });
     if (this.state.rankingChartDataGroup.numDataPoints >= MIN_RANKINGCHART_DATAPOINTS && this.state.rankingChartDataGroup.numDataPoints <= MAX_RANKINGCHART_DATAPOINTS) {
       const sliceNumber = Math.floor(this.state.rankingChartDataGroup.numDataPoints / 2);
       lowestAndHighestDataPoints.lowest = dataPoints.slice(-sliceNumber).reverse();
@@ -655,15 +647,26 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
   }
 
+  // Get rank and value for the current place dcid.
   private getCurrentPlaceRankAndValue(): { rank: number, value: number } {
-    let currentPlaceRankAndValue = { rank: null, value: null }
+    let currentPlaceRankAndValue = { rank: null, value: null };
     for (const data of this.state.rankingChartDataGroup.data) {
       if (data.placeDcid === this.props.dcid) {
-        currentPlaceRankAndValue.rank = data.rank
-        currentPlaceRankAndValue.value = data.value
-        return currentPlaceRankAndValue
+        currentPlaceRankAndValue = { rank: data.rank, value: data.value };
+        return currentPlaceRankAndValue;
       }
     }
+  }
+
+  private getRankingChartContainerTitle(): string {
+    const placeName = this.props.names[this.props.dcid] || this.props.dcid;
+    const rank = this.getCurrentPlaceRankAndValue().rank;
+    const number = formatNumber(
+      this.getCurrentPlaceRankAndValue().value,
+      this.props.unit,
+      false,
+      NUM_FRACTION_DIGITS);
+    return placeName + "ranks" + rank + "(" + number + ")";
   }
 }
 

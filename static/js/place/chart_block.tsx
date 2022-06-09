@@ -17,6 +17,7 @@
 import _ from "lodash";
 import React from "react";
 import { defineMessages } from "react-intl";
+import { isConstructorDeclaration } from "typescript";
 
 import {
   CachedChoroplethData,
@@ -82,7 +83,7 @@ interface ChartBlockPropType {
   /**
   * Promise for ranking chart data for current dcid
   */
-  rankingChartData: Promise<CachedRankingChartData>
+  rankingChartData: Promise<CachedRankingChartData>;
   /**
    * The locale of the page
    */
@@ -448,12 +449,12 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           ></Chart>
         );
       }
+      // Ranking chart ignores the related chart config
       if (this.props.data.isRankingChart) {
-        // Ignore denominator(related chart) for ranking chart
         const unit = this.props.data.unit;
         const scaling = this.props.data.scaling;
         const parentPlaceName: string = this.parentPlaceDcid ? this.props.names[this.parentPlaceDcid].split(",")[0] : "";
-        this.displayDataTitle = this.props.data.title
+        this.displayDataTitle = this.props.data.title;
         const id = randDomId();
         chartElements.push(
           <Chart
@@ -461,6 +462,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             id={id}
             dcid={this.props.dcid}
             chartType={chartTypeEnum.TABLE}
+            // TODO: pending to create a message in different languages.
             title={intl.formatMessage(
               {
                 id: "chart_clause-variable_in_place",
@@ -474,9 +476,14 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               })}
             rankingChartData={this.props.rankingChartData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
-            {...sharedProps}
+            unit={this.props.data.unit}
+            names={this.props.names}
+            scaling={this.props.data.scaling}
+            statsVars={this.props.data.statsVars}
+            category={this.props.category}
+            isUsaPlace={this.props.isUsaPlace}
           ></Chart >
-        )
+        );
       }
     }
     return <>{chartElements}</>;

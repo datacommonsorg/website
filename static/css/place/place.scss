@@ -338,6 +338,19 @@ h3 {
   color: inherit;
 }
 
+.ranking-chart-container {
+  padding-left: 0%;
+  padding-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  width: inherit;
+}
+
+
+.ranking-chart-container h4 {
+  margin-top: -0.5rem;
+  height: 1.5rem;
+}
+
 .ranking-chart {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -345,12 +358,19 @@ h3 {
   row-gap: 1.25rem;
 }
 
-.ranking-table {
+.ranking-chart {
   width: 100%;
+  line-height: 120%;
+  margin-bottom: 1rem;
+}
+
+.ranking-chart h4 {
+  text-align: center;
+  margin-top: 0rem;
 }
 
 .ranking-table td {
-  font-size: 0.5rem;
+  font-size: 0.9rem;
   vertical-align: top;
 }
 
@@ -362,14 +382,6 @@ h3 {
   width: 25%;
 }
 
-
-
-// .chart-container {
-//   border: $chart-border;
-//   border-radius: 3px;
-//   display: flex;
-//   flex-grow: 1;
-//   flex-direction: column;
-//   position: relative;
-//   padding: 10px;
-// }
+.ranking-table td.bold {
+  font-weight: 600;
+}

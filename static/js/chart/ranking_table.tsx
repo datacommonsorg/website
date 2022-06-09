@@ -27,53 +27,37 @@ import { formatString } from "../topic_page/string_utils";
 
 const NUM_FRACTION_DIGITS = 2;
 
-// Change the point type to general data type. Referenced to the class dataPoint in base.ts. Do not need dataGroup?
 export interface Point {
     dcid: string;
-    label: string; // indicate what the value is for. Could be a place name or date string
+    label: string;
     value: number;
-    rank?: number // Already have the rank
-    redirectLink?: string
+    rank?: number //  If not provided, the component will calculate the rank base on the sequence of the input data.
+    redirectLink?: string // Add redirect link on the label. If not provided, the label will be in text.
 }
-// slice the dps before pass to the props
+
 interface RankingTablePropType {
     title: string;
     points: Point[];
-    statVarName?: string; // may not need the statVarName in the title
+    isHighest: boolean; // Show the highest rank or the lowest rank. 
+    statVarName?: string; // Show the statVarName in the title.
     unit?: string;
     scaling?: number;
-    numDataPoints?: number;// if not provided and no rank, for the lowest ranking, the rank will be 1,2,3,4..., start from the lowest value
-    isHighest: boolean; // True if the table is for the highest ranking. False if the table is for the lowest ranking.
-    currentDcid?: string; // Bold the row if it is the current place
+    numDataPoints?: number;// Calculate the rank for the lowest, starting from n, n-1,n-2. If not provided, the default rank will be 1,2,3...
+    currentDcid?: string; // Bold the entire row when the place in the rank is the current place.
+    notShowValue?: boolean; // False if do not want to show the value.
 }
 
-const WINDOW_BREAKPOINT = 992;
 export function RankingTable(props: RankingTablePropType): JSX.Element {
-    // Not show the value if the window size is less than the breakpoint
-    const [shouldShowValue, setShouldShowValue] = useState(window.innerWidth >= WINDOW_BREAKPOINT ? true : false);
-    useEffect(() => {
-        function handleWindowResize() {
-            console.log(shouldShowValue)
-            if (window.innerWidth < WINDOW_BREAKPOINT && shouldShowValue) {
-                setShouldShowValue(false);
-            } else if (window.innerWidth >= WINDOW_BREAKPOINT && !shouldShowValue) {
-                setShouldShowValue(true);
-            }
-        };
-        window.addEventListener("resize", handleWindowResize)
-        return () => { window.removeEventListener("resize", handleWindowResize) }
-    })
-    // 
+    // Calculate the rank based on the sequece of data if no rank is provided.
     function getRank(isHighest: boolean, index: number, numberOfTotalDataPoints?: number): number {
         if (isHighest) {
-            return index + 1
+            return index + 1;
         }
-        return numberOfTotalDataPoints ? numberOfTotalDataPoints - index : index + 1
+        return numberOfTotalDataPoints ? numberOfTotalDataPoints - index : index + 1;
     }
 
     return (
-        <div className="ranking_table">
-            {/* //????what is formatString doing? */}
+        <div className="ranking-table">
             <h4>
                 {formatString(props.title, {
                     place: "",
@@ -86,33 +70,31 @@ export function RankingTable(props: RankingTablePropType): JSX.Element {
                     {props.points.map((point, i) => {
                         return (
                             <tr key={point.dcid}>
-                                <td className="rank">
-                                    <span className={point.dcid === props.currentDcid ? "rank-bold" : "rank-normal"}>{point.rank === undefined ? getRank(props.isHighest, i, props.numDataPoints) : point.rank}.</span>
+                                <td className={`rank ${point.dcid === props.currentDcid ? "bold" : ""}`}>
+                                    {point.rank === undefined ? getRank(props.isHighest, i, props.numDataPoints) : point.rank}.
                                 </td>
-                                <td className={"label"}>
-                                    <span className={point.dcid === props.currentDcid ? "label-bold" : "label-normal"}>{point.redirectLink === undefined ?
+                                <td className={`label ${point.dcid === props.currentDcid ? "bold" : ""}`}>
+                                    {point.redirectLink === undefined ?
                                         point.label || point.dcid :
                                         <LocalizedLink
                                             href={point.redirectLink}
                                             text={point.label || point.dcid}
                                         />}
-                                    </span>
                                 </td>
-                                {shouldShowValue &&
-                                    <td className="value">
-                                        <span className={point.dcid === props.currentDcid ? "rank-bold" : "rank-normal"}>{formatNumber(
+                                {(props.notShowValue === undefined || !props.notShowValue) &&
+                                    <td className={`value ${point.dcid === props.currentDcid ? "bold" : ""}`}>
+                                        {formatNumber(
                                             props.scaling ? point.value * props.scaling : point.value,
                                             props.unit,
                                             false,
                                             NUM_FRACTION_DIGITS
                                         )}
-                                        </span>
                                     </td>}
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
-        </div>
+        </div >
     );
 }

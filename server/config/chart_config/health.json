@@ -8,6 +8,7 @@
       "LifeExpectancy_Person"
     ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -66,6 +67,7 @@
       "Count_Death_DiseasesOfTheNervousSystem"
     ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Mortality_events_per_capita",
       "title": "Mortality events per capita",
@@ -211,6 +213,7 @@
       "RetailDrugDistribution_DrugDistribution_Morphine"
     ],
     "isOverview": true,
+    "isRankingChart": true,
     "unit": "g",
     "relatedChart": {
       "titleId": "CHART_TITLE-Prescribed_drugs_per_capita",

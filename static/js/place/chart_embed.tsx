@@ -15,7 +15,7 @@
  */
 
 import * as d3 from "d3";
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { wrap } from "../chart/base";
@@ -200,14 +200,14 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         this.state.chartWidth + CHART_PADDING * 2 + "px";
     }
 
-    this.chartDownloadXml = this.decorateSvgChart();
-    console.log(this.chartDownloadXml);
-
-    const imageElement = document.createElement("img");
-    const chartBase64 =
-      "data:image/svg+xml," + encodeURIComponent(this.chartDownloadXml);
-    imageElement.src = chartBase64;
-    this.svgContainerElement.current.append(imageElement);
+    if (this.state.svgXml) {
+      this.chartDownloadXml = this.decorateSvgChart();
+      const imageElement = document.createElement("img");
+      const chartBase64 =
+        "data:image/svg+xml," + encodeURIComponent(this.chartDownloadXml);
+      imageElement.src = chartBase64;
+      this.svgContainerElement.current.append(imageElement);
+    }
   }
 
   /**
@@ -222,7 +222,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   }
 
   /**
-   * On click handler for "Copy SVG to clipboard button".
+   * On click handler for "Copy SVG to clipboard button". if this.chartDownloadXml is empty not render button
    */
   public onDownloadSvg(): void {
     saveToFile("chart.svg", this.chartDownloadXml);
@@ -266,14 +266,15 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
           ></textarea>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.onDownloadSvg}>
-            {intl.formatMessage({
-              id: "embed_download_chart_link",
-              defaultMessage: "Download Chart Image",
-              description:
-                "Text for the hyperlink text that will download the chart image.",
-            })}
-          </Button>{" "}
+          {this.chartDownloadXml &&
+            <Button color="primary" onClick={this.onDownloadSvg}>
+              {intl.formatMessage({
+                id: "embed_download_chart_link",
+                defaultMessage: "Download Chart Image",
+                description:
+                  "Text for the hyperlink text that will download the chart image.",
+              })}
+            </Button>}{" "}
           <Button color="primary" onClick={this.onDownloadData}>
             {intl.formatMessage({
               id: "embed_download_csv_link",

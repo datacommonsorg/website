@@ -813,6 +813,7 @@ def api_ranking_chart(dcid):
                             200,
                             mimetype='application/json')
     configs = get_ranking_chart_configs()
+    print(configs)
     # Get the first stat var of each config.
     stat_vars, _ = shared_api.get_stat_vars(configs)
     sv_data = dc.get_stat_set_within_place(parent_place_dcid, place_type,

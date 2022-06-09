@@ -5,7 +5,9 @@
     "titleId": "CHART_TITLE-Air_quality_index",
     "title": "Air quality index",
     "description": "Air quality index",
-    "statsVars": ["AirQualityIndex_AirPollutant"],
+    "statsVars": [
+      "AirQualityIndex_AirPollutant"
+    ],
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -18,7 +20,9 @@
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006",
     "title": "Projected max temperature change under RCP 2.6 (based on year 2006)",
     "description": "Projected max temperature change under RCP 2.6 (based on year 2006)",
-    "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26"],
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26"
+    ],
     "unit": "celsius",
     "isOverview": false,
     "relatedChart": {
@@ -31,9 +35,12 @@
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006",
     "title": "Projected max temperature change under RCP 4.5 (based on year 2006)",
     "description": "Projected max temperature change under RCP 4.5 (based on year 2006)",
-    "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"],
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45"
+    ],
     "unit": "celsius",
     "isOverview": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -44,7 +51,9 @@
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006",
     "title": "Projected max temperature change under RCP 6.0 (based on year 2006)",
     "description": "Projected max temperature change under RCP 6.0 (based on year 2006)",
-    "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60"],
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60"
+    ],
     "unit": "celsius",
     "isOverview": false,
     "relatedChart": {
@@ -57,7 +66,9 @@
     "titleId": "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006",
     "title": "Projected max temperature change under RCP 8.5 (based on year 2006)",
     "description": "Projected max temperature change under RCP 8.5 (based on year 2006)",
-    "statsVars": ["DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85"],
+    "statsVars": [
+      "DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85"
+    ],
     "unit": "celsius",
     "isOverview": false,
     "relatedChart": {
@@ -70,9 +81,12 @@
     "titleId": "CHART_TITLE-Mean_concentration_PM2.5",
     "title": "Mean PM2.5 concentration",
     "description": "Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends",
-    "statsVars": ["Mean_Concentration_AirPollutant_PM2.5"],
+    "statsVars": [
+      "Mean_Concentration_AirPollutant_PM2.5"
+    ],
     "unit": "μg/m³",
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     },
@@ -84,7 +98,9 @@
     "titleId": "CHART_TITLE-Mean_concentration_Ozone",
     "title": "Mean ozone concentration",
     "description": "Used to quantify air quality with measures of concentrations of ozone in air",
-    "statsVars": ["Mean_Concentration_AirPollutant_Ozone"],
+    "statsVars": [
+      "Mean_Concentration_AirPollutant_Ozone"
+    ],
     "unit": "ppb",
     "isOverview": false,
     "relatedChart": {
@@ -98,7 +114,9 @@
     "titleId": "CHART_TITLE-Mean_concentration_DieselPM",
     "title": "Mean diesel PM concentration",
     "description": "Annual mean Diesel PM concentration in air measured from EPA NATA",
-    "statsVars": ["Mean_Concentration_AirPollutant_DieselPM"],
+    "statsVars": [
+      "Mean_Concentration_AirPollutant_DieselPM"
+    ],
     "unit": "μg/m³",
     "isOverview": false,
     "relatedChart": {
@@ -106,14 +124,15 @@
     },
     "isChoropleth": true
   },
-
   {
     "category": "Environment",
     "topic": "Water",
     "titleId": "CHART_TITLE-Palmer_drought_severity_index",
     "title": "Palmer drought severity index",
     "description": "The Palmer Drought Severity Index (PDSI) uses readily available temperature and precipitation data to estimate relative dryness. See more details from https://climatedataguide.ucar.edu/climate-data/palmer-drought-severity-index-pdsi",
-    "statsVars": ["PalmerDroughtSeverityIndex_Atmosphere"],
+    "statsVars": [
+      "PalmerDroughtSeverityIndex_Atmosphere"
+    ],
     "relatedChart": {
       "scale": false
     },
@@ -125,7 +144,9 @@
     "titleId": "CHART_TITLE-Annual_emissions_greenhouse_gas",
     "title": "Annual greenhouse gas emissions (large facilities, non-biogenic)",
     "description": "Measures the total annual greenhouse gas emissions (large facilities, non-biogenic)",
-    "statsVars": ["Annual_Emissions_GreenhouseGas_NonBiogenic"],
+    "statsVars": [
+      "Annual_Emissions_GreenhouseGas_NonBiogenic"
+    ],
     "unit": "MTCO2e",
     "relatedChart": {
       "scale": false
@@ -138,7 +159,9 @@
     "titleId": "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic",
     "title": "Carbon dioxide emissions (large facilities, non-biogenic)",
     "description": "Annual amount of carbon dioxide emissions (large facilities, non-biogenic)",
-    "statsVars": ["Annual_Emissions_CarbonDioxide_NonBiogenic"],
+    "statsVars": [
+      "Annual_Emissions_CarbonDioxide_NonBiogenic"
+    ],
     "unit": "t",
     "relatedChart": {
       "scale": false
@@ -150,7 +173,9 @@
     "titleId": "CHART_TITLE-methane_emissions_nonbiogenic",
     "title": "Methane emissions (large facilities, non-biogenic)",
     "description": "Annual amount of methane emissions (large facilities, non-biogenic)",
-    "statsVars": ["Annual_Emissions_Methane_NonBiogenic"],
+    "statsVars": [
+      "Annual_Emissions_Methane_NonBiogenic"
+    ],
     "unit": "MTCO2e",
     "relatedChart": {
       "scale": false
@@ -162,7 +187,9 @@
     "titleId": "CHART_TITLE-nitrous_oxide_emissions_non_biogenic",
     "title": "Nitrous oxide emissions (large facilities, non-biogenic)",
     "description": "Annual amount of nitrous oxide emissions (large facilities, non-biogenic)",
-    "statsVars": ["Annual_Emissions_NitrousOxide_NonBiogenic"],
+    "statsVars": [
+      "Annual_Emissions_NitrousOxide_NonBiogenic"
+    ],
     "unit": "MTCO2e",
     "relatedChart": {
       "scale": false
@@ -174,8 +201,11 @@
     "titleId": "CHART_TITLE-water_withdrawal_rate",
     "title": "Water withdrawal rate",
     "description": "Water withdrawal rate",
-    "statsVars": ["WithdrawalRate_Water"],
+    "statsVars": [
+      "WithdrawalRate_Water"
+    ],
     "unit": "mgd",
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -186,7 +216,9 @@
     "titleId": "CHART_TITLE-Air pollutant cancer risk",
     "title": "Lifetime air toxics cancer risk",
     "description": "Probability of contracting cancer over a 70 year lifetime due to air pollutant exposure",
-    "statsVars": ["AirPollutant_Cancer_Risk"],
+    "statsVars": [
+      "AirPollutant_Cancer_Risk"
+    ],
     "unit": "per-million",
     "relatedChart": {
       "scale": false
@@ -199,7 +231,9 @@
     "titleId": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
     "title": "Carbon dioxide emissions per capita",
     "description": "Total amount of carbon dioxide emissions per person",
-    "statsVars": ["Amount_Emissions_CarbonDioxide_PerCapita"],
+    "statsVars": [
+      "Amount_Emissions_CarbonDioxide_PerCapita"
+    ],
     "unit": "t",
     "isOverview": true,
     "relatedChart": {
@@ -212,7 +246,10 @@
     "titleId": "CHART_TITLE-Earthquakes",
     "title": "Earthquakes",
     "description": "Total number of earthquakes that occured",
-    "statsVars": ["Count_EarthquakeEvent"],
+    "statsVars": [
+      "Count_EarthquakeEvent"
+    ],
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -223,7 +260,10 @@
     "titleId": "CHART_TITLE-Cyclones",
     "title": "Cyclones",
     "description": "Total number of cyclones that occured",
-    "statsVars": ["Count_CycloneEvent"],
+    "statsVars": [
+      "Count_CycloneEvent"
+    ],
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }

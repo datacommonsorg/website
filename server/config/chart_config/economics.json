@@ -8,6 +8,7 @@
       "Count_Person_Employed"
     ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Percentage_employed",
       "title": "Percentage of people employed",
@@ -26,6 +27,7 @@
     "statsVars": [
       "Count_Person_InLaborForce"
     ],
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Labor_force_rate",
       "title": "Labor force participation rate",
@@ -45,6 +47,7 @@
       "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
     ],
     "isOverview": true,
+    "isRankingChart": true,
     "unit": "%",
     "scaling": 100,
     "relatedChart": {
@@ -91,6 +94,7 @@
       "Count_Person_Workers",
       "Count_Person_NonWorker"
     ],
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Percentage of workers and nonworkers",
       "title": "Percentage of workers and nonworkers",
@@ -128,6 +132,7 @@
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
     ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-State_unemployment_claims_rate",
       "title": "State unemployment insurance claims rate",
