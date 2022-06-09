@@ -1065,3 +1065,567 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
             +
             'geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n' +
             'geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n')
+
+
+class TestGetFacetsWithinPlace(unittest.TestCase):
+
+    def test_required_params(self):
+        """Failure if required fields are not present."""
+        no_parent_place = app.test_client().get(
+            'api/stats/facets/within-place?childType=County&statVars=Count_Person'
+        )
+        assert no_parent_place.status_code == 400
+
+        no_child_type = app.test_client().get(
+            'api/stats/facets/within-place?parentPlace=country/USA&statVars=Count_Person'
+        )
+        assert no_child_type.status_code == 400
+
+        no_stat_vars = app.test_client().get(
+            'api/stats/facets/within-place?parentPlace=country/USA&childType=County'
+        )
+        assert no_stat_vars.status_code == 400
+
+    @mock.patch('routes.api.stats.dc.points_within')
+    def test_single_date(self, mock_points_within):
+        expected_parent_place = "country/USA"
+        expected_child_type = "State"
+        children_places = ["geoId/01", "geoId/02", "geoId/06"]
+        expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
+        expected_date = "2005"
+
+        def points_within_side_effect(parent_place, child_type, stat_vars, date,
+                                      all_facets):
+            if parent_place != expected_parent_place or child_type != expected_child_type or stat_vars != expected_stat_vars or not all_facets:
+                return {}
+            if date == "":
+                return {
+                    "facets": {
+                        "377779557": {
+                            "importName":
+                                "CensusACS5YearSurvey_SubjectTables_S2601APR",
+                            "measurementMethod":
+                                "CensusACS5yrSurveySubjectTable",
+                            "provenanceUrl":
+                                "https://data.census.gov/cedsci/table?q=S2601APR&tid=ACSST5Y2019.S2601APR"
+                        },
+                        "1145703171": {
+                            "importName": "CensusACS5YearSurvey",
+                            "measurementMethod": "CensusACS5yrSurvey",
+                            "provenanceUrl": "https://www.census.gov/"
+                        },
+                        "1151455814": {
+                            "importName":
+                                "OECDRegionalDemography",
+                            "measurementMethod":
+                                "OECDRegionalStatistics",
+                            "observationPeriod":
+                                "P1Y",
+                            "provenanceUrl":
+                                "https://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR#"
+                        },
+                        "1249140336": {
+                            "importName": "BLS_LAUS",
+                            "measurementMethod": "BLSSeasonallyAdjusted",
+                            "observationPeriod": "P1M",
+                            "provenanceUrl": "https://www.bls.gov/lau/"
+                        },
+                        "1541763368": {
+                            "importName":
+                                "USDecennialCensus_RedistrictingRelease",
+                            "measurementMethod":
+                                "USDecennialCensus",
+                            "provenanceUrl":
+                                "https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html"
+                        },
+                        "2176550201": {
+                            "importName":
+                                "USCensusPEP_Annual_Population",
+                            "measurementMethod":
+                                "CensusPEPSurvey",
+                            "observationPeriod":
+                                "P1Y",
+                            "provenanceUrl":
+                                "https://www2.census.gov/programs-surveys/popest/tables"
+                        },
+                        "2517965213": {
+                            "importName":
+                                "CensusPEP",
+                            "measurementMethod":
+                                "CensusPEPSurvey",
+                            "provenanceUrl":
+                                "https://www.census.gov/programs-surveys/popest.html"
+                        },
+                        "2978659163": {
+                            "importName": "BLS_LAUS",
+                            "measurementMethod": "BLSSeasonallyUnadjusted",
+                            "observationPeriod": "P1Y",
+                            "provenanceUrl": "https://www.bls.gov/lau/"
+                        },
+                        "3114843463": {
+                            "importName": "HumanCuratedStats",
+                            "measurementMethod": "HumanCuratedStats",
+                            "provenanceUrl": "https://google.com"
+                        },
+                        "3144703963": {
+                            "importName":
+                                "CensusACS5YearSurvey_SubjectTables_S2602PR",
+                            "measurementMethod":
+                                "CensusACS5yrSurveySubjectTable",
+                            "provenanceUrl":
+                                "https://data.census.gov/cedsci/table?q=S2602PR&tid=ACSST5Y2019.S2602PR"
+                        }
+                    },
+                    "observationsByVariable": [{
+                        "observationsByEntity": [
+                            {
+                                "entity":
+                                    "geoId/01",
+                                "pointsByFacet": [{
+                                    "date": "2019",
+                                    "facet": 2517965213,
+                                    "value": 4903185
+                                }, {
+                                    "date": "2020",
+                                    "facet": 1145703171,
+                                    "value": 4893186
+                                }, {
+                                    "date": "2020",
+                                    "facet": 1541763368,
+                                    "value": 5024279
+                                }, {
+                                    "date": "2020",
+                                    "facet": 2176550201,
+                                    "value": 4921532
+                                }, {
+                                    "date": "2019",
+                                    "facet": 1151455814,
+                                    "value": 4903190
+                                }, {
+                                    "date": "2011",
+                                    "facet": 3114843463,
+                                    "value": 4802740
+                                }]
+                            },
+                            {
+                                "entity":
+                                    "geoId/02",
+                                "pointsByFacet": [{
+                                    "date": "2019",
+                                    "facet": 2517965213,
+                                    "value": 731545
+                                }, {
+                                    "date": "2020",
+                                    "facet": 1145703171,
+                                    "value": 736990
+                                }, {
+                                    "date": "2020",
+                                    "facet": 1541763368,
+                                    "value": 733391
+                                }, {
+                                    "date": "2020",
+                                    "facet": 2176550201,
+                                    "value": 731158
+                                }, {
+                                    "date": "2019",
+                                    "facet": 1151455814,
+                                    "value": 731545
+                                }, {
+                                    "date": "2012",
+                                    "facet": 3114843463,
+                                    "value": 731449
+                                }]
+                            },
+                        ],
+                        "variable": "Count_Person"
+                    }, {
+                        "observationsByEntity": [
+                            {
+                                "entity":
+                                    "geoId/01",
+                                "pointsByFacet": [{
+                                    "date": "2021",
+                                    "facet": 2978659163,
+                                    "value": 3.4
+                                }, {
+                                    "date": "2022-04",
+                                    "facet": 1249140336,
+                                    "value": 2.8
+                                }]
+                            },
+                            {
+                                "entity":
+                                    "geoId/02",
+                                "pointsByFacet": [{
+                                    "date": "2021",
+                                    "facet": 2978659163,
+                                    "value": 6.4
+                                }, {
+                                    "date": "2022-04",
+                                    "facet": 1249140336,
+                                    "value": 4.9
+                                }]
+                            },
+                        ],
+                        "variable": "UnemploymentRate_Person"
+                    }]
+                }
+            if date == expected_date:
+                return {
+                    "facets": {
+                        "1151455814": {
+                            "importName":
+                                "OECDRegionalDemography",
+                            "measurementMethod":
+                                "OECDRegionalStatistics",
+                            "observationPeriod":
+                                "P1Y",
+                            "provenanceUrl":
+                                "https://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR#"
+                        },
+                        "2176550201": {
+                            "importName":
+                                "USCensusPEP_Annual_Population",
+                            "measurementMethod":
+                                "CensusPEPSurvey",
+                            "observationPeriod":
+                                "P1Y",
+                            "provenanceUrl":
+                                "https://www2.census.gov/programs-surveys/popest/tables"
+                        },
+                        "2458695583": {
+                            "importName":
+                                "WikidataPopulation",
+                            "measurementMethod":
+                                "WikidataPopulation",
+                            "provenanceUrl":
+                                "https://www.wikidata.org/wiki/Wikidata:Main_Page"
+                        },
+                        "2517965213": {
+                            "importName":
+                                "CensusPEP",
+                            "measurementMethod":
+                                "CensusPEPSurvey",
+                            "provenanceUrl":
+                                "https://www.census.gov/programs-surveys/popest.html"
+                        },
+                        "2978659163": {
+                            "importName": "BLS_LAUS",
+                            "measurementMethod": "BLSSeasonallyUnadjusted",
+                            "observationPeriod": "P1Y",
+                            "provenanceUrl": "https://www.bls.gov/lau/"
+                        }
+                    },
+                    "observationsByVariable": [{
+                        "observationsByEntity": [{
+                            "entity":
+                                "geoId/01",
+                            "pointsByFacet": [{
+                                "date": "2005",
+                                "facet": 2517965213,
+                                "value": 4542912
+                            }, {
+                                "date": "2005",
+                                "facet": 2176550201,
+                                "value": 4569805
+                            }, {
+                                "date": "2005",
+                                "facet": 1151455814,
+                                "value": 4569810
+                            }]
+                        }, {
+                            "entity":
+                                "geoId/02",
+                            "pointsByFacet": [{
+                                "date": "2005",
+                                "facet": 2517965213,
+                                "value": 667114
+                            }, {
+                                "date": "2005",
+                                "facet": 2176550201,
+                                "value": 666946
+                            }, {
+                                "date": "2005",
+                                "facet": 1151455814,
+                                "value": 666946
+                            }]
+                        }],
+                        "variable": "Count_Person"
+                    }, {
+                        "observationsByEntity": [{
+                            "entity":
+                                "geoId/01",
+                            "pointsByFacet": [{
+                                "date": "2005",
+                                "facet": 2978659163,
+                                "value": 4.4
+                            }]
+                        }, {
+                            "entity":
+                                "geoId/02",
+                            "pointsByFacet": [{
+                                "date": "2005",
+                                "facet": 2458695583,
+                                "value": 6.9
+                            }]
+                        }],
+                        "variable": "UnemploymentRate_Person"
+                    }]
+                }
+
+        mock_points_within.side_effect = points_within_side_effect
+        endpoint_constant_part = f'api/stats/facets/within-place?parentPlace={expected_parent_place}&childType={expected_child_type}&statVars={expected_stat_vars[0]}&statVars={expected_stat_vars[1]}'
+        latest_date = app.test_client().get(endpoint_constant_part +
+                                            '&minDate=latest&maxDate=latest')
+        assert latest_date.status_code == 200
+        assert latest_date.data == b'{"Count_Person":{"1145703171":{"importName":"CensusACS5YearSurvey","measurementMethod":"CensusACS5yrSurvey","provenanceUrl":"https://www.census.gov/"},"1151455814":{"importName":"OECDRegionalDemography","measurementMethod":"OECDRegionalStatistics","observationPeriod":"P1Y","provenanceUrl":"https://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR#"},"1541763368":{"importName":"USDecennialCensus_RedistrictingRelease","measurementMethod":"USDecennialCensus","provenanceUrl":"https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html"},"2176550201":{"importName":"USCensusPEP_Annual_Population","measurementMethod":"CensusPEPSurvey","observationPeriod":"P1Y","provenanceUrl":"https://www2.census.gov/programs-surveys/popest/tables"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"},"3114843463":{"importName":"HumanCuratedStats","measurementMethod":"HumanCuratedStats","provenanceUrl":"https://google.com"}},"UnemploymentRate_Person":{"1249140336":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyAdjusted","observationPeriod":"P1M","provenanceUrl":"https://www.bls.gov/lau/"},"2978659163":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1Y","provenanceUrl":"https://www.bls.gov/lau/"}}}\n'
+        single_date = app.test_client().get(
+            endpoint_constant_part +
+            f'&minDate={expected_date}&maxDate={expected_date}')
+        assert single_date.status_code == 200
+        assert single_date.data == b'{"Count_Person":{"1151455814":{"importName":"OECDRegionalDemography","measurementMethod":"OECDRegionalStatistics","observationPeriod":"P1Y","provenanceUrl":"https://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR#"},"2176550201":{"importName":"USCensusPEP_Annual_Population","measurementMethod":"CensusPEPSurvey","observationPeriod":"P1Y","provenanceUrl":"https://www2.census.gov/programs-surveys/popest/tables"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}},"UnemploymentRate_Person":{"2458695583":{"importName":"WikidataPopulation","measurementMethod":"WikidataPopulation","provenanceUrl":"https://www.wikidata.org/wiki/Wikidata:Main_Page"},"2978659163":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1Y","provenanceUrl":"https://www.bls.gov/lau/"}}}\n'
+
+    @mock.patch('routes.api.stats.dc.series_within')
+    def test_date_range(self, mock_series_within):
+        expected_parent_place = "country/USA"
+        expected_child_type = "State"
+        children_places = ["geoId/01", "geoId/06"]
+        expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
+        expected_min_date_year = "2015"
+        expected_max_date_year = "2018"
+
+        def series_within_side_effect(parent_place, child_type, stat_vars,
+                                      all_facets):
+            if parent_place == expected_parent_place and child_type == expected_child_type and stat_vars == expected_stat_vars and all_facets:
+                return {
+                    "facets": {
+                        "324358135": {
+                            "importName": "BLS_LAUS",
+                            "measurementMethod": "BLSSeasonallyUnadjusted",
+                            "observationPeriod": "P1M",
+                            "provenanceUrl": "https://www.bls.gov/lau/"
+                        },
+                        "1145703171": {
+                            "importName": "CensusACS5YearSurvey",
+                            "measurementMethod": "CensusACS5yrSurvey",
+                            "provenanceUrl": "https://www.census.gov/"
+                        },
+                        "1151455814": {
+                            "importName":
+                                "OECDRegionalDemography",
+                            "measurementMethod":
+                                "OECDRegionalStatistics",
+                            "observationPeriod":
+                                "P1Y",
+                            "provenanceUrl":
+                                "https://stats.oecd.org/Index.aspx?DataSetCode=REGION_DEMOGR#"
+                        },
+                        "1226172227": {
+                            "importName": "CensusACS1YearSurvey",
+                            "measurementMethod": "CensusACS1yrSurvey",
+                            "provenanceUrl": "https://www.census.gov/"
+                        },
+                        "1249140336": {
+                            "importName": "BLS_LAUS",
+                            "measurementMethod": "BLSSeasonallyAdjusted",
+                            "observationPeriod": "P1M",
+                            "provenanceUrl": "https://www.bls.gov/lau/"
+                        },
+                        "1541763368": {
+                            "importName":
+                                "USDecennialCensus_RedistrictingRelease",
+                            "measurementMethod":
+                                "USDecennialCensus",
+                            "provenanceUrl":
+                                "https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html"
+                        },
+                        "2176550201": {
+                            "importName":
+                                "USCensusPEP_Annual_Population",
+                            "measurementMethod":
+                                "CensusPEPSurvey",
+                            "observationPeriod":
+                                "P1Y",
+                            "provenanceUrl":
+                                "https://www2.census.gov/programs-surveys/popest/tables"
+                        },
+                        "2458695583": {
+                            "importName":
+                                "WikidataPopulation",
+                            "measurementMethod":
+                                "WikidataPopulation",
+                            "provenanceUrl":
+                                "https://www.wikidata.org/wiki/Wikidata:Main_Page"
+                        },
+                        "2517965213": {
+                            "importName":
+                                "CensusPEP",
+                            "measurementMethod":
+                                "CensusPEPSurvey",
+                            "provenanceUrl":
+                                "https://www.census.gov/programs-surveys/popest.html"
+                        },
+                        "2978659163": {
+                            "importName": "BLS_LAUS",
+                            "measurementMethod": "BLSSeasonallyUnadjusted",
+                            "observationPeriod": "P1Y",
+                            "provenanceUrl": "https://www.bls.gov/lau/"
+                        },
+                        "3114843463": {
+                            "importName": "HumanCuratedStats",
+                            "measurementMethod": "HumanCuratedStats",
+                            "provenanceUrl": "https://google.com"
+                        },
+                        "3144703963": {
+                            "importName":
+                                "CensusACS5YearSurvey_SubjectTables_S2602PR",
+                            "measurementMethod":
+                                "CensusACS5yrSurveySubjectTable",
+                            "provenanceUrl":
+                                "https://data.census.gov/cedsci/table?q=S2602PR&tid=ACSST5Y2019.S2602PR"
+                        }
+                    },
+                    "observationsByVariable": [{
+                        "observationsByEntity": [{
+                            "entity":
+                                "geoId/01",
+                            "seriesByFacet": [
+                                {
+                                    "facet":
+                                        2517965213,
+                                    "series": [{
+                                        "date": "2018",
+                                        "value": 4887681
+                                    }, {
+                                        "date": "2019",
+                                        "value": 4903185
+                                    }]
+                                },
+                                {
+                                    "facet":
+                                        1145703171,
+                                    "series": [{
+                                        "date": "2011",
+                                        "value": 4747424
+                                    }, {
+                                        "date": "2012",
+                                        "value": 4777326
+                                    }]
+                                },
+                                {
+                                    "facet":
+                                        1541763368,
+                                    "series": [{
+                                        "date": "2000",
+                                        "value": 4447100
+                                    }, {
+                                        "date": "2010",
+                                        "value": 4779736
+                                    }, {
+                                        "date": "2020",
+                                        "value": 5024279
+                                    }]
+                                },
+                            ]
+                        }, {
+                            "entity": "geoId/02",
+                            "seriesByFacet": [{
+                                "facet":
+                                    2517965213,
+                                "series": [{
+                                    "date": "2017",
+                                    "value": 739700
+                                }, {
+                                    "date": "2018",
+                                    "value": 735139
+                                }, {
+                                    "date": "2019",
+                                    "value": 731545
+                                }]
+                            }, {
+                                "entity":
+                                    "geoId/04",
+                                "seriesByFacet": [{
+                                    "facet":
+                                        2176550201,
+                                    "series": [
+                                        {
+                                            "date": "1900",
+                                            "value": 124000
+                                        },
+                                        {
+                                            "date": "1901",
+                                            "value": 131000
+                                        },
+                                        {
+                                            "date": "1902",
+                                            "value": 138000
+                                        },
+                                    ]
+                                }]
+                            }],
+                            "variable": "Count_Person"
+                        }, {
+                            "observationsByEntity": [
+                                {
+                                    "entity":
+                                        "geoId/01",
+                                    "seriesByFacet": [
+                                        {
+                                            "facet":
+                                                324358135,
+                                            "series": [{
+                                                "date": "2022-02",
+                                                "value": 3.1
+                                            }, {
+                                                "date": "2022-03",
+                                                "value": 2.5
+                                            }, {
+                                                "date": "2022-04",
+                                                "value": 2.1
+                                            }]
+                                        },
+                                        {
+                                            "facet":
+                                                2978659163,
+                                            "series": [{
+                                                "date": "2019",
+                                                "value": 3.2
+                                            }, {
+                                                "date": "2020",
+                                                "value": 6.5
+                                            }, {
+                                                "date": "2021",
+                                                "value": 3.4
+                                            }]
+                                        },
+                                    ]
+                                },
+                                {
+                                    "entity":
+                                        "geoId/05",
+                                    "seriesByFacet": [{
+                                        "facet":
+                                            1249140336,
+                                        "series": [{
+                                            "date": "1976-01",
+                                            "value": 7.3
+                                        }, {
+                                            "date": "1976-02",
+                                            "value": 7.3
+                                        }]
+                                    }]
+                                },
+                            ],
+                            "variable": "UnemploymentRate_Person"
+                        }]
+                    }]
+                }
+            else:
+                return {}
+
+        mock_series_within.side_effect = series_within_side_effect
+        url = f'api/stats/facets/within-place?parentPlace={expected_parent_place}&childType={expected_child_type}&statVars={expected_stat_vars[0]}&statVars={expected_stat_vars[1]}&minDate={expected_min_date_year}&maxDate={expected_max_date_year}'
+        resp = app.test_client().get(url)
+        assert resp.status_code == 200
+        assert resp.data == b'{"":{"1145703171":{"importName":"CensusACS5YearSurvey","measurementMethod":"CensusACS5yrSurvey","provenanceUrl":"https://www.census.gov/"},"1541763368":{"importName":"USDecennialCensus_RedistrictingRelease","measurementMethod":"USDecennialCensus","provenanceUrl":"https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}}}\n'

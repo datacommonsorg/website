@@ -414,6 +414,124 @@ def get_place_stat_date_within_place():
     return Response(json.dumps(response), 200, mimetype='application/json')
 
 
+def get_facets_by_variable_series(series_response):
+    """
+    Gets the available facets for each sv in an api response for series_within.
+
+    Args:
+        series_response: the response from a dc.series_within call.
+    
+    Returns:
+        a dict of sv to dict of facet id to facet information:
+            {
+                [sv]: {
+                    [facet1]: {
+                        "importName": "Census",
+                        "observationPeriod": "P1Y",
+                        ...
+                    },
+                    ...
+                },
+                ...
+            }
+    """
+    facets_by_variable = {}
+    facets = series_response.get("facets", {})
+    for sv_obs in series_response.get("observationsByVariable", []):
+        sv = sv_obs.get("variable", "")
+        facets_by_variable[sv] = {}
+        for place_obs in sv_obs.get("observationsByEntity", []):
+            for facet_obs in place_obs.get("seriesByFacet", []):
+                facet = str(facet_obs.get("facet", ""))
+                if facet and not facet in facets_by_variable[sv]:
+                    facets_by_variable[sv][facet] = facets.get(facet, {})
+    return facets_by_variable
+
+
+def get_facets_by_variable_points(points_response):
+    """
+    Gets the available facets for each sv in an api response for points_within.
+
+    Args:
+        points_response: the response from a dc.points_within call.
+    
+    Returns:
+        a dict of sv to dict of facet id to facet information:
+            {
+                [sv]: {
+                    [facet1]: {
+                        "importName": "Census",
+                        "observationPeriod": "P1Y",
+                        ...
+                    },
+                    ...
+                },
+                ...
+            }
+    """
+    facets_by_variable = {}
+    facets = points_response.get("facets", {})
+    for sv_obs in points_response.get("observationsByVariable", []):
+        sv = sv_obs.get("variable", "")
+        facets_by_variable[sv] = {}
+        for place_obs in sv_obs.get("observationsByEntity", []):
+            for facet_obs in place_obs.get("pointsByFacet", []):
+                facet = str(facet_obs.get("facet", ""))
+                if not facet in facets_by_variable[sv]:
+                    facets_by_variable[sv][facet] = facets.get(facet, {})
+    return facets_by_variable
+
+
+@bp.route('/api/stats/facets/within-place')
+@cache.cached(timeout=3600 * 24, query_string=True)
+def get_facets_within_place():
+    """
+    Gets the available facets for a list of stat vars for places of a specific
+    type within a parent place.
+
+    Returns a dict of sv to dict of facet id to facet information:
+    {
+        [sv]: {
+            [facet1]: {
+                "importName": "Census",
+                "observationPeriod": "P1Y",
+                ...
+            },
+            ...
+        },
+        ...
+    }
+    """
+    parent_place = request.args.get('parentPlace')
+    if not parent_place:
+        return 'error: must provide a parentPlace field', 400
+    child_type = request.args.get('childType')
+    if not child_type:
+        return 'error: must provide a childType field', 400
+    stat_vars = request.args.getlist('statVars')
+    if not stat_vars:
+        return 'error: must provide a statVars field', 400
+    min_date = request.args.get('minDate')
+    if not is_valid_get_csv_date(min_date):
+        return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
+    max_date = request.args.get('maxDate')
+    if not is_valid_get_csv_date(max_date):
+        return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
+    # when min_date and max_date are the same and non empty, we will get the
+    # points data, otherwise we will get series data
+    if min_date and max_date and min_date == max_date:
+        date = min_date
+        if min_date == "latest":
+            date = ""
+        points_response = dc.points_within(parent_place, child_type, stat_vars,
+                                           date, True)
+        return get_facets_by_variable_points(points_response), 200
+    else:
+        series_response = dc.series_within(parent_place, child_type, stat_vars,
+                                           True)
+        return get_facets_by_variable_series(series_response), 200
+
+
 def get_set_csv_rows(stat_set, sv_list, row_limit=None):
     """
     Gets the csv rows for a set of statistical variables data of a single date.
