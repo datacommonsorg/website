@@ -124,8 +124,8 @@ interface ChartPropType {
    */
   isUsaPlace: boolean;
   /**
-   ** Promise for ranking chart data for current dcid
-  */
+   * Promise for ranking chart data for current dcid.
+   */
   rankingChartData?: Promise<CachedRankingChartData>;
 }
 
