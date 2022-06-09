@@ -465,7 +465,8 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             title={intl.formatMessage(
               {
                 defaultMessage: "{variable}: rankings in {placeName}",
-                description: `Used for chart titles like "{Unemployment rate}: rankings in {USA}".`,
+                description:
+                  'Used for chart titles like "{Unemployment rate}: rankings in {USA}".',
                 id: "chart_clause-variable_in_place",
               },
               {

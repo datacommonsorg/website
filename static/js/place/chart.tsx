@@ -699,9 +699,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
   }
 
-  private getCurrentPlaceRankAndValue():
-    | { rank: number; value: number }
-    | undefined {
+  private getCurrentPlaceRankAndValue(): { rank: number; value: number } {
     let currentPlaceRankAndValue = { rank: 0, value: 0 };
     for (const data of this.state.rankingChartDataGroup.data) {
       if (data.placeDcid === this.props.dcid) {
@@ -709,13 +707,13 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         return currentPlaceRankAndValue;
       }
     }
-    return undefined;
+    return currentPlaceRankAndValue;
   }
 
   private getRankingChartContainerTitle(): string {
     const placeName = this.props.names[this.props.dcid] || this.props.dcid;
     const currentPlaceRankAndValue = this.getCurrentPlaceRankAndValue();
-    if (!currentPlaceRankAndValue) {
+    if (!currentPlaceRankAndValue.rank) {
       return "";
     }
     const value = formatNumber(
