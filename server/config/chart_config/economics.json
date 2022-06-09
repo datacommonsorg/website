@@ -1,0 +1,474 @@
+[
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Total_employed",
+    "title": "Number of people employed",
+    "description": "Number of people employed",
+    "statsVars": ["Count_Person_Employed"],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Percentage_employed",
+      "title": "Percentage of people employed",
+      "description": "Percentage of people employed",
+      "scale": true,
+      "denominator": "Count_Person",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Labor_force",
+    "title": "Labor force",
+    "description": "Count of people in the labor force, see https://data.oecd.org/emp/labour-force.htm",
+    "statsVars": ["Count_Person_InLaborForce"],
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Labor_force_rate",
+      "title": "Labor force participation rate",
+      "description": "Percentage of the population, of working age, in the labor force, see https://data.oecd.org/emp/labour-force.htm",
+      "scale": true,
+      "denominator": "Count_Person_16OrMoreYears",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Labor_force_rate",
+    "title": "Labor force participation rate",
+    "description": "Percentage of the population, of working age, in the labor force, see https://data.oecd.org/emp/labour-force.htm",
+    "statsVars": [
+      "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+    ],
+    "isOverview": true,
+    "unit": "%",
+    "scaling": 100,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Unemployment_rate",
+    "title": "Unemployment rate",
+    "description": "Percentage of the population, of working age, who are unemployed.",
+    "statsVars": ["UnemploymentRate_Person"],
+    "unit": "%",
+    "isOverview": true,
+    "isChoropleth": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Unemployment_rate-urban-v-rural",
+    "title": "Unemployment rate: urban vs rural",
+    "description": "Percentage of the working age population that is unemployed in urban vs. rural areas.",
+    "statsVars": [
+      "UnemploymentRate_Person_Rural",
+      "UnemploymentRate_Person_Urban"
+    ],
+    "unit": "%",
+    "isOverview": false,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Worker-vs-nonworker-population",
+    "title": "Worker vs nonworker population",
+    "description": "Compares worker vs nonworker population in an area",
+    "statsVars": ["Count_Person_Workers", "Count_Person_NonWorker"],
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Percentage of workers and nonworkers",
+      "title": "Percentage of workers and nonworkers",
+      "description": "Percentage of workers and nonworkers",
+      "scale": true,
+      "denominator": "Count_Person",
+      "unit": "%",
+      "scaling": 100
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Poverty_rate",
+    "description": "Percentage of the population below poverty",
+    "title": "Poverty rate",
+    "statsVars": ["Count_Person_BelowPovertyLevelInThePast12Months"],
+    "denominator": ["Count_Person"],
+    "scaling": 100,
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-State_unemployment_claims",
+    "title": "State unemployment insurance claims",
+    "description": "Number of unemployment insurance claims filed with a US state",
+    "statsVars": [
+      "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
+    ],
+    "isOverview": true,
+    "relatedChart": {
+      "titleId": "CHART_TITLE-State_unemployment_claims_rate",
+      "title": "State unemployment insurance claims rate",
+      "description": "Percentage of the labor force who filed unemployment insurance claims with a US state",
+      "scale": true,
+      "denominator": "Count_Person_InLaborForce",
+      "scaling": 100,
+      "unit": "%"
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Children_employed",
+    "title": "Children in employment",
+    "description": "Number of children who are employed",
+    "statsVars": [
+      "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
+    ],
+    "unit": "%",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Children_employed_gender",
+    "title": "Children in employment by gender",
+    "description": "Number of children who are employed, broken down by gender",
+    "statsVars": [
+      "Count_Person_7To14Years_Female_Employed_AsFractionOf_Count_Person_7To14Years_Female",
+      "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male"
+    ],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Unemployment_rate_gender",
+    "title": "Unemployment rate by gender",
+    "description": "Percentage of the population, of working age, who are unemployed. Broken down by gender",
+    "statsVars": [
+      "UnemploymentRate_Person_Male",
+      "UnemploymentRate_Person_Female"
+    ],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Gdp_per_capita",
+    "title": "Gross domestic product per capita",
+    "description": "Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+    ],
+    "unit": "$",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Gdp_growth_rate",
+    "title": "Gross domestic product growth rate",
+    "description": "Annual percentage growth rate of GDP at market prices based on constant local currency",
+    "statsVars": ["GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Gni_per_capita",
+    "title": "Gross national income per capita (purchasing power parity)",
+    "description": "Gross national income, divided by population, converted using purchasing power parity rates",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+    ],
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Gni",
+    "title": "Gross national income (purchasing power parity)",
+    "description": "Gross national income, converted using purchasing power parity rates",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
+    ],
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Government_debt",
+    "title": "Government debt",
+    "description": "Amount of government debt",
+    "statsVars": ["Amount_Debt_Government"],
+    "isOverview": true,
+    "unit": "$",
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Government_debt_per_capita",
+      "title": "Government debt per capita",
+      "description": "Government debt divided by the population",
+      "scale": true,
+      "denominator": "Count_Person"
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Government_expenditures_education",
+    "title": "Government expenditures on education (% of government expenditure)",
+    "description": "Government expenditures on education as a percentage of government expenditure",
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
+    ],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Government_expenditures_education_gdp",
+    "title": "Government expenditures on education (% of GDP)",
+    "description": "Government expenditures on education as a percentage of GDP",
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Government_expenditures_military",
+    "title": "Government expenditures on military",
+    "description": "Amount spent by a government on the military",
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
+    ],
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Government_expenditures_military_per_gdp",
+    "title": "Government expenditures on military (% of GDP)",
+    "description": "Amount spent by a government on the military as a percentage of GDP",
+    "statsVars": [
+      "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Market_capitalization",
+    "title": "Market capitalization of domestic companies",
+    "statsVars": ["Amount_Stock"],
+    "unit": "$",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Market_capitalization_per_gdp",
+    "title": "Market capitalization of domestic companies (% of GDP)",
+    "description": "Market capitalization of domestic companies (as a percentage of GDP)",
+    "statsVars": [
+      "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Inward_remittance",
+    "title": "Inward remittance",
+    "description": "Total amount of inward remittance into a place",
+    "statsVars": ["Amount_Remittance_InwardRemittance"],
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Inward_remittance_per_gdp",
+    "title": "Inward remittance (% of GDP)",
+    "description": "Total amount of inward remittance into a place (as a percentage of GDP)",
+    "statsVars": [
+      "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
+    "unit": "%",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Outward_remittance_per_gdp",
+    "title": "Outward remittance",
+    "description": "Total amount of outward remittance from a place",
+    "statsVars": ["Amount_Remittance_OutwardRemittance"],
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Median_individual_income",
+    "title": "Median individual income",
+    "statsVars": ["Median_Income_Person"],
+    "unit": "$",
+    "isOverview": true,
+    "relatedChart": {
+      "scale": false
+    },
+    "isChoropleth": true
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Individual_income",
+    "title": "Individual income",
+    "description": "Count of people whose individual incomes are in certain buckets",
+    "statsVars": [
+      "Count_Person_IncomeOfUpto9999USDollar",
+      "Count_Person_IncomeOf10000To14999USDollar",
+      "Count_Person_IncomeOf15000To24999USDollar",
+      "Count_Person_IncomeOf25000To34999USDollar",
+      "Count_Person_IncomeOf35000To49999USDollar",
+      "Count_Person_IncomeOf50000To64999USDollar",
+      "Count_Person_IncomeOf65000To74999USDollar",
+      "Count_Person_IncomeOf75000OrMoreUSDollar"
+    ],
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Individual_income_by_bracket",
+      "title": "Percentage of individuals by income brackets",
+      "description": "Percentage of the population whose individual incomes are in certain buckets",
+      "scale": true,
+      "denominator": "Count_Person_15OrMoreYears",
+      "unit": "%",
+      "scaling": 100
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Median_household_income",
+    "title": "Median household income",
+    "description": "Median incomes of households",
+    "statsVars": ["Median_Income_Household"],
+    "unit": "$",
+    "relatedChart": {
+      "scale": false
+    },
+    "isChoropleth": true
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Household_income",
+    "title": "Household income",
+    "description": "Count of households whose combined incomes fall in certain buckets",
+    "statsVars": [
+      "Count_Household_IncomeOfUpto10000USDollar",
+      "Count_Household_IncomeOf10000To14999USDollar",
+      "Count_Household_IncomeOf20000To24999USDollar",
+      "Count_Household_IncomeOf40000To44999USDollar",
+      "Count_Household_IncomeOf50000To59999USDollar",
+      "Count_Household_IncomeOf60000To74999USDollar",
+      "Count_Household_IncomeOf75000To99999USDollar",
+      "Count_Household_IncomeOf100000To124999USDollar",
+      "Count_Household_IncomeOf125000To149999USDollar",
+      "Count_Household_IncomeOf150000To199999USDollar",
+      "Count_Household_IncomeOf200000OrMoreUSDollar"
+    ],
+    "relatedChart": {
+      "titleId": "CHART_TITLE-Household_income_by_bracket",
+      "title": "Percentage of households by income brackets",
+      "description": "Percentage of households whose combined incomes fall in certain buckets",
+      "scale": true,
+      "denominator": "Count_Household",
+      "unit": "%",
+      "scaling": 100
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Worker wages (daily)",
+    "title": "Worker wages (daily)",
+    "description": "Mean daily worker wages",
+    "statsVars": ["Mean_WagesDaily_Worker"],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Worker wages (monthly)",
+    "title": "Worker wages (monthly)",
+    "description": "Mean monthly worker wages",
+    "statsVars": ["Mean_WagesMonthly_Worker"],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Worker wages (monthly): urban vs rural",
+    "title": "Worker wages (monthly): urban vs rural",
+    "description": "Mean monthly wages in urban vs. rural areas.",
+    "statsVars": [
+      "Mean_WagesMonthly_Worker_Urban",
+      "Mean_WagesMonthly_Worker_Rural"
+    ],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Worker wages (monthly): female vs male",
+    "title": "Worker wages (monthly): female vs male",
+    "description": "Mean monthly wages by gender.",
+    "statsVars": [
+      "Mean_WagesMonthly_Worker_Female",
+      "Mean_WagesMonthly_Worker_Male"
+    ],
+    "unit": "₹",
+    "relatedChart": {
+      "scale": false
+    }
+  }
+]
