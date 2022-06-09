@@ -87,8 +87,8 @@ export function RankingTable(props: RankingTablePropType): JSX.Element {
     <div className="ranking-table">
       <h4>
         {formatString(props.title, {
-          place: "",
           date: "",
+          place: "",
           statVar: props.statVarName,
         })}
       </h4>
@@ -102,7 +102,7 @@ export function RankingTable(props: RankingTablePropType): JSX.Element {
                     point.dcid === props.currentDcid ? "bold" : ""
                   }`}
                 >
-                  {point.rank === undefined
+                  {point.rank
                     ? getRank(props.isHighest, i, props.numDataPoints)
                     : point.rank}
                   .
@@ -112,7 +112,7 @@ export function RankingTable(props: RankingTablePropType): JSX.Element {
                     point.dcid === props.currentDcid ? "bold" : ""
                   }`}
                 >
-                  {point.redirectLink === undefined ? (
+                  {point.redirectLink ? (
                     point.label || point.dcid
                   ) : (
                     <LocalizedLink

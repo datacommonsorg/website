@@ -464,14 +464,13 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             // TODO: Support i18n.
             title={intl.formatMessage(
               {
-                id: "chart_clause-variable_in_place",
                 defaultMessage: "{variable}: rankings in {placeName}",
-                description:
-                  'Used for chart titles like "{Unemployment rate}: rankings in {USA}".',
+                description: `Used for chart titles like "{Unemployment rate}: rankings in {USA}".`,
+                id: "chart_clause-variable_in_place",
               },
               {
-                variable: this.displayDataTitle,
                 placeName: isEarth ? this.displayPlaceName : parentPlaceName,
+                variable: this.displayDataTitle,
               }
             )}
             rankingChartData={this.props.rankingChartData}

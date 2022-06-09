@@ -140,10 +140,6 @@ export interface MapPoint {
   longitude: number;
 }
 
-export interface CachedRankingChartData {
-  statVars: RankingChartDataGroup;
-}
-
 export interface RankingChartDataGroup {
   date: string;
   data: {
@@ -155,4 +151,8 @@ export interface RankingChartDataGroup {
   numDataPoints: number;
   exploreUrl: string;
   sources: string[];
+}
+
+export interface CachedRankingChartData {
+  statVars: RankingChartDataGroup;
 }

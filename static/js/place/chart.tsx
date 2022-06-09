@@ -665,14 +665,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const lowestAndHighestDataPoints = { lowest: [], highest: [] };
     const dataPoints: Point[] = this.state.rankingChartDataGroup.data.map(
       (datapoint) => {
-        const data_point = {
-          rank: datapoint.rank,
-          value: datapoint.value,
-          label: datapoint.placeName,
+        const dataPoint = {
           dcid: datapoint.placeDcid,
+          label: datapoint.placeName,
+          rank: datapoint.rank,
           redirectLink: "/place/" + datapoint.placeDcid,
+          value: datapoint.value,
         };
-        return data_point;
+        return dataPoint;
       }
     );
     if (
