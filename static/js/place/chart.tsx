@@ -661,7 +661,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
   }
 
-  // Prepare data for the ranking table
   private getRankingTableData(): { lowest: Point[]; highest: Point[] } {
     const lowestAndHighestDataPoints = { lowest: [], highest: [] };
     const dataPoints: Point[] = this.state.rankingChartDataGroup.data.map(
@@ -700,27 +699,32 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
   }
 
-  // Get rank and value for the current place dcid.
-  private getCurrentPlaceRankAndValue(): { rank: number; value: number } {
-    let currentPlaceRankAndValue = { rank: null, value: null };
+  private getCurrentPlaceRankAndValue():
+    | { rank: number; value: number }
+    | undefined {
+    let currentPlaceRankAndValue = { rank: 0, value: 0 };
     for (const data of this.state.rankingChartDataGroup.data) {
       if (data.placeDcid === this.props.dcid) {
         currentPlaceRankAndValue = { rank: data.rank, value: data.value };
         return currentPlaceRankAndValue;
       }
     }
+    return undefined;
   }
 
   private getRankingChartContainerTitle(): string {
     const placeName = this.props.names[this.props.dcid] || this.props.dcid;
-    const rank = this.getCurrentPlaceRankAndValue().rank;
-    const number = formatNumber(
-      this.getCurrentPlaceRankAndValue().value,
+    const currentPlaceRankAndValue = this.getCurrentPlaceRankAndValue();
+    if (!currentPlaceRankAndValue) {
+      return "";
+    }
+    const value = formatNumber(
+      currentPlaceRankAndValue.value,
       this.props.unit,
       false,
       NUM_FRACTION_DIGITS
     );
-    return placeName + "ranks" + rank + "(" + number + ")";
+    return `${placeName} ranks ${currentPlaceRankAndValue.rank} (${value})`;
   }
 }
 

@@ -26,94 +26,120 @@ import { formatString } from "../topic_page/string_utils";
 const NUM_FRACTION_DIGITS = 2;
 
 export interface Point {
-    dcid: string;
-    label: string;
-    value: number;
-    rank?: number; //  If not provided, the component will calculate the rank base on the sequence of the input data.
-    redirectLink?: string; // Add redirect link on the label. If not provided, the label will be in text.
+  dcid: string;
+  label: string;
+  value: number;
+  /**
+   * If not provided, the component will calculate the rank based on the order of the input points.
+   */
+  rank?: number;
+  /**
+   * Redirect link on the label. If not provided, the label will be in plain text.
+   */
+  redirectLink?: string;
 }
 
 interface RankingTablePropType {
-    title: string;
-    points: Point[];
-    isHighest: boolean; // Show the highest rank or the lowest rank.
-    statVarName?: string; // Show the statVarName in the title.
-    unit?: string;
-    scaling?: number;
-    numDataPoints?: number; // Calculate the rank for the lowest, starting from n, n-1,n-2. If not provided, the default rank will be 1,2,3...
-    currentDcid?: string; // Bold the entire row when the place in the rank is the current place.
-    notShowValue?: boolean; // False if do not want to show the value.
+  title: string;
+  /**
+   * All the provided points will appear in the table as rows.
+   */
+  points: Point[];
+  /**
+   * If true, rows are ordered from highest ranks to lowest, e.g., 1,2,3...
+   * Otherwise, from lowest to highest, e.g., n,n-1,n-2,...
+   */
+  isHighest: boolean;
+  statVarName?: string;
+  unit?: string;
+  scaling?: number;
+  /**
+   * Total number of points. This is used for calculating ranks if isHighest is false
+   * (ordering from lowest ranks to highest) and ranks are not provided, e.g., n,n-1,n-2,...
+   */
+  numDataPoints?: number;
+  /**
+   * The row with dcid equal to currentDcid will be bolded.
+   */
+  currentDcid?: string;
+  /**
+   * If true, only the ranks and labels will be shown and not the values.
+   */
+  notShowValue?: boolean;
 }
 
 export function RankingTable(props: RankingTablePropType): JSX.Element {
-    // Calculate the rank based on the sequece of data if no rank is provided.
-    function getRank(
-        isHighest: boolean,
-        index: number,
-        numberOfTotalDataPoints?: number
-    ): number {
-        if (isHighest) {
-            return index + 1;
-        }
-        return numberOfTotalDataPoints
-            ? numberOfTotalDataPoints - index
-            : index + 1;
+  // Calculates ranks based on the order of data if no rank is provided.
+  function getRank(
+    isHighest: boolean,
+    index: number,
+    numberOfTotalDataPoints?: number
+  ): number {
+    if (isHighest) {
+      return index + 1;
     }
+    return numberOfTotalDataPoints
+      ? numberOfTotalDataPoints - index
+      : index + 1;
+  }
 
-    return (
-        <div className="ranking-table">
-            <h4>
-                {formatString(props.title, {
-                    place: "",
-                    date: "",
-                    statVar: props.statVarName,
-                })}
-            </h4>
-            <table>
-                <tbody>
-                    {props.points.map((point, i) => {
-                        return (
-                            <tr key={point.dcid}>
-                                <td
-                                    className={`rank ${point.dcid === props.currentDcid ? "bold" : ""
-                                        }`}
-                                >
-                                    {point.rank === undefined
-                                        ? getRank(props.isHighest, i, props.numDataPoints)
-                                        : point.rank}
-                                    .
-                                </td>
-                                <td
-                                    className={`label ${point.dcid === props.currentDcid ? "bold" : ""
-                                        }`}
-                                >
-                                    {point.redirectLink === undefined ? (
-                                        point.label || point.dcid
-                                    ) : (
-                                        <LocalizedLink
-                                            href={point.redirectLink}
-                                            text={point.label || point.dcid}
-                                        />
-                                    )}
-                                </td>
-                                {(props.notShowValue === undefined || !props.notShowValue) && (
-                                    <td
-                                        className={`value ${point.dcid === props.currentDcid ? "bold" : ""
-                                            }`}
-                                    >
-                                        {formatNumber(
-                                            props.scaling ? point.value * props.scaling : point.value,
-                                            props.unit,
-                                            false,
-                                            NUM_FRACTION_DIGITS
-                                        )}
-                                    </td>
-                                )}
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </div>
-    );
+  return (
+    <div className="ranking-table">
+      <h4>
+        {formatString(props.title, {
+          place: "",
+          date: "",
+          statVar: props.statVarName,
+        })}
+      </h4>
+      <table>
+        <tbody>
+          {props.points.map((point, i) => {
+            return (
+              <tr key={point.dcid}>
+                <td
+                  className={`rank ${
+                    point.dcid === props.currentDcid ? "bold" : ""
+                  }`}
+                >
+                  {point.rank === undefined
+                    ? getRank(props.isHighest, i, props.numDataPoints)
+                    : point.rank}
+                  .
+                </td>
+                <td
+                  className={`label ${
+                    point.dcid === props.currentDcid ? "bold" : ""
+                  }`}
+                >
+                  {point.redirectLink === undefined ? (
+                    point.label || point.dcid
+                  ) : (
+                    <LocalizedLink
+                      href={point.redirectLink}
+                      text={point.label || point.dcid}
+                    />
+                  )}
+                </td>
+                {!props.notShowValue && (
+                  <td
+                    className={`value ${
+                      point.dcid === props.currentDcid ? "bold" : ""
+                    }`}
+                  >
+                    {formatNumber(
+                      props.scaling ? point.value * props.scaling : point.value,
+                      props.unit,
+                      false,
+                      NUM_FRACTION_DIGITS
+                    )}
+                  </td>
+                )}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
 }

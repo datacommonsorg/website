@@ -164,9 +164,6 @@ function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
   return isEarth || (isInUSA && USA_PLACE_TYPES_WITH_CHOROPLETH.has(placeType));
 }
 
-/**
- * Get the ranking chart data
- */
 async function getRankingChartData(
   dcid: string
 ): Promise<CachedRankingChartData> {

@@ -80,7 +80,7 @@ interface ChartBlockPropType {
    */
   category: string;
   /**
-   * Promise for ranking chart data for current dcid
+   * Promise for ranking chart data for current dcid.
    */
   rankingChartData: Promise<CachedRankingChartData>;
   /**
@@ -114,11 +114,11 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // pull the localized names from the KG.
     this.displayPlaceName = isEarth
       ? intl.formatMessage({
-        id: "the_world",
-        defaultMessage: "the World",
-        description:
-          "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth.",
-      })
+          id: "the_world",
+          defaultMessage: "the World",
+          description:
+            "Change appearances of the name Earth to the World. E.g. this is the Labor force participation rate in the World, rather than this is the Labor force participation rate in Earth.",
+        })
       : this.props.placeName;
     this.rankingPlaceType = isEarth ? "Country" : this.props.placeType;
     this.displayDataTitle = this.props.data.title;
@@ -188,8 +188,9 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           names={this.props.names}
           scaling={this.props.data.scaling}
           statsVars={this.props.data.statsVars}
-          rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid
-            }?${rankingParam.toString()}`}
+          rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${
+            this.parentPlaceDcid
+          }?${rankingParam.toString()}`}
           category={this.props.category}
           isUsaPlace={this.props.isUsaPlace}
         ></Chart>
@@ -248,14 +249,14 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     const choroplethTitle =
       this.props.placeType === "County"
         ? intl.formatMessage(chartTitleMsgs.placeTypeNearPlace, {
-          chartTitle: relatedChartTitle,
-          placeType: displayPlaceType,
-          placeName: this.displayPlaceName,
-        })
+            chartTitle: relatedChartTitle,
+            placeType: displayPlaceType,
+            placeName: this.displayPlaceName,
+          })
         : intl.formatMessage(chartTitleMsgs.placesWithinPlace, {
-          chartTitle: relatedChartTitle,
-          placeName: this.displayPlaceName,
-        });
+            chartTitle: relatedChartTitle,
+            placeName: this.displayPlaceName,
+          });
 
     if (this.props.category === "Overview") {
       // Show one related place for overview page, the preference is
@@ -448,10 +449,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           ></Chart>
         );
       }
-      // Ranking chart ignores the related chart config
       if (this.props.data.isRankingChart) {
-        const unit = this.props.data.unit;
-        const scaling = this.props.data.scaling;
         const parentPlaceName: string = this.parentPlaceDcid
           ? this.props.names[this.parentPlaceDcid].split(",")[0]
           : "";
@@ -467,19 +465,18 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             title={intl.formatMessage(
               {
                 id: "chart_clause-variable_in_place",
-                defaultMessage: "{variable}: rankings in {parentPlaceName}",
+                defaultMessage: "{variable}: rankings in {placeName}",
                 description:
                   'Used for chart titles like "{Unemployment rate}: rankings in {USA}".',
               },
               {
                 variable: this.displayDataTitle,
-                parentPlaceName: isEarth
-                  ? this.displayPlaceName
-                  : parentPlaceName,
+                placeName: isEarth ? this.displayPlaceName : parentPlaceName,
               }
             )}
             rankingChartData={this.props.rankingChartData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
+            // Ranking chart ignores the related chart config for now.
             unit={this.props.data.unit}
             names={this.props.names}
             scaling={this.props.data.scaling}

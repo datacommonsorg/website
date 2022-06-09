@@ -306,7 +306,7 @@ h3 {
   display: none;
 }
 
-.modal .modal-chart-container > svg {
+.modal .modal-chart-container>svg {
   visibility: hidden;
 }
 
@@ -355,9 +355,6 @@ h3 {
   grid-template-columns: repeat(2, 1fr);
   column-gap: 1.25rem;
   row-gap: 1.25rem;
-}
-
-.ranking-chart {
   width: 100%;
   line-height: 120%;
   margin-bottom: 1rem;
