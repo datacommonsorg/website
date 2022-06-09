@@ -286,7 +286,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           })}
         />
         <ChartEmbed ref={this.embedModalElement} />
-      </div >
+      </div>
     );
   }
 
