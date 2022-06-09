@@ -66,7 +66,7 @@ export interface ChartBlockData {
   };
   scaling: number;
   isChoropleth?: boolean;
-  isRankingChart?: boolean
+  isRankingChart?: boolean;
 }
 
 export interface PageChart {
@@ -151,7 +151,7 @@ export interface RankingChartDataGroup {
     value: number;
     placeDcid: string;
     placeName: string;
-  }[]
+  }[];
   numDataPoints: number;
   exploreUrl: string;
   sources: string[];

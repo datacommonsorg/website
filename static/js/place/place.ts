@@ -19,7 +19,12 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { CachedChoroplethData, CachedRankingChartData, GeoJsonData, PageData } from "../chart/types";
+import {
+  CachedChoroplethData,
+  CachedRankingChartData,
+  GeoJsonData,
+  PageData,
+} from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
 import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 import { ChildPlace } from "./child_places_menu";
@@ -165,9 +170,10 @@ function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
 async function getRankingChartData(
   dcid: string
 ): Promise<CachedRankingChartData> {
-  return axios.get(`/api/place/ranking_chart/${dcid}`).then((resp) => { return resp.data });
+  return axios.get(`/api/place/ranking_chart/${dcid}`).then((resp) => {
+    return resp.data;
+  });
 }
-
 
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);

@@ -15,7 +15,7 @@
  */
 
 import * as d3 from "d3";
-import React, { ReactNode } from "react";
+import React from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { wrap } from "../chart/base";
@@ -266,7 +266,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
           ></textarea>
         </ModalBody>
         <ModalFooter>
-          {this.chartDownloadXml &&
+          {this.chartDownloadXml && (
             <Button color="primary" onClick={this.onDownloadSvg}>
               {intl.formatMessage({
                 id: "embed_download_chart_link",
@@ -274,7 +274,8 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
                 description:
                   "Text for the hyperlink text that will download the chart image.",
               })}
-            </Button>}{" "}
+            </Button>
+          )}{" "}
           <Button color="primary" onClick={this.onDownloadData}>
             {intl.formatMessage({
               id: "embed_download_csv_link",

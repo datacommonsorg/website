@@ -17,7 +17,6 @@
 import _ from "lodash";
 import React from "react";
 import { defineMessages } from "react-intl";
-import { isConstructorDeclaration } from "typescript";
 
 import {
   CachedChoroplethData,
@@ -81,8 +80,8 @@ interface ChartBlockPropType {
    */
   category: string;
   /**
-  * Promise for ranking chart data for current dcid
-  */
+   * Promise for ranking chart data for current dcid
+   */
   rankingChartData: Promise<CachedRankingChartData>;
   /**
    * The locale of the page
@@ -453,7 +452,9 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       if (this.props.data.isRankingChart) {
         const unit = this.props.data.unit;
         const scaling = this.props.data.scaling;
-        const parentPlaceName: string = this.parentPlaceDcid ? this.props.names[this.parentPlaceDcid].split(",")[0] : "";
+        const parentPlaceName: string = this.parentPlaceDcid
+          ? this.props.names[this.parentPlaceDcid].split(",")[0]
+          : "";
         this.displayDataTitle = this.props.data.title;
         const id = randDomId();
         chartElements.push(
@@ -462,7 +463,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             id={id}
             dcid={this.props.dcid}
             chartType={chartTypeEnum.TABLE}
-            // TODO: pending to create a message in different languages.
+            // TODO: Support i18n.
             title={intl.formatMessage(
               {
                 id: "chart_clause-variable_in_place",
@@ -472,8 +473,11 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
               },
               {
                 variable: this.displayDataTitle,
-                parentPlaceName: isEarth ? this.displayPlaceName : parentPlaceName,
-              })}
+                parentPlaceName: isEarth
+                  ? this.displayPlaceName
+                  : parentPlaceName,
+              }
+            )}
             rankingChartData={this.props.rankingChartData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
             unit={this.props.data.unit}
@@ -482,7 +486,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             statsVars={this.props.data.statsVars}
             category={this.props.category}
             isUsaPlace={this.props.isUsaPlace}
-          ></Chart >
+          ></Chart>
         );
       }
     }

@@ -221,17 +221,44 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             {this.props.title}
             <span className="sub-title">{dateString}</span>
           </h4>
-          <div id={this.props.id} ref={this.svgContainerElement} className="svg-container">
-            {this.props.chartType === chartTypeEnum.TABLE && this.state.rankingChartDataGroup &&
-              <div className="ranking-chart-container">
-                <h4 >
-                  {this.getRankingChartContainerTitle()}
-                </h4>
-                <div className="ranking-chart">
-                  <RankingTable title="Highest" points={this.getRankingTableData().highest} isHighest={true} unit={this.props.unit} currentDcid={this.props.dcid} notShowValue={this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKINGCHART_VALUE} />
-                  <RankingTable title="Lowest" points={this.getRankingTableData().lowest} isHighest={false} unit={this.props.unit} numDataPoints={this.state.rankingChartDataGroup.numDataPoints} currentDcid={this.props.dcid} notShowValue={this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKINGCHART_VALUE} />
+          <div
+            id={this.props.id}
+            ref={this.svgContainerElement}
+            className="svg-container"
+          >
+            {this.props.chartType === chartTypeEnum.TABLE &&
+              this.state.rankingChartDataGroup && (
+                <div className="ranking-chart-container">
+                  <h4>{this.getRankingChartContainerTitle()}</h4>
+                  <div className="ranking-chart">
+                    <RankingTable
+                      title="Highest"
+                      points={this.getRankingTableData().highest}
+                      isHighest={true}
+                      unit={this.props.unit}
+                      currentDcid={this.props.dcid}
+                      notShowValue={
+                        this.state.elemWidth <=
+                        MIN_WIDTH_TO_SHOW_RANKINGCHART_VALUE
+                      }
+                    />
+                    <RankingTable
+                      title="Lowest"
+                      points={this.getRankingTableData().lowest}
+                      isHighest={false}
+                      unit={this.props.unit}
+                      numDataPoints={
+                        this.state.rankingChartDataGroup.numDataPoints
+                      }
+                      currentDcid={this.props.dcid}
+                      notShowValue={
+                        this.state.elemWidth <=
+                        MIN_WIDTH_TO_SHOW_RANKINGCHART_VALUE
+                      }
+                    />
+                  </div>
                 </div>
-              </div>}
+              )}
           </div>
           <footer className="row explore-more-container">
             <div>
@@ -437,7 +464,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             Math.round(
               (this.state.choroplethDataGroup.data[place.dcid] +
                 Number.EPSILON) *
-              100
+                100
             ) / 100,
             this.props.unit
           );
@@ -564,18 +591,20 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             const sv = !_.isEmpty(this.props.statsVars)
               ? this.props.statsVars[0]
               : "";
-            let svData = rankingChartData[sv];
+            const svData = rankingChartData[sv];
             for (const data of svData.data) {
               data.value = data.value * scaling;
             }
             // Do not display the ranking chart if total data points is less than the MIN_RANKINGCHART_DATAPOINTS
-            if (_.isEmpty(svData) || svData.numDataPoints < MIN_RANKINGCHART_DATAPOINTS) {
+            if (
+              _.isEmpty(svData) ||
+              svData.numDataPoints < MIN_RANKINGCHART_DATAPOINTS
+            ) {
               this.setState({ display: false });
             } else if (svData.numDataPoints >= MIN_RANKINGCHART_DATAPOINTS) {
               this.setState({ rankingChartDataGroup: svData });
             }
-          }
-          )
+          });
         }
         break;
       default:
@@ -590,9 +619,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         : "";
     }
     if (this.props.chartType === chartTypeEnum.TABLE) {
-      return this.state.rankingChartDataGroup ? this.state.rankingChartDataGroup.exploreUrl : "";
-    }
-    else {
+      return this.state.rankingChartDataGroup
+        ? this.state.rankingChartDataGroup.exploreUrl
+        : "";
+    } else {
       return this.props.trend
         ? this.props.trend.exploreUrl
         : this.props.snapshot.exploreUrl;
@@ -606,9 +636,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         : [];
     }
     if (this.props.chartType === chartTypeEnum.TABLE) {
-      return this.state.rankingChartDataGroup ? this.state.rankingChartDataGroup.sources : [];
-    }
-    else {
+      return this.state.rankingChartDataGroup
+        ? this.state.rankingChartDataGroup.sources
+        : [];
+    } else {
       return this.props.trend
         ? this.props.trend.sources
         : this.props.snapshot.sources;
@@ -622,33 +653,55 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         : "";
     }
     if (this.props.chartType === chartTypeEnum.TABLE) {
-      return this.state.rankingChartDataGroup ? "(" + this.state.rankingChartDataGroup.date + ")" : "";
-    }
-    else {
+      return this.state.rankingChartDataGroup
+        ? "(" + this.state.rankingChartDataGroup.date + ")"
+        : "";
+    } else {
       return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
     }
   }
 
   // Prepare data for the ranking table
-  private getRankingTableData(): { lowest: Point[], highest: Point[] } {
-    let lowestAndHighestDataPoints = { lowest: [], highest: [] };
-    let dataPoints: Point[] = this.state.rankingChartDataGroup.data.map((datapoint) => { const data_point = { rank: datapoint.rank, value: datapoint.value, label: datapoint.placeName, dcid: datapoint.placeDcid, redirectLink: "/place/" + datapoint.placeDcid }; return data_point; });
-    if (this.state.rankingChartDataGroup.numDataPoints >= MIN_RANKINGCHART_DATAPOINTS && this.state.rankingChartDataGroup.numDataPoints <= MAX_RANKINGCHART_DATAPOINTS) {
-      const sliceNumber = Math.floor(this.state.rankingChartDataGroup.numDataPoints / 2);
-      lowestAndHighestDataPoints.lowest = dataPoints.slice(-sliceNumber).reverse();
+  private getRankingTableData(): { lowest: Point[]; highest: Point[] } {
+    const lowestAndHighestDataPoints = { lowest: [], highest: [] };
+    const dataPoints: Point[] = this.state.rankingChartDataGroup.data.map(
+      (datapoint) => {
+        const data_point = {
+          rank: datapoint.rank,
+          value: datapoint.value,
+          label: datapoint.placeName,
+          dcid: datapoint.placeDcid,
+          redirectLink: "/place/" + datapoint.placeDcid,
+        };
+        return data_point;
+      }
+    );
+    if (
+      this.state.rankingChartDataGroup.numDataPoints >=
+        MIN_RANKINGCHART_DATAPOINTS &&
+      this.state.rankingChartDataGroup.numDataPoints <=
+        MAX_RANKINGCHART_DATAPOINTS
+    ) {
+      const sliceNumber = Math.floor(
+        this.state.rankingChartDataGroup.numDataPoints / 2
+      );
+      lowestAndHighestDataPoints.lowest = dataPoints
+        .slice(-sliceNumber)
+        .reverse();
       lowestAndHighestDataPoints.highest = dataPoints.slice(0, sliceNumber);
       return lowestAndHighestDataPoints;
-    }
-    else {
+    } else {
       const sliceNumber = Math.floor(MAX_RANKINGCHART_DATAPOINTS / 2);
-      lowestAndHighestDataPoints.lowest = dataPoints.slice(-sliceNumber).reverse();
+      lowestAndHighestDataPoints.lowest = dataPoints
+        .slice(-sliceNumber)
+        .reverse();
       lowestAndHighestDataPoints.highest = dataPoints.slice(0, sliceNumber);
       return lowestAndHighestDataPoints;
     }
   }
 
   // Get rank and value for the current place dcid.
-  private getCurrentPlaceRankAndValue(): { rank: number, value: number } {
+  private getCurrentPlaceRankAndValue(): { rank: number; value: number } {
     let currentPlaceRankAndValue = { rank: null, value: null };
     for (const data of this.state.rankingChartDataGroup.data) {
       if (data.placeDcid === this.props.dcid) {
@@ -665,7 +718,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       this.getCurrentPlaceRankAndValue().value,
       this.props.unit,
       false,
-      NUM_FRACTION_DIGITS);
+      NUM_FRACTION_DIGITS
+    );
     return placeName + "ranks" + rank + "(" + number + ")";
   }
 }
