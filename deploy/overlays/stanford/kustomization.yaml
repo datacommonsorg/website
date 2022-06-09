@@ -44,12 +44,7 @@ patchesStrategicMerge:
     metadata:
       name: website-app
     spec:
-      replicas: 5
-      strategy:
-        type: RollingUpdate
-        rollingUpdate:
-          maxSurge: 3
-          maxUnavailable: 75%
+      replicas: 6
 
 patchesJson6902:
   - path: patch.yaml
