@@ -222,7 +222,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
   }
 
   /**
-   * On click handler for "Copy SVG to clipboard button". if this.chartDownloadXml is empty not render button
+   * On click handler for "Copy SVG to clipboard button".
    */
   public onDownloadSvg(): void {
     saveToFile("chart.svg", this.chartDownloadXml);
