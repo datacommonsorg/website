@@ -1,10 +1,139 @@
 import json
 import unittest
+import routes.api.stats as stats_api
 from unittest import mock
 from unittest.mock import patch
 
 from main import app
 from services import datacommons as dc
+
+
+class TestIsValidGetCsvDate(unittest.TestCase):
+
+    def test_is_valid_get_csv_date(self):
+        cases = [{
+            'date': 'latest',
+            'expected': True
+        }, {
+            'date': '',
+            'expected': True
+        }, {
+            'date': '2020',
+            'expected': True
+        }, {
+            'date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2020-01-01',
+            'expected': True
+        }, {
+            'date': '20211',
+            'expected': False
+        }, {
+            'date': '2020-011',
+            'expected': False
+        }, {
+            'date': '2021-01-910',
+            'expected': False
+        }, {
+            'date': 'abc',
+            'expected': False
+        }]
+        for test_case in cases:
+            result = stats_api.is_valid_get_csv_date(test_case.get("date"))
+            assert result == test_case.get("expected")
+
+
+class TestDateGreaterEqualMin(unittest.TestCase):
+
+    def test_date_greater_equal_min(self):
+        cases = [{
+            'date': '',
+            'min_date': '',
+            'expected': False
+        }, {
+            'date': '2020',
+            'min_date': '',
+            'expected': True
+        }, {
+            'date': '2020',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2021',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2020',
+            'min_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2021',
+            'min_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2020-01',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2021-01',
+            'min_date': '2020',
+            'expected': True
+        }, {
+            'date': '2020',
+            'min_date': '2021',
+            'expected': False
+        }]
+        for test_case in cases:
+            result = stats_api.date_greater_equal_min(test_case.get("date"),
+                                                      test_case.get("min_date"))
+            assert result == test_case.get("expected")
+
+
+class TestDateLesserEqualMax(unittest.TestCase):
+
+    def test_date_lesser_equal_max(self):
+        cases = [{
+            'date': '',
+            'max_date': '',
+            'expected': False
+        }, {
+            'date': '2020',
+            'max_date': '',
+            'expected': True
+        }, {
+            'date': '2020',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2019',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2020',
+            'max_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2019',
+            'max_date': '2020-01',
+            'expected': True
+        }, {
+            'date': '2020-01',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2019-01',
+            'max_date': '2020',
+            'expected': True
+        }, {
+            'date': '2022',
+            'max_date': '2021',
+            'expected': False
+        }]
+        for test_case in cases:
+            result = stats_api.date_lesser_equal_max(test_case.get("date"),
+                                                     test_case.get("max_date"))
+            assert result == test_case.get("expected")
 
 
 class TestApiGetStatsValue(unittest.TestCase):
@@ -139,8 +268,6 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
                         compress=False,
                         post=True,
                         has_payload=True):
-            print(req_url)
-            print(req_json)
             if req_url == dc.API_ROOT + "/stat/set/within-place" and req_json == {
                     'parent_place': 'geoId/10',
                     'child_type': 'County',
@@ -164,7 +291,6 @@ class TestApiGetStatSetWithinPlace(unittest.TestCase):
                         compress=False,
                         post=True,
                         has_payload=True):
-            print(req_json)
             if req_json == {
                     'dcids': [
                         'DifferenceRelativeToBaseDate2006-01_Daily_Min_Temperature_RCP26'
@@ -425,3 +551,517 @@ class TestStatVarPath(unittest.TestCase):
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result == expected_result
+
+
+class TestGetStatsWithinPlaceCsv(unittest.TestCase):
+
+    def test_required_params(self):
+        """Failure if required fields are not present."""
+        no_parent_place = app.test_client().get(
+            'api/stats/csv/within-place?childType=County&statVars=Count_Person')
+        assert no_parent_place.status_code == 400
+
+        no_child_type = app.test_client().get(
+            'api/stats/csv/within-place?parentPlace=country/USA&statVars=Count_Person'
+        )
+        assert no_child_type.status_code == 400
+
+        no_stat_vars = app.test_client().get(
+            'api/stats/csv/within-place?parentPlace=country/USA&childType=County'
+        )
+        assert no_stat_vars.status_code == 400
+
+    @mock.patch('routes.api.stats.dc.get_stat_set_within_place')
+    @mock.patch('routes.api.stats.cached_name')
+    def test_single_date(self, mock_place_names, mock_stat_set):
+        expected_parent_place = "country/USA"
+        expected_child_type = "State"
+        children_places = ["geoId/01", "geoId/02", "geoId/06"]
+        expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
+        expected_date = "2015"
+
+        def place_side_effect(places):
+            if places == "^".join(children_places):
+                return {
+                    "geoId/01": "Alabama",
+                    "geoId/02": "",
+                    "geoId/06": "California"
+                }
+            else:
+                return {}
+
+        mock_place_names.side_effect = place_side_effect
+
+        def stat_set_side_effect(parent_place, child_type, stat_vars, date):
+            if parent_place != expected_parent_place or child_type != expected_child_type or stat_vars != expected_stat_vars:
+                return {}
+            if date == "":
+                return {
+                    "data": {
+                        "UnemploymentRate_Person": {
+                            "stat": {
+                                "geoId/06": {
+                                    "date": "2022-03",
+                                    "value": 2.8,
+                                    "metaHash": 324358135
+                                },
+                                "geoId/02": {
+                                    "date": "2022-03",
+                                    "value": 3.2,
+                                    "metaHash": 324358135
+                                },
+                                "geoId/01": {
+                                    "date": "2022-03",
+                                    "value": 4.2,
+                                    "metaHash": 324358135
+                                },
+                            }
+                        },
+                        "Count_Person": {
+                            "stat": {
+                                "geoId/01": {
+                                    "date": "2020",
+                                    "value": 6696893,
+                                    "metaHash": 1145703171
+                                },
+                                "geoId/02": {
+                                    "date": "2020",
+                                    "value": 581348,
+                                    "metaHash": 1145703171
+                                },
+                                "geoId/06": {
+                                    "date": "2020",
+                                    "value": 1923826,
+                                    "metaHash": 1145703171
+                                },
+                            }
+                        }
+                    },
+                    "metadata": {
+                        "324358135": {
+                            "importName": "BLS_LAUS",
+                            "provenanceUrl": "https://www.bls.gov/lau/",
+                            "measurementMethod": "BLSSeasonallyUnadjusted",
+                            "observationPeriod": "P1M"
+                        },
+                        "1145703171": {
+                            "importName": "CensusACS5YearSurvey",
+                            "provenanceUrl": "https://www.census.gov/",
+                            "measurementMethod": "CensusACS5yrSurvey"
+                        },
+                    }
+                }
+            if date == expected_date:
+                return {
+                    "data": {
+                        "UnemploymentRate_Person": {
+                            "stat": {
+                                "geoId/02": {
+                                    "date": "2015",
+                                    "value": 5.6,
+                                    "metaHash": 2978659163
+                                },
+                                "geoId/01": {
+                                    "date": "2015",
+                                    "value": 12,
+                                    "metaHash": 2978659163
+                                },
+                                "geoId/06": {
+                                    "date": "2015",
+                                    "value": 3.7,
+                                    "metaHash": 2978659163
+                                },
+                            }
+                        },
+                        "Count_Person": {
+                            "stat": {
+                                "geoId/01": {
+                                    "date": "2015",
+                                    "value": 3120960,
+                                    "metaHash": 2517965213
+                                },
+                                "geoId/02": {
+                                    "date": "2015",
+                                    "value": 625216,
+                                    "metaHash": 2517965213
+                                },
+                                "geoId/06": {
+                                    "date": "2015",
+                                    "value": 9931715,
+                                    "metaHash": 2517965213
+                                },
+                            }
+                        }
+                    },
+                    "metadata": {
+                        "2517965213": {
+                            "importName":
+                                "CensusPEP",
+                            "provenanceUrl":
+                                "https://www.census.gov/programs-surveys/popest.html",
+                            "measurementMethod":
+                                "CensusPEPSurvey"
+                        },
+                        "2978659163": {
+                            "importName": "BLS_LAUS",
+                            "provenanceUrl": "https://www.bls.gov/lau/",
+                            "measurementMethod": "BLSSeasonallyUnadjusted",
+                            "observationPeriod": "P1Y"
+                        }
+                    }
+                }
+
+        mock_stat_set.side_effect = stat_set_side_effect
+        endpoint_constant_part = f'api/stats/csv/within-place?parentPlace={expected_parent_place}&childType={expected_child_type}&statVars={expected_stat_vars[0]}&statVars={expected_stat_vars[1]}'
+        latest_date = app.test_client().get(endpoint_constant_part +
+                                            '&minDate=latest&maxDate=latest')
+        assert latest_date.status_code == 200
+        assert latest_date.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,Alabama,2020,6696893,https://www.census.gov/,2022-03,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/02,,2020,581348,https://www.census.gov/,2022-03,3.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2020,1923826,https://www.census.gov/,2022-03,2.8,https://www.bls.gov/lau/\r\n'
+        )
+        single_date = app.test_client().get(
+            endpoint_constant_part +
+            f'&minDate={expected_date}&maxDate={expected_date}')
+        assert single_date.status_code == 200
+        assert single_date.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,Alabama,2015,3120960,https://www.census.gov/programs-surveys/popest.html,2015,12,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/02,,2015,625216,https://www.census.gov/programs-surveys/popest.html,2015,5.6,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2015,9931715,https://www.census.gov/programs-surveys/popest.html,2015,3.7,https://www.bls.gov/lau/\r\n'
+        )
+
+    @mock.patch('routes.api.stats.dc.get_stat_set_series_within_place')
+    @mock.patch('routes.api.stats.cached_name')
+    def test_date_range(self, mock_place_names, mock_stat_set_series):
+        expected_parent_place = "country/USA"
+        expected_child_type = "State"
+        children_places = ["geoId/01", "geoId/06"]
+        expected_stat_vars = ["Count_Person", "UnemploymentRate_Person"]
+        expected_min_date_year = "2015"
+        expected_max_date_year = "2018"
+        expected_min_date_month = "2015-01"
+        expected_max_date_month = "2018-01"
+
+        def place_side_effect(places):
+            if places == "^".join(children_places):
+                return {"geoId/01": "", "geoId/06": "California"}
+            else:
+                return {}
+
+        mock_place_names.side_effect = place_side_effect
+
+        def stat_set_series_side_effect(parent_place, child_type, stat_vars):
+            if parent_place == expected_parent_place and child_type == expected_child_type and stat_vars == expected_stat_vars:
+                return {
+                    "data": {
+                        "geoId/01": {
+                            "data": {
+                                "Count_Person": {
+                                    "val": {
+                                        "2014": 1021869,
+                                        "2015": 1030475,
+                                        "2017": 1052482,
+                                        "2018": 1060665,
+                                        "2019": 1068778
+                                    },
+                                    "metadata": {
+                                        "importName":
+                                            "CensusPEP",
+                                        "provenanceUrl":
+                                            "https://www.census.gov/programs-surveys/popest.html",
+                                        "measurementMethod":
+                                            "CensusPEPSurvey"
+                                    }
+                                },
+                                "UnemploymentRate_Person": {
+                                    "val": {
+                                        "1979-01": 6.6,
+                                        "2018-01": 4.5,
+                                        "2015-05": 4.2,
+                                        "2018-07": 3.9,
+                                        "2017-11": 4,
+                                        "2019-05": 3.6,
+                                    },
+                                    "metadata": {
+                                        "importName":
+                                            "BLS_LAUS",
+                                        "provenanceUrl":
+                                            "https://www.bls.gov/lau/",
+                                        "measurementMethod":
+                                            "BLSSeasonallyUnadjusted",
+                                        "observationPeriod":
+                                            "P1M"
+                                    }
+                                }
+                            }
+                        },
+                        "geoId/06": {
+                            "data": {
+                                "Count_Person": {
+                                    "val": {
+                                        "2014": 2817628,
+                                        "2015": 2866939,
+                                        "2016": 2917563,
+                                        "2017": 2969905,
+                                    },
+                                    "metadata": {
+                                        "importName":
+                                            "CensusPEP",
+                                        "provenanceUrl":
+                                            "https://www.census.gov/programs-surveys/popest.html",
+                                        "measurementMethod":
+                                            "CensusPEPSurvey"
+                                    }
+                                },
+                                "UnemploymentRate_Person": {
+                                    "val": {
+                                        "2015-10": 6.4,
+                                        "2017-05": 4.8,
+                                        "1991-08": 5.6,
+                                        "2018-08": 4.3,
+                                        "2018-03": 4.6,
+                                        "2020-04": 1.2,
+                                    },
+                                    "metadata": {
+                                        "importName":
+                                            "BLS_LAUS",
+                                        "provenanceUrl":
+                                            "https://www.bls.gov/lau/",
+                                        "measurementMethod":
+                                            "BLSSeasonallyUnadjusted",
+                                        "observationPeriod":
+                                            "P1M"
+                                    }
+                                }
+                            }
+                        },
+                    }
+                }
+            else:
+                return {}
+
+        mock_stat_set_series.side_effect = stat_set_series_side_effect
+        endpoint_constant_part = f'api/stats/csv/within-place?parentPlace={expected_parent_place}&childType={expected_child_type}&statVars={expected_stat_vars[0]}&statVars={expected_stat_vars[1]}'
+
+        all_dates = app.test_client().get(endpoint_constant_part)
+        assert all_dates.status_code == 200
+        assert all_dates.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            + 'geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            + 'geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n' +
+            'geoId/01,,2019,1068778,https://www.census.gov/programs-surveys/popest.html,2019-05,3.6,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,1991-08,5.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,2014,2817628,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2020-04,1.2,https://www.bls.gov/lau/\r\n')
+
+        min_year = app.test_client().get(endpoint_constant_part +
+                                         f'&minDate={expected_min_date_year}')
+        assert min_year.status_code == 200
+        assert min_year.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            + 'geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n' +
+            'geoId/01,,2019,1068778,https://www.census.gov/programs-surveys/popest.html,2019-05,3.6,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2020-04,1.2,https://www.bls.gov/lau/\r\n')
+
+        min_month = app.test_client().get(endpoint_constant_part +
+                                          f'&minDate={expected_min_date_month}')
+        assert min_month.status_code == 200
+        assert min_month.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            + 'geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n' +
+            'geoId/01,,2019,1068778,https://www.census.gov/programs-surveys/popest.html,2019-05,3.6,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2020-04,1.2,https://www.bls.gov/lau/\r\n')
+
+        max_year = app.test_client().get(endpoint_constant_part +
+                                         f'&maxDate={expected_max_date_year}')
+        assert max_year.status_code == 200
+        assert max_year.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            + 'geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            + 'geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,1991-08,5.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,2014,2817628,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n')
+
+        max_month = app.test_client().get(endpoint_constant_part +
+                                          f'&maxDate={expected_max_date_month}')
+        assert max_month.status_code == 200
+        assert max_month.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            + 'geoId/01,,,,,1979-01,6.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/01,,2014,1021869,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,1991-08,5.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,2014,2817628,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+        )
+
+        min_and_max_year = app.test_client().get(
+            endpoint_constant_part +
+            f'&minDate={expected_min_date_year}&maxDate={expected_max_date_year}'
+        )
+        assert min_and_max_year.status_code == 200
+        assert min_and_max_year.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            + 'geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n')
+
+        min_and_max_month = app.test_client().get(
+            endpoint_constant_part +
+            f'&minDate={expected_min_date_month}&maxDate={expected_max_date_month}'
+        )
+        assert min_and_max_month.status_code == 200
+        assert min_and_max_month.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+        )
+
+        min_year_max_month = app.test_client().get(
+            endpoint_constant_part +
+            f'&minDate={expected_min_date_year}&maxDate={expected_max_date_month}'
+        )
+        assert min_year_max_month.status_code == 200
+        assert min_year_max_month.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+        )
+
+        min_month_max_year = app.test_client().get(
+            endpoint_constant_part +
+            f'&minDate={expected_min_date_month}&maxDate={expected_max_date_year}'
+        )
+        assert min_month_max_year.status_code == 200
+        assert min_month_max_year.data.decode("utf-8") == (
+            'placeDcid,placeName,Date:Count_Person,Value:Count_Person,Source:Count_Person,Date:UnemploymentRate_Person,Value:UnemploymentRate_Person,Source:UnemploymentRate_Person\r\n'
+            +
+            'geoId/01,,2015,1030475,https://www.census.gov/programs-surveys/popest.html,2015-05,4.2,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2017,1052482,https://www.census.gov/programs-surveys/popest.html,2017-11,4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/01,,2018,1060665,https://www.census.gov/programs-surveys/popest.html,2018-01,4.5,https://www.bls.gov/lau/\r\n'
+            + 'geoId/01,,,,,2018-07,3.9,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,2015,2866939,https://www.census.gov/programs-surveys/popest.html,2015-10,6.4,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,2016,2917563,https://www.census.gov/programs-surveys/popest.html,,,\r\n'
+            +
+            'geoId/06,California,2017,2969905,https://www.census.gov/programs-surveys/popest.html,2017-05,4.8,https://www.bls.gov/lau/\r\n'
+            +
+            'geoId/06,California,,,,2018-03,4.6,https://www.bls.gov/lau/\r\n' +
+            'geoId/06,California,,,,2018-08,4.3,https://www.bls.gov/lau/\r\n')
