@@ -272,9 +272,6 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .attr("height", (d) => height - y(d.value))
     .attr("width", x.bandwidth())
     .style("fill", (d) => TISSUE_COLOR_DICT[d.name])
-    .style("fill", (d) => {
-      return TISSUE_COLOR_DICT[d.name];
-    })
     .on("mouseover", mouseover)
     //.on("mousemove", (d) => mousemove(230, 220, d))
     .on("mousemove", mousemove)
