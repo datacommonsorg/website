@@ -801,9 +801,9 @@ def api_ranking_chart(dcid):
         place_type = "Country"
     else:
         parent_place_list = get_parent_place(dcid).get(dcid, [])
-        # Get the last parent place returned.
+        # Get the first parent place returned.
         if parent_place_list:
-            parent_place_dcid = parent_place_list[-1]["dcid"]
+            parent_place_dcid = parent_place_list[0]["dcid"]
             place_type = get_place_type(dcid)
         else:
             return Response(json.dumps(result),
