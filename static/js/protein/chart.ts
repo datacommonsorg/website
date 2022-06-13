@@ -29,11 +29,10 @@ const BAR_COLOR = "maroon";
 // tooltip style
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // hover function for tooltip
-function mousemove(left_position: number, top_position: number, d) {
-  console.log(d);
-  TOOL_TIP.style("left", d3.mouse(this)[0] + left_position + "px").style(
+function mousemove(left_position: number, top_position: number) {
+  TOOL_TIP.style("left", d3.event.offsetX + left_position + "px").style(
     "top",
-    d3.mouse(this)[1] + top_position + "px"
+    d3.event.offsetY + top_position + "px"
   );
 }
 function mouseout() {
@@ -230,13 +229,6 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     ).style("opacity", 1);
   };
 
-  const mousemove = function () {
-    TOOL_TIP.style("left", d3.mouse(this)[0] + 230 + "px").style(
-      "top",
-      d3.mouse(this)[1] + 220 + "px"
-    );
-  };
-
   // plots x-axis for the graph - tissue names
   const x = d3
     .scaleBand()
@@ -273,8 +265,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .attr("width", x.bandwidth())
     .style("fill", (d) => TISSUE_COLOR_DICT[d.name])
     .on("mouseover", mouseover)
-    //.on("mousemove", (d) => mousemove(230, 220, d))
-    .on("mousemove", mousemove)
+    .on("mousemove", () => mousemove(70, 220))
     .on("mouseout", () => mouseout());
 }
 
@@ -350,13 +341,6 @@ export function drawProteinInteractionChart(
         confidenceScore
     ).style("opacity", 1);
   };
-
-  const mousemove = function () {
-    TOOL_TIP.style("left", d3.mouse(this)[0] + 230 + "px").style(
-      "top",
-      d3.mouse(this)[1] + 550 + "px"
-    );
-  };
   const bars = svg.append("g");
   // plots x-axis for the graph - protein names
   const x = d3.scaleLinear().domain([0, 1]).range([0, width]);
@@ -386,7 +370,7 @@ export function drawProteinInteractionChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
+    .on("mousemove", () => mousemove(70, 560))
     .on("mouseout", () => mouseout());
 }
 
@@ -434,12 +418,6 @@ export function drawDiseaseGeneAssocChart(
     ).style("opacity", 1);
   };
 
-  const mousemove = function () {
-    TOOL_TIP.style("left", d3.mouse(this)[0] + 230 + "px").style(
-      "top",
-      d3.mouse(this)[1] + 1050 + "px"
-    );
-  };
   const bars = svg.append("g");
   // plots the axes
   const x = d3
@@ -473,7 +451,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
+    .on("mousemove", () => mousemove(70, 1100))
     .on("mouseout", () => mouseout());
 }
 
@@ -546,12 +524,6 @@ export function drawVarGeneAssocChart(
     ).style("opacity", 1);
   };
 
-  const mousemove = function () {
-    TOOL_TIP.style("left", d3.mouse(this)[0] + 230 + "px").style(
-      "top",
-      d3.mouse(this)[1] + 1550 + "px"
-    );
-  };
   // plots the axes
   const x = d3
     .scaleLinear()
@@ -596,7 +568,7 @@ export function drawVarGeneAssocChart(
     .attr("r", "6")
     .style("fill", (d) => var_color[d.name])
     .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
+    .on("mousemove", () => mousemove(70, 1620))
     .on("mouseout", () => mouseout());
   svg
     .selectAll("error-bar-left-line")
@@ -720,12 +692,6 @@ export function drawVarTypeAssocChart(
     ).style("opacity", 1);
   };
 
-  const mousemove = function () {
-    TOOL_TIP.style("left", d3.mouse(this)[0] + 230 + "px").style(
-      "top",
-      d3.mouse(this)[1] + 2050 + "px"
-    );
-  };
   const svg = d3
     .select("#variant-type-association-chart")
     .append("svg")
@@ -764,7 +730,7 @@ export function drawVarTypeAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
+    .on("mousemove", () => mousemove(70, 2150))
     .on("mouseout", () => mouseout());
 }
 
@@ -801,12 +767,6 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     ).style("opacity", 1);
   };
 
-  const mousemove = function () {
-    TOOL_TIP.style("left", d3.mouse(this)[0] + 230 + "px").style(
-      "top",
-      d3.mouse(this)[1] + 2650 + "px"
-    );
-  };
   const svg = d3
     .select("#variant-significance-association-chart")
     .append("svg")
@@ -845,7 +805,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
+    .on("mousemove", () => mousemove(70, 2760))
     .on("mouseout", () => mouseout());
 }
 
@@ -883,12 +843,6 @@ export function drawChemGeneAssocChart(
     ).style("opacity", 1);
   };
 
-  const mousemove = function () {
-    TOOL_TIP.style("left", d3.mouse(this)[0] + 230 + "px").style(
-      "top",
-      d3.mouse(this)[1] + 3250 + "px"
-    );
-  };
   const bars = svg.append("g");
   // plots the axes
   const x = d3
@@ -920,6 +874,6 @@ export function drawChemGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
+    .on("mousemove", () => mousemove(70, 3380))
     .on("mouseout", () => mouseout());
 }
