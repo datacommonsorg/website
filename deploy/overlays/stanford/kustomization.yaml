@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -23,16 +22,20 @@ resources:
   - ../../base
 
 configMapGenerator:
-  - name: website-configmap
-    behavior: create
+  - behavior: create
     literals:
       - flaskEnv=stanford
       - secretProject=datcom-stanford
-  - name: mixer-configmap
-    behavior: create
+    name: website-configmap
+  - behavior: create
     literals:
       - mixerProject=datcom-stanford
       - serviceName=website-esp.endpoints.datcom-stanford.cloud.goog
+    name: mixer-configmap
+  - name: memdb-config
+    behavior: replace
+    files:
+      - memdb.json
 
 patchesStrategicMerge:
   - |-
@@ -42,11 +45,6 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 6
-      strategy:
-        type: RollingUpdate
-        rollingUpdate:
-          maxSurge: 3
-          maxUnavailable: 75%
 
 patchesJson6902:
   - path: patch.yaml

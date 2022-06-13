@@ -47,10 +47,3 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 6
-      strategy:
-        type: RollingUpdate
-        rollingUpdate:
-          # maximum number of Pods that can be created over the desired number of Pods
-          maxSurge: 2
-          # maximum number of Pods that can be unavailable during the update process
-          maxUnavailable: 75%

@@ -26,9 +26,10 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       # maximum number of Pods that can be created over the desired number of Pods
-      maxSurge: 1
-      # maximum number of Pods that can be unavailable during the update process
-      maxUnavailable: 25%
+      maxSurge: 4
+      # Maximum number of pods that can be unavailable during the update process
+      # Environment have different number of pods, this is roughly 8% in prod.
+      maxUnavailable: 5
   selector:
     matchLabels:
       app: website-app
@@ -108,9 +109,9 @@ spec:
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "6G"
+              memory: "8G"
             requests:
-              memory: "6G"
+              memory: "8G"
           args:
             - --mixer_project=$(MIXER_PROJECT)
             - --store_project=$(STORE_PROJECT)
