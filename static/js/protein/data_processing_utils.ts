@@ -135,7 +135,7 @@ export function getProteinInteraction(
           for (const n1 of n.nodes) {
             for (const n2 of n1.neighbors) {
               if (n2.property === "value") {
-                if (_.isEmpty(n.nodes)) {
+                if (_.isEmpty(n2.nodes)) {
                   continue;
                 }
                 const num = Number(n2.nodes[0].value);
@@ -251,43 +251,36 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
         if (n.property !== "geneSymbol") {
           continue;
         }
-
         for (const n1 of n.nodes) {
+          if (n1.neighbors.length !== 4) {
+            continue;
+          }
           for (const n2 of n1.neighbors) {
-            if (n2.property === "referenceSNPClusterID") {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
+            if (_.isEmpty(n2.nodes)) {
+              continue;
+            }
+            if (n2.property === "log2AllelicFoldChange") {
+              if (_.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              if (n2.nodes[0].value !== null) {
-                variant = n2.nodes[0].value;
-              }
-            } else if (n2.property === "log2AllelicFoldChange") {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
+              score = n2.nodes[0].value;
+            } else if (n2.property === "referenceSNPClusterID") {
+              if (_.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              if (n2.nodes[0].value !== null) {
-                score = n2.nodes[0].value;
-              }
+              variant = n2.nodes[0].value;
             } else if (
               n2.property === "log2AllelicFoldChangeConfidenceInterval"
             ) {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
+              if (_.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              if (n2.nodes[0].value !== null) {
-                interval = n2.nodes[0].value;
-              }
+              interval = n2.nodes[0].value;
             } else if (n2.property === "associatedTissue") {
-              // check if the list is empty or not
-              if (_.isEmpty(n2.nodes)) {
+              if (_.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              if (n2.nodes[0].value) {
-                tissue = n2.nodes[0].value;
-              }
+              tissue = n2.nodes[0].value;
             }
           }
           if (!seen.has(variant) && !!score) {
