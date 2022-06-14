@@ -24,6 +24,7 @@ import React from "react";
 import { GraphNodes } from "../shared/types";
 import { drawTissueScoreChart } from "./chart";
 import { drawProteinInteractionChart } from "./chart";
+import { drawProteinInteractionGraph } from "./chart";
 import { drawDiseaseGeneAssocChart } from "./chart";
 import { drawVarGeneAssocChart } from "./chart";
 import { drawVarTypeAssocChart } from "./chart";
@@ -89,6 +90,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       "protein-confidence-score-chart",
       interactionScore
     );
+    drawProteinInteractionGraph(
+      "protein-interaction-graph",
+      interactionScore
+    );
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
       diseaseGeneAssoc
@@ -107,6 +112,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         <div id="tissue-score-chart"></div>
         <h6>Protein Protein Interaction</h6>
         <div id="protein-confidence-score-chart"></div>
+        <div id="protein-interaction-graph"></div>
         <h6>Disease Gene Association</h6>
         <div id="disease-gene-association-chart"></div>
         <h6>Variant Gene Association</h6>

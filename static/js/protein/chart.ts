@@ -16,6 +16,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
+import { defaultFormatUtc } from "moment";
 
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
@@ -298,6 +299,248 @@ export function drawProteinInteractionChart(
     .on("mouseout", function () {
       d3.select(this).transition().duration(50).style("fill", "peachpuff");
     });
+}
+
+
+export function drawProteinInteractionGraph(
+  id: string,
+  data: InteractingProteinType[]
+): void {
+
+  function extract_protein_info(protein_species: string){
+    const last_index = protein_species.lastIndexOf('_')
+    return {
+      id: protein_species,
+      name: protein_species.slice(0, last_index),
+      species: protein_species.slice(last_index+1),
+    }
+  }
+
+
+  const center = data[0].parent
+  let nodes = data.map(({name, value}) => {
+    let neighbor = ''
+    if (name.includes(`_${center}`)){
+      neighbor = name.replace(`_${center}`, '') // note replace only first interaction to handle case of self-interaction (P53_HUMAN_P53_HUMAN)
+    }
+    else if(name.includes(`${center}_`)){
+      neighbor = name.replace(`${center}_`, '')
+    }
+    const datum = extract_protein_info(neighbor)
+    datum['breadth'] = 1
+    datum['score'] = value
+    return datum
+  });
+
+  const seen = new Set();
+  nodes = nodes.filter((node) => {
+    const duplicate = seen.has(node.name);
+    seen.add(node.name);
+    return !duplicate && node.id !== center;
+  }); // todo: handle self-interactions with self-loop
+
+  nodes.sort((n1, n2) => n2.score - n1.score)
+  nodes = nodes.slice(0, 10)
+
+  const center_datum = extract_protein_info(center);
+  center_datum['breadth'] = 0;
+  nodes.push(center_datum);
+  console.log('nodes', nodes);
+
+  const links = nodes.map((node) => {
+    return {
+      source: center,
+      target: node.id,
+      score: node.score, // todo: get the real scores later.
+    }
+  }
+  )
+
+  function drag(simulation) {
+    console.log('called drag')
+
+    function dragstarted(event) {
+      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+      event.fx = event.x;
+      event.fy = event.y;
+    }
+
+    function dragged(event) {
+      event.fx = d3.event.x;
+      event.fy = d3.event.y;
+    }
+
+    function dragended(event) {
+      if (!d3.event.active) simulation.alphaTarget(0);
+      event.fx = null;
+      event.fy = null;
+    }
+
+    return d3
+      .drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
+  }
+  
+  const NODE_STYLE = {
+    stroke: {
+      color: "#fff",
+      width: 1.5,
+      opacity: 1
+    },
+    radius: 15,
+    fillColors: d3.schemeTableau10
+  }
+
+  const LINK_STYLE = {
+    stroke: {
+      color: "#999",
+      opacity: 0.6,
+      linecap: "round"
+    },
+    length: 100
+  }
+
+  const dataset = ({
+    nodes: [
+      { id: 1, name: "MECOM", species: "Human", breadth: 0, 'x': 0, 'y': 0},
+      { id: 2, name: "CtBP1", species: "Human", breadth: 1, 'x': 0, 'y': 0 },
+      { id: 3, name: "SUPT16H", species: "Human", breadth: 1, 'x': 0, 'y': 0 }
+    ],
+    links: [
+      { source: 1, target: 2, score: 0.3 },
+      { source: 1, target: 3, score: 0.7 }
+    ]
+  })
+
+  const height = 400 - MARGIN.top - MARGIN.bottom;
+  const width = 700 - MARGIN.left - MARGIN.right;
+
+  const svg = d3.select("#protein-interaction-graph")
+    .append("svg")
+    .attr("width", width + MARGIN.left + MARGIN.right)
+    .attr("height", height + MARGIN.top + MARGIN.bottom)
+    .attr("viewBox", [-width / 2, -height / 2, width, height])
+    .append("g")
+    .attr("transform", `translate(${MARGIN.left}, ${MARGIN.top})`)
+    .attr("style", "max-width: 100%; height: auto; height: intrinsic");
+
+
+  // Compute values.
+  // let nodes = dataset.nodes
+
+  const nodeIDs = nodes.map(node => node.id);
+  const nodeBreadths = nodes.map(node => node.breadth)
+
+  const sources = links.map(link => link.source);
+  const targets = links.map(link => link.target);
+  const scores = links.map(link => link.score);
+
+  const nodeColors = d3.scaleOrdinal(nodeBreadths, NODE_STYLE.fillColors);
+
+  const forceNode = d3.forceManyBody();
+  const forceLink = d3.forceLink(links).id(({index}) => `${nodeIDs[index]}`);
+
+  forceLink
+    .distance(LINK_STYLE.length);
+
+  const simulation = d3.forceSimulation(nodes)
+    .force("link", forceLink)
+    .force("charge", forceNode)
+    .force("center", d3.forceCenter())
+    .on("tick", ticked);
+
+  // const linkWidths = links.map(({score}) => 10 * score)
+
+  const link = svg
+    .append("g")
+    .attr("stroke", LINK_STYLE.stroke.color)
+    .attr("stroke-opacity", LINK_STYLE.stroke.opacity)
+    // .attr("stroke-width", ({score}) => 10 * score)
+    .attr("stroke-linecap", LINK_STYLE.stroke.linecap)
+    .selectAll("line")
+    .data(links)
+    .attr("stroke-width", ({score}) => score)
+    .join("line");
+
+  const node = svg
+    .append("g")
+    .selectAll("g")
+    .data(nodes)
+    .enter()
+    .append("g")
+    .call(drag(simulation))
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
+
+  const circles = node
+    .append("circle")
+    .attr("stroke", NODE_STYLE.stroke.color)
+    .attr("stroke-opacity", NODE_STYLE.stroke.opacity)
+    .attr("stroke-width", NODE_STYLE.stroke.width)
+    .attr("r", NODE_STYLE.radius)
+    .attr("fill", (node) => nodeColors(node.breadth))
+
+  const labels = node
+    .append("text")
+    .attr("fill", "#555")
+    .attr("dx", 15)
+    .attr("dy", -15)
+    .text(({name}) => `${name}`)
+
+  const tooltip = svg
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "black")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+
+  const breadthLabels = node
+    .append("text")
+    .attr("fill", "#555")
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle")
+    .text(({ breadth }) => breadth)
+
+  function ticked() {
+    link
+      .attr("x1", (linkDatum) => linkDatum.source.x)
+      .attr("y1", (linkDatum) => linkDatum.source.y)
+      .attr("x2", (linkDatum) => linkDatum.target.x)
+      .attr("y2", (linkDatum) => linkDatum.target.y);
+
+    node.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+  }
+
+  function mouseover(d){
+    tooltip
+      .style("opacity", 1)
+    d3.select(this)
+      .style("opacity", 0.8)
+  }
+
+  function mousemove(d){
+    tooltip
+      .html(`Protein: ${d.name} <br>\nSpecies: ${d.species}\nBreadth: ${d.breadth}\ndcid: bio/${d.id}`)
+      .style("left", `${d3.mouse(this)[0] + 70}px`)
+      .style("top", `${d3.mouse(this)[1]}px`)
+  } // todo: make clickable
+
+  function mouseleave(d){
+    tooltip
+      .style("opacity", 0)
+    d3.select(this)
+      .style('stroke', 'none')
+      .style('opacity', 1)
+  }
+
+  console.log('links', links)
+
 }
 
 export function drawDiseaseGeneAssocChart(
