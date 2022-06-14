@@ -133,7 +133,7 @@ function fetchData(
             placeDcid: place,
             value: statData[item.statVar].stat[place].value,
           };
-          if (rankingPoint.value === undefined) {
+          if (typeof rankingPoint.value === "undefined") {
             console.log(`Skipping ${place}, missing ${item.statVar}`);
             continue;
           }
@@ -158,7 +158,7 @@ function fetchData(
           points: arr,
           unit: item.unit,
           scaling: item.scaling,
-          numDataPoints: numDataPoints,
+          numDataPoints,
         };
       }
       return rankingData;

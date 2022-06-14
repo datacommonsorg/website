@@ -614,7 +614,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               }
             })
             .catch((error) => {
-              console.log(error);
               this.setState({ display: false });
             });
         }
