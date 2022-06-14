@@ -613,7 +613,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 this.setState({ rankingChartDataGroup: svData });
               }
             })
-            .catch((error) => {
+            .catch(() => {
               this.setState({ display: false });
             });
         }
@@ -669,9 +669,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
   }
 
-  private getRankingChartData(
-    data: RankingChartDataGroup
-  ): { lowest: Point[]; highest: Point[] } {
+  private getRankingChartData(data: RankingChartDataGroup): { lowest: Point[];
+    highest: Point[];
+    } {
     const lowestAndHighestDataPoints = { lowest: [], highest: [] };
     if (
       data.numDataPoints >= MIN_RANKING_DATAPOINTS &&
