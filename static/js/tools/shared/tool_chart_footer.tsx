@@ -24,7 +24,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import {
   SourceSelector,
-  SourceSelectorSvInfo,
+  SourceSelectorSvSourceInfo,
 } from "../../shared/source_selector";
 import { urlToDomain } from "../../shared/util";
 
@@ -35,8 +35,10 @@ interface ToolChartFooterPropType {
   sources: Set<string>;
   // Measurement methods of the data of the chart.
   mMethods: Set<string>;
+  // Map of stat var to metahash of the selected source for that variable.
+  svMetahash: Record<string, string>;
   // Source selector information for a list of stat vars.
-  sourceSelectorSvInfoList: SourceSelectorSvInfo[];
+  svSourceList: SourceSelectorSvSourceInfo[];
   // callback when mapping of stat var dcid to methash is updated.
   onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
   // Whether to hide isRatio option.
@@ -111,7 +113,8 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           )}
           {props.children}
           <SourceSelector
-            svInfoList={props.sourceSelectorSvInfoList}
+            svMetahash={props.svMetahash}
+            svSourceListPromise={Promise.resolve(props.svSourceList)}
             onSvMetahashUpdated={props.onSvMetahashUpdated}
           />
         </div>

@@ -45,14 +45,13 @@ const MAX_SOURCES_UNGROUPED = 3;
 // can be used for different data points.
 const EMPTY_METADATA_TITLE = "Best Available";
 
-// The information needed in SourceSelector component for a single stat var
-export interface SourceSelectorSvInfo {
+// The information needed in SourceSelector component for a single stat var to
+// get the list of available sources
+export interface SourceSelectorSvSourceInfo {
   // dcid of the stat var
   dcid: string;
   // name of the stat var
   name: string;
-  // string to identify the metadata of the source used for this stat var
-  metahash: string;
   // mapping of metahashes to corresponding metadata for available sources for
   // this stat var
   metadataMap: Record<string, StatMetadata>;
@@ -61,24 +60,45 @@ export interface SourceSelectorSvInfo {
 }
 
 interface SourceSelectorPropType {
-  svInfoList: SourceSelectorSvInfo[];
+  // Map of sv to selected source metahash
+  svMetahash: Record<string, string>;
+  // Promise that returns the available sources for each stat var
+  svSourceListPromise: Promise<SourceSelectorSvSourceInfo[]>;
+  // Callback function that is run when new sources are selected
   onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
 }
 
 export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalSelections, setModalSelections] = useState(
-    getModalSelections(props.svInfoList)
-  );
+  const [svSourceList, setSvSourceList] = useState(null);
+  const [modalSelections, setModalSelections] = useState(props.svMetahash);
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    setLoading(true);
+    props.svSourceListPromise
+      .then((resp) => {
+        setSvSourceList(resp);
+        setLoading(false);
+      })
+      .catch(() => {
+        setErrorMessage(
+          "Sorry, there was an error retrieving available sources."
+        );
+        setLoading(false);
+      });
+  }, [props.svSourceListPromise]);
 
   useEffect(() => {
     // If modal is closed without updating sources, we want to reset the
     // selections in the modal.
     if (!modalOpen) {
-      setModalSelections(getModalSelections(props.svInfoList));
+      setModalSelections(props.svMetahash);
     }
-  }, [props.svInfoList, modalOpen]);
+  }, [props.svMetahash, modalOpen]);
 
+  const showSourceOptions = svSourceList && !errorMessage;
   return (
     <>
       <Button
@@ -87,7 +107,7 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
         color="light"
         onClick={() => setModalOpen(true)}
       >
-        Select {props.svInfoList.length > 1 ? "Sources" : "Source"}
+        Edit {Object.keys(props.svMetahash).length > 1 ? "Sources" : "Source"}
       </Button>
       <Modal
         isOpen={modalOpen}
@@ -98,35 +118,40 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
           Source Selector
         </ModalHeader>
         <ModalBody>
-          {props.svInfoList.map((svInfo) => {
-            const selectedMetahash = modalSelections[svInfo.dcid];
-            return (
-              <Collapsible
-                key={svInfo.dcid}
-                trigger={getSVTriggerJsx(false, svInfo, selectedMetahash)}
-                triggerWhenOpen={getSVTriggerJsx(
-                  true,
-                  svInfo,
-                  selectedMetahash
-                )}
-                open={props.svInfoList.length < 2}
-              >
-                <div className={`${SELECTOR_PREFIX}-options-section`}>
-                  {getSourceOptionJsx(
+          <div id="screen" style={{ display: loading ? "block" : "none" }}>
+            <div id="spinner"></div>
+          </div>
+          {errorMessage && <div>{errorMessage}</div>}
+          {showSourceOptions &&
+            svSourceList.map((svInfo) => {
+              const selectedMetahash = modalSelections[svInfo.dcid];
+              return (
+                <Collapsible
+                  key={svInfo.dcid}
+                  trigger={getSVTriggerJsx(false, svInfo, selectedMetahash)}
+                  triggerWhenOpen={getSVTriggerJsx(
+                    true,
                     svInfo,
-                    "",
-                    modalSelections,
-                    setModalSelections
+                    selectedMetahash
                   )}
-                  {getSourceOptionSectionJsx(
-                    svInfo,
-                    modalSelections,
-                    setModalSelections
-                  )}
-                </div>
-              </Collapsible>
-            );
-          })}
+                  open={svSourceList.length < 2}
+                >
+                  <div className={`${SELECTOR_PREFIX}-options-section`}>
+                    {getSourceOptionJsx(
+                      svInfo,
+                      "",
+                      modalSelections,
+                      setModalSelections
+                    )}
+                    {getSourceOptionSectionJsx(
+                      svInfo,
+                      modalSelections,
+                      setModalSelections
+                    )}
+                  </div>
+                </Collapsible>
+              );
+            })}
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={onConfirm}>
@@ -147,28 +172,29 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
  * Gets the element for a single source option
  */
 function getSourceOptionJsx(
-  svInfo: SourceSelectorSvInfo,
+  svSourceInfo: SourceSelectorSvSourceInfo,
   metahash: string,
   modalSelections: Record<string, string>,
   setModalSelections: (selections: Record<string, string>) => void
 ): JSX.Element {
-  const metadata = svInfo.metadataMap[metahash] || {};
+  const metadata = svSourceInfo.metadataMap[metahash] || {};
   let sourceTitle = getSourceTitle(metadata);
-  if (svInfo.displayNames && metahash in svInfo.displayNames) {
-    sourceTitle = svInfo.displayNames[metahash];
+  if (svSourceInfo.displayNames && metahash in svSourceInfo.displayNames) {
+    sourceTitle = svSourceInfo.displayNames[metahash];
   }
+  const selectedMetahash = modalSelections[svSourceInfo.dcid] || "";
   return (
-    <FormGroup radio="true" row key={svInfo.dcid + metahash}>
+    <FormGroup radio="true" row key={svSourceInfo.dcid + metahash}>
       <Label radio="true" className={`${SELECTOR_PREFIX}-option`}>
         <div className={`${SELECTOR_PREFIX}-option-title`}>
           <Input
             type="radio"
-            name={svInfo.dcid}
-            defaultChecked={svInfo.metahash === metahash}
+            name={svSourceInfo.dcid}
+            defaultChecked={selectedMetahash === metahash}
             onClick={() => {
               setModalSelections({
                 ...modalSelections,
-                [svInfo.dcid]: metahash,
+                [svSourceInfo.dcid]: metahash,
               });
             }}
           />
@@ -196,7 +222,7 @@ function getSourceOptionJsx(
  * Gets the element for source options section for a single stat var
  */
 function getSourceOptionSectionJsx(
-  svInfo: SourceSelectorSvInfo,
+  svInfo: SourceSelectorSvSourceInfo,
   modalSelections: Record<string, string>,
   setModalSelections: (selections: Record<string, string>) => void
 ): JSX.Element {
@@ -270,7 +296,7 @@ function getSourceOptionSectionJsx(
  */
 function getSVTriggerJsx(
   opened: boolean,
-  svInfo: SourceSelectorSvInfo,
+  svInfo: SourceSelectorSvSourceInfo,
   selectedMetahash: string
 ): JSX.Element {
   const metadata = svInfo.metadataMap[selectedMetahash] || {};
@@ -310,18 +336,6 @@ function getImportTriggerJsx(opened: boolean, title: string): JSX.Element {
       <div className={`${SELECTOR_PREFIX}-trigger-title`}>{title}</div>
     </div>
   );
-}
-
-/**
- * Given a list of SourceSelectorSvInfo, gets a map of stat var to selected
- * source metahash
- */
-function getModalSelections(
-  svInfo: SourceSelectorSvInfo[]
-): Record<string, string> {
-  const result = {};
-  svInfo.forEach((info) => (result[info.dcid] = info.metahash));
-  return result;
 }
 
 /**

@@ -25,7 +25,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { SourceSelectorSvSourceInfo } from "../../shared/source_selector";
 import {
   PlacePointStat,
   StatApiResponse,
@@ -79,12 +79,12 @@ export function ChartLoader(): JSX.Element {
     return <></>;
   }
 
-  const xSourceSelectorSvInfo = getSourceSelectorSvInfo(
+  const xSvSourceInfo = getSvSourceInfo(
     xVal,
     cache.allStatVarsData,
     cache.metadataMap
   );
-  const ySourceSelectorSvInfo = getSourceSelectorSvInfo(
+  const ySvSourceInfo = getSvSourceInfo(
     yVal,
     cache.allStatVarsData,
     cache.metadataMap
@@ -122,10 +122,11 @@ export function ChartLoader(): JSX.Element {
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
-                sourceSelectorSvInfo={[
-                  xSourceSelectorSvInfo,
-                  ySourceSelectorSvInfo,
-                ]}
+                svMetahash={{
+                  [x.value.statVarDcid]: x.value.metahash,
+                  [y.value.statVarDcid]: y.value.metahash,
+                }}
+                svSourceList={[xSvSourceInfo, ySvSourceInfo]}
                 onSvMetahashUpdated={onSvMetahashUpdated}
               />
             </>
@@ -338,11 +339,11 @@ function getChartData(
   return { points, sources, xUnits, yUnits };
 }
 
-function getSourceSelectorSvInfo(
+function getSvSourceInfo(
   axis: Axis,
   allStatVarsData: Record<string, Record<string, PlacePointStat>>,
   metadataMap: Record<string, StatMetadata>
-): SourceSelectorSvInfo {
+): SourceSelectorSvSourceInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   const metahashList = allStatVarsData[axis.statVarDcid]
     ? Object.keys(allStatVarsData[axis.statVarDcid])
@@ -355,7 +356,6 @@ function getSourceSelectorSvInfo(
   return {
     dcid: axis.statVarDcid,
     metadataMap: filteredMetadataMap,
-    metahash: axis.metahash,
     name: axis.statVarInfo.title || axis.statVarDcid,
   };
 }

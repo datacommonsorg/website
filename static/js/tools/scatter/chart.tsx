@@ -34,7 +34,7 @@ import {
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { SourceSelectorSvSourceInfo } from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -58,7 +58,8 @@ interface ChartPropsType {
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
   sources: Set<string>;
-  sourceSelectorSvInfo: SourceSelectorSvInfo[];
+  svMetahash: Record<string, string>;
+  svSourceList: SourceSelectorSvSourceInfo[];
   onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
 }
 
@@ -158,7 +159,8 @@ export function Chart(props: ChartPropsType): JSX.Element {
         chartId="scatter"
         sources={props.sources}
         mMethods={null}
-        sourceSelectorSvInfoList={props.sourceSelectorSvInfo}
+        svMetahash={props.svMetahash}
+        svSourceList={props.svSourceList}
         onSvMetahashUpdated={props.onSvMetahashUpdated}
         hideIsRatio={true}
       >

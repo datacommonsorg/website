@@ -38,7 +38,7 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { SourceSelectorSvSourceInfo } from "../../shared/source_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
@@ -75,7 +75,7 @@ interface ChartProps {
   display: DisplayOptionsWrapper;
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
-  sourceSelectorSvInfo: SourceSelectorSvInfo;
+  svSourceInfo: SourceSelectorSvSourceInfo;
 
   // Array of ~10 dates for time slider
   sampleDates: Array<string>;
@@ -256,7 +256,8 @@ export function Chart(props: ChartProps): JSX.Element {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        sourceSelectorSvInfoList={[props.sourceSelectorSvInfo]}
+        svMetahash={{ [statVarDcid]: props.statVar.value.metahash }}
+        svSourceList={[props.svSourceInfo]}
         onSvMetahashUpdated={(svMetahashMap) =>
           props.statVar.setMetahash(svMetahashMap[props.statVar.value.dcid])
         }

@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
+import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { Chip } from "../../shared/chip";
 import { PlaceSelector } from "../../shared/place_selector";
+import {
+  SourceSelector,
+  SourceSelectorSvSourceInfo,
+} from "../../shared/source_selector";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import { getNamedTypedPlace } from "../../utils/place_utils";
@@ -41,15 +46,19 @@ const URL_PARAM_KEYS = {
   PLACE_TYPE: "pt",
   // The statistical variables to get the data for
   STAT_VARS: "sv",
+  // The map of statistical variables to the chosen facet for that variable
+  SV_FACET_MAP: "facets",
 };
 
 const SEPARATOR = "__";
 const PARAM_VALUE_TRUE = "1";
+const DATE_LATEST = "latest";
 
 export interface DownloadOptions {
   selectedPlace: NamedTypedPlace;
   enclosedPlaceType: string;
   selectedStatVars: Record<string, StatVarInfo>;
+  selectedFacets: Record<string, string>;
   dateRange: boolean;
   minDate: string;
   maxDate: string;
@@ -69,6 +78,11 @@ export function Page(): JSX.Element {
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>(
     null
   );
+  const [svSourceListPromise, setSvSourceListPromise] = useState(
+    Promise.resolve([])
+  );
+  // the url used to get facets for the svSourceListPromise
+  const facetsUrl = useRef<string>("");
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
 
@@ -81,6 +95,37 @@ export function Page(): JSX.Element {
   useEffect(() => {
     loadStateFromURL();
   }, []);
+
+  useEffect(() => {
+    const url = getFacetsUrl(selectedOptions);
+    // if url is empty or it's the same as the one used for current
+    // svSourceListPromise, then don't need to update svSourceListPromise
+    if (
+      _.isEmpty(url) ||
+      (!_.isEmpty(facetsUrl.current) && facetsUrl.current === url)
+    ) {
+      return;
+    }
+    facetsUrl.current = url;
+    setSvSourceListPromise(
+      axios.get(url).then((resp) => {
+        const facetMap = resp.data;
+        const sourceSelectorSvInfoList = [];
+        for (const sv in selectedOptions.selectedStatVars) {
+          sourceSelectorSvInfoList.push({
+            dcid: sv,
+            name: selectedOptions.selectedStatVars[sv].title || sv,
+            metahash:
+              sv in selectedOptions.selectedFacets
+                ? selectedOptions.selectedFacets[sv]
+                : "",
+            metadataMap: sv in facetMap ? facetMap[sv] : {},
+          });
+        }
+        return sourceSelectorSvInfoList;
+      })
+    );
+  }, [selectedOptions]);
 
   if (!selectedOptions || !validationErrors) {
     return <></>;
@@ -233,6 +278,17 @@ export function Page(): JSX.Element {
                 </div>
               )}
             </div>
+            <div className="download-option-section">
+              <SourceSelector
+                svMetahash={selectedOptions.selectedFacets}
+                svSourceListPromise={svSourceListPromise}
+                onSvMetahashUpdated={(svMetahashMap) => {
+                  setSelectedOptions((prev) => {
+                    return { ...prev, selectedFacets: svMetahashMap };
+                  });
+                }}
+              />
+            </div>
             <Row className="d-lg-none">
               <Col>
                 <Button color="primary" onClick={toggleSvModalCallback}>
@@ -265,7 +321,13 @@ export function Page(): JSX.Element {
     setSelectedOptions((prev) => {
       const updatedSV = _.cloneDeep(prev.selectedStatVars);
       updatedSV[sv] = svInfo;
-      return { ...prev, selectedStatVars: updatedSV };
+      const updatedFacets = _.cloneDeep(prev.selectedFacets);
+      updatedFacets[sv] = "";
+      return {
+        ...prev,
+        selectedStatVars: updatedSV,
+        selectedFacets: updatedFacets,
+      };
     });
   }
 
@@ -275,8 +337,42 @@ export function Page(): JSX.Element {
       if (sv in updatedSV) {
         delete updatedSV[sv];
       }
-      return { ...prev, selectedStatVars: updatedSV };
+      const updatedFacets = _.cloneDeep(prev.selectedFacets);
+      if (sv in updatedFacets) {
+        delete updatedFacets[sv];
+      }
+      return {
+        ...prev,
+        selectedStatVars: updatedSV,
+        selectedFacets: updatedFacets,
+      };
     });
+  }
+
+  function getFacetsUrl(options: DownloadOptions): string {
+    if (
+      !options ||
+      _.isEmpty(options.selectedStatVars) ||
+      _.isEmpty(options.selectedPlace) ||
+      _.isEmpty(options.enclosedPlaceType)
+    ) {
+      return "";
+    }
+    const svParam = Object.keys(options.selectedStatVars).join("&statVars=");
+    // When both minDate and maxDate are set as "latest", the api will get the
+    // data for the latest date.
+    const minDate = options.dateRange ? options.minDate : DATE_LATEST;
+    const minDateParam = _.isEmpty(minDate) ? "" : `&minDate=${minDate}`;
+    const maxDate = options.dateRange ? options.maxDate : DATE_LATEST;
+    const maxDateParam = _.isEmpty(maxDate) ? "" : `&maxDate=${maxDate}`;
+    const url =
+      "/api/stats/facets/within-place" +
+      `?parentPlace=${selectedOptions.selectedPlace.dcid}` +
+      `&childType=${selectedOptions.enclosedPlaceType}` +
+      `&statVars=${svParam}` +
+      minDateParam +
+      maxDateParam;
+    return url;
   }
 
   function loadStateFromURL(): void {
@@ -287,6 +383,7 @@ export function Page(): JSX.Element {
       minDate: "",
       selectedPlace: { dcid: "", name: "", types: null },
       selectedStatVars: {},
+      selectedFacets: {},
     };
     if (!window.location.hash) {
       setSelectedOptions(options);
@@ -301,6 +398,11 @@ export function Page(): JSX.Element {
     const svInfoPromise = !_.isEmpty(statVarsList)
       ? getStatVarInfo(statVarsList)
       : Promise.resolve({});
+    const svFacetsVal =
+      JSON.parse(urlParams.get(URL_PARAM_KEYS.SV_FACET_MAP)) || {};
+    for (const sv of statVarsList) {
+      options.selectedFacets[sv] = sv in svFacetsVal ? svFacetsVal[sv] : "";
+    }
     options.enclosedPlaceType = urlParams.get(URL_PARAM_KEYS.PLACE_TYPE) || "";
     options.dateRange =
       urlParams.get(URL_PARAM_KEYS.DATE_RANGE) === PARAM_VALUE_TRUE;
@@ -330,6 +432,12 @@ export function Page(): JSX.Element {
 
   function updateURL(): void {
     const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+    const svFacetsParamVal = {};
+    for (const sv in selectedOptions.selectedFacets) {
+      if (selectedOptions.selectedFacets[sv]) {
+        svFacetsParamVal[sv] = selectedOptions.selectedFacets[sv];
+      }
+    }
     const urlParamVals = {
       [URL_PARAM_KEYS.PLACE_TYPE]: selectedOptions.enclosedPlaceType,
       [URL_PARAM_KEYS.PLACE]: selectedOptions.selectedPlace
@@ -343,6 +451,7 @@ export function Page(): JSX.Element {
         : "",
       [URL_PARAM_KEYS.MIN_DATE]: selectedOptions.minDate,
       [URL_PARAM_KEYS.MAX_DATE]: selectedOptions.maxDate,
+      [URL_PARAM_KEYS.SV_FACET_MAP]: JSON.stringify(svFacetsParamVal),
     };
     for (const key of Object.keys(urlParamVals)) {
       const val = urlParamVals[key];
