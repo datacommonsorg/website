@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { Point } from "../topic_page/ranking_unit";
+
 export const chartTypeEnum = {
   LINE: "LINE",
   STACK_BAR: "STACK_BAR",
@@ -21,7 +23,7 @@ export const chartTypeEnum = {
   CHOROPLETH: "CHOROPLETH",
   GROUP_LINE: "GROUP_LINE",
   HISTOGRAM: "HISTOGRAM",
-  TABLE: "TABLE",
+  RANKING: "RANKING",
 };
 
 export interface Series {
@@ -151,8 +153,8 @@ export interface RankingChartDataGroup {
   numDataPoints: number;
   exploreUrl: string;
   sources: string[];
+  rankingData?: { lowest: Point[]; highest: Point[] };
 }
 
-export interface CachedRankingChartData {
-  statVars: RankingChartDataGroup;
-}
+// A map from statvar dcid to RankingChartDataGroup
+export type CachedRankingChartData = Record<string, RankingChartDataGroup>;

@@ -453,14 +453,13 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         const parentPlaceName: string = this.parentPlaceDcid
           ? this.props.names[this.parentPlaceDcid].split(",")[0]
           : "";
-        this.displayDataTitle = this.props.data.title;
         const id = randDomId();
         chartElements.push(
           <Chart
             key={id}
             id={id}
             dcid={this.props.dcid}
-            chartType={chartTypeEnum.TABLE}
+            chartType={chartTypeEnum.RANKING}
             title={intl.formatMessage(
               {
                 defaultMessage: "{variable}: rankings in {placeName}",

@@ -365,19 +365,19 @@ h3 {
   margin-top: 0rem;
 }
 
-.ranking-table td {
+.ranking-list td {
   font-size: 0.9rem;
   vertical-align: top;
 }
 
-.ranking-table td.rank {
+.ranking-list td.rank {
   width: 10%;
 }
 
-.ranking-table td.value {
+.ranking-list .num-value {
   width: 25%;
 }
 
-.ranking-table td.bold {
+.ranking-list .bold {
   font-weight: 600;
 }

@@ -268,15 +268,17 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         </ModalBody>
         <ModalFooter>
           {this.chartDownloadXml && (
-            <Button color="primary" onClick={this.onDownloadSvg}>
-              {intl.formatMessage({
-                id: "embed_download_chart_link",
-                defaultMessage: "Download Chart Image",
-                description:
-                  "Text for the hyperlink text that will download the chart image.",
-              })}
-            </Button>
-          )}{" "}
+            <>
+              <Button color="primary" onClick={this.onDownloadSvg}>
+                {intl.formatMessage({
+                  id: "embed_download_chart_link",
+                  defaultMessage: "Download Chart Image",
+                  description:
+                    "Text for the hyperlink text that will download the chart image.",
+                })}
+              </Button>{" "}
+            </>
+          )}
           <Button color="primary" onClick={this.onDownloadData}>
             {intl.formatMessage({
               id: "embed_download_csv_link",

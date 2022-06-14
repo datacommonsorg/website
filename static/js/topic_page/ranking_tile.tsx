@@ -35,6 +35,7 @@ interface RankingGroup {
   points: Point[];
   unit: string;
   scaling: number;
+  numDataPoints?: number;
 }
 
 interface RankingData {
@@ -64,6 +65,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const unit = rankingData[statVar].unit;
           const scaling = rankingData[statVar].scaling;
           const svName = getStatVarName(statVar, props.statVarMetadata);
+          const numDataPoints = rankingData[statVar].numDataPoints;
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
@@ -78,6 +80,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                       : "Highest ${statVar}"
                   }
                   points={points.slice(-RANKING_COUNT).reverse()}
+                  isHighest={true}
                 />
               )}
               {props.rankingMetadata.showLowest && (
@@ -91,7 +94,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                       ? props.rankingMetadata.lowestTitle
                       : "Lowest ${statVar}"
                   }
+                  numDataPoints={numDataPoints}
                   points={points.slice(0, RANKING_COUNT)}
+                  isHighest={false}
                 />
               )}
             </React.Fragment>
@@ -126,15 +131,15 @@ function fetchData(
         for (const place in statData[item.statVar].stat) {
           const rankingPoint = {
             placeDcid: place,
-            stat: statData[item.statVar].stat[place].value,
+            value: statData[item.statVar].stat[place].value,
           };
-          if (rankingPoint.stat === undefined) {
+          if (rankingPoint.value === undefined) {
             console.log(`Skipping ${place}, missing ${item.statVar}`);
             continue;
           }
           if (item.denom) {
             if (item.denom in statData) {
-              rankingPoint.stat /= statData[item.denom].stat[place].value;
+              rankingPoint.value /= statData[item.denom].stat[place].value;
             } else {
               console.log(`Skipping ${place}, missing ${item.denom}`);
               continue;
@@ -145,6 +150,7 @@ function fetchData(
         arr.sort((a, b) => {
           return a.stat - b.stat;
         });
+        const numDataPoints = arr.length;
         if (arr.length > RANKING_COUNT * 2) {
           arr = arr.slice(0, RANKING_COUNT).concat(arr.slice(-RANKING_COUNT));
         }
@@ -152,6 +158,7 @@ function fetchData(
           points: arr,
           unit: item.unit,
           scaling: item.scaling,
+          numDataPoints: numDataPoints,
         };
       }
       return rankingData;
