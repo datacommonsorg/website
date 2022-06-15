@@ -390,7 +390,8 @@ export function drawProteinInteractionGraph(
       opacity: 1
     },
     radius: 15,
-    fillColors: d3.schemeTableau10
+    // fillColors: ["maroon", "firebrick", "salmon", "darkorange"]
+    fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"]
   }
 
   const LINK_STYLE = {
@@ -402,17 +403,18 @@ export function drawProteinInteractionGraph(
     length: 100
   }
 
-  const dataset = ({
-    nodes: [
-      { id: 1, name: "MECOM", species: "Human", breadth: 0, 'x': 0, 'y': 0},
-      { id: 2, name: "CtBP1", species: "Human", breadth: 1, 'x': 0, 'y': 0 },
-      { id: 3, name: "SUPT16H", species: "Human", breadth: 1, 'x': 0, 'y': 0 }
-    ],
-    links: [
-      { source: 1, target: 2, score: 0.3 },
-      { source: 1, target: 3, score: 0.7 }
-    ]
-  })
+  // example data format:
+  // const dataset = ({
+  //   nodes: [
+  //     { id: 1, name: "MECOM", species: "Human", breadth: 0, 'x': 0, 'y': 0},
+  //     { id: 2, name: "CtBP1", species: "Human", breadth: 1, 'x': 0, 'y': 0 },
+  //     { id: 3, name: "SUPT16H", species: "Human", breadth: 1, 'x': 0, 'y': 0 }
+  //   ],
+  //   links: [
+  //     { source: 1, target: 2, score: 0.3 },
+  //     { source: 1, target: 3, score: 0.7 }
+  //   ]
+  // })
 
   const height = 400 - MARGIN.top - MARGIN.bottom;
   const width = 700 - MARGIN.left - MARGIN.right;
@@ -423,7 +425,7 @@ export function drawProteinInteractionGraph(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .attr("viewBox", [-width / 2, -height / 2, width, height])
     .append("g")
-    .attr("transform", `translate(${MARGIN.left}, ${MARGIN.top})`)
+    .attr("transform", `translate(${MARGIN.left - 100}, ${MARGIN.top - 50})`)
     .attr("style", "max-width: 100%; height: auto; height: intrinsic");
 
 
@@ -451,18 +453,20 @@ export function drawProteinInteractionGraph(
     .force("center", d3.forceCenter())
     .on("tick", ticked);
 
-  // const linkWidths = links.map(({score}) => 10 * score)
+  const linkWidths = links.map(({score}) => 10 * score)
+  console.log('hi')
 
   const link = svg
     .append("g")
     .attr("stroke", LINK_STYLE.stroke.color)
     .attr("stroke-opacity", LINK_STYLE.stroke.opacity)
-    // .attr("stroke-width", ({score}) => 10 * score)
-    .attr("stroke-linecap", LINK_STYLE.stroke.linecap)
     .selectAll("line")
     .data(links)
-    .attr("stroke-width", ({score}) => score)
-    .join("line");
+    .join("line")
+    .attr("stroke-width", link => link.hasOwnProperty("score") ? 8 * link.score : 0.5)
+    .attr("stroke-linecap", LINK_STYLE.stroke.linecap);
+
+  console.log('link', link)
 
   const node = svg
     .append("g")
@@ -483,12 +487,12 @@ export function drawProteinInteractionGraph(
     .attr("r", NODE_STYLE.radius)
     .attr("fill", (node) => nodeColors(node.breadth))
 
-  const labels = node
-    .append("text")
-    .attr("fill", "#555")
-    .attr("dx", 15)
-    .attr("dy", -15)
-    .text(({name}) => `${name}`)
+  // const labels = node
+  //   .append("text")
+  //   .attr("fill", "#555")
+  //   .attr("dx", 15)
+  //   .attr("dy", -15)
+  //   .text(({name}) => `${name}`)
 
   const tooltip = svg
     .append("div")
@@ -502,10 +506,11 @@ export function drawProteinInteractionGraph(
 
   const breadthLabels = node
     .append("text")
-    .attr("fill", "#555")
+    .attr("fill", "#222")
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "middle")
-    .text(({ breadth }) => breadth)
+    .style("font", "8px public sans")
+    .text(({ name }) => `${name}`)
 
   function ticked() {
     link
