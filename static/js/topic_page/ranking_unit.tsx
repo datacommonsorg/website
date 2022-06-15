@@ -44,7 +44,6 @@ interface RankingUnitPropType {
    * Otherwise, from lowest to highest, e.g., n,n-1,n-2,...
    */
   isHighest: boolean;
-  statVarName?: string;
   unit?: string;
   scaling?: number;
   /**
@@ -79,13 +78,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
 
   return (
     <div className="ranking-list">
-      <h4>
-        {formatString(props.title, {
-          place: "",
-          date: "",
-          statVar: props.statVarName,
-        })}
-      </h4>
+      <h4>{props.title}</h4>
       <table>
         <tbody>
           {props.points.map((point, i) => {

@@ -27,6 +27,7 @@ import { StatVarMetadata } from "../types/stat_var";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
 import { getStatVarName } from "./string_utils";
+import { formatString } from "./string_utils";
 import { RankingMetadataConfig } from "./topic_config";
 
 const RANKING_COUNT = 5;
@@ -71,14 +72,18 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               {props.rankingMetadata.showHighest && (
                 <RankingUnit
                   key={`${statVar}-highest`}
-                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={
+                  title={formatString(
                     props.rankingMetadata.highestTitle
                       ? props.rankingMetadata.highestTitle
-                      : "Highest ${statVar}"
-                  }
+                      : "Highest ${statVar}",
+                    {
+                      place: "",
+                      date: "",
+                      statVar: svName,
+                    }
+                  )}
                   points={points.slice(-RANKING_COUNT).reverse()}
                   isHighest={true}
                 />
@@ -86,14 +91,18 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               {props.rankingMetadata.showLowest && (
                 <RankingUnit
                   key={`${statVar}-lowest`}
-                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={
+                  title={formatString(
                     props.rankingMetadata.lowestTitle
                       ? props.rankingMetadata.lowestTitle
-                      : "Lowest ${statVar}"
-                  }
+                      : "Lowest ${statVar}",
+                    {
+                      place: "",
+                      date: "",
+                      statVar: svName,
+                    }
+                  )}
                   numDataPoints={numDataPoints}
                   points={points.slice(0, RANKING_COUNT)}
                   isHighest={false}

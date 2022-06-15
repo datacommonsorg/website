@@ -599,19 +599,19 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               }
               const sv = this.props.statsVars[0];
               const svData = rankingChartData[sv];
-              for (const data of svData.data) {
-                data.value = data.value * scaling;
-              }
               // Do not display the ranking chart if total data points is less than the MIN_RANKING_DATAPOINTS
               if (
                 _.isEmpty(svData) ||
                 svData.numDataPoints < MIN_RANKING_DATAPOINTS
               ) {
                 this.setState({ display: false });
-              } else {
-                svData.rankingData = this.getRankingChartData(svData);
-                this.setState({ rankingChartDataGroup: svData });
+                return;
               }
+              for (const data of svData.data) {
+                data.value = data.value * scaling;
+              }
+              svData.rankingData = this.getRankingChartData(svData);
+              this.setState({ rankingChartDataGroup: svData });
             })
             .catch(() => {
               this.setState({ display: false });
