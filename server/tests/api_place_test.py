@@ -670,7 +670,7 @@ class TestApiRankingChart(unittest.TestCase):
         sv1_date2 = "2022"
         sv2_date1 = "2020"
         sv2_date2 = "2022"
-        sv1_value1 = 99
+        sv1_value1 = 98
         sv1_value2 = 100
         sv1_value3 = 12
         sv2_value1 = 100
