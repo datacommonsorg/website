@@ -941,8 +941,13 @@ class TestApiRankingChart(unittest.TestCase):
                             'date': sv1_date2,
                             'value': sv1_value2,
                             'metaHash': 1
-                        }
-                    },
+                        },
+                        geo3: {
+                            'date': sv1_date1,
+                            'value': sv1_value3,
+                            'metaHash': 1
+                        },
+                    }
                 },
                 sv2: {
                     'stat': {
@@ -955,7 +960,12 @@ class TestApiRankingChart(unittest.TestCase):
                             'date': sv2_date2,
                             'value': sv2_value2,
                             'metaHash': 2
-                        }
+                        },
+                        geo3: {
+                            'date': sv2_date1,
+                            'value': sv2_value3,
+                            'metaHash': 2
+                        },
                     }
                 },
                 "Count_Person": {
