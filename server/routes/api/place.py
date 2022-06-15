@@ -106,6 +106,7 @@ STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
 EARTH_DCID = "Earth"
+PERSON_COUNT_LIMIT = 1000
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -800,30 +801,50 @@ def api_ranking_chart(dcid):
         parent_place_dcid = EARTH_DCID
         place_type = "Country"
     else:
-        parent_place_list = get_parent_place(dcid).get(dcid, [])
-        # Get the first parent place returned.
-        if parent_place_list:
-            parent_place_dcid = parent_place_list[0]["dcid"]
-            place_type = get_place_type(dcid)
+        place_type = get_place_type(dcid)
+        parent_place_list = parent_places(dcid).get(dcid, [])
+        for parent in parent_place_list:
+            parent_type_list = parent.get("types", [])
+            parent_place_dcid = parent.get("dcid", "")
+            if parent_type_list:
+                parent_type = parent_type_list[0]
+                # All wanted place types plus continent except CensusZipCodeTabulationArea.
+                if parent_type == "Continent" or (
+                        parent_type in ALL_WANTED_PLACE_TYPES and
+                        parent_type != "CensusZipCodeTabulationArea"):
+                    break
+        # If break is not encountered, return empty result.
         else:
             return Response(json.dumps(result),
                             200,
                             mimetype='application/json')
+
     configs = get_ranking_chart_configs()
     # Get the first stat var of each config.
     stat_vars, _ = shared_api.get_stat_vars(configs)
+    # Make sure the ranking chart configs include stat var "Count_Person".
+    if "Count_Person" not in stat_vars:
+        stat_vars.add("Count_Person")
     sv_data = dc.get_stat_set_within_place(parent_place_dcid, place_type,
                                            list(stat_vars), "")
     sv_data_values = sv_data.get("data", {})
+
     if not sv_data or not sv_data_values:
         return Response(json.dumps(result), 200, mimetype='application/json')
-    ## Get all the place names of dcids in the sv_data
+    # Get all the place names of dcids in sv_data.
     place_dcids = set()
     for sv_value in sv_data_values.values():
         sv_place_dcids = sv_value.get("stat", {}).keys()
         place_dcids = place_dcids.union(sv_place_dcids)
-    place_names = get_name(list(place_dcids))
+    place_names = get_i18n_name(list(place_dcids))
     sv_metadata = sv_data.get("metadata", {})
+    # "Count_Person" is used to filter out the places with the population less than PERSON_COUNT_LIMIT
+    places_to_rank = set()
+    count_person_data = sv_data_values.get("Count_Person", {})
+    if count_person_data:
+        for place_dcid, place_data in count_person_data.get("stat", {}).items():
+            if place_data.get("value", 0) > PERSON_COUNT_LIMIT:
+                places_to_rank.add(place_dcid)
     # Consider the configs with single sv but ignore denominators.
     for config in configs:
         sv = config["statsVars"][0]
@@ -834,6 +855,8 @@ def api_ranking_chart(dcid):
         dates = set()
         data_points = []
         for place_dcid in sv_data_stat:
+            if place_dcid not in places_to_rank:
+                continue
             # Example of data:{"date": "2022", "value": 123, "metahash": 123456}.
             data = sv_data_stat[place_dcid]
             value = data.get("value", None)
