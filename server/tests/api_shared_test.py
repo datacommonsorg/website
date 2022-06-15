@@ -69,6 +69,5 @@ class TestIsFloat(unittest.TestCase):
             'expected': True
         }]
         for test_case in cases:
-            print(test_case)
             result = shared_api.is_float(test_case.get("query"))
             assert result == test_case.get("expected")
