@@ -26,8 +26,7 @@ import { NamedTypedPlace } from "../shared/types";
 import { StatVarMetadata } from "../types/stat_var";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
-import { getStatVarName } from "./string_utils";
-import { formatString } from "./string_utils";
+import { formatString, getStatVarName } from "./string_utils";
 import { RankingMetadataConfig } from "./topic_config";
 
 const RANKING_COUNT = 5;
@@ -79,8 +78,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                       ? props.rankingMetadata.highestTitle
                       : "Highest ${statVar}",
                     {
-                      place: "",
                       date: "",
+                      place: "",
                       statVar: svName,
                     }
                   )}
@@ -98,8 +97,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                       ? props.rankingMetadata.lowestTitle
                       : "Lowest ${statVar}",
                     {
-                      place: "",
                       date: "",
+                      place: "",
                       statVar: svName,
                     }
                   )}
