@@ -115,6 +115,29 @@ export interface ProteinStrData {
   value: string;
 }
 
+type NodeID = string | number;
+
+export interface Node {
+  id: NodeID;
+  name: string;
+  value?: string | number;
+}
+
+export interface Link {
+  source: NodeID;
+  target: NodeID;
+  weight?: number;
+}
+
+export interface ProteinNode extends Node {
+  species: string;
+  depth: number;
+}
+
+export interface InteractionLink extends Link {
+  score: number;
+}
+
 // interface for variant gene associations for plotting error bars
 export interface VarGeneDataPoint {
   id: string;
@@ -307,51 +330,49 @@ export function drawProteinInteractionGraph(
   data: InteractingProteinType[]
 ): void {
 
-  function extract_protein_info(protein_species: string){
-    const last_index = protein_species.lastIndexOf('_')
+  function nodeFromID(protein_speciesID: string, depth: number){
+    const last_index = protein_speciesID.lastIndexOf('_')
     return {
-      id: protein_species,
-      name: protein_species.slice(0, last_index),
-      species: protein_species.slice(last_index+1),
+      id: protein_speciesID,
+      name: protein_speciesID.slice(0, last_index),
+      species: protein_speciesID.slice(last_index+1),
+      depth: depth
     }
   }
 
-
   const center = data[0].parent
-  let nodes = data.map(({name, value}) => {
+  let nodeData = data.map(({name, value}) => {
     let neighbor = ''
     if (name.includes(`_${center}`)){
-      neighbor = name.replace(`_${center}`, '') // note replace only first interaction to handle case of self-interaction (P53_HUMAN_P53_HUMAN)
+      neighbor = name.replace(`_${center}`, '') // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
     }
     else if(name.includes(`${center}_`)){
-      neighbor = name.replace(`${center}_`, '')
+      neighbor = name.replace(`${center}_`, '') // same here
     }
-    const datum = extract_protein_info(neighbor)
-    datum['breadth'] = 1
-    datum['score'] = value
+    const datum = nodeFromID(neighbor, 1)
+    datum['value'] = value
     return datum
   });
 
   const seen = new Set();
-  nodes = nodes.filter((node) => {
+  nodeData = nodeData.filter((node) => {
     const duplicate = seen.has(node.name);
     seen.add(node.name);
     return !duplicate && node.id !== center;
-  }); // todo: handle self-interactions with self-loop
+  }); 
 
-  nodes.sort((n1, n2) => n2.score - n1.score)
-  nodes = nodes.slice(0, 10)
+  nodeData.sort((n1, n2) => n2.value - n1.value)
+  nodeData = nodeData.slice(0, 10)
 
-  const center_datum = extract_protein_info(center);
-  center_datum['breadth'] = 0;
-  nodes.push(center_datum);
-  console.log('nodes', nodes);
+  const center_datum = nodeFromID(center, 0);
+  nodeData.push(center_datum);
+  console.log('nodes', nodeData);
 
-  const links = nodes.map((node) => {
+  const linkData = nodeData.map((node) => {
     return {
       source: center,
       target: node.id,
-      score: node.score, // todo: get the real scores later.
+      score: node.value, 
     }
   }
   )
@@ -384,14 +405,22 @@ export function drawProteinInteractionGraph(
   }
   
   const NODE_STYLE = {
-    stroke: {
-      color: "#fff",
-      width: 1.5,
-      opacity: 1
-    },
-    radius: 15,
-    // fillColors: ["maroon", "firebrick", "salmon", "darkorange"]
-    fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"]
+      circles: {
+        stroke: {
+          color: "#fff",
+          width: 1.5,
+          opacity: 1
+        },
+        radius: 15,
+        fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"],
+      },
+      labels: {
+        font: {
+          name: 'public sans',
+          size: '8px',
+          color: '#222'
+        }
+      }
   }
 
   const LINK_STYLE = {
@@ -403,18 +432,18 @@ export function drawProteinInteractionGraph(
     length: 100
   }
 
-  // example data format:
-  // const dataset = ({
-  //   nodes: [
-  //     { id: 1, name: "MECOM", species: "Human", breadth: 0, 'x': 0, 'y': 0},
-  //     { id: 2, name: "CtBP1", species: "Human", breadth: 1, 'x': 0, 'y': 0 },
-  //     { id: 3, name: "SUPT16H", species: "Human", breadth: 1, 'x': 0, 'y': 0 }
-  //   ],
-  //   links: [
-  //     { source: 1, target: 2, score: 0.3 },
-  //     { source: 1, target: 3, score: 0.7 }
-  //   ]
-  // })
+  /*
+  EXAMPLE DATA FORMAT:
+    nodes = [
+      { id: 1, name: "MECOM", species: "Human", breadth: 0 },
+      { id: 2, name: "CtBP1", species: "Human", breadth: 1 },
+      { id: 3, name: "SUPT16H", species: "Human", breadth: 1 }
+    ]
+    links = [
+      { source: 1, target: 2, score: 0.3 },
+      { source: 1, target: 3, score: 0.7 }
+    ]
+  */
 
   const height = 400 - MARGIN.top - MARGIN.bottom;
   const width = 700 - MARGIN.left - MARGIN.right;
@@ -429,49 +458,36 @@ export function drawProteinInteractionGraph(
     .attr("style", "max-width: 100%; height: auto; height: intrinsic");
 
 
-  // Compute values.
-  // let nodes = dataset.nodes
+  const nodeIDs = nodeData.map(node => node.id);
+  const nodeDepths = nodeData.map(node => node.depth)
+  const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_STYLE.circles.fillColors);
 
-  const nodeIDs = nodes.map(node => node.id);
-  const nodeBreadths = nodes.map(node => node.breadth)
-
-  const sources = links.map(link => link.source);
-  const targets = links.map(link => link.target);
-  const scores = links.map(link => link.score);
-
-  const nodeColors = d3.scaleOrdinal(nodeBreadths, NODE_STYLE.fillColors);
-
+  // force display layout
   const forceNode = d3.forceManyBody();
-  const forceLink = d3.forceLink(links).id(({index}) => `${nodeIDs[index]}`);
-
+  const forceLink = d3.forceLink(linkData).id(({index}) => `${nodeIDs[index]}`);
   forceLink
     .distance(LINK_STYLE.length);
 
-  const simulation = d3.forceSimulation(nodes)
+  const simulation = d3.forceSimulation(nodeData)
     .force("link", forceLink)
     .force("charge", forceNode)
     .force("center", d3.forceCenter())
     .on("tick", ticked);
 
-  const linkWidths = links.map(({score}) => 10 * score)
-  console.log('hi')
-
-  const link = svg
+  const links = svg
     .append("g")
     .attr("stroke", LINK_STYLE.stroke.color)
     .attr("stroke-opacity", LINK_STYLE.stroke.opacity)
     .selectAll("line")
-    .data(links)
+    .data(linkData)
     .join("line")
     .attr("stroke-width", link => link.hasOwnProperty("score") ? 8 * link.score : 0.5)
     .attr("stroke-linecap", LINK_STYLE.stroke.linecap);
 
-  console.log('link', link)
-
-  const node = svg
+  const nodes = svg
     .append("g")
     .selectAll("g")
-    .data(nodes)
+    .data(nodeData)
     .enter()
     .append("g")
     .call(drag(simulation))
@@ -479,20 +495,39 @@ export function drawProteinInteractionGraph(
     .on("mousemove", mousemove)
     .on("mouseleave", mouseleave)
 
-  const circles = node
+  const nodeCircles = nodes
     .append("circle")
-    .attr("stroke", NODE_STYLE.stroke.color)
-    .attr("stroke-opacity", NODE_STYLE.stroke.opacity)
-    .attr("stroke-width", NODE_STYLE.stroke.width)
-    .attr("r", NODE_STYLE.radius)
-    .attr("fill", (node) => nodeColors(node.breadth))
+    .attr("stroke", NODE_STYLE.circles.stroke.color)
+    .attr("stroke-opacity", NODE_STYLE.circles.stroke.opacity)
+    .attr("stroke-width", NODE_STYLE.circles.stroke.width)
+    .attr("r", NODE_STYLE.circles.radius)
+    .attr("fill", (node) => nodeColors(node.depth))
 
+  // floating name labels we can switch in
   // const labels = node
   //   .append("text")
   //   .attr("fill", "#555")
   //   .attr("dx", 15)
   //   .attr("dy", -15)
   //   .text(({name}) => `${name}`)
+
+  const nodeLabels = nodes
+    .append("text")
+    .attr("fill", NODE_STYLE.labels.font.color)
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "middle")
+    .style("font", `${NODE_STYLE.labels.font.size} ${NODE_STYLE.labels.font.name}`)
+    .text(({ name }) => `${name}`)
+
+  function ticked() {
+    links
+      .attr("x1", (linkDatum) => linkDatum.source.x)
+      .attr("y1", (linkDatum) => linkDatum.source.y)
+      .attr("x2", (linkDatum) => linkDatum.target.x)
+      .attr("y2", (linkDatum) => linkDatum.target.y);
+
+    nodes.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+  }
 
   const tooltip = svg
     .append("div")
@@ -503,24 +538,6 @@ export function drawProteinInteractionGraph(
     .style("border-width", "2px")
     .style("border-radius", "5px")
     .style("padding", "5px")
-
-  const breadthLabels = node
-    .append("text")
-    .attr("fill", "#222")
-    .attr("text-anchor", "middle")
-    .attr("dominant-baseline", "middle")
-    .style("font", "8px public sans")
-    .text(({ name }) => `${name}`)
-
-  function ticked() {
-    link
-      .attr("x1", (linkDatum) => linkDatum.source.x)
-      .attr("y1", (linkDatum) => linkDatum.source.y)
-      .attr("x2", (linkDatum) => linkDatum.target.x)
-      .attr("y2", (linkDatum) => linkDatum.target.y);
-
-    node.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
-  }
 
   function mouseover(d){
     tooltip
@@ -543,8 +560,6 @@ export function drawProteinInteractionGraph(
       .style('stroke', 'none')
       .style('opacity', 1)
   }
-
-  console.log('links', links)
 
 }
 
