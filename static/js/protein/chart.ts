@@ -188,8 +188,8 @@ function addXLabel(
   svg: d3.Selection<SVGGElement, unknown, HTMLElement, any>
 ) {
   svg
+    .attr("class", "axis-label")
     .append("text")
-    .attr("class", "axislabel")
     .attr(
       "transform",
       "translate(" + width / 2 + " ," + (height + MARGIN.top + 50) + ")"
