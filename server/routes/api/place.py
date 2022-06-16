@@ -107,6 +107,7 @@ US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
 EARTH_DCID = "Earth"
 PERSON_COUNT_LIMIT = 1000
+POPULATION_DCID = "Count_Person"
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
@@ -822,9 +823,9 @@ def api_ranking_chart(dcid):
     configs = get_ranking_chart_configs()
     # Get the first stat var of each config.
     stat_vars, _ = shared_api.get_stat_vars(configs)
-    # Make sure the ranking chart configs include stat var "Count_Person".
-    if "Count_Person" not in stat_vars:
-        stat_vars.add("Count_Person")
+    # Make sure POPULATION_DCID is included in stat vars.
+    if POPULATION_DCID not in stat_vars:
+        stat_vars.add(POPULATION_DCID)
     sv_data = dc.get_stat_set_within_place(parent_place_dcid, place_type,
                                            list(stat_vars), "")
     sv_data_values = sv_data.get("data", {})
@@ -838,13 +839,12 @@ def api_ranking_chart(dcid):
         place_dcids = place_dcids.union(sv_place_dcids)
     place_names = get_i18n_name(list(place_dcids))
     sv_metadata = sv_data.get("metadata", {})
-    # "Count_Person" is used to filter out the places with the population less than PERSON_COUNT_LIMIT
+    # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT
     places_to_rank = set()
-    count_person_data = sv_data_values.get("Count_Person", {})
-    if count_person_data:
-        for place_dcid, place_data in count_person_data.get("stat", {}).items():
-            if place_data.get("value", 0) > PERSON_COUNT_LIMIT:
-                places_to_rank.add(place_dcid)
+    count_person_data = sv_data_values.get(POPULATION_DCID, {})
+    for place_dcid, place_data in count_person_data.get("stat", {}).items():
+        if place_data.get("value", 0) > PERSON_COUNT_LIMIT:
+            places_to_rank.add(place_dcid)
     # Consider the configs with single sv but ignore denominators.
     for config in configs:
         sv = config["statsVars"][0]
