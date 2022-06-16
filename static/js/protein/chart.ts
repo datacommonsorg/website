@@ -19,25 +19,38 @@ import _ from "lodash";
 
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
+// interface for protein page datatypes which return number values
+export interface ProteinNumData {
+  name: string;
+  value: number;
+}
+
+// interface for protein page datatypes which return string values
+export interface ProteinStrData {
+  name: string;
+  value: string;
+}
+
+// interface for variant gene associations for plotting error bars
+export interface VarGeneDataPoint {
+  id: string;
+  name: string;
+  value: number;
+  lower: number;
+  upper: number;
+}
+
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
-const HEIGHT = 224;
-const WIDTH = 500;
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
-// tooltip style
+// tooltip constant for all charts
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
-// hover function for tooltip
-function mousemove(left_position: number, top_position: number) {
-  TOOL_TIP.style("left", d3.event.offsetX + left_position + "px").style(
-    "top",
-    d3.event.offsetY + top_position + "px"
-  );
-}
-function mouseout() {
-  TOOL_TIP.style("opacity", 0);
-}
+// length of side bar for error plot for variant-gene associations
+const ERROR_SIDE_BAR_LENGTH = 5;
+// number by which x axis domain is increased/decreased for x scale to fit all error bars well
+const X_AXIS_LIMIT = 0.5;
 // Dictionary mapping the tissue score to its label
 const TISSUE_SCORE_TO_LABEL = {
   0: "NotDetected",
@@ -117,27 +130,57 @@ const TISSUE_COLOR_DICT = {
   UrinaryBladder: "sandybrown",
   Vagina: "mistyrose",
 };
-// interface for protein page datatypes which return number values
-export interface ProteinNumData {
-  name: string;
-  value: number;
-}
+// tissue specific colors
+const ERROR_BAR_VAR_COLOR = {
+  Pancreas: "peachpuff",
+  Thyroid: "lightcoral",
+  "Whole Blood": "firebrick",
+};
+// tool tip left position
+const TOOL_TIP_LEFT_POSITION = 70;
+// number to select top data points for large data
+const NUM_DATA_POINTS = 10;
+// number to decide the ticks to be displayed
+const NUM_TICKS = 10;
+// graph specific dimensions
+const GRAPH_HEIGHT_1 = 200;
+const GRAPH_WIDTH_1 = 860;
+const GRAPH_HEIGHT_2 = 400;
+const GRAPH_WIDTH_2 = 700;
+const GRAPH_HEIGHT_3 = 500;
+const GRAPH_WIDTH_3 = 660;
+const GRAPH_WIDTH_4 = 760;
+// error point position
+const ERROR_POINT_POSITION_X1 = 450;
+const ERROR_POINT_POSITION_X2 = 470;
+const ERROR_POINT_POSITION_Y1 = 10;
+const ERROR_POINT_POSITION_Y2 = 30;
+const ERROR_POINT_POSITION_Y3 = 50;
 
-// interface for protein page datatypes which return string values
-export interface ProteinStrData {
-  name: string;
-  value: string;
+/**
+ * Gets the left and top coordinates of a rect element and positions the tooltip accordingly
+ * @param left_position
+ * @param top_position
+ */
+function mousemove(leftPosition: number, topPosition: number) {
+  TOOL_TIP.style("left", d3.event.offsetX + leftPosition + "px").style(
+    "top",
+    d3.event.offsetY + topPosition + "px"
+  );
 }
-
-// interface for variant gene associations for plotting error bars
-export interface VarGeneDataPoint {
-  id: string;
-  name: string;
-  value: number;
-  lower: number;
-  upper: number;
+/**
+ * Sets the opacity of the tooltip as zero, to hide it when the user hovers over other elements
+ */
+function mouseout() {
+  TOOL_TIP.style("opacity", 0);
 }
-// adds x axis label to each graph
+/**
+ * Adds the x label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
+ * @param width
+ * @param height
+ * @param labelText
+ * @param svg
+ */
 function addXLabel(
   width: number,
   height: number,
@@ -146,16 +189,21 @@ function addXLabel(
 ) {
   svg
     .append("text")
+    .attr("class", "axislabel")
     .attr(
       "transform",
       "translate(" + width / 2 + " ," + (height + MARGIN.top + 50) + ")"
     )
-    .style("text-anchor", "middle")
-    .style("font-size", "12px")
     .text(labelText);
 }
 
-// adds y axis label to each graph
+/**
+ * Adds the y label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
+ * @param width
+ * @param height
+ * @param labelText
+ * @param svg
+ */
 function addYLabel(
   height: number,
   labelText: string,
@@ -167,21 +215,24 @@ function addYLabel(
     .attr("y", 0 - MARGIN.left)
     .attr("x", 0 - height / 2)
     .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .style("font-size", "12px")
     .text(labelText);
 }
 
 /**
- * Draw bar chart for tissue score.
+ * Draws the bar chart for protein-tissue association
+ * @param id
+ * @param data
+ * @returns
  */
 export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;
   }
-  // reformats data to convert tissue score from string to number
   let reformattedData = [] as ProteinNumData[];
+  /**
+   * reformats the data by converting the expression value to number from string type
+   */
   reformattedData = data.map((item) => {
     return {
       name: item.name,
@@ -189,8 +240,9 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     };
   });
 
-  // groups the tissues of a similar origin and sorts them in ascending order
-
+  /**
+   * groups the tissues of a similar origin and sorts them in ascending order
+   */
   reformattedData.sort((x, y) => {
     const a = TISSUE_COLOR_DICT[x.name];
     const b = TISSUE_COLOR_DICT[y.name];
@@ -210,8 +262,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   });
 
   // specifying graph specific dimensions
-  const height = 200 - MARGIN.top - MARGIN.bottom;
-  const width = 860 - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_1 - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_1 - MARGIN.left - MARGIN.right;
 
   const svg = d3
     .select("#tissue-score-chart")
@@ -221,6 +273,10 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
 
+  /**
+   * Adds required text to the tooltip, namely the tissue name and its corresponding expression score
+   * @param d - the element in the data array, which stores tissue name and expression score
+   */
   const mouseover = function (d) {
     const tissueName = d.name;
     const tissueValue = TISSUE_SCORE_TO_LABEL[d.value];
@@ -242,8 +298,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
-
   addXLabel(width, height, "Tissue Name", svg);
+  // plots y-axis for the graph - tissue names
   const y = d3.scaleLinear().domain([0, 3]).range([height, 0]);
   svg.append("g").call(
     d3
@@ -265,10 +321,16 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .attr("width", x.bandwidth())
     .style("fill", (d) => TISSUE_COLOR_DICT[d.name])
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(70, 220))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 220))
     .on("mouseout", () => mouseout());
 }
 
+/**
+ * Draws the bar chart for protein-protein interaction
+ * @param id
+ * @param data
+ * @returns
+ */
 export function drawProteinInteractionChart(
   id: string,
   data: InteractingProteinType[]
@@ -280,7 +342,11 @@ export function drawProteinInteractionChart(
   // retrieves the parent protein name
   // TODO: create a helper function for reformatting
   const parentProtein = data[0].parent;
-  // formats the protein name by removing the parent protein name
+  /**
+   * Formats the protein name by removing the parent protein name
+   * @param d
+   * @returns
+   */
   function formatProteinName(d: string) {
     d = d.replace(parentProtein, "");
     d = d.replace(/_+$/, "");
@@ -293,30 +359,38 @@ export function drawProteinInteractionChart(
     }
     return d;
   }
-  // reformats the data by removing the parent protein name and renaming the interacting proteins
   let reformattedData = [] as ProteinNumData[];
+  /**
+   * Reformats the data by renaming the interacting proteins
+   */
   reformattedData = data.map((item) => {
     return {
       name: formatProteinName(item.name),
       value: item.value,
     };
   });
-  // removes duplicates from the data
   const seen = new Set();
+  /**
+   * Removes duplicates from the data
+   */
   reformattedData = reformattedData.filter((entry) => {
     const duplicate = seen.has(entry.name);
     seen.add(entry.name);
     return !duplicate;
   });
-  const height = 400 - MARGIN.top - MARGIN.bottom;
-  const width = 700 - MARGIN.left - MARGIN.right;
-  // sorts the data in descending order
+  const height = GRAPH_HEIGHT_2 - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_2 - MARGIN.left - MARGIN.right;
+  /**
+   * Sorts the data in descending order
+   */
   reformattedData.sort((a, b) => {
     return b.value - a.value;
   });
-  // slice the array to display the first 10 interactions only
-  if (reformattedData.length >= 10) {
-    reformattedData = reformattedData.slice(0, 10);
+  /**
+   * Slices the array to display the first 10 protein interactions only
+   */
+  if (reformattedData.length >= NUM_DATA_POINTS) {
+    reformattedData = reformattedData.slice(0, NUM_DATA_POINTS);
   }
   const arrName = reformattedData.map((x) => {
     return x.name;
@@ -329,7 +403,10 @@ export function drawProteinInteractionChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-
+  /**
+   * Adds required text to the tooltip, namely the interacting protein name and its corresponding interaction confidence score
+   * @param d - the element in the data array, which stores protein name and interaction confidence score
+   */
   const mouseover = function (d) {
     const proteinName = d.name;
     const confidenceScore = d.value;
@@ -347,7 +424,7 @@ export function drawProteinInteractionChart(
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(10))
+    .call(d3.axisBottom(x).ticks(NUM_TICKS))
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
@@ -370,10 +447,16 @@ export function drawProteinInteractionChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(70, 560))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 560))
     .on("mouseout", () => mouseout());
 }
 
+/**
+ * Draws the bar chart for disease-gene association
+ * @param id
+ * @param data
+ * @returns
+ */
 export function drawDiseaseGeneAssocChart(
   id: string,
   data: ProteinNumData[]
@@ -383,16 +466,21 @@ export function drawDiseaseGeneAssocChart(
     return;
   }
   // chart specific margin to display full disease names
-  //const margin = { top: 70, right: 50, bottom: 40, left: 150 };
-  const height = 400 - MARGIN.top - MARGIN.bottom;
-  const width = 660 - MARGIN.left - MARGIN.right;
-  // removes unnecessary quotes from disease names
+  const height = GRAPH_HEIGHT_2 - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_3 - MARGIN.left - MARGIN.right;
+  /**
+   * Removes unnecessary quotes from disease names
+   * @param d
+   * @returns
+   */
   function formatDiseaseName(d: string) {
     d = d.replace(/['"]+/g, "");
     return d;
   }
-  // slices the array to show top 10 disease-gene associations
-  const slicedArray = data.slice(0, 10);
+  /**
+   * Slices the array to display the first 10 disease-gene associations only
+   */
+  const slicedArray = data.slice(0, NUM_DATA_POINTS);
   slicedArray.sort((a, b) => {
     return b.value - a.value;
   });
@@ -406,6 +494,10 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
+  /**
+   * Adds required text to the tooltip, namely the disease name and its corresponding association score
+   * @param d - the element in the data array, which stores disease name and association score
+   */
   const mouseover = function (d) {
     const diseaseName = formatDiseaseName(d.name);
     const assocScore = d.value;
@@ -427,7 +519,7 @@ export function drawDiseaseGeneAssocChart(
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(10));
+    .call(d3.axisBottom(x).ticks(NUM_TICKS));
   // Adds the x-axis text label
   addXLabel(width, height, "Association Score", svg);
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
@@ -451,10 +543,16 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(70, 1100))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1100))
     .on("mouseout", () => mouseout());
 }
 
+/**
+ * Draws the error plot for variant-gene association
+ * @param id
+ * @param data
+ * @returns
+ */
 export function drawVarGeneAssocChart(
   id: string,
   data: ProteinVarType[]
@@ -464,7 +562,9 @@ export function drawVarGeneAssocChart(
     return;
   }
   let reformattedData = [] as VarGeneDataPoint[];
-  // reformats the input data into required format for error bars
+  /**
+   * / reformats the input data into required format for error bars
+   */
   reformattedData = data.map((item) => {
     const confInterval = item.interval.split(/[\s,]+/);
     const objLower = confInterval[0].substring(1);
@@ -477,22 +577,14 @@ export function drawVarGeneAssocChart(
       upper: parseFloat(objUpper),
     };
   });
-  const height = 400 - MARGIN.top - MARGIN.bottom;
-  const width = 760 - MARGIN.left - MARGIN.right;
-  // tissue specific colors
-  const var_color = {
-    Pancreas: "peachpuff",
-    Thyroid: "lightcoral",
-    "Whole Blood": "firebrick",
-  };
-  // length of side bar
-  const sideBarLength = 5;
-  // number by which x axis domain is increased/decreased for x scale to fit all error bars well
-  const xAxisLimit = 0.5;
-
+  const height = GRAPH_HEIGHT_2 - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_4 - MARGIN.left - MARGIN.right;
+  /**
+   * reformats the data by grouping the error points with similar tissue origin
+   */
   reformattedData.sort(function (x, y) {
-    const a = var_color[x.name];
-    const b = var_color[y.name];
+    const a = ERROR_BAR_VAR_COLOR[x.name];
+    const b = ERROR_BAR_VAR_COLOR[y.name];
     if (a < b) {
       return -1;
     }
@@ -515,7 +607,11 @@ export function drawVarGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-  reformattedData = reformattedData.slice(0, 10);
+  reformattedData = reformattedData.slice(0, NUM_DATA_POINTS);
+  /**
+   * Adds required text to the tooltip, namely the variant name and its corresponding log 2 fold change score
+   * @param d - the element in the data array, which stores variant ID and log 2 fold change score
+   */
   const mouseover = function (d) {
     const variantName = d.id;
     const logScore = d.value;
@@ -528,8 +624,8 @@ export function drawVarGeneAssocChart(
   const x = d3
     .scaleLinear()
     .domain([
-      d3.min(reformattedData, (d) => d.lower) - xAxisLimit,
-      d3.max(reformattedData, (d) => d.upper) + xAxisLimit,
+      d3.min(reformattedData, (d) => d.lower) - X_AXIS_LIMIT,
+      d3.max(reformattedData, (d) => d.upper) + X_AXIS_LIMIT,
     ])
     .range([0, width]);
   svg
@@ -566,9 +662,9 @@ export function drawVarGeneAssocChart(
     .attr("cx", (d) => x(d.value))
     .attr("cy", (d) => y(d.id))
     .attr("r", "6")
-    .style("fill", (d) => var_color[d.name])
+    .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(70, 1620))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1620))
     .on("mouseout", () => mouseout());
   svg
     .selectAll("error-bar-left-line")
@@ -582,10 +678,10 @@ export function drawVarGeneAssocChart(
       return x(d.lower);
     })
     .attr("y1", (d) => {
-      return y(d.id) - sideBarLength;
+      return y(d.id) - ERROR_SIDE_BAR_LENGTH;
     })
     .attr("y2", (d) => {
-      return y(d.id) + sideBarLength;
+      return y(d.id) + ERROR_SIDE_BAR_LENGTH;
     })
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
@@ -601,10 +697,10 @@ export function drawVarGeneAssocChart(
       return x(d.upper);
     })
     .attr("y1", (d) => {
-      return y(d.id) - sideBarLength;
+      return y(d.id) - ERROR_SIDE_BAR_LENGTH;
     })
     .attr("y2", (d) => {
-      return y(d.id) + sideBarLength;
+      return y(d.id) + ERROR_SIDE_BAR_LENGTH;
     })
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
@@ -612,46 +708,51 @@ export function drawVarGeneAssocChart(
   // adds circles for each of the mean error values
   svg
     .append("circle")
-    .attr("cx", 450)
-    .attr("cy", 10)
+    .attr("cx", ERROR_POINT_POSITION_X1)
+    .attr("cy", ERROR_POINT_POSITION_Y1)
     .attr("r", 6)
     .style("fill", "peachpuff");
   svg
     .append("circle")
-    .attr("cx", 450)
-    .attr("cy", 30)
+    .attr("cx", ERROR_POINT_POSITION_X1)
+    .attr("cy", ERROR_POINT_POSITION_Y2)
     .attr("r", 6)
     .style("fill", "lightcoral");
   svg
     .append("circle")
-    .attr("cx", 450)
-    .attr("cy", 50)
+    .attr("cx", ERROR_POINT_POSITION_X1)
+    .attr("cy", ERROR_POINT_POSITION_Y3)
     .attr("r", 6)
     .style("fill", "firebrick");
   // adds legend with all three tissues displayed and their respective colors
   svg
     .append("text")
-    .attr("x", 470)
-    .attr("y", 10)
+    .attr("x", ERROR_POINT_POSITION_X2)
+    .attr("y", ERROR_POINT_POSITION_Y1)
     .text("Pancreas")
     .style("font-size", "15px")
     .attr("alignment-baseline", "middle");
   svg
     .append("text")
-    .attr("x", 470)
-    .attr("y", 30)
+    .attr("x", ERROR_POINT_POSITION_X2)
+    .attr("y", ERROR_POINT_POSITION_Y2)
     .text("Thyroid")
     .style("font-size", "15px")
     .attr("alignment-baseline", "middle");
   svg
     .append("text")
-    .attr("x", 470)
-    .attr("y", 50)
+    .attr("x", ERROR_POINT_POSITION_X2)
+    .attr("y", ERROR_POINT_POSITION_Y3)
     .text("Whole Blood")
     .style("font-size", "15px")
     .attr("alignment-baseline", "middle");
 }
-
+/**
+ * Draws a barchart with variant functional category and its corresponding counts
+ * @param id
+ * @param data
+ * @returns
+ */
 export function drawVarTypeAssocChart(
   id: string,
   data: ProteinNumData[]
@@ -660,7 +761,11 @@ export function drawVarTypeAssocChart(
   if (_.isEmpty(data)) {
     return;
   }
-  // formats variant name
+  /**
+   * Formats the variant functional category name
+   * @param d
+   * @returns
+   */
   function formatVariant(d: string) {
     // remove the word "GeneticVariantFunctionalCategory" from say "GeneticVariantFunctionalCategorySplice5"
     // if condition for - GeneticVariantFunctionalCDSIndel, maybe a bug that needs to be fixed on the backend
@@ -671,15 +776,21 @@ export function drawVarTypeAssocChart(
     }
     return d;
   }
-  const height = 500 - MARGIN.top - MARGIN.bottom;
-  const width = 660 - MARGIN.left - MARGIN.right;
-  // sorting the data in descreasing order
+  const height = GRAPH_HEIGHT_3 - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_3 - MARGIN.left - MARGIN.right;
+  /**
+   * Sorts the data in descreasing order
+   */
   data.sort((a, b) => {
     return b.value - a.value;
   });
   const arrName = data.map((x) => {
     return x.name;
   });
+  /**
+   * Adds required text to the tooltip, namely the variant functional category name and its count
+   * @param d - the element in the data array, which stores variant functional category name and count
+   */
   const mouseover = function (d) {
     const varCategory = d.name;
     const varCount = d.value;
@@ -691,7 +802,6 @@ export function drawVarTypeAssocChart(
         varCount
     ).style("opacity", 1);
   };
-
   const svg = d3
     .select("#variant-type-association-chart")
     .append("svg")
@@ -708,7 +818,7 @@ export function drawVarTypeAssocChart(
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(10))
+    .call(d3.axisBottom(x).ticks(NUM_TICKS))
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
@@ -730,24 +840,33 @@ export function drawVarTypeAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(70, 2150))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2150))
     .on("mouseout", () => mouseout());
 }
-
+/**
+ * Draws a barchart with variant clinical significance and its corresponding counts
+ * @param id
+ * @param data
+ * @returns
+ */
 export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;
   }
-  // formats the variant name
+  /**
+   * Formats the variant clinical significance name
+   * @param d
+   * @returns
+   */
   function formatVariant(d: string) {
     // removes the word "ClinSig" from say "ClinSigUncertain"
     d = d.substring(7);
     return d;
   }
   // chart specific margin dimensions
-  const height = 500 - MARGIN.top - MARGIN.bottom;
-  const width = 660 - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_3 - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_3 - MARGIN.left - MARGIN.right;
   // sorting the data in descreasing order
   data.sort((a, b) => {
     return b.value - a.value;
@@ -755,6 +874,10 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   const arrName = data.map((x) => {
     return x.name;
   });
+  /**
+   * Adds required text to the tooltip, namely the variant clinical significance and its count
+   * @param d - the element in the data array, which stores variant clinical significance and count
+   */
   const mouseover = function (d) {
     const clinicalCategory = d.name;
     const varCount = d.value;
@@ -783,7 +906,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(10))
+    .call(d3.axisBottom(x).ticks(NUM_TICKS))
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
@@ -805,10 +928,15 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(70, 2760))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2760))
     .on("mouseout", () => mouseout());
 }
-
+/**
+ * Draws a barchart with chemical gene associations and its corresponding counts
+ * @param id
+ * @param data
+ * @returns
+ */
 export function drawChemGeneAssocChart(
   id: string,
   data: ProteinNumData[]
@@ -817,14 +945,18 @@ export function drawChemGeneAssocChart(
   if (_.isEmpty(data)) {
     return;
   }
-  // formats chemical-gene associations
+  /**
+   * Formats the chemical-gene association name
+   * @param d
+   * @returns
+   */
   function formatChemName(d: string) {
     // removes the word "RelationshipAssociationType" from say "RelationshipAssociationTypeAssociated"
     d = d.substring(27);
     return d;
   }
-  const height = 200 - MARGIN.top - MARGIN.bottom;
-  const width = 660 - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_1 - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_3 - MARGIN.left - MARGIN.right;
   const arrName = data.map((x) => {
     return x.name;
   });
@@ -835,6 +967,10 @@ export function drawChemGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
+  /**
+   * Adds required text to the tooltip, namely the chemical-gene association category and its count
+   * @param d - the element in the data array, which stores chemical-gene association category and count
+   */
   const mouseover = function (d) {
     const assocName = formatChemName(d.name);
     const count = d.value;
@@ -852,7 +988,7 @@ export function drawChemGeneAssocChart(
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(10))
+    .call(d3.axisBottom(x).ticks(NUM_TICKS))
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
@@ -874,6 +1010,6 @@ export function drawChemGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(70, 3380))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 3380))
     .on("mouseout", () => mouseout());
 }
