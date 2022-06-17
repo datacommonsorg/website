@@ -20,8 +20,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { Chip } from "../../shared/chip";
-import { PlaceSelector } from "../../shared/place_selector";
 import { FacetSelector } from "../../shared/facet_selector";
+import { PlaceSelector } from "../../shared/place_selector";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import { getNamedTypedPlace } from "../../utils/place_utils";
