@@ -549,7 +549,7 @@ export function drawProteinInteractionGraph(
     );
   }
 
-  function drag(simulation: Simulation<ProteinNode, InteractionLink>) {
+  function drag(simulation: Simulation<ProteinNode, InteractionLink>): DragBehavior<Element, ProteinNode | unknown, ProteinNode | unknown> {
     // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
     function dragstarted(nodeDatum: ProteinNode): void {
