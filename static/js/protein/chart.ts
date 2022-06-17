@@ -396,7 +396,8 @@ export function drawProteinInteractionGraph(
     };
   }
 
-  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN and parse into ASPP2_HUMAN.
+  // P53_HUMAN is central protein in below examples.
+  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
   const centerNodeID = data[0].parent;
   let nodeData = data.map(({ name, value }) => {
     // value is confidenceScore
