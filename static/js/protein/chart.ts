@@ -15,7 +15,12 @@
  */
 
 import * as d3 from "d3";
-import { DragBehavior, Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
+import {
+  DragBehavior,
+  Simulation,
+  SimulationLinkDatum,
+  SimulationNodeDatum,
+} from "d3";
 import _ from "lodash";
 import { defaultFormatUtc } from "moment";
 
@@ -549,11 +554,15 @@ export function drawProteinInteractionGraph(
     );
   }
 
-  function drag(simulation: Simulation<ProteinNode, InteractionLink>): DragBehavior<Element, ProteinNode | unknown, ProteinNode | unknown> {
+  function drag(
+    simulation: Simulation<ProteinNode, InteractionLink>
+  ): DragBehavior<Element, ProteinNode | unknown, ProteinNode | unknown> {
     // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
     function dragstarted(nodeDatum: ProteinNode): void {
-      if (!d3.event.active) {simulation.alphaTarget(0.3).restart()}; // start up simulation
+      if (!d3.event.active) {
+        simulation.alphaTarget(0.3).restart();
+      } // start up simulation
       nodeDatum.fx = nodeDatum.x;
       nodeDatum.fy = nodeDatum.y;
     }
@@ -564,7 +573,9 @@ export function drawProteinInteractionGraph(
     }
 
     function dragended(nodeDatum: ProteinNode): void {
-      if (!d3.event.active) {simulation.alphaTarget(0)}; // cool down simulation
+      if (!d3.event.active) {
+        simulation.alphaTarget(0);
+      } // cool down simulation
       nodeDatum.fx = null;
       nodeDatum.fy = null;
     }
