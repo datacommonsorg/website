@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "chromedriver": "^101.0.0",
-    "react": "^18.1.0",
-    "react-papaparse": "^4.0.2"
-  }
-}
