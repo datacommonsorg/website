@@ -15,7 +15,7 @@
  */
 
 import * as d3 from "d3";
-import { Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
+import { DragBehavior, Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
 import _ from "lodash";
 import { defaultFormatUtc } from "moment";
 
@@ -128,8 +128,8 @@ export interface Node {
 // d3-force will add x,y,vx,vy data to ProteinNode after initialization
 // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
 export interface ProteinNode extends Node, SimulationNodeDatum {
-  species: string;
   depth: number;
+  species: string;
 }
 
 // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
@@ -337,31 +337,31 @@ export function drawProteinInteractionGraph(
 
   const NODE_STYLE = {
     circles: {
+      fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"],
+      radius: 15,
       stroke: {
         color: "#fff",
-        width: 1.5,
         opacity: 1,
+        width: 1.5,
       },
-      radius: 15,
-      fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"],
     },
     labels: {
       font: {
+        color: "#222",
         name: "public sans",
         size: "8px",
-        color: "#222",
       },
     },
   };
 
   const LINK_STYLE = {
+    length: 100,
     stroke: {
       color: "#999",
-      opacity: 0.6,
       linecap: "round",
+      opacity: 0.6,
       scoreWidthMultiplier: 8,
     },
-    length: 100,
   };
 
   /*
@@ -384,10 +384,10 @@ export function drawProteinInteractionGraph(
     // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN
     const lastIndex = protein_speciesID.lastIndexOf("_"); // danger: assumes species name does not contain _
     return {
+      depth,
       id: protein_speciesID,
       name: protein_speciesID.slice(0, lastIndex),
       species: protein_speciesID.slice(lastIndex + 1),
-      depth: depth,
     };
   }
 
@@ -422,9 +422,9 @@ export function drawProteinInteractionGraph(
 
   const linkData: InteractionLink[] = nodeData.map((node) => {
     return {
+      score: node.value,
       source: centerNodeID,
       target: node.id,
-      score: node.value,
     };
   });
 
@@ -511,7 +511,7 @@ export function drawProteinInteractionGraph(
   //   .attr("dy", -15)
   //   .text(({name}) => `${name}`)
 
-  function ticked() {
+  function ticked(): void {
     // update node and link positions
 
     // type assertions needed because x,y info added after initialization
@@ -552,19 +552,19 @@ export function drawProteinInteractionGraph(
   function drag(simulation: Simulation<ProteinNode, InteractionLink>) {
     // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
-    function dragstarted(nodeDatum: ProteinNode) {
-      if (!d3.event.active) simulation.alphaTarget(0.3).restart(); // start up simulation
+    function dragstarted(nodeDatum: ProteinNode): void {
+      if (!d3.event.active) {simulation.alphaTarget(0.3).restart()}; // start up simulation
       nodeDatum.fx = nodeDatum.x;
       nodeDatum.fy = nodeDatum.y;
     }
 
-    function dragged(nodeDatum: ProteinNode) {
+    function dragged(nodeDatum: ProteinNode): void {
       nodeDatum.fx = d3.event.x;
       nodeDatum.fy = d3.event.y;
     }
 
-    function dragended(nodeDatum: ProteinNode) {
-      if (!d3.event.active) simulation.alphaTarget(0); // cool down simulation
+    function dragended(nodeDatum: ProteinNode): void {
+      if (!d3.event.active) {simulation.alphaTarget(0)}; // cool down simulation
       nodeDatum.fx = null;
       nodeDatum.fy = null;
     }
@@ -579,12 +579,12 @@ export function drawProteinInteractionGraph(
   // @reviewers: lightenThis/darkenThis should probably use color.darker() and color.brighter() instead so as not to alter transparency.
   // However, transparency effect may be useful to view edges entering a node in a dense graph.
 
-  function lightenThis() {
+  function lightenThis(): void {
     // lighten object mouse is over
     d3.select(this).style("opacity", 0.8);
   }
 
-  function darkenThis() {
+  function darkenThis(): void {
     // darken object mouse is over
     d3.select(this).style("opacity", 1);
   }
