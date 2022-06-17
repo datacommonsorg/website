@@ -528,39 +528,6 @@ export function drawProteinInteractionGraph(
 
     nodes.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
   }
-
-  const tooltip = svg
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "black")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "5px")
-
-  function mouseover(d){
-    tooltip
-      .style("opacity", 1)
-    d3.select(this)
-      .style("opacity", 0.8)
-  }
-
-  function mousemove(d){
-    tooltip
-      .html(`Protein: ${d.name} <br>\nSpecies: ${d.species}\nBreadth: ${d.breadth}\ndcid: bio/${d.id}`)
-      .style("left", `${d3.mouse(this)[0] + 70}px`)
-      .style("top", `${d3.mouse(this)[1]}px`)
-  } // todo: make clickable
-
-  function mouseleave(d){
-    tooltip
-      .style("opacity", 0)
-    d3.select(this)
-      .style('stroke', 'none')
-      .style('opacity', 1)
-  }
-
 }
 
 export function drawDiseaseGeneAssocChart(
