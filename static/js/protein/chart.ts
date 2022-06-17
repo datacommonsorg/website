@@ -538,7 +538,7 @@ export function drawVarGeneAssocChart(
   reformattedData = data.map((item) => {
     const confInterval = item.interval.split(/[\s,]+/);
     const objLower = confInterval[0].substring(1);
-    const objUpper = confInterval[1].substring(1);
+    const objUpper = confInterval[1].substring(0);
     return {
       id: item.id.substring(4),
       name: item.name,
