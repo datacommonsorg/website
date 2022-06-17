@@ -28,7 +28,7 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
-import { SourceSelectorSvSourceInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   GetPlaceStatDateWithinPlaceResponse,
   GetStatSetAllResponse,
@@ -204,7 +204,7 @@ export function ChartLoader(): JSX.Element {
       </div>
     );
   }
-  const svSourceInfo = getSvSourceInfo(
+  const facetInfo = getFacetInfo(
     statVar.value,
     Object.keys(rawData.allPlaceStat),
     rawData.metadataMap
@@ -279,7 +279,7 @@ export function ChartLoader(): JSX.Element {
         mapPointsPromise={chartData.mapPointsPromise}
         europeanCountries={chartData.europeanCountries}
         rankingLink={chartData.rankingLink}
-        svSourceInfo={svSourceInfo}
+        facetInfo={facetInfo}
         sampleDates={chartData.sampleDates}
         metahash={chartData.metahash}
         onPlay={onPlay}
@@ -369,11 +369,11 @@ function getGeoJsonDataFeatures(
   return geoJsonFeatures;
 }
 
-function getSvSourceInfo(
+function getFacetInfo(
   statVar: StatVar,
   metaHashList: string[],
   metadataMap: Record<string, StatMetadata>
-): SourceSelectorSvSourceInfo {
+): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   metaHashList.forEach((metahash) => {
     if (metahash in metadataMap) {

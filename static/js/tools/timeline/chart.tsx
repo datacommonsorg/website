@@ -20,7 +20,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
 import { Chip } from "../../shared/chip";
-import { SourceSelectorSvSourceInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
@@ -52,8 +52,8 @@ interface ChartPropsType {
   onMetadataMapUpdate: (
     metadataMap: Record<string, Record<string, StatMetadata>>
   ) => void;
-  // Map of stat var dcid to a hash representing a source series
-  metahashMap: Record<string, string>;
+  // Map of stat var dcid to a facet id
+  svFacetId: Record<string, string>;
 }
 
 interface ChartStateType {
@@ -100,11 +100,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNames)[0];
     const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
-    const svSourceList = this.getSvSourceInfo(statVars);
-    const svMetahash = {};
+    const facetList = this.getFacetList(statVars);
+    const svFacetId = {};
     for (const sv of statVars) {
-      svMetahash[sv] =
-        sv in this.props.metahashMap ? this.props.metahashMap[sv] : "";
+      svFacetId[sv] =
+        sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
     return (
       <div className="chart-container">
@@ -139,9 +139,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          svMetahash={svMetahash}
-          svSourceList={svSourceList}
-          onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
+          svFacetId={svFacetId}
+          facetList={facetList}
+          onSvFacetIdUpdated={(svFacetId) => setMetahash(svFacetId)}
           hideIsRatio={false}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean) =>
@@ -215,7 +215,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.drawChart();
   }
 
-  private getSvSourceInfo(statVars: string[]): SourceSelectorSvSourceInfo[] {
+  private getFacetList(statVars: string[]): FacetSelectorFacetInfo[] {
     return statVars.map((sv) => {
       const displayNames = isIpccStatVarWithMultipleModels(sv)
         ? { "": "Mean across models" }
@@ -255,7 +255,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.state.rawData,
       places,
       statVars,
-      this.props.metahashMap,
+      this.props.svFacetId,
       this.props.pc,
       this.props.denom
     );
@@ -269,7 +269,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const ipccStatVars = statVars.filter(
       (sv) =>
         isIpccStatVarWithMultipleModels(sv) &&
-        _.isEmpty(this.props.metahashMap[sv])
+        _.isEmpty(this.props.svFacetId[sv])
     );
     if (!_.isEmpty(ipccStatVars)) {
       const [processedStat, modelStat] = statDataFromModels(

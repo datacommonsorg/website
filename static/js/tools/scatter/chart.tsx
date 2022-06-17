@@ -34,7 +34,7 @@ import {
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import { SourceSelectorSvSourceInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -58,9 +58,9 @@ interface ChartPropsType {
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
   sources: Set<string>;
-  svMetahash: Record<string, string>;
-  svSourceList: SourceSelectorSvSourceInfo[];
-  onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
+  svFacetId: Record<string, string>;
+  facetList: FacetSelectorFacetInfo[];
+  onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -159,9 +159,9 @@ export function Chart(props: ChartPropsType): JSX.Element {
         chartId="scatter"
         sources={props.sources}
         mMethods={null}
-        svMetahash={props.svMetahash}
-        svSourceList={props.svSourceList}
-        onSvMetahashUpdated={props.onSvMetahashUpdated}
+        svFacetId={props.svFacetId}
+        facetList={props.facetList}
+        onSvFacetIdUpdated={props.onSvFacetIdUpdated}
         hideIsRatio={true}
       >
         <PlotOptions />

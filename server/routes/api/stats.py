@@ -414,7 +414,7 @@ def get_place_stat_date_within_place():
     return Response(json.dumps(response), 200, mimetype='application/json')
 
 
-def get_facets_by_variable_series(series_response):
+def get_variable_facets_from_series(series_response):
     """
     Gets the available facets for each sv in an api response for series_within.
 
@@ -438,7 +438,7 @@ def get_facets_by_variable_series(series_response):
     facets_by_variable = {}
     facets = series_response.get("facets", {})
     for sv_obs in series_response.get("observationsByVariable", []):
-        sv = sv_obs.get("variable", "")
+        sv = sv_obs.get("variable")
         facets_by_variable[sv] = {}
         for place_obs in sv_obs.get("observationsByEntity", []):
             for facet_obs in place_obs.get("seriesByFacet", []):
@@ -448,7 +448,7 @@ def get_facets_by_variable_series(series_response):
     return facets_by_variable
 
 
-def get_facets_by_variable_points(points_response):
+def get_variable_facets_from_points(points_response):
     """
     Gets the available facets for each sv in an api response for points_within.
 
@@ -472,7 +472,7 @@ def get_facets_by_variable_points(points_response):
     facets_by_variable = {}
     facets = points_response.get("facets", {})
     for sv_obs in points_response.get("observationsByVariable", []):
-        sv = sv_obs.get("variable", "")
+        sv = sv_obs.get("variable")
         facets_by_variable[sv] = {}
         for place_obs in sv_obs.get("observationsByEntity", []):
             for facet_obs in place_obs.get("pointsByFacet", []):
@@ -482,12 +482,19 @@ def get_facets_by_variable_points(points_response):
     return facets_by_variable
 
 
-@bp.route('/api/stats/facets/within-place')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@bp.route('/api/stats/facets/within-place', methods=['POST'])
 def get_facets_within_place():
     """
     Gets the available facets for a list of stat vars for places of a specific
-    type within a parent place.
+    type within a parent place. If minDate and maxDate are "latest",
+    the latest date facets will be returned.
+
+    Request body:
+        parentPlace: the parent place of the places to get facets for
+        childType: type of places to get facets for
+        statVars: list of statistical variables to get facets for
+        minDate (optional): earliest date to get facets for
+        maxDate (optional): latest date to get facets for
 
     Returns a dict of sv to dict of facet id to facet information:
     {
@@ -502,19 +509,19 @@ def get_facets_within_place():
         ...
     }
     """
-    parent_place = request.args.get('parentPlace')
+    parent_place = request.json.get('parentPlace')
     if not parent_place:
         return 'error: must provide a parentPlace field', 400
-    child_type = request.args.get('childType')
+    child_type = request.json.get('childType')
     if not child_type:
         return 'error: must provide a childType field', 400
-    stat_vars = request.args.getlist('statVars')
+    stat_vars = request.json.get('statVars')
     if not stat_vars:
         return 'error: must provide a statVars field', 400
-    min_date = request.args.get('minDate')
+    min_date = request.json.get('minDate')
     if not is_valid_get_csv_date(min_date):
         return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
-    max_date = request.args.get('maxDate')
+    max_date = request.json.get('maxDate')
     if not is_valid_get_csv_date(max_date):
         return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
     # when min_date and max_date are the same and non empty, we will get the
@@ -525,11 +532,11 @@ def get_facets_within_place():
             date = ""
         points_response = dc.points_within(parent_place, child_type, stat_vars,
                                            date, True)
-        return get_facets_by_variable_points(points_response), 200
+        return get_variable_facets_from_points(points_response), 200
     else:
         series_response = dc.series_within(parent_place, child_type, stat_vars,
                                            True)
-        return get_facets_by_variable_series(series_response), 200
+        return get_variable_facets_from_series(series_response), 200
 
 
 def get_points_within_csv_rows(parent_place,
@@ -792,27 +799,40 @@ def is_valid_get_csv_date(date):
     return False
 
 
-# Cache for one day.
-@cache.memoize(timeout=3600 * 24)
-def get_stats_within_place_csv_wrapper(req_str):
-    req = json.loads(req_str)
-    parent_place = req.get("parentPlace")
+@bp.route('/api/stats/csv/within-place', methods=['POST'])
+def get_stats_within_place_csv():
+    """Gets the statistical variable data as a csv for child places of a
+    certain place type contained in a parent place. If no date range specified,
+    gets data for all dates of a series. If minDate and maxDate are "latest",
+    the latest date data will be returned.
+
+    Request body:
+        parentPlace: the parent place of the places to get data for
+        childType: type of places to get data for
+        statVars: list of statistical variables to get data for
+        minDate (optional): earliest date to get data for
+        maxDate (optional): latest date to get data for
+        facetMap (optional): map of statistical variable dcid to the id of the
+            facet to get data from
+        rowLimit (optional): number of csv rows to return
+    """
+    parent_place = request.json.get("parentPlace")
     if not parent_place:
         return "error: must provide a parentPlace field", 400
-    child_type = req.get("childType")
+    child_type = request.json.get("childType")
     if not child_type:
         return "error: must provide a childType field", 400
-    sv_list = req.get("statVars")
+    sv_list = request.json.get("statVars")
     if not sv_list:
         return "error: must provide a statVars field", 400
-    min_date = req.get("minDate")
+    min_date = request.json.get("minDate")
     if not is_valid_get_csv_date(min_date):
         return "error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD", 400
-    max_date = req.get("maxDate")
+    max_date = request.json.get("maxDate")
     if not is_valid_get_csv_date(max_date):
         return "error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD", 400
-    facet_map = req.get("facetMap", {})
-    row_limit = req.get("rowLimit")
+    facet_map = request.json.get("facetMap", {})
+    row_limit = request.json.get("rowLimit")
     if row_limit:
         row_limit = int(row_limit)
     result_csv = []
@@ -846,24 +866,3 @@ def get_stats_within_place_csv_wrapper(req_str):
             parent_place, child_type)
     response.status_code = 200
     return response
-
-
-@bp.route('/api/stats/csv/within-place', methods=['POST'])
-def get_stats_within_place_csv():
-    """Gets the statistical variable data as a csv for child places of a
-    certain place type contained in a parent place. If no date range specified,
-    gets data for all dates of a series. If minDate and maxDate are "latest",
-    the latest date data will be returned.
-
-    Request body:
-        parentPlace: the parent place of the places to get data for
-        childType: type of places to get data for
-        statVars: list of statistical variables to get data for
-        minDate (optional): earliest date to get data for
-        maxDate (optional): latest date to get data for
-        facetMap (optional): map of statistical variable dcid to the id of the
-            facet to get data from
-        rowLimit (optional): number of csv rows to return
-    """
-    req_str = json.dumps(request.json, sort_keys=True)
-    return get_stats_within_place_csv_wrapper(req_str)

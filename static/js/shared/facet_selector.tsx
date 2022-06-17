@@ -15,7 +15,7 @@
  */
 
 /**
- * Component to edit the source for a list of stat vars.
+ * Component to edit the facet for a list of stat vars.
  */
 
 import _ from "lodash";
@@ -40,46 +40,46 @@ const UP_ARROW_HTML = <i className="material-icons">expand_less</i>;
 const MINUS_HTML = <i className="material-icons">remove</i>;
 const PLUS_HTML = <i className="material-icons">add</i>;
 const SELECTOR_PREFIX = "source-selector";
-const MAX_SOURCES_UNGROUPED = 3;
-// Best Available means the source is picked by the API and different sources
+const MAX_FACETS_UNGROUPED = 3;
+// Best Available means the facet is picked by the API and different facets
 // can be used for different data points.
 const EMPTY_METADATA_TITLE = "Best Available";
 
 // The information needed in SourceSelector component for a single stat var to
-// get the list of available sources
-export interface SourceSelectorSvSourceInfo {
+// get the list of available facets
+export interface FacetSelectorFacetInfo {
   // dcid of the stat var
   dcid: string;
   // name of the stat var
   name: string;
-  // mapping of metahashes to corresponding metadata for available sources for
+  // mapping of facet id to corresponding metadata for available facets for
   // this stat var
   metadataMap: Record<string, StatMetadata>;
-  // mapping of metahash to the display name to use for the corresponding source
+  // mapping of facet id to the display name to use for the corresponding facet
   displayNames?: Record<string, string>;
 }
 
-interface SourceSelectorPropType {
-  // Map of sv to selected source metahash
-  svMetahash: Record<string, string>;
-  // Promise that returns the available sources for each stat var
-  svSourceListPromise: Promise<SourceSelectorSvSourceInfo[]>;
-  // Callback function that is run when new sources are selected
-  onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
+interface FacetSelectorPropType {
+  // Map of sv to selected facet id
+  svFacetId: Record<string, string>;
+  // Promise that returns the available facet for each stat var
+  facetListPromise: Promise<FacetSelectorFacetInfo[]>;
+  // Callback function that is run when new facets are selected
+  onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
 }
 
-export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
+export function FacetSelector(props: FacetSelectorPropType): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
-  const [svSourceList, setSvSourceList] = useState(null);
-  const [modalSelections, setModalSelections] = useState(props.svMetahash);
+  const [facetList, setFacetList] = useState(null);
+  const [modalSelections, setModalSelections] = useState(props.svFacetId);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     setLoading(true);
-    props.svSourceListPromise
+    props.facetListPromise
       .then((resp) => {
-        setSvSourceList(resp);
+        setFacetList(resp);
         setLoading(false);
       })
       .catch(() => {
@@ -88,17 +88,17 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
         );
         setLoading(false);
       });
-  }, [props.svSourceListPromise]);
+  }, [props.facetListPromise]);
 
   useEffect(() => {
-    // If modal is closed without updating sources, we want to reset the
+    // If modal is closed without updating facets, we want to reset the
     // selections in the modal.
     if (!modalOpen) {
-      setModalSelections(props.svMetahash);
+      setModalSelections(props.svFacetId);
     }
-  }, [props.svMetahash, modalOpen]);
+  }, [props.svFacetId, modalOpen]);
 
-  const showSourceOptions = svSourceList && !errorMessage;
+  const showSourceOptions = facetList && !errorMessage;
   return (
     <>
       <Button
@@ -107,7 +107,7 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
         color="light"
         onClick={() => setModalOpen(true)}
       >
-        Edit {Object.keys(props.svMetahash).length > 1 ? "Sources" : "Source"}
+        Edit {Object.keys(props.svFacetId).length > 1 ? "Sources" : "Source"}
       </Button>
       <Modal
         isOpen={modalOpen}
@@ -123,28 +123,28 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
           </div>
           {errorMessage && <div>{errorMessage}</div>}
           {showSourceOptions &&
-            svSourceList.map((svInfo) => {
-              const selectedMetahash = modalSelections[svInfo.dcid];
+            facetList.map((facetInfo) => {
+              const selectedFacetId = modalSelections[facetInfo.dcid];
               return (
                 <Collapsible
-                  key={svInfo.dcid}
-                  trigger={getSVTriggerJsx(false, svInfo, selectedMetahash)}
+                  key={facetInfo.dcid}
+                  trigger={getSVTriggerJsx(false, facetInfo, selectedFacetId)}
                   triggerWhenOpen={getSVTriggerJsx(
                     true,
-                    svInfo,
-                    selectedMetahash
+                    facetInfo,
+                    selectedFacetId
                   )}
-                  open={svSourceList.length < 2}
+                  open={facetList.length < 2}
                 >
                   <div className={`${SELECTOR_PREFIX}-options-section`}>
-                    {getSourceOptionJsx(
-                      svInfo,
+                    {getFacetOptionJsx(
+                      facetInfo,
                       "",
                       modalSelections,
                       setModalSelections
                     )}
-                    {getSourceOptionSectionJsx(
-                      svInfo,
+                    {getFacetOptionSectionJsx(
+                      facetInfo,
                       modalSelections,
                       setModalSelections
                     )}
@@ -163,185 +163,15 @@ export function SourceSelector(props: SourceSelectorPropType): JSX.Element {
   );
 
   function onConfirm(): void {
-    props.onSvMetahashUpdated(modalSelections);
+    props.onSvFacetIdUpdated(modalSelections);
     setModalOpen(false);
   }
 }
 
 /**
- * Gets the element for a single source option
+ * Given the metadata for a facet, gets a title for the facet
  */
-function getSourceOptionJsx(
-  svSourceInfo: SourceSelectorSvSourceInfo,
-  metahash: string,
-  modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void
-): JSX.Element {
-  const metadata = svSourceInfo.metadataMap[metahash] || {};
-  let sourceTitle = getSourceTitle(metadata);
-  if (svSourceInfo.displayNames && metahash in svSourceInfo.displayNames) {
-    sourceTitle = svSourceInfo.displayNames[metahash];
-  }
-  const selectedMetahash = modalSelections[svSourceInfo.dcid] || "";
-  return (
-    <FormGroup radio="true" row key={svSourceInfo.dcid + metahash}>
-      <Label radio="true" className={`${SELECTOR_PREFIX}-option`}>
-        <div className={`${SELECTOR_PREFIX}-option-title`}>
-          <Input
-            type="radio"
-            name={svSourceInfo.dcid}
-            defaultChecked={selectedMetahash === metahash}
-            onClick={() => {
-              setModalSelections({
-                ...modalSelections,
-                [svSourceInfo.dcid]: metahash,
-              });
-            }}
-          />
-          <div>{sourceTitle}</div>
-        </div>
-        <div className={`${SELECTOR_PREFIX}-option-details`}>
-          {metadata.importName && <div>importName: {metadata.importName}</div>}
-          {metadata.measurementMethod && (
-            <div>measurementMethod: {metadata.measurementMethod}</div>
-          )}
-          {metadata.observationPeriod && (
-            <div>observationPeriod: {metadata.observationPeriod}</div>
-          )}
-          {metadata.scalingFactor && (
-            <div>scalingFactor: {metadata.scalingFactor}</div>
-          )}
-          {metadata.unit && <div>unit: {metadata.unit}</div>}
-        </div>
-      </Label>
-    </FormGroup>
-  );
-}
-
-/**
- * Gets the element for source options section for a single stat var
- */
-function getSourceOptionSectionJsx(
-  svInfo: SourceSelectorSvSourceInfo,
-  modalSelections: Record<string, string>,
-  setModalSelections: (selections: Record<string, string>) => void
-): JSX.Element {
-  const importNameToSourceOptions: Record<string, string[]> = {};
-  const sourceOptionsNoImportName: string[] = [];
-  let shouldShowSections = false;
-  Object.keys(svInfo.metadataMap).forEach((metahash) => {
-    const importName = svInfo.metadataMap[metahash].importName;
-    if (!importName) {
-      sourceOptionsNoImportName.push(metahash);
-      return;
-    }
-    if (!(importName in importNameToSourceOptions)) {
-      importNameToSourceOptions[importName] = [];
-    }
-    importNameToSourceOptions[importName].push(metahash);
-    if (importNameToSourceOptions[importName].length > MAX_SOURCES_UNGROUPED) {
-      shouldShowSections = true;
-    }
-  });
-  if (shouldShowSections) {
-    const sortedImportNames = Object.keys(importNameToSourceOptions).sort();
-    return (
-      <>
-        {sortedImportNames.map((importName) => (
-          <Collapsible
-            key={svInfo.dcid + importName}
-            trigger={getImportTriggerJsx(false, importName)}
-            triggerWhenOpen={getImportTriggerJsx(true, importName)}
-          >
-            {importNameToSourceOptions[importName].map((metahash) =>
-              getSourceOptionJsx(
-                svInfo,
-                metahash,
-                modalSelections,
-                setModalSelections
-              )
-            )}
-          </Collapsible>
-        ))}
-        {sourceOptionsNoImportName.map(
-          (metahash) =>
-            metahash in svInfo.metadataMap &&
-            getSourceOptionJsx(
-              svInfo,
-              metahash,
-              modalSelections,
-              setModalSelections
-            )
-        )}
-      </>
-    );
-  } else {
-    return (
-      <>
-        {Object.keys(svInfo.metadataMap).map((metahash) =>
-          getSourceOptionJsx(
-            svInfo,
-            metahash,
-            modalSelections,
-            setModalSelections
-          )
-        )}
-      </>
-    );
-  }
-}
-
-/**
- * Gets the element for the trigger for a collapsible stat var section
- */
-function getSVTriggerJsx(
-  opened: boolean,
-  svInfo: SourceSelectorSvSourceInfo,
-  selectedMetahash: string
-): JSX.Element {
-  const metadata = svInfo.metadataMap[selectedMetahash] || {};
-  let sourceTitle = getSourceTitle(metadata);
-  if (svInfo.displayNames && selectedMetahash in svInfo.displayNames) {
-    sourceTitle = svInfo.displayNames[selectedMetahash];
-  }
-  return (
-    <div
-      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-sv-trigger-${
-        opened ? "opened" : "closed"
-      }`}
-    >
-      <div className={`${SELECTOR_PREFIX}-trigger-title`}>
-        {svInfo.name}
-        <div className={`${SELECTOR_PREFIX}-trigger-byline`}>
-          source: {sourceTitle}
-        </div>
-      </div>
-      {opened ? UP_ARROW_HTML : DOWN_ARROW_HTML}
-    </div>
-  );
-}
-
-/**
- * Gets the element for the trigger for a collapsible import section in the list
- * of source options
- */
-function getImportTriggerJsx(opened: boolean, title: string): JSX.Element {
-  return (
-    <div
-      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-import-trigger-${
-        opened ? "opened" : "closed"
-      }`}
-    >
-      {opened ? MINUS_HTML : PLUS_HTML}
-      <div className={`${SELECTOR_PREFIX}-trigger-title`}>{title}</div>
-    </div>
-  );
-}
-
-/**
- * Given the metadata for a source, gets a title for the source
- */
-function getSourceTitle(metadata: StatMetadata): string {
+function getFacetTitle(metadata: StatMetadata): string {
   if (_.isEmpty(metadata)) {
     return EMPTY_METADATA_TITLE;
   }
@@ -362,4 +192,174 @@ function getSourceTitle(metadata: StatMetadata): string {
     }
   }
   return result;
+}
+
+/**
+ * Gets the element for a single facet option
+ */
+function getFacetOptionJsx(
+  facetInfo: FacetSelectorFacetInfo,
+  facetId: string,
+  modalSelections: Record<string, string>,
+  setModalSelections: (selections: Record<string, string>) => void
+): JSX.Element {
+  const metadata = facetInfo.metadataMap[facetId] || {};
+  let facetTitle = getFacetTitle(metadata);
+  if (facetInfo.displayNames && facetId in facetInfo.displayNames) {
+    facetTitle = facetInfo.displayNames[facetId];
+  }
+  const selectedFacetId = modalSelections[facetInfo.dcid] || "";
+  return (
+    <FormGroup radio="true" row key={facetInfo.dcid + facetId}>
+      <Label radio="true" className={`${SELECTOR_PREFIX}-option`}>
+        <div className={`${SELECTOR_PREFIX}-option-title`}>
+          <Input
+            type="radio"
+            name={facetInfo.dcid}
+            defaultChecked={selectedFacetId === facetId}
+            onClick={() => {
+              setModalSelections({
+                ...modalSelections,
+                [facetInfo.dcid]: facetId,
+              });
+            }}
+          />
+          <div>{facetTitle}</div>
+        </div>
+        <div className={`${SELECTOR_PREFIX}-option-details`}>
+          {metadata.importName && <div>importName: {metadata.importName}</div>}
+          {metadata.measurementMethod && (
+            <div>measurementMethod: {metadata.measurementMethod}</div>
+          )}
+          {metadata.observationPeriod && (
+            <div>observationPeriod: {metadata.observationPeriod}</div>
+          )}
+          {metadata.scalingFactor && (
+            <div>scalingFactor: {metadata.scalingFactor}</div>
+          )}
+          {metadata.unit && <div>unit: {metadata.unit}</div>}
+        </div>
+      </Label>
+    </FormGroup>
+  );
+}
+
+/**
+ * Gets the element for facet options section for a single stat var
+ */
+function getFacetOptionSectionJsx(
+  facetInfo: FacetSelectorFacetInfo,
+  modalSelections: Record<string, string>,
+  setModalSelections: (selections: Record<string, string>) => void
+): JSX.Element {
+  const importNameToFacetOptions: Record<string, string[]> = {};
+  const facetOptionsNoImportName: string[] = [];
+  let shouldShowSections = false;
+  Object.keys(facetInfo.metadataMap).forEach((facetId) => {
+    const importName = facetInfo.metadataMap[facetId].importName;
+    if (!importName) {
+      facetOptionsNoImportName.push(facetId);
+      return;
+    }
+    if (!(importName in importNameToFacetOptions)) {
+      importNameToFacetOptions[importName] = [];
+    }
+    importNameToFacetOptions[importName].push(facetId);
+    if (importNameToFacetOptions[importName].length > MAX_FACETS_UNGROUPED) {
+      shouldShowSections = true;
+    }
+  });
+  if (shouldShowSections) {
+    const sortedImportNames = Object.keys(importNameToFacetOptions).sort();
+    return (
+      <>
+        {sortedImportNames.map((importName) => (
+          <Collapsible
+            key={facetInfo.dcid + importName}
+            trigger={getImportTriggerJsx(false, importName)}
+            triggerWhenOpen={getImportTriggerJsx(true, importName)}
+          >
+            {importNameToFacetOptions[importName].map((facetId) =>
+              getFacetOptionJsx(
+                facetInfo,
+                facetId,
+                modalSelections,
+                setModalSelections
+              )
+            )}
+          </Collapsible>
+        ))}
+        {facetOptionsNoImportName.map(
+          (facetId) =>
+            facetId in facetInfo.metadataMap &&
+            getFacetOptionJsx(
+              facetInfo,
+              facetId,
+              modalSelections,
+              setModalSelections
+            )
+        )}
+      </>
+    );
+  } else {
+    return (
+      <>
+        {Object.keys(facetInfo.metadataMap).map((facetId) =>
+          getFacetOptionJsx(
+            facetInfo,
+            facetId,
+            modalSelections,
+            setModalSelections
+          )
+        )}
+      </>
+    );
+  }
+}
+
+/**
+ * Gets the element for the trigger for a collapsible stat var section
+ */
+function getSVTriggerJsx(
+  opened: boolean,
+  facetInfo: FacetSelectorFacetInfo,
+  selectedFacetId: string
+): JSX.Element {
+  const metadata = facetInfo.metadataMap[selectedFacetId] || {};
+  let facetTitle = getFacetTitle(metadata);
+  if (facetInfo.displayNames && selectedFacetId in facetInfo.displayNames) {
+    facetTitle = facetInfo.displayNames[selectedFacetId];
+  }
+  return (
+    <div
+      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-sv-trigger-${
+        opened ? "opened" : "closed"
+      }`}
+    >
+      <div className={`${SELECTOR_PREFIX}-trigger-title`}>
+        {facetInfo.name}
+        <div className={`${SELECTOR_PREFIX}-trigger-byline`}>
+          source: {facetTitle}
+        </div>
+      </div>
+      {opened ? UP_ARROW_HTML : DOWN_ARROW_HTML}
+    </div>
+  );
+}
+
+/**
+ * Gets the element for the trigger for a collapsible import section in the list
+ * of facet options
+ */
+function getImportTriggerJsx(opened: boolean, title: string): JSX.Element {
+  return (
+    <div
+      className={`${SELECTOR_PREFIX}-trigger ${SELECTOR_PREFIX}-import-trigger-${
+        opened ? "opened" : "closed"
+      }`}
+    >
+      {opened ? MINUS_HTML : PLUS_HTML}
+      <div className={`${SELECTOR_PREFIX}-trigger-title`}>{title}</div>
+    </div>
+  );
 }

@@ -25,7 +25,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
-import { SourceSelectorSvSourceInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   PlacePointStat,
   StatApiResponse,
@@ -79,17 +79,17 @@ export function ChartLoader(): JSX.Element {
     return <></>;
   }
 
-  const xSvSourceInfo = getSvSourceInfo(
+  const xFacetInfo = getFacetInfo(
     xVal,
     cache.allStatVarsData,
     cache.metadataMap
   );
-  const ySvSourceInfo = getSvSourceInfo(
+  const yFacetInfo = getFacetInfo(
     yVal,
     cache.allStatVarsData,
     cache.metadataMap
   );
-  const onSvMetahashUpdated = (update) => {
+  const onSvFacetIdUpdated = (update) => {
     for (const sv of Object.keys(update)) {
       if (x.value.statVarDcid === sv) {
         x.setMetahash(update[sv]);
@@ -122,12 +122,12 @@ export function ChartLoader(): JSX.Element {
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
-                svMetahash={{
+                svFacetId={{
                   [x.value.statVarDcid]: x.value.metahash,
                   [y.value.statVarDcid]: y.value.metahash,
                 }}
-                svSourceList={[xSvSourceInfo, ySvSourceInfo]}
-                onSvMetahashUpdated={onSvMetahashUpdated}
+                facetList={[xFacetInfo, yFacetInfo]}
+                onSvFacetIdUpdated={onSvFacetIdUpdated}
               />
             </>
           )}
@@ -339,11 +339,11 @@ function getChartData(
   return { points, sources, xUnits, yUnits };
 }
 
-function getSvSourceInfo(
+function getFacetInfo(
   axis: Axis,
   allStatVarsData: Record<string, Record<string, PlacePointStat>>,
   metadataMap: Record<string, StatMetadata>
-): SourceSelectorSvSourceInfo {
+): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   const metahashList = allStatVarsData[axis.statVarDcid]
     ? Object.keys(allStatVarsData[axis.statVarDcid])
