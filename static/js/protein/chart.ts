@@ -143,13 +143,13 @@ const NUM_DATA_POINTS = 10;
 // number to decide the ticks to be displayed
 const NUM_TICKS = 10;
 // graph specific dimensions
-const GRAPH_HEIGHT_LOW = 200;
-const GRAPH_HEIGHT_MEDIUM = 400;
-const GRAPH_HEIGHT_HIGH = 500;
-const GRAPH_WIDTH_LOW = 660;
-const GRAPH_WIDTH_MEDIUM = 700;
-const GRAPH_WIDTH_HIGH = 760;
-const GRAPH_WIDTH_VHIGH = 860;
+const GRAPH_HEIGHT_S = 200;
+const GRAPH_HEIGHT_M = 400;
+const GRAPH_HEIGHT_L = 500;
+const GRAPH_WIDTH_S = 660;
+const GRAPH_WIDTH_M = 700;
+const GRAPH_WIDTH_L = 760;
+const GRAPH_WIDTH_XL = 860;
 // error point position
 const ERROR_POINT_POSITION_X1 = 450;
 const ERROR_POINT_POSITION_X2 = 470;
@@ -258,8 +258,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   });
 
   // specifying graph specific dimensions
-  const height = GRAPH_HEIGHT_LOW - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_VHIGH - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_S - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_XL - MARGIN.left - MARGIN.right;
 
   const svg = d3
     .select("#tissue-score-chart")
@@ -365,8 +365,8 @@ export function drawProteinInteractionChart(
     seen.add(entry.name);
     return !duplicate;
   });
-  const height = GRAPH_HEIGHT_MEDIUM - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_MEDIUM - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
   //Sorts the data in descending order
   reformattedData.sort((a, b) => {
     return b.value - a.value;
@@ -447,8 +447,8 @@ export function drawDiseaseGeneAssocChart(
     return;
   }
   // chart specific margin to display full disease names
-  const height = GRAPH_HEIGHT_MEDIUM - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_LOW - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   // Removes unnecessary quotes from disease names
   function formatDiseaseName(d: string) {
     d = d.replace(/['"]+/g, "");
@@ -547,8 +547,8 @@ export function drawVarGeneAssocChart(
       upper: parseFloat(objUpper),
     };
   });
-  const height = GRAPH_HEIGHT_MEDIUM - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_HIGH - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_L - MARGIN.left - MARGIN.right;
 
   //reformats the data by grouping the error points with similar tissue origin
 
@@ -740,8 +740,8 @@ export function drawVarTypeAssocChart(
     }
     return d;
   }
-  const height = GRAPH_HEIGHT_HIGH - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_LOW - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_L - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   //Sorts the data in descreasing order
   data.sort((a, b) => {
     return b.value - a.value;
@@ -821,8 +821,8 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     return d;
   }
   // chart specific margin dimensions
-  const height = GRAPH_HEIGHT_HIGH - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_LOW - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_L - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   // sorting the data in descreasing order
   data.sort((a, b) => {
     return b.value - a.value;
@@ -904,8 +904,8 @@ export function drawChemGeneAssocChart(
     d = d.substring(27);
     return d;
   }
-  const height = GRAPH_HEIGHT_LOW - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_LOW - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_S - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   const arrName = data.map((x) => {
     return x.name;
   });
