@@ -15,6 +15,7 @@
  */
 
 import * as d3 from "d3";
+import { Simulation, SimulationLinkDatum, SimulationNodeDatum } from "d3";
 import _ from "lodash";
 import { defaultFormatUtc } from "moment";
 
@@ -115,12 +116,13 @@ export interface ProteinStrData {
   value: string;
 }
 
+// types and interfaces for protein-protein interaction chart
 type NodeID = string | number;
 
 export interface Node {
   id: NodeID;
   name: string;
-  value?: string | number;
+  value?: number;
 }
 
 export interface Link {
@@ -129,7 +131,7 @@ export interface Link {
   weight?: number;
 }
 
-export interface ProteinNode extends Node {
+export interface ProteinNode extends Node, SimulationNodeDatum {
   species: string;
   depth: number;
 }
@@ -330,8 +332,8 @@ export function drawProteinInteractionGraph(
   data: InteractingProteinType[]
 ): void {
 
-  function nodeFromID(protein_speciesID: string, depth: number){
-    const last_index = protein_speciesID.lastIndexOf('_')
+  function nodeFromID(protein_speciesID: string, depth: number) : ProteinNode {
+    const last_index = protein_speciesID.lastIndexOf('_') // danger: assumes species name does not contain _
     return {
       id: protein_speciesID,
       name: protein_speciesID.slice(0, last_index),
@@ -340,69 +342,41 @@ export function drawProteinInteractionGraph(
     }
   }
 
-  const center = data[0].parent
+  const centerNodeID = data[0].parent
   let nodeData = data.map(({name, value}) => {
     let neighbor = ''
-    if (name.includes(`_${center}`)){
-      neighbor = name.replace(`_${center}`, '') // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
+    if (name.includes(`_${centerNodeID}`)){
+      neighbor = name.replace(`_${centerNodeID}`, '') // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
     }
-    else if(name.includes(`${center}_`)){
-      neighbor = name.replace(`${center}_`, '') // same here
+    else if(name.includes(`${centerNodeID}_`)){
+      neighbor = name.replace(`${centerNodeID}_`, '') // same here
     }
-    const datum = nodeFromID(neighbor, 1)
-    datum['value'] = value
-    return datum
+    const nodeDatum = nodeFromID(neighbor, 1)
+    nodeDatum['value'] = value
+    return nodeDatum
   });
 
   const seen = new Set();
   nodeData = nodeData.filter((node) => {
     const duplicate = seen.has(node.name);
     seen.add(node.name);
-    return !duplicate && node.id !== center;
+    return !duplicate && node.id !== centerNodeID; // don't support self-interactions yet (for depth 1 only have to worry about center <--> center)
   }); 
 
-  nodeData.sort((n1, n2) => n2.value - n1.value)
+  nodeData.sort((n1, n2) => n2.value - n1.value) // descending order of interaction confidenceScore
   nodeData = nodeData.slice(0, 10)
 
-  const center_datum = nodeFromID(center, 0);
-  nodeData.push(center_datum);
-  console.log('nodes', nodeData);
+  const centerDatum = nodeFromID(centerNodeID, 0);
+  nodeData.push(centerDatum);
 
-  const linkData = nodeData.map((node) => {
+  const linkData: InteractionLink[] = nodeData.map((node) => {
     return {
-      source: center,
+      source: centerNodeID,
       target: node.id,
       score: node.value, 
     }
   }
   )
-
-  function drag(simulation) {
-    console.log('called drag')
-
-    function dragstarted(event) {
-      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-      event.fx = event.x;
-      event.fy = event.y;
-    }
-
-    function dragged(event) {
-      event.fx = d3.event.x;
-      event.fy = d3.event.y;
-    }
-
-    function dragended(event) {
-      if (!d3.event.active) simulation.alphaTarget(0);
-      event.fx = null;
-      event.fy = null;
-    }
-
-    return d3
-      .drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
-  }
   
   const NODE_STYLE = {
       circles: {
@@ -427,7 +401,8 @@ export function drawProteinInteractionGraph(
     stroke: {
       color: "#999",
       opacity: 0.6,
-      linecap: "round"
+      linecap: "round",
+      defaultWidth: 0.5,
     },
     length: 100
   }
@@ -452,7 +427,7 @@ export function drawProteinInteractionGraph(
     .append("svg")
     .attr("width", width + MARGIN.left + MARGIN.right)
     .attr("height", height + MARGIN.top + MARGIN.bottom)
-    .attr("viewBox", [-width / 2, -height / 2, width, height])
+    .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
     .append("g")
     .attr("transform", `translate(${MARGIN.left - 100}, ${MARGIN.top - 50})`)
     .attr("style", "max-width: 100%; height: auto; height: intrinsic");
@@ -481,8 +456,10 @@ export function drawProteinInteractionGraph(
     .selectAll("line")
     .data(linkData)
     .join("line")
-    .attr("stroke-width", link => link.hasOwnProperty("score") ? 8 * link.score : 0.5)
-    .attr("stroke-linecap", LINK_STYLE.stroke.linecap);
+    .attr("stroke-width", link => link.hasOwnProperty("score") ? 8 * link.score : LINK_STYLE.stroke.defaultWidth)
+    .attr("stroke-linecap", LINK_STYLE.stroke.linecap)
+    .on("mouseover", lightenThis)
+    .on("mouseleave", darkenThis);
 
   const nodes = svg
     .append("g")
@@ -491,9 +468,8 @@ export function drawProteinInteractionGraph(
     .enter()
     .append("g")
     .call(drag(simulation))
-    .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
-    .on("mouseleave", mouseleave)
+    .on("mouseover", lightenThis)
+    .on("mouseleave", darkenThis)
 
   const nodeCircles = nodes
     .append("circle")
@@ -520,14 +496,53 @@ export function drawProteinInteractionGraph(
     .text(({ name }) => `${name}`)
 
   function ticked() {
-    links
-      .attr("x1", (linkDatum) => linkDatum.source.x)
-      .attr("y1", (linkDatum) => linkDatum.source.y)
-      .attr("x2", (linkDatum) => linkDatum.target.x)
-      .attr("y2", (linkDatum) => linkDatum.target.y);
 
-    nodes.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
+    links
+      .attr("x1", (linkSimulationDatum) => (linkSimulationDatum.source as SimulationNodeDatum).x)
+      .attr("y1", (linkSimulationDatum) => (linkSimulationDatum.source as SimulationNodeDatum).y)
+      .attr("x2", (linkSimulationDatum) => (linkSimulationDatum.target as SimulationNodeDatum).x)
+      .attr("y2", (linkSimulationDatum) => (linkSimulationDatum.target as SimulationNodeDatum).y);
+
+    nodes
+      .attr("transform", (nodeSimulationDatum) => `translate(${(nodeSimulationDatum as SimulationNodeDatum).x}, ${(nodeSimulationDatum as SimulationNodeDatum).y})`);
   }
+
+  function drag(simulation) {
+
+    function dragstarted(event) {
+      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+      event.fx = event.x;
+      event.fy = event.y;
+    }
+
+    function dragged(event) {
+      event.fx = d3.event.x;
+      event.fy = d3.event.y;
+    }
+
+    function dragended(event) {
+      if (!d3.event.active) simulation.alphaTarget(0);
+      event.fx = null;
+      event.fy = null;
+    }
+
+    return d3
+      .drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
+  }
+
+  function lightenThis(){ // todo: lighten/darken should probably use color.darker() and color.brighter() instead, and if not should change the original opacity
+    d3.select(this)
+      .style("opacity", 0.8) 
+  }
+
+  function darkenThis(){
+    d3.select(this)
+      .style("opacity", 1)
+  }
+
 }
 
 export function drawDiseaseGeneAssocChart(
