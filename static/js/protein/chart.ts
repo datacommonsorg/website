@@ -125,18 +125,15 @@ export interface Node {
   value?: number;
 }
 
-export interface Link {
-  source: NodeID;
-  target: NodeID;
-  weight?: number;
-}
-
+// d3-force will add x,y,vx,vy data to ProteinNode after initialization
+// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
 export interface ProteinNode extends Node, SimulationNodeDatum {
   species: string;
   depth: number;
 }
 
-export interface InteractionLink extends Link {
+// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
+export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
   score: number;
 }
 
@@ -328,56 +325,18 @@ export function drawProteinInteractionChart(
 
 
 export function drawProteinInteractionGraph(
-  id: string,
+  elementID: string,
   data: InteractingProteinType[]
 ): void {
 
-  function nodeFromID(protein_speciesID: string, depth: number) : ProteinNode {
-    const last_index = protein_speciesID.lastIndexOf('_') // danger: assumes species name does not contain _
-    return {
-      id: protein_speciesID,
-      name: protein_speciesID.slice(0, last_index),
-      species: protein_speciesID.slice(last_index+1),
-      depth: depth
-    }
-  }
+  /*
+  References:
+    1) Force-directed layout Observable: https://observablehq.com/@d3/force-directed-graph
+    2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
+  */
 
-  const centerNodeID = data[0].parent
-  let nodeData = data.map(({name, value}) => {
-    let neighbor = ''
-    if (name.includes(`_${centerNodeID}`)){
-      neighbor = name.replace(`_${centerNodeID}`, '') // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
-    }
-    else if(name.includes(`${centerNodeID}_`)){
-      neighbor = name.replace(`${centerNodeID}_`, '') // same here
-    }
-    const nodeDatum = nodeFromID(neighbor, 1)
-    nodeDatum['value'] = value
-    return nodeDatum
-  });
+  const MAX_INTERACTIONS = 10;
 
-  const seen = new Set();
-  nodeData = nodeData.filter((node) => {
-    const duplicate = seen.has(node.name);
-    seen.add(node.name);
-    return !duplicate && node.id !== centerNodeID; // don't support self-interactions yet (for depth 1 only have to worry about center <--> center)
-  }); 
-
-  nodeData.sort((n1, n2) => n2.value - n1.value) // descending order of interaction confidenceScore
-  nodeData = nodeData.slice(0, 10)
-
-  const centerDatum = nodeFromID(centerNodeID, 0);
-  nodeData.push(centerDatum);
-
-  const linkData: InteractionLink[] = nodeData.map((node) => {
-    return {
-      source: centerNodeID,
-      target: node.id,
-      score: node.value, 
-    }
-  }
-  )
-  
   const NODE_STYLE = {
       circles: {
         stroke: {
@@ -403,27 +362,81 @@ export function drawProteinInteractionGraph(
       opacity: 0.6,
       linecap: "round",
       defaultWidth: 0.5,
+      scoreWidthMultiplier: 8
     },
     length: 100
   }
 
   /*
-  EXAMPLE DATA FORMAT:
+  DATA PROCESSING
+  Format post-processing:
+
     nodes = [
-      { id: 1, name: "MECOM", species: "Human", breadth: 0 },
-      { id: 2, name: "CtBP1", species: "Human", breadth: 1 },
-      { id: 3, name: "SUPT16H", species: "Human", breadth: 1 }
+      { id: 1, name: "MECOM", species: "Human", depth: 0 },
+      { id: 2, name: "CtBP1", species: "Human", depth: 1 },
+      { id: 3, name: "SUPT16H", species: "Human", depth: 1 }
     ]
+
     links = [
       { source: 1, target: 2, score: 0.3 },
       { source: 1, target: 3, score: 0.7 }
     ]
   */
 
+  function nodeFromID(protein_speciesID: string, depth: number) : ProteinNode {
+    // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN
+    const last_index = protein_speciesID.lastIndexOf('_') // danger: assumes species name does not contain _
+    return {
+      id: protein_speciesID,
+      name: protein_speciesID.slice(0, last_index),
+      species: protein_speciesID.slice(last_index+1),
+      depth: depth
+    }
+  }
+
+  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN and parse into ASPP2_HUMAN.
+  const centerNodeID = data[0].parent
+  let nodeData = data.map(({name, value}) => { // value is confidenceScore
+    let neighbor = ''
+    if (name.includes(`_${centerNodeID}`)){
+      neighbor = name.replace(`_${centerNodeID}`, '') // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
+    }
+    else if(name.includes(`${centerNodeID}_`)){
+      neighbor = name.replace(`${centerNodeID}_`, '') // same here
+    }
+    const nodeDatum = nodeFromID(neighbor, 1)
+    nodeDatum['value'] = value
+    return nodeDatum
+  });
+
+  // delete duplicates and self-interactions (will add support for self-interactions later on)
+  const seen = new Set();
+  nodeData = nodeData.filter((node) => {
+    const duplicate = seen.has(node.name);
+    seen.add(node.name);
+    return !duplicate && node.id !== centerNodeID;
+  }); 
+
+  nodeData.sort((n1, n2) => n2.value - n1.value) // descending order of interaction confidenceScore
+  nodeData = nodeData.slice(0, MAX_INTERACTIONS) // consider only top 10 interactions to avoid clutter
+
+  const centerDatum = nodeFromID(centerNodeID, 0);
+  nodeData.push(centerDatum);
+
+  const linkData: InteractionLink[] = nodeData.map((node) => {
+    return {
+      source: centerNodeID,
+      target: node.id,
+      score: node.value, 
+    }
+  }
+  )
+
+
   const height = 400 - MARGIN.top - MARGIN.bottom;
   const width = 700 - MARGIN.left - MARGIN.right;
 
-  const svg = d3.select("#protein-interaction-graph")
+  const svg = d3.select(`#${elementID}`)
     .append("svg")
     .attr("width", width + MARGIN.left + MARGIN.right)
     .attr("height", height + MARGIN.top + MARGIN.bottom)
@@ -456,7 +469,7 @@ export function drawProteinInteractionGraph(
     .selectAll("line")
     .data(linkData)
     .join("line")
-    .attr("stroke-width", link => link.hasOwnProperty("score") ? 8 * link.score : LINK_STYLE.stroke.defaultWidth)
+    .attr("stroke-width", link => link.hasOwnProperty("score") ? LINK_STYLE.stroke.scoreWidthMultiplier * link.score : LINK_STYLE.stroke.defaultWidth)
     .attr("stroke-linecap", LINK_STYLE.stroke.linecap)
     .on("mouseover", lightenThis)
     .on("mouseleave", darkenThis);
@@ -497,17 +510,21 @@ export function drawProteinInteractionGraph(
 
   function ticked() {
 
+    // type assertions needed because x,y info added after initialization
+    // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
     links
       .attr("x1", (linkSimulationDatum) => (linkSimulationDatum.source as SimulationNodeDatum).x)
       .attr("y1", (linkSimulationDatum) => (linkSimulationDatum.source as SimulationNodeDatum).y)
       .attr("x2", (linkSimulationDatum) => (linkSimulationDatum.target as SimulationNodeDatum).x)
       .attr("y2", (linkSimulationDatum) => (linkSimulationDatum.target as SimulationNodeDatum).y);
 
+    // same here
+    // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
     nodes
       .attr("transform", (nodeSimulationDatum) => `translate(${(nodeSimulationDatum as SimulationNodeDatum).x}, ${(nodeSimulationDatum as SimulationNodeDatum).y})`);
   }
 
-  function drag(simulation) {
+  function drag(simulation: Simulation<ProteinNode, InteractionLink>) {
 
     function dragstarted(event) {
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -533,7 +550,7 @@ export function drawProteinInteractionGraph(
       .on("end", dragended);
   }
 
-  function lightenThis(){ // todo: lighten/darken should probably use color.darker() and color.brighter() instead, and if not should change the original opacity
+  function lightenThis(){ // todo: lighten/darken should probably use color.darker() and color.brighter() instead so as not to alter transparency
     d3.select(this)
       .style("opacity", 0.8) 
   }
