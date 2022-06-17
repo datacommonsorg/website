@@ -382,11 +382,11 @@ export function drawProteinInteractionGraph(
 
   function nodeFromID(protein_speciesID: string, depth: number): ProteinNode {
     // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN
-    const last_index = protein_speciesID.lastIndexOf("_"); // danger: assumes species name does not contain _
+    const lastIndex = protein_speciesID.lastIndexOf("_"); // danger: assumes species name does not contain _
     return {
       id: protein_speciesID,
-      name: protein_speciesID.slice(0, last_index),
-      species: protein_speciesID.slice(last_index + 1),
+      name: protein_speciesID.slice(0, lastIndex),
+      species: protein_speciesID.slice(lastIndex + 1),
       depth: depth,
     };
   }
