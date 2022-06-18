@@ -576,7 +576,7 @@ export function drawProteinInteractionGraph(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
     .append("g")
-    .attr("transform", `translate(${MARGIN.left - 100}, ${MARGIN.top - 50})`)
+    .attr("transform", `translate(${MARGIN.left - 150}, ${MARGIN.top - 25})`)
     .attr("style", "max-width: 100%; height: auto; height: intrinsic");
 
   const nodeIDs = nodeData.map((node) => node.id);
