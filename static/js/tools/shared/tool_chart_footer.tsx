@@ -23,9 +23,9 @@ import React, { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import {
-  SourceSelector,
-  SourceSelectorSvInfo,
-} from "../../shared/source_selector";
+  FacetSelector,
+  FacetSelectorFacetInfo,
+} from "../../shared/facet_selector";
 import { urlToDomain } from "../../shared/util";
 
 interface ToolChartFooterPropType {
@@ -35,10 +35,12 @@ interface ToolChartFooterPropType {
   sources: Set<string>;
   // Measurement methods of the data of the chart.
   mMethods: Set<string>;
+  // Map of stat var to facet id of the selected source for that variable.
+  svFacetId: Record<string, string>;
   // Source selector information for a list of stat vars.
-  sourceSelectorSvInfoList: SourceSelectorSvInfo[];
-  // callback when mapping of stat var dcid to methash is updated.
-  onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
+  facetList: FacetSelectorFacetInfo[];
+  // callback when mapping of stat var dcid to facet id is updated.
+  onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
   // Whether to hide isRatio option.
   hideIsRatio: boolean;
   // Whether or not the chart is showing per capita calculation.
@@ -110,9 +112,10 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
             </span>
           )}
           {props.children}
-          <SourceSelector
-            svInfoList={props.sourceSelectorSvInfoList}
-            onSvMetahashUpdated={props.onSvMetahashUpdated}
+          <FacetSelector
+            svFacetId={props.svFacetId}
+            facetListPromise={Promise.resolve(props.facetList)}
+            onSvFacetIdUpdated={props.onSvFacetIdUpdated}
           />
         </div>
       )}

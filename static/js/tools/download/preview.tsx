@@ -24,7 +24,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePapaParse } from "react-papaparse";
 import { Button, Card } from "reactstrap";
 
-import { loadSpinner, removeSpinner } from "../../shared/util";
+import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
 import { DownloadOptions } from "./page";
 
 const DATE_LATEST = "latest";
@@ -41,14 +41,14 @@ interface PreviewProps {
 export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const csvReqPayload = useRef({});
   const csvParser = usePapaParse();
-  const csvUrl = useRef("");
 
   useEffect(() => {
     if (props.isDisabled && _.isEmpty(errorMessage)) {
       return;
     }
-    csvUrl.current = getCsvUrl();
+    csvReqPayload.current = getCsvReqPayload();
     fetchPreviewData();
   }, [props, errorMessage]);
 
@@ -105,7 +105,7 @@ export function Preview(props: PreviewProps): JSX.Element {
             className="download-button"
             color={"primary"}
             disabled={props.isDisabled}
-            onClick={() => window.open(csvUrl.current)}
+            onClick={onDownloadClicked}
           >
             Download
           </Button>
@@ -117,34 +117,55 @@ export function Preview(props: PreviewProps): JSX.Element {
     </Card>
   );
 
-  function getCsvUrl(): string {
-    const svParam = Object.keys(props.selectedOptions.selectedStatVars).join(
-      "&statVars="
-    );
+  function getCsvReqPayload() {
     // When both minDate and maxDate are set as "latest", the api will get the
     // data for the latest date.
     const minDate = props.selectedOptions.dateRange
       ? props.selectedOptions.minDate
       : DATE_LATEST;
-    const minDateParam = _.isEmpty(minDate) ? "" : `&minDate=${minDate}`;
     const maxDate = props.selectedOptions.dateRange
       ? props.selectedOptions.maxDate
       : DATE_LATEST;
-    const maxDateParam = _.isEmpty(maxDate) ? "" : `&maxDate=${maxDate}`;
-    const url =
-      "/api/stats/csv/within-place" +
-      `?parentPlace=${props.selectedOptions.selectedPlace.dcid}` +
-      `&childType=${props.selectedOptions.enclosedPlaceType}` +
-      `&statVars=${svParam}` +
-      minDateParam +
-      maxDateParam;
-    return url;
+    return {
+      parentPlace: props.selectedOptions.selectedPlace.dcid,
+      childType: props.selectedOptions.enclosedPlaceType,
+      statVars: Object.keys(props.selectedOptions.selectedStatVars),
+      facetMap: props.selectedOptions.selectedFacets,
+      minDate,
+      maxDate,
+    };
+  }
+
+  function onDownloadClicked() {
+    if (_.isEmpty(csvReqPayload.current)) {
+      return;
+    }
+    axios
+      .post("/api/stats/csv/within-place", csvReqPayload.current)
+      .then((resp) => {
+        if (resp.data) {
+          saveToFile(
+            `${props.selectedOptions.selectedPlace.name}_${props.selectedOptions.enclosedPlaceType}.csv`,
+            resp.data
+          );
+        } else {
+          alert("Sorry, there was a problem downloading the csv.");
+        }
+      })
+      .catch(() => {
+        alert("Sorry, there was a problem downloading the csv.");
+      });
   }
 
   function fetchPreviewData(): void {
     loadSpinner(SECTION_ID);
+    if (_.isEmpty(csvReqPayload.current)) {
+      return;
+    }
+    const reqObject = _.cloneDeep(csvReqPayload.current);
+    reqObject["rowLimit"] = NUM_ROWS;
     axios
-      .get(csvUrl.current + `&rowLimit=${NUM_ROWS}`)
+      .post("/api/stats/csv/within-place", reqObject)
       .then((resp) => {
         if (resp.data) {
           csvParser.readString(resp.data, {
