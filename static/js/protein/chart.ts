@@ -199,19 +199,6 @@ const INTERACTION_GRAPH_Y_OFFSET = -25
 const NODE_STYLE = {
   circles: {
     fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"],
-    radius: 15,
-    stroke: {
-      color: "#fff",
-      opacity: 1,
-      width: 1.5,
-    },
-  },
-  labels: {
-    font: {
-      color: "#222",
-      name: "public sans",
-      size: "8px",
-    },
   },
 };
 
@@ -219,9 +206,6 @@ const NODE_STYLE = {
 const LINK_STYLE = {
   length: 100,
   stroke: {
-    color: "#AAA",
-    linecap: "round",
-    opacity: 1,
     scoreWidthMultiplier: 8,
   },
 };
@@ -609,8 +593,7 @@ export function drawProteinInteractionGraph(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
     .append("g")
-    .attr("transform", `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${MARGIN.top + INTERACTION_GRAPH_Y_OFFSET})`)
-    .attr("style", "max-width: 100%; height: auto; height: intrinsic");
+    .attr("transform", `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${MARGIN.top + INTERACTION_GRAPH_Y_OFFSET})`);
 
   const nodeIDs = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
@@ -632,8 +615,6 @@ export function drawProteinInteractionGraph(
 
   const links = svg // links first so nodes appear over links
     .append("g")
-    .attr("stroke", LINK_STYLE.stroke.color)
-    .attr("stroke-opacity", LINK_STYLE.stroke.opacity)
     .selectAll("line")
     .data(linkData)
     .join("line")
@@ -641,7 +622,7 @@ export function drawProteinInteractionGraph(
       "stroke-width",
       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
     )
-    .attr("stroke-linecap", LINK_STYLE.stroke.linecap)
+    .attr("class", "interaction-link")
     .on("mouseover", brighten)
     .on("mouseleave", unbrighten);
 
@@ -657,22 +638,13 @@ export function drawProteinInteractionGraph(
 
   const nodeCircles = nodes
     .append("circle")
-    .attr("stroke", NODE_STYLE.circles.stroke.color)
-    .attr("stroke-opacity", NODE_STYLE.circles.stroke.opacity)
-    .attr("stroke-width", NODE_STYLE.circles.stroke.width)
-    .attr("r", NODE_STYLE.circles.radius)
+    .attr("class", "protein-node-circle")
     .attr("fill", (node) => nodeColors(node.depth));
 
   const nodeLabels = nodes
     .append("text")
-    .attr("fill", NODE_STYLE.labels.font.color)
-    .attr("text-anchor", "middle")
-    .attr("dominant-baseline", "middle")
-    .style(
-      "font",
-      `${NODE_STYLE.labels.font.size} ${NODE_STYLE.labels.font.name}`
-    )
-    .text(({ name }) => `${name}`);
+    .text(({ name }) => `${name}`)
+    .attr("class", "protein-node-label");
 
 }
 
