@@ -666,11 +666,6 @@ export function drawProteinInteractionGraph(
       .on("end", dragended);
   }
 
-  function getColor() {
-    console.log("getcolor")
-    // return d3.rgb(d3.select(this).select("circle").style("fill"));
-  }
-
   function lighten(): void {
     d3.select(this).style("filter", "brightness(105%)")
   }
