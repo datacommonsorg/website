@@ -79,6 +79,7 @@ const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
 // tooltip constant for all charts
+const BRIGHTEN_PERCENTAGE = "105%"
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // length of side bar for error plot for variant-gene associations
 const ERROR_SIDE_BAR_LENGTH = 5;
@@ -221,6 +222,15 @@ const LINK_STYLE = {
     scoreWidthMultiplier: 8,
   },
 };
+
+// https://stackoverflow.com/a/69610045
+function brighten(): void {
+  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE}})`)
+}
+
+function unbrighten(): void {
+  d3.select(this).style("filter", "brightness(100%)")
+}
 
 /**
  * Gets the left and top coordinates of a rect element and positions the tooltip accordingly
@@ -554,8 +564,8 @@ export function drawProteinInteractionGraph(
       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
     )
     .attr("stroke-linecap", LINK_STYLE.stroke.linecap)
-    .on("mouseover", lighten)
-    .on("mouseleave", darken);
+    .on("mouseover", brighten)
+    .on("mouseleave", unbrighten);
 
   const nodes = svg // container for circles and labels
     .append("g")
@@ -564,8 +574,8 @@ export function drawProteinInteractionGraph(
     .enter()
     .append("g")
     .call(drag(simulation))
-    .on("mouseover", lighten)
-    .on("mouseleave", darken);
+    .on("mouseover", brighten)
+    .on("mouseleave", unbrighten);
 
   const nodeCircles = nodes
     .append("circle")
@@ -664,14 +674,6 @@ export function drawProteinInteractionGraph(
       .on("start", dragstarted)
       .on("drag", dragged)
       .on("end", dragended);
-  }
-
-  function lighten(): void {
-    d3.select(this).style("filter", "brightness(105%)")
-  }
-
-  function darken(): void {
-    d3.select(this).style("filter", "brightness(100%)")
   }
 }
 
