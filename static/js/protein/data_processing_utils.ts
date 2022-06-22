@@ -1,10 +1,12 @@
 import _ from "lodash";
 
 import { GraphNodes } from "../shared/types";
-import { ProteinStrData } from "./chart";
+import { InteractionGraphData, InteractionLink, ProteinNode, ProteinStrData } from "./chart";
 import { ProteinNumData } from "./chart";
 import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
+
+const MAX_INTERACTIONS = 10; // upper bound on node degree in interaction graph viz's
 
 const VARIANT_CATEGORY = [
   "GeneticVariantFunctionalCategoryUTR3",
@@ -160,6 +162,81 @@ export function getProteinInteraction(
     return returnData;
   }
   return [];
+}
+
+export function nodeFromID(protein_speciesID: string, depth: number): ProteinNode {
+  const lastIndex = protein_speciesID.lastIndexOf("_"); // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN. Assumes {species} does not contain _ (true as of 06/22/22).
+  return {
+    depth,
+    id: protein_speciesID,
+    name: protein_speciesID.slice(0, lastIndex),
+    species: protein_speciesID.slice(lastIndex + 1),
+  };
+}
+
+export function getProteinInteractionGraphData(data: InteractingProteinType[]): InteractionGraphData {
+
+  /*
+    return data of the following format:
+      {
+
+        nodeData : [
+          { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
+          { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
+          { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 },
+        ],
+
+        linkData : [
+          { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
+          { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
+        ],
+
+      }
+  */
+
+
+  // P53_HUMAN is central protein in below examples.
+  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
+  const centerNodeID = data[0].parent;
+  let nodeData = data.map(({ name, value }) => {
+    // value is confidenceScore
+    let neighbor = "";
+    if (name.includes(`_${centerNodeID}`)) {
+      neighbor = name.replace(`_${centerNodeID}`, ""); // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
+    } else if (name.includes(`${centerNodeID}_`)) {
+      neighbor = name.replace(`${centerNodeID}_`, ""); // same here
+    }
+    const nodeDatum = nodeFromID(neighbor, 1);
+    nodeDatum["value"] = value;
+    return nodeDatum;
+  });
+
+  // delete duplicates and self-interactions (will add support for self-interactions later on)
+  const seen = new Set();
+  nodeData = nodeData.filter((node) => {
+    const duplicate = seen.has(node.name);
+    seen.add(node.name);
+    return !duplicate && node.id !== centerNodeID;
+  });
+
+  nodeData.sort((n1, n2) => n2.value - n1.value); // descending order of interaction confidenceScore
+  nodeData = nodeData.slice(0, MAX_INTERACTIONS); // consider only top 10 interactions to avoid clutter
+
+  const centerDatum = nodeFromID(centerNodeID, 0);
+  nodeData.push(centerDatum);
+
+  const linkData: InteractionLink[] = nodeData.map((node) => {
+    return {
+      score: node.value,
+      source: centerNodeID,
+      target: node.id,
+    };
+  });
+
+  return {
+    nodeData: nodeData,
+    linkData: linkData,
+  };
 }
 
 export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {

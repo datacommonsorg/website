@@ -22,10 +22,10 @@ import {
   SimulationNodeDatum,
 } from "d3";
 import _ from "lodash";
-import { defaultFormatUtc } from "moment";
 
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
+import { nodeFromID, getProteinInteractionGraphData } from "./data_processing_utils";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
   name: string;
@@ -57,6 +57,11 @@ export interface ProteinNode extends Node, SimulationNodeDatum {
 // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
 export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
   score: number;
+}
+
+export interface InteractionGraphData{
+  nodeData: ProteinNode[],
+  linkData: InteractionLink[]
 }
 
 // interface for variant gene associations for plotting error bars
@@ -185,7 +190,6 @@ const ERROR_POINT_POSITION_Y1 = 10;
 const ERROR_POINT_POSITION_Y2 = 30;
 const ERROR_POINT_POSITION_Y3 = 50;
 
-const MAX_INTERACTIONS = 10; // upper bound on node degree in interaction graph viz's
 
 // style of node representations in interaction graph viz's
 const NODE_STYLE = {
@@ -503,72 +507,8 @@ export function drawProteinInteractionGraph(
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
 
-
-
-  /*
-  DATA PROCESSING
-  Format post-processing:
-
-    nodes = [
-      { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
-      { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
-      { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 }
-    ]
-
-    links = [
-      { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
-      { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 }
-    ]
-  */
-
-  function nodeFromID(protein_speciesID: string, depth: number): ProteinNode {
-    const lastIndex = protein_speciesID.lastIndexOf("_"); // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN. Assumes {species} does not contain _ (true as of 06/22/22).
-    return {
-      depth,
-      id: protein_speciesID,
-      name: protein_speciesID.slice(0, lastIndex),
-      species: protein_speciesID.slice(lastIndex + 1),
-    };
-  }
-
-  // P53_HUMAN is central protein in below examples.
-  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
-  const centerNodeID = data[0].parent;
-  let nodeData = data.map(({ name, value }) => {
-    // value is confidenceScore
-    let neighbor = "";
-    if (name.includes(`_${centerNodeID}`)) {
-      neighbor = name.replace(`_${centerNodeID}`, ""); // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
-    } else if (name.includes(`${centerNodeID}_`)) {
-      neighbor = name.replace(`${centerNodeID}_`, ""); // same here
-    }
-    const nodeDatum = nodeFromID(neighbor, 1);
-    nodeDatum["value"] = value;
-    return nodeDatum;
-  });
-
-  // delete duplicates and self-interactions (will add support for self-interactions later on)
-  const seen = new Set();
-  nodeData = nodeData.filter((node) => {
-    const duplicate = seen.has(node.name);
-    seen.add(node.name);
-    return !duplicate && node.id !== centerNodeID;
-  });
-
-  nodeData.sort((n1, n2) => n2.value - n1.value); // descending order of interaction confidenceScore
-  nodeData = nodeData.slice(0, MAX_INTERACTIONS); // consider only top 10 interactions to avoid clutter
-
-  const centerDatum = nodeFromID(centerNodeID, 0);
-  nodeData.push(centerDatum);
-
-  const linkData: InteractionLink[] = nodeData.map((node) => {
-    return {
-      score: node.value,
-      source: centerNodeID,
-      target: node.id,
-    };
-  });
-
+  const {nodeData, linkData} = getProteinInteractionGraphData(data);
+  
   const height = 400 - MARGIN.top - MARGIN.bottom;
   const width = 700 - MARGIN.left - MARGIN.right;
 
