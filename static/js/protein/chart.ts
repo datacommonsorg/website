@@ -215,9 +215,9 @@ const NODE_STYLE = {
 const LINK_STYLE = {
   length: 100,
   stroke: {
-    color: "#999",
+    color: "#AAA",
     linecap: "round",
-    opacity: 0.6,
+    opacity: 1,
     scoreWidthMultiplier: 8,
   },
 };
@@ -525,6 +525,8 @@ export function drawProteinInteractionGraph(
   const nodeIDs = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_STYLE.circles.fillColors);
+  console.log('colors', nodeColors)
+  console.log('linkcolor', LINK_STYLE.stroke.color, d3.rgb(LINK_STYLE.stroke.color).toString())
 
   // force display layout
   const forceNode = d3.forceManyBody();
@@ -665,25 +667,16 @@ export function drawProteinInteractionGraph(
   }
 
   function getColor() {
-    console.log(d3.select(this))
-    return d3.rgb(d3.select(this).style("color"));
+    console.log("getcolor")
+    // return d3.rgb(d3.select(this).select("circle").style("fill"));
   }
 
   function lighten(): void {
-    // lighten object mouse is over
-    // d3.select(this).style("fill-opacity", 0.8);
-    // d3.select(this).classed("blah", true);
-    const color = getColor();
-    console.log("mouseon", color, color.brighter())
-    d3.select(this).style("fill", color.brighter().toString())
+    d3.select(this).style("filter", "brightness(105%)")
   }
 
   function darken(): void {
-    // darken object mouse is over
-    // d3.select(this).style("blah", false);
-    const color = getColor();
-    console.log("mouseoff", color, color.darker())
-    d3.select(this).style("fill", color.darker().toString())
+    d3.select(this).style("filter", "brightness(100%)")
   }
 }
 
