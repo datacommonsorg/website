@@ -552,8 +552,8 @@ export function drawProteinInteractionGraph(
       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
     )
     .attr("stroke-linecap", LINK_STYLE.stroke.linecap)
-    .on("mouseover", lightenThis)
-    .on("mouseleave", darkenThis);
+    .on("mouseover", lighten)
+    .on("mouseleave", darken);
 
   const nodes = svg // container for circles and labels
     .append("g")
@@ -562,8 +562,8 @@ export function drawProteinInteractionGraph(
     .enter()
     .append("g")
     .call(drag(simulation))
-    .on("mouseover", lightenThis)
-    .on("mouseleave", darkenThis);
+    .on("mouseover", lighten)
+    .on("mouseleave", darken);
 
   const nodeCircles = nodes
     .append("circle")
@@ -664,17 +664,26 @@ export function drawProteinInteractionGraph(
       .on("end", dragended);
   }
 
-  // @reviewers: lightenThis/darkenThis should probably use color.darker() and color.brighter() instead so as not to alter transparency.
-  // However, transparency effect may be useful to view edges entering a node in a dense graph.
-
-  function lightenThis(): void {
-    // lighten object mouse is over
-    d3.select(this).style("opacity", 0.8);
+  function getColor() {
+    console.log(d3.select(this))
+    return d3.rgb(d3.select(this).style("color"));
   }
 
-  function darkenThis(): void {
+  function lighten(): void {
+    // lighten object mouse is over
+    // d3.select(this).style("fill-opacity", 0.8);
+    // d3.select(this).classed("blah", true);
+    const color = getColor();
+    console.log("mouseon", color, color.brighter())
+    d3.select(this).style("fill", color.brighter().toString())
+  }
+
+  function darken(): void {
     // darken object mouse is over
-    d3.select(this).style("opacity", 1);
+    // d3.select(this).style("blah", false);
+    const color = getColor();
+    console.log("mouseoff", color, color.darker())
+    d3.select(this).style("fill", color.darker().toString())
   }
 }
 
