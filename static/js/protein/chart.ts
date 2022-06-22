@@ -309,6 +309,40 @@ function interactionGraphTicked(links: d3.Selection<d3.BaseType | SVGLineElement
   );
 }
 
+function dragNode(
+  simulation: Simulation<ProteinNode, InteractionLink>
+): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
+  // return handler for dragging a node in an interaction graph
+  // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
+
+  function dragstarted(nodeDatum: ProteinNode): void {
+    if (!d3.event.active) {
+      simulation.alphaTarget(0.3).restart();
+    } // start up simulation
+    nodeDatum.fx = nodeDatum.x;
+    nodeDatum.fy = nodeDatum.y;
+  }
+
+  function dragged(nodeDatum: ProteinNode): void {
+    nodeDatum.fx = d3.event.x;
+    nodeDatum.fy = d3.event.y;
+  }
+
+  function dragended(nodeDatum: ProteinNode): void {
+    if (!d3.event.active) {
+      simulation.alphaTarget(0);
+    } // cool down simulation
+    nodeDatum.fx = null;
+    nodeDatum.fy = null;
+  }
+
+  return d3
+    .drag()
+    .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended);
+}
+
 /**
  * Adds the y label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
  * @param width
@@ -633,38 +667,6 @@ export function drawProteinInteractionGraph(
     )
     .text(({ name }) => `${name}`);
 
-  function dragNode(
-    simulation: Simulation<ProteinNode, InteractionLink>
-  ): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
-    // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
-
-    function dragstarted(nodeDatum: ProteinNode): void {
-      if (!d3.event.active) {
-        simulation.alphaTarget(0.3).restart();
-      } // start up simulation
-      nodeDatum.fx = nodeDatum.x;
-      nodeDatum.fy = nodeDatum.y;
-    }
-
-    function dragged(nodeDatum: ProteinNode): void {
-      nodeDatum.fx = d3.event.x;
-      nodeDatum.fy = d3.event.y;
-    }
-
-    function dragended(nodeDatum: ProteinNode): void {
-      if (!d3.event.active) {
-        simulation.alphaTarget(0);
-      } // cool down simulation
-      nodeDatum.fx = null;
-      nodeDatum.fy = null;
-    }
-
-    return d3
-      .drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
-  }
 }
 
 /**
