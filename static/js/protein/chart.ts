@@ -185,6 +185,39 @@ const ERROR_POINT_POSITION_Y1 = 10;
 const ERROR_POINT_POSITION_Y2 = 30;
 const ERROR_POINT_POSITION_Y3 = 50;
 
+const MAX_INTERACTIONS = 10; // upper bound on node degree in interaction graph viz's
+
+// style of node representations in interaction graph viz's
+const NODE_STYLE = {
+  circles: {
+    fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"],
+    radius: 15,
+    stroke: {
+      color: "#fff",
+      opacity: 1,
+      width: 1.5,
+    },
+  },
+  labels: {
+    font: {
+      color: "#222",
+      name: "public sans",
+      size: "8px",
+    },
+  },
+};
+
+// style of link representations in interaction graph viz's
+const LINK_STYLE = {
+  length: 100,
+  stroke: {
+    color: "#999",
+    linecap: "round",
+    opacity: 0.6,
+    scoreWidthMultiplier: 8,
+  },
+};
+
 /**
  * Gets the left and top coordinates of a rect element and positions the tooltip accordingly
  * @param left_position
@@ -470,36 +503,7 @@ export function drawProteinInteractionGraph(
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
 
-  const MAX_INTERACTIONS = 10;
 
-  const NODE_STYLE = {
-    circles: {
-      fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"],
-      radius: 15,
-      stroke: {
-        color: "#fff",
-        opacity: 1,
-        width: 1.5,
-      },
-    },
-    labels: {
-      font: {
-        color: "#222",
-        name: "public sans",
-        size: "8px",
-      },
-    },
-  };
-
-  const LINK_STYLE = {
-    length: 100,
-    stroke: {
-      color: "#999",
-      linecap: "round",
-      opacity: 0.6,
-      scoreWidthMultiplier: 8,
-    },
-  };
 
   /*
   DATA PROCESSING
