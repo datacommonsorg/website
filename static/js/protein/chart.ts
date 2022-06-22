@@ -210,11 +210,13 @@ const LINK_STYLE = {
 };
 
 // https://stackoverflow.com/a/69610045
-function brighten(): void { // brighten object under cursor
+function brighten(): void {
+  // brighten object under cursor
   d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
 }
 
-function unbrighten(): void { // unbrighten object under cursor
+function unbrighten(): void {
+  // unbrighten object under cursor
   d3.select(this).style("filter", "brightness(100%)");
 }
 

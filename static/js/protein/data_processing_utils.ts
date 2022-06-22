@@ -242,8 +242,8 @@ export function getProteinInteractionGraphData(
   });
 
   return {
-    nodeData: nodeData,
-    linkData: linkData,
+    linkData,
+    nodeData,
   };
 }
 
