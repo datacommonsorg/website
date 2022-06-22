@@ -45,16 +45,16 @@
   }
 
   .protein-node-circle{
-      stroke: "#fff";
-      stroke-opacity: 1;
-      stroke-width: 1.5;
-      r: 15;
+    stroke: "#fff";
+    stroke-opacity: 1;
+    stroke-width: 1.5;
+    r: 15;
   }
 
   .protein-node-label{
-      font-family: "Public Sans";
-      font-size: 8px;
-      fill: #222;
-      text-anchor: middle;
-      dominant-baseline: middle;
+    font-family: "Public Sans", sans-serif;
+    font-size: 8px;
+    fill: #222;
+    text-anchor: middle;
+    dominant-baseline: middle;
   }
