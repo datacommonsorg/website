@@ -642,12 +642,13 @@ export function drawProteinInteractionGraph(
     .text(({ name }) => `${name}`);
 
   // floating name labels we can switch in
-  // const labels = node
+  // const labels = nodes
   //   .append("text")
   //   .attr("fill", "#555")
   //   .attr("dx", 15)
   //   .attr("dy", -15)
   //   .text(({name}) => `${name}`)
+  //   .style("font", `8px public sans`)
 
   function ticked(): void {
     // update node and link positions
