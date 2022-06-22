@@ -518,8 +518,7 @@ export function drawProteinInteractionGraph(
   */
 
   function nodeFromID(protein_speciesID: string, depth: number): ProteinNode {
-    // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN
-    const lastIndex = protein_speciesID.lastIndexOf("_"); // danger: assumes species name does not contain _
+    const lastIndex = protein_speciesID.lastIndexOf("_"); // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN. Assumes {species} does not contain _ (true as of 06/22/22).
     return {
       depth,
       id: protein_speciesID,
