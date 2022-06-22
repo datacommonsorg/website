@@ -642,10 +642,10 @@ class TestApiRankingChart(unittest.TestCase):
     @patch('routes.api.place.get_ranking_chart_configs')
     @patch('routes.api.place.get_place_type')
     @patch('routes.api.place.parent_places')
-    @patch('routes.api.place.dc.get_stat_set_within_place')
+    @patch('routes.api.place.dc.points_within')
     def test_api_ranking_chart_not_earth(
         self,
-        mock_stats_within_place,
+        mock_points_within,
         mock_parent_place,
         mock_place_type,
         mock_configs,
@@ -736,67 +736,93 @@ class TestApiRankingChart(unittest.TestCase):
 
         mock_name.side_effect = name_side_effect
 
-        stats_within_place = {
-            'data': {
-                sv1: {
-                    'stat': {
-                        geo1: {
-                            'date': sv1_date1,
-                            'value': sv1_value1,
-                            'metaHash': 1
-                        },
-                        geo2: {
-                            'date': sv1_date2,
-                            'value': sv1_value2,
-                            'metaHash': 1
-                        },
-                        geo3: {
-                            'date': sv1_date2,
-                            'value': sv1_value3,
-                            'metaHash': 1
-                        }
-                    },
-                },
-                sv2: {
-                    'stat': {
-                        geo1: {
-                            'date': sv2_date1,
-                            'value': sv2_value1,
-                            'metaHash': 2
-                        },
-                        geo2: {
-                            'date': sv2_date2,
-                            'value': sv2_value2,
-                            'metaHash': 2
-                        },
-                        geo3: {
-                            'date': sv2_date2,
-                            'value': sv2_value3,
-                            'metaHash': 2
-                        }
-                    }
-                },
-                "Count_Person": {
-                    'stat': {
-                        geo1: {
-                            'date': sv2_date1,
-                            'value': count_person_value1,
-                            'metaHash': 2
-                        },
-                        geo2: {
-                            'date': sv2_date2,
-                            'value': count_person_value2,
-                            'metaHash': 2
-                        },
-                        geo3: {
-                            'date': sv2_date1,
-                            'value': count_person_value1,
-                            'metaHash': 2
-                        }
-                    }
-                }
-            },
-            'metadata': {
+        points_within = {
+            'observationsByVariable': [{
+                "variable":
+                    sv1,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv1_date1,
+                        'value': sv1_value1,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value2,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value3,
+                        'facet': 1
+                    }]
+                }]
+            }, {
+                "variable":
+                    sv2,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': sv2_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value2,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value3,
+                        'facet': 2
+                    }]
+                }]
+            }, {
+                "variable":
+                    "Count_Person",
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': count_person_value2,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }]
+            }],
+            'facets': {
                 '1': {
                     'importName': 'importName1',
                     'provenanceUrl': source1
@@ -808,14 +834,14 @@ class TestApiRankingChart(unittest.TestCase):
             }
         }
 
-        def stats_within_place_side_effect(*args):
+        def points_within_side_effect(*args):
             if args[0] == parent_dcid1 and args[1] == place_type and sorted(
                     args[2]) == sorted([sv1, sv2, "Count_Person"]):
-                return stats_within_place
+                return points_within
             else:
                 return {}
 
-        mock_stats_within_place.side_effect = stats_within_place_side_effect
+        mock_points_within.side_effect = points_within_side_effect
 
         response = app.test_client().get('/api/place/ranking_chart/' +
                                          test_dcid)
@@ -867,10 +893,10 @@ class TestApiRankingChart(unittest.TestCase):
 
     @patch('routes.api.place.get_i18n_name')
     @patch('routes.api.place.get_ranking_chart_configs')
-    @patch('routes.api.place.dc.get_stat_set_within_place')
+    @patch('routes.api.place.dc.points_within')
     def test_api_ranking_chart_earth(
         self,
-        mock_stats_within_place,
+        mock_points_within,
         mock_configs,
         mock_name,
     ):
@@ -928,67 +954,93 @@ class TestApiRankingChart(unittest.TestCase):
 
         mock_name.side_effect = name_side_effect
 
-        stats_within_place = {
-            'data': {
-                sv1: {
-                    'stat': {
-                        geo1: {
-                            'date': sv1_date1,
-                            'value': sv1_value1,
-                            'metaHash': 1
-                        },
-                        geo2: {
-                            'date': sv1_date2,
-                            'value': sv1_value2,
-                            'metaHash': 1
-                        },
-                        geo3: {
-                            'date': sv1_date1,
-                            'value': sv1_value3,
-                            'metaHash': 1
-                        },
-                    }
-                },
-                sv2: {
-                    'stat': {
-                        geo1: {
-                            'date': sv2_date1,
-                            'value': sv2_value1,
-                            'metaHash': 2
-                        },
-                        geo2: {
-                            'date': sv2_date2,
-                            'value': sv2_value2,
-                            'metaHash': 2
-                        },
-                        geo3: {
-                            'date': sv2_date1,
-                            'value': sv2_value3,
-                            'metaHash': 2
-                        },
-                    }
-                },
-                "Count_Person": {
-                    'stat': {
-                        geo1: {
-                            'date': sv2_date1,
-                            'value': count_person_value1,
-                            'metaHash': 2
-                        },
-                        geo2: {
-                            'date': sv2_date2,
-                            'value': count_person_value1,
-                            'metaHash': 2
-                        },
-                        geo3: {
-                            'date': sv2_date1,
-                            'value': count_person_value2,
-                            'metaHash': 2
-                        }
-                    }
-                }
-            },
-            'metadata': {
+        points_within = {
+            'observationsByVariable': [{
+                "variable":
+                    sv1,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv1_date1,
+                        'value': sv1_value1,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value2,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value3,
+                        'facet': 1
+                    }]
+                }]
+            }, {
+                "variable":
+                    sv2,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': sv2_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value2,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value3,
+                        'facet': 2
+                    }]
+                }]
+            }, {
+                "variable":
+                    "Count_Person",
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value2,
+                        'facet': 2
+                    }]
+                }]
+            }],
+            'facets': {
                 '1': {
                     'importName': 'importName1',
                     'provenanceUrl': source1
@@ -1000,14 +1052,86 @@ class TestApiRankingChart(unittest.TestCase):
             }
         }
 
-        def stats_within_place_side_effect(*args):
+        # stats_within_place = {
+        #     'data': {
+        #         sv1: {
+        #             'stat': {
+        #                 geo1: {
+        #                     'date': sv1_date1,
+        #                     'value': sv1_value1,
+        #                     'metaHash': 1
+        #                 },
+        #                 geo2: {
+        #                     'date': sv1_date2,
+        #                     'value': sv1_value2,
+        #                     'metaHash': 1
+        #                 },
+        #                 geo3: {
+        #                     'date': sv1_date1,
+        #                     'value': sv1_value3,
+        #                     'metaHash': 1
+        #                 },
+        #             }
+        #         },
+        #         sv2: {
+        #             'stat': {
+        #                 geo1: {
+        #                     'date': sv2_date1,
+        #                     'value': sv2_value1,
+        #                     'metaHash': 2
+        #                 },
+        #                 geo2: {
+        #                     'date': sv2_date2,
+        #                     'value': sv2_value2,
+        #                     'metaHash': 2
+        #                 },
+        #                 geo3: {
+        #                     'date': sv2_date1,
+        #                     'value': sv2_value3,
+        #                     'metaHash': 2
+        #                 },
+        #             }
+        #         },
+        #         "Count_Person": {
+        #             'stat': {
+        #                 geo1: {
+        #                     'date': sv2_date1,
+        #                     'value': count_person_value1,
+        #                     'metaHash': 2
+        #                 },
+        #                 geo2: {
+        #                     'date': sv2_date2,
+        #                     'value': count_person_value1,
+        #                     'metaHash': 2
+        #                 },
+        #                 geo3: {
+        #                     'date': sv2_date1,
+        #                     'value': count_person_value2,
+        #                     'metaHash': 2
+        #                 }
+        #             }
+        #         }
+        #     },
+        #     'metadata': {
+        #         '1': {
+        #             'importName': 'importName1',
+        #             'provenanceUrl': source1
+        #         },
+        #         '2': {
+        #             'importName': 'importName2',
+        #             'provenanceUrl': source2
+        #         }
+        #     }
+        # }
+
+        def points_within_side_effect(*args):
             if args[0] == parent_dcid and args[1] == place_type and sorted(
                     args[2]) == sorted([sv1, sv2, "Count_Person"]):
-                return stats_within_place
+                return points_within
             else:
                 return {}
 
-        mock_stats_within_place.side_effect = stats_within_place_side_effect
+        mock_points_within.side_effect = points_within_side_effect
 
         response = app.test_client().get('/api/place/ranking_chart/' +
                                          test_dcid)
