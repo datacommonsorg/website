@@ -191,6 +191,10 @@ const ERROR_POINT_POSITION_Y2 = 30;
 const ERROR_POINT_POSITION_Y3 = 50;
 
 
+// interaction graph offset
+const INTERACTION_GRAPH_X_OFFSET = -150
+const INTERACTION_GRAPH_Y_OFFSET = -25
+
 // style of node representations in interaction graph viz's
 const NODE_STYLE = {
   circles: {
@@ -588,10 +592,15 @@ export function drawProteinInteractionGraph(
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
 
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
+
   const {nodeData, linkData} = getProteinInteractionGraphData(data);
   
-  const height = 400 - MARGIN.top - MARGIN.bottom;
-  const width = 700 - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
 
   const svg = d3
     .select(`#${elementID}`)
@@ -600,7 +609,7 @@ export function drawProteinInteractionGraph(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
     .append("g")
-    .attr("transform", `translate(${MARGIN.left - 150}, ${MARGIN.top - 25})`)
+    .attr("transform", `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${MARGIN.top + INTERACTION_GRAPH_Y_OFFSET})`)
     .attr("style", "max-width: 100%; height: auto; height: intrinsic");
 
   const nodeIDs = nodeData.map((node) => node.id);
