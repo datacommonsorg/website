@@ -506,14 +506,14 @@ export function drawProteinInteractionGraph(
   Format post-processing:
 
     nodes = [
-      { id: 1, name: "MECOM", species: "Human", depth: 0 },
-      { id: 2, name: "CtBP1", species: "Human", depth: 1 },
-      { id: 3, name: "SUPT16H", species: "Human", depth: 1 }
+      { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
+      { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
+      { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 }
     ]
 
     links = [
-      { source: 1, target: 2, score: 0.3 },
-      { source: 1, target: 3, score: 0.7 }
+      { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
+      { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 }
     ]
   */
 
