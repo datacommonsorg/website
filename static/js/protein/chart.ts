@@ -23,9 +23,9 @@ import {
 } from "d3";
 import _ from "lodash";
 
+import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
-import { getProteinInteractionGraphData } from "./data_processing_utils";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
   name: string;
@@ -58,9 +58,9 @@ export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
   score: number;
 }
 
-export interface InteractionGraphData{
-  nodeData: ProteinNode[],
-  linkData: InteractionLink[]
+export interface InteractionGraphData {
+  nodeData: ProteinNode[];
+  linkData: InteractionLink[];
 }
 
 // interface for variant gene associations for plotting error bars
@@ -78,7 +78,7 @@ const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
 // tooltip constant for all charts
-const BRIGHTEN_PERCENTAGE = "105%"
+const BRIGHTEN_PERCENTAGE = "105%";
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // length of side bar for error plot for variant-gene associations
 const ERROR_SIDE_BAR_LENGTH = 5;
@@ -190,10 +190,9 @@ const ERROR_POINT_POSITION_Y1 = 10;
 const ERROR_POINT_POSITION_Y2 = 30;
 const ERROR_POINT_POSITION_Y3 = 50;
 
-
 // interaction graph offset
-const INTERACTION_GRAPH_X_OFFSET = -150
-const INTERACTION_GRAPH_Y_OFFSET = -25
+const INTERACTION_GRAPH_X_OFFSET = -150;
+const INTERACTION_GRAPH_Y_OFFSET = -25;
 
 // style of node representations in interaction graph viz's
 const NODE_STYLE = {
@@ -212,11 +211,11 @@ const LINK_STYLE = {
 
 // https://stackoverflow.com/a/69610045
 function brighten(): void {
-  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`)
+  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
 }
 
 function unbrighten(): void {
-  d3.select(this).style("filter", "brightness(100%)")
+  d3.select(this).style("filter", "brightness(100%)");
 }
 
 /**
@@ -259,7 +258,15 @@ function addXLabel(
     .text(labelText);
 }
 
-function interactionGraphTicked(links: d3.Selection<d3.BaseType | SVGLineElement, InteractionLink, SVGGElement, unknown>, nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>): void {
+function interactionGraphTicked(
+  links: d3.Selection<
+    d3.BaseType | SVGLineElement,
+    InteractionLink,
+    SVGGElement,
+    unknown
+  >,
+  nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>
+): void {
   // update node and link positions
 
   // type assertions needed because x,y info added after initialization
@@ -581,8 +588,8 @@ export function drawProteinInteractionGraph(
     return;
   }
 
-  const {nodeData, linkData} = getProteinInteractionGraphData(data);
-  
+  const { nodeData, linkData } = getProteinInteractionGraphData(data);
+
   const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
 
@@ -593,7 +600,12 @@ export function drawProteinInteractionGraph(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
     .append("g")
-    .attr("transform", `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${MARGIN.top + INTERACTION_GRAPH_Y_OFFSET})`);
+    .attr(
+      "transform",
+      `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${
+        MARGIN.top + INTERACTION_GRAPH_Y_OFFSET
+      })`
+    );
 
   const nodeIDs = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
@@ -645,7 +657,6 @@ export function drawProteinInteractionGraph(
     .append("text")
     .text(({ name }) => `${name}`)
     .attr("class", "protein-node-label");
-
 }
 
 /**

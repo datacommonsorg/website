@@ -1,7 +1,12 @@
 import _ from "lodash";
 
 import { GraphNodes } from "../shared/types";
-import { InteractionGraphData, InteractionLink, ProteinNode, ProteinStrData } from "./chart";
+import {
+  InteractionGraphData,
+  InteractionLink,
+  ProteinNode,
+  ProteinStrData,
+} from "./chart";
 import { ProteinNumData } from "./chart";
 import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
@@ -164,7 +169,10 @@ export function getProteinInteraction(
   return [];
 }
 
-export function nodeFromID(protein_speciesID: string, depth: number): ProteinNode {
+export function nodeFromID(
+  protein_speciesID: string,
+  depth: number
+): ProteinNode {
   const lastIndex = protein_speciesID.lastIndexOf("_"); // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN. Assumes {species} does not contain _ (true as of 06/22/22).
   return {
     depth,
@@ -174,8 +182,9 @@ export function nodeFromID(protein_speciesID: string, depth: number): ProteinNod
   };
 }
 
-export function getProteinInteractionGraphData(data: InteractingProteinType[]): InteractionGraphData {
-
+export function getProteinInteractionGraphData(
+  data: InteractingProteinType[]
+): InteractionGraphData {
   /*
     return data of the following format:
       {
@@ -193,7 +202,6 @@ export function getProteinInteractionGraphData(data: InteractingProteinType[]): 
 
       }
   */
-
 
   // P53_HUMAN is central protein in below examples.
   // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
