@@ -615,8 +615,6 @@ export function drawProteinInteractionGraph(
   const nodeIDs = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_STYLE.circles.fillColors);
-  console.log('colors', nodeColors)
-  console.log('linkcolor', LINK_STYLE.stroke.color, d3.rgb(LINK_STYLE.stroke.color).toString())
 
   // force display layout
   const forceNode = d3.forceManyBody();
