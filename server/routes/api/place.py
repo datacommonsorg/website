@@ -819,7 +819,6 @@ def api_ranking_chart(dcid):
             return Response(json.dumps(result),
                             200,
                             mimetype='application/json')
-
     configs = get_ranking_chart_configs()
     # Get the first stat var of each config.
     stat_vars, _ = shared_api.get_stat_vars(configs)
@@ -832,7 +831,6 @@ def api_ranking_chart(dcid):
     sv_facets = points_response_best.get("facets")
     if not points_response_best or not sv_data:
         return Response(json.dumps(result), 200, mimetype='application/json')
-    print(12345, sv_data)
     # Build a dict to map stat vars to dicts mapping place dcids to their data.
     sv_to_data_points = {}
     for sv_observation in sv_data:
