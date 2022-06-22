@@ -25,7 +25,7 @@ import _ from "lodash";
 
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
-import { nodeFromID, getProteinInteractionGraphData } from "./data_processing_utils";
+import { getProteinInteractionGraphData } from "./data_processing_utils";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
   name: string;
@@ -38,11 +38,10 @@ export interface ProteinStrData {
   value: string;
 }
 
-// types and interfaces for protein-protein interaction chart
-type NodeID = string | number;
+// interfaces for protein-protein interaction chart
 
 export interface Node {
-  id: NodeID;
+  id: string;
   name: string;
   value?: number;
 }
@@ -225,7 +224,7 @@ const LINK_STYLE = {
 
 // https://stackoverflow.com/a/69610045
 function brighten(): void {
-  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE}})`)
+  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`)
 }
 
 function unbrighten(): void {
@@ -270,6 +269,44 @@ function addXLabel(
       "translate(" + width / 2 + " ," + (height + MARGIN.top + 50) + ")"
     )
     .text(labelText);
+}
+
+function interactionGraphTicked(links: d3.Selection<d3.BaseType | SVGLineElement, InteractionLink, SVGGElement, unknown>, nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>): void {
+  // update node and link positions
+
+  // type assertions needed because x,y info added after initialization
+  // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
+  links
+    .attr(
+      "x1",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.source as SimulationNodeDatum).x
+    )
+    .attr(
+      "y1",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.source as SimulationNodeDatum).y
+    )
+    .attr(
+      "x2",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.target as SimulationNodeDatum).x
+    )
+    .attr(
+      "y2",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.target as SimulationNodeDatum).y
+    );
+
+  // same here
+  // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
+  nodes.attr(
+    "transform",
+    (nodeSimulationDatum) =>
+      `translate(${(nodeSimulationDatum as SimulationNodeDatum).x}, ${
+        (nodeSimulationDatum as SimulationNodeDatum).y
+      })`
+  );
 }
 
 /**
@@ -550,7 +587,7 @@ export function drawProteinInteractionGraph(
     .force("link", forceLink)
     .force("charge", forceNode)
     .force("center", d3.forceCenter())
-    .on("tick", ticked);
+    .on("tick", () => interactionGraphTicked(links, nodes));
 
   const links = svg // links first so nodes appear over links
     .append("g")
@@ -573,7 +610,7 @@ export function drawProteinInteractionGraph(
     .data(nodeData)
     .enter()
     .append("g")
-    .call(drag(simulation))
+    .call(dragNode(simulation))
     .on("mouseover", brighten)
     .on("mouseleave", unbrighten);
 
@@ -596,54 +633,7 @@ export function drawProteinInteractionGraph(
     )
     .text(({ name }) => `${name}`);
 
-  // floating name labels we can switch in
-  // const labels = nodes
-  //   .append("text")
-  //   .attr("fill", "#555")
-  //   .attr("dx", 15)
-  //   .attr("dy", -15)
-  //   .text(({name}) => `${name}`)
-  //   .style("font", `8px public sans`)
-
-  function ticked(): void {
-    // update node and link positions
-
-    // type assertions needed because x,y info added after initialization
-    // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
-    links
-      .attr(
-        "x1",
-        (linkSimulationDatum) =>
-          (linkSimulationDatum.source as SimulationNodeDatum).x
-      )
-      .attr(
-        "y1",
-        (linkSimulationDatum) =>
-          (linkSimulationDatum.source as SimulationNodeDatum).y
-      )
-      .attr(
-        "x2",
-        (linkSimulationDatum) =>
-          (linkSimulationDatum.target as SimulationNodeDatum).x
-      )
-      .attr(
-        "y2",
-        (linkSimulationDatum) =>
-          (linkSimulationDatum.target as SimulationNodeDatum).y
-      );
-
-    // same here
-    // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
-    nodes.attr(
-      "transform",
-      (nodeSimulationDatum) =>
-        `translate(${(nodeSimulationDatum as SimulationNodeDatum).x}, ${
-          (nodeSimulationDatum as SimulationNodeDatum).y
-        })`
-    );
-  }
-
-  function drag(
+  function dragNode(
     simulation: Simulation<ProteinNode, InteractionLink>
   ): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
     // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
