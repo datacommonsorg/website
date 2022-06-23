@@ -350,7 +350,7 @@ export function drawProteinInteractionChart(
     return d;
   }
   //Extracts protein specie name
-  function extractSpecieName(d:string) {
+  function extractSpecieName(d: string) {
     d = d.replace(parentProtein, "");
     d = d.replace(/_+$/, "");
     d = d.replace(/^[_]+/, "");
@@ -368,7 +368,7 @@ export function drawProteinInteractionChart(
     return {
       name: formatProteinName(item.name),
       value: item.value,
-      parent: extractSpecieName(item.name)
+      parent: extractSpecieName(item.name),
     };
   });
   const seen = new Set();
@@ -442,10 +442,10 @@ export function drawProteinInteractionChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     //PROTEIN_REDIRECT
-    .on("click", function(d) {
+    .on("click", function (d) {
       const protein_url = "bio/" + d.name + "_" + d.parent;
       // `${PROTEIN_REDIRECT}#${protein_url}`
-      window.location.href = `${PROTEIN_REDIRECT}${protein_url}`
+      window.location.href = `${PROTEIN_REDIRECT}${protein_url}`;
       //window.location.href = "https://www.datacommons.org/browser/bio/" + d.parent;
     })
     .on("mouseover", mouseover)

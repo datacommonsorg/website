@@ -468,9 +468,7 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
-export function getProteinDescription(
-  data: GraphNodes
-): string {
+export function getProteinDescription(data: GraphNodes): string {
   let proteinDescription = null;
   if (!data) {
     return;
@@ -484,12 +482,11 @@ export function getProteinDescription(
       continue;
     }
     // check for null or non-existent property values
-    if(_.isEmpty(neighbour.nodes)) {
+    if (_.isEmpty(neighbour.nodes)) {
       continue;
     }
     proteinDescription = neighbour.nodes[0].value;
     console.log(proteinDescription);
     return proteinDescription;
-
   }
 }
