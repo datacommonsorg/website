@@ -25,7 +25,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   PlacePointStat,
   StatApiResponse,
@@ -79,17 +79,17 @@ export function ChartLoader(): JSX.Element {
     return <></>;
   }
 
-  const xSourceSelectorSvInfo = getSourceSelectorSvInfo(
+  const xFacetInfo = getFacetInfo(
     xVal,
     cache.allStatVarsData,
     cache.metadataMap
   );
-  const ySourceSelectorSvInfo = getSourceSelectorSvInfo(
+  const yFacetInfo = getFacetInfo(
     yVal,
     cache.allStatVarsData,
     cache.metadataMap
   );
-  const onSvMetahashUpdated = (update) => {
+  const onSvFacetIdUpdated = (update) => {
     for (const sv of Object.keys(update)) {
       if (x.value.statVarDcid === sv) {
         x.setMetahash(update[sv]);
@@ -122,11 +122,12 @@ export function ChartLoader(): JSX.Element {
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
-                sourceSelectorSvInfo={[
-                  xSourceSelectorSvInfo,
-                  ySourceSelectorSvInfo,
-                ]}
-                onSvMetahashUpdated={onSvMetahashUpdated}
+                svFacetId={{
+                  [x.value.statVarDcid]: x.value.metahash,
+                  [y.value.statVarDcid]: y.value.metahash,
+                }}
+                facetList={[xFacetInfo, yFacetInfo]}
+                onSvFacetIdUpdated={onSvFacetIdUpdated}
               />
             </>
           )}
@@ -338,11 +339,11 @@ function getChartData(
   return { points, sources, xUnits, yUnits };
 }
 
-function getSourceSelectorSvInfo(
+function getFacetInfo(
   axis: Axis,
   allStatVarsData: Record<string, Record<string, PlacePointStat>>,
   metadataMap: Record<string, StatMetadata>
-): SourceSelectorSvInfo {
+): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   const metahashList = allStatVarsData[axis.statVarDcid]
     ? Object.keys(allStatVarsData[axis.statVarDcid])
@@ -355,7 +356,6 @@ function getSourceSelectorSvInfo(
   return {
     dcid: axis.statVarDcid,
     metadataMap: filteredMetadataMap,
-    metahash: axis.metahash,
     name: axis.statVarInfo.title || axis.statVarDcid,
   };
 }
