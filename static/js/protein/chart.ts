@@ -443,10 +443,8 @@ export function drawProteinInteractionChart(
     .style("fill", BAR_COLOR)
     //PROTEIN_REDIRECT
     .on("click", function (d) {
-      const protein_url = "bio/" + d.name + "_" + d.parent;
-      // `${PROTEIN_REDIRECT}#${protein_url}`
-      window.location.href = `${PROTEIN_REDIRECT}${protein_url}`;
-      //window.location.href = "https://www.datacommons.org/browser/bio/" + d.parent;
+      const proteinId = "bio/" + d.name + "_" + d.parent;
+      window.location.href = `${PROTEIN_REDIRECT}${proteinId}`;
     })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 510))
