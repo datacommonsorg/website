@@ -37,6 +37,7 @@ import {
   getVarGeneAssoc,
   getVarSigAssoc,
   getVarTypeAssoc,
+  getProteinDescription,
 } from "./data_processing_utils";
 
 interface PagePropType {
@@ -104,9 +105,11 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     Using the split we get the ProteinName and SpeciesName separately
     */
     const splitNodeName = this.props.nodeName.split("_");
+    const proteinDescription = getProteinDescription(this.state.data);
     return (
       <>
         <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
+        <p><b>Description: </b>{proteinDescription}</p>
         <h5>Protein Tissue Association</h5>
         <p>
           {splitNodeName[0]} expression level (none, low, medium, or high)
@@ -162,7 +165,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       </>
     );
   }
-
+  
   private fetchData(): void {
     axios.get("/api/protein/" + this.props.dcid).then((resp) => {
       this.setState({
@@ -170,4 +173,5 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       });
     });
   }
+  
 }
