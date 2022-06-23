@@ -141,7 +141,7 @@ export interface MapPoint {
   latitude: number;
   longitude: number;
 }
-
+// RankingChartDataGroup represents the rankings of several places based on a specific stat var. It is used for the ranking chart.
 export interface RankingChartDataGroup {
   date: string;
   data: {
@@ -153,6 +153,7 @@ export interface RankingChartDataGroup {
   numDataPoints: number;
   exploreUrl: string;
   sources: string[];
+  // Optional for storing the processed rankingData
   rankingData?: { lowest: Point[]; highest: Point[] };
 }
 
