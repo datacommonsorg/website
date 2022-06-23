@@ -32,6 +32,7 @@ import { drawChemGeneAssocChart } from "./chart";
 import {
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
+  getProteinDescription,
   getProteinInteraction,
   getTissueScore,
   getVarGeneAssoc,
@@ -104,9 +105,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     Using the split we get the ProteinName and SpeciesName separately
     */
     const splitNodeName = this.props.nodeName.split("_");
+    const proteinDescription = getProteinDescription(this.state.data);
     return (
       <>
         <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
+        <p>
+          <b>Description: </b>
+          {proteinDescription}
+        </p>
         <h5>Protein Tissue Association</h5>
         <p>
           {splitNodeName[0]} expression level (none, low, medium, or high)
