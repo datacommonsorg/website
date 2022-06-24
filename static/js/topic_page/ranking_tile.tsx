@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { GetStatSetResponse } from "../shared/stat_types";
@@ -141,7 +142,7 @@ function fetchData(
             placeDcid: place,
             value: statData[item.statVar].stat[place].value,
           };
-          if (typeof rankingPoint.value === "undefined") {
+          if (_.isUndefined(rankingPoint.value)) {
             console.log(`Skipping ${place}, missing ${item.statVar}`);
             continue;
           }
