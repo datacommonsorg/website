@@ -169,11 +169,15 @@ export function getProteinInteraction(
   return [];
 }
 
+/**
+ * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
+ */
 function nodeFromID(
   protein_speciesID: string,
   depth: number
 ): ProteinNode {
-  const lastIndex = protein_speciesID.lastIndexOf("_"); // protein_speciesID: id of form {protein}_{species}, e.g. P53_HUMAN. Assumes {species} does not contain _ (true as of 06/22/22).
+  // assumes {species} does not contain _ (true as of 06/22/22)
+  const lastIndex = protein_speciesID.lastIndexOf("_"); 
   return {
     depth,
     id: protein_speciesID,
@@ -182,11 +186,9 @@ function nodeFromID(
   };
 }
 
-export function getProteinInteractionGraphData(
-  data: InteractingProteinType[]
-): InteractionGraphData {
-  /*
-    return data of the following format:
+/**
+ * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
+ * 
       {
 
         nodeData : [
@@ -200,8 +202,16 @@ export function getProteinInteractionGraphData(
           { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
         ],
 
-      }
-  */
+      }.
+ */
+export function getProteinInteractionGraphData(
+  data: InteractingProteinType[]
+): InteractionGraphData {
+
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
 
   // P53_HUMAN is central protein in below examples.
   // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
@@ -210,9 +220,11 @@ export function getProteinInteractionGraphData(
     // value is confidenceScore
     let neighbor = "";
     if (name.includes(`_${centerNodeID}`)) {
-      neighbor = name.replace(`_${centerNodeID}`, ""); // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
+      // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
+      neighbor = name.replace(`_${centerNodeID}`, ""); 
     } else if (name.includes(`${centerNodeID}_`)) {
-      neighbor = name.replace(`${centerNodeID}_`, ""); // same here
+      // same here
+      neighbor = name.replace(`${centerNodeID}_`, "");
     }
     const nodeDatum = nodeFromID(neighbor, 1);
     nodeDatum["value"] = value;
@@ -227,8 +239,10 @@ export function getProteinInteractionGraphData(
     return !duplicate && node.id !== centerNodeID;
   });
 
-  nodeData.sort((n1, n2) => n2.value - n1.value); // descending order of interaction confidenceScore
-  nodeData = nodeData.slice(0, MAX_INTERACTIONS); // consider only top 10 interactions to avoid clutter
+  // descending order of interaction confidenceScore
+  nodeData.sort((n1, n2) => n2.value - n1.value); 
+  // consider only top 10 interactions to avoid clutter
+  nodeData = nodeData.slice(0, MAX_INTERACTIONS); 
 
   const centerDatum = nodeFromID(centerNodeID, 0);
   nodeData.push(centerDatum);

@@ -195,11 +195,7 @@ const INTERACTION_GRAPH_X_OFFSET = -150;
 const INTERACTION_GRAPH_Y_OFFSET = -25;
 
 // style of node representations in interaction graph viz's
-const NODE_STYLE = {
-  circles: {
-    fillColors: ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"],
-  },
-};
+const NODE_FILL_COLORS = ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"];
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
@@ -260,6 +256,9 @@ function addXLabel(
     .text(labelText);
 }
 
+/**
+ * Given link and node d3 Selections, update their x,y positions according to their associated data.
+ */
 function interactionGraphTicked(
   links: d3.Selection<
     d3.BaseType | SVGLineElement,
@@ -269,7 +268,6 @@ function interactionGraphTicked(
   >,
   nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>
 ): void {
-  // update node and link positions
 
   // type assertions needed because x,y info added after initialization
   // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
@@ -306,10 +304,12 @@ function interactionGraphTicked(
   );
 }
 
+/**
+ * Given a d3 Simulation, return handler for dragging a node in an interaction graph.
+ */
 function dragNode(
   simulation: Simulation<ProteinNode, InteractionLink>
 ): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
-  // return handler for dragging a node in an interaction graph
   // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
   function dragstarted(nodeDatum: ProteinNode): void {
@@ -575,6 +575,9 @@ export function drawProteinInteractionChart(
     .on("mouseout", () => mouseout());
 }
 
+/**
+ * Draws graph visualization of a neighborhood of the protein-protein interaction network centered at the page protein.
+ */
 export function drawProteinInteractionGraph(
   elementID: string,
   data: InteractingProteinType[]
@@ -584,11 +587,6 @@ export function drawProteinInteractionGraph(
     1) Force-directed layout Observable: https://observablehq.com/@d3/force-directed-graph
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
-
-  // checks if the data is empty or not
-  if (_.isEmpty(data)) {
-    return;
-  }
 
   const { nodeData, linkData } = getProteinInteractionGraphData(data);
 
@@ -611,13 +609,13 @@ export function drawProteinInteractionGraph(
 
   const nodeIDs = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
-  const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_STYLE.circles.fillColors);
+  const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
 
   // force display layout
   const forceNode = d3.forceManyBody();
   const forceLink = d3
     .forceLink(linkData)
-    .id(({ index }) => `${nodeIDs[index]}`);
+    .id(({ index }) => nodeIDs[index]);
   forceLink.distance(LINK_STYLE.length);
 
   const simulation = d3
@@ -627,7 +625,8 @@ export function drawProteinInteractionGraph(
     .force("center", d3.forceCenter())
     .on("tick", () => interactionGraphTicked(links, nodes));
 
-  const links = svg // links first so nodes appear over links
+  // links first so nodes appear over links
+  const links = svg 
     .append("g")
     .selectAll("line")
     .data(linkData)
@@ -640,7 +639,8 @@ export function drawProteinInteractionGraph(
     .on("mouseover", brighten)
     .on("mouseleave", unbrighten);
 
-  const nodes = svg // container for circles and labels
+  // container for circles and labels
+  const nodes = svg 
     .append("g")
     .selectAll("g")
     .data(nodeData)
@@ -657,7 +657,7 @@ export function drawProteinInteractionGraph(
 
   const nodeLabels = nodes
     .append("text")
-    .text(({ name }) => `${name}`)
+    .text(({ name }) => name)
     .attr("class", "protein-node-label");
 }
 
