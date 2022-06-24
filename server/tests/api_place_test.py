@@ -725,10 +725,9 @@ class TestApiRankingChart(unittest.TestCase):
         mock_place_type.side_effect = place_type_side_effect
 
         def name_side_effect(*args):
-            if sorted(args[0]) == sorted([geo1, geo2, geo3]):
+            if sorted(args[0]) == sorted([geo1, geo3]):
                 return {
                     geo1: place_name1,
-                    geo2: place_name2,
                     geo3: place_name3,
                 }
             else:
@@ -947,8 +946,8 @@ class TestApiRankingChart(unittest.TestCase):
         mock_configs.return_value = [config1, config2]
 
         def name_side_effect(*args):
-            if sorted(args[0]) == sorted([geo1, geo2, geo3]):
-                return {geo1: place_name1, geo2: place_name2, geo3: place_name3}
+            if sorted(args[0]) == sorted([geo1, geo2]):
+                return {geo1: place_name1, geo2: place_name2}
             else:
                 return {}
 

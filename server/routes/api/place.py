@@ -819,14 +819,15 @@ def api_ranking_chart(dcid):
             return Response(json.dumps(result),
                             200,
                             mimetype='application/json')
-    # Read configs and build a dic to map stat vars to dicts of unit and scaling.
+    # Read configs and build a dict to map stat vars to dicts of unit and scaling.
     # Consider the configs with single sv but ignore denominators.
     configs = get_ranking_chart_configs()
     config_sv_to_info = {}
     for config in configs:
         stat_vars = config.get("statsVars")
-        if stat_vars:
-            sv = stat_vars[0]
+        if not stat_vars:
+            continue
+        sv = stat_vars[0]
         info = {"scaling": config.get("scaling"), "unit": config.get("unit")}
         config_sv_to_info[sv] = info
     # Get the first stat var of each config.
@@ -840,14 +841,6 @@ def api_ranking_chart(dcid):
     sv_facets = points_response_best.get("facets")
     if not points_response_best or not sv_data:
         return Response(json.dumps(result), 200, mimetype='application/json')
-    # Get all the place names of dcids in sv_data.
-    place_dcids = set()
-    for sv_data_points in sv_data:
-        for place_data in sv_data_points.get("observationsByEntity", []):
-            place_dcid = place_data.get("entity")
-            if place_dcid:
-                place_dcids.add(place_dcid)
-    place_names = get_i18n_name(list(place_dcids))
     # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
     places_to_rank = set()
     for sv_data_points in sv_data:
@@ -860,6 +853,8 @@ def api_ranking_chart(dcid):
                 value = place_data_points[0].get("value", 0)
                 if value > PERSON_COUNT_LIMIT:
                     places_to_rank.add(place_dcid)
+    # Get all the place names
+    place_names = get_i18n_name(list(places_to_rank))
     # Loop through sv_data to build the result data.
     for sv_data_points in sv_data:
         sv = sv_data_points.get("variable")
