@@ -572,7 +572,7 @@ export function drawProteinInteractionChart(
       window.location.href = `${PROTEIN_REDIRECT}${proteinId}`;
     })
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 510))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 650))
     .on("mouseout", () => mouseout());
 }
 
@@ -667,7 +667,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1100))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1050))
     .on("mouseout", () => mouseout());
 }
 
@@ -783,7 +783,7 @@ export function drawVarGeneAssocChart(
     .attr("r", "6")
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1620))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1500))
     .on("mouseout", () => mouseout());
   svg
     .selectAll("error-bar-left-line")
@@ -953,7 +953,7 @@ export function drawVarTypeAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2150))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2000))
     .on("mouseout", () => mouseout());
 }
 /**
@@ -1036,7 +1036,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2760))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2600))
     .on("mouseout", () => mouseout());
 }
 /**
