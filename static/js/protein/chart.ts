@@ -678,7 +678,7 @@ export function drawProteinInteractionGraph(
     .attr("fill", (node) => nodeColors(node.depth));
 
   // node labels
-  const nodeLabels = nodes
+  nodes
     .append("text")
     .text(({ name }) => name)
     .attr("class", "protein-node-label");
