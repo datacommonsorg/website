@@ -460,7 +460,6 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             id={id}
             dcid={this.props.dcid}
             chartType={chartTypeEnum.RANKING}
-            // Todo: support i18n message.
             title={intl.formatMessage(
               {
                 defaultMessage: "{variable}: rankings in {placeName}",
