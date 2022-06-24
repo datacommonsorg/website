@@ -22,14 +22,16 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../shared/types";
-import { drawTissueScoreChart } from "./chart";
-import { drawProteinInteractionChart } from "./chart";
-import { drawProteinInteractionGraph } from "./chart";
-import { drawDiseaseGeneAssocChart } from "./chart";
-import { drawVarGeneAssocChart } from "./chart";
-import { drawVarTypeAssocChart } from "./chart";
-import { drawVarSigAssocChart } from "./chart";
-import { drawChemGeneAssocChart } from "./chart";
+import {
+  drawChemGeneAssocChart,
+  drawDiseaseGeneAssocChart,
+  drawProteinInteractionChart,
+  drawProteinInteractionGraph,
+  drawTissueScoreChart,
+  drawVarGeneAssocChart,
+  drawVarSigAssocChart,
+  drawVarTypeAssocChart,
+} from "./chart";
 import {
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,

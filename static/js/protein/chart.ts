@@ -639,13 +639,6 @@ export function drawProteinInteractionGraph(
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
   forceLink.distance(LINK_STYLE.length);
 
-  const simulation = d3
-    .forceSimulation(nodeData)
-    .force("link", forceLink)
-    .force("charge", forceNode)
-    .force("center", d3.forceCenter())
-    .on("tick", () => interactionGraphTicked(links, nodes));
-
   // links first so nodes appear over links
   const links = svg
     .append("g")
@@ -660,6 +653,13 @@ export function drawProteinInteractionGraph(
     .on("mouseover", brighten)
     .on("mouseleave", unbrighten);
 
+  const simulation = d3
+    .forceSimulation(nodeData)
+    .force("link", forceLink)
+    .force("charge", forceNode)
+    .force("center", d3.forceCenter())
+    .on("tick", () => interactionGraphTicked(links, nodes));
+
   // container for circles and labels
   const nodes = svg
     .append("g")
@@ -671,11 +671,13 @@ export function drawProteinInteractionGraph(
     .on("mouseover", brighten)
     .on("mouseleave", unbrighten);
 
-  const nodeCircles = nodes
+  // node circles
+  nodes
     .append("circle")
     .attr("class", "protein-node-circle")
     .attr("fill", (node) => nodeColors(node.depth));
 
+  // node labels
   const nodeLabels = nodes
     .append("text")
     .text(({ name }) => name)

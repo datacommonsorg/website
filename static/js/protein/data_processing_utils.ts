@@ -172,14 +172,14 @@ export function getProteinInteraction(
 /**
  * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
-function nodeFromID(protein_speciesID: string, depth: number): ProteinNode {
+function nodeFromID(proteinSpeciesID: string, depth: number): ProteinNode {
   // assumes {species} does not contain _ (true as of 06/22/22)
-  const lastIndex = protein_speciesID.lastIndexOf("_");
+  const lastIndex = proteinSpeciesID.lastIndexOf("_");
   return {
     depth,
-    id: protein_speciesID,
-    name: protein_speciesID.slice(0, lastIndex),
-    species: protein_speciesID.slice(lastIndex + 1),
+    id: proteinSpeciesID,
+    name: proteinSpeciesID.slice(0, lastIndex),
+    species: proteinSpeciesID.slice(lastIndex + 1),
   };
 }
 
