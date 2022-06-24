@@ -20,6 +20,7 @@ import { defineMessages } from "react-intl";
 
 import {
   CachedChoroplethData,
+  CachedRankingChartData,
   ChartBlockData,
   chartTypeEnum,
   GeoJsonData,
@@ -78,6 +79,10 @@ interface ChartBlockPropType {
    * The topic of the page the chart block is in
    */
   category: string;
+  /**
+   * Promise for ranking chart data for current dcid.
+   */
+  rankingChartData: Promise<CachedRankingChartData>;
   /**
    * The locale of the page
    */
@@ -441,6 +446,41 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             choroplethData={this.props.choroplethData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.props.dcid}${rankingArg}`}
             {...sharedProps}
+          ></Chart>
+        );
+      }
+      if (this.props.data.isRankingChart) {
+        const parentPlaceName: string = this.parentPlaceDcid
+          ? this.props.names[this.parentPlaceDcid].split(",")[0]
+          : "";
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            dcid={this.props.dcid}
+            chartType={chartTypeEnum.RANKING}
+            title={intl.formatMessage(
+              {
+                defaultMessage: "{variable}: rankings in {placeName}",
+                description:
+                  "Used for chart titles like '{Unemployment rate}: rankings in {USA}'.",
+                id: "chart_clause-rankings_in_place",
+              },
+              {
+                placeName: isEarth ? this.displayPlaceName : parentPlaceName,
+                variable: this.displayDataTitle,
+              }
+            )}
+            rankingChartData={this.props.rankingChartData}
+            rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
+            // Ranking chart ignores the related chart config for now.
+            unit={this.props.data.unit}
+            names={this.props.names}
+            scaling={this.props.data.scaling}
+            statsVars={this.props.data.statsVars}
+            category={this.props.category}
+            isUsaPlace={this.props.isUsaPlace}
           ></Chart>
         );
       }
