@@ -44,6 +44,10 @@ const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 const PROTEIN_REDIRECT = "/bio/protein/";
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
+// bar width for tissue
+const TISSUE_BAR_WIDTH = 12;
+// bar width for the rest of the graphs
+const BAR_WIDTH = 35;
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
 // tooltip constant for all charts
@@ -68,13 +72,13 @@ const TISSUE_VAL_TO_SCORE = {
 };
 // color dictionary for tissue score
 const TISSUE_COLOR_DICT = {
-  AdiposeTissue: "khaki",
-  AdrenalGland: "bisque",
-  Appendix: "peru",
-  BoneMarrow: "lightyellow",
+  AdiposeTissue: "Sienna",
+  AdrenalGland: "sandybrown",
+  Appendix: "maroon",
+  BoneMarrow: "khaki",
   Breast: "mistyrose",
   Bronchus: "tomato",
-  Cartilage: "seashell",
+  Cartilage: "linen",
   Caudate: "lightcoral",
   Cerebellum: "lightcoral",
   CerebralCortex: "lightcoral",
@@ -86,50 +90,68 @@ const TISSUE_COLOR_DICT = {
   Endometrium1: "mistyrose",
   Endometrium2: "mistyrose",
   Epididymis: "mistyrose",
-  Esophagus: "chocolate",
+  Esophagus: "maroon",
   Eye: "coral",
   FallopianTube: "mistyrose",
-  Gallbladder: "rosybrown",
-  Hair: "salmon",
+  Gallbladder: "darksalmon",
+  Hair: "peachpuff",
   HeartMuscle: "brown",
   Hippocampus: "lightcoral",
   Hypothalamus: "lightcoral",
-  Kidney: "bisque",
+  Kidney: "sandybrown",
   LactatingBreast: "mistyrose",
   Liver: "darksalmon",
   Lung: "tomato",
-  LymphNode: "indianred",
+  LymphNode: "khaki",
   Nasopharynx: "tomato",
-  OralMucosa: "darkorange",
+  OralMucosa: "peachpuff",
   Ovary: "mistyrose",
   Pancreas: "orangered",
-  ParathyroidGland: "snow",
+  ParathyroidGland: "bisque",
   PituitaryGland: "sienna",
   Placenta: "mistyrose",
   Prostate: "mistyrose",
   Rectum: "maroon",
   Retina: "coral",
-  SalivaryGland: "lightsalmon",
+  SalivaryGland: "maroon",
   SeminalVesicle: "mistyrose",
   SkeletalMuscle: "linen",
   Skin: "peachpuff",
   Skin1: "peachpuff",
   Skin2: "peachpuff",
-  SmallIntestine: "ivory",
-  SmoothMuscle: "red",
+  SmallIntestine: "maroon",
+  SmoothMuscle: "linen",
   SoftTissue1: "burlywood",
   SoftTissue2: "burlywood",
   SoleOfFoot: "peachpuff",
-  Spleen: "tan",
-  Stomach1: "darkred",
-  Stomach2: "darkred",
+  Spleen: "khaki",
+  Stomach1: "maroon",
+  Stomach2: "maroon",
   SubstantiaNiagra: "lightcoral",
   Testis: "mistyrose",
-  Thymus: "indianred",
-  ThyroidGland: "snow",
-  Tonsil: "saddlebrown",
+  Thymus: "khaki",
+  ThyroidGland: "bisque",
+  Tonsil: "khaki",
   UrinaryBladder: "sandybrown",
   Vagina: "mistyrose",
+};
+// color dictionary for tissue legend
+const TISSUE_LEGEND_DICT = {
+  Endocrine: "sienna",
+  Eye: "coral",
+  Reproductive: "mistyrose",
+  Lung: "tomato",
+  "Connective tissue": "linen",
+  Brain: "lightcoral",
+  "Gastrointestinal tract": "maroon",
+  "Liver and Gall Bladder": "darksalmon",
+  Heart: "brown",
+  Lymphoid: "khaki",
+  Pancreas: "orangered",
+  Thyroid: "bisque",
+  Skin: "peachpuff",
+  "Soft Tissue": "burlywood",
+  "Kidney and Urinary Bladder": "sandybrown",
 };
 // tissue specific colors
 const ERROR_BAR_VAR_COLOR = {
@@ -144,16 +166,16 @@ const NUM_DATA_POINTS = 10;
 // number to decide the ticks to be displayed
 const NUM_TICKS = 10;
 // graph specific dimensions
+const GRAPH_HEIGHT_XS = 130;
 const GRAPH_HEIGHT_S = 200;
 const GRAPH_HEIGHT_M = 400;
-const GRAPH_HEIGHT_L = 500;
 const GRAPH_WIDTH_S = 660;
 const GRAPH_WIDTH_M = 700;
 const GRAPH_WIDTH_L = 760;
-const GRAPH_WIDTH_XL = 860;
+const GRAPH_WIDTH_XL = 1050;
 // error point position
-const ERROR_POINT_POSITION_X1 = 450;
-const ERROR_POINT_POSITION_X2 = 470;
+const ERROR_POINT_POSITION_X1 = 500;
+const ERROR_POINT_POSITION_X2 = 550;
 const ERROR_POINT_POSITION_Y1 = 10;
 const ERROR_POINT_POSITION_Y2 = 30;
 const ERROR_POINT_POSITION_Y3 = 50;
@@ -193,14 +215,13 @@ function addXLabel(
     .append("text")
     .attr(
       "transform",
-      "translate(" + width / 2 + " ," + (height + MARGIN.top + 50) + ")"
+      "translate(" + width / 2 + " ," + (height + MARGIN.top + 40) + ")"
     )
     .text(labelText);
 }
 
 /**
  * Adds the y label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
- * @param width
  * @param height
  * @param labelText
  * @param svg
@@ -217,6 +238,76 @@ function addYLabel(
     .attr("x", 0 - height / 2)
     .attr("dy", "1em")
     .text(labelText);
+}
+
+export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
+  const svg = d3
+    .select("#tissue-score-legend")
+    .append("svg")
+    .attr("width", GRAPH_WIDTH_XL)
+    .attr("height", GRAPH_HEIGHT_XS);
+  const data0 = d3.keys(TISSUE_LEGEND_DICT);
+  // slicing the dictionary in half to display the legend in two rows
+  const data1 = data0.slice(0, 8);
+  const data2 = data0.slice(8, 15);
+  // creating circles for the first row in legend
+  svg
+    .selectAll("mydots1")
+    .data(data1)
+    .enter()
+    .append("circle")
+    .attr("cx", (d, i) => {
+      return NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+    })
+    .attr("cy", 50)
+    .attr("r", 7)
+    .style("fill", (d) => {
+      return TISSUE_LEGEND_DICT[d];
+    });
+  svg
+    .selectAll("legend-text1")
+    .data(data1)
+    .enter()
+    .append("text")
+    .attr("x", (d, i) => {
+      return 2 * NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+    })
+    .attr("y", 55)
+    .style("font-size", "10px")
+    .text((d) => {
+      return d;
+    });
+  // creating circles for the second row in legend
+  svg
+    .selectAll("mydots2")
+    .data(data2)
+    .enter()
+    .append("circle")
+    .attr("cx", (d, i) => {
+      return NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+    })
+    .attr("cy", 85)
+    .attr("r", 7)
+    .style("fill", (d) => {
+      return TISSUE_LEGEND_DICT[d];
+    });
+  svg
+    .selectAll("legend-text2")
+    .data(data2)
+    .enter()
+    .append("text")
+    .attr("x", (d, i) => {
+      return 2 * NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+    })
+    .attr("y", 90)
+    .style("font-size", "10px")
+    .text((d) => {
+      return d;
+    });
 }
 
 /**
@@ -257,10 +348,11 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
       }
     }
   });
-
-  // specifying graph specific dimensions
+  // finding length of the object array
+  const arrayLength = Object.keys(reformattedData).length;
+  // specifying graph specific dimensions - using number of data points
   const height = GRAPH_HEIGHT_S - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_XL - MARGIN.left - MARGIN.right;
+  const width = arrayLength * TISSUE_BAR_WIDTH - MARGIN.left - MARGIN.right;
 
   const svg = d3
     .select("#tissue-score-chart")
@@ -347,6 +439,10 @@ export function drawProteinInteractionChart(
     if (d === "") {
       d = parentProtein;
     }
+    // for the case when a blank entry is added for graph formatting
+    if (d.length === 1) {
+      d = "";
+    }
     return d;
   }
   //Extracts protein specie name
@@ -373,20 +469,45 @@ export function drawProteinInteractionChart(
   });
   const seen = new Set();
   //Removes duplicates from the data
-
   reformattedData = reformattedData.filter((entry) => {
     const duplicate = seen.has(entry.name);
     seen.add(entry.name);
     return !duplicate;
   });
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  //Finds the length of the object array
+  let arrayLength = Object.keys(reformattedData).length;
+  //Formats the graph as per number of entries
+  if (arrayLength < 10) {
+    let count = 0;
+    //If array length is less than 5, add additional elements to make total array length = 5
+    if (arrayLength < 5) {
+      count = 5 - arrayLength;
+    }
+    //If array length is less than 10, add additional elements to make total array length = 10
+    else {
+      count = 10 - arrayLength;
+    }
+    let i = 0;
+    while (i < count) {
+      reformattedData.push({ name: i.toString(), value: 0, parent: "" });
+      i = i + 1;
+    }
+  }
+  // update the array length
+  arrayLength = Object.keys(reformattedData).length;
+  let height = null;
+  if (arrayLength < 10) {
+    height = arrayLength * BAR_WIDTH - MARGIN.top;
+  } else {
+    height = NUM_DATA_POINTS * BAR_WIDTH - MARGIN.top - MARGIN.bottom;
+  }
+  //Decides the graph height as per the number of entities present in the array
   const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
   //Sorts the data in descending order
   reformattedData.sort((a, b) => {
     return b.value - a.value;
   });
   //Slices the array to display the first 10 protein interactions only
-
   if (reformattedData.length >= NUM_DATA_POINTS) {
     reformattedData = reformattedData.slice(0, NUM_DATA_POINTS);
   }
@@ -424,7 +545,11 @@ export function drawProteinInteractionChart(
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
   // Adds the x-axis text label
-  addXLabel(width, height, "Confidence Score (IntactMiScore)", svg);
+  if (arrayLength < 10) {
+    addXLabel(width, height, "Confidence Score (IntactMiScore)", svg);
+  } else {
+    addXLabel(width, height, "Confidence Score (IntactMiScore)", svg);
+  }
   // plots y-axis for the graph - protein-protein interaction score
   const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatProteinName)).raise();
@@ -465,8 +590,16 @@ export function drawDiseaseGeneAssocChart(
   if (_.isEmpty(data)) {
     return;
   }
+  //Finds the length of the object array
+  const arrayLength = Object.keys(data).length;
+  let height = null;
+  //Decides the graph height as per the number of entities present in the array
+  if (arrayLength > 10) {
+    height = 10 * BAR_WIDTH - MARGIN.top - MARGIN.bottom;
+  } else {
+    height = arrayLength * BAR_WIDTH - MARGIN.top - MARGIN.bottom;
+  }
   // chart specific margin to display full disease names
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   // Removes unnecessary quotes from disease names
   function formatDiseaseName(d: string) {
@@ -759,7 +892,9 @@ export function drawVarTypeAssocChart(
     }
     return d;
   }
-  const height = GRAPH_HEIGHT_L - MARGIN.top - MARGIN.bottom;
+  //Finds the length of the object array
+  const arrayLength = Object.keys(data).length;
+  const height = arrayLength * (BAR_WIDTH - 2) - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   //Sorts the data in descreasing order
   data.sort((a, b) => {
@@ -839,8 +974,9 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     d = d.substring(7);
     return d;
   }
-  // chart specific margin dimensions
-  const height = GRAPH_HEIGHT_L - MARGIN.top - MARGIN.bottom;
+  //Finds the length of the object array
+  const arrayLength = Object.keys(data).length;
+  const height = arrayLength * (BAR_WIDTH - 2) - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   // sorting the data in descreasing order
   data.sort((a, b) => {
@@ -923,7 +1059,9 @@ export function drawChemGeneAssocChart(
     d = d.substring(27);
     return d;
   }
-  const height = GRAPH_HEIGHT_S - MARGIN.top - MARGIN.bottom;
+  //Finds the length of the object array
+  const arrayLength = Object.keys(data).length;
+  const height = arrayLength * BAR_WIDTH - MARGIN.top;
   const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   const arrName = data.map((x) => {
     return x.name;
