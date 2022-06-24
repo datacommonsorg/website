@@ -29,7 +29,10 @@
 {% endblock %}
 
 {% block content %}
-<div id="main-pane"></div>
+<div id="main-pane">
+  <button id="download-link" class="btn btn-secondary" style="visibility: hidden">Download Data</button>
+  <a id="bulk-download-link" class="btn btn-secondary" href="javascript:void(0)" style="visibility: hidden">Bulk Download</a>
+</div>
 {% endblock %}
 
 {% block footer %}
@@ -42,4 +45,9 @@
 <button id="bq-link" class="btn-subfooter btn btn-primary" style="display: none">Get BigQuery SQL</button>
 <button id="download-link" class="btn-subfooter btn btn-primary" style="display: none">Download Data</button>
 <a id="bulk-download-link" href="javascript:void(0)" style="display: none">Bulk Download</a>
+{% endblock %}
+
+{% block subfooter_extra_iitm %}
+<a id="download-link" class="btn-sm btn-light text-decoration-none" style="display: none; cursor: pointer;">Download Data</a>
+<a id="bulk-download-link" class="btn-sm btn-light text-decoration-none" href="javascript:void(0)" style="display: none; visibility: hidden;"></a>
 {% endblock %}

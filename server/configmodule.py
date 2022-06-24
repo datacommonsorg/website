@@ -1,6 +1,5 @@
 """Module contains Flask config for production and dev environment.
 """
-
 # NOTE: update server/lib/config.py when adding/removing config.
 
 import os
@@ -75,8 +74,9 @@ class TidalConfig(PrivateConfig):
 
 
 class IitmConfig(Config):
-    IITM = True
-    NAME = "IITM"
+    # IITM = True
+    NAME = 'IITM'
+    GA_ACCOUNT = 'G-32HPL4K4Y1'
     ENV_NAME = 'IITM'
 
 
@@ -105,6 +105,7 @@ class LocalConfig(Config):
 
 class LocalIitmConfig(LocalConfig):
     IITM = True
+    ENV_NAME = 'IITM'
 
 
 class LocalPrivateConfig(PrivateConfig):

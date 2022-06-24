@@ -31,6 +31,11 @@ $dc-primary-color: #660000;
   --link-color: #{$dc-primary-color};
 }
 
+:root.iitm-india {
+  --dc-primary: #80296E;
+  --link-color: #80296E;
+}
+
 /** Bootstrap overrides **/
 $link-color: var(--link-color);
 $link-hover-color: $link-color;

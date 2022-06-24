@@ -23,7 +23,7 @@ import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";
-import { Info } from "./info";
+import { Info } from "./iitm_info";
 import {
   addToken,
   getTokensFromUrl,
