@@ -32,6 +32,7 @@ import { drawChemGeneAssocChart } from "./chart";
 import {
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
+  getProteinDescription,
   getProteinInteraction,
   getTissueScore,
   getVarGeneAssoc,
@@ -100,22 +101,69 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
 
   render(): JSX.Element {
+    /* this.props.nodeName is formatted as ProteinName_SpeciesName
+    Using the split we get the ProteinName and SpeciesName separately
+    */
+    const splitNodeName = this.props.nodeName.split("_");
+    const proteinDescription = getProteinDescription(this.state.data);
     return (
       <>
-        <h2>{this.props.nodeName}</h2>
-        <h6>Protein Tissue Association</h6>
+        <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
+        <p>
+          <b>Description: </b>
+          {proteinDescription}
+        </p>
+        <h5>Protein Tissue Association</h5>
+        <p>
+          {splitNodeName[0]} expression level (none, low, medium, or high)
+          detected in each tissue as reported by The Human Protein Atlas. The
+          color of the bar indicates the organ from which the tissue derives
+          (legend bottom panel).
+        </p>
         <div id="tissue-score-chart"></div>
-        <h6>Protein Protein Interaction</h6>
+        <h5>Protein Protein Interaction</h5>
+        <p>
+          The interaction score of {splitNodeName[0]} with other proteins as
+          reported by The Molecular INTeraction Database (MINT). The top 10
+          associations by interaction score are displayed.
+        </p>
         <div id="protein-confidence-score-chart"></div>
-        <h6>Disease Gene Association</h6>
+        <h5>Disease Gene Association</h5>
+        <p>
+          The association score of {splitNodeName[0]} with diseases as reported
+          by DISEASES by Jensen Lab. Associations were determined by text mining
+          of the literature. The top 10 associations by association score are
+          displayed.
+        </p>
         <div id="disease-gene-association-chart"></div>
-        <h6>Variant Gene Association</h6>
+        <h5>Variant Gene Association</h5>
+        <p>
+          Genetic variants that are associated with expression level of{" "}
+          {splitNodeName[0]} in a specific tissue in humans (legend top right
+          panel) as reported by the Genotype Expression (GTEx) project.
+        </p>
         <div id="variant-gene-association-chart"></div>
-        <h6>Variant Type Association</h6>
+        <h5>Variant Type Association</h5>
+        <p>
+          The count of genetic variants by functional category as reported by
+          NCBI dbSNP, which are associated with regulation of {splitNodeName[0]}{" "}
+          expression by the Genotype Expression (GTEx) project.
+        </p>
         <div id="variant-type-association-chart"></div>
-        <h6>Variant Gene Significance Association</h6>
+        <h5>Variant Gene Significance Association</h5>
+        <p>
+          The count of genetic variants by clinical significance as reported by
+          NCBI ClinVar, which are associated with regulation of{" "}
+          {splitNodeName[0]} expression by the Genotype Expression (GTEx)
+          project.
+        </p>
         <div id="variant-significance-association-chart"></div>
-        <h6>Chemical Gene Association</h6>
+        <h5>Drug Gene Association</h5>
+        <p>
+          The number of drugs that are associated, ambiguously associated, or
+          not associated with regulation of {splitNodeName[0]} as reported by
+          pharmGKB.
+        </p>
         <div id="chemical-gene-association-chart"></div>
       </>
     );

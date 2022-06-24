@@ -127,7 +127,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 removeToken("statsVar", statVarSep, statVar);
                 setMetahash({ [statVar]: "" });
               }}
-              metahashMap={_.pick(
+              svFacetId={_.pick(
                 getMetahash(),
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}

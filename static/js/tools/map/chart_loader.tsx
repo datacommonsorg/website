@@ -21,14 +21,14 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   GetPlaceStatDateWithinPlaceResponse,
   GetStatSetAllResponse,
@@ -204,7 +204,7 @@ export function ChartLoader(): JSX.Element {
       </div>
     );
   }
-  const sourceSelectorSvInfo = getSourceSelectorSvInfo(
+  const facetInfo = getFacetInfo(
     statVar.value,
     Object.keys(rawData.allPlaceStat),
     rawData.metadataMap
@@ -279,7 +279,7 @@ export function ChartLoader(): JSX.Element {
         mapPointsPromise={chartData.mapPointsPromise}
         europeanCountries={chartData.europeanCountries}
         rankingLink={chartData.rankingLink}
-        sourceSelectorSvInfo={sourceSelectorSvInfo}
+        facetInfo={facetInfo}
         sampleDates={chartData.sampleDates}
         metahash={chartData.metahash}
         onPlay={onPlay}
@@ -369,11 +369,11 @@ function getGeoJsonDataFeatures(
   return geoJsonFeatures;
 }
 
-function getSourceSelectorSvInfo(
+function getFacetInfo(
   statVar: StatVar,
   metaHashList: string[],
   metadataMap: Record<string, StatMetadata>
-): SourceSelectorSvInfo {
+): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   metaHashList.forEach((metahash) => {
     if (metahash in metadataMap) {
@@ -383,7 +383,6 @@ function getSourceSelectorSvInfo(
   return {
     dcid: statVar.dcid,
     metadataMap: filteredMetadataMap,
-    metahash: statVar.metahash,
     name:
       statVar.dcid in statVar.info
         ? statVar.info[statVar.dcid].title
