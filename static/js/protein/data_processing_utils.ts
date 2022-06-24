@@ -172,12 +172,9 @@ export function getProteinInteraction(
 /**
  * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
-function nodeFromID(
-  protein_speciesID: string,
-  depth: number
-): ProteinNode {
+function nodeFromID(protein_speciesID: string, depth: number): ProteinNode {
   // assumes {species} does not contain _ (true as of 06/22/22)
-  const lastIndex = protein_speciesID.lastIndexOf("_"); 
+  const lastIndex = protein_speciesID.lastIndexOf("_");
   return {
     depth,
     id: protein_speciesID,
@@ -207,7 +204,6 @@ function nodeFromID(
 export function getProteinInteractionGraphData(
   data: InteractingProteinType[]
 ): InteractionGraphData {
-
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;
@@ -221,7 +217,7 @@ export function getProteinInteractionGraphData(
     let neighbor = "";
     if (name.includes(`_${centerNodeID}`)) {
       // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
-      neighbor = name.replace(`_${centerNodeID}`, ""); 
+      neighbor = name.replace(`_${centerNodeID}`, "");
     } else if (name.includes(`${centerNodeID}_`)) {
       // same here
       neighbor = name.replace(`${centerNodeID}_`, "");
@@ -240,9 +236,9 @@ export function getProteinInteractionGraphData(
   });
 
   // descending order of interaction confidenceScore
-  nodeData.sort((n1, n2) => n2.value - n1.value); 
+  nodeData.sort((n1, n2) => n2.value - n1.value);
   // consider only top 10 interactions to avoid clutter
-  nodeData = nodeData.slice(0, MAX_INTERACTIONS); 
+  nodeData = nodeData.slice(0, MAX_INTERACTIONS);
 
   const centerDatum = nodeFromID(centerNodeID, 0);
   nodeData.push(centerDatum);

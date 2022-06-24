@@ -196,7 +196,12 @@ const INTERACTION_GRAPH_X_OFFSET = -150;
 const INTERACTION_GRAPH_Y_OFFSET = -25;
 
 // style of node representations in interaction graph viz's
-const NODE_FILL_COLORS = ["mistyrose", "peachpuff", "lightCoral", "lightsalmon"];
+const NODE_FILL_COLORS = [
+  "mistyrose",
+  "peachpuff",
+  "lightCoral",
+  "lightsalmon",
+];
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
@@ -269,7 +274,6 @@ function interactionGraphTicked(
   >,
   nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>
 ): void {
-
   // type assertions needed because x,y info added after initialization
   // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
   links
@@ -632,9 +636,7 @@ export function drawProteinInteractionGraph(
 
   // force display layout
   const forceNode = d3.forceManyBody();
-  const forceLink = d3
-    .forceLink(linkData)
-    .id(({ index }) => nodeIDs[index]);
+  const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
   forceLink.distance(LINK_STYLE.length);
 
   const simulation = d3
@@ -645,7 +647,7 @@ export function drawProteinInteractionGraph(
     .on("tick", () => interactionGraphTicked(links, nodes));
 
   // links first so nodes appear over links
-  const links = svg 
+  const links = svg
     .append("g")
     .selectAll("line")
     .data(linkData)
@@ -659,7 +661,7 @@ export function drawProteinInteractionGraph(
     .on("mouseleave", unbrighten);
 
   // container for circles and labels
-  const nodes = svg 
+  const nodes = svg
     .append("g")
     .selectAll("g")
     .data(nodeData)
