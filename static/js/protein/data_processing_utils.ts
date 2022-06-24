@@ -169,7 +169,7 @@ export function getProteinInteraction(
   return [];
 }
 
-export function nodeFromID(
+function nodeFromID(
   protein_speciesID: string,
   depth: number
 ): ProteinNode {
