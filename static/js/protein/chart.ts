@@ -74,6 +74,7 @@ export interface VarGeneDataPoint {
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
+const PROTEIN_REDIRECT = "/bio/protein/";
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
@@ -491,13 +492,26 @@ export function drawProteinInteractionChart(
     }
     return d;
   }
-  let reformattedData = [] as ProteinNumData[];
+  //Extracts protein specie name
+  function extractSpecieName(d: string) {
+    d = d.replace(parentProtein, "");
+    d = d.replace(/_+$/, "");
+    d = d.replace(/^[_]+/, "");
+    // retrieves the specie name
+    d = d.split("_")[1];
+    if (d === "") {
+      d = parentProtein;
+    }
+    return d;
+  }
+  let reformattedData = [] as InteractingProteinType[];
 
   //Reformats the data by renaming the interacting proteins
   reformattedData = data.map((item) => {
     return {
       name: formatProteinName(item.name),
       value: item.value,
+      parent: extractSpecieName(item.name),
     };
   });
   const seen = new Set();
@@ -570,8 +584,13 @@ export function drawProteinInteractionChart(
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
+    //PROTEIN_REDIRECT
+    .on("click", function (d) {
+      const proteinId = "bio/" + d.name + "_" + d.parent;
+      window.location.href = `${PROTEIN_REDIRECT}${proteinId}`;
+    })
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 560))
+    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 510))
     .on("mouseout", () => mouseout());
 }
 
