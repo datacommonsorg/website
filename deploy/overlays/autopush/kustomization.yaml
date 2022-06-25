@@ -53,5 +53,5 @@ patchesStrategicMerge:
       strategy:
         type: RollingUpdate
         rollingUpdate:
-          maxSurge: 6
+          maxSurge: 9
           maxUnavailable: 50%
