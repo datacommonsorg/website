@@ -186,3 +186,83 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Assert chart title is correct.
         self.assertEqual("Median age by gender: states near California(2020)",
                          chart_title)
+
+    def test_ranking_chart_present(self):
+        """
+        Test basic ranking chart.
+        """
+        CHART_TITLE = "Median individual income: rankings in United States of America(2020)"
+        CHART_TABLE_HIGHEST_TITLE = "Highest"
+        CHART_TABLE_LOWEST_TITLE = "Lowest"
+        CA_ECONOMICS_URL = CA_URL + "?category=Economics"
+        FIRST_RANK = "1."
+        LAST_RANK = "52."
+
+        self.driver.get(self.url_ + CA_ECONOMICS_URL)
+
+        chart_title_present = EC.text_to_be_present_in_element(
+            (By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[5]/div/h4'),
+            CHART_TITLE)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_title_present)
+
+        chart_subtitle_present = EC.presence_of_element_located(
+            (By.XPATH,
+             '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/h4'))
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(chart_subtitle_present)
+
+        chart_subtitle = self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/h4').text
+        self.assertTrue = ("California ranks" in chart_subtitle)
+        '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]'
+
+        chart_table_highest = self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]')
+        chart_table_lowest = self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[2]')
+
+        chart_table_highest_title = EC.text_to_be_present_in_element((
+            By.XPATH,
+            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/h4'
+        ), CHART_TABLE_HIGHEST_TITLE)
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(chart_table_highest_title)
+
+        chart_table_lowest_title = EC.text_to_be_present_in_element((
+            By.XPATH,
+            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[2]/h4'
+        ), CHART_TABLE_LOWEST_TITLE)
+        WebDriverWait(self.driver,
+                      self.TIMEOUT_SEC).until(chart_table_lowest_title)
+
+        chart_table_highest_row = chart_table_highest.find_elements_by_xpath(
+            './/table/tbody/tr[1]/td')
+        self.assertEqual(chart_table_highest_row[0].text, FIRST_RANK)
+
+        chart_table_lowest_row = chart_table_lowest.find_elements_by_xpath(
+            './/table/tbody/tr[1]/td')
+        self.assertEqual(chart_table_lowest_row[0].text, LAST_RANK)
+
+    def test_ranking_chart_redirect_link(self):
+        """
+        Test the rediret link can work correctly.
+        """
+        CA_ECONOMICS_URL = CA_URL + "?category=Economics"
+        self.driver.get(self.url_ + CA_ECONOMICS_URL)
+
+        place_name_present = EC.presence_of_element_located((
+            By.XPATH,
+            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
+        ))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
+
+        place_name = self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
+        )
+        place_name_text = place_name.text
+        place_name.click()
+
+        # Check the redirect link
+        title_present = EC.text_to_be_present_in_element((By.ID, 'place-name'),
+                                                         place_name_text)
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
