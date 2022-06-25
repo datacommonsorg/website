@@ -214,7 +214,6 @@ class TestPlaceExplorer(WebdriverBaseTest):
         chart_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/h4').text
         self.assertTrue = ("California ranks" in chart_subtitle)
-        '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]'
 
         chart_table_highest = self.driver.find_element_by_xpath(
             '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]')
