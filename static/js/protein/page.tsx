@@ -75,6 +75,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
 
   componentDidMount(): void {
     this.fetchData();
+    this.fetchInteractionData();
   }
 
   componentDidUpdate(): void {
@@ -179,6 +180,25 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       this.setState({
         data: resp.data,
       });
+    });
+  }
+
+  private fetchInteractionData(): void{
+    const PPI_ENDPOINT = 'https://autopush.api.datacommons.org/v1/bulk/property/in/interactingProtein/values';
+    axios.post(PPI_ENDPOINT, 
+      {
+        entities: ['bio/P53_HUMAN', 'bio/FGFR1_HUMAN'],
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    ).then((resp) => {
+      console.log("hi");
+      console.log(resp.data);
+      this.setState((state) => ({
+        interactionData: resp.data,
+        ...state // danger: shallow copy
+      }));
     });
   }
 }
