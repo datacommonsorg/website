@@ -319,8 +319,9 @@ function dragNode(
 
   function dragstarted(nodeDatum: ProteinNode): void {
     if (!d3.event.active) {
+      // start up simulation
       simulation.alphaTarget(0.3).restart();
-    } // start up simulation
+    } 
     nodeDatum.fx = nodeDatum.x;
     nodeDatum.fy = nodeDatum.y;
   }
@@ -332,8 +333,9 @@ function dragNode(
 
   function dragended(nodeDatum: ProteinNode): void {
     if (!d3.event.active) {
+      // cool down simulation
       simulation.alphaTarget(0);
-    } // cool down simulation
+    } 
     nodeDatum.fx = null;
     nodeDatum.fy = null;
   }
@@ -639,7 +641,7 @@ export function drawProteinInteractionGraph(
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
   forceLink.distance(LINK_STYLE.length);
 
-  // links first so nodes appear over links
+  // add links first so nodes appear over links
   const links = svg
     .append("g")
     .selectAll("line")
