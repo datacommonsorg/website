@@ -23,6 +23,7 @@ import React from "react";
 
 import { GraphNodes } from "../shared/types";
 import { drawTissueScoreChart } from "./chart";
+import { drawTissueLegend } from "./chart";
 import { drawProteinInteractionChart } from "./chart";
 import { drawDiseaseGeneAssocChart } from "./chart";
 import { drawVarGeneAssocChart } from "./chart";
@@ -86,6 +87,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     const varSigAssoc = getVarSigAssoc(this.state.data);
     const chemGeneAssoc = getChemicalGeneAssoc(this.state.data);
     drawTissueScoreChart("tissue-score-chart", tissueScore);
+    drawTissueLegend("tissue-score-legend", tissueScore);
     drawProteinInteractionChart(
       "protein-confidence-score-chart",
       interactionScore
@@ -121,6 +123,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           (legend bottom panel).
         </p>
         <div id="tissue-score-chart"></div>
+        <div id="tissue-score-legend"></div>
         <h5>Protein Protein Interaction</h5>
         <p>
           The interaction score of {splitNodeName[0]} with other proteins as
