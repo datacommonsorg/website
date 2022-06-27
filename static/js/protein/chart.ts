@@ -321,7 +321,7 @@ function dragNode(
     if (!d3.event.active) {
       // start up simulation
       simulation.alphaTarget(0.3).restart();
-    } 
+    }
     nodeDatum.fx = nodeDatum.x;
     nodeDatum.fy = nodeDatum.y;
   }
@@ -335,7 +335,7 @@ function dragNode(
     if (!d3.event.active) {
       // cool down simulation
       simulation.alphaTarget(0);
-    } 
+    }
     nodeDatum.fx = null;
     nodeDatum.fy = null;
   }
