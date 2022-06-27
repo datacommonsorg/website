@@ -15,8 +15,15 @@
  */
 
 import * as d3 from "d3";
+import {
+  DragBehavior,
+  Simulation,
+  SimulationLinkDatum,
+  SimulationNodeDatum,
+} from "d3";
 import _ from "lodash";
 
+import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
 // interface for protein page datatypes which return number values
@@ -29,6 +36,31 @@ export interface ProteinNumData {
 export interface ProteinStrData {
   name: string;
   value: string;
+}
+
+// interfaces for protein-protein interaction chart
+
+export interface Node {
+  id: string;
+  name: string;
+  value?: number;
+}
+
+// d3-force will add x,y,vx,vy data to ProteinNode after initialization
+// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
+export interface ProteinNode extends Node, SimulationNodeDatum {
+  depth: number;
+  species: string;
+}
+
+// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
+export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
+  score: number;
+}
+
+export interface InteractionGraphData {
+  nodeData: ProteinNode[];
+  linkData: InteractionLink[];
 }
 
 // interface for variant gene associations for plotting error bars
@@ -51,6 +83,7 @@ const BAR_WIDTH = 35;
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
 // tooltip constant for all charts
+const BRIGHTEN_PERCENTAGE = "105%";
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // length of side bar for error plot for variant-gene associations
 const ERROR_SIDE_BAR_LENGTH = 5;
@@ -187,6 +220,37 @@ const ERROR_POINT_POSITION_Y3 = 50;
 // dimension of tissue legend dots
 const LEGEND_CIRCLE_RADIUS = 7;
 
+// interaction graph offset
+const INTERACTION_GRAPH_X_OFFSET = -150;
+const INTERACTION_GRAPH_Y_OFFSET = -25;
+
+// style of node representations in interaction graph viz's
+const NODE_FILL_COLORS = [
+  "mistyrose",
+  "peachpuff",
+  "lightCoral",
+  "lightsalmon",
+];
+
+// style of link representations in interaction graph viz's
+const LINK_STYLE = {
+  length: 100,
+  stroke: {
+    scoreWidthMultiplier: 8,
+  },
+};
+
+// https://stackoverflow.com/a/69610045
+function brighten(): void {
+  // brighten object under cursor
+  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
+}
+
+function unbrighten(): void {
+  // unbrighten object under cursor
+  d3.select(this).style("filter", "brightness(100%)");
+}
+
 /**
  * Gets the left and top coordinates of a rect element and positions the tooltip accordingly
  * @param left_position
@@ -225,6 +289,91 @@ function addXLabel(
       "translate(" + width / 2 + " ," + (height + MARGIN.top + 40) + ")"
     )
     .text(labelText);
+}
+
+/**
+ * Given link and node d3 Selections, update their x,y positions according to their associated data.
+ */
+function interactionGraphTicked(
+  links: d3.Selection<
+    d3.BaseType | SVGLineElement,
+    InteractionLink,
+    SVGGElement,
+    unknown
+  >,
+  nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>
+): void {
+  // type assertions needed because x,y info added after initialization
+  // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
+  links
+    .attr(
+      "x1",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.source as SimulationNodeDatum).x
+    )
+    .attr(
+      "y1",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.source as SimulationNodeDatum).y
+    )
+    .attr(
+      "x2",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.target as SimulationNodeDatum).x
+    )
+    .attr(
+      "y2",
+      (linkSimulationDatum) =>
+        (linkSimulationDatum.target as SimulationNodeDatum).y
+    );
+
+  // same here
+  // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
+  nodes.attr(
+    "transform",
+    (nodeSimulationDatum) =>
+      `translate(${(nodeSimulationDatum as SimulationNodeDatum).x}, ${
+        (nodeSimulationDatum as SimulationNodeDatum).y
+      })`
+  );
+}
+
+/**
+ * Given a d3 Simulation, return handler for dragging a node in an interaction graph.
+ */
+function dragNode(
+  simulation: Simulation<ProteinNode, InteractionLink>
+): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
+  // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
+
+  function dragstarted(nodeDatum: ProteinNode): void {
+    if (!d3.event.active) {
+      // start up simulation
+      simulation.alphaTarget(0.3).restart();
+    }
+    nodeDatum.fx = nodeDatum.x;
+    nodeDatum.fy = nodeDatum.y;
+  }
+
+  function dragged(nodeDatum: ProteinNode): void {
+    nodeDatum.fx = d3.event.x;
+    nodeDatum.fy = d3.event.y;
+  }
+
+  function dragended(nodeDatum: ProteinNode): void {
+    if (!d3.event.active) {
+      // cool down simulation
+      simulation.alphaTarget(0);
+    }
+    nodeDatum.fx = null;
+    nodeDatum.fy = null;
+  }
+
+  return d3
+    .drag()
+    .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended);
 }
 
 /**
@@ -578,6 +727,92 @@ export function drawProteinInteractionChart(
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
+}
+
+/**
+ * Draws graph visualization of a neighborhood of the protein-protein interaction network centered at the page protein.
+ */
+export function drawProteinInteractionGraph(
+  elementID: string,
+  data: InteractingProteinType[]
+): void {
+  /*
+  References:
+    1) Force-directed layout Observable: https://observablehq.com/@d3/force-directed-graph
+    2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
+  */
+
+  const { nodeData, linkData } = getProteinInteractionGraphData(data);
+
+  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
+
+  const svg = d3
+    .select(`#${elementID}`)
+    .append("svg")
+    .attr("width", width + MARGIN.left + MARGIN.right)
+    .attr("height", height + MARGIN.top + MARGIN.bottom)
+    .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
+    .append("g")
+    .attr(
+      "transform",
+      `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${
+        MARGIN.top + INTERACTION_GRAPH_Y_OFFSET
+      })`
+    );
+
+  const nodeIDs = nodeData.map((node) => node.id);
+  const nodeDepths = nodeData.map((node) => node.depth);
+  const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
+
+  // force display layout
+  const forceNode = d3.forceManyBody();
+  const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
+  forceLink.distance(LINK_STYLE.length);
+
+  // add links first so nodes appear over links
+  const links = svg
+    .append("g")
+    .selectAll("line")
+    .data(linkData)
+    .join("line")
+    .attr(
+      "stroke-width",
+      (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
+    )
+    .attr("class", "interaction-link")
+    .on("mouseover", brighten)
+    .on("mouseleave", unbrighten);
+
+  const simulation = d3
+    .forceSimulation(nodeData)
+    .force("link", forceLink)
+    .force("charge", forceNode)
+    .force("center", d3.forceCenter())
+    .on("tick", () => interactionGraphTicked(links, nodes));
+
+  // container for circles and labels
+  const nodes = svg
+    .append("g")
+    .selectAll("g")
+    .data(nodeData)
+    .enter()
+    .append("g")
+    .call(dragNode(simulation))
+    .on("mouseover", brighten)
+    .on("mouseleave", unbrighten);
+
+  // node circles
+  nodes
+    .append("circle")
+    .attr("class", "protein-node-circle")
+    .attr("fill", (node) => nodeColors(node.depth));
+
+  // node labels
+  nodes
+    .append("text")
+    .text(({ name }) => name)
+    .attr("class", "protein-node-label");
 }
 
 /**

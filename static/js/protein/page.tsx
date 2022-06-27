@@ -22,14 +22,17 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../shared/types";
-import { drawTissueScoreChart } from "./chart";
-import { drawTissueLegend } from "./chart";
-import { drawProteinInteractionChart } from "./chart";
-import { drawDiseaseGeneAssocChart } from "./chart";
-import { drawVarGeneAssocChart } from "./chart";
-import { drawVarTypeAssocChart } from "./chart";
-import { drawVarSigAssocChart } from "./chart";
-import { drawChemGeneAssocChart } from "./chart";
+import {
+  drawChemGeneAssocChart,
+  drawDiseaseGeneAssocChart,
+  drawProteinInteractionChart,
+  drawProteinInteractionGraph,
+  drawTissueLegend,
+  drawTissueScoreChart,
+  drawVarGeneAssocChart,
+  drawVarSigAssocChart,
+  drawVarTypeAssocChart,
+} from "./chart";
 import {
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
@@ -92,6 +95,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       "protein-confidence-score-chart",
       interactionScore
     );
+    drawProteinInteractionGraph("protein-interaction-graph", interactionScore);
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
       diseaseGeneAssoc
@@ -131,6 +135,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           associations by interaction score are displayed.
         </p>
         <div id="protein-confidence-score-chart"></div>
+        <div id="protein-interaction-graph"></div>
         <h5>Disease Gene Association</h5>
         <p>
           The association score of {splitNodeName[0]} with diseases as reported
