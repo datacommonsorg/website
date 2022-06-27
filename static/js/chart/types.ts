@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { Point } from "../topic_page/ranking_unit";
+
 export const chartTypeEnum = {
   LINE: "LINE",
   STACK_BAR: "STACK_BAR",
@@ -21,6 +23,7 @@ export const chartTypeEnum = {
   CHOROPLETH: "CHOROPLETH",
   GROUP_LINE: "GROUP_LINE",
   HISTOGRAM: "HISTOGRAM",
+  RANKING: "RANKING",
 };
 
 export interface Series {
@@ -65,6 +68,7 @@ export interface ChartBlockData {
   };
   scaling: number;
   isChoropleth?: boolean;
+  isRankingChart?: boolean;
 }
 
 export interface PageChart {
@@ -137,3 +141,23 @@ export interface MapPoint {
   latitude: number;
   longitude: number;
 }
+
+// RankingChartDataGroup represents the rankings of several places based on a specific stat var.
+// It is used for the ranking chart.
+export interface RankingChartDataGroup {
+  date: string;
+  data: {
+    rank: number;
+    value: number;
+    placeDcid: string;
+    placeName: string;
+  }[];
+  numDataPoints: number;
+  exploreUrl: string;
+  sources: string[];
+  // Optional for storing the processed rankingData
+  rankingData?: { lowest: Point[]; highest: Point[] };
+}
+
+// A map from statvar dcid to RankingChartDataGroup
+export type CachedRankingChartData = Record<string, RankingChartDataGroup>;

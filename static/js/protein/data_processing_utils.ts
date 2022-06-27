@@ -467,3 +467,26 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   }
   return [];
 }
+
+export function getProteinDescription(data: GraphNodes): string {
+  let proteinDescription = null;
+  if (!data) {
+    return;
+  }
+  // check for null values
+  if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
+    return;
+  }
+  for (const neighbour of data.nodes[0].neighbors) {
+    if (neighbour.property !== "description") {
+      continue;
+    }
+    // check for null or non-existent property values
+    if (_.isEmpty(neighbour.nodes)) {
+      continue;
+    }
+    proteinDescription = neighbour.nodes[0].value;
+    console.log(proteinDescription);
+    return proteinDescription;
+  }
+}

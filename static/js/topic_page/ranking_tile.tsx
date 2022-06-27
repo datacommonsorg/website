@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { GetStatSetResponse } from "../shared/stat_types";
@@ -26,7 +27,7 @@ import { NamedTypedPlace } from "../shared/types";
 import { StatVarMetadata } from "../types/stat_var";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
-import { getStatVarName } from "./string_utils";
+import { formatString, getStatVarName } from "./string_utils";
 import { RankingMetadataConfig } from "./topic_config";
 
 const RANKING_COUNT = 5;
@@ -35,6 +36,7 @@ interface RankingGroup {
   points: Point[];
   unit: string;
   scaling: number;
+  numDataPoints?: number;
 }
 
 interface RankingData {
@@ -64,34 +66,46 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const unit = rankingData[statVar].unit;
           const scaling = rankingData[statVar].scaling;
           const svName = getStatVarName(statVar, props.statVarMetadata);
+          const numDataPoints = rankingData[statVar].numDataPoints;
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
                 <RankingUnit
                   key={`${statVar}-highest`}
-                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={
+                  title={formatString(
                     props.rankingMetadata.highestTitle
                       ? props.rankingMetadata.highestTitle
-                      : "Highest ${statVar}"
-                  }
+                      : "Highest ${statVar}",
+                    {
+                      date: "",
+                      place: "",
+                      statVar: svName,
+                    }
+                  )}
                   points={points.slice(-RANKING_COUNT).reverse()}
+                  isHighest={true}
                 />
               )}
               {props.rankingMetadata.showLowest && (
                 <RankingUnit
                   key={`${statVar}-lowest`}
-                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={
+                  title={formatString(
                     props.rankingMetadata.lowestTitle
                       ? props.rankingMetadata.lowestTitle
-                      : "Lowest ${statVar}"
-                  }
+                      : "Lowest ${statVar}",
+                    {
+                      date: "",
+                      place: "",
+                      statVar: svName,
+                    }
+                  )}
+                  numDataPoints={numDataPoints}
                   points={points.slice(0, RANKING_COUNT)}
+                  isHighest={false}
                 />
               )}
             </React.Fragment>
@@ -126,15 +140,15 @@ function fetchData(
         for (const place in statData[item.statVar].stat) {
           const rankingPoint = {
             placeDcid: place,
-            stat: statData[item.statVar].stat[place].value,
+            value: statData[item.statVar].stat[place].value,
           };
-          if (rankingPoint.stat === undefined) {
+          if (_.isUndefined(rankingPoint.value)) {
             console.log(`Skipping ${place}, missing ${item.statVar}`);
             continue;
           }
           if (item.denom) {
             if (item.denom in statData) {
-              rankingPoint.stat /= statData[item.denom].stat[place].value;
+              rankingPoint.value /= statData[item.denom].stat[place].value;
             } else {
               console.log(`Skipping ${place}, missing ${item.denom}`);
               continue;
@@ -145,6 +159,7 @@ function fetchData(
         arr.sort((a, b) => {
           return a.stat - b.stat;
         });
+        const numDataPoints = arr.length;
         if (arr.length > RANKING_COUNT * 2) {
           arr = arr.slice(0, RANKING_COUNT).concat(arr.slice(-RANKING_COUNT));
         }
@@ -152,6 +167,7 @@ function fetchData(
           points: arr,
           unit: item.unit,
           scaling: item.scaling,
+          numDataPoints,
         };
       }
       return rankingData;
