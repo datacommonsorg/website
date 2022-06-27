@@ -58,6 +58,9 @@ const ERROR_SIDE_BAR_LENGTH = 5;
 const X_AXIS_LIMIT = 0.5;
 // inner bar padding constant for protein interactions chart with less than 10 data values
 const INNER_BAR_PADDING = 0.1;
+// constants for positioning the tissue legends
+const TISSUE_LEGEND_START_POSITION = 10;
+const TISSUE_LEGEND_PADDING = 130;
 // Dictionary mapping the tissue score to its label
 const TISSUE_SCORE_TO_LABEL = {
   0: "NotDetected",
@@ -262,11 +265,9 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
     .attr("height", GRAPH_HEIGHT_XS);
   const organTypes = d3.keys(ORGAN_COLOR_DICT);
   // slicing the dictionary in half to display the legend in two rows
-  const dataRowOne = organTypes.slice(0, (organTypes.length + 1) / 2);
-  const dataRowTwo = organTypes.slice(
-    (organTypes.length + 1) / 2,
-    organTypes.length
-  );
+  const dictSliceNumber = (organTypes.length + 1) / 2;
+  const dataRowOne = organTypes.slice(0, dictSliceNumber);
+  const dataRowTwo = organTypes.slice(dictSliceNumber, organTypes.length);
   // creating circles for the first row in legend
   svg
     .selectAll("legend-dots")
@@ -274,7 +275,7 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
     .enter()
     .append("circle")
     .attr("cx", (d, i) => {
-      return NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+      return TISSUE_LEGEND_START_POSITION + i * TISSUE_LEGEND_PADDING;
     })
     .attr("cy", 50)
     .attr("r", LEGEND_CIRCLE_RADIUS)
@@ -287,10 +288,10 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
     .enter()
     .append("text")
     .attr("x", (d, i) => {
-      return 2 * NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+      return 2 * TISSUE_LEGEND_START_POSITION + i * TISSUE_LEGEND_PADDING;
     })
     .attr("y", 55)
-    .style("font-size", "10px")
+    .attr("class", "legend-label")
     .text((d) => {
       return d;
     });
@@ -301,7 +302,7 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
     .enter()
     .append("circle")
     .attr("cx", (d, i) => {
-      return NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+      return TISSUE_LEGEND_START_POSITION + i * TISSUE_LEGEND_PADDING;
     })
     .attr("cy", 85)
     .attr("r", LEGEND_CIRCLE_RADIUS)
@@ -314,10 +315,10 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
     .enter()
     .append("text")
     .attr("x", (d, i) => {
-      return 2 * NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
+      return 2 * TISSUE_LEGEND_START_POSITION + i * TISSUE_LEGEND_PADDING;
     })
     .attr("y", 90)
-    .style("font-size", "10px")
+    .attr("class", "legend-label")
     .text((d) => {
       return d;
     });
@@ -451,10 +452,6 @@ export function drawProteinInteractionChart(
     // if self-interacting protein, display parent protein name
     if (d === "") {
       d = parentProtein;
-    }
-    // for the case when a blank entry is added for graph formatting
-    if (d.length === 1) {
-      d = "";
     }
     return d;
   }
