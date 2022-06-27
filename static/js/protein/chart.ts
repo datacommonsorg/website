@@ -56,6 +56,8 @@ const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 const ERROR_SIDE_BAR_LENGTH = 5;
 // number by which x axis domain is increased/decreased for x scale to fit all error bars well
 const X_AXIS_LIMIT = 0.5;
+// inner bar padding constant for protein interactions chart with less than 10 data values
+const INNER_BAR_PADDING = 0.1;
 // Dictionary mapping the tissue score to its label
 const TISSUE_SCORE_TO_LABEL = {
   0: "NotDetected",
@@ -70,73 +72,75 @@ const TISSUE_VAL_TO_SCORE = {
   ProteinExpressionMedium: 2,
   ProteinExpressionHigh: 3,
 };
-// color dictionary for tissue score
-const TISSUE_COLOR_DICT = {
-  AdiposeTissue: "Sienna",
-  AdrenalGland: "sandybrown",
-  Appendix: "maroon",
-  BoneMarrow: "khaki",
-  Breast: "mistyrose",
-  Bronchus: "tomato",
-  Cartilage: "linen",
-  Caudate: "lightcoral",
-  Cerebellum: "lightcoral",
-  CerebralCortex: "lightcoral",
-  CervixUterine: "mistyrose",
-  ChoroidPlexus: "lightcoral",
-  Colon: "maroon",
-  DorsalRaphe: "lightcoral",
-  Duodenum: "maroon",
-  Endometrium1: "mistyrose",
-  Endometrium2: "mistyrose",
-  Epididymis: "mistyrose",
-  Esophagus: "maroon",
-  Eye: "coral",
-  FallopianTube: "mistyrose",
-  Gallbladder: "darksalmon",
-  Hair: "peachpuff",
-  HeartMuscle: "brown",
-  Hippocampus: "lightcoral",
-  Hypothalamus: "lightcoral",
-  Kidney: "sandybrown",
-  LactatingBreast: "mistyrose",
-  Liver: "darksalmon",
-  Lung: "tomato",
-  LymphNode: "khaki",
-  Nasopharynx: "tomato",
-  OralMucosa: "peachpuff",
-  Ovary: "mistyrose",
-  Pancreas: "orangered",
-  ParathyroidGland: "bisque",
-  PituitaryGland: "sienna",
-  Placenta: "mistyrose",
-  Prostate: "mistyrose",
-  Rectum: "maroon",
-  Retina: "coral",
-  SalivaryGland: "maroon",
-  SeminalVesicle: "mistyrose",
-  SkeletalMuscle: "linen",
-  Skin: "peachpuff",
-  Skin1: "peachpuff",
-  Skin2: "peachpuff",
-  SmallIntestine: "maroon",
-  SmoothMuscle: "linen",
-  SoftTissue1: "burlywood",
-  SoftTissue2: "burlywood",
-  SoleOfFoot: "peachpuff",
-  Spleen: "khaki",
-  Stomach1: "maroon",
-  Stomach2: "maroon",
-  SubstantiaNiagra: "lightcoral",
-  Testis: "mistyrose",
-  Thymus: "khaki",
-  ThyroidGland: "bisque",
-  Tonsil: "khaki",
-  UrinaryBladder: "sandybrown",
-  Vagina: "mistyrose",
+
+// dictionary mapping tissues to organs
+const TISSUE_ORGAN_DICT = {
+  AdiposeTissue: "Endocrine",
+  AdrenalGland: "Kidney and Urinary Bladder",
+  Appendix: "Gastrointestinal tract",
+  BoneMarrow: "Lymphoid",
+  Breast: "Reproductive",
+  Bronchus: "Lung",
+  Cartilage: "Connective tissue",
+  Caudate: "Brain",
+  Cerebellum: "Brain",
+  CerebralCortex: "Brain",
+  CervixUterine: "Reproductive",
+  ChoroidPlexus: "Brain",
+  Colon: "Gastrointestinal tract",
+  DorsalRaphe: "Brain",
+  Duodenum: "Gastrointestinal tract",
+  Endometrium1: "Reproductive",
+  Endometrium2: "Reproductive",
+  Epididymis: "Reproductive",
+  Esophagus: "Gastrointestinal tract",
+  Eye: "Eye",
+  FallopianTube: "Reproductive",
+  Gallbladder: "Liver and Gall Bladder",
+  Hair: "Skin",
+  HeartMuscle: "Heart",
+  Hippocampus: "Brain",
+  Hypothalamus: "Brain",
+  Kidney: "Kidney and Urinary Bladder",
+  LactatingBreast: "Reproductive",
+  Liver: "Liver and Gall Bladder",
+  Lung: "Lung",
+  LymphNode: "Lymphoid",
+  Nasopharynx: "Lung",
+  OralMucosa: "Skin",
+  Ovary: "Reproductive",
+  Pancreas: "Pancreas",
+  ParathyroidGland: "Thyroid",
+  PituitaryGland: "Endocrine",
+  Placenta: "Reproductive",
+  Prostate: "Reproductive",
+  Rectum: "Gastrointestinal tract",
+  Retina: "Eye",
+  SalivaryGland: "Gastrointestinal tract",
+  SeminalVesicle: "Reproductive",
+  SkeletalMuscle: "Connective tissue",
+  Skin: "Skin",
+  Skin1: "Skin",
+  Skin2: "Skin",
+  SmallIntestine: "Gastrointestinal tract",
+  SmoothMuscle: "Connective tissue",
+  SoftTissue1: "Soft Tissue",
+  SoftTissue2: "Soft Tissue",
+  SoleOfFoot: "Skin",
+  Spleen: "Lymphoid",
+  Stomach1: "Gastrointestinal tract",
+  Stomach2: "Gastrointestinal tract",
+  SubstantiaNiagra: "Brain",
+  Testis: "Reproductive",
+  Thymus: "Lymphoid",
+  ThyroidGland: "Thyroid",
+  Tonsil: "Lymphoid",
+  UrinaryBladder: "Kidney and Urinary Bladder",
+  Vagina: "Reproductive",
 };
-// color dictionary for tissue legend
-const TISSUE_LEGEND_DICT = {
+
+// color dictionary mapping organs to colors
+const ORGAN_COLOR_DICT = {
   Endocrine: "sienna",
   Eye: "coral",
   Reproductive: "mistyrose",
@@ -159,8 +163,6 @@ const ERROR_BAR_VAR_COLOR = {
   Thyroid: "lightcoral",
   "Whole Blood": "firebrick",
 };
-// tool tip left position
-const TOOL_TIP_LEFT_POSITION = 230;
 // number to select top data points for large data
 const NUM_DATA_POINTS = 10;
 // number to decide the ticks to be displayed
@@ -179,16 +181,18 @@ const ERROR_POINT_POSITION_X2 = 550;
 const ERROR_POINT_POSITION_Y1 = 10;
 const ERROR_POINT_POSITION_Y2 = 30;
 const ERROR_POINT_POSITION_Y3 = 50;
+// dimension of tissue legend dots
+const LEGEND_CIRCLE_RADIUS = 7;
 
 /**
  * Gets the left and top coordinates of a rect element and positions the tooltip accordingly
  * @param left_position
  * @param top_position
  */
-function mousemove(leftPosition: number, topPosition: number) {
-  TOOL_TIP.style("left", d3.event.offsetX + leftPosition + "px").style(
+function mousemove() {
+  TOOL_TIP.style("left", d3.event.pageX - 50 + "px").style(
     "top",
-    d3.event.offsetY + topPosition + "px"
+    d3.event.pageY - 50 + "px"
   );
 }
 /**
@@ -240,37 +244,46 @@ function addYLabel(
     .text(labelText);
 }
 
+/**
+ * Draws the legend for the tissue score chart if the data exists.
+ * @param id
+ * @param data
+ * @returns
+ */
 export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;
   }
   const svg = d3
-    .select("#tissue-score-legend")
+    .select("#" + id)
     .append("svg")
     .attr("width", GRAPH_WIDTH_XL)
     .attr("height", GRAPH_HEIGHT_XS);
-  const data0 = d3.keys(TISSUE_LEGEND_DICT);
+  const organTypes = d3.keys(ORGAN_COLOR_DICT);
   // slicing the dictionary in half to display the legend in two rows
-  const data1 = data0.slice(0, 8);
-  const data2 = data0.slice(8, 15);
+  const dataRowOne = organTypes.slice(0, (organTypes.length + 1) / 2);
+  const dataRowTwo = organTypes.slice(
+    (organTypes.length + 1) / 2,
+    organTypes.length
+  );
   // creating circles for the first row in legend
   svg
-    .selectAll("mydots1")
-    .data(data1)
+    .selectAll("legend-dots")
+    .data(dataRowOne)
     .enter()
     .append("circle")
     .attr("cx", (d, i) => {
       return NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
     })
     .attr("cy", 50)
-    .attr("r", 7)
+    .attr("r", LEGEND_CIRCLE_RADIUS)
     .style("fill", (d) => {
-      return TISSUE_LEGEND_DICT[d];
+      return ORGAN_COLOR_DICT[d];
     });
   svg
-    .selectAll("legend-text1")
-    .data(data1)
+    .selectAll("legend-text")
+    .data(dataRowOne)
     .enter()
     .append("text")
     .attr("x", (d, i) => {
@@ -283,21 +296,21 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
     });
   // creating circles for the second row in legend
   svg
-    .selectAll("mydots2")
-    .data(data2)
+    .selectAll("legend-dots")
+    .data(dataRowTwo)
     .enter()
     .append("circle")
     .attr("cx", (d, i) => {
       return NUM_DATA_POINTS + i * GRAPH_HEIGHT_XS;
     })
     .attr("cy", 85)
-    .attr("r", 7)
+    .attr("r", LEGEND_CIRCLE_RADIUS)
     .style("fill", (d) => {
-      return TISSUE_LEGEND_DICT[d];
+      return ORGAN_COLOR_DICT[d];
     });
   svg
-    .selectAll("legend-text2")
-    .data(data2)
+    .selectAll("legend-text")
+    .data(dataRowTwo)
     .enter()
     .append("text")
     .attr("x", (d, i) => {
@@ -332,8 +345,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
 
   //groups the tissues of a similar origin and sorts them in ascending order
   reformattedData.sort((x, y) => {
-    const a = TISSUE_COLOR_DICT[x.name];
-    const b = TISSUE_COLOR_DICT[y.name];
+    const a = TISSUE_ORGAN_DICT[x.name];
+    const b = TISSUE_ORGAN_DICT[y.name];
     if (a < b) {
       return -1;
     }
@@ -405,9 +418,9 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .attr("y", (d) => y(d.value))
     .attr("height", (d) => height - y(d.value))
     .attr("width", x.bandwidth())
-    .style("fill", (d) => TISSUE_COLOR_DICT[d.name])
+    .style("fill", (d) => ORGAN_COLOR_DICT[TISSUE_ORGAN_DICT[d.name]])
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 220))
+    .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
 }
 
@@ -474,30 +487,14 @@ export function drawProteinInteractionChart(
     seen.add(entry.name);
     return !duplicate;
   });
-  //Finds the length of the object array
-  let arrayLength = Object.keys(reformattedData).length;
+  //Formats the graph as per number of entries
+  // update the array length
+  let height: number;
+  const arrayLength = Object.keys(reformattedData).length;
   //Formats the graph as per number of entries
   if (arrayLength < 10) {
-    let count = 0;
-    //If array length is less than 5, add additional elements to make total array length = 5
-    if (arrayLength < 5) {
-      count = 5 - arrayLength;
-    }
-    //If array length is less than 10, add additional elements to make total array length = 10
-    else {
-      count = 10 - arrayLength;
-    }
-    let i = 0;
-    while (i < count) {
-      reformattedData.push({ name: i.toString(), value: 0, parent: "" });
-      i = i + 1;
-    }
-  }
-  // update the array length
-  arrayLength = Object.keys(reformattedData).length;
-  let height = null;
-  if (arrayLength < 10) {
-    height = arrayLength * BAR_WIDTH - MARGIN.top;
+    // fix a minimum height
+    height = GRAPH_HEIGHT_S;
   } else {
     height = NUM_DATA_POINTS * BAR_WIDTH - MARGIN.top - MARGIN.bottom;
   }
@@ -514,7 +511,9 @@ export function drawProteinInteractionChart(
   const arrName = reformattedData.map((x) => {
     return x.name;
   });
-
+  // calculate inner bar padding for number of data points less than 10
+  const barPadding =
+    INNER_BAR_PADDING * (NUM_DATA_POINTS - reformattedData.length);
   const svg = d3
     .select("#protein-confidence-score-chart")
     .append("svg")
@@ -545,13 +544,21 @@ export function drawProteinInteractionChart(
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
   // Adds the x-axis text label
-  if (arrayLength < 10) {
-    addXLabel(width, height, "Confidence Score (IntactMiScore)", svg);
-  } else {
-    addXLabel(width, height, "Confidence Score (IntactMiScore)", svg);
-  }
+  addXLabel(width, height, "Confidence Score (IntactMiScore)", svg);
   // plots y-axis for the graph - protein-protein interaction score
-  const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
+  let y = null;
+  if (arrayLength < NUM_DATA_POINTS) {
+    // use inner bar padding
+    y = d3
+      .scaleBand()
+      .domain(arrName)
+      .range([0, height])
+      .padding(0.1)
+      .paddingInner(barPadding);
+  } else {
+    // no padding required
+    y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
+  }
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatProteinName)).raise();
   // Adds the y-axis text label
   addYLabel(height, "Interacting protein name", svg);
@@ -572,7 +579,7 @@ export function drawProteinInteractionChart(
       window.location.href = `${PROTEIN_REDIRECT}${proteinId}`;
     })
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 650))
+    .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
 }
 
@@ -667,7 +674,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1050))
+    .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
 }
 
@@ -783,7 +790,7 @@ export function drawVarGeneAssocChart(
     .attr("r", "6")
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 1500))
+    .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
   svg
     .selectAll("error-bar-left-line")
@@ -953,7 +960,7 @@ export function drawVarTypeAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2000))
+    .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
 }
 /**
@@ -1036,7 +1043,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 2600))
+    .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
 }
 /**
@@ -1113,6 +1120,6 @@ export function drawChemGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove(TOOL_TIP_LEFT_POSITION, 3380))
+    .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
 }
