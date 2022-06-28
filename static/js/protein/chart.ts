@@ -826,7 +826,7 @@ export function drawProteinInteractionGraph(
       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
     )
     .attr("class", "interaction-link")
-    .on("mouseover", getMouseOver( d => `Source: ${d.source.name}<br>Target: ${d.target.name}Confidence: ${d.score}`))
+    .on("mouseover", getMouseOver( d => `Source: ${d.source.name}<br>Target: ${d.target.name}<br>Confidence: ${d.score}`))
     .on("mousemove", mousemove)
     .on("mouseout", mouseout);
 
