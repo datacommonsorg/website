@@ -22,6 +22,8 @@ import {
   SimulationNodeDatum,
 } from "d3";
 import _ from "lodash";
+import { lightenDarkenColor } from "react-papaparse";
+import { TOOLTIP_ID } from "../stat_var_hierarchy/util";
 
 import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
@@ -240,15 +242,28 @@ const LINK_STYLE = {
   },
 };
 
-// https://stackoverflow.com/a/69610045
+
+/**
+ * Brighten object under cursor.
+ */
 function brighten(): void {
-  // brighten object under cursor
+  // Reference: https://stackoverflow.com/a/69610045
   d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
 }
 
+/**
+ * Unbrighten object under cursor.
+ */
 function unbrighten(): void {
   // unbrighten object under cursor
   d3.select(this).style("filter", "brightness(100%)");
+}
+
+/**
+ * Given new html text, overwrites text currently in tooltip. 
+ */
+function updateToolTipText(html: string): void{
+  TOOL_TIP.html(html);
 }
 
 /**
@@ -256,18 +271,50 @@ function unbrighten(): void {
  * @param left_position
  * @param top_position
  */
-function mousemove() {
+function updateToolTipPosition(): void{
   TOOL_TIP.style("left", d3.event.pageX - 50 + "px").style(
     "top",
     d3.event.pageY - 50 + "px"
   );
 }
+
+function showToolTip(): void{
+  TOOL_TIP.style("opactiy", 1);
+}
+
 /**
  * Sets the opacity of the tooltip as zero, to hide it when the user hovers over other elements
  */
-function mouseout() {
+function hideToolTip(): void{
   TOOL_TIP.style("opacity", 0);
 }
+
+/**
+ * Handler for when mouse first enters a component. 
+ */
+function getMouseOver(toolTipText: string): Function {
+  return () => {
+    brighten();
+    updateToolTipText(toolTipText);
+    showToolTip();
+  }
+}
+
+/**
+ * Handler for when mouse is over a component and moves to another position over the same component.
+ */
+function mousemove(): void {
+  updateToolTipPosition();
+}
+
+/**
+ * Handler for when mouse leaves component.
+ */
+function mouseout(): void {
+  unbrighten();
+  hideToolTip();
+}
+
 /**
  * Adds the x label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
  * @param width
