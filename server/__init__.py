@@ -57,8 +57,6 @@ def register_routes_base_dc(app):
     app.register_blueprint(special_announcement.bp)
     app.register_blueprint(topic_page.bp)
     from routes.api import (protein as protein_api)
-    from routes.api import (disease as disease_api)
-    app.register_blueprint(disease_api.bp)
     app.register_blueprint(protein_api.bp)
 
 
