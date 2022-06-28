@@ -28,7 +28,6 @@ function setup_python {
 # Run test for client side code.
 function run_npm_test {
   cd static
-  npm install
   npm run test
   cd ..
 }
