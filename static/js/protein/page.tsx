@@ -53,7 +53,6 @@ interface PageStateType {
   data: GraphNodes;
 }
 
-// stores the association id, variant id, tissue name, log fold change value, and log fold change confidence interval
 export interface ProteinVarType {
   //genetic variant gene association dcid
   associationID: string;
