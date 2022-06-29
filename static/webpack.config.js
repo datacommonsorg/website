@@ -60,6 +60,10 @@ const config = {
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
     ],
+    disease: [
+      __dirname + "/js/disease/disease.ts",
+      __dirname + "/css/disease.scss",
+    ],
     protein: [
       __dirname + "/js/protein/protein.ts",
       __dirname + "/css/protein.scss",

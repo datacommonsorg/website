@@ -26,6 +26,9 @@ following steps are required:
 
 - Install [`nodejs`](https://nodejs.org/en/download/)
 
+  - Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+  - Install node 18.4.0: `nvm install 18.4.0`
+
 - Install [`protoc`](https://grpc.io/docs/protoc-installation/)
 
 ### Place Search
