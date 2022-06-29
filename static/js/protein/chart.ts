@@ -724,7 +724,7 @@ export function drawProteinInteractionChart(
     //PROTEIN_REDIRECT
     .on("click", function (d) {
       const proteinId = "bio/" + d.name + "_" + d.parent;
-      window.location.href = `${PROTEIN_REDIRECT}${proteinId}`;
+      window.open(PROTEIN_REDIRECT + proteinId);
     })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
@@ -908,7 +908,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("click", function (d) {
-      window.location.href = `${GRAPH_BROWSER_REDIRECT}${d.id}`;
+      window.open(GRAPH_BROWSER_REDIRECT + d.id);
     })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
@@ -1029,8 +1029,7 @@ export function drawVarGeneAssocChart(
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
     // variant redirect
     .on("click", function (d) {
-      location.href = `${GRAPH_BROWSER_REDIRECT}${d.associationID}`;
-      window.open(location.href, "_self");
+      window.open(GRAPH_BROWSER_REDIRECT + d.associationID);
     })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
