@@ -258,8 +258,10 @@ export function getProteinInteractionGraphData(
   };
 }
 
-export function getDiseaseGeneAssoc(data: GraphNodes): DiseaseAssociationType[] {
-  // Disease Gene Associations 
+export function getDiseaseGeneAssoc(
+  data: GraphNodes
+): DiseaseAssociationType[] {
+  // Disease Gene Associations
   if (!data) {
     return [];
   }
