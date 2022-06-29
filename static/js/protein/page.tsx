@@ -32,7 +32,7 @@ import {
   drawVarGeneAssocChart,
   drawVarSigAssocChart,
   drawVarTypeAssocChart,
-  GRAPH_EXPLORER_REDIRECT,
+  GRAPH_BROWSER_REDIRECT,
 } from "./chart";
 import {
   getChemicalGeneAssoc,
@@ -53,7 +53,13 @@ interface PageStateType {
   data: GraphNodes;
 }
 
-// stores the variant id, tissue name, log fold change value, and log fold change confidence interval
+/* stores the association id, variant id, tissue name, log fold change value, and log fold change confidence interval
+association id - genetic variant gene association dcid
+variant id - reference id of the variant
+name - name of the variant
+value - log fold change value
+interval - log fold change interval 
+*/
 export interface ProteinVarType {
   associationID: string;
   id: string;
@@ -118,13 +124,13 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     Using the split we get the ProteinName and SpeciesName separately
     */
     const splitNodeName = this.props.nodeName.split("_");
-    const proteinLink = `${GRAPH_EXPLORER_REDIRECT}${this.props.dcid}`;
+    const proteinLink = `${GRAPH_BROWSER_REDIRECT}${this.props.dcid}`;
     const proteinDescription = getProteinDescription(this.state.data);
     return (
       <>
         <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
         <h6>
-          <a href={proteinLink}>Graph Explorer View</a>
+          <a href={proteinLink}>Graph Browser View</a>
         </h6>
         <p>
           <b>Description: </b>

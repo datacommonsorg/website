@@ -343,7 +343,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
       continue;
     }
     for (const node of neighbour.nodes) {
-      let assocID = null;
+      let associationID = null;
       let score = null;
       let variant = null;
       let tissue = null;
@@ -356,7 +356,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           if (n1.neighbors.length !== 4 || _.isEmpty(n1.value)) {
             continue;
           }
-          assocID = n1.value;
+          associationID = n1.value;
           for (const n2 of n1.neighbors) {
             if (_.isEmpty(n2.nodes)) {
               continue;
@@ -387,7 +387,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           }
           if (!seen.has(variant) && !!score) {
             returnData.push({
-              associationID: assocID,
+              associationID: associationID,
               id: variant,
               name: tissue,
               value: score,
@@ -398,7 +398,6 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
         }
       }
     }
-    console.log(returnData);
     return returnData;
   }
   return [];
@@ -590,7 +589,6 @@ export function getProteinDescription(data: GraphNodes): string {
       continue;
     }
     proteinDescription = neighbour.nodes[0].value;
-    console.log(proteinDescription);
     return proteinDescription;
   }
 }

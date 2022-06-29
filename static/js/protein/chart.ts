@@ -76,7 +76,7 @@ export interface VarGeneDataPoint {
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 const PROTEIN_REDIRECT = "/bio/protein/";
-export const GRAPH_EXPLORER_REDIRECT = "/browser/";
+export const GRAPH_BROWSER_REDIRECT = "/browser/";
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar width for tissue
 const TISSUE_BAR_WIDTH = 12;
@@ -908,8 +908,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
     .on("click", function (d) {
-      console.log(d.id);
-      window.location.href = `${GRAPH_EXPLORER_REDIRECT}${d.id}`;
+      window.location.href = `${GRAPH_BROWSER_REDIRECT}${d.id}`;
     })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
@@ -1030,8 +1029,8 @@ export function drawVarGeneAssocChart(
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
     // variant redirect
     .on("click", function (d) {
-      console.log(d.associationID);
-      window.location.href = `${GRAPH_EXPLORER_REDIRECT}${d.associationID}`;
+      location.href = `${GRAPH_BROWSER_REDIRECT}${d.associationID}`;
+      window.open(location.href, "_self");
     })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
