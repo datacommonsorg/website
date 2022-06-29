@@ -24,7 +24,7 @@ import {
 import _ from "lodash";
 
 import { getProteinInteractionGraphData } from "./data_processing_utils";
-import { InteractingProteinType } from "./page";
+import { DiseaseAssociationType, InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
@@ -65,6 +65,7 @@ export interface InteractionGraphData {
 
 // interface for variant gene associations for plotting error bars
 export interface VarGeneDataPoint {
+  associationID: string;
   id: string;
   name: string;
   value: number;
@@ -75,6 +76,7 @@ export interface VarGeneDataPoint {
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 const PROTEIN_REDIRECT = "/bio/protein/";
+export const GRAPH_EXPLORER_REDIRECT = "/browser/";
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar width for tissue
 const TISSUE_BAR_WIDTH = 12;
@@ -823,7 +825,7 @@ export function drawProteinInteractionGraph(
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
-  data: ProteinNumData[]
+  data: DiseaseAssociationType[]
 ): void {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
@@ -905,6 +907,10 @@ export function drawDiseaseGeneAssocChart(
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
     .style("fill", BAR_COLOR)
+    .on("click", function (d) {
+      console.log(d.id);
+      window.location.href = `${GRAPH_EXPLORER_REDIRECT}${d.id}`;
+    })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
@@ -931,6 +937,7 @@ export function drawVarGeneAssocChart(
     const objLower = confInterval[0].substring(1);
     const objUpper = confInterval[1].substring(0);
     return {
+      associationID: item.associationID,
       id: item.id.substring(4),
       name: item.name,
       value: parseFloat(item.value),
@@ -1021,6 +1028,11 @@ export function drawVarGeneAssocChart(
     .attr("cy", (d) => y(d.id))
     .attr("r", "6")
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
+    // variant redirect
+    .on("click", function (d) {
+      console.log(d.associationID);
+      window.location.href = `${GRAPH_EXPLORER_REDIRECT}${d.associationID}`;
+    })
     .on("mouseover", mouseover)
     .on("mousemove", () => mousemove())
     .on("mouseout", () => mouseout());
