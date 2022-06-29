@@ -53,18 +53,17 @@ interface PageStateType {
   data: GraphNodes;
 }
 
-/* stores the association id, variant id, tissue name, log fold change value, and log fold change confidence interval
-association id - genetic variant gene association dcid
-variant id - reference id of the variant
-name - name of the variant
-value - log fold change value
-interval - log fold change interval 
-*/
+// stores the association id, variant id, tissue name, log fold change value, and log fold change confidence interval
 export interface ProteinVarType {
+  //genetic variant gene association dcid
   associationID: string;
+  //reference id of the variant
   id: string;
+  //name of the variant
   name: string;
+  //log fold change value
   value: string;
+  //log fold change interval
   interval: string;
 }
 // stores the disease ID, disease name and association score
