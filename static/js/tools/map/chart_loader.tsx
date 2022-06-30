@@ -46,7 +46,7 @@ import {
 } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
-import { getUnit } from "../shared_util";
+import { getPopulationDate, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
 import {
@@ -853,26 +853,25 @@ export function setLegendBoundsPerCapita(
     maxValue = 0;
   for (const place in stat) {
     let value = stat[place].value;
-    if (!value) {
-      continue;
-    }
     const populationData = rawData.population[place].data;
-    const date = stat[place].date;
+    const denom = statVar.value.denom;
     if (
-      statVar.value.denom in populationData &&
-      populationData[statVar.value.denom].val &&
-      date in populationData[statVar.value.denom].val
+      !value ||
+      _.isEmpty(populationData[denom] || _.isEmpty(populationData[denom].val))
     ) {
-      value /= populationData[statVar.value.denom].val[date];
-    } else {
       continue;
     }
-    if (value < minValue) {
-      minValue = value;
+    const popDate = getPopulationDate(
+      populationData[statVar.value.denom],
+      stat[place]
+    );
+    const popVal = populationData[statVar.value.denom].val[popDate];
+    if (!popVal) {
+      continue;
     }
-    if (value > maxValue) {
-      maxValue = value;
-    }
+    value /= popVal;
+    minValue = Math.min(minValue, value);
+    maxValue = Math.max(maxValue, value);
   }
 
   // Using Best Available data as estimate - give some padding for other dates
