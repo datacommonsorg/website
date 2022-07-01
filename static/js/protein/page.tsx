@@ -44,12 +44,12 @@ import {
   getVarSigAssoc,
   getVarTypeAssoc,
 } from "./data_processing_utils";
-interface PagePropType {
+export interface PagePropType {
   dcid: string;
   nodeName: string;
 }
 
-interface PageStateType {
+export interface PageStateType {
   data: GraphNodes;
 }
 

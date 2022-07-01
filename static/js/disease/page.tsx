@@ -18,23 +18,45 @@
  * Main component for bio.
  */
 
+import axios from "axios";
 import React from "react";
 
-interface PagePropType {
+import { GraphNodes } from "../shared/types";
+import { drawDiseaseGeneAssocChart } from "./chart";
+import { getDiseaseGeneAssociation } from "./data_processing_utils";
+export interface PagePropType {
   dcid: string;
   nodeName: string;
 }
 
-export class Page extends React.Component<PagePropType> {
+export interface PageStateType {
+  data: GraphNodes;
+}
+export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
+    this.state = { data: null };
   }
 
   componentDidMount(): void {
-    // TOOD: add data fetching here.
+    this.fetchData();
   }
-
+  componentDidUpdate(): void {
+    const diseaseGeneAssociation = getDiseaseGeneAssociation(this.state.data);
+    drawDiseaseGeneAssocChart(
+      "disease-gene-association-chart",
+      diseaseGeneAssociation
+    );
+  }
   render(): JSX.Element {
     return <div> Disease Data</div>;
+  }
+
+  private fetchData(): void {
+    axios.get("/api/disease/" + this.props.dcid).then((resp) => {
+      this.setState({
+        data: resp.data,
+      });
+    });
   }
 }
