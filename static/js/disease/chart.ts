@@ -18,10 +18,13 @@ import _ from "lodash";
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 export interface DiseaseGeneAssociationData {
-    name: string;
-    score: number;
+  name: string;
+  score: number;
 }
 
-export function drawDiseaseGeneAssocChart(id:string, data: DiseaseGeneAssociationData[]): void {
-    return;
+export function drawDiseaseGeneAssocChart(
+  id: string,
+  data: DiseaseGeneAssociationData[]
+): void {
+  return;
 }

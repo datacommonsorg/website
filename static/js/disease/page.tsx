@@ -18,11 +18,12 @@
  * Main component for bio.
  */
 
-import React from "react";
 import axios from "axios";
+import React from "react";
+
 import { GraphNodes } from "../shared/types";
-import {drawDiseaseGeneAssocChart} from "./chart";
-import {getDiseaseGeneAssociation} from "./data_processing_utils";
+import { drawDiseaseGeneAssocChart } from "./chart";
+import { getDiseaseGeneAssociation } from "./data_processing_utils";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -42,7 +43,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
   componentDidUpdate(): void {
     const diseaseGeneAssociation = getDiseaseGeneAssociation(this.state.data);
-    drawDiseaseGeneAssocChart("disease-gene-association-chart", diseaseGeneAssociation);
+    drawDiseaseGeneAssocChart(
+      "disease-gene-association-chart",
+      diseaseGeneAssociation
+    );
   }
   render(): JSX.Element {
     return <div> Disease Data</div>;
