@@ -21,9 +21,16 @@
 import React from "react";
 import axios from "axios";
 import { GraphNodes } from "../shared/types";
-import {PagePropType, PageStateType } from "../protein/page";
 import {drawDiseaseGeneAssocChart} from "./chart";
 import {getDiseaseGeneAssociation} from "./data_processing_utils";
+export interface PagePropType {
+  dcid: string;
+  nodeName: string;
+}
+
+export interface PageStateType {
+  data: GraphNodes;
+}
 export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
