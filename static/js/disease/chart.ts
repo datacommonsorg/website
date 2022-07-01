@@ -17,7 +17,11 @@ import * as d3 from "d3";
 import _ from "lodash";
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
+export interface DiseaseGeneAssociationData {
+    name: string;
+    score: number;
+}
 
-export function drawDiseaseGeneAssocChart(id:string, data: {name:string, score: number}): void {
+export function drawDiseaseGeneAssocChart(id:string, data: DiseaseGeneAssociationData[]): void {
     return;
 }
