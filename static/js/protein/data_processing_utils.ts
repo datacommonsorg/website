@@ -1,10 +1,18 @@
 import _ from "lodash";
 
 import { GraphNodes } from "../shared/types";
-import { ProteinStrData } from "./chart";
+import {
+  InteractionGraphData,
+  InteractionLink,
+  ProteinNode,
+  ProteinStrData,
+} from "./chart";
 import { ProteinNumData } from "./chart";
 import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
+import { DiseaseAssociationType } from "./page";
+
+const MAX_INTERACTIONS = 10; // upper bound on node degree in interaction graph viz's
 
 const VARIANT_CATEGORY = [
   "GeneticVariantFunctionalCategoryUTR3",
@@ -162,12 +170,102 @@ export function getProteinInteraction(
   return [];
 }
 
-export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
+/**
+ * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
+ */
+function nodeFromID(proteinSpeciesID: string, depth: number): ProteinNode {
+  // assumes {species id} does not contain _ (true as of 06/22/22)
+  const lastIndex = proteinSpeciesID.lastIndexOf("_");
+  return {
+    depth,
+    id: proteinSpeciesID,
+    name: proteinSpeciesID.slice(0, lastIndex),
+    species: proteinSpeciesID.slice(lastIndex + 1),
+  };
+}
+
+/**
+ * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
+ * 
+      {
+
+        nodeData : [
+          { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
+          { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
+          { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 },
+        ],
+
+        linkData : [
+          { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
+          { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
+        ],
+
+      }.
+ */
+export function getProteinInteractionGraphData(
+  data: InteractingProteinType[]
+): InteractionGraphData {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
+
+  // P53_HUMAN is central protein in below examples.
+  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
+  const centerNodeID = data[0].parent;
+  let nodeData = data.map(({ name, value }) => {
+    // value is confidenceScore
+    let neighbor = "";
+    if (name.includes(`_${centerNodeID}`)) {
+      // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
+      neighbor = name.replace(`_${centerNodeID}`, "");
+    } else if (name.includes(`${centerNodeID}_`)) {
+      // same here
+      neighbor = name.replace(`${centerNodeID}_`, "");
+    }
+    const nodeDatum = nodeFromID(neighbor, 1);
+    nodeDatum["value"] = value;
+    return nodeDatum;
+  });
+
+  // delete duplicates and self-interactions (will add support for self-interactions later on)
+  const seen = new Set();
+  nodeData = nodeData.filter((node) => {
+    const duplicate = seen.has(node.name);
+    seen.add(node.name);
+    return !duplicate && node.id !== centerNodeID;
+  });
+
+  // descending order of interaction confidenceScore
+  nodeData.sort((n1, n2) => n2.value - n1.value);
+  // consider only top 10 interactions to avoid clutter
+  nodeData = nodeData.slice(0, MAX_INTERACTIONS);
+
+  const centerDatum = nodeFromID(centerNodeID, 0);
+  nodeData.push(centerDatum);
+
+  const linkData: InteractionLink[] = nodeData.map((node) => {
+    return {
+      score: node.value,
+      source: centerNodeID,
+      target: node.id,
+    };
+  });
+
+  return {
+    linkData,
+    nodeData,
+  };
+}
+
+export function getDiseaseGeneAssoc(
+  data: GraphNodes
+): DiseaseAssociationType[] {
   // Disease Gene Associations
   if (!data) {
     return [];
   }
-  const returnData: ProteinNumData[] = [];
+  const returnData: DiseaseAssociationType[] = [];
   const seen = new Set();
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
@@ -179,6 +277,7 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
       continue;
     }
     for (const node of neighbour.nodes) {
+      let diseaseID = null;
       let score = null;
       let disease = null;
       // check for null or non-existent property values
@@ -193,9 +292,10 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
           for (const n2 of n1.neighbors) {
             if (n2.property === "diseaseOntologyID") {
               for (const n3 of n2.nodes) {
-                if (n3.neighbors === undefined) {
+                if (n3.neighbors === undefined || _.isEmpty(n3.value)) {
                   continue;
                 }
+                diseaseID = n3.value;
                 for (const n4 of n3.neighbors) {
                   if (n4.property !== "commonName") {
                     continue;
@@ -215,7 +315,7 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
             }
           }
           if (!seen.has(disease) && !!score) {
-            returnData.push({ name: disease, value: score });
+            returnData.push({ id: diseaseID, name: disease, value: score });
           }
           seen.add(disease);
         }
@@ -243,6 +343,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
       continue;
     }
     for (const node of neighbour.nodes) {
+      let associationID = null;
       let score = null;
       let variant = null;
       let tissue = null;
@@ -252,9 +353,10 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           continue;
         }
         for (const n1 of n.nodes) {
-          if (n1.neighbors.length !== 4) {
+          if (n1.neighbors.length !== 4 || _.isEmpty(n1.value)) {
             continue;
           }
+          associationID = n1.value;
           for (const n2 of n1.neighbors) {
             if (_.isEmpty(n2.nodes)) {
               continue;
@@ -285,6 +387,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           }
           if (!seen.has(variant) && !!score) {
             returnData.push({
+              associationID: associationID,
               id: variant,
               name: tissue,
               value: score,
@@ -486,7 +589,6 @@ export function getProteinDescription(data: GraphNodes): string {
       continue;
     }
     proteinDescription = neighbour.nodes[0].value;
-    console.log(proteinDescription);
     return proteinDescription;
   }
 }

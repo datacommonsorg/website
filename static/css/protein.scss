@@ -15,25 +15,51 @@
  */
 
 @import "base";
-.tooltip {
-    display: flex;
-    width: 100;
-    height: 100;
-    background-color: rgba(0, 0, 0, 0.8);
-    line-height: 1;
-    font-weight: bold;
-    padding: 12px;
-    border: solid;
-    border-radius: 1px;
-    color: #fff;
-    box-sizing: border-box;
-    display: inline;
-    font-size: 8px;
-    position: absolute;
-    text-align: center;
-  }
 
-  .axis-label {
-      text-anchor: middle;
-      font-size: 12px;
-  }
+.tooltip {
+  display: flex;
+  width: 100;
+  height: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  border: solid;
+  border-radius: 1px;
+  color: #fff;
+  box-sizing: border-box;
+  display: inline;
+  font-size: 8px;
+  position: absolute;
+  text-align: center;
+}
+
+.axis-label {
+  text-anchor: middle;
+  font-size: 12px;
+}
+
+.legend-label {
+  font-size: 10px;
+}
+
+.interaction-link {
+  stroke: #ccc;
+  stroke-opacity: 1;
+  stroke-linecap: round;
+}
+
+.protein-node-circle {
+  stroke: "#fff";
+  stroke-opacity: 1;
+  stroke-width: 1.5;
+  r: 15;
+}
+
+.protein-node-label {
+  font-family: "Public Sans", sans-serif;
+  font-size: 8px;
+  fill: #222;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
