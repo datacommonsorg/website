@@ -734,7 +734,7 @@ export function drawProteinInteractionChart(
  */
 export function drawProteinInteractionGraph(
   elementID: string,
-  data: InteractingProteinType[]
+  data: InteractionGraphData
 ): void {
   /*
   References:
@@ -742,10 +742,16 @@ export function drawProteinInteractionGraph(
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
 
-  const { nodeData, linkData } = getProteinInteractionGraphData(data);
+  console.log('data', data);
+  const { nodeData, linkData } = data;
 
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
+  // const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  // const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
+
+  const height = 600;
+  const width = 800;
+
+  console.log('hw', height, width);
 
   const svg = d3
     .select(`#${elementID}`)
