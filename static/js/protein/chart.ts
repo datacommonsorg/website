@@ -253,7 +253,7 @@ const LINK_STYLE = {
 };
 
 /**
- * Select element by ID and brighten it by given percentage.
+ * Select element by ID and brighten it to given percentage.
  */
 function brighten(
   elementID: string,
