@@ -52,6 +52,7 @@ import {
   proteinsFromInteractionDCID,
   responseToValues,
   scoreFromInteraction,
+  scoreFromProteins,
   symmetrizeScores,
   zip,
 } from "./data_processing_utils";
@@ -293,6 +294,25 @@ export class Page extends React.Component<PagePropType, PageStateType> {
               }
             )).flat(1);
 
+            const terminalLinks = []
+
+            nodeDCIDs.forEach(dcid1 => {
+              nodeDCIDs.forEach(dcid2 => {
+                const node1 = dcid1.replace('bio/', '');
+                const node2 = dcid2.replace('bio/', '');
+                const interactionScore = scoreFromProteins(scoreObj, node1, node2)
+
+                // iterate through pairs {node1, node2}, where node1 !== node2.
+                if (node1.localeCompare(node2) < 0  && interactionScore >= PPI_CONFIDENCE_SCORE_THRESHOLD){
+                  terminalLinks.push({
+                    source: node1,
+                    target: node2,
+                    score: interactionScore,
+                  })
+                }
+              })
+            })
+
             const newNodeIDs = new Set(
               newLinks.map(({target}) => target)
             )
@@ -303,6 +323,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
 
             graphData.nodeData.push(...newNodes);
             graphData.linkData.push(...newLinks);
+            graphData.linkData.push(...terminalLinks);
 
             this.setState({
               data: resp.data,
