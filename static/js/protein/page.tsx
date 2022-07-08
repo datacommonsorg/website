@@ -300,9 +300,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             )
             const newNodes = Array.from(newNodeIDs).map(id => nodeFromID((id as string), 2)) // TODO: get rid of assertion here
 
-            console.log('newnodes', newNodes);
-            console.log('newlinks', newLinks);
-
             graphData.nodeData.push(...newNodes);
             graphData.linkData.push(...newLinks);
             graphData.linkData.push(...terminalLinks);
