@@ -748,7 +748,7 @@ export function drawProteinInteractionGraph(
   // const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
   // const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
 
-  const height = 600;
+  const height = 800;
   const width = 800;
 
   console.log('hw', height, width);
