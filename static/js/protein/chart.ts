@@ -246,17 +246,16 @@ const LINK_STYLE = {
 /**
  * Brighten element under cursor.
  */
-function brighten(): void {
+function brighten(id): void {
   // Reference: https://stackoverflow.com/a/69610045
-  console.log('brighten', this)
-  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
+  d3.select(`#${id}`).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
 }
 
 /**
  * Unbrighten element under cursor.
  */
-function unbrighten(): void {
-  d3.select(this).style("filter", "brightness(100%)");
+function unbrighten(id): void {
+  d3.select(`#${id}`).style("filter", "brightness(100%)");
 }
 
 /**
@@ -292,8 +291,8 @@ function hideToolTip(): void{
 /**
  * Handler for when mouse first enters a component. 
  */
-function getMouseOver(toolTipText){
-  brighten();
+function getMouseOver(id, toolTipText){
+  brighten(id);
   updateToolTipText(toolTipText);
   showToolTip();
 }
@@ -308,9 +307,17 @@ function mousemove(): void {
 /**
  * Handler for when mouse leaves component.
  */
-function mouseout(): void {
-  unbrighten();
+function mouseout(id): void {
+  unbrighten(id);
   hideToolTip();
+}
+
+function handleMouseOver(selection, idFunc, toolTipFunc){
+  selection
+    .on("mouseover", (d, i) => {
+      getMouseOver(idFunc(i), toolTipFunc(d))})
+    .on("mousemove", mousemove)
+    .on("mouseout", (d, i) => mouseout(idFunc(i)));
 }
 
 /**
@@ -420,6 +427,7 @@ function dragNode(
     .on("drag", dragged)
     .on("end", dragended);
 }
+
 
 /**
  * Adds the y label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
@@ -575,6 +583,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     const tissueName = d.name;
     const tissueValue = TISSUE_SCORE_TO_LABEL[d.value];
     getMouseOver(
+      'blah',
      "Name: " + tissueName + "<br>" + "Expression: " + tissueValue
   )};
 
@@ -716,6 +725,7 @@ export function drawProteinInteractionChart(
   const proteinName = d.name;
   const confidenceScore = d.value;
   getMouseOver(
+      'blah',
       "Protein Name: " +
         proteinName +
         "<br>" +
@@ -815,6 +825,7 @@ export function drawProteinInteractionGraph(
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
   forceLink.distance(LINK_STYLE.length);
 
+  const linkIDFunc = index => `l${index}`;
   // add links first so nodes appear over links
   const links = svg
     .append("g")
@@ -826,11 +837,8 @@ export function drawProteinInteractionGraph(
       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
     )
     .attr("class", "interaction-link")
-    .on("mouseover", d => {
-      d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
-      getMouseOver(`Source: ${(d.source as ProteinNode).name}<br>Target: ${(d.target as ProteinNode).name}<br>Confidence: ${d.score}`)})
-    .on("mousemove", mousemove)
-    .on("mouseout", mouseout);
+    .attr("id", (d, i) => linkIDFunc(i))
+    .call(handleMouseOver, linkIDFunc, d => `Source: ${(d.source as ProteinNode).name}<br>Target: ${(d.target as ProteinNode).name}<br>Confidence: ${d.score}`)
 
   const simulation = d3
     .forceSimulation(nodeData)
@@ -839,6 +847,7 @@ export function drawProteinInteractionGraph(
     .force("center", d3.forceCenter())
     .on("tick", () => interactionGraphTicked(links, nodes));
 
+  const nodeIDFunc = index => `n${index}`;
   // container for circles and labels
   const nodes = svg
     .append("g")
@@ -847,17 +856,14 @@ export function drawProteinInteractionGraph(
     .enter()
     .append("g")
     .call(dragNode(simulation))
-    .on("mouseover", d => {
-      d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
-      getMouseOver(`Name: ${d.name}<br>Species: ${d.species}`)})
-    .on("mousemove", mousemove)
-    .on("mouseout", mouseout);
+    .call(handleMouseOver, nodeIDFunc, d => `Name: ${d.name}<br>Species: ${d.species}` )
 
   // node circles
   nodes
     .append("circle")
     .attr("class", "protein-node-circle")
-    .attr("fill", (node) => nodeColors(node.depth));
+    .attr("fill", (node) => nodeColors(node.depth))
+    .attr("id", (node, i) => nodeIDFunc(i));
 
   // node labels
   nodes
@@ -916,6 +922,7 @@ export function drawDiseaseGeneAssocChart(
     const diseaseName = formatDiseaseName(d.name);
     const assocScore = d.value;
     getMouseOver(
+      'blah',
         "Disease Name: " +
           diseaseName +
           "<br>" +
@@ -1024,6 +1031,7 @@ export function drawVarGeneAssocChart(
   const variantName = d.id;
   const logScore = d.value;
     getMouseOver(
+      'blah',
       "Variant ID: " + variantName + "<br>" + "Log2 Fold Change: " + logScore
   )};
 
@@ -1196,6 +1204,7 @@ export function drawVarTypeAssocChart(
     const varCategory = d.name;
     const varCount = d.value;
     getMouseOver(
+      'blah',
       "Variant Functional Category: " +
         formatVariant(varCategory) +
         "<br>" +
@@ -1277,6 +1286,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     const clinicalCategory = d.name;
     const varCount = d.value;
     getMouseOver(
+      'blah',
        "Variant Clinical Significance: " +
         formatVariant(clinicalCategory) +
         "<br>" +
@@ -1364,6 +1374,7 @@ export function drawChemGeneAssocChart(
     const assocName = formatChemName(d.name);
     const count = d.value;
     getMouseOver(
+      'blah',
        "Association Type: " + assocName + "<br>" + "Count: " + count
   )};
 
