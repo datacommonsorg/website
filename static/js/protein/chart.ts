@@ -17,6 +17,7 @@
 import * as d3 from "d3";
 import {
   DragBehavior,
+  EnterElement,
   Simulation,
   SimulationLinkDatum,
   SimulationNodeDatum,
@@ -24,7 +25,7 @@ import {
 import _ from "lodash";
 
 import { getProteinInteractionGraphData } from "./data_processing_utils";
-import { InteractingProteinType } from "./page";
+import { DiseaseAssociationType, InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
@@ -65,6 +66,7 @@ export interface InteractionGraphData {
 
 // interface for variant gene associations for plotting error bars
 export interface VarGeneDataPoint {
+  associationID: string;
   id: string;
   name: string;
   value: number;
@@ -72,9 +74,17 @@ export interface VarGeneDataPoint {
   upper: number;
 }
 
+type Selectable = Element | EnterElement | Document | Window | SVGLineElement;
+type Datum =
+  | ProteinNumData
+  | ProteinNode
+  | InteractionLink
+  | DiseaseAssociationType;
+
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 const PROTEIN_REDIRECT = "/bio/protein/";
+export const GRAPH_BROWSER_REDIRECT = "/browser/";
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar width for tissue
 const TISSUE_BAR_WIDTH = 12;
@@ -83,7 +93,9 @@ const BAR_WIDTH = 35;
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
 // tooltip constant for all charts
-const BRIGHTEN_PERCENTAGE = "105%";
+const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
+const PPI_BRIGHTEN_PERCENTAGE = "105%";
+const PTI_BRIGHTEN_PERCENTAGE = "107%";
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // length of side bar for error plot for variant-gene associations
 const ERROR_SIDE_BAR_LENGTH = 5;
@@ -240,34 +252,117 @@ const LINK_STYLE = {
   },
 };
 
-// https://stackoverflow.com/a/69610045
-function brighten(): void {
-  // brighten object under cursor
-  d3.select(this).style("filter", `brightness(${BRIGHTEN_PERCENTAGE})`);
-}
-
-function unbrighten(): void {
-  // unbrighten object under cursor
-  d3.select(this).style("filter", "brightness(100%)");
+/**
+ * Select element by ID and brighten it to given percentage.
+ */
+function brighten(
+  elementID: string,
+  brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
+): void {
+  // Reference: https://stackoverflow.com/a/69610045
+  d3.select(`#${elementID}`).style(
+    "filter",
+    `brightness(${brightenPercentage})`
+  );
 }
 
 /**
- * Gets the left and top coordinates of a rect element and positions the tooltip accordingly
+ * Select element by ID and reset brightness to 100%.
+ */
+function unbrighten(elementID: string): void {
+  d3.select(`#${elementID}`).style("filter", "brightness(100%)");
+}
+
+/**
+ * Given new html text, overwrite text currently in tooltip.
+ */
+function updateToolTipText(html: string): void {
+  TOOL_TIP.html(html);
+}
+
+/**
+ * Get the left and top coordinates of a rect element and position the tooltip accordingly
  * @param left_position
  * @param top_position
  */
-function mousemove() {
-  TOOL_TIP.style("left", d3.event.pageX - 50 + "px").style(
+function updateToolTipPosition(): void {
+  TOOL_TIP.style("left", d3.event.pageX - 60 + "px").style(
     "top",
-    d3.event.pageY - 50 + "px"
+    d3.event.pageY - 60 + "px"
   );
 }
+
 /**
- * Sets the opacity of the tooltip as zero, to hide it when the user hovers over other elements
+ * Make tooltip visible.
  */
-function mouseout() {
+function showToolTip(): void {
+  TOOL_TIP.style("opacity", 1);
+}
+
+/**
+ * Make tooltip invisible.
+ */
+function hideToolTip(): void {
   TOOL_TIP.style("opacity", 0);
 }
+
+/**
+ * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
+ */
+function onMouseOver(
+  elementID: string,
+  toolTipText: string,
+  brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
+): void {
+  brighten(elementID, brightenPercentage);
+  updateToolTipText(toolTipText);
+  showToolTip();
+}
+
+/**
+ * Update position of global tooltip to track mouse.
+ */
+function onMouseMove(): void {
+  updateToolTipPosition();
+}
+
+/**
+ * When mouse leaves element specified by given id, reset its brightness and hide the global tooltip.
+ */
+function onMouseOut(elementID: string): void {
+  unbrighten(elementID);
+  hideToolTip();
+}
+
+/**
+ * On mouse hover, select hovered element and
+ *  1) highlight it
+ *  2) update the global tooltip
+ *  3) show the global tooltip.
+ *
+ * Unhighlight and hide the global tooltip when the mouse leaves.
+ */
+function handleMouseEvents(
+  selection: d3.Selection<Selectable, Datum, SVGGElement, unknown>,
+  idFunc: (index: number) => string,
+  toolTipFunc: (datum: Datum) => string,
+  brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
+): void {
+  selection
+    .on("mouseover", (d, i) => {
+      onMouseOver(idFunc(i), toolTipFunc(d), brightenPercentage);
+    })
+    .on("mousemove", onMouseMove)
+    .on("mouseout", (d, i) => onMouseOut(idFunc(i)));
+}
+
+/**
+ * Get function that takes an index and returns an ID containing the index and chart ID.
+ */
+function getBarIDFunc(chartID: string): (index: number) => string {
+  return (index) => `${chartID}-bar${index}`;
+}
+
 /**
  * Adds the x label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
  * @param width
@@ -525,15 +620,6 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
 
-  //Adds required text to the tooltip, namely the tissue name and its corresponding expression score
-  const mouseover = function (d) {
-    const tissueName = d.name;
-    const tissueValue = TISSUE_SCORE_TO_LABEL[d.value];
-    TOOL_TIP.html(
-      "Name: " + tissueName + "<br>" + "Expression: " + tissueValue
-    ).style("opacity", 1);
-  };
-
   // plots x-axis for the graph - tissue names
   const x = d3
     .scaleBand()
@@ -558,6 +644,8 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   );
   // Adds the y-axis text label
   addYLabel(height, "Expression Score", svg);
+
+  const barIDFunc = getBarIDFunc(id);
   // plotting the bars
   svg
     .selectAll("tissue-score-bar")
@@ -568,10 +656,14 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .attr("y", (d) => y(d.value))
     .attr("height", (d) => height - y(d.value))
     .attr("width", x.bandwidth())
+    .attr("id", (d, i) => barIDFunc(i))
     .style("fill", (d) => ORGAN_COLOR_DICT[TISSUE_ORGAN_DICT[d.name]])
-    .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove())
-    .on("mouseout", () => mouseout());
+    .call(
+      handleMouseEvents,
+      barIDFunc,
+      (d) => `${d.name}<br>${TISSUE_SCORE_TO_LABEL[d.value]}`,
+      PTI_BRIGHTEN_PERCENTAGE
+    );
 }
 
 /**
@@ -667,18 +759,7 @@ export function drawProteinInteractionChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-  //Adds required text to the tooltip, namely the interacting protein name and its corresponding interaction confidence score
-  const mouseover = function (d) {
-    const proteinName = d.name;
-    const confidenceScore = d.value;
-    TOOL_TIP.html(
-      "Protein Name: " +
-        proteinName +
-        "<br>" +
-        "Confidence Score: " +
-        confidenceScore
-    ).style("opacity", 1);
-  };
+
   const bars = svg.append("g");
   // plots x-axis for the graph - protein names
   const x = d3.scaleLinear().domain([0, 1]).range([0, width]);
@@ -708,6 +789,9 @@ export function drawProteinInteractionChart(
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatProteinName)).raise();
   // Adds the y-axis text label
   addYLabel(height, "Interacting protein name", svg);
+
+  const barIDFunc = getBarIDFunc(id);
+
   // plotting the bars
   bars
     .selectAll("rect")
@@ -718,15 +802,18 @@ export function drawProteinInteractionChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
+    .attr("id", (d, i) => barIDFunc(i))
     .style("fill", BAR_COLOR)
     //PROTEIN_REDIRECT
     .on("click", function (d) {
       const proteinId = "bio/" + d.name + "_" + d.parent;
-      window.location.href = `${PROTEIN_REDIRECT}${proteinId}`;
+      window.open(PROTEIN_REDIRECT + proteinId);
     })
-    .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove())
-    .on("mouseout", () => mouseout());
+    .call(
+      handleMouseEvents,
+      barIDFunc,
+      (d) => `Protein Name: ${d.name}<br>Confidence Score: ${d.value}`
+    );
 }
 
 /**
@@ -776,6 +863,7 @@ export function drawProteinInteractionGraph(
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
   forceLink.distance(LINK_STYLE.length);
 
+  const linkIDFunc = (index) => `${elementID}-link${index}`;
   // add links first so nodes appear over links
   const links = svg
     .append("g")
@@ -787,8 +875,16 @@ export function drawProteinInteractionGraph(
       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
     )
     .attr("class", "interaction-link")
-    .on("mouseover", brighten)
-    .on("mouseleave", unbrighten);
+    .attr("id", (d, i) => linkIDFunc(i))
+    .call(
+      handleMouseEvents,
+      linkIDFunc,
+      (d) =>
+        `Source: ${(d.source as ProteinNode).name}<br>Target: ${
+          (d.target as ProteinNode).name
+        }<br>Confidence: ${d.score}`,
+      PPI_BRIGHTEN_PERCENTAGE
+    );
 
   const simulation = d3
     .forceSimulation(nodeData)
@@ -797,6 +893,7 @@ export function drawProteinInteractionGraph(
     .force("center", d3.forceCenter())
     .on("tick", () => interactionGraphTicked(links, nodes));
 
+  const nodeIDFunc = (index) => `${elementID}-node${index}`;
   // container for circles and labels
   const nodes = svg
     .append("g")
@@ -805,14 +902,19 @@ export function drawProteinInteractionGraph(
     .enter()
     .append("g")
     .call(dragNode(simulation))
-    .on("mouseover", brighten)
-    .on("mouseleave", unbrighten);
+    .call(
+      handleMouseEvents,
+      nodeIDFunc,
+      (d) => `Name: ${d.name}<br>Species: ${d.species}`,
+      PPI_BRIGHTEN_PERCENTAGE
+    );
 
   // node circles
   nodes
     .append("circle")
     .attr("class", "protein-node-circle")
-    .attr("fill", (node) => nodeColors(node.depth));
+    .attr("fill", (node) => nodeColors(node.depth))
+    .attr("id", (node, i) => nodeIDFunc(i));
 
   // node labels
   nodes
@@ -829,7 +931,7 @@ export function drawProteinInteractionGraph(
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
-  data: ProteinNumData[]
+  data: DiseaseAssociationType[]
 ): void {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
@@ -866,18 +968,6 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-  // Adds required text to the tooltip, namely the disease name and its corresponding association score
-  const mouseover = function (d) {
-    const diseaseName = formatDiseaseName(d.name);
-    const assocScore = d.value;
-    TOOL_TIP.html(
-      "Disease Name: " +
-        diseaseName +
-        "<br>" +
-        "Association Score: " +
-        assocScore
-    ).style("opacity", 1);
-  };
 
   const bars = svg.append("g");
   // plots the axes
@@ -900,6 +990,8 @@ export function drawDiseaseGeneAssocChart(
     .style("text-anchor", "end");
   // Adds the y-axis text label
   addYLabel(height, "Disease Name", svg);
+
+  const barIDFunc = getBarIDFunc(id);
   // plots the bars
   bars
     .selectAll("rect")
@@ -910,10 +1002,19 @@ export function drawDiseaseGeneAssocChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
+    .attr("id", (d, i) => barIDFunc(i))
     .style("fill", BAR_COLOR)
-    .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove())
-    .on("mouseout", () => mouseout());
+    .on("click", function (d) {
+      window.open(GRAPH_BROWSER_REDIRECT + d.id);
+    })
+    .call(
+      handleMouseEvents,
+      barIDFunc,
+      (d) =>
+        `Disease Name: ${formatDiseaseName(d.name)}<br>Association Score: ${
+          d.value
+        }`
+    );
 }
 
 /**
@@ -937,6 +1038,7 @@ export function drawVarGeneAssocChart(
     const objLower = confInterval[0].substring(1);
     const objUpper = confInterval[1].substring(0);
     return {
+      associationID: item.associationID,
       id: item.id.substring(4),
       name: item.name,
       value: parseFloat(item.value),
@@ -975,14 +1077,6 @@ export function drawVarGeneAssocChart(
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
   reformattedData = reformattedData.slice(0, NUM_DATA_POINTS);
-  //Adds required text to the tooltip, namely the variant name and its corresponding log 2 fold change score
-  const mouseover = function (d) {
-    const variantName = d.id;
-    const logScore = d.value;
-    TOOL_TIP.html(
-      "Variant ID: " + variantName + "<br>" + "Log2 Fold Change: " + logScore
-    ).style("opacity", 1);
-  };
 
   // plots the axes
   const x = d3
@@ -1018,6 +1112,8 @@ export function drawVarGeneAssocChart(
     .attr("y2", (d) => y(d.id))
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
+
+  const circleIDFunc = (index) => `${id}-circle${index}`;
   svg
     .selectAll("error-bar-circle")
     .data(reformattedData)
@@ -1026,10 +1122,18 @@ export function drawVarGeneAssocChart(
     .attr("cx", (d) => x(d.value))
     .attr("cy", (d) => y(d.id))
     .attr("r", "6")
+    .attr("id", (d, i) => circleIDFunc(i))
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
-    .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove())
-    .on("mouseout", () => mouseout());
+    // variant redirect
+    .on("click", function (d) {
+      window.open(GRAPH_BROWSER_REDIRECT + d.associationID);
+    })
+    .call(
+      handleMouseEvents,
+      circleIDFunc,
+      (d) => `Variant ID: ${d.id}<br>Log2 Fold Change: ${d.value}`
+    );
+
   svg
     .selectAll("error-bar-left-line")
     .data(reformattedData)
@@ -1148,18 +1252,6 @@ export function drawVarTypeAssocChart(
   const arrName = data.map((x) => {
     return x.name;
   });
-  //Adds required text to the tooltip, namely the variant functional category name and its count
-  const mouseover = function (d) {
-    const varCategory = d.name;
-    const varCount = d.value;
-    TOOL_TIP.html(
-      "Variant Functional Category: " +
-        formatVariant(varCategory) +
-        "<br>" +
-        "Count: " +
-        varCount
-    ).style("opacity", 1);
-  };
   const svg = d3
     .select("#variant-type-association-chart")
     .append("svg")
@@ -1186,6 +1278,9 @@ export function drawVarTypeAssocChart(
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatVariant));
   // Adds the y-axis text label
   addYLabel(height, "Variant Function Category", svg);
+
+  const barIDFunc = getBarIDFunc(id);
+
   // plots the bars
   bars
     .selectAll("rect")
@@ -1196,10 +1291,16 @@ export function drawVarTypeAssocChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
+    .attr("id", (d, i) => barIDFunc(i))
     .style("fill", BAR_COLOR)
-    .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove())
-    .on("mouseout", () => mouseout());
+    .call(
+      handleMouseEvents,
+      barIDFunc,
+      (d) =>
+        `Variant Functional Category: ${formatVariant(d.name)}<br>Count: ${
+          d.value
+        }`
+    );
 }
 /**
  * Draws a barchart with variant clinical significance and its corresponding counts
@@ -1230,18 +1331,6 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   const arrName = data.map((x) => {
     return x.name;
   });
-  //Adds required text to the tooltip, namely the variant clinical significance and its count
-  const mouseover = function (d) {
-    const clinicalCategory = d.name;
-    const varCount = d.value;
-    TOOL_TIP.html(
-      "Variant Clinical Significance: " +
-        formatVariant(clinicalCategory) +
-        "<br>" +
-        "Count: " +
-        varCount
-    ).style("opacity", 1);
-  };
 
   const svg = d3
     .select("#variant-significance-association-chart")
@@ -1269,6 +1358,8 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatVariant));
   // Adds the y-axis text label
   addYLabel(height, "Variant Clinical Significance", svg);
+
+  const barIDFunc = getBarIDFunc(id);
   // plots the bars
   bars
     .selectAll("rect")
@@ -1279,11 +1370,18 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
+    .attr("id", (d, i) => barIDFunc(i))
     .style("fill", BAR_COLOR)
-    .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove())
-    .on("mouseout", () => mouseout());
+    .call(
+      handleMouseEvents,
+      barIDFunc,
+      (d) =>
+        `Variant Clinical Significance: ${formatVariant(d.name)}<br>Count: ${
+          d.value
+        }`
+    );
 }
+
 /**
  * Draws a barchart with chemical gene associations and its corresponding counts
  * @param id
@@ -1318,15 +1416,6 @@ export function drawChemGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-  //Adds required text to the tooltip, namely the chemical-gene association category and its count
-  const mouseover = function (d) {
-    const assocName = formatChemName(d.name);
-    const count = d.value;
-    TOOL_TIP.html(
-      "Association Type: " + assocName + "<br>" + "Count: " + count
-    ).style("opacity", 1);
-  };
-
   const bars = svg.append("g");
   // plots the axes
   const x = d3
@@ -1346,6 +1435,8 @@ export function drawChemGeneAssocChart(
   svg.append("g").call(d3.axisLeft(y).tickFormat(formatChemName));
   // Adds the y-axis text label
   addYLabel(height, "Drug-Gene Relationship", svg);
+
+  const barIDFunc = getBarIDFunc(id);
   // plots the bars
   bars
     .selectAll("rect")
@@ -1356,8 +1447,11 @@ export function drawChemGeneAssocChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
+    .attr("id", (d, i) => barIDFunc(i))
     .style("fill", BAR_COLOR)
-    .on("mouseover", mouseover)
-    .on("mousemove", () => mousemove())
-    .on("mouseout", () => mouseout());
+    .call(
+      handleMouseEvents,
+      barIDFunc,
+      (d) => `Association Type: ${formatChemName(d.name)}<br>Count: ${d.value}`
+    );
 }

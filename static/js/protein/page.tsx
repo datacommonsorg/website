@@ -34,6 +34,7 @@ import {
   drawVarGeneAssocChart,
   drawVarSigAssocChart,
   drawVarTypeAssocChart,
+  GRAPH_BROWSER_REDIRECT,
 } from "./chart";
 import {
   arrayToObject,
@@ -56,24 +57,34 @@ import {
   symmetrizeScores,
   zip,
 } from "./data_processing_utils";
-
-interface PagePropType {
+export interface PagePropType {
   dcid: string;
   nodeName: string;
 }
 
-interface PageStateType {
+export interface PageStateType {
   data: GraphNodes;
   interactionData?: any // TODO: fix types
   interactionDataDepth1?: any
 }
 
-// stores the variant id, tissue name, log fold change value, and log fold change confidence interval
 export interface ProteinVarType {
+  //genetic variant gene association dcid
+  associationID: string;
+  //reference id of the variant
+  id: string;
+  //name of the variant
+  name: string;
+  //log fold change value
+  value: string;
+  //log fold change interval
+  interval: string;
+}
+// stores the disease ID, disease name and association score
+export interface DiseaseAssociationType {
   id: string;
   name: string;
-  value: string;
-  interval: string;
+  value: number;
 }
 
 // stores the interacting protein name, confidence value, and parent protein name
@@ -123,15 +134,19 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     Using the split we get the ProteinName and SpeciesName separately
     */
     const splitNodeName = this.props.nodeName.split("_");
+    const proteinLink = `${GRAPH_BROWSER_REDIRECT}${this.props.dcid}`;
     const proteinDescription = getProteinDescription(this.state.data);
     return (
       <>
         <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
+        <h6>
+          <a href={proteinLink}>Graph Browser View</a>
+        </h6>
         <p>
           <b>Description: </b>
           {proteinDescription}
         </p>
-        <h5>Protein Tissue Association</h5>
+        <h5>Protein Tissue Expression</h5>
         <p>
           {splitNodeName[0]} expression level (none, low, medium, or high)
           detected in each tissue as reported by The Human Protein Atlas. The

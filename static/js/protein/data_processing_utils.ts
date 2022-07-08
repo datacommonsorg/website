@@ -10,6 +10,7 @@ import {
 import { ProteinNumData } from "./chart";
 import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
+import { DiseaseAssociationType } from "./page";
 
 export const MAX_INTERACTIONS = 10; // upper bound on node degree in interaction graph viz's
 
@@ -257,12 +258,14 @@ export function getProteinInteractionGraphData(
   };
 }
 
-export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
+export function getDiseaseGeneAssoc(
+  data: GraphNodes
+): DiseaseAssociationType[] {
   // Disease Gene Associations
   if (!data) {
     return [];
   }
-  const returnData: ProteinNumData[] = [];
+  const returnData: DiseaseAssociationType[] = [];
   const seen = new Set();
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
@@ -274,6 +277,7 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
       continue;
     }
     for (const node of neighbour.nodes) {
+      let diseaseID = null;
       let score = null;
       let disease = null;
       // check for null or non-existent property values
@@ -288,9 +292,10 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
           for (const n2 of n1.neighbors) {
             if (n2.property === "diseaseOntologyID") {
               for (const n3 of n2.nodes) {
-                if (n3.neighbors === undefined) {
+                if (n3.neighbors === undefined || _.isEmpty(n3.value)) {
                   continue;
                 }
+                diseaseID = n3.value;
                 for (const n4 of n3.neighbors) {
                   if (n4.property !== "commonName") {
                     continue;
@@ -310,7 +315,7 @@ export function getDiseaseGeneAssoc(data: GraphNodes): ProteinNumData[] {
             }
           }
           if (!seen.has(disease) && !!score) {
-            returnData.push({ name: disease, value: score });
+            returnData.push({ id: diseaseID, name: disease, value: score });
           }
           seen.add(disease);
         }
@@ -338,6 +343,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
       continue;
     }
     for (const node of neighbour.nodes) {
+      let associationID = null;
       let score = null;
       let variant = null;
       let tissue = null;
@@ -347,9 +353,10 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           continue;
         }
         for (const n1 of n.nodes) {
-          if (n1.neighbors.length !== 4) {
+          if (n1.neighbors.length !== 4 || _.isEmpty(n1.value)) {
             continue;
           }
+          associationID = n1.value;
           for (const n2 of n1.neighbors) {
             if (_.isEmpty(n2.nodes)) {
               continue;
@@ -380,6 +387,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           }
           if (!seen.has(variant) && !!score) {
             returnData.push({
+              associationID: associationID,
               id: variant,
               name: tissue,
               value: score,
@@ -581,7 +589,6 @@ export function getProteinDescription(data: GraphNodes): string {
       continue;
     }
     proteinDescription = neighbour.nodes[0].value;
-    console.log(proteinDescription);
     return proteinDescription;
   }
 }
