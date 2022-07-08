@@ -256,8 +256,8 @@ const LINK_STYLE = {
  * Select element by ID and brighten it by given percentage.
  */
 function brighten(
-  elementID,
-  brightenPercentage = DEFAULT_BRIGHTEN_PERCENTAGE
+  elementID: string,
+  brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
 ): void {
   // Reference: https://stackoverflow.com/a/69610045
   d3.select(`#${elementID}`).style(
@@ -269,7 +269,7 @@ function brighten(
 /**
  * Select element by ID and reset brightness to 100%.
  */
-function unbrighten(elementID): void {
+function unbrighten(elementID: string): void {
   d3.select(`#${elementID}`).style("filter", "brightness(100%)");
 }
 
@@ -310,10 +310,10 @@ function hideToolTip(): void {
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
 function onMouseOver(
-  elementID,
-  toolTipText,
-  brightenPercentage = DEFAULT_BRIGHTEN_PERCENTAGE
-) {
+  elementID: string,
+  toolTipText: string,
+  brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
+): void {
   brighten(elementID, brightenPercentage);
   updateToolTipText(toolTipText);
   showToolTip();
@@ -329,7 +329,7 @@ function onMouseMove(): void {
 /**
  * When mouse leaves element specified by given id, reset its brightness and hide the global tooltip.
  */
-function onMouseOut(elementID): void {
+function onMouseOut(elementID: string): void {
   unbrighten(elementID);
   hideToolTip();
 }
@@ -345,7 +345,7 @@ function onMouseOut(elementID): void {
 function handleMouseEvents(
   selection: d3.Selection<Selectable, Datum, SVGGElement, unknown>,
   idFunc: (index: number) => string,
-  toolTipFunc: (datum: any) => string,
+  toolTipFunc: (datum: Datum) => string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
 ): void {
   selection
@@ -828,8 +828,6 @@ export function drawProteinInteractionGraph(
     1) Force-directed layout Observable: https://observablehq.com/@d3/force-directed-graph
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
-
-  // todo: refactoring https://stackoverflow.com/questions/50161179/d3-selectthis-works-on-mouseover-but-not-on-function-called-in-mouseover
 
   const { nodeData, linkData } = getProteinInteractionGraphData(data);
 
