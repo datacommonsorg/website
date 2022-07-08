@@ -92,10 +92,16 @@ const TISSUE_BAR_WIDTH = 12;
 const BAR_WIDTH = 35;
 // bar chart color for most of the charts
 const BAR_COLOR = "maroon";
-// tooltip constant for all charts
+
+// Brightness settings on mouseover
+// horizontal barcharts
 const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
-const PPI_BRIGHTEN_PERCENTAGE = "105%";
+// protein-tissue interaction bars
 const PTI_BRIGHTEN_PERCENTAGE = "107%";
+// protein-protein interaction graph nodes and links
+const PPI_BRIGHTEN_PERCENTAGE = "105%";
+
+// tooltip constant for all charts
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // length of side bar for error plot for variant-gene associations
 const ERROR_SIDE_BAR_LENGTH = 5;
