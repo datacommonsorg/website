@@ -220,47 +220,31 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     }
 
   private fetchData(): void {
-    // TODO: bug clicking node breaks everything
     const PPI_CONFIDENCE_SCORE_THRESHOLD = 0.4
     axios.get("/api/protein/" + this.props.dcid).then((resp) => {
       const proteinSet = new Set([this.props.dcid]);
-      console.log('proteinset', proteinSet)
       const interactionDataDepth1 = getProteinInteraction(resp.data, this.props.dcid.replace("bio/", ""));
-      console.log(interactionDataDepth1)
       const graphData = getProteinInteractionGraphData(interactionDataDepth1);
-      console.log('graph', graphData)
       // breadth 1 dcids
       const nodeDCIDs = graphData.nodeData.map(nodeDatum => `bio/${nodeDatum.id}`); // TODO: 'bio' should be a global const
-      console.log('ndcids', nodeDCIDs);
       nodeDCIDs.forEach(proteinSet.add, proteinSet);
       this.fetchInteractionData(nodeDCIDs).then(
         (interactionResp) => {
-          console.log(interactionResp)
-
           const interactionData = responseToValues(interactionResp)
                                   .map(interactions => {
-                                    console.log(interactions);
                                     return interactions
                                                       .map(({dcid}) => dcid)})
-          console.log('int data', interactionData)
           const interactionDataDedup = interactionData.map(deduplicateInteractionDCIDs);
           const interaction_dcids_dedup = interactionDataDedup.flat(1);
 
-          console.log('interaction_dcids', interaction_dcids_dedup)
           this.fetchScoreData(interaction_dcids_dedup).then(scoreResp => {
-            console.log('scores', scoreResp)
 
             const scoreData = responseToValues(scoreResp);
-            console.log('scoreData', scoreData);
             const scores = scoreData.flat(1).map(({dcid}) => dcid)
                                     .filter(dcid => dcid.includes("IntactMiScore"))
                                     .map((dcid) => Number(dcid.split("IntactMiScore").slice(-1)[0]))
-            console.log('scores2', scores);
             // doubles as an O(1) retrieval store for whether two proteins interact
             const scoreObj = symmetrizeScores(interaction_dcids_dedup, scores);
-            console.log('scoreobj', scoreObj);
-
-            console.log('proteinSet', proteinSet);
 
             const interactionDataSorted = interactionDataDedup.map(dcidArray => dcidArray
               .filter((interactionDCID, index) => {
@@ -269,7 +253,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
                 const child = proteins.filter(protein => protein !== parent)[0];
                 const alreadyExists = proteinSet.has(`bio/${child}`)
                 const strongEnough = scoreFromInteraction(scoreObj, interactionDCID) >= PPI_CONFIDENCE_SCORE_THRESHOLD;
-                console.log('as', interactionDCID, alreadyExists, strongEnough);
                 return !alreadyExists && strongEnough;
               })
               .sort((a, b) => scoreFromInteraction(scoreObj, a) - scoreFromInteraction(scoreObj, b)))
@@ -277,7 +260,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             // todo: add above to state for when user changes MAX_INTERACTIONS
             
             const interactionDataTruncated = interactionDataSorted.map(dcidArray => dcidArray.slice(0, MAX_INTERACTIONS))
-            console.log(interactionDataTruncated);
 
             //TODO: 2 magic number
             const newLinks = zip(nodeDCIDs, interactionDataTruncated).map(([source, interactions]) => interactions.map(
