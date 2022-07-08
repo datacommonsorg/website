@@ -25,7 +25,7 @@ import {
 import _ from "lodash";
 
 import { getProteinInteractionGraphData } from "./data_processing_utils";
-import { InteractingProteinType } from "./page";
+import { DiseaseAssociationType, InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
@@ -66,6 +66,7 @@ export interface InteractionGraphData {
 
 // interface for variant gene associations for plotting error bars
 export interface VarGeneDataPoint {
+  associationID: string;
   id: string;
   name: string;
   value: number;
@@ -74,11 +75,12 @@ export interface VarGeneDataPoint {
 }
 
 type Selectable = Element | EnterElement | Document | Window | SVGLineElement;
-type Datum = ProteinNumData | ProteinNode | InteractionLink;
+type Datum = ProteinNumData | ProteinNode | InteractionLink | DiseaseAssociationType;
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 const PROTEIN_REDIRECT = "/bio/protein/";
+export const GRAPH_BROWSER_REDIRECT = "/browser/";
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // bar width for tissue
 const TISSUE_BAR_WIDTH = 12;
@@ -801,7 +803,7 @@ export function drawProteinInteractionChart(
     //PROTEIN_REDIRECT
     .on("click", function (d) {
       const proteinId = "bio/" + d.name + "_" + d.parent;
-      window.location.href = `${PROTEIN_REDIRECT}${proteinId}`;
+      window.open(PROTEIN_REDIRECT + proteinId);
     })
     .call(
       handleMouseEvents,
@@ -921,7 +923,7 @@ export function drawProteinInteractionGraph(
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
-  data: ProteinNumData[]
+  data: DiseaseAssociationType[]
 ): void {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
@@ -994,6 +996,9 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .attr("id", (d, i) => barIDFunc(i))
     .style("fill", BAR_COLOR)
+    .on("click", function (d) {
+      window.open(GRAPH_BROWSER_REDIRECT + d.id);
+    })
     .call(
       handleMouseEvents,
       barIDFunc,
@@ -1025,6 +1030,7 @@ export function drawVarGeneAssocChart(
     const objLower = confInterval[0].substring(1);
     const objUpper = confInterval[1].substring(0);
     return {
+      associationID: item.associationID,
       id: item.id.substring(4),
       name: item.name,
       value: parseFloat(item.value),
@@ -1110,6 +1116,10 @@ export function drawVarGeneAssocChart(
     .attr("r", "6")
     .attr("id", (d, i) => circleIDFunc(i))
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
+    // variant redirect
+    .on("click", function (d) {
+      window.open(GRAPH_BROWSER_REDIRECT + d.associationID);
+    })
     .call(
       handleMouseEvents,
       circleIDFunc,

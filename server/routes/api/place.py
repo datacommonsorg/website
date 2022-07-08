@@ -819,65 +819,82 @@ def api_ranking_chart(dcid):
             return Response(json.dumps(result),
                             200,
                             mimetype='application/json')
-
+    # Read configs and build a dict to map stat vars to dicts of unit and scaling.
+    # Consider the configs with single sv but ignore denominators.
     configs = get_ranking_chart_configs()
+    config_sv_to_info = {}
+    for config in configs:
+        stat_vars = config.get("statsVars")
+        if not stat_vars:
+            continue
+        sv = stat_vars[0]
+        info = {"scaling": config.get("scaling"), "unit": config.get("unit")}
+        config_sv_to_info[sv] = info
     # Get the first stat var of each config.
     stat_vars, _ = shared_api.get_stat_vars(configs)
     # Make sure POPULATION_DCID is included in stat vars.
     if POPULATION_DCID not in stat_vars:
         stat_vars.add(POPULATION_DCID)
-    sv_data = dc.get_stat_set_within_place(parent_place_dcid, place_type,
-                                           list(stat_vars), "")
-    sv_data_values = sv_data.get("data", {})
-
-    if not sv_data or not sv_data_values:
+    points_response_best = dc.points_within(parent_place_dcid, place_type,
+                                            list(stat_vars), "", False)
+    sv_data = points_response_best.get("observationsByVariable")
+    sv_facets = points_response_best.get("facets")
+    if not points_response_best or not sv_data:
         return Response(json.dumps(result), 200, mimetype='application/json')
-    # Get all the place names of dcids in sv_data.
-    place_dcids = set()
-    for sv_value in sv_data_values.values():
-        sv_place_dcids = sv_value.get("stat", {}).keys()
-        place_dcids = place_dcids.union(sv_place_dcids)
-    place_names = get_i18n_name(list(place_dcids))
-    sv_metadata = sv_data.get("metadata", {})
-    # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT
+    # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
     places_to_rank = set()
-    count_person_data = sv_data_values.get(POPULATION_DCID, {})
-    for place_dcid, place_data in count_person_data.get("stat", {}).items():
-        if place_data.get("value", 0) > PERSON_COUNT_LIMIT:
-            places_to_rank.add(place_dcid)
-    # Consider the configs with single sv but ignore denominators.
-    for config in configs:
-        sv = config["statsVars"][0]
-        sv_data_stat = sv_data_values.get(sv, {}).get("stat", {})
-        if not sv_data_stat:
+    for sv_data_points in sv_data:
+        if sv_data_points.get("variable") != POPULATION_DCID:
+            continue
+        for place_data in sv_data_points.get("observationsByEntity", []):
+            place_dcid = place_data.get("entity")
+            place_data_points = place_data.get("pointsByFacet")
+            if place_data_points:
+                value = place_data_points[0].get("value", 0)
+                if value > PERSON_COUNT_LIMIT:
+                    places_to_rank.add(place_dcid)
+    # Get all the place names
+    place_names = get_i18n_name(list(places_to_rank))
+    # Loop through sv_data to build the result data.
+    for sv_data_points in sv_data:
+        sv = sv_data_points.get("variable")
+        if sv not in config_sv_to_info:
             continue
         sources = set()
         dates = set()
         data_points = []
-        for place_dcid in sv_data_stat:
+        for place_data in sv_data_points.get("observationsByEntity", []):
+            place_dcid = place_data.get("entity")
             if place_dcid not in places_to_rank:
                 continue
-            # Example of data:{"date": "2022", "value": 123, "metahash": 123456}.
-            data = sv_data_stat[place_dcid]
-            value = data.get("value", None)
-            place_name = place_names.get(place_dcid, "")
+            # Example of place_data_points: [{"date": "2022", "value": 123, "facet": 123456}].
+            place_data_points = place_data.get("pointsByFacet")
+            value, date, facet = None, None, None
+            if place_data_points:
+                place_data_point = place_data_points[0]
+                value = place_data_point.get("value")
+                date = place_data_point.get("date")
+                facet = place_data_point.get("facet")
             # Value is required for the calculation of ranking.
             if value is None:
                 continue
+            place_name = place_names.get(place_dcid, "")
             data_point = {
                 "placeDcid": place_dcid,
                 "value": value,
                 "placeName": place_name
             }
             data_points.append(data_point)
-            dates.add(data.get("date", ""))
-            metadata_hash = data.get("metaHash", None)
-            sources.add(
-                sv_metadata.get(str(metadata_hash),
-                                {}).get("provenanceUrl", ""))
+            if date:
+                dates.add(date)
+            if facet:
+                provenanceUrl = sv_facets.get(str(facet),
+                                              {}).get("provenanceUrl")
+                if provenanceUrl:
+                    sources.add(provenanceUrl)
         # Build URL for "explore more".
-        scaling = config.get("scaling", None)
-        unit = config.get("unit", None)
+        scaling = config_sv_to_info.get(sv, {}).get("scaling")
+        unit = config_sv_to_info.get(sv, {}).get("unit")
         if dcid == EARTH_DCID:
             parent_place_dcid = None
         explore_url = urllib.parse.unquote(
@@ -894,7 +911,6 @@ def api_ranking_chart(dcid):
                                     reverse=True)
         for i, data_point in enumerate(sorted_data_points):
             data_point['rank'] = i + 1
-        sources = filter(lambda x: x != "", sources)
         date_range = shared_api.get_date_range(dates)
         sv_result = {
             "date": date_range,

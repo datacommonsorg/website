@@ -5,4 +5,5 @@ module.exports = {
   globals: {
     google: {},
   },
+  testEnvironment: "jest-environment-jsdom",
 };
