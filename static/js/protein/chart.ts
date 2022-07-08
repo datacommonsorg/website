@@ -75,7 +75,11 @@ export interface VarGeneDataPoint {
 }
 
 type Selectable = Element | EnterElement | Document | Window | SVGLineElement;
-type Datum = ProteinNumData | ProteinNode | InteractionLink | DiseaseAssociationType;
+type Datum =
+  | ProteinNumData
+  | ProteinNode
+  | InteractionLink
+  | DiseaseAssociationType;
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
