@@ -259,60 +259,6 @@ const LINK_STYLE = {
 };
 
 /**
- * Select element by ID and brighten it to given percentage.
- */
-function brighten(
-  elementID: string,
-  brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
-): void {
-  // Reference: https://stackoverflow.com/a/69610045
-  d3.select(`#${elementID}`).style(
-    "filter",
-    `brightness(${brightenPercentage})`
-  );
-}
-
-/**
- * Select element by ID and reset brightness to 100%.
- */
-function unbrighten(elementID: string): void {
-  d3.select(`#${elementID}`).style("filter", "brightness(100%)");
-}
-
-/**
- * Given new html text, overwrite text currently in tooltip.
- */
-function updateToolTipText(html: string): void {
-  TOOL_TIP.html(html);
-}
-
-/**
- * Get the left and top coordinates of a rect element and position the tooltip accordingly
- * @param left_position
- * @param top_position
- */
-function updateToolTipPosition(): void {
-  TOOL_TIP.style("left", d3.event.pageX - 60 + "px").style(
-    "top",
-    d3.event.pageY - 60 + "px"
-  );
-}
-
-/**
- * Make tooltip visible.
- */
-function showToolTip(): void {
-  TOOL_TIP.style("opacity", 1);
-}
-
-/**
- * Make tooltip invisible.
- */
-function hideToolTip(): void {
-  TOOL_TIP.style("opacity", 0);
-}
-
-/**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
 function onMouseOver(
@@ -320,24 +266,35 @@ function onMouseOver(
   toolTipText: string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
 ): void {
-  brighten(elementID, brightenPercentage);
-  updateToolTipText(toolTipText);
-  showToolTip();
+  // brighten element: https://stackoverflow.com/a/69610045
+  d3.select(`#${elementID}`).style(
+    "filter",
+    `brightness(${brightenPercentage})`
+  );
+  // update tooltip text
+  TOOL_TIP.html(toolTipText);
+  // show tooltip
+  TOOL_TIP.style("opacity", 1);
 }
 
 /**
  * Update position of global tooltip to track mouse.
  */
 function onMouseMove(): void {
-  updateToolTipPosition();
+  TOOL_TIP.style("left", d3.event.pageX - 60 + "px").style(
+    "top",
+    d3.event.pageY - 60 + "px"
+  );
 }
 
 /**
  * When mouse leaves element specified by given id, reset its brightness and hide the global tooltip.
  */
 function onMouseOut(elementID: string): void {
-  unbrighten(elementID);
-  hideToolTip();
+  // reset element brightness
+  d3.select(`#${elementID}`).style("filter", "brightness(100%)");
+  // hide tooltip
+  TOOL_TIP.style("opacity", 0);
 }
 
 /**
