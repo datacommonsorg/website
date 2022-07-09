@@ -627,7 +627,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .call(
       handleMouseEvents,
       barIDFunc,
-      (d) => `${d.name}<br>${TISSUE_SCORE_TO_LABEL[d.value]}`,
+      (d) => `Name: ${d.name}<br>Expression: ${TISSUE_SCORE_TO_LABEL[d.value]}`,
       PTI_BRIGHTEN_PERCENTAGE
     );
 }
