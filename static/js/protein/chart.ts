@@ -259,60 +259,6 @@ const LINK_STYLE = {
 };
 
 /**
- * Select element by ID and brighten it to given percentage.
- */
-function brighten(
-  elementID: string,
-  brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
-): void {
-  // Reference: https://stackoverflow.com/a/69610045
-  d3.select(`#${elementID}`).style(
-    "filter",
-    `brightness(${brightenPercentage})`
-  );
-}
-
-/**
- * Select element by ID and reset brightness to 100%.
- */
-function unbrighten(elementID: string): void {
-  d3.select(`#${elementID}`).style("filter", "brightness(100%)");
-}
-
-/**
- * Given new html text, overwrite text currently in tooltip.
- */
-function updateToolTipText(html: string): void {
-  TOOL_TIP.html(html);
-}
-
-/**
- * Get the left and top coordinates of a rect element and position the tooltip accordingly
- * @param left_position
- * @param top_position
- */
-function updateToolTipPosition(): void {
-  TOOL_TIP.style("left", d3.event.pageX - 60 + "px").style(
-    "top",
-    d3.event.pageY - 60 + "px"
-  );
-}
-
-/**
- * Make tooltip visible.
- */
-function showToolTip(): void {
-  TOOL_TIP.style("opacity", 1);
-}
-
-/**
- * Make tooltip invisible.
- */
-function hideToolTip(): void {
-  TOOL_TIP.style("opacity", 0);
-}
-
-/**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
 function onMouseOver(
@@ -320,24 +266,35 @@ function onMouseOver(
   toolTipText: string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
 ): void {
-  brighten(elementID, brightenPercentage);
-  updateToolTipText(toolTipText);
-  showToolTip();
+  // brighten element: https://stackoverflow.com/a/69610045
+  d3.select(`#${elementID}`).style(
+    "filter",
+    `brightness(${brightenPercentage})`
+  );
+  // update tooltip text
+  TOOL_TIP.html(toolTipText);
+  // show tooltip
+  TOOL_TIP.style("opacity", 1);
 }
 
 /**
  * Update position of global tooltip to track mouse.
  */
 function onMouseMove(): void {
-  updateToolTipPosition();
+  TOOL_TIP.style("left", d3.event.pageX - 60 + "px").style(
+    "top",
+    d3.event.pageY - 60 + "px"
+  );
 }
 
 /**
  * When mouse leaves element specified by given id, reset its brightness and hide the global tooltip.
  */
 function onMouseOut(elementID: string): void {
-  unbrighten(elementID);
-  hideToolTip();
+  // reset element brightness
+  d3.select(`#${elementID}`).style("filter", "brightness(100%)");
+  // hide tooltip
+  TOOL_TIP.style("opacity", 0);
 }
 
 /**
@@ -363,10 +320,13 @@ function handleMouseEvents(
 }
 
 /**
- * Get function that takes an index and returns an ID containing the index and chart ID.
+ * Get function that takes an index and returns an ID containing the chart ID, element name, and index.
  */
-function getBarIDFunc(chartID: string): (index: number) => string {
-  return (index) => `${chartID}-bar${index}`;
+function getElementIDFunc(
+  chartID: string,
+  elementName: string
+): (index: number) => string {
+  return (index) => `${chartID}-${elementName}${index}`;
 }
 
 /**
@@ -651,7 +611,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   // Adds the y-axis text label
   addYLabel(height, "Expression Score", svg);
 
-  const barIDFunc = getBarIDFunc(id);
+  const barIDFunc = getElementIDFunc(id, "bar");
   // plotting the bars
   svg
     .selectAll("tissue-score-bar")
@@ -667,7 +627,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .call(
       handleMouseEvents,
       barIDFunc,
-      (d) => `${d.name}<br>${TISSUE_SCORE_TO_LABEL[d.value]}`,
+      (d) => `Name: ${d.name}<br>Expression: ${TISSUE_SCORE_TO_LABEL[d.value]}`,
       PTI_BRIGHTEN_PERCENTAGE
     );
 }
@@ -796,7 +756,7 @@ export function drawProteinInteractionChart(
   // Adds the y-axis text label
   addYLabel(height, "Interacting protein name", svg);
 
-  const barIDFunc = getBarIDFunc(id);
+  const barIDFunc = getElementIDFunc(id, "bar");
 
   // plotting the bars
   bars
@@ -997,7 +957,8 @@ export function drawDiseaseGeneAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Disease Name", svg);
 
-  const barIDFunc = getBarIDFunc(id);
+  const barIDFunc = getElementIDFunc(id, "bar");
+
   // plots the bars
   bars
     .selectAll("rect")
@@ -1119,7 +1080,7 @@ export function drawVarGeneAssocChart(
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
 
-  const circleIDFunc = (index) => `${id}-circle${index}`;
+  const circleIDFunc = getElementIDFunc(id, "circle");
   svg
     .selectAll("error-bar-circle")
     .data(reformattedData)
@@ -1285,7 +1246,7 @@ export function drawVarTypeAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Variant Function Category", svg);
 
-  const barIDFunc = getBarIDFunc(id);
+  const barIDFunc = getElementIDFunc(id, "bar");
 
   // plots the bars
   bars
@@ -1365,7 +1326,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   // Adds the y-axis text label
   addYLabel(height, "Variant Clinical Significance", svg);
 
-  const barIDFunc = getBarIDFunc(id);
+  const barIDFunc = getElementIDFunc(id, "bar");
   // plots the bars
   bars
     .selectAll("rect")
@@ -1442,7 +1403,7 @@ export function drawChemGeneAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Drug-Gene Relationship", svg);
 
-  const barIDFunc = getBarIDFunc(id);
+  const barIDFunc = getElementIDFunc(id, "bar");
   // plots the bars
   bars
     .selectAll("rect")
