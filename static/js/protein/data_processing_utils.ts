@@ -173,7 +173,10 @@ export function getProteinInteraction(
 /**
  * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
-export function nodeFromID(proteinSpeciesID: string, depth: number): ProteinNode {
+export function nodeFromID(
+  proteinSpeciesID: string,
+  depth: number
+): ProteinNode {
   // assumes {species id} does not contain _ (true as of 06/22/22)
   const lastIndex = proteinSpeciesID.lastIndexOf("_");
   return {
@@ -594,41 +597,56 @@ export function getProteinDescription(data: GraphNodes): string {
 }
 
 /**
- * Given array, key-maker function, and value-maker function, construct object from array. 
+ * Given array, key-maker function, and value-maker function, construct object from array.
  * This is essentially a ts implementation of a python dictionary comprehension.
- * 
+ *
  * Reference: https://linuxtut.com/en/87ab3f313a75b547c278/
- * 
+ *
  * TODO: generic types
  */
-export function arrayToObject(arr: any[], keyFunc: Function, valFunc: Function){
-  return arr.reduce(( obj , elt) => Object.assign(obj, {[keyFunc(elt)]: valFunc(elt)}), {})
+export function arrayToObject(
+  arr: any[],
+  keyFunc: Function,
+  valFunc: Function
+) {
+  return arr.reduce(
+    (obj, elt) => Object.assign(obj, { [keyFunc(elt)]: valFunc(elt) }),
+    {}
+  );
 }
 
 /**
  * Given (unpacked) array of arrays, return its transpose
  * This is a ts implementation of python's built-in zip function
- * 
+ *
  * Reference: https://gist.github.com/renaudtertrais/25fc5a2e64fe5d0e86894094c6989e10?permalink_comment_id=3783403#gistcomment-3783403
  */
 // TODO: generic types
-export function zip(...arrays: any[]){
-  const minLen = Math.min(...arrays.map(arr => arr.length));
+export function zip(...arrays: any[]) {
+  const minLen = Math.min(...arrays.map((arr) => arr.length));
   const [firstArr, ...restArrs] = arrays;
-  return firstArr.slice(0, minLen).map(
-    (val, i) => [val, ...restArrs.map( arr => arr[i]) ]
-  );
+  return firstArr
+    .slice(0, minLen)
+    .map((val, i) => [val, ...restArrs.map((arr) => arr[i])]);
+}
+
+export function idFromDCID(dcid) {
+  return dcid.replace("bio/", "");
+}
+
+export function DCIDFromID(id) {
+  return `bio/${id}`;
 }
 
 /**
  * TODO: docs
  */
-export function responseToValues(resp){
-  return resp.data.data.map(({values}) => values)
+export function responseToValues(resp) {
+  return resp.data.data.map(({ values }) => values);
 }
 
 export function proteinsFromInteractionDCID(interaction_dcid): string[] {
-  const id = interaction_dcid.replace("bio/", "");
+  const id = idFromDCID(interaction_dcid);
   // danger: assumes neither {protein id}, {species id} contain an underscore
   const split = id.split("_");
   // TODO: write an assert function to handle this in general
@@ -638,35 +656,56 @@ export function proteinsFromInteractionDCID(interaction_dcid): string[] {
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
-function formatInteractionDCID(interaction_dcid){
-  const proteins = proteinsFromInteractionDCID(interaction_dcid)
-  const proteins_sorted = proteins.sort( (p1, p2) => p1.localeCompare(p2));
-  return `bio/${proteins_sorted.join('_')}`;
+function formatInteractionDCID(interaction_dcid) {
+  const proteins = proteinsFromInteractionDCID(interaction_dcid);
+  const proteins_sorted = proteins.sort((p1, p2) => p1.localeCompare(p2));
+  return DCIDFromID(proteins_sorted.join("_"));
 }
 
-export function deduplicateInteractionDCIDs(interactionDCIDs: string[]): string[] {
+export function deduplicateInteractionDCIDs(
+  interactionDCIDs: string[]
+): string[] {
   // Can't just use Set here because not guaranteed that A_B in list implies B_A in list
   // Counterexample: https://screenshot.googleplex.com/7JrfkVqt8crxVP9
-  return Object.values(arrayToObject(interactionDCIDs, formatInteractionDCID, dcid => dcid)) as string[]
+  return Object.values(
+    arrayToObject(interactionDCIDs, formatInteractionDCID, (dcid) => dcid)
+  ) as string[];
 }
 
-export function symmetrizeScores(interactionDCIDs, scores){
+export function getInteractionTarget(
+  interactionDCID,
+  sourceDCID,
+  returnDCID = false
+) {
+  // note this also works in the case of a self-interaction
+  const interactionID = interactionDCID.replace("bio/", "");
+  const sourceID = sourceDCID.replace("bio/", "");
+  const id = interactionID
+    .replace(`${sourceID}_`, "")
+    .replace(`_${sourceID}`, "");
+  if (returnDCID) return `bio/${id}`;
+  return id;
+}
+
+export function symmetrizeScores(interactionDCIDs, scores) {
   const scoreObj = {};
   zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
     const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
     scoreObj[`${protein1}_${protein2}`] = score;
     scoreObj[`${protein2}_${protein1}`] = score;
-  })
-  return scoreObj
+  });
+  return scoreObj;
 }
 
-export function scoreFromProteins(scoreObj, proteinDCID1, proteinDCID2){
+export function scoreFromProteinDCIDs(scoreObj, proteinDCID1, proteinDCID2) {
   const defaultScore = 0;
-  const [protein1, protein2] = [proteinDCID1, proteinDCID2].map(dcid => dcid.replace('bio/', ""))
+  const [protein1, protein2] = [proteinDCID1, proteinDCID2].map((dcid) =>
+    dcid.replace("bio/", "")
+  );
   return _.get(scoreObj, `${protein1}_${protein2}`, defaultScore);
 }
 
-export function scoreFromInteraction(scoreObj, interactionDCID){
+export function scoreFromInteractionDCID(scoreObj, interactionDCID) {
   const defaultScore = 0;
   return _.get(scoreObj, interactionDCID.replace("bio/", ""), defaultScore);
 }

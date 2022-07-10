@@ -252,7 +252,7 @@ const NODE_FILL_COLORS = [
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
-  length: 100,
+  length: 120,
   stroke: {
     scoreWidthMultiplier: 8,
   },
@@ -795,7 +795,7 @@ export function drawProteinInteractionGraph(
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
 
-  console.log('data', data);
+  console.log("data", data);
   const { nodeData, linkData } = data;
 
   // const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
@@ -804,7 +804,7 @@ export function drawProteinInteractionGraph(
   const height = 800;
   const width = 800;
 
-  console.log('hw', height, width);
+  console.log("hw", height, width);
 
   const svg = d3
     .select(`#${elementID}`)

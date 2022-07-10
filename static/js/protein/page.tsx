@@ -38,9 +38,11 @@ import {
 } from "./chart";
 import {
   arrayToObject,
+  DCIDFromID,
   deduplicateInteractionDCIDs,
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
+  getInteractionTarget,
   getProteinDescription,
   getProteinInteraction,
   getProteinInteractionGraphData,
@@ -48,12 +50,12 @@ import {
   getVarGeneAssoc,
   getVarSigAssoc,
   getVarTypeAssoc,
+  idFromDCID,
   MAX_INTERACTIONS,
   nodeFromID,
-  proteinsFromInteractionDCID,
   responseToValues,
-  scoreFromInteraction,
-  scoreFromProteins,
+  scoreFromInteractionDCID,
+  scoreFromProteinDCIDs,
   symmetrizeScores,
   zip,
 } from "./data_processing_utils";
@@ -64,8 +66,8 @@ export interface PagePropType {
 
 export interface PageStateType {
   data: GraphNodes;
-  interactionData?: any // TODO: fix types
-  interactionDataDepth1?: any
+  interactionData?: any; // TODO: fix types
+  interactionDataDepth1?: any;
 }
 
 export interface ProteinVarType {
@@ -118,7 +120,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       "protein-confidence-score-chart",
       this.state.interactionDataDepth1
     );
-    drawProteinInteractionGraph("protein-interaction-graph", this.state.interactionData);
+    drawProteinInteractionGraph(
+      "protein-interaction-graph",
+      this.state.interactionData
+    );
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
       diseaseGeneAssoc
@@ -204,130 +209,155 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
   }
 
-        // this.setState({interactionDataDepth1: getProteinInteraction(
-        //   this.state.data,
-        //   this.props.nodeName
-        // )});
+  // this.setState({interactionDataDepth1: getProteinInteraction(
+  //   this.state.data,
+  //   this.props.nodeName
+  // )});
 
-    private fetchInteractionData(protein_dcids: string[]): any{
-      const PPI_ENDPOINT = 'https://autopush.api.datacommons.org/v1/bulk/property/in/interactingProtein/values';
-      return axios.post(PPI_ENDPOINT, 
-        {
-          entities: protein_dcids,
-          // entities: ['bio/P53_HUMAN', 'bio/FGFR1_HUMAN'],
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
-      )
-    }
-
-    private fetchScoreData(interaction_dcids: string[]) {
-      const SCORE_ENDPOINT = 'https://autopush.api.datacommons.org/v1/bulk/property/out/confidenceScore/values';
-      return axios.post(SCORE_ENDPOINT, 
-        {
-          entities: interaction_dcids,
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
-      )
-    }
-
-  private fetchData(): void {
-    const PPI_CONFIDENCE_SCORE_THRESHOLD = 0.4
-    axios.get("/api/protein/" + this.props.dcid).then((resp) => {
-      const proteinSet = new Set([this.props.dcid]);
-      const interactionDataDepth1 = getProteinInteraction(resp.data, this.props.dcid.replace("bio/", ""));
-      const graphData = getProteinInteractionGraphData(interactionDataDepth1);
-      // breadth 1 dcids
-      const nodeDCIDs = graphData.nodeData.map(nodeDatum => `bio/${nodeDatum.id}`); // TODO: 'bio' should be a global const
-      nodeDCIDs.forEach(proteinSet.add, proteinSet);
-      this.fetchInteractionData(nodeDCIDs).then(
-        (interactionResp) => {
-          const interactionData = responseToValues(interactionResp)
-                                  .map(interactions => {
-                                    return interactions
-                                                      .map(({dcid}) => dcid)})
-          const interactionDataDedup = interactionData.map(deduplicateInteractionDCIDs);
-          const interaction_dcids_dedup = interactionDataDedup.flat(1);
-
-          this.fetchScoreData(interaction_dcids_dedup).then(scoreResp => {
-
-            const scoreData = responseToValues(scoreResp);
-            const scores = scoreData.flat(1).map(({dcid}) => dcid)
-                                    .filter(dcid => dcid.includes("IntactMiScore"))
-                                    .map((dcid) => Number(dcid.split("IntactMiScore").slice(-1)[0]))
-            // doubles as an O(1) retrieval store for whether two proteins interact
-            const scoreObj = symmetrizeScores(interaction_dcids_dedup, scores);
-
-            const interactionDataSorted = interactionDataDedup.map(dcidArray => dcidArray
-              .filter((interactionDCID, index) => {
-                const proteins = proteinsFromInteractionDCID(interactionDCID)
-                const parent = nodeDCIDs[index];
-                const child = proteins.filter(protein => protein !== parent)[0];
-                const alreadyExists = proteinSet.has(`bio/${child}`)
-                const strongEnough = scoreFromInteraction(scoreObj, interactionDCID) >= PPI_CONFIDENCE_SCORE_THRESHOLD;
-                return !alreadyExists && strongEnough;
-              })
-              .sort((a, b) => scoreFromInteraction(scoreObj, a) - scoreFromInteraction(scoreObj, b)))
-
-            // todo: add above to state for when user changes MAX_INTERACTIONS
-            
-            const interactionDataTruncated = interactionDataSorted.map(dcidArray => dcidArray.slice(0, MAX_INTERACTIONS))
-
-            //TODO: 2 magic number
-            const newLinks = zip(nodeDCIDs, interactionDataTruncated).map(([source, interactions]) => interactions.map(
-              (interactionDCID) => {
-                const interactionID = interactionDCID.replace("bio/", "")
-                const sourceID = source.replace("bio/", "");
-                // note this also works in the case of a self-interaction
-                const targetID = interactionID.replace(`${sourceID}_`, "").replace(`_${sourceID}`, "");
-                return {
-                  source: sourceID,
-                  target: targetID,
-                  score: scoreObj[interactionID],
-                }
-              }
-            )).flat(1);
-
-            const terminalLinks = []
-
-            nodeDCIDs.forEach(dcid1 => {
-              nodeDCIDs.forEach(dcid2 => {
-                const node1 = dcid1.replace('bio/', '');
-                const node2 = dcid2.replace('bio/', '');
-                const interactionScore = scoreFromProteins(scoreObj, node1, node2)
-
-                // iterate through pairs {node1, node2}, where node1 !== node2.
-                if (node1.localeCompare(node2) < 0  && interactionScore >= PPI_CONFIDENCE_SCORE_THRESHOLD){
-                  terminalLinks.push({
-                    source: node1,
-                    target: node2,
-                    score: interactionScore,
-                  })
-                }
-              })
-            })
-
-            const newNodeIDs = new Set(
-              newLinks.map(({target}) => target)
-            )
-            const newNodes = Array.from(newNodeIDs).map(id => nodeFromID((id as string), 2)) // TODO: get rid of assertion here
-
-            graphData.nodeData.push(...newNodes);
-            graphData.linkData.push(...newLinks);
-            graphData.linkData.push(...terminalLinks);
-
-            this.setState({
-              data: resp.data,
-              interactionDataDepth1: interactionDataDepth1,
-              interactionData: graphData,
-            });
-          })
-        }
-      )
-    })
+  private fetchInteractionData(protein_dcids: string[]): any {
+    const PPI_ENDPOINT =
+      "https://autopush.api.datacommons.org/v1/bulk/property/in/interactingProtein/values";
+    return axios.post(PPI_ENDPOINT, {
+      entities: protein_dcids,
+      // entities: ['bio/P53_HUMAN', 'bio/FGFR1_HUMAN'],
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }
 
+  private fetchScoreData(interaction_dcids: string[]) {
+    const SCORE_ENDPOINT =
+      "https://autopush.api.datacommons.org/v1/bulk/property/out/confidenceScore/values";
+    return axios.post(SCORE_ENDPOINT, {
+      entities: interaction_dcids,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  private fetchData(): void {
+    const PPI_CONFIDENCE_SCORE_THRESHOLD = 0.4;
+    axios.get("/api/protein/" + this.props.dcid).then((resp) => {
+      const centerProtein = nodeFromID(this.props.dcid, 0);
+      const interactionDataDepth1 = getProteinInteraction(
+        resp.data,
+        centerProtein.id
+      );
+      const graphData = getProteinInteractionGraphData(interactionDataDepth1);
+
+      const nodesDepth1 = graphData.nodeData.filter(
+        (nodeDatum) => nodeDatum.id !== centerProtein.id
+      );
+      const nodeDCIDsDepth1 = graphData.nodeData.map(
+        (nodeDatum) => DCIDFromID(nodeDatum.id)
+      );
+      const proteinDCIDSet = new Set([this.props.dcid, ...nodeDCIDsDepth1]);
+
+      this.fetchInteractionData(nodeDCIDsDepth1).then((interactionResp) => {
+        const interactionData = responseToValues(interactionResp).map(
+          (interactions) => {
+            return interactions.map(({ dcid }) => dcid);
+          }
+        );
+        const interactionDataDedup = interactionData.map(
+          deduplicateInteractionDCIDs
+        );
+        const interaction_dcids_dedup = interactionDataDedup.flat(1);
+
+        this.fetchScoreData(interaction_dcids_dedup).then((scoreResp) => {
+          const scoreData = responseToValues(scoreResp);
+          const scores = scoreData
+            .flat(1)
+            .map(({ dcid }) => dcid)
+            .filter((dcid) => dcid.includes("IntactMiScore"))
+            .map((dcid) => Number(dcid.split("IntactMiScore").slice(-1)[0]));
+          // doubles as an O(1) retrieval store for whether two proteins interact
+          const scoreObj = symmetrizeScores(interaction_dcids_dedup, scores);
+
+          const interactionDataSorted = interactionDataDedup.map((dcidArray) =>
+            dcidArray
+              .filter((interactionDCID, index) => {
+                const childDCID = getInteractionTarget(
+                  idFromDCID(interactionDCID),
+                  nodesDepth1[index].id,
+                  true
+                );
+                return (
+                  !proteinDCIDSet.has(childDCID) &&
+                  scoreFromInteractionDCID(scoreObj, interactionDCID) >=
+                    PPI_CONFIDENCE_SCORE_THRESHOLD
+                );
+              })
+              .sort(
+                (interactionDCID1, interactionDCID2) =>
+                  scoreFromInteractionDCID(scoreObj, interactionDCID1) -
+                  scoreFromInteractionDCID(scoreObj, interactionDCID2)
+              )
+          );
+
+          // todo: add above to state for when user changes MAX_INTERACTIONS
+
+          const interactionDataTruncated = interactionDataSorted.map(
+            (dcidArray) => dcidArray.slice(0, MAX_INTERACTIONS)
+          );
+
+          const newLinks = zip(nodesDepth1, interactionDataTruncated)
+            .map(([source, interactions]) =>
+              interactions.map((interactionDCID) => {
+                const interactionID = idFromDCID(interactionDCID);
+                return {
+                  source: source.id,
+                  target: getInteractionTarget(interactionID, source.id),
+                  score: scoreObj[interactionID],
+                };
+              })
+            )
+            .flat(1);
+
+          const terminalLinks = [];
+
+          nodeDCIDsDepth1.forEach((nodeDCID1) => {
+            nodeDCIDsDepth1.forEach((nodeDCID2) => {
+              const interactionScore = scoreFromProteinDCIDs(
+                scoreObj,
+                nodeDCID1,
+                nodeDCID2
+              );
+
+              // iterate through pairs {node1, node2}, where node1 !== node2.
+              if (
+                nodeDCID1.localeCompare(nodeDCID2) < 0 &&
+                interactionScore >= PPI_CONFIDENCE_SCORE_THRESHOLD
+              ) {
+                terminalLinks.push({
+                  source: idFromDCID(nodeDCID1),
+                  target: idFromDCID(nodeDCID2),
+                  score: interactionScore,
+                });
+              }
+            });
+          });
+
+          const newNodeIDs = new Set(newLinks.map(({ target }) => target));
+
+          //TODO: 2 magic number
+          const newNodes = Array.from(newNodeIDs).map((id) =>
+            nodeFromID(id as string, 2)
+          ); // TODO: get rid of assertion here
+
+          graphData.nodeData.push(...newNodes);
+          graphData.linkData.push(...newLinks);
+          graphData.linkData.push(...terminalLinks);
+
+          this.setState({
+            data: resp.data,
+            interactionDataDepth1: interactionDataDepth1,
+            interactionData: graphData,
+          });
+        });
+      });
+    });
+  }
 }
