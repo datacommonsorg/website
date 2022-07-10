@@ -786,7 +786,7 @@ export function drawProteinInteractionChart(
  * Draws graph visualization of a neighborhood of the protein-protein interaction network centered at the page protein.
  */
 export function drawProteinInteractionGraph(
-  elementID: string,
+  chartID: string,
   data: InteractingProteinType[]
 ): void {
   /*
@@ -801,7 +801,7 @@ export function drawProteinInteractionGraph(
   const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
 
   const svg = d3
-    .select(`#${elementID}`)
+    .select(`#${chartID}`)
     .append("svg")
     .attr("width", width + MARGIN.left + MARGIN.right)
     .attr("height", height + MARGIN.top + MARGIN.bottom)
@@ -823,7 +823,7 @@ export function drawProteinInteractionGraph(
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
   forceLink.distance(LINK_STYLE.length);
 
-  const linkIDFunc = (index) => `${elementID}-link${index}`;
+  const linkIDFunc = getElementIDFunc(chartID, "link");
   // add links first so nodes appear over links
   const links = svg
     .append("g")
@@ -853,7 +853,7 @@ export function drawProteinInteractionGraph(
     .force("center", d3.forceCenter())
     .on("tick", () => interactionGraphTicked(links, nodes));
 
-  const nodeIDFunc = (index) => `${elementID}-node${index}`;
+  const nodeIDFunc = getElementIDFunc(chartID, "node");
   // container for circles and labels
   const nodes = svg
     .append("g")
