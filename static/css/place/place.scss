@@ -306,7 +306,7 @@ h3 {
   display: none;
 }
 
-.modal .modal-chart-container > svg {
+.modal .modal-chart-container>svg {
   visibility: hidden;
 }
 
@@ -336,4 +336,48 @@ h3 {
 
 .block h3 {
   color: inherit;
+}
+
+.ranking-chart-container {
+  padding-left: 0%;
+  padding-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  width: inherit;
+}
+
+.ranking-chart-container h4 {
+  margin-top: -0.5rem;
+  height: 1.5rem;
+}
+
+.ranking-chart {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1.25rem;
+  row-gap: 1.25rem;
+  width: 100%;
+  line-height: 120%;
+  margin-bottom: 1rem;
+}
+
+.ranking-chart h4 {
+  text-align: center;
+  margin-top: 0rem;
+}
+
+.ranking-list td {
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.ranking-list td.rank {
+  width: 10%;
+}
+
+.ranking-list .num-value {
+  width: 25%;
+}
+
+.ranking-list .bold {
+  font-weight: 600;
 }

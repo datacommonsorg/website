@@ -129,11 +129,11 @@ function processData(
   for (const place in raw.data[FILTER_STAT_VAR].stat) {
     popPoints.push({
       placeDcid: place,
-      stat: raw.data[FILTER_STAT_VAR].stat[place].value,
+      value: raw.data[FILTER_STAT_VAR].stat[place].value,
     });
   }
   // Take the most populated places.
-  popPoints.sort((a, b) => a.stat - b.stat);
+  popPoints.sort((a, b) => a.value - b.value);
   popPoints = popPoints.slice(0, NUM_PLACES);
 
   // Fetch the place names

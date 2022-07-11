@@ -22,38 +22,54 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../shared/types";
-import { drawTissueScoreChart } from "./chart";
-import { drawProteinInteractionChart } from "./chart";
-import { drawDiseaseGeneAssocChart } from "./chart";
-import { drawVarGeneAssocChart } from "./chart";
-import { drawVarTypeAssocChart } from "./chart";
-import { drawVarSigAssocChart } from "./chart";
-import { drawChemGeneAssocChart } from "./chart";
+import {
+  drawChemGeneAssocChart,
+  drawDiseaseGeneAssocChart,
+  drawProteinInteractionChart,
+  drawProteinInteractionGraph,
+  drawTissueLegend,
+  drawTissueScoreChart,
+  drawVarGeneAssocChart,
+  drawVarSigAssocChart,
+  drawVarTypeAssocChart,
+  GRAPH_BROWSER_REDIRECT,
+} from "./chart";
 import {
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
+  getProteinDescription,
   getProteinInteraction,
   getTissueScore,
   getVarGeneAssoc,
   getVarSigAssoc,
   getVarTypeAssoc,
 } from "./data_processing_utils";
-
-interface PagePropType {
+export interface PagePropType {
   dcid: string;
   nodeName: string;
 }
 
-interface PageStateType {
+export interface PageStateType {
   data: GraphNodes;
 }
 
-// stores the variant id, tissue name, log fold change value, and log fold change confidence interval
 export interface ProteinVarType {
+  //genetic variant gene association dcid
+  associationID: string;
+  //reference id of the variant
+  id: string;
+  //name of the variant
+  name: string;
+  //log fold change value
+  value: string;
+  //log fold change interval
+  interval: string;
+}
+// stores the disease ID, disease name and association score
+export interface DiseaseAssociationType {
   id: string;
   name: string;
-  value: string;
-  interval: string;
+  value: number;
 }
 
 // stores the interacting protein name, confidence value, and parent protein name
@@ -85,10 +101,12 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     const varSigAssoc = getVarSigAssoc(this.state.data);
     const chemGeneAssoc = getChemicalGeneAssoc(this.state.data);
     drawTissueScoreChart("tissue-score-chart", tissueScore);
+    drawTissueLegend("tissue-score-legend", tissueScore);
     drawProteinInteractionChart(
       "protein-confidence-score-chart",
       interactionScore
     );
+    drawProteinInteractionGraph("protein-interaction-graph", interactionScore);
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
       diseaseGeneAssoc
@@ -104,10 +122,19 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     Using the split we get the ProteinName and SpeciesName separately
     */
     const splitNodeName = this.props.nodeName.split("_");
+    const proteinLink = `${GRAPH_BROWSER_REDIRECT}${this.props.dcid}`;
+    const proteinDescription = getProteinDescription(this.state.data);
     return (
       <>
         <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
-        <h5>Protein Tissue Association</h5>
+        <h6>
+          <a href={proteinLink}>Graph Browser View</a>
+        </h6>
+        <p>
+          <b>Description: </b>
+          {proteinDescription}
+        </p>
+        <h5>Protein Tissue Expression</h5>
         <p>
           {splitNodeName[0]} expression level (none, low, medium, or high)
           detected in each tissue as reported by The Human Protein Atlas. The
@@ -115,6 +142,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           (legend bottom panel).
         </p>
         <div id="tissue-score-chart"></div>
+        <div id="tissue-score-legend"></div>
         <h5>Protein Protein Interaction</h5>
         <p>
           The interaction score of {splitNodeName[0]} with other proteins as
@@ -122,6 +150,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           associations by interaction score are displayed.
         </p>
         <div id="protein-confidence-score-chart"></div>
+        <div id="protein-interaction-graph"></div>
         <h5>Disease Gene Association</h5>
         <p>
           The association score of {splitNodeName[0]} with diseases as reported

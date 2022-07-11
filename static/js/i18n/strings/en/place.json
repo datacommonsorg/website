@@ -19,6 +19,10 @@
     "defaultMessage": "{chartTitle}: {placeType} near {placeName}",
     "description": "Preposition for somewhere close by. Used for choropleth map chart titles like \"Unemployment rate: {counties} near {Travis County}\" or \"Annual rainfall: {towns} near {Taos}\""
   },
+  "chart_clause-rankings_in_place": {
+    "defaultMessage": "{variable}: rankings in {placeName}",
+    "description": "Used for chart titles like '{Unemployment rate}: rankings in {USA}'."
+  },
   "chart_clause-variable_in_place": {
     "defaultMessage": "{variable} in {placeName}",
     "description": "Used for chart titles like \"{Unemployment rate} in {USA}\" or \"{Poverty rate} in {California}\"."

@@ -20,6 +20,7 @@ import {
 } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
+import { DiseaseAssociationType } from "./page";
 import { Page } from "./page";
 test("getTissueScore", () => {
   //const wrapper = shallow(<Page dcid={"test"} nodeName={"test-node"} />);
@@ -688,17 +689,19 @@ test("getDiseaseGeneAssoc", () => {
   //const wrapper = shallow(<Page dcid={"test"} nodeName={"P53_HUMAN"} />);
   const cases: {
     data: GraphNodes;
-    wantArray: { name: string; value: number }[];
+    wantArray: DiseaseAssociationType[];
   }[] = [
     // Passing in P53_HUMAN data
     {
       data: dataP53 as GraphNodes,
       wantArray: [
         {
+          id: "bio/DOID_999",
           name: '"hypereosinophilic syndrome"',
           value: 1.307,
         },
         {
+          id: "bio/DOID_9993",
           name: '"hypoglycemia"',
           value: 1.637,
         },
@@ -815,18 +818,21 @@ test("getVarGeneAssoc", () => {
       data: dataP53 as GraphNodes,
       wantArray: [
         {
+          associationID: "bio/pg37tb2s2hnn8dyev9q986j36b",
           id: "bio/rs7211097",
           name: "Whole Blood",
           value: "-0.094116",
           interval: "[-0.126789 -0.054901]",
         },
         {
+          associationID: "bio/7gs5e8nzcl3tfp930d901fssc7",
           id: "bio/rs62059165",
           name: "Thyroid",
           value: "0.160064",
           interval: "[0.102083 0.231955]",
         },
         {
+          associationID: "bio/5dw9kkb9f9z59mk0e2yj0tnbp6",
           id: "bio/rs7220915",
           name: "Pancreas",
           value: "0.081840",
