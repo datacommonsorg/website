@@ -12,7 +12,15 @@ import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
-export const MAX_INTERACTIONS = 10; // upper bound on node degree in interaction graph viz's
+// Upper bound on node degree in interaction graph viz's
+export const MAX_INTERACTIONS = 10; 
+export const INTERACTION_SCORE_NAME = "IntactMiScore"
+
+// Maps name of response getter to name of key in an element of response.data.data it retrieves
+const RESPONSE_GETTER_NAMES = {dcids: 'entity', values: 'values'}
+
+// Number to return if interaction score is missing
+const DEFAULT_INTERACTION_SCORE = -1;
 
 const VARIANT_CATEGORY = [
   "GeneticVariantFunctionalCategoryUTR3",
@@ -604,7 +612,7 @@ export function getProteinDescription(data: GraphNodes): string {
  *
  * TODO: generic types
  */
-export function arrayToObject(
+export function objectFromArray(
   arr: any[],
   keyFunc: Function,
   valFunc: Function
@@ -638,13 +646,6 @@ export function DCIDFromID(id) {
   return `bio/${id}`;
 }
 
-/**
- * TODO: docs
- */
-export function responseToValues(resp) {
-  return resp.data.data.map(({ values }) => values);
-}
-
 export function proteinsFromInteractionDCID(interaction_dcid): string[] {
   const id = idFromDCID(interaction_dcid);
   // danger: assumes neither {protein id}, {species id} contain an underscore
@@ -668,7 +669,7 @@ export function deduplicateInteractionDCIDs(
   // Can't just use Set here because not guaranteed that A_B in list implies B_A in list
   // Counterexample: https://screenshot.googleplex.com/7JrfkVqt8crxVP9
   return Object.values(
-    arrayToObject(interactionDCIDs, formatInteractionDCID, (dcid) => dcid)
+    objectFromArray(interactionDCIDs, formatInteractionDCID, (dcid) => dcid)
   ) as string[];
 }
 
@@ -678,12 +679,12 @@ export function getInteractionTarget(
   returnDCID = false
 ) {
   // note this also works in the case of a self-interaction
-  const interactionID = interactionDCID.replace("bio/", "");
-  const sourceID = sourceDCID.replace("bio/", "");
+  const interactionID = idFromDCID(interactionDCID);
+  const sourceID = idFromDCID(sourceDCID);
   const id = interactionID
     .replace(`${sourceID}_`, "")
     .replace(`_${sourceID}`, "");
-  if (returnDCID) return `bio/${id}`;
+  if (returnDCID) return DCIDFromID(id);
   return id;
 }
 
@@ -700,12 +701,29 @@ export function symmetrizeScores(interactionDCIDs, scores) {
 export function scoreFromProteinDCIDs(scoreObj, proteinDCID1, proteinDCID2) {
   const defaultScore = 0;
   const [protein1, protein2] = [proteinDCID1, proteinDCID2].map((dcid) =>
-    dcid.replace("bio/", "")
+  idFromDCID(dcid)
   );
   return _.get(scoreObj, `${protein1}_${protein2}`, defaultScore);
 }
 
 export function scoreFromInteractionDCID(scoreObj, interactionDCID) {
-  const defaultScore = 0;
-  return _.get(scoreObj, interactionDCID.replace("bio/", ""), defaultScore);
+  return _.get(scoreObj, idFromDCID(interactionDCID), DEFAULT_INTERACTION_SCORE);
+}
+
+export function getFromResponse(resp, key) {
+  return resp.data.data.map(obj => obj[key])
+}
+
+export const responseGetters = objectFromArray(Object.keys(RESPONSE_GETTER_NAMES), key => key, key => resp => getFromResponse(resp, RESPONSE_GETTER_NAMES[key]))
+
+export function scoreDataFromResponse(scoreResponse){
+  const scoreValues = responseGetters.values(scoreResponse);
+  const interactionDCIDs = responseGetters.dcids(scoreResponse);
+  console.log('svs', scoreValues);
+  const scoreList = scoreValues
+    .flat(1)
+    .map(({ dcid }) => dcid)
+    .filter((dcid) => dcid.includes(INTERACTION_SCORE_NAME))
+    .map((dcid) => Number(dcid.split(INTERACTION_SCORE_NAME).slice(-1)[0]));
+  return symmetrizeScores(interactionDCIDs, scoreList);
 }

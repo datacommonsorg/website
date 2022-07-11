@@ -37,7 +37,6 @@ import {
   GRAPH_BROWSER_REDIRECT,
 } from "./chart";
 import {
-  arrayToObject,
   DCIDFromID,
   deduplicateInteractionDCIDs,
   getChemicalGeneAssoc,
@@ -53,11 +52,12 @@ import {
   idFromDCID,
   MAX_INTERACTIONS,
   nodeFromID,
-  responseToValues,
+  getFromResponse,
+  scoreDataFromResponse,
   scoreFromInteractionDCID,
   scoreFromProteinDCIDs,
-  symmetrizeScores,
   zip,
+  responseGetters,
 } from "./data_processing_utils";
 export interface PagePropType {
   dcid: string;
@@ -215,6 +215,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   // )});
 
   private fetchInteractionData(protein_dcids: string[]): any {
+    console.log(protein_dcids);
     const PPI_ENDPOINT =
       "https://autopush.api.datacommons.org/v1/bulk/property/in/interactingProtein/values";
     return axios.post(PPI_ENDPOINT, {
@@ -240,23 +241,27 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   private fetchData(): void {
     const PPI_CONFIDENCE_SCORE_THRESHOLD = 0.4;
     axios.get("/api/protein/" + this.props.dcid).then((resp) => {
-      const centerProtein = nodeFromID(this.props.dcid, 0);
+      const centerProtein = nodeFromID(idFromDCID(this.props.dcid), 0);
       const interactionDataDepth1 = getProteinInteraction(
         resp.data,
         centerProtein.id
       );
+      console.log(interactionDataDepth1);
       const graphData = getProteinInteractionGraphData(interactionDataDepth1);
+      console.log(graphData);
 
       const nodesDepth1 = graphData.nodeData.filter(
         (nodeDatum) => nodeDatum.id !== centerProtein.id
       );
-      const nodeDCIDsDepth1 = graphData.nodeData.map(
+      console.log(nodesDepth1);
+      const nodeDCIDsDepth1 = nodesDepth1.map(
         (nodeDatum) => DCIDFromID(nodeDatum.id)
       );
       const proteinDCIDSet = new Set([this.props.dcid, ...nodeDCIDsDepth1]);
 
       this.fetchInteractionData(nodeDCIDsDepth1).then((interactionResp) => {
-        const interactionData = responseToValues(interactionResp).map(
+        console.log('resp', interactionResp);
+        const interactionData = responseGetters.values(interactionResp).map(
           (interactions) => {
             return interactions.map(({ dcid }) => dcid);
           }
@@ -266,19 +271,20 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         );
         const interaction_dcids_dedup = interactionDataDedup.flat(1);
 
-        this.fetchScoreData(interaction_dcids_dedup).then((scoreResp) => {
-          const scoreData = responseToValues(scoreResp);
-          const scores = scoreData
-            .flat(1)
-            .map(({ dcid }) => dcid)
-            .filter((dcid) => dcid.includes("IntactMiScore"))
-            .map((dcid) => Number(dcid.split("IntactMiScore").slice(-1)[0]));
-          // doubles as an O(1) retrieval store for whether two proteins interact
-          const scoreObj = symmetrizeScores(interaction_dcids_dedup, scores);
+        console.log(interaction_dcids_dedup);
+        console.log('dedup', interactionDataDedup)
 
-          const interactionDataSorted = interactionDataDedup.map((dcidArray) =>
+        this.fetchScoreData(interaction_dcids_dedup).then((scoreResp) => {
+          
+          // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
+          // This object serves two purposes:
+          // 1) O(1) interaction score retrieval
+          // 2) O(1) check for whether a given protein interacts with a depth 1 protein
+          const scoresDepth1 = scoreDataFromResponse(scoreResp);
+
+          const interactionDataSorted = interactionDataDedup.map((dcidArray, index) =>
             dcidArray
-              .filter((interactionDCID, index) => {
+              .filter((interactionDCID) => {
                 const childDCID = getInteractionTarget(
                   idFromDCID(interactionDCID),
                   nodesDepth1[index].id,
@@ -286,14 +292,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
                 );
                 return (
                   !proteinDCIDSet.has(childDCID) &&
-                  scoreFromInteractionDCID(scoreObj, interactionDCID) >=
+                  scoreFromInteractionDCID(scoresDepth1, interactionDCID) >=
                     PPI_CONFIDENCE_SCORE_THRESHOLD
                 );
               })
               .sort(
                 (interactionDCID1, interactionDCID2) =>
-                  scoreFromInteractionDCID(scoreObj, interactionDCID1) -
-                  scoreFromInteractionDCID(scoreObj, interactionDCID2)
+                  scoreFromInteractionDCID(scoresDepth1, interactionDCID1) -
+                  scoreFromInteractionDCID(scoresDepth1, interactionDCID2)
               )
           );
 
@@ -310,7 +316,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
                 return {
                   source: source.id,
                   target: getInteractionTarget(interactionID, source.id),
-                  score: scoreObj[interactionID],
+                  score: scoresDepth1[interactionID],
                 };
               })
             )
@@ -321,7 +327,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           nodeDCIDsDepth1.forEach((nodeDCID1) => {
             nodeDCIDsDepth1.forEach((nodeDCID2) => {
               const interactionScore = scoreFromProteinDCIDs(
-                scoreObj,
+                scoresDepth1,
                 nodeDCID1,
                 nodeDCID2
               );
