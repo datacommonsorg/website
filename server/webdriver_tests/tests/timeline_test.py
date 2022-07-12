@@ -144,8 +144,9 @@ class TestCharts(WebdriverBaseTest):
         element_present = EC.presence_of_element_located(
             (By.CLASS_NAME, "svg-node-child"))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-        self.driver.find_element_by_id("Count_Persondc/g/Demographics-Count_Person").click()
-        
+        self.driver.find_element_by_id(
+            "Count_Persondc/g/Demographics-Count_Person").click()
+
         # Wait until there is a card present.
         shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
@@ -158,14 +159,14 @@ class TestCharts(WebdriverBaseTest):
         self.assertEqual(len(charts), 1)
 
         # Uncheck the checked stat var.
-        self.driver.find_element_by_id("Count_Persondc/g/Demographics-Count_Person").click()
+        self.driver.find_element_by_id(
+            "Count_Persondc/g/Demographics-Count_Person").click()
 
         # Assert there are no charts.
         shared.wait_for_loading(self.driver)
         charts = self.driver.find_elements_by_xpath(
             '//*[@id="chart-region"]/div[@class="chart-container"]')
         self.assertEqual(len(charts), 0)
-
 
     def test_place_search_box_and_remove_place(self):
         """Test the timeline tool place search can work correctly."""
