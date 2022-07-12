@@ -53,10 +53,9 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       <>
         <h2>Disease Browser</h2>
         <h5>Disease-Gene Association</h5>
-        <div id="disease-gene-association-chart"></div>    
-      
+        <div id="disease-gene-association-chart"></div>
       </>
-    )
+    );
   }
 
   private fetchData(): void {

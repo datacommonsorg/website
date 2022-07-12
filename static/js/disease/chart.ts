@@ -40,7 +40,7 @@ type Datum = DiseaseGeneAssociationIntervalData;
 /**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
- function onMouseOver(
+function onMouseOver(
   elementID: string,
   toolTipText: string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
@@ -69,7 +69,7 @@ function onMouseMove(): void {
 /**
  * When mouse leaves element specified by given id, reset its brightness and hide the global tooltip.
  */
- function onMouseOut(elementID: string): void {
+function onMouseOut(elementID: string): void {
   // reset element brightness
   d3.select(`#${elementID}`).style("filter", "brightness(100%)");
   // hide tooltip
@@ -110,7 +110,7 @@ function getElementIDFunc(
 /**
  * Adds the x label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
  */
- function addXLabel(
+function addXLabel(
   width: number,
   height: number,
   labelText: string,
@@ -128,7 +128,7 @@ function getElementIDFunc(
 /**
  * Adds the y label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
  */
- function addYLabel(
+function addYLabel(
   height: number,
   labelText: string,
   svg: d3.Selection<SVGGElement, unknown, HTMLElement, any>
@@ -145,7 +145,7 @@ function getElementIDFunc(
 export interface DiseaseGeneAssociationRawData {
   // name of the associated gene
   name: string;
-  // confidence score 
+  // confidence score
   score: number;
   // length of the confidence interval
   interval: number;
@@ -162,9 +162,9 @@ export interface DiseaseGeneAssociationIntervalData {
 }
 /**
  * Draws the disease-gene association charts for the disease of interest
- * @param id 
- * @param data 
- * @returns 
+ * @param id
+ * @param data
+ * @returns
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
@@ -180,12 +180,12 @@ export function drawDiseaseGeneAssocChart(
     return {
       name: item.name,
       score: Number(item.score),
-      lowerInterval: Number(item.score - (item.interval/2)),
-      upperInterval: Number(item.score) + Number(item.interval/2),
+      lowerInterval: Number(item.score - item.interval / 2),
+      upperInterval: Number(item.score) + Number(item.interval / 2),
     };
   });
   //Formats the gene name
-  function formatGeneName(d:string) {
+  function formatGeneName(d: string) {
     // remove the word "bio/hg38_" from the entire gene name, say "bio/hg38_pRNA"
     d = d.substring(9);
     return d;
@@ -199,52 +199,71 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
-  // slicing the data to display 10 values only 
-  reformattedData = reformattedData.slice(0,NUM_DATA_POINTS);
+  // slicing the data to display 10 values only
+  reformattedData = reformattedData.slice(0, NUM_DATA_POINTS);
   // plots the axes
-  const x = d3.scaleBand()
+  const x = d3
+    .scaleBand()
     .range([0, width])
-    .domain(reformattedData.map(function(d) {return d.name;}))
-    .padding(1)
-  svg.append("g")
+    .domain(
+      reformattedData.map(function (d) {
+        return d.name;
+      })
+    )
+    .padding(1);
+  svg
+    .append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickFormat(formatGeneName))
     .selectAll("text")
-      .attr("transform", "translate(-10,0)rotate(-45)")
-      .style("text-anchor", "end");
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    .style("text-anchor", "end");
   addXLabel(width, height, "Gene Names", svg);
-  const y = d3.scaleLinear()
+  const y = d3
+    .scaleLinear()
     .domain([0, d3.max(reformattedData, (d) => d.upperInterval) + Y_AXIS_LIMIT])
     .range([height, 0]);
-  svg
-    .append("g")
-    .call(d3.axisLeft(y));
+  svg.append("g").call(d3.axisLeft(y));
   addYLabel(height, "Confidence Score", svg);
   // the lines
-  svg.selectAll("myline")
+  svg
+    .selectAll("myline")
     .data(reformattedData)
     .enter()
     .append("line")
-      .attr("x1", (d) => {return x(d.name);})
-      .attr("x2", (d) => {return x(d.name);})
-      .attr("y1", (d) => {return y(d.lowerInterval);})
-      .attr("y2", (d) => {return y(d.upperInterval);})
-      .attr("stroke", "grey")
+    .attr("x1", (d) => {
+      return x(d.name);
+    })
+    .attr("x2", (d) => {
+      return x(d.name);
+    })
+    .attr("y1", (d) => {
+      return y(d.lowerInterval);
+    })
+    .attr("y2", (d) => {
+      return y(d.upperInterval);
+    })
+    .attr("stroke", "grey");
   const circleIDFunc = getElementIDFunc(id, "circle");
-// the circles
-svg.selectAll("mycircle")
-  .data(reformattedData)
-  .enter()
-  .append("circle")
-    .attr("cx", (d) => { return x(d.name);})
-    .attr("cy", (d) => {return y(d.score);})
+  // the circles
+  svg
+    .selectAll("mycircle")
+    .data(reformattedData)
+    .enter()
+    .append("circle")
+    .attr("cx", (d) => {
+      return x(d.name);
+    })
+    .attr("cy", (d) => {
+      return y(d.score);
+    })
     .attr("r", LEGEND_CIRCLE_RADIUS)
     .attr("id", (d, i) => circleIDFunc(i))
     .style("fill", "maroon")
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d) => `Gene Name: ${formatGeneName(d.name)}<br>Confidence Score: ${d.score}`
+      (d) =>
+        `Gene Name: ${formatGeneName(d.name)}<br>Confidence Score: ${d.score}`
     );
-
 }

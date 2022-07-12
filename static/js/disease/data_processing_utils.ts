@@ -6,8 +6,8 @@ export function getDiseaseGeneAssociation(
   data: GraphNodes
 ): DiseaseGeneAssociationRawData[] {
   // Disease to gene associations
-  // checks if the data is empty 
-  if(!data) {
+  // checks if the data is empty
+  if (!data) {
     return [];
   }
   const returnData: DiseaseGeneAssociationRawData[] = [];
@@ -27,20 +27,20 @@ export function getDiseaseGeneAssociation(
       if (_.isEmpty(node.neighbors)) {
         continue;
       }
-      for (const n of node.neighbors) { 
-        if (n.property === "geneID") { 
+      for (const n of node.neighbors) {
+        if (n.property === "geneID") {
           // check for empty list and null gene values
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
           gene = n.nodes[0].value;
-        } else if(n.property === "associationScore") {
+        } else if (n.property === "associationScore") {
           // check if the list is empty or not
           if (_.isEmpty(n.nodes)) {
             continue;
           }
           score = n.nodes[0].value;
-        } else if(n.property === "associationConfidenceInterval"){
+        } else if (n.property === "associationConfidenceInterval") {
           // check if the list is empty or not
           if (_.isEmpty(n.nodes)) {
             continue;
@@ -48,9 +48,9 @@ export function getDiseaseGeneAssociation(
           interval = n.nodes[0].value;
         }
       }
-      returnData.push({name: gene, score:score, interval:interval})
+      returnData.push({ name: gene, score: score, interval: interval });
     }
-    return returnData
+    return returnData;
   }
   return [];
 }
