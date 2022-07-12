@@ -17,7 +17,6 @@
 import * as d3 from "d3";
 import {
   DragBehavior,
-  EnterElement,
   Simulation,
   SimulationLinkDatum,
   SimulationNodeDatum,
