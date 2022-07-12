@@ -74,7 +74,6 @@ export interface VarGeneDataPoint {
   upper: number;
 }
 
-type Selectable = Element | EnterElement | Document | Window | SVGLineElement;
 type Datum =
   | ProteinNumData
   | ProteinNode
@@ -306,7 +305,7 @@ function onMouseOut(elementID: string): void {
  * Unhighlight and hide the global tooltip when the mouse leaves.
  */
 function handleMouseEvents(
-  selection: d3.Selection<Selectable, Datum, SVGGElement, unknown>,
+  selection: d3.Selection<SVGElement, any, any, any>,
   idFunc: (index: number) => string,
   toolTipFunc: (datum: Datum) => string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
