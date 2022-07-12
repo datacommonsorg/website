@@ -3,6 +3,7 @@ import _ from "lodash";
 import { GraphNodes } from "../shared/types";
 import {
   InteractionGraphData,
+  InteractionGraphDataNested,
   InteractionLink,
   ProteinNode,
   ProteinStrData,
@@ -13,7 +14,7 @@ import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
 // Upper bound on node degree in interaction graph viz's
-export const MAX_INTERACTIONS = 10; 
+export const MAX_INTERACTIONS = 4; 
 export const INTERACTION_SCORE_NAME = "IntactMiScore"
 
 // Maps name of response getter to name of key in an element of response.data.data it retrieves
@@ -215,7 +216,7 @@ export function nodeFromID(
  */
 export function getProteinInteractionGraphData(
   data: InteractingProteinType[]
-): InteractionGraphData {
+): InteractionGraphDataNested {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;
@@ -224,38 +225,30 @@ export function getProteinInteractionGraphData(
   // P53_HUMAN is central protein in below examples.
   // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
   const centerNodeID = data[0].parent;
-  let nodeData = data.map(({ name, value }) => {
+  let neighbors = data.map(({ name: interactionID, value }) => {
     // value is confidenceScore
-    let neighbor = "";
-    if (name.includes(`_${centerNodeID}`)) {
-      // replace only first instance to handle self-interactions (P53_HUMAN_P53_HUMAN)
-      neighbor = name.replace(`_${centerNodeID}`, "");
-    } else if (name.includes(`${centerNodeID}_`)) {
-      // same here
-      neighbor = name.replace(`${centerNodeID}_`, "");
-    }
-    const nodeDatum = nodeFromID(neighbor, 1);
+    const neighborID = getInteractionTarget(interactionID, DCIDFromID(centerNodeID))
+    const nodeDatum = nodeFromID(neighborID, 1);
     nodeDatum["value"] = value;
     return nodeDatum;
   });
 
   // delete duplicates and self-interactions (will add support for self-interactions later on)
   const seen = new Set();
-  nodeData = nodeData.filter((node) => {
+  neighbors = neighbors.filter((node) => {
     const duplicate = seen.has(node.name);
     seen.add(node.name);
     return !duplicate && node.id !== centerNodeID;
   });
 
   // descending order of interaction confidenceScore
-  nodeData.sort((n1, n2) => n2.value - n1.value);
+  neighbors.sort((n1, n2) => n2.value - n1.value);
   // consider only top 10 interactions to avoid clutter
-  nodeData = nodeData.slice(0, MAX_INTERACTIONS);
+  neighbors = neighbors.slice(0, MAX_INTERACTIONS);
 
   const centerDatum = nodeFromID(centerNodeID, 0);
-  nodeData.push(centerDatum);
 
-  const linkData: InteractionLink[] = nodeData.map((node) => {
+  const linkData: InteractionLink[] = neighbors.map((node) => {
     return {
       score: node.value,
       source: centerNodeID,
@@ -264,8 +257,8 @@ export function getProteinInteractionGraphData(
   });
 
   return {
-    linkData,
-    nodeData,
+    linkDataNested: [[], linkData],
+    nodeDataNested: [[centerDatum], neighbors]
   };
 }
 
@@ -711,19 +704,34 @@ export function scoreFromInteractionDCID(scoreObj, interactionDCID) {
 }
 
 export function getFromResponse(resp, key) {
+  if (!("data" in resp.data)) return [];
   return resp.data.data.map(obj => obj[key])
 }
 
 export const responseGetters = objectFromArray(Object.keys(RESPONSE_GETTER_NAMES), key => key, key => resp => getFromResponse(resp, RESPONSE_GETTER_NAMES[key]))
 
+export function quantityFromDCID(quantityDCID, quantityName){
+  if (!quantityDCID.includes(quantityName)){
+    throw `DCID "${quantityDCID}" does not contain quantity name "${quantityName}"`;
+  }
+  return Number(_.last(quantityDCID.split(quantityName)))
+}
+
 export function scoreDataFromResponse(scoreResponse){
   const scoreValues = responseGetters.values(scoreResponse);
   const interactionDCIDs = responseGetters.dcids(scoreResponse);
-  console.log('svs', scoreValues);
+  console.log('svs', _.cloneDeep(scoreValues));
   const scoreList = scoreValues
-    .flat(1)
-    .map(({ dcid }) => dcid)
-    .filter((dcid) => dcid.includes(INTERACTION_SCORE_NAME))
-    .map((dcid) => Number(dcid.split(INTERACTION_SCORE_NAME).slice(-1)[0]));
+    .map(scoreObjList => {
+      if (scoreObjList !== undefined) {
+      return scoreObjList
+      .filter(({dcid}) => dcid.includes(INTERACTION_SCORE_NAME))}
+      return [];
+    }
+      )
+    .map(scoreObjList => {
+      if (_.isEmpty(scoreObjList)) return DEFAULT_INTERACTION_SCORE;
+      return quantityFromDCID(scoreObjList[0].dcid, INTERACTION_SCORE_NAME);
+    })
   return symmetrizeScores(interactionDCIDs, scoreList);
 }

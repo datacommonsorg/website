@@ -64,6 +64,11 @@ export interface InteractionGraphData {
   linkData: InteractionLink[];
 }
 
+export interface InteractionGraphDataNested {
+  nodeDataNested: ProteinNode[][];
+  linkDataNested: InteractionLink[][];
+}
+
 // interface for variant gene associations for plotting error bars
 export interface VarGeneDataPoint {
   associationID: string;
@@ -225,6 +230,7 @@ const NUM_TICKS = 10;
 const GRAPH_HEIGHT_XS = 130;
 const GRAPH_HEIGHT_S = 200;
 const GRAPH_HEIGHT_M = 400;
+const GRAPH_HEIGHT_XL = 1050;
 const GRAPH_WIDTH_S = 660;
 const GRAPH_WIDTH_M = 700;
 const GRAPH_WIDTH_L = 760;
@@ -244,8 +250,8 @@ const INTERACTION_GRAPH_Y_OFFSET = -25;
 
 // style of node representations in interaction graph viz's
 const NODE_FILL_COLORS = [
-  "mistyrose",
   "peachpuff",
+  "mistyrose",
   "lightCoral",
   "lightsalmon",
 ];
@@ -795,16 +801,10 @@ export function drawProteinInteractionGraph(
     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
   */
 
-  console.log("data", data);
   const { nodeData, linkData } = data;
 
-  // const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
-  // const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
-
-  const height = 800;
-  const width = 800;
-
-  console.log("hw", height, width);
+  const height = GRAPH_HEIGHT_XL - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_XL - MARGIN.left - MARGIN.right;
 
   const svg = d3
     .select(`#${chartID}`)

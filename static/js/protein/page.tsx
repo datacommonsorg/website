@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { array } from "prop-types";
 import React from "react";
 import { SourceMapDevToolPlugin } from "webpack";
@@ -35,6 +36,8 @@ import {
   drawVarSigAssocChart,
   drawVarTypeAssocChart,
   GRAPH_BROWSER_REDIRECT,
+  InteractionGraphData,
+  InteractionGraphDataNested,
 } from "./chart";
 import {
   DCIDFromID,
@@ -66,8 +69,9 @@ export interface PagePropType {
 
 export interface PageStateType {
   data: GraphNodes;
-  interactionData?: any; // TODO: fix types
-  interactionDataDepth1?: any;
+  interactionDataDepth1?: any; // TODO: fix types
+  interactionDataNested?: any;
+  proteinInteractionDepth?: number;
 }
 
 export interface ProteinVarType {
@@ -96,6 +100,9 @@ export interface InteractingProteinType {
   parent: string;
 }
 
+const PPI_CONFIDENCE_SCORE_THRESHOLD = 0.4;
+const PROTEIN_INTERACTION_DEPTH = 2;
+
 export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
@@ -122,7 +129,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
     drawProteinInteractionGraph(
       "protein-interaction-graph",
-      this.state.interactionData
+            {
+              nodeData: this.state.interactionDataNested.nodeDataNested.slice(0, this.state.proteinInteractionDepth+1).flat(1),
+              linkData: this.state.interactionDataNested.linkDataNested.slice(0, this.state.proteinInteractionDepth+1).flat(1)
+            },
     );
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
@@ -209,18 +219,11 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
   }
 
-  // this.setState({interactionDataDepth1: getProteinInteraction(
-  //   this.state.data,
-  //   this.props.nodeName
-  // )});
-
   private fetchInteractionData(protein_dcids: string[]): any {
-    console.log(protein_dcids);
     const PPI_ENDPOINT =
       "https://autopush.api.datacommons.org/v1/bulk/property/in/interactingProtein/values";
     return axios.post(PPI_ENDPOINT, {
       entities: protein_dcids,
-      // entities: ['bio/P53_HUMAN', 'bio/FGFR1_HUMAN'],
       headers: {
         "Content-Type": "application/json",
       },
@@ -238,29 +241,17 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     });
   }
 
-  private fetchData(): void {
-    const PPI_CONFIDENCE_SCORE_THRESHOLD = 0.4;
-    axios.get("/api/protein/" + this.props.dcid).then((resp) => {
-      const centerProtein = nodeFromID(idFromDCID(this.props.dcid), 0);
-      const interactionDataDepth1 = getProteinInteraction(
-        resp.data,
-        centerProtein.id
-      );
-      console.log(interactionDataDepth1);
-      const graphData = getProteinInteractionGraphData(interactionDataDepth1);
-      console.log(graphData);
-
-      const nodesDepth1 = graphData.nodeData.filter(
-        (nodeDatum) => nodeDatum.id !== centerProtein.id
-      );
-      console.log(nodesDepth1);
-      const nodeDCIDsDepth1 = nodesDepth1.map(
+  private expandProteinInteractionGraph(graphData: InteractionGraphDataNested){
+      const nodesLastLayer = _.last(graphData.nodeDataNested);
+      const nodeDCIDsLastLayer = nodesLastLayer.map(
         (nodeDatum) => DCIDFromID(nodeDatum.id)
       );
-      const proteinDCIDSet = new Set([this.props.dcid, ...nodeDCIDsDepth1]);
+      const proteinDCIDSet = new Set(
+        graphData.nodeDataNested.flat(1).map(node => DCIDFromID(node.id))
+      );
+      console.log(proteinDCIDSet);
 
-      this.fetchInteractionData(nodeDCIDsDepth1).then((interactionResp) => {
-        console.log('resp', interactionResp);
+      const expandPromise = this.fetchInteractionData(nodeDCIDsLastLayer).then((interactionResp) => {
         const interactionData = responseGetters.values(interactionResp).map(
           (interactions) => {
             return interactions.map(({ dcid }) => dcid);
@@ -269,37 +260,34 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         const interactionDataDedup = interactionData.map(
           deduplicateInteractionDCIDs
         );
-        const interaction_dcids_dedup = interactionDataDedup.flat(1);
+        const interactionDCIDsDedup = interactionDataDedup.flat(1);
 
-        console.log(interaction_dcids_dedup);
-        console.log('dedup', interactionDataDedup)
-
-        this.fetchScoreData(interaction_dcids_dedup).then((scoreResp) => {
+        const scorePromise = this.fetchScoreData(interactionDCIDsDedup).then((scoreResp) => {
           
           // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
           // This object serves two purposes:
           // 1) O(1) interaction score retrieval
           // 2) O(1) check for whether a given protein interacts with a depth 1 protein
-          const scoresDepth1 = scoreDataFromResponse(scoreResp);
+          const scoresNewLayer = scoreDataFromResponse(scoreResp);
 
-          const interactionDataSorted = interactionDataDedup.map((dcidArray, index) =>
+          const interactionDataSorted = zip(interactionDataDedup, nodesLastLayer).map(([dcidArray, parent]) =>
             dcidArray
               .filter((interactionDCID) => {
                 const childDCID = getInteractionTarget(
                   idFromDCID(interactionDCID),
-                  nodesDepth1[index].id,
+                  parent.id,
                   true
                 );
                 return (
                   !proteinDCIDSet.has(childDCID) &&
-                  scoreFromInteractionDCID(scoresDepth1, interactionDCID) >=
+                  scoreFromInteractionDCID(scoresNewLayer, interactionDCID) >=
                     PPI_CONFIDENCE_SCORE_THRESHOLD
                 );
               })
               .sort(
                 (interactionDCID1, interactionDCID2) =>
-                  scoreFromInteractionDCID(scoresDepth1, interactionDCID1) -
-                  scoreFromInteractionDCID(scoresDepth1, interactionDCID2)
+                  scoreFromInteractionDCID(scoresNewLayer, interactionDCID1) -
+                  scoreFromInteractionDCID(scoresNewLayer, interactionDCID2)
               )
           );
 
@@ -309,14 +297,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             (dcidArray) => dcidArray.slice(0, MAX_INTERACTIONS)
           );
 
-          const newLinks = zip(nodesDepth1, interactionDataTruncated)
+          const newLinks = zip(nodesLastLayer, interactionDataTruncated)
             .map(([source, interactions]) =>
               interactions.map((interactionDCID) => {
                 const interactionID = idFromDCID(interactionDCID);
                 return {
                   source: source.id,
                   target: getInteractionTarget(interactionID, source.id),
-                  score: scoresDepth1[interactionID],
+                  score: scoresNewLayer[interactionID],
                 };
               })
             )
@@ -324,10 +312,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
 
           const terminalLinks = [];
 
-          nodeDCIDsDepth1.forEach((nodeDCID1) => {
-            nodeDCIDsDepth1.forEach((nodeDCID2) => {
+          nodeDCIDsLastLayer.forEach((nodeDCID1) => {
+            Array.from(proteinDCIDSet).forEach((nodeDCID2) => { // TODO: change to all protein set
               const interactionScore = scoreFromProteinDCIDs(
-                scoresDepth1,
+                scoresNewLayer,
                 nodeDCID1,
                 nodeDCID2
               );
@@ -343,27 +331,48 @@ export class Page extends React.Component<PagePropType, PageStateType> {
                   score: interactionScore,
                 });
               }
+              return scorePromise;
             });
+            return expandPromise;
           });
 
           const newNodeIDs = new Set(newLinks.map(({ target }) => target));
 
-          //TODO: 2 magic number
           const newNodes = Array.from(newNodeIDs).map((id) =>
-            nodeFromID(id as string, 2)
+            nodeFromID(id as string, graphData.nodeDataNested.length)
           ); // TODO: get rid of assertion here
 
-          graphData.nodeData.push(...newNodes);
-          graphData.linkData.push(...newLinks);
-          graphData.linkData.push(...terminalLinks);
+          _.last(graphData.linkDataNested).push(...terminalLinks);
+          graphData.nodeDataNested.push(newNodes);
+          graphData.linkDataNested.push(newLinks);
+        })
+        return scorePromise;
+      })
+      return expandPromise;
+  }
 
-          this.setState({
+  private fetchData(): void {
+    axios.get(`/api/protein/${this.props.dcid}`).then((resp) => {
+      const interactionDataDepth1 = getProteinInteraction(
+        resp.data,
+        idFromDCID(this.props.dcid),
+      );
+      const graphData = getProteinInteractionGraphData(interactionDataDepth1);
+      let expansions = Promise.resolve()
+      for (let i = 0; i < PROTEIN_INTERACTION_DEPTH; i++){
+        expansions = expansions.then( () => {
+          this.expandProteinInteractionGraph(graphData);
+        })
+      }
+      expansions.then(() => 
+      {
+         this.setState({
             data: resp.data,
             interactionDataDepth1: interactionDataDepth1,
-            interactionData: graphData,
-          });
-        });
+            proteinInteractionDepth: PROTEIN_INTERACTION_DEPTH,
+            interactionDataNested: graphData,
+        })
       });
-    });
-  }
+  })
+}
 }
