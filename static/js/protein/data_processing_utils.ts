@@ -617,18 +617,21 @@ export function objectFromArray(
 }
 
 /**
- * Given (unpacked) array of arrays, return its transpose
- * This is a ts implementation of python's built-in zip function
+ * Given two arrays A1, A2, return the transpose of [A1, A2]
+ * This is a TS implementation of python's built-in zip function
  *
- * Reference: https://gist.github.com/renaudtertrais/25fc5a2e64fe5d0e86894094c6989e10?permalink_comment_id=3783403#gistcomment-3783403
+ * Reference: https://gist.github.com/dev-thalizao/affaac253be5b5305e0faec3b650ba27
  */
-// TODO: generic types
-export function zip(...arrays: any[]) {
-  const minLen = Math.min(...arrays.map((arr) => arr.length));
-  const [firstArr, ...restArrs] = arrays;
-  return firstArr
-    .slice(0, minLen)
-    .map((val, i) => [val, ...restArrs.map((arr) => arr[i])]);
+
+export function zip<T1, T2>(A1: Array<T1>, A2: Array<T2>): Array<[T1, T2]> {
+    const length = Math.min(A1.length, A2.length);
+    const zipped: Array<[T1, T2]> = [];
+
+    for (let index = 0; index < length; index++) {
+        zipped.push([A1[index], A2[index]]);
+    }
+
+    return zipped;
 }
 
 export function idFromDCID(dcid) {
@@ -703,7 +706,7 @@ export function scoreFromInteractionDCID(scoreObj, interactionDCID) {
   return _.get(scoreObj, idFromDCID(interactionDCID), DEFAULT_INTERACTION_SCORE);
 }
 
-export function getFromResponse(resp, key) {
+export function getFromResponse(resp, key): Object[] {
   if (!("data" in resp.data)) return [];
   return resp.data.data.map(obj => obj[key])
 }

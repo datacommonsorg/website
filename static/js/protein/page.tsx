@@ -252,11 +252,12 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       console.log(proteinDCIDSet);
 
       const expandPromise = this.fetchInteractionData(nodeDCIDsLastLayer).then((interactionResp) => {
+        // TODO: get rid of string[][] assertion by making types for interactionResp and scoreResp
         const interactionData = responseGetters.values(interactionResp).map(
           (interactions) => {
             return interactions.map(({ dcid }) => dcid);
           }
-        );
+        ) as string[][];
         const interactionDataDedup = interactionData.map(
           deduplicateInteractionDCIDs
         );
