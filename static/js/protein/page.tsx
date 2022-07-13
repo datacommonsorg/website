@@ -26,7 +26,7 @@ import {
   drawChemGeneAssocChart,
   drawDiseaseGeneAssocChart,
   drawProteinInteractionChart,
-  drawProteinInteractionGraph,
+  // drawProteinInteractionGraph,
   drawTissueLegend,
   drawTissueScoreChart,
   drawVarGeneAssocChart,
@@ -106,7 +106,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       "protein-confidence-score-chart",
       interactionScore
     );
-    drawProteinInteractionGraph("protein-interaction-graph", interactionScore);
+    // drawProteinInteractionGraph("protein-interaction-graph", interactionScore);
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
       diseaseGeneAssoc

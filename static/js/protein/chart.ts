@@ -783,103 +783,103 @@ export function drawProteinInteractionChart(
 /**
  * Draws graph visualization of a neighborhood of the protein-protein interaction network centered at the page protein.
  */
-export function drawProteinInteractionGraph(
-  chartID: string,
-  data: InteractingProteinType[]
-): void {
-  /*
-  References:
-    1) Force-directed layout Observable: https://observablehq.com/@d3/force-directed-graph
-    2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
-  */
+// export function drawProteinInteractionGraph(
+//   chartID: string,
+//   data: InteractingProteinType[]
+// ): void {
+//   /*
+//   References:
+//     1) Force-directed layout Observable: https://observablehq.com/@d3/force-directed-graph
+//     2) Andrew Chen's force-directed layout with text labels tutorial: https://www.youtube.com/watch?v=1vHjMxe-4kI
+//   */
 
-  const { nodeData, linkData } = getProteinInteractionGraphData(data);
+//   const { nodeData, linkData } = getProteinInteractionGraphData(data);
 
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
+//   const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+//   const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
 
-  const svg = d3
-    .select(`#${chartID}`)
-    .append("svg")
-    .attr("width", width + MARGIN.left + MARGIN.right)
-    .attr("height", height + MARGIN.top + MARGIN.bottom)
-    .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
-    .append("g")
-    .attr(
-      "transform",
-      `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${
-        MARGIN.top + INTERACTION_GRAPH_Y_OFFSET
-      })`
-    );
+//   const svg = d3
+//     .select(`#${chartID}`)
+//     .append("svg")
+//     .attr("width", width + MARGIN.left + MARGIN.right)
+//     .attr("height", height + MARGIN.top + MARGIN.bottom)
+//     .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
+//     .append("g")
+//     .attr(
+//       "transform",
+//       `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${
+//         MARGIN.top + INTERACTION_GRAPH_Y_OFFSET
+//       })`
+//     );
 
-  const nodeIDs = nodeData.map((node) => node.id);
-  const nodeDepths = nodeData.map((node) => node.depth);
-  const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
+//   const nodeIDs = nodeData.map((node) => node.id);
+//   const nodeDepths = nodeData.map((node) => node.depth);
+//   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
 
-  // force display layout
-  const forceNode = d3.forceManyBody();
-  const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
-  forceLink.distance(LINK_STYLE.length);
+//   // force display layout
+//   const forceNode = d3.forceManyBody();
+//   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
+//   forceLink.distance(LINK_STYLE.length);
 
-  const linkIDFunc = getElementIDFunc(chartID, "link");
-  // add links first so nodes appear over links
-  const links = svg
-    .append("g")
-    .selectAll("line")
-    .data(linkData)
-    .join("line")
-    .attr(
-      "stroke-width",
-      (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
-    )
-    .attr("class", "interaction-link")
-    .attr("id", (d, i) => linkIDFunc(i))
-    .call(
-      handleMouseEvents,
-      linkIDFunc,
-      (d) =>
-        `Source: ${(d.source as ProteinNode).name}<br>Target: ${
-          (d.target as ProteinNode).name
-        }<br>Confidence: ${d.score}`,
-      PPI_BRIGHTEN_PERCENTAGE
-    );
+//   const linkIDFunc = getElementIDFunc(chartID, "link");
+//   // add links first so nodes appear over links
+//   const links = svg
+//     .append("g")
+//     .selectAll("line")
+//     .data(linkData)
+//     .join("line")
+//     .attr(
+//       "stroke-width",
+//       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
+//     )
+//     .attr("class", "interaction-link")
+//     .attr("id", (d, i) => linkIDFunc(i))
+//     .call(
+//       handleMouseEvents,
+//       linkIDFunc,
+//       (d) =>
+//         `Source: ${(d.source as ProteinNode).name}<br>Target: ${
+//           (d.target as ProteinNode).name
+//         }<br>Confidence: ${d.score}`,
+//       PPI_BRIGHTEN_PERCENTAGE
+//     );
 
-  const simulation = d3
-    .forceSimulation(nodeData)
-    .force("link", forceLink)
-    .force("charge", forceNode)
-    .force("center", d3.forceCenter())
-    .on("tick", () => interactionGraphTicked(links, nodes));
+//   const simulation = d3
+//     .forceSimulation(nodeData)
+//     .force("link", forceLink)
+//     .force("charge", forceNode)
+//     .force("center", d3.forceCenter())
+//     .on("tick", () => interactionGraphTicked(links, nodes));
 
-  const nodeIDFunc = getElementIDFunc(chartID, "node");
-  // container for circles and labels
-  const nodes = svg
-    .append("g")
-    .selectAll("g")
-    .data(nodeData)
-    .enter()
-    .append("g")
-    .call(dragNode(simulation))
-    .call(
-      handleMouseEvents,
-      nodeIDFunc,
-      (d) => `Name: ${d.name}<br>Species: ${d.species}`,
-      PPI_BRIGHTEN_PERCENTAGE
-    );
+//   const nodeIDFunc = getElementIDFunc(chartID, "node");
+//   // container for circles and labels
+//   const nodes = svg
+//     .append("g")
+//     .selectAll("g")
+//     .data(nodeData)
+//     .enter()
+//     .append("g")
+//     .call(dragNode(simulation))
+//     .call(
+//       handleMouseEvents,
+//       nodeIDFunc,
+//       (d) => `Name: ${d.name}<br>Species: ${d.species}`,
+//       PPI_BRIGHTEN_PERCENTAGE
+//     );
 
-  // node circles
-  nodes
-    .append("circle")
-    .attr("class", "protein-node-circle")
-    .attr("fill", (node) => nodeColors(node.depth))
-    .attr("id", (node, i) => nodeIDFunc(i));
+//   // node circles
+//   nodes
+//     .append("circle")
+//     .attr("class", "protein-node-circle")
+//     .attr("fill", (node) => nodeColors(node.depth))
+//     .attr("id", (node, i) => nodeIDFunc(i));
 
-  // node labels
-  nodes
-    .append("text")
-    .text(({ name }) => name)
-    .attr("class", "protein-node-label");
-}
+//   // node labels
+//   nodes
+//     .append("text")
+//     .text(({ name }) => name)
+//     .attr("class", "protein-node-label");
+// }
 
 /**
  * Draws the bar chart for disease-gene association
