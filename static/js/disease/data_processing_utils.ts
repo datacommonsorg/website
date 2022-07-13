@@ -57,6 +57,7 @@ export function getDiseaseGeneAssociation(
         }
       }
       rawData.push({
+        // remove the genome assembly prefix from gene name
         name: gene.replace("bio/hg38_", ""),
         score: score,
         lowerInterval: lowerInterval,
