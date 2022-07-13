@@ -31,6 +31,8 @@ const LEGEND_CIRCLE_RADIUS = 4;
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // horizontal barcharts - default brightness
 const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
+// length of the error bar cap for disease-gene associations chart
+const ERROR_BAR_CAP_LENGTH = 10;
 type Datum = DiseaseGeneAssociationData;
 /**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
@@ -216,6 +218,44 @@ export function drawDiseaseGeneAssocChart(
       return y(d.upperInterval);
     })
     .attr("stroke", "grey");
+  svg
+    .selectAll("disease-gene-upper-line")
+    .data(data)
+    .enter()
+    .append("line")
+    .attr("x1", (d) => {
+      return x(d.name) - ERROR_BAR_CAP_LENGTH / 2;
+    })
+    .attr("x2", (d) => {
+      return x(d.name) + ERROR_BAR_CAP_LENGTH / 2;
+    })
+    .attr("y1", (d) => {
+      return y(d.upperInterval);
+    })
+    .attr("y2", (d) => {
+      return y(d.upperInterval);
+    })
+    .attr("stroke", "black")
+    .attr("stroke-width", "1px");
+  svg
+    .selectAll("disease-gene-lower-line")
+    .data(data)
+    .enter()
+    .append("line")
+    .attr("x1", (d) => {
+      return x(d.name) - ERROR_BAR_CAP_LENGTH / 2;
+    })
+    .attr("x2", (d) => {
+      return x(d.name) + ERROR_BAR_CAP_LENGTH / 2;
+    })
+    .attr("y1", (d) => {
+      return y(d.lowerInterval);
+    })
+    .attr("y2", (d) => {
+      return y(d.lowerInterval);
+    })
+    .attr("stroke", "black")
+    .attr("stroke-width", "1px");
   const circleIDFunc = getElementIDFunc(id, "circle");
   // the circles
   svg
