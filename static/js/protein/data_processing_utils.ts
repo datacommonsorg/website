@@ -13,6 +13,22 @@ import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
+type V1ResponseDatum<T> = {
+  entity: string;
+  values: T[];
+}
+
+type V1Response<T> = {
+  config: Object;
+  data: {
+    data?: V1ResponseDatum<T>[]
+  }
+  headers: Object;
+  request: Object;
+  status: number;
+  statusText: string;
+}
+
 // Upper bound on node degree in interaction graph viz's
 export const MAX_INTERACTIONS = 4; 
 export const INTERACTION_SCORE_NAME = "IntactMiScore"
@@ -598,18 +614,21 @@ export function getProteinDescription(data: GraphNodes): string {
 }
 
 /**
- * Given array, key-maker function, and value-maker function, construct object from array.
+ * Given array, key-maker function, and value-maker function, construct object from array with string-valued keys.
  * This is essentially a ts implementation of a python dictionary comprehension.
+ * 
+ * Unfortunately generic index signature parameters aren't supported by TS yet, so we enforce that keys are strings.
  *
- * Reference: https://linuxtut.com/en/87ab3f313a75b547c278/
- *
- * TODO: generic types
+ * References: 
+ *  - https://linuxtut.com/en/87ab3f313a75b547c278/
+ *  - https://stackoverflow.com/questions/13315131/enforcing-the-type-of-the-indexed-members-of-a-typescript-object
+ * 
  */
-export function objectFromArray(
-  arr: any[],
-  keyFunc: Function,
-  valFunc: Function
-) {
+export function objectFromArray<T, V>(
+  arr: T[],
+  keyFunc: (arrElt: T) => string,
+  valFunc: (arrElt: T) => V
+): {[key: string] : V} {
   return arr.reduce(
     (obj, elt) => Object.assign(obj, { [keyFunc(elt)]: valFunc(elt) }),
     {}
@@ -617,58 +636,75 @@ export function objectFromArray(
 }
 
 /**
- * Given two arrays A1, A2, return the transpose of [A1, A2]
- * This is a TS implementation of python's built-in zip function
- *
- * Reference: https://gist.github.com/dev-thalizao/affaac253be5b5305e0faec3b650ba27
+ * Given an (unpacked) array of arrays, return its transpose (after trimming arrays to length of shortest one).
+ * This is essentially a TS implementation of python's built-in zip function.
+ * 
+ * Adapted from implementation by Matt Mancini
  */
-
-export function zip<T1, T2>(A1: Array<T1>, A2: Array<T2>): Array<[T1, T2]> {
-    const length = Math.min(A1.length, A2.length);
-    const zipped: Array<[T1, T2]> = [];
-
-    for (let index = 0; index < length; index++) {
-        zipped.push([A1[index], A2[index]]);
-    }
-
-    return zipped;
+// Recursive type inference on array of arrays
+type Zip<T> = T extends [Array<infer U>, ...infer Z] ? [U, ...Zip<Z>] : [];
+export function zip<T extends unknown[][]>(...arrays: T): Array<Zip<T>> {
+  const minLength = Math.min(...arrays.map(arr => arr.length))
+  return Array.from(Array(minLength).keys()).map((_, i) => {
+    return arrays.map(array => array[i]) as Zip<T>;
+  });
 }
 
-export function idFromDCID(dcid) {
+/**
+ * Convert DCID of form bio/<id> to id. 
+ */
+export function idFromDCID(dcid: string): string {
   return dcid.replace("bio/", "");
 }
 
-export function DCIDFromID(id) {
+/**
+ * Given id, convert to DCID of form bio/<id>
+ */
+export function DCIDFromID(id: string): string {
   return `bio/${id}`;
 }
 
-export function proteinsFromInteractionDCID(interaction_dcid): string[] {
-  const id = idFromDCID(interaction_dcid);
+/**
+ * Given interaction DCID of the form bio/{protein1}_{protein2}, return [protein1, protein2]
+ */
+export function proteinsFromInteractionDCID(interactionDCID: string): string[] {
+  const id = idFromDCID(interactionDCID);
   // danger: assumes neither {protein id}, {species id} contain an underscore
   const split = id.split("_");
-  // TODO: write an assert function to handle this in general
   if (split.length !== 4) {
-    throw `Unsupported DCID ${interaction_dcid}`;
+    throw `Unsupported DCID ${interactionDCID}`;
   }
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
-function formatInteractionDCID(interaction_dcid) {
-  const proteins = proteinsFromInteractionDCID(interaction_dcid);
+/**
+ * Given interactionDCID of the form {protein 1}_{protein 2}, return ID of the same form
+ * but with protein 1, protein 2 in alpha order. 
+ */
+function sortInteractionDCID(interactionDCID: string): string {
+  const proteins = proteinsFromInteractionDCID(interactionDCID);
+  // sort proteins alphabetically so A_B and B_A map to the same ID A_B
   const proteins_sorted = proteins.sort((p1, p2) => p1.localeCompare(p2));
   return DCIDFromID(proteins_sorted.join("_"));
 }
 
+/**
+ * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A), keep only one.
+ */
 export function deduplicateInteractionDCIDs(
   interactionDCIDs: string[]
 ): string[] {
-  // Can't just use Set here because not guaranteed that A_B in list implies B_A in list
+  // Can't just use Set here because not guaranteed that A_B in list implies B_A in list,
+  // so we need to keep track of which order is the true DCID corresponding to an entity in the response.
   // Counterexample: https://screenshot.googleplex.com/7JrfkVqt8crxVP9
   return Object.values(
-    objectFromArray(interactionDCIDs, formatInteractionDCID, (dcid) => dcid)
+    objectFromArray(interactionDCIDs, sortInteractionDCID, (dcid) => dcid)
   ) as string[];
 }
 
+/**
+ * Given interaction DCID and source DCID, infer and return target ID (or target DCID if returnDCID is true).
+ */
 export function getInteractionTarget(
   interactionDCID,
   sourceDCID,
@@ -684,7 +720,12 @@ export function getInteractionTarget(
   return id;
 }
 
-export function symmetrizeScores(interactionDCIDs, scores) {
+/**
+ * Given an array of interaction DCIDs and a parallel array of corresponding scores,
+ * construct and return score object such that for each interaction A_B with corresponding DCID in interaction DCIDs, 
+ * both A_B and B_A map to the score of A_B.  
+ */
+export function symmetrizeScores(interactionDCIDs: string[], scores: number[]) {
   const scoreObj = {};
   zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
     const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
@@ -706,9 +747,18 @@ export function scoreFromInteractionDCID(scoreObj, interactionDCID) {
   return _.get(scoreObj, idFromDCID(interactionDCID), DEFAULT_INTERACTION_SCORE);
 }
 
-export function getFromResponse(resp, key): Object[] {
+type ValueOf<Obj> = Obj[keyof Obj];
+export function getFromResponse<T>(resp: V1Response<T>, key: string): ValueOf<V1ResponseDatum<T>>[] {
   if (!("data" in resp.data)) return [];
-  return resp.data.data.map(obj => obj[key])
+  return resp.data.data.map(obj => obj[key as keyof V1ResponseDatum<T>])
+}
+
+export function getValuesFromResponse<T>(resp: V1Response<T>): T[]{
+  return getFromResponse<T>(resp, "values") as T[];
+}
+
+export function getDCIDsFromResponse<T>(resp: V1Response<T>): string[]{
+  return getFromResponse<T>(resp, "entity") as string[];
 }
 
 export const responseGetters = objectFromArray(Object.keys(RESPONSE_GETTER_NAMES), key => key, key => resp => getFromResponse(resp, RESPONSE_GETTER_NAMES[key]))
