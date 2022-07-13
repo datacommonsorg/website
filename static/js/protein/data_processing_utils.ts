@@ -754,13 +754,13 @@ export function symmetrizeScores(
   interactionDCIDs: string[],
   scores: number[]
 ): Record<string, number> {
-  const scoreObj = {};
+  const scoreRec = {};
   zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
     const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
-    scoreObj[`${protein1}_${protein2}`] = score;
-    scoreObj[`${protein2}_${protein1}`] = score;
+    scoreRec[`${protein1}_${protein2}`] = score;
+    scoreRec[`${protein2}_${protein1}`] = score;
   });
-  return scoreObj;
+  return scoreRec;
 }
 
 /**
@@ -768,7 +768,7 @@ export function symmetrizeScores(
  * of the interaction between the two proteins if it appears in the object, or the default score otherwise.
  */
 export function scoreFromProteinDCIDs(
-  scoreObj: Record<string, number>,
+  scoreRec: Record<string, number>,
   proteinDCID1: string,
   proteinDCID2: string,
   defaultScore: number = DEFAULT_INTERACTION_SCORE
@@ -776,7 +776,7 @@ export function scoreFromProteinDCIDs(
   const [protein1, protein2] = [proteinDCID1, proteinDCID2].map((dcid) =>
     idFromDCID(dcid)
   );
-  return _.get(scoreObj, `${protein1}_${protein2}`, defaultScore);
+  return _.get(scoreRec, `${protein1}_${protein2}`, defaultScore);
 }
 
 /**
@@ -784,11 +784,11 @@ export function scoreFromProteinDCIDs(
  * of the interaction if it appears in the object, or the default score otherwise.
  */
 export function scoreFromInteractionDCID(
-  scoreObj: Record<string, number>,
+  scoreRec: Record<string, number>,
   interactionDCID: string,
   defaultScore: number = DEFAULT_INTERACTION_SCORE
 ) {
-  return _.get(scoreObj, idFromDCID(interactionDCID), defaultScore);
+  return _.get(scoreRec, idFromDCID(interactionDCID), defaultScore);
 }
 
 /**
@@ -834,17 +834,17 @@ export function scoreDataFromResponse(
   const scoreValues = valuesFromResponse(scoreResponse);
   const interactionDCIDs = dcidsFromResponse(scoreResponse);
   const scoreList = scoreValues
-    .map((scoreObjList: BaseDCDataType[] | undefined) => {
-      if (scoreObjList !== undefined) {
-        return scoreObjList.filter(({ dcid }) =>
+    .map((scoreRecList: BaseDCDataType[] | undefined) => {
+      if (scoreRecList !== undefined) {
+        return scoreRecList.filter(({ dcid }) =>
           dcid.includes(INTERACTION_SCORE_NAME)
         );
       }
       return [];
     })
-    .map((scoreObjList: BaseDCDataType[]) => {
-      if (_.isEmpty(scoreObjList)) return DEFAULT_INTERACTION_SCORE;
-      return quantityFromDCID(scoreObjList[0].dcid, INTERACTION_SCORE_NAME);
+    .map((scoreRecList: BaseDCDataType[]) => {
+      if (_.isEmpty(scoreRecList)) return DEFAULT_INTERACTION_SCORE;
+      return quantityFromDCID(scoreRecList[0].dcid, INTERACTION_SCORE_NAME);
     });
   return symmetrizeScores(interactionDCIDs, scoreList);
 }
