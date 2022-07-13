@@ -814,7 +814,7 @@ export function dcidsFromResponse<T extends BaseDCDataType>(
  * construct and return score object such that for each interaction A_B with corresponding DCID in interaction DCIDs,
  * both A_B and B_A map to the score of A_B.
  */
-export function symmetrizeScores(
+export function symmetricScoreRec(
   interactionDCIDs: string[],
   scores: number[]
 ): Record<string, number> {
@@ -851,5 +851,5 @@ export function scoreDataFromResponse(
       if (_.isEmpty(scoreRecList)) return DEFAULT_INTERACTION_SCORE;
       return quantityFromDCID(scoreRecList[0].dcid, INTERACTION_SCORE_NAME);
     });
-  return symmetrizeScores(interactionDCIDs, scoreList);
+  return symmetricScoreRec(interactionDCIDs, scoreList);
 }
