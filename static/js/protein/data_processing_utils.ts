@@ -13,16 +13,18 @@ import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
-type DCIDDataType = {dcid: string};
+// Base type of "values" value of objects stored in <V1 response>.data.data
+type BaseDCDataType = {dcid: string, name: string, provenanceId: string, types: string[]};
 
-type V1ResponseDatum<DataType extends DCIDDataType> = {
+// Generic for objects stored in <V1 response>.data.data
+type V1ResponseDatum<DataType extends BaseDCDataType> = {
   entity: string;
   values: DataType[];
 }
 
-
-// TODO: extend AxiosResponse<unknown>
-type V1Response<DataType extends DCIDDataType> = {
+// Generic for V1 response
+// TODO: consider extending AxiosResponse<unknown>
+type V1Response<DataType extends BaseDCDataType> = {
   config: Object;
   data: {
     data?: V1ResponseDatum<DataType>[]
@@ -36,9 +38,6 @@ type V1Response<DataType extends DCIDDataType> = {
 // Upper bound on node degree in interaction graph viz's
 export const MAX_INTERACTIONS = 4; 
 export const INTERACTION_SCORE_NAME = "IntactMiScore"
-
-// Maps name of response getter to name of key in an element of response.data.data it retrieves
-const RESPONSE_GETTER_NAMES = {dcids: 'entity', values: 'values'}
 
 // Number to return if interaction score is missing
 const DEFAULT_INTERACTION_SCORE = -1;
@@ -762,7 +761,7 @@ export function scoreFromInteractionDCID(scoreObj: Record<string, number>, inter
 /**
  * Given response and key, map each response datum to value of key and return map
  */
-export function getFromResponse<T extends DCIDDataType, K extends keyof V1ResponseDatum<T>>(resp: V1Response<T>, key: K){
+export function getFromResponse<T extends BaseDCDataType, K extends keyof V1ResponseDatum<T>>(resp: V1Response<T>, key: K){
   if (!("data" in resp.data)) return [];
   return resp.data.data.map(obj => obj[key]);
 }
@@ -774,14 +773,14 @@ export function getFromResponse<T extends DCIDDataType, K extends keyof V1Respon
 /**
  * Given response, extract and return values (see def of V1Response) 
  */
-export function valuesFromResponse<T extends DCIDDataType>(resp: V1Response<T>): T[][]{
+export function valuesFromResponse<T extends BaseDCDataType>(resp: V1Response<T>): T[][]{
   return getFromResponse<T, "values">(resp, "values");
 }
 
 /**
  * Given response, extract and return DCIDs (entities) 
  */
-export function dcidsFromResponse<T extends DCIDDataType>(resp: V1Response<T>): string[]{
+export function dcidsFromResponse<T extends BaseDCDataType>(resp: V1Response<T>): string[]{
   return getFromResponse<T, "entity">(resp, "entity");
 }
 
@@ -803,14 +802,14 @@ export function scoreDataFromResponse(scoreResponse: V1Response<any>): Record<st
   const scoreValues = valuesFromResponse(scoreResponse);
   const interactionDCIDs = dcidsFromResponse(scoreResponse);
   const scoreList = scoreValues
-    .map((scoreObjList: DCIDDataType[] | undefined) => {
+    .map((scoreObjList: BaseDCDataType[] | undefined) => {
       if (scoreObjList !== undefined) {
       return scoreObjList
       .filter(({dcid}) => dcid.includes(INTERACTION_SCORE_NAME))}
       return [];
     }
       )
-    .map((scoreObjList: DCIDDataType[]) => {
+    .map((scoreObjList: BaseDCDataType[]) => {
       if (_.isEmpty(scoreObjList)) return DEFAULT_INTERACTION_SCORE;
       return quantityFromDCID(scoreObjList[0].dcid, INTERACTION_SCORE_NAME);
     })
