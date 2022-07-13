@@ -669,6 +669,16 @@ export function DCIDFromID(id: string): string {
 }
 
 /**
+ * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
+ */
+export function quantityFromDCID(quantityDCID: string, quantityName: string): number{
+  if (!quantityDCID.includes(quantityName)){
+    throw `DCID "${quantityDCID}" does not contain quantity name "${quantityName}"`;
+  }
+  return Number(_.last(quantityDCID.split(quantityName)))
+}
+
+/**
  * Given interaction DCID of the form bio/{protein1}_{protein2}, return [protein1, protein2]
  */
 export function proteinsFromInteractionDCID(interactionDCID: string): string[] {
@@ -782,16 +792,6 @@ export function valuesFromResponse<T extends BaseDCDataType>(resp: V1Response<T>
  */
 export function dcidsFromResponse<T extends BaseDCDataType>(resp: V1Response<T>): string[]{
   return getFromResponse<T, "entity">(resp, "entity");
-}
-
-/**
- * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
- */
-export function quantityFromDCID(quantityDCID: string, quantityName: string): number{
-  if (!quantityDCID.includes(quantityName)){
-    throw `DCID "${quantityDCID}" does not contain quantity name "${quantityName}"`;
-  }
-  return Number(_.last(quantityDCID.split(quantityName)))
 }
 
 /**
