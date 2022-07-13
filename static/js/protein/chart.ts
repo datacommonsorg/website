@@ -64,7 +64,7 @@ export interface InteractionGraphData {
   linkData: InteractionLink[];
 }
 
-// Represents interaction graph depthwise as two parallel nested lists.  For each index i, 
+// Represents interaction graph depthwise as two parallel nested lists.  For each index i,
 // nodeDataNested[i] will contain the nodes added in i iterations of BFS, and linkDataNested[i] will contain the links added in i iterations of BFS,
 // along with any links between nodesDataNested[i] and existing nodes in the graph.
 export interface InteractionGraphDataNested {
