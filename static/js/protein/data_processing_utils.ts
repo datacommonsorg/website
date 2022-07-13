@@ -637,7 +637,7 @@ export function deduplicateInteractionDCIDs(
 ): string[] {
   // Can't just use Set here because not guaranteed that A_B in list implies B_A in list,
   // so we need to keep track of which order is the true DCID corresponding to an entity in the response.
-  // Counterexample: https://screenshot.googleplex.com/7JrfkVqt8crxVP9
+  // Counterexample: http://datacommons.org/browser/bio/KLOTB_HUMAN
   return Object.values(
     objectFromArray(interactionDCIDs, sortInteractionDCID, (dcid) => dcid)
   ) as string[];
