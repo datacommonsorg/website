@@ -18,14 +18,9 @@ import _ from "lodash";
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
-// graph specific dimensions - not all of them are used in the current graph, but might be used in future graphs
-const GRAPH_HEIGHT_XS = 130;
-const GRAPH_HEIGHT_S = 200;
-const GRAPH_HEIGHT_M = 400;
-const GRAPH_WIDTH_S = 660;
-const GRAPH_WIDTH_M = 700;
-const GRAPH_WIDTH_L = 760;
-const GRAPH_WIDTH_XL = 1050;
+// graph specific dimensions
+const GRAPH_HEIGHT = 400;
+const GRAPH_WIDTH = 760;
 // number to select top data points for large data
 const NUM_DATA_POINTS = 10;
 // number by which y axis domain is increased/decreased for y scale to fit all error bars well
@@ -36,7 +31,7 @@ const LEGEND_CIRCLE_RADIUS = 4;
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
 // horizontal barcharts - default brightness
 const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
-type Datum = DiseaseGeneAssociationIntervalData;
+type Datum = DiseaseGeneAssociationData;
 /**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
@@ -142,15 +137,7 @@ function addYLabel(
     .text(labelText);
 }
 
-export interface DiseaseGeneAssociationRawData {
-  // name of the associated gene
-  name: string;
-  // confidence score
-  score: number;
-  // length of the confidence interval
-  interval: number;
-}
-export interface DiseaseGeneAssociationIntervalData {
+export interface DiseaseGeneAssociationData {
   // name of the associated gene
   name: string;
   // confidence score
@@ -168,45 +155,30 @@ export interface DiseaseGeneAssociationIntervalData {
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
-  data: DiseaseGeneAssociationRawData[]
+  data: DiseaseGeneAssociationData[]
 ): void {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;
   }
-  let reformattedData = [] as DiseaseGeneAssociationIntervalData[];
-  // reformats the data by converting the confidence interval length to lower and upper confidence values
-  reformattedData = data.map((item) => {
-    return {
-      name: item.name,
-      score: Number(item.score),
-      lowerInterval: Number(item.score - item.interval / 2),
-      upperInterval: Number(item.score) + Number(item.interval / 2),
-    };
-  });
-  //Formats the gene name
-  function formatGeneName(d: string) {
-    // remove the word "bio/hg38_" from the entire gene name, say "bio/hg38_pRNA"
-    d = d.substring(9);
-    return d;
-  }
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_L - MARGIN.left - MARGIN.right;
+
+  const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH - MARGIN.left - MARGIN.right;
   const svg = d3
-    .select("#disease-gene-association-chart")
+    .select(`#${id}`)
     .append("svg")
     .attr("width", width + MARGIN.left + MARGIN.right)
     .attr("height", height + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
   // slicing the data to display 10 values only
-  reformattedData = reformattedData.slice(0, NUM_DATA_POINTS);
+  data = data.slice(0, NUM_DATA_POINTS);
   // plots the axes
   const x = d3
     .scaleBand()
     .range([0, width])
     .domain(
-      reformattedData.map(function (d) {
+      data.map((d) => {
         return d.name;
       })
     )
@@ -214,21 +186,21 @@ export function drawDiseaseGeneAssocChart(
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).tickFormat(formatGeneName))
+    .call(d3.axisBottom(x))
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
   addXLabel(width, height, "Gene Names", svg);
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(reformattedData, (d) => d.upperInterval) + Y_AXIS_LIMIT])
+    .domain([0, d3.max(data, (d) => d.upperInterval) + Y_AXIS_LIMIT])
     .range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
   addYLabel(height, "Confidence Score", svg);
   // the lines
   svg
-    .selectAll("myline")
-    .data(reformattedData)
+    .selectAll("disease-gene-line")
+    .data(data)
     .enter()
     .append("line")
     .attr("x1", (d) => {
@@ -247,8 +219,8 @@ export function drawDiseaseGeneAssocChart(
   const circleIDFunc = getElementIDFunc(id, "circle");
   // the circles
   svg
-    .selectAll("mycircle")
-    .data(reformattedData)
+    .selectAll("disease-gene-circle")
+    .data(data)
     .enter()
     .append("circle")
     .attr("cx", (d) => {
@@ -263,7 +235,6 @@ export function drawDiseaseGeneAssocChart(
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d) =>
-        `Gene Name: ${formatGeneName(d.name)}<br>Confidence Score: ${d.score}`
+      (d) => `Gene Name: ${d.name}<br>Confidence Score: ${d.score}`
     );
 }
