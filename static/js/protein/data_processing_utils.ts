@@ -811,7 +811,7 @@ export function dcidsFromResponse<T extends BaseDCDataType>(
 
 /**
  * Given an array of interaction DCIDs and a parallel array of corresponding scores,
- * construct and return score object such that for each interaction A_B with corresponding DCID in interaction DCIDs,
+ * construct and return score record such that for each interaction A_B with corresponding DCID in interaction DCIDs,
  * both A_B and B_A map to the score of A_B.
  */
 export function symmetricScoreRec(
@@ -828,8 +828,8 @@ export function symmetricScoreRec(
 }
 
 /**
- * Given score response, construct an object mapping interaction IDs of the form A_B to their confidence scores,
- * satisfying the property that if A_B: A_B.score is in the object, then B_A: A_B.score is also.
+ * Given score response, construct a record mapping interaction IDs of the form A_B to their confidence scores,
+ * satisfying the property that if A_B: A_B.score is in the record, then B_A: A_B.score is also.
  */
 export function scoreDataFromResponse(
   scoreResponse: V1Response<BaseDCDataType>
