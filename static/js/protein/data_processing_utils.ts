@@ -649,7 +649,7 @@ export function deduplicateInteractionDCIDs(
 export function getInteractionTarget(
   interactionDCID: string,
   sourceDCID: string,
-  returnDCID: boolean = false
+  returnDCID = false
 ): string {
   // note this also works in the case of a self-interaction
   const interactionID = idFromDCID(interactionDCID);
