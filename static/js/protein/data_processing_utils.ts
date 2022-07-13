@@ -644,7 +644,7 @@ export function deduplicateInteractionDCIDs(
   // Counterexample: http://datacommons.org/browser/bio/KLOTB_HUMAN
   return Object.values(
     objectFromArray(interactionDCIDs, sortInteractionDCID, (dcid) => dcid)
-  ) as string[];
+  );
 }
 
 /**
@@ -746,6 +746,7 @@ export function getProteinInteractionGraphData(
   });
 
   return {
+    // guaranteed to be [] because we don't support self-interactions yet
     linkDataNested: [[], linkData],
     nodeDataNested: [[centerDatum], neighbors],
   };
