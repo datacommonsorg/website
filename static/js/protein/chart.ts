@@ -58,9 +58,18 @@ export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
   score: number;
 }
 
+// Represents interaction graph as a list of nodes and list of links
 export interface InteractionGraphData {
   nodeData: ProteinNode[];
   linkData: InteractionLink[];
+}
+
+// Represents interaction graph depthwise as two parallel nested lists.  For each index i, 
+// nodeDataNested[i] will contain the nodes added in i iterations of BFS, and linkDataNested[i] will contain the links added in i iterations of BFS,
+// along with any links between nodesDataNested[i] and existing nodes in the graph.
+export interface InteractionGraphDataNested {
+  nodeDataNested: ProteinNode[][];
+  linkDataNested: InteractionLink[][];
 }
 
 // interface for variant gene associations for plotting error bars
