@@ -837,6 +837,7 @@ export function scoreDataFromResponse(
   const scoreValues = valuesFromResponse(scoreResponse);
   const interactionDCIDs = dcidsFromResponse(scoreResponse);
   const scoreList = scoreValues
+  // filter results for IntactMiScore - there should be 0 or 1 match
     .map((scoreRecList: BaseDCDataType[] | undefined) => {
       if (scoreRecList !== undefined) {
         return scoreRecList.filter(({ dcid }) =>
@@ -845,6 +846,7 @@ export function scoreDataFromResponse(
       }
       return [];
     })
+  // if 1 match, return the retrieved IntactMiScore, and otherwise the default score.
     .map((scoreRecList: BaseDCDataType[]) => {
       if (_.isEmpty(scoreRecList)) return DEFAULT_INTERACTION_SCORE;
       return quantityFromDCID(scoreRecList[0].dcid, INTERACTION_SCORE_NAME);
