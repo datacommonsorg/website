@@ -30,12 +30,12 @@ type V1ResponseDatum<DataType extends BaseDCDataType> = {
 // Generic for V1 response
 // TODO: consider extending AxiosResponse<unknown>
 type V1Response<DataType extends BaseDCDataType> = {
-  config: Object;
+  config: Record<string, unknown>;
   data: {
     data?: V1ResponseDatum<DataType>[];
   };
-  headers: Object;
-  request?: Object;
+  headers: Record<string, unknown>;
+  request?: Record<string, unknown>;
   status: number;
   statusText: string;
 };
