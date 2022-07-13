@@ -748,24 +748,6 @@ export function getProteinInteractionGraphData(
 }
 
 /**
- * Given an array of interaction DCIDs and a parallel array of corresponding scores,
- * construct and return score object such that for each interaction A_B with corresponding DCID in interaction DCIDs,
- * both A_B and B_A map to the score of A_B.
- */
-export function symmetrizeScores(
-  interactionDCIDs: string[],
-  scores: number[]
-): Record<string, number> {
-  const scoreRec = {};
-  zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
-    const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
-    scoreRec[`${protein1}_${protein2}`] = score;
-    scoreRec[`${protein2}_${protein1}`] = score;
-  });
-  return scoreRec;
-}
-
-/**
  * Given an object mapping interaction IDs to confidence scores and the DCIDs of two proteins, return the score
  * of the interaction between the two proteins if it appears in the object, or the default score otherwise.
  */
@@ -828,6 +810,24 @@ export function dcidsFromResponse<T extends BaseDCDataType>(
 }
 
 /**
+ * Given an array of interaction DCIDs and a parallel array of corresponding scores,
+ * construct and return score object such that for each interaction A_B with corresponding DCID in interaction DCIDs,
+ * both A_B and B_A map to the score of A_B.
+ */
+export function symmetrizeScores(
+  interactionDCIDs: string[],
+  scores: number[]
+): Record<string, number> {
+  const scoreRec = {};
+  zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
+    const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
+    scoreRec[`${protein1}_${protein2}`] = score;
+    scoreRec[`${protein2}_${protein1}`] = score;
+  });
+  return scoreRec;
+}
+
+/**
  * Given score response, construct an object mapping interaction IDs of the form A_B to their confidence scores,
  * satisfying the property that if A_B: A_B.score is in the object, then B_A: A_B.score is also.
  */
@@ -837,7 +837,7 @@ export function scoreDataFromResponse(
   const scoreValues = valuesFromResponse(scoreResponse);
   const interactionDCIDs = dcidsFromResponse(scoreResponse);
   const scoreList = scoreValues
-  // filter results for IntactMiScore - there should be 0 or 1 match
+    // filter results for IntactMiScore - there should be 0 or 1 match
     .map((scoreRecList: BaseDCDataType[] | undefined) => {
       if (scoreRecList !== undefined) {
         return scoreRecList.filter(({ dcid }) =>
@@ -846,7 +846,7 @@ export function scoreDataFromResponse(
       }
       return [];
     })
-  // if 1 match, return the retrieved IntactMiScore, and otherwise the default score.
+    // if 1 match, return the retrieved IntactMiScore, and otherwise the default score.
     .map((scoreRecList: BaseDCDataType[]) => {
       if (_.isEmpty(scoreRecList)) return DEFAULT_INTERACTION_SCORE;
       return quantityFromDCID(scoreRecList[0].dcid, INTERACTION_SCORE_NAME);
