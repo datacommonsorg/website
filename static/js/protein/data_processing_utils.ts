@@ -203,91 +203,6 @@ export function getProteinInteraction(
   return [];
 }
 
-/**
- * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
- */
-export function nodeFromID(
-  proteinSpeciesID: string,
-  depth: number
-): ProteinNode {
-  // assumes {species id} does not contain _ (true as of 06/22/22)
-  const lastIndex = proteinSpeciesID.lastIndexOf("_");
-  return {
-    depth,
-    id: proteinSpeciesID,
-    name: proteinSpeciesID.slice(0, lastIndex),
-    species: proteinSpeciesID.slice(lastIndex + 1),
-  };
-}
-
-/**
- * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
- * 
-      {
-
-        nodeData : [
-          { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
-          { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
-          { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 },
-        ],
-
-        linkData : [
-          { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
-          { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
-        ],
-
-      }.
- */
-export function getProteinInteractionGraphData(
-  data: InteractingProteinType[]
-): InteractionGraphDataNested {
-  // checks if the data is empty or not
-  if (_.isEmpty(data)) {
-    return;
-  }
-
-  // P53_HUMAN is central protein in below examples.
-  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
-  const centerNodeID = data[0].parent;
-  let neighbors = data.map(({ name: interactionID, value }) => {
-    // value is confidenceScore
-    const neighborID = getInteractionTarget(
-      interactionID,
-      DCIDFromID(centerNodeID)
-    );
-    const nodeDatum = nodeFromID(neighborID, 1);
-    nodeDatum["value"] = value;
-    return nodeDatum;
-  });
-
-  // delete duplicates and self-interactions (will add support for self-interactions later on)
-  const seen = new Set();
-  neighbors = neighbors.filter((node) => {
-    const duplicate = seen.has(node.name);
-    seen.add(node.name);
-    return !duplicate && node.id !== centerNodeID;
-  });
-
-  // descending order of interaction confidenceScore
-  neighbors.sort((n1, n2) => n2.value - n1.value);
-  // consider only top 10 interactions to avoid clutter
-  neighbors = neighbors.slice(0, MAX_INTERACTIONS);
-
-  const centerDatum = nodeFromID(centerNodeID, 0);
-
-  const linkData: InteractionLink[] = neighbors.map((node) => {
-    return {
-      score: node.value,
-      source: centerNodeID,
-      target: node.id,
-    };
-  });
-
-  return {
-    linkDataNested: [[], linkData],
-    nodeDataNested: [[centerDatum], neighbors],
-  };
-}
 
 export function getDiseaseGeneAssoc(
   data: GraphNodes
@@ -673,7 +588,7 @@ export function idFromDCID(dcid: string): string {
 /**
  * Given id, convert to DCID of form bio/<id>
  */
-export function DCIDFromID(id: string): string {
+export function dcidFromID(id: string): string {
   return `bio/${id}`;
 }
 
@@ -710,12 +625,13 @@ export function proteinsFromInteractionDCID(interactionDCID: string): string[] {
 function sortInteractionDCID(interactionDCID: string): string {
   const proteins = proteinsFromInteractionDCID(interactionDCID);
   // sort proteins alphabetically so A_B and B_A map to the same ID A_B
-  const proteins_sorted = proteins.sort((p1, p2) => p1.localeCompare(p2));
-  return DCIDFromID(proteins_sorted.join("_"));
+  const proteinsSorted = proteins.sort((p1, p2) => p1.localeCompare(p2));
+  return dcidFromID(proteinsSorted.join("_"));
 }
 
 /**
- * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A), keep only one.
+ * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A),
+ * keep only one.
  */
 export function deduplicateInteractionDCIDs(
   interactionDCIDs: string[]
@@ -734,16 +650,102 @@ export function deduplicateInteractionDCIDs(
 export function getInteractionTarget(
   interactionDCID: string,
   sourceDCID: string,
-  returnDCID = false
-) {
+  returnDCID: boolean = false
+): string {
   // note this also works in the case of a self-interaction
   const interactionID = idFromDCID(interactionDCID);
   const sourceID = idFromDCID(sourceDCID);
   const id = interactionID
     .replace(`${sourceID}_`, "")
     .replace(`_${sourceID}`, "");
-  if (returnDCID) return DCIDFromID(id);
+  if (returnDCID) return dcidFromID(id);
   return id;
+}
+
+/**
+ * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
+ */
+export function nodeFromID(
+  proteinSpeciesID: string,
+  depth: number
+): ProteinNode {
+  // assumes {species id} does not contain _ (true as of 06/22/22)
+  const lastIndex = proteinSpeciesID.lastIndexOf("_");
+  return {
+    depth,
+    id: proteinSpeciesID,
+    name: proteinSpeciesID.slice(0, lastIndex),
+    species: proteinSpeciesID.slice(lastIndex + 1),
+  };
+}
+
+/**
+ * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
+ * 
+      {
+
+        nodeData : [
+          { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
+          { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
+          { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 },
+        ],
+
+        linkData : [
+          { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
+          { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
+        ],
+
+      }.
+ */
+export function getProteinInteractionGraphData(
+  data: InteractingProteinType[]
+): InteractionGraphDataNested {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
+
+  // P53_HUMAN is central protein in below examples.
+  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
+  const centerNodeID = data[0].parent;
+  let neighbors = data.map(({ name: interactionID, value }) => {
+    // value is confidenceScore
+    const neighborID = getInteractionTarget(
+      interactionID,
+      dcidFromID(centerNodeID)
+    );
+    const nodeDatum = nodeFromID(neighborID, 1);
+    nodeDatum["value"] = value;
+    return nodeDatum;
+  });
+
+  // delete duplicates and self-interactions (will add support for self-interactions later on)
+  const seen = new Set();
+  neighbors = neighbors.filter((node) => {
+    const duplicate = seen.has(node.name);
+    seen.add(node.name);
+    return !duplicate && node.id !== centerNodeID;
+  });
+
+  // descending order of interaction confidenceScore
+  neighbors.sort((n1, n2) => n2.value - n1.value);
+  // consider only top 10 interactions to avoid clutter
+  neighbors = neighbors.slice(0, MAX_INTERACTIONS);
+
+  const centerDatum = nodeFromID(centerNodeID, 0);
+
+  const linkData: InteractionLink[] = neighbors.map((node) => {
+    return {
+      score: node.value,
+      source: centerNodeID,
+      target: node.id,
+    };
+  });
+
+  return {
+    linkDataNested: [[], linkData],
+    nodeDataNested: [[centerDatum], neighbors],
+  };
 }
 
 /**
@@ -788,7 +790,7 @@ export function scoreFromInteractionDCID(
   scoreRec: Record<string, number>,
   interactionDCID: string,
   defaultScore: number = DEFAULT_INTERACTION_SCORE
-) {
+): number {
   return _.get(scoreRec, idFromDCID(interactionDCID), defaultScore);
 }
 
@@ -798,13 +800,14 @@ export function scoreFromInteractionDCID(
 export function getFromResponse<
   T extends BaseDCDataType,
   K extends keyof V1ResponseDatum<T>
->(resp: V1Response<T>, key: K) {
+>(resp: V1Response<T>, key: K): V1ResponseDatum<T>[K][] {
   if (!("data" in resp.data)) return [];
   return resp.data.data.map((obj) => obj[key]);
 }
 
 // Useful special cases of getFromResponse
-// Notes that due to current limitations of TS indexed access types, "values" and "entity" need to be passed in twice - once as a type and once as a string
+// Note that due to current limitations of TS indexed access types, "values" and "entity" need to be passed in twice - 
+// once as a type and once as a string
 // Reference (last two paragraphs): https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html
 
 /**
@@ -830,7 +833,7 @@ export function dcidsFromResponse<T extends BaseDCDataType>(
  * satisfying the property that if A_B: A_B.score is in the object, then B_A: A_B.score is also.
  */
 export function scoreDataFromResponse(
-  scoreResponse: V1Response<any>
+  scoreResponse: V1Response<BaseDCDataType>
 ): Record<string, number> {
   const scoreValues = valuesFromResponse(scoreResponse);
   const interactionDCIDs = dcidsFromResponse(scoreResponse);
