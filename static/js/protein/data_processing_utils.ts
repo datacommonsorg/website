@@ -566,7 +566,7 @@ export function objectFromArray<T, V>(
  * This is essentially a TS implementation of python's built-in zip function.
  *
  * Adapted from implementation by Matt Mancini
- * 
+ *
  * Thanks also to Carlos Israel Ortiz Garcia and Jack Davison for the below references:
  *  - https://ncjamieson.com/typing-zipwith/#typing-zip
  *  - https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types
