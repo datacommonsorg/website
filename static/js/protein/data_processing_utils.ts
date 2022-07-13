@@ -203,7 +203,6 @@ export function getProteinInteraction(
   return [];
 }
 
-
 export function getDiseaseGeneAssoc(
   data: GraphNodes
 ): DiseaseAssociationType[] {
@@ -650,7 +649,7 @@ export function deduplicateInteractionDCIDs(
 export function getInteractionTarget(
   interactionDCID: string,
   sourceDCID: string,
-  returnDCID: boolean = false
+  returnDCID = false
 ): string {
   // note this also works in the case of a self-interaction
   const interactionID = idFromDCID(interactionDCID);
@@ -806,7 +805,7 @@ export function getFromResponse<
 }
 
 // Useful special cases of getFromResponse
-// Note that due to current limitations of TS indexed access types, "values" and "entity" need to be passed in twice - 
+// Note that due to current limitations of TS indexed access types, "values" and "entity" need to be passed in twice -
 // once as a type and once as a string
 // Reference (last two paragraphs): https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html
 
