@@ -13,18 +13,22 @@ import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
-type V1ResponseDatum<T> = {
+type DCIDDataType = {dcid: string};
+
+type V1ResponseDatum<DataType extends DCIDDataType> = {
   entity: string;
-  values: T[];
+  values: DataType[];
 }
 
-type V1Response<T> = {
+
+// TODO: extend AxiosResponse<unknown>
+type V1Response<DataType extends DCIDDataType> = {
   config: Object;
   data: {
-    data?: V1ResponseDatum<T>[]
+    data?: V1ResponseDatum<DataType>[]
   }
   headers: Object;
-  request: Object;
+  request?: Object;
   status: number;
   statusText: string;
 }
@@ -652,6 +656,7 @@ export function zip<T extends unknown[][]>(...arrays: T): Array<Zip<T>> {
 
 /**
  * Convert DCID of form bio/<id> to id. 
+ * Note: probably should be doing dcid: `bio/${string}`, but currently causes many type errors
  */
 export function idFromDCID(dcid: string): string {
   return dcid.replace("bio/", "");
@@ -706,8 +711,8 @@ export function deduplicateInteractionDCIDs(
  * Given interaction DCID and source DCID, infer and return target ID (or target DCID if returnDCID is true).
  */
 export function getInteractionTarget(
-  interactionDCID,
-  sourceDCID,
+  interactionDCID: string,
+  sourceDCID: string,
   returnDCID = false
 ) {
   // note this also works in the case of a self-interaction
@@ -725,7 +730,7 @@ export function getInteractionTarget(
  * construct and return score object such that for each interaction A_B with corresponding DCID in interaction DCIDs, 
  * both A_B and B_A map to the score of A_B.  
  */
-export function symmetrizeScores(interactionDCIDs: string[], scores: number[]) {
+export function symmetrizeScores(interactionDCIDs: string[], scores: number[]): Record<string, number> {
   const scoreObj = {};
   zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
     const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
@@ -735,54 +740,77 @@ export function symmetrizeScores(interactionDCIDs: string[], scores: number[]) {
   return scoreObj;
 }
 
-export function scoreFromProteinDCIDs(scoreObj, proteinDCID1, proteinDCID2) {
-  const defaultScore = 0;
+/**
+ * Given an object mapping interaction IDs to confidence scores and the DCIDs of two proteins, return the score
+ * of the interaction between the two proteins if it appears in the object, or the default score otherwise.
+ */
+export function scoreFromProteinDCIDs(scoreObj: Record<string, number>, proteinDCID1: string, proteinDCID2: string, defaultScore: number=DEFAULT_INTERACTION_SCORE): number {
   const [protein1, protein2] = [proteinDCID1, proteinDCID2].map((dcid) =>
   idFromDCID(dcid)
   );
   return _.get(scoreObj, `${protein1}_${protein2}`, defaultScore);
 }
 
-export function scoreFromInteractionDCID(scoreObj, interactionDCID) {
-  return _.get(scoreObj, idFromDCID(interactionDCID), DEFAULT_INTERACTION_SCORE);
+/**
+ * Given an object mapping interaction IDs to confidence scores and the DCIDs of an interaction, return the score
+ * of the interaction if it appears in the object, or the default score otherwise.
+ */
+export function scoreFromInteractionDCID(scoreObj: Record<string, number>, interactionDCID: string, defaultScore: number =DEFAULT_INTERACTION_SCORE) {
+  return _.get(scoreObj, idFromDCID(interactionDCID), defaultScore);
 }
 
-type ValueOf<Obj> = Obj[keyof Obj];
-export function getFromResponse<T>(resp: V1Response<T>, key: string): ValueOf<V1ResponseDatum<T>>[] {
+/**
+ * Given response and key, map each response datum to value of key and return map
+ */
+export function getFromResponse<T extends DCIDDataType, K extends keyof V1ResponseDatum<T>>(resp: V1Response<T>, key: K){
   if (!("data" in resp.data)) return [];
-  return resp.data.data.map(obj => obj[key as keyof V1ResponseDatum<T>])
+  return resp.data.data.map(obj => obj[key]);
 }
 
-export function getValuesFromResponse<T>(resp: V1Response<T>): T[]{
-  return getFromResponse<T>(resp, "values") as T[];
+// Useful special cases of getFromResponse
+// Notes that due to current limitations of TS indexed access types, "values" and "entity" need to be passed in twice - once as a type and once as a string
+// Reference (last two paragraphs): https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html
+
+/**
+ * Given response, extract and return values (see def of V1Response) 
+ */
+export function valuesFromResponse<T extends DCIDDataType>(resp: V1Response<T>): T[][]{
+  return getFromResponse<T, "values">(resp, "values");
 }
 
-export function getDCIDsFromResponse<T>(resp: V1Response<T>): string[]{
-  return getFromResponse<T>(resp, "entity") as string[];
+/**
+ * Given response, extract and return DCIDs (entities) 
+ */
+export function dcidsFromResponse<T extends DCIDDataType>(resp: V1Response<T>): string[]{
+  return getFromResponse<T, "entity">(resp, "entity");
 }
 
-export const responseGetters = objectFromArray(Object.keys(RESPONSE_GETTER_NAMES), key => key, key => resp => getFromResponse(resp, RESPONSE_GETTER_NAMES[key]))
-
-export function quantityFromDCID(quantityDCID, quantityName){
+/**
+ * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
+ */
+export function quantityFromDCID(quantityDCID: string, quantityName: string): number{
   if (!quantityDCID.includes(quantityName)){
     throw `DCID "${quantityDCID}" does not contain quantity name "${quantityName}"`;
   }
   return Number(_.last(quantityDCID.split(quantityName)))
 }
 
-export function scoreDataFromResponse(scoreResponse){
-  const scoreValues = responseGetters.values(scoreResponse);
-  const interactionDCIDs = responseGetters.dcids(scoreResponse);
-  console.log('svs', _.cloneDeep(scoreValues));
+/**
+ * Given score response, construct an object mapping interaction IDs of the form A_B to their confidence scores, 
+ * satisfying the property that if A_B: A_B.score is in the object, then B_A: A_B.score is also.
+ */
+export function scoreDataFromResponse(scoreResponse: V1Response<any>): Record<string, number>{
+  const scoreValues = valuesFromResponse(scoreResponse);
+  const interactionDCIDs = dcidsFromResponse(scoreResponse);
   const scoreList = scoreValues
-    .map(scoreObjList => {
+    .map((scoreObjList: DCIDDataType[] | undefined) => {
       if (scoreObjList !== undefined) {
       return scoreObjList
       .filter(({dcid}) => dcid.includes(INTERACTION_SCORE_NAME))}
       return [];
     }
       )
-    .map(scoreObjList => {
+    .map((scoreObjList: DCIDDataType[]) => {
       if (_.isEmpty(scoreObjList)) return DEFAULT_INTERACTION_SCORE;
       return quantityFromDCID(scoreObjList[0].dcid, INTERACTION_SCORE_NAME);
     })

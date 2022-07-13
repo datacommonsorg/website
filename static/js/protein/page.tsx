@@ -60,7 +60,7 @@ import {
   scoreFromInteractionDCID,
   scoreFromProteinDCIDs,
   zip,
-  responseGetters,
+  valuesFromResponse,
 } from "./data_processing_utils";
 export interface PagePropType {
   dcid: string;
@@ -253,7 +253,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
 
       const expandPromise = this.fetchInteractionData(nodeDCIDsLastLayer).then((interactionResp) => {
         // TODO: get rid of string[][] assertion by making types for interactionResp and scoreResp
-        const interactionData = responseGetters.values(interactionResp).map(
+        const interactionData = valuesFromResponse(interactionResp).map(
           (interactions) => {
             return interactions.map(({ dcid }) => dcid);
           }
