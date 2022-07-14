@@ -186,6 +186,9 @@ function renderPage(): void {
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
   const rankingChartPromise = getRankingChartData(dcid);
 
+  // Triggered when view a place explorer page and send data to google analytics.
+  window.gtag("event", "category_view", { category: category });
+
   Promise.all([
     landingPagePromise,
     loadLocaleData(locale, [

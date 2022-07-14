@@ -209,7 +209,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const domain = urlToDomain(source);
       return (
         <span key={source}>
-          <a href={source}>{domain}</a>
+          <a
+            href={source}
+            onClick={() =>
+              window.gtag("event", "chart_click", { chart_click: "data from" })
+            }
+          >
+            {domain}
+          </a>
           {index < sources.length - 1 ? ", " : ""}
         </span>
       );
@@ -280,7 +287,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               </span>
             </div>
             <div className="outlinks">
-              <a href="#" onClick={this._handleEmbed}>
+              <a
+                href="#"
+                onClick={(event) => {
+                  this._handleEmbed(event);
+                  window.gtag("event", "chart_click", {
+                    chart_click: "export",
+                  });
+                }}
+              >
                 <FormattedMessage
                   id="chart_metadata-export"
                   defaultMessage="Export"
@@ -293,6 +308,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   href={exploreUrl}
                   rel="noopener noreferrer"
                   target="_blank"
+                  onClick={() =>
+                    window.gtag("event", "chart_click", {
+                      chart_click: "explore more",
+                    })
+                  }
                 >
                   <FormattedMessage
                     id="chart_metadata-explore_more"
