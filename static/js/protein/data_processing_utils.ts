@@ -14,7 +14,7 @@ import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
 // Base type of "values" value of objects stored in <V1 response>.data.data
-type V1BaseDatum = {
+export type V1BaseDatum = {
   dcid: string;
   name: string;
   provenanceId: string;
@@ -22,14 +22,14 @@ type V1BaseDatum = {
 };
 
 // Generic for objects stored in <V1 response>.data.data
-type V1ResponseDatum<ValueDatum extends V1BaseDatum> = {
+export type V1ResponseDatum<ValueDatum extends V1BaseDatum> = {
   entity: string;
   values: ValueDatum[];
 };
 
 // Generic for V1 response
 // Reference: https://github.com/axios/axios/blob/7d6bddba2d8de29c263feaef4c40daa50cb4b176/index.d.ts#L83
-type V1Response<ValueDatum extends V1BaseDatum> = AxiosResponse<{
+export type V1Response<ValueDatum extends V1BaseDatum> = AxiosResponse<{
   data: V1ResponseDatum<ValueDatum>[];
 }>;
 
