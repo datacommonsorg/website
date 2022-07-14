@@ -168,3 +168,10 @@ export interface StatVarSearchResult {
   statVars: NamedNode[];
   matches: string[];
 }
+
+// Set new property gtag on window.
+declare global {
+  interface Window {
+    gtag: any;
+  }
+}
