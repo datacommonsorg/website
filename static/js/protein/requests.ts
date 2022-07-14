@@ -50,7 +50,7 @@ export function fetchScoreData(
 /**
  * Given list of protein DCIDs, fetch their interactors and then the confidence scores of the interactions.
  * Return both the list of interactors and the score request.
- * 
+ *
  * Reference: https://2ality.com/2017/08/promise-callback-data-flow.html
  */
 export function fetchInteractionsThenScores(
