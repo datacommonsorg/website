@@ -18,7 +18,7 @@ class Config:
     AI_CONFIG_PATH = '/datacommons/ai/ai.yaml'
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
     MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
-    GA_ACCOUNT = 'G-7HN3ZCBSJB'
+    GA_ACCOUNT = ''
     SCHEME = 'https'
     # Additional stat vars that need to be fetched for place page data.
     # This is only needed for local development when cache is not up to date.
