@@ -175,7 +175,7 @@ declare global {
     gtag: (
       event: string,
       eventName: string,
-      parameter: Record<string, any>
+      parameter: Record<string, string | string[]>
     ) => void;
   }
 }
