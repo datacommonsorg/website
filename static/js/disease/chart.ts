@@ -29,11 +29,17 @@ const Y_AXIS_LIMIT = 0.5;
 const LEGEND_CIRCLE_RADIUS = 4;
 // tooltip constant for all charts
 const TOOL_TIP = d3.select("#main").append("div").attr("class", "tooltip");
-// horizontal barcharts - default brightness
+// default brightness for barcharts
 const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
 // length of the error bar cap for disease-gene associations chart
 const ERROR_BAR_CAP_LENGTH = 10;
+// shift in tooltip positions
+const TOOL_TIP_SHIFT = 60;
+// x axis label shift
+const X_LABEL_SHIFT = 40;
+
 type Datum = DiseaseGeneAssociationData;
+
 /**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
@@ -57,9 +63,9 @@ function onMouseOver(
  * Update position of global tooltip to track mouse.
  */
 function onMouseMove(): void {
-  TOOL_TIP.style("left", d3.event.pageX - 60 + "px").style(
+  TOOL_TIP.style("left", d3.event.pageX - TOOL_TIP_SHIFT + "px").style(
     "top",
-    d3.event.pageY - 60 + "px"
+    d3.event.pageY - TOOL_TIP_SHIFT + "px"
   );
 }
 
@@ -118,7 +124,11 @@ function addXLabel(
     .append("text")
     .attr(
       "transform",
-      "translate(" + width / 2 + " ," + (height + MARGIN.top + 40) + ")"
+      "translate(" +
+        width / 2 +
+        " ," +
+        (height + MARGIN.top + X_LABEL_SHIFT) +
+        ")"
     )
     .text(labelText);
 }
@@ -151,9 +161,9 @@ export interface DiseaseGeneAssociationData {
 }
 /**
  * Draws the disease-gene association charts for the disease of interest
- * @param id
- * @param data
- * @returns
+ * @param id - the div id where the chart is rendered on the page
+ * @param data - the disease data passed into the function 
+ * @returns - chart displaying disease-gene associations 
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
