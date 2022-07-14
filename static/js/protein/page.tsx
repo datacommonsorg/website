@@ -62,6 +62,7 @@ import {
   zip,
   valuesFromResponse,
 } from "./data_processing_utils";
+import { fetchInteractionData, fetchScoreData } from "./requests";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -219,29 +220,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
   }
 
-  private fetchInteractionData(protein_dcids: string[]): any {
-    const PPI_ENDPOINT =
-      "https://autopush.api.datacommons.org/v1/bulk/property/in/interactingProtein/values";
-    return axios.post(PPI_ENDPOINT, {
-      entities: protein_dcids,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
 
-  private fetchScoreData(interaction_dcids: string[]) {
-    const SCORE_ENDPOINT =
-      "https://autopush.api.datacommons.org/v1/bulk/property/out/confidenceScore/values";
-    return axios.post(SCORE_ENDPOINT, {
-      entities: interaction_dcids,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-
-  private expandProteinInteractionGraph(graphData: InteractionGraphDataNested){
+  private expandProteinInteractionGraph(graphData: InteractionGraphDataNested) {
       const nodesLastLayer = _.last(graphData.nodeDataNested);
       const nodeDCIDsLastLayer = nodesLastLayer.map(
         (nodeDatum) => dcidFromID(nodeDatum.id)
@@ -251,7 +231,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       );
       console.log(proteinDCIDSet);
 
-      const expandPromise = this.fetchInteractionData(nodeDCIDsLastLayer).then((interactionResp) => {
+      const expandPromise = fetchInteractionData(nodeDCIDsLastLayer).then((interactionResp) => {
         // TODO: get rid of string[][] assertion by making types for interactionResp and scoreResp
         const interactionData = valuesFromResponse(interactionResp).map(
           (interactions) => {
@@ -263,7 +243,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         );
         const interactionDCIDsDedup = interactionDataDedup.flat(1);
 
-        const scorePromise = this.fetchScoreData(interactionDCIDsDedup).then((scoreResp) => {
+        const scorePromise = fetchScoreData(interactionDCIDsDedup).then((scoreResp) => {
           
           // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
           // This object serves two purposes:
@@ -359,14 +339,17 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         idFromDCID(this.props.dcid),
       );
       const graphData = getProteinInteractionGraphData(interactionDataDepth1);
-      let expansions = Promise.resolve()
+      // let expansions = this.expandProteinInteractionGraph(graphData);
+      let expansions = Promise.resolve();
       for (let i = 0; i < PROTEIN_INTERACTION_DEPTH; i++){
-        expansions = expansions.then( () => {
-          this.expandProteinInteractionGraph(graphData);
-        })
+        // expansions = expansions.then( () => {
+        //   this.expandProteinInteractionGraph(graphData).then(expansions);
+        // })
+        expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
       }
       expansions.then(() => 
       {
+        console.log(_.cloneDeep(graphData));
          this.setState({
             data: resp.data,
             interactionDataDepth1: interactionDataDepth1,
