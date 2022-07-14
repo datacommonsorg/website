@@ -10,6 +10,7 @@
     "noImplicitAny": false,
     "module": "commonjs",
     "target": "es5",
+    "lib": ["es2019.array"],
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
