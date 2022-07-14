@@ -1,8 +1,8 @@
+import { AxiosResponse } from "axios";
 import _ from "lodash";
 
 import { GraphNodes } from "../shared/types";
 import {
-  InteractionGraphData,
   InteractionGraphDataNested,
   InteractionLink,
   ProteinNode,
@@ -14,7 +14,7 @@ import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
 // Base type of "values" value of objects stored in <V1 response>.data.data
-type BaseDCDataType = {
+type V1BaseDatum = {
   dcid: string;
   name: string;
   provenanceId: string;
@@ -22,23 +22,16 @@ type BaseDCDataType = {
 };
 
 // Generic for objects stored in <V1 response>.data.data
-type V1ResponseDatum<DataType extends BaseDCDataType> = {
+type V1ResponseDatum<ValueDatum extends V1BaseDatum> = {
   entity: string;
-  values: DataType[];
+  values: ValueDatum[];
 };
 
 // Generic for V1 response
-// TODO: consider extending AxiosResponse<unknown>
-type V1Response<DataType extends BaseDCDataType> = {
-  config: Record<string, unknown>;
-  data: {
-    data?: V1ResponseDatum<DataType>[];
-  };
-  headers: Record<string, unknown>;
-  request?: Record<string, unknown>;
-  status: number;
-  statusText: string;
-};
+// Reference: https://github.com/axios/axios/blob/7d6bddba2d8de29c263feaef4c40daa50cb4b176/index.d.ts#L83
+type V1InnerData<ValueDatum extends V1BaseDatum> = V1ResponseDatum<ValueDatum>[];
+type V1OuterData<ValueDatum extends V1BaseDatum> = {data: V1InnerData<ValueDatum>};
+type V1Response<ValueDatum extends V1BaseDatum> = AxiosResponse<V1OuterData<ValueDatum>>
 
 // Upper bound on node degree in interaction graph viz's
 export const MAX_INTERACTIONS = 4;
@@ -786,7 +779,7 @@ export function scoreFromInteractionDCID(
  * Given response and key, map each response datum to value of key and return map
  */
 export function getFromResponse<
-  T extends BaseDCDataType,
+  T extends V1BaseDatum,
   K extends keyof V1ResponseDatum<T>
 >(resp: V1Response<T>, key: K): V1ResponseDatum<T>[K][] {
   if (!("data" in resp.data)) {
@@ -803,7 +796,7 @@ export function getFromResponse<
 /**
  * Given response, extract and return values (see def of V1Response)
  */
-export function valuesFromResponse<T extends BaseDCDataType>(
+export function valuesFromResponse<T extends V1BaseDatum>(
   resp: V1Response<T>
 ): T[][] {
   return getFromResponse<T, "values">(resp, "values");
@@ -812,7 +805,7 @@ export function valuesFromResponse<T extends BaseDCDataType>(
 /**
  * Given response, extract and return DCIDs (entities)
  */
-export function dcidsFromResponse<T extends BaseDCDataType>(
+export function dcidsFromResponse<T extends V1BaseDatum>(
   resp: V1Response<T>
 ): string[] {
   return getFromResponse<T, "entity">(resp, "entity");
@@ -841,13 +834,13 @@ export function symmetricScoreRec(
  * satisfying the property that if A_B: A_B.score is in the record, then B_A: A_B.score is also.
  */
 export function scoreDataFromResponse(
-  scoreResponse: V1Response<BaseDCDataType>
+  scoreResponse: V1Response<V1BaseDatum>
 ): Record<string, number> {
   const scoreValues = valuesFromResponse(scoreResponse);
   const interactionDCIDs = dcidsFromResponse(scoreResponse);
   const scoreList = scoreValues
     // filter results for IntactMiScore - there should be 0 or 1 match
-    .map((scoreRecList: BaseDCDataType[] | undefined) => {
+    .map((scoreRecList: V1BaseDatum[] | undefined) => {
       if (scoreRecList !== undefined) {
         return scoreRecList.filter(({ dcid }) =>
           dcid.includes(INTERACTION_SCORE_NAME)
@@ -856,7 +849,7 @@ export function scoreDataFromResponse(
       return [];
     })
     // if 1 match, return the retrieved IntactMiScore, and otherwise the default score.
-    .map((scoreRecList: BaseDCDataType[]) => {
+    .map((scoreRecList: V1BaseDatum[]) => {
       if (_.isEmpty(scoreRecList)) return DEFAULT_INTERACTION_SCORE;
       return quantityFromDCID(scoreRecList[0].dcid, INTERACTION_SCORE_NAME);
     });

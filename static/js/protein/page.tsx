@@ -40,7 +40,7 @@ import {
   InteractionGraphDataNested,
 } from "./chart";
 import {
-  DCIDFromID,
+  dcidFromID,
   deduplicateInteractionDCIDs,
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
@@ -244,10 +244,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   private expandProteinInteractionGraph(graphData: InteractionGraphDataNested){
       const nodesLastLayer = _.last(graphData.nodeDataNested);
       const nodeDCIDsLastLayer = nodesLastLayer.map(
-        (nodeDatum) => DCIDFromID(nodeDatum.id)
+        (nodeDatum) => dcidFromID(nodeDatum.id)
       );
       const proteinDCIDSet = new Set(
-        graphData.nodeDataNested.flat(1).map(node => DCIDFromID(node.id))
+        graphData.nodeDataNested.flat(1).map(node => dcidFromID(node.id))
       );
       console.log(proteinDCIDSet);
 
