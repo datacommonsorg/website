@@ -540,7 +540,7 @@ export function getProteinDescription(data: GraphNodes): string {
 
 /**
  * Given array, key-maker function, and value-maker function, construct object from array with string-valued keys.
- * This is essentially a ts implementation of a python dictionary comprehension.
+ * This is essentially a TS implementation of a python dictionary comprehension.
  *
  * Unfortunately generic index signature parameters aren't supported by TS yet, so we enforce that keys are strings
  * (since they're automatically converted to strings anyway).
