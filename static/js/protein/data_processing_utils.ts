@@ -571,7 +571,7 @@ export function objectFromArray<T, V>(
  *  - https://ncjamieson.com/typing-zipwith/#typing-zip
  *  - https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types
  */
-// Recursive type inference on array of arrays
+// Recursive elementwise type inference on array of arrays
 type Zip<T> = T extends [Array<infer U>, ...infer Z] ? [U, ...Zip<Z>] : [];
 export function zip<T extends unknown[][]>(...arrays: T): Array<Zip<T>> {
   const minLength = Math.min(...arrays.map((arr) => arr.length));
