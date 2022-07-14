@@ -24,9 +24,9 @@ export function getDiseaseGeneAssociation(
       continue;
     }
     for (const node of neighbour.nodes) {
-      let gene = null;
+      let gene = "";
       let score = null;
-      let interval = null;
+      //let interval = null;
       let lowerInterval = null;
       let upperInterval = null;
       // check for null or non-existent property values
@@ -51,21 +51,20 @@ export function getDiseaseGeneAssociation(
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
-          interval = n.nodes[0].value;
-          lowerInterval = Number(score - interval / 2);
+          const interval = Number(n.nodes[0].value);
+          lowerInterval = Number(score) - interval / 2;
           upperInterval = Number(score) + Number(interval / 2);
         }
       }
       rawData.push({
         // remove the genome assembly prefix from gene name
+        //.replace("bio/hg38_", "")
         name: gene.replace("bio/hg38_", ""),
         score: score,
         lowerInterval: lowerInterval,
         upperInterval: upperInterval,
       });
     }
-
-    return rawData;
   }
-  return [];
+  return rawData;
 }
