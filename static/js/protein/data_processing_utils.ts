@@ -14,30 +14,35 @@ import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 
 // Base type of "values" value of objects stored in <V1 response>.data.data
-type BaseDCDataType = {dcid: string, name: string, provenanceId: string, types: string[]};
+type BaseDCDataType = {
+  dcid: string;
+  name: string;
+  provenanceId: string;
+  types: string[];
+};
 
 // Generic for objects stored in <V1 response>.data.data
 type V1ResponseDatum<DataType extends BaseDCDataType> = {
   entity: string;
   values: DataType[];
-}
+};
 
 // Generic for V1 response
 // TODO: consider extending AxiosResponse<unknown>
 type V1Response<DataType extends BaseDCDataType> = {
-  config: Object;
+  config: Record<string, unknown>;
   data: {
-    data?: V1ResponseDatum<DataType>[]
-  }
-  headers: Object;
-  request?: Object;
+    data?: V1ResponseDatum<DataType>[];
+  };
+  headers: Record<string, unknown>;
+  request?: Record<string, unknown>;
   status: number;
   statusText: string;
-}
+};
 
 // Upper bound on node degree in interaction graph viz's
-export const MAX_INTERACTIONS = 4; 
-export const INTERACTION_SCORE_NAME = "IntactMiScore"
+export const MAX_INTERACTIONS = 4;
+export const INTERACTION_SCORE_NAME = "IntactMiScore";
 
 // Number to return if interaction score is missing
 const DEFAULT_INTERACTION_SCORE = -1;
@@ -196,89 +201,6 @@ export function getProteinInteraction(
     return returnData;
   }
   return [];
-}
-
-/**
- * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
- */
-export function nodeFromID(
-  proteinSpeciesID: string,
-  depth: number
-): ProteinNode {
-  // assumes {species id} does not contain _ (true as of 06/22/22)
-  const lastIndex = proteinSpeciesID.lastIndexOf("_");
-  return {
-    depth,
-    id: proteinSpeciesID,
-    name: proteinSpeciesID.slice(0, lastIndex),
-    species: proteinSpeciesID.slice(lastIndex + 1),
-  };
-}
-
-/**
- * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
- * 
-      {
-
-        nodeData : [
-          { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
-          { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
-          { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 },
-        ],
-
-        linkData : [
-          { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
-          { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
-        ],
-
-      }.
- */
-export function getProteinInteractionGraphData(
-  data: InteractingProteinType[]
-): InteractionGraphDataNested {
-  // checks if the data is empty or not
-  if (_.isEmpty(data)) {
-    return;
-  }
-
-  // P53_HUMAN is central protein in below examples.
-  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
-  const centerNodeID = data[0].parent;
-  let neighbors = data.map(({ name: interactionID, value }) => {
-    // value is confidenceScore
-    const neighborID = getInteractionTarget(interactionID, DCIDFromID(centerNodeID))
-    const nodeDatum = nodeFromID(neighborID, 1);
-    nodeDatum["value"] = value;
-    return nodeDatum;
-  });
-
-  // delete duplicates and self-interactions (will add support for self-interactions later on)
-  const seen = new Set();
-  neighbors = neighbors.filter((node) => {
-    const duplicate = seen.has(node.name);
-    seen.add(node.name);
-    return !duplicate && node.id !== centerNodeID;
-  });
-
-  // descending order of interaction confidenceScore
-  neighbors.sort((n1, n2) => n2.value - n1.value);
-  // consider only top 10 interactions to avoid clutter
-  neighbors = neighbors.slice(0, MAX_INTERACTIONS);
-
-  const centerDatum = nodeFromID(centerNodeID, 0);
-
-  const linkData: InteractionLink[] = neighbors.map((node) => {
-    return {
-      score: node.value,
-      source: centerNodeID,
-      target: node.id,
-    };
-  });
-
-  return {
-    linkDataNested: [[], linkData],
-    nodeDataNested: [[centerDatum], neighbors]
-  };
 }
 
 export function getDiseaseGeneAssoc(
@@ -618,20 +540,21 @@ export function getProteinDescription(data: GraphNodes): string {
 
 /**
  * Given array, key-maker function, and value-maker function, construct object from array with string-valued keys.
- * This is essentially a ts implementation of a python dictionary comprehension.
- * 
- * Unfortunately generic index signature parameters aren't supported by TS yet, so we enforce that keys are strings.
+ * This is essentially a TS implementation of a python dictionary comprehension.
  *
- * References: 
+ * Unfortunately generic index signature parameters aren't supported by TS yet, so we enforce that keys are strings
+ * (since they're automatically converted to strings anyway).
+ *
+ * References:
  *  - https://linuxtut.com/en/87ab3f313a75b547c278/
  *  - https://stackoverflow.com/questions/13315131/enforcing-the-type-of-the-indexed-members-of-a-typescript-object
- * 
+ *
  */
 export function objectFromArray<T, V>(
   arr: T[],
   keyFunc: (arrElt: T) => string,
   valFunc: (arrElt: T) => V
-): {[key: string] : V} {
+): { [key: string]: V } {
   return arr.reduce(
     (obj, elt) => Object.assign(obj, { [keyFunc(elt)]: valFunc(elt) }),
     {}
@@ -641,20 +564,24 @@ export function objectFromArray<T, V>(
 /**
  * Given an (unpacked) array of arrays, return its transpose (after trimming arrays to length of shortest one).
  * This is essentially a TS implementation of python's built-in zip function.
- * 
+ *
  * Adapted from implementation by Matt Mancini
+ *
+ * Thanks also to Carlos Israel Ortiz Garcia and Jack Davison for the below references:
+ *  - https://ncjamieson.com/typing-zipwith/#typing-zip
+ *  - https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types
  */
-// Recursive type inference on array of arrays
+// Recursive elementwise type inference on array of arrays
 type Zip<T> = T extends [Array<infer U>, ...infer Z] ? [U, ...Zip<Z>] : [];
 export function zip<T extends unknown[][]>(...arrays: T): Array<Zip<T>> {
-  const minLength = Math.min(...arrays.map(arr => arr.length))
+  const minLength = Math.min(...arrays.map((arr) => arr.length));
   return Array.from(Array(minLength).keys()).map((_, i) => {
-    return arrays.map(array => array[i]) as Zip<T>;
+    return arrays.map((array) => array[i]) as Zip<T>;
   });
 }
 
 /**
- * Convert DCID of form bio/<id> to id. 
+ * Convert DCID of form bio/<id> to id.
  * Note: probably should be doing dcid: `bio/${string}`, but currently causes many type errors
  */
 export function idFromDCID(dcid: string): string {
@@ -664,8 +591,21 @@ export function idFromDCID(dcid: string): string {
 /**
  * Given id, convert to DCID of form bio/<id>
  */
-export function DCIDFromID(id: string): string {
+export function dcidFromID(id: string): string {
   return `bio/${id}`;
+}
+
+/**
+ * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
+ */
+export function quantityFromDCID(
+  quantityDCID: string,
+  quantityName: string
+): number {
+  if (!quantityDCID.includes(quantityName)) {
+    throw `DCID "${quantityDCID}" does not contain quantity name "${quantityName}"`;
+  }
+  return Number(_.last(quantityDCID.split(quantityName)));
 }
 
 /**
@@ -683,27 +623,28 @@ export function proteinsFromInteractionDCID(interactionDCID: string): string[] {
 
 /**
  * Given interactionDCID of the form {protein 1}_{protein 2}, return ID of the same form
- * but with protein 1, protein 2 in alpha order. 
+ * but with protein 1, protein 2 in alpha order.
  */
 function sortInteractionDCID(interactionDCID: string): string {
   const proteins = proteinsFromInteractionDCID(interactionDCID);
   // sort proteins alphabetically so A_B and B_A map to the same ID A_B
-  const proteins_sorted = proteins.sort((p1, p2) => p1.localeCompare(p2));
-  return DCIDFromID(proteins_sorted.join("_"));
+  const proteinsSorted = proteins.sort((p1, p2) => p1.localeCompare(p2));
+  return dcidFromID(proteinsSorted.join("_"));
 }
 
 /**
- * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A), keep only one.
+ * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A),
+ * keep only one.
  */
 export function deduplicateInteractionDCIDs(
   interactionDCIDs: string[]
 ): string[] {
   // Can't just use Set here because not guaranteed that A_B in list implies B_A in list,
   // so we need to keep track of which order is the true DCID corresponding to an entity in the response.
-  // Counterexample: https://screenshot.googleplex.com/7JrfkVqt8crxVP9
+  // Counterexample: http://datacommons.org/browser/bio/KLOTB_HUMAN
   return Object.values(
     objectFromArray(interactionDCIDs, sortInteractionDCID, (dcid) => dcid)
-  ) as string[];
+  );
 }
 
 /**
@@ -713,105 +654,211 @@ export function getInteractionTarget(
   interactionDCID: string,
   sourceDCID: string,
   returnDCID = false
-) {
+): string {
   // note this also works in the case of a self-interaction
   const interactionID = idFromDCID(interactionDCID);
   const sourceID = idFromDCID(sourceDCID);
   const id = interactionID
     .replace(`${sourceID}_`, "")
     .replace(`_${sourceID}`, "");
-  if (returnDCID) return DCIDFromID(id);
+  if (returnDCID) {
+    return dcidFromID(id);
+  }
   return id;
 }
 
 /**
- * Given an array of interaction DCIDs and a parallel array of corresponding scores,
- * construct and return score object such that for each interaction A_B with corresponding DCID in interaction DCIDs, 
- * both A_B and B_A map to the score of A_B.  
+ * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
-export function symmetrizeScores(interactionDCIDs: string[], scores: number[]): Record<string, number> {
-  const scoreObj = {};
-  zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
-    const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
-    scoreObj[`${protein1}_${protein2}`] = score;
-    scoreObj[`${protein2}_${protein1}`] = score;
+export function nodeFromID(
+  proteinSpeciesID: string,
+  depth: number
+): ProteinNode {
+  // assumes {species id} does not contain _ (true as of 06/22/22)
+  const lastIndex = proteinSpeciesID.lastIndexOf("_");
+  return {
+    depth,
+    id: proteinSpeciesID,
+    name: proteinSpeciesID.slice(0, lastIndex),
+    species: proteinSpeciesID.slice(lastIndex + 1),
+  };
+}
+
+/**
+ * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
+ * 
+      {
+
+        nodeData : [
+          { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
+          { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
+          { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 },
+        ],
+
+        linkData : [
+          { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
+          { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
+        ],
+
+      }.
+ */
+export function getProteinInteractionGraphData(
+  data: InteractingProteinType[]
+): InteractionGraphDataNested {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
+
+  // P53_HUMAN is central protein in below examples.
+  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
+  const centerNodeID = data[0].parent;
+  let neighbors = data.map(({ name: interactionID, value }) => {
+    // value is confidenceScore
+    const neighborID = getInteractionTarget(
+      interactionID,
+      dcidFromID(centerNodeID)
+    );
+    const nodeDatum = nodeFromID(neighborID, 1);
+    nodeDatum["value"] = value;
+    return nodeDatum;
   });
-  return scoreObj;
+
+  // delete duplicates and self-interactions (will add support for self-interactions later on)
+  const seen = new Set();
+  neighbors = neighbors.filter((node) => {
+    const duplicate = seen.has(node.name);
+    seen.add(node.name);
+    return !duplicate && node.id !== centerNodeID;
+  });
+
+  // descending order of interaction confidenceScore
+  neighbors.sort((n1, n2) => n2.value - n1.value);
+  // consider only top 10 interactions to avoid clutter
+  neighbors = neighbors.slice(0, MAX_INTERACTIONS);
+
+  const centerDatum = nodeFromID(centerNodeID, 0);
+
+  const linkData: InteractionLink[] = neighbors.map((node) => {
+    return {
+      score: node.value,
+      source: centerNodeID,
+      target: node.id,
+    };
+  });
+
+  return {
+    // guaranteed to be [] because we don't support self-interactions yet
+    linkDataNested: [[], linkData],
+    nodeDataNested: [[centerDatum], neighbors],
+  };
 }
 
 /**
  * Given an object mapping interaction IDs to confidence scores and the DCIDs of two proteins, return the score
  * of the interaction between the two proteins if it appears in the object, or the default score otherwise.
  */
-export function scoreFromProteinDCIDs(scoreObj: Record<string, number>, proteinDCID1: string, proteinDCID2: string, defaultScore: number=DEFAULT_INTERACTION_SCORE): number {
+export function scoreFromProteinDCIDs(
+  scoreRec: Record<string, number>,
+  proteinDCID1: string,
+  proteinDCID2: string,
+  defaultScore: number = DEFAULT_INTERACTION_SCORE
+): number {
   const [protein1, protein2] = [proteinDCID1, proteinDCID2].map((dcid) =>
-  idFromDCID(dcid)
+    idFromDCID(dcid)
   );
-  return _.get(scoreObj, `${protein1}_${protein2}`, defaultScore);
+  return _.get(scoreRec, `${protein1}_${protein2}`, defaultScore);
 }
 
 /**
  * Given an object mapping interaction IDs to confidence scores and the DCIDs of an interaction, return the score
  * of the interaction if it appears in the object, or the default score otherwise.
  */
-export function scoreFromInteractionDCID(scoreObj: Record<string, number>, interactionDCID: string, defaultScore: number =DEFAULT_INTERACTION_SCORE) {
-  return _.get(scoreObj, idFromDCID(interactionDCID), defaultScore);
+export function scoreFromInteractionDCID(
+  scoreRec: Record<string, number>,
+  interactionDCID: string,
+  defaultScore: number = DEFAULT_INTERACTION_SCORE
+): number {
+  return _.get(scoreRec, idFromDCID(interactionDCID), defaultScore);
 }
 
 /**
  * Given response and key, map each response datum to value of key and return map
  */
-export function getFromResponse<T extends BaseDCDataType, K extends keyof V1ResponseDatum<T>>(resp: V1Response<T>, key: K){
-  if (!("data" in resp.data)) return [];
-  return resp.data.data.map(obj => obj[key]);
+export function getFromResponse<
+  T extends BaseDCDataType,
+  K extends keyof V1ResponseDatum<T>
+>(resp: V1Response<T>, key: K): V1ResponseDatum<T>[K][] {
+  if (!("data" in resp.data)) {
+    return [];
+  }
+  return resp.data.data.map((obj) => obj[key]);
 }
 
 // Useful special cases of getFromResponse
-// Notes that due to current limitations of TS indexed access types, "values" and "entity" need to be passed in twice - once as a type and once as a string
+// Note that due to current limitations of TS indexed access types, "values" and "entity" need to be passed in twice -
+// once as a type and once as a string
 // Reference (last two paragraphs): https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html
 
 /**
- * Given response, extract and return values (see def of V1Response) 
+ * Given response, extract and return values (see def of V1Response)
  */
-export function valuesFromResponse<T extends BaseDCDataType>(resp: V1Response<T>): T[][]{
+export function valuesFromResponse<T extends BaseDCDataType>(
+  resp: V1Response<T>
+): T[][] {
   return getFromResponse<T, "values">(resp, "values");
 }
 
 /**
- * Given response, extract and return DCIDs (entities) 
+ * Given response, extract and return DCIDs (entities)
  */
-export function dcidsFromResponse<T extends BaseDCDataType>(resp: V1Response<T>): string[]{
+export function dcidsFromResponse<T extends BaseDCDataType>(
+  resp: V1Response<T>
+): string[] {
   return getFromResponse<T, "entity">(resp, "entity");
 }
 
 /**
- * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
+ * Given an array of interaction DCIDs and a parallel array of corresponding scores,
+ * construct and return score record such that for each interaction A_B with corresponding DCID in interaction DCIDs,
+ * both A_B and B_A map to the score of A_B.
  */
-export function quantityFromDCID(quantityDCID: string, quantityName: string): number{
-  if (!quantityDCID.includes(quantityName)){
-    throw `DCID "${quantityDCID}" does not contain quantity name "${quantityName}"`;
-  }
-  return Number(_.last(quantityDCID.split(quantityName)))
+export function symmetricScoreRec(
+  interactionDCIDs: string[],
+  scores: number[]
+): Record<string, number> {
+  const scoreRec = {};
+  zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
+    const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
+    scoreRec[`${protein1}_${protein2}`] = score;
+    scoreRec[`${protein2}_${protein1}`] = score;
+  });
+  return scoreRec;
 }
 
 /**
- * Given score response, construct an object mapping interaction IDs of the form A_B to their confidence scores, 
- * satisfying the property that if A_B: A_B.score is in the object, then B_A: A_B.score is also.
+ * Given score response, construct a record mapping interaction IDs of the form A_B to their confidence scores,
+ * satisfying the property that if A_B: A_B.score is in the record, then B_A: A_B.score is also.
  */
-export function scoreDataFromResponse(scoreResponse: V1Response<any>): Record<string, number>{
+export function scoreDataFromResponse(
+  scoreResponse: V1Response<BaseDCDataType>
+): Record<string, number> {
   const scoreValues = valuesFromResponse(scoreResponse);
   const interactionDCIDs = dcidsFromResponse(scoreResponse);
   const scoreList = scoreValues
-    .map((scoreObjList: BaseDCDataType[] | undefined) => {
-      if (scoreObjList !== undefined) {
-      return scoreObjList
-      .filter(({dcid}) => dcid.includes(INTERACTION_SCORE_NAME))}
+    // filter results for IntactMiScore - there should be 0 or 1 match
+    .map((scoreRecList: BaseDCDataType[] | undefined) => {
+      if (scoreRecList !== undefined) {
+        return scoreRecList.filter(({ dcid }) =>
+          dcid.includes(INTERACTION_SCORE_NAME)
+        );
+      }
       return [];
-    }
-      )
-    .map((scoreObjList: BaseDCDataType[]) => {
-      if (_.isEmpty(scoreObjList)) return DEFAULT_INTERACTION_SCORE;
-      return quantityFromDCID(scoreObjList[0].dcid, INTERACTION_SCORE_NAME);
     })
-  return symmetrizeScores(interactionDCIDs, scoreList);
+    // if 1 match, return the retrieved IntactMiScore, and otherwise the default score.
+    .map((scoreRecList: BaseDCDataType[]) => {
+      if (_.isEmpty(scoreRecList)) return DEFAULT_INTERACTION_SCORE;
+      return quantityFromDCID(scoreRecList[0].dcid, INTERACTION_SCORE_NAME);
+    });
+  return symmetricScoreRec(interactionDCIDs, scoreList);
 }
