@@ -29,9 +29,9 @@ type V1ResponseDatum<ValueDatum extends V1BaseDatum> = {
 
 // Generic for V1 response
 // Reference: https://github.com/axios/axios/blob/7d6bddba2d8de29c263feaef4c40daa50cb4b176/index.d.ts#L83
-type V1InnerData<ValueDatum extends V1BaseDatum> = V1ResponseDatum<ValueDatum>[];
-type V1OuterData<ValueDatum extends V1BaseDatum> = {data: V1InnerData<ValueDatum>};
-type V1Response<ValueDatum extends V1BaseDatum> = AxiosResponse<V1OuterData<ValueDatum>>
+type V1Response<ValueDatum extends V1BaseDatum> = AxiosResponse<{
+  data: V1ResponseDatum<ValueDatum>[];
+}>;
 
 // Upper bound on node degree in interaction graph viz's
 export const MAX_INTERACTIONS = 4;
