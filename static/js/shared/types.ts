@@ -172,6 +172,10 @@ export interface StatVarSearchResult {
 // Set new property gtag on window.
 declare global {
   interface Window {
-    gtag: any;
+    gtag: (
+      event: string,
+      eventName: string,
+      parameter: Record<string, any>
+    ) => void;
   }
 }
