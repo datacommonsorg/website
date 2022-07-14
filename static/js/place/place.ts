@@ -187,7 +187,9 @@ function renderPage(): void {
   const rankingChartPromise = getRankingChartData(dcid);
 
   // Triggered when view a place explorer page and send data to google analytics.
-  window.gtag("event", "category_view", { category: category });
+  if (window && window.gtag) {
+    window.gtag("event", "category_view", { category });
+  }
 
   Promise.all([
     landingPagePromise,

@@ -81,8 +81,7 @@ function appendLegendElem(
     link?: string;
   }[]
 ): void {
-  const div = d3
-    .select("#" + elem)
+  d3.select("#" + elem)
     .append("div")
     .attr("class", "legend")
     .selectAll("div")
@@ -91,11 +90,11 @@ function appendLegendElem(
     .attr("style", (d) => `background: ${color(d.label)}`)
     .append("a")
     .text((d) => d.label)
-    .attr("href", (d) => d.link || null);
-  // Triggered when stat var legend is clicked and send data to google analytics.
-  div.on("click", function () {
-    window.gtag("event", "chart_click", { chart_click: "stat var" });
-  });
+    .attr("href", (d) => d.link || null)
+    // Triggered when stat var legend is clicked and send data to google analytics.
+    .on("click", () =>
+      window.gtag("event", "chart_click", { chart_click: "stat var" })
+    );
 }
 
 /**
