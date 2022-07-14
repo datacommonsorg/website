@@ -20,7 +20,7 @@ import { DiseaseGeneAssociationData } from "./chart";
 /**
  * Fetches the disease-gene association data
  * @param data - the data pertaining to the disease of interest 
- * @returns
+ * @returns - an array of objects with gene name and its corresponding odds ratio, for the disease of interest
  */
 export function getDiseaseGeneAssociation(
   data: GraphNodes

@@ -163,7 +163,7 @@ export interface DiseaseGeneAssociationData {
  * Draws the disease-gene association charts for the disease of interest
  * @param id - the div id where the chart is rendered on the page
  * @param data - the disease data passed into the function 
- * @returns - chart displaying disease-gene associations 
+ * @returns 
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
