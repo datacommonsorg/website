@@ -661,7 +661,9 @@ export function getInteractionTarget(
   const id = interactionID
     .replace(`${sourceID}_`, "")
     .replace(`_${sourceID}`, "");
-  if (returnDCID) return dcidFromID(id);
+  if (returnDCID) {
+    return dcidFromID(id);
+  }
   return id;
 }
 
@@ -787,7 +789,9 @@ export function getFromResponse<
   T extends BaseDCDataType,
   K extends keyof V1ResponseDatum<T>
 >(resp: V1Response<T>, key: K): V1ResponseDatum<T>[K][] {
-  if (!("data" in resp.data)) return [];
+  if (!("data" in resp.data)) {
+    return [];
+  }
   return resp.data.data.map((obj) => obj[key]);
 }
 
