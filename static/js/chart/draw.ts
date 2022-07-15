@@ -93,7 +93,9 @@ function appendLegendElem(
     .attr("href", (d) => d.link || null)
     // Triggered when stat var legend is clicked and send data to google analytics.
     .on("click", () =>
-      window.gtag("event", "chart_click", { chart_click: "stat var" })
+      window.gtag("event", "place_chart_click", {
+        place_chart_click: "stat var",
+      })
     );
 }
 

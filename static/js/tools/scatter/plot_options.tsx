@@ -86,7 +86,14 @@ function PlotOptions(): JSX.Element {
                     id="per-capita-y"
                     type="checkbox"
                     checked={y.value.perCapita}
-                    onChange={(e) => y.setPerCapita(e.target.checked)}
+                    onChange={(e) => {
+                      y.setPerCapita(e.target.checked);
+                      if (!y.value.perCapita) {
+                        window.gtag("event", "tool_chart_option_click", {
+                          tool_chart_option: "per capita",
+                        });
+                      }
+                    }}
                   />
                   Per Capita
                 </Label>
@@ -98,7 +105,14 @@ function PlotOptions(): JSX.Element {
                   id="log-y"
                   type="checkbox"
                   checked={y.value.log}
-                  onChange={(e) => checkLog(y, e)}
+                  onChange={(e) => {
+                    checkLog(y, e);
+                    if (!y.value.log) {
+                      window.gtag("event", "tool_chart_option_click", {
+                        tool_chart_option: "log scale",
+                      });
+                    }
+                  }}
                 />
                 <Label check>Log scale</Label>
               </FormGroup>
@@ -117,7 +131,14 @@ function PlotOptions(): JSX.Element {
                     id="per-capita-x"
                     type="checkbox"
                     checked={x.value.perCapita}
-                    onChange={(e) => x.setPerCapita(e.target.checked)}
+                    onChange={(e) => {
+                      x.setPerCapita(e.target.checked);
+                      if (!x.value.perCapita) {
+                        window.gtag("event", "tool_chart_option_click", {
+                          tool_chart_option: "per capita",
+                        });
+                      }
+                    }}
                   />
                   Per Capita
                 </Label>
@@ -129,7 +150,14 @@ function PlotOptions(): JSX.Element {
                   id="log-x"
                   type="checkbox"
                   checked={x.value.log}
-                  onChange={(e) => checkLog(x, e)}
+                  onChange={(e) => {
+                    checkLog(x, e);
+                    if (!x.value.log) {
+                      window.gtag("event", "tool_chart_option_click", {
+                        tool_chart_option: "log scale",
+                      });
+                    }
+                  }}
                 />
                 <Label check>Log scale</Label>
               </FormGroup>
@@ -146,7 +174,12 @@ function PlotOptions(): JSX.Element {
                     id="swap-axes"
                     size="sm"
                     color="light"
-                    onClick={() => swapAxes(x, y)}
+                    onClick={() => {
+                      swapAxes(x, y);
+                      window.gtag("event", "tool_chart_option_click", {
+                        tool_chart_option: "swap x and y axis",
+                      });
+                    }}
                     className="plot-options-swap-button"
                   >
                     Swap X and Y axes
@@ -159,7 +192,14 @@ function PlotOptions(): JSX.Element {
                         id="quadrants"
                         type="checkbox"
                         checked={display.showQuadrants}
-                        onChange={(e) => checkQuadrants(display, e)}
+                        onChange={(e) => {
+                          checkQuadrants(display, e);
+                          if (!display.showQuadrants) {
+                            window.gtag("event", "tool_chart_option_click", {
+                              tool_chart_option: "show quadrants",
+                            });
+                          }
+                        }}
                       />
                       Show quadrants
                     </Label>
@@ -172,7 +212,14 @@ function PlotOptions(): JSX.Element {
                         id="quadrants"
                         type="checkbox"
                         checked={display.showLabels}
-                        onChange={(e) => checkLabels(display, e)}
+                        onChange={(e) => {
+                          checkLabels(display, e);
+                          if (!display.showLabels) {
+                            window.gtag("event", "tool_chart_option_click", {
+                              tool_chart_option: "show labels",
+                            });
+                          }
+                        }}
                       />
                       Show labels
                     </Label>
@@ -185,7 +232,14 @@ function PlotOptions(): JSX.Element {
                         id="density"
                         type="checkbox"
                         checked={display.showDensity}
-                        onChange={(e) => checkDensity(display, e)}
+                        onChange={(e) => {
+                          checkDensity(display, e);
+                          if (!display.showDensity) {
+                            window.gtag("event", "tool_chart_option_click", {
+                              tool_chart_option: "show density",
+                            });
+                          }
+                        }}
                       />
                       Show density
                     </Label>
@@ -205,9 +259,12 @@ function PlotOptions(): JSX.Element {
                         selectLowerBound(place, e, setLowerBound)
                       }
                       value={lowerBound}
-                      onBlur={() =>
-                        setLowerBound(place.value.lowerBound.toString())
-                      }
+                      onBlur={() => {
+                        setLowerBound(place.value.lowerBound.toString());
+                        window.gtag("event", "tool_chart_option_click", {
+                          tool_chart_option: "filter by population",
+                        });
+                      }}
                     />
                   </FormGroup>
                 </div>
@@ -221,9 +278,12 @@ function PlotOptions(): JSX.Element {
                         selectUpperBound(place, e, setUpperBound)
                       }
                       value={upperBound}
-                      onBlur={() =>
-                        setUpperBound(place.value.upperBound.toString())
-                      }
+                      onBlur={() => {
+                        setUpperBound(place.value.upperBound.toString());
+                        window.gtag("event", "tool_chart_option_click", {
+                          tool_chart_option: "filter by population",
+                        });
+                      }}
                     />
                   </FormGroup>
                 </div>

@@ -48,6 +48,12 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
           <LocalizedLink
             href={`/place/${this.props.place}?category=${this.props.text}`}
             text={this.props.categoryStrings[this.props.text]}
+            handleClick={() =>
+              window.gtag("event", "place_category_click", {
+                place_category_click_source: "chart header",
+                place_category_click: this.props.text,
+              })
+            }
           />
           <span className="more">
             <LocalizedLink
@@ -59,6 +65,12 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
                   description:
                     "Link to explore more charts about a particular domain, such as Education or Health.",
                 }) + " ›"
+              }
+              handleClick={() =>
+                window.gtag("event", "place_category_click", {
+                  place_category_click_source: "more charts",
+                  place_category_click: this.props.text,
+                })
               }
             />
           </span>

@@ -172,6 +172,14 @@ export function Chart(props: ChartProps): JSX.Element {
     };
   }, [props, chartContainerRef]);
 
+  // Triggered only when stat vars or places change and send data to google analytics.
+  useEffect(() => {
+    window.gtag("event", "tool_chart_plot", {
+      stat_var: props.statVar.value.dcid,
+      place_dcid: props.placeInfo.enclosingPlace.dcid,
+    });
+  }, [props.statVar.value.dcid, props.placeInfo.enclosingPlace.dcid]);
+
   return (
     <div className="chart-section-container">
       <Card className="chart-section-card">

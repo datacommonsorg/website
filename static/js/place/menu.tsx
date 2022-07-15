@@ -45,6 +45,12 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
           text={this.props.categoryDisplayStr}
+          handleClick={() =>
+            window.gtag("event", "place_category_click", {
+              place_category_click_source: "menu",
+              place_category_click: category,
+            })
+          }
         />
         <ul
           className={
@@ -112,6 +118,12 @@ class Menu extends React.Component<MenuPropsType> {
                 description:
                   "Text for header or subheader of Overview charts on place pages.",
               })}
+              handleClick={() =>
+                window.gtag("event", "place_category_click", {
+                  place_category_click_source: "menu",
+                  place_category_click: "overview",
+                })
+              }
             />
           </li>
         )}

@@ -156,9 +156,18 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   className="is-delta-input"
                   type="checkbox"
                   checked={this.props.delta}
-                  onChange={() =>
-                    setChartOption(this.props.mprop, "delta", !this.props.delta)
-                  }
+                  onChange={() => {
+                    setChartOption(
+                      this.props.mprop,
+                      "delta",
+                      !this.props.delta
+                    );
+                    if (!this.props.delta) {
+                      window.gtag("event", "tool_chart_option_click", {
+                        tool_chart_option: "delta",
+                      });
+                    }
+                  }}
                 />
                 Delta
               </Label>
@@ -173,6 +182,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.loadRawData();
     this.resizeObserver = new ResizeObserver(this.handleWindowResize);
     this.resizeObserver.observe(this.svgContainer.current);
+    // Triggered when the component is mounted and send data to google analytics.
+    window.gtag("event", "tool_chart_plot", {
+      stat_var: Object.keys(this.props.statVarInfos),
+      place_dcid: Object.keys(this.props.placeNames),
+    });
   }
 
   componentWillUnmount(): void {
@@ -188,6 +202,19 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     prevProps: ChartPropsType,
     prevState: ChartStateType
   ): void {
+    // Triggered only when the stat vars or places change and send data to google analytics.
+    const shouldTriggerGAEvent =
+      !_.isEqual(prevProps.placeNames, this.props.placeNames) ||
+      !_.isEqual(
+        Object.keys(prevProps.statVarInfos),
+        Object.keys(this.props.statVarInfos)
+      );
+    if (shouldTriggerGAEvent) {
+      window.gtag("event", "tool_chart_plot", {
+        stat_var: Object.keys(this.props.statVarInfos),
+        place_dcid: Object.keys(this.props.placeNames),
+      });
+    }
     // We only need to fetch the raw data when place, statvars or denom changes.
     const shouldLoadData =
       !_.isEqual(prevProps.placeNames, this.props.placeNames) ||

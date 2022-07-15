@@ -102,9 +102,14 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                     id={ratioCheckboxId}
                     type="checkbox"
                     checked={props.isPerCapita}
-                    onChange={() =>
-                      props.onIsPerCapitaUpdated(!props.isPerCapita)
-                    }
+                    onChange={() => {
+                      props.onIsPerCapitaUpdated(!props.isPerCapita);
+                      if (!props.isPerCapita) {
+                        window.gtag("event", "tool_chart_option_click", {
+                          tool_chart_option: "per capita",
+                        });
+                      }
+                    }}
                   />
                   Per Capita
                 </Label>
@@ -115,7 +120,12 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           <FacetSelector
             svFacetId={props.svFacetId}
             facetListPromise={Promise.resolve(props.facetList)}
-            onSvFacetIdUpdated={props.onSvFacetIdUpdated}
+            onSvFacetIdUpdated={(svFacetId) => {
+              props.onSvFacetIdUpdated(svFacetId);
+              window.gtag("event", "tool_chart_option_click", {
+                tool_chart_option: "edit sources",
+              });
+            }}
           />
         </div>
       )}

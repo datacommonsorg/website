@@ -141,6 +141,18 @@ export function Chart(props: ChartPropsType): JSX.Element {
     };
   }, [props, chartContainerRef, geoJsonFetched]);
 
+  // Triggered only when stat vars or places change to avoid double counting and send data to google analytics.
+  useEffect(() => {
+    window.gtag("event", "tool_chart_plot", {
+      stat_var: [props.facetList[0].dcid, props.facetList[1].dcid],
+      place_dcid: props.placeInfo.enclosingPlace.dcid,
+    });
+  }, [
+    props.facetList[0].dcid,
+    props.facetList[1].dcid,
+    props.placeInfo.enclosingPlace.dcid,
+  ]);
+
   return (
     <div id="chart" className="chart-section-container" ref={chartContainerRef}>
       <Card className="chart-card">

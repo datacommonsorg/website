@@ -66,6 +66,20 @@ export class StatVarHierarchySearch extends React.Component<
     this.onInputClear = this.onInputClear.bind(this);
   }
 
+  // Triggered when no result is showed to a search term and send data to google analytics.
+  // Check prevstate to avoid double counting.
+  componentDidUpdate(prevProps, prevState): void {
+    if (
+      this.state.showNoResultsMessage &&
+      !prevState.showNoResultsMessage &&
+      this.state.query
+    ) {
+      window.gtag("event", "tool_stat_var_search_no_result", {
+        search_term: this.state.query,
+      });
+    }
+  }
+
   render(): JSX.Element {
     const renderResults =
       this.state.showResults && !_.isEmpty(this.state.query);

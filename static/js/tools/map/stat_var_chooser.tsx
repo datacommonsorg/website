@@ -108,7 +108,10 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       samplePlaces={samplePlaces}
       deselectSVs={deselectSVs}
       selectedSVs={selectedSVs}
-      selectSV={(svDcid) => selectStatVar(statVar, display, placeInfo, svDcid)}
+      selectSV={(svDcid) => {
+        selectStatVar(statVar, display, placeInfo, svDcid);
+        window.gtag("event", "stat_var_selection", { stat_var: svDcid });
+      }}
     />
   );
 }
