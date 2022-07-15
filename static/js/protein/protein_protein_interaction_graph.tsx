@@ -63,8 +63,11 @@ const DEFAULTS = {
 }
 
 export class ProteinProteinInteractionGraph extends React.Component<InteractionGraphProps, InteractionGraphState> {
+  mounted: boolean;
   constructor(props: InteractionGraphProps) {
     super(props);
+    this.mounted = true;
+    console.log('props', _.cloneDeep(props))
     this.state = {
         graphData: getProteinInteractionGraphData(props.interactionDataDepth1),
         depth: DEFAULTS.DEPTH,
@@ -74,7 +77,10 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
   }
 
   componentDidMount(): void {
-    const graphData = _.cloneDeep(this.state.graphData)
+    if (_.isEmpty(this.state.graphData)){
+      return
+    }
+    const graphData = _.cloneDeep(this.state.graphData);
     const expansions = this.expandProteinInteractionGraph(graphData);
 //   let expansions = Promise.resolve();
 //   for (let i = 0; i < this.state.depth; i++){
@@ -89,6 +95,9 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
   }
 
   componentDidUpdate(): void {
+    if(_.isEmpty(this.state.graphData)){
+      return;
+    }
     drawProteinInteractionGraph(
       "protein-interaction-graph",
             {
@@ -98,10 +107,14 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
     );
   }
 
+  componentWillUnmount(): void{
+    this.mounted = false;
+  }
+
   render(): JSX.Element {
     return (
       <>
-        <div id="protein-interaction-graph"></div>
+        <div id="protein-interaction-graph" key={Number(_.isEmpty(this.props.interactionDataDepth1))}></div>
       </>
     );
   }
@@ -114,6 +127,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
    * chain multiple calls to this method in BFS.
    */
   private expandProteinInteractionGraph(graphData: InteractionGraphDataNested) {
+    console.log('graph', _.cloneDeep(graphData))
       const nodesLastLayer = _.last(graphData.nodeDataNested);
       const nodeDCIDsLastLayer = nodesLastLayer.map(
         (nodeDatum) => dcidFromID(nodeDatum.id)
