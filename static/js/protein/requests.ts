@@ -60,9 +60,7 @@ export function fetchInteractionsThenScores(
     const interactionData = valuesFromResponse(resp).map((interactions) => {
       return interactions.map(({ dcid }) => dcid);
     });
-    return Promise.all([
-      interactionData,
-      fetchScoreData(interactionData.map(deduplicateInteractionDCIDs).flat(1)),
-    ]);
+
+    return fetchScoreData(interactionData.map(deduplicateInteractionDCIDs).flat(1)).then(resp => [interactionData, resp])
   });
 }
