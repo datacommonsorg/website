@@ -799,7 +799,7 @@ export function getFromResponse<
 export function valuesFromResponse<T extends V1BaseDatum>(
   resp: V1Response<T>
 ): T[][] {
-  return getFromResponse<T, "values">(resp, "values");
+  return getFromResponse(resp, "values");
 }
 
 /**
@@ -808,7 +808,7 @@ export function valuesFromResponse<T extends V1BaseDatum>(
 export function dcidsFromResponse<T extends V1BaseDatum>(
   resp: V1Response<T>
 ): string[] {
-  return getFromResponse<T, "entity">(resp, "entity");
+  return getFromResponse(resp, "entity");
 }
 
 /**

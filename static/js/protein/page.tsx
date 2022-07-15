@@ -339,14 +339,14 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         idFromDCID(this.props.dcid),
       );
       const graphData = getProteinInteractionGraphData(interactionDataDepth1);
-      // let expansions = this.expandProteinInteractionGraph(graphData);
-      let expansions = Promise.resolve();
-      for (let i = 0; i < PROTEIN_INTERACTION_DEPTH; i++){
-        // expansions = expansions.then( () => {
-        //   this.expandProteinInteractionGraph(graphData).then(expansions);
-        // })
-        expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
-      }
+      let expansions = this.expandProteinInteractionGraph(graphData);
+      // let expansions = Promise.resolve();
+      // for (let i = 0; i < PROTEIN_INTERACTION_DEPTH; i++){
+      //   // expansions = expansions.then( () => {
+      //   //   this.expandProteinInteractionGraph(graphData).then(expansions);
+      //   // })
+      //   expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
+      // }
       expansions.then(() => 
       {
         console.log(_.cloneDeep(graphData));
