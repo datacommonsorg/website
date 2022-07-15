@@ -19,7 +19,7 @@ import { GraphNodes } from "../shared/types";
 import { DiseaseGeneAssociationData } from "./chart";
 /**
  * Fetches the disease-gene association data
- * @param data - the data pertaining to the disease of interest 
+ * @param data - the data pertaining to the disease of interest
  * @returns - an array of objects with gene name and its corresponding odds ratio, for the disease of interest
  */
 export function getDiseaseGeneAssociation(
@@ -59,25 +59,27 @@ export function getDiseaseGeneAssociation(
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
-          score = n.nodes[0].value;
+          score = Number(n.nodes[0].value);
         } else if (n.property === "associationConfidenceInterval") {
           // check if the list is empty or not
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
           const interval = Number(n.nodes[0].value);
-          lowerInterval = Number(score) - interval / 2;
-          upperInterval = Number(score) + Number(interval / 2);
+          lowerInterval = score - interval / 2;
+          upperInterval = score + Number(interval / 2);
         }
       }
-      rawData.push({
-        // remove the genome assembly prefix from gene name
-        //.replace("bio/hg38_", "")
-        name: gene.replace("bio/hg38_", ""),
-        score: score,
-        lowerInterval: lowerInterval,
-        upperInterval: upperInterval,
-      });
+      if (score) {
+        rawData.push({
+          // remove the genome assembly prefix from gene name
+          //.replace("bio/hg38_", "")
+          name: gene.replace("bio/hg38_", ""),
+          score: score,
+          lowerInterval: lowerInterval,
+          upperInterval: upperInterval,
+        });
+      }
     }
   }
   return rawData;
