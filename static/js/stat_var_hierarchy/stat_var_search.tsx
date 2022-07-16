@@ -68,11 +68,16 @@ export class StatVarHierarchySearch extends React.Component<
 
   // Triggered when no result is showed to a search term and send data to google analytics.
   // Check prevstate to avoid double counting.
-  componentDidUpdate(prevProps, prevState): void {
+  componentDidUpdate(
+    prevProps: StatVarHierarchySearchPropType,
+    prevState: StatVarHierarchySearchStateType
+  ): void {
     if (
       this.state.showNoResultsMessage &&
       !prevState.showNoResultsMessage &&
-      this.state.query
+      this.state.query &&
+      window &&
+      window.gtag
     ) {
       window.gtag("event", "tool_stat_var_search_no_result", {
         search_term: this.state.query,

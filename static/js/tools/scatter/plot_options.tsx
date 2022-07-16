@@ -88,7 +88,7 @@ function PlotOptions(): JSX.Element {
                     checked={y.value.perCapita}
                     onChange={(e) => {
                       y.setPerCapita(e.target.checked);
-                      if (!y.value.perCapita) {
+                      if (!y.value.perCapita && window && window.gtag) {
                         window.gtag("event", "tool_chart_option_click", {
                           tool_chart_option: "per capita",
                         });
@@ -107,7 +107,7 @@ function PlotOptions(): JSX.Element {
                   checked={y.value.log}
                   onChange={(e) => {
                     checkLog(y, e);
-                    if (!y.value.log) {
+                    if (!y.value.log && window && window.gtag) {
                       window.gtag("event", "tool_chart_option_click", {
                         tool_chart_option: "log scale",
                       });
@@ -133,7 +133,7 @@ function PlotOptions(): JSX.Element {
                     checked={x.value.perCapita}
                     onChange={(e) => {
                       x.setPerCapita(e.target.checked);
-                      if (!x.value.perCapita) {
+                      if (!x.value.perCapita && window && window.gtag) {
                         window.gtag("event", "tool_chart_option_click", {
                           tool_chart_option: "per capita",
                         });
@@ -152,7 +152,7 @@ function PlotOptions(): JSX.Element {
                   checked={x.value.log}
                   onChange={(e) => {
                     checkLog(x, e);
-                    if (!x.value.log) {
+                    if (!x.value.log && window && window.gtag) {
                       window.gtag("event", "tool_chart_option_click", {
                         tool_chart_option: "log scale",
                       });
@@ -176,9 +176,11 @@ function PlotOptions(): JSX.Element {
                     color="light"
                     onClick={() => {
                       swapAxes(x, y);
-                      window.gtag("event", "tool_chart_option_click", {
-                        tool_chart_option: "swap x and y axis",
-                      });
+                      window &&
+                        window.gtag &&
+                        window.gtag("event", "tool_chart_option_click", {
+                          tool_chart_option: "swap x and y axis",
+                        });
                     }}
                     className="plot-options-swap-button"
                   >
@@ -194,7 +196,7 @@ function PlotOptions(): JSX.Element {
                         checked={display.showQuadrants}
                         onChange={(e) => {
                           checkQuadrants(display, e);
-                          if (!display.showQuadrants) {
+                          if (!display.showQuadrants && window && window.gtag) {
                             window.gtag("event", "tool_chart_option_click", {
                               tool_chart_option: "show quadrants",
                             });
@@ -214,7 +216,7 @@ function PlotOptions(): JSX.Element {
                         checked={display.showLabels}
                         onChange={(e) => {
                           checkLabels(display, e);
-                          if (!display.showLabels) {
+                          if (!display.showLabels && window && window.gtag) {
                             window.gtag("event", "tool_chart_option_click", {
                               tool_chart_option: "show labels",
                             });
@@ -234,7 +236,7 @@ function PlotOptions(): JSX.Element {
                         checked={display.showDensity}
                         onChange={(e) => {
                           checkDensity(display, e);
-                          if (!display.showDensity) {
+                          if (!display.showDensity && window && window.gtag) {
                             window.gtag("event", "tool_chart_option_click", {
                               tool_chart_option: "show density",
                             });
@@ -261,9 +263,11 @@ function PlotOptions(): JSX.Element {
                       value={lowerBound}
                       onBlur={() => {
                         setLowerBound(place.value.lowerBound.toString());
-                        window.gtag("event", "tool_chart_option_click", {
-                          tool_chart_option: "filter by population",
-                        });
+                        window &&
+                          window.gtag &&
+                          window.gtag("event", "tool_chart_option_click", {
+                            tool_chart_option: "filter by population",
+                          });
                       }}
                     />
                   </FormGroup>
@@ -280,9 +284,11 @@ function PlotOptions(): JSX.Element {
                       value={upperBound}
                       onBlur={() => {
                         setUpperBound(place.value.upperBound.toString());
-                        window.gtag("event", "tool_chart_option_click", {
-                          tool_chart_option: "filter by population",
-                        });
+                        window &&
+                          window.gtag &&
+                          window.gtag("event", "tool_chart_option_click", {
+                            tool_chart_option: "filter by population",
+                          });
                       }}
                     />
                   </FormGroup>

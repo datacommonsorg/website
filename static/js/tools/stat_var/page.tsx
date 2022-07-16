@@ -79,7 +79,9 @@ class Page extends Component<unknown, PageStateType> {
           selectedSVs={{ [this.state.statVar]: {} }}
           selectSV={(sv) => {
             this.updateHash(sv);
-            window.gtag("event", "stat_var_selection", { stat_var: sv });
+            window &&
+              window.gtag &&
+              window.gtag("event", "stat_var_selection", { stat_var: sv });
           }}
         />
         <div id="plot-container">

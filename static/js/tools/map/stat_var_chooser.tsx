@@ -110,7 +110,9 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       selectedSVs={selectedSVs}
       selectSV={(svDcid) => {
         selectStatVar(statVar, display, placeInfo, svDcid);
-        window.gtag("event", "stat_var_selection", { stat_var: svDcid });
+        window &&
+          window.gtag &&
+          window.gtag("event", "stat_var_selection", { stat_var: svDcid });
       }}
     />
   );

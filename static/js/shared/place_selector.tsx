@@ -111,7 +111,9 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
               }
               addPlace={(e) => {
                 selectPlace(e, props.onPlaceSelected);
-                window.gtag("event", "place_selection", { place_dcid: e });
+                window &&
+                  window.gtag &&
+                  window.gtag("event", "place_selection", { place_dcid: e });
               }}
               removePlace={() =>
                 unselectPlace(props.onPlaceSelected, setChildPlaceTypes)

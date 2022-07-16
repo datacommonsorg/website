@@ -174,10 +174,12 @@ export function Chart(props: ChartProps): JSX.Element {
 
   // Triggered only when stat vars or places change and send data to google analytics.
   useEffect(() => {
-    window.gtag("event", "tool_chart_plot", {
-      stat_var: props.statVar.value.dcid,
-      place_dcid: props.placeInfo.enclosingPlace.dcid,
-    });
+    window &&
+      window.gtag &&
+      window.gtag("event", "tool_chart_plot", {
+        place_dcid: props.placeInfo.enclosingPlace.dcid,
+        stat_var: props.statVar.value.dcid,
+      });
   }, [props.statVar.value.dcid, props.placeInfo.enclosingPlace.dcid]);
 
   return (

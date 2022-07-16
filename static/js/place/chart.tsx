@@ -212,6 +212,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           <a
             href={source}
             onClick={() =>
+              window &&
+              window.gtag &&
               window.gtag("event", "place_chart_click", {
                 place_chart_click: "data from",
               })
@@ -293,9 +295,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 href="#"
                 onClick={(event) => {
                   this._handleEmbed(event);
-                  window.gtag("event", "place_chart_click", {
-                    place_chart_click: "export",
-                  });
+                  window &&
+                    window.gtag &&
+                    window.gtag("event", "place_chart_click", {
+                      place_chart_click: "export",
+                    });
                 }}
               >
                 <FormattedMessage
@@ -311,6 +315,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   rel="noopener noreferrer"
                   target="_blank"
                   onClick={() =>
+                    window &&
+                    window.gtag &&
                     window.gtag("event", "place_chart_click", {
                       place_chart_click: "explore more",
                     })

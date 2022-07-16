@@ -104,7 +104,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                     checked={props.isPerCapita}
                     onChange={() => {
                       props.onIsPerCapitaUpdated(!props.isPerCapita);
-                      if (!props.isPerCapita) {
+                      if (!props.isPerCapita && window && window.gtag) {
                         window.gtag("event", "tool_chart_option_click", {
                           tool_chart_option: "per capita",
                         });
@@ -122,9 +122,11 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
             facetListPromise={Promise.resolve(props.facetList)}
             onSvFacetIdUpdated={(svFacetId) => {
               props.onSvFacetIdUpdated(svFacetId);
-              window.gtag("event", "tool_chart_option_click", {
-                tool_chart_option: "edit sources",
-              });
+              window &&
+                window.gtag &&
+                window.gtag("event", "tool_chart_option_click", {
+                  tool_chart_option: "edit sources",
+                });
             }}
           />
         </div>

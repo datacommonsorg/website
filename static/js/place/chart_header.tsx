@@ -49,9 +49,11 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
             href={`/place/${this.props.place}?category=${this.props.text}`}
             text={this.props.categoryStrings[this.props.text]}
             handleClick={() =>
+              window &&
+              window.gtag &&
               window.gtag("event", "place_category_click", {
-                place_category_click_source: "chart header",
                 place_category_click: this.props.text,
+                place_category_click_source: "chart header",
               })
             }
           />
@@ -67,9 +69,11 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
                 }) + " ›"
               }
               handleClick={() =>
+                window &&
+                window.gtag &&
                 window.gtag("event", "place_category_click", {
-                  place_category_click_source: "more charts",
                   place_category_click: this.props.text,
+                  place_category_click_source: "more charts",
                 })
               }
             />

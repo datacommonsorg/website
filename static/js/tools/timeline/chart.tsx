@@ -162,7 +162,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                       "delta",
                       !this.props.delta
                     );
-                    if (!this.props.delta) {
+                    if (!this.props.delta && window && window.gtag) {
                       window.gtag("event", "tool_chart_option_click", {
                         tool_chart_option: "delta",
                       });
@@ -183,10 +183,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.resizeObserver = new ResizeObserver(this.handleWindowResize);
     this.resizeObserver.observe(this.svgContainer.current);
     // Triggered when the component is mounted and send data to google analytics.
-    window.gtag("event", "tool_chart_plot", {
-      stat_var: Object.keys(this.props.statVarInfos),
-      place_dcid: Object.keys(this.props.placeNames),
-    });
+    window &&
+      window.gtag &&
+      window.gtag("event", "tool_chart_plot", {
+        place_dcid: Object.keys(this.props.placeNames),
+        stat_var: Object.keys(this.props.statVarInfos),
+      });
   }
 
   componentWillUnmount(): void {
@@ -209,10 +211,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         Object.keys(prevProps.statVarInfos),
         Object.keys(this.props.statVarInfos)
       );
-    if (shouldTriggerGAEvent) {
+    if (shouldTriggerGAEvent && window && window.gtag) {
       window.gtag("event", "tool_chart_plot", {
-        stat_var: Object.keys(this.props.statVarInfos),
         place_dcid: Object.keys(this.props.placeNames),
+        stat_var: Object.keys(this.props.statVarInfos),
       });
     }
     // We only need to fetch the raw data when place, statvars or denom changes.

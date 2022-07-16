@@ -165,7 +165,9 @@ class Page extends Component<unknown, PageStateType> {
           selectedSVs={svToSvInfo}
           selectSV={(sv) => {
             addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-            window.gtag("event", "stat_var_selection", { stat_var: sv });
+            window &&
+              window.gtag &&
+              window.gtag("event", "stat_var_selection", { stat_var: sv });
           }}
         />
         <div id="plot-container">
@@ -181,9 +183,11 @@ class Page extends Component<unknown, PageStateType> {
                     places={this.state.placeName}
                     addPlace={(place) => {
                       addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
-                      window.gtag("event", "place_selection", {
-                        place_dcid: place,
-                      });
+                      window &&
+                        window.gtag &&
+                        window.gtag("event", "place_selection", {
+                          place_dcid: place,
+                        });
                     }}
                     removePlace={(place) => {
                       removeToken(
