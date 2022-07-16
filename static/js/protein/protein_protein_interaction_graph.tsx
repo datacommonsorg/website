@@ -114,7 +114,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
   render(): JSX.Element {
     return (
       <>
-        <div id="protein-interaction-graph" key={Number(_.isEmpty(this.props.interactionDataDepth1))}></div>
+        <div id="protein-interaction-graph"></div>
       </>
     );
   }
