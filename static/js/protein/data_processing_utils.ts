@@ -719,18 +719,6 @@ export function getProteinInteractionGraphData(
 }
 
 /**
- * Given an object mapping interaction IDs to confidence scores and the DCIDs of an interaction, return the score
- * of the interaction if it appears in the object, or the default score otherwise.
- */
-export function scoreFromInteractionDCID(
-  scoreRec: Record<string, number>,
-  interactionDCID: bioDCID,
-  defaultScore: number = DEFAULT_INTERACTION_SCORE
-): number {
-  return _.get(scoreRec, ppiIDFromDCID(interactionDCID), defaultScore);
-}
-
-/**
  * Given response and key, map each response datum to value of key and return map
  */
 export function getFromResponse<
@@ -773,8 +761,8 @@ export function scoreDataFromResponse(
   const interactionDCIDs = getFromResponse(scoreResponse, 'entity');
   const scoreList = scoreValues
     // filter results for IntactMiScore - there should be 0 or 1 match
-    .map((scoreRecList: V1BaseDatum[] | undefined) => {
-      if (scoreRecList !== undefined) {
+    .map((scoreRecList: V1BioDatum[] | undefined) => {
+      if (!_.isEmpty(scoreRecList)) {
         return scoreRecList.filter(({ dcid }) =>
           dcid.includes(INTERACTION_QUANTITY_DCID)
         );
