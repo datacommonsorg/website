@@ -41,6 +41,7 @@ import {
   scoreFromInteractionDCID,
   scoreFromProteinDCIDs,
   zip,
+  getLink,
 } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
 import { fetchInteractionData, fetchInteractionsThenScores, fetchScoreData } from "./requests";
@@ -191,14 +192,9 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
               // add an InteractionLink for each interaction
           filteredSorted.forEach((interactionDCID) => {
             const interactionID = idFromDCID(interactionDCID);
+            const targetID = getInteractionTarget(interactionID, parent.id)
             newLinks.push(
-             {
-              source: parent.id,
-              sourceID: parent.id,
-              target: getInteractionTarget(interactionID, parent.id),
-              targetID: getInteractionTarget(interactionID, parent.id),
-              score: scoresNewLayer[interactionID],
-            }
+              getLink(parent.id, targetID, scoresNewLayer[interactionID])
             )
           }
           )
@@ -217,13 +213,9 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
                 nodeDCID2
               );
               if (interactionScore > this.state.scoreThreshold){
-                terminalLinks.push({
-                  source: idFromDCID(nodeDCID1),
-                  sourceID: idFromDCID(nodeDCID1),
-                  target: idFromDCID(nodeDCID2),
-                  targetID: idFromDCID(nodeDCID2),
-                  score: interactionScore,
-                });
+                terminalLinks.push(
+                  getLink(idFromDCID(nodeDCID1), idFromDCID(nodeDCID2), interactionScore)
+                );
               }
             });
           });

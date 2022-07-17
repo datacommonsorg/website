@@ -678,6 +678,20 @@ export function nodeFromID(
 }
 
 /**
+ * Given interaction ID, source ID, and interaction score, return InteractionLink.  
+ * Note that we must store sourceID, targetID twice because d3 will replace source, target with SimulationNodeDatum objects after initialization.
+ */
+export function getLink(sourceID: string, targetID: string, score: number): InteractionLink{
+    return {
+      sourceID,
+      targetID,
+      score: score,
+      source: sourceID,
+      target: targetID,
+    }
+}
+
+/**
  * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
  * 
       {
