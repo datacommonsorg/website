@@ -3,35 +3,14 @@ import _ from "lodash";
 
 import { GraphNodes } from "../shared/types";
 import {
-  InteractionGraphDataNested,
-  InteractionLink,
-  ProteinNode,
   ProteinStrData,
 } from "./chart";
 import { ProteinNumData } from "./chart";
 import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
+import { ProteinNode, MultiLevelInteractionGraphData, InteractionLink, V1BaseDatum, V1Response, V1ResponseDatum } from "./types";
 
-// Base type of "values" value of objects stored in <V1 response>.data.data
-type V1BaseDatum = {
-  dcid: string;
-  name: string;
-  provenanceId: string;
-  types: string[];
-};
-
-// Generic for objects stored in <V1 response>.data.data
-type V1ResponseDatum<ValueDatum extends V1BaseDatum> = {
-  entity: string;
-  values: ValueDatum[];
-};
-
-// Generic for V1 response
-// Reference: https://github.com/axios/axios/blob/7d6bddba2d8de29c263feaef4c40daa50cb4b176/index.d.ts#L83
-type V1Response<ValueDatum extends V1BaseDatum> = AxiosResponse<{
-  data: V1ResponseDatum<ValueDatum>[];
-}>;
 
 // Upper bound on node degree in interaction graph viz's
 export const MAX_INTERACTIONS = 4;
@@ -697,7 +676,7 @@ export function nodeFromID(
  */
 export function getProteinInteractionGraphData(
   data: InteractingProteinType[]
-): InteractionGraphDataNested {
+): MultiLevelInteractionGraphData {
   // checks if the data is empty or not
   if (_.isEmpty(data)) {
     return;

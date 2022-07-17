@@ -26,6 +26,7 @@ import _ from "lodash";
 import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { DiseaseAssociationType, InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
+import { ProteinNode, InteractionLink } from "./types";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
   name: string;
@@ -36,41 +37,6 @@ export interface ProteinNumData {
 export interface ProteinStrData {
   name: string;
   value: string;
-}
-
-// interfaces for protein-protein interaction chart
-
-export interface Node {
-  id: string;
-  name: string;
-  value?: number;
-}
-
-// d3-force will add x,y,vx,vy data to ProteinNode after initialization
-// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
-export interface ProteinNode extends Node, SimulationNodeDatum {
-  depth: number;
-  species: string;
-}
-
-// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
-export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
-  score: number;
-}
-
-// Represents interaction graph as a list of nodes and list of links
-export interface InteractionGraphData {
-  nodeData: ProteinNode[];
-  linkData: InteractionLink[];
-}
-
-// Represents interaction graph depthwise as two parallel nested lists.  For each index i,
-// nodeDataNested[i] will contain the nodes added in i iterations of BFS,
-// and linkDataNested[i] will contain the links added in i iterations of BFS,
-// along with any links between nodesDataNested[i] and existing nodes in the graph.
-export interface InteractionGraphDataNested {
-  nodeDataNested: ProteinNode[][];
-  linkDataNested: InteractionLink[][];
 }
 
 // interface for variant gene associations for plotting error bars
