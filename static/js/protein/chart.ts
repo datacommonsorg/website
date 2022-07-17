@@ -26,7 +26,7 @@ import _ from "lodash";
 import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { DiseaseAssociationType, InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
-import { ProteinNode, InteractionLink, InteractionGraphData } from "./types";
+import { InteractionGraphData, InteractionLink, ProteinNode } from "./types";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
   name: string;
@@ -761,7 +761,7 @@ export function drawProteinInteractionChart(
  */
 export function drawProteinInteractionGraph(
   chartID: string,
-  data: InteractionGraphData,
+  data: InteractionGraphData
 ): void {
   /*
   References:

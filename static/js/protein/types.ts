@@ -61,7 +61,7 @@ export interface V1BaseDatum {
   name: string;
   provenanceId: string;
   types: string[];
-};
+}
 
 export interface V1BioDatum extends V1BaseDatum {
     dcid: bioDCID;

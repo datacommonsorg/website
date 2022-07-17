@@ -17,15 +17,21 @@
 import _ from "lodash";
 
 import { GraphNodes } from "../shared/types";
-import {
-  ProteinStrData,
-} from "./chart";
+import { ProteinStrData } from "./chart";
 import { ProteinNumData } from "./chart";
 import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
-import { ProteinNode, MultiLevelInteractionGraphData, InteractionLink, V1BaseDatum, V1Response, V1ResponseDatum, bioDCID, V1BioDatum } from "./types";
-
+import {
+  bioDCID,
+  InteractionLink,
+  MultiLevelInteractionGraphData,
+  ProteinNode,
+  V1BaseDatum,
+  V1BioDatum,
+  V1Response,
+  V1ResponseDatum,
+} from "./types";
 
 // Upper bound on node degree in interaction graph viz's
 export const MAX_INTERACTIONS = 4;
@@ -559,7 +565,7 @@ export function ppiIDFromDCID(dcid: bioDCID): string {
  * Given id, convert to DCID of form bio/<id>.  Utility for protein-protein interaction (PPI) graph.
  */
 export function ppiDCIDFromID(id): bioDCID {
-  console.assert(!(id.includes("bio/")), `Invalid ID: ${id}`)
+  console.assert(!id.includes("bio/"), `Invalid ID: ${id}`);
   return `bio/${id}`;
 }
 
@@ -580,11 +586,13 @@ export function quantityFromDCID(
  * Given interaction DCID of the form bio/{protein1}_{protein2} (e.g. bio/2A5D_YEAST_AHA1_YEAST),
  * return [protein1, protein2]
  */
-export function proteinsFromInteractionDCID(interactionDCID: bioDCID): [string, string] {
+export function proteinsFromInteractionDCID(
+  interactionDCID: bioDCID
+): [string, string] {
   const id = ppiIDFromDCID(interactionDCID);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
-  console.assert(split.length == 4, `Unsupported DCID: ${interactionDCID}`)
+  console.assert(split.length == 4, `Unsupported DCID: ${interactionDCID}`);
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
@@ -595,18 +603,18 @@ export function proteinsFromInteractionDCID(interactionDCID: bioDCID): [string, 
 export function deduplicateInteractionDCIDs(
   interactionDCIDs: bioDCID[]
 ): bioDCID[] {
-  const uniqueInteractionDCIDs: bioDCID[] = []
-  const interactions = new Set<[string, string]>(); 
-  interactionDCIDs.forEach(interactionDCID => {
+  const uniqueInteractionDCIDs: bioDCID[] = [];
+  const interactions = new Set<[string, string]>();
+  interactionDCIDs.forEach((interactionDCID) => {
     const proteins = proteinsFromInteractionDCID(interactionDCID);
-    if (!interactions.has(proteins)){
-      uniqueInteractionDCIDs.push(interactionDCID)
+    if (!interactions.has(proteins)) {
+      uniqueInteractionDCIDs.push(interactionDCID);
 
-      const [protein1, protein2] = proteins
-      interactions.add([protein1, protein2])
-      interactions.add([protein2, protein1])
+      const [protein1, protein2] = proteins;
+      interactions.add([protein1, protein2]);
+      interactions.add([protein2, protein1]);
     }
-  })
+  });
   return uniqueInteractionDCIDs;
 }
 
@@ -633,10 +641,7 @@ export function getInteractionTarget(
 /**
  * Given protein id of the form {protein name}_{species name} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
-export function nodeFromID(
-  proteinID: string,
-  depth: number
-): ProteinNode {
+export function nodeFromID(proteinID: string, depth: number): ProteinNode {
   // assumes {species name} does not contain _ (last checked: 06/22/22, when MINT was the provenance of all protein data)
   const lastIndex = proteinID.lastIndexOf("_");
   return {
@@ -678,7 +683,7 @@ export function getProteinInteractionGraphData(
   const centerNodeID = data[0].parent;
   let neighbors = data.map(({ name: interactionID, value }) => {
     // value is confidenceScore
-    console.log('id', interactionID)
+    console.log("id", interactionID);
     const neighborID = getInteractionTarget(
       interactionID as bioDCID,
       ppiDCIDFromID(centerNodeID)
@@ -742,8 +747,10 @@ export function symmetricScoreRec(
 ): Record<string, number> {
   const scoreRec = {};
   console.assert(interactionDCIDs.length == scores.length);
-  for(let i=0; i<interactionDCIDs.length; i++){
-    const [protein1, protein2] = proteinsFromInteractionDCID(interactionDCIDs[i]);
+  for (let i = 0; i < interactionDCIDs.length; i++) {
+    const [protein1, protein2] = proteinsFromInteractionDCID(
+      interactionDCIDs[i]
+    );
     scoreRec[`${protein1}_${protein2}`] = scores[i];
     scoreRec[`${protein2}_${protein1}`] = scores[i];
   }
@@ -757,23 +764,28 @@ export function symmetricScoreRec(
 export function scoreDataFromResponse(
   scoreResponse: V1Response<V1BioDatum>
 ): Record<string, number> {
-  const scoreValues = getFromResponse(scoreResponse, 'values');
-  const interactionDCIDs = getFromResponse(scoreResponse, 'entity');
+  const scoreValues = getFromResponse(scoreResponse, "values");
+  const interactionDCIDs = getFromResponse(scoreResponse, "entity");
   const scoreList = scoreValues
     // filter results for IntactMiScore - there should be 0 or 1 match
     .map((bioData: V1BioDatum[] | undefined) => {
-      if (_.isEmpty(bioData)){
+      if (_.isEmpty(bioData)) {
         return DEFAULT_INTERACTION_SCORE;
       }
-      const emptyOrInteractionSingleton = bioData.filter( bioDatum =>
-        !_.isEmpty(bioDatum) && bioDatum.dcid.includes(INTERACTION_QUANTITY_DCID)
+      const emptyOrInteractionSingleton = bioData.filter(
+        (bioDatum) =>
+          !_.isEmpty(bioDatum) &&
+          bioDatum.dcid.includes(INTERACTION_QUANTITY_DCID)
       );
-      if(_.isEmpty(emptyOrInteractionSingleton)){
+      if (_.isEmpty(emptyOrInteractionSingleton)) {
         return DEFAULT_INTERACTION_SCORE;
       }
       // if 1 match, return the retrieved IntactMiScore
-      console.assert(emptyOrInteractionSingleton.length == 1)
-      return quantityFromDCID(emptyOrInteractionSingleton[0].dcid, INTERACTION_QUANTITY_DCID);
-    })
+      console.assert(emptyOrInteractionSingleton.length == 1);
+      return quantityFromDCID(
+        emptyOrInteractionSingleton[0].dcid,
+        INTERACTION_QUANTITY_DCID
+      );
+    });
   return symmetricScoreRec(interactionDCIDs, scoreList);
 }
