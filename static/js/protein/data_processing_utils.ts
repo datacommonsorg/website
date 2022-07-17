@@ -596,9 +596,10 @@ export function quantityFromDCID(
 }
 
 /**
- * Given interaction DCID of the form bio/{protein1}_{protein2}, return [protein1, protein2]
+ * Given interaction DCID of the form bio/{protein1}_{protein2} (e.g. bio/2A5D_YEAST_AHA1_YEAST),
+ * return [protein1, protein2]
  */
-export function proteinsFromInteractionDCID(interactionDCID: bioDCID): string[] {
+export function proteinsFromInteractionDCID(interactionDCID: bioDCID): [string, string] {
   const id = ppiIDFromDCID(interactionDCID);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
@@ -609,29 +610,25 @@ export function proteinsFromInteractionDCID(interactionDCID: bioDCID): string[] 
 }
 
 /**
- * Given interactionDCID of the form {protein 1}_{protein 2}, return ID of the same form
- * but with protein 1, protein 2 in alpha order.
- */
-function sortInteractionDCID(interactionDCID: bioDCID): string {
-  const proteins = proteinsFromInteractionDCID(interactionDCID);
-  // sort proteins alphabetically so A_B and B_A map to the same ID A_B
-  const proteinsSorted = proteins.sort((p1, p2) => p1.localeCompare(p2));
-  return ppiDCIDFromID(proteinsSorted.join("_"));
-}
-
-/**
  * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A),
  * keep only one.
  */
 export function deduplicateInteractionDCIDs(
   interactionDCIDs: bioDCID[]
 ): bioDCID[] {
-  // Can't just use Set here because not guaranteed that A_B in list implies B_A in list,
-  // so we need to keep track of which order is the true DCID corresponding to an entity in the response.
-  // Counterexample: http://datacommons.org/browser/bio/KLOTB_HUMAN
-  return Object.values(
-    objectFromArray(interactionDCIDs, sortInteractionDCID, (dcid) => dcid)
-  );
+  const uniqueInteractionDCIDs: bioDCID[] = []
+  const interactions = new Set<[string, string]>(); 
+  interactionDCIDs.forEach(interactionDCID => {
+    const proteins = proteinsFromInteractionDCID(interactionDCID);
+    if (!interactions.has(proteins)){
+      uniqueInteractionDCIDs.push(interactionDCID)
+
+      const [protein1, protein2] = proteins
+      interactions.add([protein1, protein2])
+      interactions.add([protein2, protein1])
+    }
+  })
+  return uniqueInteractionDCIDs;
 }
 
 /**
