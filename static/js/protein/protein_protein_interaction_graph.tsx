@@ -31,86 +31,93 @@ import {
 import {
   dcidFromID,
   deduplicateInteractionDCIDs,
+  getFromResponse,
   getInteractionTarget,
+  getLink,
   getProteinInteractionGraphData,
   idFromDCID,
   MAX_INTERACTIONS,
   nodeFromID,
-  getFromResponse,
   scoreDataFromResponse,
   scoreFromInteractionDCID,
   scoreFromProteinDCIDs,
   zip,
-  getLink,
 } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
-import { fetchInteractionData, fetchInteractionsThenScores, fetchScoreData } from "./requests";
+import {
+  fetchInteractionData,
+  fetchInteractionsThenScores,
+  fetchScoreData,
+} from "./requests";
 
 type InteractionGraphProps = {
-    centerProteinDCID: string;
-    interactionDataDepth1: InteractingProteinType[]
-}
+  centerProteinDCID: string;
+  interactionDataDepth1: InteractingProteinType[];
+};
 
 type InteractionGraphState = {
-    graphData: InteractionGraphDataNested;
-    depth: number;
-    scoreThreshold: number;
-    maxInteractions: number;
-}
+  graphData: InteractionGraphDataNested;
+  depth: number;
+  scoreThreshold: number;
+  maxInteractions: number;
+};
 
 const DEFAULTS = {
-    DEPTH: 2,
-    MAX_INTERACTIONS: 4,
-    SCORE_THRESHOLD: 0.4
-}
+  DEPTH: 2,
+  MAX_INTERACTIONS: 4,
+  SCORE_THRESHOLD: 0.4,
+};
 
-export class ProteinProteinInteractionGraph extends React.Component<InteractionGraphProps, InteractionGraphState> {
+export class ProteinProteinInteractionGraph extends React.Component<
+  InteractionGraphProps,
+  InteractionGraphState
+> {
   mounted: boolean;
   constructor(props: InteractionGraphProps) {
     super(props);
     this.mounted = true;
     this.state = {
-        graphData: getProteinInteractionGraphData(props.interactionDataDepth1),
-        depth: DEFAULTS.DEPTH,
-        scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
-        maxInteractions: DEFAULTS.MAX_INTERACTIONS,
-    }
+      graphData: getProteinInteractionGraphData(props.interactionDataDepth1),
+      depth: DEFAULTS.DEPTH,
+      scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
+      maxInteractions: DEFAULTS.MAX_INTERACTIONS,
+    };
   }
 
   componentDidMount(): void {
-    if (_.isEmpty(this.state.graphData)){
-      return
+    if (_.isEmpty(this.state.graphData)) {
+      return;
     }
     const graphData = _.cloneDeep(this.state.graphData);
-    const expansions = this.bfsIter(graphData).then(
-      () => this.bfsIter(graphData)
-    )
-//   let expansions = Promise.resolve();
-//   for (let i = 0; i < this.state.depth; i++){
-//     expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
-//   }
-    expansions.then(() => 
-    {
-        this.setState({
-            graphData
-    })
+    const expansions = this.bfsIter(graphData).then(() =>
+      this.bfsIter(graphData)
+    );
+    //   let expansions = Promise.resolve();
+    //   for (let i = 0; i < this.state.depth; i++){
+    //     expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
+    //   }
+    expansions.then(() => {
+      this.setState({
+        graphData,
+      });
     });
   }
 
   componentDidUpdate(): void {
-    if(_.isEmpty(this.state.graphData)){
+    if (_.isEmpty(this.state.graphData)) {
       return;
     }
-    drawProteinInteractionGraph(
-      "protein-interaction-graph",
-            {
-              nodeData: this.state.graphData.nodeDataNested.slice(0, this.state.depth+1).flat(1),
-              linkData: this.state.graphData.linkDataNested.slice(0, this.state.depth+1).flat(1)
-            },
-    );
+    drawProteinInteractionGraph("protein-interaction-graph", {
+      nodeData: this.state.graphData.nodeDataNested
+        .slice(0, this.state.depth + 1)
+        .flat(1),
+      linkData: this.state.graphData.linkDataNested
+        .slice(0, this.state.depth + 1)
+        .flat(1),
+    });
   }
 
-  componentWillUnmount(): void{
+  componentWillUnmount(): void {
     this.mounted = false;
   }
 
@@ -124,125 +131,122 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
 
   /**
    * Given graph data, performs one iteration of BFS to add one layer to graph data.
-   * 
+   *
    * Mutates: graphData
-   * Notes: 
+   * Notes:
    * - We choose not to setState here to avoid unnecessary rerendering when we
    * chain multiple calls to this method in BFS.
    */
   private bfsIter(graphData: InteractionGraphDataNested) {
-      const nodesLastLayer = _.last(graphData.nodeDataNested);
-      // TODO: just store both id, dcid in node datum
-      const nodeDCIDsLastLayer = nodesLastLayer.map(
-        (nodeDatum) => dcidFromID(nodeDatum.id)
-      );
+    const nodesLastLayer = _.last(graphData.nodeDataNested);
+    const nodeDCIDsLastLayer = nodesLastLayer.map((nodeDatum) =>
+      dcidFromID(nodeDatum.id)
+    );
 
-      const proteinDCIDSet = new Set(
-        graphData.nodeDataNested.flat(1).map(node => dcidFromID(node.id))
-      );
+    const proteinDCIDSet = new Set(
+      graphData.nodeDataNested.flat(1).map((node) => dcidFromID(node.id))
+    );
 
-      const linkSet = new Set<string[]>()
-      graphData.linkDataNested.flat(1).forEach((linkDatum) => {
-        linkSet.add([linkDatum.sourceID, linkDatum.targetID])
-        linkSet.add([linkDatum.targetID, linkDatum.sourceID])
-      })
+    const linkSet = new Set<string[]>();
+    graphData.linkDataNested.flat(1).forEach((linkDatum) => {
+      linkSet.add([linkDatum.sourceID, linkDatum.targetID]);
+      linkSet.add([linkDatum.targetID, linkDatum.sourceID]);
+    });
 
-      const expandPromise = fetchInteractionsThenScores(nodeDCIDsLastLayer).then(([interactionData, scoreResp]) => {
-          
-          // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
-          // This object serves two purposes:
-          // 1) O(1) interaction score retrieval
-          // 2) O(1) check for whether a given protein interacts with a depth 1 protein
-          const scoresNewLayer = scoreDataFromResponse(scoreResp);
+    const expandPromise = fetchInteractionsThenScores(nodeDCIDsLastLayer).then(
+      ([interactionData, scoreResp]) => {
+        // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
+        // This object serves two purposes:
+        // 1) O(1) interaction score retrieval
+        // 2) O(1) check for whether a given protein interacts with a depth 1 protein
+        const scoresNewLayer = scoreDataFromResponse(scoreResp);
 
-          // To store links retrieved from response between last layer and new layer
-          const expansionLinks: InteractionLink[] = [];
-          // To store new links retrieved from response between last layer and itself and all previous layers
-          const terminalLinks: InteractionLink[] = [];
-          console.assert(interactionData.length == nodesLastLayer.length)
-          for(let i=0; i<interactionData.length; i++){
-            const dcidArray = interactionData[i]
-            const parent = nodesLastLayer[i]
-            const filteredSorted = dcidArray
+        // To store links retrieved from response between last layer and new layer
+        const expansionLinks: InteractionLink[] = [];
+        // To store new links retrieved from response between last layer and itself and all previous layers
+        const terminalLinks: InteractionLink[] = [];
+        console.assert(interactionData.length == nodesLastLayer.length);
+        for (let i = 0; i < interactionData.length; i++) {
+          const dcidArray = interactionData[i];
+          const parent = nodesLastLayer[i];
+          const filteredSorted = dcidArray
             // we filter for two conditions:
-            // 1) child protein can't already be in the graph 
+            // 1) child protein can't already be in the graph
             //    (we want to add ${this.state.maxInteractors} *new* children per parent, if they exist)
             // 2) parent-child interaction confidence score must be above ${this.state.scoreThreshold}
-              .filter((interactionDCID) => {
-                const childDCID = getInteractionTarget(
-                  idFromDCID(interactionDCID),
-                  parent.id,
-                  true
-                );
-                return (
-                  !proteinDCIDSet.has(childDCID) &&
-                  scoreFromInteractionDCID(scoresNewLayer, interactionDCID) >=
-                    this.state.scoreThreshold
-                );
-              })
-              // Sort in descending order of interaction confidence score.  
+            .filter((interactionDCID) => {
+              const childDCID = getInteractionTarget(
+                idFromDCID(interactionDCID),
+                parent.id,
+                true
+              );
+              return (
+                !proteinDCIDSet.has(childDCID) &&
+                scoreFromInteractionDCID(scoresNewLayer, interactionDCID) >=
+                  this.state.scoreThreshold
+              );
+            })
+            // Sort in descending order of interaction confidence score.
 
-              // There's a tradeoff here between initial load time and responsiveness to user-input.
-              // Currently we filter before sorting, which makes the initial load cheaper,
-              // But we would have to re-sort on new user-input.
-              // Another option is to pay the one-time up-front cost of sorting the unfiltered interaction list and cache.
-              .sort(
-                (interactionDCID1, interactionDCID2) =>
-                  scoreFromInteractionDCID(scoresNewLayer, interactionDCID1) -
-                  scoreFromInteractionDCID(scoresNewLayer, interactionDCID2)
-              )
-              .slice(0, this.state.maxInteractions)
-            
-              // add an InteractionLink for each interaction
+            // There's a tradeoff here between initial load time and responsiveness to user-input.
+            // Currently we filter before sorting, which makes the initial load cheaper,
+            // But we would have to re-sort on new user-input.
+            // Another option is to pay the one-time up-front cost of sorting the unfiltered interaction list and cache.
+            .sort(
+              (interactionDCID1, interactionDCID2) =>
+                scoreFromInteractionDCID(scoresNewLayer, interactionDCID1) -
+                scoreFromInteractionDCID(scoresNewLayer, interactionDCID2)
+            )
+            .slice(0, this.state.maxInteractions);
+
+          // add an InteractionLink for each interaction
           filteredSorted.forEach((interactionDCID) => {
             const interactionID = idFromDCID(interactionDCID);
-            const targetID = getInteractionTarget(interactionID, parent.id)
+            const targetID = getInteractionTarget(interactionID, parent.id);
             expansionLinks.push(
               getLink(parent.id, targetID, scoresNewLayer[interactionID])
-            )
-          }
-          )
-          }
-
-          // check if any of the proteins in the layer we just expanded interact with each other or previous proteins
-          nodeDCIDsLastLayer.forEach((nodeDCID1) => {
-            proteinDCIDSet.forEach((nodeDCID2) => {
-
-              const [nodeID1, nodeID2] = [nodeDCID1, nodeDCID2].map(idFromDCID)
-
-              if (linkSet.has([nodeID1, nodeID2])){
-                return;
-              }
-
-              const interactionScore = scoreFromProteinDCIDs(
-                scoresNewLayer,
-                nodeDCID1,
-                nodeDCID2
-              );
-              if (interactionScore > this.state.scoreThreshold){
-                terminalLinks.push(
-                  getLink(nodeID1, nodeID2, interactionScore)
-                );
-              }
-            });
+            );
           });
+        }
 
-          // deduplicate target IDs to get set of new node IDs
-          const newNodeIDs = new Set(expansionLinks.map(({ targetID }) => targetID));
+        // check if any of the proteins in the layer we just expanded interact with each other or previous proteins
+        nodeDCIDsLastLayer.forEach((nodeDCID1) => {
+          proteinDCIDSet.forEach((nodeDCID2) => {
+            const [nodeID1, nodeID2] = [nodeDCID1, nodeDCID2].map(idFromDCID);
 
-          // TODO: nodes are currently colored by the group they're added with, but should be colored by min(parent.depth)
-          // (if node is discovered after 2 iterations of BFS but the center protein is added as a parent during the terminal link stage,
-          //  node should be assigned depth 1)
-          const newNodes = Array.from(newNodeIDs).map((id) =>
-            nodeFromID(id, graphData.nodeDataNested.length)
-          ); 
+            if (linkSet.has([nodeID1, nodeID2])) {
+              return;
+            }
 
-          _.last(graphData.linkDataNested).push(...terminalLinks);
-          graphData.nodeDataNested.push(newNodes);
-          graphData.linkDataNested.push(expansionLinks);
-        })
+            const interactionScore = scoreFromProteinDCIDs(
+              scoresNewLayer,
+              nodeDCID1,
+              nodeDCID2
+            );
+            if (interactionScore > this.state.scoreThreshold) {
+              terminalLinks.push(getLink(nodeID1, nodeID2, interactionScore));
+            }
+          });
+        });
 
-        return expandPromise;
+        // deduplicate target IDs to get set of new node IDs
+        const newNodeIDs = new Set(
+          expansionLinks.map(({ targetID }) => targetID)
+        );
+
+        // TODO: nodes are currently colored by the group they're added with, but should be colored by min(parent.depth)
+        // (if node is discovered after 2 iterations of BFS but the center protein is added as a parent during the terminal link stage,
+        //  node should be assigned depth 1)
+        const newNodes = Array.from(newNodeIDs).map((id) =>
+          nodeFromID(id, graphData.nodeDataNested.length)
+        );
+
+        _.last(graphData.linkDataNested).push(...terminalLinks);
+        graphData.nodeDataNested.push(newNodes);
+        graphData.linkDataNested.push(expansionLinks);
+      }
+    );
+
+    return expandPromise;
   }
-
 }

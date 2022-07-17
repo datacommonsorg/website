@@ -678,17 +678,21 @@ export function nodeFromID(
 }
 
 /**
- * Given interaction ID, source ID, and interaction score, return InteractionLink.  
+ * Given interaction ID, source ID, and interaction score, return InteractionLink.
  * Note that we must store sourceID, targetID twice because d3 will replace source, target with SimulationNodeDatum objects after initialization.
  */
-export function getLink(sourceID: string, targetID: string, score: number): InteractionLink{
-    return {
-      sourceID,
-      targetID,
-      score: score,
-      source: sourceID,
-      target: targetID,
-    }
+export function getLink(
+  sourceID: string,
+  targetID: string,
+  score: number
+): InteractionLink {
+  return {
+    sourceID,
+    targetID,
+    score: score,
+    source: sourceID,
+    target: targetID,
+  };
 }
 
 /**
@@ -753,7 +757,7 @@ export function getProteinInteractionGraphData(
       source: centerNodeID,
       sourceID: centerNodeID,
       target: node.id,
-      targetID: node.id
+      targetID: node.id,
     };
   });
 

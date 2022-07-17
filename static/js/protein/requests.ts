@@ -55,10 +55,15 @@ export function fetchInteractionsThenScores(
   proteinDCIDs: string[]
 ): Promise<[string[][], V1Response<V1BaseDatum>]> {
   return fetchInteractionData(proteinDCIDs).then((resp) => {
-    const interactionData = valuesFromResponse(resp).map((interactions) => {
-      return interactions.map(({ dcid }) => dcid);
-    }).map(deduplicateInteractionDCIDs);
+    const interactionData = valuesFromResponse(resp)
+      .map((interactions) => {
+        return interactions.map(({ dcid }) => dcid);
+      })
+      .map(deduplicateInteractionDCIDs);
 
-    return fetchScoreData(interactionData.flat(1)).then(resp => [interactionData, resp])
+    return fetchScoreData(interactionData.flat(1)).then((resp) => [
+      interactionData,
+      resp,
+    ]);
   });
 }

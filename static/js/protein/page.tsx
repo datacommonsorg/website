@@ -25,7 +25,6 @@ import React from "react";
 import { SourceMapDevToolPlugin } from "webpack";
 
 import { GraphNodes } from "../shared/types";
-import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
 import {
   drawChemGeneAssocChart,
   drawDiseaseGeneAssocChart,
@@ -45,6 +44,7 @@ import {
   deduplicateInteractionDCIDs,
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
+  getFromResponse,
   getInteractionTarget,
   getProteinDescription,
   getProteinInteraction,
@@ -56,13 +56,13 @@ import {
   idFromDCID,
   MAX_INTERACTIONS,
   nodeFromID,
-  getFromResponse,
   scoreDataFromResponse,
   scoreFromInteractionDCID,
   scoreFromProteinDCIDs,
-  zip,
   valuesFromResponse,
+  zip,
 } from "./data_processing_utils";
+import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
 import { fetchInteractionData, fetchScoreData } from "./requests";
 export interface PagePropType {
   dcid: string;
@@ -71,7 +71,7 @@ export interface PagePropType {
 
 export interface PageStateType {
   data: GraphNodes;
-  interactionDataDepth1: InteractingProteinType[]
+  interactionDataDepth1: InteractingProteinType[];
 }
 
 export interface ProteinVarType {
@@ -170,7 +170,11 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           associations by interaction score are displayed.
         </p>
         <div id="protein-confidence-score-chart"></div>
-        <ProteinProteinInteractionGraph centerProteinDCID={this.props.dcid} interactionDataDepth1={this.state.interactionDataDepth1} key={Number(_.isEmpty(this.state.interactionDataDepth1))}/>
+        <ProteinProteinInteractionGraph
+          centerProteinDCID={this.props.dcid}
+          interactionDataDepth1={this.state.interactionDataDepth1}
+          key={Number(_.isEmpty(this.state.interactionDataDepth1))}
+        />
         <div id="protein-interaction-graph"></div>
         <h5>Disease Gene Association</h5>
         <p>
@@ -217,13 +221,12 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     axios.get(`/api/protein/${this.props.dcid}`).then((resp) => {
       const interactionDataDepth1 = getProteinInteraction(
         resp.data,
-        idFromDCID(this.props.dcid),
+        idFromDCID(this.props.dcid)
       );
-         this.setState({
-            data: resp.data,
-            interactionDataDepth1: interactionDataDepth1,
-        });
-      }
-    )
-}
+      this.setState({
+        data: resp.data,
+        interactionDataDepth1: interactionDataDepth1,
+      });
+    });
+  }
 }
