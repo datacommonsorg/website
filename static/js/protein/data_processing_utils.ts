@@ -761,10 +761,10 @@ export function scoreDataFromResponse(
   const interactionDCIDs = getFromResponse(scoreResponse, 'entity');
   const scoreList = scoreValues
     // filter results for IntactMiScore - there should be 0 or 1 match
-    .map((scoreRecList: V1BioDatum[] | undefined) => {
-      if (!_.isEmpty(scoreRecList)) {
-        return scoreRecList.filter(({ dcid }) =>
-          dcid.includes(INTERACTION_QUANTITY_DCID)
+    .map((bioData: V1BioDatum[] | undefined) => {
+      if (!_.isEmpty(bioData)) {
+        return bioData.filter( bioDatum =>
+          !_.isEmpty(bioDatum) && bioDatum.dcid.includes(INTERACTION_QUANTITY_DCID)
         );
       }
       return [];
