@@ -762,17 +762,18 @@ export function scoreDataFromResponse(
   const scoreList = scoreValues
     // filter results for IntactMiScore - there should be 0 or 1 match
     .map((bioData: V1BioDatum[] | undefined) => {
-      if (!_.isEmpty(bioData)) {
-        return bioData.filter( bioDatum =>
-          !_.isEmpty(bioDatum) && bioDatum.dcid.includes(INTERACTION_QUANTITY_DCID)
-        );
+      if (_.isEmpty(bioData)){
+        return DEFAULT_INTERACTION_SCORE;
       }
-      return [];
+      const emptyOrInteractionSingleton = bioData.filter( bioDatum =>
+        !_.isEmpty(bioDatum) && bioDatum.dcid.includes(INTERACTION_QUANTITY_DCID)
+      );
+      if(_.isEmpty(emptyOrInteractionSingleton)){
+        return DEFAULT_INTERACTION_SCORE;
+      }
+      // if 1 match, return the retrieved IntactMiScore
+      console.assert(emptyOrInteractionSingleton.length == 1)
+      return quantityFromDCID(emptyOrInteractionSingleton[0].dcid, INTERACTION_QUANTITY_DCID);
     })
-    // if 1 match, return the retrieved IntactMiScore, and otherwise the default score.
-    .map((scoreRecList: V1BioDatum[]) => {
-      if (_.isEmpty(scoreRecList)) return DEFAULT_INTERACTION_SCORE;
-      return quantityFromDCID(scoreRecList[0].dcid, INTERACTION_QUANTITY_DCID);
-    });
   return symmetricScoreRec(interactionDCIDs, scoreList);
 }
