@@ -57,8 +57,8 @@ export function fetchInteractionsThenScores(
   return fetchInteractionData(proteinDCIDs).then((resp) => {
     const interactionData = valuesFromResponse(resp).map((interactions) => {
       return interactions.map(({ dcid }) => dcid);
-    });
+    }).map(deduplicateInteractionDCIDs);
 
-    return fetchScoreData(interactionData.map(deduplicateInteractionDCIDs).flat(1)).then(resp => [interactionData, resp])
+    return fetchScoreData(interactionData.flat(1)).then(resp => [interactionData, resp])
   });
 }
