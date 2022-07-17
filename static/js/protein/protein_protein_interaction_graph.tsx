@@ -176,14 +176,15 @@ export class ProteinProteinInteractionGraph extends React.Component<
             //    (we want to add ${this.state.maxInteractors} *new* children per parent, if they exist)
             // 2) parent-child interaction confidence score must be above ${this.state.scoreThreshold}
             .filter((interactionDCID) => {
+              const interactionID = idFromDCID(interactionDCID);
               const childDCID = getInteractionTarget(
-                idFromDCID(interactionDCID),
+                interactionID,
                 parent.id,
                 true
               );
               return (
                 !proteinDCIDSet.has(childDCID) &&
-                scoreFromInteractionDCID(scoresNewLayer, interactionDCID) >=
+                _.get(scoresNewLayer, interactionID, DEFAULTS.MISSING_SCORE_FILLER) >=
                   this.state.scoreThreshold
               );
             })
@@ -195,8 +196,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
             // Another option is to pay the one-time up-front cost of sorting the unfiltered interaction list and cache.
             .sort(
               (interactionDCID1, interactionDCID2) =>
-                scoreFromInteractionDCID(scoresNewLayer, interactionDCID1) -
-                scoreFromInteractionDCID(scoresNewLayer, interactionDCID2)
+              {
+                const [score1, score2] = [interactionDCID1, interactionDCID2].map(dcid => _.get(scoresNewLayer, idFromDCID(dcid), DEFAULTS.MISSING_SCORE_FILLER));
+                return score1 - score2;
+              }
             )
             .slice(0, this.state.maxInteractions);
 
