@@ -785,18 +785,6 @@ export function scoreFromProteinDCIDs(
 }
 
 /**
- * Given an object mapping interaction IDs to confidence scores and the DCIDs of an interaction, return the score
- * of the interaction if it appears in the object, or the default score otherwise.
- */
-export function scoreFromInteractionDCID(
-  scoreRec: Record<string, number>,
-  interactionDCID: string,
-  defaultScore: number = DEFAULT_INTERACTION_SCORE
-): number {
-  return _.get(scoreRec, idFromDCID(interactionDCID), defaultScore);
-}
-
-/**
  * Given response and key, map each response datum to value of key and return map
  */
 export function getFromResponse<
