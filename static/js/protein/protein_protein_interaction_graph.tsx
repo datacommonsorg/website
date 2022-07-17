@@ -66,6 +66,7 @@ const DEFAULTS = {
   DEPTH: 2,
   MAX_INTERACTIONS: 4,
   SCORE_THRESHOLD: 0.4,
+  MISSING_SCORE_FILLER: -1, 
 };
 
 export class ProteinProteinInteractionGraph extends React.Component<
@@ -218,11 +219,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
               return;
             }
 
-            const interactionScore = scoreFromProteinDCIDs(
-              scoresNewLayer,
-              nodeDCID1,
-              nodeDCID2
-            );
+            const interactionScore = _.get(scoresNewLayer, `${nodeID1}_${nodeID2}`, DEFAULTS.MISSING_SCORE_FILLER);
             if (interactionScore > this.state.scoreThreshold) {
               terminalLinks.push(getLink(nodeID1, nodeID2, interactionScore));
             }
