@@ -18,7 +18,9 @@ import { AxiosResponse } from "axios";
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 
 
-// interfaces for protein-protein interaction chart
+export type bioDCID = `bio/${string}`
+
+// interfaces for protein-protein interaction graph
 
 export interface Node {
   id: string;
@@ -54,16 +56,20 @@ export interface MultiLevelInteractionGraphData {
 }
 
 // Base type of "values" value of objects stored in <V1 response>.data.data
-export type V1BaseDatum = {
+export interface V1BaseDatum {
   dcid: string;
   name: string;
   provenanceId: string;
   types: string[];
 };
 
+export interface V1BioDatum extends V1BaseDatum {
+    dcid: bioDCID;
+}
+
 // Generic for objects stored in <V1 response>.data.data
 export type V1ResponseDatum<ValueDatum extends V1BaseDatum> = {
-  entity: string;
+  entity: ValueDatum['dcid'];
   values: ValueDatum[];
 };
 
