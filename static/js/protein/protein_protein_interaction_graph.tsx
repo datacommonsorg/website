@@ -42,7 +42,7 @@ import {
   zip,
 } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
-import { fetchInteractionData, fetchScoreData } from "./requests";
+import { fetchInteractionData, fetchInteractionsThenScores, fetchScoreData } from "./requests";
 
 type InteractionGraphProps = {
     centerProteinDCID: string;
@@ -80,8 +80,8 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
       return
     }
     const graphData = _.cloneDeep(this.state.graphData);
-    const expansions = this.expandProteinInteractionGraph(graphData).then(
-      () => this.expandProteinInteractionGraph(graphData)
+    const expansions = this.bfsIter(graphData).then(
+      () => this.bfsIter(graphData)
     )
 //   let expansions = Promise.resolve();
 //   for (let i = 0; i < this.state.depth; i++){
@@ -127,28 +127,17 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
    * Notes: We choose not to setState here to avoid unnecessary rerendering when we
    * chain multiple calls to this method in BFS.
    */
-  private expandProteinInteractionGraph(graphData: InteractionGraphDataNested) {
+  private bfsIter(graphData: InteractionGraphDataNested) {
       const nodesLastLayer = _.last(graphData.nodeDataNested);
       const nodeDCIDsLastLayer = nodesLastLayer.map(
         (nodeDatum) => dcidFromID(nodeDatum.id)
       );
+
       const proteinDCIDSet = new Set(
         graphData.nodeDataNested.flat(1).map(node => dcidFromID(node.id))
       );
 
-      const expandPromise = fetchInteractionData(nodeDCIDsLastLayer).then((interactionResp) => {
-        const interactionData = getFromResponse(interactionResp, "values").map(
-          (interactions) => {
-            return interactions.map(({ dcid }) => dcid);
-          }
-        );
-        const interactionDataDedup = interactionData.map(
-          deduplicateInteractionDCIDs
-        );
-        const interactionDCIDsDedup = interactionDataDedup.flat(1);
-
-
-        const scorePromise = fetchScoreData(interactionDCIDsDedup).then((scoreResp) => {
+      const expandPromise = fetchInteractionsThenScores(nodeDCIDsLastLayer).then(([interactionDataDedup, scoreResp]) => {
           
           // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
           // This object serves two purposes:
@@ -156,7 +145,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
           // 2) O(1) check for whether a given protein interacts with a depth 1 protein
           const scoresNewLayer = scoreDataFromResponse(scoreResp);
 
-          const interactionDataSorted = zip(interactionDataDedup, nodesLastLayer).map(([dcidArray, parent]) =>
+          const interactionDataFilteredSorted = zip(interactionDataDedup, nodesLastLayer).map(([dcidArray, parent]) =>
             dcidArray
               .filter((interactionDCID) => {
                 const childDCID = getInteractionTarget(
@@ -177,8 +166,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
               )
           );
 
-
-          const interactionDataTruncated = interactionDataSorted.map(
+          const interactionDataTruncated = interactionDataFilteredSorted.map(
             (dcidArray) => dcidArray.slice(0, this.state.maxInteractions)
           );
 
@@ -229,9 +217,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
           graphData.nodeDataNested.push(newNodes);
           graphData.linkDataNested.push(newLinks);
         })
-        return scorePromise;
-      })
-      return expandPromise;
+        return expandPromise;
   }
 
 }
