@@ -126,7 +126,8 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
    * Given graph data, performs one iteration of BFS to add one layer to graph data.
    * 
    * Mutates: graphData
-   * Notes: We choose not to setState here to avoid unnecessary rerendering when we
+   * Notes: 
+   * - We choose not to setState here to avoid unnecessary rerendering when we
    * chain multiple calls to this method in BFS.
    */
   private bfsIter(graphData: InteractionGraphDataNested) {
@@ -146,7 +147,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
         linkSet.add([linkDatum.targetID, linkDatum.sourceID])
       })
 
-      const expandPromise = fetchInteractionsThenScores(nodeDCIDsLastLayer).then(([interactionDataDedup, scoreResp]) => {
+      const expandPromise = fetchInteractionsThenScores(nodeDCIDsLastLayer).then(([interactionData, scoreResp]) => {
           
           // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
           // This object serves two purposes:
@@ -154,10 +155,13 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
           // 2) O(1) check for whether a given protein interacts with a depth 1 protein
           const scoresNewLayer = scoreDataFromResponse(scoreResp);
 
-          const newLinks: InteractionLink[] = [];
-          console.assert(interactionDataDedup.length == nodesLastLayer.length)
-          for(let i=0; i<interactionDataDedup.length; i++){
-            const dcidArray = interactionDataDedup[i]
+          // To store links retrieved from response between last layer and new layer
+          const expansionLinks: InteractionLink[] = [];
+          // To store new links retrieved from response between last layer and itself and all previous layers
+          const terminalLinks: InteractionLink[] = [];
+          console.assert(interactionData.length == nodesLastLayer.length)
+          for(let i=0; i<interactionData.length; i++){
+            const dcidArray = interactionData[i]
             const parent = nodesLastLayer[i]
             const filteredSorted = dcidArray
             // we filter for two conditions:
@@ -193,7 +197,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
           filteredSorted.forEach((interactionDCID) => {
             const interactionID = idFromDCID(interactionDCID);
             const targetID = getInteractionTarget(interactionID, parent.id)
-            newLinks.push(
+            expansionLinks.push(
               getLink(parent.id, targetID, scoresNewLayer[interactionID])
             )
           }
@@ -201,12 +205,15 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
           }
 
           // check if any of the proteins in the layer we just expanded interact with each other or previous proteins
-          const terminalLinks: InteractionLink[] = [];
           nodeDCIDsLastLayer.forEach((nodeDCID1) => {
             proteinDCIDSet.forEach((nodeDCID2) => {
-              if (linkSet.has([idFromDCID(nodeDCID1), idFromDCID(nodeDCID2)])){
+
+              const [nodeID1, nodeID2] = [nodeDCID1, nodeDCID2].map(idFromDCID)
+
+              if (linkSet.has([nodeID1, nodeID2])){
                 return;
               }
+
               const interactionScore = scoreFromProteinDCIDs(
                 scoresNewLayer,
                 nodeDCID1,
@@ -214,25 +221,25 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
               );
               if (interactionScore > this.state.scoreThreshold){
                 terminalLinks.push(
-                  getLink(idFromDCID(nodeDCID1), idFromDCID(nodeDCID2), interactionScore)
+                  getLink(nodeID1, nodeID2, interactionScore)
                 );
               }
             });
           });
 
           // deduplicate target IDs to get set of new node IDs
-          const newNodeIDs = new Set(newLinks.map(({ targetID }) => targetID));
+          const newNodeIDs = new Set(expansionLinks.map(({ targetID }) => targetID));
 
+          // TODO: nodes are currently colored by the group they're added with, but should be colored by min(parent.depth)
+          // (if node is discovered after 2 iterations of BFS but the center protein is added as a parent during the terminal link stage,
+          //  node should be assigned depth 1)
           const newNodes = Array.from(newNodeIDs).map((id) =>
-            // TODO: nodes are currently colored by the group they're added with, but should be colored by min(parent.depth)
-            // (if node is discovered after 2 iterations of BFS but the center protein is added as a parent during the terminal link stage,
-            //  node should be assigned depth 1)
             nodeFromID(id, graphData.nodeDataNested.length)
           ); 
 
           _.last(graphData.linkDataNested).push(...terminalLinks);
           graphData.nodeDataNested.push(newNodes);
-          graphData.linkDataNested.push(newLinks);
+          graphData.linkDataNested.push(expansionLinks);
         })
 
         return expandPromise;
