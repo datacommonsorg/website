@@ -738,22 +738,6 @@ export function getProteinInteractionGraphData(
 }
 
 /**
- * Given an object mapping interaction IDs to confidence scores and the DCIDs of two proteins, return the score
- * of the interaction between the two proteins if it appears in the object, or the default score otherwise.
- */
-export function scoreFromProteinDCIDs(
-  scoreRec: Record<string, number>,
-  proteinDCID1: bioDCID,
-  proteinDCID2: bioDCID,
-  defaultScore: number = DEFAULT_INTERACTION_SCORE
-): number {
-  const [protein1, protein2] = [proteinDCID1, proteinDCID2].map((dcid) =>
-    ppiIDFromDCID(dcid)
-  );
-  return _.get(scoreRec, `${protein1}_${protein2}`, defaultScore);
-}
-
-/**
  * Given an object mapping interaction IDs to confidence scores and the DCIDs of an interaction, return the score
  * of the interaction if it appears in the object, or the default score otherwise.
  */
