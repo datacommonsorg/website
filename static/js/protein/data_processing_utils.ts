@@ -549,25 +549,6 @@ export function objectFromArray<T, V>(
 }
 
 /**
- * Given an (unpacked) array of arrays, return its transpose (after trimming arrays to length of shortest one).
- * This is essentially a TS implementation of python's built-in zip function.
- *
- * Adapted from implementation by Matt Mancini
- *
- * Thanks also to Carlos Israel Ortiz Garcia and Jack Davison for the below references:
- *  - https://ncjamieson.com/typing-zipwith/#typing-zip
- *  - https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types
- */
-// Recursive elementwise type inference on array of arrays
-type Zip<T> = T extends [Array<infer U>, ...infer Z] ? [U, ...Zip<Z>] : [];
-export function zip<T extends unknown[][]>(...arrays: T): Array<Zip<T>> {
-  const minLength = Math.min(...arrays.map((arr) => arr.length));
-  return Array.from(Array(minLength).keys()).map((_, i) => {
-    return arrays.map((array) => array[i]) as Zip<T>;
-  });
-}
-
-/**
  * Convert DCID of form bio/<id> to id. Utility for protein-protein interaction (PPI) graph.
  */
 export function ppiIDFromDCID(dcid: bioDCID): string {
