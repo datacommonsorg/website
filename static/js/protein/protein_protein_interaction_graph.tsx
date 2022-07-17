@@ -57,7 +57,7 @@ type InteractionGraphState = {
 }
 
 const DEFAULTS = {
-    DEPTH: 2,
+    DEPTH: 3,
     MAX_INTERACTIONS: 4,
     SCORE_THRESHOLD: 0.4
 }
@@ -67,12 +67,11 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
   constructor(props: InteractionGraphProps) {
     super(props);
     this.mounted = true;
-    console.log('props', _.cloneDeep(props))
     this.state = {
         graphData: getProteinInteractionGraphData(props.interactionDataDepth1),
         depth: DEFAULTS.DEPTH,
-        scoreThreshold: DEFAULTS.MAX_INTERACTIONS,
-        maxInteractions: DEFAULTS.SCORE_THRESHOLD,
+        scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
+        maxInteractions: DEFAULTS.MAX_INTERACTIONS,
     }
   }
 
@@ -81,7 +80,9 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
       return
     }
     const graphData = _.cloneDeep(this.state.graphData);
-    const expansions = this.expandProteinInteractionGraph(graphData);
+    const expansions = this.expandProteinInteractionGraph(graphData).then(
+      () => this.expandProteinInteractionGraph(graphData)
+    )
 //   let expansions = Promise.resolve();
 //   for (let i = 0; i < this.state.depth; i++){
 //     expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
@@ -127,7 +128,6 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
    * chain multiple calls to this method in BFS.
    */
   private expandProteinInteractionGraph(graphData: InteractionGraphDataNested) {
-    console.log('graph', _.cloneDeep(graphData))
       const nodesLastLayer = _.last(graphData.nodeDataNested);
       const nodeDCIDsLastLayer = nodesLastLayer.map(
         (nodeDatum) => dcidFromID(nodeDatum.id)
@@ -147,6 +147,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
         );
         const interactionDCIDsDedup = interactionDataDedup.flat(1);
 
+
         const scorePromise = fetchScoreData(interactionDCIDsDedup).then((scoreResp) => {
           
           // Each interaction A_B will induce two keys A_B and B_A, both mapped to the confidence score of A_B.
@@ -155,7 +156,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
           // 2) O(1) check for whether a given protein interacts with a depth 1 protein
           const scoresNewLayer = scoreDataFromResponse(scoreResp);
 
-          const interactionDataSorted = _.zip(interactionDataDedup, nodesLastLayer).map(([dcidArray, parent]) =>
+          const interactionDataSorted = zip(interactionDataDedup, nodesLastLayer).map(([dcidArray, parent]) =>
             dcidArray
               .filter((interactionDCID) => {
                 const childDCID = getInteractionTarget(
@@ -175,6 +176,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
                   scoreFromInteractionDCID(scoresNewLayer, interactionDCID2)
               )
           );
+
 
           const interactionDataTruncated = interactionDataSorted.map(
             (dcidArray) => dcidArray.slice(0, this.state.maxInteractions)
@@ -214,9 +216,7 @@ export class ProteinProteinInteractionGraph extends React.Component<InteractionG
                   score: interactionScore,
                 });
               }
-              return scorePromise;
             });
-            return expandPromise;
           });
 
           const newNodeIDs = new Set(newLinks.map(({ target }) => target));
