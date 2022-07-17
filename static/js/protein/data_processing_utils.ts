@@ -603,9 +603,7 @@ export function proteinsFromInteractionDCID(interactionDCID: bioDCID): [string, 
   const id = ppiIDFromDCID(interactionDCID);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
-  if (split.length !== 4) {
-    throw `Unsupported DCID ${interactionDCID}`;
-  }
+  console.assert(split.length == 4, `Unsupported DCID: ${interactionDCID}`)
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
@@ -790,11 +788,12 @@ export function symmetricScoreRec(
   scores: number[]
 ): Record<string, number> {
   const scoreRec = {};
-  zip(interactionDCIDs, scores).forEach(([dcid, score]) => {
-    const [protein1, protein2] = proteinsFromInteractionDCID(dcid);
-    scoreRec[`${protein1}_${protein2}`] = score;
-    scoreRec[`${protein2}_${protein1}`] = score;
-  });
+  console.assert(interactionDCIDs.length == scores.length);
+  for(let i=0; i<interactionDCIDs.length; i++){
+    const [protein1, protein2] = proteinsFromInteractionDCID(interactionDCIDs[i]);
+    scoreRec[`${protein1}_${protein2}`] = scores[i];
+    scoreRec[`${protein2}_${protein1}`] = scores[i];
+  }
   return scoreRec;
 }
 
