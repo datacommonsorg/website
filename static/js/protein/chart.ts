@@ -55,6 +55,8 @@ export interface ProteinNode extends Node, SimulationNodeDatum {
 
 // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
 export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
+  sourceID: string;
+  targetID: string;
   score: number;
 }
 

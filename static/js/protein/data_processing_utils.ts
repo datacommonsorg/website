@@ -733,10 +733,13 @@ export function getProteinInteractionGraphData(
   const centerDatum = nodeFromID(centerNodeID, 0);
 
   const linkData: InteractionLink[] = neighbors.map((node) => {
+    // d3 will replace source, target with SimulationNodeDatum objects, so we also store sourceID and targetID
     return {
       score: node.value,
       source: centerNodeID,
+      sourceID: centerNodeID,
       target: node.id,
+      targetID: node.id
     };
   });
 
