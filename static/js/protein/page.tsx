@@ -160,7 +160,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         <ProteinProteinInteractionGraph
           centerProteinDCID={this.props.dcid}
           interactionDataDepth1={this.state.interactionDataDepth1}
-          // key={Number(_.isEmpty(this.state.interactionDataDepth1))}
         />
         <div id="protein-interaction-graph"></div>
         <h5>Disease Gene Association</h5>

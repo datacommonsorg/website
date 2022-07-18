@@ -67,10 +67,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
   InteractionGraphProps,
   InteractionGraphState
 > {
-  mounted: boolean;
   constructor(props: InteractionGraphProps) {
     super(props);
-    this.mounted = true;
     this.state = {
       graphData: getProteinInteractionGraphData(props.interactionDataDepth1),
       depth: DEFAULTS.DEPTH,
@@ -79,43 +77,35 @@ export class ProteinProteinInteractionGraph extends React.Component<
     };
   }
 
-  componentDidMount(): void {
-    console.log('mounted', this.props.interactionDataDepth1)
-  }
+  componentDidUpdate(prevProps: InteractionGraphProps | null): void {
+    // takes two calls to this method to draw the graph.
+    //  1) first call performs BFS and updates the graph
+    //  2) second call draws the graph
 
-  componentDidUpdate(prevProps): void {
-    console.log('updated', this.props.interactionDataDepth1)
-    if (_.isEmpty(this.state.graphData)) {
-      return;
-    }
-    if (prevProps.interactionDataDepth1 !== this.props.interactionDataDepth1){
-      const graphData = _.cloneDeep(this.state.graphData);
+    // this branch executes on first call to this method
+    if (prevProps !== this.props){
+      const graphData = getProteinInteractionGraphData(this.props.interactionDataDepth1);
       const expansions = this.bfsIter(graphData).then(() =>
         this.bfsIter(graphData)
       );
-      //   let expansions = Promise.resolve();
-      //   for (let i = 0; i < this.state.depth; i++){
-      //     expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
-      //   }
+    // updating state will then trigger the second call to this method
       expansions.then(() => {
         this.setState({
-          graphData,
+          graphData
         });
       });
     }
-
-    drawProteinInteractionGraph("protein-interaction-graph", {
-      nodeData: this.state.graphData.nodeDataNested
-        .slice(0, this.state.depth + 1)
-        .flat(1),
-      linkData: this.state.graphData.linkDataNested
-        .slice(0, this.state.depth + 1)
-        .flat(1),
-    });
-  }
-
-  componentWillUnmount(): void {
-    this.mounted = false;
+    // this branch executes on second call to this method
+    if(!_.isEmpty(this.state.graphData)) {
+      drawProteinInteractionGraph("protein-interaction-graph", {
+        nodeData: this.state.graphData.nodeDataNested
+          .slice(0, this.state.depth + 1)
+          .flat(1),
+        linkData: this.state.graphData.linkDataNested
+          .slice(0, this.state.depth + 1)
+          .flat(1),
+      });
+    }
   }
 
   render(): JSX.Element {
