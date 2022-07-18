@@ -86,6 +86,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       const graphData = getProteinInteractionGraphData(
         this.props.interactionDataDepth1
       );
+      // chain two BFS iterations
       const expansions = this.bfsIter(graphData).then(() =>
         this.bfsIter(graphData)
       );
