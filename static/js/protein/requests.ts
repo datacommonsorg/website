@@ -1,6 +1,10 @@
 import axios from "axios";
-import { deduplicateInteractionDCIDs, getFromResponse } from "./data_processing_utils";
-import { V1Response, V1BaseDatum, bioDCID, V1BioDatum } from "./types";
+
+import {
+  deduplicateInteractionDCIDs,
+  getFromResponse,
+} from "./data_processing_utils";
+import { bioDCID, V1BaseDatum, V1BioDatum, V1Response } from "./types";
 
 const V1_ENDPOINT_ROOT = "https://autopush.api.datacommons.org/v1";
 // endpoints for protein-protein interaction graph
@@ -17,9 +21,9 @@ export function fetchInteractionData(
 ): Promise<V1Response<V1BaseDatum>> {
   return axios.post(PPI_ENDPOINTS.INTERACTORS, {
     entities: proteinDCIDs,
-    headers:{
-      'Content-Type': "application/json"
-    }
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 }
 
@@ -31,9 +35,9 @@ export function fetchScoreData(
 ): Promise<V1Response<V1BioDatum>> {
   return axios.post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
     entities: interactionDCIDs,
-    headers:{
-      'Content-Type': "application/json"
-    }
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 }
 
@@ -49,10 +53,15 @@ export function fetchInteractionsThenScores(
     // each list of interactors is deduplicated such that
     //  1) each element is unique
     //  2) if A_B appears in the list, then B_A does not appear
-    const interactionData: bioDCID[][] = getFromResponse(resp, "values").map((interactions) => {
-      return interactions.map(({ dcid }) => dcid);
-    }).map(deduplicateInteractionDCIDs);
+    const interactionData: bioDCID[][] = getFromResponse(resp, "values")
+      .map((interactions) => {
+        return interactions.map(({ dcid }) => dcid);
+      })
+      .map(deduplicateInteractionDCIDs);
 
-    return fetchScoreData(interactionData.flat(1)).then(resp => [interactionData, resp])
+    return fetchScoreData(interactionData.flat(1)).then((resp) => [
+      interactionData,
+      resp,
+    ]);
   });
 }

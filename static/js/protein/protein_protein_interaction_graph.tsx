@@ -21,28 +21,24 @@
 import _ from "lodash";
 import React from "react";
 
-import {
-  drawProteinInteractionGraph,
-} from "./chart";
-import {
-  MultiLevelInteractionGraphData,
-  InteractionLink,
-  bioDCID,
-  ProteinNode,
-} from "./types";
+import { drawProteinInteractionGraph } from "./chart";
 import {
   getInteractionTarget,
   getLink,
   getProteinInteractionGraphData,
+  nodeFromID,
   ppiDCIDFromID,
   ppiIDFromDCID,
-  nodeFromID,
   scoreDataFromResponse,
 } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
+import { fetchInteractionsThenScores } from "./requests";
 import {
-  fetchInteractionsThenScores,
-} from "./requests";
+  bioDCID,
+  InteractionLink,
+  MultiLevelInteractionGraphData,
+  ProteinNode,
+} from "./types";
 
 type InteractionGraphProps = {
   centerProteinDCID: string;
@@ -60,7 +56,7 @@ const DEFAULTS = {
   DEPTH: 2,
   MAX_INTERACTIONS: 4,
   SCORE_THRESHOLD: 0.4,
-  MISSING_SCORE_FILLER: -1, 
+  MISSING_SCORE_FILLER: -1,
 };
 
 export class ProteinProteinInteractionGraph extends React.Component<
@@ -86,20 +82,22 @@ export class ProteinProteinInteractionGraph extends React.Component<
     //  2) second call draws the graph
 
     // this branch executes on first call to this method
-    if (prevProps !== this.props){
-      const graphData = getProteinInteractionGraphData(this.props.interactionDataDepth1);
+    if (prevProps !== this.props) {
+      const graphData = getProteinInteractionGraphData(
+        this.props.interactionDataDepth1
+      );
       const expansions = this.bfsIter(graphData).then(() =>
         this.bfsIter(graphData)
       );
-    // updating state will then trigger the second call to this method
+      // updating state will then trigger the second call to this method
       expansions.then(() => {
         this.setState({
-          graphData
+          graphData,
         });
       });
     }
     // this branch executes on second call to this method
-    if(!_.isEmpty(this.state.graphData)) {
+    if (!_.isEmpty(this.state.graphData)) {
       drawProteinInteractionGraph("protein-interaction-graph", {
         nodeData: this.state.graphData.nodeDataNested
           .slice(0, this.state.depth + 1)
@@ -121,11 +119,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   /**
    * Given graph data, return promise to perform one iteration of BFS to add one layer to graph data.
-   * 
+   *
    * Note this is a bit peculiar in that new links discovered by BFS are split into two types:
    *  1) expansion links connect a last-layer node and a node not yet in the graph
    *  2) cross links connect a last-layer node and a node already in the graph
-   * 
+   *
    * This method has four stages:
    *  1) compute expansion links
    *  2) compute cross links
@@ -147,7 +145,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
     );
 
     const proteinDCIDSet: Set<bioDCID> = new Set(
-      graphData.nodeDataNested.flat(1).map((node: ProteinNode) => ppiDCIDFromID(node.id))
+      graphData.nodeDataNested
+        .flat(1)
+        .map((node: ProteinNode) => ppiDCIDFromID(node.id))
     );
 
     // set of links
@@ -190,8 +190,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
               ) as bioDCID;
               return (
                 !proteinDCIDSet.has(childDCID) &&
-                _.get(scoresNewLayer, interactionID, DEFAULTS.MISSING_SCORE_FILLER) >=
-                  this.state.scoreThreshold
+                _.get(
+                  scoresNewLayer,
+                  interactionID,
+                  DEFAULTS.MISSING_SCORE_FILLER
+                ) >= this.state.scoreThreshold
               );
             })
             // Sort in descending order of interaction confidence score.
@@ -200,19 +203,28 @@ export class ProteinProteinInteractionGraph extends React.Component<
             // Currently we filter before sorting, which makes the initial load cheaper,
             // But we would have to re-sort on new user-input.
             // Another option is to pay the one-time up-front cost of sorting the unfiltered interaction list and cache.
-            .sort(
-              (interactionDCID1, interactionDCID2) =>
-              {
-                const [score1, score2] = [interactionDCID1, interactionDCID2].map(dcid => _.get(scoresNewLayer, ppiIDFromDCID(dcid), DEFAULTS.MISSING_SCORE_FILLER));
-                return score1 - score2;
-              }
-            )
+            .sort((interactionDCID1, interactionDCID2) => {
+              const [score1, score2] = [
+                interactionDCID1,
+                interactionDCID2,
+              ].map((dcid) =>
+                _.get(
+                  scoresNewLayer,
+                  ppiIDFromDCID(dcid),
+                  DEFAULTS.MISSING_SCORE_FILLER
+                )
+              );
+              return score1 - score2;
+            })
             .slice(0, this.state.maxInteractions);
 
           // add an InteractionLink for each interaction
           filteredSorted.forEach((interactionDCID) => {
             const interactionID = ppiIDFromDCID(interactionDCID);
-            const targetID = getInteractionTarget(interactionDCID, ppiDCIDFromID(parent.id));
+            const targetID = getInteractionTarget(
+              interactionDCID,
+              ppiDCIDFromID(parent.id)
+            );
             expansionLinks.push(
               getLink(parent.id, targetID, scoresNewLayer[interactionID])
             );
@@ -223,13 +235,19 @@ export class ProteinProteinInteractionGraph extends React.Component<
         // check if any of the proteins in the layer we just expanded interact with each other or previous proteins
         nodeDCIDsLastLayer.forEach((nodeDCID1) => {
           proteinDCIDSet.forEach((nodeDCID2) => {
-            const [nodeID1, nodeID2] = [nodeDCID1, nodeDCID2].map(ppiIDFromDCID);
+            const [nodeID1, nodeID2] = [nodeDCID1, nodeDCID2].map(
+              ppiIDFromDCID
+            );
 
             if (linkSet.has([nodeID1, nodeID2])) {
               return;
             }
 
-            const interactionScore = _.get(scoresNewLayer, `${nodeID1}_${nodeID2}`, DEFAULTS.MISSING_SCORE_FILLER);
+            const interactionScore = _.get(
+              scoresNewLayer,
+              `${nodeID1}_${nodeID2}`,
+              DEFAULTS.MISSING_SCORE_FILLER
+            );
             if (interactionScore > this.state.scoreThreshold) {
               crossLinks.push(getLink(nodeID1, nodeID2, interactionScore));
             }

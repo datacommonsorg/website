@@ -727,7 +727,7 @@ export function getProteinInteractionGraphData(
   const centerDatum = nodeFromID(centerNodeID, 0);
 
   const linkData: InteractionLink[] = neighbors.map((node) => {
-    return getLink(centerNodeID, node.id, node.value)
+    return getLink(centerNodeID, node.id, node.value);
   });
 
   return {
