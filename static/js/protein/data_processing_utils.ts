@@ -564,7 +564,7 @@ export function ppiIDFromDCID(dcid: bioDCID): string {
 /**
  * Given id, convert to DCID of form bio/<id>.  Utility for protein-protein interaction (PPI) graph.
  */
-export function ppiDCIDFromID(id): bioDCID {
+export function ppiDCIDFromID(id: string): bioDCID {
   console.assert(!id.includes("bio/"), `Invalid ID: ${id}`);
   return `bio/${id}`;
 }
@@ -592,7 +592,7 @@ export function proteinsFromInteractionDCID(
   const id = ppiIDFromDCID(interactionDCID);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
-  console.assert(split.length == 4, `Unsupported DCID: ${interactionDCID}`);
+  console.assert(split.length === 4, `Unsupported DCID: ${interactionDCID}`);
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
@@ -642,7 +642,8 @@ export function getInteractionTarget(
  * Given protein id of the form {protein name}_{species name} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
 export function nodeFromID(proteinID: string, depth: number): ProteinNode {
-  // assumes {species name} does not contain _ (last checked: 06/22/22, when MINT was the provenance of all protein data)
+  // assumes {species name} does not contain _ 
+  // last checked: 06/22/22, when MINT was the provenance of all protein data
   const lastIndex = proteinID.lastIndexOf("_");
   return {
     depth,
@@ -746,7 +747,7 @@ export function symmetricScoreRec(
   scores: number[]
 ): Record<string, number> {
   const scoreRec = {};
-  console.assert(interactionDCIDs.length == scores.length);
+  console.assert(interactionDCIDs.length === scores.length);
   for (let i = 0; i < interactionDCIDs.length; i++) {
     const [protein1, protein2] = proteinsFromInteractionDCID(
       interactionDCIDs[i]
@@ -781,7 +782,7 @@ export function scoreDataFromResponse(
         return DEFAULT_INTERACTION_SCORE;
       }
       // if 1 match, return the retrieved IntactMiScore
-      console.assert(emptyOrInteractionSingleton.length == 1);
+      console.assert(emptyOrInteractionSingleton.length === 1);
       return quantityFromDCID(
         emptyOrInteractionSingleton[0].dcid,
         INTERACTION_QUANTITY_DCID
