@@ -26,6 +26,7 @@ import _ from "lodash";
 import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { DiseaseAssociationType, InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
+import { InteractionGraphData, InteractionLink, ProteinNode } from "./types";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
   name: string;
@@ -36,38 +37,6 @@ export interface ProteinNumData {
 export interface ProteinStrData {
   name: string;
   value: string;
-}
-
-// interfaces for protein-protein interaction chart
-
-export interface Node {
-  id: string;
-  name: string;
-  value?: number;
-}
-
-// d3-force will add x,y,vx,vy data to ProteinNode after initialization
-// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
-export interface ProteinNode extends Node, SimulationNodeDatum {
-  depth: number;
-  species: string;
-}
-
-// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
-export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
-  sourceID: string;
-  targetID: string;
-  score: number;
-}
-
-export interface InteractionGraphData {
-  nodeData: ProteinNode[];
-  linkData: InteractionLink[];
-}
-
-export interface InteractionGraphDataNested {
-  nodeDataNested: ProteinNode[][];
-  linkDataNested: InteractionLink[][];
 }
 
 // interface for variant gene associations for plotting error bars
@@ -230,7 +199,6 @@ const NUM_TICKS = 10;
 const GRAPH_HEIGHT_XS = 130;
 const GRAPH_HEIGHT_S = 200;
 const GRAPH_HEIGHT_M = 400;
-const GRAPH_HEIGHT_XL = 1050;
 const GRAPH_WIDTH_S = 660;
 const GRAPH_WIDTH_M = 700;
 const GRAPH_WIDTH_L = 760;
@@ -250,15 +218,15 @@ const INTERACTION_GRAPH_Y_OFFSET = -25;
 
 // style of node representations in interaction graph viz's
 const NODE_FILL_COLORS = [
-  "peachpuff",
   "mistyrose",
+  "peachpuff",
   "lightCoral",
   "lightsalmon",
 ];
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
-  length: 120,
+  length: 100,
   stroke: {
     scoreWidthMultiplier: 8,
   },
@@ -803,8 +771,8 @@ export function drawProteinInteractionGraph(
 
   const { nodeData, linkData } = data;
 
-  const height = GRAPH_HEIGHT_XL - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_XL - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
 
   const svg = d3
     .select(`#${chartID}`)

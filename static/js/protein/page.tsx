@@ -36,34 +36,21 @@ import {
   drawVarSigAssocChart,
   drawVarTypeAssocChart,
   GRAPH_BROWSER_REDIRECT,
-  InteractionGraphData,
-  InteractionGraphDataNested,
 } from "./chart";
 import {
-  dcidFromID,
-  deduplicateInteractionDCIDs,
   getChemicalGeneAssoc,
   getDiseaseGeneAssoc,
-  getFromResponse,
-  getInteractionTarget,
   getProteinDescription,
   getProteinInteraction,
-  getProteinInteractionGraphData,
   getTissueScore,
   getVarGeneAssoc,
   getVarSigAssoc,
   getVarTypeAssoc,
-  idFromDCID,
-  MAX_INTERACTIONS,
-  nodeFromID,
-  scoreDataFromResponse,
-  scoreFromInteractionDCID,
-  scoreFromProteinDCIDs,
-  valuesFromResponse,
-  zip,
+  ppiIDFromDCID,
 } from "./data_processing_utils";
 import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
 import { fetchInteractionData, fetchScoreData } from "./requests";
+import { bioDCID } from "./types";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -221,7 +208,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     axios.get(`/api/protein/${this.props.dcid}`).then((resp) => {
       const interactionDataDepth1 = getProteinInteraction(
         resp.data,
-        idFromDCID(this.props.dcid)
+        ppiIDFromDCID(this.props.dcid as bioDCID)
       );
       this.setState({
         data: resp.data,
