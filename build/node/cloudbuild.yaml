@@ -13,7 +13,7 @@
 # limitations under the License.
 
 substitutions:
-  _VERS: "2022-06-28"
+  _VERS: "2022-07-18"
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
