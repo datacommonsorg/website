@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:17.9.0-slim
+FROM node:18.4.0-slim
 
 # GCB should read files from /resources.
 WORKDIR /resources
@@ -21,11 +21,8 @@ WORKDIR /resources
 RUN apt-get -y update
 RUN apt-get -y install curl
 
-# Download the latest package.json and package-lock.json from dc/website:master.
-# package.json and package-lock.json are up-to-date as of the date the image is built.
-# NOTE: both package.json and package-lock.json needed.
-RUN curl -O https://raw.githubusercontent.com/datacommonsorg/website/master/static/package.json
-RUN curl -O https://raw.githubusercontent.com/datacommonsorg/website/master/static/package-lock.json
+COPY package.json /resources/package.json
+COPY package-lock.json /resources/package-lock.json
 
 # Install only the production dependencies using package.json.
 RUN npm install

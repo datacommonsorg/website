@@ -20,6 +20,7 @@ import logging
 import urllib.parse
 import zlib
 from typing import Mapping
+from cache import cache
 
 import lib.config as libconfig
 import requests
@@ -65,6 +66,97 @@ API_ENDPOINTS = {
 _MAX_LIMIT = 100
 
 # ----------------------------- WRAPPER FUNCTIONS -----------------------------
+
+
+# Cache for one day.
+@cache.memoize(timeout=3600 * 24)
+def get(path):
+    url = API_ROOT + path
+    headers = {'Content-Type': 'application/json'}
+    # Send the request and verify the request succeeded
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        raise ValueError(
+            'Response error: An HTTP {} code ({}) was returned by the mixer.'
+            'Printing response:\n{}'.format(response.status_code,
+                                            response.reason,
+                                            response.json()['message']))
+    return response.json()
+
+
+def post(path, req):
+    # Get json string so the request can be flask cached.
+    # Also to have deterministic req string, the repeated fields in request
+    # are sorted.
+    req_str = json.dumps(req, sort_keys=True)
+    return post_wrapper(path, req_str)
+
+
+# Cache for one day.
+@cache.memoize(timeout=3600 * 24)
+def post_wrapper(path, req_str):
+    req = json.loads(req_str)
+    url = API_ROOT + path
+    headers = {'Content-Type': 'application/json'}
+    # Send the request and verify the request succeeded
+    response = requests.post(url, json=req, headers=headers)
+    if response.status_code != 200:
+        raise ValueError(
+            'Response error: An HTTP {} code ({}) was returned by the mixer.'
+            'Printing response:\n{}'.format(response.status_code,
+                                            response.reason,
+                                            response.json()['message']))
+    return response.json()
+
+
+def points_within(parent_place, child_type, stat_vars, date, all):
+    """Gets the statistical variable values for child places of a certain place
+    type contained in a parent place at a given date.
+
+    Args:
+        parent_place: Parent place DCID as a string.
+        child_type: Type of child places as a string.
+        stat_vars: List of statistical variable DCIDs each as a string.
+        date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
+        all (optional): Whether or not to get data for all facets
+
+    Returns:
+        Dict with a key "facets" and a key "observationsByVariable".
+        The value for "facets" is a dict keyed by facet ids, with dicts as values
+        (See "StatMetadata" in https://github.com/datacommonsorg/mixer/blob/master/proto/stat.proto for the definition of the inner dicts)
+        The value for "observationsByVariable" is a list of dicts (See "VariableObservations"
+        in https://github.com/datacommonsorg/mixer/blob/master/proto/v1/observations.proto for the definition of these dicts)
+
+    """
+    return post(
+        '/v1/bulk/observations/point/linked', {
+            'linked_entity': parent_place,
+            'linked_property': "containedInPlace",
+            'entity_type': child_type,
+            'variables': sorted(stat_vars),
+            'date': date,
+            'all_facets': all,
+        })
+
+
+def series_within(parent_place, child_type, stat_vars, all):
+    """Gets the statistical variable series for child places of a certain place
+    type contained in a parent place.
+
+    Args:
+        parent_place: Parent place DCID as a string.
+        child_type: Type of child places as a string.
+        stat_vars: List of statistical variable DCIDs each as a string.
+        all (optional): Whether or not to get data for all facets
+    """
+    return post(
+        '/v1/bulk/observations/series/linked', {
+            'linked_entity': parent_place,
+            'linked_property': "containedInPlace",
+            'entity_type': child_type,
+            'variables': sorted(stat_vars),
+            'all_facets': all,
+        })
 
 
 def search(query_text, max_results):

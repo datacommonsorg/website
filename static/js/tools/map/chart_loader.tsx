@@ -21,14 +21,14 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   GetPlaceStatDateWithinPlaceResponse,
   GetStatSetAllResponse,
@@ -46,7 +46,7 @@ import {
 } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
-import { getUnit } from "../shared_util";
+import { getPopulationDate, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
 import {
@@ -204,7 +204,7 @@ export function ChartLoader(): JSX.Element {
       </div>
     );
   }
-  const sourceSelectorSvInfo = getSourceSelectorSvInfo(
+  const facetInfo = getFacetInfo(
     statVar.value,
     Object.keys(rawData.allPlaceStat),
     rawData.metadataMap
@@ -279,7 +279,7 @@ export function ChartLoader(): JSX.Element {
         mapPointsPromise={chartData.mapPointsPromise}
         europeanCountries={chartData.europeanCountries}
         rankingLink={chartData.rankingLink}
-        sourceSelectorSvInfo={sourceSelectorSvInfo}
+        facetInfo={facetInfo}
         sampleDates={chartData.sampleDates}
         metahash={chartData.metahash}
         onPlay={onPlay}
@@ -369,11 +369,11 @@ function getGeoJsonDataFeatures(
   return geoJsonFeatures;
 }
 
-function getSourceSelectorSvInfo(
+function getFacetInfo(
   statVar: StatVar,
   metaHashList: string[],
   metadataMap: Record<string, StatMetadata>
-): SourceSelectorSvInfo {
+): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   metaHashList.forEach((metahash) => {
     if (metahash in metadataMap) {
@@ -383,7 +383,6 @@ function getSourceSelectorSvInfo(
   return {
     dcid: statVar.dcid,
     metadataMap: filteredMetadataMap,
-    metahash: statVar.metahash,
     name:
       statVar.dcid in statVar.info
         ? statVar.info[statVar.dcid].title
@@ -505,15 +504,16 @@ function fetchData(
   const breadcrumbPlaceDatesPromise = Promise.all(breadcrumbPlaceDatesList);
 
   const mapPointSv = statVar.mapPointSv || statVar.dcid;
-  const mapPointDataPromise: Promise<GetStatSetResponse> = placeInfo.mapPointPlaceType
-    ? axios
-        .get(
-          `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointPlaceType}&stat_vars=${mapPointSv}`
-        )
-        .then((resp) => {
-          return resp.data;
-        })
-    : Promise.resolve(null);
+  const mapPointDataPromise: Promise<GetStatSetResponse> =
+    placeInfo.mapPointPlaceType
+      ? axios
+          .get(
+            `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointPlaceType}&stat_vars=${mapPointSv}`
+          )
+          .then((resp) => {
+            return resp.data;
+          })
+      : Promise.resolve(null);
   const mapPointsPromise: Promise<Array<MapPoint>> = placeInfo.mapPointPlaceType
     ? axios
         .get(
@@ -523,17 +523,17 @@ function fetchData(
           return resp.data;
         })
     : Promise.resolve({});
-  const europeanCountriesPromise: Promise<Array<
-    NamedPlace
-  >> = getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
+  const europeanCountriesPromise: Promise<Array<NamedPlace>> =
+    getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
   const statVarSummaryPromise: Promise<StatVarSummary> = axios
     .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
     .then((resp) => resp.data);
-  const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> = axios
-    .get(
-      `/api/stat/date/within-place?ancestorPlace=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&statVars=${statVar.dcid}`
-    )
-    .then((resp) => resp.data);
+  const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> =
+    axios
+      .get(
+        `/api/stat/date/within-place?ancestorPlace=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&statVars=${statVar.dcid}`
+      )
+      .then((resp) => resp.data);
   Promise.all([
     geoJsonDataPromise,
     breadcrumbPopPromise,
@@ -608,13 +608,16 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
-        const sampleDates: Record<string, Array<string>> =
-          placeStatDateWithinPlace.data[statVar.dcid].statDate && showTimeSlider
-            ? getTimeSliderDates(
-                metadataMap,
-                placeStatDateWithinPlace.data[statVar.dcid].statDate
-              )
-            : {};
+        const sampleDates: Record<
+          string,
+          Array<string>
+        > = placeStatDateWithinPlace.data[statVar.dcid].statDate &&
+        showTimeSlider
+          ? getTimeSliderDates(
+              metadataMap,
+              placeStatDateWithinPlace.data[statVar.dcid].statDate
+            )
+          : {};
         let legendBounds: Record<string, [number, number, number]> = {};
         if (BEST_AVAILABLE_METAHASH in sampleDates) {
           // Set dates for "Best Available" to best series
@@ -671,9 +674,8 @@ function fetchData(
               sampleDatesChartData
             );
           }
-          newSampleDatesChartData[
-            statVar.metahash || BEST_AVAILABLE_METAHASH
-          ] = currentSampleDatesData;
+          newSampleDatesChartData[statVar.metahash || BEST_AVAILABLE_METAHASH] =
+            currentSampleDatesData;
           setSampleDatesChartData(newSampleDatesChartData);
         } else {
           setRawData({
@@ -854,26 +856,25 @@ export function setLegendBoundsPerCapita(
     maxValue = 0;
   for (const place in stat) {
     let value = stat[place].value;
-    if (!value) {
-      continue;
-    }
     const populationData = rawData.population[place].data;
-    const date = stat[place].date;
+    const denom = statVar.value.denom;
     if (
-      statVar.value.denom in populationData &&
-      populationData[statVar.value.denom].val &&
-      date in populationData[statVar.value.denom].val
+      !value ||
+      _.isEmpty(populationData[denom] || _.isEmpty(populationData[denom].val))
     ) {
-      value /= populationData[statVar.value.denom].val[date];
-    } else {
       continue;
     }
-    if (value < minValue) {
-      minValue = value;
+    const popDate = getPopulationDate(
+      populationData[statVar.value.denom],
+      stat[place]
+    );
+    const popVal = populationData[statVar.value.denom].val[popDate];
+    if (!popVal) {
+      continue;
     }
-    if (value > maxValue) {
-      maxValue = value;
-    }
+    value /= popVal;
+    minValue = Math.min(minValue, value);
+    maxValue = Math.max(maxValue, value);
   }
 
   // Using Best Available data as estimate - give some padding for other dates

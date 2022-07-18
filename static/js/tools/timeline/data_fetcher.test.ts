@@ -1288,32 +1288,28 @@ test("transform from models - multiple places", () => {
         "geoId/05": {
           data: {
             "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
-              val:
-                modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                  "metahash1"
-                ].val,
+              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
+                "metahash1"
+              ].val,
             },
             "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
-              val:
-                modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                  "metahash2"
-                ].val,
+              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
+                "metahash2"
+              ].val,
             },
           },
         },
         "country/USA": {
           data: {
             "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
-              val:
-                modelStatAllResponse["country/USA"]["Max_Temperature_RCP26"][
-                  "metahash1"
-                ].val,
+              val: modelStatAllResponse["country/USA"]["Max_Temperature_RCP26"][
+                "metahash1"
+              ].val,
             },
             "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
-              val:
-                modelStatAllResponse["country/USA"]["Max_Temperature_RCP26"][
-                  "metahash2"
-                ].val,
+              val: modelStatAllResponse["country/USA"]["Max_Temperature_RCP26"][
+                "metahash2"
+              ].val,
             },
           },
         },
@@ -1444,16 +1440,14 @@ test("transform from models - multiple obs periods", () => {
         "geoId/05": {
           data: {
             "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
-              val:
-                modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                  "metahash3"
-                ].val,
+              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
+                "metahash3"
+              ].val,
             },
             "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
-              val:
-                modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                  "metahash4"
-                ].val,
+              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
+                "metahash4"
+              ].val,
             },
           },
         },

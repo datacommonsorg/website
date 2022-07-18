@@ -38,7 +38,7 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
@@ -75,7 +75,7 @@ interface ChartProps {
   display: DisplayOptionsWrapper;
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
-  sourceSelectorSvInfo: SourceSelectorSvInfo;
+  facetInfo: FacetSelectorFacetInfo;
 
   // Array of ~10 dates for time slider
   sampleDates: Array<string>;
@@ -256,9 +256,10 @@ export function Chart(props: ChartProps): JSX.Element {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        sourceSelectorSvInfoList={[props.sourceSelectorSvInfo]}
-        onSvMetahashUpdated={(svMetahashMap) =>
-          props.statVar.setMetahash(svMetahashMap[props.statVar.value.dcid])
+        svFacetId={{ [statVarDcid]: props.statVar.value.metahash }}
+        facetList={[props.facetInfo]}
+        onSvFacetIdUpdated={(svFacetId) =>
+          props.statVar.setMetahash(svFacetId[props.statVar.value.dcid])
         }
         hideIsRatio={false}
         isPerCapita={props.statVar.value.perCapita}
@@ -387,84 +388,91 @@ function draw(
   }
 }
 
-const getMapRedirectAction = (
-  statVar: StatVar,
-  placeInfo: PlaceInfo,
-  displayOptions: DisplayOptions,
-  europeanCountries: Array<NamedPlace>
-) => (geoProperties: GeoJsonFeatureProperties) => {
-  const selectedPlace = {
-    dcid: geoProperties.geoDcid,
-    name: geoProperties.name,
-    types: [placeInfo.enclosedPlaceType],
+const getMapRedirectAction =
+  (
+    statVar: StatVar,
+    placeInfo: PlaceInfo,
+    displayOptions: DisplayOptions,
+    europeanCountries: Array<NamedPlace>
+  ) =>
+  (geoProperties: GeoJsonFeatureProperties) => {
+    const selectedPlace = {
+      dcid: geoProperties.geoDcid,
+      name: geoProperties.name,
+      types: [placeInfo.enclosedPlaceType],
+    };
+    const enclosingPlace =
+      europeanCountries.findIndex(
+        (country) => country.dcid === selectedPlace.dcid
+      ) > -1
+        ? EUROPE_NAMED_TYPED_PLACE
+        : placeInfo.enclosingPlace;
+    const parentPlaces = getParentPlaces(
+      selectedPlace,
+      enclosingPlace,
+      placeInfo.parentPlaces
+    );
+    const redirectLink = getRedirectLink(
+      statVar,
+      selectedPlace,
+      parentPlaces,
+      placeInfo.mapPointPlaceType,
+      displayOptions
+    );
+    window.open(redirectLink, "_self");
   };
-  const enclosingPlace =
-    europeanCountries.findIndex(
-      (country) => country.dcid === selectedPlace.dcid
-    ) > -1
-      ? EUROPE_NAMED_TYPED_PLACE
-      : placeInfo.enclosingPlace;
-  const parentPlaces = getParentPlaces(
-    selectedPlace,
-    enclosingPlace,
-    placeInfo.parentPlaces
-  );
-  const redirectLink = getRedirectLink(
-    statVar,
-    selectedPlace,
-    parentPlaces,
-    placeInfo.mapPointPlaceType,
-    displayOptions
-  );
-  window.open(redirectLink, "_self");
-};
 
-const getTooltipHtml = (
-  metadataMapping: { [dcid: string]: DataPointMetadata },
-  statVar: StatVar,
-  dataValues: { [dcid: string]: number },
-  mapPointValues: { [dcid: string]: number },
-  unit: string
-) => (place: NamedPlace) => {
-  let titleHtml = `<b>${place.name || place.dcid}</b>`;
-  let hasValue = false;
-  let value = "Data Missing";
-  if (dataValues[place.dcid] !== null && dataValues[place.dcid] !== undefined) {
-    value = formatNumber(dataValues[place.dcid], unit);
-    hasValue = true;
-  } else if (mapPointValues[place.dcid]) {
-    if (statVar.mapPointSv !== statVar.dcid) {
-      const mapPointSvTitle =
-        statVar.mapPointSv in statVar.info
-          ? statVar.info[statVar.mapPointSv].title
-          : "";
-      titleHtml =
-        `<b>${mapPointSvTitle || statVar.mapPointSv}</b><br />` + titleHtml;
+const getTooltipHtml =
+  (
+    metadataMapping: { [dcid: string]: DataPointMetadata },
+    statVar: StatVar,
+    dataValues: { [dcid: string]: number },
+    mapPointValues: { [dcid: string]: number },
+    unit: string
+  ) =>
+  (place: NamedPlace) => {
+    let titleHtml = `<b>${place.name || place.dcid}</b>`;
+    let hasValue = false;
+    let value = "Data Missing";
+    if (
+      dataValues[place.dcid] !== null &&
+      dataValues[place.dcid] !== undefined
+    ) {
+      value = formatNumber(dataValues[place.dcid], unit);
+      hasValue = true;
+    } else if (mapPointValues[place.dcid]) {
+      if (statVar.mapPointSv !== statVar.dcid) {
+        const mapPointSvTitle =
+          statVar.mapPointSv in statVar.info
+            ? statVar.info[statVar.mapPointSv].title
+            : "";
+        titleHtml =
+          `<b>${mapPointSvTitle || statVar.mapPointSv}</b><br />` + titleHtml;
+      }
+      value = formatNumber(mapPointValues[place.dcid], unit);
+      hasValue = true;
     }
-    value = formatNumber(mapPointValues[place.dcid], unit);
-    hasValue = true;
-  }
-  const metadata = metadataMapping[place.dcid];
-  const showPopDateMessage =
-    statVar.perCapita &&
-    !_.isEmpty(metadata.popDate) &&
-    !metadata.placeStatDate.includes(metadata.popDate) &&
-    !metadata.popDate.includes(metadata.placeStatDate);
-  if (!hasValue || !(place.dcid in metadataMapping)) {
-    return `${titleHtml}: <wbr>${value}<br />`;
-  }
-  if (!_.isEmpty(metadata.errorMessage)) {
-    return `${titleHtml}: <wbr>${metadata.errorMessage}<br />`;
-  }
-  const footer = showPopDateMessage
-    ? `<footer><sup>1</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
-    : "";
-  const html =
-    `${titleHtml} (${metadata.placeStatDate}): <wbr><b>${value}</b>${
-      showPopDateMessage ? "<sup>1</sup>" : ""
-    }<br />` + footer;
-  return html;
-};
+    const metadata = metadataMapping[place.dcid];
+    const showPopDateMessage =
+      statVar.perCapita &&
+      !_.isEmpty(metadata.popDate) &&
+      !metadata.placeStatDate.includes(metadata.popDate) &&
+      !metadata.popDate.includes(metadata.placeStatDate);
+    if (!hasValue || !(place.dcid in metadataMapping)) {
+      return `${titleHtml}: <wbr>${value}<br />`;
+    }
+    if (!_.isEmpty(metadata.errorMessage)) {
+      return `${titleHtml}: <wbr>${metadata.errorMessage}<br />`;
+    }
+    const footer = showPopDateMessage
+      ? `<footer><sup>1</sup> Uses population data from: <wbr>${metadata.popDate}</footer>`
+      : "";
+    const html =
+      `${titleHtml} (${metadata.placeStatDate}): <wbr><b>${value}</b>${
+        showPopDateMessage ? "<sup>1</sup>" : ""
+      }<br />` + footer;
+    return html;
+  };
 
 const onDateRangeMouseOver = () => {
   const offset = 20;
@@ -476,28 +484,27 @@ const onDateRangeMouseOver = () => {
     .style("visibility", "visible");
 };
 
-const canClickRegion = (
-  placeInfo: PlaceInfo,
-  europeanCountries: Array<NamedPlace>
-) => (placeDcid: string) => {
-  const enclosingPlace =
-    europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
-      ? EUROPE_NAMED_TYPED_PLACE
-      : placeInfo.enclosingPlace;
-  const parentPlaces = getParentPlaces(
-    placeInfo.selectedPlace,
-    enclosingPlace,
-    placeInfo.parentPlaces
-  );
-  const placeAsNamedTypedPlace = {
-    dcid: placeDcid,
-    name: placeDcid,
-    types: [placeInfo.enclosedPlaceType],
+const canClickRegion =
+  (placeInfo: PlaceInfo, europeanCountries: Array<NamedPlace>) =>
+  (placeDcid: string) => {
+    const enclosingPlace =
+      europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
+        ? EUROPE_NAMED_TYPED_PLACE
+        : placeInfo.enclosingPlace;
+    const parentPlaces = getParentPlaces(
+      placeInfo.selectedPlace,
+      enclosingPlace,
+      placeInfo.parentPlaces
+    );
+    const placeAsNamedTypedPlace = {
+      dcid: placeDcid,
+      name: placeDcid,
+      types: [placeInfo.enclosedPlaceType],
+    };
+    return !_.isEmpty(
+      getAllChildPlaceTypes(placeAsNamedTypedPlace, parentPlaces)
+    );
   };
-  return !_.isEmpty(
-    getAllChildPlaceTypes(placeAsNamedTypedPlace, parentPlaces)
-  );
-};
 
 const onDateRangeMouseOut = () => {
   d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`).style("visibility", "hidden");

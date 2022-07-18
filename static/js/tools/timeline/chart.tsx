@@ -20,7 +20,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
 import { Chip } from "../../shared/chip";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
@@ -52,8 +52,8 @@ interface ChartPropsType {
   onMetadataMapUpdate: (
     metadataMap: Record<string, Record<string, StatMetadata>>
   ) => void;
-  // Map of stat var dcid to a hash representing a source series
-  metahashMap: Record<string, string>;
+  // Map of stat var dcid to a facet id
+  svFacetId: Record<string, string>;
 }
 
 interface ChartStateType {
@@ -100,7 +100,12 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNames)[0];
     const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
-    const sourceSelectorSvInfoList = this.getSourceSelectorSvInfo(statVars);
+    const facetList = this.getFacetList(statVars);
+    const svFacetId = {};
+    for (const sv of statVars) {
+      svFacetId[sv] =
+        sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
+    }
     return (
       <div className="chart-container">
         <div className="card">
@@ -134,8 +139,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          sourceSelectorSvInfoList={sourceSelectorSvInfoList}
-          onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
+          svFacetId={svFacetId}
+          facetList={facetList}
+          onSvFacetIdUpdated={(svFacetId) => setMetahash(svFacetId)}
           hideIsRatio={false}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean) =>
@@ -209,7 +215,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.drawChart();
   }
 
-  private getSourceSelectorSvInfo(statVars: string[]): SourceSelectorSvInfo[] {
+  private getFacetList(statVars: string[]): FacetSelectorFacetInfo[] {
     return statVars.map((sv) => {
       const displayNames = isIpccStatVarWithMultipleModels(sv)
         ? { "": "Mean across models" }
@@ -217,8 +223,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       return {
         dcid: sv,
         name: this.props.statVarInfos[sv].title || sv,
-        metahash:
-          sv in this.props.metahashMap ? this.props.metahashMap[sv] : "",
         metadataMap:
           this.state.rawData && this.state.rawData.metadataMap[sv]
             ? this.state.rawData.metadataMap[sv]
@@ -251,7 +255,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.state.rawData,
       places,
       statVars,
-      this.props.metahashMap,
+      this.props.svFacetId,
       this.props.pc,
       this.props.denom
     );
@@ -265,7 +269,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const ipccStatVars = statVars.filter(
       (sv) =>
         isIpccStatVarWithMultipleModels(sv) &&
-        _.isEmpty(this.props.metahashMap[sv])
+        _.isEmpty(this.props.svFacetId[sv])
     );
     if (!_.isEmpty(ipccStatVars)) {
       const [processedStat, modelStat] = statDataFromModels(
@@ -318,9 +322,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const modelsDataGroupsDict = {};
     if (this.state.ipccModels) {
       for (const place of this.state.ipccModels.places) {
-        modelsDataGroupsDict[
-          this.props.placeNames[place]
-        ] = getStatVarGroupWithTime(this.state.ipccModels, place);
+        modelsDataGroupsDict[this.props.placeNames[place]] =
+          getStatVarGroupWithTime(this.state.ipccModels, place);
       }
     }
     drawGroupLineChart(
