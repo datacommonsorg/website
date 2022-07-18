@@ -66,7 +66,7 @@ test("formatDate", () => {
   expect(formatDate("2015")).toEqual("2015");
   expect(formatDate("2022-05-22")).toEqual("2022-05-22");
 });
-     
+
 test("is valid date", () => {
   const cases: {
     date: string;
