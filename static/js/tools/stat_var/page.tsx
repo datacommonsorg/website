@@ -139,15 +139,12 @@ class Page extends Component<unknown, PageStateType> {
       });
       return;
     }
-    const [
-      descriptionPromise,
-      displayNamePromise,
-      summaryPromise,
-    ] = await Promise.all([
-      axios.get(`/api/stats/propvals/description/${sv}`),
-      axios.get(`/api/stats/propvals/name/${sv}`),
-      axios.post("/api/stats/stat-var-summary", { statVars: [sv] }),
-    ]);
+    const [descriptionPromise, displayNamePromise, summaryPromise] =
+      await Promise.all([
+        axios.get(`/api/stats/propvals/description/${sv}`),
+        axios.get(`/api/stats/propvals/name/${sv}`),
+        axios.post("/api/stats/stat-var-summary", { statVars: [sv] }),
+      ]);
     if (!displayNamePromise.data[sv].length) {
       this.setState({
         error: true,
