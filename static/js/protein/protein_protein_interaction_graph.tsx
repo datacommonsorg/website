@@ -126,10 +126,14 @@ export class ProteinProteinInteractionGraph extends React.Component<
    *  1) expansion links connect a last-layer node and a node not yet in the graph
    *  2) cross links connect a last-layer node and a node already in the graph
    * 
-   * This method has three stages:
+   * This method has four stages:
    *  1) compute expansion links
    *  2) compute cross links
    *  3) compute new nodes from expansion links
+   *  4) update graphData:
+   *      - add cross links to the last layer in {graphData.linkDataNested}
+   *      - add expansion links as a new layer of {graphData.linkDataNested}
+   *      - add new nodes as a new layer of {graphData.nodeDataNested}
    *
    * Mutates: graphData
    * Notes:
@@ -245,7 +249,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
           nodeFromID(id, graphData.nodeDataNested.length)
         );
 
-        // update graphData
+        // Stage 4: update graphData
         _.last(graphData.linkDataNested).push(...crossLinks);
         graphData.nodeDataNested.push(newNodes);
         graphData.linkDataNested.push(expansionLinks);
