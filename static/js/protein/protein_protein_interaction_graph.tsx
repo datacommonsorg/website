@@ -120,7 +120,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   /**
-   * Given graph data, performs one iteration of BFS to add one layer to graph data.
+   * Given graph data, return promise to perform one iteration of BFS to add one layer to graph data.
    * 
    * Note this is a bit peculiar in that new links discovered by BFS are split into two types:
    *  1) expansion links connect a last-layer node and a node not yet in the graph
@@ -140,7 +140,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
    * - We choose not to setState here to avoid unnecessary rerendering when we
    * chain multiple calls to this method in BFS.
    */
-  private bfsIter(graphData: MultiLevelInteractionGraphData) {
+  private bfsIter(graphData: MultiLevelInteractionGraphData): Promise<void> {
     const nodesLastLayer: ProteinNode[] = _.last(graphData.nodeDataNested);
     const nodeDCIDsLastLayer: bioDCID[] = nodesLastLayer.map((nodeDatum) =>
       ppiDCIDFromID(nodeDatum.id)
