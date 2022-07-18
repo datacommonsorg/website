@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 steps:
   - id: "client-test"
-    name: gcr.io/datcom-ci/node:2022-06-28
+    name: gcr.io/datcom-ci/node:2022-07-18
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
