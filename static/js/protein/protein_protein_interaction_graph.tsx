@@ -80,28 +80,30 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidMount(): void {
-    if (_.isEmpty(this.state.graphData)) {
-      return;
-    }
-    const graphData = _.cloneDeep(this.state.graphData);
-    const expansions = this.bfsIter(graphData).then(() =>
-      this.bfsIter(graphData)
-    );
-    //   let expansions = Promise.resolve();
-    //   for (let i = 0; i < this.state.depth; i++){
-    //     expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
-    //   }
-    expansions.then(() => {
-      this.setState({
-        graphData,
-      });
-    });
+    console.log('mounted', this.props.interactionDataDepth1)
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate(prevProps): void {
+    console.log('updated', this.props.interactionDataDepth1)
     if (_.isEmpty(this.state.graphData)) {
       return;
     }
+    if (prevProps.interactionDataDepth1 !== this.props.interactionDataDepth1){
+      const graphData = _.cloneDeep(this.state.graphData);
+      const expansions = this.bfsIter(graphData).then(() =>
+        this.bfsIter(graphData)
+      );
+      //   let expansions = Promise.resolve();
+      //   for (let i = 0; i < this.state.depth; i++){
+      //     expansions = this.expandProteinInteractionGraph(graphData).then(() => expansions)
+      //   }
+      expansions.then(() => {
+        this.setState({
+          graphData,
+        });
+      });
+    }
+
     drawProteinInteractionGraph("protein-interaction-graph", {
       nodeData: this.state.graphData.nodeDataNested
         .slice(0, this.state.depth + 1)
