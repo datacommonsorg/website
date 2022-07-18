@@ -26,7 +26,7 @@ import _ from "lodash";
 import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { DiseaseAssociationType, InteractingProteinType } from "./page";
 import { ProteinVarType } from "./page";
-export {Datum} from "../bio_charts_utils";
+export { Datum } from "../bio_charts_utils";
 // interface for protein page datatypes which return number values
 export interface ProteinNumData {
   name: string;
@@ -79,7 +79,14 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 const PROTEIN_REDIRECT = "/bio/protein/";
 export const GRAPH_BROWSER_REDIRECT = "/browser/";
 
-import {MARGIN, NUM_DATA_POINTS, handleMouseEvents, getElementIDFunc, addXLabel, addYLabel } from "../bio_charts_utils";
+import {
+  addXLabel,
+  addYLabel,
+  getElementIDFunc,
+  handleMouseEvents,
+  MARGIN,
+  NUM_DATA_POINTS,
+} from "../bio_charts_utils";
 
 // bar width for tissue
 const TISSUE_BAR_WIDTH = 12;

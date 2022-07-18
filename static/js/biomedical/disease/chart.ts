@@ -17,7 +17,22 @@ import * as d3 from "d3";
 import _ from "lodash";
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
-import {MARGIN, NUM_DATA_POINTS, TOOL_TIP, TOOL_TIP_SHIFT, DEFAULT_BRIGHTEN_PERCENTAGE, X_LABEL_SHIFT, Datum, onMouseOver, onMouseMove, onMouseOut, handleMouseEvents, getElementIDFunc, addXLabel, addYLabel} from "../bio_charts_utils"
+import {
+  addXLabel,
+  addYLabel,
+  Datum,
+  DEFAULT_BRIGHTEN_PERCENTAGE,
+  getElementIDFunc,
+  handleMouseEvents,
+  MARGIN,
+  NUM_DATA_POINTS,
+  onMouseMove,
+  onMouseOut,
+  onMouseOver,
+  TOOL_TIP,
+  TOOL_TIP_SHIFT,
+  X_LABEL_SHIFT,
+} from "../bio_charts_utils";
 // graph specific dimensions
 const GRAPH_HEIGHT = 400;
 const GRAPH_WIDTH = 760;
@@ -27,7 +42,6 @@ const Y_AXIS_LIMIT = 0.5;
 const LEGEND_CIRCLE_RADIUS = 4;
 // length of the error bar cap for disease-gene associations chart
 const ERROR_BAR_CAP_LENGTH = 10;
-
 
 export interface DiseaseGeneAssociationData {
   // name of the associated gene
