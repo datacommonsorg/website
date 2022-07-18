@@ -642,7 +642,7 @@ export function getInteractionTarget(
  * Given protein id of the form {protein name}_{species name} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
 export function nodeFromID(proteinID: string, depth: number): ProteinNode {
-  // assumes {species name} does not contain _ 
+  // assumes {species name} does not contain _
   // last checked: 06/22/22, when MINT was the provenance of all protein data
   const lastIndex = proteinID.lastIndexOf("_");
   return {
