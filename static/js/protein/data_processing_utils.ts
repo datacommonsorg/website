@@ -702,7 +702,6 @@ export function getProteinInteractionGraphData(
   const centerNodeID = data[0].parent;
   let neighbors = data.map(({ name: interactionID, value }) => {
     // value is confidenceScore
-    console.log("id", interactionID);
     const neighborID = getInteractionTarget(
       interactionID as bioDCID,
       ppiDCIDFromID(centerNodeID)
