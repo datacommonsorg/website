@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React from "react";
+import { FormGroup, Input } from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
 import {
@@ -114,6 +115,25 @@ export class ProteinProteinInteractionGraph extends React.Component<
     return (
       <>
         <div id="protein-interaction-graph"></div>
+                                <FormGroup>
+                          <Input
+                            className={`download-date-range-input${
+                              selectedOptions.dateRange &&
+                              validationErrors.minDate
+                                ? "-error"
+                                : ""
+                            }`}
+                            type="text"
+                            onChange={(e) => {
+                              console.log(e.target.value)
+                            }}
+                            disabled={false}
+                            value={2}
+                            onBlur={(e) => {
+                              console.log(e.target.value)
+                            }}
+                          />
+                        </FormGroup>
       </>
     );
   }
