@@ -61,12 +61,12 @@ const config = {
       __dirname + "/css/browser.scss",
     ],
     disease: [
-      __dirname + "/js/disease/disease.ts",
-      __dirname + "/css/disease.scss",
+      __dirname + "/js/biomedical/disease/disease.ts",
+      __dirname + "/css/biomedical/disease.scss",
     ],
     protein: [
-      __dirname + "/js/protein/protein.ts",
-      __dirname + "/css/protein.scss",
+      __dirname + "/js/biomedical/protein/protein.ts",
+      __dirname + "/css/biomedical/protein.scss",
     ],
     static: __dirname + "/css/static.scss",
     translator: [
