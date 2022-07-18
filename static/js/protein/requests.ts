@@ -7,7 +7,7 @@ import {
   valuesFromResponse,
 } from "./data_processing_utils";
 
-const V1_ENDPOINT_ROOT = "https://autopush.api.datacommons.org/v1";
+const V1_ENDPOINT_ROOT = "/api";
 // endpoints for protein-protein interaction graph
 const PPI_ENDPOINTS = {
   INTERACTORS: `${V1_ENDPOINT_ROOT}/bulk/property/in/interactingProtein/values`,
@@ -34,8 +34,10 @@ function postV1Bulk(
  */
 export function fetchInteractionData(
   proteinDCIDs: string[]
-): ReturnType<typeof postV1Bulk> {
-  return postV1Bulk(PPI_ENDPOINTS.INTERACTORS, proteinDCIDs);
+): Promise<V1Response<V1BaseDatum>> {
+  return axios.post(PPI_ENDPOINTS.INTERACTORS, {
+    entities: proteinDCIDs,
+  });
 }
 
 /**
@@ -43,19 +45,25 @@ export function fetchInteractionData(
  */
 export function fetchScoreData(
   interactionDCIDs: string[]
-): ReturnType<typeof postV1Bulk> {
-  return postV1Bulk(PPI_ENDPOINTS.CONFIDENCE_SCORE, interactionDCIDs);
+): Promise<V1Response<V1BaseDatum>> {
+  return axios.post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
+    entities: interactionDCIDs,
+  });
 }
 
 /**
  * Given list of protein DCIDs, fetch their interactors and then the confidence scores of the interactions.
- * Return both the list of interactors and the score request.
+ * Return promise for both the list of lists of interactors and the score response.
  */
 export function fetchInteractionsThenScores(
   proteinDCIDs: string[]
 ): Promise<[string[][], V1Response<V1BaseDatum>]> {
   return fetchInteractionData(proteinDCIDs).then((resp) => {
-    const interactionData = valuesFromResponse(resp).map((interactions) => {
+    // list of lists of interactors where the ith list contains the interactors of {proteinDCIDs[i]}
+    // each list of interactors is deduplicated such that
+    //  1) each element is unique
+    //  2) if A_B appears in the list, then B_A does not appear
+    const interactionData: string[][] = valuesFromResponse(resp).map((interactions) => {
       return interactions.map(({ dcid }) => dcid);
     }).map(deduplicateInteractionDCIDs);
 
