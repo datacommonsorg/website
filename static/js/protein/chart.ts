@@ -199,6 +199,7 @@ const NUM_TICKS = 10;
 const GRAPH_HEIGHT_XS = 130;
 const GRAPH_HEIGHT_S = 200;
 const GRAPH_HEIGHT_M = 400;
+const GRAPH_HEIGHT_XL = 800;
 const GRAPH_WIDTH_S = 660;
 const GRAPH_WIDTH_M = 700;
 const GRAPH_WIDTH_L = 760;
@@ -771,8 +772,8 @@ export function drawProteinInteractionGraph(
 
   const { nodeData, linkData } = data;
 
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
+  const height = GRAPH_HEIGHT_XL - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH_XL - MARGIN.left - MARGIN.right;
 
   const svg = d3
     .select(`#${chartID}`)
