@@ -77,6 +77,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
     };
   }
 
+  /**
+   * Perform BFS and (re)draw graph
+   */
   componentDidUpdate(prevProps: InteractionGraphProps | null): void {
     // takes two calls to this method to draw the graph.
     //  1) first call performs BFS and updates the graph
