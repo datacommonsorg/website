@@ -37,9 +37,6 @@ export function fetchInteractionData(
 ): Promise<V1Response<V1BaseDatum>> {
   return axios.post(PPI_ENDPOINTS.INTERACTORS, {
     entities: proteinDCIDs,
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 }
 
@@ -51,9 +48,6 @@ export function fetchScoreData(
 ): Promise<V1Response<V1BioDatum>> {
   return axios.post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
     entities: interactionDCIDs,
-    headers: {
-      "Content-Type": "application/json",
-    },
   });
 }
 
