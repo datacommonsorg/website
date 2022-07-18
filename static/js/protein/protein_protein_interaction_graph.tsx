@@ -22,13 +22,9 @@ import _ from "lodash";
 import React from "react";
 
 import { drawProteinInteractionGraph } from "./chart";
-import {
-  getProteinInteractionGraphData,
-} from "./data_processing_utils";
+import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
-import {
-  MultiLevelInteractionGraphData,
-} from "./types";
+import { MultiLevelInteractionGraphData } from "./types";
 
 type InteractionGraphProps = {
   centerProteinDCID: string;
@@ -73,7 +69,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       );
       this.setState({
         graphData,
-      })
+      });
     }
     if (!_.isEmpty(this.state.graphData)) {
       drawProteinInteractionGraph("protein-interaction-graph", {
