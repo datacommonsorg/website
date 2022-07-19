@@ -25,8 +25,8 @@ import { bioDCID, V1BaseDatum, V1BioDatum, V1Response } from "./types";
 const V1_ENDPOINT_ROOT = "https://autopush.api.datacommons.org/v1";
 // endpoints for protein-protein interaction graph
 const PPI_ENDPOINTS = {
-  INTERACTORS: `${V1_ENDPOINT_ROOT}/bulk/property/in/interactingProtein/values`,
   CONFIDENCE_SCORE: `${V1_ENDPOINT_ROOT}/bulk/property/out/confidenceScore/values`,
+  INTERACTORS: `${V1_ENDPOINT_ROOT}/bulk/property/in/interactingProtein/values`,
 };
 
 /**
