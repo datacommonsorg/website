@@ -258,9 +258,9 @@ export class StatVarSectionInput extends React.Component<
       return;
     }
     const left = e.pageX;
-    const containerY = (d3
-      .select(`#${SV_HIERARCHY_SECTION_ID}`)
-      .node() as HTMLElement).getBoundingClientRect().y;
+    const containerY = (
+      d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
+    ).getBoundingClientRect().y;
     const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
     showTooltip(html, { left, top });
   };

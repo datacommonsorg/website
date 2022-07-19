@@ -24,7 +24,7 @@ import {
   updateHashStatVar,
 } from "./util";
 
-const TestContext = ({
+const TestContext = {
   placeInfo: {
     value: {
       selectedPlace: {
@@ -59,7 +59,7 @@ const TestContext = ({
       showTimeSlider: false,
     },
   },
-} as unknown) as ContextType;
+} as unknown as ContextType;
 
 test("updateHashPlaceInfo", () => {
   history.pushState = jest.fn();
