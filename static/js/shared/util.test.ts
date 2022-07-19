@@ -34,10 +34,12 @@ test("getCappedStatVarDate", () => {
     Count_Person: "",
     DifferenceRelativeToBaseDate2006_PrecipitationRate_RCP26: MAX_DATE,
     DifferenceRelativeToBaseDate2015_Max_Temperature_SSP245: MAX_DATE,
-    NumberOfMonths_5CelsiusOrMore_MedianAcrossModels_DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85: MAX_YEAR,
+    NumberOfMonths_5CelsiusOrMore_MedianAcrossModels_DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85:
+      MAX_YEAR,
     NumberOfMonths_5CelsiusOrMore_Percentile10AcrossModels_DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85:
       "",
-    NumberOfMonths_5CelsiusOrMore_Percentile90AcrossModels_DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85: MAX_YEAR,
+    NumberOfMonths_5CelsiusOrMore_Percentile90AcrossModels_DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85:
+      MAX_YEAR,
     NumberOfMonths_WetBulbTemperature_35COrMore_RCP85: MAX_YEAR,
     PrecipitationRate: "",
   };

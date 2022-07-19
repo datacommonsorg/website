@@ -37,9 +37,7 @@ interface StatVarGroupSectionPropType {
   expandedPath: string[];
 }
 
-export class StatVarGroupSection extends React.Component<
-  StatVarGroupSectionPropType
-> {
+export class StatVarGroupSection extends React.Component<StatVarGroupSectionPropType> {
   render(): JSX.Element {
     let childStatVarGroups = this.props.data;
     const variableGroupItem = childStatVarGroups.find((svg) =>

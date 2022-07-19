@@ -577,7 +577,10 @@ export function quantityFromDcid(
   quantityName: string
 ): number {
   if (!quantityDcid.includes(quantityName)) {
-    console.assert(!quantityDcid.includes(quantityName), `DCID "${quantityDcid}" does not contain quantity name "${quantityName}"`);
+    console.assert(
+      !quantityDcid.includes(quantityName),
+      `DCID "${quantityDcid}" does not contain quantity name "${quantityName}"`
+    );
     return NaN;
   }
   return Number(_.last(quantityDcid.split(quantityName)));
@@ -752,9 +755,17 @@ export function symmetricScoreRec(
     const [protein1, protein2] = proteinsFromInteractionDcid(
       interactionDcids[i]
     );
-    const score12 = _.get(scoreRec, `${protein1}_${protein2}`, DEFAULT_INTERACTION_SCORE);
-    const score21 = _.get(scoreRec, `${protein2}_${protein1}`, DEFAULT_INTERACTION_SCORE);
-    const maxScore = Math.max(scores[i], score12, score21)
+    const score12 = _.get(
+      scoreRec,
+      `${protein1}_${protein2}`,
+      DEFAULT_INTERACTION_SCORE
+    );
+    const score21 = _.get(
+      scoreRec,
+      `${protein2}_${protein1}`,
+      DEFAULT_INTERACTION_SCORE
+    );
+    const maxScore = Math.max(scores[i], score12, score21);
     scoreRec[`${protein1}_${protein2}`] = maxScore;
     scoreRec[`${protein2}_${protein1}`] = maxScore;
   }
