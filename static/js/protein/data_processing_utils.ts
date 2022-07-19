@@ -625,7 +625,8 @@ export function nodeFromId(proteinId: string, depth: number): ProteinNode {
 
 /**
  * Given interaction ID, source ID, and interaction score, return InteractionLink.
- * Note that we must store sourceID, targetID twice because d3 will replace source, target with SimulationNodeDatum objects after initialization.
+ * Note that we must store sourceID, targetID twice
+ * because d3 will replace source, target with SimulationNodeDatum objects after initialization.
  */
 export function getLink(
   sourceId: string,
@@ -633,9 +634,9 @@ export function getLink(
   score: number
 ): InteractionLink {
   return {
+    score,
     sourceId,
     targetId,
-    score: score,
     source: sourceId,
     target: targetId,
   };

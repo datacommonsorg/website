@@ -40,23 +40,25 @@ import {
   ProteinNode,
 } from "./types";
 
-type InteractionGraphProps = {
+interface InteractionGraphProps {
   centerProteinDcid: string;
   interactionDataDepth1: InteractingProteinType[];
-};
+}
 
-type InteractionGraphState = {
+interface InteractionGraphState {
   graphData: MultiLevelInteractionGraphData;
   depth: number;
   scoreThreshold: number;
   maxInteractions: number;
-};
+}
+
+const CHART_ID = "protein-interaction-graph";
 
 const DEFAULTS = {
   DEPTH: 2,
   MAX_INTERACTIONS: 4,
-  SCORE_THRESHOLD: 0.4,
   MISSING_SCORE_FILLER: -1,
+  SCORE_THRESHOLD: 0.4,
 };
 
 export class ProteinProteinInteractionGraph extends React.Component<
@@ -66,8 +68,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
   constructor(props: InteractionGraphProps) {
     super(props);
     this.state = {
-      graphData: null,
       depth: DEFAULTS.DEPTH,
+      graphData: null,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
       maxInteractions: DEFAULTS.MAX_INTERACTIONS,
     };
@@ -96,14 +98,15 @@ export class ProteinProteinInteractionGraph extends React.Component<
           graphData,
         });
       });
+      return;
     }
     // this branch executes on second call to this method
     if (!_.isEmpty(this.state.graphData)) {
-      drawProteinInteractionGraph("protein-interaction-graph", {
-        nodeData: this.state.graphData.nodeDataNested
+      drawProteinInteractionGraph(CHART_ID, {
+        linkData: this.state.graphData.linkDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
-        linkData: this.state.graphData.linkDataNested
+        nodeData: this.state.graphData.nodeDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
       });
@@ -111,11 +114,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   render(): JSX.Element {
-    return (
-      <>
-        <div id="protein-interaction-graph"></div>
-      </>
-    );
+    return <div id={CHART_ID}></div>;
   }
 
   /**
