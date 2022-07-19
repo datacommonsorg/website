@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { formatDate, getCommonPrefixm, isValidDate } from "./string_utils";
+import { formatDate, getCommonPrefix, isValidDate } from "./string_utils";
 
 test("get common prefix", () => {
   const cases: {
