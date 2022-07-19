@@ -49,14 +49,19 @@ type InteractionGraphProps = {
 type InteractionGraphState = {
   graphData: MultiLevelInteractionGraphData;
   depth: number;
+  interactions: number;
   scoreThreshold: number;
-  maxInteractions: number;
 };
+
+const LIMITS = {
+  MAX_DEPTH: 3,
+  MIN_DEPTH: 0,
+  MAX_INTERACTIONS: 10,
+}
 
 const DEFAULTS = {
   DEPTH: 2,
-  MAX_DEPTH: 3,
-  MAX_INTERACTIONS: 4,
+  INTERACTIONS: 4,
   SCORE_THRESHOLD: 0.4,
   MISSING_SCORE_FILLER: -1,
 };
@@ -70,8 +75,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
     this.state = {
       graphData: null,
       depth: DEFAULTS.DEPTH,
+      interactions: DEFAULTS.INTERACTIONS,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
-      maxInteractions: DEFAULTS.MAX_INTERACTIONS,
     };
   }
 
@@ -90,8 +95,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
       );
       // chain two BFS iterations
       const expansions = this.bfsIter(graphData).then(() =>
-        this.bfsIter(graphData)
-      );
+        this.bfsIter(graphData))
+        .then(() => this.bfsIter(graphData))
+        .then( () => this.bfsIter(graphData))
+        .then( () => this.bfsIter(graphData))
       // updating state will then trigger the second call to this method
       expansions.then(() => {
         this.setState({
@@ -103,7 +110,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
     if (!_.isEmpty(this.state.graphData)) {
       drawProteinInteractionGraph("protein-interaction-graph", {
         nodeData: this.state.graphData.nodeDataNested
+        // depth-wise slicing
           .slice(0, this.state.depth + 1)
+        // TODO: add breadth-wise slicing by this.state.interactions
           .flat(1),
         linkData: this.state.graphData.linkDataNested
           .slice(0, this.state.depth + 1)
@@ -119,20 +128,17 @@ export class ProteinProteinInteractionGraph extends React.Component<
                                 <FormGroup>
                           <Input
                             className={`ppi-depth-input${
-                              this.state.depth > DEFAULTS.MAX_DEPTH
+                              this.state.depth > LIMITS.MAX_DEPTH
                                 ? "-error"
                                 : ""
                             }`}
                             type="number"
+                            max={LIMITS.MAX_DEPTH}
+                            min={LIMITS.MIN_DEPTH}
                             onChange={(e) => {
-                              console.log('change', e.target.value)
                               this.setState({depth: Number(e.target.value)})
                             }}
-                            disabled={false}
                             value={this.state.depth}
-                            onBlur={(e) => {
-                              console.log('blur', e.target.value);
-                            }}
                           />
                         </FormGroup>
       </>
@@ -236,7 +242,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
               );
               return score1 - score2;
             })
-            .slice(0, this.state.maxInteractions);
+            .slice(0, LIMITS.MAX_INTERACTIONS);
 
           // add an InteractionLink for each interaction
           filteredSorted.forEach((interactionDcid) => {

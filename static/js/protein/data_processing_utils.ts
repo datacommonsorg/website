@@ -34,7 +34,7 @@ import {
 } from "./types";
 
 // Upper bound on node degree in interaction graph viz's
-export const MAX_INTERACTIONS = 4;
+export const MAX_INTERACTIONS = 10;
 export const INTERACTION_QUANTITY_DCID = "IntactMiScore";
 
 // Number to return if interaction score is missing
