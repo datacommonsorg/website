@@ -504,15 +504,16 @@ function fetchData(
   const breadcrumbPlaceDatesPromise = Promise.all(breadcrumbPlaceDatesList);
 
   const mapPointSv = statVar.mapPointSv || statVar.dcid;
-  const mapPointDataPromise: Promise<GetStatSetResponse> = placeInfo.mapPointPlaceType
-    ? axios
-        .get(
-          `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointPlaceType}&stat_vars=${mapPointSv}`
-        )
-        .then((resp) => {
-          return resp.data;
-        })
-    : Promise.resolve(null);
+  const mapPointDataPromise: Promise<GetStatSetResponse> =
+    placeInfo.mapPointPlaceType
+      ? axios
+          .get(
+            `/api/stats/within-place?parent_place=${placeInfo.enclosingPlace.dcid}&child_type=${placeInfo.mapPointPlaceType}&stat_vars=${mapPointSv}`
+          )
+          .then((resp) => {
+            return resp.data;
+          })
+      : Promise.resolve(null);
   const mapPointsPromise: Promise<Array<MapPoint>> = placeInfo.mapPointPlaceType
     ? axios
         .get(
@@ -522,17 +523,17 @@ function fetchData(
           return resp.data;
         })
     : Promise.resolve({});
-  const europeanCountriesPromise: Promise<Array<
-    NamedPlace
-  >> = getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
+  const europeanCountriesPromise: Promise<Array<NamedPlace>> =
+    getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
   const statVarSummaryPromise: Promise<StatVarSummary> = axios
     .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
     .then((resp) => resp.data);
-  const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> = axios
-    .get(
-      `/api/stat/date/within-place?ancestorPlace=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&statVars=${statVar.dcid}`
-    )
-    .then((resp) => resp.data);
+  const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> =
+    axios
+      .get(
+        `/api/stat/date/within-place?ancestorPlace=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&statVars=${statVar.dcid}`
+      )
+      .then((resp) => resp.data);
   Promise.all([
     geoJsonDataPromise,
     breadcrumbPopPromise,
@@ -607,13 +608,16 @@ function fetchData(
             features: geoJsonFeatures,
           };
         }
-        const sampleDates: Record<string, Array<string>> =
-          placeStatDateWithinPlace.data[statVar.dcid].statDate && showTimeSlider
-            ? getTimeSliderDates(
-                metadataMap,
-                placeStatDateWithinPlace.data[statVar.dcid].statDate
-              )
-            : {};
+        const sampleDates: Record<
+          string,
+          Array<string>
+        > = placeStatDateWithinPlace.data[statVar.dcid].statDate &&
+        showTimeSlider
+          ? getTimeSliderDates(
+              metadataMap,
+              placeStatDateWithinPlace.data[statVar.dcid].statDate
+            )
+          : {};
         let legendBounds: Record<string, [number, number, number]> = {};
         if (BEST_AVAILABLE_METAHASH in sampleDates) {
           // Set dates for "Best Available" to best series
@@ -670,9 +674,8 @@ function fetchData(
               sampleDatesChartData
             );
           }
-          newSampleDatesChartData[
-            statVar.metahash || BEST_AVAILABLE_METAHASH
-          ] = currentSampleDatesData;
+          newSampleDatesChartData[statVar.metahash || BEST_AVAILABLE_METAHASH] =
+            currentSampleDatesData;
           setSampleDatesChartData(newSampleDatesChartData);
         } else {
           setRawData({
