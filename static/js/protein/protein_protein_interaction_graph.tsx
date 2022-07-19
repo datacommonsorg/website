@@ -205,15 +205,13 @@ export class ProteinProteinInteractionGraph extends React.Component<
             // But we would have to re-sort on new user-input.
             // Another option is to pay the one-time up-front cost of sorting the unfiltered interaction list and cache.
             .sort((interactionDCID1, interactionDCID2) => {
-              const [score1, score2] = [
-                interactionDCID1,
-                interactionDCID2,
-              ].map((dcid) =>
-                _.get(
-                  scoresNewLayer,
-                  ppiIDFromDCID(dcid),
-                  DEFAULTS.MISSING_SCORE_FILLER
-                )
+              const [score1, score2] = [interactionDCID1, interactionDCID2].map(
+                (dcid) =>
+                  _.get(
+                    scoresNewLayer,
+                    ppiIDFromDCID(dcid),
+                    DEFAULTS.MISSING_SCORE_FILLER
+                  )
               );
               return score1 - score2;
             })
