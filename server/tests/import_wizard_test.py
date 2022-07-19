@@ -24,4 +24,3 @@ class TestStaticPage(unittest.TestCase):
         response = app.test_client().get('/import/')
         assert response.status_code == 200
         assert b"Import Wizard - Data Commons" in response.data
-
