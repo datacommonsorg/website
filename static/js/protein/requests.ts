@@ -20,7 +20,7 @@ import {
   deduplicateInteractionDcids,
   getFromResponse,
 } from "./data_processing_utils";
-import { bioDcid, V1BaseDatum, V1BioDatum, V1Response } from "./types";
+import { bioDcid, V1BioDatum, V1BioResponse } from "./types";
 
 const V1_ENDPOINT_ROOT = "https://autopush.api.datacommons.org/v1";
 // endpoints for protein-protein interaction graph
@@ -34,7 +34,7 @@ const PPI_ENDPOINTS = {
  */
 export function fetchInteractionData(
   proteinDCIDs: string[]
-): Promise<V1Response<V1BaseDatum>> {
+): Promise<V1BioResponse> {
   return axios.post(PPI_ENDPOINTS.INTERACTORS, {
     entities: proteinDCIDs,
   });
@@ -45,7 +45,7 @@ export function fetchInteractionData(
  */
 export function fetchScoreData(
   interactionDCIDs: bioDcid[]
-): Promise<V1Response<V1BioDatum>> {
+): Promise<V1BioResponse> {
   return axios.post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
     entities: interactionDCIDs,
   });
@@ -57,7 +57,7 @@ export function fetchScoreData(
  */
 export function fetchInteractionsThenScores(
   proteinDCIDs: bioDcid[]
-): Promise<[bioDcid[][], V1Response<V1BioDatum>]> {
+): Promise<[bioDcid[][], V1BioResponse]> {
   return fetchInteractionData(proteinDCIDs).then((resp) => {
     // list of lists of interactors where the ith list contains the interactors of {proteinDCIDs[i]}
     // each list of interactors is deduplicated such that
@@ -65,9 +65,9 @@ export function fetchInteractionsThenScores(
     //  2) if A_B appears in the list, then B_A does not appear
     const interactionData: bioDcid[][] = getFromResponse(resp, "values")
       .map((interactions) => {
-        return interactions.map(({ dcid }) => dcid);
+        const dcids = interactions.map(({ dcid }) => dcid);
+        return deduplicateInteractionDcids(dcids)
       })
-      .map(deduplicateInteractionDcids);
 
     return fetchScoreData(interactionData.flat(1)).then((resp) => [
       interactionData,
