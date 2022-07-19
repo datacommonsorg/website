@@ -60,8 +60,8 @@ export interface V1BioDatum {
 export interface V1BioResponseDatum {
   entity: bioDcid;
   values: V1BioDatum[];
-};
+}
 
-export interface V1BioResponse{
+export interface V1BioResponse {
   data: V1BioResponseDatum[];
 }

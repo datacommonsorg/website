@@ -597,7 +597,7 @@ export function deduplicateInteractionDcids(
  */
 export function getInteractionTarget(
   interactionDcid: bioDcid,
-  sourceDcid: bioDcid,
+  sourceDcid: bioDcid
 ): string {
   // note this also works in the case of a self-interaction
   const interactionId = ppiIdFromDcid(interactionDcid);
@@ -696,9 +696,10 @@ export function getProteinInteractionGraphData(
 /**
  * Given response and key, map each response datum to value of key and return map
  */
-export function getFromResponse<
-  K extends keyof V1BioResponseDatum
->(resp: V1BioResponse, key: K): V1BioResponseDatum[K][] {
+export function getFromResponse<K extends keyof V1BioResponseDatum>(
+  resp: V1BioResponse,
+  key: K
+): V1BioResponseDatum[K][] {
   if (!("data" in resp.data)) {
     return [];
   }
@@ -709,12 +710,12 @@ export function getFromResponse<
  * Given an array of interaction DCIDs and a parallel array of corresponding scores,
  * construct and return score record such that for each interaction A_B with corresponding DCID in interaction DCIDs,
  * both A_B and B_A map to the score of A_B.
- * 
+ *
  * Since we currently do not graphically distinguish between the A_B and B_A scores,
  * we choose to have a symmetric score store.
- * 
+ *
  * In the future perhaps we should make the graph directed to make relationships like "A phosphorylates B"
- * more clear. I also think there should be assays for which the scores are not symmetric - 
+ * more clear. I also think there should be assays for which the scores are not symmetric -
  * ex. "knockout A and see what happens to the expression of B". These might not exist in the graph currently
  * but could very well be imported in the future. Thus, we might have two or more edges between proteins
  * for each type of interaction they participate in, with different scores for each.
@@ -757,17 +758,20 @@ export function scoreDataFromResponse(
   const scoreList = scoreValues
     // map scoreValues to IntactMiScore if available or default interaction score
     .map((bioData: V1BioDatum[]) => {
-      for(let i=0; i < bioData.length; i++){
-        const bioDatum = bioData[i]
-        if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)){
-          const score = quantityFromDcid(bioDatum.dcid, INTERACTION_QUANTITY_DCID)
-          if (score !== NaN){
-            return score
+      for (let i = 0; i < bioData.length; i++) {
+        const bioDatum = bioData[i];
+        if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)) {
+          const score = quantityFromDcid(
+            bioDatum.dcid,
+            INTERACTION_QUANTITY_DCID
+          );
+          if (!isNaN(score)) {
+            return score;
           }
-          console.warn(`Invalid quantity ID ${bioDatum.dcid} -- skipping`)
+          console.warn(`Invalid quantity ID ${bioDatum.dcid} -- skipping`);
         }
       }
-      return DEFAULT_INTERACTION_SCORE
+      return DEFAULT_INTERACTION_SCORE;
     });
   return symmetricScoreRec(interactionDcids, scoreList);
 }
