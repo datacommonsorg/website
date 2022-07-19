@@ -19,10 +19,7 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
-import { array } from "prop-types";
 import React from "react";
-import { SourceMapDevToolPlugin } from "webpack";
 
 import { GraphNodes } from "../shared/types";
 import {
@@ -49,7 +46,6 @@ import {
   ppiIdFromDcid,
 } from "./data_processing_utils";
 import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
-import { fetchInteractionData, fetchScoreData } from "./requests";
 import { bioDcid } from "./types";
 export interface PagePropType {
   dcid: string;
@@ -86,9 +82,6 @@ export interface InteractingProteinType {
   value: number;
   parent: string;
 }
-
-const PPI_CONFIDENCE_SCORE_THRESHOLD = 0.4;
-const PROTEIN_INTERACTION_DEPTH = 2;
 
 export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
@@ -211,7 +204,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       );
       this.setState({
         data: resp.data,
-        interactionDataDepth1: interactionDataDepth1,
+        interactionDataDepth1,
       });
     });
   }

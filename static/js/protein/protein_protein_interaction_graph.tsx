@@ -43,8 +43,8 @@ const CHART_ID = "protein-interaction-graph";
 const DEFAULTS = {
   DEPTH: 2,
   MAX_INTERACTIONS: 4,
-  SCORE_THRESHOLD: 0.4,
   MISSING_SCORE_FILLER: -1,
+  SCORE_THRESHOLD: 0.4,
 };
 
 export class ProteinProteinInteractionGraph extends React.Component<
@@ -54,8 +54,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
   constructor(props: InteractionGraphProps) {
     super(props);
     this.state = {
-      graphData: null,
       depth: DEFAULTS.DEPTH,
+      graphData: null,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
       maxInteractions: DEFAULTS.MAX_INTERACTIONS,
     };
@@ -76,10 +76,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
     }
     if (!_.isEmpty(this.state.graphData)) {
       drawProteinInteractionGraph(CHART_ID, {
-        nodeData: this.state.graphData.nodeDataNested
+        linkData: this.state.graphData.linkDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
-        linkData: this.state.graphData.linkDataNested
+        nodeData: this.state.graphData.nodeDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
       });
