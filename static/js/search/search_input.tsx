@@ -51,7 +51,8 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
 
   useEffect(() => {
     if (google.maps) {
-      placeAutocompleteService.current = new google.maps.places.AutocompleteService();
+      placeAutocompleteService.current =
+        new google.maps.places.AutocompleteService();
     }
   }, []);
 

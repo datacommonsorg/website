@@ -52,9 +52,9 @@ export function PlaceOptions(props: PlaceOptionsProps): JSX.Element {
       return;
     }
     if (_.isNull(placeInfo.value.parentPlaces)) {
-      getParentPlacesPromise(
-        placeInfo.value.selectedPlace.dcid
-      ).then((parentPlaces) => placeInfo.setParentPlaces(parentPlaces));
+      getParentPlacesPromise(placeInfo.value.selectedPlace.dcid).then(
+        (parentPlaces) => placeInfo.setParentPlaces(parentPlaces)
+      );
       return;
     }
     if (

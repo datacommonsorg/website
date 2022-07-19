@@ -262,30 +262,28 @@ function processData(
   });
 }
 
-const getTooltipHtml = (
-  points: { [placeDcid: string]: Point },
-  xLabel: string,
-  yLabel: string
-) => (place: NamedPlace) => {
-  const point = points[place.dcid];
-  if (_.isEmpty(point)) {
-    return (
-      `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+const getTooltipHtml =
+  (points: { [placeDcid: string]: Point }, xLabel: string, yLabel: string) =>
+  (place: NamedPlace) => {
+    const point = points[place.dcid];
+    if (_.isEmpty(point)) {
+      return (
+        `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+      );
+    }
+    const element = (
+      <>
+        <header>
+          <b>{point.place.name || point.place.dcid}</b>
+        </header>
+        {xLabel} ({point.xDate}): <b>{getStringOrNA(point.xVal)}</b>
+        <br />
+        {yLabel} ({point.yDate}): <b>{getStringOrNA(point.yVal)}</b>
+        <br />
+      </>
     );
-  }
-  const element = (
-    <>
-      <header>
-        <b>{point.place.name || point.place.dcid}</b>
-      </header>
-      {xLabel} ({point.xDate}): <b>{getStringOrNA(point.xVal)}</b>
-      <br />
-      {yLabel} ({point.yDate}): <b>{getStringOrNA(point.yVal)}</b>
-      <br />
-    </>
-  );
-  return ReactDOMServer.renderToStaticMarkup(element);
-};
+    return ReactDOMServer.renderToStaticMarkup(element);
+  };
 
 function draw(
   chartData: BivariateChartData,

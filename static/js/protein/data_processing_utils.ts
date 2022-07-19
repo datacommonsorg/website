@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import { ProteinVarType } from "./page";
 import { InteractingProteinType } from "./page";
 import { DiseaseAssociationType } from "./page";
 import {
-  bioDCID,
+  bioDcid,
   InteractionLink,
   MultiLevelInteractionGraphData,
   ProteinNode,
@@ -532,39 +532,16 @@ export function getProteinDescription(data: GraphNodes): string {
 }
 
 /**
- * Given array, key-maker function, and value-maker function, construct object from array with string-valued keys.
- * This is essentially a TS implementation of a python dictionary comprehension.
- *
- * Unfortunately generic index signature parameters aren't supported by TS yet, so we enforce that keys are strings
- * (since they're automatically converted to strings anyway).
- *
- * References:
- *  - https://linuxtut.com/en/87ab3f313a75b547c278/
- *  - https://stackoverflow.com/questions/13315131/enforcing-the-type-of-the-indexed-members-of-a-typescript-object
- *
- */
-export function objectFromArray<T, V>(
-  arr: T[],
-  keyFunc: (arrElt: T) => string,
-  valFunc: (arrElt: T) => V
-): { [key: string]: V } {
-  return arr.reduce(
-    (obj, elt) => Object.assign(obj, { [keyFunc(elt)]: valFunc(elt) }),
-    {}
-  );
-}
-
-/**
  * Convert DCID of form bio/<id> to id. Utility for protein-protein interaction (PPI) graph.
  */
-export function ppiIDFromDCID(dcid: bioDCID): string {
+export function ppiIdFromDcid(dcid: bioDcid): string {
   return dcid.replace("bio/", "");
 }
 
 /**
  * Given id, convert to DCID of form bio/<id>.  Utility for protein-protein interaction (PPI) graph.
  */
-export function ppiDCIDFromID(id: string): bioDCID {
+export function ppiDcidFromId(id: string): bioDcid {
   console.assert(!id.includes("bio/"), `Invalid ID: ${id}`);
   return `bio/${id}`;
 }
@@ -572,27 +549,31 @@ export function ppiDCIDFromID(id: string): bioDCID {
 /**
  * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
  */
-export function quantityFromDCID(
-  quantityDCID: string,
+export function quantityFromDcid(
+  quantityDcid: string,
   quantityName: string
 ): number {
-  if (!quantityDCID.includes(quantityName)) {
-    throw `DCID "${quantityDCID}" does not contain quantity name "${quantityName}"`;
+  if (!quantityDcid.includes(quantityName)) {
+    console.assert(
+      !quantityDcid.includes(quantityName),
+      `DCID "${quantityDcid}" does not contain quantity name "${quantityName}"`
+    );
+    return NaN;
   }
-  return Number(_.last(quantityDCID.split(quantityName)));
+  return Number(_.last(quantityDcid.split(quantityName)));
 }
 
 /**
  * Given interaction DCID of the form bio/{protein1}_{protein2} (e.g. bio/2A5D_YEAST_AHA1_YEAST),
  * return [protein1, protein2]
  */
-export function proteinsFromInteractionDCID(
-  interactionDCID: bioDCID
+export function proteinsFromInteractionDcid(
+  interactionDcid: bioDcid
 ): [string, string] {
-  const id = ppiIDFromDCID(interactionDCID);
+  const id = ppiIdFromDcid(interactionDcid);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
-  console.assert(split.length === 4, `Unsupported DCID: ${interactionDCID}`);
+  console.assert(split.length === 4, `Unsupported DCID: ${interactionDcid}`);
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
@@ -600,40 +581,40 @@ export function proteinsFromInteractionDCID(
  * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A),
  * keep only one.
  */
-export function deduplicateInteractionDCIDs(
-  interactionDCIDs: bioDCID[]
-): bioDCID[] {
-  const uniqueInteractionDCIDs: bioDCID[] = [];
+export function deduplicateInteractionDcids(
+  interactionDcids: bioDcid[]
+): bioDcid[] {
+  const uniqueInteractionDcids: bioDcid[] = [];
   const interactions = new Set<[string, string]>();
-  interactionDCIDs.forEach((interactionDCID) => {
-    const proteins = proteinsFromInteractionDCID(interactionDCID);
+  interactionDcids.forEach((interactionDcid) => {
+    const proteins = proteinsFromInteractionDcid(interactionDcid);
     if (!interactions.has(proteins)) {
-      uniqueInteractionDCIDs.push(interactionDCID);
+      uniqueInteractionDcids.push(interactionDcid);
 
       const [protein1, protein2] = proteins;
       interactions.add([protein1, protein2]);
       interactions.add([protein2, protein1]);
     }
   });
-  return uniqueInteractionDCIDs;
+  return uniqueInteractionDcids;
 }
 
 /**
  * Given interaction DCID and source DCID, infer and return target ID (or target DCID if returnDCID is true).
  */
 export function getInteractionTarget(
-  interactionDCID: bioDCID,
-  sourceDCID: bioDCID,
-  returnDCID = false
+  interactionDcid: bioDcid,
+  sourceDcid: bioDcid,
+  returnDcid = false
 ): string {
   // note this also works in the case of a self-interaction
-  const interactionID = ppiIDFromDCID(interactionDCID);
-  const sourceID = ppiIDFromDCID(sourceDCID);
-  const id = interactionID
-    .replace(`${sourceID}_`, "")
-    .replace(`_${sourceID}`, "");
-  if (returnDCID) {
-    return ppiDCIDFromID(id);
+  const interactionId = ppiIdFromDcid(interactionDcid);
+  const sourceId = ppiIdFromDcid(sourceDcid);
+  const id = interactionId
+    .replace(`${sourceId}_`, "")
+    .replace(`_${sourceId}`, "");
+  if (returnDcid) {
+    return ppiDcidFromId(id);
   }
   return id;
 }
@@ -641,15 +622,15 @@ export function getInteractionTarget(
 /**
  * Given protein id of the form {protein name}_{species name} (e.g. P53_HUMAN), parse into and return ProteinNode
  */
-export function nodeFromID(proteinID: string, depth: number): ProteinNode {
+export function nodeFromId(proteinId: string, depth: number): ProteinNode {
   // assumes {species name} does not contain _
   // last checked: 06/22/22, when MINT was the provenance of all protein data
-  const lastIndex = proteinID.lastIndexOf("_");
+  const lastIndex = proteinId.lastIndexOf("_");
   return {
     depth,
-    id: proteinID,
-    name: proteinID.slice(0, lastIndex),
-    species: proteinID.slice(lastIndex + 1),
+    id: proteinId,
+    name: proteinId.slice(0, lastIndex),
+    species: proteinId.slice(lastIndex + 1),
   };
 }
 
@@ -658,16 +639,16 @@ export function nodeFromID(proteinID: string, depth: number): ProteinNode {
  * Note that we must store sourceID, targetID twice because d3 will replace source, target with SimulationNodeDatum objects after initialization.
  */
 export function getLink(
-  sourceID: string,
-  targetID: string,
+  sourceId: string,
+  targetId: string,
   score: number
 ): InteractionLink {
   return {
-    sourceID,
-    targetID,
+    sourceId,
+    targetId,
     score: score,
-    source: sourceID,
-    target: targetID,
+    source: sourceId,
+    target: targetId,
   };
 }
 
@@ -699,14 +680,14 @@ export function getProteinInteractionGraphData(
 
   // P53_HUMAN is central protein in below examples.
   // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
-  const centerNodeID = data[0].parent;
-  let neighbors = data.map(({ name: interactionID, value }) => {
+  const centerNodeId = data[0].parent;
+  let neighbors = data.map(({ name: interactionId, value }) => {
     // value is confidenceScore
-    const neighborID = getInteractionTarget(
-      interactionID as bioDCID,
-      ppiDCIDFromID(centerNodeID)
+    const neighborId = getInteractionTarget(
+      interactionId as bioDcid,
+      ppiDcidFromId(centerNodeId)
     );
-    const nodeDatum = nodeFromID(neighborID, 1);
+    const nodeDatum = nodeFromId(neighborId, 1);
     nodeDatum["value"] = value;
     return nodeDatum;
   });
@@ -716,7 +697,7 @@ export function getProteinInteractionGraphData(
   neighbors = neighbors.filter((node) => {
     const duplicate = seen.has(node.name);
     seen.add(node.name);
-    return !duplicate && node.id !== centerNodeID;
+    return !duplicate && node.id !== centerNodeId;
   });
 
   // descending order of interaction confidenceScore
@@ -724,10 +705,10 @@ export function getProteinInteractionGraphData(
   // consider only top 10 interactions to avoid clutter
   neighbors = neighbors.slice(0, MAX_INTERACTIONS);
 
-  const centerDatum = nodeFromID(centerNodeID, 0);
+  const centerDatum = nodeFromId(centerNodeId, 0);
 
   const linkData: InteractionLink[] = neighbors.map((node) => {
-    return getLink(centerNodeID, node.id, node.value);
+    return getLink(centerNodeId, node.id, node.value);
   });
 
   return {
@@ -756,17 +737,28 @@ export function getFromResponse<
  * both A_B and B_A map to the score of A_B.
  */
 export function symmetricScoreRec(
-  interactionDCIDs: bioDCID[],
+  interactionDcids: bioDcid[],
   scores: number[]
 ): Record<string, number> {
   const scoreRec = {};
-  console.assert(interactionDCIDs.length === scores.length);
-  for (let i = 0; i < interactionDCIDs.length; i++) {
-    const [protein1, protein2] = proteinsFromInteractionDCID(
-      interactionDCIDs[i]
+  console.assert(interactionDcids.length === scores.length);
+  for (let i = 0; i < interactionDcids.length; i++) {
+    const [protein1, protein2] = proteinsFromInteractionDcid(
+      interactionDcids[i]
     );
-    scoreRec[`${protein1}_${protein2}`] = scores[i];
-    scoreRec[`${protein2}_${protein1}`] = scores[i];
+    const score12 = _.get(
+      scoreRec,
+      `${protein1}_${protein2}`,
+      DEFAULT_INTERACTION_SCORE
+    );
+    const score21 = _.get(
+      scoreRec,
+      `${protein2}_${protein1}`,
+      DEFAULT_INTERACTION_SCORE
+    );
+    const maxScore = Math.max(scores[i], score12, score21);
+    scoreRec[`${protein1}_${protein2}`] = maxScore;
+    scoreRec[`${protein2}_${protein1}`] = maxScore;
   }
   return scoreRec;
 }
@@ -779,7 +771,7 @@ export function scoreDataFromResponse(
   scoreResponse: V1Response<V1BioDatum>
 ): Record<string, number> {
   const scoreValues = getFromResponse(scoreResponse, "values");
-  const interactionDCIDs = getFromResponse(scoreResponse, "entity");
+  const interactionDcids = getFromResponse(scoreResponse, "entity");
   const scoreList = scoreValues
     // filter results for IntactMiScore - there should be 0 or 1 match
     .map((bioData: V1BioDatum[] | undefined) => {
@@ -796,10 +788,10 @@ export function scoreDataFromResponse(
       }
       // if 1 match, return the retrieved IntactMiScore
       console.assert(emptyOrInteractionSingleton.length === 1);
-      return quantityFromDCID(
+      return quantityFromDcid(
         emptyOrInteractionSingleton[0].dcid,
         INTERACTION_QUANTITY_DCID
       );
     });
-  return symmetricScoreRec(interactionDCIDs, scoreList);
+  return symmetricScoreRec(interactionDcids, scoreList);
 }

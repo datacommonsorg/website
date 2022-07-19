@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,27 +17,24 @@
 import { AxiosResponse } from "axios";
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 
-export type bioDCID = `bio/${string}`;
+export type bioDcid = `bio/${string}`;
 
 // interfaces for protein-protein interaction graph
 
-export interface Node {
+// d3-force will add x,y,vx,vy data to ProteinNode after initialization
+// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
+export interface ProteinNode extends SimulationNodeDatum {
   id: string;
   name: string;
   value?: number;
-}
-
-// d3-force will add x,y,vx,vy data to ProteinNode after initialization
-// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
-export interface ProteinNode extends Node, SimulationNodeDatum {
   depth: number;
   species: string;
 }
 
 // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
 export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
-  sourceID: string;
-  targetID: string;
+  sourceId: string;
+  targetId: string;
   score: number;
 }
 
@@ -58,14 +55,18 @@ export interface MultiLevelInteractionGraphData {
 
 // Base type of "values" value of objects stored in <V1 response>.data.data
 export interface V1BaseDatum {
-  dcid: string;
-  name: string;
-  provenanceId: string;
-  types: string[];
+  dcid?: string;
+  name?: string;
+  provenanceId?: string;
+  types?: string[];
+  value?: string | number;
 }
 
 export interface V1BioDatum extends V1BaseDatum {
-  dcid: bioDCID;
+  dcid: bioDcid;
+  name: string;
+  provenanceId: string;
+  types: string[];
 }
 
 // Generic for objects stored in <V1 response>.data.data
