@@ -57,11 +57,11 @@ export interface V1BioDatum {
   types: string[];
 }
 
-export interface V1ResponseDatum {
+export interface V1BioResponseDatum {
   entity: bioDcid;
   values: V1BioDatum[];
 };
 
-export interface V1Response{
-  data: V1ResponseDatum[];
+export interface V1BioResponse{
+  data: V1BioResponseDatum[];
 }

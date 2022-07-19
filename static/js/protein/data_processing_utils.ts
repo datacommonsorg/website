@@ -28,8 +28,8 @@ import {
   MultiLevelInteractionGraphData,
   ProteinNode,
   V1BioDatum,
-  V1Response,
-  V1ResponseDatum,
+  V1BioResponse,
+  V1BioResponseDatum,
 } from "./types";
 
 // Upper bound on node degree in interaction graph viz's
@@ -697,8 +697,8 @@ export function getProteinInteractionGraphData(
  * Given response and key, map each response datum to value of key and return map
  */
 export function getFromResponse<
-  K extends keyof V1ResponseDatum
->(resp: V1Response, key: K): V1ResponseDatum[K][] {
+  K extends keyof V1BioResponseDatum
+>(resp: V1BioResponse, key: K): V1BioResponseDatum[K][] {
   if (!("data" in resp.data)) {
     return [];
   }
@@ -750,7 +750,7 @@ export function symmetricScoreRec(
  * satisfying the property that if A_B: A_B.score is in the record, then B_A: A_B.score is also.
  */
 export function scoreDataFromResponse(
-  scoreResponse: V1Response
+  scoreResponse: V1BioResponse
 ): Record<string, number> {
   const scoreValues = getFromResponse(scoreResponse, "values");
   const interactionDcids = getFromResponse(scoreResponse, "entity");
