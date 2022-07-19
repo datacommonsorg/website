@@ -60,10 +60,10 @@ function updatePageLayoutState(): void {
   yScrollLimit = document.getElementById("main-pane").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
-  const sidebarOuterHeight = document.getElementById("sidebar-outer")
-    .offsetHeight;
-  const sidebarRegionHeight = document.getElementById("sidebar-region")
-    .offsetHeight;
+  const sidebarOuterHeight =
+    document.getElementById("sidebar-outer").offsetHeight;
+  const sidebarRegionHeight =
+    document.getElementById("sidebar-region").offsetHeight;
   const footerHeight = document.getElementById("main-footer").offsetHeight;
   sidebarTopMax =
     sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN - footerHeight;

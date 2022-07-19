@@ -72,9 +72,8 @@ export function Page(): JSX.Element {
   const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
   const [previewDisabled, setPreviewDisabled] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [validationErrors, setValidationErrors] = useState<ValidationErrors>(
-    null
-  );
+  const [validationErrors, setValidationErrors] =
+    useState<ValidationErrors>(null);
   const [facetListPromise, setFacetListPromise] = useState(Promise.resolve([]));
   // request object used to get facetListPromise
   const facetsReqObj = useRef({});
