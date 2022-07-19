@@ -542,7 +542,6 @@ export function ppiIdFromDcid(dcid: bioDcid): string {
  * Given id, convert to DCID of form bio/<id>.  Utility for protein-protein interaction (PPI) graph.
  */
 export function ppiDcidFromId(id: string): bioDcid {
-  console.assert(!id.includes("bio/"), `Invalid ID: ${id}`);
   return `bio/${id}`;
 }
 
@@ -554,10 +553,6 @@ export function quantityFromDcid(
   quantityName: string
 ): number {
   if (!quantityDcid.includes(quantityName)) {
-    console.assert(
-      !quantityDcid.includes(quantityName),
-      `DCID "${quantityDcid}" does not contain quantity name "${quantityName}"`
-    );
     return NaN;
   }
   return Number(_.last(quantityDcid.split(quantityName)));
@@ -573,7 +568,6 @@ export function proteinsFromInteractionDcid(
   const id = ppiIdFromDcid(interactionDcid);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
-  console.assert(split.length === 4, `Unsupported DCID: ${interactionDcid}`);
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
@@ -600,22 +594,18 @@ export function deduplicateInteractionDcids(
 }
 
 /**
- * Given interaction DCID and source DCID, infer and return target ID (or target DCID if returnDCID is true).
+ * Given interaction DCID and source DCID, infer and return target ID.
  */
 export function getInteractionTarget(
   interactionDcid: bioDcid,
   sourceDcid: bioDcid,
-  returnDcid = false
-): typeof returnDcid extends true ? bioDcid : string {
+): string {
   // note this also works in the case of a self-interaction
   const interactionId = ppiIdFromDcid(interactionDcid);
   const sourceId = ppiIdFromDcid(sourceDcid);
   const id = interactionId
     .replace(`${sourceId}_`, "")
     .replace(`_${sourceId}`, "");
-  if (returnDcid) {
-    return ppiDcidFromId(id);
-  }
   return id;
 }
 
@@ -666,7 +656,7 @@ export function getProteinInteractionGraphData(
   let neighbors = data.map(({ name: interactionId, value }) => {
     // value is confidenceScore
     const neighborId = getInteractionTarget(
-      interactionId as bioDcid,
+      ppiDcidFromId(interactionId),
       ppiDcidFromId(centerNodeId)
     );
     const nodeDatum = nodeFromId(neighborId, 1);
@@ -721,30 +711,38 @@ export function getFromResponse<
  * Given an array of interaction DCIDs and a parallel array of corresponding scores,
  * construct and return score record such that for each interaction A_B with corresponding DCID in interaction DCIDs,
  * both A_B and B_A map to the score of A_B.
+ * 
+ * Since we currently do not graphically distinguish between the A_B and B_A scores,
+ * we choose to have a symmetric score store.
+ * 
+ * In the future perhaps we should make the graph directed to make relationships like "A phosphorylates B"
+ * more clear. I also think there should be assays for which the scores are not symmetric - 
+ * ex. "knockout A and see what happens to the expression of B". These might not exist in the graph currently
+ * but could very well be imported in the future. Thus, we might have two or more edges between proteins
+ * for each type of interaction they participate in, with different scores for each.
  */
 export function symmetricScoreRec(
   interactionDcids: bioDcid[],
   scores: number[]
 ): Record<string, number> {
   const scoreRec = {};
-  console.assert(interactionDcids.length === scores.length);
   for (let i = 0; i < interactionDcids.length; i++) {
-    const [protein1, protein2] = proteinsFromInteractionDcid(
+    const [proteinA, proteinB] = proteinsFromInteractionDcid(
       interactionDcids[i]
     );
-    const score12 = _.get(
+    const scoreAB = _.get(
       scoreRec,
-      `${protein1}_${protein2}`,
+      `${proteinA}_${proteinB}`,
       DEFAULT_INTERACTION_SCORE
     );
-    const score21 = _.get(
+    const scoreBA = _.get(
       scoreRec,
-      `${protein2}_${protein1}`,
+      `${proteinB}_${proteinA}`,
       DEFAULT_INTERACTION_SCORE
     );
-    const maxScore = Math.max(scores[i], score12, score21);
-    scoreRec[`${protein1}_${protein2}`] = maxScore;
-    scoreRec[`${protein2}_${protein1}`] = maxScore;
+    const maxScore = Math.max(scores[i], scoreAB, scoreBA);
+    scoreRec[`${proteinA}_${proteinB}`] = maxScore;
+    scoreRec[`${proteinB}_${proteinA}`] = maxScore;
   }
   return scoreRec;
 }
@@ -759,25 +757,19 @@ export function scoreDataFromResponse(
   const scoreValues = getFromResponse(scoreResponse, "values");
   const interactionDcids = getFromResponse(scoreResponse, "entity");
   const scoreList = scoreValues
-    // filter results for IntactMiScore - there should be 0 or 1 match
-    .map((bioData: V1BioDatum[] | undefined) => {
-      if (_.isEmpty(bioData)) {
-        return DEFAULT_INTERACTION_SCORE;
+    // map scoreValues to IntactMiScore if available or default interaction score
+    .map((bioData: V1BioDatum[]) => {
+      for(let i=0; i < bioData.length; i++){
+        const bioDatum = bioData[i]
+        if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)){
+          const score = quantityFromDcid(bioDatum.dcid, INTERACTION_QUANTITY_DCID)
+          if (score !== NaN){
+            return score
+          }
+          console.warn(`Invalid quantity ID ${bioDatum.dcid} -- skipping`)
+        }
       }
-      const emptyOrInteractionSingleton = bioData.filter(
-        (bioDatum) =>
-          !_.isEmpty(bioDatum) &&
-          bioDatum.dcid.includes(INTERACTION_QUANTITY_DCID)
-      );
-      if (_.isEmpty(emptyOrInteractionSingleton)) {
-        return DEFAULT_INTERACTION_SCORE;
-      }
-      // if 1 match, return the retrieved IntactMiScore
-      console.assert(emptyOrInteractionSingleton.length === 1);
-      return quantityFromDcid(
-        emptyOrInteractionSingleton[0].dcid,
-        INTERACTION_QUANTITY_DCID
-      );
+      return DEFAULT_INTERACTION_SCORE
     });
   return symmetricScoreRec(interactionDcids, scoreList);
 }
