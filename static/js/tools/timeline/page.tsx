@@ -17,9 +17,14 @@
 import React, { Component, createRef, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
+import {
+  GA_EVENT_TOOL_PLACE_ADD,
+  GA_PARAM_PLACE_DCID,
+} from "../../shared/ga_events";
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
+import { triggerGAEvent } from "../../shared/util";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";
@@ -163,12 +168,9 @@ class Page extends Component<unknown, PageStateType> {
           samplePlaces={namedPlaces}
           deselectSVs={deselectSVs}
           selectedSVs={svToSvInfo}
-          selectSV={(sv) => {
-            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv);
-            window &&
-              window.gtag &&
-              window.gtag("event", "stat_var_selection", { stat_var: sv });
-          }}
+          selectSV={(sv) =>
+            addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
+          }
         />
         <div id="plot-container">
           <Container fluid={true}>
@@ -183,11 +185,9 @@ class Page extends Component<unknown, PageStateType> {
                     places={this.state.placeName}
                     addPlace={(place) => {
                       addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
-                      window &&
-                        window.gtag &&
-                        window.gtag("event", "place_selection", {
-                          place_dcid: place,
-                        });
+                      triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
+                        [GA_PARAM_PLACE_DCID]: place,
+                      });
                     }}
                     removePlace={(place) => {
                       removeToken(

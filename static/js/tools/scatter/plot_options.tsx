@@ -26,6 +26,18 @@ import { Container } from "reactstrap";
 
 import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 import {
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
+  GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+  GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+  GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+  GA_VALUE_TOOL_CHART_OPTION_SWAP,
+} from "../../shared/ga_events";
+import { triggerGAEvent } from "../../shared/util";
+import {
   AxisWrapper,
   Context,
   DisplayOptionsWrapper,
@@ -88,9 +100,9 @@ function PlotOptions(): JSX.Element {
                     checked={y.value.perCapita}
                     onChange={(e) => {
                       y.setPerCapita(e.target.checked);
-                      if (!y.value.perCapita && window && window.gtag) {
-                        window.gtag("event", "tool_chart_option_click", {
-                          tool_chart_option: "per capita",
+                      if (!y.value.perCapita) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
                         });
                       }
                     }}
@@ -107,9 +119,9 @@ function PlotOptions(): JSX.Element {
                   checked={y.value.log}
                   onChange={(e) => {
                     checkLog(y, e);
-                    if (!y.value.log && window && window.gtag) {
-                      window.gtag("event", "tool_chart_option_click", {
-                        tool_chart_option: "log scale",
+                    if (!y.value.log) {
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
                       });
                     }
                   }}
@@ -133,9 +145,9 @@ function PlotOptions(): JSX.Element {
                     checked={x.value.perCapita}
                     onChange={(e) => {
                       x.setPerCapita(e.target.checked);
-                      if (!x.value.perCapita && window && window.gtag) {
-                        window.gtag("event", "tool_chart_option_click", {
-                          tool_chart_option: "per capita",
+                      if (!x.value.perCapita) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
                         });
                       }
                     }}
@@ -152,9 +164,9 @@ function PlotOptions(): JSX.Element {
                   checked={x.value.log}
                   onChange={(e) => {
                     checkLog(x, e);
-                    if (!x.value.log && window && window.gtag) {
-                      window.gtag("event", "tool_chart_option_click", {
-                        tool_chart_option: "log scale",
+                    if (!x.value.log) {
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
                       });
                     }
                   }}
@@ -176,11 +188,9 @@ function PlotOptions(): JSX.Element {
                     color="light"
                     onClick={() => {
                       swapAxes(x, y);
-                      window &&
-                        window.gtag &&
-                        window.gtag("event", "tool_chart_option_click", {
-                          tool_chart_option: "swap x and y axis",
-                        });
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SWAP,
+                      });
                     }}
                     className="plot-options-swap-button"
                   >
@@ -196,9 +206,9 @@ function PlotOptions(): JSX.Element {
                         checked={display.showQuadrants}
                         onChange={(e) => {
                           checkQuadrants(display, e);
-                          if (!display.showQuadrants && window && window.gtag) {
-                            window.gtag("event", "tool_chart_option_click", {
-                              tool_chart_option: "show quadrants",
+                          if (!display.showQuadrants) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
                             });
                           }
                         }}
@@ -216,9 +226,9 @@ function PlotOptions(): JSX.Element {
                         checked={display.showLabels}
                         onChange={(e) => {
                           checkLabels(display, e);
-                          if (!display.showLabels && window && window.gtag) {
-                            window.gtag("event", "tool_chart_option_click", {
-                              tool_chart_option: "show labels",
+                          if (!display.showLabels) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
                             });
                           }
                         }}
@@ -236,9 +246,9 @@ function PlotOptions(): JSX.Element {
                         checked={display.showDensity}
                         onChange={(e) => {
                           checkDensity(display, e);
-                          if (!display.showDensity && window && window.gtag) {
-                            window.gtag("event", "tool_chart_option_click", {
-                              tool_chart_option: "show density",
+                          if (!display.showDensity) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
                             });
                           }
                         }}
@@ -263,11 +273,9 @@ function PlotOptions(): JSX.Element {
                       value={lowerBound}
                       onBlur={() => {
                         setLowerBound(place.value.lowerBound.toString());
-                        window &&
-                          window.gtag &&
-                          window.gtag("event", "tool_chart_option_click", {
-                            tool_chart_option: "filter by population",
-                          });
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+                        });
                       }}
                     />
                   </FormGroup>
@@ -284,11 +292,9 @@ function PlotOptions(): JSX.Element {
                       value={upperBound}
                       onBlur={() => {
                         setUpperBound(place.value.upperBound.toString());
-                        window &&
-                          window.gtag &&
-                          window.gtag("event", "tool_chart_option_click", {
-                            tool_chart_option: "filter by population",
-                          });
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+                        });
                       }}
                     />
                   </FormGroup>

@@ -161,12 +161,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
           })
         }
         selectedSVs={selectedSvs}
-        selectSV={(sv) => {
-          addStatVar(x, y, sv, setThirdStatVar, setModalOpen);
-          window &&
-            window.gtag &&
-            window.gtag("event", "stat_var_selection", { stat_var: sv });
-        }}
+        selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">

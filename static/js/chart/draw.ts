@@ -18,8 +18,14 @@ import * as d3 from "d3";
 import _ from "lodash";
 
 import { formatNumber } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CHART_CLICK,
+  GA_PARAM_PLACE_CHART_CLICK,
+  GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
+} from "../shared/ga_events";
 import { StatVarInfo } from "../shared/stat_var";
 import { Boundary } from "../shared/types";
+import { triggerGAEvent } from "../shared/util";
 import {
   DataGroup,
   DataPoint,
@@ -91,15 +97,11 @@ function appendLegendElem(
     .append("a")
     .text((d) => d.label)
     .attr("href", (d) => d.link || null)
-    // Triggered when stat var legend is clicked and send data to google analytics.
-    .on(
-      "click",
-      () =>
-        window &&
-        window.gtag &&
-        window.gtag("event", "place_chart_click", {
-          place_chart_click: "stat var",
-        })
+    // Triggered when stat var legend chip is clicked: sends data to google analytics.
+    .on("click", () =>
+      triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+        [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
+      })
     );
 }
 

@@ -47,9 +47,16 @@ import {
   LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CHART_CLICK,
+  GA_PARAM_PLACE_CHART_CLICK,
+  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
+  GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
+  GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+} from "../shared/ga_events";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
-import { isDateTooFar, urlToDomain } from "../shared/util";
+import { isDateTooFar, triggerGAEvent, urlToDomain } from "../shared/util";
 import { Point, RankingUnit } from "../topic_page/ranking_unit";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
@@ -212,10 +219,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           <a
             href={source}
             onClick={() =>
-              window &&
-              window.gtag &&
-              window.gtag("event", "place_chart_click", {
-                place_chart_click: "data from",
+              triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
               })
             }
           >
@@ -295,11 +300,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 href="#"
                 onClick={(event) => {
                   this._handleEmbed(event);
-                  window &&
-                    window.gtag &&
-                    window.gtag("event", "place_chart_click", {
-                      place_chart_click: "export",
-                    });
+                  triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                    [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+                  });
                 }}
               >
                 <FormattedMessage
@@ -315,10 +318,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   rel="noopener noreferrer"
                   target="_blank"
                   onClick={() =>
-                    window &&
-                    window.gtag &&
-                    window.gtag("event", "place_chart_click", {
-                      place_chart_click: "explore more",
+                    triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                      [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
                     })
                   }
                 >

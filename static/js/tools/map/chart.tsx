@@ -39,8 +39,13 @@ import {
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import {
+  GA_EVENT_TOOL_CHART_PLOT,
+  GA_PARAM_PLACE_DCID,
+  GA_PARAM_STAT_VAR,
+} from "../../shared/ga_events";
 import { NamedPlace } from "../../shared/types";
-import { loadSpinner, removeSpinner } from "../../shared/util";
+import { loadSpinner, removeSpinner, triggerGAEvent } from "../../shared/util";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { StatVarInfo } from "../timeline/chart_region";
@@ -174,12 +179,10 @@ export function Chart(props: ChartProps): JSX.Element {
 
   // Triggered only when stat vars or places change and send data to google analytics.
   useEffect(() => {
-    window &&
-      window.gtag &&
-      window.gtag("event", "tool_chart_plot", {
-        place_dcid: props.placeInfo.enclosingPlace.dcid,
-        stat_var: props.statVar.value.dcid,
-      });
+    triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+      [GA_PARAM_PLACE_DCID]: props.placeInfo.enclosingPlace.dcid,
+      [GA_PARAM_STAT_VAR]: props.statVar.value.dcid,
+    });
   }, [props.statVar.value.dcid, props.placeInfo.enclosingPlace.dcid]);
 
   return (

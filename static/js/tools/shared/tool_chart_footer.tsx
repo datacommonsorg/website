@@ -26,7 +26,13 @@ import {
   FacetSelector,
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector";
-import { urlToDomain } from "../../shared/util";
+import {
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
+  GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+  GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+} from "../../shared/ga_events";
+import { triggerGAEvent, urlToDomain } from "../../shared/util";
 
 interface ToolChartFooterPropType {
   // Id of the chart this footer is being added to.
@@ -104,9 +110,9 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                     checked={props.isPerCapita}
                     onChange={() => {
                       props.onIsPerCapitaUpdated(!props.isPerCapita);
-                      if (!props.isPerCapita && window && window.gtag) {
-                        window.gtag("event", "tool_chart_option_click", {
-                          tool_chart_option: "per capita",
+                      if (!props.isPerCapita) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
                         });
                       }
                     }}
@@ -122,11 +128,9 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
             facetListPromise={Promise.resolve(props.facetList)}
             onSvFacetIdUpdated={(svFacetId) => {
               props.onSvFacetIdUpdated(svFacetId);
-              window &&
-                window.gtag &&
-                window.gtag("event", "tool_chart_option_click", {
-                  tool_chart_option: "edit sources",
-                });
+              triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+              });
             }}
           />
         </div>

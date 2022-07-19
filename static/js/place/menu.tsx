@@ -18,6 +18,12 @@ import React from "react";
 
 import { PageChart } from "../chart/types";
 import { intl, LocalizedLink } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CATEGORY_CLICK,
+  GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
+  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+} from "../shared/ga_events";
+import { triggerGAEvent } from "../shared/util";
 
 interface MenuCategoryPropsType {
   dcid: string;
@@ -46,11 +52,9 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
           text={this.props.categoryDisplayStr}
           handleClick={() =>
-            window &&
-            window.gtag &&
-            window.gtag("event", "place_category_click", {
-              place_category_click: category,
-              place_category_click_source: "menu",
+            triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+              GA_PARAM_PLACE_CATEGORY_CLICK: category,
+              GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
             })
           }
         />
@@ -121,11 +125,9 @@ class Menu extends React.Component<MenuPropsType> {
                   "Text for header or subheader of Overview charts on place pages.",
               })}
               handleClick={() =>
-                window &&
-                window.gtag &&
-                window.gtag("event", "place_category_click", {
-                  place_category_click: "overview",
-                  place_category_click_source: "menu",
+                triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+                  GA_PARAM_PLACE_CATEGORY_CLICK: GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
+                  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
                 })
               }
             />

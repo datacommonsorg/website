@@ -144,3 +144,17 @@ export function removeSpinner(containerId: string): void {
     }
   }
 }
+
+/**
+ * Triggers events and send data to google analytics.
+ * @param eventName name of the event
+ * @param parameter parameter-value pairs
+ */
+export function triggerGAEvent(
+  eventName: string,
+  parameter: Record<string, string | string[]>
+): void {
+  if (window.gtag) {
+    window.gtag("event", eventName, parameter);
+  }
+}

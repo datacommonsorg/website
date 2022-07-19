@@ -17,6 +17,13 @@
 import React from "react";
 
 import { intl, LocalizedLink } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
+  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+} from "../shared/ga_events";
+import { triggerGAEvent } from "../shared/util";
 
 interface ChartHeaderPropType {
   /**
@@ -49,11 +56,9 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
             href={`/place/${this.props.place}?category=${this.props.text}`}
             text={this.props.categoryStrings[this.props.text]}
             handleClick={() =>
-              window &&
-              window.gtag &&
-              window.gtag("event", "place_category_click", {
-                place_category_click: this.props.text,
-                place_category_click_source: "chart header",
+              triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+                [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
+                [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
               })
             }
           />
@@ -69,11 +74,9 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
                 }) + " ›"
               }
               handleClick={() =>
-                window &&
-                window.gtag &&
-                window.gtag("event", "place_category_click", {
-                  place_category_click: this.props.text,
-                  place_category_click_source: "more charts",
+                triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+                  [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
+                  [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
                 })
               }
             />

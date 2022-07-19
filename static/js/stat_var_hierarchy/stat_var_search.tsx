@@ -22,7 +22,12 @@
 import _ from "lodash";
 import React from "react";
 
+import {
+  GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+  GA_PARAM_SEARCH_TERM,
+} from "../shared/ga_events";
 import { NamedNode, SvgSearchResult } from "../shared/types";
+import { triggerGAEvent } from "../shared/util";
 import {
   getHighlightedJSX,
   getStatVarSearchResults,
@@ -75,12 +80,10 @@ export class StatVarHierarchySearch extends React.Component<
     if (
       this.state.showNoResultsMessage &&
       !prevState.showNoResultsMessage &&
-      this.state.query &&
-      window &&
-      window.gtag
+      this.state.query
     ) {
-      window.gtag("event", "tool_stat_var_search_no_result", {
-        search_term: this.state.query,
+      triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT, {
+        [GA_PARAM_SEARCH_TERM]: this.state.query,
       });
     }
   }

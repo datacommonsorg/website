@@ -35,8 +35,13 @@ import {
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import {
+  GA_EVENT_TOOL_CHART_PLOT,
+  GA_PARAM_PLACE_DCID,
+  GA_PARAM_STAT_VAR,
+} from "../../shared/ga_events";
 import { NamedPlace } from "../../shared/types";
-import { loadSpinner, removeSpinner } from "../../shared/util";
+import { loadSpinner, removeSpinner, triggerGAEvent } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
@@ -149,12 +154,10 @@ export function Chart(props: ChartPropsType): JSX.Element {
     statVar2 = props.facetList[1].dcid;
   }
   useEffect(() => {
-    window &&
-      window.gtag &&
-      window.gtag("event", "tool_chart_plot", {
-        place_dcid: props.placeInfo.enclosingPlace.dcid,
-        stat_var: [statVar1, statVar2],
-      });
+    triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+      [GA_PARAM_PLACE_DCID]: props.placeInfo.enclosingPlace.dcid,
+      [GA_PARAM_STAT_VAR]: [statVar1, statVar2],
+    });
   }, [statVar1, statVar2, props.placeInfo.enclosingPlace.dcid]);
 
   return (

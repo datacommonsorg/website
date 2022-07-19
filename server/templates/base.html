@@ -41,7 +41,7 @@ content - main page content
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true, place_category: new URLSearchParams(window.location.search).get('category') || '' });
+    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true, place_category: '{{ place_category }}' });
 
   </script>
   {% endif %}
