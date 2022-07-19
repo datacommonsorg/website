@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 import { AxiosResponse } from "axios";
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 
-export type bioDCID = `bio/${string}`;
+export type bioDcid = `bio/${string}`;
 
 // interfaces for protein-protein interaction graph
 
@@ -63,7 +63,7 @@ export interface V1BaseDatum {
 }
 
 export interface V1BioDatum extends V1BaseDatum {
-  dcid: bioDCID;
+  dcid: bioDcid;
 }
 
 // Generic for objects stored in <V1 response>.data.data
