@@ -61,6 +61,11 @@ const CHEM_RELATIONS = [
   "RelationshipAssociationTypeAmbiguous",
 ];
 
+/**
+ * Fetches and formats the tissue name and expression score for the protein of interest
+ * @param data
+ * @returns
+ */
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   // Tissue to score mapping.
   if (!data) {
@@ -103,6 +108,13 @@ export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   }
   return [];
 }
+
+/**
+ * Fetches and formats interacting protein names and interaction confidence scores for the protein of interest
+ * @param data
+ * @param nodeName
+ * @returns
+ */
 export function getProteinInteraction(
   data: GraphNodes,
   nodeName: string
@@ -258,6 +270,11 @@ export function getProteinInteractionGraphData(
   };
 }
 
+/**
+ * Fetches and formats disease names and their association scores for the protein of interest
+ * @param data
+ * @returns
+ */
 export function getDiseaseGeneAssoc(
   data: GraphNodes
 ): DiseaseAssociationType[] {
@@ -326,6 +343,11 @@ export function getDiseaseGeneAssoc(
   return [];
 }
 
+/**
+ * Fetches and formats variant ids and their log 2 association scores for the protein of interest
+ * @param data
+ * @returns
+ */
 export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   // Variant Gene Associations
   if (!data) {
@@ -403,6 +425,11 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   return [];
 }
 
+/**
+ * Fetches and formats variant count and variant categories for the protein of interest
+ * @param data
+ * @returns
+ */
 export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
   if (!data) {
@@ -458,6 +485,11 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches and formats variant count and clinical significance for the protein of interest
+ * @param data
+ * @returns
+ */
 export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
   if (!data) {
@@ -513,6 +545,11 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches and formats drug association count and type from the protein of interest
+ * @param data
+ * @returns
+ */
 export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   // Chem Gene Associations
   if (!data) {
@@ -571,6 +608,11 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches the description of the protein of interest
+ * @param data
+ * @returns
+ */
 export function getProteinDescription(data: GraphNodes): string {
   let proteinDescription = null;
   if (!data) {

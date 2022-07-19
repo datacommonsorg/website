@@ -53,6 +53,7 @@ export interface DiseaseGeneAssociationData {
   // upper confidence value = score + (interval/2)
   upperInterval: number;
 }
+
 /**
  * Draws the disease-gene association charts for the disease of interest
  * @param id - the div id where the chart is rendered on the page

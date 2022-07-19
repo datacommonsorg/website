@@ -40,6 +40,7 @@ export type Datum =
   | ProteinNode
   | InteractionLink
   | DiseaseAssociationType;
+
 /**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
@@ -53,11 +54,10 @@ export function onMouseOver(
     "filter",
     `brightness(${brightenPercentage})`
   );
-  // update tooltip text
-  TOOL_TIP.html(toolTipText);
-  // show tooltip
-  TOOL_TIP.style("opacity", 1);
+  // update and show tooltip text
+  TOOL_TIP.html(toolTipText).style("opacity", 1);
 }
+
 /**
  * Update position of global tooltip to track mouse.
  */
@@ -109,6 +109,7 @@ export function getElementIDFunc(
 ): (index: number) => string {
   return (index) => `${chartID}-${elementName}${index}`;
 }
+
 /**
  * Adds the x label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
  */
@@ -131,6 +132,7 @@ export function addXLabel(
     )
     .text(labelText);
 }
+
 /**
  * Adds the y label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
  */

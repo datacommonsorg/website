@@ -1058,6 +1058,7 @@ export function drawVarGeneAssocChart(
     .style("font-size", "15px")
     .attr("alignment-baseline", "middle");
 }
+
 /**
  * Draws a barchart with variant functional category and its corresponding counts
  * @param id
@@ -1145,6 +1146,7 @@ export function drawVarTypeAssocChart(
         }`
     );
 }
+
 /**
  * Draws a barchart with variant clinical significance and its corresponding counts
  * @param id
