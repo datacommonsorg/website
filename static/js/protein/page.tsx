@@ -158,7 +158,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         </p>
         <div id="protein-confidence-score-chart"></div>
         <ProteinProteinInteractionGraph
-          centerProteinDCID={this.props.dcid}
+          centerProteinDcid={this.props.dcid}
           interactionDataDepth1={this.state.interactionDataDepth1}
         />
         <div id="protein-interaction-graph"></div>

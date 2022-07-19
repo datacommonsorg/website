@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import { InteractingProteinType } from "./page";
 import { MultiLevelInteractionGraphData } from "./types";
 
 type InteractionGraphProps = {
-  centerProteinDCID: string;
+  centerProteinDcid: string;
   interactionDataDepth1: InteractingProteinType[];
 };
 
