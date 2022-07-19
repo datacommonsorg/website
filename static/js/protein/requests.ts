@@ -63,11 +63,12 @@ export function fetchInteractionsThenScores(
     // each list of interactors is deduplicated such that
     //  1) each element is unique
     //  2) if A_B appears in the list, then B_A does not appear
-    const interactionData: bioDcid[][] = getFromResponse(resp, "values")
-      .map((interactions) => {
+    const interactionData: bioDcid[][] = getFromResponse(resp, "values").map(
+      (interactions) => {
         const dcids = interactions.map(({ dcid }) => dcid);
-        return deduplicateInteractionDcids(dcids)
-      })
+        return deduplicateInteractionDcids(dcids);
+      }
+    );
 
     return fetchScoreData(interactionData.flat(1)).then((resp) => [
       interactionData,
