@@ -453,9 +453,9 @@ function addTooltip(
       .height;
     const tooltipWidth = (div.node() as HTMLDivElement).getBoundingClientRect()
       .width;
-    const containerWidth = (d3
-      .select(svgContainerRef.current)
-      .node() as HTMLDivElement).getBoundingClientRect().width;
+    const containerWidth = (
+      d3.select(svgContainerRef.current).node() as HTMLDivElement
+    ).getBoundingClientRect().width;
     let left = Math.min(
       d3.event.offsetX + TOOLTIP_OFFSET,
       containerWidth - tooltipWidth

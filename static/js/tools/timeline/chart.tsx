@@ -358,9 +358,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const modelsDataGroupsDict = {};
     if (this.state.ipccModels) {
       for (const place of this.state.ipccModels.places) {
-        modelsDataGroupsDict[
-          this.props.placeNames[place]
-        ] = getStatVarGroupWithTime(this.state.ipccModels, place);
+        modelsDataGroupsDict[this.props.placeNames[place]] =
+          getStatVarGroupWithTime(this.state.ipccModels, place);
       }
     }
     drawGroupLineChart(

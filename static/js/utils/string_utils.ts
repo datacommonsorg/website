@@ -17,11 +17,28 @@
 import _ from "lodash";
 
 /**
+ * If the date is in YYYY-MM format, returns YYYY-MMM format.
+ * This is to improve readability of dates in chart titles.
+ */
+export function formatDate(strDate: string): string {
+  if (strDate.length == 7) {
+    const dt = new Date(strDate);
+    return (
+      new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
+      "-" +
+      new Intl.DateTimeFormat("en-US", { month: "short" }).format(dt)
+    );
+  } else {
+    return strDate;
+  }
+}
+
+/**
  *  Given a list of dates as strings, returns the date range as a string
  */
 export function getDateRange(dates: string[]): string {
-  const minDate = _.min(dates);
-  const maxDate = _.max(dates);
+  const minDate = formatDate(_.min(dates));
+  const maxDate = formatDate(_.max(dates));
   return minDate === maxDate ? `${minDate}` : `${minDate} to ${maxDate}`;
 }
 

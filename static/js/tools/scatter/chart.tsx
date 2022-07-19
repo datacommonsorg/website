@@ -355,25 +355,27 @@ function getTitle(dates: string[], statVarLabel: string) {
   return `${statVarLabel} ${dateRange}`;
 }
 
-const getMapTooltipHtml = (
-  points: { [placeDcid: string]: Point },
-  xLabel: string,
-  yLabel: string,
-  xPerCapita: boolean,
-  yPerCapita: boolean
-) => (place: NamedPlace) => {
-  const point = points[place.dcid];
-  if (_.isEmpty(point)) {
-    return (
-      `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+const getMapTooltipHtml =
+  (
+    points: { [placeDcid: string]: Point },
+    xLabel: string,
+    yLabel: string,
+    xPerCapita: boolean,
+    yPerCapita: boolean
+  ) =>
+  (place: NamedPlace) => {
+    const point = points[place.dcid];
+    if (_.isEmpty(point)) {
+      return (
+        `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+      );
+    }
+    const element = getTooltipElement(
+      point,
+      xLabel,
+      yLabel,
+      xPerCapita,
+      yPerCapita
     );
-  }
-  const element = getTooltipElement(
-    point,
-    xLabel,
-    yLabel,
-    xPerCapita,
-    yPerCapita
-  );
-  return ReactDOMServer.renderToStaticMarkup(element);
-};
+    return ReactDOMServer.renderToStaticMarkup(element);
+  };

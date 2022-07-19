@@ -37,9 +37,7 @@ interface StatVarHierarchyNodeHeaderPropType {
   nodeType: StatVarHierarchyNodeType;
 }
 
-export class StatVarHierarchyNodeHeader extends React.Component<
-  StatVarHierarchyNodeHeaderPropType
-> {
+export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchyNodeHeaderPropType> {
   context: ContextType;
 
   render(): JSX.Element {

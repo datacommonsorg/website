@@ -20,8 +20,8 @@
 
 import axios from "axios";
 import _ from "lodash";
+import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
-import { usePapaParse } from "react-papaparse";
 import { Button, Card } from "reactstrap";
 
 import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
@@ -42,7 +42,6 @@ export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const csvReqPayload = useRef({});
-  const csvParser = usePapaParse();
 
   useEffect(() => {
     if (props.isDisabled && _.isEmpty(errorMessage)) {
@@ -168,7 +167,7 @@ export function Preview(props: PreviewProps): JSX.Element {
       .post("/api/stats/csv/within-place", reqObject)
       .then((resp) => {
         if (resp.data) {
-          csvParser.readString(resp.data, {
+          Papa.parse(resp.data, {
             complete: (results) => {
               removeSpinner(SECTION_ID);
               setPreviewData(results.data as string[][]);
