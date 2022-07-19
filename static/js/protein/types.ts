@@ -21,15 +21,12 @@ export type bioDcid = `bio/${string}`;
 
 // interfaces for protein-protein interaction graph
 
-export interface Node {
+// d3-force will add x,y,vx,vy data to ProteinNode after initialization
+// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
+export interface ProteinNode extends SimulationNodeDatum {
   id: string;
   name: string;
   value?: number;
-}
-
-// d3-force will add x,y,vx,vy data to ProteinNode after initialization
-// https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L13
-export interface ProteinNode extends Node, SimulationNodeDatum {
   depth: number;
   species: string;
 }
