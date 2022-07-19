@@ -27,7 +27,6 @@ import {
   InteractionLink,
   MultiLevelInteractionGraphData,
   ProteinNode,
-  V1BaseDatum,
   V1BioDatum,
   V1Response,
   V1ResponseDatum,
@@ -698,13 +697,12 @@ export function getProteinInteractionGraphData(
  * Given response and key, map each response datum to value of key and return map
  */
 export function getFromResponse<
-  T extends V1BaseDatum,
-  K extends keyof V1ResponseDatum<T>
->(resp: V1Response<T>, key: K): V1ResponseDatum<T>[K][] {
+  K extends keyof V1ResponseDatum
+>(resp: V1Response, key: K): V1ResponseDatum[K][] {
   if (!("data" in resp.data)) {
     return [];
   }
-  return resp.data.data.map((obj) => obj[key]);
+  return resp.data.map((obj) => obj[key]);
 }
 
 /**
@@ -752,7 +750,7 @@ export function symmetricScoreRec(
  * satisfying the property that if A_B: A_B.score is in the record, then B_A: A_B.score is also.
  */
 export function scoreDataFromResponse(
-  scoreResponse: V1Response<V1BioDatum>
+  scoreResponse: V1Response
 ): Record<string, number> {
   const scoreValues = getFromResponse(scoreResponse, "values");
   const interactionDcids = getFromResponse(scoreResponse, "entity");
