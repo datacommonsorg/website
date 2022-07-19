@@ -26,12 +26,12 @@ import { getProteinInteractionGraphData } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
 import { MultiLevelInteractionGraphData } from "./types";
 
-type InteractionGraphProps = {
+interface InteractionGraphProps {
   centerProteinDcid: string;
   interactionDataDepth1: InteractingProteinType[];
 };
 
-type InteractionGraphState = {
+interface InteractionGraphState {
   graphData: MultiLevelInteractionGraphData;
   depth: number;
   scoreThreshold: number;
@@ -85,9 +85,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   render(): JSX.Element {
     return (
-      <>
-        <div id="protein-interaction-graph"></div>
-      </>
+      <div id="protein-interaction-graph"></div>
     );
   }
 }
