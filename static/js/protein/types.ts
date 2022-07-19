@@ -53,14 +53,18 @@ export interface MultiLevelInteractionGraphData {
 
 // Base type of "values" value of objects stored in <V1 response>.data.data
 export interface V1BaseDatum {
-  dcid: string;
-  name: string;
-  provenanceId: string;
-  types: string[];
+  dcid?: string;
+  name?: string;
+  provenanceId?: string;
+  types?: string[];
+  value?: string | number;
 }
 
 export interface V1BioDatum extends V1BaseDatum {
   dcid: bioDcid;
+  name: string;
+  provenanceId: string;
+  types: string[];
 }
 
 // Generic for objects stored in <V1 response>.data.data
