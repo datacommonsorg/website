@@ -38,6 +38,8 @@ interface InteractionGraphState {
   maxInteractions: number;
 };
 
+const CHART_ID = "protein-interaction-graph"
+
 const DEFAULTS = {
   DEPTH: 2,
   MAX_INTERACTIONS: 4,
@@ -62,7 +64,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
   /**
    * Perform BFS and (re)draw graph
    */
-  componentDidUpdate(prevProps: InteractionGraphProps | null): void {
+  componentDidUpdate(prevProps: InteractionGraphProps): void {
     if (prevProps !== this.props) {
       const graphData = getProteinInteractionGraphData(
         this.props.interactionDataDepth1
@@ -70,9 +72,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
       this.setState({
         graphData,
       });
+      return;
     }
     if (!_.isEmpty(this.state.graphData)) {
-      drawProteinInteractionGraph("protein-interaction-graph", {
+      drawProteinInteractionGraph(CHART_ID, {
         nodeData: this.state.graphData.nodeDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
@@ -85,7 +88,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   render(): JSX.Element {
     return (
-      <div id="protein-interaction-graph"></div>
+      <div id={CHART_ID}></div>
     );
   }
 }
