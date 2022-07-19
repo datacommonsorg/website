@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { AxiosResponse } from "axios";
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 
 export type bioDcid = `bio/${string}`;
@@ -53,30 +52,18 @@ export interface MultiLevelInteractionGraphData {
   linkDataNested: InteractionLink[][];
 }
 
-// Base type of "values" value of objects stored in <V1 response>.data.data
-export interface V1BaseDatum {
-  dcid?: string;
-  name?: string;
-  provenanceId?: string;
-  types?: string[];
-  value?: string | number;
-}
-
-export interface V1BioDatum extends V1BaseDatum {
+export interface V1BioDatum {
   dcid: bioDcid;
   name: string;
   provenanceId: string;
   types: string[];
 }
 
-// Generic for objects stored in <V1 response>.data.data
-export type V1ResponseDatum<ValueDatum extends V1BaseDatum> = {
-  entity: ValueDatum["dcid"];
-  values: ValueDatum[];
-};
+export interface V1BioResponseDatum {
+  entity: bioDcid;
+  values: V1BioDatum[];
+}
 
-// Generic for V1 response
-// Reference: https://github.com/axios/axios/blob/7d6bddba2d8de29c263feaef4c40daa50cb4b176/index.d.ts#L83
-export type V1Response<ValueDatum extends V1BaseDatum> = AxiosResponse<{
-  data: V1ResponseDatum<ValueDatum>[];
-}>;
+export interface V1BioResponse {
+  data: V1BioResponseDatum[];
+}
