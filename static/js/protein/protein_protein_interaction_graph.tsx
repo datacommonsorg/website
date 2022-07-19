@@ -29,16 +29,16 @@ import { MultiLevelInteractionGraphData } from "./types";
 interface InteractionGraphProps {
   centerProteinDcid: string;
   interactionDataDepth1: InteractingProteinType[];
-};
+}
 
 interface InteractionGraphState {
   graphData: MultiLevelInteractionGraphData;
   depth: number;
   scoreThreshold: number;
   maxInteractions: number;
-};
+}
 
-const CHART_ID = "protein-interaction-graph"
+const CHART_ID = "protein-interaction-graph";
 
 const DEFAULTS = {
   DEPTH: 2,
@@ -87,8 +87,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   render(): JSX.Element {
-    return (
-      <div id={CHART_ID}></div>
-    );
+    return <div id={CHART_ID}></div>;
   }
 }
