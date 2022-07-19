@@ -532,29 +532,6 @@ export function getProteinDescription(data: GraphNodes): string {
 }
 
 /**
- * Given array, key-maker function, and value-maker function, construct object from array with string-valued keys.
- * This is essentially a TS implementation of a python dictionary comprehension.
- *
- * Unfortunately generic index signature parameters aren't supported by TS yet, so we enforce that keys are strings
- * (since they're automatically converted to strings anyway).
- *
- * References:
- *  - https://linuxtut.com/en/87ab3f313a75b547c278/
- *  - https://stackoverflow.com/questions/13315131/enforcing-the-type-of-the-indexed-members-of-a-typescript-object
- *
- */
-export function objectFromArray<T, V>(
-  arr: T[],
-  keyFunc: (arrElt: T) => string,
-  valFunc: (arrElt: T) => V
-): { [key: string]: V } {
-  return arr.reduce(
-    (obj, elt) => Object.assign(obj, { [keyFunc(elt)]: valFunc(elt) }),
-    {}
-  );
-}
-
-/**
  * Convert DCID of form bio/<id> to id. Utility for protein-protein interaction (PPI) graph.
  */
 export function ppiIdFromDcid(dcid: bioDcid): string {
