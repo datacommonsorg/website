@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -237,12 +237,12 @@ const LINK_STYLE = {
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
 function onMouseOver(
-  elementID: string,
+  elementId: string,
   toolTipText: string,
   brightenPercentage: string = DEFAULT_BRIGHTEN_PERCENTAGE
 ): void {
   // brighten element: https://stackoverflow.com/a/69610045
-  d3.select(`#${elementID}`).style(
+  d3.select(`#${elementId}`).style(
     "filter",
     `brightness(${brightenPercentage})`
   );
@@ -265,9 +265,9 @@ function onMouseMove(): void {
 /**
  * When mouse leaves element specified by given id, reset its brightness and hide the global tooltip.
  */
-function onMouseOut(elementID: string): void {
+function onMouseOut(elementId: string): void {
   // reset element brightness
-  d3.select(`#${elementID}`).style("filter", "brightness(100%)");
+  d3.select(`#${elementId}`).style("filter", "brightness(100%)");
   // hide tooltip
   TOOL_TIP.style("opacity", 0);
 }
@@ -297,11 +297,11 @@ function handleMouseEvents(
 /**
  * Get function that takes an index and returns an ID containing the chart ID, element name, and index.
  */
-function getElementIDFunc(
-  chartID: string,
+function getElementIdFunc(
+  chartId: string,
   elementName: string
 ): (index: number) => string {
-  return (index) => `${chartID}-${elementName}${index}`;
+  return (index) => `${chartId}-${elementName}${index}`;
 }
 
 /**
@@ -586,7 +586,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   // Adds the y-axis text label
   addYLabel(height, "Expression Score", svg);
 
-  const barIDFunc = getElementIDFunc(id, "bar");
+  const barIdFunc = getElementIdFunc(id, "bar");
   // plotting the bars
   svg
     .selectAll("tissue-score-bar")
@@ -597,11 +597,11 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
     .attr("y", (d) => y(d.value))
     .attr("height", (d) => height - y(d.value))
     .attr("width", x.bandwidth())
-    .attr("id", (d, i) => barIDFunc(i))
+    .attr("id", (d, i) => barIdFunc(i))
     .style("fill", (d) => ORGAN_COLOR_DICT[TISSUE_ORGAN_DICT[d.name]])
     .call(
       handleMouseEvents,
-      barIDFunc,
+      barIdFunc,
       (d) => `Name: ${d.name}<br>Expression: ${TISSUE_SCORE_TO_LABEL[d.value]}`,
       PTI_BRIGHTEN_PERCENTAGE
     );
@@ -731,7 +731,7 @@ export function drawProteinInteractionChart(
   // Adds the y-axis text label
   addYLabel(height, "Interacting protein name", svg);
 
-  const barIDFunc = getElementIDFunc(id, "bar");
+  const barIdFunc = getElementIdFunc(id, "bar");
 
   // plotting the bars
   bars
@@ -743,7 +743,7 @@ export function drawProteinInteractionChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
-    .attr("id", (d, i) => barIDFunc(i))
+    .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
     //PROTEIN_REDIRECT
     .on("click", function (d) {
@@ -752,7 +752,7 @@ export function drawProteinInteractionChart(
     })
     .call(
       handleMouseEvents,
-      barIDFunc,
+      barIdFunc,
       (d) => `Protein Name: ${d.name}<br>Confidence Score: ${d.value}`
     );
 }
@@ -761,7 +761,7 @@ export function drawProteinInteractionChart(
  * Draws graph visualization of a neighborhood of the protein-protein interaction network centered at the page protein.
  */
 export function drawProteinInteractionGraph(
-  chartID: string,
+  chartId: string,
   data: InteractionGraphData
 ): void {
   /*
@@ -776,7 +776,7 @@ export function drawProteinInteractionGraph(
   const width = GRAPH_WIDTH_XL - MARGIN.left - MARGIN.right;
 
   const svg = d3
-    .select(`#${chartID}`)
+    .select(`#${chartId}`)
     .append("svg")
     .attr("width", width + MARGIN.left + MARGIN.right)
     .attr("height", height + MARGIN.top + MARGIN.bottom)
@@ -789,16 +789,16 @@ export function drawProteinInteractionGraph(
       })`
     );
 
-  const nodeIDs = nodeData.map((node) => node.id);
+  const nodeIds = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
 
   // force display layout
   const forceNode = d3.forceManyBody();
-  const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIDs[index]);
+  const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIds[index]);
   forceLink.distance(LINK_STYLE.length);
 
-  const linkIDFunc = getElementIDFunc(chartID, "link");
+  const linkIdFunc = getElementIdFunc(chartId, "link");
   // add links first so nodes appear over links
   const links = svg
     .append("g")
@@ -810,10 +810,10 @@ export function drawProteinInteractionGraph(
       (link) => LINK_STYLE.stroke.scoreWidthMultiplier * link.score
     )
     .attr("class", "interaction-link")
-    .attr("id", (d, i) => linkIDFunc(i))
+    .attr("id", (d, i) => linkIdFunc(i))
     .call(
       handleMouseEvents,
-      linkIDFunc,
+      linkIdFunc,
       (d) =>
         `Source: ${(d.source as ProteinNode).name}<br>Target: ${
           (d.target as ProteinNode).name
@@ -828,7 +828,7 @@ export function drawProteinInteractionGraph(
     .force("center", d3.forceCenter())
     .on("tick", () => interactionGraphTicked(links, nodes));
 
-  const nodeIDFunc = getElementIDFunc(chartID, "node");
+  const nodeIdFunc = getElementIdFunc(chartId, "node");
   // container for circles and labels
   const nodes = svg
     .append("g")
@@ -839,7 +839,7 @@ export function drawProteinInteractionGraph(
     .call(dragNode(simulation))
     .call(
       handleMouseEvents,
-      nodeIDFunc,
+      nodeIdFunc,
       (d) => `Name: ${d.name}<br>Species: ${d.species}`,
       PPI_BRIGHTEN_PERCENTAGE
     );
@@ -849,7 +849,7 @@ export function drawProteinInteractionGraph(
     .append("circle")
     .attr("class", "protein-node-circle")
     .attr("fill", (node) => nodeColors(node.depth))
-    .attr("id", (node, i) => nodeIDFunc(i));
+    .attr("id", (node, i) => nodeIdFunc(i));
 
   // node labels
   nodes
@@ -926,7 +926,7 @@ export function drawDiseaseGeneAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Disease Name", svg);
 
-  const barIDFunc = getElementIDFunc(id, "bar");
+  const barIdFunc = getElementIdFunc(id, "bar");
 
   // plots the bars
   bars
@@ -938,14 +938,14 @@ export function drawDiseaseGeneAssocChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
-    .attr("id", (d, i) => barIDFunc(i))
+    .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
     .on("click", function (d) {
       window.open(GRAPH_BROWSER_REDIRECT + d.id);
     })
     .call(
       handleMouseEvents,
-      barIDFunc,
+      barIdFunc,
       (d) =>
         `Disease Name: ${formatDiseaseName(d.name)}<br>Association Score: ${
           d.value
@@ -1049,7 +1049,7 @@ export function drawVarGeneAssocChart(
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
 
-  const circleIDFunc = getElementIDFunc(id, "circle");
+  const circleIdFunc = getElementIdFunc(id, "circle");
   svg
     .selectAll("error-bar-circle")
     .data(reformattedData)
@@ -1058,7 +1058,7 @@ export function drawVarGeneAssocChart(
     .attr("cx", (d) => x(d.value))
     .attr("cy", (d) => y(d.id))
     .attr("r", "6")
-    .attr("id", (d, i) => circleIDFunc(i))
+    .attr("id", (d, i) => circleIdFunc(i))
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
     // variant redirect
     .on("click", function (d) {
@@ -1066,7 +1066,7 @@ export function drawVarGeneAssocChart(
     })
     .call(
       handleMouseEvents,
-      circleIDFunc,
+      circleIdFunc,
       (d) => `Variant ID: ${d.id}<br>Log2 Fold Change: ${d.value}`
     );
 
@@ -1215,7 +1215,7 @@ export function drawVarTypeAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Variant Function Category", svg);
 
-  const barIDFunc = getElementIDFunc(id, "bar");
+  const barIdFunc = getElementIdFunc(id, "bar");
 
   // plots the bars
   bars
@@ -1227,11 +1227,11 @@ export function drawVarTypeAssocChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
-    .attr("id", (d, i) => barIDFunc(i))
+    .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
     .call(
       handleMouseEvents,
-      barIDFunc,
+      barIdFunc,
       (d) =>
         `Variant Functional Category: ${formatVariant(d.name)}<br>Count: ${
           d.value
@@ -1295,7 +1295,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   // Adds the y-axis text label
   addYLabel(height, "Variant Clinical Significance", svg);
 
-  const barIDFunc = getElementIDFunc(id, "bar");
+  const barIdFunc = getElementIdFunc(id, "bar");
   // plots the bars
   bars
     .selectAll("rect")
@@ -1306,11 +1306,11 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
-    .attr("id", (d, i) => barIDFunc(i))
+    .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
     .call(
       handleMouseEvents,
-      barIDFunc,
+      barIdFunc,
       (d) =>
         `Variant Clinical Significance: ${formatVariant(d.name)}<br>Count: ${
           d.value
@@ -1372,7 +1372,7 @@ export function drawChemGeneAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Drug-Gene Relationship", svg);
 
-  const barIDFunc = getElementIDFunc(id, "bar");
+  const barIdFunc = getElementIdFunc(id, "bar");
   // plots the bars
   bars
     .selectAll("rect")
@@ -1383,11 +1383,11 @@ export function drawChemGeneAssocChart(
     .attr("y", (d) => y(d.name))
     .attr("width", (d) => x(d.value))
     .attr("height", y.bandwidth())
-    .attr("id", (d, i) => barIDFunc(i))
+    .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
     .call(
       handleMouseEvents,
-      barIDFunc,
+      barIdFunc,
       (d) => `Association Type: ${formatChemName(d.name)}<br>Count: ${d.value}`
     );
 }

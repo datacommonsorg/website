@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import {
   drawChemGeneAssocChart,
   drawDiseaseGeneAssocChart,
   drawProteinInteractionChart,
-  drawProteinInteractionGraph,
+  // drawProteinInteractionGraph,
   drawTissueLegend,
   drawTissueScoreChart,
   drawVarGeneAssocChart,
@@ -46,11 +46,11 @@ import {
   getVarGeneAssoc,
   getVarSigAssoc,
   getVarTypeAssoc,
-  ppiIDFromDCID,
+  ppiIdFromDcid,
 } from "./data_processing_utils";
 import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
 import { fetchInteractionData, fetchScoreData } from "./requests";
-import { bioDCID } from "./types";
+import { bioDcid } from "./types";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -158,7 +158,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         </p>
         <div id="protein-confidence-score-chart"></div>
         <ProteinProteinInteractionGraph
-          centerProteinDCID={this.props.dcid}
+          centerProteinDcid={this.props.dcid}
           interactionDataDepth1={this.state.interactionDataDepth1}
         />
         <div id="protein-interaction-graph"></div>
@@ -207,7 +207,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     axios.get(`/api/protein/${this.props.dcid}`).then((resp) => {
       const interactionDataDepth1 = getProteinInteraction(
         resp.data,
-        ppiIDFromDCID(this.props.dcid as bioDCID)
+        ppiIdFromDcid(this.props.dcid as bioDcid)
       );
       this.setState({
         data: resp.data,

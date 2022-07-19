@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,22 +26,22 @@ import {
   getInteractionTarget,
   getLink,
   getProteinInteractionGraphData,
-  nodeFromID,
-  ppiDCIDFromID,
-  ppiIDFromDCID,
+  nodeFromId,
+  ppiDcidFromId,
+  ppiIdFromDcid,
   scoreDataFromResponse,
 } from "./data_processing_utils";
 import { InteractingProteinType } from "./page";
 import { fetchInteractionsThenScores } from "./requests";
 import {
-  bioDCID,
+  bioDcid,
   InteractionLink,
   MultiLevelInteractionGraphData,
   ProteinNode,
 } from "./types";
 
 type InteractionGraphProps = {
-  centerProteinDCID: string;
+  centerProteinDcid: string;
   interactionDataDepth1: InteractingProteinType[];
 };
 
@@ -141,21 +141,21 @@ export class ProteinProteinInteractionGraph extends React.Component<
    */
   private bfsIter(graphData: MultiLevelInteractionGraphData): Promise<void> {
     const nodesLastLayer: ProteinNode[] = _.last(graphData.nodeDataNested);
-    const nodeDCIDsLastLayer: bioDCID[] = nodesLastLayer.map((nodeDatum) =>
-      ppiDCIDFromID(nodeDatum.id)
+    const nodeDCIDsLastLayer: bioDcid[] = nodesLastLayer.map((nodeDatum) =>
+      ppiDcidFromId(nodeDatum.id)
     );
 
-    const proteinDCIDSet: Set<bioDCID> = new Set(
+    const proteinDcidSet: Set<bioDcid> = new Set(
       graphData.nodeDataNested
         .flat(1)
-        .map((node: ProteinNode) => ppiDCIDFromID(node.id))
+        .map((node: ProteinNode) => ppiDcidFromId(node.id))
     );
 
     // set of links
     const linkSet = new Set<[string, string]>();
     graphData.linkDataNested.flat(1).forEach((linkDatum) => {
-      linkSet.add([linkDatum.sourceID, linkDatum.targetID]);
-      linkSet.add([linkDatum.targetID, linkDatum.sourceID]);
+      linkSet.add([linkDatum.sourceId, linkDatum.targetId]);
+      linkSet.add([linkDatum.targetId, linkDatum.sourceId]);
     });
 
     // expand graphData by 1 layer.
@@ -182,18 +182,18 @@ export class ProteinProteinInteractionGraph extends React.Component<
             // 1) child protein can't already be in the graph
             //    (we want to add ${this.state.maxInteractors} *new* children per parent, if they exist)
             // 2) parent-child interaction confidence score must be above ${this.state.scoreThreshold}
-            .filter((interactionDCID) => {
-              const interactionID = ppiIDFromDCID(interactionDCID);
-              const childDCID = getInteractionTarget(
-                interactionDCID,
-                ppiDCIDFromID(parent.id),
+            .filter((interactionDcid) => {
+              const interactionId = ppiIdFromDcid(interactionDcid);
+              const childDcid = getInteractionTarget(
+                interactionDcid,
+                ppiDcidFromId(parent.id),
                 true
-              ) as bioDCID;
+              ) as bioDcid;
               return (
-                !proteinDCIDSet.has(childDCID) &&
+                !proteinDcidSet.has(childDcid) &&
                 _.get(
                   scoresNewLayer,
-                  interactionID,
+                  interactionId,
                   DEFAULTS.MISSING_SCORE_FILLER
                 ) >= this.state.scoreThreshold
               );
@@ -204,12 +204,12 @@ export class ProteinProteinInteractionGraph extends React.Component<
             // Currently we filter before sorting, which makes the initial load cheaper,
             // But we would have to re-sort on new user-input.
             // Another option is to pay the one-time up-front cost of sorting the unfiltered interaction list and cache.
-            .sort((interactionDCID1, interactionDCID2) => {
-              const [score1, score2] = [interactionDCID1, interactionDCID2].map(
+            .sort((interactionDcid1, interactionDcid2) => {
+              const [score1, score2] = [interactionDcid1, interactionDcid2].map(
                 (dcid) =>
                   _.get(
                     scoresNewLayer,
-                    ppiIDFromDCID(dcid),
+                    ppiIdFromDcid(dcid),
                     DEFAULTS.MISSING_SCORE_FILLER
                   )
               );
@@ -218,11 +218,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
             .slice(0, this.state.maxInteractions);
 
           // add an InteractionLink for each interaction
-          filteredSorted.forEach((interactionDCID) => {
-            const interactionID = ppiIDFromDCID(interactionDCID);
+          filteredSorted.forEach((interactionDcid) => {
+            const interactionID = ppiIdFromDcid(interactionDcid);
             const targetID = getInteractionTarget(
-              interactionDCID,
-              ppiDCIDFromID(parent.id)
+              interactionDcid,
+              ppiDcidFromId(parent.id)
             );
             expansionLinks.push(
               getLink(parent.id, targetID, scoresNewLayer[interactionID])
@@ -232,23 +232,23 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
         // Stage 2: compute cross links
         // check if any of the proteins in the layer we just expanded interact with each other or previous proteins
-        nodeDCIDsLastLayer.forEach((nodeDCID1) => {
-          proteinDCIDSet.forEach((nodeDCID2) => {
-            const [nodeID1, nodeID2] = [nodeDCID1, nodeDCID2].map(
-              ppiIDFromDCID
+        nodeDCIDsLastLayer.forEach((nodeDcid1) => {
+          proteinDcidSet.forEach((nodeDcid2) => {
+            const [nodeId1, nodeId2] = [nodeDcid1, nodeDcid2].map(
+              ppiIdFromDcid
             );
 
-            if (linkSet.has([nodeID1, nodeID2])) {
+            if (linkSet.has([nodeId1, nodeId2])) {
               return;
             }
 
             const interactionScore = _.get(
               scoresNewLayer,
-              `${nodeID1}_${nodeID2}`,
+              `${nodeId1}_${nodeId2}`,
               DEFAULTS.MISSING_SCORE_FILLER
             );
             if (interactionScore > this.state.scoreThreshold) {
-              crossLinks.push(getLink(nodeID1, nodeID2, interactionScore));
+              crossLinks.push(getLink(nodeId1, nodeId2, interactionScore));
             }
           });
         });
@@ -256,14 +256,14 @@ export class ProteinProteinInteractionGraph extends React.Component<
         // Stage 3: compute new nodes
         // deduplicate target IDs to get set of new node IDs
         const newNodeIDs = new Set(
-          expansionLinks.map(({ targetID }) => targetID)
+          expansionLinks.map(({ targetId }) => targetId)
         );
 
         // TODO: nodes are currently colored by the group they're added with, but should be colored by min(parent.depth)
         // (if node is discovered after 2 iterations of BFS but the center protein is added as a parent during the cross link stage,
         //  node should be assigned depth 1)
         const newNodes = Array.from(newNodeIDs).map((id) =>
-          nodeFromID(id, graphData.nodeDataNested.length)
+          nodeFromId(id, graphData.nodeDataNested.length)
         );
 
         // Stage 4: update graphData
