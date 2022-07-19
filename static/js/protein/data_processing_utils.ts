@@ -649,7 +649,7 @@ export function getLink(
     score: score,
     source: sourceId,
     target: targetId,
-  }
+  };
 }
 
 /**
