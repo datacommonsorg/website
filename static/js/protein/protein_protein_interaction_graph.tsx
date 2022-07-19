@@ -55,6 +55,7 @@ type InteractionGraphState = {
 
 const DEFAULTS = {
   DEPTH: 2,
+  MAX_DEPTH: 3,
   MAX_INTERACTIONS: 4,
   SCORE_THRESHOLD: 0.4,
   MISSING_SCORE_FILLER: -1,
@@ -117,20 +118,20 @@ export class ProteinProteinInteractionGraph extends React.Component<
         <div id="protein-interaction-graph"></div>
                                 <FormGroup>
                           <Input
-                            className={`download-date-range-input${
-                              selectedOptions.dateRange &&
-                              validationErrors.minDate
+                            className={`ppi-depth-input${
+                              this.state.depth > DEFAULTS.MAX_DEPTH
                                 ? "-error"
                                 : ""
                             }`}
-                            type="text"
+                            type="number"
                             onChange={(e) => {
-                              console.log(e.target.value)
+                              console.log('change', e.target.value)
+                              this.setState({depth: Number(e.target.value)})
                             }}
                             disabled={false}
-                            value={2}
+                            value={this.state.depth}
                             onBlur={(e) => {
-                              console.log(e.target.value)
+                              console.log('blur', e.target.value);
                             }}
                           />
                         </FormGroup>

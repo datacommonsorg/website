@@ -775,6 +775,10 @@ export function drawProteinInteractionGraph(
   const height = GRAPH_HEIGHT_XL - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH_XL - MARGIN.left - MARGIN.right;
 
+  // remove old graph if exists
+  const blah = d3.select(`#${chartId}`).remove();
+  console.log('blah', _.cloneDeep(blah))
+
   const svg = d3
     .select(`#${chartId}`)
     .append("svg")
