@@ -15,8 +15,6 @@
  */
 
 import _ from "lodash";
-import { defaultFormat } from "moment";
-
 import { GraphNodes } from "../shared/types";
 import { ProteinStrData } from "./chart";
 import { ProteinNumData } from "./chart";
@@ -28,7 +26,6 @@ import {
   InteractionLink,
   MultiLevelInteractionGraphData,
   ProteinNode,
-  V1BioDatum,
   V1BioResponse,
   V1BioResponseDatum,
 } from "./types";
