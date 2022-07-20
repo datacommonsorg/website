@@ -31,8 +31,9 @@ import {
   GA_PARAM_TOOL_CHART_OPTION,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+  triggerGAEvent,
 } from "../../shared/ga_events";
-import { triggerGAEvent, urlToDomain } from "../../shared/util";
+import { urlToDomain } from "../../shared/util";
 
 interface ToolChartFooterPropType {
   // Id of the chart this footer is being added to.

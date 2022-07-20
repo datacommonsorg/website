@@ -35,8 +35,8 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
   GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
   GA_VALUE_TOOL_CHART_OPTION_SWAP,
+  triggerGAEvent,
 } from "../../shared/ga_events";
-import { triggerGAEvent } from "../../shared/util";
 import {
   AxisWrapper,
   Context,

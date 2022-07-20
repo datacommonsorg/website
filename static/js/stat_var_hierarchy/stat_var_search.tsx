@@ -25,9 +25,9 @@ import React from "react";
 import {
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
   GA_PARAM_SEARCH_TERM,
+  triggerGAEvent,
 } from "../shared/ga_events";
 import { NamedNode, SvgSearchResult } from "../shared/types";
-import { triggerGAEvent } from "../shared/util";
 import {
   getHighlightedJSX,
   getStatVarSearchResults,

@@ -25,14 +25,17 @@ import _ from "lodash";
 import React from "react";
 
 import { Context } from "../shared/context";
-import { GA_EVENT_TOOL_STAT_VAR_CLICK } from "../shared/ga_events";
+import {
+  GA_EVENT_TOOL_STAT_VAR_CLICK,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import {
   NamedPlace,
   RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
-import { loadSpinner, removeSpinner, triggerGAEvent } from "../shared/util";
+import { loadSpinner, removeSpinner } from "../shared/util";
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {

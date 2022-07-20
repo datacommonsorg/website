@@ -20,11 +20,11 @@ import { Button, Card, Col, Container, Row } from "reactstrap";
 import {
   GA_EVENT_TOOL_PLACE_ADD,
   GA_PARAM_PLACE_DCID,
+  triggerGAEvent,
 } from "../../shared/ga_events";
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
-import { triggerGAEvent } from "../../shared/util";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";

@@ -22,10 +22,10 @@ import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_CHART_CLICK,
   GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
+  triggerGAEvent,
 } from "../shared/ga_events";
 import { StatVarInfo } from "../shared/stat_var";
 import { Boundary } from "../shared/types";
-import { triggerGAEvent } from "../shared/util";
 import {
   DataGroup,
   DataPoint,
