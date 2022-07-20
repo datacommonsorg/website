@@ -37,7 +37,7 @@ export function fetchInteractionData(
 ): Promise<V1BioResponse> {
   return axios.post(PPI_ENDPOINTS.INTERACTORS, {
     entities: proteinDCIDs,
-  });
+  }).then(resp => resp.data);
 }
 
 /**
@@ -48,7 +48,7 @@ export function fetchScoreData(
 ): Promise<V1BioResponse> {
   return axios.post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
     entities: interactionDCIDs,
-  });
+  }).then(resp => resp.data);
 }
 
 /**
