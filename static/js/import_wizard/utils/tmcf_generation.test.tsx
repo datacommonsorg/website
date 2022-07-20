@@ -188,3 +188,150 @@ test("MultiNodeTMCF_PlaceValueInHeader", () => {
 
   expect(generateTMCF(input)).toEqual(expected);
 });
+
+test("SingleNodeTMCFWithUnitInColumn", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "iso", header: "iso", columnIdx: 1 },
+        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "date", header: "date", columnIdx: 3 },
+      },
+    ],
+    [
+      MappedThing.VALUE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "val", header: "val", columnIdx: 4, unit: "USDollar" },
+      },
+    ],
+  ]);
+  const expected: string =
+    "Node: E:CSVTable->E0\n" +
+    "typeOf: dcs:Place\n" +
+    "isoCode: C:CSVTable->iso\n" +
+    "\n" +
+    "Node: E:CSVTable->E1\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "observationAbout: E:CSVTable->E0\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "observationDate: C:CSVTable->date\n" +
+    "value: C:CSVTable->val\n" +
+    "unit: dcid:USDollar\n";
+  expect(generateTMCF(input)).toEqual(expected);
+});
+
+test("MultiNodeTMCF_UnitInSomeColumn", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "id", header: "id", columnIdx: 1 },
+        placeProperty: { dcid: "dcid", displayName: "dcid" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "2018_1", header: "2018", columnIdx: 3, unit: "USDollar" },
+          { id: "2019_2", header: "2019", columnIdx: 4 },
+        ],
+      },
+    ],
+  ]);
+  const expected =
+    "Node: E:CSVTable->E0\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->2018_1\n" +
+    'observationDate: "2018"\n' +
+    "unit: dcid:USDollar\n" +
+    "observationAbout: C:CSVTable->id\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "\n" +
+    "Node: E:CSVTable->E1\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->2019_2\n" +
+    'observationDate: "2019"\n' +
+    "observationAbout: C:CSVTable->id\n" +
+    "variableMeasured: C:CSVTable->indicators\n";
+  expect(generateTMCF(input)).toEqual(expected);
+});
+
+test("MultiNodeTMCF_UnitInColumnAndAsConstant", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "id", header: "id", columnIdx: 1 },
+        placeProperty: { dcid: "dcid", displayName: "dcid" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "2018_1", header: "2018", columnIdx: 3, unit: "testUnit" },
+          { id: "2019_2", header: "2019", columnIdx: 4 },
+        ],
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.CONSTANT,
+        constant: "USDollar",
+      },
+    ],
+  ]);
+  const expected =
+    "Node: E:CSVTable->E0\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->2018_1\n" +
+    'observationDate: "2018"\n' +
+    "observationAbout: C:CSVTable->id\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "unit: dcid:USDollar\n" +
+    "\n" +
+    "Node: E:CSVTable->E1\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->2019_2\n" +
+    'observationDate: "2019"\n' +
+    "observationAbout: C:CSVTable->id\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "unit: dcid:USDollar\n";
+  expect(generateTMCF(input)).toEqual(expected);
+});

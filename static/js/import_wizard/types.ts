@@ -21,9 +21,9 @@ export enum MappingType {
 }
 
 export enum MappedThing {
+  DATE = "Date",
   PLACE = "Place",
   STAT_VAR = "StatVar",
-  DATE = "Date",
   UNIT = "Unit",
   VALUE = "Value",
 }
@@ -46,6 +46,8 @@ export interface Column {
   header: string;
   // column index (leftmost column will be 0)
   columnIdx: number;
+  // unit of measure set for this column
+  unit?: string;
 }
 
 export interface MappingVal {

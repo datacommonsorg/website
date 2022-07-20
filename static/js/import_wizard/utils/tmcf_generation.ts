@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
+
 import { MappedThing, Mapping, MappingType, MappingVal } from "../types";
 
 const FIXED_CSV_TABLE = "CSVTable";
@@ -77,6 +79,7 @@ export function generateTMCF(mappings: Mapping): string {
   let colHdrThing: MappedThing = null;
   const placeNodes = Array<Array<string>>();
   let nodeIdx = 0;
+  const hasUnitMapping = mappings.has(MappedThing.UNIT);
 
   // Do one pass over the mappings building the common PVs in all TMCF nodes.
   // Everything other than COLUMN_HEADER mappings get repeated in every node.
@@ -105,6 +108,20 @@ export function generateTMCF(mappings: Mapping): string {
       } else {
         // For non-place types, column directly contains the corresponding values.
         commonPVs.push(getColPV(mappedProp, mval.column.id));
+        // If current mthing is value, add PV for unit if unit exists and there
+        // is no global unit mapping
+        if (
+          mthing === MappedThing.VALUE &&
+          !_.isEmpty(mval.column.unit) &&
+          !hasUnitMapping
+        ) {
+          commonPVs.push(
+            getConstPV(
+              MAPPED_THING_TO_SVOBS_PROP.get(MappedThing.UNIT),
+              mval.column.unit
+            )
+          );
+        }
       }
     } else if (mval.type === MappingType.COLUMN_HEADER) {
       // Remember which mapped thing has the column header for next pass.
@@ -141,6 +158,12 @@ export function generateTMCF(mappings: Mapping): string {
         node.push(getEntPV(mappedProp, nodeIdx - 1));
       } else {
         node.push(getConstPV(mappedProp, hdr.header));
+      }
+      // Add PV for unit if it exists and there is no global unit mapping
+      if (!_.isEmpty(hdr.unit) && !hasUnitMapping) {
+        node.push(
+          getConstPV(MAPPED_THING_TO_SVOBS_PROP.get(MappedThing.UNIT), hdr.unit)
+        );
       }
       obsNodes.push(node);
       nodeIdx++;

@@ -53,7 +53,7 @@ function hasRequiredProps(obs: Observation): boolean {
 
 function generateObservationsInRow(
   row: Array<string>,
-  header: Array<Column>,
+  orderedColumns: Array<Column>,
   obsGenMaps: ObsGenMaps
 ): Array<Observation> {
   const obsList = new Array<Observation>();
@@ -64,9 +64,13 @@ function generateObservationsInRow(
     if (!_.isEmpty(row[valColIdx])) {
       obs.set(MappedThing.VALUE, row[valColIdx]);
     }
+    // If this column has a unit associated, add it to the observation
+    if (!_.isEmpty(orderedColumns[valColIdx].unit)) {
+      obs.set(MappedThing.UNIT, orderedColumns[valColIdx].unit);
+    }
     // If this is a COLUMN_HEADER case, get the corresponding header value.
     if (hdrThing !== MappedThing.VALUE) {
-      obs.set(hdrThing, header[valColIdx].header);
+      obs.set(hdrThing, orderedColumns[valColIdx].header);
     }
     for (const mthing of Array.from(obsGenMaps.thing2Col.keys())) {
       const colIdx = obsGenMaps.thing2Col.get(mthing);

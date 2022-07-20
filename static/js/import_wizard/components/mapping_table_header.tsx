@@ -68,13 +68,22 @@ export function MappingTableHeader(
             const isMapped =
               info.type === MappingType.COLUMN ||
               info.type === MappingType.COLUMN_HEADER;
+            const hasUnit = !_.isEmpty(info.column.unit);
             return (
               <th
                 key={`mapping-info-${columnIdx}`}
                 onClick={() => props.onColumnSelected(columnIdx)}
-                className={isMapped ? "mapping-info-col-detected" : ""}
               >
-                {getColumnMappingString(info)}
+                <>
+                  <div className={isMapped ? "mapping-header-info" : ""}>
+                    {getColumnMappingString(info)}
+                  </div>
+                  {hasUnit && (
+                    <div className={hasUnit ? "mapping-header-info" : ""}>
+                      unit: {info.column.unit}
+                    </div>
+                  )}
+                </>
               </th>
             );
           })}
