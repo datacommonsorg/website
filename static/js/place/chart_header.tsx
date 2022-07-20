@@ -22,8 +22,8 @@ import {
   GA_PARAM_PLACE_CATEGORY_CLICK,
   GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+  triggerGAEvent,
 } from "../shared/ga_events";
-import { triggerGAEvent } from "../shared/util";
 
 interface ChartHeaderPropType {
   /**

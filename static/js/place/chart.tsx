@@ -53,10 +53,11 @@ import {
   GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
   GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
   GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+  triggerGAEvent,
 } from "../shared/ga_events";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
-import { isDateTooFar, triggerGAEvent, urlToDomain } from "../shared/util";
+import { isDateTooFar, urlToDomain } from "../shared/util";
 import { Point, RankingUnit } from "../topic_page/ranking_unit";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";

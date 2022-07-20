@@ -39,9 +39,10 @@ import {
   GA_EVENT_TOOL_CHART_PLOT,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_STAT_VAR,
+  triggerGAEvent,
 } from "../../shared/ga_events";
 import { NamedPlace } from "../../shared/types";
-import { loadSpinner, removeSpinner, triggerGAEvent } from "../../shared/util";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { ToolChartFooter } from "../shared/tool_chart_footer";

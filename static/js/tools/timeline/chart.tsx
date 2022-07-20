@@ -28,10 +28,10 @@ import {
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
+  triggerGAEvent,
 } from "../../shared/ga_events";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
-import { triggerGAEvent } from "../../shared/util";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isIpccStatVarWithMultipleModels } from "../shared_util";
 import {

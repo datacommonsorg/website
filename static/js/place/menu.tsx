@@ -22,8 +22,8 @@ import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+  triggerGAEvent,
 } from "../shared/ga_events";
-import { triggerGAEvent } from "../shared/util";
 
 interface MenuCategoryPropsType {
   dcid: string;

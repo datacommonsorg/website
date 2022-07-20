@@ -43,9 +43,10 @@ import {
   GA_EVENT_TOOL_CHART_PLOT,
   GA_PARAM_PLACE_DCID,
   GA_PARAM_STAT_VAR,
+  triggerGAEvent,
 } from "../../shared/ga_events";
 import { NamedPlace } from "../../shared/types";
-import { loadSpinner, removeSpinner, triggerGAEvent } from "../../shared/util";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { StatVarInfo } from "../timeline/chart_region";

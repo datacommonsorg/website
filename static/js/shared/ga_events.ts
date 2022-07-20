@@ -14,6 +14,20 @@
  * limitations under the License.
  */
 
+/**
+ * Triggers events and send data to google analytics.
+ * @param eventName name of the event
+ * @param parameter parameter-value pairs
+ */
+export function triggerGAEvent(
+  eventName: string,
+  parameter: Record<string, string | string[]>
+): void {
+  if (window.gtag) {
+    window.gtag("event", eventName, parameter);
+  }
+}
+
 // GA event names
 export const GA_EVENT_PLACE_CATEGORY_CLICK = "place_category_click";
 export const GA_EVENT_PLACE_CHART_CLICK = "place_chart_click";
