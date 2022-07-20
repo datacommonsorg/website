@@ -15,6 +15,7 @@
  */
 
 import _ from "lodash";
+
 import { GraphNodes } from "../shared/types";
 import { ProteinStrData } from "./chart";
 import { ProteinNumData } from "./chart";
