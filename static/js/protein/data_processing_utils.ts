@@ -559,7 +559,7 @@ export function quantityFromDcid(
 
 /**
  * Given interaction DCID of the form bio/{protein1}_{protein2} (e.g. bio/2A5D_YEAST_AHA1_YEAST),
- * return [protein1, protein2]
+ * return [protein1, protein2], or null if interaction DCID does not contain exactly 3 underscores.
  */
 export function proteinsFromInteractionDcid(
   interactionDcid: bioDcid
@@ -567,6 +567,9 @@ export function proteinsFromInteractionDcid(
   const id = ppiIdFromDcid(interactionDcid);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
+  if (split.length !== 4) {
+    return null;
+  }
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
 }
 
@@ -581,9 +584,12 @@ export function deduplicateInteractionDcids(
   const interactions = new Set<[string, string]>();
   interactionDcids.forEach((interactionDcid) => {
     const proteins = proteinsFromInteractionDcid(interactionDcid);
+    if (proteins === null) {
+      console.warn(`Invalid interaction ID ${interactionDcid} -- skipping`);
+      return;
+    }
     if (!interactions.has(proteins)) {
       uniqueInteractionDcids.push(interactionDcid);
-
       const [protein1, protein2] = proteins;
       interactions.add([protein1, protein2]);
       interactions.add([protein2, protein1]);
@@ -694,16 +700,17 @@ export function getProteinInteractionGraphData(
 }
 
 /**
- * Given response and key, map each response datum to value of key and return map
+ * Given response and key, map each datum in response.data to datum[key] and return map.
+ * If response.data is empty, return [].
  */
 export function getFromResponse<K extends keyof V1BioResponseDatum>(
   resp: V1BioResponse,
   key: K
 ): V1BioResponseDatum[K][] {
-  if (!("data" in resp.data)) {
+  if (_.isEmpty(resp.data)) {
     return [];
   }
-  return resp.data.map((obj) => obj[key]);
+  return resp.data.map((datum) => datum[key]);
 }
 
 /**
@@ -725,7 +732,7 @@ export function symmetricScoreRec(
   scores: number[]
 ): Record<string, number> {
   const scoreRec = {};
-  for (let i = 0; i < interactionDcids.length; i++) {
+  for (let i = 0; i < Math.min(interactionDcids.length, scores.length); i++) {
     const [proteinA, proteinB] = proteinsFromInteractionDcid(
       interactionDcids[i]
     );
@@ -756,8 +763,8 @@ export function scoreDataFromResponse(
   const scoreValues = getFromResponse(scoreResponse, "values");
   const interactionDcids = getFromResponse(scoreResponse, "entity");
   const scoreList = scoreValues
-    // map scoreValues to IntactMiScore if available or default interaction score
-    .map((bioData: V1BioDatum[]) => {
+    // map scoreValues to IntactMiScore if available, otherwise map to default interaction score
+    .map((bioData: V1BioDatum[], i) => {
       for (const bioDatum of bioData) {
         if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)) {
           const score = quantityFromDcid(
@@ -767,9 +774,11 @@ export function scoreDataFromResponse(
           if (!isNaN(score)) {
             return score;
           }
-          console.warn(`Invalid quantity ID ${bioDatum.dcid} -- skipping`);
         }
       }
+      console.warn(
+        `Unable to retrieve score for interaction ${interactionDcids[i]} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
+      );
       return DEFAULT_INTERACTION_SCORE;
     });
   return symmetricScoreRec(interactionDcids, scoreList);

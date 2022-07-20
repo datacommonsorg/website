@@ -48,7 +48,7 @@ def createMiddleWare(app, exporter):
 def register_routes_base_dc(app):
     # apply the blueprints for all apps
     from routes import (dev, disease, placelist, protein, redirects,
-                        special_announcement, topic_page)
+                        special_announcement, topic_page, import_wizard)
     app.register_blueprint(dev.bp)
     app.register_blueprint(disease.bp)
     app.register_blueprint(placelist.bp)
@@ -60,6 +60,7 @@ def register_routes_base_dc(app):
     from routes.api import (disease as disease_api)
     app.register_blueprint(protein_api.bp)
     app.register_blueprint(disease_api.bp)
+    app.register_blueprint(import_wizard.bp)
 
 
 def register_routes_private_dc(app):
