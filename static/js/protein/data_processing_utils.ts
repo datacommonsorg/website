@@ -767,14 +767,14 @@ export function symmetrizeScoreRec(
 export function scoreDataFromResponse(
   scoreResponse: V1BioResponse
 ): Record<string, number> {
-  if(_.isEmpty(scoreResponse.data)){
+  if (_.isEmpty(scoreResponse.data)) {
     return {};
   }
   const scoreRec: Record<string, number> = {};
-  for(const responseDatum of scoreResponse.data){
+  for (const responseDatum of scoreResponse.data) {
     const interactionDcid = responseDatum.entity;
-    if (!interactionDcid){
-      console.warn("Undefined or empty interaction DCID -- skipping")
+    if (!interactionDcid) {
+      console.warn("Undefined or empty interaction DCID -- skipping");
       continue;
     }
     const interactionId = ppiIdFromDcid(interactionDcid);
@@ -787,14 +787,14 @@ export function scoreDataFromResponse(
         );
         if (!isNaN(score)) {
           scoreRec[interactionId] = score;
-          continue
+          continue;
         }
-        }
-        console.warn(
-          `Unable to retrieve score for interaction ${interactionDcid} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
-        );
-        scoreRec[interactionId] = DEFAULT_INTERACTION_SCORE;
       }
+      console.warn(
+        `Unable to retrieve score for interaction ${interactionDcid} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
+      );
+      scoreRec[interactionId] = DEFAULT_INTERACTION_SCORE;
     }
-    return symmetrizeScoreRec(scoreRec);
   }
+  return symmetrizeScoreRec(scoreRec);
+}
