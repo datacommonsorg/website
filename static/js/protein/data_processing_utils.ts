@@ -720,7 +720,7 @@ export function getFromResponse<K extends keyof V1BioResponseDatum>(
 /**
  * Given an array of interaction DCIDs and a parallel array of corresponding scores,
  * construct and return score record such that for each interaction A_B with corresponding DCID in interaction DCIDs,
- * both A_B and B_A map to the score of A_B.
+ * both A_B and B_A map to the score of A_B.  Skip all malformatted interaction DCIDs.
  *
  * Since we currently do not graphically distinguish between the A_B and B_A scores,
  * we choose to have a symmetric score store.
