@@ -777,7 +777,8 @@ export function scoreDataFromResponse(
   const scoreList = scoreValues
     // map scoreValues to IntactMiScore if available, otherwise map to default interaction score
     .map((bioData: V1BioDatum[], i) => {
-      for (const bioDatum of bioData) {
+      // skip loop if bioData is undefined
+      for (const bioDatum of bioData || []) {
         if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)) {
           const score = quantityFromDcid(
             bioDatum.dcid,
