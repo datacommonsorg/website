@@ -29,6 +29,11 @@ import {
   getParentPlacesPromise,
 } from "../utils/place_utils";
 import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "./constants";
+import {
+  GA_EVENT_TOOL_PLACE_ADD,
+  GA_PARAM_PLACE_DCID,
+  triggerGAEvent,
+} from "./ga_events";
 import { SearchBar } from "./place_search_bar";
 import { NamedTypedPlace } from "./types";
 
@@ -109,7 +114,12 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
                   ? { [props.selectedPlace.dcid]: props.selectedPlace.name }
                   : {}
               }
-              addPlace={(e) => selectPlace(e, props.onPlaceSelected)}
+              addPlace={(e) => {
+                selectPlace(e, props.onPlaceSelected);
+                triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
+                  [GA_PARAM_PLACE_DCID]: e,
+                });
+              }}
               removePlace={() =>
                 unselectPlace(props.onPlaceSelected, setChildPlaceTypes)
               }
