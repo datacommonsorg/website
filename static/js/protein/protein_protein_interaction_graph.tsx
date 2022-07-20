@@ -183,10 +183,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
             // 2) parent-child interaction confidence score must be above ${this.state.scoreThreshold}
             .filter((interactionDcid) => {
               const interactionId = ppiIdFromDcid(interactionDcid);
-              const childDcid = ppiDcidFromId(getInteractionTarget(
-                interactionDcid,
-                ppiDcidFromId(parent.id),
-              ));
+              const childDcid = ppiDcidFromId(
+                getInteractionTarget(interactionDcid, ppiDcidFromId(parent.id))
+              );
               return (
                 !proteinDcidSet.has(childDcid) &&
                 _.get(
