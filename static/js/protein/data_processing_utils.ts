@@ -575,8 +575,10 @@ export function proteinsFromInteractionDcid(
 }
 
 /**
- * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A),
- * keep only one.
+ * Given list L of interaction DCIDs, return new list such that for each subset of DCIDs in L identifying the same pair of proteins (e.g. A_B and B_A),
+ * keep only one element of the subset.  Skip all malformatted interaction DCIDs.
+ * 
+ * Does not mutate original list.
  */
 export function deduplicateInteractionDcids(
   interactionDcids: bioDcid[]
