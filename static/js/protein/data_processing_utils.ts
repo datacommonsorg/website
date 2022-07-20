@@ -545,7 +545,8 @@ export function ppiDcidFromId(id: string): bioDcid {
 }
 
 /**
- * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
+ * Given quantity DCID of the form "<quantityName><quantityValue>", attempt to extract and return quantityValue.
+ * Return NaN if quantity DCID is malformatted.
  */
 export function quantityFromDcid(
   quantityDcid: string,
