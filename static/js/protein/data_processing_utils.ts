@@ -545,7 +545,8 @@ export function ppiDcidFromId(id: string): bioDcid {
 }
 
 /**
- * Given quantity DCID of the form "<quantityName><quantityValue>", extract and return quantityValue.
+ * Given quantity DCID of the form "<quantityName><quantityValue>", attempt to extract and return quantityValue.
+ * Return NaN if quantity DCID is malformatted.
  */
 export function quantityFromDcid(
   quantityDcid: string,
@@ -574,8 +575,11 @@ export function proteinsFromInteractionDcid(
 }
 
 /**
- * Given list of interaction DCIDs, for each subset of DCIDs identifying the same pair of proteins (e.g. A_B and B_A),
- * keep only one.
+ * Given list L of interaction DCIDs, return new list such that for each subset of DCIDs in L
+ * identifying the same pair of proteins (e.g. A_B and B_A), keep only one element of the subset.
+ * Skip all malformatted interaction DCIDs.
+ *
+ * Does not mutate original list.
  */
 export function deduplicateInteractionDcids(
   interactionDcids: bioDcid[]
@@ -731,7 +735,7 @@ export function getFromResponse<K extends keyof V1BioResponseDatum>(
 /**
  * Given an array of interaction DCIDs and a parallel array of corresponding scores,
  * construct and return score record such that for each interaction A_B with corresponding DCID in interaction DCIDs,
- * both A_B and B_A map to the score of A_B.
+ * both A_B and B_A map to the score of A_B.  Skip all malformatted interaction DCIDs.
  *
  * Since we currently do not graphically distinguish between the A_B and B_A scores,
  * we choose to have a symmetric score store.
