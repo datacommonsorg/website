@@ -35,9 +35,11 @@ const PPI_ENDPOINTS = {
 export function fetchInteractionData(
   proteinDCIDs: string[]
 ): Promise<V1BioResponse> {
-  return axios.post(PPI_ENDPOINTS.INTERACTORS, {
-    entities: proteinDCIDs,
-  }).then(resp => resp.data);
+  return axios
+    .post(PPI_ENDPOINTS.INTERACTORS, {
+      entities: proteinDCIDs,
+    })
+    .then((resp) => resp.data);
 }
 
 /**
@@ -46,9 +48,11 @@ export function fetchInteractionData(
 export function fetchScoreData(
   interactionDCIDs: bioDcid[]
 ): Promise<V1BioResponse> {
-  return axios.post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
-    entities: interactionDCIDs,
-  }).then(resp => resp.data);
+  return axios
+    .post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
+      entities: interactionDCIDs,
+    })
+    .then((resp) => resp.data);
 }
 
 /**
