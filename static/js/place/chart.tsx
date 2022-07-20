@@ -429,8 +429,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
-    const svgElems =
-      this.svgContainerElement.current.getElementsByTagName("svg");
+    const svgElems = this.svgContainerElement.current.getElementsByTagName(
+      "svg"
+    );
     let svgXml: string;
     if (svgElems.length) {
       svgXml = svgElems.item(0).outerHTML;
@@ -697,7 +698,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
   }
 
-  private getRankingChartData(data: RankingChartDataGroup): {
+  private getRankingChartData(
+    data: RankingChartDataGroup
+  ): {
     lowest: Point[];
     highest: Point[];
   } {
