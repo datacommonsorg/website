@@ -41,17 +41,19 @@ import {
   ProteinNode,
 } from "./types";
 
-type InteractionGraphProps = {
+interface InteractionGraphProps {
   centerProteinDcid: string;
   interactionDataDepth1: InteractingProteinType[];
-};
+}
 
-type InteractionGraphState = {
+interface InteractionGraphState {
   graphData: MultiLevelInteractionGraphData;
   depth: number;
   interactions: number;
   scoreThreshold: number;
-};
+}
+
+const CHART_ID = "protein-interaction-graph";
 
 const LIMITS = {
   MAX_DEPTH: 3,
@@ -64,6 +66,7 @@ const DEFAULTS = {
   INTERACTIONS: 4,
   SCORE_THRESHOLD: 0.4,
   MISSING_SCORE_FILLER: -1,
+  SCORE_THRESHOLD: 0.4,
 };
 
 export class ProteinProteinInteractionGraph extends React.Component<
@@ -73,8 +76,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
   constructor(props: InteractionGraphProps) {
     super(props);
     this.state = {
-      graphData: null,
       depth: DEFAULTS.DEPTH,
+      graphData: null,
       interactions: DEFAULTS.INTERACTIONS,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
     };
@@ -105,16 +108,16 @@ export class ProteinProteinInteractionGraph extends React.Component<
           graphData,
         });
       });
+      return;
     }
     // this branch executes on second call to this method
     if (!_.isEmpty(this.state.graphData)) {
-      drawProteinInteractionGraph("protein-interaction-graph", {
-        nodeData: this.state.graphData.nodeDataNested
-        // depth-wise slicing
+      drawProteinInteractionGraph(CHART_ID, {
+        linkData: this.state.graphData.linkDataNested
           .slice(0, this.state.depth + 1)
         // TODO: add breadth-wise slicing by this.state.interactions
           .flat(1),
-        linkData: this.state.graphData.linkDataNested
+        nodeData: this.state.graphData.nodeDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
       });
@@ -124,7 +127,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
   render(): JSX.Element {
     return (
       <>
-        <div id="protein-interaction-graph"></div>
+        <div id={CHART_ID}></div>
                                 <FormGroup>
                           <Input
                             className={`ppi-depth-input${
@@ -211,11 +214,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
             // 2) parent-child interaction confidence score must be above ${this.state.scoreThreshold}
             .filter((interactionDcid) => {
               const interactionId = ppiIdFromDcid(interactionDcid);
-              const childDcid = getInteractionTarget(
+              const childDcid = ppiDcidFromId(getInteractionTarget(
                 interactionDcid,
                 ppiDcidFromId(parent.id),
-                true
-              ) as bioDcid;
+              ));
               return (
                 !proteinDcidSet.has(childDcid) &&
                 _.get(
