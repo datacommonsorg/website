@@ -209,7 +209,7 @@ export function MappingColumnOptions(
           updatedColumn.columnPlaceProperty
         )
           ? updatedColumn.columnPlaceProperty
-          : possibleProperties[0];
+          : Array.from(possibleProperties)[0];
       }
       // if columnPlaceProperty is updated, update columnPlaceProperty
       if (!_.isEmpty(columnPlaceProperty)) {
