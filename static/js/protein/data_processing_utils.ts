@@ -567,7 +567,7 @@ export function proteinsFromInteractionDcid(
   const id = ppiIdFromDcid(interactionDcid);
   // danger: assumes neither {protein name}, {species name} contain an underscore
   const split = id.split("_");
-  if (split.length !== 4){
+  if (split.length !== 4) {
     return null;
   }
   return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
@@ -584,7 +584,7 @@ export function deduplicateInteractionDcids(
   const interactions = new Set<[string, string]>();
   interactionDcids.forEach((interactionDcid) => {
     const proteins = proteinsFromInteractionDcid(interactionDcid);
-    if (proteins === null){
+    if (proteins === null) {
       console.warn(`Invalid interaction ID ${interactionDcid} -- skipping`);
       return;
     }
@@ -776,7 +776,9 @@ export function scoreDataFromResponse(
           }
         }
       }
-      console.warn(`Unable to retrieve score for interaction ${interactionDcids[i]} -- default score of ${DEFAULT_INTERACTION_SCORE} used`);
+      console.warn(
+        `Unable to retrieve score for interaction ${interactionDcids[i]} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
+      );
       return DEFAULT_INTERACTION_SCORE;
     });
   return symmetricScoreRec(interactionDcids, scoreList);
