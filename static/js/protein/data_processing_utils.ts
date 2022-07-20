@@ -15,12 +15,14 @@
  */
 
 import _ from "lodash";
+
 import { GraphNodes } from "../shared/types";
-import { ProteinStrData } from "./chart";
-import { ProteinNumData } from "./chart";
-import { ProteinVarType } from "./page";
-import { InteractingProteinType } from "./page";
-import { DiseaseAssociationType } from "./page";
+import { ProteinNumData, ProteinStrData } from "./chart";
+import {
+  DiseaseAssociationType,
+  InteractingProteinType,
+  ProteinVarType,
+} from "./page";
 import {
   bioDcid,
   InteractionLink,
