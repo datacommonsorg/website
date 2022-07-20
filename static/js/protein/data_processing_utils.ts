@@ -749,6 +749,7 @@ export function getFromResponse<K extends keyof V1BioResponseDatum>(
 export function symmetrizeScoreRec(
   scoreRec: Record<string, number>
 ): Record<string, number> {
+  const newScoreRec: Record<string, number> = {};
   for (const interactionId of Object.keys(scoreRec)) {
     const interactionDcid = ppiDcidFromId(interactionId);
     const proteins = proteinsFromInteractionDcid(ppiDcidFromId(interactionId));
@@ -768,10 +769,10 @@ export function symmetrizeScoreRec(
       DEFAULT_INTERACTION_SCORE
     );
     const maxScore = Math.max(scoreAB, scoreBA);
-    scoreRec[`${proteinA}_${proteinB}`] = maxScore;
-    scoreRec[`${proteinB}_${proteinA}`] = maxScore;
+    newScoreRec[`${proteinA}_${proteinB}`] = maxScore;
+    newScoreRec[`${proteinB}_${proteinA}`] = maxScore;
   }
-  return scoreRec;
+  return newScoreRec;
 }
 
 /**
@@ -788,12 +789,14 @@ export function scoreDataFromResponse(
   for (const responseDatum of scoreResponse.data) {
     const interactionDcid = responseDatum.entity;
     if (!interactionDcid) {
-      console.warn("Undefined or empty interaction DCID -- skipping");
+      console.warn(
+        `Undefined or empty interaction DCID ${interactionDcid} -- skipping`
+      );
       continue;
     }
     const interactionId = ppiIdFromDcid(interactionDcid);
-    const values = responseDatum.values;
-    for (const bioDatum of values || []) {
+    const values = responseDatum.values || [];
+    for (const bioDatum of values) {
       if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)) {
         const score = quantityFromDcid(
           bioDatum.dcid,
@@ -801,9 +804,11 @@ export function scoreDataFromResponse(
         );
         if (!isNaN(score)) {
           scoreRec[interactionId] = score;
-          continue;
+          break;
         }
       }
+    }
+    if (!_.has(scoreRec, interactionId)) {
       console.warn(
         `Unable to retrieve score for interaction ${interactionDcid} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
       );
