@@ -733,9 +733,12 @@ export function symmetricScoreRec(
 ): Record<string, number> {
   const scoreRec = {};
   for (let i = 0; i < Math.min(interactionDcids.length, scores.length); i++) {
-    const [proteinA, proteinB] = proteinsFromInteractionDcid(
-      interactionDcids[i]
-    );
+    const proteins = proteinsFromInteractionDcid(interactionDcids[i]);
+    if (proteins === null) {
+      console.warn(`Invalid interaction ID ${interactionDcids[i]} -- skipping`);
+      continue;
+    }
+    const [proteinA, proteinB] = proteins;
     const scoreAB = _.get(
       scoreRec,
       `${proteinA}_${proteinB}`,
@@ -763,7 +766,9 @@ export function scoreDataFromResponse(
   const scoreValues = getFromResponse(scoreResponse, "values");
   const interactionDcids = getFromResponse(scoreResponse, "entity");
   if (scoreValues.length !== interactionDcids.length) {
-    console.warn("Number of scores and interactions computed from response differ. Edge widths in the graph may be incorrect.")
+    console.warn(
+      "Number of scores and interactions computed from response differ. Edge widths in the graph may be incorrect."
+    );
   }
   const scoreList = scoreValues
     // map scoreValues to IntactMiScore if available, otherwise map to default interaction score
@@ -779,7 +784,7 @@ export function scoreDataFromResponse(
           }
         }
       }
-      if (i < interactionDcids.length){
+      if (i < interactionDcids.length) {
         console.warn(
           `Unable to retrieve score for interaction ${interactionDcids[i]} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
         );
