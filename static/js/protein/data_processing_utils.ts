@@ -782,7 +782,9 @@ export function symmetricScoreRec(
 export function scoreDataFromResponse(
   scoreResponse: V1BioResponse
 ): Record<string, number> {
+  console.log(_.cloneDeep(scoreResponse))
   const scoreValues = getFromResponse(scoreResponse, "values");
+  console.log(_.cloneDeep(scoreValues))
   const interactionDcids = getFromResponse(scoreResponse, "entity");
   if (scoreValues.length !== interactionDcids.length) {
     console.warn(
