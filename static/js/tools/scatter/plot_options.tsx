@@ -102,7 +102,8 @@ function PlotOptions(): JSX.Element {
                       y.setPerCapita(e.target.checked);
                       if (!y.value.perCapita) {
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
                         });
                       }
                     }}
@@ -121,7 +122,8 @@ function PlotOptions(): JSX.Element {
                     checkLog(y, e);
                     if (!y.value.log) {
                       triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                        [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
                       });
                     }
                   }}
@@ -147,7 +149,8 @@ function PlotOptions(): JSX.Element {
                       x.setPerCapita(e.target.checked);
                       if (!x.value.perCapita) {
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
                         });
                       }
                     }}
@@ -166,7 +169,8 @@ function PlotOptions(): JSX.Element {
                     checkLog(x, e);
                     if (!x.value.log) {
                       triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                        [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
                       });
                     }
                   }}
@@ -189,7 +193,8 @@ function PlotOptions(): JSX.Element {
                     onClick={() => {
                       swapAxes(x, y);
                       triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                        [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SWAP,
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_SWAP,
                       });
                     }}
                     className="plot-options-swap-button"
@@ -208,7 +213,8 @@ function PlotOptions(): JSX.Element {
                           checkQuadrants(display, e);
                           if (!display.showQuadrants) {
                             triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                              [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
                             });
                           }
                         }}
@@ -228,7 +234,8 @@ function PlotOptions(): JSX.Element {
                           checkLabels(display, e);
                           if (!display.showLabels) {
                             triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                              [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
                             });
                           }
                         }}
@@ -248,7 +255,8 @@ function PlotOptions(): JSX.Element {
                           checkDensity(display, e);
                           if (!display.showDensity) {
                             triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                              [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
                             });
                           }
                         }}
@@ -274,7 +282,8 @@ function PlotOptions(): JSX.Element {
                       onBlur={() => {
                         setLowerBound(place.value.lowerBound.toString());
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
                         });
                       }}
                     />
@@ -293,7 +302,8 @@ function PlotOptions(): JSX.Element {
                       onBlur={() => {
                         setUpperBound(place.value.upperBound.toString());
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
                         });
                       }}
                     />

@@ -173,7 +173,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                     );
                     if (!this.props.delta) {
                       triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                        [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_DELTA,
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_DELTA,
                       });
                     }
                   }}

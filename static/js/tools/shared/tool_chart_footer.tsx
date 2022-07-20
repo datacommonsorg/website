@@ -112,7 +112,8 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                       props.onIsPerCapitaUpdated(!props.isPerCapita);
                       if (!props.isPerCapita) {
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
                         });
                       }
                     }}
@@ -129,7 +130,8 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
             onSvFacetIdUpdated={(svFacetId) => {
               props.onSvFacetIdUpdated(svFacetId);
               triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+                [GA_PARAM_TOOL_CHART_OPTION]:
+                  GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
               });
             }}
           />

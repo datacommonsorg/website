@@ -58,7 +58,8 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
             handleClick={() =>
               triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
                 [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
-                [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+                [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
+                  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
               })
             }
           />
@@ -76,7 +77,8 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
               handleClick={() =>
                 triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
                   [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
-                  [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+                  [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
+                    GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
                 })
               }
             />

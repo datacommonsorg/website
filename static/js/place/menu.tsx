@@ -54,7 +54,8 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           handleClick={() =>
             triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
               GA_PARAM_PLACE_CATEGORY_CLICK: category,
-              GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+              GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE:
+                GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
             })
           }
         />
@@ -126,8 +127,10 @@ class Menu extends React.Component<MenuPropsType> {
               })}
               handleClick={() =>
                 triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
-                  GA_PARAM_PLACE_CATEGORY_CLICK: GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
-                  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE: GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+                  GA_PARAM_PLACE_CATEGORY_CLICK:
+                    GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
+                  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE:
+                    GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
                 })
               }
             />

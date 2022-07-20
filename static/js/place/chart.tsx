@@ -220,7 +220,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             href={source}
             onClick={() =>
               triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
-                [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
+                [GA_PARAM_PLACE_CHART_CLICK]:
+                  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
               })
             }
           >
@@ -301,7 +302,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                 onClick={(event) => {
                   this._handleEmbed(event);
                   triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
-                    [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+                    [GA_PARAM_PLACE_CHART_CLICK]:
+                      GA_VALUE_PLACE_CHART_CLICK_EXPORT,
                   });
                 }}
               >
@@ -319,7 +321,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   target="_blank"
                   onClick={() =>
                     triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
-                      [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
+                      [GA_PARAM_PLACE_CHART_CLICK]:
+                        GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
                     })
                   }
                 >
@@ -429,9 +432,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
-    const svgElems = this.svgContainerElement.current.getElementsByTagName(
-      "svg"
-    );
+    const svgElems =
+      this.svgContainerElement.current.getElementsByTagName("svg");
     let svgXml: string;
     if (svgElems.length) {
       svgXml = svgElems.item(0).outerHTML;
@@ -698,9 +700,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
   }
 
-  private getRankingChartData(
-    data: RankingChartDataGroup
-  ): {
+  private getRankingChartData(data: RankingChartDataGroup): {
     lowest: Point[];
     highest: Point[];
   } {
