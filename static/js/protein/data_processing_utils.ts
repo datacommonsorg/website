@@ -15,6 +15,7 @@
  */
 
 import _ from "lodash";
+import { defaultFormat } from "moment";
 
 import { GraphNodes } from "../shared/types";
 import { ProteinStrData } from "./chart";
@@ -718,9 +719,9 @@ export function getFromResponse<K extends keyof V1BioResponseDatum>(
 }
 
 /**
- * Given an array of interaction DCIDs and a parallel array of corresponding scores,
- * construct and return score record such that for each interaction A_B with corresponding DCID in interaction DCIDs,
- * both A_B and B_A map to the score of A_B.  Skip all malformatted interaction DCIDs.
+ * Given a record mapping interaction IDs to corresponding scores, construct and return symmetric score record
+ * such that for each interaction A_B in the input record, both A_B and B_A map to the maximum of the scores of
+ * A_B and B_A if the score of B_A is in the input record, or the score of A_B otherwise. Skip all malformed IDs.
  *
  * Since we currently do not graphically distinguish between the A_B and B_A scores,
  * we choose to have a symmetric score store.
@@ -731,15 +732,14 @@ export function getFromResponse<K extends keyof V1BioResponseDatum>(
  * but could very well be imported in the future. Thus, we might have two or more edges between proteins
  * for each type of interaction they participate in, with different scores for each.
  */
-export function symmetricScoreRec(
-  interactionDcids: bioDcid[],
-  scores: number[]
+export function symmetrizeScoreRec(
+  scoreRec: Record<string, number>
 ): Record<string, number> {
-  const scoreRec = {};
-  for (let i = 0; i < Math.min(interactionDcids.length, scores.length); i++) {
-    const proteins = proteinsFromInteractionDcid(interactionDcids[i]);
+  for (const interactionId of Object.keys(scoreRec)) {
+    const interactionDcid = ppiDcidFromId(interactionId);
+    const proteins = proteinsFromInteractionDcid(ppiDcidFromId(interactionId));
     if (proteins === null) {
-      console.warn(`Invalid interaction ID ${interactionDcids[i]} -- skipping`);
+      console.warn(`Invalid interaction ID ${interactionDcid} -- skipping`);
       continue;
     }
     const [proteinA, proteinB] = proteins;
@@ -753,7 +753,7 @@ export function symmetricScoreRec(
       `${proteinB}_${proteinA}`,
       DEFAULT_INTERACTION_SCORE
     );
-    const maxScore = Math.max(scores[i], scoreAB, scoreBA);
+    const maxScore = Math.max(scoreAB, scoreBA);
     scoreRec[`${proteinA}_${proteinB}`] = maxScore;
     scoreRec[`${proteinB}_${proteinA}`] = maxScore;
   }
@@ -767,34 +767,34 @@ export function symmetricScoreRec(
 export function scoreDataFromResponse(
   scoreResponse: V1BioResponse
 ): Record<string, number> {
-  const scoreValues = getFromResponse(scoreResponse, "values");
-  const interactionDcids = getFromResponse(scoreResponse, "entity");
-  if (scoreValues.length !== interactionDcids.length) {
-    console.warn(
-      "Number of scores and interactions computed from response differ. Edge widths in the graph may be incorrect."
-    );
+  if(_.isEmpty(scoreResponse.data)){
+    return {};
   }
-  const scoreList = scoreValues
-    // map scoreValues to IntactMiScore if available, otherwise map to default interaction score
-    .map((bioData: V1BioDatum[], i) => {
-      // skip loop if bioData is undefined
-      for (const bioDatum of bioData || []) {
-        if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)) {
-          const score = quantityFromDcid(
-            bioDatum.dcid,
-            INTERACTION_QUANTITY_DCID
-          );
-          if (!isNaN(score)) {
-            return score;
-          }
-        }
-      }
-      if (i < interactionDcids.length) {
-        console.warn(
-          `Unable to retrieve score for interaction ${interactionDcids[i]} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
+  const scoreRec: Record<string, number> = {};
+  for(const responseDatum of scoreResponse.data){
+    const interactionDcid = responseDatum.entity;
+    if (!interactionDcid){
+      console.warn("Undefined or empty interaction DCID -- skipping")
+      continue;
+    }
+    const interactionId = ppiIdFromDcid(interactionDcid);
+    const values = responseDatum.values;
+    for (const bioDatum of values || []) {
+      if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)) {
+        const score = quantityFromDcid(
+          bioDatum.dcid,
+          INTERACTION_QUANTITY_DCID
         );
+        if (!isNaN(score)) {
+          scoreRec[interactionId] = score;
+          continue
+        }
+        }
+        console.warn(
+          `Unable to retrieve score for interaction ${interactionDcid} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
+        );
+        scoreRec[interactionId] = DEFAULT_INTERACTION_SCORE;
       }
-      return DEFAULT_INTERACTION_SCORE;
-    });
-  return symmetricScoreRec(interactionDcids, scoreList);
-}
+    }
+    return symmetrizeScoreRec(scoreRec);
+  }
