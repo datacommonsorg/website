@@ -26,6 +26,10 @@ import React from "react";
 
 import { Context } from "../shared/context";
 import {
+  GA_EVENT_TOOL_STAT_VAR_CLICK,
+  triggerGAEvent,
+} from "../shared/ga_events";
+import {
   NamedPlace,
   RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
@@ -296,6 +300,7 @@ export class StatVarHierarchy extends React.Component<
     } else {
       if (this.props.selectSV) {
         this.props.selectSV(sv);
+        triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_CLICK, { GA_PARAM_STAT_VAR: sv });
       }
       const svPath = RADIO_BUTTON_TYPES.has(this.props.type)
         ? { [sv]: path }

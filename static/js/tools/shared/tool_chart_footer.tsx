@@ -26,6 +26,13 @@ import {
   FacetSelector,
   FacetSelectorFacetInfo,
 } from "../../shared/facet_selector";
+import {
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
+  GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+  GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { urlToDomain } from "../../shared/util";
 
 interface ToolChartFooterPropType {
@@ -102,9 +109,15 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                     id={ratioCheckboxId}
                     type="checkbox"
                     checked={props.isPerCapita}
-                    onChange={() =>
-                      props.onIsPerCapitaUpdated(!props.isPerCapita)
-                    }
+                    onChange={() => {
+                      props.onIsPerCapitaUpdated(!props.isPerCapita);
+                      if (!props.isPerCapita) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                        });
+                      }
+                    }}
                   />
                   Per Capita
                 </Label>
@@ -115,7 +128,13 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           <FacetSelector
             svFacetId={props.svFacetId}
             facetListPromise={Promise.resolve(props.facetList)}
-            onSvFacetIdUpdated={props.onSvFacetIdUpdated}
+            onSvFacetIdUpdated={(svFacetId) => {
+              props.onSvFacetIdUpdated(svFacetId);
+              triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                [GA_PARAM_TOOL_CHART_OPTION]:
+                  GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+              });
+            }}
           />
         </div>
       )}
