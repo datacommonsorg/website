@@ -21,6 +21,15 @@ import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
 import { Chip } from "../../shared/chip";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import {
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
+  GA_EVENT_TOOL_CHART_PLOT,
+  GA_PARAM_PLACE_DCID,
+  GA_PARAM_STAT_VAR,
+  GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_TOOL_CHART_OPTION_DELTA,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
@@ -156,9 +165,19 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   className="is-delta-input"
                   type="checkbox"
                   checked={this.props.delta}
-                  onChange={() =>
-                    setChartOption(this.props.mprop, "delta", !this.props.delta)
-                  }
+                  onChange={() => {
+                    setChartOption(
+                      this.props.mprop,
+                      "delta",
+                      !this.props.delta
+                    );
+                    if (!this.props.delta) {
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_DELTA,
+                      });
+                    }
+                  }}
                 />
                 Delta
               </Label>
@@ -173,6 +192,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.loadRawData();
     this.resizeObserver = new ResizeObserver(this.handleWindowResize);
     this.resizeObserver.observe(this.svgContainer.current);
+    // Triggered when the component is mounted and send data to google analytics.
+    triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+      GA_PARAM_PLACE_DCID: Object.keys(this.props.placeNames),
+      GA_PARAM_STAT_VAR: Object.keys(this.props.statVarInfos),
+    });
   }
 
   componentWillUnmount(): void {
@@ -188,6 +212,19 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     prevProps: ChartPropsType,
     prevState: ChartStateType
   ): void {
+    // Triggered only when the stat vars or places change and send data to google analytics.
+    const shouldTriggerGAEvent =
+      !_.isEqual(prevProps.placeNames, this.props.placeNames) ||
+      !_.isEqual(
+        Object.keys(prevProps.statVarInfos),
+        Object.keys(this.props.statVarInfos)
+      );
+    if (shouldTriggerGAEvent) {
+      triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+        [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNames),
+        [GA_PARAM_STAT_VAR]: Object.keys(this.props.statVarInfos),
+      });
+    }
     // We only need to fetch the raw data when place, statvars or denom changes.
     const shouldLoadData =
       !_.isEqual(prevProps.placeNames, this.props.placeNames) ||

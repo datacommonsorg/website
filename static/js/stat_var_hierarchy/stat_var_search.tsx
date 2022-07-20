@@ -22,6 +22,11 @@
 import _ from "lodash";
 import React from "react";
 
+import {
+  GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+  GA_PARAM_SEARCH_TERM,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { NamedNode, SvgSearchResult } from "../shared/types";
 import {
   getHighlightedJSX,
@@ -64,6 +69,23 @@ export class StatVarHierarchySearch extends React.Component<
     this.search = this.search.bind(this);
     this.onResultSelected = this.onResultSelected.bind(this);
     this.onInputClear = this.onInputClear.bind(this);
+  }
+
+  // Triggered when no result is showed to a search term and send data to google analytics.
+  // Check prevstate to avoid double counting.
+  componentDidUpdate(
+    prevProps: StatVarHierarchySearchPropType,
+    prevState: StatVarHierarchySearchStateType
+  ): void {
+    if (
+      this.state.showNoResultsMessage &&
+      !prevState.showNoResultsMessage &&
+      this.state.query
+    ) {
+      triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT, {
+        [GA_PARAM_SEARCH_TERM]: this.state.query,
+      });
+    }
   }
 
   render(): JSX.Element {

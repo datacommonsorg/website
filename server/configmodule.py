@@ -45,6 +45,7 @@ class StagingConfig(Config):
 
 
 class AutopushConfig(Config):
+    GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
     pass
 
 
