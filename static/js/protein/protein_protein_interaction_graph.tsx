@@ -57,9 +57,9 @@ const CHART_ID = "protein-interaction-graph";
 const DEPTH_INPUT_ID = "ppi-input-depth";
 
 export const LIMITS = {
-  MAX_DEPTH: 3,
-  MIN_DEPTH: 0,
-  MAX_INTERACTIONS: 4,
+  DEPTH_MAX: 3,
+  DEPTH_MIN: 0,
+  INTERACTIONS_MAX: 4,
 };
 
 const DEFAULTS = {
@@ -135,8 +135,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
             id={DEPTH_INPUT_ID}
             className={DEPTH_INPUT_ID}
             type="number"
-            min={LIMITS.MIN_DEPTH}
-            max={LIMITS.MAX_DEPTH}
+            min={LIMITS.DEPTH_MIN}
+            max={LIMITS.DEPTH_MAX}
             onChange={(e) => {
               this.setState({ depth: Number(e.target.value) });
             }}
@@ -241,7 +241,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
               );
               return score1 - score2;
             })
-            .slice(0, LIMITS.MAX_INTERACTIONS);
+            .slice(0, LIMITS.INTERACTIONS_MAX);
 
           // add an InteractionLink for each interaction
           filteredSorted.forEach((interactionDcid) => {

@@ -703,7 +703,7 @@ export function getProteinInteractionGraphData(
   // descending order of interaction confidenceScore
   neighbors.sort((n1, n2) => n2.value - n1.value);
   // consider only top 10 interactions to avoid clutter
-  neighbors = neighbors.slice(0, LIMITS.MAX_INTERACTIONS);
+  neighbors = neighbors.slice(0, LIMITS.INTERACTIONS_MAX);
 
   const centerDatum = nodeFromId(centerNodeId, 0);
 
