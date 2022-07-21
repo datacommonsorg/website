@@ -194,8 +194,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.resizeObserver.observe(this.svgContainer.current);
     // Triggered when the component is mounted and send data to google analytics.
     triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
-      GA_PARAM_PLACE_DCID: Object.keys(this.props.placeNames),
-      GA_PARAM_STAT_VAR: Object.keys(this.props.statVarInfos),
+      [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNames),
+      [GA_PARAM_STAT_VAR]: Object.keys(this.props.statVarInfos),
     });
   }
 
