@@ -196,8 +196,8 @@ export function getProteinInteraction(
       if (!seen.has(proteinName)) {
         returnData.push({
           name: proteinName,
-          value: confidenceScore,
           parent: parentProtein,
+          value: confidenceScore,
         });
         seen.add(proteinName);
       }
@@ -205,20 +205,6 @@ export function getProteinInteraction(
     return returnData;
   }
   return [];
-}
-
-/**
- * Given id of the form {protein id}_{species id} (e.g. P53_HUMAN), parse into and return ProteinNode
- */
-function nodeFromID(proteinSpeciesID: string, depth: number): ProteinNode {
-  // assumes {species id} does not contain _ (true as of 06/22/22)
-  const lastIndex = proteinSpeciesID.lastIndexOf("_");
-  return {
-    depth,
-    id: proteinSpeciesID,
-    name: proteinSpeciesID.slice(0, lastIndex),
-    species: proteinSpeciesID.slice(lastIndex + 1),
-  };
 }
 
 /**
@@ -362,9 +348,9 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
             returnData.push({
               associationID,
               id: variant,
+              interval,
               name: tissue,
               value: score,
-              interval,
             });
           }
           seen.add(variant);

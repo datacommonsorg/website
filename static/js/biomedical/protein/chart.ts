@@ -90,10 +90,10 @@ const TISSUE_SCORE_TO_LABEL = {
 };
 // Dictionary mapping the tissue expression string to its value
 const TISSUE_VAL_TO_SCORE = {
-  ProteinExpressionNotDetected: 0,
+  ProteinExpressionHigh: 3,
   ProteinExpressionLow: 1,
   ProteinExpressionMedium: 2,
-  ProteinExpressionHigh: 3,
+  ProteinExpressionNotDetected: 0,
 };
 
 // dictionary mapping tissues to organs
@@ -127,8 +127,8 @@ const TISSUE_ORGAN_DICT = {
   Kidney: "Kidney and Urinary Bladder",
   LactatingBreast: "Reproductive",
   Liver: "Liver and Gall Bladder",
-  LymphNode: "Lymphoid",
   Lung: "Lung",
+  LymphNode: "Lymphoid",
   Nasopharynx: "Lung",
   OralMucosa: "Skin",
   Ovary: "Reproductive",
@@ -164,21 +164,21 @@ const TISSUE_ORGAN_DICT = {
 
 // color dictionary mapping organs to colors
 const ORGAN_COLOR_DICT = {
+  Brain: "lightcoral",
+  "Connective tissue": "linen",
   Endocrine: "sienna",
   Eye: "coral",
-  Reproductive: "mistyrose",
-  Lung: "tomato",
-  "Connective tissue": "linen",
-  Brain: "lightcoral",
   "Gastrointestinal tract": "maroon",
-  "Liver and Gall Bladder": "darksalmon",
   Heart: "brown",
+  "Kidney and Urinary Bladder": "sandybrown",
+  "Liver and Gall Bladder": "darksalmon",
+  Lung: "tomato",
   Lymphoid: "khaki",
   Pancreas: "orangered",
-  Thyroid: "bisque",
+  Reproductive: "mistyrose",
   Skin: "peachpuff",
   "Soft Tissue": "burlywood",
-  "Kidney and Urinary Bladder": "sandybrown",
+  Thyroid: "bisque",
 };
 // tissue specific colors
 const ERROR_BAR_VAR_COLOR = {
@@ -505,28 +505,30 @@ export function drawProteinInteractionChart(
   //Formats the protein name by removing the parent protein name
   function formatProteinName(d: string): string {
     let name = d;
-    name = name.replace(parentProtein, "");
-    name = name.replace(/_+$/, "");
-    name = name.replace(/^[_]+/, "");
+    let formattedName1 = name.replace(parentProtein, "");
+    let formattedName2 = formattedName1.replace(/_+$/, "");
+    let formattedName3 = formattedName2.replace(/^[_]+/, "");
     // strips the specie name
-    name = name.split("_")[0];
+    let formattedName4 = formattedName3.split("_")[0];
     // if self-interacting protein, display parent protein name
-    if (name === "") {
-      name = parentProtein;
+    if (formattedName4 === "") {
+      let formattedName5 = parentProtein;
+      return formattedName5
     }
-    return name;
+    return formattedName4;
   }
   //Extracts protein specie name
   function extractSpecieName(name: string): string {
-    name = name.replace(parentProtein, "");
-    name = name.replace(/_+$/, "");
-    name = name.replace(/^[_]+/, "");
+    let formattedName1 = name.replace(parentProtein, "");
+    let formattedName2 = formattedName1.replace(/_+$/, "");
+    let formattedName3 = formattedName2.replace(/^[_]+/, "");
     // retrieves the specie name
-    name = name.split("_")[1];
-    if (name === "") {
-      name = parentProtein;
+    let formattedName4 = formattedName3.split("_")[1];
+    if (formattedName4 === "") {
+      let formattedName5 = parentProtein;
+      return formattedName5;
     }
-    return name;
+    return formattedName4;
   }
   let reformattedData = [] as InteractingProteinType[];
 
@@ -534,8 +536,8 @@ export function drawProteinInteractionChart(
   reformattedData = data.map((item) => {
     return {
       name: formatProteinName(item.name),
-      value: item.value,
       parent: extractSpecieName(item.name),
+      value: item.value,
     };
   });
   const seen = new Set();
@@ -858,10 +860,10 @@ export function drawVarGeneAssocChart(
     return {
       associationID: item.associationID,
       id: item.id.substring(4),
-      name: item.name,
-      value: parseFloat(item.value),
       lower: parseFloat(objLower),
+      name: item.name,
       upper: parseFloat(objUpper),
+      value: parseFloat(item.value),
     };
   });
   const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
@@ -869,7 +871,7 @@ export function drawVarGeneAssocChart(
 
   //reformats the data by grouping the error points with similar tissue origin
 
-  reformattedData.sort(function (x, y) {
+  reformattedData.sort((x, y) => {
     const a = ERROR_BAR_VAR_COLOR[x.name];
     const b = ERROR_BAR_VAR_COLOR[y.name];
     if (a < b) {
@@ -943,7 +945,7 @@ export function drawVarGeneAssocChart(
     .attr("id", (d, i) => circleIdFunc(i))
     .style("fill", (d) => ERROR_BAR_VAR_COLOR[d.name])
     // variant redirect
-    .on("click", function (d) {
+    .on("click", (d) => {
       window.open(GRAPH_BROWSER_REDIRECT + d.associationID);
     })
     .call(
@@ -1054,12 +1056,13 @@ export function drawVarTypeAssocChart(
     // remove the word "GeneticVariantFunctionalCategory" from say "GeneticVariantFunctionalCategorySplice5"
     // if condition for - GeneticVariantFunctionalCDSIndel, its a bug that is being fixed on the backend
     let name = d;
+    let formattedName1 = "";
     if (name === "GeneticVariantFunctionalCDSIndel") {
-      name = name.substring(24);
+      formattedName1 = name.substring(24);
     } else {
-      name = name.substring(32);
+      formattedName1 = name.substring(32);
     }
-    return name;
+    return formattedName1;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;
@@ -1136,11 +1139,11 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   }
 
   //Formats the variant clinical significance name
-  function formatVariant(d: string): string{
+  function formatVariant(d: string): string {
     // removes the word "ClinSig" from say "ClinSigUncertain"
     let name = d;
-    name = name.substring(7);
-    return name;
+    let formattedName1 = name.substring(7);
+    return formattedName1;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;

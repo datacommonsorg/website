@@ -567,18 +567,18 @@ test("getProteinInteraction", () => {
       wantArray: [
         {
           name: "ZN420_HUMAN_P53_HUMAN",
-          value: 0.59,
           parent: "P53_HUMAN",
+          value: 0.59,
         },
         {
           name: "ZN363_HUMAN_P53_HUMAN",
-          value: 0.85,
           parent: "P53_HUMAN",
+          value: 0.85,
         },
         {
           name: "X_HBVA3_P53_HUMAN",
-          value: 0.4,
           parent: "P53_HUMAN",
+          value: 0.4,
         },
       ],
     },
@@ -667,8 +667,8 @@ test("getProteinInteraction", () => {
           },
         ],
       },
-      wantArray: [],
       nodeName: "P53_HUMAN",
+      wantArray: [],
     },
   ];
   for (const c of cases) {
@@ -819,23 +819,23 @@ test("getVarGeneAssoc", () => {
         {
           associationID: "bio/pg37tb2s2hnn8dyev9q986j36b",
           id: "bio/rs7211097",
+          interval: "[-0.126789 -0.054901]",
           name: "Whole Blood",
           value: "-0.094116",
-          interval: "[-0.126789 -0.054901]",
         },
         {
           associationID: "bio/7gs5e8nzcl3tfp930d901fssc7",
           id: "bio/rs62059165",
+          interval: "[0.102083 0.231955]",
           name: "Thyroid",
           value: "0.160064",
-          interval: "[0.102083 0.231955]",
         },
         {
           associationID: "bio/5dw9kkb9f9z59mk0e2yj0tnbp6",
           id: "bio/rs7220915",
+          interval: "[0.017535 0.145954]",
           name: "Pancreas",
           value: "0.081840",
-          interval: "[0.017535 0.145954]",
         },
       ],
     },

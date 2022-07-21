@@ -69,13 +69,13 @@ export function drawDiseaseGeneAssocChart(
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
   // slicing the data to display 10 values only
-  data = data.slice(0, NUM_DATA_POINTS);
+  let slicedData = data.slice(0, NUM_DATA_POINTS);
   // plots the axes
   const x = d3
     .scaleBand()
     .range([0, width])
     .domain(
-      data.map((d) => {
+      slicedData.map((d) => {
         return d.name;
       })
     )
@@ -90,14 +90,14 @@ export function drawDiseaseGeneAssocChart(
   addXLabel(width, height, "Gene Names", svg);
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.upperInterval) + Y_AXIS_LIMIT])
+    .domain([0, d3.max(slicedData, (d) => d.upperInterval) + Y_AXIS_LIMIT])
     .range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
   addYLabel(height, "Confidence Score", svg);
   // the lines
   svg
     .selectAll("disease-gene-line")
-    .data(data)
+    .data(slicedData)
     .enter()
     .append("line")
     .attr("x1", (d) => {
@@ -115,7 +115,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("stroke", "grey");
   svg
     .selectAll("disease-gene-upper-line")
-    .data(data)
+    .data(slicedData)
     .enter()
     .append("line")
     .attr("x1", (d) => {
@@ -134,7 +134,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("stroke-width", "1px");
   svg
     .selectAll("disease-gene-lower-line")
-    .data(data)
+    .data(slicedData)
     .enter()
     .append("line")
     .attr("x1", (d) => {
@@ -155,7 +155,7 @@ export function drawDiseaseGeneAssocChart(
   // the circles
   svg
     .selectAll("disease-gene-circle")
-    .data(data)
+    .data(slicedData)
     .enter()
     .append("circle")
     .attr("cx", (d) => {
