@@ -54,6 +54,7 @@ interface InteractionGraphState {
 }
 
 const CHART_ID = "protein-interaction-graph";
+const DEPTH_INPUT_ID = "ppi-input-depth";
 
 export const LIMITS = {
   MAX_DEPTH: 3,
@@ -98,7 +99,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       // chain two BFS iterations
       const expansions = this.bfsIter(graphData)
         .then(() => this.bfsIter(graphData))
-        .then(() => this.bfsIter(graphData))
+        .then(() => this.bfsIter(graphData));
       // updating state will then trigger the second call to this method
       expansions.then(() => {
         this.setState({
@@ -122,19 +123,17 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   render(): JSX.Element {
-    if(this.state.graphData === null){
-      return <div></div>
+    if (this.state.graphData === null) {
+      return <div></div>;
     }
     return (
       <>
         <div id={CHART_ID}></div>
         <FormGroup>
-          <Label for="ppi-depth-input">Depth</Label>
+          <Label for={DEPTH_INPUT_ID}>Depth</Label>
           <Input
-            id="ppi-depth-input"
-            className={`ppi-depth-input${
-              this.state.depth > LIMITS.MAX_DEPTH ? "-error" : ""
-            }`}
+            id={DEPTH_INPUT_ID}
+            className={DEPTH_INPUT_ID}
             type="number"
             max={LIMITS.MAX_DEPTH}
             min={LIMITS.MIN_DEPTH}
