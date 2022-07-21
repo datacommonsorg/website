@@ -469,7 +469,7 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   // Adds the y-axis text label
   addYLabel(height, "Expression Score", svg);
 
-  const barIdFunc = getElementIdFunc(id, "bar");
+  const barIdFunc = getElementIDFunc(id, "bar");
   // plotting the bars
   svg
     .selectAll("tissue-score-bar")
@@ -614,7 +614,7 @@ export function drawProteinInteractionChart(
   // Adds the y-axis text label
   addYLabel(height, "Interacting protein name", svg);
 
-  const barIdFunc = getElementIdFunc(id, "bar");
+  const barIdFunc = getElementIDFunc(id, "bar");
 
   // plotting the bars
   bars
@@ -683,7 +683,7 @@ export function drawProteinInteractionGraph(
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIds[index]);
   forceLink.distance(LINK_STYLE.length);
 
-  const linkIdFunc = getElementIdFunc(chartId, "link");
+  const linkIdFunc = getElementIDFunc(chartId, "link");
   // add links first so nodes appear over links
   const links = svg
     .append("g")
@@ -713,7 +713,7 @@ export function drawProteinInteractionGraph(
     .force("center", d3.forceCenter())
     .on("tick", () => interactionGraphTicked(links, nodes));
 
-  const nodeIdFunc = getElementIdFunc(chartId, "node");
+  const nodeIdFunc = getElementIDFunc(chartId, "node");
   // container for circles and labels
   const nodes = svg
     .append("g")
@@ -811,7 +811,7 @@ export function drawDiseaseGeneAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Disease Name", svg);
 
-  const barIdFunc = getElementIdFunc(id, "bar");
+  const barIdFunc = getElementIDFunc(id, "bar");
 
   // plots the bars
   bars
@@ -934,7 +934,7 @@ export function drawVarGeneAssocChart(
     .attr("stroke", "black")
     .attr("stroke-width", "1px");
 
-  const circleIdFunc = getElementIdFunc(id, "circle");
+  const circleIdFunc = getElementIDFunc(id, "circle");
   svg
     .selectAll("error-bar-circle")
     .data(reformattedData)
@@ -1101,7 +1101,7 @@ export function drawVarTypeAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Variant Function Category", svg);
 
-  const barIdFunc = getElementIdFunc(id, "bar");
+  const barIdFunc = getElementIDFunc(id, "bar");
 
   // plots the bars
   bars
@@ -1182,7 +1182,7 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   // Adds the y-axis text label
   addYLabel(height, "Variant Clinical Significance", svg);
 
-  const barIdFunc = getElementIdFunc(id, "bar");
+  const barIdFunc = getElementIDFunc(id, "bar");
   // plots the bars
   bars
     .selectAll("rect")
@@ -1259,7 +1259,7 @@ export function drawChemGeneAssocChart(
   // Adds the y-axis text label
   addYLabel(height, "Drug-Gene Relationship", svg);
 
-  const barIdFunc = getElementIdFunc(id, "bar");
+  const barIdFunc = getElementIDFunc(id, "bar");
   // plots the bars
   bars
     .selectAll("rect")

@@ -16,7 +16,8 @@
 import * as d3 from "d3";
 
 import { DiseaseGeneAssociationData } from "./disease/chart";
-import { InteractionLink, ProteinNode, ProteinNumData } from "./protein/chart";
+import {InteractionLink, ProteinNode} from "./protein/types";
+import { ProteinNumData } from "./protein/chart";
 import { DiseaseAssociationType } from "./protein/page";
 export const MARGIN = { top: 30, right: 30, bottom: 90, left: 160 };
 // number to select top data points for large data
