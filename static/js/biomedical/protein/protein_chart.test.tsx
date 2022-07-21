@@ -1,7 +1,5 @@
-import Enzyme, { shallow } from "enzyme";
+import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import _ from "lodash";
-import React from "react";
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -18,10 +16,11 @@ import {
   getVarSigAssoc,
   getVarTypeAssoc,
 } from "./data_processing_utils";
-import { InteractingProteinType } from "./page";
-import { ProteinVarType } from "./page";
-import { DiseaseAssociationType } from "./page";
-import { Page } from "./page";
+import {
+  DiseaseAssociationType,
+  InteractingProteinType,
+  ProteinVarType,
+} from "./page";
 test("getTissueScore", () => {
   //const wrapper = shallow(<Page dcid={"test"} nodeName={"test-node"} />);
   const cases: {
@@ -548,7 +547,7 @@ test("getTissueScore", () => {
       expect(tissueScore).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different tissue score array than expected for query data`
+        "Got different tissue score array than expected for query data"
       );
       throw e;
     }
@@ -678,7 +677,7 @@ test("getProteinInteraction", () => {
       expect(tissueInteraction).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different tissue score array than expected for query data`
+        "Got different tissue score array than expected for query data"
       );
       throw e;
     }
@@ -801,7 +800,7 @@ test("getDiseaseGeneAssoc", () => {
       expect(diseaseGeneAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different disease gene association array than expected for query data`
+        "Got different disease gene association array than expected for query data"
       );
       throw e;
     }
@@ -934,7 +933,7 @@ test("getVarGeneAssoc", () => {
       expect(varGeneAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different variant gene association array than expected for query data`
+        "Got different variant gene association array than expected for query data"
       );
       throw e;
     }
@@ -1110,7 +1109,7 @@ test("getVarTypeAssoc", () => {
       expect(varTypeAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different variant type association array than expected for query data`
+        "Got different variant type association array than expected for query data"
       );
       throw e;
     }
@@ -1298,7 +1297,7 @@ test("getVarSigAssoc", () => {
       expect(varSigAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different variant significance association array than expected for query data`
+        "Got different variant significance association array than expected for query data"
       );
       throw e;
     }
@@ -1422,7 +1421,7 @@ test("getChemicalGeneAssoc", () => {
       expect(chemGeneAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different chemical gene association array than expected for query data`
+        "Got different chemical gene association array than expected for query data"
       );
       throw e;
     }

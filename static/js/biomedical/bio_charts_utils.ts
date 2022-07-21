@@ -117,7 +117,7 @@ export function addXLabel(
   height: number,
   labelText: string,
   svg: d3.Selection<SVGGElement, unknown, HTMLElement, any>
-) {
+): void {
   svg
     .attr("class", "axis-label")
     .append("text")
@@ -139,7 +139,7 @@ export function addYLabel(
   height: number,
   labelText: string,
   svg: d3.Selection<SVGGElement, unknown, HTMLElement, any>
-) {
+): void {
   svg
     .append("text")
     .attr("transform", "rotate(-90)")

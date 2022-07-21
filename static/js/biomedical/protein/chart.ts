@@ -15,17 +15,14 @@
  */
 
 import * as d3 from "d3";
-import {
-  DragBehavior,
-  Simulation,
-  SimulationLinkDatum,
-  SimulationNodeDatum,
-} from "d3";
+import { DragBehavior, Simulation, SimulationNodeDatum } from "d3";
 import _ from "lodash";
 
-import { getProteinInteractionGraphData } from "./data_processing_utils";
-import { DiseaseAssociationType, InteractingProteinType } from "./page";
-import { ProteinVarType } from "./page";
+import {
+  DiseaseAssociationType,
+  InteractingProteinType,
+  ProteinVarType,
+} from "./page";
 export { Datum } from "../bio_charts_utils";
 import { InteractionGraphData, InteractionLink, ProteinNode } from "./types";
 // interface for protein page datatypes which return number values
@@ -50,8 +47,6 @@ export interface VarGeneDataPoint {
   upper: number;
 }
 
-const SVGNS = "http://www.w3.org/2000/svg";
-const XLINKNS = "http://www.w3.org/1999/xlink";
 const PROTEIN_REDIRECT = "/bio/protein/";
 export const GRAPH_BROWSER_REDIRECT = "/browser/";
 
@@ -132,8 +127,8 @@ const TISSUE_ORGAN_DICT = {
   Kidney: "Kidney and Urinary Bladder",
   LactatingBreast: "Reproductive",
   Liver: "Liver and Gall Bladder",
-  Lung: "Lung",
   LymphNode: "Lymphoid",
+  Lung: "Lung",
   Nasopharynx: "Lung",
   OralMucosa: "Skin",
   Ovary: "Reproductive",
@@ -508,29 +503,30 @@ export function drawProteinInteractionChart(
   // TODO: create a helper function for reformatting
   const parentProtein = data[0].parent;
   //Formats the protein name by removing the parent protein name
-  function formatProteinName(d: string) {
-    d = d.replace(parentProtein, "");
-    d = d.replace(/_+$/, "");
-    d = d.replace(/^[_]+/, "");
+  function formatProteinName(d: string): string {
+    let name = d;
+    name = name.replace(parentProtein, "");
+    name = name.replace(/_+$/, "");
+    name = name.replace(/^[_]+/, "");
     // strips the specie name
-    d = d.split("_")[0];
+    name = name.split("_")[0];
     // if self-interacting protein, display parent protein name
-    if (d === "") {
-      d = parentProtein;
+    if (name === "") {
+      name = parentProtein;
     }
-    return d;
+    return name;
   }
   //Extracts protein specie name
-  function extractSpecieName(d: string) {
-    d = d.replace(parentProtein, "");
-    d = d.replace(/_+$/, "");
-    d = d.replace(/^[_]+/, "");
+  function extractSpecieName(name: string): string {
+    name = name.replace(parentProtein, "");
+    name = name.replace(/_+$/, "");
+    name = name.replace(/^[_]+/, "");
     // retrieves the specie name
-    d = d.split("_")[1];
-    if (d === "") {
-      d = parentProtein;
+    name = name.split("_")[1];
+    if (name === "") {
+      name = parentProtein;
     }
-    return d;
+    return name;
   }
   let reformattedData = [] as InteractingProteinType[];
 
@@ -629,7 +625,7 @@ export function drawProteinInteractionChart(
     .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
     //PROTEIN_REDIRECT
-    .on("click", function (d) {
+    .on("click", (d) => {
       const proteinId = "bio/" + d.name + "_" + d.parent;
       window.open(PROTEIN_REDIRECT + proteinId);
     })
@@ -769,9 +765,10 @@ export function drawDiseaseGeneAssocChart(
   // chart specific margin to display full disease names
   const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   // Removes unnecessary quotes from disease names
-  function formatDiseaseName(d: string) {
-    d = d.replace(/['"]+/g, "");
-    return d;
+  function formatDiseaseName(d: string): string {
+    let name = d;
+    name = name.replace(/['"]+/g, "");
+    return name;
   }
   //Slices the array to display the first 10 disease-gene associations only
   const slicedArray = data.slice(0, NUM_DATA_POINTS);
@@ -1053,15 +1050,16 @@ export function drawVarTypeAssocChart(
   }
   //Formats the variant functional category name
 
-  function formatVariant(d: string) {
+  function formatVariant(d: string): string {
     // remove the word "GeneticVariantFunctionalCategory" from say "GeneticVariantFunctionalCategorySplice5"
     // if condition for - GeneticVariantFunctionalCDSIndel, its a bug that is being fixed on the backend
-    if (d == "GeneticVariantFunctionalCDSIndel") {
-      d = d.substring(24);
+    let name = d;
+    if (name === "GeneticVariantFunctionalCDSIndel") {
+      name = name.substring(24);
     } else {
-      d = d.substring(32);
+      name = name.substring(32);
     }
-    return d;
+    return name;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;
@@ -1220,10 +1218,11 @@ export function drawChemGeneAssocChart(
     return;
   }
   //Formats the chemical-gene association name
-  function formatChemName(d: string) {
+  function formatChemName(d: string): string {
     // removes the word "RelationshipAssociationType" from say "RelationshipAssociationTypeAssociated"
-    d = d.substring(27);
-    return d;
+    let name = d;
+    name = name.substring(27);
+    return name;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;

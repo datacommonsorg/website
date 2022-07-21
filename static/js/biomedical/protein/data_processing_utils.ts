@@ -25,7 +25,6 @@ import {
 } from "./page";
 import {
   bioDcid,
-  InteractionGraphData,
   InteractionLink,
   MultiLevelInteractionGraphData,
   ProteinNode,
@@ -161,9 +160,9 @@ export function getProteinInteraction(
       continue;
     }
     for (const node of neighbour.nodes) {
-      let protein_name = null;
-      let confidence_score = null;
-      let parent_protein = null;
+      let proteinName = null;
+      let confidenceScore = null;
+      let parentProtein = null;
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors)) {
         continue;
@@ -174,8 +173,8 @@ export function getProteinInteraction(
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
-          protein_name = n.nodes[0].value;
-          parent_protein = nodeName;
+          proteinName = n.nodes[0].value;
+          parentProtein = nodeName;
         } else if (n.property === "confidenceScore") {
           // not checking for empty values because if name exists, confidence score must exist
           for (const n1 of n.nodes) {
@@ -186,7 +185,7 @@ export function getProteinInteraction(
                 }
                 const num = Number(n2.nodes[0].value);
                 if (num <= 1) {
-                  confidence_score = num;
+                  confidenceScore = num;
                 }
               }
             }
@@ -194,13 +193,13 @@ export function getProteinInteraction(
         }
       }
       // checking for duplicates
-      if (!seen.has(protein_name)) {
+      if (!seen.has(proteinName)) {
         returnData.push({
-          name: protein_name,
-          value: confidence_score,
-          parent: parent_protein,
+          name: proteinName,
+          value: confidenceScore,
+          parent: parentProtein,
         });
-        seen.add(protein_name);
+        seen.add(proteinName);
       }
     }
     return returnData;
@@ -361,11 +360,11 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           }
           if (!seen.has(variant) && !!score) {
             returnData.push({
-              associationID: associationID,
+              associationID,
               id: variant,
               name: tissue,
               value: score,
-              interval: interval,
+              interval,
             });
           }
           seen.add(variant);
