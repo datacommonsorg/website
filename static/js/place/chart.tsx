@@ -47,6 +47,14 @@ import {
   LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CHART_CLICK,
+  GA_PARAM_PLACE_CHART_CLICK,
+  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
+  GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
+  GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
@@ -209,7 +217,17 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const domain = urlToDomain(source);
       return (
         <span key={source}>
-          <a href={source}>{domain}</a>
+          <a
+            href={source}
+            onClick={() =>
+              triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                [GA_PARAM_PLACE_CHART_CLICK]:
+                  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
+              })
+            }
+          >
+            {domain}
+          </a>
           {index < sources.length - 1 ? ", " : ""}
         </span>
       );
@@ -280,7 +298,16 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               </span>
             </div>
             <div className="outlinks">
-              <a href="#" onClick={this._handleEmbed}>
+              <a
+                href="#"
+                onClick={(event) => {
+                  this._handleEmbed(event);
+                  triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                    [GA_PARAM_PLACE_CHART_CLICK]:
+                      GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+                  });
+                }}
+              >
                 <FormattedMessage
                   id="chart_metadata-export"
                   defaultMessage="Export"
@@ -293,6 +320,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   href={exploreUrl}
                   rel="noopener noreferrer"
                   target="_blank"
+                  onClick={() =>
+                    triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                      [GA_PARAM_PLACE_CHART_CLICK]:
+                        GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
+                    })
+                  }
                 >
                   <FormattedMessage
                     id="chart_metadata-explore_more"
@@ -400,9 +433,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
-    const svgElems = this.svgContainerElement.current.getElementsByTagName(
-      "svg"
-    );
+    const svgElems =
+      this.svgContainerElement.current.getElementsByTagName("svg");
     let svgXml: string;
     if (svgElems.length) {
       svgXml = svgElems.item(0).outerHTML;
@@ -669,9 +701,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
   }
 
-  private getRankingChartData(
-    data: RankingChartDataGroup
-  ): { lowest: Point[]; highest: Point[] } {
+  private getRankingChartData(data: RankingChartDataGroup): {
+    lowest: Point[];
+    highest: Point[];
+  } {
     const lowestAndHighestDataPoints = { lowest: [], highest: [] };
     if (
       data.numDataPoints >= MIN_RANKING_DATAPOINTS &&

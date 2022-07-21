@@ -17,6 +17,11 @@
 import React, { Component, createRef, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
 
+import {
+  GA_EVENT_TOOL_PLACE_ADD,
+  GA_PARAM_PLACE_DCID,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { SearchBar } from "../../shared/place_search_bar";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
@@ -178,9 +183,12 @@ class Page extends Component<unknown, PageStateType> {
                 <Col sm={12}>
                   <SearchBar
                     places={this.state.placeName}
-                    addPlace={(place) =>
-                      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place)
-                    }
+                    addPlace={(place) => {
+                      addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
+                      triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
+                        [GA_PARAM_PLACE_DCID]: place,
+                      });
+                    }}
                     removePlace={(place) => {
                       removeToken(
                         TIMELINE_URL_PARAM_KEYS.PLACE,

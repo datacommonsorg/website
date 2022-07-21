@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getCommonPrefix, isValidDate } from "./string_utils";
+import { formatDate, getCommonPrefix, isValidDate } from "./string_utils";
 
 test("get common prefix", () => {
   const cases: {
@@ -59,6 +59,12 @@ test("get common prefix", () => {
       console.log(`Failed for case with word list: ${c.wordList}`);
     }
   }
+});
+
+test("formatDate", () => {
+  expect(formatDate("2011-12")).toEqual("2011-Dec");
+  expect(formatDate("2015")).toEqual("2015");
+  expect(formatDate("2022-05-22")).toEqual("2022-05-22");
 });
 
 test("is valid date", () => {

@@ -35,6 +35,12 @@ import {
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import {
+  GA_EVENT_TOOL_CHART_PLOT,
+  GA_PARAM_PLACE_DCID,
+  GA_PARAM_STAT_VAR,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -140,6 +146,20 @@ export function Chart(props: ChartPropsType): JSX.Element {
       debouncedHandler.cancel();
     };
   }, [props, chartContainerRef, geoJsonFetched]);
+
+  // Triggered only when stat vars or places change to avoid double counting and send data to google analytics.
+  let statVar1 = "";
+  let statVar2 = "";
+  if (props.facetList.length >= 2) {
+    statVar1 = props.facetList[0].dcid;
+    statVar2 = props.facetList[1].dcid;
+  }
+  useEffect(() => {
+    triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+      [GA_PARAM_PLACE_DCID]: props.placeInfo.enclosingPlace.dcid,
+      [GA_PARAM_STAT_VAR]: [statVar1, statVar2],
+    });
+  }, [statVar1, statVar2, props.placeInfo.enclosingPlace.dcid]);
 
   return (
     <div id="chart" className="chart-section-container" ref={chartContainerRef}>
@@ -336,25 +356,27 @@ function getTitle(dates: string[], statVarLabel: string) {
   return `${statVarLabel} ${dateRange}`;
 }
 
-const getMapTooltipHtml = (
-  points: { [placeDcid: string]: Point },
-  xLabel: string,
-  yLabel: string,
-  xPerCapita: boolean,
-  yPerCapita: boolean
-) => (place: NamedPlace) => {
-  const point = points[place.dcid];
-  if (_.isEmpty(point)) {
-    return (
-      `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+const getMapTooltipHtml =
+  (
+    points: { [placeDcid: string]: Point },
+    xLabel: string,
+    yLabel: string,
+    xPerCapita: boolean,
+    yPerCapita: boolean
+  ) =>
+  (place: NamedPlace) => {
+    const point = points[place.dcid];
+    if (_.isEmpty(point)) {
+      return (
+        `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+      );
+    }
+    const element = getTooltipElement(
+      point,
+      xLabel,
+      yLabel,
+      xPerCapita,
+      yPerCapita
     );
-  }
-  const element = getTooltipElement(
-    point,
-    xLabel,
-    yLabel,
-    xPerCapita,
-    yPerCapita
-  );
-  return ReactDOMServer.renderToStaticMarkup(element);
-};
+    return ReactDOMServer.renderToStaticMarkup(element);
+  };

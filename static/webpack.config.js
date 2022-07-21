@@ -80,6 +80,10 @@ const config = {
     download: [
       __dirname + "/js/tools/download/download.ts",
       __dirname + "/css/tools/download.scss",
+    ],
+    import_wizard: [
+      __dirname + "/js/import_wizard/import_wizard.ts",
+      __dirname + "/css/import_wizard.scss"
     ]
   },
   output: {

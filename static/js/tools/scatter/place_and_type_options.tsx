@@ -48,15 +48,15 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
       return;
     }
     if (_.isNull(place.value.enclosingPlace.types)) {
-      getNamedTypedPlace(
-        place.value.enclosingPlace.dcid
-      ).then((enclosingPlace) => place.set({ ...place.value, enclosingPlace }));
+      getNamedTypedPlace(place.value.enclosingPlace.dcid).then(
+        (enclosingPlace) => place.set({ ...place.value, enclosingPlace })
+      );
       return;
     }
     if (_.isNull(place.value.parentPlaces)) {
-      getParentPlacesPromise(
-        place.value.enclosingPlace.dcid
-      ).then((parentPlaces) => place.setParentPlaces(parentPlaces));
+      getParentPlacesPromise(place.value.enclosingPlace.dcid).then(
+        (parentPlaces) => place.setParentPlaces(parentPlaces)
+      );
       return;
     }
     if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {

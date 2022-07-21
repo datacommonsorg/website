@@ -26,6 +26,10 @@ import React from "react";
 
 import { Context } from "../shared/context";
 import {
+  GA_EVENT_TOOL_STAT_VAR_CLICK,
+  triggerGAEvent,
+} from "../shared/ga_events";
+import {
   NamedPlace,
   RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
@@ -296,6 +300,7 @@ export class StatVarHierarchy extends React.Component<
     } else {
       if (this.props.selectSV) {
         this.props.selectSV(sv);
+        triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_CLICK, { GA_PARAM_STAT_VAR: sv });
       }
       const svPath = RADIO_BUTTON_TYPES.has(this.props.type)
         ? { [sv]: path }
@@ -327,12 +332,12 @@ export class StatVarHierarchy extends React.Component<
       "<li>Greyed out groups and statistical variables have no available data " +
       "for the chosen place(s). You can choose to hide these by using the " +
       '"Show all statistical variables toggle".</li></ul>';
-    const containerY = (d3
-      .select("#explore")
-      .node() as HTMLElement).getBoundingClientRect().y;
-    const iconY = (d3
-      .select("#tree-widget-info i")
-      .node() as HTMLElement).getBoundingClientRect().y;
+    const containerY = (
+      d3.select("#explore").node() as HTMLElement
+    ).getBoundingClientRect().y;
+    const iconY = (
+      d3.select("#tree-widget-info i").node() as HTMLElement
+    ).getBoundingClientRect().y;
     showTooltip(html, {
       left: TOOLTIP_MARGIN,
       top: iconY - containerY + TOOLTIP_TOP_OFFSET,
