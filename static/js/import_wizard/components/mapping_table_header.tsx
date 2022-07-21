@@ -175,7 +175,7 @@ function getColumnMappingString(column: ColumnInfo): string {
     return mString;
   }
   if (column.type === MappingType.COLUMN_HEADER) {
-    return `Header is a ${mThingName}`;
+    return `Column title is a ${mThingName}`;
   }
-  return "Not mapped";
+  return "Column is skipped";
 }

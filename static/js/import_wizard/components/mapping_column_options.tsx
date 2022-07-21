@@ -39,6 +39,7 @@ interface MappingColumnOptionsProps {
 }
 
 const IGNORED_MAPPED_THINGS = new Set([MappedThing.UNIT]);
+const NUM_EXAMPLES = 2;
 
 export function MappingColumnOptions(
   props: MappingColumnOptionsProps
@@ -50,9 +51,51 @@ export function MappingColumnOptions(
   return (
     <div className="column-options">
       <div className="column-options-header">
-        The values in the column <b>{props.column.column.header}</b> are:
+        For the column <b>{props.column.column.header}</b>:
       </div>
       <FormGroup radio="true" className="column-options-input-section">
+        {/* radio option for mapping type of HEADER */}
+        <Label radio="true" className="column-options-input header-type">
+          <Input
+            type="radio"
+            name="mapping-type"
+            checked={props.column.type === MappingType.COLUMN_HEADER}
+            onChange={() =>
+              updateColumn(
+                MappingType.COLUMN_HEADER,
+                props.column.headerMappedThing
+              )
+            }
+          />
+          {
+            <>
+              <span>
+                The column title {`(${props.column.column.header})`} is a
+              </span>
+              {/* drop down for selecting the mapped thing */}
+              <Input
+                id="header-type-mapped-thing"
+                className="column-option-dropdown"
+                type="select"
+                value={props.column.headerMappedThing}
+                onChange={(e) =>
+                  updateColumn(
+                    MappingType.COLUMN_HEADER,
+                    e.target.value as MappedThing
+                  )
+                }
+              >
+                {Object.values(MappedThing)
+                  .filter((thing) => !IGNORED_MAPPED_THINGS.has(thing))
+                  .map((thing) => (
+                    <option value={thing} key={thing}>
+                      {MAPPED_THING_NAMES[thing] || thing}
+                    </option>
+                  ))}
+              </Input>
+            </>
+          }
+        </Label>
         {/* radio option for mapping type of COLUMN */}
         <Label radio="true" className="column-options-input column-type">
           <Input
@@ -64,6 +107,7 @@ export function MappingColumnOptions(
             }
           />
           <div className="column-type-inputs">
+            Rows contain values for
             {/* drop down for selecting the mapped thing */}
             <Input
               id="column-type-mapped-thing"
@@ -82,7 +126,6 @@ export function MappingColumnOptions(
                   </option>
                 ))}
             </Input>
-            values{" "}
             {props.column.columnMappedThing === MappedThing.PLACE && (
               <>
                 of type
@@ -130,48 +173,12 @@ export function MappingColumnOptions(
                 </Input>
               </>
             )}
+            {!_.isEmpty(props.column.sampleValues) && (
+              <span>{`(eg. ${props.column.sampleValues
+                .slice(0, NUM_EXAMPLES)
+                .join(", ")})`}</span>
+            )}
           </div>
-        </Label>
-        {/* radio option for mapping type of HEADER */}
-        <Label radio="true" className="column-options-input header-type">
-          <Input
-            type="radio"
-            name="mapping-type"
-            checked={props.column.type === MappingType.COLUMN_HEADER}
-            onChange={() =>
-              updateColumn(
-                MappingType.COLUMN_HEADER,
-                props.column.headerMappedThing
-              )
-            }
-          />
-          {
-            <>
-              <span>Data values for the </span>
-              {/* drop down for selecting the mapped thing */}
-              <Input
-                id="header-type-mapped-thing"
-                className="column-option-dropdown"
-                type="select"
-                value={props.column.headerMappedThing}
-                onChange={(e) =>
-                  updateColumn(
-                    MappingType.COLUMN_HEADER,
-                    e.target.value as MappedThing
-                  )
-                }
-              >
-                {Object.values(MappedThing)
-                  .filter((thing) => !IGNORED_MAPPED_THINGS.has(thing))
-                  .map((thing) => (
-                    <option value={thing} key={thing}>
-                      {MAPPED_THING_NAMES[thing] || thing}
-                    </option>
-                  ))}
-              </Input>
-              <span>{props.column.column.header}</span>
-            </>
-          }
         </Label>
         {/* radio option for NO MAPPING */}
         <Label radio="true" className="column-options-input no-type">
@@ -181,7 +188,7 @@ export function MappingColumnOptions(
             checked={_.isEmpty(props.column.type)}
             onChange={() => updateColumn(null, null)}
           />
-          Not mapped
+          Skip this column
         </Label>
       </FormGroup>
     </div>

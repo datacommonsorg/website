@@ -49,6 +49,8 @@ export interface ColumnInfo {
   columnPlaceProperty: DCProperty;
   // the mapped thing selected for header mapping type
   headerMappedThing: MappedThing;
+  // sample row values
+  sampleValues: string[];
   // the mapping type selected
   type?: MappingType;
   // the mapped thing selected
@@ -302,6 +304,16 @@ function getColumnInfo(
       columnPlaceType: placeDetector.placeTypes.get(defaultPlaceType),
       columnPlaceProperty: defaultPlaceProperty,
       headerMappedThing: REQUIRED_MAPPINGS[0],
+      sampleValues: [],
+    });
+  });
+  csvData.rowsForDisplay.forEach((rowVals) => {
+    rowVals.forEach((val, idx) => {
+      const colInfo = columnInfo.get(idx);
+      if (_.isEmpty(colInfo) || _.isEmpty(val)) {
+        return;
+      }
+      colInfo.sampleValues.push(val);
     });
   });
   if (_.isEmpty(predictedMapping)) {
