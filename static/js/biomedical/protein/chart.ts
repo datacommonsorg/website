@@ -518,16 +518,16 @@ export function drawProteinInteractionChart(
   }
   //Extracts protein specie name
   function extractSpecieName(name: string): string {
-    let formattedName1 = name.replace(parentProtein, "");
-    let formattedName2 = formattedName1.replace(/_+$/, "");
-    let formattedName3 = formattedName2.replace(/^[_]+/, "");
+    let formattedName = name;
+    formattedName = formattedName.replace(parentProtein, "");
+    formattedName = formattedName.replace(/_+$/, "");
+    formattedName = formattedName.replace(/^[_]+/, "");
     // retrieves the specie name
-    let formattedName4 = formattedName3.split("_")[1];
-    if (formattedName4 === "") {
-      let formattedName5 = parentProtein;
-      return formattedName5;
+    formattedName = formattedName.split("_")[1];
+    if (formattedName === "") {
+      formattedName = parentProtein;
     }
-    return formattedName4;
+    return formattedName;
   }
   let reformattedData = [] as InteractingProteinType[];
 
@@ -767,9 +767,9 @@ export function drawDiseaseGeneAssocChart(
   const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
   // Removes unnecessary quotes from disease names
   function formatDiseaseName(d: string): string {
-    let name = d;
-    name = name.replace(/['"]+/g, "");
-    return name;
+    let formattedName = d;
+    formattedName = formattedName.replace(/['"]+/g, "");
+    return formattedName;
   }
   //Slices the array to display the first 10 disease-gene associations only
   const slicedArray = data.slice(0, NUM_DATA_POINTS);
@@ -1054,14 +1054,13 @@ export function drawVarTypeAssocChart(
   function formatVariant(d: string): string {
     // remove the word "GeneticVariantFunctionalCategory" from say "GeneticVariantFunctionalCategorySplice5"
     // if condition for - GeneticVariantFunctionalCDSIndel, its a bug that is being fixed on the backend
-    let name = d;
-    let formattedName1 = "";
-    if (name === "GeneticVariantFunctionalCDSIndel") {
-      formattedName1 = name.substring(24);
+    let formattedName = d;
+    if (formattedName === "GeneticVariantFunctionalCDSIndel") {
+      formattedName = formattedName.substring(24);
     } else {
-      formattedName1 = name.substring(32);
+      formattedName = formattedName.substring(32);
     }
-    return formattedName1;
+    return formattedName;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;
@@ -1140,9 +1139,9 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   //Formats the variant clinical significance name
   function formatVariant(d: string): string {
     // removes the word "ClinSig" from say "ClinSigUncertain"
-    let name = d;
-    let formattedName1 = name.substring(7);
-    return formattedName1;
+    let formattedName = d;
+    formattedName = formattedName.substring(7);
+    return formattedName;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;
@@ -1223,9 +1222,9 @@ export function drawChemGeneAssocChart(
   //Formats the chemical-gene association name
   function formatChemName(d: string): string {
     // removes the word "RelationshipAssociationType" from say "RelationshipAssociationTypeAssociated"
-    let name = d;
-    name = name.substring(27);
-    return name;
+    let formattedName = d;
+    formattedName = formattedName.substring(27);
+    return formattedName;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;
