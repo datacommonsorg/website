@@ -128,11 +128,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
       <>
         <div id={CHART_ID}></div>
         <FormGroup>
-          <Label for="ppi-depth-input">
-            Depth
-          </Label>
+          <Label for="ppi-depth-input">Depth</Label>
           <Input
-            id='ppi-depth-input'
+            id="ppi-depth-input"
             className={`ppi-depth-input${
               this.state.depth > LIMITS.MAX_DEPTH ? "-error" : ""
             }`}
