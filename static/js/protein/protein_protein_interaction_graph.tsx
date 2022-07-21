@@ -202,7 +202,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
         const crossLinks: InteractionLink[] = [];
 
         // Stage 1: compute expansion links
-        console.assert(interactionData.length == nodesLastLayer.length);
         for (let i = 0; i < interactionData.length; i++) {
           const dcidArray = interactionData[i];
           const parent = nodesLastLayer[i];

@@ -645,10 +645,10 @@ export function getLink(
 ): InteractionLink {
   return {
     score,
-    sourceId,
-    targetId,
     source: sourceId,
+    sourceId,
     target: targetId,
+    targetId,
   };
 }
 
