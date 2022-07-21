@@ -135,8 +135,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
             id={DEPTH_INPUT_ID}
             className={DEPTH_INPUT_ID}
             type="number"
-            max={LIMITS.MAX_DEPTH}
             min={LIMITS.MIN_DEPTH}
+            max={LIMITS.MAX_DEPTH}
             onChange={(e) => {
               this.setState({ depth: Number(e.target.value) });
             }}
