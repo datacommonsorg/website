@@ -41,8 +41,8 @@ test("Fail_MalformedMappingVal", () => {
     ],
   ]);
   const expected = [
-    "Place mapping is missing placeProperty",
     "Place: missing value for COLUMN type ",
+    "Place mapping is missing placeProperty",
     "Name of Variable: missing value for COLUMN_HEADER type",
     "Date: missing value for CONSTANT type",
   ];
@@ -83,7 +83,7 @@ test("Fail_ValueMissing", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "iso", header: "iso", columnIdx: 1 },
-        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
       },
     ],
     [
@@ -105,6 +105,45 @@ test("Fail_ValueMissing", () => {
   expect(checkMappings(input)).toEqual(expected);
 });
 
+test("Fail_MissingPlaceProperties", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "California_1", header: "California", columnIdx: 3 },
+          { id: "Nevada_2", header: "Nevada", columnIdx: 4 },
+        ],
+        placeProperty: { 3: { dcid: "name", displayName: "name" } },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "date", header: "date", columnIdx: 3 },
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.CONSTANT,
+        constant: "USDollar",
+      },
+    ],
+  ]);
+  const expected = ["Nevada: Place mapping is missing placeProperty"];
+  expect(checkMappings(input)).toEqual(expected);
+});
+
 test("Pass_DateInColumnHeader", () => {
   const input: Mapping = new Map([
     [
@@ -112,7 +151,7 @@ test("Pass_DateInColumnHeader", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "iso", header: "iso", columnIdx: 1 },
-        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
       },
     ],
     [
@@ -151,7 +190,7 @@ test("Pass_NoColumnHeader", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "iso", header: "iso", columnIdx: 1 },
-        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
       },
     ],
     [

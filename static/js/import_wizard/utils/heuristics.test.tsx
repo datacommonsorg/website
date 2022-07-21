@@ -53,10 +53,12 @@ test("countryDetection", () => {
         type: MappingType.COLUMN,
         column: colCountry,
         placeProperty: {
-          dcid: "countryAlpha3Code",
-          displayName: "Alpha 3 Code",
+          0: {
+            dcid: "countryAlpha3Code",
+            displayName: "Alpha 3 Code",
+          },
         },
-        placeType: { dcid: "Country", displayName: "Country" },
+        placeType: { 0: { dcid: "Country", displayName: "Country" } },
       },
     ],
   ]);
@@ -88,12 +90,16 @@ test("countryDetection-twocolumns", () => {
   const got = heuristics.getPredictions(csv, pDet).get(MappedThing.PLACE);
   expect(got.type).toStrictEqual(MappingType.COLUMN);
   expect(got.placeProperty).toStrictEqual({
-    dcid: "countryAlpha3Code",
-    displayName: "Alpha 3 Code",
+    1: {
+      dcid: "countryAlpha3Code",
+      displayName: "Alpha 3 Code",
+    },
   });
   expect(got.placeType).toStrictEqual({
-    dcid: "Country",
-    displayName: "Country",
+    1: {
+      dcid: "Country",
+      displayName: "Country",
+    },
   });
   expect(got.column.header).toStrictEqual("a");
 });
@@ -203,8 +209,13 @@ test("countryDetectionOrder", () => {
         {
           type: MappingType.COLUMN,
           column: c.expectedCol,
-          placeProperty: c.expectedProp,
-          placeType: { dcid: "Country", displayName: "Country" },
+          placeProperty: { [c.expectedCol.columnIdx]: c.expectedProp },
+          placeType: {
+            [c.expectedCol.columnIdx]: {
+              dcid: "Country",
+              displayName: "Country",
+            },
+          },
         },
       ],
     ]);
@@ -364,10 +375,14 @@ test("comboDetection-date-and-place", () => {
         type: MappingType.COLUMN,
         column: stateCol,
         placeProperty: {
-          dcid: "fips52AlphaCode",
-          displayName: "US State Alpha Code",
+          [stateCol.columnIdx]: {
+            dcid: "fips52AlphaCode",
+            displayName: "US State Alpha Code",
+          },
         },
-        placeType: { dcid: "State", displayName: "State" },
+        placeType: {
+          [stateCol.columnIdx]: { dcid: "State", displayName: "State" },
+        },
       },
     ],
   ]);

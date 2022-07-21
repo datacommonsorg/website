@@ -49,6 +49,10 @@ export interface ColumnInfo {
   columnPlaceProperty: DCProperty;
   // the mapped thing selected for header mapping type
   headerMappedThing: MappedThing;
+  // the place type selected for header mapping type
+  headerPlaceType: DCType;
+  // the place property selected for header mapping type
+  headerPlaceProperty: DCProperty;
   // sample row values
   sampleValues: string[];
   // the mapping type selected
@@ -303,6 +307,8 @@ function getColumnInfo(
       columnMappedThing: REQUIRED_MAPPINGS[0],
       columnPlaceType: placeDetector.placeTypes.get(defaultPlaceType),
       columnPlaceProperty: defaultPlaceProperty,
+      headerPlaceType: placeDetector.placeTypes.get(defaultPlaceType),
+      headerPlaceProperty: defaultPlaceProperty,
       headerMappedThing: REQUIRED_MAPPINGS[0],
       sampleValues: [],
     });
@@ -332,12 +338,14 @@ function getColumnInfo(
       columnInfo.get(colIdx).mappedThing = mappedThing;
       columnInfo.get(colIdx).columnMappedThing = mappedThing;
       if (mappedThing === MappedThing.PLACE) {
-        const placeType = mappingVal.placeType
-          ? mappingVal.placeType
-          : placeDetector.placeTypes.get(defaultPlaceType);
-        const placeProperty = mappingVal.placeProperty
-          ? mappingVal.placeProperty
-          : Array.from(validPlaceTypeProperties[placeType.dcid])[0];
+        const placeType =
+          colIdx in mappingVal.placeType
+            ? mappingVal.placeType[colIdx]
+            : placeDetector.placeTypes.get(defaultPlaceType);
+        const placeProperty =
+          colIdx in mappingVal.placeProperty
+            ? mappingVal.placeProperty[colIdx]
+            : Array.from(validPlaceTypeProperties[placeType.dcid])[0];
         columnInfo.get(colIdx).columnPlaceType = placeType;
         columnInfo.get(colIdx).columnPlaceProperty = placeProperty;
       }
@@ -353,6 +361,18 @@ function getColumnInfo(
         columnInfo.get(colIdx).type = mappingVal.type;
         columnInfo.get(colIdx).mappedThing = mappedThing;
         columnInfo.get(colIdx).headerMappedThing = mappedThing;
+        if (mappedThing === MappedThing.PLACE) {
+          const placeType =
+            colIdx in mappingVal.placeType
+              ? mappingVal.placeType[colIdx]
+              : placeDetector.placeTypes.get(defaultPlaceType);
+          const placeProperty =
+            colIdx in mappingVal.placeProperty
+              ? mappingVal.placeProperty[colIdx]
+              : Array.from(validPlaceTypeProperties[placeType.dcid])[0];
+          columnInfo.get(colIdx).headerPlaceType = placeType;
+          columnInfo.get(colIdx).headerPlaceProperty = placeProperty;
+        }
       }
     }
   });
@@ -365,7 +385,7 @@ function getMapping(
   constants: Record<string, string>
 ): Mapping {
   const mapping = new Map();
-  columnInfo.forEach((info) => {
+  columnInfo.forEach((info, columnIdx) => {
     if (_.isEmpty(info.mappedThing) || _.isEmpty(info.type)) {
       return;
     }
@@ -373,10 +393,12 @@ function getMapping(
       const mappingVal: MappingVal = {
         type: MappingType.COLUMN,
         column: info.column,
+        placeType: {},
+        placeProperty: {},
       };
       if (info.mappedThing === MappedThing.PLACE) {
-        mappingVal.placeType = info.columnPlaceType;
-        mappingVal.placeProperty = info.columnPlaceProperty;
+        mappingVal.placeType[columnIdx] = info.columnPlaceType;
+        mappingVal.placeProperty[columnIdx] = info.columnPlaceProperty;
       }
       mapping.set(info.mappedThing, mappingVal);
     }
@@ -386,10 +408,17 @@ function getMapping(
         mappingVal = {
           type: MappingType.COLUMN_HEADER,
           headers: [],
+          placeType: {},
+          placeProperty: {},
         };
         mapping.set(info.mappedThing, mappingVal);
       }
+
       mappingVal.headers.push(info.column);
+      if (info.mappedThing === MappedThing.PLACE) {
+        mappingVal.placeType[columnIdx] = info.headerPlaceType;
+        mappingVal.placeProperty[columnIdx] = info.headerPlaceProperty;
+      }
     }
   });
   Object.entries(constants).forEach(([mappedThing, val]) => {
