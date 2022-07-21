@@ -228,7 +228,7 @@ export function MappingColumnOptions(
             </option>
           ))}
         </Input>
-        and of format
+        and format
         {/* drop down for selecting the place property */}
         <Input
           id="column-type-place-property"

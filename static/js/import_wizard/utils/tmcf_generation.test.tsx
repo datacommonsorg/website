@@ -130,7 +130,10 @@ test("MultiNodeTMCF_PlaceValueInHeader", () => {
     [
       MappedThing.PLACE,
       {
-        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "California_1", header: "California", columnIdx: 3 },
+          { id: "Nevada_2", header: "Nevada", columnIdx: 4 },
+        ],
         placeProperty: {
           3: { dcid: "name", displayName: "name" },
           4: { dcid: "name", displayName: "name" },
@@ -139,10 +142,7 @@ test("MultiNodeTMCF_PlaceValueInHeader", () => {
           3: { dcid: "AdministrativeArea1", displayName: "State" },
           4: { dcid: "AdministrativeArea1", displayName: "State" },
         },
-        headers: [
-          { id: "California_1", header: "California", columnIdx: 3 },
-          { id: "Nevada_2", header: "Nevada", columnIdx: 4 },
-        ],
+        type: MappingType.COLUMN_HEADER,
       },
     ],
     [
@@ -200,7 +200,10 @@ test("MultiNodeTMCF_PlaceValueInHeader_DiffPlaceTypes", () => {
     [
       MappedThing.PLACE,
       {
-        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "California_1", header: "California", columnIdx: 3 },
+          { id: "USA_1", header: "USA", columnIdx: 4 },
+        ],
         placeProperty: {
           3: { dcid: "name", displayName: "name" },
           4: { dcid: "countryAlpha3Code", displayName: "Alpha 3 Code" },
@@ -209,10 +212,7 @@ test("MultiNodeTMCF_PlaceValueInHeader_DiffPlaceTypes", () => {
           3: { dcid: "AdministrativeArea1", displayName: "State" },
           4: { dcid: "Country", displayName: "Country" },
         },
-        headers: [
-          { id: "California_1", header: "California", columnIdx: 3 },
-          { id: "USA_1", header: "USA", columnIdx: 4 },
-        ],
+        type: MappingType.COLUMN_HEADER,
       },
     ],
     [
