@@ -69,7 +69,7 @@ export function drawDiseaseGeneAssocChart(
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
   // slicing the data to display 10 values only
-  let slicedData = data.slice(0, NUM_DATA_POINTS);
+  const slicedData = data.slice(0, NUM_DATA_POINTS);
   // plots the axes
   const x = d3
     .scaleBand()

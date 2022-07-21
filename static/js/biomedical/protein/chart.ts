@@ -504,18 +504,17 @@ export function drawProteinInteractionChart(
   const parentProtein = data[0].parent;
   //Formats the protein name by removing the parent protein name
   function formatProteinName(d: string): string {
-    let name = d;
-    let formattedName1 = name.replace(parentProtein, "");
-    let formattedName2 = formattedName1.replace(/_+$/, "");
-    let formattedName3 = formattedName2.replace(/^[_]+/, "");
+    let formattedName = d;
+    formattedName = formattedName.replace(parentProtein, "");
+    formattedName = formattedName.replace(/_+$/, "");
+    formattedName = formattedName.replace(/^[_]+/, "");
     // strips the specie name
-    let formattedName4 = formattedName3.split("_")[0];
+    formattedName = formattedName.split("_")[0];
     // if self-interacting protein, display parent protein name
-    if (formattedName4 === "") {
-      let formattedName5 = parentProtein;
-      return formattedName5
+    if (formattedName === "") {
+      formattedName = parentProtein;
     }
-    return formattedName4;
+    return formattedName;
   }
   //Extracts protein specie name
   function extractSpecieName(name: string): string {
