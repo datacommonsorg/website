@@ -20,7 +20,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { FormGroup, Input } from "reactstrap";
+import { FormGroup, Input, Label } from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
 import {
@@ -55,10 +55,10 @@ interface InteractionGraphState {
 
 const CHART_ID = "protein-interaction-graph";
 
-const LIMITS = {
+export const LIMITS = {
   MAX_DEPTH: 3,
   MIN_DEPTH: 0,
-  MAX_INTERACTIONS: 10,
+  MAX_INTERACTIONS: 4,
 };
 
 const DEFAULTS = {
@@ -128,7 +128,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
       <>
         <div id={CHART_ID}></div>
         <FormGroup>
+          <Label for="ppi-depth-input">
+            Depth
+          </Label>
           <Input
+            id='ppi-depth-input'
             className={`ppi-depth-input${
               this.state.depth > LIMITS.MAX_DEPTH ? "-error" : ""
             }`}

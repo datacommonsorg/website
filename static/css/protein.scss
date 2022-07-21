@@ -65,9 +65,11 @@
 }
 
 .ppi-depth-input {
-  font-size: 0.9rem;
-  margin-left: -0.5rem;
-  margin-top: 0;
-  color: var(--link-color);
+  width: 8%;
 }
 
+.ppi-depth-input:focus{
+  outline: none !important;
+  border-color: peachpuff;
+  box-shadow: 0px 0px 5px lightcoral;
+}

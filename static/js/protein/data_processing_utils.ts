@@ -23,6 +23,7 @@ import {
   InteractingProteinType,
   ProteinVarType,
 } from "./page";
+import { LIMITS } from "./protein_protein_interaction_graph";
 import {
   bioDcid,
   InteractionLink,
@@ -32,8 +33,7 @@ import {
   V1BioResponseDatum,
 } from "./types";
 
-// Upper bound on node degree in interaction graph viz's
-export const MAX_INTERACTIONS = 10;
+// Type of interaction score we currently support
 export const INTERACTION_QUANTITY_DCID = "IntactMiScore";
 
 // Number to return if interaction score is missing
@@ -703,7 +703,7 @@ export function getProteinInteractionGraphData(
   // descending order of interaction confidenceScore
   neighbors.sort((n1, n2) => n2.value - n1.value);
   // consider only top 10 interactions to avoid clutter
-  neighbors = neighbors.slice(0, MAX_INTERACTIONS);
+  neighbors = neighbors.slice(0, LIMITS.MAX_INTERACTIONS);
 
   const centerDatum = nodeFromId(centerNodeId, 0);
 
