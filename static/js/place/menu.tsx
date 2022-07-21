@@ -20,6 +20,8 @@ import { PageChart } from "../chart/types";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
   GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
   triggerGAEvent,
@@ -53,8 +55,8 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           text={this.props.categoryDisplayStr}
           handleClick={() =>
             triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
-              GA_PARAM_PLACE_CATEGORY_CLICK: category,
-              GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE:
+              [GA_PARAM_PLACE_CATEGORY_CLICK]: category,
+              [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
                 GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
             })
           }
@@ -127,9 +129,9 @@ class Menu extends React.Component<MenuPropsType> {
               })}
               handleClick={() =>
                 triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
-                  GA_PARAM_PLACE_CATEGORY_CLICK:
+                  [GA_PARAM_PLACE_CATEGORY_CLICK]:
                     GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
-                  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE:
+                  [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
                     GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
                 })
               }

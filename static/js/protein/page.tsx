@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import {
   drawChemGeneAssocChart,
   drawDiseaseGeneAssocChart,
   drawProteinInteractionChart,
-  drawProteinInteractionGraph,
+  // drawProteinInteractionGraph,
   drawTissueLegend,
   drawTissueScoreChart,
   drawVarGeneAssocChart,
@@ -106,7 +106,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       "protein-confidence-score-chart",
       interactionScore
     );
-    drawProteinInteractionGraph("protein-interaction-graph", interactionScore);
+    // drawProteinInteractionGraph("protein-interaction-graph", interactionScore);
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
       diseaseGeneAssoc
