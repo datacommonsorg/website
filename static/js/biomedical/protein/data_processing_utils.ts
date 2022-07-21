@@ -25,12 +25,12 @@ import {
 } from "./page";
 import {
   bioDcid,
+  InteractionGraphData,
   InteractionLink,
   MultiLevelInteractionGraphData,
   ProteinNode,
   V1BioResponse,
   V1BioResponseDatum,
-  InteractionGraphData
 } from "./types";
 
 // Upper bound on node degree in interaction graph viz's
@@ -221,7 +221,6 @@ function nodeFromID(proteinSpeciesID: string, depth: number): ProteinNode {
     species: proteinSpeciesID.slice(lastIndex + 1),
   };
 }
-
 
 /**
  * Fetches and formats disease names and their association scores for the protein of interest
