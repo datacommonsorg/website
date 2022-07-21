@@ -99,8 +99,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
       const expansions = this.bfsIter(graphData)
         .then(() => this.bfsIter(graphData))
         .then(() => this.bfsIter(graphData))
-        .then(() => this.bfsIter(graphData))
-        .then(() => this.bfsIter(graphData));
       // updating state will then trigger the second call to this method
       expansions.then(() => {
         this.setState({
@@ -124,6 +122,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   render(): JSX.Element {
+    if(this.state.graphData === null){
+      return <div></div>
+    }
     return (
       <>
         <div id={CHART_ID}></div>
