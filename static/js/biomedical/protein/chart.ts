@@ -822,7 +822,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("height", y.bandwidth())
     .attr("id", (d, i) => barIdFunc(i))
     .style("fill", BAR_COLOR)
-    .on("click", function (d) {
+    .on("click", (d) => {
       window.open(GRAPH_BROWSER_REDIRECT + d.id);
     })
     .call(
@@ -1136,10 +1136,11 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   }
 
   //Formats the variant clinical significance name
-  function formatVariant(d: string) {
+  function formatVariant(d: string): string{
     // removes the word "ClinSig" from say "ClinSigUncertain"
-    d = d.substring(7);
-    return d;
+    let name = d;
+    name = name.substring(7);
+    return name;
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;
