@@ -341,9 +341,9 @@ function dragNode(
 
 /**
  * Draws the legend for the tissue score chart if the data exists.
- * @param id
- * @param data
- * @returns
+ * @param id - div id for the tissue legend
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
   // checks if the data is empty or not
@@ -418,9 +418,9 @@ export function drawTissueLegend(id: string, data: ProteinStrData[]): void {
 
 /**
  * Draws the bar chart for protein-tissue association
- * @param id
- * @param data
- * @returns
+ * @param id - div id for tissue score chart
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
   // checks if the data is empty or not
@@ -516,9 +516,9 @@ export function drawTissueScoreChart(id: string, data: ProteinStrData[]): void {
 
 /**
  * Draws the bar chart for protein-protein interaction
- * @param id
- * @param data
- * @returns
+ * @param id - div id for protein-protein interaction chart
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawProteinInteractionChart(
   id: string,
@@ -666,6 +666,8 @@ export function drawProteinInteractionChart(
 
 /**
  * Draws graph visualization of a neighborhood of the protein-protein interaction network centered at the page protein.
+ * @param chartID - div id for protein interaction graph
+ * @param data - json formatted protein data
  */
 export function drawProteinInteractionGraph(
   chartID: string,
@@ -767,9 +769,9 @@ export function drawProteinInteractionGraph(
 
 /**
  * Draws the bar chart for disease-gene association
- * @param id
- * @param data
- * @returns
+ * @param id - div id for the disease gene association chart
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
@@ -862,9 +864,9 @@ export function drawDiseaseGeneAssocChart(
 
 /**
  * Draws the error plot for variant-gene association
- * @param id
- * @param data
- * @returns
+ * @param id - div id for the variant-gene association chart
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawVarGeneAssocChart(
   id: string,
@@ -1061,9 +1063,9 @@ export function drawVarGeneAssocChart(
 
 /**
  * Draws a barchart with variant functional category and its corresponding counts
- * @param id
- * @param data
- * @returns
+ * @param id - div id for the variant count chart (as per functional category)
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawVarTypeAssocChart(
   id: string,
@@ -1149,9 +1151,9 @@ export function drawVarTypeAssocChart(
 
 /**
  * Draws a barchart with variant clinical significance and its corresponding counts
- * @param id
- * @param data
- * @returns
+ * @param id - div id for variant count chart (as per clinical significance)
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
   // checks if the data is empty or not
@@ -1229,9 +1231,9 @@ export function drawVarSigAssocChart(id: string, data: ProteinNumData[]): void {
 
 /**
  * Draws a barchart with chemical gene associations and its corresponding counts
- * @param id
- * @param data
- * @returns
+ * @param id - div id for the chemical gene association chart
+ * @param data - json formatted protein data
+ * @returns - empty for null data
  */
 export function drawChemGeneAssocChart(
   id: string,

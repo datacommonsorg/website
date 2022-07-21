@@ -64,7 +64,7 @@ const CHEM_RELATIONS = [
 /**
  * Fetches and formats the tissue name and expression score for the protein of interest
  * @param data
- * @returns
+ * @returns - array with tissue name and corresponding expression score
  */
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   // Tissue to score mapping.
@@ -113,7 +113,7 @@ export function getTissueScore(data: GraphNodes): ProteinStrData[] {
  * Fetches and formats interacting protein names and interaction confidence scores for the protein of interest
  * @param data
  * @param nodeName
- * @returns
+ * @returns - array with interacting protein name, confidence score, parent protein name
  */
 export function getProteinInteraction(
   data: GraphNodes,
@@ -273,7 +273,7 @@ export function getProteinInteractionGraphData(
 /**
  * Fetches and formats disease names and their association scores for the protein of interest
  * @param data
- * @returns
+ * @returns - array with disease name and association score
  */
 export function getDiseaseGeneAssoc(
   data: GraphNodes
@@ -346,7 +346,7 @@ export function getDiseaseGeneAssoc(
 /**
  * Fetches and formats variant ids and their log 2 association scores for the protein of interest
  * @param data
- * @returns
+ * @returns - array with variant id and log 2 association score
  */
 export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   // Variant Gene Associations
@@ -428,7 +428,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
 /**
  * Fetches and formats variant count and variant categories for the protein of interest
  * @param data
- * @returns
+ * @returns - array with variant count and corresponding variant functional category
  */
 export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
@@ -488,7 +488,7 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
 /**
  * Fetches and formats variant count and clinical significance for the protein of interest
  * @param data
- * @returns
+ * @returns - array with variant count and corresponding variant clinical significance
  */
 export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
@@ -548,7 +548,7 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
 /**
  * Fetches and formats drug association count and type from the protein of interest
  * @param data
- * @returns
+ * @returns - array with count and drug-gene association type
  */
 export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   // Chem Gene Associations
@@ -611,7 +611,7 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
 /**
  * Fetches the description of the protein of interest
  * @param data
- * @returns
+ * @returns - string with protein description
  */
 export function getProteinDescription(data: GraphNodes): string {
   let proteinDescription = null;

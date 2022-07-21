@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 import * as d3 from "d3";
-import _ from "lodash";
 
-import { GraphNodes } from "../shared/types";
 import { DiseaseGeneAssociationData } from "./disease/chart";
 import { InteractionLink, ProteinNode, ProteinNumData } from "./protein/chart";
 import { DiseaseAssociationType } from "./protein/page";
@@ -111,7 +109,7 @@ export function getElementIDFunc(
 }
 
 /**
- * Adds the x label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
+ * Adds the x label to a graph based on user's input of width and height
  */
 export function addXLabel(
   width: number,
@@ -134,7 +132,7 @@ export function addXLabel(
 }
 
 /**
- * Adds the y label to a graph based on user's input of width and height for label position, labelText for what the label reads, and svg for selecting the chart where the label is added
+ * Adds the y label to a graph based on user's input of width and height
  */
 export function addYLabel(
   height: number,

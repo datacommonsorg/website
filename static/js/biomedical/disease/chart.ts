@@ -20,18 +20,10 @@ const XLINKNS = "http://www.w3.org/1999/xlink";
 import {
   addXLabel,
   addYLabel,
-  Datum,
-  DEFAULT_BRIGHTEN_PERCENTAGE,
   getElementIDFunc,
   handleMouseEvents,
   MARGIN,
   NUM_DATA_POINTS,
-  onMouseMove,
-  onMouseOut,
-  onMouseOver,
-  TOOL_TIP,
-  TOOL_TIP_SHIFT,
-  X_LABEL_SHIFT,
 } from "../bio_charts_utils";
 // graph specific dimensions
 const GRAPH_HEIGHT = 400;
@@ -58,7 +50,7 @@ export interface DiseaseGeneAssociationData {
  * Draws the disease-gene association charts for the disease of interest
  * @param id - the div id where the chart is rendered on the page
  * @param data - the disease data passed into the function
- * @returns
+ * @returns - Blank return for null data
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
