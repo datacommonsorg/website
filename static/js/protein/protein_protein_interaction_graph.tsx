@@ -256,8 +256,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
         );
 
         // TODO: nodes are currently colored by the group they're added with, but should be colored by min(parent.depth)
-        // (if node is discovered after 2 iterations of BFS but the center protein is added as a parent during the cross link stage,
-        //  node should be assigned depth 1)
+        // (if node is discovered after 2 iterations of BFS but the center protein is added as a parent during
+        // the cross link stage, node should be assigned depth 1)
         const newNodes = Array.from(newNodeIDs).map((id) =>
           nodeFromId(id, graphData.nodeDataNested.length)
         );
