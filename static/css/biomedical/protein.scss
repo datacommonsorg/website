@@ -17,23 +17,23 @@
 @import "../base";
 @import "./shared.scss";
 
-.interaction-link{
-  stroke: #ccc;
-  stroke-opacity:  1;
-  stroke-linecap:  round;
+.interaction-link {
+  stroke:#ccc;
+  stroke-opacity: 1;
+  stroke-linecap: round;
 }
 
-.protein-node-circle{
-  stroke:  "#fff";
-  stroke-opacity:  1;
-  stroke-width:  1.5;
-  r:  15;
+.protein-node-circle {
+  stroke: "#fff";
+  stroke-opacity: 1;
+  stroke-width: 1.5;
+  r: 15;
 }
 
-.protein-node-label{
-  font-family:  "Public Sans", sans-serif;
-  font-size:  8px;
-  fill:  #222;
-  text-anchor:  middle;
-  dominant-baseline:  middle;
+.protein-node-label {
+  font-family: "Public Sans", sans-serif;
+  font-size: 8px;
+  fill: #222;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
