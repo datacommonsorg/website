@@ -15,7 +15,7 @@
  */
 import _ from "lodash";
 
-import { GraphNodes } from "../shared/types";
+import { GraphNodes } from "../../shared/types";
 import { DiseaseGeneAssociationData } from "./chart";
 /**
  * Fetches the disease-gene association data
@@ -73,10 +73,10 @@ export function getDiseaseGeneAssociation(
       if (score) {
         rawData.push({
           // remove the genome assembly prefix from gene name
+          lowerInterval,
           name: gene.replace("bio/hg38_", ""),
-          score: score,
-          lowerInterval: lowerInterval,
-          upperInterval: upperInterval,
+          score,
+          upperInterval,
         });
       }
     }

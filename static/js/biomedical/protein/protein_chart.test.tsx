@@ -1,11 +1,9 @@
-import Enzyme, { shallow } from "enzyme";
+import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import _ from "lodash";
-import React from "react";
 
 Enzyme.configure({ adapter: new Adapter() });
 
-import { GraphNodes } from "../shared/types";
+import { GraphNodes } from "../../shared/types";
 import { ProteinStrData } from "./chart";
 import dataFGFR1 from "./data_FGFR1.json";
 import dataP53 from "./data_P53.json";
@@ -18,10 +16,11 @@ import {
   getVarSigAssoc,
   getVarTypeAssoc,
 } from "./data_processing_utils";
-import { InteractingProteinType } from "./page";
-import { ProteinVarType } from "./page";
-import { DiseaseAssociationType } from "./page";
-import { Page } from "./page";
+import {
+  DiseaseAssociationType,
+  InteractingProteinType,
+  ProteinVarType,
+} from "./page";
 test("getTissueScore", () => {
   //const wrapper = shallow(<Page dcid={"test"} nodeName={"test-node"} />);
   const cases: {
@@ -548,7 +547,7 @@ test("getTissueScore", () => {
       expect(tissueScore).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different tissue score array than expected for query data`
+        "Got different tissue score array than expected for query data"
       );
       throw e;
     }
@@ -568,18 +567,18 @@ test("getProteinInteraction", () => {
       wantArray: [
         {
           name: "ZN420_HUMAN_P53_HUMAN",
-          value: 0.59,
           parent: "P53_HUMAN",
+          value: 0.59,
         },
         {
           name: "ZN363_HUMAN_P53_HUMAN",
-          value: 0.85,
           parent: "P53_HUMAN",
+          value: 0.85,
         },
         {
           name: "X_HBVA3_P53_HUMAN",
-          value: 0.4,
           parent: "P53_HUMAN",
+          value: 0.4,
         },
       ],
     },
@@ -668,8 +667,8 @@ test("getProteinInteraction", () => {
           },
         ],
       },
-      wantArray: [],
       nodeName: "P53_HUMAN",
+      wantArray: [],
     },
   ];
   for (const c of cases) {
@@ -678,7 +677,7 @@ test("getProteinInteraction", () => {
       expect(tissueInteraction).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different tissue score array than expected for query data`
+        "Got different tissue score array than expected for query data"
       );
       throw e;
     }
@@ -801,7 +800,7 @@ test("getDiseaseGeneAssoc", () => {
       expect(diseaseGeneAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different disease gene association array than expected for query data`
+        "Got different disease gene association array than expected for query data"
       );
       throw e;
     }
@@ -820,23 +819,23 @@ test("getVarGeneAssoc", () => {
         {
           associationID: "bio/pg37tb2s2hnn8dyev9q986j36b",
           id: "bio/rs7211097",
+          interval: "[-0.126789 -0.054901]",
           name: "Whole Blood",
           value: "-0.094116",
-          interval: "[-0.126789 -0.054901]",
         },
         {
           associationID: "bio/7gs5e8nzcl3tfp930d901fssc7",
           id: "bio/rs62059165",
+          interval: "[0.102083 0.231955]",
           name: "Thyroid",
           value: "0.160064",
-          interval: "[0.102083 0.231955]",
         },
         {
           associationID: "bio/5dw9kkb9f9z59mk0e2yj0tnbp6",
           id: "bio/rs7220915",
+          interval: "[0.017535 0.145954]",
           name: "Pancreas",
           value: "0.081840",
-          interval: "[0.017535 0.145954]",
         },
       ],
     },
@@ -934,7 +933,7 @@ test("getVarGeneAssoc", () => {
       expect(varGeneAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different variant gene association array than expected for query data`
+        "Got different variant gene association array than expected for query data"
       );
       throw e;
     }
@@ -1110,7 +1109,7 @@ test("getVarTypeAssoc", () => {
       expect(varTypeAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different variant type association array than expected for query data`
+        "Got different variant type association array than expected for query data"
       );
       throw e;
     }
@@ -1298,7 +1297,7 @@ test("getVarSigAssoc", () => {
       expect(varSigAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different variant significance association array than expected for query data`
+        "Got different variant significance association array than expected for query data"
       );
       throw e;
     }
@@ -1422,7 +1421,7 @@ test("getChemicalGeneAssoc", () => {
       expect(chemGeneAssoc).toEqual(c.wantArray);
     } catch (e) {
       console.log(
-        `Got different chemical gene association array than expected for query data`
+        "Got different chemical gene association array than expected for query data"
       );
       throw e;
     }
