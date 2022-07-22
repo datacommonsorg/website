@@ -131,7 +131,7 @@ export function MappingColumnOptions(
             {props.column.columnMappedThing === MappedThing.PLACE &&
               getPlaceTypePropertyInputs(MappingType.COLUMN)}
             {!_.isEmpty(props.column.sampleValues) && (
-              <span>{`(eg. ${props.column.sampleValues
+              <span>{`(e.g., ${props.column.sampleValues
                 .slice(0, NUM_EXAMPLES)
                 .join(", ")})`}</span>
             )}
