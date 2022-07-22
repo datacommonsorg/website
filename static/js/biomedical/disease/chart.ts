@@ -200,9 +200,9 @@ export function drawDiseaseSymptomAssociationChart(
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
   // slicing the data to display 10 values only
-  data = data.slice(0, NUM_DATA_POINTS);
+  let slicedData = data.slice(0, NUM_DATA_POINTS);
   // sorts the data in descreasing order
-  data.sort((a, b) => {
+  slicedData.sort((a, b) => {
     return b.oddsRatio - a.oddsRatio;
   });
   // plots the axes
@@ -210,7 +210,7 @@ export function drawDiseaseSymptomAssociationChart(
     .scaleBand()
     .range([0, width])
     .domain(
-      data.map((d) => {
+      slicedData.map((d) => {
         return d.name;
       })
     )
@@ -225,7 +225,7 @@ export function drawDiseaseSymptomAssociationChart(
   addXLabel(width, height + 15, "Symptom Names", svg);
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.oddsRatio) + Y_AXIS_LIMIT])
+    .domain([0, d3.max(slicedData, (d) => d.oddsRatio) + Y_AXIS_LIMIT])
     .range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
   addYLabel(height, "Odds Ratio Associatiom Score", svg);
@@ -233,7 +233,7 @@ export function drawDiseaseSymptomAssociationChart(
   // the circles
   svg
     .selectAll("disease-symptom-circle")
-    .data(data)
+    .data(slicedData)
     .enter()
     .append("circle")
     .attr("cx", (d) => {
@@ -248,6 +248,6 @@ export function drawDiseaseSymptomAssociationChart(
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d) => "Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}"
+      (d) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
     );
 }
