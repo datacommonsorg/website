@@ -38,6 +38,7 @@ import {
  * (6) PLACE must specify placeProperty
  * (7) VALUE, if it appears, has to be COLUMN
  * (8) PLACE should not be CONSTANT (its atypical and not exposed in UI)
+ * (9) PLACE (mapped thing) COLUMN (mapping type) must have one place property
  *
  * TODO: Consider returning enum + string pair for error categories
  *
@@ -70,11 +71,15 @@ export function checkMappings(mappings: Mapping): Array<string> {
       if (mthing === MappedThing.PLACE) {
         if (
           _.isEmpty(mval.placeProperty) ||
-          Object.keys(mval.placeProperty).length !== 1 ||
           _.isEmpty(mval.placeProperty[mval.column.columnIdx])
         ) {
           // Check #6
           errors.push("Place mapping is missing placeProperty");
+        } else if (Object.keys(mval.placeProperty).length !== 1) {
+          // Check #9
+          errors.push(
+            "Place mapping for a column expected to have one placeProperty"
+          );
         }
       }
       numNonConsts++;
