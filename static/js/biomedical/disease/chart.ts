@@ -45,6 +45,13 @@ export interface DiseaseGeneAssociationData {
   upperInterval: number;
 }
 
+export interface DiseaseSymptomAssociationData {
+  // name of the symptom
+  name: string;
+  // odds Ratio for association 
+  oddsRatio: number;
+}
+
 /**
  * Draws the disease-gene association charts for the disease of interest
  * @param id - the div id where the chart is rendered on the page
@@ -174,3 +181,74 @@ export function drawDiseaseGeneAssocChart(
       (d) => `Gene Name: ${d.name}<br>Confidence Score: ${d.score}`
     );
 }
+
+export function drawDiseaseSymptomAssociationChart(
+  id: string,
+  data: DiseaseSymptomAssociationData[]
+): void {
+  // checks if the data is empty or not
+  if (_.isEmpty(data)) {
+    return;
+  }
+  const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
+  const width = GRAPH_WIDTH - MARGIN.left - MARGIN.right;
+  const svg = d3
+  .select(`#${id}`)
+  .append("svg")
+  .attr("width", width + MARGIN.left + MARGIN.right)
+  .attr("height", height + MARGIN.top + MARGIN.bottom)
+  .append("g")
+  .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
+  // slicing the data to display 10 values only
+  data = data.slice(0, NUM_DATA_POINTS);
+  // sorts the data in descreasing order
+  data.sort((a, b) => {
+    return b.oddsRatio - a.oddsRatio;
+  });
+  // plots the axes
+  const x = d3
+    .scaleBand()
+    .range([0, width])
+    .domain(
+      data.map((d) => {
+        return d.name;
+      })
+    )
+    .padding(1);
+  svg
+    .append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    .style("text-anchor", "end");
+  addXLabel(width, height + 15, "Symptom Names", svg);  
+  const y = d3
+    .scaleLinear()
+    .domain([0, d3.max(data, (d) => d.oddsRatio) + Y_AXIS_LIMIT])
+    .range([height, 0]);
+  svg.append("g").call(d3.axisLeft(y));
+  addYLabel(height, "Odds Ratio Associatiom Score", svg);
+  const circleIDFunc = getElementIDFunc(id, "circle");
+  // the circles
+  svg
+    .selectAll("disease-symptom-circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", (d) => {
+      return x(d.name);
+    })
+    .attr("cy", (d) => {
+      return y(d.oddsRatio);
+    })
+    .attr("r", LEGEND_CIRCLE_RADIUS)
+    .attr("id", (d, i) => circleIDFunc(i))
+    .style("fill", "maroon")
+    .call(
+      handleMouseEvents,
+      circleIDFunc,
+      (d) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
+    );
+}
+
