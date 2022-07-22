@@ -30,11 +30,13 @@ const PPI_ENDPOINT = "/api/protein/ppi/post/forward";
 export function fetchInteractionData(
   proteinDCIDs: string[]
 ): Promise<V1BioResponse> {
-  return axios.post(PPI_ENDPOINT, {
-    entities: proteinDCIDs,
-    direction: 'in',
-    property: 'interactingProtein'
-  }).then(resp => resp.data)
+  return axios
+    .post(PPI_ENDPOINT, {
+      entities: proteinDCIDs,
+      direction: "in",
+      property: "interactingProtein",
+    })
+    .then((resp) => resp.data);
 }
 
 /**
@@ -43,11 +45,13 @@ export function fetchInteractionData(
 export function fetchScoreData(
   interactionDCIDs: bioDcid[]
 ): Promise<V1BioResponse> {
-  return axios.post(PPI_ENDPOINT, {
-    entities: interactionDCIDs,
-    direction: 'out',
-    property: 'confidenceScore'
-  }).then(resp => resp.data)
+  return axios
+    .post(PPI_ENDPOINT, {
+      entities: interactionDCIDs,
+      direction: "out",
+      property: "confidenceScore",
+    })
+    .then((resp) => resp.data);
 }
 
 /**

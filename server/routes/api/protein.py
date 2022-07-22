@@ -30,9 +30,9 @@ def get_node(dcid):
     response = dc.fetch_data('/internal/bio', {
         'dcid': dcid,
     },
-                                     compress=False,
-                                     post=False,
-                                     has_payload=False)
+                             compress=False,
+                             post=False,
+                             has_payload=False)
     return response
 
 
