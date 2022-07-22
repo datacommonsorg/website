@@ -200,7 +200,7 @@ export function drawDiseaseSymptomAssociationChart(
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
   // slicing the data to display 10 values only
-  let slicedData = data.slice(0, NUM_DATA_POINTS);
+  const slicedData = data.slice(0, NUM_DATA_POINTS);
   // sorts the data in descreasing order
   slicedData.sort((a, b) => {
     return b.oddsRatio - a.oddsRatio;
