@@ -21,7 +21,7 @@
 import axios from "axios";
 import React from "react";
 
-import { GraphNodes } from "../shared/types";
+import { GraphNodes } from "../../shared/types";
 import { drawDiseaseGeneAssocChart } from "./chart";
 import { getDiseaseGeneAssociation } from "./data_processing_utils";
 export interface PagePropType {
