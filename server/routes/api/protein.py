@@ -13,10 +13,12 @@
 # limitations under the License.
 """Protein browser related handlers."""
 
+import json
 import flask
+from flask import request, Response
 
 from cache import cache
-import services.datacommons as dc_service
+import services.datacommons as dc
 
 bp = flask.Blueprint('api.protein', __name__, url_prefix='/api/protein')
 
@@ -25,10 +27,16 @@ bp = flask.Blueprint('api.protein', __name__, url_prefix='/api/protein')
 @bp.route('/<path:dcid>')
 def get_node(dcid):
     """Returns data given a protein node."""
-    response = dc_service.fetch_data('/internal/bio', {
+    response = dc.fetch_data('/internal/bio', {
         'dcid': dcid,
     },
                                      compress=False,
                                      post=False,
                                      has_payload=False)
     return response
+
+
+@bp.route('/ppi/post/forward', methods=["POST"])
+def ppi_forward():
+    resp = dc.get_response(**request.json)
+    return Response(json.dumps(resp))

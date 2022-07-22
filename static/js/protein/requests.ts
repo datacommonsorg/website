@@ -27,6 +27,7 @@ const V1_ENDPOINT_ROOT = "https://autopush.api.datacommons.org/v1";
 const PPI_ENDPOINTS = {
   CONFIDENCE_SCORE: `${V1_ENDPOINT_ROOT}/bulk/property/out/confidenceScore/values`,
   INTERACTORS: `${V1_ENDPOINT_ROOT}/bulk/property/in/interactingProtein/values`,
+  TEST: "/api/protein/ppi/post/forward"
 };
 
 /**
@@ -35,11 +36,11 @@ const PPI_ENDPOINTS = {
 export function fetchInteractionData(
   proteinDCIDs: string[]
 ): Promise<V1BioResponse> {
-  return axios
-    .post(PPI_ENDPOINTS.INTERACTORS, {
-      entities: proteinDCIDs,
-    })
-    .then((resp) => resp.data);
+  return axios.post(PPI_ENDPOINTS.TEST, {
+    entities: proteinDCIDs,
+    direction: 'in',
+    property: 'interactingProtein'
+  }).then(resp => resp.data)
 }
 
 /**
@@ -48,11 +49,11 @@ export function fetchInteractionData(
 export function fetchScoreData(
   interactionDCIDs: bioDcid[]
 ): Promise<V1BioResponse> {
-  return axios
-    .post(PPI_ENDPOINTS.CONFIDENCE_SCORE, {
-      entities: interactionDCIDs,
-    })
-    .then((resp) => resp.data);
+  return axios.post(PPI_ENDPOINTS.TEST, {
+    entities: interactionDCIDs,
+    direction: 'out',
+    property: 'confidenceScore'
+  }).then(resp => resp.data)
 }
 
 /**

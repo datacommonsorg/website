@@ -364,6 +364,12 @@ def get_property_values(dcids,
     return results
 
 
+def get_response(entities, property, direction):
+    return post(f'/v1/bulk/property/{direction}/{property}/values', {
+        'entities': entities,
+    })
+
+
 def get_triples_processed(dcids, limit=_MAX_LIMIT):
     """
     Generate the GetTriple query and send the request.
