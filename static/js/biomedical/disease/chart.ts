@@ -48,7 +48,7 @@ export interface DiseaseGeneAssociationData {
 export interface DiseaseSymptomAssociationData {
   // name of the symptom
   name: string;
-  // odds Ratio for association 
+  // odds Ratio for association
   oddsRatio: number;
 }
 
@@ -193,12 +193,12 @@ export function drawDiseaseSymptomAssociationChart(
   const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH - MARGIN.left - MARGIN.right;
   const svg = d3
-  .select(`#${id}`)
-  .append("svg")
-  .attr("width", width + MARGIN.left + MARGIN.right)
-  .attr("height", height + MARGIN.top + MARGIN.bottom)
-  .append("g")
-  .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
+    .select(`#${id}`)
+    .append("svg")
+    .attr("width", width + MARGIN.left + MARGIN.right)
+    .attr("height", height + MARGIN.top + MARGIN.bottom)
+    .append("g")
+    .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
   // slicing the data to display 10 values only
   data = data.slice(0, NUM_DATA_POINTS);
   // sorts the data in descreasing order
@@ -222,7 +222,7 @@ export function drawDiseaseSymptomAssociationChart(
     .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
-  addXLabel(width, height + 15, "Symptom Names", svg);  
+  addXLabel(width, height + 15, "Symptom Names", svg);
   const y = d3
     .scaleLinear()
     .domain([0, d3.max(data, (d) => d.oddsRatio) + Y_AXIS_LIMIT])
@@ -248,7 +248,6 @@ export function drawDiseaseSymptomAssociationChart(
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
+      (d) => "Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}"
     );
 }
-

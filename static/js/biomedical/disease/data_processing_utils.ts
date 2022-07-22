@@ -16,7 +16,10 @@
 import _ from "lodash";
 
 import { GraphNodes } from "../../shared/types";
-import { DiseaseGeneAssociationData, DiseaseSymptomAssociationData } from "./chart";
+import {
+  DiseaseGeneAssociationData,
+  DiseaseSymptomAssociationData,
+} from "./chart";
 /**
  * Fetches the disease-gene association data
  * @param data - the data pertaining to the disease of interest
@@ -85,8 +88,8 @@ export function getDiseaseGeneAssociation(
 }
 /**
  * Fetches the disease-symptom association data
- * @param data 
- * @returns 
+ * @param data
+ * @returns
  */
 export function getDiseaseSymptomAssociation(
   data: GraphNodes
@@ -112,19 +115,19 @@ export function getDiseaseSymptomAssociation(
         continue;
       }
       for (const n of node.neighbors) {
-        if(n.property === "associationOddsRatio") {
+        if (n.property === "associationOddsRatio") {
           // check for empty list and null gene values
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
           oddsRatioValue = n.nodes[0].value;
-        } else if(n.property === "medicalSubjectHeadingID") {
-          for(const n1 of n.nodes) {
+        } else if (n.property === "medicalSubjectHeadingID") {
+          for (const n1 of n.nodes) {
             if (n1.neighbors === undefined || _.isEmpty(n1.value)) {
               continue;
             }
-            for(const n2 of n1.neighbors) {
-              if(n2.property !== "descriptorName") {
+            for (const n2 of n1.neighbors) {
+              if (n2.property !== "descriptorName") {
                 continue;
               }
               // check if the list is empty or not
@@ -136,11 +139,11 @@ export function getDiseaseSymptomAssociation(
           }
         }
       }
-      // skip over null values, and add the rest to the array 
-      if(!!symptom && !!oddsRatioValue) {
+      // skip over null values, and add the rest to the array
+      if (!!symptom && !!oddsRatioValue) {
         rawData.push({
           name: symptom,
-          oddsRatio: Number(oddsRatioValue)
+          oddsRatio: Number(oddsRatioValue),
         });
       }
     }
