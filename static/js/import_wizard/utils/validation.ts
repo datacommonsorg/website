@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
+
 import {
   MAPPED_THING_NAMES,
   MappedThing,
@@ -60,26 +62,40 @@ export function checkMappings(mappings: Mapping): Array<string> {
   let numNonConsts = 0;
   mappings.forEach((mval: MappingVal, mthing: MappedThing) => {
     const mthingName = MAPPED_THING_NAMES[mthing] || mthing;
-    if (mthing === MappedThing.PLACE) {
-      if (
-        mval.placeProperty == null ||
-        mval.placeProperty.dcid == null ||
-        mval.placeProperty.dcid === ""
-      ) {
-        // Check #6
-        errors.push("Place mapping is missing placeProperty");
-      }
-    }
     if (mval.type === MappingType.COLUMN) {
       if (mval.column == null || mval.column.id === "") {
         // Check #1
         errors.push(mthingName + ": missing value for COLUMN type ");
+      }
+      if (mthing === MappedThing.PLACE) {
+        if (
+          _.isEmpty(mval.placeProperty) ||
+          Object.keys(mval.placeProperty).length !== 1 ||
+          _.isEmpty(mval.placeProperty[mval.column.columnIdx])
+        ) {
+          // Check #6
+          errors.push("Place mapping is missing placeProperty");
+        }
       }
       numNonConsts++;
     } else if (mval.type === MappingType.COLUMN_HEADER) {
       if (mval.headers == null || mval.headers.length === 0) {
         // Check #1
         errors.push(mthingName + ": missing value for COLUMN_HEADER type");
+      }
+      if (mthing === MappedThing.PLACE) {
+        if (_.isEmpty(mval.placeProperty)) {
+          // Check #6
+          errors.push("Place mapping is missing placeProperty");
+        }
+        mval.headers.forEach((header) => {
+          if (_.isEmpty(mval.placeProperty[header.columnIdx])) {
+            // Check #6
+            errors.push(
+              header.header + ": Place mapping is missing placeProperty"
+            );
+          }
+        });
       }
       colHdrThings.push(mthing);
       numNonConsts++;

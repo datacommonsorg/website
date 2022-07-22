@@ -49,6 +49,12 @@ export interface ColumnInfo {
   columnPlaceProperty: DCProperty;
   // the mapped thing selected for header mapping type
   headerMappedThing: MappedThing;
+  // the place type selected for header mapping type
+  headerPlaceType: DCType;
+  // the place property selected for header mapping type
+  headerPlaceProperty: DCProperty;
+  // sample row values
+  sampleValues: string[];
   // the mapping type selected
   type?: MappingType;
   // the mapped thing selected
@@ -283,6 +289,23 @@ function getValidPlaceTypeProperties(
   return validPlaceTypeProperties;
 }
 
+function getPlaceTypeProperty(
+  colIdx: number,
+  mappingVal: MappingVal,
+  defaultPlaceType: DCType,
+  validPlaceTypeProperties: Record<string, Set<DCProperty>>
+): { placeType: DCType; placeProperty: DCProperty } {
+  const placeType =
+    colIdx in mappingVal.placeType
+      ? mappingVal.placeType[colIdx]
+      : defaultPlaceType;
+  const placeProperty =
+    colIdx in mappingVal.placeProperty
+      ? mappingVal.placeProperty[colIdx]
+      : Array.from(validPlaceTypeProperties[placeType.dcid])[0];
+  return { placeType, placeProperty };
+}
+
 // Get a map of column id to its column info
 function getColumnInfo(
   csvData: CsvData,
@@ -290,18 +313,33 @@ function getColumnInfo(
   validPlaceTypeProperties: Record<string, Set<DCProperty>>,
   placeDetector: PlaceDetector
 ): Map<number, ColumnInfo> {
-  const defaultPlaceType = Object.keys(validPlaceTypeProperties)[0];
+  const defaultPlaceTypeName = Object.keys(validPlaceTypeProperties)[0];
+  const defaultPlaceType = placeDetector.placeTypes.get(defaultPlaceTypeName);
   const defaultPlaceProperty = Array.from(
-    validPlaceTypeProperties[defaultPlaceType]
+    validPlaceTypeProperties[defaultPlaceTypeName]
   )[0];
   const columnInfo = new Map();
   csvData.orderedColumns.forEach((column) => {
     columnInfo.set(column.columnIdx, {
       column,
       columnMappedThing: REQUIRED_MAPPINGS[0],
-      columnPlaceType: placeDetector.placeTypes.get(defaultPlaceType),
+      columnPlaceType: defaultPlaceType,
       columnPlaceProperty: defaultPlaceProperty,
+      headerPlaceType: defaultPlaceType,
+      headerPlaceProperty: defaultPlaceProperty,
       headerMappedThing: REQUIRED_MAPPINGS[0],
+      sampleValues: [],
+    });
+  });
+  csvData.rowsForDisplay.forEach((rowVals) => {
+    rowVals.forEach((val, idx) => {
+      if (_.isEmpty(val)) {
+        return;
+      }
+      const colInfo = columnInfo.get(idx);
+      if (!_.isEmpty(colInfo)) {
+        colInfo.sampleValues.push(val);
+      }
     });
   });
   if (_.isEmpty(predictedMapping)) {
@@ -320,14 +358,15 @@ function getColumnInfo(
       columnInfo.get(colIdx).mappedThing = mappedThing;
       columnInfo.get(colIdx).columnMappedThing = mappedThing;
       if (mappedThing === MappedThing.PLACE) {
-        const placeType = mappingVal.placeType
-          ? mappingVal.placeType
-          : placeDetector.placeTypes.get(defaultPlaceType);
-        const placeProperty = mappingVal.placeProperty
-          ? mappingVal.placeProperty
-          : Array.from(validPlaceTypeProperties[placeType.dcid])[0];
-        columnInfo.get(colIdx).columnPlaceType = placeType;
-        columnInfo.get(colIdx).columnPlaceProperty = placeProperty;
+        const placeTypeProperty = getPlaceTypeProperty(
+          colIdx,
+          mappingVal,
+          defaultPlaceType,
+          validPlaceTypeProperties
+        );
+        columnInfo.get(colIdx).columnPlaceType = placeTypeProperty.placeType;
+        columnInfo.get(colIdx).columnPlaceProperty =
+          placeTypeProperty.placeProperty;
       }
     } else if (
       mappingVal.type === MappingType.COLUMN_HEADER &&
@@ -341,6 +380,17 @@ function getColumnInfo(
         columnInfo.get(colIdx).type = mappingVal.type;
         columnInfo.get(colIdx).mappedThing = mappedThing;
         columnInfo.get(colIdx).headerMappedThing = mappedThing;
+        if (mappedThing === MappedThing.PLACE) {
+          const placeTypeProperty = getPlaceTypeProperty(
+            colIdx,
+            mappingVal,
+            defaultPlaceType,
+            validPlaceTypeProperties
+          );
+          columnInfo.get(colIdx).headerPlaceType = placeTypeProperty.placeType;
+          columnInfo.get(colIdx).headerPlaceProperty =
+            placeTypeProperty.placeProperty;
+        }
       }
     }
   });
@@ -353,7 +403,7 @@ function getMapping(
   constants: Record<string, string>
 ): Mapping {
   const mapping = new Map();
-  columnInfo.forEach((info) => {
+  columnInfo.forEach((info, columnIdx) => {
     if (_.isEmpty(info.mappedThing) || _.isEmpty(info.type)) {
       return;
     }
@@ -361,23 +411,34 @@ function getMapping(
       const mappingVal: MappingVal = {
         type: MappingType.COLUMN,
         column: info.column,
+        placeType: {},
+        placeProperty: {},
       };
       if (info.mappedThing === MappedThing.PLACE) {
-        mappingVal.placeType = info.columnPlaceType;
-        mappingVal.placeProperty = info.columnPlaceProperty;
+        mappingVal.placeType[columnIdx] = info.columnPlaceType;
+        mappingVal.placeProperty[columnIdx] = info.columnPlaceProperty;
       }
       mapping.set(info.mappedThing, mappingVal);
     }
     if (info.type === MappingType.COLUMN_HEADER) {
       let mappingVal = mapping.get(info.mappedThing);
-      if (_.isEmpty(mappingVal)) {
+      if (
+        _.isEmpty(mappingVal) ||
+        mappingVal.type !== MappingType.COLUMN_HEADER
+      ) {
         mappingVal = {
           type: MappingType.COLUMN_HEADER,
           headers: [],
+          placeType: {},
+          placeProperty: {},
         };
         mapping.set(info.mappedThing, mappingVal);
       }
       mappingVal.headers.push(info.column);
+      if (info.mappedThing === MappedThing.PLACE) {
+        mappingVal.placeType[columnIdx] = info.headerPlaceType;
+        mappingVal.placeProperty[columnIdx] = info.headerPlaceProperty;
+      }
     }
   });
   Object.entries(constants).forEach(([mappedThing, val]) => {

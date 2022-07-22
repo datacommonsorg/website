@@ -57,10 +57,10 @@ function getConstPV(prop: string, val: string): string {
   }
 }
 
-function getPlaceType(mval: MappingVal): string {
+function getPlaceType(colIdx: number, mval: MappingVal): string {
   let placeType = PLACE_TYPE;
-  if (mval.placeType != null && mval.placeType.dcid != null) {
-    placeType = mval.placeType.dcid;
+  if (mval.placeType != null && colIdx in mval.placeType) {
+    placeType = mval.placeType[colIdx].dcid;
   }
   return placeType;
 }
@@ -88,14 +88,18 @@ export function generateTMCF(mappings: Mapping): string {
       commonPVs.push(getConstPV(mappedProp, mval.constant));
     } else if (mval.type === MappingType.COLUMN) {
       if (mthing === MappedThing.PLACE) {
-        if (mval.placeProperty.dcid === DCID_PROP) {
+        const placeProperty = mval.placeProperty[mval.column.columnIdx].dcid;
+        if (placeProperty === DCID_PROP) {
           // Place with DCID property can be a column ref.
           commonPVs.push(getColPV(mappedProp, mval.column.id));
         } else {
           // For place with non-DCID property, we should introduce a place node,
           // and use entity reference.
-          const node = initNode(nodeIdx, getPlaceType(mval));
-          node.push(getColPV(mval.placeProperty.dcid, mval.column.id));
+          const node = initNode(
+            nodeIdx,
+            getPlaceType(mval.column.columnIdx, mval)
+          );
+          node.push(getColPV(placeProperty, mval.column.id));
           placeNodes.push(node);
           nodeIdx++;
 
@@ -122,14 +126,15 @@ export function generateTMCF(mappings: Mapping): string {
     // Build one node per header entry in COLUMN_HEADER.
     mval.headers.forEach((hdr) => {
       let hasPlaceRef = false;
-      if (
-        colHdrThing === MappedThing.PLACE &&
-        mval.placeProperty.dcid !== DCID_PROP
-      ) {
+      const placeProperty =
+        colHdrThing === MappedThing.PLACE
+          ? mval.placeProperty[hdr.columnIdx].dcid
+          : "";
+      if (colHdrThing === MappedThing.PLACE && placeProperty !== DCID_PROP) {
         hasPlaceRef = true;
         // For place with non-DCID property, we should introduce a place node.
-        const node = initNode(nodeIdx, getPlaceType(mval));
-        node.push(getConstPV(mval.placeProperty.dcid, hdr.header));
+        const node = initNode(nodeIdx, getPlaceType(hdr.columnIdx, mval));
+        node.push(getConstPV(placeProperty, hdr.header));
         placeNodes.push(node);
         nodeIdx++;
       }
