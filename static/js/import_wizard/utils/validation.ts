@@ -70,6 +70,7 @@ export function checkMappings(mappings: Mapping): Array<string> {
       if (mthing === MappedThing.PLACE) {
         if (
           _.isEmpty(mval.placeProperty) ||
+          Object.keys(mval.placeProperty).length !== 1 ||
           _.isEmpty(mval.placeProperty[mval.column.columnIdx])
         ) {
           // Check #6
