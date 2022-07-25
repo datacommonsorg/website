@@ -93,7 +93,9 @@ export function drawDiseaseGeneAssocChart(
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .selectAll("text")
-    .attr("transform", "translate(-10,0)rotate(-45)")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", "rotate(-35)")
     .style("text-anchor", "end");
   addXLabel(width, height, "Gene Names", svg);
   const y = d3
@@ -220,7 +222,9 @@ export function drawDiseaseSymptomAssociationChart(
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .selectAll("text")
-    .attr("transform", "translate(-10,0)rotate(-45)")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", "rotate(-30)")
     .style("text-anchor", "end");
   addXLabel(width, height + 15, "Symptom Names", svg);
   const y = d3
