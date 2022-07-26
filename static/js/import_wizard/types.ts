@@ -17,7 +17,8 @@
 export enum MappingType {
   COLUMN = "column",
   COLUMN_HEADER = "columnHeader",
-  CONSTANT = "constant",
+  FILE_CONSTANT = "fileConstant",
+  COLUMN_CONSTANT = "columnConstant",
 }
 
 export enum MappedThing {
@@ -46,8 +47,6 @@ export interface Column {
   header: string;
   // column index (leftmost column will be 0)
   columnIdx: number;
-  // unit of measure set for this column
-  unit?: string;
 }
 
 export interface MappingVal {
@@ -64,9 +63,12 @@ export interface MappingVal {
   // List of column headers that act as the mapping values. Should be set if
   // type is MappingType.COLUMN_HEADERS
   headers?: Column[];
-  // Constant value as the mapping value. Should be set if type is
-  // MappingType.CONSTANT
-  constant?: string;
+  // Constant value for the whole file as the mapping value. Should be set if
+  // type is MappingType.FILE_CONSTANT
+  fileConstant?: string;
+  // Record of column idx to the constant to use for that column.
+  // Should be set if type is MappingType.COLUMN_CONSTANT.
+  columnConstants?: { [columnIdx: number]: string };
 }
 
 export type Mapping = Map<MappedThing, MappingVal>;

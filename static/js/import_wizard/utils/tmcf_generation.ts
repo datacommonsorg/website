@@ -79,16 +79,30 @@ export function generateTMCF(mappings: Mapping): string {
   let colHdrThing: MappedThing = null;
   const placeNodes = Array<Array<string>>();
   let nodeIdx = 0;
-  const hasUnitMapping = mappings.has(MappedThing.UNIT);
+  const colConstPvs: { [colIdx: number]: Array<string> } = {};
+
+  // Do one pass over the mappings building the constant PVs that are specific
+  // to each column.
+  mappings.forEach((mval: MappingVal, mthing: MappedThing) => {
+    if (mval.type === MappingType.COLUMN_CONSTANT) {
+      const mappedProp = MAPPED_THING_TO_SVOBS_PROP.get(mthing);
+      Object.entries(mval.columnConstants).forEach(([colIdx, constant]) => {
+        if (!(colIdx in colConstPvs)) {
+          colConstPvs[colIdx] = [];
+        }
+        colConstPvs[colIdx].push(getConstPV(mappedProp, constant));
+      });
+    }
+  });
 
   // Do one pass over the mappings building the common PVs in all TMCF nodes.
   // Everything other than COLUMN_HEADER mappings get repeated in every node.
   mappings.forEach((mval: MappingVal, mthing: MappedThing) => {
     const mappedProp = MAPPED_THING_TO_SVOBS_PROP.get(mthing);
-    if (mval.type === MappingType.CONSTANT) {
+    if (mval.type === MappingType.FILE_CONSTANT) {
       // Constants are references except when it is a date.
       // NOTE: we cannot have PLACE here.
-      commonPVs.push(getConstPV(mappedProp, mval.constant));
+      commonPVs.push(getConstPV(mappedProp, mval.fileConstant));
     } else if (mval.type === MappingType.COLUMN) {
       if (mthing === MappedThing.PLACE) {
         const placeProperty = mval.placeProperty[mval.column.columnIdx].dcid;
@@ -112,19 +126,11 @@ export function generateTMCF(mappings: Mapping): string {
       } else {
         // For non-place types, column directly contains the corresponding values.
         commonPVs.push(getColPV(mappedProp, mval.column.id));
-        // If current mthing is value, add PV for unit if unit exists and there
-        // is no global unit mapping
         if (
           mthing === MappedThing.VALUE &&
-          !_.isEmpty(mval.column.unit) &&
-          !hasUnitMapping
+          mval.column.columnIdx in colConstPvs
         ) {
-          commonPVs.push(
-            getConstPV(
-              MAPPED_THING_TO_SVOBS_PROP.get(MappedThing.UNIT),
-              mval.column.unit
-            )
-          );
+          commonPVs.push(...colConstPvs[mval.column.columnIdx]);
         }
       }
     } else if (mval.type === MappingType.COLUMN_HEADER) {
@@ -164,11 +170,9 @@ export function generateTMCF(mappings: Mapping): string {
       } else {
         node.push(getConstPV(mappedProp, hdr.header));
       }
-      // Add PV for unit if it exists and there is no global unit mapping
-      if (!_.isEmpty(hdr.unit) && !hasUnitMapping) {
-        node.push(
-          getConstPV(MAPPED_THING_TO_SVOBS_PROP.get(MappedThing.UNIT), hdr.unit)
-        );
+      // Add the constant PVs for this column
+      if (hdr.columnIdx in colConstPvs) {
+        node.push(...colConstPvs[hdr.columnIdx]);
       }
       obsNodes.push(node);
       nodeIdx++;

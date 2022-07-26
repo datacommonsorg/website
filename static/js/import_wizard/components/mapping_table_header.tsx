@@ -68,7 +68,7 @@ export function MappingTableHeader(
             const isMapped =
               info.type === MappingType.COLUMN ||
               info.type === MappingType.COLUMN_HEADER;
-            const hasUnit = !_.isEmpty(info.column.unit);
+            const hasUnit = !_.isEmpty(info.constants.get(MappedThing.UNIT));
             return (
               <th
                 key={`mapping-info-${columnIdx}`}
@@ -80,7 +80,7 @@ export function MappingTableHeader(
                   </div>
                   {hasUnit && (
                     <div className={hasUnit ? "mapping-header-info" : ""}>
-                      unit: {info.column.unit}
+                      unit: {info.constants.get(MappedThing.UNIT)}
                     </div>
                   )}
                 </>

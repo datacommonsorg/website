@@ -55,6 +55,8 @@ export interface ColumnInfo {
   headerPlaceProperty: DCProperty;
   // sample row values
   sampleValues: string[];
+  // constants set for this column
+  constants: Map<MappedThing, string>;
   // the mapping type selected
   type?: MappingType;
   // the mapped thing selected
@@ -293,6 +295,7 @@ function getColumnInfo(
       headerPlaceProperty: defaultPlaceProperty,
       headerMappedThing: MappedThing[0],
       sampleValues: [],
+      constants: new Map(),
     });
   });
   csvData.rowsForDisplay.forEach((rowVals) => {
@@ -356,6 +359,13 @@ function getColumnInfo(
             placeTypeProperty.placeProperty;
         }
       }
+    } else if (
+      mappingVal.type === MappingType.COLUMN_CONSTANT &&
+      !_.isEmpty(mappingVal.columnConstants)
+    ) {
+      Object.entries(mappingVal.columnConstants).forEach(([colIdx, constant]) => {
+        columnInfo.get(Number(colIdx)).constants.set(mappedThing, constant);
+      });
     }
   });
   return columnInfo;
@@ -404,12 +414,31 @@ function getMapping(
         mappingVal.placeProperty[columnIdx] = info.headerPlaceProperty;
       }
     }
+    if (!_.isEmpty(info.constants)) {
+      info.constants.forEach((constant, mappedThing) => {
+        let mappingVal = mapping.get(mappedThing);
+        if (
+          _.isEmpty(mappingVal) ||
+          mappingVal.type !== MappingType.COLUMN_CONSTANT
+        ) {
+          mappingVal = {
+            type: MappingType.COLUMN_CONSTANT,
+            columnConstants: {},
+          };
+          mapping.set(mappedThing, mappingVal);
+        }
+        mappingVal.columnConstants[columnIdx] = constant;
+      });
+    }
   });
   Object.entries(constants).forEach(([mappedThing, val]) => {
     if (_.isEmpty(val)) {
       return;
     }
-    mapping.set(mappedThing, { type: MappingType.CONSTANT, constant: val });
+    mapping.set(mappedThing, {
+      type: MappingType.FILE_CONSTANT,
+      fileConstant: val,
+    });
   });
   return mapping;
 }

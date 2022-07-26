@@ -72,8 +72,8 @@ test("GenerateRowObservations_SingleValueColumn", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -131,7 +131,14 @@ test("GenerateRowObservations_SingleValueColumn_UnitInColumn", () => {
       MappedThing.VALUE,
       {
         type: MappingType.COLUMN,
-        column: { id: "val", header: "val", columnIdx: 3, unit: "USDollar" },
+        column: { id: "val", header: "val", columnIdx: 3 },
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: { 3: "USDollar" },
       },
     ],
   ]);
@@ -140,7 +147,7 @@ test("GenerateRowObservations_SingleValueColumn_UnitInColumn", () => {
       { id: "iso", header: "iso", columnIdx: 0 },
       { id: "indicators", header: "indicators", columnIdx: 1 },
       { id: "date", header: "date", columnIdx: 2 },
-      { id: "val", header: "val", columnIdx: 3, unit: "USDollar" },
+      { id: "val", header: "val", columnIdx: 3 },
     ],
     columnValuesSampled: null,
     rowsForDisplay: new Map([
@@ -191,8 +198,8 @@ test("GenerateRowObservations_DateValuesInHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -257,9 +264,19 @@ test("GenerateRowObservations_DateValuesInHeader_UnitsInColumns", () => {
       {
         type: MappingType.COLUMN_HEADER,
         headers: [
-          { id: "2018", header: "2018", columnIdx: 2, unit: "USDollar" },
+          { id: "2018", header: "2018", columnIdx: 2 },
           { id: "2019", header: "2019", columnIdx: 3 },
         ],
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: {
+          2: "USDollar",
+          3: "CAD",
+        },
       },
     ],
   ]);
@@ -267,7 +284,7 @@ test("GenerateRowObservations_DateValuesInHeader_UnitsInColumns", () => {
     orderedColumns: [
       { id: "id", header: "id", columnIdx: 0 },
       { id: "indicators", header: "indicators", columnIdx: 1 },
-      { id: "2018", header: "2018", columnIdx: 2, unit: "USDollar" },
+      { id: "2018", header: "2018", columnIdx: 2 },
       { id: "2019", header: "2019", columnIdx: 3 },
     ],
     columnValuesSampled: null,
@@ -283,7 +300,7 @@ test("GenerateRowObservations_DateValuesInHeader_UnitsInColumns", () => {
       1,
       [
         "Value of Count_Person for USA in 2018 is 300000000 USDollar",
-        "Value of Count_Person for USA in 2019 is 329000000",
+        "Value of Count_Person for USA in 2019 is 329000000 CAD",
       ],
     ],
     [2, ["Value of Count_Goat for IND in 2018 is 2000000 USDollar"]],
@@ -291,7 +308,7 @@ test("GenerateRowObservations_DateValuesInHeader_UnitsInColumns", () => {
       1000,
       [
         "Value of Count_Dog for CHN in 2018 is 100000001 USDollar",
-        "Value of Count_Dog for CHN in 2019 is 110000000",
+        "Value of Count_Dog for CHN in 2019 is 110000000 CAD",
       ],
     ],
   ]);

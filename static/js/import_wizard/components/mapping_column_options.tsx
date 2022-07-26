@@ -48,10 +48,12 @@ export function MappingColumnOptions(
   const validPlaceProperties = Array.from(
     props.validPlaceTypeProperties[props.column.columnPlaceType.dcid]
   );
-  const [unitInput, setUnitInput] = useState(props.column.column.unit || "");
+  const [unitInput, setUnitInput] = useState(
+    props.column.constants.get(MappedThing.UNIT) || ""
+  );
 
   useEffect(() => {
-    setUnitInput(props.column.column.unit || "");
+    setUnitInput(props.column.constants.get(MappedThing.UNIT) || "");
   }, [props.column]);
 
   return (
@@ -178,8 +180,9 @@ export function MappingColumnOptions(
   );
 
   function updateColumnUnit(): void {
-    const updatedColumn = { ...props.column.column, unit: unitInput };
-    props.onColumnUpdated({ ...props.column, column: updatedColumn });
+    const updatedColumn = _.cloneDeep(props.column);
+    updatedColumn.constants.set(MappedThing.UNIT, unitInput);
+    props.onColumnUpdated(updatedColumn);
   }
 
   function updateColumn(

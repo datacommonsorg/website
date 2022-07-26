@@ -51,8 +51,8 @@ test("SingleNodeTMCF", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -101,8 +101,8 @@ test("MultiNodeTMCF_DateValueInHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -162,8 +162,8 @@ test("MultiNodeTMCF_PlaceValueInHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -232,8 +232,8 @@ test("MultiNodeTMCF_PlaceValueInHeader_DiffPlaceTypes", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -265,7 +265,7 @@ test("MultiNodeTMCF_PlaceValueInHeader_DiffPlaceTypes", () => {
   expect(generateTMCF(input)).toEqual(expected);
 });
 
-test("SingleNodeTMCFWithUnitInColumn", () => {
+test("SingleNodeTMCFWithUnitColumnConstant", () => {
   const input: Mapping = new Map([
     [
       MappedThing.PLACE,
@@ -293,7 +293,14 @@ test("SingleNodeTMCFWithUnitInColumn", () => {
       MappedThing.VALUE,
       {
         type: MappingType.COLUMN,
-        column: { id: "val", header: "val", columnIdx: 4, unit: "USDollar" },
+        column: { id: "val", header: "val", columnIdx: 4 },
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: { 4: "USDollar" },
       },
     ],
   ]);
@@ -312,7 +319,7 @@ test("SingleNodeTMCFWithUnitInColumn", () => {
   expect(generateTMCF(input)).toEqual(expected);
 });
 
-test("MultiNodeTMCF_UnitInSomeColumn", () => {
+test("MultiNodeTMCF_UnitAsSomeColumnConstants", () => {
   const input: Mapping = new Map([
     [
       MappedThing.PLACE,
@@ -334,53 +341,7 @@ test("MultiNodeTMCF_UnitInSomeColumn", () => {
       {
         type: MappingType.COLUMN_HEADER,
         headers: [
-          { id: "2018_1", header: "2018", columnIdx: 3, unit: "USDollar" },
-          { id: "2019_2", header: "2019", columnIdx: 4 },
-        ],
-      },
-    ],
-  ]);
-  const expected =
-    "Node: E:CSVTable->E0\n" +
-    "typeOf: dcs:StatVarObservation\n" +
-    "value: C:CSVTable->2018_1\n" +
-    'observationDate: "2018"\n' +
-    "unit: dcid:USDollar\n" +
-    "observationAbout: C:CSVTable->id\n" +
-    "variableMeasured: C:CSVTable->indicators\n" +
-    "\n" +
-    "Node: E:CSVTable->E1\n" +
-    "typeOf: dcs:StatVarObservation\n" +
-    "value: C:CSVTable->2019_2\n" +
-    'observationDate: "2019"\n' +
-    "observationAbout: C:CSVTable->id\n" +
-    "variableMeasured: C:CSVTable->indicators\n";
-  expect(generateTMCF(input)).toEqual(expected);
-});
-
-test("MultiNodeTMCF_UnitInColumnAndAsConstant", () => {
-  const input: Mapping = new Map([
-    [
-      MappedThing.PLACE,
-      {
-        type: MappingType.COLUMN,
-        column: { id: "id", header: "id", columnIdx: 1 },
-        placeProperty: { 1: { dcid: "dcid", displayName: "dcid" } },
-      },
-    ],
-    [
-      MappedThing.STAT_VAR,
-      {
-        type: MappingType.COLUMN,
-        column: { id: "indicators", header: "indicators", columnIdx: 2 },
-      },
-    ],
-    [
-      MappedThing.DATE,
-      {
-        type: MappingType.COLUMN_HEADER,
-        headers: [
-          { id: "2018_1", header: "2018", columnIdx: 3, unit: "testUnit" },
+          { id: "2018_1", header: "2018", columnIdx: 3 },
           { id: "2019_2", header: "2019", columnIdx: 4 },
         ],
       },
@@ -388,8 +349,8 @@ test("MultiNodeTMCF_UnitInColumnAndAsConstant", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: { 3: "USDollar", 4: "CAD" },
       },
     ],
   ]);
@@ -398,16 +359,16 @@ test("MultiNodeTMCF_UnitInColumnAndAsConstant", () => {
     "typeOf: dcs:StatVarObservation\n" +
     "value: C:CSVTable->2018_1\n" +
     'observationDate: "2018"\n' +
+    "unit: dcid:USDollar\n" +
     "observationAbout: C:CSVTable->id\n" +
     "variableMeasured: C:CSVTable->indicators\n" +
-    "unit: dcid:USDollar\n" +
     "\n" +
     "Node: E:CSVTable->E1\n" +
     "typeOf: dcs:StatVarObservation\n" +
     "value: C:CSVTable->2019_2\n" +
     'observationDate: "2019"\n' +
+    "unit: dcid:CAD\n" +
     "observationAbout: C:CSVTable->id\n" +
-    "variableMeasured: C:CSVTable->indicators\n" +
-    "unit: dcid:USDollar\n";
+    "variableMeasured: C:CSVTable->indicators\n";
   expect(generateTMCF(input)).toEqual(expected);
 });
