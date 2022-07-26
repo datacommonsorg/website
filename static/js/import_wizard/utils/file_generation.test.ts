@@ -15,7 +15,7 @@
  */
 import Papa from "papaparse";
 
-import { CsvData, MappedThing, Mapping, MappingType } from "../types";
+import { CsvData, MappedThing, Mapping, MappingType, ValueMap } from "../types";
 import {
   generateCsv,
   generateTranslationMetadataJson,
@@ -153,6 +153,7 @@ test("shouldGenerateCsv", () => {
     name: string;
     originalCsv: CsvData;
     correctedCsv: CsvData;
+    valueMap: ValueMap;
     expected: boolean;
   }[] = [
     {
@@ -165,6 +166,7 @@ test("shouldGenerateCsv", () => {
         ...baseCsvData,
         orderedColumns: [columnSameHeaderId1, columnSameHeaderId2],
       },
+      valueMap: {},
       expected: false,
     },
     {
@@ -177,6 +179,7 @@ test("shouldGenerateCsv", () => {
         ...baseCsvData,
         orderedColumns: [columnSameHeaderId1, columnDiffHeaderId2],
       },
+      valueMap: {},
       expected: true,
     },
     {
@@ -189,12 +192,26 @@ test("shouldGenerateCsv", () => {
         ...baseCsvData,
         orderedColumns: [columnDiffHeaderId1, columnSameHeaderId2],
       },
+      valueMap: {},
+      expected: true,
+    },
+    {
+      name: "has value map",
+      originalCsv: {
+        ...baseCsvData,
+        orderedColumns: [columnSameHeaderId1, columnSameHeaderId2],
+      },
+      correctedCsv: {
+        ...baseCsvData,
+        orderedColumns: [columnSameHeaderId1, columnSameHeaderId2],
+      },
+      valueMap: { test: "test1" },
       expected: true,
     },
   ];
 
   for (const c of cases) {
-    const result = shouldGenerateCsv(c.originalCsv, c.correctedCsv);
+    const result = shouldGenerateCsv(c.originalCsv, c.correctedCsv, c.valueMap);
     try {
       expect(result).toEqual(c.expected);
     } catch (e) {
@@ -204,7 +221,7 @@ test("shouldGenerateCsv", () => {
   }
 });
 
-test("generateCsv", () => {
+test("generateCsvNoValueMap", () => {
   // column at idx 0 where header and id are the same
   const columnSameHeaderId1 = {
     id: "header",
@@ -237,11 +254,55 @@ test("generateCsv", () => {
     rowsForDisplay: new Map(),
     rawCsvFile: originalCsvFile,
   };
-  return generateCsv(csvData).then((result) => {
+  return generateCsv(csvData, {}).then((result) => {
     const expected = Papa.unparse([
       ["header", "header_0", "col3"],
       ["a", "2", "3"],
       ["b", "test", "5"],
+    ]);
+    expect(result).toEqual(expected);
+  });
+});
+
+test("generateCsvWithValueMap", () => {
+  // column at idx 0 where header and id are the same
+  const columnSameHeaderId1 = {
+    id: "header",
+    header: "header",
+    columnIdx: 0,
+  };
+  // column at idx 1 where header and id are different
+  const columnDiffHeaderId2 = {
+    id: "header_0",
+    header: "header",
+    columnIdx: 1,
+  };
+  // column at idx 2
+  const column3 = {
+    id: "col3",
+    header: "col3",
+    columnIdx: 2,
+  };
+  const originalCsvContent = Papa.unparse([
+    ["col1", "col2", "col3"],
+    ["a", "test, test1", "3"],
+    ["b", "tEst", "test1, test2"],
+  ]);
+  const originalCsvFile = new File([originalCsvContent], "original.csv", {
+    type: "text/csv;chartset=utf-8",
+  });
+  const csvData = {
+    orderedColumns: [columnSameHeaderId1, columnDiffHeaderId2, column3],
+    columnValuesSampled: new Map(),
+    rowsForDisplay: new Map(),
+    rawCsvFile: originalCsvFile,
+  };
+  const valueMap = { test: "abc", "test1, test2": "test3, test4" };
+  return generateCsv(csvData, valueMap).then((result) => {
+    const expected = Papa.unparse([
+      ["header", "header_0", "col3"],
+      ["a", "test, test1", "3"],
+      ["b", "abc", "test3, test4"],
     ]);
     expect(result).toEqual(expected);
   });

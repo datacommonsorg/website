@@ -153,3 +153,7 @@ export type Observation = Map<MappedThing, string>;
 // Observations keyed by CSV row number. A row has multiple observations when
 // the Mapping is of type COLUMN_HEADER with multiple MappingVal.headers.
 export type RowObservations = Map<RowNumber, Array<Observation>>;
+
+// Map of cell value in the original csv to cell value in the cleaned csv.
+// originalValue is a string converted to all lowercase.
+export type ValueMap = { [originalValue: string]: string };

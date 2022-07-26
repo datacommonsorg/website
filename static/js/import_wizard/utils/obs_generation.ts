@@ -25,6 +25,7 @@ import {
   MappingVal,
   Observation,
   RowObservations,
+  ValueMap,
 } from "../types";
 
 // Helper maps used while generating observations.
@@ -54,15 +55,21 @@ function hasRequiredProps(obs: Observation): boolean {
 function generateObservationsInRow(
   row: Array<string>,
   header: Array<Column>,
-  obsGenMaps: ObsGenMaps
+  obsGenMaps: ObsGenMaps,
+  valueMap: ValueMap
 ): Array<Observation> {
   const obsList = new Array<Observation>();
   for (const valColIdx of Array.from(obsGenMaps.valCol2Hdr.keys())) {
     const hdrThing = obsGenMaps.valCol2Hdr.get(valColIdx);
     const obs: Observation = new Map();
+    let cellVal = row[valColIdx] || "";
+    const lowerCaseCellVal = cellVal.toLowerCase();
+    if (lowerCaseCellVal in valueMap) {
+      cellVal = valueMap[lowerCaseCellVal];
+    }
     // TODO: Consider if we want to do some cleaning and checking for non-numeric value.
-    if (!_.isEmpty(row[valColIdx])) {
-      obs.set(MappedThing.VALUE, row[valColIdx]);
+    if (!_.isEmpty(cellVal)) {
+      obs.set(MappedThing.VALUE, cellVal);
     }
     // If this is a COLUMN_HEADER case, get the corresponding header value.
     if (hdrThing !== MappedThing.VALUE) {
@@ -70,8 +77,13 @@ function generateObservationsInRow(
     }
     for (const mthing of Array.from(obsGenMaps.thing2Col.keys())) {
       const colIdx = obsGenMaps.thing2Col.get(mthing);
-      if (!_.isEmpty(row[colIdx])) {
-        obs.set(mthing, row[colIdx]);
+      let cellVal = row[colIdx] || "";
+      const lowerCaseCellVal = cellVal.toLowerCase();
+      if (lowerCaseCellVal in valueMap) {
+        cellVal = valueMap[lowerCaseCellVal];
+      }
+      if (!_.isEmpty(cellVal)) {
+        obs.set(mthing, cellVal);
       }
     }
     for (const mthing of Array.from(obsGenMaps.thing2Const.keys())) {
@@ -95,7 +107,8 @@ function generateObservationsInRow(
  */
 export function generateRowObservations(
   mappings: Mapping,
-  csvData: CsvData
+  csvData: CsvData,
+  valueMap: ValueMap
 ): RowObservations {
   // Compute ObsGenMaps first.
   const obsGenMaps: ObsGenMaps = {
@@ -126,7 +139,8 @@ export function generateRowObservations(
     const obs = generateObservationsInRow(
       row,
       csvData.orderedColumns,
-      obsGenMaps
+      obsGenMaps,
+      valueMap
     );
     if (obs.length > 0) {
       rowObs.set(idx, obs);
