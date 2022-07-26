@@ -363,9 +363,11 @@ function getColumnInfo(
       mappingVal.type === MappingType.COLUMN_CONSTANT &&
       !_.isEmpty(mappingVal.columnConstants)
     ) {
-      Object.entries(mappingVal.columnConstants).forEach(([colIdx, constant]) => {
-        columnInfo.get(Number(colIdx)).constants.set(mappedThing, constant);
-      });
+      Object.entries(mappingVal.columnConstants).forEach(
+        ([colIdx, constant]) => {
+          columnInfo.get(Number(colIdx)).constants.set(mappedThing, constant);
+        }
+      );
     }
   });
   return columnInfo;
