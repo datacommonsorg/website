@@ -16,7 +16,7 @@
 
 import _ from "lodash";
 
-import { GraphNodes } from "../shared/types";
+import { GraphNodes } from "../../shared/types";
 import { ProteinNumData, ProteinStrData } from "./chart";
 import {
   DiseaseAssociationType,
@@ -86,6 +86,11 @@ const CHEM_RELATIONS = [
   "RelationshipAssociationTypeAmbiguous",
 ];
 
+/**
+ * Fetches and formats the tissue name and expression score for the protein of interest
+ * @param data
+ * @returns - array with tissue name and corresponding expression score
+ */
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   // Tissue to score mapping.
   if (!data) {
@@ -128,6 +133,13 @@ export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   }
   return [];
 }
+
+/**
+ * Fetches and formats interacting protein names and interaction confidence scores for the protein of interest
+ * @param data
+ * @param nodeName
+ * @returns - array with interacting protein name, confidence score, parent protein name
+ */
 export function getProteinInteraction(
   data: GraphNodes,
   nodeName: string
@@ -148,9 +160,9 @@ export function getProteinInteraction(
       continue;
     }
     for (const node of neighbour.nodes) {
-      let protein_name = null;
-      let confidence_score = null;
-      let parent_protein = null;
+      let proteinName = null;
+      let confidenceScore = null;
+      let parentProtein = null;
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors)) {
         continue;
@@ -161,8 +173,8 @@ export function getProteinInteraction(
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
-          protein_name = n.nodes[0].value;
-          parent_protein = nodeName;
+          proteinName = n.nodes[0].value;
+          parentProtein = nodeName;
         } else if (n.property === "confidenceScore") {
           // not checking for empty values because if name exists, confidence score must exist
           for (const n1 of n.nodes) {
@@ -173,7 +185,7 @@ export function getProteinInteraction(
                 }
                 const num = Number(n2.nodes[0].value);
                 if (num <= 1) {
-                  confidence_score = num;
+                  confidenceScore = num;
                 }
               }
             }
@@ -181,13 +193,13 @@ export function getProteinInteraction(
         }
       }
       // checking for duplicates
-      if (!seen.has(protein_name)) {
+      if (!seen.has(proteinName)) {
         returnData.push({
-          name: protein_name,
-          value: confidence_score,
-          parent: parent_protein,
+          name: proteinName,
+          parent: parentProtein,
+          value: confidenceScore,
         });
-        seen.add(protein_name);
+        seen.add(proteinName);
       }
     }
     return returnData;
@@ -195,6 +207,11 @@ export function getProteinInteraction(
   return [];
 }
 
+/**
+ * Fetches and formats disease names and their association scores for the protein of interest
+ * @param data
+ * @returns - array with disease name and association score
+ */
 export function getDiseaseGeneAssoc(
   data: GraphNodes
 ): DiseaseAssociationType[] {
@@ -263,6 +280,11 @@ export function getDiseaseGeneAssoc(
   return [];
 }
 
+/**
+ * Fetches and formats variant ids and their log 2 association scores for the protein of interest
+ * @param data
+ * @returns - array with variant id and log 2 association score
+ */
 export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   // Variant Gene Associations
   if (!data) {
@@ -324,11 +346,11 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           }
           if (!seen.has(variant) && !!score) {
             returnData.push({
-              associationID: associationID,
+              associationID,
               id: variant,
+              interval,
               name: tissue,
               value: score,
-              interval: interval,
             });
           }
           seen.add(variant);
@@ -340,6 +362,11 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   return [];
 }
 
+/**
+ * Fetches and formats variant count and variant categories for the protein of interest
+ * @param data
+ * @returns - array with variant count and corresponding variant functional category
+ */
 export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
   if (!data) {
@@ -395,6 +422,11 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches and formats variant count and clinical significance for the protein of interest
+ * @param data
+ * @returns - array with variant count and corresponding variant clinical significance
+ */
 export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   // Variant Gene Associations
   if (!data) {
@@ -450,6 +482,11 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches and formats drug association count and type from the protein of interest
+ * @param data
+ * @returns - array with count and drug-gene association type
+ */
 export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   // Chem Gene Associations
   if (!data) {
@@ -508,6 +545,11 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches the description of the protein of interest
+ * @param data
+ * @returns - string with protein description
+ */
 export function getProteinDescription(data: GraphNodes): string {
   let proteinDescription = null;
   if (!data) {

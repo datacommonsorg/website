@@ -177,14 +177,18 @@ function getColumnMappingString(column: ColumnInfo): string {
   const mThingName =
     MAPPED_THING_NAMES[column.mappedThing] || column.mappedThing;
   if (column.type === MappingType.COLUMN) {
-    let mString = `${mThingName}s`;
+    let mString = `Rows contain ${mThingName} values`;
     if (column.mappedThing === MappedThing.PLACE) {
-      mString += ` of type ${column.columnPlaceType.displayName} and of format ${column.columnPlaceProperty.displayName}`;
+      mString += ` of type ${column.columnPlaceType.displayName} and format ${column.columnPlaceProperty.displayName}`;
     }
     return mString;
   }
   if (column.type === MappingType.COLUMN_HEADER) {
-    return `Header is a ${mThingName}`;
+    let mString = `Column title is a ${mThingName}`;
+    if (column.mappedThing === MappedThing.PLACE) {
+      mString += ` of type ${column.columnPlaceType.displayName} and format ${column.columnPlaceProperty.displayName}`;
+    }
+    return mString;
   }
-  return "Not mapped";
+  return "Column is skipped";
 }

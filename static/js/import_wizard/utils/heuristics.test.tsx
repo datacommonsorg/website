@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import _ from "lodash";
 
 import {
   Column,
@@ -24,7 +23,6 @@ import {
   MappingVal,
   RowNumber,
 } from "../types";
-import * as dd from "./detect_date";
 import { PlaceDetector } from "./detect_place";
 import * as heuristics from "./heuristics";
 
@@ -41,8 +39,8 @@ test("countryDetection", () => {
   const colOther2 = { id: "a0", header: "a", columnIdx: 2 };
 
   const csv = {
-    orderedColumns: [colCountry, colOther1, colOther2],
     columnValuesSampled: cols,
+    orderedColumns: [colCountry, colOther1, colOther2],
     rowsForDisplay: new Map<RowNumber, Array<string>>(),
   };
 
@@ -53,10 +51,12 @@ test("countryDetection", () => {
         type: MappingType.COLUMN,
         column: colCountry,
         placeProperty: {
-          dcid: "countryAlpha3Code",
-          displayName: "Alpha 3 Code",
+          0: {
+            dcid: "countryAlpha3Code",
+            displayName: "Alpha 3 Code",
+          },
         },
-        placeType: { dcid: "Country", displayName: "Country" },
+        placeType: { 0: { dcid: "Country", displayName: "Country" } },
       },
     ],
   ]);
@@ -88,12 +88,16 @@ test("countryDetection-twocolumns", () => {
   const got = heuristics.getPredictions(csv, pDet).get(MappedThing.PLACE);
   expect(got.type).toStrictEqual(MappingType.COLUMN);
   expect(got.placeProperty).toStrictEqual({
-    dcid: "countryAlpha3Code",
-    displayName: "Alpha 3 Code",
+    1: {
+      dcid: "countryAlpha3Code",
+      displayName: "Alpha 3 Code",
+    },
   });
   expect(got.placeType).toStrictEqual({
-    dcid: "Country",
-    displayName: "Country",
+    1: {
+      dcid: "Country",
+      displayName: "Country",
+    },
   });
   expect(got.column.header).toStrictEqual("a");
 });
@@ -119,61 +123,61 @@ test("countryDetectionOrder", () => {
   ]);
 
   const cases: {
-    name: string;
-    orderedColNames: Array<string>;
     expectedCol: Column;
     expectedProp: DCProperty;
+    name: string;
+    orderedColNames: Array<string>;
   }[] = [
     {
-      name: "all-properties",
-      orderedColNames: [colISO, colAlpha3, colNumber, colName],
       expectedCol: { id: colISO + 0, header: colISO, columnIdx: 0 },
       expectedProp: {
         dcid: "isoCode",
         displayName: "ISO Code",
       },
+      name: "all-properties",
+      orderedColNames: [colISO, colAlpha3, colNumber, colName],
     },
     {
-      name: "iso-missing",
-      orderedColNames: [colNumber, colName, colAlpha3],
       expectedCol: { id: colAlpha3 + 2, header: colAlpha3, columnIdx: 2 },
       expectedProp: {
         dcid: "countryAlpha3Code",
         displayName: "Alpha 3 Code",
       },
+      name: "iso-missing",
+      orderedColNames: [colNumber, colName, colAlpha3],
     },
     {
-      name: "iso-alpha3-missing",
-      orderedColNames: [colNumber, colName],
       expectedCol: { id: colNumber + 0, header: colNumber, columnIdx: 0 },
       expectedProp: {
         dcid: "countryNumericCode",
         displayName: "Numeric Code",
       },
+      name: "iso-alpha3-missing",
+      orderedColNames: [colNumber, colName],
     },
     {
-      name: "only-name",
-      orderedColNames: [colName],
       expectedCol: { id: colName + 0, header: colName, columnIdx: 0 },
       expectedProp: {
         dcid: "name",
         displayName: "Name",
       },
+      name: "only-name",
+      orderedColNames: [colName],
     },
     {
-      name: "none-found",
-      orderedColNames: [],
       expectedCol: null,
       expectedProp: null,
+      name: "none-found",
+      orderedColNames: [],
     },
     {
-      name: "all-properties-iso-with-typos",
-      orderedColNames: [colISOMistake, colAlpha3, colNumber, colName],
       expectedCol: { id: colAlpha3 + 1, header: colAlpha3, columnIdx: 1 },
       expectedProp: {
         dcid: "countryAlpha3Code",
         displayName: "Alpha 3 Code",
       },
+      name: "all-properties-iso-with-typos",
+      orderedColNames: [colISOMistake, colAlpha3, colNumber, colName],
     },
   ];
   for (const c of cases) {
@@ -187,8 +191,8 @@ test("countryDetectionOrder", () => {
     }
 
     const csv = {
-      orderedColumns: orderedCols,
       columnValuesSampled: colValsSampled,
+      orderedColumns: orderedCols,
       rowsForDisplay: new Map<RowNumber, Array<string>>(),
     };
     const got = heuristics.getPredictions(csv, pDet);
@@ -201,10 +205,15 @@ test("countryDetectionOrder", () => {
       [
         MappedThing.PLACE,
         {
-          type: MappingType.COLUMN,
           column: c.expectedCol,
-          placeProperty: c.expectedProp,
-          placeType: { dcid: "Country", displayName: "Country" },
+          placeProperty: { [c.expectedCol.columnIdx]: c.expectedProp },
+          placeType: {
+            [c.expectedCol.columnIdx]: {
+              dcid: "Country",
+              displayName: "Country",
+            },
+          },
+          type: MappingType.COLUMN,
         },
       ],
     ]);
@@ -225,8 +234,8 @@ test("dateDetection-headers", () => {
   const colOther2 = { id: "a0", header: "a", columnIdx: 2 };
 
   const csv = {
-    orderedColumns: [dateCol1, dateCol2, colOther2],
     columnValuesSampled: cols,
+    orderedColumns: [dateCol1, dateCol2, colOther2],
     rowsForDisplay: new Map<RowNumber, Array<string>>(),
   };
 
@@ -257,8 +266,8 @@ test("dateDetection-columns", () => {
   const colOther2 = { id: "c2", header: "c", columnIdx: 2 };
 
   const csv = {
-    orderedColumns: [dateCol, colOther1, colOther2],
     columnValuesSampled: cols,
+    orderedColumns: [dateCol, colOther1, colOther2],
     rowsForDisplay: new Map<RowNumber, Array<string>>(),
   };
 
@@ -291,8 +300,8 @@ test("dateDetection-headers-columns", () => {
   const dateCol = { id: "c2", header: "c", columnIdx: 2 };
 
   const csv = {
-    orderedColumns: [dateColHeader1, dateColHeader2, dateCol],
     columnValuesSampled: cols,
+    orderedColumns: [dateColHeader1, dateColHeader2, dateCol],
     rowsForDisplay: new Map<RowNumber, Array<string>>(),
   };
 
@@ -354,20 +363,24 @@ test("comboDetection-date-and-place", () => {
     [
       MappedThing.DATE,
       {
-        type: MappingType.COLUMN_HEADER,
         headers: [dateColHeader1, dateColHeader2],
+        type: MappingType.COLUMN_HEADER,
       },
     ],
     [
       MappedThing.PLACE,
       {
-        type: MappingType.COLUMN,
         column: stateCol,
         placeProperty: {
-          dcid: "fips52AlphaCode",
-          displayName: "US State Alpha Code",
+          [stateCol.columnIdx]: {
+            dcid: "fips52AlphaCode",
+            displayName: "US State Alpha Code",
+          },
         },
-        placeType: { dcid: "State", displayName: "State" },
+        placeType: {
+          [stateCol.columnIdx]: { dcid: "State", displayName: "State" },
+        },
+        type: MappingType.COLUMN,
       },
     ],
   ]);
