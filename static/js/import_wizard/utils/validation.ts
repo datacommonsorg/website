@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
+import _, { mapValues } from "lodash";
 
 import {
   MAPPED_THING_NAMES,
@@ -104,14 +104,19 @@ export function checkMappings(mappings: Mapping): Array<string> {
       }
       colHdrThings.push(mthing);
       numNonConsts++;
-    } else if (mval.type === MappingType.CONSTANT) {
-      if (mval.constant == null || mval.constant.length === 0) {
+    } else if (mval.type === MappingType.FILE_CONSTANT) {
+      if (mval.fileConstant == null || mval.fileConstant.length === 0) {
         // Check #1
-        errors.push(mthingName + ": missing value for CONSTANT type");
+        errors.push(mthingName + ": missing value for FILE_CONSTANT type");
       }
       if (mthing === MappedThing.PLACE) {
         // Check #8
-        errors.push(mthingName + ": must not be CONSTANT type");
+        errors.push(mthingName + ": must not be FILE_CONSTANT type");
+      }
+    } else if (mval.type === MappingType.COLUMN_CONSTANT) {
+      if (_.isEmpty(mval.columnConstants)) {
+        // Check #1
+        errors.push(mthingName + ": missing value for COLUMN_CONSTANT type");
       }
     }
     if (mthing === MappedThing.VALUE && mval.type !== MappingType.COLUMN) {
