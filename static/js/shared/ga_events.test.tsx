@@ -37,12 +37,11 @@ import {
   Context,
   DisplayOptionsWrapper as ScatterDisplayOptionsWrapper,
   IsLoadingWrapper,
-  PlaceInfo,
   PlaceInfoWrapper,
 } from "../tools/scatter/context";
 import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
-import * as data_fetcher from "../tools/timeline/data_fetcher";
+import * as dataFetcher from "../tools/timeline/data_fetcher";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
@@ -69,7 +68,7 @@ afterEach(() => {
 
 jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
 jest
-  .spyOn(data_fetcher, "fetchRawData")
+  .spyOn(dataFetcher, "fetchRawData")
   .mockImplementation(() => Promise.resolve(null));
 
 describe("test ga event place category click", () => {
@@ -80,9 +79,9 @@ describe("test ga event place category click", () => {
     const menu = render(
       <Menu
         categories={{
-          Overview: "Overview",
           Economics: "Economics",
           Health: "Health",
+          Overview: "Overview",
         }}
         dcid="geoId/1714000"
         selectCategory="Overview"
@@ -176,17 +175,17 @@ describe("test ga event place category click", () => {
 
 describe("test ga event place chart click", () => {
   const props = {
-    id: "123",
-    dcid: "geoId/06",
-    chartType: chartTypeEnum.LINE,
-    trend: { exploreUrl: "", series: {}, sources: ["sources"] },
-    title: "title",
-    statsVars: ["Stat var"],
     category: "Economics",
+    chartType: chartTypeEnum.LINE,
+    dcid: "geoId/06",
+    id: "123",
     isUsaPlace: true,
-    rankingTemplateUrl: "/ranking/_sv_/State/country/USA",
     names: { "geoId/06": "California" },
-    unit: null,
+    rankingTemplateUrl: "/ranking/_sv_/State/country/USA",
+    statsVars: ["Stat var"],
+    title: "title",
+    trend: { exploreUrl: "", series: {}, sources: ["sources"] },
+    unit: "",
   };
   test("call gtag when place chart is clicked", async () => {
     // Mock gtag and render the component.
@@ -267,47 +266,16 @@ describe("test ga event tool chart plot", () => {
   test("call gtag when a map tool chart is mounted or updated with different stat vars or places", async () => {
     const mapPoints: MapPoint[] = [
       {
-        placeDcid: "geoId/06",
-        placeName: "California",
         latitude: 123,
         longitude: 123,
+        placeDcid: "geoId/06",
+        placeName: "California",
       },
     ];
     const mapPointsPromise: Promise<MapPoint[]> = new Promise(() => mapPoints);
     const props = {
-      geoJsonData: {
-        type: "FeatureCollection",
-        features: [],
-        properties: {
-          current_geo: "geoId/06",
-        },
-      } as GeoJsonData,
-      mapDataValues: { "geoId/06": 123 },
-      metadata: { "geoId/06": {} as DataPointMetadata },
       breadcrumbDataValues: { "geoId/06": 123 },
-      placeInfo: {
-        selectedPlace: { dcid: "geoId/06", name: "California", types: [] },
-        enclosingPlace: { dcid: "geoId/06", name: "California" },
-        enclosedPlaceType: "County",
-        parentPlaces: [],
-        mapPointPlaceType: "",
-      },
-      statVar: {
-        value: {
-          dcid: "Median_Age_Person",
-          perCapita: false,
-          info: {},
-          date: "",
-          denom: "",
-          mapPointSv: "",
-          metahash: "",
-        },
-      } as StatVarWrapper,
       dates: new Set<string>(["2022"]),
-      sources: new Set<string>(["sources"]),
-      unit: "",
-      mapPointValues: { "geoId/06": 123 },
-      mapPointsPromise,
       display: {
         value: {
           color: "",
@@ -316,13 +284,44 @@ describe("test ga event tool chart plot", () => {
           showTimeSlider: false,
         },
       } as MapDisplayOptionsWrapper,
+      geoJsonData: {
+        features: [],
+        properties: {
+          current_geo: "geoId/06",
+        },
+        type: "FeatureCollection",
+      } as GeoJsonData,
+      mapDataValues: { "geoId/06": 123 },
+      metadata: { "geoId/06": {} as DataPointMetadata },
+      placeInfo: {
+        enclosedPlaceType: "County",
+        enclosingPlace: { dcid: "geoId/06", name: "California" },
+        mapPointPlaceType: "",
+        parentPlaces: [],
+        selectedPlace: { dcid: "geoId/06", name: "California", types: [] },
+      },
+      statVar: {
+        value: {
+          date: "",
+          dcid: "Median_Age_Person",
+          denom: "",
+          info: {},
+          mapPointSv: "",
+          metahash: "",
+          perCapita: false,
+        },
+      } as StatVarWrapper,
+      sources: new Set<string>(["sources"]),
+      unit: "",
+      mapPointValues: { "geoId/06": 123 },
+      mapPointsPromise,
       europeanCountries: [],
       rankingLink: "",
       facetInfo: {
         dcid: "Median_Age_Person",
-        name: "Median_Age_Person",
-        metadataMap: {},
         displayNames: {},
+        metadataMap: {},
+        name: "Median_Age_Person",
       },
       sampleDates: [],
       metahash: "",
@@ -376,19 +375,19 @@ describe("test ga event tool chart plot", () => {
   });
   test("call gtag when a timeline tool chart is mounted or updated with different stat vars or places ", async () => {
     const props = {
+      denom: "",
+      delta: false,
       mprop: "income",
+      onDataUpdate: () => null,
+      onMetadataMapUpdate: () => null,
       placeNames: { "geoId/06": "California" },
+      pc: false,
+      removeStatVar: () => null,
       statVarInfos: { Median_Income_Household: { title: "" } } as Record<
         string,
         StatVarInfo
       >,
-      pc: false,
-      denom: "",
-      delta: false,
-      onDataUpdate: () => null,
-      removeStatVar: () => null,
       svFacetId: { Median_Income_Household: "" },
-      onMetadataMapUpdate: () => null,
     };
 
     // Mock gtag.
@@ -441,16 +440,16 @@ describe("test ga event tool chart plot", () => {
         "geoId/06": {
           place: { name: "", dcid: "" },
           xVal: 123,
-          yVal: 123,
           xDate: "2022",
+          yVal: 123,
           yDate: "2022",
         },
       },
       xLabel: "Median_Income_Household",
-      yLabel: "Age",
       xLog: false,
-      yLog: false,
       xPerCapita: false,
+      yLabel: "Age",
+      yLog: false,
       yPerCapita: false,
       placeInfo: {
         enclosingPlace: { dcid: "geoId/06", name: "California", types: [] },
