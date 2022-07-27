@@ -123,7 +123,7 @@ export function getDiseaseSymptomAssociation(
           oddsRatioValue = n.nodes[0].value;
         } else if (n.property === "medicalSubjectHeadingID") {
           for (const n1 of n.nodes) {
-            if ( _.isEmpty(n1.neighbors)) {
+            if (_.isEmpty(n1.neighbors)) {
               continue;
             }
             for (const n2 of n1.neighbors) {
