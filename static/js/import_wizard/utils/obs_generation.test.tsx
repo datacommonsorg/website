@@ -372,12 +372,7 @@ test("GenerateRowObservations_DateValuesInHeader_ValueMap", () => {
         "Value of Count_Person for CAN in 2019 is 329000000 USDollar",
       ],
     ],
-    [
-      2,
-      [
-        "Value of Count_Goat for IND in 2019 is 2000000 USDollar",
-      ],
-    ],
+    [2, ["Value of Count_Goat for IND in 2019 is 2000000 USDollar"]],
     [
       1000,
       [

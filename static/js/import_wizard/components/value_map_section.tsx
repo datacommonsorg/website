@@ -24,6 +24,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Input } from "reactstrap";
 
 import { ValueMap } from "../types";
+import { processValueMapFile } from "../utils/file_processing";
 
 interface ValueMapSectionProps {
   valueMap: ValueMap;
@@ -51,11 +52,13 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
   const mappingInputOrderedList = Object.keys(mappingInput).sort(
     (a, b) => Number(a) - Number(b)
   );
+  const [inputWarnings, setInputWarnings] = useState(new Set());
+  const [fileSkippedRows, setFileSkippedRows] = useState([]);
 
   useEffect(() => {
     props.onValueMapUpdated();
     setShowConfirmationButton(true);
-  }, [uploadedFile, mappingInput]);
+  }, [uploadedFile, mappingInput, showFileUpload]);
 
   return (
     <>
@@ -80,7 +83,7 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
           </div>
         </div>
         {showFileUpload ? (
-          <div>
+          <div className="value-map-file-container">
             File format accepted:
             <ul>
               <li>.txt file</li>
@@ -101,18 +104,26 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
                 </ul>
               </li>
               <li>Original CSV value is case sensitive</li>
-              <li>If the original CSV value is empty, the mapping will be skipped.</li>
+              <li>
+                If the original CSV value is empty, the mapping will be skipped.
+              </li>
             </ul>
             <input
               type="file"
               accept=".txt"
               onChange={(event) => {
                 if (event.target.files.length < 1) {
-                  return;
+                  setUploadedFile(null);
                 }
                 setUploadedFile(event.target.files[0]);
               }}
             />
+            {!_.isEmpty(fileSkippedRows) && (
+              <div className="value-map-warning-message">
+                The following lines were skipped because they did not match the
+                expected format: {fileSkippedRows.join(", ")}
+              </div>
+            )}
           </div>
         ) : (
           <div className="value-map-input-container">
@@ -122,35 +133,43 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
             </div>
             {mappingInputOrderedList.map((id) => {
               return (
-                <div className="value-map-input-entry" key={id}>
-                  <Input
-                    className="value-map-input"
-                    type="text"
-                    onChange={(e) =>
-                      onMappingInputChanged(id, e.target.value, true)
-                    }
-                    value={mappingInput[id].originalVal}
-                  />
-                  <Input
-                    className="value-map-input"
-                    type="text"
-                    onChange={(e) =>
-                      onMappingInputChanged(id, e.target.value, false)
-                    }
-                    value={mappingInput[id].newVal}
-                  />
-                  <i
-                    className="material-icons-outlined"
-                    onClick={() => {
-                      setMappingInput((prev) => {
-                        const newMappingInput = _.cloneDeep(prev);
-                        delete newMappingInput[id];
-                        return newMappingInput;
-                      });
-                    }}
-                  >
-                    cancel
-                  </i>
+                <div key={id}>
+                  <div className="value-map-input-entry">
+                    <Input
+                      className="value-map-input"
+                      type="text"
+                      onChange={(e) =>
+                        onMappingInputChanged(id, e.target.value, true)
+                      }
+                      value={mappingInput[id].originalVal}
+                    />
+                    <Input
+                      className="value-map-input"
+                      type="text"
+                      onChange={(e) =>
+                        onMappingInputChanged(id, e.target.value, false)
+                      }
+                      value={mappingInput[id].newVal}
+                    />
+                    <i
+                      className="material-icons-outlined"
+                      onClick={() => {
+                        setMappingInput((prev) => {
+                          const newMappingInput = _.cloneDeep(prev);
+                          delete newMappingInput[id];
+                          return newMappingInput;
+                        });
+                      }}
+                    >
+                      cancel
+                    </i>
+                  </div>
+                  {inputWarnings.has(id) && (
+                    <span className="value-map-warning-message">
+                      Skipped this remap because Original CSV Value can not be
+                      empty.
+                    </span>
+                  )}
                 </div>
               );
             })}
@@ -199,27 +218,31 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
   }
 
   function onConfirmationClicked(): void {
-    const valueMap = {};
-    if (showFileUpload) {
+    if (showFileUpload && !_.isNull(uploadedFile)) {
       const reader = new FileReader();
       reader.onload = (e) => {
         const rows = Papa.parse(e.target.result as string).data;
-        for (const row of rows) {
-          if (row.length !== 2) {
-            continue;
-          }
-          valueMap[row[0]] = row[1];
-        }
+        const { skippedRows, valueMap } = processValueMapFile(rows);
         props.onValueMapSubmitted(valueMap);
         setShowConfirmationButton(false);
+        setFileSkippedRows(skippedRows);
       };
       reader.readAsText(uploadedFile);
     } else {
-      Object.values(mappingInput).forEach((entity) => {
-        valueMap[entity.originalVal] = entity.newVal;
-      });
+      const valueMap = {};
+      const emptyOriginalVals = new Set();
+      if (!showFileUpload) {
+        Object.entries(mappingInput).forEach(([inputId, entity]) => {
+          if (_.isEmpty(entity.originalVal)) {
+            emptyOriginalVals.add(inputId);
+          }
+          valueMap[entity.originalVal] = entity.newVal;
+        });
+      }
       props.onValueMapSubmitted(valueMap);
       setShowConfirmationButton(false);
+      setInputWarnings(emptyOriginalVals);
+      setFileSkippedRows([]);
     }
   }
 }

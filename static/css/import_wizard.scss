@@ -299,6 +299,9 @@ tr th:last-child {
 /* Value Map Section */
 .header-tab-section {
   display: flex;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  font-weight: 300;
 }
 
 .header-tab,
@@ -329,7 +332,7 @@ tr th:last-child {
 
 .value-map-input-entry {
   display: flex;
-  padding: 0.5rem 0;
+  margin-top: 1rem;
   align-items: center;
 }
 
@@ -371,6 +374,18 @@ tr th:last-child {
   display: flex;
   flex-direction: column;
   margin-left: 0.5rem;
+}
+
+.value-map-warning-message {
+  color: var(--dc-error);
+  padding: 0 0.5rem;
+  padding-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.value-map-file-container .value-map-warning-message {
+  padding-left: 0;
+  padding-top: 0.5rem;
 }
 
 /* Spinner */
