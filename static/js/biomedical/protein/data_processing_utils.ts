@@ -92,8 +92,8 @@ const CHEM_RELATIONS = [
  * @returns - array with tissue name and corresponding expression score
  */
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
-  // Tissue to score mapping.
-  if (!data) {
+  // checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData: ProteinStrData[] = [];
@@ -144,8 +144,8 @@ export function getProteinInteraction(
   data: GraphNodes,
   nodeName: string
 ): InteractingProteinType[] {
-  // Protein Interaction to confidence score mapping.
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData = [] as InteractingProteinType[];
@@ -215,8 +215,8 @@ export function getProteinInteraction(
 export function getDiseaseGeneAssoc(
   data: GraphNodes
 ): DiseaseAssociationType[] {
-  // Disease Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData: DiseaseAssociationType[] = [];
@@ -286,8 +286,8 @@ export function getDiseaseGeneAssoc(
  * @returns - array with variant id and log 2 association score
  */
 export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
-  // Variant Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData = [] as ProteinVarType[];
@@ -368,8 +368,8 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
  * @returns - array with variant count and corresponding variant functional category
  */
 export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
-  // Variant Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData: ProteinNumData[] = [];
@@ -428,8 +428,8 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
  * @returns - array with variant count and corresponding variant clinical significance
  */
 export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
-  // Variant Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const result: ProteinNumData[] = [];
@@ -488,8 +488,8 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
  * @returns - array with count and drug-gene association type
  */
 export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
-  // Chem Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const result: ProteinNumData[] = [];
