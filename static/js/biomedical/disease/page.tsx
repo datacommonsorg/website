@@ -22,8 +22,14 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../../shared/types";
-import { drawDiseaseGeneAssocChart } from "./chart";
-import { getDiseaseGeneAssociation } from "./data_processing_utils";
+import {
+  drawDiseaseGeneAssocChart,
+  drawDiseaseSymptomAssociationChart,
+} from "./chart";
+import {
+  getDiseaseGeneAssociation,
+  getDiseaseSymptomAssociation,
+} from "./data_processing_utils";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -43,9 +49,16 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
   componentDidUpdate(): void {
     const diseaseGeneAssociation = getDiseaseGeneAssociation(this.state.data);
+    const diseaseSymptomAssociation = getDiseaseSymptomAssociation(
+      this.state.data
+    );
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
       diseaseGeneAssociation
+    );
+    drawDiseaseSymptomAssociationChart(
+      "disease-symptom-association-chart",
+      diseaseSymptomAssociation
     );
   }
   render(): JSX.Element {
@@ -54,6 +67,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         <h2>Disease Browser</h2>
         <h5>Disease-Gene Association</h5>
         <div id="disease-gene-association-chart"></div>
+        <h5>Disease-Symptom Association</h5>
+        <div id="disease-symptom-association-chart"></div>
       </>
     );
   }
