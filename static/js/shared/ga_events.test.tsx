@@ -88,8 +88,15 @@ describe("test ga event place category click", () => {
         pageChart={{ Economics: { "": [] } }}
       ></Menu>
     );
+    // Prevent window navigation.
+    const category = menu.getByText("Economics");
+    category.addEventListener(
+      "click",
+      (event) => event.preventDefault(),
+      false
+    );
     // Click the category in the sidebar.
-    fireEvent.click(menu.getByText("Economics"));
+    fireEvent.click(category);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -121,8 +128,15 @@ describe("test ga event place category click", () => {
         }}
       ></ChartHeader>
     );
+    // Prevent window navigation.
+    const category = chartHeader.getByText("Economics");
+    category.addEventListener(
+      "click",
+      (event) => event.preventDefault(),
+      false
+    );
     // Click the category in the chart header.
-    fireEvent.click(chartHeader.getByText("Economics"));
+    fireEvent.click(category);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -154,8 +168,15 @@ describe("test ga event place category click", () => {
         }}
       ></ChartHeader>
     );
+    // Prevent window navigation.
+    const category = chartHeader.getByText("More charts ›");
+    category.addEventListener(
+      "click",
+      (event) => event.preventDefault(),
+      false
+    );
     // Click more charts.
-    fireEvent.click(chartHeader.getByText("More charts ›"));
+    fireEvent.click(category);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.calls).toContainEqual([
@@ -196,8 +217,15 @@ describe("test ga event place chart click", () => {
         <PlaceChart {...props} />
       </IntlProvider>
     );
+    // Prevent window navigation.
+    const chartSource = chart.getByText("sources");
+    chartSource.addEventListener(
+      "click",
+      (event) => event.preventDefault(),
+      false
+    );
     // Click data sources.
-    fireEvent.click(chart.getByText("sources"));
+    fireEvent.click(chartSource);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -211,8 +239,15 @@ describe("test ga event place chart click", () => {
       expect(mockgtag.mock.calls.length).toEqual(1);
     });
 
+    // Prevent window navigation.
+    const chartExport = chart.getByText("Export");
+    chartExport.addEventListener(
+      "click",
+      (event) => event.preventDefault(),
+      false
+    );
     // Click export.
-    fireEvent.click(chart.getByText("Export"));
+    fireEvent.click(chartExport);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -226,8 +261,15 @@ describe("test ga event place chart click", () => {
       expect(mockgtag.mock.calls.length).toEqual(2);
     });
 
+    // Prevent window navigation.
+    const chartExplore = chart.getByText("Explore More ›");
+    chartExplore.addEventListener(
+      "click",
+      (event) => event.preventDefault(),
+      false
+    );
     // Click exlore more.
-    fireEvent.click(chart.getByText("Explore More ›"));
+    fireEvent.click(chartExplore);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.calls).toContainEqual([
@@ -241,11 +283,18 @@ describe("test ga event place chart click", () => {
       expect(mockgtag.mock.calls.length).toEqual(3);
     });
 
-    //Render the component and click stat var chip
+    //Render the component.
     const statVarChip = render(<div id="a" />);
     appendLegendElem("a", getColorFn([""]), [{ label: "Stat var chip" }]);
+    // Prevent window navigation.
+    const chartStatVarChip = statVarChip.getByText("Stat var chip");
+    chartStatVarChip.addEventListener(
+      "click",
+      (event) => event.preventDefault(),
+      false
+    );
     // Click the stat var chip.
-    fireEvent.click(statVarChip.getByText("Stat var chip"));
+    fireEvent.click(chartStatVarChip);
     await waitFor(() => {
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.calls).toContainEqual([
