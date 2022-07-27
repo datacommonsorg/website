@@ -35,8 +35,15 @@ test("Fail_MalformedMappingVal", () => {
     [
       MappedThing.DATE,
       {
-        type: MappingType.CONSTANT,
-        constant: "",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "",
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: {},
       },
     ],
   ]);
@@ -44,7 +51,8 @@ test("Fail_MalformedMappingVal", () => {
     "Place: missing value for COLUMN type ",
     "Place mapping is missing placeProperty",
     "Name of Variable: missing value for COLUMN_HEADER type",
-    "Date: missing value for CONSTANT type",
+    "Date: missing value for FILE_CONSTANT type",
+    "Unit: missing value for COLUMN_CONSTANT type",
   ];
   expect(checkMappings(input)).toEqual(expected);
 });
@@ -96,8 +104,8 @@ test("Fail_ValueMissing", () => {
     [
       MappedThing.DATE,
       {
-        type: MappingType.CONSTANT,
-        constant: "2019",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "2019",
       },
     ],
   ]);
@@ -135,8 +143,8 @@ test("Fail_MissingPlaceProperties", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -174,8 +182,8 @@ test("Pass_DateInColumnHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -217,8 +225,8 @@ test("Pass_NoColumnHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);

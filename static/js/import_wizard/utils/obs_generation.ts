@@ -35,6 +35,8 @@ interface ObsGenMaps {
   thing2Col: Map<MappedThing, number>;
   // Mapped thing -> constant value (for non-VALUE)
   thing2Const: Map<MappedThing, string>;
+  // Column Index -> Mapped thing -> constant value
+  col2Const: Map<number, Map<MappedThing, string>>;
 }
 
 function hasRequiredProps(obs: Observation): boolean {
@@ -53,7 +55,7 @@ function hasRequiredProps(obs: Observation): boolean {
 
 function generateObservationsInRow(
   row: Array<string>,
-  header: Array<Column>,
+  orderedColumns: Array<Column>,
   obsGenMaps: ObsGenMaps
 ): Array<Observation> {
   const obsList = new Array<Observation>();
@@ -64,9 +66,16 @@ function generateObservationsInRow(
     if (!_.isEmpty(row[valColIdx])) {
       obs.set(MappedThing.VALUE, row[valColIdx]);
     }
+    // If this column has a unit associated, add it to the observation
+    const colConstants = obsGenMaps.col2Const.get(valColIdx);
+    if (!_.isEmpty(colConstants)) {
+      colConstants.forEach((constant, mThing) => {
+        obs.set(mThing, constant);
+      });
+    }
     // If this is a COLUMN_HEADER case, get the corresponding header value.
     if (hdrThing !== MappedThing.VALUE) {
-      obs.set(hdrThing, header[valColIdx].header);
+      obs.set(hdrThing, orderedColumns[valColIdx].header);
     }
     for (const mthing of Array.from(obsGenMaps.thing2Col.keys())) {
       const colIdx = obsGenMaps.thing2Col.get(mthing);
@@ -102,6 +111,7 @@ export function generateRowObservations(
     valCol2Hdr: new Map<number, MappedThing>(),
     thing2Col: new Map<MappedThing, number>(),
     thing2Const: new Map<MappedThing, string>(),
+    col2Const: new Map<number, Map<MappedThing, string>>(),
   };
   for (const mthing of Array.from(mappings.keys())) {
     const mval: MappingVal = mappings.get(mthing);
@@ -109,14 +119,22 @@ export function generateRowObservations(
       for (const hdr of mval.headers) {
         obsGenMaps.valCol2Hdr.set(hdr.columnIdx, mthing);
       }
-    } else if (mval.type == MappingType.COLUMN) {
-      if (mthing == MappedThing.VALUE) {
+    } else if (mval.type === MappingType.COLUMN) {
+      if (mthing === MappedThing.VALUE) {
         obsGenMaps.valCol2Hdr.set(mval.column.columnIdx, mthing);
       } else {
         obsGenMaps.thing2Col.set(mthing, mval.column.columnIdx);
       }
-    } else if (mval.type == MappingType.CONSTANT) {
-      obsGenMaps.thing2Const.set(mthing, mval.constant);
+    } else if (mval.type === MappingType.FILE_CONSTANT) {
+      obsGenMaps.thing2Const.set(mthing, mval.fileConstant);
+    } else if (mval.type === MappingType.COLUMN_CONSTANT) {
+      Object.entries(mval.columnConstants).forEach(([colIdx, constant]) => {
+        const colIdxNum = Number(colIdx);
+        if (_.isEmpty(obsGenMaps.col2Const.get(colIdxNum))) {
+          obsGenMaps.col2Const.set(colIdxNum, new Map());
+        }
+        obsGenMaps.col2Const.get(colIdxNum).set(mthing, constant);
+      });
     }
   }
 
