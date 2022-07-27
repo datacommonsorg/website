@@ -46,11 +46,15 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 const Y_SCROLL_MARGIN = 100;
 
 window.onload = () => {
-  renderPage();
-  initSearchAutocomplete();
-  updatePageLayoutState();
-  maybeToggleFixedSidebar();
-  window.onresize = maybeToggleFixedSidebar;
+  try {
+    renderPage();
+    initSearchAutocomplete();
+    updatePageLayoutState();
+    maybeToggleFixedSidebar();
+    window.onresize = maybeToggleFixedSidebar;
+  } catch (e) {
+    return;
+  }
 };
 
 /**

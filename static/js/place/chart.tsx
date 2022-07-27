@@ -360,10 +360,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     // Draw chart.
     try {
       this.drawChart();
+      updatePageLayoutState();
     } catch (e) {
       return;
     }
-    updatePageLayoutState();
   }
 
   componentWillUnmount(): void {
