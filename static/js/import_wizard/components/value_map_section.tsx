@@ -61,13 +61,14 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
     <>
       <div className="section-container">
         <div className="section-header">
-          <h2>Value Mappings</h2>
+          <h2>Update File Values</h2>
           <div className="header-tab-section">
+            {/*TODO: make this into a toggle switch like in scatter tool*/}
             <div
               className={`header-tab${showFileUpload ? "" : "-selected"}`}
               onClick={() => setShowFileUpload(false)}
             >
-              Input mapping
+              Enter values to remap
             </div>
             <span>|</span>
             <div
@@ -99,7 +100,8 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
                   </li>
                 </ul>
               </li>
-              <li>Original CSV value is case insensitive</li>
+              <li>Original CSV value is case sensitive</li>
+              <li>If the original CSV value is empty, the mapping will be skipped.</li>
             </ul>
             <input
               type="file"
@@ -206,7 +208,7 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
           if (row.length !== 2) {
             continue;
           }
-          valueMap[row[0].toLowerCase()] = row[1];
+          valueMap[row[0]] = row[1];
         }
         props.onValueMapSubmitted(valueMap);
         setShowConfirmationButton(false);
@@ -214,7 +216,7 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
       reader.readAsText(uploadedFile);
     } else {
       Object.values(mappingInput).forEach((entity) => {
-        valueMap[entity.originalVal.toLowerCase()] = entity.newVal;
+        valueMap[entity.originalVal] = entity.newVal;
       });
       props.onValueMapSubmitted(valueMap);
       setShowConfirmationButton(false);

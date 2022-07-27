@@ -99,12 +99,7 @@ export function generateCsv(
           firstRowSeen = true;
         } else {
           const cleanedRow = result.data.map((cell) => {
-            const cellVal = cell || "";
-            const lowerCaseCell = cellVal.toLowerCase();
-            if (lowerCaseCell in valueMap) {
-              return valueMap[lowerCaseCell];
-            }
-            return cellVal;
+            return cell in valueMap ? valueMap[cell] : cell;
           });
           cleanedCsv.push(cleanedRow);
         }

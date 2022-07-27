@@ -97,7 +97,7 @@ test("GenerateRowObservations_SingleValueColumn", () => {
     [1000, ["Value of Count_Dog for CHN in 2022 is 100000001 USDollar"]],
   ]);
   const actual = rowObsToStrList(
-    generateRowObservations(inMappings, inCsvData)
+    generateRowObservations(inMappings, inCsvData, {})
   );
   expect(Array.from(actual.keys())).toEqual(Array.from(expected.keys()));
   expect(Array.from(actual.values())).toEqual(Array.from(expected.values()));
@@ -202,8 +202,8 @@ test("GenerateRowObservations_SingleValueColumn_ValueMap", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -216,14 +216,14 @@ test("GenerateRowObservations_SingleValueColumn_ValueMap", () => {
     ],
     columnValuesSampled: null,
     rowsForDisplay: new Map([
-      [1, ["USA", "CoUnt_Person", "2022", "329000000"]],
+      [1, ["USA", "Count_Person", "2022", "329000000"]],
       [2, ["IND", "Count_Goat", "2021", ""]],
       [1000, ["CHN", "Count_Dog", "2022", "100000001"]],
     ]),
   };
   const valueMap = {
-    usa: "CAN",
-    count_person: "Count_Person_Female",
+    USA: "CAN",
+    Count_Person: "Count_Person_Female",
   };
   // NOTE: Row 2 only has no entry because value is empty.
   const expected: Map<RowNumber, Array<string>> = new Map([
@@ -341,8 +341,8 @@ test("GenerateRowObservations_DateValuesInHeader_ValueMap", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -361,8 +361,7 @@ test("GenerateRowObservations_DateValuesInHeader_ValueMap", () => {
     ]),
   };
   const valueMap = {
-    usa: "CAN",
-    "": "0",
+    USA: "CAN",
   };
   // NOTE: Row 2 only has one entry because the value is empty.
   const expected: Map<RowNumber, Array<string>> = new Map([
@@ -377,7 +376,6 @@ test("GenerateRowObservations_DateValuesInHeader_ValueMap", () => {
       2,
       [
         "Value of Count_Goat for IND in 2019 is 2000000 USDollar",
-        "Value of Count_Goat for IND in 2019 is 0 USDollar",
       ],
     ],
     [
@@ -466,7 +464,7 @@ test("GenerateRowObservations_DateValuesInHeader_UnitsInColumns", () => {
     ],
   ]);
   const actual = rowObsToStrList(
-    generateRowObservations(inMappings, inCsvData)
+    generateRowObservations(inMappings, inCsvData, {})
   );
   expect(Array.from(actual.keys())).toEqual(Array.from(expected.keys()));
   expect(Array.from(actual.values())).toEqual(Array.from(expected.values()));

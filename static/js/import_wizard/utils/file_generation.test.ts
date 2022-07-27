@@ -290,7 +290,7 @@ test("generateCsvWithValueMap", () => {
   const originalCsvContent = Papa.unparse([
     ["col1", "col2", "col3"],
     ["a", "test, test1", "3"],
-    ["b", "tEst", "test1, test2"],
+    ["b", "test", "test1, test2"],
   ]);
   const originalCsvFile = new File([originalCsvContent], "original.csv", {
     type: "text/csv;chartset=utf-8",
@@ -301,11 +301,11 @@ test("generateCsvWithValueMap", () => {
     rowsForDisplay: new Map(),
     rawCsvFile: originalCsvFile,
   };
-  const valueMap = { test: "abc", "test1, test2": "test3, test4" };
+  const valueMap = { test: "abc", "test1, test2": "test3, test4", "3": "" };
   return generateCsv(csvData, valueMap).then((result) => {
     const expected = Papa.unparse([
       ["header", "header_0", "col3"],
-      ["a", "test, test1", "3"],
+      ["a", "test, test1", ""],
       ["b", "abc", "test3, test4"],
     ]);
     expect(result).toEqual(expected);
