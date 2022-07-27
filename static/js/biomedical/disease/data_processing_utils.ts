@@ -29,7 +29,7 @@ export function getDiseaseGeneAssociation(
   data: GraphNodes
 ): DiseaseGeneAssociationData[] {
   // checks if the data is empty
-  if (!data) {
+  if (_.isEmpty(data)) {
     return [];
   }
   const rawData: DiseaseGeneAssociationData[] = [];
@@ -95,7 +95,7 @@ export function getDiseaseSymptomAssociation(
   data: GraphNodes
 ): DiseaseSymptomAssociationData[] {
   // checks if the data is empty
-  if (!data) {
+  if (_.isEmpty(data)) {
     return [];
   }
   const rawData: DiseaseSymptomAssociationData[] = [];
