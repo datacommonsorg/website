@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import {
@@ -48,6 +48,14 @@ export function MappingColumnOptions(
   const validPlaceProperties = Array.from(
     props.validPlaceTypeProperties[props.column.columnPlaceType.dcid]
   );
+  const [unitInput, setUnitInput] = useState(
+    props.column.constants.get(MappedThing.UNIT) || ""
+  );
+
+  useEffect(() => {
+    setUnitInput(props.column.constants.get(MappedThing.UNIT) || "");
+  }, [props.column]);
+
   return (
     <div className="column-options">
       <div className="column-options-header">
@@ -148,8 +156,34 @@ export function MappingColumnOptions(
           Skip this column
         </Label>
       </FormGroup>
+      <div className="unit-input">
+        If the values in this column have an associated unit, enter it here:
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            updateColumnUnit();
+          }}
+        >
+          <Input
+            className="constant-value-input"
+            type="text"
+            onChange={(e) => {
+              const val = e.target.value;
+              setUnitInput(val);
+            }}
+            onBlur={updateColumnUnit}
+            value={unitInput}
+          />
+        </form>
+      </div>
     </div>
   );
+
+  function updateColumnUnit(): void {
+    const updatedColumn = _.cloneDeep(props.column);
+    updatedColumn.constants.set(MappedThing.UNIT, unitInput);
+    props.onColumnUpdated(updatedColumn);
+  }
 
   function updateColumn(
     mappingType: MappingType,

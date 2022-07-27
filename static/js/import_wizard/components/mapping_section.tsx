@@ -55,6 +55,8 @@ export interface ColumnInfo {
   headerPlaceProperty: DCProperty;
   // sample row values
   sampleValues: string[];
+  // constants set for this column
+  constants: Map<MappedThing, string>;
   // the mapping type selected
   type?: MappingType;
   // the mapped thing selected
@@ -78,11 +80,11 @@ interface MappingSectionProps {
   placeDetector: PlaceDetector;
 }
 
-const REQUIRED_MAPPINGS = [
-  MappedThing.DATE,
-  MappedThing.STAT_VAR,
-  MappedThing.PLACE,
-];
+const DEFAULT_CONSTANT_VALS = {
+  [MappedThing.DATE]: "",
+  [MappedThing.STAT_VAR]: "",
+  [MappedThing.UNIT]: "",
+};
 
 export function MappingSection(props: MappingSectionProps): JSX.Element {
   const [columnState, setColumnState] = useState<ColumnState>({
@@ -90,7 +92,9 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
     selectedColumn: 0,
   });
   // key is mapped thing and value is the constant
-  const [constantVals, setConstantVals] = useState<Record<string, string>>({});
+  const [constantVals, setConstantVals] = useState<Record<string, string>>(
+    DEFAULT_CONSTANT_VALS
+  );
   const [showConfirmationButton, setShowConfirmationButton] =
     useState<boolean>(true);
   const [errorList, setErrorList] = useState<Array<string>>([]);
@@ -106,7 +110,7 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
       props.placeDetector
     );
     setColumnState({ columns, selectedColumn: 0 });
-    setConstantVals({});
+    setConstantVals(DEFAULT_CONSTANT_VALS);
     setErrorList([]);
   }, [props.csvData, props.predictedMapping, props.placeDetector]);
 
@@ -124,7 +128,6 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
   const selectedColumnInfo = columnState.columns.get(
     columnState.selectedColumn
   );
-  const showConstantVals = !_.isEmpty(constantVals);
   return (
     <>
       <div className="section-container mapping-section">
@@ -181,29 +184,17 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
           </div>
         </div>
       </div>
-      {showConstantVals && (
-        <MappingConstantsSection
-          constantVals={constantVals}
-          onConstantValUpdated={(thing: string, val: string) => {
-            setConstantVals((prev) => {
-              return { ...prev, [thing]: val };
-            });
-          }}
-        />
-      )}
+      <MappingConstantsSection
+        constantVals={constantVals}
+        onConstantValUpdated={(thing: string, val: string) => {
+          setConstantVals((prev) => {
+            return { ...prev, [thing]: val };
+          });
+        }}
+      />
       {showConfirmationButton && (
         <div className="confirmation-button">
-          <Button
-            onClick={() => {
-              if (showConstantVals) {
-                onConstantsConfirmed();
-              } else {
-                onColumnInfoConfirmed();
-              }
-            }}
-          >
-            Next
-          </Button>
+          <Button onClick={() => onConfirmationClicked()}>Next</Button>
         </div>
       )}
       {!_.isEmpty(errorList) && (
@@ -228,34 +219,9 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
     const updatedColumnInfo = _.cloneDeep(columnState.columns);
     updatedColumnInfo.set(columnIdx, updatedColumn);
     setColumnState({ ...columnState, columns: updatedColumnInfo });
-    setConstantVals({});
   }
 
-  function onColumnInfoConfirmed(): void {
-    const correctedMapping = getMapping(columnState.columns, constantVals);
-    const correctedCsv = updateCsvOrderedColumns(
-      columnState.columns,
-      props.csvData
-    );
-    const updatedConstantVals = {};
-    for (const thing of REQUIRED_MAPPINGS) {
-      if (_.isEmpty(correctedMapping.get(thing))) {
-        updatedConstantVals[thing] = "";
-      }
-    }
-    if (!_.isEmpty(updatedConstantVals)) {
-      setConstantVals(updatedConstantVals);
-      return;
-    }
-    const mappingErrors = checkMappings(correctedMapping);
-    setErrorList(mappingErrors);
-    if (_.isEmpty(mappingErrors)) {
-      props.onCorrectionsSubmitted(correctedMapping, correctedCsv);
-      setShowConfirmationButton(false);
-    }
-  }
-
-  function onConstantsConfirmed(): void {
+  function onConfirmationClicked(): void {
     const correctedMapping = getMapping(columnState.columns, constantVals);
     const correctedCsv = updateCsvOrderedColumns(
       columnState.columns,
@@ -322,13 +288,14 @@ function getColumnInfo(
   csvData.orderedColumns.forEach((column) => {
     columnInfo.set(column.columnIdx, {
       column,
-      columnMappedThing: REQUIRED_MAPPINGS[0],
+      columnMappedThing: MappedThing[0],
       columnPlaceType: defaultPlaceType,
       columnPlaceProperty: defaultPlaceProperty,
       headerPlaceType: defaultPlaceType,
       headerPlaceProperty: defaultPlaceProperty,
-      headerMappedThing: REQUIRED_MAPPINGS[0],
+      headerMappedThing: MappedThing[0],
       sampleValues: [],
+      constants: new Map(),
     });
   });
   csvData.rowsForDisplay.forEach((rowVals) => {
@@ -392,6 +359,15 @@ function getColumnInfo(
             placeTypeProperty.placeProperty;
         }
       }
+    } else if (
+      mappingVal.type === MappingType.COLUMN_CONSTANT &&
+      !_.isEmpty(mappingVal.columnConstants)
+    ) {
+      Object.entries(mappingVal.columnConstants).forEach(
+        ([colIdx, constant]) => {
+          columnInfo.get(Number(colIdx)).constants.set(mappedThing, constant);
+        }
+      );
     }
   });
   return columnInfo;
@@ -440,9 +416,31 @@ function getMapping(
         mappingVal.placeProperty[columnIdx] = info.headerPlaceProperty;
       }
     }
+    if (!_.isEmpty(info.constants)) {
+      info.constants.forEach((constant, mappedThing) => {
+        let mappingVal = mapping.get(mappedThing);
+        if (
+          _.isEmpty(mappingVal) ||
+          mappingVal.type !== MappingType.COLUMN_CONSTANT
+        ) {
+          mappingVal = {
+            type: MappingType.COLUMN_CONSTANT,
+            columnConstants: {},
+          };
+          mapping.set(mappedThing, mappingVal);
+        }
+        mappingVal.columnConstants[columnIdx] = constant;
+      });
+    }
   });
   Object.entries(constants).forEach(([mappedThing, val]) => {
-    mapping.set(mappedThing, { type: MappingType.CONSTANT, constant: val });
+    if (_.isEmpty(val)) {
+      return;
+    }
+    mapping.set(mappedThing, {
+      type: MappingType.FILE_CONSTANT,
+      fileConstant: val,
+    });
   });
   return mapping;
 }

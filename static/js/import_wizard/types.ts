@@ -17,13 +17,16 @@
 export enum MappingType {
   COLUMN = "column",
   COLUMN_HEADER = "columnHeader",
-  CONSTANT = "constant",
+  FILE_CONSTANT = "fileConstant",
+  // COLUMN_CONSTANT MappingType can be used for any MappedThing, but currently
+  // the UI only supports COLUMN_CONSTANT for MappedThing.UNIT
+  COLUMN_CONSTANT = "columnConstant",
 }
 
 export enum MappedThing {
+  DATE = "Date",
   PLACE = "Place",
   STAT_VAR = "StatVar",
-  DATE = "Date",
   UNIT = "Unit",
   VALUE = "Value",
 }
@@ -62,9 +65,12 @@ export interface MappingVal {
   // List of column headers that act as the mapping values. Should be set if
   // type is MappingType.COLUMN_HEADERS
   headers?: Column[];
-  // Constant value as the mapping value. Should be set if type is
-  // MappingType.CONSTANT
-  constant?: string;
+  // Constant value for the whole file as the mapping value. Should be set if
+  // type is MappingType.FILE_CONSTANT
+  fileConstant?: string;
+  // Record of column idx to the constant to use for that column.
+  // Should be set if type is MappingType.COLUMN_CONSTANT.
+  columnConstants?: { [columnIdx: number]: string };
 }
 
 export type Mapping = Map<MappedThing, MappingVal>;

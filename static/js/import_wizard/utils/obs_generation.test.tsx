@@ -72,8 +72,73 @@ test("GenerateRowObservations_SingleValueColumn", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
+      },
+    ],
+  ]);
+  const inCsvData: CsvData = {
+    orderedColumns: [
+      { id: "iso", header: "iso", columnIdx: 0 },
+      { id: "indicators", header: "indicators", columnIdx: 1 },
+      { id: "date", header: "date", columnIdx: 2 },
+      { id: "val", header: "val", columnIdx: 3 },
+    ],
+    columnValuesSampled: null,
+    rowsForDisplay: new Map([
+      [1, ["USA", "Count_Person", "2022", "329000000"]],
+      [2, ["IND", "Count_Goat", "2021", ""]],
+      [1000, ["CHN", "Count_Dog", "2022", "100000001"]],
+    ]),
+  };
+  // NOTE: Row 2 only has no entry because value is empty.
+  const expected: Map<RowNumber, Array<string>> = new Map([
+    [1, ["Value of Count_Person for USA in 2022 is 329000000 USDollar"]],
+    [1000, ["Value of Count_Dog for CHN in 2022 is 100000001 USDollar"]],
+  ]);
+  const actual = rowObsToStrList(
+    generateRowObservations(inMappings, inCsvData)
+  );
+  expect(Array.from(actual.keys())).toEqual(Array.from(expected.keys()));
+  expect(Array.from(actual.values())).toEqual(Array.from(expected.values()));
+});
+
+test("GenerateRowObservations_SingleValueColumn_UnitInColumn", () => {
+  const inMappings: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "iso", header: "iso", columnIdx: 0 },
+        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 1 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "date", header: "date", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.VALUE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "val", header: "val", columnIdx: 3 },
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: { 3: "USDollar" },
       },
     ],
   ]);
@@ -202,8 +267,8 @@ test("GenerateRowObservations_DateValuesInHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -325,6 +390,83 @@ test("GenerateRowObservations_DateValuesInHeader_ValueMap", () => {
   ]);
   const actual = rowObsToStrList(
     generateRowObservations(inMappings, inCsvData, valueMap)
+  );
+  expect(Array.from(actual.keys())).toEqual(Array.from(expected.keys()));
+  expect(Array.from(actual.values())).toEqual(Array.from(expected.values()));
+});
+
+test("GenerateRowObservations_DateValuesInHeader_UnitsInColumns", () => {
+  const inMappings: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "id", header: "id", columnIdx: 0 },
+        placeProperty: { dcid: "dcid", displayName: "dcid" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 1 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "2018", header: "2018", columnIdx: 2 },
+          { id: "2019", header: "2019", columnIdx: 3 },
+        ],
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: {
+          2: "USDollar",
+          3: "CAD",
+        },
+      },
+    ],
+  ]);
+  const inCsvData: CsvData = {
+    orderedColumns: [
+      { id: "id", header: "id", columnIdx: 0 },
+      { id: "indicators", header: "indicators", columnIdx: 1 },
+      { id: "2018", header: "2018", columnIdx: 2 },
+      { id: "2019", header: "2019", columnIdx: 3 },
+    ],
+    columnValuesSampled: null,
+    rowsForDisplay: new Map([
+      [1, ["USA", "Count_Person", "300000000", "329000000"]],
+      [2, ["IND", "Count_Goat", "2000000", ""]],
+      [1000, ["CHN", "Count_Dog", "100000001", "110000000"]],
+    ]),
+  };
+  // NOTE: Row 2 only has one entry because the value is empty.
+  const expected: Map<RowNumber, Array<string>> = new Map([
+    [
+      1,
+      [
+        "Value of Count_Person for USA in 2018 is 300000000 USDollar",
+        "Value of Count_Person for USA in 2019 is 329000000 CAD",
+      ],
+    ],
+    [2, ["Value of Count_Goat for IND in 2018 is 2000000 USDollar"]],
+    [
+      1000,
+      [
+        "Value of Count_Dog for CHN in 2018 is 100000001 USDollar",
+        "Value of Count_Dog for CHN in 2019 is 110000000 CAD",
+      ],
+    ],
+  ]);
+  const actual = rowObsToStrList(
+    generateRowObservations(inMappings, inCsvData)
   );
   expect(Array.from(actual.keys())).toEqual(Array.from(expected.keys()));
   expect(Array.from(actual.values())).toEqual(Array.from(expected.values()));
