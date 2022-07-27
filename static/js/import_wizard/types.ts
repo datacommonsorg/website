@@ -18,6 +18,8 @@ export enum MappingType {
   COLUMN = "column",
   COLUMN_HEADER = "columnHeader",
   FILE_CONSTANT = "fileConstant",
+  // COLUMN_CONSTANT MappingType can be used for any MappedThing, but currently
+  // the UI only supports COLUMN_CONSTANT for MappedThing.UNIT
   COLUMN_CONSTANT = "columnConstant",
 }
 
