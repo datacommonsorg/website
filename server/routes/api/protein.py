@@ -41,7 +41,6 @@ def get_node(dcid):
     return response
 
 
-
 def id(id_or_dcid):
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
 
@@ -62,6 +61,7 @@ def node(node_id_or_dcid, depth):
         'depth': depth,
     }
 
+
 def extract_intactmi(score_dcids):
     for score_dcid in score_dcids:
         if score_dcid.startswith("IntactMiScore"):
@@ -76,7 +76,8 @@ def interactors(interaction_id_or_dcid):
 
 
 def target(interaction_id_or_dcid, source_id_or_dcid):
-    interaction_id, source_id = id(interaction_id_or_dcid), id(source_id_or_dcid)
+    interaction_id, source_id = id(interaction_id_or_dcid), id(
+        source_id_or_dcid)
     interactor_id1, interactor_id2 = interactors(interaction_id)
     if interactor_id1 == source_id:
         return interactor_id2
@@ -87,8 +88,10 @@ def reverse_interaction_id(interaction_id):
     interactor_id1, interactor_id2 = interactors(interaction_id)
     return f'{interactor_id2}_{interactor_id1}'
 
+
 def reverse_interaction_dcid(interaction_dcid):
     return dcid(reverse_interaction_id(id(interaction_dcid)))
+
 
 def filter_interaction_dcids(interaction_dcids):
     dcids = set()
@@ -105,13 +108,16 @@ def filter_interaction_dcids(interaction_dcids):
             dcids.update([interaction_dcid, reverse_dcid])
     return uniques
 
+
 def symmetrize_scores(scores):
     scores_sym = {}
     for interaction_id, score in scores.items():
         reverse_id = reverse_interaction_id(interaction_id)
         reverse_score = scores.get(reverse_id, DEFAULT_INTERACTION_SCORE)
-        scores_sym[interaction_id] = scores_sym[reverse_id] = max(score, reverse_score)
+        scores_sym[interaction_id] = scores_sym[reverse_id] = max(
+            score, reverse_score)
     return scores_sym
+
 
 def flatten(nested_list):
     flat = []
@@ -119,10 +125,13 @@ def flatten(nested_list):
         flat.extend(L)
     return flat
 
+
 '''
 Stability: If a appears before b in target_ids and they both end up in the same
 partition, a still appears before b in the partition.
 '''
+
+
 def partition_expansion_cross(target_ids, node_set):
     expansion_targets = []
     cross_targets = []
@@ -132,7 +141,7 @@ def partition_expansion_cross(target_ids, node_set):
         else:
             expansion_targets.append(target_id)
     return expansion_targets, cross_targets
-            
+
 
 '''
 Retrieves graph data for protein-protein interaction graph via degree-bounded BFS
@@ -144,6 +153,8 @@ Request params:
  - depth: the maximum distance of any returned node from the center protein
 
 '''
+
+
 @bp.route('/ppi/bfs/', methods=['POST'])
 def bfs():
     # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
@@ -161,11 +172,16 @@ def bfs():
     links = [[]]
 
     last_layer_node_dcids = [center_protein_dcid]
-    for depth in range(1, max_depth+2):
+    for depth in range(1, max_depth + 2):
         # retrieve interactor dict of form {'bio/P53_HUMAN': ['bio/CRB_HUMAN', ...], 'bio/FGFR1_HUMAN': [...], ...}
-        layer_interactors = dc.property_values(last_layer_node_dcids, "interactingProtein", "in")
-        layer_scores = dc.property_values(flatten(layer_interactors.values()), "confidenceScore", "out")
-        layer_scores = {id(interaction_dcid) : extract_intactmi(score_list) for interaction_dcid, score_list in layer_scores.items()}
+        layer_interactors = dc.property_values(last_layer_node_dcids,
+                                               "interactingProtein", "in")
+        layer_scores = dc.property_values(flatten(layer_interactors.values()),
+                                          "confidenceScore", "out")
+        layer_scores = {
+            id(interaction_dcid): extract_intactmi(score_list)
+            for interaction_dcid, score_list in layer_scores.items()
+        }
         layer_scores = symmetrize_scores(layer_scores)
         # add key:value pairs from layer_scores to scores
         scores.update(layer_scores)
@@ -174,22 +190,36 @@ def bfs():
         new_nodes = []
 
         for source_dcid, interaction_dcids in layer_interactors.items():
-            interaction_dcids_new = [interaction_dcid for interaction_dcid in interaction_dcids if interaction_dcid not in interaction_dcid_set]
-            interaction_dcids_filtered = filter_interaction_dcids(interaction_dcids_new)
+            interaction_dcids_new = [
+                interaction_dcid for interaction_dcid in interaction_dcids
+                if interaction_dcid not in interaction_dcid_set
+            ]
+            interaction_dcids_filtered = filter_interaction_dcids(
+                interaction_dcids_new)
 
             # add both interaction dcids and their reversals
             interaction_dcid_set.update(interaction_dcids_filtered)
-            interaction_dcid_set.update(map(reverse_interaction_dcid, interaction_dcids_filtered))
+            interaction_dcid_set.update(
+                map(reverse_interaction_dcid, interaction_dcids_filtered))
 
             source_id = id(source_dcid)
-            target_ids = [target(interaction_dcid, source_id) for interaction_dcid in interaction_dcids_filtered]
-            target_scorer = lambda target_id: scores.get(f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)
-            target_ids_filtered = filter(lambda target_id: target_scorer(target_id) > score_threshold,target_ids)
-            target_ids_sorted = sorted(target_ids_filtered, key=target_scorer, reverse=True)
-            expansion_target_ids, cross_target_ids = partition_expansion_cross(target_ids_sorted, node_id_set)
+            target_ids = [
+                target(interaction_dcid, source_id)
+                for interaction_dcid in interaction_dcids_filtered
+            ]
+            target_scorer = lambda target_id: scores.get(
+                f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)
+            target_ids_filtered = filter(
+                lambda target_id: target_scorer(target_id) > score_threshold,
+                target_ids)
+            target_ids_sorted = sorted(target_ids_filtered,
+                                       key=target_scorer,
+                                       reverse=True)
+            expansion_target_ids, cross_target_ids = partition_expansion_cross(
+                target_ids_sorted, node_id_set)
             expansion_target_ids = expansion_target_ids[:max_interactors]
-            print('expansion targets',source_id, expansion_target_ids)
-            print('cross targets',source_id, cross_target_ids)
+            print('expansion targets', source_id, expansion_target_ids)
+            print('cross targets', source_id, cross_target_ids)
             print('node set', node_id_set)
             target_link_getter = lambda target_id: {
                 'source': source_id,
@@ -198,20 +228,21 @@ def bfs():
             }
             links[-1].extend(map(target_link_getter, cross_target_ids))
             # TODO: track distance of each node to center
-            new_nodes.extend([node(expansion_target_id, depth) for expansion_target_id in expansion_target_ids])
+            new_nodes.extend([
+                node(expansion_target_id, depth)
+                for expansion_target_id in expansion_target_ids
+            ])
 
-            if depth != max_depth+1:
+            if depth != max_depth + 1:
                 node_id_set.update(expansion_target_ids)
-                expansion_links.extend(map(target_link_getter, expansion_target_ids))
+                expansion_links.extend(
+                    map(target_link_getter, expansion_target_ids))
                 last_layer_node_dcids.extend(map(dcid, expansion_target_ids))
-        
-        if depth != max_depth+1:
+
+        if depth != max_depth + 1:
             nodes.append(new_nodes)
             links.append(expansion_links)
 
-    graph = {
-        'nodeDataNested': nodes,
-        'linkDataNested': links
-    }
+    graph = {'nodeDataNested': nodes, 'linkDataNested': links}
 
     return Response(json.dumps(graph))
