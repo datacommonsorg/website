@@ -21,7 +21,4 @@ bp = Blueprint('import_wizard', __name__, url_prefix='/import')
 
 @bp.route('/')
 def main():
-    if os.environ.get('FLASK_ENV') == 'production' or os.environ.get(
-            'FLASK_ENV') == 'staging':
-        flask.abort(404)
     return render_template('/import_wizard.html')
