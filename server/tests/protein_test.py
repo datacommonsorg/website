@@ -31,6 +31,6 @@ class TestProteinProteinInteractionGraph(unittest.TestCase):
                                               'depth': 2,
                                               'maxInteractions': 2,
                                               'proteinDcid': 'bio/P53_HUMAN',
-                                              'scoreThrehsold': 0.4
+                                              'scoreThreshold': 0.4
                                           })
         assert response.status_code == 200
