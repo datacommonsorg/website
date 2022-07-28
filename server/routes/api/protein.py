@@ -228,28 +228,37 @@ def bfs():
     max_interactors = request.json['maxInteractors']
     max_depth = request.json['depth']
 
+    # set of interaction DCIDs for all links in the graph and their reversals
     interaction_dcid_set = set()
+    # set of node ids for all nodes in the graph
     node_id_set = set([id(center_protein_dcid)])
+
+    # to become final nested list of returned node dicts
     nodes = [[node(center_protein_dcid, 0)]]
-    # nodes = node_from_id(center_protein_dcid)
+    # to become final nested list of returned link dicts
     links = [[]]
 
+    # used to request the next layer of interactors
     last_layer_node_dcids = [center_protein_dcid]
     for depth in range(1, max_depth + 2):
-        # retrieve interactor dict of form {'bio/P53_HUMAN': ['bio/CRB_HUMAN', ...], 'bio/FGFR1_HUMAN': [...], ...}
+        # retrieve interactor dict of form {'bio/P53_HUMAN': ['bio/CBP_HUMAN', ...], 'bio/FGFR1_HUMAN': [...], ...}
         layer_interactors = dc.property_values(last_layer_node_dcids,
                                                "interactingProtein", "in")
+        # retrieve score dict of form {'bio/P53_HUMAN_CBP_HUMAN': ['IntactMiScore0.97', 'AuthorScore3.0'], ...}
         layer_scores = dc.property_values(flatten(layer_interactors.values()),
                                           "confidenceScore", "out")
+        # convert score dict to form {'bio/P53_HUMAN_CBP_HUMAN': 0.97} (keep only IntactMi scores)
         layer_scores = {
             id(interaction_dcid): extract_intactmi(score_list)
             for interaction_dcid, score_list in layer_scores.items()
         }
         layer_scores = symmetrized_scores(layer_scores)
-        # add key:value pairs from layer_scores to scores
         scores.update(layer_scores)
+        # used to request the next layer of interactors
         last_layer_node_dcids = []
+        # links from a protein in the graph to some new protein outside the graph
         expansion_links = []
+        # new proteins not currently in graph
         new_nodes = []
 
         for source_dcid, interaction_dcids in layer_interactors.items():
@@ -270,25 +279,27 @@ def bfs():
                 target(interaction_dcid, source_id)
                 for interaction_dcid in interaction_dcids_filtered
             ]
+            # getter for score of source-target interaction
             target_scorer = lambda target_id: scores.get(
                 f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)
+            # true if score-target interaction has score above threshold
             target_ids_filtered = filter(
                 lambda target_id: target_scorer(target_id) > score_threshold,
                 target_ids)
+            # sort in descending order of score
             target_ids_sorted = sorted(target_ids_filtered,
                                        key=target_scorer,
                                        reverse=True)
             expansion_target_ids, cross_target_ids = partition_expansion_cross(
                 target_ids_sorted, node_id_set)
             expansion_target_ids = expansion_target_ids[:max_interactors]
-            print('expansion targets', source_id, expansion_target_ids)
-            print('cross targets', source_id, cross_target_ids)
-            print('node set', node_id_set)
             target_link_getter = lambda target_id: {
                 'source': source_id,
                 'target': target_id,
                 'score': target_scorer(target_id)
             }
+            # add cross links to links in last layer
+            # (E.g. depth 1 graph will show center, neighbors of center, and cross-links between neighbors)
             links[-1].extend(map(target_link_getter, cross_target_ids))
             # TODO: track distance of each node to center
             new_nodes.extend([
@@ -296,6 +307,7 @@ def bfs():
                 for expansion_target_id in expansion_target_ids
             ])
 
+            # final iteration expansion links are extra, shouldn't get rendered
             if depth != max_depth + 1:
                 node_id_set.update(expansion_target_ids)
                 expansion_links.extend(
