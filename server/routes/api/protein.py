@@ -41,17 +41,30 @@ def get_node(dcid):
 
 
 def id(id_or_dcid):
+    '''
+    Delete 'bio/' prefix from a biomedical DCID, if it is present.
+    E.g. 'bio/P53_HUMAN' --> 'P53_HUMAN'
+    '''
+    # .replace replaces all instances, but no biomedical DCID will contain more than once instance of 'bio/'
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
 
 
 def dcid(id_or_dcid):
+    '''
+    Add 'bio/' prefix to an id if it does not already start with 'bio/'.
+    E.g. 'P53_HUMAN' --> 'bio/P53_HUMAN'
+    '''
     if id_or_dcid.startswith(BIO_DCID_PREFIX):
         return id_or_dcid
     return BIO_DCID_PREFIX + id_or_dcid
 
 
-def node(node_id_or_dcid, depth):
-    node_id = id(node_id_or_dcid)
+def node(protein_id_or_dcid, depth):
+    '''
+    Returns node object.
+    Protein dcids are of the form 'bio/{name}_{species}' (e.g. 'bio/P53_HUMAN')
+    '''
+    node_id = id(protein_id_or_dcid)
     protein, species = node_id.split('_')
     return {
         'id': node_id,
@@ -62,6 +75,12 @@ def node(node_id_or_dcid, depth):
 
 
 def extract_intactmi(score_dcids):
+    '''
+    Takes list of interaction score DCIDs and numerically parses and returns the first instance
+    of an IntactMi score, or the default interaction score if none are found.
+    
+    TODO: add example
+    '''
     for score_dcid in score_dcids:
         if score_dcid.startswith("IntactMiScore"):
             return float(score_dcid.replace("IntactMiScore", ""))
@@ -69,12 +88,20 @@ def extract_intactmi(score_dcids):
 
 
 def interactors(interaction_id_or_dcid):
+    '''
+    Parse and return ids of two interactors from interaction DCID of the form 'bio/{protein1 id}_{protein2 id}'
+    E.g. 'bio/P53_HUMAN_CBP_HUMAN' --> 'P53_HUMAN', 'CBP_HUMAN'
+    '''
     interaction_id = id(interaction_id_or_dcid)
     protein1, species1, protein2, species2 = interaction_id.split('_')
     return f'{protein1}_{species1}', f'{protein2}_{species2}'
 
 
 def target(interaction_id_or_dcid, source_id_or_dcid):
+    '''
+    Given interaction DCID and the id one of the interactors, return the other one.
+    E.g. 'bio/P53_HUMAN_CBP_HUMAN', 'P53_HUMAN' --> 'CBP_HUMAN'
+    '''
     interaction_id, source_id = id(interaction_id_or_dcid), id(
         source_id_or_dcid)
     interactor_id1, interactor_id2 = interactors(interaction_id)
@@ -84,15 +111,29 @@ def target(interaction_id_or_dcid, source_id_or_dcid):
 
 
 def reverse_interaction_id(interaction_id):
+    '''
+    Given interaction ID of the form '{protein1 id}_{protein2 id}', return '{protein2 id}_{protein1 id}'.
+    E.g. 'P53_HUMAN_CBP_HUMAN' --> 'CBP_HUMAN_P53_HUMAN'
+    '''
     interactor_id1, interactor_id2 = interactors(interaction_id)
     return f'{interactor_id2}_{interactor_id1}'
 
 
 def reverse_interaction_dcid(interaction_dcid):
+    '''
+    Given interaction DCID of the form 'bio/{protein1 id}_{protein2 id}', return 'bio/{protein2 id}_{protein1 id}'.
+    E.g. 'bio/P53_HUMAN_CBP_HUMAN' --> 'bio/CBP_HUMAN_P53_HUMAN'
+    '''
     return dcid(reverse_interaction_id(id(interaction_dcid)))
 
 
 def filter_interaction_dcids(interaction_dcids):
+    '''
+    Given list of interaction DCIDs, remove self-interactions and deduplicate (keep one copy of each set of duplicates).
+    Self-interactions are interactions DCIDs of the form 'bio/{protein id}_{protein id}' (e.g. 'bio/P53_HUMAN_P53_HUMAN')
+    Duplicates include both exact duplicates and reverse duplicates.
+    E.g. 'bio/P53_HUMAN_CBP_HUMAN' is duplicate with both itself and 'bio/CBP_HUMAN_P53_HUMAN'.
+    '''
     dcids = set()
     uniques = []
     for interaction_dcid in interaction_dcids:
@@ -108,7 +149,14 @@ def filter_interaction_dcids(interaction_dcids):
     return uniques
 
 
-def symmetrize_scores(scores):
+def symmetrized_scores(scores):
+    '''
+    Given a dict mapping interaction IDs to scores, return a new dict D of the same type such that
+    1) For any interaction ID in D, its reversal is also a key of D
+    2) Any interaction ID in D maps to the same value as its reversal
+    3) If an interaction ID is in scores but its reversal is not, D[interaction ID] = scores[interaction ID]
+    4) If both an interaction ID F and its reversal R are in scores, D[F] = D[R] = max(scores[F], scores[R])
+    '''
     scores_sym = {}
     for interaction_id, score in scores.items():
         reverse_id = reverse_interaction_id(interaction_id)
@@ -119,19 +167,25 @@ def symmetrize_scores(scores):
 
 
 def flatten(nested_list):
+    '''
+    Given a list of lists, return a depth-1 flattened version
+    '''
     flat = []
     for L in nested_list:
         flat.extend(L)
     return flat
 
 
-'''
-Stability: If a appears before b in target_ids and they both end up in the same
-partition, a still appears before b in the partition.
-'''
-
-
 def partition_expansion_cross(target_ids, node_set):
+    '''
+    Return two lists expansion_targets, cross_targets such that
+    1) expansion_targets U cross_targets = target_ids
+    2) expansion_targets and cross_targets are disjoint
+    3) all elements of cross_targets are in node_set
+    4) (implied) no elements of expansion_targets are in node_set
+    5) Stability: If id1 appears before id2 in target_ids and they are both assigned to the same
+       partition (either expansion_targets or cross_targets), id1 appears before id2 in this partition too.
+    '''
     expansion_targets = []
     cross_targets = []
     for target_id in target_ids:
@@ -142,20 +196,31 @@ def partition_expansion_cross(target_ids, node_set):
     return expansion_targets, cross_targets
 
 
-'''
-Retrieves graph data for protein-protein interaction graph via degree-bounded BFS
-
-Request params:
- - proteinDcid: the DCID of the page protein (e.g. 'bio/P53_HUMAN')
- - scoreThreshold: interaction score threshold above which to display an edge between two interacting proteins
- - numInteractors: we take {numInteractors} top-scoring expansion links of each node during BFS
- - depth: the maximum distance of any returned node from the center protein
-
-'''
-
-
 @bp.route('/ppi/bfs/', methods=['POST'])
 def bfs():
+    '''
+    Retrieves graph data for protein-protein interaction graph via degree-bounded BFS
+
+    Request params:
+    - proteinDcid: the DCID of the page protein (e.g. 'bio/P53_HUMAN')
+    - scoreThreshold: interaction score threshold above which to display an edge between two interacting proteins
+    - numInteractors: we take {numInteractors} top-scoring expansion links of each node during BFS
+    - depth: the maximum distance of any returned node from the center protein
+
+    Returns: A dict of form
+    {
+        'nodeDataNested': [[...depth 0 node dicts], [...depth 1 node dicts], ...]
+        'linkDataNested': [[...depth 0 link dicts], [...depth 1 link dicts], ...]
+    }
+    The only depth 0 node is the center protein and since we do not support self-interactions at the moment,
+    there are no depth-0 links, so the above can be simplified to
+    {
+        'nodeDataNested': [[center protein dict], [...center protein neighbor dicts], ...]
+        'linkDataNested': [[], [...center protein link dicts], ...]
+    }.
+
+    TODO: example
+    '''
     # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
     scores = {}
 
@@ -181,7 +246,7 @@ def bfs():
             id(interaction_dcid): extract_intactmi(score_list)
             for interaction_dcid, score_list in layer_scores.items()
         }
-        layer_scores = symmetrize_scores(layer_scores)
+        layer_scores = symmetrized_scores(layer_scores)
         # add key:value pairs from layer_scores to scores
         scores.update(layer_scores)
         last_layer_node_dcids = []

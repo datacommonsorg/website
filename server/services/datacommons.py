@@ -329,6 +329,10 @@ def get_property_labels(dcids):
 
 
 def property_values(entities, prop, dir):
+    '''
+    Makes post request to V1 bulk API and returns dict mapping each entity
+    to a list of either dcids or values parsed from the response.
+    '''
     resp = post(f'/v1/bulk/property/values/{dir}', {
         'entities': sorted(entities),
         'property': prop,
