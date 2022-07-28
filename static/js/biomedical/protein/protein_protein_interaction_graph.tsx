@@ -25,25 +25,12 @@ import { resolveTypeReferenceDirective } from "typescript";
 
 import { drawProteinInteractionGraph } from "./chart";
 import {
-  getInteractionTarget,
-  getLink,
-  getProteinInteractionGraphData,
-  nodeFromId,
-  ppiDcidFromId,
-  ppiIdFromDcid,
-  scoreDataFromResponse,
-} from "./data_processing_utils";
-import { InteractingProteinType } from "./page";
-import { fetchGraph ,fetchInteractionsThenScores } from "./requests";
-import {
   bioDcid,
-  InteractionLink,
   MultiLevelInteractionGraphData,
-  ProteinNode,
 } from "./types";
 
 interface InteractionGraphProps {
-  centerProteinDcid: string;
+  centerProteinDcid: bioDcid;
 }
 
 interface InteractionGraphState {
