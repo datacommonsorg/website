@@ -31,6 +31,8 @@ class Config:
     # Name of the site. The name is changed for private instance.
     NAME = 'Data Commons'
     BASE_HTML_PATH = 'base.html'
+    # Whether to have account management page
+    ADMIN = False
 
 
 class ProductionConfig(Config):
@@ -46,6 +48,7 @@ class StagingConfig(Config):
 
 class AutopushConfig(Config):
     GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
+    ADMIN = True
     pass
 
 
@@ -96,6 +99,7 @@ class MinikubeConfig(Config):
 
 class LocalConfig(Config):
     LOCAL = True
+    ADMIN = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://autopush.api.datacommons.org'
     RECON_API_ROOT = 'https://autopush.recon.datacommons.org'

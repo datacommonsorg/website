@@ -32,10 +32,12 @@ from __init__ import create_app
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
+
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
 app.jinja_env.globals['NAME'] = app.config['NAME']
 app.jinja_env.globals['BASE_HTML'] = app.config['BASE_HTML_PATH']
+app.secret_key = os.urandom(24)
 
 WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
