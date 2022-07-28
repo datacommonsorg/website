@@ -1,0 +1,99 @@
+{
+  "linkDataNested": [
+    [],
+    [
+      {
+        "score": 0.99,
+        "source": "P53_HUMAN",
+        "target": "MDM2_HUMAN"
+      },
+      {
+        "score": 0.97,
+        "source": "P53_HUMAN",
+        "target": "LT_SV40"
+      }
+    ],
+    [
+      {
+        "score": 0.97,
+        "source": "LT_SV40",
+        "target": "P53_MOUSE"
+      },
+      {
+        "score": 0.93,
+        "source": "LT_SV40",
+        "target": "RB_HUMAN"
+      },
+      {
+        "score": 0.96,
+        "source": "MDM2_HUMAN",
+        "target": "UBP7_HUMAN"
+      },
+      {
+        "score": 0.93,
+        "source": "MDM2_HUMAN",
+        "target": "MDM4_HUMAN"
+      },
+      {
+        "score": 0.52,
+        "source": "MDM4_HUMAN",
+        "target": "RB_HUMAN"
+      },
+      {
+        "score": 0.57,
+        "source": "RB_HUMAN",
+        "target": "UBP7_HUMAN"
+      }
+    ]
+  ],
+  "nodeDataNested": [
+    [
+      {
+        "depth": 0,
+        "id": "P53_HUMAN",
+        "name": "P53",
+        "species": "HUMAN"
+      }
+    ],
+    [
+      {
+        "depth": 1,
+        "id": "MDM2_HUMAN",
+        "name": "MDM2",
+        "species": "HUMAN"
+      },
+      {
+        "depth": 1,
+        "id": "LT_SV40",
+        "name": "LT",
+        "species": "SV40"
+      }
+    ],
+    [
+      {
+        "depth": 2,
+        "id": "P53_MOUSE",
+        "name": "P53",
+        "species": "MOUSE"
+      },
+      {
+        "depth": 2,
+        "id": "RB_HUMAN",
+        "name": "RB",
+        "species": "HUMAN"
+      },
+      {
+        "depth": 2,
+        "id": "UBP7_HUMAN",
+        "name": "UBP7",
+        "species": "HUMAN"
+      },
+      {
+        "depth": 2,
+        "id": "MDM4_HUMAN",
+        "name": "MDM4",
+        "species": "HUMAN"
+      }
+    ]
+  ]
+}
