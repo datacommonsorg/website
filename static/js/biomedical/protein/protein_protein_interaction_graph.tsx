@@ -21,7 +21,6 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
-import { resolveTypeReferenceDirective } from "typescript";
 
 import { drawProteinInteractionGraph } from "./chart";
 import { bioDcid, MultiLevelInteractionGraphData } from "./types";
@@ -31,10 +30,10 @@ interface InteractionGraphProps {
 }
 
 interface InteractionGraphState {
-  graphData: MultiLevelInteractionGraphData;
   depth: number;
-  scoreThreshold: number;
+  graphData: MultiLevelInteractionGraphData;
   numInteractions: number;
+  scoreThreshold: number;
 }
 
 const CHART_ID = "protein-interaction-graph";
