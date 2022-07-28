@@ -203,7 +203,7 @@ def bfs():
     Request params:
     - proteinDcid: the DCID of the page protein (e.g. 'bio/P53_HUMAN')
     - scoreThreshold: interaction score threshold above which to display an edge between two interacting proteins
-    - numInteractors: we take {numInteractors} top-scoring expansion links of each node during BFS
+    - maxInteractors: we take {numInteractors} top-scoring expansion links of each node during BFS
     - depth: the maximum distance of any returned node from the center protein
 
     Returns: A dict of form
@@ -218,7 +218,13 @@ def bfs():
         'linkDataNested': [[], [...center protein link dicts], ...]
     }.
 
-    TODO: example
+    See server/tests/test_data/protein/P53_HUMAN_small.json for an example response for request parameters
+    {
+        'depth': 2,
+        'maxInteractors': 2,
+        'proteinDcid': 'bio/P53_HUMAN',
+        'scoreThreshold': 0.4
+    }.
     '''
     # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
     scores = {}
