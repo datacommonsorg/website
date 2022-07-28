@@ -16,7 +16,6 @@
 import json
 import flask
 from flask import request, Response, escape
-import itertools
 
 from cache import cache
 import services.datacommons as dc
