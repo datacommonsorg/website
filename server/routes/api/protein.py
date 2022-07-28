@@ -14,9 +14,8 @@
 """Protein browser related handlers."""
 
 import json
-import pprint
 import flask
-from flask import request, Response
+from flask import request, Response, escape
 import itertools
 
 from cache import cache
@@ -160,7 +159,7 @@ def bfs():
     # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
     scores = {}
 
-    center_protein_dcid = request.json['proteinDcid']
+    center_protein_dcid = escape(request.json['proteinDcid'])
     score_threshold = request.json['scoreThreshold']
     max_interactors = request.json['maxInteractors']
     max_depth = request.json['depth']
