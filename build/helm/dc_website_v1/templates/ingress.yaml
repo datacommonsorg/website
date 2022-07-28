@@ -15,6 +15,18 @@
 {{ if .Values.website.ingress.enabled -}}
 {{- $fullName := include "dc-website.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
+
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: website-certificate
+  namespace: {{ .Values.namespace.name }}
+spec:
+  domains:
+    {{- required "website domain is required." .Values.website.domains | toYaml | nindent 4 }}
+
+---
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -26,7 +38,7 @@ metadata:
   {{- with .Values.website.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-    networking.gke.io/managed-certificates: {{ include "dc-website.fullname" . }}-website-cert
+    networking.gke.io/managed-certificates: website-certificate
 spec:
   defaultBackend:
     service:
