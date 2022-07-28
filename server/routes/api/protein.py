@@ -41,11 +41,6 @@ def get_node(dcid):
     return response
 
 
-@bp.route('/ppi/post/', methods=["POST"])
-def ppi_post():
-    resp = dc.get_response(**request.json)
-    return Response(json.dumps(resp))
-
 
 def id(id_or_dcid):
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
