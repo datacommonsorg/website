@@ -164,15 +164,15 @@ def create_app():
                                                         'oauth-client',
                                                         'latest')
         secret_response = secret_client.access_secret_version(name=secret_name)
-        secret_string = secret_response.payload.data.decode('UTF-8')
-        secret_json = json.loads(secret_string)
-        app.config['GOOGLE_CLIENT_ID'] = secret_json['web']['client_id']
+        oauth_string = secret_response.payload.data.decode('UTF-8')
+        oauth_json = json.loads(oauth_string)
+        app.config['GOOGLE_CLIENT_ID'] = oauth_json['web']['client_id']
         tf = tempfile.NamedTemporaryFile()
         with open(tf.name, 'w') as f:
-            f.write(secret_string)
+            f.write(oauth_string)
         app.config['OAUTH_FLOW'] = Flow.from_client_secrets_file(
             client_secrets_file=tf.name,
-            redirect_uri=secret_json['web']['redirect_uris'][0],
+            redirect_uri=oauth_json['web']['redirect_uris'][0],
             scopes=[
                 'https://www.googleapis.com/auth/userinfo.profile',
                 'https://www.googleapis.com/auth/userinfo.email',
