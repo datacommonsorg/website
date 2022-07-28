@@ -24,10 +24,7 @@ import React from "react";
 import { resolveTypeReferenceDirective } from "typescript";
 
 import { drawProteinInteractionGraph } from "./chart";
-import {
-  bioDcid,
-  MultiLevelInteractionGraphData,
-} from "./types";
+import { bioDcid, MultiLevelInteractionGraphData } from "./types";
 
 interface InteractionGraphProps {
   centerProteinDcid: bioDcid;
@@ -73,9 +70,16 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
     // this branch executes on first call to this method
     if (prevProps !== this.props) {
-    axios.post('/api/protein/ppi/bfs/', {proteinDcid: this.props.centerProteinDcid, depth: this.state.depth, scoreThreshold: this.state.scoreThreshold, maxInteractors: this.state.numInteractions})
-      .then( (resp) => {
-        this.setState({graphData: resp.data})})
+      axios
+        .post("/api/protein/ppi/bfs/", {
+          proteinDcid: this.props.centerProteinDcid,
+          depth: this.state.depth,
+          scoreThreshold: this.state.scoreThreshold,
+          maxInteractors: this.state.numInteractions,
+        })
+        .then((resp) => {
+          this.setState({ graphData: resp.data });
+        });
       return;
     }
     // this branch executes on second call to this method
@@ -94,5 +98,4 @@ export class ProteinProteinInteractionGraph extends React.Component<
   render(): JSX.Element {
     return <div id={CHART_ID}></div>;
   }
-
 }
