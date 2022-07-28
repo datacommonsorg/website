@@ -328,6 +328,22 @@ def get_property_labels(dcids):
     return results
 
 
+def property_values(entities, prop, dir):
+    resp = post(f'/v1/bulk/property/values/{dir}', {
+        'entities': sorted(entities),
+        'property': prop,
+    })
+    result = {}
+    for item in resp['data']:
+        result[item['entity']] = []
+        for v in item['values']:
+            if 'dcid' in v:
+                result[item['entity']].append(v['dcid'])
+            else:
+                result[item['entity']].append(v['value'])
+    return result
+
+
 def get_property_values(dcids,
                         prop,
                         out=True,
