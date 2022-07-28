@@ -23,7 +23,7 @@ import JSZip from "jszip";
 import React, { useState } from "react";
 import { Button } from "reactstrap";
 
-import { CsvData, Mapping } from "../types";
+import { CsvData, Mapping, ValueMap } from "../types";
 import {
   generateCsv,
   generateTranslationMetadataJson,
@@ -41,15 +41,16 @@ interface PreviewSectionProps {
   correctedMapping: Mapping;
   csvData: CsvData;
   shouldGenerateCsv: boolean;
+  valueMap: ValueMap;
 }
 
 export function PreviewSection(props: PreviewSectionProps): JSX.Element {
   const [isGeneratingFiles, setIsGeneratingFiles] = useState(false);
-  const cleanCsvPromise = getCleanCsvPromise();
   const zipFolder = new JSZip().folder("importPackage");
   const sampleObs = generateRowObservations(
     props.correctedMapping,
-    props.csvData
+    props.csvData,
+    props.valueMap
   );
 
   return (
@@ -89,7 +90,7 @@ export function PreviewSection(props: PreviewSectionProps): JSX.Element {
 
   function getCleanCsvPromise(): Promise<string> {
     if (props.shouldGenerateCsv) {
-      return generateCsv(props.csvData);
+      return generateCsv(props.csvData, props.valueMap);
     } else {
       return Promise.resolve(null);
     }
@@ -106,7 +107,7 @@ export function PreviewSection(props: PreviewSectionProps): JSX.Element {
       type: "text/json",
     });
     files["import.tmcf"] = generateTMCF(props.correctedMapping);
-    cleanCsvPromise
+    getCleanCsvPromise()
       .then((csvString) => {
         if (props.shouldGenerateCsv) {
           files["cleanedData.csv"] = new Blob([csvString], {
