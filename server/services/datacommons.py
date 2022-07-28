@@ -335,12 +335,13 @@ def property_values(entities, prop, dir):
     })
     result = {}
     for item in resp['data']:
-        result[item['entity']] = []
-        for v in item['values']:
+        entity, values = item['entity'], item['values']
+        result[entity] = []
+        for v in values:
             if 'dcid' in v:
-                result[item['entity']].append(v['dcid'])
+                result[entity].append(v['dcid'])
             else:
-                result[item['entity']].append(v['value'])
+                result[entity].append(v['value'])
     return result
 
 
