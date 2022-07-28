@@ -17,6 +17,7 @@ import _ from "lodash";
 
 import { GraphNodes } from "../../shared/types";
 import {
+  CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
 } from "./chart";
@@ -146,6 +147,83 @@ export function getDiseaseSymptomAssociation(
           oddsRatio: Number(oddsRatioValue),
         });
       }
+    }
+  }
+  return rawData;
+}
+
+/**
+ * Fetches the chemical compound disease treatment data
+ * @param data
+ * @returns
+ */
+export function getCompoundDiseaseTreatment(
+  data: GraphNodes
+): CompoundDiseaseTreatmentData[] {
+  // checks if the data is empty
+  if (_.isEmpty(data)) {
+    return [];
+  }
+  const rawData: CompoundDiseaseTreatmentData[] = [];
+  // checks for null values
+  if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
+    return [];
+  }
+  for (const neighbour of data.nodes[0].neighbors) {
+    if (neighbour.property !== "diseaseID") {
+      continue;
+    }
+    for (const node of neighbour.nodes) {
+      let nodeVal = null;
+      let compoundID = null;
+      let compoundName = null;
+      let fdaPhase = null;
+      // check for null or non-existent property values
+      if (_.isEmpty(node.neighbors) || _.isEmpty(node.value)) {
+        continue;
+      }
+      nodeVal = node.value;
+      for (const n of node.neighbors) {
+        if (n.property === "typeof") {
+          // checks if the typeof property is equal to ChemicalCompoundDiseaseTreatment
+          if (n.nodes[0].value !== "ChemicalCompoundDiseaseTreatment") {
+            continue;
+          }
+        }
+        if (n.property === "fdaClinicalTrialPhase") {
+          // check for empty list and null gene values
+          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
+            continue;
+          }
+          fdaPhase = n.nodes[0].value;
+        } else if (n.property === "compoundID") {
+          // check if the list is empty or not
+          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
+            continue;
+          }
+          compoundID = n.nodes[0].value;
+          for (const n1 of n.nodes) {
+            if (n1.neighbors == undefined || _.isEmpty(n1.value)) {
+              continue;
+            }
+            for (const n2 of n1.neighbors) {
+              if (n2.property !== "commonName") {
+                continue;
+              }
+              if (_.isEmpty(n2.nodes) || _.isEmpty(n2.nodes[0].value)) {
+                continue;
+              }
+              compoundName = n2.nodes[0].value;
+            }
+          }
+        }
+      }
+      rawData.push({
+        node: nodeVal,
+        id: compoundID.replace("bio/", ""),
+        name: compoundName.toLowerCase(),
+        clinicalPhaseNumber: fdaPhase,
+      });
     }
   }
   return rawData;

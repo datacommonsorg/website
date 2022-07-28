@@ -52,6 +52,16 @@ export interface DiseaseSymptomAssociationData {
   oddsRatio: number;
 }
 
+export interface CompoundDiseaseTreatmentData {
+  // node name and link
+  node: string;
+  // chemical compound id
+  id: string;
+  // chemical compound name
+  name: string;
+  // FDA clinical phase for which the compound has been studied
+  clinicalPhaseNumber: number;
+}
 /**
  * Draws the disease-gene association charts for the disease of interest
  * @param id - the div id where the chart is rendered on the page

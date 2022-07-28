@@ -39,7 +39,7 @@ export type Datum =
   | ProteinNode
   | InteractionLink
   | DiseaseAssociationType;
-
+export const GRAPH_BROWSER_REDIRECT = "/browser/";
 /**
  * When mouse first enters element specified by given id, brighten it and update/display the global tooltip.
  */
