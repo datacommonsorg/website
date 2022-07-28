@@ -174,6 +174,7 @@ export function getCompoundDiseaseTreatment(
       continue;
     }
     for (const node of neighbour.nodes) {
+      let typeField = null;
       let nodeVal = null;
       let compoundID = null;
       let compoundName = null;
@@ -184,13 +185,12 @@ export function getCompoundDiseaseTreatment(
       }
       nodeVal = node.value;
       for (const n of node.neighbors) {
-        if (n.property === "typeof") {
-          // checks if the typeof property is equal to ChemicalCompoundDiseaseTreatment
-          if (n.nodes[0].value !== "ChemicalCompoundDiseaseTreatment") {
+        if (n.property === "typeOf") {
+          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
-        }
-        if (n.property === "fdaClinicalTrialPhase") {
+          typeField = n.nodes[0].value;
+        } else if (n.property === "fdaClinicalTrialPhase") {
           // check for empty list and null gene values
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
@@ -203,7 +203,7 @@ export function getCompoundDiseaseTreatment(
           }
           compoundID = n.nodes[0].value;
           for (const n1 of n.nodes) {
-            if (n1.neighbors == undefined || _.isEmpty(n1.value)) {
+            if (n1.neighbors === undefined || _.isEmpty(n1.value)) {
               continue;
             }
             for (const n2 of n1.neighbors) {
@@ -218,12 +218,15 @@ export function getCompoundDiseaseTreatment(
           }
         }
       }
-      rawData.push({
-        node: nodeVal,
-        id: compoundID.replace("bio/", ""),
-        name: compoundName.toLowerCase(),
-        clinicalPhaseNumber: fdaPhase,
-      });
+      // checks if the typeof property is equal to ChemicalCompoundDiseaseTreatment
+      if (typeField === "ChemicalCompoundDiseaseTreatment") {
+        rawData.push({
+          clinicalPhaseNumber: Number(fdaPhase),
+          id: compoundID.replace("bio/", ""),
+          name: compoundName.toLowerCase(),
+          node: nodeVal,
+        });
+      }
     }
   }
   return rawData;
