@@ -26,7 +26,6 @@ import {
   drawChemGeneAssocChart,
   drawDiseaseGeneAssocChart,
   drawProteinInteractionChart,
-  // drawProteinInteractionGraph,
   drawTissueLegend,
   drawTissueScoreChart,
   drawVarGeneAssocChart,
@@ -44,6 +43,7 @@ import {
   getVarSigAssoc,
   getVarTypeAssoc,
 } from "./data_processing_utils";
+import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -150,7 +150,9 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           associations by interaction score are displayed.
         </p>
         <div id="protein-confidence-score-chart"></div>
-        <div id="protein-interaction-graph"></div>
+        <ProteinProteinInteractionGraph
+            centerProteinDcid={this.props.dcid}
+        ></ProteinProteinInteractionGraph>
         <h5>Disease Gene Association</h5>
         <p>
           The association score of {splitNodeName[0]} with diseases as reported

@@ -18,6 +18,7 @@
  * Protein-protein interaction graph
  */
 
+import axios from "axios";
 import _ from "lodash";
 import React from "react";
 import { resolveTypeReferenceDirective } from "typescript";
@@ -43,7 +44,6 @@ import {
 
 interface InteractionGraphProps {
   centerProteinDcid: string;
-  interactionDataDepth1: InteractingProteinType[];
 }
 
 interface InteractionGraphState {
@@ -79,15 +79,15 @@ export class ProteinProteinInteractionGraph extends React.Component<
   /**
    * Perform BFS and (re)draw graph
    */
-  componentDidUpdate(prevProps: InteractionGraphProps | null): void {
+  componentDidUpdate(prevProps: InteractionGraphProps): void {
     // takes two calls to this method to draw the graph.
-    //  1) first call performs BFS and updates the graph
+    //  1) first call retrieves graph data from flask endpoint
     //  2) second call draws the graph
 
     // this branch executes on first call to this method
     if (prevProps !== this.props) {
-      fetchGraph(this.props.centerProteinDcid, this.state.depth, this.state.scoreThreshold, this.state.numInteractions).then( (resp) => {
-        console.log(_.cloneDeep(resp.data))
+    axios.post('/api/protein/ppi/bfs/', {proteinDcid: this.props.centerProteinDcid, depth: this.state.depth, scoreThreshold: this.state.scoreThreshold, maxInteractors: this.state.numInteractions})
+      .then( (resp) => {
         this.setState({graphData: resp.data})})
       return;
     }
