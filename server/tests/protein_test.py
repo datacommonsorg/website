@@ -29,7 +29,7 @@ class TestProteinProteinInteractionGraph(unittest.TestCase):
         response = app.test_client().post('/protein/ppi/bfs',
                                           data={
                                               'depth': 2,
-                                              'maxInteractions': 2,
+                                              'maxInteractors': 2,
                                               'proteinDcid': 'bio/P53_HUMAN',
                                               'scoreThreshold': 0.4
                                           })
