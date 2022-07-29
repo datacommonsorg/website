@@ -1,0 +1,15 @@
+This helm chart installs the Data Commons web application into the namespace {{ .Values.namespace.name }}.
+
+For more on Data Commons, see https://datacommons.org/about.
+
+Release name: {{ .Release.Name }}
+
+Please expect O(hours) for the managed certificate to provision.
+
+You can check the status of the certificate on GCP UI or with the command below.
+
+kubectl -n {{ .Values.namespace.name }} describe ManagedCertificate website-certificate
+
+After the certificate is provisioned (status=ACTIVE), your website should be ready from the domain below.
+
+{{ .Values.website.domain }}
