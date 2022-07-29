@@ -172,7 +172,13 @@ export function ChartLoader(): JSX.Element {
         setChartData,
         display
       );
-      if (statVar.value.perCapita && statVar.value.denom) {
+      // Should set legend bounds for per capita if there isn't a user specified
+      // domain.
+      if (
+        statVar.value.perCapita &&
+        statVar.value.denom &&
+        _.isEmpty(display.value.domain)
+      ) {
         setLegendBoundsPerCapita(rawData, statVar, display);
       }
     }
@@ -806,7 +812,13 @@ function loadChartData(
   const unit = getUnit(rawData.placeStat, rawData.metadataMap);
   const metahash = statVar.metahash || BEST_AVAILABLE_METAHASH;
   const sampleDates = rawData.sampleDates[metahash];
-  if (!statVar.perCapita || !statVar.denom) {
+
+  // If not per capita and there is no user set domain, try to update the domain
+  // based on rawData.
+  if (
+    (!statVar.perCapita || !statVar.denom) &&
+    _.isEmpty(display.value.domain)
+  ) {
     display.set({
       ...display.value,
       domain:

@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import _ from "lodash";
 import Papa from "papaparse";
 
-import { CsvData, Mapping, MappingVal } from "../types";
+import { CsvData, Mapping, MappingVal, ValueMap } from "../types";
 
 // convert Mapping object to a regular javascript object so it can be converted
 // into a JSON string
@@ -47,15 +48,23 @@ export function generateTranslationMetadataJson(
 
 /**
  * Returns whether or not Csv should be generated. Csv needs to be generated if
- * the column header has been updated or if the column id was auto generated.
+ * any of the following is true:
+ *    - the column header has been updated
+ *    - if the column id was auto generated
+ *    - if valueMap is not empty
  * @param originalCsv
  * @param correctedCsv
+ * @param valueMap
  * @returns
  */
 export function shouldGenerateCsv(
   originalCsv: CsvData,
-  correctedCsv: CsvData
+  correctedCsv: CsvData,
+  valueMap: ValueMap
 ): boolean {
+  if (!_.isEmpty(valueMap)) {
+    return true;
+  }
   // We need to generate a cleaned CSV if the column header has been updated
   // or if the column id was auto generated.
   let hasUpdatedColumnId = false;
@@ -74,7 +83,10 @@ export function shouldGenerateCsv(
  * Returns a promise with a Csv Blob.
  * @param csvData
  */
-export function generateCsv(csvData: CsvData): Promise<string> {
+export function generateCsv(
+  csvData: CsvData,
+  valueMap: ValueMap
+): Promise<string> {
   const cleanedCsv = [csvData.orderedColumns.map((column) => column.id)];
   let firstRowSeen = false;
   return new Promise((resolve, reject) => {
@@ -86,7 +98,10 @@ export function generateCsv(csvData: CsvData): Promise<string> {
         if (!firstRowSeen) {
           firstRowSeen = true;
         } else {
-          cleanedCsv.push(result.data as string[]);
+          const cleanedRow = result.data.map((cell) => {
+            return cell in valueMap ? valueMap[cell] : cell;
+          });
+          cleanedCsv.push(cleanedRow);
         }
       },
       error: () => {

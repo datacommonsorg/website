@@ -296,6 +296,98 @@ tr th:last-child {
   padding-bottom: 0.5rem;
 }
 
+/* Value Map Section */
+.header-tab-section {
+  display: flex;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  font-weight: 300;
+}
+
+.header-tab,
+.header-tab-selected {
+  padding: 0 0.3rem;
+  cursor: pointer;
+}
+
+.header-tab-selected,
+.header-tab:hover {
+  text-decoration: underline;
+  color: var(--dc-primary);
+}
+
+.value-map-input-container {
+  max-width: 75rem;
+}
+
+.value-map-input-header {
+  display: flex;
+}
+
+.value-map-input-header span {
+  width: 50%;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+
+.value-map-input-entry {
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.value-map-input-entry i {
+  color: #7b7b7b;
+  cursor: pointer;
+}
+
+.value-map-input {
+  margin: 0 0.5rem;
+}
+
+.value-map-add-entry {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+}
+
+.value-map-add-entry:hover {
+  background-color: var(--dc-gray-lite);
+}
+
+.value-map-add-entry i {
+  background-color: #7b7b7b;
+  border-radius: 1rem;
+  color: white;
+  margin-right: 0.5rem;
+}
+
+.value-map-file-example-container {
+  display: flex;
+}
+
+.value-map-file-example {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+}
+
+.value-map-warning-message {
+  color: var(--dc-error);
+  padding: 0 0.5rem;
+  padding-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.value-map-file-container .value-map-warning-message {
+  padding-left: 0;
+  padding-top: 0.5rem;
+}
+
 /* Spinner */
 .screen,
 #screen {
