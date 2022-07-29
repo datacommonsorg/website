@@ -293,7 +293,6 @@ def bfs():
             expansion_target_ids, cross_target_ids = partition_expansion_cross(
                 target_ids_sorted, node_id_set)
             expansion_target_ids = expansion_target_ids[:max_interactors]
-            print(source_id, cross_target_ids)
             target_link_getter = lambda target_id: {
                 'source': source_id,
                 'target': target_id,
@@ -312,10 +311,8 @@ def bfs():
                 last_layer_node_dcids.extend(map(dcid, expansion_target_ids))
 
         if depth != max_depth + 1:
-            nodes.append([
-                node(new_node_id, depth)
-                for new_node_id in new_node_ids
-            ])
+            nodes.append(
+                [node(new_node_id, depth) for new_node_id in new_node_ids])
             nodes.append(new_nodes)
             node_id_set.update(new_node_ids)
             links.append(expansion_links)
