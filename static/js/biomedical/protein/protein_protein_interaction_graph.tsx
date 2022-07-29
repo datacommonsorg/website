@@ -30,10 +30,15 @@ interface Props {
 }
 
 interface State {
+  // number of levels in graph, max shortest-path distance from any node to the center
   depth: number;
+  // stores graph to be rendered
   graphData: MultiLevelInteractionGraphData;
+  // number of expansion links per node
   numInteractions: number;
+  // interaction score threshold above which to show an edge between two interacting proteins
   scoreThreshold: number;
+  // true if and only if current drawing of graph reflects state.{depth, scoreThreshold, numInteractions}
   drawn: boolean;
 }
 
@@ -66,18 +71,25 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    if (_.isEmpty(this.state.graphData) || this.state.drawn){
-      // wait for initial data fetch to finish
+    if (this.state.drawn || _.isEmpty(this.state.graphData)) {
+      // if graph data is empty, initial request has not arrived yet so
+      // wait for call triggered by update to state.graphData
       return;
     }
-    if (prevState.depth === this.state.depth && prevState.numInteractions === this.state.numInteractions && prevState.scoreThreshold === this.state.scoreThreshold){
+    // if the user input has not changed, draw the graph
+    if (
+      prevState.depth === this.state.depth &&
+      prevState.numInteractions === this.state.numInteractions &&
+      prevState.scoreThreshold === this.state.scoreThreshold
+    ) {
       drawProteinInteractionGraph(CHART_ID, {
         linkData: this.state.graphData.linkDataNested.flat(1),
         nodeData: this.state.graphData.nodeDataNested.flat(1),
       });
-      this.setState({drawn: true})
+      this.setState({ drawn: true });
       return;
     }
+    // if any piece of user input has changed, fetch new data
     this.fetchData();
   }
 
@@ -94,7 +106,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
         maxInteractors: this.state.numInteractions,
       })
       .then((resp) => {
-        this.setState({ graphData: resp.data , drawn: false});
+        this.setState({ graphData: resp.data, drawn: false });
       });
   }
 }
