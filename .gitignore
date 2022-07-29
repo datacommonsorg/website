@@ -37,3 +37,12 @@ deploy/git/website_hash.txt
 
 # Helm
 build/helm/**/*.tgz
+
+# Terraform
+# Instance variables.
+*.tfvars
+# Local .terraform directories
+**/.terraform/*
+# .tfstate files
+*.tfstate
+*.tfstate.*
