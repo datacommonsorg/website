@@ -64,6 +64,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
+    console.log('props', prevProps, this.props)
     if (
       !_.isEmpty(this.state.graphData) &&
       !_.isEqual(prevState.graphData, this.state.graphData)
