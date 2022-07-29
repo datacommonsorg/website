@@ -68,7 +68,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    // do nothing on parent rerender
+    // do nothing on parent rerender or if we've fetched the same graph twice
     if (_.isEqual(prevProps, this.props) || _.isEqual(prevState, this.state)) {
       return;
     }
