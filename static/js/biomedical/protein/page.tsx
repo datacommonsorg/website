@@ -44,7 +44,7 @@ import {
   getVarTypeAssoc,
 } from "./data_processing_utils";
 import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
-import { bioDcid } from "./types";
+import { BioDcid } from "./types";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -152,7 +152,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         </p>
         <div id="protein-confidence-score-chart"></div>
         {/* <ProteinProteinInteractionGraph
-          centerProteinDcid={this.props.dcid as bioDcid}
+          centerProteinDcid={this.props.dcid as BioDcid}
         ></ProteinProteinInteractionGraph> */}
         <h5>Disease Gene Association</h5>
         <p>
