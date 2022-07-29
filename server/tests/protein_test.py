@@ -24,8 +24,8 @@ class TestProteinProteinInteractionGraph(unittest.TestCase):
 
     @patch('routes.api.protein.bfs')
     def test_bfs_small(self, mock_bfs):
-        with open('tests/test_data/P53_HUMAN_small.json') as f:
-            mock_bfs.return_value = json.loads(f)
+        with open('tests/test_data/protein/P53_HUMAN_small.json') as f:
+            mock_bfs.return_value = json.load(f)
         response = app.test_client().post('/protein/ppi/bfs',
                                           data={
                                               'depth': 2,
