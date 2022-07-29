@@ -18,7 +18,7 @@ from google.oauth2 import id_token
 from cachecontrol import CacheControl
 import google.auth.transport.requests
 
-bp = Blueprint('user', __name__)
+bp = Blueprint('user', __name__, url_prefix='/user')
 
 
 @bp.route('/auth/login')
@@ -69,12 +69,12 @@ def login_is_required(function):
     return wrapper
 
 
-@bp.route('/user/login')
+@bp.route('/login')
 def index():
-    return "Data Commons </br> <a href='/auth/login'><button>Login</button></a>"
+    return "Data Commons </br> <a href='/user/auth/login'><button>Login</button></a>"
 
 
-@bp.route('/user')
+@bp.route('/')
 @login_is_required
 def user():
-    return f"Hello {session['name']}! <br/> <a href='/auth/logout'><button>Logout</button></a>"
+    return f"Hello {session['name']}! <br/> <a href='/user/auth/logout'><button>Logout</button></a>"
