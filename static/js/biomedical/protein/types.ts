@@ -16,7 +16,7 @@
 
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 
-export type bioDcid = `bio/${string}`;
+export type BioDcid = `bio/${string}`;
 
 // interfaces for protein-protein interaction graph
 

@@ -23,10 +23,10 @@ import _ from "lodash";
 import React from "react";
 
 import { drawProteinInteractionGraph } from "./chart";
-import { bioDcid, MultiLevelInteractionGraphData } from "./types";
+import { BioDcid, MultiLevelInteractionGraphData } from "./types";
 
 interface Props {
-  centerProteinDcid: bioDcid;
+  centerProteinDcid: BioDcid;
 }
 
 interface State {

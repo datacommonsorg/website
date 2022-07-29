@@ -24,7 +24,7 @@ import {
   ProteinVarType,
 } from "./page";
 import {
-  bioDcid,
+  BioDcid,
   InteractionLink,
   MultiLevelInteractionGraphData,
   ProteinNode,
