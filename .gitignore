@@ -34,3 +34,6 @@ deploy/overlays/**/kustomize-deployed.yaml
 
 deploy/git/mixer_hash.txt
 deploy/git/website_hash.txt
+
+# Helm
+build/helm/**/*.tgz
