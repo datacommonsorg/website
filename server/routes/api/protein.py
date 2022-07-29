@@ -203,7 +203,7 @@ def bfs():
     Request params:
     - proteinDcid: the DCID of the page protein (e.g. 'bio/P53_HUMAN')
     - scoreThreshold: interaction score threshold above which to display an edge between two interacting proteins
-    - maxInteractors: we take {numInteractors} top-scoring expansion links of each node during BFS
+    - numInteractors: we take {numInteractors} top-scoring expansion links of each node during BFS
     - depth: the maximum distance of any returned node from the center protein
 
     Returns: A dict of form
@@ -218,13 +218,7 @@ def bfs():
         'linkDataNested': [[], [...center protein link dicts], ...]
     }.
 
-    See server/tests/test_data/protein/P53_HUMAN_small.json for an example response for request parameters
-    {
-        'depth': 2,
-        'maxInteractors': 2,
-        'proteinDcid': 'bio/P53_HUMAN',
-        'scoreThreshold': 0.4
-    }.
+    TODO: example
     '''
     # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
     scores = {}
@@ -264,8 +258,8 @@ def bfs():
         last_layer_node_dcids = []
         # links from a protein in the graph to some new protein outside the graph
         expansion_links = []
-        # new proteins not currently in graph
-        new_nodes = []
+        # ids of new proteins not currently in graph
+        new_node_ids = []
 
         for source_dcid, interaction_dcids in layer_interactors.items():
             interaction_dcids_new = [
@@ -299,6 +293,7 @@ def bfs():
             expansion_target_ids, cross_target_ids = partition_expansion_cross(
                 target_ids_sorted, node_id_set)
             expansion_target_ids = expansion_target_ids[:max_interactors]
+            print(source_id, cross_target_ids)
             target_link_getter = lambda target_id: {
                 'source': source_id,
                 'target': target_id,
@@ -308,20 +303,21 @@ def bfs():
             # (E.g. depth 1 graph will show center, neighbors of center, and cross-links between neighbors)
             links[-1].extend(map(target_link_getter, cross_target_ids))
             # TODO: track distance of each node to center
-            new_nodes.extend([
-                node(expansion_target_id, depth)
-                for expansion_target_id in expansion_target_ids
-            ])
+            new_node_ids.extend(expansion_target_ids)
 
             # final iteration expansion links are extra, shouldn't get rendered
             if depth != max_depth + 1:
-                node_id_set.update(expansion_target_ids)
                 expansion_links.extend(
                     map(target_link_getter, expansion_target_ids))
                 last_layer_node_dcids.extend(map(dcid, expansion_target_ids))
 
         if depth != max_depth + 1:
+            nodes.append([
+                node(new_node_id, depth)
+                for new_node_id in new_node_ids
+            ])
             nodes.append(new_nodes)
+            node_id_set.update(new_node_ids)
             links.append(expansion_links)
 
     graph = {'nodeDataNested': nodes, 'linkDataNested': links}
