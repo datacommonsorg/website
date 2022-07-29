@@ -38,8 +38,6 @@ interface State {
   numInteractions: number;
   // interaction score threshold above which to show an edge between two interacting proteins
   scoreThreshold: number;
-  // true if and only if current drawing of graph reflects state.{depth, scoreThreshold, numInteractions}
-  drawn: boolean;
 }
 
 const CHART_ID = "protein-interaction-graph";
@@ -62,7 +60,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
       graphData: null,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
       numInteractions: DEFAULTS.MAX_INTERACTIONS,
-      drawn: false,
     };
   }
 
@@ -71,25 +68,19 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    if (this.state.drawn || _.isEmpty(this.state.graphData)) {
-      // if graph data is empty, initial request has not arrived yet so
-      // wait for call triggered by update to state.graphData
+    // do nothing on parent rerender
+    if (_.isEqual(prevProps, this.props) || _.isEqual(prevState, this.state)) {
       return;
     }
-    // if the user input has not changed, draw the graph
-    if (
-      prevState.depth === this.state.depth &&
-      prevState.numInteractions === this.state.numInteractions &&
-      prevState.scoreThreshold === this.state.scoreThreshold
-    ) {
+    // if graph has updated to something nonempty, redraw it
+    if (!_.isEmpty(this.state.graphData) && !_.isEqual(prevState.graphData, this.state.graphData)) {
       drawProteinInteractionGraph(CHART_ID, {
         linkData: this.state.graphData.linkDataNested.flat(1),
         nodeData: this.state.graphData.nodeDataNested.flat(1),
       });
-      this.setState({ drawn: true });
       return;
     }
-    // if any piece of user input has changed, fetch new data
+    // if graph is the same but user input has changed, fetch new data
     this.fetchData();
   }
 
@@ -106,7 +97,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
         maxInteractors: this.state.numInteractions,
       })
       .then((resp) => {
-        this.setState({ graphData: resp.data, drawn: false });
+        this.setState({ graphData: resp.data });
       });
   }
 }
