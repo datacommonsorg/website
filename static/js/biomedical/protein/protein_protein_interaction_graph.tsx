@@ -25,11 +25,11 @@ import React from "react";
 import { drawProteinInteractionGraph } from "./chart";
 import { bioDcid, MultiLevelInteractionGraphData } from "./types";
 
-interface InteractionGraphProps {
+interface Props {
   centerProteinDcid: bioDcid;
 }
 
-interface InteractionGraphState {
+interface State {
   depth: number;
   graphData: MultiLevelInteractionGraphData;
   numInteractions: number;
@@ -46,10 +46,10 @@ const DEFAULTS = {
 };
 
 export class ProteinProteinInteractionGraph extends React.Component<
-  InteractionGraphProps,
-  InteractionGraphState
+  Props,
+  State
 > {
-  constructor(props: InteractionGraphProps) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       depth: DEFAULTS.DEPTH,
@@ -59,42 +59,38 @@ export class ProteinProteinInteractionGraph extends React.Component<
     };
   }
 
-  /**
-   * Perform BFS and (re)draw graph
-   */
-  componentDidUpdate(prevProps: InteractionGraphProps): void {
-    // takes two calls to this method to draw the graph.
-    //  1) first call retrieves graph data from flask endpoint
-    //  2) second call draws the graph
+  componentDidMount(): void {
+    this.fetchData();
+  }
 
-    // this branch executes on first call to this method
-    if (prevProps !== this.props) {
-      axios
-        .post("/api/protein/ppi/bfs/", {
-          proteinDcid: this.props.centerProteinDcid,
-          depth: this.state.depth,
-          scoreThreshold: this.state.scoreThreshold,
-          maxInteractors: this.state.numInteractions,
-        })
-        .then((resp) => {
-          this.setState({ graphData: resp.data });
-        });
+  componentDidUpdate(prevProps: Props, prevState: State): void {
+    if (
+      !_.isEmpty(this.state.graphData) &&
+      !_.isEqual(prevState.graphData, this.state.graphData)
+    ) {
+      drawProteinInteractionGraph(CHART_ID, {
+        linkData: this.state.graphData.linkDataNested.flat(1),
+        nodeData: this.state.graphData.nodeDataNested.flat(1),
+      });
       return;
     }
-    // this branch executes on second call to this method
-    if (!_.isEmpty(this.state.graphData)) {
-      drawProteinInteractionGraph(CHART_ID, {
-        linkData: this.state.graphData.linkDataNested
-          .slice(0, this.state.depth + 1)
-          .flat(1),
-        nodeData: this.state.graphData.nodeDataNested
-          .slice(0, this.state.depth + 1)
-          .flat(1),
-      });
-    }
+    this.fetchData();
   }
 
   render(): JSX.Element {
     return <div id={CHART_ID}></div>;
+  }
+
+  private fetchData() {
+    axios
+      .post("/api/protein/ppi/bfs/", {
+        proteinDcid: this.props.centerProteinDcid,
+        depth: this.state.depth,
+        scoreThreshold: this.state.scoreThreshold,
+        maxInteractors: this.state.numInteractions,
+      })
+      .then((resp) => {
+        this.setState({ graphData: resp.data });
+      });
   }
 }
