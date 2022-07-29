@@ -34,6 +34,7 @@ interface State {
   graphData: MultiLevelInteractionGraphData;
   numInteractions: number;
   scoreThreshold: number;
+  drawn: boolean;
 }
 
 const CHART_ID = "protein-interaction-graph";
@@ -56,6 +57,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       graphData: null,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
       numInteractions: DEFAULTS.MAX_INTERACTIONS,
+      drawn: false,
     };
   }
 
@@ -64,15 +66,16 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    console.log('props', prevProps, this.props)
-    if (
-      !_.isEmpty(this.state.graphData) &&
-      !_.isEqual(prevState.graphData, this.state.graphData)
-    ) {
+    if (_.isEmpty(this.state.graphData) || this.state.drawn){
+      // wait for initial data fetch to finish
+      return;
+    }
+    if (prevState.depth === this.state.depth && prevState.numInteractions === this.state.numInteractions && prevState.scoreThreshold === this.state.scoreThreshold){
       drawProteinInteractionGraph(CHART_ID, {
         linkData: this.state.graphData.linkDataNested.flat(1),
         nodeData: this.state.graphData.nodeDataNested.flat(1),
       });
+      this.setState({drawn: true})
       return;
     }
     this.fetchData();
@@ -91,7 +94,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
         maxInteractors: this.state.numInteractions,
       })
       .then((resp) => {
-        this.setState({ graphData: resp.data });
+        this.setState({ graphData: resp.data , drawn: false});
       });
   }
 }
