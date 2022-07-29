@@ -16,7 +16,7 @@
 
 import { SimulationLinkDatum, SimulationNodeDatum } from "d3";
 
-export type bioDcid = `bio/${string}`;
+export type BioDcid = `bio/${string}`;
 
 // interfaces for protein-protein interaction graph
 
@@ -32,6 +32,8 @@ export interface ProteinNode extends SimulationNodeDatum {
 
 // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
 export interface InteractionLink extends SimulationLinkDatum<ProteinNode> {
+  sourceId: string;
+  targetId: string;
   score: number;
 }
 
@@ -48,20 +50,4 @@ export interface InteractionGraphData {
 export interface MultiLevelInteractionGraphData {
   nodeDataNested: ProteinNode[][];
   linkDataNested: InteractionLink[][];
-}
-
-export interface V1BioDatum {
-  dcid: bioDcid;
-  name: string;
-  provenanceId: string;
-  types: string[];
-}
-
-export interface V1BioResponseDatum {
-  entity: bioDcid;
-  values: V1BioDatum[];
-}
-
-export interface V1BioResponse {
-  data: V1BioResponseDatum[];
 }
