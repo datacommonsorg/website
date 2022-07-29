@@ -31,12 +31,13 @@ kubectl config current-context
 
 ```
 website:
-  domains: ["your-website-domain"]
+  domain: "your-website-domain"
   githash: "your-website-githash"
   ingress:
     annotations:
       kubernetes.io/ingress.global-static-ip-name: "your-external-global-static-ip-name"
   flask:
+    env: "private"
     secretGCPProjectID: "your-flasks-secret-gcp-project"
   iap:
     enabled: true
@@ -64,7 +65,58 @@ kgStoreConfig:
 
 3. Fill out all the instance specific variables from above.
 
-Note: the iap block is optional. If you want the website to be publicly accessible(anyone on the internet can access it), remove the iap block.
+**website.domain**
+
+Website domain that you own.
+
+**website.githash**
+
+Githash of the [commit of the webiste repo](https://github.com/datacommonsorg/website/commits/master) that is being deployed.
+
+![Alt text](images/githash.png?raw=true "credentials")
+
+**website.flask.env**
+
+This value should be "private", unless otherwise specified from the dc-core team.
+
+**website.flask.secretGCPProjectID**
+
+Project id of the GKE cluster where this chart will be installed.
+
+**website.iap**
+
+Set enable to "true" to enable IAP(optional). Refer to the [official oauth doc](https://cloud.google.com/iap/docs/enabling-kubernetes-howto#oauth-credentials) on getting the values of the clientID and secret.
+
+**mixer.gcpProjectID**
+
+Project id of the GKE cluster where this chart will be installed.
+
+**mixer.githash**
+
+Githash of the [commit of the mixer repo](https://github.com/datacommonsorg/mixer/commits/master) that is being deployed. Similar to the website githash.
+
+**namepsace**
+
+Value of a new k8s namespace where the chart will be installed in.
+
+**serviceAccount.annotations[iam.gke.io/gcp-service-account]**
+
+GCP service account enabled using workload identity. Should end in @<cluster's project id>.iam.gserviceaccount.com
+
+**kgStoreConfig.bigqueryVersion**
+
+Please copy the contents of [bigquery.version](../../../mixer/deploy/storage/bigquery.version).
+
+**kgStoreConfig.bigtableImportGroupsVersion**
+
+Please copy the contents of [bigtable_import_groups.version](../../../mixer/deploy//storage/bigtable_import_groups.version). This should span multiple lines and everyline should have the same indentation level.
+
+**kgStoreConfig.storeProjectID**
+
+Please copy the contents of [store.project](../../../mixer/deploy/storage/store.project).
+
+
+
 
 4. Optional. Run an install in dry-run mode to see if there are no validation errors.
 

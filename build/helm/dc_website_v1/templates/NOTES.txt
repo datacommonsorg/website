@@ -10,6 +10,6 @@ You can check the status of the certificate on GCP UI or with the command below.
 
 kubectl -n {{ .Values.namespace.name }} describe ManagedCertificate website-certificate
 
-After the certificate is provisioned (status=ACTIVE), your website should be ready from the domains below.
+After the certificate is provisioned (status=ACTIVE), your website should be ready from the domain below.
 
-{{ .Values.website.domains | toYaml }}
+{{ .Values.website.domain }}

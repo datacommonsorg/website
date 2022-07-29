@@ -23,7 +23,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 spec:
   domains:
-    {{- required "website domain is required." .Values.website.domains | toYaml | nindent 4 }}
+  - {{ required "Website domain is required." .Values.website.domain }}
 
 ---
 

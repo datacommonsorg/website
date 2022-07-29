@@ -4,10 +4,10 @@
 
 # Website service config.
 website:
-  # Domains is a list of domains that the installer owns.
-  # Every single domain in the list must have an "A" record in
+  # Domain is a the domain that the installer owns.
+  # The installer is responsible for adding an "A" record in
   # the DNS that points to the global static ip referred in this file.
-  domains:
+  domain:
   githash:
 
   # Ingress allows the website service to be exposed to the outside of the cluster.
@@ -26,7 +26,7 @@ website:
     tag: "latest"
 
   flask:
-    env: "private"
+    env:
     secretGCPProjectID:
 
   # IAP(Identity Aware Proxy) config.
