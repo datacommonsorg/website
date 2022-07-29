@@ -22,11 +22,11 @@ from main import app
 
 class TestProteinProteinInteractionGraph(unittest.TestCase):
 
-    @patch('routes.api.protein.bfs')
+    @patch('routes.api.protein.dc.property_values')
     def test_bfs_small(self, mock_bfs):
         with open('tests/test_data/protein/P53_HUMAN_small.json') as f:
             mock_bfs.return_value = json.load(f)
-        response = app.test_client().post('api/protein/ppi/bfs',
+        response = app.test_client().post('/api/protein/ppi/bfs',
                                           follow_redirects=True,
                                           json={
                                               'depth': 2,
