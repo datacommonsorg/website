@@ -26,8 +26,9 @@ class TestProteinProteinInteractionGraph(unittest.TestCase):
     def test_bfs_small(self, mock_bfs):
         with open('tests/test_data/protein/P53_HUMAN_small.json') as f:
             mock_bfs.return_value = json.load(f)
-        response = app.test_client().post('/protein/ppi/bfs',
-                                          data={
+        response = app.test_client().post('api/protein/ppi/bfs',
+                                          follow_redirects=True,
+                                          json={
                                               'depth': 2,
                                               'maxInteractors': 2,
                                               'proteinDcid': 'bio/P53_HUMAN',
