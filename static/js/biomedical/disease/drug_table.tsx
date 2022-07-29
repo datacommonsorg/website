@@ -25,13 +25,13 @@ export function DrugTable(props: DrugTableProps): JSX.Element {
       <tbody>
         {drugTableData.map((item, idx) => {
           return (
-            <tr>
-              <td key={idx}>
+            <tr key={idx}>
+              <td>
                 <a href={GRAPH_BROWSER_REDIRECT + item.node}>Node</a>
               </td>
-              <td key={idx}>{item.id}</td>
-              <td key={idx}>{item.name}</td>
-              <td key={idx}>{item.clinicalPhaseNumber}</td>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.clinicalPhaseNumber}</td>
             </tr>
           );
         })}

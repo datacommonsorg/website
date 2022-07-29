@@ -160,15 +160,15 @@ export function getDiseaseSymptomAssociation(
 export function getCompoundDiseaseTreatment(
   data: GraphNodes
 ): CompoundDiseaseTreatmentData[] {
-  // checks if the data is empty
-  if (_.isEmpty(data)) {
+  // checks if the data is empty and for null values
+  if (
+    _.isEmpty(data) ||
+    _.isEmpty(data.nodes) ||
+    _.isEmpty(data.nodes[0].neighbors)
+  ) {
     return [];
   }
   const rawData: CompoundDiseaseTreatmentData[] = [];
-  // checks for null values
-  if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
-    return [];
-  }
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "diseaseID") {
       continue;
