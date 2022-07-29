@@ -34,6 +34,7 @@ const LEGEND_CIRCLE_RADIUS = 4;
 // length of the error bar cap for disease-gene associations chart
 const ERROR_BAR_CAP_LENGTH = 10;
 
+//TODO: Create a type.ts file and move all interfaces there
 export interface DiseaseGeneAssociationData {
   // name of the associated gene
   name: string;

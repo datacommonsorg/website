@@ -191,26 +191,27 @@ export function getCompoundDiseaseTreatment(
           }
           typeField = n.nodes[0].value;
         } else if (n.property === "fdaClinicalTrialPhase") {
-          // check for empty list and null gene values
+          // check for empty list and fda phase values
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
           fdaPhase = n.nodes[0].value;
         } else if (n.property === "compoundID") {
-          // check if the list is empty or not
+          // check for empty list and compoundID values
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
           compoundID = n.nodes[0].value;
           for (const n1 of n.nodes) {
-            if (n1.neighbors === undefined || _.isEmpty(n1.value)) {
+            if (_.isEmpty(n1.neighbors)) {
               continue;
             }
             for (const n2 of n1.neighbors) {
-              if (n2.property !== "commonName") {
+              // check for empty list and common name values
+              if (_.isEmpty(n2.nodes) || _.isEmpty(n2.nodes[0].value)) {
                 continue;
               }
-              if (_.isEmpty(n2.nodes) || _.isEmpty(n2.nodes[0].value)) {
+              if (n2.property !== "commonName") {
                 continue;
               }
               compoundName = n2.nodes[0].value;
