@@ -58,8 +58,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
     this.state = {
       depth: DEFAULTS.DEPTH,
       graphData: null,
-      scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
       numInteractions: DEFAULTS.MAX_INTERACTIONS,
+      scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
     };
   }
 
@@ -68,12 +68,15 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    // do nothing on parent rerender or if we've fetched the same graph twice
+    // do nothing on parent rerender or if we've loaded the same graph twice
     if (_.isEqual(prevProps, this.props) || _.isEqual(prevState, this.state)) {
       return;
     }
     // if graph has updated to something nonempty, redraw it
-    if (!_.isEmpty(this.state.graphData) && !_.isEqual(prevState.graphData, this.state.graphData)) {
+    if (
+      !_.isEmpty(this.state.graphData) &&
+      !_.isEqual(prevState.graphData, this.state.graphData)
+    ) {
       drawProteinInteractionGraph(CHART_ID, {
         linkData: this.state.graphData.linkDataNested.flat(1),
         nodeData: this.state.graphData.nodeDataNested.flat(1),
@@ -88,11 +91,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
     return <div id={CHART_ID}></div>;
   }
 
-  private fetchData() {
+  private fetchData(): void {
     axios
       .post("/api/protein/ppi/bfs/", {
-        proteinDcid: this.props.centerProteinDcid,
         depth: this.state.depth,
+        proteinDcid: this.props.centerProteinDcid,
         scoreThreshold: this.state.scoreThreshold,
         maxInteractors: this.state.numInteractions,
       })

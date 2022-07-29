@@ -23,19 +23,6 @@ import {
   InteractingProteinType,
   ProteinVarType,
 } from "./page";
-import {
-  BioDcid,
-  InteractionLink,
-  MultiLevelInteractionGraphData,
-  ProteinNode,
-} from "./types";
-
-// Upper bound on node degree in interaction graph viz's
-export const MAX_INTERACTIONS = 4;
-export const INTERACTION_QUANTITY_DCID = "IntactMiScore";
-
-// Number to return if interaction score is missing
-const DEFAULT_INTERACTION_SCORE = -1;
 
 const VARIANT_CATEGORY = [
   "GeneticVariantFunctionalCategoryUTR3",
