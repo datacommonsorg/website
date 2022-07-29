@@ -259,7 +259,7 @@ def bfs():
         # links from a protein in the graph to some new protein outside the graph
         expansion_links = []
         # ids of new proteins not currently in graph
-        new_node_ids = []
+        new_node_ids = set()
 
         for source_dcid, interaction_dcids in layer_interactors.items():
             interaction_dcids_new = [
@@ -302,7 +302,7 @@ def bfs():
             # (E.g. depth 1 graph will show center, neighbors of center, and cross-links between neighbors)
             links[-1].extend(map(target_link_getter, cross_target_ids))
             # TODO: track distance of each node to center
-            new_node_ids.extend(expansion_target_ids)
+            new_node_ids.update(expansion_target_ids)
 
             # final iteration expansion links are extra, shouldn't get rendered
             if depth != max_depth + 1:
@@ -313,7 +313,6 @@ def bfs():
         if depth != max_depth + 1:
             nodes.append(
                 [node(new_node_id, depth) for new_node_id in new_node_ids])
-            nodes.append(new_nodes)
             node_id_set.update(new_node_ids)
             links.append(expansion_links)
 
