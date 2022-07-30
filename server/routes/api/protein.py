@@ -46,7 +46,9 @@ def _id(id_or_dcid):
     E.g. 'bio/P53_HUMAN' --> 'P53_HUMAN'
     '''
     if id_or_dcid.count(BIO_DCID_PREFIX) > 1:
-        raise ValueError(f'{id_or_dcid} cannot contain multiple instances of "{BIO_DCID_PREFIX}"')
+        raise ValueError(
+            f'{id_or_dcid} cannot contain multiple instances of "{BIO_DCID_PREFIX}"'
+        )
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
 
 
@@ -88,7 +90,8 @@ def _extract_intactmi(score_dcids):
     for score_dcid in score_dcids:
         try:
             if score_dcid.startswith(DEFAULT_INTERACTION_MEASUREMENT):
-                return float(score_dcid.replace(DEFAULT_INTERACTION_MEASUREMENT, ""))
+                return float(
+                    score_dcid.replace(DEFAULT_INTERACTION_MEASUREMENT, ""))
         except:
             continue
     return DEFAULT_INTERACTION_SCORE
@@ -101,7 +104,10 @@ def _interactors(interaction_id_or_dcid):
     '''
     interaction_id = _id(interaction_id_or_dcid)
     protein1, species1, protein2, species2 = interaction_id.split('_')
-    return {'first_interactor': f'{protein1}_{species1}', 'second_interactor': f'{protein2}_{species2}'}
+    return {
+        'first_interactor': f'{protein1}_{species1}',
+        'second_interactor': f'{protein2}_{species2}'
+    }
 
 
 def _other_interactor(interaction_dcid, interactor_id):
@@ -201,7 +207,10 @@ def _partition_expansion_cross(target_ids, node_set):
             cross_targets.append(target_id)
         else:
             expansion_targets.append(target_id)
-    return {'expansion_targets': expansion_targets, 'cross_targets': cross_targets}
+    return {
+        'expansion_targets': expansion_targets,
+        'cross_targets': cross_targets
+    }
 
 
 @bp.route('/protein-protein-interaction', methods=['POST'])
@@ -288,7 +297,9 @@ def protein_protein_interaction():
         new_node_ids = set()
 
         for source_dcid, interaction_dcids in layer_interactors.items():
-            interaction_dcids_new = filter(lambda interaction_dcid: interaction_dcid not in interaction_dcid_set, interaction_dcids)
+            interaction_dcids_new = filter(
+                lambda interaction_dcid: interaction_dcid not in
+                interaction_dcid_set, interaction_dcids)
             interaction_dcids_filtered = _filter_interaction_dcids(
                 interaction_dcids_new)
 
@@ -298,7 +309,9 @@ def protein_protein_interaction():
                 map(_reverse_interaction_dcid, interaction_dcids_filtered))
 
             source_id = _id(source_dcid)
-            target_ids = map(lambda interaction_dcid: _other_interactor(interaction_dcid, source_id), interaction_dcids_filtered)
+            target_ids = map(
+                lambda interaction_dcid: _other_interactor(
+                    interaction_dcid, source_id), interaction_dcids_filtered)
             # getter for score of source-target interaction
             target_scorer = lambda target_id: scores.get(
                 f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)
@@ -310,8 +323,8 @@ def protein_protein_interaction():
             target_ids_sorted = sorted(target_ids_filtered,
                                        key=target_scorer,
                                        reverse=True)
-            partition = _partition_expansion_cross(
-                target_ids_sorted, node_id_set)
+            partition = _partition_expansion_cross(target_ids_sorted,
+                                                   node_id_set)
             expansion_target_ids = partition['expansion_targets']
             cross_target_ids = partition['cross_targets']
             expansion_target_ids = expansion_target_ids[:max_interactors]
