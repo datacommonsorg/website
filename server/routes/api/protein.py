@@ -21,6 +21,7 @@ from cache import cache
 import services.datacommons as dc
 
 BIO_DCID_PREFIX = 'bio/'
+DEFAULT_INTERACTION_MEASUREMENT = 'IntactMiScore'
 DEFAULT_INTERACTION_SCORE = -1
 
 bp = flask.Blueprint('api.protein', __name__, url_prefix='/api/protein')
@@ -39,16 +40,16 @@ def get_node(dcid):
     return response
 
 
-def id(id_or_dcid):
+def _id(id_or_dcid):
     '''
     Delete 'bio/' prefix from a biomedical DCID, if it is present.
     E.g. 'bio/P53_HUMAN' --> 'P53_HUMAN'
     '''
-    # .replace replaces all instances, but no biomedical DCID will contain more than once instance of 'bio/'
+    assert id_or_dcid.count(BIO_DCID_PREFIX) <= 1
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
 
 
-def dcid(id_or_dcid):
+def _dcid(id_or_dcid):
     '''
     Add 'bio/' prefix to an id if it does not already start with 'bio/'.
     E.g. 'P53_HUMAN' --> 'bio/P53_HUMAN'
@@ -58,12 +59,12 @@ def dcid(id_or_dcid):
     return BIO_DCID_PREFIX + id_or_dcid
 
 
-def node(protein_id_or_dcid, depth):
+def _node(protein_id_or_dcid, depth):
     '''
     Returns node object.
     Protein dcids are of the form 'bio/{name}_{species}' (e.g. 'bio/P53_HUMAN')
     '''
-    node_id = id(protein_id_or_dcid)
+    node_id = _id(protein_id_or_dcid)
     protein, species = node_id.split('_')
     return {
         'id': node_id,
@@ -73,7 +74,7 @@ def node(protein_id_or_dcid, depth):
     }
 
 
-def extract_intactmi(score_dcids):
+def _extract_intactmi(score_dcids):
     '''
     Takes list of interaction score DCIDs and numerically parses and returns the first instance
     of an IntactMi score, or the default interaction score if none are found.
@@ -81,74 +82,77 @@ def extract_intactmi(score_dcids):
     TODO: add example
     '''
     for score_dcid in score_dcids:
-        if score_dcid.startswith("IntactMiScore"):
-            return float(score_dcid.replace("IntactMiScore", ""))
+        try:
+            if score_dcid.startswith(DEFAULT_INTERACTION_MEASUREMENT):
+                return float(score_dcid.replace(DEFAULT_INTERACTION_MEASUREMENT, ""))
+        except:
+            continue
     return DEFAULT_INTERACTION_SCORE
 
 
-def interactors(interaction_id_or_dcid):
+def _interactors(interaction_id_or_dcid):
     '''
     Parse and return ids of two interactors from interaction DCID of the form 'bio/{protein1 id}_{protein2 id}'
     E.g. 'bio/P53_HUMAN_CBP_HUMAN' --> 'P53_HUMAN', 'CBP_HUMAN'
     '''
-    interaction_id = id(interaction_id_or_dcid)
+    interaction_id = _id(interaction_id_or_dcid)
     protein1, species1, protein2, species2 = interaction_id.split('_')
-    return f'{protein1}_{species1}', f'{protein2}_{species2}'
+    return {'first_interactor': f'{protein1}_{species1}', 'second_interactor': f'{protein2}_{species2}'}
 
 
-def target(interaction_id_or_dcid, source_id_or_dcid):
+def _target(interaction_id_or_dcid, source_id_or_dcid):
     '''
-    Given interaction DCID and the id one of the interactors, return the other one.
+    Given interaction DCID and the id of one of the interactors, return the id of the other one.
     E.g. 'bio/P53_HUMAN_CBP_HUMAN', 'P53_HUMAN' --> 'CBP_HUMAN'
     '''
-    interaction_id, source_id = id(interaction_id_or_dcid), id(
+    interaction_id, source_id = _id(interaction_id_or_dcid), _id(
         source_id_or_dcid)
-    interactor_id1, interactor_id2 = interactors(interaction_id)
+    interactor_id1, interactor_id2 = _interactors(interaction_id).values()
     if interactor_id1 == source_id:
         return interactor_id2
     return interactor_id1
 
 
-def reverse_interaction_id(interaction_id):
+def _reverse_interaction_id(interaction_id):
     '''
     Given interaction ID of the form '{protein1 id}_{protein2 id}', return '{protein2 id}_{protein1 id}'.
     E.g. 'P53_HUMAN_CBP_HUMAN' --> 'CBP_HUMAN_P53_HUMAN'
     '''
-    interactor_id1, interactor_id2 = interactors(interaction_id)
-    return f'{interactor_id2}_{interactor_id1}'
+    interactors = _interactors(interaction_id)
+    return f'{interactors["second_interactor"]}_{interactors["first_interactor"]}'
 
 
-def reverse_interaction_dcid(interaction_dcid):
+def _reverse_interaction_dcid(interaction_dcid):
     '''
     Given interaction DCID of the form 'bio/{protein1 id}_{protein2 id}', return 'bio/{protein2 id}_{protein1 id}'.
     E.g. 'bio/P53_HUMAN_CBP_HUMAN' --> 'bio/CBP_HUMAN_P53_HUMAN'
     '''
-    return dcid(reverse_interaction_id(id(interaction_dcid)))
+    return _dcid(_reverse_interaction_id(_id(interaction_dcid)))
 
 
-def filter_interaction_dcids(interaction_dcids):
+def _filter_interaction_dcids(interaction_dcids):
     '''
     Given list of interaction DCIDs, remove self-interactions and deduplicate (keep one copy of each set of duplicates).
     Self-interactions are interactions DCIDs of the form 'bio/{protein id}_{protein id}' (e.g. 'bio/P53_HUMAN_P53_HUMAN')
     Duplicates include both exact duplicates and reverse duplicates.
     E.g. 'bio/P53_HUMAN_CBP_HUMAN' is duplicate with both itself and 'bio/CBP_HUMAN_P53_HUMAN'.
     '''
-    dcids = set()
+    interaction_dcids = set()
     uniques = []
     for interaction_dcid in interaction_dcids:
-        source_id, target_id = interactors(interaction_dcid)
+        protein_id1, protein_id2 = _interactors(interaction_dcid).values()
         # filter out self-interactions
-        if source_id == target_id:
+        if protein_id1 == protein_id2:
             continue
-        reverse_dcid = reverse_interaction_dcid(interaction_dcid)
-        if interaction_dcid in dcids or reverse_dcid in dcids:
+        reverse_dcid = _reverse_interaction_dcid(interaction_dcid)
+        if interaction_dcid in interaction_dcids or reverse_dcid in interaction_dcids:
             uniques.append(interaction_dcid)
         else:
-            dcids.update([interaction_dcid, reverse_dcid])
+            interaction_dcids.update([interaction_dcid, reverse_dcid])
     return uniques
 
 
-def symmetrized_scores(scores):
+def _symmetrized_scores(scores):
     '''
     Given a dict mapping interaction IDs to scores, return a new dict D of the same type such that
     1) For any interaction ID in D, its reversal is also a key of D
@@ -158,14 +162,14 @@ def symmetrized_scores(scores):
     '''
     scores_sym = {}
     for interaction_id, score in scores.items():
-        reverse_id = reverse_interaction_id(interaction_id)
+        reverse_id = _reverse_interaction_id(interaction_id)
         reverse_score = scores.get(reverse_id, DEFAULT_INTERACTION_SCORE)
         scores_sym[interaction_id] = scores_sym[reverse_id] = max(
             score, reverse_score)
     return scores_sym
 
 
-def flatten(nested_list):
+def _flatten(nested_list):
     '''
     Given a list of lists, return a depth-1 flattened version
     '''
@@ -175,7 +179,7 @@ def flatten(nested_list):
     return flat
 
 
-def partition_expansion_cross(target_ids, node_set):
+def _partition_expansion_cross(target_ids, node_set):
     '''
     Return two lists expansion_targets, cross_targets such that
     1) expansion_targets U cross_targets = target_ids
@@ -231,10 +235,10 @@ def bfs():
     # set of interaction DCIDs for all links in the graph and their reversals
     interaction_dcid_set = set()
     # set of node ids for all nodes in the graph
-    node_id_set = set([id(center_protein_dcid)])
+    node_id_set = set([_id(center_protein_dcid)])
 
     # to become final nested list of returned node dicts
-    nodes = [[node(center_protein_dcid, 0)]]
+    nodes = [[_node(center_protein_dcid, 0)]]
     # to become final nested list of returned link dicts
     links = [[]]
 
@@ -245,14 +249,14 @@ def bfs():
         layer_interactors = dc.property_values(last_layer_node_dcids,
                                                "interactingProtein", "in")
         # retrieve score dict of form {'bio/P53_HUMAN_CBP_HUMAN': ['IntactMiScore0.97', 'AuthorScore3.0'], ...}
-        layer_scores = dc.property_values(flatten(layer_interactors.values()),
+        layer_scores = dc.property_values(_flatten(layer_interactors.values()),
                                           "confidenceScore", "out")
         # convert score dict to form {'bio/P53_HUMAN_CBP_HUMAN': 0.97} (keep only IntactMi scores)
         layer_scores = {
-            id(interaction_dcid): extract_intactmi(score_list)
+            _id(interaction_dcid): _extract_intactmi(score_list)
             for interaction_dcid, score_list in layer_scores.items()
         }
-        layer_scores = symmetrized_scores(layer_scores)
+        layer_scores = _symmetrized_scores(layer_scores)
         scores.update(layer_scores)
         # used to request the next layer of interactors
         last_layer_node_dcids = []
@@ -266,17 +270,17 @@ def bfs():
                 interaction_dcid for interaction_dcid in interaction_dcids
                 if interaction_dcid not in interaction_dcid_set
             ]
-            interaction_dcids_filtered = filter_interaction_dcids(
+            interaction_dcids_filtered = _filter_interaction_dcids(
                 interaction_dcids_new)
 
             # add both interaction dcids and their reversals
             interaction_dcid_set.update(interaction_dcids_filtered)
             interaction_dcid_set.update(
-                map(reverse_interaction_dcid, interaction_dcids_filtered))
+                map(_reverse_interaction_dcid, interaction_dcids_filtered))
 
-            source_id = id(source_dcid)
+            source_id = _id(source_dcid)
             target_ids = [
-                target(interaction_dcid, source_id)
+                _target(interaction_dcid, source_id)
                 for interaction_dcid in interaction_dcids_filtered
             ]
             # getter for score of source-target interaction
@@ -290,7 +294,7 @@ def bfs():
             target_ids_sorted = sorted(target_ids_filtered,
                                        key=target_scorer,
                                        reverse=True)
-            expansion_target_ids, cross_target_ids = partition_expansion_cross(
+            expansion_target_ids, cross_target_ids = _partition_expansion_cross(
                 target_ids_sorted, node_id_set)
             expansion_target_ids = expansion_target_ids[:max_interactors]
             target_link_getter = lambda target_id: {
@@ -308,11 +312,11 @@ def bfs():
             if depth != max_depth + 1:
                 expansion_links.extend(
                     map(target_link_getter, expansion_target_ids))
-                last_layer_node_dcids.extend(map(dcid, expansion_target_ids))
+                last_layer_node_dcids.extend(map(_dcid, expansion_target_ids))
 
         if depth != max_depth + 1:
             nodes.append(
-                [node(new_node_id, depth) for new_node_id in new_node_ids])
+                [_node(new_node_id, depth) for new_node_id in new_node_ids])
             node_id_set.update(new_node_ids)
             links.append(expansion_links)
 
