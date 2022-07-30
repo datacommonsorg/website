@@ -29,6 +29,7 @@ export const TOOL_TIP = d3
   .attr("class", "tooltip");
 // shift in tooltip positions
 export const TOOL_TIP_SHIFT = 60;
+export const TOOL_TIP_DEFAULT_POSITION = {left: -1000, top: -1000}
 // default brightness for barcharts
 export const DEFAULT_BRIGHTEN_PERCENTAGE = "112%";
 // x axis label shift
@@ -75,6 +76,9 @@ export function onMouseOut(elementID: string): void {
   d3.select(`#${elementID}`).style("filter", "brightness(100%)");
   // hide tooltip
   TOOL_TIP.style("opacity", 0);
+  TOOL_TIP.style("left", `${TOOL_TIP_DEFAULT_POSITION.left}px`).style(
+    "top", `${TOOL_TIP_DEFAULT_POSITION.top}px`
+  );
 }
 
 /**
