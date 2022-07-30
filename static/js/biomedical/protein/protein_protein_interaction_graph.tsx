@@ -80,7 +80,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
     // if graph has updated to something nonempty, redraw it
     if (
       !_.isEmpty(this.state.graphData) &&
-      !_.isEqual(prevState.graphData, this.state.graphData)
+      (!_.isEqual(prevState.graphData, this.state.graphData) ||
+        prevState.depth !== this.state.depth)
     ) {
       drawProteinInteractionGraph(CHART_ID, {
         linkData: this.state.graphData.linkDataNested
