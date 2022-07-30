@@ -15,7 +15,7 @@
 
 import json
 import flask
-from flask import request, Response, escape
+from flask import request, Response
 
 from cache import cache
 import services.datacommons as dc
@@ -45,7 +45,8 @@ def _id(id_or_dcid):
     Delete 'bio/' prefix from a biomedical DCID, if it is present.
     E.g. 'bio/P53_HUMAN' --> 'P53_HUMAN'
     '''
-    assert id_or_dcid.count(BIO_DCID_PREFIX) <= 1
+    if id_or_dcid.count(BIO_DCID_PREFIX) > 1:
+        raise ValueError(f'{id_or_dcid} cannot contain multiple instances of "{BIO_DCID_PREFIX}"')
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
 
 
@@ -65,7 +66,10 @@ def _node(protein_id_or_dcid, depth):
     Protein dcids are of the form 'bio/{name}_{species}' (e.g. 'bio/P53_HUMAN')
     '''
     node_id = _id(protein_id_or_dcid)
-    protein, species = node_id.split('_')
+    try:
+        protein, species = node_id.split('_')
+    except:
+        raise ValueError(f'Invalid protein identifier "{protein_id_or_dcid}"')
     return {
         'id': node_id,
         'name': protein,
@@ -100,17 +104,18 @@ def _interactors(interaction_id_or_dcid):
     return {'first_interactor': f'{protein1}_{species1}', 'second_interactor': f'{protein2}_{species2}'}
 
 
-def _target(interaction_id_or_dcid, source_id_or_dcid):
+def _other_interactor(interaction_dcid, interactor_id):
     '''
     Given interaction DCID and the id of one of the interactors, return the id of the other one.
     E.g. 'bio/P53_HUMAN_CBP_HUMAN', 'P53_HUMAN' --> 'CBP_HUMAN'
     '''
-    interaction_id, source_id = _id(interaction_id_or_dcid), _id(
-        source_id_or_dcid)
+    interaction_id = id(interaction_dcid)
     interactor_id1, interactor_id2 = _interactors(interaction_id).values()
-    if interactor_id1 == source_id:
+    if interactor_id1 == interactor_id:
         return interactor_id2
-    return interactor_id1
+    elif interactor_id2 == interactor_id:
+        return interactor_id1
+    raise ValueError(f'{interactor_id} not in {interaction_dcid}')
 
 
 def _reverse_interaction_id(interaction_id):
@@ -196,11 +201,11 @@ def _partition_expansion_cross(target_ids, node_set):
             cross_targets.append(target_id)
         else:
             expansion_targets.append(target_id)
-    return expansion_targets, cross_targets
+    return {'expansion_targets': expansion_targets, 'cross_targets': cross_targets}
 
 
-@bp.route('/ppi/bfs/', methods=['POST'])
-def bfs():
+@bp.route('/protein-protein-interaction', methods=['POST'])
+def protein_protein_interaction():
     '''
     Retrieves graph data for protein-protein interaction graph via degree-bounded BFS
 
@@ -216,21 +221,38 @@ def bfs():
         'linkDataNested': [[...depth 0 link dicts], [...depth 1 link dicts], ...]
     }
     The only depth 0 node is the center protein and since we do not support self-interactions at the moment,
-    there are no depth-0 links, so the above can be simplified to
+    there are no depth-0 links, so for depth m, the above can be simplified to
     {
-        'nodeDataNested': [[center protein dict], [...center protein neighbor dicts], ...]
-        'linkDataNested': [[], [...center protein link dicts], ...]
+        'nodeDataNested': [[<center protein>], [...depth 1 nodes], ..., [...depth m nodes]]
+        'linkDataNested': [[], [...depth 1 links], ..., [...depth m links]]
     }.
+
+    Each node dict has form
+    {
+        'id': id of form '{name}_{species}', e.g. 'P53_HUMAN',
+        'name': name, e.g. 'P53',
+        'species': species, e.g. 'HUMAN',
+        'depth': currently the zero-indexed iteration of breadth-bounded BFS protein was added
+        TODO: update depth so that it equals the distance of protein to center
+        (Note the two are the same when numInteractors = infinity)
+    }
+
+    Each link dict has form
+    {
+        'source': id of source protein,
+        'target': id of target protein,
+        'score': IntactMi score of interaction
+    }
 
     TODO: example
     '''
     # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
     scores = {}
 
-    center_protein_dcid = escape(request.json['proteinDcid'])
+    center_protein_dcid = request.json['proteinDcid']
     score_threshold = request.json['scoreThreshold']
     max_interactors = request.json['maxInteractors']
-    max_depth = request.json['depth']
+    max_depth = request.json['maxDepth']
 
     # set of interaction DCIDs for all links in the graph and their reversals
     interaction_dcid_set = set()
@@ -266,10 +288,7 @@ def bfs():
         new_node_ids = set()
 
         for source_dcid, interaction_dcids in layer_interactors.items():
-            interaction_dcids_new = [
-                interaction_dcid for interaction_dcid in interaction_dcids
-                if interaction_dcid not in interaction_dcid_set
-            ]
+            interaction_dcids_new = filter(lambda interaction_dcid: interaction_dcid not in interaction_dcid_set, interaction_dcids)
             interaction_dcids_filtered = _filter_interaction_dcids(
                 interaction_dcids_new)
 
@@ -279,10 +298,7 @@ def bfs():
                 map(_reverse_interaction_dcid, interaction_dcids_filtered))
 
             source_id = _id(source_dcid)
-            target_ids = [
-                _target(interaction_dcid, source_id)
-                for interaction_dcid in interaction_dcids_filtered
-            ]
+            target_ids = map(lambda interaction_dcid: _other_interactor(interaction_dcid, source_id), interaction_dcids_filtered)
             # getter for score of source-target interaction
             target_scorer = lambda target_id: scores.get(
                 f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)
@@ -294,8 +310,10 @@ def bfs():
             target_ids_sorted = sorted(target_ids_filtered,
                                        key=target_scorer,
                                        reverse=True)
-            expansion_target_ids, cross_target_ids = _partition_expansion_cross(
+            partition = _partition_expansion_cross(
                 target_ids_sorted, node_id_set)
+            expansion_target_ids = partition['expansion_targets']
+            cross_target_ids = partition['cross_targets']
             expansion_target_ids = expansion_target_ids[:max_interactors]
             target_link_getter = lambda target_id: {
                 'source': source_id,
