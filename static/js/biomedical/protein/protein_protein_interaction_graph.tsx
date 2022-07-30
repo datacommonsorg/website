@@ -100,7 +100,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
         maxInteractors: this.state.numInteractions,
       })
       .then((resp) => {
-        console.log(resp);
         this.setState({ graphData: resp.data });
       });
   }

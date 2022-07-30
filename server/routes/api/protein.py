@@ -86,7 +86,6 @@ def _extract_intactmi(score_dcids):
     '''
     Takes list of interaction score DCIDs and numerically parses and returns the first instance
     of an IntactMi score, or the default interaction score if none are found.
-    
     TODO: add example
     '''
     for score_dcid in score_dcids:
@@ -265,7 +264,7 @@ def protein_protein_interaction():
     except KeyError as key_error:
         bp.register_error_handler(
             BAD_REQUEST_CODE, lambda _:
-            f'Missing request param {key_error.args[0], BAD_REQUEST_CODE}')
+            (f'Missing request param {key_error.args[0]}', BAD_REQUEST_CODE))
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
