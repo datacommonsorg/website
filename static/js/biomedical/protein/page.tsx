@@ -22,6 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../../shared/types";
+import { GRAPH_BROWSER_REDIRECT } from "../bio_charts_utils";
 import {
   drawChemGeneAssocChart,
   drawDiseaseGeneAssocChart,
@@ -31,7 +32,6 @@ import {
   drawVarGeneAssocChart,
   drawVarSigAssocChart,
   drawVarTypeAssocChart,
-  GRAPH_BROWSER_REDIRECT,
 } from "./chart";
 import {
   getChemicalGeneAssoc,

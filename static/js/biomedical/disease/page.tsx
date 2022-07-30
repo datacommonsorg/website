@@ -27,9 +27,11 @@ import {
   drawDiseaseSymptomAssociationChart,
 } from "./chart";
 import {
+  getCompoundDiseaseTreatment,
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
+import { DrugTable } from "./drug_table";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -62,6 +64,9 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
   }
   render(): JSX.Element {
+    const chemicalCompoundDiseaseTreatment = getCompoundDiseaseTreatment(
+      this.state.data
+    );
     return (
       <>
         <h2>Disease Browser</h2>
@@ -69,10 +74,16 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         <div id="disease-gene-association-chart"></div>
         <h5>Disease-Symptom Association</h5>
         <div id="disease-symptom-association-chart"></div>
+        <br></br>
+        <h5>Chemical Compound Disease Treatment</h5>
+        <br></br>
+        <div>
+          <div id="table"></div>
+          <DrugTable data={chemicalCompoundDiseaseTreatment} />
+        </div>
       </>
     );
   }
-
   private fetchData(): void {
     axios.get("/api/disease/" + this.props.dcid).then((resp) => {
       this.setState({
