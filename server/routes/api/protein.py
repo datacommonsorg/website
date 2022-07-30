@@ -13,9 +13,10 @@
 # limitations under the License.
 """Protein browser related handlers."""
 
+from http.client import BAD_REQUEST
 import json
 import flask
-from flask import request, Response
+from flask import request, Response, Blueprint
 
 from cache import cache
 import services.datacommons as dc
@@ -24,7 +25,9 @@ BIO_DCID_PREFIX = 'bio/'
 DEFAULT_INTERACTION_MEASUREMENT = 'IntactMiScore'
 DEFAULT_INTERACTION_SCORE = -1
 
-bp = flask.Blueprint('api.protein', __name__, url_prefix='/api/protein')
+BAD_REQUEST_CODE = 400
+
+bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -258,10 +261,15 @@ def protein_protein_interaction():
     # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
     scores = {}
 
-    center_protein_dcid = request.json['proteinDcid']
-    score_threshold = request.json['scoreThreshold']
-    max_interactors = request.json['maxInteractors']
-    max_depth = request.json['maxDepth']
+    try:
+        center_protein_dcid = request.json['proteinDcid']
+        score_threshold = request.json['scoreThreshold']
+        max_interactors = request.json['maxInteractors']
+        max_depth = request.json['maxDepth']
+    except KeyError as key_error:
+        bp.register_error_handler(
+            BAD_REQUEST_CODE, lambda _:
+            f'Missing request param {key_error.args[0], BAD_REQUEST_CODE}')
 
     # set of interaction DCIDs for all links in the graph and their reversals
     interaction_dcid_set = set()
