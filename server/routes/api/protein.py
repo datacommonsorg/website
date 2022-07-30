@@ -13,7 +13,6 @@
 # limitations under the License.
 """Protein browser related handlers."""
 
-from http.client import BAD_REQUEST
 import json
 import flask
 from flask import request, Response, Blueprint
@@ -118,7 +117,7 @@ def _other_interactor(interaction_dcid, interactor_id):
     Given interaction DCID and the id of one of the interactors, return the id of the other one.
     E.g. 'bio/P53_HUMAN_CBP_HUMAN', 'P53_HUMAN' --> 'CBP_HUMAN'
     '''
-    interaction_id = id(interaction_dcid)
+    interaction_id = _id(interaction_dcid)
     interactor_id1, interactor_id2 = _interactors(interaction_id).values()
     if interactor_id1 == interactor_id:
         return interactor_id2
@@ -151,7 +150,7 @@ def _filter_interaction_dcids(interaction_dcids):
     Duplicates include both exact duplicates and reverse duplicates.
     E.g. 'bio/P53_HUMAN_CBP_HUMAN' is duplicate with both itself and 'bio/CBP_HUMAN_P53_HUMAN'.
     '''
-    interaction_dcids = set()
+    dcid_set = set()
     uniques = []
     for interaction_dcid in interaction_dcids:
         protein_id1, protein_id2 = _interactors(interaction_dcid).values()
@@ -159,10 +158,9 @@ def _filter_interaction_dcids(interaction_dcids):
         if protein_id1 == protein_id2:
             continue
         reverse_dcid = _reverse_interaction_dcid(interaction_dcid)
-        if interaction_dcid in interaction_dcids or reverse_dcid in interaction_dcids:
+        if interaction_dcid not in dcid_set:
             uniques.append(interaction_dcid)
-        else:
-            interaction_dcids.update([interaction_dcid, reverse_dcid])
+            dcid_set.update([interaction_dcid, reverse_dcid])
     return uniques
 
 
@@ -216,7 +214,7 @@ def _partition_expansion_cross(target_ids, node_set):
     }
 
 
-@bp.route('/protein-protein-interaction', methods=['POST'])
+@bp.route('/protein-protein-interaction/', methods=['POST'])
 def protein_protein_interaction():
     '''
     Retrieves graph data for protein-protein interaction graph via degree-bounded BFS
@@ -258,8 +256,6 @@ def protein_protein_interaction():
 
     TODO: example
     '''
-    # adjacency list representation. maps interaction ids to list of target nodes, sorted in descending order by score
-    scores = {}
 
     try:
         center_protein_dcid = request.json['proteinDcid']
@@ -271,6 +267,8 @@ def protein_protein_interaction():
             BAD_REQUEST_CODE, lambda _:
             f'Missing request param {key_error.args[0], BAD_REQUEST_CODE}')
 
+    # interaction dcid --> IntactMi score of interaction
+    scores = {}
     # set of interaction DCIDs for all links in the graph and their reversals
     interaction_dcid_set = set()
     # set of node ids for all nodes in the graph
@@ -310,16 +308,17 @@ def protein_protein_interaction():
                 interaction_dcid_set, interaction_dcids)
             interaction_dcids_filtered = _filter_interaction_dcids(
                 interaction_dcids_new)
-
             # add both interaction dcids and their reversals
             interaction_dcid_set.update(interaction_dcids_filtered)
             interaction_dcid_set.update(
                 map(_reverse_interaction_dcid, interaction_dcids_filtered))
 
             source_id = _id(source_dcid)
-            target_ids = map(
-                lambda interaction_dcid: _other_interactor(
-                    interaction_dcid, source_id), interaction_dcids_filtered)
+            target_ids = list(
+                map(
+                    lambda interaction_dcid: _other_interactor(
+                        interaction_dcid, source_id),
+                    interaction_dcids_filtered))
             # getter for score of source-target interaction
             target_scorer = lambda target_id: scores.get(
                 f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)

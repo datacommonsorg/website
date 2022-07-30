@@ -43,8 +43,8 @@ interface State {
 const CHART_ID = "protein-interaction-graph";
 
 const DEFAULTS = {
-  DEPTH: 2,
-  MAX_INTERACTIONS: 4,
+  DEPTH: 1,
+  MAX_INTERACTIONS: 10,
   MISSING_SCORE_FILLER: -1,
   SCORE_THRESHOLD: 0.4,
 };
@@ -69,7 +69,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
     // do nothing on parent rerender or if we've loaded the same graph twice
-    if (_.isEqual(prevProps, this.props) || _.isEqual(prevState, this.state)) {
+    if (_.isEqual(prevProps, this.props) && _.isEqual(prevState, this.state)) {
       return;
     }
     // if graph has updated to something nonempty, redraw it
@@ -100,6 +100,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
         maxInteractors: this.state.numInteractions,
       })
       .then((resp) => {
+        console.log(resp);
         this.setState({ graphData: resp.data });
       });
   }
