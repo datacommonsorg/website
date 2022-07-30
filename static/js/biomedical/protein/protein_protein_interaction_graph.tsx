@@ -93,8 +93,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   private fetchData(): void {
     axios
-      .post("/api/protein/ppi/bfs/", {
-        depth: this.state.depth,
+      .post("/api/protein/protein-protein-interaction/", {
+        maxDepth: this.state.depth,
         proteinDcid: this.props.centerProteinDcid,
         scoreThreshold: this.state.scoreThreshold,
         maxInteractors: this.state.numInteractions,
