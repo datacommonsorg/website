@@ -48,12 +48,12 @@ export interface VarGeneDataPoint {
 }
 
 const PROTEIN_REDIRECT = "/bio/protein/";
-export const GRAPH_BROWSER_REDIRECT = "/browser/";
 
 import {
   addXLabel,
   addYLabel,
   getElementIDFunc,
+  GRAPH_BROWSER_REDIRECT,
   handleMouseEvents,
   MARGIN,
   NUM_DATA_POINTS,
