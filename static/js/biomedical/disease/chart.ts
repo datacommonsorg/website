@@ -34,6 +34,7 @@ const LEGEND_CIRCLE_RADIUS = 4;
 // length of the error bar cap for disease-gene associations chart
 const ERROR_BAR_CAP_LENGTH = 10;
 
+//TODO: Create a type.ts file and move all interfaces there
 export interface DiseaseGeneAssociationData {
   // name of the associated gene
   name: string;
@@ -52,6 +53,16 @@ export interface DiseaseSymptomAssociationData {
   oddsRatio: number;
 }
 
+export interface CompoundDiseaseTreatmentData {
+  // node name and link
+  node: string;
+  // chemical compound id
+  id: string;
+  // chemical compound name
+  name: string;
+  // FDA clinical phase for which the compound has been studied
+  clinicalPhaseNumber: number;
+}
 /**
  * Draws the disease-gene association charts for the disease of interest
  * @param id - the div id where the chart is rendered on the page
