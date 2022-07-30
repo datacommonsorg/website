@@ -72,7 +72,8 @@ def _node(protein_id_or_dcid, depth):
     node_id = _id(protein_id_or_dcid)
     try:
         protein, species = node_id.split('_')
-    except:
+    # raise exception when node_id does not have exactly 1 '_'
+    except ValueError:
         raise ValueError(f'Invalid protein identifier "{protein_id_or_dcid}"')
     return {
         'id': node_id,
@@ -104,7 +105,10 @@ def _interactors(interaction_id_or_dcid):
     E.g. 'bio/P53_HUMAN_CBP_HUMAN' --> 'P53_HUMAN', 'CBP_HUMAN'
     '''
     interaction_id = _id(interaction_id_or_dcid)
-    protein1, species1, protein2, species2 = interaction_id.split('_')
+    try:
+        protein1, species1, protein2, species2 = interaction_id.split('_')
+    except ValueError:
+        raise ValueError(f'Invalid interaction identifier {interaction_id_or_dcid}')
     return {
         'first_interactor': f'{protein1}_{species1}',
         'second_interactor': f'{protein2}_{species2}'
