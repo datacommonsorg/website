@@ -15,6 +15,7 @@
 
 import json
 import flask
+from werkzeug.exceptions import BadRequest, InternalServerError
 from flask import request, Response, Blueprint
 
 from cache import cache
@@ -48,7 +49,7 @@ def _id(id_or_dcid):
     E.g. 'bio/P53_HUMAN' --> 'P53_HUMAN'
     '''
     if id_or_dcid.count(BIO_DCID_PREFIX) > 1:
-        raise ValueError(
+        raise InternalServerError(
             f'{id_or_dcid} cannot contain multiple instances of "{BIO_DCID_PREFIX}"'
         )
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
@@ -74,7 +75,7 @@ def _node(protein_id_or_dcid, depth):
         protein, species = node_id.split('_')
     # raise exception when node_id does not have exactly 1 '_'
     except ValueError:
-        raise ValueError(f'Invalid protein identifier "{protein_id_or_dcid}"')
+        raise InternalServerError(f'Invalid protein identifier "{protein_id_or_dcid}"')
     return {
         'id': node_id,
         'name': protein,
@@ -108,7 +109,7 @@ def _interactors(interaction_id_or_dcid):
     try:
         protein1, species1, protein2, species2 = interaction_id.split('_')
     except ValueError:
-        raise ValueError(f'Invalid interaction identifier {interaction_id_or_dcid}')
+        raise InternalServerError(f'Invalid interaction identifier {interaction_id_or_dcid}')
     return {
         'first_interactor': f'{protein1}_{species1}',
         'second_interactor': f'{protein2}_{species2}'
@@ -217,6 +218,23 @@ def _partition_expansion_cross(target_ids, node_set):
     }
 
 
+@bp.errorhandler(InternalServerError)
+@bp.errorhandler(BadRequest)
+def handle_error(e):
+    '''
+    generic exception handler
+    reference: https://flask.palletsprojects.com/en/2.1.x/errorhandling/#generic-exception-handlers
+    '''
+    response = e.get_response()
+    response.data = json.dumps({
+        'code': e.code,
+        'name': e.name,
+        'description': e.description,
+    })
+    response.content_type = 'application/json'
+    return response
+
+
 @bp.route('/protein-protein-interaction/', methods=['POST'])
 def protein_protein_interaction():
     '''
@@ -266,9 +284,7 @@ def protein_protein_interaction():
         max_interactors = request.json['maxInteractors']
         max_depth = request.json['maxDepth']
     except KeyError as key_error:
-        bp.register_error_handler(
-            BAD_REQUEST_CODE, lambda _:
-            (f'Missing request param {key_error.args[0]}', BAD_REQUEST_CODE))
+        raise BadRequest(f'Missing request parameter {key_error}')
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
