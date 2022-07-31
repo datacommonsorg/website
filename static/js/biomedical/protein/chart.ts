@@ -689,13 +689,21 @@ export function drawProteinInteractionGraph(
     .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
     .append("g")
 
+  // fix page protein to center of graph
+  nodeData.forEach(node => {
+    if(node.depth === 0){
+      node.fx = 0;
+      node.fy = 0;
+    }
+  })
+
   const nodeIds = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
 
   // force display layout
   const forceNode = d3.forceManyBody().strength(d => 
-    NODE_REPULSION_STRENGTHS[d.depth]
+    NODE_REPULSION_STRENGTHS[(d as ProteinNode).depth]
   );
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIds[index]);
   forceLink.distance(LINK_STYLE.length);
