@@ -6,7 +6,7 @@ This module provides the GCP resources related to IAM with regards to the Data C
 - Binding of the above SA to the GCP roles required by the DC website application.
 - Binding of the above SA to the GCP roles required to interact with the storage project.
 
-This module assumes that the GKE cluster will have [workload identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) enabled.
+This module assumes that the GKE cluster, which is installed separately and will depend on this module, will have [workload identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) enabled.
 
 Note: The installer needs Storage Admin(roles/iam.securityAdmin) role be able to modify IAM permissions on the storage project. Please contact the storage project owner to get the required permissions.
 
