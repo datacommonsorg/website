@@ -222,6 +222,7 @@ const NODE_REPULSION_STRENGTHS = [-500, -150, -30, -20];
 
 // decrease node radius with increasing depth
 const NODE_RADII = [30, 25, 20, 15];
+const MAX_NODE_RADIUS = _.max(NODE_RADII)
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
@@ -248,20 +249,18 @@ function interactionGraphTicked(
   // type assertions needed because x,y info added after initialization
   // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
 
-  const max_radius = _.max(NODE_RADII);
-
   /**
    * Clamps given x coordinate between left/right boundaries of bounding box
    */
   function clampX(x: number) {
-    return _.clamp(x, -width / 2 + max_radius, width / 2 - max_radius);
+    return _.clamp(x, -width / 2 + MAX_NODE_RADIUS, width / 2 - MAX_NODE_RADIUS);
   }
 
   /**
    * Clamps given y coordinate between top/bottom boundaries of bounding box
    */
   function clampY(y: number) {
-    return _.clamp(y, -height / 2 + max_radius, height / 2 - max_radius);
+    return _.clamp(y, -height / 2 + MAX_NODE_RADIUS, height / 2 - MAX_NODE_RADIUS);
   }
 
   // clamping prevents nodes from being dragged or repelled out of bounding box of chart
@@ -723,7 +722,7 @@ export function drawProteinInteractionGraph(
     .force("link", forceLink)
     .force("charge", forceNode)
     .force("center", d3.forceCenter(0, 0))
-    .force("collision", d3.forceCollide().radius(30))
+    .force("collision", d3.forceCollide().radius(MAX_NODE_RADIUS))
     .on("tick", () =>
       interactionGraphTicked(links, nodes, PPI_WIDTH, PPI_HEIGHT)
     );
