@@ -211,11 +211,17 @@ const INTERACTION_GRAPH_Y_OFFSET = -25;
 
 // style of node representations in interaction graph viz's
 const NODE_FILL_COLORS = [
-  "mistyrose",
-  "peachpuff",
   "lightCoral",
+  "peachpuff",
+  "mistyrose",
   "lightsalmon",
 ];
+
+// decrease node repulsion strength with increasing depth
+const NODE_REPULSION_STRENGTHS = [-500, -150, -30, -20]
+
+// decrease node radius with increasing depth
+const NODE_RADII = [30, 25, 20, 15]
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
@@ -235,30 +241,44 @@ function interactionGraphTicked(
     SVGGElement,
     unknown
   >,
-  nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>
+  nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>,
+  width: number,
+  height: number,
 ): void {
   // type assertions needed because x,y info added after initialization
   // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
+
+  const max_radius = _.max(NODE_RADII)
+
+  function clampX(x: number){
+    // return _.clamp(window.scrollX + boundingBoxCoords.left, x, window.scrollX + boundingBoxCoords.right)
+    return  _.clamp(x, -width/2 + max_radius, width/2 - max_radius)
+  }
+
+  function clampY(y: number){
+    return _.clamp(y, -height/2 + max_radius, height/2 - max_radius)
+  }
+
   links
     .attr(
       "x1",
       (linkSimulationDatum) =>
-        (linkSimulationDatum.source as SimulationNodeDatum).x
+        clampX((linkSimulationDatum.source as SimulationNodeDatum).x)
     )
     .attr(
       "y1",
       (linkSimulationDatum) =>
-        (linkSimulationDatum.source as SimulationNodeDatum).y
+        clampY((linkSimulationDatum.source as SimulationNodeDatum).y)
     )
     .attr(
       "x2",
       (linkSimulationDatum) =>
-        (linkSimulationDatum.target as SimulationNodeDatum).x
+        clampX((linkSimulationDatum.target as SimulationNodeDatum).x)
     )
     .attr(
       "y2",
       (linkSimulationDatum) =>
-        (linkSimulationDatum.target as SimulationNodeDatum).y
+        clampY((linkSimulationDatum.target as SimulationNodeDatum).y)
     );
 
   // same here
@@ -266,8 +286,8 @@ function interactionGraphTicked(
   nodes.attr(
     "transform",
     (nodeSimulationDatum) =>
-      `translate(${(nodeSimulationDatum as SimulationNodeDatum).x}, ${
-        (nodeSimulationDatum as SimulationNodeDatum).y
+      `translate(${clampX((nodeSimulationDatum as SimulationNodeDatum).x)}, ${
+        clampY((nodeSimulationDatum as SimulationNodeDatum).y)
       })`
   );
 }
@@ -276,7 +296,7 @@ function interactionGraphTicked(
  * Given a d3 Simulation, return handler for dragging a node in an interaction graph.
  */
 function dragNode(
-  simulation: Simulation<ProteinNode, InteractionLink>
+  simulation: Simulation<ProteinNode, InteractionLink>,
 ): DragBehavior<Element, SimulationNodeDatum, SimulationNodeDatum> {
   // Reference for alphaTarget: https://stamen.com/forcing-functions-inside-d3-v4-forces-and-layout-transitions-f3e89ee02d12/
 
@@ -285,8 +305,8 @@ function dragNode(
       // start up simulation
       simulation.alphaTarget(0.3).restart();
     }
-    nodeDatum.fx = nodeDatum.x;
-    nodeDatum.fy = nodeDatum.y;
+    nodeDatum.fx = nodeDatum.x
+    nodeDatum.fy = nodeDatum.y
   }
 
   function dragged(nodeDatum: ProteinNode): void {
@@ -654,29 +674,29 @@ export function drawProteinInteractionGraph(
 
   const { nodeData, linkData } = data;
 
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
+  // const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
+  // const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
+  const width = 600;
+  const height = 600;
 
   const svg = d3
     .select(`#${chartId}`)
     .append("svg")
-    .attr("width", width + MARGIN.left + MARGIN.right)
-    .attr("height", height + MARGIN.top + MARGIN.bottom)
+    // .attr("width", width + MARGIN.left + MARGIN.right)
+    // .attr("height", height + MARGIN.top + MARGIN.bottom)
+    .attr("width", width)
+    .attr("height", height)
     .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
     .append("g")
-    .attr(
-      "transform",
-      `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${
-        MARGIN.top + INTERACTION_GRAPH_Y_OFFSET
-      })`
-    );
 
   const nodeIds = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
 
   // force display layout
-  const forceNode = d3.forceManyBody();
+  const forceNode = d3.forceManyBody().strength(d => 
+    NODE_REPULSION_STRENGTHS[d.depth]
+  );
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIds[index]);
   forceLink.distance(LINK_STYLE.length);
 
@@ -703,12 +723,14 @@ export function drawProteinInteractionGraph(
       PPI_BRIGHTEN_PERCENTAGE
     );
 
+  // reference: https://www.d3indepth.com/force-layout/
   const simulation = d3
     .forceSimulation(nodeData)
     .force("link", forceLink)
     .force("charge", forceNode)
-    .force("center", d3.forceCenter())
-    .on("tick", () => interactionGraphTicked(links, nodes));
+    .force("center", d3.forceCenter(0, 0))
+    .force("collision", d3.forceCollide().radius(30))
+    .on("tick", () => interactionGraphTicked(links, nodes, width, height));
 
   const nodeIdFunc = getElementIDFunc(chartId, "node");
   // container for circles and labels
@@ -731,6 +753,7 @@ export function drawProteinInteractionGraph(
     .append("circle")
     .attr("class", "protein-node-circle")
     .attr("fill", (node) => nodeColors(node.depth))
+    .attr("r", (node) => NODE_RADII[node.depth])
     .attr("id", (node, i) => nodeIdFunc(i));
 
   // node labels
