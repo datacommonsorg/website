@@ -683,14 +683,6 @@ export function drawProteinInteractionGraph(
     )
     .append("g");
 
-  // fix page protein to center of graph
-  nodeData.forEach((node) => {
-    if (node.depth === 0) {
-      node.fx = 0;
-      node.fy = 0;
-    }
-  });
-
   const nodeIds = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
