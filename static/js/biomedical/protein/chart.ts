@@ -222,7 +222,7 @@ const NODE_REPULSION_STRENGTHS = [-500, -150, -30, -20];
 
 // decrease node radius with increasing depth
 const NODE_RADII = [30, 25, 20, 15];
-const MAX_NODE_RADIUS = _.max(NODE_RADII)
+const MAX_NODE_RADIUS = _.max(NODE_RADII);
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
@@ -253,14 +253,22 @@ function interactionGraphTicked(
    * Clamps given x coordinate between left/right boundaries of bounding box
    */
   function clampX(x: number) {
-    return _.clamp(x, -width / 2 + MAX_NODE_RADIUS, width / 2 - MAX_NODE_RADIUS);
+    return _.clamp(
+      x,
+      -width / 2 + MAX_NODE_RADIUS,
+      width / 2 - MAX_NODE_RADIUS
+    );
   }
 
   /**
    * Clamps given y coordinate between top/bottom boundaries of bounding box
    */
   function clampY(y: number) {
-    return _.clamp(y, -height / 2 + MAX_NODE_RADIUS, height / 2 - MAX_NODE_RADIUS);
+    return _.clamp(
+      y,
+      -height / 2 + MAX_NODE_RADIUS,
+      height / 2 - MAX_NODE_RADIUS
+    );
   }
 
   // clamping prevents nodes from being dragged or repelled out of bounding box of chart
