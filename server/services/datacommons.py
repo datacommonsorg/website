@@ -338,8 +338,8 @@ def property_values(entities, prop, dir):
         'property': prop,
     })
     result = {}
-    for item in resp['data']:
-        entity, values = item['entity'], item['values']
+    for item in resp.get('data', []):
+        entity, values = item['entity'], item.get('values', [])
         result[entity] = []
         for v in values:
             if 'dcid' in v:
