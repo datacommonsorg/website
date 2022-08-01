@@ -15,7 +15,6 @@
 
 import json
 import logging
-from werkzeug.exceptions import InternalServerError
 from flask import request, Response, Blueprint
 
 from cache import cache
