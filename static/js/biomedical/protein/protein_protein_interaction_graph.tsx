@@ -99,7 +99,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   render(): JSX.Element {
     if (this.state.graphData === null) {
-      return <div></div>;
+      return null;
     }
     return (
       <>
@@ -108,7 +108,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
           <Label for={DEPTH_INPUT_ID}>Depth</Label>
           <Input
             id={DEPTH_INPUT_ID}
-            className={DEPTH_INPUT_ID}
             type="number"
             min={MIN_DEPTH}
             max={MAX_DEPTH}
