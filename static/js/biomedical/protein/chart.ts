@@ -218,6 +218,7 @@ const NODE_FILL_COLORS = [
 ];
 
 // decrease node repulsion strength with increasing depth
+// reference: https://stackoverflow.com/questions/29639270/space-out-nodes-evenly-around-root-node-in-d3-force-layout
 const NODE_REPULSION_STRENGTHS = [-500, -150, -30, -20];
 
 // decrease node radius with increasing depth
