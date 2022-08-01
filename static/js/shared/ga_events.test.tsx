@@ -1,3 +1,4 @@
+jest.mock("axios");
 jest.mock("../chart/draw_choropleth");
 jest.mock("../chart/draw_scatter");
 jest.mock("../chart/draw", () => {
@@ -61,15 +62,242 @@ import {
 } from "./ga_events";
 import { StatVarInfo } from "./stat_var";
 
-// Unmount react trees that were mounted with render.
+const CATEGORY = "Economics";
+const PLACE_DCID = "geoId/05";
+const PLACE_NAME = "Arkansas";
+const STAT_VAR_1 = "Median_Income_Household";
+const STAT_VAR_2 = "Median_Age_Person";
+const STAT_VAR_3 = "Count_Person";
+const SOURCES = "sources";
+const ID = "a";
+const NUMBER = 123;
+
+// Props for place explorer chart.
+const PLACE_CHART_PROPS = {
+  category: CATEGORY,
+  chartType: chartTypeEnum.LINE,
+  dcid: PLACE_DCID,
+  id: "",
+  isUsaPlace: true,
+  names: { [PLACE_DCID]: PLACE_NAME },
+  rankingTemplateUrl: "",
+  statsVars: [STAT_VAR_1],
+  title: "",
+  trend: { exploreUrl: "", series: {}, sources: [SOURCES] },
+  unit: "",
+};
+
+// Props for map tool chart.
+const MAP_POINTS: MapPoint[] = [
+  {
+    latitude: NUMBER,
+    longitude: NUMBER,
+    placeDcid: PLACE_DCID,
+    placeName: PLACE_NAME,
+  },
+];
+const MAP_POINTS_PROMISE: Promise<MapPoint[]> = new Promise(() => MAP_POINTS);
+const MAP_PROPS = {
+  breadcrumbDataValues: { PLACE_DCID: NUMBER },
+  dates: new Set<string>([""]),
+  display: {
+    value: {
+      color: "",
+      domain: [NUMBER, NUMBER, NUMBER] as [number, number, number],
+      showMapPoints: false,
+      showTimeSlider: false,
+    },
+  } as MapDisplayOptionsWrapper,
+  geoJsonData: {
+    features: [],
+    properties: {
+      current_geo: PLACE_DCID,
+    },
+    type: "FeatureCollection",
+  } as GeoJsonData,
+  mapDataValues: { [PLACE_DCID]: NUMBER },
+  metadata: { [PLACE_DCID]: {} as DataPointMetadata },
+  placeInfo: {
+    enclosedPlaceType: "",
+    enclosingPlace: { dcid: PLACE_DCID, name: PLACE_NAME },
+    mapPointPlaceType: "",
+    parentPlaces: [],
+    selectedPlace: { dcid: PLACE_DCID, name: PLACE_NAME, types: [] },
+  },
+  statVar: {
+    value: {
+      date: "",
+      dcid: STAT_VAR_1,
+      denom: "",
+      info: {},
+      mapPointSv: "",
+      metahash: "",
+      perCapita: false,
+    },
+    set: () => null,
+    setInfo: () => null,
+    setDcid: () => null,
+    setPerCapita: () => null,
+    setDate: () => null,
+    setDenom: () => null,
+    setMapPointSv: () => null,
+    setMetahash: () => null,
+  } as StatVarWrapper,
+  sources: new Set<string>([""]),
+  unit: "",
+  mapPointValues: { [PLACE_DCID]: NUMBER },
+  mapPointsPromise: MAP_POINTS_PROMISE,
+  europeanCountries: [],
+  rankingLink: "",
+  facetInfo: {
+    dcid: STAT_VAR_1,
+    displayNames: {},
+    metadataMap: {},
+    name: STAT_VAR_1,
+  },
+  sampleDates: [],
+  metahash: "",
+  onPlay: () => null,
+  updateDate: () => null,
+};
+
+// Props for timeline tool chart.
+const TIMELINE_PROPS = {
+  denom: "",
+  delta: false,
+  mprop: "",
+  onDataUpdate: () => null,
+  onMetadataMapUpdate: () => null,
+  placeNames: { [PLACE_DCID]: PLACE_NAME },
+  pc: false,
+  removeStatVar: () => null,
+  statVarInfos: { [STAT_VAR_1]: { title: "" } } as Record<string, StatVarInfo>,
+  svFacetId: { [STAT_VAR_1]: "" },
+};
+
+// Props and context for scatter plot tool chart.
+const SCATTER_PROPS = {
+  points: {
+    [PLACE_DCID]: {
+      place: { name: "", dcid: "" },
+      xVal: NUMBER,
+      xDate: "",
+      yVal: NUMBER,
+      yDate: "",
+    },
+  },
+  xLabel: STAT_VAR_1,
+  xLog: false,
+  xPerCapita: false,
+  yLabel: STAT_VAR_2,
+  yLog: false,
+  yPerCapita: false,
+  placeInfo: {
+    enclosingPlace: { dcid: PLACE_DCID, name: PLACE_NAME, types: [] },
+    enclosedPlaceType: "",
+    enclosedPlaces: [],
+    parentPlaces: [],
+    lowerBound: NUMBER,
+    upperBound: NUMBER,
+  },
+  display: {
+    showQuadrants: false,
+    showLabels: false,
+    chartType: ScatterChartType.SCATTER,
+    showDensity: false,
+    showRegression: false,
+  } as ScatterDisplayOptionsWrapper,
+  sources: new Set<string>([""]),
+  svFacetId: { [STAT_VAR_1]: "" },
+  facetList: [
+    {
+      dcid: STAT_VAR_1,
+      name: STAT_VAR_1,
+      metadataMap: {},
+    },
+    {
+      dcid: STAT_VAR_2,
+      name: STAT_VAR_2,
+      metadataMap: {},
+    },
+  ],
+  onSvFacetIdUpdated: () => null,
+};
+const SCATTER_CONTEXT = {
+  x: {
+    value: {
+      statVarInfo: {},
+      statVarDcid: "",
+      log: false,
+      perCapita: false,
+      date: "",
+      metahash: "",
+      denom: "",
+    },
+    set: () => null,
+    setStatVarDcid: () => null,
+    unsetStatVarDcid: () => null,
+    setStatVarInfo: () => null,
+    setLog: () => null,
+    setPerCapita: () => null,
+    setDate: () => null,
+    setMetahash: () => null,
+    setDenom: () => null,
+  } as AxisWrapper,
+  y: {
+    value: {
+      statVarInfo: {},
+      statVarDcid: "",
+      log: false,
+      perCapita: false,
+      date: "",
+      metahash: "",
+      denom: "",
+    },
+    set: () => null,
+    setStatVarDcid: () => null,
+    unsetStatVarDcid: () => null,
+    setStatVarInfo: () => null,
+    setLog: () => null,
+    setPerCapita: () => null,
+    setDate: () => null,
+    setMetahash: () => null,
+    setDenom: () => null,
+  } as AxisWrapper,
+  place: {
+    value: {
+      enclosingPlace: { dcid: PLACE_DCID, name: PLACE_NAME, types: [] },
+      enclosedPlaceType: "",
+      enclosedPlaces: [],
+      parentPlaces: [],
+      lowerBound: NUMBER,
+      upperBound: NUMBER,
+    },
+  } as PlaceInfoWrapper,
+  display: {
+    showQuadrants: false,
+    showLabels: false,
+    chartType: ScatterChartType.SCATTER,
+    showDensity: false,
+    showRegression: false,
+    setQuadrants: () => null,
+    setLabels: () => null,
+    setChartType: () => null,
+    setDensity: () => null,
+    setRegression: () => null,
+  } as ScatterDisplayOptionsWrapper,
+  isLoading: {} as IsLoadingWrapper,
+};
+
+beforeEach(() =>
+  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null))
+);
+
+// Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {
   cleanup();
+  jest.clearAllMocks();
 });
-
-jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
-jest
-  .spyOn(dataFetcher, "fetchRawData")
-  .mockImplementation(() => Promise.resolve(null));
 
 describe("test ga event place category click", () => {
   test("call gtag when place category is clicked in the sidebar", async () => {
@@ -79,17 +307,15 @@ describe("test ga event place category click", () => {
     const menu = render(
       <Menu
         categories={{
-          Economics: "Economics",
-          Health: "Health",
-          Overview: "Overview",
+          Economics: CATEGORY,
         }}
-        dcid="geoId/1714000"
-        selectCategory="Overview"
+        dcid={PLACE_DCID}
+        selectCategory={CATEGORY}
         pageChart={{ Economics: { "": [] } }}
       ></Menu>
     );
     // Prevent window navigation.
-    const category = menu.getByText("Economics");
+    const category = menu.getByText(CATEGORY);
     category.addEventListener(
       "click",
       (event) => event.preventDefault(),
@@ -103,7 +329,7 @@ describe("test ga event place category click", () => {
         "event",
         GA_EVENT_PLACE_CATEGORY_CLICK,
         {
-          [GA_PARAM_PLACE_CATEGORY_CLICK]: "Economics",
+          [GA_PARAM_PLACE_CATEGORY_CLICK]: CATEGORY,
           [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
             GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
         },
@@ -118,18 +344,16 @@ describe("test ga event place category click", () => {
     window.gtag = mockgtag;
     const chartHeader = render(
       <ChartHeader
-        text="Economics"
-        place="geoId/06"
+        text={CATEGORY}
+        place={PLACE_DCID}
         isOverview={true}
         categoryStrings={{
-          Overview: "Overview",
-          Economics: "Economics",
-          Health: "Health",
+          Economics: CATEGORY,
         }}
       ></ChartHeader>
     );
     // Prevent window navigation.
-    const category = chartHeader.getByText("Economics");
+    const category = chartHeader.getByText(CATEGORY);
     category.addEventListener(
       "click",
       (event) => event.preventDefault(),
@@ -143,7 +367,7 @@ describe("test ga event place category click", () => {
         "event",
         GA_EVENT_PLACE_CATEGORY_CLICK,
         {
-          [GA_PARAM_PLACE_CATEGORY_CLICK]: "Economics",
+          [GA_PARAM_PLACE_CATEGORY_CLICK]: CATEGORY,
           [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
             GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
         },
@@ -158,13 +382,11 @@ describe("test ga event place category click", () => {
     window.gtag = mockgtag;
     const chartHeader = render(
       <ChartHeader
-        text="Economics"
-        place="geoId/06"
+        text={CATEGORY}
+        place={PLACE_DCID}
         isOverview={true}
         categoryStrings={{
-          Overview: "Overview",
-          Economics: "Economics",
-          Health: "Health",
+          Economics: CATEGORY,
         }}
       ></ChartHeader>
     );
@@ -183,7 +405,7 @@ describe("test ga event place category click", () => {
         "event",
         GA_EVENT_PLACE_CATEGORY_CLICK,
         {
-          [GA_PARAM_PLACE_CATEGORY_CLICK]: "Economics",
+          [GA_PARAM_PLACE_CATEGORY_CLICK]: CATEGORY,
           [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
             GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
         },
@@ -195,30 +417,17 @@ describe("test ga event place category click", () => {
 });
 
 describe("test ga event place chart click", () => {
-  const props = {
-    category: "Economics",
-    chartType: chartTypeEnum.LINE,
-    dcid: "geoId/06",
-    id: "123",
-    isUsaPlace: true,
-    names: { "geoId/06": "California" },
-    rankingTemplateUrl: "/ranking/_sv_/State/country/USA",
-    statsVars: ["Stat var"],
-    title: "title",
-    trend: { exploreUrl: "", series: {}, sources: ["sources"] },
-    unit: "",
-  };
   test("call gtag when place chart is clicked", async () => {
     // Mock gtag and render the component.
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
     const chart = render(
       <IntlProvider locale="en">
-        <PlaceChart {...props} />
+        <PlaceChart {...PLACE_CHART_PROPS} />
       </IntlProvider>
     );
     // Prevent window navigation.
-    const chartSource = chart.getByText("sources");
+    const chartSource = chart.getByText(SOURCES);
     chartSource.addEventListener(
       "click",
       (event) => event.preventDefault(),
@@ -238,7 +447,6 @@ describe("test ga event place chart click", () => {
       // Check gtag is called once.
       expect(mockgtag.mock.calls.length).toEqual(1);
     });
-
     // Prevent window navigation.
     const chartExport = chart.getByText("Export");
     chartExport.addEventListener(
@@ -257,10 +465,9 @@ describe("test ga event place chart click", () => {
           [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPORT,
         },
       ]);
-      // Check gtag is called once.
+      // Check gtag is called once, two times in total.
       expect(mockgtag.mock.calls.length).toEqual(2);
     });
-
     // Prevent window navigation.
     const chartExplore = chart.getByText("Explore More ›");
     chartExplore.addEventListener(
@@ -279,15 +486,15 @@ describe("test ga event place chart click", () => {
           [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
         },
       ]);
-      // Check gtag is called once.
+      // Check gtag is called once, three times in total.
       expect(mockgtag.mock.calls.length).toEqual(3);
     });
 
     //Render the component.
-    const statVarChip = render(<div id="a" />);
-    appendLegendElem("a", getColorFn([""]), [{ label: "Stat var chip" }]);
+    const statVarChip = render(<div id={ID} />);
+    appendLegendElem(ID, getColorFn([""]), [{ label: STAT_VAR_1 }]);
     // Prevent window navigation.
-    const chartStatVarChip = statVarChip.getByText("Stat var chip");
+    const chartStatVarChip = statVarChip.getByText(STAT_VAR_1);
     chartStatVarChip.addEventListener(
       "click",
       (event) => event.preventDefault(),
@@ -305,7 +512,7 @@ describe("test ga event place chart click", () => {
             GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
         },
       ]);
-      // Check gtag is called once.
+      // Check gtag is called once, four times in total.
       expect(mockgtag.mock.calls.length).toEqual(4);
     });
   });
@@ -313,85 +520,20 @@ describe("test ga event place chart click", () => {
 
 describe("test ga event tool chart plot", () => {
   test("call gtag when a map tool chart is mounted or updated with different stat vars or places", async () => {
-    const mapPoints: MapPoint[] = [
-      {
-        latitude: 123,
-        longitude: 123,
-        placeDcid: "geoId/06",
-        placeName: "California",
-      },
-    ];
-    const mapPointsPromise: Promise<MapPoint[]> = new Promise(() => mapPoints);
-    const props = {
-      breadcrumbDataValues: { "geoId/06": 123 },
-      dates: new Set<string>(["2022"]),
-      display: {
-        value: {
-          color: "",
-          domain: [1, 2, 3] as [number, number, number],
-          showMapPoints: false,
-          showTimeSlider: false,
-        },
-      } as MapDisplayOptionsWrapper,
-      geoJsonData: {
-        features: [],
-        properties: {
-          current_geo: "geoId/06",
-        },
-        type: "FeatureCollection",
-      } as GeoJsonData,
-      mapDataValues: { "geoId/06": 123 },
-      metadata: { "geoId/06": {} as DataPointMetadata },
-      placeInfo: {
-        enclosedPlaceType: "County",
-        enclosingPlace: { dcid: "geoId/06", name: "California" },
-        mapPointPlaceType: "",
-        parentPlaces: [],
-        selectedPlace: { dcid: "geoId/06", name: "California", types: [] },
-      },
-      statVar: {
-        value: {
-          date: "",
-          dcid: "Median_Age_Person",
-          denom: "",
-          info: {},
-          mapPointSv: "",
-          metahash: "",
-          perCapita: false,
-        },
-      } as StatVarWrapper,
-      sources: new Set<string>(["sources"]),
-      unit: "",
-      mapPointValues: { "geoId/06": 123 },
-      mapPointsPromise,
-      europeanCountries: [],
-      rankingLink: "",
-      facetInfo: {
-        dcid: "Median_Age_Person",
-        displayNames: {},
-        metadataMap: {},
-        name: "Median_Age_Person",
-      },
-      sampleDates: [],
-      metahash: "",
-      onPlay: () => null,
-      updateDate: () => null,
-    };
-
     // Mock gtag.
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
 
     // When the component is mounted.
-    const { rerender } = render(<MapToolChart {...props} />);
+    const { rerender } = render(<MapToolChart {...MAP_PROPS} />);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
         "event",
         GA_EVENT_TOOL_CHART_PLOT,
         {
-          [GA_PARAM_STAT_VAR]: "Median_Age_Person",
-          [GA_PARAM_PLACE_DCID]: "geoId/06",
+          [GA_PARAM_STAT_VAR]: STAT_VAR_1,
+          [GA_PARAM_PLACE_DCID]: PLACE_DCID,
         },
       ]);
       // Check gtag is called once.
@@ -399,60 +541,48 @@ describe("test ga event tool chart plot", () => {
     });
 
     // When the component is rerendered with the same props.
-    rerender(<MapToolChart {...props} />);
+    rerender(<MapToolChart {...MAP_PROPS} />);
     await waitFor(() =>
       // Check gtag is not called.
       expect(mockgtag.mock.calls.length).toEqual(1)
     );
 
     // When stat var changes.
-    props.statVar.value.dcid = "abc";
-    rerender(<MapToolChart {...props} />);
+    MAP_PROPS.statVar.value.dcid = STAT_VAR_2;
+    rerender(<MapToolChart {...MAP_PROPS} />);
     await waitFor(() => {
-      // Check gtag is called once.
+      // Check gtag is called once, two time in total.
       expect(mockgtag.mock.calls.length).toEqual(2);
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.calls).toContainEqual([
         "event",
         GA_EVENT_TOOL_CHART_PLOT,
         {
-          [GA_PARAM_STAT_VAR]: "abc",
-          [GA_PARAM_PLACE_DCID]: "geoId/06",
+          [GA_PARAM_STAT_VAR]: STAT_VAR_2,
+          [GA_PARAM_PLACE_DCID]: PLACE_DCID,
         },
       ]);
     });
   });
   test("call gtag when a timeline tool chart is mounted or updated with different stat vars or places ", async () => {
-    const props = {
-      denom: "",
-      delta: false,
-      mprop: "income",
-      onDataUpdate: () => null,
-      onMetadataMapUpdate: () => null,
-      placeNames: { "geoId/06": "California" },
-      pc: false,
-      removeStatVar: () => null,
-      statVarInfos: { Median_Income_Household: { title: "" } } as Record<
-        string,
-        StatVarInfo
-      >,
-      svFacetId: { Median_Income_Household: "" },
-    };
-
     // Mock gtag.
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
+    // Mock fetch data.
+    jest
+      .spyOn(dataFetcher, "fetchRawData")
+      .mockImplementation(() => Promise.resolve(null));
 
     // When the component is mounted.
-    const { rerender } = render(<TimelineToolChart {...props} />);
+    const { rerender } = render(<TimelineToolChart {...TIMELINE_PROPS} />);
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
         "event",
         GA_EVENT_TOOL_CHART_PLOT,
         {
-          [GA_PARAM_STAT_VAR]: ["Median_Income_Household"],
-          [GA_PARAM_PLACE_DCID]: ["geoId/06"],
+          [GA_PARAM_STAT_VAR]: [STAT_VAR_1],
+          [GA_PARAM_PLACE_DCID]: [PLACE_DCID],
         },
       ]);
       // Check gtag is called once.
@@ -460,120 +590,38 @@ describe("test ga event tool chart plot", () => {
     });
 
     // When the component is rerendered with the same props.
-    rerender(<TimelineToolChart {...props} />);
+    rerender(<TimelineToolChart {...TIMELINE_PROPS} />);
     await waitFor(() =>
       // Check gtag is called.
       expect(mockgtag.mock.calls.length).toEqual(1)
     );
 
     // When stat var changes.
-    props.statVarInfos = { abc: { title: null } };
-    rerender(<TimelineToolChart {...props} />);
+    TIMELINE_PROPS.statVarInfos = { [STAT_VAR_2]: { title: null } };
+    rerender(<TimelineToolChart {...TIMELINE_PROPS} />);
     await waitFor(() => {
-      // Check gtag is called once.
+      // Check gtag is called once, two time in total.
       expect(mockgtag.mock.calls.length).toEqual(2);
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
         "event",
         GA_EVENT_TOOL_CHART_PLOT,
         {
-          [GA_PARAM_STAT_VAR]: ["abc"],
-          [GA_PARAM_PLACE_DCID]: ["geoId/06"],
+          [GA_PARAM_STAT_VAR]: [STAT_VAR_2],
+          [GA_PARAM_PLACE_DCID]: [PLACE_DCID],
         },
       ]);
     });
   });
   test("call gtag when a scatter tool chart is mounted or updated with different stat vars or places ", async () => {
-    const props = {
-      points: {
-        "geoId/06": {
-          place: { name: "", dcid: "" },
-          xVal: 123,
-          xDate: "2022",
-          yVal: 123,
-          yDate: "2022",
-        },
-      },
-      xLabel: "Median_Income_Household",
-      xLog: false,
-      xPerCapita: false,
-      yLabel: "Age",
-      yLog: false,
-      yPerCapita: false,
-      placeInfo: {
-        enclosingPlace: { dcid: "geoId/06", name: "California", types: [] },
-        enclosedPlaceType: "",
-        enclosedPlaces: [],
-        parentPlaces: [],
-        lowerBound: 123,
-        upperBound: 123,
-      },
-      display: {
-        showQuadrants: false,
-        showLabels: false,
-        chartType: ScatterChartType.SCATTER,
-        showDensity: false,
-        showRegression: false,
-      } as ScatterDisplayOptionsWrapper,
-      sources: new Set<string>(["sources"]),
-      svFacetId: { Median_Income_Household: "" },
-      facetList: [
-        {
-          dcid: "Median_Income_Household",
-          name: "Median_Income_Household",
-          metadataMap: {},
-        },
-        {
-          dcid: "Age",
-          name: "Age",
-          metadataMap: {},
-        },
-      ],
-      onSvFacetIdUpdated: () => null,
-    };
-    const context = {
-      x: {
-        value: {
-          statVarInfo: {},
-          statVarDcid: "",
-          log: false,
-          perCapita: false,
-          date: "",
-          metahash: "",
-          denom: "",
-        },
-      } as AxisWrapper,
-      y: {
-        value: {
-          statVarInfo: {},
-          statVarDcid: "",
-          log: false,
-          perCapita: false,
-          date: "",
-          metahash: "",
-          denom: "",
-        },
-      } as AxisWrapper,
-      place: {
-        value: {
-          enclosingPlace: { dcid: "geoId/06", name: "California", types: [] },
-          enclosedPlaceType: "",
-          enclosedPlaces: [],
-          parentPlaces: [],
-          lowerBound: 123,
-          upperBound: 123,
-        },
-      } as PlaceInfoWrapper,
-      display: {} as ScatterDisplayOptionsWrapper,
-      isLoading: {} as IsLoadingWrapper,
-    };
     // Mock gtag.
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
+
     // When the component is mounted.
     const { rerender } = render(
-      <Context.Provider value={context}>
-        <ScatterToolChart {...props} />
+      <Context.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
       </Context.Provider>
     );
     await waitFor(() => {
@@ -582,51 +630,53 @@ describe("test ga event tool chart plot", () => {
         "event",
         GA_EVENT_TOOL_CHART_PLOT,
         {
-          [GA_PARAM_STAT_VAR]: ["Median_Income_Household", "Age"],
-          [GA_PARAM_PLACE_DCID]: "geoId/06",
+          [GA_PARAM_STAT_VAR]: [STAT_VAR_2, STAT_VAR_1],
+          [GA_PARAM_PLACE_DCID]: PLACE_DCID,
         },
       ]);
       // Check gtag is called once.
       expect(mockgtag.mock.calls.length).toEqual(1);
     });
+
     // When the component is rerendered with the same props.
     rerender(
-      <Context.Provider value={context}>
-        <ScatterToolChart {...props} />
+      <Context.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
       </Context.Provider>
     );
     await waitFor(() =>
       // Check gtag is not called.
       expect(mockgtag.mock.calls.length).toEqual(1)
     );
+
     // When stat var changes.
-    props.facetList = [
+    SCATTER_PROPS.facetList = [
       {
-        dcid: "abc",
-        name: "abc",
+        dcid: STAT_VAR_2,
+        name: STAT_VAR_2,
         metadataMap: {},
       },
       {
-        dcid: "Age",
-        name: "Age",
+        dcid: STAT_VAR_3,
+        name: STAT_VAR_3,
         metadataMap: {},
       },
     ];
     rerender(
-      <Context.Provider value={context}>
-        <ScatterToolChart {...props} />
+      <Context.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
       </Context.Provider>
     );
     await waitFor(() => {
-      // Check gtag is called once.
+      // Check gtag is called once, two times in total.
       expect(mockgtag.mock.calls.length).toEqual(2);
       // Check the parameters passed to the gtag.
       expect(mockgtag.mock.lastCall).toEqual([
         "event",
         GA_EVENT_TOOL_CHART_PLOT,
         {
-          [GA_PARAM_STAT_VAR]: ["abc", "Age"],
-          [GA_PARAM_PLACE_DCID]: "geoId/06",
+          [GA_PARAM_STAT_VAR]: [STAT_VAR_3, STAT_VAR_2],
+          [GA_PARAM_PLACE_DCID]: PLACE_DCID,
         },
       ]);
     });
