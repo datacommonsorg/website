@@ -205,17 +205,25 @@ const ERROR_POINT_POSITION_Y3 = 50;
 // dimension of tissue legend dots
 const LEGEND_CIRCLE_RADIUS = 7;
 
-// interaction graph offset
-const INTERACTION_GRAPH_X_OFFSET = -150;
-const INTERACTION_GRAPH_Y_OFFSET = -25;
+// protein-protein interaction graph dimensions
+const PPI_WIDTH = 600;
+const PPI_HEIGHT = 600;
 
 // style of node representations in interaction graph viz's
 const NODE_FILL_COLORS = [
-  "mistyrose",
-  "peachpuff",
   "lightCoral",
+  "peachpuff",
+  "mistyrose",
   "lightsalmon",
 ];
+
+// decrease node repulsion strength with increasing depth
+// reference: https://stackoverflow.com/questions/29639270/space-out-nodes-evenly-around-root-node-in-d3-force-layout
+const NODE_REPULSION_STRENGTHS = [-500, -150, -30, -20];
+
+// decrease node radius with increasing depth
+const NODE_RADII = [30, 25, 20, 15];
+const MAX_NODE_RADIUS = _.max(NODE_RADII);
 
 // style of link representations in interaction graph viz's
 const LINK_STYLE = {
@@ -235,30 +243,48 @@ function interactionGraphTicked(
     SVGGElement,
     unknown
   >,
-  nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>
+  nodes: d3.Selection<SVGGElement, ProteinNode, SVGGElement, unknown>,
+  width: number,
+  height: number
 ): void {
   // type assertions needed because x,y info added after initialization
   // https://github.com/tomwanzek/d3-v4-definitelytyped/blob/06ceb1a93584083475ecb4fc8b3144f34bac6d76/src/d3-force/index.d.ts#L24
+
+  /**
+   * Clamps given x coordinate between left/right boundaries of bounding box
+   */
+  function clampX(x: number) {
+    return _.clamp(
+      x,
+      -width / 2 + MAX_NODE_RADIUS,
+      width / 2 - MAX_NODE_RADIUS
+    );
+  }
+
+  /**
+   * Clamps given y coordinate between top/bottom boundaries of bounding box
+   */
+  function clampY(y: number) {
+    return _.clamp(
+      y,
+      -height / 2 + MAX_NODE_RADIUS,
+      height / 2 - MAX_NODE_RADIUS
+    );
+  }
+
+  // clamping prevents nodes from being dragged or repelled out of bounding box of chart
   links
-    .attr(
-      "x1",
-      (linkSimulationDatum) =>
-        (linkSimulationDatum.source as SimulationNodeDatum).x
+    .attr("x1", (linkSimulationDatum) =>
+      clampX((linkSimulationDatum.source as SimulationNodeDatum).x)
     )
-    .attr(
-      "y1",
-      (linkSimulationDatum) =>
-        (linkSimulationDatum.source as SimulationNodeDatum).y
+    .attr("y1", (linkSimulationDatum) =>
+      clampY((linkSimulationDatum.source as SimulationNodeDatum).y)
     )
-    .attr(
-      "x2",
-      (linkSimulationDatum) =>
-        (linkSimulationDatum.target as SimulationNodeDatum).x
+    .attr("x2", (linkSimulationDatum) =>
+      clampX((linkSimulationDatum.target as SimulationNodeDatum).x)
     )
-    .attr(
-      "y2",
-      (linkSimulationDatum) =>
-        (linkSimulationDatum.target as SimulationNodeDatum).y
+    .attr("y2", (linkSimulationDatum) =>
+      clampY((linkSimulationDatum.target as SimulationNodeDatum).y)
     );
 
   // same here
@@ -266,9 +292,9 @@ function interactionGraphTicked(
   nodes.attr(
     "transform",
     (nodeSimulationDatum) =>
-      `translate(${(nodeSimulationDatum as SimulationNodeDatum).x}, ${
-        (nodeSimulationDatum as SimulationNodeDatum).y
-      })`
+      `translate(${clampX(
+        (nodeSimulationDatum as SimulationNodeDatum).x
+      )}, ${clampY((nodeSimulationDatum as SimulationNodeDatum).y)})`
   );
 }
 
@@ -654,29 +680,25 @@ export function drawProteinInteractionGraph(
 
   const { nodeData, linkData } = data;
 
-  const height = GRAPH_HEIGHT_M - MARGIN.top - MARGIN.bottom;
-  const width = GRAPH_WIDTH_M - MARGIN.left - MARGIN.right;
-
   const svg = d3
     .select(`#${chartId}`)
     .append("svg")
-    .attr("width", width + MARGIN.left + MARGIN.right)
-    .attr("height", height + MARGIN.top + MARGIN.bottom)
-    .attr("viewBox", `${-width / 2} ${-height / 2} ${width} ${height}`)
-    .append("g")
+    .attr("width", PPI_WIDTH)
+    .attr("height", PPI_HEIGHT)
     .attr(
-      "transform",
-      `translate(${MARGIN.left + INTERACTION_GRAPH_X_OFFSET}, ${
-        MARGIN.top + INTERACTION_GRAPH_Y_OFFSET
-      })`
-    );
+      "viewBox",
+      `${-PPI_WIDTH / 2} ${-PPI_HEIGHT / 2} ${PPI_WIDTH} ${PPI_HEIGHT}`
+    )
+    .append("g");
 
   const nodeIds = nodeData.map((node) => node.id);
   const nodeDepths = nodeData.map((node) => node.depth);
   const nodeColors = d3.scaleOrdinal(nodeDepths, NODE_FILL_COLORS);
 
   // force display layout
-  const forceNode = d3.forceManyBody();
+  const forceNode = d3
+    .forceManyBody()
+    .strength((d) => NODE_REPULSION_STRENGTHS[(d as ProteinNode).depth]);
   const forceLink = d3.forceLink(linkData).id(({ index }) => nodeIds[index]);
   forceLink.distance(LINK_STYLE.length);
 
@@ -703,12 +725,16 @@ export function drawProteinInteractionGraph(
       PPI_BRIGHTEN_PERCENTAGE
     );
 
+  // reference: https://www.d3indepth.com/force-layout/
   const simulation = d3
     .forceSimulation(nodeData)
     .force("link", forceLink)
     .force("charge", forceNode)
-    .force("center", d3.forceCenter())
-    .on("tick", () => interactionGraphTicked(links, nodes));
+    .force("center", d3.forceCenter(0, 0))
+    .force("collision", d3.forceCollide().radius(MAX_NODE_RADIUS))
+    .on("tick", () =>
+      interactionGraphTicked(links, nodes, PPI_WIDTH, PPI_HEIGHT)
+    );
 
   const nodeIdFunc = getElementIDFunc(chartId, "node");
   // container for circles and labels
@@ -722,7 +748,7 @@ export function drawProteinInteractionGraph(
     .call(
       handleMouseEvents,
       nodeIdFunc,
-      (d) => `Name: ${d.name}<br>Species: ${d.species}`,
+      (d: ProteinNode) => `Name: ${d.name}<br>Species: ${d.species}`,
       PPI_BRIGHTEN_PERCENTAGE
     );
 
@@ -731,6 +757,7 @@ export function drawProteinInteractionGraph(
     .append("circle")
     .attr("class", "protein-node-circle")
     .attr("fill", (node) => nodeColors(node.depth))
+    .attr("r", (node) => NODE_RADII[node.depth])
     .attr("id", (node, i) => nodeIdFunc(i));
 
   // node labels
