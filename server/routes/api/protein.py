@@ -298,7 +298,7 @@ def protein_protein_interaction():
         return f'Missing request parameter {key_error}', BAD_REQUEST_CODE
     for param, limits in LIMITS.items():
         if not (limits['min'] <= request.json[param] <= limits['max']):
-            return f'{param} of {score_threshold} out of bounds. Please try a value in [{limits["min"]}, {limits["max"]}]'
+            return f'{param} of {score_threshold} out of bounds. Please try a value in [{limits["min"]}, {limits["max"]}]', BAD_REQUEST_CODE
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
