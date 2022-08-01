@@ -295,8 +295,22 @@ def protein_protein_interaction():
         score_threshold = request.json['scoreThreshold']
         max_interactors = request.json['maxInteractors']
         max_depth = request.json['maxDepth']
+
+        if type(score_threshold) not in [int, float]:
+            raise TypeError('scoreThreshold must be a number')
+        if type(max_interactors) != int:
+            raise TypeError("maxInteractors must be an integer")
+        if type(max_depth) != int:
+            raise TypeError("maxDepth must be an integer")
+        if type(center_protein_dcid) != str:
+            raise TypeError("proteinDcid must be a string")
+
     except KeyError as key_error:
         return f'Missing request parameter {key_error}', BAD_REQUEST_CODE
+
+    except TypeError as type_error:
+        return f'Incorrect request parameter type: {type_error}', BAD_REQUEST_CODE
+
     for param, limits in LIMITS.items():
         if not (limits['min'] <= request.json[param] <= limits['max']):
             return f'{param} of {score_threshold} out of bounds. Please try a value in [{limits["min"]}, {limits["max"]}]', BAD_REQUEST_CODE
