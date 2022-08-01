@@ -14,8 +14,7 @@
 """Protein browser related handlers."""
 
 import json
-import flask
-from werkzeug.exceptions import BadRequest, InternalServerError
+from werkzeug.exceptions import InternalServerError
 from flask import request, Response, Blueprint
 
 from cache import cache
@@ -26,6 +25,17 @@ DEFAULT_INTERACTION_MEASUREMENT = 'IntactMiScore'
 DEFAULT_INTERACTION_SCORE = -1
 
 BAD_REQUEST_CODE = 400
+
+LIMITS = {
+    'maxDepth': {
+        'min': 0,
+        'max': 3,
+    },
+    'maxInteractors': {
+        'min': 1,
+        'max': 10,
+    },
+}
 
 bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
 
@@ -75,7 +85,8 @@ def _node(protein_id_or_dcid, depth):
         protein, species = node_id.split('_')
     # raise exception when node_id does not have exactly 1 '_'
     except ValueError:
-        raise InternalServerError(f'Invalid protein identifier "{protein_id_or_dcid}"')
+        raise InternalServerError(
+            f'Invalid protein identifier "{protein_id_or_dcid}"')
     return {
         'id': node_id,
         'name': protein,
@@ -109,7 +120,8 @@ def _interactors(interaction_id_or_dcid):
     try:
         protein1, species1, protein2, species2 = interaction_id.split('_')
     except ValueError:
-        raise InternalServerError(f'Invalid interaction identifier {interaction_id_or_dcid}')
+        raise InternalServerError(
+            f'Invalid interaction identifier {interaction_id_or_dcid}')
     return {
         'first_interactor': f'{protein1}_{species1}',
         'second_interactor': f'{protein2}_{species2}'
@@ -219,7 +231,6 @@ def _partition_expansion_cross(target_ids, node_set):
 
 
 @bp.errorhandler(InternalServerError)
-@bp.errorhandler(BadRequest)
 def handle_error(e):
     '''
     generic exception handler
@@ -284,7 +295,10 @@ def protein_protein_interaction():
         max_interactors = request.json['maxInteractors']
         max_depth = request.json['maxDepth']
     except KeyError as key_error:
-        raise BadRequest(f'Missing request parameter {key_error}')
+        return f'Missing request parameter {key_error}', BAD_REQUEST_CODE
+    for param, limits in LIMITS.items():
+        if not (limits['min'] <= request.json[param] <= limits['max']):
+            return f'{param} of {score_threshold} out of bounds. Please try a value in [{limits["min"]}, {limits["max"]}]'
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
