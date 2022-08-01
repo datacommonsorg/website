@@ -5,12 +5,14 @@ Enzyme.configure({ adapter: new Adapter() });
 
 import { GraphNodes } from "../../shared/types";
 import {
+  CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
 } from "./chart";
 import dataDOID2403 from "./data_DOID_2403.json";
 import {
+  getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
@@ -130,6 +132,44 @@ test("getCompoundDiseaseTreatment", () => {
     } catch (e) {
       console.log(
         "Got different chemical compound disease treatment array than expected for query data"
+      );
+      throw e;
+    }
+  }
+});
+
+test("getCompoundDiseaseContraindication", () => {
+  const cases: {
+    data: GraphNodes;
+    wantArray: CompoundDiseaseContraindicationData[];
+  }[] = [
+    {
+      data: dataDOID2403 as GraphNodes,
+      wantArray: [
+        {
+          drugSource: "drug matrix",
+          id: "CHEMBL960",
+          name: "leflunomide",
+          node: "bio/CCiD_CHEMBL960_DOID_2043",
+        },
+        {
+          drugSource: "chembl",
+          id: "CHEMBL1200733",
+          name: "desflurane",
+          node: "bio/CCiD_CHEMBL1200733_DOID_2043",
+        },
+      ],
+    },
+  ];
+  for (const c of cases) {
+    const compoundDiseaseContraindication = getCompoundDiseaseContraindication(
+      c.data
+    );
+    try {
+      expect(compoundDiseaseContraindication).toEqual(c.wantArray);
+    } catch (e) {
+      console.log(
+        "Got different chemical compound disease contraindication array than expected for query data"
       );
       throw e;
     }

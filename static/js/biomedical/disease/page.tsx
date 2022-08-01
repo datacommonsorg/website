@@ -27,11 +27,15 @@ import {
   drawDiseaseSymptomAssociationChart,
 } from "./chart";
 import {
+  getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
-import { DrugTable } from "./drug_table";
+import {
+  CompoundDiseaseContraindicationTable,
+  CompoundDiseaseTreatmentTable,
+} from "./drug_table";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -67,6 +71,9 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     const chemicalCompoundDiseaseTreatment = getCompoundDiseaseTreatment(
       this.state.data
     );
+    const chemicalCompoundDiseaseContraindication =
+      getCompoundDiseaseContraindication(this.state.data);
+
     return (
       <>
         <h2>Disease Browser</h2>
@@ -79,7 +86,18 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         <br></br>
         <div>
           <div id="table"></div>
-          <DrugTable data={chemicalCompoundDiseaseTreatment} />
+          <CompoundDiseaseTreatmentTable
+            data={chemicalCompoundDiseaseTreatment}
+          />
+        </div>
+        <br></br>
+        <h5>Chemical Compound Disease Contraindication</h5>
+        <br></br>
+        <div>
+          <div id="table"></div>
+          <CompoundDiseaseContraindicationTable
+            data={chemicalCompoundDiseaseContraindication}
+          />
         </div>
       </>
     );
