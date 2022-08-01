@@ -14,6 +14,7 @@
 """Protein browser related handlers."""
 
 import json
+import logging
 from werkzeug.exceptions import InternalServerError
 from flask import request, Response, Blueprint
 
@@ -37,6 +38,8 @@ LIMITS = {
     },
 }
 
+LOGGING_PREFIX_PPI = 'Protein browser PPI'
+
 bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
 
 
@@ -52,6 +55,14 @@ def get_node(dcid):
                              has_payload=False)
     return response
 
+def _log_ppi(message, caller=None):
+    '''
+    Given message and optionally the name of the function that called _log_ppi, record a log
+    '''
+    if caller is not None:
+        logging.info(f'{LOGGING_PREFIX_PPI}: {caller} - {message}')
+    else:
+        logging.info(f'{LOGGING_PREFIX_PPI}: {message}')
 
 def _id(id_or_dcid):
     '''
@@ -84,9 +95,9 @@ def _node(protein_id_or_dcid, depth):
     try:
         protein, species = node_id.split('_')
     # raise exception when node_id does not have exactly 1 '_'
-    except ValueError:
-        raise InternalServerError(
-            f'Invalid protein identifier "{protein_id_or_dcid}"')
+    except ValueError as error:
+        _log_ppi(f'Invalid protein identifier "{protein_id_or_dcid}"', '_node')
+        raise error
     return {
         'id': node_id,
         'name': protein,
@@ -119,9 +130,9 @@ def _interactors(interaction_id_or_dcid):
     interaction_id = _id(interaction_id_or_dcid)
     try:
         protein1, species1, protein2, species2 = interaction_id.split('_')
-    except ValueError:
-        raise InternalServerError(
-            f'Invalid interaction identifier {interaction_id_or_dcid}')
+    except ValueError as error:
+        _log_ppi(f'Invalid protein identifier "{interaction_id_or_dcid}"', '_interactors')
+        raise error
     return {
         'first_interactor': f'{protein1}_{species1}',
         'second_interactor': f'{protein2}_{species2}'
@@ -169,7 +180,11 @@ def _filter_interaction_dcids(interaction_dcids):
     dcid_set = set()
     uniques = []
     for interaction_dcid in interaction_dcids:
-        protein_id1, protein_id2 = _interactors(interaction_dcid).values()
+        try:
+            protein_id1, protein_id2 = _interactors(interaction_dcid).values()
+        # skip malformatted ids
+        except ValueError:
+            continue
         # filter out self-interactions
         if protein_id1 == protein_id2:
             continue
@@ -230,22 +245,6 @@ def _partition_expansion_cross(target_ids, node_set):
     }
 
 
-@bp.errorhandler(InternalServerError)
-def handle_error(e):
-    '''
-    generic exception handler
-    reference: https://flask.palletsprojects.com/en/2.1.x/errorhandling/#generic-exception-handlers
-    '''
-    response = e.get_response()
-    response.data = json.dumps({
-        'code': e.code,
-        'name': e.name,
-        'description': e.description,
-    })
-    response.content_type = 'application/json'
-    return response
-
-
 @bp.route('/protein-protein-interaction/', methods=['POST'])
 def protein_protein_interaction():
     '''
@@ -299,6 +298,10 @@ def protein_protein_interaction():
     for param, limits in LIMITS.items():
         if not (limits['min'] <= request.json[param] <= limits['max']):
             return f'{param} of {score_threshold} out of bounds. Please try a value in [{limits["min"]}, {limits["max"]}]', BAD_REQUEST_CODE
+    try:
+        center_protein_node = _node(center_protein_dcid, 0)
+    except ValueError:
+        return f'Invalid protein DCID {center_protein_dcid}'
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
@@ -307,8 +310,9 @@ def protein_protein_interaction():
     # set of node ids for all nodes in the graph
     node_id_set = set([_id(center_protein_dcid)])
 
+
     # to become final nested list of returned node dicts
-    nodes = [[_node(center_protein_dcid, 0)]]
+    nodes = [[center_protein_node]]
     # to become final nested list of returned link dicts
     links = [[]]
 
@@ -347,11 +351,13 @@ def protein_protein_interaction():
                 map(_reverse_interaction_dcid, interaction_dcids_filtered))
 
             source_id = _id(source_dcid)
-            target_ids = list(
-                map(
-                    lambda interaction_dcid: _other_interactor(
-                        interaction_dcid, source_id),
-                    interaction_dcids_filtered))
+            target_ids = []
+            for interaction_dcid in interaction_dcids_filtered:
+                try:
+                    target_id = _other_interactor(interaction_dcid, source_id)
+                except ValueError:
+                    continue
+                target_ids.append(target_id)
             # getter for score of source-target interaction
             target_scorer = lambda target_id: scores.get(
                 f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)
@@ -386,8 +392,14 @@ def protein_protein_interaction():
                 last_layer_node_dcids.extend(map(_dcid, expansion_target_ids))
 
         if depth != max_depth + 1:
-            nodes.append(
-                [_node(new_node_id, depth) for new_node_id in new_node_ids])
+            new_nodes = []
+            for new_node_id in new_node_ids:
+                try:
+                    new_node = _node(new_node_id, depth)
+                except ValueError:
+                    continue
+                new_nodes.append(new_node)
+            nodes.append(new_nodes)
             node_id_set.update(new_node_ids)
             links.append(expansion_links)
 
