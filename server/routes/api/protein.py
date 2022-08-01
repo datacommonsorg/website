@@ -55,6 +55,7 @@ def get_node(dcid):
                              has_payload=False)
     return response
 
+
 def _log_ppi(message, caller=None):
     '''
     Given message and optionally the name of the function that called _log_ppi, record a log
@@ -63,6 +64,7 @@ def _log_ppi(message, caller=None):
         logging.info(f'{LOGGING_PREFIX_PPI}: {caller} - {message}')
     else:
         logging.info(f'{LOGGING_PREFIX_PPI}: {message}')
+
 
 def _id(id_or_dcid):
     '''
@@ -131,7 +133,8 @@ def _interactors(interaction_id_or_dcid):
     try:
         protein1, species1, protein2, species2 = interaction_id.split('_')
     except ValueError as error:
-        _log_ppi(f'Invalid protein identifier "{interaction_id_or_dcid}"', '_interactors')
+        _log_ppi(f'Invalid protein identifier "{interaction_id_or_dcid}"',
+                 '_interactors')
         raise error
     return {
         'first_interactor': f'{protein1}_{species1}',
@@ -309,7 +312,6 @@ def protein_protein_interaction():
     interaction_dcid_set = set()
     # set of node ids for all nodes in the graph
     node_id_set = set([_id(center_protein_dcid)])
-
 
     # to become final nested list of returned node dicts
     nodes = [[center_protein_node]]
