@@ -21,24 +21,14 @@ from cache import cache
 import services.datacommons as dc
 
 BIO_DCID_PREFIX = 'bio/'
+LOGGING_PREFIX_PPI = 'Protein browser PPI'
+
 DEFAULT_INTERACTION_MEASUREMENT = 'IntactMiScore'
 DEFAULT_INTERACTION_SCORE = -1
 
 SUCCESS_CODE = 200
 BAD_REQUEST_CODE = 400
 
-LIMITS = {
-    'maxDepth': {
-        'min': 0,
-        'max': 3,
-    },
-    'maxInteractors': {
-        'min': 1,
-        'max': 10,
-    },
-}
-
-LOGGING_PREFIX_PPI = 'Protein browser PPI'
 
 bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
 
@@ -185,13 +175,13 @@ def _filter_interaction_dcids(interaction_dcids):
     for interaction_dcid in interaction_dcids:
         try:
             protein_id1, protein_id2 = _interactors(interaction_dcid).values()
+            reverse_dcid = _reverse_interaction_dcid(interaction_dcid)
         # skip malformatted ids
         except ValueError:
             continue
         # filter out self-interactions
         if protein_id1 == protein_id2:
             continue
-        reverse_dcid = _reverse_interaction_dcid(interaction_dcid)
         if interaction_dcid not in dcid_set:
             uniques.append(interaction_dcid)
             dcid_set.update([interaction_dcid, reverse_dcid])
@@ -208,7 +198,11 @@ def _symmetrized_scores(scores):
     '''
     scores_sym = {}
     for interaction_id, score in scores.items():
-        reverse_id = _reverse_interaction_id(interaction_id)
+        try:
+            reverse_id = _reverse_interaction_id(interaction_id)
+        # skip malformatted ids
+        except ValueError:
+            continue;
         reverse_score = scores.get(reverse_id, DEFAULT_INTERACTION_SCORE)
         scores_sym[interaction_id] = scores_sym[reverse_id] = max(
             score, reverse_score)
@@ -312,13 +306,10 @@ def protein_protein_interaction():
     except TypeError as type_error:
         return f'Incorrect request parameter type: {type_error.args[0]}', BAD_REQUEST_CODE
 
-    for param, limits in LIMITS.items():
-        if not (limits['min'] <= request.json[param] <= limits['max']):
-            return f'{param} of {score_threshold} out of bounds. Please try a value in [{limits["min"]}, {limits["max"]}]', BAD_REQUEST_CODE
     try:
         center_protein_node = _node(center_protein_dcid, 0)
     except ValueError:
-        return f'Invalid protein DCID {center_protein_dcid}'
+        return f'Invalid protein DCID', BAD_REQUEST_CODE
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
@@ -334,6 +325,8 @@ def protein_protein_interaction():
 
     # used to request the next layer of interactors
     last_layer_node_dcids = [center_protein_dcid]
+    # each iteration k retrieves the nodes and interactions at depth k
+    # the last iteration is solely for finding the cross-links of the last layer
     for depth in range(1, max_depth + 2):
         # retrieve interactor dict of form {'bio/P53_HUMAN': ['bio/CBP_HUMAN', ...], 'bio/FGFR1_HUMAN': [...], ...}
         layer_interactors = dc.property_values(last_layer_node_dcids,
@@ -421,4 +414,4 @@ def protein_protein_interaction():
 
     graph = {'nodeDataNested': nodes, 'linkDataNested': links}
 
-    return Response(json.dumps(graph))
+    return Response(json.dumps(graph)), SUCCESS_CODE
