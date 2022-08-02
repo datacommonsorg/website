@@ -21,12 +21,13 @@
 import _ from "lodash";
 import React, { useRef, useState } from "react";
 
-import { CsvData, Mapping } from "../types";
+import { CsvData, Mapping, ValueMap } from "../types";
 import { PlaceDetector } from "../utils/detect_place";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { MappingSection } from "./mapping_section";
 import { PreviewSection } from "./preview_section";
 import { UploadSection } from "./upload_section";
+import { ValueMapSection } from "./value_map_section";
 
 export function Page(): JSX.Element {
   const [csv, setCsv] = useState<CsvData>(null);
@@ -35,6 +36,8 @@ export function Page(): JSX.Element {
     mapping: Mapping;
     csv: CsvData;
   }>(null);
+  const [valueMap, setValueMap] = useState<ValueMap>({});
+  const [showValueMap, setShowValueMap] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const showMapping = !_.isEmpty(csv);
   const placeDetector = useRef(new PlaceDetector());
@@ -50,12 +53,27 @@ export function Page(): JSX.Element {
         <MappingSection
           csvData={csv}
           predictedMapping={predictedMapping}
-          onCorrectedMappingUpdated={() => setShowPreview(false)}
+          onCorrectedMappingUpdated={() => {
+            setShowPreview(false);
+            setShowValueMap(false);
+          }}
           onCorrectionsSubmitted={(mapping, csv) => {
-            setShowPreview(true);
+            setShowValueMap(true);
             setCorrections({ mapping, csv });
           }}
           placeDetector={placeDetector.current}
+        />
+      )}
+      {showValueMap && (
+        <ValueMapSection
+          onValueMapSubmitted={(valueMap) => {
+            setShowPreview(true);
+            setValueMap(valueMap);
+          }}
+          onValueMapUpdated={() => {
+            setShowPreview(false);
+          }}
+          valueMap={valueMap}
         />
       )}
       {showPreview && (
@@ -64,7 +82,12 @@ export function Page(): JSX.Element {
             predictedMapping={predictedMapping}
             correctedMapping={corrections.mapping}
             csvData={corrections.csv}
-            shouldGenerateCsv={shouldGenerateCsv(csv, corrections.csv)}
+            shouldGenerateCsv={shouldGenerateCsv(
+              csv,
+              corrections.csv,
+              valueMap
+            )}
+            valueMap={valueMap}
           />
         </div>
       )}

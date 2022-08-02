@@ -16,28 +16,13 @@
 
 import _ from "lodash";
 
-import { GraphNodes } from "../shared/types";
+import { GraphNodes } from "../../shared/types";
 import { ProteinNumData, ProteinStrData } from "./chart";
 import {
   DiseaseAssociationType,
   InteractingProteinType,
   ProteinVarType,
 } from "./page";
-import {
-  bioDcid,
-  InteractionLink,
-  MultiLevelInteractionGraphData,
-  ProteinNode,
-  V1BioResponse,
-  V1BioResponseDatum,
-} from "./types";
-
-// Upper bound on node degree in interaction graph viz's
-export const MAX_INTERACTIONS = 4;
-export const INTERACTION_QUANTITY_DCID = "IntactMiScore";
-
-// Number to return if interaction score is missing
-const DEFAULT_INTERACTION_SCORE = -1;
 
 const VARIANT_CATEGORY = [
   "GeneticVariantFunctionalCategoryUTR3",
@@ -86,9 +71,14 @@ const CHEM_RELATIONS = [
   "RelationshipAssociationTypeAmbiguous",
 ];
 
+/**
+ * Fetches and formats the tissue name and expression score for the protein of interest
+ * @param data
+ * @returns - array with tissue name and corresponding expression score
+ */
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
-  // Tissue to score mapping.
-  if (!data) {
+  // checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData: ProteinStrData[] = [];
@@ -128,12 +118,19 @@ export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   }
   return [];
 }
+
+/**
+ * Fetches and formats interacting protein names and interaction confidence scores for the protein of interest
+ * @param data
+ * @param nodeName
+ * @returns - array with interacting protein name, confidence score, parent protein name
+ */
 export function getProteinInteraction(
   data: GraphNodes,
   nodeName: string
 ): InteractingProteinType[] {
-  // Protein Interaction to confidence score mapping.
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData = [] as InteractingProteinType[];
@@ -148,9 +145,9 @@ export function getProteinInteraction(
       continue;
     }
     for (const node of neighbour.nodes) {
-      let protein_name = null;
-      let confidence_score = null;
-      let parent_protein = null;
+      let proteinName = null;
+      let confidenceScore = null;
+      let parentProtein = null;
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors)) {
         continue;
@@ -161,8 +158,8 @@ export function getProteinInteraction(
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
             continue;
           }
-          protein_name = n.nodes[0].value;
-          parent_protein = nodeName;
+          proteinName = n.nodes[0].value;
+          parentProtein = nodeName;
         } else if (n.property === "confidenceScore") {
           // not checking for empty values because if name exists, confidence score must exist
           for (const n1 of n.nodes) {
@@ -173,7 +170,7 @@ export function getProteinInteraction(
                 }
                 const num = Number(n2.nodes[0].value);
                 if (num <= 1) {
-                  confidence_score = num;
+                  confidenceScore = num;
                 }
               }
             }
@@ -181,13 +178,13 @@ export function getProteinInteraction(
         }
       }
       // checking for duplicates
-      if (!seen.has(protein_name)) {
+      if (!seen.has(proteinName)) {
         returnData.push({
-          name: protein_name,
-          value: confidence_score,
-          parent: parent_protein,
+          name: proteinName,
+          parent: parentProtein,
+          value: confidenceScore,
         });
-        seen.add(protein_name);
+        seen.add(proteinName);
       }
     }
     return returnData;
@@ -195,11 +192,16 @@ export function getProteinInteraction(
   return [];
 }
 
+/**
+ * Fetches and formats disease names and their association scores for the protein of interest
+ * @param data
+ * @returns - array with disease name and association score
+ */
 export function getDiseaseGeneAssoc(
   data: GraphNodes
 ): DiseaseAssociationType[] {
-  // Disease Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData: DiseaseAssociationType[] = [];
@@ -263,9 +265,14 @@ export function getDiseaseGeneAssoc(
   return [];
 }
 
+/**
+ * Fetches and formats variant ids and their log 2 association scores for the protein of interest
+ * @param data
+ * @returns - array with variant id and log 2 association score
+ */
 export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
-  // Variant Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData = [] as ProteinVarType[];
@@ -324,11 +331,11 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
           }
           if (!seen.has(variant) && !!score) {
             returnData.push({
-              associationID: associationID,
+              associationID,
               id: variant,
+              interval,
               name: tissue,
               value: score,
-              interval: interval,
             });
           }
           seen.add(variant);
@@ -340,9 +347,14 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   return [];
 }
 
+/**
+ * Fetches and formats variant count and variant categories for the protein of interest
+ * @param data
+ * @returns - array with variant count and corresponding variant functional category
+ */
 export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
-  // Variant Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const returnData: ProteinNumData[] = [];
@@ -395,9 +407,14 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches and formats variant count and clinical significance for the protein of interest
+ * @param data
+ * @returns - array with variant count and corresponding variant clinical significance
+ */
 export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
-  // Variant Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const result: ProteinNumData[] = [];
@@ -450,9 +467,14 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches and formats drug association count and type from the protein of interest
+ * @param data
+ * @returns - array with count and drug-gene association type
+ */
 export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
-  // Chem Gene Associations
-  if (!data) {
+  // Checks if the data is empty
+  if (_.isEmpty(data)) {
     return [];
   }
   const result: ProteinNumData[] = [];
@@ -508,6 +530,11 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   return [];
 }
 
+/**
+ * Fetches the description of the protein of interest
+ * @param data
+ * @returns - string with protein description
+ */
 export function getProteinDescription(data: GraphNodes): string {
   let proteinDescription = null;
   if (!data) {
@@ -528,277 +555,4 @@ export function getProteinDescription(data: GraphNodes): string {
     proteinDescription = neighbour.nodes[0].value;
     return proteinDescription;
   }
-}
-
-/**
- * Convert DCID of form bio/<id> to id. Utility for protein-protein interaction (PPI) graph.
- */
-export function ppiIdFromDcid(dcid: bioDcid): string {
-  return dcid.replace("bio/", "");
-}
-
-/**
- * Given id, convert to DCID of form bio/<id>.  Utility for protein-protein interaction (PPI) graph.
- */
-export function ppiDcidFromId(id: string): bioDcid {
-  return `bio/${id}`;
-}
-
-/**
- * Given quantity DCID of the form "<quantityName><quantityValue>", attempt to extract and return quantityValue.
- * Return NaN if quantity DCID is malformatted.
- */
-export function quantityFromDcid(
-  quantityDcid: string,
-  quantityName: string
-): number {
-  if (!quantityDcid.includes(quantityName)) {
-    return NaN;
-  }
-  return Number(_.last(quantityDcid.split(quantityName)));
-}
-
-/**
- * Given interaction DCID of the form bio/{protein1}_{protein2} (e.g. bio/2A5D_YEAST_AHA1_YEAST),
- * return [protein1, protein2], or null if interaction DCID does not contain exactly 3 underscores.
- */
-export function proteinsFromInteractionDcid(
-  interactionDcid: bioDcid
-): [string, string] {
-  const id = ppiIdFromDcid(interactionDcid);
-  // danger: assumes neither {protein name}, {species name} contain an underscore
-  const split = id.split("_");
-  if (split.length !== 4) {
-    return null;
-  }
-  return [`${split[0]}_${split[1]}`, `${split[2]}_${split[3]}`];
-}
-
-/**
- * Given list L of interaction DCIDs, return new list such that for each subset of DCIDs in L
- * identifying the same pair of proteins (e.g. A_B and B_A), keep only one element of the subset.
- * Skip all malformatted interaction DCIDs.
- *
- * Does not mutate original list.
- */
-export function deduplicateInteractionDcids(
-  interactionDcids: bioDcid[]
-): bioDcid[] {
-  const uniqueInteractionDcids: bioDcid[] = [];
-  const interactions = new Set<[string, string]>();
-  interactionDcids.forEach((interactionDcid) => {
-    const proteins = proteinsFromInteractionDcid(interactionDcid);
-    if (proteins === null) {
-      console.warn(`Invalid interaction ID ${interactionDcid} -- skipping`);
-      return;
-    }
-    if (!interactions.has(proteins)) {
-      uniqueInteractionDcids.push(interactionDcid);
-      const [protein1, protein2] = proteins;
-      interactions.add([protein1, protein2]);
-      interactions.add([protein2, protein1]);
-    }
-  });
-  return uniqueInteractionDcids;
-}
-
-/**
- * Given interaction DCID and source DCID, infer and return target ID.
- */
-export function getInteractionTarget(
-  interactionDcid: bioDcid,
-  sourceDcid: bioDcid
-): string {
-  // note this also works in the case of a self-interaction
-  const interactionId = ppiIdFromDcid(interactionDcid);
-  const sourceId = ppiIdFromDcid(sourceDcid);
-  const id = interactionId
-    .replace(`${sourceId}_`, "")
-    .replace(`_${sourceId}`, "");
-  return id;
-}
-
-/**
- * Given protein id of the form {protein name}_{species name} (e.g. P53_HUMAN), parse into and return ProteinNode
- */
-export function nodeFromId(proteinId: string, depth: number): ProteinNode {
-  // assumes {species name} does not contain _
-  // last checked: 06/22/22, when MINT was the provenance of all protein data
-  const lastIndex = proteinId.lastIndexOf("_");
-  return {
-    depth,
-    id: proteinId,
-    name: proteinId.slice(0, lastIndex),
-    species: proteinId.slice(lastIndex + 1),
-  };
-}
-
-/**
- * Given interaction data as a list of InteractingProteinType, process into and return in the following format: 
- * 
-      {
-
-        nodeData : [
-          { id: MECOM_HUMAN, name: "MECOM", species: "HUMAN", depth: 0 },
-          { id: CTBP1_HUMAN, name: "CTBP1", species: "HUMAN", depth: 1 },
-          { id: SUPT16H_HUMAN, name: "SUPT16H", species: "HUMAN", depth: 1 },
-        ],
-
-        linkData : [
-          { source: MECOM_HUMAN, target: CTPB1_HUMAN, score: 0.3 },
-          { source: MECOM_HUMAN, target: SUPT16H_HUMAN, score: 0.7 },
-        ],
-
-      }.
- */
-export function getProteinInteractionGraphData(
-  data: InteractingProteinType[]
-): MultiLevelInteractionGraphData {
-  // checks if the data is empty or not
-  if (_.isEmpty(data)) {
-    return;
-  }
-
-  // P53_HUMAN is central protein in below examples.
-  // take interaction names of the form P53_HUMAN_ASPP2_HUMAN | ASPP2_HUMAN_P53_HUMAN and parse into ASPP2_HUMAN.
-  const centerNodeId = data[0].parent;
-  let neighbors = data.map(({ name: interactionId, value }) => {
-    // value is confidenceScore
-    const neighborId = getInteractionTarget(
-      ppiDcidFromId(interactionId),
-      ppiDcidFromId(centerNodeId)
-    );
-    const nodeDatum = nodeFromId(neighborId, 1);
-    nodeDatum["value"] = value;
-    return nodeDatum;
-  });
-
-  // delete duplicates and self-interactions (will add support for self-interactions later on)
-  const seen = new Set();
-  neighbors = neighbors.filter((node) => {
-    const duplicate = seen.has(node.name);
-    seen.add(node.name);
-    return !duplicate && node.id !== centerNodeId;
-  });
-
-  // descending order of interaction confidenceScore
-  neighbors.sort((n1, n2) => n2.value - n1.value);
-  // consider only top 10 interactions to avoid clutter
-  neighbors = neighbors.slice(0, MAX_INTERACTIONS);
-
-  const centerDatum = nodeFromId(centerNodeId, 0);
-
-  const linkData: InteractionLink[] = neighbors.map((node) => {
-    return {
-      score: node.value,
-      source: centerNodeId,
-      target: node.id,
-    };
-  });
-
-  return {
-    // guaranteed to be [] because we don't support self-interactions yet
-    linkDataNested: [[], linkData],
-    nodeDataNested: [[centerDatum], neighbors],
-  };
-}
-
-/**
- * Given response and key, map each datum in response.data to datum[key] and return map.
- * If response.data is empty, return [].
- */
-export function getFromResponse<K extends keyof V1BioResponseDatum>(
-  resp: V1BioResponse,
-  key: K
-): V1BioResponseDatum[K][] {
-  if (_.isEmpty(resp.data)) {
-    return [];
-  }
-  return resp.data.map((datum) => datum[key]);
-}
-
-/**
- * Given a record mapping interaction IDs to corresponding scores, construct and return symmetric score record
- * such that for each interaction A_B in the input record, both A_B and B_A map to the maximum of the scores of
- * A_B and B_A if the score of B_A is in the input record, or the score of A_B otherwise. Skip all malformed IDs.
- *
- * Since we currently do not graphically distinguish between the A_B and B_A scores,
- * we choose to have a symmetric score store.
- *
- * In the future perhaps we should make the graph directed to make relationships like "A phosphorylates B"
- * more clear. I also think there should be assays for which the scores are not symmetric -
- * ex. "knockout A and see what happens to the expression of B". These might not exist in the graph currently
- * but could very well be imported in the future. Thus, we might have two or more edges between proteins
- * for each type of interaction they participate in, with different scores for each.
- */
-export function symmetrizeScoreRec(
-  scoreRec: Record<string, number>
-): Record<string, number> {
-  const newScoreRec: Record<string, number> = {};
-  for (const interactionId of Object.keys(scoreRec)) {
-    const interactionDcid = ppiDcidFromId(interactionId);
-    const proteins = proteinsFromInteractionDcid(ppiDcidFromId(interactionId));
-    if (proteins === null) {
-      console.warn(`Invalid interaction ID ${interactionDcid} -- skipping`);
-      continue;
-    }
-    const [proteinA, proteinB] = proteins;
-    const scoreAB = _.get(
-      scoreRec,
-      `${proteinA}_${proteinB}`,
-      DEFAULT_INTERACTION_SCORE
-    );
-    const scoreBA = _.get(
-      scoreRec,
-      `${proteinB}_${proteinA}`,
-      DEFAULT_INTERACTION_SCORE
-    );
-    const maxScore = Math.max(scoreAB, scoreBA);
-    newScoreRec[`${proteinA}_${proteinB}`] = maxScore;
-    newScoreRec[`${proteinB}_${proteinA}`] = maxScore;
-  }
-  return newScoreRec;
-}
-
-/**
- * Given score response, construct a record mapping interaction IDs of the form A_B to their confidence scores,
- * satisfying the property that if A_B: A_B.score is in the record, then B_A: A_B.score is also.
- */
-export function scoreDataFromResponse(
-  scoreResponse: V1BioResponse
-): Record<string, number> {
-  if (_.isEmpty(scoreResponse.data)) {
-    return {};
-  }
-  const scoreRec: Record<string, number> = {};
-  for (const responseDatum of scoreResponse.data) {
-    const interactionDcid = responseDatum.entity;
-    if (!interactionDcid) {
-      console.warn(
-        `Undefined or empty interaction DCID ${interactionDcid} -- skipping`
-      );
-      continue;
-    }
-    const interactionId = ppiIdFromDcid(interactionDcid);
-    const values = responseDatum.values || [];
-    for (const bioDatum of values) {
-      if (_.get(bioDatum, "dcid", "").includes(INTERACTION_QUANTITY_DCID)) {
-        const score = quantityFromDcid(
-          bioDatum.dcid,
-          INTERACTION_QUANTITY_DCID
-        );
-        if (!isNaN(score)) {
-          scoreRec[interactionId] = score;
-          break;
-        }
-      }
-    }
-    if (!_.has(scoreRec, interactionId)) {
-      console.warn(
-        `Unable to retrieve score for interaction ${interactionDcid} -- default score of ${DEFAULT_INTERACTION_SCORE} used`
-      );
-      scoreRec[interactionId] = DEFAULT_INTERACTION_SCORE;
-    }
-  }
-  return symmetrizeScoreRec(scoreRec);
 }

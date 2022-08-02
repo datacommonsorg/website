@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import {
@@ -39,6 +39,7 @@ interface MappingColumnOptionsProps {
 }
 
 const IGNORED_MAPPED_THINGS = new Set([MappedThing.UNIT]);
+const NUM_EXAMPLES = 2;
 
 export function MappingColumnOptions(
   props: MappingColumnOptionsProps
@@ -47,91 +48,20 @@ export function MappingColumnOptions(
   const validPlaceProperties = Array.from(
     props.validPlaceTypeProperties[props.column.columnPlaceType.dcid]
   );
+  const [unitInput, setUnitInput] = useState(
+    props.column.constants.get(MappedThing.UNIT) || ""
+  );
+
+  useEffect(() => {
+    setUnitInput(props.column.constants.get(MappedThing.UNIT) || "");
+  }, [props.column]);
+
   return (
     <div className="column-options">
       <div className="column-options-header">
-        The values in the column <b>{props.column.column.header}</b> are:
+        For the column <b>{props.column.column.header}</b>:
       </div>
       <FormGroup radio="true" className="column-options-input-section">
-        {/* radio option for mapping type of COLUMN */}
-        <Label radio="true" className="column-options-input column-type">
-          <Input
-            type="radio"
-            name="mapping-type"
-            checked={props.column.type === MappingType.COLUMN}
-            onChange={() =>
-              updateColumn(MappingType.COLUMN, props.column.columnMappedThing)
-            }
-          />
-          <div className="column-type-inputs">
-            {/* drop down for selecting the mapped thing */}
-            <Input
-              id="column-type-mapped-thing"
-              className="column-option-dropdown"
-              type="select"
-              value={props.column.columnMappedThing}
-              onChange={(e) =>
-                updateColumn(MappingType.COLUMN, e.target.value as MappedThing)
-              }
-            >
-              {Object.values(MappedThing)
-                .filter((thing) => !IGNORED_MAPPED_THINGS.has(thing))
-                .map((thing) => (
-                  <option value={thing} key={thing}>
-                    {MAPPED_THING_NAMES[thing] || thing}
-                  </option>
-                ))}
-            </Input>
-            values{" "}
-            {props.column.columnMappedThing === MappedThing.PLACE && (
-              <>
-                of type
-                {/* drop down for selecting the place type */}
-                <Input
-                  id="column-type-place-type"
-                  className="column-option-dropdown"
-                  type="select"
-                  value={props.column.columnPlaceType.dcid}
-                  onChange={(e) =>
-                    updateColumn(
-                      MappingType.COLUMN,
-                      MappedThing.PLACE,
-                      e.target.value
-                    )
-                  }
-                >
-                  {validPlaceTypes.map((type) => (
-                    <option value={type} key={type}>
-                      {props.placeDetector.placeTypes.get(type).displayName}
-                    </option>
-                  ))}
-                </Input>
-                and of format
-                {/* drop down for selecting the place property */}
-                <Input
-                  id="column-type-place-property"
-                  className="column-option-dropdown"
-                  type="select"
-                  value={props.column.columnPlaceProperty.dcid}
-                  onChange={(e) =>
-                    updateColumn(
-                      MappingType.COLUMN,
-                      MappedThing.PLACE,
-                      undefined,
-                      e.target.value
-                    )
-                  }
-                >
-                  {validPlaceProperties.map((property) => (
-                    <option value={property.dcid} key={property.dcid}>
-                      {property.displayName}
-                    </option>
-                  ))}
-                </Input>
-              </>
-            )}
-          </div>
-        </Label>
         {/* radio option for mapping type of HEADER */}
         <Label radio="true" className="column-options-input header-type">
           <Input
@@ -147,7 +77,9 @@ export function MappingColumnOptions(
           />
           {
             <>
-              <span>Data values for the </span>
+              <span>
+                The column title {`(${props.column.column.header})`} is a
+              </span>
               {/* drop down for selecting the mapped thing */}
               <Input
                 id="header-type-mapped-thing"
@@ -169,9 +101,49 @@ export function MappingColumnOptions(
                     </option>
                   ))}
               </Input>
-              <span>{props.column.column.header}</span>
+              {props.column.headerMappedThing === MappedThing.PLACE &&
+                getPlaceTypePropertyInputs(MappingType.COLUMN_HEADER)}
             </>
           }
+        </Label>
+        {/* radio option for mapping type of COLUMN */}
+        <Label radio="true" className="column-options-input column-type">
+          <Input
+            type="radio"
+            name="mapping-type"
+            checked={props.column.type === MappingType.COLUMN}
+            onChange={() =>
+              updateColumn(MappingType.COLUMN, props.column.columnMappedThing)
+            }
+          />
+          <div className="column-type-inputs">
+            Rows contain values for
+            {/* drop down for selecting the mapped thing */}
+            <Input
+              id="column-type-mapped-thing"
+              className="column-option-dropdown"
+              type="select"
+              value={props.column.columnMappedThing}
+              onChange={(e) =>
+                updateColumn(MappingType.COLUMN, e.target.value as MappedThing)
+              }
+            >
+              {Object.values(MappedThing)
+                .filter((thing) => !IGNORED_MAPPED_THINGS.has(thing))
+                .map((thing) => (
+                  <option value={thing} key={thing}>
+                    {MAPPED_THING_NAMES[thing] || thing}
+                  </option>
+                ))}
+            </Input>
+            {props.column.columnMappedThing === MappedThing.PLACE &&
+              getPlaceTypePropertyInputs(MappingType.COLUMN)}
+            {!_.isEmpty(props.column.sampleValues) && (
+              <span>{`(e.g., ${props.column.sampleValues
+                .slice(0, NUM_EXAMPLES)
+                .join(", ")})`}</span>
+            )}
+          </div>
         </Label>
         {/* radio option for NO MAPPING */}
         <Label radio="true" className="column-options-input no-type">
@@ -181,45 +153,138 @@ export function MappingColumnOptions(
             checked={_.isEmpty(props.column.type)}
             onChange={() => updateColumn(null, null)}
           />
-          Not mapped
+          Skip this column
         </Label>
       </FormGroup>
+      <div className="unit-input">
+        If the values in this column have an associated unit, enter it here:
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            updateColumnUnit();
+          }}
+        >
+          <Input
+            className="constant-value-input"
+            type="text"
+            onChange={(e) => {
+              const val = e.target.value;
+              setUnitInput(val);
+            }}
+            onBlur={updateColumnUnit}
+            value={unitInput}
+          />
+        </form>
+      </div>
     </div>
   );
+
+  function updateColumnUnit(): void {
+    const updatedColumn = _.cloneDeep(props.column);
+    updatedColumn.constants.set(MappedThing.UNIT, unitInput);
+    props.onColumnUpdated(updatedColumn);
+  }
 
   function updateColumn(
     mappingType: MappingType,
     mappedThing: MappedThing,
-    columnPlaceType?: string,
-    columnPlaceProperty?: string
+    placeType?: string,
+    placeProperty?: string
   ): void {
     const updatedColumn: ColumnInfo = _.cloneDeep(props.column);
     updatedColumn.type = mappingType;
     updatedColumn.mappedThing = mappedThing;
     if (mappingType === MappingType.COLUMN) {
       updatedColumn.columnMappedThing = mappedThing;
-      // if columnPlaceType is updated, updated columnPlaceType and
-      // columnPlaceProperty
-      if (!_.isEmpty(columnPlaceType)) {
-        updatedColumn.columnPlaceType =
-          props.placeDetector.placeTypes.get(columnPlaceType);
-        const possibleProperties =
-          props.validPlaceTypeProperties[columnPlaceType] || new Set();
-        updatedColumn.columnPlaceProperty = possibleProperties.has(
-          updatedColumn.columnPlaceProperty
-        )
-          ? updatedColumn.columnPlaceProperty
-          : possibleProperties[0];
-      }
-      // if columnPlaceProperty is updated, update columnPlaceProperty
-      if (!_.isEmpty(columnPlaceProperty)) {
-        updatedColumn.columnPlaceProperty =
-          props.placeDetector.placeProperties.get(columnPlaceProperty);
-      }
     }
     if (mappingType === MappingType.COLUMN_HEADER) {
       updatedColumn.headerMappedThing = mappedThing;
     }
+    // if placeType is updated, update that value for either header or column
+    if (!_.isEmpty(placeType)) {
+      const updatedPlaceType = props.placeDetector.placeTypes.get(placeType);
+      const possibleProperties =
+        props.validPlaceTypeProperties[placeType] || new Set();
+      if (mappingType === MappingType.COLUMN) {
+        updatedColumn.columnPlaceType = updatedPlaceType;
+        updatedColumn.columnPlaceProperty = possibleProperties.has(
+          updatedColumn.columnPlaceProperty
+        )
+          ? updatedColumn.columnPlaceProperty
+          : Array.from(possibleProperties)[0];
+      } else {
+        updatedColumn.headerPlaceType = updatedPlaceType;
+        updatedColumn.headerPlaceProperty = possibleProperties.has(
+          updatedColumn.headerPlaceProperty
+        )
+          ? updatedColumn.headerPlaceProperty
+          : Array.from(possibleProperties)[0];
+      }
+    }
+    // if placeProperty is updated, update that value for either header or column
+    if (!_.isEmpty(placeProperty)) {
+      const updatedPlaceProperty =
+        props.placeDetector.placeProperties.get(placeProperty);
+      if (mappingType === MappingType.COLUMN) {
+        updatedColumn.columnPlaceProperty = updatedPlaceProperty;
+      } else {
+        updatedColumn.headerPlaceProperty = updatedPlaceProperty;
+      }
+    }
     props.onColumnUpdated(updatedColumn);
+  }
+
+  function getPlaceTypePropertyInputs(mappingType: MappingType): JSX.Element {
+    const typeVal =
+      mappingType === MappingType.COLUMN
+        ? props.column.columnPlaceType.dcid
+        : props.column.headerPlaceType.dcid;
+    const propertyVal =
+      mappingType === MappingType.COLUMN
+        ? props.column.columnPlaceProperty.dcid
+        : props.column.headerPlaceProperty.dcid;
+    return (
+      <>
+        of type
+        {/* drop down for selecting the place type */}
+        <Input
+          id="column-type-place-type"
+          className="column-option-dropdown"
+          type="select"
+          value={typeVal}
+          onChange={(e) =>
+            updateColumn(mappingType, MappedThing.PLACE, e.target.value)
+          }
+        >
+          {validPlaceTypes.map((type) => (
+            <option value={type} key={type}>
+              {props.placeDetector.placeTypes.get(type).displayName}
+            </option>
+          ))}
+        </Input>
+        and format
+        {/* drop down for selecting the place property */}
+        <Input
+          id="column-type-place-property"
+          className="column-option-dropdown"
+          type="select"
+          value={propertyVal}
+          onChange={(e) =>
+            updateColumn(
+              mappingType,
+              MappedThing.PLACE,
+              undefined,
+              e.target.value
+            )
+          }
+        >
+          {validPlaceProperties.map((property) => (
+            <option value={property.dcid} key={property.dcid}>
+              {property.displayName}
+            </option>
+          ))}
+        </Input>
+      </>
+    );
   }
 }
