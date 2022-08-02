@@ -308,7 +308,7 @@ def protein_protein_interaction():
     try:
         center_protein_node = _node(center_protein_dcid, 0)
     except ValueError:
-        return f'Invalid protein DCID', BAD_REQUEST_CODE
+        return f'Invalid proteinDCID', BAD_REQUEST_CODE
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
