@@ -43,7 +43,7 @@ interface State {
 const CHART_ID = "protein-interaction-graph";
 
 const DEFAULTS = {
-  DEPTH: 1,
+  DEPTH: 2,
   MAX_INTERACTIONS: 5,
   MISSING_SCORE_FILLER: -1,
   SCORE_THRESHOLD: 0.4,
