@@ -109,6 +109,7 @@ def _extract_intactmi(score_dcids):
                 return float(
                     score_dcid.replace(DEFAULT_INTERACTION_MEASUREMENT, ""))
         except:
+            _log_ppi(f'Malformatted {DEFAULT_INTERACTION_MEASUREMENT} {score_dcid}', '_extract_intactmi')
             continue
     return DEFAULT_INTERACTION_SCORE
 
