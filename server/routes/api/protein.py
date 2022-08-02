@@ -61,7 +61,7 @@ def _id(id_or_dcid):
     E.g. 'bio/P53_HUMAN' --> 'P53_HUMAN'
     '''
     if id_or_dcid.count(BIO_DCID_PREFIX) > 1:
-        raise InternalServerError(
+        raise ValueError(
             f'{id_or_dcid} cannot contain multiple instances of "{BIO_DCID_PREFIX}"'
         )
     return id_or_dcid.replace(BIO_DCID_PREFIX, '')
@@ -82,8 +82,8 @@ def _node(protein_id_or_dcid, depth):
     Returns node object.
     Protein dcids are of the form 'bio/{name}_{species}' (e.g. 'bio/P53_HUMAN')
     '''
-    node_id = _id(protein_id_or_dcid)
     try:
+        node_id = _id(protein_id_or_dcid)
         protein, species = node_id.split('_')
     # raise exception when node_id does not have exactly 1 '_'
     except ValueError as error:
@@ -118,8 +118,8 @@ def _interactors(interaction_id_or_dcid):
     Parse and return ids of two interactors from interaction DCID of the form 'bio/{protein1 id}_{protein2 id}'
     E.g. 'bio/P53_HUMAN_CBP_HUMAN' --> 'P53_HUMAN', 'CBP_HUMAN'
     '''
-    interaction_id = _id(interaction_id_or_dcid)
     try:
+        interaction_id = _id(interaction_id_or_dcid)
         protein1, species1, protein2, species2 = interaction_id.split('_')
     except ValueError as error:
         _log_ppi(f'Invalid protein identifier "{interaction_id_or_dcid}"',
@@ -308,14 +308,14 @@ def protein_protein_interaction():
     try:
         center_protein_node = _node(center_protein_dcid, 0)
     except ValueError:
-        return f'Invalid proteinDcid', BAD_REQUEST_CODE
+        return 'Invalid proteinDcid', BAD_REQUEST_CODE
 
     # interaction dcid --> IntactMi score of interaction
     scores = {}
     # set of interaction DCIDs for all links in the graph and their reversals
     interaction_dcid_set = set()
     # set of node ids for all nodes in the graph
-    node_id_set = set([_id(center_protein_dcid)])
+    node_id_set = set([center_protein_node['id']])
 
     # to become final nested list of returned node dicts
     nodes = [[center_protein_node]]
@@ -331,13 +331,17 @@ def protein_protein_interaction():
         layer_interactors = dc.property_values(last_layer_node_dcids,
                                                "interactingProtein", "in")
         # retrieve score dict of form {'bio/P53_HUMAN_CBP_HUMAN': ['IntactMiScore0.97', 'AuthorScore3.0'], ...}
-        layer_scores = dc.property_values(_flatten(layer_interactors.values()),
-                                          "confidenceScore", "out")
-        # convert score dict to form {'bio/P53_HUMAN_CBP_HUMAN': 0.97} (keep only IntactMi scores)
-        layer_scores = {
-            _id(interaction_dcid): _extract_intactmi(score_list)
-            for interaction_dcid, score_list in layer_scores.items()
-        }
+        layer_score_lists = dc.property_values(
+            _flatten(layer_interactors.values()), "confidenceScore", "out")
+
+        # convert score dict to form {'P53_HUMAN_CBP_HUMAN': 0.97} (keep only IntactMi scores)
+        layer_scores = {}
+        for interaction_dcid, score_list in layer_score_lists.items():
+            try:
+                interaction_id = _id(interaction_dcid)
+            except ValueError:
+                continue
+            layer_scores[interaction_id] = _extract_intactmi(score_list)
         layer_scores = _symmetrized_scores(layer_scores)
         scores.update(layer_scores)
         # used to request the next layer of interactors
@@ -358,7 +362,11 @@ def protein_protein_interaction():
             interaction_dcid_set.update(
                 map(_reverse_interaction_dcid, interaction_dcids_filtered))
 
-            source_id = _id(source_dcid)
+            try:
+                source_id = _id(source_dcid)
+            except ValueError:
+                continue
+
             target_ids = []
             for interaction_dcid in interaction_dcids_filtered:
                 try:
