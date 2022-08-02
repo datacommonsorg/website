@@ -21,6 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
+import { FormGroup, Input, Label } from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
@@ -41,6 +42,10 @@ interface State {
 }
 
 const CHART_ID = "protein-interaction-graph";
+const DEPTH_INPUT_ID = "ppi-input-depth";
+
+const MIN_DEPTH = 1;
+const MAX_DEPTH = 3;
 
 const DEFAULTS = {
   DEPTH: 2,
@@ -75,11 +80,16 @@ export class ProteinProteinInteractionGraph extends React.Component<
     // if graph has updated to something nonempty, redraw it
     if (
       !_.isEmpty(this.state.graphData) &&
-      !_.isEqual(prevState.graphData, this.state.graphData)
+      (!_.isEqual(prevState.graphData, this.state.graphData) ||
+        prevState.depth !== this.state.depth)
     ) {
       drawProteinInteractionGraph(CHART_ID, {
-        linkData: this.state.graphData.linkDataNested.flat(1),
-        nodeData: this.state.graphData.nodeDataNested.flat(1),
+        linkData: this.state.graphData.linkDataNested
+          .slice(0, this.state.depth + 1)
+          .flat(1),
+        nodeData: this.state.graphData.nodeDataNested
+          .slice(0, this.state.depth + 1)
+          .flat(1),
       });
       return;
     }
@@ -88,7 +98,27 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   render(): JSX.Element {
-    return <div id={CHART_ID}></div>;
+    if (this.state.graphData === null) {
+      return null;
+    }
+    return (
+      <>
+        <div id={CHART_ID}></div>
+        <FormGroup>
+          <Label for={DEPTH_INPUT_ID}>Depth</Label>
+          <Input
+            id={DEPTH_INPUT_ID}
+            type="number"
+            min={MIN_DEPTH}
+            max={MAX_DEPTH}
+            onChange={(e) => {
+              this.setState({ depth: Number(e.target.value) });
+            }}
+            value={this.state.depth}
+          />
+        </FormGroup>
+      </>
+    );
   }
 
   private fetchData(): void {

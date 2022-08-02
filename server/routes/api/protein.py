@@ -24,6 +24,7 @@ BIO_DCID_PREFIX = 'bio/'
 DEFAULT_INTERACTION_MEASUREMENT = 'IntactMiScore'
 DEFAULT_INTERACTION_SCORE = -1
 
+SUCCESS_CODE = 200
 BAD_REQUEST_CODE = 400
 
 LIMITS = {
@@ -306,10 +307,10 @@ def protein_protein_interaction():
             raise TypeError("proteinDcid must be a string")
 
     except KeyError as key_error:
-        return f'Missing request parameter {key_error}', BAD_REQUEST_CODE
+        return f'Missing request parameter {key_error.args[0]}', BAD_REQUEST_CODE
 
     except TypeError as type_error:
-        return f'Incorrect request parameter type: {type_error}', BAD_REQUEST_CODE
+        return f'Incorrect request parameter type: {type_error.args[0]}', BAD_REQUEST_CODE
 
     for param, limits in LIMITS.items():
         if not (limits['min'] <= request.json[param] <= limits['max']):
