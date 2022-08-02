@@ -288,6 +288,7 @@ def protein_protein_interaction():
     '''
 
     try:
+        # escape inputted id to avoid introducing XSS vulnerability 
         center_protein_dcid = escape(request.json['proteinDcid'])
         score_threshold = request.json['scoreThreshold']
         max_interactors = request.json['maxInteractors']
