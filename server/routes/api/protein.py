@@ -15,7 +15,7 @@
 
 import json
 import logging
-from flask import request, Response, Blueprint
+from flask import Blueprint, escape, request, Response
 
 from cache import cache
 import services.datacommons as dc
@@ -285,7 +285,7 @@ def protein_protein_interaction():
     '''
 
     try:
-        center_protein_dcid = request.json['proteinDcid']
+        center_protein_dcid = escape(request.json['proteinDcid'])
         score_threshold = request.json['scoreThreshold']
         max_interactors = request.json['maxInteractors']
         max_depth = request.json['maxDepth']
