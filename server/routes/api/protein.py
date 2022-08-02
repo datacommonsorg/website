@@ -29,7 +29,6 @@ DEFAULT_INTERACTION_SCORE = -1
 SUCCESS_CODE = 200
 BAD_REQUEST_CODE = 400
 
-
 bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
 
 
@@ -202,7 +201,7 @@ def _symmetrized_scores(scores):
             reverse_id = _reverse_interaction_id(interaction_id)
         # skip malformatted ids
         except ValueError:
-            continue;
+            continue
         reverse_score = scores.get(reverse_id, DEFAULT_INTERACTION_SCORE)
         scores_sym[interaction_id] = scores_sym[reverse_id] = max(
             score, reverse_score)
