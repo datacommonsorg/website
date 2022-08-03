@@ -33,6 +33,10 @@ class Config:
     BASE_HTML_PATH = 'base.html'
     # Whether to have account management page
     ADMIN = False
+    # The GCP project of the mixer which Flask talks to. This only needs to
+    # be set for local development. Website deployed to GKE bundles the mixer
+    # as a private service accessible via localhost.
+    API_PROJECT = ''
 
 
 class ProductionConfig(Config):
