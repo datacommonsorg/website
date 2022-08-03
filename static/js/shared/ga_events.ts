@@ -107,5 +107,8 @@ export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
  *
  * 7. Event name: tool_chart_option_click
  *    Triggered when: a tool chart option is selected or blured (population filter) or updated (sources).
- *    Parameters with value: { tool_chart_option: "per capita" or "delta" or "log scale" or "show quadrants" or "show labels" or "show density" or "edit sources" or "filter by population" }
+ *    Parameters with value: {
+ *                            tool_chart_option: "per capita" or "delta" or "log scale" or "show quadrants"
+ *                            or "show labels" or "show density" or "edit sources" or "filter by population"
+ *                           }
  */

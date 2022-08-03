@@ -788,9 +788,9 @@ describe("test ga event tool stat var click", () => {
     window.google = {
       maps: {
         places: {
-          Autocomplete: jest.fn().mockImplementation((elem, opts) => {
+          Autocomplete: jest.fn().mockImplementation((elem, _opts) => {
             return {
-              addListener: (place_changed, callback) => {
+              addListener: (_placeChanged, callback) => {
                 elem.addEventListener("change", callback);
               },
               getPlace: () => {
@@ -824,8 +824,8 @@ describe("test ga event tool stat var search no result", () => {
 
     // Render the component.
     const props = {
-      places: [""],
       onSelectionChange: () => null,
+      places: [""],
     };
     const statVarSearch = render(<StatVarHierarchySearch {...props} />);
 
