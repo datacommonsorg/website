@@ -15,7 +15,7 @@
  */
 
 /**
- * Protein-protein interaction graph
+ * Protein-protein interaction table
  */
 
 import React from "react";
