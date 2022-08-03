@@ -51,6 +51,7 @@ import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
+  GA_EVENT_TOOL_PLACE_ADD,
   GA_EVENT_TOOL_STAT_VAR_CLICK,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
   GA_PARAM_PLACE_CATEGORY_CLICK,
@@ -90,7 +91,7 @@ const STAT_VAR_3 = "Count_Person";
 const SOURCES = "sources";
 const ID = "a";
 const NUMBER = 123;
-const PLACE_ADDED = "Africa";
+const PLACE_ADDED = "africa";
 
 // Props for place explorer chart.
 const PLACE_CHART_PROPS = {
@@ -722,6 +723,7 @@ describe("test ga event tool chart plot", () => {
     });
   });
 });
+
 describe("test ga event tool stat var click", () => {
   test("call gtag when a stat var is selected in the stat var hierarchy", async () => {
     // Mock gtag.
@@ -772,6 +774,9 @@ describe("test ga event tool stat var click", () => {
       ]);
     });
   });
+});
+
+describe("test ga event tool place add", () => {
   test("call gtag when a place is added in the place seaerch bar", async () => {
     const props = {
       selectedPlace: {
@@ -812,7 +817,18 @@ describe("test ga event tool stat var click", () => {
     fireEvent.change(placeSelector.container.querySelector("#ac"), {
       target: { value: PLACE_ADDED },
     });
-    await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
+    await waitFor(() => {
+      // Check the gtag is called once.
+      expect(mockgtag.mock.calls.length).toEqual(1);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_PLACE_ADD,
+        {
+          [GA_PARAM_PLACE_DCID]: PLACE_ADDED,
+        },
+      ]);
+    });
   });
 });
 
