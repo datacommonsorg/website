@@ -24,7 +24,7 @@ test("SingleNodeTMCF", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "iso", header: "iso", columnIdx: 1 },
-        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
       },
     ],
     [
@@ -51,8 +51,8 @@ test("SingleNodeTMCF", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -78,7 +78,7 @@ test("MultiNodeTMCF_DateValueInHeader", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "id", header: "id", columnIdx: 1 },
-        placeProperty: { dcid: "dcid", displayName: "dcid" },
+        placeProperty: { 1: { dcid: "dcid", displayName: "dcid" } },
       },
     ],
     [
@@ -101,8 +101,8 @@ test("MultiNodeTMCF_DateValueInHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -130,13 +130,19 @@ test("MultiNodeTMCF_PlaceValueInHeader", () => {
     [
       MappedThing.PLACE,
       {
-        type: MappingType.COLUMN_HEADER,
-        placeProperty: { dcid: "name", displayName: "name" },
-        placeType: { dcid: "AdministrativeArea1", displayName: "State" },
         headers: [
           { id: "California_1", header: "California", columnIdx: 3 },
           { id: "Nevada_2", header: "Nevada", columnIdx: 4 },
         ],
+        placeProperty: {
+          3: { dcid: "name", displayName: "name" },
+          4: { dcid: "name", displayName: "name" },
+        },
+        placeType: {
+          3: { dcid: "AdministrativeArea1", displayName: "State" },
+          4: { dcid: "AdministrativeArea1", displayName: "State" },
+        },
+        type: MappingType.COLUMN_HEADER,
       },
     ],
     [
@@ -156,8 +162,8 @@ test("MultiNodeTMCF_PlaceValueInHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -186,5 +192,183 @@ test("MultiNodeTMCF_PlaceValueInHeader", () => {
     "observationDate: C:CSVTable->year\n" +
     "unit: dcid:USDollar\n";
 
+  expect(generateTMCF(input)).toEqual(expected);
+});
+
+test("MultiNodeTMCF_PlaceValueInHeader_DiffPlaceTypes", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        headers: [
+          { id: "California_1", header: "California", columnIdx: 3 },
+          { id: "USA_1", header: "USA", columnIdx: 4 },
+        ],
+        placeProperty: {
+          3: { dcid: "name", displayName: "name" },
+          4: { dcid: "countryAlpha3Code", displayName: "Alpha 3 Code" },
+        },
+        placeType: {
+          3: { dcid: "AdministrativeArea1", displayName: "State" },
+          4: { dcid: "Country", displayName: "Country" },
+        },
+        type: MappingType.COLUMN_HEADER,
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "year", header: "year", columnIdx: 1 },
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
+      },
+    ],
+  ]);
+  const expected =
+    "Node: E:CSVTable->E0\n" +
+    "typeOf: dcs:AdministrativeArea1\n" +
+    'name: "California"\n' +
+    "\n" +
+    "Node: E:CSVTable->E2\n" +
+    "typeOf: dcs:Country\n" +
+    "countryAlpha3Code: dcid:USA\n" +
+    "\n" +
+    "Node: E:CSVTable->E1\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->California_1\n" +
+    "observationAbout: E:CSVTable->E0\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "observationDate: C:CSVTable->year\n" +
+    "unit: dcid:USDollar\n" +
+    "\n" +
+    "Node: E:CSVTable->E3\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->USA_1\n" +
+    "observationAbout: E:CSVTable->E2\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "observationDate: C:CSVTable->year\n" +
+    "unit: dcid:USDollar\n";
+
+  expect(generateTMCF(input)).toEqual(expected);
+});
+
+test("SingleNodeTMCFWithUnitColumnConstant", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "iso", header: "iso", columnIdx: 1 },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "date", header: "date", columnIdx: 3 },
+      },
+    ],
+    [
+      MappedThing.VALUE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "val", header: "val", columnIdx: 4 },
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: { 4: "USDollar" },
+      },
+    ],
+  ]);
+  const expected: string =
+    "Node: E:CSVTable->E0\n" +
+    "typeOf: dcs:Place\n" +
+    "isoCode: C:CSVTable->iso\n" +
+    "\n" +
+    "Node: E:CSVTable->E1\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "observationAbout: E:CSVTable->E0\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "observationDate: C:CSVTable->date\n" +
+    "value: C:CSVTable->val\n" +
+    "unit: dcid:USDollar\n";
+  expect(generateTMCF(input)).toEqual(expected);
+});
+
+test("MultiNodeTMCF_UnitAsSomeColumnConstants", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "id", header: "id", columnIdx: 1 },
+        placeProperty: { 1: { dcid: "dcid", displayName: "dcid" } },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "2018_1", header: "2018", columnIdx: 3 },
+          { id: "2019_2", header: "2019", columnIdx: 4 },
+        ],
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: { 3: "USDollar", 4: "CAD" },
+      },
+    ],
+  ]);
+  const expected =
+    "Node: E:CSVTable->E0\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->2018_1\n" +
+    'observationDate: "2018"\n' +
+    "unit: dcid:USDollar\n" +
+    "observationAbout: C:CSVTable->id\n" +
+    "variableMeasured: C:CSVTable->indicators\n" +
+    "\n" +
+    "Node: E:CSVTable->E1\n" +
+    "typeOf: dcs:StatVarObservation\n" +
+    "value: C:CSVTable->2019_2\n" +
+    'observationDate: "2019"\n' +
+    "unit: dcid:CAD\n" +
+    "observationAbout: C:CSVTable->id\n" +
+    "variableMeasured: C:CSVTable->indicators\n";
   expect(generateTMCF(input)).toEqual(expected);
 });

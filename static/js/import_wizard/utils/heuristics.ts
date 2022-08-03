@@ -124,9 +124,14 @@ function detectPlace(
     return {
       type: MappingType.COLUMN, // Place detection is only possible for columns.
       column: columnOrder[detectedIndex],
-      placeProperty:
-        detectedPlaces.get(detectedIndex).detectedTypeProperty.dcProperty,
-      placeType: detectedPlaces.get(detectedIndex).detectedTypeProperty.dcType,
+      placeProperty: {
+        [detectedIndex]:
+          detectedPlaces.get(detectedIndex).detectedTypeProperty.dcProperty,
+      },
+      placeType: {
+        [detectedIndex]:
+          detectedPlaces.get(detectedIndex).detectedTypeProperty.dcType,
+      },
     };
   }
   return null;

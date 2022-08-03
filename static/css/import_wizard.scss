@@ -151,7 +151,7 @@ tr th:last-child {
   font-size: 0.8rem;
   font-weight: normal;
   min-width: 12rem;
-  height: 3rem;
+  height: 4rem;
   color: #7b7b7b;
 }
 
@@ -159,7 +159,7 @@ tr th:last-child {
   min-width: 0;
 }
 
-.mapping-info-row .mapping-info-col-detected {
+.mapping-info-row .mapping-header-info {
   color: black;
   font-weight: 500;
 }
@@ -219,10 +219,6 @@ tr th:last-child {
   border-radius: 0.25rem;
 }
 
-#column-type-mapped-thing {
-  margin-left: 0;
-}
-
 .column-type-inputs {
   display: flex;
   align-items: center;
@@ -265,21 +261,131 @@ tr th:last-child {
   display: flex;
   padding-top: 0.5rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .constant-value-label {
-  width: 5rem;
+  width: 10rem;
 }
 
 .constant-value-input {
   border: 1px solid #ccc;
   border-radius: 0.3rem;
   width: 20rem;
-  padding: 0.2rem; 
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
 }
 
 .mapping-errors {
   color: #dc3545;
+}
+
+.unit-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.unit-input .constant-value-input {
+  width: 10rem;
+  margin-left: 0.5rem;
+}
+
+.constant-values-section-header {
+  padding-bottom: 0.5rem;
+}
+
+/* Value Map Section */
+.header-tab-section {
+  display: flex;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  font-weight: 300;
+}
+
+.header-tab,
+.header-tab-selected {
+  padding: 0 0.3rem;
+  cursor: pointer;
+}
+
+.header-tab-selected,
+.header-tab:hover {
+  text-decoration: underline;
+  color: var(--dc-primary);
+}
+
+.value-map-input-container {
+  max-width: 75rem;
+}
+
+.value-map-input-header {
+  display: flex;
+}
+
+.value-map-input-header span {
+  width: 50%;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+
+.value-map-input-entry {
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.value-map-input-entry i {
+  color: #7b7b7b;
+  cursor: pointer;
+}
+
+.value-map-input {
+  margin: 0 0.5rem;
+}
+
+.value-map-add-entry {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+}
+
+.value-map-add-entry:hover {
+  background-color: var(--dc-gray-lite);
+}
+
+.value-map-add-entry i {
+  background-color: #7b7b7b;
+  border-radius: 1rem;
+  color: white;
+  margin-right: 0.5rem;
+}
+
+.value-map-file-example-container {
+  display: flex;
+}
+
+.value-map-file-example {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+}
+
+.value-map-warning-message {
+  color: var(--dc-error);
+  padding: 0 0.5rem;
+  padding-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.value-map-file-container .value-map-warning-message {
+  padding-left: 0;
+  padding-top: 0.5rem;
 }
 
 /* Spinner */

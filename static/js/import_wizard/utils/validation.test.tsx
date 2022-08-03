@@ -35,16 +35,24 @@ test("Fail_MalformedMappingVal", () => {
     [
       MappedThing.DATE,
       {
-        type: MappingType.CONSTANT,
-        constant: "",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "",
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.COLUMN_CONSTANT,
+        columnConstants: {},
       },
     ],
   ]);
   const expected = [
-    "Place mapping is missing placeProperty",
     "Place: missing value for COLUMN type ",
+    "Place mapping is missing placeProperty",
     "Name of Variable: missing value for COLUMN_HEADER type",
-    "Date: missing value for CONSTANT type",
+    "Date: missing value for FILE_CONSTANT type",
+    "Unit: missing value for COLUMN_CONSTANT type",
   ];
   expect(checkMappings(input)).toEqual(expected);
 });
@@ -83,7 +91,7 @@ test("Fail_ValueMissing", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "iso", header: "iso", columnIdx: 1 },
-        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
       },
     ],
     [
@@ -96,12 +104,51 @@ test("Fail_ValueMissing", () => {
     [
       MappedThing.DATE,
       {
-        type: MappingType.CONSTANT,
-        constant: "2019",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "2019",
       },
     ],
   ]);
   const expected = ["Unable to detect 'Observation Value' column"];
+  expect(checkMappings(input)).toEqual(expected);
+});
+
+test("Fail_MissingPlaceProperties", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "California_1", header: "California", columnIdx: 3 },
+          { id: "Nevada_2", header: "Nevada", columnIdx: 4 },
+        ],
+        placeProperty: { 3: { dcid: "name", displayName: "name" } },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "date", header: "date", columnIdx: 3 },
+      },
+    ],
+    [
+      MappedThing.UNIT,
+      {
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
+      },
+    ],
+  ]);
+  const expected = ["Nevada: Place mapping is missing placeProperty"];
   expect(checkMappings(input)).toEqual(expected);
 });
 
@@ -112,7 +159,7 @@ test("Pass_DateInColumnHeader", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "iso", header: "iso", columnIdx: 1 },
-        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
       },
     ],
     [
@@ -135,8 +182,8 @@ test("Pass_DateInColumnHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);
@@ -151,7 +198,7 @@ test("Pass_NoColumnHeader", () => {
       {
         type: MappingType.COLUMN,
         column: { id: "iso", header: "iso", columnIdx: 1 },
-        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+        placeProperty: { 1: { dcid: "isoCode", displayName: "isoCode" } },
       },
     ],
     [
@@ -178,8 +225,8 @@ test("Pass_NoColumnHeader", () => {
     [
       MappedThing.UNIT,
       {
-        type: MappingType.CONSTANT,
-        constant: "USDollar",
+        type: MappingType.FILE_CONSTANT,
+        fileConstant: "USDollar",
       },
     ],
   ]);

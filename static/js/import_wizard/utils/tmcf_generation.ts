@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
+
 import { MappedThing, Mapping, MappingType, MappingVal } from "../types";
 
 const FIXED_CSV_TABLE = "CSVTable";
@@ -57,10 +59,10 @@ function getConstPV(prop: string, val: string): string {
   }
 }
 
-function getPlaceType(mval: MappingVal): string {
+function getPlaceType(colIdx: number, mval: MappingVal): string {
   let placeType = PLACE_TYPE;
-  if (mval.placeType != null && mval.placeType.dcid != null) {
-    placeType = mval.placeType.dcid;
+  if (mval.placeType != null && colIdx in mval.placeType) {
+    placeType = mval.placeType[colIdx].dcid;
   }
   return placeType;
 }
@@ -77,25 +79,44 @@ export function generateTMCF(mappings: Mapping): string {
   let colHdrThing: MappedThing = null;
   const placeNodes = Array<Array<string>>();
   let nodeIdx = 0;
+  const colConstPvs: { [colIdx: number]: Array<string> } = {};
+
+  // Do one pass over the mappings building the constant PVs that are specific
+  // to each column.
+  mappings.forEach((mval: MappingVal, mthing: MappedThing) => {
+    if (mval.type === MappingType.COLUMN_CONSTANT) {
+      const mappedProp = MAPPED_THING_TO_SVOBS_PROP.get(mthing);
+      Object.entries(mval.columnConstants).forEach(([colIdx, constant]) => {
+        if (!(colIdx in colConstPvs)) {
+          colConstPvs[colIdx] = [];
+        }
+        colConstPvs[colIdx].push(getConstPV(mappedProp, constant));
+      });
+    }
+  });
 
   // Do one pass over the mappings building the common PVs in all TMCF nodes.
   // Everything other than COLUMN_HEADER mappings get repeated in every node.
   mappings.forEach((mval: MappingVal, mthing: MappedThing) => {
     const mappedProp = MAPPED_THING_TO_SVOBS_PROP.get(mthing);
-    if (mval.type === MappingType.CONSTANT) {
+    if (mval.type === MappingType.FILE_CONSTANT) {
       // Constants are references except when it is a date.
       // NOTE: we cannot have PLACE here.
-      commonPVs.push(getConstPV(mappedProp, mval.constant));
+      commonPVs.push(getConstPV(mappedProp, mval.fileConstant));
     } else if (mval.type === MappingType.COLUMN) {
       if (mthing === MappedThing.PLACE) {
-        if (mval.placeProperty.dcid === DCID_PROP) {
+        const placeProperty = mval.placeProperty[mval.column.columnIdx].dcid;
+        if (placeProperty === DCID_PROP) {
           // Place with DCID property can be a column ref.
           commonPVs.push(getColPV(mappedProp, mval.column.id));
         } else {
           // For place with non-DCID property, we should introduce a place node,
           // and use entity reference.
-          const node = initNode(nodeIdx, getPlaceType(mval));
-          node.push(getColPV(mval.placeProperty.dcid, mval.column.id));
+          const node = initNode(
+            nodeIdx,
+            getPlaceType(mval.column.columnIdx, mval)
+          );
+          node.push(getColPV(placeProperty, mval.column.id));
           placeNodes.push(node);
           nodeIdx++;
 
@@ -105,6 +126,12 @@ export function generateTMCF(mappings: Mapping): string {
       } else {
         // For non-place types, column directly contains the corresponding values.
         commonPVs.push(getColPV(mappedProp, mval.column.id));
+        if (
+          mthing === MappedThing.VALUE &&
+          mval.column.columnIdx in colConstPvs
+        ) {
+          commonPVs.push(...colConstPvs[mval.column.columnIdx]);
+        }
       }
     } else if (mval.type === MappingType.COLUMN_HEADER) {
       // Remember which mapped thing has the column header for next pass.
@@ -122,14 +149,15 @@ export function generateTMCF(mappings: Mapping): string {
     // Build one node per header entry in COLUMN_HEADER.
     mval.headers.forEach((hdr) => {
       let hasPlaceRef = false;
-      if (
-        colHdrThing === MappedThing.PLACE &&
-        mval.placeProperty.dcid !== DCID_PROP
-      ) {
+      const placeProperty =
+        colHdrThing === MappedThing.PLACE
+          ? mval.placeProperty[hdr.columnIdx].dcid
+          : "";
+      if (colHdrThing === MappedThing.PLACE && placeProperty !== DCID_PROP) {
         hasPlaceRef = true;
         // For place with non-DCID property, we should introduce a place node.
-        const node = initNode(nodeIdx, getPlaceType(mval));
-        node.push(getConstPV(mval.placeProperty.dcid, hdr.header));
+        const node = initNode(nodeIdx, getPlaceType(hdr.columnIdx, mval));
+        node.push(getConstPV(placeProperty, hdr.header));
         placeNodes.push(node);
         nodeIdx++;
       }
@@ -141,6 +169,10 @@ export function generateTMCF(mappings: Mapping): string {
         node.push(getEntPV(mappedProp, nodeIdx - 1));
       } else {
         node.push(getConstPV(mappedProp, hdr.header));
+      }
+      // Add the constant PVs for this column
+      if (hdr.columnIdx in colConstPvs) {
+        node.push(...colConstPvs[hdr.columnIdx]);
       }
       obsNodes.push(node);
       nodeIdx++;

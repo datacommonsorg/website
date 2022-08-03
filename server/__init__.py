@@ -12,16 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import logging
 import os
 import time
+import tempfile
 import urllib.request
 import urllib.error
 
 from flask import Flask, request, g
 from flask_babel import Babel
-from google.cloud import storage
 
+from google_auth_oauthlib.flow import Flow
 from google.cloud import secretmanager
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
@@ -68,6 +70,11 @@ def register_routes_private_dc(app):
     pass
 
 
+def register_routes_admin(app):
+    from routes import (user)
+    app.register_blueprint(user.bp)
+
+
 def register_routes_common(app):
     # apply the blueprints for main app
     from routes import (browser, factcheck, place, ranking, search, static,
@@ -93,7 +100,7 @@ def register_routes_common(app):
 
 
 def create_app():
-    app = Flask(__name__, static_folder="dist", static_url_path="")
+    app = Flask(__name__, static_folder='dist', static_url_path='')
 
     if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
         createMiddleWare(app, StackdriverExporter())
@@ -123,6 +130,8 @@ def create_app():
         register_routes_private_dc(app)
     else:
         register_routes_base_dc(app)
+    if cfg.ADMIN:
+        register_routes_admin(app)
 
     # Load topic page config
     topic_page_configs = libutil.get_topic_page_config()
@@ -149,6 +158,30 @@ def create_app():
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
 
+    if cfg.ADMIN:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                        'oauth-client',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        oauth_string = secret_response.payload.data.decode('UTF-8')
+        oauth_json = json.loads(oauth_string)
+        app.config['GOOGLE_CLIENT_ID'] = oauth_json['web']['client_id']
+        tf = tempfile.NamedTemporaryFile()
+        with open(tf.name, 'w') as f:
+            f.write(oauth_string)
+        app.config['OAUTH_FLOW'] = Flow.from_client_secrets_file(
+            client_secrets_file=tf.name,
+            redirect_uri=oauth_json['web']['redirect_uris'][0],
+            scopes=[
+                'https://www.googleapis.com/auth/userinfo.profile',
+                'https://www.googleapis.com/auth/userinfo.email',
+                'openid',
+            ])
+
+    if app.config['LOCAL']:
+        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
     # Initialize translations
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
@@ -163,13 +196,13 @@ def create_app():
         isOpen = False
         while not isOpen:
             try:
-                urllib.request.urlopen(cfg.API_ROOT + "/version")
+                urllib.request.urlopen(cfg.API_ROOT + '/version')
                 break
             except urllib.error.URLError:
                 time.sleep(10)
                 counter += 1
             if counter > timeout:
-                raise RuntimeError("Mixer not ready after %s second" % timeout)
+                raise RuntimeError('Mixer not ready after %s second' % timeout)
 
     @app.before_request
     def before_request():
@@ -196,6 +229,6 @@ def create_app():
     @app.teardown_request
     def log_unhandled(e):
         if e is not None:
-            logging.error("Error thrown for request: %s, error: %s", request, e)
+            logging.error('Error thrown for request: %s, error: %s', request, e)
 
     return app

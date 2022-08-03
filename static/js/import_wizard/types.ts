@@ -17,13 +17,16 @@
 export enum MappingType {
   COLUMN = "column",
   COLUMN_HEADER = "columnHeader",
-  CONSTANT = "constant",
+  FILE_CONSTANT = "fileConstant",
+  // COLUMN_CONSTANT MappingType can be used for any MappedThing, but currently
+  // the UI only supports COLUMN_CONSTANT for MappedThing.UNIT
+  COLUMN_CONSTANT = "columnConstant",
 }
 
 export enum MappedThing {
+  DATE = "Date",
   PLACE = "Place",
   STAT_VAR = "StatVar",
-  DATE = "Date",
   UNIT = "Unit",
   VALUE = "Value",
 }
@@ -53,16 +56,21 @@ export interface MappingVal {
   // Column that holds the mapping values. Should be set if type is
   // MappingType.COLUMN
   column?: Column;
-  // When MappedThing is PLACE, the value corresponds to place property in KG.
-  placeProperty?: DCProperty;
-  // When MappedThing is PLACE, the value corresponds to place type in KG.
-  placeType?: DCType;
+  // Record of column idx to the place property (in KG) associated with that
+  // column or column header. Should be set if MappedThing is PLACE.
+  placeProperty?: { [columnIdx: number]: DCProperty };
+  // Record of column idx to the place type (in KG) associated with that
+  // column or column header. Should be set if MappedThing is PLACE.
+  placeType?: { [columnIdx: number]: DCType };
   // List of column headers that act as the mapping values. Should be set if
   // type is MappingType.COLUMN_HEADERS
   headers?: Column[];
-  // Constant value as the mapping value. Should be set if type is
-  // MappingType.CONSTANT
-  constant?: string;
+  // Constant value for the whole file as the mapping value. Should be set if
+  // type is MappingType.FILE_CONSTANT
+  fileConstant?: string;
+  // Record of column idx to the constant to use for that column.
+  // Should be set if type is MappingType.COLUMN_CONSTANT.
+  columnConstants?: { [columnIdx: number]: string };
 }
 
 export type Mapping = Map<MappedThing, MappingVal>;
@@ -151,3 +159,7 @@ export type Observation = Map<MappedThing, string>;
 // Observations keyed by CSV row number. A row has multiple observations when
 // the Mapping is of type COLUMN_HEADER with multiple MappingVal.headers.
 export type RowObservations = Map<RowNumber, Array<Observation>>;
+
+// Map of cell value in the original csv to cell value in the cleaned csv.
+// originalValue is a string converted to all lowercase.
+export type ValueMap = { [originalValue: string]: string };

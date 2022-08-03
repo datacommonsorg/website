@@ -233,108 +233,6 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "Jaundice"
-                                                        }
-                                                    ],
-                                                    "property": "descriptorName"
-                                                }
-                                            ],
-                                            "value": "bio/D007565"
-                                        }
-                                    ],
-                                    "property": "medicalSubjectHeadingID"
-                                },
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "value": "71.1428"
-                                        }
-                                    ],
-                                    "property": "associationOddsRatio"
-                                }
-                            ],
-                            "value": "bio/DOID_2043_D007565_cooccurrence"
-                        },
-                        {
-                            "neighbors": [
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "neighbors": [
-                                                {
-                                                    "direction": "DIRECTION_OUT",
-                                                    "nodes": [
-                                                        {
-                                                            "value": "Hypergammaglobulinemia"
-                                                        }
-                                                    ],
-                                                    "property": "descriptorName"
-                                                }
-                                            ],
-                                            "value": "bio/D006942"
-                                        }
-                                    ],
-                                    "property": "medicalSubjectHeadingID"
-                                },
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "value": "8.0422"
-                                        }
-                                    ],
-                                    "property": "associationOddsRatio"
-                                }
-                            ],
-                            "value": "bio/DOID_2043_D006942_cooccurrence"
-                        },
-                        {
-                            "neighbors": [
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "neighbors": [
-                                                {
-                                                    "direction": "DIRECTION_OUT",
-                                                    "nodes": [
-                                                        {
-                                                            "value": "Fetal Macrosomia"
-                                                        }
-                                                    ],
-                                                    "property": "descriptorName"
-                                                }
-                                            ],
-                                            "value": "bio/D005320"
-                                        }
-                                    ],
-                                    "property": "medicalSubjectHeadingID"
-                                },
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "value": "5.7965"
-                                        }
-                                    ],
-                                    "property": "associationOddsRatio"
-                                }
-                            ],
-                            "value": "bio/DOID_2043_D005320_cooccurrence"
-                        },
-                        {
-                            "neighbors": [
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "neighbors": [
-                                                {
-                                                    "direction": "DIRECTION_OUT",
-                                                    "nodes": [
-                                                        {
                                                             "value": "Fasciculation"
                                                         }
                                                     ],
@@ -366,6 +264,15 @@
                     "nodes": [
                         {
                             "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseTreatment"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
                                 {
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
@@ -403,6 +310,15 @@
                         },
                         {
                             "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseTreatment"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
                                 {
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
@@ -447,6 +363,15 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
+                                            "value": "ChemicalCompoundDiseaseContraindication"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
                                             "value": "DRUG MATRIX"
                                         },
                                         {
@@ -483,6 +408,15 @@
                         },
                         {
                             "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseContraindication"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
                                 {
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
