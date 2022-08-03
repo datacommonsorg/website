@@ -56,30 +56,35 @@ export default function ProteinProteinInteractionTable({
         {/* parse keys out of props to pacify react-eslint
         Reference: https://github.com/TanStack/table/discussions/2647#discussioncomment-1026761 */}
         <thead>
-        {headerGroups.map(headerGroup => {
-          const { key, ...restHeaderGroupProps } = headerGroup.getHeaderGroupProps()
-          return (
-            <tr key={key} {...restHeaderGroupProps}>
-              {headerGroup.headers.map(column => {
-                const { key, ...restColumn } = column.getHeaderProps()
-                return (
-                  <th key={key} {...restColumn}>
-                    {column.render('Header')}
-                  </th>
-                )
-              })}
-            </tr>
-          )
-        })}
-   </thead>
-        <tbody {...getTableBodyProps()}>
+          {headerGroups.map((headerGroup) => {
+            const { key, ...restHeaderGroupProps } =
+              headerGroup.getHeaderGroupProps();
+            return (
+              <tr key={key} {...restHeaderGroupProps}>
+                {headerGroup.headers.map((column) => {
+                  const { key, ...restColumn } = column.getHeaderProps();
+                  return (
+                    <th key={key} {...restColumn}>
+                      {column.render("Header")}
+                    </th>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </thead>
+        <tbody {...getTableBodyProps}>
           {rows.map((row) => {
             prepareRow(row);
+            const { key, ...restRowProps } = row.getRowProps();
             return (
-              <tr {...row.getRowProps()}>
+              <tr key={key} {...restRowProps}>
                 {row.cells.map((cell) => {
+                  const { key, ...restCellProps } = cell.getCellProps();
                   return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td key={key} {...restCellProps}>
+                      {cell.render("Cell")}
+                    </td>
                   );
                 })}
               </tr>
