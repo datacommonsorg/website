@@ -26,15 +26,21 @@ import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";
 import { Menu } from "../place/menu";
+<<<<<<< HEAD
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
+=======
+>>>>>>> master
 import { Chart as MapToolChart } from "../tools/map/chart";
 import {
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
   StatVarWrapper,
 } from "../tools/map/context";
 import { DataPointMetadata } from "../tools/map/util";
+<<<<<<< HEAD
 import { axios_mock } from "../tools/mock_functions";
+=======
+>>>>>>> master
 import { Chart as ScatterToolChart } from "../tools/scatter/chart";
 import {
   AxisWrapper,
@@ -49,17 +55,25 @@ import * as dataFetcher from "../tools/timeline/data_fetcher";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
+<<<<<<< HEAD
   GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
   GA_EVENT_TOOL_STAT_VAR_CLICK,
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+=======
+  GA_EVENT_TOOL_CHART_PLOT,
+>>>>>>> master
   GA_PARAM_PLACE_CATEGORY_CLICK,
   GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
   GA_PARAM_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_DCID,
+<<<<<<< HEAD
   GA_PARAM_SEARCH_TERM,
   GA_PARAM_STAT_VAR,
   GA_PARAM_TOOL_CHART_OPTION,
+=======
+  GA_PARAM_STAT_VAR,
+>>>>>>> master
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
@@ -67,6 +81,7 @@ import {
   GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
   GA_VALUE_PLACE_CHART_CLICK_EXPORT,
   GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
+<<<<<<< HEAD
   GA_VALUE_TOOL_CHART_OPTION_DELTA,
   GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
   GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
@@ -80,6 +95,10 @@ import {
 import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
 import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
+=======
+} from "./ga_events";
+import { StatVarInfo } from "./stat_var";
+>>>>>>> master
 
 const CATEGORY = "Economics";
 const PLACE_DCID = "geoId/05";
@@ -90,7 +109,10 @@ const STAT_VAR_3 = "Count_Person";
 const SOURCES = "sources";
 const ID = "a";
 const NUMBER = 123;
+<<<<<<< HEAD
 const PLACE_ADDED = "Africa";
+=======
+>>>>>>> master
 
 // Props for place explorer chart.
 const PLACE_CHART_PROPS = {
@@ -309,6 +331,7 @@ const SCATTER_CONTEXT = {
   isLoading: {} as IsLoadingWrapper,
 };
 
+<<<<<<< HEAD
 // Props for stat var hierarchy.
 const STAT_VAR_HIERARCHY_PROPS = {
   path: ["dc/g/Demographics", STAT_VAR_2],
@@ -329,6 +352,8 @@ const STAT_VAR_HIERARCHY_PROPS = {
   deselectSV: () => null,
 };
 
+=======
+>>>>>>> master
 beforeEach(() =>
   jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null))
 );
@@ -722,6 +747,7 @@ describe("test ga event tool chart plot", () => {
     });
   });
 });
+<<<<<<< HEAD
 describe("test ga event tool stat var click", () => {
   test("call gtag when a stat var is selected in the stat var hierarchy", async () => {
     // Mock gtag.
@@ -1119,3 +1145,5 @@ describe("test ga event tool chart plot option", () => {
     });
   });
 });
+=======
+>>>>>>> master
