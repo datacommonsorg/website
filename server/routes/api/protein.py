@@ -294,14 +294,14 @@ def protein_protein_interaction():
         max_interactors = request.json['maxInteractors']
         max_depth = request.json['maxDepth']
 
-        if type(score_threshold) not in [int, float]:
-            raise TypeError('scoreThreshold must be a number')
-        if type(max_interactors) != int:
-            raise TypeError("maxInteractors must be an integer")
-        if type(max_depth) != int:
-            raise TypeError("maxDepth must be an integer")
-        if type(center_protein_dcid) != str:
+        if not isinstance(center_protein_dcid, str):
             raise TypeError("proteinDcid must be a string")
+        if not (isinstance(score_threshold, int) or isinstance(score_threshold, float)):
+            raise TypeError('scoreThreshold must be a number')
+        if not isinstance(max_interactors, int):
+            raise TypeError("maxInteractors must be an integer")
+        if not isinstance(max_depth, int):
+            raise TypeError("maxDepth must be an integer")
 
     except KeyError as key_error:
         return f'Missing request parameter {key_error.args[0]}', BAD_REQUEST_CODE
