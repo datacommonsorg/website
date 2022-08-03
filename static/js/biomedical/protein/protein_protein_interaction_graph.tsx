@@ -35,8 +35,6 @@ interface State {
   depth: number;
   // stores graph to be rendered
   graphData: MultiLevelInteractionGraphData;
-  // if true, component is fetching data from flask
-  loading: boolean;
   // number of expansion links per node
   numInteractions: number;
   // interaction score threshold above which to show an edge between two interacting proteins
@@ -73,7 +71,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
     this.state = {
       depth: DEFAULTS.DEPTH,
       graphData: null,
-      loading: true,
       numInteractions: DEFAULTS.MAX_INTERACTIONS,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
     };
