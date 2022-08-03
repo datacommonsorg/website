@@ -84,9 +84,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    if (!this.state.loading) {
-      return;
-    }
     // do nothing on parent rerender or if we've loaded the same graph twice
     if (_.isEqual(prevProps, this.props) && _.isEqual(prevState, this.state)) {
       return;
@@ -105,11 +102,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
           .slice(0, this.state.depth + 1)
           .flat(1),
       });
-      this.setState({ loading: false });
       return;
     }
-    // if graph is the same but user input has changed, fetch new data
-    this.fetchData();
   }
 
   render(): JSX.Element {
@@ -169,11 +163,13 @@ export class ProteinProteinInteractionGraph extends React.Component<
               />
             </FormGroup>
           </Col>
+          {/* align button vertically to text fields
+          reference: https://stackoverflow.com/a/48017075 */}
           <Col className="form-group align-self-end" md={2}>
             <Button
               className="ppi-update-button"
               onClick={() => {
-                this.setState({ loading: true });
+                this.fetchData()
               }}
             >
               Update
