@@ -101,6 +101,7 @@ class LocalBaseConfig(Config):
     LOCAL = True
     API_ROOT = 'https://autopush.api.datacommons.org'
     RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
+    API_PROJECT = 'datcom-mixer-autopush'
     AI_CONFIG_PATH = os.path.abspath(
         os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
     SCHEME = 'http'
@@ -124,6 +125,7 @@ class LocalPrivateConfig(LocalBaseConfig, PrivateConfig):
     # This needs to talk to local mixer that is setup as a private mixer, which
     # loads csv + tmcf files from GCS
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+    API_PROJECT = 'datcom-mixer-statvar'
     SECRET_PROJECT = 'datcom-website-private'
 
 
@@ -131,6 +133,7 @@ class LocalFeedingamericaConfig(LocalBaseConfig, PrivateConfig):
     # This needs to talk to local mixer that is setup as a private mixer, which
     # loads csv + tmcf files from GCS
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+    API_PROJECT = 'datcom-mixer-statvar'
     SECRET_PROJECT = 'datcom-feedingamerica'
     NAME = "Feeding America"
     ENV_NAME = 'FEEDINGAMERICA'
@@ -141,6 +144,7 @@ class LocalStanfordConfig(LocalBaseConfig, PrivateConfig):
     # This needs to talk to local mixer that is setup as a private mixer, which
     # loads csv + tmcf files from GCS
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+    API_PROJECT = 'datcom-mixer-statvar'
     SECRET_PROJECT = 'datcom-stanford'
     NAME = "Stanford"
     ENV_NAME = 'STANFORD'
@@ -152,6 +156,7 @@ class WebdriverConfig(Config):
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://autopush.api.datacommons.org'
     RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
+    API_PROJECT = 'datcom-mixer-autopush'
     AI_CONFIG_PATH = None  # No models in this configuration.
     SCHEME = 'http'
 

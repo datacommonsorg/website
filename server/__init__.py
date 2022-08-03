@@ -182,6 +182,14 @@ def create_app():
     if app.config['LOCAL']:
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
+    if app.config['API_PROJECT']:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.API_PROJECT,
+                                                        'mixer-api-key',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        app.config['API_KEY'] = secret_response.payload.data.decode('UTF-8')
+
     # Initialize translations
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
