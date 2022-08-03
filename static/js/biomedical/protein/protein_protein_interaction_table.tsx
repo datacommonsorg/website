@@ -20,20 +20,24 @@
 
 import React from "react";
 import { useTable } from "react-table";
+import { Column } from "react-table";
 import { Table } from "reactstrap";
-import { InteractionLink } from "./types";
-import {Column} from "react-table"
 
-interface Props{
-  columns: readonly Column[]
-  data: readonly InteractionLink[]
+import { InteractionLink } from "./types";
+
+interface Props {
+  columns: readonly Column[];
+  data: readonly InteractionLink[];
 }
 
 /**
  * Draw table view of protein-protein interaction graph
  * Reference: https://blog.logrocket.com/complete-guide-building-smart-data-table-react/
  */
-export default function ProteinProteinInteractionTable({ columns , data }: Props) {
+export default function ProteinProteinInteractionTable({
+  columns,
+  data,
+}: Props) {
   // Use the useTable Hook to send the columns and data to build the table
   const {
     getTableProps, // table props from react-table
@@ -49,15 +53,25 @@ export default function ProteinProteinInteractionTable({ columns , data }: Props
   return (
     <div className="protein-interaction-table">
       <Table hover {...getTableProps()}>
+        {/* parse keys out of props to pacify react-eslint
+        Reference: https://github.com/TanStack/table/discussions/2647#discussioncomment-1026761 */}
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
+        {headerGroups.map(headerGroup => {
+          const { key, ...restHeaderGroupProps } = headerGroup.getHeaderGroupProps()
+          return (
+            <tr key={key} {...restHeaderGroupProps}>
+              {headerGroup.headers.map(column => {
+                const { key, ...restColumn } = column.getHeaderProps()
+                return (
+                  <th key={key} {...restColumn}>
+                    {column.render('Header')}
+                  </th>
+                )
+              })}
             </tr>
-          ))}
-        </thead>
+          )
+        })}
+   </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
