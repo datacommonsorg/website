@@ -22,9 +22,10 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
+
 import { drawProteinInteractionGraph } from "./chart";
-import { BioDcid, MultiLevelInteractionGraphData } from "./types";
 import ProteinProteinInteractionTable from "./protein_protein_interaction_table";
+import { BioDcid, MultiLevelInteractionGraphData } from "./types";
 
 interface Props {
   centerProteinDcid: BioDcid;
@@ -42,7 +43,6 @@ interface State {
 }
 
 const GRAPH_ID = "protein-interaction-graph";
-const TABLE_ID = "protein-interaction-table";
 const DEPTH_INPUT_ID = "ppi-input-depth";
 
 const MIN_DEPTH = 1;
@@ -86,9 +86,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
     ) {
       drawProteinInteractionGraph(GRAPH_ID, {
         // clone link data because d3 will replace source, target with SimulationNodeDatum objects
-        linkData: _.cloneDeep(this.state.graphData.linkDataNested
-          .slice(0, this.state.depth + 1)
-          .flat(1)),
+        linkData: _.cloneDeep(
+          this.state.graphData.linkDataNested
+            .slice(0, this.state.depth + 1)
+            .flat(1)
+        ),
         nodeData: this.state.graphData.nodeDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
@@ -107,24 +109,24 @@ export class ProteinProteinInteractionGraph extends React.Component<
       <>
         <div id={GRAPH_ID}></div>
         <ProteinProteinInteractionTable
-          className={TABLE_ID}
           columns={[
-          {
-            'Header': 'Source',
-            'accessor': 'source',
-          },
-          {
-            'Header': 'Target',
-            'accessor': 'target',
-          },
-          {
-            'Header': 'Confidence',
-            'accessor': 'score',
-          }
-        ]}
-        data={this.state.graphData.linkDataNested.slice(0, this.state.depth+1).flat(1)}
-        >
-        </ProteinProteinInteractionTable>
+            {
+              Header: "Source",
+              accessor: "source",
+            },
+            {
+              Header: "Target",
+              accessor: "target",
+            },
+            {
+              Header: "Confidence",
+              accessor: "score",
+            },
+          ]}
+          data={this.state.graphData.linkDataNested
+            .slice(0, this.state.depth + 1)
+            .flat(1)}
+        ></ProteinProteinInteractionTable>
         <FormGroup>
           <Label for={DEPTH_INPUT_ID}>Depth</Label>
           <Input

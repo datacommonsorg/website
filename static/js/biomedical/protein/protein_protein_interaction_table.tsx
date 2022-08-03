@@ -19,51 +19,60 @@
  */
 
 import React from "react";
+import { useTable } from "react-table";
 import { Table } from "reactstrap";
-import {useTable} from "react-table";
+import { InteractionLink } from "./types";
+import {Column} from "react-table"
+
+interface Props{
+  columns: readonly Column[]
+  data: readonly InteractionLink[]
+}
 
 /**
  * Draw table view of protein-protein interaction graph
  * Reference: https://blog.logrocket.com/complete-guide-building-smart-data-table-react/
  */
-export default function ProteinProteinInteractionTable({columns, data}) {
+export default function ProteinProteinInteractionTable({ columns , data }: Props) {
   // Use the useTable Hook to send the columns and data to build the table
   const {
     getTableProps, // table props from react-table
     getTableBodyProps, // table body props from react-table
     headerGroups, // headerGroups, if your table has groupings
     rows, // rows for the table based on the data passed
-    prepareRow // Prepare the row (this function needs to be called for each row before getting the row props)
+    prepareRow, // Prepare the row (this function needs to be called for each row before getting the row props)
   } = useTable({
     columns,
-    data
+    data,
   });
 
   return (
-    <div className='protein-interaction-table'>
-    <Table {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
+    <div className="protein-interaction-table">
+      <Table hover {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     </div>
   );
 }
