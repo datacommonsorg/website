@@ -39,6 +39,8 @@ interface State {
   numInteractions: number;
   // interaction score threshold above which to show an edge between two interacting proteins
   scoreThreshold: number;
+  // if true, component is fetching data from flask
+  loading: boolean;
 }
 
 const CHART_ID = "protein-interaction-graph";
@@ -67,6 +69,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       graphData: null,
       numInteractions: DEFAULTS.MAX_INTERACTIONS,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
+      loading: true,
     };
   }
 
@@ -75,6 +78,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
+    if (!this.state.loading){
+      return;
+    }
     // do nothing on parent rerender or if we've loaded the same graph twice
     if (_.isEqual(prevProps, this.props) && _.isEqual(prevState, this.state)) {
       return;
@@ -93,6 +99,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
           .slice(0, this.state.depth + 1)
           .flat(1),
       });
+      this.setState({loading: false});
       return;
     }
     // if graph is the same but user input has changed, fetch new data
@@ -158,7 +165,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
             </FormGroup>
           </Col>
           <Col className="form-group align-self-end" md={2}>
-            <Button className="ppi-update-button">Update</Button>
+            <Button className="ppi-update-button"
+                    onClick={() => {
+                      this.setState({loading: true});
+                    }}>
+              Update</Button>
           </Col>
         </Row>
       </>
