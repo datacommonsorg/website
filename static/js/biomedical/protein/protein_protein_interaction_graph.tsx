@@ -86,6 +86,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
     ) {
       drawProteinInteractionGraph(GRAPH_ID, {
         // clone link data because d3 will replace source, target with SimulationNodeDatum objects
+        // but table requires source, target to be strings
         linkData: _.cloneDeep(
           this.state.graphData.linkDataNested
             .slice(0, this.state.depth + 1)
