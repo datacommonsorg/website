@@ -99,7 +99,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
     this.fetchData();
   }
 
-
   render(): JSX.Element {
     if (this.state.graphData === null) {
       return null;
@@ -108,59 +107,59 @@ export class ProteinProteinInteractionGraph extends React.Component<
       <>
         <div id={CHART_ID}></div>
         <Row>
-          <Col md={3}>
-        <FormGroup>
-          <Label for={DEPTH_INPUT_ID}>Depth</Label>
-          <Input
-            id={DEPTH_INPUT_ID}
-            className="ppi-input"
-            type="number"
-            min={MIN_DEPTH}
-            max={MAX_DEPTH}
-            onChange={(e) => {
-              if(e.target.value !== ""){
-                this.setState({ depth: Number(e.target.value) });
-              }
-            }}
-            value={this.state.depth}
-          />
-          </FormGroup>
-</Col>
+          <Col md={2}>
+            <FormGroup>
+              <Label for={DEPTH_INPUT_ID}>Depth</Label>
+              <Input
+                id={DEPTH_INPUT_ID}
+                className="ppi-input"
+                type="number"
+                min={MIN_DEPTH}
+                max={MAX_DEPTH}
+                onChange={(e) => {
+                  if (e.target.value !== "") {
+                    this.setState({ depth: Number(e.target.value) });
+                  }
+                }}
+                value={this.state.depth}
+              />
+            </FormGroup>
+          </Col>
 
+          <Col md={2}>
+            <FormGroup>
+              <Label for={NUM_INTERACTORS_INPUT_ID}>Interactors</Label>
+              <Input
+                id={NUM_INTERACTORS_INPUT_ID}
+                className="ppi-input"
+                type="number"
+                onChange={(e) => {
+                  this.setState({ numInteractions: Number(e.target.value) });
+                }}
+                value={this.state.numInteractions}
+              />
+            </FormGroup>
+          </Col>
           <Col md={3}>
-          <FormGroup>
-          <Label for={NUM_INTERACTORS_INPUT_ID}>Interactors</Label>
-          <Input
-            id={NUM_INTERACTORS_INPUT_ID}
-            className="ppi-input"
-            type="number"
-            onChange={(e) => {
-              this.setState({ numInteractions: Number(e.target.value) });
-            }}
-            value={this.state.numInteractions}
-          />
-        </FormGroup>
-        </Col>
-          <Col md={3}>
-          <FormGroup>
-          <Label for={SCORE_THRESHOLD_INPUT_ID}>Confidence Threshold</Label>
-          <Input
-            id={SCORE_THRESHOLD_INPUT_ID}
-            className="ppi-input"
-            type="number"
-            min={0}
-            max={1}
-            step={0.1}
-            onChange={(e) => {
-              this.setState({ scoreThreshold: Number(e.target.value) });
-            }}
-            value={this.state.scoreThreshold}
-          />
-        </FormGroup>
-        </Col>
-        <Col>
-        <Button>Update</Button>
-        </Col>
+            <FormGroup>
+              <Label for={SCORE_THRESHOLD_INPUT_ID}>Confidence Threshold</Label>
+              <Input
+                id={SCORE_THRESHOLD_INPUT_ID}
+                className="ppi-input"
+                type="number"
+                min={0}
+                max={1}
+                step={0.1}
+                onChange={(e) => {
+                  this.setState({ scoreThreshold: Number(e.target.value) });
+                }}
+                value={this.state.scoreThreshold}
+              />
+            </FormGroup>
+          </Col>
+          <Col className="form-group align-self-end" md={2}>
+            <Button className="ppi-update-button">Update</Button>
+          </Col>
         </Row>
       </>
     );
