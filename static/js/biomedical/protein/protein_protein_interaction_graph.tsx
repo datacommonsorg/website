@@ -51,6 +51,12 @@ const SCORE_THRESHOLD_INPUT_ID = "ppi-input-score-threshold";
 const MIN_DEPTH = 1;
 const MAX_DEPTH = 3;
 
+const MIN_NUM_INTERACTORS = 0;
+const MAX_NUM_INTERACTORS = 20;
+
+const MIN_SCORE_THRESHOLD = 0;
+const MAX_SCORE_THRESHOLD = 1;
+
 const DEFAULTS = {
   DEPTH: 2,
   MAX_INTERACTIONS: 5,
@@ -124,9 +130,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 min={MIN_DEPTH}
                 max={MAX_DEPTH}
                 onChange={(e) => {
-                  if (e.target.value !== "") {
-                    this.setState({ depth: Number(e.target.value) });
-                  }
+                  this.setState({ depth: Number(e.target.value) });
                 }}
                 value={this.state.depth}
               />
@@ -139,6 +143,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 id={NUM_INTERACTORS_INPUT_ID}
                 className="ppi-input"
                 type="number"
+                min={MIN_NUM_INTERACTORS}
+                max={MAX_NUM_INTERACTORS}
                 onChange={(e) => {
                   this.setState({ numInteractions: Number(e.target.value) });
                 }}
@@ -153,8 +159,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 id={SCORE_THRESHOLD_INPUT_ID}
                 className="ppi-input"
                 type="number"
-                min={0}
-                max={1}
+                min={MIN_SCORE_THRESHOLD}
+                max={MAX_SCORE_THRESHOLD}
                 step={0.1}
                 onChange={(e) => {
                   this.setState({ scoreThreshold: Number(e.target.value) });
