@@ -19,8 +19,7 @@
  */
 
 import React from "react";
-import { useTable } from "react-table";
-import { Column } from "react-table";
+import { Column, useTable } from "react-table";
 import { Table } from "reactstrap";
 
 import { InteractionLink } from "./types";
