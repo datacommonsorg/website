@@ -169,7 +169,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
             <Button
               className="ppi-update-button"
               onClick={() => {
-                this.fetchData()
+                this.fetchData();
               }}
             >
               Update
