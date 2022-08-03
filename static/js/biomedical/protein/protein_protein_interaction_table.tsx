@@ -1,0 +1,69 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Protein-protein interaction graph
+ */
+
+import React from "react";
+import { Table } from "reactstrap";
+import {useTable} from "react-table";
+
+/**
+ * Draw table view of protein-protein interaction graph
+ * Reference: https://blog.logrocket.com/complete-guide-building-smart-data-table-react/
+ */
+export default function ProteinProteinInteractionTable({columns, data}) {
+  // Use the useTable Hook to send the columns and data to build the table
+  const {
+    getTableProps, // table props from react-table
+    getTableBodyProps, // table body props from react-table
+    headerGroups, // headerGroups, if your table has groupings
+    rows, // rows for the table based on the data passed
+    prepareRow // Prepare the row (this function needs to be called for each row before getting the row props)
+  } = useTable({
+    columns,
+    data
+  });
+
+  return (
+    <div className='protein-interaction-table'>
+    <Table {...getTableProps()}>
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => {
+                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
+    </Table>
+    </div>
+  );
+}
