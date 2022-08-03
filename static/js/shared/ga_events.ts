@@ -69,7 +69,8 @@ export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
 
 /**
- * ***************************   GA custom events documentation  *********************************************
+ * GA custom events documentation
+ *
  * Place explorer:
  * 1. Event name: place_category_click
  *    Triggered when: users click on the category redirect link in the place explorer page.
