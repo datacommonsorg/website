@@ -132,7 +132,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
               />
             </FormGroup>
           </Col>
-
           <Col md={2}>
             <FormGroup>
               <Label for={NUM_INTERACTORS_INPUT_ID}>Interactors</Label>
