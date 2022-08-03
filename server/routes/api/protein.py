@@ -296,7 +296,8 @@ def protein_protein_interaction():
 
         if not isinstance(center_protein_dcid, str):
             raise TypeError("proteinDcid must be a string")
-        if not (isinstance(score_threshold, int) or isinstance(score_threshold, float)):
+        if not (isinstance(score_threshold, int) or
+                isinstance(score_threshold, float)):
             raise TypeError('scoreThreshold must be a number')
         if not isinstance(max_interactors, int):
             raise TypeError("maxInteractors must be an integer")
