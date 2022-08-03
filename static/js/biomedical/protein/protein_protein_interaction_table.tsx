@@ -25,7 +25,7 @@ import { Table } from "reactstrap";
 import { InteractionLink } from "./types";
 
 interface Props {
-  columns: readonly Column[];
+  columns: readonly Column<InteractionLink>[];
   data: readonly InteractionLink[];
 }
 
