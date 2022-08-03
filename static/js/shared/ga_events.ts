@@ -67,3 +67,44 @@ export const GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY = "show density";
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
+
+/**
+ * ***************************   GA custom events documentation  *********************************************
+ * Place explorer:
+ * 1. Event name: place_category_click
+ *    Triggered when: users click on the category redirect link in the place explorer page.
+ *    Parameters with value: {
+ *                            place_category_click_source : "sidebar" or "chart header" or "more charts",
+ *                            place_category_click: "Overview" or "Economics" or "Health"...,
+ *                           }
+ *
+ * 2. Event name: place_chart_click
+ *    Triggered when: users click on any of the buttons below a place explorer chart.
+ *    Parameters with value: {
+ *                            place_chart_click: "stat var chip" or "data source" or "export" or "explore more"
+ *                           }
+ *
+ * Tools:
+ * 3. Event name: tool_chart_plot
+ *    Triggered when: a tool chart is mounted or updated with different stat vars or places.
+ *    Parameters with value: {
+ *                            stat_var: "Median_Income_Household" or ["Median_Income_Household", "Age"],
+ *                            place_dcid: "geoId/06" or ["geoId/06", "geoId/48"],
+ *                           }
+ *
+ * 4. Event name: tool_stat_var_click
+ *    Triggered when: a stat var is selected in the stat var hierarchy.
+ *    Parameters with value: { stat_var: "Median_Income_Household" }
+ *
+ * 5. Event name: tool_place_add
+ *    Triggered when: a place is added to the place search bar of visualization tools.
+ *    Parameters with value: { place_dcid: "geoId/06" }
+ *
+ * 6. Event name: tool_stat_var_search_no_result
+ *    Triggered when: no result is shown to a search term in the stat var widget.
+ *    Parameters with value: { search_term: "median income" }
+ *
+ * 7. Event name: tool_chart_option_click
+ *    Triggered when: a tool chart option is selected or blured (population filter) or updated (sources).
+ *    Parameters with value: { tool_chart_option: "per capita" or "delta" or "log scale" or "show quadrants" or "show labels" or "show density" or "edit sources" or "filter by population" }
+ */
