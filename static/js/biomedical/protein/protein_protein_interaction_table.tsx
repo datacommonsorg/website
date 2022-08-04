@@ -24,6 +24,11 @@ import { Table } from "reactstrap";
 
 import { InteractionLink } from "./types";
 
+interface Props {
+  data: InteractionLink[];
+}
+
+// column header info
 const COLUMNS = [
   {
     Header: "Source",
@@ -39,9 +44,6 @@ const COLUMNS = [
   },
 ] as Column<InteractionLink>[];
 
-interface Props {
-  data: InteractionLink[];
-}
 
 /**
  * Draw table view of protein-protein interaction graph
