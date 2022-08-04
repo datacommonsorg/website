@@ -81,11 +81,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    // do nothing on parent rerender or if we've loaded the same graph twice
-    if (_.isEqual(prevProps, this.props) && _.isEqual(prevState, this.state)) {
-      return;
-    }
-    // if graph has updated to something nonempty, redraw it
     if (
       !_.isEmpty(this.state.graphData) &&
       (!_.isEqual(prevState.graphData, this.state.graphData) ||
