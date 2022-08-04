@@ -61,7 +61,7 @@ class TestDetectDate(unittest.TestCase):
             input: Any
             expected: bool
 
-        test_cases: Sequence[TestHelper] = [
+        test_cases: List[TestHelper] = [
             TestHelper(name="greater-90-percent",
                        input=[
                            "2022",
