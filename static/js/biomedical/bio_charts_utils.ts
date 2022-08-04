@@ -55,7 +55,7 @@ export function onMouseOver(
     `brightness(${brightenPercentage})`
   );
   // update and show tooltip text
-  TOOL_TIP.html(toolTipText).style("opacity", 1);
+  TOOL_TIP.html(toolTipText).style("display", "block");
 }
 
 /**
@@ -75,11 +75,11 @@ export function onMouseOut(elementID: string): void {
   // reset element brightness
   d3.select(`#${elementID}`).style("filter", "brightness(100%)");
   // hide tooltip
-  TOOL_TIP.style("opacity", 0);
-  TOOL_TIP.style("left", `${TOOL_TIP_DEFAULT_POSITION.left}px`).style(
-    "top",
-    `${TOOL_TIP_DEFAULT_POSITION.top}px`
-  );
+  TOOL_TIP.style("display", "none");
+  // TOOL_TIP.style("left", `${TOOL_TIP_DEFAULT_POSITION.left}px`).style(
+  //   "top",
+  //   `${TOOL_TIP_DEFAULT_POSITION.top}px`
+  // );
 }
 
 /**
