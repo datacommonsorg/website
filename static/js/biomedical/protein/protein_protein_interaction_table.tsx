@@ -33,10 +33,10 @@ interface Props {
  * Draw table view of protein-protein interaction graph
  * Reference: https://blog.logrocket.com/complete-guide-building-smart-data-table-react/
  */
-export default function ProteinProteinInteractionTable({
+export function ProteinProteinInteractionTable ({
   columns,
   data,
-}: Props) {
+}: Props): JSX.Element {
   // Use the useTable Hook to send the columns and data to build the table
   const {
     getTableProps, // table props from react-table

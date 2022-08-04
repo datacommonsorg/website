@@ -24,7 +24,7 @@ import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
-import ProteinProteinInteractionTable from "./protein_protein_interaction_table";
+import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
 
 interface Props {
