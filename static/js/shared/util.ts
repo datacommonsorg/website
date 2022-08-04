@@ -65,6 +65,7 @@ export function saveToFile(filename: string, contents: string): void {
   }
   const blob = new Blob([contents], { type: mimeType });
   const link = document.createElement("a");
+  link.setAttribute("id", "download-link");
   const url = window.URL.createObjectURL(blob);
   link.setAttribute("href", url);
   link.setAttribute("download", filename);
