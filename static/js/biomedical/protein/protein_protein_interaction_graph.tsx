@@ -21,12 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
-<<<<<<< HEAD
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
-=======
-import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
->>>>>>> ppi-react-table
-
 import { drawProteinInteractionGraph } from "./chart";
 import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
