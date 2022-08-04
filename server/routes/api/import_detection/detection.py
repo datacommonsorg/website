@@ -59,11 +59,9 @@ def _detect_date(
 def detect_columns(col_order: Sequence[Column],
                    cols_sampled: Dict[int, Sequence[str]]) -> str:
     """Returns a json string corresponding to the detection for each column.
-    
     @args:
         col_order: A list of Column objects where the list order signifies the column indices.
         cols_sampled: A mapping from column index to a list of strings.
-
     @returns:
         The json string is of the following form (examples):
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Any, Dict, Sequence, Union
+from typing import Any, Sequence
 
 import routes.api.import_detection.detect_date as dd
 import unittest

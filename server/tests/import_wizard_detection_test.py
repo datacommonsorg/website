@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
-from typing import Any, Dict, Sequence, Union
+from typing import Dict, Sequence
 from routes.api.import_detection.detection_types import Column
 
 import json

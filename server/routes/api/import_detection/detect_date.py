@@ -14,7 +14,6 @@
 """Date Detection."""
 
 from dateutil import parser
-from routes.api.import_detection.detection_types import Column, DCType, MappedThing, MappingType, TypeProperty
 from typing import Sequence
 
 _MIN_HIGH_CONF_DETECT: float = 0.9
@@ -22,14 +21,13 @@ _MIN_HIGH_CONF_DETECT: float = 0.9
 
 def _detect_date(header: str) -> bool:
     """Date is detected if header is a valid ISO-8601 format.
-    
     Note: since we are only interested in detecting dates (and not time),
     if the header string length is <= 3, we consider that to be invalid.
     """
     try:
         parser.isoparse(header)
         return len(header) > 3
-    except Exception as _:
+    except Exception:
         # Any exception means we couldn't parse header as a date.
         return False
 
