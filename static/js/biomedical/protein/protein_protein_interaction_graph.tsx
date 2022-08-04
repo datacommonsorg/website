@@ -101,6 +101,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
       });
       return;
     }
+    // refetch if component is updated with new center protein dcid
+    if (!_.isEqual(prevProps, this.props)){
+      this.fetchData();
+    }
   }
 
   render(): JSX.Element {
