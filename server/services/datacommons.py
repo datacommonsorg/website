@@ -19,8 +19,8 @@ import json
 import logging
 import urllib.parse
 import zlib
-from typing import Mapping
 from cache import cache
+from flask import current_app
 
 import lib.config as libconfig
 import requests
@@ -73,6 +73,8 @@ _MAX_LIMIT = 100
 def get(path):
     url = API_ROOT + path
     headers = {'Content-Type': 'application/json'}
+    if current_app.config['API_KEY']:
+        headers['x-api-key'] = current_app.config['API_KEY']
     # Send the request and verify the request succeeded
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
@@ -98,6 +100,8 @@ def post_wrapper(path, req_str):
     req = json.loads(req_str)
     url = API_ROOT + path
     headers = {'Content-Type': 'application/json'}
+    if current_app.config['API_KEY']:
+        headers['x-api-key'] = current_app.config['API_KEY']
     # Send the request and verify the request succeeded
     response = requests.post(url, json=req, headers=headers)
     if response.status_code != 200:
