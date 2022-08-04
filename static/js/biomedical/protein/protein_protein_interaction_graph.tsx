@@ -21,7 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
-import { FormGroup, Input, Label } from "reactstrap";
+import { Button, FormGroup, Input, Label } from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
 import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
@@ -40,6 +40,8 @@ interface State {
   numInteractions: number;
   // interaction score threshold above which to show an edge between two interacting proteins
   scoreThreshold: number;
+  // show table;
+  showTableView: boolean;
 }
 
 const GRAPH_ID = "protein-interaction-graph";
@@ -66,6 +68,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       graphData: null,
       numInteractions: DEFAULTS.MAX_INTERACTIONS,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
+      showTableView: false,
     };
   }
 
@@ -108,7 +111,19 @@ export class ProteinProteinInteractionGraph extends React.Component<
     }
     return (
       <>
-        <div id={GRAPH_ID}></div>
+        <Button
+          className="btn btn-sm btn-light"
+          onClick={() =>
+            this.setState({ showTableView: !this.state.showTableView })
+          }
+        >
+          <i className="material-icons align-middle">
+            {this.state.showTableView ? "hub" : "table_restaurant"}
+          </i>
+          <span>{this.state.showTableView ? " Graph View" : " Table View"}</span>
+        </Button>
+        {
+          this.state.showTableView ? 
         <ProteinProteinInteractionTable
           columns={[
             {
@@ -127,7 +142,8 @@ export class ProteinProteinInteractionGraph extends React.Component<
           data={this.state.graphData.linkDataNested
             .slice(0, this.state.depth + 1)
             .flat(1)}
-        ></ProteinProteinInteractionTable>
+        ></ProteinProteinInteractionTable> :
+        <div id={GRAPH_ID}></div> }
         <FormGroup>
           <Label for={DEPTH_INPUT_ID}>Depth</Label>
           <Input
