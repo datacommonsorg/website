@@ -38,7 +38,7 @@ def detect_column_header(header: str) -> bool:
 
 
 def detect_column_with_dates(col_values: Sequence[str]) -> bool:
-    """Returns true if > 90% of the non-empty string 'col_values' can be parsed 
+    """Returns true if > 90% of the non-empty string 'col_values' can be parsed
     as valid Date objects. It returns false otherwise.
     """
     num_detected = 0

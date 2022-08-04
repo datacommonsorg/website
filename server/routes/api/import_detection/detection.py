@@ -103,7 +103,6 @@ def detect_columns(col_order: Sequence[Column],
                 },
                 headers: None,
             },
-            
             Date: {
                 type : column,
                 place_type: None,
