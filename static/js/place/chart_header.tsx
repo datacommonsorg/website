@@ -22,6 +22,7 @@ import {
   GA_PARAM_PLACE_CATEGORY_CLICK,
   GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
   triggerGAEvent,
 } from "../shared/ga_events";
 
@@ -41,7 +42,7 @@ interface ChartHeaderPropType {
   /**
    * Translated strings for categories.
    */
-  categoryStrings: { string: string };
+  categoryStrings: { [key: string]: string };
 }
 
 export class ChartHeader extends React.Component<ChartHeaderPropType> {
@@ -78,7 +79,7 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
                 triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
                   [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
                   [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
-                    GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+                    GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
                 })
               }
             />

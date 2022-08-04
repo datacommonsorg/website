@@ -27,7 +27,6 @@
   stroke: "#fff";
   stroke-opacity: 1;
   stroke-width: 1.5;
-  r: 15;
 }
 
 .protein-node-label {
@@ -36,4 +35,14 @@
   fill: #222;
   text-anchor: middle;
   dominant-baseline: middle;
+}
+
+#ppi-input-depth {
+  width: 8%;
+}
+
+#ppi-input-depth:focus {
+  outline: none !important;
+  border-color: peachpuff;
+  box-shadow: 0 0 5px lightcoral;
 }

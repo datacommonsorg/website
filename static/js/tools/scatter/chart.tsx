@@ -148,18 +148,18 @@ export function Chart(props: ChartPropsType): JSX.Element {
   }, [props, chartContainerRef, geoJsonFetched]);
 
   // Triggered only when stat vars or places change to avoid double counting and send data to google analytics.
-  let statVar1 = "";
-  let statVar2 = "";
+  const statVars = ["", ""];
   if (props.facetList.length >= 2) {
-    statVar1 = props.facetList[0].dcid;
-    statVar2 = props.facetList[1].dcid;
+    statVars[0] = props.facetList[0].dcid;
+    statVars[1] = props.facetList[1].dcid;
+    statVars.sort();
   }
   useEffect(() => {
     triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
       [GA_PARAM_PLACE_DCID]: props.placeInfo.enclosingPlace.dcid,
-      [GA_PARAM_STAT_VAR]: [statVar1, statVar2],
+      [GA_PARAM_STAT_VAR]: statVars,
     });
-  }, [statVar1, statVar2, props.placeInfo.enclosingPlace.dcid]);
+  }, [statVars[0], statVars[1], props.placeInfo.enclosingPlace.dcid]);
 
   return (
     <div id="chart" className="chart-section-container" ref={chartContainerRef}>
