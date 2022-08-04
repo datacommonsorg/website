@@ -25,18 +25,30 @@ import { Table } from "reactstrap";
 import { InteractionLink } from "./types";
 
 interface Props {
-  columns: readonly Column<InteractionLink>[];
-  data: readonly InteractionLink[];
+  data: InteractionLink[];
 }
+
+// column header info
+const COLUMNS = [
+  {
+    Header: "Source",
+    accessor: "source",
+  },
+  {
+    Header: "Target",
+    accessor: "target",
+  },
+  {
+    Header: "Confidence",
+    accessor: "score",
+  },
+] as Column<InteractionLink>[];
 
 /**
  * Draw table view of protein-protein interaction graph
  * Reference: https://blog.logrocket.com/complete-guide-building-smart-data-table-react/
  */
-export function ProteinProteinInteractionTable ({
-  columns,
-  data,
-}: Props): JSX.Element {
+export function ProteinProteinInteractionTable({ data }: Props): JSX.Element {
   // Use the useTable Hook to send the columns and data to build the table
   const {
     getTableProps, // table props from react-table
@@ -45,7 +57,7 @@ export function ProteinProteinInteractionTable ({
     rows, // rows for the table based on the data passed
     prepareRow, // Prepare the row (this function needs to be called for each row before getting the row props)
   } = useTable({
-    columns,
+    columns: COLUMNS,
     data,
   });
 
