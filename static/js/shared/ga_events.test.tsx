@@ -26,12 +26,15 @@ import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";
 import { Menu } from "../place/menu";
+import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
+import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
 import { Chart as MapToolChart } from "../tools/map/chart";
 import {
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
   StatVarWrapper,
 } from "../tools/map/context";
 import { DataPointMetadata } from "../tools/map/util";
+import { axios_mock } from "../tools/mock_functions";
 import { Chart as ScatterToolChart } from "../tools/scatter/chart";
 import {
   AxisWrapper,
@@ -46,12 +49,18 @@ import * as dataFetcher from "../tools/timeline/data_fetcher";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
   GA_EVENT_TOOL_CHART_PLOT,
+  GA_EVENT_TOOL_PLACE_ADD,
+  GA_EVENT_TOOL_STAT_VAR_CLICK,
+  GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
   GA_PARAM_PLACE_CATEGORY_CLICK,
   GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
   GA_PARAM_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_DCID,
+  GA_PARAM_SEARCH_TERM,
   GA_PARAM_STAT_VAR,
+  GA_PARAM_TOOL_CHART_OPTION,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
   GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
@@ -59,8 +68,19 @@ import {
   GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
   GA_VALUE_PLACE_CHART_CLICK_EXPORT,
   GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
+  GA_VALUE_TOOL_CHART_OPTION_DELTA,
+  GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+  GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+  GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+  GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+  GA_VALUE_TOOL_CHART_OPTION_SWAP,
 } from "./ga_events";
+import { PlaceSelector } from "./place_selector";
 import { StatVarInfo } from "./stat_var";
+import { NamedTypedPlace, StatVarHierarchyType, StatVarSummary } from "./types";
 
 const CATEGORY = "Economics";
 const PLACE_DCID = "geoId/05";
@@ -71,6 +91,7 @@ const STAT_VAR_3 = "Count_Person";
 const SOURCES = "sources";
 const ID = "a";
 const NUMBER = 123;
+const PLACE_ADDED = "africa";
 
 // Props for place explorer chart.
 const PLACE_CHART_PROPS = {
@@ -287,6 +308,26 @@ const SCATTER_CONTEXT = {
     setRegression: () => null,
   } as ScatterDisplayOptionsWrapper,
   isLoading: {} as IsLoadingWrapper,
+};
+
+// Props for stat var hierarchy.
+const STAT_VAR_HIERARCHY_PROPS = {
+  path: ["dc/g/Demographics", STAT_VAR_2],
+  statVar: {
+    id: STAT_VAR_2,
+    specializedEntity: "",
+    displayName: STAT_VAR_2,
+    hasData: true,
+  },
+  selected: false,
+  summary: {} as StatVarSummary,
+  prefixToReplace: "",
+
+  type: StatVarHierarchyType.TIMELINE,
+  places: [{ name: PLACE_NAME, dcid: PLACE_DCID }],
+  selectedSVs: [STAT_VAR_2],
+  selectSV: () => null,
+  deselectSV: () => null,
 };
 
 beforeEach(() =>
@@ -677,6 +718,418 @@ describe("test ga event tool chart plot", () => {
         {
           [GA_PARAM_STAT_VAR]: [STAT_VAR_3, STAT_VAR_2],
           [GA_PARAM_PLACE_DCID]: PLACE_DCID,
+        },
+      ]);
+    });
+  });
+});
+
+describe("test ga event tool stat var click", () => {
+  test("call gtag when a stat var is selected in the stat var hierarchy", async () => {
+    // Mock gtag.
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+    // Mock child stat var groups.
+    axios_mock();
+
+    // When the component is rendered.
+    const statVarHierarchy = render(
+      <StatVarHierarchy {...STAT_VAR_HIERARCHY_PROPS} />
+    );
+    // Wait for the collapsible__trigger to get rendered.
+    await waitFor(() => {
+      expect(
+        statVarHierarchy.container.getElementsByClassName(
+          "Collapsible__trigger"
+        )[0]
+      ).toBeTruthy();
+    });
+
+    // Click collapsible trigger.
+    fireEvent.click(
+      statVarHierarchy.container.getElementsByClassName(
+        "Collapsible__trigger"
+      )[0]
+    );
+    const inputId = "#" + STAT_VAR_3 + "dc\\/g\\/Demographics-" + STAT_VAR_3;
+    // Wait for stat vars to get rendered.
+    await waitFor(() => {
+      expect(statVarHierarchy.container.querySelector(inputId)).toBeTruthy();
+    });
+
+    // Click the checkbox of the stat var.
+    fireEvent.click(statVarHierarchy.container.querySelector(inputId), {
+      target: { checked: true },
+    });
+    await waitFor(() => {
+      // Check gtag is called once.
+      expect(mockgtag.mock.calls.length).toEqual(1);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_STAT_VAR_CLICK,
+        {
+          [GA_PARAM_STAT_VAR]: STAT_VAR_3,
+        },
+      ]);
+    });
+  });
+});
+
+describe("test ga event tool place add", () => {
+  test("call gtag when a place is added in the place seaerch bar", async () => {
+    const props = {
+      selectedPlace: {
+        types: null,
+      } as NamedTypedPlace,
+      enclosedPlaceType: "",
+      onPlaceSelected: () => null,
+      onEnclosedPlaceTypeSelected: () => null,
+    };
+    // Mock gtag.
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+    // Mock google maps.
+    window.google = {
+      maps: {
+        places: {
+          Autocomplete: jest.fn().mockImplementation((elem, _opts) => {
+            return {
+              addListener: (_placeChanged, callback) => {
+                elem.addEventListener("change", callback);
+              },
+              getPlace: () => {
+                return { name: PLACE_ADDED };
+              },
+            };
+          }),
+        },
+      },
+    } as any;
+
+    // Render the component.
+    const placeSelector = render(<PlaceSelector {...props} />);
+    await waitFor(() =>
+      expect(placeSelector.container.querySelector("#ac")).toBeTruthy()
+    );
+
+    // Use the hardcoded result as place autocomplete.
+    fireEvent.change(placeSelector.container.querySelector("#ac"), {
+      target: { value: PLACE_ADDED },
+    });
+    await waitFor(() => {
+      // Check the gtag is called once.
+      expect(mockgtag.mock.calls.length).toEqual(1);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_PLACE_ADD,
+        {
+          [GA_PARAM_PLACE_DCID]: PLACE_ADDED,
+        },
+      ]);
+    });
+  });
+});
+
+describe("test ga event tool stat var search no result", () => {
+  test("call gtag when no result is shown to search term in stat var hierarchy", async () => {
+    // Mock gtag.
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render the component.
+    const props = {
+      onSelectionChange: () => null,
+      places: [""],
+    };
+    const statVarSearch = render(<StatVarHierarchySearch {...props} />);
+
+    // Input the search term.
+    fireEvent.change(
+      statVarSearch.container.getElementsByClassName("statvar-search-input")[0],
+      { target: { value: STAT_VAR_1 } }
+    );
+    await waitFor(() => {
+      // Check the gtag is called once.
+      expect(mockgtag.mock.calls.length).toEqual(1);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
+        {
+          [GA_PARAM_SEARCH_TERM]: STAT_VAR_1,
+        },
+      ]);
+    });
+  });
+});
+
+describe("test ga event tool chart plot option", () => {
+  test("call gtag when timeline tool chart option is clicked", async () => {
+    // Mock gtag.
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+    // Mock fetch data.
+    jest
+      .spyOn(dataFetcher, "fetchRawData")
+      .mockImplementation(() => Promise.resolve(null));
+
+    // Render the component.
+    const timelineToolChart = render(<TimelineToolChart {...TIMELINE_PROPS} />);
+    // Wait for gtag event tool chart plot to be called.
+    await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
+
+    // Click the checkbox of per capita.
+    fireEvent.click(
+      timelineToolChart.container.getElementsByClassName("form-check-input")[0],
+      { target: { checked: true } }
+    );
+    await waitFor(() => {
+      // Check the gtag is called once, two times in total.
+      expect(mockgtag.mock.calls.length).toEqual(2);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+        },
+      ]);
+    });
+
+    // Click the checkbox of delta.
+    fireEvent.click(
+      timelineToolChart.container.getElementsByClassName(
+        "is-delta-input form-check-input"
+      )[0],
+      { target: { checked: true } }
+    );
+    await waitFor(() => {
+      // Check the gtag is called once, three times in total.
+      expect(mockgtag.mock.calls.length).toEqual(3);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_DELTA,
+        },
+      ]);
+    });
+
+    // Click the update button.
+    fireEvent.click(timelineToolChart.getByText("Edit Source"));
+    await waitFor(() =>
+      expect(timelineToolChart.getByText("Update")).toBeTruthy()
+    );
+    fireEvent.click(timelineToolChart.getByText("Update"));
+    await waitFor(() => {
+      // Check the gtag is called once, four times in total.
+      expect(mockgtag.mock.calls.length).toEqual(4);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+        },
+      ]);
+    });
+  });
+  test("call gtag when scatter tool chart option is clicked", async () => {
+    // Mock gtag.
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render the component.
+    const scatterToolChart = render(
+      <Context.Provider value={SCATTER_CONTEXT}>
+        <ScatterToolChart {...SCATTER_PROPS} />
+      </Context.Provider>
+    );
+    // Wait for gtag event tool chart plot to be called.
+    await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
+
+    // Click checkbox of per capita.
+    fireEvent.click(scatterToolChart.container.querySelector("#per-capita-y"), {
+      target: { checked: true },
+    });
+    await waitFor(() => {
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+        },
+      ]);
+      // Check gtag is called once, two times in total.
+      expect(mockgtag.mock.calls.length).toEqual(2);
+    });
+
+    // Click checkbox of log scale.
+    fireEvent.click(scatterToolChart.container.querySelector("#log-y"), {
+      target: { checked: true },
+    });
+    await waitFor(() => {
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+        },
+      ]);
+      // Check gtag is called once, three time in total.
+      expect(mockgtag.mock.calls.length).toEqual(3);
+    });
+
+    // Click swap x and y axis.
+    fireEvent.click(scatterToolChart.container.querySelector("#swap-axes"));
+    await waitFor(() => {
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SWAP,
+        },
+      ]);
+      // Check gtag is called once, four times in total.
+      expect(mockgtag.mock.calls.length).toEqual(4);
+    });
+
+    // Click checkbox of show quandrants.
+    fireEvent.click(scatterToolChart.container.querySelector("#quadrants"), {
+      target: { checked: true },
+    });
+    await waitFor(() => {
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]:
+            GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+        },
+      ]);
+      // Check gtag is called once, five times in total.
+      expect(mockgtag.mock.calls.length).toEqual(5);
+    });
+
+    // Click the checkbox of show labels.
+    fireEvent.click(
+      scatterToolChart.container.querySelectorAll("#quadrants")[1],
+      { target: { checked: true } }
+    );
+    await waitFor(() => {
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+        },
+      ]);
+      // Check gtag is called once, six times in total.
+      expect(mockgtag.mock.calls.length).toEqual(6);
+    });
+
+    // Click the checkbox of show density.
+    fireEvent.click(scatterToolChart.container.querySelector("#density"), {
+      target: { checked: true },
+    });
+    await waitFor(() => {
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
+        },
+      ]);
+      // Check gtag is called once, seven times in total.
+      expect(mockgtag.mock.calls.length).toEqual(7);
+    });
+
+    // Blur the input of population filter.
+    fireEvent.blur(
+      scatterToolChart.container.getElementsByClassName("pop-filter-input")[0]
+    );
+    await waitFor(() => {
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]:
+            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+        },
+      ]);
+      // Check gtag is called once, eight times in total.
+      expect(mockgtag.mock.calls.length).toEqual(8);
+    });
+
+    // Click the update button.
+    fireEvent.click(scatterToolChart.getByText("Edit Source"));
+    await waitFor(() =>
+      expect(scatterToolChart.getByText("Update")).toBeTruthy()
+    );
+    fireEvent.click(scatterToolChart.getByText("Update"));
+    await waitFor(() => {
+      // Check gtag is called once, nine times in total.
+      expect(mockgtag.mock.calls.length).toEqual(9);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
+        },
+      ]);
+    });
+  });
+  test("call gtag when map tool chart option is clicked", async () => {
+    // Mock gtag.
+    const mockgtag = jest.fn();
+    window.gtag = mockgtag;
+
+    // Render the component.
+    const mapToolChart = render(<MapToolChart {...MAP_PROPS} />);
+    await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
+
+    // Click the checkbox of per capita.
+    fireEvent.click(
+      mapToolChart.container.getElementsByClassName("form-check-input")[0],
+      { target: { checked: true } }
+    );
+    await waitFor(() => {
+      // Check the gtag is called once, two times in total.
+      expect(mockgtag.mock.calls.length).toEqual(2);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+        },
+      ]);
+    });
+
+    // Click the update button.
+    fireEvent.click(mapToolChart.getByText("Edit Source"));
+    await waitFor(() => expect(mapToolChart.getByText("Update")).toBeTruthy());
+    fireEvent.click(mapToolChart.getByText("Update"));
+    await waitFor(() => {
+      // Check the gtag is called once, three times in total.
+      expect(mockgtag.mock.calls.length).toEqual(3);
+      // Check the parameters passed to the gtag.
+      expect(mockgtag.mock.lastCall).toEqual([
+        "event",
+        GA_EVENT_TOOL_CHART_OPTION_CLICK,
+        {
+          [GA_PARAM_TOOL_CHART_OPTION]: GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES,
         },
       ]);
     });
