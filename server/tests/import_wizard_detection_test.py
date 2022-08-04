@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, Sequence
+from typing import Dict, List
 from routes.api.import_detection.detection_types import Column
 
 import json
@@ -24,7 +24,7 @@ class TestDetection(unittest.TestCase):
 
     def test_date_detection_headers(self) -> None:
 
-        cols_sampled: Dict[int, Sequence[str]] = {0: [], 1: [], 2: []}
+        cols_sampled: Dict[int, List[str]] = {0: [], 1: [], 2: []}
 
         date_col_1 = Column(id="2020-100", header="2020-10", column_index=0)
         date_col_2 = Column(id="2020-111", header="2020-11", column_index=1)
@@ -51,7 +51,7 @@ class TestDetection(unittest.TestCase):
                 "column_index": 1
             }]
         })
-        assert got == expected
+        self.assertEqual(got, expected)
 
     def test_date_detection_columns(self) -> None:
 
@@ -78,13 +78,13 @@ class TestDetection(unittest.TestCase):
             "place_type": None,
             "headers": None
         })
-        assert got == expected
+        self.assertEqual(got, expected)
 
     def test_date_detection_headers_and_columns(self) -> None:
 
         # Column at index 2 is a date column but preference is given to column
         # headers.
-        cols_sampled: Dict[int, Sequence[str]] = {
+        cols_sampled: Dict[int, List[str]] = {
             0: ["1", "2", "3"],
             1: ["random", "random", "random"],
             2: ["2020-10", "2021-10", "2022-10"],
@@ -115,4 +115,4 @@ class TestDetection(unittest.TestCase):
                 "column_index": 1
             }]
         })
-        assert got == expected
+        self.assertEqual(got, expected)

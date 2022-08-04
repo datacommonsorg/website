@@ -15,7 +15,7 @@
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Sequence, Union
+from typing import List, Optional
 
 
 # Helper Enums and Data Classes for Detection.
@@ -72,16 +72,16 @@ class MappingVal:
     type: str
 
     # Column that holds the mapping values. Should be set if type is MappingType.COLUMN
-    column: Union[Column, None]
+    column: Optional[Column] = None
 
     # The place property (in KG) associated with that
     # column or column header. Should be set if MappedThing is PLACE.
-    place_property: Union[DCProperty, None]
+    place_property: Optional[DCProperty] = None
 
     # The place type (in KG) associated with that
     # column or column header. Should be set if MappedThing is PLACE.
-    place_type: Union[DCType, None]
+    place_type: Optional[DCProperty] = None
 
     # List of column headers that act as the mapping values. Should be set if
     # type is MappingType.COLUMN_HEADERS
-    headers: Union[Sequence[Column], None]
+    headers: Optional[List[Column]] = None

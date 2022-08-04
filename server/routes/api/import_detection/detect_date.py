@@ -14,7 +14,7 @@
 """Date Detection."""
 
 from dateutil import parser
-from typing import Sequence
+from typing import List
 
 _MIN_HIGH_CONF_DETECT: float = 0.9
 
@@ -37,7 +37,7 @@ def detect_column_header(header: str) -> bool:
     return _detect_date(header)
 
 
-def detect_column_with_dates(col_values: Sequence[str]) -> bool:
+def detect_column_with_dates(col_values: List[str]) -> bool:
     """Returns true if > 90% of the non-empty string 'col_values' can be parsed
     as valid Date objects. It returns false otherwise.
     """

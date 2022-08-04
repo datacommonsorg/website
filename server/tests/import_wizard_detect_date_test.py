@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Any, Sequence
+from typing import Any, List
 
 import routes.api.import_detection.detect_date as dd
 import unittest
@@ -29,7 +29,7 @@ class TestDetectDate(unittest.TestCase):
             input: Any
             expected: bool
 
-        test_cases: Sequence[TestHelper] = [
+        test_cases: List[TestHelper] = [
             # Parse successes.
             TestHelper(name="YYYY-MM-DD", input="2020-10-01", expected=True),
             TestHelper(name="YYYY", input="2020", expected=True),
@@ -49,8 +49,9 @@ class TestDetectDate(unittest.TestCase):
         ]
 
         for tc in test_cases:
-            assert dd.detect_column_header(
-                tc.input) == tc.expected, "Test named %s failed" % tc.name
+            self.assertEqual(dd.detect_column_header(tc.input),
+                             tc.expected,
+                             msg="Test named %s failed" % tc.name)
 
     def test_column_date_detection(self) -> None:
 
@@ -105,5 +106,6 @@ class TestDetectDate(unittest.TestCase):
         ]
 
         for tc in test_cases:
-            assert dd.detect_column_with_dates(
-                tc.input) == tc.expected, "Test named %s failed" % tc.name
+            self.assertEqual(dd.detect_column_with_dates(tc.input),
+                             tc.expected,
+                             msg="Test named %s failed" % tc.name)

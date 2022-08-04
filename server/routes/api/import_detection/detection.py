@@ -15,14 +15,13 @@
 
 import routes.api.import_detection.detect_date as date_detector
 from routes.api.import_detection.detection_types import Column, MappingVal, MappedThing, MappingType
-from typing import Dict, Sequence, Union
+from typing import Dict, List, Optional
 
 import json
 
 
-def _detect_date(
-        col_order: Sequence[Column],
-        cols_sampled: Dict[int, Sequence[str]]) -> Union[MappingVal, None]:
+def _detect_date(col_order: List[Column],
+                 cols_sampled: Dict[int, List[str]]) -> Optional[MappingVal]:
 
     date_headers = []
     date_cols = []
@@ -42,22 +41,15 @@ def _detect_date(
     # than one column, return any (e.g. the first one).
     if date_headers:
         return MappingVal(type=MappingType.COLUMN_HEADER.value,
-                          column=None,
-                          place_property=None,
-                          place_type=None,
                           headers=date_headers)
     elif len(date_cols) > 0:
-        return MappingVal(type=MappingType.COLUMN.value,
-                          column=date_cols[0],
-                          place_property=None,
-                          place_type=None,
-                          headers=None)
+        return MappingVal(type=MappingType.COLUMN.value, column=date_cols[0])
 
     return None
 
 
-def detect_columns(col_order: Sequence[Column],
-                   cols_sampled: Dict[int, Sequence[str]]) -> str:
+def detect_columns(col_order: List[Column],
+                   cols_sampled: Dict[int, List[str]]) -> str:
     """Returns a json string corresponding to the detection for each column.
     @args:
         col_order: A list of Column objects where the list order signifies the column indices.
