@@ -55,7 +55,7 @@ class TestDetection(unittest.TestCase):
 
     def test_date_detection_columns(self) -> None:
 
-        cols_sampled: Dict[int, Sequence[str]] = {
+        cols_sampled: Dict[int, List[str]] = {
             0: ["2020-10", "2021-10", "2022-10"],
             1: ["random", "random", "random"],
             2: ["1", "2", "3"]

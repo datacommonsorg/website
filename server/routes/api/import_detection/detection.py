@@ -13,7 +13,7 @@
 # limitations under the License.
 """Functions that manage all column detection."""
 
-import routes.api.import_detection.detect_date as date_detector
+import routes.api.import_detection.date_detection as date_detector
 from routes.api.import_detection.detection_types import Column, MappingVal, MappedThing, MappingType
 from typing import Dict, List, Optional
 
