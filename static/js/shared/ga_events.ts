@@ -68,7 +68,7 @@ export const GA_EVENT_TOOL_STAT_VAR_CLICK = "tool_stat_var_click";
 export const GA_EVENT_TOOL_PLACE_ADD = "tool_place_add";
 /**
  * Event name: tool_stat_var_search_no_result
- * Triggered when: no result is shown to a search term in the stat var widget.
+ * Triggered when: no result is shown for a search term in the stat var widget.
  * Parameters with value: { search_term: "median income" }
  */
 export const GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT =
