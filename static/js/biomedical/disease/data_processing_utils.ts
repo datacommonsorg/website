@@ -17,6 +17,7 @@ import _ from "lodash";
 
 import { GraphNodes } from "../../shared/types";
 import {
+  ChemicalCompoundDataType,
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
@@ -154,14 +155,13 @@ export function getDiseaseSymptomAssociation(
 }
 
 /**
- * Fetches the chemical compound disease treatment data
+ * Fetches the chemical compound data which includes disease treatment and disease contraindication data
  * @param data
  * @returns
  */
-export function getCompoundDiseaseTreatment(
+export function getChemicalCompoundData(
   data: GraphNodes
-): CompoundDiseaseTreatmentData[] {
-  // checks if the data is empty and for null values
+): ChemicalCompoundDataType[] {
   if (
     _.isEmpty(data) ||
     _.isEmpty(data.nodes) ||
@@ -169,7 +169,7 @@ export function getCompoundDiseaseTreatment(
   ) {
     return [];
   }
-  const rawData: CompoundDiseaseTreatmentData[] = [];
+  const rawData: ChemicalCompoundDataType[] = [];
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "diseaseID") {
       continue;
@@ -179,7 +179,9 @@ export function getCompoundDiseaseTreatment(
       let nodeVal = null;
       let compoundID = null;
       let compoundName = null;
+      let drugSourceName = null;
       let fdaPhase = null;
+
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors) || _.isEmpty(node.value)) {
         continue;
@@ -191,6 +193,12 @@ export function getCompoundDiseaseTreatment(
             continue;
           }
           typeField = n.nodes[0].value;
+        } else if (n.property === "drugCentralSource") {
+          // check for empty list and drug central source values
+          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
+            continue;
+          }
+          drugSourceName = n.nodes[0].value;
         } else if (n.property === "fdaClinicalTrialPhase") {
           // check for empty list and fda phase values
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
@@ -220,18 +228,46 @@ export function getCompoundDiseaseTreatment(
           }
         }
       }
-      // checks if the typeof property is equal to ChemicalCompoundDiseaseTreatment
-      if (typeField === "ChemicalCompoundDiseaseTreatment") {
-        rawData.push({
-          clinicalPhaseNumber: Number(fdaPhase),
-          id: compoundID.replace("bio/", ""),
-          name: compoundName.toLowerCase(),
-          node: nodeVal,
-        });
-      }
+      rawData.push({
+        clinicalPhaseNumber: fdaPhase,
+        drugSource: drugSourceName,
+        id: compoundID.replace("bio/", ""),
+        name: compoundName.toLowerCase(),
+        node: nodeVal,
+        type: typeField,
+      });
     }
   }
   return rawData;
+}
+
+/**
+ * Fetches the chemical compound disease treatment data
+ * @param data
+ * @returns
+ */
+export function getCompoundDiseaseTreatment(
+  data: GraphNodes
+): CompoundDiseaseTreatmentData[] {
+  // checks if the data is empty and for null values
+  if (
+    _.isEmpty(data) ||
+    _.isEmpty(data.nodes) ||
+    _.isEmpty(data.nodes[0].neighbors)
+  ) {
+    return [];
+  }
+  const rawData = getChemicalCompoundData(data);
+  let modifiedData: CompoundDiseaseTreatmentData[] = [];
+  modifiedData = rawData
+    .filter((e) => e.type === "ChemicalCompoundDiseaseTreatment")
+    .map((e) => ({
+      node: e.node,
+      id: e.id,
+      name: e.name,
+      clinicalPhaseNumber: Number(e.clinicalPhaseNumber),
+    }));
+  return modifiedData;
 }
 
 /**
@@ -250,67 +286,15 @@ export function getCompoundDiseaseContraindication(
   ) {
     return [];
   }
-  const rawData: CompoundDiseaseContraindicationData[] = [];
-  for (const neighbour of data.nodes[0].neighbors) {
-    if (neighbour.property !== "diseaseID") {
-      continue;
-    }
-    for (const node of neighbour.nodes) {
-      let typeField = null;
-      let nodeVal = null;
-      let compoundID = null;
-      let compoundName = null;
-      let drugSourceName = null;
-      // check for null or non-existent property values
-      if (_.isEmpty(node.neighbors) || _.isEmpty(node.value)) {
-        continue;
-      }
-      nodeVal = node.value;
-      for (const n of node.neighbors) {
-        if (n.property === "typeOf") {
-          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
-            continue;
-          }
-          typeField = n.nodes[0].value;
-        } else if (n.property === "drugCentralSource") {
-          // check for empty list and drug central source values
-          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
-            continue;
-          }
-          drugSourceName = n.nodes[0].value;
-        } else if (n.property === "compoundID") {
-          // check for empty list and compoundID values
-          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
-            continue;
-          }
-          compoundID = n.nodes[0].value;
-          for (const n1 of n.nodes) {
-            if (_.isEmpty(n1.neighbors)) {
-              continue;
-            }
-            for (const n2 of n1.neighbors) {
-              // check for empty list and common name values
-              if (_.isEmpty(n2.nodes) || _.isEmpty(n2.nodes[0].value)) {
-                continue;
-              }
-              if (n2.property !== "commonName") {
-                continue;
-              }
-              compoundName = n2.nodes[0].value;
-            }
-          }
-        }
-      }
-      // checks if the typeof property is equal to ChemicalCompoundDiseaseContraindication
-      if (typeField === "ChemicalCompoundDiseaseContraindication") {
-        rawData.push({
-          drugSource: drugSourceName.toLowerCase(),
-          id: compoundID.replace("bio/", ""),
-          name: compoundName.toLowerCase(),
-          node: nodeVal,
-        });
-      }
-    }
-  }
-  return rawData;
+  const rawData = getChemicalCompoundData(data);
+  let modifiedData: CompoundDiseaseContraindicationData[] = [];
+  modifiedData = rawData
+    .filter((e) => e.type === "ChemicalCompoundDiseaseContraindication")
+    .map((e) => ({
+      node: e.node,
+      id: e.id,
+      name: e.name,
+      drugSource: e.drugSource.toLowerCase(),
+    }));
+  return modifiedData;
 }
