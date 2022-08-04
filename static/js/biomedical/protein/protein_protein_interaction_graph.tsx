@@ -110,20 +110,6 @@ export class ProteinProteinInteractionGraph extends React.Component<
       <>
         <div id={GRAPH_ID}></div>
         <ProteinProteinInteractionTable
-          columns={[
-            {
-              Header: "Source",
-              accessor: "source",
-            },
-            {
-              Header: "Target",
-              accessor: "target",
-            },
-            {
-              Header: "Confidence",
-              accessor: "score",
-            },
-          ]}
           data={this.state.graphData.linkDataNested
             .slice(0, this.state.depth + 1)
             .flat(1)}
