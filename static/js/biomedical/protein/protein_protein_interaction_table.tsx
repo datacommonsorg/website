@@ -33,7 +33,7 @@ interface Props {
  * Draw table view of protein-protein interaction graph
  * Reference: https://blog.logrocket.com/complete-guide-building-smart-data-table-react/
  */
-export function ProteinProteinInteractionTable ({
+export function ProteinProteinInteractionTable({
   columns,
   data,
 }: Props): JSX.Element {
