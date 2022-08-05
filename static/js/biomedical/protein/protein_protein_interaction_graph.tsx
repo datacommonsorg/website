@@ -25,6 +25,7 @@ import { CSVLink } from "react-csv";
 import {
   Button,
   ButtonGroup,
+  ButtonToolbar,
   Col,
   FormGroup,
   Input,
@@ -94,13 +95,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
-    if (
-      !this.state.showTableView &&
-      !_.isEmpty(this.state.graphData) &&
-      (prevState.showTableView ||
-        !_.isEqual(prevState.graphData, this.state.graphData) ||
-        prevState.depth !== this.state.depth)
-    ) {
+    if (this.shouldDrawGraph(prevState)) {
       drawProteinInteractionGraph(GRAPH_ID, {
         // clone link data because d3 will replace source, target with SimulationNodeDatum objects
         // but table requires source, target to be strings
@@ -131,15 +126,15 @@ export class ProteinProteinInteractionGraph extends React.Component<
     return (
       <div className="ppi-container">
         <Row className="justify-content-end">
-          <ButtonGroup>
+          <ButtonToolbar>
             <Button
-              className="btn btn-sm btn-light shadow-none"
+              className="ppi-toggle-button btn btn-sm btn-light shadow-none mr-2"
               onClick={() =>
                 this.setState({ showTableView: !this.state.showTableView })
               }
             >
               <i className="material-icons align-middle">
-                {this.state.showTableView ? "hub" : "table_restaurant"}
+                {this.state.showTableView ? "hub" : "table_chart"}
               </i>
               <span>
                 {this.state.showTableView ? " Graph View" : " Table View"}
@@ -152,12 +147,12 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 .toLowerCase()}_links.csv`}
               enclosingCharacter={""}
             >
-              <Button className="btn btn-sm btn-light shadow-none">
+              <Button className="ppi-download-button btn btn-sm btn-light shadow-none">
                 <i className="material-icons align-middle">download</i>
                 <span>CSV</span>
               </Button>
             </CSVLink>
-          </ButtonGroup>
+          </ButtonToolbar>
         </Row>
         <div className="ppi-chart-container">
           {this.state.showTableView ? (
@@ -244,5 +239,15 @@ export class ProteinProteinInteractionGraph extends React.Component<
       .then((resp) => {
         this.setState({ graphData: resp.data });
       });
+  }
+
+  private shouldDrawGraph(prevState: State): boolean {
+    return (
+      !this.state.showTableView &&
+      !_.isEmpty(this.state.graphData) &&
+      (prevState.showTableView ||
+        !_.isEqual(prevState.graphData, this.state.graphData) ||
+        prevState.depth !== this.state.depth)
+    );
   }
 }
