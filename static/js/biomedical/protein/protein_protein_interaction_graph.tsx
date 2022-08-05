@@ -130,7 +130,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
     return (
       <div className="ppi-container">
         <Row className="justify-content-end">
-          <ButtonGroup className="ppi-button-group">
+          <ButtonGroup>
             <Button
               className="btn btn-sm btn-light shadow-none"
               onClick={() =>
