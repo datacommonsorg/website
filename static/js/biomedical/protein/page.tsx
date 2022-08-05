@@ -151,9 +151,9 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           associations by interaction score are displayed.
         </p>
         <div id="protein-confidence-score-chart"></div>
-        {/* <ProteinProteinInteractionGraph
+        <ProteinProteinInteractionGraph
           centerProteinDcid={this.props.dcid as BioDcid}
-        ></ProteinProteinInteractionGraph> */}
+        ></ProteinProteinInteractionGraph>
         <h5>Disease Gene Association</h5>
         <p>
           The association score of {splitNodeName[0]} with diseases as reported

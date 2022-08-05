@@ -31,7 +31,7 @@ interface MenuCategoryPropsType {
   dcid: string;
   selectCategory: string;
   category: string;
-  items: string[][];
+  items: { [topic: string]: string[] };
   topics: string[];
   categoryDisplayStr: string;
 }
@@ -102,7 +102,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
 }
 
 interface MenuPropsType {
-  categories: { string: string };
+  categories: { [key: string]: string };
   dcid: string;
   pageChart: PageChart;
   selectCategory: string;
@@ -139,10 +139,10 @@ class Menu extends React.Component<MenuPropsType> {
           </li>
         )}
         {categories.map((category: string) => {
-          let items: string[][] = [];
+          const items: { [topic: string]: string[] } = {};
           let topics: string[] = [];
           if (category === "Overview") {
-            items = Object.keys(this.props.pageChart[category]).map(
+            items[""] = Object.keys(this.props.pageChart[category]).map(
               (t) => this.props.categories[t]
             );
           } else {
