@@ -27,7 +27,6 @@
   stroke: "#fff";
   stroke-opacity: 1;
   stroke-width: 1.5;
-  r: 15;
 }
 
 .protein-node-label {
@@ -36,4 +35,42 @@
   fill: #222;
   text-anchor: middle;
   dominant-baseline: middle;
+}
+
+.ppi-input {
+  width: 70px;
+}
+
+.ppi-input:focus {
+  outline: none !important;
+  border-color: peachpuff;
+  box-shadow: 0 0 5px lightcoral;
+}
+
+.protein-interaction-table {
+  height: 580px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
+
+.ppi-update-button {
+  background-color: #aaa;
+  border-color: #aaa;
+}
+
+.ppi-update-button:hover {
+  background-color: #999;
+  border-color: #999;
+}
+
+/* click and release */
+.ppi-update-button:focus {
+  background-color: #888 !important;
+  border-color: #888 !important;
+}
+
+/* click and hold */
+.ppi-update-button:active:focus {
+  background-color: #777 !important;
+  border-color: #777 !important;
 }
