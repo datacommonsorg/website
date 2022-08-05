@@ -25,7 +25,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Card } from "reactstrap";
 
 import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
-import { DATE_ALL, DATE_LATEST, DownloadDateTypes, DownloadOptions } from "./page";
+import {
+  DATE_ALL,
+  DATE_LATEST,
+  DownloadDateTypes,
+  DownloadOptions,
+} from "./page";
 
 const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
@@ -41,11 +46,16 @@ export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const csvReqPayload = useRef({});
+  const prevOptions = useRef(null);
 
   useEffect(() => {
-    if (props.isDisabled && _.isEmpty(errorMessage)) {
+    if (
+      (props.isDisabled && _.isEmpty(errorMessage)) ||
+      _.isEqual(prevOptions.current, props.selectedOptions)
+    ) {
       return;
     }
+    prevOptions.current = props.selectedOptions;
     csvReqPayload.current = getCsvReqPayload();
     fetchPreviewData();
   }, [props, errorMessage]);
