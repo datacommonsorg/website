@@ -34,7 +34,7 @@ import {
   StatVarWrapper,
 } from "../tools/map/context";
 import { DataPointMetadata } from "../tools/map/util";
-import { axios_mock } from "../tools/mock_functions";
+import { axios_mock } from "../tools/timeline/mock_functions";
 import { Chart as ScatterToolChart } from "../tools/scatter/chart";
 import {
   AxisWrapper,
