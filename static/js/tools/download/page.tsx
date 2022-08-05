@@ -263,7 +263,7 @@ export function Page(): JSX.Element {
             <div className="download-option-section">
               <div className="download-option-label">Variables</div>
               {_.isEmpty(selectedOptions.selectedStatVars) ? (
-                "None selected"
+                "Please select variables"
               ) : (
                 <div className="download-sv-chips">
                   {Object.keys(selectedOptions.selectedStatVars).map((sv) => {
