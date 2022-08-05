@@ -21,7 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
-import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
+import { Button, ButtonGroup, Col, FormGroup, Input, Label, Row } from "reactstrap";
 import { drawProteinInteractionGraph } from "./chart";
 import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
@@ -116,9 +116,11 @@ export class ProteinProteinInteractionGraph extends React.Component<
       return null;
     }
     return (
-      <>
+      <div className="ppi-container">
+      <Row className="justify-content-end">
+      <ButtonGroup className="ppi-button-group">
         <Button
-          className="btn btn-sm btn-light"
+          className="btn btn-sm btn-light shadow-none"
           onClick={() =>
             this.setState({ showTableView: !this.state.showTableView })
           }
@@ -128,6 +130,20 @@ export class ProteinProteinInteractionGraph extends React.Component<
           </i>
           <span>{this.state.showTableView ? " Graph View" : " Table View"}</span>
         </Button>
+        <Button
+          className="btn btn-sm btn-light shadow-none"
+          onClick={() =>
+            this.setState({ showTableView: !this.state.showTableView })
+          }
+        >
+          <i className="material-icons align-middle">
+            download
+          </i>
+          <span>CSV</span>
+        </Button>
+    </ButtonGroup>
+  </Row>
+    <div className="ppi-chart-container">
         {
           this.state.showTableView ? 
         <ProteinProteinInteractionTable
@@ -135,7 +151,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
             .slice(0, this.state.depth + 1)
             .flat(1)}
         ></ProteinProteinInteractionTable> :
-        <div id={GRAPH_ID}></div>}
+        <div id={GRAPH_ID}></div>
+        }
+    </div>
         <Row>
           <Col md={2}>
             <FormGroup>
@@ -199,7 +217,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
             </Button>
           </Col>
         </Row>
-      </>
+    </div>     
     );
   }
 

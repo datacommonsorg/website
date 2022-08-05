@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,10 +47,19 @@
   box-shadow: 0 0 5px lightcoral;
 }
 
-.protein-interaction-table {
-  height: 580px;
-  overflow-y: scroll;
+.ppi-container {
+  width: 1470px;
+}
+
+.ppi-chart-container {
+  height: 600px;
+  margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.protein-interaction-table {
+  height: 600px;
+  overflow-y: scroll;
 }
 
 .ppi-update-button {
