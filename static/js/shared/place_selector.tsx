@@ -110,7 +110,9 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
             className={`${SELECTOR_PREFIX}-section`}
             id={`${SELECTOR_PREFIX}-search-section`}
           >
-            <div className={`${SELECTOR_PREFIX}-label`}>{props.customPlaceSearchLabel || DEFAULT_PLACE_SEARCH_LABEL}</div>
+            <div className={`${SELECTOR_PREFIX}-label`}>
+              {props.customPlaceSearchLabel || DEFAULT_PLACE_SEARCH_LABEL}
+            </div>
             <SearchBar
               places={
                 props.selectedPlace.dcid

@@ -33,8 +33,8 @@ import { StatVarChooser } from "./stat_var_chooser";
 export const DownloadDateTypes = {
   ALL: "ALL",
   LATEST: "LATEST",
-  RANGE: "RANGE"
-}
+  RANGE: "RANGE",
+};
 export const DATE_LATEST = "latest";
 export const DATE_ALL = "";
 
@@ -183,10 +183,15 @@ export function Page(): JSX.Element {
                       id="latest-date"
                       type="radio"
                       name="date"
-                      defaultChecked={selectedOptions.dateType === DownloadDateTypes.LATEST}
+                      defaultChecked={
+                        selectedOptions.dateType === DownloadDateTypes.LATEST
+                      }
                       onClick={() =>
                         setSelectedOptions((prev) => {
-                          return { ...prev, dateType: DownloadDateTypes.LATEST };
+                          return {
+                            ...prev,
+                            dateType: DownloadDateTypes.LATEST,
+                          };
                         })
                       }
                     />
@@ -199,7 +204,9 @@ export function Page(): JSX.Element {
                       id="all-dates"
                       type="radio"
                       name="date"
-                      defaultChecked={selectedOptions.dateType === DownloadDateTypes.ALL}
+                      defaultChecked={
+                        selectedOptions.dateType === DownloadDateTypes.ALL
+                      }
                       onClick={() =>
                         setSelectedOptions((prev) => {
                           return { ...prev, dateType: DownloadDateTypes.ALL };
@@ -215,7 +222,9 @@ export function Page(): JSX.Element {
                       id="date-range"
                       type="radio"
                       name="date"
-                      defaultChecked={selectedOptions.dateType === DownloadDateTypes.RANGE}
+                      defaultChecked={
+                        selectedOptions.dateType === DownloadDateTypes.RANGE
+                      }
                       onClick={() =>
                         setSelectedOptions((prev) => {
                           return { ...prev, dateType: DownloadDateTypes.RANGE };
@@ -230,7 +239,8 @@ export function Page(): JSX.Element {
                         <FormGroup>
                           <Input
                             className={`download-date-range-input${
-                              selectedOptions.dateType === DownloadDateTypes.RANGE &&
+                              selectedOptions.dateType ===
+                                DownloadDateTypes.RANGE &&
                               validationErrors.minDate
                                 ? "-error"
                                 : ""
@@ -242,7 +252,10 @@ export function Page(): JSX.Element {
                                 return { ...prev, minDate: date };
                               });
                             }}
-                            disabled={selectedOptions.dateType !== DownloadDateTypes.RANGE}
+                            disabled={
+                              selectedOptions.dateType !==
+                              DownloadDateTypes.RANGE
+                            }
                             value={selectedOptions.minDate}
                             onBlur={(e) => validateDate(e.target.value, true)}
                           />
@@ -253,7 +266,8 @@ export function Page(): JSX.Element {
                         <FormGroup>
                           <Input
                             className={`download-date-range-input${
-                              selectedOptions.dateType === DownloadDateTypes.RANGE &&
+                              selectedOptions.dateType ===
+                                DownloadDateTypes.RANGE &&
                               validationErrors.maxDate
                                 ? "-error"
                                 : ""
@@ -265,7 +279,10 @@ export function Page(): JSX.Element {
                                 return { ...prev, maxDate: date };
                               });
                             }}
-                            disabled={selectedOptions.dateType !== DownloadDateTypes.RANGE}
+                            disabled={
+                              selectedOptions.dateType !==
+                              DownloadDateTypes.RANGE
+                            }
                             value={selectedOptions.maxDate}
                             onBlur={(e) => validateDate(e.target.value, false)}
                           />
@@ -416,7 +433,8 @@ export function Page(): JSX.Element {
       options.selectedFacets[sv] = sv in svFacetsVal ? svFacetsVal[sv] : "";
     }
     options.enclosedPlaceType = urlParams.get(URL_PARAM_KEYS.PLACE_TYPE) || "";
-    options.dateType = urlParams.get(URL_PARAM_KEYS.DATE_TYPE) || DownloadDateTypes.LATEST;
+    options.dateType =
+      urlParams.get(URL_PARAM_KEYS.DATE_TYPE) || DownloadDateTypes.LATEST;
     options.minDate = urlParams.get(URL_PARAM_KEYS.MIN_DATE) || "";
     options.maxDate = urlParams.get(URL_PARAM_KEYS.MAX_DATE) || "";
     setValidationErrors({
