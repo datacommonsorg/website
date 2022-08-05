@@ -131,7 +131,7 @@ export function Page(): JSX.Element {
     return <></>;
   }
 
-  const getDataButtonText = showPreview ? "Update" : "Preview";
+  const getDataButtonText = showPreview ? "Update Preview" : "Preview";
   const showInfo =
     _.isEmpty(validationErrors.incompleteSelectionMessage) && !showPreview;
   return (
