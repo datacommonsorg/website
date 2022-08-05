@@ -21,7 +21,16 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
-import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
+import { CSVLink } from "react-csv";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
 import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
@@ -40,6 +49,8 @@ interface State {
   numInteractions: number;
   // interaction score threshold above which to show an edge between two interacting proteins
   scoreThreshold: number;
+  // show table;
+  showTableView: boolean;
 }
 
 const GRAPH_ID = "protein-interaction-graph";
@@ -74,6 +85,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       graphData: null,
       numInteractions: DEFAULTS.MAX_INTERACTIONS,
       scoreThreshold: DEFAULTS.SCORE_THRESHOLD,
+      showTableView: false,
     };
   }
 
@@ -83,8 +95,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
     if (
+      !this.state.showTableView &&
       !_.isEmpty(this.state.graphData) &&
-      (!_.isEqual(prevState.graphData, this.state.graphData) ||
+      (prevState.showTableView ||
+        !_.isEqual(prevState.graphData, this.state.graphData) ||
         prevState.depth !== this.state.depth)
     ) {
       drawProteinInteractionGraph(GRAPH_ID, {
@@ -111,14 +125,47 @@ export class ProteinProteinInteractionGraph extends React.Component<
     if (this.state.graphData === null) {
       return null;
     }
+    const data = this.state.graphData.linkDataNested
+      .slice(0, this.state.depth + 1)
+      .flat(1);
     return (
-      <>
-        <div id={GRAPH_ID} />
-        <ProteinProteinInteractionTable
-          data={this.state.graphData.linkDataNested
-            .slice(0, this.state.depth + 1)
-            .flat(1)}
-        />
+      <div className="ppi-container">
+        <Row className="justify-content-end">
+          <ButtonGroup>
+            <Button
+              className="btn btn-sm btn-light shadow-none"
+              onClick={() =>
+                this.setState({ showTableView: !this.state.showTableView })
+              }
+            >
+              <i className="material-icons align-middle">
+                {this.state.showTableView ? "hub" : "table_restaurant"}
+              </i>
+              <span>
+                {this.state.showTableView ? " Graph View" : " Table View"}
+              </span>
+            </Button>
+            <CSVLink
+              data={data}
+              filename={`${this.props.centerProteinDcid
+                .replace("bio/", "")
+                .toLowerCase()}_links.csv`}
+              enclosingCharacter={""}
+            >
+              <Button className="btn btn-sm btn-light shadow-none">
+                <i className="material-icons align-middle">download</i>
+                <span>CSV</span>
+              </Button>
+            </CSVLink>
+          </ButtonGroup>
+        </Row>
+        <div className="ppi-chart-container">
+          {this.state.showTableView ? (
+            <ProteinProteinInteractionTable data={data} />
+          ) : (
+            <div id={GRAPH_ID} />
+          )}
+        </div>
         <Row>
           <Col md={2}>
             <FormGroup>
@@ -182,7 +229,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
             </Button>
           </Col>
         </Row>
-      </>
+      </div>
     );
   }
 
