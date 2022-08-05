@@ -21,6 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import React from "react";
+import { CSVLink } from "react-csv";
 import {
   Button,
   ButtonGroup,
@@ -30,7 +31,7 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import {CSVLink} from "react-csv";
+
 import { drawProteinInteractionGraph } from "./chart";
 import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
@@ -124,9 +125,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
     if (this.state.graphData === null) {
       return null;
     }
-    const data=this.state.graphData.linkDataNested
+    const data = this.state.graphData.linkDataNested
       .slice(0, this.state.depth + 1)
-      .flat(1)
+      .flat(1);
     return (
       <div className="ppi-container">
         <Row className="justify-content-end">
@@ -145,26 +146,24 @@ export class ProteinProteinInteractionGraph extends React.Component<
               </span>
             </Button>
             <CSVLink
-            data={data}
-            filename={`${this.props.centerProteinDcid.replace("bio/", "").toLowerCase()}_links.csv`}
-            enclosingCharacter={''}
+              data={data}
+              filename={`${this.props.centerProteinDcid
+                .replace("bio/", "")
+                .toLowerCase()}_links.csv`}
+              enclosingCharacter={""}
             >
-            <Button
-              className="btn btn-sm btn-light shadow-none"
-            >
-              <i className="material-icons align-middle">download</i>
-              <span>CSV</span>
-            </Button>
+              <Button className="btn btn-sm btn-light shadow-none">
+                <i className="material-icons align-middle">download</i>
+                <span>CSV</span>
+              </Button>
             </CSVLink>
           </ButtonGroup>
         </Row>
         <div className="ppi-chart-container">
           {this.state.showTableView ? (
-            <ProteinProteinInteractionTable
-              data={data}
-            />
+            <ProteinProteinInteractionTable data={data} />
           ) : (
-            <div id={GRAPH_ID}/>
+            <div id={GRAPH_ID} />
           )}
         </div>
         <Row>
