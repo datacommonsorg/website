@@ -113,11 +113,12 @@ export class ProteinProteinInteractionGraph extends React.Component<
     }
     return (
       <>
-        <div id={GRAPH_ID}/>
+        <div id={GRAPH_ID} />
         <ProteinProteinInteractionTable
           data={this.state.graphData.linkDataNested
             .slice(0, this.state.depth + 1)
-            .flat(1)}/>
+            .flat(1)}
+        />
         <Row>
           <Col md={2}>
             <FormGroup>
