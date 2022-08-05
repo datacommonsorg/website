@@ -83,3 +83,15 @@
   background-color: #777 !important;
   border-color: #777 !important;
 }
+
+.ppi-toggle-button,
+.ppi-download-button {
+  background: #fff !important;
+  border: 1px solid var(--dc-primary) !important;
+  color: var(--dc-primary) !important;
+}
+
+.ppi-toggle-button:hover,
+.ppi-download-button:hover {
+  filter: brightness(108%);
+}
