@@ -85,8 +85,10 @@ export class ProteinProteinInteractionGraph extends React.Component<
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
     if (
+      !this.state.showTableView &&
       !_.isEmpty(this.state.graphData) &&
-      (!_.isEqual(prevState.graphData, this.state.graphData) ||
+      (prevState.showTableView ||
+        !_.isEqual(prevState.graphData, this.state.graphData) ||
         prevState.depth !== this.state.depth)
     ) {
       drawProteinInteractionGraph(GRAPH_ID, {
