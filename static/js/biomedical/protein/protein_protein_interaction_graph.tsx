@@ -30,7 +30,7 @@ import {
   Label,
   Row,
 } from "reactstrap";
-
+import {CSVLink} from "react-csv";
 import { drawProteinInteractionGraph } from "./chart";
 import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
@@ -124,6 +124,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
     if (this.state.graphData === null) {
       return null;
     }
+    const data=this.state.graphData.linkDataNested
+      .slice(0, this.state.depth + 1)
+      .flat(1)
     return (
       <div className="ppi-container">
         <Row className="justify-content-end">
@@ -141,23 +144,24 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 {this.state.showTableView ? " Graph View" : " Table View"}
               </span>
             </Button>
+            <CSVLink
+            data={data}
+            filename={`${this.props.centerProteinDcid.replace("bio/", "").toLowerCase()}_links.csv`}
+            enclosingCharacter={''}
+            >
             <Button
               className="btn btn-sm btn-light shadow-none"
-              onClick={() =>
-                this.setState({ showTableView: !this.state.showTableView })
-              }
             >
               <i className="material-icons align-middle">download</i>
               <span>CSV</span>
             </Button>
+            </CSVLink>
           </ButtonGroup>
         </Row>
         <div className="ppi-chart-container">
           {this.state.showTableView ? (
             <ProteinProteinInteractionTable
-              data={this.state.graphData.linkDataNested
-                .slice(0, this.state.depth + 1)
-                .flat(1)}
+              data={data}
             ></ProteinProteinInteractionTable>
           ) : (
             <div id={GRAPH_ID}></div>
