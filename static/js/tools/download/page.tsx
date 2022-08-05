@@ -27,6 +27,7 @@ import { NamedTypedPlace } from "../../shared/types";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
 import { StatVarInfo } from "../timeline/chart_region";
+import { Info } from "./info";
 import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
 
@@ -358,7 +359,7 @@ export function Page(): JSX.Element {
             isDisabled={previewDisabled}
           />
         )}
-        {showInfo && <div>info text</div>}
+        {showInfo && <Info />}
       </div>
     </>
   );
