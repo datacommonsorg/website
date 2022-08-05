@@ -48,8 +48,9 @@
   width: 100%;
 }
 
-.download-option-label {
-  width: 6.3rem;
+.download-option-label,
+#place-selector-search-section .place-selector-label {
+  width: 6rem;
 }
 
 .download-date-options {

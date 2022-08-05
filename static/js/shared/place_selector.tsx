@@ -76,6 +76,8 @@ const CHILD_PLACE_TYPES = {
   Planet: ["Continent", ...CONTINENT_PLACE_TYPES, ...USA_COUNTRY_CHILD_TYPES],
   State: AA1_CHILD_PLACE_TYPES,
 };
+
+const DEFAULT_PLACE_SEARCH_LABEL = "Plot places in";
 interface PlaceSelectorProps {
   selectedPlace: NamedTypedPlace;
   enclosedPlaceType: string;
@@ -88,6 +90,7 @@ interface PlaceSelectorProps {
   ) => string[];
   customSearchPlaceholder?: string;
   children?: React.ReactNode;
+  customPlaceSearchLabel?: string;
 }
 
 export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
@@ -107,7 +110,7 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
             className={`${SELECTOR_PREFIX}-section`}
             id={`${SELECTOR_PREFIX}-search-section`}
           >
-            <div className={`${SELECTOR_PREFIX}-label`}>Plot places in</div>
+            <div className={`${SELECTOR_PREFIX}-label`}>{props.customPlaceSearchLabel || DEFAULT_PLACE_SEARCH_LABEL}</div>
             <SearchBar
               places={
                 props.selectedPlace.dcid

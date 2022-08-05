@@ -162,6 +162,7 @@ export function Page(): JSX.Element {
                 return { ...prev, enclosedPlaceType };
               })
             }
+            customPlaceSearchLabel="Places in"
           >
             <div className="download-option-section">
               <div className="download-option-label">Date</div>
