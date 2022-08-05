@@ -162,9 +162,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
           {this.state.showTableView ? (
             <ProteinProteinInteractionTable
               data={data}
-            ></ProteinProteinInteractionTable>
+            />
           ) : (
-            <div id={GRAPH_ID}></div>
+            <div id={GRAPH_ID}/>
           )}
         </div>
         <Row>
