@@ -34,7 +34,6 @@ import {
   StatVarWrapper,
 } from "../tools/map/context";
 import { DataPointMetadata } from "../tools/map/util";
-import { axios_mock } from "../tools/timeline/mock_functions";
 import { Chart as ScatterToolChart } from "../tools/scatter/chart";
 import {
   AxisWrapper,
@@ -46,6 +45,7 @@ import {
 import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
+import { axios_mock } from "../tools/timeline/mock_functions";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
