@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional
 
+import hashlib
+
 
 # Helper Enums and Data Classes for Detection.
 class MappingType(Enum):
@@ -64,6 +66,9 @@ class TypeProperty:
     """A combination of the DC Type and associated Property."""
     dc_type: DCType
     dc_property: DCProperty
+
+    def __hash__(self) -> int:
+        return hash(repr(self))
 
 
 @dataclass
