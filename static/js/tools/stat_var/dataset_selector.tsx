@@ -34,6 +34,10 @@ interface DatasetSelectorProps {
   sourceMap: Record<string, string>;
 }
 
+function simplify(s: string): string {
+  return s.replace(/[^0-9a-z]/gi, "").toLowerCase();
+}
+
 export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [datasets, setDatasets] = useState([]);
@@ -59,8 +63,10 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     };
   });
 
-  async function updateDatasets(source: string) {
-    if (!(source in props.sourceMap)) return;
+  async function updateDatasets(source: string): Promise<void> {
+    if (!(source in props.sourceMap)) {
+      return;
+    }
     const dcid = props.sourceMap[source];
     const datasetsPromise = await axios.get(
       `/api/browser/propvals/isPartOf/${dcid}`
@@ -109,15 +115,17 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     updateDatasets(e.currentTarget.innerText);
     props.filterStatVars([
       {
-        name: e.currentTarget.innerText,
         dcid: props.sourceMap[e.currentTarget.innerText],
+        name: e.currentTarget.innerText,
       },
     ]);
   };
 
   const handleOnKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
-      if (filteredSuggestions.length === 0) return;
+      if (filteredSuggestions.length === 0) {
+        return;
+      }
       setActiveSuggestion(0);
       setShowSuggestions(false);
       if (userInput === "") {
@@ -127,16 +135,20 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
         updateDatasets(filteredSuggestions[activeSuggestion]);
         props.filterStatVars([
           {
-            name: filteredSuggestions[activeSuggestion],
             dcid: props.sourceMap[filteredSuggestions[activeSuggestion]],
+            name: filteredSuggestions[activeSuggestion],
           },
         ]);
       }
     } else if (e.key === "ArrowUp") {
-      if (activeSuggestion === 0) return;
+      if (activeSuggestion === 0) {
+        return;
+      }
       setActiveSuggestion(activeSuggestion - 1);
     } else if (e.key === "ArrowDown") {
-      if (activeSuggestion - 1 === filteredSuggestions.length) return;
+      if (activeSuggestion - 1 === filteredSuggestions.length) {
+        return;
+      }
       setActiveSuggestion(activeSuggestion + 1);
     }
   };
@@ -216,8 +228,4 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
       </Card>
     </>
   );
-}
-
-function simplify(s: string): string {
-  return s.replace(/[^0-9a-z]/gi, "").toLowerCase();
 }
