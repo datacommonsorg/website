@@ -340,7 +340,7 @@ export function axios_mock(): void {
     });
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/05"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/05"
     )
     .mockResolvedValue({
       data: {
@@ -376,7 +376,7 @@ export function axios_mock(): void {
     });
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/05"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/05"
     )
     .mockResolvedValue({
       data: {
