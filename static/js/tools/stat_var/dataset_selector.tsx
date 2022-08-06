@@ -31,14 +31,14 @@ interface DatasetSelectorProps {
   // Filter StatVarHierarchy to stat vars that exist for the entities.
   filterStatVars: (entities: NamedPlace[]) => void;
   // Map of source name to dcid.
-  sources: Record<string, string>;
+  sourceMap: Record<string, string>;
 }
 
 export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [datasets, setDatasets] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState(
-    Object.keys(props.sources)
+    Object.keys(props.sourceMap)
   );
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestionsWidth, setSuggestionsWidth] = useState(null);
@@ -60,8 +60,8 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   });
 
   async function updateDatasets(source: string) {
-    if (!(source in props.sources)) return;
-    const dcid = props.sources[source];
+    if (!(source in props.sourceMap)) return;
+    const dcid = props.sourceMap[source];
     const datasetsPromise = await axios.get(
       `/api/browser/propvals/isPartOf/${dcid}`
     );
@@ -81,7 +81,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleResize();
     const input = e.currentTarget.value;
-    let newSuggestions = Object.keys(props.sources)
+    let newSuggestions = Object.keys(props.sourceMap)
       .map((s) => {
         return {
           name: s,
@@ -110,7 +110,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     props.filterStatVars([
       {
         name: e.currentTarget.innerText,
-        dcid: props.sources[e.currentTarget.innerText],
+        dcid: props.sourceMap[e.currentTarget.innerText],
       },
     ]);
   };
@@ -128,7 +128,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
         props.filterStatVars([
           {
             name: filteredSuggestions[activeSuggestion],
-            dcid: props.sources[filteredSuggestions[activeSuggestion]],
+            dcid: props.sourceMap[filteredSuggestions[activeSuggestion]],
           },
         ]);
       }
@@ -198,7 +198,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
                   : userInput;
                 const dcid = e.currentTarget.value
                   ? e.currentTarget.value
-                  : props.sources[userInput];
+                  : props.sourceMap[userInput];
                 props.filterStatVars([{ name, dcid }]);
               }}
             >

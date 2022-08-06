@@ -527,11 +527,11 @@ def match_statvar(query: str, limit: int, debug: bool):
     return send_request(url, req_json, has_payload=False)
 
 
-def get_statvar_group(stat_var_group, places):
+def get_statvar_group(stat_var_group, entities):
     url = API_ROOT + API_ENDPOINTS['get_statvar_group']
     req_json = {
         'stat_var_group': stat_var_group,
-        'entities': places,
+        'entities': entities,
     }
     return send_request(url, req_json, has_payload=False)
 

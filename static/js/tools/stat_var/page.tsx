@@ -39,7 +39,7 @@ interface PageStateType {
   entities: NamedPlace[];
   error: boolean;
   // Map of source name to dcid.
-  sources: Record<string, string>;
+  sourceMap: Record<string, string>;
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
@@ -55,7 +55,7 @@ class Page extends Component<unknown, PageStateType> {
       displayName: "",
       entities: [],
       error: false,
-      sources: {},
+      sourceMap: {},
       statVar: "",
       summary: { placeTypeSummary: {} },
       urls: {},
@@ -80,11 +80,11 @@ class Page extends Component<unknown, PageStateType> {
       sourceDcids.length > 0
         ? await axios.get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
         : undefined;
-    const sources = {};
+    const sourceMap = {};
     for (const dcid in sourceNamesPromise?.data) {
-      sources[sourceNamesPromise?.data[dcid][0]] = dcid;
+      sourceMap[sourceNamesPromise?.data[dcid][0]] = dcid;
     }
-    this.setState({ sources });
+    this.setState({ sourceMap });
   }
 
   private toggleSvHierarchyModal(): void {
@@ -117,7 +117,7 @@ class Page extends Component<unknown, PageStateType> {
             <h1 className="mb-4">Statistical Variable Explorer</h1>
             <DatasetSelector
               filterStatVars={this.filterStatVars}
-              sources={this.state.sources}
+              sourceMap={this.state.sourceMap}
             />
             {!this.state.statVar && (
               <>
