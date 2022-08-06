@@ -13,8 +13,7 @@
 # limitations under the License.
 """Place Detection."""
 
-from dataclasses import dataclass
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional
 from routes.api.import_detection.detection_types import TypeProperty
 from routes.api.import_detection.country_detector import CountryDetector
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
@@ -54,7 +53,7 @@ def detect_column_with_places(
     col_values: List[str],
     detectors: Optional[List[PlaceDetectorInterface]] = None
 ) -> Optional[TypeProperty]:
-    """If the proportion of 'col_values' detected as Place is greater than 
+    """If the proportion of 'col_values' detected as Place is greater than
     _MIN_HIGH_CONF_DETECT, returns the detected Place TypeProperty.
     @args:
         header: is the column's header.

@@ -29,14 +29,12 @@ class TPName:
 
 class PlaceDetectorInterface(ABC):
     """PlaceDetectorInterface is the Place detector abstract class.
-    
     The base class has the following (instance) attributes:
-
-        supported_type_dcid: 
+        supported_type_dcid:
             the dcid of the place type being detected.
-        supported_property_dcids: 
+        supported_property_dcids:
             the dcids of the place properties being detected.
-        column_detection_threshold: 
+        column_detection_threshold:
             the threshold (between 0 and 1) which denotes
             the min proportion of column values that must be detected for the
             column to be detected as a likely place.
@@ -58,7 +56,6 @@ class PlaceDetectorInterface(ABC):
     @abstractmethod
     def _pre_process(self) -> None:
         """Process any data and set instance attributes."""
-        pass
 
     @abstractmethod
     def detect_column(self, values: List[str]) -> Optional[TypeProperty]:
@@ -70,7 +67,6 @@ class PlaceDetectorInterface(ABC):
         @returns:
             The TypeProperty detected or None.
         """
-        pass
 
     def supported_types_and_properties(self) -> Set[TypeProperty]:
         """Return the supported Type, Property combinations."""

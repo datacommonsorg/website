@@ -17,8 +17,6 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List, Optional
 
-import hashlib
-
 
 # Helper Enums and Data Classes for Detection.
 class MappingType(Enum):
