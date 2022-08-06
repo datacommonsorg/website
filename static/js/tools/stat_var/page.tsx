@@ -35,7 +35,7 @@ import { Info } from "./info";
 interface PageStateType {
   description: string;
   displayName: string;
-  // Sources/datasets to filter by
+  // Sources/datasets to filter by.
   entities: NamedPlace[];
   error: boolean;
   // Map of source name to dcid.
