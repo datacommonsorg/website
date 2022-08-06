@@ -63,7 +63,6 @@ class PlaceDetectorInterface(ABC):
         detected. Otherwise, return None.
         @args:
             values: the column values.
-        
         @returns:
             The TypeProperty detected or None.
         """
