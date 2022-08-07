@@ -125,7 +125,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
       .flat(1);
     return (
       <div className="ppi-container">
-        <Row className="justify-content-end">
+        <Row className="justify-content-end mx-0">
           <ButtonToolbar>
             <Button
               className="ppi-toggle-button btn btn-sm btn-light shadow-none mr-2"
