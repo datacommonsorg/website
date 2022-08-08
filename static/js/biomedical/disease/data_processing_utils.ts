@@ -232,7 +232,7 @@ export function getChemicalCompoundData(
         clinicalPhaseNumber: fdaPhase,
         drugSource: drugSourceName,
         id: compoundID.replace("bio/", ""),
-        name: compoundName.toLowerCase(),
+        name: compoundName,
         node: nodeVal,
         type: typeField,
       });
@@ -264,9 +264,10 @@ export function getCompoundDiseaseTreatment(
     .map((e) => ({
       node: e.node,
       id: e.id,
-      name: e.name,
+      name: String(e.name).toLowerCase(),
       clinicalPhaseNumber: Number(e.clinicalPhaseNumber),
     }));
+  modifiedData.sort((a, b) => b.clinicalPhaseNumber - a.clinicalPhaseNumber);
   return modifiedData;
 }
 
@@ -293,8 +294,9 @@ export function getCompoundDiseaseContraindication(
     .map((e) => ({
       node: e.node,
       id: e.id,
-      name: e.name,
+      name: String(e.name).toLowerCase(),
       drugSource: e.drugSource.toLowerCase(),
     }));
+  modifiedData.sort((a, b) => (a.drugSource > b.drugSource ? 1 : -1));
   return modifiedData;
 }
