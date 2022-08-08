@@ -51,7 +51,5 @@ def stat_var():
 
 @bp.route('/download')
 def download():
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
     return flask.render_template(
         'tools/download.html', maps_api_key=current_app.config['MAPS_API_KEY'])
