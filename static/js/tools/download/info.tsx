@@ -43,7 +43,7 @@ export function Info(): JSX.Element {
         </li>
       </ol>
       <p>
-        Data will be downloaded as a .csv file where each row will contain the
+        Data will be downloaded as a .csv file where each row contains the
         data for a place and date combination. For example:
       </p>
       <div className="download-info-table-example">
@@ -64,7 +64,7 @@ export function Info(): JSX.Element {
             <tr>
               <td>geoId/01</td>
               <td>Alabama</td>
-              <td>01-2020</td>
+              <td>2020-01</td>
               <td>1</td>
               <td>abc.com</td>
               <td>2020</td>
@@ -74,7 +74,7 @@ export function Info(): JSX.Element {
             <tr>
               <td>geoId/01</td>
               <td>Alabama</td>
-              <td>02-2020</td>
+              <td>2020-02</td>
               <td>1</td>
               <td>abc.com</td>
               <td></td>
@@ -84,7 +84,7 @@ export function Info(): JSX.Element {
             <tr>
               <td>geoId/01</td>
               <td>Alabama</td>
-              <td>03-2020</td>
+              <td>2020-03</td>
               <td>1</td>
               <td>abc.com</td>
               <td></td>
@@ -97,7 +97,7 @@ export function Info(): JSX.Element {
             <tr>
               <td>geoId/01</td>
               <td>Alabama</td>
-              <td>01-2021</td>
+              <td>2021-01</td>
               <td>1</td>
               <td>abc.com</td>
               <td>2021</td>
@@ -107,7 +107,7 @@ export function Info(): JSX.Element {
             <tr>
               <td>geoId/02</td>
               <td>Alaska</td>
-              <td>01-2020</td>
+              <td>2020-01</td>
               <td>2</td>
               <td>abc.com</td>
               <td>2020</td>
@@ -117,7 +117,7 @@ export function Info(): JSX.Element {
             <tr>
               <td>geoId/02</td>
               <td>Alaska</td>
-              <td>02-2020</td>
+              <td>2020-02</td>
               <td>2</td>
               <td>abc.com</td>
               <td></td>
