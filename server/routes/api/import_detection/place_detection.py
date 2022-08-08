@@ -15,7 +15,7 @@
 
 from typing import Dict, List, Optional
 from routes.api.import_detection.detection_types import TypeProperty
-from routes.api.import_detection.country_detector import CountryDetector
+from routes.api.import_detection.country_state_detector import CountryStateDetector
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
 
 _MIN_HIGH_CONF_DETECT: float = 0.4
@@ -24,12 +24,13 @@ _MIN_HIGH_CONF_DETECT: float = 0.4
 def place_detectors() -> List[PlaceDetectorInterface]:
     """Returns the list of supported Place detectors."""
     # Country Detector
-    country_detector: PlaceDetectorInterface = CountryDetector(
+    country_detector: PlaceDetectorInterface = CountryStateDetector(
         type_dcid="Country",
         property_dcids=[
             "name", "isoCode", "countryAlpha3Code", "countryNumericCode"
         ],
-        detection_threshold=_MIN_HIGH_CONF_DETECT)
+        detection_threshold=_MIN_HIGH_CONF_DETECT,
+        location_mappings_filename="country_mappings.json")
 
     return [country_detector]
 
