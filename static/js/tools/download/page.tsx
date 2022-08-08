@@ -298,7 +298,11 @@ export function Page(): JSX.Element {
                 </Button>
               </Col>
             </Row>
-            <Button onClick={onGetDataButtonClicked} color="primary">
+            <Button
+              className="get-data-button"
+              onClick={onGetDataButtonClicked}
+              color="primary"
+            >
               {getDataButtonText}
             </Button>
           </PlaceSelector>
