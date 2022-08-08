@@ -52,7 +52,7 @@ class TestPlaceDetection(unittest.TestCase):
 
         # Find some entry and verify it is correct.
         for state in state_mappings:
-            if state["id"] == "geoId/06":
+            if state["geoId"] == "geoId/06":
                 self.assertEqual(state["name"], "California")
                 self.assertEqual(state["isoCode"], "US-CA")
                 self.assertEqual(state["fips52AlphaCode"], "CA")
@@ -62,6 +62,7 @@ class TestPlaceDetection(unittest.TestCase):
 
         got: List[TypeProperty] = pd.supported_type_properties(detectors)
         expected: List[TypeProperty] = [
+            # Country properties.
             TypeProperty(DCType("Country", "Country"),
                          DCProperty("isoCode", "ISO Code")),
             TypeProperty(DCType("Country", "Country"),
@@ -70,6 +71,14 @@ class TestPlaceDetection(unittest.TestCase):
                          DCProperty("countryAlpha3Code", "Alpha 3 Code")),
             TypeProperty(DCType("Country", "Country"),
                          DCProperty("name", "Name")),
+            # State properties.
+            TypeProperty(DCType("State", "State"),
+                         DCProperty("isoCode", "ISO Code")),
+            TypeProperty(DCType("State", "State"),
+                         DCProperty("fips52AlphaCode", "US State Alpha Code")),
+            TypeProperty(DCType("State", "State"),
+                         DCProperty("geoId", "FIPS Code")),
+            TypeProperty(DCType("State", "State"), DCProperty("name", "Name")),
         ]
 
         self.assertCountEqual(got, expected)
@@ -190,3 +199,122 @@ class TestPlaceDetection(unittest.TestCase):
                 "", tc.input_vals, detectors),
                              tc.expected,
                              msg="Test named %s failed" % tc.name)
+
+    def test_state_detection(self) -> None:
+
+        @dataclass
+        class TestHelper:
+            name: str
+            input_vals: List[str]
+            expected: TypeProperty
+
+        test_cases: List[TestHelper] = [
+            TestHelper(name="state-name-detection",
+                       input_vals=[
+                           "california",
+                           "new york",
+                           "massahusetts",
+                           "new hampshire",
+                           "south dakota",
+                           "north dakota",
+                           "washington",
+                           "puerto rico",
+                           "michigan",
+                           "idaho",
+                       ],
+                       expected=TypeProperty(DCType("State", "State"),
+                                             DCProperty("name", "Name"))),
+            TestHelper(name="state-iso-detection",
+                       input_vals=[
+                           "US-CA",
+                           "US-NY",
+                           "US-MA",
+                           "US-NH",
+                           "US-SD",
+                           "US-ND",
+                           "US-WA",
+                           "US-PR",
+                           "US-MI",
+                           "US-ID",
+                       ],
+                       expected=TypeProperty(DCType("State", "State"),
+                                             DCProperty("isoCode",
+                                                        "ISO Code"))),
+            TestHelper(name="state-fips52alpha-detection",
+                       input_vals=[
+                           "nm", "ny", "wy", "nj", "ct", "nd", "nh", "wa", "fl"
+                       ],
+                       expected=TypeProperty(
+                           DCType("State", "State"),
+                           DCProperty("fips52AlphaCode",
+                                      "US State Alpha Code"))),
+            TestHelper(name="state-fipsCode-detection",
+                       input_vals=["01", "02", "04", "49", "36", "30"],
+                       expected=TypeProperty(DCType("State", "State"),
+                                             DCProperty("geoId", "FIPS Code"))),
+            TestHelper(name="state-fips52AlphaCode-with-missing",
+                       input_vals=[
+                           "nm", "ny", "wy", "nj", "ct", "nd", "nh", "wa", "fl",
+                           None
+                       ],
+                       expected=TypeProperty(
+                           DCType("State", "State"),
+                           DCProperty("fips52AlphaCode",
+                                      "US State Alpha Code"))),
+            TestHelper(
+                name="state-iso-no-detection",
+                # No detection due to too many non-ISO codes.
+                input_vals=[
+                    "US-AA",
+                    "US-BB",
+                    "US-CC",
+                    "US-DD",
+                    "US-EE",
+                    "US-FF",
+                    "US-RR",
+                    "US-KK",
+                    "US-MI",
+                    "US-ID",
+                ],
+                expected=None),
+        ]
+
+        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
+        for tc in test_cases:
+            self.assertEqual(pd.detect_column_with_places(
+                "", tc.input_vals, detectors),
+                             tc.expected,
+                             msg="Test named %s failed" % tc.name)
+
+    def test_country_state_fips_detection(self) -> None:
+        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
+
+        # Column has values which can be Numeric Codes for countries or
+        # FIPS codes for US States.
+        col_vals = ["36", "40", "50", "60"]
+
+        # If the column header is no helpful information, detection should give
+        # preference to Country.
+        col_name: str = "nothing helpful"
+
+        # Should detect country even though the column name has "state".
+        self.assertEqual(
+            pd.detect_column_with_places(col_name, col_vals, detectors),
+            TypeProperty(DCType("Country", "Country"),
+                         DCProperty("countryNumericCode", "Numeric Code")))
+
+        # If the column header contains "country", detection should still give
+        # preference to Country.
+        col_name = "country"
+        self.assertEqual(
+            pd.detect_column_with_places(col_name, col_vals, detectors),
+            TypeProperty(DCType("Country", "Country"),
+                         DCProperty("countryNumericCode", "Numeric Code")))
+
+        # If the column header contains "state", detection should give preference to
+        # US State.
+        col_name = "Something with state in it"
+        self.assertEqual(
+            pd.detect_column_with_places(col_name, col_vals, detectors),
+            TypeProperty(DCType("State", "State"),
+                         DCProperty("geoId", "FIPS Code")))
