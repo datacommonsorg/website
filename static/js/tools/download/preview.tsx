@@ -25,9 +25,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Card } from "reactstrap";
 
 import { loadSpinner, removeSpinner, saveToFile } from "../../shared/util";
-import { DownloadOptions } from "./page";
+import {
+  DATE_ALL,
+  DATE_LATEST,
+  DownloadDateTypes,
+  DownloadOptions,
+} from "./page";
 
-const DATE_LATEST = "latest";
 const NUM_ROWS = 7;
 const SECTION_ID = "preview-section";
 const NUM_COL_PER_SV = 3;
@@ -42,11 +46,16 @@ export function Preview(props: PreviewProps): JSX.Element {
   const [previewData, setPreviewData] = useState<string[][]>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const csvReqPayload = useRef({});
+  const prevOptions = useRef(null);
 
   useEffect(() => {
-    if (props.isDisabled && _.isEmpty(errorMessage)) {
+    if (
+      (props.isDisabled && _.isEmpty(errorMessage)) ||
+      _.isEqual(prevOptions.current, props.selectedOptions)
+    ) {
       return;
     }
+    prevOptions.current = props.selectedOptions;
     csvReqPayload.current = getCsvReqPayload();
     fetchPreviewData();
   }, [props, errorMessage]);
@@ -119,12 +128,15 @@ export function Preview(props: PreviewProps): JSX.Element {
   function getCsvReqPayload() {
     // When both minDate and maxDate are set as "latest", the api will get the
     // data for the latest date.
-    const minDate = props.selectedOptions.dateRange
-      ? props.selectedOptions.minDate
-      : DATE_LATEST;
-    const maxDate = props.selectedOptions.dateRange
-      ? props.selectedOptions.maxDate
-      : DATE_LATEST;
+    let minDate = props.selectedOptions.minDate;
+    let maxDate = props.selectedOptions.maxDate;
+    if (props.selectedOptions.dateType === DownloadDateTypes.ALL) {
+      minDate = DATE_ALL;
+      maxDate = DATE_ALL;
+    } else if (props.selectedOptions.dateType === DownloadDateTypes.LATEST) {
+      minDate = DATE_LATEST;
+      maxDate = DATE_LATEST;
+    }
     return {
       parentPlace: props.selectedOptions.selectedPlace.dcid,
       childType: props.selectedOptions.enclosedPlaceType,
