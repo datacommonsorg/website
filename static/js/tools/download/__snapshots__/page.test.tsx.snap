@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading options from URL 1`] = `
+"<table>
+  <thead>
+    <tr>
+      <th>placeDcid</th>
+      <th>placeName</th>
+      <th>Date:Count_Person</th>
+      <th>Value:Count_Person</th>
+      <th>Source:Count_Person</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>geoId/06001</td>
+      <td>Alameda County</td>
+      <td>2021</td>
+      <td>1648556</td>
+      <td>https://www2.census.go</td>
+    </tr>
+    <tr>
+      <td>geoId/06002</td>
+      <td>Alpine County</td>
+      <td>2021</td>
+      <td>1235</td>
+      <td>https://www2.census.gov/</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table><button type=\\"button\\" class=\\"download-button btn btn-primary\\">Download</button>
+<div class=\\"screen\\">
+  <div id=\\"spinner\\"></div>
+</div>"
+`;
+
+exports[`Manually updating options 1`] = `
+"<table>
+  <thead>
+    <tr>
+      <th>placeDcid</th>
+      <th>placeName</th>
+      <th>Date:Count_Person</th>
+      <th>Value:Count_Person</th>
+      <th>Source:Count_Person</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>geoId/06001</td>
+      <td>Alameda County</td>
+      <td>2021</td>
+      <td>1648556</td>
+      <td>https://www2.census.go</td>
+    </tr>
+    <tr>
+      <td>geoId/06002</td>
+      <td>Alpine County</td>
+      <td>2021</td>
+      <td>1235</td>
+      <td>https://www2.census.gov/</td>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </tbody>
+</table><button type=\\"button\\" class=\\"download-button btn btn-primary\\">Download</button>
+<div class=\\"screen\\">
+  <div id=\\"spinner\\"></div>
+</div>"
+`;
