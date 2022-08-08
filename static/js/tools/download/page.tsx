@@ -27,12 +27,21 @@ import { NamedTypedPlace } from "../../shared/types";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
 import { StatVarInfo } from "../timeline/chart_region";
+import { Info } from "./info";
 import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
 
+export const DownloadDateTypes = {
+  ALL: "ALL",
+  LATEST: "LATEST",
+  RANGE: "RANGE",
+};
+export const DATE_LATEST = "latest";
+export const DATE_ALL = "";
+
 const URL_PARAM_KEYS = {
   // Whether or not date range is selected
-  DATE_RANGE: "dtRange",
+  DATE_TYPE: "dtType",
   // The max date in date range
   MAX_DATE: "dtMax",
   // The min date in date range
@@ -46,17 +55,14 @@ const URL_PARAM_KEYS = {
   // The map of statistical variables to the chosen facet for that variable
   FACET_MAP: "facets",
 };
-
 const SEPARATOR = "__";
-const PARAM_VALUE_TRUE = "1";
-const DATE_LATEST = "latest";
 
 export interface DownloadOptions {
   selectedPlace: NamedTypedPlace;
   enclosedPlaceType: string;
   selectedStatVars: Record<string, StatVarInfo>;
   selectedFacets: Record<string, string>;
-  dateRange: boolean;
+  dateType: string;
   minDate: string;
   maxDate: string;
 }
@@ -94,16 +100,21 @@ export function Page(): JSX.Element {
     if (shouldHideSourceSelector()) {
       return;
     }
+    let minDate = selectedOptions.minDate;
+    let maxDate = selectedOptions.maxDate;
+    if (selectedOptions.dateType === DownloadDateTypes.ALL) {
+      minDate = DATE_ALL;
+      maxDate = DATE_ALL;
+    } else if (selectedOptions.dateType === DownloadDateTypes.LATEST) {
+      minDate = DATE_LATEST;
+      maxDate = DATE_LATEST;
+    }
     const reqObj = {
       statVars: Object.keys(selectedOptions.selectedStatVars),
       parentPlace: selectedOptions.selectedPlace.dcid,
       childType: selectedOptions.enclosedPlaceType,
-      minDate: selectedOptions.dateRange
-        ? selectedOptions.minDate
-        : DATE_LATEST,
-      maxDate: selectedOptions.dateRange
-        ? selectedOptions.maxDate
-        : DATE_LATEST,
+      minDate: minDate,
+      maxDate: maxDate,
     };
     // if req object is the same as the one used for current
     // svSourceListPromise, then don't need to update svSourceListPromise
@@ -131,7 +142,7 @@ export function Page(): JSX.Element {
     return <></>;
   }
 
-  const getDataButtonText = showPreview ? "Update" : "Preview";
+  const getDataButtonText = showPreview ? "Update Preview" : "Preview";
   const showInfo =
     _.isEmpty(validationErrors.incompleteSelectionMessage) && !showPreview;
   return (
@@ -162,6 +173,7 @@ export function Page(): JSX.Element {
                 return { ...prev, enclosedPlaceType };
               })
             }
+            customPlaceSearchLabel="Places in"
           >
             <div className="download-option-section">
               <div className="download-option-label">Date</div>
@@ -172,14 +184,37 @@ export function Page(): JSX.Element {
                       id="latest-date"
                       type="radio"
                       name="date"
-                      defaultChecked={!selectedOptions.dateRange}
+                      defaultChecked={
+                        selectedOptions.dateType === DownloadDateTypes.LATEST
+                      }
                       onClick={() =>
                         setSelectedOptions((prev) => {
-                          return { ...prev, dateRange: false };
+                          return {
+                            ...prev,
+                            dateType: DownloadDateTypes.LATEST,
+                          };
                         })
                       }
                     />
                     Latest Date
+                  </Label>
+                </FormGroup>
+                <FormGroup radio="true">
+                  <Label radio="true">
+                    <Input
+                      id="all-dates"
+                      type="radio"
+                      name="date"
+                      defaultChecked={
+                        selectedOptions.dateType === DownloadDateTypes.ALL
+                      }
+                      onClick={() =>
+                        setSelectedOptions((prev) => {
+                          return { ...prev, dateType: DownloadDateTypes.ALL };
+                        })
+                      }
+                    />
+                    All Available Dates
                   </Label>
                 </FormGroup>
                 <FormGroup radio="true" className="download-date-range-section">
@@ -188,10 +223,12 @@ export function Page(): JSX.Element {
                       id="date-range"
                       type="radio"
                       name="date"
-                      defaultChecked={selectedOptions.dateRange}
+                      defaultChecked={
+                        selectedOptions.dateType === DownloadDateTypes.RANGE
+                      }
                       onClick={() =>
                         setSelectedOptions((prev) => {
-                          return { ...prev, dateRange: true };
+                          return { ...prev, dateType: DownloadDateTypes.RANGE };
                         })
                       }
                     />
@@ -203,7 +240,8 @@ export function Page(): JSX.Element {
                         <FormGroup>
                           <Input
                             className={`download-date-range-input${
-                              selectedOptions.dateRange &&
+                              selectedOptions.dateType ===
+                                DownloadDateTypes.RANGE &&
                               validationErrors.minDate
                                 ? "-error"
                                 : ""
@@ -215,7 +253,10 @@ export function Page(): JSX.Element {
                                 return { ...prev, minDate: date };
                               });
                             }}
-                            disabled={!selectedOptions.dateRange}
+                            disabled={
+                              selectedOptions.dateType !==
+                              DownloadDateTypes.RANGE
+                            }
                             value={selectedOptions.minDate}
                             onBlur={(e) => validateDate(e.target.value, true)}
                           />
@@ -226,7 +267,8 @@ export function Page(): JSX.Element {
                         <FormGroup>
                           <Input
                             className={`download-date-range-input${
-                              selectedOptions.dateRange &&
+                              selectedOptions.dateType ===
+                                DownloadDateTypes.RANGE &&
                               validationErrors.maxDate
                                 ? "-error"
                                 : ""
@@ -238,7 +280,10 @@ export function Page(): JSX.Element {
                                 return { ...prev, maxDate: date };
                               });
                             }}
-                            disabled={!selectedOptions.dateRange}
+                            disabled={
+                              selectedOptions.dateType !==
+                              DownloadDateTypes.RANGE
+                            }
                             value={selectedOptions.maxDate}
                             onBlur={(e) => validateDate(e.target.value, false)}
                           />
@@ -247,7 +292,7 @@ export function Page(): JSX.Element {
                     </div>
                     <div
                       className={`download-date-range-hint${
-                        selectedOptions.dateRange &&
+                        selectedOptions.dateType === DownloadDateTypes.RANGE &&
                         (validationErrors.minDate || validationErrors.maxDate)
                           ? "-error"
                           : ""
@@ -262,7 +307,7 @@ export function Page(): JSX.Element {
             <div className="download-option-section">
               <div className="download-option-label">Variables</div>
               {_.isEmpty(selectedOptions.selectedStatVars) ? (
-                "None selected"
+                "Please select variables"
               ) : (
                 <div className="download-sv-chips">
                   {Object.keys(selectedOptions.selectedStatVars).map((sv) => {
@@ -318,7 +363,7 @@ export function Page(): JSX.Element {
             isDisabled={previewDisabled}
           />
         )}
-        {showInfo && <div>info text</div>}
+        {showInfo && <Info />}
       </div>
     </>
   );
@@ -366,7 +411,7 @@ export function Page(): JSX.Element {
 
   function loadStateFromURL(): void {
     const options = {
-      dateRange: false,
+      dateType: DownloadDateTypes.LATEST,
       enclosedPlaceType: "",
       maxDate: "",
       minDate: "",
@@ -393,8 +438,8 @@ export function Page(): JSX.Element {
       options.selectedFacets[sv] = sv in svFacetsVal ? svFacetsVal[sv] : "";
     }
     options.enclosedPlaceType = urlParams.get(URL_PARAM_KEYS.PLACE_TYPE) || "";
-    options.dateRange =
-      urlParams.get(URL_PARAM_KEYS.DATE_RANGE) === PARAM_VALUE_TRUE;
+    options.dateType =
+      urlParams.get(URL_PARAM_KEYS.DATE_TYPE) || DownloadDateTypes.LATEST;
     options.minDate = urlParams.get(URL_PARAM_KEYS.MIN_DATE) || "";
     options.maxDate = urlParams.get(URL_PARAM_KEYS.MAX_DATE) || "";
     setValidationErrors({
@@ -435,9 +480,7 @@ export function Page(): JSX.Element {
       [URL_PARAM_KEYS.STAT_VARS]: Object.keys(
         selectedOptions.selectedStatVars
       ).join(SEPARATOR),
-      [URL_PARAM_KEYS.DATE_RANGE]: selectedOptions.dateRange
-        ? PARAM_VALUE_TRUE
-        : "",
+      [URL_PARAM_KEYS.DATE_TYPE]: selectedOptions.dateType,
       [URL_PARAM_KEYS.MIN_DATE]: selectedOptions.minDate,
       [URL_PARAM_KEYS.MAX_DATE]: selectedOptions.maxDate,
       [URL_PARAM_KEYS.FACET_MAP]: JSON.stringify(svFacetsParamVal),
@@ -466,7 +509,7 @@ export function Page(): JSX.Element {
 
   function onGetDataButtonClicked(): void {
     let incompleteSelectionMessage = "";
-    if (selectedOptions.dateRange) {
+    if (selectedOptions.dateType === DownloadDateTypes.RANGE) {
       if (
         (!_.isEmpty(selectedOptions.minDate) &&
           !isValidDate(selectedOptions.minDate)) ||
