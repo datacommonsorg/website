@@ -11,41 +11,49 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Country Detector."""
+"""Country or State Detector."""
 
 from routes.api.import_detection.detection_types import TypeProperty
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
 import routes.api.import_detection.utils as utils
 from typing import Dict, List, Optional, Set
 
-_COUNTRY_MAPPINGS_FILENAME: str = "country_mappings.json"
 
+class CountryStateDetector(PlaceDetectorInterface):
+    """Detects Country or State properties.
 
-class CountryDetector(PlaceDetectorInterface):
+    For Country, specify the constructor args corresponding to
+    country detection. Similarly, for States, the constructor args
+    must correspond to state detection.
+    """
 
     def __init__(self, type_dcid: str, property_dcids: List[str],
-                 detection_threshold: float) -> None:
+                 detection_threshold: float,
+                 location_mappings_filename: Optional[str]) -> None:
         super().__init__(type_dcid, property_dcids, detection_threshold)
 
-        # Some more country detection specific instance attributes.
-        self._countries: Dict[str, Set[str]] = {}
+        # Some more place (countr/state) detection specific instance attributes.
+        self._places: Dict[str, Set[str]] = {}
         for prop_dcid in self._supported_property_dcids:
-            self._countries[prop_dcid] = set()
+            self._places[prop_dcid] = set()
+
+        if location_mappings_filename is not None:
+            self.location_mappings_filename = location_mappings_filename
 
         # Call the pre_process method to set any more instance attributes.
         self._pre_process()
 
     def _pre_process(self) -> None:
-        """Processes the country_mappings json file and sets the corresponding
+        """Processes self.location_mappings_filename and sets the corresponding
         instance attributes."""
-        country_list: List[Dict[str, str]] = utils.read_json_data(
-            _COUNTRY_MAPPINGS_FILENAME)
-        assert country_list, "country_mappings.json produced no countries."
+        places_list: List[Dict[str, str]] = utils.read_json_data(
+            self.location_mappings_filename)
+        assert places_list, "location_mappings_filename (%s) produced no locations." % self.location_mappings_filename
 
-        for country in country_list:
-            for prop, unique_places in self._countries.items():
-                if country[prop]:
-                    utils.insert_place(unique_places, country[prop])
+        for place in places_list:
+            for prop, unique_places in self._places.items():
+                if place[prop]:
+                    utils.insert_place(unique_places, place[prop])
 
     def detect_column(self, values: List[str]) -> Optional[TypeProperty]:
         total: int = 0
@@ -62,7 +70,7 @@ class CountryDetector(PlaceDetectorInterface):
                 total += 1
 
                 for prop_dcid in self._supported_property_dcids:
-                    if val in self._countries[prop_dcid]:
+                    if val in self._places[prop_dcid]:
                         counters[prop_dcid] += 1
 
         for prop_dcid in self._supported_property_dcids:
