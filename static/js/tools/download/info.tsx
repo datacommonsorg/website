@@ -43,8 +43,8 @@ export function Info(): JSX.Element {
         </li>
       </ol>
       <p>
-        Data will be downloaded as a .csv file where each row contains the
-        data for a place and date combination. For example:
+        Data will be downloaded as a .csv file where each row contains the data
+        for a place and date combination. For example:
       </p>
       <div className="download-info-table-example">
         <table>
