@@ -47,6 +47,12 @@
   box-shadow: 0 0 5px lightcoral;
 }
 
+.protein-interaction-table {
+  height: 580px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
+}
+
 .ppi-update-button {
   background-color: #aaa;
   border-color: #aaa;

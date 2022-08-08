@@ -24,6 +24,7 @@ import React from "react";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
+import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
 
 interface Props {
@@ -41,7 +42,7 @@ interface State {
   scoreThreshold: number;
 }
 
-const CHART_ID = "protein-interaction-graph";
+const GRAPH_ID = "protein-interaction-graph";
 const DEPTH_INPUT_ID = "ppi-input-depth";
 const NUM_INTERACTORS_INPUT_ID = "ppi-input-num-interactors";
 const SCORE_THRESHOLD_INPUT_ID = "ppi-input-score-threshold";
@@ -86,10 +87,14 @@ export class ProteinProteinInteractionGraph extends React.Component<
       (!_.isEqual(prevState.graphData, this.state.graphData) ||
         prevState.depth !== this.state.depth)
     ) {
-      drawProteinInteractionGraph(CHART_ID, {
-        linkData: this.state.graphData.linkDataNested
-          .slice(0, this.state.depth + 1)
-          .flat(1),
+      drawProteinInteractionGraph(GRAPH_ID, {
+        // clone link data because d3 will replace source, target with SimulationNodeDatum objects
+        // but table requires source, target to be strings
+        linkData: _.cloneDeep(
+          this.state.graphData.linkDataNested
+            .slice(0, this.state.depth + 1)
+            .flat(1)
+        ),
         nodeData: this.state.graphData.nodeDataNested
           .slice(0, this.state.depth + 1)
           .flat(1),
@@ -108,7 +113,12 @@ export class ProteinProteinInteractionGraph extends React.Component<
     }
     return (
       <>
-        <div id={CHART_ID}></div>
+        <div id={GRAPH_ID} />
+        <ProteinProteinInteractionTable
+          data={this.state.graphData.linkDataNested
+            .slice(0, this.state.depth + 1)
+            .flat(1)}
+        />
         <Row>
           <Col md={2}>
             <FormGroup>
