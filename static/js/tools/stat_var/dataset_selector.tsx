@@ -24,7 +24,7 @@ import { Card, Container, CustomInput } from "reactstrap";
 
 import { NamedPlace } from "../../shared/types";
 
-const PREFIX = "dataset-selector";
+const CSS_PREFIX = "dataset-selector";
 const MAX_SUGGESTIONS = 5;
 
 interface DatasetSelectorProps {
@@ -34,6 +34,10 @@ interface DatasetSelectorProps {
   sourceMap: Record<string, string>;
 }
 
+/**
+ * Remove non-alphanumeric characters and convert to lowercase.
+ * @param s Input string
+ */
 function simplify(s: string): string {
   return s.replace(/[^0-9a-z]/gi, "").toLowerCase();
 }
@@ -49,7 +53,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   const [userInput, setUserInput] = useState("");
 
   const handleResize = () => {
-    const width = document.getElementById(`${PREFIX}-ac`).offsetWidth;
+    const width = document.getElementById(`${CSS_PREFIX}-ac`).offsetWidth;
     if (width !== suggestionsWidth) {
       setSuggestionsWidth(width);
     }
@@ -63,31 +67,35 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     };
   });
 
-  async function updateDatasets(source: string): Promise<void> {
+  function updateDatasets(source: string): void {
     if (!(source in props.sourceMap)) {
       return;
     }
     const dcid = props.sourceMap[source];
-    const datasetsPromise = await axios.get(
-      `/api/browser/propvals/isPartOf/${dcid}`
-    );
-    const currentDatasets = [];
-    for (const dataset of datasetsPromise?.data?.values?.in) {
-      currentDatasets.push({
-        dcid: dataset.dcid,
-        name: dataset.name,
+    axios
+      .get(`/api/browser/propvals/isPartOf/${dcid}`)
+      .then((resp) => {
+        const currentDatasets = [];
+        for (const dataset of resp.data?.values?.in) {
+          currentDatasets.push({
+            dcid: dataset.dcid,
+            name: dataset.name,
+          });
+        }
+        currentDatasets.sort((a, b): number => {
+          return a.name.localeCompare(b.name);
+        });
+        setDatasets(currentDatasets);
+      })
+      .catch(() => {
+        setDatasets([]);
       });
-    }
-    currentDatasets.sort((a, b): number => {
-      return a.name.localeCompare(b.name);
-    });
-    setDatasets(currentDatasets);
   }
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleResize();
     const input = e.currentTarget.value;
-    let newSuggestions = Object.keys(props.sourceMap)
+    const newSuggestions = Object.keys(props.sourceMap)
       .map((s) => {
         return {
           name: s,
@@ -98,10 +106,8 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
         return a.rank - b.rank;
       })
       .filter((s) => s.rank > -1)
-      .map((s) => s.name);
-    if (newSuggestions.length > MAX_SUGGESTIONS) {
-      newSuggestions = newSuggestions.slice(0, MAX_SUGGESTIONS);
-    }
+      .map((s) => s.name)
+      .slice(0, MAX_SUGGESTIONS);
     setFilteredSuggestions(newSuggestions);
     setUserInput(e.currentTarget.value);
     setShowSuggestions(true);
@@ -129,6 +135,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
       setActiveSuggestion(0);
       setShowSuggestions(false);
       if (userInput === "") {
+        setDatasets([]);
         props.filterStatVars([]);
       } else {
         setUserInput(filteredSuggestions[activeSuggestion]);
@@ -155,35 +162,35 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
 
   return (
     <>
-      <Card className={`${PREFIX}-card`}>
-        <Container fluid={true} className={`${PREFIX}-container`}>
-          <div className={`${PREFIX}-main-selector`}>
-            <div className={`${PREFIX}-section`}>
-              <div className={`${PREFIX}-label`}>Show variables for</div>
-              <div className={`${PREFIX}-search`}>
-                <div className={`${PREFIX}-source-field`}>
+      <Card className={`${CSS_PREFIX}-card`}>
+        <Container fluid={true} className={`${CSS_PREFIX}-container`}>
+          <div className={`${CSS_PREFIX}-main-selector`}>
+            <div className={`${CSS_PREFIX}-section`}>
+              <div className={`${CSS_PREFIX}-label`}>Show variables for</div>
+              <div className={`${CSS_PREFIX}-search`}>
+                <div className={`${CSS_PREFIX}-source-field`}>
                   <input
-                    id={`${PREFIX}-ac`}
-                    className={`${PREFIX}-ac`}
+                    id={`${CSS_PREFIX}-ac`}
+                    className={`${CSS_PREFIX}-ac`}
                     type="text"
                     placeholder="Enter a source to filter by"
                     onChange={handleOnChange}
                     onKeyDown={handleOnKeyDown}
                     value={userInput}
                   />
-                  <i className={`material-icons ${PREFIX}-search-icon`}>
+                  <i className={`material-icons ${CSS_PREFIX}-search-icon`}>
                     search
                   </i>
                 </div>
                 {showSuggestions && userInput && (
                   <ul
-                    className={`${PREFIX}-suggestions`}
+                    className={`${CSS_PREFIX}-suggestions`}
                     style={{ width: `${suggestionsWidth || 0}px` }}
                   >
                     {filteredSuggestions.map((s, i) => {
                       let className: string;
                       if (i === activeSuggestion) {
-                        className = `${PREFIX}-suggestion-active`;
+                        className = `${CSS_PREFIX}-suggestion-active`;
                       }
                       return (
                         <li
@@ -200,9 +207,9 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
               </div>
             </div>
           </div>
-          <div className={`${PREFIX}-section`}>
+          <div className={`${CSS_PREFIX}-section`}>
             <CustomInput
-              id={`${PREFIX}-custom-input`}
+              id={`${CSS_PREFIX}-custom-input`}
               type="select"
               onChange={(e) => {
                 const name = e.currentTarget.value
