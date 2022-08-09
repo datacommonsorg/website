@@ -28,6 +28,9 @@ msgstr "Länder"
 msgid "Data Commons"
 msgstr "Data Commons"
 
+msgid "Data Download Tool"
+msgstr ""
+
 msgid "Data Sources"
 msgstr "Datenquellen"
 
@@ -657,6 +660,4 @@ msgstr "Nitrous oxide emissions (large facilities, non-biogenic)"
 
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
-
-
 

@@ -48,8 +48,9 @@
   width: 100%;
 }
 
-.download-option-label {
-  width: 6.3rem;
+.download-option-label,
+#place-selector-search-section .place-selector-label {
+  width: 6rem;
 }
 
 .download-date-options {
@@ -136,8 +137,9 @@
   padding-left: 0.1rem;
 }
 
-.preview-container table {
-  overflow-x: scroll;
+.preview-container table,
+.download-info-table-example table {
+  overflow-x: auto;
   width: 100%;
   display: inline-block;
   font-size: 0.9rem;
@@ -145,18 +147,24 @@
 
 .preview-container table,
 .preview-container th,
-.preview-container td {
+.preview-container td,
+.download-info-table-example table,
+.download-info-table-example th,
+.download-info-table-example td {
   border: 1px solid #ccc;
   border-collapse: collapse;
 }
 
-.preview-container th {
+.preview-container th,
+.download-info-table-example th {
   background: #f5f6fa;
   border-top: none;
 }
 
 .preview-container th,
-.preview-container td {
+.preview-container td,
+.download-info-table-example th,
+.download-info-table-example td {
   text-align: center;
   padding: 0.2rem 0.5rem;
 }
@@ -221,4 +229,14 @@ tr th:last-child {
   margin-left: -0.5rem;
   margin-top: 0;
   color: var(--link-color);
+}
+
+.download-info-table-example table {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.download-info-table-example th {
+  font-weight: normal;
+  width: 5rem;
 }
