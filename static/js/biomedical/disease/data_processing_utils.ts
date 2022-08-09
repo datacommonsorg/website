@@ -249,26 +249,17 @@ export function getChemicalCompoundData(
 export function getCompoundDiseaseTreatment(
   data: GraphNodes
 ): CompoundDiseaseTreatmentData[] {
-  // checks if the data is empty and for null values
-  if (
-    _.isEmpty(data) ||
-    _.isEmpty(data.nodes) ||
-    _.isEmpty(data.nodes[0].neighbors)
-  ) {
-    return [];
-  }
   const rawData = getChemicalCompoundData(data);
-  let modifiedData: CompoundDiseaseTreatmentData[] = [];
-  modifiedData = rawData
-    .filter((e) => e.type === "ChemicalCompoundDiseaseTreatment")
-    .map((e) => ({
-      node: e.node,
-      id: e.id,
-      name: String(e.name).toLowerCase(),
-      clinicalPhaseNumber: Number(e.clinicalPhaseNumber),
+  const processedData = rawData
+    .filter((element) => element.type === "ChemicalCompoundDiseaseTreatment")
+    .map((element) => ({
+      node: element.node,
+      id: element.id,
+      name: String(element.name).toLowerCase(),
+      clinicalPhaseNumber: Number(element.clinicalPhaseNumber),
     }));
-  modifiedData.sort((a, b) => b.clinicalPhaseNumber - a.clinicalPhaseNumber);
-  return modifiedData;
+  processedData.sort((a, b) => b.clinicalPhaseNumber - a.clinicalPhaseNumber);
+  return processedData;
 }
 
 /**
@@ -280,23 +271,17 @@ export function getCompoundDiseaseContraindication(
   data: GraphNodes
 ): CompoundDiseaseContraindicationData[] {
   // checks if the data is empty and for null values
-  if (
-    _.isEmpty(data) ||
-    _.isEmpty(data.nodes) ||
-    _.isEmpty(data.nodes[0].neighbors)
-  ) {
-    return [];
-  }
   const rawData = getChemicalCompoundData(data);
-  let modifiedData: CompoundDiseaseContraindicationData[] = [];
-  modifiedData = rawData
-    .filter((e) => e.type === "ChemicalCompoundDiseaseContraindication")
-    .map((e) => ({
-      node: e.node,
-      id: e.id,
-      name: String(e.name).toLowerCase(),
-      drugSource: e.drugSource.toLowerCase(),
+  const processedData = rawData
+    .filter(
+      (element) => element.type === "ChemicalCompoundDiseaseContraindication"
+    )
+    .map((element) => ({
+      node: element.node,
+      id: element.id,
+      name: String(element.name).toLowerCase(),
+      drugSource: element.drugSource.toLowerCase(),
     }));
-  modifiedData.sort((a, b) => (a.drugSource > b.drugSource ? 1 : -1));
-  return modifiedData;
+  processedData.sort((a, b) => (a.drugSource > b.drugSource ? 1 : -1));
+  return processedData;
 }

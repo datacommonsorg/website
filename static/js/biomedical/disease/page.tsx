@@ -81,7 +81,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       { id: "node", name: "Parent Node" },
       { id: "id", name: "Compound ID" },
       { id: "name", name: "Compound Name" },
-      { id: "clinicalPhaseNumber", name: "Drug Source" },
+      { id: "drugSource", name: "Drug Source" },
     ];
 
     return (
@@ -97,7 +97,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         <div>
           <div id="table"></div>
           <DrugTreatmentTable
-            // columns = [{id:"node", name:"Parent Node"}, {id:"id", name:"Compound ID"}, {id:"name", name:"Compound Name"}, {id:"clinicalPhaseNumber", name:"FDA Clinical Phase"}]
             columns={diseaseTreatmentColumns}
             data={chemicalCompoundDiseaseTreatment}
           />
