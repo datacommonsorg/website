@@ -54,10 +54,6 @@ class PlaceDetectorInterface(ABC):
         self._column_detection_threshold: float = detection_threshold
 
     @abstractmethod
-    def _pre_process(self) -> None:
-        """Process any data and set instance attributes."""
-
-    @abstractmethod
     def detect_column(self, values: List[str]) -> Optional[TypeProperty]:
         """If values are detected as Places, then return the TypeProperty
         detected. Otherwise, return None.
@@ -69,10 +65,13 @@ class PlaceDetectorInterface(ABC):
 
     def supported_types_and_properties(self) -> Set[TypeProperty]:
         """Return the supported Type, Property combinations."""
-        dc_type: DCType = utils.PLACE_TYPES[self._supported_type_dcid]
+        dc_type: DCType = DCType(
+            self._supported_type_dcid,
+            utils.PLACE_TYPES[self._supported_type_dcid])
 
         supported_tp: Set[TypeProperty] = set()
         for prop_dcid in self._supported_property_dcids:
-            dc_prop: DCProperty = utils.PLACE_PROPERTIES[prop_dcid]
-            supported_tp.add(TypeProperty(dc_type=dc_type, dc_property=dc_prop))
+            dc_prop: DCProperty = DCProperty(
+                prop_dcid, utils.PLACE_PROPERTIES[prop_dcid])
+            supported_tp.add(TypeProperty(dc_type, dc_prop))
         return supported_tp

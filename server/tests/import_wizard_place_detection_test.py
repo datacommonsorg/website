@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
 from routes.api.import_detection.detection_types import DCType, DCProperty, TypeProperty
 from typing import Dict, List
 
@@ -58,9 +57,8 @@ class TestPlaceDetection(unittest.TestCase):
                 self.assertEqual(state["fips52AlphaCode"], "CA")
 
     def test_supported_type_properties(self) -> None:
-        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
 
-        got: List[TypeProperty] = pd.supported_type_properties(detectors)
+        got: List[TypeProperty] = pd.supported_type_properties()
         expected: List[TypeProperty] = [
             TypeProperty(DCType("Country", "Country"),
                          DCProperty("isoCode", "ISO Code")),
@@ -184,9 +182,7 @@ class TestPlaceDetection(unittest.TestCase):
                        expected=None),
         ]
 
-        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
         for tc in test_cases:
-            self.assertEqual(pd.detect_column_with_places(
-                "", tc.input_vals, detectors),
+            self.assertEqual(pd.detect_column_with_places("", tc.input_vals),
                              tc.expected,
                              msg="Test named %s failed" % tc.name)

@@ -13,7 +13,7 @@
 # limitations under the License.
 """Country or State Detector."""
 
-from routes.api.import_detection.detection_types import TypeProperty
+from routes.api.import_detection.detection_types import DCType, DCProperty, TypeProperty
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
 import routes.api.import_detection.utils as utils
 from typing import Dict, List, Optional, Set
@@ -32,7 +32,10 @@ class CountryStateDetector(PlaceDetectorInterface):
                  location_mappings_filename: Optional[str]) -> None:
         super().__init__(type_dcid, property_dcids, detection_threshold)
 
-        # Some more place (countr/state) detection specific instance attributes.
+        # Some more place (country/state) detection specific instance attributes.
+        # self._places is a map of property dcid to the set of place values
+        # corresponding to the property. For example, for the property dcid
+        # 'name', possible country values could be {"United States", "Canada"}.
         self._places: Dict[str, Set[str]] = {}
         for prop_dcid in self._supported_property_dcids:
             self._places[prop_dcid] = set()
@@ -52,8 +55,9 @@ class CountryStateDetector(PlaceDetectorInterface):
 
         for place in places_list:
             for prop, unique_places in self._places.items():
-                if place[prop]:
-                    utils.insert_place(unique_places, place[prop])
+                pl_prop: str = place[prop]
+                if pl_prop:
+                    unique_places.add(utils.to_alphanumeric_and_lower(pl_prop))
 
     def detect_column(self, values: List[str]) -> Optional[TypeProperty]:
         total: int = 0
@@ -73,13 +77,15 @@ class CountryStateDetector(PlaceDetectorInterface):
                     if val in self._places[prop_dcid]:
                         counters[prop_dcid] += 1
 
+        dc_type: DCType = DCType(self._supported_type_dcid,
+                                 utils.PLACE_TYPES[self._supported_type_dcid])
         for prop_dcid in self._supported_property_dcids:
             if counters[prop_dcid] / total > self._column_detection_threshold:
                 # The parent class constructor checked for the existence of
                 # self.supported_type_dcid in utils.PLACE_TYPES and that
                 # prop_dcid exists in utils.PLACE_PROPERTIES.
-                return TypeProperty(
-                    utils.PLACE_TYPES[self._supported_type_dcid],
-                    utils.PLACE_PROPERTIES[prop_dcid])
+                dc_prop: DCProperty = DCProperty(
+                    prop_dcid, utils.PLACE_PROPERTIES[prop_dcid])
+                return TypeProperty(dc_type, dc_prop)
 
         return None
