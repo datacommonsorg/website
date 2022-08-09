@@ -14,7 +14,6 @@
 """Place Detector Abstract Class."""
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from routes.api.import_detection.detection_types import DCType, DCProperty, TypeProperty
 import routes.api.import_detection.utils as utils
 from typing import List, Optional, Set
