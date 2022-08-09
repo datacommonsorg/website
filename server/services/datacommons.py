@@ -531,7 +531,11 @@ def get_statvar_group(stat_var_group, entities):
     url = API_ROOT + API_ENDPOINTS['get_statvar_group']
     req_json = {
         'stat_var_group': stat_var_group,
+<<<<<<< HEAD
         'entities': entities,
+=======
+        'entities': places,
+>>>>>>> f29afa20 (dataset selector)
     }
     return send_request(url, req_json, has_payload=False)
 
