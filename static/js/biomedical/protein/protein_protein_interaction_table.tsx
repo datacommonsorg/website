@@ -42,7 +42,7 @@ export const COLUMNS = [
     Header: "Confidence",
     accessor: "score",
   },
-] as Column<InteractionLink>[];
+];
 
 /**
  * Draw table view of protein-protein interaction graph
@@ -59,7 +59,7 @@ export function ProteinProteinInteractionTable({ data }: Props): JSX.Element {
   } = useTable({
     columns: COLUMNS,
     data,
-  });
+  } as { columns: Column<InteractionLink>[]; data: InteractionLink[] });
 
   return (
     <div className="protein-interaction-table">
