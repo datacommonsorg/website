@@ -21,7 +21,8 @@ from routes.api.import_detection.place_detector_abstract import PlaceDetectorInt
 import routes.api.import_detection.utils as utils
 
 _MIN_HIGH_CONF_DETECT: float = 0.4
-"""Returns the list of supported Place detectors."""
+
+# Tuple of supported Place detectors.
 PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
     # Country Detector
     CountryStateDetector(type_dcid="Country",
@@ -37,7 +38,7 @@ PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
         property_dcids=["name", "isoCode", "fips52AlphaCode", "geoId"],
         detection_threshold=_MIN_HIGH_CONF_DETECT,
         location_mappings_filename="state_mappings.json"),
-        )
+)
 
 
 def supported_type_properties() -> List[TypeProperty]:

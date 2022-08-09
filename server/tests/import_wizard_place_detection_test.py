@@ -196,6 +196,38 @@ class TestPlaceDetection(unittest.TestCase):
                              tc.expected,
                              msg="Test named %s failed" % tc.name)
 
+    def test_prop_max_score_detection(self) -> None:
+        # Column values have both ISO codes and Numeric codes.
+        # Numeric codes should have a higher detection percentage, so
+        # they should be preferred.
+        input_vals: List[str] = [
+            # ISO codes.
+            "us",
+            "no",
+            "lk",
+            # Numeric codes.
+            "840",
+            "578",
+            "144",
+            "554",
+            "710",
+            "36",
+            "586",
+        ]
+        expected: TypeProperty = TypeProperty(
+            DCType("Country", "Country"),
+            DCProperty("countryNumericCode", "Numeric Code"))
+
+        self.assertEqual(pd.detect_column_with_places("", input_vals), expected)
+
+        # Now add many more ISO codes to input_vals such that the
+        # detection score for ISO codes increases.
+        input_vals += ["nz", "sa", "au", "pk", "in", "bd", "it", "ca", "es"]
+        expected = TypeProperty(DCType("Country", "Country"),
+                                DCProperty("isoCode", "ISO Code"))
+
+        self.assertEqual(pd.detect_column_with_places("", input_vals), expected)
+
     def test_state_detection(self) -> None:
 
         @dataclass
@@ -276,8 +308,7 @@ class TestPlaceDetection(unittest.TestCase):
         ]
 
         for tc in test_cases:
-            self.assertEqual(pd.detect_column_with_places(
-                "", tc.input_vals),
+            self.assertEqual(pd.detect_column_with_places("", tc.input_vals),
                              tc.expected,
                              msg="Test named %s failed" % tc.name)
 
