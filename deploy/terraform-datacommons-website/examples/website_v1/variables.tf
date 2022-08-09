@@ -34,3 +34,8 @@ variable "web_user_members" {
   type        =  list(string)
   description = "List of users that are allowed to be authenticated in IAP."
 }
+
+variable "region" {
+  type        =  string
+  description = "GCP region where the cluster will be created in."
+}
