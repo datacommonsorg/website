@@ -26,6 +26,7 @@ import {
   Button,
   ButtonGroup,
   ButtonToolbar,
+  CardColumns,
   Col,
   FormGroup,
   Input,
@@ -34,7 +35,7 @@ import {
 } from "reactstrap";
 
 import { drawProteinInteractionGraph } from "./chart";
-import { ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
+import { COLUMNS, ProteinProteinInteractionTable } from "./protein_protein_interaction_table";
 import { BioDcid, MultiLevelInteractionGraphData } from "./types";
 
 interface Props {
@@ -142,6 +143,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
             </Button>
             <CSVLink
               data={data}
+              headers={COLUMNS.map(({Header, accessor}) => ({label: Header, key: accessor}))}
               filename={`${this.props.centerProteinDcid
                 .replace("bio/", "")
                 .toLowerCase()}_links.csv`}

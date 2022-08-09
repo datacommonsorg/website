@@ -29,7 +29,7 @@ interface Props {
 }
 
 // column header info
-const COLUMNS = [
+export const COLUMNS = [
   {
     Header: "Source",
     accessor: "source",
