@@ -62,7 +62,7 @@ class CountryStateDetector(PlaceDetectorInterface):
     def detect_column(self, values: List[str]) -> Optional[TypeProperty]:
         total: int = 0
 
-        # Initialize couners.
+        # Initialize counters.
         counters: Dict[str, int] = {}
         for prop_dcid in self._supported_property_dcids:
             counters[prop_dcid] = 0
@@ -79,13 +79,21 @@ class CountryStateDetector(PlaceDetectorInterface):
 
         dc_type: DCType = DCType(self._supported_type_dcid,
                                  utils.PLACE_TYPES[self._supported_type_dcid])
+
+        # Return the property which has the highest detection score.
+        max_score: float = 0
+        prop_max: str = ""
         for prop_dcid in self._supported_property_dcids:
-            if counters[prop_dcid] / total > self._column_detection_threshold:
+            score: float = counters[prop_dcid] / total
+            if score > self._column_detection_threshold and score >= max_score:
                 # The parent class constructor checked for the existence of
                 # self.supported_type_dcid in utils.PLACE_TYPES and that
                 # prop_dcid exists in utils.PLACE_PROPERTIES.
-                dc_prop: DCProperty = DCProperty(
-                    prop_dcid, utils.PLACE_PROPERTIES[prop_dcid])
-                return TypeProperty(dc_type, dc_prop)
+                max_score = score
+                prop_max = prop_dcid
+        if max_score > 0:
+            dc_prop: DCProperty = DCProperty(prop_max,
+                                             utils.PLACE_PROPERTIES[prop_max])
+            return TypeProperty(dc_type, dc_prop)
 
         return None

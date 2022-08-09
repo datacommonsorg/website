@@ -13,9 +13,9 @@
 # limitations under the License.
 """Utility functions."""
 
-from routes.api.import_detection.detection_types import DCProperty, DCType
-from typing import Dict, List, Set
+from typing import Dict, List
 
+import frozendict
 import json
 import os
 import pathlib
@@ -25,17 +25,17 @@ import re
 
 # Possible Place types must be encoded below.
 # Mapping from DC Type dcid to display name.
-PLACE_TYPES: Dict[str, str] = {
+PLACE_TYPES = frozendict.frozendict({
     "GeoCoordinates": "Geo Coordinates",
     "State": "State",
     "Country": "Country",
     "Province": "Province",
     "Municipality": "Municipality",
-}
+})
 
 # Possible Place properties must be encoded below.
 # Mapping from DC Property dcid to display name.
-PLACE_PROPERTIES: Dict[str, str] = {
+PLACE_PROPERTIES = frozendict.frozendict({
     "name": "Name",
     "longitude": "Longitude",
     "latitude": "Latitude",
@@ -44,7 +44,7 @@ PLACE_PROPERTIES: Dict[str, str] = {
     "countryNumericCode": "Numeric Code",
     "fips52AlphaCode": "US State Alpha Code",
     "geoId": "FIPS Code",
-}
+})
 
 
 def to_alphanumeric_and_lower(s: str) -> str:

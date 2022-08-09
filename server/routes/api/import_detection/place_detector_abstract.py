@@ -20,13 +20,6 @@ import routes.api.import_detection.utils as utils
 from typing import List, Optional, Set
 
 
-@dataclass
-class TPName:
-    """Helper class to manage Type (dcid) and Property (dcid) combination."""
-    type_dcid: str
-    prop_dcid: str
-
-
 class PlaceDetectorInterface(ABC):
     """PlaceDetectorInterface is the Place detector abstract class.
     The base class has the following (instance) attributes:
@@ -65,13 +58,12 @@ class PlaceDetectorInterface(ABC):
 
     def supported_types_and_properties(self) -> Set[TypeProperty]:
         """Return the supported Type, Property combinations."""
-        dc_type: DCType = DCType(
-            self._supported_type_dcid,
-            utils.PLACE_TYPES[self._supported_type_dcid])
+        dc_type: DCType = DCType(self._supported_type_dcid,
+                                 utils.PLACE_TYPES[self._supported_type_dcid])
 
         supported_tp: Set[TypeProperty] = set()
         for prop_dcid in self._supported_property_dcids:
-            dc_prop: DCProperty = DCProperty(
-                prop_dcid, utils.PLACE_PROPERTIES[prop_dcid])
+            dc_prop: DCProperty = DCProperty(prop_dcid,
+                                             utils.PLACE_PROPERTIES[prop_dcid])
             supported_tp.add(TypeProperty(dc_type, dc_prop))
         return supported_tp

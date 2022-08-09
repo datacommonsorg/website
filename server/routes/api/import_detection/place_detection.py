@@ -19,7 +19,8 @@ from routes.api.import_detection.country_state_detector import CountryStateDetec
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
 
 _MIN_HIGH_CONF_DETECT: float = 0.4
-"""Returns the list of supported Place detectors."""
+
+# Tuple of supported Place detectors.
 PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
     # Country Detector
     CountryStateDetector(type_dcid="Country",
