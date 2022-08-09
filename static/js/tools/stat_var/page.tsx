@@ -35,19 +35,11 @@ import { Info } from "./info";
 interface PageStateType {
   description: string;
   displayName: string;
-<<<<<<< HEAD
   // Sources/datasets to filter by.
   entities: NamedPlace[];
   error: boolean;
   // Map of source name to dcid.
   sourceMap: Record<string, string>;
-=======
-  // Sources/datasets to filter by
-  entities: NamedPlace[];
-  error: boolean;
-  // Map of source name to dcid.
-  sources: Record<string, string>;
->>>>>>> f29afa20 (dataset selector)
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
@@ -63,11 +55,7 @@ class Page extends Component<unknown, PageStateType> {
       displayName: "",
       entities: [],
       error: false,
-<<<<<<< HEAD
       sourceMap: {},
-=======
-      sources: {},
->>>>>>> f29afa20 (dataset selector)
       statVar: "",
       summary: { placeTypeSummary: {} },
       urls: {},
@@ -92,19 +80,11 @@ class Page extends Component<unknown, PageStateType> {
       sourceDcids.length > 0
         ? await axios.get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
         : undefined;
-<<<<<<< HEAD
     const sourceMap = {};
     for (const dcid in sourceNamesPromise?.data) {
       sourceMap[sourceNamesPromise?.data[dcid][0]] = dcid;
     }
     this.setState({ sourceMap });
-=======
-    const sources = {};
-    for (const dcid in sourceNamesPromise?.data) {
-      sources[sourceNamesPromise?.data[dcid][0]] = dcid;
-    }
-    this.setState({ sources });
->>>>>>> f29afa20 (dataset selector)
   }
 
   private toggleSvHierarchyModal(): void {
@@ -137,11 +117,7 @@ class Page extends Component<unknown, PageStateType> {
             <h1 className="mb-4">Statistical Variable Explorer</h1>
             <DatasetSelector
               filterStatVars={this.filterStatVars}
-<<<<<<< HEAD
               sourceMap={this.state.sourceMap}
-=======
-              sources={this.state.sources}
->>>>>>> f29afa20 (dataset selector)
             />
             {!this.state.statVar && (
               <>
