@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
 from routes.api.import_detection.detection_types import DCType, DCProperty, TypeProperty
 from typing import Dict, List
 
@@ -58,9 +57,8 @@ class TestPlaceDetection(unittest.TestCase):
                 self.assertEqual(state["fips52AlphaCode"], "CA")
 
     def test_supported_type_properties(self) -> None:
-        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
 
-        got: List[TypeProperty] = pd.supported_type_properties(detectors)
+        got: List[TypeProperty] = pd.supported_type_properties()
         expected: List[TypeProperty] = [
             # Country properties.
             TypeProperty(DCType("Country", "Country"),
@@ -193,10 +191,8 @@ class TestPlaceDetection(unittest.TestCase):
                        expected=None),
         ]
 
-        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
         for tc in test_cases:
-            self.assertEqual(pd.detect_column_with_places(
-                "", tc.input_vals, detectors),
+            self.assertEqual(pd.detect_column_with_places("", tc.input_vals),
                              tc.expected,
                              msg="Test named %s failed" % tc.name)
 
@@ -279,16 +275,13 @@ class TestPlaceDetection(unittest.TestCase):
                 expected=None),
         ]
 
-        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
         for tc in test_cases:
             self.assertEqual(pd.detect_column_with_places(
-                "", tc.input_vals, detectors),
+                "", tc.input_vals),
                              tc.expected,
                              msg="Test named %s failed" % tc.name)
 
     def test_country_state_fips_detection(self) -> None:
-        detectors: List[PlaceDetectorInterface] = pd.place_detectors()
-
         # Column has values which can be Numeric Codes for countries or
         # FIPS codes for US States.
         col_vals = ["36", "40", "50", "60"]
@@ -299,7 +292,7 @@ class TestPlaceDetection(unittest.TestCase):
 
         # Should detect country even though the column name has "state".
         self.assertEqual(
-            pd.detect_column_with_places(col_name, col_vals, detectors),
+            pd.detect_column_with_places(col_name, col_vals),
             TypeProperty(DCType("Country", "Country"),
                          DCProperty("countryNumericCode", "Numeric Code")))
 
@@ -307,7 +300,7 @@ class TestPlaceDetection(unittest.TestCase):
         # preference to Country.
         col_name = "country"
         self.assertEqual(
-            pd.detect_column_with_places(col_name, col_vals, detectors),
+            pd.detect_column_with_places(col_name, col_vals),
             TypeProperty(DCType("Country", "Country"),
                          DCProperty("countryNumericCode", "Numeric Code")))
 
@@ -315,6 +308,6 @@ class TestPlaceDetection(unittest.TestCase):
         # US State.
         col_name = "Something with state in it"
         self.assertEqual(
-            pd.detect_column_with_places(col_name, col_vals, detectors),
+            pd.detect_column_with_places(col_name, col_vals),
             TypeProperty(DCType("State", "State"),
                          DCProperty("geoId", "FIPS Code")))

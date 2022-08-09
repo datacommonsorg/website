@@ -13,7 +13,7 @@
 # limitations under the License.
 """Place Detection."""
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from routes.api.import_detection.detection_types import TypeProperty
 from routes.api.import_detection.country_state_detector import CountryStateDetector
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
@@ -21,47 +21,36 @@ from routes.api.import_detection.place_detector_abstract import PlaceDetectorInt
 import routes.api.import_detection.utils as utils
 
 _MIN_HIGH_CONF_DETECT: float = 0.4
-
-
-def place_detectors() -> List[PlaceDetectorInterface]:
-    """Returns the list of supported Place detectors."""
+"""Returns the list of supported Place detectors."""
+PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
     # Country Detector
-    country_detector: PlaceDetectorInterface = CountryStateDetector(
-        type_dcid="Country",
-        property_dcids=[
-            "name", "isoCode", "countryAlpha3Code", "countryNumericCode"
-        ],
-        detection_threshold=_MIN_HIGH_CONF_DETECT,
-        location_mappings_filename="country_mappings.json")
-
-    state_detector: PlaceDetectorInterface = CountryStateDetector(
+    CountryStateDetector(type_dcid="Country",
+                         property_dcids=[
+                             "name", "isoCode", "countryAlpha3Code",
+                             "countryNumericCode"
+                         ],
+                         detection_threshold=_MIN_HIGH_CONF_DETECT,
+                         location_mappings_filename="country_mappings.json"),
+    # State detector
+    CountryStateDetector(
         type_dcid="State",
         property_dcids=["name", "isoCode", "fips52AlphaCode", "geoId"],
         detection_threshold=_MIN_HIGH_CONF_DETECT,
-        location_mappings_filename="state_mappings.json")
+        location_mappings_filename="state_mappings.json"),
+        )
 
-    return [country_detector, state_detector]
 
-
-def supported_type_properties(
-    detectors: Optional[List[PlaceDetectorInterface]] = None
-) -> List[TypeProperty]:
+def supported_type_properties() -> List[TypeProperty]:
     """Returns the list of supported place TypeProperties."""
-    if detectors is None:
-        detectors = place_detectors()
-
     types_props: List[TypeProperty] = []
-    for det in detectors:
+    for det in PLACE_DETECTORS:
         types_props.extend(det.supported_types_and_properties())
 
     return types_props
 
 
-def detect_column_with_places(
-    header: str,
-    col_values: List[str],
-    detectors: Optional[List[PlaceDetectorInterface]] = None
-) -> Optional[TypeProperty]:
+def detect_column_with_places(header: str,
+                              col_values: List[str]) -> Optional[TypeProperty]:
     """If the proportion of 'col_values' detected as Place is greater than
     _MIN_HIGH_CONF_DETECT, returns the detected Place TypeProperty.
     @args:
@@ -71,11 +60,8 @@ def detect_column_with_places(
     @returns:
         The detected Place TypeProperty or None.
     """
-    if detectors is None:
-        detectors = place_detectors()
-
     types_found: Dict[str, TypeProperty] = {}
-    for det in detectors:
+    for det in PLACE_DETECTORS:
         found = det.detect_column(col_values)
         if found is not None:
             types_found.update({found.dc_type.dcid: found})
