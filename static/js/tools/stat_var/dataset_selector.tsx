@@ -49,23 +49,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     Object.keys(props.sourceMap)
   );
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [suggestionsWidth, setSuggestionsWidth] = useState(null);
   const [userInput, setUserInput] = useState("");
-
-  const handleResize = () => {
-    const width = document.getElementById(`${CSS_PREFIX}-ac`).offsetWidth;
-    if (width !== suggestionsWidth) {
-      setSuggestionsWidth(width);
-    }
-  };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
 
   function updateDatasets(source: string): void {
     if (!(source in props.sourceMap)) {
@@ -93,7 +77,6 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   }
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleResize();
     const input = e.currentTarget.value;
     const newSuggestions = Object.keys(props.sourceMap)
       .map((s) => {
@@ -183,10 +166,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
                   </i>
                 </div>
                 {showSuggestions && userInput && (
-                  <ul
-                    className={`${CSS_PREFIX}-suggestions`}
-                    style={{ width: `${suggestionsWidth || 0}px` }}
-                  >
+                  <ul className={`${CSS_PREFIX}-suggestions`}>
                     {filteredSuggestions.map((s, i) => {
                       let className: string;
                       if (i === activeSuggestion) {
