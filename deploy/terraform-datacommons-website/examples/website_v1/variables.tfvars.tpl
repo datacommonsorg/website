@@ -20,3 +20,6 @@ brand_support_email =
 # Format: Comma separated list of quoted strings, enclosed by []
 web_user_members =
 
+# GCP region where the cluster will be created in. 
+# Type: string
+region = 
