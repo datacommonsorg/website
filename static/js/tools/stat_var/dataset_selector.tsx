@@ -201,7 +201,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
                 props.filterStatVars([{ name, dcid }]);
               }}
             >
-              <option value="">Optionally select a dataset</option>
+              <option value="">Select a dataset (optional)</option>
               {datasets.map((d) => {
                 return (
                   <option value={d.dcid} key={d.dcid}>
