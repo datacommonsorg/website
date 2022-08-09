@@ -19,7 +19,7 @@ import routes.api.import_detection.date_detection as dd
 import unittest
 
 
-class TestDetectDate(unittest.TestCase):
+class TestDateDetection(unittest.TestCase):
 
     def test_header_date_detection(self) -> None:
 

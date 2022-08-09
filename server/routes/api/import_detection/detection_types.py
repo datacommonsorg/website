@@ -65,6 +65,9 @@ class TypeProperty:
     dc_type: DCType
     dc_property: DCProperty
 
+    def __hash__(self) -> int:
+        return hash(repr(self))
+
 
 @dataclass
 class MappingVal:
