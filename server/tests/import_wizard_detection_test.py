@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
-from routes.api.import_detection.detection_types import Column
+from dataclasses import dataclass
+from typing import Dict, List, Optional
+from routes.api.import_detection.detection_types import Column, DCProperty
 
 import json
 import routes.api.import_detection.detection as detection
@@ -33,23 +34,25 @@ class TestDetection(unittest.TestCase):
         got: str = detection.detect_columns([date_col_1, date_col_2, col_other],
                                             cols_sampled)
         expected: str = json.dumps({
-            "type":
-                "columnHeader",
-            "column":
-                None,
-            "place_property":
-                None,
-            "place_type":
-                None,
-            "headers": [{
-                "id": "2020-100",
-                "header": "2020-10",
-                "column_index": 0
-            }, {
-                "id": "2020-111",
-                "header": "2020-11",
-                "column_index": 1
-            }]
+            "Date": {
+                "type":
+                    "columnHeader",
+                "column":
+                    None,
+                "place_property":
+                    None,
+                "place_type":
+                    None,
+                "headers": [{
+                    "id": "2020-100",
+                    "header": "2020-10",
+                    "column_index": 0
+                }, {
+                    "id": "2020-111",
+                    "header": "2020-11",
+                    "column_index": 1
+                }]
+            }
         })
         self.assertEqual(got, expected)
 
@@ -68,15 +71,17 @@ class TestDetection(unittest.TestCase):
         got: str = detection.detect_columns(
             [date_col, col_other_1, col_other_2], cols_sampled)
         expected: str = json.dumps({
-            "type": "column",
-            "column": {
-                "id": "a0",
-                "header": "a",
-                "column_index": 0
-            },
-            "place_property": None,
-            "place_type": None,
-            "headers": None
+            "Date": {
+                "type": "column",
+                "column": {
+                    "id": "a0",
+                    "header": "a",
+                    "column_index": 0
+                },
+                "place_property": None,
+                "place_type": None,
+                "headers": None
+            }
         })
         self.assertEqual(got, expected)
 
@@ -97,22 +102,204 @@ class TestDetection(unittest.TestCase):
         got: str = detection.detect_columns(
             [date_header_1, date_header_2, date_col], cols_sampled)
         expected: str = json.dumps({
-            "type":
-                "columnHeader",
-            "column":
-                None,
-            "place_property":
-                None,
-            "place_type":
-                None,
-            "headers": [{
-                "id": "a0",
-                "header": "2022-10",
-                "column_index": 0
-            }, {
-                "id": "b1",
-                "header": "2023-10",
-                "column_index": 1
-            }]
+            "Date": {
+                "type":
+                    "columnHeader",
+                "column":
+                    None,
+                "place_property":
+                    None,
+                "place_type":
+                    None,
+                "headers": [{
+                    "id": "a0",
+                    "header": "2022-10",
+                    "column_index": 0
+                }, {
+                    "id": "b1",
+                    "header": "2023-10",
+                    "column_index": 1
+                }]
+            }
         })
         self.assertEqual(got, expected)
+
+    def test_country_detection(self) -> None:
+
+        cols_sampled: Dict[int, List[str]] = {
+            0: ["USA",
+                "ITA"],  # This column should be detected as a Place (country).
+            1: ["random"],
+            2: ["dfds"],
+        }
+
+        colCountry = Column(id="a0", header="a", column_index=0)
+        colOther1 = Column(id="b1", header="b", column_index=1)
+        colOther2 = Column(id="c2", header="c", column_index=2)
+
+        got: str = detection.detect_columns([colCountry, colOther1, colOther2],
+                                            cols_sampled)
+        expected: str = json.dumps({
+            "Place": {
+                "type": "column",
+                "column": {
+                    "id": "a0",
+                    "header": "a",
+                    "column_index": 0
+                },
+                "place_property": {
+                    "dcid": "countryAlpha3Code",
+                    "display_name": "Alpha 3 Code",
+                },
+                "place_type": {
+                    "dcid": "Country",
+                    "display_name": "Country",
+                },
+                "headers": None,
+            }
+        })
+        self.assertEqual(got, expected)
+
+    def test_country_detection_two_columns(self) -> None:
+
+        # One of the two columns below should be detected. They are both countries.
+        cols_sampled: Dict[int, List[str]] = {
+            0: ["USA", "ITA"],
+            1: ["USA"],
+            2: ["dfds"],
+        }
+
+        colCountry = Column(id="a0", header="a", column_index=0)
+        colCountryOther = Column(id="b1", header="b", column_index=1)
+        colOther2 = Column(id="c2", header="c", column_index=2)
+
+        got = json.loads(
+            detection.detect_columns([colCountry, colCountryOther, colOther2],
+                                     cols_sampled))
+        expected = {
+            "Place": {
+                "type": "column",
+                "column": {
+                    "id": "a0",
+                    "header": "a",
+                    "column_index": 0
+                },
+                "place_property": {
+                    "dcid": "countryAlpha3Code",
+                    "display_name": "Alpha 3 Code",
+                },
+                "place_type": {
+                    "dcid": "Country",
+                    "display_name": "Country",
+                },
+                "headers": None,
+            }
+        }
+        # Detected index is either 0 and 1.
+        self.assertIn(got["Place"]["column"]["column_index"], [0, 1])
+        self.assertEqual(got["Place"]["place_property"],
+                         expected["Place"]["place_property"])
+        self.assertEqual(got["Place"]["place_type"],
+                         expected["Place"]["place_type"])
+
+    def test_country_detection_order(self) -> None:
+
+        col_iso = "iso"
+        col_alpha3 = "alpha3"
+        col_number = "number"
+
+        # col_name does not provide any help with choosing between numeric country
+        # codes vs FIPS codes for US states.
+        col_name = "name"
+        col_iso_mistake = "isoMistake"
+
+        col_vals: Dict[str, List[str]] = {
+            "iso": ["US", "IT"],
+            "alpha3": ["USA", "ITA"],
+            "number": ["840", "380"],
+            "name": ["United States", "italy "],
+            "isoMistake": ["U", "IFH"],
+        }
+
+        @dataclass
+        class TestHelper:
+            name: str
+            col_names_order: List[str]
+            expected_col: Optional[Column]
+            expected_prop: Optional[DCProperty]
+
+        test_cases: List[TestHelper] = [
+            TestHelper(
+                name="all-properties",
+                col_names_order=[col_iso, col_alpha3, col_number, col_name],
+                expected_col=Column(id=col_iso + "0",
+                                    header=col_iso,
+                                    column_index=0),
+                expected_prop=DCProperty(dcid="isoCode",
+                                         display_name="ISO Code")),
+            TestHelper(name="iso-missing",
+                       col_names_order=[col_number, col_name, col_alpha3],
+                       expected_col=Column(id=col_alpha3 + "2",
+                                           header=col_alpha3,
+                                           column_index=2),
+                       expected_prop=DCProperty(dcid="countryAlpha3Code",
+                                                display_name="Alpha 3 Code")),
+            TestHelper(name="iso-alpha3-missing",
+                       col_names_order=[col_number, col_name],
+                       expected_col=Column(id=col_number + "0",
+                                           header=col_number,
+                                           column_index=0),
+                       expected_prop=DCProperty(dcid="countryNumericCode",
+                                                display_name="Numeric Code")),
+            TestHelper(name="only-name",
+                       col_names_order=[col_name],
+                       expected_col=Column(id=col_name + "0",
+                                           header=col_name,
+                                           column_index=0),
+                       expected_prop=DCProperty(dcid="name",
+                                                display_name="Name")),
+            TestHelper(name="none-found",
+                       col_names_order=[],
+                       expected_col=None,
+                       expected_prop=None),
+            TestHelper(name="all-properties-iso-with-typos",
+                       col_names_order=[
+                           col_iso_mistake, col_alpha3, col_number, col_name
+                       ],
+                       expected_col=Column(id=col_alpha3 + "1",
+                                           header=col_alpha3,
+                                           column_index=1),
+                       expected_prop=DCProperty(dcid="countryAlpha3Code",
+                                                display_name="Alpha 3 Code")),
+        ]
+
+        for tc in test_cases:
+            col_vals_sampled: Dict[int, List[str]] = {}
+            ordered_cols: List[Column] = []
+            for i, c_name in enumerate(tc.col_names_order):
+                col_vals_sampled[i] = col_vals[c_name]
+                ordered_cols.append(
+                    Column(id=c_name + str(i), header=c_name, column_index=i))
+
+            got: str = detection.detect_columns(ordered_cols, col_vals_sampled)
+
+            if tc.expected_prop is None:
+                self.assertEqual(got, "{}")
+                continue
+
+            expected: str = json.dumps(
+                {
+                    "Place": {
+                        "type": "column",
+                        "column": tc.expected_col,
+                        "place_property": tc.expected_prop,
+                        "place_type": {
+                            "dcid": "Country",
+                            "display_name": "Country",
+                        },
+                        "headers": None,
+                    }
+                },
+                default=vars)
+
+            self.assertEqual(got, expected)
