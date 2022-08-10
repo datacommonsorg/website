@@ -24,9 +24,7 @@ import React from "react";
 import { CSVLink } from "react-csv";
 import {
   Button,
-  ButtonGroup,
   ButtonToolbar,
-  CardColumns,
   Col,
   FormGroup,
   Input,
@@ -146,9 +144,9 @@ export class ProteinProteinInteractionGraph extends React.Component<
             </Button>
             <CSVLink
               data={data}
-              headers={COLUMNS.map(({ Header, accessor }) => ({
-                label: Header,
+              headers={COLUMNS.map(({ accessor, Header }) => ({
                 key: accessor,
+                label: Header,
               }))}
               filename={`${this.props.centerProteinDcid
                 .replace("bio/", "")
