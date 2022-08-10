@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from routes.api.import_detection.detection_types import Column, DCProperty
 
 import json
@@ -303,3 +303,79 @@ class TestDetection(unittest.TestCase):
                 default=vars)
 
             self.assertEqual(got, expected)
+
+    def test_date_and_country_detection(self) -> None:
+        # Column at index 2 is a date column but preference is given to column
+        # headers.
+        # There are also three place columns: one each which correspond to country
+        # and state unambiguously while the third one could be either country or
+        # state. For the ambiguous column, the header name "state" is provided which
+        # will give preference to "State" detection for that column. Therefore, there
+        # are two State columns and one Country column detected. In picking one Place
+        # column, preference is given to State over Country and within States, the
+        # preference is given to fips52AlphaCode over the FIPS (numeric) codes.
+        columns: Dict[int, List[str]] = {
+            0: ["1", "2", "3"],
+            1: ["random", "random", "random"],
+            2: ["2020-10", "2021-10", "2022-10"],
+            3: ["US", "IT", "ES"],
+            4: ["WY", "FL", "NJ"],
+            5: ["36", "40", "50"],  # numeric country code OR FIPS state code.
+        }
+
+        date_col_header_1: Column = Column(id="2022-100",
+                                           header="2022-10",
+                                           column_index=0)
+        date_col_header_2: Column = Column(id="2022-111",
+                                           header="2022-11",
+                                           column_index=1)
+        date_col: Column = Column(id="c2", header="c", column_index=2)
+        country_col: Column = Column(id="d3", header="d", column_index=3)
+        state_col: Column = Column(id="e4", header="e", column_index=4)
+        state_numeric_col: Column = Column(id="state5",
+                                           header="state",
+                                           column_index=5)
+
+        got = detection.detect_columns([
+            date_col_header_1, date_col_header_2, date_col, country_col,
+            state_col, state_numeric_col
+        ], columns)
+
+        expected: str = json.dumps(
+            {
+                "Date": {
+                    "type":
+                        "columnHeader",
+                    "column":
+                        None,
+                    "place_property":
+                        None,
+                    "place_type":
+                        None,
+                    "headers": [{
+                        "id": "2022-100",
+                        "header": "2022-10",
+                        "column_index": 0
+                    }, {
+                        "id": "2022-111",
+                        "header": "2022-11",
+                        "column_index": 1
+                    }]
+                },
+                "Place": {
+                    "type": "column",
+                    "column": state_col,
+                    "place_property": {
+                        "dcid": "fips52AlphaCode",
+                        "display_name": "US State Alpha Code",
+                    },
+                    "place_type": {
+                        "dcid": "State",
+                        "display_name": "State",
+                    },
+                    "headers": None,
+                }
+            },
+            default=vars)
+
+        self.assertDictEqual(json.loads(got), json.loads(expected))

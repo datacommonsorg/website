@@ -30,10 +30,7 @@ COUNTRY_PROP_PREF_ORDER: List[str] = [
     "name",
 ]
 STATE_PROP_PREF_ORDER: List[str] = [
-    "isoCode",
-    "countryAlpha3Code",
-    "countryNumericCode",
-    "name",
+    "isoCode", "fips52AlphaCode", "geoId", "name"
 ]
 
 # Tuple of supported Place detectors.
