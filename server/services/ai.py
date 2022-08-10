@@ -34,7 +34,6 @@ cfg = libconfig.get_config()
 
 class Context:
     """Holds clients to interact with Language client and TF models."""
-
     def __init__(self):
         self.language_client = language_v1.LanguageServiceClient()
         if not cfg.TEST and cfg.AI_CONFIG_PATH:
@@ -45,7 +44,6 @@ class Context:
 
 class InferenceClient(object):
     """Client for interacting with models on the Vertex AI platform."""
-
     def __init__(
         self,
         region: str,
@@ -67,7 +65,6 @@ class InferenceClient(object):
 
 
 class RestInferenceClient(InferenceClient):
-
     def initialize(self):
         self.creds, self.project_id = None, None
         if not self.deployed_model_id:
@@ -175,10 +172,11 @@ def _get_places(language_client: language_v1.LanguageServiceClient,
     """Returns a list of entities that are of type LOCATION."""
     document = language_v1.Document(content=query,
                                     type_=language_v1.Document.Type.PLAIN_TEXT)
-    response = language_client.analyze_entities(request={
-        "document": document,
-        "encoding_type": language_v1.EncodingType.UTF8
-    })
+    response = language_client.analyze_entities(
+        request={
+            "document": document,
+            "encoding_type": language_v1.EncodingType.UTF8
+        })
     locations = [
         e for e in response.entities
         if e.type == language_v1.Entity.Type.LOCATION and "mid" in e.metadata
@@ -206,37 +204,16 @@ def _delexicalize_query(query: str,
     return ''.join(output)
 
 
-# This matches the cache builder logic.
-_KEY_NORMALIZATION = {
-    "measurementDenominator": "md",
-    "measurementQualifier": "mq",
-    "measuredProperty": "mp",
-    "populationType": "pt",
-    "statType": "st",
-}
-
-# Sometimes we need to normalize also values.
-_VALUE_NORMALIZATION = {
-    'phds': 'DoctorateDegree',
-}
-
-
 def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
     del query  # unused
-    terms = []
-    for key, value in key_values:
-        # We skip high frequency keys that are always present for all the variables.
-        if key not in _KEY_NORMALIZATION.values():
-            terms.append(f'k:"{key}"')
-        terms.append(f'v:"{value}"')
-        terms.append(f'sn:"{value}"')
-    query = " ".join(terms)
-    logging.info("Using the following query for match API: %s", query)
-    return query
+    search_query = ' '.join([f"{k} {v}" for k, v in key_values])
+    logging.info("Using the following query for match API: %s", search_query)
+    return search_query
 
 
-def _parse_model_response(
-        model_response, min_score: float = 0.001) -> Sequence[Tuple[str, str]]:
+def _parse_model_response(model_response,
+                          min_score: float = 0.001
+                          ) -> Sequence[Tuple[str, str]]:
     property_values = set()
     scores = model_response["predictions"][0]["output_1"]
     predictions = model_response["predictions"][0]["output_0"]
@@ -244,10 +221,10 @@ def _parse_model_response(
         score = math.exp(raw_score)
         if score < min_score:
             continue
-        for raw_key, raw_value in _iterate_property_value(prediction,
-                                                          exclude='place'):
-            key = _KEY_NORMALIZATION.get(raw_key, raw_key)
-            value = _VALUE_NORMALIZATION.get(raw_value.lower(), raw_value)
+        for key, value in _iterate_property_value(prediction, exclude=('place', 'topics')):
+            # Apparently these are not considered. It looks like this is a default?
+            if key == "statType" and value == "measuredValue":
+                continue
             property_values.add((key, value))
     return list(sorted(property_values))
 
@@ -283,7 +260,7 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     for match in matches["matchInfo"]:
         debug_lines.append(f"# ID: {match['statVar']}")
         debug_lines.append(f"# Statvar: {match['statVarName']}")
-        debug_lines.append(f"# Score: {match['score']}")
+        debug_lines.append(f"# Score: {match.get('score', 'n/a')}")
         debug_lines.append(f"# Explanation: {match['explanation']}")
 
     response = {
