@@ -14,7 +14,7 @@
 
 # Version can be found at: https://chromedriver.storage.googleapis.com/LATEST_RELEASE
 substitutions:
-  _VERS: "2021-09-13"
+  _VERS: "2022-08-10"
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
