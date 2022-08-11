@@ -18,6 +18,8 @@ from routes.api.import_detection.detection_types import TypeProperty
 from routes.api.import_detection.country_state_detector import CountryStateDetector
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
 
+import routes.api.import_detection.utils as utils
+
 _MIN_HIGH_CONF_DETECT: float = 0.4
 
 # Tuple of supported Place detectors.
@@ -29,7 +31,14 @@ PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
                              "countryNumericCode"
                          ],
                          detection_threshold=_MIN_HIGH_CONF_DETECT,
-                         location_mappings_filename="country_mappings.json"),)
+                         location_mappings_filename="country_mappings.json"),
+    # State detector
+    CountryStateDetector(
+        type_dcid="State",
+        property_dcids=["name", "isoCode", "fips52AlphaCode", "geoId"],
+        detection_threshold=_MIN_HIGH_CONF_DETECT,
+        location_mappings_filename="state_mappings.json"),
+)
 
 
 def supported_type_properties() -> List[TypeProperty]:
@@ -58,9 +67,25 @@ def detect_column_with_places(header: str,
         if found is not None:
             types_found.update({found.dc_type.dcid: found})
 
-    # TODO: choose the detection order between different Place types.
-    # For now only detects Country.
+    # If country was detected and the header has a country in the name, return
+    # country. If not, we have to do more work to disambiguate country vs state.
+    if "Country" in types_found and "country" in utils.to_alphanumeric_and_lower(
+            header):
+        return types_found["Country"]
+
+    # If state was detected and the header has a state in the name, return
+    # state.
+    if "State" in types_found and "state" in utils.to_alphanumeric_and_lower(
+            header):
+        return types_found["State"]
+
+    # Finally, if none of the headers match, give preference to country
+    # detection over state detection.
     if "Country" in types_found:
         return types_found["Country"]
 
+    if "State" in types_found:
+        return types_found["State"]
+
+    # At this point, there was no detection possible. Return None.
     return None
