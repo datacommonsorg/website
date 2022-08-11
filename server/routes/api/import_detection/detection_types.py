@@ -15,20 +15,21 @@
 
 from dataclasses import dataclass
 from enum import Enum
+from routes.api.import_detection.utils import Consts as c
 from typing import List, Optional
 
 
 # Helper Enums and Data Classes for Detection.
 class MappingType(Enum):
     """Supported types of column structure."""
-    COLUMN = "column"
-    COLUMN_HEADER = "columnHeader"
+    COLUMN = c.M_COLUMN
+    COLUMN_HEADER = c.M_COLUMNHEADER
 
 
 class MappedThing(Enum):
     """Supported type of Thing being mapped."""
-    DATE = "Date"
-    PLACE = "Place"
+    DATE = c.M_DATE
+    PLACE = c.M_PLACE
 
 
 @dataclass
