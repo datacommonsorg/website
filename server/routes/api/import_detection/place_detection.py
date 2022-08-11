@@ -57,7 +57,7 @@ def preferred_property(detected_places: Dict[int, TypeProperty],
     """preferred_property is a helper function which returns the column index (key) of the
     detected place in detected_places based on a ranked order of preferred property types.
     For example, given two column indices (keys) both of which correspond to TypeProperty
-    with type dcid = "Country", if one of them has property dcid as ISO codes and the 
+    with type dcid = "Country", if one of them has property dcid as ISO codes and the
     other has country numbers, we will prefer the one with ISO codes.
     @args:
         detected_places: mapping from column indices to the detected TypeProperty.
