@@ -384,7 +384,7 @@ def protein_protein_interaction():
                 f'{source_id}_{target_id}', DEFAULT_INTERACTION_SCORE)
             # true if score-target interaction has score above threshold
             target_ids_filtered = filter(
-                lambda target_id: target_scorer(target_id) > score_threshold,
+                lambda target_id: target_scorer(target_id) >= score_threshold,
                 target_ids)
             # sort in descending order of score
             target_ids_sorted = sorted(target_ids_filtered,
