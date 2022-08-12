@@ -19,6 +19,7 @@ from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import webdriver_tests.shared as shared
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
@@ -93,6 +94,7 @@ class TestBrowser(WebdriverBaseTest):
         self.assertEqual(typeOf_subtitle.text, 'typeOf: City')
 
         # Assert properties contains correct dcid and typeOf
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
