@@ -5,6 +5,7 @@ import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
 } from "./chart";
+
 export interface DrugTreatmentTableColumn {
   // the column id
   id: string;
@@ -13,7 +14,7 @@ export interface DrugTreatmentTableColumn {
 }
 export interface DrugTreatmentTableProps {
   // stores the column id and column name
-  // retains the order of the columns and column id matches the key of data
+  // retains the order of the columns and column ids should match the keys of the objects in the data array
   columns: DrugTreatmentTableColumn[];
   // stores the data in a generic DrugDataType interface
   data: CompoundDiseaseContraindicationData[] | CompoundDiseaseTreatmentData[];
@@ -37,7 +38,7 @@ export function DrugTreatmentTable(
           return (
             <tr key={idx}>
               {props.columns.map((column) => {
-                const element = item[column.id];
+                const element = item[column.id] || "";
                 // if column id is node, then display a hyperlinked table element
                 if (column.id === "node") {
                   return (
@@ -46,7 +47,7 @@ export function DrugTreatmentTable(
                     </td>
                   );
                 } else {
-                  return <td>{item[column.id] || ""}</td>;
+                  return <td>{element}</td>;
                 }
               })}
             </tr>
