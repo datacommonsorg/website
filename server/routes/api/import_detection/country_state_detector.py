@@ -76,6 +76,8 @@ class CountryStateDetector(PlaceDetectorInterface):
                 for prop_dcid in self._supported_property_dcids:
                     if val in self._places[prop_dcid]:
                         counters[prop_dcid] += 1
+        if not total:
+            return None
 
         dc_type: DCType = DCType(self._supported_type_dcid,
                                  utils.PLACE_TYPES[self._supported_type_dcid])

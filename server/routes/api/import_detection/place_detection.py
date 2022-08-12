@@ -22,6 +22,17 @@ import routes.api.import_detection.utils as utils
 
 _MIN_HIGH_CONF_DETECT: float = 0.4
 
+# Place detection property preference orders.
+COUNTRY_PROP_PREF_ORDER: List[str] = [
+    "isoCode",
+    "countryAlpha3Code",
+    "countryNumericCode",
+    "name",
+]
+STATE_PROP_PREF_ORDER: List[str] = [
+    "isoCode", "fips52AlphaCode", "geoId", "name"
+]
+
 # Tuple of supported Place detectors.
 PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
     # Country Detector
@@ -39,6 +50,26 @@ PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
         detection_threshold=_MIN_HIGH_CONF_DETECT,
         location_mappings_filename="state_mappings.json"),
 )
+
+
+def preferred_property(detected_places: Dict[int, TypeProperty],
+                       property_order: List[str]) -> Optional[int]:
+    """preferred_property is a helper function which returns the column index (key) of the
+    detected place in detected_places based on a ranked order of preferred property types.
+    For example, given two column indices (keys) both of which correspond to TypeProperty
+    with type dcid = "Country", if one of them has property dcid as ISO codes and the
+    other has country numbers, we will prefer the one with ISO codes.
+    @args:
+        detected_places: mapping from column indices to the detected TypeProperty.
+        property_order: the ranked order of preference for property dcids.
+    @returns:
+        The column index of the most preferred TypeProperty or None if there is no match.
+    """
+    for prop_dcid in property_order:
+        for col_idx, type_prop in detected_places.items():
+            if prop_dcid == type_prop.dc_property.dcid:
+                return col_idx
+    return None
 
 
 def supported_type_properties() -> List[TypeProperty]:
