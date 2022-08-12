@@ -34,6 +34,7 @@ TABLE_ROW_1 = [
     'geoId/06001', 'Alameda County', '2020', '37.8', 'https://www.census.gov/',
     '2021', '1648556', 'https://www2.census.gov/programs-surveys/popest/tables'
 ]
+MAX_NUM_FILE_CHECK_TRIES = 3
 
 
 # Class to test download tool.
@@ -155,8 +156,14 @@ class TestDownload(WebdriverBaseTest):
         # Click download
         self.driver.find_element_by_xpath(
             '//*[@id="preview-section"]/button').click()
-        shared.wait_for_loading(self.driver)
 
         # Assert file downloaded
-        downloaded_files = os.listdir(self.downloads_folder.name)
+        num_tries = 0
+        # Wait max tries until the downloads folder is no longer empty
+        while (num_tries < MAX_NUM_FILE_CHECK_TRIES):
+            shared.wait_for_loading(self.driver)
+            downloaded_files = os.listdir(self.downloads_folder.name)
+            if (len(downloaded_files) > 0):
+                break
+            num_tries += 1
         self.assertEqual(downloaded_files[0], "California_County.csv")
