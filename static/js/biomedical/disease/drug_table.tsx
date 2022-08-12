@@ -1,27 +1,22 @@
 import React from "react";
 
 import { GRAPH_BROWSER_REDIRECT } from "../bio_charts_utils";
-export interface DrugTableColumnType {
+import {
+  CompoundDiseaseContraindicationData,
+  CompoundDiseaseTreatmentData,
+} from "./chart";
+export interface DrugTreatmentTableColumn {
   // the column id
   id: string;
   // the column display name or header
   name: string;
 }
-export interface DrugDataType {
-  // compound node
-  node: string;
-  // compound id
-  id: string;
-  // compound name
-  name: string;
-  // clinical phase number or drug source
-  [key: string]: any;
-}
 export interface DrugTreatmentTableProps {
-  // stores the column id and column header name
-  columns: DrugTableColumnType[];
+  // stores the column id and column name
+  // retains the order of the columns and column id matches the key of data
+  columns: DrugTreatmentTableColumn[];
   // stores the data in a generic DrugDataType interface
-  data: DrugDataType[];
+  data: CompoundDiseaseContraindicationData[] | CompoundDiseaseTreatmentData[];
 }
 export function DrugTreatmentTable(
   props: DrugTreatmentTableProps
