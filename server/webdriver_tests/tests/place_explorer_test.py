@@ -204,71 +204,71 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
         # Wait for the presense of the chart title element.
         chart_title_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[5]/div/h4'))
+            (By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[6]/div/h4'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_title_present)
 
         # Check the chart title text.
         chart_title = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/h4').text
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/h4').text
         self.assertTrue = (CHART_TITLE_MUST_INCLUDE in chart_title)
 
         # Wait for the presence of the chart subtitle element.
         chart_subtitle_present = EC.presence_of_element_located(
             (By.XPATH,
-             '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/h4'))
+             '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/h4'))
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(chart_subtitle_present)
 
         # Check the chart subtitle text.
         chart_subtitle = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/h4').text
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/h4').text
         self.assertTrue = (CHART_SUBTITLE_MUST_INCLUDE in chart_subtitle)
 
         # Wait for the presence of the chart_unit_highest and chart_unit_lowest element.
         chart_unit_highest = EC.presence_of_element_located(
             (By.XPATH,
-             '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]'
+             '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]'
             ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_unit_highest)
         chart_unit_lowest = EC.presence_of_element_located(
             (By.XPATH,
-             '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[2]'
+             '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]'
             ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(chart_unit_lowest)
 
         # Check the title text.
         chart_unit_highest_title = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/h4'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/h4'
         ).text
         self.assertTrue = (CHART_UNIT_HIGHEST_TITLE in chart_unit_highest_title)
 
         chart_unit_lowest_title = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[2]/h4'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/h4'
         ).text
         self.assertTrue = (CHART_UNIT_LOWEST_TITLE in chart_unit_lowest_title)
 
         # Wait for the presence of the row.
         chart_unit_highest_row = EC.presence_of_element_located((
             By.XPATH,
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/table/tbody/tr[1]/td'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/table/tbody/tr[1]/td'
         ))
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(chart_unit_highest_row)
         chart_unit_lowest_row = EC.presence_of_element_located((
             By.XPATH,
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[2]/table/tbody/tr[1]/td'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/table/tbody/tr[1]/td'
         ))
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(chart_unit_lowest_row)
 
         # Check the rank.
         chart_unit_highest_row_rank = self.driver.find_elements_by_xpath(
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/table/tbody/tr[1]/td'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/table/tbody/tr[1]/td'
         )
         self.assertEqual(chart_unit_highest_row_rank[0].text, FIRST_RANK)
 
         chart_unit_lowest_row_rank = self.driver.find_elements_by_xpath(
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[2]/table/tbody/tr[1]/td'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/table/tbody/tr[1]/td'
         )
         self.assertEqual(chart_unit_lowest_row_rank[0].text, LAST_RANK)
 
@@ -282,13 +282,13 @@ class TestPlaceExplorer(WebdriverBaseTest):
         # Wait for the presence of place name.
         place_name_present = EC.presence_of_element_located((
             By.XPATH,
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
         ))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_name_present)
 
         # Click the place name.
         place_name = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/section[5]/div/div[5]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
+            '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/table/tbody/tr[1]/td[2]/a'
         )
         place_name_text = place_name.text
         place_name.click()
