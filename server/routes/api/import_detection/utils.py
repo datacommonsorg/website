@@ -13,6 +13,7 @@
 # limitations under the License.
 """Utility functions."""
 
+from dataclasses import dataclass
 from typing import Dict, List
 
 import frozendict
@@ -21,29 +22,55 @@ import os
 import pathlib
 import re
 
-# TODO: define string constants.
+
+# String constants.
+@dataclass
+class Consts:
+    # DC Type DCIDs.
+    T_GEOCOORDS: str = "GeoCoordinates"
+    T_COUNTRY: str = "Country"
+    T_STATE: str = "State"
+    T_PROVINCE: str = "Province"
+    T_MUNICIPALITY: str = "Municipality"
+
+    # DC Property DCIDs.
+    P_NAME: str = "name"
+    P_LONG: str = "longitude"
+    P_LAT: str = "latitude"
+    P_ISO: str = "isoCode"
+    P_ALPHA3: str = "countryAlpha3Code"
+    P_NUMERIC: str = "countryNumericCode"
+    P_FIPS52: str = "fips52AlphaCode"
+    P_FIPS: str = "geoId"
+
+    # Mapping helper constants.
+    M_DATE: str = "Date"
+    M_PLACE: str = "Place"
+    M_COLUMN: str = "column"
+    M_COLUMNHEADER: str = "columnHeader"
+
 
 # Possible Place types must be encoded below.
 # Mapping from DC Type dcid to display name.
 PLACE_TYPES = frozendict.frozendict({
-    "GeoCoordinates": "Geo Coordinates",
-    "State": "State",
-    "Country": "Country",
-    "Province": "Province",
-    "Municipality": "Municipality",
+    Consts.T_GEOCOORDS: "Geo Coordinates",
+    Consts.T_STATE: "State",
+    Consts.T_COUNTRY: "Country",
+    Consts.T_PROVINCE: "Province",
+    Consts.T_MUNICIPALITY: "Municipality",
 })
 
 # Possible Place properties must be encoded below.
 # Mapping from DC Property dcid to display name.
 PLACE_PROPERTIES = frozendict.frozendict({
-    "name": "Name",
-    "longitude": "Longitude",
-    "latitude": "Latitude",
-    "isoCode": "ISO Code",
-    "countryAlpha3Code": "Alpha 3 Code",
-    "countryNumericCode": "Numeric Code",
-    "fips52AlphaCode": "US State Alpha Code",
-    "geoId": "FIPS Code",
+    Consts.P_NAME: "Name",
+    Consts.P_LONG: "Longitude",
+    Consts.P_LAT: "Latitude",
+    Consts.P_ISO: "ISO Code",
+    Consts.P_ALPHA3: "Alpha 3 Code",
+    Consts.P_NUMERIC: "Numeric Code",
+    Consts.P_FIPS52: "US State Alpha Code",
+    Consts.P_FIPS: "FIPS Code",
 })
 
 

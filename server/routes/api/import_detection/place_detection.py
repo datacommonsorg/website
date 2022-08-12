@@ -17,6 +17,7 @@ from typing import Dict, List, Optional, Tuple
 from routes.api.import_detection.detection_types import TypeProperty
 from routes.api.import_detection.country_state_detector import CountryStateDetector
 from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
+from routes.api.import_detection.utils import Consts as c
 
 import routes.api.import_detection.utils as utils
 
@@ -24,31 +25,23 @@ _MIN_HIGH_CONF_DETECT: float = 0.4
 
 # Place detection property preference orders.
 COUNTRY_PROP_PREF_ORDER: List[str] = [
-    "isoCode",
-    "countryAlpha3Code",
-    "countryNumericCode",
-    "name",
+    c.P_ISO, c.P_ALPHA3, c.P_NUMERIC, c.P_NAME
 ]
-STATE_PROP_PREF_ORDER: List[str] = [
-    "isoCode", "fips52AlphaCode", "geoId", "name"
-]
+
+STATE_PROP_PREF_ORDER: List[str] = [c.P_ISO, c.P_FIPS52, c.P_FIPS, c.P_NAME]
 
 # Tuple of supported Place detectors.
 PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
     # Country Detector
-    CountryStateDetector(type_dcid="Country",
-                         property_dcids=[
-                             "name", "isoCode", "countryAlpha3Code",
-                             "countryNumericCode"
-                         ],
+    CountryStateDetector(type_dcid=c.T_COUNTRY,
+                         property_dcids=COUNTRY_PROP_PREF_ORDER,
                          detection_threshold=_MIN_HIGH_CONF_DETECT,
                          location_mappings_filename="country_mappings.json"),
     # State detector
-    CountryStateDetector(
-        type_dcid="State",
-        property_dcids=["name", "isoCode", "fips52AlphaCode", "geoId"],
-        detection_threshold=_MIN_HIGH_CONF_DETECT,
-        location_mappings_filename="state_mappings.json"),
+    CountryStateDetector(type_dcid=c.T_STATE,
+                         property_dcids=STATE_PROP_PREF_ORDER,
+                         detection_threshold=_MIN_HIGH_CONF_DETECT,
+                         location_mappings_filename="state_mappings.json"),
 )
 
 
@@ -100,23 +93,23 @@ def detect_column_with_places(header: str,
 
     # If country was detected and the header has a country in the name, return
     # country. If not, we have to do more work to disambiguate country vs state.
-    if "Country" in types_found and "country" in utils.to_alphanumeric_and_lower(
-            header):
-        return types_found["Country"]
+    if c.T_COUNTRY in types_found and c.T_COUNTRY.lower(
+    ) in utils.to_alphanumeric_and_lower(header):
+        return types_found[c.T_COUNTRY]
 
     # If state was detected and the header has a state in the name, return
     # state.
-    if "State" in types_found and "state" in utils.to_alphanumeric_and_lower(
-            header):
-        return types_found["State"]
+    if c.T_STATE in types_found and c.T_STATE.lower(
+    ) in utils.to_alphanumeric_and_lower(header):
+        return types_found[c.T_STATE]
 
     # Finally, if none of the headers match, give preference to country
     # detection over state detection.
-    if "Country" in types_found:
-        return types_found["Country"]
+    if c.T_COUNTRY in types_found:
+        return types_found[c.T_COUNTRY]
 
-    if "State" in types_found:
-        return types_found["State"]
+    if c.T_STATE in types_found:
+        return types_found[c.T_STATE]
 
     # At this point, there was no detection possible. Return None.
     return None
