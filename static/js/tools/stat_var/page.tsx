@@ -184,38 +184,46 @@ class Page extends Component<unknown, PageStateType> {
       });
       return;
     }
-    const [descriptionPromise, displayNamePromise, summaryPromise] =
-      await Promise.all([
-        axios.get(`/api/stats/propvals/description/${sv}`),
-        axios.get(`/api/stats/propvals/name/${sv}`),
-        axios.post("/api/stats/stat-var-summary", { statVars: [sv] }),
-      ]);
-    if (!displayNamePromise?.data[sv].length) {
-      this.setState({
-        error: true,
-        statVar: sv,
+    const descriptionPromise = axios
+      .get(`/api/stats/propvals/description/${sv}`)
+      .then((resp) => resp.data);
+    const displayNamePromise = axios
+      .get(`/api/stats/propvals/name/${sv}`)
+      .then((resp) => resp.data);
+    const summaryPromise = axios
+      .post("/api/stats/stat-var-summary", { statVars: [sv] })
+      .then((resp) => resp.data);
+    Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
+      .then(([descriptionResult, displayNameResult, summaryResult]) => {
+        const provIds = [];
+        for (const provId in summaryResult[sv]?.provenanceSummary) {
+          provIds.push(provId);
+        }
+        if (provIds.length === 0) {
+          return;
+        }
+        axios
+          .get(`/api/stats/propvals/url/${provIds.join("^")}`)
+          .then((resp) => {
+            this.setState({
+              description:
+                descriptionResult[sv].length > 0
+                  ? descriptionResult[sv][0]
+                  : "",
+              displayName: displayNameResult[sv][0],
+              error: false,
+              statVar: sv,
+              summary: summaryResult[sv],
+              urls: resp.data,
+            });
+          });
+      })
+      .catch(() => {
+        this.setState({
+          error: true,
+          statVar: sv,
+        });
       });
-      return;
-    }
-    const provIds = [];
-    for (const provId in summaryPromise?.data[sv]?.provenanceSummary) {
-      provIds.push(provId);
-    }
-    const urlsPromise =
-      provIds.length > 0
-        ? await axios.get(`/api/stats/propvals/url/${provIds.join("^")}`)
-        : undefined;
-    this.setState({
-      description:
-        descriptionPromise?.data[sv].length > 0
-          ? descriptionPromise?.data[sv][0]
-          : "",
-      displayName: displayNamePromise?.data[sv][0],
-      error: false,
-      statVar: sv,
-      summary: summaryPromise?.data[sv],
-      urls: urlsPromise?.data,
-    });
   }
 }
 
