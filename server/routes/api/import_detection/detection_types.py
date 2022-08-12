@@ -41,7 +41,7 @@ class Column:
     header: str
 
     # Column index (starting with 0).
-    column_index: int
+    column_idx: int
 
 
 @dataclass
@@ -83,7 +83,7 @@ class MappingVal:
 
     # The place type (in KG) associated with that
     # column or column header. Should be set if MappedThing is PLACE.
-    place_type: Optional[DCProperty] = None
+    place_type: Optional[DCType] = None
 
     # List of column headers that act as the mapping values. Should be set if
     # type is MappingType.COLUMN_HEADERS
