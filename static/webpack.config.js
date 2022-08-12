@@ -17,8 +17,11 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
-const config = {
+const smp = new SpeedMeasurePlugin();
+
+const config = smp.wrap({
   entry: {
     scatter: [
       __dirname + "/js/tools/scatter/scatter.ts",
@@ -144,7 +147,7 @@ const config = {
       silent: true,
     }),
   ],
-};
+});
 
 module.exports = (env, argv) => {
   // If in development, disable optimization.minimize.

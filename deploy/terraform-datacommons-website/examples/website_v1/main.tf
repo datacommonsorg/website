@@ -54,3 +54,13 @@ module "iap" {
   brand_support_email      = var.brand_support_email
   web_user_members         = var.web_user_members
 }
+
+module "vpc" {
+  source                   =  "../../modules/vpc"
+  project_id               = var.project_id
+  subnet_region            = var.region
+
+  depends_on = [
+    module.enabled_google_apis
+  ]
+}
