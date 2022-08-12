@@ -27,9 +27,9 @@ class TestDetection(unittest.TestCase):
 
         cols_sampled: Dict[int, List[str]] = {0: [], 1: [], 2: []}
 
-        date_col_1 = Column(id="2020-100", header="2020-10", column_index=0)
-        date_col_2 = Column(id="2020-111", header="2020-11", column_index=1)
-        col_other = Column(id="a2", header="a", column_index=2)
+        date_col_1 = Column(id="2020-100", header="2020-10", column_idx=0)
+        date_col_2 = Column(id="2020-111", header="2020-11", column_idx=1)
+        col_other = Column(id="a2", header="a", column_idx=2)
 
         got: str = detection.detect_columns([date_col_1, date_col_2, col_other],
                                             cols_sampled)
@@ -46,11 +46,11 @@ class TestDetection(unittest.TestCase):
                 "headers": [{
                     "id": "2020-100",
                     "header": "2020-10",
-                    "column_index": 0
+                    "column_idx": 0
                 }, {
                     "id": "2020-111",
                     "header": "2020-11",
-                    "column_index": 1
+                    "column_idx": 1
                 }]
             }
         })
@@ -64,9 +64,9 @@ class TestDetection(unittest.TestCase):
             2: ["1", "2", "3"]
         }
 
-        date_col = Column(id="a0", header="a", column_index=0)
-        col_other_1 = Column(id="b1", header="b", column_index=1)
-        col_other_2 = Column(id="c2", header="c", column_index=2)
+        date_col = Column(id="a0", header="a", column_idx=0)
+        col_other_1 = Column(id="b1", header="b", column_idx=1)
+        col_other_2 = Column(id="c2", header="c", column_idx=2)
 
         got: str = detection.detect_columns(
             [date_col, col_other_1, col_other_2], cols_sampled)
@@ -76,7 +76,7 @@ class TestDetection(unittest.TestCase):
                 "column": {
                     "id": "a0",
                     "header": "a",
-                    "column_index": 0
+                    "column_idx": 0
                 },
                 "place_property": None,
                 "place_type": None,
@@ -95,9 +95,9 @@ class TestDetection(unittest.TestCase):
             2: ["2020-10", "2021-10", "2022-10"],
         }
 
-        date_header_1 = Column(id="a0", header="2022-10", column_index=0)
-        date_header_2 = Column(id="b1", header="2023-10", column_index=1)
-        date_col = Column(id="c2", header="c", column_index=2)
+        date_header_1 = Column(id="a0", header="2022-10", column_idx=0)
+        date_header_2 = Column(id="b1", header="2023-10", column_idx=1)
+        date_col = Column(id="c2", header="c", column_idx=2)
 
         got: str = detection.detect_columns(
             [date_header_1, date_header_2, date_col], cols_sampled)
@@ -114,11 +114,11 @@ class TestDetection(unittest.TestCase):
                 "headers": [{
                     "id": "a0",
                     "header": "2022-10",
-                    "column_index": 0
+                    "column_idx": 0
                 }, {
                     "id": "b1",
                     "header": "2023-10",
-                    "column_index": 1
+                    "column_idx": 1
                 }]
             }
         })
@@ -133,9 +133,9 @@ class TestDetection(unittest.TestCase):
             2: ["dfds"],
         }
 
-        colCountry = Column(id="a0", header="a", column_index=0)
-        colOther1 = Column(id="b1", header="b", column_index=1)
-        colOther2 = Column(id="c2", header="c", column_index=2)
+        colCountry = Column(id="a0", header="a", column_idx=0)
+        colOther1 = Column(id="b1", header="b", column_idx=1)
+        colOther2 = Column(id="c2", header="c", column_idx=2)
 
         got: str = detection.detect_columns([colCountry, colOther1, colOther2],
                                             cols_sampled)
@@ -145,7 +145,7 @@ class TestDetection(unittest.TestCase):
                 "column": {
                     "id": "a0",
                     "header": "a",
-                    "column_index": 0
+                    "column_idx": 0
                 },
                 "place_property": {
                     "dcid": "countryAlpha3Code",
@@ -169,9 +169,9 @@ class TestDetection(unittest.TestCase):
             2: ["dfds"],
         }
 
-        colCountry = Column(id="a0", header="a", column_index=0)
-        colCountryOther = Column(id="b1", header="b", column_index=1)
-        colOther2 = Column(id="c2", header="c", column_index=2)
+        colCountry = Column(id="a0", header="a", column_idx=0)
+        colCountryOther = Column(id="b1", header="b", column_idx=1)
+        colOther2 = Column(id="c2", header="c", column_idx=2)
 
         got = json.loads(
             detection.detect_columns([colCountry, colCountryOther, colOther2],
@@ -182,7 +182,7 @@ class TestDetection(unittest.TestCase):
                 "column": {
                     "id": "a0",
                     "header": "a",
-                    "column_index": 0
+                    "column_idx": 0
                 },
                 "place_property": {
                     "dcid": "countryAlpha3Code",
@@ -196,7 +196,7 @@ class TestDetection(unittest.TestCase):
             }
         }
         # Detected index is either 0 and 1.
-        self.assertIn(got["Place"]["column"]["column_index"], [0, 1])
+        self.assertIn(got["Place"]["column"]["column_idx"], [0, 1])
         self.assertEqual(got["Place"]["place_property"],
                          expected["Place"]["place_property"])
         self.assertEqual(got["Place"]["place_type"],
@@ -234,28 +234,28 @@ class TestDetection(unittest.TestCase):
                 col_names_order=[col_iso, col_alpha3, col_number, col_name],
                 expected_col=Column(id=col_iso + "0",
                                     header=col_iso,
-                                    column_index=0),
+                                    column_idx=0),
                 expected_prop=DCProperty(dcid="isoCode",
                                          display_name="ISO Code")),
             TestHelper(name="iso-missing",
                        col_names_order=[col_number, col_name, col_alpha3],
                        expected_col=Column(id=col_alpha3 + "2",
                                            header=col_alpha3,
-                                           column_index=2),
+                                           column_idx=2),
                        expected_prop=DCProperty(dcid="countryAlpha3Code",
                                                 display_name="Alpha 3 Code")),
             TestHelper(name="iso-alpha3-missing",
                        col_names_order=[col_number, col_name],
                        expected_col=Column(id=col_number + "0",
                                            header=col_number,
-                                           column_index=0),
+                                           column_idx=0),
                        expected_prop=DCProperty(dcid="countryNumericCode",
                                                 display_name="Numeric Code")),
             TestHelper(name="only-name",
                        col_names_order=[col_name],
                        expected_col=Column(id=col_name + "0",
                                            header=col_name,
-                                           column_index=0),
+                                           column_idx=0),
                        expected_prop=DCProperty(dcid="name",
                                                 display_name="Name")),
             TestHelper(name="none-found",
@@ -268,7 +268,7 @@ class TestDetection(unittest.TestCase):
                        ],
                        expected_col=Column(id=col_alpha3 + "1",
                                            header=col_alpha3,
-                                           column_index=1),
+                                           column_idx=1),
                        expected_prop=DCProperty(dcid="countryAlpha3Code",
                                                 display_name="Alpha 3 Code")),
         ]
@@ -279,7 +279,7 @@ class TestDetection(unittest.TestCase):
             for i, c_name in enumerate(tc.col_names_order):
                 col_vals_sampled[i] = col_vals[c_name]
                 ordered_cols.append(
-                    Column(id=c_name + str(i), header=c_name, column_index=i))
+                    Column(id=c_name + str(i), header=c_name, column_idx=i))
 
             got: str = detection.detect_columns(ordered_cols, col_vals_sampled)
 
@@ -325,16 +325,16 @@ class TestDetection(unittest.TestCase):
 
         date_col_header_1: Column = Column(id="2022-100",
                                            header="2022-10",
-                                           column_index=0)
+                                           column_idx=0)
         date_col_header_2: Column = Column(id="2022-111",
                                            header="2022-11",
-                                           column_index=1)
-        date_col: Column = Column(id="c2", header="c", column_index=2)
-        country_col: Column = Column(id="d3", header="d", column_index=3)
-        state_col: Column = Column(id="e4", header="e", column_index=4)
+                                           column_idx=1)
+        date_col: Column = Column(id="c2", header="c", column_idx=2)
+        country_col: Column = Column(id="d3", header="d", column_idx=3)
+        state_col: Column = Column(id="e4", header="e", column_idx=4)
         state_numeric_col: Column = Column(id="state5",
                                            header="state",
-                                           column_index=5)
+                                           column_idx=5)
 
         got = detection.detect_columns([
             date_col_header_1, date_col_header_2, date_col, country_col,
@@ -355,11 +355,11 @@ class TestDetection(unittest.TestCase):
                     "headers": [{
                         "id": "2022-100",
                         "header": "2022-10",
-                        "column_index": 0
+                        "column_idx": 0
                     }, {
                         "id": "2022-111",
                         "header": "2022-11",
-                        "column_index": 1
+                        "column_idx": 1
                     }]
                 },
                 "Place": {

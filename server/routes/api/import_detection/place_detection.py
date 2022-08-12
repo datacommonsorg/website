@@ -66,9 +66,9 @@ def preferred_property(detected_places: Dict[int, TypeProperty],
         The column index of the most preferred TypeProperty or None if there is no match.
     """
     for prop_dcid in property_order:
-        for col_ind, type_prop in detected_places.items():
+        for col_idx, type_prop in detected_places.items():
             if prop_dcid == type_prop.dc_property.dcid:
-                return col_ind
+                return col_idx
     return None
 
 

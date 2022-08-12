@@ -41,7 +41,7 @@ class Column:
     header: str
 
     # Column index (starting with 0).
-    column_index: int
+    column_idx: int
 
 
 @dataclass

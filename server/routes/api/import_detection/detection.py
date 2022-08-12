@@ -36,8 +36,8 @@ def _detect_date(col_order: List[Column],
     date_cols = []
     for col in col_order:
         col_header = col.header
-        col_ind = col.column_index
-        vals = cols_sampled[col_ind]
+        col_idx = col.column_idx
+        vals = cols_sampled[col_idx]
 
         if date_detector.detect_column_header(col_header):
             date_headers.append(col)
@@ -76,8 +76,8 @@ def _detect_place(col_order: List[Column],
 
     for col in col_order:
         col_header = col.header
-        col_ind = col.column_index
-        vals = cols_sampled[col_ind]
+        col_idx = col.column_idx
+        vals = cols_sampled[col_idx]
 
         place: Optional[
             TypeProperty] = place_detector.detect_column_with_places(
@@ -86,9 +86,9 @@ def _detect_place(col_order: List[Column],
             continue
 
         if place.dc_type.dcid == "Country":
-            detected_countries[col_ind] = place
+            detected_countries[col_idx] = place
         elif place.dc_type.dcid == "State":
-            detected_states[col_ind] = place
+            detected_states[col_idx] = place
 
     # Now get the preferred property detected.
     # Note that State detection is given preference over Country detection
@@ -102,12 +102,12 @@ def _detect_place(col_order: List[Column],
         detected_places = detected_countries
         prop_order = place_detector.COUNTRY_PROP_PREF_ORDER
 
-    preferred_ind: Optional[int] = place_detector.preferred_property(
+    preferred_idx: Optional[int] = place_detector.preferred_property(
         detected_places, prop_order)
-    if preferred_ind is not None:
-        prop_type: TypeProperty = detected_places[preferred_ind]
+    if preferred_idx is not None:
+        prop_type: TypeProperty = detected_places[preferred_idx]
         return MappingVal(type=MappingType.COLUMN.value,
-                          column=col_order[preferred_ind],
+                          column=col_order[preferred_idx],
                           place_property=prop_type.dc_property,
                           place_type=prop_type.dc_type)
 
@@ -169,12 +169,12 @@ def detect_columns(col_order: List[Column],
                     Column{
                         id: name_0,
                         header: name,
-                        column_index: 0,
+                        column_idx: 0,
                     },
                     Column{
                         id: name_name_1,
                         header: name_name,
-                        column_index: 1,
+                        column_idx: 1,
                     },
                     ...
                 ],
