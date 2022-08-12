@@ -28,3 +28,6 @@ steps:
 
         # ./run_test.sh -lbc will run lint test, build client packages, and run client tests.
         ./run_test.sh -lbc
+
+options:
+  machineType: "N1_HIGHCPU_8"
