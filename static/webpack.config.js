@@ -21,7 +21,7 @@ const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 const smp = new SpeedMeasurePlugin();
 
-const config = smp.wrap({
+const config = {
   entry: {
     scatter: [
       __dirname + "/js/tools/scatter/scatter.ts",
@@ -147,7 +147,7 @@ const config = smp.wrap({
       silent: true,
     }),
   ],
-});
+};
 
 module.exports = (env, argv) => {
   // If in development, disable optimization.minimize.
@@ -156,5 +156,5 @@ module.exports = (env, argv) => {
     config.devtool = "eval-cheap-module-source-map";
   }
 
-  return config;
+  return argv.mode === "development" ? config : smp.wrap(config);
 };
