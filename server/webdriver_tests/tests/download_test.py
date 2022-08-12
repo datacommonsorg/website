@@ -36,6 +36,7 @@ TABLE_ROW_1 = [
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
+
 # Class to test download tool.
 class TestDownload(WebdriverBaseTest):
 
