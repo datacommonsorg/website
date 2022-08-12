@@ -69,22 +69,29 @@ class Page extends Component<unknown, PageStateType> {
       this.fetchSummary();
     };
     this.fetchSummary();
-    const sourcePromise = await axios.get(
-      "/api/browser/propvals/typeOf/Source"
-    );
-    const sourceDcids = [];
-    for (const source of sourcePromise?.data?.values?.in) {
-      sourceDcids.push(source.dcid);
-    }
-    const sourceNamesPromise =
-      sourceDcids.length > 0
-        ? await axios.get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
-        : undefined;
-    const sourceMap = {};
-    for (const dcid in sourceNamesPromise?.data) {
-      sourceMap[sourceNamesPromise?.data[dcid][0]] = dcid;
-    }
-    this.setState({ sourceMap });
+    axios
+      .get("/api/browser/propvals/typeOf/Source")
+      .then((resp) => {
+        const sourceDcids = [];
+        for (const source of resp.data?.values?.in) {
+          sourceDcids.push(source.dcid);
+        }
+        if (sourceDcids.length === 0) {
+          return;
+        }
+        axios
+          .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
+          .then((resp) => {
+            const sourceMap = {};
+            for (const dcid in resp.data) {
+              sourceMap[resp.data[dcid][0]] = dcid;
+            }
+            this.setState({ sourceMap });
+          });
+      })
+      .catch(() => {
+        alert("Error fetching data.");
+      });
   }
 
   private toggleSvHierarchyModal(): void {

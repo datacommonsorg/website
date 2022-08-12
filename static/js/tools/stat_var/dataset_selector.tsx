@@ -136,7 +136,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
       }
       setActiveSuggestion(activeSuggestion - 1);
     } else if (e.key === "ArrowDown") {
-      if (activeSuggestion - 1 === filteredSuggestions.length) {
+      if (activeSuggestion + 1 === filteredSuggestions.length) {
         return;
       }
       setActiveSuggestion(activeSuggestion + 1);
