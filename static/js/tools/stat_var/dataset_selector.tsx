@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
 import { NamedPlace } from "../../shared/types";
