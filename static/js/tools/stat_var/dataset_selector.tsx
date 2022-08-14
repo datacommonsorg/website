@@ -15,7 +15,7 @@
  */
 
 /**
- * Component to select a source and dataset.
+ * Component to select a Source and Dataset.
  */
 
 import axios from "axios";
