@@ -878,7 +878,7 @@ class TestGetStatVarGroup(unittest.TestCase):
     @mock.patch('routes.api.stats.dc.get_statvar_group')
     def test_statvar_path(self, mock_result):
         expected_svg = 'dc/g/Root'
-        expected_places = ["geoId/06"]
+        expected_entities = ["geoId/06"]
         expected_result = {
             "absoluteName":
                 "Data Commons Variables",
@@ -893,15 +893,16 @@ class TestGetStatVarGroup(unittest.TestCase):
             }]
         }
 
-        def side_effect(svg, places):
-            if svg == expected_svg and places == expected_places:
+        def side_effect(svg, entities):
+            if svg == expected_svg and entities == expected_entities:
                 return expected_result
             else:
                 return {}
 
         mock_result.side_effect = side_effect
         response = app.test_client().get(
-            'api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/06')
+            'api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06'
+        )
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result == expected_result

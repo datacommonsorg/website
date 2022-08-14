@@ -42,11 +42,13 @@ interface StatVarWidgetPropsType {
   // Callback function when a list of stat vars are deselected
   deselectSVs: (svList: string[]) => void;
   // (Optional) A map of stat var dcid to their StatVarInfo for stat vars
-  // selected from parent componenet.
+  // selected from parent component.
   // For example, in timeline tool, these are stat vars parsed from URL.
   selectedSVs?: Record<string, StatVarInfo>;
   // Callback function when a stat var is selected
   selectSV?: (sv: string) => void;
+  // Whether to disable the alert when there are unavailable SVs.
+  disableAlert?: boolean;
 }
 
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
@@ -84,18 +86,20 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
           }
           if (!_.isEmpty(unavailableSVs)) {
             props.deselectSVs(unavailableSVs);
-            alert(
-              `Sorry, the selected variable${
-                unavailableSVs.length > 1 ? "s" : ""
-              } [${unavailableSVs
-                .map((sv) => props.selectedSVs[sv].title || sv)
-                .join(", ")}] ` +
-                `${
-                  unavailableSVs.length > 1 ? "are" : "is"
-                } not available for the chosen place${
-                  props.samplePlaces.length > 1 ? "s" : ""
-                }.`
-            );
+            if (!props.disableAlert) {
+              alert(
+                `Sorry, the selected variable${
+                  unavailableSVs.length > 1 ? "s" : ""
+                } [${unavailableSVs
+                  .map((sv) => props.selectedSVs[sv].title || sv)
+                  .join(", ")}] ` +
+                  `${
+                    unavailableSVs.length > 1 ? "are" : "is"
+                  } not available for the chosen place${
+                    props.samplePlaces.length > 1 ? "s" : ""
+                  }.`
+              );
+            }
           }
         });
     }

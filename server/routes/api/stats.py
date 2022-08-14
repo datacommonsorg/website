@@ -352,8 +352,8 @@ def get_statvar_group():
     var groups and parent stat var groups for the given stat var group node.
     """
     stat_var_group = request.args.get("stat_var_group")
-    places = request.args.getlist("places")
-    result = dc.get_statvar_group(stat_var_group, places)
+    entities = request.args.getlist("entities")
+    result = dc.get_statvar_group(stat_var_group, entities)
     if current_app.config["ENABLE_BLOCKLIST"]:
         childSVG = result.get("childStatVarGroups", [])
         filteredChildSVG = []
