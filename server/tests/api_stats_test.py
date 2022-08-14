@@ -901,7 +901,8 @@ class TestGetStatVarGroup(unittest.TestCase):
 
         mock_result.side_effect = side_effect
         response = app.test_client().get(
-            'api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06')
+            'api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06'
+        )
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result == expected_result
