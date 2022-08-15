@@ -1,4 +1,4 @@
-# ESP module.
+# ESP module
 
 This module provides the GCP resources related to setting up [ESP](https://cloud.google.com/endpoints/docs). The Data Commons API uses ESP to provide REST APIs over gRPC services.
 
