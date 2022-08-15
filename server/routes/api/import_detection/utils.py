@@ -14,7 +14,7 @@
 """Utility functions."""
 
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import frozendict
 import json
@@ -85,3 +85,27 @@ def read_json_data(filename) -> List[Dict[str, str]]:
         pathlib.Path(__file__).parent.resolve(), "data", filename)
     assert os.path.exists(filepath)
     return json.load(open(filepath, "r"))
+
+
+def check_list_instance(elements: List, element_type: Any) -> bool:
+    """Returns true if elements is of type List and elements are all of type
+    element_type."""
+    if not isinstance(elements, List):
+        return False
+    for elem in elements:
+        if not isinstance(elem, element_type):
+            return False
+
+    return True
+
+
+def check_dict_instance(d: Dict, key_type: Any, val_type: Any) -> bool:
+    """Returns true if map is of type Dict and keys are of type key_type
+    and values are of type val_type"""
+    if not isinstance(d, Dict):
+        return False
+    for key, val in d.items():
+        if not isinstance(key, key_type) or not isinstance(val, val_type):
+            return False
+
+    return True
