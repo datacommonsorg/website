@@ -1,4 +1,4 @@
-# API keys module.
+# API keys module
 
 This module provides the GCP resources related to setting up [API keys](https://cloud.google.com/docs/authentication/api-keys). The Data Commons website uses Google APIs such as the maps and places backend API to display location information.
 
