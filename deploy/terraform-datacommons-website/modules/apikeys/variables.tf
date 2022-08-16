@@ -16,31 +16,10 @@
 
 variable "project_id" {
   type        = string
-  description = "Project id of the GCP project where the website is to be set up."
+  description = "GCP project id where the API keys will be created."
 }
 
 variable "website_domain" {
   type        = string
   description = "Domain name that you own that will be used for the Data Commons website."
-}
-
-variable "storage_project_id" {
-  type        = string
-  description = "Project id of the GCP project id of an existing data storage project."
-}
-
-variable "brand_support_email" {
-  type        = string
-  description = "Branch support email."
-  default     = null
-}
-
-variable "web_user_members" {
-  type        =  list(string)
-  description = "List of users that are allowed to be authenticated in IAP."
-}
-
-variable "region" {
-  type        =  string
-  description = "GCP region where the cluster will be created in."
 }
