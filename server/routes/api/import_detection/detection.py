@@ -209,12 +209,11 @@ def detect():
     """Returns the detected column types and properties.
 
     Expected required parameters:
-        column_idx_order: List[int]. This is the ordered list of column indices. Indices are expected to be integers.
-        column_ids: Dict[int, str]. This is the mapping from column indices (int) to column ids (str).
-        column_headers: Dict[int, str]. This is the mapping from column indices (int) to column headers (str).
-        column_values: Dict[int, List[str]]. This is the mapping from column indices (int) to column values (List[str]).
+        column_ids: Dict[str, str]. This is the mapping from column indices (integers as str) to column ids (str).
+        column_headers: Dict[str, str]. This is the mapping from column indices (integers as str) to column headers (str).
+        column_values: Dict[str, List[str]]. This is the mapping from column indices (integers as str)to column values (List[str]).
     
-        All values (indices) in 'column_idx_order' are expected to be present as keys all the other maps. If a key is not
+        All keys in column_ids (indices) are expected to be present as keys all the other maps. If a key is not
         found, an error is returned. If any parameter is not of the expected format, an error is returned.
 
     Returns:
@@ -282,36 +281,29 @@ def detect():
     """
     # Parse and validate the query params.
     column_order: List[Column] = []
-    js = json.loads(request.get_json())
     try:
-        column_idx_order: List[int] = [int(v) for v in js["column_idx_order"]]
+        # Parsing the input dictionary keys as integers (for column indices).
         column_ids: Dict[int, str] = {
-            int(k): v for k, v in js["column_ids"].items()
+            int(k): v for k, v in request.json["column_ids"].items()
         }
         column_headers: Dict[int, str] = {
-            int(k): v for k, v in js["column_headers"].items()
+            int(k): v for k, v in request.json["column_headers"].items()
         }
         column_values: Dict[int, List[str]] = {
-            int(k): v for k, v in js["column_values"].items()
+            int(k): v for k, v in request.json["column_values"].items()
         }
 
-        if not column_idx_order or not column_ids or not column_headers or not column_values:
-            raise KeyError()
-
-        if not utils.check_list_instance(column_idx_order, int):
-            raise TypeError(
-                "column_idx_order must be a list of integers (column indices).")
         if not utils.check_dict_instance(column_ids, int, str):
             raise TypeError(
-                "column_ids must be a Dict mapping integers (column indices) to strings (column ids)."
+                "column_ids must be a Dict mapping integers provided as strings (column indices) to strings (column ids)."
             )
         if not utils.check_dict_instance(column_headers, int, str):
             raise TypeError(
-                "column_headers must be a Dict mapping integers (column indices) to strings (column headers)."
+                "column_headers must be a Dict mapping integers provided as strings (column indices) to strings (column headers)."
             )
         if not utils.check_dict_instance(column_values, int, List):
             raise TypeError(
-                "column_values must be a Dict mapping integers (column indices) to a list of strings (column values)."
+                "column_values must be a Dict mapping integers provided as strings (column indices) to a list of strings (column values)."
             )
 
         # Also check if all column values are of type str.
@@ -322,10 +314,10 @@ def detect():
                         "All provided column values must be of type string.")
 
         # Now convert the inputs to the Column type.
-        for col_idx in column_idx_order:
-            if not col_idx in column_ids or not col_idx in column_headers or not col_idx in column_values:
+        for col_idx in sorted(column_ids.keys()):
+            if not col_idx in column_headers or not col_idx in column_values:
                 raise AttributeError(
-                    "All column indices in column_idx_order must be found as keys in column_ids, column_headers and column_values"
+                    "All column indices in column_ids must be found as keys in column_headers and column_values"
                 )
             column_order.append(
                 Column(id=column_ids[col_idx],
@@ -341,9 +333,6 @@ def detect():
     except AttributeError as attrb_error:
         return f"AttributeError: {attrb_error.args[0]}", BAD_REQUEST_CODE
 
-    if not column_order:
-        return "Column metadata could not be parsed.", BAD_REQUEST_CODE
-
     return Response(detect_columns(column_order, column_values),
-                    200,
+                    SUCCESS_CODE,
                     mimetype='application/json')

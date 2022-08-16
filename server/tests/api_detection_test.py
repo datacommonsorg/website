@@ -24,7 +24,6 @@ class TestDetection(unittest.TestCase):
 
     def test_non_empty_response(self):
         req_dict = {
-            "column_idx_order": [0],
             "column_ids": {
                 0: "a"
             },
@@ -36,8 +35,7 @@ class TestDetection(unittest.TestCase):
             }
         }
         response = app.test_client().post("/api/detection/detect_columns",
-                                          json=json.dumps(req_dict,
-                                                          default=vars))
+                                          json=req_dict)
 
         expected_response = json.dumps(
             {
@@ -66,7 +64,6 @@ class TestDetection(unittest.TestCase):
     def test_empty_response(self):
         # This request should get no column detection.
         req_dict = {
-            "column_idx_order": [0],
             "column_ids": {
                 0: "a"
             },
@@ -78,15 +75,23 @@ class TestDetection(unittest.TestCase):
             }
         }
         response = app.test_client().post("/api/detection/detect_columns",
-                                          json=json.dumps(req_dict,
-                                                          default=vars))
+                                          json=req_dict)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data.decode("utf-8"), '{}')
+
+    def test_empty_response_with_empty_input(self):
+        # This request only has empty dictionaries. It should get no
+        # column detection but also return a 200 OK.
+        req_dict = {"column_ids": {}, "column_headers": {}, "column_values": {}}
+        response = app.test_client().post("/api/detection/detect_columns",
+                                          json=req_dict)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data.decode("utf-8"), '{}')
 
     def test_missing_required_param_assertion(self):
         req_dict = {
-            "column_idx_order": [0],
             "column_ids": {
                 0: "a"
             },
@@ -98,8 +103,7 @@ class TestDetection(unittest.TestCase):
             }
         }
         response = app.test_client().post("/api/detection/detect_columns",
-                                          json=json.dumps(req_dict,
-                                                          default=vars))
+                                          json=req_dict)
 
         # The base request gets 200 OK.
         self.assertEqual(response.status_code, 200)
@@ -109,8 +113,7 @@ class TestDetection(unittest.TestCase):
             req_copy = copy.deepcopy(req_dict)
             del req_copy[k]
             response = app.test_client().post("/api/detection/detect_columns",
-                                              json=json.dumps(req_copy,
-                                                              default=vars))
+                                              json=req_copy)
             self.assertEqual(response.status_code, 400)
 
     def test_wrong_format_assertions(self):
@@ -124,7 +127,6 @@ class TestDetection(unittest.TestCase):
         test_cases: List[TestHelper] = [
             TestHelper(name="no assertion",
                        input={
-                           "column_idx_order": [0],
                            "column_ids": {
                                0: "a",
                            },
@@ -139,7 +141,6 @@ class TestDetection(unittest.TestCase):
             TestHelper(
                 name="column_ids is a list",
                 input={
-                    "column_idx_order": [0],
                     "column_ids": {
                         0: ["a"],  # should not be a list.
                     },
@@ -154,7 +155,6 @@ class TestDetection(unittest.TestCase):
             TestHelper(
                 name="column_headers is a dict",
                 input={
-                    "column_idx_order": [0],
                     "column_ids": {
                         0: "a",
                     },
@@ -171,7 +171,6 @@ class TestDetection(unittest.TestCase):
             TestHelper(
                 name="column_values are not a list",
                 input={
-                    "column_idx_order": [0],
                     "column_ids": {
                         0: "a",
                     },
@@ -188,7 +187,6 @@ class TestDetection(unittest.TestCase):
             TestHelper(
                 name="column index not in column_values",
                 input={
-                    "column_idx_order": [0],
                     "column_ids": {
                         0: "a",
                     },
@@ -206,6 +204,5 @@ class TestDetection(unittest.TestCase):
 
         for tc in test_cases:
             response = app.test_client().post("/api/detection/detect_columns",
-                                              json=json.dumps(tc.input,
-                                                              default=vars))
+                                              json=tc.input)
             self.assertEqual(response.status_code, tc.expected)
