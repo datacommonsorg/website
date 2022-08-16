@@ -15,34 +15,34 @@
  */
 
 /**
- * Component to select a Source and Dataset.
+ * Component to select a source and dataset.
  */
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
-import { NamedPlace } from "../../shared/types";
+import { DATASET_PARAM, getUrlToken, SOURCE_PARAM, updateHash } from "./util";
 
 const CSS_PREFIX = "dataset-selector";
 const MAX_SUGGESTIONS = 5;
 
 interface DatasetSelectorProps {
-  // Filter StatVarHierarchy to stat vars that exist for the entities.
-  filterStatVars: (entities: NamedPlace[]) => void;
   // Map of source name to dcid.
   sourceMap: Record<string, string>;
 }
 
 /**
- * Remove non-alphanumeric characters and convert to lowercase.
+ * Removes non-alphanumeric characters and convert to lowercase.
  * @param s Input string
+ * @returns Formatted string
  */
 function simplify(s: string): string {
   return s.replace(/[^0-9a-z]/gi, "").toLowerCase();
 }
 
 export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
+  const searchRef = useRef(null);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const [datasets, setDatasets] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState(
@@ -51,25 +51,81 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState("");
 
-  function updateDatasets(source: string): void {
-    if (!(source in props.sourceMap)) {
+  useEffect(() => {
+    const handleHashChange = () => {
+      const source = getUrlToken(SOURCE_PARAM);
+      updateSource(source);
+      updateDatasets(source);
+    };
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent | TouchEvent) {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchRef]);
+
+  function updateSource(source: string) {
+    if (!source) {
+      setUserInput("");
       return;
     }
-    const dcid = props.sourceMap[source];
     axios
-      .get(`/api/browser/propvals/isPartOf/${dcid}`)
+      .get(`/api/stats/propvals/name/${source}`)
+      .then((resp) => {
+        setUserInput(
+          resp.data[source].length > 0 ? resp.data[source][0] : source
+        );
+      })
+      .catch(() => {
+        setUserInput("");
+      });
+  }
+
+  function updateDatasets(source: string): void {
+    if (!source) {
+      setDatasets([]);
+      return;
+    }
+    axios
+      .get(`/api/browser/propvals/isPartOf/${source}`)
       .then((resp) => {
         const currentDatasets = [];
+        const datasetSet = new Set();
         for (const dataset of resp.data?.values?.in) {
+          // Remove duplicates.
+          if (datasetSet.has(dataset.dcid)) {
+            continue;
+          }
           currentDatasets.push({
             dcid: dataset.dcid,
             name: dataset.name,
           });
+          datasetSet.add(dataset.dcid);
         }
         currentDatasets.sort((a, b): number => {
           return a.name.localeCompare(b.name);
         });
         setDatasets(currentDatasets);
+        const dataset = getUrlToken(DATASET_PARAM);
+        if (!dataset || !currentDatasets.some((d) => d.dcid === dataset)) {
+          return;
+        }
+        const datasetOption = document.getElementById(
+          `${CSS_PREFIX}-${dataset}`
+        );
+        datasetOption.setAttribute("selected", "true");
       })
       .catch(() => {
         setDatasets([]);
@@ -92,22 +148,22 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
       .map((s) => s.name)
       .slice(0, MAX_SUGGESTIONS);
     setFilteredSuggestions(newSuggestions);
+    if (activeSuggestion >= newSuggestions.length) {
+      setActiveSuggestion(newSuggestions.length - 1);
+    }
     setUserInput(e.currentTarget.value);
     setShowSuggestions(true);
   };
 
   const handleOnClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    const name = e.currentTarget.innerText;
+    const dcid = name in props.sourceMap ? props.sourceMap[name] : "";
     setActiveSuggestion(0);
     setFilteredSuggestions([]);
     setShowSuggestions(false);
-    setUserInput(e.currentTarget.innerText);
-    updateDatasets(e.currentTarget.innerText);
-    props.filterStatVars([
-      {
-        dcid: props.sourceMap[e.currentTarget.innerText],
-        name: e.currentTarget.innerText,
-      },
-    ]);
+    setUserInput(name);
+    updateDatasets(dcid);
+    updateHash({ [SOURCE_PARAM]: dcid, [DATASET_PARAM]: "" });
   };
 
   const handleOnKeyDown = (e: React.KeyboardEvent) => {
@@ -119,16 +175,13 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
       setShowSuggestions(false);
       if (userInput === "") {
         setDatasets([]);
-        props.filterStatVars([]);
+        updateHash({ [SOURCE_PARAM]: "", [DATASET_PARAM]: "" });
       } else {
-        setUserInput(filteredSuggestions[activeSuggestion]);
-        updateDatasets(filteredSuggestions[activeSuggestion]);
-        props.filterStatVars([
-          {
-            dcid: props.sourceMap[filteredSuggestions[activeSuggestion]],
-            name: filteredSuggestions[activeSuggestion],
-          },
-        ]);
+        const name = filteredSuggestions[activeSuggestion];
+        const dcid = name in props.sourceMap ? props.sourceMap[name] : "";
+        setUserInput(name);
+        updateDatasets(dcid);
+        updateHash({ [SOURCE_PARAM]: dcid, [DATASET_PARAM]: "" });
       }
     } else if (e.key === "ArrowUp") {
       if (activeSuggestion === 0) {
@@ -150,7 +203,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
           <div className={`${CSS_PREFIX}-main-selector`}>
             <div className={`${CSS_PREFIX}-section`}>
               <div className={`${CSS_PREFIX}-label`}>Show variables for</div>
-              <div className={`${CSS_PREFIX}-search`}>
+              <div className={`${CSS_PREFIX}-search`} ref={searchRef}>
                 <div className={`${CSS_PREFIX}-source-field`}>
                   <input
                     id={`${CSS_PREFIX}-ac`}
@@ -158,6 +211,9 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
                     type="text"
                     placeholder="Enter a source to filter by"
                     onChange={handleOnChange}
+                    onFocus={() => {
+                      setShowSuggestions(true);
+                    }}
                     onKeyDown={handleOnKeyDown}
                     value={userInput}
                   />
@@ -192,19 +248,18 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
               id={`${CSS_PREFIX}-custom-input`}
               type="select"
               onChange={(e) => {
-                const name = e.currentTarget.value
-                  ? e.currentTarget.innerText
-                  : userInput;
-                const dcid = e.currentTarget.value
-                  ? e.currentTarget.value
-                  : props.sourceMap[userInput];
-                props.filterStatVars([{ name, dcid }]);
+                const dcid = e.currentTarget.value ? e.currentTarget.value : "";
+                updateHash({ [DATASET_PARAM]: dcid });
               }}
             >
               <option value="">Select a dataset (optional)</option>
               {datasets.map((d) => {
                 return (
-                  <option value={d.dcid} key={d.dcid}>
+                  <option
+                    value={d.dcid}
+                    key={d.dcid}
+                    id={`${CSS_PREFIX}-${d.dcid}`}
+                  >
                     {d.name}
                   </option>
                 );

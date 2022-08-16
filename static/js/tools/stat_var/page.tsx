@@ -31,13 +31,27 @@ import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
+import {
+  DATASET_PARAM,
+  getUrlToken,
+  SOURCE_PARAM,
+  SV_PARAM,
+  updateHash,
+} from "./util";
+
+const SOURCE_PREFIX = "dc/s/";
+const DATASET_PREFIX = "dc/d/";
 
 interface PageStateType {
+  // DCID of selected dataset.
+  dataset: string;
   description: string;
   displayName: string;
-  // Sources/datasets to filter by.
-  entities: NamedPlace[];
+  // Sources/dataset to filter by.
+  entity: NamedPlace[];
   error: boolean;
+  // DCID of selected source.
+  source: string;
   // Map of source name to dcid.
   sourceMap: Record<string, string>;
   statVar: string;
@@ -51,10 +65,12 @@ class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
     this.state = {
+      dataset: "",
       description: "",
       displayName: "",
-      entities: [],
+      entity: [],
       error: false,
+      source: "",
       sourceMap: {},
       statVar: "",
       summary: { placeTypeSummary: {} },
@@ -65,10 +81,29 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   async componentDidMount(): Promise<void> {
-    window.onhashchange = () => {
-      this.fetchSummary();
+    const handleHashChange = () => {
+      const dataset = getUrlToken(DATASET_PARAM);
+      const source = getUrlToken(SOURCE_PARAM);
+      const sv = getUrlToken(SV_PARAM);
+      if (dataset && dataset !== this.state.dataset) {
+        this.updateEntity(dataset);
+      } else if (source !== this.state.source) {
+        if (dataset) {
+          // Changing a source should clear existing dataset.
+          updateHash({ [DATASET_PARAM]: "" });
+        } else {
+          this.updateEntity(source);
+        }
+      } else if (dataset !== this.state.dataset) {
+        // If dataset changes to empty, revert to full source.
+        this.updateEntity(source);
+      }
+      if (sv !== this.state.statVar) {
+        this.fetchSummary();
+      }
     };
-    this.fetchSummary();
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
     axios
       .get("/api/browser/propvals/typeOf/Source")
       .then((resp) => {
@@ -100,10 +135,6 @@ class Page extends Component<unknown, PageStateType> {
     });
   }
 
-  private filterStatVars = (entities: NamedPlace[]) => {
-    this.setState({ entities });
-  };
-
   render(): JSX.Element {
     const svs = this.state.statVar ? { [this.state.statVar]: {} } : {};
     return (
@@ -113,19 +144,16 @@ class Page extends Component<unknown, PageStateType> {
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
-          samplePlaces={this.state.entities}
-          deselectSVs={() => this.updateHash("")}
+          samplePlaces={this.state.entity}
+          deselectSVs={() => updateHash({ [SV_PARAM]: "" })}
           selectedSVs={svs}
-          selectSV={(sv) => this.updateHash(sv)}
+          selectSV={(sv) => updateHash({ [SV_PARAM]: sv })}
           disableAlert={true}
         />
         <div id="plot-container">
           <div className="container">
             <h1 className="mb-4">Statistical Variable Explorer</h1>
-            <DatasetSelector
-              filterStatVars={this.filterStatVars}
-              sourceMap={this.state.sourceMap}
-            />
+            <DatasetSelector sourceMap={this.state.sourceMap} />
             {!this.state.statVar && (
               <>
                 <Info />
@@ -167,12 +195,8 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
-  private updateHash(sv: string): void {
-    window.location.hash = `#${sv}`;
-  }
-
   private async fetchSummary(): Promise<void> {
-    const sv = window.location.hash.split("#")[1];
+    const sv = getUrlToken(SV_PARAM);
     if (!sv) {
       this.setState({
         description: "",
@@ -222,6 +246,35 @@ class Page extends Component<unknown, PageStateType> {
         this.setState({
           error: true,
           statVar: sv,
+        });
+      });
+  }
+
+  private async updateEntity(dcid: string): Promise<void> {
+    if (!dcid) {
+      this.setState({ entity: [] });
+      return;
+    }
+    axios
+      .get(`/api/stats/propvals/name/${dcid}`)
+      .then((resp) => {
+        const name = resp.data[dcid][0];
+        this.setState({
+          dataset: dcid.startsWith(DATASET_PREFIX) ? dcid : this.state.dataset,
+          entity: [
+            {
+              name,
+              dcid,
+            },
+          ],
+          source: dcid.startsWith(SOURCE_PREFIX) ? dcid : this.state.source,
+        });
+      })
+      .catch(() => {
+        this.setState({
+          dataset: "",
+          entity: [],
+          source: "",
         });
       });
   }
