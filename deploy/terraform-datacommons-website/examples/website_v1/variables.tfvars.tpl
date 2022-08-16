@@ -23,3 +23,8 @@ web_user_members =
 # GCP region where the cluster will be created in. 
 # Type: string
 region = 
+
+# The domain name you own that will be used for the Data Commons website.
+# Ex: "datacommons.org"
+# Type: string
+website_domain = 
