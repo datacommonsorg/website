@@ -51,32 +51,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState("");
 
-  useEffect(() => {
-    const handleHashChange = () => {
-      const source = getUrlToken(SOURCE_PARAM);
-      updateSource(source);
-      updateDatasets(source);
-    };
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent | TouchEvent) {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
-        setShowSuggestions(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [searchRef]);
-
-  function updateSource(source: string) {
+  function updateSource(source: string): void {
     if (!source) {
       setUserInput("");
       return;
@@ -131,6 +106,31 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
         setDatasets([]);
       });
   }
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const source = getUrlToken(SOURCE_PARAM);
+      updateSource(source);
+      updateDatasets(source);
+    };
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent | TouchEvent): void {
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchRef]);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value;

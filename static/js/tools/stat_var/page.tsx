@@ -263,8 +263,8 @@ class Page extends Component<unknown, PageStateType> {
           dataset: dcid.startsWith(DATASET_PREFIX) ? dcid : this.state.dataset,
           entity: [
             {
-              name,
               dcid,
+              name,
             },
           ],
           source: dcid.startsWith(SOURCE_PREFIX) ? dcid : this.state.source,
