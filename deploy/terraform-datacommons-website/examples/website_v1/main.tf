@@ -64,3 +64,22 @@ module "vpc" {
     module.enabled_google_apis
   ]
 }
+
+module "apikeys" {
+  source                   =  "../../modules/apikeys"
+  project_id               = var.project_id
+  website_domain           = var.website_domain
+
+  depends_on = [
+    module.enabled_google_apis
+  ]
+}
+
+module "esp" {
+  source                   =  "../../modules/esp"
+  project_id               = var.project_id
+
+  depends_on = [
+    module.enabled_google_apis
+  ]
+}
