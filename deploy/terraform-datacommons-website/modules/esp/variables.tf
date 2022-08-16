@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-output "vpc_network_name" {
-  value = module.vpc[0].network_name
+variable "project_id" {
+  type        = string
+  description = "GCP project id where the API keys will be created."
 }
 
-output "vpc_subnet_name" {
-  value =  module.vpc[0].subnets_secondary_ranges[0].*.range_name[1]
-}
-
-output "ip_range_pods" {
-  value =  module.vpc[0].subnets_secondary_ranges[0].*.range_name[0]
-}
-
-output "ip_range_services" {
-  value =  module.vpc[0].subnets_secondary_ranges[0].*.range_name[1]
+variable "mixer_grpc_pb_gcs_path" {
+  type        = string
+  description = "Full GCS path to mixer's compiled grpc protobuf definition."
+  default     = "gs://datcom-mixer-grpc/mixer-grpc/mixer-grpc.latest.pb"
 }

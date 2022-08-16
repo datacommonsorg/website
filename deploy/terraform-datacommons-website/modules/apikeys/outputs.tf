@@ -14,18 +14,7 @@
  * limitations under the License.
  */
 
-output "vpc_network_name" {
-  value = module.vpc[0].network_name
-}
-
-output "vpc_subnet_name" {
-  value =  module.vpc[0].subnets_secondary_ranges[0].*.range_name[1]
-}
-
-output "ip_range_pods" {
-  value =  module.vpc[0].subnets_secondary_ranges[0].*.range_name[0]
-}
-
-output "ip_range_services" {
-  value =  module.vpc[0].subnets_secondary_ranges[0].*.range_name[1]
+ output "map_api_key_secret_id" {
+  description = "Secret id of maps api key that can be referenced."
+  value       = google_secret_manager_secret.maps_api_key_secret.secret_id
 }
