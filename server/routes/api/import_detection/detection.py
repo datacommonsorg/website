@@ -213,8 +213,8 @@ def detect():
         column_headers: Dict[str, str]. This is the mapping from column indices (integers as str) to column headers (str).
         column_values: Dict[str, List[str]]. This is the mapping from column indices (integers as str)to column values (List[str]).
     
-        All keys in column_ids (indices) are expected to be present as keys all the other maps. If a key is not
-        found, an error is returned. If any parameter is not of the expected format, an error is returned.
+    All keys in column_ids (indices) are expected to be present as keys all the other maps. If a key is not
+    found, an error is returned. If any parameter is not of the expected format, an error is returned.
 
     Returns:
         A json response of the detected columns. Sample json response:
@@ -315,7 +315,7 @@ def detect():
 
         # Now convert the inputs to the Column type.
         for col_idx in sorted(column_ids.keys()):
-            if not col_idx in column_headers or not col_idx in column_values:
+            if col_idx not in column_headers or col_idx not in column_values:
                 raise AttributeError(
                     "All column indices in column_ids must be found as keys in column_headers and column_values"
                 )
