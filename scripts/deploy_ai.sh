@@ -25,6 +25,8 @@ if [[ $REGION == "" ]]; then
   REGION=$(yq eval '.region.primary' $ROOT/deploy/gke/$ENV.yaml)
 fi
 
+echo "Using $ROOT/deploy/gke/$ENV.yaml"
+
 PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
 PROJECT_NUMBER=$(gcloud projects list --filter="${PROJECT_ID}" --format="value(PROJECT_NUMBER)")
 
