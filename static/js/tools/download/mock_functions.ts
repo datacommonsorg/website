@@ -116,26 +116,26 @@ export function axios_mock(): void {
   // get root stat var group for places in geoId/06
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/06001&places=geoId/06002"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06001&entities=geoId/06002"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&places=geoId/06002&places=geoId/06001"
+      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06002&entities=geoId/06001"
     )
     .mockResolvedValue(rootGroupsData);
 
   // get demographics stat var group for places in geoId/06
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/06001&places=geoId/06002"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/06001&entities=geoId/06002"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&places=geoId/06002&places=geoId/06001"
+      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/06002&entities=geoId/06001"
     )
     .mockResolvedValue(demographicsGroupsData);
 

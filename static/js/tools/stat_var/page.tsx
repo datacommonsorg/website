@@ -22,15 +22,24 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
-import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
+import {
+  NamedPlace,
+  StatVarHierarchyType,
+  StatVarSummary,
+} from "../../shared/types";
 import { StatVarWidget } from "../shared/stat_var_widget";
+import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
 
 interface PageStateType {
   description: string;
   displayName: string;
+  // Sources/datasets to filter by.
+  entities: NamedPlace[];
   error: boolean;
+  // Map of source name to dcid.
+  sourceMap: Record<string, string>;
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
@@ -44,7 +53,9 @@ class Page extends Component<unknown, PageStateType> {
     this.state = {
       description: "",
       displayName: "",
+      entities: [],
       error: false,
+      sourceMap: {},
       statVar: "",
       summary: { placeTypeSummary: {} },
       urls: {},
@@ -58,6 +69,29 @@ class Page extends Component<unknown, PageStateType> {
       this.fetchSummary();
     };
     this.fetchSummary();
+    axios
+      .get("/api/browser/propvals/typeOf/Source")
+      .then((resp) => {
+        const sourceDcids = [];
+        for (const source of resp.data?.values?.in) {
+          sourceDcids.push(source.dcid);
+        }
+        if (sourceDcids.length === 0) {
+          return;
+        }
+        axios
+          .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
+          .then((resp) => {
+            const sourceMap = {};
+            for (const dcid in resp.data) {
+              sourceMap[resp.data[dcid][0]] = dcid;
+            }
+            this.setState({ sourceMap });
+          });
+      })
+      .catch(() => {
+        alert("Error fetching data.");
+      });
   }
 
   private toggleSvHierarchyModal(): void {
@@ -66,7 +100,12 @@ class Page extends Component<unknown, PageStateType> {
     });
   }
 
+  private filterStatVars = (entities: NamedPlace[]) => {
+    this.setState({ entities });
+  };
+
   render(): JSX.Element {
+    const svs = this.state.statVar ? { [this.state.statVar]: {} } : {};
     return (
       <>
         <StatVarWidget
@@ -74,13 +113,19 @@ class Page extends Component<unknown, PageStateType> {
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
-          samplePlaces={[]}
+          samplePlaces={this.state.entities}
           deselectSVs={() => this.updateHash("")}
-          selectedSVs={{ [this.state.statVar]: {} }}
+          selectedSVs={svs}
           selectSV={(sv) => this.updateHash(sv)}
+          disableAlert={true}
         />
         <div id="plot-container">
           <div className="container">
+            <h1 className="mb-4">Statistical Variable Explorer</h1>
+            <DatasetSelector
+              filterStatVars={this.filterStatVars}
+              sourceMap={this.state.sourceMap}
+            />
             {!this.state.statVar && (
               <>
                 <Info />
@@ -139,38 +184,46 @@ class Page extends Component<unknown, PageStateType> {
       });
       return;
     }
-    const [descriptionPromise, displayNamePromise, summaryPromise] =
-      await Promise.all([
-        axios.get(`/api/stats/propvals/description/${sv}`),
-        axios.get(`/api/stats/propvals/name/${sv}`),
-        axios.post("/api/stats/stat-var-summary", { statVars: [sv] }),
-      ]);
-    if (!displayNamePromise.data[sv].length) {
-      this.setState({
-        error: true,
-        statVar: sv,
+    const descriptionPromise = axios
+      .get(`/api/stats/propvals/description/${sv}`)
+      .then((resp) => resp.data);
+    const displayNamePromise = axios
+      .get(`/api/stats/propvals/name/${sv}`)
+      .then((resp) => resp.data);
+    const summaryPromise = axios
+      .post("/api/stats/stat-var-summary", { statVars: [sv] })
+      .then((resp) => resp.data);
+    Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
+      .then(([descriptionResult, displayNameResult, summaryResult]) => {
+        const provIds = [];
+        for (const provId in summaryResult[sv]?.provenanceSummary) {
+          provIds.push(provId);
+        }
+        if (provIds.length === 0) {
+          return;
+        }
+        axios
+          .get(`/api/stats/propvals/url/${provIds.join("^")}`)
+          .then((resp) => {
+            this.setState({
+              description:
+                descriptionResult[sv].length > 0
+                  ? descriptionResult[sv][0]
+                  : "",
+              displayName: displayNameResult[sv][0],
+              error: false,
+              statVar: sv,
+              summary: summaryResult[sv],
+              urls: resp.data,
+            });
+          });
+      })
+      .catch(() => {
+        this.setState({
+          error: true,
+          statVar: sv,
+        });
       });
-      return;
-    }
-    const provIds = [];
-    for (const provId in summaryPromise.data[sv]?.provenanceSummary) {
-      provIds.push(provId);
-    }
-    const urlsPromise =
-      provIds.length > 0
-        ? await axios.get(`/api/stats/propvals/url/${provIds.join("^")}`)
-        : undefined;
-    this.setState({
-      description:
-        descriptionPromise.data[sv].length > 0
-          ? descriptionPromise.data[sv][0]
-          : "",
-      displayName: displayNamePromise.data[sv][0],
-      error: false,
-      statVar: sv,
-      summary: summaryPromise.data[sv],
-      urls: urlsPromise?.data,
-    });
   }
 }
 

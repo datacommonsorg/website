@@ -233,7 +233,7 @@ export class StatVarHierarchy extends React.Component<
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     let url = `/api/stats/stat-var-group?stat_var_group=${ROOT_SVG}`;
     for (const place of this.props.places) {
-      url += `&places=${place.dcid}`;
+      url += `&entities=${place.dcid}`;
     }
     const allPromises: Promise<string[] | StatVarGroupInfo[]>[] = [];
     allPromises.push(
