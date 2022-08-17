@@ -212,7 +212,6 @@ def detect():
         column_ids: Dict[str, str]. This is the mapping from column indices (integers as str) to column ids (str).
         column_headers: Dict[str, str]. This is the mapping from column indices (integers as str) to column headers (str).
         column_values: Dict[str, List[str]]. This is the mapping from column indices (integers as str)to column values (List[str]).
-    
     All keys in column_ids (indices) are expected to be present as keys all the other maps. If a key is not
     found, an error is returned. If any parameter is not of the expected format, an error is returned.
 
