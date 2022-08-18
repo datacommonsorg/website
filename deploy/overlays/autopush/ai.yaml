@@ -1,1 +1,4 @@
-# No models defined.
+us-central1:
+  protocol: rest
+  endpoint_id: "2621578768245850112"
+  deployed_model_id: "3469851989075034112"
