@@ -18,9 +18,11 @@
  * Constants and functions shared across components.
  */
 
-export const DATASET_PARAM = "d";
-export const SOURCE_PARAM = "s";
-export const SV_PARAM = "sv";
+export const SV_URL_PARAMS = {
+  DATASET: "d",
+  SOURCE: "s",
+  STAT_VAR: "sv",
+};
 
 /**
  * Returns token for URL param.

@@ -18,183 +18,40 @@
  * Component to select a source and dataset.
  */
 
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
-import { DATASET_PARAM, getUrlToken, SOURCE_PARAM, updateHash } from "./util";
+import { NamedNode } from "../../shared/types";
+import { SV_URL_PARAMS, updateHash } from "./util";
 
 const CSS_PREFIX = "dataset-selector";
-const MAX_SUGGESTIONS = 5;
 
 interface DatasetSelectorProps {
-  // Map of source name to dcid.
-  sourceMap: Record<string, string>;
-}
-
-/**
- * Removes non-alphanumeric characters and convert to lowercase.
- * @param s Input string
- * @returns Formatted string
- */
-function simplify(s: string): string {
-  return s.replace(/[^0-9a-z]/gi, "").toLowerCase();
+  // DCID of currently selected dataset.
+  dataset: string;
+  // DCID and name of current datasets.
+  datasets: NamedNode[];
+  // DCID of currently selected source.
+  source: string;
+  // DCID and name of sources.
+  sources: NamedNode[];
 }
 
 export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
-  const searchRef = useRef(null);
-  const [activeSuggestion, setActiveSuggestion] = useState(0);
-  const [datasets, setDatasets] = useState([]);
-  const [filteredSuggestions, setFilteredSuggestions] = useState(
-    Object.keys(props.sourceMap)
-  );
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [userInput, setUserInput] = useState("");
-
-  function updateSource(source: string): void {
-    if (!source) {
-      setUserInput("");
-      return;
-    }
-    axios
-      .get(`/api/stats/propvals/name/${source}`)
-      .then((resp) => {
-        setUserInput(
-          resp.data[source].length > 0 ? resp.data[source][0] : source
-        );
-      })
-      .catch(() => {
-        setUserInput("");
-      });
-  }
-
-  function updateDatasets(source: string): void {
-    if (!source) {
-      setDatasets([]);
-      return;
-    }
-    axios
-      .get(`/api/browser/propvals/isPartOf/${source}`)
-      .then((resp) => {
-        const currentDatasets = [];
-        const datasetSet = new Set();
-        for (const dataset of resp.data?.values?.in) {
-          // Remove duplicates.
-          if (datasetSet.has(dataset.dcid)) {
-            continue;
-          }
-          currentDatasets.push({
-            dcid: dataset.dcid,
-            name: dataset.name,
-          });
-          datasetSet.add(dataset.dcid);
-        }
-        currentDatasets.sort((a, b): number => {
-          return a.name.localeCompare(b.name);
-        });
-        setDatasets(currentDatasets);
-        const dataset = getUrlToken(DATASET_PARAM);
-        if (!dataset || !currentDatasets.some((d) => d.dcid === dataset)) {
-          return;
-        }
-        const datasetOption = document.getElementById(
-          `${CSS_PREFIX}-${dataset}`
-        );
-        datasetOption.setAttribute("selected", "true");
-      })
-      .catch(() => {
-        setDatasets([]);
-      });
-  }
-
   useEffect(() => {
-    const handleHashChange = () => {
-      const source = getUrlToken(SOURCE_PARAM);
-      updateSource(source);
-      updateDatasets(source);
-    };
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent | TouchEvent): void {
-      if (searchRef.current && !searchRef.current.contains(e.target)) {
-        setShowSuggestions(false);
-      }
+    const sourceOption = document.getElementById(
+      `${CSS_PREFIX}-${props.source}`
+    );
+    const datasetOption = document.getElementById(
+      `${CSS_PREFIX}-${props.dataset}`
+    );
+    if (sourceOption) {
+      sourceOption.setAttribute("selected", "true");
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [searchRef]);
-
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.currentTarget.value;
-    const newSuggestions = Object.keys(props.sourceMap)
-      .map((s) => {
-        return {
-          name: s,
-          rank: simplify(s).indexOf(simplify(input)),
-        };
-      })
-      .sort((a, b): number => {
-        return a.rank - b.rank;
-      })
-      .filter((s) => s.rank > -1)
-      .map((s) => s.name)
-      .slice(0, MAX_SUGGESTIONS);
-    setFilteredSuggestions(newSuggestions);
-    if (activeSuggestion >= newSuggestions.length) {
-      setActiveSuggestion(newSuggestions.length - 1);
+    if (datasetOption) {
+      datasetOption.setAttribute("selected", "true");
     }
-    setUserInput(e.currentTarget.value);
-    setShowSuggestions(true);
-  };
-
-  const handleOnClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    const name = e.currentTarget.innerText;
-    const dcid = name in props.sourceMap ? props.sourceMap[name] : "";
-    setActiveSuggestion(0);
-    setFilteredSuggestions([]);
-    setShowSuggestions(false);
-    setUserInput(name);
-    updateDatasets(dcid);
-    updateHash({ [SOURCE_PARAM]: dcid, [DATASET_PARAM]: "" });
-  };
-
-  const handleOnKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      if (filteredSuggestions.length === 0) {
-        return;
-      }
-      setActiveSuggestion(0);
-      setShowSuggestions(false);
-      if (userInput === "") {
-        setDatasets([]);
-        updateHash({ [SOURCE_PARAM]: "", [DATASET_PARAM]: "" });
-      } else {
-        const name = filteredSuggestions[activeSuggestion];
-        const dcid = name in props.sourceMap ? props.sourceMap[name] : "";
-        setUserInput(name);
-        updateDatasets(dcid);
-        updateHash({ [SOURCE_PARAM]: dcid, [DATASET_PARAM]: "" });
-      }
-    } else if (e.key === "ArrowUp") {
-      if (activeSuggestion === 0) {
-        return;
-      }
-      setActiveSuggestion(activeSuggestion - 1);
-    } else if (e.key === "ArrowDown") {
-      if (activeSuggestion + 1 === filteredSuggestions.length) {
-        return;
-      }
-      setActiveSuggestion(activeSuggestion + 1);
-    }
-  };
+  }, [props]);
 
   return (
     <>
@@ -203,57 +60,44 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
           <div className={`${CSS_PREFIX}-main-selector`}>
             <div className={`${CSS_PREFIX}-section`}>
               <div className={`${CSS_PREFIX}-label`}>Show variables for</div>
-              <div className={`${CSS_PREFIX}-search`} ref={searchRef}>
-                <div className={`${CSS_PREFIX}-source-field`}>
-                  <input
-                    id={`${CSS_PREFIX}-ac`}
-                    className={`${CSS_PREFIX}-ac`}
-                    type="text"
-                    placeholder="Enter a source to filter by"
-                    onChange={handleOnChange}
-                    onFocus={() => {
-                      setShowSuggestions(true);
-                    }}
-                    onKeyDown={handleOnKeyDown}
-                    value={userInput}
-                  />
-                  <i className={`material-icons ${CSS_PREFIX}-search-icon`}>
-                    search
-                  </i>
-                </div>
-                {showSuggestions && userInput && (
-                  <ul className={`${CSS_PREFIX}-suggestions`}>
-                    {filteredSuggestions.map((s, i) => {
-                      let className: string;
-                      if (i === activeSuggestion) {
-                        className = `${CSS_PREFIX}-suggestion-active`;
-                      }
-                      return (
-                        <li
-                          className={className}
-                          onClick={handleOnClick}
-                          key={s}
-                        >
-                          {s}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
+              <CustomInput
+                id={`${CSS_PREFIX}-source-custom-input`}
+                className={`${CSS_PREFIX}-custom-input`}
+                type="select"
+                onChange={(e) => {
+                  const dcid = e.currentTarget.value
+                    ? e.currentTarget.value
+                    : "";
+                  updateHash({ [SV_URL_PARAMS.SOURCE]: dcid });
+                }}
+              >
+                <option value="">Select a source to filter by</option>
+                {props.sources.map((s) => {
+                  return (
+                    <option
+                      value={s.dcid}
+                      key={s.dcid}
+                      id={`${CSS_PREFIX}-${s.dcid}`}
+                    >
+                      {s.name}
+                    </option>
+                  );
+                })}
+              </CustomInput>
             </div>
           </div>
           <div className={`${CSS_PREFIX}-section`}>
             <CustomInput
-              id={`${CSS_PREFIX}-custom-input`}
+              id={`${CSS_PREFIX}-dataset-custom-input`}
+              className={`${CSS_PREFIX}-custom-input`}
               type="select"
               onChange={(e) => {
                 const dcid = e.currentTarget.value ? e.currentTarget.value : "";
-                updateHash({ [DATASET_PARAM]: dcid });
+                updateHash({ [SV_URL_PARAMS.DATASET]: dcid });
               }}
             >
               <option value="">Select a dataset (optional)</option>
-              {datasets.map((d) => {
+              {props.datasets.map((d) => {
                 return (
                   <option
                     value={d.dcid}

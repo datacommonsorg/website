@@ -23,7 +23,7 @@ import React, { Component } from "react";
 import { Button } from "reactstrap";
 
 import {
-  NamedPlace,
+  NamedNode,
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
@@ -31,29 +31,25 @@ import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
-import {
-  DATASET_PARAM,
-  getUrlToken,
-  SOURCE_PARAM,
-  SV_PARAM,
-  updateHash,
-} from "./util";
+import { getUrlToken, SV_URL_PARAMS, updateHash } from "./util";
 
-const SOURCE_PREFIX = "dc/s/";
-const DATASET_PREFIX = "dc/d/";
+const SVG_URL_PREFIX =
+  "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=";
 
 interface PageStateType {
   // DCID of selected dataset.
   dataset: string;
+  // DCID and name current datasets.
+  datasets: NamedNode[];
   description: string;
   displayName: string;
-  // Sources/dataset to filter by.
-  entity: NamedPlace[];
+  // Source/dataset to filter by.
+  entity: NamedNode[];
   error: boolean;
   // DCID of selected source.
   source: string;
-  // Map of source name to dcid.
-  sourceMap: Record<string, string>;
+  // DCID and name of sources.
+  sources: NamedNode[];
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
@@ -66,12 +62,13 @@ class Page extends Component<unknown, PageStateType> {
     super(props);
     this.state = {
       dataset: "",
+      datasets: [],
       description: "",
       displayName: "",
       entity: [],
       error: false,
       source: "",
-      sourceMap: {},
+      sources: [],
       statVar: "",
       summary: { placeTypeSummary: {} },
       urls: {},
@@ -82,24 +79,14 @@ class Page extends Component<unknown, PageStateType> {
 
   async componentDidMount(): Promise<void> {
     const handleHashChange = () => {
-      const dataset = getUrlToken(DATASET_PARAM);
-      const source = getUrlToken(SOURCE_PARAM);
-      const sv = getUrlToken(SV_PARAM);
-      if (dataset && dataset !== this.state.dataset) {
-        this.updateEntity(dataset);
-      } else if (source !== this.state.source) {
-        if (dataset) {
-          // Changing a source should clear existing dataset.
-          updateHash({ [DATASET_PARAM]: "" });
-        } else {
-          this.updateEntity(source);
-        }
-      } else if (dataset !== this.state.dataset) {
-        // If dataset changes to empty, revert to full source.
-        this.updateEntity(source);
+      const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
+      const source = getUrlToken(SV_URL_PARAMS.SOURCE);
+      const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
+      if (dataset !== this.state.dataset || source !== this.state.source) {
+        this.filterStatVars(source, dataset);
       }
       if (sv !== this.state.statVar) {
-        this.fetchSummary();
+        this.fetchSummary(sv);
       }
     };
     handleHashChange();
@@ -107,22 +94,41 @@ class Page extends Component<unknown, PageStateType> {
     axios
       .get("/api/browser/propvals/typeOf/Source")
       .then((resp) => {
-        const sourceDcids = [];
+        const sourcePromises = [];
         for (const source of resp.data?.values?.in) {
-          sourceDcids.push(source.dcid);
+          const url = SVG_URL_PREFIX + source.dcid;
+          sourcePromises.push(axios.get(url).then((resp) => resp));
         }
-        if (sourceDcids.length === 0) {
+        if (sourcePromises.length === 0) {
           return;
         }
-        axios
-          .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
-          .then((resp) => {
-            const sourceMap = {};
-            for (const dcid in resp.data) {
-              sourceMap[resp.data[dcid][0]] = dcid;
+        Promise.all(sourcePromises).then((sourceResults) => {
+          const sourceDcids = [];
+          for (const result of sourceResults) {
+            // Filter out all sources which have no stat vars in the main hierarchy (e.g. BMDC).
+            // TODO: Use ENTITY in schema to identify sources with stats
+            if (result.data.descendentStatVarCount) {
+              sourceDcids.push(
+                result?.config?.url.replace([SVG_URL_PREFIX], "")
+              );
             }
-            this.setState({ sourceMap });
-          });
+          }
+          if (sourceDcids.length === 0) {
+            return;
+          }
+          axios
+            .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
+            .then((resp) => {
+              const sources = [];
+              for (const dcid in resp.data) {
+                sources.push({
+                  dcid,
+                  name: resp.data[dcid][0],
+                });
+              }
+              this.setState({ sources });
+            });
+        });
       })
       .catch(() => {
         alert("Error fetching data.");
@@ -145,15 +151,20 @@ class Page extends Component<unknown, PageStateType> {
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
           samplePlaces={this.state.entity}
-          deselectSVs={() => updateHash({ [SV_PARAM]: "" })}
+          deselectSVs={() => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
           selectedSVs={svs}
-          selectSV={(sv) => updateHash({ [SV_PARAM]: sv })}
+          selectSV={(sv) => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
           disableAlert={true}
         />
         <div id="plot-container">
           <div className="container">
             <h1 className="mb-4">Statistical Variable Explorer</h1>
-            <DatasetSelector sourceMap={this.state.sourceMap} />
+            <DatasetSelector
+              dataset={this.state.dataset}
+              datasets={this.state.datasets}
+              source={this.state.source}
+              sources={this.state.sources}
+            />
             {!this.state.statVar && (
               <>
                 <Info />
@@ -195,8 +206,7 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
-  private async fetchSummary(): Promise<void> {
-    const sv = getUrlToken(SV_PARAM);
+  private async fetchSummary(sv: string): Promise<void> {
     if (!sv) {
       this.setState({
         description: "",
@@ -250,31 +260,70 @@ class Page extends Component<unknown, PageStateType> {
       });
   }
 
-  private async updateEntity(dcid: string): Promise<void> {
-    if (!dcid) {
-      this.setState({ entity: [] });
+  private async filterStatVars(source: string, dataset: string): Promise<void> {
+    if (!source) {
+      this.setState({
+        entity: [],
+        source: "",
+        dataset: "",
+        datasets: [],
+      });
       return;
     }
     axios
-      .get(`/api/stats/propvals/name/${dcid}`)
+      .get(`/api/browser/propvals/isPartOf/${source}`)
       .then((resp) => {
-        const name = resp.data[dcid][0];
-        this.setState({
-          dataset: dcid.startsWith(DATASET_PREFIX) ? dcid : this.state.dataset,
-          entity: [
-            {
-              dcid,
-              name,
-            },
-          ],
-          source: dcid.startsWith(SOURCE_PREFIX) ? dcid : this.state.source,
+        const currentDatasets = [];
+        const datasetSet = new Set();
+        for (const dataset of resp.data?.values?.in) {
+          // Remove duplicates.
+          if (datasetSet.has(dataset.dcid)) {
+            continue;
+          }
+          currentDatasets.push({
+            dcid: dataset.dcid,
+            name: dataset.name,
+          });
+          datasetSet.add(dataset.dcid);
+        }
+        currentDatasets.sort((a, b): number => {
+          return a.name.localeCompare(b.name);
         });
+        let dcid = source;
+        if (dataset && currentDatasets.some((d) => d.dcid === dataset)) {
+          dcid = dataset;
+        }
+        axios
+          .get(`/api/stats/propvals/name/${dcid}`)
+          .then((resp) => {
+            const name = resp.data[dcid][0];
+            this.setState({
+              dataset,
+              datasets: currentDatasets,
+              entity: [
+                {
+                  dcid,
+                  name,
+                },
+              ],
+              source,
+            });
+          })
+          .catch(() => {
+            this.setState({
+              entity: [],
+              source,
+              dataset,
+              datasets: currentDatasets,
+            });
+          });
       })
       .catch(() => {
         this.setState({
-          dataset: "",
           entity: [],
-          source: "",
+          source,
+          dataset,
+          datasets: [],
         });
       });
   }
