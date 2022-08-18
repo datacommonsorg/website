@@ -367,7 +367,7 @@ def supported_place_types_properties():
                         "display_name": "US State Alpha Code",
                     },
             },
-            ...     
+            ...
         ]
     """
     return Response(json.dumps(place_detector.supported_type_properties(),
