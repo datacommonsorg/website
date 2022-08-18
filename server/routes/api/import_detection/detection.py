@@ -13,12 +13,20 @@
 # limitations under the License.
 """Functions that manage all column detection."""
 
+from flask import Blueprint, request, Response
 from routes.api.import_detection.detection_types import Column, MappingVal, MappedThing, MappingType, TypeProperty
 from typing import Dict, List, Optional
 
 import json
 import routes.api.import_detection.place_detection as place_detector
 import routes.api.import_detection.date_detection as date_detector
+import routes.api.import_detection.utils as utils
+
+SUCCESS_CODE: int = 200
+BAD_REQUEST_CODE: int = 400
+
+# Define blueprint
+bp = Blueprint("detection", __name__, url_prefix='/api/detection')
 
 
 def _detect_date(col_order: List[Column],
@@ -194,3 +202,136 @@ def detect_columns(col_order: List[Column],
         mapping.update({MappedThing.DATE.value: d_detected})
 
     return json.dumps(mapping, default=vars)
+
+
+@bp.route('/detect_columns', methods=['POST'])
+def detect():
+    """Returns the detected column types and properties.
+
+    Expected required parameters:
+        column_ids: Dict[str, str]. This is the mapping from column indices (integers as str) to column ids (str).
+        column_headers: Dict[str, str]. This is the mapping from column indices (integers as str) to column headers (str).
+        column_values: Dict[str, List[str]]. This is the mapping from column indices (integers as str)to column values (List[str]).
+    All keys in column_ids (indices) are expected to be present as keys all the other maps. If a key is not
+    found, an error is returned. If any parameter is not of the expected format, an error is returned.
+
+    Returns:
+        A json response of the detected columns. Sample json response:
+
+        The json string is of the following form (examples):
+
+        Example # 1: Date is detected in one column.
+        [
+            Place: {
+                type : column,
+                column: None,
+                place_type: {
+                    dcid: Country,
+                    display_name: Country,
+                }
+                place_property: {
+                    dcid: isoCode,
+                    display_name: ISO Code,
+                },
+                headers: None,
+            },
+            Date: {
+                type : column,
+                place_type: None
+                place_property: None,
+                headers: None,
+            }
+        ]
+
+        Example # 2: Date is detected in column headers.
+        [
+            Place: {
+                type : column,
+                column: None,
+                place_type: {
+                    dcid: Country,
+                    display_name: Country,
+                }
+                place_property: {
+                    dcid: isoCode,
+                    display_name: ISO Code,
+                },
+                headers: None,
+            },
+            Date: {
+                type : column,
+                place_type: None,
+                place_property: None,
+                headers: [
+                    Column{
+                        id: name_0,
+                        header: name,
+                        column_idx: 0,
+                    },
+                    Column{
+                        id: name_name_1,
+                        header: name_name,
+                        column_idx: 1,
+                    },
+                    ...
+                ],
+            }
+        ]
+    """
+    # Parse and validate the query params.
+    column_order: List[Column] = []
+    try:
+        # Parsing the input dictionary keys as integers (for column indices).
+        column_ids: Dict[int, str] = {
+            int(k): v for k, v in request.json["column_ids"].items()
+        }
+        column_headers: Dict[int, str] = {
+            int(k): v for k, v in request.json["column_headers"].items()
+        }
+        column_values: Dict[int, List[str]] = {
+            int(k): v for k, v in request.json["column_values"].items()
+        }
+
+        if not utils.check_dict_instance(column_ids, int, str):
+            raise TypeError(
+                "column_ids must be a Dict mapping integers provided as strings (column indices) to strings (column ids)."
+            )
+        if not utils.check_dict_instance(column_headers, int, str):
+            raise TypeError(
+                "column_headers must be a Dict mapping integers provided as strings (column indices) to strings (column headers)."
+            )
+        if not utils.check_dict_instance(column_values, int, List):
+            raise TypeError(
+                "column_values must be a Dict mapping integers provided as strings (column indices) to a list of strings (column values)."
+            )
+
+        # Also check if all column values are of type str.
+        for _, vals in column_values.items():
+            for v in vals:
+                if not isinstance(v, str):
+                    raise TypeError(
+                        "All provided column values must be of type string.")
+
+        # Now convert the inputs to the Column type.
+        for col_idx in sorted(column_ids.keys()):
+            if col_idx not in column_headers or col_idx not in column_values:
+                raise AttributeError(
+                    "All column indices in column_ids must be found as keys in column_headers and column_values"
+                )
+            column_order.append(
+                Column(id=column_ids[col_idx],
+                       header=column_headers[col_idx],
+                       column_idx=col_idx))
+
+    except KeyError as key_error:
+        return f"TypeError: Missing request parameter {key_error.args[0]}", BAD_REQUEST_CODE
+
+    except TypeError as type_error:
+        return f"TypeError: Incorrect request parameter type: {type_error.args[0]}", BAD_REQUEST_CODE
+
+    except AttributeError as attrb_error:
+        return f"AttributeError: {attrb_error.args[0]}", BAD_REQUEST_CODE
+
+    return Response(detect_columns(column_order, column_values),
+                    SUCCESS_CODE,
+                    mimetype='application/json')
