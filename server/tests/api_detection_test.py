@@ -22,6 +22,48 @@ from typing import Any, List
 
 class TestDetection(unittest.TestCase):
 
+    def test_place_type_properties(self):
+        response = app.test_client().get(
+            "/api/detection/supported_place_properties")
+        self.assertEqual(response.status_code, 200)
+
+        response_type_prop_list = json.loads(response.data.decode("utf-8"))
+        self.assertEqual(len(response_type_prop_list), 8)
+
+        # Check that two of the elements below are in the response.
+        expected_element_1 = {
+            "dc_type": {
+                "dcid": "Country",
+                "display_name": "Country"
+            },
+            "dc_property": {
+                "dcid": "name",
+                "display_name": "Name"
+            },
+        }
+        self.assertTrue(expected_element_1 in response_type_prop_list)
+
+        expected_element_2 = {
+            "dc_type": {
+                "dcid": "State",
+                "display_name": "State"
+            },
+            "dc_property": {
+                "dcid": "geoId",
+                "display_name": "FIPS Code"
+            },
+        }
+        self.assertTrue(expected_element_2 in response_type_prop_list)
+
+        # Check that the dc_type field only has "Country" and "State".
+        dc_types = set()
+        for tp in response_type_prop_list:
+            dc_types.add(tp["dc_type"]["dcid"])
+
+        self.assertEqual(len(dc_types), 2)
+        self.assertTrue("Country" in dc_types)
+        self.assertTrue("State" in dc_types)
+
     def test_non_empty_response(self):
         req_dict = {
             "column_ids": {
