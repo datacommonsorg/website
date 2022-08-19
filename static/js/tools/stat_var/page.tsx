@@ -87,11 +87,11 @@ class Page extends Component<unknown, PageStateType> {
     if (sv !== this.state.statVar) {
       this.fetchSummary(sv);
     }
-  }
+  };
 
   async componentDidMount(): Promise<void> {
-    this.handleHashChange();
     window.addEventListener("hashchange", this.handleHashChange);
+    this.handleHashChange();
     axios
       .get("/api/browser/propvals/typeOf/Source")
       .then((resp) => {

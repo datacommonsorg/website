@@ -64,7 +64,10 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
             type="select"
             onChange={(e) => {
               const dcid = e.currentTarget.value ? e.currentTarget.value : "";
-              updateHash({ [SV_URL_PARAMS.SOURCE]: dcid });
+              updateHash({
+                [SV_URL_PARAMS.SOURCE]: dcid,
+                [SV_URL_PARAMS.DATASET]: "",
+              });
             }}
           >
             <option value="">Select a source to filter by</option>
