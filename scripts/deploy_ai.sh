@@ -25,6 +25,8 @@ if [[ $REGION == "" ]]; then
   REGION=$(yq eval '.region.primary' $ROOT/deploy/gke/$ENV.yaml)
 fi
 
+echo "Using $ROOT/deploy/gke/$ENV.yaml"
+
 PROJECT_ID=$(yq eval '.project' $ROOT/deploy/gke/$ENV.yaml)
 PROJECT_NUMBER=$(gcloud projects list --filter="${PROJECT_ID}" --format="value(PROJECT_NUMBER)")
 
@@ -62,8 +64,8 @@ gcloud beta ai endpoints create \
     --network="projects/${PROJECT_NUMBER}/global/networks/${NETWORK_NAME}" \
     --display-name="${VERTEX_ENDPOINT_NAME}"
 
-ENDPOINT_ID=$(gcloud ai endpoints list --project="${PROJECT_ID}" --region="${REGION}" --filter "display_name=${VERTEX_ENDPOINT_NAME}" --format="value(ENDPOINT_ID.scope())")
-MODEL_ID=$(gcloud ai models list --project="${PROJECT_ID}" --region="${REGION}" --filter "display_name=${VERTEX_MODEL_NAME}" --format="value(MODEL_ID.scope())")
+ENDPOINT_ID=$(gcloud beta ai endpoints list --project="${PROJECT_ID}" --region="${REGION}" --filter "display_name=${VERTEX_ENDPOINT_NAME}" --format="value(ENDPOINT_ID.scope())")
+MODEL_ID=$(gcloud beta ai models list --project="${PROJECT_ID}" --region="${REGION}" --filter "display_name=${VERTEX_MODEL_NAME}" --format="value(MODEL_ID.scope())")
 
 gcloud beta ai endpoints deploy-model "${ENDPOINT_ID}" \
     --project="${PROJECT_ID}" \
