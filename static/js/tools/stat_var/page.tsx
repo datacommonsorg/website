@@ -78,19 +78,8 @@ class Page extends Component<unknown, PageStateType> {
   }
 
   async componentDidMount(): Promise<void> {
-    const handleHashChange = () => {
-      const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
-      const source = getUrlToken(SV_URL_PARAMS.SOURCE);
-      const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
-      if (dataset !== this.state.dataset || source !== this.state.source) {
-        this.filterStatVars(source, dataset);
-      }
-      if (sv !== this.state.statVar) {
-        this.fetchSummary(sv);
-      }
-    };
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("hashchange", this.handleHashChange);
+    this.handleHashChange();
     axios
       .get("/api/browser/propvals/typeOf/Source")
       .then((resp) => {
@@ -206,59 +195,17 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
-  private async fetchSummary(sv: string): Promise<void> {
-    if (!sv) {
-      this.setState({
-        description: "",
-        displayName: "",
-        error: false,
-        statVar: "",
-        summary: { placeTypeSummary: {} },
-        urls: {},
-      });
-      return;
+  private handleHashChange(): void {
+    const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
+    const source = getUrlToken(SV_URL_PARAMS.SOURCE);
+    const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
+    if (dataset !== this.state.dataset || source !== this.state.source) {
+      this.filterStatVars(source, dataset);
     }
-    const descriptionPromise = axios
-      .get(`/api/stats/propvals/description/${sv}`)
-      .then((resp) => resp.data);
-    const displayNamePromise = axios
-      .get(`/api/stats/propvals/name/${sv}`)
-      .then((resp) => resp.data);
-    const summaryPromise = axios
-      .post("/api/stats/stat-var-summary", { statVars: [sv] })
-      .then((resp) => resp.data);
-    Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
-      .then(([descriptionResult, displayNameResult, summaryResult]) => {
-        const provIds = [];
-        for (const provId in summaryResult[sv]?.provenanceSummary) {
-          provIds.push(provId);
-        }
-        if (provIds.length === 0) {
-          return;
-        }
-        axios
-          .get(`/api/stats/propvals/url/${provIds.join("^")}`)
-          .then((resp) => {
-            this.setState({
-              description:
-                descriptionResult[sv].length > 0
-                  ? descriptionResult[sv][0]
-                  : "",
-              displayName: displayNameResult[sv][0],
-              error: false,
-              statVar: sv,
-              summary: summaryResult[sv],
-              urls: resp.data,
-            });
-          });
-      })
-      .catch(() => {
-        this.setState({
-          error: true,
-          statVar: sv,
-        });
-      });
-  }
+    if (sv !== this.state.statVar) {
+      this.fetchSummary(sv);
+    }
+  };
 
   private async filterStatVars(source: string, dataset: string): Promise<void> {
     if (!source) {
@@ -324,6 +271,60 @@ class Page extends Component<unknown, PageStateType> {
           source,
           dataset,
           datasets: [],
+        });
+      });
+  }
+
+  private async fetchSummary(sv: string): Promise<void> {
+    if (!sv) {
+      this.setState({
+        description: "",
+        displayName: "",
+        error: false,
+        statVar: "",
+        summary: { placeTypeSummary: {} },
+        urls: {},
+      });
+      return;
+    }
+    const descriptionPromise = axios
+      .get(`/api/stats/propvals/description/${sv}`)
+      .then((resp) => resp.data);
+    const displayNamePromise = axios
+      .get(`/api/stats/propvals/name/${sv}`)
+      .then((resp) => resp.data);
+    const summaryPromise = axios
+      .post("/api/stats/stat-var-summary", { statVars: [sv] })
+      .then((resp) => resp.data);
+    Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
+      .then(([descriptionResult, displayNameResult, summaryResult]) => {
+        const provIds = [];
+        for (const provId in summaryResult[sv]?.provenanceSummary) {
+          provIds.push(provId);
+        }
+        if (provIds.length === 0) {
+          return;
+        }
+        axios
+          .get(`/api/stats/propvals/url/${provIds.join("^")}`)
+          .then((resp) => {
+            this.setState({
+              description:
+                descriptionResult[sv].length > 0
+                  ? descriptionResult[sv][0]
+                  : "",
+              displayName: displayNameResult[sv][0],
+              error: false,
+              statVar: sv,
+              summary: summaryResult[sv],
+              urls: resp.data,
+            });
+          });
+      })
+      .catch(() => {
+        this.setState({
+          error: true,
+          statVar: sv,
         });
       });
   }
