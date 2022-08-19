@@ -57,59 +57,51 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     <>
       <Card className={`${CSS_PREFIX}-card`}>
         <Container fluid={true} className={`${CSS_PREFIX}-container`}>
-          <div className={`${CSS_PREFIX}-main-selector`}>
-            <div className={`${CSS_PREFIX}-section`}>
-              <div className={`${CSS_PREFIX}-label`}>Show variables for</div>
-              <CustomInput
-                id={`${CSS_PREFIX}-source-custom-input`}
-                className={`${CSS_PREFIX}-custom-input`}
-                type="select"
-                onChange={(e) => {
-                  const dcid = e.currentTarget.value
-                    ? e.currentTarget.value
-                    : "";
-                  updateHash({ [SV_URL_PARAMS.SOURCE]: dcid });
-                }}
-              >
-                <option value="">Select a source to filter by</option>
-                {props.sources.map((s) => {
-                  return (
-                    <option
-                      value={s.dcid}
-                      key={s.dcid}
-                      id={`${CSS_PREFIX}-${s.dcid}`}
-                    >
-                      {s.name}
-                    </option>
-                  );
-                })}
-              </CustomInput>
-            </div>
-          </div>
-          <div className={`${CSS_PREFIX}-section`}>
-            <CustomInput
-              id={`${CSS_PREFIX}-dataset-custom-input`}
-              className={`${CSS_PREFIX}-custom-input`}
-              type="select"
-              onChange={(e) => {
-                const dcid = e.currentTarget.value ? e.currentTarget.value : "";
-                updateHash({ [SV_URL_PARAMS.DATASET]: dcid });
-              }}
-            >
-              <option value="">Select a dataset (optional)</option>
-              {props.datasets.map((d) => {
-                return (
-                  <option
-                    value={d.dcid}
-                    key={d.dcid}
-                    id={`${CSS_PREFIX}-${d.dcid}`}
-                  >
-                    {d.name}
-                  </option>
-                );
-              })}
-            </CustomInput>
-          </div>
+          <div className={`${CSS_PREFIX}-label`}>Show variables for</div>
+          <CustomInput
+            id={`${CSS_PREFIX}-source-custom-input`}
+            className={`${CSS_PREFIX}-custom-input`}
+            type="select"
+            onChange={(e) => {
+              const dcid = e.currentTarget.value ? e.currentTarget.value : "";
+              updateHash({ [SV_URL_PARAMS.SOURCE]: dcid });
+            }}
+          >
+            <option value="">Select a source to filter by</option>
+            {props.sources.map((s) => {
+              return (
+                <option
+                  value={s.dcid}
+                  key={s.dcid}
+                  id={`${CSS_PREFIX}-${s.dcid}`}
+                >
+                  {s.name}
+                </option>
+              );
+            })}
+          </CustomInput>
+          <CustomInput
+            id={`${CSS_PREFIX}-dataset-custom-input`}
+            className={`${CSS_PREFIX}-custom-input`}
+            type="select"
+            onChange={(e) => {
+              const dcid = e.currentTarget.value ? e.currentTarget.value : "";
+              updateHash({ [SV_URL_PARAMS.DATASET]: dcid });
+            }}
+          >
+            <option value="">Select a dataset (optional)</option>
+            {props.datasets.map((d) => {
+              return (
+                <option
+                  value={d.dcid}
+                  key={d.dcid}
+                  id={`${CSS_PREFIX}-${d.dcid}`}
+                >
+                  {d.name}
+                </option>
+              );
+            })}
+          </CustomInput>
         </Container>
       </Card>
     </>
