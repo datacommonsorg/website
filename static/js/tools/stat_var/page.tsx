@@ -77,9 +77,21 @@ class Page extends Component<unknown, PageStateType> {
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
+  private handleHashChange = () => {
+    const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
+    const source = getUrlToken(SV_URL_PARAMS.SOURCE);
+    const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
+    if (dataset !== this.state.dataset || source !== this.state.source) {
+      this.filterStatVars(source, dataset);
+    }
+    if (sv !== this.state.statVar) {
+      this.fetchSummary(sv);
+    }
+  }
+
   async componentDidMount(): Promise<void> {
-    window.addEventListener("hashchange", this.handleHashChange);
     this.handleHashChange();
+    window.addEventListener("hashchange", this.handleHashChange);
     axios
       .get("/api/browser/propvals/typeOf/Source")
       .then((resp) => {
@@ -194,18 +206,6 @@ class Page extends Component<unknown, PageStateType> {
       </>
     );
   }
-
-  private handleHashChange(): void {
-    const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
-    const source = getUrlToken(SV_URL_PARAMS.SOURCE);
-    const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
-    if (dataset !== this.state.dataset || source !== this.state.source) {
-      this.filterStatVars(source, dataset);
-    }
-    if (sv !== this.state.statVar) {
-      this.fetchSummary(sv);
-    }
-  };
 
   private async filterStatVars(source: string, dataset: string): Promise<void> {
     if (!source) {
