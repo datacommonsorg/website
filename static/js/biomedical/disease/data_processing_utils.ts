@@ -22,7 +22,7 @@ import {
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
-} from "./chart";
+} from "./types";
 /**
  * Fetches the disease-gene association data
  * @param data - the data pertaining to the disease of interest
@@ -89,6 +89,7 @@ export function getDiseaseGeneAssociation(
   }
   return rawData;
 }
+
 /**
  * Fetches the disease-symptom association data
  * @param data

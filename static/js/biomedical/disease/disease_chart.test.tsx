@@ -4,12 +4,6 @@ import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
 import { GraphNodes } from "../../shared/types";
-import {
-  CompoundDiseaseContraindicationData,
-  CompoundDiseaseTreatmentData,
-  DiseaseGeneAssociationData,
-  DiseaseSymptomAssociationData,
-} from "./chart";
 import dataDOID2403 from "./data_DOID_2403.json";
 import {
   getCompoundDiseaseContraindication,
@@ -17,6 +11,12 @@ import {
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
+import {
+  CompoundDiseaseContraindicationData,
+  CompoundDiseaseTreatmentData,
+  DiseaseGeneAssociationData,
+  DiseaseSymptomAssociationData,
+} from "./types";
 
 test("getDiseaseGeneAssociation", () => {
   const cases: {

@@ -24,6 +24,10 @@ import {
   MARGIN,
   NUM_DATA_POINTS,
 } from "../bio_charts_utils";
+import {
+  DiseaseGeneAssociationData,
+  DiseaseSymptomAssociationData,
+} from "./types";
 // graph specific dimensions
 const GRAPH_HEIGHT = 400;
 const GRAPH_WIDTH = 760;
@@ -35,60 +39,6 @@ const LEGEND_CIRCLE_RADIUS = 4;
 const ERROR_BAR_CAP_LENGTH = 10;
 
 //TODO: Create a type.ts file and move all interfaces there
-export interface DiseaseGeneAssociationData {
-  // name of the associated gene
-  name: string;
-  // confidence score
-  score: number;
-  // lower confidence value = score - (interval/2)
-  lowerInterval: number;
-  // upper confidence value = score + (interval/2)
-  upperInterval: number;
-}
-
-export interface DiseaseSymptomAssociationData {
-  // name of the symptom
-  name: string;
-  // odds Ratio for association
-  oddsRatio: number;
-}
-
-export interface CompoundDiseaseTreatmentData {
-  // node name and link
-  node: string;
-  // chemical compound id
-  id: string;
-  // chemical compound name
-  name: string;
-  // FDA clinical phase for which the compound has been studied
-  clinicalPhaseNumber: number;
-}
-
-export interface CompoundDiseaseContraindicationData {
-  // node name
-  node: string;
-  // chemical compound id
-  id: string;
-  // chemical compound name
-  name: string;
-  // drug central source name
-  drugSource: string;
-}
-
-export interface ChemicalCompoundDataType {
-  // node name
-  node: string;
-  // chemical compound id
-  id: string;
-  // chemical compound name
-  name: string;
-  // drug central source name
-  drugSource: string;
-  // FDA clinical phase for which the compound has been studied
-  clinicalPhaseNumber: number;
-  // chemical compound association type
-  type: string;
-}
 
 /**
  * Draws the disease-gene association charts for the disease of interest

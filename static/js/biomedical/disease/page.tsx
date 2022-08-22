@@ -35,6 +35,7 @@ import {
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
 import { DrugTreatmentTable } from "./drug_table";
+
 export interface PagePropType {
   dcid: string;
   nodeName: string;
