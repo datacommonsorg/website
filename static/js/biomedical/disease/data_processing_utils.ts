@@ -289,9 +289,9 @@ export function getCompoundDiseaseContraindication(
 /**
  * Fetches the common name of the disease of interest
  * @param data
- * @returns - string with disease common name 
+ * @returns - string with disease common name
  */
- export function getDiseaseCommonName(data: GraphNodes): string {
+export function getDiseaseCommonName(data: GraphNodes): string {
   let commonName = null;
   if (!data) {
     return;
@@ -309,7 +309,10 @@ export function getCompoundDiseaseContraindication(
       continue;
     }
     commonName = neighbour.nodes[0].value;
-    return commonName;
+    // capitalize the first letter of the disease name
+    const formattedDiseaseName =
+      commonName[1].toUpperCase() + commonName.slice(2);
+    // return formatted disease name with double quotes removed
+    return formattedDiseaseName.replaceAll('"', "");
   }
 }
-
