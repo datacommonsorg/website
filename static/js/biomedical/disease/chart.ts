@@ -63,6 +63,33 @@ export interface CompoundDiseaseTreatmentData {
   // FDA clinical phase for which the compound has been studied
   clinicalPhaseNumber: number;
 }
+
+export interface CompoundDiseaseContraindicationData {
+  // node name
+  node: string;
+  // chemical compound id
+  id: string;
+  // chemical compound name
+  name: string;
+  // drug central source name
+  drugSource: string;
+}
+
+export interface ChemicalCompoundDataType {
+  // node name
+  node: string;
+  // chemical compound id
+  id: string;
+  // chemical compound name
+  name: string;
+  // drug central source name
+  drugSource: string;
+  // FDA clinical phase for which the compound has been studied
+  clinicalPhaseNumber: number;
+  // chemical compound association type
+  type: string;
+}
+
 /**
  * Draws the disease-gene association charts for the disease of interest
  * @param id - the div id where the chart is rendered on the page
