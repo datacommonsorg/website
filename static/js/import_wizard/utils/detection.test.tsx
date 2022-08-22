@@ -15,10 +15,7 @@
  */
 import _, { split } from "lodash";
 
-import {
-  Mapping,
-  TypeProperty,
-} from "../types";
+import { Mapping, TypeProperty } from "../types";
 import * as detection from "./detection";
 
 // Detection API Response tests.
