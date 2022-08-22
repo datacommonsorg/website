@@ -147,16 +147,16 @@ test("getCompoundDiseaseContraindication", () => {
       data: dataDOID2403 as GraphNodes,
       wantArray: [
         {
-          drugSource: "drug matrix",
-          id: "CHEMBL960",
-          name: "leflunomide",
-          node: "bio/CCiD_CHEMBL960_DOID_2043",
-        },
-        {
-          drugSource: "chembl",
+          node: "bio/CCiD_CHEMBL1200733_DOID_2043",
           id: "CHEMBL1200733",
           name: "desflurane",
-          node: "bio/CCiD_CHEMBL1200733_DOID_2043",
+          drugSource: "chembl",
+        },
+        {
+          node: "bio/CCiD_CHEMBL960_DOID_2043",
+          id: "CHEMBL960",
+          name: "leflunomide",
+          drugSource: "drug matrix",
         },
       ],
     },

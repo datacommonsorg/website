@@ -70,7 +70,6 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
     const chemicalCompoundDiseaseContraindication =
       getCompoundDiseaseContraindication(this.state.data);
-
     const diseaseTreatmentColumns = [
       { id: "node", name: "Parent Node" },
       { id: "id", name: "Compound ID" },
