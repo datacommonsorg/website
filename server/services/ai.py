@@ -206,33 +206,11 @@ def _delexicalize_query(query: str,
     return ''.join(output)
 
 
-# This matches the cache builder logic.
-_KEY_NORMALIZATION = {
-    "measurementDenominator": "md",
-    "measurementQualifier": "mq",
-    "measuredProperty": "mp",
-    "populationType": "pt",
-    "statType": "st",
-}
-
-# Sometimes we need to normalize also values.
-_VALUE_NORMALIZATION = {
-    'phds': 'DoctorateDegree',
-}
-
-
 def _build_query(query: str, key_values: Iterator[Tuple[str, str]]) -> str:
     del query  # unused
-    terms = []
-    for key, value in key_values:
-        # We skip high frequency keys that are always present for all the variables.
-        if key not in _KEY_NORMALIZATION.values():
-            terms.append(f'k:"{key}"')
-        terms.append(f'v:"{value}"')
-        terms.append(f'sn:"{value}"')
-    query = " ".join(terms)
-    logging.info("Using the following query for match API: %s", query)
-    return query
+    search_query = ' '.join([f"{k} {v}" for k, v in key_values])
+    logging.info("Using the following query for match API: %s", search_query)
+    return search_query
 
 
 def _parse_model_response(
@@ -244,10 +222,11 @@ def _parse_model_response(
         score = math.exp(raw_score)
         if score < min_score:
             continue
-        for raw_key, raw_value in _iterate_property_value(prediction,
-                                                          exclude='place'):
-            key = _KEY_NORMALIZATION.get(raw_key, raw_key)
-            value = _VALUE_NORMALIZATION.get(raw_value.lower(), raw_value)
+        for key, value in _iterate_property_value(prediction,
+                                                  exclude=('place', 'topics')):
+            # Apparently these are not considered. It looks like this is a default?
+            if key == "statType" and value == "measuredValue":
+                continue
             property_values.add((key, value))
     return list(sorted(property_values))
 
@@ -283,7 +262,7 @@ def search(context: Context, query: str) -> Sequence[Mapping[str, str]]:
     for match in matches["matchInfo"]:
         debug_lines.append(f"# ID: {match['statVar']}")
         debug_lines.append(f"# Statvar: {match['statVarName']}")
-        debug_lines.append(f"# Score: {match['score']}")
+        debug_lines.append(f"# Score: {match.get('score', 'n/a')}")
         debug_lines.append(f"# Explanation: {match['explanation']}")
 
     response = {

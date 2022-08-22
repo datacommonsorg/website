@@ -45,13 +45,15 @@ class WebdriverBaseTest(LiveServerTestCase):
         app_instance.config['LIVESERVER_PORT'] = 0
         return app_instance
 
-    def setUp(self):
+    def setUp(self, preferences=None):
         """Runs at the beginning of every individual test."""
         # These options are needed to run ChromeDriver inside a Docker without a UI.
         chrome_options = Options()
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
+        if preferences:
+            chrome_options.add_experimental_option("prefs", preferences)
 
         # Maximum time, in seconds, before throwing a TimeoutException.
         self.TIMEOUT_SEC = 60

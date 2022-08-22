@@ -17,6 +17,9 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+
+const smp = new SpeedMeasurePlugin();
 
 const config = {
   entry: {
@@ -153,5 +156,5 @@ module.exports = (env, argv) => {
     config.devtool = "eval-cheap-module-source-map";
   }
 
-  return config;
+  return argv.mode === "development" ? config : smp.wrap(config);
 };

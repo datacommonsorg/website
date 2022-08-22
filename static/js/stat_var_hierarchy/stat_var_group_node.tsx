@@ -245,7 +245,7 @@ export class StatVarGroupNode extends React.Component<
     )}`;
     const placeList = this.props.places;
     for (const place of placeList) {
-      url += `&places=${place.dcid}`;
+      url += `&entities=${place.dcid}`;
     }
     this.dataFetchingPlaces = placeList;
     axios

@@ -60,9 +60,11 @@ def register_routes_base_dc(app):
     app.register_blueprint(topic_page.bp)
     from routes.api import (protein as protein_api)
     from routes.api import (disease as disease_api)
+    from routes.api.import_detection import (detection as detection_api)
     app.register_blueprint(protein_api.bp)
     app.register_blueprint(disease_api.bp)
     app.register_blueprint(import_wizard.bp)
+    app.register_blueprint(detection_api.bp)
 
 
 def register_routes_private_dc(app):
@@ -181,6 +183,14 @@ def create_app():
 
     if app.config['LOCAL']:
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+    if app.config['API_PROJECT']:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.API_PROJECT,
+                                                        'mixer-api-key',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        app.config['API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
     # Initialize translations
     babel = Babel(app, default_domain='all')
