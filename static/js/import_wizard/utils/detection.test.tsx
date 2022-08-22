@@ -18,6 +18,14 @@ import _, { split } from "lodash";
 import { Mapping, TypeProperty } from "../types";
 import * as detection from "./detection";
 
+/* eslint-disable */
+/* Ignoring linter checks for the code below because there
+    are several instances of lint violations, e.g. not using
+    camelCase. But these are all instances of mimicking the
+    response from the server API which does not need to conform
+    to these conventions.
+*/
+
 // Detection API Response tests.
 test("jsonParsingPlaceDateColumns", () => {
   const s: string = JSON.stringify({
@@ -313,3 +321,5 @@ test("jsonParsingSupportedTypePropertiesCorrect", () => {
     dcProperty: { dcid: "name", displayName: "Name" },
   });
 });
+
+/* eslint-enable */
