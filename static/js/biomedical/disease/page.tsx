@@ -127,6 +127,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         </div>
         <br></br>
         <h5>Chemical Compound Disease Contraindication</h5>
+        <p>
+          The chemical compounds contraindicated with {diseaseName} as reported
+          by the ChEMBL database.
+        </p>
         <br></br>
         <div>
           <div id="table"></div>
