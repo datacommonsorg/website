@@ -36,6 +36,43 @@ export const MAPPED_THING_NAMES = {
   [MappedThing.STAT_VAR]: "Name of Variable",
 };
 
+// Types used for Detection.
+
+// An abstraction for a Data Commons entity, e.g. a place type or property.
+interface Entity {
+  dcid: string;
+  displayName: string;
+}
+
+// A Data Commons entity type, e.g. Country (which a type of Place).
+export type DCType = Entity;
+
+// A Data Commons property, e.g. longitude.
+export type DCProperty = Entity;
+
+// Denotes a level of confidence in the detection.
+// It can be associated with any detected type.
+export enum ConfidenceLevel {
+  Uncertain,
+  Low,
+  High,
+}
+
+export interface TypeProperty {
+  // The Data Commons type.
+  dcType: DCType;
+
+  // (Optional) The Data Commons property.
+  dcProperty?: DCProperty;
+}
+
+export interface DetectedDetails {
+  // The detected Type and (optional) Property.
+  detectedTypeProperty: TypeProperty;
+
+  // The level of confidence associated with the detection.
+  confidence: ConfidenceLevel;
+}
 export interface Column {
   // Id of the column.
   // If in the original csv, there are two or more columns with the same header,
@@ -113,44 +150,6 @@ export interface CsvData {
   rawCsvFile?: File;
   // if csv input was a user entered url, the url to get the csv file.
   rawCsvUrl?: string;
-}
-
-// Types used for Detection.
-
-// An abstraction for a Data Commons entity, e.g. a place type or property.
-interface Entity {
-  dcid: string;
-  displayName: string;
-}
-
-// A Data Commons entity type, e.g. Country (which a type of Place).
-export type DCType = Entity;
-
-// A Data Commons property, e.g. longitude.
-export type DCProperty = Entity;
-
-// Denotes a level of confidence in the detection.
-// It can be associated with any detected type.
-export enum ConfidenceLevel {
-  Uncertain,
-  Low,
-  High,
-}
-
-export interface TypeProperty {
-  // The Data Commons type.
-  dcType: DCType;
-
-  // (Optional) The Data Commons property.
-  dcProperty?: DCProperty;
-}
-
-export interface DetectedDetails {
-  // The detected Type and (optional) Property.
-  detectedTypeProperty: TypeProperty;
-
-  // The level of confidence associated with the detection.
-  confidence: ConfidenceLevel;
 }
 
 // A map from the mapped thing (aka StatVarObs props) to the property value.

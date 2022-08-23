@@ -13,6 +13,7 @@
 # limitations under the License.
 """Import Wizard routes"""
 
+import flask
 import os
 from flask import Blueprint, render_template
 
