@@ -174,7 +174,10 @@ class Page extends Component<unknown, PageStateType> {
       .get("/api/browser/propvals/typeOf/Source")
       .then((resp) => {
         const sourcePromises = [];
-        for (const source of resp.data?.values?.in) {
+        if (!resp.data.values.in) {
+          return;
+        }
+        for (const source of resp.data.values.in) {
           const url = SVG_URL_PREFIX + source.dcid;
           sourcePromises.push(axios.get(url).then((resp) => resp));
         }
@@ -234,7 +237,10 @@ class Page extends Component<unknown, PageStateType> {
       .then((resp) => {
         const currentDatasets = [];
         const datasetSet = new Set();
-        for (const dataset of resp.data?.values?.in) {
+        if (!resp.data.values.in) {
+          return;
+        }
+        for (const dataset of resp.data.values.in) {
           // Remove duplicates.
           if (datasetSet.has(dataset.dcid)) {
             continue;
