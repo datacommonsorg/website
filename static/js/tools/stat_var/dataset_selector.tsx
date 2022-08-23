@@ -56,7 +56,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
               });
             }}
           >
-            <option value="">Select a source to filter by</option>
+            <option value="">Select a source to filter by (optional)</option>
             {props.sources.map((s) => {
               return (
                 <option

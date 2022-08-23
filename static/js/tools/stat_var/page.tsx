@@ -103,6 +103,7 @@ class Page extends Component<unknown, PageStateType> {
 
   render(): JSX.Element {
     const svs = this.state.statVar ? { [this.state.statVar]: {} } : {};
+    const entities = this.state.entity.dcid ? [this.state.entity] : [];
     return (
       <>
         <StatVarWidget
@@ -110,7 +111,7 @@ class Page extends Component<unknown, PageStateType> {
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
-          sampleEntities={[this.state.entity]}
+          sampleEntities={entities}
           deselectSVs={() => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
           selectedSVs={svs}
           selectSV={(sv) => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
