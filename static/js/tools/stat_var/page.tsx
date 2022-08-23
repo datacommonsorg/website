@@ -43,8 +43,8 @@ interface PageStateType {
   datasets: NamedNode[];
   description: string;
   displayName: string;
-  // Source/dataset to filter by.
-  entity: NamedNode[];
+  // Source or dataset to filter by.
+  entity: NamedNode;
   error: boolean;
   // DCID of selected source.
   source: string;
@@ -65,7 +65,7 @@ class Page extends Component<unknown, PageStateType> {
       datasets: [],
       description: "",
       displayName: "",
-      entity: [],
+      entity: { dcid: "", name: "" },
       error: false,
       source: "",
       sources: [],
@@ -82,7 +82,7 @@ class Page extends Component<unknown, PageStateType> {
     const source = getUrlToken(SV_URL_PARAMS.SOURCE);
     const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
     if (dataset !== this.state.dataset || source !== this.state.source) {
-      this.filterStatVars(source, dataset);
+      this.updateEntity(source, dataset);
     }
     if (sv !== this.state.statVar) {
       this.fetchSummary(sv);
@@ -92,48 +92,7 @@ class Page extends Component<unknown, PageStateType> {
   async componentDidMount(): Promise<void> {
     window.addEventListener("hashchange", this.handleHashChange);
     this.handleHashChange();
-    axios
-      .get("/api/browser/propvals/typeOf/Source")
-      .then((resp) => {
-        const sourcePromises = [];
-        for (const source of resp.data?.values?.in) {
-          const url = SVG_URL_PREFIX + source.dcid;
-          sourcePromises.push(axios.get(url).then((resp) => resp));
-        }
-        if (sourcePromises.length === 0) {
-          return;
-        }
-        Promise.all(sourcePromises).then((sourceResults) => {
-          const sourceDcids = [];
-          for (const result of sourceResults) {
-            // Filter out all sources which have no stat vars in the main hierarchy (e.g. BMDC).
-            // TODO: Use ENTITY in schema to identify sources with stats
-            if (result.data.descendentStatVarCount) {
-              sourceDcids.push(
-                result?.config?.url.replace([SVG_URL_PREFIX], "")
-              );
-            }
-          }
-          if (sourceDcids.length === 0) {
-            return;
-          }
-          axios
-            .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
-            .then((resp) => {
-              const sources = [];
-              for (const dcid in resp.data) {
-                sources.push({
-                  dcid,
-                  name: resp.data[dcid][0],
-                });
-              }
-              this.setState({ sources });
-            });
-        });
-      })
-      .catch(() => {
-        alert("Error fetching data.");
-      });
+    this.fetchSources();
   }
 
   private toggleSvHierarchyModal(): void {
@@ -151,7 +110,7 @@ class Page extends Component<unknown, PageStateType> {
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
-          samplePlaces={this.state.entity}
+          sampleEntities={[this.state.entity]}
           deselectSVs={() => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
           selectedSVs={svs}
           selectSV={(sv) => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
@@ -207,10 +166,63 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
-  private async filterStatVars(source: string, dataset: string): Promise<void> {
+  /**
+   * Fetches sources to display in dropdown menu.
+   */
+  private async fetchSources(): Promise<void> {
+    axios
+      .get("/api/browser/propvals/typeOf/Source")
+      .then((resp) => {
+        const sourcePromises = [];
+        for (const source of resp.data?.values?.in) {
+          const url = SVG_URL_PREFIX + source.dcid;
+          sourcePromises.push(axios.get(url).then((resp) => resp));
+        }
+        if (sourcePromises.length === 0) {
+          return;
+        }
+        Promise.all(sourcePromises).then((sourceResults) => {
+          const sourceDcids = [];
+          for (const result of sourceResults) {
+            // Filter out all sources which have no stat vars in the main hierarchy (e.g. BMDC).
+            // TODO: Use ENTITY in schema to identify sources with stats
+            if (result.data.descendentStatVarCount) {
+              sourceDcids.push(
+                result?.config?.url.replace([SVG_URL_PREFIX], "")
+              );
+            }
+          }
+          if (sourceDcids.length === 0) {
+            return;
+          }
+          axios
+            .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
+            .then((resp) => {
+              const sources = [];
+              for (const dcid in resp.data) {
+                sources.push({
+                  dcid,
+                  name: resp.data[dcid][0],
+                });
+              }
+              this.setState({ sources });
+            });
+        });
+      })
+      .catch(() => {
+        alert("Error fetching data.");
+      });
+  }
+
+  /**
+   * Updates entity for current source and dataset and also sets datasets based on source.
+   * @param source DCID of source
+   * @param dataset DCID of dataset
+   */
+  private async updateEntity(source: string, dataset: string): Promise<void> {
     if (!source) {
       this.setState({
-        entity: [],
+        entity: { dcid: "", name: "" },
         source: "",
         dataset: "",
         datasets: [],
@@ -247,18 +259,16 @@ class Page extends Component<unknown, PageStateType> {
             this.setState({
               dataset,
               datasets: currentDatasets,
-              entity: [
-                {
-                  dcid,
-                  name,
-                },
-              ],
+              entity: {
+                dcid,
+                name,
+              },
               source,
             });
           })
           .catch(() => {
             this.setState({
-              entity: [],
+              entity: { dcid: "", name: "" },
               source,
               dataset,
               datasets: currentDatasets,
@@ -267,7 +277,7 @@ class Page extends Component<unknown, PageStateType> {
       })
       .catch(() => {
         this.setState({
-          entity: [],
+          entity: { dcid: "", name: "" },
           source,
           dataset,
           datasets: [],
@@ -275,6 +285,10 @@ class Page extends Component<unknown, PageStateType> {
       });
   }
 
+  /**
+   * Fetches StatVarSummary for selected stat var.
+   * @param sv DCID of stat var
+   */
   private async fetchSummary(sv: string): Promise<void> {
     if (!sv) {
       this.setState({

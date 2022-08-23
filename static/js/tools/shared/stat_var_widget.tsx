@@ -23,7 +23,7 @@ import _ from "lodash";
 import React, { createRef, useEffect } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-import { NamedPlace } from "../../shared/types";
+import { NamedNode } from "../../shared/types";
 import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
@@ -37,8 +37,8 @@ interface StatVarWidgetPropsType {
   collapsible: boolean;
   // The type of svHierarchy to render
   svHierarchyType: string;
-  // List of sample places to use to figure out what stat vars are available
-  samplePlaces: NamedPlace[];
+  // List of sample entities to use to figure out what stat vars are available
+  sampleEntities: NamedNode[];
   // Callback function when a list of stat vars are deselected
   deselectSVs: (svList: string[]) => void;
   // (Optional) A map of stat var dcid to their StatVarInfo for stat vars
@@ -70,10 +70,10 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   }
 
   useEffect(() => {
-    if (!_.isEmpty(props.samplePlaces) && !_.isEmpty(props.selectedSVs)) {
+    if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
       axios
         .post("/api/place/stat-vars/union", {
-          dcids: props.samplePlaces.map((place) => place.dcid),
+          dcids: props.sampleEntities.map((place) => place.dcid),
           statVars: Object.keys(props.selectedSVs),
         })
         .then((resp) => {
@@ -96,14 +96,14 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
                   `${
                     unavailableSVs.length > 1 ? "are" : "is"
                   } not available for the chosen place${
-                    props.samplePlaces.length > 1 ? "s" : ""
+                    props.sampleEntities.length > 1 ? "s" : ""
                   }.`
               );
             }
           }
         });
     }
-  }, [props.samplePlaces]);
+  }, [props.sampleEntities]);
 
   return (
     <>
@@ -117,7 +117,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
         <div ref={svHierarchyContainerRef} className="full-size">
           <StatVarHierarchy
             type={props.svHierarchyType}
-            places={props.samplePlaces}
+            entities={props.sampleEntities}
             selectedSVs={Object.keys(props.selectedSVs)}
             selectSV={props.selectSV}
             searchLabel={"Statistical Variables"}

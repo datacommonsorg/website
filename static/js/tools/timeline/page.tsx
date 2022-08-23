@@ -165,7 +165,7 @@ class Page extends Component<unknown, PageStateType> {
           openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
           collapsible={true}
           svHierarchyType={StatVarHierarchyType.SCATTER}
-          samplePlaces={namedPlaces}
+          sampleEntities={namedPlaces}
           deselectSVs={deselectSVs}
           selectedSVs={svToSvInfo}
           selectSV={(sv) =>

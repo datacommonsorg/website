@@ -18,7 +18,7 @@
  * Component to select a source and dataset.
  */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
 import { NamedNode } from "../../shared/types";
@@ -38,21 +38,6 @@ interface DatasetSelectorProps {
 }
 
 export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
-  useEffect(() => {
-    const sourceOption = document.getElementById(
-      `${CSS_PREFIX}-${props.source}`
-    );
-    const datasetOption = document.getElementById(
-      `${CSS_PREFIX}-${props.dataset}`
-    );
-    if (sourceOption) {
-      sourceOption.setAttribute("selected", "true");
-    }
-    if (datasetOption) {
-      datasetOption.setAttribute("selected", "true");
-    }
-  }, [props]);
-
   return (
     <>
       <Card className={`${CSS_PREFIX}-card`}>
@@ -62,6 +47,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
             id={`${CSS_PREFIX}-source-custom-input`}
             className={`${CSS_PREFIX}-custom-input`}
             type="select"
+            value={props.source}
             onChange={(e) => {
               const dcid = e.currentTarget.value ? e.currentTarget.value : "";
               updateHash({
@@ -87,6 +73,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
             id={`${CSS_PREFIX}-dataset-custom-input`}
             className={`${CSS_PREFIX}-custom-input`}
             type="select"
+            value={props.dataset}
             onChange={(e) => {
               const dcid = e.currentTarget.value ? e.currentTarget.value : "";
               updateHash({ [SV_URL_PARAMS.DATASET]: dcid });
