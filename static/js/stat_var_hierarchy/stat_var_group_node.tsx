@@ -31,7 +31,7 @@ import {
   StatVarHierarchyType,
   StatVarInfo,
 } from "../shared/types";
-import { NamedPlace } from "../shared/types";
+import { NamedNode } from "../shared/types";
 import { StatVarHierarchyNodeHeader } from "./node_header";
 import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarSection } from "./stat_var_section";
@@ -47,8 +47,8 @@ const INITIAL_EXPANSION_TYPES = [
 interface StatVarGroupNodePropType {
   // The path of this stat var group node.
   path: string[];
-  // A list of named places object.
-  places: NamedPlace[];
+  // A list of named node objects.
+  entities: NamedNode[];
   // The information for the stat var group node.
   data: StatVarGroupInfo;
   // if a statvar or statvar group has been selected, the path of stat var
@@ -74,7 +74,7 @@ interface StatVarGroupNodeStateType {
   // Error message when failed to render this componenet.
   errorMessage: string;
   // Whether the next level of information is fetched.
-  dataFetchedPlaces: NamedPlace[];
+  dataFetchedEntities: NamedNode[];
   // Number of SVs under this stat var group node has been selected.
   selectionCount: number;
 }
@@ -86,8 +86,8 @@ export class StatVarGroupNode extends React.Component<
   highlightedStatVar: React.RefObject<HTMLDivElement>;
   delayTimer: NodeJS.Timeout;
   context: ContextType;
-  // the list of places for which data fetch has begun, but not finished.
-  dataFetchingPlaces: NamedPlace[];
+  // the list of entities for which data fetch has begun, but not finished.
+  dataFetchingEntities: NamedNode[];
 
   constructor(props: StatVarGroupNodePropType) {
     super(props);
@@ -96,11 +96,11 @@ export class StatVarGroupNode extends React.Component<
       childSVG: [],
       childSV: [],
       errorMessage: "",
-      dataFetchedPlaces: null,
+      dataFetchedEntities: null,
       selectionCount: 0,
     };
     this.highlightedStatVar = React.createRef();
-    this.dataFetchingPlaces = null;
+    this.dataFetchingEntities = null;
     this.scrollToHighlighted = this.scrollToHighlighted.bind(this);
     this.fetchData = this.fetchData.bind(this);
   }
@@ -131,12 +131,12 @@ export class StatVarGroupNode extends React.Component<
   }
 
   fetchDataIfNecessary(): void {
-    // Check if data for current list of places is being fetched or has already
+    // Check if data for current list of entities is being fetched or has already
     // finished fetching. If so, don't fetch again.
-    const placesFetched =
-      _.isEqual(this.state.dataFetchedPlaces, this.props.places) ||
-      _.isEqual(this.dataFetchingPlaces, this.props.places);
-    if (this.state.isOpen && !placesFetched) {
+    const entitiesFetched =
+      _.isEqual(this.state.dataFetchedEntities, this.props.entities) ||
+      _.isEqual(this.dataFetchingEntities, this.props.entities);
+    if (this.state.isOpen && !entitiesFetched) {
       this.fetchData();
     }
   }
@@ -197,7 +197,7 @@ export class StatVarGroupNode extends React.Component<
         <Collapsible
           trigger={getTrigger(false)}
           triggerWhenOpen={getTrigger(true)}
-          open={this.state.isOpen && !_.isNull(this.state.dataFetchedPlaces)}
+          open={this.state.isOpen && !_.isNull(this.state.dataFetchedEntities)}
           handleTriggerClick={() => {
             this.setState({ isOpen: !this.state.isOpen });
           }}
@@ -216,7 +216,7 @@ export class StatVarGroupNode extends React.Component<
                   path={this.props.path}
                   data={childSV}
                   pathToSelection={this.props.pathToSelection}
-                  places={this.props.places}
+                  entities={this.props.entities}
                   highlightedStatVar={this.highlightedStatVar}
                 />
               )}
@@ -226,7 +226,7 @@ export class StatVarGroupNode extends React.Component<
                 data={childSVG}
                 pathToSelection={this.props.pathToSelection}
                 highlightedStatVar={this.highlightedStatVar}
-                places={this.props.places}
+                entities={this.props.entities}
                 showAllSV={this.props.showAllSV}
                 expandedPath={this.props.expandedPath}
               />
@@ -243,32 +243,32 @@ export class StatVarGroupNode extends React.Component<
     let url = `/api/stats/stat-var-group?stat_var_group=${encodeURIComponent(
       this.props.data.id
     )}`;
-    const placeList = this.props.places;
-    for (const place of placeList) {
-      url += `&entities=${place.dcid}`;
+    const entityList = this.props.entities;
+    for (const entity of entityList) {
+      url += `&entities=${entity.dcid}`;
     }
-    this.dataFetchingPlaces = placeList;
+    this.dataFetchingEntities = entityList;
     axios
       .get(url)
       .then((resp) => {
         const data = resp.data;
         const childSV: StatVarInfo[] = data["childStatVars"] || [];
         const childSVG: StatVarGroupInfo[] = data["childStatVarGroups"] || [];
-        this.dataFetchingPlaces = null;
-        if (_.isEqual(placeList, this.props.places)) {
+        this.dataFetchingEntities = null;
+        if (_.isEqual(entityList, this.props.entities)) {
           this.setState({
             childSV,
             childSVG,
-            dataFetchedPlaces: placeList,
+            dataFetchedEntities: entityList,
           });
         }
       })
       .catch(() => {
-        this.dataFetchingPlaces = null;
-        if (_.isEqual(placeList, this.props.places)) {
+        this.dataFetchingEntities = null;
+        if (_.isEqual(entityList, this.props.entities)) {
           this.setState({
             errorMessage: "Error retrieving stat var group children",
-            dataFetchedPlaces: placeList,
+            dataFetchedEntities: entityList,
           });
         }
       });

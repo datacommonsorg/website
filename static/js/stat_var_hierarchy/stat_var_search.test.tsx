@@ -24,7 +24,7 @@ import { StatVarHierarchySearch } from "./stat_var_search";
 Enzyme.configure({ adapter: new Adapter() });
 test("getResultCountString", () => {
   const wrapper = shallow(
-    <StatVarHierarchySearch places={[]} onSelectionChange={_.noop} />
+    <StatVarHierarchySearch entities={[]} onSelectionChange={_.noop} />
   );
   const cases: {
     numSv: number;

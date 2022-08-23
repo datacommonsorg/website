@@ -833,7 +833,7 @@ class DevPage extends React.Component {
         <div style={{ width: "400px" }}>
           <StatVarHierarchy
             type={StatVarHierarchyType.TIMELINE}
-            places={[
+            entities={[
               {
                 dcid: "geoId/06",
                 name: "California",

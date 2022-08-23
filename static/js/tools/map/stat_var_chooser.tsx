@@ -105,7 +105,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
       collapsible={true}
       svHierarchyType={StatVarHierarchyType.MAP}
-      samplePlaces={samplePlaces}
+      sampleEntities={samplePlaces}
       deselectSVs={deselectSVs}
       selectedSVs={selectedSVs}
       selectSV={(svDcid) => selectStatVar(statVar, display, placeInfo, svDcid)}
