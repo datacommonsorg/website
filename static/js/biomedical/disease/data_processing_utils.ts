@@ -17,6 +17,8 @@ import _ from "lodash";
 
 import { GraphNodes } from "../../shared/types";
 import {
+  ChemicalCompoundDataType,
+  CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
@@ -153,14 +155,13 @@ export function getDiseaseSymptomAssociation(
 }
 
 /**
- * Fetches the chemical compound disease treatment data
+ * Fetches the chemical compound data which includes disease treatment and disease contraindication data
  * @param data
  * @returns
  */
-export function getCompoundDiseaseTreatment(
+export function getChemicalCompoundData(
   data: GraphNodes
-): CompoundDiseaseTreatmentData[] {
-  // checks if the data is empty and for null values
+): ChemicalCompoundDataType[] {
   if (
     _.isEmpty(data) ||
     _.isEmpty(data.nodes) ||
@@ -168,7 +169,7 @@ export function getCompoundDiseaseTreatment(
   ) {
     return [];
   }
-  const rawData: CompoundDiseaseTreatmentData[] = [];
+  const rawData: ChemicalCompoundDataType[] = [];
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "diseaseID") {
       continue;
@@ -178,7 +179,9 @@ export function getCompoundDiseaseTreatment(
       let nodeVal = null;
       let compoundID = null;
       let compoundName = null;
+      let drugSourceName = null;
       let fdaPhase = null;
+
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors) || _.isEmpty(node.value)) {
         continue;
@@ -190,6 +193,12 @@ export function getCompoundDiseaseTreatment(
             continue;
           }
           typeField = n.nodes[0].value;
+        } else if (n.property === "drugCentralSource") {
+          // check for empty list and drug central source values
+          if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
+            continue;
+          }
+          drugSourceName = n.nodes[0].value;
         } else if (n.property === "fdaClinicalTrialPhase") {
           // check for empty list and fda phase values
           if (_.isEmpty(n.nodes) || _.isEmpty(n.nodes[0].value)) {
@@ -219,16 +228,60 @@ export function getCompoundDiseaseTreatment(
           }
         }
       }
-      // checks if the typeof property is equal to ChemicalCompoundDiseaseTreatment
-      if (typeField === "ChemicalCompoundDiseaseTreatment") {
-        rawData.push({
-          clinicalPhaseNumber: Number(fdaPhase),
-          id: compoundID.replace("bio/", ""),
-          name: compoundName.toLowerCase(),
-          node: nodeVal,
-        });
-      }
+      rawData.push({
+        clinicalPhaseNumber: fdaPhase,
+        drugSource: drugSourceName,
+        id: compoundID.replace("bio/", ""),
+        name: compoundName,
+        node: nodeVal,
+        type: typeField,
+      });
     }
   }
   return rawData;
+}
+
+/**
+ * Fetches the chemical compound disease treatment data
+ * @param data
+ * @returns
+ */
+export function getCompoundDiseaseTreatment(
+  data: GraphNodes
+): CompoundDiseaseTreatmentData[] {
+  const rawData = getChemicalCompoundData(data);
+  const processedData = rawData
+    .filter((element) => element.type === "ChemicalCompoundDiseaseTreatment")
+    .map((element) => ({
+      node: element.node,
+      id: element.id,
+      name: String(element.name).toLowerCase(),
+      clinicalPhaseNumber: Number(element.clinicalPhaseNumber),
+    }));
+  processedData.sort((a, b) => b.clinicalPhaseNumber - a.clinicalPhaseNumber);
+  return processedData;
+}
+
+/**
+ * Fetches the chemical compound disease contraindication data
+ * @param data
+ * @returns
+ */
+export function getCompoundDiseaseContraindication(
+  data: GraphNodes
+): CompoundDiseaseContraindicationData[] {
+  // checks if the data is empty and for null values
+  const rawData = getChemicalCompoundData(data);
+  const processedData = rawData
+    .filter(
+      (element) => element.type === "ChemicalCompoundDiseaseContraindication"
+    )
+    .map((element) => ({
+      node: element.node,
+      id: element.id,
+      name: String(element.name).toLowerCase(),
+      drugSource: element.drugSource.toLowerCase(),
+    }));
+  processedData.sort((a, b) => (a.drugSource > b.drugSource ? 1 : -1));
+  return processedData;
 }

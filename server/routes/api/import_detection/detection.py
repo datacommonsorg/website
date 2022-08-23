@@ -335,3 +335,42 @@ def detect():
     return Response(detect_columns(column_order, column_values),
                     SUCCESS_CODE,
                     mimetype='application/json')
+
+
+@bp.route('/supported_place_properties')
+def supported_place_types_properties():
+    """Returns the support types and properties for Places.
+
+    No parameters are expected in the query.
+
+    Returns:
+        A json response of the list of TypeProperties. Sample json response:
+
+        [
+            {
+                "dc_type": {
+                        "dcid": "Country",
+                        "display_name": "Country",
+                    },
+                "dc_property": {
+                        "dcid": "countryNumericCode",
+                        "display_name": "Numeric Code",
+                    },
+            },
+            {
+                "dc_type": {
+                        "dcid": "State",
+                        "display_name": "State",
+                    },
+                "dc_property": {
+                        "dcid": "fips52AlphaCode",
+                        "display_name": "US State Alpha Code",
+                    },
+            },
+            ...
+        ]
+    """
+    return Response(json.dumps(place_detector.supported_type_properties(),
+                               default=vars),
+                    SUCCESS_CODE,
+                    mimetype='application/json')

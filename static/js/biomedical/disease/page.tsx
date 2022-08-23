@@ -27,11 +27,12 @@ import {
   drawDiseaseSymptomAssociationChart,
 } from "./chart";
 import {
+  getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
-import { DrugTable } from "./drug_table";
+import { DrugTreatmentTable } from "./drug_table";
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -67,6 +68,21 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     const chemicalCompoundDiseaseTreatment = getCompoundDiseaseTreatment(
       this.state.data
     );
+    const chemicalCompoundDiseaseContraindication =
+      getCompoundDiseaseContraindication(this.state.data);
+    const diseaseTreatmentColumns = [
+      { id: "node", name: "Parent Node" },
+      { id: "id", name: "Compound ID" },
+      { id: "name", name: "Compound Name" },
+      { id: "clinicalPhaseNumber", name: "FDA Clinical Phase" },
+    ];
+    const diseaseContraindicationColumns = [
+      { id: "node", name: "Parent Node" },
+      { id: "id", name: "Compound ID" },
+      { id: "name", name: "Compound Name" },
+      { id: "drugSource", name: "Drug Source" },
+    ];
+
     return (
       <>
         <h2>Disease Browser</h2>
@@ -79,7 +95,20 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         <br></br>
         <div>
           <div id="table"></div>
-          <DrugTable data={chemicalCompoundDiseaseTreatment} />
+          <DrugTreatmentTable
+            columns={diseaseTreatmentColumns}
+            data={chemicalCompoundDiseaseTreatment}
+          />
+        </div>
+        <br></br>
+        <h5>Chemical Compound Disease Contraindication</h5>
+        <br></br>
+        <div>
+          <div id="table"></div>
+          <DrugTreatmentTable
+            columns={diseaseContraindicationColumns}
+            data={chemicalCompoundDiseaseContraindication}
+          />
         </div>
       </>
     );
