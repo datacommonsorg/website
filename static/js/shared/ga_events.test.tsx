@@ -840,8 +840,8 @@ describe("test ga event tool stat var search no result", () => {
 
     // Render the component.
     const props = {
-      onSelectionChange: () => null,
       entities: [""],
+      onSelectionChange: () => null,
     };
     const statVarSearch = render(<StatVarHierarchySearch {...props} />);
 

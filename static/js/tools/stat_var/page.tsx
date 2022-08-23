@@ -225,10 +225,10 @@ class Page extends Component<unknown, PageStateType> {
   private updateEntity(source: string, dataset: string): void {
     if (!source) {
       this.setState({
-        entity: { dcid: "", name: "" },
-        source: "",
         dataset: "",
         datasets: [],
+        entity: { dcid: "", name: "" },
+        source: "",
       });
       return;
     }
@@ -274,19 +274,19 @@ class Page extends Component<unknown, PageStateType> {
           })
           .catch(() => {
             this.setState({
-              entity: { dcid: "", name: "" },
-              source,
               dataset,
               datasets: currentDatasets,
+              entity: { dcid: "", name: "" },
+              source,
             });
           });
       })
       .catch(() => {
         this.setState({
-          entity: { dcid: "", name: "" },
-          source,
           dataset,
           datasets: [],
+          entity: { dcid: "", name: "" },
+          source,
         });
       });
   }
