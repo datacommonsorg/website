@@ -169,7 +169,7 @@ class Page extends Component<unknown, PageStateType> {
   /**
    * Fetches sources to display in dropdown menu.
    */
-  private async fetchSources(): Promise<void> {
+  private fetchSources(): void {
     axios
       .get("/api/browser/propvals/typeOf/Source")
       .then((resp) => {
@@ -219,7 +219,7 @@ class Page extends Component<unknown, PageStateType> {
    * @param source DCID of source
    * @param dataset DCID of dataset
    */
-  private async updateEntity(source: string, dataset: string): Promise<void> {
+  private updateEntity(source: string, dataset: string): void {
     if (!source) {
       this.setState({
         entity: { dcid: "", name: "" },
@@ -289,7 +289,7 @@ class Page extends Component<unknown, PageStateType> {
    * Fetches StatVarSummary for selected stat var.
    * @param sv DCID of stat var
    */
-  private async fetchSummary(sv: string): Promise<void> {
+  private fetchSummary(sv: string): void {
     if (!sv) {
       this.setState({
         description: "",
