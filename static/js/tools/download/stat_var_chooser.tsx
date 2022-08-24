@@ -105,7 +105,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         openSvHierarchyModalCallback={props.openSvHierarchyModalCallback}
         collapsible={false}
         svHierarchyType={StatVarHierarchyType.DOWNLOAD}
-        samplePlaces={samplePlaces}
+        sampleEntities={samplePlaces}
         deselectSVs={(svList: string[]) =>
           svList.forEach((sv) => {
             props.onStatVarRemoved(sv);

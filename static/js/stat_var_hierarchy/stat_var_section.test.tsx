@@ -35,7 +35,7 @@ test("getPrefix", () => {
       path={[]}
       data={[]}
       pathToSelection={[]}
-      places={[]}
+      entities={[]}
       highlightedStatVar={null}
     />
   );

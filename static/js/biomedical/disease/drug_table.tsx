@@ -1,37 +1,55 @@
 import React from "react";
 
 import { GRAPH_BROWSER_REDIRECT } from "../bio_charts_utils";
-import { CompoundDiseaseTreatmentData } from "./chart";
+import {
+  CompoundDiseaseContraindicationData,
+  CompoundDiseaseTreatmentData,
+} from "./chart";
 
-export interface DrugTableProps {
-  data: CompoundDiseaseTreatmentData[];
+export interface DrugTreatmentTableColumn {
+  // the column id
+  id: string;
+  // the column display name or header
+  name: string;
 }
-
-export function DrugTable(props: DrugTableProps): JSX.Element {
+export interface DrugTreatmentTableProps {
+  // stores the column id and column name
+  // retains the order of the columns and column ids should match the keys of the objects in the data array
+  columns: DrugTreatmentTableColumn[];
+  // the data is either of type CompoundDiseaseContraindicationData or CompoundDiseaseTreatmentData
+  data: CompoundDiseaseContraindicationData[] | CompoundDiseaseTreatmentData[];
+}
+export function DrugTreatmentTable(
+  props: DrugTreatmentTableProps
+): JSX.Element {
   // takes the top 10 chemical compound disease associations for greater than 10 values
-  const drugTableData = props.data.slice(0, 10);
-  // sorts the array based on FDA clinical phase number
-  drugTableData.sort((a, b) => b.clinicalPhaseNumber - a.clinicalPhaseNumber);
+  const drugTreatmentTableData = props.data.slice(0, 10);
   return (
     <table>
       <thead>
         <tr>
-          <td>Parent Node</td>
-          <td>Compound ID</td>
-          <td>Compound Name</td>
-          <td>FDA Clinical Phase</td>
+          {props.columns.map((column) => {
+            return <td key={column.id}>{column.name}</td>;
+          })}
         </tr>
       </thead>
       <tbody>
-        {drugTableData.map((item, idx) => {
+        {drugTreatmentTableData.map((item, idx) => {
           return (
             <tr key={idx}>
-              <td>
-                <a href={GRAPH_BROWSER_REDIRECT + item.node}>Node</a>
-              </td>
-              <td>{item.id}</td>
-              <td>{item.name}</td>
-              <td>{item.clinicalPhaseNumber}</td>
+              {props.columns.map((column) => {
+                const element = item[column.id] || "";
+                // if column id is node, then display a hyperlinked table element
+                if (column.id === "node") {
+                  return (
+                    <td>
+                      <a href={GRAPH_BROWSER_REDIRECT + element}>Node</a>
+                    </td>
+                  );
+                } else {
+                  return <td>{element}</td>;
+                }
+              })}
             </tr>
           );
         })}
