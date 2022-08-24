@@ -22,7 +22,7 @@
 import _ from "lodash";
 import React from "react";
 
-import { NamedPlace, StatVarGroupInfo } from "../shared/types";
+import { NamedNode, StatVarGroupInfo } from "../shared/types";
 import { StatVarGroupNode } from "./stat_var_group_node";
 
 const VARIABLES_STATVAR_GROUP_PREFIX = "dc/g/Variables_";
@@ -32,7 +32,7 @@ interface StatVarGroupSectionPropType {
   data: StatVarGroupInfo[];
   pathToSelection: string[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
-  places: NamedPlace[];
+  entities: NamedNode[];
   showAllSV: boolean;
   expandedPath: string[];
 }
@@ -67,7 +67,7 @@ export class StatVarGroupSection extends React.Component<StatVarGroupSectionProp
               >
                 <StatVarGroupNode
                   path={this.props.path.concat([childStatVarGroup.id])}
-                  places={this.props.places}
+                  entities={this.props.entities}
                   data={childStatVarGroup}
                   pathToSelection={this.props.pathToSelection.slice(1)}
                   startsOpened={

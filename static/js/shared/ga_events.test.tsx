@@ -324,7 +324,7 @@ const STAT_VAR_HIERARCHY_PROPS = {
   prefixToReplace: "",
 
   type: StatVarHierarchyType.TIMELINE,
-  places: [{ name: PLACE_NAME, dcid: PLACE_DCID }],
+  entities: [{ name: PLACE_NAME, dcid: PLACE_DCID }],
   selectedSVs: [STAT_VAR_2],
   selectSV: () => null,
   deselectSV: () => null,
@@ -840,8 +840,8 @@ describe("test ga event tool stat var search no result", () => {
 
     // Render the component.
     const props = {
+      entities: [""],
       onSelectionChange: () => null,
-      places: [""],
     };
     const statVarSearch = render(<StatVarHierarchySearch {...props} />);
 
