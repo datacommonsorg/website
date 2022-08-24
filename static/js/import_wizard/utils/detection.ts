@@ -17,8 +17,6 @@ import _ from "lodash";
 
 import {
   Column,
-  DCProperty,
-  DCType,
   MappedThing,
   Mapping,
   MappingType,
@@ -26,179 +24,193 @@ import {
   TypeProperty,
 } from "../types";
 
-const COLUMN_KEY = "column";
-const COLUMN_IDX_KEY = "columnIdx";
-const DISP_NAME_KEY = "displayName";
-const PLACETYPE_KEY = "placeType";
-const PLACEPROP_KEY = "placeProperty";
-const DCTYPE_KEY = "dcType";
-const DCPROP_KEY = "dcProperty";
-const HEADER_KEY = "headers";
+const COLUMN_API_KEY = "column";
+const COLUMN_ID_API_KEY = "id";
+const COLUMN_HEADER_API_KEY = "header";
+const COLUMN_IDX_API_KEY = "column_idx";
+const DCID_API_KEY = "dcid";
+const DISP_NAME_API_KEY = "display_name";
+const PLACETYPE_API_KEY = "place_type";
+const PLACEPROP_API_KEY = "place_property";
+const DCTYPE_API_KEY = "dc_type";
+const DCPROP_API_KEY = "dc_property";
+const HEADER_API_KEY = "headers";
 
-const COLUMN_EMPTY: Column = { id: "", header: "", columnIdx: 0 };
-const DCPROPERTY_EMPTY: DCProperty = { dcid: "", displayName: "" };
-const DCTYPE_EMPTY: DCType = { dcid: "", displayName: "" };
+function isDCTypeOrProperty(entity): boolean {
+  if (_.has(entity, DCID_API_KEY) && _.has(entity, DISP_NAME_API_KEY)) {
+    return true;
+  }
+  return false;
+}
 
-function _replaceStrings(originalString: string): string {
-  // Need to replace specific strings. Cannot do a blanket regex replacement
-  // because it could end up replacing user provided values which we do not
-  // want to edit. This only replaces the keys/fields which are different in
-  // the API response compared to the attributes of the corresponding Types.
-  originalString = originalString.split("column_idx").join(COLUMN_IDX_KEY);
-  originalString = originalString.split("display_name").join(DISP_NAME_KEY);
-  originalString = originalString.split("place_type").join(PLACETYPE_KEY);
-  originalString = originalString.split("place_property").join(PLACEPROP_KEY);
-  originalString = originalString.split("dc_type").join(DCTYPE_KEY);
-  originalString = originalString.split("dc_property").join(DCPROP_KEY);
-  return originalString;
+function isColumn(candidate): boolean {
+  if (
+    _.has(candidate, COLUMN_ID_API_KEY) &&
+    _.has(candidate, COLUMN_HEADER_API_KEY) &&
+    _.has(candidate, COLUMN_IDX_API_KEY)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
- * Given the detection json response from the detection server API,
+ * Given the API response from the detection server API,
  * parse it in to a Mapping structure.
  *
- * @param detectedJSONString is the JSON response from the server API.
+ * @param detectedResponse is the Object response from the server API.
  *
  * @returns a Mapping structure which has details of all the detected
  *  columns. If there are any unexpected validation errors, that particular
  *  MappingVal is skipped.
  */
-export function parseDetectedJSON(detectedJSONString: string): Mapping {
-  const mParsed: Mapping = JSON.parse(_replaceStrings(detectedJSONString));
+export function parseDetectionAPIResponse(detectedResponse): Mapping {
   const mToReturn: Mapping = new Map<MappedThing, MappingVal>();
 
   // Some validations.
-  for (const [key, mVal] of Object.entries(mParsed)) {
+  for (const [key, mVal] of Object.entries(detectedResponse)) {
     // Keys must be among the MappedThing enum.
     if (!_.includes(Object.values(MappedThing), key)) {
       continue;
     }
     // Key "type" must be present and the value must be among MappingType enum.
     if (
-      !_.includes(Object.keys(mVal), "type") &&
+      !_.includes(Object.keys(mVal), "type") ||
       !_.includes(Object.values(MappingType), mVal["type"])
     ) {
       continue;
     }
+    const mValValidated: MappingVal = { type: mVal["type"] };
 
     // If key "column" is present then the value must be of type Column.
-    let col: Column = COLUMN_EMPTY;
-    if (_.includes(Object.keys(mVal), COLUMN_KEY) && mVal[COLUMN_KEY]) {
-      const overlap = _.intersection(
-        Object.keys(mVal[COLUMN_KEY]),
-        Object.keys(COLUMN_EMPTY)
-      );
-      if (overlap.length != Object.keys(COLUMN_EMPTY).length) {
-        return null;
+    let col: Column;
+    if (_.includes(Object.keys(mVal), COLUMN_API_KEY) && mVal[COLUMN_API_KEY]) {
+      const candidateCol = mVal[COLUMN_API_KEY];
+      if (isColumn(candidateCol)) {
+        col = {
+          id: candidateCol[COLUMN_ID_API_KEY],
+          header: candidateCol[COLUMN_HEADER_API_KEY],
+          columnIdx: candidateCol[COLUMN_IDX_API_KEY],
+        };
+        mValValidated.column = col;
       }
-      col = mVal[COLUMN_KEY];
     }
 
     // If key "placeType" is present then the value must be of type DCType.
     // Note, if the validation succeeds, the value (DCType) is replaced by a map of
     // columnIdx (number) to the DCType.
-    if (_.includes(Object.keys(mVal), PLACETYPE_KEY) && mVal[PLACETYPE_KEY]) {
-      const overlap = _.intersection(
-        Object.keys(mVal[PLACETYPE_KEY]),
-        Object.keys(DCTYPE_EMPTY)
-      );
-      if (overlap.length != Object.keys(DCTYPE_EMPTY).length) {
+    if (
+      _.includes(Object.keys(mVal), PLACETYPE_API_KEY) &&
+      mVal[PLACETYPE_API_KEY]
+    ) {
+      if (!isDCTypeOrProperty(mVal[PLACETYPE_API_KEY])) {
         continue;
       }
       // If made this far, then mVal must also have had the column field. Extract the columnIdx
       // and assign it as a key to mVal["placeProperty"].
-      if (col == COLUMN_EMPTY) {
+      if (_.isEmpty(col)) {
         continue;
       }
-      mVal[PLACETYPE_KEY] = { [col.columnIdx]: mVal[PLACETYPE_KEY] };
+      mValValidated.placeType = {
+        [col.columnIdx]: {
+          dcid: mVal[PLACETYPE_API_KEY][DCID_API_KEY],
+          displayName: mVal[PLACETYPE_API_KEY][DISP_NAME_API_KEY],
+        },
+      };
     }
 
     // If key "placeProperty" is present then the value must be of type DCProperty.
     // Note, if the validation succeeds, the value (DCProperty) is replaced by a map of
     // columnIdx (number) to the DCProperty.
-    if (_.includes(Object.keys(mVal), PLACEPROP_KEY) && mVal[PLACEPROP_KEY]) {
-      const overlap = _.intersection(
-        Object.keys(mVal[PLACEPROP_KEY]),
-        Object.keys(DCPROPERTY_EMPTY)
-      );
-      if (overlap.length != Object.keys(DCPROPERTY_EMPTY).length) {
+    if (
+      _.includes(Object.keys(mVal), PLACEPROP_API_KEY) &&
+      mVal[PLACEPROP_API_KEY]
+    ) {
+      if (!isDCTypeOrProperty(mVal[PLACEPROP_API_KEY])) {
         continue;
       }
       // If made this far, then mVal must also have had the column field. Extract the columnIdx
       // and assign it as a key to mVal["placeProperty"].
-      if (col == COLUMN_EMPTY) {
+      if (_.isEmpty(col)) {
         continue;
       }
-      mVal[PLACEPROP_KEY] = { [col.columnIdx]: mVal[PLACEPROP_KEY] };
+      mValValidated.placeProperty = {
+        [col.columnIdx]: {
+          dcid: mVal[PLACEPROP_API_KEY][DCID_API_KEY],
+          displayName: mVal[PLACEPROP_API_KEY][DISP_NAME_API_KEY],
+        },
+      };
     }
 
     // If key "headers" is present, then the value must be an array for Columns.
-    if (_.includes(Object.keys(mVal), HEADER_KEY) && mVal[HEADER_KEY]) {
-      if (!Array.isArray(mVal[HEADER_KEY])) {
+    if (_.includes(Object.keys(mVal), HEADER_API_KEY) && mVal[HEADER_API_KEY]) {
+      if (!Array.isArray(mVal[HEADER_API_KEY])) {
         continue;
       }
-      for (const c of mVal[HEADER_KEY]) {
-        const overlap = _.intersection(
-          Object.keys(c),
-          Object.keys(COLUMN_EMPTY)
-        );
-        if (!overlap.length) {
-          continue;
+      const headers: Array<Column> = [];
+      for (const c of mVal[HEADER_API_KEY]) {
+        if (isColumn(c)) {
+          headers.push({
+            id: c[COLUMN_ID_API_KEY],
+            header: c[COLUMN_HEADER_API_KEY],
+            columnIdx: c[COLUMN_IDX_API_KEY],
+          });
         }
       }
+      if (headers.length > 0) {
+        mValValidated.headers = headers;
+      }
     }
-    mToReturn[key] = mVal;
+    if (!_.isEmpty(mValValidated)) {
+      mToReturn[key] = mValValidated;
+    }
   }
   return mToReturn;
 }
 
 /**
- * Given the supported DC types and Properties (for Places) json response
+ * Given the supported DC types and Properties (for Places) response
  * from the detection server API, parse it in to an array of TypeProperty
  * objects.
  *
- * @param supportedJSONString is the JSON response from the server API.
+ * @param supportedTypesAPIResponse is the Object response from the server API.
  *
  * @returns an array of TypeProperty objects. If there are any unexpected
  * validation errors, that particularTypeProperty is skipped.
  */
-export function parseSupportedTypePropertiesJSON(
-  supportedJSONString: string
+export function parseSupportedTypePropertiesResponse(
+  supportedTypesAPIResponse
 ): Array<TypeProperty> {
-  const parsed: Array<TypeProperty> = JSON.parse(
-    _replaceStrings(supportedJSONString)
-  );
   const toBeReturned: Array<TypeProperty> = [];
 
   // Some validations.
-  if (!Array.isArray(parsed)) {
+  if (!Array.isArray(supportedTypesAPIResponse)) {
     return toBeReturned;
   }
 
-  for (const parsedTypeProp of parsed) {
+  for (const typeProp of supportedTypesAPIResponse) {
+    // Check that both DCType and DCProperty keys are present.
+    if (!_.has(typeProp, DCTYPE_API_KEY) || !_.has(typeProp, DCPROP_API_KEY)) {
+      continue;
+    }
+    // Check that the DCType and DCProperty fields are present.
     if (
-      !_.has(parsedTypeProp, DCTYPE_KEY) ||
-      !_.has(parsedTypeProp, DCPROP_KEY)
+      !isDCTypeOrProperty(typeProp[DCTYPE_API_KEY]) ||
+      !isDCTypeOrProperty(typeProp[DCPROP_API_KEY])
     ) {
       continue;
     }
-    // Check that DCType is valid.
-    let overlap = _.intersection(
-      Object.keys(parsedTypeProp[DCTYPE_KEY]),
-      Object.keys(DCTYPE_EMPTY)
-    );
-    if (overlap.length != Object.keys(DCTYPE_EMPTY).length) {
-      continue;
-    }
-    // Check that DCProperty is valid.
-    overlap = _.intersection(
-      Object.keys(parsedTypeProp[DCPROP_KEY]),
-      Object.keys(DCPROPERTY_EMPTY)
-    );
-    if (overlap.length != Object.keys(DCPROPERTY_EMPTY).length) {
-      continue;
-    }
-    toBeReturned.push(parsedTypeProp);
+
+    toBeReturned.push({
+      dcType: {
+        dcid: typeProp[DCTYPE_API_KEY][DCID_API_KEY],
+        displayName: typeProp[DCTYPE_API_KEY][DISP_NAME_API_KEY],
+      },
+      dcProperty: {
+        dcid: typeProp[DCPROP_API_KEY][DCID_API_KEY],
+        displayName: typeProp[DCPROP_API_KEY][DISP_NAME_API_KEY],
+      },
+    });
   }
   return toBeReturned;
 }
