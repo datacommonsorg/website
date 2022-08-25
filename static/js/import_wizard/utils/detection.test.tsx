@@ -13,21 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import _, { split } from "lodash";
+import _ from "lodash";
 
 import { Mapping, TypeProperty } from "../types";
 import * as detection from "./detection";
 
-/* eslint-disable */
-/* Ignoring linter checks for the code below because there
-    are several instances of lint violations, e.g. not using
-    camelCase. But these are all instances of mimicking the
-    response from the server API which does not need to conform
-    to these conventions.
-*/
-
 // Detection API Response tests.
 test("jsonParsingPlaceDateColumns", () => {
+  /* eslint-disable */
     const resp = {
         Place: {
             type: "column",
@@ -46,8 +39,10 @@ test("jsonParsingPlaceDateColumns", () => {
             place_type: null,
             headers: null,
         },
-  };
-  const got: Mapping = detection.parseDetectionAPIResponse(resp);
+    };
+    /* eslint-enable */
+
+  const got: Mapping = detection.parseDetectionApiResponse(resp);
 
   expect(got["Place"].type).toEqual("column");
   expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
@@ -73,6 +68,7 @@ test("jsonParsingPlaceDateColumns", () => {
 });
 
 test("jsonParsingPlaceDateHeaders", () => {
+  /* eslint-disable */
     const resp = {
         Place: {
             type: "column",
@@ -92,38 +88,40 @@ test("jsonParsingPlaceDateHeaders", () => {
             ],
         },
     };
-    const got: Mapping = detection.parseDetectionAPIResponse(resp);
+    /* eslint-enable */
+  const got: Mapping = detection.parseDetectionApiResponse(resp);
 
-    expect(got["Place"].type).toEqual("column");
-    expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
-    expect(got["Place"].placeType[0]).toEqual({
-        dcid: "State",
-        displayName: "State",
-    });
-    expect(got["Place"].placeProperty[0]).toEqual({
-        dcid: "name",
-        displayName: "Name",
-    });
-    expect(_.has(got["Place"], "headers")).toBe(false);
+  expect(got["Place"].type).toEqual("column");
+  expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
+  expect(got["Place"].placeType[0]).toEqual({
+    dcid: "State",
+    displayName: "State",
+  });
+  expect(got["Place"].placeProperty[0]).toEqual({
+    dcid: "name",
+    displayName: "Name",
+  });
+  expect(_.has(got["Place"], "headers")).toBe(false);
 
-    expect(got["Date"].type).toEqual("columnHeader");
-    expect(_.has(got["Date"], "column")).toBe(false);
-    expect(_.has(got["Date"], "placeType")).toBe(false);
-    expect(_.has(got["Date"], "placeProperty")).toBe(false);
-    expect(got["Date"].headers.length).toEqual(2);
-    expect(got["Date"].headers[0]).toEqual({
-        id: "d1",
-        header: "2020-01-03",
-        columnIdx: 0,
-    });
-    expect(got["Date"].headers[1]).toEqual({
-        id: "d2",
-        header: "2020-02-03",
-        columnIdx: 3,
-    });
+  expect(got["Date"].type).toEqual("columnHeader");
+  expect(_.has(got["Date"], "column")).toBe(false);
+  expect(_.has(got["Date"], "placeType")).toBe(false);
+  expect(_.has(got["Date"], "placeProperty")).toBe(false);
+  expect(got["Date"].headers.length).toEqual(2);
+  expect(got["Date"].headers[0]).toEqual({
+    id: "d1",
+    header: "2020-01-03",
+    columnIdx: 0,
+  });
+  expect(got["Date"].headers[1]).toEqual({
+    id: "d2",
+    header: "2020-02-03",
+    columnIdx: 3,
+  });
 });
 
 test("jsonParsingPlaceSkippedDateCorrect", () => {
+  /* eslint-disable */
     const resp = {
         Place: {
             type: "column",
@@ -142,23 +140,25 @@ test("jsonParsingPlaceSkippedDateCorrect", () => {
             place_type: null,
             headers: null,
         },
-  };
-    const got: Mapping = detection.parseDetectionAPIResponse(resp);
+    };
+    /* eslint-enable */
+  const got: Mapping = detection.parseDetectionApiResponse(resp);
 
-    expect(_.has(got, "Place")).toBe(false);
+  expect(_.has(got, "Place")).toBe(false);
 
-    expect(got["Date"].type).toEqual("column");
-    expect(got["Date"].column).toEqual({
-        id: "d_202",
-        header: "d",
-        columnIdx: 202,
-    });
-    expect(_.has(got["Date"], "placeType")).toBe(false);
-    expect(_.has(got["Date"], "placeProperty")).toBe(false);
-    expect(_.has(got["Date"], "headers")).toBe(false);
+  expect(got["Date"].type).toEqual("column");
+  expect(got["Date"].column).toEqual({
+    id: "d_202",
+    header: "d",
+    columnIdx: 202,
+  });
+  expect(_.has(got["Date"], "placeType")).toBe(false);
+  expect(_.has(got["Date"], "placeProperty")).toBe(false);
+  expect(_.has(got["Date"], "headers")).toBe(false);
 });
 
 test("jsonParsingPlaceCorrectDateSkipped", () => {
+  /* eslint-disable */
     const resp = {
         Place: {
             type: "column",
@@ -179,23 +179,25 @@ test("jsonParsingPlaceCorrectDateSkipped", () => {
             headers: { id: "d_202", header: "d", column_idx: 202 },
         },
     };
-    const got: Mapping = detection.parseDetectionAPIResponse(resp);
+    /* eslint-enable */
+  const got: Mapping = detection.parseDetectionApiResponse(resp);
 
-    expect(got["Place"].type).toEqual("column");
-    expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
-    expect(got["Place"].placeType[0]).toEqual({
-        dcid: "Country",
-        displayName: "Country",
-    });
-    expect(got["Place"].placeProperty[0]).toEqual({
-        dcid: "countryAlpha3Code",
-        displayName: "Alpha 3 Code",
-    });
-    expect(_.has(got["Place"], "headers")).toBe(false);
-    expect(_.has(got, "Date")).toBe(false);
+  expect(got["Place"].type).toEqual("column");
+  expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
+  expect(got["Place"].placeType[0]).toEqual({
+    dcid: "Country",
+    displayName: "Country",
+  });
+  expect(got["Place"].placeProperty[0]).toEqual({
+    dcid: "countryAlpha3Code",
+    displayName: "Alpha 3 Code",
+  });
+  expect(_.has(got["Place"], "headers")).toBe(false);
+  expect(_.has(got, "Date")).toBe(false);
 });
 
 test("jsonParsingAllSkipped", () => {
+  /* eslint-disable */
     const resp = {
         Place: {
             type: "column",
@@ -215,11 +217,14 @@ test("jsonParsingAllSkipped", () => {
             headers: null,
         },
     };
-    const got: Mapping = detection.parseDetectionAPIResponse(resp);
+    /* eslint-disable */
+    const got: Mapping = detection.parseDetectionApiResponse(resp);
     expect(_.isEmpty(got)).toBe(true);
 });
+    
 
 test("jsonParsingColumnIncorrect", () => {
+    /* eslint-disable */
     const resp = {
         Place: {
             type: "column",
@@ -233,29 +238,31 @@ test("jsonParsingColumnIncorrect", () => {
             headers: null,
         },
     };
-    const got: Mapping = detection.parseDetectionAPIResponse(resp);
-    expect(_.isEmpty(got)).toBe(true);
+    /* eslint-enable */
+  const got: Mapping = detection.parseDetectionApiResponse(resp);
+  expect(_.isEmpty(got)).toBe(true);
 });
 
 test("jsonParsingPropIncorrect", () => {
-    const resp = {
-        Place: {
-            type: "column",
-            column: { id: "a", header: "b", column_idx: 0 },
-            // place_property has a "random" field which should be "dcid".
-            place_property: {
-                random: "countryAlpha3Code",
-                display_name: "Alpha 3 Code",
-            },
-            place_type: { dcid: "Country", display_name: "Country" },
-            headers: null,
-        },
-    };
-    const got: Mapping = detection.parseDetectionAPIResponse(resp);
-    expect(_.isEmpty(got)).toBe(true);
+  const resp = {
+    Place: {
+      type: "column",
+      column: { id: "a", header: "b", column_idx: 0 },
+      // place_property has a "random" field which should be "dcid".
+      place_property: {
+        random: "countryAlpha3Code",
+        display_name: "Alpha 3 Code",
+      },
+      place_type: { dcid: "Country", display_name: "Country" },
+      headers: null,
+    },
+  };
+  const got: Mapping = detection.parseDetectionApiResponse(resp);
+  expect(_.isEmpty(got)).toBe(true);
 });
 
 test("jsonParsingTypeIncorrect", () => {
+  /* eslint-disable */
     const resp = {
         Place: {
             type: "column",
@@ -269,12 +276,14 @@ test("jsonParsingTypeIncorrect", () => {
             headers: null,
         },
     };
-    const got: Mapping = detection.parseDetectionAPIResponse(resp);
-    expect(_.isEmpty(got)).toBe(true);
+    /* eslint-enable */
+  const got: Mapping = detection.parseDetectionApiResponse(resp);
+  expect(_.isEmpty(got)).toBe(true);
 });
 
 // Supported Type Properties API Response tests.
 test("jsonParsingSupportedTypePropertiesAllSkipped", () => {
+  /* eslint-disable */
     const resp = [
         {
             // dc_type has a "randomField" which should be "dcid".
@@ -282,20 +291,14 @@ test("jsonParsingSupportedTypePropertiesAllSkipped", () => {
             dc_property: { dcid: "countryAlpha3Code", display_name: "Alpha 3 Code" },
         },
     ];
-    const got: Array<TypeProperty> = detection.parseSupportedTypePropertiesResponse(resp);
-    expect(_.isEmpty(got)).toBe(true);
-});
-
-test("jsonParsingSupportedTypePropertiesNotAnArray", () => {
-    const resp = {
-        dc_type: { dcid: "Country", display_name: "Country" },
-        dc_property: { dcid: "countryAlpha3Code", display_name: "Alpha 3 Code" },
-    };
-    const got: Array<TypeProperty> = detection.parseSupportedTypePropertiesResponse(resp);
-    expect(_.isEmpty(got)).toBe(true);
+    /* eslint-enable */
+  const got: Array<TypeProperty> =
+    detection.parseSupportedTypePropertiesResponse(resp);
+  expect(_.isEmpty(got)).toBe(true);
 });
 
 test("jsonParsingSupportedTypePropertiesCorrect", () => {
+  /* eslint-disable */
     const resp = [
         {
             dc_type: { dcid: "Country", display_name: "Country" },
@@ -303,19 +306,19 @@ test("jsonParsingSupportedTypePropertiesCorrect", () => {
         },
         {
             dc_type: { dcid: "State", display_name: "State" },
-        dc_property: { dcid: "name", display_name: "Name" },
+            dc_property: { dcid: "name", display_name: "Name" },
         },
     ];
-    const got: Array<TypeProperty> = detection.parseSupportedTypePropertiesResponse(resp);
-    expect(got.length).toEqual(2);
-    expect(got[0]).toEqual({
-        dcType: { dcid: "Country", displayName: "Country" },
-        dcProperty: { dcid: "countryAlpha3Code", displayName: "Alpha 3 Code" },
-    });
-    expect(got[1]).toEqual({
-        dcType: { dcid: "State", displayName: "State" },
-        dcProperty: { dcid: "name", displayName: "Name" },
-    });
+    /* eslint-enable */
+  const got: Array<TypeProperty> =
+    detection.parseSupportedTypePropertiesResponse(resp);
+  expect(got.length).toEqual(2);
+  expect(got[0]).toEqual({
+    dcType: { dcid: "Country", displayName: "Country" },
+    dcProperty: { dcid: "countryAlpha3Code", displayName: "Alpha 3 Code" },
+  });
+  expect(got[1]).toEqual({
+    dcType: { dcid: "State", displayName: "State" },
+    dcProperty: { dcid: "name", displayName: "Name" },
+  });
 });
-
-/* eslint-enable */

@@ -36,14 +36,14 @@ const DCTYPE_API_KEY = "dc_type";
 const DCPROP_API_KEY = "dc_property";
 const HEADER_API_KEY = "headers";
 
-function isDCTypeOrProperty(entity): boolean {
+function isDCTypeOrProperty(entity: Record<string, any>): boolean {
   if (_.has(entity, DCID_API_KEY) && _.has(entity, DISP_NAME_API_KEY)) {
     return true;
   }
   return false;
 }
 
-function isColumn(candidate): boolean {
+function isColumn(candidate: Record<string, any>): boolean {
   if (
     _.has(candidate, COLUMN_ID_API_KEY) &&
     _.has(candidate, COLUMN_HEADER_API_KEY) &&
@@ -64,13 +64,15 @@ function isColumn(candidate): boolean {
  *  columns. If there are any unexpected validation errors, that particular
  *  MappingVal is skipped.
  */
-export function parseDetectionAPIResponse(detectedResponse): Mapping {
+export function parseDetectionApiResponse(
+  detectedResponse: Record<string, any>
+): Mapping {
   const mToReturn: Mapping = new Map<MappedThing, MappingVal>();
 
   // Some validations.
-  for (const [key, mVal] of Object.entries(detectedResponse)) {
+  for (const [mThing, mVal] of Object.entries(detectedResponse)) {
     // Keys must be among the MappedThing enum.
-    if (!_.includes(Object.values(MappedThing), key)) {
+    if (!_.includes(Object.values(MappedThing), mThing)) {
       continue;
     }
     // Key "type" must be present and the value must be among MappingType enum.
@@ -84,7 +86,7 @@ export function parseDetectionAPIResponse(detectedResponse): Mapping {
 
     // If key "column" is present then the value must be of type Column.
     let col: Column;
-    if (_.includes(Object.keys(mVal), COLUMN_API_KEY) && mVal[COLUMN_API_KEY]) {
+    if (_.has(mVal, COLUMN_API_KEY) && mVal[COLUMN_API_KEY]) {
       const candidateCol = mVal[COLUMN_API_KEY];
       if (isColumn(candidateCol)) {
         col = {
@@ -97,12 +99,7 @@ export function parseDetectionAPIResponse(detectedResponse): Mapping {
     }
 
     // If key "placeType" is present then the value must be of type DCType.
-    // Note, if the validation succeeds, the value (DCType) is replaced by a map of
-    // columnIdx (number) to the DCType.
-    if (
-      _.includes(Object.keys(mVal), PLACETYPE_API_KEY) &&
-      mVal[PLACETYPE_API_KEY]
-    ) {
+    if (_.has(mVal, PLACETYPE_API_KEY) && mVal[PLACETYPE_API_KEY]) {
       if (!isDCTypeOrProperty(mVal[PLACETYPE_API_KEY])) {
         continue;
       }
@@ -120,12 +117,7 @@ export function parseDetectionAPIResponse(detectedResponse): Mapping {
     }
 
     // If key "placeProperty" is present then the value must be of type DCProperty.
-    // Note, if the validation succeeds, the value (DCProperty) is replaced by a map of
-    // columnIdx (number) to the DCProperty.
-    if (
-      _.includes(Object.keys(mVal), PLACEPROP_API_KEY) &&
-      mVal[PLACEPROP_API_KEY]
-    ) {
+    if (_.has(mVal, PLACEPROP_API_KEY) && mVal[PLACEPROP_API_KEY]) {
       if (!isDCTypeOrProperty(mVal[PLACEPROP_API_KEY])) {
         continue;
       }
@@ -143,7 +135,7 @@ export function parseDetectionAPIResponse(detectedResponse): Mapping {
     }
 
     // If key "headers" is present, then the value must be an array for Columns.
-    if (_.includes(Object.keys(mVal), HEADER_API_KEY) && mVal[HEADER_API_KEY]) {
+    if (_.has(mVal, HEADER_API_KEY) && mVal[HEADER_API_KEY]) {
       if (!Array.isArray(mVal[HEADER_API_KEY])) {
         continue;
       }
@@ -162,7 +154,7 @@ export function parseDetectionAPIResponse(detectedResponse): Mapping {
       }
     }
     if (!_.isEmpty(mValValidated)) {
-      mToReturn[key] = mValValidated;
+      mToReturn[mThing] = mValValidated;
     }
   }
   return mToReturn;
@@ -173,22 +165,22 @@ export function parseDetectionAPIResponse(detectedResponse): Mapping {
  * from the detection server API, parse it in to an array of TypeProperty
  * objects.
  *
- * @param supportedTypesAPIResponse is the Object response from the server API.
+ * @param supportedTypesApiResponse is the Array of Objects response from the server API.
  *
  * @returns an array of TypeProperty objects. If there are any unexpected
  * validation errors, that particularTypeProperty is skipped.
  */
 export function parseSupportedTypePropertiesResponse(
-  supportedTypesAPIResponse
+  supportedTypesApiResponse: Array<Record<string, any>>
 ): Array<TypeProperty> {
   const toBeReturned: Array<TypeProperty> = [];
 
   // Some validations.
-  if (!Array.isArray(supportedTypesAPIResponse)) {
+  if (!Array.isArray(supportedTypesApiResponse)) {
     return toBeReturned;
   }
 
-  for (const typeProp of supportedTypesAPIResponse) {
+  for (const typeProp of supportedTypesApiResponse) {
     // Check that both DCType and DCProperty keys are present.
     if (!_.has(typeProp, DCTYPE_API_KEY) || !_.has(typeProp, DCPROP_API_KEY)) {
       continue;
