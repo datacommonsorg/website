@@ -87,6 +87,10 @@ const config = {
     import_wizard: [
       __dirname + "/js/import_wizard/import_wizard.ts",
       __dirname + "/css/import_wizard.scss"
+    ],
+    import_wizard2: [
+      __dirname + "/js/import_wizard2/import_wizard.ts",
+      __dirname + "/css/import_wizard2.scss"
     ]
   },
   output: {
