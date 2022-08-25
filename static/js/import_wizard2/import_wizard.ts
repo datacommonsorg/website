@@ -23,4 +23,4 @@ window.onload = () => {
     React.createElement(Page),
     document.getElementById("main-pane")
   );
-}
+};
