@@ -47,6 +47,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
     TEMPLATE_MAPPING_SECTION_COMPONENTS[props.selectedTemplate];
   return (
     <>
+      {/* TODO: update page heading to something more intuitive to users */}
       <h2>Step 3: Refine table format</h2>
       <div className="mapping-page-navigation-section">
         <div className="mapping-page-navigation-option">

@@ -23,8 +23,8 @@ import { SingleVarMultiDateCol } from "./components/mapping_sections/single_var_
 // information about a template
 export interface TemplateInfo {
   description: string;
-  table: JSX.Element;
   explanation: JSX.Element;
+  table: JSX.Element;
 }
 
 const CONSTANT_VAR_TABLE = (
@@ -125,7 +125,7 @@ const MULTI_VAR_MULTI_DATE_COL_TABLE = (
 const MULTI_VAR_MULTI_DATE_COL_EXPLANATION = (
   <div>
     This file containes data about the variables &quot;Female Population&quot;
-    and &quot;Male Population&quot;, with data about a single place adn date on
+    and &quot;Male Population&quot;, with data about a single place and date on
     each row for each variable.
   </div>
 );
@@ -174,23 +174,23 @@ const MULTI_VAR_COL_EXPLANATION = (
 export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
   constantVar: {
     description: "Data about a constant variable",
-    table: CONSTANT_VAR_TABLE,
     explanation: CONSTANT_VAR_EXPLANATION,
+    table: CONSTANT_VAR_TABLE,
   },
   singleVarMultiDateCol: {
     description: "Data about a single variable, many date columns",
-    table: SINGLE_VAR_MULTI_DATE_COL_TABLE,
     explanation: SINGLE_VAR_MULTI_DATE_COL_EXPLANATION,
+    table: SINGLE_VAR_MULTI_DATE_COL_TABLE,
   },
   multiVarMultiDateCol: {
     description: "Data about many variables, many date columns",
-    table: MULTI_VAR_MULTI_DATE_COL_TABLE,
     explanation: MULTI_VAR_MULTI_DATE_COL_EXPLANATION,
+    table: MULTI_VAR_MULTI_DATE_COL_TABLE,
   },
   multiVarCol: {
     description: "Data about many variables, one per column",
-    table: MULTI_VAR_COL_TABLE,
     explanation: MULTI_VAR_COL_EXPLANATION,
+    table: MULTI_VAR_COL_TABLE,
   },
 };
 
@@ -203,7 +203,7 @@ export const TEMPLATE_MAPPING_SECTION_COMPONENTS: {
   [templateId: string]: (props: MappingSectionProps) => JSX.Element;
 } = {
   constantVar: ConstantVar,
-  singleVarMultiDateCol: SingleVarMultiDateCol,
-  multiVarMultiDateCol: MultiVarMultiDateCol,
   multiVarCol: MulitVarCol,
+  multiVarMultiDateCol: MultiVarMultiDateCol,
+  singleVarMultiDateCol: SingleVarMultiDateCol,
 };
