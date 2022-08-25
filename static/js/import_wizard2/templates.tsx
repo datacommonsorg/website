@@ -177,20 +177,20 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
     explanation: CONSTANT_VAR_EXPLANATION,
     table: CONSTANT_VAR_TABLE,
   },
-  singleVarMultiDateCol: {
-    description: "Data about a single variable, many date columns",
-    explanation: SINGLE_VAR_MULTI_DATE_COL_EXPLANATION,
-    table: SINGLE_VAR_MULTI_DATE_COL_TABLE,
+  multiVarCol: {
+    description: "Data about many variables, one per column",
+    explanation: MULTI_VAR_COL_EXPLANATION,
+    table: MULTI_VAR_COL_TABLE,
   },
   multiVarMultiDateCol: {
     description: "Data about many variables, many date columns",
     explanation: MULTI_VAR_MULTI_DATE_COL_EXPLANATION,
     table: MULTI_VAR_MULTI_DATE_COL_TABLE,
   },
-  multiVarCol: {
-    description: "Data about many variables, one per column",
-    explanation: MULTI_VAR_COL_EXPLANATION,
-    table: MULTI_VAR_COL_TABLE,
+  singleVarMultiDateCol: {
+    description: "Data about a single variable, many date columns",
+    explanation: SINGLE_VAR_MULTI_DATE_COL_EXPLANATION,
+    table: SINGLE_VAR_MULTI_DATE_COL_TABLE,
   },
 };
 
