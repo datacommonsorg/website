@@ -15,3 +15,125 @@
  */
 
 @import "base";
+
+#main-body {
+  position: relative;
+  padding-top: 3rem;
+  padding-bottom: 6rem;
+}
+
+#main-footer {
+  margin-top: 0;
+}
+
+.main-content {
+  margin: 0;
+}
+
+body {
+  font-size: 1rem;
+  background-color: #f8f8f8;
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+}
+
+.nav-btn {
+  font-size: 1rem;
+  background: #660000;
+  border-color: none;
+}
+
+.cont-btn {
+  margin-left: 0.5rem;
+}
+
+.upload-section-container {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: white;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 0.3rem;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.file-options-section {
+  margin-top: 2rem;
+}
+
+.file-options-header {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.file-options-input {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  width: fit-content;
+}
+
+.file-options-input span,
+.file-options-input .form-control {
+  font-size: 0.9rem;
+}
+
+.file-options-input span {
+  width: 7rem;
+}
+
+table {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  overflow: auto;
+  font-size: 0.9rem;
+  max-height: 40vh;
+}
+
+tr th {
+  height: 2rem;
+  vertical-align: center;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+
+th {
+  background: #f5f6fa;
+  border-top: none;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr td:first-child,
+tr th:first-child {
+  border-left: none;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+}
+
+.navigation-section {
+  margin-top: 1.5rem;
+  display: flex;
+}

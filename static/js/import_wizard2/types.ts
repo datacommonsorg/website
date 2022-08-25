@@ -142,6 +142,13 @@ export interface CsvData {
   // It is also assumed that order of values in the array will correspond to
   // the orderedColumnNames.
   rowsForDisplay: Map<RowNumber, Array<string>>;
+  // row number of the header (1-indexed)
+  headerRow: RowNumber;
+  // row number of the first row of data (1-indexed), assume all subsequent rows
+  // are data rows until lastDataRow
+  firstDataRow: RowNumber;
+  // row number of the last row of data (1-indexed)
+  lastDataRow: RowNumber;
 
   // The raw csv data can be either in the form of a file or a URL. One of the
   // following fields must be set:
