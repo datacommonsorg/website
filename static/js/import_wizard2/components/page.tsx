@@ -20,10 +20,7 @@
 
 import _ from "lodash";
 import React from "react";
-import { UploadPage } from "./upload_page";
 
 export function Page(): JSX.Element {
-  return <>
-  <UploadPage onBackClicked={_.noop} onContinueClicked={_.noop}/>
-  </>;
+  return <></>;
 }
