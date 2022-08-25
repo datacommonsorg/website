@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-/**
- * Main component for the import wizard.
- */
-
-import _ from "lodash";
 import React from "react";
+import { Button } from "reactstrap";
 
-export function Page(): JSX.Element {
-  return <></>;
+interface InfoProps {
+  onStartClicked: () => void;
+}
+
+export function Info(props: InfoProps): JSX.Element {
+  return (
+    <div>
+      <Button className="nav-btn" onClick={props.onStartClicked}>
+        Start
+      </Button>
+    </div>
+  );
 }
