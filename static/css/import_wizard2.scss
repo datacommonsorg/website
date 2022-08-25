@@ -17,9 +17,9 @@
 @import "base";
 
 #main-body {
-  position: relative;
-  padding-top: 3rem;
   padding-bottom: 6rem;
+  padding-top: 3rem;
+  position: relative;
 }
 
 #main-footer {
@@ -31,21 +31,21 @@
 }
 
 body {
-  font-size: 1rem;
   background-color: #f8f8f8;
+  font-size: 1rem;
 }
 
 .form-control:focus {
-  outline: none;
-  box-shadow: none;
   border: 1.5px solid rgba(0, 0, 0, 0.5);
   border-radius: 0.25rem;
+  box-shadow: none;
+  outline: none;
 }
 
 .nav-btn {
-  font-size: 1rem;
   background: #660000;
   border-color: none;
+  font-size: 1rem;
 }
 
 .cont-btn {
@@ -53,12 +53,11 @@ body {
 }
 
 .upload-section-container {
-  border: 1px solid rgba(0, 0, 0, 0.2);
   background: white;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
   margin-top: 1.5rem;
   padding: 1.5rem;
-  border-radius: 0.3rem;
-  border-radius: 0.5rem;
   position: relative;
 }
 
@@ -73,7 +72,6 @@ body {
 
 .file-options-input {
   display: flex;
-  align-items: center;
   padding-top: 0.5rem;
   width: fit-content;
 }
@@ -89,11 +87,11 @@ body {
 
 table {
   display: block;
-  width: fit-content;
-  max-width: 100%;
-  overflow: auto;
   font-size: 0.9rem;
   max-height: 40vh;
+  max-width: 100%;
+  overflow: auto;
+  width: fit-content;
 }
 
 tr th {
@@ -115,8 +113,8 @@ th {
 
 th,
 td {
-  text-align: center;
   padding: 0.2rem 0.5rem;
+  text-align: center;
 }
 
 tr:last-child td {
@@ -134,6 +132,6 @@ tr th:last-child {
 }
 
 .navigation-section {
-  margin-top: 1.5rem;
   display: flex;
+  margin-top: 1.5rem;
 }
