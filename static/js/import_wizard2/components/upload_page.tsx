@@ -217,6 +217,7 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
       headerRow,
       firstDataRow,
       lastDataRow,
+      lastFileRow: -1,
     };
     // key is column idx
     const sampleColumnValues: Map<number, Set<string>> = new Map();
@@ -228,6 +229,7 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
         if (_.isUndefined(lastDataRow)) {
           csv.lastDataRow = currRow - 1;
         }
+        csv.lastFileRow = currRow - 1;
         onParseComplete(csv, sampleColumnValues);
       },
       error: () => {

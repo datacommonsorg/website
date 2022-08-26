@@ -19,13 +19,16 @@
  * the import package
  */
 
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "reactstrap";
 
 import {
   TEMPLATE_MAPPING_SECTION_COMPONENTS,
   TEMPLATE_OPTIONS,
 } from "../templates";
-import { CsvData } from "../types";
+import { CsvData, Mapping, ValueMap } from "../types";
+import { shouldGenerateCsv } from "../utils/file_generation";
+import { MappingPreviewSection } from "./mapping_preview_section";
 
 interface MappingPageProps {
   csvData: CsvData;
@@ -36,8 +39,16 @@ interface MappingPageProps {
 
 export function MappingPage(props: MappingPageProps): JSX.Element {
   // TODO: call detection API to get predicted mappings
-  // TODO: add preview section
-  let fileName = "test.csv";
+  const [predictedMapping, setPredictedMapping] = useState<Mapping>(null);
+  // TODO: get corrections and valueMap from MappingSectionComponent
+  const [corrections, setCorrections] = useState<{
+    mapping: Mapping;
+    csv: CsvData;
+  }>(null);
+  const [valueMap, setValueMap] = useState<ValueMap>({});
+  const [showPreview, setShowPreview] = useState(false);
+
+  let fileName = "";
   if (props.csvData && props.csvData.rawCsvFile) {
     fileName = props.csvData.rawCsvFile.name;
   } else if (props.csvData && props.csvData.rawCsvUrl) {
@@ -73,6 +84,22 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
         </div>
       </div>
       <MappingSectionComponent />
+      <Button className="nav-btn" onClick={() => setShowPreview(true)}>
+        Generate Preview
+      </Button>
+      {showPreview && (
+        <MappingPreviewSection
+          predictedMapping={predictedMapping}
+          correctedMapping={corrections.mapping}
+          csvData={corrections.csv}
+          shouldGenerateCsv={shouldGenerateCsv(
+            props.csvData,
+            corrections.csv,
+            valueMap
+          )}
+          valueMap={valueMap}
+        />
+      )}
     </>
   );
 }

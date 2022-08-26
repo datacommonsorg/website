@@ -149,6 +149,8 @@ export interface CsvData {
   firstDataRow: RowNumber;
   // row number of the last row of data (1-indexed)
   lastDataRow: RowNumber;
+  // lsat row of the file
+  lastFileRow: RowNumber;
 
   // The raw csv data can be either in the form of a file or a URL. One of the
   // following fields must be set:
