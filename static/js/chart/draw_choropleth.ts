@@ -85,6 +85,7 @@ const MIN_DOT_SIZE = 1.1;
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
 const TEMP_MODEL_DIFF_DOMAIN = [0, 15];
 const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
+const TEMP_AGGREGATE_DIFF_DOMAIN = [-30, -15, 0, 15, 30];
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -150,6 +151,8 @@ function getColorScale(
     if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
         domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
+      } else if (statVar.indexOf("Dc Aggregate")) {
+        domainValues = domain || TEMP_AGGREGATE_DIFF_DOMAIN;
       } else {
         domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
       }
