@@ -95,7 +95,7 @@ export function generateCsv(
   valueMap: ValueMap
 ): Promise<string> {
   const cleanedCsv = [csvData.orderedColumns.map((column) => column.id)];
-  const currRow = 1;
+  let currRow = 1;
   return new Promise((resolve, reject) => {
     Papa.parse(csvData.rawCsvFile || csvData.rawCsvUrl, {
       complete: () => {
@@ -108,6 +108,7 @@ export function generateCsv(
           });
           cleanedCsv.push(cleanedRow);
         }
+        currRow++;
       },
       error: () => {
         reject();
