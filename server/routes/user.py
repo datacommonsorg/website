@@ -13,10 +13,13 @@
 # limitations under the License.
 
 import requests
-from flask import Blueprint, current_app, session, abort, redirect, request
+from flask import Blueprint, current_app, session, abort, redirect, request, render_template
 from google.oauth2 import id_token
 from cachecontrol import CacheControl
 import google.auth.transport.requests
+from google.cloud import storage
+
+import routes.api.user as user_api
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -58,14 +61,15 @@ def logout():
     return redirect('/user/login')
 
 
-def login_is_required(function):
+def login_is_required(func):
 
     def wrapper(*args, **kwargs):
         if 'google_id' not in session:
             return redirect('/user/login')
         else:
-            return function()
+            return func()
 
+    wrapper.__name__ = func.__name__
     return wrapper
 
 
@@ -74,7 +78,37 @@ def index():
     return "Data Commons </br> <a href='/user/auth/login'><button>Login</button></a>"
 
 
+@bp.route('/upload', methods=['POST'])
+@login_is_required
+def upload():
+    # TODO: changeg SECRETE_PROJECT to APP_PROJECT
+    # Upload files to GCS
+    user_id = session["google_id"]
+    project = current_app.config['SECRET_PROJECT']
+    bucket_name = project + '-resources'
+    gcs_client = storage.Client(project=project)
+    bucket = gcs_client.get_bucket(bucket_name)
+    import_name = request.form.get('importName')
+    for f in request.files.getlist('files'):
+        blob_name = f'{user_id}/{import_name}/{f.filename}'
+        blob = bucket.blob(blob_name)
+        blob.upload_from_string(f.read())
+    # Record the entry in user database
+    user_api.add_import(user_id, import_name)
+    return '', 200
+
+
 @bp.route('/')
 @login_is_required
 def user():
-    return f"Hello {session['name']}! <br/> <a href='/user/auth/logout'><button>Logout</button></a>"
+    user_id = session['google_id']
+    user_name = session['name']
+    user_info = user_api.get_user_info(user_id)
+    is_new_user = False
+    if not user_info:
+        user_api.create_user(user_id, {'name': user_name})
+        is_new_user = True
+    user_info = user_api.get_user_info(user_id)
+    return render_template('/user/portal.html',
+                           info=user_info,
+                           is_new_user=is_new_user)
