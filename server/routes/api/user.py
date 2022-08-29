@@ -21,28 +21,28 @@ from flask import current_app
 bp = flask.Blueprint('api.user', __name__, url_prefix='/api/user')
 
 
-def get_user_info(id):
+def get_user_info(google_id):
     """Returns data given a user id."""
     db = current_app.config['USER_DB']
     users_ref = db.collection(u'users')
     docs = users_ref.stream()
     for doc in docs:
-        if doc.id == id:
+        if doc.id == google_id:
             return json.dumps(doc.to_dict())
     return {}
 
 
-def create_user(id, data):
+def create_user(google_id, data):
     """Create a new user."""
     db = current_app.config['USER_DB']
-    doc_ref = db.collection(u'users').document(id)
+    doc_ref = db.collection(u'users').document(google_id)
     doc_ref.set(data)
 
 
-def add_import(id, import_name):
+def add_import(google_id, import_name):
     """Add a new import for a user"""
     db = current_app.config['USER_DB']
-    doc_ref = db.collection(u'users').document(id)
+    doc_ref = db.collection(u'users').document(google_id)
     importUpdate = {}
     importUpdate[f'import.{import_name}.status'] = "imported"
     doc_ref.update(importUpdate)

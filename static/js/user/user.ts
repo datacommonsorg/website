@@ -20,7 +20,6 @@ import ReactDOM from "react-dom";
 import { Page } from "./page";
 
 window.onload = () => {
-  console.log(document.getElementById("user").dataset.info);
   const info = JSON.parse(document.getElementById("user").dataset.info);
   const newUser = "True" === document.getElementById("user").dataset.new_user;
   ReactDOM.render(

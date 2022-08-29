@@ -36,6 +36,28 @@ export function Page(props: PagePropType): JSX.Element {
   const [importName, setImportName] = useState(String);
   const [dataFiles, setDataFiles] = useState<File[]>([]);
 
+  function onUpload(): void {
+    const formData = new FormData();
+    for (const f of dataFiles) {
+      formData.append("files", f, f.name);
+    }
+    formData.append("importName", importName);
+    axios.post("/user/upload", formData).then(() => {
+      setModalOpen(false);
+    });
+  }
+
+  function onAddFile(files: FileList): void {
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i);
+      setDataFiles((existing) => [...existing, file]);
+    }
+  }
+
+  function onEditImportName(text: string): void {
+    setImportName(text);
+  }
+
   return (
     <div>
       Hello {props.info["name"]}!
@@ -97,27 +119,4 @@ export function Page(props: PagePropType): JSX.Element {
       </a>
     </div>
   );
-
-  function onUpload(): void {
-    const formData = new FormData();
-    for (const f of dataFiles) {
-      formData.append("files", f, f.name);
-    }
-    formData.append("importName", importName);
-    axios.post("/user/upload", formData).then((resp) => {
-      console.log(resp);
-      setModalOpen(false);
-    });
-  }
-
-  function onAddFile(files: FileList): void {
-    for (let i = 0; i < files.length; i++) {
-      const file = files.item(i);
-      setDataFiles((existing) => [...existing, file]);
-    }
-  }
-
-  function onEditImportName(text: string): void {
-    setImportName(text);
-  }
 }
