@@ -24,6 +24,10 @@ import routes.api.user as user_api
 bp = Blueprint('user', __name__, url_prefix='/user')
 
 
+def get_gcs_bucket(project_id):
+    return project_id + '-resources'
+
+
 @bp.route('/auth/login')
 def login():
     flow = current_app.config['OAUTH_FLOW']
@@ -78,17 +82,19 @@ def index():
     return "Data Commons </br> <a href='/user/auth/login'><button>Login</button></a>"
 
 
-@bp.route('/upload', methods=['POST'])
+@bp.route('/upload/import', methods=['POST'])
 @login_is_required
-def upload():
+def upload_import():
     # TODO: changeg SECRETE_PROJECT to APP_PROJECT
-    # Upload files to GCS
+    # Upload import files to GCS
     user_id = session["google_id"]
     project = current_app.config['SECRET_PROJECT']
-    bucket_name = project + '-resources'
+    bucket_name = get_gcs_bucket(project)
     gcs_client = storage.Client(project=project)
     bucket = gcs_client.get_bucket(bucket_name)
     import_name = request.form.get('importName')
+    # Since this is adding a new import, the folder should not existed
+    # TODO: in the UI, check the import name is non-existence for this user.
     for f in request.files.getlist('files'):
         blob_name = f'{user_id}/{import_name}/{f.filename}'
         blob = bucket.blob(blob_name)

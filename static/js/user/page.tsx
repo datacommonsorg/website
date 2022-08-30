@@ -42,7 +42,7 @@ export function Page(props: PagePropType): JSX.Element {
       formData.append("files", f, f.name);
     }
     formData.append("importName", importName);
-    axios.post("/user/upload", formData).then(() => {
+    axios.post("/user/upload/import", formData).then(() => {
       setModalOpen(false);
     });
   }
