@@ -25,6 +25,7 @@ import { TEMPLATE_OPTIONS } from "../templates";
 
 interface TemplateSelectionPageProps {
   onContinueClicked: (templateId: string) => void;
+  selectedTemplate: string;
 }
 
 export function TemplateSelectionPage(
@@ -32,7 +33,7 @@ export function TemplateSelectionPage(
 ): JSX.Element {
   const sortedTemplateIds = Object.keys(TEMPLATE_OPTIONS).sort();
   const [selectedTemplate, setSelectedTemplate] = useState(
-    sortedTemplateIds[0]
+    props.selectedTemplate || sortedTemplateIds[0]
   );
 
   return (
