@@ -190,7 +190,7 @@ def create_app():
                                                         'mixer-api-key',
                                                         'latest')
         secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['API_KEY'] = secret_response.payload.data.decode('UTF-8')
+        app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
     # Initialize translations
     babel = Babel(app, default_domain='all')

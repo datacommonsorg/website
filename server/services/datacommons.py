@@ -73,8 +73,9 @@ _MAX_LIMIT = 100
 def get(path):
     url = API_ROOT + path
     headers = {'Content-Type': 'application/json'}
-    if current_app.config['API_KEY']:
-        headers['x-api-key'] = current_app.config['API_KEY']
+    dc_api_key = current_app.get('DC_API_KEY', '')
+    if dc_api_key:
+        headers['x-api-key'] = dc_api_key
     # Send the request and verify the request succeeded
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
@@ -100,8 +101,9 @@ def post_wrapper(path, req_str):
     req = json.loads(req_str)
     url = API_ROOT + path
     headers = {'Content-Type': 'application/json'}
-    if current_app.config['API_KEY']:
-        headers['x-api-key'] = current_app.config['API_KEY']
+    dc_api_key = current_app.get('DC_API_KEY', '')
+    if dc_api_key:
+        headers['x-api-key'] = dc_api_key
     # Send the request and verify the request succeeded
     response = requests.post(url, json=req, headers=headers)
     if response.status_code != 200:
