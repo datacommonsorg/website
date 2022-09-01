@@ -54,7 +54,7 @@ export function PreviewTable(props: PreviewTableProps): JSX.Element {
         <tr>
           <th>{props.csvData.headerRow}</th>
           {props.csvData.orderedColumns.map((col) => {
-            return <th key={col.id}>{col.header}</th>;
+            return <th key={col.columnIdx}>{col.header}</th>;
           })}
         </tr>
       </thead>
