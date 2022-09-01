@@ -14,8 +14,10 @@
 """User related handlers."""
 
 import flask
-import json
+import time
 
+from google.cloud import firestore
+from dataclasses import asdict, dataclass
 from enum import Enum
 from flask import current_app
 
@@ -35,31 +37,45 @@ class ImportStatus(Enum):
     IMPORTED = 1
 
 
-def get_user_db():
+@dataclass
+class Import:
+    """Data type for import entry"""
+    status: int
+
+
+@dataclass
+class User:
+    """Data model for user entry"""
+    creation_timestamp: float
+
+
+def get_user_db() -> firestore.Client:
     return current_app.config['USER_DB']
 
 
-def get_user_info(user_id):
+def get_user_info(user_id: str) -> dict:
     """Returns user document from Cloud Firestore.
 
-    User doc contains "imports" subcollection that holds the "import" document.
+    User doc contains 'imports' subcollection that holds the 'import' document.
     """
     db = get_user_db()
     for user in db.collection(USER_COLLECTION).stream():
         if user.id == user_id:
-            return json.dumps(user.to_dict())
+            return user.to_dict()
     return {}
 
 
-def create_user(user_id):
+def create_user(user_id: str):
     """Create a new user."""
     db = get_user_db()
-    db.collection(USER_COLLECTION).document(user_id).set({})
+    db.collection(USER_COLLECTION).document(user_id).set(
+        asdict(User(creation_timestamp=time.time())))
 
 
-def add_import(user_id, import_name):
+def add_import(user_id: str, import_name: str):
     """Add a new import for a user"""
     db = get_user_db()
     user_ref = db.collection(USER_COLLECTION).document(user_id)
     import_ref = user_ref.collection(IMPORT_COLLECTION).document(import_name)
-    import_ref.set({'status': ImportStatus.IMPORTED.value})
+    import_info: Import = Import(status=ImportStatus.IMPORTED.value)
+    import_ref.set(asdict(import_info))

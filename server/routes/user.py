@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import requests
 
 from flask import Blueprint, current_app, session, abort, redirect, request, render_template
@@ -87,7 +88,7 @@ def index():
 @bp.route('/upload/import', methods=['POST'])
 @login_is_required
 def upload_import():
-    # TODO: changeg SECRETE_PROJECT to APP_PROJECT
+    # TODO: change SECRET_PROJECT to APP_PROJECT
     # Upload import files to GCS
     oauth_user_id = session["oauth_user_id"]
     user_id = libutil.hash_id(oauth_user_id)
@@ -100,7 +101,7 @@ def upload_import():
         return f'Bucket {bucket_name} is not found', 500
 
     import_name = request.form.get('importName')
-    if import_name == '':
+    if not import_name:
         return 'Import name is empty', 400
     # Since this is adding a new import, the folder should not existed
     # TODO: in the UI, check the import name is non-existence for this user.
@@ -125,5 +126,5 @@ def user():
         is_new_user = True
     user_info = user_api.get_user_info(user_id)
     return render_template('/user/portal.html',
-                           info=user_info,
+                           info=json.dumps(user_info),
                            is_new_user=is_new_user)

@@ -76,7 +76,7 @@ export function Page(props: PagePropType): JSX.Element {
           color="light"
           onClick={() => setModalOpen(true)}
         >
-          Upload import data
+          Upload files for import
         </Button>
         <Modal
           isOpen={modalOpen}
