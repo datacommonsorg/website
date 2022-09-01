@@ -16,33 +16,50 @@
 import flask
 import json
 
+from enum import Enum
 from flask import current_app
 
 bp = flask.Blueprint('api.user', __name__, url_prefix='/api/user')
 
+# User information is stored in Cloud Firestore as "users" collection.
+# Each user document has a "imports" subcollection that stores the import
+# document. So an import has the a path like:
+#
+# /users/<user_id>/imports/<import_id>
+#
+USER_COLLECTION = 'users'
+IMPORT_COLLECTION = 'imports'
 
-def get_user_info(google_id):
-    """Returns data given a user id."""
-    db = current_app.config['USER_DB']
-    users_ref = db.collection(u'users')
-    docs = users_ref.stream()
-    for doc in docs:
-        if doc.id == google_id:
-            return json.dumps(doc.to_dict())
+
+class ImportStatus(Enum):
+    IMPORTED = 1
+
+
+def get_user_db():
+    return current_app.config['USER_DB']
+
+
+def get_user_info(user_id):
+    """Returns user document from Cloud Firestore.
+
+    User doc contains "imports" subcollection that holds the "import" document.
+    """
+    db = get_user_db()
+    for user in db.collection(USER_COLLECTION).stream():
+        if user.id == user_id:
+            return json.dumps(user.to_dict())
     return {}
 
 
-def create_user(google_id, data):
+def create_user(user_id):
     """Create a new user."""
-    db = current_app.config['USER_DB']
-    doc_ref = db.collection(u'users').document(google_id)
-    doc_ref.set(data)
+    db = get_user_db()
+    db.collection(USER_COLLECTION).document(user_id).set({})
 
 
-def add_import(google_id, import_name):
+def add_import(user_id, import_name):
     """Add a new import for a user"""
-    db = current_app.config['USER_DB']
-    doc_ref = db.collection(u'users').document(google_id)
-    importUpdate = {}
-    importUpdate[f'import.{import_name}.status'] = "imported"
-    doc_ref.update(importUpdate)
+    db = get_user_db()
+    user_ref = db.collection(USER_COLLECTION).document(user_id)
+    import_ref = user_ref.collection(IMPORT_COLLECTION).document(import_name)
+    import_ref.set({'status': ImportStatus.IMPORTED.value})

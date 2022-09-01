@@ -60,7 +60,7 @@ export function Page(props: PagePropType): JSX.Element {
 
   return (
     <div>
-      Hello {props.info["name"]}!
+      Hello!
       <br />
       {props.newUser && (
         <div>
@@ -76,7 +76,7 @@ export function Page(props: PagePropType): JSX.Element {
           color="light"
           onClick={() => setModalOpen(true)}
         >
-          Add Import
+          Upload import data
         </Button>
         <Modal
           isOpen={modalOpen}

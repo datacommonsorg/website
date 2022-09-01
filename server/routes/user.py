@@ -13,12 +13,15 @@
 # limitations under the License.
 
 import requests
+
 from flask import Blueprint, current_app, session, abort, redirect, request, render_template
 from google.oauth2 import id_token
 from cachecontrol import CacheControl
 import google.auth.transport.requests
+from google.cloud import exceptions
 from google.cloud import storage
 
+import lib.util as libutil
 import routes.api.user as user_api
 
 bp = Blueprint('user', __name__, url_prefix='/user')
@@ -54,8 +57,7 @@ def callback():
                                            request=token_request,
                                            audience=GOOGLE_CLIENT_ID)
 
-    session['google_id'] = id_info.get('sub')
-    session['name'] = id_info.get('name')
+    session['oauth_user_id'] = id_info.get('sub')
     return redirect('/user')
 
 
@@ -68,7 +70,7 @@ def logout():
 def login_is_required(func):
 
     def wrapper(*args, **kwargs):
-        if 'google_id' not in session:
+        if 'oauth_user_id' not in session:
             return redirect('/user/login')
         else:
             return func()
@@ -87,12 +89,19 @@ def index():
 def upload_import():
     # TODO: changeg SECRETE_PROJECT to APP_PROJECT
     # Upload import files to GCS
-    user_id = session["google_id"]
+    oauth_user_id = session["oauth_user_id"]
+    user_id = libutil.hash_id(oauth_user_id)
     project = current_app.config['SECRET_PROJECT']
     bucket_name = get_gcs_bucket(project)
     gcs_client = storage.Client(project=project)
-    bucket = gcs_client.get_bucket(bucket_name)
+    try:
+        bucket = gcs_client.get_bucket(bucket_name)
+    except exceptions.NotFound:
+        return f'Bucket {bucket_name} is not found', 500
+
     import_name = request.form.get('importName')
+    if import_name == '':
+        return 'Import name is empty', 400
     # Since this is adding a new import, the folder should not existed
     # TODO: in the UI, check the import name is non-existence for this user.
     for f in request.files.getlist('files'):
@@ -107,12 +116,12 @@ def upload_import():
 @bp.route('/')
 @login_is_required
 def user():
-    user_id = session['google_id']
-    user_name = session['name']
+    oauth_user_id = session['oauth_user_id']
+    user_id = libutil.hash_id(oauth_user_id)
     user_info = user_api.get_user_info(user_id)
     is_new_user = False
     if not user_info:
-        user_api.create_user(user_id, {'name': user_name})
+        user_api.create_user(user_id)
         is_new_user = True
     user_info = user_api.get_user_info(user_id)
     return render_template('/user/portal.html',
