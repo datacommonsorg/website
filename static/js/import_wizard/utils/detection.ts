@@ -63,6 +63,8 @@ function isColumn(candidate: Record<string, any>): boolean {
  * @returns a Mapping structure which has details of all the detected
  *  columns. If there are any unexpected validation errors, that particular
  *  MappingVal is skipped.
+ * 
+ * TODO: log/show errors in cases of unexpected parsing problems.
  */
 export function parseDetectionApiResponse(
   detectedResponse: Record<string, any>
@@ -70,6 +72,7 @@ export function parseDetectionApiResponse(
   const mToReturn: Mapping = new Map<MappedThing, MappingVal>();
 
   // Some validations.
+  // TODO: move the validations to helper functions.
   for (const [mThing, mVal] of Object.entries(detectedResponse)) {
     // Keys must be among the MappedThing enum.
     if (!_.includes(Object.values(MappedThing), mThing)) {
