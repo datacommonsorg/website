@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import hashlib
 import json
 import os
 from google.protobuf import text_format
@@ -86,3 +87,7 @@ def get_topics_summary(topic_page_configs):
         for config in config_list:
             topic_place_map[topic_id].extend(config.metadata.place_dcid)
     return {"topicPlaceMap": topic_place_map, "topicNameMap": topic_name_map}
+
+
+def hash_id(user_id):
+    return hashlib.sha256(user_id.encode('utf-8')).hexdigest()
