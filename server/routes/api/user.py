@@ -41,7 +41,7 @@ class ImportStatus(Enum):
 @dataclass
 class Import:
     """Data type for import entry"""
-    status: int
+    status: int  # This is from ImportStatus Enum
     files: List[str]
 
 
