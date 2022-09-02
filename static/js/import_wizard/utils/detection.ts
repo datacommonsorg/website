@@ -63,7 +63,7 @@ function isColumn(candidate: Record<string, any>): boolean {
  * @returns a Mapping structure which has details of all the detected
  *  columns. If there are any unexpected validation errors, that particular
  *  MappingVal is skipped.
- * 
+ *
  * TODO: log/show errors in cases of unexpected parsing problems.
  */
 export function parseDetectionApiResponse(
