@@ -20,6 +20,7 @@ from google.cloud import firestore
 from dataclasses import asdict, dataclass
 from enum import Enum
 from flask import current_app
+from typing import List
 
 bp = flask.Blueprint('api.user', __name__, url_prefix='/api/user')
 
@@ -34,13 +35,14 @@ IMPORT_COLLECTION = 'imports'
 
 
 class ImportStatus(Enum):
-    IMPORTED = 1
+    UPLOADED = 1
 
 
 @dataclass
 class Import:
     """Data type for import entry"""
     status: int
+    files: List[str]
 
 
 @dataclass
@@ -53,7 +55,12 @@ def get_user_db() -> firestore.Client:
     return current_app.config['USER_DB']
 
 
-def get_user_info(user_id: str) -> dict:
+def has_user(user_id: str) -> bool:
+    user_ref = get_user_db().collection(USER_COLLECTION).document(user_id)
+    return user_ref.get().exists
+
+
+def get_user(user_id: str) -> firestore.DocumentSnapshot:
     """Returns user document from Cloud Firestore.
 
     User doc contains 'imports' subcollection that holds the 'import' document.
@@ -61,8 +68,8 @@ def get_user_info(user_id: str) -> dict:
     db = get_user_db()
     for user in db.collection(USER_COLLECTION).stream():
         if user.id == user_id:
-            return user.to_dict()
-    return {}
+            return user
+    raise Exception("No user found")
 
 
 def create_user(user_id: str):
@@ -72,10 +79,11 @@ def create_user(user_id: str):
         asdict(User(creation_timestamp=time.time())))
 
 
-def add_import(user_id: str, import_name: str):
+def add_import(user_id: str, import_name: str, files: List[str]):
     """Add a new import for a user"""
     db = get_user_db()
     user_ref = db.collection(USER_COLLECTION).document(user_id)
     import_ref = user_ref.collection(IMPORT_COLLECTION).document(import_name)
-    import_info: Import = Import(status=ImportStatus.IMPORTED.value)
+    import_info: Import = Import(status=ImportStatus.UPLOADED.value,
+                                 files=files)
     import_ref.set(asdict(import_info))

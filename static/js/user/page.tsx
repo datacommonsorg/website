@@ -19,11 +19,20 @@
  */
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+const statusText = {
+  1: "uploaded",
+};
+
+export interface Import {
+  status: number;
+  files: string[];
+}
+
 export interface PagePropType {
-  info: Map<string, string>;
+  user: Map<string, string>;
   newUser: boolean;
 }
 
@@ -35,6 +44,7 @@ export function Page(props: PagePropType): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
   const [importName, setImportName] = useState(String);
   const [dataFiles, setDataFiles] = useState<File[]>([]);
+  const [imports, setImports] = useState<Record<string, Import>>({});
 
   function onUpload(): void {
     const formData = new FormData();
@@ -42,7 +52,7 @@ export function Page(props: PagePropType): JSX.Element {
       formData.append("files", f, f.name);
     }
     formData.append("importName", importName);
-    axios.post("/user/upload/import", formData).then(() => {
+    axios.post("/user/import/upload", formData).then(() => {
       setModalOpen(false);
     });
   }
@@ -58,6 +68,12 @@ export function Page(props: PagePropType): JSX.Element {
     setImportName(text);
   }
 
+  useEffect(() => {
+    axios.get("/user/imports").then((resp) => {
+      setImports(resp.data);
+    });
+  }, [modalOpen]);
+
   return (
     <div>
       Hello!
@@ -69,14 +85,31 @@ export function Page(props: PagePropType): JSX.Element {
         </div>
       )}
       <div id="imports">
-        <div>All Imports</div>
+        <div>
+          <h3>All Imports</h3>
+          {Object.keys(imports).map((id) => {
+            const im = imports[id];
+            return (
+              <div key={id}>
+                <div>
+                  {id}: {statusText[im.status]}
+                </div>
+                <ul>
+                  {im.files.map((f) => {
+                    return <li key={f}>{f}</li>;
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
         <Button
           id="add-import-open-modal-button"
           size="sm"
           color="light"
           onClick={() => setModalOpen(true)}
         >
-          Upload files for import
+          Upload files for a new import
         </Button>
         <Modal
           isOpen={modalOpen}
