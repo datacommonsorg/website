@@ -148,3 +148,13 @@ export function addYLabel(
     .attr("dy", "1em")
     .text(labelText);
 }
+
+/**
+ * Creates the page redirection link of the input entity
+ * @param dcid - entity dcid
+ * @returns - redirection link
+ */
+export function getEntityLink(dcid: string): string {
+  const entityLink = GRAPH_BROWSER_REDIRECT + dcid;
+  return entityLink;
+}

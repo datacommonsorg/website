@@ -8,6 +8,7 @@ import dataDOID2403 from "./data_DOID_2403.json";
 import {
   getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
+  getDiseaseCommonName,
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
@@ -170,6 +171,29 @@ test("getCompoundDiseaseContraindication", () => {
     } catch (e) {
       console.log(
         "Got different chemical compound disease contraindication array than expected for query data"
+      );
+      throw e;
+    }
+  }
+});
+
+test("getDiseaseCommonName", () => {
+  const cases: {
+    data: GraphNodes;
+    wantArray: string;
+  }[] = [
+    {
+      data: dataDOID2403 as GraphNodes,
+      wantArray: "Hepatitis B",
+    },
+  ];
+  for (const c of cases) {
+    const diseaseName = getDiseaseCommonName(c.data);
+    try {
+      expect(diseaseName).toEqual(c.wantArray);
+    } catch (e) {
+      console.log(
+        "Got different disease common names than expected for query data"
       );
       throw e;
     }

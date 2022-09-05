@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import _ from "lodash";
+import _, { trim } from "lodash";
 
 import { GraphNodes } from "../../shared/types";
 import {
@@ -23,6 +23,7 @@ import {
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
 } from "./types";
+
 /**
  * Fetches the disease-gene association data
  * @param data - the data pertaining to the disease of interest
@@ -98,6 +99,7 @@ export function getDiseaseGeneAssociation(
 export function getDiseaseSymptomAssociation(
   data: GraphNodes
 ): DiseaseSymptomAssociationData[] {
+  let diseaseDCID = null;
   // checks if the data is empty
   if (_.isEmpty(data)) {
     return [];
@@ -107,6 +109,7 @@ export function getDiseaseSymptomAssociation(
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
   }
+  diseaseDCID = data.nodes[0].value;
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "diseaseOntologyID") {
       continue;
@@ -294,6 +297,7 @@ export function getCompoundDiseaseContraindication(
  */
 export function getDiseaseCommonName(data: GraphNodes): string {
   let commonName = null;
+  let diseaseDCID = null;
   if (!data) {
     return;
   }
@@ -301,6 +305,7 @@ export function getDiseaseCommonName(data: GraphNodes): string {
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return;
   }
+  diseaseDCID = data.nodes[0].value;
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "commonName") {
       continue;
@@ -310,10 +315,17 @@ export function getDiseaseCommonName(data: GraphNodes): string {
       continue;
     }
     commonName = neighbour.nodes[0].value;
+    // check if string has atleast length 2, before performing string operations
+    if (commonName.length < 2) {
+      // return disease DCID instead of disease name
+      return diseaseDCID;
+    }
+    // remove all double quotes from the string
+    commonName = trim(commonName, '"');
     // capitalize the first letter of the disease name
     const formattedDiseaseName =
-      commonName[1].toUpperCase() + commonName.slice(2);
-    // return formatted disease name with double quotes removed
-    return formattedDiseaseName.replaceAll('"', "");
+      commonName.charAt(0).toUpperCase() + commonName.slice(1);
+    // return formatted disease name
+    return formattedDiseaseName;
   }
 }

@@ -22,7 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../../shared/types";
-import { GRAPH_BROWSER_REDIRECT } from "../bio_charts_utils";
+import { getEntityLink } from "../bio_charts_utils";
 import {
   drawChemGeneAssocChart,
   drawDiseaseGeneAssocChart,
@@ -123,7 +123,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     Using the split we get the ProteinName and SpeciesName separately
     */
     const splitNodeName = this.props.nodeName.split("_");
-    const proteinLink = `${GRAPH_BROWSER_REDIRECT}${this.props.dcid}`;
+    const proteinLink = getEntityLink(this.props.dcid);
     const proteinDescription = getProteinDescription(this.state.data);
     return (
       <>

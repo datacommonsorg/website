@@ -22,7 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../../shared/types";
-import { GRAPH_BROWSER_REDIRECT } from "../bio_charts_utils";
+import { getEntityLink } from "../bio_charts_utils";
 import {
   drawDiseaseGeneAssocChart,
   drawDiseaseSymptomAssociationChart,
@@ -69,7 +69,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
   render(): JSX.Element {
     const diseaseName = getDiseaseCommonName(this.state.data);
-    const diseaseLink = `${GRAPH_BROWSER_REDIRECT}${this.props.dcid}`;
+    const diseaseLink = getEntityLink(this.props.dcid);
     const chemicalCompoundDiseaseTreatment = getCompoundDiseaseTreatment(
       this.state.data
     );
