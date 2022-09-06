@@ -50,7 +50,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }>(null);
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
-  const placeDetector = /*useRef(*/new PlaceDetector()/*)*/;
+  const placeDetector = new PlaceDetector();
 
   let fileName = "";
   if (props.csvData && props.csvData.rawCsvFile) {
@@ -60,6 +60,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }
 
   useEffect(() => {
+    // TODO(beets): Use server-side detection API.
     const predictedMapping = getPredictions(props.csvData, placeDetector);
     setPredictedMapping(predictedMapping);
     console.log(predictedMapping);
