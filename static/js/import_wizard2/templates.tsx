@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import React from "react";
+import { CsvData, Mapping } from "../import_wizard/types";
 
 import { CsvData, Mapping } from "../import_wizard/types";
 import { ConstantVar } from "./components/mapping_sections/constant_var";
