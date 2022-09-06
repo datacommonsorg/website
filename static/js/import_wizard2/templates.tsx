@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import React from "react";
+import { CsvData, Mapping } from "../import_wizard/types";
 
 import { ConstantVar } from "./components/mapping_sections/constant_var";
 import { MulitVarCol } from "./components/mapping_sections/multi_var_col";
@@ -194,7 +195,10 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
   },
 };
 
-export interface MappingSectionProps {}
+export interface MappingSectionProps {
+  csvData: CsvData;
+  predictedMapping: Mapping;
+}
 
 // Map of templateId to the mapping component to render for that templateId.
 // templateId must be present in TEMPLATE_OPTIONS in order for users to choose

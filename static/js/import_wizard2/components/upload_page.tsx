@@ -30,6 +30,7 @@ const NUM_LAST_ROWS = 3;
 const MAX_COLUMN_SAMPLES = 100;
 const DEFAULT_HEADER_ROW = 1;
 const DEFAULT_FIRST_DATA_ROW = 2;
+const UNDEFINED_LAST_DATA_ROW = -1;
 
 interface UploadPageProps {
   onContinueClicked: (csv: CsvData) => void;
@@ -46,7 +47,7 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
   const [firstDataRowInput, setFirstDataRowInput] = useState(
     DEFAULT_FIRST_DATA_ROW
   );
-  const [lastDataRowInput, setLastDataRowInput] = useState(undefined);
+  const [lastDataRowInput, setLastDataRowInput] = useState(UNDEFINED_LAST_DATA_ROW);
 
   return (
     <>
