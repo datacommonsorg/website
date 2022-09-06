@@ -19,9 +19,11 @@
  * the import package
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
+import { PlaceDetector } from "../../import_wizard/utils/detect_place";
+import { getPredictions } from "../../import_wizard/utils/heuristics";
 import {
   TEMPLATE_MAPPING_SECTION_COMPONENTS,
   TEMPLATE_OPTIONS,
@@ -29,6 +31,7 @@ import {
 import { CsvData, Mapping, ValueMap } from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { MappingPreviewSection } from "./mapping_preview_section";
+import { PreviewTable } from "./preview_table";
 
 interface MappingPageProps {
   csvData: CsvData;
@@ -47,6 +50,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }>(null);
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
+  const placeDetector = new PlaceDetector();
 
   let fileName = "";
   if (props.csvData && props.csvData.rawCsvFile) {
@@ -54,52 +58,74 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   } else if (props.csvData && props.csvData.rawCsvUrl) {
     fileName = props.csvData.rawCsvUrl;
   }
+
+  useEffect(() => {
+    // TODO(beets): Use server-side detection API.
+    const predictedMapping = getPredictions(props.csvData, placeDetector);
+    setPredictedMapping(predictedMapping);
+    console.log(predictedMapping);
+  }, [props.csvData, props.selectedTemplate]);
+
   const MappingSectionComponent =
     TEMPLATE_MAPPING_SECTION_COMPONENTS[props.selectedTemplate];
   return (
-    <>
+    <div id="mapping-section">
       {/* TODO: update page heading to something more intuitive to users */}
       <h2>Step 3: Refine table format</h2>
-      <div className="mapping-page-navigation-section">
-        <div className="mapping-page-navigation-option">
-          <span>File: {fileName}</span>
-          <span
-            onClick={props.onChangeFile}
-            className="mapping-page-navigation-button"
-          >
-            Change file
-          </span>
+      <section>
+        <div className="mapping-page-navigation-section">
+          <div className="mapping-page-navigation-option">
+            <span>File: {fileName}</span>
+            <span
+              onClick={props.onChangeFile}
+              className="mapping-page-navigation-button"
+            >
+              Change file
+            </span>
+          </div>
+          <div className="mapping-page-navigation-option">
+            <span>
+              Selected template:{" "}
+              {TEMPLATE_OPTIONS[props.selectedTemplate].description}
+            </span>
+            <span
+              onClick={props.onChangeTemplate}
+              className="mapping-page-navigation-button"
+            >
+              Change template
+            </span>
+          </div>
         </div>
-        <div className="mapping-page-navigation-option">
-          <span>
-            Selected template:{" "}
-            {TEMPLATE_OPTIONS[props.selectedTemplate].description}
-          </span>
-          <span
-            onClick={props.onChangeTemplate}
-            className="mapping-page-navigation-button"
-          >
-            Change template
-          </span>
-        </div>
-      </div>
-      <MappingSectionComponent />
-      <Button className="nav-btn" onClick={() => setShowPreview(true)}>
-        Generate Preview
-      </Button>
-      {showPreview && (
-        <MappingPreviewSection
+      </section>
+      <section>
+        <PreviewTable csvData={props.csvData} />
+      </section>
+      <section>
+        <MappingSectionComponent
+          csvData={props.csvData}
           predictedMapping={predictedMapping}
-          correctedMapping={corrections.mapping}
-          csvData={corrections.csv}
-          shouldGenerateCsv={shouldGenerateCsv(
-            props.csvData,
-            corrections.csv,
-            valueMap
-          )}
-          valueMap={valueMap}
         />
+      </section>
+      <section>
+        <Button className="nav-btn" onClick={() => setShowPreview(true)}>
+          Generate Preview
+        </Button>
+      </section>
+      {showPreview && (
+        <section>
+          <MappingPreviewSection
+            predictedMapping={predictedMapping}
+            correctedMapping={corrections.mapping}
+            csvData={corrections.csv}
+            shouldGenerateCsv={shouldGenerateCsv(
+              props.csvData,
+              corrections.csv,
+              valueMap
+            )}
+            valueMap={valueMap}
+          />
+        </section>
       )}
-    </>
+    </div>
   );
 }
