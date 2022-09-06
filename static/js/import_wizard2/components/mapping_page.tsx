@@ -21,9 +21,9 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
+
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
 import { getPredictions } from "../../import_wizard/utils/heuristics";
-
 import {
   TEMPLATE_MAPPING_SECTION_COMPONENTS,
   TEMPLATE_OPTIONS,
@@ -101,7 +101,10 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
         <PreviewTable csvData={props.csvData} />
       </section>
       <section>
-        <MappingSectionComponent csvData={props.csvData} predictedMapping={predictedMapping}/>
+        <MappingSectionComponent
+          csvData={props.csvData}
+          predictedMapping={predictedMapping}
+        />
       </section>
       <section>
         <Button className="nav-btn" onClick={() => setShowPreview(true)}>

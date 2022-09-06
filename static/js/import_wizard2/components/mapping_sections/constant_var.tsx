@@ -22,21 +22,24 @@ import { MappedThing, MappingVal } from "../../types";
 export function ConstantVar(props: MappingSectionProps): JSX.Element {
   let placeMapping, dateMapping, unitMapping: MappingVal;
 
-  props.predictedMapping && props.predictedMapping.forEach((mappingVal, mappedThing) => {
-    switch(mappedThing) {
-      case MappedThing.PLACE:
-        placeMapping = mappingVal;
-        break;
-      case MappedThing.DATE:
-        dateMapping = mappingVal;
-        break;
-      case MappedThing.UNIT:
-        unitMapping = mappingVal;
-        break;
-      default:
-        console.log(`Ignoring inferred mapping of type ${mappedThing}: ${mappingVal}`);
-    }
-  });
+  props.predictedMapping &&
+    props.predictedMapping.forEach((mappingVal, mappedThing) => {
+      switch (mappedThing) {
+        case MappedThing.PLACE:
+          placeMapping = mappingVal;
+          break;
+        case MappedThing.DATE:
+          dateMapping = mappingVal;
+          break;
+        case MappedThing.UNIT:
+          unitMapping = mappingVal;
+          break;
+        default:
+          console.log(
+            `Ignoring inferred mapping of type ${mappedThing}: ${mappingVal}`
+          );
+      }
+    });
 
   return (
     <section>
@@ -45,9 +48,7 @@ export function ConstantVar(props: MappingSectionProps): JSX.Element {
         <tbody>
           <tr>
             <td>Place*:</td>
-            <td>
-              [{placeMapping && placeMapping.column.header}]
-            </td>
+            <td>[{placeMapping && placeMapping.column.header}]</td>
           </tr>
           <tr>
             <td>Variable*:</td>
@@ -55,15 +56,11 @@ export function ConstantVar(props: MappingSectionProps): JSX.Element {
           </tr>
           <tr>
             <td>Date*:</td>
-            <td>
-              [{dateMapping && dateMapping.column.header}]
-            </td>
+            <td>[{dateMapping && dateMapping.column.header}]</td>
           </tr>
           <tr>
             <td>Unit*:</td>
-            <td>
-              [{unitMapping && unitMapping.column.header}]
-            </td>
+            <td>[{unitMapping && unitMapping.column.header}]</td>
           </tr>
           <tr>
             <td>Ignored columns:</td>
