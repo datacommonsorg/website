@@ -62,7 +62,8 @@ export function ConstantVar(props: MappingSectionProps): JSX.Element {
             <td>Unit*:</td>
             <td>[{unitMapping && unitMapping.column.header}]</td>
           </tr>
-          <tr>{/* TODO: fill in with leftover columns. */}
+          <tr>
+            {/* TODO: fill in with leftover columns. */}
             <td>Ignored columns:</td>
             <td></td>
           </tr>
