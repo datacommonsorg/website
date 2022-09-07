@@ -19,16 +19,17 @@ import ReactDOM from "react-dom";
 
 import { Page } from "./page";
 
-const dom = "main-section";
+const domId = "main-section";
 
 window.onload = () => {
-  const user = JSON.parse(document.getElementById(dom).dataset.user);
-  const newUser = "True" === document.getElementById(dom).dataset.new_user;
+  const pageElem = document.getElementById(domId);
+  const user = JSON.parse(pageElem.dataset.user);
+  const newUser = "True" === pageElem.dataset.new_user;
   ReactDOM.render(
     React.createElement(Page, {
       user,
       newUser,
     }),
-    document.getElementById(dom)
+    pageElem
   );
 };

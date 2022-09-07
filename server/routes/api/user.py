@@ -20,7 +20,7 @@ from google.cloud import firestore
 from dataclasses import asdict, dataclass
 from enum import Enum
 from flask import current_app
-from typing import List
+from typing import Dict, List
 
 bp = flask.Blueprint('api.user', __name__, url_prefix='/api/user')
 
@@ -39,10 +39,17 @@ class ImportStatus(Enum):
 
 
 @dataclass
+class GcsFile:
+    """Data type for a file stored in Google Cloud Storage"""
+    bucket: str
+    object: str
+
+
+@dataclass
 class Import:
     """Data type for import entry"""
     status: int  # This is from ImportStatus Enum
-    files: List[str]
+    gcs_files: List[GcsFile]  # The full GCS path of the import files.
 
 
 @dataclass
@@ -79,11 +86,20 @@ def create_user(user_id: str):
         asdict(User(creation_timestamp=time.time())))
 
 
-def add_import(user_id: str, import_name: str, files: List[str]):
+def add_import(user_id: str, import_name: str, gcs_files: List[GcsFile]):
     """Add a new import for a user"""
     db = get_user_db()
     user_ref = db.collection(USER_COLLECTION).document(user_id)
     import_ref = user_ref.collection(IMPORT_COLLECTION).document(import_name)
     import_info: Import = Import(status=ImportStatus.UPLOADED.value,
-                                 files=files)
+                                 gcs_files=gcs_files)
     import_ref.set(asdict(import_info))
+
+
+def get_imports(user_id: str) -> Dict[str, Dict]:
+    """Get all imports from a user"""
+    user = get_user(user_id)
+    imports: Dict[str, Dict] = {}
+    for im in user.reference.collection(IMPORT_COLLECTION).stream():
+        imports[im.id] = im.to_dict()
+    return imports

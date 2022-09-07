@@ -26,9 +26,14 @@ const statusText = {
   1: "uploaded",
 };
 
+export interface GcsFile {
+  bucket: string;
+  object: string;
+}
+
 export interface Import {
   status: number;
-  files: string[];
+  gcs_files: GcsFile[];
 }
 
 export interface PagePropType {
@@ -95,8 +100,9 @@ export function Page(props: PagePropType): JSX.Element {
                   {id}: {statusText[im.status]}
                 </div>
                 <ul>
-                  {im.files.map((f) => {
-                    return <li key={f}>{f}</li>;
+                  {im.gcs_files.map((f) => {
+                    const parts = f.object.split("/");
+                    return <li key={f.object}>{parts[parts.length - 1]}</li>;
                   })}
                 </ul>
               </div>

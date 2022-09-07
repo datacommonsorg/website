@@ -88,13 +88,8 @@ def index():
 
 @bp.route('/imports')
 @login_is_required
-def get_imports() -> Dict[str, Dict]:
-    user_id = libutil.hash_id(session['oauth_user_id'])
-    user = user_api.get_user(user_id)
-    imports: Dict[str, Dict] = {}
-    for im in user.reference.collection(user_api.IMPORT_COLLECTION).stream():
-        imports[im.id] = im.to_dict()
-    return imports
+def imports() -> Dict[str, Dict]:
+    return user_api.get_imports(libutil.hash_id(session['oauth_user_id']))
 
 
 @bp.route('/import/upload', methods=['POST'])
@@ -117,14 +112,14 @@ def upload_import():
         return 'Import name is empty', 400
     # Since this is adding a new import, the folder should not existed
     # TODO: in the UI, check the import name is non-existence for this user.
-    file_names = []
+    gcs_files = []
     for f in request.files.getlist('files'):
         blob_name = f'{user_id}/{import_name}/{f.filename}'
         blob = bucket.blob(blob_name)
         blob.upload_from_string(f.read())
-        file_names.append(f.filename)
+        gcs_files.append(user_api.GcsFile(bucket_name, blob_name))
     # Record the entry in user database
-    user_api.add_import(user_id, import_name, file_names)
+    user_api.add_import(user_id, import_name, gcs_files)
     return '', 200
 
 
