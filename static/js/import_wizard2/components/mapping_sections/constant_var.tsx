@@ -17,7 +17,58 @@
 import React from "react";
 
 import { MappingSectionProps } from "../../templates";
+import { MappedThing, MappingVal } from "../../types";
 
 export function ConstantVar(props: MappingSectionProps): JSX.Element {
-  return <></>;
+  let placeMapping, dateMapping, unitMapping: MappingVal;
+
+  props.predictedMapping &&
+    props.predictedMapping.forEach((mappingVal, mappedThing) => {
+      switch (mappedThing) {
+        case MappedThing.PLACE:
+          placeMapping = mappingVal;
+          break;
+        case MappedThing.DATE:
+          dateMapping = mappingVal;
+          break;
+        case MappedThing.UNIT:
+          unitMapping = mappingVal;
+          break;
+        default:
+          console.log(
+            `Ignoring inferred mapping of type ${mappedThing}: ${mappingVal}`
+          );
+      }
+    });
+
+  return (
+    <section>
+      <h3>Choose column titles containing data about these fields:</h3>
+      <table>
+        <tbody>
+          <tr>
+            <td>Place*:</td>
+            <td>[{placeMapping && placeMapping.column.header}]</td>
+          </tr>
+          <tr>
+            <td>Variable*:</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Date*:</td>
+            <td>[{dateMapping && dateMapping.column.header}]</td>
+          </tr>
+          <tr>
+            <td>Unit*:</td>
+            <td>[{unitMapping && unitMapping.column.header}]</td>
+          </tr>
+          <tr>
+            {/* TODO: fill in with leftover columns. */}
+            <td>Ignored columns:</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  );
 }
