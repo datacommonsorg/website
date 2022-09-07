@@ -92,6 +92,7 @@ def imports() -> Dict[str, Dict]:
     return user_api.get_imports(libutil.hash_id(session['oauth_user_id']))
 
 
+# TODO(shifucun): modularize to a separate file when /import/* path grows.
 @bp.route('/import/upload', methods=['POST'])
 @login_is_required
 def upload_import():
