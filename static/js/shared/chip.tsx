@@ -26,7 +26,7 @@ interface ChipPropsType {
   // Title to show in the chip
   title: string;
   // Callback function when chip is removed
-  removeChip: (id: string) => void;
+  removeChip?: (id: string) => void;
   // Color of the chip
   color?: string;
   // When chip text is clicked
@@ -36,7 +36,7 @@ interface ChipPropsType {
 export function Chip(props: ChipPropsType): JSX.Element {
   return (
     <div
-      className="chip"
+      className={`chip ${props.removeChip ? "" : "chip-noclose"}`}
       style={props.color ? { backgroundColor: props.color } : {}}
     >
       <span
@@ -51,6 +51,7 @@ export function Chip(props: ChipPropsType): JSX.Element {
       >
         {props.title}
       </span>
+      {props.removeChip &&
       <button className="chip-action">
         <i
           className="material-icons"
@@ -59,6 +60,7 @@ export function Chip(props: ChipPropsType): JSX.Element {
           cancel
         </i>
       </button>
+      }
     </div>
   );
 }
