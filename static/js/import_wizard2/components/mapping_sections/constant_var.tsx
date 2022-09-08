@@ -14,63 +14,140 @@
  * limitations under the License.
  */
 
-import React from "react";
+import _ from "lodash";
+import React, { useState } from "react";
+import { Input } from "reactstrap";
+import { Chip } from "../../../shared/chip";
 
 import { MappingSectionProps } from "../../templates";
-import { MappedThing, MappingVal } from "../../types";
+import { Column, MappedThing, MappingType, MappingVal } from "../../types";
 
 export function ConstantVar(props: MappingSectionProps): JSX.Element {
-  let placeMapping, dateMapping, unitMapping: MappingVal;
+  let placeMapping: MappingVal;
+  let dateMapping: MappingVal;
+  let unitMapping: MappingVal;
+  let statVarMapping: MappingVal;
+  let valueMapping: MappingVal;
+  let userMapping = _.clone(props.predictedMapping);
+  let mappedColumnIndices = new Set();
 
-  props.predictedMapping && props.predictedMapping.forEach((mappingVal, mappedThing) => {
-    switch(mappedThing) {
-      case MappedThing.PLACE:
-        placeMapping = mappingVal;
-        break;
-      case MappedThing.DATE:
-        dateMapping = mappingVal;
-        break;
-      case MappedThing.UNIT:
-        unitMapping = mappingVal;
-        break;
-      default:
-        console.log(`Ignoring inferred mapping of type ${mappedThing}: ${mappingVal}`);
-    }
-  });
+  props.predictedMapping &&
+    props.predictedMapping.forEach((mappingVal, mappedThing) => {
+      // Assume mappings are of type COLUMN for the template.
+      switch (mappedThing) {
+        case MappedThing.PLACE:
+          placeMapping = mappingVal;
+          mappedColumnIndices.add(mappingVal.column.columnIdx);
+          break;
+        case MappedThing.DATE:
+          dateMapping = mappingVal;
+          mappedColumnIndices.add(mappingVal.column.columnIdx);
+          break;
+        case MappedThing.UNIT:
+          unitMapping = mappingVal;
+          mappedColumnIndices.add(mappingVal.column.columnIdx);
+          break;
+        case MappedThing.VALUE:
+          valueMapping = mappingVal;
+          mappedColumnIndices.add(mappingVal.column.columnIdx);
+        default:
+          console.log(
+            `Ignoring inferred mapping of type ${mappedThing}: ${mappingVal}`
+          );
+      }
+    });
+
+  function onStatVarUpdate(value: string) {
+    debugger;
+    // TODO: Add value validation
+    statVarMapping = {
+      type: MappingType.FILE_CONSTANT,
+      fileConstant: value,
+    };
+    userMapping.set(MappedThing.STAT_VAR, statVarMapping);
+    props.onChangeUserMapping(userMapping);
+  }
 
   return (
-    <section>
+    <div id="constant-var">
       <h3>Choose column titles containing data about these fields:</h3>
-      <table>
+      <table className="table">
         <tbody>
           <tr>
-            <td>Place*:</td>
-            <td>
-              [{placeMapping && placeMapping.column.header}]
+            <td className="col-2">Variable*:</td>
+            <td className="col-10">
+              <Input
+                className="constant-value-input"
+                type="text"
+                onChange={(e) => {
+                  const val = e.target.value;
+                  onStatVarUpdate(val);
+                }}
+                placeholder="Enter the variable for this dataset"
+                value={statVarMapping && statVarMapping.fileConstant}
+              />
             </td>
           </tr>
           <tr>
-            <td>Variable*:</td>
-            <td></td>
+            <td>Place*:</td>
+            <td>
+              {placeMapping && (
+                <Chip
+                  id={`chip-col-${placeMapping.column.columnIdx}`}
+                  title={placeMapping.column.header}
+                />
+              )}
+            </td>
           </tr>
           <tr>
             <td>Date*:</td>
             <td>
-              [{dateMapping && dateMapping.column.header}]
+              {dateMapping && (
+                <Chip
+                  id={`chip-col-${dateMapping.column.columnIdx}`}
+                  title={dateMapping.column.header}
+                />
+              )}
             </td>
           </tr>
           <tr>
-            <td>Unit*:</td>
-            <td>
-              [{unitMapping && unitMapping.column.header}]
+            <td>Observation Value*:</td>
+            <td>{valueMapping && (
+                <Chip
+                  id={`chip-col-${valueMapping.column.columnIdx}`}
+                  title={valueMapping.column.header}
+                />
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td>Unit:</td>
+            <td>{unitMapping && (
+                <Chip
+                  id={`chip-col-${unitMapping.column.columnIdx}`}
+                  title={unitMapping.column.header}
+                />
+              )}
             </td>
           </tr>
           <tr>
             <td>Ignored columns:</td>
-            <td></td>
+            <td>
+              {props.csvData.orderedColumns.map((col: Column) => {
+                if (mappedColumnIndices.has(col.columnIdx)) {
+                  return <></>;
+                }
+                return (
+                <Chip
+                  id={`chip-col-${col.columnIdx}`}
+                  title={col.header}
+                />
+                );
+              })}
+            </td>
           </tr>
         </tbody>
       </table>
-    </section>
+    </div>
   );
 }

@@ -15,6 +15,7 @@
  */
 
 @import "base";
+@import "shared/chip";
 
 #main-body {
   padding-bottom: 6rem;
@@ -198,4 +199,13 @@ tr th:last-child {
 
 #mapping-section section {
   margin-bottom: 2em;
+}
+
+#mapping-section td {
+  text-align: left;
+}
+
+#mapping-section .chip {
+  // TODO: Find a better way to match chip content size
+  min-width: 7rem;
 }

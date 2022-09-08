@@ -198,6 +198,7 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
 export interface MappingSectionProps {
   csvData: CsvData;
   predictedMapping: Mapping;
+  onChangeUserMapping: (mapping:Mapping) => void;
 }
 
 // Map of templateId to the mapping component to render for that templateId.
