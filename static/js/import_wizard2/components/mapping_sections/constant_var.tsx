@@ -91,43 +91,23 @@ export function ConstantVar(props: MappingSectionProps): JSX.Element {
           <tr>
             <td>Place*:</td>
             <td>
-              {placeMapping && (
-                <Chip
-                  id={`chip-col-${placeMapping.column.columnIdx}`}
-                  title={placeMapping.column.header}
-                />
-              )}
+              {placeMapping && placeMapping.column.header}
             </td>
           </tr>
           <tr>
             <td>Date*:</td>
             <td>
-              {dateMapping && (
-                <Chip
-                  id={`chip-col-${dateMapping.column.columnIdx}`}
-                  title={dateMapping.column.header}
-                />
-              )}
+              {dateMapping && dateMapping.column.header}
             </td>
           </tr>
           <tr>
             <td>Observation Value*:</td>
-            <td>{valueMapping && (
-                <Chip
-                  id={`chip-col-${valueMapping.column.columnIdx}`}
-                  title={valueMapping.column.header}
-                />
-              )}
+            <td>{valueMapping && valueMapping.column.header}
             </td>
           </tr>
           <tr>
             <td>Unit:</td>
-            <td>{unitMapping && (
-                <Chip
-                  id={`chip-col-${unitMapping.column.columnIdx}`}
-                  title={unitMapping.column.header}
-                />
-              )}
+            <td>{unitMapping && unitMapping.column.header}
             </td>
           </tr>
           <tr>
@@ -137,12 +117,7 @@ export function ConstantVar(props: MappingSectionProps): JSX.Element {
                 if (mappedColumnIndices.has(col.columnIdx)) {
                   return <></>;
                 }
-                return (
-                <Chip
-                  id={`chip-col-${col.columnIdx}`}
-                  title={col.header}
-                />
-                );
+                return col.header;
               })}
             </td>
           </tr>
