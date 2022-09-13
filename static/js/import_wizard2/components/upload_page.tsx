@@ -47,7 +47,9 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
   const [firstDataRowInput, setFirstDataRowInput] = useState(
     DEFAULT_FIRST_DATA_ROW
   );
-  const [lastDataRowInput, setLastDataRowInput] = useState(UNDEFINED_LAST_DATA_ROW);
+  const [lastDataRowInput, setLastDataRowInput] = useState(
+    UNDEFINED_LAST_DATA_ROW
+  );
 
   return (
     <>

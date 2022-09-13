@@ -16,6 +16,7 @@
 import React from "react";
 import { CsvData, Mapping } from "../import_wizard/types";
 
+import { CsvData, Mapping } from "../import_wizard/types";
 import { ConstantVar } from "./components/mapping_sections/constant_var";
 import { MulitVarCol } from "./components/mapping_sections/multi_var_col";
 import { MultiVarMultiDateCol } from "./components/mapping_sections/multi_var_mulit_date_col";
