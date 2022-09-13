@@ -24,9 +24,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
 import { getPredictions } from "../../import_wizard/utils/heuristics";
-
-import { PlaceDetector } from "../../import_wizard/utils/detect_place";
-import { getPredictions } from "../../import_wizard/utils/heuristics";
 import {
   TEMPLATE_MAPPING_SECTION_COMPONENTS,
   TEMPLATE_OPTIONS,
@@ -34,7 +31,6 @@ import {
 import { CsvData, Mapping, ValueMap } from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { MappingPreviewSection } from "./mapping_preview_section";
-import { PreviewTable } from "./preview_table";
 import { PreviewTable } from "./preview_table";
 
 interface MappingPageProps {
@@ -56,7 +52,6 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
   const placeDetector = new PlaceDetector();
-  const placeDetector = new PlaceDetector();
 
   let fileName = "";
   if (props.csvData && props.csvData.rawCsvFile) {
@@ -76,7 +71,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   const MappingSectionComponent =
     TEMPLATE_MAPPING_SECTION_COMPONENTS[props.selectedTemplate];
   return (
-    <div id="mapping-section"div id="mapping-section">
+    <div id="mapping-section">
       {/* TODO: update page heading to something more intuitive to users */}
       <h2>Step 3: Refine table format</h2>
       <section>
