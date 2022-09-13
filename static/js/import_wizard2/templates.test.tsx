@@ -15,12 +15,12 @@
  */
 
 import {
-  TEMPLATE_MAPPING_SECTION_COMPONENTS,
+  TEMPLATE_MAPPING_COMPONENTS,
   TEMPLATE_OPTIONS,
 } from "./templates";
 
 test("all templates options should have mapping sections", () => {
-  expect(Object.keys(TEMPLATE_MAPPING_SECTION_COMPONENTS)).toEqual(
+  expect(Object.keys(TEMPLATE_MAPPING_COMPONENTS)).toEqual(
     expect.arrayContaining(Object.keys(TEMPLATE_OPTIONS))
   );
 });

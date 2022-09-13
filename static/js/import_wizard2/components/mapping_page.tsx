@@ -26,7 +26,7 @@ import { Button } from "reactstrap";
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
 import { getPredictions } from "../../import_wizard/utils/heuristics";
 import {
-  TEMPLATE_MAPPING_SECTION_COMPONENTS,
+  TEMPLATE_MAPPING_COMPONENTS,
   TEMPLATE_OPTIONS,
 } from "../templates";
 import { CsvData, Mapping, ValueMap } from "../types";
@@ -64,7 +64,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }, [props.csvData, props.selectedTemplate]);
 
   const MappingSectionComponent =
-    TEMPLATE_MAPPING_SECTION_COMPONENTS[props.selectedTemplate];
+    TEMPLATE_MAPPING_COMPONENTS[props.selectedTemplate];
   return (
     <div id="mapping-section">
       {/* TODO: update page heading to something more intuitive to users */}
