@@ -175,7 +175,7 @@ msgstr ""
 msgid "States, United States"
 msgstr "States, United States"
 
-#. The name of a tool that provides observation and import information about statistical variables.
+#. The name of a tool that provides observation and import information about statistical             variables.
 msgid "Statistical Variable Explorer"
 msgstr ""
 

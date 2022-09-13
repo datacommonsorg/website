@@ -394,6 +394,8 @@ def send_request(req_url,
     """
     headers = {'Content-Type': 'application/json'}
 
+    logging.info("Requesting data: %s", req_url)
+
     # Send the request and verify the request succeeded
     if post:
         response = requests.post(req_url, json=req_json, headers=headers)
@@ -418,8 +420,12 @@ def send_request(req_url,
     return res_json
 
 
-def fetch_data(path, req_json, compress, post, has_payload=True):
+def fetch_data(path, req_json, compress, post, has_payload=True, encode=False):
     req_url = API_ROOT + path
+    # logging.info("Requesting data: %s", req_url)
+    # logging.info(req_json)
+    if encode:
+        req_url = req_url + urllib.parse.urlencode(req_json)
     return send_request(req_url, req_json, compress, post, has_payload)
 
 

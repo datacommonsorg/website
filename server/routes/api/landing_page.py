@@ -41,20 +41,27 @@ MAX_OVERVIEW_CHART_GROUP = 5
 OVERVIEW = 'Overview'
 
 
-def get_landing_page_data(dcid, new_stat_vars):
-    return get_landing_page_data_helper(dcid, '^'.join(new_stat_vars))
+def get_landing_page_data(dcid, new_stat_vars, category):
+    return get_landing_page_data_helper(dcid, '^'.join(new_stat_vars), category)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_landing_page_data_helper(dcid, stat_vars_string):
-    data = {'place': dcid}
+def get_landing_page_data_helper(dcid, stat_vars_string, category):
+    data = {'entity': dcid}
+    # data['category'] = category
+    logging.info("place dcid: %s", dcid)
+    logging.info("category: %s", category)
+    req_url = '/v1/internal/page/place/' + dcid
+    req_url += '?category={}&new_stat_vars={}'.format(category, stat_vars_string.split(','))
+    logging.info("request: %s", req_url)
     if stat_vars_string:
         data['newStatVars'] = stat_vars_string.split('^')
-    response = dc_service.fetch_data('/landing-page',
-                                     data,
-                                     compress=False,
-                                     post=True,
-                                     has_payload=False)
+    # response = dc_service.fetch_data("/landing-page",
+    #                                  data,
+    #                                  compress=False,
+    #                                  post=True,
+    #                                  has_payload=False)
+    response = dc_service.get(req_url)
     return response
 
 
@@ -402,18 +409,22 @@ def has_data(data):
     return False
 
 
+def cache_prefix(*args, **kwargs):
+    return request.args.get("category") + "_"
+
 @bp.route('/data/<path:dcid>')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True, key_prefix=cache_prefix)  # Cache for one day.
 def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
     """
-    logging.info("Landing Page: cache miss for %s, fetch and process data ...",
-                 dcid)
+    logging.info("Landing Page: cache miss for place:%s and category:%s, fetch"
+                 " and process data ...",dcid,request.args.get("category"))
     target_category = request.args.get("category")
     spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
     new_stat_vars = current_app.config['NEW_STAT_VARS']
-    raw_page_data = get_landing_page_data(dcid, new_stat_vars)
+
+    raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
 
     if 'statVarSeries' not in raw_page_data:
         logging.info("Landing Page: No data for %s", dcid)
@@ -532,6 +543,12 @@ def data(dcid):
     categories = {}
     for category in list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]):
         categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
+
+    logging.info("categories are:")
+    logging.info(categories)
+    logging.info("extra categories are:")
+    logging.info(raw_page_data.get('validCategories', []))
+    logging.info(raw_page_data)
 
     # Get display name for all places
     all_places = [dcid]
