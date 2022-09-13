@@ -24,9 +24,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
 import { getPredictions } from "../../import_wizard/utils/heuristics";
-
-import { PlaceDetector } from "../../import_wizard/utils/detect_place";
-import { getPredictions } from "../../import_wizard/utils/heuristics";
 import {
   TEMPLATE_MAPPING_SECTION_COMPONENTS,
   TEMPLATE_OPTIONS,
