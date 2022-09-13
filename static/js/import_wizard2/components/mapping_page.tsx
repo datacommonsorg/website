@@ -45,6 +45,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   // TODO: call detection API to get predicted mappings
   const [predictedMapping, setPredictedMapping] = useState<Mapping>(null);
   const [userMapping, setUserMapping] = useState<Mapping>(null);
+  // TODO: get valueMap from MappingSectionComponent
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
   const placeDetector = new PlaceDetector();
@@ -111,13 +112,14 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
       </section>
       {showPreview && (
         <section>
+          {/* TODO: Each template should generate and return row observations. */}
           <MappingPreviewSection
             predictedMapping={predictedMapping}
             correctedMapping={userMapping}
             csvData={props.csvData}
             shouldGenerateCsv={shouldGenerateCsv(
               props.csvData,
-              props.csvData /* TODO: Update to a smaller data structure of corrections, */,
+              props.csvData /* TODO: Update to a smaller data structure of updates */,
               valueMap
             )}
             valueMap={valueMap}
