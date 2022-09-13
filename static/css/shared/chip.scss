@@ -25,10 +25,6 @@
   display: inline-block;
 }
 
-.chip.chip-noclose .chip-text {
-  max-width: 100%;
-}
-
 .chip-clickable-text:hover {
   cursor: pointer;
   text-decoration: underline;
@@ -46,10 +42,6 @@
   display: inline-block;
   margin: 2px 8px 2px 0px;
   font-size: 0;
-}
-
-.chip.chip-noclose {
-  padding: 0 15px;
 }
 
 .chip-action {
