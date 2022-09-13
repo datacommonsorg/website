@@ -22,6 +22,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
+
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
 import { getPredictions } from "../../import_wizard/utils/heuristics";
 import {
@@ -44,11 +45,6 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   // TODO: call detection API to get predicted mappings
   const [predictedMapping, setPredictedMapping] = useState<Mapping>(null);
   const [userMapping, setUserMapping] = useState<Mapping>(null);
-  // TODO: get corrections and valueMap from MappingSectionComponent
-  // const [corrections, setCorrections] = useState<{
-  //   mapping: Mapping;
-  //   csv: CsvData;
-  // }>(null);
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
   const placeDetector = new PlaceDetector();
@@ -64,8 +60,6 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
     // TODO(beets): Use server-side detection API.
     const predictedMapping = getPredictions(props.csvData, placeDetector);
     setPredictedMapping(predictedMapping);
-    // setUserMapping(_.clone(predictedMapping));
-    console.log(predictedMapping);
   }, [props.csvData, props.selectedTemplate]);
 
   const MappingSectionComponent =
@@ -103,8 +97,11 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
         <PreviewTable csvData={props.csvData} />
       </section>
       <section>
-        <MappingSectionComponent csvData={props.csvData} predictedMapping={predictedMapping}
-        onChangeUserMapping={setUserMapping} />
+        <MappingSectionComponent
+          csvData={props.csvData}
+          predictedMapping={predictedMapping}
+          onChangeUserMapping={setUserMapping}
+        />
       </section>
       <section>
         {/* TODO: Disable button if template mapping is incomplete */}
@@ -120,7 +117,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
             csvData={props.csvData}
             shouldGenerateCsv={shouldGenerateCsv(
               props.csvData,
-              props.csvData, /* TODO: Update to a smaller data structure of corrections, */
+              props.csvData /* TODO: Update to a smaller data structure of corrections, */,
               valueMap
             )}
             valueMap={valueMap}

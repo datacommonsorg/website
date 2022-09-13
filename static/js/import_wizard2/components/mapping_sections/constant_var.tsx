@@ -15,21 +15,22 @@
  */
 
 import _ from "lodash";
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "reactstrap";
-import { Chip } from "../../../shared/chip";
 
 import { MappingSectionProps } from "../../templates";
 import { Column, MappedThing, MappingType, MappingVal } from "../../types";
 
 export function ConstantVar(props: MappingSectionProps): JSX.Element {
-  let placeMapping: MappingVal;
-  let dateMapping: MappingVal;
-  let unitMapping: MappingVal;
-  let statVarMapping: MappingVal;
-  let valueMapping: MappingVal;
-  let userMapping = _.clone(props.predictedMapping);
-  let mappedColumnIndices = new Set();
+  let [
+    placeMapping,
+    dateMapping,
+    unitMapping,
+    statVarMapping,
+    valueMapping,
+  ]: MappingVal[] = [];
+  const userMapping = _.clone(props.predictedMapping);
+  const mappedColumnIndices = new Set();
 
   props.predictedMapping &&
     props.predictedMapping.forEach((mappingVal, mappedThing) => {
@@ -58,7 +59,6 @@ export function ConstantVar(props: MappingSectionProps): JSX.Element {
     });
 
   function onStatVarUpdate(value: string) {
-    debugger;
     // TODO: Add value validation
     statVarMapping = {
       type: MappingType.FILE_CONSTANT,
@@ -90,25 +90,19 @@ export function ConstantVar(props: MappingSectionProps): JSX.Element {
           </tr>
           <tr>
             <td>Place*:</td>
-            <td>
-              {placeMapping && placeMapping.column.header}
-            </td>
+            <td>{placeMapping && placeMapping.column.header}</td>
           </tr>
           <tr>
             <td>Date*:</td>
-            <td>
-              {dateMapping && dateMapping.column.header}
-            </td>
+            <td>{dateMapping && dateMapping.column.header}</td>
           </tr>
           <tr>
             <td>Observation Value*:</td>
-            <td>{valueMapping && valueMapping.column.header}
-            </td>
+            <td>{valueMapping && valueMapping.column.header}</td>
           </tr>
           <tr>
             <td>Unit:</td>
-            <td>{unitMapping && unitMapping.column.header}
-            </td>
+            <td>{unitMapping && unitMapping.column.header}</td>
           </tr>
           <tr>
             <td>Ignored columns:</td>

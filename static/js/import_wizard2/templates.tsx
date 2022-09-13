@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import React from "react";
+
 import { CsvData, Mapping } from "../import_wizard/types";
 import { ConstantVar } from "./components/mapping_sections/constant_var";
 import { MulitVarCol } from "./components/mapping_sections/multi_var_col";
@@ -197,7 +198,7 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
 export interface MappingSectionProps {
   csvData: CsvData;
   predictedMapping: Mapping;
-  onChangeUserMapping: (mapping:Mapping) => void;
+  onChangeUserMapping: (mapping: Mapping) => void;
 }
 
 // Map of templateId to the mapping component to render for that templateId.
