@@ -18,6 +18,8 @@ import React from "react";
 
 import { MappingTemplateProps } from "../../templates";
 
-export function SingleVarMultiDateCol(props: MappingTemplateProps): JSX.Element {
+export function SingleVarMultiDateCol(
+  props: MappingTemplateProps
+): JSX.Element {
   return <></>;
 }

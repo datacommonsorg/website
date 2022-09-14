@@ -25,10 +25,7 @@ import { Button } from "reactstrap";
 
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
 import { getPredictions } from "../../import_wizard/utils/heuristics";
-import {
-  TEMPLATE_MAPPING_COMPONENTS,
-  TEMPLATE_OPTIONS,
-} from "../templates";
+import { TEMPLATE_MAPPING_COMPONENTS, TEMPLATE_OPTIONS } from "../templates";
 import { CsvData, Mapping, ValueMap } from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { MappingPreviewSection } from "./mapping_preview_section";
