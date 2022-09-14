@@ -424,6 +424,9 @@ def data(dcid):
     spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
     new_stat_vars = current_app.config['NEW_STAT_VARS']
 
+    logging.info("dcid")
+    logging.info(dcid)
+
     raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
 
     if 'statVarSeries' not in raw_page_data:
@@ -548,7 +551,8 @@ def data(dcid):
     logging.info(categories)
     logging.info("extra categories are:")
     logging.info(raw_page_data.get('validCategories', []))
-    logging.info(raw_page_data)
+    logging.info("valid categories")
+    logging.info(raw_page_data["validCategories"])
 
     # Get display name for all places
     all_places = [dcid]
