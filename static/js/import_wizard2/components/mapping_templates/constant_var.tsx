@@ -18,10 +18,10 @@ import _ from "lodash";
 import React from "react";
 import { Input } from "reactstrap";
 
-import { MappingSectionProps } from "../../templates";
+import { MappingTemplateProps } from "../../templates";
 import { Column, MappedThing, MappingType, MappingVal } from "../../types";
 
-export function ConstantVar(props: MappingSectionProps): JSX.Element {
+export function ConstantVar(props: MappingTemplateProps): JSX.Element {
   let [
     placeMapping,
     dateMapping,

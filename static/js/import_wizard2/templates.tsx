@@ -16,10 +16,10 @@
 import React from "react";
 
 import { CsvData, Mapping } from "../import_wizard/types";
-import { ConstantVar } from "./components/mapping_sections/constant_var";
-import { MulitVarCol } from "./components/mapping_sections/multi_var_col";
-import { MultiVarMultiDateCol } from "./components/mapping_sections/multi_var_mulit_date_col";
-import { SingleVarMultiDateCol } from "./components/mapping_sections/single_var_multi_date_col";
+import { ConstantVar } from "./components/mapping_templates/constant_var";
+import { MulitVarCol } from "./components/mapping_templates/multi_var_col";
+import { MultiVarMultiDateCol } from "./components/mapping_templates/multi_var_mulit_date_col";
+import { SingleVarMultiDateCol } from "./components/mapping_templates/single_var_multi_date_col";
 
 // information about a template
 export interface TemplateInfo {
@@ -195,7 +195,7 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
   },
 };
 
-export interface MappingSectionProps {
+export interface MappingTemplateProps {
   csvData: CsvData;
   predictedMapping: Mapping;
   onChangeUserMapping: (mapping: Mapping) => void;
@@ -204,8 +204,9 @@ export interface MappingSectionProps {
 // Map of templateId to the mapping component to render for that templateId.
 // templateId must be present in TEMPLATE_OPTIONS in order for users to choose
 // this template.
-export const TEMPLATE_MAPPING_SECTION_COMPONENTS: {
-  [templateId: string]: (props: MappingSectionProps) => JSX.Element;
+// TODO: Fold in TEMPLATE_OPTIONS to each component.
+export const TEMPLATE_MAPPING_COMPONENTS: {
+  [templateId: string]: (props: MappingTemplateProps) => JSX.Element;
 } = {
   constantVar: ConstantVar,
   multiVarCol: MulitVarCol,
