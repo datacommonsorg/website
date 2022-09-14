@@ -161,7 +161,7 @@ def series_within(parent_place, child_type, stat_vars, all):
         })
 
 
-def property_values(nodes, property, direction):
+def property_values(nodes, prop, direction):
     """Retrieves the property values for a list of nodes.
     Args:
         nodes: A list of node DCIDs.
@@ -170,7 +170,7 @@ def property_values(nodes, property, direction):
     """
     resp = post(f'/v1/bulk/property/values/{direction}', {
         'nodes': sorted(nodes),
-        'property': property,
+        'property': prop,
     })
     result = {}
     for item in resp.get('data', []):
