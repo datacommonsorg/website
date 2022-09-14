@@ -19,15 +19,13 @@
  * the import package
  */
 
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
 import { getPredictions } from "../../import_wizard/utils/heuristics";
-import {
-  TEMPLATE_MAPPING_SECTION_COMPONENTS,
-  TEMPLATE_OPTIONS,
-} from "../templates";
+import { TEMPLATE_MAPPING_COMPONENTS, TEMPLATE_OPTIONS } from "../templates";
 import { CsvData, Mapping, ValueMap } from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { MappingPreviewSection } from "./mapping_preview_section";
@@ -43,11 +41,8 @@ interface MappingPageProps {
 export function MappingPage(props: MappingPageProps): JSX.Element {
   // TODO: call detection API to get predicted mappings
   const [predictedMapping, setPredictedMapping] = useState<Mapping>(null);
-  // TODO: get corrections and valueMap from MappingSectionComponent
-  const [corrections, setCorrections] = useState<{
-    mapping: Mapping;
-    csv: CsvData;
-  }>(null);
+  const [userMapping, setUserMapping] = useState<Mapping>(null);
+  // TODO: get valueMap from MappingSectionComponent
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
   const placeDetector = new PlaceDetector();
@@ -63,11 +58,10 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
     // TODO(beets): Use server-side detection API.
     const predictedMapping = getPredictions(props.csvData, placeDetector);
     setPredictedMapping(predictedMapping);
-    console.log(predictedMapping);
   }, [props.csvData, props.selectedTemplate]);
 
   const MappingSectionComponent =
-    TEMPLATE_MAPPING_SECTION_COMPONENTS[props.selectedTemplate];
+    TEMPLATE_MAPPING_COMPONENTS[props.selectedTemplate];
   return (
     <div id="mapping-section">
       {/* TODO: update page heading to something more intuitive to users */}
@@ -104,22 +98,25 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
         <MappingSectionComponent
           csvData={props.csvData}
           predictedMapping={predictedMapping}
+          onChangeUserMapping={setUserMapping}
         />
       </section>
       <section>
+        {/* TODO: Disable button if template mapping is incomplete */}
         <Button className="nav-btn" onClick={() => setShowPreview(true)}>
           Generate Preview
         </Button>
       </section>
       {showPreview && (
         <section>
+          {/* TODO: Each template should generate and return row observations. */}
           <MappingPreviewSection
             predictedMapping={predictedMapping}
-            correctedMapping={corrections.mapping}
-            csvData={corrections.csv}
+            correctedMapping={userMapping}
+            csvData={props.csvData}
             shouldGenerateCsv={shouldGenerateCsv(
               props.csvData,
-              corrections.csv,
+              props.csvData /* TODO: Update to a smaller data structure of updates */,
               valueMap
             )}
             valueMap={valueMap}

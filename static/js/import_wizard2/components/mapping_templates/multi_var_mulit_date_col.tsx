@@ -16,8 +16,8 @@
 
 import React from "react";
 
-import { MappingSectionProps } from "../../templates";
+import { MappingTemplateProps } from "../../templates";
 
-export function SingleVarMultiDateCol(props: MappingSectionProps): JSX.Element {
+export function MultiVarMultiDateCol(props: MappingTemplateProps): JSX.Element {
   return <></>;
 }
