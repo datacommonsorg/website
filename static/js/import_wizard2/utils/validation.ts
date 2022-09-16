@@ -38,7 +38,6 @@ import {
  * (6) PLACE must specify placeProperty
  * (7) VALUE, if it appears, has to be COLUMN
  * (8) PLACE should not be CONSTANT (its atypical and not exposed in UI)
- * (9) PLACE (mapped thing) COLUMN (mapping type) must have one place property
  *
  * TODO: Consider returning enum + string pair for error categories
  *
@@ -69,17 +68,9 @@ export function checkMappings(mappings: Mapping): Array<string> {
         errors.push(mthingName + ": missing value for COLUMN type ");
       }
       if (mthing === MappedThing.PLACE) {
-        if (
-          _.isEmpty(mval.placeProperty) ||
-          _.isEmpty(mval.placeProperty[mval.column.columnIdx])
-        ) {
+        if (_.isEmpty(mval.placeProperty)) {
           // Check #6
           errors.push("Place mapping is missing placeProperty");
-        } else if (Object.keys(mval.placeProperty).length !== 1) {
-          // Check #9
-          errors.push(
-            "Place mapping for a column expected to have one placeProperty"
-          );
         }
       }
       numNonConsts++;
@@ -93,14 +84,6 @@ export function checkMappings(mappings: Mapping): Array<string> {
           // Check #6
           errors.push("Place mapping is missing placeProperty");
         }
-        mval.headers.forEach((header) => {
-          if (_.isEmpty(mval.placeProperty[header.columnIdx])) {
-            // Check #6
-            errors.push(
-              header.header + ": Place mapping is missing placeProperty"
-            );
-          }
-        });
       }
       colHdrThings.push(mthing);
       numNonConsts++;

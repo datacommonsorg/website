@@ -202,4 +202,19 @@ tr th:last-child {
 
 #mapping-section td {
   text-align: left;
+  word-break: break-all;
+}
+
+#mapping-section td:first-child {
+  max-width: 12%;
+}
+
+.place-type-property-option {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 0 0 0.5rem;
+}
+
+.place-type-property-option span {
+  width: 4rem;
 }

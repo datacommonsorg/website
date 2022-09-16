@@ -23,11 +23,14 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
-import { PlaceDetector } from "../../import_wizard/utils/detect_place";
-import { getPredictions } from "../../import_wizard/utils/heuristics";
-import { TEMPLATE_MAPPING_COMPONENTS, TEMPLATE_OPTIONS } from "../templates";
+import {
+  TEMPLATE_MAPPING_COMPONENTS,
+  TEMPLATE_OPTIONS,
+  TEMPLATE_USER_MAPPING_FN,
+} from "../templates";
 import { CsvData, Mapping, ValueMap } from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
+import { checkMappings } from "../utils/validation";
 import { MappingPreviewSection } from "./mapping_preview_section";
 import { PreviewTable } from "./preview_table";
 
@@ -40,12 +43,12 @@ interface MappingPageProps {
 
 export function MappingPage(props: MappingPageProps): JSX.Element {
   // TODO: call detection API to get predicted mappings
-  const [predictedMapping, setPredictedMapping] = useState<Mapping>(null);
-  const [userMapping, setUserMapping] = useState<Mapping>(null);
+  const [predictedMapping, setPredictedMapping] = useState<Mapping>(new Map());
+  const [userMapping, setUserMapping] = useState<Mapping>(new Map());
   // TODO: get valueMap from MappingSectionComponent
   const [valueMap, setValueMap] = useState<ValueMap>({});
   const [showPreview, setShowPreview] = useState(false);
-  const placeDetector = new PlaceDetector();
+  const [errorList, setErrorList] = useState<Array<string>>([]);
 
   let fileName = "";
   if (props.csvData && props.csvData.rawCsvFile) {
@@ -56,8 +59,10 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
 
   useEffect(() => {
     // TODO(beets): Use server-side detection API.
-    const predictedMapping = getPredictions(props.csvData, placeDetector);
+    const predictedMapping = new Map();
     setPredictedMapping(predictedMapping);
+    const userMappingFn = TEMPLATE_USER_MAPPING_FN[props.selectedTemplate];
+    setUserMapping(userMappingFn(predictedMapping));
   }, [props.csvData, props.selectedTemplate]);
 
   const MappingSectionComponent =
@@ -97,16 +102,40 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
       <section>
         <MappingSectionComponent
           csvData={props.csvData}
-          predictedMapping={predictedMapping}
-          onChangeUserMapping={setUserMapping}
+          userMapping={userMapping}
+          onChangeUserMapping={(userMapping) => {
+            setUserMapping(userMapping);
+            setShowPreview(false);
+          }}
         />
       </section>
       <section>
         {/* TODO: Disable button if template mapping is incomplete */}
-        <Button className="nav-btn" onClick={() => setShowPreview(true)}>
+        <Button
+          className="nav-btn"
+          onClick={() => {
+            const mappingErrors = checkMappings(userMapping);
+            setErrorList(mappingErrors);
+            if (_.isEmpty(mappingErrors)) {
+              setShowPreview(true);
+            }
+          }}
+        >
           Generate Preview
         </Button>
       </section>
+      {!_.isEmpty(errorList) && (
+        <div className="mapping-errors section-container">
+          <span>
+            There are errors in the mapping, please fix them before continuing.
+          </span>
+          <ul>
+            {errorList.map((error, idx) => {
+              return <li key={`error-${idx}`}>{error}</li>;
+            })}
+          </ul>
+        </div>
+      )}
       {showPreview && (
         <section>
           {/* TODO: Each template should generate and return row observations. */}

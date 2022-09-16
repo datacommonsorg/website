@@ -19,7 +19,7 @@
  * import package
  */
 import JSZip from "jszip";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
 import { ValueMap } from "../../import_wizard/types";
@@ -48,12 +48,24 @@ export function MappingPreviewSection(
   props: MappingPreviewSectionProps
 ): JSX.Element {
   const [isGeneratingFiles, setIsGeneratingFiles] = useState(false);
-  const zipFolder = new JSZip().folder("importPackage");
-  const sampleObs = generateRowObservations(
-    props.correctedMapping,
-    props.csvData,
-    props.valueMap
+  const [sampleObs, setSampleObs] = useState(
+    generateRowObservations(
+      props.correctedMapping,
+      props.csvData,
+      props.valueMap
+    )
   );
+  const zipFolder = new JSZip().folder("importPackage");
+
+  useEffect(() => {
+    setSampleObs(
+      generateRowObservations(
+        props.correctedMapping,
+        props.csvData,
+        props.valueMap
+      )
+    );
+  }, [props.correctedMapping, props.csvData, props.valueMap]);
 
   return (
     <>
@@ -78,9 +90,9 @@ export function MappingPreviewSection(
           })}
         </div>
       </div>
-      <div className="nav-btn">
-        <Button onClick={onDownloadClicked}>Download Package</Button>
-      </div>
+      <Button className="nav-btn" onClick={onDownloadClicked}>
+        Download Package
+      </Button>
       <div
         id="screen"
         style={{ display: isGeneratingFiles ? "block" : "none" }}

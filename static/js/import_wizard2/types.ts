@@ -93,12 +93,10 @@ export interface MappingVal {
   // Column that holds the mapping values. Should be set if type is
   // MappingType.COLUMN
   column?: Column;
-  // Record of column idx to the place property (in KG) associated with that
-  // column or column header. Should be set if MappedThing is PLACE.
-  placeProperty?: { [columnIdx: number]: DCProperty };
-  // Record of column idx to the place type (in KG) associated with that
-  // column or column header. Should be set if MappedThing is PLACE.
-  placeType?: { [columnIdx: number]: DCType };
+  // When MappedThing is PLACE, the value corresponds to place property in KG
+  placeProperty?: DCProperty;
+  // When MappedThing is PLACE, the value corresponds to place type in KG
+  placeType?: DCType;
   // List of column headers that act as the mapping values. Should be set if
   // type is MappingType.COLUMN_HEADERS
   headers?: Column[];
