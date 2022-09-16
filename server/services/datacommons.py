@@ -184,6 +184,20 @@ def property_values(nodes, prop, direction):
     return result
 
 
+def resolve_id(in_ids, in_prop, out_prop):
+    """Resolves ids given nodes input and output property.
+    Args:
+        in_ids: A list of input ids.
+        in_prop: The input property.
+        out_prop: The output property.
+    """
+    return post('/v1/recon/resolve/id', {
+        "ids": in_ids,
+        'in_prop': in_prop,
+        'out_prop': out_prop,
+    })
+
+
 # =======================   V0 V0 V0 ================================
 def search(query_text, max_results):
     req_url = API_ROOT + API_ENDPOINTS['search']

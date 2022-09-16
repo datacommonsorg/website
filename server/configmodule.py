@@ -14,7 +14,6 @@ class Config:
     VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                              os.environ.get('MIXER_HASH'))
     API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
-    RECON_API_ROOT = 'http://127.0.0.1:8081'
     AI_CONFIG_PATH = '/datacommons/ai/ai.yaml'
     SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
     MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
@@ -104,7 +103,6 @@ class MinikubeConfig(Config):
 class LocalBaseConfig(Config):
     LOCAL = True
     API_ROOT = 'https://autopush.api.datacommons.org'
-    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
     API_PROJECT = 'datcom-mixer-autopush'
     AI_CONFIG_PATH = os.path.abspath(
         os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
@@ -159,7 +157,6 @@ class WebdriverConfig(Config):
     WEBDRIVER = True
     SECRET_PROJECT = 'datcom-website-dev'
     API_ROOT = 'https://autopush.api.datacommons.org'
-    RECON_API_ROOT = 'https://autopush.recon.datacommons.org'
     API_PROJECT = 'datcom-mixer-autopush'
     AI_CONFIG_PATH = None  # No models in this configuration.
     SCHEME = 'http'
