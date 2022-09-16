@@ -182,7 +182,7 @@ export function MappingPlaceInput(props: MappingPlaceInputProps): JSX.Element {
       placeProperty = props.mappingVal.placeProperty || placeProperty;
     }
     newMappingVal.placeType = placeType;
-    newMappingVal.placeProperty = placeType;
+    newMappingVal.placeProperty = placeProperty;
     props.onMappingValUpdate(newMappingVal);
   }
 
@@ -207,8 +207,8 @@ export function MappingPlaceInput(props: MappingPlaceInputProps): JSX.Element {
     }
     const updatedMappingVal = {
       ...props.mappingVal,
-      placeType,
       placeProperty: updatedPlaceProperty,
+      placeType,
     };
     props.onMappingValUpdate(updatedMappingVal);
   }
