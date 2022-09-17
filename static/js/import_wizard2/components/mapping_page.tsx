@@ -19,14 +19,15 @@
  * the import package
  */
 
+import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
 import { PlaceDetector } from "../../import_wizard/utils/detect_place";
-import { getPredictions } from "../../import_wizard/utils/heuristics";
 import { TEMPLATE_MAPPING_COMPONENTS, TEMPLATE_OPTIONS } from "../templates";
 import { CsvData, Mapping, ValueMap } from "../types";
+import { parseDetectionApiResponse } from "../utils/detection";
 import { shouldGenerateCsv } from "../utils/file_generation";
 import { MappingPreviewSection } from "./mapping_preview_section";
 import { PreviewTable } from "./preview_table";
@@ -55,9 +56,32 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }
 
   useEffect(() => {
-    // TODO(beets): Use server-side detection API.
-    const predictedMapping = getPredictions(props.csvData, placeDetector);
-    setPredictedMapping(predictedMapping);
+    /* Build JSON of column data for detection API Request */
+    const column_ids = new Map(
+      props.csvData.orderedColumns.map((column) => {
+        return [column.columnIdx, column.id];
+      })
+    );
+    const column_headers = new Map(
+      props.csvData.orderedColumns.map((column) => {
+        return [column.columnIdx, column.header];
+      })
+    );
+    const columnParameters = new Map<string, unknown>([
+      ["column_ids", column_ids],
+      ["column_headers", column_headers],
+      ["column_values", props.csvData.columnValuesSampled],
+    ]);
+    /* Use server-side API for column detection */
+    axios
+      .post(`/api/detection/detect_columns`, JSON.stringify(columnParameters))
+      .then((resp) => {
+        const parsedResponse = parseDetectionApiResponse(resp.data);
+        setPredictedMapping(parsedResponse);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [props.csvData, props.selectedTemplate]);
 
   const MappingSectionComponent =
