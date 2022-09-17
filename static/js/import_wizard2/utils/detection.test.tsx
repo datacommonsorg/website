@@ -15,7 +15,7 @@
  */
 import _ from "lodash";
 
-import { Mapping, TypeProperty } from "../types";
+import { Mapping, TypeProperty } from "../../import_wizard2/types";
 import * as detection from "./detection";
 
 // Detection API Response tests.
