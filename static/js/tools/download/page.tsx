@@ -158,7 +158,7 @@ export function Page(): JSX.Element {
         openSvHierarchyModalCallback={toggleSvModalCallback}
       />
       <div id="plot-container">
-        <h1 className="mb-4">Download Tool</h1>
+        <h1 className="mb-4">Data Download Tool</h1>
         <div className="download-options-container">
           <PlaceSelector
             selectedPlace={selectedOptions.selectedPlace}

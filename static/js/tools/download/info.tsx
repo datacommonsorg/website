@@ -24,7 +24,7 @@ export function Info(): JSX.Element {
   return (
     <div id="placeholder-container">
       <p>
-        The download tool allows you to download data for the statistical
+        The data download tool allows you to download data for the statistical
         variables in the left pane. To get started:
       </p>
       <ol>
