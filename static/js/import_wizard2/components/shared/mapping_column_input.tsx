@@ -57,11 +57,11 @@ export function MappingColumnInput(
       onChange={(e) => onSelectionChange(e.target.value)}
     >
       <option value="" key="">
-        Select a column
+        Select a column title
       </option>
       {props.orderedColumns.map((column, i) => (
         <option value={i} key={column.id}>
-          {column.header}
+          Column: "{column.header}"
         </option>
       ))}
     </Input>
