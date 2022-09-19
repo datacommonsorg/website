@@ -20,52 +20,29 @@ import { Input } from "reactstrap";
 
 import { MappingTemplateProps } from "../../templates";
 import { Column, MappedThing, MappingType, MappingVal } from "../../types";
+import { MappingColumnInput } from "../shared/mapping_column_input";
+import { MappingPlaceInput } from "../shared/mapping_place_input";
 
 export function ConstantVar(props: MappingTemplateProps): JSX.Element {
-  let [
-    placeMapping,
-    dateMapping,
-    unitMapping,
-    statVarMapping,
-    valueMapping,
-  ]: MappingVal[] = [];
-  const userMapping = _.clone(props.predictedMapping);
   const mappedColumnIndices = new Set();
-
-  props.predictedMapping &&
-    props.predictedMapping.forEach((mappingVal, mappedThing) => {
-      // Assume mappings are of type COLUMN for the template.
-      switch (mappedThing) {
-        case MappedThing.PLACE:
-          placeMapping = mappingVal;
-          mappedColumnIndices.add(mappingVal.column.columnIdx);
-          break;
-        case MappedThing.DATE:
-          dateMapping = mappingVal;
-          mappedColumnIndices.add(mappingVal.column.columnIdx);
-          break;
-        case MappedThing.UNIT:
-          unitMapping = mappingVal;
-          mappedColumnIndices.add(mappingVal.column.columnIdx);
-          break;
-        case MappedThing.VALUE:
-          valueMapping = mappingVal;
-          mappedColumnIndices.add(mappingVal.column.columnIdx);
-        default:
-          console.log(
-            `Ignoring inferred mapping of type ${mappedThing}: ${mappingVal}`
-          );
+  props.userMapping &&
+    props.userMapping.forEach((mappingVal) => {
+      if (mappingVal.column) {
+        mappedColumnIndices.add(mappingVal.column.columnIdx);
       }
     });
 
-  function onStatVarUpdate(value: string) {
-    // TODO: Add value validation
-    statVarMapping = {
-      type: MappingType.FILE_CONSTANT,
-      fileConstant: value,
-    };
-    userMapping.set(MappedThing.STAT_VAR, statVarMapping);
-    props.onChangeUserMapping(userMapping);
+  function onMappingValUpdate(
+    mappedThing: MappedThing,
+    mappingVal: MappingVal
+  ): void {
+    const newUserMapping = _.clone(props.userMapping);
+    if (_.isEmpty(mappingVal)) {
+      newUserMapping.delete(mappedThing);
+    } else {
+      newUserMapping.set(mappedThing, mappingVal);
+    }
+    props.onChangeUserMapping(newUserMapping);
   }
 
   return (
@@ -80,36 +57,77 @@ export function ConstantVar(props: MappingTemplateProps): JSX.Element {
                 className="constant-value-input"
                 type="text"
                 onChange={(e) => {
-                  const val = e.target.value;
-                  onStatVarUpdate(val);
+                  const fileConstant = e.target.value;
+                  const mappingVal = {
+                    type: MappingType.FILE_CONSTANT,
+                    fileConstant,
+                  };
+                  onMappingValUpdate(MappedThing.STAT_VAR, mappingVal);
                 }}
                 placeholder="Enter the variable for this dataset"
-                value={statVarMapping && statVarMapping.fileConstant}
+                value={
+                  props.userMapping.has(MappedThing.STAT_VAR)
+                    ? props.userMapping.get(MappedThing.STAT_VAR).fileConstant
+                    : ""
+                }
               />
             </td>
           </tr>
           <tr>
             <td>Place*:</td>
-            <td>{placeMapping && placeMapping.column.header}</td>
+            <td>
+              <MappingPlaceInput
+                mappingType={MappingType.COLUMN}
+                mappingVal={props.userMapping.get(MappedThing.PLACE)}
+                onMappingValUpdate={(mappingVal: MappingVal) =>
+                  onMappingValUpdate(MappedThing.PLACE, mappingVal)
+                }
+                orderedColumns={props.csvData.orderedColumns}
+              />
+            </td>
           </tr>
           <tr>
             <td>Date*:</td>
-            <td>{dateMapping && dateMapping.column.header}</td>
+            <td>
+              <MappingColumnInput
+                mappingVal={props.userMapping.get(MappedThing.DATE)}
+                onMappingValUpdate={(mappingVal) =>
+                  onMappingValUpdate(MappedThing.DATE, mappingVal)
+                }
+                orderedColumns={props.csvData.orderedColumns}
+              />
+            </td>
           </tr>
           <tr>
             <td>Observation Value*:</td>
-            <td>{valueMapping && valueMapping.column.header}</td>
+            <td>
+              <MappingColumnInput
+                mappingVal={props.userMapping.get(MappedThing.VALUE)}
+                onMappingValUpdate={(mappingVal) =>
+                  onMappingValUpdate(MappedThing.VALUE, mappingVal)
+                }
+                orderedColumns={props.csvData.orderedColumns}
+              />
+            </td>
           </tr>
           <tr>
             <td>Unit:</td>
-            <td>{unitMapping && unitMapping.column.header}</td>
+            <td>
+              <MappingColumnInput
+                mappingVal={props.userMapping.get(MappedThing.UNIT)}
+                onMappingValUpdate={(mappingVal) =>
+                  onMappingValUpdate(MappedThing.UNIT, mappingVal)
+                }
+                orderedColumns={props.csvData.orderedColumns}
+              />
+            </td>
           </tr>
           <tr>
             <td>Ignored columns:</td>
             <td>
               {props.csvData.orderedColumns.map((col: Column) => {
                 if (mappedColumnIndices.has(col.columnIdx)) {
-                  return <></>;
+                  return "";
                 }
                 return col.header;
               })}

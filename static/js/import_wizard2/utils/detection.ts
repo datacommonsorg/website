@@ -112,10 +112,8 @@ export function parseDetectionApiResponse(
         continue;
       }
       mValValidated.placeType = {
-        [col.columnIdx]: {
-          dcid: mVal[PLACETYPE_API_KEY][DCID_API_KEY],
-          displayName: mVal[PLACETYPE_API_KEY][DISP_NAME_API_KEY],
-        },
+        dcid: mVal[PLACETYPE_API_KEY][DCID_API_KEY],
+        displayName: mVal[PLACETYPE_API_KEY][DISP_NAME_API_KEY],
       };
     }
 
@@ -130,10 +128,8 @@ export function parseDetectionApiResponse(
         continue;
       }
       mValValidated.placeProperty = {
-        [col.columnIdx]: {
-          dcid: mVal[PLACEPROP_API_KEY][DCID_API_KEY],
-          displayName: mVal[PLACEPROP_API_KEY][DISP_NAME_API_KEY],
-        },
+        dcid: mVal[PLACEPROP_API_KEY][DCID_API_KEY],
+        displayName: mVal[PLACEPROP_API_KEY][DISP_NAME_API_KEY],
       };
     }
 

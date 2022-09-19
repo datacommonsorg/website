@@ -46,11 +46,11 @@ test("jsonParsingPlaceDateColumns", () => {
 
   expect(got["Place"].type).toEqual("column");
   expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
-  expect(got["Place"].placeType[0]).toEqual({
+  expect(got["Place"].placeType).toEqual({
     dcid: "Country",
     displayName: "Country",
   });
-  expect(got["Place"].placeProperty[0]).toEqual({
+  expect(got["Place"].placeProperty).toEqual({
     dcid: "countryAlpha3Code",
     displayName: "Alpha 3 Code",
   });
@@ -93,11 +93,11 @@ test("jsonParsingPlaceDateHeaders", () => {
 
   expect(got["Place"].type).toEqual("column");
   expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
-  expect(got["Place"].placeType[0]).toEqual({
+  expect(got["Place"].placeType).toEqual({
     dcid: "State",
     displayName: "State",
   });
-  expect(got["Place"].placeProperty[0]).toEqual({
+  expect(got["Place"].placeProperty).toEqual({
     dcid: "name",
     displayName: "Name",
   });
@@ -184,11 +184,11 @@ test("jsonParsingPlaceCorrectDateSkipped", () => {
 
   expect(got["Place"].type).toEqual("column");
   expect(got["Place"].column).toEqual({ id: "a", header: "b", columnIdx: 0 });
-  expect(got["Place"].placeType[0]).toEqual({
+  expect(got["Place"].placeType).toEqual({
     dcid: "Country",
     displayName: "Country",
   });
-  expect(got["Place"].placeProperty[0]).toEqual({
+  expect(got["Place"].placeProperty).toEqual({
     dcid: "countryAlpha3Code",
     displayName: "Alpha 3 Code",
   });

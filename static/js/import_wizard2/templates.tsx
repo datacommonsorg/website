@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import _ from "lodash";
 import React from "react";
 
-import { CsvData, Mapping } from "../import_wizard/types";
 import { ConstantVar } from "./components/mapping_templates/constant_var";
 import { MulitVarCol } from "./components/mapping_templates/multi_var_col";
 import { MultiVarMultiDateCol } from "./components/mapping_templates/multi_var_mulit_date_col";
 import { SingleVarMultiDateCol } from "./components/mapping_templates/single_var_multi_date_col";
+import { CsvData, MappedThing, Mapping } from "./types";
 
 // information about a template
 export interface TemplateInfo {
@@ -197,7 +198,7 @@ export const TEMPLATE_OPTIONS: { [templateId: string]: TemplateInfo } = {
 
 export interface MappingTemplateProps {
   csvData: CsvData;
-  predictedMapping: Mapping;
+  userMapping: Mapping;
   onChangeUserMapping: (mapping: Mapping) => void;
 }
 
@@ -212,4 +213,37 @@ export const TEMPLATE_MAPPING_COMPONENTS: {
   multiVarCol: MulitVarCol,
   multiVarMultiDateCol: MultiVarMultiDateCol,
   singleVarMultiDateCol: SingleVarMultiDateCol,
+};
+
+function getConstantVarUserMapping(predictedMapping: Mapping): Mapping {
+  let userMapping = new Map();
+  if (!_.isEmpty(predictedMapping)) {
+    userMapping = _.clone(predictedMapping);
+    predictedMapping.forEach((mappingVal, mappedThing) => {
+      // mappingVal for stat var must have fileConstant
+      const invalidStatVarVal =
+        mappedThing === MappedThing.STAT_VAR &&
+        _.isEmpty(mappingVal.fileConstant);
+      // mappingVal for non stat var things must have a column
+      const invalidNonStatVarVal =
+        mappedThing !== MappedThing.STAT_VAR && _.isEmpty(mappingVal.column);
+      if (invalidStatVarVal || invalidNonStatVarVal) {
+        console.log(
+          `Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`
+        );
+        userMapping.delete(mappedThing);
+      }
+    });
+  }
+  return userMapping;
+}
+
+// Map of templateId to a function that takes the predicted mapping and returns
+// the user mapping to use for that template.
+// TODO: add test that checks every template has a user mapping function once
+//       user mapping functions are added for the rest of the existing templates
+export const TEMPLATE_PREDICTION_VALIDATION: {
+  [templateId: string]: (predictedMapping: Mapping) => Mapping;
+} = {
+  constantVar: getConstantVarUserMapping,
 };
