@@ -228,7 +228,9 @@ function getConstantVarUserMapping(predictedMapping: Mapping): Mapping {
       const invalidNonStatVarVal =
         mappedThing !== MappedThing.STAT_VAR && _.isEmpty(mappingVal.column);
       if (invalidStatVarVal || invalidNonStatVarVal) {
-        console.log(`Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`);
+        console.log(
+          `Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`
+        );
         userMapping.delete(mappedThing);
       }
     });

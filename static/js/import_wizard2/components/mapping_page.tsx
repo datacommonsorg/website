@@ -61,7 +61,8 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
     // TODO: Use actual prediction from server-side detection API.
     const predictedMapping = new Map();
     setPredictedMapping(predictedMapping);
-    const userMappingFn = TEMPLATE_PREDICTION_VALIDATION[props.selectedTemplate];
+    const userMappingFn =
+      TEMPLATE_PREDICTION_VALIDATION[props.selectedTemplate];
     setUserMapping(userMappingFn(predictedMapping));
   }, [props.csvData, props.selectedTemplate]);
 
