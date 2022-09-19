@@ -49,6 +49,8 @@ export function MappingPlaceInput(props: MappingPlaceInputProps): JSX.Element {
   const validPlaceProperties = getValidPlaceProperties();
 
   useEffect(() => {
+    // TODO: Instead of fetching, pass the data with the html and set as ref on
+    // component load.
     fetchPlaceTypeProperties();
   }, []);
 

@@ -26,7 +26,7 @@ import { Button } from "reactstrap";
 import {
   TEMPLATE_MAPPING_COMPONENTS,
   TEMPLATE_OPTIONS,
-  TEMPLATE_USER_MAPPING_FN,
+  TEMPLATE_PREDICTION_VALIDATION,
 } from "../templates";
 import { CsvData, Mapping, ValueMap } from "../types";
 import { shouldGenerateCsv } from "../utils/file_generation";
@@ -58,10 +58,10 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }
 
   useEffect(() => {
-    // TODO(beets): Use server-side detection API.
+    // TODO: Use actual prediction from server-side detection API.
     const predictedMapping = new Map();
     setPredictedMapping(predictedMapping);
-    const userMappingFn = TEMPLATE_USER_MAPPING_FN[props.selectedTemplate];
+    const userMappingFn = TEMPLATE_PREDICTION_VALIDATION[props.selectedTemplate];
     setUserMapping(userMappingFn(predictedMapping));
   }, [props.csvData, props.selectedTemplate]);
 
