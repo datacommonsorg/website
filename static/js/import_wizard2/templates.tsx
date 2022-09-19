@@ -228,6 +228,7 @@ function getConstantVarUserMapping(predictedMapping: Mapping): Mapping {
       const invalidNonStatVarVal =
         mappedThing !== MappedThing.STAT_VAR && _.isEmpty(mappingVal.column);
       if (invalidStatVarVal || invalidNonStatVarVal) {
+        console.log(`Invalid mappingVal for ${mappedThing}. Entry deleted from mapping.`);
         userMapping.delete(mappedThing);
       }
     });
@@ -239,7 +240,7 @@ function getConstantVarUserMapping(predictedMapping: Mapping): Mapping {
 // the user mapping to use for that template.
 // TODO: add test that checks every template has a user mapping function once
 //       user mapping functions are added for the rest of the existing templates
-export const TEMPLATE_USER_MAPPING_FN: {
+export const TEMPLATE_PREDICTION_VALIDATION: {
   [templateId: string]: (predictedMapping: Mapping) => Mapping;
 } = {
   constantVar: getConstantVarUserMapping,
