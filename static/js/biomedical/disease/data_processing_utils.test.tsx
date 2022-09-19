@@ -180,17 +180,17 @@ test("getCompoundDiseaseContraindication", () => {
 test("getDiseaseCommonName", () => {
   const cases: {
     data: GraphNodes;
-    wantArray: string;
+    wantName: string;
   }[] = [
     {
       data: dataDOID2403 as GraphNodes,
-      wantArray: "Hepatitis B",
+      wantName: "Hepatitis B",
     },
   ];
   for (const c of cases) {
     const diseaseName = getDiseaseCommonName(c.data);
     try {
-      expect(diseaseName).toEqual(c.wantArray);
+      expect(diseaseName).toEqual(c.wantName);
     } catch (e) {
       console.log(
         "Got different disease common names than expected for query data"

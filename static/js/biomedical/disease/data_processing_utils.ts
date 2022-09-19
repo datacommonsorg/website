@@ -27,7 +27,7 @@ import {
 /**
  * Fetches the disease-gene association data
  * @param data - the data pertaining to the disease of interest
- * @returns - an array of objects with gene name and its corresponding odds ratio, for the disease of interest
+ * @returns an array of objects with gene name and its corresponding odds ratio, for the disease of interest
  */
 export function getDiseaseGeneAssociation(
   data: GraphNodes
@@ -94,12 +94,11 @@ export function getDiseaseGeneAssociation(
 /**
  * Fetches the disease-symptom association data
  * @param data
- * @returns
+ * @returns an array of objects with symptom name and its corresponding association score, for the disease of interest
  */
 export function getDiseaseSymptomAssociation(
   data: GraphNodes
 ): DiseaseSymptomAssociationData[] {
-  let diseaseDCID = null;
   // checks if the data is empty
   if (_.isEmpty(data)) {
     return [];
@@ -109,7 +108,6 @@ export function getDiseaseSymptomAssociation(
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return [];
   }
-  diseaseDCID = data.nodes[0].value;
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "diseaseOntologyID") {
       continue;
@@ -161,7 +159,7 @@ export function getDiseaseSymptomAssociation(
 /**
  * Fetches the chemical compound data which includes disease treatment and disease contraindication data
  * @param data
- * @returns
+ * @returns an array of chemical compounds with their associated properties
  */
 export function getChemicalCompoundData(
   data: GraphNodes
@@ -248,7 +246,7 @@ export function getChemicalCompoundData(
 /**
  * Fetches the chemical compound disease treatment data
  * @param data
- * @returns
+ * @returns an array of chemical compounds used for disease treatment and their other associated properties
  */
 export function getCompoundDiseaseTreatment(
   data: GraphNodes
@@ -269,7 +267,7 @@ export function getCompoundDiseaseTreatment(
 /**
  * Fetches the chemical compound disease contraindication data
  * @param data
- * @returns
+ * @returns an array of chemical compounds contraindicated for disease treatment and their other associated properties
  */
 export function getCompoundDiseaseContraindication(
   data: GraphNodes
@@ -293,11 +291,10 @@ export function getCompoundDiseaseContraindication(
 /**
  * Fetches the common name of the disease of interest
  * @param data
- * @returns - string with disease common name
+ * @returns string with disease common name
  */
 export function getDiseaseCommonName(data: GraphNodes): string {
   let commonName = null;
-  let diseaseDCID = null;
   if (!data) {
     return;
   }
@@ -305,7 +302,7 @@ export function getDiseaseCommonName(data: GraphNodes): string {
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
     return;
   }
-  diseaseDCID = data.nodes[0].value;
+  const diseaseDCID = data.nodes[0].value;
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "commonName") {
       continue;
