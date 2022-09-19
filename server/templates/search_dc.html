@@ -35,7 +35,7 @@
   {% if query_text and not results %}
     <h5>Sorry, no results were found in DataCommons.org for "{{ query_text }}".</h5>
     <div>You can try your search on
-      <a href="{{ url_for('search.search_cse') }}?q={{query_text}}">Data Commons full search</a>,
+      <a href="{{ url_for('search.search') }}?q={{query_text}}">Data Commons full search</a>,
       <a href="https://scholar.google.com/scholar?q={{query_text}}">Google Scholar</a>,
       <a href="https://toolbox.google.com/datasetsearch/search?query={{query_text}}">
         Google Dataset search</a>,
