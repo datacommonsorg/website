@@ -39,8 +39,32 @@ interface MappingPageProps {
   onChangeTemplate: () => void;
 }
 
+interface DetectionApiRequestData {
+  column_ids: { [columnIdx: string]: string };
+  column_headers: { [columnIdx: string]: string };
+  column_values: { [columnIdx: string]: string[] };
+}
+
+export function buildColumnDataJSON(csvData: CsvData): DetectionApiRequestData {
+  /* Build JSON of column data for detection API Request */
+  const columnIds = {};
+  csvData.orderedColumns.forEach((column) => {
+    columnIds[column.columnIdx] = column.id;
+  });
+  const columnHeaders = {};
+  csvData.orderedColumns.forEach((column) => {
+    columnHeaders[column.columnIdx] = column.header;
+  });
+  const columnValues = Object.fromEntries(csvData.columnValuesSampled);
+  const columnParameters = {
+    column_ids: columnIds,
+    column_headers: columnHeaders,
+    column_values: columnValues,
+  };
+  return columnParameters;
+}
+
 export function MappingPage(props: MappingPageProps): JSX.Element {
-  // TODO: call detection API to get predicted mappings
   const [predictedMapping, setPredictedMapping] = useState<Mapping>(null);
   const [userMapping, setUserMapping] = useState<Mapping>(null);
   // TODO: get valueMap from MappingSectionComponent
@@ -56,31 +80,16 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
   }
 
   useEffect(() => {
-    /* Build JSON of column data for detection API Request */
-    const column_ids = new Map(
-      props.csvData.orderedColumns.map((column) => {
-        return [column.columnIdx, column.id];
-      })
-    );
-    const column_headers = new Map(
-      props.csvData.orderedColumns.map((column) => {
-        return [column.columnIdx, column.header];
-      })
-    );
-    const columnParameters = new Map<string, unknown>([
-      ["column_ids", column_ids],
-      ["column_headers", column_headers],
-      ["column_values", props.csvData.columnValuesSampled],
-    ]);
     /* Use server-side API for column detection */
     axios
-      .post(`/api/detection/detect_columns`, JSON.stringify(columnParameters))
+      .post(`/api/detection/detect_columns`, buildColumnDataJSON(props.csvData))
       .then((resp) => {
         const parsedResponse = parseDetectionApiResponse(resp.data);
         setPredictedMapping(parsedResponse);
       })
       .catch((error) => {
         console.log(error);
+        setPredictedMapping(new Map());
       });
   }, [props.csvData, props.selectedTemplate]);
 
