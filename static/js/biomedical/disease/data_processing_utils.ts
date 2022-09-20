@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import _, { trim } from "lodash";
+import _ from "lodash";
 
 import { GraphNodes } from "../../shared/types";
 import {
@@ -26,7 +26,7 @@ import {
 
 /**
  * Fetches the disease-gene association data
- * @param data - the data pertaining to the disease of interest
+ * @param data the data pertaining to the disease of interest
  * @returns an array of objects with gene name and its corresponding odds ratio, for the disease of interest
  */
 export function getDiseaseGeneAssociation(
@@ -300,7 +300,7 @@ export function getDiseaseCommonName(data: GraphNodes): string {
   }
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
-    return;
+    return "";
   }
   const diseaseDCID = data.nodes[0].value;
   for (const neighbour of data.nodes[0].neighbors) {
@@ -318,7 +318,7 @@ export function getDiseaseCommonName(data: GraphNodes): string {
       return diseaseDCID;
     }
     // remove all double quotes from the string
-    commonName = trim(commonName, '"');
+    commonName = _.trim(commonName, '"');
     // capitalize the first letter of the disease name
     const formattedDiseaseName =
       commonName.charAt(0).toUpperCase() + commonName.slice(1);

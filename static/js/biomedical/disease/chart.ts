@@ -42,9 +42,8 @@ const ERROR_BAR_CAP_LENGTH = 10;
 
 /**
  * Draws the disease-gene association charts for the disease of interest
- * @param id - the div id where the chart is rendered on the page
- * @param data - the disease data passed into the function
- * @returns - Blank return for null data
+ * @param id the div id where the chart is rendered on the page
+ * @param data the disease data passed into the function
  */
 export function drawDiseaseGeneAssocChart(
   id: string,
@@ -172,6 +171,11 @@ export function drawDiseaseGeneAssocChart(
     );
 }
 
+/**
+ * Draws the disease-symptom association charts for the disease of interest
+ * @param id the div id where the chart is rendered on the page
+ * @param data the disease data passed into the function
+ */
 export function drawDiseaseSymptomAssociationChart(
   id: string,
   data: DiseaseSymptomAssociationData[]

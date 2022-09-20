@@ -151,7 +151,7 @@ export function addYLabel(
 
 /**
  * Creates the page redirection link of the input entity
- * @param dcid - entity dcid
+ * @param dcid entity dcid
  * @returns redirection link
  */
 export function getEntityLink(dcid: string): string {

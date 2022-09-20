@@ -538,11 +538,11 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
 export function getProteinDescription(data: GraphNodes): string {
   let proteinDescription = null;
   if (!data) {
-    return;
+    return "";
   }
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
-    return;
+    return "";
   }
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "description") {
