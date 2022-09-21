@@ -53,7 +53,8 @@ def get_landing_page_data_helper(dcid, stat_vars_string, category,
     if new_landing_page_cache_flag != "false":
         stat_var_condition = ''
         if stat_vars_string:
-            stat_var_condition = "&new_stat_vars={}".format(stat_vars_string.split('^'))
+            stat_var_condition = "&new_stat_vars={}".format(
+                stat_vars_string.split('^'))
         req_url = '/v1/internal/page/place/{}?category={}'.format(
             dcid, category + stat_var_condition)
         response = dc_service.get(req_url)
@@ -413,7 +414,6 @@ def has_data(data):
     return False
 
 
-
 @bp.route('/data/<path:dcid>')
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def data(dcid):
@@ -532,20 +532,17 @@ def data(dcid):
     # Populate data for the Overview page for categories which don't have
     # any configured data there by "borrowing" it from the category page.
     def populate_additional_category_data(category):
-        cat_data = get_landing_page_data(
-            dcid, new_stat_vars, category,
-            new_landing_page_cache_flag)
+        cat_data = get_landing_page_data(dcid, new_stat_vars, category,
+                                         new_landing_page_cache_flag)
         total_charts = 0
         cat_stats = cat_data['statVarSeries']
-        cat_spec_and_stat = build_spec(
-            current_app.config['CHART_CONFIG'])
+        cat_spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
         for topic in list(cat_spec_and_stat[category].keys()):
             filtered_charts = []
             for chart in cat_spec_and_stat[category][topic]:
                 keep_chart = False
                 for stat_var in chart['statsVars']:
-                    if cat_stats[dcid].get('data',
-                                           {}).get(stat_var, {}):
+                    if cat_stats[dcid].get('data', {}).get(stat_var, {}):
                         keep_chart = True
                         break
                 if keep_chart:
@@ -554,8 +551,7 @@ def data(dcid):
                 del cat_spec_and_stat[category][topic]
             else:
                 cat_spec_and_stat[category][topic] = filtered_charts
-        populate_category_data(category, cat_stats,
-                               cat_spec_and_stat)
+        populate_category_data(category, cat_stats, cat_spec_and_stat)
         spec_and_stat[OVERVIEW][category] = []
         for topic in cat_spec_and_stat[category]:
             spec_and_stat[OVERVIEW][category].extend(
