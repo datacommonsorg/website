@@ -153,11 +153,11 @@ async function getLandingPageData(
   dcid: string,
   category: string,
   locale: string,
-  cache_flag: string
+  cacheFlag: string
 ): Promise<PageData> {
   return axios
     .get(
-      `/api/landingpage/data/${dcid}?category=${category}&hl=${locale}&cache_flag=${cache_flag}`
+      `/api/landingpage/data/${dcid}?category=${category}&hl=${locale}&cache_flag=${cacheFlag}`
     )
     .then((resp) => {
       return resp.data;
@@ -185,7 +185,7 @@ function renderPage(): void {
   // Get category and render menu.
   const category = urlParams.get("category") || "Overview";
   // Use a flag to compare performance between the old and new cache.
-  const cache_flag = urlParams.get("cache_flag") || "false";
+  const cacheFlag = urlParams.get("cache_flag") || "false";
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
@@ -194,7 +194,7 @@ function renderPage(): void {
     dcid,
     category,
     locale,
-    cache_flag
+    cacheFlag
   );
   const chartGeoJsonPromise = getGeoJsonData(dcid, placeType, locale);
   const choroplethDataPromise = getChoroplethData(dcid, placeType);
