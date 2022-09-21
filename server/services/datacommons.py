@@ -38,7 +38,6 @@ API_ENDPOINTS = {
     'search': '/search',
     'get_property_labels': '/node/property-labels',
     'get_property_values': '/node/property-values',
-    'get_triples': '/node/triples',
     'get_places_in': '/node/places-in',
     'get_place_ranking': '/node/ranking-locations',
     'get_stat_set_series': '/v1/stat/set/series',
@@ -161,12 +160,21 @@ def series_within(parent_place, child_type, stat_vars, all):
         })
 
 
+def triples(node, direction):
+    """Retrieves the triples for a node.
+    Args:
+        node: Node DCID.
+        direction: Predicate direction, either be 'in' or 'out'.
+    """
+    return get(f'/v1/triples/{direction}/{node}')
+
+
 def property_values(nodes, prop, direction):
     """Retrieves the property values for a list of nodes.
     Args:
         nodes: A list of node DCIDs.
         prop: The property label toquery for.
-        dir: Direction of the property, either be 'in' or 'out'.
+        direction: Direction of the property, either be 'in' or 'out'.
     """
     resp = post(f'/v1/bulk/property/values/{direction}', {
         'nodes': sorted(nodes),
@@ -393,17 +401,6 @@ def get_property_values(dcids,
     # Make sure each dcid is in the results dict, and convert sets to lists.
     results = {dcid: sorted(list(unique_results[dcid])) for dcid in dcids}
     return results
-
-
-def get_triples(dcids, limit=0):
-    """
-    Get the triples in the raw format as the REST response.
-
-    This is used by the flask server to retrieve node triples.
-    Limit of 0 does not apply a limit and use all available triples from cache.
-    """
-    url = API_ROOT + API_ENDPOINTS['get_triples']
-    return send_request(url, req_json={'dcids': dcids, 'limit': limit})
 
 
 def get_places_in(dcids, place_type):

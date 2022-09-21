@@ -220,38 +220,33 @@ export class OutArcSection extends React.Component<
   private fetchDataFromTriples(): void {
     loadSpinner(LOADING_CONTAINER_ID);
     axios
-      .get("/api/browser/triples/" + this.props.dcid)
+      .get("/api/browser/out/triples/" + this.props.dcid)
       .then((resp) => {
         const triplesData = resp.data;
-        const outArcs = triplesData.filter(
-          (t) => t.subjectId === this.props.dcid
-        );
         const outArcsByPredProv: OutArcData = {};
-        for (const outArc of outArcs) {
-          const predicate = outArc.predicate;
-          if (IGNORED_OUT_ARC_PROPERTIES.has(predicate)) {
+        for (const pred in triplesData) {
+          if (IGNORED_OUT_ARC_PROPERTIES.has(pred)) {
             continue;
           }
-          if (!outArcsByPredProv[predicate]) {
-            outArcsByPredProv[predicate] = {};
+          const predData = {};
+          for (const node of triplesData[pred]["nodes"]) {
+            const provId = node["provenanceId"];
+            if (!(provId in predData)) {
+              predData[provId] = [];
+            }
+            let valueText = "";
+            let valueDcid: string;
+            if (node["dcid"]) {
+              valueText = node["name"] ? node["name"] : node["dcid"];
+              valueDcid = node["dcid"];
+            } else {
+              valueText = node["value"];
+            }
+            predData[provId].push({
+              dcid: valueDcid,
+              text: valueText,
+            });
           }
-          const outArcsOfPredicate = outArcsByPredProv[predicate];
-          const provId = outArc.provenanceId;
-          if (!(provId in outArcsOfPredicate)) {
-            outArcsOfPredicate[provId] = [];
-          }
-          let valueText = "";
-          let valueDcid: string;
-          if (outArc.objectId) {
-            valueText = outArc.objectName ? outArc.objectName : outArc.objectId;
-            valueDcid = outArc.objectId;
-          } else {
-            valueText = outArc.objectValue;
-          }
-          outArcsOfPredicate[provId].push({
-            dcid: valueDcid,
-            text: valueText,
-          });
         }
         removeSpinner(LOADING_CONTAINER_ID);
         this.setState({
