@@ -50,20 +50,22 @@ def get_landing_page_data(dcid, new_stat_vars, category,
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_landing_page_data_helper(dcid, stat_vars_string, category,
                                  new_landing_page_cache_flag):
-    data = {'place': dcid}
-    req_url = '/v1/internal/page/place/' + dcid
-    req_url += '?category={}&new_stat_vars={}'.format(
-        category, stat_vars_string.split(','))
-    if stat_vars_string:
-        data['newStatVars'] = stat_vars_string.split('^')
-    if new_landing_page_cache_flag == "false":
+    if new_landing_page_cache_flag != "false":
+        stat_var_condition = ''
+        if stat_vars_string:
+            stat_var_condition = "&new_stat_vars={}".format(stat_vars_string.split('^'))
+        req_url = '/v1/internal/page/place/{}?category={}'.format(
+            dcid, category + stat_var_condition)
+        response = dc_service.get(req_url)
+    else:
+        data = {'place': dcid}
+        if stat_vars_string:
+            data['newStatVars'] = stat_vars_string.split('^')
         response = dc_service.fetch_data("/landing-page",
                                          data,
                                          compress=False,
                                          post=True,
                                          has_payload=False)
-    else:
-        response = dc_service.get(req_url)
     return response
 
 
@@ -411,14 +413,9 @@ def has_data(data):
     return False
 
 
-def cache_prefix(*args, **kwargs):
-    return request.args.get("category") + "_" + request.args.get(
-        "cache_flag") + "_"
-
 
 @bp.route('/data/<path:dcid>')
-@cache.cached(timeout=3600 * 24, query_string=True,
-              key_prefix=cache_prefix)  # Cache for one day.
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
 def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
@@ -426,7 +423,7 @@ def data(dcid):
     start_time = time.time()
     logging.info(
         "Landing Page: cache miss for place:%s and category:%s and "
-        "cache_flag:%s , fetch and process data ...", dcid,
+        "cache_flag:%s , fetching and processing data ...", dcid,
         request.args.get("category"), request.args.get("cache_flag"))
     target_category = request.args.get("category")
     new_landing_page_cache_flag = request.args.get("cache_flag")
@@ -532,6 +529,41 @@ def data(dcid):
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
 
+    # Populate data for the Overview page for categories which don't have
+    # any configured data there by "borrowing" it from the category page.
+    def populate_additional_category_data(category):
+        cat_data = get_landing_page_data(
+            dcid, new_stat_vars, category,
+            new_landing_page_cache_flag)
+        total_charts = 0
+        cat_stats = cat_data['statVarSeries']
+        cat_spec_and_stat = build_spec(
+            current_app.config['CHART_CONFIG'])
+        for topic in list(cat_spec_and_stat[category].keys()):
+            filtered_charts = []
+            for chart in cat_spec_and_stat[category][topic]:
+                keep_chart = False
+                for stat_var in chart['statsVars']:
+                    if cat_stats[dcid].get('data',
+                                           {}).get(stat_var, {}):
+                        keep_chart = True
+                        break
+                if keep_chart:
+                    filtered_charts.append(chart)
+            if not filtered_charts:
+                del cat_spec_and_stat[category][topic]
+            else:
+                cat_spec_and_stat[category][topic] = filtered_charts
+        populate_category_data(category, cat_stats,
+                               cat_spec_and_stat)
+        spec_and_stat[OVERVIEW][category] = []
+        for topic in cat_spec_and_stat[category]:
+            spec_and_stat[OVERVIEW][category].extend(
+                cat_spec_and_stat[category][topic])
+            total_charts += len(spec_and_stat[category][topic])
+            if total_charts > MAX_OVERVIEW_CHART_GROUP:
+                break
+
     for category in list(spec_and_stat):
         if category != target_category:
             continue
@@ -558,37 +590,7 @@ def data(dcid):
                 else:
                     # if using the new cache, need to make another cache call
                     # to get data to be borrowed from category page
-                    cat_data = get_landing_page_data(
-                        dcid, new_stat_vars, category,
-                        new_landing_page_cache_flag)
-                    total_charts = 0
-                    cat_stats = cat_data['statVarSeries']
-                    cat_spec_and_stat = build_spec(
-                        current_app.config['CHART_CONFIG'])
-                    for topic in list(cat_spec_and_stat[category].keys()):
-                        filtered_charts = []
-                        for chart in cat_spec_and_stat[category][topic]:
-                            keep_chart = False
-                            for stat_var in chart['statsVars']:
-                                if cat_stats[dcid].get('data',
-                                                       {}).get(stat_var, {}):
-                                    keep_chart = True
-                                    break
-                            if keep_chart:
-                                filtered_charts.append(chart)
-                        if not filtered_charts:
-                            del cat_spec_and_stat[category][topic]
-                        else:
-                            cat_spec_and_stat[category][topic] = filtered_charts
-                    populate_category_data(category, cat_stats,
-                                           cat_spec_and_stat)
-                    spec_and_stat[OVERVIEW][category] = []
-                    for topic in cat_spec_and_stat[category]:
-                        spec_and_stat[OVERVIEW][category].extend(
-                            cat_spec_and_stat[category][topic])
-                        total_charts += len(spec_and_stat[category][topic])
-                        if total_charts > MAX_OVERVIEW_CHART_GROUP:
-                            break
+                    populate_additional_category_data(category)
 
     # Get chart category name translations
     categories = {}
