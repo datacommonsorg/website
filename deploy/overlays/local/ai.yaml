@@ -1,7 +1,7 @@
 # This is a Vertex AI model with public endpoint.
 us-central1:
   protocol: rest
-  endpoint_id: "7109398204734504960"
+  endpoint_id: "2117210794352443392"
 
 # Used for testing, this points to the region to use for local testing.
 local:

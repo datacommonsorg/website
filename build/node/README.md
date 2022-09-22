@@ -25,7 +25,7 @@ To generate the Docker image and push it to GCS, change the version number in
 cloudbuild.yaml, then run:
 
 ```bash
-gcloud builds submit . --config=cloudbuild.yaml
+./push_image.sh
 ```
 
 Note: You may need to contact the Data Commons team to get permission to push

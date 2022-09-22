@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getCommonPrefix } from "./string_utils";
+import { formatDate, getCommonPrefix, isValidDate } from "./string_utils";
 
 test("get common prefix", () => {
   const cases: {
@@ -57,6 +57,69 @@ test("get common prefix", () => {
       expect(prefix).toEqual(c.wantedPrefix);
     } catch (e) {
       console.log(`Failed for case with word list: ${c.wordList}`);
+    }
+  }
+});
+
+test("formatDate", () => {
+  expect(formatDate("2011-12")).toEqual("2011-Dec");
+  expect(formatDate("2015")).toEqual("2015");
+  expect(formatDate("2022-05-22")).toEqual("2022-05-22");
+});
+
+test("is valid date", () => {
+  const cases: {
+    date: string;
+    wanted: boolean;
+  }[] = [
+    {
+      date: "2020",
+      wanted: true,
+    },
+    {
+      date: "2020-01",
+      wanted: true,
+    },
+    {
+      date: "2020-01-01",
+      wanted: true,
+    },
+    {
+      date: "",
+      wanted: false,
+    },
+    {
+      date: "20",
+      wanted: false,
+    },
+    {
+      date: "abdc",
+      wanted: false,
+    },
+    {
+      date: "2020-01-01-01",
+      wanted: false,
+    },
+    {
+      date: "2020-01-011",
+      wanted: false,
+    },
+    {
+      date: "2020-1",
+      wanted: false,
+    },
+    {
+      date: "2020-1-1",
+      wanted: false,
+    },
+  ];
+
+  for (const c of cases) {
+    const validDate = isValidDate(c.date);
+    try {
+      expect(validDate).toEqual(c.wanted);
+    } catch (e) {
+      console.log(`Failed for case with date string: ${c.date}`);
     }
   }
 });

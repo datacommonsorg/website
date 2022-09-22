@@ -62,7 +62,7 @@ class TestMap(WebdriverBaseTest):
 
         # Assert place name is correct.
         place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
+            '//*[@id="place-list"]/div/span')
         self.assertEqual(place_name.text, 'California')
 
         # Assert chart is correct.
@@ -85,11 +85,11 @@ class TestMap(WebdriverBaseTest):
 
         # Assert redirect was correct
         element_present = EC.text_to_be_present_in_element(
-            (By.XPATH, '//*[@id="place-list"]/span/span'),
+            (By.XPATH, '//*[@id="place-list"]/div/span'),
             'United States of America')
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
+            '//*[@id="place-list"]/div/span')
         self.assertEqual(place_name.text, 'United States of America')
 
         # Select State place type
@@ -144,7 +144,7 @@ class TestMap(WebdriverBaseTest):
             '.pac-item:nth-child(1)')
         first_result.click()
         element_present = EC.presence_of_element_located(
-            (By.CLASS_NAME, 'mdl-chip'))
+            (By.CLASS_NAME, 'chip'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Choose stat var

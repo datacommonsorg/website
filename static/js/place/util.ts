@@ -32,6 +32,14 @@ export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
   }
   return false;
 }
+/**
+ * A set of place types to render a choropleth for.
+ */
+export const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
+  "Country",
+  "State",
+  "County",
+]);
 
 const singularPlaceTypeMessages = defineMessages({
   Country: {

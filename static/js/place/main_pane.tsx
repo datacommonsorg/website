@@ -19,6 +19,7 @@ import { RawIntlProvider } from "react-intl";
 
 import {
   CachedChoroplethData,
+  CachedRankingChartData,
   ChartBlockData,
   GeoJsonData,
   PageChart,
@@ -80,6 +81,10 @@ interface MainPanePropType {
    */
   categoryStrings: { string: string };
   /**
+   * Promise for ranking chart data.
+   */
+  rankingChartData: Promise<CachedRankingChartData>;
+  /**
    * The locale of the page.
    */
   locale: string;
@@ -115,6 +120,7 @@ class MainPane extends React.Component<MainPanePropType> {
         childPlaceType={this.props.childPlacesType}
         parentPlaces={this.props.parentPlaces}
         category={category}
+        rankingChartData={this.props.rankingChartData}
       />
     );
   }

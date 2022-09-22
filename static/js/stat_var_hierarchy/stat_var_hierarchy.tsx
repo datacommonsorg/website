@@ -26,7 +26,13 @@ import React from "react";
 
 import { Context } from "../shared/context";
 import {
-  NamedPlace,
+  GA_EVENT_TOOL_STAT_VAR_CLICK,
+  GA_PARAM_STAT_VAR,
+  triggerGAEvent,
+} from "../shared/ga_events";
+import {
+  NamedNode,
+  RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyType,
 } from "../shared/types";
@@ -43,9 +49,9 @@ import {
 const ROOT_SVG = "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
-interface StatVarHierarchyPropType {
+export interface StatVarHierarchyPropType {
   type: string;
-  places: NamedPlace[];
+  entities: NamedNode[];
   // (Optional) A list of stat vars selected from parent componenet.
   // For example, in timeline tool, these are stat vars parsed from URL.
   selectedSVs?: string[];
@@ -108,7 +114,7 @@ export class StatVarHierarchy extends React.Component<
       this.setState({ searchSelectionCleared: false });
     }
     if (
-      !_.isEqual(this.props.places, prevProps.places) ||
+      !_.isEqual(this.props.entities, prevProps.entities) ||
       !_.isEqual(this.props.selectedSVs, prevProps.selectedSVs)
     ) {
       this.fetchData();
@@ -139,7 +145,7 @@ export class StatVarHierarchy extends React.Component<
         )}
         <div className="stat-var-hierarchy-container">
           <StatVarHierarchySearch
-            places={this.props.places.map((x) => x.dcid)}
+            entities={this.props.entities.map((x) => x.dcid)}
             onSelectionChange={this.onSearchSelectionChange}
             searchLabel={this.props.searchLabel}
           />
@@ -192,7 +198,7 @@ export class StatVarHierarchy extends React.Component<
                       >
                         <StatVarGroupNode
                           path={[svg.id]}
-                          places={this.props.places}
+                          entities={this.props.entities}
                           data={svg}
                           pathToSelection={this.state.focusPath.slice(1)}
                           isSelected={this.state.focusPath.length === 1}
@@ -226,8 +232,8 @@ export class StatVarHierarchy extends React.Component<
   private fetchData(): void {
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     let url = `/api/stats/stat-var-group?stat_var_group=${ROOT_SVG}`;
-    for (const place of this.props.places) {
-      url += `&places=${place.dcid}`;
+    for (const entity of this.props.entities) {
+      url += `&entities=${entity.dcid}`;
     }
     const allPromises: Promise<string[] | StatVarGroupInfo[]>[] = [];
     allPromises.push(
@@ -295,11 +301,13 @@ export class StatVarHierarchy extends React.Component<
     } else {
       if (this.props.selectSV) {
         this.props.selectSV(sv);
+        triggerGAEvent(GA_EVENT_TOOL_STAT_VAR_CLICK, {
+          [GA_PARAM_STAT_VAR]: sv,
+        });
       }
-      const svPath =
-        this.props.type === StatVarHierarchyType.MAP
-          ? { [sv]: path }
-          : Object.assign({ [sv]: path }, this.state.svPath);
+      const svPath = RADIO_BUTTON_TYPES.has(this.props.type)
+        ? { [sv]: path }
+        : Object.assign({ [sv]: path }, this.state.svPath);
       this.setState({
         svPath,
       });
@@ -327,12 +335,12 @@ export class StatVarHierarchy extends React.Component<
       "<li>Greyed out groups and statistical variables have no available data " +
       "for the chosen place(s). You can choose to hide these by using the " +
       '"Show all statistical variables toggle".</li></ul>';
-    const containerY = (d3
-      .select("#explore")
-      .node() as HTMLElement).getBoundingClientRect().y;
-    const iconY = (d3
-      .select("#tree-widget-info i")
-      .node() as HTMLElement).getBoundingClientRect().y;
+    const containerY = (
+      d3.select("#explore").node() as HTMLElement
+    ).getBoundingClientRect().y;
+    const iconY = (
+      d3.select("#tree-widget-info i").node() as HTMLElement
+    ).getBoundingClientRect().y;
     showTooltip(html, {
       left: TOOLTIP_MARGIN,
       top: iconY - containerY + TOOLTIP_TOP_OFFSET,

@@ -17,6 +17,9 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+
+const smp = new SpeedMeasurePlugin();
 
 const config = {
   entry: {
@@ -35,7 +38,7 @@ const config = {
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
-      __dirname + "/css/timeline.scss",
+      __dirname + "/css/tools/timeline.scss",
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
@@ -60,9 +63,13 @@ const config = {
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
     ],
+    disease: [
+      __dirname + "/js/biomedical/disease/disease.ts",
+      __dirname + "/css/biomedical/disease.scss",
+    ],
     protein: [
-      __dirname + "/js/protein/protein.ts",
-      __dirname + "/css/protein.scss",
+      __dirname + "/js/biomedical/protein/protein.ts",
+      __dirname + "/css/biomedical/protein.scss",
     ],
     static: __dirname + "/css/static.scss",
     translator: [
@@ -73,6 +80,19 @@ const config = {
       __dirname + "/js/search/search.ts",
       __dirname + "/css/search.scss",
     ],
+    download: [
+      __dirname + "/js/tools/download/download.ts",
+      __dirname + "/css/tools/download.scss",
+    ],
+    import_wizard: [
+      __dirname + "/js/import_wizard/import_wizard.ts",
+      __dirname + "/css/import_wizard.scss",
+    ],
+    import_wizard2: [
+      __dirname + "/js/import_wizard2/import_wizard.ts",
+      __dirname + "/css/import_wizard2.scss",
+    ],
+    user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -142,5 +162,5 @@ module.exports = (env, argv) => {
     config.devtool = "eval-cheap-module-source-map";
   }
 
-  return config;
+  return argv.mode === "development" ? config : smp.wrap(config);
 };

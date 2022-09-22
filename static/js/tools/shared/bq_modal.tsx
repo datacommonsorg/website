@@ -43,7 +43,9 @@ export function BqModal(props: BqModalPropType): JSX.Element {
       bqLink.current.style.display = props.showButton ? "inline-block" : "none";
     }
     return () => {
-      bqLink.current.style.display = "none";
+      if (bqLink.current) {
+        bqLink.current.style.display = "none";
+      }
     };
   });
 

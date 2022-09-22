@@ -1,3 +1,6 @@
+
+@import '../shared/chip';
+
 @mixin search-place {
   #search {
     margin-bottom: 1rem;
@@ -18,6 +21,10 @@
     display: none;
   }
 
+  .input-area-hidden #place-list {
+    flex-grow: 1;
+  }
+
   #search #location-field #place-list {
     margin-left: 36px;
     padding: 12px 0;
@@ -31,6 +38,11 @@
     background: url("../images/icon-pin.svg") no-repeat;
     background-position: center;
     position: absolute;
+  }
+
+  .input-area-hidden #ac {
+    visibility: hidden;
+    width: 0;
   }
 
   #location-field #ac {
@@ -53,24 +65,17 @@
     color: rgba(0, 0, 0, 0.25);
   }
 
-  .mdl-chip {
-    height: 32px;
-    line-height: 30px;
-    padding: 0 12px;
-    border: 0;
-    border-radius: 16px;
-    background-color: #dedede;
-    display: inline-block;
-    color: rgba(0, 0, 0, 0.87);
-    margin: 2px 0;
-    font-size: 0;
-    white-space: nowrap;
+  .chip:focus {
+    outline: 0;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
 
-  #location-field .mdl-chip {
+  #location-field .chip {
     margin-right: 6px;
     border: 0.5px solid #5384ec;
     background: rgba(66, 133, 244, 0.08);
+    color: rgba(0, 0, 0, 0.87);
   }
 
   .material-icons {
@@ -86,11 +91,6 @@
     font-feature-settings: "liga";
     -webkit-font-feature-settings: "liga";
     -webkit-font-smoothing: antialiased;
-  }
-
-  .mdl-chip__action .material-icons {
-    color: #3c4043;
-    font-size: 18px;
   }
 
   /* Maps suggestion dropdown overrides */
@@ -112,63 +112,5 @@
 
   .pac-logo:after {
     display: none;
-  }
-
-  .mdl-chip__text {
-    font-size: 13px;
-    vertical-align: middle;
-    display: inline-block;
-  }
-
-  .mdl-chip__action {
-    height: 24px;
-    width: 24px;
-    line-height: 33px;
-    background: transparent;
-    opacity: 0.54;
-    display: inline-block;
-    cursor: pointer;
-    text-align: center;
-    vertical-align: middle;
-    padding: 0;
-    margin: 0;
-    margin-left: 4px;
-    font-size: 13px;
-    text-decoration: none;
-    color: rgba(0, 0, 0, 0.87);
-    border: none;
-    outline: none;
-    overflow: hidden;
-  }
-
-  .mdl-chip__contact {
-    height: 32px;
-    width: 32px;
-    border-radius: 16px;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 8px;
-    overflow: hidden;
-    text-align: center;
-    font-size: 18px;
-    line-height: 32px;
-  }
-
-  .mdl-chip:focus {
-    outline: 0;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  }
-
-  .mdl-chip:active {
-    background-color: #d6d6d6;
-  }
-
-  .mdl-chip--deletable {
-    padding-right: 4px;
-  }
-
-  .mdl-chip--contact {
-    padding-left: 0;
   }
 }

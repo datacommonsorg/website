@@ -4,20 +4,26 @@
     "titleId": "CHART_TITLE-Population",
     "title": "Population",
     "description": "Total number of individuals",
-    "statsVars": ["Count_Person"],
+    "statsVars": [
+      "Count_Person"
+    ],
     "isOverview": true,
+    "isChoropleth": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
-    },
-    "isChoropleth": true
+    }
   },
   {
     "category": "Demographics",
     "titleId": "CHART_TITLE-Population_growth_rate",
     "title": "Population growth rate",
     "description": "Increase in the number of individuals",
-    "statsVars": ["GrowthRate_Count_Person"],
+    "statsVars": [
+      "GrowthRate_Count_Person"
+    ],
     "isOverview": true,
+    "isRankingChart": true,
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -28,9 +34,12 @@
     "titleId": "CHART_TITLE-Population_density",
     "title": "Population density (people per km²)",
     "description": "Measurement of people per km²",
-    "statsVars": ["Count_Person_PerArea"],
+    "statsVars": [
+      "Count_Person_PerArea"
+    ],
     "nonDividable": true,
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -40,7 +49,10 @@
     "titleId": "CHART_TITLE-Urban_v_rural_population",
     "title": "Urban and rural population",
     "description": "Total number of individuals in rural vs urban parts of a place",
-    "statsVars": ["Count_Person_Urban", "Count_Person_Rural"],
+    "statsVars": [
+      "Count_Person_Urban",
+      "Count_Person_Rural"
+    ],
     "isOverview": true,
     "relatedChart": {
       "scale": false
@@ -51,7 +63,10 @@
     "titleId": "CHART_TITLE-Urban and rural households",
     "title": "Urban and rural households",
     "description": "Total number of households in rural vs urban parts of a place",
-    "statsVars": ["Count_Household_Rural", "Count_Household_Urban"],
+    "statsVars": [
+      "Count_Household_Rural",
+      "Count_Household_Urban"
+    ],
     "isOverview": false,
     "relatedChart": {
       "scale": true,
@@ -111,7 +126,10 @@
     "titleId": "CHART_TITLE-Population_gender",
     "title": "Population by gender",
     "description": "Total number of individuals, broken down by gender",
-    "statsVars": ["Count_Person_Female", "Count_Person_Male"],
+    "statsVars": [
+      "Count_Person_Female",
+      "Count_Person_Male"
+    ],
     "relatedChart": {
       "titleId": "CHART_TITLE-Population_gender_distribution",
       "title": "Gender distribution",
@@ -152,19 +170,25 @@
     "titleId": "CHART_TITLE-Median_age",
     "title": "Median Age",
     "description": "The median age of the population",
-    "statsVars": ["Median_Age_Person"],
+    "statsVars": [
+      "Median_Age_Person"
+    ],
     "isOverview": true,
+    "isChoropleth": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
-    },
-    "isChoropleth": true
+    }
   },
   {
     "category": "Demographics",
     "titleId": "CHART_TITLE-Median_age_gender",
     "title": "Median age by gender",
     "description": "The median age of the population, broken down by gender",
-    "statsVars": ["Median_Age_Person_Female", "Median_Age_Person_Male"],
+    "statsVars": [
+      "Median_Age_Person_Female",
+      "Median_Age_Person_Male"
+    ],
     "relatedChart": {
       "scale": false
     }
@@ -238,8 +262,11 @@
     "titleId": "CHART_TITLE-Fertility_rate",
     "title": "Fertility rate",
     "description": "Average number of children that would be born to a woman over her lifetime",
-    "statsVars": ["FertilityRate_Person_Female"],
+    "statsVars": [
+      "FertilityRate_Person_Female"
+    ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -249,7 +276,10 @@
     "titleId": "CHART_TITLE-Literacy",
     "title": "Literacy",
     "description": "Comparison of number of literate and illiterate people in an area",
-    "statsVars": ["Count_Person_Literate", "Count_Person_Illiterate"],
+    "statsVars": [
+      "Count_Person_Literate",
+      "Count_Person_Illiterate"
+    ],
     "isOverview": false,
     "relatedChart": {
       "scale": true,
@@ -266,7 +296,10 @@
     "titleId": "CHART_TITLE-Social Category",
     "title": "Social Category",
     "description": "Population by social category (e.g. their cast or tribe).",
-    "statsVars": ["Count_Person_ScheduledCaste", "Count_Person_ScheduledTribe"],
+    "statsVars": [
+      "Count_Person_ScheduledCaste",
+      "Count_Person_ScheduledTribe"
+    ],
     "isOverview": false,
     "relatedChart": {
       "scale": true,

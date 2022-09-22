@@ -4,8 +4,11 @@
     "titleId": "CHART_TITLE-Life_expectancy",
     "title": "Life expectancy (years)",
     "description": "Life expectancy of an individual, measured in years",
-    "statsVars": ["LifeExpectancy_Person"],
+    "statsVars": [
+      "LifeExpectancy_Person"
+    ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -19,6 +22,8 @@
       "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
     ],
     "isOverview": true,
+    "isChoropleth": true,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_cases_per_capita",
       "title": "COVID-19 cumulative cases per capita",
@@ -27,8 +32,7 @@
       "denominator": "Count_Person",
       "unit": "%",
       "scaling": 100
-    },
-    "isChoropleth": true
+    }
   },
   {
     "category": "Health",
@@ -39,6 +43,8 @@
       "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
     ],
     "isOverview": true,
+    "isChoropleth": true,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_deaths_per_capita",
       "title": "COVID-19 cumulative deaths per capita",
@@ -47,8 +53,7 @@
       "denominator": "Count_Person",
       "unit": "%",
       "scaling": 100
-    },
-    "isChoropleth": true
+    }
   },
   {
     "category": "Health",
@@ -78,10 +83,13 @@
     "titleId": "CHART_TITLE-Infant_mortality_rate",
     "title": "Infant mortality rate",
     "description": "Count of deaths in infants caused by various diseases",
-    "statsVars": ["Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"],
+    "statsVars": [
+      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+    ],
     "scaling": 0.1,
     "unit": "%",
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -111,6 +119,7 @@
     ],
     "unit": "%",
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -139,6 +148,7 @@
     ],
     "unit": "%",
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -226,6 +236,7 @@
     ],
     "unit": "L",
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }

@@ -32,10 +32,12 @@ import {
 import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
 import {
   CachedChoroplethData,
+  CachedRankingChartData,
   chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
+  RankingChartDataGroup,
   SnapshotData,
   TrendData,
 } from "../chart/types";
@@ -45,15 +47,28 @@ import {
   LocalizedLink,
   localizeSearchParams,
 } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CHART_CLICK,
+  GA_PARAM_PLACE_CHART_CLICK,
+  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
+  GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
+  GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
+import { Point, RankingUnit } from "../topic_page/ranking_unit";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
 const CHOROPLETH_REDIRECT_BASE_URL = "/place/";
+const MIN_RANKING_DATAPOINTS = 6;
+const MAX_RANKING_DATAPOINTS = 10;
+const MIN_WIDTH_TO_SHOW_RANKING_VALUE = 450;
+const NUM_FRACTION_DIGITS = 2;
 
 interface ChartPropType {
   /**
@@ -116,6 +131,10 @@ interface ChartPropType {
    * If the primary place is in USA.
    */
   isUsaPlace: boolean;
+  /**
+   * Promise for ranking chart data for current dcid.
+   */
+  rankingChartData?: Promise<CachedRankingChartData>;
 }
 
 interface ChartStateType {
@@ -123,6 +142,7 @@ interface ChartStateType {
   dataGroups?: DataGroup[];
   choroplethDataGroup?: ChoroplethDataGroup;
   geoJson?: GeoJsonData;
+  rankingChartDataGroup?: RankingChartDataGroup;
   elemWidth: number;
   display: boolean;
   showModal: boolean;
@@ -197,7 +217,17 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const domain = urlToDomain(source);
       return (
         <span key={source}>
-          <a href={source}>{domain}</a>
+          <a
+            href={source}
+            onClick={() =>
+              triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                [GA_PARAM_PLACE_CHART_CLICK]:
+                  GA_VALUE_PLACE_CHART_CLICK_DATA_SOURCE,
+              })
+            }
+          >
+            {domain}
+          </a>
           {index < sources.length - 1 ? ", " : ""}
         </span>
       );
@@ -213,7 +243,43 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             id={this.props.id}
             ref={this.svgContainerElement}
             className="svg-container"
-          ></div>
+          >
+            {this.props.chartType === chartTypeEnum.RANKING &&
+              this.state.rankingChartDataGroup && (
+                <div className="ranking-chart-container">
+                  <h4>{this.getRankingChartContainerTitle()}</h4>
+                  <div className="ranking-chart">
+                    <RankingUnit
+                      title="Highest"
+                      points={
+                        this.state.rankingChartDataGroup.rankingData.highest
+                      }
+                      isHighest={true}
+                      unit={this.props.unit}
+                      highlightedDcid={this.props.dcid}
+                      hideValue={
+                        this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
+                      }
+                    />
+                    <RankingUnit
+                      title="Lowest"
+                      points={
+                        this.state.rankingChartDataGroup.rankingData.lowest
+                      }
+                      isHighest={false}
+                      unit={this.props.unit}
+                      numDataPoints={
+                        this.state.rankingChartDataGroup.numDataPoints
+                      }
+                      highlightedDcid={this.props.dcid}
+                      hideValue={
+                        this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
+                      }
+                    />
+                  </div>
+                </div>
+              )}
+          </div>
           <footer className="row explore-more-container">
             <div>
               <FormattedMessage
@@ -232,7 +298,16 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               </span>
             </div>
             <div className="outlinks">
-              <a href="#" onClick={this._handleEmbed}>
+              <a
+                href="#"
+                onClick={(event) => {
+                  this._handleEmbed(event);
+                  triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                    [GA_PARAM_PLACE_CHART_CLICK]:
+                      GA_VALUE_PLACE_CHART_CLICK_EXPORT,
+                  });
+                }}
+              >
                 <FormattedMessage
                   id="chart_metadata-export"
                   defaultMessage="Export"
@@ -245,6 +320,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   href={exploreUrl}
                   rel="noopener noreferrer"
                   target="_blank"
+                  onClick={() =>
+                    triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
+                      [GA_PARAM_PLACE_CHART_CLICK]:
+                        GA_VALUE_PLACE_CHART_CLICK_EXPLORE_MORE,
+                    })
+                  }
                 >
                   <FormattedMessage
                     id="chart_metadata-explore_more"
@@ -272,6 +353,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   componentDidUpdate(): void {
+    // Table is a react component. Prevent the inner HTML of the svg-container from being changed by drawchart().
+    if (this.props.chartType === chartTypeEnum.RANKING) {
+      return;
+    }
     // Draw chart.
     try {
       this.drawChart();
@@ -288,6 +373,11 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   componentDidMount(): void {
     window.addEventListener("resize", this._handleWindowResize);
     this.processData();
+    // Set the elemwidth to be the svg offsetwidth.
+    // Prevent the ranking unit from displaying the value if the initial width is too narrow.
+    if (this.props.chartType === chartTypeEnum.RANKING) {
+      this._handleWindowResize();
+    }
   }
 
   private _handleWindowResize(): void {
@@ -324,6 +414,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       }
       return rows.join("\n");
     }
+    if (this.state.rankingChartDataGroup) {
+      const data = this.state.rankingChartDataGroup.data;
+      const rows = ["rank,place,data"];
+      for (const dp of data) {
+        const placeName = dp.placeName ? dp.placeName : dp.placeDcid;
+        rows.push(`${dp.rank}, ${placeName}, ${dp.value}`);
+      }
+      return rows.join("\n");
+    }
     return dataGroupsToCsv(this.state.dataGroups);
   }
 
@@ -334,9 +433,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ): void {
     e.preventDefault();
-    const svgElems = this.svgContainerElement.current.getElementsByTagName(
-      "svg"
-    );
+    const svgElems =
+      this.svgContainerElement.current.getElementsByTagName("svg");
     let svgXml: string;
     if (svgElems.length) {
       svgXml = svgElems.item(0).outerHTML;
@@ -523,6 +621,35 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           );
         }
         break;
+      case chartTypeEnum.RANKING:
+        if (this.props.rankingChartData) {
+          this.props.rankingChartData
+            .then((rankingChartData) => {
+              if (_.isEmpty(this.props.statsVars)) {
+                this.setState({ display: false });
+                return;
+              }
+              const sv = this.props.statsVars[0];
+              const svData = rankingChartData[sv];
+              // Do not display the ranking chart if total data points is less than the MIN_RANKING_DATAPOINTS
+              if (
+                _.isEmpty(svData) ||
+                svData.numDataPoints < MIN_RANKING_DATAPOINTS
+              ) {
+                this.setState({ display: false });
+                return;
+              }
+              for (const data of svData.data) {
+                data.value = data.value * scaling;
+              }
+              svData.rankingData = this.getRankingChartData(svData);
+              this.setState({ rankingChartDataGroup: svData });
+            })
+            .catch(() => {
+              this.setState({ display: false });
+            });
+        }
+        break;
       default:
         break;
     }
@@ -533,11 +660,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return this.state.choroplethDataGroup
         ? this.state.choroplethDataGroup.exploreUrl
         : "";
-    } else {
-      return this.props.trend
-        ? this.props.trend.exploreUrl
-        : this.props.snapshot.exploreUrl;
     }
+    if (this.props.chartType === chartTypeEnum.RANKING) {
+      return this.state.rankingChartDataGroup
+        ? this.state.rankingChartDataGroup.exploreUrl
+        : "";
+    }
+    return this.props.trend
+      ? this.props.trend.exploreUrl
+      : this.props.snapshot.exploreUrl;
   }
 
   private getSources(): string[] {
@@ -545,11 +676,15 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return this.state.choroplethDataGroup
         ? this.state.choroplethDataGroup.sources
         : [];
-    } else {
-      return this.props.trend
-        ? this.props.trend.sources
-        : this.props.snapshot.sources;
     }
+    if (this.props.chartType === chartTypeEnum.RANKING) {
+      return this.state.rankingChartDataGroup
+        ? this.state.rankingChartDataGroup.sources
+        : [];
+    }
+    return this.props.trend
+      ? this.props.trend.sources
+      : this.props.snapshot.sources;
   }
 
   private getDateString(): string {
@@ -557,9 +692,52 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return this.state.choroplethDataGroup
         ? "(" + this.state.choroplethDataGroup.date + ")"
         : "";
-    } else {
-      return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
     }
+    if (this.props.chartType === chartTypeEnum.RANKING) {
+      return this.state.rankingChartDataGroup
+        ? "(" + this.state.rankingChartDataGroup.date + ")"
+        : "";
+    }
+    return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
+  }
+
+  private getRankingChartData(data: RankingChartDataGroup): {
+    lowest: Point[];
+    highest: Point[];
+  } {
+    const lowestAndHighestDataPoints = { lowest: [], highest: [] };
+    if (
+      data.numDataPoints >= MIN_RANKING_DATAPOINTS &&
+      data.numDataPoints <= MAX_RANKING_DATAPOINTS
+    ) {
+      const sliceNumber = Math.floor(data.numDataPoints / 2);
+      lowestAndHighestDataPoints.lowest = data.data
+        .slice(-sliceNumber)
+        .reverse();
+      lowestAndHighestDataPoints.highest = data.data.slice(0, sliceNumber);
+      return lowestAndHighestDataPoints;
+    }
+    const sliceNumber = Math.floor(MAX_RANKING_DATAPOINTS / 2);
+    lowestAndHighestDataPoints.lowest = data.data.slice(-sliceNumber).reverse();
+    lowestAndHighestDataPoints.highest = data.data.slice(0, sliceNumber);
+    return lowestAndHighestDataPoints;
+  }
+
+  private getRankingChartContainerTitle(): string {
+    const placeName = this.props.names[this.props.dcid] || this.props.dcid;
+    const currentPlaceRankAndValue = this.state.rankingChartDataGroup.data.find(
+      ({ placeDcid }) => placeDcid === this.props.dcid
+    );
+    if (!currentPlaceRankAndValue) {
+      return "";
+    }
+    const value = formatNumber(
+      currentPlaceRankAndValue.value,
+      this.props.unit,
+      false,
+      NUM_FRACTION_DIGITS
+    );
+    return `${placeName} ranks ${currentPlaceRankAndValue.rank} (${value})`;
   }
 }
 

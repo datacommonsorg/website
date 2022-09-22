@@ -18,6 +18,7 @@ from unittest.mock import patch
 
 from main import app
 from services import datacommons as dc
+import routes.api.place as place_api
 
 
 class TestRoute(unittest.TestCase):
@@ -605,3 +606,498 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
                                                 json=req2)
         assert empty_response.status_code == 200
         assert json.loads(empty_response.data) == []
+
+
+class TestApiRankingChartHelper(unittest.TestCase):
+
+    def test_get_ranking_chart_configs(self):
+        config1 = {
+            'category': ['Test', 'Test1'],
+            'title': 'Test1',
+            'statsVars': ['StatVar1', 'StatVar2'],
+            'isOverview': True,
+        }
+        config2 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar2'],
+            'isRankingChart': False
+        }
+        config3 = {
+            'category': ['Test', 'Test2'],
+            'title': 'Test2',
+            'statsVars': ['StatVar1', 'StatVar3'],
+            'isRankingChart': True
+        }
+        with app.app_context():
+            app.config["CHART_CONFIG"] = [config1, config2, config3]
+            expected_chart_configs = [config3]
+            actual_chart_configs = place_api.get_ranking_chart_configs()
+            assert expected_chart_configs == actual_chart_configs
+
+
+class TestApiRankingChart(unittest.TestCase):
+
+    @patch('routes.api.place.get_i18n_name')
+    @patch('routes.api.place.get_ranking_chart_configs')
+    @patch('routes.api.place.get_place_type')
+    @patch('routes.api.place.parent_places')
+    @patch('routes.api.place.dc.points_within')
+    def test_api_ranking_chart_not_earth(
+        self,
+        mock_points_within,
+        mock_parent_place,
+        mock_place_type,
+        mock_configs,
+        mock_name,
+    ):
+        test_dcid = 'test_dcid'
+        parent_dcid1 = "parent_dcid1"
+        parent_dcid2 = "parent_dcid2"
+        place_type = "place_type"
+        geo1 = test_dcid
+        geo2 = "dcid2"
+        geo3 = "dcid3"
+        place_name1 = "place_name1"
+        place_name2 = "place_name2"
+        place_name3 = "place_name3"
+        parent_place_type1 = "County"
+        parent_place_type2 = "Continent"
+        sv1 = "sv1"
+        sv2 = "sv2"
+        sv3 = "sv3"
+        sv1_date1 = "2020"
+        sv1_date2 = "2022"
+        sv2_date1 = "2020"
+        sv2_date2 = "2022"
+        sv1_value1 = 98
+        sv1_value2 = 100
+        sv1_value3 = 12
+        sv2_value1 = 100
+        sv2_value2 = 20
+        sv2_value3 = 230
+        count_person_value1 = 1001
+        count_person_value2 = 500
+        source1 = "source1"
+        source2 = "source2"
+        config1 = {
+            "category": ["Test", "Test1"],
+            "title": 'Test1',
+            "statsVars": [sv1],
+            "isRankingChart": True
+        }
+        config2 = {
+            "category": ["Test", "Test2"],
+            "title": "Test2",
+            "statsVars": [sv2],
+            "scaling": 100,
+            "unit": "%",
+            "isRankingChart": True,
+            "relatedChart": {
+                "scale": True,
+                "denominator": sv3,
+            }
+        }
+        mock_configs.return_value = [config1, config2]
+
+        def parent_place_side_effect(*args):
+            if args[0] == test_dcid:
+                return {
+                    test_dcid: [{
+                        "types": [parent_place_type1],
+                        "dcid": parent_dcid1
+                    }, {
+                        "types": [parent_place_type2],
+                        "dcid": parent_dcid2
+                    }]
+                }
+            else:
+                return {}
+
+        mock_parent_place.side_effect = parent_place_side_effect
+
+        def place_type_side_effect(*args):
+            if args[0] == test_dcid:
+                return place_type
+            else:
+                return None
+
+        mock_place_type.side_effect = place_type_side_effect
+
+        def name_side_effect(*args):
+            if sorted(args[0]) == sorted([geo1, geo3]):
+                return {
+                    geo1: place_name1,
+                    geo3: place_name3,
+                }
+            else:
+                return {}
+
+        mock_name.side_effect = name_side_effect
+
+        points_within = {
+            'observationsByVariable': [{
+                "variable":
+                    sv1,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv1_date1,
+                        'value': sv1_value1,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value2,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value3,
+                        'facet': 1
+                    }]
+                }]
+            }, {
+                "variable":
+                    sv2,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': sv2_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value2,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value3,
+                        'facet': 2
+                    }]
+                }]
+            }, {
+                "variable":
+                    "Count_Person",
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': count_person_value2,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }]
+            }],
+            'facets': {
+                '1': {
+                    'importName': 'importName1',
+                    'provenanceUrl': source1
+                },
+                '2': {
+                    'importName': 'importName2',
+                    'provenanceUrl': source2
+                }
+            }
+        }
+
+        def points_within_side_effect(*args):
+            if args[0] == parent_dcid1 and args[1] == place_type and sorted(
+                    args[2]) == sorted([sv1, sv2, "Count_Person"]):
+                return points_within
+            else:
+                return {}
+
+        mock_points_within.side_effect = points_within_side_effect
+
+        response = app.test_client().get('/api/place/ranking_chart/' +
+                                         test_dcid)
+        assert response.status_code == 200
+        response_data = json.loads(response.data)
+        expected_data = {
+            sv1: {
+                'date':
+                    f'{sv1_date1} – {sv1_date2}',
+                'data': [{
+                    "rank": 1,
+                    "value": sv1_value1,
+                    "placeDcid": geo1,
+                    "placeName": place_name1
+                }, {
+                    "rank": 2,
+                    "value": sv1_value3,
+                    "placeDcid": geo3,
+                    "placeName": place_name3
+                }],
+                'numDataPoints':
+                    2,
+                'exploreUrl':
+                    "/ranking/sv1/place_type/parent_dcid1?h=test_dcid",
+                'sources': [source1]
+            },
+            sv2: {
+                'date':
+                    f'{sv1_date1} – {sv1_date2}',
+                'data': [{
+                    "rank": 1,
+                    "value": sv2_value3,
+                    "placeDcid": geo3,
+                    "placeName": place_name3
+                }, {
+                    "rank": 2,
+                    "value": sv2_value1,
+                    "placeDcid": geo1,
+                    "placeName": place_name1
+                }],
+                'numDataPoints':
+                    2,
+                'exploreUrl':
+                    "/ranking/sv2/place_type/parent_dcid1?h=test_dcid&scaling=100&unit=%",
+                'sources': [source2]
+            }
+        }
+        assert response_data == expected_data
+
+    @patch('routes.api.place.get_i18n_name')
+    @patch('routes.api.place.get_ranking_chart_configs')
+    @patch('routes.api.place.dc.points_within')
+    def test_api_ranking_chart_earth(
+        self,
+        mock_points_within,
+        mock_configs,
+        mock_name,
+    ):
+        test_dcid = 'Earth'
+        parent_dcid = "Earth"
+        place_type = "Country"
+        geo1 = "dcid1"
+        geo2 = "dcid2"
+        geo3 = "dcid3"
+        place_name1 = "place_name1"
+        place_name2 = "place_name2"
+        place_name3 = "place_name3"
+        sv1 = "sv1"
+        sv2 = "sv2"
+        sv3 = "sv3"
+        sv1_date1 = "2020"
+        sv1_date2 = "2022"
+        sv2_date1 = "2022"
+        sv2_date2 = "2022"
+        sv1_value1 = 99
+        sv1_value2 = 50
+        sv1_value3 = 30
+        sv2_value1 = 10
+        sv2_value2 = 20
+        sv2_value3 = 15
+        count_person_value1 = 1001
+        count_person_value2 = 500
+        source1 = "source1"
+        source2 = "source2"
+        config1 = {
+            "category": ["Test", "Test1"],
+            "title": 'Test1',
+            "statsVars": [sv1],
+            "isRankingChart": True
+        }
+        config2 = {
+            "category": ["Test", "Test2"],
+            "title": "Test2",
+            "statsVars": [sv2],
+            "scaling": 100,
+            "unit": "%",
+            "isRankingChart": True,
+            "relatedChart": {
+                "scale": True,
+                "denominator": sv3,
+            }
+        }
+        mock_configs.return_value = [config1, config2]
+
+        def name_side_effect(*args):
+            if sorted(args[0]) == sorted([geo1, geo2]):
+                return {geo1: place_name1, geo2: place_name2}
+            else:
+                return {}
+
+        mock_name.side_effect = name_side_effect
+
+        points_within = {
+            'observationsByVariable': [{
+                "variable":
+                    sv1,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv1_date1,
+                        'value': sv1_value1,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value2,
+                        'facet': 1
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv1_date2,
+                        'value': sv1_value3,
+                        'facet': 1
+                    }]
+                }]
+            }, {
+                "variable":
+                    sv2,
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': sv2_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value2,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': sv2_value3,
+                        'facet': 2
+                    }]
+                }]
+            }, {
+                "variable":
+                    "Count_Person",
+                "observationsByEntity": [{
+                    "entity":
+                        geo1,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo2,
+                    "pointsByFacet": [{
+                        'date': sv2_date2,
+                        'value': count_person_value1,
+                        'facet': 2
+                    }]
+                }, {
+                    "entity":
+                        geo3,
+                    "pointsByFacet": [{
+                        'date': sv2_date1,
+                        'value': count_person_value2,
+                        'facet': 2
+                    }]
+                }]
+            }],
+            'facets': {
+                '1': {
+                    'importName': 'importName1',
+                    'provenanceUrl': source1
+                },
+                '2': {
+                    'importName': 'importName2',
+                    'provenanceUrl': source2
+                }
+            }
+        }
+
+        def points_within_side_effect(*args):
+            if args[0] == parent_dcid and args[1] == place_type and sorted(
+                    args[2]) == sorted([sv1, sv2, "Count_Person"]):
+                return points_within
+            else:
+                return {}
+
+        mock_points_within.side_effect = points_within_side_effect
+
+        response = app.test_client().get('/api/place/ranking_chart/' +
+                                         test_dcid)
+        assert response.status_code == 200
+        response_data = json.loads(response.data)
+        expected_data = {
+            sv1: {
+                'date': f'{sv1_date1} – {sv1_date2}',
+                'data': [{
+                    "rank": 1,
+                    "value": sv1_value1,
+                    "placeDcid": geo1,
+                    "placeName": place_name1
+                }, {
+                    "rank": 2,
+                    "value": sv1_value2,
+                    "placeDcid": geo2,
+                    "placeName": place_name2
+                }],
+                'numDataPoints': 2,
+                'exploreUrl': "/ranking/sv1/Country?h=Earth",
+                'sources': [source1]
+            },
+            sv2: {
+                'date': sv2_date1,
+                'data': [{
+                    "rank": 1,
+                    "value": sv2_value2,
+                    "placeDcid": geo2,
+                    "placeName": place_name2
+                }, {
+                    "rank": 2,
+                    "value": sv2_value1,
+                    "placeDcid": geo1,
+                    "placeName": place_name1
+                }],
+                'numDataPoints': 2,
+                'exploreUrl': "/ranking/sv2/Country?h=Earth&scaling=100&unit=%",
+                'sources': [source2]
+            }
+        }
+        assert response_data == expected_data
