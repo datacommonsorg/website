@@ -31,7 +31,7 @@ import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
 
-propagator = google_cloud_format.GoogleCloudFormatPropagator()
+# propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
 
 def createMiddleWare(app, exporter):
