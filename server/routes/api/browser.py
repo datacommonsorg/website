@@ -31,8 +31,8 @@ NO_OBSPERIOD_KEY = 'no_obsPeriod'
 @bp.route('/triples/<path:direction>/<path:dcid>')
 def triples(direction, dcid):
     """Returns all the triples given a node dcid."""
-    if direction != "in" or direction != "out":
-        return 400, "Invalid direction, use 'in' or 'out'"
+    if direction != "in" and direction != "out":
+        return f"Invalid direction {direction}, use 'in' or 'out'", 400
     return dc.triples(dcid, direction).get("triples")
 
 
