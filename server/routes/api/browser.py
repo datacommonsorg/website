@@ -32,7 +32,7 @@ NO_OBSPERIOD_KEY = 'no_obsPeriod'
 def triples(direction, dcid):
     """Returns all the triples given a node dcid."""
     if direction != "in" and direction != "out":
-        return f"Invalid direction {direction}, use 'in' or 'out'", 400
+        return "Invalid direction provided, please use 'in' or 'out'", 400
     return dc.triples(dcid, direction).get("triples")
 
 
