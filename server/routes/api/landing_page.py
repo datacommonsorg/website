@@ -41,32 +41,19 @@ MAX_OVERVIEW_CHART_GROUP = 5
 OVERVIEW = 'Overview'
 
 
-def get_landing_page_data(dcid, new_stat_vars, category,
-                          new_landing_page_cache_flag):
-    return get_landing_page_data_helper(dcid, '^'.join(new_stat_vars), category,
-                                        new_landing_page_cache_flag)
+def get_landing_page_data(dcid, new_stat_vars, category):
+    return get_landing_page_data_helper(dcid, '^'.join(new_stat_vars), category,)
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_landing_page_data_helper(dcid, stat_vars_string, category,
-                                 new_landing_page_cache_flag):
-    if new_landing_page_cache_flag != "false":
-        stat_var_condition = ''
-        if stat_vars_string:
-            stat_var_condition = "&new_stat_vars={}".format(
-                stat_vars_string.split('^'))
-        req_url = '/v1/internal/page/place/{}?category={}'.format(
-            dcid, category + stat_var_condition)
-        response = dc_service.get(req_url)
-    else:
-        data = {'place': dcid}
-        if stat_vars_string:
-            data['newStatVars'] = stat_vars_string.split('^')
-        response = dc_service.fetch_data("/landing-page",
-                                         data,
-                                         compress=False,
-                                         post=True,
-                                         has_payload=False)
+def get_landing_page_data_helper(dcid, stat_vars_string, category):
+    stat_var_condition = ''
+    if stat_vars_string:
+        stat_var_condition = "&new_stat_vars={}".format(
+            stat_vars_string.split('^'))
+    req_url = '/v1/internal/page/place/{}?category={}'.format(
+        dcid, category + stat_var_condition)
+    response = dc_service.get(req_url)
     return response
 
 
@@ -422,16 +409,14 @@ def data(dcid):
     """
     start_time = time.time()
     logging.info(
-        "Landing Page: cache miss for place:%s and category:%s and "
-        "cache_flag:%s , fetching and processing data ...", dcid,
-        request.args.get("category"), request.args.get("cache_flag"))
+        "Landing Page: cache miss for place:%s and category:%s "
+        " , fetching and processing data ...", dcid,
+        request.args.get("category"))
     target_category = request.args.get("category")
-    new_landing_page_cache_flag = request.args.get("cache_flag")
     spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
     new_stat_vars = current_app.config['NEW_STAT_VARS']
 
-    raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category,
-                                          new_landing_page_cache_flag)
+    raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
 
     if 'statVarSeries' not in raw_page_data:
         logging.info("Landing Page: No data for %s", dcid)
@@ -473,14 +458,10 @@ def data(dcid):
                 del spec_and_stat[category][topic]
             else:
                 spec_and_stat[category][topic] = filtered_charts
-        if new_landing_page_cache_flag == "false":
-            if not spec_and_stat[category]:
-                del spec_and_stat[category]
-        else:
-            # Don't delete a category if it is in the valid categories list.
-            if not spec_and_stat[category] and category not in raw_page_data[
-                    "validCategories"][dcid]["category"]:
-                del spec_and_stat[category]
+        # Don't delete a category if it is in the valid categories list.
+        if not spec_and_stat[category] and category not in raw_page_data[
+                "validCategories"][dcid]["category"]:
+            del spec_and_stat[category]
 
     # Populate the data for each chart.
     # This is heavy lifting, takes time to process.
@@ -532,8 +513,7 @@ def data(dcid):
     # Populate data for the Overview page for categories which don't have
     # any configured data there by "borrowing" it from the category page.
     def populate_additional_category_data(category):
-        cat_data = get_landing_page_data(dcid, new_stat_vars, category,
-                                         new_landing_page_cache_flag)
+        cat_data = get_landing_page_data(dcid, new_stat_vars, category)
         total_charts = 0
         cat_stats = cat_data['statVarSeries']
         cat_spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
@@ -573,20 +553,7 @@ def data(dcid):
             # If there is no data for a category in overview page, need to
             # "borrow" it from the category page.
             if not has_data(data):
-                if new_landing_page_cache_flag == "false":
-                    populate_category_data(category, all_stat, spec_and_stat)
-                    total_charts = 0
-                    spec_and_stat[OVERVIEW][category] = []
-                    for topic in spec_and_stat[category]:
-                        spec_and_stat[OVERVIEW][category].extend(
-                            spec_and_stat[category][topic])
-                        total_charts += len(spec_and_stat[category][topic])
-                        if total_charts > MAX_OVERVIEW_CHART_GROUP:
-                            break
-                else:
-                    # if using the new cache, need to make another cache call
-                    # to get data to be borrowed from category page
-                    populate_additional_category_data(category)
+                populate_additional_category_data(category)
 
     # Get chart category name translations
     categories = {}
@@ -595,8 +562,7 @@ def data(dcid):
 
     cat_list = []
     # The new cache would use a category list to populate categories menu
-    if new_landing_page_cache_flag != "false":
-        cat_list = raw_page_data["validCategories"][dcid]['category']
+    cat_list = raw_page_data["validCategories"][dcid]['category']
     for cat in cat_list:
         categories[cat] = cat
 
