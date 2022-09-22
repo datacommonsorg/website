@@ -184,13 +184,14 @@ export class BrowserPage extends React.Component<
       .get("/api/browser/proplabels/" + this.getArcDcid())
       .then((resp) => resp.data);
     Promise.all([labelsPromise, provenancePromise])
-      .then(([labelsData, ProvenanceData]) => {
+      .then(([labelsData, provenanceData]) => {
         const provDomain = {};
-        for (const prov in ProvenanceData) {
+        for (const provId in provenanceData) {
+          const url = provenanceData[provId];
           try {
-            provDomain[prov] = new URL(ProvenanceData[prov]).host;
+            provDomain[provId] = new URL(url).host;
           } catch (err) {
-            console.log("Invalid url in prov: " + ProvenanceData[prov]);
+            console.log("Invalid url in prov: " + url);
           }
         }
         this.setState({

@@ -40,7 +40,7 @@ def triples(direction, dcid):
 def provenance():
     """Returns all the provenance information."""
     resp = dc.triples("Provenance", "in")
-    prov_list = resp.get("triples").get("typeOf").get("nodes")
+    prov_list = resp.get("triples", {}).get("typeOf", {}).get("nodes", [])
     dcids = map(lambda item: item["dcid"], prov_list)
     resp = dc.property_values(dcids, "url", "out")
     result = {}
