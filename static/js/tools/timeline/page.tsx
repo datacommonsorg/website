@@ -16,7 +16,6 @@
 
 import React, { Component, createRef, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
-import { config } from "webpack";
 
 import {
   GA_EVENT_TOOL_PLACE_ADD,
