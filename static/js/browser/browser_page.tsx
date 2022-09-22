@@ -129,7 +129,7 @@ export class BrowserPage extends React.Component<
               <div className="card">
                 <StatVarHierarchy
                   type={StatVarHierarchyType.BROWSER}
-                  places={[
+                  entities={[
                     { dcid: this.props.dcid, name: this.props.nodeName },
                   ]}
                   selectedSVs={selectedSVs}
@@ -224,9 +224,7 @@ interface BrowserSectionTriggerPropType {
   opened: boolean;
 }
 
-export class BrowserSectionTrigger extends React.Component<
-  BrowserSectionTriggerPropType
-> {
+export class BrowserSectionTrigger extends React.Component<BrowserSectionTriggerPropType> {
   render(): JSX.Element {
     return (
       <div className="browser-section-trigger">

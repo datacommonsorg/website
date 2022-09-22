@@ -17,11 +17,28 @@
 import _ from "lodash";
 
 /**
+ * If the date is in YYYY-MM format, returns YYYY-MMM format.
+ * This is to improve readability of dates in chart titles.
+ */
+export function formatDate(strDate: string): string {
+  if (strDate.length == 7) {
+    const dt = new Date(strDate);
+    return (
+      new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
+      "-" +
+      new Intl.DateTimeFormat("en-US", { month: "short" }).format(dt)
+    );
+  } else {
+    return strDate;
+  }
+}
+
+/**
  *  Given a list of dates as strings, returns the date range as a string
  */
 export function getDateRange(dates: string[]): string {
-  const minDate = _.min(dates);
-  const maxDate = _.max(dates);
+  const minDate = formatDate(_.min(dates));
+  const maxDate = formatDate(_.max(dates));
   return minDate === maxDate ? `${minDate}` : `${minDate} to ${maxDate}`;
 }
 
@@ -48,4 +65,12 @@ export function getCommonPrefix(words: string[]): string {
     idx++;
   }
   return firstWord.slice(0, idx);
+}
+
+/**
+ * Given a date string, check that it is in the form YYYY-MM-DD or YYYY-MM or YYYY
+ */
+export function isValidDate(date: string): boolean {
+  const dateRegex = /^(\d\d\d\d)(-\d\d)?(-\d\d)?$/;
+  return dateRegex.test(date);
 }

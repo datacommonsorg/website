@@ -21,3 +21,5 @@ region:
     - us-west1
 nodes: 10
 storage_project: datcom-store
+model_bucket: "gs://datcom-ipragma-models"
+model_name: "dc_t5_ir3_fix_20220811_default_bs1bm1_gpu_jit1"

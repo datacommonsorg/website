@@ -25,7 +25,7 @@ import React from "react";
 
 import { StatVarCharts } from "../browser/stat_var_charts";
 import { Context } from "../shared/context";
-import { NamedPlace, StatVarHierarchyType } from "../shared/types";
+import { NamedNode, StatVarHierarchyType } from "../shared/types";
 import { StatVarInfo, StatVarSummary } from "../shared/types";
 import { getCommonPrefix } from "../utils/string_utils";
 import { StatVarSectionInput } from "./stat_var_section_input";
@@ -34,7 +34,7 @@ interface StatVarSectionPropType {
   path: string[];
   data: StatVarInfo[];
   pathToSelection: string[];
-  places: NamedPlace[];
+  entities: NamedNode[];
   highlightedStatVar: React.RefObject<HTMLDivElement>;
 }
 
@@ -98,7 +98,7 @@ export class StatVarSection extends React.Component<
             >
               {context.statVarHierarchyType === StatVarHierarchyType.BROWSER ? (
                 <StatVarCharts
-                  place={this.props.places[0]}
+                  place={this.props.entities[0]}
                   selected={isSelected || statVar.id in context.svPath}
                   statVar={statVar}
                 />

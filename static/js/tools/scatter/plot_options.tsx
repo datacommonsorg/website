@@ -26,6 +26,18 @@ import { Container } from "reactstrap";
 
 import { DENOM_INPUT_PLACEHOLDER } from "../../shared/constants";
 import {
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
+  GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+  GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+  GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+  GA_VALUE_TOOL_CHART_OPTION_SWAP,
+  triggerGAEvent,
+} from "../../shared/ga_events";
+import {
   AxisWrapper,
   Context,
   DisplayOptionsWrapper,
@@ -86,7 +98,15 @@ function PlotOptions(): JSX.Element {
                     id="per-capita-y"
                     type="checkbox"
                     checked={y.value.perCapita}
-                    onChange={(e) => y.setPerCapita(e.target.checked)}
+                    onChange={(e) => {
+                      y.setPerCapita(e.target.checked);
+                      if (!y.value.perCapita) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                        });
+                      }
+                    }}
                   />
                   Per Capita
                 </Label>
@@ -98,7 +118,15 @@ function PlotOptions(): JSX.Element {
                   id="log-y"
                   type="checkbox"
                   checked={y.value.log}
-                  onChange={(e) => checkLog(y, e)}
+                  onChange={(e) => {
+                    checkLog(y, e);
+                    if (!y.value.log) {
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+                      });
+                    }
+                  }}
                 />
                 <Label check>Log scale</Label>
               </FormGroup>
@@ -117,7 +145,15 @@ function PlotOptions(): JSX.Element {
                     id="per-capita-x"
                     type="checkbox"
                     checked={x.value.perCapita}
-                    onChange={(e) => x.setPerCapita(e.target.checked)}
+                    onChange={(e) => {
+                      x.setPerCapita(e.target.checked);
+                      if (!x.value.perCapita) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                        });
+                      }
+                    }}
                   />
                   Per Capita
                 </Label>
@@ -129,7 +165,15 @@ function PlotOptions(): JSX.Element {
                   id="log-x"
                   type="checkbox"
                   checked={x.value.log}
-                  onChange={(e) => checkLog(x, e)}
+                  onChange={(e) => {
+                    checkLog(x, e);
+                    if (!x.value.log) {
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+                      });
+                    }
+                  }}
                 />
                 <Label check>Log scale</Label>
               </FormGroup>
@@ -146,7 +190,13 @@ function PlotOptions(): JSX.Element {
                     id="swap-axes"
                     size="sm"
                     color="light"
-                    onClick={() => swapAxes(x, y)}
+                    onClick={() => {
+                      swapAxes(x, y);
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_SWAP,
+                      });
+                    }}
                     className="plot-options-swap-button"
                   >
                     Swap X and Y axes
@@ -159,7 +209,15 @@ function PlotOptions(): JSX.Element {
                         id="quadrants"
                         type="checkbox"
                         checked={display.showQuadrants}
-                        onChange={(e) => checkQuadrants(display, e)}
+                        onChange={(e) => {
+                          checkQuadrants(display, e);
+                          if (!display.showQuadrants) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+                            });
+                          }
+                        }}
                       />
                       Show quadrants
                     </Label>
@@ -172,7 +230,15 @@ function PlotOptions(): JSX.Element {
                         id="quadrants"
                         type="checkbox"
                         checked={display.showLabels}
-                        onChange={(e) => checkLabels(display, e)}
+                        onChange={(e) => {
+                          checkLabels(display, e);
+                          if (!display.showLabels) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+                            });
+                          }
+                        }}
                       />
                       Show labels
                     </Label>
@@ -185,7 +251,15 @@ function PlotOptions(): JSX.Element {
                         id="density"
                         type="checkbox"
                         checked={display.showDensity}
-                        onChange={(e) => checkDensity(display, e)}
+                        onChange={(e) => {
+                          checkDensity(display, e);
+                          if (!display.showDensity) {
+                            triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                              [GA_PARAM_TOOL_CHART_OPTION]:
+                                GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY,
+                            });
+                          }
+                        }}
                       />
                       Show density
                     </Label>
@@ -205,9 +279,13 @@ function PlotOptions(): JSX.Element {
                         selectLowerBound(place, e, setLowerBound)
                       }
                       value={lowerBound}
-                      onBlur={() =>
-                        setLowerBound(place.value.lowerBound.toString())
-                      }
+                      onBlur={() => {
+                        setLowerBound(place.value.lowerBound.toString());
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+                        });
+                      }}
                     />
                   </FormGroup>
                 </div>
@@ -221,9 +299,13 @@ function PlotOptions(): JSX.Element {
                         selectUpperBound(place, e, setUpperBound)
                       }
                       value={upperBound}
-                      onBlur={() =>
-                        setUpperBound(place.value.upperBound.toString())
-                      }
+                      onBlur={() => {
+                        setUpperBound(place.value.upperBound.toString());
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION,
+                        });
+                      }}
                     />
                   </FormGroup>
                 </div>

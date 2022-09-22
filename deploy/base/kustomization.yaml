@@ -30,3 +30,6 @@ configMapGenerator:
   - name: ai-config
     files:
       - ai.yaml
+  - name: memdb-config
+    files:
+      - memdb.json

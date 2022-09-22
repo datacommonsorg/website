@@ -66,7 +66,7 @@ class TestScatter(WebdriverBaseTest):
 
         # Assert place name is correct.
         place_name = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/span')
+            '//*[@id="place-list"]/div/span')
         self.assertEqual(place_name.text, 'California')
 
         # Assert chart is correct.
@@ -106,7 +106,7 @@ class TestScatter(WebdriverBaseTest):
             '.pac-item:nth-child(1)')
         first_result.click()
         element_present = EC.presence_of_element_located(
-            (By.CLASS_NAME, 'mdl-chip'))
+            (By.CLASS_NAME, 'chip'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Choose place type
@@ -164,9 +164,9 @@ class TestScatter(WebdriverBaseTest):
             '//*[@id="placeholder-container"]/ul/li[1]/a[1]').click()
 
         # Assert chart loads
-        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located((By.ID, 'scatterplot'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        shared.wait_for_loading(self.driver)
         chart = self.driver.find_element_by_xpath('//*[@id="scatterplot"]')
         circles = chart.find_elements_by_tag_name('circle')
         self.assertGreater(len(circles), 1)

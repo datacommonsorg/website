@@ -15,11 +15,12 @@
  */
 
 import {} from "googlemaps";
-import React, { Component, PureComponent } from "react";
+import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
 import { toTitleCase } from "../tools/shared_util";
 import { getPlaceDcids } from "../utils/place_utils";
+import { Chip } from "./chip";
 
 // Hardcoded results to respond to in the place autocomplete.
 const HARDCODED_RESULTS = {
@@ -31,34 +32,7 @@ const HARDCODED_RESULTS = {
   oceania: "oceania",
   "south america": "southamerica",
 };
-
-interface ChipPropType {
-  placeName: string;
-  placeId: string;
-  removePlace: (place: string) => void;
-}
-
-class Chip extends PureComponent<ChipPropType, Record<string, unknown>> {
-  constructor(props) {
-    super(props);
-    this.deleteChip = this.deleteChip.bind(this);
-  }
-
-  render() {
-    return (
-      <span className="mdl-chip mdl-chip--deletable">
-        <span className="mdl-chip__text">{this.props.placeName}</span>
-        <button className="mdl-chip__action" onClick={this.deleteChip}>
-          <i className="material-icons">cancel</i>
-        </button>
-      </span>
-    );
-  }
-
-  private deleteChip() {
-    this.props.removePlace(this.props.placeId);
-  }
-}
+const CHIP_COLOR = "rgba(66, 133, 244, 0.08)";
 
 interface PlaceSearchBarPropType {
   places: Record<string, string>;
@@ -96,14 +70,15 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
           <span id="place-list">
             {placeIds.map((placeId) => (
               <Chip
-                placeId={placeId}
-                placeName={
+                id={placeId}
+                title={
                   this.props.places[placeId]
                     ? this.props.places[placeId]
                     : placeId
                 }
                 key={placeId}
-                removePlace={this.props.removePlace}
+                removeChip={this.props.removePlace}
+                color={CHIP_COLOR}
               ></Chip>
             ))}
           </span>

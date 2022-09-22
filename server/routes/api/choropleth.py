@@ -16,10 +16,12 @@
 
 import json
 import urllib.parse
+import routes.api.shared as shared_api
 import services.datacommons as dc_service
 import routes.api.place as place_api
 import routes.api.landing_page as landing_page_api
 
+from routes.api.shared import is_float
 from geojson_rewind import rewind
 from cache import cache
 from flask import Blueprint, current_app, request, Response, g, url_for
@@ -38,6 +40,16 @@ CHOROPLETH_DISPLAY_LEVEL_MAP = {
     "AdministrativeArea2": "AdministrativeArea2",
     "AdministrativeArea3": "AdministrativeArea3"
 }
+
+# Place type to get choropleth for, keyed by geoDcid
+# These are the special cases.
+# 1. Territories of the US, e.g. country/USA, are also AA1. Restrict this view to only States.
+# 2. For Earth, display the countries.
+SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP = {
+    "country/USA": "State",
+    "Earth": "Country"
+}
+
 # GeoJSON property to use, keyed by display level.
 CHOROPLETH_GEOJSON_PROPERTY_MAP = {
     "Country": "geoJsonCoordinatesDP3",
@@ -68,9 +80,10 @@ def get_choropleth_display_level(geoDcid):
                 parent place dcid)
             display level (AdministrativeArea1 or AdministrativeArea2)
     """
-    # Territories of the US, e.g. country/USA are also AA1. Restrict this view to only States.
-    if geoDcid == 'country/USA':
-        return geoDcid, 'State'
+    if geoDcid in SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP:
+        display_level = SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP[geoDcid]
+        return geoDcid, display_level
+
     place_type = place_api.get_place_type(geoDcid)
     display_level = None
     if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
@@ -219,32 +232,6 @@ def get_choropleth_configs():
     return chart_configs
 
 
-def get_stat_vars(configs):
-    """  Gets all the stat vars and denominators in the given list of chart
-    configs
-
-    Args:
-        configs: list of chart configs
-
-    Returns:
-        tuple consisting of
-            set of all stat var dcids
-            set of all denominator stat var dcids
-    """
-    stat_vars = set()
-    denoms = set()
-    for config in configs:
-        if len(config.get('statsVars', [])) > 0:
-            stat_vars.add(config['statsVars'][0])
-        if 'relatedChart' in config and config['relatedChart'].get(
-                'scale', False):
-            denoms.add(config['relatedChart'].get('denominator',
-                                                  'Count_Person'))
-        if len(config.get('denominator', [])) > 0:
-            denoms.add(config['denominator'][0])
-    return stat_vars, denoms
-
-
 def get_denom_val(stat_date, denom_data):
     """ Gets the best denominator value for a given date
 
@@ -309,26 +296,6 @@ def get_value(place_dcid, sv_data, denom, denom_data, scaling):
     return val * scaling
 
 
-def get_date_range(dates):
-    """ Gets the date range from a set of dates
-
-    Args:
-        dates: set of dates (strings)
-
-    Returns:
-        date range as a string. Either a single date or
-        [earliest date] - [latest date]
-    """
-    dates = filter(lambda x: x != "", dates)
-    sorted_dates_list = sorted(list(dates))
-    if not sorted_dates_list:
-        return ""
-    date_range = sorted_dates_list[0]
-    if len(sorted_dates_list) > 1:
-        date_range = f'{sorted_dates_list[0]} – {sorted_dates_list[-1]}'
-    return date_range
-
-
 def get_denoms_data(places, denom_stat_vars):
     """Get denominator time series given stat vars"""
     denoms_data_raw = dc_service.get_stat_set_series(list(places),
@@ -370,7 +337,7 @@ def choropleth_data(dcid):
         }
     """
     configs = get_choropleth_configs()
-    stat_vars, denoms = get_stat_vars(configs)
+    stat_vars, denoms = shared_api.get_stat_vars(configs)
     display_dcid, display_level = get_choropleth_display_level(dcid)
     geos = []
     if display_dcid and display_level:
@@ -434,7 +401,7 @@ def choropleth_data(dcid):
         # process the set of sources and set of dates collected for this chart
         # config
         sources = filter(lambda x: x != "", sources)
-        date_range = get_date_range(dates)
+        date_range = shared_api.get_date_range(dates)
         # build the result for this chart config and add it to the result
         cc_result = {
             'date': date_range,
@@ -496,6 +463,8 @@ def get_map_points():
     for subject_dcid, latitude in lat_by_subject.items():
         longitude = lon_by_subject.get(subject_dcid, [])
         if len(latitude) == 0 or len(longitude) == 0:
+            continue
+        if not is_float(latitude[0]) or not is_float(longitude[0]):
             continue
         geo_id = geo_by_latlon_subject.get(subject_dcid, "")
         map_point = {

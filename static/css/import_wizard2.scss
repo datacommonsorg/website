@@ -1,0 +1,220 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "base";
+
+#main-body {
+  padding-bottom: 6rem;
+  padding-top: 3rem;
+  position: relative;
+}
+
+#main-footer {
+  margin-top: 0;
+}
+
+.main-content {
+  margin: 0;
+}
+
+body {
+  background-color: #f8f8f8;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+  box-shadow: none;
+  outline: none;
+}
+
+.nav-btn {
+  background: #660000;
+  border-color: none;
+  font-size: 1rem;
+}
+
+.cont-btn {
+  margin-left: 0.5rem;
+}
+
+.upload-section-container {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.file-options-section {
+  margin-top: 2rem;
+}
+
+.file-options-header {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.file-options-input {
+  display: flex;
+  padding-top: 0.5rem;
+  width: fit-content;
+}
+
+.file-options-input span,
+.file-options-input .form-control {
+  font-size: 0.9rem;
+}
+
+.file-options-input span {
+  width: 7rem;
+}
+
+table {
+  display: block;
+  font-size: 0.9rem;
+  max-height: 40vh;
+  max-width: 100%;
+  overflow: auto;
+  width: fit-content;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+
+th {
+  background: #f5f6fa;
+  border-top: none;
+}
+
+th,
+td {
+  padding: 0.2rem 0.5rem;
+  text-align: center;
+}
+
+tr th {
+  height: 2rem;
+  vertical-align: center;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr td:first-child,
+tr th:first-child {
+  border-left: none;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+}
+
+.navigation-section {
+  display: flex;
+  margin-top: 1.5rem;
+}
+
+.template-options-container {
+  margin: 1rem 0;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.template-option,
+.template-option-selected {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+  margin-right: 1rem;
+  max-width: 70rem;
+  padding: 1rem;
+}
+
+.template-option-selected {
+  background-color: lightyellow;
+}
+
+.template-option-example-container {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.template-option-example {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0.5rem;
+}
+
+.template-example-table {
+  padding-right: 0.5rem;
+}
+
+.template-example-explanation {
+  flex-grow: 1;
+  padding: 0.5rem 0;
+  width: 50%;
+}
+
+.mapping-page-navigation-section {
+  margin-top: 1rem;
+}
+
+.mapping-page-navigation-option {
+  margin: 0.5rem 0;
+}
+
+.mapping-page-navigation-button {
+  color: var(--dc-primary);
+  cursor: pointer;
+  padding-left: 1rem;
+  text-decoration: underline;
+}
+
+#mapping-section section {
+  margin-bottom: 2em;
+}
+
+#mapping-section td {
+  text-align: left;
+  word-break: break-all;
+}
+
+#mapping-section td:first-child {
+  max-width: 12%;
+}
+
+.place-type-property-option {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 0 0 0.5rem;
+}
+
+.place-type-property-option span {
+  width: 4rem;
+}

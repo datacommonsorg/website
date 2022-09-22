@@ -79,7 +79,7 @@ def search_dc():
 def search_ai():
     """Add DC API powered search for non-place searches temporarily"""
     query_text = request.args.get('q', '')
-    results = [ai.search(query_text)]
+    results = [ai.search(current_app.config["AI_CONTEXT"], query_text)]
     # TODO: Change the contents of the template as well
     return flask.render_template('search_dc.html',
                                  query_text=query_text,
@@ -88,7 +88,5 @@ def search_ai():
 
 @bp.route('/rich_search')
 def rich_search():
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
     return flask.render_template(
         'rich_search.html', maps_api_key=current_app.config['MAPS_API_KEY'])

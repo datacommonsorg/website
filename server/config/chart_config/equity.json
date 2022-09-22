@@ -5,8 +5,11 @@
     "titleId": "CHART_TITLE-Gini_index",
     "title": "Gini index",
     "description": "The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
-    "statsVars": ["GiniIndex_EconomicActivity"],
+    "statsVars": [
+      "GiniIndex_EconomicActivity"
+    ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -85,7 +88,10 @@
       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
     ],
-    "denominator": ["Count_Person_Female", "Count_Person_Male"],
+    "denominator": [
+      "Count_Person_Female",
+      "Count_Person_Male"
+    ],
     "scaling": 100,
     "unit": "%",
     "relatedChart": {
