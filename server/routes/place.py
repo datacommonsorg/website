@@ -42,6 +42,23 @@ _PLACE_LANDING_DCIDS = [
     'country/DEU',
 ]
 
+# List of DCIDs displayed in the static place_landing.html page.
+_PLACE_LANDING_DCIDS_IITM = [
+    'wikidataId/Q1353',
+    'wikidataId/Q43433',
+    'wikidataId/Q1797336',
+    'wikidataId/Q15341',
+    'wikidataId/Q15446',
+    'wikidataId/Q1445',
+    'wikidataId/Q1061',
+    'wikidataId/Q1177',
+    'country/IND',
+    'country/USA',
+    'country/CAN',
+    'country/MYS',
+    'country/DEU',
+]
+
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
@@ -82,8 +99,21 @@ def place(place_dcid=None):
 
     if not place_dcid:
         # Use display names (including state, if applicable) for the static page
-        place_names = place_api.get_display_name('^'.join(_PLACE_LANDING_DCIDS),
-                                                 g.locale)
+        if current_app.config.get('ENV_NAME', None) == 'IITM':
+            place_names = place_api.get_display_name('^'.join(_PLACE_LANDING_DCIDS_IITM),
+                                                    g.locale)
+            return flask.render_template(
+                'private_dc/iitm/place_landing_iitm.html',
+                place_names=place_names,
+                maps_api_key=current_app.config['MAPS_API_KEY'])                                                             
+        else:
+            place_names = place_api.get_display_name('^'.join(_PLACE_LANDING_DCIDS),
+                                                    g.locale)
+            return flask.render_template(
+                'place_landing.html',
+                place_names=place_names,
+                maps_api_key=current_app.config['MAPS_API_KEY'])                                                    
+
         return flask.render_template(
             'place_landing.html',
             place_names=place_names,

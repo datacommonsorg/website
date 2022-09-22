@@ -16,6 +16,7 @@
 
 import React, { Component, createRef, RefObject } from "react";
 import { Button, Card, Col, Container, Row } from "reactstrap";
+import { config } from "webpack";
 
 import {
   GA_EVENT_TOOL_PLACE_ADD,
@@ -28,7 +29,7 @@ import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";
-import { Info } from "./info";
+import { Info } from "./info_iitm";
 import {
   addToken,
   getTokensFromUrl,

@@ -12,22 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import logging
 import os
 import time
-import tempfile
 import urllib.request
 import urllib.error
 
 from flask import Flask, request, g
 from flask_babel import Babel
+from google.cloud import storage
 
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-
-from google_auth_oauthlib.flow import Flow
 from google.cloud import secretmanager
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
@@ -36,7 +30,6 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
-import services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -53,34 +46,21 @@ def createMiddleWare(app, exporter):
 
 def register_routes_base_dc(app):
     # apply the blueprints for all apps
-    from routes import (dev, disease, placelist, protein, redirects,
-                        special_announcement, topic_page, import_wizard)
+    from routes import (dev, placelist, protein, redirects,
+                        special_announcement, topic_page)
     app.register_blueprint(dev.bp)
-    app.register_blueprint(disease.bp)
     app.register_blueprint(placelist.bp)
     app.register_blueprint(protein.bp)
     app.register_blueprint(redirects.bp)
     app.register_blueprint(special_announcement.bp)
     app.register_blueprint(topic_page.bp)
     from routes.api import (protein as protein_api)
-    from routes.api import (disease as disease_api)
-    from routes.api.import_detection import (detection as detection_api)
     app.register_blueprint(protein_api.bp)
-    app.register_blueprint(disease_api.bp)
-    app.register_blueprint(import_wizard.bp)
-    app.register_blueprint(detection_api.bp)
 
 
 def register_routes_private_dc(app):
     ## apply the blueprints for private dc instances
     pass
-
-
-def register_routes_admin(app):
-    from routes import (user)
-    app.register_blueprint(user.bp)
-    from routes.api import (user as user_api)
-    app.register_blueprint(user_api.bp)
 
 
 def register_routes_common(app):
@@ -108,7 +88,7 @@ def register_routes_common(app):
 
 
 def create_app():
-    app = Flask(__name__, static_folder='dist', static_url_path='')
+    app = Flask(__name__, static_folder="dist", static_url_path="")
 
     if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
         createMiddleWare(app, StackdriverExporter())
@@ -138,12 +118,6 @@ def create_app():
         register_routes_private_dc(app)
     else:
         register_routes_base_dc(app)
-    if cfg.ADMIN:
-        register_routes_admin(app)
-        cred = credentials.ApplicationDefault()
-        firebase_admin.initialize_app(cred)
-        user_db = firestore.client()
-        app.config['USER_DB'] = user_db
 
     # Load topic page config
     topic_page_configs = libutil.get_topic_page_config()
@@ -170,59 +144,24 @@ def create_app():
         app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
 
-    if cfg.ADMIN:
-        secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                        'oauth-client',
-                                                        'latest')
-        secret_response = secret_client.access_secret_version(name=secret_name)
-        oauth_string = secret_response.payload.data.decode('UTF-8')
-        oauth_json = json.loads(oauth_string)
-        app.config['GOOGLE_CLIENT_ID'] = oauth_json['web']['client_id']
-        tf = tempfile.NamedTemporaryFile()
-        with open(tf.name, 'w') as f:
-            f.write(oauth_string)
-        app.config['OAUTH_FLOW'] = Flow.from_client_secrets_file(
-            client_secrets_file=tf.name,
-            redirect_uri=oauth_json['web']['redirect_uris'][0],
-            scopes=[
-                'https://www.googleapis.com/auth/userinfo.profile',
-                'https://www.googleapis.com/auth/userinfo.email',
-                'openid',
-            ])
-
-    if app.config['LOCAL']:
-        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
-    if app.config['API_PROJECT']:
-        secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(cfg.API_PROJECT,
-                                                        'mixer-api-key',
-                                                        'latest')
-        secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
-
     # Initialize translations
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-    # Initialize the AI module.
-    app.config['AI_CONTEXT'] = ai.Context()
-
     if not cfg.TEST:
-        timeout = 5 * 60  # seconds
+        timeout = 120  # seconds
         counter = 0
         isOpen = False
         while not isOpen:
             try:
-                urllib.request.urlopen(cfg.API_ROOT + '/version')
+                urllib.request.urlopen(cfg.API_ROOT + "/version")
                 break
             except urllib.error.URLError:
-                time.sleep(10)
+                time.sleep(1)
                 counter += 1
             if counter > timeout:
-                raise RuntimeError('Mixer not ready after %s second' % timeout)
+                raise RuntimeError("Mixer not ready after %s second" % timeout)
 
     @app.before_request
     def before_request():
@@ -249,6 +188,6 @@ def create_app():
     @app.teardown_request
     def log_unhandled(e):
         if e is not None:
-            logging.error('Error thrown for request: %s, error: %s', request, e)
+            logging.error("Error thrown for request: %s, error: %s", request, e)
 
     return app
