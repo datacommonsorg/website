@@ -42,7 +42,11 @@ OVERVIEW = 'Overview'
 
 
 def get_landing_page_data(dcid, new_stat_vars, category):
-    return get_landing_page_data_helper(dcid, '^'.join(new_stat_vars), category,)
+    return get_landing_page_data_helper(
+        dcid,
+        '^'.join(new_stat_vars),
+        category,
+    )
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -600,5 +604,4 @@ def data(dcid):
         'names': names,
         'highlight': highlight,
     }
-    logging.info("dcid: %s, category: %s,--- %s seconds ---" % (dcid, category, time.time() - start_time))
     return Response(json.dumps(response), 200, mimetype='application/json')
