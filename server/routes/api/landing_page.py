@@ -600,5 +600,5 @@ def data(dcid):
         'names': names,
         'highlight': highlight,
     }
-    logging.info("--- %s seconds ---" % (time.time() - start_time))
+    logging.info("dcid: %s, category: %s,--- %s seconds ---" % (dcid, category, time.time() - start_time))
     return Response(json.dumps(response), 200, mimetype='application/json')
