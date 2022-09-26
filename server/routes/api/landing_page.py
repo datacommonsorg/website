@@ -463,11 +463,11 @@ def data(dcid):
             else:
                 spec_and_stat[category][topic] = filtered_charts
         # Don't delete a category if it is in the valid categories list.
-        if (not spec_and_stat[category]) and (
-            "validCategories" in raw_page_data):
+        if (not spec_and_stat[category]) and ("validCategories"
+                                              in raw_page_data):
             if dcid in raw_page_data["validCategories"] and (
-                category not in raw_page_data["validCategories"][dcid][
-                "category"]):
+                    category
+                    not in raw_page_data["validCategories"][dcid]["category"]):
                 del spec_and_stat[category]
 
     # Populate the data for each chart.
