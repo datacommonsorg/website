@@ -61,7 +61,7 @@ function App({
                   <TextSearchBar
                     onSearch={onSearch}
                     initialValue={query}
-                    placeholder='For example "People with Doctorate Degrees in France"'
+                    placeholder='For example "doctorate degrees in the USA"'
                   />
                 </div>
               </Container>
