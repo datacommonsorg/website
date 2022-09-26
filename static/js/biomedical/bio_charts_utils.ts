@@ -15,7 +15,7 @@
  */
 import * as d3 from "d3";
 
-import { DiseaseGeneAssociationData } from "./disease/chart";
+import { DiseaseGeneAssociationData } from "./disease/types";
 import { ProteinNumData } from "./protein/chart";
 import { DiseaseAssociationType } from "./protein/page";
 import { InteractionLink, ProteinNode } from "./protein/types";
@@ -147,4 +147,14 @@ export function addYLabel(
     .attr("x", 0 - height / 2)
     .attr("dy", "1em")
     .text(labelText);
+}
+
+/**
+ * Creates the page redirection link of the input entity
+ * @param dcid entity dcid
+ * @returns redirection link
+ */
+export function getEntityLink(dcid: string): string {
+  const entityLink = GRAPH_BROWSER_REDIRECT + dcid;
+  return entityLink;
 }

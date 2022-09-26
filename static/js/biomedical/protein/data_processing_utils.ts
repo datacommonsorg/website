@@ -74,7 +74,7 @@ const CHEM_RELATIONS = [
 /**
  * Fetches and formats the tissue name and expression score for the protein of interest
  * @param data
- * @returns - array with tissue name and corresponding expression score
+ * @returns array with tissue name and corresponding expression score
  */
 export function getTissueScore(data: GraphNodes): ProteinStrData[] {
   // checks if the data is empty
@@ -123,7 +123,7 @@ export function getTissueScore(data: GraphNodes): ProteinStrData[] {
  * Fetches and formats interacting protein names and interaction confidence scores for the protein of interest
  * @param data
  * @param nodeName
- * @returns - array with interacting protein name, confidence score, parent protein name
+ * @returns array with interacting protein name, confidence score, parent protein name
  */
 export function getProteinInteraction(
   data: GraphNodes,
@@ -195,7 +195,7 @@ export function getProteinInteraction(
 /**
  * Fetches and formats disease names and their association scores for the protein of interest
  * @param data
- * @returns - array with disease name and association score
+ * @returns array with disease name and association score
  */
 export function getDiseaseGeneAssoc(
   data: GraphNodes
@@ -268,7 +268,7 @@ export function getDiseaseGeneAssoc(
 /**
  * Fetches and formats variant ids and their log 2 association scores for the protein of interest
  * @param data
- * @returns - array with variant id and log 2 association score
+ * @returns array with variant id and log 2 association score
  */
 export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
   // Checks if the data is empty
@@ -350,7 +350,7 @@ export function getVarGeneAssoc(data: GraphNodes): ProteinVarType[] {
 /**
  * Fetches and formats variant count and variant categories for the protein of interest
  * @param data
- * @returns - array with variant count and corresponding variant functional category
+ * @returns array with variant count and corresponding variant functional category
  */
 export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
   // Checks if the data is empty
@@ -410,7 +410,7 @@ export function getVarTypeAssoc(data: GraphNodes): ProteinNumData[] {
 /**
  * Fetches and formats variant count and clinical significance for the protein of interest
  * @param data
- * @returns - array with variant count and corresponding variant clinical significance
+ * @returns array with variant count and corresponding variant clinical significance
  */
 export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
   // Checks if the data is empty
@@ -470,7 +470,7 @@ export function getVarSigAssoc(data: GraphNodes): ProteinNumData[] {
 /**
  * Fetches and formats drug association count and type from the protein of interest
  * @param data
- * @returns - array with count and drug-gene association type
+ * @returns array with count and drug-gene association type
  */
 export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
   // Checks if the data is empty
@@ -533,16 +533,16 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
 /**
  * Fetches the description of the protein of interest
  * @param data
- * @returns - string with protein description
+ * @returns string with protein description
  */
 export function getProteinDescription(data: GraphNodes): string {
   let proteinDescription = null;
   if (!data) {
-    return;
+    return "";
   }
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
-    return;
+    return "";
   }
   for (const neighbour of data.nodes[0].neighbors) {
     if (neighbour.property !== "description") {

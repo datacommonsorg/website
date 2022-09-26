@@ -22,6 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../../shared/types";
+import { getEntityLink } from "../bio_charts_utils";
 import {
   drawDiseaseGeneAssocChart,
   drawDiseaseSymptomAssociationChart,
@@ -29,10 +30,12 @@ import {
 import {
   getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
+  getDiseaseCommonName,
   getDiseaseGeneAssociation,
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
 import { DrugTreatmentTable } from "./drug_table";
+
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -65,6 +68,8 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     );
   }
   render(): JSX.Element {
+    const diseaseName = getDiseaseCommonName(this.state.data);
+    const diseaseLink = getEntityLink(this.props.dcid);
     const chemicalCompoundDiseaseTreatment = getCompoundDiseaseTreatment(
       this.state.data
     );
@@ -85,13 +90,33 @@ export class Page extends React.Component<PagePropType, PageStateType> {
 
     return (
       <>
-        <h2>Disease Browser</h2>
+        <h2>{diseaseName}</h2>
+        <h6>
+          <a href={diseaseLink}>Graph Browser View</a>
+        </h6>
         <h5>Disease-Gene Association</h5>
+        <p>
+          The association score of {diseaseName} with genes as reported by
+          DISEASES by Jensen Lab. Associations were determined by text mining of
+          the literature. 10 associations for the disease of interest are
+          displayed.
+        </p>
         <div id="disease-gene-association-chart"></div>
         <h5>Disease-Symptom Association</h5>
+        <p>
+          The association score of {diseaseName} with symptoms as reported by
+          SPOKE by UCSF. Associations were determined by interactions of
+          biomedical entities in a graph-theoretic database. The top 10 symptom
+          associations are displayed for the disease of interest.
+        </p>
         <div id="disease-symptom-association-chart"></div>
         <br></br>
         <h5>Chemical Compound Disease Treatment</h5>
+        <p>
+          The chemical compounds associated with the treatment of {diseaseName}{" "}
+          as reported by the ChEMBL database. The compounds are arranged in
+          decreasing order of the FDA clinical phase number.
+        </p>
         <br></br>
         <div>
           <div id="table"></div>
@@ -102,6 +127,10 @@ export class Page extends React.Component<PagePropType, PageStateType> {
         </div>
         <br></br>
         <h5>Chemical Compound Disease Contraindication</h5>
+        <p>
+          The chemical compounds contraindicated with {diseaseName} as reported
+          by the ChEMBL database.
+        </p>
         <br></br>
         <div>
           <div id="table"></div>

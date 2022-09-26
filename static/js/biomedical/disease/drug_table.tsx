@@ -4,14 +4,9 @@ import { GRAPH_BROWSER_REDIRECT } from "../bio_charts_utils";
 import {
   CompoundDiseaseContraindicationData,
   CompoundDiseaseTreatmentData,
-} from "./chart";
+  DrugTreatmentTableColumn,
+} from "./types";
 
-export interface DrugTreatmentTableColumn {
-  // the column id
-  id: string;
-  // the column display name or header
-  name: string;
-}
 export interface DrugTreatmentTableProps {
   // stores the column id and column name
   // retains the order of the columns and column ids should match the keys of the objects in the data array
@@ -19,6 +14,7 @@ export interface DrugTreatmentTableProps {
   // the data is either of type CompoundDiseaseContraindicationData or CompoundDiseaseTreatmentData
   data: CompoundDiseaseContraindicationData[] | CompoundDiseaseTreatmentData[];
 }
+
 export function DrugTreatmentTable(
   props: DrugTreatmentTableProps
 ): JSX.Element {

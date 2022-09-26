@@ -22,11 +22,12 @@ import {
   CompoundDiseaseTreatmentData,
   DiseaseGeneAssociationData,
   DiseaseSymptomAssociationData,
-} from "./chart";
+} from "./types";
+
 /**
  * Fetches the disease-gene association data
- * @param data - the data pertaining to the disease of interest
- * @returns - an array of objects with gene name and its corresponding odds ratio, for the disease of interest
+ * @param data the data pertaining to the disease of interest
+ * @returns an array of objects with gene name and its corresponding odds ratio, for the disease of interest
  */
 export function getDiseaseGeneAssociation(
   data: GraphNodes
@@ -89,10 +90,11 @@ export function getDiseaseGeneAssociation(
   }
   return rawData;
 }
+
 /**
  * Fetches the disease-symptom association data
  * @param data
- * @returns
+ * @returns an array of objects with symptom name and its corresponding association score, for the disease of interest
  */
 export function getDiseaseSymptomAssociation(
   data: GraphNodes
@@ -157,7 +159,7 @@ export function getDiseaseSymptomAssociation(
 /**
  * Fetches the chemical compound data which includes disease treatment and disease contraindication data
  * @param data
- * @returns
+ * @returns an array of chemical compounds with their associated properties
  */
 export function getChemicalCompoundData(
   data: GraphNodes
@@ -244,7 +246,7 @@ export function getChemicalCompoundData(
 /**
  * Fetches the chemical compound disease treatment data
  * @param data
- * @returns
+ * @returns an array of chemical compounds used for disease treatment and their other associated properties
  */
 export function getCompoundDiseaseTreatment(
   data: GraphNodes
@@ -265,7 +267,7 @@ export function getCompoundDiseaseTreatment(
 /**
  * Fetches the chemical compound disease contraindication data
  * @param data
- * @returns
+ * @returns an array of chemical compounds contraindicated for disease treatment and their other associated properties
  */
 export function getCompoundDiseaseContraindication(
   data: GraphNodes
@@ -284,4 +286,43 @@ export function getCompoundDiseaseContraindication(
     }));
   processedData.sort((a, b) => (a.drugSource > b.drugSource ? 1 : -1));
   return processedData;
+}
+
+/**
+ * Fetches the common name of the disease of interest
+ * @param data
+ * @returns string with disease common name
+ */
+export function getDiseaseCommonName(data: GraphNodes): string {
+  let commonName = null;
+  if (!data) {
+    return "";
+  }
+  // check for null values
+  if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
+    return "";
+  }
+  const diseaseDCID = data.nodes[0].value;
+  for (const neighbour of data.nodes[0].neighbors) {
+    if (neighbour.property !== "commonName") {
+      continue;
+    }
+    // check for null or non-existent property values
+    if (_.isEmpty(neighbour.nodes)) {
+      continue;
+    }
+    commonName = neighbour.nodes[0].value;
+    // check if string has atleast length 2, before performing string operations
+    if (commonName.length < 2) {
+      // return disease DCID instead of disease name
+      return diseaseDCID;
+    }
+    // remove all double quotes from the string
+    commonName = _.trim(commonName, '"');
+    // capitalize the first letter of the disease name
+    const formattedDiseaseName =
+      commonName.charAt(0).toUpperCase() + commonName.slice(1);
+    // return formatted disease name
+    return formattedDiseaseName;
+  }
 }
