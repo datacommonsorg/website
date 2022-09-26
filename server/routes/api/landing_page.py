@@ -411,7 +411,6 @@ def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
     """
-    start_time = time.time()
     logging.info(
         "Landing Page: cache miss for place:%s and category:%s "
         " , fetching and processing data ...", dcid,
@@ -564,14 +563,10 @@ def data(dcid):
 
     # Get chart category name translations
     categories = {}
-    for category in list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]):
+    for category in list(spec_and_stat.keys()) + list(
+            spec_and_stat[OVERVIEW]
+    ) + raw_page_data["validCategories"][dcid]['category']:
         categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
-
-    cat_list = []
-    # The new cache would use a category list to populate categories menu
-    cat_list = raw_page_data["validCategories"][dcid]['category']
-    for cat in cat_list:
-        categories[cat] = cat
 
     # Get display name for all places
     all_places = [dcid]
