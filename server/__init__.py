@@ -23,6 +23,10 @@ import urllib.error
 from flask import Flask, request, g
 from flask_babel import Babel
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
 from google_auth_oauthlib.flow import Flow
 from google.cloud import secretmanager
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
@@ -75,6 +79,8 @@ def register_routes_private_dc(app):
 def register_routes_admin(app):
     from routes import (user)
     app.register_blueprint(user.bp)
+    from routes.api import (user as user_api)
+    app.register_blueprint(user_api.bp)
 
 
 def register_routes_common(app):
@@ -134,6 +140,10 @@ def create_app():
         register_routes_base_dc(app)
     if cfg.ADMIN:
         register_routes_admin(app)
+        cred = credentials.ApplicationDefault()
+        firebase_admin.initialize_app(cred)
+        user_db = firestore.client()
+        app.config['USER_DB'] = user_db
 
     # Load topic page config
     topic_page_configs = libutil.get_topic_page_config()
@@ -190,7 +200,7 @@ def create_app():
                                                         'mixer-api-key',
                                                         'latest')
         secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['API_KEY'] = secret_response.payload.data.decode('UTF-8')
+        app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
     # Initialize translations
     babel = Babel(app, default_domain='all')

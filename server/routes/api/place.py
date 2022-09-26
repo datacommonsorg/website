@@ -739,7 +739,6 @@ def get_places_in_names():
 
 
 @bp.route('/placeid2dcid')
-@cache.cached(timeout=3600 * 24, query_string=True)
 def placeid2dcid():
     """
     API endpoint to get dcid based on place id.
@@ -748,26 +747,18 @@ def placeid2dcid():
     https://developers.google.com/places/web-service/autocomplete.
     """
     place_ids = request.args.getlist("placeIds")
-    resp = requests.post(current_app.config['RECON_API_ROOT'] + '/id/resolve',
-                         json={
-                             "in_prop": "placeId",
-                             "out_prop": "dcid",
-                             "ids": place_ids
-                         },
-                         headers={'Content-Type': 'application/json'})
-    if resp.status_code == 200:
-        entities = resp.json().get('entities', [])
-        result = {}
-        for entity in entities:
-            inId = entity.get('inId', "")
-            outIds = entity.get('outIds', [])
-            if outIds and inId:
-                dcid = outIds[0]
-                if dcid in PLACE_OVERRIDE:
-                    dcid = PLACE_OVERRIDE[dcid]
-                result[inId] = dcid
-        return Response(json.dumps(result), 200, mimetype='application/json')
-    abort(404, 'no valid dcids found for %s' % place_ids)
+    resp = dc.resolve_id(place_ids, "placeId", "dcid")
+    entities = resp.get('entities', [])
+    result = {}
+    for entity in entities:
+        inId = entity.get('inId', "")
+        outIds = entity.get('outIds', [])
+        if outIds and inId:
+            dcid = outIds[0]
+            if dcid in PLACE_OVERRIDE:
+                dcid = PLACE_OVERRIDE[dcid]
+            result[inId] = dcid
+    return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.

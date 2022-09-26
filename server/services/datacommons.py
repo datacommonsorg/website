@@ -38,11 +38,8 @@ API_ENDPOINTS = {
     'search': '/search',
     'get_property_labels': '/node/property-labels',
     'get_property_values': '/node/property-values',
-    'get_triples': '/node/triples',
     'get_places_in': '/node/places-in',
-    'get_place_obs': '/bulk/place-obs',
     'get_place_ranking': '/node/ranking-locations',
-    'get_chart_data': '/node/chart-data',
     'get_stat_set_series': '/v1/stat/set/series',
     'get_stats_all': '/stat/all',
     'get_stats_value': '/stat/value',
@@ -52,8 +49,6 @@ API_ENDPOINTS = {
     'get_stat_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
-    'get_interesting_places': '/node/interesting-place-aspects',
-    'get_statvar_groups': '/stat-var/group/all',
     'get_statvar_group': '/stat-var/group',
     'get_statvar_path': '/stat-var/path',
     'search_statvar': '/stat-var/search',
@@ -73,8 +68,9 @@ _MAX_LIMIT = 100
 def get(path):
     url = API_ROOT + path
     headers = {'Content-Type': 'application/json'}
-    if current_app.config['API_KEY']:
-        headers['x-api-key'] = current_app.config['API_KEY']
+    dc_api_key = current_app.config.get('DC_API_KEY', '')
+    if dc_api_key:
+        headers['x-api-key'] = dc_api_key
     # Send the request and verify the request succeeded
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
@@ -100,8 +96,9 @@ def post_wrapper(path, req_str):
     req = json.loads(req_str)
     url = API_ROOT + path
     headers = {'Content-Type': 'application/json'}
-    if current_app.config['API_KEY']:
-        headers['x-api-key'] = current_app.config['API_KEY']
+    dc_api_key = current_app.config.get('DC_API_KEY', '')
+    if dc_api_key:
+        headers['x-api-key'] = dc_api_key
     # Send the request and verify the request succeeded
     response = requests.post(url, json=req, headers=headers)
     if response.status_code != 200:
@@ -163,6 +160,53 @@ def series_within(parent_place, child_type, stat_vars, all):
         })
 
 
+def triples(node, direction):
+    """Retrieves the triples for a node.
+    Args:
+        node: Node DCID.
+        direction: Predicate direction, either be 'in' or 'out'.
+    """
+    return get(f'/v1/triples/{direction}/{node}')
+
+
+def property_values(nodes, prop, direction):
+    """Retrieves the property values for a list of nodes.
+    Args:
+        nodes: A list of node DCIDs.
+        prop: The property label toquery for.
+        direction: Direction of the property, either be 'in' or 'out'.
+    """
+    resp = post(f'/v1/bulk/property/values/{direction}', {
+        'nodes': sorted(nodes),
+        'property': prop,
+    })
+    result = {}
+    for item in resp.get('data', []):
+        node, values = item['node'], item.get('values', [])
+        result[node] = []
+        for v in values:
+            if 'dcid' in v:
+                result[node].append(v['dcid'])
+            else:
+                result[node].append(v['value'])
+    return result
+
+
+def resolve_id(in_ids, in_prop, out_prop):
+    """Resolves ids given nodes input and output property.
+    Args:
+        in_ids: A list of input ids.
+        in_prop: The input property.
+        out_prop: The output property.
+    """
+    return post('/v1/recon/resolve/id', {
+        "ids": in_ids,
+        'in_prop': in_prop,
+        'out_prop': out_prop,
+    })
+
+
+# =======================   V0 V0 V0 ================================
 def search(query_text, max_results):
     req_url = API_ROOT + API_ENDPOINTS['search']
     req_url += '?query={}&max_results={}'.format(
@@ -297,15 +341,6 @@ def get_stat_set(places, stat_vars, date=None):
     return send_request(url, req_json=req_json, post=True, has_payload=False)
 
 
-def get_chart_data(keys):
-    # Generate the GetProperty query and send the request
-    url = API_ROOT + API_ENDPOINTS['get_chart_data']
-    req_json = {
-        'keys': keys,
-    }
-    return send_request(url, req_json=req_json)
-
-
 def get_place_ranking(stat_vars,
                       place_type,
                       within_place=None,
@@ -330,27 +365,6 @@ def get_property_labels(dcids):
     for dcid in dcids:
         results[dcid] = payload[dcid]
     return results
-
-
-def property_values(entities, prop, dir):
-    '''
-    Makes post request to V1 bulk API and returns dict mapping each entity
-    to a list of either dcids or values parsed from the response.
-    '''
-    resp = post(f'/v1/bulk/property/values/{dir}', {
-        'entities': sorted(entities),
-        'property': prop,
-    })
-    result = {}
-    for item in resp.get('data', []):
-        entity, values = item['entity'], item.get('values', [])
-        result[entity] = []
-        for v in values:
-            if 'dcid' in v:
-                result[entity].append(v['dcid'])
-            else:
-                result[entity].append(v['value'])
-    return result
 
 
 def get_property_values(dcids,
@@ -389,44 +403,6 @@ def get_property_values(dcids,
     return results
 
 
-def get_triples_processed(dcids, limit=_MAX_LIMIT):
-    """
-    Generate the GetTriple query and send the request.
-
-    The response is processed into as triples strings. This API is used by the
-    pv tree tool.
-    """
-    url = API_ROOT + API_ENDPOINTS['get_triples']
-    payload = send_request(url, req_json={'dcids': dcids, 'limit': limit})
-
-    # Create a map from dcid to list of triples.
-    results = collections.defaultdict(list)
-    for dcid in dcids:
-        # Make sure each dcid is mapped to an empty list.
-        results[dcid]
-
-        # Add triples as appropriate
-        for t in payload[dcid]:
-            if 'objectId' in t:
-                results[dcid].append(
-                    (t['subjectId'], t['predicate'], t['objectId']))
-            elif 'objectValue' in t:
-                results[dcid].append(
-                    (t['subjectId'], t['predicate'], t['objectValue']))
-    return dict(results)
-
-
-def get_triples(dcids, limit=0):
-    """
-    Get the triples in the raw format as the REST response.
-
-    This is used by the flask server to retrieve node triples.
-    Limit of 0 does not apply a limit and use all available triples from cache.
-    """
-    url = API_ROOT + API_ENDPOINTS['get_triples']
-    return send_request(url, req_json={'dcids': dcids, 'limit': limit})
-
-
 def get_places_in(dcids, place_type):
     # Convert the dcids field and format the request to GetPlacesIn
     url = API_ROOT + API_ENDPOINTS['get_places_in']
@@ -440,27 +416,6 @@ def get_places_in(dcids, place_type):
     # Create the results and format it appropriately
     result = _format_expand_payload(payload, 'place', must_exist=dcids)
     return result
-
-
-def get_place_obs(place_type,
-                  observation_date,
-                  population_type,
-                  constraining_properties={}):
-    # Create the json payload and send it to the REST API.
-    pv = [{
-        'property': k,
-        'value': v
-    } for k, v in constraining_properties.items()]
-    url = API_ROOT + API_ENDPOINTS['get_place_obs']
-    payload = send_request(url,
-                           req_json={
-                               'place_type': place_type,
-                               'observation_date': observation_date,
-                               'population_type': population_type,
-                               'pvs': pv,
-                           },
-                           compress=True)
-    return payload['places']
 
 
 def query(query_string):
@@ -489,22 +444,6 @@ def get_related_place(dcid, stat_vars, within_place=None, is_per_capita=None):
     if is_per_capita:
         req_json['is_per_capita'] = is_per_capita
     return send_request(url, req_json, has_payload=False)
-
-
-def get_interesting_places(dcids):
-    url = API_ROOT + API_ENDPOINTS['get_interesting_places']
-    req_json = {'dcids': dcids}
-    payload = send_request(url, req_json, post=False)
-    return payload
-
-
-def get_statvar_groups(dcids):
-    url = API_ROOT + API_ENDPOINTS['get_statvar_groups']
-    req_json = {
-        'entities': dcids,
-    }
-    response = send_request(url, req_json, has_payload=False)
-    return response.get('statVarGroups', {})
 
 
 def search_statvar(query, places, sv_only):

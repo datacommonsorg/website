@@ -34,7 +34,7 @@ import {
 } from "../utils/search_utils";
 
 interface StatVarHierarchySearchPropType {
-  places: string[];
+  entities: string[];
   // Optional label to add above the search box
   searchLabel?: string;
   onSelectionChange: (newSelection: string) => void;
@@ -212,7 +212,7 @@ export class StatVarHierarchySearch extends React.Component<
   };
 
   private search = (query: string) => () => {
-    getStatVarSearchResults(query, this.props.places, false)
+    getStatVarSearchResults(query, this.props.entities, false)
       .then((data) => {
         const currQuery = this.state.query;
         if (query === currQuery) {
