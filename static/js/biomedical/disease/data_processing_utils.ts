@@ -296,7 +296,7 @@ export function getCompoundDiseaseContraindication(
 export function getDiseaseCommonName(data: GraphNodes): string {
   let commonName = null;
   if (!data) {
-    return;
+    return "";
   }
   // check for null values
   if (_.isEmpty(data.nodes) || _.isEmpty(data.nodes[0].neighbors)) {
