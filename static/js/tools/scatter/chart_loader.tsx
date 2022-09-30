@@ -231,7 +231,7 @@ async function loadData(
         statVarsData: statResponse.data,
         xAxis: x.value,
         yAxis: y.value,
-        place
+        place,
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -385,7 +385,12 @@ function areStatVarInfoLoaded(x: Axis, y: Axis): boolean {
  * @param x
  * @param y
  */
-function areDataLoaded(cache: Cache, x: Axis, y: Axis, place: PlaceInfo): boolean {
+function areDataLoaded(
+  cache: Cache,
+  x: Axis,
+  y: Axis,
+  place: PlaceInfo
+): boolean {
   if (_.isEmpty(cache) || _.isEmpty(cache.xAxis) || _.isEmpty(cache.yAxis)) {
     return false;
   }
