@@ -57,6 +57,7 @@ type Cache = {
   noDataError: boolean;
   xAxis: Axis;
   yAxis: Axis;
+  place: PlaceInfo;
 };
 
 type ChartData = {
@@ -102,7 +103,7 @@ export function ChartLoader(): JSX.Element {
     <>
       {shouldRenderChart && (
         <>
-          {cache.noDataError ? (
+          {cache.noDataError || _.isEmpty(chartData.points) ? (
             <div className="error-message">
               Sorry, no data available. Try different stat vars or place
               options.
@@ -154,7 +155,7 @@ function useCache(): Cache {
    * re-retreive data.
    */
   useEffect(() => {
-    if (!areDataLoaded(cache, xVal, yVal)) {
+    if (!areDataLoaded(cache, xVal, yVal, placeVal)) {
       loadData(x, y, placeVal, isLoading, setCache);
     }
   }, [xVal, yVal, placeVal]);
@@ -213,6 +214,9 @@ async function loadData(
       > = {};
       for (const sv of Object.keys(statAllResponse.data)) {
         allStatVarsData[sv] = {};
+        if (_.isEmpty(statAllResponse.data[sv].statList)) {
+          continue;
+        }
         for (const stat of statAllResponse.data[sv].statList) {
           if (stat.metaHash) {
             allStatVarsData[sv][stat.metaHash] = stat;
@@ -227,6 +231,7 @@ async function loadData(
         statVarsData: statResponse.data,
         xAxis: x.value,
         yAxis: y.value,
+        place
       };
       isLoading.setAreDataLoading(false);
       setCache(cache);
@@ -256,7 +261,7 @@ function useChartData(cache: Cache): ChartData {
   useEffect(() => {
     if (
       _.isEmpty(cache) ||
-      !areDataLoaded(cache, xVal, yVal) ||
+      !areDataLoaded(cache, xVal, yVal, placeVal) ||
       _.isNull(placeVal.enclosedPlaces)
     ) {
       return;
@@ -380,7 +385,7 @@ function areStatVarInfoLoaded(x: Axis, y: Axis): boolean {
  * @param x
  * @param y
  */
-function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
+function areDataLoaded(cache: Cache, x: Axis, y: Axis, place: PlaceInfo): boolean {
   if (_.isEmpty(cache) || _.isEmpty(cache.xAxis) || _.isEmpty(cache.yAxis)) {
     return false;
   }
@@ -394,7 +399,9 @@ function areDataLoaded(cache: Cache, x: Axis, y: Axis): boolean {
     cache.xAxis.date === x.date &&
     cache.yAxis.date === y.date &&
     cache.xAxis.denom === x.denom &&
-    cache.yAxis.denom === y.denom
+    cache.yAxis.denom === y.denom &&
+    cache.place.enclosingPlace === place.enclosingPlace &&
+    cache.place.enclosedPlaceType === place.enclosedPlaceType
   );
 }
 
