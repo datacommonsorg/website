@@ -28,7 +28,7 @@ function setup_python {
 # Run test for client side code.
 function run_npm_test {
   cd static
-  npm run test string_utils.test.ts
+  npm run test
   cd ..
 }
 
