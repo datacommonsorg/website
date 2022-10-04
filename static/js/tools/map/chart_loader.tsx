@@ -426,16 +426,16 @@ function fetchData(
   const breadcrumbPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
     ? axios
         .post("/api/observations/series", {
-          variables: [statVar.denom],
           entities: breadcrumbPlaceDcids,
+          variables: [statVar.denom],
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
   const enclosedPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
     ? axios
         .post("/api/observations/series/within", {
-          parent_entity: placeInfo.enclosingPlace.dcid,
           child_type: placeInfo.enclosedPlaceType,
+          parent_entity: placeInfo.enclosingPlace.dcid,
           variables: [statVar.denom],
         })
         .then((resp) => resp.data)
@@ -457,25 +457,25 @@ function fetchData(
   }
   const enclosedPlaceDataPromise: Promise<PointApiResponse> = axios
     .post("/api/observations/point/within", {
-      parent_entity: placeInfo.enclosingPlace.dcid,
       child_type: placeInfo.enclosedPlaceType,
-      variables: [statVar.dcid],
       date: dataDate,
+      parent_entity: placeInfo.enclosingPlace.dcid,
+      variables: [statVar.dcid],
     })
     .then((resp) => resp.data);
   const allEnclosedPlaceDataPromise: Promise<PointAllApiResponse> = axios
     .post("/api/observations/point/within/all", {
-      parent_entity: placeInfo.enclosingPlace.dcid,
       child_type: placeInfo.enclosedPlaceType,
-      variables: [statVar.dcid],
       date: dataDate,
+      parent_entity: placeInfo.enclosingPlace.dcid,
+      variables: [statVar.dcid],
     })
     .then((resp) => resp.data);
   const breadcrumbPlaceDataPromise: Promise<PointApiResponse> = axios
     .post("/api/observations/point", {
+      date: dataDate,
       entities: breadcrumbPlaceDcids,
       variables: [statVar.dcid],
-      date: dataDate,
     })
     .then((resp) => {
       return resp.data;
@@ -490,20 +490,20 @@ function fetchData(
       enclosedPlaceDatesList.push(
         axios
           .post("/api/observations/point/within", {
-            parent_entity: placeInfo.enclosingPlace.dcid,
             child_type: placeInfo.enclosedPlaceType,
-            variables: [statVar.dcid],
             date: currentSampleDates[i],
+            parent_entity: placeInfo.enclosingPlace.dcid,
+            variables: [statVar.dcid],
           })
           .then((resp) => resp.data)
       );
       allEnclosedPlaceDatesList.push(
         axios
           .post("/api/observations/point/within/all", {
-            parent_entity: placeInfo.enclosingPlace.dcid,
             child_type: placeInfo.enclosedPlaceType,
-            variables: [statVar.dcid],
             date: currentSampleDates[i],
+            parent_entity: placeInfo.enclosingPlace.dcid,
+            variables: [statVar.dcid],
           })
           .then((resp) => resp.data)
       );
@@ -529,8 +529,8 @@ function fetchData(
     placeInfo.mapPointPlaceType
       ? axios
           .post("/api/observations/point/within", {
-            parent_entity: placeInfo.enclosingPlace.dcid,
             child_type: placeInfo.mapPointPlaceType,
+            parent_entity: placeInfo.enclosingPlace.dcid,
             variables: [mapPointSv],
           })
           .then((resp) => {

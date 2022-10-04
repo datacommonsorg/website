@@ -68,7 +68,7 @@ def get_point_within_csv_rows(parent_place,
         sv = sv_data.get("variable")
         for place_data in sv_data.get("observationsByEntity", []):
             place = place_data.get("entity")
-            if not place in data_by_place:
+            if place not in data_by_place:
                 data_by_place[place] = {}
             # points_response_best should just have a single best (latest date
             # and best facet) data point for each stat var and place
@@ -281,7 +281,6 @@ def get_stats_within_place_csv():
     # when min_date and max_date are the same and non empty, we will get the
     # data for that one date
     if min_date and max_date and min_date == max_date:
-        points_response_best = {}
         date = min_date
         if min_date == "latest":
             date = ""

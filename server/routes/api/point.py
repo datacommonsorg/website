@@ -20,7 +20,7 @@ import services.datacommons as dc
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
 
 
-def compact_point(point_resp, all):
+def compact_point(point_resp, all_facets):
     result = {
         'facets': point_resp.get('facets', {}),
     }
@@ -32,7 +32,7 @@ def compact_point(point_resp, all):
             entity = obs_by_entity['entity']
             data[var][entity] = {}
             for point in obs_by_entity.get('pointsByFacet', []):
-                if all:
+                if all_facets:
                     data[var][entity][point['facet']] = point
                 else:
                     data[var][entity] = point
@@ -42,14 +42,15 @@ def compact_point(point_resp, all):
     return result
 
 
-def point_core(entities, variables, date, all):
-    resp = dc.point(entities, variables, date, all)
-    return compact_point(resp, all)
+def point_core(entities, variables, date, all_facets):
+    resp = dc.point(entities, variables, date, all_facets)
+    return compact_point(resp, all_facets)
 
 
-def point_within_core(parent_entity, child_type, variables, date, all):
-    resp = dc.point_within(parent_entity, child_type, variables, date, all)
-    return compact_point(resp, all)
+def point_within_core(parent_entity, child_type, variables, date, all_facets):
+    resp = dc.point_within(parent_entity, child_type, variables, date,
+                           all_facets)
+    return compact_point(resp, all_facets)
 
 
 @bp.route('', strict_slashes=False, methods=['POST'])

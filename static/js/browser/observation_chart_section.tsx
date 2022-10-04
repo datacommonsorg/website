@@ -60,11 +60,11 @@ export class ObservationChartSection extends React.Component<
   constructor(props: ObservationChartSectionPropType) {
     super(props);
     this.state = {
-      series: {},
-      facets: {},
       errorMessage: "",
+      facets: {},
       infoMessage: "",
       obsDcidMapping: {},
+      series: {},
     };
     this.containerId = randDomId();
   }

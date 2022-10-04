@@ -1,10 +1,8 @@
 import json
 import unittest
-import routes.api.shared as shared
 from unittest import mock
 
 from main import app
-from services import datacommons as dc
 
 
 class TestApiStatsProperty(unittest.TestCase):

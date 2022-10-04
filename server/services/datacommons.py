@@ -103,7 +103,7 @@ def post_wrapper(path, req_str):
     return response.json()
 
 
-def point(entities, variables, date='', all=False):
+def point(entities, variables, date='', all_facets=False):
     """Gets the observation point for the given entities of the given
     variable.
 
@@ -119,11 +119,15 @@ def point(entities, variables, date='', all=False):
             'entities': sorted(entities),
             'variables': sorted(variables),
             'date': date,
-            'all_facets': all,
+            'all_facets': all_facets,
         })
 
 
-def point_within(parent_place, child_type, stat_vars, date='', all=False):
+def point_within(parent_place,
+                 child_type,
+                 stat_vars,
+                 date='',
+                 all_facets=False):
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -149,11 +153,11 @@ def point_within(parent_place, child_type, stat_vars, date='', all=False):
             'entity_type': child_type,
             'variables': sorted(stat_vars),
             'date': date,
-            'all_facets': all,
+            'all_facets': all_facets,
         })
 
 
-def series(entities, variables, all=False):
+def series(entities, variables, all_facets=False):
     """Gets the observation time series for the given entities of the given
     variable.
 
@@ -166,11 +170,11 @@ def series(entities, variables, all=False):
         '/v1/bulk/observations/series', {
             'entities': sorted(entities),
             'variables': sorted(variables),
-            'all_facets': all,
+            'all_facets': all_facets,
         })
 
 
-def series_within(parent_entity, child_type, variables, all=False):
+def series_within(parent_entity, child_type, variables, all_facets=False):
     """Gets the statistical variable series for child places of a certain place
     type contained in a parent place.
 
@@ -186,7 +190,7 @@ def series_within(parent_entity, child_type, variables, all=False):
             'linked_property': "containedInPlace",
             'entity_type': child_type,
             'variables': sorted(variables),
-            'all_facets': all,
+            'all_facets': all_facets,
         })
 
 

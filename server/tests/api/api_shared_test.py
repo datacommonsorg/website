@@ -17,8 +17,6 @@ import routes.api.shared as shared
 
 from unittest.mock import patch
 
-from main import app
-
 
 class TestCachedName(unittest.TestCase):
 

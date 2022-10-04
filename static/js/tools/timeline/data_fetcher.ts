@@ -19,11 +19,13 @@ import _ from "lodash";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
+  DisplayNameApiResponse,
+  Obs,
+  Series,
   SeriesAllApiResponse,
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { DisplayNameApiResponse, Obs, Series } from "../../shared/stat_types";
 import { computeRatio } from "../shared_util";
 
 export interface StatData {

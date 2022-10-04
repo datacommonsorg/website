@@ -21,7 +21,7 @@ import services.datacommons as dc
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 
-def compact_series(series_resp, all):
+def compact_series(series_resp, all_facets):
     result = {
         'facets': series_resp.get('facets', {}),
     }
@@ -33,7 +33,7 @@ def compact_series(series_resp, all):
             entity = obs_by_entity['entity']
             data[var][entity] = {}
             for series in obs_by_entity.get('seriesByFacet', []):
-                if all:
+                if all_facets:
                     # Key series by facet
                     data[var][entity][series['facet']] = series
                 else:
@@ -44,14 +44,14 @@ def compact_series(series_resp, all):
     return result
 
 
-def series_core(entities, variables, all):
-    resp = dc.series(entities, variables, all)
-    return compact_series(resp, all)
+def series_core(entities, variables, all_facets):
+    resp = dc.series(entities, variables, all_facets)
+    return compact_series(resp, all_facets)
 
 
-def series_within_core(parent_entity, child_type, variables, all):
-    resp = dc.series_within(parent_entity, child_type, variables, all)
-    return compact_series(resp, all)
+def series_within_core(parent_entity, child_type, variables, all_facets):
+    resp = dc.series_within(parent_entity, child_type, variables, all_facets)
+    return compact_series(resp, all_facets)
 
 
 @bp.route('', strict_slashes=False, methods=['POST'])

@@ -61,7 +61,7 @@ function getPlaceAxisChartData(
   if (metaHash && metaHash in metadataMap) {
     sources.push(metadataMap[metaHash].provenanceUrl);
   }
-  let value = obs.value === undefined ? 0 : obs.value;
+  let value = obs.value || 0;
   let denomValue = null;
   let denomDate = null;
   if (!_.isEmpty(denomSeries)) {
