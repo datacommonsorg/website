@@ -30,14 +30,18 @@ def compact_point(point_resp, all_facets):
         data[var] = {}
         for obs_by_entity in obs_by_variable['observationsByEntity']:
             entity = obs_by_entity['entity']
-            data[var][entity] = {}
-            for point in obs_by_entity.get('pointsByFacet', []):
+            data[var][entity] = None
+            if 'pointsByFacet' in obs_by_entity:
                 if all_facets:
-                    data[var][entity][point['facet']] = point
+                    data[var][entity] = obs_by_entity['pointsByFacet']
                 else:
-                    data[var][entity] = point
                     # There should be only one point.
-                    break
+                    data[var][entity] = obs_by_entity['pointsByFacet'][0]
+            else:
+                if all_facets:
+                    data[var][entity] = []
+                else:
+                    data[var][entity] = {}
     result['data'] = data
     return result
 

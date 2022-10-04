@@ -90,10 +90,10 @@ function fetchData(
   setRawData: (data: SeriesApiResponse) => void
 ): void {
   const statVars = [];
-  for (const item of props.statVarSpec) {
-    statVars.push(item.statVar);
-    if (item.denom) {
-      statVars.push(item.denom);
+  for (const spec of props.statVarSpec) {
+    statVars.push(spec.statVar);
+    if (spec.denom) {
+      statVars.push(spec.denom);
     }
   }
   axios
@@ -164,13 +164,13 @@ function rawToChart(
     }
     if (obsList.length > 0) {
       const dataPoints: DataPoint[] = [];
-      for (const item of obsList) {
+      for (const obs of obsList) {
         dataPoints.push({
-          label: item.date,
-          time: new Date(item.date).getTime(),
-          value: spec.scaling ? item.value * spec.scaling : item.value,
+          label: obs.date,
+          time: new Date(obs.date).getTime(),
+          value: spec.scaling ? obs.value * spec.scaling : obs.value,
         });
-        allDates.add(item.date);
+        allDates.add(obs.date);
       }
       dataGroups.push(
         new DataGroup(

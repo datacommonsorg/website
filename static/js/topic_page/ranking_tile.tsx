@@ -119,10 +119,10 @@ function fetchData(
   setRankingData: (data: RankingData) => void
 ): void {
   const variables = [];
-  for (const item of props.statVarSpec) {
-    variables.push(item.statVar);
-    if (item.denom) {
-      variables.push(item.denom);
+  for (const spec of props.statVarSpec) {
+    variables.push(spec.statVar);
+    if (spec.denom) {
+      variables.push(spec.denom);
     }
   }
   axios
@@ -135,25 +135,25 @@ function fetchData(
       const rankingData: RankingData = {};
       const statData = resp.data;
       // Get Ranking data
-      for (const item of props.statVarSpec) {
-        if (!(item.statVar in statData.data)) {
+      for (const spec of props.statVarSpec) {
+        if (!(spec.statVar in statData.data)) {
           continue;
         }
         let arr = [];
-        for (const place in statData.data[item.statVar]) {
+        for (const place in statData.data[spec.statVar]) {
           const rankingPoint = {
             placeDcid: place,
-            value: statData.data[item.statVar][place].value,
+            value: statData.data[spec.statVar][place].value,
           };
           if (_.isUndefined(rankingPoint.value)) {
-            console.log(`Skipping ${place}, missing ${item.statVar}`);
+            console.log(`Skipping ${place}, missing ${spec.statVar}`);
             continue;
           }
-          if (item.denom) {
-            if (item.denom in statData.data) {
-              rankingPoint.value /= statData.data[item.denom][place].value;
+          if (spec.denom) {
+            if (spec.denom in statData.data) {
+              rankingPoint.value /= statData.data[spec.denom][place].value;
             } else {
-              console.log(`Skipping ${place}, missing ${item.denom}`);
+              console.log(`Skipping ${place}, missing ${spec.denom}`);
               continue;
             }
           }
@@ -166,10 +166,10 @@ function fetchData(
         if (arr.length > RANKING_COUNT * 2) {
           arr = arr.slice(0, RANKING_COUNT).concat(arr.slice(-RANKING_COUNT));
         }
-        rankingData[item.statVar] = {
+        rankingData[spec.statVar] = {
           points: arr,
-          unit: item.unit,
-          scaling: item.scaling,
+          unit: spec.unit,
+          scaling: spec.scaling,
           numDataPoints,
         };
       }
@@ -179,14 +179,14 @@ function fetchData(
       // Fetch place names.
       const places: Set<string> = new Set();
       for (const statVar in rankingData) {
-        for (const item of rankingData[statVar].points) {
-          places.add(item.placeDcid);
+        for (const point of rankingData[statVar].points) {
+          places.add(point.placeDcid);
         }
       }
       getPlaceNames(Array.from(places)).then((placeNames) => {
         for (const statVar in rankingData) {
-          for (const item of rankingData[statVar].points) {
-            item.placeName = placeNames[item.placeDcid] || item.placeDcid;
+          for (const point of rankingData[statVar].points) {
+            point.placeName = placeNames[point.placeDcid] || point.placeDcid;
           }
         }
         setRankingData(rankingData);

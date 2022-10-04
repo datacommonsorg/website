@@ -31,7 +31,7 @@ import {
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   GetPlaceStatDateWithinPlaceResponse,
-  Obs,
+  Observation,
   PointAllApiResponse,
   PointApiResponse,
   Series,
@@ -72,12 +72,12 @@ const MANUAL_GEOJSON_DISTANCES = {
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
-  enclosedPlaceStat: Record<string, Obs>;
-  allEnclosedPlaceStat: Record<string, Record<string, Obs>>;
+  enclosedPlaceStat: Record<string, Observation>;
+  allEnclosedPlaceStat: Record<string, Observation[]>;
   metadataMap: Record<string, StatMetadata>;
   population: Record<string, Series>;
-  breadcrumbPlaceStat: Record<string, Obs>;
-  mapPointStat: Record<string, Obs>;
+  breadcrumbPlaceStat: Record<string, Observation>;
+  mapPointStat: Record<string, Observation>;
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<NamedPlace>;
   dataDate: string;
@@ -380,14 +380,14 @@ function getGeoJsonDataFeatures(
 
 function getFacetInfo(
   statVar: StatVar,
-  placeStats: Record<string, Record<string, Obs>>,
+  placeStats: Record<string, Observation[]>,
   metadataMap: Record<string, StatMetadata>
 ): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   for (const place in placeStats) {
-    for (const facetId in placeStats[place]) {
-      if (facetId in metadataMap) {
-        filteredMetadataMap[facetId] = metadataMap[facetId];
+    for (const obs of placeStats[place]) {
+      if (obs.facet in metadataMap) {
+        filteredMetadataMap[obs.facet] = metadataMap[obs.facet];
       }
     }
   }
@@ -712,14 +712,14 @@ function fetchData(
 }
 
 function filterAllFacetData(
-  data: Record<string, Record<string, Obs>>,
+  data: Record<string, Observation[]>,
   targetFacet: string
-): Record<string, Obs> {
+): Record<string, Observation> {
   const result = {};
   for (const place in data) {
-    for (const facetId in data[place]) {
-      if (facetId == targetFacet) {
-        result[place] = data[place][facetId];
+    for (const obs of data[place]) {
+      if (obs.facet == targetFacet) {
+        result[place] = obs;
         break;
       }
     }

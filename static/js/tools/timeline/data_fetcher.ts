@@ -20,7 +20,7 @@ import _ from "lodash";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
   DisplayNameApiResponse,
-  Obs,
+  Observation,
   Series,
   SeriesAllApiResponse,
   SeriesApiResponse,
@@ -59,11 +59,11 @@ export function getStatVarGroupWithTime(
       continue;
     }
     const timeSeries = statData.data[statVar][place];
-    for (const item of timeSeries.series) {
+    for (const obs of timeSeries.series) {
       dataPoints.push({
-        label: item.date,
-        time: new Date(item.date).getTime(),
-        value: item.value,
+        label: obs.date,
+        time: new Date(obs.date).getTime(),
+        value: obs.value,
       });
     }
     result.push(new DataGroup(statVar, dataPoints));
@@ -114,7 +114,7 @@ export function shortenStatData(
   for (const statVar in result.data) {
     for (const place in result.data[statVar]) {
       const series = result.data[statVar][place];
-      const obsList: Obs[] = [];
+      const obsList: Observation[] = [];
       for (const obs of series.series) {
         const date = obs.date;
         const year = date.slice(0, 4);
@@ -191,8 +191,8 @@ export function fetchRawData(
     for (const statVar in statAllData.data) {
       metadataMap[statVar] = {};
       for (const place in statAllData.data[statVar]) {
-        for (const facetId in statAllData.data[statVar][place]) {
-          metadataMap[statVar][facetId] = statAllData.facets[facetId];
+        for (const series of statAllData.data[statVar][place]) {
+          metadataMap[statVar][series.facet] = statAllData.facets[series.facet];
         }
       }
     }
@@ -245,10 +245,9 @@ export function getStatData(
     for (const place of places) {
       let selectedSeries: Series = null;
       const targetFacetId = metahashMap[sv];
-      for (const facetId in rawData.statAllData.data[sv][place]) {
-        const series = _.cloneDeep(
-          rawData.statAllData.data[sv][place][facetId]
-        );
+      for (const rawSeries of rawData.statAllData.data[sv][place]) {
+        const facetId = rawSeries.facet;
+        const series = _.cloneDeep(rawSeries);
         if (_.isEmpty(series.series)) {
           break;
         }
@@ -296,8 +295,8 @@ export function getStatData(
           result.measurementMethods.add(mmethod);
         }
       }
-      for (const item of timeSeries.series) {
-        allDates.add(item.date);
+      for (const obs of timeSeries.series) {
+        allDates.add(obs.date);
       }
     }
     result.data[sv] = svData;
@@ -354,31 +353,32 @@ export function statDataFromModels(
       const dateVals = {};
       // Use one facet to build the computed facet;
       let sampledFacetId;
-      for (const facetId in svData[place]) {
-        const series = svData[place][facetId];
-        const metadata = allFacets[series.facet];
+      for (const rawSeries of svData[place]) {
+        const facetId = rawSeries.facet;
+        const series = rawSeries.series;
+        const metadata = allFacets[facetId];
         if (metadata.observationPeriod !== mainObsPeriod) {
           continue;
         }
         mainStatData.measurementMethods.delete(metadata.measurementMethod);
         modelData.measurementMethods.add(metadata.measurementMethod);
         modelData.sources.add(metadata.provenanceUrl);
-        for (const item of series.series) {
-          if (!(item.date in dateVals)) {
-            dateVals[item.date] = [];
+        for (const obs of series) {
+          if (!(obs.date in dateVals)) {
+            dateVals[obs.date] = [];
           }
-          dateVals[item.date].push(item.value);
+          dateVals[obs.date].push(obs.value);
         }
         const newSv = `${sv}-${metadata.measurementMethod}`;
         if (!(newSv in modelData.data)) {
           modelData.data[newSv] = {};
         }
-        modelData.data[newSv][place] = series;
+        modelData.data[newSv][place] = rawSeries;
         modelData.statVars.push(newSv);
         modelData.facets[facetId] = allFacets[facetId];
         sampledFacetId = facetId;
       }
-      const means: Obs[] = [];
+      const means: Observation[] = [];
       for (const date in dateVals) {
         means.push({
           date: date,

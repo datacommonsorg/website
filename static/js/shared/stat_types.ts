@@ -27,14 +27,14 @@ export interface StatMetadata {
   unit?: string;
 }
 
-export interface Obs {
+export interface Observation {
   date: string;
   value: number;
   facet?: string;
 }
 
 export interface Series {
-  series?: Obs[];
+  series?: Observation[];
   facet?: string;
 }
 
@@ -51,9 +51,7 @@ export interface SeriesAllApiResponse {
   facets: Record<string, StatMetadata>;
   data: {
     [variable: string]: {
-      [entity: string]: {
-        [facet: string]: Series;
-      };
+      [entity: string]: Series[];
     };
   };
 }
@@ -62,7 +60,7 @@ export interface PointApiResponse {
   facets: Record<string, StatMetadata>;
   data: {
     [variable: string]: {
-      [entity: string]: Obs;
+      [entity: string]: Observation;
     };
   };
 }
@@ -71,9 +69,7 @@ export interface PointAllApiResponse {
   facets: Record<string, StatMetadata>;
   data: {
     [variable: string]: {
-      [entity: string]: {
-        [facet: string]: Obs;
-      };
+      [entity: string]: Observation[];
     };
   };
 }

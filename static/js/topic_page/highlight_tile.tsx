@@ -18,7 +18,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { formatNumber } from "../i18n/i18n";
-import { Obs, PointApiResponse } from "../shared/stat_types";
+import { Observation, PointApiResponse } from "../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { formatString, ReplacementStrings } from "./string_utils";
 
@@ -31,7 +31,9 @@ interface HighlightTilePropType {
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
-  const [highlightData, setHighlightData] = useState<Obs | undefined>(null);
+  const [highlightData, setHighlightData] = useState<Observation | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(props, setHighlightData);
@@ -64,7 +66,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
 
 function fetchData(
   props: HighlightTilePropType,
-  setHighlightData: (data: Obs) => void
+  setHighlightData: (data: Observation) => void
 ): void {
   // Now assume highlight only talks about one stat var.
   const mainStatVar = props.statVarSpec.statVar;

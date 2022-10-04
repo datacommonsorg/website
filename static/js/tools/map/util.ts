@@ -32,7 +32,7 @@ import {
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import {
-  Obs,
+  Observation,
   PlaceStatDateWithinPlace,
   Series,
   StatMetadata,
@@ -443,7 +443,7 @@ interface PlaceChartData {
  * @param metadataMap map of metahash to stat metadata
  */
 export function getPlaceChartData(
-  placeStatData: Record<string, Obs>,
+  placeStatData: Record<string, Observation>,
   placeDcid: string,
   calculateRatio: boolean,
   populationData: Record<string, Series>,

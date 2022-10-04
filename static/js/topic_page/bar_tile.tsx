@@ -95,10 +95,10 @@ function fetchData(
   setRawData: (data: PointApiResponse) => void
 ): void {
   const statVars = [];
-  for (const item of props.statVarSpec) {
-    statVars.push(item.statVar);
-    if (item.denom) {
-      statVars.push(item.denom);
+  for (const spec of props.statVarSpec) {
+    statVars.push(spec.statVar);
+    if (spec.denom) {
+      statVars.push(spec.denom);
     }
   }
   // Fetch populations.
@@ -145,8 +145,8 @@ function processData(
       for (const point of popPoints) {
         const placeDcid = point.placeDcid;
         const dataPoints: DataPoint[] = [];
-        for (const item of props.statVarSpec) {
-          const statVar = item.statVar;
+        for (const spec of props.statVarSpec) {
+          const statVar = spec.statVar;
           if (
             !raw.data[statVar] ||
             !raw.data[statVar] ||
@@ -161,13 +161,13 @@ function processData(
             dcid: placeDcid,
           };
           sources.add(raw.facets[stat.facet].provenanceUrl);
-          if (item.denom && item.denom in raw.data) {
-            const denomStat = raw.data[item.denom][placeDcid];
+          if (spec.denom && spec.denom in raw.data) {
+            const denomStat = raw.data[spec.denom][placeDcid];
             dataPoint.value /= denomStat.value;
             sources.add(raw.facets[denomStat.facet].provenanceUrl);
           }
-          if (item.scaling) {
-            dataPoint.value *= item.scaling;
+          if (spec.scaling) {
+            dataPoint.value *= spec.scaling;
           }
           dataPoints.push(dataPoint);
         }

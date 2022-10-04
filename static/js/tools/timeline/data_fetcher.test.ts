@@ -145,8 +145,8 @@ test("fetch raw data", () => {
         },
         data: {
           Count_Person: {
-            "geoId/05": {
-              facet1: {
+            "geoId/05": [
+              {
                 series: [
                   {
                     date: "2011",
@@ -159,7 +159,7 @@ test("fetch raw data", () => {
                 ],
                 facet: "facet1",
               },
-              facetCensus: {
+              {
                 series: [
                   {
                     date: "2011",
@@ -172,9 +172,9 @@ test("fetch raw data", () => {
                 ],
                 facet: "facetCensus",
               },
-            },
-            "geoId/06": {
-              facet2: {
+            ],
+            "geoId/06": [
+              {
                 series: [
                   {
                     date: "2011",
@@ -187,11 +187,11 @@ test("fetch raw data", () => {
                 ],
                 facet: "facet2",
               },
-            },
+            ],
           },
           Count_Person_Male: {
-            "geoId/05": {
-              facet1: {
+            "geoId/05": [
+              {
                 series: [
                   {
                     date: "2011",
@@ -204,9 +204,9 @@ test("fetch raw data", () => {
                 ],
                 facet: "facet1",
               },
-            },
-            "geoId/06": {
-              facet1: {
+            ],
+            "geoId/06": [
+              {
                 series: [
                   {
                     date: "2011",
@@ -219,7 +219,7 @@ test("fetch raw data", () => {
                 ],
                 facet: "facet2",
               },
-            },
+            ],
           },
         },
       };
@@ -259,7 +259,10 @@ test("fetch raw data", () => {
           },
           facet2: { provenanceUrl: "source2" },
         },
-        Count_Person_Male: { facet1: { provenanceUrl: "source1" } },
+        Count_Person_Male: {
+          facet1: { provenanceUrl: "source1" },
+          facet2: { provenanceUrl: "source2" },
+        },
       },
       statAllData: {
         facets: {
@@ -274,8 +277,8 @@ test("fetch raw data", () => {
         },
         data: {
           Count_Person: {
-            "geoId/05": {
-              facet1: {
+            "geoId/05": [
+              {
                 series: [
                   {
                     date: "2011",
@@ -288,7 +291,7 @@ test("fetch raw data", () => {
                 ],
                 facet: "facet1",
               },
-              facetCensus: {
+              {
                 series: [
                   {
                     date: "2011",
@@ -301,9 +304,9 @@ test("fetch raw data", () => {
                 ],
                 facet: "facetCensus",
               },
-            },
-            "geoId/06": {
-              facet2: {
+            ],
+            "geoId/06": [
+              {
                 series: [
                   {
                     date: "2011",
@@ -316,11 +319,11 @@ test("fetch raw data", () => {
                 ],
                 facet: "facet2",
               },
-            },
+            ],
           },
           Count_Person_Male: {
-            "geoId/05": {
-              facet1: {
+            "geoId/05": [
+              {
                 facet: "facet1",
                 series: [
                   {
@@ -333,9 +336,9 @@ test("fetch raw data", () => {
                   },
                 ],
               },
-            },
-            "geoId/06": {
-              facet1: {
+            ],
+            "geoId/06": [
+              {
                 facet: "facet2",
                 series: [
                   {
@@ -348,7 +351,7 @@ test("fetch raw data", () => {
                   },
                 ],
               },
-            },
+            ],
           },
         },
       },
@@ -375,8 +378,8 @@ test("get stats data with state code", () => {
       },
       data: {
         Count_Person: {
-          "geoId/05": {
-            fac1: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2011",
@@ -389,9 +392,9 @@ test("get stats data with state code", () => {
               ],
               facet: "fac1",
             },
-          },
-          "geoId/06085": {
-            fac2: {
+          ],
+          "geoId/06085": [
+            {
               series: [
                 {
                   date: "2011",
@@ -404,7 +407,7 @@ test("get stats data with state code", () => {
               ],
               facet: "fac2",
             },
-          },
+          ],
         },
       },
     },
@@ -487,8 +490,8 @@ test("get stats data where latest date with data for all stat vars is not the la
       },
       data: {
         Count_Person: {
-          "geoId/05": {
-            fac1: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2011",
@@ -501,9 +504,9 @@ test("get stats data where latest date with data for all stat vars is not the la
               ],
               facet: "fac1",
             },
-          },
-          "geoId/06": {
-            fac2: {
+          ],
+          "geoId/06": [
+            {
               series: [
                 {
                   date: "2011",
@@ -516,7 +519,7 @@ test("get stats data where latest date with data for all stat vars is not the la
               ],
               facet: "fac2",
             },
-          },
+          ],
         },
       },
     },
@@ -599,8 +602,8 @@ test("get stats data where there is no date with data for all stat vars", () => 
       },
       data: {
         Count_Person: {
-          "geoId/05": {
-            fac1: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2010",
@@ -613,9 +616,9 @@ test("get stats data where there is no date with data for all stat vars", () => 
               ],
               facet: "fac1",
             },
-          },
-          "geoId/06": {
-            fac2: {
+          ],
+          "geoId/06": [
+            {
               series: [
                 {
                   date: "2011",
@@ -628,7 +631,7 @@ test("get stats data where there is no date with data for all stat vars", () => 
               ],
               facet: "fac2",
             },
-          },
+          ],
         },
       },
     },
@@ -724,8 +727,8 @@ test("get stats data with per capita with population size 0", () => {
     statAllData: {
       data: {
         Count_Person_Male: {
-          "geoId/05": {
-            fac2: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2011",
@@ -738,7 +741,7 @@ test("get stats data with per capita with population size 0", () => {
               ],
               facet: "fac2",
             },
-          },
+          ],
         },
       },
       facets: {
@@ -849,8 +852,8 @@ test("get stats data with Per capita with specified denominators", () => {
       },
       data: {
         Count_Person_Female: {
-          "geoId/05": {
-            facet1: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2011",
@@ -863,9 +866,9 @@ test("get stats data with Per capita with specified denominators", () => {
               ],
               facet: "facet1",
             },
-          },
-          "geoId/06": {
-            facet2: {
+          ],
+          "geoId/06": [
+            {
               series: [
                 {
                   date: "2011",
@@ -878,11 +881,11 @@ test("get stats data with Per capita with specified denominators", () => {
               ],
               facet: "facet2",
             },
-          },
+          ],
         },
         Count_Person_Male: {
-          "geoId/05": {
-            facet1: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2011",
@@ -895,9 +898,9 @@ test("get stats data with Per capita with specified denominators", () => {
               ],
               facet: "facet1",
             },
-          },
-          "geoId/06": {
-            facet2: {
+          ],
+          "geoId/06": [
+            {
               series: [
                 {
                   date: "2011",
@@ -910,7 +913,7 @@ test("get stats data with Per capita with specified denominators", () => {
               ],
               facet: "facet2",
             },
-          },
+          ],
         },
       },
     },
@@ -1046,8 +1049,8 @@ test("get stats data with per capita with specified denominators - missing place
       },
       data: {
         UnemploymentRate_Person_Female: {
-          "geoId/05": {
-            facet2: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2011",
@@ -1060,13 +1063,13 @@ test("get stats data with per capita with specified denominators - missing place
               ],
               facet: "facet2",
             },
-          },
-          "country/USA": {},
+          ],
+          "country/USA": [],
         },
         UnemploymentRate_Person_Male: {
-          "geoId/05": {},
-          "country/USA": {
-            facet1: {
+          "geoId/05": [],
+          "country/USA": [
+            {
               series: [
                 {
                   date: "2011",
@@ -1079,7 +1082,7 @@ test("get stats data with per capita with specified denominators - missing place
               ],
               facet: "facet1",
             },
-          },
+          ],
         },
       },
     },
@@ -1167,8 +1170,8 @@ test("get stat data with specified source", () => {
       },
       data: {
         Count_Person: {
-          "geoId/05": {
-            facet1: {
+          "geoId/05": [
+            {
               series: [
                 {
                   date: "2011",
@@ -1181,7 +1184,7 @@ test("get stat data with specified source", () => {
               ],
               facet: "facet1",
             },
-            facet2: {
+            {
               series: [
                 {
                   date: "2011",
@@ -1194,9 +1197,9 @@ test("get stat data with specified source", () => {
               ],
               facet: "facet2",
             },
-          },
-          "geoId/06085": {
-            facet2: {
+          ],
+          "geoId/06085": [
+            {
               series: [
                 {
                   date: "2011",
@@ -1209,7 +1212,7 @@ test("get stat data with specified source", () => {
               ],
               facet: "facet2",
             },
-          },
+          ],
         },
       },
     },
@@ -1445,8 +1448,8 @@ test("transform from models - multiple places", () => {
     },
     data: {
       Max_Temperature_RCP26: {
-        "geoId/05": {
-          facet1: {
+        "geoId/05": [
+          {
             series: [
               {
                 date: "2011-01",
@@ -1459,7 +1462,7 @@ test("transform from models - multiple places", () => {
             ],
             facet: "facet1",
           },
-          facet2: {
+          {
             series: [
               {
                 date: "2011-01",
@@ -1472,9 +1475,9 @@ test("transform from models - multiple places", () => {
             ],
             facet: "facet2",
           },
-        },
-        "country/USA": {
-          facet1: {
+        ],
+        "country/USA": [
+          {
             series: [
               {
                 date: "2011-01",
@@ -1487,7 +1490,7 @@ test("transform from models - multiple places", () => {
             ],
             facet: "facet1",
           },
-          facet2: {
+          {
             series: [
               {
                 date: "2011-01",
@@ -1500,7 +1503,7 @@ test("transform from models - multiple places", () => {
             ],
             facet: "facet2",
           },
-        },
+        ],
       },
     },
   };
@@ -1705,8 +1708,8 @@ test("transform from models - multiple obs periods", () => {
     },
     data: {
       Max_Temperature_RCP26: {
-        "geoId/05": {
-          facet1: {
+        "geoId/05": [
+          {
             series: [
               {
                 date: "2011-01",
@@ -1719,7 +1722,7 @@ test("transform from models - multiple obs periods", () => {
             ],
             facet: "facet1",
           },
-          facet2: {
+          {
             series: [
               {
                 date: "2011-01",
@@ -1732,7 +1735,7 @@ test("transform from models - multiple obs periods", () => {
             ],
             facet: "facet2",
           },
-          facet3: {
+          {
             series: [
               {
                 date: "2011",
@@ -1745,7 +1748,7 @@ test("transform from models - multiple obs periods", () => {
             ],
             facet: "facet3",
           },
-          facet4: {
+          {
             series: [
               {
                 date: "2011",
@@ -1758,7 +1761,7 @@ test("transform from models - multiple obs periods", () => {
             ],
             facet: "facet4",
           },
-        },
+        ],
       },
     },
   };

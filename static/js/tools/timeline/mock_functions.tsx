@@ -186,8 +186,8 @@ export function axios_mock(): void {
       data: {
         data: {
           Median_Age_Person: {
-            "geoId/05": {
-              facet1: {
+            "geoId/05": [
+              {
                 series: [
                   {
                     date: "2011",
@@ -228,7 +228,7 @@ export function axios_mock(): void {
                 ],
                 facet: "facet1",
               },
-            },
+            ],
           },
         },
         facets: {
@@ -252,8 +252,8 @@ export function axios_mock(): void {
       data: {
         data: {
           Count_Person: {
-            "geoId/05": {
-              facet1: {
+            "geoId/05": [
+              {
                 series: [
                   {
                     date: "2001",
@@ -266,7 +266,7 @@ export function axios_mock(): void {
                 ],
                 facet: "facet1",
               },
-            },
+            ],
           },
         },
         facets: {
@@ -289,8 +289,8 @@ export function axios_mock(): void {
       data: {
         data: {
           NotInTheTree: {
-            "geoId/05": {
-              facet1: {
+            "geoId/05": [
+              {
                 series: [
                   {
                     date: "2001",
@@ -303,7 +303,7 @@ export function axios_mock(): void {
                 ],
                 facet: "facet1",
               },
-            },
+            ],
           },
         },
         facets: {

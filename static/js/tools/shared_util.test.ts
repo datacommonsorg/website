@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Obs } from "../shared/stat_types";
+import { Observation } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
 import {
   computeRatio,
@@ -118,7 +118,7 @@ test("toTitleCase", () => {
 });
 
 test("compute per capita", () => {
-  const statSeries: Obs[] = [
+  const statSeries: Observation[] = [
     {
       date: "2001",
       value: 1000,
@@ -132,7 +132,7 @@ test("compute per capita", () => {
       value: 3000,
     },
   ];
-  const popSeries: Obs[] = [
+  const popSeries: Observation[] = [
     {
       date: "2001",
       value: 100,
@@ -146,7 +146,7 @@ test("compute per capita", () => {
       value: 300,
     },
   ];
-  const expected: Obs[] = [
+  const expected: Observation[] = [
     {
       date: "2001",
       value: 10,

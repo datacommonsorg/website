@@ -31,15 +31,18 @@ def compact_series(series_resp, all_facets):
         data[var] = {}
         for obs_by_entity in obs_by_variable['observationsByEntity']:
             entity = obs_by_entity['entity']
-            data[var][entity] = {}
-            for series in obs_by_entity.get('seriesByFacet', []):
+            data[var][entity] = None
+            if 'seriesByFacet' in obs_by_entity:
                 if all_facets:
-                    # Key series by facet
-                    data[var][entity][series['facet']] = series
+                    data[var][entity] = obs_by_entity['seriesByFacet']
                 else:
-                    data[var][entity] = series
                     # There should be only one series
-                    break
+                    data[var][entity] = obs_by_entity['seriesByFacet'][0]
+            else:
+                if all_facets:
+                    data[var][entity] = []
+                else:
+                    data[var][entity] = {}
     result['data'] = data
     return result
 

@@ -43,7 +43,7 @@ interface ObservationChartSectionPropType {
 }
 
 interface ObservationChartSectionStateType {
-  series: Record<string, Series>;
+  seriesList: Series[];
   facets: Record<string, StatMetadata>;
   infoMessage: string;
   errorMessage: string;
@@ -64,7 +64,7 @@ export class ObservationChartSection extends React.Component<
       facets: {},
       infoMessage: "",
       obsDcidMapping: {},
-      series: {},
+      seriesList: [],
     };
     this.containerId = randDomId();
   }
@@ -85,8 +85,8 @@ export class ObservationChartSection extends React.Component<
         {!_.isEmpty(this.state.infoMessage) && (
           <div id={"info-message"}>{this.state.infoMessage}</div>
         )}
-        {Object.keys(this.state.series).map((facetId, index) => {
-          const metadata = this.state.facets[facetId];
+        {this.state.seriesList.map((series, index) => {
+          const metadata = this.state.facets[series.facet];
           const unit = getUnit(metadata);
           return (
             <div className="card" key={this.props.statVarId + index}>
@@ -104,7 +104,7 @@ export class ObservationChartSection extends React.Component<
                 {unit && <p className="metadata">unit: {unit}</p>}
               </div>
               <ObservationChart
-                series={this.state.series[facetId]}
+                series={series}
                 metadata={metadata}
                 idx={index}
                 statVarId={this.props.statVarId}
@@ -134,17 +134,17 @@ export class ObservationChartSection extends React.Component<
         removeSpinner(this.containerId);
         const observationSeries: SeriesAllApiResponse = resp.data;
         const facets = observationSeries.facets;
-        const series =
+        const seriesList =
           observationSeries.data[this.props.statVarId][this.props.placeDcid];
-        const filteredSeries: Record<string, Series> = {};
-        for (const facetId in series) {
-          const mm = facets[facetId].measurementMethod;
+        const filteredSeries: Series[] = [];
+        for (const series of seriesList) {
+          const mm = facets[series.facet].measurementMethod;
           if (!(mm && IGNORED_SOURCE_SERIES_MMETHODS.has(mm))) {
-            filteredSeries[facetId] = series[facetId];
+            filteredSeries.push(series);
           }
         }
         this.setState({
-          series: filteredSeries,
+          seriesList: filteredSeries,
           facets: facets,
           infoMessage: _.isEmpty(filteredSeries)
             ? `No charts for ${this.props.statVarId} in ${this.props.placeName}`

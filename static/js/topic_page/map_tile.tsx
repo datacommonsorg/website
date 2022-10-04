@@ -27,7 +27,7 @@ import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import {
-  Obs,
+  Observation,
   PointApiResponse,
   Series,
   SeriesApiResponse,
@@ -52,7 +52,7 @@ interface MapTilePropType {
 
 interface RawData {
   geoJson: GeoJsonData;
-  placeStat: Record<string, Obs>;
+  placeStat: Record<string, Observation>;
   metadataMap: Record<string, StatMetadata>;
   population: Record<string, Series>;
   parentPlaces: NamedTypedPlace[];

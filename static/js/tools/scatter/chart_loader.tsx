@@ -27,7 +27,7 @@ import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
-  Obs,
+  Observation,
   PointAllApiResponse,
   PointApiResponse,
   SeriesApiResponse,
@@ -52,8 +52,8 @@ import {
 
 type Cache = {
   // key here is stat var.
-  statVarsData: Record<string, Record<string, Obs>>;
-  allStatVarsData: Record<string, Record<string, Record<string, Obs>>>;
+  statVarsData: Record<string, Record<string, Observation>>;
+  allStatVarsData: Record<string, Record<string, Observation[]>>;
   metadataMap: Record<string, StatMetadata>;
   populationData: SeriesApiResponse;
   noDataError: boolean;
@@ -192,7 +192,7 @@ async function loadData(
       x.value,
       y.value,
     ]);
-  const populationSvList = new Set(DEFAULT_POPULATION_DCID);
+  const populationSvList = new Set([DEFAULT_POPULATION_DCID]);
   for (const axis of [x.value, y.value]) {
     if (axis.denom) {
       populationSvList.add(axis.denom);
@@ -277,16 +277,19 @@ function useChartData(cache: Cache): ChartData {
  * Extract data for a given facet from all the facets data.
  */
 function extractFacetData(
-  data: Record<string, Record<string, Obs>>,
+  data: Record<string, Observation[]>,
   facetId: string
-): Record<string, Obs> {
+): Record<string, Observation> {
   if (_.isEmpty(facetId)) {
     return null;
   }
   const result = {};
   for (const place in data) {
-    if (facetId in data[place]) {
-      result[place] = data[place][facetId];
+    for (const obs of data[place]) {
+      if (obs.facet === facetId) {
+        result[place] = obs;
+        break;
+      }
     }
   }
   return result;
@@ -364,15 +367,15 @@ function getChartData(
 
 function getFacetInfo(
   axis: Axis,
-  allStatVarsData: Record<string, Record<string, Record<string, Obs>>>,
+  allStatVarsData: Record<string, Record<string, Observation[]>>,
   metadataMap: Record<string, StatMetadata>
 ): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
   const sv = axis.statVarDcid;
   for (const place in allStatVarsData[sv]) {
-    for (const facetId in allStatVarsData[sv][place]) {
-      if (facetId in metadataMap) {
-        filteredMetadataMap[facetId] = metadataMap[facetId];
+    for (const obs of allStatVarsData[sv][place]) {
+      if (obs.facet in metadataMap) {
+        filteredMetadataMap[obs.facet] = metadataMap[obs.facet];
       }
     }
   }

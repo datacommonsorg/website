@@ -260,9 +260,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
             const tmp = statData.data[sv][place];
             let val = "";
             if (tmp && tmp.series) {
-              for (const item of tmp.series) {
-                if (item.date == date) {
-                  val = item.value.toString();
+              for (const obs of tmp.series) {
+                if (obs.date == date) {
+                  val = obs.value.toString();
                   break;
                 }
               }

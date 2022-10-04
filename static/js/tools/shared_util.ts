@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
-import { Obs, StatMetadata } from "../shared/stat_types";
+import { Observation, StatMetadata } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { USA_PLACE_HIERARCHY } from "./map/util";
 
@@ -25,7 +25,10 @@ import { USA_PLACE_HIERARCHY } from "./map/util";
 /**
  * Choose an Observatrion with date closest to the target date.
  */
-export function getMatchingObservation(series: Obs[], targetDate: string): Obs {
+export function getMatchingObservation(
+  series: Observation[],
+  targetDate: string
+): Observation {
   for (let i = 0; i < series.length; i++) {
     const item = series[i];
     if (targetDate == item.date) {
@@ -43,7 +46,7 @@ export function getMatchingObservation(series: Obs[], targetDate: string): Obs {
  * Helper function to get units given a list of observations
  */
 export function getUnit(
-  obsList: Obs[],
+  obsList: Observation[],
   metadataMap: Record<string, StatMetadata>
 ): string {
   for (const obs of obsList) {
@@ -173,11 +176,15 @@ export function toTitleCase(str: string): string {
  *
  * @returns A list of Observations with the per capita calculation applied to its values.
  */
-export function computeRatio(num: Obs[], denom: Obs[], scaling = 1): Obs[] {
+export function computeRatio(
+  num: Observation[],
+  denom: Observation[],
+  scaling = 1
+): Observation[] {
   if (!denom) {
     return [];
   }
-  const result: Obs[] = [];
+  const result: Observation[] = [];
   let j = 0; // denominator position
   for (let i = 0; i < num.length; i++) {
     const numDate = Date.parse(num[i].date);

@@ -18,7 +18,11 @@ import _ from "lodash";
 
 import { Point } from "../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../shared/constants";
-import { Obs, SeriesApiResponse, StatMetadata } from "../shared/stat_types";
+import {
+  Observation,
+  SeriesApiResponse,
+  StatMetadata,
+} from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
 import { getMatchingObservation } from "../tools/shared_util";
 import { isBetween } from "./number_utils";
@@ -35,7 +39,7 @@ interface PlaceAxisChartData {
  * For a place and axis, get the chart data for that place and axis
  */
 function getPlaceAxisChartData(
-  placePointStat: Record<string, Obs>,
+  placePointStat: Record<string, Observation>,
   populationData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
@@ -74,7 +78,7 @@ function getPlaceAxisChartData(
     value *= scaling;
   }
   if (popBounds) {
-    if (popSeries.series) {
+    if (popSeries && popSeries.series) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
       const popValue = popObs.value;
       if (!isBetween(popValue, popBounds[0], popBounds[1])) {
@@ -102,8 +106,8 @@ function getPlaceAxisChartData(
  */
 export function getPlaceScatterData(
   namedPlace: NamedPlace,
-  xStatVarData: Record<string, Obs>,
-  yStatVarData: Record<string, Obs>,
+  xStatVarData: Record<string, Observation>,
+  yStatVarData: Record<string, Observation>,
   populationData: SeriesApiResponse,
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,
