@@ -28,10 +28,9 @@ import {
   ScatterPlotOptions,
   ScatterPlotProperties,
 } from "../chart/draw_scatter";
-import { GetStatSetResponse, StatApiResponse } from "../shared/stat_types";
-import { NamedTypedPlace } from "../shared/types";
-import { getStatsWithinPlace } from "../tools/scatter/util";
-import { StatVarMetadata } from "../types/stat_var";
+import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { getStatWithinPlace } from "../tools/scatter/util";
 import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -43,18 +42,18 @@ interface ScatterTilePropType {
   title: string;
   place: NamedTypedPlace;
   enclosedPlaceType: string;
-  statVarMetadata: StatVarMetadata[];
+  statVarSpec: StatVarSpec[];
 }
 
 interface RawData {
-  placeStats: GetStatSetResponse;
-  population: StatApiResponse;
+  placeStats: PointApiResponse;
+  population: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
 }
 
 interface ScatterChartData {
-  xStatVar: StatVarMetadata;
-  yStatVar: StatVarMetadata;
+  xStatVar: StatVarSpec;
+  yStatVar: StatVarSpec;
   points: { [placeDcid: string]: Point };
   sources: Set<string>;
 }
@@ -71,14 +70,14 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     fetchData(
       props.place.dcid,
       props.enclosedPlaceType,
-      props.statVarMetadata,
+      props.statVarSpec,
       setRawData
     );
   }, [props]);
 
   useEffect(() => {
     if (rawData) {
-      processData(rawData, props.statVarMetadata, setScatterChartData);
+      processData(rawData, props.statVarSpec, setScatterChartData);
     }
   }, [props, rawData]);
 
@@ -112,21 +111,23 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarMetadata: StatVarMetadata[]
-): Promise<StatApiResponse> {
-  let statVarParams = "";
-  for (const sv of statVarMetadata) {
+  statVarSpec: StatVarSpec[]
+): Promise<SeriesApiResponse> {
+  const statVars = [];
+  for (const sv of statVarSpec) {
     if (sv.denom) {
-      statVarParams += `&stat_vars=${sv.denom}`;
+      statVars.push(sv.denom);
     }
   }
-  if (_.isEmpty(statVarParams)) {
-    return Promise.resolve({});
+  if (_.isEmpty(statVars)) {
+    return Promise.resolve(null);
   } else {
     return axios
-      .get(
-        `/api/stats/set/series/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}${statVarParams}`
-      )
+      .post("/api/observations/series/within", {
+        parent_entity: placeDcid,
+        child_type: enclosedPlaceType,
+        variables: statVars,
+      })
       .then((resp) => resp.data);
   }
 }
@@ -134,21 +135,21 @@ function getPopulationPromise(
 function fetchData(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarMetadata: StatVarMetadata[],
+  statVarSpec: StatVarSpec[],
   setRawData: (data: RawData) => void
 ): void {
-  if (statVarMetadata.length < 2) {
+  if (statVarSpec.length < 2) {
     // TODO: add error message
     return;
   }
-  const placeStatsPromise = getStatsWithinPlace(placeDcid, enclosedPlaceType, [
-    { statVarDcid: statVarMetadata[0].statVar },
-    { statVarDcid: statVarMetadata[1].statVar },
+  const placeStatsPromise = getStatWithinPlace(placeDcid, enclosedPlaceType, [
+    { statVarDcid: statVarSpec[0].statVar },
+    { statVarDcid: statVarSpec[1].statVar },
   ]);
   const populationPromise = getPopulationPromise(
     placeDcid,
     enclosedPlaceType,
-    statVarMetadata
+    statVarSpec
   );
   const placeNamesPromise = axios
     .get(
@@ -171,11 +172,11 @@ function fetchData(
 
 function processData(
   rawData: RawData,
-  statVarMetadata: StatVarMetadata[],
+  statVarSpec: StatVarSpec[],
   setChartdata: (data: ScatterChartData) => void
 ): void {
-  const yStatVar = statVarMetadata[0];
-  const xStatVar = statVarMetadata[1];
+  const yStatVar = statVarSpec[0];
+  const xStatVar = statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
   const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
   if (!xPlacePointStat || !yPlacePointStat) {
@@ -193,7 +194,7 @@ function processData(
       xPlacePointStat,
       yPlacePointStat,
       rawData.population,
-      rawData.placeStats.metadata,
+      rawData.placeStats.facets,
       xStatVar.denom,
       yStatVar.denom,
       null,

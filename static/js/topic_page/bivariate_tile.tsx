@@ -27,11 +27,11 @@ import { BivariateProperties, drawBivariate } from "../chart/draw_bivariate";
 import { Point } from "../chart/draw_scatter";
 import { GeoJsonData } from "../chart/types";
 import { USA_PLACE_DCID } from "../shared/constants";
-import { GetStatSetResponse, StatApiResponse } from "../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
-import { getStatsWithinPlace } from "../tools/scatter/util";
+import { StatVarSpec } from "../shared/types";
+import { getStatWithinPlace } from "../tools/scatter/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
-import { StatVarMetadata } from "../types/stat_var";
 import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -43,20 +43,20 @@ interface BivariateTilePropType {
   title: string;
   place: NamedTypedPlace;
   enclosedPlaceType: string;
-  statVarMetadata: StatVarMetadata[];
+  statVarSpec: StatVarSpec[];
 }
 
 interface RawData {
   geoJson: GeoJsonData;
-  placeStats: GetStatSetResponse;
-  population: StatApiResponse;
+  placeStats: PointApiResponse;
+  population: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
   parentPlaces: NamedTypedPlace[];
 }
 
 interface BivariateChartData {
-  xStatVar: StatVarMetadata;
-  yStatVar: StatVarMetadata;
+  xStatVar: StatVarSpec;
+  yStatVar: StatVarSpec;
   points: { [placeDcid: string]: Point };
   geoJson: GeoJsonData;
   sources: Set<string>;
@@ -76,7 +76,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
     fetchData(
       props.place.dcid,
       props.enclosedPlaceType,
-      props.statVarMetadata,
+      props.statVarSpec,
       setRawData
     );
   }, [props]);
@@ -85,7 +85,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
     if (rawData) {
       processData(
         rawData,
-        props.statVarMetadata,
+        props.statVarSpec,
         props.place,
         props.enclosedPlaceType,
         setBivariateChartData
@@ -126,21 +126,23 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
 function getPopulationPromise(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarMetadata: StatVarMetadata[]
-): Promise<StatApiResponse> {
-  let statVarParams = "";
-  for (const sv of statVarMetadata) {
+  statVarSpec: StatVarSpec[]
+): Promise<SeriesApiResponse> {
+  const variables = [];
+  for (const sv of statVarSpec) {
     if (sv.denom) {
-      statVarParams += `&stat_vars=${sv.denom}`;
+      variables.push(sv.denom);
     }
   }
-  if (_.isEmpty(statVarParams)) {
-    return Promise.resolve({});
+  if (_.isEmpty(variables)) {
+    return Promise.resolve(null);
   } else {
     return axios
-      .get(
-        `/api/stats/set/series/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}${statVarParams}`
-      )
+      .post("/api/observations/series/within", {
+        parent_entity: placeDcid,
+        child_type: enclosedPlaceType,
+        variable: variables,
+      })
       .then((resp) => resp.data);
   }
 }
@@ -148,10 +150,10 @@ function getPopulationPromise(
 function fetchData(
   placeDcid: string,
   enclosedPlaceType: string,
-  statVarMetadata: StatVarMetadata[],
+  statVarSpec: StatVarSpec[],
   setRawData: (data: RawData) => void
 ): void {
-  if (statVarMetadata.length < 2) {
+  if (statVarSpec.length < 2) {
     // TODO: add error message
     return;
   }
@@ -160,18 +162,18 @@ function fetchData(
       `/api/choropleth/geojson?placeDcid=${placeDcid}&placeType=${enclosedPlaceType}`
     )
     .then((resp) => resp.data);
-  const placeStatsPromise: Promise<GetStatSetResponse> = getStatsWithinPlace(
+  const placeStatsPromise: Promise<PointApiResponse> = getStatWithinPlace(
     placeDcid,
     enclosedPlaceType,
     [
-      { statVarDcid: statVarMetadata[0].statVar },
-      { statVarDcid: statVarMetadata[1].statVar },
+      { statVarDcid: statVarSpec[0].statVar },
+      { statVarDcid: statVarSpec[1].statVar },
     ]
   );
-  const populationPromise: Promise<StatApiResponse> = getPopulationPromise(
+  const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
     placeDcid,
     enclosedPlaceType,
-    statVarMetadata
+    statVarSpec
   );
   const placeNamesPromise = axios
     .get(
@@ -205,13 +207,13 @@ function fetchData(
 
 function processData(
   rawData: RawData,
-  statVarMetadata: StatVarMetadata[],
+  statVarSpec: StatVarSpec[],
   place: NamedTypedPlace,
   enclosedPlaceType: string,
   setChartdata: (data: BivariateChartData) => void
 ): void {
-  const xStatVar = statVarMetadata[0];
-  const yStatVar = statVarMetadata[1];
+  const xStatVar = statVarSpec[0];
+  const yStatVar = statVarSpec[1];
   const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
   if (!xPlacePointStat || !yPlacePointStat) {
@@ -229,7 +231,7 @@ function processData(
       xPlacePointStat,
       yPlacePointStat,
       rawData.population,
-      rawData.placeStats.metadata,
+      rawData.placeStats.facets,
       xStatVar.denom,
       yStatVar.denom,
       null,

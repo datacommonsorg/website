@@ -24,9 +24,8 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawGroupBarChart } from "../chart/draw";
-import { GetStatSetResponse } from "../shared/stat_types";
-import { NamedTypedPlace } from "../shared/types";
-import { StatVarMetadata } from "../types/stat_var";
+import { PointApiResponse } from "../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getPlaceNames } from "../utils/place_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
@@ -42,7 +41,7 @@ interface BarTilePropType {
   title: string;
   place: NamedTypedPlace;
   enclosedPlaceType: string;
-  statVarMetadata: StatVarMetadata[];
+  statVarSpec: StatVarSpec[];
 }
 
 interface BarChartData {
@@ -51,7 +50,7 @@ interface BarChartData {
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
-  const [rawData, setRawData] = useState<GetStatSetResponse | undefined>(null);
+  const [rawData, setRawData] = useState<PointApiResponse | undefined>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
@@ -93,19 +92,23 @@ export function BarTile(props: BarTilePropType): JSX.Element {
 
 function fetchData(
   props: BarTilePropType,
-  setRawData: (data: GetStatSetResponse) => void
+  setRawData: (data: PointApiResponse) => void
 ): void {
-  let url = `/api/stats/within-place?parent_place=${props.place.dcid}&child_type=${props.enclosedPlaceType}`;
-  for (const item of props.statVarMetadata) {
-    url += `&stat_vars=${item.statVar}`;
+  const statVars = [];
+  for (const item of props.statVarSpec) {
+    statVars.push(item.statVar);
     if (item.denom) {
-      url += `&stat_vars=${item.denom}`;
+      statVars.push(item.denom);
     }
   }
   // Fetch populations.
-  url += "&stat_vars=" + FILTER_STAT_VAR;
+  statVars.push(FILTER_STAT_VAR);
   axios
-    .get<GetStatSetResponse>(url)
+    .post<PointApiResponse>("/api/observations/point/within", {
+      parent_entity: props.place.dcid,
+      child_type: props.enclosedPlaceType,
+      variables: statVars,
+    })
     .then((resp) => {
       setRawData(resp.data);
     })
@@ -116,7 +119,7 @@ function fetchData(
 
 function processData(
   props: BarTilePropType,
-  rawData: GetStatSetResponse,
+  rawData: PointApiResponse,
   setBarChartData: (data: BarChartData) => void
 ): void {
   const raw = _.cloneDeep(rawData);
@@ -126,10 +129,10 @@ function processData(
 
   // Find the most populated places.
   let popPoints: Point[] = [];
-  for (const place in raw.data[FILTER_STAT_VAR].stat) {
+  for (const place in raw.data[FILTER_STAT_VAR]) {
     popPoints.push({
       placeDcid: place,
-      value: raw.data[FILTER_STAT_VAR].stat[place].value,
+      value: raw.data[FILTER_STAT_VAR][place].value,
     });
   }
   // Take the most populated places.
@@ -142,26 +145,26 @@ function processData(
       for (const point of popPoints) {
         const placeDcid = point.placeDcid;
         const dataPoints: DataPoint[] = [];
-        for (const item of props.statVarMetadata) {
+        for (const item of props.statVarSpec) {
           const statVar = item.statVar;
           if (
             !raw.data[statVar] ||
-            !raw.data[statVar].stat ||
-            !raw.data[statVar].stat[placeDcid]
+            !raw.data[statVar] ||
+            !raw.data[statVar][placeDcid]
           ) {
             continue;
           }
-          const stat = raw.data[statVar].stat[placeDcid];
+          const stat = raw.data[statVar][placeDcid];
           const dataPoint = {
-            label: getStatVarName(statVar, props.statVarMetadata),
+            label: getStatVarName(statVar, props.statVarSpec),
             value: stat.value || 0,
             dcid: placeDcid,
           };
-          sources.add(raw.metadata[stat.metaHash].provenanceUrl);
+          sources.add(raw.facets[stat.facet].provenanceUrl);
           if (item.denom && item.denom in raw.data) {
-            const denomStat = raw.data[item.denom].stat[placeDcid];
+            const denomStat = raw.data[item.denom][placeDcid];
             dataPoint.value /= denomStat.value;
-            sources.add(raw.metadata[denomStat.metaHash].provenanceUrl);
+            sources.add(raw.facets[denomStat.facet].provenanceUrl);
           }
           if (item.scaling) {
             dataPoint.value *= item.scaling;
@@ -189,6 +192,6 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
     elem.offsetWidth,
     CHART_HEIGHT,
     chartData.dataGroup,
-    props.statVarMetadata[0].unit
+    props.statVarSpec[0].unit
   );
 }

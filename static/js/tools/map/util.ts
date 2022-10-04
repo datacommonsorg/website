@@ -32,9 +32,9 @@ import {
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import {
-  PlacePointStat,
+  Obs,
   PlaceStatDateWithinPlace,
-  StatApiResponse,
+  Series,
   StatMetadata,
 } from "../../shared/stat_types";
 import {
@@ -43,7 +43,7 @@ import {
   ProvenanceSummary,
 } from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
-import { getPopulationDate, isChildPlaceOf } from "../shared_util";
+import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
@@ -438,42 +438,40 @@ interface PlaceChartData {
  * For a place, extract the chart data for that place
  * @param placeStatData values for each statistical variable for each place
  * @param placeDcid place to extract the chart data for
- * @param isPerCapita whether the chart is a per capita chart
+ * @param calculateRatio whether to compute ratio
  * @param populationData population (for ratio calculation) data for each
- *                       place
  * @param metadataMap map of metahash to stat metadata
  */
 export function getPlaceChartData(
-  placeStatData: PlacePointStat,
+  placeStatData: Record<string, Obs>,
   placeDcid: string,
   calculateRatio: boolean,
-  populationData: StatApiResponse,
+  populationData: Record<string, Series>,
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
-  const stat = placeStatData.stat ? placeStatData.stat[placeDcid] : null;
+  const stat = placeDcid in placeStatData ? placeStatData[placeDcid] : null;
   let metadata = null;
   if (_.isEmpty(stat)) {
     return null;
   }
   const sources = [];
   const placeStatDate = stat.date;
-  const metaHash = placeStatData.metaHash || stat.metaHash;
-  const statVarSource = metadataMap[metaHash].provenanceUrl;
+  const facetId = stat.facet;
+  const statVarSource = metadataMap[facetId].provenanceUrl;
   let value = stat.value === undefined ? 0 : stat.value;
-  let popDate = "";
   let popSource = "";
   if (calculateRatio) {
-    const popSeries =
-      placeDcid in populationData
-        ? Object.values(populationData[placeDcid].data)[0]
-        : {};
-    if (!_.isEmpty(popSeries)) {
-      popDate = getPopulationDate(popSeries, stat);
-      const popValue = popSeries.val[popDate];
-      popSource = popSeries.metadata.provenanceUrl;
+    const placePopData =
+      placeDcid in populationData ? populationData[placeDcid] : null;
+    if (!_.isEmpty(placePopData)) {
+      const popFacetId = placePopData.facet;
+      const popSeries = placePopData.series;
+      const obs = getMatchingObservation(popSeries, stat.date);
+      const popValue = obs.value;
+      popSource = metadataMap[popFacetId].provenanceUrl;
       if (popValue === 0) {
         metadata = {
-          popDate,
+          popDate: "",
           popSource,
           placeStatDate,
           statVarSource,
@@ -485,7 +483,7 @@ export function getPlaceChartData(
       sources.push(popSource);
     } else {
       metadata = {
-        popDate,
+        popDate: "",
         popSource,
         placeStatDate,
         statVarSource,
@@ -495,7 +493,7 @@ export function getPlaceChartData(
     }
   }
   metadata = {
-    popDate,
+    popDate: "",
     popSource,
     placeStatDate,
     statVarSource,

@@ -18,13 +18,9 @@ import _ from "lodash";
 
 import { Point } from "../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../shared/constants";
-import {
-  PlacePointStat,
-  StatApiResponse,
-  StatMetadata,
-} from "../shared/stat_types";
+import { Obs, SeriesApiResponse, StatMetadata } from "../shared/stat_types";
 import { NamedPlace } from "../shared/types";
-import { getPopulationDate } from "../tools/shared_util";
+import { getMatchingObservation } from "../tools/shared_util";
 import { isBetween } from "./number_utils";
 
 interface PlaceAxisChartData {
@@ -39,50 +35,48 @@ interface PlaceAxisChartData {
  * For a place and axis, get the chart data for that place and axis
  */
 function getPlaceAxisChartData(
-  placePointStat: PlacePointStat,
-  populationData: StatApiResponse,
+  placePointStat: Record<string, Obs>,
+  populationData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
   popBounds?: [number, number],
   denom?: string,
   scaling?: number
 ): PlaceAxisChartData {
-  const placePointStatData = placePointStat.stat[placeDcid];
-  const popSeries = populationData[placeDcid]
-    ? populationData[placeDcid].data[DEFAULT_POPULATION_DCID]
-    : null;
+  const obs = placePointStat[placeDcid];
+  const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
   const denomSeries =
-    denom && populationData[placeDcid]
-      ? populationData[placeDcid].data[denom]
+    denom && populationData.data[denom] && populationData.data[denom][placeDcid]
+      ? populationData.data[denom][placeDcid]
       : null;
-  if (_.isEmpty(placePointStatData)) {
+  if (_.isEmpty(obs)) {
     return null;
   }
-  if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.val))) {
+  if (denom && (_.isEmpty(denomSeries) || _.isEmpty(denomSeries.series))) {
     return null;
   }
   const sources = [];
-  const statDate = placePointStatData.date;
-  const metaHash = placePointStat.metaHash || placePointStatData.metaHash;
+  const statDate = obs.date;
+  const metaHash = obs.facet;
   if (metaHash && metaHash in metadataMap) {
     sources.push(metadataMap[metaHash].provenanceUrl);
   }
-  let value =
-    placePointStatData.value === undefined ? 0 : placePointStatData.value;
-  let denomDate = null;
+  let value = obs.value === undefined ? 0 : obs.value;
   let denomValue = null;
+  let denomDate = null;
   if (!_.isEmpty(denomSeries)) {
-    denomDate = getPopulationDate(denomSeries, placePointStatData);
-    denomValue = denomSeries.val[denomDate];
+    const denomObs = getMatchingObservation(denomSeries.series, obs.date);
+    denomValue = denomObs.value;
+    denomDate = denomObs.date;
     value /= denomValue;
   }
   if (scaling) {
     value *= scaling;
   }
   if (popBounds) {
-    if (popSeries && popSeries.val) {
-      const popDate = getPopulationDate(popSeries, placePointStatData);
-      const popValue = popSeries.val[popDate];
+    if (popSeries.series) {
+      const popObs = getMatchingObservation(popSeries.series, obs.date);
+      const popValue = popObs.value;
       if (!isBetween(popValue, popBounds[0], popBounds[1])) {
         return null;
       }
@@ -108,9 +102,9 @@ function getPlaceAxisChartData(
  */
 export function getPlaceScatterData(
   namedPlace: NamedPlace,
-  xStatVarData: PlacePointStat,
-  yStatVarData: PlacePointStat,
-  populationData: StatApiResponse,
+  xStatVarData: Record<string, Obs>,
+  yStatVarData: Record<string, Obs>,
+  populationData: SeriesApiResponse,
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,
   yDenom?: string,

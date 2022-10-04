@@ -22,9 +22,8 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { GetStatSetResponse } from "../shared/stat_types";
-import { NamedTypedPlace } from "../shared/types";
-import { StatVarMetadata } from "../types/stat_var";
+import { PointApiResponse } from "../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
 import { formatString, getStatVarName } from "./string_utils";
@@ -47,7 +46,7 @@ interface RankingTilePropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   title: string;
-  statVarMetadata: StatVarMetadata[];
+  statVarSpec: StatVarSpec[];
   rankingMetadata: RankingMetadataConfig;
 }
 
@@ -65,7 +64,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const points = rankingData[statVar].points;
           const unit = rankingData[statVar].unit;
           const scaling = rankingData[statVar].scaling;
-          const svName = getStatVarName(statVar, props.statVarMetadata);
+          const svName = getStatVarName(statVar, props.statVarSpec);
           const numDataPoints = rankingData[statVar].numDataPoints;
           return (
             <React.Fragment key={statVar}>
@@ -119,36 +118,40 @@ function fetchData(
   props: RankingTilePropType,
   setRankingData: (data: RankingData) => void
 ): void {
-  let url = `/api/stats/within-place?parent_place=${props.place.dcid}&child_type=${props.enclosedPlaceType}`;
-  for (const item of props.statVarMetadata) {
-    url += `&stat_vars=${item.statVar}`;
+  const variables = [];
+  for (const item of props.statVarSpec) {
+    variables.push(item.statVar);
     if (item.denom) {
-      url += `&stat_vars=${item.denom}`;
+      variables.push(item.denom);
     }
   }
   axios
-    .get<GetStatSetResponse>(url)
+    .post<PointApiResponse>("/api/observations/point/within", {
+      parent_entity: props.place.dcid,
+      child_type: props.enclosedPlaceType,
+      variables: variables,
+    })
     .then((resp) => {
       const rankingData: RankingData = {};
-      const statData = resp.data.data;
+      const statData = resp.data;
       // Get Ranking data
-      for (const item of props.statVarMetadata) {
-        if (!(item.statVar in statData)) {
+      for (const item of props.statVarSpec) {
+        if (!(item.statVar in statData.data)) {
           continue;
         }
         let arr = [];
-        for (const place in statData[item.statVar].stat) {
+        for (const place in statData.data[item.statVar]) {
           const rankingPoint = {
             placeDcid: place,
-            value: statData[item.statVar].stat[place].value,
+            value: statData.data[item.statVar][place].value,
           };
           if (_.isUndefined(rankingPoint.value)) {
             console.log(`Skipping ${place}, missing ${item.statVar}`);
             continue;
           }
           if (item.denom) {
-            if (item.denom in statData) {
-              rankingPoint.value /= statData[item.denom].stat[place].value;
+            if (item.denom in statData.data) {
+              rankingPoint.value /= statData.data[item.denom][place].value;
             } else {
               console.log(`Skipping ${place}, missing ${item.denom}`);
               continue;

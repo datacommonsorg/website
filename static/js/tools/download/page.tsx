@@ -123,7 +123,7 @@ export function Page(): JSX.Element {
     }
     facetsReqObj.current = reqObj;
     setFacetListPromise(
-      axios.post("/api/stats/facets/within-place", reqObj).then((resp) => {
+      axios.post("/api/facets/within", reqObj).then((resp) => {
         const facetMap = resp.data;
         const sourceSelectorFacetList = [];
         for (const sv in selectedOptions.selectedStatVars) {

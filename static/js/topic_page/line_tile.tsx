@@ -24,9 +24,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
-import { StatApiResponse } from "../shared/stat_types";
-import { NamedTypedPlace } from "../shared/types";
-import { StatVarMetadata } from "../types/stat_var";
+import { SeriesApiResponse } from "../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { computeRatio } from "../tools/shared_util";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { getStatVarName, ReplacementStrings } from "./string_utils";
@@ -35,7 +35,7 @@ interface LineTilePropType {
   id: string;
   title: string;
   place: NamedTypedPlace;
-  statVarMetadata: StatVarMetadata[];
+  statVarSpec: StatVarSpec[];
 }
 
 interface LineChartData {
@@ -45,7 +45,7 @@ interface LineChartData {
 
 export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
-  const [rawData, setRawData] = useState<StatApiResponse | undefined>(null);
+  const [rawData, setRawData] = useState<SeriesApiResponse | undefined>(null);
   const [lineChartData, setLineChartData] = useState<LineChartData | undefined>(
     null
   );
@@ -87,20 +87,20 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
 function fetchData(
   props: LineTilePropType,
-  setRawData: (data: StatApiResponse) => void
+  setRawData: (data: SeriesApiResponse) => void
 ): void {
   const statVars = [];
-  for (const item of props.statVarMetadata) {
+  for (const item of props.statVarSpec) {
     statVars.push(item.statVar);
     if (item.denom) {
       statVars.push(item.denom);
     }
   }
   axios
-    .post(`/api/stats`, {
+    .post("/api/observations/series", {
       // Fetch both numerator stat vars and denominator stat vars
-      statVars: statVars,
-      places: [props.place.dcid],
+      variables: statVars,
+      entities: [props.place.dcid],
     })
     .then((resp) => {
       setRawData(resp.data);
@@ -113,7 +113,7 @@ function fetchData(
 
 function processData(
   props: LineTilePropType,
-  rawData: StatApiResponse,
+  rawData: SeriesApiResponse,
   setChartData: (data: LineChartData) => void
 ): void {
   const chartData = rawToChart(rawData, props);
@@ -135,7 +135,7 @@ function draw(
     chartData,
     false,
     false,
-    props.statVarMetadata[0].unit
+    props.statVarSpec[0].unit
   );
   if (!isCompleteLine) {
     svgContainer.current.querySelectorAll(".dotted-warning")[0].className +=
@@ -144,7 +144,7 @@ function draw(
 }
 
 function rawToChart(
-  rawData: StatApiResponse,
+  rawData: SeriesApiResponse,
   props: LineTilePropType
 ): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
@@ -153,42 +153,32 @@ function rawToChart(
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
-  const metadata = props.statVarMetadata;
   const allDates = new Set<string>();
-  for (const item of metadata) {
+  for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
-    const series = raw[props.place.dcid].data[item.statVar];
-    if (item.denom) {
-      const denomSeries = raw[props.place.dcid].data[item.denom];
-      // (TODO): Here expects exact date match. We should implement a generic
-      // function that takes two Series and compute the ratio.
-      for (const date in series.val) {
-        if (date in denomSeries.val && denomSeries.val[date] !== 0) {
-          series.val[date] /= denomSeries.val[date];
-        } else {
-          delete series.val[date];
-        }
-      }
+    const series = raw.data[spec.statVar][props.place.dcid];
+    let obsList = series.series;
+    if (spec.denom) {
+      const denomSeries = raw.data[spec.denom][props.place.dcid];
+      obsList = computeRatio(obsList, denomSeries.series);
     }
-    if (series.val && Object.keys(series.val).length > 0) {
+    if (obsList.length > 0) {
       const dataPoints: DataPoint[] = [];
-      for (const date in series.val) {
+      for (const item of obsList) {
         dataPoints.push({
-          label: date,
-          time: new Date(date).getTime(),
-          value: item.scaling
-            ? series.val[date] * item.scaling
-            : series.val[date],
+          label: item.date,
+          time: new Date(item.date).getTime(),
+          value: spec.scaling ? item.value * spec.scaling : item.value,
         });
-        allDates.add(date);
+        allDates.add(item.date);
       }
       dataGroups.push(
         new DataGroup(
-          getStatVarName(item.statVar, props.statVarMetadata),
+          getStatVarName(spec.statVar, props.statVarSpec),
           dataPoints
         )
       );
-      sources.add(series.metadata.provenanceUrl);
+      sources.add(raw.facets[series.facet].provenanceUrl);
     }
   }
   for (let i = 0; i < dataGroups.length; i++) {

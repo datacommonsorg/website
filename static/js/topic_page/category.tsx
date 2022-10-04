@@ -38,7 +38,7 @@ export interface CategoryPropType {
 }
 
 export function Category(props: CategoryPropType): JSX.Element {
-  const svProvider = new StatVarProvider(props.config.statVarMetadata);
+  const svProvider = new StatVarProvider(props.config.statVarSpec);
   return (
     <article className="category col-12" id={getRelLink(props.config.title)}>
       <h2 className="block-title">{props.config.title}</h2>

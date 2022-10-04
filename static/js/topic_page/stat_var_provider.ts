@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import { StatVarMetadata } from "../types/stat_var";
-import { StatVarMetadataMap } from "./topic_config";
+import { StatVarSpec } from "../shared/types";
+import { StatVarSpecMap } from "./topic_config";
 
-// Provider for stat var metadata in a category.
+// Provider for stat var spec in a category.
 // TODO: move data fetching from individual tiles here.
 
 export class StatVarProvider {
-  _statVarMetadataMap: StatVarMetadataMap;
+  _statVarSpecMap: StatVarSpecMap;
 
-  constructor(svmMap: StatVarMetadataMap) {
-    this._statVarMetadataMap = svmMap;
+  constructor(svmMap: StatVarSpecMap) {
+    this._statVarSpecMap = svmMap;
   }
 
-  getMetadata(key: string): StatVarMetadata {
-    return this._statVarMetadataMap[key] || null;
+  getSpec(key: string): StatVarSpec {
+    return this._statVarSpecMap[key] || null;
   }
 
-  getMetadataList(keys: string[]): StatVarMetadata[] {
-    return keys.map((k) => this._statVarMetadataMap[k]);
+  getSpecList(keys: string[]): StatVarSpec[] {
+    return keys.map((k) => this._statVarSpecMap[k]);
   }
 }

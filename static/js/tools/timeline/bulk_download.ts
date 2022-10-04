@@ -15,6 +15,7 @@
  */
 import axios from "axios";
 
+import { PointApiResponse } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { getTokensFromUrl } from "./util";
 
@@ -49,13 +50,13 @@ function downloadBulkData(
       const placeDcids = Object.keys(resp.data);
       const placeNames = resp.data;
       axios
-        .post("/api/stats/set", {
-          places: placeDcids,
-          stat_vars: statVars,
+        .post<PointApiResponse>("/api/observations/point", {
+          entities: placeDcids,
+          variables: statVars,
         })
         .then((resp) => {
-          if (resp.data && resp.data["data"]) {
-            saveToCsv(placeDcids, placeNames, statVars, resp.data["data"]);
+          if (resp.data && resp.data.data) {
+            saveToCsv(placeDcids, placeNames, statVars, resp.data.data);
           } else {
             alert("There was an error loading the data");
           }

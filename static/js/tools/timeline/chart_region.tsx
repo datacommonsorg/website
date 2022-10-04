@@ -21,6 +21,7 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
+import { getPlaceNames } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { getTimelineSqlQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
@@ -60,17 +61,24 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   allStatData: { [key: string]: StatData };
   // map of stat var dcid to map of metahash to source metadata
   metadataMap: Record<string, Record<string, StatMetadata>>;
+  placeNames: Record<string, string>;
 
   constructor(props: ChartRegionPropsType) {
     super(props);
     this.allStatData = {};
     this.metadataMap = {};
+    this.placeNames = {};
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
     if (this.downloadLink) {
       this.downloadLink.onclick = () => {
-        saveToFile("export.csv", this.createDataCsv());
+        getPlaceNames(Object.values(this.allStatData)[0].places).then(
+          (placeNames) => {
+            this.placeNames = placeNames;
+            saveToFile("export.csv", this.createDataCsv());
+          }
+        );
       };
     }
     this.bulkDownloadLink = document.getElementById(
@@ -240,12 +248,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
         }
       }
     }
-    // Get the place name
-    const placeName: { [key: string]: string } = {};
-    const sample = Object.values(this.allStatData)[0];
-    for (const place of sample.places) {
-      placeName[place] = sample.data[place].name;
-    }
 
     // Iterate each year, group, place, stats var to populate data
     const rows: string[][] = [];
@@ -253,23 +255,28 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       const row: string[] = [date];
       for (const mprop in this.allStatData) {
         const statData = this.allStatData[mprop];
-        for (const place of statData.places) {
-          for (const sv of statData.statVars) {
-            const tmp = statData.data[place].data[sv];
-            if (tmp && tmp.val && tmp.val[date]) {
-              row.push(String(tmp.val[date]));
-            } else {
-              row.push("");
+        for (const sv of statData.statVars) {
+          for (const place of statData.places) {
+            const tmp = statData.data[sv][place];
+            let val = "";
+            if (tmp && tmp.series) {
+              for (const item of tmp.series) {
+                if (item.date == date) {
+                  val = item.value.toString();
+                  break;
+                }
+              }
             }
+            row.push(val);
           }
         }
       }
       rows.push(row);
     }
     let headerRow = header.join(",") + "\n";
-    for (const dcid in placeName) {
+    for (const dcid in this.placeNames) {
       const re = new RegExp(dcid, "g");
-      headerRow = headerRow.replace(re, placeName[dcid]);
+      headerRow = headerRow.replace(re, this.placeNames[dcid]);
     }
     let result = headerRow;
     for (const row of rows) {

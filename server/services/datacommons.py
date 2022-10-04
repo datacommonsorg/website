@@ -21,6 +21,7 @@ import urllib.parse
 import zlib
 from cache import cache
 from flask import current_app
+from typing import List
 
 import lib.config as libconfig
 import requests
@@ -37,16 +38,8 @@ API_ENDPOINTS = {
     'translate': '/translate',
     'search': '/search',
     'get_property_labels': '/node/property-labels',
-    'get_property_values': '/node/property-values',
     'get_places_in': '/node/places-in',
     'get_place_ranking': '/node/ranking-locations',
-    'get_stat_set_series': '/v1/stat/set/series',
-    'get_stats_all': '/stat/all',
-    'get_stats_value': '/stat/value',
-    'get_stat_set_within_place': '/stat/set/within-place',
-    'get_stat_set_within_place_all': '/stat/set/within-place/all',
-    'get_stat_set_series_within_place': '/stat/set/series/within-place',
-    'get_stat_set': '/stat/set',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
     'get_statvar_group': '/stat-var/group',
@@ -110,7 +103,27 @@ def post_wrapper(path, req_str):
     return response.json()
 
 
-def points_within(parent_place, child_type, stat_vars, date, all):
+def point(entities, variables, date='', all=False):
+    """Gets the observation point for the given entities of the given
+    variable.
+
+    Args:
+        entities: A list of entities DCIDs.
+        variables: A list of statistical variables.
+        date (optional): The date of the observation. If not set, the latest
+            observation is returned.
+        all (optional): Whether or not to get data for all facets.
+    """
+    return post(
+        '/v1/bulk/observations/point', {
+            'entities': sorted(entities),
+            'variables': sorted(variables),
+            'date': date,
+            'all_facets': all,
+        })
+
+
+def point_within(parent_place, child_type, stat_vars, date='', all=False):
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -132,7 +145,7 @@ def points_within(parent_place, child_type, stat_vars, date, all):
     return post(
         '/v1/bulk/observations/point/linked', {
             'linked_entity': parent_place,
-            'linked_property': "containedInPlace",
+            'linked_property': 'containedInPlace',
             'entity_type': child_type,
             'variables': sorted(stat_vars),
             'date': date,
@@ -140,22 +153,39 @@ def points_within(parent_place, child_type, stat_vars, date, all):
         })
 
 
-def series_within(parent_place, child_type, stat_vars, all):
+def series(entities, variables, all=False):
+    """Gets the observation time series for the given entities of the given
+    variable.
+
+    Args:
+        entities: A list of entities DCIDs.
+        variables: A list of statistical variables.
+        all (optional): Whether or not to get data for all facets.
+    """
+    return post(
+        '/v1/bulk/observations/series', {
+            'entities': sorted(entities),
+            'variables': sorted(variables),
+            'all_facets': all,
+        })
+
+
+def series_within(parent_entity, child_type, variables, all=False):
     """Gets the statistical variable series for child places of a certain place
     type contained in a parent place.
 
     Args:
-        parent_place: Parent place DCID as a string.
+        parent_entity: Parent entity DCID as a string.
         child_type: Type of child places as a string.
         stat_vars: List of statistical variable DCIDs each as a string.
         all (optional): Whether or not to get data for all facets
     """
     return post(
         '/v1/bulk/observations/series/linked', {
-            'linked_entity': parent_place,
+            'linked_entity': parent_entity,
             'linked_property': "containedInPlace",
             'entity_type': child_type,
-            'variables': sorted(stat_vars),
+            'variables': sorted(variables),
             'all_facets': all,
         })
 
@@ -169,13 +199,14 @@ def triples(node, direction):
     return get(f'/v1/triples/{direction}/{node}')
 
 
-def property_values(nodes, prop, direction):
+def property_values(nodes: List[str], prop, out=True):
     """Retrieves the property values for a list of nodes.
     Args:
         nodes: A list of node DCIDs.
         prop: The property label toquery for.
-        direction: Direction of the property, either be 'in' or 'out'.
+        out: Whether the property direction is 'out'.
     """
+    direction = 'out' if out else 'in'
     resp = post(f'/v1/bulk/property/values/{direction}', {
         'nodes': sorted(nodes),
         'property': prop,
@@ -231,116 +262,6 @@ def version():
     return send_request(url, req_json={}, post=False, has_payload=False)
 
 
-def get_stat_set_series(places, stat_vars):
-    url = API_ROOT + API_ENDPOINTS['get_stat_set_series']
-    req_json = {
-        'places': places,
-        'stat_vars': stat_vars,
-    }
-    return send_request(url, req_json=req_json, has_payload=False)
-
-
-def get_stats_all(place_dcids, stat_vars):
-    url = API_ROOT + API_ENDPOINTS['get_stats_all']
-    req_json = {
-        'places': place_dcids,
-        'stat_vars': stat_vars,
-    }
-    return send_request(url, req_json=req_json, has_payload=False)
-
-
-def get_stats_value(place, stat_var, date, measurement_method,
-                    observation_period, unit, scaling_factor):
-    """See https://docs.datacommons.org/api/rest/stat_value.html."""
-    url = API_ROOT + API_ENDPOINTS['get_stats_value']
-    req_json = {
-        'place': place,
-        'stat_var': stat_var,
-        'date': date,
-        'measurement_method': measurement_method,
-        'observation_period': observation_period,
-        'unit': unit,
-        'scaling_factor': scaling_factor
-    }
-    return send_request(url, req_json=req_json, post=False, has_payload=False)
-
-
-def get_stat_set_within_place(parent_place, child_type, stat_vars, date):
-    """Gets the statistical variable values for child places of a certain place
-    type contained in a parent place at a given date.
-
-    Args:
-        parent_place: Parent place DCID as a string.
-        child_type: Type of child places as a string.
-        stat_vars: List of statistical variable DCIDs each as a string.
-        date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
-
-    Returns:
-        Dict with a single key "data". The value is a dict keyed by statvar DCIDs,
-        with dicts as values. See `SourceSeries` in
-        https://github.com/datacommonsorg/mixer/blob/master/proto/mixer.proto
-        for the definition of the inner dicts. In particular, the values for "val"
-        are dicts keyed by child place DCIDs with the statvar values as values.
-    """
-    url = API_ROOT + API_ENDPOINTS['get_stat_set_within_place']
-    req_json = {
-        'parent_place': parent_place,
-        'child_type': child_type,
-        'date': date,
-        'stat_vars': stat_vars
-    }
-    return send_request(url, req_json=req_json, has_payload=False)
-
-
-def get_stat_set_within_place_all(parent_place, child_type, stat_vars, date):
-    """Gets the statistical variable values for child places of a certain place
-    type contained in a parent place at a given date. This returns the stat for
-    all the sources.
-
-    Args:
-        parent_place: Parent place DCID as a string.
-        child_type: Type of child places as a string.
-        stat_vars: List of statistical variable DCIDs each as a string.
-        date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
-    """
-    url = API_ROOT + API_ENDPOINTS['get_stat_set_within_place_all']
-    req_json = {
-        'parent_place': parent_place,
-        'child_type': child_type,
-        'date': date,
-        'stat_vars': stat_vars
-    }
-    return send_request(url, req_json=req_json, has_payload=False)
-
-
-def get_stat_set_series_within_place(parent_place, child_type, stat_vars):
-    """Gets the statistical variable series for child places of a certain place
-    type contained in a parent place.
-
-    Args:
-        parent_place: Parent place DCID as a string.
-        child_type: Type of child places as a string.
-        stat_vars: List of statistical variable DCIDs each as a string.
-    """
-    url = API_ROOT + API_ENDPOINTS['get_stat_set_series_within_place']
-    req_json = {
-        'parent_place': parent_place,
-        'child_type': child_type,
-        'stat_vars': stat_vars
-    }
-    return send_request(url, req_json=req_json, has_payload=False, post=False)
-
-
-def get_stat_set(places, stat_vars, date=None):
-    url = API_ROOT + API_ENDPOINTS['get_stat_set']
-    req_json = {
-        'places': places,
-        'stat_vars': stat_vars,
-        'date': date,
-    }
-    return send_request(url, req_json=req_json, post=True, has_payload=False)
-
-
 def get_place_ranking(stat_vars,
                       place_type,
                       within_place=None,
@@ -364,42 +285,6 @@ def get_property_labels(dcids):
     results = {}
     for dcid in dcids:
         results[dcid] = payload[dcid]
-    return results
-
-
-def get_property_values(dcids,
-                        prop,
-                        out=True,
-                        value_type=None,
-                        limit=_MAX_LIMIT):
-    # Convert the dcids field and format the request to GetPropertyValue
-    req_json = {'dcids': dcids, 'property': prop, 'limit': limit}
-    if value_type:
-        req_json['value_type'] = value_type
-
-    # Send the request
-    url = API_ROOT + API_ENDPOINTS['get_property_values']
-    payload = send_request(url, req_json=req_json)
-
-    # Create the result format for when dcids is provided as a list.
-    unique_results = collections.defaultdict(set)
-    for dcid in dcids:
-        # Get the list of nodes based on the direction given.
-        nodes = []
-        if dcid in payload and out:
-            nodes = payload[dcid].get('out', [])
-        elif dcid in payload and not out:
-            nodes = payload[dcid].get('in', [])
-
-        # Add nodes to unique_results if it is not empty
-        for node in nodes:
-            if 'dcid' in node:
-                unique_results[dcid].add(node['dcid'])
-            elif 'value' in node:
-                unique_results[dcid].add(node['value'])
-
-    # Make sure each dcid is in the results dict, and convert sets to lists.
-    results = {dcid: sorted(list(unique_results[dcid])) for dcid in dcids}
     return results
 
 

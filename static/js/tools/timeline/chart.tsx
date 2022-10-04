@@ -88,7 +88,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.loadRawData = this.loadRawData.bind(this);
     this.processData = this.processData.bind(this);
-    this.drawChart = this.drawChart.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
@@ -328,13 +327,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     }
     // Get from all stat vars. In most cases there should be only one
     // unit.
-    const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
-    if (placeData) {
-      for (const series of Object.values(placeData.data)) {
-        if (series && series["metadata"] && series["metadata"].unit) {
-          units.add(series["metadata"].unit);
+    for (const statVar in statData.data) {
+      for (const place in statData.data[statVar]) {
+        const series = statData.data[statVar][place];
+        if (series && series.facet && statData.facets[series.facet].unit) {
+          units.add(statData.facets[series.facet].unit);
         }
       }
       this.units = Array.from(units).sort();

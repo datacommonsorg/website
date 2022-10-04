@@ -140,7 +140,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
@@ -148,14 +148,14 @@ categories {
       name: "Poverty rate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_count"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
       name: "people in poverty"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "monthly_wages"
     value {
       stat_var: "Mean_WagesMonthly_Worker"
@@ -163,7 +163,7 @@ categories {
       unit: "₹"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate_urban"
     value {
       stat_var: "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
@@ -173,7 +173,7 @@ categories {
       name: "Share of poor in urban areas"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate_rural"
     value {
       stat_var: "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
@@ -183,7 +183,7 @@ categories {
       name: "Share of poor in rural areas"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "illiteracy_rate"
     value {
       stat_var: "Count_Person_Illiterate"
@@ -192,7 +192,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "max_temp_diff"
     value {
       stat_var: "DifferenceRelativeToBaseDate2015_Max_Temperature_SSP585"
@@ -274,7 +274,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "school_pc"
     value {
       stat_var: "Count_School"
@@ -282,7 +282,7 @@ categories {
       name: "Schools per capita"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
@@ -290,7 +290,7 @@ categories {
       name: "Poverty rate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "school_computer"
     value {
       stat_var: "Count_School_HasComputer"
@@ -299,7 +299,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "school_toilet"
     value {
       stat_var: "Count_School_HasFunctionalToilet"
@@ -308,7 +308,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "dropout_primary"
     value {
       stat_var: "DropoutRate_Student_PrimarySchool"
@@ -316,7 +316,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "dropout_middle"
     value {
       stat_var: "DropoutRate_Student_MiddleSchool"
@@ -324,7 +324,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "dropout_secondary"
     value {
       stat_var: "DropoutRate_Student_SecondarySchool"
@@ -352,7 +352,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "covid_tests_pc"
     value {
       stat_var: "CumulativeCount_MedicalTest_ConditionCOVID_19_Positive"
@@ -362,7 +362,7 @@ categories {
       name: "Cumulative COVID-19 cases per capita"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
@@ -370,7 +370,7 @@ categories {
       name: "Poverty rate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "covid_deaths_pc"
     value {
       stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
@@ -484,7 +484,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_rate"
     value {
       stat_var: "Count_Person_Houseless"
@@ -494,7 +494,7 @@ categories {
       scaling: 100
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
@@ -502,14 +502,14 @@ categories {
       name: "Poverty rate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_count"
     value {
       stat_var: "Count_Person_Houseless"
       name: "Houseless"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_rate_male"
     value {
       stat_var: "Count_Person_Houseless_Male"
@@ -519,7 +519,7 @@ categories {
       name: "Male"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_rate_female"
     value {
       stat_var: "Count_Person_Houseless_Female"
@@ -529,7 +529,7 @@ categories {
       name: "Female"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_literacy_rate"
     value {
       stat_var: "Count_Person_Houseless_Literate"
@@ -539,7 +539,7 @@ categories {
       name: "Literate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_illiteracy_rate"
     value {
       stat_var: "Count_Person_Houseless_Illiterate"
@@ -549,7 +549,7 @@ categories {
       name: "Illiterate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_illiteracy_rate_male"
     value {
       stat_var: "Count_Person_Houseless_Illiterate_Male"
@@ -559,7 +559,7 @@ categories {
       name: "Male, Illiterate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "houseless_illiteracy_rate_female"
     value {
       stat_var: "Count_Person_Houseless_Illiterate_Female"

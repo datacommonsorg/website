@@ -203,7 +203,7 @@ export function axios_mock(): void {
 
   // get facets within place for Count_Person
   when(axios.post)
-    .calledWith("/api/stats/facets/within-place", {
+    .calledWith("/api/facets/within", {
       childType: "County",
       maxDate: "latest",
       minDate: "latest",
@@ -219,7 +219,7 @@ export function axios_mock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/stats/facets/within-place", {
+    .calledWith("/api/facets/within", {
       childType: "County",
       maxDate: "",
       minDate: "2020",
@@ -236,7 +236,7 @@ export function axios_mock(): void {
 
   // get facets within place for Count_Person and Median_Age_Person
   when(axios.post)
-    .calledWith("/api/stats/facets/within-place", {
+    .calledWith("/api/facets/within", {
       childType: "County",
       maxDate: "",
       minDate: "2020",
@@ -275,7 +275,7 @@ export function axios_mock(): void {
 
   // get csv
   when(axios.post)
-    .calledWith("/api/stats/csv/within-place", {
+    .calledWith("/api/csv/within", {
       childType: "County",
       facetMap: { Count_Person: "" },
       maxDate: "latest",
@@ -289,7 +289,7 @@ export function axios_mock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/stats/csv/within-place", {
+    .calledWith("/api/csv/within", {
       childType: "County",
       facetMap: { Count_Person: "" },
       maxDate: "latest",
@@ -302,7 +302,7 @@ export function axios_mock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/stats/csv/within-place", {
+    .calledWith("/api/csv/within", {
       childType: "County",
       facetMap: { Count_Person: "" },
       maxDate: "",
@@ -316,7 +316,7 @@ export function axios_mock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/stats/csv/within-place", {
+    .calledWith("/api/csv/within", {
       childType: "County",
       facetMap: { Count_Person: "" },
       maxDate: "",

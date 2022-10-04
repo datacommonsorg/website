@@ -23,6 +23,8 @@ import _ from "lodash";
 export function formatDate(strDate: string): string {
   if (strDate.length == 7) {
     const dt = new Date(strDate);
+    // Javascript Date() has month index from 0 to 11
+    dt.setMonth(dt.getMonth() + 1);
     return (
       new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
       "-" +

@@ -22,10 +22,13 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
-import { SourceSeries } from "../shared/stat_types";
-import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
+import {
+  Series,
+  SeriesAllApiResponse,
+  StatMetadata,
+} from "../shared/stat_types";
+import { getUnit, loadSpinner, randDomId, removeSpinner } from "../shared/util";
 import { ObservationChart } from "./observation_chart";
-import { getUnit } from "./util";
 
 const IGNORED_SOURCE_SERIES_MMETHODS = new Set([
   "GoogleKGHumanCurated",
@@ -40,7 +43,8 @@ interface ObservationChartSectionPropType {
 }
 
 interface ObservationChartSectionStateType {
-  data: Array<SourceSeries>;
+  series: Record<string, Series>;
+  facets: Record<string, StatMetadata>;
   infoMessage: string;
   errorMessage: string;
   obsDcidMapping: {
@@ -56,7 +60,8 @@ export class ObservationChartSection extends React.Component<
   constructor(props: ObservationChartSectionPropType) {
     super(props);
     this.state = {
-      data: [],
+      series: {},
+      facets: {},
       errorMessage: "",
       infoMessage: "",
       obsDcidMapping: {},
@@ -80,34 +85,34 @@ export class ObservationChartSection extends React.Component<
         {!_.isEmpty(this.state.infoMessage) && (
           <div id={"info-message"}>{this.state.infoMessage}</div>
         )}
-        {this.state.data.map((sourceSeries, index) => {
-          const unit = getUnit(sourceSeries);
+        {Object.keys(this.state.series).map((facetId, index) => {
+          const metadata = this.state.facets[facetId];
+          const unit = getUnit(metadata);
           return (
             <div className="card" key={this.props.statVarId + index}>
               <div className="chart-title">
-                {sourceSeries.measurementMethod && (
+                {metadata.measurementMethod && (
                   <p className="metadata">
-                    measurementMethod: {sourceSeries.measurementMethod}
+                    measurementMethod: {metadata.measurementMethod}
                   </p>
                 )}
-                {sourceSeries.observationPeriod && (
+                {metadata.observationPeriod && (
                   <p className="metadata">
-                    observationPeriod: {sourceSeries.observationPeriod}
+                    observationPeriod: {metadata.observationPeriod}
                   </p>
                 )}
                 {unit && <p className="metadata">unit: {unit}</p>}
               </div>
               <ObservationChart
-                sourceSeries={sourceSeries}
+                series={this.state.series[facetId]}
+                metadata={metadata}
                 idx={index}
                 statVarId={this.props.statVarId}
                 placeDcid={this.props.placeDcid}
                 canClickObs={true}
                 statVarName={this.props.statVarName}
               />
-              <p className="metadata">
-                provenance: {sourceSeries.provenanceDomain}
-              </p>
+              <p className="metadata">provenance: {metadata.provenanceUrl}</p>
             </div>
           );
         })}
@@ -121,23 +126,27 @@ export class ObservationChartSection extends React.Component<
   private fetchData(): void {
     loadSpinner(this.containerId);
     axios
-      .get(
-        `/api/stats/all?places=${this.props.placeDcid}&statVars=${this.props.statVarId}`
-      )
+      .post<SeriesAllApiResponse>("/api/observations/series/all", {
+        entities: [this.props.placeDcid],
+        variables: [this.props.statVarId],
+      })
       .then((resp) => {
         removeSpinner(this.containerId);
-        const sourceSeries =
-          resp.data.placeData[this.props.placeDcid].statVarData[
-            this.props.statVarId
-          ].sourceSeries;
-        const filteredSourceSeries = sourceSeries.filter(
-          (series) =>
-            !series.measurementMethod ||
-            !IGNORED_SOURCE_SERIES_MMETHODS.has(series.measurementMethod)
-        );
+        const observationSeries: SeriesAllApiResponse = resp.data;
+        const facets = observationSeries.facets;
+        const series =
+          observationSeries.data[this.props.statVarId][this.props.placeDcid];
+        const filteredSeries: Record<string, Series> = {};
+        for (const facetId in series) {
+          const mm = facets[facetId].measurementMethod;
+          if (!(mm && IGNORED_SOURCE_SERIES_MMETHODS.has(mm))) {
+            filteredSeries[facetId] = series[facetId];
+          }
+        }
         this.setState({
-          data: filteredSourceSeries,
-          infoMessage: _.isEmpty(filteredSourceSeries)
+          series: filteredSeries,
+          facets: facets,
+          infoMessage: _.isEmpty(filteredSeries)
             ? `No charts for ${this.props.statVarId} in ${this.props.placeName}`
             : "",
         });

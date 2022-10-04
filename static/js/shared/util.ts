@@ -17,6 +17,7 @@
 import _ from "lodash";
 
 import { MAX_DATE, MAX_YEAR } from "./constants";
+import { StatMetadata } from "./stat_types";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -146,4 +147,19 @@ export function removeSpinner(containerId: string): void {
       browserScreens[0].classList.remove("d-block");
     }
   }
+}
+
+/**
+ * Returns the unit from StatMetadata if there is a unit.
+ * @param m
+ */
+export function getUnit(m: StatMetadata): string {
+  let unit = "";
+  if (m.unit) {
+    unit = m.unit;
+  }
+  if (m.scalingFactor && m.scalingFactor === "100") {
+    unit = "%";
+  }
+  return unit;
 }

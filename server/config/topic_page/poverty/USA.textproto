@@ -119,7 +119,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
@@ -129,14 +129,14 @@ categories {
       name: "Poverty rate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_count'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
       name: "people in poverty"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate_female'
     value {
       stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
@@ -146,7 +146,7 @@ categories {
       name: "females"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate_male'
     value {
       stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -156,7 +156,7 @@ categories {
       name: "males"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'povery_rate_american_indian'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
@@ -165,7 +165,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate_asian'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
@@ -174,7 +174,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate_african_american'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
@@ -183,7 +183,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate_hispanic'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
@@ -192,7 +192,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate_native_hawaiian'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
@@ -201,7 +201,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate_white'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
@@ -344,7 +344,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate'
     value {
       stat_var: "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -353,7 +353,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'worker_poverty_rate'
     value {
       stat_var: "Count_Household_FullTimeYearRoundWorker_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -363,7 +363,7 @@ categories {
       scaling: 100
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'married_worker_poverty_rate'
     value {
       stat_var: "Count_Household_FullTimeYearRoundWorker_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -373,7 +373,7 @@ categories {
       scaling: 100
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'single_mom_worker_poverty_rate'
     value {
       stat_var: "Count_Household_FullTimeYearRoundWorker_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -383,47 +383,47 @@ categories {
       scaling: 100
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'no_children_poverty_rate'
     value {
       stat_var: "Count_Household_Householder0OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
       name: "No children"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: '1_child_poverty_rate'
     value {
       stat_var: "Count_Household_Householder1To2OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
       name: "1-2 children"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: '3_children_poverty_rate'
     value {
       stat_var: "Count_Household_Householder3To4OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
       name: "3-4 children"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: '5_children_poverty_rate'
     value {
       stat_var: "Count_Household_Householder5OrMoreOwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
       name: "5+ children"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'food_stamps'
     value {
       stat_var: "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'no_food_stamps'
     value {
       stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'ssi_all'
     value {
       stat_var: "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -433,7 +433,7 @@ categories {
       name: "All family households"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'ssi_married'
     value {
       stat_var: "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -443,7 +443,7 @@ categories {
       name: "Married couple households"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'ssi_singlemother'
     value {
       stat_var: "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -453,7 +453,7 @@ categories {
       name: "Single mother households"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'assist_all'
     value {
       stat_var: "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -463,7 +463,7 @@ categories {
       name: "All family households"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'assist_married'
     value {
       stat_var: "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -473,7 +473,7 @@ categories {
       name: "Married couple households"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'assist_singlemother'
     value {
       stat_var: "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -483,28 +483,28 @@ categories {
       name: "Single mother households"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'bachelors'
     value {
       stat_var: "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_FamilyHousehold_BelowPovertyLevelInThePast12Months"
       name: "Bachelor's Degree or higher"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'highschool'
     value {
       stat_var: "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_FamilyHousehold_BelowPovertyLevelInThePast12Months"
       name: "High school graduate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'less_highschool'
     value {
       stat_var: "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_FamilyHousehold_BelowPovertyLevelInThePast12Months"
       name: "Less than high school"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'associates'
     value {
       stat_var: "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -557,7 +557,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: 'poverty_rate'
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
@@ -567,7 +567,7 @@ categories {
       name: "Poverty rate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'uninsurance_rate'
     value {
       stat_var: "Count_Person_NoHealthInsurance"
@@ -577,7 +577,7 @@ categories {
       name: "Uninsurance rate"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'gdp'
     value {
       stat_var: "InflationAdjustedGDP"
@@ -585,7 +585,7 @@ categories {
       name: "Inflation adjusted GDP"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'covid_deaths'
     value {
       stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
@@ -595,7 +595,7 @@ categories {
       name: "Cumulative death from Covid-19"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'deaths_circulatory'
     value {
       stat_var: "Count_Death_DiseasesOfTheCirculatorySystem"
@@ -605,7 +605,7 @@ categories {
       name: "Death from diseases of the circulatory system"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: 'deaths_digestive'
     value {
       stat_var: "Count_Death_DiseasesOfTheDigestiveSystem"

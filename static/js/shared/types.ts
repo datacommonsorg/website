@@ -179,3 +179,12 @@ declare global {
     ) => void;
   }
 }
+
+export interface StatVarSpec {
+  statVar: string;
+  denom: string;
+  unit: string;
+  scaling: number;
+  log: boolean;
+  name?: string;
+}
