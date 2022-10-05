@@ -759,7 +759,8 @@ function loadChartData(
     return;
   }
   const calculateRatio = statVar.perCapita && statVar.denom ? true : false;
-  // populate mapValues with data value for each geo that we have geoJson data for.
+  // populate mapValues with data value for each geo that we have geoJson data
+  // for.
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     let wantedFacetData = filterAllFacetData(
@@ -834,7 +835,7 @@ function loadChartData(
       });
     }
   }
-  const units = getUnit(
+  const unit = getUnit(
     Object.values(rawData.enclosedPlaceStat),
     rawData.metadataMap
   );
@@ -864,14 +865,14 @@ function loadChartData(
     mapValues,
     metadata,
     sources: sourceSet,
-    unit: units[0],
+    unit: unit,
     europeanCountries: rawData.europeanCountries,
     rankingLink: getRankingLink(
       statVar,
       placeInfo.selectedPlace.dcid,
       placeInfo.enclosedPlaceType,
       rawData.dataDate,
-      units[0]
+      unit
     ),
     sampleDates,
     metahash,
