@@ -47,3 +47,4 @@ build/helm/**/*.tgz
 # .tfstate files
 *.tfstate
 *.tfstate.*
+pylist.json

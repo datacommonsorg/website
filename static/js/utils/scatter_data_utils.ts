@@ -80,8 +80,7 @@ function getPlaceAxisChartData(
     const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
     if (popSeries && popSeries.series) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
-      const popValue = popObs.value;
-      if (!isBetween(popValue, popBounds[0], popBounds[1])) {
+      if (!popObs || !isBetween(popObs.value, popBounds[0], popBounds[1])) {
         return null;
       }
     } else {

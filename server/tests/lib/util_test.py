@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import datetime
 import unittest
 
 import lib.util as lib_util
@@ -21,9 +22,10 @@ class TestParseDate(unittest.TestCase):
 
     def test(self):
         data = {
-            "2022": 1641024000,
-            "2021-10": 1633071600,
-            "2021-01-02": 1609574400,
+            "2022": 1640995200,
+            "2021-10": 1633046400,
+            "2021-01-02": 1609545600,
         }
         for input in data:
-            assert lib_util.parse_date(input).timestamp() == data[input]
+            assert lib_util.parse_date(input).replace(
+                tzinfo=datetime.timezone.utc).timestamp() == data[input]

@@ -41,7 +41,7 @@ def compact_series(series_resp, all_facets):
                     data[var][entity] = []
                 else:
                     data[var][entity] = {
-                        series: [],
+                        'series': [],
                     }
     result['data'] = data
     return result
