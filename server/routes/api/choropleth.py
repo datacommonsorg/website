@@ -239,7 +239,7 @@ def get_denom_val(stat_date, denom_data):
 
     Args:
         stat_date: date as a string
-        denom_data: a list of observatioin points
+        denom_data: a list of observation points
 
     Returns:
         the value from denom_data that best matches the stat_date
@@ -248,11 +248,12 @@ def get_denom_val(stat_date, denom_data):
         return denom_data[0]['value']
     target_date = lib_util.parse_date(stat_date)
     best = 0
+    best_date = lib_util.parse_date(denom_data[0]['date'])
     for i in range(1, len(denom_data)):
         curr_date = lib_util.parse_date(denom_data[i]['date'])
-        best_date = lib_util.parse_date(denom_data[best]['date'])
         if abs(curr_date - target_date) < abs(best_date - target_date):
             best = i
+            best_date = curr_date
         else:
             return denom_data[best]['value']
     return denom_data[best]['value']
