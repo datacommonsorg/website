@@ -39,6 +39,15 @@ export enum ScatterChartType {
   MAP,
 }
 
+/**
+ * Returns a promise that will get all the data from preferred sources for
+ * a place type within a place for a list of stat vars.
+ *
+ * @param parentPlace the place to get data within
+ * @param childType the type of place to get data for
+ * @param statVars the stat vars to get data for
+ *
+ */
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
@@ -79,6 +88,15 @@ export async function getStatWithinPlace(
   });
 }
 
+/**
+ * Returns a promise that will get all the data from all available sources for
+ * a place type within a place for a list of stat vars.
+ *
+ * @param parentPlace the place to get data within
+ * @param childType the type of place to get data for
+ * @param statVars the stat vars to get data for
+ *
+ */
 export async function getStatAllWithinPlace(
   parentPlace: string,
   childType: string,

@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
-
-from flask import Blueprint, request, Response
+from flask import Blueprint, request
 import services.datacommons as dc
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
@@ -63,65 +61,66 @@ def point():
     """
     entities = request.json.get('entities', [])
     variables = request.json.get('variables', [])
+    if not entities:
+        return 'error: must provide a `entities` field', 400
+    if not variables:
+        return 'error: must provide a `variables` field', 400
     date = request.json.get('date', '')
     return point_core(entities, variables, date, False)
 
 
 @bp.route('/all', methods=['POST'])
 def point_all():
-    """Handler to get the observation point given multiple stat vars and places.
+    """Handler to get all the observation points given multiple stat vars and
+    entities.
     """
     entities = request.json.get('entities', [])
     variables = request.json.get('variables', [])
+    if not entities:
+        return 'error: must provide a `entities` field', 400
+    if not variables:
+        return 'error: must provide a `variables` field', 400
     date = request.json.get('date')
     return point_core(entities, variables, date, True)
 
 
 @bp.route('/within', methods=['POST'])
 def point_within():
-    """Gets the statistical variable values for child entities of a certain place
+    """Gets the observations for child entities of a certain place
     type contained in a parent entity at a given date. If no date given, will
     return values for most recent date.
+
+    This returns the observation for the preferred facet.
     """
     parent_entity = request.json.get('parent_entity')
     if not parent_entity:
-        return Response(json.dumps('error: must provide a parent_entity field'),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `parent_entity` field', 400
     child_type = request.json.get('child_type')
     if not child_type:
-        return Response(json.dumps('error: must provide a child_type field'),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `child_type` field', 400
     variables = request.json.get('variables')
     if not variables:
-        return Response(json.dumps('error: must provide a variables field'),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `variables` field', 400
     date = request.json.get('date')
     return point_within_core(parent_entity, child_type, variables, date, False)
 
 
 @bp.route('/within/all', methods=['POST'])
 def point_within_all():
-    """Gets the statistical variable values for child entities of a certain place
+    """Gets the observations for child entities of a certain place
     type contained in a parent entity at a given date. If no date given, will
     return values for most recent date.
+
+    This returns the observation for all facets.
     """
     parent_entity = request.json.get('parent_entity')
     if not parent_entity:
-        return Response(json.dumps('error: must provide a parent_entity field'),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `parent_entity` field', 400
     child_type = request.json.get('child_type')
     if not child_type:
-        return Response(json.dumps('error: must provide a child_type field'),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `child_type` field', 400
     variables = request.json.get('variables')
     if not variables:
-        return Response(json.dumps('error: must provide a variables field'),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `variables` field', 400
     date = request.json.get('date', '')
     return point_within_core(parent_entity, child_type, variables, date, True)

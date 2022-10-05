@@ -117,7 +117,7 @@ test("toTitleCase", () => {
   expect(toTitleCase("NoRTH AmeRIcA")).toEqual("North America");
 });
 
-test("compute per capita", () => {
+test("compute ratio", () => {
   const statSeries: Observation[] = [
     {
       date: "2001",
@@ -158,6 +158,60 @@ test("compute per capita", () => {
     {
       date: "2010",
       value: 10,
+    },
+  ];
+  expect(computeRatio(statSeries, popSeries)).toEqual(expected);
+});
+
+test("compute ratio not aligned", () => {
+  const statSeries: Observation[] = [
+    {
+      date: "2005",
+      value: 1000,
+    },
+    {
+      date: "2010",
+      value: 1100,
+    },
+    {
+      date: "2015",
+      value: 1200,
+    },
+  ];
+  const popSeries: Observation[] = [
+    {
+      date: "2005",
+      value: 100,
+    },
+    {
+      date: "2006",
+      value: 200,
+    },
+    {
+      date: "2007",
+      value: 300,
+    },
+    {
+      date: "2008",
+      value: 100,
+    },
+    {
+      date: "2009",
+      value: 200,
+    },
+  ];
+  const expected: Observation[] = [
+    {
+      date: "2005",
+      value: 10,
+    },
+    {
+      date: "2010",
+      value: 5.5,
+    },
+    {
+      date: "2015",
+      value: 6,
     },
   ];
   expect(computeRatio(statSeries, popSeries)).toEqual(expected);

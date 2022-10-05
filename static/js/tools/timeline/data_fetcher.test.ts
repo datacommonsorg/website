@@ -1277,7 +1277,7 @@ test("StatsData test", () => {
     },
     data: {
       Count_Person: {
-        "geoId/01": {},
+        "geoId/01": { series: [] },
         "geoId/02": {
           series: [
             {

@@ -73,9 +73,9 @@ class TestIsFloat(unittest.TestCase):
             assert result == test_case.get("expected")
 
 
-class TestIsValidGetCsvDate(unittest.TestCase):
+class TestIsValidDate(unittest.TestCase):
 
-    def test_is_valid_get_csv_date(self):
+    def test_is_valid_date(self):
         cases = [{
             'date': 'latest',
             'expected': True

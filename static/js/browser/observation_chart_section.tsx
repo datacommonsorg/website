@@ -27,7 +27,8 @@ import {
   SeriesAllApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
-import { getUnit, loadSpinner, randDomId, removeSpinner } from "../shared/util";
+import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
+import { getUnit } from "../utils/stat_metadata";
 import { ObservationChart } from "./observation_chart";
 
 const IGNORED_SOURCE_SERIES_MMETHODS = new Set([
@@ -137,10 +138,12 @@ export class ObservationChartSection extends React.Component<
         const seriesList =
           observationSeries.data[this.props.statVarId][this.props.placeDcid];
         const filteredSeries: Series[] = [];
-        for (const series of seriesList) {
-          const mm = facets[series.facet].measurementMethod;
-          if (!(mm && IGNORED_SOURCE_SERIES_MMETHODS.has(mm))) {
-            filteredSeries.push(series);
+        if (!_.isEmpty(seriesList)) {
+          for (const series of seriesList) {
+            const mm = facets[series.facet].measurementMethod;
+            if (!(mm && IGNORED_SOURCE_SERIES_MMETHODS.has(mm))) {
+              filteredSeries.push(series);
+            }
           }
         }
         this.setState({

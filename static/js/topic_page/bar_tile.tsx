@@ -147,11 +147,7 @@ function processData(
         const dataPoints: DataPoint[] = [];
         for (const spec of props.statVarSpec) {
           const statVar = spec.statVar;
-          if (
-            !raw.data[statVar] ||
-            !raw.data[statVar] ||
-            !raw.data[statVar][placeDcid]
-          ) {
+          if (!raw.data[statVar] || !raw.data[statVar][placeDcid]) {
             continue;
           }
           const stat = raw.data[statVar][placeDcid];

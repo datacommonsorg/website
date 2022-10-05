@@ -112,7 +112,7 @@ def point(entities, variables, date='', all_facets=False):
         variables: A list of statistical variables.
         date (optional): The date of the observation. If not set, the latest
             observation is returned.
-        all (optional): Whether or not to get data for all facets.
+        all_facets (optional): Whether or not to get data for all facets.
     """
     return post(
         '/v1/bulk/observations/point', {
@@ -123,20 +123,20 @@ def point(entities, variables, date='', all_facets=False):
         })
 
 
-def point_within(parent_place,
+def point_within(parent_entity,
                  child_type,
-                 stat_vars,
+                 variables,
                  date='',
                  all_facets=False):
     """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
     Args:
-        parent_place: Parent place DCID as a string.
+        parent_entity: Parent place DCID as a string.
         child_type: Type of child places as a string.
-        stat_vars: List of statistical variable DCIDs each as a string.
+        variables: List of statistical variable DCIDs each as a string.
         date (optional): Date as a string of the form YYYY-MM-DD where MM and DD are optional.
-        all (optional): Whether or not to get data for all facets
+        all_facets (optional): Whether or not to get data for all facets
 
     Returns:
         Dict with a key "facets" and a key "observationsByVariable".
@@ -148,10 +148,10 @@ def point_within(parent_place,
     """
     return post(
         '/v1/bulk/observations/point/linked', {
-            'linked_entity': parent_place,
+            'linked_entity': parent_entity,
             'linked_property': 'containedInPlace',
             'entity_type': child_type,
-            'variables': sorted(stat_vars),
+            'variables': sorted(variables),
             'date': date,
             'all_facets': all_facets,
         })
@@ -164,7 +164,7 @@ def series(entities, variables, all_facets=False):
     Args:
         entities: A list of entities DCIDs.
         variables: A list of statistical variables.
-        all (optional): Whether or not to get data for all facets.
+        all_facets (optional): Whether or not to get data for all facets.
     """
     return post(
         '/v1/bulk/observations/series', {
@@ -181,8 +181,8 @@ def series_within(parent_entity, child_type, variables, all_facets=False):
     Args:
         parent_entity: Parent entity DCID as a string.
         child_type: Type of child places as a string.
-        stat_vars: List of statistical variable DCIDs each as a string.
-        all (optional): Whether or not to get data for all facets
+        variables: List of statistical variable DCIDs each as a string.
+        all_facets (optional): Whether or not to get data for all facets
     """
     return post(
         '/v1/bulk/observations/series/linked', {
@@ -203,11 +203,11 @@ def triples(node, direction):
     return get(f'/v1/triples/{direction}/{node}')
 
 
-def property_values(nodes: List[str], prop, out=True):
+def property_values(nodes, prop, out=True):
     """Retrieves the property values for a list of nodes.
     Args:
         nodes: A list of node DCIDs.
-        prop: The property label toquery for.
+        prop: The property label to query for.
         out: Whether the property direction is 'out'.
     """
     direction = 'out' if out else 'in'

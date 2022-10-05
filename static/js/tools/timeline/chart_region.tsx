@@ -67,7 +67,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     super(props);
     this.allStatData = {};
     this.metadataMap = {};
-    this.placeNames = {};
     this.downloadLink = document.getElementById(
       "download-link"
     ) as HTMLAnchorElement;
@@ -75,8 +74,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       this.downloadLink.onclick = () => {
         getPlaceNames(Object.values(this.allStatData)[0].places).then(
           (placeNames) => {
-            this.placeNames = placeNames;
-            saveToFile("export.csv", this.createDataCsv());
+            saveToFile("export.csv", this.createDataCsv(placeNames));
           }
         );
       };
@@ -231,7 +229,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     };
   }
 
-  private createDataCsv() {
+  private createDataCsv(placeNames: Record<string, string>) {
     // Get all the dates
     let allDates = new Set<string>();
     for (const mprop in this.allStatData) {
@@ -274,9 +272,9 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       rows.push(row);
     }
     let headerRow = header.join(",") + "\n";
-    for (const dcid in this.placeNames) {
+    for (const dcid in placeNames) {
       const re = new RegExp(dcid, "g");
-      headerRow = headerRow.replace(re, this.placeNames[dcid]);
+      headerRow = headerRow.replace(re, placeNames[dcid]);
     }
     let result = headerRow;
     for (const row of rows) {

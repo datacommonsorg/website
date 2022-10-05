@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import _ from "lodash";
+
 import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
 import { Observation, StatMetadata } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
@@ -23,12 +26,15 @@ import { USA_PLACE_HIERARCHY } from "./map/util";
  */
 
 /**
- * Choose an Observatrion with date closest to the target date.
+ * Choose an Observation with date closest to the target date.
  */
 export function getMatchingObservation(
   series: Observation[],
   targetDate: string
 ): Observation {
+  if (_.isEmpty(series)) {
+    return null;
+  }
   for (let i = 0; i < series.length; i++) {
     const item = series[i];
     if (targetDate == item.date) {
@@ -189,12 +195,14 @@ export function computeRatio(
   for (let i = 0; i < num.length; i++) {
     const numDate = Date.parse(num[i].date);
     const denomDate = Date.parse(denom[j].date);
-    if (numDate > denomDate) {
+    while (j < denom.length - 1 && numDate > denomDate) {
       const denomDateNext = Date.parse(denom[j + 1].date);
       const nextBetter =
         Math.abs(denomDateNext - numDate) < Math.abs(denomDate - numDate);
       if (nextBetter) {
         j++;
+      } else {
+        break;
       }
     }
     let val: number;

@@ -117,7 +117,7 @@ def get_place_type(place_dcid):
     place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
     # We prefer to use specific type like "State", "County" over
     # "AdministrativeArea"
-    chosen_type = ""
+    chosen_type = ''
     for place_type in place_types:
         if not chosen_type or chosen_type.startswith('AdministrativeArea') \
                 or chosen_type == 'Place':

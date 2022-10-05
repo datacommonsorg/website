@@ -466,12 +466,11 @@ export function getPlaceChartData(
     if (!_.isEmpty(placePopData)) {
       const popFacetId = placePopData.facet;
       const popSeries = placePopData.series;
-      const obs = getMatchingObservation(popSeries, stat.date);
-      const popValue = obs.value;
       popSource = metadataMap[popFacetId].provenanceUrl;
-      if (popValue === 0) {
+      const popObs = getMatchingObservation(popSeries, stat.date);
+      if (!popObs || popObs.value === 0) {
         metadata = {
-          popDate: "",
+          popDate: popObs.date,
           popSource,
           placeStatDate,
           statVarSource,
@@ -479,7 +478,7 @@ export function getPlaceChartData(
         };
         return { metadata, sources, date: placeStatDate, value };
       }
-      value = value / popValue;
+      value = value / popObs.value;
       sources.push(popSource);
     } else {
       metadata = {

@@ -1,23 +1,6 @@
-/**
- * Copyright 2020 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import _ from "lodash";
 
 import { MAX_DATE, MAX_YEAR } from "./constants";
-import { StatMetadata } from "./stat_types";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -147,19 +130,4 @@ export function removeSpinner(containerId: string): void {
       browserScreens[0].classList.remove("d-block");
     }
   }
-}
-
-/**
- * Returns the unit from StatMetadata if there is a unit.
- * @param m
- */
-export function getUnit(m: StatMetadata): string {
-  let unit = "";
-  if (m.unit) {
-    unit = m.unit;
-  }
-  if (m.scalingFactor && m.scalingFactor === "100") {
-    unit = "%";
-  }
-  return unit;
 }

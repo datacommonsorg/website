@@ -34,7 +34,8 @@ export interface Observation {
 }
 
 export interface Series {
-  series?: Observation[];
+  // series field is guaranteed to set from Flask.
+  series: Observation[];
   facet?: string;
 }
 

@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
-
-from flask import Blueprint, request, Response
+from flask import Blueprint, request
 import services.datacommons as dc
 
 # Define blueprint
@@ -42,7 +40,9 @@ def compact_series(series_resp, all_facets):
                 if all_facets:
                     data[var][entity] = []
                 else:
-                    data[var][entity] = {}
+                    data[var][entity] = {
+                        series: [],
+                    }
     result['data'] = data
     return result
 
@@ -59,10 +59,14 @@ def series_within_core(parent_entity, child_type, variables, all_facets):
 
 @bp.route('', strict_slashes=False, methods=['POST'])
 def series():
-    """Handler to get preferred time series given multiple stat vars and places.
+    """Handler to get preferred time series given multiple stat vars and entities.
     """
     entities = request.json.get('entities', [])
     variables = request.json.get('variables', [])
+    if not entities:
+        return 'error: must provide a `entities` field', 400
+    if not variables:
+        return 'error: must provide a `variables` field', 400
     return series_core(entities, variables, False)
 
 
@@ -72,52 +76,46 @@ def series_all():
     """
     entities = request.json.get('entities', [])
     variables = request.json.get('variables', [])
+    if not entities:
+        return 'error: must provide a `entities` field', 400
+    if not variables:
+        return 'error: must provide a `variables` field', 400
     return series_core(entities, variables, True)
 
 
 @bp.route('/within', methods=['POST'])
 def series_within():
-    """Gets the statistical variable values for child entities of a certain place
-    type contained in a parent entity at a given date. If no date given, will
-    return values for most recent date.
+    """Gets the observation for child entities of a certain place
+    type contained in a parent entity at a given date.
+
+    Note: the perferred facet is returned.
     """
-    parent_entity = request.json.get("parent_entity")
+    parent_entity = request.json.get('parent_entity')
     if not parent_entity:
-        return Response(json.dumps("error: must provide a parent_entity field"),
-                        400,
-                        mimetype='application/json')
-    child_type = request.json.get("child_type")
+        return 'error: must provide a `parent_entity` field', 400
+    child_type = request.json.get('child_type')
     if not child_type:
-        return Response(json.dumps("error: must provide a child_type field"),
-                        400,
-                        mimetype='application/json')
-    variables = request.json.get("variables")
+        return 'error: must provide a `child_type` field', 400
+    variables = request.json.get('variables')
     if not variables:
-        return Response(json.dumps("error: must provide a variables field"),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `variables` field', 400
     return series_within_core(parent_entity, child_type, variables, False)
 
 
 @bp.route('/within/all', methods=['POST'])
 def series_within_all():
-    """Gets the statistical variable values for child entities of a certain place
-    type contained in a parent entity at a given date. If no date given, will
-    return values for most recent date.
+    """Gets the observation for child entities of a certain place
+    type contained in a parent entity at a given date.
+
+    Note: all the facets are returned.
     """
-    parent_entity = request.json.get("parent_entity")
+    parent_entity = request.json.get('parent_entity')
     if not parent_entity:
-        return Response(json.dumps("error: must provide a parent_entity field"),
-                        400,
-                        mimetype='application/json')
-    child_type = request.json.get("child_type")
+        return 'error: must provide a `parent_entity` field', 400
+    child_type = request.json.get('child_type')
     if not child_type:
-        return Response(json.dumps("error: must provide a child_type field"),
-                        400,
-                        mimetype='application/json')
-    variables = request.json.get("variables")
+        return 'error: must provide a `child_type` field', 400
+    variables = request.json.get('variables')
     if not variables:
-        return Response(json.dumps("error: must provide a variables field"),
-                        400,
-                        mimetype='application/json')
+        return 'error: must provide a `variables` field', 400
     return series_within_core(parent_entity, child_type, variables, True)

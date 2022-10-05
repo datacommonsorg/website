@@ -377,6 +377,9 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
               popSeries.series,
               placeStat.date
             );
+            if (!popObs) {
+              continue;
+            }
             const popValue = popObs.value;
             if (popValue < MIN_POPULATION) {
               continue;

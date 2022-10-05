@@ -15,7 +15,7 @@
  */
 
 import { MAX_DATE, MAX_YEAR } from "./constants";
-import { getCappedStatVarDate, getUnit, isDateTooFar } from "./util";
+import { getCappedStatVarDate, isDateTooFar } from "./util";
 
 test("isDateTooFar", () => {
   const data = {
@@ -46,35 +46,4 @@ test("getCappedStatVarDate", () => {
   for (const sv in data) {
     expect(getCappedStatVarDate(sv)).toEqual(data[sv]);
   }
-});
-
-test("getUnit", () => {
-  const testUnit = "Millimeter";
-  const baseSourceSeries = {
-    provenanceUrl: "testProv",
-    val: { "2012-11": 123.45 },
-  };
-  expect(getUnit(baseSourceSeries) === "");
-
-  const sourceSeriesWithUnit = { ...baseSourceSeries, unit: testUnit };
-  expect(getUnit(sourceSeriesWithUnit) === testUnit);
-
-  const sourceSeriesWithValidScalingFactor = {
-    ...baseSourceSeries,
-    scalingFactor: "100",
-  };
-  expect(getUnit(sourceSeriesWithValidScalingFactor) === "%");
-
-  const sourceSeriesWithInvalidScalingFactor = {
-    ...baseSourceSeries,
-    scalingFactor: "1000",
-  };
-  expect(getUnit(sourceSeriesWithInvalidScalingFactor) === "");
-
-  const sourceSeriesWithUnitAndScalingFactor = {
-    ...baseSourceSeries,
-    scalingFactor: "100",
-    unit: testUnit,
-  };
-  expect(getUnit(sourceSeriesWithUnitAndScalingFactor) === testUnit);
 });

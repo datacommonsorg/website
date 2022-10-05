@@ -906,7 +906,7 @@ export function setLegendBoundsPerCapita(
       continue;
     }
     const pop = getMatchingObservation(populationData[place].series, date);
-    if (pop.value === 0) {
+    if (!pop || pop.value === 0) {
       continue;
     }
     value /= pop.value;

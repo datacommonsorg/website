@@ -48,7 +48,6 @@ function getPlaceAxisChartData(
   scaling?: number
 ): PlaceAxisChartData {
   const obs = placePointStat[placeDcid];
-  const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
   const denomSeries =
     denom && populationData.data[denom] && populationData.data[denom][placeDcid]
       ? populationData.data[denom][placeDcid]
@@ -78,6 +77,7 @@ function getPlaceAxisChartData(
     value *= scaling;
   }
   if (popBounds) {
+    const popSeries = populationData.data[DEFAULT_POPULATION_DCID][placeDcid];
     if (popSeries && popSeries.series) {
       const popObs = getMatchingObservation(popSeries.series, obs.date);
       const popValue = popObs.value;

@@ -279,7 +279,7 @@ class TestChoroplethDataHelpers(unittest.TestCase):
         assert result_denom_date_less_specific == 2
         result_denom_date_less_specific_no_match = choropleth_api.get_denom_val(
             "2019-07-01", test_denom_data)
-        assert result_denom_date_less_specific_no_match == 2
+        assert result_denom_date_less_specific_no_match == 3
         result_denom_date_more_specific = choropleth_api.get_denom_val(
             "2018", test_denom_data)
         assert result_denom_date_more_specific == 2

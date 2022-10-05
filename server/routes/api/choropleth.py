@@ -15,8 +15,10 @@
 """
 import json
 import urllib.parse
+
 import routes.api.shared as shared_api
 import services.datacommons as dc
+import lib.util as lib_util
 import routes.api.place as place_api
 import routes.api.series as series_api
 import routes.api.point as point_api
@@ -237,19 +239,19 @@ def get_denom_val(stat_date, denom_data):
 
     Args:
         stat_date: date as a string
-        denom_data: a list of observatioin point
+        denom_data: a list of observatioin points
 
     Returns:
         the value from denom_data that best matches the stat_date
     """
     if len(denom_data) == 1:
         return denom_data[0]['value']
-    target_year = int(stat_date[0:4])
+    target_date = lib_util.parse_date(stat_date)
     best = 0
     for i in range(1, len(denom_data)):
-        curr_year = int(denom_data[i]['date'][0:4])
-        best_year = int(denom_data[best]['date'][0:4])
-        if abs(curr_year - target_year) < abs(best_year - target_year):
+        curr_date = lib_util.parse_date(denom_data[i]['date'])
+        best_date = lib_util.parse_date(denom_data[best]['date'])
+        if abs(curr_date - target_date) < abs(best_date - target_date):
             best = i
         else:
             return denom_data[best]['value']
@@ -327,7 +329,7 @@ def choropleth_data(dcid):
     # Get data for all the stat vars for every place we will need and process the data
     numerator_resp = point_api.point_within_core(display_dcid, display_level,
                                                  list(stat_vars), '', False)
-    denominaor_resp = series_api.series_core(list(geos), list(denoms), False)
+    denominator_resp = series_api.series_core(list(geos), list(denoms), False)
 
     result = {}
     # Process the data for each config
@@ -336,7 +338,7 @@ def choropleth_data(dcid):
         sv = cc['statsVars'][0]
         cc_sv_data_values = numerator_resp.get('data', {}).get(sv, {})
         denom = landing_page_api.get_denom(cc, True)
-        cc_denom_data = denominaor_resp.get('data', {}).get(denom, {})
+        cc_denom_data = denominator_resp.get('data', {}).get(denom, {})
         scaling = cc.get('scaling', 1)
         if 'relatedChart' in cc:
             scaling = cc['relatedChart'].get('scaling', scaling)
@@ -345,7 +347,7 @@ def choropleth_data(dcid):
         data_dict = dict()
         # Process the data for each place we have stat var data for
         for place_dcid in cc_sv_data_values:
-            dcid_sv_data = cc_sv_data_values.get(place_dcid)
+            dcid_sv_data = cc_sv_data_values.get(place_dcid, {})
             place_denom_data = cc_denom_data.get(place_dcid, {})
             # process and then update data_dict with the value for this
             # place_dcid
@@ -355,7 +357,7 @@ def choropleth_data(dcid):
             data_dict[place_dcid] = val
             # add the date of the stat var value for this place_dcid to the set
             # of dates
-            dates.add(dcid_sv_data.get("date", ''))
+            dates.add(dcid_sv_data.get('date', ''))
             # add stat var source and denom source (if there is a denom) to the
             # set of sources
             facetId = dcid_sv_data.get('facet', '')
@@ -364,7 +366,7 @@ def choropleth_data(dcid):
             sources.add(source)
             if denom:
                 facetId = place_denom_data['facet']
-                source = denominaor_resp['facets'].get(facetId, {}).get(
+                source = denominator_resp['facets'].get(facetId, {}).get(
                     'provenanceUrl', '')
                 sources.add(source)
         # build the exploreUrl

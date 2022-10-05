@@ -34,7 +34,9 @@ export interface StatData {
   dates: string[];
   sources: Set<string>;
   measurementMethods: Set<string>;
+  // Keyed by stat var dcid, then place dcid.
   data: Record<string, Record<string, Series>>;
+  // Keyed by facet id.
   facets: Record<string, StatMetadata>;
   displayNames?: DisplayNameApiResponse;
 }
@@ -245,6 +247,8 @@ export function getStatData(
     for (const place of places) {
       let selectedSeries: Series = null;
       const targetFacetId = metahashMap[sv];
+      // The series list of rawData.statAllData.data[sv][place] is ordered
+      // by the preference, where the best series is at the front.
       for (const rawSeries of rawData.statAllData.data[sv][place]) {
         const facetId = rawSeries.facet;
         const series = _.cloneDeep(rawSeries);
@@ -347,7 +351,6 @@ export function statDataFromModels(
         continue;
       }
       modelData.places.push(place);
-      modelData.statVars.push(sv);
       const mainObsPeriod =
         mainFacets[mainStatData.data[sv][place].facet].observationPeriod;
       const dateVals = {};
