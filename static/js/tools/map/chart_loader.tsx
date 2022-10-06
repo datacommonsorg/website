@@ -763,12 +763,15 @@ function loadChartData(
   // for.
   for (const geoFeature of rawData.geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
-    let wantedFacetData = filterAllFacetData(
-      rawData.allEnclosedPlaceStat,
-      statVar.metahash
-    );
-    if (_.isEmpty(wantedFacetData)) {
-      wantedFacetData = rawData.enclosedPlaceStat;
+    let wantedFacetData = rawData.enclosedPlaceStat;
+    if (statVar.metahash) {
+      wantedFacetData = filterAllFacetData(
+        rawData.allEnclosedPlaceStat,
+        statVar.metahash
+      );
+      if (_.isEmpty(wantedFacetData)) {
+        continue;
+      }
     }
     const placeChartData = getPlaceChartData(
       wantedFacetData,
