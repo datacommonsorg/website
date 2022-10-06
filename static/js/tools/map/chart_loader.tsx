@@ -23,11 +23,8 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
-import { GeoJsonData, GeoJsonFeature, MapPoint } from "../../chart/types";
-import {
-  EUROPE_NAMED_TYPED_PLACE,
-  IPCC_PLACE_50_TYPE_DCID,
-} from "../../shared/constants";
+import { GeoJsonData, MapPoint } from "../../chart/types";
+import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   EntityObservation,
@@ -59,6 +56,11 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
+import {
+  fetchGeoJson,
+  getGeoJsonDataFeatures,
+  MANUAL_GEOJSON_DISTANCES,
+} from "./geojson";
 import { PlaceDetails } from "./place_details";
 import {
   BEST_AVAILABLE_METAHASH,
@@ -67,10 +69,6 @@ import {
   getPlaceChartData,
   getTimeSliderDates,
 } from "./util";
-
-const MANUAL_GEOJSON_DISTANCES = {
-  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
-};
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
@@ -115,6 +113,7 @@ export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
+  const [geoJson, setGeoJson] = useState<GeoJsonData | undefined>(undefined);
 
   // Map of metahash -> date -> ChartRawData
   const [sampleDatesChartData, setSampleDatesChartData] = useState<
@@ -131,6 +130,12 @@ export function ChartLoader(): JSX.Element {
   //     bqLink.current.style.display = "none";
   //   };
   // }, []);
+
+  useEffect(() => {
+    if (!geoJson) {
+      fetchGeoJson(placeInfo.value, setGeoJson);
+    }
+  }, [placeInfo.value]);
 
   useEffect(() => {
     const placeSelected =
@@ -169,6 +174,7 @@ export function ChartLoader(): JSX.Element {
           : rawData;
       loadChartData(
         dateRawData,
+        geoJson,
         placeInfo.value,
         statVar.value,
         setChartData,
@@ -265,6 +271,7 @@ export function ChartLoader(): JSX.Element {
     ) {
       loadChartData(
         sampleDatesChartData[metaHash][date],
+        geoJson,
         placeInfo.value,
         statVar.value,
         setChartData,
@@ -303,7 +310,9 @@ export function ChartLoader(): JSX.Element {
         metadata={chartData.metadata}
         unit={chartData.unit}
         statVar={statVar.value}
-        geoJsonFeatures={chartData.geoJsonData.features}
+        geoJsonFeatures={
+          chartData.geoJsonData ? chartData.geoJsonData.features : []
+        }
         displayOptions={display.value}
         europeanCountries={chartData.europeanCountries}
       />
@@ -332,52 +341,6 @@ export function ChartLoader(): JSX.Element {
       return getNonPcQuery(statVar.value, placeInfo.value, date, metadata);
     }
   }
-}
-
-function getGeoJsonDataFeatures(
-  placeDcids: string[],
-  enclosedPlaceType: string
-): GeoJsonFeature[] {
-  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
-  if (!distance) {
-    return [];
-  }
-  const geoJsonFeatures = [];
-  for (const placeDcid of placeDcids) {
-    const dcidPrefixSuffix = placeDcid.split("/");
-    if (dcidPrefixSuffix.length < 2) {
-      continue;
-    }
-    const latlon = dcidPrefixSuffix[1].split("_");
-    if (latlon.length < 2) {
-      continue;
-    }
-    const neLat = Number(latlon[0]) + distance / 2;
-    const neLon = Number(latlon[1]) + distance / 2;
-    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} arc degree)`;
-    // TODO: handle cases of overflowing 180 near the international date line
-    // becasuse not sure if drawing libraries can handle this
-    geoJsonFeatures.push({
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
-          [
-            [
-              [neLon, neLat],
-              [neLon, neLat - distance],
-              [neLon - distance, neLat - distance],
-              [neLon - distance, neLat],
-              [neLon, neLat],
-            ],
-          ],
-        ],
-      },
-      id: placeDcid,
-      properties: { geoDcid: placeDcid, name: placeName },
-      type: "Feature",
-    });
-  }
-  return geoJsonFeatures;
 }
 
 function getFacetInfo(
@@ -448,12 +411,6 @@ function fetchData(
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
-  const geoJsonDataPromise = axios
-    .get(
-      `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
-    )
-    .then((resp) => resp.data);
-
   let dataDate = "";
   const cappedDate = getCappedStatVarDate(statVar.dcid);
   // If there is a specified date, get the data for that date. If no specified
@@ -603,7 +560,6 @@ function fetchData(
   ])
     .then(
       ([
-        geoJsonData,
         breadcrumbPlacePop,
         breadcrumbPlaceData,
         enclosedPlacesPop,
@@ -774,6 +730,7 @@ function getRankingLink(
 // rendering the chart component
 function loadChartData(
   rawData: ChartRawData,
+  geoJsonData: GeoJsonData,
   placeInfo: PlaceInfo,
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
@@ -891,7 +848,7 @@ function loadChartData(
   setChartData({
     breadcrumbValues,
     dates: statVarDates,
-    geoJsonData: rawData.geoJsonData,
+    geoJsonData: geoJsonData,
     mapPointsPromise: rawData.mapPointsPromise,
     mapPointValues,
     mapValues,
