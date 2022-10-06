@@ -21,7 +21,6 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
-import { getPlaceNames } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { getTimelineSqlQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
@@ -61,7 +60,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
   allStatData: { [key: string]: StatData };
   // map of stat var dcid to map of metahash to source metadata
   metadataMap: Record<string, Record<string, StatMetadata>>;
-  placeNames: Record<string, string>;
 
   constructor(props: ChartRegionPropsType) {
     super(props);
@@ -72,11 +70,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     ) as HTMLAnchorElement;
     if (this.downloadLink) {
       this.downloadLink.onclick = () => {
-        getPlaceNames(Object.values(this.allStatData)[0].places).then(
-          (placeNames) => {
-            saveToFile("export.csv", this.createDataCsv(placeNames));
-          }
-        );
+        saveToFile("export.csv", this.createDataCsv(this.props.placeName));
       };
     }
     this.bulkDownloadLink = document.getElementById(
@@ -120,7 +114,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
             <Chart
               key={mprop}
               mprop={mprop}
-              placeNames={this.props.placeName}
+              placeNameMap={this.props.placeName}
               statVarInfos={_.pick(
                 this.props.statVarInfo,
                 chartGroupInfo.chartIdToStatVars[mprop]

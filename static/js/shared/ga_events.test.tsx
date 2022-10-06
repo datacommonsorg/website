@@ -205,7 +205,7 @@ const TIMELINE_PROPS = {
   mprop: "",
   onDataUpdate: () => null,
   onMetadataMapUpdate: () => null,
-  placeNames: { [PLACE_DCID]: PLACE_NAME },
+  placeNameMap: { [PLACE_DCID]: PLACE_NAME },
   pc: false,
   removeStatVar: () => null,
   statVarInfos: { [STAT_VAR_1]: { title: "" } } as Record<string, StatVarInfo>,

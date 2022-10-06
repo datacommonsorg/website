@@ -450,7 +450,6 @@ export function getPlaceChartData(
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
   const stat = placeDcid in placeStatData ? placeStatData[placeDcid] : null;
-  let metadata = null;
   if (_.isEmpty(stat)) {
     return null;
   }
@@ -459,44 +458,32 @@ export function getPlaceChartData(
   const facetId = stat.facet;
   const statVarSource = metadataMap[facetId].provenanceUrl;
   let value = stat.value === undefined ? 0 : stat.value;
-  let popSource = "";
-  if (calculateRatio) {
-    const placePopData =
-      placeDcid in populationData ? populationData[placeDcid] : null;
-    if (!_.isEmpty(placePopData)) {
-      const popFacetId = placePopData.facet;
-      const popSeries = placePopData.series;
-      popSource = metadataMap[popFacetId].provenanceUrl;
-      const popObs = getMatchingObservation(popSeries, stat.date);
-      if (!popObs || popObs.value === 0) {
-        metadata = {
-          popDate: popObs.date,
-          popSource,
-          placeStatDate,
-          statVarSource,
-          errorMessage: "Invalid Data",
-        };
-        return { metadata, sources, date: placeStatDate, value };
-      }
-      value = value / popObs.value;
-      sources.push(popSource);
-    } else {
-      metadata = {
-        popDate: "",
-        popSource,
-        placeStatDate,
-        statVarSource,
-        errorMessage: "Population Data Missing",
-      };
-      return { metadata, sources, date: placeStatDate, value };
-    }
-  }
-  metadata = {
+  const metadata: DataPointMetadata = {
     popDate: "",
-    popSource,
+    popSource: "",
     placeStatDate,
     statVarSource,
   };
+  if (calculateRatio) {
+    const placePopData =
+      placeDcid in populationData ? populationData[placeDcid] : null;
+    if (_.isEmpty(placePopData)) {
+      metadata.errorMessage = "Population Data Missing";
+      return { metadata, sources, date: placeStatDate, value };
+    }
+    const popFacetId = placePopData.facet;
+    const popSeries = placePopData.series;
+    const popSource = metadataMap[popFacetId].provenanceUrl;
+    metadata.popSource = popSource;
+    const popObs = getMatchingObservation(popSeries, stat.date);
+    if (!popObs || popObs.value === 0) {
+      metadata.popDate = popObs.date;
+      metadata.errorMessage = "Invalid Data";
+      return { metadata, sources, date: placeStatDate, value };
+    }
+    value = value / popObs.value;
+    sources.push(popSource);
+  }
   sources.push(statVarSource);
   return { metadata, sources, date: placeStatDate, value };
 }
