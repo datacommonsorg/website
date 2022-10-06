@@ -476,9 +476,13 @@ export function getPlaceChartData(
     const popSource = metadataMap[popFacetId].provenanceUrl;
     metadata.popSource = popSource;
     const popObs = getMatchingObservation(popSeries, stat.date);
-    if (!popObs || popObs.value === 0) {
-      metadata.popDate = popObs.date;
-      metadata.errorMessage = "Invalid Data";
+    if (!popObs) {
+      metadata.errorMessage = "Population Data Missing";
+      return { metadata, sources, date: placeStatDate, value };
+    }
+    metadata.popDate = popObs.date;
+    if (popObs.value === 0) {
+      metadata.errorMessage = "Population data is 0";
       return { metadata, sources, date: placeStatDate, value };
     }
     value = value / popObs.value;
