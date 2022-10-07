@@ -95,7 +95,6 @@ interface ChartData {
   breadcrumbValues: { [dcid: string]: number };
   sources: Set<string>;
   dates: Set<string>;
-  geoJsonData: GeoJsonData;
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPointsPromise: Promise<Array<MapPoint>>;
@@ -190,7 +189,7 @@ export function ChartLoader(): JSX.Element {
         setLegendBoundsPerCapita(rawData, statVar, display);
       }
     }
-  }, [rawData, statVar.value.metahash, statVar.value.perCapita]);
+  }, [rawData, geoJson, statVar.value.metahash, statVar.value.perCapita]);
 
   useEffect(() => {
     if (onPlayCallback) {
@@ -200,7 +199,7 @@ export function ChartLoader(): JSX.Element {
 
   if (chartData === undefined) {
     return null;
-  } else if (_.isEmpty(chartData.geoJsonData)) {
+  } else if (_.isEmpty(geoJson)) {
     <div className="p-5">
       {`Sorry, maps are not available for ${placeInfo.value.enclosedPlaceType} in ${placeInfo.value.selectedPlace.name}. Try picking another place or type of place.`}
     </div>;
@@ -283,7 +282,7 @@ export function ChartLoader(): JSX.Element {
   return (
     <div className="chart-region">
       <Chart
-        geoJsonData={chartData.geoJsonData}
+        geoJsonData={geoJson}
         mapDataValues={chartData.mapValues}
         metadata={chartData.metadata}
         breadcrumbDataValues={chartData.breadcrumbValues}
@@ -310,9 +309,7 @@ export function ChartLoader(): JSX.Element {
         metadata={chartData.metadata}
         unit={chartData.unit}
         statVar={statVar.value}
-        geoJsonFeatures={
-          chartData.geoJsonData ? chartData.geoJsonData.features : []
-        }
+        geoJsonFeatures={geoJson ? geoJson.features : []}
         displayOptions={display.value}
         europeanCountries={chartData.europeanCountries}
       />
@@ -848,7 +845,6 @@ function loadChartData(
   setChartData({
     breadcrumbValues,
     dates: statVarDates,
-    geoJsonData: geoJsonData,
     mapPointsPromise: rawData.mapPointsPromise,
     mapPointValues,
     mapValues,
