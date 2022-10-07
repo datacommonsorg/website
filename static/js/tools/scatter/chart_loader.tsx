@@ -281,6 +281,8 @@ function useChartData(cache: Cache): ChartData {
 
 /**
  * Extract data for a given facet from all the facets data.
+ *
+ * TODO: this can be moved to a shared util module.
  */
 function extractFacetData(
   data: EntityObservationList,
