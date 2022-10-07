@@ -332,17 +332,21 @@ export function ChartLoader(): JSX.Element {
         onPlay={onPlay}
         updateDate={updateDate}
       />
-      <PlaceDetails
-        breadcrumbDataValues={chartData.breadcrumbValues}
-        mapDataValues={chartData.mapValues}
-        placeInfo={placeInfo.value}
-        metadata={chartData.metadata}
-        unit={chartData.unit}
-        statVar={statVar.value}
-        geoJsonFeatures={geoJson ? geoJson.features : []}
-        displayOptions={display.value}
-        europeanCountries={chartData.europeanCountries}
-      />
+      {placeInfo.value.parentPlaces && (
+        // Should separate out placeInfo into individual state.
+        // The parentPlaces is only used for breadcumb section.
+        <PlaceDetails
+          breadcrumbDataValues={chartData.breadcrumbValues}
+          mapDataValues={chartData.mapValues}
+          placeInfo={placeInfo.value}
+          metadata={chartData.metadata}
+          unit={chartData.unit}
+          statVar={statVar.value}
+          geoJsonFeatures={geoJson ? geoJson.features : []}
+          displayOptions={display.value}
+          europeanCountries={chartData.europeanCountries}
+        />
+      )}
       <BqModal getSqlQuery={getSqlQuery} showButton={true} />
     </div>
   );
