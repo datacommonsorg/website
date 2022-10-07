@@ -71,7 +71,6 @@ import {
 } from "./util";
 
 interface ChartRawData {
-  geoJsonData: GeoJsonData;
   enclosedPlaceStat: EntityObservation;
   allEnclosedPlaceStat: EntityObservationList;
   metadataMap: Record<string, StatMetadata>;
@@ -541,7 +540,6 @@ function fetchData(
       )
       .then((resp) => resp.data);
   Promise.all([
-    geoJsonDataPromise,
     breadcrumbPlacePopPromise,
     breadcrumbPlaceDataPromise,
     enclosedPlacePopPromise,
@@ -591,20 +589,6 @@ function fetchData(
         if (breadcrumbPlacePop && breadcrumbPlacePop.facets) {
           Object.assign(metadataMap, enclosedPlacesPop.facets);
         }
-        if (
-          _.isEmpty(geoJsonData.features) &&
-          placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
-        ) {
-          const geoJsonFeatures = getGeoJsonDataFeatures(
-            Object.keys(enclosedPlaceStat),
-            placeInfo.enclosedPlaceType
-          );
-          geoJsonData = {
-            type: "FeatureCollection",
-            properties: { current_geo: placeInfo.enclosingPlace.dcid },
-            features: geoJsonFeatures,
-          };
-        }
         const sampleDates =
           placeStatDateWithinPlace.data[statVar.dcid].statDate && showTimeSlider
             ? getTimeSliderDates(
@@ -636,7 +620,6 @@ function fetchData(
             const allEnclosedPlaceStatSample =
               allEnclosedPlaceDatesData[i].data[statVar.dcid];
             currentSampleDatesData[currentSampleDates[i]] = {
-              geoJsonData,
               enclosedPlaceStat: enclosedPlaceStatSample,
               allEnclosedPlaceStat: allEnclosedPlaceStatSample,
               breadcrumbPlaceStat: breadcrumbPlaceStatSample,
@@ -668,7 +651,6 @@ function fetchData(
           setSampleDatesChartData(newSampleDatesChartData);
         } else {
           setRawData({
-            geoJsonData,
             enclosedPlaceStat,
             allEnclosedPlaceStat,
             breadcrumbPlaceStat,
@@ -744,7 +726,24 @@ function loadChartData(
   const calculateRatio = statVar.perCapita && statVar.denom ? true : false;
   // populate mapValues with data value for each geo that we have geoJson data
   // for.
-  for (const geoFeature of rawData.geoJsonData.features) {
+  if (!geoJsonData) {
+    return;
+  }
+  if (
+    _.isEmpty(geoJsonData.features) &&
+    placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
+  ) {
+    const geoJsonFeatures = getGeoJsonDataFeatures(
+      Object.keys(rawData.enclosedPlaceStat.stat),
+      placeInfo.enclosedPlaceType
+    );
+    geoJsonData = {
+      type: "FeatureCollection",
+      properties: { current_geo: placeInfo.enclosingPlace.dcid },
+      features: geoJsonFeatures,
+    };
+  }
+  for (const geoFeature of geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     let wantedFacetData = rawData.enclosedPlaceStat;
     if (statVar.metahash) {
