@@ -111,7 +111,7 @@ export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
-  const [geoJson, setGeoJson] = useState<GeoJsonData | undefined>(undefined);
+  const [geoJson, setGeoJson] = useState<GeoJsonData>();
 
   // Map of metahash -> date -> ChartRawData
   const [sampleDatesChartData, setSampleDatesChartData] = useState<
@@ -734,7 +734,7 @@ function loadChartData(
     placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
   ) {
     const geoJsonFeatures = getGeoJsonDataFeatures(
-      Object.keys(rawData.enclosedPlaceStat.stat),
+      Object.keys(rawData.enclosedPlaceStat),
       placeInfo.enclosedPlaceType
     );
     geoJsonData = {
