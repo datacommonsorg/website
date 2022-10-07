@@ -129,14 +129,15 @@ export function ChartLoader(): JSX.Element {
   //   };
   // }, []);
 
-  // Fetch geojson data.
+  // Fetch geojson data when page option is updated.
   useEffect(() => {
-    if (!geoJson) {
+    if (_.isEmpty(geoJson)) {
       fetchGeoJson(placeInfo.value, setGeoJson);
     }
-  }, [geoJson, placeInfo.value]);
+  }, [placeInfo.value]);
 
-  // Update geojson data if needed.
+  // For IPCC grid data, geoJson features is calculated based on the grid
+  // DCID.
   useEffect(() => {
     if (_.isEmpty(rawData) || _.isEmpty(geoJson)) {
       return;

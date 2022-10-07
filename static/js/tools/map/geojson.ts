@@ -32,6 +32,7 @@ export function fetchGeoJson(
   placeInfo: PlaceInfo,
   setGeoJson: (data: GeoJsonData) => void
 ): void {
+  console.log("fetch geo json data");
   axios
     .get(
       `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
