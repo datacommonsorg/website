@@ -22,20 +22,20 @@ import axios from "axios";
 
 import { GeoJsonData, GeoJsonFeature } from "../../chart/types";
 import { IPCC_PLACE_50_TYPE_DCID } from "../../shared/constants";
-import { PlaceInfo } from "./context";
 
 export const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
 };
 
 export function fetchGeoJson(
-  placeInfo: PlaceInfo,
+  parentPlace: string,
+  childType: string,
   setGeoJson: (data: GeoJsonData) => void
 ): void {
   console.log("fetch geo json data");
   axios
     .get(
-      `/api/choropleth/geojson?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${parentPlace}&placeType=${childType}`
     )
     .then((resp) => {
       setGeoJson(resp.data);

@@ -131,10 +131,17 @@ export function ChartLoader(): JSX.Element {
 
   // Fetch geojson data when page option is updated.
   useEffect(() => {
-    if (_.isEmpty(geoJson)) {
-      fetchGeoJson(placeInfo.value, setGeoJson);
+    if (
+      placeInfo.value.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType
+    ) {
+      fetchGeoJson(
+        placeInfo.value.enclosingPlace.dcid,
+        placeInfo.value.enclosedPlaceType,
+        setGeoJson
+      );
     }
-  }, [placeInfo.value]);
+  }, [placeInfo.value.enclosingPlace.dcid, placeInfo.value.enclosedPlaceType]);
 
   // For IPCC grid data, geoJson features is calculated based on the grid
   // DCID.
@@ -220,7 +227,7 @@ export function ChartLoader(): JSX.Element {
     }
   }, [sampleDatesChartData]);
 
-  if (chartData === undefined) {
+  if (!rawData || !statVar.value.info || chartData === undefined) {
     return null;
   } else if (_.isEmpty(geoJson)) {
     <div className="p-5">

@@ -70,11 +70,9 @@ function App(): JSX.Element {
               <Info />
             </Row>
           )}
-          {showChart && (
-            <Row id="chart-row">
-              <ChartLoader />
-            </Row>
-          )}
+          <Row id="chart-row">
+            <ChartLoader />
+          </Row>
           <div
             id="screen"
             style={{ display: showLoadingSpinner ? "block" : "none" }}
