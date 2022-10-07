@@ -27,11 +27,16 @@ import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
-  PlacePointStat,
-  StatApiResponse,
+  EntityObservation,
+  EntityObservationList,
+  Observation,
+  PointAllApiResponse,
+  PointApiResponse,
+  SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
+import { stringifyFn } from "../../utils/axios";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
@@ -43,17 +48,17 @@ import {
   PlaceInfo,
 } from "./context";
 import {
-  getAllStatsWithinPlace,
-  getStatsWithinPlace,
+  getStatAllWithinPlace,
+  getStatWithinPlace,
   ScatterChartType,
 } from "./util";
 
 type Cache = {
   // key here is stat var.
-  statVarsData: Record<string, PlacePointStat>;
-  allStatVarsData: Record<string, Record<string, PlacePointStat>>;
+  statVarsData: Record<string, EntityObservation>;
+  allStatVarsData: Record<string, EntityObservationList>;
   metadataMap: Record<string, StatMetadata>;
-  populationData: StatApiResponse;
+  populationData: SeriesApiResponse;
   noDataError: boolean;
   xAxis: Axis;
   yAxis: Axis;
@@ -63,8 +68,8 @@ type Cache = {
 type ChartData = {
   points: { [placeDcid: string]: Point };
   sources: Set<string>;
-  xUnits: string;
-  yUnits: string;
+  xUnit: string;
+  yUnit: string;
 };
 
 export function ChartLoader(): JSX.Element {
@@ -118,8 +123,8 @@ export function ChartLoader(): JSX.Element {
                 yLog={yVal.log}
                 xPerCapita={xVal.perCapita}
                 yPerCapita={yVal.perCapita}
-                xUnits={chartData.xUnits}
-                yUnits={chartData.yUnits}
+                xUnit={chartData.xUnit}
+                yUnit={chartData.yUnit}
                 placeInfo={place.value}
                 display={display}
                 sources={chartData.sources}
@@ -180,49 +185,37 @@ async function loadData(
   setCache: (cache: Cache) => void
 ) {
   isLoading.setAreDataLoading(true);
-  const statResponsePromise = getStatsWithinPlace(
+  const statResponsePromise: Promise<PointApiResponse> = getStatWithinPlace(
     place.enclosingPlace.dcid,
     place.enclosedPlaceType,
     [x.value, y.value]
   );
-  const statAllResponsePromise = getAllStatsWithinPlace(
-    place.enclosingPlace.dcid,
-    place.enclosedPlaceType,
-    [x.value, y.value]
-  );
-  let populationSvParam = `&stat_vars=${DEFAULT_POPULATION_DCID}`;
+  const statAllResponsePromise: Promise<PointAllApiResponse> =
+    getStatAllWithinPlace(place.enclosingPlace.dcid, place.enclosedPlaceType, [
+      x.value,
+      y.value,
+    ]);
+  const populationSvList = new Set([DEFAULT_POPULATION_DCID]);
   for (const axis of [x.value, y.value]) {
     if (axis.denom) {
-      populationSvParam += `&stat_vars=${axis.denom}`;
+      populationSvList.add(axis.denom);
     }
   }
-  const populationPromise: Promise<StatApiResponse> = axios
-    .get(
-      "/api/stats/set/series/within-place" +
-        `?parent_place=${place.enclosingPlace.dcid}` +
-        `&child_type=${place.enclosedPlaceType}` +
-        populationSvParam
-    )
+  const populationPromise: Promise<SeriesApiResponse> = axios
+    .get("/api/observations/series/within", {
+      params: {
+        parent_entity: place.enclosingPlace.dcid,
+        child_type: place.enclosedPlaceType,
+        variables: Array.from(populationSvList),
+      },
+      paramsSerializer: stringifyFn,
+    })
     .then((resp) => resp.data);
   Promise.all([statResponsePromise, statAllResponsePromise, populationPromise])
     .then(([statResponse, statAllResponse, populationData]) => {
-      let metadataMap = statResponse.metadata || {};
-      metadataMap = Object.assign(metadataMap, statAllResponse.metadata);
-      const allStatVarsData: Record<
-        string,
-        Record<string, PlacePointStat>
-      > = {};
-      for (const sv of Object.keys(statAllResponse.data)) {
-        allStatVarsData[sv] = {};
-        if (_.isEmpty(statAllResponse.data[sv].statList)) {
-          continue;
-        }
-        for (const stat of statAllResponse.data[sv].statList) {
-          if (stat.metaHash) {
-            allStatVarsData[sv][stat.metaHash] = stat;
-          }
-        }
-      }
+      let metadataMap = statResponse.facets || {};
+      metadataMap = Object.assign(metadataMap, statAllResponse.facets);
+      const allStatVarsData = statAllResponse.data;
       const cache = {
         allStatVarsData,
         metadataMap,
@@ -287,6 +280,30 @@ function useChartData(cache: Cache): ChartData {
 }
 
 /**
+ * Extract data for a given facet from all the facets data.
+ *
+ * TODO: this can be moved to a shared util module.
+ */
+function extractFacetData(
+  data: EntityObservationList,
+  facetId: string
+): EntityObservation {
+  if (_.isEmpty(facetId)) {
+    return null;
+  }
+  const result = {};
+  for (const place in data) {
+    for (const obs of data[place]) {
+      if (obs.facet === facetId) {
+        result[place] = obs;
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+/**
  * Takes fetched data and processes it to be in a form that can be used for
  * rendering the chart component
  * @param x
@@ -302,14 +319,20 @@ function getChartData(
   chartType: ScatterChartType,
   cache: Cache
 ): ChartData {
-  const xStatData =
-    x.metahash && x.metahash in cache.allStatVarsData[x.statVarDcid]
-      ? cache.allStatVarsData[x.statVarDcid][x.metahash]
-      : cache.statVarsData[x.statVarDcid];
-  const yStatData =
-    y.metahash && y.metahash in cache.allStatVarsData[y.statVarDcid]
-      ? cache.allStatVarsData[y.statVarDcid][y.metahash]
-      : cache.statVarsData[y.statVarDcid];
+  let xStatData = extractFacetData(
+    cache.allStatVarsData[x.statVarDcid],
+    x.metahash
+  );
+  if (_.isEmpty(xStatData)) {
+    xStatData = cache.statVarsData[x.statVarDcid];
+  }
+  let yStatData = extractFacetData(
+    cache.allStatVarsData[y.statVarDcid],
+    y.metahash
+  );
+  if (_.isEmpty(yStatData)) {
+    yStatData = cache.statVarsData[y.statVarDcid];
+  }
   const popBounds: [number, number] =
     chartType === ScatterChartType.MAP
       ? null
@@ -339,29 +362,35 @@ function getChartData(
     });
     points[namedPlace.dcid] = placeChartData.point;
   }
-  const xUnits = getUnit(cache.statVarsData[x.statVarDcid], cache.metadataMap);
-  const yUnits = getUnit(cache.statVarsData[y.statVarDcid], cache.metadataMap);
-  return { points, sources, xUnits, yUnits };
+  const xUnit = getUnit(
+    Object.values(cache.statVarsData[x.statVarDcid]),
+    cache.metadataMap
+  );
+  const yUnit = getUnit(
+    Object.values(cache.statVarsData[y.statVarDcid]),
+    cache.metadataMap
+  );
+  return { points, sources, xUnit, yUnit };
 }
 
 function getFacetInfo(
   axis: Axis,
-  allStatVarsData: Record<string, Record<string, PlacePointStat>>,
+  allStatVarsData: Record<string, EntityObservationList>,
   metadataMap: Record<string, StatMetadata>
 ): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
-  const metahashList = allStatVarsData[axis.statVarDcid]
-    ? Object.keys(allStatVarsData[axis.statVarDcid])
-    : [];
-  metahashList.forEach((metahash) => {
-    if (metahash in metadataMap) {
-      filteredMetadataMap[metahash] = metadataMap[metahash];
+  const sv = axis.statVarDcid;
+  for (const place in allStatVarsData[sv]) {
+    for (const obs of allStatVarsData[sv][place]) {
+      if (obs.facet in metadataMap) {
+        filteredMetadataMap[obs.facet] = metadataMap[obs.facet];
+      }
     }
-  });
+  }
   return {
-    dcid: axis.statVarDcid,
+    dcid: sv,
     metadataMap: filteredMetadataMap,
-    name: axis.statVarInfo.title || axis.statVarDcid,
+    name: axis.statVarInfo.title || sv,
   };
 }
 /**

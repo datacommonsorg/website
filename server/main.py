@@ -43,7 +43,6 @@ WARM_UP_ENDPOINTS = [
     "/api/choropleth/geojson?placeDcid=country/USA&placeType=County",
     "/api/place/parent/country/USA",
     "/api/place/places-in-names?dcid=country/USA&placeType=County",
-    "/api/stats/set/series/within-place?parent_place=country/USA&child_type=County&stat_vars=Count_Person",
 ]
 
 

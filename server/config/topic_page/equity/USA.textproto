@@ -46,7 +46,7 @@ categories {
     # TODO: Add rankings of other /Countries/
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "gini"
     value {
       stat_var: "GiniIndex_EconomicActivity"
@@ -127,14 +127,14 @@ categories {
     title: "Uninsured, by sex"
     description: "Of those without insurance, how many are male or female?"
     # TODO(beets): This isn't available at the country level
-    # stat_var_metadata {
+    # stat_var_spec {
     #   stat_var: "Count_Person_Female_WithHealthInsurance"
     #   denom: "Count_Person_Female"
     #   unit: "%"
     #   scaling: 100
     #   name: "Female, insured"
     # }
-    # stat_var_metadata {
+    # stat_var_spec {
     #   stat_var: "Count_Person_Male_WithHealthInsurance"
     #   denom: "Count_Person_Male"
     #   unit: "%"
@@ -166,14 +166,14 @@ categories {
     title: "With disabilities, by sex"
     description: "Percentage of the population of each sex with disabilities"
     # TODO(beets): This isn"t available at the country level
-    # stat_var_metadata {
+    # stat_var_spec {
     #   stat_var: "Count_Person_Female_WithHealthInsurance"
     #   denom: "Count_Person_Female"
     #   unit: "%"
     #   scaling: 100
     #   name: "Female, insured"
     # }
-    # stat_var_metadata {
+    # stat_var_spec {
     #   stat_var: "Count_Person_Male_WithHealthInsurance"
     #   denom: "Count_Person_Male"
     #   unit: "%"
@@ -267,42 +267,42 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "income_inequality"
     value {
       stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
       name: "Income inequality between sexes"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "median_income_female"
     value {
       stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
       unit: "$"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "median_income_male"
     value {
       stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
       unit: "$"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "unemployment_female"
     value {
       stat_var: "UnemploymentRate_Person_Female"
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "unemployment_male"
     value {
       stat_var: "UnemploymentRate_Person_Male"
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate_female"
     value {
       stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
@@ -311,7 +311,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_rate_male"
     value {
       stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -320,7 +320,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "uninsured_rate_female"
     value {
       stat_var: "Count_Person_Female_NoHealthInsurance"
@@ -330,7 +330,7 @@ categories {
       name: "Female, uninsured"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "uninsured_rate_male"
     value {
       stat_var: "Count_Person_Male_NoHealthInsurance"
@@ -340,13 +340,13 @@ categories {
       name: "Male, uninsured"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "uninsured_count"
     value {
       stat_var: "Count_Person_NoHealthInsurance"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_rate_female"
     value {
       stat_var: "Count_Person_WithDisability_Female"
@@ -356,7 +356,7 @@ categories {
       name: "Female, with disability"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_rate_male"
     value {
       stat_var: "Count_Person_WithDisability_Male"
@@ -366,7 +366,7 @@ categories {
       name: "Male, with disability"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "associates_female"
     value {
       stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female"
@@ -376,7 +376,7 @@ categories {
       name: "Female"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "associates_male"
     value {
       stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
@@ -386,7 +386,7 @@ categories {
       name: "Male"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "bachelors_female"
     value {
       stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female"
@@ -396,7 +396,7 @@ categories {
       name: "Female"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "bachelors_male"
     value {
       stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
@@ -406,7 +406,7 @@ categories {
       name: "Male"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "graduate_female"
     value {
       stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female"
@@ -416,7 +416,7 @@ categories {
       name: "Female"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "graduate_male"
     value {
       stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
@@ -436,31 +436,31 @@ categories {
   # blocks {
   #   title: "Median income, by race"
   #   description: "Median incomes of households, broken down by race"
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
   #     unit: "$"
   #   }
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
   #     unit: "$"
   #   }
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
   #     unit: "$"
   #   }
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
   #     unit: "$"
   #   }
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
   #     unit: "$"
   #   }
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
   #     unit: "$"
   #   }
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
   #     unit: "$"
   #   }
@@ -631,7 +631,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "income_aian"
     value {
       stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
@@ -639,7 +639,7 @@ categories {
       name: "American Indian or Alaska Native"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "income_a"
     value {
       stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
@@ -647,7 +647,7 @@ categories {
       name: "Asian"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "income_baa"
     value {
       stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
@@ -655,7 +655,7 @@ categories {
       name: "Black or African American"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "income_hl"
     value {
       stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
@@ -663,7 +663,7 @@ categories {
       name: "Hispanic or Latino"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "income_nhpi"
     value {
       stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
@@ -671,7 +671,7 @@ categories {
       name: "Native Hawaiian or Pacific Islander"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "income_w"
     value {
       stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
@@ -680,7 +680,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_aian"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone"
@@ -689,7 +689,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_a"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
@@ -698,7 +698,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_baa"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
@@ -707,7 +707,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_hl"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
@@ -716,7 +716,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_nhpi"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
@@ -725,7 +725,7 @@ categories {
       unit: "%"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "poverty_w"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
@@ -735,7 +735,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_aian"
     value {
       stat_var: "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
@@ -745,7 +745,7 @@ categories {
       name: "American Indian or Alaska Native"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_a"
     value {
       stat_var: "Count_Person_WithDisability_AsianAlone"
@@ -755,7 +755,7 @@ categories {
       name: "Asian"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_baa"
     value {
       stat_var: "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
@@ -765,7 +765,7 @@ categories {
       name: "Black or African American"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_hl"
     value {
       stat_var: "Count_Person_WithDisability_HispanicOrLatino"
@@ -775,7 +775,7 @@ categories {
       name: "Hispanic or Latino"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_nhpi"
     value {
       stat_var: "Count_Person_WithDisability_NativeHawaiianOrOtherPacificIslanderAlone"
@@ -785,7 +785,7 @@ categories {
       name: "Native Hawaiian or Pacific Islander"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_w"
     value {
       stat_var: "Count_Person_WithDisability_WhiteAlone"
@@ -796,7 +796,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_aian"
     value {
       stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities"
@@ -806,7 +806,7 @@ categories {
       name: "American Indian or Alaska Native"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_a"
     value {
       stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
@@ -816,7 +816,7 @@ categories {
       name: "Asian"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_baa"
     value {
       stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
@@ -826,7 +826,7 @@ categories {
       name: "Black or African American"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_hl"
     value {
       stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
@@ -836,7 +836,7 @@ categories {
       name: "Hispanic or Latino"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_nhpi"
     value {
       stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
@@ -846,7 +846,7 @@ categories {
       name: "Native Hawaiian or Pacific Islander"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_w"
     value {
       stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
@@ -857,7 +857,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_aian"
     value {
       stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
@@ -867,7 +867,7 @@ categories {
       name: "American Indian or Alaska Native"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_a"
     value {
       stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
@@ -877,7 +877,7 @@ categories {
       name: "Asian"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_baa"
     value {
       stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
@@ -887,7 +887,7 @@ categories {
       name: "Black or African American"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_hl"
     value {
       stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
@@ -897,7 +897,7 @@ categories {
       name: "Hispanic or Latino"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_nhpi"
     value {
       stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
@@ -907,7 +907,7 @@ categories {
       name: "Native Hawaiian or Pacific Islander"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_w"
     value {
       stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
@@ -918,7 +918,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_rate_aian"
     value {
       stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInJuvenileFacilities"
@@ -928,7 +928,7 @@ categories {
       name: "American Indian or Alaska Native"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_rate_a"
     value {
       stat_var: "Count_Person_AsianAlone_ResidesInJuvenileFacilities"
@@ -938,7 +938,7 @@ categories {
       name: "Asian"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_rate_baa"
     value {
       stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInJuvenileFacilities"
@@ -948,7 +948,7 @@ categories {
       name: "Black or African American"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_rate_hl"
     value {
       stat_var: "Count_Person_HispanicOrLatino_ResidesInJuvenileFacilities"
@@ -958,7 +958,7 @@ categories {
       name: "Hispanic or Latino"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_rate_nhpi"
     value {
       stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInJuvenileFacilities"
@@ -968,7 +968,7 @@ categories {
       name: "Native Hawaiian or Pacific Islander"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "juvie_rate_w"
     value {
       stat_var: "Count_Person_WhiteAlone_ResidesInJuvenileFacilities"
@@ -979,7 +979,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_rate_aian"
     value {
       stat_var: "Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInAdultCorrectionalFacilities"
@@ -989,7 +989,7 @@ categories {
       name: "American Indian or Alaska Native"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_rate_a"
     value {
       stat_var: "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities"
@@ -999,7 +999,7 @@ categories {
       name: "Asian"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_rate_baa"
     value {
       stat_var: "Count_Person_BlackOrAfricanAmericanAlone_ResidesInAdultCorrectionalFacilities"
@@ -1009,7 +1009,7 @@ categories {
       name: "Black or African American"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_rate_hl"
     value {
       stat_var: "Count_Person_HispanicOrLatino_ResidesInAdultCorrectionalFacilities"
@@ -1019,7 +1019,7 @@ categories {
       name: "Hispanic or Latino"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_rate_nhpi"
     value {
       stat_var: "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_ResidesInAdultCorrectionalFacilities"
@@ -1029,7 +1029,7 @@ categories {
       name: "Native Hawaiian or Pacific Islander"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "jail_rate_w"
     value {
       stat_var: "Count_Person_WhiteAlone_ResidesInAdultCorrectionalFacilities"
@@ -1096,7 +1096,7 @@ categories {
   # TODO: Computed percentages does not sum up to 100% with uninsured block.
   # blocks {
   #   title: "With health insurance"
-  #   stat_var_metadata {
+  #   stat_var_spec {
   #     stat_var: "Count_Person_WithHealthInsurance_WithDisability"
   #     denom: "Count_Person_WithDisability"
   #     name: "Percentage of people with disabilities and health insurance"
@@ -1161,7 +1161,7 @@ categories {
     }
   }
 
-  stat_var_metadata {
+  stat_var_spec {
     key: "disability_rate"
     value {
       stat_var: "Count_Person_WithDisability"
@@ -1171,7 +1171,7 @@ categories {
       scaling: 100
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disabled_uninsured_rate"
     value {
       stat_var: "Count_Person_NoHealthInsurance_WithDisability"
@@ -1181,29 +1181,29 @@ categories {
       scaling: 100
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disabled_foodstamps"
     value {
       stat_var: "Count_Household_WithFoodStampsInThePast12Months_WithDisability"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disabled_nofoodstamps"
     value {
       stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_WithDisability"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disabled_juvie"
     value {
-      stat_var: "Count_Person_WithDisability_ResidesInJuvenileFacilities"
+    stat_var: "Count_Person_WithDisability_ResidesInJuvenileFacilities"
       denom: "Count_Person_ResidesInJuvenileFacilities"
       scaling: 100
       unit: "%"
       name: "With disability"
     }
   }
-  stat_var_metadata {
+  stat_var_spec {
     key: "disabled_jail"
     value {
       stat_var: "Count_Person_WithDisability_ResidesInAdultCorrectionalFacilities"

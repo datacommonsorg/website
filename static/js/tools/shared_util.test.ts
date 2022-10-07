@@ -13,96 +13,92 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Observation } from "../shared/stat_types";
 import { NamedTypedPlace } from "../shared/types";
 import {
-  getPopulationDate,
+  computeRatio,
+  getMatchingObservation,
   shouldShowMapBoundaries,
   toTitleCase,
 } from "./shared_util";
 
-test("getPopulationDate", () => {
-  const basePopData = {
-    val: {
-      "2017": 1,
-      "2018": 2,
-      "2020": 3,
+test("getMatchingObservation", () => {
+  let series = [
+    {
+      date: "2017",
+      value: 1,
     },
-    metadata: {
-      provenanceUrl: "provenance",
+    {
+      date: "2018",
+      value: 2,
     },
-  };
-  const baseStatData = {
-    date: "2018",
-    value: 10,
-    metadata: {
-      importName: "importName",
+    {
+      date: "2020",
+      value: 3,
     },
-  };
-  expect(getPopulationDate(basePopData, baseStatData)).toEqual("2018");
+  ];
+  expect(getMatchingObservation(series, "2018").date).toEqual("2018");
+  expect(getMatchingObservation(series, "2016").date).toEqual("2017");
+  expect(getMatchingObservation(series, "2021").date).toEqual("2020");
+  expect(getMatchingObservation(series, "2019").date).toEqual("2018");
+  expect(getMatchingObservation(series, "2018-07").date).toEqual("2018");
+  expect(getMatchingObservation(series, "2019-07").date).toEqual("2018");
 
-  const statDataDateEarlierThanPopData = {
-    ...baseStatData,
-    date: "2016",
-  };
-  expect(
-    getPopulationDate(basePopData, statDataDateEarlierThanPopData)
-  ).toEqual("2017");
-
-  const statDataDateLaterThanPopData = {
-    ...baseStatData,
-    date: "2021",
-  };
-  expect(getPopulationDate(basePopData, statDataDateLaterThanPopData)).toEqual(
-    "2020"
-  );
-
-  const statDataNoMatchingDate = {
-    ...baseStatData,
-    date: "2019",
-  };
-  expect(getPopulationDate(basePopData, statDataNoMatchingDate)).toEqual(
-    "2018"
-  );
-
-  const statDataDateMoreSpecific = {
-    ...baseStatData,
-    date: "2018-07",
-  };
-  expect(getPopulationDate(basePopData, statDataDateMoreSpecific)).toEqual(
-    "2018"
-  );
-
-  const statDataDateMoreSpecificNoMatching = {
-    ...baseStatData,
-    date: "2019-07",
-  };
-  expect(
-    getPopulationDate(basePopData, statDataDateMoreSpecificNoMatching)
-  ).toEqual("2018");
-
-  const popDataDateMoreSpecific = {
-    ...basePopData,
-    val: {
-      "2018-02": 1,
-      "2018-03": 2,
-      "2018-04": 3,
+  series = [
+    {
+      date: "2017",
+      value: 1,
     },
-  };
-  expect(getPopulationDate(popDataDateMoreSpecific, baseStatData)).toEqual(
-    "2018-04"
-  );
-
-  const popDataDateMoreSpecificNoMatching = {
-    ...basePopData,
-    val: {
-      "2019-02": 1,
-      "2019-03": 2,
-      "2019-04": 3,
+    {
+      date: "2018",
+      value: 2,
     },
-  };
-  expect(
-    getPopulationDate(popDataDateMoreSpecificNoMatching, baseStatData)
-  ).toEqual("2019-02");
+    {
+      date: "2018-02",
+      value: 3,
+    },
+    {
+      date: "2018-03",
+      value: 4,
+    },
+    {
+      date: "2018-04",
+      value: 5,
+    },
+    {
+      date: "2020",
+      value: 3,
+    },
+  ];
+  expect(getMatchingObservation(series, "2018").date).toEqual("2018");
+
+  series = [
+    {
+      date: "2017",
+      value: 1,
+    },
+    {
+      date: "2018",
+      value: 2,
+    },
+    {
+      date: "2019-02",
+      value: 3,
+    },
+    {
+      date: "2019-03",
+      value: 4,
+    },
+    {
+      date: "2019-04",
+      value: 5,
+    },
+    {
+      date: "2020",
+      value: 3,
+    },
+  ];
+  expect(getMatchingObservation(series, "2018").date).toEqual("2018");
 });
 
 test("shouldShowMapBoundaries", () => {
@@ -119,4 +115,104 @@ test("toTitleCase", () => {
   expect(toTitleCase("asia")).toEqual("Asia");
   expect(toTitleCase("EARTH")).toEqual("Earth");
   expect(toTitleCase("NoRTH AmeRIcA")).toEqual("North America");
+});
+
+test("compute ratio", () => {
+  const statSeries: Observation[] = [
+    {
+      date: "2001",
+      value: 1000,
+    },
+    {
+      date: "2005",
+      value: 2000,
+    },
+    {
+      date: "2010",
+      value: 3000,
+    },
+  ];
+  const popSeries: Observation[] = [
+    {
+      date: "2001",
+      value: 100,
+    },
+    {
+      date: "2004",
+      value: 200,
+    },
+    {
+      date: "2009",
+      value: 300,
+    },
+  ];
+  const expected: Observation[] = [
+    {
+      date: "2001",
+      value: 10,
+    },
+    {
+      date: "2005",
+      value: 10,
+    },
+    {
+      date: "2010",
+      value: 10,
+    },
+  ];
+  expect(computeRatio(statSeries, popSeries)).toEqual(expected);
+});
+
+test("compute ratio not aligned", () => {
+  const statSeries: Observation[] = [
+    {
+      date: "2005",
+      value: 1000,
+    },
+    {
+      date: "2010",
+      value: 1100,
+    },
+    {
+      date: "2015",
+      value: 1200,
+    },
+  ];
+  const popSeries: Observation[] = [
+    {
+      date: "2005",
+      value: 100,
+    },
+    {
+      date: "2006",
+      value: 200,
+    },
+    {
+      date: "2007",
+      value: 300,
+    },
+    {
+      date: "2008",
+      value: 100,
+    },
+    {
+      date: "2009",
+      value: 200,
+    },
+  ];
+  const expected: Observation[] = [
+    {
+      date: "2005",
+      value: 10,
+    },
+    {
+      date: "2010",
+      value: 5.5,
+    },
+    {
+      date: "2015",
+      value: 6,
+    },
+  ];
+  expect(computeRatio(statSeries, popSeries)).toEqual(expected);
 });

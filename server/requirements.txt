@@ -19,6 +19,7 @@ opencensus-ext-stackdriver==0.8.0
 parameterized==0.8.1
 protobuf==3.20.1
 pyOpenSSL==22.0.0
+pytest-rerunfailures==10.2
 pytest-xdist==2.4.0
 redis==3.5.3
 requests==2.26.0

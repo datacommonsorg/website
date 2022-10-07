@@ -22,11 +22,9 @@ import axios from "axios";
 import _ from "lodash";
 
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
-import {
-  GetStatSetAllResponse,
-  GetStatSetResponse,
-} from "../../shared/stat_types";
+import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
+import { stringifyFn } from "../../utils/axios";
 import {
   Axis,
   ContextType,
@@ -42,36 +40,53 @@ export enum ScatterChartType {
   MAP,
 }
 
-async function getStatsWithinPlace(
+/**
+ * Returns a promise that will get all the data from preferred sources for
+ * a place type within a place for a list of stat vars.
+ *
+ * @param parentPlace the place to get data within
+ * @param childType the type of place to get data for
+ * @param statVars the stat vars to get data for
+ *
+ */
+export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string }[]
-): Promise<GetStatSetResponse> {
-  let statVarParams = "";
+): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
   // For IPCC stat vars, need to cut the data up to certain date, so here will
   // always send two requests for each stat var.
-  const promises: Promise<GetStatSetResponse>[] = [];
+  const promises: Promise<PointApiResponse>[] = [];
   for (const statVar of statVars) {
-    statVarParams = `&stat_vars=${statVar.statVarDcid}`;
     let dataDate = getCappedStatVarDate(statVar.statVarDcid);
     // If there is a specified date, get the data for that date.
     if (statVar.date) {
       dataDate = statVar.date;
     }
-    statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
-      axios.get(
-        `/api/stats/within-place?parent_place=${parentPlace}&child_type=${childType}${statVarParams}`
-      )
+      axios
+        .get<PointApiResponse>("/api/observations/point/within", {
+          params: {
+            parent_entity: parentPlace,
+            child_type: childType,
+            variables: [statVar.statVarDcid],
+            date: dataDate,
+          },
+          paramsSerializer: stringifyFn,
+        })
+        .then((resp) => resp.data)
     );
   }
   return Promise.all(promises).then((responses) => {
-    const result: GetStatSetResponse = { data: {}, metadata: {} };
+    const result: PointApiResponse = {
+      data: {},
+      facets: {},
+    };
     for (const resp of responses) {
-      result.data = Object.assign(result.data, resp.data.data);
-      result.metadata = Object.assign(result.metadata, resp.data.metadata);
+      result.data = Object.assign(result.data, resp.data);
+      result.facets = Object.assign(result.facets, resp.facets);
     }
     return result;
   });
@@ -80,40 +95,50 @@ async function getStatsWithinPlace(
 /**
  * Returns a promise that will get all the data from all available sources for
  * a place type within a place for a list of stat vars.
+ *
  * @param parentPlace the place to get data within
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
+ *
  */
-export async function getAllStatsWithinPlace(
+export async function getStatAllWithinPlace(
   parentPlace: string,
   childType: string,
   statVars: { statVarDcid: string; date?: string }[]
-): Promise<GetStatSetAllResponse> {
-  let statVarParams = "";
+): Promise<PointAllApiResponse> {
   // There are two stat vars for scatter plot.
   //
   // For IPCC stat vars, need to cut the data up to certain date, so here will
   // always send two requests for each stat var.
-  const promises: Promise<GetStatSetAllResponse>[] = [];
+  const promises: Promise<PointAllApiResponse>[] = [];
   for (const statVar of statVars) {
-    statVarParams = `&stat_vars=${statVar.statVarDcid}`;
     let dataDate = getCappedStatVarDate(statVar.statVarDcid);
     // If there is a specified date, get the data for that date.
     if (statVar.date) {
       dataDate = statVar.date;
     }
-    statVarParams += dataDate ? `&date=${dataDate}` : "";
     promises.push(
-      axios.get(
-        `/api/stats/within-place/all?parent_place=${parentPlace}&child_type=${childType}${statVarParams}`
-      )
+      axios
+        .get<PointAllApiResponse>("/api/observations/point/within/all", {
+          params: {
+            parent_entity: parentPlace,
+            child_type: childType,
+            variables: [statVar.statVarDcid],
+            date: dataDate,
+          },
+          paramsSerializer: stringifyFn,
+        })
+        .then((resp) => resp.data)
     );
   }
   return Promise.all(promises).then((responses) => {
-    const result: GetStatSetAllResponse = { data: {}, metadata: {} };
+    const result: PointAllApiResponse = {
+      data: {},
+      facets: {},
+    };
     for (const resp of responses) {
-      result.data = Object.assign(result.data, resp.data.data);
-      result.metadata = Object.assign(result.metadata, resp.data.metadata);
+      result.data = Object.assign(result.data, resp.data);
+      result.facets = Object.assign(result.facets, resp.facets);
     }
     return result;
   });
@@ -123,7 +148,7 @@ export async function getAllStatsWithinPlace(
  * Parses the hash and updates the context accordingly.
  * @param context
  */
-function applyHash(context: ContextType): void {
+export function applyHash(context: ContextType): void {
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
@@ -213,12 +238,19 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   return place;
 }
 
-function applyHashBoolean(params: URLSearchParams, key: string): boolean {
+export function applyHashBoolean(
+  params: URLSearchParams,
+  key: string
+): boolean {
   const val = params.get(key);
   return val === "1";
 }
 
-function updateHashBoolean(hash: string, key: string, value: boolean): string {
+export function updateHashBoolean(
+  hash: string,
+  key: string,
+  value: boolean
+): string {
   if (value) {
     return appendEntry(hash, key, "1");
   }
@@ -231,7 +263,7 @@ function updateHashBoolean(hash: string, key: string, value: boolean): string {
  * one is stored in the hash.
  * @param context
  */
-function updateHash(context: ContextType): void {
+export function updateHash(context: ContextType): void {
   const x = context.x.value;
   const y = context.y.value;
   const place = context.place.value;
@@ -376,5 +408,3 @@ export function arePlacesLoaded(place: PlaceInfo): boolean {
 export function areStatVarsPicked(x: Axis, y: Axis): boolean {
   return !_.isNull(x.statVarInfo) && !_.isNull(y.statVarInfo);
 }
-
-export { applyHash, getStatsWithinPlace, updateHash };

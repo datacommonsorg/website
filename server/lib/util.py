@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from datetime import datetime
 import hashlib
 import json
 import os
@@ -91,3 +92,15 @@ def get_topics_summary(topic_page_configs):
 
 def hash_id(user_id):
     return hashlib.sha256(user_id.encode('utf-8')).hexdigest()
+
+
+def parse_date(date_string):
+    parts = date_string.split("-")
+    if len(parts) == 1:
+        return datetime.strptime(date_string, "%Y")
+    elif len(parts) == 2:
+        return datetime.strptime(date_string, "%Y-%m")
+    elif len(parts) == 3:
+        return datetime.strptime(date_string, "%Y-%m-%d")
+    else:
+        raise ValueError("Invalid date: %s", date_string)

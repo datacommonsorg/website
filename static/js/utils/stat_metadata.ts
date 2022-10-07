@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-import { StatVarSpec } from "../shared/types";
-import { StatVarSpecMap } from "./topic_config";
+import { StatMetadata } from "../shared/stat_types";
 
-// Provider for stat var spec in a category.
-// TODO: move data fetching from individual tiles here.
-
-export class StatVarProvider {
-  _statVarSpecMap: StatVarSpecMap;
-
-  constructor(svsMap: StatVarSpecMap) {
-    this._statVarSpecMap = svsMap;
+/**
+ * Returns the unit from StatMetadata if there is a unit.
+ * @param statMetadata
+ */
+export function getUnit(statMetadata: StatMetadata): string {
+  let unit = "";
+  if (statMetadata.unit) {
+    unit = statMetadata.unit;
   }
-
-  getSpec(key: string): StatVarSpec {
-    return this._statVarSpecMap[key] || null;
+  if (statMetadata.scalingFactor === "100") {
+    unit = "%";
   }
-
-  getSpecList(keys: string[]): StatVarSpec[] {
-    return keys.map((k) => this._statVarSpecMap[k]);
-  }
+  return unit;
 }

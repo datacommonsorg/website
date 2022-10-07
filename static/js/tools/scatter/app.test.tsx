@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+jest.mock("axios");
+
 import { waitFor } from "@testing-library/react";
 import axios from "axios";
 import Cheerio from "cheerio";
@@ -22,6 +24,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { when } from "jest-when";
 import React, { useEffect } from "react";
 
+import { stringifyFn } from "../../utils/axios";
 import { App } from "./app";
 import { Context, EmptyPlace, useContextStore } from "./context";
 
@@ -46,9 +49,9 @@ function TestApp(): JSX.Element {
   );
 }
 
-function mockAxios(): () => void {
-  const get = axios.get;
+function mockAxios(): void {
   axios.get = jest.fn();
+  axios.post = jest.fn();
 
   // Counties in Delaware
   when(axios.get)
@@ -62,98 +65,75 @@ function mockAxios(): () => void {
     });
 
   // Population and statvar data
+
+  const facets = {
+    facet1: {
+      importName: "BLS_LAUS",
+      provenanceUrl: "https://www.bls.gov/lau/",
+      measurementMethod: "BLSSeasonallyUnadjusted",
+    },
+    facet2: {
+      importName: "CensusCountyBusinessPatterns",
+      provenanceUrl: "https://www.census.gov/",
+      measurementMethod: "CensusCBPSurvey",
+    },
+    facet3: {
+      importName: "CensusACS5YearSurvey",
+      provenanceUrl: "https://www.census.gov/",
+      measurementMethod: "CensusACS5yrSurvey",
+    },
+  };
+
   const data = {
     Count_Person_Employed: {
-      metadata: {
-        BLS_LAUS: {
-          provenanceUrl: "https://www.bls.gov/lau/",
-          measurementMethod: "BLSSeasonallyUnadjusted",
-        },
+      "geoId/10001": {
+        date: "2016",
+        facet: "facet1",
+        value: 76726,
       },
-      stat: {
-        "geoId/10001": {
-          date: "2016",
-          metadata: {
-            importName: "BLS_LAUS",
-          },
-          value: 76726,
-        },
-        "geoId/10003": {
-          date: "2016",
-          metadata: {
-            importName: "BLS_LAUS",
-          },
-          value: 276517,
-        },
-        "geoId/10005": {
-          date: "2016",
-          metadata: {
-            importName: "BLS_LAUS",
-          },
-          value: 104845,
-        },
+      "geoId/10003": {
+        date: "2016",
+        facet: "facet1",
+        value: 276517,
+      },
+      "geoId/10005": {
+        date: "2016",
+        facet: "facet1",
+        value: 104845,
       },
     },
     Count_Establishment: {
-      metadata: {
-        CensusCountyBusinessPatterns: {
-          provenanceUrl: "https://www.census.gov/",
-          measurementMethod: "CensusCBPSurvey",
-        },
+      "geoId/10001": {
+        date: "2016",
+        value: 3422,
+        facet: "facet2",
       },
-      stat: {
-        "geoId/10001": {
-          date: "2016",
-          metadata: {
-            importName: "CensusCountyBusinessPatterns",
-          },
-          value: 3422,
-        },
-        "geoId/10003": {
-          date: "2016",
-          metadata: {
-            importName: "CensusCountyBusinessPatterns",
-          },
-          value: 16056,
-        },
-        "geoId/10005": {
-          date: "2016",
-          metadata: {
-            importName: "CensusCountyBusinessPatterns",
-          },
-          value: 5601,
-        },
+      "geoId/10003": {
+        date: "2016",
+        value: 16056,
+        facet: "facet2",
+      },
+      "geoId/10005": {
+        date: "2016",
+        value: 5601,
+        facet: "facet2",
       },
     },
     Count_HousingUnit: {
-      metadata: {
-        CensusACS5YearSurvey: {
-          provenanceUrl: "https://www.census.gov/",
-          measurementMethod: "CensusACS5yrSurvey",
-        },
+      "geoId/10001": {
+        date: "2016",
+        value: 70576,
+        facet: "facet3",
       },
-      stat: {
-        "geoId/10001": {
-          date: "2016",
-          metadata: {
-            importName: "CensusACS5YearSurvey",
-          },
-          value: 70576,
-        },
-        "geoId/10003": {
-          date: "2016",
-          metadata: {
-            importName: "CensusACS5YearSurvey",
-          },
-          value: 222146,
-        },
-        "geoId/10005": {
-          date: "2016",
-          metadata: {
-            importName: "CensusACS5YearSurvey",
-          },
-          value: 135529,
-        },
+      "geoId/10003": {
+        date: "2016",
+        value: 222146,
+        facet: "facet3",
+      },
+      "geoId/10005": {
+        date: "2016",
+        value: 135529,
+        facet: "facet3",
       },
     },
   };
@@ -243,56 +223,68 @@ function mockAxios(): () => void {
   };
 
   when(axios.get)
-    .calledWith(
-      "/api/stats/within-place?parent_place=geoId/10&child_type=County" +
-        "&stat_vars=Count_Person_Employed&stat_vars=Count_Establishment"
-    )
-    .mockResolvedValue({
-      data: {
-        Count_Person_Employed: data.Count_Person_Employed,
-        Count_Establishment: data.Count_Establishment,
+    .calledWith("/api/observations/point/within", {
+      params: {
+        parent_entity: "geoId/10",
+        child_type: "County",
+        variables: ["Count_Person_Employed", "Count_Establishment"],
       },
-    });
-  when(axios.get)
-    .calledWith(
-      "/api/stats/within-place?parent_place=geoId/10&child_type=County" +
-        "&stat_vars=Count_Person_Employed&stat_vars=Count_HousingUnit"
-    )
-    .mockResolvedValue({
-      data: {
-        Count_Person_Employed: data.Count_Person_Employed,
-        Count_HousingUnit: data.Count_HousingUnit,
-      },
-    });
-  const post = axios.post;
-  axios.post = jest.fn();
-
-  when(axios.post)
-    .calledWith("/api/stats/Count_Person", {
-      dcid: ["geoId/10001", "geoId/10003", "geoId/10005"],
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        "geoId/10001": {
-          data: {
-            "2016": 180786,
-          },
-          placeName: "Kent County",
-          provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
+        data: {
+          Count_Person_Employed: data.Count_Person_Employed,
+          Count_Establishment: data.Count_Establishment,
         },
-        "geoId/10003": {
-          data: {
-            "2016": 558753,
-          },
-          placeName: "Kent County",
-          provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
+        facets: facets,
+      },
+    });
+  when(axios.get)
+    .calledWith("/api/observations/point/within", {
+      params: {
+        parent_entity: "geoId/10",
+        child_type: "County",
+        entities: ["Count_Person_Employed", "Count_HousingUnit"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
+        data: {
+          Count_Person_Employed: data.Count_Person_Employed,
+          Count_HousingUnit: data.Count_HousingUnit,
         },
-        "geoId/10005": {
-          data: {
-            "2016": 234225,
+        facets: facets,
+      },
+    });
+  axios.post = jest.fn();
+
+  when(axios.get)
+    .calledWith("/api/observations/point", {
+      params: {
+        variables: ["Count_Person"],
+        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
+        data: {
+          Count_Person: {
+            "geoId/10001": {
+              date: "2016",
+              value: 180786,
+            },
+            "geoId/10003": {
+              date: "2016",
+              value: 558753,
+            },
+            "geoId/10005": {
+              date: "2016",
+              value: 234225,
+            },
           },
-          placeName: "Kent County",
-          provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
         },
       },
     });
@@ -453,10 +445,6 @@ function mockAxios(): () => void {
         },
       },
     });
-  return () => {
-    axios.get = get;
-    axios.post = post;
-  };
 }
 
 function expectCircles(n: number, app: Enzyme.ReactWrapper): void {

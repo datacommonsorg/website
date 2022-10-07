@@ -24,6 +24,7 @@ import { FacetSelector } from "../../shared/facet_selector";
 import { PlaceSelector } from "../../shared/place_selector";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
+import { stringifyFn } from "../../utils/axios";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
 import { StatVarInfo } from "../timeline/chart_region";
@@ -123,18 +124,23 @@ export function Page(): JSX.Element {
     }
     facetsReqObj.current = reqObj;
     setFacetListPromise(
-      axios.post("/api/stats/facets/within-place", reqObj).then((resp) => {
-        const facetMap = resp.data;
-        const sourceSelectorFacetList = [];
-        for (const sv in selectedOptions.selectedStatVars) {
-          sourceSelectorFacetList.push({
-            dcid: sv,
-            name: selectedOptions.selectedStatVars[sv].title || sv,
-            metadataMap: sv in facetMap ? facetMap[sv] : {},
-          });
-        }
-        return sourceSelectorFacetList;
-      })
+      axios
+        .get("/api/facets/within", {
+          params: reqObj,
+          paramsSerializer: stringifyFn,
+        })
+        .then((resp) => {
+          const facetMap = resp.data;
+          const sourceSelectorFacetList = [];
+          for (const sv in selectedOptions.selectedStatVars) {
+            sourceSelectorFacetList.push({
+              dcid: sv,
+              name: selectedOptions.selectedStatVars[sv].title || sv,
+              metadataMap: sv in facetMap ? facetMap[sv] : {},
+            });
+          }
+          return sourceSelectorFacetList;
+        })
     );
   }, [selectedOptions]);
 

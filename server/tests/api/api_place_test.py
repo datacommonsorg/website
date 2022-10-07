@@ -254,7 +254,7 @@ class TestApiPlaceI18nName(unittest.TestCase):
 
 class TestApiDisplayName(unittest.TestCase):
 
-    @patch('routes.api.place.dc.get_property_values')
+    @patch('routes.api.place.dc.property_values')
     @patch('routes.api.place.fetch_data')
     def test_api_display_name(self, mock_data_fetcher, mock_iso_codes):
         dcid1 = 'dcid1'
@@ -642,10 +642,10 @@ class TestApiRankingChart(unittest.TestCase):
     @patch('routes.api.place.get_ranking_chart_configs')
     @patch('routes.api.place.get_place_type')
     @patch('routes.api.place.parent_places')
-    @patch('routes.api.place.dc.points_within')
+    @patch('routes.api.place.dc.point_within')
     def test_api_ranking_chart_not_earth(
         self,
-        mock_points_within,
+        mock_point_within,
         mock_parent_place,
         mock_place_type,
         mock_configs,
@@ -735,7 +735,7 @@ class TestApiRankingChart(unittest.TestCase):
 
         mock_name.side_effect = name_side_effect
 
-        points_within = {
+        point_within = {
             'observationsByVariable': [{
                 "variable":
                     sv1,
@@ -833,14 +833,14 @@ class TestApiRankingChart(unittest.TestCase):
             }
         }
 
-        def points_within_side_effect(*args):
+        def point_within_side_effect(*args):
             if args[0] == parent_dcid1 and args[1] == place_type and sorted(
                     args[2]) == sorted([sv1, sv2, "Count_Person"]):
-                return points_within
+                return point_within
             else:
                 return {}
 
-        mock_points_within.side_effect = points_within_side_effect
+        mock_point_within.side_effect = point_within_side_effect
 
         response = app.test_client().get('/api/place/ranking_chart/' +
                                          test_dcid)
@@ -892,10 +892,10 @@ class TestApiRankingChart(unittest.TestCase):
 
     @patch('routes.api.place.get_i18n_name')
     @patch('routes.api.place.get_ranking_chart_configs')
-    @patch('routes.api.place.dc.points_within')
+    @patch('routes.api.place.dc.point_within')
     def test_api_ranking_chart_earth(
         self,
-        mock_points_within,
+        mock_point_within,
         mock_configs,
         mock_name,
     ):
@@ -953,7 +953,7 @@ class TestApiRankingChart(unittest.TestCase):
 
         mock_name.side_effect = name_side_effect
 
-        points_within = {
+        point_within = {
             'observationsByVariable': [{
                 "variable":
                     sv1,
@@ -1051,14 +1051,14 @@ class TestApiRankingChart(unittest.TestCase):
             }
         }
 
-        def points_within_side_effect(*args):
+        def point_within_side_effect(*args):
             if args[0] == parent_dcid and args[1] == place_type and sorted(
                     args[2]) == sorted([sv1, sv2, "Count_Person"]):
-                return points_within
+                return point_within
             else:
                 return {}
 
-        mock_points_within.side_effect = points_within_side_effect
+        mock_point_within.side_effect = point_within_side_effect
 
         response = app.test_client().get('/api/place/ranking_chart/' +
                                          test_dcid)

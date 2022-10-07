@@ -26,7 +26,7 @@ class TestTopicConfig(unittest.TestCase):
 
     def verify_statvars(self, category, msg):
         defined_svs = {}
-        for i, (svm_id, svm) in enumerate(category.stat_var_metadata.items()):
+        for i, (svm_id, svm) in enumerate(category.stat_var_spec.items()):
             svm_msg = f"{msg}[sv={i},{svm_id}]"
             self.assertFalse(svm_id in defined_svs, svm_msg)
             defined_svs[svm_id] = svm

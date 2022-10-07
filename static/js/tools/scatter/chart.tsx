@@ -59,8 +59,8 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
-  xUnits?: string;
-  yUnits?: string;
+  xUnit?: string;
+  yUnit?: string;
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
   sources: Set<string>;
@@ -231,8 +231,8 @@ function plot(
     height: chartHeight,
     xLabel: props.xLabel,
     yLabel: props.yLabel,
-    xUnit: props.xUnits,
-    yUnit: props.yUnits,
+    xUnit: props.xUnit,
+    yUnit: props.yUnit,
   };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
@@ -257,8 +257,8 @@ function plot(
       yLog: props.yLog,
       xLabel: props.xLabel,
       yLabel: props.yLabel,
-      xUnit: props.xUnits,
-      yUnit: props.yUnits,
+      xUnit: props.xUnit,
+      yUnit: props.yUnit,
       placeDcid: props.placeInfo.enclosingPlace.dcid,
       isUsaPlace: isChildPlaceOf(
         props.placeInfo.enclosingPlace.dcid,

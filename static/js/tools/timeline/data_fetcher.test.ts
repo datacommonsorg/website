@@ -15,12 +15,12 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
+import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { TimeSeries } from "../../shared/stat_types";
+import { SeriesAllApiResponse } from "../../shared/stat_types";
+import { stringifyFn } from "../../utils/axios";
 import {
-  computeRatio,
   convertToDelta,
   fetchRawData,
   getStatData,
@@ -30,8 +30,202 @@ import {
   TimelineRawData,
 } from "./data_fetcher";
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+function axios_mock(): void {
+  axios.get = jest.fn();
+  when(axios.get)
+    .calledWith("/api/observations/series", {
+      params: {
+        variables: ["Count_Person", "Count_Person_Male"],
+        entities: ["geoId/05", "geoId/06"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
+        facets: {
+          facet1: {
+            provenanceUrl: "source1",
+          },
+          facet2: {
+            provenanceUrl: "source2",
+          },
+        },
+        data: {
+          Count_Person: {
+            "geoId/05": {
+              series: [
+                {
+                  date: "2011",
+                  value: 21000,
+                },
+                {
+                  date: "2012",
+                  value: 22000,
+                },
+              ],
+              facet: "facet1",
+            },
+            "geoId/06": {
+              series: [
+                {
+                  date: "2011",
+                  value: 31000,
+                },
+                {
+                  date: "2012",
+                  value: 32000,
+                },
+              ],
+              facet: "facet2",
+            },
+          },
+          Count_Person_Male: {
+            "geoId/05": {
+              series: [
+                {
+                  date: "2011",
+                  value: 11000,
+                },
+                {
+                  date: "2012",
+                  value: 13000,
+                },
+              ],
+              facet: "facet1",
+            },
+            "geoId/06": {
+              series: [
+                {
+                  date: "2011",
+                  value: 15000,
+                },
+                {
+                  date: "2012",
+                  value: 16000,
+                },
+              ],
+              facet: "facet2",
+            },
+          },
+        },
+      },
+    });
+
+  when(axios.get)
+    .calledWith("/api/observations/series/all", {
+      params: {
+        variables: ["Count_Person", "Count_Person_Male"],
+        entities: ["geoId/05", "geoId/06"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
+        facets: {
+          facet1: {
+            provenanceUrl: "source1",
+          },
+          facet2: {
+            provenanceUrl: "source2",
+          },
+          facetCensus: {
+            importName: "CensusPEP",
+            provenanceUrl:
+              "https://www.census.gov/programs-surveys/popest.html",
+            measurementMethod: "CensusPEPSurvey",
+          },
+        },
+        data: {
+          Count_Person: {
+            "geoId/05": [
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 21000,
+                  },
+                  {
+                    date: "2012",
+                    value: 22000,
+                  },
+                ],
+                facet: "facet1",
+              },
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 2690743,
+                  },
+                  {
+                    date: "2012",
+                    value: 2952164,
+                  },
+                ],
+                facet: "facetCensus",
+              },
+            ],
+            "geoId/06": [
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 31000,
+                  },
+                  {
+                    date: "2012",
+                    value: 32000,
+                  },
+                ],
+                facet: "facet2",
+              },
+            ],
+          },
+          Count_Person_Male: {
+            "geoId/05": [
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 11000,
+                  },
+                  {
+                    date: "2012",
+                    value: 13000,
+                  },
+                ],
+                facet: "facet1",
+              },
+            ],
+            "geoId/06": [
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 15000,
+                  },
+                  {
+                    date: "2012",
+                    value: 16000,
+                  },
+                ],
+                facet: "facet2",
+              },
+            ],
+          },
+        },
+      },
+    });
+
+  when(axios.get)
+    .calledWith("/api/place/displayname?dcid=geoId/05&dcid=geoId/06")
+    .mockResolvedValue({
+      data: {
+        "geoId/05": "Arkansas",
+        "geoId/06": "California",
+      },
+    });
+}
 
 beforeAll(() => {
   const locale = "en";
@@ -40,275 +234,123 @@ beforeAll(() => {
   ]);
 });
 
-interface ReqType {
-  places: string[];
-  statVars: string[];
-}
-
 test("fetch raw data", () => {
-  mockedAxios.post.mockImplementation((url: string, data: ReqType) => {
-    if (
-      url === "/api/stats" &&
-      _.isEqual(data.statVars, ["Count_Person", "Count_Person_Male"]) &&
-      _.isEqual(data.places, ["geoId/05", "geoId/06"])
-    ) {
-      return Promise.resolve({
-        data: {
-          "geoId/05": {
-            data: {
-              Count_Person: {
-                val: {
-                  "2011": 21000,
-                  "2012": 22000,
-                },
-                metadata: {
-                  provenanceUrl: "source1",
-                },
-              },
-              Count_Person_Male: {
-                val: {
-                  "2011": 11000,
-                  "2012": 13000,
-                },
-                metadata: {
-                  provenanceUrl: "source1",
-                },
-              },
-            },
-          },
-          "geoId/06": {
-            data: {
-              Count_Person: {
-                val: {
-                  "2011": 31000,
-                  "2012": 32000,
-                },
-                metadata: {
-                  provenanceUrl: "source2",
-                },
-              },
-              Count_Person_Male: {
-                val: {
-                  "2011": 15000,
-                  "2012": 16000,
-                },
-                metadata: {
-                  provenanceUrl: "source2",
-                },
-              },
-            },
-          },
-        },
-      });
-    }
-  });
-  mockedAxios.get.mockImplementation((url: string) => {
-    if (url === "/api/place/displayname?dcid=geoId/05&dcid=geoId/06") {
-      return Promise.resolve({
-        data: {
-          "geoId/05": "Arkansas",
-          "geoId/06": "California",
-        },
-      });
-    } else if (
-      url ===
-      "/api/stats/all?places=geoId/05&places=geoId/06&statVars=Count_Person&statVars=Count_Person_Male"
-    ) {
-      return Promise.resolve({
-        data: {
-          placeData: {
-            "geoId/05": {
-              statVarData: {
-                Count_Person: {
-                  sourceSeries: [
-                    {
-                      val: {
-                        "2011": 21000,
-                        "2012": 22000,
-                      },
-                      provenanceDomain: "source1",
-                    },
-                    {
-                      val: {
-                        "2011": 2690743,
-                        "2012": 2952164,
-                      },
-                      importName: "CensusPEP",
-                      provenanceDomain:
-                        "https://www.census.gov/programs-surveys/popest.html",
-                      measurementMethod: "CensusPEPSurvey",
-                    },
-                  ],
-                },
-                Count_Person_Male: {
-                  sourceSeries: [
-                    {
-                      val: {
-                        "2011": 11000,
-                        "2012": 13000,
-                      },
-                      provenanceDomain: "source1",
-                    },
-                  ],
-                },
-              },
-            },
-            "geoId/06": {
-              statVarData: {
-                Count_Person: {
-                  sourceSeries: [
-                    {
-                      val: {
-                        "2011": 31000,
-                        "2012": 32000,
-                      },
-                      provenanceDomain: "source2",
-                    },
-                  ],
-                },
-                Count_Person_Male: {
-                  sourceSeries: [
-                    {
-                      val: {
-                        "2011": 15000,
-                        "2012": 16000,
-                      },
-                      provenanceDomain: "source2",
-                    },
-                  ],
-                },
-              },
-            },
-          },
-        },
-      });
-    }
-  });
-
+  axios_mock();
   return fetchRawData(
     ["geoId/05", "geoId/06"],
     ["Count_Person", "Count_Person_Male"],
     ""
   ).then((data: TimelineRawData) => {
     expect(data).toEqual({
-      denomData: {},
+      denomData: { data: {}, facets: {} },
       displayNames: {
         "geoId/05": "Arkansas",
         "geoId/06": "California",
       },
       metadataMap: {
         Count_Person: {
-          CensusPEPCensusPEPSurveyundefinedundefinedundefined: {
+          facet1: { provenanceUrl: "source1" },
+          facetCensus: {
             importName: "CensusPEP",
-            measurementMethod: "CensusPEPSurvey",
             provenanceUrl:
               "https://www.census.gov/programs-surveys/popest.html",
+            measurementMethod: "CensusPEPSurvey",
           },
-          undefinedundefinedundefinedundefinedundefined: {
-            provenanceUrl: "source2",
-          },
+          facet2: { provenanceUrl: "source2" },
         },
         Count_Person_Male: {
-          undefinedundefinedundefinedundefinedundefined: {
-            provenanceUrl: "source2",
-          },
+          facet1: { provenanceUrl: "source1" },
+          facet2: { provenanceUrl: "source2" },
         },
       },
       statAllData: {
-        "geoId/05": {
+        facets: {
+          facet1: { provenanceUrl: "source1" },
+          facet2: { provenanceUrl: "source2" },
+          facetCensus: {
+            importName: "CensusPEP",
+            provenanceUrl:
+              "https://www.census.gov/programs-surveys/popest.html",
+            measurementMethod: "CensusPEPSurvey",
+          },
+        },
+        data: {
           Count_Person: {
-            CensusPEPCensusPEPSurveyundefinedundefinedundefined: {
-              importName: "CensusPEP",
-              measurementMethod: "CensusPEPSurvey",
-              provenanceDomain:
-                "https://www.census.gov/programs-surveys/popest.html",
-              val: {
-                "2011": 2690743,
-                "2012": 2952164,
+            "geoId/05": [
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 21000,
+                  },
+                  {
+                    date: "2012",
+                    value: 22000,
+                  },
+                ],
+                facet: "facet1",
               },
-            },
-            undefinedundefinedundefinedundefinedundefined: {
-              provenanceDomain: "source1",
-              val: {
-                "2011": 21000,
-                "2012": 22000,
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 2690743,
+                  },
+                  {
+                    date: "2012",
+                    value: 2952164,
+                  },
+                ],
+                facet: "facetCensus",
               },
-            },
+            ],
+            "geoId/06": [
+              {
+                series: [
+                  {
+                    date: "2011",
+                    value: 31000,
+                  },
+                  {
+                    date: "2012",
+                    value: 32000,
+                  },
+                ],
+                facet: "facet2",
+              },
+            ],
           },
           Count_Person_Male: {
-            undefinedundefinedundefinedundefinedundefined: {
-              provenanceDomain: "source1",
-              val: {
-                "2011": 11000,
-                "2012": 13000,
+            "geoId/05": [
+              {
+                facet: "facet1",
+                series: [
+                  {
+                    date: "2011",
+                    value: 11000,
+                  },
+                  {
+                    date: "2012",
+                    value: 13000,
+                  },
+                ],
               },
-            },
-          },
-        },
-        "geoId/06": {
-          Count_Person: {
-            undefinedundefinedundefinedundefinedundefined: {
-              provenanceDomain: "source2",
-              val: {
-                "2011": 31000,
-                "2012": 32000,
+            ],
+            "geoId/06": [
+              {
+                facet: "facet2",
+                series: [
+                  {
+                    date: "2011",
+                    value: 15000,
+                  },
+                  {
+                    date: "2012",
+                    value: 16000,
+                  },
+                ],
               },
-            },
-          },
-          Count_Person_Male: {
-            undefinedundefinedundefinedundefinedundefined: {
-              provenanceDomain: "source2",
-              val: {
-                "2011": 15000,
-                "2012": 16000,
-              },
-            },
-          },
-        },
-      },
-      statData: {
-        "geoId/05": {
-          data: {
-            Count_Person: {
-              metadata: {
-                provenanceUrl: "source1",
-              },
-              val: {
-                "2011": 21000,
-                "2012": 22000,
-              },
-            },
-            Count_Person_Male: {
-              metadata: {
-                provenanceUrl: "source1",
-              },
-              val: {
-                "2011": 11000,
-                "2012": 13000,
-              },
-            },
-          },
-        },
-        "geoId/06": {
-          data: {
-            Count_Person: {
-              metadata: {
-                provenanceUrl: "source2",
-              },
-              val: {
-                "2011": 31000,
-                "2012": 32000,
-              },
-            },
-            Count_Person_Male: {
-              metadata: {
-                provenanceUrl: "source2",
-              },
-              val: {
-                "2011": 15000,
-                "2012": 16000,
-              },
-            },
+            ],
           },
         },
       },
@@ -317,39 +359,54 @@ test("fetch raw data", () => {
 });
 
 test("get stats data with state code", () => {
-  const rawData = {
-    denomData: {},
+  const rawData: TimelineRawData = {
+    denomData: { data: {}, facets: {} },
+    metadataMap: {},
     displayNames: {
       "geoId/05": "Arkansas",
       "geoId/06085": "Santa Clara, CA",
     },
-    metadataMap: {},
-    statAllData: {},
-    statData: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 21000,
-              "2012": 22000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+    statAllData: {
+      facets: {
+        fac1: {
+          provenanceUrl: "source1",
+        },
+        fac2: {
+          provenanceUrl: "source2",
         },
       },
-      "geoId/06085": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 31000,
-              "2012": 32000,
+      data: {
+        Count_Person: {
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 21000,
+                },
+                {
+                  date: "2012",
+                  value: 22000,
+                },
+              ],
+              facet: "fac1",
             },
-            metadata: {
-              provenanceUrl: "source2",
+          ],
+          "geoId/06085": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 31000,
+                },
+                {
+                  date: "2012",
+                  value: 32000,
+                },
+              ],
+              facet: "fac2",
             },
-          },
+          ],
         },
       },
     },
@@ -363,34 +420,46 @@ test("get stats data with state code", () => {
     false
   );
   expect(statData).toEqual({
+    displayNames: {
+      "geoId/05": "Arkansas",
+      "geoId/06085": "Santa Clara, CA",
+    },
     data: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 21000,
-              "2012": 22000,
+      Count_Person: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 21000,
             },
-            metadata: {
-              provenanceUrl: "source1",
+            {
+              date: "2012",
+              value: 22000,
             },
-          },
+          ],
+          facet: "fac1",
         },
-        name: "Arkansas",
+        "geoId/06085": {
+          series: [
+            {
+              date: "2011",
+              value: 31000,
+            },
+            {
+              date: "2012",
+              value: 32000,
+            },
+          ],
+          facet: "fac2",
+        },
       },
-      "geoId/06085": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 31000,
-              "2012": 32000,
-            },
-            metadata: {
-              provenanceUrl: "source2",
-            },
-          },
-        },
-        name: "Santa Clara, CA",
+    },
+    facets: {
+      fac1: {
+        provenanceUrl: "source1",
+      },
+      fac2: {
+        provenanceUrl: "source2",
       },
     },
     dates: ["2011", "2012"],
@@ -402,39 +471,54 @@ test("get stats data with state code", () => {
 });
 
 test("get stats data where latest date with data for all stat vars is not the latest date", () => {
-  const rawData = {
-    denomData: {},
+  const rawData: TimelineRawData = {
+    metadataMap: {},
+    denomData: { facets: {}, data: {} },
     displayNames: {
       "geoId/05": "Arkansas",
       "geoId/06": "California",
     },
-    metadataMap: {},
-    statAllData: {},
-    statData: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 21000,
-              "2012": 22000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+    statAllData: {
+      facets: {
+        fac1: {
+          provenanceUrl: "source1",
+        },
+        fac2: {
+          provenanceUrl: "source2",
         },
       },
-      "geoId/06": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 31000,
-              "2013": 32000,
+      data: {
+        Count_Person: {
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 21000,
+                },
+                {
+                  date: "2012",
+                  value: 22000,
+                },
+              ],
+              facet: "fac1",
             },
-            metadata: {
-              provenanceUrl: "source2",
+          ],
+          "geoId/06": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 31000,
+                },
+                {
+                  date: "2013",
+                  value: 32000,
+                },
+              ],
+              facet: "fac2",
             },
-          },
+          ],
         },
       },
     },
@@ -448,34 +532,46 @@ test("get stats data where latest date with data for all stat vars is not the la
     false
   );
   expect(statData).toEqual({
-    data: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 21000,
-              "2012": 22000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
-        },
-        name: "Arkansas",
+    facets: {
+      fac1: {
+        provenanceUrl: "source1",
       },
-      "geoId/06": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 31000,
-              "2013": 32000,
+      fac2: {
+        provenanceUrl: "source2",
+      },
+    },
+    displayNames: {
+      "geoId/05": "Arkansas",
+      "geoId/06": "California",
+    },
+    data: {
+      Count_Person: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 21000,
             },
-            metadata: {
-              provenanceUrl: "source2",
+            {
+              date: "2012",
+              value: 22000,
             },
-          },
+          ],
+          facet: "fac1",
         },
-        name: "California",
+        "geoId/06": {
+          series: [
+            {
+              date: "2011",
+              value: 31000,
+            },
+            {
+              date: "2013",
+              value: 32000,
+            },
+          ],
+          facet: "fac2",
+        },
       },
     },
     dates: ["2011", "2012", "2013"],
@@ -487,39 +583,54 @@ test("get stats data where latest date with data for all stat vars is not the la
 });
 
 test("get stats data where there is no date with data for all stat vars", () => {
-  const rawData = {
-    denomData: {},
+  const rawData: TimelineRawData = {
+    metadataMap: {},
+    denomData: { data: {}, facets: {} },
     displayNames: {
       "geoId/05": "Arkansas",
       "geoId/06": "California",
     },
-    metadataMap: {},
-    statAllData: {},
-    statData: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2010": 21000,
-              "2013": 22000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+    statAllData: {
+      facets: {
+        fac1: {
+          provenanceUrl: "source1",
+        },
+        fac2: {
+          provenanceUrl: "source2",
         },
       },
-      "geoId/06": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 31000,
-              "2012": 32000,
+      data: {
+        Count_Person: {
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2010",
+                  value: 21000,
+                },
+                {
+                  date: "2013",
+                  value: 22000,
+                },
+              ],
+              facet: "fac1",
             },
-            metadata: {
-              provenanceUrl: "source2",
+          ],
+          "geoId/06": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 31000,
+                },
+                {
+                  date: "2012",
+                  value: 32000,
+                },
+              ],
+              facet: "fac2",
             },
-          },
+          ],
         },
       },
     },
@@ -533,33 +644,33 @@ test("get stats data where there is no date with data for all stat vars", () => 
   );
   expect(statData).toEqual({
     data: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2010": 21000,
-              "2013": 22000,
+      Count_Person: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2010",
+              value: 21000,
             },
-            metadata: {
-              provenanceUrl: "source1",
+            {
+              date: "2013",
+              value: 22000,
             },
-          },
+          ],
+          facet: "fac1",
         },
-        name: "Arkansas",
-      },
-      "geoId/06": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 31000,
-              "2012": 32000,
+        "geoId/06": {
+          series: [
+            {
+              date: "2011",
+              value: 31000,
             },
-            metadata: {
-              provenanceUrl: "source2",
+            {
+              date: "2012",
+              value: 32000,
             },
-          },
+          ],
+          facet: "fac2",
         },
-        name: "California",
       },
     },
     dates: ["2010", "2011", "2012", "2013"],
@@ -567,46 +678,75 @@ test("get stats data where there is no date with data for all stat vars", () => 
     statVars: ["Count_Person"],
     sources: new Set(["source1", "source2"]),
     measurementMethods: new Set(),
+    displayNames: {
+      "geoId/05": "Arkansas",
+      "geoId/06": "California",
+    },
+    facets: {
+      fac1: {
+        provenanceUrl: "source1",
+      },
+      fac2: {
+        provenanceUrl: "source2",
+      },
+    },
   });
 });
 
 test("get stats data with per capita with population size 0", () => {
-  const rawData = {
+  const rawData: TimelineRawData = {
+    metadataMap: {},
     denomData: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 0,
-              "2012": 1300,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
+      facets: {
+        fac1: {
+          provenanceUrl: "source1",
+        },
+      },
+      data: {
+        Count_Person: {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011",
+                value: 0,
+              },
+              {
+                date: "2012",
+                value: 1300,
+              },
+            ],
+            facet: "fac1",
           },
         },
-        name: "Arkansas",
       },
     },
     displayNames: {
       "geoId/05": "Arkansas",
     },
-    metadataMap: {},
-    statAllData: {},
-    statData: {
-      "geoId/05": {
-        data: {
-          Count_Person_Male: {
-            val: {
-              "2011": 11000,
-              "2012": 13000,
+    statAllData: {
+      data: {
+        Count_Person_Male: {
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 11000,
+                },
+                {
+                  date: "2012",
+                  value: 13000,
+                },
+              ],
+              facet: "fac2",
             },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+          ],
         },
-        name: "Arkansas",
+      },
+      facets: {
+        fac2: {
+          provenanceUrl: "source2",
+        },
       },
     },
   };
@@ -621,59 +761,78 @@ test("get stats data with per capita with population size 0", () => {
   );
   expect(statData).toEqual({
     data: {
-      "geoId/05": {
-        data: {
-          Count_Person_Male: {
-            val: {
-              "2011": 0,
-              "2012": 10,
+      Count_Person_Male: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 0,
             },
-            metadata: {
-              provenanceUrl: "source1",
+            {
+              date: "2012",
+              value: 10,
             },
-          },
+          ],
+          facet: "fac2",
         },
-        name: "Arkansas",
       },
     },
     dates: ["2011", "2012"],
     measurementMethods: new Set(),
     places: ["geoId/05"],
-    sources: new Set(["source1"]),
+    sources: new Set(["source1", "source2"]),
     statVars: ["Count_Person_Male"],
+    displayNames: {
+      "geoId/05": "Arkansas",
+    },
+    facets: {
+      fac1: {
+        provenanceUrl: "source1",
+      },
+      fac2: {
+        provenanceUrl: "source2",
+      },
+    },
   });
 });
 
 test("get stats data with Per capita with specified denominators", () => {
-  const rawData = {
+  const rawData: TimelineRawData = {
     denomData: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 80000,
-              "2012": 84000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+      facets: {
+        facet1: {
+          provenanceUrl: "source1",
         },
-        name: "Arkansas",
       },
-      "geoId/06": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 62000,
-              "2012": 64000,
-            },
-            metadata: {
-              provenanceUrl: "source2",
-            },
+      data: {
+        Count_Person: {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011",
+                value: 80000,
+              },
+              {
+                date: "2012",
+                value: 84000,
+              },
+            ],
+            facet: "facet1",
+          },
+          "geoId/06": {
+            series: [
+              {
+                date: "2011",
+                value: 62000,
+              },
+              {
+                date: "2012",
+                value: 64000,
+              },
+            ],
+            facet: "facet2",
           },
         },
-        name: "California",
       },
     },
     displayNames: {
@@ -681,53 +840,80 @@ test("get stats data with Per capita with specified denominators", () => {
       "geoId/06": "California",
     },
     metadataMap: {},
-    statAllData: {},
-    statData: {
-      "geoId/05": {
-        data: {
-          Count_Person_Female: {
-            val: {
-              "2011": 20000,
-              "2012": 21000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
-          Count_Person_Male: {
-            val: {
-              "2011": 60000,
-              "2012": 63000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+    statAllData: {
+      facets: {
+        facet1: {
+          provenanceUrl: "source1",
         },
-        name: "Arkansas",
+        facet2: {
+          provenanceUrl: "source2",
+        },
       },
-      "geoId/06": {
-        data: {
-          Count_Person_Female: {
-            val: {
-              "2011": 31000,
-              "2012": 32000,
+      data: {
+        Count_Person_Female: {
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 20000,
+                },
+                {
+                  date: "2012",
+                  value: 21000,
+                },
+              ],
+              facet: "facet1",
             },
-            metadata: {
-              provenanceUrl: "source2",
+          ],
+          "geoId/06": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 31000,
+                },
+                {
+                  date: "2012",
+                  value: 32000,
+                },
+              ],
+              facet: "facet2",
             },
-          },
-          Count_Person_Male: {
-            val: {
-              "2011": 31000,
-              "2012": 32000,
-            },
-            metadata: {
-              provenanceUrl: "source2",
-            },
-          },
+          ],
         },
-        name: "California",
+        Count_Person_Male: {
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 60000,
+                },
+                {
+                  date: "2012",
+                  value: 63000,
+                },
+              ],
+              facet: "facet1",
+            },
+          ],
+          "geoId/06": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 31000,
+                },
+                {
+                  date: "2012",
+                  value: 32000,
+                },
+              ],
+              facet: "facet2",
+            },
+          ],
+        },
       },
     },
   };
@@ -743,51 +929,61 @@ test("get stats data with Per capita with specified denominators", () => {
 
   expect(statData).toEqual({
     data: {
-      "geoId/05": {
-        data: {
-          Count_Person_Male: {
-            val: {
-              "2011": 0.75,
-              "2012": 0.75,
+      Count_Person_Female: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 0.25,
             },
-            metadata: {
-              provenanceUrl: "source1",
+            {
+              date: "2012",
+              value: 0.25,
             },
-          },
-          Count_Person_Female: {
-            val: {
-              "2011": 0.25,
-              "2012": 0.25,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+          ],
+          facet: "facet1",
         },
-        name: "Arkansas",
+        "geoId/06": {
+          series: [
+            {
+              date: "2011",
+              value: 0.5,
+            },
+            {
+              date: "2012",
+              value: 0.5,
+            },
+          ],
+          facet: "facet2",
+        },
       },
-      "geoId/06": {
-        data: {
-          Count_Person_Female: {
-            val: {
-              "2011": 0.5,
-              "2012": 0.5,
+      Count_Person_Male: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 0.75,
             },
-            metadata: {
-              provenanceUrl: "source2",
+            {
+              date: "2012",
+              value: 0.75,
             },
-          },
-          Count_Person_Male: {
-            val: {
-              "2011": 0.5,
-              "2012": 0.5,
-            },
-            metadata: {
-              provenanceUrl: "source2",
-            },
-          },
+          ],
+          facet: "facet1",
         },
-        name: "California",
+        "geoId/06": {
+          series: [
+            {
+              date: "2011",
+              value: 0.5,
+            },
+            {
+              date: "2012",
+              value: 0.5,
+            },
+          ],
+          facet: "facet2",
+        },
       },
     },
     dates: ["2011", "2012"],
@@ -795,25 +991,45 @@ test("get stats data with Per capita with specified denominators", () => {
     statVars: ["Count_Person_Male", "Count_Person_Female"],
     sources: new Set(["source1", "source2"]),
     measurementMethods: new Set(),
+    displayNames: {
+      "geoId/05": "Arkansas",
+      "geoId/06": "California",
+    },
+    facets: {
+      facet1: {
+        provenanceUrl: "source1",
+      },
+      facet2: {
+        provenanceUrl: "source2",
+      },
+    },
   });
 });
 
 test("get stats data with per capita with specified denominators - missing place data", () => {
-  const rawData = {
+  const rawData: TimelineRawData = {
     denomData: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 80000,
-              "2012": 84000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
+      facets: {
+        facet1: {
+          provenanceUrl: "source1",
+        },
+      },
+      data: {
+        Count_Person: {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011",
+                value: 80000,
+              },
+              {
+                date: "2012",
+                value: 84000,
+              },
+            ],
+            facet: "facet1",
           },
         },
-        name: "Arkansas",
       },
     },
     displayNames: {
@@ -821,35 +1037,52 @@ test("get stats data with per capita with specified denominators - missing place
       "country/USA": "USA",
     },
     metadataMap: {},
-    statAllData: {},
-    statData: {
-      "geoId/05": {
-        data: {
-          UnemploymentRate_Person_Female: {
-            val: {
-              "2011": 11000,
-              "2012": 11760,
-            },
-            metadata: {
-              provenanceUrl: "source2",
-            },
-          },
+    statAllData: {
+      facets: {
+        facet1: {
+          provenanceUrl: "source1",
         },
-        name: "Arkansas",
+        facet2: {
+          provenanceUrl: "source2",
+        },
       },
-      "country/USA": {
-        data: {
-          UnemploymentRate_Person_Male: {
-            val: {
-              "2011": 21000,
-              "2012": 22000,
+      data: {
+        UnemploymentRate_Person_Female: {
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 11000,
+                },
+                {
+                  date: "2012",
+                  value: 11760,
+                },
+              ],
+              facet: "facet2",
             },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+          ],
+          "country/USA": [],
         },
-        name: "USA",
+        UnemploymentRate_Person_Male: {
+          "geoId/05": [],
+          "country/USA": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 21000,
+                },
+                {
+                  date: "2012",
+                  value: 22000,
+                },
+              ],
+              facet: "facet1",
+            },
+          ],
+        },
       },
     },
   };
@@ -865,19 +1098,20 @@ test("get stats data with per capita with specified denominators - missing place
 
   expect(statData).toEqual({
     data: {
-      "geoId/05": {
-        data: {
-          UnemploymentRate_Person_Female: {
-            val: {
-              "2011": 0.1375,
-              "2012": 0.14,
+      UnemploymentRate_Person_Female: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 0.1375,
             },
-            metadata: {
-              provenanceUrl: "source2",
+            {
+              date: "2012",
+              value: 0.14,
             },
-          },
+          ],
+          facet: "facet2",
         },
-        name: "Arkansas",
       },
     },
     dates: ["2011", "2012"],
@@ -886,89 +1120,98 @@ test("get stats data with per capita with specified denominators - missing place
       "UnemploymentRate_Person_Male",
       "UnemploymentRate_Person_Female",
     ],
-    sources: new Set(["source2"]),
+    sources: new Set(["source1", "source2"]),
     measurementMethods: new Set(),
+    displayNames: {
+      "country/USA": "USA",
+      "geoId/05": "Arkansas",
+    },
+    facets: {
+      facet1: {
+        provenanceUrl: "source1",
+      },
+      facet2: {
+        provenanceUrl: "source2",
+      },
+    },
   });
 });
 
 test("get stat data with specified source", () => {
-  const rawData = {
-    denomData: {},
+  const rawData: TimelineRawData = {
+    denomData: { data: {}, facets: {} },
     displayNames: {
       "geoId/05": "Arkansas",
       "geoId/06085": "Santa Clara, CA",
     },
     metadataMap: {
       Count_Person: {
-        CensusPEPCensusPEPSurveyundefinedundefinedundefined: {
+        facet1: {
           importName: "CensusPEP",
           measurementMethod: "CensusPEPSurvey",
           provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
         },
-        undefinedundefinedundefinedundefinedundefined: {
+        facet2: {
           provenanceUrl: "source2",
         },
       },
     },
     statAllData: {
-      "geoId/05": {
+      facets: {
+        facet1: {
+          importName: "CensusPEP",
+          measurementMethod: "CensusPEPSurvey",
+          provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
+        },
+        facet2: {
+          provenanceUrl: "source2",
+        },
+      },
+      data: {
         Count_Person: {
-          CensusPEPCensusPEPSurveyundefinedundefinedundefined: {
-            importName: "CensusPEP",
-            measurementMethod: "CensusPEPSurvey",
-            provenanceDomain:
-              "https://www.census.gov/programs-surveys/popest.html",
-            val: {
-              "2011": 2690743,
-              "2012": 2952164,
+          "geoId/05": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 2690743,
+                },
+                {
+                  date: "2012",
+                  value: 2952164,
+                },
+              ],
+              facet: "facet1",
             },
-          },
-          undefinedundefinedundefinedundefinedundefined: {
-            provenanceDomain: "source1",
-            val: {
-              "2011": 21000,
-              "2012": 22000,
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 21000,
+                },
+                {
+                  date: "2012",
+                  value: 22000,
+                },
+              ],
+              facet: "facet2",
             },
-          },
-        },
-      },
-      "geoId/06085": {
-        Count_Person: {
-          undefinedundefinedundefinedundefinedundefined: {
-            provenanceDomain: "source2",
-            val: {
-              "2011": 31000,
-              "2012": 32000,
+          ],
+          "geoId/06085": [
+            {
+              series: [
+                {
+                  date: "2011",
+                  value: 31000,
+                },
+                {
+                  date: "2012",
+                  value: 32000,
+                },
+              ],
+              facet: "facet2",
             },
-          },
-        },
-      },
-    },
-    statData: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 21000,
-              "2012": 22000,
-            },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
-        },
-      },
-      "geoId/06085": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 31000,
-              "2012": 32000,
-            },
-            metadata: {
-              provenanceUrl: "source2",
-            },
-          },
+          ],
         },
       },
     },
@@ -978,27 +1221,25 @@ test("get stat data with specified source", () => {
     rawData,
     ["geoId/05", "geoId/06085"],
     ["Count_Person"],
-    { Count_Person: "CensusPEPCensusPEPSurveyundefinedundefinedundefined" },
+    { Count_Person: "facet1" },
     false
   );
   expect(statData).toEqual({
     data: {
-      "geoId/05": {
-        data: {
-          Count_Person: {
-            val: {
-              "2011": 2690743,
-              "2012": 2952164,
+      Count_Person: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 2690743,
             },
-            metadata: {
-              importName: "CensusPEP",
-              measurementMethod: "CensusPEPSurvey",
-              provenanceUrl:
-                "https://www.census.gov/programs-surveys/popest.html",
+            {
+              date: "2012",
+              value: 2952164,
             },
-          },
+          ],
+          facet: "facet1",
         },
-        name: "Arkansas",
       },
     },
     dates: ["2011", "2012"],
@@ -1006,6 +1247,20 @@ test("get stat data with specified source", () => {
     statVars: ["Count_Person"],
     sources: new Set(["https://www.census.gov/programs-surveys/popest.html"]),
     measurementMethods: new Set(["CensusPEPSurvey"]),
+    displayNames: {
+      "geoId/05": "Arkansas",
+      "geoId/06085": "Santa Clara, CA",
+    },
+    facets: {
+      facet1: {
+        importName: "CensusPEP",
+        measurementMethod: "CensusPEPSurvey",
+        provenanceUrl: "https://www.census.gov/programs-surveys/popest.html",
+      },
+      facet2: {
+        provenanceUrl: "source2",
+      },
+    },
   });
 });
 
@@ -1014,18 +1269,27 @@ test("StatsData test", () => {
   const statData: StatData = {
     places: [],
     statVars: [],
+    facets: {
+      facet1: {
+        provenanceUrl: "source1",
+      },
+    },
     data: {
-      "geoId/01": { data: {} },
-      "geoId/02": {
-        data: {
-          Count_Person: {
-            val: { "1990": 10, "1992": 20 },
-            metadata: {
-              provenanceUrl: "test.domain",
+      Count_Person: {
+        "geoId/01": { series: [] },
+        "geoId/02": {
+          series: [
+            {
+              date: "1990",
+              value: 10,
             },
-          },
+            {
+              date: "1992",
+              value: 20,
+            },
+          ],
+          facet: "facet1",
         },
-        name: "Place2",
       },
     },
     dates: [],
@@ -1035,61 +1299,39 @@ test("StatsData test", () => {
   expect(getStatVarGroupWithTime(statData, "geoId/01")).toEqual([]);
 });
 
-test("compute per capita", () => {
-  const statSeries: TimeSeries = {
-    val: {
-      "2001": 1000,
-      "2005": 2000,
-      "2010": 3000,
-    },
-  };
-  const popSeries: TimeSeries = {
-    val: {
-      "2001": 100,
-      "2004": 200,
-      "2009": 300,
-    },
-  };
-  const expected: TimeSeries = {
-    val: {
-      "2001": 10,
-      "2005": 10,
-      "2010": 10,
-    },
-  };
-  expect(computeRatio(statSeries, popSeries)).toEqual(expected);
-});
-
 test("convert to delta", () => {
   let statData: StatData = {
+    facets: {},
     data: {
-      "geoId/05": {
-        data: {
-          UnemploymentRate_Person_Female: {
-            val: {
-              "2011": 11000,
-              "2012": 12000,
+      UnemploymentRate_Person_Female: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 11000,
             },
-            metadata: {
-              provenanceUrl: "source2",
+            {
+              date: "2012",
+              value: 12000,
             },
-          },
+          ],
+          facet: "facet2",
         },
-        name: "Arkansas",
       },
-      "country/USA": {
-        data: {
-          UnemploymentRate_Person_Male: {
-            val: {
-              "2011": 21000,
-              "2012": 22000,
+      UnemploymentRate_Person_Male: {
+        "country/USA": {
+          series: [
+            {
+              date: "2011",
+              value: 21000,
             },
-            metadata: {
-              provenanceUrl: "source1",
+            {
+              date: "2012",
+              value: 22000,
             },
-          },
+          ],
+          facet: "facet1",
         },
-        name: "USA",
       },
     },
     dates: ["2011", "2012"],
@@ -1103,32 +1345,29 @@ test("convert to delta", () => {
   };
 
   const expected: StatData = {
+    facets: {},
     data: {
-      "geoId/05": {
-        data: {
-          UnemploymentRate_Person_Female: {
-            val: {
-              "2012": 1000,
+      UnemploymentRate_Person_Female: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2012",
+              value: 1000,
             },
-            metadata: {
-              provenanceUrl: "source2",
-            },
-          },
+          ],
+          facet: "facet2",
         },
-        name: "Arkansas",
       },
-      "country/USA": {
-        data: {
-          UnemploymentRate_Person_Male: {
-            val: {
-              "2012": 1000,
+      UnemploymentRate_Person_Male: {
+        "country/USA": {
+          series: [
+            {
+              date: "2012",
+              value: 1000,
             },
-            metadata: {
-              provenanceUrl: "source1",
-            },
-          },
+          ],
+          facet: "facet1",
         },
-        name: "USA",
       },
     },
     dates: ["2012"],
@@ -1147,38 +1386,41 @@ test("convert to delta", () => {
 
 test("transform from models - multiple places", () => {
   const statData: StatData = {
-    data: {
-      "geoId/05": {
-        data: {
-          Max_Temperature_RCP26: {
-            val: {
-              "2011-01": 1.0,
-              "2012-01": 3.0,
-            },
-            metadata: {
-              provenanceUrl: "nasa.gov",
-              measurementMethod: "NASA_Mean_CCSM4",
-              observationPeriod: "P1M",
-            },
-          },
-        },
-        name: "Arkansas",
+    facets: {
+      facet1: {
+        provenanceUrl: "nasa.gov",
+        measurementMethod: "NASA_Mean_CCSM4",
+        observationPeriod: "P1M",
       },
-      "country/USA": {
-        data: {
-          Max_Temperature_RCP26: {
-            val: {
-              "2011-01": 4.0,
-              "2012-01": 6.0,
+    },
+    data: {
+      Max_Temperature_RCP26: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011-01",
+              value: 1.0,
             },
-            metadata: {
-              provenanceUrl: "nasa.gov",
-              measurementMethod: "NASA_Mean_CCSM4",
-              observationPeriod: "P1M",
+            {
+              date: "2012-01",
+              value: 3.0,
             },
-          },
+          ],
+          facet: "facet1",
         },
-        name: "USA",
+        "country/USA": {
+          series: [
+            {
+              date: "2011-01",
+              value: 4.0,
+            },
+            {
+              date: "2012-01",
+              value: 6.0,
+            },
+          ],
+          facet: "facet1",
+        },
       },
     },
     dates: ["2011-01", "2012-01"],
@@ -1188,53 +1430,79 @@ test("transform from models - multiple places", () => {
     measurementMethods: new Set(["NASA_Mean_CCSM4"]),
   };
 
-  const modelStatAllResponse = {
-    "geoId/05": {
-      Max_Temperature_RCP26: {
-        metahash1: {
-          importName: "model1",
-          measurementMethod: "NASA_Mean_CCSM4",
-          observationPeriod: "P1M",
-          provenanceDomain: "model.nasa.gov",
-          val: {
-            "2011-01": 10.0,
-            "2012-01": 12.0,
-          },
-        },
-        metahash2: {
-          importName: "model2",
-          measurementMethod: "NASA_Mean_HadGEM2-AO",
-          observationPeriod: "P1M",
-          provenanceDomain: "model.nasa.gov",
-          val: {
-            "2011-01": 12.0,
-            "2012-01": 14.0,
-          },
-        },
+  const modelStatAllResponse: SeriesAllApiResponse = {
+    facets: {
+      facet1: {
+        importName: "model1",
+        measurementMethod: "NASA_Mean_CCSM4",
+        observationPeriod: "P1M",
+        provenanceUrl: "model.nasa.gov",
+      },
+      facet2: {
+        importName: "model2",
+        measurementMethod: "NASA_Mean_HadGEM2-AO",
+        observationPeriod: "P1M",
+        provenanceUrl: "model.nasa.gov",
       },
     },
-    "country/USA": {
+    data: {
       Max_Temperature_RCP26: {
-        metahash1: {
-          importName: "model1",
-          measurementMethod: "NASA_Mean_CCSM4",
-          observationPeriod: "P1M",
-          provenanceDomain: "model.nasa.gov",
-          val: {
-            "2011-01": 20.0,
-            "2012-01": 22.0,
+        "geoId/05": [
+          {
+            series: [
+              {
+                date: "2011-01",
+                value: 10.0,
+              },
+              {
+                date: "2012-01",
+                value: 12.0,
+              },
+            ],
+            facet: "facet1",
           },
-        },
-        metahash2: {
-          importName: "model2",
-          measurementMethod: "NASA_Mean_HadGEM2-AO",
-          observationPeriod: "P1M",
-          provenanceDomain: "model.nasa.gov",
-          val: {
-            "2011-01": 22.0,
-            "2012-01": 24.0,
+          {
+            series: [
+              {
+                date: "2011-01",
+                value: 12.0,
+              },
+              {
+                date: "2012-01",
+                value: 14.0,
+              },
+            ],
+            facet: "facet2",
           },
-        },
+        ],
+        "country/USA": [
+          {
+            series: [
+              {
+                date: "2011-01",
+                value: 20.0,
+              },
+              {
+                date: "2012-01",
+                value: 22.0,
+              },
+            ],
+            facet: "facet1",
+          },
+          {
+            series: [
+              {
+                date: "2011-01",
+                value: 22.0,
+              },
+              {
+                date: "2012-01",
+                value: 24.0,
+              },
+            ],
+            facet: "facet2",
+          },
+        ],
       },
     },
   };
@@ -1242,38 +1510,41 @@ test("transform from models - multiple places", () => {
   const expected: [StatData, StatData] = [
     {
       // Modified mainStatData
-      data: {
-        "geoId/05": {
-          data: {
-            Max_Temperature_RCP26: {
-              val: {
-                "2011-01": 11.0,
-                "2012-01": 13.0,
-              },
-              metadata: {
-                provenanceUrl: "nasa.gov",
-                measurementMethod: "NASA_Mean_CCSM4",
-                observationPeriod: "P1M",
-              },
-            },
-          },
-          name: "Arkansas",
+      facets: {
+        "0": {
+          provenanceUrl: "model.nasa.gov",
+          measurementMethod: "Mean across models",
+          observationPeriod: "P1M",
         },
-        "country/USA": {
-          data: {
-            Max_Temperature_RCP26: {
-              val: {
-                "2011-01": 21.0,
-                "2012-01": 23.0,
+      },
+      data: {
+        Max_Temperature_RCP26: {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011-01",
+                value: 11.0,
               },
-              metadata: {
-                provenanceUrl: "nasa.gov",
-                measurementMethod: "NASA_Mean_CCSM4",
-                observationPeriod: "P1M",
+              {
+                date: "2012-01",
+                value: 13.0,
               },
-            },
+            ],
+            facet: "0",
           },
-          name: "USA",
+          "country/USA": {
+            series: [
+              {
+                date: "2011-01",
+                value: 21.0,
+              },
+              {
+                date: "2012-01",
+                value: 23.0,
+              },
+            ],
+            facet: "0",
+          },
         },
       },
       dates: ["2011-01", "2012-01"],
@@ -1284,33 +1555,75 @@ test("transform from models - multiple places", () => {
     },
     {
       // model StatData
+      facets: {
+        facet1: {
+          importName: "model1",
+          measurementMethod: "NASA_Mean_CCSM4",
+          observationPeriod: "P1M",
+          provenanceUrl: "model.nasa.gov",
+        },
+        facet2: {
+          importName: "model2",
+          measurementMethod: "NASA_Mean_HadGEM2-AO",
+          observationPeriod: "P1M",
+          provenanceUrl: "model.nasa.gov",
+        },
+      },
       data: {
-        "geoId/05": {
-          data: {
-            "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
-              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                "metahash1"
-              ].val,
-            },
-            "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
-              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                "metahash2"
-              ].val,
-            },
+        "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011-01",
+                value: 10.0,
+              },
+              {
+                date: "2012-01",
+                value: 12.0,
+              },
+            ],
+            facet: "facet1",
+          },
+          "country/USA": {
+            series: [
+              {
+                date: "2011-01",
+                value: 20.0,
+              },
+              {
+                date: "2012-01",
+                value: 22.0,
+              },
+            ],
+            facet: "facet1",
           },
         },
-        "country/USA": {
-          data: {
-            "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
-              val: modelStatAllResponse["country/USA"]["Max_Temperature_RCP26"][
-                "metahash1"
-              ].val,
-            },
-            "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
-              val: modelStatAllResponse["country/USA"]["Max_Temperature_RCP26"][
-                "metahash2"
-              ].val,
-            },
+        "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011-01",
+                value: 12.0,
+              },
+              {
+                date: "2012-01",
+                value: 14.0,
+              },
+            ],
+            facet: "facet2",
+          },
+          "country/USA": {
+            series: [
+              {
+                date: "2011-01",
+                value: 22.0,
+              },
+              {
+                date: "2012-01",
+                value: 24.0,
+              },
+            ],
+            facet: "facet2",
           },
         },
       },
@@ -1325,7 +1638,6 @@ test("transform from models - multiple places", () => {
       measurementMethods: new Set(["NASA_Mean_CCSM4", "NASA_Mean_HadGEM2-AO"]),
     },
   ];
-
   expect(
     statDataFromModels(statData, modelStatAllResponse, [
       "Max_Temperature_RCP26",
@@ -1335,74 +1647,120 @@ test("transform from models - multiple places", () => {
 
 test("transform from models - multiple obs periods", () => {
   const statData: StatData = {
+    facets: {
+      facet1: {
+        provenanceUrl: "model.nasa.gov",
+        measurementMethod: "NASA_Mean_CCSM4",
+        observationPeriod: "P1Y",
+      },
+    },
     data: {
-      "geoId/05": {
-        data: {
-          Max_Temperature_RCP26: {
-            val: {
-              "2011": 1.0,
-              "2012": 3.0,
+      Max_Temperature_RCP26: {
+        "geoId/05": {
+          series: [
+            {
+              date: "2011",
+              value: 1.0,
             },
-            metadata: {
-              provenanceUrl: "nasa.gov",
-              measurementMethod: "NASA_Mean_CCSM4",
-              observationPeriod: "P1Y",
+            {
+              date: "2012",
+              value: 3.0,
             },
-          },
+          ],
+          facet: "facet1",
         },
-        name: "Arkansas",
       },
     },
     dates: ["2011", "2012"],
     places: ["geoId/05"],
     statVars: ["Max_Temperature_RCP26"],
-    sources: new Set(["nasa.gov"]),
+    sources: new Set(["model.nasa.gov"]),
     measurementMethods: new Set(["NASA_Mean_CCSM4"]),
   };
 
-  const modelStatAllResponse = {
-    "geoId/05": {
+  const modelStatAllResponse: SeriesAllApiResponse = {
+    facets: {
+      facet1: {
+        importName: "model1",
+        measurementMethod: "NASA_Mean_CCSM4",
+        observationPeriod: "P1M",
+        provenanceUrl: "model.nasa.gov",
+      },
+      facet2: {
+        importName: "model2",
+        measurementMethod: "NASA_Mean_HadGEM2-AO",
+        observationPeriod: "P1M",
+        provenanceUrl: "model.nasa.gov",
+      },
+      facet3: {
+        importName: "model1",
+        measurementMethod: "NASA_Mean_CCSM4",
+        observationPeriod: "P1Y",
+        provenanceUrl: "p1y.nasa.gov",
+      },
+      facet4: {
+        importName: "model2",
+        measurementMethod: "NASA_Mean_HadGEM2-AO",
+        observationPeriod: "P1Y",
+        provenanceUrl: "p1y.nasa.gov",
+      },
+    },
+    data: {
       Max_Temperature_RCP26: {
-        metahash1: {
-          importName: "model1",
-          measurementMethod: "NASA_Mean_CCSM4",
-          observationPeriod: "P1M",
-          provenanceDomain: "p1m.nasa.gov",
-          val: {
-            "2011": 10.0,
-            "2012": 12.0,
+        "geoId/05": [
+          {
+            series: [
+              {
+                date: "2011-01",
+                value: 10.0,
+              },
+              {
+                date: "2011-02",
+                value: 12.0,
+              },
+            ],
+            facet: "facet1",
           },
-        },
-        metahash2: {
-          importName: "model2",
-          measurementMethod: "NASA_Mean_HadGEM2-AO",
-          observationPeriod: "P1M",
-          provenanceDomain: "p1m.nasa.gov",
-          val: {
-            "2011": 12.0,
-            "2012": 14.0,
+          {
+            series: [
+              {
+                date: "2011-01",
+                value: 12.0,
+              },
+              {
+                date: "2011-02",
+                value: 14.0,
+              },
+            ],
+            facet: "facet2",
           },
-        },
-        metahash3: {
-          importName: "model1",
-          measurementMethod: "NASA_Mean_CCSM4",
-          observationPeriod: "P1Y",
-          provenanceDomain: "p1y.nasa.gov",
-          val: {
-            "2011": 20.0,
-            "2012": 22.0,
+          {
+            series: [
+              {
+                date: "2011",
+                value: 20.0,
+              },
+              {
+                date: "2012",
+                value: 22.0,
+              },
+            ],
+            facet: "facet3",
           },
-        },
-        metahash4: {
-          importName: "model2",
-          measurementMethod: "NASA_Mean_HadGEM2-AO",
-          observationPeriod: "P1Y",
-          provenanceDomain: "p1y.nasa.gov",
-          val: {
-            "2011": 22.0,
-            "2012": 24.0,
+          {
+            series: [
+              {
+                date: "2011",
+                value: 22.0,
+              },
+              {
+                date: "2012",
+                value: 24.0,
+              },
+            ],
+            facet: "facet4",
           },
-        },
+        ],
       },
     },
   };
@@ -1410,22 +1768,28 @@ test("transform from models - multiple obs periods", () => {
   const expected: [StatData, StatData] = [
     {
       // Modified mainStatData
+      facets: {
+        "0": {
+          provenanceUrl: "p1y.nasa.gov",
+          measurementMethod: "Mean across models",
+          observationPeriod: "P1Y",
+        },
+      },
       data: {
-        "geoId/05": {
-          data: {
-            Max_Temperature_RCP26: {
-              val: {
-                "2011": 21.0,
-                "2012": 23.0,
+        Max_Temperature_RCP26: {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011",
+                value: 21.0,
               },
-              metadata: {
-                provenanceUrl: "nasa.gov",
-                measurementMethod: "NASA_Mean_CCSM4",
-                observationPeriod: "P1Y",
+              {
+                date: "2012",
+                value: 23.0,
               },
-            },
+            ],
+            facet: "0",
           },
-          name: "Arkansas",
         },
       },
       dates: ["2011", "2012"],
@@ -1436,19 +1800,49 @@ test("transform from models - multiple obs periods", () => {
     },
     {
       // model StatData
+      facets: {
+        facet3: {
+          importName: "model1",
+          measurementMethod: "NASA_Mean_CCSM4",
+          observationPeriod: "P1Y",
+          provenanceUrl: "p1y.nasa.gov",
+        },
+        facet4: {
+          importName: "model2",
+          measurementMethod: "NASA_Mean_HadGEM2-AO",
+          observationPeriod: "P1Y",
+          provenanceUrl: "p1y.nasa.gov",
+        },
+      },
       data: {
-        "geoId/05": {
-          data: {
-            "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
-              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                "metahash3"
-              ].val,
-            },
-            "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
-              val: modelStatAllResponse["geoId/05"]["Max_Temperature_RCP26"][
-                "metahash4"
-              ].val,
-            },
+        "Max_Temperature_RCP26-NASA_Mean_CCSM4": {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011",
+                value: 20.0,
+              },
+              {
+                date: "2012",
+                value: 22.0,
+              },
+            ],
+            facet: "facet3",
+          },
+        },
+        "Max_Temperature_RCP26-NASA_Mean_HadGEM2-AO": {
+          "geoId/05": {
+            series: [
+              {
+                date: "2011",
+                value: 22.0,
+              },
+              {
+                date: "2012",
+                value: 24.0,
+              },
+            ],
+            facet: "facet4",
           },
         },
       },

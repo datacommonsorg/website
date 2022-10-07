@@ -96,7 +96,7 @@ def register_routes_common(app):
     # TODO: Extract more out to base_dc
     from routes.api import (browser as browser_api, choropleth, place as
                             place_api, landing_page, ranking as ranking_api,
-                            stats, translator)
+                            stats, translator, csv, facets, series, point)
     app.register_blueprint(browser_api.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
@@ -105,6 +105,10 @@ def register_routes_common(app):
     app.register_blueprint(ranking_api.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(translator.bp)
+    app.register_blueprint(csv.bp)
+    app.register_blueprint(facets.bp)
+    app.register_blueprint(series.bp)
+    app.register_blueprint(point.bp)
 
 
 def create_app():

@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-import { StatVarSpec } from "../shared/types";
-import { StatVarSpecMap } from "./topic_config";
+import { stringifyFn } from "./axios";
 
-// Provider for stat var spec in a category.
-// TODO: move data fetching from individual tiles here.
-
-export class StatVarProvider {
-  _statVarSpecMap: StatVarSpecMap;
-
-  constructor(svsMap: StatVarSpecMap) {
-    this._statVarSpecMap = svsMap;
-  }
-
-  getSpec(key: string): StatVarSpec {
-    return this._statVarSpecMap[key] || null;
-  }
-
-  getSpecList(keys: string[]): StatVarSpec[] {
-    return keys.map((k) => this._statVarSpecMap[k]);
-  }
-}
+test("stringfy url params", () => {
+  const params = {
+    dcid: "geoId/06",
+    variables: ["Count_Person", "Count_Person_Female"],
+  };
+  expect(stringifyFn(params)).toStrictEqual(
+    "dcid=geoId%2F06&variables=Count_Person&variables=Count_Person_Female"
+  );
+});

@@ -21,7 +21,6 @@
 import React from "react";
 
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
-import { formatString } from "./string_utils";
 
 const NUM_FRACTION_DIGITS = 2;
 

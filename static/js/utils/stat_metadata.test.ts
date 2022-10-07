@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,12 @@
  * limitations under the License.
  */
 
-import { getPageDisplayType, PageDisplayType } from "./types";
-import { getUnit } from "./util";
-
-test("getPageDisplayType", () => {
-  // non empty stat var id
-  expect(getPageDisplayType(["Country"], "testStatVar")).toEqual(
-    PageDisplayType.PLACE_STAT_VAR
-  );
-  // list of types contains BiologicalSpecimen
-  expect(getPageDisplayType(["BiologicalSpecimen"], "")).toEqual(
-    PageDisplayType.BIOLOGICAL_SPECIMEN
-  );
-  // list of types doesn't contain anything special
-  expect(getPageDisplayType(["country"], "")).toEqual(PageDisplayType.GENERAL);
-});
+import { getUnit } from "./stat_metadata";
 
 test("getUnit", () => {
   const testUnit = "Millimeter";
   const baseSourceSeries = {
-    provenanceDomain: "testProv",
+    provenanceUrl: "testProv",
     val: { "2012-11": 123.45 },
   };
   expect(getUnit(baseSourceSeries) === "");
