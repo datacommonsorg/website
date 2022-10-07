@@ -129,11 +129,33 @@ export function ChartLoader(): JSX.Element {
   //   };
   // }, []);
 
+  // Fetch geojson data.
   useEffect(() => {
     if (!geoJson) {
       fetchGeoJson(placeInfo.value, setGeoJson);
     }
-  }, [placeInfo.value]);
+  }, [geoJson, placeInfo.value]);
+
+  // Update geojson data if needed.
+  useEffect(() => {
+    if (_.isEmpty(rawData) || _.isEmpty(geoJson)) {
+      return;
+    }
+    if (
+      _.isEmpty(geoJson.features) &&
+      placeInfo.value.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
+    ) {
+      const geoJsonFeatures = getGeoJsonDataFeatures(
+        Object.keys(rawData.enclosedPlaceStat),
+        placeInfo.value.enclosedPlaceType
+      );
+      setGeoJson({
+        type: "FeatureCollection",
+        properties: { current_geo: placeInfo.value.enclosingPlace.dcid },
+        features: geoJsonFeatures,
+      });
+    }
+  }, [geoJson, placeInfo.value, rawData]);
 
   useEffect(() => {
     const placeSelected =
@@ -164,29 +186,30 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
-    if (!_.isEmpty(rawData)) {
-      const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
-      const dateRawData =
-        statVar.value.date && sampleDatesChartData[metahash]
-          ? sampleDatesChartData[metahash][statVar.value.date]
-          : rawData;
-      loadChartData(
-        dateRawData,
-        geoJson,
-        placeInfo.value,
-        statVar.value,
-        setChartData,
-        display
-      );
-      // Should set legend bounds for per capita if there isn't a user specified
-      // domain.
-      if (
-        statVar.value.perCapita &&
-        statVar.value.denom &&
-        _.isEmpty(display.value.domain)
-      ) {
-        setLegendBoundsPerCapita(rawData, statVar, display);
-      }
+    if (_.isEmpty(rawData) || _.isEmpty(geoJson)) {
+      return;
+    }
+    const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
+    const dateRawData =
+      statVar.value.date && sampleDatesChartData[metahash]
+        ? sampleDatesChartData[metahash][statVar.value.date]
+        : rawData;
+    loadChartData(
+      dateRawData,
+      geoJson,
+      placeInfo.value,
+      statVar.value,
+      setChartData,
+      display
+    );
+    // Should set legend bounds for per capita if there isn't a user specified
+    // domain.
+    if (
+      statVar.value.perCapita &&
+      statVar.value.denom &&
+      _.isEmpty(display.value.domain)
+    ) {
+      setLegendBoundsPerCapita(rawData, statVar, display);
     }
   }, [rawData, geoJson, statVar.value.metahash, statVar.value.perCapita]);
 
@@ -726,23 +749,6 @@ function loadChartData(
   const calculateRatio = statVar.perCapita && statVar.denom ? true : false;
   // populate mapValues with data value for each geo that we have geoJson data
   // for.
-  if (!geoJsonData) {
-    return;
-  }
-  if (
-    _.isEmpty(geoJsonData.features) &&
-    placeInfo.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
-  ) {
-    const geoJsonFeatures = getGeoJsonDataFeatures(
-      Object.keys(rawData.enclosedPlaceStat),
-      placeInfo.enclosedPlaceType
-    );
-    geoJsonData = {
-      type: "FeatureCollection",
-      properties: { current_geo: placeInfo.enclosingPlace.dcid },
-      features: geoJsonFeatures,
-    };
-  }
   for (const geoFeature of geoJsonData.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     let wantedFacetData = rawData.enclosedPlaceStat;
