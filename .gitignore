@@ -34,3 +34,17 @@ deploy/overlays/**/kustomize-deployed.yaml
 
 deploy/git/mixer_hash.txt
 deploy/git/website_hash.txt
+
+# Helm
+build/helm/**/*.tgz
+
+# Terraform
+# Instance variables.
+*.tfvars
+# Local .terraform directories
+**/.terraform/*
+**/.terraform.lock.*
+# .tfstate files
+*.tfstate
+*.tfstate.*
+pylist.json

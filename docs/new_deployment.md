@@ -94,9 +94,17 @@ Follow the [IAP setup](./iap.md) to use Cloud IAP to restrict access to the new 
 
 ## [Private Instance] Adding Data
 
-Each data import should be contained within a top-level folder in the GCS bucket associated with the instance. Within each folder, there should be exactly one `manifest.json`, exactly one TMCF file, and one or more CSV files.
+Each data import should be contained within a top-level folder in the GCS bucket associated with the instance. Within each folder, there should be exactly one TMCF file, and one or more CSV files.
 
-Each `manifest.json` should be structured as follows:
+Each TMCF file should have one node entry for each Statistical Variable in the import.
+
+CSV files should be structured so that each Statistical Variable has its own column. The first few columns should be reserved for other StatVarObservation properties, such as `observationAbout`, `observationDate`, `observationPeriod`, `unit`, etc.
+
+See the template CSV and TMCF files provided under the deploy/ path. They are called: `sample_data.csv.tp` and `sample_tmcf.tmcf.tpl`.
+
+Additionally, each private instance should also contain a `memdb.json` file. A template file is provided under the `deploy/` path with the name `memdb.json.tpl`. It contains important data import metadata and information about the hierarchical organization of the Statistical Variables (SVs) and Statistical Variable Groups (SVGs). Copy the `memdb.json.tpl` file to the private instance folder and rename to `memdb.json`. Then make appropriate edits to the file.
+
+The `memdb.json` file must have the following fields:
 
 ```json
 {
@@ -108,9 +116,6 @@ Each `manifest.json` should be structured as follows:
 
 `<IMPORT_NAME>` will be used to group the Statistical Variables from the import in the website tree hierarchy navigation.
 
-Each TMCF file should have one node entry for each Statistical Variable in the import.
-
-CSV files should be structured so that each Statistical Variable has its own column. The first few columns should be reserved for other StatVarObservation properties, such as `observationAbout`, `observationDate`, `observationPeriod`, `unit`, etc.
 
 ## Merging Configs
 

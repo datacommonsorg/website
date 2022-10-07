@@ -14,10 +14,11 @@
 
 import redis
 
-redis_host = '10.167.58.139'
+redis_hosts = ['10.167.58.139', '10.158.101.59']
 redis_port = 6379
-redis_client = redis.StrictRedis(host=redis_host, port=redis_port)
 
 
 def clear_cache(request):
-    redis_client.flushall(asynchronous=True)
+    for host in redis_hosts:
+        redis_client = redis.StrictRedis(host=host, port=redis_port)
+        redis_client.flushall(asynchronous=True)

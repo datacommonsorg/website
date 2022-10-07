@@ -18,12 +18,20 @@ import React from "react";
 
 import { PageChart } from "../chart/types";
 import { intl, LocalizedLink } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
+  GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
+  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+  triggerGAEvent,
+} from "../shared/ga_events";
 
 interface MenuCategoryPropsType {
   dcid: string;
   selectCategory: string;
   category: string;
-  items: string[][];
+  items: { [topic: string]: string[] };
   topics: string[];
   categoryDisplayStr: string;
 }
@@ -45,6 +53,13 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
           text={this.props.categoryDisplayStr}
+          handleClick={() =>
+            triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+              [GA_PARAM_PLACE_CATEGORY_CLICK]: category,
+              [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
+                GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+            })
+          }
         />
         <ul
           className={
@@ -87,7 +102,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
 }
 
 interface MenuPropsType {
-  categories: { string: string };
+  categories: { [key: string]: string };
   dcid: string;
   pageChart: PageChart;
   selectCategory: string;
@@ -112,14 +127,22 @@ class Menu extends React.Component<MenuPropsType> {
                 description:
                   "Text for header or subheader of Overview charts on place pages.",
               })}
+              handleClick={() =>
+                triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+                  [GA_PARAM_PLACE_CATEGORY_CLICK]:
+                    GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
+                  [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
+                    GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_SIDEBAR,
+                })
+              }
             />
           </li>
         )}
         {categories.map((category: string) => {
-          let items: string[][] = [];
+          const items: { [topic: string]: string[] } = {};
           let topics: string[] = [];
           if (category === "Overview") {
-            items = Object.keys(this.props.pageChart[category]).map(
+            items[""] = Object.keys(this.props.pageChart[category]).map(
               (t) => this.props.categories[t]
             );
           } else {

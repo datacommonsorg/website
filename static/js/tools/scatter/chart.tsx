@@ -34,7 +34,13 @@ import {
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import {
+  GA_EVENT_TOOL_CHART_PLOT,
+  GA_PARAM_PLACE_DCID,
+  GA_PARAM_STAT_VAR,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -53,13 +59,14 @@ interface ChartPropsType {
   yLog: boolean;
   xPerCapita: boolean;
   yPerCapita: boolean;
-  xUnits?: string;
-  yUnits?: string;
+  xUnit?: string;
+  yUnit?: string;
   placeInfo: PlaceInfo;
   display: DisplayOptionsWrapper;
   sources: Set<string>;
-  sourceSelectorSvInfo: SourceSelectorSvInfo[];
-  onSvMetahashUpdated: (svMetahashMap: Record<string, string>) => void;
+  svFacetId: Record<string, string>;
+  facetList: FacetSelectorFacetInfo[];
+  onSvFacetIdUpdated: (svFacetId: Record<string, string>) => void;
 }
 
 const DOT_REDIRECT_PREFIX = "/place/";
@@ -140,6 +147,20 @@ export function Chart(props: ChartPropsType): JSX.Element {
     };
   }, [props, chartContainerRef, geoJsonFetched]);
 
+  // Triggered only when stat vars or places change to avoid double counting and send data to google analytics.
+  const statVars = ["", ""];
+  if (props.facetList.length >= 2) {
+    statVars[0] = props.facetList[0].dcid;
+    statVars[1] = props.facetList[1].dcid;
+    statVars.sort();
+  }
+  useEffect(() => {
+    triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+      [GA_PARAM_PLACE_DCID]: props.placeInfo.enclosingPlace.dcid,
+      [GA_PARAM_STAT_VAR]: statVars,
+    });
+  }, [statVars[0], statVars[1], props.placeInfo.enclosingPlace.dcid]);
+
   return (
     <div id="chart" className="chart-section-container" ref={chartContainerRef}>
       <Card className="chart-card">
@@ -158,8 +179,9 @@ export function Chart(props: ChartPropsType): JSX.Element {
         chartId="scatter"
         sources={props.sources}
         mMethods={null}
-        sourceSelectorSvInfoList={props.sourceSelectorSvInfo}
-        onSvMetahashUpdated={props.onSvMetahashUpdated}
+        svFacetId={props.svFacetId}
+        facetList={props.facetList}
+        onSvFacetIdUpdated={props.onSvFacetIdUpdated}
         hideIsRatio={true}
       >
         <PlotOptions />
@@ -209,8 +231,8 @@ function plot(
     height: chartHeight,
     xLabel: props.xLabel,
     yLabel: props.yLabel,
-    xUnit: props.xUnits,
-    yUnit: props.yUnits,
+    xUnit: props.xUnit,
+    yUnit: props.yUnit,
   };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
@@ -235,8 +257,8 @@ function plot(
       yLog: props.yLog,
       xLabel: props.xLabel,
       yLabel: props.yLabel,
-      xUnit: props.xUnits,
-      yUnit: props.yUnits,
+      xUnit: props.xUnit,
+      yUnit: props.yUnit,
       placeDcid: props.placeInfo.enclosingPlace.dcid,
       isUsaPlace: isChildPlaceOf(
         props.placeInfo.enclosingPlace.dcid,
@@ -334,25 +356,27 @@ function getTitle(dates: string[], statVarLabel: string) {
   return `${statVarLabel} ${dateRange}`;
 }
 
-const getMapTooltipHtml = (
-  points: { [placeDcid: string]: Point },
-  xLabel: string,
-  yLabel: string,
-  xPerCapita: boolean,
-  yPerCapita: boolean
-) => (place: NamedPlace) => {
-  const point = points[place.dcid];
-  if (_.isEmpty(point)) {
-    return (
-      `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+const getMapTooltipHtml =
+  (
+    points: { [placeDcid: string]: Point },
+    xLabel: string,
+    yLabel: string,
+    xPerCapita: boolean,
+    yPerCapita: boolean
+  ) =>
+  (place: NamedPlace) => {
+    const point = points[place.dcid];
+    if (_.isEmpty(point)) {
+      return (
+        `<header><b>${place.name || place.dcid}</b></header>` + "Data Missing"
+      );
+    }
+    const element = getTooltipElement(
+      point,
+      xLabel,
+      yLabel,
+      xPerCapita,
+      yPerCapita
     );
-  }
-  const element = getTooltipElement(
-    point,
-    xLabel,
-    yLabel,
-    xPerCapita,
-    yPerCapita
-  );
-  return ReactDOMServer.renderToStaticMarkup(element);
-};
+    return ReactDOMServer.renderToStaticMarkup(element);
+  };

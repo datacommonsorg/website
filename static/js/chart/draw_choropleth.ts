@@ -85,6 +85,7 @@ const MIN_DOT_SIZE = 1.1;
 const TEMP_BASE_DIFF_DOMAIN = [-10, -5, 0, 5, 10];
 const TEMP_MODEL_DIFF_DOMAIN = [0, 15];
 const TEMP_DOMAIN = [-40, -20, 0, 20, 40];
+const TEMP_AGGREGATE_DIFF_DOMAIN = [-30, -15, 0, 15, 30];
 
 /**
  * From https://bl.ocks.org/HarryStevens/0e440b73fbd88df7c6538417481c9065
@@ -150,6 +151,8 @@ function getColorScale(
     if (statVar.indexOf("Difference") >= 0) {
       if (statVar.indexOf("Base") >= 0) {
         domainValues = domain || TEMP_BASE_DIFF_DOMAIN;
+      } else if (statVar.indexOf("Dc Aggregate")) {
+        domainValues = domain || TEMP_AGGREGATE_DIFF_DOMAIN;
       } else {
         domainValues = domain || TEMP_MODEL_DIFF_DOMAIN;
       }
@@ -175,9 +178,9 @@ function getColorScale(
     .scaleLinear()
     .domain(domainValues)
     .nice()
-    .range((rangeValues as unknown) as number[])
+    .range(rangeValues as unknown as number[])
     .interpolate(
-      (d3.interpolateHslLong as unknown) as (
+      d3.interpolateHslLong as unknown as (
         a: unknown,
         b: unknown
       ) => (t: number) => number
@@ -543,46 +546,51 @@ function drawChoropleth(
   }
 }
 
-const onMouseOver = (
-  canClickRegion: (placeDcid: string) => boolean,
-  domContainerId: string
-) => (e, index): void => {
-  const geoProperties = e["properties"];
-  mouseHoverAction(
-    domContainerId,
-    index,
-    canClickRegion(geoProperties.geoDcid)
-  );
-};
-
-const onMouseOut = (domContainerId: string) => (_, index): void => {
-  mouseOutAction(domContainerId, index);
-};
-
-const onMouseMove = (
-  canClickRegion: (placeDcid: string) => boolean,
-  domContainerId: string,
-  getTooltipHtml: (place: NamedPlace) => string
-) => (e, index) => {
-  const geoProperties = e["properties"];
-  const placeDcid = geoProperties.geoDcid;
-  mouseHoverAction(domContainerId, index, canClickRegion(placeDcid));
-  const place = {
-    dcid: placeDcid,
-    name: geoProperties.name,
+const onMouseOver =
+  (canClickRegion: (placeDcid: string) => boolean, domContainerId: string) =>
+  (e, index): void => {
+    const geoProperties = e["properties"];
+    mouseHoverAction(
+      domContainerId,
+      index,
+      canClickRegion(geoProperties.geoDcid)
+    );
   };
-  showTooltip(domContainerId, place, getTooltipHtml);
-};
 
-const onMapClick = (
-  canClickRegion: (placeDcid: string) => boolean,
-  domContainerId: string,
-  redirectAction: (properties: GeoJsonFeatureProperties) => void
-) => (geo: GeoJsonFeature, index) => {
-  if (!canClickRegion(geo.properties.geoDcid)) return;
-  redirectAction(geo.properties);
-  mouseOutAction(domContainerId, index);
-};
+const onMouseOut =
+  (domContainerId: string) =>
+  (_, index): void => {
+    mouseOutAction(domContainerId, index);
+  };
+
+const onMouseMove =
+  (
+    canClickRegion: (placeDcid: string) => boolean,
+    domContainerId: string,
+    getTooltipHtml: (place: NamedPlace) => string
+  ) =>
+  (e, index) => {
+    const geoProperties = e["properties"];
+    const placeDcid = geoProperties.geoDcid;
+    mouseHoverAction(domContainerId, index, canClickRegion(placeDcid));
+    const place = {
+      dcid: placeDcid,
+      name: geoProperties.name,
+    };
+    showTooltip(domContainerId, place, getTooltipHtml);
+  };
+
+const onMapClick =
+  (
+    canClickRegion: (placeDcid: string) => boolean,
+    domContainerId: string,
+    redirectAction: (properties: GeoJsonFeatureProperties) => void
+  ) =>
+  (geo: GeoJsonFeature, index) => {
+    if (!canClickRegion(geo.properties.geoDcid)) return;
+    redirectAction(geo.properties);
+    mouseOutAction(domContainerId, index);
+  };
 
 function mouseOutAction(domContainerId: string, index: number): void {
   const container = d3.select(domContainerId);
@@ -747,7 +755,7 @@ const genScaleImg = (
     // the color at a certain height, we want to first get the color domain
     // value for that height and then get the color for that value.
     const colorDomainVal = yScale.invert(i);
-    context.fillStyle = (color(colorDomainVal) as unknown) as string;
+    context.fillStyle = color(colorDomainVal) as unknown as string;
     context.fillRect(0, i, 1, 1);
   }
   return canvas;

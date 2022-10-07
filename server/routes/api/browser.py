@@ -20,9 +20,7 @@ from cache import cache
 import services.datacommons as dc
 from flask import Response
 from flask import request
-from flask import current_app
 import routes.api.place as place_api
-import logging
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
@@ -30,11 +28,26 @@ NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/triples/<path:dcid>')
-def triple_api(dcid):
+@bp.route('/triples/<path:direction>/<path:dcid>')
+def triples(direction, dcid):
     """Returns all the triples given a node dcid."""
-    return json.dumps(dc.get_triples([dcid]).get(dcid, []))
+    if direction != "in" and direction != "out":
+        return "Invalid direction provided, please use 'in' or 'out'", 400
+    return dc.triples(dcid, direction).get("triples", {})
+
+
+@bp.route('/provenance')
+def provenance():
+    """Returns all the provenance information."""
+    resp = dc.triples("Provenance", "in")
+    prov_list = resp.get("triples", {}).get("typeOf", {}).get("nodes", [])
+    dcids = list(map(lambda item: item["dcid"], prov_list))
+    resp = dc.property_values(dcids, "url", True)
+    result = {}
+    for dcid, urls in resp.items():
+        if len(urls) > 0:
+            result[dcid] = urls[0]
+    return result
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

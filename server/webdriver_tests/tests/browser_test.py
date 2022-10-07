@@ -19,6 +19,7 @@ from webdriver_tests.base_test import WebdriverBaseTest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+import webdriver_tests.shared as shared
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
@@ -93,6 +94,7 @@ class TestBrowser(WebdriverBaseTest):
         self.assertEqual(typeOf_subtitle.text, 'typeOf: City')
 
         # Assert properties contains correct dcid and typeOf
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="node-content"]/div[1]/div/table'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
@@ -312,7 +314,7 @@ class TestBrowser(WebdriverBaseTest):
         self.driver.switch_to.window(new_page)
 
         # Assert the title of the new page is correct
-        NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
+        NEW_PAGE_TITLE = 'dc/o/y54f4zvqrzf67 - Graph Browser - Data Commons'
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
         self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
@@ -321,10 +323,10 @@ class TestBrowser(WebdriverBaseTest):
         element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
-        self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
+        self.assertEqual(about_title.text, 'About: dc/o/y54f4zvqrzf67')
         dcid_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[1]')
-        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y54f4zvqrzf67')
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
         self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')
@@ -357,7 +359,7 @@ class TestBrowser(WebdriverBaseTest):
         self.driver.switch_to.window(new_page)
 
         # Assert the title of the new page is correct
-        NEW_PAGE_TITLE = 'dc/o/y83x4vx0fg4r1 - Graph Browser - Data Commons'
+        NEW_PAGE_TITLE = 'dc/o/y54f4zvqrzf67 - Graph Browser - Data Commons'
         WebDriverWait(self.driver,
                       self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
         self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
@@ -366,10 +368,10 @@ class TestBrowser(WebdriverBaseTest):
         element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
         about_title = self.driver.find_element_by_xpath('//*[@id="node"]/h1')
-        self.assertEqual(about_title.text, 'About: dc/o/y83x4vx0fg4r1')
+        self.assertEqual(about_title.text, 'About: dc/o/y54f4zvqrzf67')
         dcid_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[1]')
-        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y83x4vx0fg4r1')
+        self.assertEqual(dcid_subtitle.text, 'dcid: dc/o/y54f4zvqrzf67')
         typeOf_subtitle = self.driver.find_element_by_xpath(
             '//*[@id="node"]/h2[2]')
         self.assertEqual(typeOf_subtitle.text, 'typeOf: StatVarObservation')

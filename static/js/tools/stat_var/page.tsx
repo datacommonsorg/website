@@ -19,18 +19,37 @@
  */
 
 import axios from "axios";
-import React, { Component, createRef, RefObject } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import React, { Component } from "react";
+import { Button } from "reactstrap";
 
-import { StatVarHierarchyType, StatVarSummary } from "../../shared/types";
-import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import {
+  NamedNode,
+  StatVarHierarchyType,
+  StatVarSummary,
+} from "../../shared/types";
+import { StatVarWidget } from "../shared/stat_var_widget";
+import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
+import { getUrlToken, SV_URL_PARAMS, updateHash } from "./util";
+
+const SVG_URL_PREFIX =
+  "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=";
 
 interface PageStateType {
+  // DCID of selected dataset.
+  dataset: string;
+  // DCID and name current datasets.
+  datasets: NamedNode[];
   description: string;
   displayName: string;
+  // Source or dataset to filter by.
+  entity: NamedNode;
   error: boolean;
+  // DCID of selected source.
+  source: string;
+  // DCID and name of sources.
+  sources: NamedNode[];
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
@@ -39,34 +58,41 @@ interface PageStateType {
 }
 
 class Page extends Component<unknown, PageStateType> {
-  svHierarchyModalRef: RefObject<HTMLDivElement>;
-  svHierarchyContainerRef: RefObject<HTMLDivElement>;
-
   constructor(props: unknown) {
     super(props);
     this.state = {
+      dataset: "",
+      datasets: [],
       description: "",
       displayName: "",
+      entity: { dcid: "", name: "" },
       error: false,
+      source: "",
+      sources: [],
       statVar: "",
       summary: { placeTypeSummary: {} },
       urls: {},
       showSvHierarchyModal: false,
     };
-    // Set up refs and callbacks for sv widget modal. Widget is tied to the LHS
-    // menu but reattached to the modal when it is opened on small screens.
-    this.svHierarchyModalRef = createRef<HTMLDivElement>();
-    this.svHierarchyContainerRef = createRef<HTMLDivElement>();
-    this.onSvHierarchyModalClosed = this.onSvHierarchyModalClosed.bind(this);
-    this.onSvHierarchyModalOpened = this.onSvHierarchyModalOpened.bind(this);
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
+  private handleHashChange = () => {
+    const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
+    const source = getUrlToken(SV_URL_PARAMS.SOURCE);
+    const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
+    if (dataset !== this.state.dataset || source !== this.state.source) {
+      this.updateEntity(source, dataset);
+    }
+    if (sv !== this.state.statVar) {
+      this.fetchSummary(sv);
+    }
+  };
+
   async componentDidMount(): Promise<void> {
-    window.onhashchange = () => {
-      this.fetchSummary();
-    };
-    this.fetchSummary();
+    window.addEventListener("hashchange", this.handleHashChange);
+    this.handleHashChange();
+    this.fetchSources();
   }
 
   private toggleSvHierarchyModal(): void {
@@ -75,66 +101,31 @@ class Page extends Component<unknown, PageStateType> {
     });
   }
 
-  private onSvHierarchyModalOpened() {
-    if (
-      this.svHierarchyModalRef.current &&
-      this.svHierarchyContainerRef.current
-    ) {
-      this.svHierarchyModalRef.current.appendChild(
-        this.svHierarchyContainerRef.current
-      );
-    }
-  }
-
-  private onSvHierarchyModalClosed() {
-    document
-      .getElementById("explore")
-      .appendChild(this.svHierarchyContainerRef.current);
-  }
-
   render(): JSX.Element {
+    const svs = this.state.statVar ? { [this.state.statVar]: {} } : {};
+    const entities = this.state.entity.dcid ? [this.state.entity] : [];
     return (
       <>
-        <div className="d-none d-lg-flex explore-menu-container" id="explore">
-          <div ref={this.svHierarchyContainerRef} className="full-size">
-            <StatVarHierarchy
-              type={StatVarHierarchyType.STAT_VAR}
-              places={[]}
-              selectedSVs={[this.state.statVar]}
-              selectSV={(sv) => {
-                this.updateHash(sv);
-              }}
-              searchLabel="Statistical Variables"
-            />
-          </div>
-        </div>
-        <Modal
-          isOpen={this.state.showSvHierarchyModal}
-          toggle={this.toggleSvHierarchyModal}
-          className="modal-dialog-centered modal-lg"
-          contentClassName="modal-sv-widget"
-          onOpened={this.onSvHierarchyModalOpened}
-          onClosed={this.onSvHierarchyModalClosed}
-          scrollable={true}
-        >
-          <ModalHeader toggle={this.toggleSvHierarchyModal}>
-            Select Variables
-          </ModalHeader>
-          <ModalBody>
-            <div ref={this.svHierarchyModalRef} className="full-size"></div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              className="d-lg-none"
-              color="primary"
-              onClick={this.toggleSvHierarchyModal}
-            >
-              Done
-            </Button>
-          </ModalFooter>
-        </Modal>
+        <StatVarWidget
+          openSvHierarchyModal={this.state.showSvHierarchyModal}
+          openSvHierarchyModalCallback={this.toggleSvHierarchyModal}
+          collapsible={false}
+          svHierarchyType={StatVarHierarchyType.STAT_VAR}
+          sampleEntities={entities}
+          deselectSVs={() => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
+          selectedSVs={svs}
+          selectSV={(sv) => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
+          disableAlert={true}
+        />
         <div id="plot-container">
           <div className="container">
+            <h1 className="mb-4">Statistical Variable Explorer</h1>
+            <DatasetSelector
+              dataset={this.state.dataset}
+              datasets={this.state.datasets}
+              source={this.state.source}
+              sources={this.state.sources}
+            />
             {!this.state.statVar && (
               <>
                 <Info />
@@ -176,12 +167,136 @@ class Page extends Component<unknown, PageStateType> {
     );
   }
 
-  private updateHash(sv: string): void {
-    window.location.hash = `#${sv}`;
+  /**
+   * Fetches sources to display in dropdown menu.
+   */
+  private fetchSources(): void {
+    axios
+      .get("/api/browser/propvals/typeOf/Source")
+      .then((resp) => {
+        const sourcePromises = [];
+        if (!resp.data.values.in) {
+          return;
+        }
+        for (const source of resp.data.values.in) {
+          const url = SVG_URL_PREFIX + source.dcid;
+          sourcePromises.push(axios.get(url).then((resp) => resp));
+        }
+        if (sourcePromises.length === 0) {
+          return;
+        }
+        Promise.all(sourcePromises).then((sourceResults) => {
+          const sourceDcids = [];
+          for (const result of sourceResults) {
+            // Filter out all sources which have no stat vars in the main hierarchy (e.g. BMDC).
+            // TODO: Use ENTITY in schema to identify sources with stats
+            if (result.data.descendentStatVarCount) {
+              sourceDcids.push(
+                result?.config?.url.replace([SVG_URL_PREFIX], "")
+              );
+            }
+          }
+          if (sourceDcids.length === 0) {
+            return;
+          }
+          axios
+            .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
+            .then((resp) => {
+              const sources = [];
+              for (const dcid in resp.data) {
+                sources.push({
+                  dcid,
+                  name: resp.data[dcid][0],
+                });
+              }
+              this.setState({ sources });
+            });
+        });
+      })
+      .catch(() => {
+        alert("Error fetching data.");
+      });
   }
 
-  private async fetchSummary(): Promise<void> {
-    const sv = window.location.hash.split("#")[1];
+  /**
+   * Updates entity for current source and dataset and also sets datasets based on source.
+   * @param source DCID of source
+   * @param dataset DCID of dataset
+   */
+  private updateEntity(source: string, dataset: string): void {
+    if (!source) {
+      this.setState({
+        dataset: "",
+        datasets: [],
+        entity: { dcid: "", name: "" },
+        source: "",
+      });
+      return;
+    }
+    axios
+      .get(`/api/browser/propvals/isPartOf/${source}`)
+      .then((resp) => {
+        const currentDatasets = [];
+        const datasetSet = new Set();
+        if (!resp.data.values.in) {
+          return;
+        }
+        for (const dataset of resp.data.values.in) {
+          // Remove duplicates.
+          if (datasetSet.has(dataset.dcid)) {
+            continue;
+          }
+          currentDatasets.push({
+            dcid: dataset.dcid,
+            name: dataset.name,
+          });
+          datasetSet.add(dataset.dcid);
+        }
+        currentDatasets.sort((a, b): number => {
+          return a.name.localeCompare(b.name);
+        });
+        let dcid = source;
+        if (dataset && currentDatasets.some((d) => d.dcid === dataset)) {
+          dcid = dataset;
+        }
+        axios
+          .get(`/api/stats/propvals/name/${dcid}`)
+          .then((resp) => {
+            const name = resp.data[dcid][0];
+            this.setState({
+              dataset,
+              datasets: currentDatasets,
+              entity: {
+                dcid,
+                name,
+              },
+              source,
+            });
+          })
+          .catch(() => {
+            this.setState({
+              dataset,
+              datasets: currentDatasets,
+              entity: { dcid: "", name: "" },
+              source,
+            });
+          });
+      })
+      .catch(() => {
+        this.setState({
+          dataset,
+          datasets: [],
+          entity: { dcid: "", name: "" },
+          source,
+        });
+      });
+  }
+
+  /**
+   * Fetches StatVarSummary for selected stat var.
+   * @param sv DCID of stat var
+   */
+  private fetchSummary(sv: string): void {
     if (!sv) {
       this.setState({
         description: "",
@@ -193,41 +308,46 @@ class Page extends Component<unknown, PageStateType> {
       });
       return;
     }
-    const [
-      descriptionPromise,
-      displayNamePromise,
-      summaryPromise,
-    ] = await Promise.all([
-      axios.get(`/api/stats/propvals/description/${sv}`),
-      axios.get(`/api/stats/propvals/name/${sv}`),
-      axios.post("/api/stats/stat-var-summary", { statVars: [sv] }),
-    ]);
-    if (!displayNamePromise.data[sv].length) {
-      this.setState({
-        error: true,
-        statVar: sv,
+    const descriptionPromise = axios
+      .get(`/api/stats/propvals/description/${sv}`)
+      .then((resp) => resp.data);
+    const displayNamePromise = axios
+      .get(`/api/stats/propvals/name/${sv}`)
+      .then((resp) => resp.data);
+    const summaryPromise = axios
+      .post("/api/stats/stat-var-summary", { statVars: [sv] })
+      .then((resp) => resp.data);
+    Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
+      .then(([descriptionResult, displayNameResult, summaryResult]) => {
+        const provIds = [];
+        for (const provId in summaryResult[sv]?.provenanceSummary) {
+          provIds.push(provId);
+        }
+        if (provIds.length === 0) {
+          return;
+        }
+        axios
+          .get(`/api/stats/propvals/url/${provIds.join("^")}`)
+          .then((resp) => {
+            this.setState({
+              description:
+                descriptionResult[sv].length > 0
+                  ? descriptionResult[sv][0]
+                  : "",
+              displayName: displayNameResult[sv][0],
+              error: false,
+              statVar: sv,
+              summary: summaryResult[sv],
+              urls: resp.data,
+            });
+          });
+      })
+      .catch(() => {
+        this.setState({
+          error: true,
+          statVar: sv,
+        });
       });
-      return;
-    }
-    const provIds = [];
-    for (const provId in summaryPromise.data[sv]?.provenanceSummary) {
-      provIds.push(provId);
-    }
-    const urlsPromise =
-      provIds.length > 0
-        ? await axios.get(`/api/stats/propvals/url/${provIds.join("^")}`)
-        : undefined;
-    this.setState({
-      description:
-        descriptionPromise.data[sv].length > 0
-          ? descriptionPromise.data[sv][0]
-          : "",
-      displayName: displayNamePromise.data[sv][0],
-      error: false,
-      statVar: sv,
-      summary: summaryPromise.data[sv],
-      urls: urlsPromise?.data,
-    });
   }
 }
 

@@ -17,19 +17,32 @@
 jest.mock("axios");
 jest.mock("../../chart/draw");
 
-import Enzyme, { mount } from "enzyme";
+import { waitFor } from "@testing-library/react";
+import Enzyme, { mount, ReactWrapper } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 import React from "react";
 
-import { axios_mock, drawGroupLineChart_mock } from "../mock_functions";
+import { axios_mock, drawGroupLineChart_mock } from "./mock_functions";
 import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 const globalAny: any = global;
 
-test("Single place and single stat var", () => {
+async function waitForComponentUpdates(wrapper: ReactWrapper) {
+  // Wait for state updates
+  await waitFor(() => {
+    expect(wrapper.text()).toContain("");
+  });
+  // Wait for stat var info and place info fetching
+  await new Promise(process.nextTick);
+  wrapper.update();
+  await new Promise(process.nextTick);
+  wrapper.update();
+}
+
+test("Single place and single stat var", async () => {
   globalAny.window = Object.create(window);
   document.body.innerHTML =
     '<button id="download-link"></button><a id="bulk-download-link"></a>';
@@ -37,78 +50,80 @@ test("Single place and single stat var", () => {
   Object.defineProperty(window, "location", {
     writable: true,
     value: {
-      hash: "#&place=geoId/05&statsVar=Median_Age_Person",
+      hash: "#place=geoId/05&statsVar=Median_Age_Person",
     },
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
   drawGroupLineChart_mock();
-  // mock all the async axios call
+  // Mock all the async axios call
   axios_mock();
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statVarInfo promise and placeName promise
-  return Promise.resolve(wrapper)
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => {
-      wrapper.update();
-      expect(wrapper.find("#chart-region").getDOMNode().innerHTML).toContain(
-        '<label class="form-check-label"><input id="age-ratio" type="checkbox" class="form-check-input">Per Capita</label>'
-      );
-      wrapper
-        .find("#hierarchy-section .Collapsible__trigger")
-        .at(0)
-        .simulate("click");
-      Promise.resolve(wrapper).then(() => {
-        wrapper.update();
-        // add one statVar by clicking the checkbox
-        wrapper
-          .find("#hierarchy-section input")
-          .at(0)
-          .simulate("change", { target: { checked: true } });
-        Promise.resolve(wrapper).then(() => {
-          wrapper.update();
-          // Hack to mimic the browser behavior as there is no native
-          // browser environment in jest.
-          window.location.hash = "#" + window.location.hash;
-          expect(window.location.hash).toEqual(
-            "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person"
-          );
-
-          expect(
-            pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
-          ).toMatchSnapshot();
-
-          // delete one statVar from the statVar chips
-          wrapper
-            .find("#hierarchy-section input")
-            .at(1)
-            .simulate("change", { target: { checked: false } });
-          Promise.resolve(wrapper).then(() => {
-            wrapper.update();
-            // Hack to mimic the browser behavior as there is no native
-            // browser environment in jest.
-            window.location.hash = "#" + window.location.hash;
-            expect(window.location.hash).toEqual(
-              "#place=geoId%2F05&statsVar=Count_Person"
-            );
-            expect(
-              pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
-            ).toMatchSnapshot();
-            expect(
-              pretty(wrapper.find("#hierarchy-section").getDOMNode().innerHTML)
-            ).toMatchSnapshot();
-          });
-        });
-      });
-    });
+  await waitForComponentUpdates(wrapper);
+  // Check that one chart is on the page and it matches snapshot
+  expect(
+    pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+  ).toMatchSnapshot();
+  // Open demographics node in stat var widget
+  wrapper
+    .find("#hierarchy-section .Collapsible__trigger")
+    .at(0)
+    .simulate("click");
+  // Wait for the stat var info fetch
+  await new Promise(process.nextTick);
+  wrapper.update();
+  // Add one statVar by clicking the checkbox
+  wrapper
+    .find("#hierarchy-section input")
+    .at(0)
+    .simulate("change", { target: { checked: true } });
+  // Check that url hash is updated
+  window.location.hash = "#" + window.location.hash;
+  expect(window.location.hash).toEqual(
+    "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person"
+  );
+  // Hack to trigger hashchange event to fire
+  window.dispatchEvent(
+    new HashChangeEvent("hashchange", {
+      newURL: "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
+      oldURL: "#place=geoId/05&statsVar=Median_Age_Person",
+    })
+  );
+  await waitForComponentUpdates(wrapper);
+  // Check that there are 2 charts on the page and they match the snapshot
+  expect(
+    pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+  ).toMatchSnapshot();
+  // Delete one statVar
+  wrapper
+    .find("#hierarchy-section input")
+    .at(1)
+    .simulate("change", { target: { checked: false } });
+  // Check that the url hash is updated
+  window.location.hash = "#" + window.location.hash;
+  expect(window.location.hash).toEqual(
+    "#place=geoId%2F05&statsVar=Count_Person"
+  );
+  // Hack to trigger hashchange event to fire
+  window.dispatchEvent(
+    new HashChangeEvent("hashchange", {
+      newURL: "#place=geoId%2F05&statsVar=Count_Person",
+      oldURL: "#place=geoId%2F05&statsVar=Median_Age_Person__Count_Person",
+    })
+  );
+  await waitForComponentUpdates(wrapper);
+  // Check that there is one chart on the page and the content matches the snapshot
+  expect(
+    pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+  ).toMatchSnapshot();
+  // Check that the stat var widget matches the snapshot
+  expect(
+    pretty(wrapper.find("#hierarchy-section").getDOMNode().innerHTML)
+  ).toMatchSnapshot();
 });
 
-test("statVar not in PV-tree", () => {
+test("statVar not in PV-tree", async () => {
   Object.defineProperty(window, "location", {
     value: {
       hash: "#&place=geoId/05&statsVar=NotInTheTree",
@@ -121,25 +136,18 @@ test("statVar not in PV-tree", () => {
   axios_mock();
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statVarInfo promise and placeName promise
-  return Promise.resolve(wrapper)
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => {
-      wrapper.update();
-      expect(
-        pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
-      ).toMatchSnapshot();
-      expect(
-        pretty(wrapper.find("#hierarchy-section").getDOMNode().innerHTML)
-      ).toMatchSnapshot();
-    });
+  await waitForComponentUpdates(wrapper);
+  // Check that one chart is on the page and it matches snapshot
+  expect(
+    pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+  ).toMatchSnapshot();
+  // Check that the stat var widget matches the snapshot
+  expect(
+    pretty(wrapper.find("#hierarchy-section").getDOMNode().innerHTML)
+  ).toMatchSnapshot();
 });
 
-test("chart options", () => {
-  // test if the chart options are correctly set
+test("chart options", async () => {
   globalAny.window = Object.create(window);
   Object.defineProperty(window, "location", {
     writable: true,
@@ -156,52 +164,43 @@ test("chart options", () => {
 
   // Do the actual render!
   const wrapper = mount(<Page />);
-  // Resolve statVarInfo promise and placeName promise
-  return Promise.resolve(wrapper)
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => wrapper.update())
-    .then(() => {
-      wrapper.update();
-      // set per capita to True
-      wrapper.find("#count-ratio").at(0).simulate("change");
-      Promise.resolve(wrapper)
-        .then(() => wrapper.update())
-        .then(() => {
-          wrapper.update();
-          window.location.hash = "#" + window.location.hash;
-          expect(window.location.hash).toBe(
-            "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
-          );
-          expect(
-            pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
-          ).toMatchSnapshot();
-
-          // First need to open the Demographics node.
-          wrapper
-            .find("#hierarchy-section .Collapsible__trigger")
-            .at(0)
-            .simulate("click");
-
-          Promise.resolve(wrapper).then(() => {
-            wrapper.update();
-            // remove the statVar
-            wrapper
-              .find("#hierarchy-section input[checked=true]")
-              .at(0)
-              .simulate("change", { target: { checked: false } });
-            Promise.resolve(wrapper)
-              .then(() => wrapper.update())
-              .then(() => {
-                wrapper.update();
-                // expect(wrapper.find("#chart-region").length).toBe(0); // chart deleted
-                window.location.hash = "#" + window.location.hash;
-                expect(window.location.hash).toBe(
-                  "#place=geoId%2F05&statsVar=&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
-                );
-              });
-          });
-        });
-    });
+  await waitForComponentUpdates(wrapper);
+  // Set per capita to true
+  wrapper.find("#count-ratio").at(0).simulate("change");
+  await waitForComponentUpdates(wrapper);
+  // Check that url hash is updated
+  window.location.hash = "#" + window.location.hash;
+  expect(window.location.hash).toBe(
+    "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
+  );
+  // Hack to trigger hashchange event to fire
+  window.dispatchEvent(
+    new HashChangeEvent("hashchange", {
+      newURL:
+        "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D",
+      oldURL: "#&place=geoId/05&statsVar=Count_Person",
+    })
+  );
+  await waitForComponentUpdates(wrapper);
+  expect(
+    pretty(wrapper.find("#chart-region").getDOMNode().innerHTML)
+  ).toMatchSnapshot();
+  // Open the Demographics node in the stat var widget
+  wrapper
+    .find("#hierarchy-section .Collapsible__trigger")
+    .at(0)
+    .simulate("click");
+  // Wait for the stat var info fetch from the stat var widget
+  await new Promise(process.nextTick);
+  wrapper.update();
+  // Remove the stat var
+  wrapper
+    .find("#hierarchy-section input[checked=true]")
+    .at(0)
+    .simulate("change", { target: { checked: false } });
+  // Check that the url hash is updated
+  window.location.hash = "#" + window.location.hash;
+  expect(window.location.hash).toBe(
+    "#place=geoId%2F05&statsVar=&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
+  );
 });

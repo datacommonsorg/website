@@ -18,9 +18,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { formatNumber } from "../i18n/i18n";
-import { GetStatSetResponse, PlacePointStatData } from "../shared/stat_types";
-import { NamedTypedPlace } from "../shared/types";
-import { StatVarMetadata } from "../types/stat_var";
+import { Observation, PointApiResponse } from "../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { stringifyFn } from "../utils/axios";
 import { formatString, ReplacementStrings } from "./string_utils";
 
 const NUM_FRACTION_DIGITS = 1;
@@ -28,13 +28,13 @@ const NUM_FRACTION_DIGITS = 1;
 interface HighlightTilePropType {
   description: string;
   place: NamedTypedPlace;
-  statVarMetadata: StatVarMetadata;
+  statVarSpec: StatVarSpec;
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
-  const [highlightData, setHighlightData] = useState<
-    PlacePointStatData | undefined
-  >(null);
+  const [highlightData, setHighlightData] = useState<Observation | undefined>(
+    null
+  );
 
   useEffect(() => {
     fetchData(props, setHighlightData);
@@ -54,7 +54,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
         <span className="stat">
           {formatNumber(
             highlightData.value,
-            props.statVarMetadata.unit,
+            props.statVarSpec.unit,
             false,
             NUM_FRACTION_DIGITS
           )}
@@ -67,29 +67,32 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
 
 function fetchData(
   props: HighlightTilePropType,
-  setHighlightData: (data: PlacePointStatData) => void
+  setHighlightData: (data: Observation) => void
 ): void {
   // Now assume highlight only talks about one stat var.
-  const mainStatVar = props.statVarMetadata.statVar;
-  const denomStatVar = props.statVarMetadata.denom;
+  const mainStatVar = props.statVarSpec.statVar;
+  const denomStatVar = props.statVarSpec.denom;
   const statVars = [mainStatVar];
   if (denomStatVar) {
     statVars.push(denomStatVar);
   }
   axios
-    .post<GetStatSetResponse>("/api/stats/set", {
-      places: [props.place.dcid],
-      stat_vars: statVars,
+    .get<PointApiResponse>("/api/observations/point", {
+      params: {
+        entities: [props.place.dcid],
+        variables: statVars,
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       const statData = resp.data.data;
-      const mainStatData = statData[mainStatVar].stat[props.place.dcid];
+      const mainStatData = statData[mainStatVar][props.place.dcid];
       let value = mainStatData.value;
       if (denomStatVar) {
-        value /= statData[denomStatVar].stat[props.place.dcid].value;
+        value /= statData[denomStatVar][props.place.dcid].value;
       }
-      if (props.statVarMetadata.scaling) {
-        value *= props.statVarMetadata.scaling;
+      if (props.statVarSpec.scaling) {
+        value *= props.statVarSpec.scaling;
       }
       setHighlightData({ value, date: mainStatData.date });
     })

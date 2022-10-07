@@ -17,7 +17,7 @@ syntax = "proto3";
 package datacommons;
 
 // When a new placeholder is added in any topic page config, add that
-// placeholder as a field in the ReplacementStrings interface in 
+// placeholder as a field in the ReplacementStrings interface in
 // static/js/topic_page/string_utils.ts.
 
 message PageMetadata {
@@ -31,7 +31,7 @@ message PageMetadata {
 }
 
 
-message StatVarMetadata {
+message StatVarSpec {
   // The main stat var.
   string stat_var = 1;
   // [Optional] Denominator stat var.
@@ -76,7 +76,7 @@ message Tile {
   // Must be set for HIHGLIGHT tiles
   string description = 2;
   TileType type = 3;
-  // Key for a StatVarMetadata defined in the containing Category
+  // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
   RankingMetadata ranking_metadata = 5;
   // Overrides the contained_place_types for the page.
@@ -93,7 +93,7 @@ message Block {
 message Category {
   string title = 1;
   string description = 2;
-  map<string, StatVarMetadata> stat_var_metadata = 4;
+  map<string, StatVarSpec> stat_var_spec = 4;
   repeated Block blocks = 3;
 }
 

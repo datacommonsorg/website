@@ -19,7 +19,17 @@ import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
 import { drawGroupLineChart } from "../../chart/draw";
-import { SourceSelectorSvInfo } from "../../shared/source_selector";
+import { Chip } from "../../shared/chip";
+import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
+import {
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
+  GA_EVENT_TOOL_CHART_PLOT,
+  GA_PARAM_PLACE_DCID,
+  GA_PARAM_STAT_VAR,
+  GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_TOOL_CHART_OPTION_DELTA,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
@@ -38,44 +48,9 @@ import { setChartOption, setMetahash } from "./util";
 
 const CHART_HEIGHT = 300;
 
-interface StatVarChipPropsType {
-  statVar: string;
-  color: string;
-  title: string;
-  removeStatVar: (statVar: string) => void;
-}
-
-class StatVarChip extends Component<StatVarChipPropsType> {
-  render() {
-    return (
-      <div
-        className="pv-chip mdl-chip--deletable"
-        style={{ backgroundColor: this.props.color }}
-      >
-        <span
-          className="mdl-chip__text"
-          onClick={() => {
-            window.open(`/tools/statvar#${this.props.statVar}`);
-          }}
-        >
-          {this.props.title}
-        </span>
-        <button className="mdl-chip__action">
-          <i
-            className="material-icons"
-            onClick={() => this.props.removeStatVar(this.props.statVar)}
-          >
-            cancel
-          </i>
-        </button>
-      </div>
-    );
-  }
-}
-
 interface ChartPropsType {
   mprop: string; // measured property
-  placeNames: Record<string, string>; // An array of place dcids.
+  placeNameMap: Record<string, string>; // Place dcid to name mapping.
   statVarInfos: Record<string, StatVarInfo>;
   pc: boolean;
   denom: string;
@@ -86,8 +61,8 @@ interface ChartPropsType {
   onMetadataMapUpdate: (
     metadataMap: Record<string, Record<string, StatMetadata>>
   ) => void;
-  // Map of stat var dcid to a hash representing a source series
-  metahashMap: Record<string, string>;
+  // Map of stat var dcid to a facet id
+  svFacetId: Record<string, string>;
 }
 
 interface ChartStateType {
@@ -113,7 +88,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.loadRawData = this.loadRawData.bind(this);
     this.processData = this.processData.bind(this);
-    this.drawChart = this.drawChart.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
@@ -126,15 +100,20 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
     this.plotParams = computePlotParams(
-      this.props.placeNames,
+      this.props.placeNameMap,
       statVars,
       this.props.statVarInfos
     );
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
-    const placeName = Object.values(this.props.placeNames)[0];
+    const placeName = Object.values(this.props.placeNameMap)[0];
     const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
-    const sourceSelectorSvInfoList = this.getSourceSelectorSvInfo(statVars);
+    const facetList = this.getFacetList(statVars);
+    const svFacetId = {};
+    for (const sv of statVars) {
+      svFacetId[sv] =
+        sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
+    }
     return (
       <div className="chart-container">
         <div className="card">
@@ -145,12 +124,15 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                 color = this.plotParams.lines[placeName + statVar].color;
               }
               return (
-                <StatVarChip
+                <Chip
                   key={statVar}
-                  statVar={statVar}
+                  id={statVar}
                   title={this.props.statVarInfos[statVar].title}
                   color={color}
-                  removeStatVar={this.props.removeStatVar}
+                  removeChip={this.props.removeStatVar}
+                  onTextClick={() =>
+                    window.open(`/tools/statvar#sv=${statVar}`)
+                  }
                 />
               );
             })}
@@ -167,8 +149,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
               ? this.state.statData.measurementMethods
               : new Set()
           }
-          sourceSelectorSvInfoList={sourceSelectorSvInfoList}
-          onSvMetahashUpdated={(svMetahashMap) => setMetahash(svMetahashMap)}
+          svFacetId={svFacetId}
+          facetList={facetList}
+          onSvFacetIdUpdated={(svFacetId) => setMetahash(svFacetId)}
           hideIsRatio={false}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean) =>
@@ -183,9 +166,19 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   className="is-delta-input"
                   type="checkbox"
                   checked={this.props.delta}
-                  onChange={() =>
-                    setChartOption(this.props.mprop, "delta", !this.props.delta)
-                  }
+                  onChange={() => {
+                    setChartOption(
+                      this.props.mprop,
+                      "delta",
+                      !this.props.delta
+                    );
+                    if (!this.props.delta) {
+                      triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                        [GA_PARAM_TOOL_CHART_OPTION]:
+                          GA_VALUE_TOOL_CHART_OPTION_DELTA,
+                      });
+                    }
+                  }}
                 />
                 Delta
               </Label>
@@ -200,6 +193,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.loadRawData();
     this.resizeObserver = new ResizeObserver(this.handleWindowResize);
     this.resizeObserver.observe(this.svgContainer.current);
+    // Triggered when the component is mounted and send data to google analytics.
+    triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+      [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNameMap),
+      [GA_PARAM_STAT_VAR]: Object.keys(this.props.statVarInfos),
+    });
   }
 
   componentWillUnmount(): void {
@@ -215,9 +213,22 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     prevProps: ChartPropsType,
     prevState: ChartStateType
   ): void {
+    // Triggered only when the stat vars or places change and send data to google analytics.
+    const shouldTriggerGAEvent =
+      !_.isEqual(prevProps.placeNameMap, this.props.placeNameMap) ||
+      !_.isEqual(
+        Object.keys(prevProps.statVarInfos),
+        Object.keys(this.props.statVarInfos)
+      );
+    if (shouldTriggerGAEvent) {
+      triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
+        [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNameMap),
+        [GA_PARAM_STAT_VAR]: Object.keys(this.props.statVarInfos),
+      });
+    }
     // We only need to fetch the raw data when place, statvars or denom changes.
     const shouldLoadData =
-      !_.isEqual(prevProps.placeNames, this.props.placeNames) ||
+      !_.isEqual(prevProps.placeNameMap, this.props.placeNameMap) ||
       !_.isEqual(prevProps.statVarInfos, this.props.statVarInfos) ||
       !_.isEqual(prevProps.denom, this.props.denom);
     if (shouldLoadData) {
@@ -242,7 +253,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.drawChart();
   }
 
-  private getSourceSelectorSvInfo(statVars: string[]): SourceSelectorSvInfo[] {
+  private getFacetList(statVars: string[]): FacetSelectorFacetInfo[] {
     return statVars.map((sv) => {
       const displayNames = isIpccStatVarWithMultipleModels(sv)
         ? { "": "Mean across models" }
@@ -250,8 +261,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       return {
         dcid: sv,
         name: this.props.statVarInfos[sv].title || sv,
-        metahash:
-          sv in this.props.metahashMap ? this.props.metahashMap[sv] : "",
         metadataMap:
           this.state.rawData && this.state.rawData.metadataMap[sv]
             ? this.state.rawData.metadataMap[sv]
@@ -262,7 +271,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
   }
 
   private loadRawData() {
-    const places = Object.keys(this.props.placeNames);
+    const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
     fetchRawData(places, statVars, this.props.denom)
       .then((rawData) => {
@@ -278,13 +287,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     if (!this.state.rawData) {
       return;
     }
-    const places = Object.keys(this.props.placeNames);
+    const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
     let statData = getStatData(
       this.state.rawData,
       places,
       statVars,
-      this.props.metahashMap,
+      this.props.svFacetId,
       this.props.pc,
       this.props.denom
     );
@@ -298,7 +307,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const ipccStatVars = statVars.filter(
       (sv) =>
         isIpccStatVarWithMultipleModels(sv) &&
-        _.isEmpty(this.props.metahashMap[sv])
+        _.isEmpty(this.props.svFacetId[sv])
     );
     if (!_.isEmpty(ipccStatVars)) {
       const [processedStat, modelStat] = statDataFromModels(
@@ -318,13 +327,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     }
     // Get from all stat vars. In most cases there should be only one
     // unit.
-    const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
-    if (placeData) {
-      for (const series of Object.values(placeData.data)) {
-        if (series && series["metadata"] && series["metadata"].unit) {
-          units.add(series["metadata"].unit);
+    for (const statVar in statData.data) {
+      for (const place in statData.data[statVar]) {
+        const series = statData.data[statVar][place];
+        if (series && series.facet && statData.facets[series.facet].unit) {
+          units.add(statData.facets[series.facet].unit);
         }
       }
       this.units = Array.from(units).sort();
@@ -343,7 +352,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       return;
     }
     for (const place of this.state.statData.places) {
-      dataGroupsDict[this.props.placeNames[place]] = getStatVarGroupWithTime(
+      dataGroupsDict[this.props.placeNameMap[place]] = getStatVarGroupWithTime(
         this.state.statData,
         place
       );
@@ -351,9 +360,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const modelsDataGroupsDict = {};
     if (this.state.ipccModels) {
       for (const place of this.state.ipccModels.places) {
-        modelsDataGroupsDict[
-          this.props.placeNames[place]
-        ] = getStatVarGroupWithTime(this.state.ipccModels, place);
+        modelsDataGroupsDict[this.props.placeNameMap[place]] =
+          getStatVarGroupWithTime(this.state.ipccModels, place);
       }
     }
     drawGroupLineChart(
