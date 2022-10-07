@@ -57,12 +57,12 @@ def series_within_core(parent_entity, child_type, variables, all_facets):
     return compact_series(resp, all_facets)
 
 
-@bp.route('', strict_slashes=False, methods=['POST'])
+@bp.route('', strict_slashes=False)
 def series():
     """Handler to get preferred time series given multiple stat vars and entities.
     """
-    entities = request.json.get('entities', [])
-    variables = request.json.get('variables', [])
+    entities = request.args.getlist('entities')
+    variables = request.args.getlist('variables')
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
@@ -70,12 +70,12 @@ def series():
     return series_core(entities, variables, False)
 
 
-@bp.route('/all', methods=['POST'])
+@bp.route('/all')
 def series_all():
     """Handler to get all the time series given multiple stat vars and places.
     """
-    entities = request.json.get('entities', [])
-    variables = request.json.get('variables', [])
+    entities = request.args.getlist('entities')
+    variables = request.args.getlist('variables')
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
@@ -83,39 +83,39 @@ def series_all():
     return series_core(entities, variables, True)
 
 
-@bp.route('/within', methods=['POST'])
+@bp.route('/within')
 def series_within():
     """Gets the observation for child entities of a certain place
     type contained in a parent entity at a given date.
 
     Note: the perferred facet is returned.
     """
-    parent_entity = request.json.get('parent_entity')
+    parent_entity = request.args.get('parent_entity')
     if not parent_entity:
         return 'error: must provide a `parent_entity` field', 400
-    child_type = request.json.get('child_type')
+    child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.json.get('variables')
+    variables = request.args.getlist('variables')
     if not variables:
         return 'error: must provide a `variables` field', 400
     return series_within_core(parent_entity, child_type, variables, False)
 
 
-@bp.route('/within/all', methods=['POST'])
+@bp.route('/within/all')
 def series_within_all():
     """Gets the observation for child entities of a certain place
     type contained in a parent entity at a given date.
 
     Note: all the facets are returned.
     """
-    parent_entity = request.json.get('parent_entity')
+    parent_entity = request.args.get('parent_entity')
     if not parent_entity:
         return 'error: must provide a `parent_entity` field', 400
-    child_type = request.json.get('child_type')
+    child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.json.get('variables')
+    variables = request.args.getlist('variables')
     if not variables:
         return 'error: must provide a `variables` field', 400
     return series_within_core(parent_entity, child_type, variables, True)

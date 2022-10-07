@@ -17,6 +17,7 @@ import axios from "axios";
 
 import { PointApiResponse } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
+import { stringifyFn } from "../../utils/axios";
 import { getTokensFromUrl } from "./util";
 
 /* Start the loading spinner and gray out the background. */
@@ -50,9 +51,12 @@ function downloadBulkData(
       const placeDcids = Object.keys(resp.data);
       const placeNames = resp.data;
       axios
-        .post<PointApiResponse>("/api/observations/point", {
-          entities: placeDcids,
-          variables: statVars,
+        .get<PointApiResponse>("/api/observations/point", {
+          params: {
+            entities: placeDcids,
+            variables: statVars,
+          },
+          paramsSerializer: stringifyFn,
         })
         .then((resp) => {
           if (resp.data && resp.data.data) {

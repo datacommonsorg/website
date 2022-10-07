@@ -17,9 +17,10 @@
 /* mocked axios calls for Page test for download tool. */
 
 jest.mock("axios");
-
 import axios from "axios";
 import { when } from "jest-when";
+
+import { stringifyFn } from "../../utils/axios";
 
 export function axios_mock(): void {
   // Mock all the async axios call.
@@ -202,13 +203,16 @@ export function axios_mock(): void {
     });
 
   // get facets within place for Count_Person
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/facets/within", {
-      childType: "County",
-      maxDate: "latest",
-      minDate: "latest",
-      parentPlace: "geoId/06",
-      statVars: ["Count_Person"],
+      params: {
+        childType: "County",
+        maxDate: "latest",
+        minDate: "latest",
+        parentPlace: "geoId/06",
+        statVars: ["Count_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
@@ -218,13 +222,16 @@ export function axios_mock(): void {
       },
     });
 
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/facets/within", {
-      childType: "County",
-      maxDate: "",
-      minDate: "2020",
-      parentPlace: "geoId/06",
-      statVars: ["Count_Person"],
+      params: {
+        childType: "County",
+        maxDate: "",
+        minDate: "2020",
+        parentPlace: "geoId/06",
+        statVars: ["Count_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
@@ -235,13 +242,16 @@ export function axios_mock(): void {
     });
 
   // get facets within place for Count_Person and Median_Age_Person
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/facets/within", {
-      childType: "County",
-      maxDate: "",
-      minDate: "2020",
-      parentPlace: "geoId/06",
-      statVars: ["Count_Person", "Median_Age_Person"],
+      params: {
+        childType: "County",
+        maxDate: "",
+        minDate: "2020",
+        parentPlace: "geoId/06",
+        statVars: ["Count_Person", "Median_Age_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {

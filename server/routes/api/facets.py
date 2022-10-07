@@ -101,7 +101,7 @@ def is_valid_date(date):
     return False
 
 
-@bp.route('/within', methods=['POST'])
+@bp.route('/within')
 def get_facets_within():
     """
     Gets the available facets for a list of stat vars for places of a specific
@@ -128,19 +128,19 @@ def get_facets_within():
         ...
     }
     """
-    parent_place = request.json.get('parentPlace')
+    parent_place = request.args.get('parentPlace')
     if not parent_place:
         return 'error: must provide a parentPlace field', 400
-    child_type = request.json.get('childType')
+    child_type = request.args.get('childType')
     if not child_type:
         return 'error: must provide a childType field', 400
-    stat_vars = request.json.get('statVars')
+    stat_vars = request.args.getlist('statVars')
     if not stat_vars:
         return 'error: must provide a statVars field', 400
-    min_date = request.json.get('minDate')
+    min_date = request.args.get('minDate')
     if not is_valid_date(min_date):
         return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
-    max_date = request.json.get('maxDate')
+    max_date = request.args.get('maxDate')
     if not is_valid_date(max_date):
         return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
     # when min_date and max_date are the same and non empty, we will get the

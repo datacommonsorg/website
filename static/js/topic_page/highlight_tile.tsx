@@ -20,6 +20,7 @@ import React, { useEffect, useState } from "react";
 import { formatNumber } from "../i18n/i18n";
 import { Observation, PointApiResponse } from "../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { stringifyFn } from "../utils/axios";
 import { formatString, ReplacementStrings } from "./string_utils";
 
 const NUM_FRACTION_DIGITS = 1;
@@ -76,9 +77,12 @@ function fetchData(
     statVars.push(denomStatVar);
   }
   axios
-    .post<PointApiResponse>("/api/observations/point", {
-      entities: [props.place.dcid],
-      variables: statVars,
+    .get<PointApiResponse>("/api/observations/point", {
+      params: {
+        entities: [props.place.dcid],
+        variables: statVars,
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       const statData = resp.data.data;

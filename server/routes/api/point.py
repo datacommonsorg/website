@@ -55,36 +55,36 @@ def point_within_core(parent_entity, child_type, variables, date, all_facets):
     return compact_point(resp, all_facets)
 
 
-@bp.route('', strict_slashes=False, methods=['POST'])
+@bp.route('', strict_slashes=False)
 def point():
     """Handler to get the observation point given multiple stat vars and places.
     """
-    entities = request.json.get('entities', [])
-    variables = request.json.get('variables', [])
+    entities = request.args.getlist('entities')
+    variables = request.args.getlist('variables')
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
         return 'error: must provide a `variables` field', 400
-    date = request.json.get('date', '')
+    date = request.args.get('date', '')
     return point_core(entities, variables, date, False)
 
 
-@bp.route('/all', methods=['POST'])
+@bp.route('/all')
 def point_all():
     """Handler to get all the observation points given multiple stat vars and
     entities.
     """
-    entities = request.json.get('entities', [])
-    variables = request.json.get('variables', [])
+    entities = request.args.getlist('entities')
+    variables = request.args.getlist('variables')
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
         return 'error: must provide a `variables` field', 400
-    date = request.json.get('date')
+    date = request.args.get('date', '')
     return point_core(entities, variables, date, True)
 
 
-@bp.route('/within', methods=['POST'])
+@bp.route('/within')
 def point_within():
     """Gets the observations for child entities of a certain place
     type contained in a parent entity at a given date. If no date given, will
@@ -92,20 +92,20 @@ def point_within():
 
     This returns the observation for the preferred facet.
     """
-    parent_entity = request.json.get('parent_entity')
+    parent_entity = request.args.get('parent_entity')
     if not parent_entity:
         return 'error: must provide a `parent_entity` field', 400
-    child_type = request.json.get('child_type')
+    child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.json.get('variables')
+    variables = request.args.getlist('variables')
     if not variables:
         return 'error: must provide a `variables` field', 400
-    date = request.json.get('date')
+    date = request.args.get('date', '')
     return point_within_core(parent_entity, child_type, variables, date, False)
 
 
-@bp.route('/within/all', methods=['POST'])
+@bp.route('/within/all')
 def point_within_all():
     """Gets the observations for child entities of a certain place
     type contained in a parent entity at a given date. If no date given, will
@@ -113,14 +113,14 @@ def point_within_all():
 
     This returns the observation for all facets.
     """
-    parent_entity = request.json.get('parent_entity')
+    parent_entity = request.args.get('parent_entity')
     if not parent_entity:
         return 'error: must provide a `parent_entity` field', 400
-    child_type = request.json.get('child_type')
+    child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.json.get('variables')
+    variables = request.args.getlist('variables')
     if not variables:
         return 'error: must provide a `variables` field', 400
-    date = request.json.get('date', '')
+    date = request.args.get('date', '')
     return point_within_core(parent_entity, child_type, variables, date, True)

@@ -24,27 +24,27 @@ class TestApiPointWithin(unittest.TestCase):
 
     def test_required_predicates(self):
         """Failure if required fields are not present."""
-        no_parent_entity = app.test_client().post(
+        no_parent_entity = app.test_client().get(
             '/api/observations/point/within',
-            json={
+            query_string={
                 'child_type': 'City',
                 'variables': ['Count_Person']
             })
         assert no_parent_entity.status_code == 400
 
-        no_child_type = app.test_client().post(
-            '/api/observations/point/within',
-            json={
-                'parent_entity': 'country/USA',
-                'variables': ['Count_Person']
-            })
+        no_child_type = app.test_client().get('/api/observations/point/within',
+                                              query_string={
+                                                  'parent_entity':
+                                                      'country/USA',
+                                                  'variables': ['Count_Person']
+                                              })
         assert no_child_type.status_code == 400
 
-        no_stat_var = app.test_client().post('/api/observations/point/within',
-                                             json={
-                                                 'parent_entity': 'country/USA',
-                                                 'child_type': 'City'
-                                             })
+        no_stat_var = app.test_client().get('/api/observations/point/within',
+                                            query_string={
+                                                'parent_entity': 'country/USA',
+                                                'child_type': 'City'
+                                            })
         assert no_stat_var.status_code == 400
 
     @mock.patch('services.datacommons.post')
@@ -116,9 +116,9 @@ class TestApiPointWithin(unittest.TestCase):
                 return mock_data.POINT_WITHIN_2015
 
         post.side_effect = side_effect
-        response = app.test_client().post(
+        response = app.test_client().get(
             '/api/observations/point/within',
-            json={
+            query_string={
                 'parent_entity': 'country/USA',
                 'child_type': 'State',
                 'date': '2015',

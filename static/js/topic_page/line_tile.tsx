@@ -27,6 +27,7 @@ import { drawLineChart } from "../chart/draw";
 import { SeriesApiResponse } from "../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { computeRatio } from "../tools/shared_util";
+import { stringifyFn } from "../utils/axios";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { getStatVarName, ReplacementStrings } from "./string_utils";
@@ -97,10 +98,13 @@ function fetchData(
     }
   }
   axios
-    .post("/api/observations/series", {
+    .get("/api/observations/series", {
       // Fetch both numerator stat vars and denominator stat vars
-      variables: statVars,
-      entities: [props.place.dcid],
+      params: {
+        variables: statVars,
+        entities: [props.place.dcid],
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       setRawData(resp.data);

@@ -32,6 +32,7 @@ import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { StatVarSpec } from "../shared/types";
 import { getStatWithinPlace } from "../tools/scatter/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
+import { stringifyFn } from "../utils/axios";
 import { getStringOrNA } from "../utils/number_utils";
 import { getPlaceScatterData } from "../utils/scatter_data_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -138,10 +139,13 @@ function getPopulationPromise(
     return Promise.resolve(null);
   } else {
     return axios
-      .post("/api/observations/series/within", {
-        parent_entity: placeDcid,
-        child_type: enclosedPlaceType,
-        variable: variables,
+      .get("/api/observations/series/within", {
+        params: {
+          parent_entity: placeDcid,
+          child_type: enclosedPlaceType,
+          variable: variables,
+        },
+        paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
   }

@@ -27,9 +27,9 @@ import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import {
-  Observation,
+  EntityObservation,
+  EntitySeries,
   PointApiResponse,
-  Series,
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
@@ -37,6 +37,7 @@ import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
 import { DataPointMetadata, getPlaceChartData } from "../tools/map/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
+import { stringifyFn } from "../utils/axios";
 import { getDateRange } from "../utils/string_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
@@ -52,9 +53,9 @@ interface MapTilePropType {
 
 interface RawData {
   geoJson: GeoJsonData;
-  placeStat: Record<string, Observation>;
+  placeStat: EntityObservation;
   metadataMap: Record<string, StatMetadata>;
-  population: Record<string, Series>;
+  population: EntitySeries;
   parentPlaces: NamedTypedPlace[];
 }
 
@@ -137,19 +138,25 @@ function fetchData(
     .then((resp) => resp.data);
   const dataDate = getCappedStatVarDate(mainStatVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
-    .post("/api/observations/point/within", {
-      parent_entity: placeDcid,
-      child_type: enclosedPlaceType,
-      variables: [mainStatVar],
-      date: dataDate,
+    .get("/api/observations/point/within", {
+      params: {
+        parent_entity: placeDcid,
+        child_type: enclosedPlaceType,
+        variables: [mainStatVar],
+        date: dataDate,
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
   const populationPromise: Promise<SeriesApiResponse> = denomStatVar
     ? axios
-        .post("/api/observations/series/within", {
-          parent_entity: placeDcid,
-          child_type: enclosedPlaceType,
-          variables: [denomStatVar],
+        .get("/api/observations/series/within", {
+          params: {
+            parent_entity: placeDcid,
+            child_type: enclosedPlaceType,
+            variables: [denomStatVar],
+          },
+          paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     : Promise.resolve({});

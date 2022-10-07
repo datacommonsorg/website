@@ -15,13 +15,11 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
+import { when } from "jest-when";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import {
-  SeriesAllApiResponse,
-  SeriesApiResponse,
-} from "../../shared/stat_types";
+import { SeriesAllApiResponse } from "../../shared/stat_types";
+import { stringifyFn } from "../../utils/axios";
 import {
   convertToDelta,
   fetchRawData,
@@ -32,29 +30,18 @@ import {
   TimelineRawData,
 } from "./data_fetcher";
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-beforeAll(() => {
-  const locale = "en";
-  loadLocaleData(locale, [
-    import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
-  ]);
-});
-
-interface ReqType {
-  entities: string[];
-  variables: string[];
-}
-
-test("fetch raw data", () => {
-  mockedAxios.post.mockImplementation((url: string, data: ReqType) => {
-    if (
-      url === "/api/observations/series" &&
-      _.isEqual(data.variables, ["Count_Person", "Count_Person_Male"]) &&
-      _.isEqual(data.entities, ["geoId/05", "geoId/06"])
-    ) {
-      const resp: SeriesApiResponse = {
+function axios_mock(): void {
+  axios.get = jest.fn();
+  when(axios.get)
+    .calledWith("/api/observations/series", {
+      params: {
+        variables: ["Count_Person", "Count_Person_Male"],
+        entities: ["geoId/05", "geoId/06"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
         facets: {
           facet1: {
             provenanceUrl: "source1",
@@ -121,14 +108,19 @@ test("fetch raw data", () => {
             },
           },
         },
-      };
-      return Promise.resolve({ data: resp });
-    } else if (
-      url === "/api/observations/series/all" &&
-      _.isEqual(data.variables, ["Count_Person", "Count_Person_Male"]) &&
-      _.isEqual(data.entities, ["geoId/05", "geoId/06"])
-    ) {
-      const resp: SeriesAllApiResponse = {
+      },
+    });
+
+  when(axios.get)
+    .calledWith("/api/observations/series/all", {
+      params: {
+        variables: ["Count_Person", "Count_Person_Male"],
+        entities: ["geoId/05", "geoId/06"],
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .mockResolvedValue({
+      data: {
         facets: {
           facet1: {
             provenanceUrl: "source1",
@@ -222,21 +214,28 @@ test("fetch raw data", () => {
             ],
           },
         },
-      };
-      return Promise.resolve({ data: resp });
-    }
-  });
-  mockedAxios.get.mockImplementation((url: string) => {
-    if (url === "/api/place/displayname?dcid=geoId/05&dcid=geoId/06") {
-      return Promise.resolve({
-        data: {
-          "geoId/05": "Arkansas",
-          "geoId/06": "California",
-        },
-      });
-    }
-  });
+      },
+    });
 
+  when(axios.get)
+    .calledWith("/api/place/displayname?dcid=geoId/05&dcid=geoId/06")
+    .mockResolvedValue({
+      data: {
+        "geoId/05": "Arkansas",
+        "geoId/06": "California",
+      },
+    });
+}
+
+beforeAll(() => {
+  const locale = "en";
+  loadLocaleData(locale, [
+    import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+  ]);
+});
+
+test("fetch raw data", () => {
+  axios_mock();
   return fetchRawData(
     ["geoId/05", "geoId/06"],
     ["Count_Person", "Count_Person_Male"],

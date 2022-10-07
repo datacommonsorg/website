@@ -24,6 +24,7 @@ import React, { useEffect, useState } from "react";
 
 import { PointApiResponse } from "../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { stringifyFn } from "../utils/axios";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
 import { formatString, getStatVarName } from "./string_utils";
@@ -126,10 +127,13 @@ function fetchData(
     }
   }
   axios
-    .post<PointApiResponse>("/api/observations/point/within", {
-      parent_entity: props.place.dcid,
-      child_type: props.enclosedPlaceType,
-      variables: variables,
+    .get<PointApiResponse>("/api/observations/point/within", {
+      params: {
+        parent_entity: props.place.dcid,
+        child_type: props.enclosedPlaceType,
+        variables: variables,
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       const rankingData: RankingData = {};

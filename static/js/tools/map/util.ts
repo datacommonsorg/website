@@ -32,9 +32,9 @@ import {
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import {
-  Observation,
+  EntityObservation,
+  EntitySeries,
   PlaceStatDateWithinPlace,
-  Series,
   StatMetadata,
 } from "../../shared/stat_types";
 import {
@@ -443,10 +443,10 @@ interface PlaceChartData {
  * @param metadataMap map of metahash to stat metadata
  */
 export function getPlaceChartData(
-  placeStatData: Record<string, Observation>,
+  placeStatData: EntityObservation,
   placeDcid: string,
   calculateRatio: boolean,
-  populationData: Record<string, Series>,
+  populationData: EntitySeries,
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
   const stat = placeDcid in placeStatData ? placeStatData[placeDcid] : null;

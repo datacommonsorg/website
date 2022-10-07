@@ -19,7 +19,7 @@ import _ from "lodash";
 import { Point } from "../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../shared/constants";
 import {
-  Observation,
+  EntityObservation,
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
@@ -39,7 +39,7 @@ interface PlaceAxisChartData {
  * For a place and axis, get the chart data for that place and axis
  */
 function getPlaceAxisChartData(
-  placePointStat: Record<string, Observation>,
+  placePointStat: EntityObservation,
   populationData: SeriesApiResponse,
   placeDcid: string,
   metadataMap: Record<string, StatMetadata>,
@@ -105,8 +105,8 @@ function getPlaceAxisChartData(
  */
 export function getPlaceScatterData(
   namedPlace: NamedPlace,
-  xStatVarData: Record<string, Observation>,
-  yStatVarData: Record<string, Observation>,
+  xStatVarData: EntityObservation,
+  yStatVarData: EntityObservation,
   populationData: SeriesApiResponse,
   metadataMap: Record<string, StatMetadata>,
   xDenom?: string,

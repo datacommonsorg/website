@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import logging
 import json
 import unittest
 from unittest import mock
@@ -24,27 +24,27 @@ class TestApiSeriesWithin(unittest.TestCase):
 
     def test_required_predicates(self):
         """Failure if required fields are not present."""
-        no_parent_entity = app.test_client().post(
+        no_parent_entity = app.test_client().get(
             '/api/observations/series/within',
-            json={
+            query_string={
                 'child_type': 'City',
                 'variables': ['Count_Person']
             })
         assert no_parent_entity.status_code == 400
 
-        no_child_type = app.test_client().post(
-            '/api/observations/series/within',
-            json={
-                'parent_entity': 'country/USA',
-                'variables': ['Count_Person']
-            })
+        no_child_type = app.test_client().get('/api/observations/series/within',
+                                              query_string={
+                                                  'parent_entity':
+                                                      'country/USA',
+                                                  'variables': ['Count_Person']
+                                              })
         assert no_child_type.status_code == 400
 
-        no_stat_var = app.test_client().post('/api/observations/series/within',
-                                             json={
-                                                 'parent_entity': 'country/USA',
-                                                 'child_type': 'City'
-                                             })
+        no_stat_var = app.test_client().get('/api/observations/series/within',
+                                            query_string={
+                                                'parent_entity': 'country/USA',
+                                                'child_type': 'City'
+                                            })
         assert no_stat_var.status_code == 400
 
     @mock.patch('services.datacommons.post')
@@ -208,9 +208,9 @@ class TestApiSeriesWithin(unittest.TestCase):
                 return mock_data.SERIES_WITHIN_ALL_FACETS
 
         post.side_effect = side_effect
-        response = app.test_client().post(
+        response = app.test_client().get(
             '/api/observations/series/within/all',
-            json={
+            query_string={
                 'parent_entity': 'country/USA',
                 'child_type': 'State',
                 'variables': ['Count_Person', 'UnemploymentRate_Person']

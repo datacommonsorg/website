@@ -27,6 +27,8 @@ import { Point } from "../../chart/draw_scatter";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
+  EntityObservation,
+  EntityObservationList,
   Observation,
   PointAllApiResponse,
   PointApiResponse,
@@ -34,6 +36,7 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
+import { stringifyFn } from "../../utils/axios";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
@@ -52,8 +55,8 @@ import {
 
 type Cache = {
   // key here is stat var.
-  statVarsData: Record<string, Record<string, Observation>>;
-  allStatVarsData: Record<string, Record<string, Observation[]>>;
+  statVarsData: Record<string, EntityObservation>;
+  allStatVarsData: Record<string, EntityObservationList>;
   metadataMap: Record<string, StatMetadata>;
   populationData: SeriesApiResponse;
   noDataError: boolean;
@@ -199,10 +202,13 @@ async function loadData(
     }
   }
   const populationPromise: Promise<SeriesApiResponse> = axios
-    .post("/api/observations/series/within", {
-      parent_entity: place.enclosingPlace.dcid,
-      child_type: place.enclosedPlaceType,
-      variables: Array.from(populationSvList),
+    .get("/api/observations/series/within", {
+      params: {
+        parent_entity: place.enclosingPlace.dcid,
+        child_type: place.enclosedPlaceType,
+        variables: Array.from(populationSvList),
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
   Promise.all([statResponsePromise, statAllResponsePromise, populationPromise])
@@ -277,9 +283,9 @@ function useChartData(cache: Cache): ChartData {
  * Extract data for a given facet from all the facets data.
  */
 function extractFacetData(
-  data: Record<string, Observation[]>,
+  data: EntityObservationList,
   facetId: string
-): Record<string, Observation> {
+): EntityObservation {
   if (_.isEmpty(facetId)) {
     return null;
   }
@@ -367,7 +373,7 @@ function getChartData(
 
 function getFacetInfo(
   axis: Axis,
-  allStatVarsData: Record<string, Record<string, Observation[]>>,
+  allStatVarsData: Record<string, EntityObservationList>,
   metadataMap: Record<string, StatMetadata>
 ): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};

@@ -33,45 +33,53 @@ export interface Observation {
   facet?: string;
 }
 
+export interface EntityObservation {
+  [entity: string]: Observation;
+}
+
+export interface EntityObservationList {
+  [entity: string]: Observation[];
+}
+
 export interface Series {
   // series field is guaranteed to set from Flask.
   series: Observation[];
   facet?: string;
 }
 
+export interface EntitySeries {
+  [entity: string]: Series;
+}
+
+export interface EntitySeriesList {
+  [entity: string]: Series[];
+}
+
 export interface SeriesApiResponse {
   facets: Record<string, StatMetadata>;
   data: {
-    [variable: string]: {
-      [entity: string]: Series;
-    };
+    [variable: string]: EntitySeries;
   };
 }
 
 export interface SeriesAllApiResponse {
   facets: Record<string, StatMetadata>;
   data: {
-    [variable: string]: {
-      [entity: string]: Series[];
-    };
+    [variable: string]: EntitySeriesList;
   };
 }
 
 export interface PointApiResponse {
   facets: Record<string, StatMetadata>;
   data: {
-    [variable: string]: {
-      [entity: string]: Observation;
-    };
+    [variable: string]: EntityObservation;
   };
 }
 
 export interface PointAllApiResponse {
   facets: Record<string, StatMetadata>;
   data: {
-    [variable: string]: {
-      [entity: string]: Observation[];
-    };
+    [variable: string]: EntityObservationList;
   };
 }
 

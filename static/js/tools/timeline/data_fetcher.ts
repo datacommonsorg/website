@@ -20,12 +20,14 @@ import _ from "lodash";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
   DisplayNameApiResponse,
+  EntitySeries,
   Observation,
   Series,
   SeriesAllApiResponse,
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
+import { stringifyFn } from "../../utils/axios";
 import { computeRatio } from "../shared_util";
 
 export interface StatData {
@@ -35,7 +37,7 @@ export interface StatData {
   sources: Set<string>;
   measurementMethods: Set<string>;
   // Keyed by stat var dcid, then place dcid.
-  data: Record<string, Record<string, Series>>;
+  data: Record<string, EntitySeries>;
   // Keyed by facet id.
   facets: Record<string, StatMetadata>;
   displayNames?: DisplayNameApiResponse;
@@ -161,9 +163,12 @@ export function fetchRawData(
   });
   if (denom) {
     denomDataPromise = axios
-      .post("/api/observations/series", {
-        entities: places,
-        variables: [denom],
+      .get("/api/observations/series", {
+        params: {
+          entities: places,
+          variables: [denom],
+        },
+        paramsSerializer: stringifyFn,
       })
       .then((resp) => {
         return resp.data;
@@ -176,9 +181,12 @@ export function fetchRawData(
     });
 
   const statAllDataPromise: Promise<SeriesAllApiResponse> = axios
-    .post("/api/observations/series/all", {
-      entities: places,
-      variables: statVars,
+    .get("/api/observations/series/all", {
+      params: {
+        entities: places,
+        variables: statVars,
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       return resp.data;
@@ -243,7 +251,7 @@ export function getStatData(
   const allDates = new Set<string>();
 
   for (const sv of statVars) {
-    const svData: Record<string, Series> = {};
+    const svData: EntitySeries = {};
     for (const place of places) {
       let selectedSeries: Series = null;
       const targetFacetId = metahashMap[sv];

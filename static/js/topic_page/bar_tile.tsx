@@ -26,6 +26,7 @@ import { DataGroup, DataPoint } from "../chart/base";
 import { drawGroupBarChart } from "../chart/draw";
 import { PointApiResponse } from "../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { stringifyFn } from "../utils/axios";
 import { getPlaceNames } from "../utils/place_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
@@ -104,10 +105,13 @@ function fetchData(
   // Fetch populations.
   statVars.push(FILTER_STAT_VAR);
   axios
-    .post<PointApiResponse>("/api/observations/point/within", {
-      parent_entity: props.place.dcid,
-      child_type: props.enclosedPlaceType,
-      variables: statVars,
+    .get<PointApiResponse>("/api/observations/point/within", {
+      params: {
+        parent_entity: props.place.dcid,
+        child_type: props.enclosedPlaceType,
+        variables: statVars,
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       setRawData(resp.data);

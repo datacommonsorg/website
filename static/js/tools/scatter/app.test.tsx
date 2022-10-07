@@ -24,6 +24,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { when } from "jest-when";
 import React, { useEffect } from "react";
 
+import { stringifyFn } from "../../utils/axios";
 import { App } from "./app";
 import { Context, EmptyPlace, useContextStore } from "./context";
 
@@ -221,11 +222,14 @@ function mockAxios(): void {
     },
   };
 
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/observations/point/within", {
-      parent_entity: "geoId/10",
-      child_type: "County",
-      variables: ["Count_Person_Employed", "Count_Establishment"],
+      params: {
+        parent_entity: "geoId/10",
+        child_type: "County",
+        variables: ["Count_Person_Employed", "Count_Establishment"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
@@ -236,11 +240,14 @@ function mockAxios(): void {
         facets: facets,
       },
     });
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/observations/point/within", {
-      parent_entity: "geoId/10",
-      child_type: "County",
-      entities: ["Count_Person_Employed", "Count_HousingUnit"],
+      params: {
+        parent_entity: "geoId/10",
+        child_type: "County",
+        entities: ["Count_Person_Employed", "Count_HousingUnit"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
@@ -253,10 +260,13 @@ function mockAxios(): void {
     });
   axios.post = jest.fn();
 
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/observations/point", {
-      variables: ["Count_Person"],
-      entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+      params: {
+        variables: ["Count_Person"],
+        entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {

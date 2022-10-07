@@ -30,16 +30,18 @@ import {
 } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
+  EntityObservation,
+  EntityObservationList,
+  EntitySeries,
   GetPlaceStatDateWithinPlaceResponse,
-  Observation,
   PointAllApiResponse,
   PointApiResponse,
-  Series,
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
 import { NamedPlace, StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
+import { stringifyFn } from "../../utils/axios";
 import {
   ENCLOSED_PLACE_TYPE_NAMES,
   getEnclosedPlacesPromise,
@@ -72,12 +74,12 @@ const MANUAL_GEOJSON_DISTANCES = {
 
 interface ChartRawData {
   geoJsonData: GeoJsonData;
-  enclosedPlaceStat: Record<string, Observation>;
-  allEnclosedPlaceStat: Record<string, Observation[]>;
+  enclosedPlaceStat: EntityObservation;
+  allEnclosedPlaceStat: EntityObservationList;
   metadataMap: Record<string, StatMetadata>;
-  population: Record<string, Series>;
-  breadcrumbPlaceStat: Record<string, Observation>;
-  mapPointStat: Record<string, Observation>;
+  population: EntitySeries;
+  breadcrumbPlaceStat: EntityObservation;
+  mapPointStat: EntityObservation;
   mapPointsPromise: Promise<Array<MapPoint>>;
   europeanCountries: Array<NamedPlace>;
   dataDate: string;
@@ -380,7 +382,7 @@ function getGeoJsonDataFeatures(
 
 function getFacetInfo(
   statVar: StatVar,
-  placeStats: Record<string, Observation[]>,
+  placeStats: EntityObservationList,
   metadataMap: Record<string, StatMetadata>
 ): FacetSelectorFacetInfo {
   const filteredMetadataMap: Record<string, StatMetadata> = {};
@@ -425,18 +427,24 @@ function fetchData(
   breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
   const breadcrumbPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
     ? axios
-        .post("/api/observations/series", {
-          entities: breadcrumbPlaceDcids,
-          variables: [statVar.denom],
+        .get("/api/observations/series", {
+          params: {
+            entities: breadcrumbPlaceDcids,
+            variables: [statVar.denom],
+          },
+          paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
   const enclosedPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
     ? axios
-        .post("/api/observations/series/within", {
-          child_type: placeInfo.enclosedPlaceType,
-          parent_entity: placeInfo.enclosingPlace.dcid,
-          variables: [statVar.denom],
+        .get("/api/observations/series/within", {
+          params: {
+            child_type: placeInfo.enclosedPlaceType,
+            parent_entity: placeInfo.enclosingPlace.dcid,
+            variables: [statVar.denom],
+          },
+          paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
@@ -456,26 +464,35 @@ function fetchData(
     dataDate = cappedDate;
   }
   const enclosedPlaceDataPromise: Promise<PointApiResponse> = axios
-    .post("/api/observations/point/within", {
-      child_type: placeInfo.enclosedPlaceType,
-      date: dataDate,
-      parent_entity: placeInfo.enclosingPlace.dcid,
-      variables: [statVar.dcid],
+    .get("/api/observations/point/within", {
+      params: {
+        child_type: placeInfo.enclosedPlaceType,
+        date: dataDate,
+        parent_entity: placeInfo.enclosingPlace.dcid,
+        variables: [statVar.dcid],
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
   const allEnclosedPlaceDataPromise: Promise<PointAllApiResponse> = axios
-    .post("/api/observations/point/within/all", {
-      child_type: placeInfo.enclosedPlaceType,
-      date: dataDate,
-      parent_entity: placeInfo.enclosingPlace.dcid,
-      variables: [statVar.dcid],
+    .get("/api/observations/point/within/all", {
+      params: {
+        child_type: placeInfo.enclosedPlaceType,
+        date: dataDate,
+        parent_entity: placeInfo.enclosingPlace.dcid,
+        variables: [statVar.dcid],
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
   const breadcrumbPlaceDataPromise: Promise<PointApiResponse> = axios
-    .post("/api/observations/point", {
-      date: dataDate,
-      entities: breadcrumbPlaceDcids,
-      variables: [statVar.dcid],
+    .get("/api/observations/point", {
+      params: {
+        date: dataDate,
+        entities: breadcrumbPlaceDcids,
+        variables: [statVar.dcid],
+      },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       return resp.data;
@@ -489,30 +506,39 @@ function fetchData(
     for (const i in currentSampleDates) {
       enclosedPlaceDatesList.push(
         axios
-          .post("/api/observations/point/within", {
-            child_type: placeInfo.enclosedPlaceType,
-            date: currentSampleDates[i],
-            parent_entity: placeInfo.enclosingPlace.dcid,
-            variables: [statVar.dcid],
+          .get("/api/observations/point/within", {
+            params: {
+              child_type: placeInfo.enclosedPlaceType,
+              date: currentSampleDates[i],
+              parent_entity: placeInfo.enclosingPlace.dcid,
+              variables: [statVar.dcid],
+            },
+            paramsSerializer: stringifyFn,
           })
           .then((resp) => resp.data)
       );
       allEnclosedPlaceDatesList.push(
         axios
-          .post("/api/observations/point/within/all", {
-            child_type: placeInfo.enclosedPlaceType,
-            date: currentSampleDates[i],
-            parent_entity: placeInfo.enclosingPlace.dcid,
-            variables: [statVar.dcid],
+          .get("/api/observations/point/within/all", {
+            params: {
+              child_type: placeInfo.enclosedPlaceType,
+              date: currentSampleDates[i],
+              parent_entity: placeInfo.enclosingPlace.dcid,
+              variables: [statVar.dcid],
+            },
+            paramsSerializer: stringifyFn,
           })
           .then((resp) => resp.data)
       );
       breadcrumbPlaceDatesList.push(
         axios
-          .post("/api/observations/point", {
-            date: currentSampleDates[i],
-            entities: breadcrumbPlaceDcids,
-            variables: [statVar.dcid],
+          .get("/api/observations/point", {
+            params: {
+              date: currentSampleDates[i],
+              entities: breadcrumbPlaceDcids,
+              variables: [statVar.dcid],
+            },
+            paramsSerializer: stringifyFn,
           })
           .then((resp) => {
             return resp.data;
@@ -528,10 +554,13 @@ function fetchData(
   const mapPointDataPromise: Promise<PointApiResponse> =
     placeInfo.mapPointPlaceType
       ? axios
-          .post("/api/observations/point/within", {
-            child_type: placeInfo.mapPointPlaceType,
-            parent_entity: placeInfo.enclosingPlace.dcid,
-            variables: [mapPointSv],
+          .get("/api/observations/point/within", {
+            params: {
+              child_type: placeInfo.mapPointPlaceType,
+              parent_entity: placeInfo.enclosingPlace.dcid,
+              variables: [mapPointSv],
+            },
+            paramsSerializer: stringifyFn,
           })
           .then((resp) => {
             return resp.data;
@@ -712,9 +741,9 @@ function fetchData(
 }
 
 function filterAllFacetData(
-  data: Record<string, Observation[]>,
+  data: EntityObservationList,
   targetFacet: string
-): Record<string, Observation> {
+): EntityObservation {
   const result = {};
   for (const place in data) {
     for (const obs of data[place]) {

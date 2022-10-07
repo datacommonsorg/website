@@ -23,26 +23,26 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
 
     def test_required_params(self):
         """Failure if required fields are not present."""
-        no_parent_place = app.test_client().post(
+        no_parent_place = app.test_client().get(
             'api/facets/within',
-            json={
+            query_string={
                 "childType": "County",
                 "statVars": ["Count_Person"],
             })
         assert no_parent_place.status_code == 400
 
-        no_child_type = app.test_client().post('api/facets/within',
-                                               json={
-                                                   "parentPlace": "country/USA",
-                                                   "statVars": ["Count_Person"],
-                                               })
+        no_child_type = app.test_client().get('api/facets/within',
+                                              query_string={
+                                                  "parentPlace": "country/USA",
+                                                  "statVars": ["Count_Person"],
+                                              })
         assert no_child_type.status_code == 400
 
-        no_stat_vars = app.test_client().post('api/facets/within',
-                                              json={
-                                                  "childType": "County",
-                                                  "parentPlace": "country/USA",
-                                              })
+        no_stat_vars = app.test_client().get('api/facets/within',
+                                             query_string={
+                                                 "childType": "County",
+                                                 "parentPlace": "country/USA",
+                                             })
         assert no_stat_vars.status_code == 400
 
     @mock.patch('routes.api.facets.dc.point_within')
@@ -74,16 +74,16 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
         latest_date_req_json = base_req_json.copy()
         latest_date_req_json["minDate"] = "latest"
         latest_date_req_json["maxDate"] = "latest"
-        latest_date = app.test_client().post(endpoint_url,
-                                             json=latest_date_req_json)
+        latest_date = app.test_client().get(endpoint_url,
+                                            query_string=latest_date_req_json)
         assert latest_date.status_code == 200
         assert latest_date.data == b'{"Count_Person":{"1145703171":{"importName":"CensusACS5YearSurvey","measurementMethod":"CensusACS5yrSurvey","provenanceUrl":"https://www.census.gov/"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}},"UnemploymentRate_Person":{"1249140336":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyAdjusted","observationPeriod":"P1M","provenanceUrl":"https://www.bls.gov/lau/"},"2978659163":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1Y","provenanceUrl":"https://www.bls.gov/lau/"}}}\n'
 
         single_date_req_json = base_req_json.copy()
         single_date_req_json["minDate"] = expected_date
         single_date_req_json["maxDate"] = expected_date
-        single_date = app.test_client().post(endpoint_url,
-                                             json=single_date_req_json)
+        single_date = app.test_client().get(endpoint_url,
+                                            query_string=single_date_req_json)
         assert single_date.status_code == 200
         assert single_date.data == b'{"Count_Person":{"2176550201":{"importName":"USCensusPEP_Annual_Population","measurementMethod":"CensusPEPSurvey","observationPeriod":"P1Y","provenanceUrl":"https://www2.census.gov/programs-surveys/popest/tables"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}},"UnemploymentRate_Person":{"2978659163":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1Y","provenanceUrl":"https://www.bls.gov/lau/"}}}\n'
 
@@ -103,13 +103,13 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
                 return {}
 
         mock_series_within.side_effect = series_within_side_effect
-        resp = app.test_client().post('api/facets/within',
-                                      json={
-                                          "parentPlace": expected_parent_place,
-                                          "childType": expected_child_type,
-                                          "statVars": expected_stat_vars,
-                                          "minDate": expected_min_date_year,
-                                          "maxDate": expected_max_date_year
-                                      })
+        resp = app.test_client().get('api/facets/within',
+                                     query_string={
+                                         "parentPlace": expected_parent_place,
+                                         "childType": expected_child_type,
+                                         "statVars": expected_stat_vars,
+                                         "minDate": expected_min_date_year,
+                                         "maxDate": expected_max_date_year
+                                     })
         assert resp.status_code == 200
         assert resp.data == b'{"Count_Person":{"1145703171":{"importName":"CensusACS5YearSurvey","measurementMethod":"CensusACS5yrSurvey","provenanceUrl":"https://www.census.gov/"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}},"UnemploymentRate_Person":{"1249140336":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyAdjusted","observationPeriod":"P1M","provenanceUrl":"https://www.bls.gov/lau/"},"324358135":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1M","provenanceUrl":"https://www.bls.gov/lau/"}}}\n'

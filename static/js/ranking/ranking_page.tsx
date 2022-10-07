@@ -29,6 +29,7 @@ import {
 } from "../shared/stat_types";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { getMatchingObservation } from "../tools/shared_util";
+import { stringifyFn } from "../utils/axios";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
 import { LocationRankData, RankInfo } from "./ranking_types";
@@ -335,18 +336,24 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
 
   private loadData(): void {
     const popPromise: Promise<SeriesApiResponse> = axios
-      .post("/api/observations/series/within", {
-        parent_entity: this.props.withinPlace,
-        child_type: this.props.placeType,
-        variables: [DEFAULT_POPULATION_DCID],
+      .get("/api/observations/series/within", {
+        params: {
+          parent_entity: this.props.withinPlace,
+          child_type: this.props.placeType,
+          variables: [DEFAULT_POPULATION_DCID],
+        },
+        paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
     const statPromise: Promise<PointApiResponse> = axios
-      .post("/api/observations/point/within", {
-        parent_entity: this.props.withinPlace,
-        child_type: this.props.placeType,
-        variables: [this.props.statVar],
-        date: this.props.date,
+      .get("/api/observations/point/within", {
+        params: {
+          parent_entity: this.props.withinPlace,
+          child_type: this.props.placeType,
+          variables: [this.props.statVar],
+          date: this.props.date,
+        },
+        paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios

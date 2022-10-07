@@ -28,6 +28,7 @@ import {
   StatMetadata,
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
+import { stringifyFn } from "../utils/axios";
 import { getUnit } from "../utils/stat_metadata";
 import { ObservationChart } from "./observation_chart";
 
@@ -127,9 +128,12 @@ export class ObservationChartSection extends React.Component<
   private fetchData(): void {
     loadSpinner(this.containerId);
     axios
-      .post<SeriesAllApiResponse>("/api/observations/series/all", {
-        entities: [this.props.placeDcid],
-        variables: [this.props.statVarId],
+      .get<SeriesAllApiResponse>("/api/observations/series/all", {
+        params: {
+          entities: [this.props.placeDcid],
+          variables: [this.props.statVarId],
+        },
+        paramsSerializer: stringifyFn,
       })
       .then((resp) => {
         removeSpinner(this.containerId);

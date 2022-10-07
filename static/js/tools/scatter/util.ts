@@ -24,6 +24,7 @@ import _ from "lodash";
 import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
+import { stringifyFn } from "../../utils/axios";
 import {
   Axis,
   ContextType,
@@ -66,11 +67,14 @@ export async function getStatWithinPlace(
     }
     promises.push(
       axios
-        .post<PointApiResponse>("/api/observations/point/within", {
-          parent_entity: parentPlace,
-          child_type: childType,
-          variables: [statVar.statVarDcid],
-          date: dataDate,
+        .get<PointApiResponse>("/api/observations/point/within", {
+          params: {
+            parent_entity: parentPlace,
+            child_type: childType,
+            variables: [statVar.statVarDcid],
+            date: dataDate,
+          },
+          paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     );
@@ -115,11 +119,14 @@ export async function getStatAllWithinPlace(
     }
     promises.push(
       axios
-        .post<PointAllApiResponse>("/api/observations/point/within/all", {
-          parent_entity: parentPlace,
-          child_type: childType,
-          variables: [statVar.statVarDcid],
-          date: dataDate,
+        .get<PointAllApiResponse>("/api/observations/point/within/all", {
+          params: {
+            parent_entity: parentPlace,
+            child_type: childType,
+            variables: [statVar.statVarDcid],
+            date: dataDate,
+          },
+          paramsSerializer: stringifyFn,
         })
         .then((resp) => resp.data)
     );

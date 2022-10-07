@@ -21,6 +21,7 @@ import * as d3 from "d3";
 import { when } from "jest-when";
 
 import { drawGroupLineChart } from "../../chart/draw";
+import { stringifyFn } from "../../utils/axios";
 
 export function axios_mock(): void {
   // Mock all the async axios call.
@@ -141,10 +142,13 @@ export function axios_mock(): void {
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // get data, geoId/05,Count_Person
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/observations/series", {
-      variables: ["Count_Person"],
-      entities: ["geoId/05"],
+      params: {
+        variables: ["Count_Person"],
+        entities: ["geoId/05"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
@@ -177,10 +181,13 @@ export function axios_mock(): void {
     });
 
   // get stats all data, geoId/05,Median_Age_Person
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/observations/series/all", {
-      entities: ["geoId/05"],
-      variables: ["Median_Age_Person"],
+      params: {
+        entities: ["geoId/05"],
+        variables: ["Median_Age_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
@@ -243,10 +250,13 @@ export function axios_mock(): void {
     });
 
   // get stats all data, geoId/05,Count_Person
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/observations/series/all", {
-      entities: ["geoId/05"],
-      variables: ["Count_Person"],
+      params: {
+        entities: ["geoId/05"],
+        variables: ["Count_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
@@ -280,10 +290,13 @@ export function axios_mock(): void {
       },
     });
 
-  when(axios.post)
+  when(axios.get)
     .calledWith("/api/observations/series/all", {
-      entities: ["geoId/05"],
-      variables: ["NotInTheTree"],
+      params: {
+        entities: ["geoId/05"],
+        variables: ["NotInTheTree"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
