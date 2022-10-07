@@ -63,6 +63,38 @@
   text-decoration: underline;
 }
 
+.dataset-selector-card {
+  overflow: visible;
+  padding: 15px 0;
+}
+
+.dataset-selector-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: .9rem;
+  justify-content: center;
+}
+
+.dataset-selector-label {
+  margin: 0.5rem;
+}
+
+.dataset-selector-custom-input {
+  flex-basis: 400px;
+  flex-grow: 1;
+  font-size: 1rem;
+  height: 100%;
+  margin: 0.5rem;
+}
+
+.dataset-selector-custom-input:focus {
+  outline: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+  box-shadow: none;
+}
+
 #place-type-summary-section .type-column {
   width: 30%;
 }

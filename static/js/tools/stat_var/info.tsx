@@ -24,37 +24,38 @@ class Info extends Component {
   render(): JSX.Element {
     return (
       <div id="placeholder-container">
-        <h1 className="mb-4">Statistical Variable Explorer</h1>
         <p>
           The statistical variable explorer provides information about each
           statistical variable, such as variable metadata, observations, etc.
-          Select a variable to get started. There are thousands of statistical
-          variables to choose from, arranged in a topical hierarchy.
+          Select a variable from the panel on the left to get started, or select
+          a <a href="https://docs.datacommons.org/datasets/">data source</a>{" "}
+          above to filter by. There are thousands of statistical variables to
+          choose from, arranged in a topical hierarchy.
         </p>
         <p>
           Or you can start your exploration with these statistical variables ...
         </p>
         <ul>
           <li>
-            <a href="#Count_Person">Population</a>
+            <a href="#sv=Count_Person">Population</a>
           </li>
           <li>
-            <a href="#CumulativeCount_Vaccine_COVID_19_Administered">
+            <a href="#sv=CumulativeCount_Vaccine_COVID_19_Administered">
               Cumulative Count of COVID_19, Vaccine Administered
             </a>
           </li>
           <li>
-            <a href="#PrecipitationRate_RCP85">
+            <a href="#sv=PrecipitationRate_RCP85">
               Precipitation Rate Based on RCP 8.5
             </a>
           </li>
           <li>
-            <a href="#Annual_Consumption_Electricity">
+            <a href="#sv=Annual_Consumption_Electricity">
               Annual Consumption of Electricity
             </a>
           </li>
           <li>
-            <a href="#GiniIndex_EconomicActivity">
+            <a href="#sv=GiniIndex_EconomicActivity">
               Gini Index of Economic Activity
             </a>
           </li>

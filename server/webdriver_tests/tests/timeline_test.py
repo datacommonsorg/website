@@ -131,7 +131,7 @@ class TestCharts(WebdriverBaseTest):
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         charts = self.driver.find_elements_by_xpath(
-            '//*[@id="chart-region"]/div[@class="chart"]')
+            '//*[@id="chart-region"]/div[@class="chart-container"]')
 
         # Assert there is no chart.
         self.assertEqual(len(charts), 0)
@@ -139,28 +139,34 @@ class TestCharts(WebdriverBaseTest):
         # Expand the Demographics section of the stat var hierarchy.
         shared.click_sv_group(self.driver, "Demographics")
 
-        # Wait until population checkbox is present and click on it.
-        element_present = EC.text_to_be_present_in_element(
-            (By.ID, 'hierarchy-section'), "Population")
+        # Wait until stat vars are present and click on Population.
+        shared.wait_for_loading(self.driver)
+        element_present = EC.presence_of_element_located(
+            (By.CLASS_NAME, "svg-node-child"))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+        self.driver.find_element_by_id(
+            "Count_Persondc/g/Demographics-Count_Person").click()
 
-        # Uncheck median age statvar, and the number of charts will become two.
-        population_checkbox = self.driver.find_element_by_xpath(
-            '//*[text()="Population"]')
-        population_checkbox.click()
-        # Check if there is a way to find the chart region refreshed.
-
-        # Wait until there is one card present.
+        # Wait until there is a card present.
+        shared.wait_for_loading(self.driver)
         element_present = EC.presence_of_element_located(
             (By.XPATH, '//*[@id="chart-region"]/div'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
-        # Re-store a list of all the charts.
-        charts = self.driver.find_elements_by_xpath(
-            '//*[@id="chart-region"]/div')
-
         # Assert there is one chart.
+        charts = self.driver.find_elements_by_xpath(
+            '//*[@id="chart-region"]/div[@class="chart-container"]')
         self.assertEqual(len(charts), 1)
+
+        # Uncheck the checked stat var.
+        self.driver.find_element_by_id(
+            "Count_Persondc/g/Demographics-Count_Person").click()
+
+        # Assert there are no charts.
+        shared.wait_for_loading(self.driver)
+        charts = self.driver.find_elements_by_xpath(
+            '//*[@id="chart-region"]/div[@class="chart-container"]')
+        self.assertEqual(len(charts), 0)
 
     def test_place_search_box_and_remove_place(self):
         """Test the timeline tool place search can work correctly."""
@@ -184,6 +190,10 @@ class TestCharts(WebdriverBaseTest):
         first_result = self.driver.find_element_by_css_selector(
             ".pac-item:nth-child(1)")
         first_result.click()
+        # Wait until the first line element within the card is present.
+        element_present = EC.presence_of_element_located(
+            (By.CSS_SELECTOR, '.line:nth-child(1)'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Type USA into the search box.
         search_box_input.clear()
@@ -215,12 +225,12 @@ class TestCharts(WebdriverBaseTest):
 
         # Wait until the delete button is present.
         element_present = EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="place-list"]/span/button'))
+            (By.XPATH, '//*[@id="place-list"]/div[1]/button'))
         WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Click on the delete button and remove California.
         delete_button = self.driver.find_element_by_xpath(
-            '//*[@id="place-list"]/span/button')
+            '//*[@id="place-list"]/div[1]/button')
         delete_button.click()
 
         # Wait until the second line element within the card disappears.

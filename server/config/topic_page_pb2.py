@@ -658,12 +658,12 @@ PageMetadata = _reflection.GeneratedProtocolMessageType('PageMetadata', (_messag
 _sym_db.RegisterMessage(PageMetadata)
 _sym_db.RegisterMessage(PageMetadata.ContainedPlaceTypesEntry)
 
-StatVarMetadata = _reflection.GeneratedProtocolMessageType('StatVarMetadata', (_message.Message,), {
-  'DESCRIPTOR' : _STATVARMETADATA,
+StatVarSpec = _reflection.GeneratedProtocolMessageType('StatVarSpec', (_message.Message,), {
+  'DESCRIPTOR' : _STATVARSPEC,
   '__module__' : 'topic_page_pb2'
-  # @@protoc_insertion_point(class_scope:datacommons.StatVarMetadata)
+  # @@protoc_insertion_point(class_scope:datacommons.StatVarSpec)
   })
-_sym_db.RegisterMessage(StatVarMetadata)
+_sym_db.RegisterMessage(StatVarSpec)
 
 RankingMetadata = _reflection.GeneratedProtocolMessageType('RankingMetadata', (_message.Message,), {
   'DESCRIPTOR' : _RANKINGMETADATA,
@@ -696,10 +696,10 @@ _sym_db.RegisterMessage(Block)
 
 Category = _reflection.GeneratedProtocolMessageType('Category', (_message.Message,), {
 
-  'StatVarMetadataEntry' : _reflection.GeneratedProtocolMessageType('StatVarMetadataEntry', (_message.Message,), {
-    'DESCRIPTOR' : _CATEGORY_STATVARMETADATAENTRY,
+  'StatVarSpecEntry' : _reflection.GeneratedProtocolMessageType('StatVarSpecEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CATEGORY_STATVARSPECENTRY,
     '__module__' : 'topic_page_pb2'
-    # @@protoc_insertion_point(class_scope:datacommons.Category.StatVarMetadataEntry)
+    # @@protoc_insertion_point(class_scope:datacommons.Category.StatVarSpecEntry)
     })
   ,
   'DESCRIPTOR' : _CATEGORY,
@@ -707,7 +707,7 @@ Category = _reflection.GeneratedProtocolMessageType('Category', (_message.Messag
   # @@protoc_insertion_point(class_scope:datacommons.Category)
   })
 _sym_db.RegisterMessage(Category)
-_sym_db.RegisterMessage(Category.StatVarMetadataEntry)
+_sym_db.RegisterMessage(Category.StatVarSpecEntry)
 
 TopicPageConfig = _reflection.GeneratedProtocolMessageType('TopicPageConfig', (_message.Message,), {
   'DESCRIPTOR' : _TOPICPAGECONFIG,

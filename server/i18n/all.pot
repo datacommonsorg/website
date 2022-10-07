@@ -38,6 +38,10 @@ msgstr ""
 msgid "Data Commons"
 msgstr ""
 
+#. The name of a tool that allows users to download data.
+msgid "Data Download Tool"
+msgstr ""
+
 #. The label for a link to data sources included in the Data Commons knowledge graph.
 msgid "Data Sources"
 msgstr ""

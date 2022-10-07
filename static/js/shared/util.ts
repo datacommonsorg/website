@@ -36,6 +36,9 @@ const NO_DATE_CAP_RCP_STATVARS = [
   // lines (eg. NumberOfMonths_5CelsiusOrMore_Percentile90AcrossModels_) have
   // data for 2030, 2050, and 2100 so we want to cap the date for those at 2050.
   "NumberOfMonths_5CelsiusOrMore_Percentile10AcrossModels_",
+  // These stat vars compare against historical observed data, so we do not want
+  // to hardcode the default date.
+  "DifferenceRelativeToObservationalData_",
 ];
 
 // used to set fields in an object

@@ -4,8 +4,11 @@
     "titleId": "CHART_TITLE-Housing_units",
     "title": "Housing units",
     "description": "Total number of housing units available",
-    "statsVars": ["Count_HousingUnit"],
+    "statsVars": [
+      "Count_HousingUnit"
+    ],
     "isOverview": true,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Housing_units_per_capita",
       "title": "Housing units per capita",

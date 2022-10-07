@@ -20,14 +20,19 @@ import { defineMessages } from "react-intl";
 
 import {
   CachedChoroplethData,
+  CachedRankingChartData,
   ChartBlockData,
   chartTypeEnum,
   GeoJsonData,
 } from "../chart/types";
 import { intl, localizeSearchParams } from "../i18n/i18n";
+import { EARTH_NAMED_TYPED_PLACE } from "../shared/constants";
 import { randDomId } from "../shared/util";
 import { Chart } from "./chart";
-import { displayNameForPlaceType } from "./util";
+import {
+  displayNameForPlaceType,
+  USA_PLACE_TYPES_WITH_CHOROPLETH,
+} from "./util";
 
 interface ChartBlockPropType {
   /**
@@ -75,6 +80,10 @@ interface ChartBlockPropType {
    */
   category: string;
   /**
+   * Promise for ranking chart data for current dcid.
+   */
+  rankingChartData: Promise<CachedRankingChartData>;
+  /**
    * The locale of the page
    */
   locale: string;
@@ -99,7 +108,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
         break;
       }
     }
-    const isEarth = this.props.dcid == "Earth";
+    const isEarth = this.props.dcid === EARTH_NAMED_TYPED_PLACE.dcid;
     // We will localize Earth to a translation of "the World".
     // However, we will not localize other Place names, as we will later
     // pull the localized names from the KG.
@@ -195,6 +204,7 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
     // Prepare parameters for related charts.
     let unit = this.props.data.unit;
     let scaling = this.props.data.scaling;
+    const isEarth = this.props.dcid === EARTH_NAMED_TYPED_PLACE.dcid;
     if (relatedChart && relatedChart.scale) {
       unit = relatedChart.unit;
       scaling = relatedChart.scaling ? relatedChart.scaling : 1;
@@ -254,10 +264,9 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
       let gotChart = false;
       if (
         !!this.props.data.isChoropleth &&
-        this.props.isUsaPlace &&
-        (this.props.placeType === "Country" ||
-          this.props.placeType === "State" ||
-          this.props.placeType === "County")
+        (isEarth ||
+          (this.props.isUsaPlace &&
+            USA_PLACE_TYPES_WITH_CHOROPLETH.has(this.props.placeType)))
       ) {
         const id = randDomId();
         chartElements.push(
@@ -422,7 +431,10 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
           );
         }
       }
-      if (!!this.props.data.isChoropleth && this.props.isUsaPlace) {
+      if (
+        !!this.props.data.isChoropleth &&
+        (this.props.isUsaPlace || isEarth)
+      ) {
         const id = randDomId();
         chartElements.push(
           <Chart
@@ -434,6 +446,41 @@ class ChartBlock extends React.Component<ChartBlockPropType> {
             choroplethData={this.props.choroplethData}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.props.dcid}${rankingArg}`}
             {...sharedProps}
+          ></Chart>
+        );
+      }
+      if (this.props.data.isRankingChart) {
+        const parentPlaceName: string = this.parentPlaceDcid
+          ? this.props.names[this.parentPlaceDcid].split(",")[0]
+          : "";
+        const id = randDomId();
+        chartElements.push(
+          <Chart
+            key={id}
+            id={id}
+            dcid={this.props.dcid}
+            chartType={chartTypeEnum.RANKING}
+            title={intl.formatMessage(
+              {
+                defaultMessage: "{variable}: rankings in {placeName}",
+                description:
+                  "Used for chart titles like '{Unemployment rate}: rankings in {USA}'.",
+                id: "chart_clause-rankings_in_place",
+              },
+              {
+                placeName: isEarth ? this.displayPlaceName : parentPlaceName,
+                variable: this.displayDataTitle,
+              }
+            )}
+            rankingChartData={this.props.rankingChartData}
+            rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.parentPlaceDcid}${rankingArg}`}
+            // Ranking chart ignores the related chart config for now.
+            unit={this.props.data.unit}
+            names={this.props.names}
+            scaling={this.props.data.scaling}
+            statsVars={this.props.data.statsVars}
+            category={this.props.category}
+            isUsaPlace={this.props.isUsaPlace}
           ></Chart>
         );
       }

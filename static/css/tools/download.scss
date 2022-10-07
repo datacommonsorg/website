@@ -1,0 +1,242 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
+
+@import 'base_tools';
+@import '../shared/chip';
+@import "../place_selector";
+@import "../source_selector";
+@import "stat_var_widget";
+
+#main-pane #plot-container {
+  padding: 2rem;
+  overflow-y: scroll;
+}
+
+.download-options-container .place-selector-main-selectors {
+  width: 100%;
+}
+
+.download-options-container .place-selector-container {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.download-options-container {
+  margin-bottom: 15px;
+}
+
+.download-options-container .place-selector-card {
+  margin-bottom: 0;
+}
+
+.download-option-section {
+  display: flex;
+  padding: 0.7rem 0.5rem;
+  width: 100%;
+}
+
+.download-option-label,
+#place-selector-search-section .place-selector-label {
+  width: 6rem;
+}
+
+.download-date-options {
+  margin-left: 1.5rem;
+}
+
+.download-date-options label {
+  margin-bottom: 0;
+  padding: 0.3rem 0;
+}
+
+.download-date-options .form-check-input {
+  position: relative;
+  margin-right: 0.5rem;
+  margin-top: 0;
+}
+
+.download-date-options .form-group {
+  margin-bottom: 0;
+}
+
+.download-date-range-section {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.download-date-range-container {
+  display: flex;
+  align-items: center;
+}
+
+.download-date-range-input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.2rem 0.3rem;
+}
+
+.download-date-range-input-container {
+  display: flex;
+}
+
+.download-date-range-input-container span {
+  padding: 0 0.5rem;
+}
+
+.download-date-range-input,
+.download-date-range-input-error {
+  height: 1.8rem;
+  font-size: 0.9rem;
+  padding: 0.3rem;
+}
+
+.download-date-range-input-error {
+  border: 1px solid var(--dc-error);
+}
+
+.download-date-range-hint,
+.download-date-range-hint-error {
+  font-size: 0.75rem;
+  color: #7b7b7b;
+  padding-left: 0.1rem;
+}
+
+.download-date-range-hint-error {
+  color: var(--dc-error);
+}
+
+.download-date-range-input:focus,
+.download-date-range-input-error:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+}
+
+.download-sv-chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.download-options-error-message {
+  color: var(--dc-error);
+  padding-left: 0.1rem;
+}
+
+.preview-container table,
+.download-info-table-example table {
+  overflow-x: auto;
+  width: 100%;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.preview-container table,
+.preview-container th,
+.preview-container td,
+.download-info-table-example table,
+.download-info-table-example th,
+.download-info-table-example td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+
+.preview-container th,
+.download-info-table-example th {
+  background: #f5f6fa;
+  border-top: none;
+}
+
+.preview-container th,
+.preview-container td,
+.download-info-table-example th,
+.download-info-table-example td {
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr td:first-child,
+tr th:first-child {
+  border-left: none;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+  width: 100%;
+}
+
+.preview-container {
+  padding: 1.5rem 1rem;
+  min-height: 20rem;
+}
+
+.preview-disabled {
+  color: var(--dc-gray-lite);
+}
+
+.preview-error {
+  min-height: 0;
+}
+
+.preview-error #spinner::after {
+  height: 60px;
+  width: 60px;
+}
+
+.download-options-container .btn,
+.preview-container .btn {
+  display: flex;
+  align-self: flex-end;
+  font-size: 1rem;
+  width: fit-content;
+  margin-top: 1rem;
+}
+
+.radio-selection-label,
+.radio-selection-section {
+  padding-top: 0.5rem;
+}
+
+.radio-selection-section {
+  margin-left: 2rem;
+}
+
+.radio-selection-section .form-group {
+  margin-bottom: 0;
+}
+
+.download-option-section .source-selector-open-modal-button {
+  font-size: 0.9rem;
+  margin-left: -0.5rem;
+  margin-top: 0;
+  color: var(--link-color);
+}
+
+.download-info-table-example table {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.download-info-table-example th {
+  font-weight: normal;
+  width: 5rem;
+}

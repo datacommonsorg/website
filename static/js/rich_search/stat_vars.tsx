@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-import React, { memo } from "react";
+import React, { useState } from "react";
+import { Button, Card, CardBody, Collapse } from "reactstrap";
 
-import { NamedNode } from "../shared/types";
+import { StatVarInfo } from "../shared/stat_var";
+import { ChartRegion } from "../tools/timeline/chart_region";
 
-export interface StatVarsPropType {
-  places: string[];
-  statVars: NamedNode[];
+export interface StatVarResultsPropType {
+  // Map from place dcid to place name.
+  placeName: Record<string, string>;
+  // Map from stat var dcid to info.
+  statVarInfo: { [key: string]: StatVarInfo };
+  // Order in which stat vars were selected.
+  statVarOrder: string[];
+  // Extra debug information from the search results.
+  debug: string[];
 }
 
 function getURL(places: string[], statsVar: string): string {
@@ -31,21 +39,62 @@ function getURL(places: string[], statsVar: string): string {
   return `/tools/timeline#${params}`;
 }
 
-function StatVars({ places, statVars }: StatVarsPropType): JSX.Element {
-  if (!statVars.length) {
+/**
+ * Component for rendering results associated with a rich search query.
+ */
+export function StatVarResults({
+  placeName,
+  statVarInfo,
+  statVarOrder,
+  debug,
+}: StatVarResultsPropType): JSX.Element {
+  const [debugOpen, setDebugOpen] = useState(false);
+  const places = Object.keys(placeName);
+  if (!places.length) {
+    return (
+      <section className="block col-12">No places found in the query.</section>
+    );
+  }
+  if (!statVarOrder.length) {
     return <section className="block col-12">No results found.</section>;
   }
+
   return (
     <section className="block col-12">
+      <div id="chart-region">
+        <ChartRegion
+          placeName={placeName}
+          statVarInfo={statVarInfo}
+          statVarOrder={statVarOrder}
+        ></ChartRegion>
+      </div>
       <ul>
-        {statVars.slice(0, 20).map((sv) => (
-          <li key={sv.dcid}>
-            <a href={getURL(places, sv.dcid)}>{sv.name}</a>
+        {statVarOrder.map((sv) => (
+          <li key={sv}>
+            <a href={getURL(places, sv)}>{statVarInfo[sv].title}</a>
           </li>
         ))}
       </ul>
+      {!!debug.length && (
+        <div className="debug-view">
+          <Button
+            className="btn-light"
+            onClick={() => setDebugOpen(!debugOpen)}
+            size="sm"
+          >
+            {debugOpen ? "Hide Debug" : "Show Debug"}
+          </Button>
+          <Collapse isOpen={debugOpen}>
+            <Card>
+              <CardBody>
+                {debug.map((line, key) => (
+                  <div key={key}>{line}</div>
+                ))}
+              </CardBody>
+            </Card>
+          </Collapse>
+        </div>
+      )}
     </section>
   );
 }
-
-export const MemoStatVars = memo(StatVars);

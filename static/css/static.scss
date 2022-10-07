@@ -19,7 +19,7 @@
 $color-scatter: #FF8E6B;
 $color-map: #A0DCB0;
 $color-timeline: #FCBF71;
-$color-api: #6BC8DD;
+$color-place: #6BC8DD;
 
 // from place.scss
 $subtopic-background: rgba(0, 0, 0, 0.05);
@@ -196,12 +196,12 @@ h2 {
   background: url('/images/home-tool_icons.png') -450px 0;
 }
 
-#homepage #api-button {
-  background-color: $color-api;
+#homepage #place-button {
+  background-color: $color-place;
 }
 
-#homepage #api-button .tool-button-img {
-  background: url('/images/home-tool_icons.png') -650px 0;
+#homepage #place-button .tool-button-img {
+  background: url('/images/home-tool_icons.png') -855px 0;
 }
 
 #homepage svg.icon {

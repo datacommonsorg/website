@@ -19,14 +19,15 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { GetStatSetResponse } from "../shared/stat_types";
-import { NamedTypedPlace } from "../shared/types";
-import { StatVarMetadata } from "../types/stat_var";
+import { PointApiResponse } from "../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../shared/types";
+import { stringifyFn } from "../utils/axios";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
-import { getStatVarName } from "./string_utils";
+import { formatString, getStatVarName } from "./string_utils";
 import { RankingMetadataConfig } from "./topic_config";
 
 const RANKING_COUNT = 5;
@@ -35,6 +36,7 @@ interface RankingGroup {
   points: Point[];
   unit: string;
   scaling: number;
+  numDataPoints?: number;
 }
 
 interface RankingData {
@@ -45,7 +47,7 @@ interface RankingTilePropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   title: string;
-  statVarMetadata: StatVarMetadata[];
+  statVarSpec: StatVarSpec[];
   rankingMetadata: RankingMetadataConfig;
 }
 
@@ -63,35 +65,47 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           const points = rankingData[statVar].points;
           const unit = rankingData[statVar].unit;
           const scaling = rankingData[statVar].scaling;
-          const svName = getStatVarName(statVar, props.statVarMetadata);
+          const svName = getStatVarName(statVar, props.statVarSpec);
+          const numDataPoints = rankingData[statVar].numDataPoints;
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
                 <RankingUnit
                   key={`${statVar}-highest`}
-                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={
+                  title={formatString(
                     props.rankingMetadata.highestTitle
                       ? props.rankingMetadata.highestTitle
-                      : "Highest ${statVar}"
-                  }
+                      : "Highest ${statVar}",
+                    {
+                      date: "",
+                      place: "",
+                      statVar: svName,
+                    }
+                  )}
                   points={points.slice(-RANKING_COUNT).reverse()}
+                  isHighest={true}
                 />
               )}
               {props.rankingMetadata.showLowest && (
                 <RankingUnit
                   key={`${statVar}-lowest`}
-                  statVarName={svName}
                   unit={unit}
                   scaling={scaling}
-                  title={
+                  title={formatString(
                     props.rankingMetadata.lowestTitle
                       ? props.rankingMetadata.lowestTitle
-                      : "Lowest ${statVar}"
-                  }
+                      : "Lowest ${statVar}",
+                    {
+                      date: "",
+                      place: "",
+                      statVar: svName,
+                    }
+                  )}
+                  numDataPoints={numDataPoints}
                   points={points.slice(0, RANKING_COUNT)}
+                  isHighest={false}
                 />
               )}
             </React.Fragment>
@@ -105,38 +119,45 @@ function fetchData(
   props: RankingTilePropType,
   setRankingData: (data: RankingData) => void
 ): void {
-  let url = `/api/stats/within-place?parent_place=${props.place.dcid}&child_type=${props.enclosedPlaceType}`;
-  for (const item of props.statVarMetadata) {
-    url += `&stat_vars=${item.statVar}`;
-    if (item.denom) {
-      url += `&stat_vars=${item.denom}`;
+  const variables = [];
+  for (const spec of props.statVarSpec) {
+    variables.push(spec.statVar);
+    if (spec.denom) {
+      variables.push(spec.denom);
     }
   }
   axios
-    .get<GetStatSetResponse>(url)
+    .get<PointApiResponse>("/api/observations/point/within", {
+      params: {
+        parent_entity: props.place.dcid,
+        child_type: props.enclosedPlaceType,
+        variables: variables,
+      },
+      paramsSerializer: stringifyFn,
+    })
     .then((resp) => {
       const rankingData: RankingData = {};
-      const statData = resp.data.data;
+      const statData = resp.data;
       // Get Ranking data
-      for (const item of props.statVarMetadata) {
-        if (!(item.statVar in statData)) {
+      for (const spec of props.statVarSpec) {
+        if (!(spec.statVar in statData.data)) {
           continue;
         }
         let arr = [];
-        for (const place in statData[item.statVar].stat) {
+        for (const place in statData.data[spec.statVar]) {
           const rankingPoint = {
             placeDcid: place,
-            stat: statData[item.statVar].stat[place].value,
+            value: statData.data[spec.statVar][place].value,
           };
-          if (rankingPoint.stat === undefined) {
-            console.log(`Skipping ${place}, missing ${item.statVar}`);
+          if (_.isUndefined(rankingPoint.value)) {
+            console.log(`Skipping ${place}, missing ${spec.statVar}`);
             continue;
           }
-          if (item.denom) {
-            if (item.denom in statData) {
-              rankingPoint.stat /= statData[item.denom].stat[place].value;
+          if (spec.denom) {
+            if (spec.denom in statData.data) {
+              rankingPoint.value /= statData.data[spec.denom][place].value;
             } else {
-              console.log(`Skipping ${place}, missing ${item.denom}`);
+              console.log(`Skipping ${place}, missing ${spec.denom}`);
               continue;
             }
           }
@@ -145,13 +166,15 @@ function fetchData(
         arr.sort((a, b) => {
           return a.stat - b.stat;
         });
+        const numDataPoints = arr.length;
         if (arr.length > RANKING_COUNT * 2) {
           arr = arr.slice(0, RANKING_COUNT).concat(arr.slice(-RANKING_COUNT));
         }
-        rankingData[item.statVar] = {
+        rankingData[spec.statVar] = {
           points: arr,
-          unit: item.unit,
-          scaling: item.scaling,
+          unit: spec.unit,
+          scaling: spec.scaling,
+          numDataPoints,
         };
       }
       return rankingData;
@@ -160,14 +183,14 @@ function fetchData(
       // Fetch place names.
       const places: Set<string> = new Set();
       for (const statVar in rankingData) {
-        for (const item of rankingData[statVar].points) {
-          places.add(item.placeDcid);
+        for (const point of rankingData[statVar].points) {
+          places.add(point.placeDcid);
         }
       }
       getPlaceNames(Array.from(places)).then((placeNames) => {
         for (const statVar in rankingData) {
-          for (const item of rankingData[statVar].points) {
-            item.placeName = placeNames[item.placeDcid] || item.placeDcid;
+          for (const point of rankingData[statVar].points) {
+            point.placeName = placeNames[point.placeDcid] || point.placeDcid;
           }
         }
         setRankingData(rankingData);

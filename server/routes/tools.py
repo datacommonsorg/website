@@ -47,3 +47,9 @@ def scatter():
 @bp.route('/statvar')
 def stat_var():
     return flask.render_template('tools/stat_var.html')
+
+
+@bp.route('/download')
+def download():
+    return flask.render_template(
+        'tools/download.html', maps_api_key=current_app.config['MAPS_API_KEY'])

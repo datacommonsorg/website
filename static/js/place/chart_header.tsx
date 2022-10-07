@@ -17,6 +17,14 @@
 import React from "react";
 
 import { intl, LocalizedLink } from "../i18n/i18n";
+import {
+  GA_EVENT_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK,
+  GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE,
+  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
+  triggerGAEvent,
+} from "../shared/ga_events";
 
 interface ChartHeaderPropType {
   /**
@@ -34,7 +42,7 @@ interface ChartHeaderPropType {
   /**
    * Translated strings for categories.
    */
-  categoryStrings: { string: string };
+  categoryStrings: { [key: string]: string };
 }
 
 export class ChartHeader extends React.Component<ChartHeaderPropType> {
@@ -48,6 +56,13 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
           <LocalizedLink
             href={`/place/${this.props.place}?category=${this.props.text}`}
             text={this.props.categoryStrings[this.props.text]}
+            handleClick={() =>
+              triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+                [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
+                [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
+                  GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_CHART_HEADER,
+              })
+            }
           />
           <span className="more">
             <LocalizedLink
@@ -59,6 +74,13 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
                   description:
                     "Link to explore more charts about a particular domain, such as Education or Health.",
                 }) + " ›"
+              }
+              handleClick={() =>
+                triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
+                  [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
+                  [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
+                    GA_VALUE_PLACE_CATEGORY_CLICK_SOURCE_MORE_CHARTS,
+                })
               }
             />
           </span>

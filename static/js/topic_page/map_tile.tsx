@@ -27,16 +27,17 @@ import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import {
-  GetStatSetResponse,
-  PlacePointStat,
-  StatApiResponse,
+  EntityObservation,
+  EntitySeries,
+  PointApiResponse,
+  SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
-import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
 import { DataPointMetadata, getPlaceChartData } from "../tools/map/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
-import { StatVarMetadata } from "../types/stat_var";
+import { stringifyFn } from "../utils/axios";
 import { getDateRange } from "../utils/string_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
@@ -47,14 +48,14 @@ interface MapTilePropType {
   title: string;
   place: NamedTypedPlace;
   enclosedPlaceType: string;
-  statVarMetadata: StatVarMetadata;
+  statVarSpec: StatVarSpec;
 }
 
 interface RawData {
   geoJson: GeoJsonData;
-  placeStat: PlacePointStat;
+  placeStat: EntityObservation;
   metadataMap: Record<string, StatMetadata>;
-  population: StatApiResponse;
+  population: EntitySeries;
   parentPlaces: NamedTypedPlace[];
 }
 
@@ -79,19 +80,19 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     fetchData(
       props.place.dcid,
       props.enclosedPlaceType,
-      props.statVarMetadata.statVar,
-      props.statVarMetadata.denom,
+      props.statVarSpec.statVar,
+      props.statVarSpec.denom,
       setRawData
     );
-  }, [props.place, props.enclosedPlaceType, props.statVarMetadata]);
+  }, [props.place, props.enclosedPlaceType, props.statVarSpec]);
 
   useEffect(() => {
     if (rawData) {
       processData(
         rawData,
-        !_.isEmpty(props.statVarMetadata.denom),
+        !_.isEmpty(props.statVarSpec.denom),
         props.place,
-        props.statVarMetadata.scaling,
+        props.statVarSpec.scaling,
         props.enclosedPlaceType,
         setMapChartData
       );
@@ -136,17 +137,27 @@ function fetchData(
     )
     .then((resp) => resp.data);
   const dataDate = getCappedStatVarDate(mainStatVar);
-  const dateParam = dataDate ? `&date=${dataDate}` : "";
-  const enclosedPlaceDataPromise: Promise<GetStatSetResponse> = axios
-    .get(
-      `/api/stats/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${mainStatVar}${dateParam}`
-    )
+  const placeStatPromise: Promise<PointApiResponse> = axios
+    .get("/api/observations/point/within", {
+      params: {
+        parent_entity: placeDcid,
+        child_type: enclosedPlaceType,
+        variables: [mainStatVar],
+        date: dataDate,
+      },
+      paramsSerializer: stringifyFn,
+    })
     .then((resp) => resp.data);
-  const populationPromise: Promise<StatApiResponse> = denomStatVar
+  const populationPromise: Promise<SeriesApiResponse> = denomStatVar
     ? axios
-        .get(
-          `/api/stats/set/series/within-place?parent_place=${placeDcid}&child_type=${enclosedPlaceType}&stat_vars=${denomStatVar}`
-        )
+        .get("/api/observations/series/within", {
+          params: {
+            parent_entity: placeDcid,
+            child_type: enclosedPlaceType,
+            variables: [denomStatVar],
+          },
+          paramsSerializer: stringifyFn,
+        })
         .then((resp) => resp.data)
     : Promise.resolve({});
   const parentPlacesPromise = axios
@@ -154,16 +165,19 @@ function fetchData(
     .then((resp) => resp.data);
   Promise.all([
     geoJsonPromise,
-    enclosedPlaceDataPromise,
+    placeStatPromise,
     populationPromise,
     parentPlacesPromise,
   ])
-    .then(([geoJson, placeStatData, population, parentPlaces]) => {
+    .then(([geoJson, placeStat, population, parentPlaces]) => {
       setRawData({
         geoJson,
-        placeStat: placeStatData.data[mainStatVar],
-        metadataMap: placeStatData.metadata,
-        population,
+        placeStat: placeStat.data[mainStatVar],
+        metadataMap: {
+          ...placeStat.facets,
+          ...population.facets,
+        },
+        population: population.data[denomStatVar],
         parentPlaces,
       });
     })
@@ -233,7 +247,7 @@ function draw(
   props: MapTilePropType,
   svgContainer: React.RefObject<HTMLElement>
 ): void {
-  const mainStatVar = props.statVarMetadata.statVar;
+  const mainStatVar = props.statVarSpec.statVar;
   const width = svgContainer.current.offsetWidth;
   const colorScale = getColorScale(mainStatVar, chartData.dataValues);
   const getTooltipHtml = (place: NamedPlace) => {
@@ -242,7 +256,7 @@ function draw(
       value = formatNumber(
         Math.round((chartData.dataValues[place.dcid] + Number.EPSILON) * 100) /
           100,
-        props.statVarMetadata.unit
+        props.statVarSpec.unit
       );
     }
     return place.name + ": " + value;
@@ -253,7 +267,7 @@ function draw(
     CHART_HEIGHT,
     width,
     chartData.dataValues,
-    props.statVarMetadata.unit,
+    props.statVarSpec.unit,
     colorScale,
     _.noop,
     getTooltipHtml,

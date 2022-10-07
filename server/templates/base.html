@@ -1,33 +1,33 @@
 {#-
- Copyright 2020 Google LLC
+Copyright 2020 Google LLC
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 -#}
 {#-
-  Required variables:
-  title: page title
-  main_id: DOM Element ID for the main content block
-  page_id: DOM Element ID for the html element
+Required variables:
+title: page title
+main_id: DOM Element ID for the main content block
+page_id: DOM Element ID for the html element
 
-  Optional variables:
-  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
-  is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
-  subpage_title: string, if specified, will be displayed in the header next to Data Commons
-  locale: string, value for html lang attr
+Optional variables:
+is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
+subpage_title: string, if specified, will be displayed in the header next to Data Commons
+locale: string, value for html lang attr
 
-  Blocks to override:
-  head - additional head elements
-  content - main page content
+Blocks to override:
+head - additional head elements
+content - main page content
 -#}
 <!DOCTYPE html>
 
@@ -39,9 +39,12 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+    gtag('config', '{{ GA_ACCOUNT }}', {
+      client_storage: 'none', anonymize_ip: true, {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
+    });
+
   </script>
   {% endif %}
   <title>{{ title }} - Data Commons</title>
@@ -81,12 +84,17 @@
                   {% trans %}Explore{% endtrans %}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans
+                    %}</a>
+                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{%
+                    endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{%
+                    endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{%
+                    endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -96,9 +104,12 @@
                   <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
                   <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
                   {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
-                  {#<a class="dropdown-item" href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans %}</a>#}
-                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
+                  {#<a class="dropdown-item" href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans
+                    %}</a>#}
+                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans
+                    %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{%
+                    endtrans %}</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -107,9 +118,12 @@
                   {% trans %}About{% endtrans %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans
+                    %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans
+                    %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{%
+                    endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
                 </div>
@@ -147,8 +161,11 @@
             <a href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
             <a href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
-            {# TRANSLATORS: The name of a tool that provides observation and import information about statistical variables. #}
-            <a href="{{ url_for('tools.map') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
+            {# TRANSLATORS: The name of a tool that provides observation and import information about statistical
+            variables. #}
+            <a href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
+            {# TRANSLATORS: The name of a tool that allows users to download data. #}
+            <a href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
           </section>
           <section class="col-12 col-sm-6 col-md-4">
             {# TRANSLATORS: The label for a list of documentation links. #}

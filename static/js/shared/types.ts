@@ -45,7 +45,16 @@ export const StatVarHierarchyType = {
   SCATTER: "SCATTER",
   MAP: "MAP",
   STAT_VAR: "STAT_VAR",
+  DOWNLOAD: "DOWNLOAD",
 };
+
+/**
+ * The set of StatVarHierarchyTypes where selection is a radio button.
+ */
+export const RADIO_BUTTON_TYPES = new Set([
+  StatVarHierarchyType.MAP,
+  StatVarHierarchyType.STAT_VAR,
+]);
 
 export interface StatVarInfo {
   id: string;
@@ -158,4 +167,24 @@ export interface StatVarSearchResult {
   statVarGroups: SvgSearchResult[];
   statVars: NamedNode[];
   matches: string[];
+}
+
+// Set new property gtag on window.
+declare global {
+  interface Window {
+    gtag: (
+      event: string,
+      eventName: string,
+      parameter: Record<string, string | string[]>
+    ) => void;
+  }
+}
+
+export interface StatVarSpec {
+  statVar: string;
+  denom: string;
+  unit: string;
+  scaling: number;
+  log: boolean;
+  name?: string;
 }

@@ -1,5 +1,3 @@
-import { getStatsVarLabel } from "../shared/stats_var_labels";
-import { StatVarMetadata } from "./../types/stat_var";
 /**
  * Copyright 2022 Google LLC
  *
@@ -16,8 +14,9 @@ import { StatVarMetadata } from "./../types/stat_var";
  * limitations under the License.
  */
 
-// When a new placeholder is added in any topic page config, add that
-// placeholder as a field in this object.
+import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { StatVarSpec } from "../shared/types";
+
 export interface ReplacementStrings {
   place: string;
   date: string;
@@ -35,13 +34,13 @@ export function formatString(s: string, rs: ReplacementStrings): string {
 
 export function getStatVarName(
   statVarDcid: string,
-  statVars: StatVarMetadata[],
+  statVarSpecs: StatVarSpec[],
   isPerCapita?: boolean
 ): string {
-  for (const svm of statVars) {
-    if (svm.statVar === statVarDcid) {
-      if (svm.name) {
-        return svm.name;
+  for (const svs of statVarSpecs) {
+    if (svs.statVar === statVarDcid) {
+      if (svs.name) {
+        return svs.name;
       }
       break;
     }

@@ -1,0 +1,395 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "base";
+
+body {
+  font-size: 1rem;
+  background-color: #f8f8f8;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+#main-body {
+  position: relative;
+}
+
+#main-pane {
+  min-height: 400px;
+  max-width: 1750px;
+  padding: 0 3rem 3rem 3rem;
+}
+
+#main-footer {
+  margin: 0;
+}
+
+.main-content {
+  margin: 0;
+}
+
+/* Info section */
+.info-section {
+  padding: 2rem 3rem 0 3rem;
+  max-width: 1750px;
+}
+
+summary {
+  font-weight: bold;
+  width: fit-content;
+  padding-bottom: 0.5rem;
+}
+
+.info-section table {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+a, a:hover {
+  color: #660000;
+}
+
+::marker {
+  margin-right: 0.5rem;
+}
+
+/* Section */
+.section-container {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: white;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 0.3rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.upload-section-inputs {
+  margin-top: 1rem;
+}
+
+/* Mapping Section */
+
+.mapping-section {
+  position: relative;
+}
+
+.highlighted-col {
+  background-color: lightyellow;
+}
+
+table {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  overflow: auto;
+  font-size: 0.9rem;
+  max-height: 50vh;
+}
+
+tr th {
+  height: 2rem;
+  vertical-align: center;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+
+th {
+  background: #f5f6fa;
+  border-top: none;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 0.2rem 0.5rem;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr td:first-child,
+tr th:first-child {
+  border-left: none;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-right: none;
+}
+
+.mapping-info-row th {
+  background-color: #cabdbd;
+  font-size: 0.8rem;
+  font-weight: normal;
+  min-width: 12rem;
+  height: 4rem;
+  color: #7b7b7b;
+}
+
+.mapping-info-row th:first-child {
+  min-width: 0;
+}
+
+.mapping-info-row .mapping-header-info {
+  color: black;
+  font-weight: 500;
+}
+
+.column-header-row i {
+  font-size: 1rem;
+  padding: 0 0.3rem;
+  cursor: pointer;
+}
+
+.row-num {
+  font-weight: normal;
+  color: #7b7b7b;
+  font-size: 0.8rem;
+}
+
+.column-options {
+  margin-top: 1rem;
+}
+
+.column-options-header {
+  padding-bottom: 0.3rem;
+}
+.column-options-input-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-options-input {
+  margin: 0.3rem;
+  margin-bottom: 0.2rem;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+}
+
+.form-check-input {
+  margin-right: 0.3rem;
+  position: relative;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+.column-option-dropdown {
+  width: 10rem;
+  padding: 0.2rem;
+  border-color: #ccc;
+  margin: 0 0.5rem;
+  font-size: 0.9rem;
+  border-radius: 0.3rem
+}
+
+.form-control:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1.5px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+}
+
+.column-type-inputs {
+  display: flex;
+  align-items: center;
+}
+
+.column-navigation-buttons {
+  display: flex;
+}
+
+.column-navigation-buttons .btn {
+  display: flex;
+  font-size: 0.8rem;
+  margin-right: 0.25rem;
+  padding: 0.3rem 0.5rem;
+  align-items: center;
+}
+
+.column-navigation-buttons .btn i {
+  font-size: 0.8rem;
+  margin: 0 0.1rem;
+}
+
+.confirmation-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.confirmation-button .btn {
+  background: #660000;
+  border-color: none;
+}
+
+.constant-values-section {
+  margin-top: 0;
+  border-top: 0;
+}
+
+.constant-value-input-container {
+  display: flex;
+  padding-top: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.constant-value-label {
+  width: 10rem;
+}
+
+.constant-value-input {
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+  width: 20rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.mapping-errors {
+  color: #dc3545;
+}
+
+.unit-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.unit-input .constant-value-input {
+  width: 10rem;
+  margin-left: 0.5rem;
+}
+
+.constant-values-section-header {
+  padding-bottom: 0.5rem;
+}
+
+/* Value Map Section */
+.header-tab-section {
+  display: flex;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  font-weight: 300;
+}
+
+.header-tab,
+.header-tab-selected {
+  padding: 0 0.3rem;
+  cursor: pointer;
+}
+
+.header-tab-selected,
+.header-tab:hover {
+  text-decoration: underline;
+  color: var(--dc-primary);
+}
+
+.value-map-input-container {
+  max-width: 75rem;
+}
+
+.value-map-input-header {
+  display: flex;
+}
+
+.value-map-input-header span {
+  width: 50%;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+
+.value-map-input-entry {
+  display: flex;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.value-map-input-entry i {
+  color: #7b7b7b;
+  cursor: pointer;
+}
+
+.value-map-input {
+  margin: 0 0.5rem;
+}
+
+.value-map-add-entry {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+}
+
+.value-map-add-entry:hover {
+  background-color: var(--dc-gray-lite);
+}
+
+.value-map-add-entry i {
+  background-color: #7b7b7b;
+  border-radius: 1rem;
+  color: white;
+  margin-right: 0.5rem;
+}
+
+.value-map-file-example-container {
+  display: flex;
+}
+
+.value-map-file-example {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+}
+
+.value-map-warning-message {
+  color: var(--dc-error);
+  padding: 0 0.5rem;
+  padding-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.value-map-file-container .value-map-warning-message {
+  padding-left: 0;
+  padding-top: 0.5rem;
+}
+
+/* Spinner */
+.screen,
+#screen {
+  background: rgba(0, 0, 0, 0.6);
+}

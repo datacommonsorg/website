@@ -16,7 +16,7 @@
 
 // Typing for topic_page.proto
 
-import { StatVarMetadata } from "../types/stat_var";
+import { StatVarSpec } from "../shared/types";
 
 export interface PageMetadataConfig {
   topicId: string;
@@ -56,12 +56,12 @@ export interface BlockConfig {
   rightTiles: TileConfig[];
 }
 
-export type StatVarMetadataMap = Record<string, StatVarMetadata>;
+export type StatVarSpecMap = Record<string, StatVarSpec>;
 
 export interface CategoryConfig {
   title: string;
   description?: string;
-  statVarMetadata: StatVarMetadataMap;
+  statVarSpec: StatVarSpecMap;
   blocks: BlockConfig[];
 }
 

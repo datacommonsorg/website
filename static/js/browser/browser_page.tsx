@@ -129,7 +129,7 @@ export class BrowserPage extends React.Component<
               <div className="card">
                 <StatVarHierarchy
                   type={StatVarHierarchyType.BROWSER}
-                  places={[
+                  entities={[
                     { dcid: this.props.dcid, name: this.props.nodeName },
                   ]}
                   selectedSVs={selectedSVs}
@@ -176,31 +176,22 @@ export class BrowserPage extends React.Component<
       : this.props.dcid;
   }
 
-  private isProvenanceEntity(prov): boolean {
-    return (
-      prov["subjectTypes"] &&
-      prov["subjectTypes"][0] === "Provenance" &&
-      !!prov["subjectName"]
-    );
-  }
-
   private fetchData(): void {
     const provenancePromise = axios
-      .get("/api/browser/triples/Provenance")
+      .get("/api/browser/provenance")
       .then((resp) => resp.data);
     const labelsPromise = axios
       .get("/api/browser/proplabels/" + this.getArcDcid())
       .then((resp) => resp.data);
     Promise.all([labelsPromise, provenancePromise])
-      .then(([labelsData, ProvenanceData]) => {
+      .then(([labelsData, provenanceData]) => {
         const provDomain = {};
-        for (const prov of ProvenanceData) {
-          if (this.isProvenanceEntity(prov)) {
-            try {
-              provDomain[prov["subjectId"]] = new URL(prov["subjectName"]).host;
-            } catch (err) {
-              console.log("Invalid url in prov: " + prov["subjectName"]);
-            }
+        for (const provId in provenanceData) {
+          const url = provenanceData[provId];
+          try {
+            provDomain[provId] = new URL(url).host;
+          } catch (err) {
+            console.log("Invalid url in prov: " + url);
           }
         }
         this.setState({
@@ -224,9 +215,7 @@ interface BrowserSectionTriggerPropType {
   opened: boolean;
 }
 
-export class BrowserSectionTrigger extends React.Component<
-  BrowserSectionTriggerPropType
-> {
+export class BrowserSectionTrigger extends React.Component<BrowserSectionTriggerPropType> {
   render(): JSX.Element {
     return (
       <div className="browser-section-trigger">

@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,16 +14,16 @@
 
 import collections
 import json
-import requests
+import urllib.parse
 
-from flask import Blueprint, request, Response, url_for, g, current_app, abort
+from flask import Blueprint, request, Response, url_for, g, current_app
 from flask_babel import gettext
 
 from cache import cache
+import routes.api.shared as shared_api
 import services.datacommons as dc
 from services.datacommons import fetch_data
 from routes.api.shared import cached_name
-import routes.api.stats as stats_api
 import lib.i18n as i18n
 
 CHILD_PLACE_LIMIT = 50
@@ -103,23 +103,21 @@ PLACE_OVERRIDE = {
 STATE_EQUIVALENTS = {"State", "AdministrativeArea1"}
 US_ISO_CODE_PREFIX = 'US'
 ENGLISH_LANG = 'en'
+EARTH_DCID = "Earth"
+PERSON_COUNT_LIMIT = 1000
+POPULATION_DCID = "Count_Person"
 
 # Define blueprint
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_property_value(dcid, prop, out=True):
-    return dc.get_property_values([dcid], prop, out)[dcid]
-
-
 @bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_place_type(place_dcid):
-    place_types = get_property_value(place_dcid, 'typeOf')
+    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
     # We prefer to use specific type like "State", "County" over
     # "AdministrativeArea"
-    chosen_type = None
+    chosen_type = ''
     for place_type in place_types:
         if not chosen_type or chosen_type.startswith('AdministrativeArea') \
                 or chosen_type == 'Place':
@@ -331,8 +329,8 @@ def child_fetch(dcid):
                                    post=True)
     places = places + overlaps_response[dcid].get('in', [])
 
-    dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
-    pop = stats_api.get_stats_latest(dcid_str, 'Count_Person')
+    place_dcids = map(lambda x: x['dcid'], places)
+    pop = dc.point(place_dcids, ['Count_Person'])
 
     place_type = get_place_type(dcid)
     wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
@@ -467,7 +465,7 @@ def api_mapinfo(dcid):
     up = -90
     down = 90
     coordinate_sequence_set = []
-    kmlCoordinates = get_property_value(dcid, 'kmlCoordinates')
+    kmlCoordinates = dc.property_values([dcid], 'kmlCoordinates')[dcid]
     if not kmlCoordinates:
         return {}
 
@@ -633,7 +631,7 @@ def get_state_code(dcids):
     if not dcids:
         return result
     dcids = dcids.split('^')
-    iso_codes = dc.get_property_values(dcids, 'isoCode', True)
+    iso_codes = dc.property_values(dcids, 'isoCode')
 
     for dcid in dcids:
         state_code = None
@@ -666,6 +664,8 @@ def get_display_name(dcids, locale="en"):
     result = {}
     dcid_state_mapping = {}
     for dcid in dcids:
+        if not dcid:
+            continue
         for parent_place in parents[dcid]:
             parent_dcid = parent_place['dcid']
             place_types = parent_place['types']
@@ -732,7 +732,6 @@ def get_places_in_names():
 
 
 @bp.route('/placeid2dcid')
-@cache.cached(timeout=3600 * 24, query_string=True)
 def placeid2dcid():
     """
     API endpoint to get dcid based on place id.
@@ -741,23 +740,182 @@ def placeid2dcid():
     https://developers.google.com/places/web-service/autocomplete.
     """
     place_ids = request.args.getlist("placeIds")
-    resp = requests.post(current_app.config['RECON_API_ROOT'] + '/id/resolve',
-                         json={
-                             "in_prop": "placeId",
-                             "out_prop": "dcid",
-                             "ids": place_ids
-                         },
-                         headers={'Content-Type': 'application/json'})
-    if resp.status_code == 200:
-        entities = resp.json().get('entities', [])
-        result = {}
-        for entity in entities:
-            inId = entity.get('inId', "")
-            outIds = entity.get('outIds', [])
-            if outIds and inId:
-                dcid = outIds[0]
-                if dcid in PLACE_OVERRIDE:
-                    dcid = PLACE_OVERRIDE[dcid]
-                result[inId] = dcid
+    resp = dc.resolve_id(place_ids, "placeId", "dcid")
+    entities = resp.get('entities', [])
+    result = {}
+    for entity in entities:
+        inId = entity.get('inId', "")
+        outIds = entity.get('outIds', [])
+        if outIds and inId:
+            dcid = outIds[0]
+            if dcid in PLACE_OVERRIDE:
+                dcid = PLACE_OVERRIDE[dcid]
+            result[inId] = dcid
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@bp.route('/ranking_chart/<path:dcid>')
+def api_ranking_chart(dcid):
+    """
+    Gets the ranking data (including ranks, placename, value, date, and source) for a given place.
+
+    Return value example:
+    {
+        "statvar":{
+            "date":"2022-03",
+            "data":[
+                {
+                    "rank":1,
+                    "value":0.1,
+                    "placeDcid":"geoId/06",
+                    "placename":"California"
+                }
+            ],
+            "numDataPoints":1,
+            "exploreUrl":"/ranking/UnemploymentRate_Person_Rural/State/country/USA?h=geoId/06&unit=%",
+            "sources":[
+                "https://www.bls.gov/lau/"
+            ]
+        }
+    }
+    """
+    result = {}
+    # Get the parent place.
+    if dcid == EARTH_DCID:
+        parent_place_dcid = EARTH_DCID
+        place_type = "Country"
+    else:
+        place_type = get_place_type(dcid)
+        parent_place_list = parent_places(dcid).get(dcid, [])
+        for parent in parent_place_list:
+            parent_type_list = parent.get("types", [])
+            parent_place_dcid = parent.get("dcid", "")
+            if parent_type_list:
+                parent_type = parent_type_list[0]
+                # All wanted place types plus continent except CensusZipCodeTabulationArea.
+                if parent_type == "Continent" or (
+                        parent_type in ALL_WANTED_PLACE_TYPES and
+                        parent_type != "CensusZipCodeTabulationArea"):
+                    break
+        # If break is not encountered, return empty result.
+        else:
+            return Response(json.dumps(result),
+                            200,
+                            mimetype='application/json')
+    # Read configs and build a dict to map stat vars to dicts of unit and scaling.
+    # Consider the configs with single sv but ignore denominators.
+    configs = get_ranking_chart_configs()
+    config_sv_to_info = {}
+    for config in configs:
+        stat_vars = config.get("statsVars")
+        if not stat_vars:
+            continue
+        sv = stat_vars[0]
+        info = {"scaling": config.get("scaling"), "unit": config.get("unit")}
+        config_sv_to_info[sv] = info
+    # Get the first stat var of each config.
+    stat_vars, _ = shared_api.get_stat_vars(configs)
+    # Make sure POPULATION_DCID is included in stat vars.
+    if POPULATION_DCID not in stat_vars:
+        stat_vars.add(POPULATION_DCID)
+    points_response_best = dc.point_within(parent_place_dcid, place_type,
+                                           list(stat_vars), "", False)
+    sv_data = points_response_best.get("observationsByVariable")
+    sv_facets = points_response_best.get("facets")
+    if not points_response_best or not sv_data:
         return Response(json.dumps(result), 200, mimetype='application/json')
-    abort(404, 'no valid dcids found for %s' % place_ids)
+    # POPULATION_DCID is used to filter out the places with the population less than PERSON_COUNT_LIMIT.
+    places_to_rank = set()
+    for sv_data_points in sv_data:
+        if sv_data_points.get("variable") != POPULATION_DCID:
+            continue
+        for place_data in sv_data_points.get("observationsByEntity", []):
+            place_dcid = place_data.get("entity")
+            place_data_points = place_data.get("pointsByFacet")
+            if place_data_points:
+                value = place_data_points[0].get("value", 0)
+                if value > PERSON_COUNT_LIMIT:
+                    places_to_rank.add(place_dcid)
+    # Get all the place names
+    place_names = get_i18n_name(list(places_to_rank))
+    # Loop through sv_data to build the result data.
+    for sv_data_points in sv_data:
+        sv = sv_data_points.get("variable")
+        if sv not in config_sv_to_info:
+            continue
+        sources = set()
+        dates = set()
+        data_points = []
+        for place_data in sv_data_points.get("observationsByEntity", []):
+            place_dcid = place_data.get("entity")
+            if place_dcid not in places_to_rank:
+                continue
+            # Example of place_data_points: [{"date": "2022", "value": 123, "facet": 123456}].
+            place_data_points = place_data.get("pointsByFacet")
+            value, date, facet = None, None, None
+            if place_data_points:
+                place_data_point = place_data_points[0]
+                value = place_data_point.get("value")
+                date = place_data_point.get("date")
+                facet = place_data_point.get("facet")
+            # Value is required for the calculation of ranking.
+            if value is None:
+                continue
+            place_name = place_names.get(place_dcid, "")
+            data_point = {
+                "placeDcid": place_dcid,
+                "value": value,
+                "placeName": place_name
+            }
+            data_points.append(data_point)
+            if date:
+                dates.add(date)
+            if facet:
+                provenanceUrl = sv_facets.get(str(facet),
+                                              {}).get("provenanceUrl")
+                if provenanceUrl:
+                    sources.add(provenanceUrl)
+        # Build URL for "explore more".
+        scaling = config_sv_to_info.get(sv, {}).get("scaling")
+        unit = config_sv_to_info.get(sv, {}).get("unit")
+        if dcid == EARTH_DCID:
+            parent_place_dcid = None
+        explore_url = urllib.parse.unquote(
+            url_for('ranking.ranking',
+                    stat_var=sv,
+                    place_type=place_type,
+                    place_dcid=parent_place_dcid,
+                    h=dcid,
+                    scaling=scaling,
+                    unit=unit))
+        # Calculate the ranking.
+        sorted_data_points = sorted(data_points,
+                                    key=lambda x: x['value'],
+                                    reverse=True)
+        for i, data_point in enumerate(sorted_data_points):
+            data_point['rank'] = i + 1
+        date_range = shared_api.get_date_range(dates)
+        sv_result = {
+            "date": date_range,
+            "data": sorted_data_points,
+            'numDataPoints': len(data_points),
+            'exploreUrl': explore_url,
+            'sources': sorted(list(sources))
+        }
+        result[sv] = sv_result
+    return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+def get_ranking_chart_configs():
+    """ Gets all the chart configs that have ranking charts.
+
+    Returns:
+        List of chart configs that are ranking chart configs.
+    """
+    chart_config = current_app.config['CHART_CONFIG']
+    chart_configs = []
+    for config in chart_config:
+        if config.get('isRankingChart', False):
+            chart_configs.append(config)
+    return chart_configs

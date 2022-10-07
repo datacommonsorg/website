@@ -1,0 +1,292 @@
+{#
+  Copyright 2022 Google LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+#}
+
+{%- extends BASE_HTML -%}
+
+{% set subpage_title = "Import Wizard" %}
+{% set subpage_url = url_for('import_wizard.main') %}
+{% set title = "Import Wizard" %}
+{% set main_id = 'main-import-wizard' %}
+{% set page_id = 'page-import-wizard' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/import_wizard.min.css')}} >
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+{% endblock %}
+
+{% block content %}
+<div id="main-body">
+  <div class="info-section container">
+    <p>
+      Welcome to the Data Commons Import Wizard! We've created this tool (still in early beta) to simplify the process of
+      importing and mapping data from CSV files. Please review all of the information below before proceeding to import.
+      This version is intended to help our closest partners import clean CSV files with very specific requirements.
+    </p>
+    <p>We welcome any feedback at <a href="mailto:datcom-support@google.com ">datcom-support@google.com</a> while we iterate on improvements.</p>
+    <details id="csv-requirements">
+      <summary>CSV Format Requirements</summary>
+      <ul>
+        <li>
+          <p>
+            Each CSV file is expected to have columns corresponding to the Values (numeric) about a Variable, Place and Date.
+            For example, in the table shown below, there are separate columns for Variable (Variable), Place (Country), Date (Year) and Value (Value)
+            and each row of the CSV corresponds to one observation of the Variable about a Place at the specified Date.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Country</th>
+                <th>Variable</th>
+                <th>Value</th>
+                <th>Extra Column</th>
+                <th>Another Extra Column</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2017</td>
+                <td>UK</td>
+                <td>Life Expectancy</td>
+                <td>81.25609756</td>
+                <td>1</td>
+                <td>random text</td>
+              </tr>
+              <tr>
+                <td>2017</td>
+                <td>UK</td>
+                <td>Population</td>
+                <td>65844142</td>
+                <td>1</td>
+                <td>random text</td>
+              </tr>
+              <tr>
+                <td>2017</td>
+                <td>KR</td>
+                <td>Life Expectancy</td>
+                <td>82.62682928</td>
+                <td>2</td>
+                <td>random text</td>
+              </tr>
+              <tr>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <li>
+          If all observations in the CSV are about the same Place and/or the same Date and/or the same Variable, then those do not need to be specified as columns. They can be specified as constants. After mapping columns, if any of Date, Variable (statvars), or Place are not mapped, then there will be a section for users to enter constants for the missing things.
+        </li>
+        <li>
+          <span>It is possible to specify Date OR Variable as column headers (but not both at the same time).</span>
+          <ul>
+            <li>
+              <span><b>Example 1</b>: In the table shown below, all values in each Date column (2017, 2018) are assumed to be observations that correspond to the Date specified in the column header.</span>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Country</th>
+                    <th>Variable</th>
+                    <th>2017</th>
+                    <th>2018</th>
+                    <th>Extra Column</th>
+                    <th>Another Extra Column</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>UK</td>
+                    <td>Life Expectancy</td>
+                    <td>81.2560975609756</td>
+                    <td>81.2560975609756</td>
+                    <td>1</td>
+                    <td>random text</td>
+                  </tr>
+                  <tr>
+                    <td>KR</td>
+                    <td>Population</td>
+                    <td>51361911</td>
+                    <td>51606633</td>
+                    <td>1</td>
+                    <td>random text</td>
+                  </tr>
+                  <tr>
+                    <td>UK</td>
+                    <td>Population</td>
+                    <td>65844142</td>
+                    <td>66273576</td>
+                    <td>2</td>
+                    <td>random text</td>
+                  </tr>
+                  <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li>
+              <span><b>Example 2</b>: In the table shown below, all values in each Variable column (Life Expectancy, Population) are assumed to be observations that correspond to the Variable specified in the column header.</span>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Country</th>
+                    <th>Life Expectancy</th>
+                    <th>Population</th>
+                    <th>Extra Column</th>
+                    <th>Another Extra Column</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2017</td>
+                    <td>UK</td>
+                    <td>81.25609756</td>
+                    <td>65844142</td>
+                    <td>1</td>
+                    <td>random text</td>
+                  </tr>
+                  <tr>
+                    <td>2017</td>
+                    <td>KR</td>
+                    <td>82.62682928</td>
+                    <td>51361911</td>
+                    <td>2</td>
+                    <td>random text</td>
+                  </tr>
+                  <tr>
+                    <td>2017</td>
+                    <td>US</td>
+                    <td>78.5390243902439</td>
+                    <td>325147121</td>
+                    <td>3</td>
+                    <td>random text</td>
+                  </tr>
+                  <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </details>
+    <details id="terminology">
+      <summary>Terminology Glossary</summary>
+      <ul>
+        <li><b>Place</b> - Only Country and State (USA and India) level data supported for now. See <a href="#supported-formats">Supported Date and Place Formats</a> for more details.</li>
+        <li><b>Name of Variable</b> - Ex: Population, Life expectancy, Median Income. Also referred to as 'Statistical Variables' and 'StatVars' in Data Commons.</li>
+        <li><b>Date</b> - See <a href="#supported-formats">Supported Date and Place Formats</a> section for more details.</li>
+        <li><b>Observation Value</b> - The numerical values within a column.</li>
+        <li><b>Not Mapped</b> - Columns to be excluded from the mapping .</li>
+        <li><b>Constant</b> - If all observations in the CSV are about the same Place and/or the same Date and/or the same Variable, then those do not need to be specified as columns.</li>
+      </ul>
+    </details>
+    <details id="supported-formats">
+      <summary>Supported Date and Place Formats</summary>
+      <ul>
+        <li>
+          <span>Date formats supported: <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO-8601</a> format only</span>
+          <ul>
+            <li>Example: YYYY-MM-DD like 2022-08-23</li>
+            <li>Example: YYYYMMDD like 20220823</li>
+            <li>Example: YYYY-MM like 2022-08 (but not YYYYMM)</li>
+            <li>Example: YYYY-MM-DD like 2022-08-23</li>
+          </ul>
+        </li>
+        <li>
+          <span>Place types and formats supported:</span>
+          <ul>
+            <li>Type: Country
+              <ul>
+                <li>Formats (case-insensitive):
+                  <ul>
+                    <li>ISO Code, e.g. "US", "NO", "IT". See the Alpha-2 code column <a href="https://www.iban.com/country-codes" target="_blank">here</a>.</li>
+                    <li>3 letter Alphanumeric code, e.g. "USA", "NOR", "ITA". See the Alpha-3 code column <a href="https://www.iban.com/country-codes" target="_blank">here</a>.</li>
+                    <li>Country numbers, e.g. 840, 578, 380. See the Numeric column <a href="https://www.iban.com/country-codes" target="_blank">here</a>.</li>
+                    <li>Country names, e.g. "United States of America", "Norway", "Italy".</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>Type: State (only USA and India supported at this time)
+              <ul>
+                <li>Formats (case-insensitive):
+                  <ul>
+                    <li>ISO-3166 Code, e.g. "US-MA", "US-CA", "IN-HR". See examples for <a href="https://www.iso.org/obp/ui/#iso:code:3166:US" target="_blank">USA</a> and <a href="https://www.iso.org/obp/ui/#iso:code:3166:IN" target="_blank">India</a>.</li>
+                    <li>(US only): 2 letter abbreviation (postal code), e.g "MA", "CA". See examples <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/?cid=nrcs143_013696" target="_blank">here</a>.</li>
+                    <li>State names, e.g. "Massachusetts", "California", "Haryana".</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </details>
+    <details id="instructions">
+      <summary>Import Steps</summary>
+      <ol>
+        <li>Review <a href="#csv-requirements">CSV Format Requirements</a>, <a href="#terminology">Terminology Glossary</a>, and <a href="#supported-formats">Supported Date and Place Formats</a>.</li>
+        <li>Review your CSV file and make any necessary edits to conform to these requirements.</li>
+        <li>Select Choose File and import your .csv file (see below upload button). </li>
+        <li>Confirm Mappings in the Import Wizard, one column at a time.
+          <ul>
+            <li>Identify Place, Variable, Date, and Observation Values Using the Wizard</li>
+            <li>Each column title in the uploaded CSV file can specify: 
+              <ul>
+                <li>a specific [Place, Variable, Date, or Observation Value] with corresponding observation values underneath it - option 1 radio button</li>
+                <li>that the rows underneath it are a [Place, Variable, Date, or Observation Value] - option 2 radio button</li>
+                <li>If none of these apply, you can choose to Skip this Column - option 3 radio button</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>After completing the full mapping, press next to generate and download a zip file containing the TMCF and JSON files.</li>
+        <li>Share the files with the Data Commons team.
+          <ul>
+            <li>Use Google Drive to share a link to the URL</li>
+            <li>Share URL in an email to <a href="mailto:datcom-support@google.com ">datcom-support@google.com</a></li>
+          </ul>
+        </li>
+        <li>Datacommons will validate the import and reach out to you if necessary.</li>
+      </ol>
+    </details>
+  </div>
+  <div id="main-pane" class="container"></div>
+</div>
+{% endblock %}
+
+{% block footer %}
+  <script src={{url_for('static', filename='import_wizard.js', t=config['VERSION'])}}></script>
+{% endblock %}
