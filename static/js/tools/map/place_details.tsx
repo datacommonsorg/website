@@ -24,6 +24,7 @@ import React from "react";
 import { Card } from "reactstrap";
 
 import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_choropleth";
+import { getPlacePathId } from "../../chart/draw_map_utils";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
@@ -124,10 +125,10 @@ function highlightPlaceToggle(
   target: HTMLAnchorElement,
   shouldHighlight: boolean
 ) {
-  const geodcid = target.dataset.geodcid;
+  const geoDcid = target.dataset.geodcid;
   const container = d3.select(`#${MAP_CONTAINER_ID}`);
   const region = container
-    .select(`path[data-geodcid="${geodcid}"]`)
+    .select(`#${getPlacePathId(geoDcid)}`)
     .raise()
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
   if (region.size()) {

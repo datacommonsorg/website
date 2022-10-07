@@ -24,7 +24,7 @@ import routes.api.landing_page as landing_page_api
 from routes.api.shared import is_float
 from geojson_rewind import rewind
 from cache import cache
-from flask import Blueprint, current_app, request, Response, g, url_for
+from flask import Blueprint, current_app, request, Response, g, url_for, send_file, make_response
 from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
@@ -477,3 +477,9 @@ def get_map_points():
     return Response(json.dumps(map_points_list),
                     200,
                     mimetype='application/json')
+
+@bp.route('/geotiff')
+def get_geotiff():
+    # TODO should get geotiff from mixer given some parameters
+    response = make_response(send_file("tmp_test.tif", mimetype='image/tiff', as_attachment=True, cache_timeout=0))
+    return response

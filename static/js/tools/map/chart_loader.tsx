@@ -20,6 +20,7 @@
  */
 
 import axios from "axios";
+import geoblaze from "geoblaze";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -48,7 +49,7 @@ import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
 import { getPopulationDate, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
-import { Chart } from "./chart";
+import { Chart, MAP_TYPE } from "./chart";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -113,6 +114,8 @@ export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
+  const [georaster, setGeoraster] = useState(null);
+  const [mapType, setMapType] = useState(MAP_TYPE.D3);
 
   // Map of metahash -> date -> ChartRawData
   const [sampleDatesChartData, setSampleDatesChartData] = useState<
@@ -146,6 +149,9 @@ export function ChartLoader(): JSX.Element {
         setRawData,
         display.value.showTimeSlider
       );
+      geoblaze
+        .load("/api/choropleth/geotiff")
+        .then((georaster) => setGeoraster(georaster));
     } else {
       setRawData(undefined);
     }
@@ -159,6 +165,7 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
+    updateMapType(rawData, georaster);
     if (!_.isEmpty(rawData)) {
       const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
       const dateRawData =
@@ -182,7 +189,7 @@ export function ChartLoader(): JSX.Element {
         setLegendBoundsPerCapita(rawData, statVar, display);
       }
     }
-  }, [rawData, statVar.value.metahash, statVar.value.perCapita]);
+  }, [rawData, georaster, statVar.value.metahash, statVar.value.perCapita]);
 
   useEffect(() => {
     if (onPlayCallback) {
@@ -190,9 +197,11 @@ export function ChartLoader(): JSX.Element {
     }
   }, [sampleDatesChartData]);
 
+  // TODO: once data fetches are separated out, render leaflet map without
+  // waiting on chartData
   if (chartData === undefined) {
     return null;
-  } else if (_.isEmpty(chartData.geoJsonData)) {
+  } else if (mapType === MAP_TYPE.D3 && _.isEmpty(chartData.geoJsonData)) {
     <div className="p-5">
       {`Sorry, maps are not available for ${placeInfo.value.enclosedPlaceType} in ${placeInfo.value.selectedPlace.name}. Try picking another place or type of place.`}
     </div>;
@@ -290,6 +299,8 @@ export function ChartLoader(): JSX.Element {
         metahash={chartData.metahash}
         onPlay={onPlay}
         updateDate={updateDate}
+        georaster={georaster}
+        mapType={mapType}
       />
       <PlaceDetails
         breadcrumbDataValues={chartData.breadcrumbValues}
@@ -325,6 +336,15 @@ export function ChartLoader(): JSX.Element {
       return getPcQuery(statVar.value, placeInfo.value, date, metadata);
     } else {
       return getNonPcQuery(statVar.value, placeInfo.value, date, metadata);
+    }
+  }
+
+  function updateMapType(rawData: ChartRawData, georaster: any): void {
+    const params = new URLSearchParams(
+      decodeURIComponent(location.hash).replace("#", "?")
+    );
+    if (display.value.allowLeaflet && _.isEmpty(rawData) && georaster) {
+      setMapType(MAP_TYPE.LEAFLET);
     }
   }
 }
