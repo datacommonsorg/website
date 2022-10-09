@@ -132,10 +132,11 @@ def create_app():
 
     # Init extentions
     from cache import cache
-    if app.config['PRIVATE']:
-        cache.init_app(app, {'CACHE_TYPE': 'null'})
-    else:
+    # For some instance with fast updated data, we may not want to use memcache.
+    if app.config['USE_MEMCACHE']:
         cache.init_app(app)
+    else:
+        cache.init_app(app, {'CACHE_TYPE': 'null'})
 
     register_routes_common(app)
     if cfg.PRIVATE:

@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,6 +38,9 @@ configMapGenerator:
     behavior: replace
     files:
       - memdb.json
+  - name: redis-config
+    files:
+      - redis.json
 
 patchesStrategicMerge:
   - |-
@@ -47,6 +50,17 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 6
+      template:
+        spec:
+          volumes:
+            - name: redis-config
+              configMap:
+                name: redis-config
+          containers:
+            - name: website
+              volumeMounts:
+                - name: redis-config
+                  mountPath: /datacommons/redis
 
 patchesJson6902:
   - path: patch.yaml
