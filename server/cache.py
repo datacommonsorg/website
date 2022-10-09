@@ -15,18 +15,14 @@
 import json
 import os
 import requests
-import logging
 
 from flask_caching import Cache
 
 # Per GCP region redis config. This is a mounted volume for the website container.
 REDIS_CONFIG = '/datacommons/redis/redis.json'
 
-logging.info("Check memcache")
-
 # TODO(boxu): delete this after migrating to gke
 if os.path.isfile(REDIS_CONFIG):
-    logging.info("redis config exists")
     with open(REDIS_CONFIG) as f:
         redis = json.load(f)
         metadata_url = "http://metadata.google.internal/computeMetadata/v1/instance/zone"
@@ -44,9 +40,7 @@ if os.path.isfile(REDIS_CONFIG):
                     'CACHE_REDIS_PORT': port,
                     'CACHE_REDIS_URL': 'redis://{}:{}'.format(host, port)
                 })
-            logging.info("Use Redis for memcache")
         else:
             cache = Cache(config={'CACHE_TYPE': 'simple'})
 else:
-    logging.info("redis config non-exists")
     cache = Cache(config={'CACHE_TYPE': 'simple'})

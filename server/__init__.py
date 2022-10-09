@@ -132,7 +132,8 @@ def create_app():
 
     # Init extentions
     from cache import cache
-    if app.config['PRIVATE']:
+    # For some instance with fast updated data, we may not want to use memcache.
+    if app.config['NO_CACHE']:
         cache.init_app(app, {'CACHE_TYPE': 'null'})
     else:
         cache.init_app(app)
