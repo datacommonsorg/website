@@ -15,6 +15,7 @@
 import json
 import os
 import requests
+import logging
 
 from flask_caching import Cache
 
@@ -40,6 +41,7 @@ if os.path.isfile(REDIS_CONFIG):
                     'CACHE_REDIS_PORT': port,
                     'CACHE_REDIS_URL': 'redis://{}:{}'.format(host, port)
                 })
+            logging.info("Use Redis for memcache")
         else:
             cache = Cache(config={'CACHE_TYPE': 'simple'})
 else:
