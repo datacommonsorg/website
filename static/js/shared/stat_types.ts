@@ -27,77 +27,65 @@ export interface StatMetadata {
   unit?: string;
 }
 
-export interface TimeSeries {
-  val?: {
-    [date: string]: number; // Date might be "latest" if it's from the cache
-  };
-  metadata?: StatMetadata;
+export interface Observation {
+  date: string;
+  value: number;
+  facet?: string;
 }
 
-// rsponse from /api/stats
-export interface StatApiResponse {
-  [place: string]: {
-    data: {
-      [statVar: string]: TimeSeries | null;
-    };
-    name?: string;
+export interface EntityObservation {
+  [entity: string]: Observation;
+}
+
+export interface EntityObservationList {
+  [entity: string]: Observation[];
+}
+
+export interface Series {
+  // series field is guaranteed to set from Flask.
+  series: Observation[];
+  facet?: string;
+}
+
+export interface EntitySeries {
+  [entity: string]: Series;
+}
+
+export interface EntitySeriesList {
+  [entity: string]: Series[];
+}
+
+export interface SeriesApiResponse {
+  facets: Record<string, StatMetadata>;
+  data: {
+    [variable: string]: EntitySeries;
+  };
+}
+
+export interface SeriesAllApiResponse {
+  facets: Record<string, StatMetadata>;
+  data: {
+    [variable: string]: EntitySeriesList;
+  };
+}
+
+export interface PointApiResponse {
+  facets: Record<string, StatMetadata>;
+  data: {
+    [variable: string]: EntityObservation;
+  };
+}
+
+export interface PointAllApiResponse {
+  facets: Record<string, StatMetadata>;
+  data: {
+    [variable: string]: EntityObservationList;
   };
 }
 
 // response from /place/displayname
 export interface DisplayNameApiResponse {
   [placeDcid: string]: string;
-}
-
-export interface SourceSeries {
-  provenanceDomain: string;
-  val: { [key: string]: number };
-  importName?: string;
-  measurementMethod?: string;
-  observationPeriod?: string;
-  scalingFactor?: string;
-  unit?: string;
-  mprop?: string;
-}
-
-// response from /api/stats/all
-export interface StatAllApiResponse {
-  placeData: {
-    [place: string]: {
-      statVarData: {
-        [statVar: string]: {
-          sourceSeries: SourceSeries[];
-        };
-      };
-    };
-  };
-}
-
-export interface PlacePointStatData {
-  date: string;
-  value: number;
-  metaHash?: number;
-  metadata?: StatMetadata;
-}
-export interface PlacePointStat {
-  metaHash?: number;
-  stat: Record<string, PlacePointStatData>;
-}
-
-export interface PlacePointStatAll {
-  statList: PlacePointStat[];
-}
-
-// response from /api/stats/within-place and /api/stats/set
-export interface GetStatSetResponse {
-  data: Record<string, PlacePointStat>;
-  metadata: Record<number, StatMetadata>;
-}
-
-// response from /api/stats/within-place/all
-export interface GetStatSetAllResponse {
-  data: Record<string, PlacePointStatAll>;
-  metadata: Record<number, StatMetadata>;
 }
 
 export interface PlaceStatDateWithinPlace {

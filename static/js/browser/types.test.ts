@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,26 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SourceSeries } from "../shared/stat_types";
 
-/**
- * Utility functions shared across different components of graph browser.
- */
+import { getPageDisplayType, PageDisplayType } from "./types";
 
-/**
- * Returns the unit for a sourceSeries if there is a unit.
- * @param sourceSeries
- */
-export function getUnit(sourceSeries: SourceSeries): string {
-  let unit = "";
-  if (sourceSeries["unit"]) {
-    unit = sourceSeries["unit"];
-  }
-  if (
-    sourceSeries["scalingFactor"] &&
-    sourceSeries["scalingFactor"] === "100"
-  ) {
-    unit = "%";
-  }
-  return unit;
-}
+test("getPageDisplayType", () => {
+  // non empty stat var id
+  expect(getPageDisplayType(["Country"], "testStatVar")).toEqual(
+    PageDisplayType.PLACE_STAT_VAR
+  );
+  // list of types contains BiologicalSpecimen
+  expect(getPageDisplayType(["BiologicalSpecimen"], "")).toEqual(
+    PageDisplayType.BIOLOGICAL_SPECIMEN
+  );
+  // list of types doesn't contain anything special
+  expect(getPageDisplayType(["country"], "")).toEqual(PageDisplayType.GENERAL);
+});

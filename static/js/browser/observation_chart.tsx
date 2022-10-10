@@ -23,10 +23,10 @@ import React from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
-import { SourceSeries } from "../shared/stat_types";
+import { Series, StatMetadata } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
+import { getUnit } from "../utils/stat_metadata";
 import { URI_PREFIX } from "./constants";
-import { getUnit } from "./util";
 
 // Chart size
 const HEIGHT = 220;
@@ -37,7 +37,8 @@ const NO_OBSDCID_ERROR_MESSAGE =
   "Sorry, could not open the browser page for the selected Observation Node.";
 
 interface ObservationChartPropType {
-  sourceSeries: SourceSeries;
+  series: Series;
+  metadata: StatMetadata;
   idx: number;
   statVarId: string;
   placeDcid: string;
@@ -57,9 +58,6 @@ export class ObservationChart extends React.Component<
 > {
   private chartId: string;
   private chartContainerId: string;
-  private sortedDates: string[] = Object.keys(
-    this.props.sourceSeries.val
-  ).sort();
   private svgContainerRef: React.RefObject<HTMLDivElement>;
 
   constructor(props: ObservationChartPropType) {
@@ -88,7 +86,7 @@ export class ObservationChart extends React.Component<
 
   render(): JSX.Element {
     let svgContainerClass = this.props.canClickObs ? "clickable" : "no-click";
-    if (Object.keys(this.props.sourceSeries.val).length > MAX_DOTS) {
+    if (this.props.series.series.length > MAX_DOTS) {
       svgContainerClass = svgContainerClass + " hide-dots";
     }
     const obsTableRowClass = this.props.canClickObs
@@ -96,7 +94,7 @@ export class ObservationChart extends React.Component<
       : "observation-table-row";
     const chartVisibility = this.state.showTableView ? "none" : "block";
     const tableVisibility = this.state.showTableView ? "block" : "none";
-    const unit = getUnit(this.props.sourceSeries);
+    const unit = getUnit(this.props.metadata);
     return (
       <>
         <button
@@ -128,27 +126,25 @@ export class ObservationChart extends React.Component<
                         </strong>
                       </td>
                     </tr>
-                    {this.sortedDates.map((date) => {
-                      if (date in this.props.sourceSeries.val) {
-                        return (
-                          <tr
-                            className={obsTableRowClass}
-                            key={date}
-                            onClick={() => this.redirectToObsPage(date)}
+                    {this.props.series.series.map((obs) => {
+                      return (
+                        <tr
+                          className={obsTableRowClass}
+                          key={obs.date}
+                          onClick={() => this.redirectToObsPage(obs.date)}
+                        >
+                          <td>{obs.date}</td>
+                          <td
+                            className={
+                              this.props.canClickObs
+                                ? "clickable-text"
+                                : undefined
+                            }
                           >
-                            <td>{date}</td>
-                            <td
-                              className={
-                                this.props.canClickObs
-                                  ? "clickable-text"
-                                  : undefined
-                              }
-                            >
-                              {this.props.sourceSeries.val[date] + unit}
-                            </td>
-                          </tr>
-                        );
-                      }
+                            {obs.value + unit}
+                          </td>
+                        </tr>
+                      );
                     })}
                   </tbody>
                 </table>
@@ -186,13 +182,12 @@ export class ObservationChart extends React.Component<
 
   private plot(): void {
     this.svgContainerRef.current.innerHTML = "";
-    const values = this.props.sourceSeries.val;
     const data = [];
-    this.sortedDates.forEach((key) => {
+    this.props.series.series.forEach((obs) => {
       data.push({
-        label: key,
-        time: new Date(key).getTime(),
-        value: Number(values[key]),
+        label: obs.date,
+        time: new Date(obs.date).getTime(),
+        value: Number(obs.value),
       });
     });
     const dataGroups = [new DataGroup(this.props.statVarId, data)];
@@ -203,7 +198,7 @@ export class ObservationChart extends React.Component<
       dataGroups,
       true,
       true,
-      getUnit(this.props.sourceSeries),
+      getUnit(this.props.metadata),
       this.props.canClickObs ? this.handleDotClick : null
     );
   }
@@ -221,11 +216,11 @@ export class ObservationChart extends React.Component<
     // is not result of user action. Find better way to do this.
     this.loadSpinner();
     let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
-    if (this.props.sourceSeries.measurementMethod) {
-      request = `${request}&measurementMethod=${this.props.sourceSeries.measurementMethod}`;
+    if (this.props.metadata.measurementMethod) {
+      request = `${request}&measurementMethod=${this.props.metadata.measurementMethod}`;
     }
-    if (this.props.sourceSeries.observationPeriod) {
-      request = `${request}&obsPeriod=${this.props.sourceSeries.observationPeriod}`;
+    if (this.props.metadata.observationPeriod) {
+      request = `${request}&obsPeriod=${this.props.metadata.observationPeriod}`;
     }
     axios
       .get(request)

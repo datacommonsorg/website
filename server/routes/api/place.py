@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,9 @@
 
 import collections
 import json
-import requests
 import urllib.parse
 
-from flask import Blueprint, request, Response, url_for, g, current_app, abort
+from flask import Blueprint, request, Response, url_for, g, current_app
 from flask_babel import gettext
 
 from cache import cache
@@ -25,7 +24,6 @@ import routes.api.shared as shared_api
 import services.datacommons as dc
 from services.datacommons import fetch_data
 from routes.api.shared import cached_name
-import routes.api.stats as stats_api
 import lib.i18n as i18n
 
 CHILD_PLACE_LIMIT = 50
@@ -113,18 +111,13 @@ POPULATION_DCID = "Count_Person"
 bp = Blueprint("api.place", __name__, url_prefix='/api/place')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_property_value(dcid, prop, out=True):
-    return dc.get_property_values([dcid], prop, out)[dcid]
-
-
 @bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def get_place_type(place_dcid):
-    place_types = get_property_value(place_dcid, 'typeOf')
+    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
     # We prefer to use specific type like "State", "County" over
     # "AdministrativeArea"
-    chosen_type = None
+    chosen_type = ''
     for place_type in place_types:
         if not chosen_type or chosen_type.startswith('AdministrativeArea') \
                 or chosen_type == 'Place':
@@ -336,8 +329,8 @@ def child_fetch(dcid):
                                    post=True)
     places = places + overlaps_response[dcid].get('in', [])
 
-    dcid_str = '^'.join(sorted(map(lambda x: x['dcid'], places)))
-    pop = stats_api.get_stats_latest(dcid_str, 'Count_Person')
+    place_dcids = map(lambda x: x['dcid'], places)
+    pop = dc.point(place_dcids, ['Count_Person'])
 
     place_type = get_place_type(dcid)
     wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
@@ -472,7 +465,7 @@ def api_mapinfo(dcid):
     up = -90
     down = 90
     coordinate_sequence_set = []
-    kmlCoordinates = get_property_value(dcid, 'kmlCoordinates')
+    kmlCoordinates = dc.property_values([dcid], 'kmlCoordinates')[dcid]
     if not kmlCoordinates:
         return {}
 
@@ -638,7 +631,7 @@ def get_state_code(dcids):
     if not dcids:
         return result
     dcids = dcids.split('^')
-    iso_codes = dc.get_property_values(dcids, 'isoCode', True)
+    iso_codes = dc.property_values(dcids, 'isoCode')
 
     for dcid in dcids:
         state_code = None
@@ -826,8 +819,8 @@ def api_ranking_chart(dcid):
     # Make sure POPULATION_DCID is included in stat vars.
     if POPULATION_DCID not in stat_vars:
         stat_vars.add(POPULATION_DCID)
-    points_response_best = dc.points_within(parent_place_dcid, place_type,
-                                            list(stat_vars), "", False)
+    points_response_best = dc.point_within(parent_place_dcid, place_type,
+                                           list(stat_vars), "", False)
     sv_data = points_response_best.get("observationsByVariable")
     sv_facets = points_response_best.get("facets")
     if not points_response_best or not sv_data:

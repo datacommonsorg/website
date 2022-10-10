@@ -16,6 +16,21 @@
 
 import _ from "lodash";
 
+const months = {
+  0: "Jan",
+  1: "Feb",
+  2: "Mar",
+  3: "Apr",
+  4: "May",
+  5: "Jun",
+  6: "Jul",
+  7: "Aug",
+  8: "Sep",
+  9: "Oct",
+  10: "Nov",
+  11: "Dec",
+};
+
 /**
  * If the date is in YYYY-MM format, returns YYYY-MMM format.
  * This is to improve readability of dates in chart titles.
@@ -26,7 +41,7 @@ export function formatDate(strDate: string): string {
     return (
       new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
       "-" +
-      new Intl.DateTimeFormat("en-US", { month: "short" }).format(dt)
+      months[dt.getUTCMonth()]
     );
   } else {
     return strDate;

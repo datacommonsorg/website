@@ -190,6 +190,10 @@ class TestCharts(WebdriverBaseTest):
         first_result = self.driver.find_element_by_css_selector(
             ".pac-item:nth-child(1)")
         first_result.click()
+        # Wait until the first line element within the card is present.
+        element_present = EC.presence_of_element_located(
+            (By.CSS_SELECTOR, '.line:nth-child(1)'))
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
         # Type USA into the search box.
         search_box_input.clear()

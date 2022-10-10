@@ -86,9 +86,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             key={id}
             description={tile.description}
             place={props.place}
-            statVarMetadata={props.statVarProvider.getMetadata(
-              tile.statVarKey[0]
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
           />
         );
       case "MAP":
@@ -99,9 +97,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarMetadata={props.statVarProvider.getMetadata(
-              tile.statVarKey[0]
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
           />
         );
       case "LINE":
@@ -111,9 +107,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
-            statVarMetadata={props.statVarProvider.getMetadataList(
-              tile.statVarKey
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
           />
         );
       case "RANKING":
@@ -124,9 +118,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarMetadata={props.statVarProvider.getMetadataList(
-              tile.statVarKey
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             rankingMetadata={tile.rankingMetadata}
           />
         );
@@ -138,9 +130,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarMetadata={props.statVarProvider.getMetadataList(
-              tile.statVarKey
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
           />
         );
       case "SCATTER":
@@ -151,9 +141,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarMetadata={props.statVarProvider.getMetadataList(
-              tile.statVarKey
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
           />
         );
       case "BIVARIATE":
@@ -164,9 +152,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarMetadata={props.statVarProvider.getMetadataList(
-              tile.statVarKey
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
           />
         );
       case "DESCRIPTION":

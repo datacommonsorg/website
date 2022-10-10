@@ -32,9 +32,9 @@ import {
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import {
-  PlacePointStat,
+  EntityObservation,
+  EntitySeries,
   PlaceStatDateWithinPlace,
-  StatApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
 import {
@@ -43,7 +43,7 @@ import {
   ProvenanceSummary,
 } from "../../shared/types";
 import { getDateRange } from "../../utils/string_utils";
-import { getPopulationDate, isChildPlaceOf } from "../shared_util";
+import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
@@ -447,68 +447,56 @@ interface PlaceChartData {
  * For a place, extract the chart data for that place
  * @param placeStatData values for each statistical variable for each place
  * @param placeDcid place to extract the chart data for
- * @param isPerCapita whether the chart is a per capita chart
+ * @param calculateRatio whether to compute ratio
  * @param populationData population (for ratio calculation) data for each
- *                       place
  * @param metadataMap map of metahash to stat metadata
  */
 export function getPlaceChartData(
-  placeStatData: PlacePointStat,
+  placeStatData: EntityObservation,
   placeDcid: string,
   calculateRatio: boolean,
-  populationData: StatApiResponse,
+  populationData: EntitySeries,
   metadataMap: Record<string, StatMetadata>
 ): PlaceChartData {
-  const stat = placeStatData.stat ? placeStatData.stat[placeDcid] : null;
-  let metadata = null;
+  const stat = placeDcid in placeStatData ? placeStatData[placeDcid] : null;
   if (_.isEmpty(stat)) {
     return null;
   }
   const sources = [];
   const placeStatDate = stat.date;
-  const metaHash = placeStatData.metaHash || stat.metaHash;
-  const statVarSource = metadataMap[metaHash].provenanceUrl;
+  const facetId = stat.facet;
+  const statVarSource = metadataMap[facetId].provenanceUrl;
   let value = stat.value === undefined ? 0 : stat.value;
-  let popDate = "";
-  let popSource = "";
-  if (calculateRatio) {
-    const popSeries =
-      placeDcid in populationData
-        ? Object.values(populationData[placeDcid].data)[0]
-        : {};
-    if (!_.isEmpty(popSeries)) {
-      popDate = getPopulationDate(popSeries, stat);
-      const popValue = popSeries.val[popDate];
-      popSource = popSeries.metadata.provenanceUrl;
-      if (popValue === 0) {
-        metadata = {
-          popDate,
-          popSource,
-          placeStatDate,
-          statVarSource,
-          errorMessage: "Invalid Data",
-        };
-        return { metadata, sources, date: placeStatDate, value };
-      }
-      value = value / popValue;
-      sources.push(popSource);
-    } else {
-      metadata = {
-        popDate,
-        popSource,
-        placeStatDate,
-        statVarSource,
-        errorMessage: "Population Data Missing",
-      };
-      return { metadata, sources, date: placeStatDate, value };
-    }
-  }
-  metadata = {
-    popDate,
-    popSource,
+  const metadata: DataPointMetadata = {
+    popDate: "",
+    popSource: "",
     placeStatDate,
     statVarSource,
   };
+  if (calculateRatio) {
+    const placePopData =
+      placeDcid in populationData ? populationData[placeDcid] : null;
+    if (_.isEmpty(placePopData)) {
+      metadata.errorMessage = "Population Data Missing";
+      return { metadata, sources, date: placeStatDate, value };
+    }
+    const popFacetId = placePopData.facet;
+    const popSeries = placePopData.series;
+    const popSource = metadataMap[popFacetId].provenanceUrl;
+    metadata.popSource = popSource;
+    const popObs = getMatchingObservation(popSeries, stat.date);
+    if (!popObs) {
+      metadata.errorMessage = "Population Data Missing";
+      return { metadata, sources, date: placeStatDate, value };
+    }
+    metadata.popDate = popObs.date;
+    if (popObs.value === 0) {
+      metadata.errorMessage = "Population data is 0";
+      return { metadata, sources, date: placeStatDate, value };
+    }
+    value = value / popObs.value;
+    sources.push(popSource);
+  }
   sources.push(statVarSource);
   return { metadata, sources, date: placeStatDate, value };
 }

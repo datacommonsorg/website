@@ -33,7 +33,7 @@ def triples(direction, dcid):
     """Returns all the triples given a node dcid."""
     if direction != "in" and direction != "out":
         return "Invalid direction provided, please use 'in' or 'out'", 400
-    return dc.triples(dcid, direction).get("triples")
+    return dc.triples(dcid, direction).get("triples", {})
 
 
 @bp.route('/provenance')
@@ -41,8 +41,8 @@ def provenance():
     """Returns all the provenance information."""
     resp = dc.triples("Provenance", "in")
     prov_list = resp.get("triples", {}).get("typeOf", {}).get("nodes", [])
-    dcids = map(lambda item: item["dcid"], prov_list)
-    resp = dc.property_values(dcids, "url", "out")
+    dcids = list(map(lambda item: item["dcid"], prov_list))
+    resp = dc.property_values(dcids, "url", True)
     result = {}
     for dcid, urls in resp.items():
         if len(urls) > 0:

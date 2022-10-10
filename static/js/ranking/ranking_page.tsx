@@ -22,9 +22,14 @@ import { defineMessages } from "react-intl";
 import { intl, LocalizedLink } from "../i18n/i18n";
 import { displayNameForPlaceType } from "../place/util";
 import { DEFAULT_POPULATION_DCID } from "../shared/constants";
-import { GetStatSetResponse, StatApiResponse } from "../shared/stat_types";
+import {
+  PointApiResponse,
+  Series,
+  SeriesApiResponse,
+} from "../shared/stat_types";
 import { getStatsVarTitle } from "../shared/stats_var_titles";
-import { getPopulationDate } from "../tools/shared_util";
+import { getMatchingObservation } from "../tools/shared_util";
+import { stringifyFn } from "../utils/axios";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
 import { LocationRankData, RankInfo } from "./ranking_types";
@@ -330,18 +335,26 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
   }
 
   private loadData(): void {
-    const popPromise: Promise<StatApiResponse> = axios
-      .get(
-        "/api/stats/set/series/within-place" +
-          `?parent_place=${this.props.withinPlace}` +
-          `&child_type=${this.props.placeType}` +
-          `&stat_vars=${DEFAULT_POPULATION_DCID}`
-      )
+    const popPromise: Promise<SeriesApiResponse> = axios
+      .get("/api/observations/series/within", {
+        params: {
+          parent_entity: this.props.withinPlace,
+          child_type: this.props.placeType,
+          variables: [DEFAULT_POPULATION_DCID],
+        },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
-    const statPromise: Promise<GetStatSetResponse> = axios
-      .get(
-        `/api/stats/within-place?parent_place=${this.props.withinPlace}&child_type=${this.props.placeType}&stat_vars=${this.props.statVar}&date=${this.props.date}`
-      )
+    const statPromise: Promise<PointApiResponse> = axios
+      .get("/api/observations/point/within", {
+        params: {
+          parent_entity: this.props.withinPlace,
+          child_type: this.props.placeType,
+          variables: [this.props.statVar],
+          date: this.props.date,
+        },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     const placeNamesPromise: Promise<Record<string, string>> = axios
       .get(
@@ -351,22 +364,30 @@ class Page extends React.Component<RankingPagePropType, RankingPageStateType> {
     Promise.all([popPromise, statPromise, placeNamesPromise]).then(
       ([population, stat, placeNames]) => {
         let rankInfo: Array<RankInfo> = [];
-        const statData = stat.data[this.props.statVar].stat;
+        const statData = stat.data[this.props.statVar];
         // Get RankInfo without the actual rank for each place that there is
         // data for
         for (const place in statData) {
-          const placeStat = statData[place];
-          if (_.isEmpty(placeStat)) {
+          if (_.isEmpty(statData[place])) {
             continue;
           }
+          const placeStat = Object.values(statData[place])[0];
           let value = _.isUndefined(placeStat.value) ? 0 : placeStat.value;
-          const popSeries =
-            this.props.withinPlace in population
-              ? Object.values(population[this.props.withinPlace].data)[0]
-              : {};
+          let popSeries: Series = null;
+          if (DEFAULT_POPULATION_DCID in population.data) {
+            if (place in population.data[DEFAULT_POPULATION_DCID]) {
+              popSeries = population.data[DEFAULT_POPULATION_DCID][place];
+            }
+          }
           if (!_.isEmpty(popSeries)) {
-            const popDate = getPopulationDate(popSeries, placeStat);
-            const popValue = popSeries.val[popDate];
+            const popObs = getMatchingObservation(
+              popSeries.series,
+              placeStat.date
+            );
+            if (!popObs) {
+              continue;
+            }
+            const popValue = popObs.value;
             if (popValue < MIN_POPULATION) {
               continue;
             }

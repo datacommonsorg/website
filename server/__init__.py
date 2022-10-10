@@ -96,7 +96,7 @@ def register_routes_common(app):
     # TODO: Extract more out to base_dc
     from routes.api import (browser as browser_api, choropleth, place as
                             place_api, landing_page, ranking as ranking_api,
-                            stats, translator)
+                            stats, translator, csv, facets, series, point)
     app.register_blueprint(browser_api.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
@@ -105,6 +105,10 @@ def register_routes_common(app):
     app.register_blueprint(ranking_api.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(translator.bp)
+    app.register_blueprint(csv.bp)
+    app.register_blueprint(facets.bp)
+    app.register_blueprint(series.bp)
+    app.register_blueprint(point.bp)
 
 
 def create_app():
@@ -128,10 +132,11 @@ def create_app():
 
     # Init extentions
     from cache import cache
-    if app.config['PRIVATE']:
-        cache.init_app(app, {'CACHE_TYPE': 'null'})
-    else:
+    # For some instance with fast updated data, we may not want to use memcache.
+    if app.config['USE_MEMCACHE']:
         cache.init_app(app)
+    else:
+        cache.init_app(app, {'CACHE_TYPE': 'null'})
 
     register_routes_common(app)
     if cfg.PRIVATE:

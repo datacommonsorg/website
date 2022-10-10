@@ -100,9 +100,9 @@ class TestChoroplethPlaces(unittest.TestCase):
         def side_effect(*args):
             return args[0]
 
-        @patch('routes.api.choropleth.dc_service.get_places_in')
+        @patch('routes.api.choropleth.dc.get_places_in')
         @patch('routes.api.choropleth.coerce_geojson_to_righthand_rule')
-        @patch('routes.api.choropleth.dc_service.get_property_values')
+        @patch('routes.api.choropleth.dc.property_values')
         @patch('routes.api.choropleth.place_api.get_display_name')
         @patch('routes.api.choropleth.get_choropleth_display_level')
         def test_get_geojson(self, mock_display_level, mock_display_name,
@@ -138,9 +138,9 @@ class TestChoroplethPlaces(unittest.TestCase):
             assert len(response_data['features']) == 2
             assert len(response_data['properties']['current_geo']) == dcid1
 
-        @patch('routes.api.choropleth.dc_service.get_places_in')
+        @patch('routes.api.choropleth.dc.get_places_in')
         @patch('routes.api.choropleth.coerce_geojson_to_righthand_rule')
-        @patch('routes.api.choropleth.dc_service.get_property_values')
+        @patch('routes.api.choropleth.dc.property_values')
         @patch('routes.api.choropleth.place_api.get_display_name')
         def test_get_geojson_with_place_type(self, mock_display_name,
                                              mock_geojson_values,
@@ -248,11 +248,20 @@ class TestChoroplethDataHelpers(unittest.TestCase):
         assert expected_denom_set == actual_denom_set
 
     def test_get_denom_val(self):
-        test_denom_data = {
-            "2017-01": 1,
-            "2018-01": 2,
-            "2020-01": 3,
-        }
+        test_denom_data = [
+            {
+                'date': '2017-01',
+                'value': 1
+            },
+            {
+                'date': '2018-01',
+                'value': 2
+            },
+            {
+                'date': '2020-01',
+                'value': 3
+            },
+        ]
         result_in_denom_data = choropleth_api.get_denom_val(
             "2018-01", test_denom_data)
         assert result_in_denom_data == 2
@@ -270,7 +279,7 @@ class TestChoroplethDataHelpers(unittest.TestCase):
         assert result_denom_date_less_specific == 2
         result_denom_date_less_specific_no_match = choropleth_api.get_denom_val(
             "2019-07-01", test_denom_data)
-        assert result_denom_date_less_specific_no_match == 2
+        assert result_denom_date_less_specific_no_match == 3
         result_denom_date_more_specific = choropleth_api.get_denom_val(
             "2018", test_denom_data)
         assert result_denom_date_more_specific == 2
@@ -296,17 +305,14 @@ class TestChoroplethDataHelpers(unittest.TestCase):
 
 class TestChoroplethData(unittest.TestCase):
 
-    @patch('routes.api.choropleth.dc_service.get_places_in')
-    @patch('routes.api.choropleth.landing_page_api.get_denom')
-    @patch('routes.api.choropleth.dc_service.get_stat_set_within_place')
-    @patch('routes.api.choropleth.dc_service.get_stat_set_series')
+    @patch('routes.api.choropleth.dc.get_places_in')
+    @patch('routes.api.choropleth.point_api.point_within_core')
+    @patch('routes.api.choropleth.series_api.series_core')
     @patch('routes.api.choropleth.get_choropleth_display_level')
     @patch('routes.api.choropleth.get_choropleth_configs')
     @patch('routes.api.shared.get_stat_vars')
-    @patch('routes.api.choropleth.get_denom_val')
-    def testRoute(self, mock_denom_val, mock_stat_vars, mock_configs,
-                  mock_display_level, mock_stats, mock_stats_within_place,
-                  mock_denom, mock_places_in):
+    def testRoute(self, mock_stat_vars, mock_configs, mock_display_level,
+                  mock_denom_data, mock_num_data, mock_places_in):
         test_dcid = 'test_dcid'
         geo1 = 'dcid1'
         geo2 = 'dcid2'
@@ -366,101 +372,81 @@ class TestChoroplethData(unittest.TestCase):
 
         mock_stat_vars.side_effect = stat_vars_side_effect
 
-        stat_within_place = {
+        num_api_resp = {
             'data': {
                 sv1: {
-                    'stat': {
-                        geo1: {
-                            'date': sv1_date1,
-                            'value': sv1_val,
-                            'metaHash': 1
-                        },
-                        geo2: {
-                            'date': sv1_date2,
-                            'value': sv1_val,
-                            'metaHash': 1
-                        }
+                    geo1: {
+                        'date': sv1_date1,
+                        'value': sv1_val,
+                        'facet': "facet1",
                     },
+                    geo2: {
+                        'date': sv1_date2,
+                        'value': sv1_val,
+                        'facet': "facet1",
+                    }
                 },
                 sv2: {
-                    'stat': {
-                        geo1: {
-                            'date': sv2_date,
-                            'value': sv2_val1,
-                            'metaHash': 1
-                        },
-                        geo2: {
-                            'date': sv2_date,
-                            'value': sv2_val2,
-                            'metaHash': 2
-                        }
+                    geo1: {
+                        'date': sv2_date,
+                        'value': sv2_val1,
+                        'facet': "facet1",
+                    },
+                    geo2: {
+                        'date': sv2_date,
+                        'value': sv2_val2,
+                        'facet': "facet2",
                     }
                 }
             },
-            'metadata': {
-                '1': {
+            'facets': {
+                'facet1': {
                     'importName': 'importName1',
                     'provenanceUrl': source1
                 },
-                '2': {
+                'facet2': {
                     'importName': 'importName2',
                     'provenanceUrl': source2
                 }
             }
         }
 
-        def stat_within_place_side_effect(*args):
+        def num_data_side_effect(*args):
             if args[0] == test_dcid and args[1] == display_level:
-                return stat_within_place
+                return num_api_resp
             else:
                 return {}
 
-        mock_stats_within_place.side_effect = stat_within_place_side_effect
+        mock_num_data.side_effect = num_data_side_effect
 
-        denom_data = {'2018': 2}
-        denom_stat = {
+        denom_api_resp = {
             'data': {
-                geo1: {
-                    'data': {
-                        'StatVar3': {
-                            'val': denom_data,
-                            'metadata': {
-                                'provenanceUrl': source3
-                            }
-                        }
-                    }
+                sv3: {
+                    geo1: {
+                        'series': [{
+                            'date': '2018',
+                            'value': 2,
+                        }],
+                        'facet': 'facet3'
+                    },
+                    geo2: {}
                 },
-                geo2: {
-                    'data': {
-                        'StatVar3': {}
-                    }
-                }
+            },
+            'facets': {
+                'facet3': {
+                    'importName': 'importName3',
+                    'provenanceUrl': source3
+                },
             }
         }
 
-        def stat_side_effect(*args):
+        def denom_data_side_effect(*args):
             if args[0] == geos and args[1] == [sv3]:
-                return denom_stat
+                return denom_api_resp
             else:
                 return {}
 
-        mock_stats.side_effect = stat_side_effect
-
-        def get_denom_side_effect(*args):
-            if args[0] == cc2:
-                return sv3
-            else:
-                return None
-
-        mock_denom.side_effect = get_denom_side_effect
-
-        def get_denom_val_side_effect(*args):
-            if args[1] == denom_data:
-                return denom_val
-            else:
-                return None
-
-        mock_denom_val.side_effect = get_denom_val_side_effect
+        mock_denom_data.side_effect = denom_data_side_effect
 
         response = app.test_client().get('/api/choropleth/data/' + test_dcid)
         assert response.status_code == 200

@@ -152,7 +152,7 @@ export function Preview(props: PreviewProps): JSX.Element {
       return;
     }
     axios
-      .post("/api/stats/csv/within-place", csvReqPayload.current)
+      .post("/api/csv/within", csvReqPayload.current)
       .then((resp) => {
         if (resp.data) {
           saveToFile(
@@ -176,7 +176,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     const reqObject = _.cloneDeep(csvReqPayload.current);
     reqObject["rowLimit"] = NUM_ROWS;
     axios
-      .post("/api/stats/csv/within-place", reqObject)
+      .post("/api/csv/within", reqObject)
       .then((resp) => {
         if (resp.data) {
           Papa.parse(resp.data, {

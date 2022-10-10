@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as d3 from "d3";
+
 import _ from "lodash";
 
 import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
-import {
-  PlacePointStat,
-  PlacePointStatData,
-  StatMetadata,
-  TimeSeries,
-} from "../shared/stat_types";
+import { Observation, StatMetadata } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { USA_PLACE_HIERARCHY } from "./map/util";
 
@@ -31,54 +26,41 @@ import { USA_PLACE_HIERARCHY } from "./map/util";
  */
 
 /**
- * Helper function to choose the date to use for population data.
- * @param popData
- * @param statData
+ * Choose an Observation with date closest to the target date.
  */
-export function getPopulationDate(
-  popData: TimeSeries,
-  statData: PlacePointStatData
-): string {
-  const xPopDataDates = Object.keys(popData.val);
-  let popDate = xPopDataDates.find((date) => date === statData.date);
-  if (!popDate && !_.isEmpty(xPopDataDates)) {
-    // Filter for all population dates encompassed by the stat var date.
-    // ie. if stat var date is year, filter for all population dates with
-    // the same year
-    const encompassedPopDates = xPopDataDates.filter((date) => {
-      return date.includes(statData.date);
-    });
-    if (encompassedPopDates.length > 0) {
-      // when there are multiple population dates encompassed by the stat var
-      // date, choose the latest date
-      popDate = encompassedPopDates[encompassedPopDates.length - 1];
-    } else {
-      // From ordered list of population dates, choose the date immediately
-      // before the stat var date (if there is a date that encompasses the stat
-      // var date, this will get chosen). If none, return the first pop date.
-      const idx = d3.bisect(xPopDataDates, statData.date);
-      popDate = idx > 0 ? xPopDataDates[idx - 1] : xPopDataDates[0];
+export function getMatchingObservation(
+  series: Observation[],
+  targetDate: string
+): Observation {
+  if (_.isEmpty(series)) {
+    return null;
+  }
+  for (let i = 0; i < series.length; i++) {
+    const item = series[i];
+    if (targetDate == item.date) {
+      return item;
+    } else if (targetDate < item.date) {
+      if (i > 0) {
+        return series[i - 1];
+      }
     }
   }
-  return popDate;
+  return series[series.length - 1];
 }
 
 /**
- * Helper function to get units given a PlacePointStat
- * @param placePointStat
+ * Helper function to get units given a list of observations
  */
 export function getUnit(
-  pps: PlacePointStat,
+  obsList: Observation[],
   metadataMap: Record<string, StatMetadata>
 ): string {
-  let metaHash = pps.metaHash;
-  if (metaHash) {
-    return metadataMap[metaHash].unit;
-  }
-  for (const place in pps.stat) {
-    metaHash = pps.stat[place].metaHash;
-    if (metaHash in metadataMap) {
-      return metadataMap[metaHash].unit;
+  for (const obs of obsList) {
+    const facetId = obs.facet;
+    if (facetId in metadataMap) {
+      if (metadataMap[facetId].unit) {
+        return metadataMap[facetId].unit;
+      }
     }
   }
   return "";
@@ -187,4 +169,49 @@ export function isChildPlaceOf(
  */
 export function toTitleCase(str: string): string {
   return str.toLowerCase().replace(/\b(\w)/g, (s) => s.toUpperCase());
+}
+
+/**
+ * Compuate ratio for two sorted time series.
+ *
+ * Both numerator and denominator series are sorted. For each numerator point,
+ * The denominator with the closest date is selected.
+ *
+ * @param num Numerator time series.
+ * @param denom Denominator time series.
+ *
+ * @returns A list of Observations with the per capita calculation applied to its values.
+ */
+export function computeRatio(
+  num: Observation[],
+  denom: Observation[],
+  scaling = 1
+): Observation[] {
+  if (!denom) {
+    return [];
+  }
+  const result: Observation[] = [];
+  let j = 0; // denominator position
+  for (let i = 0; i < num.length; i++) {
+    const numDate = Date.parse(num[i].date);
+    const denomDate = Date.parse(denom[j].date);
+    while (j < denom.length - 1 && numDate > denomDate) {
+      const denomDateNext = Date.parse(denom[j + 1].date);
+      const nextBetter =
+        Math.abs(denomDateNext - numDate) < Math.abs(denomDate - numDate);
+      if (nextBetter) {
+        j++;
+      } else {
+        break;
+      }
+    }
+    let val: number;
+    if (denom[j].value == 0) {
+      val = 0;
+    } else {
+      val = num[i].value / denom[j].value / scaling;
+    }
+    result.push({ date: num[i].date, value: val });
+  }
+  return result;
 }

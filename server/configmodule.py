@@ -36,6 +36,8 @@ class Config:
     # be set for local development. Website deployed to GKE bundles the mixer
     # as a private service accessible via localhost.
     API_PROJECT = ''
+    # Set this to False if the deployment has frequently updated data.
+    USE_MEMCACHE = True
 
 
 class ProductionConfig(Config):

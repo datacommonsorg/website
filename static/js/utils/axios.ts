@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-// StatVarMetadata corresponds to the protobuf definition for topic page
-// stat var metadata spec.
-export interface StatVarMetadata {
-  statVar: string;
-  denom: string;
-  unit: string;
-  scaling: number;
-  log: boolean;
-  name?: string;
-}
+import { stringify } from "qs";
+
+export const stringifyFn = (params) => {
+  return stringify(params, { arrayFormat: "repeat" });
+};

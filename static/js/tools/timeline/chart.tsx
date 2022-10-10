@@ -50,7 +50,7 @@ const CHART_HEIGHT = 300;
 
 interface ChartPropsType {
   mprop: string; // measured property
-  placeNames: Record<string, string>; // An array of place dcids.
+  placeNameMap: Record<string, string>; // Place dcid to name mapping.
   statVarInfos: Record<string, StatVarInfo>;
   pc: boolean;
   denom: string;
@@ -88,7 +88,6 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.handleWindowResize = this.handleWindowResize.bind(this);
     this.loadRawData = this.loadRawData.bind(this);
     this.processData = this.processData.bind(this);
-    this.drawChart = this.drawChart.bind(this);
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     this.minYear = urlParams.get("minYear");
@@ -101,13 +100,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // TODO(shifucun): investigate on stats var title, now this is updated
     // several times.
     this.plotParams = computePlotParams(
-      this.props.placeNames,
+      this.props.placeNameMap,
       statVars,
       this.props.statVarInfos
     );
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
-    const placeName = Object.values(this.props.placeNames)[0];
+    const placeName = Object.values(this.props.placeNameMap)[0];
     const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
     const facetList = this.getFacetList(statVars);
     const svFacetId = {};
@@ -196,7 +195,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.resizeObserver.observe(this.svgContainer.current);
     // Triggered when the component is mounted and send data to google analytics.
     triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
-      [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNames),
+      [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNameMap),
       [GA_PARAM_STAT_VAR]: Object.keys(this.props.statVarInfos),
     });
   }
@@ -216,20 +215,20 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
   ): void {
     // Triggered only when the stat vars or places change and send data to google analytics.
     const shouldTriggerGAEvent =
-      !_.isEqual(prevProps.placeNames, this.props.placeNames) ||
+      !_.isEqual(prevProps.placeNameMap, this.props.placeNameMap) ||
       !_.isEqual(
         Object.keys(prevProps.statVarInfos),
         Object.keys(this.props.statVarInfos)
       );
     if (shouldTriggerGAEvent) {
       triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
-        [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNames),
+        [GA_PARAM_PLACE_DCID]: Object.keys(this.props.placeNameMap),
         [GA_PARAM_STAT_VAR]: Object.keys(this.props.statVarInfos),
       });
     }
     // We only need to fetch the raw data when place, statvars or denom changes.
     const shouldLoadData =
-      !_.isEqual(prevProps.placeNames, this.props.placeNames) ||
+      !_.isEqual(prevProps.placeNameMap, this.props.placeNameMap) ||
       !_.isEqual(prevProps.statVarInfos, this.props.statVarInfos) ||
       !_.isEqual(prevProps.denom, this.props.denom);
     if (shouldLoadData) {
@@ -272,7 +271,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
   }
 
   private loadRawData() {
-    const places = Object.keys(this.props.placeNames);
+    const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
     fetchRawData(places, statVars, this.props.denom)
       .then((rawData) => {
@@ -288,7 +287,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     if (!this.state.rawData) {
       return;
     }
-    const places = Object.keys(this.props.placeNames);
+    const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
     let statData = getStatData(
       this.state.rawData,
@@ -328,13 +327,13 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     }
     // Get from all stat vars. In most cases there should be only one
     // unit.
-    const placeData = Object.values(statData.data)[0];
     this.units = [];
     const units: Set<string> = new Set();
-    if (placeData) {
-      for (const series of Object.values(placeData.data)) {
-        if (series && series["metadata"] && series["metadata"].unit) {
-          units.add(series["metadata"].unit);
+    for (const statVar in statData.data) {
+      for (const place in statData.data[statVar]) {
+        const series = statData.data[statVar][place];
+        if (series && series.facet && statData.facets[series.facet].unit) {
+          units.add(statData.facets[series.facet].unit);
         }
       }
       this.units = Array.from(units).sort();
@@ -353,7 +352,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       return;
     }
     for (const place of this.state.statData.places) {
-      dataGroupsDict[this.props.placeNames[place]] = getStatVarGroupWithTime(
+      dataGroupsDict[this.props.placeNameMap[place]] = getStatVarGroupWithTime(
         this.state.statData,
         place
       );
@@ -361,7 +360,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     const modelsDataGroupsDict = {};
     if (this.state.ipccModels) {
       for (const place of this.state.ipccModels.places) {
-        modelsDataGroupsDict[this.props.placeNames[place]] =
+        modelsDataGroupsDict[this.props.placeNameMap[place]] =
           getStatVarGroupWithTime(this.state.ipccModels, place);
       }
     }
