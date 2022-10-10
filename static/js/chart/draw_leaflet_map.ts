@@ -21,7 +21,7 @@
 import * as d3 from "d3";
 import geoblaze from "geoblaze";
 import GeoRasterLayer from "georaster-layer-for-leaflet";
-import L from "leaflet";
+import L, { geoJSON } from "leaflet";
 
 import { USA_PLACE_DCID } from "../shared/constants";
 import { getPlacePathId } from "./draw_map_utils";
@@ -123,7 +123,7 @@ export function addGeoJsonLayer(
     geotiffLayer.unbindTooltip();
   }
 
-  let geojsonLayer;
+  let geojsonLayer = null;
 
   function resetHighlight(e): void {
     geojsonLayer.resetStyle(e.target);

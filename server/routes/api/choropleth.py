@@ -458,8 +458,13 @@ def get_map_points():
                     200,
                     mimetype='application/json')
 
+
 @bp.route('/geotiff')
 def get_geotiff():
     # TODO should get geotiff from mixer given some parameters
-    response = make_response(send_file("tmp_test.tif", mimetype='image/tiff', as_attachment=True, cache_timeout=0))
+    response = make_response(
+        send_file("tmp_test.tif",
+                  mimetype='image/tiff',
+                  as_attachment=True,
+                  cache_timeout=0))
     return response
