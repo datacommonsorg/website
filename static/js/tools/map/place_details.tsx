@@ -23,7 +23,7 @@ import _ from "lodash";
 import React from "react";
 import { Card } from "reactstrap";
 
-import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_choropleth";
+import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_d3_map";
 import { getPlacePathId } from "../../chart/draw_map_utils";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";

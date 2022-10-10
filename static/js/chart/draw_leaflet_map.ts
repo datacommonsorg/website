@@ -28,7 +28,7 @@ import { getPlacePathId } from "./draw_map_utils";
 import { GeoJsonData } from "./types";
 
 const NO_DATA_VALUE = -9999;
-const RASTER_DATA_BAND = 0;
+const GEORASTER_DATA_BAND = 0;
 const MAP_OPTIMAL_CENTER = {
   [USA_PLACE_DCID]: new L.LatLng(39.82, -98.58),
 };
@@ -45,15 +45,15 @@ const GEOJSON_HIGHLIGHTED_STYLE = {
 };
 
 function updateTooltip(
-  raster: any,
+  georaster: any,
   tooltipLayer: any,
   latLng: any,
   placeName?: string
 ) {
-  const val = geoblaze.identify(raster, [latLng.lng, latLng.lat]);
-  if (val && val.length > RASTER_DATA_BAND) {
+  const val = geoblaze.identify(georaster, [latLng.lng, latLng.lat]);
+  if (val && val.length > GEORASTER_DATA_BAND) {
     tooltipLayer.setTooltipContent(
-      `${placeName ? placeName + ": " : ""}${val[RASTER_DATA_BAND]}`
+      `${placeName ? placeName + ": " : ""}${val[GEORASTER_DATA_BAND]}`
     );
     tooltipLayer.openTooltip(latLng);
   } else {
@@ -78,22 +78,22 @@ export function setOptimalMapView(
 /**
  * Adds a geotiff layer to the leaflet map
  * @param leafletMap base leaflet map
- * @param raster the raster (geotiff) to render
+ * @param georaster the georaster (geotiff) to render
  * @param colorScale the colorscale to use to color the geotiff pixels
  */
 export function addGeotiffLayer(
   leafletMap: any,
-  raster: any,
+  georaster: any,
   colorScale: d3.ScaleLinear<number, number>
 ) {
   const geotiffLayer = new GeoRasterLayer({
-    georaster: raster,
+    georaster: georaster,
     opacity: 1,
     pixelValuesToColorFn: (value) => {
-      if (value[RASTER_DATA_BAND] === NO_DATA_VALUE) {
+      if (value[GEORASTER_DATA_BAND] === NO_DATA_VALUE) {
         return null;
       } else {
-        return colorScale(value[RASTER_DATA_BAND]) as unknown as string;
+        return colorScale(value[GEORASTER_DATA_BAND]) as unknown as string;
       }
     },
   })
@@ -101,7 +101,7 @@ export function addGeotiffLayer(
     .addTo(leafletMap);
 
   leafletMap.on("mousemove", (e) => {
-    updateTooltip(raster, geotiffLayer, e.latlng);
+    updateTooltip(georaster, geotiffLayer, e.latlng);
   });
   return geotiffLayer;
 }
@@ -111,13 +111,13 @@ export function addGeotiffLayer(
  * @param leafletMap base leaflet map
  * @param geojson the geojson data to render
  * @param geotiffLayer geotiffLayer on the leaflet map if there is one
- * @param raster raster (geotiff) data
+ * @param georaster georaster (geotiff) data
  */
 export function addGeoJsonLayer(
   leafletMap: any,
   geojson: GeoJsonData,
   geotiffLayer: any,
-  raster: any
+  georaster: any
 ) {
   if (geotiffLayer.getTooltip()) {
     geotiffLayer.unbindTooltip();
@@ -135,7 +135,7 @@ export function addGeoJsonLayer(
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
       layer.bringToFront();
     }
-    updateTooltip(raster, layer, e.latlng, layer.feature.properties.name);
+    updateTooltip(georaster, layer, e.latlng, layer.feature.properties.name);
   }
 
   geojsonLayer = L.geoJSON(geojson, {

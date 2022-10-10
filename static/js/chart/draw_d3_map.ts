@@ -22,11 +22,11 @@ import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
-import { NamedPlace } from "../shared/types";
 import {
   ASIA_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
 } from "../shared/constants";
+import { NamedPlace } from "../shared/types";
 import { generateLegend, getPlacePathId } from "./draw_map_utils";
 import {
   GeoJsonData,

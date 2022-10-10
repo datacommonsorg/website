@@ -75,6 +75,7 @@ export const DEFAULT_DISPLAY_OPTIONS = {
   domain: null,
   showMapPoints: false,
   showTimeSlider: false,
+  allowLeaflet: false,
 };
 
 export const ALL_MAP_PLACE_TYPES = {

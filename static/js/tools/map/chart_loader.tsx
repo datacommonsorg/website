@@ -340,9 +340,8 @@ export function ChartLoader(): JSX.Element {
   }
 
   function updateMapType(rawData: ChartRawData, georaster: any): void {
-    const params = new URLSearchParams(
-      decodeURIComponent(location.hash).replace("#", "?")
-    );
+    // set map type to leaflet if georaster data comes back before the rest of
+    // the data fetches
     if (display.value.allowLeaflet && _.isEmpty(rawData) && georaster) {
       setMapType(MAP_TYPE.LEAFLET);
     }
