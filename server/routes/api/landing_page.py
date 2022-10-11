@@ -42,22 +42,12 @@ OVERVIEW = 'Overview'
 
 
 def get_landing_page_data(dcid, new_stat_vars, category):
-    return get_landing_page_data_helper(
-        dcid,
-        '^'.join(new_stat_vars),
-        category,
-    )
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_landing_page_data_helper(dcid, stat_vars_string, category):
-    stat_var_condition = ''
-    if stat_vars_string:
-        stat_var_condition = "&new_stat_vars={}".format(
-            stat_vars_string.split('^'))
-    req_url = '/v1/internal/page/place/{}?category={}'.format(
-        dcid, category + stat_var_condition)
-    response = dc_service.get(req_url)
+    data = {'node': dcid, 'category': category}
+    # stat_vars_string = '^'.join(stat_vars_string)
+    if new_stat_vars:
+        data['newStatVars'] = new_stat_vars
+    url = '/v1/internal/page/place/'
+    response = dc_service.post(url, data)
     return response
 
 
@@ -88,7 +78,7 @@ def fill_translation(chart):
 
 
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
-def build_spec(chart_config, i18n=True):
+def build_spec(chart_config, target_category, i18n=True):
     """Builds hierachical spec based on chart config.
 
     Args:
@@ -99,6 +89,9 @@ def build_spec(chart_config, i18n=True):
     # Map: category -> topic -> [config]
     # Within each category, the topics are sorted.
     for conf in chart_config:
+        # skip if the config category does not match target category.
+        if target_category not in [conf['category'], "Overview"]:
+            continue
         config = copy.deepcopy(conf)
         if i18n:
             config = fill_translation(config)
@@ -411,13 +404,19 @@ def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
     """
+    start_time = time.time()
     logging.info(
         "Landing Page: cache miss for place:%s and category:%s "
         " , fetching and processing data ...", dcid,
         request.args.get("category"))
     target_category = request.args.get("category")
-    spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
+    spec_and_stat = build_spec(current_app.config['CHART_CONFIG'],
+                               target_category)
     new_stat_vars = current_app.config['NEW_STAT_VARS']
+
+    configured_categories = set()
+    for conf in current_app.config['CHART_CONFIG']:
+        configured_categories.add(conf['category'])
 
     raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
 
@@ -464,9 +463,12 @@ def data(dcid):
         # Don't delete a category if it is in the valid categories list.
         if (not spec_and_stat[category]) and ("validCategories"
                                               in raw_page_data):
-            if dcid in raw_page_data["validCategories"] and (
-                    category
-                    not in raw_page_data["validCategories"][dcid]["category"]):
+            if dcid in raw_page_data[
+                    "validCategories"] and dcid in raw_page_data[
+                        "validCategories"] and (
+                            category not in raw_page_data["validCategories"]
+                            [dcid]["category"]
+                        ) and "validCategories" in raw_page_data:
                 del spec_and_stat[category]
 
     # Populate the data for each chart.
@@ -522,7 +524,8 @@ def data(dcid):
         cat_data = get_landing_page_data(dcid, new_stat_vars, category)
         total_charts = 0
         cat_stats = cat_data['statVarSeries']
-        cat_spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
+        cat_spec_and_stat = build_spec(current_app.config['CHART_CONFIG'],
+                                       category)
         for topic in list(cat_spec_and_stat[category].keys()):
             filtered_charts = []
             for chart in cat_spec_and_stat[category][topic]:
@@ -566,7 +569,9 @@ def data(dcid):
     for category in list(spec_and_stat.keys()) + list(
             spec_and_stat[OVERVIEW]
     ) + raw_page_data["validCategories"][dcid]['category']:
-        categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
+        if category in configured_categories:
+            categories[category] = gettext(
+                f'CHART_TITLE-CHART_CATEGORY-{category}')
 
     # Get display name for all places
     all_places = [dcid]
@@ -602,4 +607,6 @@ def data(dcid):
         'names': names,
         'highlight': highlight,
     }
+    logging.info("---Landing Page API runtime: %s seconds ---" %
+                 (time.time() - start_time))
     return Response(json.dumps(response), 200, mimetype='application/json')
