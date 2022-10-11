@@ -33,19 +33,19 @@ import {
 // Information relating to the stat var to plot
 export interface StatVar {
   // additional information about stat vars. key is stat var dcid.
-  info: Record<string, StatVarInfo>;
+  info?: Record<string, StatVarInfo>;
   // dcid of the chosen stat var
-  dcid: string;
+  dcid?: string;
   // Whether to plot per capita values
-  perCapita: boolean;
+  perCapita?: boolean;
   // dcid of the stat var to use to calculate per capita
-  denom: string;
+  denom?: string;
   // date of the stat var data to get
-  date: string;
+  date?: string;
   // dcid of the stat var to use for map points
-  mapPointSv: string;
+  mapPointSv?: string;
   // metahash of the source to get data from
-  metahash: string;
+  metahash?: string;
 }
 
 // Wraps StatVarInfo with its setters
@@ -65,15 +65,15 @@ export interface StatVarWrapper {
 // Information relating to the places to plot
 export interface PlaceInfo {
   // The current place that has been selected
-  selectedPlace: NamedTypedPlace;
+  selectedPlace?: NamedTypedPlace;
   // The parent places of the selected place
-  parentPlaces: Array<NamedTypedPlace>;
+  parentPlaces?: Array<NamedTypedPlace>;
   // Place that encloses the places to plot
-  enclosingPlace: NamedPlace;
+  enclosingPlace?: NamedPlace;
   // The type of place to plot
-  enclosedPlaceType: string;
+  enclosedPlaceType?: string;
   // The type of place to show points on the map for
-  mapPointPlaceType: string;
+  mapPointPlaceType?: string;
 }
 
 // Wraps PlaceInfo with its setters
@@ -127,6 +127,11 @@ export interface DisplayOptionsWrapper {
   set: Setter<DisplayOptions>;
   setShowMapPoints: Setter<boolean>;
   setShowTimeSlider: Setter<boolean>;
+}
+
+export interface DataContext {
+  statVar?: StatVar;
+  placeInfo?: PlaceInfo;
 }
 
 export interface ContextType {

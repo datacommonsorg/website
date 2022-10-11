@@ -42,6 +42,7 @@ import {
   NamedTypedPlace,
   ProvenanceSummary,
 } from "../../shared/types";
+import { getCappedStatVarDate } from "../../shared/util";
 import { getDateRange } from "../../utils/string_utils";
 import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
@@ -652,4 +653,17 @@ export function getLegendBounds(
     }
   }
   return legendBounds;
+}
+
+export function getDate(statVar: string, date: string) {
+  let res = "";
+  const cappedDate = getCappedStatVarDate(statVar);
+  // If there is a specified date, get the data for that date. If no specified
+  // date, still need to cut data for prediction data that extends to 2099
+  if (date) {
+    res = date;
+  } else if (cappedDate) {
+    res = cappedDate;
+  }
+  return res;
 }
