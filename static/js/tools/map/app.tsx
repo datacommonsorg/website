@@ -27,6 +27,7 @@ import { Context, ContextType, getInitialContext } from "./context";
 import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
+import { Title } from "./title";
 import {
   applyHashDisplay,
   applyHashPlaceInfo,
@@ -38,11 +39,7 @@ import {
 } from "./util";
 
 function App(): JSX.Element {
-  const { statVar, placeInfo, isLoading } = useContext(Context);
-  const showChart =
-    !_.isNull(statVar.value.info) &&
-    !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
-    !_.isEmpty(placeInfo.value.enclosedPlaceType);
+  const { isLoading } = useContext(Context);
   const showLoadingSpinner =
     isLoading.value.isDataLoading || isLoading.value.isPlaceInfoLoading;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
@@ -57,19 +54,15 @@ function App(): JSX.Element {
       />
       <div id="plot-container">
         <Container fluid={true}>
-          {!showChart && (
-            <Row>
-              <h1 className="mb-4">Map Explorer</h1>
-            </Row>
-          )}
+          <Row>
+            <Title />
+          </Row>
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          {!showChart && (
-            <Row>
-              <Info />
-            </Row>
-          )}
+          <Row>
+            <Info />
+          </Row>
           <Row id="chart-row">
             <ChartLoader />
           </Row>

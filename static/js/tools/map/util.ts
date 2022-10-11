@@ -653,3 +653,11 @@ export function getLegendBounds(
   }
   return legendBounds;
 }
+
+export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
+  return (
+    !_.isNull(statVar.info) &&
+    !_.isEmpty(placeInfo.enclosingPlace.dcid) &&
+    !_.isEmpty(placeInfo.enclosedPlaceType)
+  );
+}
