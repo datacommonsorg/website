@@ -21,6 +21,7 @@
 
 import axios from "axios";
 import geoblaze from "geoblaze";
+import { GeoRaster } from "georaster-layer-for-leaflet";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -112,7 +113,7 @@ export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
-  const [georaster, setGeoraster] = useState(null);
+  const [geoRaster, setGeoRaster] = useState(null);
   const [mapType, setMapType] = useState(MAP_TYPE.D3);
   const [geoJson, setGeoJson] = useState<GeoJsonData>();
 
@@ -184,9 +185,11 @@ export function ChartLoader(): JSX.Element {
         setRawData,
         display.value.showTimeSlider
       );
-      geoblaze
-        .load("/api/choropleth/geotiff")
-        .then((georaster) => setGeoraster(georaster));
+      if (display.value.allowLeaflet) {
+        geoblaze
+          .load("/api/choropleth/geotiff")
+          .then((geoRaster) => setGeoRaster(geoRaster));
+      }
     } else {
       setRawData(undefined);
     }
@@ -200,7 +203,7 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
-    updateMapType(rawData, georaster);
+    updateMapType(rawData, geoRaster);
     if (_.isEmpty(rawData) || _.isEmpty(geoJson)) {
       return;
     }
@@ -229,7 +232,7 @@ export function ChartLoader(): JSX.Element {
   }, [
     rawData,
     geoJson,
-    georaster,
+    geoRaster,
     statVar.value.metahash,
     statVar.value.perCapita,
   ]);
@@ -346,7 +349,7 @@ export function ChartLoader(): JSX.Element {
         metahash={chartData.metahash}
         onPlay={onPlay}
         updateDate={updateDate}
-        georaster={georaster}
+        geoRaster={geoRaster}
         mapType={mapType}
       />
       {placeInfo.value.parentPlaces && (
@@ -390,10 +393,10 @@ export function ChartLoader(): JSX.Element {
     }
   }
 
-  function updateMapType(rawData: ChartRawData, georaster: any): void {
-    // set map type to leaflet if georaster data comes back before the rest of
+  function updateMapType(rawData: ChartRawData, geoRaster: GeoRaster): void {
+    // set map type to leaflet if geoRaster data comes back before the rest of
     // the data fetches
-    if (display.value.allowLeaflet && _.isEmpty(rawData) && georaster) {
+    if (_.isEmpty(rawData) && !_.isEmpty(geoRaster)) {
       setMapType(MAP_TYPE.LEAFLET);
     }
   }

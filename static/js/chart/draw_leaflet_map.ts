@@ -15,23 +15,30 @@
  */
 
 /**
- * functions for drawing leaflet map.
+ * functions for drawing a leaflet map.
  */
 
 import * as d3 from "d3";
 import geoblaze from "geoblaze";
-import GeoRasterLayer from "georaster-layer-for-leaflet";
-import L, { geoJSON } from "leaflet";
+import GeoRasterLayer, { GeoRaster } from "georaster-layer-for-leaflet";
+import L, { LatLng, Layer, Map } from "leaflet";
 
 import { USA_PLACE_DCID } from "../shared/constants";
 import { getPlacePathId } from "./draw_map_utils";
 import { GeoJsonData } from "./types";
 
+// TODO: get the NO_DATA_VALUE, GEORASTER_DATA_BAND, MAP CENTER, and MAP ZOOM
+// from API
+// The value used in the geotiff when there is no data at that point.
 const NO_DATA_VALUE = -9999;
+// GeoTIFFs can have multiple bands holding different values. This is the band
+// that holds the data values.
 const GEORASTER_DATA_BAND = 0;
+// map of place dcid to the lat long center of that place.
 const MAP_OPTIMAL_CENTER = {
   [USA_PLACE_DCID]: new L.LatLng(39.82, -98.58),
 };
+// map of place dcid to the optimal zoom when rendering maps of that place.
 const MAP_OPTIMAL_ZOOM = {
   [USA_PLACE_DCID]: 4,
 };
@@ -45,12 +52,12 @@ const GEOJSON_HIGHLIGHTED_STYLE = {
 };
 
 function updateTooltip(
-  georaster: any,
-  tooltipLayer: any,
-  latLng: any,
+  geoRaster: GeoRaster,
+  tooltipLayer: Layer,
+  latLng: LatLng,
   placeName?: string
 ) {
-  const val = geoblaze.identify(georaster, [latLng.lng, latLng.lat]);
+  const val = geoblaze.identify(geoRaster, [latLng.lng, latLng.lat]);
   if (val && val.length > GEORASTER_DATA_BAND) {
     tooltipLayer.setTooltipContent(
       `${placeName ? placeName + ": " : ""}${val[GEORASTER_DATA_BAND]}`
@@ -67,7 +74,7 @@ function updateTooltip(
  * @param selectedPlaceDcid
  */
 export function setOptimalMapView(
-  leafletMap: any,
+  leafletMap: Map,
   selectedPlaceDcid: string
 ): void {
   const center = MAP_OPTIMAL_CENTER[selectedPlaceDcid] || DEFAULT_MAP_CENTER;
@@ -76,18 +83,20 @@ export function setOptimalMapView(
 }
 
 /**
- * Adds a geotiff layer to the leaflet map
+ * Adds a geotiff layer to the leaflet map. The colors of the geotiff will be
+ * calculated using the GEORASTER_DATA_BAND band in the geotiff and the
+ * colorscale.
  * @param leafletMap base leaflet map
- * @param georaster the georaster (geotiff) to render
+ * @param geoRaster the geoRaster (geotiff) to render
  * @param colorScale the colorscale to use to color the geotiff pixels
  */
 export function addGeotiffLayer(
-  leafletMap: any,
-  georaster: any,
+  leafletMap: Map,
+  geoRaster: GeoRaster,
   colorScale: d3.ScaleLinear<number, number>
 ) {
   const geotiffLayer = new GeoRasterLayer({
-    georaster: georaster,
+    georaster: geoRaster,
     opacity: 1,
     pixelValuesToColorFn: (value) => {
       if (value[GEORASTER_DATA_BAND] === NO_DATA_VALUE) {
@@ -101,23 +110,24 @@ export function addGeotiffLayer(
     .addTo(leafletMap);
 
   leafletMap.on("mousemove", (e) => {
-    updateTooltip(georaster, geotiffLayer, e.latlng);
+    updateTooltip(geoRaster, geotiffLayer, e.latlng);
   });
   return geotiffLayer;
 }
 
 /**
- * Adds a geojson layer to the leaflet map
+ * Adds a geojson layer to a leaflet map. The geojson layer will show the
+ * borders of the places in the geojson.
  * @param leafletMap base leaflet map
  * @param geojson the geojson data to render
  * @param geotiffLayer geotiffLayer on the leaflet map if there is one
- * @param georaster georaster (geotiff) data
+ * @param geoRaster geoRaster (geotiff) data
  */
 export function addGeoJsonLayer(
-  leafletMap: any,
+  leafletMap: Map,
   geojson: GeoJsonData,
-  geotiffLayer: any,
-  georaster: any
+  geotiffLayer: Layer,
+  geoRaster: GeoRaster
 ) {
   if (geotiffLayer.getTooltip()) {
     geotiffLayer.unbindTooltip();
@@ -135,7 +145,7 @@ export function addGeoJsonLayer(
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
       layer.bringToFront();
     }
-    updateTooltip(georaster, layer, e.latlng, layer.feature.properties.name);
+    updateTooltip(geoRaster, layer, e.latlng, layer.feature.properties.name);
   }
 
   geojsonLayer = L.geoJSON(geojson, {

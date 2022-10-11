@@ -60,7 +60,7 @@ interface ChartProps {
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
   facetInfo: FacetSelectorFacetInfo;
-  georaster: any;
+  geoRaster: any;
 
   // Array of ~10 dates for time slider
   sampleDates: Array<string>;
@@ -129,7 +129,7 @@ export function Chart(props: ChartProps): JSX.Element {
             {props.mapType === MAP_TYPE.LEAFLET ? (
               <LeafletMap
                 geoJsonData={props.geoJsonData}
-                georaster={props.georaster}
+                geoRaster={props.geoRaster}
                 metadata={props.metadata}
                 placeInfo={props.placeInfo}
                 statVar={props.statVar}

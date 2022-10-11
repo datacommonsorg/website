@@ -198,7 +198,7 @@ const MAP_PROPS = {
   metahash: "",
   onPlay: () => null,
   updateDate: () => null,
-  georaster: null,
+  geoRaster: null,
   mapType: MAP_TYPE.D3,
 };
 

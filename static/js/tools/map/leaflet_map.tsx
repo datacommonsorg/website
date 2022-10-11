@@ -19,6 +19,7 @@
  */
 
 import geoblaze from "geoblaze";
+import { GeoRaster } from "georaster-layer-for-leaflet";
 import L from "leaflet";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
@@ -36,7 +37,7 @@ import { DataPointMetadata } from "./util";
 
 interface LeafletMapProps {
   geoJsonData: GeoJsonData;
-  georaster: any;
+  geoRaster: GeoRaster;
   metadata: { [dcid: string]: DataPointMetadata };
   placeInfo: PlaceInfo;
   statVar: StatVarWrapper;
@@ -66,7 +67,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
   // Replot when data changes.
   // TODO: handle resizing of chart area
   useEffect(() => {
-    if (props.georaster) {
+    if (props.geoRaster) {
       plot();
     }
   }, [props]);
@@ -84,6 +85,8 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
     );
   }
 
+  // Draw a GeoTIFF layer as the background and add a GeoJSON layer to show the
+  // boundaries if there is GeoJSON data available.
   function plot(): void {
     document.getElementById(
       LEGEND_CONTAINER_ID
@@ -96,9 +99,9 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
         : "";
     const colorScale = getColorScale(
       svTitle || props.statVar.value.dcid,
-      geoblaze.min(props.georaster),
-      geoblaze.mean(props.georaster),
-      geoblaze.max(props.georaster),
+      geoblaze.min(props.geoRaster),
+      geoblaze.mean(props.geoRaster),
+      geoblaze.max(props.geoRaster),
       props.display.value.color,
       props.display.value.domain
     );
@@ -115,7 +118,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
     }
     geotiffLayer.current = addGeotiffLayer(
       leafletMap.current,
-      props.georaster,
+      props.geoRaster,
       colorScale
     );
     if (geojsonLayer.current) {
@@ -126,7 +129,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
         leafletMap.current,
         props.geoJsonData,
         geotiffLayer.current,
-        props.georaster
+        props.geoRaster
       );
     }
     setOptimalMapView(leafletMap.current, props.placeInfo.enclosingPlace.dcid);
