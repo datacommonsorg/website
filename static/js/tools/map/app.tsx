@@ -18,7 +18,6 @@
  * Main app component for map explorer.
  */
 
-import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
