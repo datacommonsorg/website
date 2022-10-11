@@ -28,6 +28,7 @@ import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
 import {
+  ALLOW_LEAFLET_URL_ARG,
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
@@ -114,9 +115,16 @@ function updateHash(context: ContextType): void {
   let hash = updateHashStatVar("", context.statVar.value);
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
   hash = updateHashDisplay(hash, context.display.value);
+  // leaflet flag is part of the search arguments instead of hash, so need to
+  // update that separately
+  let args = "";
+  if (context.display.value.allowLeaflet) {
+    args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
+  }
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
-  if (newHash && newHash !== currentHash) {
-    history.pushState({}, "", `${MAP_REDIRECT_PREFIX}#${newHash}`);
+  const currentArgs = location.search;
+  if (newHash && (newHash !== currentHash || args !== currentArgs)) {
+    history.pushState({}, "", `${MAP_REDIRECT_PREFIX}${args}#${newHash}`);
   }
 }

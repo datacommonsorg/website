@@ -61,7 +61,6 @@ const URL_PARAM_KEYS = {
   MAP_POINTS_SV: "mapsv",
   SV_METAHASH: "src",
   TIME_SLIDER: "ts",
-  ALLOW_LEAFLET: "l",
 };
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
@@ -70,6 +69,7 @@ const SV_REGEX_INSTALLATION_MAPPING = {
 
 const NUM_SAMPLE_DATES = 10;
 
+export const ALLOW_LEAFLET_URL_ARG = "leaflet";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
   domain: null,
@@ -224,7 +224,10 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
   const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
-  const allowLeaflet = params.get(URL_PARAM_KEYS.ALLOW_LEAFLET);
+  // the allow leaflet param is in the search query instead of the url hash
+  const allowLeaflet = new URLSearchParams(location.search).get(
+    ALLOW_LEAFLET_URL_ARG
+  );
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
@@ -311,11 +314,6 @@ export function updateHashDisplay(
       URL_PARAM_DOMAIN_SEPARATOR
     )}`;
   }
-  if (display.allowLeaflet) {
-    params = `${params}&${URL_PARAM_KEYS.ALLOW_LEAFLET}=${
-      display.allowLeaflet ? "1" : "0"
-    }`;
-  }
   return hash + params;
 }
 
@@ -344,7 +342,11 @@ export function getRedirectLink(
     parentPlaces: [],
     selectedPlace,
   });
-  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+  let args = "";
+  if (displayOptions.allowLeaflet) {
+    args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
+  }
+  return `${MAP_REDIRECT_PREFIX}${args}#${encodeURIComponent(hash)}`;
 }
 
 /**
