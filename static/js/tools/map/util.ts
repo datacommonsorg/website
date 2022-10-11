@@ -61,6 +61,7 @@ const URL_PARAM_KEYS = {
   MAP_POINTS_SV: "mapsv",
   SV_METAHASH: "src",
   TIME_SLIDER: "ts",
+  ALLOW_LEAFLET: "l",
 };
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
@@ -74,6 +75,7 @@ export const DEFAULT_DISPLAY_OPTIONS = {
   domain: null,
   showMapPoints: false,
   showTimeSlider: false,
+  allowLeaflet: false,
 };
 
 export const ALL_MAP_PLACE_TYPES = {
@@ -222,11 +224,13 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
   const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
+  const allowLeaflet = params.get(URL_PARAM_KEYS.ALLOW_LEAFLET);
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
     showMapPoints: showMapPoints && showMapPoints === "1" ? true : false,
     showTimeSlider: showTimeSlider && showTimeSlider === "1" ? true : false,
+    allowLeaflet: allowLeaflet && allowLeaflet === "1" ? true : false,
   };
 }
 
@@ -306,6 +310,11 @@ export function updateHashDisplay(
     params = `${params}&${URL_PARAM_KEYS.DOMAIN}=${display.domain.join(
       URL_PARAM_DOMAIN_SEPARATOR
     )}`;
+  }
+  if (display.allowLeaflet) {
+    params = `${params}&${URL_PARAM_KEYS.ALLOW_LEAFLET}=${
+      display.allowLeaflet ? "1" : "0"
+    }`;
   }
   return hash + params;
 }

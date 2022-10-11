@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 import { FormattedMessage } from "react-intl";
@@ -29,7 +30,8 @@ import {
   drawLineChart,
   drawStackBarChart,
 } from "../chart/draw";
-import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
+import { drawD3Map } from "../chart/draw_d3_map";
+import { getColorScale } from "../chart/draw_map_utils";
 import {
   CachedChoroplethData,
   CachedRankingChartData,
@@ -507,11 +509,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         }
         return place.name + ": " + value;
       };
+      const dataValues = Object.values(this.state.choroplethDataGroup.data);
       const colorScale = getColorScale(
         this.props.statsVars[0],
-        this.state.choroplethDataGroup.data
+        d3.min(dataValues),
+        d3.mean(dataValues),
+        d3.max(dataValues)
       );
-      drawChoropleth(
+      drawD3Map(
         this.props.id,
         this.state.geoJson,
         CHART_HEIGHT,

@@ -57,6 +57,7 @@ const TestContext = {
       color: "red",
       showMapPoints: false,
       showTimeSlider: false,
+      allowLeaflet: false,
     },
   },
 } as unknown as ContextType;

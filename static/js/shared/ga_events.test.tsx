@@ -15,7 +15,8 @@
  */
 
 jest.mock("axios");
-jest.mock("../chart/draw_choropleth");
+jest.mock("../chart/draw_d3_map");
+jest.mock("../chart/draw_map_utils");
 jest.mock("../chart/draw_scatter");
 jest.mock("../chart/draw", () => {
   const originalModule = jest.requireActual("../chart/draw");
@@ -44,7 +45,7 @@ import { ChartHeader } from "../place/chart_header";
 import { Menu } from "../place/menu";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
-import { Chart as MapToolChart } from "../tools/map/chart";
+import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
 import {
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
   StatVarWrapper,
@@ -143,6 +144,7 @@ const MAP_PROPS = {
       domain: [NUMBER, NUMBER, NUMBER] as [number, number, number],
       showMapPoints: false,
       showTimeSlider: false,
+      allowLeaflet: false,
     },
   } as MapDisplayOptionsWrapper,
   geoJsonData: {
@@ -196,6 +198,8 @@ const MAP_PROPS = {
   metahash: "",
   onPlay: () => null,
   updateDate: () => null,
+  geoRaster: null,
+  mapType: MAP_TYPE.D3,
 };
 
 // Props for timeline tool chart.
