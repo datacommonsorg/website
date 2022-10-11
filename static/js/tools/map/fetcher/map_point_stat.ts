@@ -63,7 +63,7 @@ export function fetchMapPointStat(
           },
           statVar: {
             dcid: statVar,
-            date: date,
+            date,
           },
         },
       });

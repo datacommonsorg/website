@@ -69,8 +69,8 @@ export const geoJsonReady = (
   const c = context.geoJson;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType == c.placeInfo.enclosedPlaceType
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType
   );
 };
 
@@ -82,10 +82,10 @@ export const defaultStatReady = (
   const c = context.defaultStat;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
-    statVar.dcid == c.statVar.dcid &&
-    statVar.date == c.statVar.date
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+    statVar.dcid === c.statVar.dcid &&
+    statVar.date === c.statVar.date
   );
 };
 
@@ -97,10 +97,10 @@ export const allStatReady = (
   const c = context.allStat;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
-    statVar.dcid == c.statVar.dcid &&
-    statVar.date == c.statVar.date
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+    statVar.dcid === c.statVar.dcid &&
+    statVar.date === c.statVar.date
   );
 };
 
@@ -112,9 +112,9 @@ export const denomStatReady = (
   const c = context.denomStat;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
-    statVar.denom == c.statVar.denom
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+    statVar.denom === c.statVar.denom
   );
 };
 
@@ -126,9 +126,9 @@ export const breadcrumbStatReady = (
   const c = context.breadcrumbStat;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    statVar.dcid == c.statVar.dcid &&
-    statVar.date == c.statVar.date
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    statVar.dcid === c.statVar.dcid &&
+    statVar.date === c.statVar.date
   );
 };
 
@@ -140,8 +140,8 @@ export const breadcrumbDenomStatReady = (
   const c = context.breadcrumbDenomStat;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    statVar.denom == c.statVar.denom
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    statVar.denom === c.statVar.denom
   );
 };
 
@@ -153,10 +153,10 @@ export const mapPointStatReady = (
   const c = context.mapPointStat;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    statVar.dcid == c.statVar.dcid &&
-    statVar.dcid == c.statVar.dcid &&
-    statVar.date == c.statVar.date
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    statVar.dcid === c.statVar.dcid &&
+    statVar.dcid === c.statVar.dcid &&
+    statVar.date === c.statVar.date
   );
 };
 
@@ -167,8 +167,8 @@ export const mapPointCoordinateReady = (
   const c = context.mapPointCoordinate;
   return (
     !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.mapPointPlaceType == c.placeInfo.mapPointPlaceType
+    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+    placeInfo.mapPointPlaceType === c.placeInfo.mapPointPlaceType
   );
 };
 

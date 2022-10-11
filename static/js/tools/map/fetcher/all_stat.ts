@@ -63,7 +63,7 @@ export function fetchAllStat(
           },
           statVar: {
             dcid: statVar,
-            date: date,
+            date,
           },
         },
       });

@@ -655,7 +655,7 @@ export function getLegendBounds(
   return legendBounds;
 }
 
-export function getDate(statVar: string, date: string) {
+export function getDate(statVar: string, date: string): string {
   let res = "";
   const cappedDate = getCappedStatVarDate(statVar);
   // If there is a specified date, get the data for that date. If no specified

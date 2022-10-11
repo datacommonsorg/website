@@ -60,7 +60,7 @@ export function fetchBreadcrumbStat(
           },
           statVar: {
             dcid: statVar,
-            date: date,
+            date,
           },
         },
       });
