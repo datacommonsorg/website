@@ -32,7 +32,7 @@ import {
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
-  MAP_REDIRECT_PREFIX,
+  MAP_URL_PATH,
   updateHashDisplay,
   updateHashPlaceInfo,
   updateHashStatVar,
@@ -103,6 +103,8 @@ export function AppWithContext(): JSX.Element {
 }
 
 function applyHash(context: ContextType): void {
+  // When url formation is updated here, make sure to also update the
+  // getRedirectLink function in ./util.ts
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
@@ -117,6 +119,7 @@ function updateHash(context: ContextType): void {
   hash = updateHashDisplay(hash, context.display.value);
   // leaflet flag is part of the search arguments instead of hash, so need to
   // update that separately
+  // TODO: forward along all args and then append hash in the url.
   let args = "";
   if (context.display.value.allowLeaflet) {
     args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
@@ -125,6 +128,6 @@ function updateHash(context: ContextType): void {
   const currentHash = location.hash.replace("#", "");
   const currentArgs = location.search;
   if (newHash && (newHash !== currentHash || args !== currentArgs)) {
-    history.pushState({}, "", `${MAP_REDIRECT_PREFIX}${args}#${newHash}`);
+    history.pushState({}, "", `${MAP_URL_PATH}${args}#${newHash}`);
   }
 }

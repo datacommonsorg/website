@@ -143,7 +143,7 @@ export const BEST_AVAILABLE_METAHASH = "Best Available";
 
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
-export const MAP_REDIRECT_PREFIX = "/tools/map";
+export const MAP_URL_PATH = "/tools/map";
 
 // metadata associated with a single data point in the map charts
 export interface DataPointMetadata {
@@ -331,6 +331,8 @@ export function getRedirectLink(
   mapPointPlaceType: string,
   displayOptions: DisplayOptions
 ): string {
+  // When url formation is updated here, make sure to also update the updateHash
+  // function in ./app.tsx
   let hash = updateHashStatVar("", statVar);
   hash = updateHashDisplay(hash, displayOptions);
   const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parentPlaces);
@@ -346,7 +348,7 @@ export function getRedirectLink(
   if (displayOptions.allowLeaflet) {
     args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
   }
-  return `${MAP_REDIRECT_PREFIX}${args}#${encodeURIComponent(hash)}`;
+  return `${MAP_URL_PATH}${args}#${encodeURIComponent(hash)}`;
 }
 
 /**
