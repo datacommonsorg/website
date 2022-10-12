@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 
+import { GeoJsonFeature } from "../../chart/types";
 import {
   BANGLADESH_PLACE_DCID,
   CHINA_PLACE_DCID,
@@ -42,6 +43,7 @@ import {
   NamedTypedPlace,
   ProvenanceSummary,
 } from "../../shared/types";
+import { getCappedStatVarDate } from "../../shared/util";
 import { getDateRange } from "../../utils/string_utils";
 import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
@@ -137,6 +139,10 @@ export const CHILD_PLACE_TYPE_MAPPING = {
 
 export const ENCLOSED_PLACE_TYPE_NAMES = {
   [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
+};
+
+export const MANUAL_GEOJSON_DISTANCES = {
+  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
 };
 
 export const BEST_AVAILABLE_METAHASH = "Best Available";
@@ -656,4 +662,63 @@ export function getLegendBounds(
     }
   }
   return legendBounds;
+}
+
+export function getDate(statVar: string, date: string): string {
+  let res = "";
+  const cappedDate = getCappedStatVarDate(statVar);
+  // If there is a specified date, get the data for that date. If no specified
+  // date, still need to cut data for prediction data that extends to 2099
+  if (date) {
+    res = date;
+  } else if (cappedDate) {
+    res = cappedDate;
+  }
+  return res;
+}
+
+export function getGeoJsonDataFeatures(
+  placeDcids: string[],
+  enclosedPlaceType: string
+): GeoJsonFeature[] {
+  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
+  if (!distance) {
+    return [];
+  }
+  const geoJsonFeatures = [];
+  for (const placeDcid of placeDcids) {
+    const dcidPrefixSuffix = placeDcid.split("/");
+    if (dcidPrefixSuffix.length < 2) {
+      continue;
+    }
+    const latlon = dcidPrefixSuffix[1].split("_");
+    if (latlon.length < 2) {
+      continue;
+    }
+    const neLat = Number(latlon[0]) + distance / 2;
+    const neLon = Number(latlon[1]) + distance / 2;
+    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} arc degree)`;
+    // TODO: handle cases of overflowing 180 near the international date line
+    // becasuse not sure if drawing libraries can handle this
+    geoJsonFeatures.push({
+      geometry: {
+        type: "MultiPolygon",
+        coordinates: [
+          [
+            [
+              [neLon, neLat],
+              [neLon, neLat - distance],
+              [neLon - distance, neLat - distance],
+              [neLon - distance, neLat],
+              [neLon, neLat],
+            ],
+          ],
+        ],
+      },
+      id: placeDcid,
+      properties: { geoDcid: placeDcid, name: placeName },
+      type: "Feature",
+    });
+  }
+  return geoJsonFeatures;
 }

@@ -23,7 +23,7 @@ import axios from "axios";
 import geoblaze from "geoblaze";
 import { GeoRaster } from "georaster-layer-for-leaflet";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
@@ -50,6 +50,7 @@ import { setUpBqButton } from "../shared/bq_utils";
 import { getMatchingObservation, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart, MAP_TYPE } from "./chart";
+import { chartStoreReducer, emptyChartStore } from "./chart_store";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -58,18 +59,26 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
-import {
-  fetchGeoJson,
-  getGeoJsonDataFeatures,
-  MANUAL_GEOJSON_DISTANCES,
-} from "./geojson";
+import { fetchGeoJson } from "./geojson";
 import { PlaceDetails } from "./place_details";
+import {
+  useAllStatReady,
+  useBreadcrumbDenomStatReady,
+  useBreadcrumbStatReady,
+  useDefaultStatReady,
+  useDenomStatReady,
+  useGeoJsonReady,
+  useMapPointCoordinateReady,
+  useMapPointStatReady,
+} from "./ready_hook";
 import {
   BEST_AVAILABLE_METAHASH,
   DataPointMetadata,
+  getGeoJsonDataFeatures,
   getLegendBounds,
   getPlaceChartData,
   getTimeSliderDates,
+  MANUAL_GEOJSON_DISTANCES,
 } from "./util";
 
 interface ChartRawData {
@@ -132,6 +141,21 @@ export function ChartLoader(): JSX.Element {
   //     bqLink.current.style.display = "none";
   //   };
   // }, []);
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const [chartStore, dispatch] = useReducer(chartStoreReducer, emptyChartStore);
+  // -------------------------------------------------------------------------
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const geoJsonReady = useGeoJsonReady(chartStore);
+  const defaultStatReady = useDefaultStatReady(chartStore);
+  const allStatReady = useAllStatReady(chartStore);
+  const denomStatReady = useDenomStatReady(chartStore);
+  const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
+  const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
+  const mapPointStatReady = useMapPointStatReady(chartStore);
+  const mapPointCoordinateReady = useMapPointCoordinateReady(chartStore);
+  // -------------------------------------------------------------------------
 
   // Fetch geojson data when page option is updated.
   useEffect(() => {

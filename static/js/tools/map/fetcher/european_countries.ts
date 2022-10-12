@@ -15,29 +15,20 @@
  */
 
 /**
- * Geo Json data.
+ * Fetch european countries.
  */
 
-import axios from "axios";
+import { EUROPE_NAMED_TYPED_PLACE } from "../../../shared/constants";
+import { NamedPlace } from "../../../shared/types";
+import { getEnclosedPlacesPromise } from "../../../utils/place_utils";
 
-import { GeoJsonData } from "../../chart/types";
-import { IPCC_PLACE_50_TYPE_DCID } from "../../shared/constants";
-
-export const MANUAL_GEOJSON_DISTANCES = {
-  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
-};
-
-export function fetchGeoJson(
-  parentPlace: string,
-  childType: string,
-  setGeoJson: (data: GeoJsonData) => void
+export function fetchEuropeanCountries(
+  setEuropeanCountries: (data: Array<NamedPlace>) => void
 ): void {
-  console.log("fetch geo json data");
-  axios
-    .get(
-      `/api/choropleth/geojson?placeDcid=${parentPlace}&placeType=${childType}`
-    )
-    .then((resp) => {
-      setGeoJson(resp.data);
-    });
+  getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country").then(
+    (resp: Array<NamedPlace>) => {
+      setEuropeanCountries(resp);
+      console.log("european countries loaded");
+    }
+  );
 }
