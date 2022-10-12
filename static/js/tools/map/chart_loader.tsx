@@ -138,13 +138,13 @@ export function ChartLoader(): JSX.Element {
   //   };
   // }, []);
 
-  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   // START useReducer
   const [chartStore, dispatch] = useReducer(chartStoreReducer, emptyChartStore);
   // END useReducer
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
 
-  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   // The functions below are memoized and only change when the dependant
   // variables change.
   const geoJsonReady = useCallback(() => {
@@ -270,7 +270,7 @@ export function ChartLoader(): JSX.Element {
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.mapPointPlaceType,
   ]);
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
 
   // Fetch geojson data when page option is updated.
   useEffect(() => {
