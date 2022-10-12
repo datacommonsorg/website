@@ -57,11 +57,25 @@ export interface ChartStoreContext {
   mapPointCoordinate?: DataContext;
 }
 
+// ChartStore holds the raw data and corresponding context.
+// When context changes, the data fetch is async and could take long time. The
+// context here is used to check if the data context matches the actual context.
 export interface ChartStore {
   data?: ChartStoreData;
   context?: ChartStoreContext;
 }
 
+/**
+ * Check whether data is ready to use.
+ *
+ * Data is ready if the context in ChartStore matches the current context.
+ *
+ * @param c The data context from chart store.
+ * @param type The type of the data.
+ * @param placeInfo The current placeInfo from the context.
+ * @param statVar The current statVar from the context.
+ * @returns
+ */
 export const isDataReady = (
   c: DataContext,
   type: ChartDataType,
@@ -130,6 +144,8 @@ export interface ChartStoreAction {
   error?: string;
 }
 
+// A reducer used by a useReducer() hook. It adds a type of data to the
+// ChartStore.
 export function chartStoreReducer(
   chartStore: ChartStore,
   action: ChartStoreAction
