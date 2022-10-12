@@ -414,8 +414,10 @@ def data(dcid):
     new_stat_vars = current_app.config['NEW_STAT_VARS']
 
     configured_categories = set()
+    ordered_categories = []
     for conf in current_app.config['CHART_CONFIG']:
         configured_categories.add(conf['category'])
+        ordered_categories.append(conf['category'])
 
     raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
 
@@ -572,6 +574,12 @@ def data(dcid):
             categories[category] = gettext(
                 f'CHART_TITLE-CHART_CATEGORY-{category}')
 
+    # Sort in the order of chart config.
+    ordered_category_dict = {}
+    for cat in ordered_categories:
+        if cat in categories:
+            ordered_category_dict[cat] = categories[cat]
+
     # Get display name for all places
     all_places = [dcid]
     for t in BAR_CHART_TYPES:
@@ -602,7 +610,7 @@ def data(dcid):
         'parentPlaces': raw_page_data.get('parentPlaces', []),
         'similarPlaces': raw_page_data.get('similarPlaces', []),
         'nearbyPlaces': raw_page_data.get('nearbyPlaces', []),
-        'categories': categories,
+        'categories': ordered_category_dict,
         'names': names,
         'highlight': highlight,
     }
