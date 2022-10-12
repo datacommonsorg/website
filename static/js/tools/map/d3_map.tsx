@@ -137,7 +137,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     return <div className="error-message">{errorMessage}</div>;
   } else {
     return (
-      <div className="map-section-container leaflet-map-container">
+      <div className="map-section-container">
         <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
           <div id={MAP_CONTAINER_ID}></div>
           <div id={LEGEND_CONTAINER_ID}></div>
