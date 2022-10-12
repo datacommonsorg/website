@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { Dispatch } from "react";
 
 import {
@@ -34,6 +35,23 @@ export function fetchDenomStat(
   statVar: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
+  const action: ChartStoreAction = {
+    type: ChartDataType.denomStat,
+    error: null,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          // The last place is the selected place.
+          dcid: parentEntity,
+          name: "",
+        },
+        enclosedPlaceType: childType,
+      },
+      statVar: {
+        denom: statVar,
+      },
+    },
+  };
   axios
     .get<SeriesApiResponse>("/api/observations/series/within", {
       params: {
@@ -44,26 +62,19 @@ export function fetchDenomStat(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      dispatch({
-        type: ChartDataType.denomStat,
-        payload: {
+      if (_.isEmpty(resp.data.data[statVar])) {
+        action.error = "error fetching denom stat data";
+      } else {
+        action.payload = {
           data: resp.data.data[statVar],
           facets: resp.data.facets,
-        } as EntitySeriesWrapper,
-        context: {
-          placeInfo: {
-            enclosingPlace: {
-              // The last place is the selected place.
-              dcid: parentEntity,
-              name: "",
-            },
-            enclosedPlaceType: childType,
-          },
-          statVar: {
-            denom: statVar,
-          },
-        },
-      });
+        } as EntitySeriesWrapper;
+      }
+      dispatch(action);
       console.log("denom stat dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching denom stat data";
+      dispatch(action);
     });
 }

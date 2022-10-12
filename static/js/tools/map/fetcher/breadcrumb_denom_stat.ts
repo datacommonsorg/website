@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { Dispatch } from "react";
 
 import {
@@ -33,6 +34,22 @@ export function fetchBreadcrumbDenomStat(
   statVar: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
+  const action: ChartStoreAction = {
+    type: ChartDataType.breadcrumbDenomStat,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          // The last place is the selected place.
+          dcid: entities[entities.length - 1],
+          name: "",
+        },
+      },
+      statVar: {
+        denom: statVar,
+      },
+    },
+    error: null,
+  };
   axios
     .get<SeriesApiResponse>("/api/observations/series", {
       params: {
@@ -42,25 +59,19 @@ export function fetchBreadcrumbDenomStat(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      dispatch({
-        type: ChartDataType.breadcrumbDenomStat,
-        payload: {
+      if (_.isEmpty(resp.data.data[statVar])) {
+        action.error = "error fetching breadcrumb denom stat data";
+      } else {
+        action.payload = {
           data: resp.data.data[statVar],
           facets: resp.data.facets,
-        } as EntitySeriesWrapper,
-        context: {
-          placeInfo: {
-            enclosingPlace: {
-              // The last place is the selected place.
-              dcid: entities[entities.length - 1],
-              name: "",
-            },
-          },
-          statVar: {
-            denom: statVar,
-          },
-        },
-      });
-      console.log("breadcrumb denom stat dispatched");
+        } as EntitySeriesWrapper;
+      }
+      dispatch(action);
+      console.log("breadcrumb denom stat action dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching breadcrumb denom stat data";
+      dispatch(action);
     });
 }

@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { Dispatch } from "react";
 
 import {
@@ -35,6 +36,23 @@ export function fetchBreadcrumbStat(
   date: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
+  const action: ChartStoreAction = {
+    type: ChartDataType.breadcrumbStat,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          dcid: entities[entities.length - 1],
+          name: "",
+        },
+      },
+      statVar: {
+        dcid: statVar,
+        date,
+      },
+    },
+    error: null,
+  };
+
   axios
     .get<PointApiResponse>("/api/observations/point", {
       params: {
@@ -45,25 +63,19 @@ export function fetchBreadcrumbStat(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      dispatch({
-        type: ChartDataType.breadcrumbStat,
-        payload: {
+      if (_.isEmpty(resp.data.data[statVar])) {
+        action.error = "error fetching breadcrumb stat data";
+      } else {
+        action.payload = {
           data: resp.data.data[statVar],
           facets: resp.data.facets,
-        } as EntityObservationWrapper,
-        context: {
-          placeInfo: {
-            enclosingPlace: {
-              dcid: entities[entities.length - 1],
-              name: "",
-            },
-          },
-          statVar: {
-            dcid: statVar,
-            date,
-          },
-        },
-      });
-      console.log("breadcrumb stat dispatched");
+        } as EntityObservationWrapper;
+      }
+      dispatch(action);
+      console.log("breadcrumb stat action dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching breadcrumb stat data";
+      dispatch(action);
     });
 }

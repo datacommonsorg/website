@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { Dispatch } from "react";
 
 import { GeoJsonData, GeoJsonFeature } from "../../../chart/types";
@@ -34,25 +35,35 @@ export function fetchGeoJson(
   childType: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
+  const action: ChartStoreAction = {
+    type: ChartDataType.geoJson,
+    error: null,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          dcid: parentPlace,
+          name: "",
+        },
+        enclosedPlaceType: childType,
+      },
+    },
+  };
   axios
     .get(
       `/api/choropleth/geojson?placeDcid=${parentPlace}&placeType=${childType}`
     )
     .then((resp) => {
-      dispatch({
-        type: ChartDataType.geoJson,
-        payload: resp.data as GeoJsonData,
-        context: {
-          placeInfo: {
-            enclosingPlace: {
-              dcid: parentPlace,
-              name: "",
-            },
-            enclosedPlaceType: childType,
-          },
-        },
-      });
+      if (_.isEmpty(resp.data)) {
+        action.error = "error fetching geo json data";
+      } else {
+        action.payload = resp.data as GeoJsonData;
+      }
+      dispatch(action);
       console.log("geojson dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching geo json data";
+      dispatch(action);
     });
 }
 

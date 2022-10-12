@@ -32,7 +32,7 @@ export enum ChartDataType {
   breadcrumbStat,
   breadcrumbDenomStat,
   mapPointStat,
-  mapPointCoordinates,
+  mapPointCoordinate,
 }
 
 export interface ChartStoreData {
@@ -62,120 +62,72 @@ export interface ChartStore {
   context?: ChartStoreContext;
 }
 
-export const geoJsonReady = (
-  context: ChartStoreContext,
-  placeInfo: PlaceInfo
-) => {
-  const c = context.geoJson;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType
-  );
-};
-
-export const defaultStatReady = (
-  context: ChartStoreContext,
+export const isDataReady = (
+  c: DataContext,
+  type: ChartDataType,
   placeInfo: PlaceInfo,
   statVar: StatVar
-) => {
-  const c = context.defaultStat;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
-    statVar.dcid === c.statVar.dcid &&
-    statVar.date === c.statVar.date
-  );
-};
-
-export const allStatReady = (
-  context: ChartStoreContext,
-  placeInfo: PlaceInfo,
-  statVar: StatVar
-) => {
-  const c = context.allStat;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
-    statVar.dcid === c.statVar.dcid &&
-    statVar.date === c.statVar.date
-  );
-};
-
-export const denomStatReady = (
-  context: ChartStoreContext,
-  placeInfo: PlaceInfo,
-  statVar: StatVar
-) => {
-  const c = context.denomStat;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
-    statVar.denom === c.statVar.denom
-  );
-};
-
-export const breadcrumbStatReady = (
-  context: ChartStoreContext,
-  placeInfo: PlaceInfo,
-  statVar: StatVar
-) => {
-  const c = context.breadcrumbStat;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    statVar.dcid === c.statVar.dcid &&
-    statVar.date === c.statVar.date
-  );
-};
-
-export const breadcrumbDenomStatReady = (
-  context: ChartStoreContext,
-  placeInfo: PlaceInfo,
-  statVar: StatVar
-) => {
-  const c = context.breadcrumbDenomStat;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    statVar.denom === c.statVar.denom
-  );
-};
-
-export const mapPointStatReady = (
-  context: ChartStoreContext,
-  placeInfo: PlaceInfo,
-  statVar: StatVar
-) => {
-  const c = context.mapPointStat;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    statVar.dcid === c.statVar.dcid &&
-    statVar.dcid === c.statVar.dcid &&
-    statVar.date === c.statVar.date
-  );
-};
-
-export const mapPointCoordinateReady = (
-  context: ChartStoreContext,
-  placeInfo: PlaceInfo
-) => {
-  const c = context.mapPointCoordinate;
-  return (
-    !_.isEmpty(c) &&
-    placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-    placeInfo.mapPointPlaceType === c.placeInfo.mapPointPlaceType
-  );
+): boolean => {
+  if (_.isEmpty(c)) {
+    return false;
+  }
+  switch (type) {
+    case ChartDataType.geoJson:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType
+      );
+    case ChartDataType.defaultStat:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+        statVar.dcid === c.statVar.dcid &&
+        statVar.date === c.statVar.date
+      );
+    case ChartDataType.allStat:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+        statVar.dcid === c.statVar.dcid &&
+        statVar.date === c.statVar.date
+      );
+    case ChartDataType.denomStat:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        placeInfo.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+        statVar.denom === c.statVar.denom
+      );
+    case ChartDataType.breadcrumbStat:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        statVar.dcid === c.statVar.dcid &&
+        statVar.date === c.statVar.date
+      );
+    case ChartDataType.breadcrumbDenomStat:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        statVar.denom === c.statVar.denom
+      );
+    case ChartDataType.mapPointStat:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        statVar.dcid === c.statVar.dcid &&
+        statVar.dcid === c.statVar.dcid &&
+        statVar.date === c.statVar.date
+      );
+    case ChartDataType.mapPointCoordinate:
+      return (
+        placeInfo.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+        placeInfo.mapPointPlaceType === c.placeInfo.mapPointPlaceType
+      );
+  }
 };
 
 export interface ChartStoreAction {
   type: ChartDataType;
-  payload: any;
+  payload?: any;
   context?: DataContext;
+  error?: string;
 }
 
 export function chartStoreReducer(

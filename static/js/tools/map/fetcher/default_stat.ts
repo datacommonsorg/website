@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { Dispatch } from "react";
 
 import {
@@ -36,6 +37,23 @@ export function fetchDefaultStat(
   date: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
+  const action: ChartStoreAction = {
+    type: ChartDataType.defaultStat,
+    error: null,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          dcid: parentEntity,
+          name: "",
+        },
+        enclosedPlaceType: childType,
+      },
+      statVar: {
+        dcid: statVar,
+        date,
+      },
+    },
+  };
   axios
     .get<PointApiResponse>("/api/observations/point/within", {
       params: {
@@ -47,26 +65,19 @@ export function fetchDefaultStat(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      dispatch({
-        type: ChartDataType.defaultStat,
-        payload: {
+      if (_.isEmpty(resp.data.data[statVar])) {
+        action.error = "error fetching default stat data";
+      } else {
+        action.payload = {
           data: resp.data.data[statVar],
           facets: resp.data.facets,
-        } as EntityObservationWrapper,
-        context: {
-          placeInfo: {
-            enclosingPlace: {
-              dcid: parentEntity,
-              name: "",
-            },
-            enclosedPlaceType: childType,
-          },
-          statVar: {
-            dcid: statVar,
-            date,
-          },
-        },
-      });
+        } as EntityObservationWrapper;
+      }
+      dispatch(action);
       console.log("default stat dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching default stat data";
+      dispatch(action);
     });
 }

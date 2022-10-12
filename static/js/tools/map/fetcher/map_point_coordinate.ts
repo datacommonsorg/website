@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { Dispatch } from "react";
 
 import { MapPoint } from "../../../chart/types";
@@ -30,6 +31,19 @@ export function fetchMapPointCoordinate(
   placeType: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
+  const action: ChartStoreAction = {
+    type: ChartDataType.mapPointCoordinate,
+    error: null,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          dcid: parentEntity,
+          name: "",
+        },
+        mapPointPlaceType: placeType,
+      },
+    },
+  };
   axios
     .get<Array<MapPoint>>("/api/choropleth/map-points", {
       params: {
@@ -39,19 +53,16 @@ export function fetchMapPointCoordinate(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      dispatch({
-        type: ChartDataType.mapPointCoordinates,
-        payload: resp.data as Array<MapPoint>,
-        context: {
-          placeInfo: {
-            enclosingPlace: {
-              dcid: parentEntity,
-              name: "",
-            },
-            mapPointPlaceType: placeType,
-          },
-        },
-      });
+      if (_.isEmpty(resp.data)) {
+        action.error = "error fetching map point coordinate data";
+      } else {
+        action.payload = resp.data as Array<MapPoint>;
+      }
+      dispatch(action);
       console.log("map point coordinate dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching map point coordinate data";
+      dispatch(action);
     });
 }

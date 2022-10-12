@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import { Dispatch } from "react";
 
 import {
@@ -36,6 +37,23 @@ export function fetchAllStat(
   date: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
+  const action: ChartStoreAction = {
+    type: ChartDataType.allStat,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          dcid: parentEntity,
+          name: "",
+        },
+        enclosedPlaceType: childType,
+      },
+      statVar: {
+        dcid: statVar,
+        date,
+      },
+    },
+    error: null,
+  };
   axios
     .get<PointAllApiResponse>("/api/observations/point/within/all", {
       params: {
@@ -47,26 +65,19 @@ export function fetchAllStat(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      dispatch({
-        type: ChartDataType.allStat,
-        payload: {
+      if (_.isEmpty(resp.data.data[statVar])) {
+        action.error = "error fetching all stat data";
+      } else {
+        action.payload = {
           data: resp.data.data[statVar],
           facets: resp.data.facets,
-        } as EntityObservationListWrapper,
-        context: {
-          placeInfo: {
-            enclosingPlace: {
-              dcid: parentEntity,
-              name: "",
-            },
-            enclosedPlaceType: childType,
-          },
-          statVar: {
-            dcid: statVar,
-            date,
-          },
-        },
-      });
-      console.log("all stat dispatched");
+        } as EntityObservationListWrapper;
+      }
+      dispatch(action);
+      console.log("all stat action dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching all stat data";
+      dispatch(action);
     });
 }
