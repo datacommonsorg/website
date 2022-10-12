@@ -39,7 +39,7 @@ export function fetchMapPointStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.mapPointStat,
+    type: ChartDataType.MAP_POINT_STAT,
     error: null,
     context: {
       placeInfo: {

@@ -36,7 +36,7 @@ export function fetchDenomStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.denomStat,
+    type: ChartDataType.DENOM_STAT,
     error: null,
     context: {
       placeInfo: {

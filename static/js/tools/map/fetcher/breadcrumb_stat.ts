@@ -37,7 +37,7 @@ export function fetchBreadcrumbStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.breadcrumbStat,
+    type: ChartDataType.BREADCRUMB_STAT,
     context: {
       placeInfo: {
         enclosingPlace: {

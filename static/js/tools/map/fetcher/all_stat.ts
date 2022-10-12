@@ -40,7 +40,7 @@ export function fetchAllStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.allStat,
+    type: ChartDataType.ALL_STAT,
     context: {
       placeInfo: {
         enclosingPlace: {

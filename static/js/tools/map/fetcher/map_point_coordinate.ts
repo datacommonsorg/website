@@ -32,7 +32,7 @@ export function fetchMapPointCoordinate(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.mapPointCoordinate,
+    type: ChartDataType.MAP_POINT_COORDINATE,
     error: null,
     context: {
       placeInfo: {

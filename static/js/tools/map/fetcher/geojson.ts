@@ -31,7 +31,7 @@ export function fetchGeoJson(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.geoJson,
+    type: ChartDataType.GEO_JSON,
     error: null,
     context: {
       placeInfo: {

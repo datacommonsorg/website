@@ -38,7 +38,7 @@ export function fetchDefaultStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.defaultStat,
+    type: ChartDataType.DEFAULT_STAT,
     error: null,
     context: {
       placeInfo: {

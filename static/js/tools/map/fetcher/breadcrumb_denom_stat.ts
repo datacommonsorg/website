@@ -35,7 +35,7 @@ export function fetchBreadcrumbDenomStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const action: ChartStoreAction = {
-    type: ChartDataType.breadcrumbDenomStat,
+    type: ChartDataType.BREADCRUMB_DENOM_STAT,
     context: {
       placeInfo: {
         enclosingPlace: {

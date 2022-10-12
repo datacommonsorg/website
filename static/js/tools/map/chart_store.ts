@@ -25,14 +25,14 @@ import {
 import { DataContext } from "./context";
 
 export enum ChartDataType {
-  geoJson,
-  defaultStat,
-  allStat,
-  denomStat,
-  breadcrumbStat,
-  breadcrumbDenomStat,
-  mapPointStat,
-  mapPointCoordinate,
+  GEO_JSON = "geoJson",
+  DEFAULT_STAT = "defaultStat",
+  ALL_STAT = "allStat",
+  DENOM_STAT = "denomStat",
+  BREADCRUMB_STAT = "breadcrumbStat",
+  BREADCRUMB_DENOM_STAT = "breadcrumbDenomStat",
+  MAP_POINT_STAT = "mapPointStat",
+  MAP_POINT_COORDINATE = "mapPointCoordinate",
 }
 
 // ChartStore holds the raw data and corresponding context.
