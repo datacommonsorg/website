@@ -39,39 +39,66 @@ export enum ChartDataType {
 // When context changes, the data fetch is async and could take long time. The
 // context here is used to check if the data context matches the actual context.
 export interface ChartStore {
-  geoJson?: {
+  geoJson: {
     data: GeoJsonData;
-    context: DataContext;
+    context?: DataContext;
   };
-  defaultStat?: {
+  defaultStat: {
     data: EntityObservationWrapper;
-    context: DataContext;
+    context?: DataContext;
   };
-  allStat?: {
+  allStat: {
     data: EntityObservationListWrapper;
-    context: DataContext;
+    context?: DataContext;
   };
-  denomStat?: {
+  denomStat: {
     data: EntitySeriesWrapper;
-    context: DataContext;
+    context?: DataContext;
   };
-  breadcrumbStat?: {
+  breadcrumbStat: {
     data: EntityObservationWrapper;
-    context: DataContext;
+    context?: DataContext;
   };
-  breadcrumbDenomStat?: {
+  breadcrumbDenomStat: {
     data: EntitySeriesWrapper;
-    context: DataContext;
+    context?: DataContext;
   };
-  mapPointStat?: {
+  mapPointStat: {
     data: EntityObservationWrapper;
-    context: DataContext;
+    context?: DataContext;
   };
-  mapPointCoordinates?: {
+  mapPointCoordinates: {
     data: Array<MapPoint>;
-    context: DataContext;
+    context?: DataContext;
   };
 }
+
+export const emptyChartStore = {
+  geoJson: {
+    data: null,
+  },
+  defaultStat: {
+    data: null,
+  },
+  allStat: {
+    data: null,
+  },
+  denomStat: {
+    data: null,
+  },
+  breadcrumbStat: {
+    data: null,
+  },
+  breadcrumbDenomStat: {
+    data: null,
+  },
+  mapPointStat: {
+    data: null,
+  },
+  mapPointCoordinates: {
+    data: null,
+  },
+};
 
 /**
  * Check whether data is ready to use.
@@ -85,11 +112,15 @@ export interface ChartStore {
  * @returns
  */
 export const isDataReady = (
-  ctx: DataContext,
+  dataWrapper: { data: any; context?: DataContext },
   type: ChartDataType,
   placeInfo: PlaceInfo,
   statVar: StatVar
 ): boolean => {
+  if (_.isEmpty(dataWrapper)) {
+    return false;
+  }
+  const ctx = dataWrapper.context;
   if (_.isEmpty(ctx)) {
     return false;
   }
@@ -160,7 +191,7 @@ export function chartStoreReducer(
 ): ChartStore {
   const field = ChartDataType[action.type];
   const newStore = _.cloneDeep(chartStore);
-  newStore[field].data = action.payload;
+  newStore[field] = { data: action.payload };
   if (action.context) {
     newStore[field].context = action.context;
   }
