@@ -27,8 +27,8 @@ export function useGeoJsonReady(chartStore: ChartStore) {
     const c = chartStore.geoJson.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType
     );
   }, [
     chartStore.geoJson.context,
@@ -43,10 +43,10 @@ export function useDefaultStatReady(chartStore: ChartStore) {
     const c = chartStore.defaultStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
-      statVar.value.dcid == c.statVar.dcid &&
-      statVar.value.date == c.statVar.date
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+      statVar.value.dcid === c.statVar.dcid &&
+      statVar.value.date === c.statVar.date
     );
   }, [
     chartStore.defaultStat.context,
@@ -63,10 +63,10 @@ export function useAllStatReady(chartStore: ChartStore) {
     const c = chartStore.allStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
-      statVar.value.dcid == c.statVar.dcid &&
-      statVar.value.date == c.statVar.date
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+      statVar.value.dcid === c.statVar.dcid &&
+      statVar.value.date === c.statVar.date
     );
   }, [
     chartStore.allStat.context,
@@ -83,9 +83,9 @@ export function useDenomStatReady(chartStore: ChartStore) {
     const c = chartStore.denomStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
-      statVar.value.denom == c.statVar.denom
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+      statVar.value.denom === c.statVar.denom
     );
   }, [
     chartStore.denomStat.context,
@@ -101,9 +101,9 @@ export function useBreadcrumbStatReady(chartStore: ChartStore) {
     const c = chartStore.breadcrumbStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      statVar.value.dcid == c.statVar.dcid &&
-      statVar.value.date == c.statVar.date
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      statVar.value.dcid === c.statVar.dcid &&
+      statVar.value.date === c.statVar.date
     );
   }, [
     chartStore.breadcrumbStat.context,
@@ -119,8 +119,8 @@ export function useBreadcrumbDenomStatReady(chartStore: ChartStore) {
     const c = chartStore.breadcrumbDenomStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      statVar.value.denom == c.statVar.denom
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      statVar.value.denom === c.statVar.denom
     );
   }, [
     chartStore.breadcrumbDenomStat.context,
@@ -135,11 +135,11 @@ export function useMapPointStatReady(chartStore: ChartStore) {
     const c = chartStore.mapPointStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.mapPointPlaceType == c.placeInfo.mapPointPlaceType &&
-      statVar.value.dcid == c.statVar.dcid &&
-      statVar.value.mapPointSv == c.statVar.mapPointSv &&
-      statVar.value.date == c.statVar.date
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.mapPointPlaceType === c.placeInfo.mapPointPlaceType &&
+      statVar.value.dcid === c.statVar.dcid &&
+      statVar.value.mapPointSv === c.statVar.mapPointSv &&
+      statVar.value.date === c.statVar.date
     );
   }, [
     chartStore.mapPointStat.context,
@@ -157,8 +157,8 @@ export function useMapPointCoordinateReady(chartStore: ChartStore) {
     const c = chartStore.mapPointCoordinate.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.mapPointPlaceType == c.placeInfo.mapPointPlaceType
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.mapPointPlaceType === c.placeInfo.mapPointPlaceType
     );
   }, [
     chartStore.mapPointCoordinate.context,
