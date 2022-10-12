@@ -154,7 +154,7 @@ export function ChartLoader(): JSX.Element {
   const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
   const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
   const mapPointStatReady = useMapPointStatReady(chartStore);
-  const mpPointCoordinateReady = useMapPointCoordinateReady(chartStore);
+  const mapPointCoordinateReady = useMapPointCoordinateReady(chartStore);
   // -------------------------------------------------------------------------
 
   // Fetch geojson data when page option is updated.
