@@ -43,7 +43,6 @@ OVERVIEW = 'Overview'
 
 def get_landing_page_data(dcid, new_stat_vars, category):
     data = {'node': dcid, 'category': category}
-    # stat_vars_string = '^'.join(stat_vars_string)
     if new_stat_vars:
         data['newStatVars'] = new_stat_vars
     url = '/v1/internal/page/place/'
