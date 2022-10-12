@@ -39,7 +39,8 @@ export function fetchBreadcrumbDenomStat(
     context: {
       placeInfo: {
         enclosingPlace: {
-          // The last place is the selected place.
+          // entities are the parent places + the enclosing place.
+          // so the last element is the enclosing place.
           dcid: entities[entities.length - 1],
           name: "",
         },

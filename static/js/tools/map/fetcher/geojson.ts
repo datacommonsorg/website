@@ -22,13 +22,8 @@ import axios from "axios";
 import _ from "lodash";
 import { Dispatch } from "react";
 
-import { GeoJsonData, GeoJsonFeature } from "../../../chart/types";
-import { IPCC_PLACE_50_TYPE_DCID } from "../../../shared/constants";
+import { GeoJsonData } from "../../../chart/types";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
-
-export const MANUAL_GEOJSON_DISTANCES = {
-  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
-};
 
 export function fetchGeoJson(
   parentPlace: string,
@@ -65,50 +60,4 @@ export function fetchGeoJson(
       action.error = "error fetching geo json data";
       dispatch(action);
     });
-}
-
-export function getGeoJsonDataFeatures(
-  placeDcids: string[],
-  enclosedPlaceType: string
-): GeoJsonFeature[] {
-  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
-  if (!distance) {
-    return [];
-  }
-  const geoJsonFeatures = [];
-  for (const placeDcid of placeDcids) {
-    const dcidPrefixSuffix = placeDcid.split("/");
-    if (dcidPrefixSuffix.length < 2) {
-      continue;
-    }
-    const latlon = dcidPrefixSuffix[1].split("_");
-    if (latlon.length < 2) {
-      continue;
-    }
-    const neLat = Number(latlon[0]) + distance / 2;
-    const neLon = Number(latlon[1]) + distance / 2;
-    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} arc degree)`;
-    // TODO: handle cases of overflowing 180 near the international date line
-    // becasuse not sure if drawing libraries can handle this
-    geoJsonFeatures.push({
-      geometry: {
-        type: "MultiPolygon",
-        coordinates: [
-          [
-            [
-              [neLon, neLat],
-              [neLon, neLat - distance],
-              [neLon - distance, neLat - distance],
-              [neLon - distance, neLat],
-              [neLon, neLat],
-            ],
-          ],
-        ],
-      },
-      id: placeDcid,
-      properties: { geoDcid: placeDcid, name: placeName },
-      type: "Feature",
-    });
-  }
-  return geoJsonFeatures;
 }

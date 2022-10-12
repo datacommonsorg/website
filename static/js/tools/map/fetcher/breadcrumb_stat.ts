@@ -41,6 +41,8 @@ export function fetchBreadcrumbStat(
     context: {
       placeInfo: {
         enclosingPlace: {
+          // entities are the parent places + the enclosing place.
+          // so the last element is the enclosing place.
           dcid: entities[entities.length - 1],
           name: "",
         },

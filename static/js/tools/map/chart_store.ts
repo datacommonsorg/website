@@ -22,7 +22,7 @@ import {
   EntityObservationWrapper,
   EntitySeriesWrapper,
 } from "../../shared/stat_types";
-import { DataContext, PlaceInfo, StatVar } from "./context";
+import { DataContext } from "./context";
 
 export enum ChartDataType {
   geoJson,
@@ -67,7 +67,7 @@ export interface ChartStore {
     data: EntityObservationWrapper;
     context?: DataContext;
   };
-  mapPointCoordinates: {
+  mapPointCoordinate: {
     data: Array<MapPoint>;
     context?: DataContext;
   };
@@ -95,85 +95,9 @@ export const emptyChartStore = {
   mapPointStat: {
     data: null,
   },
-  mapPointCoordinates: {
+  mapPointCoordinate: {
     data: null,
   },
-};
-
-/**
- * Check whether data is ready to use.
- *
- * Data is ready if the context in ChartStore matches the current context.
- *
- * @param ctx The data context from chart store.
- * @param type The type of the data.
- * @param placeInfo The current placeInfo from the context.
- * @param statVar The current statVar from the context.
- * @returns
- */
-export const isDataReady = (
-  dataWrapper: { data: any; context?: DataContext },
-  type: ChartDataType,
-  placeInfo: PlaceInfo,
-  statVar: StatVar
-): boolean => {
-  if (_.isEmpty(dataWrapper)) {
-    return false;
-  }
-  const ctx = dataWrapper.context;
-  if (_.isEmpty(ctx)) {
-    return false;
-  }
-  switch (type) {
-    case ChartDataType.geoJson:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        placeInfo.enclosedPlaceType === ctx.placeInfo.enclosedPlaceType
-      );
-    case ChartDataType.defaultStat:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        placeInfo.enclosedPlaceType === ctx.placeInfo.enclosedPlaceType &&
-        statVar.dcid === ctx.statVar.dcid &&
-        statVar.date === ctx.statVar.date
-      );
-    case ChartDataType.allStat:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        placeInfo.enclosedPlaceType === ctx.placeInfo.enclosedPlaceType &&
-        statVar.dcid === ctx.statVar.dcid &&
-        statVar.date === ctx.statVar.date
-      );
-    case ChartDataType.denomStat:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        placeInfo.enclosedPlaceType === ctx.placeInfo.enclosedPlaceType &&
-        statVar.denom === ctx.statVar.denom
-      );
-    case ChartDataType.breadcrumbStat:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        statVar.dcid === ctx.statVar.dcid &&
-        statVar.date === ctx.statVar.date
-      );
-    case ChartDataType.breadcrumbDenomStat:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        statVar.denom === ctx.statVar.denom
-      );
-    case ChartDataType.mapPointStat:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        statVar.dcid === ctx.statVar.dcid &&
-        statVar.dcid === ctx.statVar.dcid &&
-        statVar.date === ctx.statVar.date
-      );
-    case ChartDataType.mapPointCoordinate:
-      return (
-        placeInfo.enclosingPlace.dcid === ctx.placeInfo.enclosingPlace.dcid &&
-        placeInfo.mapPointPlaceType === ctx.placeInfo.mapPointPlaceType
-      );
-  }
 };
 
 export interface ChartStoreAction {

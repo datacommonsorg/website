@@ -18,6 +18,8 @@
  * Fetch all facets stat data.
  */
 
+// TODO(shifucun): remove all the console.log() debugging.
+
 import axios from "axios";
 import _ from "lodash";
 import { Dispatch } from "react";

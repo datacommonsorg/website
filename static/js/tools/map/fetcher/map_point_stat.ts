@@ -34,6 +34,7 @@ export function fetchMapPointStat(
   parentEntity: string,
   childType: string,
   statVar: string,
+  mapPointSv: string,
   date: string,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
@@ -46,30 +47,32 @@ export function fetchMapPointStat(
           dcid: parentEntity,
           name: "",
         },
-        enclosedPlaceType: childType,
+        mapPointPlaceType: childType,
       },
       statVar: {
         dcid: statVar,
         date,
+        mapPointSv,
       },
     },
   };
+  const usedSV = mapPointSv || statVar;
   axios
     .get<PointApiResponse>("/api/observations/point/within", {
       params: {
         child_type: childType,
-        date: getDate(statVar, date),
+        date: getDate(usedSV, date),
         parent_entity: parentEntity,
-        variables: [statVar],
+        variables: [usedSV],
       },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      if (_.isEmpty(resp.data.data[statVar])) {
+      if (_.isEmpty(resp.data.data[usedSV])) {
         action.error = "error fetching map point stat data";
       } else {
         action.payload = {
-          data: resp.data.data[statVar],
+          data: resp.data.data[usedSV],
           facets: resp.data.facets,
         } as EntityObservationWrapper;
       }

@@ -47,7 +47,7 @@ export function fetchMapPointCoordinate(
   axios
     .get<Array<MapPoint>>("/api/choropleth/map-points", {
       params: {
-        parentDcid: parentEntity,
+        placeDcid: parentEntity,
         placeType: placeType,
       },
       paramsSerializer: stringifyFn,

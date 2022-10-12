@@ -41,7 +41,6 @@ export function fetchDenomStat(
     context: {
       placeInfo: {
         enclosingPlace: {
-          // The last place is the selected place.
           dcid: parentEntity,
           name: "",
         },

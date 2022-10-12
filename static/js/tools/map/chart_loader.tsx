@@ -23,7 +23,13 @@ import axios from "axios";
 import geoblaze from "geoblaze";
 import { GeoRaster } from "georaster-layer-for-leaflet";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
@@ -50,6 +56,7 @@ import { setUpBqButton } from "../shared/bq_utils";
 import { getMatchingObservation, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart, MAP_TYPE } from "./chart";
+import { chartStoreReducer, emptyChartStore } from "./chart_store";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -58,18 +65,16 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
-import {
-  fetchGeoJson,
-  getGeoJsonDataFeatures,
-  MANUAL_GEOJSON_DISTANCES,
-} from "./geojson";
+import { fetchGeoJson } from "./geojson";
 import { PlaceDetails } from "./place_details";
 import {
   BEST_AVAILABLE_METAHASH,
   DataPointMetadata,
+  getGeoJsonDataFeatures,
   getLegendBounds,
   getPlaceChartData,
   getTimeSliderDates,
+  MANUAL_GEOJSON_DISTANCES,
 } from "./util";
 
 interface ChartRawData {
@@ -132,6 +137,140 @@ export function ChartLoader(): JSX.Element {
   //     bqLink.current.style.display = "none";
   //   };
   // }, []);
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // START useReducer
+  const [chartStore, dispatch] = useReducer(chartStoreReducer, emptyChartStore);
+  // END useReducer
+  // ---------------------------------------------------------------------------
+
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // The functions below are memoized and only change when the dependant
+  // variables change.
+  const geoJsonReady = useCallback(() => {
+    const c = chartStore.geoJson.context;
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType
+    );
+  }, [
+    chartStore.geoJson.context,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+  ]);
+
+  const defaultStatReady = useCallback(() => {
+    const c = chartStore.defaultStat.context;
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
+      statVar.value.dcid == c.statVar.dcid &&
+      statVar.value.date == c.statVar.date
+    );
+  }, [
+    chartStore.defaultStat.context,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    statVar.value.dcid,
+    statVar.value.date,
+  ]);
+
+  const allStatReady = useCallback(() => {
+    const c = chartStore.allStat.context;
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
+      statVar.value.dcid == c.statVar.dcid &&
+      statVar.value.date == c.statVar.date
+    );
+  }, [
+    chartStore.allStat.context,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    statVar.value.dcid,
+    statVar.value.date,
+  ]);
+
+  const denomStatReady = useCallback(() => {
+    const c = chartStore.denomStat.context;
+    console.log("denomStatReady");
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType == c.placeInfo.enclosedPlaceType &&
+      statVar.value.denom == c.statVar.denom
+    );
+  }, [
+    chartStore.denomStat.context,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    statVar.value.denom,
+  ]);
+
+  const breadcrumbStatReady = useCallback(() => {
+    const c = chartStore.breadcrumbStat.context;
+    console.log("breadcrumbStatReady");
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      statVar.value.dcid == c.statVar.dcid &&
+      statVar.value.date == c.statVar.date
+    );
+  }, [
+    chartStore.breadcrumbStat.context,
+    placeInfo.value.enclosingPlace.dcid,
+    statVar.value.dcid,
+    statVar.value.date,
+  ]);
+
+  const breadcrumbDenomStatReady = useCallback(() => {
+    const c = chartStore.breadcrumbDenomStat.context;
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      statVar.value.denom == c.statVar.denom
+    );
+  }, [
+    chartStore.breadcrumbDenomStat.context,
+    placeInfo.value.enclosingPlace.dcid,
+    statVar.value.denom,
+  ]);
+
+  const mapPointStatReady = useCallback(() => {
+    const c = chartStore.mapPointStat.context;
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.mapPointPlaceType == c.placeInfo.mapPointPlaceType &&
+      statVar.value.dcid == c.statVar.dcid &&
+      statVar.value.mapPointSv == c.statVar.mapPointSv &&
+      statVar.value.date == c.statVar.date
+    );
+  }, [
+    chartStore.mapPointStat.context,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.mapPointPlaceType,
+    statVar.value.dcid,
+    statVar.value.mapPointSv,
+    statVar.value.date,
+  ]);
+
+  const mapPointCoordinateReady = useCallback(() => {
+    const c = chartStore.mapPointCoordinate.context;
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid == c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.mapPointPlaceType == c.placeInfo.mapPointPlaceType
+    );
+  }, [
+    chartStore.mapPointCoordinate.context,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.mapPointPlaceType,
+  ]);
+  // ---------------------------------------------------------------------------
 
   // Fetch geojson data when page option is updated.
   useEffect(() => {
