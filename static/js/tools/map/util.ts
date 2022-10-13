@@ -722,3 +722,11 @@ export function getGeoJsonDataFeatures(
   }
   return geoJsonFeatures;
 }
+
+export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
+  return (
+    !_.isNull(statVar.info) &&
+    !_.isEmpty(placeInfo.enclosingPlace.dcid) &&
+    !_.isEmpty(placeInfo.enclosedPlaceType)
+  );
+}
