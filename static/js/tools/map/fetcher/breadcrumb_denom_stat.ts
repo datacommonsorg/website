@@ -29,23 +29,18 @@ import {
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
-import { useBreadcrumbDenomStatReady } from "../ready_hook";
 
 export function useFetchBreadcrumbDenomStat(
   chartStore: ChartStore,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const { placeInfo, statVar } = useContext(Context);
-  const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
   useEffect(() => {
     const contextOk =
       placeInfo.value.selectedPlace.dcid &&
       placeInfo.value.parentPlaces &&
       statVar.value.denom;
     if (!contextOk) {
-      return;
-    }
-    if (breadcrumbDenomStatReady()) {
       return;
     }
     const placeDcids = placeInfo.value.parentPlaces.map((x) => x.dcid);
@@ -97,6 +92,5 @@ export function useFetchBreadcrumbDenomStat(
     placeInfo.value.parentPlaces,
     statVar.value.denom,
     dispatch,
-    breadcrumbDenomStatReady,
   ]);
 }

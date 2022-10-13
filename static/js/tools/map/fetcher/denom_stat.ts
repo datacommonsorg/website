@@ -29,23 +29,18 @@ import {
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
-import { useDenomStatReady } from "../ready_hook";
 
 export function useFetchDenomStat(
   chartStore: ChartStore,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
   const { placeInfo, statVar } = useContext(Context);
-  const denomStatReady = useDenomStatReady(chartStore);
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType &&
       statVar.value.denom;
     if (!contextOk) {
-      return;
-    }
-    if (denomStatReady()) {
       return;
     }
     const action: ChartStoreAction = {
@@ -94,6 +89,5 @@ export function useFetchDenomStat(
     placeInfo.value.enclosedPlaceType,
     statVar.value.denom,
     dispatch,
-    denomStatReady,
   ]);
 }
