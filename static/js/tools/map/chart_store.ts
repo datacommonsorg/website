@@ -21,7 +21,9 @@ import {
   EntityObservationListWrapper,
   EntityObservationWrapper,
   EntitySeriesWrapper,
+  GetPlaceStatDateWithinPlaceResponse,
 } from "../../shared/stat_types";
+import { StatVarSummary } from "../../shared/types";
 import { DataContext } from "./context";
 
 export enum ChartDataType {
@@ -33,6 +35,8 @@ export enum ChartDataType {
   BREADCRUMB_DENOM_STAT = "breadcrumbDenomStat",
   MAP_POINT_STAT = "mapPointStat",
   MAP_POINT_COORDINATE = "mapPointCoordinate",
+  STAT_VAR_SUMMARY = "statVarSummary",
+  ALL_DATES = "allDates",
 }
 
 // ChartStore holds the raw data and corresponding context.
@@ -71,6 +75,14 @@ export interface ChartStore {
     data: Array<MapPoint>;
     context?: DataContext;
   };
+  statVarSummary: {
+    data: StatVarSummary;
+    context?: DataContext;
+  };
+  allDates: {
+    data: GetPlaceStatDateWithinPlaceResponse;
+    context?: DataContext;
+  };
 }
 
 export const emptyChartStore = {
@@ -96,6 +108,12 @@ export const emptyChartStore = {
     data: null,
   },
   mapPointCoordinate: {
+    data: null,
+  },
+  statVarSummary: {
+    data: null,
+  },
+  allDates: {
     data: null,
   },
 };
