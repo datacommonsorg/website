@@ -20,59 +20,86 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { Dispatch } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import {
   EntitySeriesWrapper,
   SeriesApiResponse,
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
-import { ChartDataType, ChartStoreAction } from "../chart_store";
+import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
+import { useCalculateRatio } from "../compute_hook";
+import { Context } from "../context";
+import { useBreadcrumbDenomStatReady } from "../ready_hook";
 
-export function fetchBreadcrumbDenomStat(
-  entities: string[],
-  statVar: string,
+export function useFetchBreadcrumbDenomStat(
+  chartStore: ChartStore,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const action: ChartStoreAction = {
-    type: ChartDataType.BREADCRUMB_DENOM_STAT,
-    context: {
-      placeInfo: {
-        enclosingPlace: {
-          // entities are the parent places + the enclosing place.
-          // so the last element is the enclosing place.
-          dcid: entities[entities.length - 1],
-          name: "",
+  const { placeInfo, statVar } = useContext(Context);
+  const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
+  const calculateRatio = useCalculateRatio();
+  useEffect(() => {
+    const contextOk =
+      placeInfo.value.selectedPlace.dcid &&
+      placeInfo.value.parentPlaces &&
+      statVar.value.denom;
+    if (!contextOk) {
+      return;
+    }
+    if (!calculateRatio || breadcrumbDenomStatReady()) {
+      return;
+    }
+    const placeDcids = placeInfo.value.parentPlaces.map((x) => x.dcid);
+    placeDcids.push(placeInfo.value.selectedPlace.dcid);
+
+    const action: ChartStoreAction = {
+      type: ChartDataType.BREADCRUMB_DENOM_STAT,
+      context: {
+        placeInfo: {
+          enclosingPlace: {
+            // entities are the parent places + the enclosing place.
+            // so the last element is the enclosing place.
+            dcid: placeDcids[placeDcids.length - 1],
+            name: "",
+          },
+        },
+        statVar: {
+          denom: statVar.value.denom,
         },
       },
-      statVar: {
-        denom: statVar,
-      },
-    },
-    error: null,
-  };
-  axios
-    .get<SeriesApiResponse>("/api/observations/series", {
-      params: {
-        entities: entities,
-        variables: [statVar],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      if (_.isEmpty(resp.data.data[statVar])) {
+      error: null,
+    };
+    axios
+      .get<SeriesApiResponse>("/api/observations/series", {
+        params: {
+          entities: placeDcids,
+          variables: [statVar.value.denom],
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        if (_.isEmpty(resp.data.data[statVar.value.denom])) {
+          action.error = "error fetching breadcrumb denom stat data";
+        } else {
+          action.payload = {
+            data: resp.data.data[statVar.value.denom],
+            facets: resp.data.facets,
+          } as EntitySeriesWrapper;
+        }
+        dispatch(action);
+        console.log("breadcrumb denom stat action dispatched");
+      })
+      .catch(() => {
         action.error = "error fetching breadcrumb denom stat data";
-      } else {
-        action.payload = {
-          data: resp.data.data[statVar],
-          facets: resp.data.facets,
-        } as EntitySeriesWrapper;
-      }
-      dispatch(action);
-      console.log("breadcrumb denom stat action dispatched");
-    })
-    .catch(() => {
-      action.error = "error fetching breadcrumb denom stat data";
-      dispatch(action);
-    });
+        dispatch(action);
+      });
+  }, [
+    placeInfo.value.selectedPlace.dcid,
+    placeInfo.value.parentPlaces,
+    statVar.value.denom,
+    dispatch,
+    breadcrumbDenomStatReady,
+    calculateRatio,
+  ]);
 }

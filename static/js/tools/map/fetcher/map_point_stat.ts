@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { Dispatch } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import {
   EntityObservationWrapper,
@@ -28,59 +28,72 @@ import {
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
+import { Context } from "../context";
 import { getDate } from "../util";
 
-export function fetchMapPointStat(
-  parentEntity: string,
-  childType: string,
-  statVar: string,
-  mapPointSv: string,
-  date: string,
+export function useFetchMapPointStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const action: ChartStoreAction = {
-    type: ChartDataType.MAP_POINT_STAT,
-    error: null,
-    context: {
-      placeInfo: {
-        enclosingPlace: {
-          dcid: parentEntity,
-          name: "",
+  const { placeInfo, statVar } = useContext(Context);
+  useEffect(() => {
+    const contextOk =
+      placeInfo.value.mapPointPlaceType &&
+      placeInfo.value.enclosingPlace.dcid &&
+      (statVar.value.dcid || statVar.value.mapPointSv);
+    if (!contextOk) {
+      return;
+    }
+    const action: ChartStoreAction = {
+      type: ChartDataType.MAP_POINT_STAT,
+      error: null,
+      context: {
+        placeInfo: {
+          enclosingPlace: {
+            dcid: placeInfo.value.enclosingPlace.dcid,
+            name: "",
+          },
+          mapPointPlaceType: placeInfo.value.mapPointPlaceType,
         },
-        mapPointPlaceType: childType,
+        statVar: {
+          dcid: statVar.value.dcid,
+          date: statVar.value.date,
+          mapPointSv: statVar.value.mapPointSv,
+        },
       },
-      statVar: {
-        dcid: statVar,
-        date,
-        mapPointSv,
-      },
-    },
-  };
-  const usedSV = mapPointSv || statVar;
-  axios
-    .get<PointApiResponse>("/api/observations/point/within", {
-      params: {
-        child_type: childType,
-        date: getDate(usedSV, date),
-        parent_entity: parentEntity,
-        variables: [usedSV],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      if (_.isEmpty(resp.data.data[usedSV])) {
+    };
+    const usedSV = statVar.value.mapPointSv || statVar.value.dcid;
+    axios
+      .get<PointApiResponse>("/api/observations/point/within", {
+        params: {
+          child_type: placeInfo.value.mapPointPlaceType,
+          date: getDate(usedSV, statVar.value.date),
+          parent_entity: placeInfo.value.enclosingPlace.dcid,
+          variables: [usedSV],
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        if (_.isEmpty(resp.data.data[usedSV])) {
+          action.error = "error fetching map point stat data";
+        } else {
+          action.payload = {
+            data: resp.data.data[usedSV],
+            facets: resp.data.facets,
+          } as EntityObservationWrapper;
+        }
+        dispatch(action);
+        console.log("map point stat dispatched");
+      })
+      .catch(() => {
         action.error = "error fetching map point stat data";
-      } else {
-        action.payload = {
-          data: resp.data.data[usedSV],
-          facets: resp.data.facets,
-        } as EntityObservationWrapper;
-      }
-      dispatch(action);
-      console.log("map point stat dispatched");
-    })
-    .catch(() => {
-      action.error = "error fetching map point stat data";
-      dispatch(action);
-    });
+        dispatch(action);
+      });
+  }, [
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.mapPointPlaceType,
+    statVar.value.dcid,
+    statVar.value.mapPointSv,
+    statVar.value.date,
+    dispatch,
+  ]);
 }

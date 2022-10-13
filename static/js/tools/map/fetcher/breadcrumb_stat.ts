@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { Dispatch } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import {
   EntityObservationWrapper,
@@ -28,56 +28,72 @@ import {
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
+import { Context } from "../context";
 import { getDate } from "../util";
 
-export function fetchBreadcrumbStat(
-  entities: string[],
-  statVar: string,
-  date: string,
+export function useFetchBreadcrumbStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const action: ChartStoreAction = {
-    type: ChartDataType.BREADCRUMB_STAT,
-    context: {
-      placeInfo: {
-        enclosingPlace: {
-          // entities are the parent places + the enclosing place.
-          // so the last element is the enclosing place.
-          dcid: entities[entities.length - 1],
-          name: "",
+  const { placeInfo, statVar } = useContext(Context);
+  useEffect(() => {
+    const contextOk =
+      placeInfo.value.selectedPlace.dcid &&
+      placeInfo.value.parentPlaces &&
+      statVar.value.dcid;
+    if (!contextOk) {
+      return;
+    }
+    const placeDcids = placeInfo.value.parentPlaces.map((x) => x.dcid);
+    placeDcids.push(placeInfo.value.selectedPlace.dcid);
+
+    const action: ChartStoreAction = {
+      type: ChartDataType.BREADCRUMB_STAT,
+      context: {
+        placeInfo: {
+          selectedPlace: {
+            dcid: placeInfo.value.selectedPlace.dcid,
+            name: "",
+            types: null,
+          },
+        },
+        statVar: {
+          dcid: statVar.value.dcid,
+          date: statVar.value.date,
         },
       },
-      statVar: {
-        dcid: statVar,
-        date,
-      },
-    },
-    error: null,
-  };
+      error: null,
+    };
 
-  axios
-    .get<PointApiResponse>("/api/observations/point", {
-      params: {
-        date: getDate(statVar, date),
-        entities: entities,
-        variables: [statVar],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      if (_.isEmpty(resp.data.data[statVar])) {
+    axios
+      .get<PointApiResponse>("/api/observations/point", {
+        params: {
+          date: getDate(statVar.value.dcid, statVar.value.date),
+          entities: placeDcids,
+          variables: [statVar.value.dcid],
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        if (_.isEmpty(resp.data.data[statVar.value.dcid])) {
+          action.error = "error fetching breadcrumb stat data";
+        } else {
+          action.payload = {
+            data: resp.data.data[statVar.value.dcid],
+            facets: resp.data.facets,
+          } as EntityObservationWrapper;
+        }
+        dispatch(action);
+        console.log("breadcrumb stat action dispatched");
+      })
+      .catch(() => {
         action.error = "error fetching breadcrumb stat data";
-      } else {
-        action.payload = {
-          data: resp.data.data[statVar],
-          facets: resp.data.facets,
-        } as EntityObservationWrapper;
-      }
-      dispatch(action);
-      console.log("breadcrumb stat action dispatched");
-    })
-    .catch(() => {
-      action.error = "error fetching breadcrumb stat data";
-      dispatch(action);
-    });
+        dispatch(action);
+      });
+  }, [
+    placeInfo.value.selectedPlace.dcid,
+    placeInfo.value.parentPlaces,
+    statVar.value.dcid,
+    statVar.value.date,
+    dispatch,
+  ]);
 }
