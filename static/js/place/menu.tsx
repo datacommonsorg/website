@@ -113,7 +113,6 @@ class Menu extends React.Component<MenuPropsType> {
     const dcid = this.props.dcid;
     const selectCategory = this.props.selectCategory;
     const categories = Object.keys(this.props.categories);
-    // const categories = Object.keys(this.props.pageChart);
     const categoriesWithData = Object.keys(this.props.pageChart);
     const showOverviewSubmenu = categories.length === 1;
     return (

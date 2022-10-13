@@ -413,12 +413,6 @@ def data(dcid):
                                target_category)
     new_stat_vars = current_app.config['NEW_STAT_VARS']
 
-    configured_categories = set()
-    ordered_categories = []
-    for conf in current_app.config['CHART_CONFIG']:
-        configured_categories.add(conf['category'])
-        ordered_categories.append(conf['category'])
-
     raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
 
     if 'statVarSeries' not in raw_page_data:
@@ -465,11 +459,10 @@ def data(dcid):
         if (not spec_and_stat[category]) and ("validCategories"
                                               in raw_page_data):
             if dcid in raw_page_data[
-                    "validCategories"] and dcid in raw_page_data[
-                        "validCategories"] and (
+                    "validCategories"] and (
                             category not in raw_page_data["validCategories"]
                             [dcid]["category"]
-                        ) and "validCategories" in raw_page_data:
+                        ):
                 del spec_and_stat[category]
 
     # Populate the data for each chart.
@@ -567,10 +560,15 @@ def data(dcid):
 
     # Get chart category name translations
     categories = {}
+    config_categories = set()
+    ordered_categories = []
+    for conf in current_app.config['CHART_CONFIG']:
+        config_categories.add(conf['category'])
+        ordered_categories.append(conf['category'])
     for category in list(spec_and_stat.keys()) + list(
             spec_and_stat[OVERVIEW]
     ) + raw_page_data["validCategories"][dcid]['category']:
-        if category in configured_categories:
+        if category in config_categories:
             categories[category] = gettext(
                 f'CHART_TITLE-CHART_CATEGORY-{category}')
 
