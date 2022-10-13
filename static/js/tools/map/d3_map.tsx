@@ -142,6 +142,14 @@ export function D3Map(props: D3MapProps): JSX.Element {
           <div id={MAP_CONTAINER_ID}></div>
           <div id={LEGEND_CONTAINER_ID}></div>
         </div>
+        <div className="zoom-button-section">
+          <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
+            <i className="material-icons">add</i>
+          </div>
+          <div id={ZOOM_OUT_BUTTON_ID} className="zoom-button">
+            <i className="material-icons">remove</i>
+          </div>
+        </div>
       </div>
     );
   }
