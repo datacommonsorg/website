@@ -15,29 +15,49 @@
  */
 
 /**
- * Geo Json data.
+ * Fetch Geo Json data.
  */
 
 import axios from "axios";
+import _ from "lodash";
+import { Dispatch } from "react";
 
-import { GeoJsonData } from "../../chart/types";
-import { IPCC_PLACE_50_TYPE_DCID } from "../../shared/constants";
-
-export const MANUAL_GEOJSON_DISTANCES = {
-  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
-};
+import { GeoJsonData } from "../../../chart/types";
+import { ChartDataType, ChartStoreAction } from "../chart_store";
 
 export function fetchGeoJson(
   parentPlace: string,
   childType: string,
-  setGeoJson: (data: GeoJsonData) => void
+  dispatch: Dispatch<ChartStoreAction>
 ): void {
-  console.log("fetch geo json data");
+  const action: ChartStoreAction = {
+    type: ChartDataType.GEO_JSON,
+    error: null,
+    context: {
+      placeInfo: {
+        enclosingPlace: {
+          dcid: parentPlace,
+          name: "",
+        },
+        enclosedPlaceType: childType,
+      },
+    },
+  };
   axios
     .get(
       `/api/choropleth/geojson?placeDcid=${parentPlace}&placeType=${childType}`
     )
     .then((resp) => {
-      setGeoJson(resp.data);
+      if (_.isEmpty(resp.data)) {
+        action.error = "error fetching geo json data";
+      } else {
+        action.payload = resp.data as GeoJsonData;
+      }
+      dispatch(action);
+      console.log("geojson dispatched");
+    })
+    .catch(() => {
+      action.error = "error fetching geo json data";
+      dispatch(action);
     });
 }

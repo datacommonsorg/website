@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 
+import { GeoJsonFeature } from "../../chart/types";
 import {
   BANGLADESH_PLACE_DCID,
   CHINA_PLACE_DCID,
@@ -42,6 +43,7 @@ import {
   NamedTypedPlace,
   ProvenanceSummary,
 } from "../../shared/types";
+import { getCappedStatVarDate } from "../../shared/util";
 import { getDateRange } from "../../utils/string_utils";
 import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
@@ -61,7 +63,6 @@ const URL_PARAM_KEYS = {
   MAP_POINTS_SV: "mapsv",
   SV_METAHASH: "src",
   TIME_SLIDER: "ts",
-  ALLOW_LEAFLET: "l",
 };
 const SV_REGEX_INSTALLATION_MAPPING = {
   Emissions: "EpaReportingFacility",
@@ -70,6 +71,7 @@ const SV_REGEX_INSTALLATION_MAPPING = {
 
 const NUM_SAMPLE_DATES = 10;
 
+export const ALLOW_LEAFLET_URL_ARG = "leaflet";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
   domain: null,
@@ -139,11 +141,15 @@ export const ENCLOSED_PLACE_TYPE_NAMES = {
   [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
 };
 
+export const MANUAL_GEOJSON_DISTANCES = {
+  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+};
+
 export const BEST_AVAILABLE_METAHASH = "Best Available";
 
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
-export const MAP_REDIRECT_PREFIX = "/tools/map";
+export const MAP_URL_PATH = "/tools/map";
 
 // metadata associated with a single data point in the map charts
 export interface DataPointMetadata {
@@ -224,7 +230,10 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
   const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
-  const allowLeaflet = params.get(URL_PARAM_KEYS.ALLOW_LEAFLET);
+  // the allow leaflet param is in the search query instead of the url hash
+  const allowLeaflet = new URLSearchParams(location.search).get(
+    ALLOW_LEAFLET_URL_ARG
+  );
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
@@ -311,11 +320,6 @@ export function updateHashDisplay(
       URL_PARAM_DOMAIN_SEPARATOR
     )}`;
   }
-  if (display.allowLeaflet) {
-    params = `${params}&${URL_PARAM_KEYS.ALLOW_LEAFLET}=${
-      display.allowLeaflet ? "1" : "0"
-    }`;
-  }
   return hash + params;
 }
 
@@ -333,6 +337,8 @@ export function getRedirectLink(
   mapPointPlaceType: string,
   displayOptions: DisplayOptions
 ): string {
+  // When url formation is updated here, make sure to also update the updateHash
+  // function in ./app.tsx
   let hash = updateHashStatVar("", statVar);
   hash = updateHashDisplay(hash, displayOptions);
   const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parentPlaces);
@@ -344,7 +350,11 @@ export function getRedirectLink(
     parentPlaces: [],
     selectedPlace,
   });
-  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+  let args = "";
+  if (displayOptions.allowLeaflet) {
+    args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
+  }
+  return `${MAP_URL_PATH}${args}#${encodeURIComponent(hash)}`;
 }
 
 /**
@@ -652,6 +662,65 @@ export function getLegendBounds(
     }
   }
   return legendBounds;
+}
+
+export function getDate(statVar: string, date: string): string {
+  let res = "";
+  const cappedDate = getCappedStatVarDate(statVar);
+  // If there is a specified date, get the data for that date. If no specified
+  // date, still need to cut data for prediction data that extends to 2099
+  if (date) {
+    res = date;
+  } else if (cappedDate) {
+    res = cappedDate;
+  }
+  return res;
+}
+
+export function getGeoJsonDataFeatures(
+  placeDcids: string[],
+  enclosedPlaceType: string
+): GeoJsonFeature[] {
+  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
+  if (!distance) {
+    return [];
+  }
+  const geoJsonFeatures = [];
+  for (const placeDcid of placeDcids) {
+    const dcidPrefixSuffix = placeDcid.split("/");
+    if (dcidPrefixSuffix.length < 2) {
+      continue;
+    }
+    const latlon = dcidPrefixSuffix[1].split("_");
+    if (latlon.length < 2) {
+      continue;
+    }
+    const neLat = Number(latlon[0]) + distance / 2;
+    const neLon = Number(latlon[1]) + distance / 2;
+    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} arc degree)`;
+    // TODO: handle cases of overflowing 180 near the international date line
+    // becasuse not sure if drawing libraries can handle this
+    geoJsonFeatures.push({
+      geometry: {
+        type: "MultiPolygon",
+        coordinates: [
+          [
+            [
+              [neLon, neLat],
+              [neLon, neLat - distance],
+              [neLon - distance, neLat - distance],
+              [neLon - distance, neLat],
+              [neLon, neLat],
+            ],
+          ],
+        ],
+      },
+      id: placeDcid,
+      properties: { geoDcid: placeDcid, name: placeName },
+      type: "Feature",
+    });
+  }
+  return geoJsonFeatures;
 }
 
 export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
