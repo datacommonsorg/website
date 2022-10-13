@@ -18,17 +18,21 @@
  * Fetch european countries.
  */
 
+import { useEffect, useState } from "react";
+
 import { EUROPE_NAMED_TYPED_PLACE } from "../../../shared/constants";
 import { NamedPlace } from "../../../shared/types";
 import { getEnclosedPlacesPromise } from "../../../utils/place_utils";
 
-export function fetchEuropeanCountries(
-  setEuropeanCountries: (data: Array<NamedPlace>) => void
-): void {
-  getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country").then(
-    (resp: Array<NamedPlace>) => {
-      setEuropeanCountries(resp);
-      console.log("european countries loaded");
-    }
-  );
+export function useFetchEuropeanCountries() {
+  const [data, setData] = useState<Array<NamedPlace>>();
+  useEffect(() => {
+    getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country").then(
+      (resp: Array<NamedPlace>) => {
+        setData(resp);
+        console.log("european countries loaded");
+      }
+    );
+  }, []);
+  return data;
 }

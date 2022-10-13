@@ -52,6 +52,7 @@ import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart, MAP_TYPE } from "./chart";
 import {
   ChartDataType,
+  ChartStore,
   chartStoreReducer,
   emptyChartStore,
 } from "./chart_store";
@@ -63,7 +64,10 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
+import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import { useFetchGeoJson } from "./fetcher/geojson";
+import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
+import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { PlaceDetails } from "./place_details";
 import {
   useAllStatReady,
@@ -91,9 +95,6 @@ interface ChartRawData {
   metadataMap: Record<string, StatMetadata>;
   population: EntitySeries;
   breadcrumbPlaceStat: EntityObservation;
-  mapPointStat: EntityObservation;
-  mapPointsPromise: Promise<Array<MapPoint>>;
-  europeanCountries: Array<NamedPlace>;
   dataDate: string;
 
   // Map of metahash to array of ~10 dates for time slider
@@ -111,8 +112,7 @@ interface ChartData {
   dates: Set<string>;
   unit: string;
   mapPointValues: { [dcid: string]: number };
-  mapPointsPromise: Promise<Array<MapPoint>>;
-  europeanCountries: Array<NamedPlace>;
+  mapPoints: Array<MapPoint>;
   rankingLink: string;
 
   // Array of ~10 dates for time slider
@@ -160,7 +160,11 @@ export function ChartLoader(): JSX.Element {
   const mapPointCoordinateReady = useMapPointCoordinateReady(chartStore);
   // -------------------------------------------------------------------------
 
+  // Fetch european countries.
+  const europeanCountries = useFetchEuropeanCountries();
   useFetchGeoJson(dispatch);
+  useFetchMapPointCoordinate(dispatch);
+  useFetchMapPointStat(dispatch);
 
   // For IPCC grid data, geoJson features is calculated based on the grid
   // DCID.
@@ -232,6 +236,7 @@ export function ChartLoader(): JSX.Element {
         ? sampleDatesChartData[metahash][statVar.value.date]
         : rawData;
     loadChartData(
+      chartStore,
       dateRawData,
       chartStore.geoJson.data,
       placeInfo.value,
@@ -336,6 +341,7 @@ export function ChartLoader(): JSX.Element {
         sampleDatesChartData[metaHash][date].allEnclosedPlaceStat[metaHash])
     ) {
       loadChartData(
+        chartStore,
         sampleDatesChartData[metaHash][date],
         chartStore.geoJson.data,
         placeInfo.value,
@@ -360,8 +366,8 @@ export function ChartLoader(): JSX.Element {
         unit={chartData.unit}
         mapPointValues={chartData.mapPointValues}
         display={display}
-        mapPointsPromise={chartData.mapPointsPromise}
-        europeanCountries={chartData.europeanCountries}
+        mapPoints={chartStore.mapPointCoordinate.data}
+        europeanCountries={europeanCountries}
         rankingLink={chartData.rankingLink}
         facetInfo={facetInfo}
         sampleDates={chartData.sampleDates}
@@ -385,7 +391,7 @@ export function ChartLoader(): JSX.Element {
             chartStore.geoJson.data ? chartStore.geoJson.data.features : []
           }
           displayOptions={display.value}
-          europeanCountries={chartData.europeanCountries}
+          europeanCountries={europeanCountries}
         />
       )}
       <BqModal getSqlQuery={getSqlQuery} showButton={true} />
@@ -587,33 +593,6 @@ function fetchData(
   const allEnclosedPlaceDatesPromise = Promise.all(allEnclosedPlaceDatesList);
   const breadcrumbPlaceDatesPromise = Promise.all(breadcrumbPlaceDatesList);
 
-  const mapPointSv = statVar.mapPointSv || statVar.dcid;
-  const mapPointDataPromise: Promise<PointApiResponse> =
-    placeInfo.mapPointPlaceType
-      ? axios
-          .get("/api/observations/point/within", {
-            params: {
-              child_type: placeInfo.mapPointPlaceType,
-              parent_entity: placeInfo.enclosingPlace.dcid,
-              variables: [mapPointSv],
-            },
-            paramsSerializer: stringifyFn,
-          })
-          .then((resp) => {
-            return resp.data;
-          })
-      : Promise.resolve(null);
-  const mapPointsPromise: Promise<Array<MapPoint>> = placeInfo.mapPointPlaceType
-    ? axios
-        .get(
-          `/api/choropleth/map-points?placeDcid=${placeInfo.enclosingPlace.dcid}&placeType=${placeInfo.mapPointPlaceType}`
-        )
-        .then((resp) => {
-          return resp.data;
-        })
-    : Promise.resolve({});
-  const europeanCountriesPromise: Promise<Array<NamedPlace>> =
-    getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country");
   const statVarSummaryPromise: Promise<StatVarSummary> = axios
     .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
     .then((resp) => resp.data);
@@ -629,8 +608,6 @@ function fetchData(
     enclosedPlacePopPromise,
     enclosedPlaceDataPromise,
     allEnclosedPlaceDataPromise,
-    mapPointDataPromise,
-    europeanCountriesPromise,
     statVarSummaryPromise,
     placeStatDateWithinPlacePromise,
     enclosedPlaceDatesPromise,
@@ -644,8 +621,6 @@ function fetchData(
         enclosedPlacesPop,
         enclosedPlaceData,
         allEnclosedPlaceData,
-        mapPointData,
-        europeanCountries,
         statVarSummary,
         placeStatDateWithinPlace,
         enclosedPlaceDatesData,
@@ -663,9 +638,6 @@ function fetchData(
         metadataMap = Object.assign(metadataMap, allEnclosedPlaceData.facets);
         if (breadcrumbPlaceData.facets) {
           metadataMap = Object.assign(metadataMap, breadcrumbPlaceData.facets);
-        }
-        if (mapPointData && mapPointData.facets) {
-          Object.assign(metadataMap, mapPointData.facets);
         }
         if (enclosedPlacesPop && enclosedPlacesPop.facets) {
           Object.assign(metadataMap, enclosedPlacesPop.facets);
@@ -712,9 +684,6 @@ function fetchData(
                 ...enclosedPlacesPop.data[statVar.denom],
                 ...breadcrumbPlacePop.data[statVar.denom],
               },
-              mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
-              mapPointsPromise,
-              europeanCountries,
               dataDate,
               sampleDates,
               legendBounds,
@@ -743,9 +712,6 @@ function fetchData(
               ...enclosedPlacesPop.data[statVar.denom],
               ...breadcrumbPlacePop.data[statVar.denom],
             },
-            mapPointStat: mapPointData ? mapPointData.data[mapPointSv] : null,
-            mapPointsPromise,
-            europeanCountries,
             dataDate,
             sampleDates,
             legendBounds,
@@ -792,6 +758,7 @@ function getRankingLink(
 // Takes fetched data and processes it to be in a form that can be used for
 // rendering the chart component
 function loadChartData(
+  chartStore: ChartStore,
   rawData: ChartRawData,
   geoJsonData: GeoJsonData,
   placeInfo: PlaceInfo,
@@ -864,14 +831,14 @@ function loadChartData(
     }
   }
   const mapPointValues = {};
-  if (!_.isEmpty(rawData.mapPointStat)) {
-    for (const placeDcid in rawData.mapPointStat) {
+  if (!_.isEmpty(chartStore.mapPointStat.data)) {
+    for (const placeDcid in chartStore.mapPointStat.data.data) {
       const placeChartData = getPlaceChartData(
-        rawData.mapPointStat,
+        chartStore.mapPointStat.data.data,
         placeDcid,
         false,
         {},
-        rawData.metadataMap
+        chartStore.mapPointStat.data.facets
       );
       if (_.isNull(placeChartData)) {
         continue;
@@ -911,13 +878,12 @@ function loadChartData(
   setChartData({
     breadcrumbValues,
     dates: statVarDates,
-    mapPointsPromise: rawData.mapPointsPromise,
+    mapPoints: chartStore.mapPointCoordinate.data,
     mapPointValues,
     mapValues,
     metadata,
     sources: sourceSet,
     unit: unit,
-    europeanCountries: rawData.europeanCountries,
     rankingLink: getRankingLink(
       statVar,
       placeInfo.selectedPlace.dcid,
