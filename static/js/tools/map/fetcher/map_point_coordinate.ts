@@ -20,49 +20,60 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { Dispatch } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import { MapPoint } from "../../../chart/types";
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
+import { Context } from "../context";
 
-export function fetchMapPointCoordinate(
-  parentEntity: string,
-  placeType: string,
+export function useFetchMapPointCoordinate(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const action: ChartStoreAction = {
-    type: ChartDataType.MAP_POINT_COORDINATE,
-    error: null,
-    context: {
-      placeInfo: {
-        enclosingPlace: {
-          dcid: parentEntity,
-          name: "",
+  const { placeInfo } = useContext(Context);
+  useEffect(() => {
+    const contextOk =
+      placeInfo.value.enclosingPlace.dcid && placeInfo.value.mapPointPlaceType;
+    if (!contextOk) {
+      return;
+    }
+    const action: ChartStoreAction = {
+      type: ChartDataType.MAP_POINT_COORDINATE,
+      error: null,
+      context: {
+        placeInfo: {
+          enclosingPlace: {
+            dcid: placeInfo.value.enclosingPlace.dcid,
+            name: "",
+          },
+          mapPointPlaceType: placeInfo.value.mapPointPlaceType,
         },
-        mapPointPlaceType: placeType,
       },
-    },
-  };
-  axios
-    .get<Array<MapPoint>>("/api/choropleth/map-points", {
-      params: {
-        placeDcid: parentEntity,
-        placeType: placeType,
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      if (_.isEmpty(resp.data)) {
+    };
+    axios
+      .get<Array<MapPoint>>("/api/choropleth/map-points", {
+        params: {
+          placeDcid: placeInfo.value.enclosingPlace.dcid,
+          placeType: placeInfo.value.mapPointPlaceType,
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        if (_.isEmpty(resp.data)) {
+          action.error = "error fetching map point coordinate data";
+        } else {
+          action.payload = resp.data as Array<MapPoint>;
+        }
+        dispatch(action);
+        console.log("map point coordinate dispatched");
+      })
+      .catch(() => {
         action.error = "error fetching map point coordinate data";
-      } else {
-        action.payload = resp.data as Array<MapPoint>;
-      }
-      dispatch(action);
-      console.log("map point coordinate dispatched");
-    })
-    .catch(() => {
-      action.error = "error fetching map point coordinate data";
-      dispatch(action);
-    });
+        dispatch(action);
+      });
+  }, [
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.mapPointPlaceType,
+    dispatch,
+  ]);
 }

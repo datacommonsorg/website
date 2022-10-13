@@ -22,7 +22,7 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { Dispatch } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import {
   EntityObservationListWrapper,
@@ -30,56 +30,67 @@ import {
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
+import { Context } from "../context";
 import { getDate } from "../util";
 
-export function fetchAllStat(
-  parentEntity: string,
-  childType: string,
-  statVar: string,
-  date: string,
-  dispatch: Dispatch<ChartStoreAction>
-): void {
-  const action: ChartStoreAction = {
-    type: ChartDataType.ALL_STAT,
-    context: {
-      placeInfo: {
-        enclosingPlace: {
-          dcid: parentEntity,
-          name: "",
+export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
+  const { placeInfo, statVar } = useContext(Context);
+  useEffect(() => {
+    const contextOk =
+      placeInfo.value.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType &&
+      statVar.value.dcid;
+    if (!contextOk) {
+      return;
+    }
+    const action: ChartStoreAction = {
+      type: ChartDataType.ALL_STAT,
+      context: {
+        placeInfo: {
+          enclosingPlace: {
+            dcid: placeInfo.value.enclosingPlace.dcid,
+            name: "",
+          },
+          enclosedPlaceType: placeInfo.value.enclosedPlaceType,
         },
-        enclosedPlaceType: childType,
+        statVar: {
+          dcid: statVar.value.dcid,
+          date: statVar.value.date,
+        },
       },
-      statVar: {
-        dcid: statVar,
-        date,
-      },
-    },
-    error: null,
-  };
-  axios
-    .get<PointAllApiResponse>("/api/observations/point/within/all", {
-      params: {
-        child_type: childType,
-        date: getDate(statVar, date),
-        parent_entity: parentEntity,
-        variables: [statVar],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      if (_.isEmpty(resp.data.data[statVar])) {
+      error: null,
+    };
+    axios
+      .get<PointAllApiResponse>("/api/observations/point/within/all", {
+        params: {
+          child_type: placeInfo.value.enclosedPlaceType,
+          date: getDate(statVar.value.dcid, statVar.value.date),
+          parent_entity: placeInfo.value.enclosingPlace.dcid,
+          variables: [statVar.value.dcid],
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        if (_.isEmpty(resp.data.data[statVar.value.dcid])) {
+          action.error = "error fetching all stat data";
+        } else {
+          action.payload = {
+            data: resp.data.data[statVar.value.dcid],
+            facets: resp.data.facets,
+          } as EntityObservationListWrapper;
+        }
+        dispatch(action);
+        console.log("all stat action dispatched");
+      })
+      .catch(() => {
         action.error = "error fetching all stat data";
-      } else {
-        action.payload = {
-          data: resp.data.data[statVar],
-          facets: resp.data.facets,
-        } as EntityObservationListWrapper;
-      }
-      dispatch(action);
-      console.log("all stat action dispatched");
-    })
-    .catch(() => {
-      action.error = "error fetching all stat data";
-      dispatch(action);
-    });
+        dispatch(action);
+      });
+  }, [
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    statVar.value.dcid,
+    statVar.value.date,
+    dispatch,
+  ]);
 }

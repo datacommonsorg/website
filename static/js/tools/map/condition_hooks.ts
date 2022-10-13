@@ -14,30 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * Geo Json data.
- */
+// This module contains custom React hooks that checks conditions.
 
-import axios from "axios";
+import { useContext, useMemo } from "react";
 
-import { GeoJsonData } from "../../chart/types";
-import { IPCC_PLACE_50_TYPE_DCID } from "../../shared/constants";
+import { Context } from "./context";
 
-export const MANUAL_GEOJSON_DISTANCES = {
-  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
-};
-
-export function fetchGeoJson(
-  parentPlace: string,
-  childType: string,
-  setGeoJson: (data: GeoJsonData) => void
-): void {
-  console.log("fetch geo json data");
-  axios
-    .get(
-      `/api/choropleth/geojson?placeDcid=${parentPlace}&placeType=${childType}`
-    )
-    .then((resp) => {
-      setGeoJson(resp.data);
-    });
+// Custom hook to check if needs to compute ratio for the stat.
+export function useIfRatio() {
+  const { statVar } = useContext(Context);
+  return useMemo(() => {
+    console.log("run useIfRatio");
+    return !!statVar.value.perCapita && !!statVar.value.denom;
+  }, [statVar.value.perCapita, statVar.value.denom]);
 }

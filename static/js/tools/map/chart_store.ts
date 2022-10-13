@@ -131,7 +131,7 @@ export function chartStoreReducer(
   chartStore: ChartStore,
   action: ChartStoreAction
 ): ChartStore {
-  const field = ChartDataType[action.type];
+  const field = action.type;
   const newStore = _.cloneDeep(chartStore);
   newStore[field] = { data: action.payload };
   if (action.context) {

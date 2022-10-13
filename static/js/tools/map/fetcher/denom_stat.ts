@@ -20,60 +20,74 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { Dispatch } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import {
   EntitySeriesWrapper,
   SeriesApiResponse,
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
-import { ChartDataType, ChartStoreAction } from "../chart_store";
+import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
+import { Context } from "../context";
 
-export function fetchDenomStat(
-  parentEntity: string,
-  childType: string,
-  statVar: string,
+export function useFetchDenomStat(
+  chartStore: ChartStore,
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const action: ChartStoreAction = {
-    type: ChartDataType.DENOM_STAT,
-    error: null,
-    context: {
-      placeInfo: {
-        enclosingPlace: {
-          dcid: parentEntity,
-          name: "",
+  const { placeInfo, statVar } = useContext(Context);
+  useEffect(() => {
+    const contextOk =
+      placeInfo.value.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType &&
+      statVar.value.denom;
+    if (!contextOk) {
+      return;
+    }
+    const action: ChartStoreAction = {
+      type: ChartDataType.DENOM_STAT,
+      error: null,
+      context: {
+        placeInfo: {
+          enclosingPlace: {
+            dcid: placeInfo.value.enclosingPlace.dcid,
+            name: "",
+          },
+          enclosedPlaceType: placeInfo.value.enclosedPlaceType,
         },
-        enclosedPlaceType: childType,
+        statVar: {
+          denom: statVar.value.denom,
+        },
       },
-      statVar: {
-        denom: statVar,
-      },
-    },
-  };
-  axios
-    .get<SeriesApiResponse>("/api/observations/series/within", {
-      params: {
-        child_type: childType,
-        parent_entity: parentEntity,
-        variables: [statVar],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      if (_.isEmpty(resp.data.data[statVar])) {
+    };
+    axios
+      .get<SeriesApiResponse>("/api/observations/series/within", {
+        params: {
+          child_type: placeInfo.value.enclosedPlaceType,
+          parent_entity: placeInfo.value.enclosingPlace.dcid,
+          variables: [statVar.value.denom],
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        if (_.isEmpty(resp.data.data[statVar.value.denom])) {
+          action.error = "error fetching denom stat data";
+        } else {
+          action.payload = {
+            data: resp.data.data[statVar.value.denom],
+            facets: resp.data.facets,
+          } as EntitySeriesWrapper;
+        }
+        dispatch(action);
+        console.log("denom stat dispatched");
+      })
+      .catch(() => {
         action.error = "error fetching denom stat data";
-      } else {
-        action.payload = {
-          data: resp.data.data[statVar],
-          facets: resp.data.facets,
-        } as EntitySeriesWrapper;
-      }
-      dispatch(action);
-      console.log("denom stat dispatched");
-    })
-    .catch(() => {
-      action.error = "error fetching denom stat data";
-      dispatch(action);
-    });
+        dispatch(action);
+      });
+  }, [
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    statVar.value.denom,
+    dispatch,
+  ]);
 }

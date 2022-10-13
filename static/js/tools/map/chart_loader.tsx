@@ -50,7 +50,11 @@ import { setUpBqButton } from "../shared/bq_utils";
 import { getMatchingObservation, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart, MAP_TYPE } from "./chart";
-import { chartStoreReducer, emptyChartStore } from "./chart_store";
+import {
+  ChartDataType,
+  chartStoreReducer,
+  emptyChartStore,
+} from "./chart_store";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -59,7 +63,7 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
-import { fetchGeoJson } from "./geojson";
+import { useFetchGeoJson } from "./fetcher/geojson";
 import { PlaceDetails } from "./place_details";
 import {
   useAllStatReady,
@@ -124,7 +128,6 @@ export function ChartLoader(): JSX.Element {
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
   const [geoRaster, setGeoRaster] = useState(null);
   const [mapType, setMapType] = useState(MAP_TYPE.D3);
-  const [geoJson, setGeoJson] = useState<GeoJsonData>();
 
   // Map of metahash -> date -> ChartRawData
   const [sampleDatesChartData, setSampleDatesChartData] = useState<
@@ -157,41 +160,33 @@ export function ChartLoader(): JSX.Element {
   const mapPointCoordinateReady = useMapPointCoordinateReady(chartStore);
   // -------------------------------------------------------------------------
 
-  // Fetch geojson data when page option is updated.
-  useEffect(() => {
-    if (
-      placeInfo.value.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType
-    ) {
-      fetchGeoJson(
-        placeInfo.value.enclosingPlace.dcid,
-        placeInfo.value.enclosedPlaceType,
-        setGeoJson
-      );
-    }
-  }, [placeInfo.value.enclosingPlace.dcid, placeInfo.value.enclosedPlaceType]);
+  useFetchGeoJson(dispatch);
 
   // For IPCC grid data, geoJson features is calculated based on the grid
   // DCID.
   useEffect(() => {
-    if (_.isEmpty(rawData) || _.isEmpty(geoJson)) {
+    if (_.isEmpty(rawData) || _.isEmpty(chartStore.geoJson.data)) {
       return;
     }
     if (
-      _.isEmpty(geoJson.features) &&
+      _.isEmpty(chartStore.geoJson.data.features) &&
       placeInfo.value.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES
     ) {
       const geoJsonFeatures = getGeoJsonDataFeatures(
         Object.keys(rawData.enclosedPlaceStat),
         placeInfo.value.enclosedPlaceType
       );
-      setGeoJson({
-        type: "FeatureCollection",
-        properties: { current_geo: placeInfo.value.enclosingPlace.dcid },
-        features: geoJsonFeatures,
+      dispatch({
+        type: ChartDataType.GEO_JSON,
+        error: null,
+        payload: {
+          type: "FeatureCollection",
+          properties: { current_geo: placeInfo.value.enclosingPlace.dcid },
+          features: geoJsonFeatures,
+        } as GeoJsonData,
       });
     }
-  }, [geoJson, placeInfo.value, rawData]);
+  }, [chartStore.geoJson, placeInfo.value, rawData]);
 
   useEffect(() => {
     const placeSelected =
@@ -228,7 +223,7 @@ export function ChartLoader(): JSX.Element {
 
   useEffect(() => {
     updateMapType(rawData, geoRaster);
-    if (_.isEmpty(rawData) || _.isEmpty(geoJson)) {
+    if (_.isEmpty(rawData) || _.isEmpty(chartStore.geoJson.data)) {
       return;
     }
     const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
@@ -238,7 +233,7 @@ export function ChartLoader(): JSX.Element {
         : rawData;
     loadChartData(
       dateRawData,
-      geoJson,
+      chartStore.geoJson.data,
       placeInfo.value,
       statVar.value,
       setChartData,
@@ -255,7 +250,7 @@ export function ChartLoader(): JSX.Element {
     }
   }, [
     rawData,
-    geoJson,
+    chartStore.geoJson.data,
     geoRaster,
     statVar.value.metahash,
     statVar.value.perCapita,
@@ -271,7 +266,7 @@ export function ChartLoader(): JSX.Element {
   // waiting on chartData
   if (!rawData || !statVar.value.info || chartData === undefined) {
     return null;
-  } else if (mapType === MAP_TYPE.D3 && _.isEmpty(geoJson)) {
+  } else if (mapType === MAP_TYPE.D3 && _.isEmpty(chartStore.geoJson.data)) {
     <div className="p-5">
       {`Sorry, maps are not available for ${placeInfo.value.enclosedPlaceType} in ${placeInfo.value.selectedPlace.name}. Try picking another place or type of place.`}
     </div>;
@@ -342,7 +337,7 @@ export function ChartLoader(): JSX.Element {
     ) {
       loadChartData(
         sampleDatesChartData[metaHash][date],
-        geoJson,
+        chartStore.geoJson.data,
         placeInfo.value,
         statVar.value,
         setChartData,
@@ -354,7 +349,7 @@ export function ChartLoader(): JSX.Element {
   return (
     <div className="chart-region">
       <Chart
-        geoJsonData={geoJson}
+        geoJsonData={chartStore.geoJson.data}
         mapDataValues={chartData.mapValues}
         metadata={chartData.metadata}
         breadcrumbDataValues={chartData.breadcrumbValues}
@@ -386,7 +381,9 @@ export function ChartLoader(): JSX.Element {
           metadata={chartData.metadata}
           unit={chartData.unit}
           statVar={statVar.value}
-          geoJsonFeatures={geoJson ? geoJson.features : []}
+          geoJsonFeatures={
+            chartStore.geoJson.data ? chartStore.geoJson.data.features : []
+          }
           displayOptions={display.value}
           europeanCountries={chartData.europeanCountries}
         />

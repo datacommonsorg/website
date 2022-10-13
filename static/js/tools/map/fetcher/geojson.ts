@@ -20,44 +20,56 @@
 
 import axios from "axios";
 import _ from "lodash";
-import { Dispatch } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import { GeoJsonData } from "../../../chart/types";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
+import { Context } from "../context";
 
-export function fetchGeoJson(
-  parentPlace: string,
-  childType: string,
-  dispatch: Dispatch<ChartStoreAction>
-): void {
-  const action: ChartStoreAction = {
-    type: ChartDataType.GEO_JSON,
-    error: null,
-    context: {
-      placeInfo: {
-        enclosingPlace: {
-          dcid: parentPlace,
-          name: "",
+export function useFetchGeoJson(dispatch: Dispatch<ChartStoreAction>): void {
+  const { placeInfo } = useContext(Context);
+  useEffect(() => {
+    const contextOk =
+      placeInfo.value.enclosingPlace.dcid && placeInfo.value.enclosedPlaceType;
+    if (!contextOk) {
+      return;
+    }
+    const action: ChartStoreAction = {
+      type: ChartDataType.GEO_JSON,
+      error: null,
+      context: {
+        placeInfo: {
+          enclosingPlace: {
+            dcid: placeInfo.value.enclosingPlace.dcid,
+            name: "",
+          },
+          enclosedPlaceType: placeInfo.value.enclosedPlaceType,
         },
-        enclosedPlaceType: childType,
       },
-    },
-  };
-  axios
-    .get(
-      `/api/choropleth/geojson?placeDcid=${parentPlace}&placeType=${childType}`
-    )
-    .then((resp) => {
-      if (_.isEmpty(resp.data)) {
+    };
+    axios
+      .get("/api/choropleth/geojson", {
+        params: {
+          placeDcid: placeInfo.value.enclosingPlace.dcid,
+          placeType: placeInfo.value.enclosedPlaceType,
+        },
+      })
+      .then((resp) => {
+        if (_.isEmpty(resp.data)) {
+          action.error = "error fetching geo json data";
+        } else {
+          action.payload = resp.data as GeoJsonData;
+        }
+        dispatch(action);
+        console.log("geojson dispatched");
+      })
+      .catch(() => {
         action.error = "error fetching geo json data";
-      } else {
-        action.payload = resp.data as GeoJsonData;
-      }
-      dispatch(action);
-      console.log("geojson dispatched");
-    })
-    .catch(() => {
-      action.error = "error fetching geo json data";
-      dispatch(action);
-    });
+        dispatch(action);
+      });
+  }, [
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    dispatch,
+  ]);
 }
