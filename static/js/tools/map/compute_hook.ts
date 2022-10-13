@@ -17,22 +17,13 @@
 // This module contains custom React hooks that makes computation for map chart.
 
 import _ from "lodash";
-import { Dispatch, useContext, useEffect, useMemo } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import { GeoJsonData } from "../../chart/types";
 import { ChartDataType, ChartStore, ChartStoreAction } from "./chart_store";
 import { Context } from "./context";
 import { useDefaultStatReady, useGeoJsonReady } from "./ready_hook";
 import { getGeoJsonDataFeatures, MANUAL_GEOJSON_DISTANCES } from "./util";
-
-// Custom hook to check if needs to compute ratio for the stat.
-export function useIfRatio() {
-  const { statVar } = useContext(Context);
-  return useMemo(() => {
-    console.log("run useIfRatio");
-    return !!statVar.value.perCapita && !!statVar.value.denom;
-  }, [statVar.value.perCapita, statVar.value.denom]);
-}
 
 // For IPCC grid data, geoJson features is calculated based on the grid
 // DCID.
