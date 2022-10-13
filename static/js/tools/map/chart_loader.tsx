@@ -78,7 +78,7 @@ import {
   useGeoJsonReady,
   useMapPointCoordinateReady,
   useMapPointStatReady,
-} from "./ready_hook";
+} from "./ready_hooks";
 import {
   BEST_AVAILABLE_METAHASH,
   DataPointMetadata,

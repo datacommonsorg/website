@@ -22,7 +22,7 @@ import { Dispatch, useContext, useEffect } from "react";
 import { GeoJsonData } from "../../chart/types";
 import { ChartDataType, ChartStore, ChartStoreAction } from "./chart_store";
 import { Context } from "./context";
-import { useDefaultStatReady, useGeoJsonReady } from "./ready_hook";
+import { useDefaultStatReady, useGeoJsonReady } from "./ready_hooks";
 import { getGeoJsonDataFeatures, MANUAL_GEOJSON_DISTANCES } from "./util";
 
 // For IPCC grid data, geoJson features is calculated based on the grid
