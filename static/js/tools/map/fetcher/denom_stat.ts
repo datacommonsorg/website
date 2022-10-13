@@ -28,7 +28,6 @@ import {
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
-import { useIfRatio } from "../compute_hook";
 import { Context } from "../context";
 import { useDenomStatReady } from "../ready_hook";
 
@@ -38,7 +37,6 @@ export function useFetchDenomStat(
 ): void {
   const { placeInfo, statVar } = useContext(Context);
   const denomStatReady = useDenomStatReady(chartStore);
-  const ifRatio = useIfRatio();
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
@@ -47,7 +45,7 @@ export function useFetchDenomStat(
     if (!contextOk) {
       return;
     }
-    if (!ifRatio || denomStatReady()) {
+    if (denomStatReady()) {
       return;
     }
     const action: ChartStoreAction = {
@@ -95,7 +93,6 @@ export function useFetchDenomStat(
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.denom,
-    ifRatio,
     dispatch,
     denomStatReady,
   ]);

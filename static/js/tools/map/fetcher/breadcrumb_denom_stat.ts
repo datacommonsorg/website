@@ -28,7 +28,6 @@ import {
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
-import { useIfRatio } from "../compute_hook";
 import { Context } from "../context";
 import { useBreadcrumbDenomStatReady } from "../ready_hook";
 
@@ -38,7 +37,6 @@ export function useFetchBreadcrumbDenomStat(
 ): void {
   const { placeInfo, statVar } = useContext(Context);
   const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
-  const ifRatio = useIfRatio();
   useEffect(() => {
     const contextOk =
       placeInfo.value.selectedPlace.dcid &&
@@ -47,7 +45,7 @@ export function useFetchBreadcrumbDenomStat(
     if (!contextOk) {
       return;
     }
-    if (!ifRatio || breadcrumbDenomStatReady()) {
+    if (breadcrumbDenomStatReady()) {
       return;
     }
     const placeDcids = placeInfo.value.parentPlaces.map((x) => x.dcid);
@@ -98,7 +96,6 @@ export function useFetchBreadcrumbDenomStat(
     placeInfo.value.selectedPlace.dcid,
     placeInfo.value.parentPlaces,
     statVar.value.denom,
-    ifRatio,
     dispatch,
     breadcrumbDenomStatReady,
   ]);
