@@ -216,6 +216,8 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
+    // Set map type to leaflet if georaster data is available before data needed
+    // for d3 maps
     if (
       (_.isEmpty(rawData) || _.isEmpty(chartStore.geoJson.data)) &&
       !_.isEmpty(chartStore.geoRaster.data)
