@@ -77,6 +77,13 @@ export function D3Map(props: D3MapProps): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>();
 
   const draw = useCallback(() => {
+    if (
+      _.isEmpty(props.geoJsonData) ||
+      _.isEmpty(props.mapDataValues) ||
+      _.isEmpty(placeInfo.value.parentPlaces)
+    ) {
+      return;
+    }
     document.getElementById(
       LEGEND_CONTAINER_ID
     ).innerHTML = `<div id="legend-unit">${props.unit || ""}</div>`;
@@ -129,42 +136,40 @@ export function D3Map(props: D3MapProps): JSX.Element {
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
     };
-    if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
-      document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
-      drawD3Map(
-        MAP_CONTAINER_ID,
-        props.geoJsonData,
-        height,
-        width - legendWidth,
+    document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
+    drawD3Map(
+      MAP_CONTAINER_ID,
+      props.geoJsonData,
+      height,
+      width - legendWidth,
+      props.mapDataValues,
+      "",
+      colorScale,
+      redirectAction,
+      getTooltipHtml(
+        props.metadata,
+        statVar.value,
         props.mapDataValues,
-        "",
-        colorScale,
-        redirectAction,
-        getTooltipHtml(
-          props.metadata,
-          statVar.value,
-          props.mapDataValues,
-          props.mapPointValues,
-          props.unit
-        ),
-        canClickRegion(placeInfo.value, props.europeanCountries),
-        false,
-        shouldShowMapBoundaries(
-          placeInfo.value.selectedPlace,
-          placeInfo.value.enclosedPlaceType
-        ),
-        isChildPlaceOf(
-          placeInfo.value.selectedPlace.dcid,
-          USA_PLACE_DCID,
-          placeInfo.value.parentPlaces
-        ),
-        placeInfo.value.enclosingPlace.dcid,
-        display.value.showMapPoints ? props.mapPoints : [],
         props.mapPointValues,
-        zoomDcid,
-        zoomParams
-      );
-    }
+        props.unit
+      ),
+      canClickRegion(placeInfo.value, props.europeanCountries),
+      false,
+      shouldShowMapBoundaries(
+        placeInfo.value.selectedPlace,
+        placeInfo.value.enclosedPlaceType
+      ),
+      isChildPlaceOf(
+        placeInfo.value.selectedPlace.dcid,
+        USA_PLACE_DCID,
+        placeInfo.value.parentPlaces
+      ),
+      placeInfo.value.enclosingPlace.dcid,
+      display.value.showMapPoints ? props.mapPoints : [],
+      props.mapPointValues,
+      zoomDcid,
+      zoomParams
+    );
   }, [
     props.europeanCountries,
     props.geoJsonData,
