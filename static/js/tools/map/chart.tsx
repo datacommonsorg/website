@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
@@ -34,7 +34,7 @@ import {
 import { NamedPlace } from "../../shared/types";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { StatVarInfo } from "../timeline/chart_region";
-import { DisplayOptionsWrapper, PlaceInfo, StatVarWrapper } from "./context";
+import { Context } from "./context";
 import { D3Map } from "./d3_map";
 import { LeafletMap } from "./leaflet_map";
 import { TimeSlider } from "./time_slider";
@@ -49,14 +49,11 @@ interface ChartProps {
   mapDataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   breadcrumbDataValues: { [dcid: string]: number };
-  placeInfo: PlaceInfo;
-  statVar: StatVarWrapper;
   dates: Set<string>;
   sources: Set<string>;
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
-  display: DisplayOptionsWrapper;
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
   facetInfo: FacetSelectorFacetInfo;
@@ -84,24 +81,27 @@ const DATE_RANGE_INFO_TEXT_ID = "date-range-tooltip-text";
 export const SECTION_CONTAINER_ID = "map-chart";
 
 export function Chart(props: ChartProps): JSX.Element {
-  const statVar = props.statVar.value;
+  const { placeInfo, statVar, display } = useContext(Context);
+
   const mainSvInfo: StatVarInfo =
-    statVar.dcid in statVar.info ? statVar.info[statVar.dcid] : {};
+    statVar.value.dcid in statVar.value.info
+      ? statVar.value.info[statVar.value.dcid]
+      : {};
   const title = getTitle(
     Array.from(props.dates),
-    mainSvInfo.title || statVar.dcid,
-    statVar.perCapita
+    mainSvInfo.title || statVar.value.dcid,
+    statVar.value.perCapita
   );
-  const placeDcid = props.placeInfo.enclosingPlace.dcid;
-  const statVarDcid = statVar.dcid;
+  const placeDcid = placeInfo.value.enclosingPlace.dcid;
+  const statVarDcid = statVar.value.dcid;
 
   // Triggered only when stat vars or places change and send data to google analytics.
   useEffect(() => {
     triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
-      [GA_PARAM_PLACE_DCID]: props.placeInfo.enclosingPlace.dcid,
-      [GA_PARAM_STAT_VAR]: props.statVar.value.dcid,
+      [GA_PARAM_PLACE_DCID]: placeInfo.value.enclosingPlace.dcid,
+      [GA_PARAM_STAT_VAR]: statVar.value.dcid,
     });
-  }, [props.statVar.value.dcid, props.placeInfo.enclosingPlace.dcid]);
+  }, [statVar.value.dcid, placeInfo.value.enclosingPlace.dcid]);
 
   return (
     <div className="chart-section-container">
@@ -134,26 +134,20 @@ export function Chart(props: ChartProps): JSX.Element {
                 geoJsonData={props.geoJsonData}
                 geoRaster={props.geoRaster}
                 metadata={props.metadata}
-                placeInfo={props.placeInfo}
-                statVar={props.statVar}
                 unit={props.unit}
-                display={props.display}
               />
             ) : (
               <D3Map
                 geoJsonData={props.geoJsonData}
                 mapDataValues={props.mapDataValues}
                 metadata={props.metadata}
-                placeInfo={props.placeInfo}
-                statVar={props.statVar}
                 unit={props.unit}
                 mapPointValues={props.mapPointValues}
-                display={props.display}
                 mapPoints={props.mapPoints}
                 europeanCountries={props.europeanCountries}
               />
             )}
-            {props.display.value.showTimeSlider &&
+            {display.value.showTimeSlider &&
               props.sampleDates &&
               props.sampleDates.length > 1 && (
                 <TimeSlider
@@ -175,8 +169,8 @@ export function Chart(props: ChartProps): JSX.Element {
                 </a>
               )}
               {!mainSvInfo.ranked &&
-                (props.placeInfo.selectedPlace.dcid in props.mapDataValues ||
-                  props.placeInfo.selectedPlace.dcid in
+                (placeInfo.value.selectedPlace.dcid in props.mapDataValues ||
+                  placeInfo.value.selectedPlace.dcid in
                     props.breadcrumbDataValues) && (
                   <a
                     className="explore-timeline-link"
@@ -196,28 +190,26 @@ export function Chart(props: ChartProps): JSX.Element {
         chartId="map"
         sources={props.sources}
         mMethods={null}
-        svFacetId={{ [statVarDcid]: props.statVar.value.metahash }}
+        svFacetId={{ [statVarDcid]: statVar.value.metahash }}
         facetList={[props.facetInfo]}
         onSvFacetIdUpdated={(svFacetId) =>
-          props.statVar.setMetahash(svFacetId[props.statVar.value.dcid])
+          statVar.setMetahash(svFacetId[statVar.value.dcid])
         }
         hideIsRatio={false}
-        isPerCapita={props.statVar.value.perCapita}
+        isPerCapita={statVar.value.perCapita}
         onIsPerCapitaUpdated={(isPerCapita: boolean) =>
-          props.statVar.setPerCapita(isPerCapita)
+          statVar.setPerCapita(isPerCapita)
         }
       >
-        {props.placeInfo.mapPointPlaceType && (
+        {placeInfo.value.mapPointPlaceType && (
           <div className="chart-option">
             <FormGroup check>
               <Label check>
                 <Input
                   id="show-installations"
                   type="checkbox"
-                  checked={props.display.value.showMapPoints}
-                  onChange={(e) =>
-                    props.display.setShowMapPoints(e.target.checked)
-                  }
+                  checked={display.value.showMapPoints}
+                  onChange={(e) => display.setShowMapPoints(e.target.checked)}
                 />
                 Show Installations
               </Label>
