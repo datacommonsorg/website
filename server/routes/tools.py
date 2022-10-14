@@ -15,9 +15,13 @@
 import flask
 import os
 
-from flask import current_app
+from flask import current_app, request
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
+
+# this flag should be the same as ALLOW_LEAFLET_URL_ARG in
+# ../../static/js/tools/map/util.ts
+ALLOW_LEAFLET_FLAG = "leaflet"
 
 
 @bp.route('/timeline')
@@ -34,8 +38,11 @@ def timeline_bulk_download():
 
 @bp.route('/map')
 def map():
+    allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
     return flask.render_template(
-        'tools/map.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/map.html',
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        allow_leaflet=allow_leaflet)
 
 
 @bp.route('/scatter')
