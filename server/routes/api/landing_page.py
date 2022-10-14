@@ -89,6 +89,8 @@ def build_spec(chart_config, target_category, i18n=True):
     # Within each category, the topics are sorted.
     for conf in chart_config:
         # skip if the config category does not match target category.
+        # don't skip for Overview. While it's not a config category,
+        # we need charts from different categories to create overview page.
         if target_category not in [conf['category'], "Overview"]:
             continue
         config = copy.deepcopy(conf)
@@ -456,12 +458,12 @@ def data(dcid):
             else:
                 spec_and_stat[category][topic] = filtered_charts
         # Don't delete a category if it is in the valid categories list.
-        if (not spec_and_stat[category]) and ("validCategories"
-                                              in raw_page_data):
-            if dcid in raw_page_data["validCategories"] and (
-                    category
-                    not in raw_page_data["validCategories"][dcid]["category"]):
-                del spec_and_stat[category]
+        if (not spec_and_stat[category]
+           ) and ("validCategories" in raw_page_data) and (
+               dcid in raw_page_data["validCategories"]) and (
+                   category
+                   not in raw_page_data["validCategories"][dcid]["category"]):
+            del spec_and_stat[category]
 
     # Populate the data for each chart.
     # This is heavy lifting, takes time to process.
@@ -563,9 +565,10 @@ def data(dcid):
     for conf in current_app.config['CHART_CONFIG']:
         config_categories.add(conf['category'])
         ordered_categories.append(conf['category'])
-    for category in list(spec_and_stat.keys()) + list(
-            spec_and_stat[OVERVIEW]
-    ) + raw_page_data["validCategories"][dcid]['category']:
+    all_categories = list(spec_and_stat.keys()) + list(
+        spec_and_stat[OVERVIEW]
+    ) + raw_page_data["validCategories"][dcid]['category']
+    for category in all_categories:
         if category in config_categories:
             categories[category] = gettext(
                 f'CHART_TITLE-CHART_CATEGORY-{category}')
