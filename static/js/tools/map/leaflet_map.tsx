@@ -167,7 +167,11 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
   } else {
     return (
       <div className="map-section-container leaflet-map-container">
-        <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
+        <div
+          id={CHART_CONTAINER_ID}
+          ref={chartContainerRef}
+          style={{ height: chartHeight }}
+        >
           <div id={MAP_CONTAINER_ID}></div>
           <div id={LEGEND_CONTAINER_ID}></div>
         </div>

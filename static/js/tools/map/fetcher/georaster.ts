@@ -32,7 +32,6 @@ export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
       placeInfo.value.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType &&
       statVar.value.dcid &&
-      (!statVar.value.perCapita || statVar.value.denom) &&
       display.value.allowLeaflet;
     if (!contextOk) {
       return;
@@ -51,8 +50,6 @@ export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
         statVar: {
           dcid: statVar.value.dcid,
           date: statVar.value.date,
-          perCapita: statVar.value.perCapita,
-          denom: statVar.value.denom,
         },
       },
     };
@@ -78,8 +75,6 @@ export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
     statVar.value.date,
-    statVar.value.perCapita,
-    statVar.value.denom,
     display.value.allowLeaflet,
     dispatch,
   ]);
