@@ -49,6 +49,7 @@ const LEGEND_CONTAINER_ID = "choropleth-legend";
 const CHART_CONTAINER_ID = "chart-container";
 const LEGEND_MARGIN_LEFT = 30;
 const LEGEND_HEIGHT_SCALING = 0.6;
+const DEBOUNCE_INTERVAL_MS = 30;
 
 export function LeafletMap(props: LeafletMapProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
@@ -56,6 +57,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
   const leafletMap = useRef(null);
   const geotiffLayer = useRef(null);
   const geojsonLayer = useRef(null);
+  const [chartHeight, setChartHeight] = useState("");
 
   useEffect(() => {
     leafletMap.current = L.map(MAP_CONTAINER_ID, {
@@ -63,6 +65,30 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
       zoom: 3,
     });
   }, []);
+
+  useEffect(() => {
+    // resize leaflet map when chartHeight changes
+    if (leafletMap.current) {
+      leafletMap.current.invalidateSize();
+    }
+  }, [chartHeight]);
+
+  // Replot when chart width changes on sv widget toggle.
+  useEffect(() => {
+    const debouncedHandler = _.debounce(() => {
+      const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
+      const height = (width * 2) / 5;
+      setChartHeight(height + "px");
+    }, DEBOUNCE_INTERVAL_MS);
+    const resizeObserver = new ResizeObserver(debouncedHandler);
+    if (chartContainerRef.current) {
+      resizeObserver.observe(chartContainerRef.current);
+    }
+    return () => {
+      resizeObserver.unobserve(chartContainerRef.current);
+      debouncedHandler.cancel();
+    };
+  }, [props, chartContainerRef]);
 
   // Replot when data changes.
   // TODO: handle resizing of chart area
@@ -77,7 +103,11 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
   } else {
     return (
       <div className="map-section-container leaflet-map-container">
-        <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
+        <div
+          id={CHART_CONTAINER_ID}
+          ref={chartContainerRef}
+          style={{ height: chartHeight }}
+        >
           <div id={MAP_CONTAINER_ID}></div>
           <div id={LEGEND_CONTAINER_ID}></div>
         </div>
