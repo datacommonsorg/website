@@ -55,7 +55,7 @@ interface ChartProps {
   sources: Set<string>;
   unit: string;
   mapPointValues: { [dcid: string]: number };
-  mapPointsPromise: Promise<Array<MapPoint>>;
+  mapPoints: Array<MapPoint>;
   display: DisplayOptionsWrapper;
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
@@ -107,6 +107,9 @@ export function Chart(props: ChartProps): JSX.Element {
     <div className="chart-section-container">
       <Card className="chart-section-card">
         <Container id={SECTION_CONTAINER_ID} fluid={true}>
+          <div id="map-chart-screen" className="screen">
+            <div id="spinner"></div>
+          </div>
           <div className="chart-section">
             <div className="map-title">
               <h3>
@@ -146,7 +149,7 @@ export function Chart(props: ChartProps): JSX.Element {
                 unit={props.unit}
                 mapPointValues={props.mapPointValues}
                 display={props.display}
-                mapPointsPromise={props.mapPointsPromise}
+                mapPoints={props.mapPoints}
                 europeanCountries={props.europeanCountries}
               />
             )}
@@ -222,9 +225,6 @@ export function Chart(props: ChartProps): JSX.Element {
           </div>
         )}
       </ToolChartFooter>
-      <div id="map-chart-screen" className="screen">
-        <div id="spinner"></div>
-      </div>
     </div>
   );
 }

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Contains custom hooks to check if certain chart data is ready to use.
+ */
+
 import _ from "lodash";
 import { useCallback, useContext } from "react";
 

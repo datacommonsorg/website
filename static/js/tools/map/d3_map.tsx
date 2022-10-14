@@ -60,7 +60,7 @@ interface D3MapProps {
   statVar: StatVarWrapper;
   unit: string;
   mapPointValues: { [dcid: string]: number };
-  mapPointsPromise: Promise<Array<MapPoint>>;
+  mapPoints: Array<MapPoint>;
   display: DisplayOptionsWrapper;
   europeanCountries: Array<NamedPlace>;
 }
@@ -76,28 +76,15 @@ const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 
 export function D3Map(props: D3MapProps): JSX.Element {
   const [errorMessage, setErrorMessage] = useState("");
-  const [mapPoints, setMapPoints] = useState(null);
-  const [mapPointsFetched, setMapPointsFetched] = useState(false);
   const [zoomTransformation, setZoomTransformation] = useState(
     DEFAULT_ZOOM_TRANSFORMATION
   );
   const chartContainerRef = useRef<HTMLDivElement>();
 
-  // load mapPoints in the background.
-  useEffect(() => {
-    props.mapPointsPromise
-      .then((mapPoints) => {
-        setMapPoints(mapPoints);
-        setMapPointsFetched(true);
-      })
-      .catch(() => setMapPointsFetched(true));
-  }, []);
-
   function replot() {
     draw(
       props,
       setErrorMessage,
-      mapPoints,
       zoomTransformation,
       setZoomTransformation,
       props.display.value.color,
@@ -107,19 +94,19 @@ export function D3Map(props: D3MapProps): JSX.Element {
 
   // Replot when data changes.
   useEffect(() => {
-    if (props.display.value.showMapPoints && !mapPointsFetched) {
+    if (props.display.value.showMapPoints && !props.mapPoints) {
       loadSpinner(SECTION_CONTAINER_ID);
       return;
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
     replot();
-  }, [props, mapPointsFetched]);
+  }, [props.display.value.showMapPoints, props.mapPoints, replot]);
 
   // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
     const debouncedHandler = _.debounce(() => {
-      if (!props.display.value.showMapPoints || mapPointsFetched) {
+      if (!props.display.value.showMapPoints || props.mapPoints) {
         replot();
       }
     }, DEBOUNCE_INTERVAL_MS);
@@ -158,7 +145,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
 function draw(
   props: D3MapProps,
   setErrorMessage: (errorMessage: string) => void,
-  mapPoints: Array<MapPoint>,
   zoomTransformation: d3.ZoomTransform,
   setZoomTransformation: (zoomTransformation: d3.ZoomTransform) => void,
   color?: string,
@@ -246,7 +232,7 @@ function draw(
         props.placeInfo.parentPlaces
       ),
       props.placeInfo.enclosingPlace.dcid,
-      props.display.value.showMapPoints ? mapPoints : [],
+      props.display.value.showMapPoints ? props.mapPoints : [],
       props.mapPointValues,
       zoomDcid,
       zoomParams

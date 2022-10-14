@@ -134,7 +134,6 @@ const MAP_POINTS: MapPoint[] = [
     placeName: PLACE_NAME,
   },
 ];
-const MAP_POINTS_PROMISE: Promise<MapPoint[]> = new Promise(() => MAP_POINTS);
 const MAP_PROPS = {
   breadcrumbDataValues: { PLACE_DCID: NUMBER },
   dates: new Set<string>([""]),
@@ -185,7 +184,7 @@ const MAP_PROPS = {
   sources: new Set<string>([""]),
   unit: "",
   mapPointValues: { [PLACE_DCID]: NUMBER },
-  mapPointsPromise: MAP_POINTS_PROMISE,
+  mapPoints: MAP_POINTS,
   europeanCountries: [],
   rankingLink: "",
   facetInfo: {
