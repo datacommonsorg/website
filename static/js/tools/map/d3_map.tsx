@@ -20,7 +20,8 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useCallback } from "react";
 
 import { drawD3Map } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
@@ -38,13 +39,8 @@ import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
-import {
-  DisplayOptions,
-  DisplayOptionsWrapper,
-  PlaceInfo,
-  StatVar,
-  StatVarWrapper,
-} from "./context";
+import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
+import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import {
   DataPointMetadata,
   getAllChildPlaceTypes,
@@ -56,12 +52,9 @@ interface D3MapProps {
   geoJsonData: GeoJsonData;
   mapDataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
-  placeInfo: PlaceInfo;
-  statVar: StatVarWrapper;
   unit: string;
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
-  display: DisplayOptionsWrapper;
   europeanCountries: Array<NamedPlace>;
 }
 
@@ -75,39 +68,133 @@ const DEBOUNCE_INTERVAL_MS = 30;
 const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 
 export function D3Map(props: D3MapProps): JSX.Element {
+  const { placeInfo, statVar, display } = useContext(Context);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [zoomTransformation, setZoomTransformation] = useState(
     DEFAULT_ZOOM_TRANSFORMATION
   );
   const chartContainerRef = useRef<HTMLDivElement>();
 
-  function replot() {
-    draw(
-      props,
-      setErrorMessage,
-      zoomTransformation,
-      setZoomTransformation,
-      props.display.value.color,
-      props.display.value.domain
+  const draw = useCallback(() => {
+    document.getElementById(
+      LEGEND_CONTAINER_ID
+    ).innerHTML = `<div id="legend-unit">${props.unit || ""}</div>`;
+    const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
+    const height = (width * 2) / 5;
+    const redirectAction = getMapRedirectAction(
+      statVar.value,
+      placeInfo.value,
+      display.value,
+      props.europeanCountries
     );
-  }
+    const zoomDcid =
+      placeInfo.value.enclosingPlace.dcid !== placeInfo.value.selectedPlace.dcid
+        ? placeInfo.value.selectedPlace.dcid
+        : "";
+    if (zoomDcid) {
+      const geoJsonFeature = props.geoJsonData.features.find(
+        (feature) => feature.properties.geoDcid === zoomDcid
+      );
+      if (!geoJsonFeature) {
+        setErrorMessage("Sorry, we are unable to draw the map for this place.");
+        return;
+      }
+    }
+    const svTitle =
+      statVar.value.dcid in statVar.value.info
+        ? statVar.value.info[statVar.value.dcid].title
+        : "";
+    const dataValues = Object.values(props.mapDataValues);
+    const colorScale = getColorScale(
+      svTitle || statVar.value.dcid,
+      d3.min(dataValues),
+      d3.mean(dataValues),
+      d3.max(dataValues),
+      display.value.color,
+      display.value.domain
+    );
+    const legendHeight = height * LEGEND_HEIGHT_SCALING;
+    const legendWidth = generateLegendSvg(
+      LEGEND_CONTAINER_ID,
+      legendHeight,
+      colorScale,
+      "",
+      LEGEND_MARGIN_LEFT
+    );
+    const zoomParams = {
+      startingTransformation: zoomTransformation,
+      onZoomEnd: (zoomTransformation: d3.ZoomTransform) =>
+        setZoomTransformation(zoomTransformation),
+      zoomInButtonId: ZOOM_IN_BUTTON_ID,
+      zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
+    };
+    if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
+      document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
+      drawD3Map(
+        MAP_CONTAINER_ID,
+        props.geoJsonData,
+        height,
+        width - legendWidth,
+        props.mapDataValues,
+        "",
+        colorScale,
+        redirectAction,
+        getTooltipHtml(
+          props.metadata,
+          statVar.value,
+          props.mapDataValues,
+          props.mapPointValues,
+          props.unit
+        ),
+        canClickRegion(placeInfo.value, props.europeanCountries),
+        false,
+        shouldShowMapBoundaries(
+          placeInfo.value.selectedPlace,
+          placeInfo.value.enclosedPlaceType
+        ),
+        isChildPlaceOf(
+          placeInfo.value.selectedPlace.dcid,
+          USA_PLACE_DCID,
+          placeInfo.value.parentPlaces
+        ),
+        placeInfo.value.enclosingPlace.dcid,
+        display.value.showMapPoints ? props.mapPoints : [],
+        props.mapPointValues,
+        zoomDcid,
+        zoomParams
+      );
+    }
+  }, [
+    props.europeanCountries,
+    props.geoJsonData,
+    props.mapDataValues,
+    props.mapPointValues,
+    props.mapPoints,
+    props.metadata,
+    props.unit,
+    statVar.value,
+    display.value,
+    placeInfo.value,
+    zoomTransformation,
+  ]);
 
   // Replot when data changes.
   useEffect(() => {
-    if (props.display.value.showMapPoints && !props.mapPoints) {
+    if (display.value.showMapPoints && !props.mapPoints) {
       loadSpinner(SECTION_CONTAINER_ID);
       return;
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
-    replot();
-  }, [props.display.value.showMapPoints, props.mapPoints, replot]);
+    draw();
+  }, [display.value.showMapPoints, props.mapPoints, draw]);
 
   // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
     const debouncedHandler = _.debounce(() => {
-      if (!props.display.value.showMapPoints || props.mapPoints) {
-        replot();
+      if (!display.value.showMapPoints || props.mapPoints) {
+        draw();
       }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
@@ -138,104 +225,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
           </div>
         </div>
       </div>
-    );
-  }
-}
-
-function draw(
-  props: D3MapProps,
-  setErrorMessage: (errorMessage: string) => void,
-  zoomTransformation: d3.ZoomTransform,
-  setZoomTransformation: (zoomTransformation: d3.ZoomTransform) => void,
-  color?: string,
-  domain?: [number, number, number]
-): void {
-  document.getElementById(
-    LEGEND_CONTAINER_ID
-  ).innerHTML = `<div id="legend-unit">${props.unit || ""}</div>`;
-  const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
-  const height = (width * 2) / 5;
-  const redirectAction = getMapRedirectAction(
-    props.statVar.value,
-    props.placeInfo,
-    props.display.value,
-    props.europeanCountries
-  );
-  const zoomDcid =
-    props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
-      ? props.placeInfo.selectedPlace.dcid
-      : "";
-  if (zoomDcid) {
-    const geoJsonFeature = props.geoJsonData.features.find(
-      (feature) => feature.properties.geoDcid === zoomDcid
-    );
-    if (!geoJsonFeature) {
-      setErrorMessage("Sorry, we are unable to draw the map for this place.");
-      return;
-    }
-  }
-  const svTitle =
-    props.statVar.value.dcid in props.statVar.value.info
-      ? props.statVar.value.info[props.statVar.value.dcid].title
-      : "";
-  const dataValues = Object.values(props.mapDataValues);
-  const colorScale = getColorScale(
-    svTitle || props.statVar.value.dcid,
-    d3.min(dataValues),
-    d3.mean(dataValues),
-    d3.max(dataValues),
-    color,
-    domain
-  );
-  const legendHeight = height * LEGEND_HEIGHT_SCALING;
-  const legendWidth = generateLegendSvg(
-    LEGEND_CONTAINER_ID,
-    legendHeight,
-    colorScale,
-    "",
-    LEGEND_MARGIN_LEFT
-  );
-  const zoomParams = {
-    startingTransformation: zoomTransformation,
-    onZoomEnd: (zoomTransformation: d3.ZoomTransform) =>
-      setZoomTransformation(zoomTransformation),
-    zoomInButtonId: ZOOM_IN_BUTTON_ID,
-    zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
-  };
-  if (!_.isEmpty(props.geoJsonData) && !_.isEmpty(props.mapDataValues)) {
-    document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
-    drawD3Map(
-      MAP_CONTAINER_ID,
-      props.geoJsonData,
-      height,
-      width - legendWidth,
-      props.mapDataValues,
-      "",
-      colorScale,
-      redirectAction,
-      getTooltipHtml(
-        props.metadata,
-        props.statVar.value,
-        props.mapDataValues,
-        props.mapPointValues,
-        props.unit
-      ),
-      canClickRegion(props.placeInfo, props.europeanCountries),
-      false,
-      shouldShowMapBoundaries(
-        props.placeInfo.selectedPlace,
-        props.placeInfo.enclosedPlaceType
-      ),
-      isChildPlaceOf(
-        props.placeInfo.selectedPlace.dcid,
-        USA_PLACE_DCID,
-        props.placeInfo.parentPlaces
-      ),
-      props.placeInfo.enclosingPlace.dcid,
-      props.display.value.showMapPoints ? props.mapPoints : [],
-      props.mapPointValues,
-      zoomDcid,
-      zoomParams
     );
   }
 }

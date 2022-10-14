@@ -26,7 +26,6 @@ import _ from "lodash";
 import React, { useContext, useEffect, useReducer, useState } from "react";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
-import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   EntityObservation,
@@ -38,13 +37,10 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../../shared/stat_types";
-import { NamedPlace, StatVarSummary } from "../../shared/types";
+import { StatVarSummary } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { stringifyFn } from "../../utils/axios";
-import {
-  ENCLOSED_PLACE_TYPE_NAMES,
-  getEnclosedPlacesPromise,
-} from "../../utils/place_utils";
+import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
 import { getMatchingObservation, getUnit } from "../shared_util";
@@ -69,16 +65,6 @@ import { useFetchGeoJson } from "./fetcher/geojson";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { PlaceDetails } from "./place_details";
-import {
-  useAllStatReady,
-  useBreadcrumbDenomStatReady,
-  useBreadcrumbStatReady,
-  useDefaultStatReady,
-  useDenomStatReady,
-  useGeoJsonReady,
-  useMapPointCoordinateReady,
-  useMapPointStatReady,
-} from "./ready_hooks";
 import {
   BEST_AVAILABLE_METAHASH,
   DataPointMetadata,
@@ -124,6 +110,7 @@ interface ChartData {
 
 export function ChartLoader(): JSX.Element {
   const { placeInfo, statVar, isLoading, display } = useContext(Context);
+
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
   const [geoRaster, setGeoRaster] = useState(null);
@@ -149,18 +136,6 @@ export function ChartLoader(): JSX.Element {
   const [chartStore, dispatch] = useReducer(chartStoreReducer, emptyChartStore);
   // -------------------------------------------------------------------------
 
-  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const geoJsonReady = useGeoJsonReady(chartStore);
-  const defaultStatReady = useDefaultStatReady(chartStore);
-  const allStatReady = useAllStatReady(chartStore);
-  const denomStatReady = useDenomStatReady(chartStore);
-  const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
-  const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
-  const mapPointStatReady = useMapPointStatReady(chartStore);
-  const mapPointCoordinateReady = useMapPointCoordinateReady(chartStore);
-  // -------------------------------------------------------------------------
-
-  // Fetch european countries.
   const europeanCountries = useFetchEuropeanCountries();
   useFetchGeoJson(dispatch);
   useFetchMapPointCoordinate(dispatch);
@@ -359,13 +334,10 @@ export function ChartLoader(): JSX.Element {
         mapDataValues={chartData.mapValues}
         metadata={chartData.metadata}
         breadcrumbDataValues={chartData.breadcrumbValues}
-        placeInfo={placeInfo.value}
-        statVar={statVar}
         dates={chartData.dates}
         sources={chartData.sources}
         unit={chartData.unit}
         mapPointValues={chartData.mapPointValues}
-        display={display}
         mapPoints={chartStore.mapPointCoordinate.data}
         europeanCountries={europeanCountries}
         rankingLink={chartData.rankingLink}
@@ -383,14 +355,11 @@ export function ChartLoader(): JSX.Element {
         <PlaceDetails
           breadcrumbDataValues={chartData.breadcrumbValues}
           mapDataValues={chartData.mapValues}
-          placeInfo={placeInfo.value}
           metadata={chartData.metadata}
           unit={chartData.unit}
-          statVar={statVar.value}
           geoJsonFeatures={
             chartStore.geoJson.data ? chartStore.geoJson.data.features : []
           }
-          displayOptions={display.value}
           europeanCountries={europeanCountries}
         />
       )}
