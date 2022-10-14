@@ -559,25 +559,16 @@ def data(dcid):
                 populate_additional_category_data(category)
 
     # Get chart category name translations
-    categories = {}
-    config_categories = set()
-    ordered_categories = []
-    for conf in current_app.config['CHART_CONFIG']:
-        config_categories.add(conf['category'])
-        ordered_categories.append(conf['category'])
-    all_categories = list(spec_and_stat.keys()) + list(
-        spec_and_stat[OVERVIEW]
-    ) + raw_page_data["validCategories"][dcid]['category']
-    for category in all_categories:
-        if category in config_categories:
-            categories[category] = gettext(
-                f'CHART_TITLE-CHART_CATEGORY-{category}')
-
-    # Sort in the order of chart config.
     ordered_category_dict = {}
-    for cat in ordered_categories:
-        if cat in categories:
-            ordered_category_dict[cat] = categories[cat]
+    all_categories = set(
+        list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]) +
+        raw_page_data["validCategories"][dcid]['category'])
+
+    for conf in current_app.config['CHART_CONFIG']:
+        category = conf['category']
+        if category in all_categories:
+            ordered_category_dict[category] = gettext(
+                f'CHART_TITLE-CHART_CATEGORY-{category}')
 
     # Get display name for all places
     all_places = [dcid]
