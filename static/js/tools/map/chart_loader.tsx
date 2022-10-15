@@ -52,6 +52,7 @@ import {
   chartStoreReducer,
   emptyChartStore,
 } from "./chart_store";
+import { useComputeBreadcrumbValues } from "./compute_hooks";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -60,6 +61,8 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
+import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
+import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
 import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import { useFetchGeoJson } from "./fetcher/geojson";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
@@ -80,7 +83,7 @@ interface ChartRawData {
   allEnclosedPlaceStat: EntityObservationList;
   metadataMap: Record<string, StatMetadata>;
   population: EntitySeries;
-  breadcrumbPlaceStat: EntityObservation;
+  breadcrumbPlaceStat?: EntityObservation;
   dataDate: string;
 
   // Map of metahash to array of ~10 dates for time slider
@@ -93,7 +96,6 @@ interface ChartRawData {
 interface ChartData {
   mapValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
-  breadcrumbValues: { [dcid: string]: number };
   sources: Set<string>;
   dates: Set<string>;
   unit: string;
@@ -140,6 +142,11 @@ export function ChartLoader(): JSX.Element {
   useFetchGeoJson(dispatch);
   useFetchMapPointCoordinate(dispatch);
   useFetchMapPointStat(dispatch);
+  useFetchBreadcrumbStat(dispatch);
+  useFetchBreadcrumbDenomStat(chartStore, dispatch);
+  useFetchMapPointStat(dispatch);
+
+  const breadcrumbValues = useComputeBreadcrumbValues(chartStore);
 
   // For IPCC grid data, geoJson features is calculated based on the grid
   // DCID.
@@ -333,7 +340,7 @@ export function ChartLoader(): JSX.Element {
         geoJsonData={chartStore.geoJson.data}
         mapDataValues={chartData.mapValues}
         metadata={chartData.metadata}
-        breadcrumbDataValues={chartData.breadcrumbValues}
+        breadcrumbDataValues={breadcrumbValues}
         dates={chartData.dates}
         sources={chartData.sources}
         unit={chartData.unit}
@@ -353,7 +360,7 @@ export function ChartLoader(): JSX.Element {
         // Should separate out placeInfo into individual state.
         // The parentPlaces is only used for breadcumb section.
         <PlaceDetails
-          breadcrumbDataValues={chartData.breadcrumbValues}
+          breadcrumbDataValues={breadcrumbValues}
           mapDataValues={chartData.mapValues}
           metadata={chartData.metadata}
           unit={chartData.unit}
@@ -443,17 +450,7 @@ function fetchData(
     (namedPlace) => namedPlace.dcid
   );
   breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
-  const breadcrumbPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
-    ? axios
-        .get("/api/observations/series", {
-          params: {
-            entities: breadcrumbPlaceDcids,
-            variables: [statVar.denom],
-          },
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => resp.data)
-    : Promise.resolve({});
+
   const enclosedPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
     ? axios
         .get("/api/observations/series/within", {
@@ -497,18 +494,6 @@ function fetchData(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
-  const breadcrumbPlaceDataPromise: Promise<PointApiResponse> = axios
-    .get("/api/observations/point", {
-      params: {
-        date: dataDate,
-        entities: breadcrumbPlaceDcids,
-        variables: [statVar.dcid],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      return resp.data;
-    });
 
   // Optionally compute for each sample date
   const enclosedPlaceDatesList: Array<Promise<PointApiResponse>> = [];
@@ -572,8 +557,6 @@ function fetchData(
       )
       .then((resp) => resp.data);
   Promise.all([
-    breadcrumbPlacePopPromise,
-    breadcrumbPlaceDataPromise,
     enclosedPlacePopPromise,
     enclosedPlaceDataPromise,
     allEnclosedPlaceDataPromise,
@@ -585,8 +568,6 @@ function fetchData(
   ])
     .then(
       ([
-        breadcrumbPlacePop,
-        breadcrumbPlaceData,
         enclosedPlacesPop,
         enclosedPlaceData,
         allEnclosedPlaceData,
@@ -598,20 +579,12 @@ function fetchData(
       ]) => {
         // Stat data
         const enclosedPlaceStat = enclosedPlaceData.data[statVar.dcid];
-        // Parent place data
-        const breadcrumbPlaceStat = breadcrumbPlaceData.data[statVar.dcid];
         // All stat data
         const allEnclosedPlaceStat = allEnclosedPlaceData.data[statVar.dcid];
         // Metadata map
         let metadataMap = enclosedPlaceData.facets;
         metadataMap = Object.assign(metadataMap, allEnclosedPlaceData.facets);
-        if (breadcrumbPlaceData.facets) {
-          metadataMap = Object.assign(metadataMap, breadcrumbPlaceData.facets);
-        }
         if (enclosedPlacesPop && enclosedPlacesPop.facets) {
-          Object.assign(metadataMap, enclosedPlacesPop.facets);
-        }
-        if (breadcrumbPlacePop && breadcrumbPlacePop.facets) {
           Object.assign(metadataMap, enclosedPlacesPop.facets);
         }
         const sampleDates =
@@ -651,7 +624,6 @@ function fetchData(
               metadataMap,
               population: {
                 ...enclosedPlacesPop.data[statVar.denom],
-                ...breadcrumbPlacePop.data[statVar.denom],
               },
               dataDate,
               sampleDates,
@@ -675,11 +647,10 @@ function fetchData(
           setRawData({
             enclosedPlaceStat,
             allEnclosedPlaceStat,
-            breadcrumbPlaceStat,
+            breadcrumbPlaceStat: null,
             metadataMap,
             population: {
               ...enclosedPlacesPop.data[statVar.denom],
-              ...breadcrumbPlacePop.data[statVar.denom],
             },
             dataDate,
             sampleDates,
@@ -737,7 +708,6 @@ function loadChartData(
 ): void {
   const mapValues = {};
   const metadata = {};
-  const breadcrumbValues = {};
   const sourceSet: Set<string> = new Set();
   const statVarDates: Set<string> = new Set();
   if (_.isNull(rawData.enclosedPlaceStat)) {
@@ -780,25 +750,6 @@ function loadChartData(
     });
   }
 
-  // populate breadcrumbDataValues with data value for selected place and each parent place.
-  for (const place of placeInfo.parentPlaces.concat([
-    placeInfo.selectedPlace,
-  ])) {
-    const placeChartData = getPlaceChartData(
-      rawData.breadcrumbPlaceStat,
-      place.dcid,
-      calculateRatio,
-      rawData.population,
-      rawData.metadataMap
-    );
-    if (_.isEmpty(placeChartData)) {
-      continue;
-    }
-    breadcrumbValues[place.dcid] = placeChartData.value;
-    if (!_.isEmpty(placeChartData.metadata)) {
-      metadata[place.dcid] = placeChartData.metadata;
-    }
-  }
   const mapPointValues = {};
   if (!_.isEmpty(chartStore.mapPointStat.data)) {
     for (const placeDcid in chartStore.mapPointStat.data.data) {
@@ -845,7 +796,6 @@ function loadChartData(
     });
   }
   setChartData({
-    breadcrumbValues,
     dates: statVarDates,
     mapPoints: chartStore.mapPointCoordinate.data,
     mapPointValues,

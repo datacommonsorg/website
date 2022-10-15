@@ -50,11 +50,12 @@ export function useFetchBreadcrumbDenomStat(
       type: ChartDataType.BREADCRUMB_DENOM_STAT,
       context: {
         placeInfo: {
-          enclosingPlace: {
+          selectedPlace: {
             // entities are the parent places + the enclosing place.
             // so the last element is the enclosing place.
             dcid: placeDcids[placeDcids.length - 1],
             name: "",
+            types: null,
           },
         },
         statVar: {
