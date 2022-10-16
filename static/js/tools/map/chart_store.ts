@@ -131,10 +131,11 @@ export function chartStoreReducer(
   chartStore: ChartStore,
   action: ChartStoreAction
 ): ChartStore {
-  const field = action.type;
-  chartStore[field] = { data: action.payload };
-  if (action.context) {
-    chartStore[field].context = action.context;
-  }
-  return chartStore;
+  return {
+    ...chartStore,
+    [action.type]: {
+      data: action.payload,
+      context: action.context,
+    },
+  };
 }

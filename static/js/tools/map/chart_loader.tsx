@@ -172,7 +172,7 @@ export function ChartLoader(): JSX.Element {
         } as GeoJsonData,
       });
     }
-  }, [chartStore.geoJson, placeInfo.value, rawData]);
+  }, [chartStore.geoJson.data, placeInfo.value, rawData]);
 
   useEffect(() => {
     const placeSelected =
@@ -220,7 +220,6 @@ export function ChartLoader(): JSX.Element {
     loadChartData(
       chartStore,
       dateRawData,
-      chartStore.geoJson.data,
       placeInfo.value,
       statVar.value,
       setChartData,
@@ -325,7 +324,6 @@ export function ChartLoader(): JSX.Element {
       loadChartData(
         chartStore,
         sampleDatesChartData[metaHash][date],
-        chartStore.geoJson.data,
         placeInfo.value,
         statVar.value,
         setChartData,
@@ -700,7 +698,6 @@ function getRankingLink(
 function loadChartData(
   chartStore: ChartStore,
   rawData: ChartRawData,
-  geoJsonData: GeoJsonData,
   placeInfo: PlaceInfo,
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
@@ -716,7 +713,8 @@ function loadChartData(
   const calculateRatio = statVar.perCapita && statVar.denom ? true : false;
   // populate mapValues with data value for each geo that we have geoJson data
   // for.
-  for (const geoFeature of geoJsonData.features) {
+  console.log("load chart data");
+  for (const geoFeature of chartStore.geoJson.data.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     let wantedFacetData = rawData.enclosedPlaceStat;
     if (statVar.metahash) {
