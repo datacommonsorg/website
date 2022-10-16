@@ -81,8 +81,8 @@ export function useFetchBreadcrumbDenomStat(
             facets: resp.data.facets,
           } as EntitySeriesWrapper;
         }
-        dispatch(action);
         console.log("breadcrumb denom stat action dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching breadcrumb denom stat data";

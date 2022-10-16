@@ -67,8 +67,8 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
         } else {
           action.payload = resp.data as GetPlaceStatDateWithinPlaceResponse;
         }
-        dispatch(action);
         console.log("all dates data dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching all the dates";

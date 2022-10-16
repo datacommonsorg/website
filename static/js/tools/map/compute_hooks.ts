@@ -91,6 +91,7 @@ export function useComputeBreadcrumbValues(chartStore: ChartStore): {
     if (ifRatio && !breadcrumbDenomStatReady()) {
       return null;
     }
+    console.log("compute breadcrumb values");
     const breadcrumbValues = {};
     for (const place in chartStore.breadcrumbStat.data.data) {
       const placeChartData = getPlaceChartData(

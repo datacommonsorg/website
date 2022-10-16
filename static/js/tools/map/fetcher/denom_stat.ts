@@ -77,8 +77,8 @@ export function useFetchDenomStat(
             facets: resp.data.facets,
           } as EntitySeriesWrapper;
         }
-        dispatch(action);
         console.log("denom stat dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching denom stat data";
