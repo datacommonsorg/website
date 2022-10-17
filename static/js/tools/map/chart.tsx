@@ -195,7 +195,7 @@ export function Chart(props: ChartProps): JSX.Element {
         onSvFacetIdUpdated={(svFacetId) =>
           statVar.setMetahash(svFacetId[statVar.value.dcid])
         }
-        hideIsRatio={false}
+        hideIsRatio={props.mapType === MAP_TYPE.LEAFLET}
         isPerCapita={statVar.value.perCapita}
         onIsPerCapitaUpdated={(isPerCapita: boolean) =>
           statVar.setPerCapita(isPerCapita)

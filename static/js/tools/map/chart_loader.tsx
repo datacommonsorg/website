@@ -20,8 +20,6 @@
  */
 
 import axios from "axios";
-import geoblaze from "geoblaze";
-import { GeoRaster } from "georaster-layer-for-leaflet";
 import _ from "lodash";
 import React, { useContext, useEffect, useReducer, useState } from "react";
 
@@ -65,6 +63,7 @@ import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
 import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
 import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import { useFetchGeoJson } from "./fetcher/geojson";
+import { useFetchGeoRaster } from "./fetcher/georaster";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { PlaceDetails } from "./place_details";
@@ -115,7 +114,6 @@ export function ChartLoader(): JSX.Element {
 
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
-  const [geoRaster, setGeoRaster] = useState(null);
   const [mapType, setMapType] = useState(MAP_TYPE.D3);
 
   // Map of metahash -> date -> ChartRawData
@@ -145,6 +143,7 @@ export function ChartLoader(): JSX.Element {
   useFetchBreadcrumbStat(dispatch);
   useFetchBreadcrumbDenomStat(chartStore, dispatch);
   useFetchMapPointStat(dispatch);
+  useFetchGeoRaster(dispatch);
 
   const breadcrumbValues = useComputeBreadcrumbValues(chartStore);
 
@@ -190,11 +189,6 @@ export function ChartLoader(): JSX.Element {
         setRawData,
         display.value.showTimeSlider
       );
-      if (display.value.allowLeaflet) {
-        geoblaze
-          .load("/api/choropleth/geotiff")
-          .then((geoRaster) => setGeoRaster(geoRaster));
-      }
     } else {
       setRawData(undefined);
     }
@@ -208,7 +202,17 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
-    updateMapType(rawData, geoRaster);
+    // Set map type to leaflet if georaster data is available before data needed
+    // for d3 maps
+    if (
+      (_.isEmpty(rawData) || _.isEmpty(chartStore.geoJson.data)) &&
+      !_.isEmpty(chartStore.geoRaster.data)
+    ) {
+      setMapType(MAP_TYPE.LEAFLET);
+    }
+  }, [rawData, chartStore.geoJson.data, chartStore.geoRaster.data]);
+
+  useEffect(() => {
     if (_.isEmpty(rawData) || _.isEmpty(chartStore.geoJson.data)) {
       return;
     }
@@ -237,7 +241,7 @@ export function ChartLoader(): JSX.Element {
   }, [
     rawData,
     chartStore.geoJson.data,
-    geoRaster,
+    chartStore.geoRaster.data,
     statVar.value.metahash,
     statVar.value.perCapita,
   ]);
@@ -351,7 +355,7 @@ export function ChartLoader(): JSX.Element {
         metahash={chartData.metahash}
         onPlay={onPlay}
         updateDate={updateDate}
-        geoRaster={geoRaster}
+        geoRaster={chartStore.geoRaster.data}
         mapType={mapType}
       />
       {placeInfo.value.parentPlaces && (
@@ -391,14 +395,6 @@ export function ChartLoader(): JSX.Element {
       return getPcQuery(statVar.value, placeInfo.value, date, metadata);
     } else {
       return getNonPcQuery(statVar.value, placeInfo.value, date, metadata);
-    }
-  }
-
-  function updateMapType(rawData: ChartRawData, geoRaster: GeoRaster): void {
-    // set map type to leaflet if geoRaster data comes back before the rest of
-    // the data fetches
-    if (_.isEmpty(rawData) && !_.isEmpty(geoRaster)) {
-      setMapType(MAP_TYPE.LEAFLET);
     }
   }
 }
