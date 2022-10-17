@@ -15,7 +15,6 @@
  */
 
 import { GeoRaster } from "georaster-layer-for-leaflet";
-import _ from "lodash";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
 import {

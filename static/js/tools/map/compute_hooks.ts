@@ -28,8 +28,10 @@ import {
   useBreadcrumbStatReady,
   useDefaultStatReady,
   useGeoJsonReady,
+  useMapPointStatReady,
 } from "./ready_hooks";
 import {
+  DataPointMetadata,
   getGeoJsonDataFeatures,
   getPlaceChartData,
   MANUAL_GEOJSON_DISTANCES,
@@ -122,5 +124,53 @@ export function useComputeBreadcrumbValues(chartStore: ChartStore): {
     ifRatio,
     breadcrumbStatReady,
     breadcrumbDenomStatReady,
+  ]);
+}
+
+export function useComputeMapPointValues(
+  chartStore: ChartStore,
+  dispatchSources: Dispatch<Set<string>>,
+  dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>
+): {
+  [dcid: string]: number;
+} {
+  const mapPointStatReady = useMapPointStatReady(chartStore);
+  return useMemo(() => {
+    if (!mapPointStatReady()) {
+      return null;
+    }
+    console.log("compute map point values");
+    const mapPointValues = {};
+    const sources = new Set<string>();
+    const metadata = {};
+    for (const placeDcid in chartStore.mapPointStat.data.data) {
+      const placeChartData = getPlaceChartData(
+        chartStore.mapPointStat.data.data,
+        placeDcid,
+        false,
+        {},
+        chartStore.mapPointStat.data.facets
+      );
+      if (_.isNull(placeChartData)) {
+        continue;
+      }
+      mapPointValues[placeDcid] = placeChartData.value;
+      if (!_.isEmpty(placeChartData.metadata)) {
+        metadata[placeDcid] = placeChartData.metadata;
+      }
+      placeChartData.sources.forEach((source) => {
+        if (!_.isEmpty(source)) {
+          sources.add(source);
+        }
+      });
+    }
+    dispatchSources(sources);
+    dispatchMetadata(metadata);
+    return mapPointValues;
+  }, [
+    chartStore.mapPointStat,
+    mapPointStatReady,
+    dispatchSources,
+    dispatchMetadata,
   ]);
 }
