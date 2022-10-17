@@ -52,6 +52,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const selectedPlace = placeInfo.value.selectedPlace;
   const unitString = _.isEmpty(props.unit) ? "" : ` ${props.unit}`;
   const selectedPlaceValue =
+    props.breadcrumbDataValues &&
     selectedPlace.dcid in props.breadcrumbDataValues
       ? formatNumber(props.breadcrumbDataValues[selectedPlace.dcid], "") +
         unitString
@@ -166,7 +167,7 @@ function getListItemElement(
   itemNumber?: number
 ): JSX.Element {
   let value = "N/A";
-  if (place.dcid in props.breadcrumbDataValues) {
+  if (props.breadcrumbDataValues && place.dcid in props.breadcrumbDataValues) {
     value =
       formatNumber(props.breadcrumbDataValues[place.dcid], "") + unitString;
   } else if (place.dcid in props.mapDataValues) {

@@ -15,36 +15,29 @@
  */
 
 /**
- * Fetch the stat data for denominator stat var
+ * Fetch Geo Raster data.
  */
 
-import axios from "axios";
+import geoblaze from "geoblaze";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import {
-  EntitySeriesWrapper,
-  SeriesApiResponse,
-} from "../../../shared/stat_types";
-import { stringifyFn } from "../../../utils/axios";
-import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
+import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
-export function useFetchDenomStat(
-  chartStore: ChartStore,
-  dispatch: Dispatch<ChartStoreAction>
-): void {
-  const { placeInfo, statVar } = useContext(Context);
+export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
+  const { placeInfo, statVar, display } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType &&
-      statVar.value.denom;
+      statVar.value.dcid &&
+      display.value.allowLeaflet;
     if (!contextOk) {
       return;
     }
     const action: ChartStoreAction = {
-      type: ChartDataType.DENOM_STAT,
+      type: ChartDataType.GEO_RASTER,
       error: null,
       context: {
         placeInfo: {
@@ -55,39 +48,34 @@ export function useFetchDenomStat(
           enclosedPlaceType: placeInfo.value.enclosedPlaceType,
         },
         statVar: {
-          denom: statVar.value.denom,
+          dcid: statVar.value.dcid,
+          date: statVar.value.date,
         },
       },
     };
-    axios
-      .get<SeriesApiResponse>("/api/observations/series/within", {
-        params: {
-          child_type: placeInfo.value.enclosedPlaceType,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
-          variables: [statVar.value.denom],
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => {
-        if (_.isEmpty(resp.data.data[statVar.value.denom])) {
-          action.error = "error fetching denom stat data";
+    // TODO: update the url with correct arguments once flask endpoint has been
+    // updated to take params
+    geoblaze
+      .load("/api/choropleth/geotiff")
+      .then((geoRaster) => {
+        if (_.isEmpty(geoRaster)) {
+          action.error = "error fetching geo raster data";
         } else {
-          action.payload = {
-            data: resp.data.data[statVar.value.denom],
-            facets: resp.data.facets,
-          } as EntitySeriesWrapper;
+          action.payload = geoRaster;
         }
-        console.log("denom stat dispatched");
         dispatch(action);
+        console.log("georaster dispatched");
       })
       .catch(() => {
-        action.error = "error fetching denom stat data";
+        action.error = "error fetching geo raster data";
         dispatch(action);
       });
   }, [
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
-    statVar.value.denom,
+    statVar.value.dcid,
+    statVar.value.date,
+    display.value.allowLeaflet,
     dispatch,
   ]);
 }

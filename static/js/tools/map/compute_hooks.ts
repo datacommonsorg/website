@@ -21,14 +21,18 @@ import { Dispatch, useContext, useEffect, useMemo } from "react";
 
 import { GeoJsonData } from "../../chart/types";
 import { ChartDataType, ChartStore, ChartStoreAction } from "./chart_store";
+import { useIfRatio } from "./condition_hooks";
 import { Context } from "./context";
 import {
   useAllDatesReady,
+  useBreadcrumbDenomStatReady,
+  useBreadcrumbStatReady,
   useDefaultStatReady,
   useGeoJsonReady,
 } from "./ready_hooks";
 import {
   getGeoJsonDataFeatures,
+  getPlaceChartData,
   getTimeSliderDates,
   MANUAL_GEOJSON_DISTANCES,
 } from "./util";
@@ -73,6 +77,53 @@ export function useUpdateGeoJson(
     geoJsonReady,
     defaultStatReady,
     dispatch,
+  ]);
+}
+
+export function useComputeBreadcrumbValues(chartStore: ChartStore): {
+  [dcid: string]: number;
+} {
+  const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
+  const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
+  const ifRatio = useIfRatio();
+  return useMemo(() => {
+    if (!breadcrumbStatReady()) {
+      return null;
+    }
+    if (ifRatio && !breadcrumbDenomStatReady()) {
+      return null;
+    }
+    console.log("compute breadcrumb values");
+    const breadcrumbValues = {};
+    const facets = Object.assign(
+      [],
+      chartStore.breadcrumbStat.data.facets,
+      chartStore.breadcrumbDenomStat.data
+        ? chartStore.breadcrumbDenomStat.data.facets
+        : {}
+    );
+    for (const place in chartStore.breadcrumbStat.data.data) {
+      const placeChartData = getPlaceChartData(
+        chartStore.breadcrumbStat.data.data,
+        place,
+        ifRatio,
+        chartStore.breadcrumbDenomStat.data
+          ? chartStore.breadcrumbDenomStat.data.data
+          : null,
+        facets
+      );
+      if (_.isEmpty(placeChartData)) {
+        continue;
+      }
+      breadcrumbValues[place] = placeChartData.value;
+    }
+    return breadcrumbValues;
+  }, [
+    chartStore.breadcrumbStat.data,
+    chartStore.breadcrumbDenomStat.data,
+    ifRatio,
+    breadcrumbStatReady,
+    breadcrumbDenomStatReady,
   ]);
 }
 

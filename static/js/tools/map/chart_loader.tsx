@@ -20,8 +20,6 @@
  */
 
 import axios from "axios";
-import geoblaze from "geoblaze";
-import { GeoRaster } from "georaster-layer-for-leaflet";
 import _ from "lodash";
 import React, { useContext, useEffect, useReducer, useState } from "react";
 
@@ -51,6 +49,7 @@ import {
   chartStoreReducer,
   emptyChartStore,
 } from "./chart_store";
+import { useComputeBreadcrumbValues } from "./compute_hooks";
 import { useComputeSampledDates } from "./compute_hooks";
 import {
   Context,
@@ -60,9 +59,12 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
+import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
+import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
 import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import { useFetchGeoJson } from "./fetcher/geojson";
+import { useFetchGeoRaster } from "./fetcher/georaster";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { PlaceDetails } from "./place_details";
@@ -80,7 +82,7 @@ interface ChartRawData {
   allEnclosedPlaceStat: EntityObservationList;
   metadataMap: Record<string, StatMetadata>;
   population: EntitySeries;
-  breadcrumbPlaceStat: EntityObservation;
+  breadcrumbPlaceStat?: EntityObservation;
   dataDate: string;
 
   // Map of metahash to display domain for the map legend
@@ -90,7 +92,6 @@ interface ChartRawData {
 interface ChartData {
   mapValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
-  breadcrumbValues: { [dcid: string]: number };
   sources: Set<string>;
   dates: Set<string>;
   unit: string;
@@ -110,7 +111,6 @@ export function ChartLoader(): JSX.Element {
 
   const [rawData, setRawData] = useState<ChartRawData | undefined>(undefined);
   const [chartData, setChartData] = useState<ChartData | undefined>(undefined);
-  const [geoRaster, setGeoRaster] = useState(null);
   const [mapType, setMapType] = useState(MAP_TYPE.D3);
 
   // Map of metahash -> date -> ChartRawData
@@ -137,9 +137,14 @@ export function ChartLoader(): JSX.Element {
   useFetchGeoJson(dispatch);
   useFetchMapPointCoordinate(dispatch);
   useFetchMapPointStat(dispatch);
+  useFetchBreadcrumbStat(dispatch);
+  useFetchBreadcrumbDenomStat(chartStore, dispatch);
+  useFetchMapPointStat(dispatch);
+  useFetchGeoRaster(dispatch);
   useFetchAllDates(dispatch);
 
   const allSampleDates = useComputeSampledDates(chartStore);
+  const breadcrumbValues = useComputeBreadcrumbValues(chartStore);
 
   // For IPCC grid data, geoJson features is calculated based on the grid
   // DCID.
@@ -165,7 +170,7 @@ export function ChartLoader(): JSX.Element {
         } as GeoJsonData,
       });
     }
-  }, [chartStore.geoJson, placeInfo.value, rawData]);
+  }, [chartStore.geoJson.data, placeInfo.value, rawData]);
 
   useEffect(() => {
     const placeSelected =
@@ -184,11 +189,6 @@ export function ChartLoader(): JSX.Element {
         display.value.showTimeSlider,
         allSampleDates
       );
-      if (display.value.allowLeaflet) {
-        geoblaze
-          .load("/api/choropleth/geotiff")
-          .then((geoRaster) => setGeoRaster(geoRaster));
-      }
     } else {
       setRawData(undefined);
     }
@@ -202,7 +202,17 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   useEffect(() => {
-    updateMapType(rawData, geoRaster);
+    // Set map type to leaflet if georaster data is available before data needed
+    // for d3 maps
+    if (
+      (_.isEmpty(rawData) || _.isEmpty(chartStore.geoJson.data)) &&
+      !_.isEmpty(chartStore.geoRaster.data)
+    ) {
+      setMapType(MAP_TYPE.LEAFLET);
+    }
+  }, [rawData, chartStore.geoJson.data, chartStore.geoRaster.data]);
+
+  useEffect(() => {
     if (_.isEmpty(rawData) || _.isEmpty(chartStore.geoJson.data)) {
       return;
     }
@@ -214,7 +224,6 @@ export function ChartLoader(): JSX.Element {
     loadChartData(
       chartStore,
       dateRawData,
-      chartStore.geoJson.data,
       allSampleDates,
       placeInfo.value,
       statVar.value,
@@ -233,7 +242,7 @@ export function ChartLoader(): JSX.Element {
   }, [
     rawData,
     chartStore.geoJson.data,
-    geoRaster,
+    chartStore.geoRaster.data,
     statVar.value.metahash,
     statVar.value.perCapita,
   ]);
@@ -321,7 +330,6 @@ export function ChartLoader(): JSX.Element {
       loadChartData(
         chartStore,
         sampleDatesChartData[metaHash][date],
-        chartStore.geoJson.data,
         allSampleDates,
         placeInfo.value,
         statVar.value,
@@ -337,7 +345,7 @@ export function ChartLoader(): JSX.Element {
         geoJsonData={chartStore.geoJson.data}
         mapDataValues={chartData.mapValues}
         metadata={chartData.metadata}
-        breadcrumbDataValues={chartData.breadcrumbValues}
+        breadcrumbDataValues={breadcrumbValues}
         dates={chartData.dates}
         sources={chartData.sources}
         unit={chartData.unit}
@@ -350,14 +358,14 @@ export function ChartLoader(): JSX.Element {
         metahash={chartData.metahash}
         onPlay={onPlay}
         updateDate={updateDate}
-        geoRaster={geoRaster}
+        geoRaster={chartStore.geoRaster.data}
         mapType={mapType}
       />
       {placeInfo.value.parentPlaces && (
         // Should separate out placeInfo into individual state.
         // The parentPlaces is only used for breadcumb section.
         <PlaceDetails
-          breadcrumbDataValues={chartData.breadcrumbValues}
+          breadcrumbDataValues={breadcrumbValues}
           mapDataValues={chartData.mapValues}
           metadata={chartData.metadata}
           unit={chartData.unit}
@@ -390,14 +398,6 @@ export function ChartLoader(): JSX.Element {
       return getPcQuery(statVar.value, placeInfo.value, date, metadata);
     } else {
       return getNonPcQuery(statVar.value, placeInfo.value, date, metadata);
-    }
-  }
-
-  function updateMapType(rawData: ChartRawData, geoRaster: GeoRaster): void {
-    // set map type to leaflet if geoRaster data comes back before the rest of
-    // the data fetches
-    if (_.isEmpty(rawData) && !_.isEmpty(geoRaster)) {
-      setMapType(MAP_TYPE.LEAFLET);
     }
   }
 }
@@ -448,17 +448,7 @@ function fetchData(
     (namedPlace) => namedPlace.dcid
   );
   breadcrumbPlaceDcids.push(placeInfo.selectedPlace.dcid);
-  const breadcrumbPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
-    ? axios
-        .get("/api/observations/series", {
-          params: {
-            entities: breadcrumbPlaceDcids,
-            variables: [statVar.denom],
-          },
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => resp.data)
-    : Promise.resolve({});
+
   const enclosedPlacePopPromise: Promise<SeriesApiResponse> = statVar.denom
     ? axios
         .get("/api/observations/series/within", {
@@ -502,18 +492,6 @@ function fetchData(
       paramsSerializer: stringifyFn,
     })
     .then((resp) => resp.data);
-  const breadcrumbPlaceDataPromise: Promise<PointApiResponse> = axios
-    .get("/api/observations/point", {
-      params: {
-        date: dataDate,
-        entities: breadcrumbPlaceDcids,
-        variables: [statVar.dcid],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      return resp.data;
-    });
 
   // Optionally compute for each sample date
   const enclosedPlaceDatesList: Array<Promise<PointApiResponse>> = [];
@@ -571,8 +549,6 @@ function fetchData(
     .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
     .then((resp) => resp.data);
   Promise.all([
-    breadcrumbPlacePopPromise,
-    breadcrumbPlaceDataPromise,
     enclosedPlacePopPromise,
     enclosedPlaceDataPromise,
     allEnclosedPlaceDataPromise,
@@ -583,8 +559,6 @@ function fetchData(
   ])
     .then(
       ([
-        breadcrumbPlacePop,
-        breadcrumbPlaceData,
         enclosedPlacesPop,
         enclosedPlaceData,
         allEnclosedPlaceData,
@@ -595,20 +569,12 @@ function fetchData(
       ]) => {
         // Stat data
         const enclosedPlaceStat = enclosedPlaceData.data[statVar.dcid];
-        // Parent place data
-        const breadcrumbPlaceStat = breadcrumbPlaceData.data[statVar.dcid];
         // All stat data
         const allEnclosedPlaceStat = allEnclosedPlaceData.data[statVar.dcid];
         // Metadata map
         let metadataMap = enclosedPlaceData.facets;
         metadataMap = Object.assign(metadataMap, allEnclosedPlaceData.facets);
-        if (breadcrumbPlaceData.facets) {
-          metadataMap = Object.assign(metadataMap, breadcrumbPlaceData.facets);
-        }
         if (enclosedPlacesPop && enclosedPlacesPop.facets) {
-          Object.assign(metadataMap, enclosedPlacesPop.facets);
-        }
-        if (breadcrumbPlacePop && breadcrumbPlacePop.facets) {
           Object.assign(metadataMap, enclosedPlacesPop.facets);
         }
         let legendBounds: Record<string, [number, number, number]> = {};
@@ -641,7 +607,6 @@ function fetchData(
               metadataMap,
               population: {
                 ...enclosedPlacesPop.data[statVar.denom],
-                ...breadcrumbPlacePop.data[statVar.denom],
               },
               dataDate,
               legendBounds,
@@ -664,11 +629,10 @@ function fetchData(
           setRawData({
             enclosedPlaceStat,
             allEnclosedPlaceStat,
-            breadcrumbPlaceStat,
+            breadcrumbPlaceStat: null,
             metadataMap,
             population: {
               ...enclosedPlacesPop.data[statVar.denom],
-              ...breadcrumbPlacePop.data[statVar.denom],
             },
             dataDate,
             legendBounds,
@@ -717,16 +681,14 @@ function getRankingLink(
 function loadChartData(
   chartStore: ChartStore,
   rawData: ChartRawData,
-  geoJsonData: GeoJsonData,
-  allSampleDates: Record<string, string[]>,
   placeInfo: PlaceInfo,
+  allSampleDates: Record<string, string[]>,
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
   display: DisplayOptionsWrapper
 ): void {
   const mapValues = {};
   const metadata = {};
-  const breadcrumbValues = {};
   const sourceSet: Set<string> = new Set();
   const statVarDates: Set<string> = new Set();
   if (_.isNull(rawData.enclosedPlaceStat)) {
@@ -735,7 +697,8 @@ function loadChartData(
   const calculateRatio = statVar.perCapita && statVar.denom ? true : false;
   // populate mapValues with data value for each geo that we have geoJson data
   // for.
-  for (const geoFeature of geoJsonData.features) {
+  console.log("load chart data");
+  for (const geoFeature of chartStore.geoJson.data.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     let wantedFacetData = rawData.enclosedPlaceStat;
     if (statVar.metahash) {
@@ -769,25 +732,6 @@ function loadChartData(
     });
   }
 
-  // populate breadcrumbDataValues with data value for selected place and each parent place.
-  for (const place of placeInfo.parentPlaces.concat([
-    placeInfo.selectedPlace,
-  ])) {
-    const placeChartData = getPlaceChartData(
-      rawData.breadcrumbPlaceStat,
-      place.dcid,
-      calculateRatio,
-      rawData.population,
-      rawData.metadataMap
-    );
-    if (_.isEmpty(placeChartData)) {
-      continue;
-    }
-    breadcrumbValues[place.dcid] = placeChartData.value;
-    if (!_.isEmpty(placeChartData.metadata)) {
-      metadata[place.dcid] = placeChartData.metadata;
-    }
-  }
   const mapPointValues = {};
   if (!_.isEmpty(chartStore.mapPointStat.data)) {
     for (const placeDcid in chartStore.mapPointStat.data.data) {
@@ -834,7 +778,6 @@ function loadChartData(
     });
   }
   setChartData({
-    breadcrumbValues,
     dates: statVarDates,
     mapPoints: chartStore.mapPointCoordinate.data,
     mapPointValues,

@@ -79,8 +79,8 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
             facets: resp.data.facets,
           } as EntityObservationListWrapper;
         }
-        dispatch(action);
         console.log("all stat action dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching all stat data";

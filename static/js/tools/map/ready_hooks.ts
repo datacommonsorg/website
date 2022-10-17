@@ -105,13 +105,13 @@ export function useBreadcrumbStatReady(chartStore: ChartStore) {
     const c = chartStore.breadcrumbStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.selectedPlace.dcid === c.placeInfo.selectedPlace.dcid &&
       statVar.value.dcid === c.statVar.dcid &&
       statVar.value.date === c.statVar.date
     );
   }, [
     chartStore.breadcrumbStat.context,
-    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.selectedPlace.dcid,
     statVar.value.dcid,
     statVar.value.date,
   ]);
@@ -123,12 +123,12 @@ export function useBreadcrumbDenomStatReady(chartStore: ChartStore) {
     const c = chartStore.breadcrumbDenomStat.context;
     return (
       !_.isEmpty(c) &&
-      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.selectedPlace.dcid === c.placeInfo.selectedPlace.dcid &&
       statVar.value.denom === c.statVar.denom
     );
   }, [
     chartStore.breadcrumbDenomStat.context,
-    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.selectedPlace.dcid,
     statVar.value.denom,
   ]);
 }

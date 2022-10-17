@@ -56,8 +56,8 @@ export function useFetchStatVarSummary(
         } else {
           action.payload = resp.data as StatVarSummary;
         }
-        dispatch(action);
         console.log("stat var summary data dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching stat var summary data";
