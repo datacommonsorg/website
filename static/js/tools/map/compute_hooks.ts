@@ -93,6 +93,13 @@ export function useComputeBreadcrumbValues(chartStore: ChartStore): {
     }
     console.log("compute breadcrumb values");
     const breadcrumbValues = {};
+    const facets = Object.assign(
+      [],
+      chartStore.breadcrumbStat.data.facets,
+      chartStore.breadcrumbDenomStat.data
+        ? chartStore.breadcrumbDenomStat.data.facets
+        : {}
+    );
     for (const place in chartStore.breadcrumbStat.data.data) {
       const placeChartData = getPlaceChartData(
         chartStore.breadcrumbStat.data.data,
@@ -101,13 +108,7 @@ export function useComputeBreadcrumbValues(chartStore: ChartStore): {
         chartStore.breadcrumbDenomStat.data
           ? chartStore.breadcrumbDenomStat.data.data
           : null,
-        Object.assign(
-          [],
-          chartStore.breadcrumbStat.data.facets,
-          chartStore.breadcrumbDenomStat.data
-            ? chartStore.breadcrumbDenomStat.data.facets
-            : {}
-        )
+        facets
       );
       if (_.isEmpty(placeChartData)) {
         continue;
