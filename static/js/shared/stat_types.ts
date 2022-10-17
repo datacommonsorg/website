@@ -108,9 +108,27 @@ export interface PlaceStatDateWithinPlace {
   metadata: StatMetadata;
 }
 
-// response from /v1/stat/date/within-place
-export interface GetPlaceStatDateWithinPlaceResponse {
-  data: Record<string, Record<string, Array<PlaceStatDateWithinPlace>>>;
+export interface ObservationDate {
+  date: string;
+  entityCount: {
+    count: number;
+    facet: string;
+  }[];
+}
+
+export interface ObservationDatesWrapper {
+  data: ObservationDate[];
+  facets: FacetStore;
+}
+
+export interface ObservationDatesResponse {
+  datesByVariable: [
+    {
+      variable: string;
+      observationDates: ObservationDate[];
+    }
+  ];
+  facets: FacetStore;
 }
 
 export type FacetStore = Record<string, StatMetadata>;

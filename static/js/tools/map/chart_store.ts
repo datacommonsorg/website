@@ -22,7 +22,7 @@ import {
   EntityObservationListWrapper,
   EntityObservationWrapper,
   EntitySeriesWrapper,
-  GetPlaceStatDateWithinPlaceResponse,
+  ObservationDatesWrapper,
 } from "../../shared/stat_types";
 import { StatVarSummary } from "../../shared/types";
 import { DataContext } from "./context";
@@ -82,7 +82,7 @@ export interface ChartStore {
     context?: DataContext;
   };
   allDates: {
-    data: GetPlaceStatDateWithinPlaceResponse;
+    data: ObservationDatesWrapper;
     context?: DataContext;
   };
   geoRaster: {

@@ -35,7 +35,7 @@ import {
 import {
   EntityObservation,
   EntitySeries,
-  PlaceStatDateWithinPlace,
+  ObservationDate,
   StatMetadata,
 } from "../../shared/stat_types";
 import {
@@ -568,51 +568,57 @@ function getMetahashMap(
 
 /**
  * Return a map of sources to sample dates to display on the time slider.
- * @param metadataMap
- * @param placeStatDateWithinPlace
+ * @param observationDates
  */
 export function getTimeSliderDates(
-  metadataMap: Record<string, StatMetadata>,
-  placeStatDateWithinPlace: Array<PlaceStatDateWithinPlace>
+  observationDates: Array<ObservationDate>
 ): Record<string, Array<string>> {
-  const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
-  const sampleDates: Record<string, Array<string>> = {};
-  let bestDate = "0";
-  let bestCount = 0;
-  let bestAvailable = "";
-  for (const series of placeStatDateWithinPlace) {
-    const metatext = getMetaText(series.metadata);
-    const dates = Object.keys(series.datePlaceCount).sort();
-    let seriesWeight = 0;
-    if (dates.length <= NUM_SAMPLE_DATES) {
-      sampleDates[metahashMap[metatext]] = dates;
-    } else {
-      const increment = Math.floor(dates.length / NUM_SAMPLE_DATES);
-      const selectedDates: Array<string> = [];
-      for (let i = 0; i < dates.length; i += increment) {
-        selectedDates.push(dates[i]);
+  const facetEntityCount: Record<string, { date: string; count: number }[]> =
+    {};
+  for (const observationDate of observationDates) {
+    const date = observationDate.date;
+    for (const entityCount of observationDate.entityCount) {
+      const facet = entityCount.facet;
+      const count = entityCount.count;
+      if (!(facet in facetEntityCount)) {
+        facetEntityCount[facet] = [];
       }
-
-      // Include most recent date
-      if (selectedDates[selectedDates.length - 1] !== dates[dates.length - 1]) {
-        selectedDates.push(dates[dates.length - 1]);
-      }
-      sampleDates[metahashMap[metatext]] = selectedDates;
-    }
-    for (const date of sampleDates[metahashMap[metatext]]) {
-      seriesWeight += series.datePlaceCount[date];
-    }
-
-    // Select series with most recent date and greatest number of places
-    if (
-      dates[dates.length - 1] > bestDate ||
-      (dates[dates.length - 1] === bestDate && seriesWeight > bestCount)
-    ) {
-      bestDate = dates[dates.length - 1];
-      bestCount = seriesWeight;
-      bestAvailable = metahashMap[metatext];
+      facetEntityCount[facet].push({ date, count });
     }
   }
+  const latestFacets = observationDates[
+    observationDates.length - 1
+  ].entityCount.map((x) => x.facet);
+
+  const sampleDates: Record<string, Array<string>> = {};
+  const facetWeight: Record<string, number> = {};
+  for (const facet in facetEntityCount) {
+    const entityCount = facetEntityCount[facet];
+    const increment = Math.max(
+      1,
+      Math.ceil(entityCount.length / NUM_SAMPLE_DATES)
+    );
+    const selectedDates: Array<string> = [];
+    let weight = 0;
+    for (let i = 0; i < entityCount.length - 1; i += increment) {
+      selectedDates.push(entityCount[i].date);
+      weight += entityCount[i].count;
+    }
+    // Include most recent date
+    selectedDates.push(entityCount[entityCount.length - 1].date);
+    weight += entityCount[entityCount.length - 1].count;
+    sampleDates[facet] = selectedDates;
+    facetWeight[facet] = weight;
+  }
+  let bestWeight = 0;
+  let bestAvailable = "";
+  for (const facet of latestFacets) {
+    if (facetWeight[facet] > bestWeight) {
+      bestWeight = facetWeight[facet];
+      bestAvailable = facet;
+    }
+  }
+
   sampleDates[BEST_AVAILABLE_METAHASH] = [bestAvailable];
   return sampleDates;
 }

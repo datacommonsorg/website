@@ -24,6 +24,7 @@ import { ChartDataType, ChartStore, ChartStoreAction } from "./chart_store";
 import { useIfRatio } from "./condition_hooks";
 import { Context } from "./context";
 import {
+  useAllDatesReady,
   useBreadcrumbDenomStatReady,
   useBreadcrumbStatReady,
   useDefaultStatReady,
@@ -32,6 +33,7 @@ import {
 import {
   getGeoJsonDataFeatures,
   getPlaceChartData,
+  getTimeSliderDates,
   MANUAL_GEOJSON_DISTANCES,
 } from "./util";
 
@@ -123,4 +125,17 @@ export function useComputeBreadcrumbValues(chartStore: ChartStore): {
     breadcrumbStatReady,
     breadcrumbDenomStatReady,
   ]);
+}
+
+export function useComputeSampleDates(
+  chartStore: ChartStore
+): Record<string, Array<string>> {
+  const allDatesReady = useAllDatesReady(chartStore);
+  return useMemo(() => {
+    if (!allDatesReady()) {
+      return {};
+    }
+    const allSampleDates = getTimeSliderDates(chartStore.allDates.data.data);
+    return allSampleDates;
+  }, [chartStore.allDates.data, allDatesReady]);
 }

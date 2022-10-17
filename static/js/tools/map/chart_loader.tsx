@@ -29,7 +29,6 @@ import {
   EntityObservation,
   EntityObservationList,
   EntitySeries,
-  GetPlaceStatDateWithinPlaceResponse,
   PointAllApiResponse,
   PointApiResponse,
   SeriesApiResponse,
@@ -50,7 +49,10 @@ import {
   chartStoreReducer,
   emptyChartStore,
 } from "./chart_store";
-import { useComputeBreadcrumbValues } from "./compute_hooks";
+import {
+  useComputeBreadcrumbValues,
+  useComputeSampleDates,
+} from "./compute_hooks";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -59,6 +61,7 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
+import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
 import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
 import { useFetchEuropeanCountries } from "./fetcher/european_countries";
@@ -73,7 +76,6 @@ import {
   getGeoJsonDataFeatures,
   getLegendBounds,
   getPlaceChartData,
-  getTimeSliderDates,
   MANUAL_GEOJSON_DISTANCES,
 } from "./util";
 
@@ -84,9 +86,6 @@ interface ChartRawData {
   population: EntitySeries;
   breadcrumbPlaceStat?: EntityObservation;
   dataDate: string;
-
-  // Map of metahash to array of ~10 dates for time slider
-  sampleDates: Record<string, Array<string>>;
 
   // Map of metahash to display domain for the map legend
   legendBounds: Record<string, [number, number, number]>;
@@ -144,7 +143,9 @@ export function ChartLoader(): JSX.Element {
   useFetchBreadcrumbDenomStat(chartStore, dispatch);
   useFetchMapPointStat(dispatch);
   useFetchGeoRaster(dispatch);
+  useFetchAllDates(dispatch);
 
+  const allSampleDates = useComputeSampleDates(chartStore);
   const breadcrumbValues = useComputeBreadcrumbValues(chartStore);
 
   // For IPCC grid data, geoJson features is calculated based on the grid
@@ -187,7 +188,8 @@ export function ChartLoader(): JSX.Element {
         statVar.value,
         isLoading,
         setRawData,
-        display.value.showTimeSlider
+        display.value.showTimeSlider,
+        allSampleDates
       );
     } else {
       setRawData(undefined);
@@ -225,6 +227,7 @@ export function ChartLoader(): JSX.Element {
       chartStore,
       dateRawData,
       placeInfo.value,
+      allSampleDates,
       statVar.value,
       setChartData,
       display
@@ -293,7 +296,8 @@ export function ChartLoader(): JSX.Element {
       isLoading,
       setRawData,
       display.value.showTimeSlider,
-      rawData.sampleDates[metaHash],
+      allSampleDates,
+      allSampleDates[metaHash],
       sampleDatesChartData,
       setSampleDatesChartData
     );
@@ -329,6 +333,7 @@ export function ChartLoader(): JSX.Element {
         chartStore,
         sampleDatesChartData[metaHash][date],
         placeInfo.value,
+        allSampleDates,
         statVar.value,
         setChartData,
         display
@@ -430,6 +435,7 @@ function fetchData(
   isLoading: IsLoadingWrapper,
   setRawData: (data: ChartRawData) => void,
   showTimeSlider: boolean,
+  allSampleDates: Record<string, string[]>,
   currentSampleDates?: Array<string>,
   sampleDatesChartData?: Record<string, Record<string, ChartRawData>>,
   setSampleDatesChartData?: (
@@ -544,18 +550,11 @@ function fetchData(
   const statVarSummaryPromise: Promise<StatVarSummary> = axios
     .post("/api/stats/stat-var-summary", { statVars: [statVar.dcid] })
     .then((resp) => resp.data);
-  const placeStatDateWithinPlacePromise: Promise<GetPlaceStatDateWithinPlaceResponse> =
-    axios
-      .get(
-        `/api/stats/date/within-place?ancestorPlace=${placeInfo.enclosingPlace.dcid}&childPlaceType=${placeInfo.enclosedPlaceType}&statVars=${statVar.dcid}`
-      )
-      .then((resp) => resp.data);
   Promise.all([
     enclosedPlacePopPromise,
     enclosedPlaceDataPromise,
     allEnclosedPlaceDataPromise,
     statVarSummaryPromise,
-    placeStatDateWithinPlacePromise,
     enclosedPlaceDatesPromise,
     allEnclosedPlaceDatesPromise,
     breadcrumbPlaceDatesPromise,
@@ -566,7 +565,6 @@ function fetchData(
         enclosedPlaceData,
         allEnclosedPlaceData,
         statVarSummary,
-        placeStatDateWithinPlace,
         enclosedPlaceDatesData,
         allEnclosedPlaceDatesData,
         breadcrumbPlaceDatesData,
@@ -581,19 +579,12 @@ function fetchData(
         if (enclosedPlacesPop && enclosedPlacesPop.facets) {
           Object.assign(metadataMap, enclosedPlacesPop.facets);
         }
-        const sampleDates =
-          placeStatDateWithinPlace.data[statVar.dcid].statDate && showTimeSlider
-            ? getTimeSliderDates(
-                metadataMap,
-                placeStatDateWithinPlace.data[statVar.dcid].statDate
-              )
-            : {};
         let legendBounds: Record<string, [number, number, number]> = {};
-        if (BEST_AVAILABLE_METAHASH in sampleDates) {
+        if (BEST_AVAILABLE_METAHASH in allSampleDates) {
           // Set dates for "Best Available" to best series
-          const bestAvailableHash = sampleDates[BEST_AVAILABLE_METAHASH][0];
-          sampleDates[BEST_AVAILABLE_METAHASH] =
-            sampleDates[sampleDates[BEST_AVAILABLE_METAHASH][0]];
+          const bestAvailableHash = allSampleDates[BEST_AVAILABLE_METAHASH][0];
+          allSampleDates[BEST_AVAILABLE_METAHASH] =
+            allSampleDates[allSampleDates[BEST_AVAILABLE_METAHASH][0]];
           legendBounds = getLegendBounds(
             metadataMap,
             statVarSummary[statVar.dcid].provenanceSummary,
@@ -620,7 +611,6 @@ function fetchData(
                 ...enclosedPlacesPop.data[statVar.denom],
               },
               dataDate,
-              sampleDates,
               legendBounds,
             };
           }
@@ -647,7 +637,6 @@ function fetchData(
               ...enclosedPlacesPop.data[statVar.denom],
             },
             dataDate,
-            sampleDates,
             legendBounds,
           });
         }
@@ -695,6 +684,7 @@ function loadChartData(
   chartStore: ChartStore,
   rawData: ChartRawData,
   placeInfo: PlaceInfo,
+  allSampleDates: Record<string, string[]>,
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
   display: DisplayOptionsWrapper
@@ -773,7 +763,7 @@ function loadChartData(
     rawData.metadataMap
   );
   const metahash = statVar.metahash || BEST_AVAILABLE_METAHASH;
-  const sampleDates = rawData.sampleDates[metahash];
+  const sampleDates = allSampleDates[metahash];
 
   // If not per capita and there is no user set domain, try to update the domain
   // based on rawData.

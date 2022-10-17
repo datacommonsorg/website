@@ -15,10 +15,12 @@
  */
 
 import { ContextType } from "./context";
+import { observationDates } from "./test_data";
 import {
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
+  getTimeSliderDates,
   updateHashDisplay,
   updateHashPlaceInfo,
   updateHashStatVar,
@@ -126,4 +128,50 @@ test("applyHashDisplay", () => {
   );
   const display = applyHashDisplay(urlParams);
   expect(display).toEqual(TestContext.display.value);
+});
+
+test("get time slider dates", () => {
+  const sampleDates = {
+    "1355058237": [
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+    ],
+    "2763329611": [
+      "2010",
+      "2011",
+      "2012",
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+    ],
+    "3690003977": ["2017", "2018", "2019"],
+    "3795540742": [
+      "2001",
+      "2003",
+      "2005",
+      "2007",
+      "2009",
+      "2011",
+      "2013",
+      "2015",
+      "2017",
+      "2019",
+      "2020",
+    ],
+    "3847894791": ["2017", "2018", "2019"],
+    "Best Available": ["3795540742"],
+  };
+  expect(getTimeSliderDates(observationDates)).toEqual(sampleDates);
 });

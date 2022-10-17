@@ -22,7 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import { GetPlaceStatDateWithinPlaceResponse } from "../../../shared/stat_types";
+import { ObservationDatesResponse } from "../../../shared/stat_types";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -54,18 +54,25 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
       },
     };
     axios
-      .get("/api/stats/date/within-place", {
+      .get("/api/observation-dates", {
         params: {
-          ancestorPlace: placeInfo.value.enclosingPlace.dcid,
-          childPlaceType: placeInfo.value.enclosedPlaceType,
-          statVars: [statVar.value.dcid],
+          parentEntity: placeInfo.value.enclosingPlace.dcid,
+          childType: placeInfo.value.enclosedPlaceType,
+          variable: statVar.value.dcid,
         },
       })
       .then((resp) => {
-        if (_.isEmpty(resp.data)) {
+        const data = resp.data as ObservationDatesResponse;
+        if (
+          _.isEmpty(data.datesByVariable) ||
+          _.isEmpty(data.datesByVariable[0].observationDates)
+        ) {
           action.error = "error fetching all the dates";
         } else {
-          action.payload = resp.data as GetPlaceStatDateWithinPlaceResponse;
+          action.payload = {
+            data: data.datesByVariable[0].observationDates,
+            facets: data.facets,
+          };
         }
         console.log("all dates data dispatched");
         dispatch(action);
