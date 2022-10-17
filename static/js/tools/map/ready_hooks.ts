@@ -170,3 +170,21 @@ export function useMapPointCoordinateReady(chartStore: ChartStore) {
     placeInfo.value.mapPointPlaceType,
   ]);
 }
+
+export function useAllDatesReady(chartStore: ChartStore) {
+  const { placeInfo, statVar } = useContext(Context);
+  return useCallback(() => {
+    const c = chartStore.allDates.context;
+    return (
+      !_.isEmpty(c) &&
+      placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+      statVar.value.dcid === c.statVar.dcid
+    );
+  }, [
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+    statVar.value.dcid,
+    chartStore.allDates.context,
+  ]);
+}

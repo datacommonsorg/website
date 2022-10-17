@@ -15,6 +15,7 @@
  */
 
 import { ContextType } from "./context";
+import { observationDates, observationDatesFacets } from "./test_data";
 import {
   applyHashDisplay,
   applyHashPlaceInfo,
@@ -130,142 +131,6 @@ test("applyHashDisplay", () => {
 });
 
 test("get time slider dates", () => {
-  const metadataMap = {
-    "1355058237": {
-      importName: "CensusACS5YearSurvey_SubjectTables_S2601APR",
-      measurementMethod: "CensusACS5yrSurveySubjectTable",
-      provenanceUrl:
-        "https://data.census.gov/cedsci/table?q=S2601APR&tid=ACSST5Y2019.S2601APR",
-      unit: "Years",
-    },
-    "2176550201": {
-      importName: "USCensusPEP_Annual_Population",
-      measurementMethod: "CensusPEPSurvey",
-      observationPeriod: "P1Y",
-      provenanceUrl: "https://www2.census.gov/programs-surveys/popest/tables",
-    },
-    "2763329611": {
-      importName: "CensusACS5YearSurvey_SubjectTables_S2601A",
-      measurementMethod: "CensusACS5yrSurveySubjectTable",
-      provenanceUrl:
-        "https://data.census.gov/cedsci/table?q=S2601A&tid=ACSST5Y2019.S2601A",
-      unit: "Years",
-    },
-    "3690003977": {
-      importName: "CensusACS5YearSurvey_SubjectTables_S2602",
-      measurementMethod: "CensusACS5yrSurveySubjectTable",
-      provenanceUrl:
-        "https://data.census.gov/cedsci/table?q=S2602&tid=ACSST5Y2019.S2602",
-      unit: "Years",
-    },
-    "3795540742": {
-      importName: "CensusACS5YearSurvey",
-      measurementMethod: "CensusACS5yrSurvey",
-      provenanceUrl: "https://www.census.gov/",
-      unit: "Year",
-    },
-    "3847894791": {
-      importName: "CensusACS5YearSurvey_SubjectTables_S2602PR",
-      measurementMethod: "CensusACS5yrSurveySubjectTable",
-      provenanceUrl:
-        "https://data.census.gov/cedsci/table?q=S2602PR&tid=ACSST5Y2019.S2602PR",
-      unit: "Years",
-    },
-  };
-
-  const placeStatDateWithinPlace = [
-    {
-      datePlaceCount: {
-        "2011": 52,
-        "2012": 52,
-        "2013": 52,
-        "2014": 52,
-        "2015": 52,
-        "2016": 52,
-        "2017": 52,
-        "2018": 52,
-        "2019": 52,
-        "2020": 52,
-      },
-      metadata: {
-        importName: "CensusACS5YearSurvey",
-        provenanceUrl: "https://www.census.gov/",
-        measurementMethod: "CensusACS5yrSurvey",
-        unit: "Year",
-      },
-    },
-    {
-      datePlaceCount: {
-        "2010": 51,
-        "2011": 51,
-        "2012": 51,
-        "2013": 51,
-        "2014": 51,
-        "2015": 51,
-        "2016": 51,
-        "2017": 51,
-        "2018": 51,
-        "2019": 51,
-      },
-      metadata: {
-        importName: "CensusACS5YearSurvey_SubjectTables_S2601A",
-        provenanceUrl:
-          "https://data.census.gov/cedsci/table?q=S2601A&tid=ACSST5Y2019.S2601A",
-        measurementMethod: "CensusACS5yrSurveySubjectTable",
-        unit: "Years",
-      },
-    },
-    {
-      datePlaceCount: {
-        "2010": 1,
-        "2011": 1,
-        "2012": 1,
-        "2013": 1,
-        "2014": 1,
-        "2015": 1,
-        "2016": 1,
-        "2017": 1,
-        "2018": 1,
-        "2019": 1,
-      },
-      metadata: {
-        importName: "CensusACS5YearSurvey_SubjectTables_S2601APR",
-        provenanceUrl:
-          "https://data.census.gov/cedsci/table?q=S2601APR&tid=ACSST5Y2019.S2601APR",
-        measurementMethod: "CensusACS5yrSurveySubjectTable",
-        unit: "Years",
-      },
-    },
-    {
-      datePlaceCount: {
-        "2017": 51,
-        "2018": 51,
-        "2019": 51,
-      },
-      metadata: {
-        importName: "CensusACS5YearSurvey_SubjectTables_S2602",
-        provenanceUrl:
-          "https://data.census.gov/cedsci/table?q=S2602&tid=ACSST5Y2019.S2602",
-        measurementMethod: "CensusACS5yrSurveySubjectTable",
-        unit: "Years",
-      },
-    },
-    {
-      datePlaceCount: {
-        "2017": 1,
-        "2018": 1,
-        "2019": 1,
-      },
-      metadata: {
-        importName: "CensusACS5YearSurvey_SubjectTables_S2602PR",
-        provenanceUrl:
-          "https://data.census.gov/cedsci/table?q=S2602PR&tid=ACSST5Y2019.S2602PR",
-        measurementMethod: "CensusACS5yrSurveySubjectTable",
-        unit: "Years",
-      },
-    },
-  ];
-
   const sampleDates = {
     "1355058237": [
       "2010",
@@ -293,21 +158,22 @@ test("get time slider dates", () => {
     ],
     "3690003977": ["2017", "2018", "2019"],
     "3795540742": [
+      "2001",
+      "2003",
+      "2005",
+      "2007",
+      "2009",
       "2011",
-      "2012",
       "2013",
-      "2014",
       "2015",
-      "2016",
       "2017",
-      "2018",
       "2019",
       "2020",
     ],
     "3847894791": ["2017", "2018", "2019"],
     "Best Available": ["3795540742"],
   };
-  expect(getTimeSliderDates(metadataMap, placeStatDateWithinPlace)).toEqual(
+  expect(getTimeSliderDates(observationDatesFacets, observationDates)).toEqual(
     sampleDates
   );
 });

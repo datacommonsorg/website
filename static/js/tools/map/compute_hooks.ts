@@ -17,13 +17,21 @@
 // This module contains custom React hooks that makes computation for map chart.
 
 import _ from "lodash";
-import { Dispatch, useContext, useEffect } from "react";
+import { Dispatch, useContext, useEffect, useMemo } from "react";
 
 import { GeoJsonData } from "../../chart/types";
 import { ChartDataType, ChartStore, ChartStoreAction } from "./chart_store";
 import { Context } from "./context";
-import { useDefaultStatReady, useGeoJsonReady } from "./ready_hooks";
-import { getGeoJsonDataFeatures, MANUAL_GEOJSON_DISTANCES } from "./util";
+import {
+  useAllDatesReady,
+  useDefaultStatReady,
+  useGeoJsonReady,
+} from "./ready_hooks";
+import {
+  getGeoJsonDataFeatures,
+  getTimeSliderDates,
+  MANUAL_GEOJSON_DISTANCES,
+} from "./util";
 
 // For IPCC grid data, geoJson features is calculated based on the grid
 // DCID.
@@ -66,4 +74,21 @@ export function useUpdateGeoJson(
     defaultStatReady,
     dispatch,
   ]);
+}
+
+export function useComputeSampledDates(
+  chartStore: ChartStore
+): Record<string, Array<string>> {
+  const allDatesReady = useAllDatesReady(chartStore);
+  return useMemo(() => {
+    if (!allDatesReady()) {
+      return {};
+    }
+    const allSampledDates = getTimeSliderDates(
+      chartStore.allDates.data.facets,
+      chartStore.allDates.data.data
+    );
+    console.log(allSampledDates);
+    return allSampledDates;
+  }, [chartStore.allDates.data, allDatesReady]);
 }
