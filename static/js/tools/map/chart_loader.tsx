@@ -49,8 +49,10 @@ import {
   chartStoreReducer,
   emptyChartStore,
 } from "./chart_store";
-import { useComputeBreadcrumbValues } from "./compute_hooks";
-import { useComputeSampledDates } from "./compute_hooks";
+import {
+  useComputeBreadcrumbValues,
+  useComputeSampledDates,
+} from "./compute_hooks";
 import {
   Context,
   DisplayOptionsWrapper,
@@ -59,9 +61,9 @@ import {
   StatVar,
   StatVarWrapper,
 } from "./context";
+import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
 import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
-import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import { useFetchGeoJson } from "./fetcher/geojson";
 import { useFetchGeoRaster } from "./fetcher/georaster";
@@ -224,8 +226,8 @@ export function ChartLoader(): JSX.Element {
     loadChartData(
       chartStore,
       dateRawData,
-      allSampleDates,
       placeInfo.value,
+      allSampleDates,
       statVar.value,
       setChartData,
       display
@@ -330,8 +332,8 @@ export function ChartLoader(): JSX.Element {
       loadChartData(
         chartStore,
         sampleDatesChartData[metaHash][date],
-        allSampleDates,
         placeInfo.value,
+        allSampleDates,
         statVar.value,
         setChartData,
         display
