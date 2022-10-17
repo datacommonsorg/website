@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { GeoRaster } from "georaster-layer-for-leaflet";
 import _ from "lodash";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
@@ -37,6 +38,7 @@ export enum ChartDataType {
   MAP_POINT_COORDINATE = "mapPointCoordinate",
   STAT_VAR_SUMMARY = "statVarSummary",
   ALL_DATES = "allDates",
+  GEO_RASTER = "geoRaster",
 }
 
 // ChartStore holds the raw data and corresponding context.
@@ -83,6 +85,10 @@ export interface ChartStore {
     data: GetPlaceStatDateWithinPlaceResponse;
     context?: DataContext;
   };
+  geoRaster: {
+    data: GeoRaster;
+    context?: DataContext;
+  };
 }
 
 export const emptyChartStore = {
@@ -114,6 +120,9 @@ export const emptyChartStore = {
     data: null,
   },
   allDates: {
+    data: null,
+  },
+  geoRaster: {
     data: null,
   },
 };
