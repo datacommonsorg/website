@@ -25,19 +25,19 @@ def observation_dates():
     Given ancestor place, child place type and stat vars, return the dates that
 	have data for each stat var across all child places.
     """
-    ancestor_place = request.args.get('ancestorPlace')
-    if not ancestor_place:
-        return 'error: must provide a ancestorPlace field', 400
-    child_place_type = request.args.get('childPlaceType')
-    if not child_place_type:
-        return 'error: must provide a childPlaceType field', 400
-    stat_var = request.args.get('statVar')
-    if not stat_var:
-        return 'error: must provide a statVars field', 400
+    parent_entity = request.args.get('parentEntity')
+    if not parent_entity:
+        return 'error: must provide a parentEntity field', 400
+    child_type = request.args.get('childType')
+    if not child_type:
+        return 'error: must provide a childType field', 400
+    variable = request.args.get('variable')
+    if not variable:
+        return 'error: must provide a variable field', 400
     return dc.post(
         '/v1/bulk/observation-dates/linked', {
             'linked_property': "containedInPlace",
-            'linked_entity': ancestor_place,
-            'entity_type': child_place_type,
-            'variables': [stat_var],
+            'linked_entity': parent_entity,
+            'entity_type': child_type,
+            'variables': [variable],
         })

@@ -35,7 +35,6 @@ import {
 import {
   EntityObservation,
   EntitySeries,
-  FacetStore,
   ObservationDate,
   StatMetadata,
 } from "../../shared/stat_types";
@@ -569,11 +568,9 @@ function getMetahashMap(
 
 /**
  * Return a map of sources to sample dates to display on the time slider.
- * @param metadataMap
- * @param placeStatDateWithinPlace
+ * @param observationDates
  */
 export function getTimeSliderDates(
-  metadataMap: FacetStore,
   observationDates: Array<ObservationDate>
 ): Record<string, Array<string>> {
   const facetEntityCount: Record<string, { date: string; count: number }[]> =

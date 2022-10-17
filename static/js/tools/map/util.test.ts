@@ -15,7 +15,7 @@
  */
 
 import { ContextType } from "./context";
-import { observationDates, observationDatesFacets } from "./test_data";
+import { observationDates } from "./test_data";
 import {
   applyHashDisplay,
   applyHashPlaceInfo,
@@ -173,7 +173,5 @@ test("get time slider dates", () => {
     "3847894791": ["2017", "2018", "2019"],
     "Best Available": ["3795540742"],
   };
-  expect(getTimeSliderDates(observationDatesFacets, observationDates)).toEqual(
-    sampleDates
-  );
+  expect(getTimeSliderDates(observationDates)).toEqual(sampleDates);
 });

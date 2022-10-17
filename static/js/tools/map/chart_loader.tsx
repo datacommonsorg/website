@@ -51,7 +51,7 @@ import {
 } from "./chart_store";
 import {
   useComputeBreadcrumbValues,
-  useComputeSampledDates,
+  useComputeSampleDates,
 } from "./compute_hooks";
 import {
   Context,
@@ -145,7 +145,7 @@ export function ChartLoader(): JSX.Element {
   useFetchGeoRaster(dispatch);
   useFetchAllDates(dispatch);
 
-  const allSampleDates = useComputeSampledDates(chartStore);
+  const allSampleDates = useComputeSampleDates(chartStore);
   const breadcrumbValues = useComputeBreadcrumbValues(chartStore);
 
   // For IPCC grid data, geoJson features is calculated based on the grid

@@ -56,14 +56,17 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
     axios
       .get("/api/observation-dates", {
         params: {
-          ancestorPlace: placeInfo.value.enclosingPlace.dcid,
-          childPlaceType: placeInfo.value.enclosedPlaceType,
-          statVar: statVar.value.dcid,
+          parentEntity: placeInfo.value.enclosingPlace.dcid,
+          childType: placeInfo.value.enclosedPlaceType,
+          variable: statVar.value.dcid,
         },
       })
       .then((resp) => {
         const data = resp.data as ObservationDatesResponse;
-        if (_.isEmpty(data.datesByVariable[0].observationDates)) {
+        if (
+          _.isEmpty(data.datesByVariable) ||
+          _.isEmpty(data.datesByVariable[0].observationDates)
+        ) {
           action.error = "error fetching all the dates";
         } else {
           action.payload = {

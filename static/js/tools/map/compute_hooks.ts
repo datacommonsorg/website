@@ -127,7 +127,7 @@ export function useComputeBreadcrumbValues(chartStore: ChartStore): {
   ]);
 }
 
-export function useComputeSampledDates(
+export function useComputeSampleDates(
   chartStore: ChartStore
 ): Record<string, Array<string>> {
   const allDatesReady = useAllDatesReady(chartStore);
@@ -135,11 +135,7 @@ export function useComputeSampledDates(
     if (!allDatesReady()) {
       return {};
     }
-    const allSampledDates = getTimeSliderDates(
-      chartStore.allDates.data.facets,
-      chartStore.allDates.data.data
-    );
-    console.log(allSampledDates);
-    return allSampledDates;
+    const allSampleDates = getTimeSliderDates(chartStore.allDates.data.data);
+    return allSampleDates;
   }, [chartStore.allDates.data, allDatesReady]);
 }
