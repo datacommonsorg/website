@@ -20,7 +20,6 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
 import React, {
   Dispatch,
   useContext,
@@ -141,7 +140,7 @@ export function ChartLoader(): JSX.Element {
     sources: Set<string>,
     payload: Set<string>
   ): Set<string> {
-    return new Set([...sources, ...payload]);
+    return new Set([...Array.from(sources), ...Array.from(payload)]);
   }
 
   function metadataReducer(

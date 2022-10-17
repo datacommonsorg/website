@@ -10,12 +10,12 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "ESNext",
-    "target": "es6",
+    "target": "es5",
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
   },
   "exclude": ["node_modules"]
 }
