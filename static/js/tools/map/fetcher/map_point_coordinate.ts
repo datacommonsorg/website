@@ -64,8 +64,8 @@ export function useFetchMapPointCoordinate(
         } else {
           action.payload = resp.data as Array<MapPoint>;
         }
-        dispatch(action);
         console.log("map point coordinate dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching map point coordinate data";

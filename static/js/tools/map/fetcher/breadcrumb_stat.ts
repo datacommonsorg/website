@@ -82,8 +82,8 @@ export function useFetchBreadcrumbStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        dispatch(action);
         console.log("breadcrumb stat action dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching breadcrumb stat data";

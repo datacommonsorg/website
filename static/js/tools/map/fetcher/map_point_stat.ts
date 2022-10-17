@@ -81,8 +81,8 @@ export function useFetchMapPointStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        dispatch(action);
         console.log("map point stat dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching map point stat data";

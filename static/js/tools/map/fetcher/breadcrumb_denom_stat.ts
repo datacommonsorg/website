@@ -50,11 +50,12 @@ export function useFetchBreadcrumbDenomStat(
       type: ChartDataType.BREADCRUMB_DENOM_STAT,
       context: {
         placeInfo: {
-          enclosingPlace: {
+          selectedPlace: {
             // entities are the parent places + the enclosing place.
             // so the last element is the enclosing place.
             dcid: placeDcids[placeDcids.length - 1],
             name: "",
+            types: null,
           },
         },
         statVar: {
@@ -80,8 +81,8 @@ export function useFetchBreadcrumbDenomStat(
             facets: resp.data.facets,
           } as EntitySeriesWrapper;
         }
-        dispatch(action);
         console.log("breadcrumb denom stat action dispatched");
+        dispatch(action);
       })
       .catch(() => {
         action.error = "error fetching breadcrumb denom stat data";
