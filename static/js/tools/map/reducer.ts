@@ -17,8 +17,8 @@
 import { ChartStore, ChartStoreAction } from "./chart_store";
 import { DataPointMetadata } from "./util";
 
-// A reducer used by a useReducer() hook. It adds a type of data to the
-// ChartStore.
+// A reducer used for merging field in ChartStore object. It adds fetched raw
+// data to the ChartStore.
 export function chartStoreReducer(
   chartStore: ChartStore,
   action: ChartStoreAction
@@ -32,6 +32,7 @@ export function chartStoreReducer(
   };
 }
 
+// A reducer to merge sources from custom hooks.
 export function sourcesReducer(
   sources: Set<string>,
   payload: Set<string>
@@ -39,6 +40,7 @@ export function sourcesReducer(
   return new Set([...Array.from(sources), ...Array.from(payload)]);
 }
 
+// A reducer to merge metadata from custom hooks.
 export function metadataReducer(
   metadata: Record<string, DataPointMetadata>,
   payload: Record<string, DataPointMetadata>

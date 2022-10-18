@@ -24,7 +24,6 @@ import { Context } from "./context";
 export function useIfRatio() {
   const { statVar } = useContext(Context);
   return useMemo(() => {
-    console.log("run useIfRatio");
     return !!statVar.value.perCapita && !!statVar.value.denom;
   }, [statVar.value.perCapita, statVar.value.denom]);
 }
