@@ -132,18 +132,3 @@ export interface ChartStoreAction {
   context?: DataContext;
   error?: string;
 }
-
-// A reducer used by a useReducer() hook. It adds a type of data to the
-// ChartStore.
-export function chartStoreReducer(
-  chartStore: ChartStore,
-  action: ChartStoreAction
-): ChartStore {
-  return {
-    ...chartStore,
-    [action.type]: {
-      data: action.payload,
-      context: action.context,
-    },
-  };
-}

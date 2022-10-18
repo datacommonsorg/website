@@ -20,6 +20,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, {
   Dispatch,
   useContext,
@@ -48,14 +49,10 @@ import { setUpBqButton } from "../shared/bq_utils";
 import { getMatchingObservation, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart, MAP_TYPE } from "./chart";
-import {
-  ChartDataType,
-  ChartStore,
-  chartStoreReducer,
-  emptyChartStore,
-} from "./chart_store";
+import { ChartDataType, ChartStore, emptyChartStore } from "./chart_store";
 import {
   useComputeBreadcrumbValues,
+  useComputeMapPointValues,
   useComputeSampleDates,
 } from "./compute_hooks";
 import {
@@ -75,6 +72,7 @@ import { useFetchGeoRaster } from "./fetcher/georaster";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { PlaceDetails } from "./place_details";
+import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import {
   BEST_AVAILABLE_METAHASH,
   DataPointMetadata,
@@ -132,38 +130,27 @@ export function ChartLoader(): JSX.Element {
   //   };
   // }, []);
 
-  function sourcesReducer(
-    sources: Set<string>,
-    payload: Set<string>
-  ): Set<string> {
-    return new Set([...Array.from(sources), ...Array.from(payload)]);
-  }
-
-  function metadataReducer(
-    metadata: Record<string, DataPointMetadata>,
-    payload: Record<string, DataPointMetadata>
-  ): Record<string, DataPointMetadata> {
-    return { ...metadata, ...payload };
-  }
-
-  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [sources, dispatchSources] = useReducer(
     sourcesReducer,
     new Set<string>()
   );
   const [metadata, dispatchMetadata] = useReducer(metadataReducer, {});
-  const [chartStore, dispatch] = useReducer(chartStoreReducer, emptyChartStore);
-  // -------------------------------------------------------------------------
+  const [chartStore, dispatchChartStore] = useReducer(
+    chartStoreReducer,
+    emptyChartStore
+  );
+  // --------------------------------------------------------------------
 
   const europeanCountries = useFetchEuropeanCountries();
-  useFetchGeoJson(dispatch);
-  useFetchMapPointCoordinate(dispatch);
-  useFetchMapPointStat(dispatch);
-  useFetchBreadcrumbStat(dispatch);
-  useFetchBreadcrumbDenomStat(chartStore, dispatch);
-  useFetchMapPointStat(dispatch);
-  useFetchGeoRaster(dispatch);
-  useFetchAllDates(dispatch);
+  useFetchGeoJson(dispatchChartStore);
+  useFetchMapPointCoordinate(dispatchChartStore);
+  useFetchMapPointStat(dispatchChartStore);
+  useFetchBreadcrumbStat(dispatchChartStore);
+  useFetchBreadcrumbDenomStat(chartStore, dispatchChartStore);
+  useFetchMapPointStat(dispatchChartStore);
+  useFetchGeoRaster(dispatchChartStore);
+  useFetchAllDates(dispatchChartStore);
 
   const allSampleDates = useComputeSampleDates(chartStore);
   const breadcrumbValues = useComputeBreadcrumbValues(chartStore);
@@ -187,7 +174,7 @@ export function ChartLoader(): JSX.Element {
         Object.keys(rawData.enclosedPlaceStat),
         placeInfo.value.enclosedPlaceType
       );
-      dispatch({
+      dispatchChartStore({
         type: ChartDataType.GEO_JSON,
         error: null,
         payload: {
