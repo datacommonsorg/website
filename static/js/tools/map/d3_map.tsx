@@ -80,7 +80,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     if (
       _.isEmpty(props.geoJsonData) ||
       _.isEmpty(props.mapDataValues) ||
-      _.isEmpty(placeInfo.value.parentPlaces)
+      _.isNull(placeInfo.value.parentPlaces)
     ) {
       return;
     }
