@@ -21,9 +21,15 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useContext, useEffect, useReducer, useState } from "react";
+import React, {
+  Dispatch,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
-import { GeoJsonData, MapPoint } from "../../chart/types";
+import { GeoJsonData } from "../../chart/types";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   EntityObservation,
@@ -43,14 +49,10 @@ import { setUpBqButton } from "../shared/bq_utils";
 import { getMatchingObservation, getUnit } from "../shared_util";
 import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { Chart, MAP_TYPE } from "./chart";
-import {
-  ChartDataType,
-  ChartStore,
-  chartStoreReducer,
-  emptyChartStore,
-} from "./chart_store";
+import { ChartDataType, ChartStore, emptyChartStore } from "./chart_store";
 import {
   useComputeBreadcrumbValues,
+  useComputeMapPointValues,
   useComputeSampleDates,
 } from "./compute_hooks";
 import {
@@ -70,6 +72,7 @@ import { useFetchGeoRaster } from "./fetcher/georaster";
 import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { PlaceDetails } from "./place_details";
+import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import {
   BEST_AVAILABLE_METAHASH,
   DataPointMetadata,
@@ -93,12 +96,8 @@ interface ChartRawData {
 
 interface ChartData {
   mapValues: { [dcid: string]: number };
-  metadata: { [dcid: string]: DataPointMetadata };
-  sources: Set<string>;
   dates: Set<string>;
   unit: string;
-  mapPointValues: { [dcid: string]: number };
-  mapPoints: Array<MapPoint>;
   rankingLink: string;
 
   // Array of ~10 dates for time slider
@@ -131,22 +130,35 @@ export function ChartLoader(): JSX.Element {
   //   };
   // }, []);
 
-  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const [chartStore, dispatch] = useReducer(chartStoreReducer, emptyChartStore);
-  // -------------------------------------------------------------------------
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const [sources, dispatchSources] = useReducer(
+    sourcesReducer,
+    new Set<string>()
+  );
+  const [metadata, dispatchMetadata] = useReducer(metadataReducer, {});
+  const [chartStore, dispatchChartStore] = useReducer(
+    chartStoreReducer,
+    emptyChartStore
+  );
+  // --------------------------------------------------------------------
 
   const europeanCountries = useFetchEuropeanCountries();
-  useFetchGeoJson(dispatch);
-  useFetchMapPointCoordinate(dispatch);
-  useFetchMapPointStat(dispatch);
-  useFetchBreadcrumbStat(dispatch);
-  useFetchBreadcrumbDenomStat(chartStore, dispatch);
-  useFetchMapPointStat(dispatch);
-  useFetchGeoRaster(dispatch);
-  useFetchAllDates(dispatch);
+  useFetchGeoJson(dispatchChartStore);
+  useFetchMapPointCoordinate(dispatchChartStore);
+  useFetchMapPointStat(dispatchChartStore);
+  useFetchBreadcrumbStat(dispatchChartStore);
+  useFetchBreadcrumbDenomStat(chartStore, dispatchChartStore);
+  useFetchMapPointStat(dispatchChartStore);
+  useFetchGeoRaster(dispatchChartStore);
+  useFetchAllDates(dispatchChartStore);
 
   const allSampleDates = useComputeSampleDates(chartStore);
   const breadcrumbValues = useComputeBreadcrumbValues(chartStore);
+  const mapPointValues = useComputeMapPointValues(
+    chartStore,
+    dispatchSources,
+    dispatchMetadata
+  );
 
   // For IPCC grid data, geoJson features is calculated based on the grid
   // DCID.
@@ -162,7 +174,7 @@ export function ChartLoader(): JSX.Element {
         Object.keys(rawData.enclosedPlaceStat),
         placeInfo.value.enclosedPlaceType
       );
-      dispatch({
+      dispatchChartStore({
         type: ChartDataType.GEO_JSON,
         error: null,
         payload: {
@@ -230,6 +242,8 @@ export function ChartLoader(): JSX.Element {
       allSampleDates,
       statVar.value,
       setChartData,
+      dispatchSources,
+      dispatchMetadata,
       display
     );
     // Should set legend bounds for per capita if there isn't a user specified
@@ -336,6 +350,8 @@ export function ChartLoader(): JSX.Element {
         allSampleDates,
         statVar.value,
         setChartData,
+        dispatchSources,
+        dispatchMetadata,
         display
       );
     }
@@ -346,12 +362,12 @@ export function ChartLoader(): JSX.Element {
       <Chart
         geoJsonData={chartStore.geoJson.data}
         mapDataValues={chartData.mapValues}
-        metadata={chartData.metadata}
+        metadata={metadata}
         breadcrumbDataValues={breadcrumbValues}
         dates={chartData.dates}
-        sources={chartData.sources}
+        sources={sources}
         unit={chartData.unit}
-        mapPointValues={chartData.mapPointValues}
+        mapPointValues={mapPointValues}
         mapPoints={chartStore.mapPointCoordinate.data}
         europeanCountries={europeanCountries}
         rankingLink={chartData.rankingLink}
@@ -369,7 +385,7 @@ export function ChartLoader(): JSX.Element {
         <PlaceDetails
           breadcrumbDataValues={breadcrumbValues}
           mapDataValues={chartData.mapValues}
-          metadata={chartData.metadata}
+          metadata={metadata}
           unit={chartData.unit}
           geoJsonFeatures={
             chartStore.geoJson.data ? chartStore.geoJson.data.features : []
@@ -687,11 +703,13 @@ function loadChartData(
   allSampleDates: Record<string, string[]>,
   statVar: StatVar,
   setChartData: (data: ChartData) => void,
+  dispatchSources: Dispatch<Set<string>>,
+  dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>,
   display: DisplayOptionsWrapper
 ): void {
   const mapValues = {};
   const metadata = {};
-  const sourceSet: Set<string> = new Set();
+  const sources: Set<string> = new Set();
   const statVarDates: Set<string> = new Set();
   if (_.isNull(rawData.enclosedPlaceStat)) {
     return;
@@ -729,35 +747,13 @@ function loadChartData(
     }
     placeChartData.sources.forEach((source) => {
       if (!_.isEmpty(source)) {
-        sourceSet.add(source);
+        sources.add(source);
       }
     });
   }
+  dispatchSources(sources);
+  dispatchMetadata(metadata);
 
-  const mapPointValues = {};
-  if (!_.isEmpty(chartStore.mapPointStat.data)) {
-    for (const placeDcid in chartStore.mapPointStat.data.data) {
-      const placeChartData = getPlaceChartData(
-        chartStore.mapPointStat.data.data,
-        placeDcid,
-        false,
-        {},
-        chartStore.mapPointStat.data.facets
-      );
-      if (_.isNull(placeChartData)) {
-        continue;
-      }
-      mapPointValues[placeDcid] = placeChartData.value;
-      if (!_.isEmpty(placeChartData.metadata)) {
-        metadata[placeDcid] = placeChartData.metadata;
-      }
-      placeChartData.sources.forEach((source) => {
-        if (!_.isEmpty(source)) {
-          sourceSet.add(source);
-        }
-      });
-    }
-  }
   const unit = getUnit(
     Object.values(rawData.enclosedPlaceStat),
     rawData.metadataMap
@@ -781,11 +777,7 @@ function loadChartData(
   }
   setChartData({
     dates: statVarDates,
-    mapPoints: chartStore.mapPointCoordinate.data,
-    mapPointValues,
     mapValues,
-    metadata,
-    sources: sourceSet,
     unit: unit,
     rankingLink: getRankingLink(
       statVar,
