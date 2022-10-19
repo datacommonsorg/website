@@ -287,7 +287,7 @@ const getTooltipHtml =
     ) {
       value = formatNumber(dataValues[place.dcid], unit);
       hasValue = true;
-    } else if (mapPointValues[place.dcid]) {
+    } else if (mapPointValues && mapPointValues[place.dcid]) {
       if (statVar.mapPointSv !== statVar.dcid) {
         const mapPointSvTitle =
           statVar.mapPointSv in statVar.info

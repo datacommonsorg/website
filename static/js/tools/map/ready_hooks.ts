@@ -30,54 +30,60 @@ export function useGeoJsonReady(chartStore: ChartStore) {
   return useCallback(() => {
     const c = chartStore.geoJson.context;
     return (
+      !chartStore.defaultStat.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType
     );
   }, [
     chartStore.geoJson.context,
+    chartStore.defaultStat.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
   ]);
 }
 
 export function useDefaultStatReady(chartStore: ChartStore) {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.defaultStat.context;
     return (
+      !chartStore.defaultStat.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
       statVar.value.dcid === c.statVar.dcid &&
-      statVar.value.date === c.statVar.date
+      dateCtx.value === c.date
     );
   }, [
     chartStore.defaultStat.context,
+    chartStore.defaultStat.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
-    statVar.value.date,
+    dateCtx.value,
   ]);
 }
 
 export function useAllStatReady(chartStore: ChartStore) {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.allStat.context;
     return (
+      !chartStore.allStat.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
       statVar.value.dcid === c.statVar.dcid &&
-      statVar.value.date === c.statVar.date
+      dateCtx.value === c.date
     );
   }, [
     chartStore.allStat.context,
+    chartStore.allStat.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
-    statVar.value.date,
+    dateCtx.value,
   ]);
 }
 
@@ -86,6 +92,7 @@ export function useDenomStatReady(chartStore: ChartStore) {
   return useCallback(() => {
     const c = chartStore.denomStat.context;
     return (
+      !chartStore.denomStat.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
@@ -93,6 +100,7 @@ export function useDenomStatReady(chartStore: ChartStore) {
     );
   }, [
     chartStore.denomStat.context,
+    chartStore.denomStat.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.denom,
@@ -100,20 +108,22 @@ export function useDenomStatReady(chartStore: ChartStore) {
 }
 
 export function useBreadcrumbStatReady(chartStore: ChartStore) {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.breadcrumbStat.context;
     return (
+      !chartStore.breadcrumbStat.error &&
       !_.isEmpty(c) &&
       placeInfo.value.selectedPlace.dcid === c.placeInfo.selectedPlace.dcid &&
       statVar.value.dcid === c.statVar.dcid &&
-      statVar.value.date === c.statVar.date
+      dateCtx.value === c.date
     );
   }, [
     chartStore.breadcrumbStat.context,
+    chartStore.breadcrumbStat.error,
     placeInfo.value.selectedPlace.dcid,
     statVar.value.dcid,
-    statVar.value.date,
+    dateCtx.value,
   ]);
 }
 
@@ -122,36 +132,40 @@ export function useBreadcrumbDenomStatReady(chartStore: ChartStore) {
   return useCallback(() => {
     const c = chartStore.breadcrumbDenomStat.context;
     return (
+      !chartStore.breadcrumbDenomStat.error &&
       !_.isEmpty(c) &&
       placeInfo.value.selectedPlace.dcid === c.placeInfo.selectedPlace.dcid &&
       statVar.value.denom === c.statVar.denom
     );
   }, [
     chartStore.breadcrumbDenomStat.context,
+    chartStore.breadcrumbDenomStat.error,
     placeInfo.value.selectedPlace.dcid,
     statVar.value.denom,
   ]);
 }
 
 export function useMapPointStatReady(chartStore: ChartStore) {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.mapPointStat.context;
     return (
+      !chartStore.mapPointStat.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.mapPointPlaceType === c.placeInfo.mapPointPlaceType &&
       statVar.value.dcid === c.statVar.dcid &&
       statVar.value.mapPointSv === c.statVar.mapPointSv &&
-      statVar.value.date === c.statVar.date
+      dateCtx.value === c.date
     );
   }, [
     chartStore.mapPointStat.context,
+    chartStore.mapPointStat.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.mapPointPlaceType,
     statVar.value.dcid,
     statVar.value.mapPointSv,
-    statVar.value.date,
+    dateCtx.value,
   ]);
 }
 
@@ -160,12 +174,14 @@ export function useMapPointCoordinateReady(chartStore: ChartStore) {
   return useCallback(() => {
     const c = chartStore.mapPointCoordinate.context;
     return (
+      !chartStore.mapPointCoordinate.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.mapPointPlaceType === c.placeInfo.mapPointPlaceType
     );
   }, [
     chartStore.mapPointCoordinate.context,
+    chartStore.mapPointCoordinate.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.mapPointPlaceType,
   ]);
@@ -176,6 +192,7 @@ export function useAllDatesReady(chartStore: ChartStore) {
   return useCallback(() => {
     const c = chartStore.allDates.context;
     return (
+      !chartStore.allDates.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
@@ -186,6 +203,7 @@ export function useAllDatesReady(chartStore: ChartStore) {
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
     chartStore.allDates.context,
+    chartStore.allDates.error,
   ]);
 }
 

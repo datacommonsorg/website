@@ -57,16 +57,11 @@ import { useFetchStatVarSummary } from "./fetcher/stat_var_summary";
 import { PlaceDetails } from "./place_details";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import {
-  BEST_AVAILABLE_METAHASH,
-  getDate,
-  getRankingLink,
-  SampleDates,
-} from "./util";
+import { BEST_AVAILABLE_METAHASH, getDate, getRankingLink } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
-  const { placeInfo, statVar, display } = useContext(Context);
+  const { dateCtx, placeInfo, statVar, display } = useContext(Context);
 
   // +++++++  State
   const [mapType, setMapType] = useState(MAP_TYPE.D3);
@@ -200,7 +195,7 @@ export function ChartLoader(): JSX.Element {
     return null;
   }
 
-  const date = getDate(statVar.value.dcid, statVar.value.date);
+  const date = getDate(statVar.value.dcid, dateCtx.value);
 
   let unit = "";
   for (const place in chartStore.defaultStat.data.data) {

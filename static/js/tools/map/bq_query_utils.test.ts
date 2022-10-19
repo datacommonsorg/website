@@ -19,7 +19,6 @@ import { getNonPcQuery, getPcQuery } from "./bq_query_utils";
 import { PlaceInfo, StatVar } from "./context";
 
 const TEST_SV: StatVar = {
-  date: "",
   dcid: "Count_Person_Female",
   denom: "Count_Person",
   info: {},

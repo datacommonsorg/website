@@ -51,16 +51,15 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   const HANDLE_WIDTH = 4;
   const HANDLE_MARGIN = SLIDER_MARGIN - HANDLE_WIDTH / 2;
 
-  const { statVar } = useContext(Context);
+  const { dateCtx } = useContext(Context);
 
-  // const [currentDate, setCurrentDate] = useState(
-  //   props.startEnabled ? props.currentDate : "--"
-  // );
   const [enabled, setEnabled] = useState(props.startEnabled);
 
   // Number of pixels the handle is offset from the left edge of the slider bar
   const [handleLeftOffset, setHandleLeftOffset] = useState(null);
   const [play, setPlay] = useState(false);
+  // When freeze, time slider can not set the date context.
+  // This is to ensure the minimal interval of time sliding.
   const [freeze, setFreeze] = useState(false);
 
   const firstUpdate = useRef(true);
@@ -94,22 +93,10 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
   }, [handleResize]);
 
   useEffect(() => {
-    console.log("mount time slider");
-    return () => {
-      console.log("unmount time slider");
-    };
-  }, []);
-
-  useEffect(() => {
-    // Don't update pre-selected date until user presses play
     if (freeze) {
       return;
     }
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
-    if (props.currentDate < statVar.value.date) {
+    if (props.currentDate < dateCtx.value) {
       return;
     }
     if (play) {
@@ -117,9 +104,12 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       index += 1;
       if (index === props.dates.length) {
         index = 0;
+        if (firstUpdate.current) {
+          firstUpdate.current = false;
+        }
         setPlay(false);
       }
-      statVar.setDate(props.dates[index]);
+      dateCtx.set(props.dates[index]);
       setFreeze(true);
       setTimeout(() => {
         setFreeze(false);
@@ -129,14 +119,10 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
     props.dates,
     props.currentDate,
     props.startEnabled,
-    statVar,
+    dateCtx,
     play,
     freeze,
   ]);
-
-  function handlePlay() {
-    setPlay(!play);
-  }
   return (
     <div className="time-slider-container">
       <div className="time-slider">
@@ -147,7 +133,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
           {props.currentDate}
         </span>
         <div className="time-slider-break"></div>
-        <div className="time-slider-left" onClick={handlePlay}>
+        <div className="time-slider-left" onClick={() => setPlay(!play)}>
           {!play && (
             <i className="material-icons time-slider-play-button">play_arrow</i>
           )}

@@ -18,17 +18,18 @@
  * Main app component for map explorer.
  */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ChartLoader } from "./chart_loader";
-import { Context, ContextType, getInitialContext } from "./context";
+import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
 import { Title } from "./title";
 import {
   ALLOW_LEAFLET_URL_ARG,
+  applyHashDate,
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
@@ -73,7 +74,7 @@ export function AppWithContext(): JSX.Element {
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
-  const store = getInitialContext(params);
+  const store = useInitialContext(params);
 
   useEffect(() => updateHash(store), [store]);
   window.onhashchange = () => applyHash(store);
@@ -93,6 +94,7 @@ function applyHash(context: ContextType): void {
   );
   context.placeInfo.set(applyHashPlaceInfo(params));
   context.statVar.set(applyHashStatVar(params));
+  context.dateCtx.set(applyHashDate(params));
   context.display.set(applyHashDisplay(params));
 }
 

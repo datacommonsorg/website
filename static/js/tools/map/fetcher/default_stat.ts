@@ -34,7 +34,7 @@ import { getDate } from "../util";
 export function useFetchDefaultStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
@@ -48,6 +48,7 @@ export function useFetchDefaultStat(
       type: ChartDataType.DEFAULT_STAT,
       error: null,
       context: {
+        date: dateCtx.value,
         placeInfo: {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
@@ -57,11 +58,10 @@ export function useFetchDefaultStat(
         },
         statVar: {
           dcid: statVar.value.dcid,
-          date: statVar.value.date,
         },
       },
     };
-    const date = getDate(statVar.value.dcid, statVar.value.date);
+    const date = getDate(statVar.value.dcid, dateCtx.value);
     axios
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
@@ -89,10 +89,10 @@ export function useFetchDefaultStat(
         dispatch(action);
       });
   }, [
+    dateCtx.value,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
-    statVar.value.date,
     dispatch,
   ]);
 }

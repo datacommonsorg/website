@@ -40,7 +40,7 @@ export function useComputeMapValueAndDate(
   dispatchSources: Dispatch<Set<string>>,
   dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>
 ) {
-  const { statVar, placeInfo } = useContext(Context);
+  const { statVar, placeInfo, dateCtx } = useContext(Context);
   const geoJsonReady = useGeoJsonReady(chartStore);
   const allStatReady = useAllStatReady(chartStore);
   const defaultStatReady = useDefaultStatReady(chartStore);
@@ -61,6 +61,7 @@ export function useComputeMapValueAndDate(
     }
     if (
       chartStore.mapValuesDates.context &&
+      dateCtx.value === chartStore.mapValuesDates.context.date &&
       _.isEqual(statVar.value, chartStore.mapValuesDates.context.statVar) &&
       _.isEqual(placeInfo.value, chartStore.mapValuesDates.context.placeInfo)
     ) {
@@ -69,7 +70,7 @@ export function useComputeMapValueAndDate(
     if (ifRatio && !denomStatReady()) {
       return;
     }
-    console.log(`compute map values and dates for ${statVar.value.date}`);
+    console.log(`compute map values and dates for ${dateCtx.value}`);
     const mapValues = {};
     const sources = new Set<string>();
     const mapDates = new Set<string>();
@@ -118,12 +119,14 @@ export function useComputeMapValueAndDate(
     dispatchChartStore({
       type: ChartDataType.MAP_VALUES_DATES,
       context: {
+        date: dateCtx.value,
         statVar: _.cloneDeep(statVar.value),
         placeInfo: _.cloneDeep(placeInfo.value),
       },
       payload: { mapValues, mapDates },
     });
   }, [
+    dateCtx.value,
     statVar.value,
     placeInfo.value,
     chartStore.mapValuesDates,

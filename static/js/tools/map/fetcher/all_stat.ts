@@ -34,7 +34,7 @@ import { Context } from "../context";
 import { getDate } from "../util";
 
 export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
@@ -46,6 +46,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
     const action: ChartStoreAction = {
       type: ChartDataType.ALL_STAT,
       context: {
+        date: dateCtx.value,
         placeInfo: {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
@@ -55,12 +56,11 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
         },
         statVar: {
           dcid: statVar.value.dcid,
-          date: statVar.value.date,
         },
       },
       error: null,
     };
-    const date = getDate(statVar.value.dcid, statVar.value.date);
+    const date = getDate(statVar.value.dcid, dateCtx.value);
     axios
       .get<PointAllApiResponse>("/api/observations/point/within/all", {
         params: {
@@ -91,7 +91,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
-    statVar.value.date,
+    dateCtx.value,
     dispatch,
   ]);
 }

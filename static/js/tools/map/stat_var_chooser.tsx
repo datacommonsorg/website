@@ -122,7 +122,6 @@ function selectStatVar(
   displayOptions.set(DEFAULT_DISPLAY_OPTIONS);
   placeInfo.setMapPointPlaceType(getMapPointPlaceType(dcid));
   statVar.set({
-    date: "",
     dcid,
     denom: DEFAULT_POPULATION_DCID,
     info: null,

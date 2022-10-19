@@ -164,13 +164,21 @@ export interface DataPointMetadata {
   statVarSource: string;
   errorMessage?: string;
 }
+
+/**
+ * Parses the hash and get the date.
+ * @param params the params in the hash
+ */
+export function applyHashDate(params: URLSearchParams): string {
+  return params.get(URL_PARAM_KEYS.DATE);
+}
+
 /**
  * Parses the hash and produces a StatVar
  * @param params the params in the hash
  */
 export function applyHashStatVar(params: URLSearchParams): StatVar {
   const dcid = params.get(URL_PARAM_KEYS.STAT_VAR_DCID);
-  const date = params.get(URL_PARAM_KEYS.DATE);
   const denom = params.get(URL_PARAM_KEYS.DENOM);
   const mapPointSv = params.get(URL_PARAM_KEYS.MAP_POINTS_SV);
   const metahash = params.get(URL_PARAM_KEYS.SV_METAHASH);
@@ -179,7 +187,6 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
       dcid: "",
       perCapita: false,
       info: null,
-      date: "",
       denom: "",
       mapPointSv: "",
       metahash: "",
@@ -190,7 +197,6 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     dcid,
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
-    date: date ? date : "",
     denom: denom ? denom : DEFAULT_POPULATION_DCID,
     mapPointSv: mapPointSv ? mapPointSv : "",
     metahash: metahash ? metahash : "",
@@ -249,6 +255,16 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
 }
 
 /**
+ * Updates the hash based on date and returns the new hash
+ * @param hash the current hash
+ * @param date the date to update the hash with
+ */
+export function updateHashDate(hash: string, date: string): string {
+  const dateParam = date ? `&${URL_PARAM_KEYS.DATE}=${date}` : "";
+  return hash + dateParam;
+}
+
+/**
  * Updates the hash based on a StatVar and returns the new hash
  * @param hash the current hash
  * @param statVar the StatVar to update the hash with
@@ -258,9 +274,6 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
     return hash;
   }
   const perCapita = statVar.perCapita ? "1" : "0";
-  const dateParam = statVar.date
-    ? `&${URL_PARAM_KEYS.DATE}=${statVar.date}`
-    : "";
   const mapPointParam = statVar.mapPointSv
     ? `&${URL_PARAM_KEYS.MAP_POINTS_SV}=${statVar.mapPointSv}`
     : "";
@@ -275,7 +288,6 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
     `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}` +
     denomParam +
     metahashParam +
-    dateParam +
     mapPointParam;
   return hash + params;
 }

@@ -19,7 +19,7 @@
  */
 
 import * as d3 from "d3";
-import React, { ReactNode, useContext, useEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";

@@ -26,13 +26,13 @@ import { useAllStatReady } from "../ready_hooks";
 import { getDate } from "../util";
 
 export function useGetSqlQuery(chartStore: ChartStore) {
-  const { statVar, placeInfo } = useContext(Context);
+  const { dateCtx, statVar, placeInfo } = useContext(Context);
   const allStatReady = useAllStatReady(chartStore);
   return useCallback(() => {
     if (!allStatReady()) {
       return "";
     }
-    const date = getDate(statVar.value.dcid, statVar.value.date);
+    const date = getDate(statVar.value.dcid, dateCtx.value);
     let metadata: StatMetadata = {};
     if (statVar.value.metahash in chartStore.allStat.data.facets) {
       metadata = chartStore.allStat.data.facets[statVar.value.metahash];
@@ -42,5 +42,11 @@ export function useGetSqlQuery(chartStore: ChartStore) {
     } else {
       return getNonPcQuery(statVar.value, placeInfo.value, date, metadata);
     }
-  }, [statVar.value, placeInfo.value, chartStore.allStat.data, allStatReady]);
+  }, [
+    dateCtx.value,
+    statVar.value,
+    placeInfo.value,
+    chartStore.allStat.data,
+    allStatReady,
+  ]);
 }

@@ -26,7 +26,7 @@ import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
 export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
-  const { placeInfo, statVar, display } = useContext(Context);
+  const { dateCtx, placeInfo, statVar, display } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
@@ -40,6 +40,7 @@ export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
       type: ChartDataType.GEO_RASTER,
       error: null,
       context: {
+        date: dateCtx.value,
         placeInfo: {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
@@ -49,7 +50,6 @@ export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
         },
         statVar: {
           dcid: statVar.value.dcid,
-          date: statVar.value.date,
         },
       },
     };
@@ -74,7 +74,7 @@ export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
-    statVar.value.date,
+    dateCtx.value,
     display.value.allowLeaflet,
     dispatch,
   ]);

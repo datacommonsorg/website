@@ -32,7 +32,7 @@ export function useComputeBreadcrumbValues(
   chartStore: ChartStore,
   dispatchChartStore: Dispatch<ChartStoreAction>
 ) {
-  const { statVar, placeInfo } = useContext(Context);
+  const { dateCtx, statVar, placeInfo } = useContext(Context);
   const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
   const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
   const ifRatio = useIfRatio();
@@ -76,12 +76,14 @@ export function useComputeBreadcrumbValues(
     dispatchChartStore({
       type: ChartDataType.BREADCRUMB_VALUES,
       context: {
+        date: dateCtx.value,
         statVar: _.cloneDeep(statVar.value),
         placeInfo: _.cloneDeep(placeInfo.value),
       },
       payload: breadcrumbValues,
     });
   }, [
+    dateCtx.value,
     statVar.value,
     placeInfo.value,
     chartStore.breadcrumbStat.data,
