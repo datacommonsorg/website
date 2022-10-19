@@ -74,7 +74,7 @@ export function useFetchAllDates(dispatch: Dispatch<ChartStoreAction>): void {
             facets: data.facets,
           };
         }
-        console.log("all dates data dispatched");
+        console.log("[Map Fetch] all dates");
         dispatch(action);
       })
       .catch(() => {

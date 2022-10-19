@@ -30,7 +30,7 @@ export function useFetchEuropeanCountries(): Array<NamedPlace> {
     getEnclosedPlacesPromise(EUROPE_NAMED_TYPED_PLACE.dcid, "Country").then(
       (resp: Array<NamedPlace>) => {
         setData(resp);
-        console.log("european countries loaded");
+        console.log("[Map Fetch] european countries");
       }
     );
   }, []);

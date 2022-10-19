@@ -64,7 +64,7 @@ export function useFetchGeoRaster(dispatch: Dispatch<ChartStoreAction>): void {
           action.payload = geoRaster;
         }
         dispatch(action);
-        console.log("georaster dispatched");
+        console.log("[Map Fetch] georaster");
       })
       .catch(() => {
         action.error = "error fetching geo raster data";

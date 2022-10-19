@@ -35,7 +35,7 @@ export function useComputeMapPointValues(
     if (!mapPointStatReady()) {
       return null;
     }
-    console.log("compute map point values");
+    console.log("[Map Compute] map point values");
     const mapPointValues = {};
     const sources = new Set<string>();
     const metadata = {};

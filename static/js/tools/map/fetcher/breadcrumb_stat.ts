@@ -82,7 +82,7 @@ export function useFetchBreadcrumbStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log("breadcrumb stat action dispatched");
+        console.log(`[Map Fetch] breadcrumb stat for date: ${dateCtx.value}`);
         dispatch(action);
       })
       .catch(() => {

@@ -70,7 +70,7 @@ export function useComputeMapValueAndDate(
     if (ifRatio && !denomStatReady()) {
       return;
     }
-    console.log(`compute map values and dates for ${dateCtx.value}`);
+    console.log("[Map Compute] map values and dates");
     const mapValues = {};
     const sources = new Set<string>();
     const mapDates = new Set<string>();

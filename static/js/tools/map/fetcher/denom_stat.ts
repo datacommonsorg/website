@@ -74,7 +74,7 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
             facets: resp.data.facets,
           } as EntitySeriesWrapper;
         }
-        console.log("denom stat dispatched");
+        console.log("[Map Fetch] denom stat");
         dispatch(action);
       })
       .catch(() => {

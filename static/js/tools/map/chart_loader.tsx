@@ -113,8 +113,10 @@ export function ChartLoader(): JSX.Element {
   const legendDomain = useComputeLegendDomain(chartStore, allSampleDates);
 
   useEffect(() => {
-    display.setDomain(legendDomain);
-  }, [legendDomain]);
+    if (!_.isEqual(display.value.domain, legendDomain)) {
+      display.setDomain(legendDomain);
+    }
+  }, [display, legendDomain]);
 
   // +++++++  BigQuery
   // TODO: add webdriver test for BigQuery button to ensure query works
@@ -184,7 +186,6 @@ export function ChartLoader(): JSX.Element {
   }
 
   if (!_.isEqual(chartStore.mapValuesDates.context.statVar, statVar.value)) {
-    console.log("map value statVar do not match");
     return null;
   }
 
@@ -242,9 +243,6 @@ export function ChartLoader(): JSX.Element {
         facetList={facetList}
         geoRaster={chartStore.geoRaster.data}
         mapType={mapType}
-        display={display}
-        statVar={statVar}
-        placeInfo={placeInfo.value}
       >
         {display.value.showTimeSlider &&
           sampleDates &&

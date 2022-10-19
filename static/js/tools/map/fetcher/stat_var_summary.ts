@@ -54,7 +54,7 @@ export function useFetchStatVarSummary(
         } else {
           action.payload = resp.data[statVar.value.dcid] as StatVarSummary;
         }
-        console.log("stat var summary data dispatched");
+        console.log("[Map Fetch] stat var summary");
         dispatch(action);
       })
       .catch(() => {

@@ -80,7 +80,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
             facets: resp.data.facets,
           } as EntityObservationListWrapper;
         }
-        console.log(`all stat action dispatched for ${date}`);
+        console.log(`[Map Fetch] all stat for date: ${date}`);
         dispatch(action);
       })
       .catch(() => {

@@ -49,7 +49,7 @@ export function useComputeBreadcrumbValues(
     if (ifRatio && !breadcrumbDenomStatReady()) {
       return;
     }
-    console.log("compute breadcrumb values");
+    console.log("[Map Compute] breadcrumb values");
     const breadcrumbValues = {};
     const facets = Object.assign(
       [],

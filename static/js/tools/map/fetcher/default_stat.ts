@@ -81,7 +81,7 @@ export function useFetchDefaultStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log(`default stat dispatched for ${date}`);
+        console.log(`[Map Fetch] default stat for date: ${date}`);
         dispatch(action);
       })
       .catch(() => {
