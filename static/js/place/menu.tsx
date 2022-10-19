@@ -112,8 +112,7 @@ class Menu extends React.Component<MenuPropsType> {
   render(): JSX.Element {
     const dcid = this.props.dcid;
     const selectCategory = this.props.selectCategory;
-    const categories = Object.keys(this.props.categories);
-    const categoriesWithData = Object.keys(this.props.pageChart);
+    const categories = Object.keys(this.props.pageChart);
     const showOverviewSubmenu = categories.length === 1;
     return (
       <ul id="nav-topics" className="nav flex-column accordion">
@@ -146,7 +145,7 @@ class Menu extends React.Component<MenuPropsType> {
             items[""] = Object.keys(this.props.pageChart[category]).map(
               (t) => this.props.categories[t]
             );
-          } else if (categoriesWithData.indexOf(category) > -1) {
+          } else {
             topics = Object.keys(this.props.pageChart[category]);
             for (const topic of topics) {
               items[topic] = [];

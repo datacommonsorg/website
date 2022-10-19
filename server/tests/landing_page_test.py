@@ -68,15 +68,14 @@ class TestBuildSpec(unittest.TestCase):
             }
         }]
         with self.context:
-            result = landing_page.build_spec(chart_config,
-                                             target_category="Overview")
+            result = landing_page.build_spec(chart_config)
             with open('tests/test_data/golden_config.json') as f:
                 expected = json.load(f)
                 assert expected == result
 
     def test_menu_hierarchy(self):
         chart_config = libutil.get_chart_config()
-        spec = landing_page.build_spec(chart_config, "Overview", False)
+        spec = landing_page.build_spec(chart_config, False)
         got = {}
         for category, topic_data in spec.items():
             got[category] = {}
