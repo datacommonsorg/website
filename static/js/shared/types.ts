@@ -106,6 +106,8 @@ interface PlaceSummary {
 export interface PlaceTypeSummary {
   placeCount: number;
   topPlaces: PlaceSummary[];
+  minValue: number;
+  maxValue: number;
 }
 
 interface SeriesKey {

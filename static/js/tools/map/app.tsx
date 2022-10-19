@@ -39,9 +39,6 @@ import {
 } from "./util";
 
 function App(): JSX.Element {
-  const { isLoading } = useContext(Context);
-  const showLoadingSpinner =
-    isLoading.value.isDataLoading || isLoading.value.isPlaceInfoLoading;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
 
@@ -66,12 +63,6 @@ function App(): JSX.Element {
           <Row id="chart-row">
             <ChartLoader />
           </Row>
-          <div
-            id="screen"
-            style={{ display: showLoadingSpinner ? "block" : "none" }}
-          >
-            <div id="spinner"></div>
-          </div>
         </Container>
       </div>
     </>

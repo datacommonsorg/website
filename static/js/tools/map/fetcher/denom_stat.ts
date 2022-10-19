@@ -27,13 +27,10 @@ import {
   SeriesApiResponse,
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
-import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
+import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
-export function useFetchDenomStat(
-  chartStore: ChartStore,
-  dispatch: Dispatch<ChartStoreAction>
-): void {
+export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
   const { placeInfo, statVar } = useContext(Context);
   useEffect(() => {
     const contextOk =

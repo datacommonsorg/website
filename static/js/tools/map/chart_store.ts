@@ -38,6 +38,9 @@ export enum ChartDataType {
   STAT_VAR_SUMMARY = "statVarSummary",
   ALL_DATES = "allDates",
   GEO_RASTER = "geoRaster",
+  BREADCRUMB_VALUES = "breadcrumbValues",
+  MAP_POINT_VALUES = "mapPointValues",
+  MAP_VALUES_DATES = "mapValuesDates",
 }
 
 // ChartStore holds the raw data and corresponding context.
@@ -47,45 +50,71 @@ export interface ChartStore {
   geoJson: {
     data: GeoJsonData;
     context?: DataContext;
+    error?: string;
   };
   defaultStat: {
     data: EntityObservationWrapper;
     context?: DataContext;
+    error?: string;
   };
   allStat: {
     data: EntityObservationListWrapper;
     context?: DataContext;
+    error?: string;
   };
   denomStat: {
     data: EntitySeriesWrapper;
     context?: DataContext;
+    error?: string;
   };
   breadcrumbStat: {
     data: EntityObservationWrapper;
     context?: DataContext;
+    error?: string;
   };
   breadcrumbDenomStat: {
     data: EntitySeriesWrapper;
     context?: DataContext;
+    error?: string;
   };
   mapPointStat: {
     data: EntityObservationWrapper;
     context?: DataContext;
+    error?: string;
   };
   mapPointCoordinate: {
     data: Array<MapPoint>;
     context?: DataContext;
+    error?: string;
   };
   statVarSummary: {
     data: StatVarSummary;
     context?: DataContext;
+    error?: string;
   };
   allDates: {
     data: ObservationDatesWrapper;
     context?: DataContext;
+    error?: string;
   };
   geoRaster: {
     data: GeoRaster;
+    context?: DataContext;
+    error?: string;
+  };
+  mapValuesDates: {
+    data: {
+      mapValues: { [dcid: string]: number };
+      mapDates: Set<string>;
+    };
+    context?: DataContext;
+  };
+  mapPointValues: {
+    data: { [dcid: string]: number };
+    context?: DataContext;
+  };
+  breadcrumbValues: {
+    data: { [dcid: string]: number };
     context?: DataContext;
   };
 }
@@ -93,35 +122,55 @@ export interface ChartStore {
 export const emptyChartStore = {
   geoJson: {
     data: null,
+    error: null,
   },
   defaultStat: {
     data: null,
+    error: null,
   },
   allStat: {
     data: null,
+    error: null,
   },
   denomStat: {
     data: null,
+    error: null,
   },
   breadcrumbStat: {
     data: null,
+    error: null,
   },
   breadcrumbDenomStat: {
     data: null,
+    error: null,
   },
   mapPointStat: {
     data: null,
+    error: null,
   },
   mapPointCoordinate: {
     data: null,
+    error: null,
   },
   statVarSummary: {
     data: null,
+    error: null,
   },
   allDates: {
     data: null,
+    error: null,
   },
   geoRaster: {
+    data: null,
+    error: null,
+  },
+  mapValuesDates: {
+    data: null,
+  },
+  mapPointValues: {
+    data: null,
+  },
+  breadcrumbValues: {
     data: null,
   },
 };

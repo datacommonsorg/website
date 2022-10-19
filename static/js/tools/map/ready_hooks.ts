@@ -188,3 +188,11 @@ export function useAllDatesReady(chartStore: ChartStore) {
     chartStore.allDates.context,
   ]);
 }
+
+export function useStatVarSummaryReady(chartStore: ChartStore) {
+  const { statVar } = useContext(Context);
+  return useCallback(() => {
+    const c = chartStore.statVarSummary.context;
+    return !_.isEmpty(c) && statVar.value.dcid === c.statVar.dcid;
+  }, [statVar.value.dcid, chartStore.statVarSummary.context]);
+}

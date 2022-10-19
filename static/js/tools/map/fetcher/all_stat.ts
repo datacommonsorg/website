@@ -60,11 +60,12 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
       },
       error: null,
     };
+    const date = getDate(statVar.value.dcid, statVar.value.date);
     axios
       .get<PointAllApiResponse>("/api/observations/point/within/all", {
         params: {
           child_type: placeInfo.value.enclosedPlaceType,
-          date: getDate(statVar.value.dcid, statVar.value.date),
+          date: date,
           parent_entity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },
@@ -79,7 +80,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
             facets: resp.data.facets,
           } as EntityObservationListWrapper;
         }
-        console.log("all stat action dispatched");
+        console.log(`all stat action dispatched for ${date}`);
         dispatch(action);
       })
       .catch(() => {

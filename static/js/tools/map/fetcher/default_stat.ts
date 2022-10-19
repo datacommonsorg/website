@@ -61,11 +61,12 @@ export function useFetchDefaultStat(
         },
       },
     };
+    const date = getDate(statVar.value.dcid, statVar.value.date);
     axios
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
           child_type: placeInfo.value.enclosedPlaceType,
-          date: getDate(statVar.value.dcid, statVar.value.date),
+          date: date,
           parent_entity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },
@@ -80,7 +81,7 @@ export function useFetchDefaultStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log("default stat dispatched");
+        console.log(`default stat dispatched for ${date}`);
         dispatch(action);
       })
       .catch(() => {

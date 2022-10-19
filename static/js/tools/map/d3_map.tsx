@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCallback } from "react";
 
 import { drawD3Map } from "../../chart/draw_d3_map";
@@ -39,8 +39,7 @@ import { NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
-import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
-import { useFetchEuropeanCountries } from "./fetcher/european_countries";
+import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
   DataPointMetadata,
   getAllChildPlaceTypes,
@@ -56,6 +55,9 @@ interface D3MapProps {
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
   europeanCountries: Array<NamedPlace>;
+  statVar: StatVar;
+  placeInfo: PlaceInfo;
+  display: DisplayOptions;
 }
 
 const LEGEND_CONTAINER_ID = "choropleth-legend";
@@ -68,8 +70,6 @@ const DEBOUNCE_INTERVAL_MS = 30;
 const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 
 export function D3Map(props: D3MapProps): JSX.Element {
-  const { placeInfo, statVar, display } = useContext(Context);
-
   const [errorMessage, setErrorMessage] = useState("");
   const [zoomTransformation, setZoomTransformation] = useState(
     DEFAULT_ZOOM_TRANSFORMATION
@@ -79,8 +79,8 @@ export function D3Map(props: D3MapProps): JSX.Element {
   const draw = useCallback(() => {
     if (
       _.isEmpty(props.geoJsonData) ||
-      _.isEmpty(props.mapDataValues) ||
-      _.isNull(placeInfo.value.parentPlaces)
+      _.isNull(props.mapDataValues) ||
+      _.isNull(props.placeInfo.parentPlaces)
     ) {
       return;
     }
@@ -90,14 +90,14 @@ export function D3Map(props: D3MapProps): JSX.Element {
     const width = document.getElementById(CHART_CONTAINER_ID).offsetWidth;
     const height = (width * 2) / 5;
     const redirectAction = getMapRedirectAction(
-      statVar.value,
-      placeInfo.value,
-      display.value,
+      props.statVar,
+      props.placeInfo,
+      props.display,
       props.europeanCountries
     );
     const zoomDcid =
-      placeInfo.value.enclosingPlace.dcid !== placeInfo.value.selectedPlace.dcid
-        ? placeInfo.value.selectedPlace.dcid
+      props.placeInfo.enclosingPlace.dcid !== props.placeInfo.selectedPlace.dcid
+        ? props.placeInfo.selectedPlace.dcid
         : "";
     if (zoomDcid) {
       const geoJsonFeature = props.geoJsonData.features.find(
@@ -109,17 +109,17 @@ export function D3Map(props: D3MapProps): JSX.Element {
       }
     }
     const svTitle =
-      statVar.value.dcid in statVar.value.info
-        ? statVar.value.info[statVar.value.dcid].title
+      props.statVar.dcid in props.statVar.info
+        ? props.statVar.info[props.statVar.dcid].title
         : "";
     const dataValues = Object.values(props.mapDataValues);
     const colorScale = getColorScale(
-      svTitle || statVar.value.dcid,
+      svTitle || props.statVar.dcid,
       d3.min(dataValues),
       d3.mean(dataValues),
       d3.max(dataValues),
-      display.value.color,
-      display.value.domain
+      props.display.color,
+      props.display.domain
     );
     const legendHeight = height * LEGEND_HEIGHT_SCALING;
     const legendWidth = generateLegendSvg(
@@ -148,24 +148,24 @@ export function D3Map(props: D3MapProps): JSX.Element {
       redirectAction,
       getTooltipHtml(
         props.metadata,
-        statVar.value,
+        props.statVar,
         props.mapDataValues,
         props.mapPointValues,
         props.unit
       ),
-      canClickRegion(placeInfo.value, props.europeanCountries),
+      canClickRegion(props.placeInfo, props.europeanCountries),
       false,
       shouldShowMapBoundaries(
-        placeInfo.value.selectedPlace,
-        placeInfo.value.enclosedPlaceType
+        props.placeInfo.selectedPlace,
+        props.placeInfo.enclosedPlaceType
       ),
       isChildPlaceOf(
-        placeInfo.value.selectedPlace.dcid,
+        props.placeInfo.selectedPlace.dcid,
         USA_PLACE_DCID,
-        placeInfo.value.parentPlaces
+        props.placeInfo.parentPlaces
       ),
-      placeInfo.value.enclosingPlace.dcid,
-      display.value.showMapPoints ? props.mapPoints : [],
+      props.placeInfo.enclosingPlace.dcid,
+      props.display.showMapPoints ? props.mapPoints : [],
       props.mapPointValues,
       zoomDcid,
       zoomParams
@@ -178,36 +178,37 @@ export function D3Map(props: D3MapProps): JSX.Element {
     props.mapPoints,
     props.metadata,
     props.unit,
-    statVar.value,
-    display.value,
-    placeInfo.value,
+    props.statVar,
+    props.display,
+    props.placeInfo,
     zoomTransformation,
   ]);
 
   // Replot when data changes.
   useEffect(() => {
-    if (display.value.showMapPoints && !props.mapPoints) {
+    if (props.display.showMapPoints && !props.mapPoints) {
       loadSpinner(SECTION_CONTAINER_ID);
       return;
     } else {
       removeSpinner(SECTION_CONTAINER_ID);
     }
     draw();
-  }, [display.value.showMapPoints, props.mapPoints, draw]);
+  }, [props.display.showMapPoints, props.mapPoints, draw]);
 
   // Replot when chart width changes on sv widget toggle.
   useEffect(() => {
     const debouncedHandler = _.debounce(() => {
-      if (!display.value.showMapPoints || props.mapPoints) {
+      if (!props.display.showMapPoints || props.mapPoints) {
         draw();
       }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
-    if (chartContainerRef.current) {
-      resizeObserver.observe(chartContainerRef.current);
+    const chartContainer = chartContainerRef.current;
+    if (chartContainer) {
+      resizeObserver.observe(chartContainer);
     }
     return () => {
-      resizeObserver.unobserve(chartContainerRef.current);
+      resizeObserver.unobserve(chartContainer);
       debouncedHandler.cancel();
     };
   }, [props, chartContainerRef]);

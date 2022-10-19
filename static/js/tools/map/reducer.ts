@@ -28,6 +28,7 @@ export function chartStoreReducer(
     [action.type]: {
       data: action.payload,
       context: action.context,
+      error: action.error,
     },
   };
 }

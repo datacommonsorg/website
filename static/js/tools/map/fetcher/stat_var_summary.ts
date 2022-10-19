@@ -45,16 +45,14 @@ export function useFetchStatVarSummary(
       },
     };
     axios
-      .get("/api/stats/stat-var-summary", {
-        params: {
-          statVars: [statVar.value.dcid],
-        },
+      .post("/api/stats/stat-var-summary", {
+        statVars: [statVar.value.dcid],
       })
       .then((resp) => {
         if (_.isEmpty(resp.data)) {
           action.error = "error fetching stat var summary data";
         } else {
-          action.payload = resp.data as StatVarSummary;
+          action.payload = resp.data[statVar.value.dcid] as StatVarSummary;
         }
         console.log("stat var summary data dispatched");
         dispatch(action);

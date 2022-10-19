@@ -127,6 +127,7 @@ export interface DisplayOptionsWrapper {
   set: Setter<DisplayOptions>;
   setShowMapPoints: Setter<boolean>;
   setShowTimeSlider: Setter<boolean>;
+  setDomain: Setter<[number, number, number]>;
 }
 
 export interface DataContext {
@@ -210,6 +211,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setDisplay({ ...display, showMapPoints }),
       setShowTimeSlider: (showTimeSlider) =>
         setDisplay({ ...display, showTimeSlider }),
+      setDomain: (domain) => setDisplay({ ...display, domain }),
     },
   };
 }

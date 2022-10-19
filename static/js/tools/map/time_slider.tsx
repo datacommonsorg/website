@@ -18,7 +18,15 @@
  * Time slider component.
  */
 
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+import { Context } from "./context";
 
 interface TimeSliderProps {
   // Current date of map
@@ -33,104 +41,102 @@ interface TimeSliderProps {
   // Whether the slider is enabled on refresh
   // False if the map is displaying multiple dates (e.g. 'Best Available')
   startEnabled: boolean;
-
-  // Fetches data for slider dates when play is pressed
-  onPlay(callback: () => void): void;
-
-  // Updates map date to slider date
-  updateDate(date: string): void;
 }
 
 export function TimeSlider(props: TimeSliderProps): JSX.Element {
-  const INTERVAL_MS = 500;
+  const INTERVAL_MS = 1000;
   const SLIDER_MARGIN = 16;
   const TICK_OFFSET = 3;
   const TICK_MARGIN = 6;
   const HANDLE_WIDTH = 4;
   const HANDLE_MARGIN = SLIDER_MARGIN - HANDLE_WIDTH / 2;
 
+  const { statVar } = useContext(Context);
+
+  // const [currentDate, setCurrentDate] = useState(
+  //   props.startEnabled ? props.currentDate : "--"
+  // );
+  const [enabled, setEnabled] = useState(props.startEnabled);
+
+  // Number of pixels the handle is offset from the left edge of the slider bar
+  const [handleLeftOffset, setHandleLeftOffset] = useState(null);
+  const [play, setPlay] = useState(false);
+  const [freeze, setFreeze] = useState(false);
+
+  const firstUpdate = useRef(true);
+
   const start = props.dates[0];
   const end = props.dates[props.dates.length - 1];
   const ticks = props.dates.slice(1, props.dates.length - 1);
 
-  const [currentDate, setCurrentDate] = useState(
-    props.startEnabled ? props.currentDate : "--"
-  );
-  const [enabled, setEnabled] = useState(props.startEnabled);
-  const [index, setIndex] = useState(
-    props.startEnabled ? getIndex(props.dates, props.currentDate) : -1
-  );
-  const [loaded, setLoaded] = useState(false);
+  // useEffect(() => {
+  //   setLoaded(false);
+  //   setIndex(
+  //     props.startEnabled ? getIndex(props.dates, props.currentDate) : -1
+  //   );
+  //   // setCurrentDate(props.startEnabled ? props.currentDate : "--");
+  // }, [props.metahash]);
 
-  // Number of pixels the handle is offset from the left edge of the slider bar
-  const [handleLeftOffset, setHandleLeftOffset] = useState(null);
-  const [play, setPlay] = useState(true);
-  const [timer, setTimer] = useState(null);
-
-  const firstUpdate = useRef(true);
-
-  useEffect(() => {
-    setLoaded(false);
-    setIndex(
-      props.startEnabled ? getIndex(props.dates, props.currentDate) : -1
-    );
-    setCurrentDate(props.startEnabled ? props.currentDate : "--");
-  }, [props.metahash]);
+  const handleResize = useCallback(() => {
+    if (enabled) {
+      setHandleLeftOffset(
+        getOffset(start, end, props.currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
+      );
+    }
+  }, [enabled, start, end, props.currentDate, SLIDER_MARGIN, HANDLE_MARGIN]);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (enabled) {
-        setHandleLeftOffset(
-          getOffset(start, end, currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
-        );
-      }
-    };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [currentDate]);
+  }, [handleResize]);
+
+  useEffect(() => {
+    console.log("mount time slider");
+    return () => {
+      console.log("unmount time slider");
+    };
+  }, []);
 
   useEffect(() => {
     // Don't update pre-selected date until user presses play
+    if (freeze) {
+      return;
+    }
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
     }
-    if (index >= 0) {
-      setCurrentDate(props.dates[index]);
-      if (loaded) {
-        props.updateDate(props.dates[index]);
-      }
+    if (props.currentDate < statVar.value.date) {
+      return;
     }
-    setEnabled(true);
-    if (index === props.dates.length - 1) {
-      setPlay(true);
-      clearInterval(timer);
-    }
-  }, [index]);
-
-  async function handlePlay(): Promise<void> {
     if (play) {
-      setLoaded(true);
-      props.onPlay(() => {
-        // Reset animation
-        if (index === props.dates.length - 1) {
-          setIndex(0);
-        }
-        setTimer(
-          setInterval(() => {
-            setIndex((index) => index + 1);
-          }, INTERVAL_MS)
-        );
-      });
-    } else {
-      clearInterval(timer);
+      let index = getIndex(props.dates, props.currentDate, props.startEnabled);
+      index += 1;
+      if (index === props.dates.length) {
+        index = 0;
+        setPlay(false);
+      }
+      statVar.setDate(props.dates[index]);
+      setFreeze(true);
+      setTimeout(() => {
+        setFreeze(false);
+      }, INTERVAL_MS);
     }
+  }, [
+    props.dates,
+    props.currentDate,
+    props.startEnabled,
+    statVar,
+    play,
+    freeze,
+  ]);
+
+  function handlePlay() {
     setPlay(!play);
   }
-
   return (
     <div className="time-slider-container">
       <div className="time-slider">
@@ -138,14 +144,14 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
           className="time-slider-left time-slider-current-date"
           style={{ width: `${end.length}ch` }}
         >
-          {currentDate}
+          {props.currentDate}
         </span>
         <div className="time-slider-break"></div>
         <div className="time-slider-left" onClick={handlePlay}>
-          {play && (
+          {!play && (
             <i className="material-icons time-slider-play-button">play_arrow</i>
           )}
-          {!play && (
+          {play && (
             <i className="material-icons time-slider-play-button">pause</i>
           )}
         </div>
@@ -207,7 +213,14 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
  * @param dates Array of selected dates
  * @param currentDate Current selected date
  */
-function getIndex(dates: Array<string>, currentDate: string): number {
+function getIndex(
+  dates: Array<string>,
+  currentDate: string,
+  startEnabled: boolean
+): number {
+  if (!startEnabled) {
+    return -1;
+  }
   for (let i = dates.length - 1; i > -1; i--) {
     if (dates[i] <= currentDate) {
       return i;

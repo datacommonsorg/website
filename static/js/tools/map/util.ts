@@ -151,6 +151,11 @@ export const BEST_AVAILABLE_METAHASH = "Best Available";
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 export const MAP_URL_PATH = "/tools/map";
 
+export interface SampleDates {
+  facetDates: Record<string, Array<string>>;
+  bestFacet: string;
+}
+
 // metadata associated with a single data point in the map charts
 export interface DataPointMetadata {
   popDate: string;
@@ -310,6 +315,11 @@ export function updateHashDisplay(
   if (display.showMapPoints) {
     params = `${params}&${URL_PARAM_KEYS.MAP_POINTS}=${
       display.showMapPoints ? "1" : "0"
+    }`;
+  }
+  if (display.showTimeSlider) {
+    params = `${params}&${URL_PARAM_KEYS.TIME_SLIDER}=${
+      display.showTimeSlider ? "1" : "0"
     }`;
   }
   if (display.color) {
@@ -555,7 +565,7 @@ export function getMetaText(metadata: StatMetadata): string {
  * Return a map of metahash to metatext.
  * @param metadataMap
  */
-function getMetahashMap(
+export function getMetahashMap(
   metadataMap: Record<string, StatMetadata>
 ): Record<string, string> {
   const metahashMap: Record<string, string> = {};
@@ -572,7 +582,7 @@ function getMetahashMap(
  */
 export function getTimeSliderDates(
   observationDates: Array<ObservationDate>
-): Record<string, Array<string>> {
+): SampleDates {
   const facetEntityCount: Record<string, { date: string; count: number }[]> =
     {};
   for (const observationDate of observationDates) {
@@ -618,9 +628,10 @@ export function getTimeSliderDates(
       bestAvailable = facet;
     }
   }
-
-  sampleDates[BEST_AVAILABLE_METAHASH] = [bestAvailable];
-  return sampleDates;
+  return {
+    facetDates: sampleDates,
+    bestFacet: bestAvailable,
+  };
 }
 
 /**
@@ -735,4 +746,18 @@ export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
     !_.isEmpty(placeInfo.enclosingPlace.dcid) &&
     !_.isEmpty(placeInfo.enclosedPlaceType)
   );
+}
+
+export function getRankingLink(
+  statVar: StatVar,
+  placeDcid: string,
+  placeType: string,
+  date: string,
+  unit: string
+): string {
+  let params = "";
+  params += statVar.perCapita ? "&pc=1" : "";
+  params += unit ? `&unit=${unit}` : "";
+  params += date ? `&date=${date}` : "";
+  return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
 }
