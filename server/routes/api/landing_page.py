@@ -564,9 +564,6 @@ def data(dcid):
         list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]) +
         raw_page_data["validCategories"][dcid]['category'])
 
-    ordered_category_dict[OVERVIEW] = gettext(
-        f'CHART_TITLE-CHART_CATEGORY-{OVERVIEW}')
-
     for conf in current_app.config['CHART_CONFIG']:
         category = conf['category']
         if category in all_categories:
