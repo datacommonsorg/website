@@ -494,7 +494,7 @@ export function getPlaceChartData(
   if (calculateRatio) {
     const placePopData =
       placeDcid in populationData ? populationData[placeDcid] : null;
-    if (_.isEmpty(placePopData)) {
+    if (_.isEmpty(placePopData.series)) {
       metadata.errorMessage = "Population Data Missing";
       return { metadata, sources, date: placeStatDate, value };
     }

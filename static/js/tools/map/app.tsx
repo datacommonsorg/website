@@ -45,7 +45,7 @@ function App(): JSX.Element {
 
   // Show the BigQuery button when there is a chart
   return (
-    <>
+    <React.StrictMode>
       <StatVarChooser
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
@@ -66,7 +66,7 @@ function App(): JSX.Element {
           </Row>
         </Container>
       </div>
-    </>
+    </React.StrictMode>
   );
 }
 

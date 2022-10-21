@@ -66,7 +66,7 @@ export function useComputeMapValueAndDate(
     const mapDates = new Set<string>();
     const metadata = {};
     const facets = Object.assign(
-      [],
+      {},
       chartStore.defaultStat.data.facets,
       chartStore.denomStat.data ? chartStore.denomStat.data.facets : {},
       chartStore.allStat.data ? chartStore.allStat.data.facets : {}
