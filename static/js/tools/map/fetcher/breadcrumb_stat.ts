@@ -68,7 +68,7 @@ export function useFetchBreadcrumbStat(
     axios
       .get<PointApiResponse>("/api/observations/point", {
         params: {
-          date: getDate(statVar.value.dcid, date),
+          date: date,
           entities: placeDcids,
           variables: [statVar.value.dcid],
         },

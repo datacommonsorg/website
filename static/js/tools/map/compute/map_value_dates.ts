@@ -77,9 +77,9 @@ export function useComputeMapValueAndDate(
         chartStore.allStat.data.data,
         statVar.value.metahash
       );
-      if (_.isEmpty(wantedFacetData)) {
-        return;
-      }
+    }
+    if (_.isEmpty(wantedFacetData)) {
+      return;
     }
     for (const placeDcid in wantedFacetData) {
       const placeChartData = getPlaceChartData(

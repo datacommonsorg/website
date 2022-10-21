@@ -233,7 +233,7 @@ export function useMapValuesDatesReady(chartStore: ChartStore) {
         _.isEqual(statVar.value, c.statVar) &&
         _.isEqual(placeInfo.value, c.placeInfo);
       // If only date changes like in time slider, we consider the data as ready
-      // so the <ChartLoader /> componenet will not be unmount, so the time slider
+      // so the <ChartLoader /> component will not be unmount, so the time slider
       // component can be alive.
       if (checkDate) {
         ready &&= dateCtx.value === c.date;
@@ -261,7 +261,7 @@ export function useBreadcrumbValuesReady(chartStore: ChartStore) {
         _.isEqual(placeInfo.value.selectedPlace, c.placeInfo.selectedPlace) &&
         _.isEqual(placeInfo.value.parentPlaces, c.placeInfo.parentPlaces);
       // If only date changes like in time slider, we consider the data as ready
-      // so the <ChartLoader /> componenet will not be unmount, so the time slider
+      // so the <ChartLoader /> component will not be unmount, so the time slider
       // component can be alive.
       if (checkDate) {
         ready &&= dateCtx.value === c.date;

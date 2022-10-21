@@ -22,7 +22,7 @@ logging.getLogger().setLevel(logging.INFO)
 
 SITEMAP_PATH = '../../static/sitemap/'
 
-# Only add state componenet for now. Will decide the place types to run
+# Only add state component for now. Will decide the place types to run
 # after launch.
 
 FILES = [
