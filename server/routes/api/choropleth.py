@@ -463,7 +463,7 @@ def get_map_points():
 def get_geotiff():
     # TODO should get geotiff from mixer given some parameters
     response = make_response(
-        send_file("tmp_test.tif",
+        send_file("test_county.tif",
                   mimetype='image/tiff',
                   as_attachment=True,
                   cache_timeout=0))
