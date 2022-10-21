@@ -31,6 +31,7 @@ import {
   useAllStatReady,
   useDefaultStatReady,
   useDenomStatReady,
+  useMapValuesDatesReady,
 } from "../ready_hooks";
 import { getPlaceChartData } from "../util";
 
@@ -44,23 +45,16 @@ export function useComputeMapValueAndDate(
   const allStatReady = useAllStatReady(chartStore);
   const defaultStatReady = useDefaultStatReady(chartStore);
   const denomStatReady = useDenomStatReady(chartStore);
+  const mapValuesDatesReady = useMapValuesDatesReady(chartStore);
   const ifRatio = useIfRatio();
   useEffect(() => {
-    if (statVar.value.metahash) {
-      if (!allStatReady()) {
-        return;
-      }
-    } else {
-      if (!defaultStatReady()) {
-        return;
-      }
+    if (statVar.value.metahash && !allStatReady()) {
+      return;
     }
-    if (
-      chartStore.mapValuesDates.context &&
-      dateCtx.value === chartStore.mapValuesDates.context.date &&
-      _.isEqual(statVar.value, chartStore.mapValuesDates.context.statVar) &&
-      _.isEqual(placeInfo.value, chartStore.mapValuesDates.context.placeInfo)
-    ) {
+    if (!statVar.value.metahash && !defaultStatReady()) {
+      return;
+    }
+    if (mapValuesDatesReady(true /* checkDate */)) {
       return;
     }
     if (ifRatio && !denomStatReady()) {
@@ -131,6 +125,7 @@ export function useComputeMapValueAndDate(
     ifRatio,
     allStatReady,
     defaultStatReady,
+    mapValuesDatesReady,
     denomStatReady,
     dispatchSources,
     dispatchMetadata,

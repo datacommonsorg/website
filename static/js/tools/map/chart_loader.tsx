@@ -28,6 +28,7 @@ import React, {
   useState,
 } from "react";
 
+import { getUnit } from "../../tools/shared_util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
@@ -55,9 +56,10 @@ import { useFetchMapPointCoordinate } from "./fetcher/map_point_coordinate";
 import { useFetchMapPointStat } from "./fetcher/map_point_stat";
 import { useFetchStatVarSummary } from "./fetcher/stat_var_summary";
 import { PlaceDetails } from "./place_details";
+import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { BEST_AVAILABLE_METAHASH, getDate, getRankingLink } from "./util";
+import { getDate, getRankingLink } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -109,9 +111,13 @@ export function ChartLoader(): JSX.Element {
     dispatchMetadata
   );
   const facetList = useComputeFacetList(chartStore);
-  const allSampleDates = useComputeSampleDates(chartStore);
-  const legendDomain = useComputeLegendDomain(chartStore, allSampleDates);
+  const { sampleDates, sampleFacet } = useComputeSampleDates(chartStore);
+  const legendDomain = useComputeLegendDomain(chartStore, sampleFacet);
 
+  // +++++++++ Chart is ready to render
+  const renderReady = useRenderReady(chartStore);
+
+  // +++++++++ Set legend domain
   useEffect(() => {
     if (!_.isEqual(display.value.domain, legendDomain)) {
       display.setDomain(legendDomain);
@@ -146,20 +152,7 @@ export function ChartLoader(): JSX.Element {
     chartStore.geoRaster.data,
   ]);
 
-  // Rendering logic below ...
-  if (
-    !statVar.value.info ||
-    !placeInfo.value.enclosingPlace.dcid ||
-    !placeInfo.value.enclosedPlaceType
-  ) {
-    return null;
-  }
-
-  if (
-    !chartStore.mapValuesDates.data ||
-    !_.isEqual(chartStore.mapValuesDates.context.statVar, statVar.value) ||
-    !_.isEqual(chartStore.mapValuesDates.context.placeInfo, placeInfo.value)
-  ) {
+  if (!renderReady()) {
     return null;
   }
 
@@ -184,21 +177,19 @@ export function ChartLoader(): JSX.Element {
   if (mapType === MAP_TYPE.D3 && chartStore.geoJson.error) {
     return (
       <div className="p-5">
-        {`Sorry, maps are not available for ${placeInfo.value.enclosedPlaceType} in ${placeInfo.value.selectedPlace.name}. Try picking another place or type of place.`}
+        {`Sorry, maps are not available for ` +
+          `${placeInfo.value.enclosedPlaceType}` +
+          `in ${placeInfo.value.selectedPlace.name}. ` +
+          `Try picking another place or type of place.`}
       </div>
     );
   }
 
   const date = getDate(statVar.value.dcid, dateCtx.value);
-  const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
-
-  let unit = "";
-  for (const place in chartStore.defaultStat.data.data) {
-    const obs = chartStore.defaultStat.data.data[place];
-    unit = chartStore.defaultStat.data.facets[obs.facet].unit;
-    break;
-  }
-
+  const unit = getUnit(
+    Object.values(chartStore.defaultStat.data.data),
+    chartStore.defaultStat.data.facets
+  );
   const rankingLink = getRankingLink(
     statVar.value,
     placeInfo.value.selectedPlace.dcid,
@@ -206,17 +197,6 @@ export function ChartLoader(): JSX.Element {
     date,
     unit
   );
-
-  let sampleDates: string[];
-  if (allSampleDates) {
-    if (statVar.value.metahash) {
-      sampleDates = allSampleDates.facetDates[statVar.value.metahash];
-    } else {
-      // TODO: here should also set metahash to bestFacet to match the date
-      // selection.
-      sampleDates = allSampleDates.facetDates[allSampleDates.bestFacet];
-    }
-  }
 
   return (
     <div className="chart-region">
@@ -244,7 +224,7 @@ export function ChartLoader(): JSX.Element {
                 Array.from(chartStore.mapValuesDates.data.mapDates)
               )}
               dates={sampleDates}
-              metahash={metahash}
+              metahash={statVar.value.metahash}
               startEnabled={chartStore.mapValuesDates.data.mapDates.size === 1}
             />
           )}

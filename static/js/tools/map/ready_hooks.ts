@@ -222,3 +222,76 @@ export function useStatVarSummaryReady(chartStore: ChartStore) {
     chartStore.statVarSummary.error,
   ]);
 }
+
+export function useMapValuesDatesReady(chartStore: ChartStore) {
+  const { dateCtx, statVar, placeInfo } = useContext(Context);
+  return useCallback(
+    (checkDate: boolean) => {
+      const c = chartStore.mapValuesDates.context;
+      let ready =
+        !_.isEmpty(c) &&
+        _.isEqual(statVar.value, c.statVar) &&
+        _.isEqual(placeInfo.value, c.placeInfo);
+      // If only date changes like in time slider, we consider the data as ready
+      // so the <ChartLoader /> componenet will not be unmount, so the time slider
+      // component can be alive.
+      if (checkDate) {
+        ready &&= dateCtx.value === c.date;
+      }
+      return ready;
+    },
+    [
+      dateCtx.value,
+      statVar.value,
+      placeInfo.value,
+      chartStore.mapValuesDates.context,
+    ]
+  );
+}
+
+export function useBreadcrumbValuesReady(chartStore: ChartStore) {
+  const { dateCtx, statVar, placeInfo } = useContext(Context);
+  return useCallback(
+    (checkDate: boolean) => {
+      const c = chartStore.breadcrumbValues.context;
+
+      let ready =
+        !_.isEmpty(c) &&
+        _.isEqual(statVar.value, c.statVar) &&
+        _.isEqual(placeInfo.value.selectedPlace, c.placeInfo.selectedPlace) &&
+        _.isEqual(placeInfo.value.parentPlaces, c.placeInfo.parentPlaces);
+      // If only date changes like in time slider, we consider the data as ready
+      // so the <ChartLoader /> componenet will not be unmount, so the time slider
+      // component can be alive.
+      if (checkDate) {
+        ready &&= dateCtx.value === c.date;
+      }
+      return ready;
+    },
+    [
+      dateCtx.value,
+      statVar.value,
+      placeInfo.value,
+      chartStore.breadcrumbValues.context,
+    ]
+  );
+}
+
+// Check if data is ready to render.
+export function useRenderReady(chartStore: ChartStore) {
+  const { display, statVar } = useContext(Context);
+  const breadcrumbValueReady = useBreadcrumbValuesReady(chartStore);
+  const mapValuesDatesReady = useMapValuesDatesReady(chartStore);
+  return useCallback(() => {
+    return (
+      statVar.value.info &&
+      breadcrumbValueReady(!display.value.showTimeSlider) &&
+      mapValuesDatesReady(!display.value.showTimeSlider)
+    );
+  }, [
+    display.value.showTimeSlider,
+    statVar.value.info,
+    breadcrumbValueReady,
+    mapValuesDatesReady,
+  ]);
+}

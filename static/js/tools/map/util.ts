@@ -147,8 +147,6 @@ export const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
 };
 
-export const BEST_AVAILABLE_METAHASH = "Best Available";
-
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 export const MAP_URL_PATH = "/tools/map";
@@ -670,11 +668,11 @@ export function getLegendBounds(
         maxValue,
       ];
       if (metahashMap[metatext] === bestAvailableHash) {
-        legendBounds[BEST_AVAILABLE_METAHASH] = [
-          minValue,
-          (minValue + maxValue) / 2,
-          maxValue,
-        ];
+        // TODO: Time slider sample dates is from one particular facet,
+        // so it should always set metahash, which is not done right now.
+        // This is using the bound from one particular facet for data from
+        // mixed facets.
+        legendBounds[""] = [minValue, (minValue + maxValue) / 2, maxValue];
       }
     }
   }

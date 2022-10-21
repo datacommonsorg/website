@@ -19,7 +19,6 @@
 import _ from "lodash";
 import { useContext, useMemo } from "react";
 
-import { SampleDates } from "../../../shared/types";
 import { getMatchingObservation } from "../../shared_util";
 import { ChartStore } from "../chart_store";
 import { useIfRatio } from "../condition_hooks";
@@ -36,7 +35,7 @@ const PADDING_SCALE_LARGE = 1.1;
 
 export function useComputeLegendDomain(
   chartStore: ChartStore,
-  allSampleDates: SampleDates
+  sampleFacet: string
 ): [number, number, number] {
   const { display, placeInfo } = useContext(Context);
   const denomStatReady = useDenomStatReady(chartStore);
@@ -83,7 +82,7 @@ export function useComputeLegendDomain(
           : maxValue * PADDING_SCALE_SMALL;
       return [minValue, (minValue + maxValue) / 2, maxValue];
     }
-    if (!allSampleDates) {
+    if (_.isNull(sampleFacet)) {
       return null;
     }
     if (!statVarSummaryReady()) {
@@ -93,7 +92,6 @@ export function useComputeLegendDomain(
       chartStore.allDates.data.facets
     );
 
-    const bestFacet = allSampleDates.bestFacet;
     const provenanceSummary = chartStore.statVarSummary.data.provenanceSummary;
     const placeType = placeInfo.value.enclosedPlaceType;
     for (const provId in provenanceSummary) {
@@ -109,7 +107,7 @@ export function useComputeLegendDomain(
         if (!(metatext in metahashMap)) {
           continue;
         }
-        if (metahashMap[metatext] !== bestFacet) {
+        if (metahashMap[metatext] !== sampleFacet) {
           continue;
         }
         const minValue = series.placeTypeSummary[placeType].minValue || 0;
@@ -121,7 +119,7 @@ export function useComputeLegendDomain(
   }, [
     placeInfo.value.enclosedPlaceType,
     display.value.showTimeSlider,
-    allSampleDates,
+    sampleFacet,
     chartStore.statVarSummary.data,
     chartStore.denomStat.data,
     chartStore.defaultStat.data,

@@ -16,20 +16,35 @@
 
 // Custom hook to compute the sampled dates for time slider.
 
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 
-import { SampleDates } from "../../../shared/types";
 import { ChartStore } from "../chart_store";
+import { Context } from "../context";
 import { useAllDatesReady } from "../ready_hooks";
 import { getTimeSliderDates } from "../util";
 
-export function useComputeSampleDates(chartStore: ChartStore): SampleDates {
+export function useComputeSampleDates(chartStore: ChartStore): {
+  sampleDates: Array<string>;
+  sampleFacet: string;
+} {
+  const { statVar } = useContext(Context);
   const allDatesReady = useAllDatesReady(chartStore);
   return useMemo(() => {
     if (!allDatesReady()) {
-      return null;
+      return { sampleDates: null, sampleFacet: null };
     }
     const allSampleDates = getTimeSliderDates(chartStore.allDates.data.data);
-    return allSampleDates;
-  }, [chartStore.allDates.data, allDatesReady]);
+    if (statVar.value.metahash) {
+      return {
+        sampleDates: allSampleDates.facetDates[statVar.value.metahash],
+        sampleFacet: statVar.value.metahash,
+      };
+    }
+    // TODO: here should also set metahash to bestFacet to match the date
+    // selection.
+    return {
+      sampleDates: allSampleDates.facetDates[allSampleDates.bestFacet],
+      sampleFacet: allSampleDates.bestFacet,
+    };
+  }, [statVar.value.metahash, chartStore.allDates.data, allDatesReady]);
 }

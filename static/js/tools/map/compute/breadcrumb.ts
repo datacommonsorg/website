@@ -25,6 +25,7 @@ import { Context } from "../context";
 import {
   useBreadcrumbDenomStatReady,
   useBreadcrumbStatReady,
+  useBreadcrumbValuesReady,
 } from "../ready_hooks";
 import { getPlaceChartData } from "../util";
 
@@ -35,18 +36,16 @@ export function useComputeBreadcrumbValues(
   const { dateCtx, statVar, placeInfo } = useContext(Context);
   const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
   const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
+  const breadcrumbValuesReady = useBreadcrumbValuesReady(chartStore);
   const ifRatio = useIfRatio();
   useEffect(() => {
     if (!breadcrumbStatReady()) {
       return;
     }
-    if (
-      chartStore.breadcrumbValues.context &&
-      _.isEqual(statVar.value, chartStore.breadcrumbValues.context.statVar)
-    ) {
+    if (ifRatio && !breadcrumbDenomStatReady()) {
       return;
     }
-    if (ifRatio && !breadcrumbDenomStatReady()) {
+    if (breadcrumbValuesReady(true /* checkDate */)) {
       return;
     }
     console.log("[Map Compute] breadcrumb values");
@@ -92,6 +91,7 @@ export function useComputeBreadcrumbValues(
     ifRatio,
     breadcrumbStatReady,
     breadcrumbDenomStatReady,
+    breadcrumbValuesReady,
     dispatchChartStore,
   ]);
 }
