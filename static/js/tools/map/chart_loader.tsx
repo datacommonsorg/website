@@ -82,7 +82,6 @@ export function ChartLoader(): JSX.Element {
   useFetchMapPointStat(dispatchChartStore);
   useFetchBreadcrumbStat(dispatchChartStore);
   useFetchBreadcrumbDenomStat(chartStore, dispatchChartStore);
-  useFetchMapPointStat(dispatchChartStore);
   useFetchGeoRaster(dispatchChartStore);
   useFetchAllDates(dispatchChartStore);
   useFetchStatVarSummary(dispatchChartStore);
@@ -96,7 +95,6 @@ export function ChartLoader(): JSX.Element {
 
   // +++++++  Computations
   useUpdateGeoJson(chartStore, dispatchChartStore);
-  const allSampleDates = useComputeSampleDates(chartStore);
   useComputeBreadcrumbValues(chartStore, dispatchChartStore);
   useComputeMapValueAndDate(
     chartStore,
@@ -104,12 +102,14 @@ export function ChartLoader(): JSX.Element {
     dispatchSources,
     dispatchMetadata
   );
-  const mapPointValues = useComputeMapPointValues(
+  useComputeMapPointValues(
     chartStore,
+    dispatchChartStore,
     dispatchSources,
     dispatchMetadata
   );
   const facetList = useComputeFacetList(chartStore);
+  const allSampleDates = useComputeSampleDates(chartStore);
   const legendDomain = useComputeLegendDomain(chartStore, allSampleDates);
 
   useEffect(() => {
@@ -147,15 +147,19 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   // Rendering logic below ...
-  if (!statVar.value.info) {
+  if (
+    !statVar.value.info ||
+    !placeInfo.value.enclosingPlace.dcid ||
+    !placeInfo.value.enclosedPlaceType
+  ) {
     return null;
   }
 
-  if (!placeInfo.value.enclosingPlace.dcid || !placeInfo.value.enclosingPlace) {
-    return null;
-  }
-
-  if (!chartStore.mapValuesDates.data) {
+  if (
+    !chartStore.mapValuesDates.data ||
+    !_.isEqual(chartStore.mapValuesDates.context.statVar, statVar.value) ||
+    !_.isEqual(chartStore.mapValuesDates.context.placeInfo, placeInfo.value)
+  ) {
     return null;
   }
 
@@ -185,18 +189,8 @@ export function ChartLoader(): JSX.Element {
     );
   }
 
-  if (!_.isEqual(chartStore.mapValuesDates.context.statVar, statVar.value)) {
-    return null;
-  }
-
-  if (
-    !_.isEqual(chartStore.mapValuesDates.context.placeInfo, placeInfo.value)
-  ) {
-    console.log("map value placeInfo do not match");
-    return null;
-  }
-
   const date = getDate(statVar.value.dcid, dateCtx.value);
+  const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
 
   let unit = "";
   for (const place in chartStore.defaultStat.data.data) {
@@ -224,8 +218,6 @@ export function ChartLoader(): JSX.Element {
     }
   }
 
-  const metahash = statVar.value.metahash || BEST_AVAILABLE_METAHASH;
-
   return (
     <div className="chart-region">
       <Chart
@@ -236,7 +228,7 @@ export function ChartLoader(): JSX.Element {
         dates={chartStore.mapValuesDates.data.mapDates}
         sources={sources}
         unit={unit}
-        mapPointValues={mapPointValues}
+        mapPointValues={chartStore.mapPointValues.data}
         mapPoints={chartStore.mapPointCoordinate.data}
         europeanCountries={europeanCountries}
         rankingLink={rankingLink}
@@ -251,7 +243,7 @@ export function ChartLoader(): JSX.Element {
               currentDate={_.max(
                 Array.from(chartStore.mapValuesDates.data.mapDates)
               )}
-              dates={sampleDates ? sampleDates : []}
+              dates={sampleDates}
               metahash={metahash}
               startEnabled={chartStore.mapValuesDates.data.mapDates.size === 1}
             />

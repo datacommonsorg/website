@@ -19,6 +19,7 @@
 import _ from "lodash";
 import { useContext, useMemo } from "react";
 
+import { SampleDates } from "../../../shared/types";
 import { getMatchingObservation } from "../../shared_util";
 import { ChartStore } from "../chart_store";
 import { useIfRatio } from "../condition_hooks";
@@ -28,7 +29,10 @@ import {
   useDenomStatReady,
   useStatVarSummaryReady,
 } from "../ready_hooks";
-import { getMetahashMap, getMetaText, SampleDates } from "../util";
+import { getMetahashMap, getMetaText } from "../util";
+
+const PADDING_SCALE_SMALL = 0.9;
+const PADDING_SCALE_LARGE = 1.1;
 
 export function useComputeLegendDomain(
   chartStore: ChartStore,
@@ -40,15 +44,13 @@ export function useComputeLegendDomain(
   const statVarSummaryReady = useStatVarSummaryReady(chartStore);
   const ifRatio = useIfRatio();
   return useMemo(() => {
-    // Only set domain for time slider.
+    // Only set domain for if time slider is shown.
     if (!display.value.showTimeSlider) {
       return null;
     }
     // * Set legend bounds when per capita is selected. This will use an estimate based on
     // * Best Available instead of the min/max from the StatVarSummary.
     if (ifRatio && defaultStatReady() && denomStatReady()) {
-      const paddingScaleSmall = 0.9;
-      const paddingScaleLarge = 1.1;
       let minValue: number = Number.MAX_SAFE_INTEGER;
       let maxValue = 0;
       const denomStat = chartStore.denomStat.data.data;
@@ -73,12 +75,12 @@ export function useComputeLegendDomain(
       // Using Best Available data as estimate - give some padding for other dates
       minValue =
         minValue > 0
-          ? minValue * paddingScaleSmall
-          : minValue * paddingScaleLarge;
+          ? minValue * PADDING_SCALE_SMALL
+          : minValue * PADDING_SCALE_LARGE;
       maxValue =
         maxValue > 0
-          ? maxValue * paddingScaleLarge
-          : maxValue * paddingScaleSmall;
+          ? maxValue * PADDING_SCALE_LARGE
+          : maxValue * PADDING_SCALE_SMALL;
       return [minValue, (minValue + maxValue) / 2, maxValue];
     }
     if (!allSampleDates) {
@@ -115,6 +117,7 @@ export function useComputeLegendDomain(
         return [minValue, (minValue + maxValue) / 2, maxValue];
       }
     }
+    return null;
   }, [
     placeInfo.value.enclosedPlaceType,
     display.value.showTimeSlider,

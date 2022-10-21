@@ -14,26 +14,36 @@
  * limitations under the License.
  */
 
-// This module contains custom React hooks that makes computation for map chart.
+// Custom hook to compute the display value for points on the map.
 
 import _ from "lodash";
-import { Dispatch, useMemo } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
-import { ChartStore } from "../chart_store";
+import { DataPointMetadata } from "../../../shared/types";
+import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
+import { Context } from "../context";
 import { useMapPointStatReady } from "../ready_hooks";
-import { DataPointMetadata, getPlaceChartData } from "../util";
+import { getPlaceChartData } from "../util";
 
 export function useComputeMapPointValues(
   chartStore: ChartStore,
+  dispatchChartStore: Dispatch<ChartStoreAction>,
   dispatchSources: Dispatch<Set<string>>,
   dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>
-): {
-  [dcid: string]: number;
-} {
+) {
+  const { statVar, placeInfo, dateCtx } = useContext(Context);
   const mapPointStatReady = useMapPointStatReady(chartStore);
-  return useMemo(() => {
+  useEffect(() => {
     if (!mapPointStatReady()) {
-      return null;
+      return;
+    }
+    if (
+      chartStore.mapPointStat.context &&
+      dateCtx.value === chartStore.mapPointStat.context.date &&
+      _.isEqual(statVar.value, chartStore.mapPointStat.context.statVar) &&
+      _.isEqual(placeInfo.value, chartStore.mapPointStat.context.placeInfo)
+    ) {
+      return;
     }
     console.log("[Map Compute] map point values");
     const mapPointValues = {};
@@ -60,13 +70,25 @@ export function useComputeMapPointValues(
         }
       });
     }
+    dispatchChartStore({
+      type: ChartDataType.MAP_POINT_VALUES,
+      context: {
+        date: dateCtx.value,
+        statVar: _.cloneDeep(statVar.value),
+        placeInfo: _.cloneDeep(placeInfo.value),
+      },
+      payload: mapPointValues,
+    });
     dispatchSources(sources);
     dispatchMetadata(metadata);
-    return mapPointValues;
   }, [
+    dateCtx.value,
+    statVar.value,
+    placeInfo.value,
     chartStore.mapPointStat,
     mapPointStatReady,
     dispatchSources,
     dispatchMetadata,
+    dispatchChartStore,
   ]);
 }

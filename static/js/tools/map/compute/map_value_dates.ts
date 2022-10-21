@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// This module contains custom React hooks that makes computation for map chart.
+// Custom hook to compute the values and used dates for the main map chart.
 
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
@@ -23,6 +23,7 @@ import {
   EntityObservation,
   EntityObservationList,
 } from "../../../shared/stat_types";
+import { DataPointMetadata } from "../../../shared/types";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
 import { useIfRatio } from "../condition_hooks";
 import { Context } from "../context";
@@ -30,9 +31,8 @@ import {
   useAllStatReady,
   useDefaultStatReady,
   useDenomStatReady,
-  useGeoJsonReady,
 } from "../ready_hooks";
-import { DataPointMetadata, getPlaceChartData } from "../util";
+import { getPlaceChartData } from "../util";
 
 export function useComputeMapValueAndDate(
   chartStore: ChartStore,
@@ -41,15 +41,11 @@ export function useComputeMapValueAndDate(
   dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>
 ) {
   const { statVar, placeInfo, dateCtx } = useContext(Context);
-  const geoJsonReady = useGeoJsonReady(chartStore);
   const allStatReady = useAllStatReady(chartStore);
   const defaultStatReady = useDefaultStatReady(chartStore);
   const denomStatReady = useDenomStatReady(chartStore);
   const ifRatio = useIfRatio();
-  return useEffect(() => {
-    if (!geoJsonReady()) {
-      return;
-    }
+  useEffect(() => {
     if (statVar.value.metahash) {
       if (!allStatReady()) {
         return;
@@ -81,18 +77,17 @@ export function useComputeMapValueAndDate(
       chartStore.denomStat.data ? chartStore.denomStat.data.facets : {},
       chartStore.allStat.data ? chartStore.allStat.data.facets : {}
     );
-    for (const geoFeature of chartStore.geoJson.data.features) {
-      const placeDcid = geoFeature.properties.geoDcid;
-      let wantedFacetData = chartStore.defaultStat.data.data;
-      if (statVar.value.metahash) {
-        wantedFacetData = filterAllFacetData(
-          chartStore.allStat.data.data,
-          statVar.value.metahash
-        );
-        if (_.isEmpty(wantedFacetData)) {
-          continue;
-        }
+    let wantedFacetData = chartStore.defaultStat.data.data;
+    if (statVar.value.metahash) {
+      wantedFacetData = filterAllFacetData(
+        chartStore.allStat.data.data,
+        statVar.value.metahash
+      );
+      if (_.isEmpty(wantedFacetData)) {
+        return;
       }
+    }
+    for (const placeDcid in wantedFacetData) {
       const placeChartData = getPlaceChartData(
         wantedFacetData,
         placeDcid,
@@ -133,11 +128,9 @@ export function useComputeMapValueAndDate(
     chartStore.allStat,
     chartStore.defaultStat,
     chartStore.denomStat,
-    chartStore.geoJson.data,
     ifRatio,
     allStatReady,
     defaultStatReady,
-    geoJsonReady,
     denomStatReady,
     dispatchSources,
     dispatchMetadata,

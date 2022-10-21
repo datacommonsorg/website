@@ -30,14 +30,14 @@ export function useGeoJsonReady(chartStore: ChartStore) {
   return useCallback(() => {
     const c = chartStore.geoJson.context;
     return (
-      !chartStore.defaultStat.error &&
+      !chartStore.geoJson.error &&
       !_.isEmpty(c) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
       placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType
     );
   }, [
     chartStore.geoJson.context,
-    chartStore.defaultStat.error,
+    chartStore.geoJson.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
   ]);
@@ -211,6 +211,14 @@ export function useStatVarSummaryReady(chartStore: ChartStore) {
   const { statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.statVarSummary.context;
-    return !_.isEmpty(c) && statVar.value.dcid === c.statVar.dcid;
-  }, [statVar.value.dcid, chartStore.statVarSummary.context]);
+    return (
+      !chartStore.statVarSummary.error &&
+      !_.isEmpty(c) &&
+      statVar.value.dcid === c.statVar.dcid
+    );
+  }, [
+    statVar.value.dcid,
+    chartStore.statVarSummary.context,
+    chartStore.statVarSummary.error,
+  ]);
 }

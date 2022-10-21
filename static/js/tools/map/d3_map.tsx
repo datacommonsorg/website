@@ -40,13 +40,12 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { NamedPlace } from "../../shared/types";
+import { DataPointMetadata, NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
 import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
-  DataPointMetadata,
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,

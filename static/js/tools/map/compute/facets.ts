@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// This module contains custom React hooks that makes computation for map chart.
+// Custom hook to compute the list of facets to show in source selector.
 
 import { useContext, useMemo } from "react";
 
@@ -31,7 +31,7 @@ export function useComputeFacetList(
   const allStatReady = useAllStatReady(chartStore);
   return useMemo(() => {
     if (!statVar.value.info || !allStatReady()) {
-      return [];
+      return null;
     }
     const filteredMetadataMap: Record<string, StatMetadata> = {};
     const facets = chartStore.allStat.data.facets;

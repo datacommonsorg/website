@@ -39,9 +39,11 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import {
+  DataPointMetadata,
   NamedPlace,
   NamedTypedPlace,
   ProvenanceSummary,
+  SampleDates,
 } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { getDateRange } from "../../utils/string_utils";
@@ -151,26 +153,12 @@ export const BEST_AVAILABLE_METAHASH = "Best Available";
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
 export const MAP_URL_PATH = "/tools/map";
 
-export interface SampleDates {
-  facetDates: Record<string, Array<string>>;
-  bestFacet: string;
-}
-
-// metadata associated with a single data point in the map charts
-export interface DataPointMetadata {
-  popDate: string;
-  popSource: string;
-  placeStatDate: string;
-  statVarSource: string;
-  errorMessage?: string;
-}
-
 /**
  * Parses the hash and get the date.
  * @param params the params in the hash
  */
 export function applyHashDate(params: URLSearchParams): string {
-  return params.get(URL_PARAM_KEYS.DATE);
+  return params.get(URL_PARAM_KEYS.DATE) || "";
 }
 
 /**

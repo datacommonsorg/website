@@ -43,6 +43,7 @@ import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";
 import { Menu } from "../place/menu";
+import { DataPointMetadata } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
 import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
@@ -53,7 +54,6 @@ import {
   PlaceInfoWrapper as MapPlaceInfoWrapper,
   StatVarWrapper,
 } from "../tools/map/context";
-import { DataPointMetadata } from "../tools/map/util";
 import { Chart as ScatterToolChart } from "../tools/scatter/chart";
 import {
   AxisWrapper,

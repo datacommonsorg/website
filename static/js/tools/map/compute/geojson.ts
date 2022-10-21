@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// This module contains custom React hooks that makes computation for map chart.
+// Custom hook to update GeoJson data for IPCC grids.
 
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";

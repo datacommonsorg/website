@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-// This module contains custom React hooks that makes computation for map chart.
+// Custom hook to compute the displayed value for breadcrumb places.
 
 import _ from "lodash";
-import { Dispatch, useContext, useMemo } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
 import { useIfRatio } from "../condition_hooks";
@@ -36,7 +36,7 @@ export function useComputeBreadcrumbValues(
   const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
   const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);
   const ifRatio = useIfRatio();
-  return useMemo(() => {
+  useEffect(() => {
     if (!breadcrumbStatReady()) {
       return;
     }

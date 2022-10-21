@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// This module contains custom React hooks that makes computation for map chart.
+// Custom hook to compute the BigQuery SQL for the current chart.
 
 import { useCallback, useContext } from "react";
 

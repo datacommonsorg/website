@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-// This module contains custom React hooks that makes computation for map chart.
+// Custom hook to compute the sampled dates for time slider.
 
 import { useMemo } from "react";
 
+import { SampleDates } from "../../../shared/types";
 import { ChartStore } from "../chart_store";
 import { useAllDatesReady } from "../ready_hooks";
-import { getTimeSliderDates, SampleDates } from "../util";
+import { getTimeSliderDates } from "../util";
 
 export function useComputeSampleDates(chartStore: ChartStore): SampleDates {
   const allDatesReady = useAllDatesReady(chartStore);

@@ -28,6 +28,13 @@ import React, {
 
 import { Context } from "./context";
 
+const INTERVAL_MS = 1000;
+const SLIDER_MARGIN = 16;
+const TICK_OFFSET = 3;
+const TICK_MARGIN = 6;
+const HANDLE_WIDTH = 4;
+const HANDLE_MARGIN = SLIDER_MARGIN - HANDLE_WIDTH / 2;
+
 interface TimeSliderProps {
   // Current date of map
   currentDate: string;
@@ -44,13 +51,6 @@ interface TimeSliderProps {
 }
 
 export function TimeSlider(props: TimeSliderProps): JSX.Element {
-  const INTERVAL_MS = 1000;
-  const SLIDER_MARGIN = 16;
-  const TICK_OFFSET = 3;
-  const TICK_MARGIN = 6;
-  const HANDLE_WIDTH = 4;
-  const HANDLE_MARGIN = SLIDER_MARGIN - HANDLE_WIDTH / 2;
-
   const { dateCtx } = useContext(Context);
 
   const [enabled, setEnabled] = useState(props.startEnabled);
@@ -82,7 +82,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
         getOffset(start, end, props.currentDate, SLIDER_MARGIN, HANDLE_MARGIN)
       );
     }
-  }, [enabled, start, end, props.currentDate, SLIDER_MARGIN, HANDLE_MARGIN]);
+  }, [enabled, start, end, props.currentDate]);
 
   useEffect(() => {
     handleResize();
@@ -100,6 +100,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       return;
     }
     if (play) {
+      setEnabled(true);
       let index = getIndex(props.dates, props.currentDate, props.startEnabled);
       index += 1;
       if (index === props.dates.length) {

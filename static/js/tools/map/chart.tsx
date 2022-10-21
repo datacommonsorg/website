@@ -30,13 +30,13 @@ import {
   GA_PARAM_STAT_VAR,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { NamedPlace } from "../../shared/types";
+import { DataPointMetadata, NamedPlace } from "../../shared/types";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { StatVarInfo } from "../timeline/chart_region";
 import { Context } from "./context";
 import { D3Map } from "./d3_map";
 import { LeafletMap } from "./leaflet_map";
-import { DataPointMetadata, getTitle } from "./util";
+import { getTitle } from "./util";
 
 export enum MAP_TYPE {
   LEAFLET,

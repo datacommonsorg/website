@@ -64,10 +64,11 @@ export function useFetchBreadcrumbStat(
       error: null,
     };
 
+    const date = getDate(statVar.value.dcid, dateCtx.value);
     axios
       .get<PointApiResponse>("/api/observations/point", {
         params: {
-          date: getDate(statVar.value.dcid, dateCtx.value),
+          date: getDate(statVar.value.dcid, date),
           entities: placeDcids,
           variables: [statVar.value.dcid],
         },
@@ -82,7 +83,7 @@ export function useFetchBreadcrumbStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log(`[Map Fetch] breadcrumb stat for date: ${dateCtx.value}`);
+        console.log(`[Map Fetch] breadcrumb stat for date: ${date}`);
         dispatch(action);
       })
       .catch(() => {

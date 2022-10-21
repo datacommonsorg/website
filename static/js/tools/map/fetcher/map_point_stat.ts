@@ -62,11 +62,12 @@ export function useFetchMapPointStat(
       },
     };
     const usedSV = statVar.value.mapPointSv || statVar.value.dcid;
+    const date = getDate(usedSV, dateCtx.value);
     axios
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
           child_type: placeInfo.value.mapPointPlaceType,
-          date: getDate(usedSV, dateCtx.value),
+          date: date,
           parent_entity: placeInfo.value.enclosingPlace.dcid,
           variables: [usedSV],
         },
@@ -81,7 +82,7 @@ export function useFetchMapPointStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log("[Map Fetch] map point stat");
+        console.log(`[Map Fetch] map point stat for: ${date}`);
         dispatch(action);
       })
       .catch(() => {

@@ -28,11 +28,14 @@ import { getPlacePathId } from "../../chart/draw_map_utils";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import {
+  DataPointMetadata,
+  NamedPlace,
+  NamedTypedPlace,
+} from "../../shared/types";
 import { MAP_CONTAINER_ID } from "./chart";
 import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
-  DataPointMetadata,
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,
