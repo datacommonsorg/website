@@ -64,17 +64,14 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
 
   const firstUpdate = useRef(true);
 
+  // TODO:
+  // props.dates size check happens in ChartLoader.
+  // Ideally it should be checked here with an early return.
+  // However an early return before hooks definition is not a good practice.
+  // The structure of this component requires more thoughts.
   const start = props.dates[0];
   const end = props.dates[props.dates.length - 1];
   const ticks = props.dates.slice(1, props.dates.length - 1);
-
-  // useEffect(() => {
-  //   setLoaded(false);
-  //   setIndex(
-  //     props.startEnabled ? getIndex(props.dates, props.currentDate) : -1
-  //   );
-  //   // setCurrentDate(props.startEnabled ? props.currentDate : "--");
-  // }, [props.metahash]);
 
   const handleResize = useCallback(() => {
     if (enabled) {

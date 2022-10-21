@@ -26,6 +26,8 @@ import {
 import { StatVarSummary } from "../../shared/types";
 import { DataContext } from "./context";
 
+// TOOD: Revist the naming decision here.
+// MAP_POINT_VALUES and MAP_VALUES_DATES are not clear on what they really mean.
 export enum ChartDataType {
   GEO_JSON = "geoJson",
   DEFAULT_STAT = "defaultStat",
