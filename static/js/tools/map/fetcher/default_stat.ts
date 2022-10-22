@@ -34,7 +34,7 @@ import { getDate } from "../util";
 export function useFetchDefaultStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
@@ -48,6 +48,7 @@ export function useFetchDefaultStat(
       type: ChartDataType.DEFAULT_STAT,
       error: null,
       context: {
+        date: dateCtx.value,
         placeInfo: {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
@@ -57,15 +58,15 @@ export function useFetchDefaultStat(
         },
         statVar: {
           dcid: statVar.value.dcid,
-          date: statVar.value.date,
         },
       },
     };
+    const date = getDate(statVar.value.dcid, dateCtx.value);
     axios
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
           child_type: placeInfo.value.enclosedPlaceType,
-          date: getDate(statVar.value.dcid, statVar.value.date),
+          date: date,
           parent_entity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },
@@ -80,7 +81,7 @@ export function useFetchDefaultStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log("default stat dispatched");
+        console.log(`[Map Fetch] default stat for date: ${date}`);
         dispatch(action);
       })
       .catch(() => {
@@ -88,10 +89,10 @@ export function useFetchDefaultStat(
         dispatch(action);
       });
   }, [
+    dateCtx.value,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
-    statVar.value.date,
     dispatch,
   ]);
 }

@@ -20,6 +20,7 @@ import { StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { Setter } from "../../shared/util";
 import {
+  applyHashDate,
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
@@ -29,6 +30,11 @@ import {
 /**
  * Global app context for map explorer tool.
  */
+
+export interface DateWrapper {
+  value: string;
+  set: Setter<string>;
+}
 
 // Information relating to the stat var to plot
 export interface StatVar {
@@ -40,8 +46,6 @@ export interface StatVar {
   perCapita?: boolean;
   // dcid of the stat var to use to calculate per capita
   denom?: string;
-  // date of the stat var data to get
-  date?: string;
   // dcid of the stat var to use for map points
   mapPointSv?: string;
   // metahash of the source to get data from
@@ -56,7 +60,6 @@ export interface StatVarWrapper {
   setInfo: Setter<Record<string, StatVarInfo>>;
   setDcid: Setter<string>;
   setPerCapita: Setter<boolean>;
-  setDate: Setter<string>;
   setDenom: Setter<string>;
   setMapPointSv: Setter<string>;
   setMetahash: Setter<string>;
@@ -127,14 +130,18 @@ export interface DisplayOptionsWrapper {
   set: Setter<DisplayOptions>;
   setShowMapPoints: Setter<boolean>;
   setShowTimeSlider: Setter<boolean>;
+  setDomain: Setter<[number, number, number]>;
 }
 
 export interface DataContext {
+  date?: string;
   statVar?: StatVar;
   placeInfo?: PlaceInfo;
 }
 
 export interface ContextType {
+  // date of the stat var data to get
+  dateCtx: DateWrapper;
   statVar: StatVarWrapper;
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
@@ -143,7 +150,8 @@ export interface ContextType {
 
 export const Context = createContext({} as ContextType);
 
-export function getInitialContext(params: URLSearchParams): ContextType {
+export function useInitialContext(params: URLSearchParams): ContextType {
+  const [date, setDate] = useState(applyHashDate(params));
   const [statVar, setStatVar] = useState(applyHashStatVar(params));
   const [placeInfo, setPlaceInfo] = useState(applyHashPlaceInfo(params));
   const [isLoading, setIsLoading] = useState({
@@ -157,6 +165,10 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     ? placeInfo.mapPointPlaceType
     : getMapPointPlaceType(statVar.dcid);
   return {
+    dateCtx: {
+      value: date,
+      set: (date) => setDate(date),
+    },
     isLoading: {
       value: isLoading,
       set: (isLoading) => setIsLoading(isLoading),
@@ -198,7 +210,6 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setDcid: (dcid) => setStatVar({ ...statVar, dcid, info: null }),
       setInfo: (info) => setStatVar({ ...statVar, info }),
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
-      setDate: (date) => setStatVar({ ...statVar, date }),
       setDenom: (denom) => setStatVar({ ...statVar, denom }),
       setMapPointSv: (sv) => setStatVar({ ...statVar, mapPointSv: sv }),
       setMetahash: (metahash) => setStatVar({ ...statVar, metahash }),
@@ -210,6 +221,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setDisplay({ ...display, showMapPoints }),
       setShowTimeSlider: (showTimeSlider) =>
         setDisplay({ ...display, showTimeSlider }),
+      setDomain: (domain) => setDisplay({ ...display, domain }),
     },
   };
 }

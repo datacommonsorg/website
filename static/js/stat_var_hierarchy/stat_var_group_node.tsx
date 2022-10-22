@@ -71,7 +71,7 @@ interface StatVarGroupNodeStateType {
   childSVG: StatVarGroupInfo[];
   // A list of child stat var nodes.
   childSV: StatVarInfo[];
-  // Error message when failed to render this componenet.
+  // Error message when failed to render this component.
   errorMessage: string;
   // Whether the next level of information is fetched.
   dataFetchedEntities: NamedNode[];

@@ -60,7 +60,7 @@ export function useFetchGeoJson(dispatch: Dispatch<ChartStoreAction>): void {
         } else {
           action.payload = resp.data as GeoJsonData;
         }
-        console.log("geojson dispatched");
+        console.log("[Map Fetch] geojson");
         dispatch(action);
       })
       .catch(() => {

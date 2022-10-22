@@ -20,8 +20,13 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useCallback } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import { drawD3Map } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
@@ -35,14 +40,12 @@ import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { NamedPlace } from "../../shared/types";
+import { DataPointMetadata, NamedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
 import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
-import { useFetchEuropeanCountries } from "./fetcher/european_countries";
 import {
-  DataPointMetadata,
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,
@@ -79,7 +82,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
   const draw = useCallback(() => {
     if (
       _.isEmpty(props.geoJsonData) ||
-      _.isEmpty(props.mapDataValues) ||
+      _.isNull(props.mapDataValues) ||
       _.isNull(placeInfo.value.parentPlaces)
     ) {
       return;
@@ -178,9 +181,9 @@ export function D3Map(props: D3MapProps): JSX.Element {
     props.mapPoints,
     props.metadata,
     props.unit,
-    statVar.value,
-    display.value,
-    placeInfo.value,
+    statVar,
+    display,
+    placeInfo,
     zoomTransformation,
   ]);
 
@@ -203,11 +206,12 @@ export function D3Map(props: D3MapProps): JSX.Element {
       }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
-    if (chartContainerRef.current) {
-      resizeObserver.observe(chartContainerRef.current);
+    const chartContainer = chartContainerRef.current;
+    if (chartContainer) {
+      resizeObserver.observe(chartContainer);
     }
     return () => {
-      resizeObserver.unobserve(chartContainerRef.current);
+      resizeObserver.unobserve(chartContainer);
       debouncedHandler.cancel();
     };
   }, [props, chartContainerRef]);
@@ -286,7 +290,7 @@ const getTooltipHtml =
     ) {
       value = formatNumber(dataValues[place.dcid], unit);
       hasValue = true;
-    } else if (mapPointValues[place.dcid]) {
+    } else if (mapPointValues && mapPointValues[place.dcid]) {
       if (statVar.mapPointSv !== statVar.dcid) {
         const mapPointSvTitle =
           statVar.mapPointSv in statVar.info

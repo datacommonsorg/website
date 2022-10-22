@@ -43,6 +43,7 @@ import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";
 import { Menu } from "../place/menu";
+import { DataPointMetadata } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
 import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
@@ -53,7 +54,6 @@ import {
   PlaceInfoWrapper as MapPlaceInfoWrapper,
   StatVarWrapper,
 } from "../tools/map/context";
-import { DataPointMetadata } from "../tools/map/util";
 import { Chart as ScatterToolChart } from "../tools/scatter/chart";
 import {
   AxisWrapper,
@@ -155,18 +155,21 @@ const MAP_PROPS = {
   mapPoints: MAP_POINTS,
   europeanCountries: [],
   rankingLink: "",
-  facetInfo: {
-    dcid: STAT_VAR_1,
-    displayNames: {},
-    metadataMap: {},
-    name: STAT_VAR_1,
-  },
+  facetList: [
+    {
+      dcid: STAT_VAR_1,
+      displayNames: {},
+      metadataMap: {},
+      name: STAT_VAR_1,
+    },
+  ],
   sampleDates: [],
   metahash: "",
   onPlay: () => null,
   updateDate: () => null,
   geoRaster: null,
   mapType: MAP_TYPE.D3,
+  children: null,
 };
 
 // Props for timeline tool chart.
@@ -233,6 +236,10 @@ const SCATTER_PROPS = {
 };
 
 const MAP_CONTEXT = {
+  dateCtx: {
+    value: "",
+    set: () => null,
+  },
   isLoading: {} as MapIsLoadingWrapper,
   display: {
     value: {

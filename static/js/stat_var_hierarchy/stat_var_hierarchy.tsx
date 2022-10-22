@@ -52,7 +52,7 @@ const TOOLTIP_MARGIN = 5;
 export interface StatVarHierarchyPropType {
   type: string;
   entities: NamedNode[];
-  // (Optional) A list of stat vars selected from parent componenet.
+  // (Optional) A list of stat vars selected from parent component.
   // For example, in timeline tool, these are stat vars parsed from URL.
   selectedSVs?: string[];
   // Callback function when a stat var is selected

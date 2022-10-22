@@ -34,7 +34,7 @@ import { Context } from "../context";
 import { getDate } from "../util";
 
 export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.enclosingPlace.dcid &&
@@ -46,6 +46,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
     const action: ChartStoreAction = {
       type: ChartDataType.ALL_STAT,
       context: {
+        date: dateCtx.value,
         placeInfo: {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
@@ -55,16 +56,16 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
         },
         statVar: {
           dcid: statVar.value.dcid,
-          date: statVar.value.date,
         },
       },
       error: null,
     };
+    const date = getDate(statVar.value.dcid, dateCtx.value);
     axios
       .get<PointAllApiResponse>("/api/observations/point/within/all", {
         params: {
           child_type: placeInfo.value.enclosedPlaceType,
-          date: getDate(statVar.value.dcid, statVar.value.date),
+          date: date,
           parent_entity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },
@@ -79,7 +80,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
             facets: resp.data.facets,
           } as EntityObservationListWrapper;
         }
-        console.log("all stat action dispatched");
+        console.log(`[Map Fetch] all stat for date: ${date}`);
         dispatch(action);
       })
       .catch(() => {
@@ -90,7 +91,7 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
     statVar.value.dcid,
-    statVar.value.date,
+    dateCtx.value,
     dispatch,
   ]);
 }

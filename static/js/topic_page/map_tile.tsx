@@ -35,9 +35,14 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
-import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
+import {
+  DataPointMetadata,
+  NamedPlace,
+  NamedTypedPlace,
+  StatVarSpec,
+} from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
-import { DataPointMetadata, getPlaceChartData } from "../tools/map/util";
+import { getPlaceChartData } from "../tools/map/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
 import { stringifyFn } from "../utils/axios";
 import { getDateRange } from "../utils/string_utils";

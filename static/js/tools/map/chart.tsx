@@ -19,8 +19,7 @@
  */
 
 import * as d3 from "d3";
-import _ from "lodash";
-import React, { useContext, useEffect } from "react";
+import React, { ReactNode, useContext, useEffect } from "react";
 import { Card, Container, FormGroup, Input, Label } from "reactstrap";
 
 import { GeoJsonData, MapPoint } from "../../chart/types";
@@ -31,14 +30,13 @@ import {
   GA_PARAM_STAT_VAR,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { NamedPlace } from "../../shared/types";
+import { DataPointMetadata, NamedPlace } from "../../shared/types";
 import { ToolChartFooter } from "../shared/tool_chart_footer";
 import { StatVarInfo } from "../timeline/chart_region";
 import { Context } from "./context";
 import { D3Map } from "./d3_map";
 import { LeafletMap } from "./leaflet_map";
-import { TimeSlider } from "./time_slider";
-import { DataPointMetadata, getTitle } from "./util";
+import { getTitle } from "./util";
 
 export enum MAP_TYPE {
   LEAFLET,
@@ -56,21 +54,10 @@ interface ChartProps {
   mapPoints: Array<MapPoint>;
   europeanCountries: Array<NamedPlace>;
   rankingLink: string;
-  facetInfo: FacetSelectorFacetInfo;
+  facetList: FacetSelectorFacetInfo[];
   geoRaster: any;
-
-  // Array of ~10 dates for time slider
-  sampleDates: Array<string>;
-
-  // Current metahash
-  metahash: string;
-
-  // Fetches data for slider dates when play is pressed
-  onPlay(callback: () => void): void;
-
-  // Updates map date to slider date
-  updateDate(date: string): void;
   mapType: MAP_TYPE;
+  children: ReactNode;
 }
 
 export const MAP_CONTAINER_ID = "choropleth-map";
@@ -147,18 +134,7 @@ export function Chart(props: ChartProps): JSX.Element {
                 europeanCountries={props.europeanCountries}
               />
             )}
-            {display.value.showTimeSlider &&
-              props.sampleDates &&
-              props.sampleDates.length > 1 && (
-                <TimeSlider
-                  currentDate={_.max(Array.from(props.dates))}
-                  dates={props.sampleDates}
-                  metahash={props.metahash}
-                  onPlay={props.onPlay}
-                  startEnabled={props.dates.size === 1}
-                  updateDate={props.updateDate}
-                />
-              )}
+            {props.children}
             <div className="map-links">
               {mainSvInfo.ranked && (
                 <a className="explore-timeline-link" href={props.rankingLink}>
@@ -191,7 +167,7 @@ export function Chart(props: ChartProps): JSX.Element {
         sources={props.sources}
         mMethods={null}
         svFacetId={{ [statVarDcid]: statVar.value.metahash }}
-        facetList={[props.facetInfo]}
+        facetList={props.facetList}
         onSvFacetIdUpdated={(svFacetId) =>
           statVar.setMetahash(svFacetId[statVar.value.dcid])
         }

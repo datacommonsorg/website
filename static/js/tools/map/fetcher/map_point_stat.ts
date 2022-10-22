@@ -34,7 +34,7 @@ import { getDate } from "../util";
 export function useFetchMapPointStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.mapPointPlaceType &&
@@ -47,6 +47,7 @@ export function useFetchMapPointStat(
       type: ChartDataType.MAP_POINT_STAT,
       error: null,
       context: {
+        date: dateCtx.value,
         placeInfo: {
           enclosingPlace: {
             dcid: placeInfo.value.enclosingPlace.dcid,
@@ -56,17 +57,17 @@ export function useFetchMapPointStat(
         },
         statVar: {
           dcid: statVar.value.dcid,
-          date: statVar.value.date,
           mapPointSv: statVar.value.mapPointSv,
         },
       },
     };
     const usedSV = statVar.value.mapPointSv || statVar.value.dcid;
+    const date = getDate(usedSV, dateCtx.value);
     axios
       .get<PointApiResponse>("/api/observations/point/within", {
         params: {
           child_type: placeInfo.value.mapPointPlaceType,
-          date: getDate(usedSV, statVar.value.date),
+          date: date,
           parent_entity: placeInfo.value.enclosingPlace.dcid,
           variables: [usedSV],
         },
@@ -81,7 +82,7 @@ export function useFetchMapPointStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log("map point stat dispatched");
+        console.log(`[Map Fetch] map point stat for: ${date}`);
         dispatch(action);
       })
       .catch(() => {
@@ -89,11 +90,11 @@ export function useFetchMapPointStat(
         dispatch(action);
       });
   }, [
+    dateCtx.value,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.mapPointPlaceType,
     statVar.value.dcid,
     statVar.value.mapPointSv,
-    statVar.value.date,
     dispatch,
   ]);
 }

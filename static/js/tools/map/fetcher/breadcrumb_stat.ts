@@ -34,7 +34,7 @@ import { getDate } from "../util";
 export function useFetchBreadcrumbStat(
   dispatch: Dispatch<ChartStoreAction>
 ): void {
-  const { placeInfo, statVar } = useContext(Context);
+  const { dateCtx, placeInfo, statVar } = useContext(Context);
   useEffect(() => {
     const contextOk =
       placeInfo.value.selectedPlace.dcid &&
@@ -49,6 +49,7 @@ export function useFetchBreadcrumbStat(
     const action: ChartStoreAction = {
       type: ChartDataType.BREADCRUMB_STAT,
       context: {
+        date: dateCtx.value,
         placeInfo: {
           selectedPlace: {
             dcid: placeInfo.value.selectedPlace.dcid,
@@ -58,16 +59,16 @@ export function useFetchBreadcrumbStat(
         },
         statVar: {
           dcid: statVar.value.dcid,
-          date: statVar.value.date,
         },
       },
       error: null,
     };
 
+    const date = getDate(statVar.value.dcid, dateCtx.value);
     axios
       .get<PointApiResponse>("/api/observations/point", {
         params: {
-          date: getDate(statVar.value.dcid, statVar.value.date),
+          date: date,
           entities: placeDcids,
           variables: [statVar.value.dcid],
         },
@@ -82,7 +83,7 @@ export function useFetchBreadcrumbStat(
             facets: resp.data.facets,
           } as EntityObservationWrapper;
         }
-        console.log("breadcrumb stat action dispatched");
+        console.log(`[Map Fetch] breadcrumb stat for date: ${date}`);
         dispatch(action);
       })
       .catch(() => {
@@ -93,7 +94,7 @@ export function useFetchBreadcrumbStat(
     placeInfo.value.selectedPlace.dcid,
     placeInfo.value.parentPlaces,
     statVar.value.dcid,
-    statVar.value.date,
+    dateCtx.value,
     dispatch,
   ]);
 }

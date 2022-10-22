@@ -37,9 +37,9 @@ import {
 } from "../../chart/draw_leaflet_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { DataPointMetadata } from "../../shared/types";
 import { MAP_CONTAINER_ID } from "./chart";
 import { Context } from "./context";
-import { DataPointMetadata } from "./util";
 
 interface LeafletMapProps {
   geoJsonData: GeoJsonData;

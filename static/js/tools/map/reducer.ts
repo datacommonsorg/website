@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
+import { DataPointMetadata } from "../../shared/types";
 import { ChartStore, ChartStoreAction } from "./chart_store";
-import { DataPointMetadata } from "./util";
 
 // A reducer used for merging field in ChartStore object. It adds fetched raw
 // data to the ChartStore.
@@ -28,6 +28,7 @@ export function chartStoreReducer(
     [action.type]: {
       data: action.payload,
       context: action.context,
+      error: action.error,
     },
   };
 }

@@ -25,7 +25,7 @@ interface PageSubtitlePropsType {
 }
 
 /**
- * A componenet to display the subtitle above chart section. It includes
+ * A component to display the subtitle above chart section. It includes
  * the category name and a navigation link for non-overview pages.
  */
 class PageSubtitle extends React.Component<PageSubtitlePropsType> {
