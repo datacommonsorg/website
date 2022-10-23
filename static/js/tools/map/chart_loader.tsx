@@ -28,7 +28,7 @@ import React, {
   useState,
 } from "react";
 
-import { loadSpinner, removeSpinner } from "../../shared/util";
+import { loadSpinner } from "../../shared/util";
 import { getUnit } from "../../tools/shared_util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
@@ -60,9 +60,7 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { getDate, getRankingLink } from "./util";
-
-const CHART_LOADER_WRAPPER_ID = "chart-loader-wrapper";
+import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -155,8 +153,21 @@ export function ChartLoader(): JSX.Element {
     chartStore.geoRaster.data,
   ]);
 
+  useEffect(() => {
+    if (
+      statVar.value.dcid &&
+      placeInfo.value.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType
+    ) {
+      loadSpinner(CHART_LOADER_SCREEN);
+    }
+  }, [
+    statVar.value.dcid,
+    placeInfo.value.enclosingPlace.dcid,
+    placeInfo.value.enclosedPlaceType,
+  ]);
+
   function renderContent() {
-    loadSpinner(CHART_LOADER_WRAPPER_ID);
     if (!renderReady()) {
       return null;
     }
@@ -201,7 +212,6 @@ export function ChartLoader(): JSX.Element {
       date,
       unit
     );
-    removeSpinner(CHART_LOADER_WRAPPER_ID);
     return (
       <div className="chart-region">
         <Chart
@@ -256,11 +266,13 @@ export function ChartLoader(): JSX.Element {
   }
 
   return (
-    <div id={CHART_LOADER_WRAPPER_ID}>
+    <>
       {renderContent()}
-      <div id="chart-loader-screen" className="screen">
-        <div id="spinner"></div>
+      <div id="chart-loader-screen">
+        <div className="screen">
+          <div id="spinner"></div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

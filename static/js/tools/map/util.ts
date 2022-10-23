@@ -73,6 +73,8 @@ const SV_REGEX_INSTALLATION_MAPPING = {
 
 const NUM_SAMPLE_DATES = 10;
 
+export const CHART_LOADER_SCREEN = "chart-loader-screen";
+
 export const ALLOW_LEAFLET_URL_ARG = "leaflet";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",

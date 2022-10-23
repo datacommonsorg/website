@@ -102,10 +102,10 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       index += 1;
       if (index === props.dates.length) {
         index = 0;
-        if (firstUpdate.current) {
-          firstUpdate.current = false;
+        if (!firstUpdate.current) {
+          setPlay(false);
         }
-        setPlay(false);
+        firstUpdate.current = false;
       }
       dateCtx.set(props.dates[index]);
       setFreeze(true);
