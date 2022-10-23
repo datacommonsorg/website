@@ -282,15 +282,18 @@ export function useRenderReady(chartStore: ChartStore) {
   const { display, statVar } = useContext(Context);
   const breadcrumbValueReady = useBreadcrumbValuesReady(chartStore);
   const mapValuesDatesReady = useMapValuesDatesReady(chartStore);
+  const geoJsonReady = useGeoJsonReady(chartStore);
   return useCallback(() => {
     return (
       statVar.value.info &&
+      geoJsonReady() &&
       breadcrumbValueReady(!display.value.showTimeSlider) &&
       mapValuesDatesReady(!display.value.showTimeSlider)
     );
   }, [
     display.value.showTimeSlider,
     statVar.value.info,
+    geoJsonReady,
     breadcrumbValueReady,
     mapValuesDatesReady,
   ]);
