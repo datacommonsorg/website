@@ -167,7 +167,7 @@ export function ChartLoader(): JSX.Element {
     placeInfo.value.enclosedPlaceType,
   ]);
 
-  function renderContent() {
+  function renderContent(): JSX.Element {
     if (!renderReady()) {
       return null;
     }
