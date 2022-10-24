@@ -20,14 +20,20 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useEffect, useReducer, useRef } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 
 import { loadSpinner } from "../../shared/util";
 import { getUnit } from "../../tools/shared_util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
-import { Chart } from "./chart";
+import { Chart, MAP_TYPE } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
 import { useComputeFacetList } from "./compute/facets";
@@ -37,7 +43,6 @@ import { useComputeMapPointValues } from "./compute/map_point";
 import { useComputeMapValueAndDate } from "./compute/map_value_dates";
 import { useComputeSampleDates } from "./compute/sample_dates";
 import { useGetSqlQuery } from "./compute/sql";
-import { useMapType } from "./condition_hooks";
 import { Context } from "./context";
 import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchAllStat } from "./fetcher/all_stat";
@@ -60,6 +65,9 @@ import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
   const { dateCtx, placeInfo, statVar, display } = useContext(Context);
+
+  // +++++++  State
+  const [mapType, setMapType] = useState(MAP_TYPE.D3);
 
   // +++++++  Chart Store
   const [chartStore, dispatchChartStore] = useReducer(
@@ -106,7 +114,6 @@ export function ChartLoader(): JSX.Element {
   const facetList = useComputeFacetList(chartStore);
   const { sampleDates, sampleFacet } = useComputeSampleDates(chartStore);
   const legendDomain = useComputeLegendDomain(chartStore, sampleFacet);
-  const mapType = useMapType(chartStore);
 
   // +++++++++ Chart is ready to render
   const renderReady = useRenderReady(chartStore);
@@ -130,6 +137,22 @@ export function ChartLoader(): JSX.Element {
     };
   }, []);
 
+  // Set map type to leaflet if georaster data is available before data needed
+  // for d3 maps
+  useEffect(() => {
+    if (
+      (_.isEmpty(chartStore.mapValuesDates.data) ||
+        _.isEmpty(chartStore.geoJson.data)) &&
+      !_.isEmpty(chartStore.geoRaster.data)
+    ) {
+      setMapType(MAP_TYPE.LEAFLET);
+    }
+  }, [
+    chartStore.mapValuesDates.data,
+    chartStore.geoJson.data,
+    chartStore.geoRaster.data,
+  ]);
+
   useEffect(() => {
     if (
       statVar.value.dcid &&
@@ -145,7 +168,7 @@ export function ChartLoader(): JSX.Element {
   ]);
 
   function renderContent(): JSX.Element {
-    if (!renderReady()) {
+    if (!renderReady(mapType)) {
       return null;
     }
     if (
