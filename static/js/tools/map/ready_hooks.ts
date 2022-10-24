@@ -21,6 +21,7 @@
 import _ from "lodash";
 import { useCallback, useContext } from "react";
 
+import { MAP_TYPE } from "./chart";
 import { ChartStore } from "./chart_store";
 import { Context } from "./context";
 
@@ -282,16 +283,22 @@ export function useRenderReady(chartStore: ChartStore) {
   const { display, statVar } = useContext(Context);
   const breadcrumbValueReady = useBreadcrumbValuesReady(chartStore);
   const mapValuesDatesReady = useMapValuesDatesReady(chartStore);
-  return useCallback(() => {
-    return (
-      statVar.value.info &&
-      breadcrumbValueReady(!display.value.showTimeSlider) &&
-      mapValuesDatesReady(!display.value.showTimeSlider)
-    );
-  }, [
-    display.value.showTimeSlider,
-    statVar.value.info,
-    breadcrumbValueReady,
-    mapValuesDatesReady,
-  ]);
+  const geoJsonReady = useGeoJsonReady(chartStore);
+  return useCallback(
+    (mapType: MAP_TYPE) => {
+      return (
+        statVar.value.info &&
+        (geoJsonReady() || mapType === MAP_TYPE.LEAFLET) &&
+        breadcrumbValueReady(!display.value.showTimeSlider) &&
+        mapValuesDatesReady(!display.value.showTimeSlider)
+      );
+    },
+    [
+      display.value.showTimeSlider,
+      statVar.value.info,
+      geoJsonReady,
+      breadcrumbValueReady,
+      mapValuesDatesReady,
+    ]
+  );
 }

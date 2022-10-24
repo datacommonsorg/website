@@ -46,6 +46,7 @@ import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
 import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
+  CHART_LOADER_SCREEN,
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,
@@ -173,6 +174,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       zoomDcid,
       zoomParams
     );
+    removeSpinner(CHART_LOADER_SCREEN);
   }, [
     props.europeanCountries,
     props.geoJsonData,

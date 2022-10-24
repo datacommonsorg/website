@@ -847,7 +847,7 @@ describe("test ga event tool place add", () => {
     window.google = {
       maps: {
         places: {
-          Autocomplete: jest.fn().mockImplementation((elem, _opts) => {
+          Autocomplete: jest.fn().mockImplementation((elem) => {
             return {
               addListener: (_placeChanged, callback) => {
                 elem.addEventListener("change", callback);

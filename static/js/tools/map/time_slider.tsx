@@ -102,10 +102,14 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
       index += 1;
       if (index === props.dates.length) {
         index = 0;
-        if (firstUpdate.current) {
-          firstUpdate.current = false;
+        // During the page loads, the cursor is usually in the middle or the
+        // end of the time slider. The cursor should travel a full round of
+        // the time span, which means it needs to reach the beginning of the
+        // time span twice before it stops.
+        if (!firstUpdate.current) {
+          setPlay(false);
         }
-        setPlay(false);
+        firstUpdate.current = false;
       }
       dateCtx.set(props.dates[index]);
       setFreeze(true);

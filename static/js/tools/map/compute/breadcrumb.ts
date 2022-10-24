@@ -51,7 +51,7 @@ export function useComputeBreadcrumbValues(
     console.log("[Map Compute] breadcrumb values");
     const breadcrumbValues = {};
     const facets = Object.assign(
-      [],
+      {},
       chartStore.breadcrumbStat.data.facets,
       chartStore.breadcrumbDenomStat.data
         ? chartStore.breadcrumbDenomStat.data.facets

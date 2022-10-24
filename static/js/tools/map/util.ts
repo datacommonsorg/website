@@ -73,6 +73,8 @@ const SV_REGEX_INSTALLATION_MAPPING = {
 
 const NUM_SAMPLE_DATES = 10;
 
+export const CHART_LOADER_SCREEN = "chart-loader-screen";
+
 export const ALLOW_LEAFLET_URL_ARG = "leaflet";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
@@ -494,7 +496,7 @@ export function getPlaceChartData(
   if (calculateRatio) {
     const placePopData =
       placeDcid in populationData ? populationData[placeDcid] : null;
-    if (_.isEmpty(placePopData)) {
+    if (_.isNull(placePopData) || _.isEmpty(placePopData.series)) {
       metadata.errorMessage = "Population Data Missing";
       return { metadata, sources, date: placeStatDate, value };
     }

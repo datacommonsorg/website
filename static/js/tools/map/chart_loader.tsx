@@ -28,6 +28,7 @@ import React, {
   useState,
 } from "react";
 
+import { loadSpinner } from "../../shared/util";
 import { getUnit } from "../../tools/shared_util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
@@ -59,7 +60,7 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { getDate, getRankingLink } from "./util";
+import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -152,99 +153,126 @@ export function ChartLoader(): JSX.Element {
     chartStore.geoRaster.data,
   ]);
 
-  if (!renderReady()) {
-    return null;
-  }
-
-  if (
-    chartStore.defaultStat.error ||
-    _.isEmpty(chartStore.mapValuesDates.data.mapValues)
-  ) {
-    return (
-      <div className="p-5">
-        {`Sorry, the selected variable ${
-          statVar.value.info.title || statVar.value.dcid
-        } is not available for places in ${
-          placeInfo.value.selectedPlace.name
-        } of type ${
-          ENCLOSED_PLACE_TYPE_NAMES[placeInfo.value.enclosedPlaceType] ||
-          placeInfo.value.enclosedPlaceType
-        }. Please try a different variable or different place options.`}
-      </div>
-    );
-  }
-
-  if (mapType === MAP_TYPE.D3 && chartStore.geoJson.error) {
-    return (
-      <div className="p-5">
-        {`Sorry, maps are not available for ` +
-          `${placeInfo.value.enclosedPlaceType}` +
-          `in ${placeInfo.value.selectedPlace.name}. ` +
-          `Try picking another place or type of place.`}
-      </div>
-    );
-  }
-
-  const date = getDate(statVar.value.dcid, dateCtx.value);
-  const unit = getUnit(
-    Object.values(chartStore.defaultStat.data.data),
-    chartStore.defaultStat.data.facets
-  );
-  const rankingLink = getRankingLink(
-    statVar.value,
-    placeInfo.value.selectedPlace.dcid,
+  useEffect(() => {
+    if (
+      statVar.value.dcid &&
+      placeInfo.value.enclosingPlace.dcid &&
+      placeInfo.value.enclosedPlaceType
+    ) {
+      loadSpinner(CHART_LOADER_SCREEN);
+    }
+  }, [
+    statVar.value.dcid,
+    placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
-    date,
-    unit
-  );
+  ]);
 
-  return (
-    <div className="chart-region">
-      <Chart
-        geoJsonData={chartStore.geoJson.data}
-        mapDataValues={chartStore.mapValuesDates.data.mapValues}
-        metadata={metadata}
-        breadcrumbDataValues={chartStore.breadcrumbValues.data}
-        dates={chartStore.mapValuesDates.data.mapDates}
-        sources={sources}
-        unit={unit}
-        mapPointValues={chartStore.mapPointValues.data}
-        mapPoints={chartStore.mapPointCoordinate.data}
-        europeanCountries={europeanCountries}
-        rankingLink={rankingLink}
-        facetList={facetList}
-        geoRaster={chartStore.geoRaster.data}
-        mapType={mapType}
-      >
-        {display.value.showTimeSlider &&
-          sampleDates &&
-          sampleDates.length > 1 && (
-            <TimeSlider
-              currentDate={_.max(
-                Array.from(chartStore.mapValuesDates.data.mapDates)
-              )}
-              dates={sampleDates}
-              metahash={statVar.value.metahash}
-              startEnabled={chartStore.mapValuesDates.data.mapDates.size === 1}
-            />
-          )}
-      </Chart>
+  function renderContent(): JSX.Element {
+    if (!renderReady(mapType)) {
+      return null;
+    }
+    if (
+      chartStore.defaultStat.error ||
+      _.isEmpty(chartStore.mapValuesDates.data.mapValues)
+    ) {
+      return (
+        <div className="p-5">
+          {`Sorry, the selected variable ${
+            statVar.value.info.title || statVar.value.dcid
+          } is not available for places in ${
+            placeInfo.value.selectedPlace.name
+          } of type ${
+            ENCLOSED_PLACE_TYPE_NAMES[placeInfo.value.enclosedPlaceType] ||
+            placeInfo.value.enclosedPlaceType
+          }. Please try a different variable or different place options.`}
+        </div>
+      );
+    }
 
-      {placeInfo.value.parentPlaces && (
-        // Should separate out placeInfo into individual state.
-        // The parentPlaces is only used for breadcumb section.
-        <PlaceDetails
-          breadcrumbDataValues={chartStore.breadcrumbValues.data}
+    if (mapType === MAP_TYPE.D3 && chartStore.geoJson.error) {
+      return (
+        <div className="p-5">
+          {`Sorry, maps are not available for ` +
+            `${placeInfo.value.enclosedPlaceType}` +
+            `in ${placeInfo.value.selectedPlace.name}. ` +
+            `Try picking another place or type of place.`}
+        </div>
+      );
+    }
+
+    const date = getDate(statVar.value.dcid, dateCtx.value);
+    const unit = getUnit(
+      Object.values(chartStore.defaultStat.data.data),
+      chartStore.defaultStat.data.facets
+    );
+    const rankingLink = getRankingLink(
+      statVar.value,
+      placeInfo.value.selectedPlace.dcid,
+      placeInfo.value.enclosedPlaceType,
+      date,
+      unit
+    );
+    return (
+      <div className="chart-region">
+        <Chart
+          geoJsonData={chartStore.geoJson.data}
           mapDataValues={chartStore.mapValuesDates.data.mapValues}
           metadata={metadata}
+          breadcrumbDataValues={chartStore.breadcrumbValues.data}
+          dates={chartStore.mapValuesDates.data.mapDates}
+          sources={sources}
           unit={unit}
-          geoJsonFeatures={
-            chartStore.geoJson.data ? chartStore.geoJson.data.features : []
-          }
+          mapPointValues={chartStore.mapPointValues.data}
+          mapPoints={chartStore.mapPointCoordinate.data}
           europeanCountries={europeanCountries}
-        />
-      )}
-      <BqModal getSqlQuery={getSqlQuery} showButton={true} />
-    </div>
+          rankingLink={rankingLink}
+          facetList={facetList}
+          geoRaster={chartStore.geoRaster.data}
+          mapType={mapType}
+        >
+          {display.value.showTimeSlider &&
+            sampleDates &&
+            sampleDates.length > 1 && (
+              <TimeSlider
+                currentDate={_.max(
+                  Array.from(chartStore.mapValuesDates.data.mapDates)
+                )}
+                dates={sampleDates}
+                metahash={statVar.value.metahash}
+                startEnabled={
+                  chartStore.mapValuesDates.data.mapDates.size === 1
+                }
+              />
+            )}
+        </Chart>
+
+        {placeInfo.value.parentPlaces && (
+          // Should separate out placeInfo into individual state.
+          // The parentPlaces is only used for breadcumb section.
+          <PlaceDetails
+            breadcrumbDataValues={chartStore.breadcrumbValues.data}
+            mapDataValues={chartStore.mapValuesDates.data.mapValues}
+            metadata={metadata}
+            unit={unit}
+            geoJsonFeatures={
+              chartStore.geoJson.data ? chartStore.geoJson.data.features : []
+            }
+            europeanCountries={europeanCountries}
+          />
+        )}
+        <BqModal getSqlQuery={getSqlQuery} showButton={true} />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {renderContent()}
+      <div id={CHART_LOADER_SCREEN}>
+        <div className="screen">
+          <div id="spinner"></div>
+        </div>
+      </div>
+    </>
   );
 }
