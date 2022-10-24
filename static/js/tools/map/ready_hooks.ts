@@ -22,6 +22,7 @@ import _ from "lodash";
 import { useCallback, useContext } from "react";
 
 import { ChartStore } from "./chart_store";
+import { useMapType } from "./condition_hooks";
 import { Context } from "./context";
 
 export function useGeoJsonReady(chartStore: ChartStore) {
@@ -283,7 +284,11 @@ export function useRenderReady(chartStore: ChartStore) {
   const breadcrumbValueReady = useBreadcrumbValuesReady(chartStore);
   const mapValuesDatesReady = useMapValuesDatesReady(chartStore);
   const geoJsonReady = useGeoJsonReady(chartStore);
+  const mapType = useMapType(chartStore);
   return useCallback(() => {
+    if (mapType) {
+      return true;
+    }
     return (
       statVar.value.info &&
       geoJsonReady() &&
@@ -293,6 +298,7 @@ export function useRenderReady(chartStore: ChartStore) {
   }, [
     display.value.showTimeSlider,
     statVar.value.info,
+    mapType,
     geoJsonReady,
     breadcrumbValueReady,
     mapValuesDatesReady,
