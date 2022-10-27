@@ -28,12 +28,12 @@ import React, {
   useState,
 } from "react";
 
-import { loadSpinner } from "../../shared/util";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { getUnit } from "../../tools/shared_util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
 import { BqModal } from "../shared/bq_modal";
 import { setUpBqButton } from "../shared/bq_utils";
-import { Chart, MAP_TYPE } from "./chart";
+import { Chart, CHART_CONTAINER_ID, MAP_TYPE } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
 import { useComputeFacetList } from "./compute/facets";
@@ -60,7 +60,12 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
+import {
+  CHART_LOADER_SCREEN,
+  getDate,
+  getRankingLink,
+  ifShowChart,
+} from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -175,6 +180,7 @@ export function ChartLoader(): JSX.Element {
       chartStore.defaultStat.error ||
       _.isEmpty(chartStore.mapValuesDates.data.mapValues)
     ) {
+      removeSpinner(CHART_LOADER_SCREEN);
       return (
         <div className="p-5">
           {`Sorry, the selected variable ${
@@ -190,6 +196,7 @@ export function ChartLoader(): JSX.Element {
     }
 
     if (mapType === MAP_TYPE.D3 && chartStore.geoJson.error) {
+      removeSpinner(CHART_LOADER_SCREEN);
       return (
         <div className="p-5">
           {`Sorry, maps are not available for ` +
