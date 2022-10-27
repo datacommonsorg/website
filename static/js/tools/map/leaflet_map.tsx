@@ -38,8 +38,10 @@ import {
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { DataPointMetadata } from "../../shared/types";
+import { removeSpinner } from "../../shared/util";
 import { MAP_CONTAINER_ID } from "./chart";
 import { Context } from "./context";
+import { CHART_LOADER_SCREEN } from "./util";
 
 interface LeafletMapProps {
   geoJsonData: GeoJsonData;
@@ -143,6 +145,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
       );
     }
     setOptimalMapView(leafletMap.current, placeInfo.value.enclosingPlace.dcid);
+    removeSpinner(CHART_LOADER_SCREEN);
   }, [
     props.geoJsonData,
     props.geoRaster,
