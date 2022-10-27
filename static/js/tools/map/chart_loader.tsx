@@ -60,12 +60,7 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import {
-  CHART_LOADER_SCREEN,
-  getDate,
-  getRankingLink,
-  ifShowChart,
-} from "./util";
+import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
