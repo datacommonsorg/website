@@ -1,0 +1,4 @@
+project: datcom-stanford
+instance: dc-graph
+tables:
+  - private_2022_10_26_16_01_13

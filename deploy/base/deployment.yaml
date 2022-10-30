@@ -114,11 +114,11 @@ spec:
               memory: "8G"
           args:
             - --mixer_project=$(MIXER_PROJECT)
-            - --store_project=$(STORE_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
             - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
-            - --import_group_tables=$(IMPORT_GROUP_TABLES)
+            - --base_bigtable=$(BASE_BIGTABLE)
+            - --cusotm_bigtable=$(CUSTOM_BIGTABLE)
             - --memdb_path=/datacommons/memdb
           volumeMounts:
             - name: schema-mapping
@@ -131,21 +131,21 @@ spec:
                 configMapKeyRef:
                   name: mixer-configmap
                   key: mixerProject
-            - name: STORE_PROJECT
-              valueFrom:
-                configMapKeyRef:
-                  name: store-configmap
-                  key: store.project
             - name: BIG_QUERY
               valueFrom:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigquery.version
-            - name: IMPORT_GROUP_TABLES
+            - name: BASE_BIGTABLE
               valueFrom:
                 configMapKeyRef:
                   name: store-configmap
-                  key: bigtable_import_groups.version
+                  key: base_bigtable.yaml
+            - name: CUSTOM_BIGTABLE
+              valueFrom:
+                configMapKeyRef:
+                  name: store-configmap
+                  key: custom_bigtable.yaml
             - name: MIXER_HASH
               valueFrom:
                 configMapKeyRef:
