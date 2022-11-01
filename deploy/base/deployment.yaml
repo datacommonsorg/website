@@ -117,8 +117,8 @@ spec:
             - --bq_dataset=$(BIG_QUERY)
             - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
-            - --base_bigtable=$(BASE_BIGTABLE)
-            - --cusotm_bigtable=$(CUSTOM_BIGTABLE)
+            - --base_bigtable_info=$(BASE_BIGTABLE_INFO)
+            - --cusotm_bigtable_info=$(CUSTOM_BIGTABLE_INFO)
             - --memdb_path=/datacommons/memdb
           volumeMounts:
             - name: schema-mapping
@@ -136,16 +136,16 @@ spec:
                 configMapKeyRef:
                   name: store-configmap
                   key: bigquery.version
-            - name: BASE_BIGTABLE
+            - name: BASE_BIGTABLE_INFO
               valueFrom:
                 configMapKeyRef:
                   name: store-configmap
-                  key: base_bigtable.yaml
-            - name: CUSTOM_BIGTABLE
+                  key: base_bigtable_info.yaml
+            - name: CUSTOM_BIGTABLE_INFO
               valueFrom:
                 configMapKeyRef:
                   name: store-configmap
-                  key: custom_bigtable.yaml
+                  key: custom_bigtable_info.yaml
             - name: MIXER_HASH
               valueFrom:
                 configMapKeyRef:

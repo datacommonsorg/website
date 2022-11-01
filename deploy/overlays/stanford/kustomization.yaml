@@ -35,7 +35,7 @@ configMapGenerator:
   - behavior: merge
     name: store-configmap
     files:
-      - custom_bigtable.yaml
+      - custom_bigtable_info.yaml
 
 patchesStrategicMerge:
   - |-
