@@ -35,7 +35,7 @@
     "bootstrap": "^4.5.2",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^3.6.0",
-    "d3": "^5.16.0",
+    "d3": "^7.6.1",
     "d3-geo": "^2.0.1",
     "d3-regression": "^1.2.8",
     "file-loader": "^6.1.0",
