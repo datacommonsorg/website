@@ -41,20 +41,12 @@ MAX_OVERVIEW_CHART_GROUP = 5
 OVERVIEW = 'Overview'
 
 
-def get_landing_page_data(dcid, new_stat_vars):
-    return get_landing_page_data_helper(dcid, '^'.join(new_stat_vars))
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def get_landing_page_data_helper(dcid, stat_vars_string):
-    data = {'place': dcid}
-    if stat_vars_string:
-        data['newStatVars'] = stat_vars_string.split('^')
-    response = dc_service.fetch_data('/landing-page',
-                                     data,
-                                     compress=False,
-                                     post=True,
-                                     has_payload=False)
+def get_landing_page_data(dcid, new_stat_vars, category):
+    data = {'node': dcid, 'category': category}
+    if new_stat_vars:
+        data['newStatVars'] = new_stat_vars
+    url = '/v1/internal/page/place/'
+    response = dc_service.post(url, data)
     return response
 
 
@@ -85,7 +77,7 @@ def fill_translation(chart):
 
 
 # TODO: add test for chart_config for assumption that each combination of stat vars will only have one config in chart_config.
-def build_spec(chart_config, i18n=True):
+def build_spec(chart_config, target_category, i18n=True):
     """Builds hierachical spec based on chart config.
 
     Args:
@@ -96,6 +88,11 @@ def build_spec(chart_config, i18n=True):
     # Map: category -> topic -> [config]
     # Within each category, the topics are sorted.
     for conf in chart_config:
+        # skip if the config category does not match target category.
+        # don't skip for Overview. While it's not a config category,
+        # we need charts from different categories to create overview page.
+        if target_category not in [conf['category'], "Overview"]:
+            continue
         config = copy.deepcopy(conf)
         if i18n:
             config = fill_translation(config)
@@ -408,12 +405,17 @@ def data(dcid):
     """
     Get chart spec and stats data of the landing page for a given place.
     """
-    logging.info("Landing Page: cache miss for %s, fetch and process data ...",
-                 dcid)
+    start_time = time.time()
+    logging.info(
+        "Landing Page: cache miss for place:%s and category:%s "
+        " , fetching and processing data ...", dcid,
+        request.args.get("category"))
     target_category = request.args.get("category")
-    spec_and_stat = build_spec(current_app.config['CHART_CONFIG'])
+    spec_and_stat = build_spec(current_app.config['CHART_CONFIG'],
+                               target_category)
     new_stat_vars = current_app.config['NEW_STAT_VARS']
-    raw_page_data = get_landing_page_data(dcid, new_stat_vars)
+
+    raw_page_data = get_landing_page_data(dcid, new_stat_vars, target_category)
 
     if 'statVarSeries' not in raw_page_data:
         logging.info("Landing Page: No data for %s", dcid)
@@ -455,12 +457,17 @@ def data(dcid):
                 del spec_and_stat[category][topic]
             else:
                 spec_and_stat[category][topic] = filtered_charts
-        if not spec_and_stat[category]:
+        # Don't delete a category if it is in the valid categories list.
+        if (not spec_and_stat[category]
+           ) and ("validCategories" in raw_page_data) and (
+               dcid in raw_page_data["validCategories"]) and (
+                   category
+                   not in raw_page_data["validCategories"][dcid]["category"]):
             del spec_and_stat[category]
 
     # Populate the data for each chart.
     # This is heavy lifting, takes time to process.
-    def populate_category_data(category):
+    def populate_category_data(category, stats, spec_obj):
         if category == OVERVIEW:
             if is_usa_place:
                 chart_types = ['nearby', 'child']
@@ -468,10 +475,10 @@ def data(dcid):
                 chart_types = ['similar']
         else:
             chart_types = BAR_CHART_TYPES
-        for topic in spec_and_stat[category]:
-            for chart in spec_and_stat[category][topic]:
+        for topic in spec_obj[category]:
+            for chart in spec_obj[category][topic]:
                 # Trend data
-                chart['trend'] = get_trend(chart, all_stat, dcid)
+                chart['trend'] = get_trend(chart, stats, dcid)
                 if 'aggregate' in chart:
                     aggregated_stat_vars = list(chart['trend'].get(
                         'series', {}).keys())
@@ -481,7 +488,7 @@ def data(dcid):
                         chart['trend'] = {}
                 # Bar data
                 for t in chart_types:
-                    chart[t] = get_bar(chart, all_stat, [dcid] +
+                    chart[t] = get_bar(chart, stats, [dcid] +
                                        raw_page_data.get(t + 'Places', []))
                     if t == 'similar' and 'data' in chart[t]:
                         # If no data for current place, do not serve similar
@@ -505,10 +512,41 @@ def data(dcid):
                 if 'aggregate' in chart:
                     chart['statsVars'] = []
 
+    # Populate data for the Overview page for categories which don't have
+    # any configured data there by "borrowing" it from the category page.
+    def populate_additional_category_data(category):
+        cat_data = get_landing_page_data(dcid, new_stat_vars, category)
+        total_charts = 0
+        cat_stats = cat_data['statVarSeries']
+        cat_spec_and_stat = build_spec(current_app.config['CHART_CONFIG'],
+                                       category)
+        for topic in list(cat_spec_and_stat[category].keys()):
+            filtered_charts = []
+            for chart in cat_spec_and_stat[category][topic]:
+                keep_chart = False
+                for stat_var in chart['statsVars']:
+                    if cat_stats[dcid].get('data', {}).get(stat_var, {}):
+                        keep_chart = True
+                        break
+                if keep_chart:
+                    filtered_charts.append(chart)
+            if not filtered_charts:
+                del cat_spec_and_stat[category][topic]
+            else:
+                cat_spec_and_stat[category][topic] = filtered_charts
+        populate_category_data(category, cat_stats, cat_spec_and_stat)
+        spec_and_stat[OVERVIEW][category] = []
+        for topic in cat_spec_and_stat[category]:
+            spec_and_stat[OVERVIEW][category].extend(
+                cat_spec_and_stat[category][topic])
+            total_charts += len(spec_and_stat[category][topic])
+            if total_charts > MAX_OVERVIEW_CHART_GROUP:
+                break
+
     for category in list(spec_and_stat):
         if category != target_category:
             continue
-        populate_category_data(category)
+        populate_category_data(category, all_stat, spec_and_stat)
 
     if target_category == OVERVIEW:
         for category in list(spec_and_stat):
@@ -518,20 +556,19 @@ def data(dcid):
             # If there is no data for a category in overview page, need to
             # "borrow" it from the category page.
             if not has_data(data):
-                populate_category_data(category)
-                total_charts = 0
-                spec_and_stat[OVERVIEW][category] = []
-                for topic in spec_and_stat[category]:
-                    spec_and_stat[OVERVIEW][category].extend(
-                        spec_and_stat[category][topic])
-                    total_charts += len(spec_and_stat[category][topic])
-                    if total_charts > MAX_OVERVIEW_CHART_GROUP:
-                        break
+                populate_additional_category_data(category)
 
     # Get chart category name translations
-    categories = {}
-    for category in list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]):
-        categories[category] = gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
+    ordered_category_dict = {}
+    all_categories = set(
+        list(spec_and_stat.keys()) + list(spec_and_stat[OVERVIEW]) +
+        raw_page_data["validCategories"][dcid]['category'])
+
+    for conf in current_app.config['CHART_CONFIG']:
+        category = conf['category']
+        if category in all_categories:
+            ordered_category_dict[category] = gettext(
+                f'CHART_TITLE-CHART_CATEGORY-{category}')
 
     # Get display name for all places
     all_places = [dcid]
@@ -563,8 +600,10 @@ def data(dcid):
         'parentPlaces': raw_page_data.get('parentPlaces', []),
         'similarPlaces': raw_page_data.get('similarPlaces', []),
         'nearbyPlaces': raw_page_data.get('nearbyPlaces', []),
-        'categories': categories,
+        'categories': ordered_category_dict,
         'names': names,
         'highlight': highlight,
     }
+    logging.info("---Landing Page API runtime: %s seconds ---" %
+                 (time.time() - start_time))
     return Response(json.dumps(response), 200, mimetype='application/json')
