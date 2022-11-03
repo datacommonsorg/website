@@ -1,11 +1,10 @@
-#!/bin/bash
 # Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,15 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Build Docker image and push to Cloud Container Registry
+steps:
+  # Push website image to container registry
+  - id: push-image
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag ${_IMAGE}:${_TAG} .
+        docker push ${_IMAGE}:${_TAG}
 
-set -e
+substitutions:
+  _IMAGE: gcr.io/datcom-ci/datacommons-website
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-ROOT="$(dirname "$DIR")"
-
-cd $ROOT
-gcloud builds submit . \
-  --project=datcom-ci \
-  --config=build/ci/cloudbuild.push_image.yaml \
-  --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
+timeout: 3600s
+options:
+  dynamic_substitutions: true
