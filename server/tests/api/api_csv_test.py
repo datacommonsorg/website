@@ -46,7 +46,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         assert no_stat_vars.status_code == 400
 
     @mock.patch('routes.api.csv.dc.point_within')
-    @mock.patch('routes.api.csv.cached_name')
+    @mock.patch('routes.api.csv.names')
     def test_single_date(self, mock_place_names, mock_point_within):
         expected_parent_place = "country/USA"
         expected_child_type = "State"
@@ -55,7 +55,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         expected_date = "2015"
 
         def place_side_effect(places):
-            if places == "^".join(children_places):
+            if places == children_places:
                 return {
                     "geoId/01": "Alabama",
                     "geoId/02": "",
@@ -159,7 +159,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         )
 
     @mock.patch('routes.api.csv.dc.series_within')
-    @mock.patch('routes.api.csv.cached_name')
+    @mock.patch('routes.api.csv.names')
     def test_date_range(self, mock_place_names, mock_series_within):
         expected_parent_place = "country/USA"
         expected_child_type = "State"
@@ -171,7 +171,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
         expected_max_date_month = "2018-01"
 
         def place_side_effect(places):
-            if places == "^".join(children_places):
+            if places == children_places:
                 return {"geoId/01": "", "geoId/06": "California"}
             else:
                 return {}
