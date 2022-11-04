@@ -20,10 +20,9 @@
 
 import React, { useContext } from "react";
 
+import { MemoizedInfoExamples } from "../shared/info_examples";
 import { Context } from "./context";
 import { ifShowChart } from "./util";
-import { MemoizedInfoExamples } from "../shared/info_examples";
-
 
 export function Info(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
@@ -31,30 +30,33 @@ export function Info(): JSX.Element {
   return (
     <>
       {!ifShowChart(statVar.value, placeInfo.value) && (
-    <div id="placeholder-container">
-      <p>
-        The map explorer helps you visualize how a statistical variable from the
-        pane to the left can vary across geographic regions.
-      </p>
-      <ol>
-        <li>
-          Enter a place in the search box and then select the type of places you
-          want to plot in the dropdown menu above.
-        </li>
-        <li>
-          Pick a statistical variable in the left pane. There are thousands of
-          statistical variables to choose from, arranged in a topical hierarchy.
-        </li>
-      </ol>
-      <p>Or you can start your exploration from these interesting points ...</p>
-      <MemoizedInfoExamples />
-      <p>Take the data and use it on your site!</p>
-      <p>
-        <a href="mailto:collaborations@datacommons.org">Send</a> us your
-        discoveries!
-      </p>
-    </div>
+        <div id="placeholder-container">
+          <p>
+            The map explorer helps you visualize how a statistical variable from
+            the pane to the left can vary across geographic regions.
+          </p>
+          <ol>
+            <li>
+              Enter a place in the search box and then select the type of places
+              you want to plot in the dropdown menu above.
+            </li>
+            <li>
+              Pick a statistical variable in the left pane. There are thousands
+              of statistical variables to choose from, arranged in a topical
+              hierarchy.
+            </li>
+          </ol>
+          <p>
+            Or you can start your exploration from these interesting points ...
+          </p>
+          <MemoizedInfoExamples />
+          <p>Take the data and use it on your site!</p>
+          <p>
+            <a href="mailto:collaborations@datacommons.org">Send</a> us your
+            discoveries!
+          </p>
+        </div>
       )}
-      </>
+    </>
   );
 }

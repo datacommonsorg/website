@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
+/**
+ * A component which renders a memoizable set of links configured and stored in the page window object.
+ */
+
 import React from "react";
 
+// Type for a single link.
 interface InfoLink {
   text: string;
   url: string;
 }
 
+// Type for a single row or bullet (which could contain nested rows of related examples).
 interface InfoRow {
   header: string;
   // If preposition is defined, then examples are expected.
@@ -73,10 +79,10 @@ function generateSubheadersJsx(subheaders: InfoSubheader[]): JSX.Element[] {
 }
 
 /**
- * Static content for the info panel that can be memoized.
+ * Static content for the info panel that is generated from the config stored in
+ * the global window object.
  */
 function InfoExamples(): JSX.Element {
-  // Generate links from the global config.
   const links = window.infoConfig.map((row, ri) => {
     const examplesJsx = generateLinksJsx(row.examples);
     const subheadersJsx = generateSubheadersJsx(row.subheaders);
