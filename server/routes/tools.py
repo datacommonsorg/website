@@ -42,6 +42,7 @@ def map():
     return flask.render_template(
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
+        info_json="private_dc/default/map_examples.json",
         allow_leaflet=allow_leaflet)
 
 
