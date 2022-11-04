@@ -25,12 +25,11 @@ import { ifShowChart } from "./util";
 
 declare global {
   interface Window {
-    infoConfig: {
-      info: [
+    infoConfig: [
         {
           header: string;
           preposition: string;
-          example: [
+          examples: [
             {
               text: string;
               url: string;
@@ -38,25 +37,24 @@ declare global {
           ];
         }
       ];
-    };
   }
 }
 
 function Info(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
 
-  const links = window.infoConfig.info.map((row) => {
-    const examples = row.example.map((example, i) => {
-      const punctuation = i < row.example.length - 1 ? ", " : ".";
+  const links = window.infoConfig.map((row, ri) => {
+    const examples = row.examples.map((example, ei) => {
+      const punctuation = ei < row.examples.length - 1 ? ", " : ".";
       return (
-        <>
+        <React.Fragment key={ei}>
           <a href={example.url}>{example.text}</a>
           {punctuation}
-        </>
+        </React.Fragment>
       );
     });
     return (
-      <li>
+      <li key={ri}>
         <b>{row.header}</b> {row.preposition} {examples}
       </li>
     );
@@ -87,179 +85,6 @@ function Info(): JSX.Element {
           </p>
           <ul>
             {links}
-            <li>
-              <b>Water Withdrawal Rate</b> across counties in{" "}
-              <a
-                href={
-                  "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DCounty"
-                }
-              >
-                USA
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#%26sv%3DWithdrawalRate_Water%26pc%3D0%26pd%3DgeoId%2F06%26ept%3DCounty"
-                }
-              >
-                California
-              </a>
-            </li>
-            <li>
-              <b>Median Age</b> across counties in{" "}
-              <a href={"#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=County"}>
-                USA
-              </a>
-              ,{" "}
-              <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/06&ept=County"}>
-                California
-              </a>
-              ,{" "}
-              <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/12&ept=County"}>
-                Florida
-              </a>
-              ,{" "}
-              <a href={"#&sv=Median_Age_Person&pc=0&pd=geoId/36&ept=County"}>
-                New York
-              </a>
-            </li>
-            <li>
-              <b>Median Income</b> across counties in{" "}
-              <a
-                href={
-                  "#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=County"
-                }
-              >
-                USA
-              </a>
-              ,{" "}
-              <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/36&ept=County"}>
-                New York
-              </a>
-              ,{" "}
-              <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/48&ept=County"}>
-                Texas
-              </a>
-              ,{" "}
-              <a href={"#&sv=Median_Income_Person&pc=0&pd=geoId/53&ept=County"}>
-                Washington
-              </a>
-            </li>
-            <li>
-              <b>Attainment of Bachelor&apos;s Degree or Higher</b> across
-              counties in{" "}
-              <a
-                href={
-                  "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=country/USA&ept=County"
-                }
-              >
-                USA
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=geoId/53&ept=County"
-                }
-              >
-                Washington
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=geoId/17&ept=County"
-                }
-              >
-                Illinois
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=Count_Person_EducationalAttainmentBachelorsDegreeOrHigher&pc=1&denom=Count_Person&pd=geoId/08&ept=County"
-                }
-              >
-                Colorado
-              </a>
-            </li>
-            <li>
-              <b>Unemployment Rate</b> across counties in{" "}
-              <a
-                href={
-                  "#&sv=UnemploymentRate_Person&pc=0&pd=country/USA&ept=County"
-                }
-              >
-                USA
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/48&ept=County"
-                }
-              >
-                Texas
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/06&ept=County"
-                }
-              >
-                California
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=UnemploymentRate_Person&pc=0&pd=geoId/34&ept=County"
-                }
-              >
-                New Jersey
-              </a>
-            </li>
-            <li>
-              <b>Distribution across states in the US</b> for{" "}
-              <a href={"#&sv=Median_Age_Person&pc=0&pd=country/USA&ept=State"}>
-                Median Age
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=Count_Person_EducationalAttainmentNoSchoolingCompleted&pc=1&denom=Count_Person&pd=country/USA&ept=State"
-                }
-              >
-                No Schooling Completed
-              </a>
-              ,{" "}
-              <a
-                href={"#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=State"}
-              >
-                Median Income
-              </a>
-            </li>
-            <li>
-              <b>Greenhouse Gas Emissions</b> across{" "}
-              <a
-                href={
-                  "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=country/USA&ept=State&ppt=EpaReportingFacility"
-                }
-              >
-                states in USA
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06&ept=County&ppt=EpaReportingFacility"
-                }
-              >
-                counties in California
-              </a>
-              ,{" "}
-              <a
-                href={
-                  "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06029&ept=County&ppt=EpaReportingFacility"
-                }
-              >
-                Kern County
-              </a>
-            </li>
           </ul>
           <p>Take the data and use it on your site!</p>
           <p>

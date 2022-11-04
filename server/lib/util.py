@@ -16,9 +16,8 @@ from datetime import datetime
 import hashlib
 import json
 import os
-from google.protobuf import json_format, text_format
-from config import topic_page_pb2, tool_info_pb2
-from flask import current_app
+from google.protobuf import text_format
+from config import topic_page_pb2
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
@@ -66,22 +65,6 @@ def get_topic_page_config():
                 configs.append(topic_page_config)
         topic_configs[topic_id] = configs
     return topic_configs
-
-
-def get_tool_info_examples_json(app_config_key, path, filename):
-    current_config = current_app.config.get(app_config_key, None)
-    if current_config != None:
-        return current_config
-
-    with open(os.path.join(path, filename)) as f:
-        data = f.read()
-        tool_info_pb = tool_info_pb2.ToolInfo()
-        text_format.Parse(data, tool_info_pb)
-        tool_info_json = json_format.MessageToJson(tool_info_pb)
-        current_app.config[app_config_key] = tool_info_json
-        return tool_info_json
-
-    return None
 
 
 # Returns a summary of the available topic page summaries as an object:
