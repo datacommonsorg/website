@@ -62,6 +62,6 @@ echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 pip3 install -r server/requirements.txt -q
 cd server
-protoc -I=./config/ --python_out=./config ./config/topic_page.proto
+protoc -I=./config/ --python_out=./config ./config/topic_page.proto ./config/tool_info.proto
 python3 main.py $PORT
 cd ..

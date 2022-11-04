@@ -18,15 +18,51 @@
  * Info page before a chart is shown.
  */
 
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 
 import { Context } from "./context";
 import { ifShowChart } from "./util";
 
-export function Info(): JSX.Element {
+declare global {
+  interface Window {
+    infoConfig: {
+      info: [
+        {
+          header: string;
+          preposition: string;
+          example: [
+            {
+              text: string;
+              url: string;
+            }
+          ];
+        }
+      ];
+    };
+  }
+}
+
+function Info(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
 
-  // TODO(chejennifer): add examples
+  const links = window.infoConfig.info.map((row) => {
+    const examples = row.example.map((example, i) => {
+      const punctuation = i < row.example.length - 1 ? ", " : ".";
+      return (
+        <>
+          <a href={example.url}>{example.text}</a>
+          {punctuation}
+        </>
+      );
+    });
+    return (
+      <li>
+        <b>{row.header}</b> {row.preposition} {examples}
+      </li>
+    );
+  });
+  console.log(links);
+
   return (
     <>
       {!ifShowChart(statVar.value, placeInfo.value) && (
@@ -50,43 +86,7 @@ export function Info(): JSX.Element {
             Or you can start your exploration from these interesting points ...
           </p>
           <ul>
-            <li>
-              <b>Projected Temperature Rise (RCP 4.5)</b> across counties in{" "}
-              <a
-                href={
-                  "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DCounty"
-                }
-              >
-                USA
-              </a>
-              ,{" districts in "}
-              <a
-                href={
-                  "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
-                }
-              >
-                India
-              </a>
-            </li>
-            <li>
-              <b>Annual Non-Biogenic Carbon Dioxide Emissions</b> across states
-              in{" "}
-              <a
-                href={
-                  "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
-                }
-              >
-                USA
-              </a>
-              ,{" facilities in "}
-              <a
-                href={
-                  "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3DgeoId%2F48%26ppt%3DEpaReportingFacility%26mp%3D1"
-                }
-              >
-                Texas
-              </a>
-            </li>
+            {links}
             <li>
               <b>Water Withdrawal Rate</b> across counties in{" "}
               <a
@@ -271,3 +271,5 @@ export function Info(): JSX.Element {
     </>
   );
 }
+
+export default memo(Info);

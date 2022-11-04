@@ -14,6 +14,7 @@
 
 import flask
 import os
+import lib.util as libutil
 
 from flask import current_app, request
 
@@ -39,9 +40,12 @@ def timeline_bulk_download():
 @bp.route('/map')
 def map():
     allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
+    info_examples_json = libutil.get_tool_info_examples_json('MAPS_EXAMPLES', './config/tool_info_config/default', 'map_info_config.textproto')
     return flask.render_template(
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
+        # info_json="tools/map_examples.json",
+        info_json=info_examples_json,
         allow_leaflet=allow_leaflet)
 
 

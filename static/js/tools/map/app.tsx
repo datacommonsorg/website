@@ -21,9 +21,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
+import Info from "./info";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
-import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
 import { Title } from "./title";
