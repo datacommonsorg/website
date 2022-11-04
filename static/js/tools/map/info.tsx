@@ -18,80 +18,11 @@
  * Info page before a chart is shown.
  */
 
-import React, { memo, useContext } from "react";
+import React, { useContext } from "react";
 
 import { MemoizedInfoExamples } from "../shared/info_examples";
 import { Context } from "./context";
 import { ifShowChart } from "./util";
-
-declare global {
-  interface Window {
-    // Stored config of sample links for the landing page.
-    infoConfig: [
-      {
-        header: string;
-        preposition: string;
-        examples: [
-          {
-            text: string;
-            url: string;
-          }
-        ];
-      }
-    ];
-  }
-}
-
-/**
- * Static content for the info panel that can be memoized.
- */
-function InfoContent(): JSX.Element {
-  // Generate links from the global config.
-  const links = window.infoConfig.map((row, ri) => {
-    const examples = row.examples.map((example, ei) => {
-      const punctuation = ei < row.examples.length - 1 ? ", " : ".";
-      return (
-        <React.Fragment key={ei}>
-          <a href={example.url}>{example.text}</a>
-          {punctuation}
-        </React.Fragment>
-      );
-    });
-    return (
-      <li key={ri}>
-        <b>{row.header}</b> {row.preposition} {examples}
-      </li>
-    );
-  });
-
-  return (
-    <div id="placeholder-container">
-      <p>
-        The map explorer helps you visualize how a statistical variable from the
-        pane to the left can vary across geographic regions.
-      </p>
-      <ol>
-        <li>
-          Enter a place in the search box and then select the type of places you
-          want to plot in the dropdown menu above.
-        </li>
-        <li>
-          Pick a statistical variable in the left pane. There are thousands of
-          statistical variables to choose from, arranged in a topical hierarchy.
-        </li>
-      </ol>
-      <p>Or you can start your exploration from these interesting points ...</p>
-      <ul>{links}</ul>
-      <p>Take the data and use it on your site!</p>
-      <p>
-        <a href="mailto:collaborations@datacommons.org">Send</a> us your
-        discoveries!
-      </p>
-    </div>
-  );
-}
-
-const MemoizedInfoContent = memo(InfoContent);
 
 export function Info(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
@@ -118,7 +49,9 @@ export function Info(): JSX.Element {
           <p>
             Or you can start your exploration from these interesting points ...
           </p>
+
           <MemoizedInfoExamples />
+
           <p>Take the data and use it on your site!</p>
           <p>
             <a href="mailto:collaborations@datacommons.org">Send</a> us your
