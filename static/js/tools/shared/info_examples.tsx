@@ -44,13 +44,13 @@ interface InfoSubheader {
 
 declare global {
   interface Window {
-    // Stored config of sample links for the landing page.
+    // Stored config of sample links for the tool info pane.
     infoConfig: InfoRow[];
   }
 }
 
 function generateLinksJsx(links: InfoLink[]): JSX.Element[] {
-  if (!links) return;
+  if (!links) return null;
 
   return links.map((link, ei) => {
     const punctuation = ei < links.length - 1 ? ", " : ".";
@@ -64,7 +64,7 @@ function generateLinksJsx(links: InfoLink[]): JSX.Element[] {
 }
 
 function generateSubheadersJsx(subheaders: InfoSubheader[]): JSX.Element[] {
-  if (!subheaders) return;
+  if (!subheaders) return null;
   return subheaders.map((subheader, i) => {
     const links = generateLinksJsx(subheader.examples);
     return (
