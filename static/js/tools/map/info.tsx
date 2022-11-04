@@ -25,6 +25,7 @@ import { ifShowChart } from "./util";
 
 declare global {
   interface Window {
+    // Stored config of sample links for the landing page.
     infoConfig: [
         {
           header: string;
@@ -40,7 +41,11 @@ declare global {
   }
 }
 
+/**
+ * Static content for the info panel that can be memoized.
+ */
 function InfoContent(): JSX.Element {
+  // Generate links from the global config.
   const links = window.infoConfig.map((row, ri) => {
     const examples = row.examples.map((example, ei) => {
       const punctuation = ei < row.examples.length - 1 ? ", " : ".";
@@ -57,7 +62,6 @@ function InfoContent(): JSX.Element {
       </li>
     );
   });
-  console.log(links);
 
   return (
         <div id="placeholder-container">

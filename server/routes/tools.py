@@ -14,7 +14,6 @@
 
 import flask
 import os
-import lib.util as libutil
 
 from flask import current_app, request
 
