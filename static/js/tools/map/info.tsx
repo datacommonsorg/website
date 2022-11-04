@@ -40,9 +40,7 @@ declare global {
   }
 }
 
-function Info(): JSX.Element {
-  const { statVar, placeInfo } = useContext(Context);
-
+function InfoContent(): JSX.Element {
   const links = window.infoConfig.map((row, ri) => {
     const examples = row.examples.map((example, ei) => {
       const punctuation = ei < row.examples.length - 1 ? ", " : ".";
@@ -62,8 +60,6 @@ function Info(): JSX.Element {
   console.log(links);
 
   return (
-    <>
-      {!ifShowChart(statVar.value, placeInfo.value) && (
         <div id="placeholder-container">
           <p>
             The map explorer helps you visualize how a statistical variable from
@@ -92,9 +88,19 @@ function Info(): JSX.Element {
             discoveries!
           </p>
         </div>
+  );
+}
+
+const MemoizedInfoContent = memo(InfoContent);
+
+export function Info(): JSX.Element {
+  const { statVar, placeInfo } = useContext(Context);
+
+  return (
+    <>
+      {!ifShowChart(statVar.value, placeInfo.value) && (
+        <MemoizedInfoContent />
       )}
     </>
   );
 }
-
-export default memo(Info);
