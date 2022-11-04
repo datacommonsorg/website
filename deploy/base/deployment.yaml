@@ -115,10 +115,9 @@ spec:
           args:
             - --mixer_project=$(MIXER_PROJECT)
             - --bq_dataset=$(BIG_QUERY)
-            - --serve_recon_service=true
             - --schema_path=/datacommons/mapping
             - --base_bigtable_info=$(BASE_BIGTABLE_INFO)
-            - --cusotm_bigtable_info=$(CUSTOM_BIGTABLE_INFO)
+            - --custom_bigtable_info=$(CUSTOM_BIGTABLE_INFO)
             - --memdb_path=/datacommons/memdb
           volumeMounts:
             - name: schema-mapping

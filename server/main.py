@@ -93,7 +93,7 @@ def version():
                                  website_hash=os.environ.get("WEBSITE_HASH"),
                                  mixer_hash=mixer_version['gitHash'],
                                  tables=mixer_version['tables'],
-                                 bigquery=mixer_version['bigQuery'])
+                                 bigquery=mixer_version['bigquery'])
 
 
 if not (app.config["TEST"] or app.config["WEBDRIVER"] or app.config["LOCAL"]):

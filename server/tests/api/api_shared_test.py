@@ -18,34 +18,17 @@ import routes.api.shared as shared
 from unittest.mock import patch
 
 
-class TestCachedName(unittest.TestCase):
+class TestNames(unittest.TestCase):
 
-    @patch('routes.api.shared.fetch_data')
-    def test_cached_name(self, mock_data_fetcher):
+    @patch('routes.api.shared.dc.property_values')
+    def test_names(self, mock_property_values_func):
         dcid1 = 'geoId/06'
         dcid2 = 'geoId/07'
         dcid3 = 'geoId/08'
-        mock_response = {
-            dcid1: {
-                'out': [{
-                    'value': 'California',
-                    'provenance': 'prov1'
-                }]
-            },
-            dcid2: {
-                'out': []
-            },
-            dcid3: {
-                'out': [{
-                    'value': 'Colorado',
-                    'provenance': 'prov2'
-                }]
-            }
-        }
-        mock_data_fetcher.side_effect = (
-            lambda url, req, compress, post: mock_response)
-
-        result = shared.cached_name('^'.join([dcid1, dcid2, dcid3]))
+        mock_response = {dcid1: ['California'], dcid2: [], dcid3: ['Colorado']}
+        mock_property_values_func.side_effect = (
+            lambda dcids, name: mock_response)
+        result = shared.names([dcid1, dcid2, dcid3])
         assert result == {dcid1: 'California', dcid2: '', dcid3: 'Colorado'}
 
 
