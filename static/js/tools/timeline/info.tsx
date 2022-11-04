@@ -45,4 +45,4 @@ class Info extends Component {
   }
 }
 
-export { Info };
+export const MemoizedInfo = React.memo(Info);
