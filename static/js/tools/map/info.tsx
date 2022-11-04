@@ -27,17 +27,17 @@ declare global {
   interface Window {
     // Stored config of sample links for the landing page.
     infoConfig: [
-        {
-          header: string;
-          preposition: string;
-          examples: [
-            {
-              text: string;
-              url: string;
-            }
-          ];
-        }
-      ];
+      {
+        header: string;
+        preposition: string;
+        examples: [
+          {
+            text: string;
+            url: string;
+          }
+        ];
+      }
+    ];
   }
 }
 
@@ -64,34 +64,29 @@ function InfoContent(): JSX.Element {
   });
 
   return (
-        <div id="placeholder-container">
-          <p>
-            The map explorer helps you visualize how a statistical variable from
-            the pane to the left can vary across geographic regions.
-          </p>
-          <ol>
-            <li>
-              Enter a place in the search box and then select the type of places
-              you want to plot in the dropdown menu above.
-            </li>
-            <li>
-              Pick a statistical variable in the left pane. There are thousands
-              of statistical variables to choose from, arranged in a topical
-              hierarchy.
-            </li>
-          </ol>
-          <p>
-            Or you can start your exploration from these interesting points ...
-          </p>
-          <ul>
-            {links}
-          </ul>
-          <p>Take the data and use it on your site!</p>
-          <p>
-            <a href="mailto:collaborations@datacommons.org">Send</a> us your
-            discoveries!
-          </p>
-        </div>
+    <div id="placeholder-container">
+      <p>
+        The map explorer helps you visualize how a statistical variable from the
+        pane to the left can vary across geographic regions.
+      </p>
+      <ol>
+        <li>
+          Enter a place in the search box and then select the type of places you
+          want to plot in the dropdown menu above.
+        </li>
+        <li>
+          Pick a statistical variable in the left pane. There are thousands of
+          statistical variables to choose from, arranged in a topical hierarchy.
+        </li>
+      </ol>
+      <p>Or you can start your exploration from these interesting points ...</p>
+      <ul>{links}</ul>
+      <p>Take the data and use it on your site!</p>
+      <p>
+        <a href="mailto:collaborations@datacommons.org">Send</a> us your
+        discoveries!
+      </p>
+    </div>
   );
 }
 
@@ -102,9 +97,7 @@ export function Info(): JSX.Element {
 
   return (
     <>
-      {!ifShowChart(statVar.value, placeInfo.value) && (
-        <MemoizedInfoContent />
-      )}
+      {!ifShowChart(statVar.value, placeInfo.value) && <MemoizedInfoContent />}
     </>
   );
 }
