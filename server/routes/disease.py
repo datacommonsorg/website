@@ -34,7 +34,7 @@ def main():
 def node(dcid):
     if os.environ.get('FLASK_ENV') == 'production':
         flask.abort(404)
-    node_name = shared_api.cached_name(dcid).get(dcid)
+    node_name = shared_api.names([dcid]).get(dcid)
     if not node_name:
         node_name = dcid
     return render_template('/disease/node.html', dcid=dcid, node_name=node_name)

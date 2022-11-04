@@ -23,7 +23,7 @@ from cache import cache
 import routes.api.shared as shared_api
 import services.datacommons as dc
 from services.datacommons import fetch_data
-from routes.api.shared import cached_name
+from routes.api.shared import names
 import lib.i18n as i18n
 
 CHILD_PLACE_LIMIT = 50
@@ -125,23 +125,11 @@ def get_place_type(place_dcid):
     return chosen_type
 
 
-def get_name(dcids):
-    """Returns display names for set of dcids.
-
-    Args:
-        dcids: A list of place dcids.
-
-    Returns:
-        A dictionary of display place names, keyed by dcid.
-    """
-    return cached_name('^'.join((sorted(dcids))))
-
-
 @bp.route('/name')
 def api_name():
     """Get place names."""
     dcids = request.args.getlist('dcid')
-    result = get_name(dcids)
+    result = names(dcids)
     return Response(json.dumps(result), 200, mimetype='application/json')
 
 
@@ -187,7 +175,7 @@ def cached_i18n_name(dcids, locale, should_resolve_all):
                 break
     if dcids_default_name:
         if should_resolve_all:
-            default_names = cached_name('^'.join(sorted(dcids_default_name)))
+            default_names = names(dcids_default_name)
         else:
             default_names = {}
         for dcid in dcids_default_name:

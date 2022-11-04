@@ -33,10 +33,12 @@ git checkout master
 # Deploy autopush instance
 gsutil cp gs://datcom-control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
 # Import Group
-> deploy/storage/bigtable_import_groups.version
+yq eval -i 'del(.tables)' deploy/storage/base_bigtable_info.yaml
+yq eval -i '.tables = []' deploy/storage/base_bigtable_info.yaml
 for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.txt); do
   echo "Copying $src"
-  echo "$(gsutil cat $src)" >> deploy/storage/bigtable_import_groups.version
+  export TABLE="$(gsutil cat "$src")"
+  yq eval -i '.tables += [env(TABLE)]' deploy/storage/base_bigtable_info.yaml
 done
 $ROOT/scripts/deploy_gke.sh autopush us-central1
 $ROOT/scripts/deploy_gke.sh autopush europe-west2

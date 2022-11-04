@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,28 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Kustomization configuration for base yaml files.
+steps:
+  # Push website image to container registry
+  - id: push-image
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag ${_IMAGE}:${_TAG} .
+        docker push ${_IMAGE}:${_TAG}
 
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+substitutions:
+  _IMAGE: gcr.io/datcom-ci/datacommons-website
 
-namespace: website
-
-resources:
-  - ../git
-  - ../../mixer/deploy/storage
-  - ../../mixer/deploy/mapping
-  - deployment.yaml
-  - namespace.yaml
-
-configMapGenerator:
-  - name: ai-config
-    files:
-      - ai.yaml
-  - name: memdb-config
-    files:
-      - memdb.json
-  - behavior: merge
-    name: store-configmap
-    files:
-      - custom_bigtable_info.yaml
+timeout: 3600s
+options:
+  dynamic_substitutions: true
