@@ -27,7 +27,9 @@ ALLOW_LEAFLET_FLAG = "leaflet"
 @bp.route('/timeline')
 def timeline():
     return flask.render_template(
-        'tools/timeline.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/timeline.html',
+        info_json="private_dc/default/timeline_examples.json",
+        maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 # This tool is used by the Harvard Data Science course
@@ -49,7 +51,9 @@ def map():
 @bp.route('/scatter')
 def scatter():
     return flask.render_template(
-        'tools/scatter.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/scatter.html',
+        info_json="private_dc/default/scatter_examples.json",
+        maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/statvar')

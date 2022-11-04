@@ -18,52 +18,19 @@
  * Info page before a chart is shown.
  */
 
-import React, { memo, useContext } from "react";
+import React, { useContext } from "react";
 
 import { Context } from "./context";
 import { ifShowChart } from "./util";
+import { MemoizedInfoExamples } from "../shared/info_examples";
 
-declare global {
-  interface Window {
-    // Stored config of sample links for the landing page.
-    infoConfig: [
-      {
-        header: string;
-        preposition: string;
-        examples: [
-          {
-            text: string;
-            url: string;
-          }
-        ];
-      }
-    ];
-  }
-}
 
-/**
- * Static content for the info panel that can be memoized.
- */
-function InfoContent(): JSX.Element {
-  // Generate links from the global config.
-  const links = window.infoConfig.map((row, ri) => {
-    const examples = row.examples.map((example, ei) => {
-      const punctuation = ei < row.examples.length - 1 ? ", " : ".";
-      return (
-        <React.Fragment key={ei}>
-          <a href={example.url}>{example.text}</a>
-          {punctuation}
-        </React.Fragment>
-      );
-    });
-    return (
-      <li key={ri}>
-        <b>{row.header}</b> {row.preposition} {examples}
-      </li>
-    );
-  });
+export function Info(): JSX.Element {
+  const { statVar, placeInfo } = useContext(Context);
 
   return (
+    <>
+      {!ifShowChart(statVar.value, placeInfo.value) && (
     <div id="placeholder-container">
       <p>
         The map explorer helps you visualize how a statistical variable from the
@@ -80,24 +47,14 @@ function InfoContent(): JSX.Element {
         </li>
       </ol>
       <p>Or you can start your exploration from these interesting points ...</p>
-      <ul>{links}</ul>
+      <MemoizedInfoExamples />
       <p>Take the data and use it on your site!</p>
       <p>
         <a href="mailto:collaborations@datacommons.org">Send</a> us your
         discoveries!
       </p>
     </div>
-  );
-}
-
-const MemoizedInfoContent = memo(InfoContent);
-
-export function Info(): JSX.Element {
-  const { statVar, placeInfo } = useContext(Context);
-
-  return (
-    <>
-      {!ifShowChart(statVar.value, placeInfo.value) && <MemoizedInfoContent />}
-    </>
+      )}
+      </>
   );
 }
