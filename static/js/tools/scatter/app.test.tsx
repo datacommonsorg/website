@@ -49,6 +49,11 @@ function TestApp(): JSX.Element {
   );
 }
 
+beforeEach(() => {
+  // Mock the info config object that is used for the landing page.
+  window.infoConfig = [];
+});
+
 function mockAxios(): void {
   axios.get = jest.fn();
   axios.post = jest.fn();
