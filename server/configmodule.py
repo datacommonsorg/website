@@ -76,6 +76,7 @@ class FeedingamericaConfig(PrivateConfig):
 class StanfordConfig(PrivateConfig):
     NAME = "Stanford"
     ENV_NAME = 'STANFORD'
+    ENABLE_BLOCKLIST = True
     # BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
 
 
