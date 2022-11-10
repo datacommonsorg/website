@@ -30,7 +30,7 @@ def browser_main():
 
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
-    node_name = shared_api.cached_name(dcid).get(dcid)
+    node_name = shared_api.names([dcid]).get(dcid)
     if not node_name:
         node_name = dcid
     return render_template('/browser/node.html', dcid=dcid, node_name=node_name)

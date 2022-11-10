@@ -93,6 +93,10 @@ const config = {
       __dirname + "/css/import_wizard2.scss",
     ],
     user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
+    disaster_dashboard: [
+      __dirname + "/js/disaster_dashboard/disaster_dashboard.ts",
+      __dirname + "/css/disaster_dashboard.scss",
+    ]
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",

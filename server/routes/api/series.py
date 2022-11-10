@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from flask import Blueprint, request
+from cache import cache
 import services.datacommons as dc
 
 # Define blueprint
@@ -58,6 +59,7 @@ def series_within_core(parent_entity, child_type, variables, all_facets):
 
 
 @bp.route('', strict_slashes=False)
+@cache.cached(timeout=3600 * 24, query_string=True)
 def series():
     """Handler to get preferred time series given multiple stat vars and entities.
     """
@@ -71,6 +73,7 @@ def series():
 
 
 @bp.route('/all')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def series_all():
     """Handler to get all the time series given multiple stat vars and places.
     """
@@ -84,6 +87,7 @@ def series_all():
 
 
 @bp.route('/within')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def series_within():
     """Gets the observation for child entities of a certain place
     type contained in a parent entity at a given date.
@@ -103,6 +107,7 @@ def series_within():
 
 
 @bp.route('/within/all')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def series_within_all():
     """Gets the observation for child entities of a certain place
     type contained in a parent entity at a given date.

@@ -19,7 +19,7 @@ import React from "react";
 
 import { NamedPlace } from "../shared/types";
 import { getStringOrNA } from "../utils/number_utils";
-import { drawChoropleth } from "./draw_choropleth";
+import { drawD3Map } from "./draw_d3_map";
 import { Point } from "./draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "./types";
 
@@ -323,7 +323,7 @@ export function drawBivariate(
     properties.xUnit,
     properties.yUnit
   );
-  drawChoropleth(
+  drawD3Map(
     containerId,
     geoJson,
     properties.height,

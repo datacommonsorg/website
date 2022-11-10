@@ -15,7 +15,8 @@
  */
 
 jest.mock("axios");
-jest.mock("../chart/draw_choropleth");
+jest.mock("../chart/draw_d3_map");
+jest.mock("../chart/draw_map_utils");
 jest.mock("../chart/draw_scatter");
 jest.mock("../chart/draw", () => {
   const originalModule = jest.requireActual("../chart/draw");
@@ -42,21 +43,24 @@ import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";
 import { Menu } from "../place/menu";
+import { DataPointMetadata } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
-import { Chart as MapToolChart } from "../tools/map/chart";
+import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
 import {
+  Context as MapContext,
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
+  IsLoadingWrapper as MapIsLoadingWrapper,
+  PlaceInfoWrapper as MapPlaceInfoWrapper,
   StatVarWrapper,
 } from "../tools/map/context";
-import { DataPointMetadata } from "../tools/map/util";
 import { Chart as ScatterToolChart } from "../tools/scatter/chart";
 import {
   AxisWrapper,
-  Context,
+  Context as ScatterContext,
   DisplayOptionsWrapper as ScatterDisplayOptionsWrapper,
-  IsLoadingWrapper,
-  PlaceInfoWrapper,
+  IsLoadingWrapper as ScatterIsLoadingWrapper,
+  PlaceInfoWrapper as ScatterPlaceInfoWrapper,
 } from "../tools/scatter/context";
 import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
@@ -133,18 +137,9 @@ const MAP_POINTS: MapPoint[] = [
     placeName: PLACE_NAME,
   },
 ];
-const MAP_POINTS_PROMISE: Promise<MapPoint[]> = new Promise(() => MAP_POINTS);
 const MAP_PROPS = {
   breadcrumbDataValues: { PLACE_DCID: NUMBER },
   dates: new Set<string>([""]),
-  display: {
-    value: {
-      color: "",
-      domain: [NUMBER, NUMBER, NUMBER] as [number, number, number],
-      showMapPoints: false,
-      showTimeSlider: false,
-    },
-  } as MapDisplayOptionsWrapper,
   geoJsonData: {
     features: [],
     properties: {
@@ -154,48 +149,27 @@ const MAP_PROPS = {
   } as GeoJsonData,
   mapDataValues: { [PLACE_DCID]: NUMBER },
   metadata: { [PLACE_DCID]: {} as DataPointMetadata },
-  placeInfo: {
-    enclosedPlaceType: "",
-    enclosingPlace: { dcid: PLACE_DCID, name: PLACE_NAME },
-    mapPointPlaceType: "",
-    parentPlaces: [],
-    selectedPlace: { dcid: PLACE_DCID, name: PLACE_NAME, types: [] },
-  },
-  statVar: {
-    value: {
-      date: "",
-      dcid: STAT_VAR_1,
-      denom: "",
-      info: {},
-      mapPointSv: "",
-      metahash: "",
-      perCapita: false,
-    },
-    set: () => null,
-    setInfo: () => null,
-    setDcid: () => null,
-    setPerCapita: () => null,
-    setDate: () => null,
-    setDenom: () => null,
-    setMapPointSv: () => null,
-    setMetahash: () => null,
-  } as StatVarWrapper,
   sources: new Set<string>([""]),
   unit: "",
   mapPointValues: { [PLACE_DCID]: NUMBER },
-  mapPointsPromise: MAP_POINTS_PROMISE,
+  mapPoints: MAP_POINTS,
   europeanCountries: [],
   rankingLink: "",
-  facetInfo: {
-    dcid: STAT_VAR_1,
-    displayNames: {},
-    metadataMap: {},
-    name: STAT_VAR_1,
-  },
+  facetList: [
+    {
+      dcid: STAT_VAR_1,
+      displayNames: {},
+      metadataMap: {},
+      name: STAT_VAR_1,
+    },
+  ],
   sampleDates: [],
   metahash: "",
   onPlay: () => null,
   updateDate: () => null,
+  geoRaster: null,
+  mapType: MAP_TYPE.D3,
+  children: null,
 };
 
 // Props for timeline tool chart.
@@ -260,6 +234,58 @@ const SCATTER_PROPS = {
   ],
   onSvFacetIdUpdated: () => null,
 };
+
+const MAP_CONTEXT = {
+  dateCtx: {
+    value: "",
+    set: () => null,
+  },
+  isLoading: {} as MapIsLoadingWrapper,
+  display: {
+    value: {
+      color: "",
+      domain: [NUMBER, NUMBER, NUMBER] as [number, number, number],
+      showMapPoints: false,
+      showTimeSlider: false,
+      allowLeaflet: false,
+    },
+  } as MapDisplayOptionsWrapper,
+  placeInfo: {
+    value: {
+      enclosedPlaceType: "",
+      enclosingPlace: { dcid: PLACE_DCID, name: PLACE_NAME },
+      mapPointPlaceType: "",
+      parentPlaces: [],
+      selectedPlace: { dcid: PLACE_DCID, name: PLACE_NAME, types: [] },
+    },
+    set: () => null,
+    setSelectedPlace: () => null,
+    setParentPlaces: () => null,
+    setEnclosingPlace: () => null,
+    setEnclosedPlaceType: () => null,
+    setMapPointPlaceType: () => null,
+  } as MapPlaceInfoWrapper,
+  statVar: {
+    value: {
+      date: "",
+      dcid: STAT_VAR_1,
+      denom: "",
+      info: {},
+      mapPointSv: "",
+      metahash: "",
+      perCapita: false,
+    },
+    set: () => null,
+    setInfo: () => null,
+    setDcid: () => null,
+    setPerCapita: () => null,
+    setDate: () => null,
+    setDenom: () => null,
+    setMapPointSv: () => null,
+    setMetahash: () => null,
+  } as StatVarWrapper,
+};
+
 const SCATTER_CONTEXT = {
   x: {
     value: {
@@ -310,7 +336,7 @@ const SCATTER_CONTEXT = {
       lowerBound: NUMBER,
       upperBound: NUMBER,
     },
-  } as PlaceInfoWrapper,
+  } as ScatterPlaceInfoWrapper,
   display: {
     showQuadrants: false,
     showLabels: false,
@@ -323,7 +349,7 @@ const SCATTER_CONTEXT = {
     setDensity: () => null,
     setRegression: () => null,
   } as ScatterDisplayOptionsWrapper,
-  isLoading: {} as IsLoadingWrapper,
+  isLoading: {} as ScatterIsLoadingWrapper,
 };
 
 // Props for stat var hierarchy.
@@ -582,7 +608,11 @@ describe("test ga event tool chart plot", () => {
     window.gtag = mockgtag;
 
     // When the component is mounted.
-    const { rerender } = render(<MapToolChart {...MAP_PROPS} />);
+    const { rerender } = render(
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
+    );
     await waitFor(() => {
       // Check the parameters passed to gtag.
       expect(mockgtag.mock.lastCall).toEqual([
@@ -598,15 +628,23 @@ describe("test ga event tool chart plot", () => {
     });
 
     // When the component is rerendered with the same props.
-    rerender(<MapToolChart {...MAP_PROPS} />);
+    rerender(
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
+    );
     await waitFor(() =>
       // Check gtag is not called.
       expect(mockgtag.mock.calls.length).toEqual(1)
     );
 
     // When stat var changes.
-    MAP_PROPS.statVar.value.dcid = STAT_VAR_2;
-    rerender(<MapToolChart {...MAP_PROPS} />);
+    MAP_CONTEXT.statVar.value.dcid = STAT_VAR_2;
+    rerender(
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
+    );
     await waitFor(() => {
       // Check gtag is called once, two time in total.
       expect(mockgtag.mock.calls.length).toEqual(2);
@@ -677,9 +715,9 @@ describe("test ga event tool chart plot", () => {
 
     // When the component is mounted.
     const { rerender } = render(
-      <Context.Provider value={SCATTER_CONTEXT}>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
         <ScatterToolChart {...SCATTER_PROPS} />
-      </Context.Provider>
+      </ScatterContext.Provider>
     );
     await waitFor(() => {
       // Check the parameters passed to the gtag.
@@ -697,9 +735,9 @@ describe("test ga event tool chart plot", () => {
 
     // When the component is rerendered with the same props.
     rerender(
-      <Context.Provider value={SCATTER_CONTEXT}>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
         <ScatterToolChart {...SCATTER_PROPS} />
-      </Context.Provider>
+      </ScatterContext.Provider>
     );
     await waitFor(() =>
       // Check gtag is not called.
@@ -720,9 +758,9 @@ describe("test ga event tool chart plot", () => {
       },
     ];
     rerender(
-      <Context.Provider value={SCATTER_CONTEXT}>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
         <ScatterToolChart {...SCATTER_PROPS} />
-      </Context.Provider>
+      </ScatterContext.Provider>
     );
     await waitFor(() => {
       // Check gtag is called once, two times in total.
@@ -793,7 +831,7 @@ describe("test ga event tool stat var click", () => {
 });
 
 describe("test ga event tool place add", () => {
-  test("call gtag when a place is added in the place seaerch bar", async () => {
+  test("call gtag when a place is added in the place search bar", async () => {
     const props = {
       selectedPlace: {
         types: null,
@@ -809,7 +847,7 @@ describe("test ga event tool place add", () => {
     window.google = {
       maps: {
         places: {
-          Autocomplete: jest.fn().mockImplementation((elem, _opts) => {
+          Autocomplete: jest.fn().mockImplementation((elem) => {
             return {
               addListener: (_placeChanged, callback) => {
                 elem.addEventListener("change", callback);
@@ -960,9 +998,9 @@ describe("test ga event tool chart plot option", () => {
 
     // Render the component.
     const scatterToolChart = render(
-      <Context.Provider value={SCATTER_CONTEXT}>
+      <ScatterContext.Provider value={SCATTER_CONTEXT}>
         <ScatterToolChart {...SCATTER_PROPS} />
-      </Context.Provider>
+      </ScatterContext.Provider>
     );
     // Wait for gtag event tool chart plot to be called.
     await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
@@ -1112,7 +1150,11 @@ describe("test ga event tool chart plot option", () => {
     window.gtag = mockgtag;
 
     // Render the component.
-    const mapToolChart = render(<MapToolChart {...MAP_PROPS} />);
+    const mapToolChart = render(
+      <MapContext.Provider value={MAP_CONTEXT}>
+        <MapToolChart {...MAP_PROPS} />
+      </MapContext.Provider>
+    );
     await waitFor(() => expect(mockgtag.mock.calls.length).toEqual(1));
 
     // Click the checkbox of per capita.

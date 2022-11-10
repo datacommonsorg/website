@@ -31,6 +31,7 @@ import {
 import { StatVarWidget } from "../shared/stat_var_widget";
 import {
   Context,
+  DateWrapper,
   DisplayOptionsWrapper,
   PlaceInfoWrapper,
   StatVarWrapper,
@@ -43,7 +44,7 @@ interface StatVarChooserProps {
 }
 
 export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
-  const { statVar, placeInfo, display } = useContext(Context);
+  const { dateCtx, statVar, placeInfo, display } = useContext(Context);
   const [samplePlaces, setSamplePlaces] = useState([]);
 
   useEffect(() => {
@@ -93,7 +94,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     if (!_.isEmpty(svList)) {
       // map tool can only have one stat var selected at a time so if a stat var
       // is deselected, just set the selected stat var to empty.
-      selectStatVar(statVar, display, placeInfo, "");
+      selectStatVar(dateCtx, statVar, display, placeInfo, "");
     }
   };
   const selectedSVs = !_.isEmpty(statVar.value.dcid)
@@ -108,12 +109,15 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       sampleEntities={samplePlaces}
       deselectSVs={deselectSVs}
       selectedSVs={selectedSVs}
-      selectSV={(svDcid) => selectStatVar(statVar, display, placeInfo, svDcid)}
+      selectSV={(svDcid) =>
+        selectStatVar(dateCtx, statVar, display, placeInfo, svDcid)
+      }
     />
   );
 }
 
 function selectStatVar(
+  dateCtx: DateWrapper,
   statVar: StatVarWrapper,
   displayOptions: DisplayOptionsWrapper,
   placeInfo: PlaceInfoWrapper,
@@ -122,7 +126,6 @@ function selectStatVar(
   displayOptions.set(DEFAULT_DISPLAY_OPTIONS);
   placeInfo.setMapPointPlaceType(getMapPointPlaceType(dcid));
   statVar.set({
-    date: "",
     dcid,
     denom: DEFAULT_POPULATION_DCID,
     info: null,
@@ -130,4 +133,5 @@ function selectStatVar(
     mapPointSv: "",
     metahash: "",
   });
+  dateCtx.set("");
 }

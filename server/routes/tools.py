@@ -15,15 +15,21 @@
 import flask
 import os
 
-from flask import current_app
+from flask import current_app, request
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
+
+# this flag should be the same as ALLOW_LEAFLET_URL_ARG in
+# ../../static/js/tools/map/util.ts
+ALLOW_LEAFLET_FLAG = "leaflet"
 
 
 @bp.route('/timeline')
 def timeline():
     return flask.render_template(
-        'tools/timeline.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/timeline.html',
+        info_json="private_dc/default/timeline_examples.json",
+        maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 # This tool is used by the Harvard Data Science course
@@ -34,14 +40,20 @@ def timeline_bulk_download():
 
 @bp.route('/map')
 def map():
+    allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
     return flask.render_template(
-        'tools/map.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/map.html',
+        maps_api_key=current_app.config['MAPS_API_KEY'],
+        info_json="private_dc/default/map_examples.json",
+        allow_leaflet=allow_leaflet)
 
 
 @bp.route('/scatter')
 def scatter():
     return flask.render_template(
-        'tools/scatter.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/scatter.html',
+        info_json="private_dc/default/scatter_examples.json",
+        maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/statvar')

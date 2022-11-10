@@ -18,8 +18,7 @@ import csv
 import io
 
 from flask import Blueprint, request, make_response
-from routes.api.shared import cached_name
-from routes.api.shared import is_valid_date, date_greater_equal_min, date_lesser_equal_max
+from routes.api.shared import names, is_valid_date, date_greater_equal_min, date_lesser_equal_max
 import services.datacommons as dc
 
 # Define blueprint
@@ -101,7 +100,7 @@ def get_point_within_csv_rows(parent_place,
                     break
     facet_info = points_response_all.get("facets", {})
     place_list = sorted(list(data_by_place.keys()))
-    place_names = cached_name("^".join(place_list))
+    place_names = names(place_list)
     result = []
     for place, place_name in place_names.items():
         if row_limit and len(result) >= row_limit:
@@ -166,7 +165,7 @@ def get_series_csv_rows(series_response,
                     data_by_place[place][sv] = series
                     break
     place_list = sorted(list(data_by_place.keys()))
-    place_names = cached_name("^".join(place_list))
+    place_names = names(place_list)
     result = []
     for place, place_name in place_names.items():
         # dict of sv to sorted list of data points available for the sv and is within

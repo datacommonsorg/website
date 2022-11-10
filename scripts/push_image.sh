@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT="$(dirname "$DIR")"
 
-IMAGE=gcr.io/datcom-ci/datacommons-website
-
-gcloud config set project datcom-ci
-export TAG="$(git rev-parse --short=7 HEAD)"
-DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag $IMAGE:$TAG $ROOT
-docker push $IMAGE:$TAG
+cd $ROOT
+gcloud builds submit . \
+  --project=datcom-ci \
+  --config=build/ci/cloudbuild.push_image.yaml \
+  --substitutions=_TAG=$(git rev-parse --short=7 HEAD)

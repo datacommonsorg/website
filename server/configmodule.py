@@ -36,6 +36,8 @@ class Config:
     # be set for local development. Website deployed to GKE bundles the mixer
     # as a private service accessible via localhost.
     API_PROJECT = ''
+    # Set this to False if the deployment has frequently updated data.
+    USE_MEMCACHE = True
 
 
 class ProductionConfig(Config):
@@ -52,10 +54,12 @@ class StagingConfig(Config):
 class AutopushConfig(Config):
     GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
     ADMIN = True
+    GCS_BUCKET = 'datcom-website-autopush-resources'
     pass
 
 
 class DevConfig(Config):
+    GCS_BUCKET = 'datcom-website-autopush-resources'
     pass
 
 
@@ -74,6 +78,7 @@ class FeedingamericaConfig(PrivateConfig):
 class StanfordConfig(PrivateConfig):
     NAME = "Stanford"
     ENV_NAME = 'STANFORD'
+    ENABLE_BLOCKLIST = True
     # BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
 
 
@@ -109,6 +114,16 @@ class LocalBaseConfig(Config):
     AI_CONFIG_PATH = os.path.abspath(
         os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
     SCHEME = 'http'
+    GCS_BUCKET = 'datcom-website-autopush-resources'
+
+
+class LocalConfig(LocalBaseConfig):
+    SECRET_PROJECT = 'datcom-website-dev'
+    ADMIN = True
+
+
+class LocalLiteConfig(LocalBaseConfig):
+    LITE = True
 
 
 class LocalConfig(LocalBaseConfig):
