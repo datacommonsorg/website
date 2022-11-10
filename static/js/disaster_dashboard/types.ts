@@ -35,14 +35,14 @@ export interface DisasterEventPoint extends MapPoint {
 }
 
 export interface DisasterApiEventPoint {
-  eventId: string,
-  name: string,
-  startDate: string,
-  affectedPlaces: string[],
-  longitude: number,
-  latitude: number,
-  endDate?: string,
-  magnitude?: number,
-  directDeaths?: number,
-  directInjuries?: number
+  eventId: string;
+  name: string;
+  startDate: string;
+  affectedPlaces: string[];
+  longitude: number;
+  latitude: number;
+  endDate?: string;
+  magnitude?: number;
+  directDeaths?: number;
+  directInjuries?: number;
 }

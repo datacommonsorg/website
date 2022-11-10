@@ -21,10 +21,14 @@
 import axios from "axios";
 
 import { GeoJsonData } from "../chart/types";
-import { DISASTER_EVENT_INTENSITIES, DISASTER_EVENT_TYPES } from "./constants";
-import { DisasterApiEventPoint, DisasterEventPoint, DisasterType } from "./types";
+import {
+  DISASTER_EVENT_INTENSITIES,
+  DISASTER_EVENT_TYPES,
+  DisasterType,
+} from "./constants";
+import { DisasterApiEventPoint, DisasterEventPoint } from "./types";
 
-const MAX_DATES = 100;
+const MAX_YEARS = 20;
 
 /**
  * Get promise for geojson data
@@ -59,41 +63,38 @@ export function fetchDateList(disasterType: DisasterType): Promise<string[]> {
     DISASTER_EVENT_TYPES[disasterType].forEach((eventType) => {
       promises.push(
         axios
-          .get<{ minDate: string, maxDate: string }>("/api/disaster-dashboard/date-range", {
-            params: {
-              eventType,
-            },
-          })
+          .get<{ minDate: string; maxDate: string }>(
+            "/api/disaster-dashboard/date-range",
+            {
+              params: {
+                eventType,
+              },
+            }
+          )
           .then((resp) => resp.data)
       );
     });
   }
   return Promise.all(promises).then((resp) => {
+    // minDate and maxDate for the disaster type (i.e., min and max of all the
+    // eventTypes of this disaster type)
     let minDate = "";
     let maxDate = "";
     resp.forEach((dateRange) => {
-      if (dateRange.minDate) {
-        if (!minDate || dateRange.minDate < minDate) {
-          minDate = dateRange.minDate;
-        }
-        if (!maxDate || dateRange.minDate > maxDate) {
-          maxDate = dateRange.maxDate;
-        }
+      // dateRange is the min and max dates for a single eventType.
+      if (dateRange.minDate && (!minDate || dateRange.minDate < minDate)) {
+        minDate = dateRange.minDate;
       }
-      if (!maxDate || dateRange.maxDate > maxDate) {
+      if (dateRange.maxDate && (!maxDate || dateRange.maxDate > maxDate)) {
         maxDate = dateRange.maxDate;
       }
     });
     if (!minDate && !maxDate) {
       return [];
     }
-    let decrementByYear = false;
-    if (
+    const decrementByYear =
       new Date(maxDate).getFullYear() - new Date(minDate).getFullYear() >
-      MAX_DATES
-    ) {
-      decrementByYear = true;
-    }
+      MAX_YEARS;
     const dateList = [];
     const currDate = new Date(maxDate);
     const endDate = new Date(minDate);
