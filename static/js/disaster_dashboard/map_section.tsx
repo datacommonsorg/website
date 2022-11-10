@@ -34,9 +34,9 @@ import { NamedPlace } from "../shared/types";
 import { removeSpinner } from "../shared/util";
 import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import { isChildPlaceOf } from "../tools/shared_util";
-import { CONTENT_SPINNER_ID } from "./constants";
+import { CONTENT_SPINNER_ID, DisasterType } from "./constants";
 import { InfoCard } from "./info_card";
-import { DisasterEventPoint, DisasterType, PlaceInfo } from "./types";
+import { DisasterEventPoint, PlaceInfo } from "./types";
 
 const MAP_ID = "disaster-dashboard-map";
 const LEGEND_CONTAINER_ID = "disaster-dashboard-legend";
@@ -53,14 +53,20 @@ const DISASTER_COLORS = {
 };
 
 interface MapSectionPropType {
+  // list of disaster event points to show
   disasterEventPoints: DisasterEventPoint[];
+  // geojson of the map to render
   geoJson: GeoJsonData;
+  // disaster type shown
   selectedDisaster: DisasterType;
-  selectedDate: string;
+  // info about the places to be shown on the map
   selectedPlaceInfo: PlaceInfo;
+  // prop to use for the intensity of each event
   selectedIntensityProp: string;
+  // callback function when a new place has been selected
   onPlaceUpdated: (place: NamedPlace) => void;
-  europeanPlaces: NamedPlace[];
+  // list of countries in Europe
+  fetchedEuropeanPlaces: NamedPlace[];
 }
 
 export function MapSection(props: MapSectionPropType): JSX.Element {
@@ -77,7 +83,11 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     }
     draw();
     removeSpinner(CONTENT_SPINNER_ID);
-  }, [props.disasterEventPoints, props.geoJson]);
+  }, [
+    props.disasterEventPoints,
+    props.geoJson,
+    props.selectedPlaceInfo.place.dcid,
+  ]);
 
   if (_.isEmpty(props.geoJson)) {
     removeSpinner(CONTENT_SPINNER_ID);
@@ -136,15 +146,16 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
       />,
       infoCardRef.current
     );
-    const infoCardHeight = (
+    // get info card dimensions
+    const infoCardRect = (
       infoCard.node() as HTMLDivElement
-    ).getBoundingClientRect().height;
-    const infoCardWidth = (
-      infoCard.node() as HTMLDivElement
-    ).getBoundingClientRect().width;
+    ).getBoundingClientRect();
+    const infoCardHeight = infoCardRect.height;
+    const infoCardWidth = infoCardRect.width;
     const containerWidth = (
       d3.select(svgContainer.current).node() as HTMLDivElement
     ).getBoundingClientRect().width;
+    // calculate left and top position to show the info card
     let left = Math.min(event.offsetX, containerWidth - infoCardWidth);
     if (left < 0) {
       left = 0;
@@ -156,6 +167,7 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     if (top < 0) {
       top = event.offsetY + iNFO_CARD_OFFSET;
     }
+    // set info card position and make it visible
     infoCard
       .style("left", left + "px")
       .style("top", top + "px")
@@ -163,9 +175,14 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
   }
 
   function canClickRegion(placeDcid: string): boolean {
+    // If a country is a European country, we want to add Europe to its list
+    // of parents. This is important for getAllChildPlaceTypes (line 191)
+    // because it will handle European countries differently than regular
+    // countries.
     const enclosingPlace =
-      props.europeanPlaces.findIndex((country) => country.dcid === placeDcid) >
-      -1
+      props.fetchedEuropeanPlaces.findIndex(
+        (country) => country.dcid === placeDcid
+      ) > -1
         ? EUROPE_NAMED_TYPED_PLACE
         : props.selectedPlaceInfo.place;
     const parentPlaces = getParentPlaces(
@@ -206,23 +223,24 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
       props.geoJson,
       height,
       width,
-      {},
-      "",
-      null,
+      {} /** dataValues: no data values to show on the base map */,
+      "" /** units: no units to show */,
+      null /** colorScale: no color scale since no data shown on the base map */,
       (geoDcid: GeoJsonFeatureProperties) => {
         const namedPlace = {
           name: geoDcid.name,
           dcid: geoDcid.geoDcid,
         };
         props.onPlaceUpdated(namedPlace);
-      },
-      () => "",
+      } /** redirectAction */,
+      () =>
+        "" /** getTooltipHtml: no tooltips to be shown on hover over a map region */,
       canClickRegion,
-      false,
-      true,
+      false /** shouldGenerateLegend: no legend needs to be generated since no data for base map */,
+      true /** shouldShowBoundaryLines */,
       projection,
-      "",
-      "",
+      props.selectedPlaceInfo.place.dcid,
+      "" /** zoomDcid: no dcid to zoom in on */,
       zoomParams
     );
     const pointValues = {};

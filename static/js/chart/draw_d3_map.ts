@@ -272,6 +272,7 @@ export function getProjection(
  * @param canClickRegion function to determine if a region on the map is clickable
  * @param shouldGenerateLegend whether legend needs to be generated
  * @param shouldShowBoundaryLines whether each region should have boundary lines shown
+ * @param projection projection to use for the map
  * @param enclosingPlaceDcid DCID of enclosing place that might have special projections
  * @param zoomDcid the dcid of the region to zoom in on when drawing the chart
  * @param zoomParams the parameters needed to add zoom functionality for the map
@@ -292,7 +293,7 @@ export function drawD3Map(
   shouldGenerateLegend: boolean,
   shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
-  enclosingPlaceDcid?: string, // DCID of enclosing place that might have special projections
+  enclosingPlaceDcid?: string,
   zoomDcid?: string,
   zoomParams?: MapZoomParams
 ): void {
