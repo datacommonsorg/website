@@ -37,3 +37,10 @@ def screenshot(folder):
         flask.abort(404)
     images = list_png(SCREENSHOT_BUCKET, folder)
     return flask.render_template('dev/screenshot.html', images=images)
+
+
+@bp.route('/disaster-dashboard')
+def disaster_dashboard():
+    if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+        flask.abort(404)
+    return flask.render_template('dev/disaster_dashboard.html')
