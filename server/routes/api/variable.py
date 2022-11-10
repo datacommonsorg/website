@@ -25,5 +25,5 @@ def get_variable_path():
     """Gets the path of a stat var to the root of the stat var hierarchy.
     """
     dcid = request.args.get("dcid")
-    url = "/v1/variable/ancestors/" + dcid
-    return json.dumps([dcid] + dc.get(url).get("ancestors", [])), 200
+    url_path = "/v1/variable/ancestors/" + dcid
+    return json.dumps([dcid] + dc.get(url_path).get("ancestors", [])), 200
