@@ -236,12 +236,10 @@ class TestSearchStatVar(unittest.TestCase):
             assert result == expected_sv_only_result
 
 
-class TestGetStatVarGroup(unittest.TestCase):
+class TestGetVariableGroupInfo(unittest.TestCase):
 
-    @mock.patch('routes.api.stats.dc.get_statvar_group')
+    @mock.patch('routes.api.variable_group.dc.get')
     def test_statvar_path(self, mock_result):
-        expected_svg = 'dc/g/Root'
-        expected_entities = ["geoId/06"]
         expected_result = {
             "absoluteName":
                 "Data Commons Variables",
@@ -256,37 +254,33 @@ class TestGetStatVarGroup(unittest.TestCase):
             }]
         }
 
-        def side_effect(svg, entities):
-            if svg == expected_svg and entities == expected_entities:
-                return expected_result
+        def side_effect(url):
+            if url == "/v1/info/variable-group/dc/g/Root?constrained_entities=geoId/06":
+                return {"info": expected_result}
             else:
                 return {}
 
         mock_result.side_effect = side_effect
         response = app.test_client().get(
-            'api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06'
-        )
+            'api/variable-group/info?dcid=dc/g/Root&entities=geoId/06')
         assert response.status_code == 200
         result = json.loads(response.data)
         assert result == expected_result
 
 
-class TestStatVarPath(unittest.TestCase):
+class TestVariablePath(unittest.TestCase):
 
-    @mock.patch('routes.api.stats.dc.get_statvar_path')
-    def test_statvar_path(self, mock_result):
-        expected_id = 'Count_Person'
-        expected_result = {"path": ["Count_Person", "dc/g/Demographics"]}
+    @mock.patch('routes.api.variable.dc.get')
+    def test_variable_path(self, mock_result):
 
-        def side_effect(id):
-            if id == expected_id:
-                return expected_result
+        def side_effect(url):
+            if url == "/v1/variable/ancestors/Count_Person":
+                return {"ancestors": ["dc/g/Demographics"]}
             else:
                 return {}
 
         mock_result.side_effect = side_effect
-        response = app.test_client().get(
-            'api/stats/stat-var-path?id=Count_Person')
+        response = app.test_client().get('api/variable/path?dcid=Count_Person')
         assert response.status_code == 200
         result = json.loads(response.data)
-        assert result == expected_result
+        assert result == ["Count_Person", "dc/g/Demographics"]

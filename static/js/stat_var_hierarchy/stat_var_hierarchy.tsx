@@ -231,7 +231,7 @@ export class StatVarHierarchy extends React.Component<
 
   private fetchData(): void {
     loadSpinner(SV_HIERARCHY_SECTION_ID);
-    let url = `/api/stats/stat-var-group?stat_var_group=${ROOT_SVG}`;
+    let url = `/api/variable-group/info?dcid=${ROOT_SVG}`;
     for (const entity of this.props.entities) {
       url += `&entities=${entity.dcid}`;
     }
@@ -320,11 +320,11 @@ export class StatVarHierarchy extends React.Component<
       return Promise.resolve([]);
     }
     return axios
-      .get(`/api/stats/stat-var-path?id=${encodeURIComponent(sv)}`)
+      .get(`/api/variable/path?dcid=${encodeURIComponent(sv)}`)
       .then((resp) => {
         // This is to make jest test working, should find a better way to let
         // mock return new object each time.
-        return _.cloneDeep(resp.data["path"]).reverse();
+        return _.cloneDeep(resp.data).reverse();
       });
   }
 
