@@ -54,10 +54,12 @@ class StagingConfig(Config):
 class AutopushConfig(Config):
     GA_ACCOUNT = 'G-Y6ZXZ9JK3H'
     ADMIN = True
+    GCS_BUCKET = 'datcom-website-autopush-resources'
     pass
 
 
 class DevConfig(Config):
+    GCS_BUCKET = 'datcom-website-autopush-resources'
     pass
 
 
@@ -110,6 +112,7 @@ class LocalBaseConfig(Config):
     AI_CONFIG_PATH = os.path.abspath(
         os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
     SCHEME = 'http'
+    GCS_BUCKET = 'datcom-website-autopush-resources'
 
 
 class LocalConfig(LocalBaseConfig):
