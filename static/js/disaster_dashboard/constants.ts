@@ -18,5 +18,35 @@
  * Constants used across components in Disaster Dashboard
  */
 
-// id of the spinner screen for the map component
+// id of the spinner screen for the content sections of the disaster dashboard
 export const CONTENT_SPINNER_ID = "content-spinner-screen";
+
+// enum of possible disaster types user can select
+export enum DisasterType {
+  ALL = "All",
+  EARTHQUAKE = "Earthquake",
+  FIRE = "Fire",
+  STORM = "Storm",
+  FLOOD = "Flood",
+  DROUGHT = "Drought",
+}
+
+// Map of Disaster type to event types encompassed by the disaster type
+export const DISASTER_EVENT_TYPES = {
+  [DisasterType.EARTHQUAKE]: ["EarthquakeEvent"],
+  [DisasterType.FIRE]: ["WildlandFireEvent", "WildfireEvent"],
+  [DisasterType.STORM]: [
+    "CycloneEvent",
+    "HurricaneTyphoonEvent",
+    "HurricaneEvent",
+    "TornadoEvent",
+  ],
+  [DisasterType.FLOOD]: ["FloodEvent"],
+  [DisasterType.DROUGHT]: ["DroughtEvent"],
+};
+
+// Map of Disaster type to intensity props used for each disaster type
+export const DISASTER_EVENT_INTENSITIES = {
+  [DisasterType.EARTHQUAKE]: ["magnitude"],
+  [DisasterType.DROUGHT]: ["directDeaths", "directInjuries"],
+};

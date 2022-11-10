@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-import { MapPoint } from "../chart/types";
-import { NamedPlace, NamedTypedPlace } from "../shared/types";
-import { DisasterType } from "./constants";
-
 /**
- * Types specific to Disaster Dashboard
+ * Main component for the disaster dashboard.
  */
 
-export interface PlaceInfo {
-  place: NamedTypedPlace;
-  placeType: string;
-  parentPlaces: NamedPlace[];
-}
-export interface DisasterEventPoint extends MapPoint {
-  disasterType: DisasterType;
-  startDate: string;
-  intensity: { [prop: string]: number };
-  endDate?: string;
+import React from "react";
+
+export function Page(): JSX.Element {
+  return <div></div>;
 }
