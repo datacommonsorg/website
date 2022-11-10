@@ -40,8 +40,13 @@ interface RankingSectionPropType {
 }
 
 export function RankingSection(props: RankingSectionPropType): JSX.Element {
-  const rankedDisasterCounts = getRankedDisasterCounts(props.disasterEventPoints)
-  const rankingUnits = getRankingUnits(props.disasterEventPoints, props.selectedDisaster);
+  const rankedDisasterCounts = getRankedDisasterCounts(
+    props.disasterEventPoints
+  );
+  const rankingUnits = getRankingUnits(
+    props.disasterEventPoints,
+    props.selectedDisaster
+  );
   const addSelectionCss =
     !_.isEmpty(DISASTER_EVENT_INTENSITIES[props.selectedDisaster]) &&
     DISASTER_EVENT_INTENSITIES[props.selectedDisaster].length > 1;
@@ -58,7 +63,7 @@ export function RankingSection(props: RankingSectionPropType): JSX.Element {
       {props.selectedDisaster === DisasterType.ALL && (
         <>
           <h3>Count of Events</h3>
-          {rankedDisasterCounts.map(({disaster, count}) => {
+          {rankedDisasterCounts.map(({ disaster, count }) => {
             return (
               <div key={"count-" + disaster} className="ranking-unit-item">
                 {disaster}: {count}
@@ -100,7 +105,9 @@ export function RankingSection(props: RankingSectionPropType): JSX.Element {
   );
 }
 
-function getRankedDisasterCounts(disasterEventData: DisasterEventPoint[]): { disaster: string, count: number }[] {
+function getRankedDisasterCounts(
+  disasterEventData: DisasterEventPoint[]
+): { disaster: string; count: number }[] {
   const counts = {};
   if (!_.isEmpty(disasterEventData)) {
     for (const eventData of disasterEventData) {
@@ -122,12 +129,12 @@ function getRankedDisasterCounts(disasterEventData: DisasterEventPoint[]): { dis
   return rankedDisasters.map((disaster) => {
     return {
       disaster,
-      count: counts[disaster] || 0
-    }
-  })
+      count: counts[disaster] || 0,
+    };
+  });
 }
 
-function getRankingUnits (
+function getRankingUnits(
   disasterEventData: DisasterEventPoint[],
   selectedDisaster: DisasterType
 ): RankingUnitInfo[] {
