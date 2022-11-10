@@ -17,3 +17,20 @@
 /**
  * Constants used across components in Disaster Dashboard
  */
+
+import { DisasterType } from "./types";
+
+// Map of Disaster type to event types encompassed by the disaster type
+export const DISASTER_EVENT_TYPES = {
+  [DisasterType.EARTHQUAKE]: ["EarthquakeEvent"],
+  [DisasterType.FIRE]: ["WildlandFireEvent", "WildfireEvent"],
+  [DisasterType.STORM]: [
+    "CycloneEvent",
+    "HurricaneTyphoonEvent",
+    "HurricaneEvent",
+    "TornadoEvent",
+  ],
+  [DisasterType.FLOOD]: ["FloodEvent"],
+  [DisasterType.DROUGHT]: ["DroughtEvent"],
+};
+
