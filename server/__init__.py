@@ -37,7 +37,7 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
-from lib.disaster_dashboard import get_disaster_dashboard_config
+from lib.disaster_dashboard import get_disaster_dashboard_data
 import services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
@@ -217,11 +217,11 @@ def create_app():
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-    # load disaster dashboard data frpm GCS
+    # load disaster dashboard data from GCS
     if os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
-        disaster_dashboard_config = get_disaster_dashboard_config(
+        disaster_dashboard_data = get_disaster_dashboard_data(
             app.config['GCS_BUCKET'])
-        app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_config
+        app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
     # Initialize the AI module.
     app.config['AI_CONTEXT'] = ai.Context()

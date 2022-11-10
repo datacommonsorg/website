@@ -39,9 +39,9 @@ def date_range():
     """
     event_type = request.args.get('eventType', '')
     result = {"minDate": "", "maxDate": ""}
-    if event_type in current_app.config['DISASTER_DASHBOARD_DATA']:
-        dates = list(current_app.config['DISASTER_DASHBOARD_DATA'].get(
-            event_type).keys())
+    disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
+    if event_type in disaster_data:
+        dates = list(disaster_data.get(event_type).keys())
         if dates:
             dates = sorted(dates)
             result = {"minDate": dates[0], "maxDate": dates[-1]}
@@ -69,8 +69,8 @@ def data():
     date = request.args.get('date', '')
     place = request.args.get('place', '')
     result = []
-    for event in current_app.config['DISASTER_DASHBOARD_DATA'].get(
-            event_type, {}).get(date, []):
+    disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
+    for event in disaster_data.get(event_type, {}).get(date, []):
         if place != EARTH_DCID and not place in event.get("affectedPlaces", []):
             continue
         result.append(event)

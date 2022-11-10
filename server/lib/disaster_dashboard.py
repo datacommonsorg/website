@@ -15,21 +15,16 @@
 
 from google.cloud import storage
 import json
+import re
 
-EVENT_TYPE_FILE_NAME = {
-    "EarthquakeEvent": "earthquake_events.json",
-    "WildlandFireEvent": "wildlandfire_events.json",
-    "WildfireEvent": "wildfire_events.json",
-    "CycloneEvent": "cyclone_events.json",
-    "HurricaneTyphoonEvent": "hurricane_typhoon_events.json",
-    "HurricaneEvent": "hurricane_events.json",
-    "TornadoEvent": "tornado_events.json",
-    "FloodEvent": "flood_events.json",
-    "DroughtEvent": "drought_events.json"
-}
+EVENT_TYPES = [
+    "EarthquakeEvent", "WildlandFireEvent", "WildfireEvent", "CycloneEvent",
+    "HurricaneTyphoonEvent", "HurricaneEvent", "TornadoEvent", "FloodEvent",
+    "DroughtEvent"
+]
 
 
-def get_disaster_dashboard_config(gcs_bucket):
+def get_disaster_dashboard_data(gcs_bucket):
     """
     Gets and processes disaster data from gcs.
 
@@ -58,10 +53,14 @@ def get_disaster_dashboard_config(gcs_bucket):
 
     """
     result = {}
-    for event_type in EVENT_TYPE_FILE_NAME:
+    for event_type in EVENT_TYPES:
         storage_client = storage.Client()
         bucket = storage_client.get_bucket(gcs_bucket)
-        blob = bucket.get_blob(EVENT_TYPE_FILE_NAME[event_type])
+        file_name = re.sub('(?!^)([A-Z]+)', r'_\1',
+                           event_type).lower() + ".json"
+        blob = bucket.get_blob(file_name)
+        if not blob:
+            continue
         events_data = json.loads(blob.download_as_bytes())
         events_by_date = {}
         for event_data in events_data:
