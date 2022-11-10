@@ -15,7 +15,7 @@
 # limitations under the License.
 
 
-# Deploy website to autopush.datacommons.org with the latest mixer and base cache
+# Deploy various website instances with the latest mixer and base cache
 
 set -e
 
@@ -32,7 +32,6 @@ git checkout master
 
 # Deploy autopush instance
 gsutil cp gs://datcom-control/latest_base_bigquery_version.txt deploy/storage/bigquery.version
-# Import Group
 yq eval -i 'del(.tables)' deploy/storage/base_bigtable_info.yaml
 yq eval -i '.tables = []' deploy/storage/base_bigtable_info.yaml
 for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.txt); do
@@ -42,5 +41,13 @@ for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.
 done
 $ROOT/scripts/deploy_gke.sh autopush us-central1
 $ROOT/scripts/deploy_gke.sh autopush europe-west2
-# $ROOT/scripts/deploy_gke.sh feedingamerica us-central1
-$ROOT/scripts/deploy_gke.sh stanford us-central1
+
+# Deploy stanford instance
+# yq eval -i 'del(.tables)' deploy/overlays/stanford/custom_bigtable_info.yaml
+# yq eval -i '.tables = []' deploy/overlays/stanford/custom_bigtable_info.yaml
+# for src in $(gsutil ls gs://datcom-stanford-resources/control/latest_base_cache_version.txt); do
+#   echo "Copying $src"
+#   export TABLE="$(gsutil cat "$src")"
+#   yq eval -i '.tables += [env(TABLE)]' deploy/overlays/stanford/custom_bigtable_info.yaml
+# done
+# $ROOT/scripts/deploy_gke.sh stanford us-central1
