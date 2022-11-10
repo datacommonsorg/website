@@ -33,4 +33,3 @@ export const DISASTER_EVENT_TYPES = {
   [DisasterType.FLOOD]: ["FloodEvent"],
   [DisasterType.DROUGHT]: ["DroughtEvent"],
 };
-
