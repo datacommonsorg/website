@@ -16,6 +16,7 @@
 
 import { MapPoint } from "../chart/types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { DisasterType } from "./constants";
 
 /**
  * Types specific to Disaster Dashboard
@@ -26,16 +27,6 @@ export interface PlaceInfo {
   placeType: string;
   parentPlaces: NamedPlace[];
 }
-
-export enum DisasterType {
-  ALL = "All",
-  EARTHQUAKE = "Earthquake",
-  FIRE = "Fire",
-  STORM = "Storm",
-  FLOOD = "Flood",
-  DROUGHT = "Drought",
-}
-
 export interface DisasterEventPoint extends MapPoint {
   disasterType: DisasterType;
   startDate: string;
