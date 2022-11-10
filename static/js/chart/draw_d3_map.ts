@@ -514,10 +514,7 @@ export function addMapPoints(
       (point: MapPoint) => projection([point.longitude, point.latitude])[1]
     )
     .attr("r", (point: MapPoint) => {
-      if (
-        _.isEmpty(pointSizeScale) ||
-        !mapPointValues[point.placeDcid]
-      ) {
+      if (_.isEmpty(pointSizeScale) || !mapPointValues[point.placeDcid]) {
         return minDotSize * 2;
       }
       return pointSizeScale(mapPointValues[point.placeDcid]);

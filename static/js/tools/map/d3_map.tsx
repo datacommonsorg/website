@@ -185,7 +185,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       }
       const filteredMapPoints = props.mapPoints.filter((point) => {
         return point.placeDcid in props.mapPointValues;
-      })
+      });
       addMapPoints(
         MAP_CONTAINER_ID,
         filteredMapPoints,

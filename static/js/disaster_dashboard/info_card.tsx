@@ -30,7 +30,9 @@ export function InfoCard(props: InfoCardPropType): JSX.Element {
   return (
     <div className="disaster-dashboard-info-card-content">
       <div className="disaster-dashboard-info-card-header">
-        <div className="disaster-dashboard-info-card-title">{props.eventData.placeName}</div>
+        <div className="disaster-dashboard-info-card-title">
+          {props.eventData.placeName}
+        </div>
         <i className="material-icons-outlined" onClick={props.onClose}>
           close
         </i>

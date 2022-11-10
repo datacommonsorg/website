@@ -24,7 +24,7 @@ import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
 import { addMapPoints, drawD3Map, getProjection } from "../chart/draw_d3_map";
-import { GeoJsonData, GeoJsonFeatureProperties} from "../chart/types";
+import { GeoJsonData, GeoJsonFeatureProperties } from "../chart/types";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
@@ -68,7 +68,11 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
   const infoCardRef = useRef(null);
 
   useEffect(() => {
-    if (_.isEmpty(props.geoJson) || (props.geoJson.properties.current_geo !== props.selectedPlaceInfo.place.dcid)) {
+    if (
+      _.isEmpty(props.geoJson) ||
+      props.geoJson.properties.current_geo !==
+        props.selectedPlaceInfo.place.dcid
+    ) {
       return;
     }
     draw();
@@ -118,14 +122,20 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     </div>
   );
 
-  function onPointClicked(point: DisasterEventPoint, event: PointerEvent): void {
+  function onPointClicked(
+    point: DisasterEventPoint,
+    event: PointerEvent
+  ): void {
     const infoCard = d3.select(infoCardRef.current);
-    ReactDOM.render(<InfoCard
-      onClose={() =>
-        d3.select(infoCardRef.current).style("visibility", "hidden")
-      }
-      eventData={point}
-    />, infoCardRef.current);
+    ReactDOM.render(
+      <InfoCard
+        onClose={() =>
+          d3.select(infoCardRef.current).style("visibility", "hidden")
+        }
+        eventData={point}
+      />,
+      infoCardRef.current
+    );
     const infoCardHeight = (
       infoCard.node() as HTMLDivElement
     ).getBoundingClientRect().height;
@@ -218,9 +228,10 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     const pointValues = {};
     props.disasterEventPoints.forEach((eventPoint) => {
       if (props.selectedIntensityProp in eventPoint.intensity) {
-        pointValues[eventPoint.placeDcid] = eventPoint.intensity[props.selectedIntensityProp];
+        pointValues[eventPoint.placeDcid] =
+          eventPoint.intensity[props.selectedIntensityProp];
       }
-    })
+    });
     const pointsLayer = addMapPoints(
       MAP_ID,
       props.disasterEventPoints,
@@ -231,7 +242,9 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
       }
     );
     pointsLayer
-      .on("click", (point: DisasterEventPoint) => onPointClicked(point, d3.event))
+      .on("click", (point: DisasterEventPoint) =>
+        onPointClicked(point, d3.event)
+      )
       .on("blur", () => {
         d3.select(infoCardRef.current).style("visibility", "hidden");
       });
