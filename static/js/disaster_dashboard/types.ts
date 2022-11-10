@@ -15,19 +15,11 @@
  */
 
 import { MapPoint } from "../chart/types";
+import { DisasterType } from "./constants";
 
 /**
  * Types specific to Disaster Dashboard
  */
-
-export enum DisasterType {
-  ALL = "All",
-  EARTHQUAKE = "Earthquake",
-  FIRE = "Fire",
-  STORM = "Storm",
-  FLOOD = "Flood",
-  DROUGHT = "Drought",
-}
 
 export interface DisasterEventPoint extends MapPoint {
   disasterType: DisasterType;

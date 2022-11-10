@@ -18,7 +18,14 @@
  * Constants used across components in Disaster Dashboard
  */
 
-import { DisasterType } from "./types";
+export enum DisasterType {
+  ALL = "All",
+  EARTHQUAKE = "Earthquake",
+  FIRE = "Fire",
+  STORM = "Storm",
+  FLOOD = "Flood",
+  DROUGHT = "Drought",
+}
 
 // Map of Disaster type to event types encompassed by the disaster type
 export const DISASTER_EVENT_TYPES = {
@@ -32,4 +39,10 @@ export const DISASTER_EVENT_TYPES = {
   ],
   [DisasterType.FLOOD]: ["FloodEvent"],
   [DisasterType.DROUGHT]: ["DroughtEvent"],
+};
+
+// Map of Disaster type to intensity props used for each disaster type
+export const DISASTER_EVENT_INTENSITIES = {
+  [DisasterType.EARTHQUAKE]: ["magnitude"],
+  [DisasterType.DROUGHT]: ["directDeaths", "directInjuries"],
 };
