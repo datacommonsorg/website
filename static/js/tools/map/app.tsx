@@ -62,7 +62,6 @@ function App(): JSX.Element {
             <Info />
           </Row>
           <Row id="chart-row">
-            <ChartLoader />
           </Row>
         </Container>
       </div>

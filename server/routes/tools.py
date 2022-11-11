@@ -39,9 +39,13 @@ _DOWNLOAD_INFO_DCIDS_IITM = [
 
 @bp.route('/timeline')
 def timeline():
+    env_name = current_app.config.get('ENV_NAME', None)
+    info_json = "private_dc/default/timeline_examples.json"
+    if env_name == 'IITM':
+        info_json = "private_dc/iitm/timeline_examples.json"
     return flask.render_template(
         'tools/timeline.html',
-        info_json="private_dc/default/timeline_examples.json",
+        info_json=info_json,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
@@ -54,18 +58,29 @@ def timeline_bulk_download():
 @bp.route('/map')
 def map():
     allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
+
+    env_name = current_app.config.get('ENV_NAME', None)
+    info_json = "private_dc/default/map_examples.json"
+    if env_name == 'IITM':
+        info_json = "private_dc/iitm/map_examples.json"
+
     return flask.render_template(
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
-        info_json="private_dc/default/map_examples.json",
+        info_json=info_json,
         allow_leaflet=allow_leaflet)
 
 
 @bp.route('/scatter')
 def scatter():
+    env_name = current_app.config.get('ENV_NAME', None)
+    info_json = "private_dc/default/scatter_examples.json"
+    if env_name == 'IITM':
+        info_json = "private_dc/iitm/scatter_examples.json"
+
     return flask.render_template(
         'tools/scatter.html',
-        info_json="private_dc/default/scatter_examples.json",
+        info_json=info_json,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
