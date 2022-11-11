@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from flask import Blueprint, request
+from cache import cache
 import services.datacommons as dc
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
@@ -56,6 +57,7 @@ def point_within_core(parent_entity, child_type, variables, date, all_facets):
 
 
 @bp.route('', strict_slashes=False)
+@cache.cached(timeout=3600 * 24, query_string=True)
 def point():
     """Handler to get the observation point given multiple stat vars and places.
     """
@@ -70,6 +72,7 @@ def point():
 
 
 @bp.route('/all')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def point_all():
     """Handler to get all the observation points given multiple stat vars and
     entities.
@@ -85,6 +88,7 @@ def point_all():
 
 
 @bp.route('/within')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def point_within():
     """Gets the observations for child entities of a certain place
     type contained in a parent entity at a given date. If no date given, will
@@ -106,6 +110,7 @@ def point_within():
 
 
 @bp.route('/within/all')
+@cache.cached(timeout=3600 * 24, query_string=True)
 def point_within_all():
     """Gets the observations for child entities of a certain place
     type contained in a parent entity at a given date. If no date given, will

@@ -36,6 +36,7 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
+from lib.disaster_dashboard import get_disaster_dashboard_data
 import services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
@@ -96,7 +97,8 @@ def register_routes_common(app):
     # TODO: Extract more out to base_dc
     from routes.api import (browser as browser_api, choropleth, place as
                             place_api, landing_page, ranking as ranking_api,
-                            stats, translator, csv, facets, series, point)
+                            stats, translator, csv, facets, series, point,
+                            observation_dates, disaster_dashboard)
     app.register_blueprint(browser_api.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
@@ -109,6 +111,8 @@ def register_routes_common(app):
     app.register_blueprint(facets.bp)
     app.register_blueprint(series.bp)
     app.register_blueprint(point.bp)
+    app.register_blueprint(observation_dates.bp)
+    app.register_blueprint(disaster_dashboard.bp)
 
 
 def create_app():
@@ -132,10 +136,11 @@ def create_app():
 
     # Init extentions
     from cache import cache
-    if app.config['PRIVATE']:
-        cache.init_app(app, {'CACHE_TYPE': 'null'})
-    else:
+    # For some instance with fast updated data, we may not want to use memcache.
+    if app.config['USE_MEMCACHE']:
         cache.init_app(app)
+    else:
+        cache.init_app(app, {'CACHE_TYPE': 'null'})
 
     register_routes_common(app)
     if cfg.PRIVATE:
@@ -210,6 +215,12 @@ def create_app():
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
+
+    # load disaster dashboard data from GCS
+    if os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+        disaster_dashboard_data = get_disaster_dashboard_data(
+            app.config['GCS_BUCKET'])
+        app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
     # Initialize the AI module.
     app.config['AI_CONTEXT'] = ai.Context()

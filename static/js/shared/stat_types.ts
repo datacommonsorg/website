@@ -37,8 +37,18 @@ export interface EntityObservation {
   [entity: string]: Observation;
 }
 
+export interface EntityObservationWrapper {
+  data: EntityObservation;
+  facets: FacetStore;
+}
+
 export interface EntityObservationList {
   [entity: string]: Observation[];
+}
+
+export interface EntityObservationListWrapper {
+  data: EntityObservationList;
+  facets: FacetStore;
 }
 
 export interface Series {
@@ -51,33 +61,38 @@ export interface EntitySeries {
   [entity: string]: Series;
 }
 
+export interface EntitySeriesWrapper {
+  data: EntitySeries;
+  facets: FacetStore;
+}
+
 export interface EntitySeriesList {
   [entity: string]: Series[];
 }
 
 export interface SeriesApiResponse {
-  facets: Record<string, StatMetadata>;
+  facets: FacetStore;
   data: {
     [variable: string]: EntitySeries;
   };
 }
 
 export interface SeriesAllApiResponse {
-  facets: Record<string, StatMetadata>;
+  facets: FacetStore;
   data: {
     [variable: string]: EntitySeriesList;
   };
 }
 
 export interface PointApiResponse {
-  facets: Record<string, StatMetadata>;
+  facets: FacetStore;
   data: {
     [variable: string]: EntityObservation;
   };
 }
 
 export interface PointAllApiResponse {
-  facets: Record<string, StatMetadata>;
+  facets: FacetStore;
   data: {
     [variable: string]: EntityObservationList;
   };
@@ -93,7 +108,27 @@ export interface PlaceStatDateWithinPlace {
   metadata: StatMetadata;
 }
 
-// response from /v1/stat/date/within-place
-export interface GetPlaceStatDateWithinPlaceResponse {
-  data: Record<string, Record<string, Array<PlaceStatDateWithinPlace>>>;
+export interface ObservationDate {
+  date: string;
+  entityCount: {
+    count: number;
+    facet: string;
+  }[];
 }
+
+export interface ObservationDatesWrapper {
+  data: ObservationDate[];
+  facets: FacetStore;
+}
+
+export interface ObservationDatesResponse {
+  datesByVariable: [
+    {
+      variable: string;
+      observationDates: ObservationDate[];
+    }
+  ];
+  facets: FacetStore;
+}
+
+export type FacetStore = Record<string, StatMetadata>;

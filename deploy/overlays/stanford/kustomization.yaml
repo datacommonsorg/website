@@ -32,10 +32,10 @@ configMapGenerator:
       - mixerProject=datcom-stanford
       - serviceName=website-esp.endpoints.datcom-stanford.cloud.goog
     name: mixer-configmap
-  - name: memdb-config
-    behavior: replace
+  - behavior: merge
+    name: store-configmap
     files:
-      - memdb.json
+      - custom_bigtable_info.yaml
 
 patchesStrategicMerge:
   - |-
@@ -45,11 +45,3 @@ patchesStrategicMerge:
       name: website-app
     spec:
       replicas: 6
-
-patchesJson6902:
-  - path: patch.yaml
-    target:
-      group: apps
-      kind: Deployment
-      name: website-app
-      version: v1

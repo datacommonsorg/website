@@ -20,18 +20,22 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React from "react";
+import React, { useContext } from "react";
 import { Card } from "reactstrap";
 
-import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_choropleth";
+import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_d3_map";
+import { getPlacePathId } from "../../chart/draw_map_utils";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { MAP_CONTAINER_ID } from "./chart";
-import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 import {
   DataPointMetadata,
+  NamedPlace,
+  NamedTypedPlace,
+} from "../../shared/types";
+import { MAP_CONTAINER_ID } from "./chart";
+import { Context, DisplayOptions, PlaceInfo, StatVar } from "./context";
+import {
   getAllChildPlaceTypes,
   getParentPlaces,
   getRedirectLink,
@@ -40,18 +44,18 @@ import {
 interface PlaceDetailsPropType {
   breadcrumbDataValues: { [dcid: string]: number };
   mapDataValues: { [dcid: string]: number };
-  placeInfo: PlaceInfo;
   metadata: { [dcid: string]: DataPointMetadata };
   unit: string;
-  statVar: StatVar;
   geoJsonFeatures: GeoJsonFeature[];
-  displayOptions: DisplayOptions;
   europeanCountries: Array<NamedPlace>;
 }
 export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
-  const selectedPlace = props.placeInfo.selectedPlace;
+  const { placeInfo, statVar, display } = useContext(Context);
+
+  const selectedPlace = placeInfo.value.selectedPlace;
   const unitString = _.isEmpty(props.unit) ? "" : ` ${props.unit}`;
   const selectedPlaceValue =
+    props.breadcrumbDataValues &&
     selectedPlace.dcid in props.breadcrumbDataValues
       ? formatNumber(props.breadcrumbDataValues[selectedPlace.dcid], "") +
         unitString
@@ -82,9 +86,12 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
                 {
                   dcid: place.properties.geoDcid,
                   name: place.properties.name || place.properties.geoDcid,
-                  types: [props.placeInfo.enclosedPlaceType],
+                  types: [placeInfo.value.enclosedPlaceType],
                 },
                 props,
+                placeInfo.value,
+                statVar.value,
+                display.value,
                 unitString,
                 index + 1
               )
@@ -97,9 +104,12 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
               {
                 dcid: place.properties.geoDcid,
                 name: place.properties.name || place.properties.geoDcid,
-                types: [props.placeInfo.enclosedPlaceType],
+                types: [placeInfo.value.enclosedPlaceType],
               },
               props,
+              placeInfo.value,
+              statVar.value,
+              display.value,
               unitString,
               Math.max(0, rankedPlaces.length - 5) + index + 1
             )
@@ -111,8 +121,15 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
             {selectedPlace.name}
             {selectedPlaceDate}: {selectedPlaceValue}
           </div>
-          {props.placeInfo.parentPlaces.map((place) =>
-            getListItemElement(place, props, unitString)
+          {placeInfo.value.parentPlaces.map((place) =>
+            getListItemElement(
+              place,
+              props,
+              placeInfo.value,
+              statVar.value,
+              display.value,
+              unitString
+            )
           )}
         </div>
       </div>
@@ -124,10 +141,10 @@ function highlightPlaceToggle(
   target: HTMLAnchorElement,
   shouldHighlight: boolean
 ) {
-  const geodcid = target.dataset.geodcid;
+  const geoDcid = target.dataset.geodcid;
   const container = d3.select(`#${MAP_CONTAINER_ID}`);
   const region = container
-    .select(`path[data-geodcid="${geodcid}"]`)
+    .select(`#${getPlacePathId(geoDcid)}`)
     .raise()
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
   if (region.size()) {
@@ -146,11 +163,14 @@ function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
 function getListItemElement(
   place: NamedTypedPlace,
   props: PlaceDetailsPropType,
+  placeInfo: PlaceInfo,
+  statVar: StatVar,
+  display: DisplayOptions,
   unitString: string,
   itemNumber?: number
 ): JSX.Element {
   let value = "N/A";
-  if (place.dcid in props.breadcrumbDataValues) {
+  if (props.breadcrumbDataValues && place.dcid in props.breadcrumbDataValues) {
     value =
       formatNumber(props.breadcrumbDataValues[place.dcid], "") + unitString;
   } else if (place.dcid in props.mapDataValues) {
@@ -165,18 +185,18 @@ function getListItemElement(
       (country) => country.dcid === place.dcid
     ) > -1
       ? EUROPE_NAMED_TYPED_PLACE
-      : props.placeInfo.enclosingPlace;
+      : placeInfo.enclosingPlace;
   const parentPlaces = getParentPlaces(
     place,
     enclosingPlace,
-    props.placeInfo.parentPlaces
+    placeInfo.parentPlaces
   );
   const redirectLink = getRedirectLink(
-    props.statVar,
+    statVar,
     place,
     parentPlaces,
-    props.placeInfo.mapPointPlaceType,
-    props.displayOptions
+    placeInfo.mapPointPlaceType,
+    display
   );
   const shouldBeClickable = !_.isEmpty(
     getAllChildPlaceTypes(place, parentPlaces)

@@ -20,6 +20,7 @@ import { StatVarInfo } from "../../shared/stat_var";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { Setter } from "../../shared/util";
 import {
+  applyHashDate,
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
@@ -30,22 +31,25 @@ import {
  * Global app context for map explorer tool.
  */
 
+export interface DateWrapper {
+  value: string;
+  set: Setter<string>;
+}
+
 // Information relating to the stat var to plot
 export interface StatVar {
   // additional information about stat vars. key is stat var dcid.
-  info: Record<string, StatVarInfo>;
+  info?: Record<string, StatVarInfo>;
   // dcid of the chosen stat var
-  dcid: string;
+  dcid?: string;
   // Whether to plot per capita values
-  perCapita: boolean;
+  perCapita?: boolean;
   // dcid of the stat var to use to calculate per capita
-  denom: string;
-  // date of the stat var data to get
-  date: string;
+  denom?: string;
   // dcid of the stat var to use for map points
-  mapPointSv: string;
+  mapPointSv?: string;
   // metahash of the source to get data from
-  metahash: string;
+  metahash?: string;
 }
 
 // Wraps StatVarInfo with its setters
@@ -56,7 +60,6 @@ export interface StatVarWrapper {
   setInfo: Setter<Record<string, StatVarInfo>>;
   setDcid: Setter<string>;
   setPerCapita: Setter<boolean>;
-  setDate: Setter<string>;
   setDenom: Setter<string>;
   setMapPointSv: Setter<string>;
   setMetahash: Setter<string>;
@@ -65,15 +68,15 @@ export interface StatVarWrapper {
 // Information relating to the places to plot
 export interface PlaceInfo {
   // The current place that has been selected
-  selectedPlace: NamedTypedPlace;
+  selectedPlace?: NamedTypedPlace;
   // The parent places of the selected place
-  parentPlaces: Array<NamedTypedPlace>;
+  parentPlaces?: Array<NamedTypedPlace>;
   // Place that encloses the places to plot
-  enclosingPlace: NamedPlace;
+  enclosingPlace?: NamedPlace;
   // The type of place to plot
-  enclosedPlaceType: string;
+  enclosedPlaceType?: string;
   // The type of place to show points on the map for
-  mapPointPlaceType: string;
+  mapPointPlaceType?: string;
 }
 
 // Wraps PlaceInfo with its setters
@@ -117,6 +120,8 @@ export interface DisplayOptions {
   showMapPoints: boolean;
   // TEMPORARY: whether to show the time slider
   showTimeSlider: boolean;
+  // TEMPORARY: whether to allow leaflet map
+  allowLeaflet: boolean;
 }
 
 export interface DisplayOptionsWrapper {
@@ -125,9 +130,18 @@ export interface DisplayOptionsWrapper {
   set: Setter<DisplayOptions>;
   setShowMapPoints: Setter<boolean>;
   setShowTimeSlider: Setter<boolean>;
+  setDomain: Setter<[number, number, number]>;
+}
+
+export interface DataContext {
+  date?: string;
+  statVar?: StatVar;
+  placeInfo?: PlaceInfo;
 }
 
 export interface ContextType {
+  // date of the stat var data to get
+  dateCtx: DateWrapper;
   statVar: StatVarWrapper;
   placeInfo: PlaceInfoWrapper;
   isLoading: IsLoadingWrapper;
@@ -136,7 +150,8 @@ export interface ContextType {
 
 export const Context = createContext({} as ContextType);
 
-export function getInitialContext(params: URLSearchParams): ContextType {
+export function useInitialContext(params: URLSearchParams): ContextType {
+  const [date, setDate] = useState(applyHashDate(params));
   const [statVar, setStatVar] = useState(applyHashStatVar(params));
   const [placeInfo, setPlaceInfo] = useState(applyHashPlaceInfo(params));
   const [isLoading, setIsLoading] = useState({
@@ -150,6 +165,10 @@ export function getInitialContext(params: URLSearchParams): ContextType {
     ? placeInfo.mapPointPlaceType
     : getMapPointPlaceType(statVar.dcid);
   return {
+    dateCtx: {
+      value: date,
+      set: (date) => setDate(date),
+    },
     isLoading: {
       value: isLoading,
       set: (isLoading) => setIsLoading(isLoading),
@@ -191,7 +210,6 @@ export function getInitialContext(params: URLSearchParams): ContextType {
       setDcid: (dcid) => setStatVar({ ...statVar, dcid, info: null }),
       setInfo: (info) => setStatVar({ ...statVar, info }),
       setPerCapita: (perCapita) => setStatVar({ ...statVar, perCapita }),
-      setDate: (date) => setStatVar({ ...statVar, date }),
       setDenom: (denom) => setStatVar({ ...statVar, denom }),
       setMapPointSv: (sv) => setStatVar({ ...statVar, mapPointSv: sv }),
       setMetahash: (metahash) => setStatVar({ ...statVar, metahash }),
@@ -203,6 +221,7 @@ export function getInitialContext(params: URLSearchParams): ContextType {
         setDisplay({ ...display, showMapPoints }),
       setShowTimeSlider: (showTimeSlider) =>
         setDisplay({ ...display, showTimeSlider }),
+      setDomain: (domain) => setDisplay({ ...display, domain }),
     },
   };
 }

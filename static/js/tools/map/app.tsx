@@ -18,72 +18,55 @@
  * Main app component for map explorer.
  */
 
-import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
 import { ChartLoader } from "./chart_loader";
-import { Context, ContextType, getInitialContext } from "./context";
+import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
 import { PlaceOptions } from "./place_options";
 import { StatVarChooser } from "./stat_var_chooser";
+import { Title } from "./title";
 import {
+  ALLOW_LEAFLET_URL_ARG,
+  applyHashDate,
   applyHashDisplay,
   applyHashPlaceInfo,
   applyHashStatVar,
-  MAP_REDIRECT_PREFIX,
+  MAP_URL_PATH,
   updateHashDisplay,
   updateHashPlaceInfo,
   updateHashStatVar,
 } from "./util";
 
 function App(): JSX.Element {
-  const { statVar, placeInfo, isLoading } = useContext(Context);
-  const showChart =
-    !_.isNull(statVar.value.info) &&
-    !_.isEmpty(placeInfo.value.enclosingPlace.dcid) &&
-    !_.isEmpty(placeInfo.value.enclosedPlaceType);
-  const showLoadingSpinner =
-    isLoading.value.isDataLoading || isLoading.value.isPlaceInfoLoading;
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
 
   // Show the BigQuery button when there is a chart
   return (
-    <>
+    <React.StrictMode>
       <StatVarChooser
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
       />
       <div id="plot-container">
         <Container fluid={true}>
-          {!showChart && (
-            <Row>
-              <h1 className="mb-4">Map Explorer</h1>
-            </Row>
-          )}
+          <Row>
+            <Title />
+          </Row>
           <Row>
             <PlaceOptions toggleSvHierarchyModal={toggleSvModalCallback} />
           </Row>
-          {!showChart && (
-            <Row>
-              <Info />
-            </Row>
-          )}
-          {showChart && (
-            <Row id="chart-row">
-              <ChartLoader />
-            </Row>
-          )}
-          <div
-            id="screen"
-            style={{ display: showLoadingSpinner ? "block" : "none" }}
-          >
-            <div id="spinner"></div>
-          </div>
+          <Row>
+            <Info />
+          </Row>
+          <Row id="chart-row">
+            <ChartLoader />
+          </Row>
         </Container>
       </div>
-    </>
+    </React.StrictMode>
   );
 }
 
@@ -91,7 +74,7 @@ export function AppWithContext(): JSX.Element {
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
-  const store = getInitialContext(params);
+  const store = useInitialContext(params);
 
   useEffect(() => updateHash(store), [store]);
   window.onhashchange = () => applyHash(store);
@@ -104,11 +87,14 @@ export function AppWithContext(): JSX.Element {
 }
 
 function applyHash(context: ContextType): void {
+  // When url formation is updated here, make sure to also update the
+  // getRedirectLink function in ./util.ts
   const params = new URLSearchParams(
     decodeURIComponent(location.hash).replace("#", "?")
   );
   context.placeInfo.set(applyHashPlaceInfo(params));
   context.statVar.set(applyHashStatVar(params));
+  context.dateCtx.set(applyHashDate(params));
   context.display.set(applyHashDisplay(params));
 }
 
@@ -116,9 +102,17 @@ function updateHash(context: ContextType): void {
   let hash = updateHashStatVar("", context.statVar.value);
   hash = updateHashPlaceInfo(hash, context.placeInfo.value);
   hash = updateHashDisplay(hash, context.display.value);
+  // leaflet flag is part of the search arguments instead of hash, so need to
+  // update that separately
+  // TODO: forward along all args and then append hash in the url.
+  let args = "";
+  if (context.display.value.allowLeaflet) {
+    args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
+  }
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
-  if (newHash && newHash !== currentHash) {
-    history.pushState({}, "", `${MAP_REDIRECT_PREFIX}#${newHash}`);
+  const currentArgs = location.search;
+  if (newHash && (newHash !== currentHash || args !== currentArgs)) {
+    history.pushState({}, "", `${MAP_URL_PATH}${args}#${newHash}`);
   }
 }

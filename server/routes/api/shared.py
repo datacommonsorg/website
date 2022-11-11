@@ -15,34 +15,25 @@
 
 import re
 
-from services.datacommons import fetch_data
-from cache import cache
+import services.datacommons as dc
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def cached_name(dcids):
+def names(dcids):
     """Returns display names for set of dcids.
 
     Args:
-        dcids: ^ separated string of dcids. It must be a single string for the cache.
+        dcids: A list of DCIDs.
 
     Returns:
         A dictionary of display place names, keyed by dcid.
     """
-    dcids = dcids.split('^')
-    response = fetch_data('/node/property-values', {
-        'dcids': dcids,
-        'property': 'name',
-        'direction': 'out'
-    },
-                          compress=False,
-                          post=True)
+    response = dc.property_values(dcids, 'name')
     result = {}
     for dcid in dcids:
         if not dcid:
             continue
-        values = response[dcid].get('out')
-        result[dcid] = values[0]['value'] if values else ''
+        values = response.get(dcid, [])
+        result[dcid] = values[0] if values else ''
     return result
 
 

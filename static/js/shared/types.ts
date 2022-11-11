@@ -106,6 +106,8 @@ interface PlaceSummary {
 export interface PlaceTypeSummary {
   placeCount: number;
   topPlaces: PlaceSummary[];
+  minValue: number;
+  maxValue: number;
 }
 
 interface SeriesKey {
@@ -187,4 +189,18 @@ export interface StatVarSpec {
   scaling: number;
   log: boolean;
   name?: string;
+}
+
+export interface SampleDates {
+  facetDates: Record<string, Array<string>>;
+  bestFacet: string;
+}
+
+// metadata associated with a single data point in the map charts
+export interface DataPointMetadata {
+  popDate: string;
+  popSource: string;
+  placeStatDate: string;
+  statVarSource: string;
+  errorMessage?: string;
 }

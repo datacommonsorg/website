@@ -19,10 +19,12 @@
  */
 
 import axios from "axios";
+import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawChoropleth, getColorScale } from "../chart/draw_choropleth";
+import { drawD3Map } from "../chart/draw_d3_map";
+import { getColorScale } from "../chart/draw_map_utils";
 import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
@@ -33,9 +35,14 @@ import {
   SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
-import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
+import {
+  DataPointMetadata,
+  NamedPlace,
+  NamedTypedPlace,
+  StatVarSpec,
+} from "../shared/types";
 import { getCappedStatVarDate } from "../shared/util";
-import { DataPointMetadata, getPlaceChartData } from "../tools/map/util";
+import { getPlaceChartData } from "../tools/map/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../tools/shared_util";
 import { stringifyFn } from "../utils/axios";
 import { getDateRange } from "../utils/string_utils";
@@ -249,7 +256,13 @@ function draw(
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
   const width = svgContainer.current.offsetWidth;
-  const colorScale = getColorScale(mainStatVar, chartData.dataValues);
+  const dataValues = Object.values(chartData.dataValues);
+  const colorScale = getColorScale(
+    mainStatVar,
+    d3.min(dataValues),
+    d3.mean(dataValues),
+    d3.max(dataValues)
+  );
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Missing";
     if (place.dcid in chartData.dataValues) {
@@ -261,7 +274,7 @@ function draw(
     }
     return place.name + ": " + value;
   };
-  drawChoropleth(
+  drawD3Map(
     props.id,
     chartData.geoJson,
     CHART_HEIGHT,

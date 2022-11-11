@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 
+import { GeoJsonFeature } from "../../chart/types";
 import {
   BANGLADESH_PLACE_DCID,
   CHINA_PLACE_DCID,
@@ -34,14 +35,17 @@ import {
 import {
   EntityObservation,
   EntitySeries,
-  PlaceStatDateWithinPlace,
+  ObservationDate,
   StatMetadata,
 } from "../../shared/stat_types";
 import {
+  DataPointMetadata,
   NamedPlace,
   NamedTypedPlace,
   ProvenanceSummary,
+  SampleDates,
 } from "../../shared/types";
+import { getCappedStatVarDate } from "../../shared/util";
 import { getDateRange } from "../../utils/string_utils";
 import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
@@ -69,11 +73,15 @@ const SV_REGEX_INSTALLATION_MAPPING = {
 
 const NUM_SAMPLE_DATES = 10;
 
+export const CHART_LOADER_SCREEN = "chart-loader-screen";
+
+export const ALLOW_LEAFLET_URL_ARG = "leaflet";
 export const DEFAULT_DISPLAY_OPTIONS = {
   color: "",
   domain: null,
   showMapPoints: false,
   showTimeSlider: false,
+  allowLeaflet: false,
 };
 
 export const ALL_MAP_PLACE_TYPES = {
@@ -137,27 +145,28 @@ export const ENCLOSED_PLACE_TYPE_NAMES = {
   [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
 };
 
-export const BEST_AVAILABLE_METAHASH = "Best Available";
+export const MANUAL_GEOJSON_DISTANCES = {
+  [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+};
 
 // list of place types in the US in the order of high to low granularity.
 export const USA_PLACE_HIERARCHY = ["Country", "State", "County"];
-export const MAP_REDIRECT_PREFIX = "/tools/map";
+export const MAP_URL_PATH = "/tools/map";
 
-// metadata associated with a single data point in the map charts
-export interface DataPointMetadata {
-  popDate: string;
-  popSource: string;
-  placeStatDate: string;
-  statVarSource: string;
-  errorMessage?: string;
+/**
+ * Parses the hash and get the date.
+ * @param params the params in the hash
+ */
+export function applyHashDate(params: URLSearchParams): string {
+  return params.get(URL_PARAM_KEYS.DATE) || "";
 }
+
 /**
  * Parses the hash and produces a StatVar
  * @param params the params in the hash
  */
 export function applyHashStatVar(params: URLSearchParams): StatVar {
   const dcid = params.get(URL_PARAM_KEYS.STAT_VAR_DCID);
-  const date = params.get(URL_PARAM_KEYS.DATE);
   const denom = params.get(URL_PARAM_KEYS.DENOM);
   const mapPointSv = params.get(URL_PARAM_KEYS.MAP_POINTS_SV);
   const metahash = params.get(URL_PARAM_KEYS.SV_METAHASH);
@@ -166,7 +175,6 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
       dcid: "",
       perCapita: false,
       info: null,
-      date: "",
       denom: "",
       mapPointSv: "",
       metahash: "",
@@ -177,7 +185,6 @@ export function applyHashStatVar(params: URLSearchParams): StatVar {
     dcid,
     perCapita: perCapita && perCapita === "1" ? true : false,
     info: null,
-    date: date ? date : "",
     denom: denom ? denom : DEFAULT_POPULATION_DCID,
     mapPointSv: mapPointSv ? mapPointSv : "",
     metahash: metahash ? metahash : "",
@@ -222,12 +229,27 @@ export function applyHashDisplay(params: URLSearchParams): DisplayOptions {
     : [];
   const showMapPoints = params.get(URL_PARAM_KEYS.MAP_POINTS);
   const showTimeSlider = params.get(URL_PARAM_KEYS.TIME_SLIDER);
+  // the allow leaflet param is in the search query instead of the url hash
+  const allowLeaflet = new URLSearchParams(location.search).get(
+    ALLOW_LEAFLET_URL_ARG
+  );
   return {
     color,
     domain: domain.length === 3 ? (domain as [number, number, number]) : null,
     showMapPoints: showMapPoints && showMapPoints === "1" ? true : false,
     showTimeSlider: showTimeSlider && showTimeSlider === "1" ? true : false,
+    allowLeaflet: allowLeaflet && allowLeaflet === "1" ? true : false,
   };
+}
+
+/**
+ * Updates the hash based on date and returns the new hash
+ * @param hash the current hash
+ * @param date the date to update the hash with
+ */
+export function updateHashDate(hash: string, date: string): string {
+  const dateParam = date ? `&${URL_PARAM_KEYS.DATE}=${date}` : "";
+  return hash + dateParam;
 }
 
 /**
@@ -240,9 +262,6 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
     return hash;
   }
   const perCapita = statVar.perCapita ? "1" : "0";
-  const dateParam = statVar.date
-    ? `&${URL_PARAM_KEYS.DATE}=${statVar.date}`
-    : "";
   const mapPointParam = statVar.mapPointSv
     ? `&${URL_PARAM_KEYS.MAP_POINTS_SV}=${statVar.mapPointSv}`
     : "";
@@ -257,7 +276,6 @@ export function updateHashStatVar(hash: string, statVar: StatVar): string {
     `&${URL_PARAM_KEYS.PER_CAPITA}=${perCapita}` +
     denomParam +
     metahashParam +
-    dateParam +
     mapPointParam;
   return hash + params;
 }
@@ -299,6 +317,11 @@ export function updateHashDisplay(
       display.showMapPoints ? "1" : "0"
     }`;
   }
+  if (display.showTimeSlider) {
+    params = `${params}&${URL_PARAM_KEYS.TIME_SLIDER}=${
+      display.showTimeSlider ? "1" : "0"
+    }`;
+  }
   if (display.color) {
     params = `${params}&${URL_PARAM_KEYS.COLOR}=${display.color}`;
   }
@@ -324,6 +347,8 @@ export function getRedirectLink(
   mapPointPlaceType: string,
   displayOptions: DisplayOptions
 ): string {
+  // When url formation is updated here, make sure to also update the updateHash
+  // function in ./app.tsx
   let hash = updateHashStatVar("", statVar);
   hash = updateHashDisplay(hash, displayOptions);
   const enclosedPlaceTypes = getAllChildPlaceTypes(selectedPlace, parentPlaces);
@@ -335,7 +360,11 @@ export function getRedirectLink(
     parentPlaces: [],
     selectedPlace,
   });
-  return `${MAP_REDIRECT_PREFIX}#${encodeURIComponent(hash)}`;
+  let args = "";
+  if (displayOptions.allowLeaflet) {
+    args += `?${ALLOW_LEAFLET_URL_ARG}=1`;
+  }
+  return `${MAP_URL_PATH}${args}#${encodeURIComponent(hash)}`;
 }
 
 /**
@@ -467,7 +496,7 @@ export function getPlaceChartData(
   if (calculateRatio) {
     const placePopData =
       placeDcid in populationData ? populationData[placeDcid] : null;
-    if (_.isEmpty(placePopData)) {
+    if (_.isNull(placePopData) || _.isEmpty(placePopData.series)) {
       metadata.errorMessage = "Population Data Missing";
       return { metadata, sources, date: placeStatDate, value };
     }
@@ -536,7 +565,7 @@ export function getMetaText(metadata: StatMetadata): string {
  * Return a map of metahash to metatext.
  * @param metadataMap
  */
-function getMetahashMap(
+export function getMetahashMap(
   metadataMap: Record<string, StatMetadata>
 ): Record<string, string> {
   const metahashMap: Record<string, string> = {};
@@ -549,53 +578,60 @@ function getMetahashMap(
 
 /**
  * Return a map of sources to sample dates to display on the time slider.
- * @param metadataMap
- * @param placeStatDateWithinPlace
+ * @param observationDates
  */
 export function getTimeSliderDates(
-  metadataMap: Record<string, StatMetadata>,
-  placeStatDateWithinPlace: Array<PlaceStatDateWithinPlace>
-): Record<string, Array<string>> {
-  const metahashMap: Record<string, string> = getMetahashMap(metadataMap);
-  const sampleDates: Record<string, Array<string>> = {};
-  let bestDate = "0";
-  let bestCount = 0;
-  let bestAvailable = "";
-  for (const series of placeStatDateWithinPlace) {
-    const metatext = getMetaText(series.metadata);
-    const dates = Object.keys(series.datePlaceCount).sort();
-    let seriesWeight = 0;
-    if (dates.length <= NUM_SAMPLE_DATES) {
-      sampleDates[metahashMap[metatext]] = dates;
-    } else {
-      const increment = Math.floor(dates.length / NUM_SAMPLE_DATES);
-      const selectedDates: Array<string> = [];
-      for (let i = 0; i < dates.length; i += increment) {
-        selectedDates.push(dates[i]);
+  observationDates: Array<ObservationDate>
+): SampleDates {
+  const facetEntityCount: Record<string, { date: string; count: number }[]> =
+    {};
+  for (const observationDate of observationDates) {
+    const date = observationDate.date;
+    for (const entityCount of observationDate.entityCount) {
+      const facet = entityCount.facet;
+      const count = entityCount.count;
+      if (!(facet in facetEntityCount)) {
+        facetEntityCount[facet] = [];
       }
-
-      // Include most recent date
-      if (selectedDates[selectedDates.length - 1] !== dates[dates.length - 1]) {
-        selectedDates.push(dates[dates.length - 1]);
-      }
-      sampleDates[metahashMap[metatext]] = selectedDates;
-    }
-    for (const date of sampleDates[metahashMap[metatext]]) {
-      seriesWeight += series.datePlaceCount[date];
-    }
-
-    // Select series with most recent date and greatest number of places
-    if (
-      dates[dates.length - 1] > bestDate ||
-      (dates[dates.length - 1] === bestDate && seriesWeight > bestCount)
-    ) {
-      bestDate = dates[dates.length - 1];
-      bestCount = seriesWeight;
-      bestAvailable = metahashMap[metatext];
+      facetEntityCount[facet].push({ date, count });
     }
   }
-  sampleDates[BEST_AVAILABLE_METAHASH] = [bestAvailable];
-  return sampleDates;
+  const latestFacets = observationDates[
+    observationDates.length - 1
+  ].entityCount.map((x) => x.facet);
+
+  const sampleDates: Record<string, Array<string>> = {};
+  const facetWeight: Record<string, number> = {};
+  for (const facet in facetEntityCount) {
+    const entityCount = facetEntityCount[facet];
+    const increment = Math.max(
+      1,
+      Math.ceil(entityCount.length / NUM_SAMPLE_DATES)
+    );
+    const selectedDates: Array<string> = [];
+    let weight = 0;
+    for (let i = 0; i < entityCount.length - 1; i += increment) {
+      selectedDates.push(entityCount[i].date);
+      weight += entityCount[i].count;
+    }
+    // Include most recent date
+    selectedDates.push(entityCount[entityCount.length - 1].date);
+    weight += entityCount[entityCount.length - 1].count;
+    sampleDates[facet] = selectedDates;
+    facetWeight[facet] = weight;
+  }
+  let bestWeight = 0;
+  let bestAvailable = "";
+  for (const facet of latestFacets) {
+    if (facetWeight[facet] > bestWeight) {
+      bestWeight = facetWeight[facet];
+      bestAvailable = facet;
+    }
+  }
+  return {
+    facetDates: sampleDates,
+    bestFacet: bestAvailable,
+  };
 }
 
 /**
@@ -634,13 +670,94 @@ export function getLegendBounds(
         maxValue,
       ];
       if (metahashMap[metatext] === bestAvailableHash) {
-        legendBounds[BEST_AVAILABLE_METAHASH] = [
-          minValue,
-          (minValue + maxValue) / 2,
-          maxValue,
-        ];
+        // TODO: Time slider sample dates is from one particular facet,
+        // so it should always set metahash, which is not done right now.
+        // This is using the bound from one particular facet for data from
+        // mixed facets.
+        legendBounds[""] = [minValue, (minValue + maxValue) / 2, maxValue];
       }
     }
   }
   return legendBounds;
+}
+
+export function getDate(statVar: string, date: string): string {
+  let res = "";
+  const cappedDate = getCappedStatVarDate(statVar);
+  // If there is a specified date, get the data for that date. If no specified
+  // date, still need to cut data for prediction data that extends to 2099
+  if (date) {
+    res = date;
+  } else if (cappedDate) {
+    res = cappedDate;
+  }
+  return res;
+}
+
+export function getGeoJsonDataFeatures(
+  placeDcids: string[],
+  enclosedPlaceType: string
+): GeoJsonFeature[] {
+  const distance = MANUAL_GEOJSON_DISTANCES[enclosedPlaceType];
+  if (!distance) {
+    return [];
+  }
+  const geoJsonFeatures = [];
+  for (const placeDcid of placeDcids) {
+    const dcidPrefixSuffix = placeDcid.split("/");
+    if (dcidPrefixSuffix.length < 2) {
+      continue;
+    }
+    const latlon = dcidPrefixSuffix[1].split("_");
+    if (latlon.length < 2) {
+      continue;
+    }
+    const neLat = Number(latlon[0]) + distance / 2;
+    const neLon = Number(latlon[1]) + distance / 2;
+    const placeName = `${latlon[0]}, ${latlon[1]} (${distance} arc degree)`;
+    // TODO: handle cases of overflowing 180 near the international date line
+    // becasuse not sure if drawing libraries can handle this
+    geoJsonFeatures.push({
+      geometry: {
+        type: "MultiPolygon",
+        coordinates: [
+          [
+            [
+              [neLon, neLat],
+              [neLon, neLat - distance],
+              [neLon - distance, neLat - distance],
+              [neLon - distance, neLat],
+              [neLon, neLat],
+            ],
+          ],
+        ],
+      },
+      id: placeDcid,
+      properties: { geoDcid: placeDcid, name: placeName },
+      type: "Feature",
+    });
+  }
+  return geoJsonFeatures;
+}
+
+export function ifShowChart(statVar: StatVar, placeInfo: PlaceInfo): boolean {
+  return (
+    !_.isNull(statVar.info) &&
+    !_.isEmpty(placeInfo.enclosingPlace.dcid) &&
+    !_.isEmpty(placeInfo.enclosedPlaceType)
+  );
+}
+
+export function getRankingLink(
+  statVar: StatVar,
+  placeDcid: string,
+  placeType: string,
+  date: string,
+  unit: string
+): string {
+  let params = "";
+  params += statVar.perCapita ? "&pc=1" : "";
+  params += unit ? `&unit=${unit}` : "";
+  params += date ? `&date=${date}` : "";
+  return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
 }
