@@ -177,8 +177,8 @@ export function fetchDisasterData(
   // for every month in that year.
   const dates = [];
   if (date.length === 4) {
-    for (let i = 1; i < 13; i++) {
-      dates.push(`${date}-${i < 10 ? "0" : ""}${i}`);
+    for (let i = 1; i <= 12; i++) {
+      dates.push(`${date}-${i.toString().padStart(2, "0")}`);
     }
   } else if (date.length === 7) {
     dates.push(date);
