@@ -18,6 +18,10 @@
  * Constants used across components in Disaster Dashboard
  */
 
+// id of the spinner screen for the content sections of the disaster dashboard
+export const CONTENT_SPINNER_ID = "content-spinner-screen";
+
+// enum of possible disaster types user can select
 export enum DisasterType {
   ALL = "All",
   EARTHQUAKE = "Earthquake",
