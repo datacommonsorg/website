@@ -98,9 +98,13 @@ export function fetchDateList(disasterType: DisasterType): Promise<string[]> {
     const dateList = [];
     const currDate = new Date(maxDate);
     const endDate = new Date(minDate);
+    const dateStringCut = decrementByYear ? 4 : 7;
     while (currDate >= endDate) {
-      const stringCut = decrementByYear ? 4 : 7;
-      dateList.push(currDate.toISOString().substring(0, stringCut));
+      // currDate is in local time but toISOString will get the iso string of the
+      // date in UTC. So first we need to convert currDate to UTC date without
+      // changing the date.
+      const utcDate = new Date(currDate.toLocaleDateString() + " UTC");
+      dateList.push(utcDate.toISOString().substring(0, dateStringCut));
       if (decrementByYear) {
         currDate.setFullYear(currDate.getFullYear() - 1);
       } else {
