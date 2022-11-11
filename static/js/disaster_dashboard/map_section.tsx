@@ -176,9 +176,9 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
 
   function canClickRegion(placeDcid: string): boolean {
     // If a country is a European country, we want to add Europe to its list
-    // of parents. This is important for getAllChildPlaceTypes (line 191)
-    // because it will handle European countries differently than regular
-    // countries.
+    // of parents when calling getParentPlaces. This is important for
+    // getAllChildPlaceTypes because it will handle European countries
+    // differently than regular countries.
     const enclosingPlace =
       props.fetchedEuropeanPlaces.findIndex(
         (country) => country.dcid === placeDcid
@@ -223,24 +223,24 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
       props.geoJson,
       height,
       width,
-      {} /** dataValues: no data values to show on the base map */,
-      "" /** units: no units to show */,
-      null /** colorScale: no color scale since no data shown on the base map */,
+      {} /* dataValues: no data values to show on the base map */,
+      "" /* units: no units to show */,
+      null /* colorScale: no color scale since no data shown on the base map */,
       (geoDcid: GeoJsonFeatureProperties) => {
         const namedPlace = {
           name: geoDcid.name,
           dcid: geoDcid.geoDcid,
         };
         props.onPlaceUpdated(namedPlace);
-      } /** redirectAction */,
+      } /* redirectAction */,
       () =>
-        "" /** getTooltipHtml: no tooltips to be shown on hover over a map region */,
+        "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
       canClickRegion,
-      false /** shouldGenerateLegend: no legend needs to be generated since no data for base map */,
-      true /** shouldShowBoundaryLines */,
+      false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
+      true /* shouldShowBoundaryLines */,
       projection,
       props.selectedPlaceInfo.place.dcid,
-      "" /** zoomDcid: no dcid to zoom in on */,
+      "" /* zoomDcid: no dcid to zoom in on */,
       zoomParams
     );
     const pointValues = {};
