@@ -165,8 +165,8 @@ function fetchEventTypeData(
 /**
  * Get promise for all event points for a specific disaster type, place, and date
  * @param disasterType disaster type to get data for
- * @param place place to get data for
- * @param date date to get data for (can be YYYY or YYYY-MM)
+ * @param place containing place to get data for
+ * @param date date with format YYYY or YYYY-MM to get data for
  */
 export function fetchDisasterData(
   disasterType: DisasterType,
