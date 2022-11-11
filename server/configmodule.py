@@ -126,15 +126,6 @@ class LocalLiteConfig(LocalBaseConfig):
     LITE = True
 
 
-class LocalConfig(LocalBaseConfig):
-    SECRET_PROJECT = 'datcom-website-dev'
-    ADMIN = True
-
-
-class LocalLiteConfig(LocalBaseConfig):
-    LITE = True
-
-
 class LocalIitmConfig(LocalConfig):
     SECRET_PROJECT = 'datcom-website-dev'
     IITM = True

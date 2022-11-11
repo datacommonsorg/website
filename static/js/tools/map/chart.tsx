@@ -90,14 +90,6 @@ export function Chart(props: ChartProps): JSX.Element {
     });
   }, [statVar.value.dcid, placeInfo.value.enclosingPlace.dcid]);
 
-  // Triggered only when stat vars or places change and send data to google analytics.
-  useEffect(() => {
-    triggerGAEvent(GA_EVENT_TOOL_CHART_PLOT, {
-      [GA_PARAM_PLACE_DCID]: props.placeInfo.enclosingPlace.dcid,
-      [GA_PARAM_STAT_VAR]: props.statVar.value.dcid,
-    });
-  }, [props.statVar.value.dcid, props.placeInfo.enclosingPlace.dcid]);
-
   return (
     <div className="chart-section-container">
       <Card className="chart-section-card">
