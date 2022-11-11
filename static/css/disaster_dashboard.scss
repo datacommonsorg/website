@@ -16,6 +16,9 @@
 
  @import "base";
 
+ $border: 1px solid rgba(0, 0, 0, 0.125);
+ $border-radius: 0.5rem;
+
 .all-disasters-legend-entry {
   display: flex;
   align-items: center;
@@ -35,7 +38,7 @@
 
 .disaster-dashboard-tab-section {
   display: flex;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: $border;
 }
 
 .disaster-dashboard-tab,
@@ -70,11 +73,11 @@
 }
 
 .disaster-dashboard-map-section {
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: $border;
   position: relative;
   flex-grow: 1;
   min-width: 25rem;
-  border-radius: 0.5rem;
+  border-radius: $border-radius;
   margin-top: 1rem;
 }
 
@@ -82,7 +85,7 @@
   width: fit-content;
   position: absolute;
   top: 0;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: $border;
   margin: 1rem;
   z-index: 2;
 }
@@ -94,16 +97,16 @@
 }
 
 .ranking-section {
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: $border;
   padding: 1rem;
   margin-right: 1rem;
-  border-radius: 0.5rem;
+  border-radius: $border-radius;
   margin-top: 1rem;
 }
 
 #disaster-dashboard-info-card {
   position: absolute;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: $border;
   background-color: white;
   max-width: 15rem;
   max-height: 15rem;
@@ -145,7 +148,7 @@
 
 .zoom-button {
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: $border;
   padding: 0.1rem;
   display: flex;
   width: fit-content;
