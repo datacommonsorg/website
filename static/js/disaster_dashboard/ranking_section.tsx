@@ -21,8 +21,12 @@
 import _ from "lodash";
 import React from "react";
 
-import { DISASTER_EVENT_INTENSITIES, DISASTER_EVENT_TYPES } from "./constants";
-import { DisasterEventPoint, DisasterType } from "./types";
+import {
+  DISASTER_EVENT_INTENSITIES,
+  DISASTER_EVENT_TYPES,
+  DisasterType,
+} from "./constants";
+import { DisasterEventPoint } from "./types";
 
 const RANKING_ITEMS_COUNT = 5;
 
@@ -105,7 +109,11 @@ export function RankingSection(props: RankingSectionPropType): JSX.Element {
   );
 }
 
-function getRankedDisasterCounts(
+/**
+ * Gets and ranks the count of events for each disaster type
+ * @param disasterEventData list of disaster event points
+ */
+export function getRankedDisasterCounts(
   disasterEventData: DisasterEventPoint[]
 ): { disaster: string; count: number }[] {
   const counts = {};
@@ -134,7 +142,14 @@ function getRankedDisasterCounts(
   });
 }
 
-function getRankingUnits(
+/**
+ * Gets ranking units where each unit is a ranking of event points based on a
+ * single prop
+ * @param disasterEventData
+ * @param selectedDisaster
+ * @returns
+ */
+export function getRankingUnits(
   disasterEventData: DisasterEventPoint[],
   selectedDisaster: DisasterType
 ): RankingUnitInfo[] {
@@ -144,13 +159,15 @@ function getRankingUnits(
     return rankings;
   }
   for (const prop of props) {
-    const sortedEvents = disasterEventData.sort((a, b) => {
+    const sortedEvents = _.clone(disasterEventData).sort((a, b) => {
       const eventDataAVal = a.intensity[prop];
       const eventDataBVal = b.intensity[prop];
       if (eventDataAVal && eventDataBVal) {
         return eventDataBVal - eventDataAVal;
       } else if (eventDataAVal) {
         return -1;
+      } else if (eventDataBVal) {
+        return 1;
       } else {
         return 0;
       }
