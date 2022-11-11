@@ -81,6 +81,8 @@ export function RankingSection(props: RankingSectionPropType): JSX.Element {
         <>
           <h3>Rankings</h3>
           {rankingUnits.map((rankingUnit) => {
+            // TODO: make each div a regular <a> link and update navigation
+            // of disaster dashboard
             return (
               <div
                 onClick={() => props.onIntensityPropSelected(rankingUnit.prop)}

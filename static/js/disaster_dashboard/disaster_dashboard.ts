@@ -24,8 +24,15 @@ import ReactDOM from "react-dom";
 import { Page } from "./page";
 
 window.onload = () => {
+  const europeanCountries =
+    JSON.parse(
+      document.getElementById("main-pane").dataset.europeanCountries
+    ) || [];
+  const europeanNamedPlaces = europeanCountries.map((countryDcid) => {
+    return { dcid: countryDcid, name: countryDcid };
+  });
   ReactDOM.render(
-    React.createElement(Page),
+    React.createElement(Page, { europeanCountries: europeanNamedPlaces }),
     document.getElementById("main-pane")
   );
 };
