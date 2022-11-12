@@ -1,91 +1,93 @@
-@import url('https://fonts.googleapis.com/css?family=Public+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Public+Sans&display=swap");
 
 :root {
-    --iitm-red: #f54f60;
-    --iitm-link: #fc9090;
-    --iitm-link-dark: #f86e6e;
-    --iitm-orange: #fc9090;
-    --iitm-btn-bg: #C13EA6;
-    --iitm-section-text: #0D0952;
-    --dc-primary: #80296E;
-    --link-color: #80296E;
-    --footer-bg: #0B1434;
+  --iitm-red: #f54f60;
+  --iitm-link: #fc9090;
+  --iitm-link-dark: #f86e6e;
+  --iitm-orange: #fc9090;
+  --iitm-btn-bg: #c13ea6;
+  --iitm-section-text: #0d0952;
+  --dc-primary: #80296e;
+  --link-color: #80296e;
+  --footer-bg: #0b1434;
 }
 
 header.masthead {
-  padding-top:10rem;
-  padding-bottom:calc(10rem - 56px);
-  background-position:50%;
-  background-size:cover
- }
- header.masthead hr {
-  margin-top:30px;
-  margin-bottom:30px
- }
- header.masthead h1 {
-  font-size:2rem
- }
- header.masthead p {
-  font-weight:300
- }
- @media (min-width:768px) {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-position: 50%;
+  background-size: cover;
+}
+header.masthead hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+header.masthead h1 {
+  font-size: 2rem;
+}
+header.masthead p {
+  font-weight: 300;
+}
+@media (min-width: 768px) {
   header.masthead p {
-   font-size:1.15rem
+    font-size: 1.15rem;
   }
- }
- @media (min-width:992px) {
+}
+@media (min-width: 992px) {
   header.masthead {
-   height:100vh;
-   min-height:650px;
-   padding-top:0;
-   padding-bottom:0
+    height: 100vh;
+    min-height: 650px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
   header.masthead h1 {
-   font-size:3rem
+    font-size: 3rem;
   }
- }
- @media (min-width:1200px) {
+}
+@media (min-width: 1200px) {
   header.masthead h1 {
-   font-size:4rem
+    font-size: 4rem;
   }
- }
+}
 
 body {
-    font-family: "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    text-align: left;
-  }
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}
 
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
-  }
-
-@media (min-width: 1200px) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1400px;
-    }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
 
 a.linked-text {
-  color:var(--iitm-orange);
+  color: var(--iitm-orange);
   cursor: pointer;
 }
 
 a.linked-text:hover {
-  color:var(--iitm-red);
+  color: var(--iitm-red);
   text-underline-offset: 0.2em;
 }
 
-  #hero h1 {
-    margin: 0;
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 56px;
-    color: #fff;
+#hero h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
 }
 
 /*
@@ -115,30 +117,31 @@ a.linked-text:hover {
   }
 }
 
-.pre-line{
+.pre-line {
   border-left: 3px solid #fff;
   padding-left: 20px;
 }
 
-.pre-line-6C63FF{
-  border-left: 3px solid #6C63FF;
+.pre-line-6C63FF {
+  border-left: 3px solid #6c63ff;
   padding-left: 20px;
 }
 
-.pre-line-6C63FF h4, .pre-line h4 {
+.pre-line-6C63FF h4,
+.pre-line h4 {
   line-height: 0.8cm;
 }
 
-.bg-E8F2F5{
-    background-color: #E8F2F5;
+.bg-E8F2F5 {
+  background-color: #e8f2f5;
 }
 
-.bg-navy{
-  background-color: #0B1434;
+.bg-navy {
+  background-color: #0b1434;
 }
 
 .homepage-section {
-  padding: 5rem 0!important;
+  padding: 5rem 0 !important;
 }
 
 .bg-E8F2F5 h2 {
@@ -155,15 +158,14 @@ a.linked-text:hover {
 
 .bg-E8F2F5 .position-relative span a {
   position: absolute;
-  bottom:0;
+  bottom: 0;
   text-align: center;
-  right:0;
-  left:0;
-  font-size:16px;
+  right: 0;
+  left: 0;
+  font-size: 16px;
   text-decoration: underline;
-  color: #80296E;
+  color: #80296e;
 }
-
 
 .bg-E8F2F5 .position-relative span a:hover {
   transition: 0.3s;
@@ -171,8 +173,8 @@ a.linked-text:hover {
   cursor: pointer;
 }
 
-.text-info{
-  color:#9CABE0!important;
+.text-info {
+  color: #9cabe0 !important;
   text-transform: uppercase;
   font-size: 16px;
   font-weight: bold;
@@ -180,23 +182,22 @@ a.linked-text:hover {
   text-underline-offset: 0.5em;
 }
 
-.footer-links{
-  color:hsl(0, 0%, 85%);
+.footer-links {
+  color: hsl(0, 0%, 85%);
   font-weight: 500;
 }
 
-
-footer ul a:hover{
+footer ul a:hover {
   text-decoration: none;
 }
 
 hr {
-  max-width: 100%!important;
-  border-width: 1px!important;
-  border-color: #9CABE0!important;
+  max-width: 100% !important;
+  border-width: 1px !important;
+  border-color: #9cabe0 !important;
 }
 
-div.footer-links{
+div.footer-links {
   font-size: 14px;
 }
 
@@ -204,13 +205,13 @@ div.footer-links{
   text-decoration: none;
 }
 
-.logo-section{
+.logo-section {
   background-image: url("./iitm-bg-logo.svg");
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0px;
-  min-height:80px;
-  min-width:270px;
+  min-height: 80px;
+  min-width: 270px;
 }
 
 /* #main-header{
@@ -226,10 +227,12 @@ div.footer-links{
 }
 
 #main-nav .nav-link {
-  text-transform: uppercase!important;
-  font-size: .9rem!important;
-  font-weight: 700!important;
-  font-family: "Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"!important;
+  text-transform: uppercase !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
 
 /*
@@ -243,7 +246,7 @@ div.footer-links{
   background-repeat: no-repeat;
 } */
 
-#particles-js{
+#particles-js {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -253,7 +256,6 @@ div.footer-links{
   background-repeat: no-repeat;
 }
 
-
 .img-container {
   width: 450px;
   height: 450px;
@@ -261,19 +263,17 @@ div.footer-links{
 }
 
 .clipped-img {
-  clip-path: url('#header-clip-svg');
+  clip-path: url("#header-clip-svg");
   max-width: 100%;
 }
 
-
 @media only screen and (max-width: 500px) {
   .india-network {
-    display:none;
+    display: none;
   }
 }
 
 #mainNav.navbar-shrink {
-  border-bottom:1px solid rgba(33,37,41,.1);
-  background-color:#fff
- }
-
+  border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+  background-color: #fff;
+}
