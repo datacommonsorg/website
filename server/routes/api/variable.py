@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import html
 import json
 
 from flask import Blueprint, request
@@ -24,6 +25,6 @@ bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 def get_variable_path():
     """Gets the path of a stat var to the root of the stat var hierarchy.
     """
-    dcid = request.args.get("dcid")
+    dcid = html.escape(request.args.get("dcid"))
     url_path = "/v1/variable/ancestors/" + dcid
     return json.dumps([dcid] + dc.get(url_path).get("ancestors", [])), 200
