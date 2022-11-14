@@ -140,7 +140,7 @@ If you don't have DataCommons GCP permissions, run
 ./run_server.sh -e lite
 ```
 
-Other options for -e are `private` for private data commons, or `iitm`
+Other options for -e are `custom` for custom data commons, or `iitm`
 for iitm data commons.
 
 This will bring up local website without place search functionality.
@@ -224,7 +224,7 @@ View the deployoment at [link](https://dev.datacommons.org)
 
 The GKE configuration is stored [here](deploy/gke/prod.yaml).
 
-### Private Instance
+### Custom Instance
 
 Create a pub/sub topic for mixer to listen to data change.
 

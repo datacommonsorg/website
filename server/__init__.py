@@ -74,7 +74,7 @@ def register_routes_base_dc(app):
 
 
 def register_routes_custom_dc(app):
-    ## apply the blueprints for private dc instances
+    ## apply the blueprints for custom dc instances
     pass
 
 

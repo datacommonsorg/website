@@ -37,7 +37,7 @@ website:
     annotations:
       kubernetes.io/ingress.global-static-ip-name: "your-external-global-static-ip-name"
   flask:
-    env: "private"
+    env: "custom"
     secretGCPProjectID: "your-flasks-secret-gcp-project"
   iap:
     enabled: true
@@ -77,7 +77,7 @@ Githash of the [commit of the webiste repo](https://github.com/datacommonsorg/we
 
 **website.flask.env**
 
-This value should be "private", unless otherwise specified from the dc-core team.
+This value should be "custom", unless otherwise specified from the dc-core team.
 
 **website.flask.secretGCPProjectID**
 

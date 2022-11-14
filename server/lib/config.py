@@ -23,8 +23,8 @@ ENV = {
     'staging',
     # Autopush
     'autopush',
-    # Private
-    'private',
+    # Custom
+    'custom',
     'feedingamerica',
     'stanford',
     'tidal',
@@ -40,7 +40,7 @@ ENV = {
     # Local
     'local',
     'local-lite',
-    'local-private',
+    'local-custom',
     'local-iitm',
     'local-feedingamerica',
     'local-stanford'
