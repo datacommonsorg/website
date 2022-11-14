@@ -26,7 +26,7 @@ $dc-primary-color: #660000;
   --dc-white: #fff;
   --dc-blue: #67adff;
   --dc-error: #dc3545;
-  // Following vars are overwritten in private dc modes
+  // Following vars are overwritten in custom dc modes
   --dc-primary: #{$dc-primary-color};
   --link-color: #{$dc-primary-color};
   --footer-bg: #f0f0f0;

@@ -25,16 +25,16 @@ class Config:
     ENABLE_BLOCKLIST = False
     # A constant to group a set of configs.
     ENV_NAME = 'BASE_DC'
-    # If the deployment is a private instance.
-    PRIVATE = False
-    # Name of the site. The name is changed for private instance.
+    # If the deployment is a custom instance.
+    CUSTOM = False
+    # Name of the site. The name is changed for custom instance.
     NAME = 'Data Commons'
     BASE_HTML_PATH = 'base.html'
     # Whether to have account management page
     ADMIN = False
     # The GCP project of the mixer which Flask talks to. This only needs to
     # be set for local development. Website deployed to GKE bundles the mixer
-    # as a private service accessible via localhost.
+    # as a custom service accessible via localhost.
     API_PROJECT = ''
     # Set this to False if the deployment has frequently updated data.
     USE_MEMCACHE = True
@@ -63,26 +63,26 @@ class DevConfig(Config):
     pass
 
 
-class PrivateConfig(Config):
-    PRIVATE = True
-    ENV_NAME = 'PRIVATE'
+class CustomConfig(Config):
+    CUSTOM = True
+    ENV_NAME = 'CUSTOM'
 
 
-class FeedingamericaConfig(PrivateConfig):
+class FeedingamericaConfig(CustomConfig):
     NAME = "Feeding America"
     ENV_NAME = 'FEEDINGAMERICA'
-    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
     GA_ACCOUNT = 'G-444S6716SQ'
 
 
-class StanfordConfig(PrivateConfig):
+class StanfordConfig(CustomConfig):
     NAME = "Stanford"
     ENV_NAME = 'STANFORD'
     ENABLE_BLOCKLIST = True
-    # BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    # BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
 
 
-class TidalConfig(PrivateConfig):
+class TidalConfig(CustomConfig):
     NAME = "Tidal"
 
 
@@ -134,34 +134,34 @@ class LocalIitmConfig(LocalConfig):
     BASE_HTML_PATH = 'private_dc/iitm/base.html'
 
 
-class LocalPrivateConfig(LocalBaseConfig, PrivateConfig):
-    # This needs to talk to local mixer that is setup as a private mixer, which
+class LocalCustomConfig(LocalBaseConfig, CustomConfig):
+    # This needs to talk to local mixer that is setup as a custom mixer, which
     # loads csv + tmcf files from GCS
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
     API_PROJECT = 'datcom-mixer-statvar'
     SECRET_PROJECT = 'datcom-website-private'
 
 
-class LocalFeedingamericaConfig(LocalBaseConfig, PrivateConfig):
-    # This needs to talk to local mixer that is setup as a private mixer, which
+class LocalFeedingamericaConfig(LocalBaseConfig, CustomConfig):
+    # This needs to talk to local mixer that is setup as a custom mixer, which
     # loads csv + tmcf files from GCS
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
     API_PROJECT = 'datcom-mixer-statvar'
     SECRET_PROJECT = 'datcom-feedingamerica'
     NAME = "Feeding America"
     ENV_NAME = 'FEEDINGAMERICA'
-    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
 
 
-class LocalStanfordConfig(LocalBaseConfig, PrivateConfig):
-    # This needs to talk to local mixer that is setup as a private mixer, which
+class LocalStanfordConfig(LocalBaseConfig, CustomConfig):
+    # This needs to talk to local mixer that is setup as a custom mixer, which
     # loads csv + tmcf files from GCS
     API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
     API_PROJECT = 'datcom-mixer-statvar'
     SECRET_PROJECT = 'datcom-stanford'
     NAME = "Stanford"
     ENV_NAME = 'STANFORD'
-    # BASE_HTML_PATH = 'private_dc/stanford/base.html'
+    # BASE_HTML_PATH = 'custom_dc/stanford/base.html'
 
 
 class WebdriverConfig(Config):
