@@ -91,7 +91,7 @@ class IitmConfig(Config):
     NAME = "IITM"
     ENV_NAME = 'IITM'
     GA_ACCOUNT = 'G-32HPL4K4Y1'
-    BASE_HTML_PATH = 'private_dc/iitm/base.html'
+    BASE_HTML_PATH = 'custom_dc/iitm/base.html'
 
 
 ######
@@ -131,7 +131,7 @@ class LocalIitmConfig(LocalConfig):
     IITM = True
     NAME = "IITM"
     ENV_NAME = 'IITM'
-    BASE_HTML_PATH = 'private_dc/iitm/base.html'
+    BASE_HTML_PATH = 'custom_dc/iitm/base.html'
 
 
 class LocalCustomConfig(LocalBaseConfig, CustomConfig):

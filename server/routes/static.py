@@ -29,7 +29,6 @@ def homepage():
         return render_template('custom_dc/iitm/homepage.html')
     if env_name == 'CUSTOM':
         return render_template('custom_dc/default/homepage.html')
->>>>>>> custom_dc
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
                                         locale=g.locale)
@@ -52,7 +51,7 @@ def faq():
     current_year = date.today().strftime('%Y')
     env_name = current_app.config.get('ENV_NAME', None)
     if env_name == 'IITM':
-        return render_template('private_dc/iitm/faq.html',
+        return render_template('custom_dc/iitm/faq.html',
                                 current_date=current_date,
                                 current_year=current_year)
     return render_template('static/faq.html',
@@ -69,5 +68,5 @@ def disclaimers():
 def feedback():
     env_name = current_app.config.get('ENV_NAME', None)
     if env_name == 'IITM':
-        return render_template('private_dc/iitm/feedback.html')
+        return render_template('custom_dc/iitm/feedback.html')
     return render_template('static/feedback.html')

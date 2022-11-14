@@ -124,7 +124,7 @@ def place_landing():
     template = 'place_landing.html'
     if env_name == 'IITM':
         landing_dcids = _PLACE_LANDING_DCIDS_IITM
-        template = 'private_dc/iitm/place_landing.html'
+        template = 'custom_dc/iitm/place_landing.html'
     # Use display names (including state, if applicable) for the static page
     place_names = place_api.get_display_name('^'.join(landing_dcids),
                                              g.locale)
