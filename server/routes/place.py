@@ -42,6 +42,23 @@ _PLACE_LANDING_DCIDS = [
     'country/DEU',
 ]
 
+# List of DCIDs displayed in the IITM static place_landing.html page.
+_PLACE_LANDING_DCIDS_IITM = [
+    'wikidataId/Q1353',
+    'wikidataId/Q43433',
+    'wikidataId/Q1797336',
+    'wikidataId/Q15341',
+    'wikidataId/Q15446',
+    'wikidataId/Q1445',
+    'wikidataId/Q1061',
+    'wikidataId/Q1177',
+    'country/IND',
+    'country/USA',
+    'country/CAN',
+    'country/MYS',
+    'country/DEU',
+]
+
 CATEGORY_REDIRECTS = {
     "Climate": "Environment",
 }
@@ -81,13 +98,7 @@ def place(place_dcid=None):
         return flask.redirect(url)
 
     if not place_dcid:
-        # Use display names (including state, if applicable) for the static page
-        place_names = place_api.get_display_name('^'.join(_PLACE_LANDING_DCIDS),
-                                                 g.locale)
-        return flask.render_template(
-            'place_landing.html',
-            place_names=place_names,
-            maps_api_key=current_app.config['MAPS_API_KEY'])
+        return place_landing()
 
     place_type = place_api.get_place_type(place_dcid)
     place_names = place_api.get_i18n_name([place_dcid])
@@ -101,4 +112,23 @@ def place(place_dcid=None):
         place_name=place_name,
         place_dcid=place_dcid,
         category=category if category else '',
+        maps_api_key=current_app.config['MAPS_API_KEY'])
+
+
+def place_landing():
+    """
+    Returns filled template for the place landing page.
+    """
+    env_name = current_app.config.get('ENV_NAME', None)
+    landing_dcids = _PLACE_LANDING_DCIDS
+    template = 'place_landing.html'
+    if env_name == 'IITM':
+        landing_dcids = _PLACE_LANDING_DCIDS_IITM
+        template = 'private_dc/iitm/place_landing.html'
+    # Use display names (including state, if applicable) for the static page
+    place_names = place_api.get_display_name('^'.join(landing_dcids),
+                                             g.locale)
+    return flask.render_template(
+        template,
+        place_names=place_names,
         maps_api_key=current_app.config['MAPS_API_KEY'])

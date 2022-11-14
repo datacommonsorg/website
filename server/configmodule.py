@@ -90,6 +90,8 @@ class IitmConfig(Config):
     IITM = True
     NAME = "IITM"
     ENV_NAME = 'IITM'
+    GA_ACCOUNT = 'G-32HPL4K4Y1'
+    BASE_HTML_PATH = 'private_dc/iitm/base.html'
 
 
 ######
@@ -127,6 +129,9 @@ class LocalLiteConfig(LocalBaseConfig):
 class LocalIitmConfig(LocalConfig):
     SECRET_PROJECT = 'datcom-website-dev'
     IITM = True
+    NAME = "IITM"
+    ENV_NAME = 'IITM'
+    BASE_HTML_PATH = 'private_dc/iitm/base.html'
 
 
 class LocalPrivateConfig(LocalBaseConfig, PrivateConfig):

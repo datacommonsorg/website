@@ -29,6 +29,7 @@ $dc-primary-color: #660000;
   // Following vars are overwritten in private dc modes
   --dc-primary: #{$dc-primary-color};
   --link-color: #{$dc-primary-color};
+  --footer-bg: #f0f0f0;
 }
 
 /** Bootstrap overrides **/
@@ -171,11 +172,11 @@ $theme-colors: (
 }
 
 #main-footer {
-  background: #f0f0f0;
+  background: --footer-bg;
   margin-top: 3rem;
   padding-top: 3rem;
   /* Trick to get the footer to extend to the bottom of short pages */
-  box-shadow: 0 50vh 0 50vh #f0f0f0;
+  box-shadow: 0 50vh 0 50vh --footer-bg;
 }
 
 #main-footer,
