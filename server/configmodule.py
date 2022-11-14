@@ -71,7 +71,7 @@ class PrivateConfig(Config):
 class FeedingamericaConfig(PrivateConfig):
     NAME = "Feeding America"
     ENV_NAME = 'FEEDINGAMERICA'
-    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
     GA_ACCOUNT = 'G-444S6716SQ'
 
 
@@ -79,7 +79,7 @@ class StanfordConfig(PrivateConfig):
     NAME = "Stanford"
     ENV_NAME = 'STANFORD'
     ENABLE_BLOCKLIST = True
-    # BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    # BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
 
 
 class TidalConfig(PrivateConfig):
@@ -145,7 +145,7 @@ class LocalFeedingamericaConfig(LocalBaseConfig, PrivateConfig):
     SECRET_PROJECT = 'datcom-feedingamerica'
     NAME = "Feeding America"
     ENV_NAME = 'FEEDINGAMERICA'
-    BASE_HTML_PATH = 'private_dc/feedingamerica/base.html'
+    BASE_HTML_PATH = 'custom_dc/feedingamerica/base.html'
 
 
 class LocalStanfordConfig(LocalBaseConfig, PrivateConfig):
@@ -156,7 +156,7 @@ class LocalStanfordConfig(LocalBaseConfig, PrivateConfig):
     SECRET_PROJECT = 'datcom-stanford'
     NAME = "Stanford"
     ENV_NAME = 'STANFORD'
-    # BASE_HTML_PATH = 'private_dc/stanford/base.html'
+    # BASE_HTML_PATH = 'custom_dc/stanford/base.html'
 
 
 class WebdriverConfig(Config):
