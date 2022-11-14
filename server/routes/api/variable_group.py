@@ -38,11 +38,8 @@ def get_variable_group_info():
     entities = request.args.getlist("entities")
     url = "/v1/info/variable-group/{}".format(dcid)
     if entities:
-        url += "?constrained_entities={}".format(entities[0])
-    if len(entities) > 1:
-        parts = list(
-            map(lambda e: "&constrained_entities={}".format(e), entities[1:]))
-        url += "".join(parts)
+        url += "?constrained_entities=" + "&constrained_entities=".join(
+            entities)
     result = dc.get(url).get("info", {})
     if current_app.config["ENABLE_BLOCKLIST"]:
         childSVG = result.get("childStatVarGroups", [])
