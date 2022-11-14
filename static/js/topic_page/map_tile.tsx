@@ -49,6 +49,7 @@ import { getDateRange } from "../utils/string_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { ReplacementStrings } from "./string_utils";
+export const MAP_ID = "map";
 
 interface MapTilePropType {
   id: string;
@@ -176,15 +177,23 @@ function fetchData(
     populationPromise,
     parentPlacesPromise,
   ])
-    .then(([geoJson, placeStat, population, parentPlaces]) => {
+    .then(([geoJson, placeStat, populationData, parentPlaces]) => {
+      const metadataMap = placeStat.facets;
+      if (!_.isEmpty(populationData.facets)) {
+        Object.assign(metadataMap, populationData.facets);
+      }
+      let population = {};
+      if (
+        !_.isEmpty(populationData.data) &&
+        denomStatVar in populationData.data
+      ) {
+        population = populationData.data[denomStatVar];
+      }
       setRawData({
         geoJson,
         placeStat: placeStat.data[mainStatVar],
-        metadataMap: {
-          ...placeStat.facets,
-          ...population.facets,
-        },
-        population: population.data[denomStatVar],
+        metadataMap,
+        population,
         parentPlaces,
       });
     })
@@ -274,8 +283,9 @@ function draw(
     }
     return place.name + ": " + value;
   };
+  document.getElementById(MAP_ID).innerHTML = "";
   drawD3Map(
-    props.id,
+    MAP_ID,
     chartData.geoJson,
     CHART_HEIGHT,
     width,
