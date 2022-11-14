@@ -23,7 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawD3Map } from "../chart/draw_d3_map";
+import { drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { getColorScale } from "../chart/draw_map_utils";
 import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
@@ -274,6 +274,12 @@ function draw(
     }
     return place.name + ": " + value;
   };
+  const projection = getProjection(
+    chartData.isUsaPlace,
+    props.place.dcid,
+    width,
+    CHART_HEIGHT
+  );
   drawD3Map(
     props.id,
     chartData.geoJson,
@@ -287,7 +293,7 @@ function draw(
     () => false,
     true,
     chartData.showMapBoundaries,
-    chartData.isUsaPlace,
+    projection,
     props.place.dcid
   );
 }

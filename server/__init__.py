@@ -22,6 +22,7 @@ import urllib.error
 
 from flask import Flask, request, g
 from flask_babel import Babel
+from google.cloud import storage
 
 import firebase_admin
 from firebase_admin import credentials
@@ -36,6 +37,7 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
+from lib.disaster_dashboard import get_disaster_dashboard_data
 import services.ai as ai
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
@@ -97,7 +99,8 @@ def register_routes_common(app):
     from routes.api import (browser as browser_api, choropleth, place as
                             place_api, landing_page, ranking as ranking_api,
                             stats, translator, csv, facets, series, point,
-                            observation_dates, variable, variable_group)
+                            observation_dates, disaster_dashboard, variable,
+                            variable_group)
     app.register_blueprint(browser_api.bp)
     app.register_blueprint(choropleth.bp)
     app.register_blueprint(factcheck.bp)
@@ -111,6 +114,7 @@ def register_routes_common(app):
     app.register_blueprint(series.bp)
     app.register_blueprint(point.bp)
     app.register_blueprint(observation_dates.bp)
+    app.register_blueprint(disaster_dashboard.bp)
     app.register_blueprint(variable.bp)
     app.register_blueprint(variable_group.bp)
 
@@ -215,6 +219,12 @@ def create_app():
     babel = Babel(app, default_domain='all')
     app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
     app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
+
+    # load disaster dashboard data from GCS
+    if os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+        disaster_dashboard_data = get_disaster_dashboard_data(
+            app.config['GCS_BUCKET'])
+        app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
     # Initialize the AI module.
     app.config['AI_CONTEXT'] = ai.Context()
