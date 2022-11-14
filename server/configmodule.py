@@ -26,7 +26,7 @@ class Config:
     # A constant to group a set of configs.
     ENV_NAME = 'BASE_DC'
     # If the deployment is a custom instance.
-    PRIVATE = False
+    CUSTOM = False
     # Name of the site. The name is changed for custom instance.
     NAME = 'Data Commons'
     BASE_HTML_PATH = 'base.html'

@@ -29,7 +29,7 @@ def homepage():
         # TODO: Update to:
         # return render_template('custom_dc/iitm/homepage.html')
         return render_template('static/iitm.html')
-    if env_name == 'PRIVATE':
+    if env_name == 'CUSTOM':
         return render_template('custom_dc/default/homepage.html')
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',

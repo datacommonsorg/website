@@ -144,7 +144,7 @@ def create_app():
         cache.init_app(app, {'CACHE_TYPE': 'null'})
 
     register_routes_common(app)
-    if cfg.PRIVATE:
+    if cfg.CUSTOM:
         register_routes_custom_dc(app)
     else:
         register_routes_base_dc(app)
