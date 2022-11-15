@@ -74,7 +74,7 @@ function generateSubheadersJsx(subheaders: InfoSubheader[]): JSX.Element[] {
       <React.Fragment key={i}>
         <br />
         <span>
-          {subheader.title && <>{ subheader.title }: </>}
+          {subheader.title && <>{subheader.title}: </>}
           {links}
         </span>
       </React.Fragment>
@@ -96,7 +96,7 @@ function InfoExamples(): JSX.Element {
         {(row.preposition || row.postposition) && (
           <>
             {row.preposition} {examplesJsx}
-            {row.postposition && <>{" "}{row.postposition}</>}.
+            {row.postposition && <> {row.postposition}</>}.
           </>
         )}
         {row.subheaders && subheadersJsx}

@@ -26,16 +26,29 @@ ALLOW_LEAFLET_FLAG = "leaflet"
 # List of DCIDs displayed in the info page for download tool
 # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
 _DOWNLOAD_INFO_DCIDS = [
-    { 'name': 'Alabama', 'dcid': 'geoId/01' },
-    { 'name': 'Alaska', 'dcid': 'geoId/02' },
+    {
+        'name': 'Alabama',
+        'dcid': 'geoId/01'
+    },
+    {
+        'name': 'Alaska',
+        'dcid': 'geoId/02'
+    },
 ]
 
 # List of DCIDs displayed in the IITM DC version of info page for download tool
 # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
 _DOWNLOAD_INFO_DCIDS_IITM = [
-    { 'name': 'Tamil Nadu', 'dcid': 'wikidataId/Q1445' },
-    { 'name': 'Delhi', 'dcid': 'wikidataId/Q1353' },
+    {
+        'name': 'Tamil Nadu',
+        'dcid': 'wikidataId/Q1445'
+    },
+    {
+        'name': 'Delhi',
+        'dcid': 'wikidataId/Q1353'
+    },
 ]
+
 
 @bp.route('/timeline')
 def timeline():

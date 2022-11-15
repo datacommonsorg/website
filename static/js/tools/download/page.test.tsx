@@ -32,9 +32,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const globalAny: any = global;
 
-const INFO_PLACES = [
-  { 'name': 'Place Name', 'dcid': 'dcid/foo' }
-]
+const INFO_PLACES = [{ name: "Place Name", dcid: "dcid/foo" }];
 
 async function waitForComponentUpdates(wrapper: ReactWrapper) {
   // Wait for state updates
@@ -60,7 +58,7 @@ test("Loading options from URL", async () => {
   // Mock all the async axios calls
   axios_mock();
   // Render the component
-  const wrapper = mount(<Page infoPlaces={ INFO_PLACES } />);
+  const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
   // Check that preview table shows up on click and matches snapshot
   wrapper.find(".get-data-button").at(0).simulate("click");
@@ -104,7 +102,7 @@ test("Manually updating options", async () => {
   // Mock all the async axios calls
   axios_mock();
   // Render the component
-  const wrapper = mount(<Page infoPlaces={ INFO_PLACES } />);
+  const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
   // Choose place type
   wrapper

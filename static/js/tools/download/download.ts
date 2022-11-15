@@ -20,7 +20,7 @@ import ReactDOM from "react-dom";
 import { Page } from "./page";
 
 window.onload = () => {
-  const mainPainElem = document.getElementById('main-pane')
+  const mainPainElem = document.getElementById("main-pane");
   const infoPlaces = JSON.parse(mainPainElem.dataset.infoPlaces) || [];
   ReactDOM.render(
     React.createElement(Page, { infoPlaces: infoPlaces }),

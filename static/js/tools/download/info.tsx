@@ -75,8 +75,8 @@ export function Info(props: InfoPropType): JSX.Element {
           </thead>
           <tbody>
             <tr>
-              <td>{ props.infoPlaces[0].dcid }</td>
-              <td>{ props.infoPlaces[0].name }</td>
+              <td>{props.infoPlaces[0].dcid}</td>
+              <td>{props.infoPlaces[0].name}</td>
               <td>2020-01</td>
               <td>1</td>
               <td>abc.com</td>
@@ -85,8 +85,8 @@ export function Info(props: InfoPropType): JSX.Element {
               <td>xyz.com</td>
             </tr>
             <tr>
-              <td>{ props.infoPlaces[0].dcid }</td>
-              <td>{ props.infoPlaces[0].name }</td>
+              <td>{props.infoPlaces[0].dcid}</td>
+              <td>{props.infoPlaces[0].name}</td>
               <td>2020-02</td>
               <td>1</td>
               <td>abc.com</td>
@@ -95,8 +95,8 @@ export function Info(props: InfoPropType): JSX.Element {
               <td></td>
             </tr>
             <tr>
-              <td>{ props.infoPlaces[0].dcid }</td>
-              <td>{ props.infoPlaces[0].name }</td>
+              <td>{props.infoPlaces[0].dcid}</td>
+              <td>{props.infoPlaces[0].name}</td>
               <td>2020-03</td>
               <td>1</td>
               <td>abc.com</td>
@@ -108,8 +108,8 @@ export function Info(props: InfoPropType): JSX.Element {
               <td>...</td>
             </tr>
             <tr>
-              <td>{ props.infoPlaces[0].dcid }</td>
-              <td>{ props.infoPlaces[0].name }</td>
+              <td>{props.infoPlaces[0].dcid}</td>
+              <td>{props.infoPlaces[0].name}</td>
               <td>2021-01</td>
               <td>1</td>
               <td>abc.com</td>
@@ -118,8 +118,8 @@ export function Info(props: InfoPropType): JSX.Element {
               <td>xyz.com</td>
             </tr>
             <tr>
-              <td>{ props.infoPlaces[1].name }</td>
-              <td>{ props.infoPlaces[1].name }</td>
+              <td>{props.infoPlaces[1].name}</td>
+              <td>{props.infoPlaces[1].name}</td>
               <td>2020-01</td>
               <td>2</td>
               <td>abc.com</td>
@@ -128,8 +128,8 @@ export function Info(props: InfoPropType): JSX.Element {
               <td>xyz.com</td>
             </tr>
             <tr>
-              <td>{ props.infoPlaces[1].name }</td>
-              <td>{ props.infoPlaces[1].name }</td>
+              <td>{props.infoPlaces[1].name}</td>
+              <td>{props.infoPlaces[1].name}</td>
               <td>2020-02</td>
               <td>2</td>
               <td>abc.com</td>
