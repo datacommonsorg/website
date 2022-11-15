@@ -134,7 +134,7 @@ def api_name():
         return names(dcids)
     except Exception as e:
         logging.error(e)
-        return 'error fetching names for {}'.format(dcids), 400
+        return 'error fetching names for the given places', 400
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
