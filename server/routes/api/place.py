@@ -14,6 +14,7 @@
 
 import collections
 import json
+import logging
 import urllib.parse
 
 from flask import Blueprint, request, Response, url_for, g, current_app
@@ -128,9 +129,12 @@ def get_place_type(place_dcid):
 @bp.route('/name')
 def api_name():
     """Get place names."""
-    dcids = request.args.getlist('dcid')
-    result = names(dcids)
-    return Response(json.dumps(result), 200, mimetype='application/json')
+    dcids = request.args.getlist('dcids')
+    try:
+        return names(dcids)
+    except Exception as e:
+        logging.error(e)
+        return 'error fetching names for the given places', 400
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

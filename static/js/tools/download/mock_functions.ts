@@ -106,7 +106,7 @@ export function axios_mock(): void {
 
   // get place names, geoId/06
   when(axios.get)
-    .calledWith("/api/place/name?dcid=geoId/06")
+    .calledWith("/api/place/name?dcids=geoId/06")
     .mockResolvedValue({ data: { "geoId/06": "California" } });
 
   // get root stat var group
