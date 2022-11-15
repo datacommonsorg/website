@@ -25,6 +25,7 @@ import pretty from "pretty";
 import React from "react";
 
 import * as SharedUtil from "../../shared/util";
+import { InfoPlace } from "./info";
 import { axios_mock } from "./mock_functions";
 import { Page } from "./page";
 
@@ -32,7 +33,10 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const globalAny: any = global;
 
-const INFO_PLACES = [{ name: "Place Name", dcid: "dcid/foo" }];
+const INFO_PLACES: [InfoPlace, InfoPlace] = [
+  { name: "Place 1", dcid: "dcid/1" },
+  { name: "Place 2", dcid: "dcid/2" },
+];
 
 async function waitForComponentUpdates(wrapper: ReactWrapper) {
   // Wait for state updates

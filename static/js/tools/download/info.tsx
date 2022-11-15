@@ -30,7 +30,7 @@ export interface InfoPlace {
 // Data object used to customize the example rendered by this component.
 interface InfoPropType {
   // NOTE: Exactly 2 InfoPlace objects are expected.
-  infoPlaces: InfoPlace[];
+  infoPlaces: [InfoPlace, InfoPlace];
 }
 
 export function Info(props: InfoPropType): JSX.Element {
