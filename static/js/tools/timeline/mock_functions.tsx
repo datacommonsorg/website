@@ -138,7 +138,7 @@ export function axios_mock(): void {
 
   // get place names, geoId/05
   when(axios.get)
-    .calledWith("/api/place/name?dcid=geoId/05")
+    .calledWith("/api/place/name?dcids=geoId/05")
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // get data, geoId/05,Count_Person

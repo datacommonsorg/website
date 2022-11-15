@@ -128,9 +128,11 @@ def get_place_type(place_dcid):
 @bp.route('/name')
 def api_name():
     """Get place names."""
-    dcids = request.args.getlist('dcid')
-    result = names(dcids)
-    return Response(json.dumps(result), 200, mimetype='application/json')
+    dcids = request.args.getlist('dcids')
+    try:
+        return names(dcids)
+    except Exception as e:
+        return '{}'.format(e), 400
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

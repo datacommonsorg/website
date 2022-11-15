@@ -143,7 +143,7 @@ export function getNamedTypedPlace(
     .get(`/api/place/type/${placeDcid}`)
     .then((resp) => resp.data);
   const placeNamePromise = axios
-    .get(`/api/place/name?dcid=${placeDcid}`)
+    .get(`/api/place/name?dcids=${placeDcid}`)
     .then((resp) => resp.data);
   return Promise.all([placeTypePromise, placeNamePromise])
     .then(([placeType, placeName]) => {
@@ -165,15 +165,15 @@ export function getPlaceNames(
   if (!dcids.length) {
     return Promise.resolve({});
   }
-  let url = "/api/place/name?";
-  const urls = [];
-  for (const place of dcids) {
-    urls.push(`dcid=${place}`);
-  }
-  url += urls.join("&");
-  return axios.get(url).then((resp) => {
-    return resp.data;
-  });
+  return axios
+    .get("/api/place/name", {
+      params: {
+        dcids: dcids,
+      },
+    })
+    .then((resp) => {
+      return resp.data;
+    });
 }
 
 /**

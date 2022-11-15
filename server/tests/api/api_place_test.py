@@ -137,7 +137,7 @@ class TestApiPlaceName(unittest.TestCase):
         }
 
         response = app.test_client().get(
-            '/api/place/name?dcid=geoId/06&dcid=geoId/07&dcid=geoId/08')
+            '/api/place/name?dcids=geoId/06&dcids=geoId/07&dcids=geoId/08')
         assert response.status_code == 200
         assert json.loads(response.data) == {
             'geoId/06': 'California',
