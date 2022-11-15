@@ -26,9 +26,16 @@ ALLOW_LEAFLET_FLAG = "leaflet"
 # List of DCIDs displayed in the info page for download tool
 # NOTE: EXACTLY 2 EXAMPLES REQUIRED.
 _DOWNLOAD_INFO_DCIDS = [
-    { 'name': 'Alabama', 'dcid': 'geoId/01' },
-    { 'name': 'Alaska', 'dcid': 'geoId/02' },
+    {
+        'name': 'Alabama',
+        'dcid': 'geoId/01'
+    },
+    {
+        'name': 'Alaska',
+        'dcid': 'geoId/02'
+    },
 ]
+
 
 @bp.route('/timeline')
 def timeline():
