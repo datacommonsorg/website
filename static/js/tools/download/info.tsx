@@ -20,12 +20,16 @@
 
 import React from "react";
 
+// Data object used to customize the example rendered by this component.
+// A single example place to display.
 export interface InfoPlace {
   name: string;
   dcid: string;
 }
 
+// Data object used to customize the example rendered by this component.
 interface InfoPropType {
+  // NOTE: Exactly 2 InfoPlace objects are expected.
   infoPlaces: InfoPlace[];
 }
 

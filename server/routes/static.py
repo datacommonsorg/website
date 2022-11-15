@@ -47,7 +47,7 @@ def about():
 
 @bp.route('/faq')
 def faq():
-    current_date = date.today().strftime('%d %b %Y')
+    current_date = date.today().strftime('%-d %b %Y')
     current_year = date.today().strftime('%Y')
     env_name = current_app.config.get('ENV_NAME', None)
     if env_name == 'IITM':
