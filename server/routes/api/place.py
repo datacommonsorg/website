@@ -14,6 +14,7 @@
 
 import collections
 import json
+import logging
 import urllib.parse
 
 from flask import Blueprint, request, Response, url_for, g, current_app
@@ -132,6 +133,7 @@ def api_name():
     try:
         return names(dcids)
     except Exception as e:
+        logging.error(e)
         return 'error fetching names for {}'.format(dcids), 400
 
 
