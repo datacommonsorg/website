@@ -29,13 +29,10 @@ interface InfoLink {
 // Type for a single row or bullet (which could contain nested rows of related examples).
 interface InfoRow {
   header: string;
-  // If preposition or postposition is defined, then examples are expected.
-  // Preposition string is prepended before examples.
+  // If preposition is defined, then examples are expected.
   preposition?: string;
-  // Postposition string is appended after examples.
-  postposition?: string;
   examples?: InfoLink[];
-  // If preposition or postposition is not defined, then subheaders are expected and will
+  // If preposition is not defined, then subheaders are expected and will
   // be used to generate links similar to timelines.
   subheaders: InfoSubheader[];
 }
@@ -56,7 +53,7 @@ function generateLinksJsx(links: InfoLink[]): JSX.Element[] {
   if (!links) return null;
 
   return links.map((link, ei) => {
-    const punctuation = ei < links.length - 1 ? ", " : "";
+    const punctuation = ei < links.length - 1 ? ", " : ".";
     return (
       <React.Fragment key={ei}>
         <a href={link.url}>{link.text}</a>
@@ -74,8 +71,7 @@ function generateSubheadersJsx(subheaders: InfoSubheader[]): JSX.Element[] {
       <React.Fragment key={i}>
         <br />
         <span>
-          {subheader.title && <>{ subheader.title }: </>}
-          {links}
+          {subheader.title}: {links}
         </span>
       </React.Fragment>
     );
@@ -93,10 +89,9 @@ function InfoExamples(): JSX.Element {
     return (
       <li key={ri}>
         <b>{row.header}</b>{" "}
-        {(row.preposition || row.postposition) && (
+        {row.preposition && (
           <>
             {row.preposition} {examplesJsx}
-            {row.postposition && <>{" "}{row.postposition}</>}.
           </>
         )}
         {row.subheaders && subheadersJsx}
