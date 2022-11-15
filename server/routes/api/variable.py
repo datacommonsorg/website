@@ -15,7 +15,7 @@
 import html
 import json
 
-from flask import Blueprint, request
+from flask import Blueprint, escape, request
 import services.datacommons as dc
 
 bp = Blueprint("variable", __name__, url_prefix='/api/variable')
@@ -25,6 +25,6 @@ bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 def get_variable_path():
     """Gets the path of a stat var to the root of the stat var hierarchy.
     """
-    dcid = html.escape(request.args.get("dcid"))
+    dcid = escape(request.args.get("dcid"))
     url_path = "/v1/variable/ancestors/" + dcid
     return json.dumps([dcid] + dc.get(url_path).get("ancestors", [])), 200
