@@ -21,7 +21,6 @@ import urllib.parse
 import zlib
 from cache import cache
 from flask import current_app
-from typing import List
 
 import lib.config as libconfig
 import requests
@@ -42,8 +41,6 @@ API_ENDPOINTS = {
     'get_place_ranking': '/node/ranking-locations',
     # TODO(shifucun): switch back to /node/related-places after data switch.
     'get_related_places': '/node/related-locations',
-    'get_statvar_group': '/stat-var/group',
-    'get_statvar_path': '/stat-var/path',
     'search_statvar': '/stat-var/search',
     'match_statvar': '/stat-var/match',
     'get_statvar_summary': '/stat-var/summary',
@@ -351,23 +348,6 @@ def match_statvar(query: str, limit: int, debug: bool):
         'query': query,
         'limit': limit,
         'debug': debug,
-    }
-    return send_request(url, req_json, has_payload=False)
-
-
-def get_statvar_group(stat_var_group, entities):
-    url = API_ROOT + API_ENDPOINTS['get_statvar_group']
-    req_json = {
-        'stat_var_group': stat_var_group,
-        'entities': entities,
-    }
-    return send_request(url, req_json, has_payload=False)
-
-
-def get_statvar_path(id):
-    url = API_ROOT + API_ENDPOINTS['get_statvar_path']
-    req_json = {
-        'id': id,
     }
     return send_request(url, req_json, has_payload=False)
 

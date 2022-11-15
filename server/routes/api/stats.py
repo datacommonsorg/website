@@ -18,20 +18,10 @@ from flask import Blueprint, current_app, request, Response
 from cache import cache
 import services.ai as ai
 import services.datacommons as dc
+# TODO(shifucun): add unittest for this module
 
 # Define blueprint
 bp = Blueprint("stats", __name__, url_prefix='/api/stats')
-
-# Temporary fix for messy svgs. Remove once svgs have been fixed. SVGs that are
-# blocklisted here must be part of either blocklistedSvgIds or miscellaneousSvgIds
-# in the mixer file /internal/server/statvar/statvar_hierarchy_util.go
-BLOCKLISTED_STAT_VAR_GROUPS = {
-    "dc/g/Establishment_Industry", "dc/g/Uncategorized"
-}
-UPDATE_NUM_DESCENDENTS_SVG = {"dc/g/Establishment", "dc/g/Employment"}
-NUM_DESCENDENTS_TO_SUBTRACT = 12123
-
-# TODO(shifucun): add unittest for this module
 
 
 @bp.route('/stats-var-property')
@@ -137,40 +127,4 @@ def search_statvar_ai():
     """
     query = request.args.get("query")
     result = ai.search(current_app.config["AI_CONTEXT"], query)
-    return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@bp.route('/stat-var-group')
-@cache.cached(timeout=3600 * 24, query_string=True)
-def get_statvar_group():
-    """Gets the stat var group node information.
-
-    This is to retrieve the adjacent nodes, including child stat vars, child stat
-    var groups and parent stat var groups for the given stat var group node.
-    """
-    stat_var_group = request.args.get("stat_var_group")
-    entities = request.args.getlist("entities")
-    result = dc.get_statvar_group(stat_var_group, entities)
-    if current_app.config["ENABLE_BLOCKLIST"]:
-        childSVG = result.get("childStatVarGroups", [])
-        filteredChildSVG = []
-        for svg in childSVG:
-            svg_id = svg.get("id", "")
-            if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
-                continue
-            svg_num_descendents = svg.get("descendentStatVarCount", 0)
-            if svg_id in UPDATE_NUM_DESCENDENTS_SVG and svg_num_descendents > NUM_DESCENDENTS_TO_SUBTRACT:
-                svg["descendentStatVarCount"] = svg_num_descendents - NUM_DESCENDENTS_TO_SUBTRACT
-            filteredChildSVG.append(svg)
-        result["childStatVarGroups"] = filteredChildSVG
-    return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@bp.route('/stat-var-path')
-@cache.cached(timeout=3600 * 24, query_string=True)
-def get_statvar_path():
-    """Gets the path of a stat var to the root of the stat var hierarchy.
-    """
-    id = request.args.get("id")
-    result = dc.get_statvar_path(id)
     return Response(json.dumps(result), 200, mimetype='application/json')

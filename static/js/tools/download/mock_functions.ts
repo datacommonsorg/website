@@ -111,32 +111,32 @@ export function axios_mock(): void {
 
   // get root stat var group
   when(axios.get)
-    .calledWith("/api/stats/stat-var-group?stat_var_group=dc/g/Root")
+    .calledWith("/api/variable-group/info?dcid=dc/g/Root")
     .mockResolvedValue(rootGroupsData);
 
   // get root stat var group for places in geoId/06
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06001&entities=geoId/06002"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06001&entities=geoId/06002"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/06002&entities=geoId/06001"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06002&entities=geoId/06001"
     )
     .mockResolvedValue(rootGroupsData);
 
   // get demographics stat var group for places in geoId/06
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/06001&entities=geoId/06002"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/06001&entities=geoId/06002"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/06002&entities=geoId/06001"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/06002&entities=geoId/06001"
     )
     .mockResolvedValue(demographicsGroupsData);
 
@@ -170,20 +170,16 @@ export function axios_mock(): void {
 
   // get stat var path for Count_Person
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=Count_Person")
+    .calledWith("/api/variable/path?dcid=Count_Person")
     .mockResolvedValue({
-      data: {
-        path: ["Count_Person", "dc/g/Demographics"],
-      },
+      data: ["Count_Person", "dc/g/Demographics"],
     });
 
   // get stat var path for Median_Age_Person
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=Median_Age_Person")
+    .calledWith("/api/variable/path?dcid=Median_Age_Person")
     .mockResolvedValue({
-      data: {
-        path: ["Median_Age_Person", "dc/g/Demographics"],
-      },
+      data: ["Median_Age_Person", "dc/g/Demographics"],
     });
 
   // get places in for counties in geoId/06
