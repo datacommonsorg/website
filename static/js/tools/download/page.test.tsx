@@ -25,12 +25,18 @@ import pretty from "pretty";
 import React from "react";
 
 import * as SharedUtil from "../../shared/util";
+import { InfoPlace } from "./info";
 import { axios_mock } from "./mock_functions";
 import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 const globalAny: any = global;
+
+const INFO_PLACES: [InfoPlace, InfoPlace] = [
+  { name: "Place 1", dcid: "dcid/1" },
+  { name: "Place 2", dcid: "dcid/2" },
+];
 
 async function waitForComponentUpdates(wrapper: ReactWrapper) {
   // Wait for state updates
@@ -56,7 +62,7 @@ test("Loading options from URL", async () => {
   // Mock all the async axios calls
   axios_mock();
   // Render the component
-  const wrapper = mount(<Page />);
+  const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
   // Check that preview table shows up on click and matches snapshot
   wrapper.find(".get-data-button").at(0).simulate("click");
@@ -100,7 +106,7 @@ test("Manually updating options", async () => {
   // Mock all the async axios calls
   axios_mock();
   // Render the component
-  const wrapper = mount(<Page />);
+  const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
   // Choose place type
   wrapper
