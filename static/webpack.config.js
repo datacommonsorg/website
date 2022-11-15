@@ -148,6 +148,7 @@ const config = {
         { from: "fonts/*" },
         { from: "data/**/*" },
         { from: "sitemap/*.txt" },
+        { from: "custom_dc/**/*" },
         { from: "*favicon.ico" },
         { from: "robots.txt" },
       ],

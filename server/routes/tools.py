@@ -28,7 +28,7 @@ ALLOW_LEAFLET_FLAG = "leaflet"
 def timeline():
     return flask.render_template(
         'tools/timeline.html',
-        info_json="private_dc/default/timeline_examples.json",
+        info_json="custom_dc/default/timeline_examples.json",
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
@@ -44,7 +44,7 @@ def map():
     return flask.render_template(
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
-        info_json="private_dc/default/map_examples.json",
+        info_json="custom_dc/default/map_examples.json",
         allow_leaflet=allow_leaflet)
 
 
@@ -52,7 +52,7 @@ def map():
 def scatter():
     return flask.render_template(
         'tools/scatter.html',
-        info_json="private_dc/default/scatter_examples.json",
+        info_json="custom_dc/default/scatter_examples.json",
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 

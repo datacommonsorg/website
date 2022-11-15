@@ -73,8 +73,8 @@ def register_routes_base_dc(app):
     app.register_blueprint(detection_api.bp)
 
 
-def register_routes_private_dc(app):
-    ## apply the blueprints for private dc instances
+def register_routes_custom_dc(app):
+    ## apply the blueprints for custom dc instances
     pass
 
 
@@ -144,8 +144,8 @@ def create_app():
         cache.init_app(app, {'CACHE_TYPE': 'null'})
 
     register_routes_common(app)
-    if cfg.PRIVATE:
-        register_routes_private_dc(app)
+    if cfg.CUSTOM:
+        register_routes_custom_dc(app)
     else:
         register_routes_base_dc(app)
     if cfg.ADMIN:
