@@ -23,6 +23,8 @@ import {
 } from "../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
+import { stringifyFn } from "./axios";
+
 let ps: google.maps.places.PlacesService;
 
 const DEFAULT_SAMPLE_SIZE = 50;
@@ -170,6 +172,7 @@ export function getPlaceNames(
       params: {
         dcids: dcids,
       },
+      paramsSerializer: stringifyFn,
     })
     .then((resp) => {
       return resp.data;
