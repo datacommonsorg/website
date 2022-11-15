@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import flask
-import os
+import json
 
 from flask import current_app, request
 
@@ -23,6 +23,12 @@ bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 # ../../static/js/tools/map/util.ts
 ALLOW_LEAFLET_FLAG = "leaflet"
 
+# List of DCIDs displayed in the info page for download tool
+# NOTE: EXACTLY 2 EXAMPLES REQUIRED.
+_DOWNLOAD_INFO_DCIDS = [
+    { 'name': 'Alabama', 'dcid': 'geoId/01' },
+    { 'name': 'Alaska', 'dcid': 'geoId/02' },
+]
 
 @bp.route('/timeline')
 def timeline():
@@ -63,5 +69,8 @@ def stat_var():
 
 @bp.route('/download')
 def download():
+    info_places = _DOWNLOAD_INFO_DCIDS
     return flask.render_template(
-        'tools/download.html', maps_api_key=current_app.config['MAPS_API_KEY'])
+        'tools/download.html',
+        info_places=json.dumps(info_places),
+        maps_api_key=current_app.config['MAPS_API_KEY'])
