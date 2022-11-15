@@ -55,8 +55,16 @@ def createMiddleWare(app, exporter):
 
 def register_routes_base_dc(app):
     # apply the blueprints for all apps
-    from routes import (dev, disease, placelist, protein, redirects,
-                        special_announcement, topic_page, import_wizard)
+    from routes import (
+        dev,
+        disease,
+        import_wizard,
+        placelist,
+        protein,
+        redirects,
+        special_announcement,
+        topic_page,
+    )
     app.register_blueprint(dev.bp)
     app.register_blueprint(disease.bp)
     app.register_blueprint(placelist.bp)
@@ -64,13 +72,14 @@ def register_routes_base_dc(app):
     app.register_blueprint(redirects.bp)
     app.register_blueprint(special_announcement.bp)
     app.register_blueprint(topic_page.bp)
+
     from routes.api import (protein as protein_api)
     from routes.api import (disease as disease_api)
     from routes.api.import_detection import (detection as detection_api)
-    app.register_blueprint(protein_api.bp)
+    app.register_blueprint(detection_api.bp)
     app.register_blueprint(disease_api.bp)
     app.register_blueprint(import_wizard.bp)
-    app.register_blueprint(detection_api.bp)
+    app.register_blueprint(protein_api.bp)
 
 
 def register_routes_custom_dc(app):
@@ -87,8 +96,15 @@ def register_routes_admin(app):
 
 def register_routes_common(app):
     # apply the blueprints for main app
-    from routes import (browser, factcheck, place, ranking, search, static,
-                        tools)
+    from routes import (
+        browser,
+        factcheck,
+        place,
+        ranking,
+        search,
+        static,
+        tools,
+    )
     app.register_blueprint(browser.bp)
     app.register_blueprint(place.bp)
     app.register_blueprint(ranking.bp)
@@ -96,24 +112,39 @@ def register_routes_common(app):
     app.register_blueprint(static.bp)
     app.register_blueprint(tools.bp)
     # TODO: Extract more out to base_dc
-    from routes.api import (browser as browser_api, choropleth, place as
-                            place_api, landing_page, ranking as ranking_api,
-                            stats, translator, csv, facets, series, point,
-                            observation_dates, disaster_dashboard)
+    from routes.api import (
+        browser as browser_api,
+        choropleth,
+        csv,
+        disaster_dashboard,
+        facets,
+        landing_page,
+        observation_dates,
+        place as place_api,
+        point,
+        ranking as ranking_api,
+        series,
+        stats,
+        translator,
+        variable,
+        variable_group,
+    )
     app.register_blueprint(browser_api.bp)
     app.register_blueprint(choropleth.bp)
+    app.register_blueprint(csv.bp)
+    app.register_blueprint(disaster_dashboard.bp)
+    app.register_blueprint(facets.bp)
     app.register_blueprint(factcheck.bp)
-    app.register_blueprint(place_api.bp)
     app.register_blueprint(landing_page.bp)
+    app.register_blueprint(observation_dates.bp)
+    app.register_blueprint(place_api.bp)
+    app.register_blueprint(point.bp)
     app.register_blueprint(ranking_api.bp)
+    app.register_blueprint(series.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(translator.bp)
-    app.register_blueprint(csv.bp)
-    app.register_blueprint(facets.bp)
-    app.register_blueprint(series.bp)
-    app.register_blueprint(point.bp)
-    app.register_blueprint(observation_dates.bp)
-    app.register_blueprint(disaster_dashboard.bp)
+    app.register_blueprint(variable.bp)
+    app.register_blueprint(variable_group.bp)
 
 
 def create_app():
