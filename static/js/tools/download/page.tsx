@@ -76,7 +76,7 @@ interface ValidationErrors {
 
 interface PagePropType {
   // Example places to use in the info page
-  infoPlaces: InfoPlace[];
+  infoPlaces: [InfoPlace, InfoPlace];
 }
 
 export function Page(props: PagePropType): JSX.Element {
