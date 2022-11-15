@@ -141,7 +141,7 @@ a.linked-text:hover {
 }
 
 .bg-navy {
-  background-color: #0b1434;
+  background-color: #0b1434 !important;
 }
 
 .homepage-section {
