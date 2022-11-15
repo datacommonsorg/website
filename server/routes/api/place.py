@@ -132,7 +132,7 @@ def api_name():
     try:
         return names(dcids)
     except Exception as e:
-        return '{}'.format(e), 400
+        return 'error fetching names for {}'.format(dcids), 400
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
