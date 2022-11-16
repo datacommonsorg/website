@@ -15,7 +15,7 @@
 import flask
 import json
 
-from flask import current_app, request
+from flask import current_app, g, request
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
@@ -52,9 +52,8 @@ _DOWNLOAD_INFO_DCIDS_IITM = [
 
 @bp.route('/timeline')
 def timeline():
-    env_name = current_app.config.get('ENV_NAME', None)
     info_json = "custom_dc/default/timeline_examples.json"
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         info_json = "custom_dc/iitm/timeline_examples.json"
     return flask.render_template(
         'tools/timeline.html',
@@ -72,9 +71,8 @@ def timeline_bulk_download():
 def map():
     allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
 
-    env_name = current_app.config.get('ENV_NAME', None)
     info_json = "custom_dc/default/map_examples.json"
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         info_json = "custom_dc/iitm/map_examples.json"
 
     return flask.render_template(
@@ -86,9 +84,8 @@ def map():
 
 @bp.route('/scatter')
 def scatter():
-    env_name = current_app.config.get('ENV_NAME', None)
     info_json = "custom_dc/default/scatter_examples.json"
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         info_json = "custom_dc/iitm/scatter_examples.json"
 
     return flask.render_template(
@@ -104,9 +101,8 @@ def stat_var():
 
 @bp.route('/download')
 def download():
-    env_name = current_app.config.get('ENV_NAME', None)
     info_places = _DOWNLOAD_INFO_DCIDS
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         info_places = _DOWNLOAD_INFO_DCIDS_IITM
     return flask.render_template(
         'tools/download.html',

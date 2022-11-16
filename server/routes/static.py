@@ -14,7 +14,7 @@
 """Data Commons static content routes."""
 
 from datetime import date
-from flask import Blueprint, render_template, g, current_app
+from flask import Blueprint, render_template, g
 import babel.dates as babel_dates
 
 bp = Blueprint('static', __name__)
@@ -22,12 +22,11 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-    env_name = current_app.config.get('ENV_NAME', None)
-    if env_name == 'FEEDINGAMERICA':
+    if g.env_name == 'FEEDINGAMERICA':
         return render_template('custom_dc/feedingamerica/homepage.html')
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         return render_template('custom_dc/iitm/homepage.html')
-    if env_name == 'CUSTOM':
+    if g.env_name == 'CUSTOM':
         return render_template('custom_dc/default/homepage.html')
     blog_date = babel_dates.format_date(date(2021, 7, 26),
                                         format='long',
@@ -37,10 +36,9 @@ def homepage():
 
 @bp.route('/about')
 def about():
-    env_name = current_app.config.get('ENV_NAME', None)
-    if env_name == 'FEEDINGAMERICA':
+    if g.env_name == 'FEEDINGAMERICA':
         return render_template('custom_dc/feedingamerica/about.html')
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         return render_template('custom_dc/iitm/about.html')
     return render_template('static/about.html')
 
@@ -49,8 +47,7 @@ def about():
 def faq():
     current_date = date.today().strftime('%-d %b %Y')
     current_year = date.today().strftime('%Y')
-    env_name = current_app.config.get('ENV_NAME', None)
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         return render_template('custom_dc/iitm/faq.html',
                                current_date=current_date,
                                current_year=current_year)
@@ -66,7 +63,6 @@ def disclaimers():
 
 @bp.route('/feedback')
 def feedback():
-    env_name = current_app.config.get('ENV_NAME', None)
-    if env_name == 'IITM':
+    if g.env_name == 'IITM':
         return render_template('custom_dc/iitm/feedback.html')
     return render_template('static/feedback.html')
