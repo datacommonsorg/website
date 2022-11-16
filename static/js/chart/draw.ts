@@ -1102,7 +1102,6 @@ function drawGroupLineChart(
   if (_.isEmpty(dataGroupsAll)) {
     return;
   }
-  const dataGroups = dataGroupsAll[0];
   const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   let legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
@@ -1142,14 +1141,18 @@ function drawGroupLineChart(
   const leftWidth = addYAxis(tempYAxis, width - legendWidth, yScale, unit);
 
   const chartWidth = width - MARGIN.right - legendWidth;
+  const allDataPoints = dataGroupsAll
+    .flat()
+    .map((x) => x.value)
+    .flat();
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => d.time))
+    .domain(d3.extent(allDataPoints, (d) => d.time))
     .range([leftWidth, chartWidth]);
 
   let singlePointLabel = null;
-  if (dataGroups[0].value.length === 1) {
-    singlePointLabel = dataGroups[0].value[0].label;
+  if (allDataPoints.length === 1) {
+    singlePointLabel = allDataPoints[0].label;
   }
 
   const bottomHeight = addXAxis(
