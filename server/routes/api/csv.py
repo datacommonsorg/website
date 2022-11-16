@@ -73,7 +73,7 @@ def get_point_within_csv_rows(parent_place,
                 data_by_place[place] = {}
             # points_response_best should just have a single best (latest date
             # and best facet) data point for each stat var and place
-            if len(place_data.get("pointsByFacet")) > 0:
+            if place_data.get("pointsByFacet"):
                 data_by_place[place][sv] = place_data.get("pointsByFacet")[0]
     # go through the data in points_response_all and add to data_by_place
     for sv_data in points_response_all.get("observationsByVariable", []):
