@@ -93,10 +93,9 @@ def post_wrapper(path, req_str):
     response = requests.post(url, json=req, headers=headers)
     if response.status_code != 200:
         raise ValueError(
-            'Response error: An HTTP {} code ({}) was returned by the mixer.'
-            'Printing response:\n{}'.format(response.status_code,
-                                            response.reason,
-                                            response.json()['message']))
+            'An HTTP {} code ({}) was returned by the mixer:{}'.format(
+                response.status_code, response.reason,
+                response.json()['message']))
     return response.json()
 
 

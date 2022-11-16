@@ -24,7 +24,7 @@ def compact_point(point_resp, all_facets):
         'facets': point_resp.get('facets', {}),
     }
     data = {}
-    for obs_by_variable in point_resp['observationsByVariable']:
+    for obs_by_variable in point_resp.get('observationsByVariable', []):
         var = obs_by_variable['variable']
         data[var] = {}
         for obs_by_entity in obs_by_variable['observationsByEntity']:
