@@ -1,0 +1,218 @@
+{#-
+ Copyright 2022 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-#}
+{#-
+  Required variables:
+  title: page title
+  main_id: DOM Element ID for the main content block
+
+  Optional variables:
+  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+  is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
+  is_homepage: boolean, if true, toggles certain elements.
+  subpage_title: string, if specified, will be displayed in the header next to Data Commons.
+
+  Blocks to override:
+  head - additional head elements
+  content - main page content
+-#}
+<!DOCTYPE html>
+
+<html lang={{ locale }}>
+
+<head>
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GA_ACCOUNT %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+  </script>
+  {% endif %}
+  <title>{{ title }} - India Data Commons</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="/custom_dc/iitm/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
+    rel="stylesheet">
+  {% block head %}
+  {% endblock %}
+  <link href="/custom_dc/iitm/style.css" rel="stylesheet">
+</head>
+
+<body id="iitm-india">
+  <div id="main">
+    
+    {% if is_homepage %}
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav" style="padding: 0px 0px;">
+      <div class="container-fluid mr-5" style="padding: 0px;">
+    {% else %}
+    <header id="main-header">
+      <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
+        <div class="container-fluid">
+          <div class="navbar-brand">
+            <a href="{{ url_for('static.homepage') }}">India Data Commons</a>
+            {% if subpage_title %}
+            <span>
+              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
+              {{ subpage_title }}
+              {% if subpage_url %}</a>{% endif %}
+            </span>
+            {% endif %}
+          </div>
+      {% endif %}
+          <button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse " id="navbarResponsive">
+            {% if is_homepage %}
+            <div class="logo-section d-flex">
+              <a target="_blank" href="https://www.iitm.ac.in/">
+                <img src="/custom_dc/iitm/iitm-iitmadras.svg" height="50px" class="m-2">
+              </a>
+              <a target="_blank" href="https://rbcdsai.iitm.ac.in/" class="mt-2">
+                <img src="/custom_dc/iitm/iitm-rbcdsai.svg" height="55px" >
+              </a>
+            </div>
+            {% endif %}
+            <ul class="nav navbar-nav ml-auto pl-2">
+              <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#">Explore</a>
+                <div role="menu" class="dropdown-menu">
+                  <a role="presentation" class="dropdown-item" href="/place">Place Explorer</a>
+                  <a role="presentation" class="dropdown-item" href="/browser/">Graph Browser</a>
+                  <a role="presentation" class="dropdown-item" href="/tools/timeline">Timelines Explorer</a>
+                  <a role="presentation" class="dropdown-item" href="/tools/scatter">Scatter Plot Explorer</a>
+                  <a role="presentation" class="dropdown-item" href="/tools/map">Map Explorer</a>
+                  <a role="presentation" class="dropdown-item" href="/tools/statvar">Statistical Variable Explorer</a>
+                  <a role="presentation" class="dropdown-item" href="/tools/download">Data Download Tool</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#">Documentation</a>
+                <div role="menu" class="dropdown-menu">
+                  <a class="dropdown-item" href="http://docs.datacommons.org" target="_blank">Documentation</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/api" target="_blank">APIs</a>
+                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials" target="_blank">Tutorials</a>
+                  <a class="dropdown-item" href="/about#contribute">Contribute</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  About
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
+                  <a class="dropdown-item" href="/about">About India Data Commons</a>
+                  <a class="dropdown-item" href="/faq">FAQ</a>
+                  <a class="dropdown-item" href="/feedback">Feedback</a>
+                </div>
+              </li>
+              <li id="navbar-search-icon">
+                <a href="/search">
+                  <img src="/custom_dc/iitm/iitm-icon-search-navbar.svg" width="35px">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    {% if is_homepage %}
+    {% else %}
+    </header>
+    {% endif %}
+  
+
+    <main id="{{ main_id }}" class="main-content">
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    <footer id="main-footer" class="bg-navy text-white border-top">
+      <div class="container text-center text-sm-left position-relative pt-1">
+        {% if not is_hide_full_footer %}
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <h3 class="text-info pb-2 ">Explore</h3>
+            <ul class="list-unstyled d-inline-block d-sm-block">
+              <li class="mb-2"><a class="footer-links" href="/place">Place Explorer</a></li>
+              <li class="mb-2"><a class="footer-links" href="/browser/">Graph Browser</a></li>
+              <li class="mb-2"><a class="footer-links" href="/tools/timeline">Timelines Explorer</a></li>
+              <li class="mb-2"><a class="footer-links" href="/tools/scatter">Scatter Plot Explorer</a></li>
+              <li class="mb-2"><a class="footer-links" href="/tools/map">Map Explorer</a></li>
+              <li class="mb-2"><a class="footer-links" href="/tools/statvar">Statistical Variable Explorer</a></li>
+              <li class="mb-2"><a class="footer-links" href="/tools/download">Data Download Tool</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <h3 class="text-info pb-2 ">Documentation</h3>
+            <ul class="list-unstyled d-inline-block d-sm-block">
+              <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org" target="_blank">Documentation</a></li>
+              <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/api" target="_blank">APIs</a></li>
+              <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/tutorials" target="_blank">Tutorials</a></li>
+              <li class="mb-2"><a class="footer-links" href="/about#contribute">Contribute</a></li>
+              <li class="mb-2"><a class="footer-links" href="http://github.com/datacommonsorg" target="_blank">Github Repository</a></li>
+            </ul>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <h3 class="text-info pb-2 ">Data Commons</h3>
+            <ul class="list-unstyled d-inline-block d-sm-block">
+              <li class="mb-2 "><a class="footer-links" href="/about">About India Data Commons</a></li>
+              <li class="mb-2"><a class="footer-links" href="/feedback">Feedback</a></li>
+              <li class="mb-2"><a class="footer-links" href="/faq">Frequently Asked Questions</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr>
+        {% endif %}
+        {% if not is_hide_sub_footer %}
+        <div class="row">
+          <div id="sub-footer" class="col-12 text-left no-decoration">
+            <div class="float-left no-decoration py-2">
+              <a target="_blank" href="https://www.iitm.ac.in/">
+                <img src="/custom_dc/iitm/iitm-iitmadras.svg" height="45px">
+              </a>
+              <a target="_blank" href="https://rbcdsai.iitm.ac.in/">
+                <img src="/custom_dc/iitm/iitm-rbcdsai.svg" height="50px" >
+              </a>
+            </div>
+            <!-- <div class="col-md-6 text-right py-2"> -->
+            <div class="float-right no-decoration mt-2">
+              <span class="px-3">
+                {% block subfooter_extra %}{% endblock %}
+              </span>
+              {# TRANSLATORS: The label for a link to site terms of use. #}
+              <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">{% trans %}Terms Of Use{% endtrans %}</a>
+              {# TRANSLATORS: The label for a link to site privacy policy. #}
+              <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a>
+              {# TRANSLATORS: The label for a link to site disclaimers. #}
+              <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
+              <span style="display: inline; font-weight: 600;">&nbsp;&nbsp;| &nbsp;&nbsp;India Data Commons</span>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  {% block footer %}
+  {% endblock %}
+</body>
+
+</html>

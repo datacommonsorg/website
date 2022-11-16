@@ -313,7 +313,7 @@ const getTooltipHtml =
       titleHtml = `<b>${statVarTitle}</b><br />` + titleHtml;
     }
     let hasValue = false;
-    let value = "Data Missing";
+    let value = "Data Unavailable";
     if (
       dataValues[place.dcid] !== null &&
       dataValues[place.dcid] !== undefined

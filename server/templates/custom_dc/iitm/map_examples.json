@@ -1,0 +1,35 @@
+[
+  {
+    "header": "Max Temperature Relative to 2006 (RCP 4.5)",
+    "preposition": "for",
+    "examples": [{
+      "text": "districts in India",
+      "url": "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
+    }]
+  }, {
+    "header": "Female",
+    "preposition": "",
+    "examples": [{
+      "text": "Literate Population",
+      "url": "#%26sv%3DCount_Person_Literate_Female%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
+    }, {
+      "text": "Illiterate Population",
+      "url": "#%26sv%3DCount_Person_Illiterate_Female%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
+    }],
+    "postposition": "across districts in India"
+  }, {
+    "header": "Mean Monthly Wages",
+    "preposition": "across",
+    "examples": [{
+      "text": "states in India",
+      "url": "#%26sv%3DMean_WagesMonthly_Worker%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea1"
+    }]
+  }, {
+    "header": "Agricultural Laborers Population",
+    "preposition": "across",
+    "examples": [{
+      "text": "districts in India",
+      "url": "#%26sv%3DCount_Person_MainWorker_AgriculturalLabourers%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
+    }]
+  }
+]

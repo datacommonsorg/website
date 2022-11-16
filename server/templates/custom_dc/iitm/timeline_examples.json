@@ -1,0 +1,56 @@
+[
+  {
+    "header": "Comparison of Indian states",
+    "subheaders": [{
+      "examples": [{
+        "text": "Unemployment Rates Comparison",
+        "url": "#place=wikidataId%2FQ1185%2CwikidataId%2FQ1191%2CwikidataId%2FQ1159%2CwikidataId%2FQ1445%2CwikidataId%2FQ677037%2CwikidataId%2FQ1186&statsVar=UnemploymentRate_Person_Urban"
+      }]
+    }, {
+      "examples": [{
+        "text": "Decline in Poverty Level",
+        "url": "#place=wikidataId%2FQ1185%2CwikidataId%2FQ1159%2CwikidataId%2FQ1445%2CwikidataId%2FQ1191%2CwikidataId%2FQ677037&statsVar=Count_Person_BelowPovertyLevelInThePast12Months"
+      }]
+    }, {
+      "title": "A state level comparison",
+      "examples": [{
+        "text": "Mean monthly wages",
+        "url": "#&place=wikidataId/Q1185,wikidataId/Q1191,wikidataId/Q1159,wikidataId/Q1445,wikidataId/Q677037,wikidataId/Q1186&statsVar=Mean_WagesMonthly_Worker"
+      }]
+    }]
+  }, {
+    "header": "How India fares compared to other countries",
+    "subheaders": [{
+      "examples": [{
+        "text": "COVID-19 Vaccines Administered",
+        "url": "#statsVar=CumulativeCount_Vaccine_COVID_19_Administered&place=country%2FIND%2Ccountry%2FGBR%2Ccountry%2FDEU%2Ccountry%2FUSA"
+      }]
+    }, {
+      "examples": [{
+        "text": "Per-Capita CO2 Emissions",
+        "url": "#place=country%2FIND%2Ccountry%2FUSA%2Ccountry%2FCHN%2Ccountry%2FGBR&statsVar=Amount_Emissions_CarbonDioxide_PerCapita"
+      }]
+    }, {
+      "examples": [{
+        "text": "Percentage of Internet Users",
+        "url": "#place=country%2FIND%2Ccountry%2FIDN%2Ccountry%2FBGD%2Ccountry%2FKEN%2Ccountry%2FJPN%2Ccountry%2FUSA&statsVar=Count_Person_IsInternetUser_PerCapita"
+      }]
+    }, {
+      "examples": [{
+        "text": "Fraction of Electricity Generated Through Nuclear Energy",
+        "url": "#place=country%2FIND%2Ccountry%2FJPN%2Ccountry%2FFRA%2Ccountry%2FDEU%2Ccountry%2FCHN%2Ccountry%2FUSA&statsVar=Amount_Production_ElectricityFromNuclearSources_AsFractionOf_Amount_Production_Energy"
+      }]
+    }, {
+      "examples": [{
+        "text": "Annual Consumption of Energy Per-Capita",
+        "url": "#statsVar=Annual_Consumption_Energy_OilRefineries_Refinery_FuelTransformation&place=country%2FIND%2Ccountry%2FCHN%2Ccountry%2FGBR%2Ccountry%2FUSA"
+      }]
+    }]
+  }, {
+    "postposition": "in Asian countries",
+    "examples": [{
+      "text": "Cyclone Events",
+      "url": "#statsVar=Count_CycloneEvent&place=country%2FIND%2Ccountry%2FBGD%2Ccountry%2FPHL%2Ccountry%2FJPN"
+    }]
+  }
+]

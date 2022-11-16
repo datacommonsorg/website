@@ -15,7 +15,7 @@
 import flask
 import json
 
-from flask import current_app, request
+from flask import current_app, g, request
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 
@@ -36,12 +36,28 @@ _DOWNLOAD_INFO_DCIDS = [
     },
 ]
 
+# List of DCIDs displayed in the IITM DC version of info page for download tool
+# NOTE: EXACTLY 2 EXAMPLES REQUIRED.
+_DOWNLOAD_INFO_DCIDS_IITM = [
+    {
+        'name': 'Tamil Nadu',
+        'dcid': 'wikidataId/Q1445'
+    },
+    {
+        'name': 'Delhi',
+        'dcid': 'wikidataId/Q1353'
+    },
+]
+
 
 @bp.route('/timeline')
 def timeline():
+    info_json = "custom_dc/default/timeline_examples.json"
+    if g.env_name == 'IITM':
+        info_json = "custom_dc/iitm/timeline_examples.json"
     return flask.render_template(
         'tools/timeline.html',
-        info_json="custom_dc/default/timeline_examples.json",
+        info_json=info_json,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
@@ -54,18 +70,27 @@ def timeline_bulk_download():
 @bp.route('/map')
 def map():
     allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
+
+    info_json = "custom_dc/default/map_examples.json"
+    if g.env_name == 'IITM':
+        info_json = "custom_dc/iitm/map_examples.json"
+
     return flask.render_template(
         'tools/map.html',
         maps_api_key=current_app.config['MAPS_API_KEY'],
-        info_json="custom_dc/default/map_examples.json",
+        info_json=info_json,
         allow_leaflet=allow_leaflet)
 
 
 @bp.route('/scatter')
 def scatter():
+    info_json = "custom_dc/default/scatter_examples.json"
+    if g.env_name == 'IITM':
+        info_json = "custom_dc/iitm/scatter_examples.json"
+
     return flask.render_template(
         'tools/scatter.html',
-        info_json="custom_dc/default/scatter_examples.json",
+        info_json=info_json,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
@@ -77,6 +102,8 @@ def stat_var():
 @bp.route('/download')
 def download():
     info_places = _DOWNLOAD_INFO_DCIDS
+    if g.env_name == 'IITM':
+        info_places = _DOWNLOAD_INFO_DCIDS_IITM
     return flask.render_template(
         'tools/download.html',
         info_places=json.dumps(info_places),

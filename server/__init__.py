@@ -271,11 +271,16 @@ def create_app():
             if counter > timeout:
                 raise RuntimeError('Mixer not ready after %s second' % timeout)
 
+    # Add variables to the per-request global context.
     @app.before_request
     def before_request():
+        # Add the request locale.
         requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
         g.locale_choices = i18n.locale_choices(requested_locale)
         g.locale = g.locale_choices[0]
+
+        # Add commonly used config flags.
+        g.env_name = app.config.get('ENV_NAME', None)
 
     @babel.localeselector
     def get_locale():
