@@ -69,6 +69,8 @@ def series():
         return 'error: must provide a `entities` field', 400
     if not variables:
         return 'error: must provide a `variables` field', 400
+    entities = filter(lambda x: x != "", entities)
+    variables = filter(lambda x: x != "", variables)
     return series_core(entities, variables, False)
 
 
@@ -83,6 +85,8 @@ def series_all():
         return 'error: must provide a `entities` field', 400
     if not variables:
         return 'error: must provide a `variables` field', 400
+    entities = filter(lambda x: x != "", entities)
+    variables = filter(lambda x: x != "", variables)
     return series_core(entities, variables, True)
 
 
@@ -103,6 +107,7 @@ def series_within():
     variables = request.args.getlist('variables')
     if not variables:
         return 'error: must provide a `variables` field', 400
+    variables = filter(lambda x: x != "", variables)
     return series_within_core(parent_entity, child_type, variables, False)
 
 
@@ -123,4 +128,5 @@ def series_within_all():
     variables = request.args.getlist('variables')
     if not variables:
         return 'error: must provide a `variables` field', 400
+    variables = filter(lambda x: x != "", variables)
     return series_within_core(parent_entity, child_type, variables, True)

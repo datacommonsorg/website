@@ -137,6 +137,7 @@ def get_facets_within():
     stat_vars = request.args.getlist('statVars')
     if not stat_vars:
         return 'error: must provide a statVars field', 400
+    stat_vars = filter(lambda x: x != "", stat_vars)
     min_date = request.args.get('minDate')
     if not is_valid_date(min_date):
         return 'error: minDate must be YYYY or YYYY-MM or YYYY-MM-DD', 400
