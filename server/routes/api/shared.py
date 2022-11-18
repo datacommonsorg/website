@@ -30,10 +30,11 @@ def names(dcids):
     response = dc.property_values(dcids, 'name')
     result = {}
     for dcid in dcids:
-        if not dcid:
-            continue
-        values = response.get(dcid, [])
-        result[dcid] = values[0] if values else ''
+        result[dcid] = ''
+        if dcid in response:
+            values = response[dcid]
+            if values:
+                result[dcid] = values[0]
     return result
 
 

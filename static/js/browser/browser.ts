@@ -39,7 +39,10 @@ window.onload = () => {
     .then((resp) => resp.data);
   const numStatVarsPromise = axios
     .get(`/api/browser/num_stat_vars/${dcid}`)
-    .then((resp) => resp.data);
+    .then((resp) => resp.data)
+    .catch(() => {
+      return 0;
+    });
   Promise.all([typesPromise, numStatVarsPromise])
     .then(([typesData, numStatVars]) => {
       const types = typesData.values.out || [];

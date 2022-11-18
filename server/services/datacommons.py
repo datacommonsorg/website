@@ -36,7 +36,6 @@ API_ENDPOINTS = {
     'query': '/query',
     'translate': '/translate',
     'search': '/search',
-    'get_property_labels': '/node/property-labels',
     'get_places_in': '/node/places-in',
     'get_place_ranking': '/node/ranking-locations',
     # TODO(shifucun): switch back to /node/related-places after data switch.
@@ -199,6 +198,15 @@ def triples(node, direction):
     return get(f'/v1/triples/{direction}/{node}')
 
 
+def properties(node, direction):
+    """Retrieves the properties for a node.
+    Args:
+        node: Node DCID.
+        direction: Predicate direction, either be 'in' or 'out'.
+    """
+    return get(f'/v1/properties/{direction}/{node}').get('properties', [])
+
+
 def property_values(nodes, prop, out=True):
     """Retrieves the property values for a list of nodes.
     Args:
@@ -274,18 +282,6 @@ def get_place_ranking(stat_vars,
         'is_per_capita': is_per_capita,
     }
     return send_request(url, req_json=req_json, post=False, has_payload=False)
-
-
-def get_property_labels(dcids):
-    # Generate the GetProperty query and send the request
-    url = API_ROOT + API_ENDPOINTS['get_property_labels']
-    payload = send_request(url, req_json={'dcids': dcids})
-
-    # Return the results based on the orientation
-    results = {}
-    for dcid in dcids:
-        results[dcid] = payload[dcid]
-    return results
 
 
 def get_places_in(dcids, place_type):
