@@ -33,9 +33,9 @@ def browser_main():
 def browser_node(dcid):
     node_name = dcid
     try:
-        node_name = shared_api.names([dcid]).get(dcid)
-        if not node_name:
-            node_name = dcid
+        api_name = shared_api.names([dcid]).get(dcid)
+        if api_name:
+            node_name = api_name
     except Exception as e:
         logging.info(e)
     return render_template('/browser/node.html', dcid=dcid, node_name=node_name)

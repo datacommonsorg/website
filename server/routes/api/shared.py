@@ -33,7 +33,7 @@ def names(dcids):
         result[dcid] = ''
         if dcid in response:
             values = response[dcid]
-            if values:
+            if values and len(values) > 0:
                 result[dcid] = values[0]
     return result
 
