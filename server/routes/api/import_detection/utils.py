@@ -26,28 +26,28 @@ import re
 # String constants.
 @dataclass
 class Consts:
-    # DC Type DCIDs.
-    T_GEOCOORDS: str = "GeoCoordinates"
-    T_COUNTRY: str = "Country"
-    T_STATE: str = "State"
-    T_PROVINCE: str = "Province"
-    T_MUNICIPALITY: str = "Municipality"
+  # DC Type DCIDs.
+  T_GEOCOORDS: str = "GeoCoordinates"
+  T_COUNTRY: str = "Country"
+  T_STATE: str = "State"
+  T_PROVINCE: str = "Province"
+  T_MUNICIPALITY: str = "Municipality"
 
-    # DC Property DCIDs.
-    P_NAME: str = "name"
-    P_LONG: str = "longitude"
-    P_LAT: str = "latitude"
-    P_ISO: str = "isoCode"
-    P_ALPHA3: str = "countryAlpha3Code"
-    P_NUMERIC: str = "countryNumericCode"
-    P_FIPS52: str = "fips52AlphaCode"
-    P_FIPS: str = "geoId"
+  # DC Property DCIDs.
+  P_NAME: str = "name"
+  P_LONG: str = "longitude"
+  P_LAT: str = "latitude"
+  P_ISO: str = "isoCode"
+  P_ALPHA3: str = "countryAlpha3Code"
+  P_NUMERIC: str = "countryNumericCode"
+  P_FIPS52: str = "fips52AlphaCode"
+  P_FIPS: str = "geoId"
 
-    # Mapping helper constants.
-    M_DATE: str = "Date"
-    M_PLACE: str = "Place"
-    M_COLUMN: str = "column"
-    M_COLUMNHEADER: str = "columnHeader"
+  # Mapping helper constants.
+  M_DATE: str = "Date"
+  M_PLACE: str = "Place"
+  M_COLUMN: str = "column"
+  M_COLUMNHEADER: str = "columnHeader"
 
 
 # Possible Place types must be encoded below.
@@ -75,37 +75,37 @@ PLACE_PROPERTIES = frozendict.frozendict({
 
 
 def to_alphanumeric_and_lower(s: str) -> str:
-    """Returns only the alphanumeric chars in lower case."""
-    return re.sub(r'\W+', '', s.lower())
+  """Returns only the alphanumeric chars in lower case."""
+  return re.sub(r'\W+', '', s.lower())
 
 
 def read_json_data(filename) -> List[Dict[str, str]]:
-    """Reads and returns the json file under the data/ folder."""
-    filepath = os.path.join(
-        pathlib.Path(__file__).parent.resolve(), "data", filename)
-    assert os.path.exists(filepath)
-    return json.load(open(filepath, "r"))
+  """Reads and returns the json file under the data/ folder."""
+  filepath = os.path.join(
+      pathlib.Path(__file__).parent.resolve(), "data", filename)
+  assert os.path.exists(filepath)
+  return json.load(open(filepath, "r"))
 
 
 def check_list_instance(elements: List, element_type: Any) -> bool:
-    """Returns true if elements is of type List and elements are all of type
+  """Returns true if elements is of type List and elements are all of type
     element_type."""
-    if not isinstance(elements, List):
-        return False
-    for elem in elements:
-        if not isinstance(elem, element_type):
-            return False
+  if not isinstance(elements, List):
+    return False
+  for elem in elements:
+    if not isinstance(elem, element_type):
+      return False
 
-    return True
+  return True
 
 
 def check_dict_instance(d: Dict, key_type: Any, val_type: Any) -> bool:
-    """Returns true if map is of type Dict and keys are of type key_type
+  """Returns true if map is of type Dict and keys are of type key_type
     and values are of type val_type"""
-    if not isinstance(d, Dict):
-        return False
-    for key, val in d.items():
-        if not isinstance(key, key_type) or not isinstance(val, val_type):
-            return False
+  if not isinstance(d, Dict):
+    return False
+  for key, val in d.items():
+    if not isinstance(key, key_type) or not isinstance(val, val_type):
+      return False
 
-    return True
+  return True

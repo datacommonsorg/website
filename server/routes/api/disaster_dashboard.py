@@ -28,50 +28,48 @@ EARTH_DCID = "Earth"
 
 @bp.route('/date-range')
 def date_range():
-    """
-    Gets the date range for a specific event type
+  """Gets the date range for a specific event type
 
-    Returns: an object with minDate and maxDate
-        {
-            minDate: string,
-            maxDate: string
-        }
-    """
-    event_type = request.args.get('eventType', '')
-    result = {"minDate": "", "maxDate": ""}
-    disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
-    if event_type in disaster_data:
-        dates = list(disaster_data.get(event_type).keys())
-        if dates:
-            dates = sorted(dates)
-            result = {"minDate": dates[0], "maxDate": dates[-1]}
-    return json.dumps(result), 200
+  Returns: an object with minDate and maxDate
+      {
+          minDate: string,
+          maxDate: string
+      }
+  """
+  event_type = request.args.get('eventType', '')
+  result = {"minDate": "", "maxDate": ""}
+  disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
+  if event_type in disaster_data:
+    dates = list(disaster_data.get(event_type).keys())
+    if dates:
+      dates = sorted(dates)
+      result = {"minDate": dates[0], "maxDate": dates[-1]}
+  return json.dumps(result), 200
 
 
 @bp.route('/data')
 def data():
-    """
-    Gets the data for a given eventType, date, and place
+  """Gets the data for a given eventType, date, and place
 
-    Returns: a list of events of the following form
-        {
-            eventId: string,
-            name: string,
-            startDate: string,
-            endDate: string
-            affectedPlaces: list of string,
-            longitude: number,
-            latitude: number,
-            ... (optional properties depending on the event (e.g., EarthquakeEvent will have magnitude)
-        }
-    """
-    event_type = request.args.get('eventType', '')
-    date = request.args.get('date', '')
-    place = request.args.get('place', '')
-    result = []
-    disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
-    for event in disaster_data.get(event_type, {}).get(date, []):
-        if place != EARTH_DCID and not place in event.get("affectedPlaces", []):
-            continue
-        result.append(event)
-    return json.dumps(result), 200
+  Returns: a list of events of the following form
+      {
+          eventId: string,
+          name: string,
+          startDate: string,
+          endDate: string
+          affectedPlaces: list of string,
+          longitude: number,
+          latitude: number,
+          ... (optional properties depending on the event (e.g., EarthquakeEvent will have magnitude)
+      }
+  """
+  event_type = request.args.get('eventType', '')
+  date = request.args.get('date', '')
+  place = request.args.get('place', '')
+  result = []
+  disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
+  for event in disaster_data.get(event_type, {}).get(date, []):
+    if place != EARTH_DCID and not place in event.get("affectedPlaces", []):
+      continue
+    result.append(event)
+  return json.dumps(result), 200

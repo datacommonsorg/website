@@ -47,62 +47,62 @@ WARM_UP_ENDPOINTS = [
 
 
 def send_warmup_requests():
-    logging.info("Sending warm up requests:")
-    for endpoint in WARM_UP_ENDPOINTS:
-        while True:
-            try:
-                resp = requests.get("http://127.0.0.1:8080" + endpoint)
-                if resp.status_code == 200:
-                    break
-            except:
-                pass
-            time.sleep(1)
+  logging.info("Sending warm up requests:")
+  for endpoint in WARM_UP_ENDPOINTS:
+    while True:
+      try:
+        resp = requests.get("http://127.0.0.1:8080" + endpoint)
+        if resp.status_code == 200:
+          break
+      except:
+        pass
+      time.sleep(1)
 
 
 @app.before_request
 def before_request():
-    scheme = request.headers.get('X-Forwarded-Proto')
-    if scheme and scheme == 'http' and request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return flask.redirect(url, code=code)
+  scheme = request.headers.get('X-Forwarded-Proto')
+  if scheme and scheme == 'http' and request.url.startswith('http://'):
+    url = request.url.replace('http://', 'https://', 1)
+    code = 301
+    return flask.redirect(url, code=code)
 
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/translator')
 def translator_handler():
-    return flask.render_template('translator.html')
+  return flask.render_template('translator.html')
 
 
 @app.route('/healthz')
 def healthz():
-    return "very healthy"
+  return "very healthy"
 
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @app.route('/mcf_playground')
 def mcf_playground():
-    return flask.render_template('mcf_playground.html')
+  return flask.render_template('mcf_playground.html')
 
 
 # TODO(shifucun): get branch cache version from mixer
 @app.route('/version')
 def version():
-    mixer_version = dc.version()
-    return flask.render_template('version.html',
-                                 website_hash=os.environ.get("WEBSITE_HASH"),
-                                 mixer_hash=mixer_version['gitHash'],
-                                 tables=mixer_version['tables'],
-                                 bigquery=mixer_version['bigquery'])
+  mixer_version = dc.version()
+  return flask.render_template('version.html',
+                               website_hash=os.environ.get("WEBSITE_HASH"),
+                               mixer_hash=mixer_version['gitHash'],
+                               tables=mixer_version['tables'],
+                               bigquery=mixer_version['bigquery'])
 
 
 if not (app.config["TEST"] or app.config["WEBDRIVER"] or app.config["LOCAL"]):
-    thread = threading.Thread(target=send_warmup_requests)
-    thread.start()
+  thread = threading.Thread(target=send_warmup_requests)
+  thread.start()
 
 if __name__ == '__main__':
-    # This is used when running locally only. When deploying to GKE,
-    # a webserver process such as Gunicorn will serve the app.
-    logging.info("Run web server in local mode")
-    port = sys.argv[1] if len(sys.argv) >= 2 else 8080
-    app.run(host='127.0.0.1', port=port, debug=True)
+  # This is used when running locally only. When deploying to GKE,
+  # a webserver process such as Gunicorn will serve the app.
+  logging.info("Run web server in local mode")
+  port = sys.argv[1] if len(sys.argv) >= 2 else 8080
+  app.run(host='127.0.0.1', port=port, debug=True)

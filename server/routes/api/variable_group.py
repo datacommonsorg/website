@@ -29,28 +29,27 @@ NUM_DESCENDENTS_TO_SUBTRACT = 12123
 
 @bp.route('/info')
 def get_variable_group_info():
-    """Gets the stat var group node information.
+  """Gets the stat var group node information.
 
-    This is to retrieve the adjacent nodes, including child stat vars, child stat
-    var groups and parent stat var groups for the given stat var group node.
-    """
-    dcid = request.args.get("dcid")
-    entities = request.args.getlist("entities")
-    url = "/v1/info/variable-group/{}".format(dcid)
-    if entities:
-        url += "?constrained_entities=" + "&constrained_entities=".join(
-            entities)
-    result = dc.get(url).get("info", {})
-    if current_app.config["ENABLE_BLOCKLIST"]:
-        childSVG = result.get("childStatVarGroups", [])
-        filteredChildSVG = []
-        for svg in childSVG:
-            svg_id = svg.get("id", "")
-            if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
-                continue
-            svg_num_descendents = svg.get("descendentStatVarCount", 0)
-            if svg_id in UPDATE_NUM_DESCENDENTS_SVG and svg_num_descendents > NUM_DESCENDENTS_TO_SUBTRACT:
-                svg["descendentStatVarCount"] = svg_num_descendents - NUM_DESCENDENTS_TO_SUBTRACT
-            filteredChildSVG.append(svg)
-        result["childStatVarGroups"] = filteredChildSVG
-    return result
+  This is to retrieve the adjacent nodes, including child stat vars, child stat
+  var groups and parent stat var groups for the given stat var group node.
+  """
+  dcid = request.args.get("dcid")
+  entities = request.args.getlist("entities")
+  url = "/v1/info/variable-group/{}".format(dcid)
+  if entities:
+    url += "?constrained_entities=" + "&constrained_entities=".join(entities)
+  result = dc.get(url).get("info", {})
+  if current_app.config["ENABLE_BLOCKLIST"]:
+    childSVG = result.get("childStatVarGroups", [])
+    filteredChildSVG = []
+    for svg in childSVG:
+      svg_id = svg.get("id", "")
+      if svg_id in BLOCKLISTED_STAT_VAR_GROUPS:
+        continue
+      svg_num_descendents = svg.get("descendentStatVarCount", 0)
+      if svg_id in UPDATE_NUM_DESCENDENTS_SVG and svg_num_descendents > NUM_DESCENDENTS_TO_SUBTRACT:
+        svg["descendentStatVarCount"] = svg_num_descendents - NUM_DESCENDENTS_TO_SUBTRACT
+      filteredChildSVG.append(svg)
+    result["childStatVarGroups"] = filteredChildSVG
+  return result

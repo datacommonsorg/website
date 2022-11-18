@@ -28,24 +28,24 @@ bp = Blueprint("dev", __name__, url_prefix='/dev')
 
 @bp.route('/')
 def dev():
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-    return flask.render_template('dev/dev.html')
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  return flask.render_template('dev/dev.html')
 
 
 @bp.route('/screenshot/<path:folder>')
 def screenshot(folder):
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-    images = list_png(SCREENSHOT_BUCKET, folder)
-    return flask.render_template('dev/screenshot.html', images=images)
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  images = list_png(SCREENSHOT_BUCKET, folder)
+  return flask.render_template('dev/screenshot.html', images=images)
 
 
 @bp.route('/disaster-dashboard')
 def disaster_dashboard():
-    if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
-        flask.abort(404)
-    european_countries = json.dumps(
-        dc.get_places_in(["europe"], "Country").get("europe", []))
-    return flask.render_template('dev/disaster_dashboard.html',
-                                 european_countries=european_countries)
+  if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+    flask.abort(404)
+  european_countries = json.dumps(
+      dc.get_places_in(["europe"], "Country").get("europe", []))
+  return flask.render_template('dev/disaster_dashboard.html',
+                               european_countries=european_countries)

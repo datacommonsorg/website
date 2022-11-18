@@ -47,69 +47,69 @@ PLACE_DETECTORS: Tuple[PlaceDetectorInterface, ...] = (
 
 def preferred_property(detected_places: Dict[int, TypeProperty],
                        property_order: List[str]) -> Optional[int]:
-    """preferred_property is a helper function which returns the column index (key) of the
-    detected place in detected_places based on a ranked order of preferred property types.
-    For example, given two column indices (keys) both of which correspond to TypeProperty
-    with type dcid = "Country", if one of them has property dcid as ISO codes and the
-    other has country numbers, we will prefer the one with ISO codes.
-    @args:
-        detected_places: mapping from column indices to the detected TypeProperty.
-        property_order: the ranked order of preference for property dcids.
-    @returns:
-        The column index of the most preferred TypeProperty or None if there is no match.
-    """
-    for prop_dcid in property_order:
-        for col_idx, type_prop in detected_places.items():
-            if prop_dcid == type_prop.dc_property.dcid:
-                return col_idx
-    return None
+  """preferred_property is a helper function which returns the column index (key) of the
+  detected place in detected_places based on a ranked order of preferred property types.
+  For example, given two column indices (keys) both of which correspond to TypeProperty
+  with type dcid = "Country", if one of them has property dcid as ISO codes and the
+  other has country numbers, we will prefer the one with ISO codes.
+  @args:
+      detected_places: mapping from column indices to the detected TypeProperty.
+      property_order: the ranked order of preference for property dcids.
+  @returns:
+      The column index of the most preferred TypeProperty or None if there is no match.
+  """
+  for prop_dcid in property_order:
+    for col_idx, type_prop in detected_places.items():
+      if prop_dcid == type_prop.dc_property.dcid:
+        return col_idx
+  return None
 
 
 def supported_type_properties() -> List[TypeProperty]:
-    """Returns the list of supported place TypeProperties."""
-    types_props: List[TypeProperty] = []
-    for det in PLACE_DETECTORS:
-        types_props.extend(det.supported_types_and_properties())
+  """Returns the list of supported place TypeProperties."""
+  types_props: List[TypeProperty] = []
+  for det in PLACE_DETECTORS:
+    types_props.extend(det.supported_types_and_properties())
 
-    return types_props
+  return types_props
 
 
 def detect_column_with_places(header: str,
                               col_values: List[str]) -> Optional[TypeProperty]:
-    """If the proportion of 'col_values' detected as Place is greater than
-    _MIN_HIGH_CONF_DETECT, returns the detected Place TypeProperty.
-    @args:
-        header: is the column's header.
-        col_values: sampled values from the column.
-        detectors: the list of detectors to use. If empty, get list from place_detectors().
-    @returns:
-        The detected Place TypeProperty or None.
-    """
-    types_found: Dict[str, TypeProperty] = {}
-    for det in PLACE_DETECTORS:
-        found = det.detect_column(col_values)
-        if found is not None:
-            types_found.update({found.dc_type.dcid: found})
+  """If the proportion of 'col_values' detected as Place is greater than
+  _MIN_HIGH_CONF_DETECT, returns the detected Place TypeProperty.
+  @args:
+      header: is the column's header.
+      col_values: sampled values from the column.
+      detectors: the list of detectors to use. If empty, get list from place_detectors().
+  @returns:
+      The detected Place TypeProperty or None.
+  """
+  types_found: Dict[str, TypeProperty] = {}
+  for det in PLACE_DETECTORS:
+    found = det.detect_column(col_values)
+    if found is not None:
+      types_found.update({found.dc_type.dcid: found})
 
-    # If country was detected and the header has a country in the name, return
-    # country. If not, we have to do more work to disambiguate country vs state.
-    if c.T_COUNTRY in types_found and c.T_COUNTRY.lower(
-    ) in utils.to_alphanumeric_and_lower(header):
-        return types_found[c.T_COUNTRY]
+  # If country was detected and the header has a country in the name, return
+  # country. If not, we have to do more work to disambiguate country vs state.
+  if c.T_COUNTRY in types_found and c.T_COUNTRY.lower(
+  ) in utils.to_alphanumeric_and_lower(header):
+    return types_found[c.T_COUNTRY]
 
-    # If state was detected and the header has a state in the name, return
-    # state.
-    if c.T_STATE in types_found and c.T_STATE.lower(
-    ) in utils.to_alphanumeric_and_lower(header):
-        return types_found[c.T_STATE]
+  # If state was detected and the header has a state in the name, return
+  # state.
+  if c.T_STATE in types_found and c.T_STATE.lower(
+  ) in utils.to_alphanumeric_and_lower(header):
+    return types_found[c.T_STATE]
 
-    # Finally, if none of the headers match, give preference to country
-    # detection over state detection.
-    if c.T_COUNTRY in types_found:
-        return types_found[c.T_COUNTRY]
+  # Finally, if none of the headers match, give preference to country
+  # detection over state detection.
+  if c.T_COUNTRY in types_found:
+    return types_found[c.T_COUNTRY]
 
-    if c.T_STATE in types_found:
-        return types_found[c.T_STATE]
+  if c.T_STATE in types_found:
+    return types_found[c.T_STATE]
 
-    # At this point, there was no detection possible. Return None.
-    return None
+  # At this point, there was no detection possible. Return None.
+  return None

@@ -24,11 +24,11 @@ bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 @bp.route('/<path:dcid>')
 def get_node(dcid):
-    """Returns data given a disease node."""
-    response = dc_service.fetch_data('/internal/bio', {
-        'dcid': dcid,
-    },
-                                     compress=False,
-                                     post=False,
-                                     has_payload=False)
-    return response
+  """Returns data given a disease node."""
+  response = dc_service.fetch_data('/internal/bio', {
+      'dcid': dcid,
+  },
+                                   compress=False,
+                                   post=False,
+                                   has_payload=False)
+  return response

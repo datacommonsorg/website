@@ -21,23 +21,22 @@ bp = Blueprint("observation-dates", __name__)
 
 @bp.route('/api/observation-dates')
 def observation_dates():
-    """
-    Given ancestor place, child place type and stat vars, return the dates that
+  """Given ancestor place, child place type and stat vars, return the dates that
 	have data for each stat var across all child places.
-    """
-    parent_entity = request.args.get('parentEntity')
-    if not parent_entity:
-        return 'error: must provide a parentEntity field', 400
-    child_type = request.args.get('childType')
-    if not child_type:
-        return 'error: must provide a childType field', 400
-    variable = request.args.get('variable')
-    if not variable:
-        return 'error: must provide a variable field', 400
-    return dc.post(
-        '/v1/bulk/observation-dates/linked', {
-            'linked_property': "containedInPlace",
-            'linked_entity': parent_entity,
-            'entity_type': child_type,
-            'variables': [variable],
-        })
+  """
+  parent_entity = request.args.get('parentEntity')
+  if not parent_entity:
+    return 'error: must provide a parentEntity field', 400
+  child_type = request.args.get('childType')
+  if not child_type:
+    return 'error: must provide a childType field', 400
+  variable = request.args.get('variable')
+  if not variable:
+    return 'error: must provide a variable field', 400
+  return dc.post(
+      '/v1/bulk/observation-dates/linked', {
+          'linked_property': "containedInPlace",
+          'linked_entity': parent_entity,
+          'entity_type': child_type,
+          'variables': [variable],
+      })

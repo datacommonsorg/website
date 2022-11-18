@@ -22,30 +22,28 @@ MAX_NUM_SPINNERS = 3
 
 
 def wait_for_loading(driver):
-    """
-    Wait for loading spinners to appear then disappear. Sometimes, more
-    than one spinner will appear and disappear, so wait for MAX_NUM_SPINNERS
-    spinners to appear and disappear. Or finish waiting if it takes more than
-    LOADING_WAIT_TIME_SEC seconds for the next spinner to appear.
-    """
-    screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
-    screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
-    num_tries = 0
-    while (num_tries < MAX_NUM_SPINNERS):
-        try:
-            WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_present)
-            WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_hidden)
-            num_tries += 1
-        except:
-            break
+  """
+  Wait for loading spinners to appear then disappear. Sometimes, more
+  than one spinner will appear and disappear, so wait for MAX_NUM_SPINNERS
+  spinners to appear and disappear. Or finish waiting if it takes more than
+  LOADING_WAIT_TIME_SEC seconds for the next spinner to appear.
+  """
+  screen_present = EC.visibility_of_element_located((By.ID, 'screen'))
+  screen_hidden = EC.invisibility_of_element_located((By.ID, 'screen'))
+  num_tries = 0
+  while (num_tries < MAX_NUM_SPINNERS):
+    try:
+      WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_present)
+      WebDriverWait(driver, LOADING_WAIT_TIME_SEC).until(screen_hidden)
+      num_tries += 1
+    except:
+      break
 
 
 def click_sv_group(driver, svg_name):
-    """
-    In the stat var widget, click on the stat var group titled svg_name
-    """
-    sv_groups = driver.find_elements_by_class_name('node-title')
-    for group in sv_groups:
-        if svg_name in group.text:
-            group.click()
-            break
+  """In the stat var widget, click on the stat var group titled svg_name."""
+  sv_groups = driver.find_elements_by_class_name('node-title')
+  for group in sv_groups:
+    if svg_name in group.text:
+      group.click()
+      break

@@ -21,31 +21,31 @@ from main import app
 
 class TestGetVariableGroupInfo(unittest.TestCase):
 
-    @mock.patch('routes.api.variable_group.dc.get')
-    def test_statvar_path(self, mock_result):
-        expected_result = {
-            "absoluteName":
-                "Data Commons Variables",
-            "childStatVarGroups": [{
-                "id": "dc/g/Crime",
-                "specializedEntity": "Crime",
-                "displayName": "Crime"
-            }, {
-                "id": "dc/g/Demographics",
-                "specializedEntity": "Demographics",
-                "displayName": "Demographics"
-            }]
-        }
+  @mock.patch('routes.api.variable_group.dc.get')
+  def test_statvar_path(self, mock_result):
+    expected_result = {
+        "absoluteName":
+            "Data Commons Variables",
+        "childStatVarGroups": [{
+            "id": "dc/g/Crime",
+            "specializedEntity": "Crime",
+            "displayName": "Crime"
+        }, {
+            "id": "dc/g/Demographics",
+            "specializedEntity": "Demographics",
+            "displayName": "Demographics"
+        }]
+    }
 
-        def side_effect(url):
-            if url == "/v1/info/variable-group/dc/g/Root?constrained_entities=geoId/06":
-                return {"info": expected_result}
-            else:
-                return {}
+    def side_effect(url):
+      if url == "/v1/info/variable-group/dc/g/Root?constrained_entities=geoId/06":
+        return {"info": expected_result}
+      else:
+        return {}
 
-        mock_result.side_effect = side_effect
-        response = app.test_client().get(
-            'api/variable-group/info?dcid=dc/g/Root&entities=geoId/06')
-        assert response.status_code == 200
-        result = json.loads(response.data)
-        assert result == expected_result
+    mock_result.side_effect = side_effect
+    response = app.test_client().get(
+        'api/variable-group/info?dcid=dc/g/Root&entities=geoId/06')
+    assert response.status_code == 200
+    result = json.loads(response.data)
+    assert result == expected_result

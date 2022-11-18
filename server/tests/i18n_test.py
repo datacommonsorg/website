@@ -21,33 +21,33 @@ from main import app
 
 class TestHlParamSelection(unittest.TestCase):
 
-    def test_no_hl(self):
-        with app.test_client() as c:
-            c.get('/')
-            assert (g.locale == 'en')
-            assert (g.locale_choices == ['en'])
+  def test_no_hl(self):
+    with app.test_client() as c:
+      c.get('/')
+      assert (g.locale == 'en')
+      assert (g.locale_choices == ['en'])
 
-    def test_default_hl(self):
-        with app.test_client() as c:
-            c.get('/?hl=en')
-            assert (g.locale == 'en')
-            assert (g.locale_choices == ['en'])
+  def test_default_hl(self):
+    with app.test_client() as c:
+      c.get('/?hl=en')
+      assert (g.locale == 'en')
+      assert (g.locale_choices == ['en'])
 
-    def test_simple_hl(self):
-        with app.test_client() as c:
-            c.get('/?hl=ru')
-            assert (g.locale == 'ru')
-            assert (g.locale_choices == ['ru', 'en'])
+  def test_simple_hl(self):
+    with app.test_client() as c:
+      c.get('/?hl=ru')
+      assert (g.locale == 'ru')
+      assert (g.locale_choices == ['ru', 'en'])
 
-    @patch('lib.i18n.AVAILABLE_LANGUAGES', ['en', 'pt-br', 'pt'])
-    def test_complex_hl(self):
-        with app.test_client() as c:
-            c.get('/?hl=pt-BR')
-            assert (g.locale == 'pt-br')
-            assert (g.locale_choices == ['pt-br', 'pt', 'en'])
+  @patch('lib.i18n.AVAILABLE_LANGUAGES', ['en', 'pt-br', 'pt'])
+  def test_complex_hl(self):
+    with app.test_client() as c:
+      c.get('/?hl=pt-BR')
+      assert (g.locale == 'pt-br')
+      assert (g.locale_choices == ['pt-br', 'pt', 'en'])
 
-    def test_fallback_hl(self):
-        with app.test_client() as c:
-            c.get('/?hl=foobar')
-            assert (g.locale == 'en')
-            assert (g.locale_choices == ['en'])
+  def test_fallback_hl(self):
+    with app.test_client() as c:
+      c.get('/?hl=foobar')
+      assert (g.locale == 'en')
+      assert (g.locale_choices == ['en'])

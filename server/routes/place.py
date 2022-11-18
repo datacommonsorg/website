@@ -67,66 +67,62 @@ CATEGORY_REDIRECTS = {
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def place(place_dcid=None):
+  redirect_args = dict(flask.request.args)
+  should_redirect = False
+  if 'topic' in flask.request.args:
+    redirect_args['category'] = flask.request.args.get('topic', '')
+    del redirect_args['topic']
+    should_redirect = True
+
+  category = redirect_args.get('category', None)
+  if category in CATEGORY_REDIRECTS:
+    redirect_args['category'] = CATEGORY_REDIRECTS[category]
+    should_redirect = True
+
+  if should_redirect:
+    redirect_args['place_dcid'] = place_dcid
+    return flask.redirect(flask.url_for('place.place', **redirect_args))
+
+  dcid = flask.request.args.get('dcid', None)
+  if dcid:
+    # Traffic from "explore more" in Search. Forward along all parameters,
+    # except for dcid, to the new URL format.
     redirect_args = dict(flask.request.args)
-    should_redirect = False
-    if 'topic' in flask.request.args:
-        redirect_args['category'] = flask.request.args.get('topic', '')
-        del redirect_args['topic']
-        should_redirect = True
+    redirect_args['place_dcid'] = dcid
+    del redirect_args['dcid']
+    redirect_args['category'] = category
+    url = flask.url_for('place.place',
+                        **redirect_args,
+                        _external=True,
+                        _scheme=current_app.config.get('SCHEME', 'https'))
+    return flask.redirect(url)
 
-    category = redirect_args.get('category', None)
-    if category in CATEGORY_REDIRECTS:
-        redirect_args['category'] = CATEGORY_REDIRECTS[category]
-        should_redirect = True
+  if not place_dcid:
+    return place_landing()
 
-    if should_redirect:
-        redirect_args['place_dcid'] = place_dcid
-        return flask.redirect(flask.url_for('place.place', **redirect_args))
-
-    dcid = flask.request.args.get('dcid', None)
-    if dcid:
-        # Traffic from "explore more" in Search. Forward along all parameters,
-        # except for dcid, to the new URL format.
-        redirect_args = dict(flask.request.args)
-        redirect_args['place_dcid'] = dcid
-        del redirect_args['dcid']
-        redirect_args['category'] = category
-        url = flask.url_for('place.place',
-                            **redirect_args,
-                            _external=True,
-                            _scheme=current_app.config.get('SCHEME', 'https'))
-        return flask.redirect(url)
-
-    if not place_dcid:
-        return place_landing()
-
-    place_type = place_api.get_place_type(place_dcid)
-    place_names = place_api.get_i18n_name([place_dcid])
-    if place_names and place_names.get(place_dcid):
-        place_name = place_names[place_dcid]
-    else:
-        place_name = place_dcid
-    return flask.render_template(
-        'place.html',
-        place_type=place_type,
-        place_name=place_name,
-        place_dcid=place_dcid,
-        category=category if category else '',
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+  place_type = place_api.get_place_type(place_dcid)
+  place_names = place_api.get_i18n_name([place_dcid])
+  if place_names and place_names.get(place_dcid):
+    place_name = place_names[place_dcid]
+  else:
+    place_name = place_dcid
+  return flask.render_template('place.html',
+                               place_type=place_type,
+                               place_name=place_name,
+                               place_dcid=place_dcid,
+                               category=category if category else '',
+                               maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 def place_landing():
-    """
-    Returns filled template for the place landing page.
-    """
-    landing_dcids = _PLACE_LANDING_DCIDS
-    template = 'place_landing.html'
-    if g.env_name == 'IITM':
-        landing_dcids = _PLACE_LANDING_DCIDS_IITM
-        template = 'custom_dc/iitm/place_landing.html'
-    # Use display names (including state, if applicable) for the static page
-    place_names = place_api.get_display_name('^'.join(landing_dcids), g.locale)
-    return flask.render_template(
-        template,
-        place_names=place_names,
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+  """Returns filled template for the place landing page."""
+  landing_dcids = _PLACE_LANDING_DCIDS
+  template = 'place_landing.html'
+  if g.env_name == 'IITM':
+    landing_dcids = _PLACE_LANDING_DCIDS_IITM
+    template = 'custom_dc/iitm/place_landing.html'
+  # Use display names (including state, if applicable) for the static page
+  place_names = place_api.get_display_name('^'.join(landing_dcids), g.locale)
+  return flask.render_template(template,
+                               place_names=place_names,
+                               maps_api_key=current_app.config['MAPS_API_KEY'])

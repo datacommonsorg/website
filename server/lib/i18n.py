@@ -21,23 +21,23 @@ AVAILABLE_LANGUAGES = ['de', 'en', 'es', 'fr', 'hi', 'it', 'ja', 'ko', 'ru']
 
 
 def locale_choices(requested_locale=''):
-    """
-    Returns a list of available locale choices, from most to least specific, to fulfill
-    the requested locale.
-    - If available, requested_locale
-    - If available, the language code without the locale
-    - The default language, 'en'
-    """
-    requested_locale = requested_locale.lower()
-    accepted_languages = []
-    if requested_locale != DEFAULT_LOCALE:
-        if requested_locale in AVAILABLE_LANGUAGES:
-            accepted_languages.append(requested_locale)
+  """
+  Returns a list of available locale choices, from most to least specific, to fulfill
+  the requested locale.
+  - If available, requested_locale
+  - If available, the language code without the locale
+  - The default language, 'en'
+  """
+  requested_locale = requested_locale.lower()
+  accepted_languages = []
+  if requested_locale != DEFAULT_LOCALE:
+    if requested_locale in AVAILABLE_LANGUAGES:
+      accepted_languages.append(requested_locale)
 
-        fallback_lang = requested_locale.split(
-            '-')[0] if requested_locale.find('-') != -1 else ''
-        if fallback_lang in AVAILABLE_LANGUAGES:
-            accepted_languages.append(fallback_lang)
+    fallback_lang = requested_locale.split(
+        '-')[0] if requested_locale.find('-') != -1 else ''
+    if fallback_lang in AVAILABLE_LANGUAGES:
+      accepted_languages.append(fallback_lang)
 
-    accepted_languages.append(DEFAULT_LOCALE)
-    return accepted_languages
+  accepted_languages.append(DEFAULT_LOCALE)
+  return accepted_languages

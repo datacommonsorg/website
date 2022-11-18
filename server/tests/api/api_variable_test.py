@@ -21,17 +21,17 @@ from main import app
 
 class TestVariablePath(unittest.TestCase):
 
-    @mock.patch('routes.api.variable.dc.get')
-    def test_variable_path(self, mock_result):
+  @mock.patch('routes.api.variable.dc.get')
+  def test_variable_path(self, mock_result):
 
-        def side_effect(url):
-            if url == "/v1/variable/ancestors/Count_Person":
-                return {"ancestors": ["dc/g/Demographics"]}
-            else:
-                return {}
+    def side_effect(url):
+      if url == "/v1/variable/ancestors/Count_Person":
+        return {"ancestors": ["dc/g/Demographics"]}
+      else:
+        return {}
 
-        mock_result.side_effect = side_effect
-        response = app.test_client().get('api/variable/path?dcid=Count_Person')
-        assert response.status_code == 200
-        result = json.loads(response.data)
-        assert result == ["Count_Person", "dc/g/Demographics"]
+    mock_result.side_effect = side_effect
+    response = app.test_client().get('api/variable/path?dcid=Count_Person')
+    assert response.status_code == 200
+    result = json.loads(response.data)
+    assert result == ["Count_Person", "dc/g/Demographics"]
