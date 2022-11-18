@@ -22,47 +22,47 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-    if g.env_name == 'FEEDINGAMERICA':
-        return render_template('custom_dc/feedingamerica/homepage.html')
-    if g.env_name == 'IITM':
-        return render_template('custom_dc/iitm/homepage.html')
-    if g.env_name == 'CUSTOM':
-        return render_template('custom_dc/default/homepage.html')
-    blog_date = babel_dates.format_date(date(2021, 7, 26),
-                                        format='long',
-                                        locale=g.locale)
-    return render_template('static/homepage.html', blog_date=blog_date)
+  if g.env_name == 'FEEDINGAMERICA':
+    return render_template('custom_dc/feedingamerica/homepage.html')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/homepage.html')
+  if g.env_name == 'CUSTOM':
+    return render_template('custom_dc/default/homepage.html')
+  blog_date = babel_dates.format_date(date(2021, 7, 26),
+                                      format='long',
+                                      locale=g.locale)
+  return render_template('static/homepage.html', blog_date=blog_date)
 
 
 @bp.route('/about')
 def about():
-    if g.env_name == 'FEEDINGAMERICA':
-        return render_template('custom_dc/feedingamerica/about.html')
-    if g.env_name == 'IITM':
-        return render_template('custom_dc/iitm/about.html')
-    return render_template('static/about.html')
+  if g.env_name == 'FEEDINGAMERICA':
+    return render_template('custom_dc/feedingamerica/about.html')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/about.html')
+  return render_template('static/about.html')
 
 
 @bp.route('/faq')
 def faq():
-    current_date = date.today().strftime('%-d %b %Y')
-    current_year = date.today().strftime('%Y')
-    if g.env_name == 'IITM':
-        return render_template('custom_dc/iitm/faq.html',
-                               current_date=current_date,
-                               current_year=current_year)
-    return render_template('static/faq.html',
+  current_date = date.today().strftime('%-d %b %Y')
+  current_year = date.today().strftime('%Y')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/faq.html',
                            current_date=current_date,
                            current_year=current_year)
+  return render_template('static/faq.html',
+                         current_date=current_date,
+                         current_year=current_year)
 
 
 @bp.route('/disclaimers')
 def disclaimers():
-    return render_template('static/disclaimers.html')
+  return render_template('static/disclaimers.html')
 
 
 @bp.route('/feedback')
 def feedback():
-    if g.env_name == 'IITM':
-        return render_template('custom_dc/iitm/feedback.html')
-    return render_template('static/feedback.html')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/feedback.html')
+  return render_template('static/feedback.html')

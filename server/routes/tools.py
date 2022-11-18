@@ -52,59 +52,55 @@ _DOWNLOAD_INFO_DCIDS_IITM = [
 
 @bp.route('/timeline')
 def timeline():
-    info_json = "custom_dc/default/timeline_examples.json"
-    if g.env_name == 'IITM':
-        info_json = "custom_dc/iitm/timeline_examples.json"
-    return flask.render_template(
-        'tools/timeline.html',
-        info_json=info_json,
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+  info_json = "custom_dc/default/timeline_examples.json"
+  if g.env_name == 'IITM':
+    info_json = "custom_dc/iitm/timeline_examples.json"
+  return flask.render_template('tools/timeline.html',
+                               info_json=info_json,
+                               maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 # This tool is used by the Harvard Data Science course
 @bp.route('/timeline/bulk_download')
 def timeline_bulk_download():
-    return flask.render_template('tools/timeline_bulk_download.html')
+  return flask.render_template('tools/timeline_bulk_download.html')
 
 
 @bp.route('/map')
 def map():
-    allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
+  allow_leaflet = request.args.get(ALLOW_LEAFLET_FLAG, None)
 
-    info_json = "custom_dc/default/map_examples.json"
-    if g.env_name == 'IITM':
-        info_json = "custom_dc/iitm/map_examples.json"
+  info_json = "custom_dc/default/map_examples.json"
+  if g.env_name == 'IITM':
+    info_json = "custom_dc/iitm/map_examples.json"
 
-    return flask.render_template(
-        'tools/map.html',
-        maps_api_key=current_app.config['MAPS_API_KEY'],
-        info_json=info_json,
-        allow_leaflet=allow_leaflet)
+  return flask.render_template('tools/map.html',
+                               maps_api_key=current_app.config['MAPS_API_KEY'],
+                               info_json=info_json,
+                               allow_leaflet=allow_leaflet)
 
 
 @bp.route('/scatter')
 def scatter():
-    info_json = "custom_dc/default/scatter_examples.json"
-    if g.env_name == 'IITM':
-        info_json = "custom_dc/iitm/scatter_examples.json"
+  info_json = "custom_dc/default/scatter_examples.json"
+  if g.env_name == 'IITM':
+    info_json = "custom_dc/iitm/scatter_examples.json"
 
-    return flask.render_template(
-        'tools/scatter.html',
-        info_json=info_json,
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+  return flask.render_template('tools/scatter.html',
+                               info_json=info_json,
+                               maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/statvar')
 def stat_var():
-    return flask.render_template('tools/stat_var.html')
+  return flask.render_template('tools/stat_var.html')
 
 
 @bp.route('/download')
 def download():
-    info_places = _DOWNLOAD_INFO_DCIDS
-    if g.env_name == 'IITM':
-        info_places = _DOWNLOAD_INFO_DCIDS_IITM
-    return flask.render_template(
-        'tools/download.html',
-        info_places=json.dumps(info_places),
-        maps_api_key=current_app.config['MAPS_API_KEY'])
+  info_places = _DOWNLOAD_INFO_DCIDS
+  if g.env_name == 'IITM':
+    info_places = _DOWNLOAD_INFO_DCIDS_IITM
+  return flask.render_template('tools/download.html',
+                               info_places=json.dumps(info_places),
+                               maps_api_key=current_app.config['MAPS_API_KEY'])

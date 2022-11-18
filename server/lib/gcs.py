@@ -18,52 +18,50 @@ from base64 import b64encode
 
 
 def list_blobs(bucket_name, max_blobs):
-    """Return a dictionary of three recent blobs in the bucket.
+  """Return a dictionary of three recent blobs in the bucket.
 
-    Args:
-      bucket_name: the bucket where the feed is stored.
-      max_blobs: the maximum blobs to list.
-    Returns:
-      Ordered dictionary of three recent blobs, most recent first.
-    """
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(bucket_name)
+  Args:
+    bucket_name: the bucket where the feed is stored.
+    max_blobs: the maximum blobs to list.
+  Returns:
+    Ordered dictionary of three recent blobs, most recent first.
+  """
+  storage_client = storage.Client()
+  bucket = storage_client.get_bucket(bucket_name)
 
-    blobs = bucket.list_blobs()
+  blobs = bucket.list_blobs()
 
-    json_blobs = []
-    for b in blobs:
-        if b.name.endswith('.json'):
-            json_blobs.append(b)
+  json_blobs = []
+  for b in blobs:
+    if b.name.endswith('.json'):
+      json_blobs.append(b)
 
-    recent_blobs = sorted(json_blobs,
-                          key=lambda blob: blob.updated,
-                          reverse=True)
-    d = collections.OrderedDict()
-    num_blobs = 0
-    for b in recent_blobs:
-        formatted_date = b.updated.strftime('%Y-%m-%d %H:%M:%S')
-        d[formatted_date] = b
-        num_blobs += 1
-        if num_blobs == max_blobs:
-            break
-    return d
+  recent_blobs = sorted(json_blobs, key=lambda blob: blob.updated, reverse=True)
+  d = collections.OrderedDict()
+  num_blobs = 0
+  for b in recent_blobs:
+    formatted_date = b.updated.strftime('%Y-%m-%d %H:%M:%S')
+    d[formatted_date] = b
+    num_blobs += 1
+    if num_blobs == max_blobs:
+      break
+  return d
 
 
 def list_png(bucket_name, prefix):
-    """Return a list of images in a given bucket and folder prefix.
+  """Return a list of images in a given bucket and folder prefix.
 
-    Args:
-      bucket_name: the bucket where the image is stored.
-      prefix: the folder prefix
-    Returns:
-      An array of base64 encoded images.
-    """
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(bucket_name)
-    blobs = bucket.list_blobs(prefix=prefix)
-    result = []
-    for b in blobs:
-        if b.name.endswith('png'):
-            result.append(b64encode(b.download_as_string()).decode("utf-8"))
-    return result
+  Args:
+    bucket_name: the bucket where the image is stored.
+    prefix: the folder prefix
+  Returns:
+    An array of base64 encoded images.
+  """
+  storage_client = storage.Client()
+  bucket = storage_client.get_bucket(bucket_name)
+  blobs = bucket.list_blobs(prefix=prefix)
+  result = []
+  for b in blobs:
+    if b.name.endswith('png'):
+      result.append(b64encode(b.download_as_string()).decode("utf-8"))
+  return result

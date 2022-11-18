@@ -23,8 +23,7 @@ bp = Blueprint("variable", __name__, url_prefix='/api/variable')
 
 @bp.route('/path')
 def get_variable_path():
-    """Gets the path of a stat var to the root of the stat var hierarchy.
-    """
-    dcid = escape(request.args.get("dcid"))
-    url_path = "/v1/variable/ancestors/" + dcid
-    return json.dumps([dcid] + dc.get(url_path).get("ancestors", [])), 200
+  """Gets the path of a stat var to the root of the stat var hierarchy."""
+  dcid = escape(request.args.get("dcid"))
+  url_path = "/v1/variable/ancestors/" + dcid
+  return json.dumps([dcid] + dc.get(url_path).get("ancestors", [])), 200

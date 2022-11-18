@@ -23,13 +23,13 @@ bp = flask.Blueprint('api.node', __name__, url_prefix='/api/node')
 
 @bp.route('/properties/<path:direction>/<path:dcid>')
 def get_properties(dcid, direction):
-    """Returns all properties given a node dcid."""
-    return json.dumps(dc.properties(dcid, direction))
+  """Returns all properties given a node dcid."""
+  return json.dumps(dc.properties(dcid, direction))
 
 
 @bp.route('/triples/<path:direction>/<path:dcid>')
 def triples(direction, dcid):
-    """Returns all the triples given a node dcid."""
-    if direction != "in" and direction != "out":
-        return "Invalid direction provided, please use 'in' or 'out'", 400
-    return dc.triples(dcid, direction).get("triples", {})
+  """Returns all the triples given a node dcid."""
+  if direction != "in" and direction != "out":
+    return "Invalid direction provided, please use 'in' or 'out'", 400
+  return dc.triples(dcid, direction).get("triples", {})

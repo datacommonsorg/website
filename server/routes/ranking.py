@@ -22,18 +22,18 @@ bp = flask.Blueprint('ranking', __name__, url_prefix='/ranking')
 @bp.route('/<stat_var>/<place_type>', strict_slashes=False)
 @bp.route('/<stat_var>/<place_type>/<path:place_dcid>')
 def ranking(stat_var, place_type, place_dcid=''):
-    place_name = ''
-    if place_dcid:
-        place_names = place_api.get_i18n_name([place_dcid])
-        place_name = place_names[place_dcid]
-        if place_name == '':
-            place_name = place_dcid
-    else:
-        place_name = 'the World'
-    per_capita = flask.request.args.get('pc', False) != False
-    return flask.render_template('ranking.html',
-                                 place_name=place_name,
-                                 place_dcid=place_dcid,
-                                 place_type=place_type,
-                                 per_capita=per_capita,
-                                 stat_var=stat_var)
+  place_name = ''
+  if place_dcid:
+    place_names = place_api.get_i18n_name([place_dcid])
+    place_name = place_names[place_dcid]
+    if place_name == '':
+      place_name = place_dcid
+  else:
+    place_name = 'the World'
+  per_capita = flask.request.args.get('pc', False) != False
+  return flask.render_template('ranking.html',
+                               place_name=place_name,
+                               place_dcid=place_dcid,
+                               place_type=place_type,
+                               per_capita=per_capita,
+                               stat_var=stat_var)

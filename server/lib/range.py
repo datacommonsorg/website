@@ -80,95 +80,92 @@ HOME_VALUE = {
 
 
 def get_aggregate_config(prop):
-    # cc['aggregate'] field is the stat var property to aggregate.
-    if prop == 'age':
-        return AGE
-    elif prop == 'homeValue':
-        return HOME_VALUE
-    return {}
+  # cc['aggregate'] field is the stat var property to aggregate.
+  if prop == 'age':
+    return AGE
+  elif prop == 'homeValue':
+    return HOME_VALUE
+  return {}
 
 
 def from_string(s):
-    """Function to get the low of the range."""
-    if len(s.split('To')) == 2:
-        low = int(s.split('To')[0])
-        high = int(s.split('To')[1])
-    elif s.startswith('Upto'):
-        low = 0
-        high = int(s.replace('Upto', ''))
-    elif s.endswith('OrMore'):
-        low = int(s.replace('OrMore', ''))
-        high = math.inf
-    else:
-        low = int(s)
-        high = low
-    return (low, high)
+  """Function to get the low of the range."""
+  if len(s.split('To')) == 2:
+    low = int(s.split('To')[0])
+    high = int(s.split('To')[1])
+  elif s.startswith('Upto'):
+    low = 0
+    high = int(s.replace('Upto', ''))
+  elif s.endswith('OrMore'):
+    low = int(s.replace('OrMore', ''))
+    high = math.inf
+  else:
+    low = int(s)
+    high = low
+  return (low, high)
 
 
 def from_stat_var(stat_var, regex):
-    """Convert a stat var to a range tuple with low and high value."""
-    p = regex.search(stat_var)
-    if p:
-        return from_string(p.group(1))
-    raise ValueError("Invalid stat_var %s", stat_var)
+  """Convert a stat var to a range tuple with low and high value."""
+  p = regex.search(stat_var)
+  if p:
+    return from_string(p.group(1))
+  raise ValueError("Invalid stat_var %s", stat_var)
 
 
 def to_stat_var(r, fmt):
-    """Convert a range to stat var str."""
-    if r[0] == 0:
-        part = 'Upto' + str(r[1])
-    elif r[1] == math.inf:
-        part = str(r[0]) + 'OrMore'
-    else:
-        part = '{}To{}'.format(r[0], r[1])
-    return fmt.format(part)
+  """Convert a range to stat var str."""
+  if r[0] == 0:
+    part = 'Upto' + str(r[1])
+  elif r[1] == math.inf:
+    part = str(r[0]) + 'OrMore'
+  else:
+    part = '{}To{}'.format(r[0], r[1])
+  return fmt.format(part)
 
 
 def aggregate_stat_var(place_stat_vars, range_config):
-    """Build aggregated stat vars.
+  """Build aggregated stat vars.
 
-    Args:
-        place_stat_vars: A dict from place dcid to a list of stat vars.
-    Returns:
-        A dict of stat var mapping from aggregated stat var to the raw stat var.
-    """
-    place_range = {}
-    for place, stat_vars in place_stat_vars.items():
-        place_range[place] = set(
-            [from_stat_var(sv, range_config['regex']) for sv in stat_vars])
+  Args:
+      place_stat_vars: A dict from place dcid to a list of stat vars.
+  Returns:
+      A dict of stat var mapping from aggregated stat var to the raw stat var.
+  """
+  place_range = {}
+  for place, stat_vars in place_stat_vars.items():
+    place_range[place] = set(
+        [from_stat_var(sv, range_config['regex']) for sv in stat_vars])
 
-    # For each aggregation pattern and place, obtain a score, which is the
-    # percentage of bucket that the place has.
-    agg_score = {}
-    for method, bucket in range_config['grouping'].items():
-        agg_score[method] = {}
-        total = float(len(bucket))
-        for place, range_set in place_range.items():
-            count = 0
-            for agg_range, raw_ranges in bucket.items():
-                if raw_ranges.issubset(range_set):
-                    count += 1
-            agg_score[method][place] = float(count) / float(total)
-    # Pick the aggregation pattern with the highest total score product across
-    # places. This rewards a method with more places bucket match and penalize
-    # method that misses place bucket.
-    highest_score = 0
-    used_method = None
-    for method, place_scores in agg_score.items():
-        score = functools.reduce(mul, list(place_scores.values()), 1)
-        if score > highest_score:
-            used_method = method
-            highest_score = score
-    # Get the stat var grouping for each place.
-    result = {place: {} for place in place_stat_vars}
-    if used_method:
-        for agg_range, raw_ranges in range_config['grouping'][
-                used_method].items():
-            agg_stat_var = to_stat_var(agg_range, range_config['fmt'])
-            raw_stat_vars = [
-                to_stat_var(r, range_config['fmt']) for r in raw_ranges
-            ]
-            for place, range_set in place_range.items():
-                if raw_ranges.issubset(range_set):
-                    result[place][agg_stat_var] = sorted(raw_stat_vars)
-    return result
+  # For each aggregation pattern and place, obtain a score, which is the
+  # percentage of bucket that the place has.
+  agg_score = {}
+  for method, bucket in range_config['grouping'].items():
+    agg_score[method] = {}
+    total = float(len(bucket))
+    for place, range_set in place_range.items():
+      count = 0
+      for agg_range, raw_ranges in bucket.items():
+        if raw_ranges.issubset(range_set):
+          count += 1
+      agg_score[method][place] = float(count) / float(total)
+  # Pick the aggregation pattern with the highest total score product across
+  # places. This rewards a method with more places bucket match and penalize
+  # method that misses place bucket.
+  highest_score = 0
+  used_method = None
+  for method, place_scores in agg_score.items():
+    score = functools.reduce(mul, list(place_scores.values()), 1)
+    if score > highest_score:
+      used_method = method
+      highest_score = score
+  # Get the stat var grouping for each place.
+  result = {place: {} for place in place_stat_vars}
+  if used_method:
+    for agg_range, raw_ranges in range_config['grouping'][used_method].items():
+      agg_stat_var = to_stat_var(agg_range, range_config['fmt'])
+      raw_stat_vars = [to_stat_var(r, range_config['fmt']) for r in raw_ranges]
+      for place, range_set in place_range.items():
+        if raw_ranges.issubset(range_set):
+          result[place][agg_stat_var] = sorted(raw_stat_vars)
+  return result

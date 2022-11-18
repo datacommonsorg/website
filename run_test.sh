@@ -58,7 +58,7 @@ function run_lint_fix {
   then
     pip3 install yapf -q
   fi
-  yapf -r -i -p --style=google server/ tools/ -e=*pb2.py
+  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ tools/ -e=*pb2.py
   deactivate
 }
 
@@ -87,7 +87,7 @@ function run_py_test {
   # python3 -m pytest tests/sustainability/**.py
   cd ..
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style=google -p server/ tools/ -e=*pb2.py; then
+  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ tools/ -e=*pb2.py; then
     echo "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi

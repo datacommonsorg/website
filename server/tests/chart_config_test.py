@@ -21,29 +21,29 @@ import lib.range as lib_range
 
 class TestChart(unittest.TestCase):
 
-    def setUp(self):
-        self.charts = []
-        chart_config_dir = os.path.join("config", "chart_config")
-        for filename in os.listdir(chart_config_dir):
-            if filename.endswith(".json"):
-                with open(os.path.join(chart_config_dir, filename),
-                          encoding='utf-8') as f:
-                    self.charts.extend(json.load(f))
+  def setUp(self):
+    self.charts = []
+    chart_config_dir = os.path.join("config", "chart_config")
+    for filename in os.listdir(chart_config_dir):
+      if filename.endswith(".json"):
+        with open(os.path.join(chart_config_dir, filename),
+                  encoding='utf-8') as f:
+          self.charts.extend(json.load(f))
 
-    def test_unique_chart(self):
-        chart_set = set()
-        for chart in self.charts:
-            assert (chart['category'], chart['title']) not in chart_set
-            chart_set.add((chart['category'], chart['title']))
+  def test_unique_chart(self):
+    chart_set = set()
+    for chart in self.charts:
+      assert (chart['category'], chart['title']) not in chart_set
+      chart_set.add((chart['category'], chart['title']))
 
-    def test_related_chart_scale(self):
-        for chart in self.charts:
-            if 'relatedChart' in chart:
-                if chart['relatedChart'].get('scale', False):
-                    assert 'denominator' in chart['relatedChart']
+  def test_related_chart_scale(self):
+    for chart in self.charts:
+      if 'relatedChart' in chart:
+        if chart['relatedChart'].get('scale', False):
+          assert 'denominator' in chart['relatedChart']
 
-    def test_aggregate_field(self):
-        for chart in self.charts:
-            if 'aggregate' in chart:
-                agg_conf = lib_range.get_aggregate_config(chart['aggregate'])
-                assert 'grouping' in agg_conf
+  def test_aggregate_field(self):
+    for chart in self.charts:
+      if 'aggregate' in chart:
+        agg_conf = lib_range.get_aggregate_config(chart['aggregate'])
+        assert 'grouping' in agg_conf

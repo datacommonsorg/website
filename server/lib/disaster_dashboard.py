@@ -25,51 +25,50 @@ EVENT_TYPES = [
 
 
 def get_disaster_dashboard_data(gcs_bucket):
-    """
-    Gets and processes disaster data from gcs.
+  """
+  Gets and processes disaster data from gcs.
 
-    Returns
-        A dictionary of event type to dictionary of date (YYYY-MM) to list of
-        events:
-        {
-            [eventType]: {
-                [date]: [
-                    {
-                        eventId: string,
-                        name: string,
-                        startDate: string,
-                        endDate: string
-                        affectedPlaces: list of string,
-                        longitude: number,
-                        latitude: number,
-                        ... other properties depending on the event (e.g., EarthquakeEvent will have magnitude)
-                    },
-                    ...
-                ],
-                ...
-            },
-            ...
-        }
+  Returns
+      A dictionary of event type to dictionary of date (YYYY-MM) to list of
+      events:
+      {
+          [eventType]: {
+              [date]: [
+                  {
+                      eventId: string,
+                      name: string,
+                      startDate: string,
+                      endDate: string
+                      affectedPlaces: list of string,
+                      longitude: number,
+                      latitude: number,
+                      ... other properties depending on the event (e.g., EarthquakeEvent will have magnitude)
+                  },
+                  ...
+              ],
+              ...
+          },
+          ...
+      }
 
-    """
-    result = {}
-    for event_type in EVENT_TYPES:
-        storage_client = storage.Client()
-        bucket = storage_client.get_bucket(gcs_bucket)
-        file_name = re.sub('(?!^)([A-Z]+)', r'_\1',
-                           event_type).lower() + ".json"
-        blob = bucket.get_blob(file_name)
-        if not blob:
-            continue
-        events_data = json.loads(blob.download_as_bytes())
-        events_by_date = {}
-        for event_data in events_data:
-            start_date = event_data.get("startDate", "")
-            if not start_date:
-                continue
-            start_date_year_month = start_date[0:7]
-            if start_date_year_month not in events_by_date:
-                events_by_date[start_date_year_month] = []
-            events_by_date[start_date_year_month].append(event_data)
-        result[event_type] = events_by_date
-    return result
+  """
+  result = {}
+  for event_type in EVENT_TYPES:
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(gcs_bucket)
+    file_name = re.sub('(?!^)([A-Z]+)', r'_\1', event_type).lower() + ".json"
+    blob = bucket.get_blob(file_name)
+    if not blob:
+      continue
+    events_data = json.loads(blob.download_as_bytes())
+    events_by_date = {}
+    for event_data in events_data:
+      start_date = event_data.get("startDate", "")
+      if not start_date:
+        continue
+      start_date_year_month = start_date[0:7]
+      if start_date_year_month not in events_by_date:
+        events_by_date[start_date_year_month] = []
+      events_by_date[start_date_year_month].append(event_data)
+    result[event_type] = events_by_date
+  return result

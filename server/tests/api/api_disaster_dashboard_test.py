@@ -58,76 +58,75 @@ EARTH_DCID = "Earth"
 
 class TestGetDateRange(unittest.TestCase):
 
-    def test_has_data(self):
-        with app.app_context():
-            app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
-            response = app.test_client().get(
-                "/api/disaster-dashboard/date-range?eventType=" + EVENT_TYPE_1)
-            assert response.status_code == 200
-            response_data = json.loads(response.data)
-            assert (response_data.get("maxDate") == DATE_1)
-            assert (response_data.get("minDate") == DATE_2)
+  def test_has_data(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
+      response = app.test_client().get(
+          "/api/disaster-dashboard/date-range?eventType=" + EVENT_TYPE_1)
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data.get("maxDate") == DATE_1)
+      assert (response_data.get("minDate") == DATE_2)
 
-    def test_no_data(self):
-        with app.app_context():
-            app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
-            response = app.test_client().get(
-                "/api/disaster-dashboard/date-range?eventType=" +
-                "TestEventType")
-            assert response.status_code == 200
-            response_data = json.loads(response.data)
-            assert (response_data.get("maxDate") == "")
-            assert (response_data.get("minDate") == "")
+  def test_no_data(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
+      response = app.test_client().get(
+          "/api/disaster-dashboard/date-range?eventType=" + "TestEventType")
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data.get("maxDate") == "")
+      assert (response_data.get("minDate") == "")
 
 
 class TestGetData(unittest.TestCase):
 
-    def test_earth_date_1_event_type_1(self):
-        with app.app_context():
-            app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
-            response = app.test_client().get(
-                '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.
-                format(EVENT_TYPE_1, DATE_1, EARTH_DCID))
-            assert response.status_code == 200
-            response_data = json.loads(response.data)
-            assert (response_data == TEST_DATA[EVENT_TYPE_1][DATE_1])
+  def test_earth_date_1_event_type_1(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.format(
+              EVENT_TYPE_1, DATE_1, EARTH_DCID))
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data == TEST_DATA[EVENT_TYPE_1][DATE_1])
 
-    def test_earth_date_new_event_type_1(self):
-        with app.app_context():
-            app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
-            response = app.test_client().get(
-                '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.
-                format(EVENT_TYPE_1, "1997-01", EARTH_DCID))
-            assert response.status_code == 200
-            response_data = json.loads(response.data)
-            assert (response_data == [])
+  def test_earth_date_new_event_type_1(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.format(
+              EVENT_TYPE_1, "1997-01", EARTH_DCID))
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data == [])
 
-    def test_earth_date_1_event_type_new(self):
-        with app.app_context():
-            app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
-            response = app.test_client().get(
-                '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.
-                format("TestEventType", DATE_1, EARTH_DCID))
-            assert response.status_code == 200
-            response_data = json.loads(response.data)
-            assert (response_data == [])
+  def test_earth_date_1_event_type_new(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.format(
+              "TestEventType", DATE_1, EARTH_DCID))
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data == [])
 
-    def test_place_1_date_1_event_type_1(self):
-        with app.app_context():
-            app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
-            response = app.test_client().get(
-                '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.
-                format(EVENT_TYPE_1, DATE_1, PLACE_1))
-            assert response.status_code == 200
-            response_data = json.loads(response.data)
-            assert (response_data == [EVENT_1])
+  def test_place_1_date_1_event_type_1(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.format(
+              EVENT_TYPE_1, DATE_1, PLACE_1))
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data == [EVENT_1])
 
-    def test_place_new_date_1_event_type_1(self):
-        with app.app_context():
-            app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
-            response = app.test_client().get(
-                '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.
-                format(EVENT_TYPE_1, DATE_1, "placeTest"))
-            assert response.status_code == 200
-            response_data = json.loads(response.data)
-            assert (response_data == [])
+  def test_place_new_date_1_event_type_1(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/data?eventType={}&date={}&place={}'.format(
+              EVENT_TYPE_1, DATE_1, "placeTest"))
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data == [])
