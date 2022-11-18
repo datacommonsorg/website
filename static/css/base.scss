@@ -172,11 +172,11 @@ $theme-colors: (
 }
 
 #main-footer {
-  background: --footer-bg;
+  background: var(--footer-bg);
   margin-top: 3rem;
   padding-top: 3rem;
   /* Trick to get the footer to extend to the bottom of short pages */
-  box-shadow: 0 50vh 0 50vh --footer-bg;
+  box-shadow: 0 50vh 0 50vh var(--footer-bg);
 }
 
 #main-footer,
