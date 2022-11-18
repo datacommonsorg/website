@@ -47,17 +47,17 @@ class CountryStateDetector(PlaceDetectorInterface):
     self._pre_process()
 
   def _pre_process(self) -> None:
-  """Processes self.location_mappings_filename and sets the corresponding
-      instance attributes."""
-  places_list: List[Dict[str, str]] = utils.read_json_data(
-      self.location_mappings_filename)
-  assert places_list, "location_mappings_filename (%s) produced no locations." % self.location_mappings_filename
+    """Processes self.location_mappings_filename and sets the corresponding
+        instance attributes."""
+    places_list: List[Dict[str, str]] = utils.read_json_data(
+        self.location_mappings_filename)
+    assert places_list, "location_mappings_filename (%s) produced no locations." % self.location_mappings_filename
 
-  for place in places_list:
-    for prop, unique_places in self._places.items():
-      pl_prop: str = place[prop]
-      if pl_prop:
-        unique_places.add(utils.to_alphanumeric_and_lower(pl_prop))
+    for place in places_list:
+      for prop, unique_places in self._places.items():
+        pl_prop: str = place[prop]
+        if pl_prop:
+          unique_places.add(utils.to_alphanumeric_and_lower(pl_prop))
 
   def detect_column(self, values: List[str]) -> Optional[TypeProperty]:
     total: int = 0
