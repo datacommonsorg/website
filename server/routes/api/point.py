@@ -61,8 +61,9 @@ def point_within_core(parent_entity, child_type, variables, date, all_facets):
 def point():
     """Handler to get the observation point given multiple stat vars and places.
     """
-    entities = request.args.getlist('entities')
-    variables = request.args.getlist('variables')
+    entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
@@ -77,8 +78,9 @@ def point_all():
     """Handler to get all the observation points given multiple stat vars and
     entities.
     """
-    entities = request.args.getlist('entities')
-    variables = request.args.getlist('variables')
+    entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
@@ -102,7 +104,8 @@ def point_within():
     child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.args.getlist('variables')
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not variables:
         return 'error: must provide a `variables` field', 400
     date = request.args.get('date', '')
@@ -124,7 +127,8 @@ def point_within_all():
     child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.args.getlist('variables')
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not variables:
         return 'error: must provide a `variables` field', 400
     date = request.args.get('date', '')

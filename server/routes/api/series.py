@@ -63,8 +63,9 @@ def series_within_core(parent_entity, child_type, variables, all_facets):
 def series():
     """Handler to get preferred time series given multiple stat vars and entities.
     """
-    entities = request.args.getlist('entities')
-    variables = request.args.getlist('variables')
+    entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
@@ -77,8 +78,9 @@ def series():
 def series_all():
     """Handler to get all the time series given multiple stat vars and places.
     """
-    entities = request.args.getlist('entities')
-    variables = request.args.getlist('variables')
+    entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not entities:
         return 'error: must provide a `entities` field', 400
     if not variables:
@@ -100,7 +102,8 @@ def series_within():
     child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.args.getlist('variables')
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not variables:
         return 'error: must provide a `variables` field', 400
     return series_within_core(parent_entity, child_type, variables, False)
@@ -120,7 +123,8 @@ def series_within_all():
     child_type = request.args.get('child_type')
     if not child_type:
         return 'error: must provide a `child_type` field', 400
-    variables = request.args.getlist('variables')
+    variables = list(
+        filter(lambda x: x != "", request.args.getlist('variables')))
     if not variables:
         return 'error: must provide a `variables` field', 400
     return series_within_core(parent_entity, child_type, variables, True)

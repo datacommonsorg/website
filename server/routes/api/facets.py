@@ -134,7 +134,8 @@ def get_facets_within():
     child_type = request.args.get('childType')
     if not child_type:
         return 'error: must provide a childType field', 400
-    stat_vars = request.args.getlist('statVars')
+    stat_vars = list(filter(lambda x: x != "",
+                            request.args.getlist('statVars')))
     if not stat_vars:
         return 'error: must provide a statVars field', 400
     min_date = request.args.get('minDate')
