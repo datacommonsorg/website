@@ -28,14 +28,6 @@ NO_MMETHOD_KEY = 'no_mmethod'
 NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 
-@bp.route('/triples/<path:direction>/<path:dcid>')
-def triples(direction, dcid):
-    """Returns all the triples given a node dcid."""
-    if direction != "in" and direction != "out":
-        return "Invalid direction provided, please use 'in' or 'out'", 400
-    return dc.triples(dcid, direction).get("triples", {})
-
-
 @bp.route('/provenance')
 def provenance():
     """Returns all the provenance information."""
@@ -64,14 +56,6 @@ def get_property_value(dcid, prop):
     result["property"] = prop
     result["values"] = response.get(dcid, {})
     return Response(json.dumps(result), 200, mimetype='application/json')
-
-
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-@bp.route('/proplabels/<path:dcid>')
-def get_property_labels(dcid):
-    """Returns all property labels given a node dcid."""
-    labels = dc.get_property_labels([dcid]).get(dcid, {})
-    return Response(json.dumps(labels), 200, mimetype='application/json')
 
 
 def get_sparql_query(place_id, stat_var_id, date):
@@ -139,6 +123,4 @@ def get_observation_id():
 def get_num_stat_vars(dcid):
     """Returns number of stat vars for a dcid
     """
-    stat_vars = place_api.stat_vars(dcid)
-    num_stat_vars = len(stat_vars)
-    return Response(json.dumps(num_stat_vars), 200, mimetype='application/json')
+    return json.dumps(len(place_api.stat_vars(dcid)))

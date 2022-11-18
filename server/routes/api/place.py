@@ -236,18 +236,11 @@ def statsvars_route(dcid):
                     mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def stat_vars(dcid):
     """
     Get all the statistical variable dcids for a place.
     """
-    response = fetch_data('/place/stat-vars', {
-        'dcids': [dcid],
-    },
-                          compress=False,
-                          post=False,
-                          has_payload=False)
-    return response['places'][dcid].get('statVars', [])
+    return dc.get(f'/v1/variables/{dcid}').get('variables', [])
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.

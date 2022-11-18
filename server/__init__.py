@@ -119,6 +119,7 @@ def register_routes_common(app):
         disaster_dashboard,
         facets,
         landing_page,
+        node,
         observation_dates,
         place as place_api,
         point,
@@ -136,6 +137,7 @@ def register_routes_common(app):
     app.register_blueprint(facets.bp)
     app.register_blueprint(factcheck.bp)
     app.register_blueprint(landing_page.bp)
+    app.register_blueprint(node.bp)
     app.register_blueprint(observation_dates.bp)
     app.register_blueprint(place_api.bp)
     app.register_blueprint(point.bp)
