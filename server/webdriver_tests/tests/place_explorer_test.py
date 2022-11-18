@@ -130,9 +130,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertEqual(CALIFORNIA_TITLE, self.driver.title)
 
   def test_demographics_link(self):
-    """
-        Test the demographics link can work correctly.
-        """
+    """Test the demographics link can work correctly."""
     CHART_TITLE = "Median age by gender: states near California(2020)"
     # Load California page.
     self.driver.get(self.url_ + CA_URL)
@@ -163,9 +161,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertEqual(CHART_TITLE, chart_title)
 
   def test_demographics_redirect_link(self):
-    """
-        Test a place page with demographics after a redirect.
-        """
+    """Test a place page with demographics after a redirect."""
     # Load California's Demographics page.
     start_url = self.url_ + '/place?dcid=geoId/06&category=Demographics&utm_medium=um'
     self.driver.get(start_url)
@@ -189,9 +185,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
                      chart_title)
 
   def test_ranking_chart_present(self):
-    """
-        Test basic ranking chart.
-        """
+    """Test basic ranking chart."""
     CHART_TITLE_MUST_INCLUDE = "rankings"
     CHART_SUBTITLE_MUST_INCLUDE = "California ranks"
     CHART_UNIT_HIGHEST_TITLE = "Highest"
@@ -268,9 +262,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertEqual(chart_unit_lowest_row_rank[0].text, LAST_RANK)
 
   def test_ranking_chart_redirect_link(self):
-    """
-        Test the redirect link can work correctly.
-        """
+    """Test the redirect link can work correctly."""
     CA_ECONOMICS_URL = CA_URL + "?category=Economics"
     self.driver.get(self.url_ + CA_ECONOMICS_URL)
 

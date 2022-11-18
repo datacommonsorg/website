@@ -49,12 +49,12 @@ class PlaceDetectorInterface(ABC):
   @abstractmethod
   def detect_column(self, values: List[str]) -> Optional[TypeProperty]:
     """If values are detected as Places, then return the TypeProperty
-        detected. Otherwise, return None.
-        @args:
-            values: the column values.
-        @returns:
-            The TypeProperty detected or None.
-        """
+    detected. Otherwise, return None.
+    @args:
+        values: the column values.
+    @returns:
+        The TypeProperty detected or None.
+    """
 
   def supported_types_and_properties(self) -> Set[TypeProperty]:
     """Return the supported Type, Property combinations."""

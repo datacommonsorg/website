@@ -53,9 +53,7 @@ class TestScatter(WebdriverBaseTest):
     self.assertEqual(TITLE_TEXT, self.driver.title)
 
   def test_charts_from_url(self):
-    """
-        Given the url directly, test the page shows up correctly
-        """
+    """Given the url directly, test the page shows up correctly"""
     # Load Scatter Tool page with Statistical Variables.
     self.driver.get(self.url_ + SCATTER_URL + URL_HASH_1)
 
@@ -82,10 +80,9 @@ class TestScatter(WebdriverBaseTest):
     self.assertGreater(len(circles), 20)
 
   def test_manually_enter_options(self):
+    """Test entering place and stat var options manually will cause chart to
+    show up.
     """
-        Test entering place and stat var options manually will cause chart to
-        show up.
-        """
     self.driver.get(self.url_ + SCATTER_URL)
 
     # Wait until search box is present.

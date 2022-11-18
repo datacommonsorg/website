@@ -71,10 +71,9 @@ class TestCharts(WebdriverBaseTest):
     self.assertEqual(len(charts), 0)
 
   def test_charts_from_url_directly_and_uncheck_statvar(self):
+    """Given the url directly, test the menu and charts are shown correctly.
+    Then unclick one statvar, test the corresponding change.
     """
-        Given the url directly, test the menu and charts are shown correctly.
-        Then unclick one statvar, test the corresponding change.
-        """
     # Load Timeline Tool page with Statistical Variables.
     self.driver.get(self.url_ + TIMELINE_URL + URL_HASH_1)
 

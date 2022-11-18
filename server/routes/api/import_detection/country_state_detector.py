@@ -48,7 +48,7 @@ class CountryStateDetector(PlaceDetectorInterface):
 
   def _pre_process(self) -> None:
     """Processes self.location_mappings_filename and sets the corresponding
-        instance attributes."""
+    instance attributes."""
     places_list: List[Dict[str, str]] = utils.read_json_data(
         self.location_mappings_filename)
     assert places_list, "location_mappings_filename (%s) produced no locations." % self.location_mappings_filename
