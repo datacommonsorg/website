@@ -38,17 +38,17 @@ class TestObservationId(unittest.TestCase):
   @patch('routes.api.browser.dc.query')
   def test_observation_node_dcid_returned(self, mock_query):
     expected_query = '''
-        SELECT ?dcid ?mmethod ?obsPeriod
-        WHERE {
-            ?svObservation typeOf StatVarObservation .
-            ?svObservation variableMeasured test_stat_var .
-            ?svObservation observationAbout geoId/06 .
-            ?svObservation dcid ?dcid .
-            ?svObservation measurementMethod ?mmethod .
-            ?svObservation observationPeriod ?obsPeriod .
-            ?svObservation observationDate "2021" .
-        }
-    '''
+SELECT ?dcid ?mmethod ?obsPeriod
+WHERE {
+    ?svObservation typeOf StatVarObservation .
+    ?svObservation variableMeasured test_stat_var .
+    ?svObservation observationAbout geoId/06 .
+    ?svObservation dcid ?dcid .
+    ?svObservation measurementMethod ?mmethod .
+    ?svObservation observationPeriod ?obsPeriod .
+    ?svObservation observationDate "2021" .
+}
+'''
     expected_obs_id = "test_obs_id"
 
     def side_effect(query):
@@ -77,17 +77,17 @@ class TestObservationId(unittest.TestCase):
   @patch('routes.api.browser.dc.query')
   def test_with_optional_predicates(self, mock_query):
     expected_query = '''
-        SELECT ?dcid ?mmethod ?obsPeriod
-        WHERE {
-            ?svObservation typeOf StatVarObservation .
-            ?svObservation variableMeasured test_stat_var .
-            ?svObservation observationAbout geoId/06 .
-            ?svObservation dcid ?dcid .
-            ?svObservation measurementMethod ?mmethod .
-            ?svObservation observationPeriod ?obsPeriod .
-            ?svObservation observationDate "2021" .
-        }
-    '''
+SELECT ?dcid ?mmethod ?obsPeriod
+WHERE {
+    ?svObservation typeOf StatVarObservation .
+    ?svObservation variableMeasured test_stat_var .
+    ?svObservation observationAbout geoId/06 .
+    ?svObservation dcid ?dcid .
+    ?svObservation measurementMethod ?mmethod .
+    ?svObservation observationPeriod ?obsPeriod .
+    ?svObservation observationDate "2021" .
+}
+'''
     expected_obs_id = "test_obs_id"
 
     def side_effect(query):

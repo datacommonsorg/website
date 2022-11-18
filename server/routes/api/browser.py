@@ -65,17 +65,17 @@ def get_sparql_query(place_id, stat_var_id, date):
     date_triple = f'?svObservation observationDate "{date}" .'
     date_selector = ""
   sparql_query = f"""
-      SELECT ?dcid ?mmethod ?obsPeriod{date_selector}
-      WHERE {{
-          ?svObservation typeOf StatVarObservation .
-          ?svObservation variableMeasured {stat_var_id} .
-          ?svObservation observationAbout {place_id} .
-          ?svObservation dcid ?dcid .
-          ?svObservation measurementMethod ?mmethod .
-          ?svObservation observationPeriod ?obsPeriod .
-          {date_triple}
-      }}
-  """
+SELECT ?dcid ?mmethod ?obsPeriod{date_selector}
+WHERE {{
+    ?svObservation typeOf StatVarObservation .
+    ?svObservation variableMeasured {stat_var_id} .
+    ?svObservation observationAbout {place_id} .
+    ?svObservation dcid ?dcid .
+    ?svObservation measurementMethod ?mmethod .
+    ?svObservation observationPeriod ?obsPeriod .
+    {date_triple}
+}}
+"""
   return sparql_query
 
 
