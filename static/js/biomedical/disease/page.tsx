@@ -37,6 +37,7 @@ import {
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
 import { DrugTreatmentTable } from "./drug_table";
+import { USA } from "../../shared/constants";
 
 export interface PagePropType {
   dcid: string;
@@ -46,12 +47,6 @@ export interface PagePropType {
 export interface PageStateType {
   data: GraphNodes;
 }
-
-export const USA: NamedTypedPlace = {
-  dcid: "country/USA",
-  name: "United States of America",
-  types: ["Country"],
-};
 
 export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
