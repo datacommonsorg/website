@@ -49,7 +49,6 @@ import { getDateRange } from "../utils/string_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { CHART_HEIGHT } from "./constants";
 import { ReplacementStrings } from "./string_utils";
-export const MAP_ID = "map";
 
 interface MapTilePropType {
   id: string;
@@ -283,9 +282,9 @@ function draw(
     }
     return place.name + ": " + value;
   };
-  document.getElementById(MAP_ID).innerHTML = "";
+  document.getElementById(props.id).innerHTML = "";
   drawD3Map(
-    MAP_ID,
+    props.id,
     chartData.geoJson,
     CHART_HEIGHT,
     width,

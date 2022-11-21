@@ -22,8 +22,8 @@ import axios from "axios";
 import React from "react";
 
 import { GraphNodes } from "../../shared/types";
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { MAP_ID, MapTile } from "../../topic_page/map_tile";
+import { StatVarSpec } from "../../shared/types";
+import { MapTile } from "../../topic_page/map_tile";
 import { getEntityLink } from "../bio_charts_utils";
 import {
   drawDiseaseGeneAssocChart,
@@ -159,7 +159,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             the Centers for Disease Control and Prevention (CDC).
           </p>
           <br></br>
-          <div id={MAP_ID}></div>
+          <div id={diseasePrevalenceStatVarValue}></div>
           <MapTile
             id={diseasePrevalenceStatVarValue}
             title={""}
