@@ -50,6 +50,7 @@ def disaster_dashboard():
   return flask.render_template('dev/disaster_dashboard.html',
                                european_countries=european_countries)
 
+
 @bp.route('/event')
 def event():
   if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
