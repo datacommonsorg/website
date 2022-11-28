@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-import { DisasterType } from "../disaster_dashboard/constants";
-import { NamedTypedPlace } from "../shared/types";
-
 /**
- * Types specific to Event Page
+ * Types specific to event pages
  */
-
-export interface EventInfo {
-  eventType: DisasterType;
-  location: NamedTypedPlace;
-  startDate: string;
-  intensity: { [prop: string]: number };
-  endDate?: string;
-}

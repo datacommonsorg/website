@@ -15,7 +15,7 @@
  */
 
 /**
- * disaster dashboard
+ * Disaster events
  */
 
 import React from "react";
