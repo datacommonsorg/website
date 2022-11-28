@@ -49,3 +49,9 @@ def disaster_dashboard():
       dc.get_places_in(["europe"], "Country").get("europe", []))
   return flask.render_template('dev/disaster_dashboard.html',
                                european_countries=european_countries)
+
+@bp.route('/event-page')
+def event_page():
+  if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+    flask.abort(404)
+  return flask.render_template('dev/event_page.html')

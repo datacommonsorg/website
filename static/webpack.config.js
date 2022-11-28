@@ -96,7 +96,11 @@ const config = {
     disaster_dashboard: [
       __dirname + "/js/disaster_dashboard/disaster_dashboard.ts",
       __dirname + "/css/disaster_dashboard.scss",
-    ]
+    ],
+    event_page: [
+      __dirname + "/js/event_page/event_page.ts",
+      __dirname + "/css/event_page.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
