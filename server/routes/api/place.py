@@ -130,6 +130,7 @@ def get_place_type(place_dcid):
 def api_name():
   """Get place names."""
   dcids = request.args.getlist('dcids')
+  dcids = list(filter(lambda d: d != '', dcids))
   try:
     return names(dcids)
   except Exception as e:
