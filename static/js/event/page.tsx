@@ -20,6 +20,43 @@
 
 import React from "react";
 
+import { Property } from "./types";
+
 export function Page(): JSX.Element {
   return <div></div>;
+}
+
+interface EventPagePropsType {
+  dcid: string;
+  name: string;
+  properties: Array<Property>;
+}
+
+export function EventPage(props: EventPagePropsType): JSX.Element {
+  return (
+    <div>
+      <h1>{props.name}</h1>
+      <h3>dcid: {props.dcid}</h3>
+      <br />
+      <h3>Properties:</h3>
+      {props.properties.map((property) => {
+        return (
+          <div key={property.name}>
+            <b>{property.name}:</b>
+            <ul>
+              {property.values.map((value) => {
+                return (
+                  <li key={value.provenanceId}>
+                    {Object.prototype.hasOwnProperty.call(value, "value")
+                      ? value.value
+                      : value.dcid}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+  );
 }

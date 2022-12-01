@@ -15,10 +15,11 @@
 import os
 import flask
 import services.datacommons as dc
-from flask import Blueprint
+from flask import Blueprint, render_template
 import json
-
+import logging
 from lib.gcs import list_png
+import routes.api.shared as shared_api
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 
@@ -56,3 +57,17 @@ def event():
   if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
     flask.abort(404)
   return flask.render_template('dev/event.html')
+
+
+@bp.route('/event/<path:dcid>')
+def event_node(dcid):
+  if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+    flask.abort(404)
+  node_name = dcid
+  try:
+    api_name = shared_api.names([dcid]).get(dcid)
+    if api_name:
+      node_name = api_name
+  except Exception as e:
+    logging.info(e)
+  return render_template('dev/event.html', dcid=dcid, node_name=node_name)
