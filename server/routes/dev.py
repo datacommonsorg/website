@@ -67,7 +67,9 @@ def event_node(dcid):
   node_name = dcid
   properties = "{}"
   try:
-    node_name = shared_api.names([dcid]).get(dcid)
+    name_results = shared_api.names([dcid])
+    if dcid in name_results.keys():
+      node_name = name_results.get(dcid)
     properties = node_api.triples('out', dcid)
   except Exception as e:
     logging.info(e)

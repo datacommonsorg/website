@@ -25,14 +25,14 @@ import { EventPage } from "./page";
 import { Property } from "./types";
 
 /**
- * Parses response from triples API for later rendering
+ * Parses response from triples API for later rendering.
  */
 function parseTriplesApiResponse(resp: string): Array<Property> {
   const respJson = JSON.parse(resp.replaceAll("'", '"')); //JSON.parse requires double quotes
   const parsedResponse = [];
   for (const [property, connectedNodes] of Object.entries(respJson)) {
-    for (const nodes of Object.values(connectedNodes)) {
-      parsedResponse.push({ dcid: property, values: nodes });
+    if (Object.prototype.hasOwnProperty.call(connectedNodes, "nodes")) {
+      parsedResponse.push({ dcid: property, values: connectedNodes["nodes"] });
     }
   }
   return parsedResponse;

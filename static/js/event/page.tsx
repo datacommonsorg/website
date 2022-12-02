@@ -23,13 +23,16 @@ import React from "react";
 import { Property } from "./types";
 
 interface EventPagePropsType {
+  // Stores information about the particular event node
+  // the event page should render.
   dcid: string;
   name: string;
   properties: Array<Property>;
 }
 
 /**
- *
+ * Main component for rendering an event page.
+ * Displays the properties and property values of the event described.
  */
 export function EventPage(props: EventPagePropsType): JSX.Element {
   return (
