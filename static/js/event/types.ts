@@ -30,8 +30,8 @@ export interface PropertyValue {
 }
 export interface Property {
   // Stores all values of a single property of an event.
-  // You can think of this as representing edges (values)
-  // with the same label (name).
-  name: string;
+  // You can think of this as representing edges to other nodes (values)
+  // with the same label (dcid).
+  dcid: string;
   values: Array<PropertyValue>;
 }

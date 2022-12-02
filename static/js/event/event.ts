@@ -18,19 +18,21 @@
  * Disaster events
  */
 
-import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { EventPage, Page } from "./page";
+import { EventPage } from "./page";
 import { Property } from "./types";
 
-function parseApiResponse(resp): Array<Property> {
-  // Parses response from triples API for later rendering
+/**
+ * Parses response from triples API for later rendering
+ */
+function parseTriplesApiResponse(resp: string): Array<Property> {
+  const respJson = JSON.parse(resp.replaceAll("'", '"')); //JSON.parse requires double quotes
   const parsedResponse = [];
-  for (const [property, connectedNodes] of Object.entries(resp)) {
+  for (const [property, connectedNodes] of Object.entries(respJson)) {
     for (const nodes of Object.values(connectedNodes)) {
-      parsedResponse.push({ name: property, values: nodes });
+      parsedResponse.push({ dcid: property, values: nodes });
     }
   }
   return parsedResponse;
@@ -39,28 +41,15 @@ function parseApiResponse(resp): Array<Property> {
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
-  const propertiesPromise = axios
-    .get(`/api/node/triples/out/${dcid}`)
-    .then((resp) => resp.data)
-    .catch(() => {
-      return 0;
-    });
-  propertiesPromise
-    .then((apiResponse) => {
-      const parsedResponse = parseApiResponse(apiResponse);
-      ReactDOM.render(
-        React.createElement(EventPage, {
-          dcid: dcid,
-          name: nodeName,
-          properties: parsedResponse,
-        }),
-        document.getElementById("node")
-      );
-    })
-    .catch(() => {
-      ReactDOM.render(
-        React.createElement(Page),
-        document.getElementById("main-pane")
-      );
-    });
+  const properties = parseTriplesApiResponse(
+    document.getElementById("node").dataset.pv
+  );
+  ReactDOM.render(
+    React.createElement(EventPage, {
+      dcid: dcid,
+      name: nodeName,
+      properties: properties,
+    }),
+    document.getElementById("node")
+  );
 };

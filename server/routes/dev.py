@@ -20,6 +20,7 @@ import json
 import logging
 from lib.gcs import list_png
 import routes.api.shared as shared_api
+import routes.api.node as node_api
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 
@@ -64,10 +65,10 @@ def event_node(dcid):
   if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
     flask.abort(404)
   node_name = dcid
+  properties = "{}"
   try:
-    api_name = shared_api.names([dcid]).get(dcid)
-    if api_name:
-      node_name = api_name
+    node_name = shared_api.names([dcid]).get(dcid)
+    properties = node_api.triples('out', dcid)
   except Exception as e:
     logging.info(e)
-  return render_template('dev/event.html', dcid=dcid, node_name=node_name)
+  return render_template('dev/event.html', dcid=dcid, node_name=node_name, properties=properties)
