@@ -783,12 +783,12 @@ export function drawDiseaseGeneAssocChart(
   }
   //Finds the length of the object array
   const arrayLength = Object.keys(data).length;
-  let height = null;
+  let graphHeight = null;
   //Decides the graph height as per the number of entities present in the array
   if (arrayLength > 10) {
-    height = 10 * BAR_WIDTH - MARGIN.top - MARGIN.bottom;
+    graphHeight = 10 * BAR_WIDTH;
   } else {
-    height = arrayLength * BAR_WIDTH - MARGIN.top - MARGIN.bottom;
+    graphHeight = arrayLength * BAR_WIDTH;
   }
   // chart specific margin to display full disease names
   const width = GRAPH_WIDTH_S - MARGIN.left - MARGIN.right;
@@ -810,7 +810,7 @@ export function drawDiseaseGeneAssocChart(
     .select("#disease-gene-association-chart")
     .append("svg")
     .attr("width", width + MARGIN.left + MARGIN.right)
-    .attr("height", height + MARGIN.top + MARGIN.bottom)
+    .attr("height", graphHeight + MARGIN.top + MARGIN.bottom)
     .append("g")
     .attr("transform", "translate(" + MARGIN.left + "," + MARGIN.top + ")");
 
@@ -822,11 +822,11 @@ export function drawDiseaseGeneAssocChart(
     .range([0, width]);
   svg
     .append("g")
-    .attr("transform", "translate(0," + height + ")")
+    .attr("transform", "translate(0," + graphHeight + ")")
     .call(d3.axisBottom(x).ticks(NUM_TICKS));
   // Adds the x-axis text label
-  addXLabel(width, height, "Association Score", svg);
-  const y = d3.scaleBand().domain(arrName).range([0, height]).padding(0.1);
+  addXLabel(width, graphHeight, "Association Score", svg);
+  const y = d3.scaleBand().domain(arrName).range([0, graphHeight]).padding(0.1);
   svg
     .append("g")
     .call(d3.axisLeft(y).tickFormat(formatDiseaseName))
@@ -834,7 +834,7 @@ export function drawDiseaseGeneAssocChart(
     .attr("transform", "translate(-10,0)rotate(-25)")
     .style("text-anchor", "end");
   // Adds the y-axis text label
-  addYLabel(height, "Disease Name", svg);
+  addYLabel(graphHeight, "Disease Name", svg);
 
   const barIdFunc = getElementIDFunc(id, "bar");
 
