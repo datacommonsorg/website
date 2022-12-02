@@ -188,7 +188,6 @@ def create_app():
     user_db = firestore.client()
     app.config['USER_DB'] = user_db
 
-
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
   app.config['TOPIC_PAGE_CONFIG'] = topic_page_configs
