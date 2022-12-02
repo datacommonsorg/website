@@ -176,27 +176,27 @@ function fetchData(
     populationPromise,
     parentPlacesPromise,
   ])
-  .then(([geoJson, placeStat, populationData, parentPlaces]) => {
-    const metadataMap = placeStat.facets;
-    if (!_.isEmpty(populationData.facets)) {
-      Object.assign(metadataMap, populationData.facets);
-    }
-    let population = {};
-    if (
-      !_.isEmpty(populationData.data) &&
-      denomStatVar &&
-      denomStatVar in populationData.data
-    ) {
-      population = populationData.data[denomStatVar];
-    }
-    setRawData({
-      geoJson,
-      placeStat: placeStat.data[mainStatVar],
-      metadataMap,
-      population,
-      parentPlaces,
-    });
-  })
+    .then(([geoJson, placeStat, populationData, parentPlaces]) => {
+      const metadataMap = placeStat.facets;
+      if (!_.isEmpty(populationData.facets)) {
+        Object.assign(metadataMap, populationData.facets);
+      }
+      let population = {};
+      if (
+        !_.isEmpty(populationData.data) &&
+        denomStatVar &&
+        denomStatVar in populationData.data
+      ) {
+        population = populationData.data[denomStatVar];
+      }
+      setRawData({
+        geoJson,
+        placeStat: placeStat.data[mainStatVar],
+        metadataMap,
+        population,
+        parentPlaces,
+      });
+    })
     // .then(([geoJson, placeStat, population, parentPlaces]) => {
     //   setRawData({
     //     geoJson,
