@@ -253,7 +253,7 @@ def get_stat_vars_union(places, stat_vars):
   """
   places = places.split("^")
   # The two indexings are due to how protobuf fields are converted to json
-  return fetch_data('/v1/place/stat-vars/union', {
+  return fetch_data('get_stat_vars_union', {
       'dcids': places,
       'statVars': stat_vars,
   },

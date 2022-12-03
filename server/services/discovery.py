@@ -18,6 +18,10 @@ import itertools
 from typing import Dict, List, Union
 import yaml
 
+import lib.config as libconfig
+
+cfg = libconfig.get_config()
+
 
 class InvalidEndpointException(Exception):
   pass
@@ -28,7 +32,7 @@ class InvalidIngressConfig(Exception):
 
 
 # By default, all endpoints are expected on localhost port 8081.
-DEFAULT_INGRESS_RULES = dict({'http://127.0.0.1:8081': ['/*']})
+DEFAULT_INGRESS_RULES = dict({cfg.API_ROOT: ['/*']})
 
 
 @dataclass
@@ -110,7 +114,9 @@ class Endpoints:
     """
     path = self.endpoint_name_to_path[endpoint_name]
     host = self.endpoint_name_to_host[endpoint_name]
-    return f"http://{host}{path}"
+    if host.startswith('http'):
+      return f'{host}{path}'
+    return f"https://{host}{path}"
 
 
 # Source of truth for all mixer endpoints.
@@ -153,6 +159,7 @@ def configure_endpoints_from_ingress(ingress_rules: Union[str,
       except yaml.YAMLError as exc:
         raise InvalidIngressConfig(
             f'Ingress config file is invalid: {ingress_rules}') from exc
+
   endpoints.configure(ingress_rules)
 
 

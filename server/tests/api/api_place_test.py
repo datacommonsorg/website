@@ -538,7 +538,7 @@ class TestApiGetPlacesInNames(unittest.TestCase):
                                  compress=False,
                                  post=True,
                                  has_payload=True):
-      if req_url.ends_with("/node/places-in") and req_json == {
+      if req_url.endswith("/node/places-in") and req_json == {
           'dcids': ['geoId/10'],
           'place_type': 'County'
       } and not post:
@@ -592,8 +592,8 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
       if (req_url.endswith("/v1/place/stat-vars/union") and req_json == req and
           post and not has_payload):
         return {'statVars': result}
-      if (req_url.ends_with("/v1/place/stat-vars/union") and
-          req_json == req2 and post and not has_payload):
+      if (req_url.endswith("/v1/place/stat-vars/union") and req_json == req2 and
+          post and not has_payload):
         return {}
 
     send_request.side_effect = side_effect

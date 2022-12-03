@@ -24,17 +24,18 @@ default-host:8080:
       f.write(ingress_rules)
     configure_endpoints_from_ingress(tf.name)
 
-    assert get_service_url('query') == 'http://query-host:8080/query'
+    assert get_service_url('query') == 'https://query-host:8080/query'
     assert get_service_url(
-        'match_statvar') == 'http://stat-var-host:8080/stat-var/match'
+        'match_statvar') == 'https://stat-var-host:8080/stat-var/match'
 
     assert get_service_url(
         'series'
-    ) == 'http://bulk-observation-host:8080/v1/bulk/observations/series'
+    ) == 'https://bulk-observation-host:8080/v1/bulk/observations/series'
     # Test prefix match overriding wildcard.
     assert get_service_url(
         'series_within'
-    ) == 'http://observation-series-linked-host:8080/v1/bulk/observations/series/linked'
+    ) == 'https://observation-series-linked-host:8080/v1/bulk/observations/series/linked'
 
-    assert get_service_url('get_related_places'
-                          ) == 'http://default-host:8080/node/related-locations'
+    assert get_service_url(
+        'get_related_places'
+    ) == 'https://default-host:8080/node/related-locations'
