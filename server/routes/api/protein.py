@@ -36,7 +36,7 @@ bp = Blueprint('api.protein', __name__, url_prefix='/api/protein')
 @bp.route('/<path:dcid>')
 def get_node(dcid):
   """Returns data given a protein node."""
-  response = dc.fetch_data('/internal/bio', {
+  response = dc.fetch_data('bio', {
       'dcid': dcid,
   },
                            compress=False,

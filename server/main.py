@@ -27,11 +27,16 @@ import flask
 from flask import request
 
 import services.datacommons as dc
+from services.discovery import configure_endpoints_from_ingress
+from services.discovery import DEFAULT_INGRESS_RULES
 
 from __init__ import create_app
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
+
+# Needs to be called before create_app.
+configure_endpoints_from_ingress(ingress_rules=DEFAULT_INGRESS_RULES)
 
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
