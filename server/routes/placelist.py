@@ -31,7 +31,7 @@ bp = Blueprint(
 @bp.route('/placelist')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def index():
-  response = fetch_data('get_property_values', {
+  response = fetch_data('v0_property_values', {
       'dcids': ['Country'],
       'property': 'typeOf',
       'direction': 'in'

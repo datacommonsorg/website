@@ -25,7 +25,7 @@ class TestVariablePath(unittest.TestCase):
   def test_variable_path(self, mock_result):
 
     def side_effect(url):
-      if url == "/v1/variable/ancestors/Count_Person":
+      if url.endswith("/v1/variable/ancestors/Count_Person"):
         return {"ancestors": ["dc/g/Demographics"]}
       else:
         return {}

@@ -154,7 +154,7 @@ def cached_i18n_name(dcids, locale, should_resolve_all):
   if not dcids:
     return {}
   dcids = dcids.split('^')
-  response = fetch_data('get_property_values', {
+  response = fetch_data('v0_property_values', {
       'dcids': dcids,
       'property': 'nameWithLanguage',
       'direction': 'out'
@@ -288,7 +288,7 @@ def child(dcid):
 # TODO(hanlu): get nameWithLanguage instead of using name.
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
-  contained_response = fetch_data('get_property_values', {
+  contained_response = fetch_data('v0_property_values', {
       'dcids': [dcid],
       'property': 'containedInPlace',
       'direction': 'in'
@@ -297,7 +297,7 @@ def child_fetch(dcid):
                                   post=True)
   places = contained_response[dcid].get('in', [])
 
-  overlaps_response = fetch_data('get_property_values', {
+  overlaps_response = fetch_data('v0_property_values', {
       'dcids': [dcid],
       'property': 'geoOverlaps',
       'direction': 'in'
@@ -407,7 +407,7 @@ def get_parent_place(dcids):
     dcids = dcids.split('^')
   else:
     dcids = []
-  response = fetch_data('get_property_values', {
+  response = fetch_data('v0_property_values', {
       'dcids': dcids,
       'property': 'containedInPlace',
       'direction': 'out'

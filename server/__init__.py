@@ -257,12 +257,9 @@ def create_app():
   app.config['AI_CONTEXT'] = ai.Context()
 
   def is_up(url: str):
-    # url is is from service discovery config, this should not happen.
-    if not url.startswith('http://') and not url.startswith('https://'):
-      raise ValueError(
-          f' Healthcheck url does not start with http(s)://: {url}')
     try:
-      urllib.request.urlopen(url)
+      # url is internal input.
+      urllib.request.urlopen(url)  # nosec B310
       return True
     except urllib.error.URLError:
       return False
