@@ -17,7 +17,6 @@ import logging
 import os
 import time
 import tempfile
-import subprocess
 import urllib.request
 import urllib.error
 

@@ -104,13 +104,13 @@ class Endpoints:
     return match_host
 
   def get_service_url(self, endpoint_name: str) -> str:
-    """Returns a callable url for an endpoing.
+    """Returns a callable url for an endpoint.
 
-        Caller is responsible for making sure that endpoint exists in config.
-        """
+    Caller is responsible for making sure that endpoint exists in config.
+    """
     path = self.endpoint_name_to_path[endpoint_name]
     host = self.endpoint_name_to_host[endpoint_name]
-    return f"{host}{path}"
+    return f"http://{host}{path}"
 
 
 # Source of truth for all mixer endpoints.
