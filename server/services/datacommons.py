@@ -21,7 +21,7 @@ import urllib.parse
 import zlib
 from cache import cache
 from flask import current_app
-from typing import Dict
+from typing import Dict, List
 
 import lib.config as libconfig
 from services.discovery import get_service_url
@@ -220,6 +220,40 @@ def property_values(nodes, prop, out=True):
       else:
         result[node].append(v['value'])
   return result
+
+
+def get_variable_group_info(dcid: str, entities: List[str]) -> Dict:
+  """Gets the stat var group node information."""
+  url = get_service_url('variable_group_info')
+  url = f'{url}/{dcid}'
+  if entities:
+    url += "?constrained_entities=" + "&constrained_entities=".join(entities)
+  return get(url).get("info", {})
+
+
+def get_stat_vars(dcid: str):
+  """Get all the statistical variable dcids for a place."""
+  url = get_service_url('stat_vars')
+  url = f'{url}/{dcid}'
+  return get(url).get('variables', [])
+
+
+def get_stat_var_ancestors(dcid: str):
+  """Gets the path of a stat var to the root of the stat var hierarchy."""
+  url = get_service_url('stat_var_ancestors')
+  url = f'{url}/{dcid}'
+  return get(url).get('ancestors', [])
+
+
+def get_series_dates(parent_entity, child_type, variables):
+  """Get series dates."""
+  return post(
+      'series_dates', {
+          'linked_property': "containedInPlace",
+          'linked_entity': parent_entity,
+          'entity_type': child_type,
+          'variables': variables,
+      })
 
 
 def resolve_id(in_ids, in_prop, out_prop):

@@ -128,7 +128,10 @@ endpoints = Endpoints([
     Endpoint(name='point_within', path='/v1/bulk/observations/point/linked'),
     Endpoint(name='series', path='/v1/bulk/observations/series'),
     Endpoint(name='series_within', path='/v1/bulk/observations/series/linked'),
+    Endpoint(name='series_dates', path='/v1/bulk/observation-dates/linked'),
     Endpoint(name='triples', path='/v1/triples'),
+    Endpoint(name='stat_vars', path='/v1/variables'),
+    Endpoint(name='stat_var_ancestors', path='/v1/variable/ancestors'),
     Endpoint(name='v0_triples', path='/node/triples'),
     Endpoint(name='properties', path='/v1/properties'),
     Endpoint(name='property_values', path='/v1/bulk/property/values'),
@@ -141,6 +144,7 @@ endpoints = Endpoints([
     Endpoint(name='search_statvar', path='/stat-var/search'),
     Endpoint(name='match_statvar', path='/stat-var/match'),
     Endpoint(name='get_statvar_summary', path='/stat-var/summary'),
+    Endpoint(name='variable_group_info', path='/v1/info/variable-group'),
     # Recon APIs
     Endpoint(name='resolve_id', path='/v1/recon/resolve/id'),
     # Bio APIs
