@@ -384,6 +384,14 @@ def get_statvar_summary(dcids):
   return send_request(url, req_json, has_payload=False)
 
 
+def get_landing_page_data(dcid, category: str, new_stat_vars: List):
+  req = {'node': dcid, 'category': category}
+  if new_stat_vars:
+    req['newStatVars'] = new_stat_vars
+  url = get_service_url('get_landing_page_data')
+  return post(url, req)
+
+
 # ------------------------- INTERNAL HELPER FUNCTIONS -------------------------
 
 

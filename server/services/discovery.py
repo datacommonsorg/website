@@ -149,6 +149,8 @@ endpoints = Endpoints([
     Endpoint(name='resolve_id', path='/v1/recon/resolve/id'),
     # Bio APIs
     Endpoint(name='bio', path='/internal/bio'),
+    # Misc
+    Endpoint(name='get_landing_page_data', path='/v1/internal/page/place'),
 ])
 
 
