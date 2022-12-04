@@ -258,7 +258,6 @@ def create_app():
 
   def is_up(url: str):
     try:
-      # url is internal input.
       urllib.request.urlopen(url)  # nosec B310
       return True
     except urllib.error.URLError:

@@ -20,7 +20,6 @@ from cache import cache
 import services.datacommons as dc
 from flask import Response
 from flask import request
-import routes.api.place as place_api
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 
@@ -122,4 +121,4 @@ def get_observation_id():
 @bp.route('/num_stat_vars/<path:dcid>')
 def get_num_stat_vars(dcid):
   """Returns number of stat vars for a dcid"""
-  return json.dumps(len(place_api.stat_vars(dcid)))
+  return json.dumps(len(dc.get_stat_vars(dcid)))
