@@ -44,7 +44,7 @@ class TestGetStatsWithinPlaceCsv(unittest.TestCase):
                                           })
     assert no_stat_vars.status_code == 400
 
-  @mock.patch('routes.api.csv.dc.point_within')
+  @mock.patch('routes.api.csv.dc.get_observations_within')
   @mock.patch('routes.api.csv.names')
   def test_single_date(self, mock_place_names, mock_point_within):
     expected_parent_place = "country/USA"

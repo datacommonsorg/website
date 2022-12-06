@@ -54,10 +54,10 @@ def get_variable_facets_from_series(series_response):
 
 
 def get_variable_facets_from_points(point_response):
-  """Gets the available facets for each sv in an api response for point_within.
+  """Gets the available facets for each sv in an api response for get_observations_within.
 
   Args:
-      points_response: the response from a dc.point_within call.
+      points_response: the response from a dc.get_observations_within call.
 
   Returns:
       a dict of sv to dict of facet id to facet information:
@@ -146,8 +146,8 @@ def get_facets_within():
     date = min_date
     if min_date == "latest":
       date = ""
-    point_response = dc.point_within(parent_place, child_type, stat_vars, date,
-                                     True)
+    point_response = dc.get_observations_within(parent_place, child_type,
+                                                stat_vars, date, True)
     return get_variable_facets_from_points(point_response), 200
   else:
     series_response = dc.series_within(parent_place, child_type, stat_vars,

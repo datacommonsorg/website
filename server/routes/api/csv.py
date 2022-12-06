@@ -47,20 +47,19 @@ def get_point_within_csv_rows(parent_place,
       represented as an array where each item is the value of a cell in the
       row.
   """
-  points_response_all = dc.point_within(parent_place, child_type, sv_list, date,
-                                        True)
+  points_response_all = dc.get_observations_within(parent_place, child_type,
+                                                   sv_list, date, True)
   points_response_best = {}
   # Set of stat vars where we need to make a separate call to
-  # dc.point_within to get the data points of the latest date and best facet
+  # dc.get_observations_within to get the data points of the latest date and best facet
   sv_latest_best_point = set()
   if date == "":
     for sv in sv_list:
       if facet_map.get(sv, "") == "":
         sv_latest_best_point.add(sv)
     if len(sv_latest_best_point) > 0:
-      points_response_best = dc.point_within(parent_place, child_type,
-                                             list(sv_latest_best_point), date,
-                                             False)
+      points_response_best = dc.get_observations_within(
+          parent_place, child_type, list(sv_latest_best_point), date, False)
   # dict of place dcid to dict of sv dcid to chosen data point.
   data_by_place = {}
   # go through the data in points_response_best and add to data_by_place

@@ -154,7 +154,7 @@ def cached_i18n_name(dcids, locale, should_resolve_all):
   if not dcids:
     return {}
   dcids = dcids.split('^')
-  response = fetch_data('v0_property_values', {
+  response = fetch_data('/node/property-values', {
       'dcids': dcids,
       'property': 'nameWithLanguage',
       'direction': 'out'
@@ -250,7 +250,7 @@ def get_stat_vars_union(places, stat_vars):
   """
   places = places.split("^")
   # The two indexings are due to how protobuf fields are converted to json
-  return fetch_data('get_stat_vars_union', {
+  return fetch_data('/v1/place/stat-vars/union', {
       'dcids': places,
       'statVars': stat_vars,
   },
@@ -288,7 +288,7 @@ def child(dcid):
 # TODO(hanlu): get nameWithLanguage instead of using name.
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
-  contained_response = fetch_data('v0_property_values', {
+  contained_response = fetch_data('/node/property-values', {
       'dcids': [dcid],
       'property': 'containedInPlace',
       'direction': 'in'
@@ -297,7 +297,7 @@ def child_fetch(dcid):
                                   post=True)
   places = contained_response[dcid].get('in', [])
 
-  overlaps_response = fetch_data('v0_property_values', {
+  overlaps_response = fetch_data('/node/property-values', {
       'dcids': [dcid],
       'property': 'geoOverlaps',
       'direction': 'in'
@@ -307,7 +307,7 @@ def child_fetch(dcid):
   places = places + overlaps_response[dcid].get('in', [])
 
   place_dcids = map(lambda x: x['dcid'], places)
-  pop = dc.point(place_dcids, ['Count_Person'])
+  pop = dc.get_observations(place_dcids, ['Count_Person'])
 
   place_type = get_place_type(dcid)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
@@ -407,7 +407,7 @@ def get_parent_place(dcids):
     dcids = dcids.split('^')
   else:
     dcids = []
-  response = fetch_data('v0_property_values', {
+  response = fetch_data('/node/property-values', {
       'dcids': dcids,
       'property': 'containedInPlace',
       'direction': 'out'
@@ -788,8 +788,9 @@ def api_ranking_chart(dcid):
   # Make sure POPULATION_DCID is included in stat vars.
   if POPULATION_DCID not in stat_vars:
     stat_vars.add(POPULATION_DCID)
-  points_response_best = dc.point_within(parent_place_dcid, place_type,
-                                         list(stat_vars), "", False)
+  points_response_best = dc.get_observations_within(parent_place_dcid,
+                                                    place_type, list(stat_vars),
+                                                    "", False)
   sv_data = points_response_best.get("observationsByVariable")
   sv_facets = points_response_best.get("facets")
   if not points_response_best or not sv_data:

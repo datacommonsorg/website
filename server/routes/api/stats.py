@@ -39,7 +39,7 @@ def stats_var_property():
 
 def stats_var_property_wrapper(dcids):
   """Function to get properties for given statistical variables."""
-  data = dc.fetch_data('v0_triples', {
+  data = dc.fetch_data('/node/triples', {
       'dcids': dcids,
   },
                        compress=False,

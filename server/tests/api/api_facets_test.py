@@ -44,7 +44,7 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
                                          })
     assert no_stat_vars.status_code == 400
 
-  @mock.patch('routes.api.facets.dc.point_within')
+  @mock.patch('routes.api.facets.dc.get_observations_within')
   def test_single_date(self, mock_point_within):
     expected_parent_place = "country/USA"
     expected_child_type = "State"

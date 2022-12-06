@@ -45,7 +45,7 @@ def provenance():
 @bp.route('/propvals/<path:prop>/<path:dcid>')
 def get_property_value(dcid, prop):
   """Returns the property values for a given node dcid and property label."""
-  response = dc.fetch_data('v0_property_values', {
+  response = dc.fetch_data('/node/property-values', {
       'dcids': [dcid],
       'property': prop,
   },
