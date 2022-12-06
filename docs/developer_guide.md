@@ -9,29 +9,32 @@ containers:
 
 [Mixer](https://github.com/datacommonsorg/mixer) is a submodule of this Git
 repo. The exact commit of the submodule is deployed together with the website so
-it may not be the same API version as `api.datacommons.org`. Make sure to update
-and track the mixer change for a new deployment:
+it may not be the same API version as `https://api.datacommons.org/version`.
+Make sure to update and track the mixer change for a new deployment:
 
 ```bash
 git submodule foreach git pull origin master
 git submodule update --init --recursive
 ```
 
-## Prerequisites
+## Local Development with Flask
 
-### Basic Development
+For changes that do not test GCP deployment or involve mixer changes, can
+simply run in local environment (Mac or Linux machine). This way the local Flask
+App talks to the [autopush Mixer](https://autopush.api.datacommons.org).
 
-For development that only involves minor bug fixes or feature additions, the
-following steps are required:
+Note: the `autopush mixer` contains the latest data and mixer code change. It
+could be necessary to update the mixer submodule if compatibility is required
+between website and mixer changes.
+
+### Prerequisites
 
 - Install [`nodejs`](https://nodejs.org/en/download/)
-
-  - Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-  - Install node 18.4.0: `nvm install 18.4.0`
-
+- Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Install node 18.4.0: `nvm install 18.4.0`
 - Install [`protoc`](https://grpc.io/docs/protoc-installation/)
 
-### Place Search
+### [Optional] Place Search
 
 Development that involves place search needs the following additional
 requirements:
@@ -46,25 +49,67 @@ requirements:
   gcloud auth application-default login
   ```
 
-### Develop with Kubernetes
+### Package javascript and static assets
 
-This is only needed for development with a local Kubernetes cluster (e.g. for
-changes dependent on mixer changes).
+```bash
+./run_npm.sh
+```
 
-- Install the following tools:
+This will watch static files change and re-build on code edit.
 
-  - [`Docker`](https://www.docker.com/products/docker-desktop)
-  - [`Minikube`](https://minikube.sigs.k8s.io/docs/start/)
-  - [`Skaffold`](https://skaffold.dev/docs/install/)
-  - [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-  - [`kustomize`](https://kustomize.io/)
-  - [`yq` 4.x](https://github.com/mikefarah/yq#install)
+### Start the Flask Server
+
+Start the flask webserver locally at localhost:8080
+
+```bash
+./run_server.sh
+```
+
+If you don't have access to DataCommons maps API, run
+
+```bash
+./run_server.sh -e lite
+```
+
+This brings up website without place search functionality.
+
+There are multiple environments for the server, specified by `-e` options.
+For example, `custom` is for custom data commons and `iitm` is
+for iitm data commons.
+
+To start multiple instances, bind each server instance to a different port.
+The following example will start localhost on port 8081. The default is 8080.
+
+```bash
+./run_server.sh -p 8081
+```
+
+Please note the strict syntax requirements for the script, and leave a space
+after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
+
+## Deploy local instance to GCP (dev insance)
+
+Commit all changes locally, so the local change is identified by a git hash.
+Then run
+
+```bash
+gcloud auth login
+gcloud auth configure-docker
+./scripts/push_image.sh
+./scripts/deploy_gke.sh dev us-central1
+```
+
+The script builds docker image locally and tag it with the local git commit
+hash at HEAD, then deploy to dev instance in GKE.
+
+View the deployoment at [link](https://dev.datacommons.org).
 
 ## Run Tests
 
 ### Install web browser and webdriver
 
-:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is compatible with your **local Google Chrome version**.
+:exclamation:**IMPORTANT**: Make sure that your **ChromeDriver version** is
+compatible with your **local Google Chrome version**.
 
 Before running the tests, install the browser and webdriver. Here we recommend
 you use Google Chrome browser and ChromeDriver.
@@ -111,118 +156,11 @@ cd static
 npm test testfilename -- -u
 ```
 
-## Develop with Flask (simple/lite)
-
-This way the website talks to the [autopush Mixer](autopush.api.datacommons.org).
-
-Note: the autopushed mixer can deviate from the mixer submodule and may not be
-fully compatible with website.
-
-### Package javascript and static assets
-
-```bash
-./run_npm.sh
-```
-
-This will watch static files change and re-build on code edit.
-
-### Start the Flask Server
-
-Start the flask webserver locally at localhost:8080
-
-```bash
-./run_server.sh
-```
-
-If you don't have DataCommons GCP permissions, run
-
-```bash
-./run_server.sh -e lite
-```
-
-Other options for -e are `custom` for custom data commons, or `iitm`
-for iitm data commons.
-
-This will bring up local website without place search functionality.
-
-There are now multiple environments for the server. To start multiple instances,
-bind each server instance to a different port. The following example will start
-localhost on port 8081. The default is 8080.
-
-```bash
-./run_server.sh -p 8081
-```
-
-Please note the strict syntax requirements for the script, and leave a space after the flag.
-So `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
-
-## Develop with local Kubernetes
-
-This is an alternative way to bring up website stack locally and this is close
-to how the production server is deployed in GKE.
-
-Local Kubernetes cluster has similar configurations as the production
-deployment, for example, it brings up a local mixer instead of talking to the
-autopush/staging mixer.
-
-This is useful for local development that involves data version, mixer and
-website changes.
-
-### Start website in Minikube
-
-This takes a few minutes to complete, as it involves building several docker
-images. If only website code is changed, can use the [alternative approach](<##-Develop-with-Flask-(simple/lite)>).
-
-**NOTE** Make sure the local Docker engine has more than 12G of memory.
-
-```bash
-minikube start --memory=11G
-minikube addons enable gcp-auth
-eval $(minikube docker-env)
-kubectl config use-context minikube
-skaffold dev --port-forward -n website
-```
-
-This exposes the local website at `localhost:8080`.
-
-### Hot reload
-
-All the code change is synced to the containers through "File Sync" of Skaffold.
-
-Run the following command to get the javascript code recompiled when changed:
-
-```bash
-./run_npm.sh
-```
-
-Python code change will trigger a restart of the Flask server automatically.
-
-### Monitoring the containers
-
-Run `minikube dashboard` in a separate terminal to start the dashboard, which is
-useful for monitoring and controlling the containers.
-
-## Deploy local instance to GCP
-
-Commit all changes locally. Then run
-
-```bash
-gcloud auth login
-gcloud auth configure-docker
-./scripts/push_image.sh
-./scripts/deploy_gke.sh dev us-central1
-```
-
-The script will build docker image locally and tag it with the local git commit
-hash at HEAD, then deploy to GKE.
-
-View the deployoment at [link](https://dev.datacommons.org)
-
 ## Other Developing Tips
 
 ### GKE config
 
-The GKE configuration is stored [here](deploy/gke/prod.yaml).
+The GKE configuration is stored [here](../deploy/overlays).
 
 ### Custom Instance
 
@@ -234,12 +172,11 @@ gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
 
 ### Redis memcache
 
-[Redis
-memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
+[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
 is used for production deployment. Each cluster has a Redis instance located in
 the same region.
 
-### Adding new charts
+### Add new charts in Place Page
 
 1. Update [server/config/chart_config/](../server/config/chart_config)`<category>.json` with the new chart.
 
