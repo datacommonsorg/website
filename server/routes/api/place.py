@@ -307,7 +307,7 @@ def child_fetch(dcid):
   places = places + overlaps_response[dcid].get('in', [])
 
   place_dcids = map(lambda x: x['dcid'], places)
-  pop = dc.get_observations(place_dcids, ['Count_Person'])
+  pop = dc.obs_point(place_dcids, ['Count_Person'])
 
   place_type = get_place_type(dcid)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
@@ -788,9 +788,8 @@ def api_ranking_chart(dcid):
   # Make sure POPULATION_DCID is included in stat vars.
   if POPULATION_DCID not in stat_vars:
     stat_vars.add(POPULATION_DCID)
-  points_response_best = dc.get_observations_within(parent_place_dcid,
-                                                    place_type, list(stat_vars),
-                                                    "", False)
+  points_response_best = dc.obs_point_within(parent_place_dcid, place_type,
+                                             list(stat_vars), "", False)
   sv_data = points_response_best.get("observationsByVariable")
   sv_facets = points_response_best.get("facets")
   if not points_response_best or not sv_data:

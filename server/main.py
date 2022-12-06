@@ -36,7 +36,8 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 
 # Needs to be called before create_app.
-ingress_config_path = os.environ.get('INGRESS_CONFIG_PATH')
+ingress_config_path = os.environ.get(
+    'INGRESS_CONFIG_PATH')  # See deployment yamls.
 configure_endpoints_from_ingress(ingress_config_path or DEFAULT_INGRESS_RULES)
 
 app = create_app()

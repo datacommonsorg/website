@@ -47,19 +47,20 @@ def get_point_within_csv_rows(parent_place,
       represented as an array where each item is the value of a cell in the
       row.
   """
-  points_response_all = dc.get_observations_within(parent_place, child_type,
-                                                   sv_list, date, True)
+  points_response_all = dc.obs_point_within(parent_place, child_type, sv_list,
+                                            date, True)
   points_response_best = {}
   # Set of stat vars where we need to make a separate call to
-  # dc.get_observations_within to get the data points of the latest date and best facet
+  # dc.obs_point_within to get the data points of the latest date and best facet
   sv_latest_best_point = set()
   if date == "":
     for sv in sv_list:
       if facet_map.get(sv, "") == "":
         sv_latest_best_point.add(sv)
     if len(sv_latest_best_point) > 0:
-      points_response_best = dc.get_observations_within(
-          parent_place, child_type, list(sv_latest_best_point), date, False)
+      points_response_best = dc.obs_point_within(parent_place, child_type,
+                                                 list(sv_latest_best_point),
+                                                 date, False)
   # dict of place dcid to dict of sv dcid to chosen data point.
   data_by_place = {}
   # go through the data in points_response_best and add to data_by_place
@@ -125,7 +126,7 @@ def get_series_csv_rows(series_response,
     date range.
 
   Args:
-      series_response: the response from a dc.series_within call
+      series_response: the response from a dc.obs_series_within call
       sv_list: list of variables in the order that they should appear from
           left to right in each csv row.
       min_date (optional): the earliest date as a string to get data for. If
@@ -281,7 +282,8 @@ def get_stats_within_place_csv():
         get_point_within_csv_rows(parent_place, child_type, sv_list, facet_map,
                                   date, row_limit))
   else:
-    series_response = dc.series_within(parent_place, child_type, sv_list, True)
+    series_response = dc.obs_series_within(parent_place, child_type, sv_list,
+                                           True)
     result_csv.extend(
         get_series_csv_rows(series_response, sv_list, facet_map, min_date,
                             max_date, row_limit))

@@ -46,13 +46,13 @@ def compact_point(point_resp, all_facets):
 
 
 def point_core(entities, variables, date, all_facets):
-  resp = dc.get_observations(entities, variables, date, all_facets)
+  resp = dc.obs_point(entities, variables, date, all_facets)
   return compact_point(resp, all_facets)
 
 
 def point_within_core(parent_entity, child_type, variables, date, all_facets):
-  resp = dc.get_observations_within(parent_entity, child_type, variables, date,
-                                    all_facets)
+  resp = dc.obs_point_within(parent_entity, child_type, variables, date,
+                             all_facets)
   return compact_point(resp, all_facets)
 
 

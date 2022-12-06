@@ -640,7 +640,7 @@ class TestApiRankingChart(unittest.TestCase):
   @patch('routes.api.place.get_ranking_chart_configs')
   @patch('routes.api.place.get_place_type')
   @patch('routes.api.place.parent_places')
-  @patch('routes.api.place.dc.get_observations_within')
+  @patch('routes.api.place.dc.obs_point_within')
   def test_api_ranking_chart_not_earth(
       self,
       mock_point_within,
@@ -886,7 +886,7 @@ class TestApiRankingChart(unittest.TestCase):
 
   @patch('routes.api.place.get_i18n_name')
   @patch('routes.api.place.get_ranking_chart_configs')
-  @patch('routes.api.place.dc.get_observations_within')
+  @patch('routes.api.place.dc.obs_point_within')
   def test_api_ranking_chart_earth(
       self,
       mock_point_within,

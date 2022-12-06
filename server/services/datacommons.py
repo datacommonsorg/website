@@ -80,7 +80,7 @@ def post_wrapper(url, req_str: str):
   return response.json()
 
 
-def get_observations(entities, variables, date='', all_facets=False):
+def obs_point(entities, variables, date='', all_facets=False):
   """Gets the observation point for the given entities of the given variable.
 
   Args:
@@ -100,11 +100,11 @@ def get_observations(entities, variables, date='', all_facets=False):
       })
 
 
-def get_observations_within(parent_entity,
-                            child_type,
-                            variables,
-                            date='',
-                            all_facets=False):
+def obs_point_within(parent_entity,
+                     child_type,
+                     variables,
+                     date='',
+                     all_facets=False):
   """Gets the statistical variable values for child places of a certain place
     type contained in a parent place at a given date.
 
@@ -135,7 +135,7 @@ def get_observations_within(parent_entity,
       })
 
 
-def series(entities, variables, all_facets=False):
+def obs_series(entities, variables, all_facets=False):
   """Gets the observation time series for the given entities of the given
   variable.
 
@@ -153,7 +153,7 @@ def series(entities, variables, all_facets=False):
       })
 
 
-def series_within(parent_entity, child_type, variables, all_facets=False):
+def obs_series_within(parent_entity, child_type, variables, all_facets=False):
   """Gets the statistical variable series for child places of a certain place
     type contained in a parent place.
 
