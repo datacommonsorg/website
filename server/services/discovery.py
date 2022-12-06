@@ -145,19 +145,18 @@ endpoints = Endpoints([
 ])
 
 
-def configure_endpoints_from_ingress(ingress_rules: Union[str,
-                                                          Dict[str,
-                                                               List[str]]]):
+def configure_endpoints_from_ingress(
+    ingress_rules_or_path: Union[str, Dict[str, List[str]]]):
   """Must be called at server startup, before server is considered ready."""
-  if isinstance(ingress_rules, str):
-    with open(ingress_rules, encoding='utf-8') as f:
+  if isinstance(ingress_rules_or_path, str):
+    with open(ingress_rules_or_path, encoding='utf-8') as f:
       try:
-        ingress_rules = yaml.safe_load(f)
+        ingress_rules_or_path = yaml.safe_load(f)
       except yaml.YAMLError as exc:
         raise InvalidIngressConfig(
-            f'Ingress config file is invalid: {ingress_rules}') from exc
+            f'Ingress config file is invalid: {ingress_rules_or_path}') from exc
 
-  endpoints.configure(ingress_rules)
+  endpoints.configure(ingress_rules_or_path)
 
 
 def get_all_endpoint_paths():

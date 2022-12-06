@@ -36,7 +36,8 @@ logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
 
 # Needs to be called before create_app.
-configure_endpoints_from_ingress(ingress_rules=DEFAULT_INGRESS_RULES)
+ingress_config_path = os.environ.get('INGRESS_CONFIG_PATH')
+configure_endpoints_from_ingress(ingress_config_path or DEFAULT_INGRESS_RULES)
 
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']

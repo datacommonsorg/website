@@ -257,12 +257,14 @@ def create_app():
   app.config['AI_CONTEXT'] = ai.Context()
 
   def is_up(url: str):
-    if url.lower().startswith('http'):
-      req = urllib.request.Request(url)
-    else:
+    if not url.lower().startswith('http'):
       raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
+
     try:
-      urllib.request.urlopen(req)
+      # Disable Bandit security check 310. http scheme is already checked above.
+      # Codacity still calls out the error so disable the check.
+      # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
+      urllib.request.urlopen(url)  # nosec B310
       return True
     except urllib.error.URLError:
       return False
