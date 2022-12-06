@@ -157,9 +157,6 @@ class LocalStanfordConfig(LocalBaseConfig, StanfordConfig):
   API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
   API_PROJECT = 'datcom-mixer-statvar'
   SECRET_PROJECT = 'datcom-stanford'
-  # NAME = "Stanford"
-  # ENV_NAME = 'STANFORD'
-  # BASE_HTML_PATH = 'custom_dc/stanford/base.html'
 
 
 class WebdriverConfig(Config):
