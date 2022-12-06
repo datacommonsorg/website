@@ -257,8 +257,12 @@ def create_app():
   app.config['AI_CONTEXT'] = ai.Context()
 
   def is_up(url: str):
+    if url.lower().startswith('http'):
+      req = urllib.request.Request(url)
+    else:
+      raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
     try:
-      urllib.request.urlopen(url)  # nosec B310
+      urllib.request.urlopen(req)
       return True
     except urllib.error.URLError:
       return False
