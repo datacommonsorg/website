@@ -23,7 +23,7 @@ For changes that do not test GCP deployment or involve mixer changes, can
 simply run in local environment (Mac or Linux machine). This way the local Flask
 App talks to the [autopush Mixer](https://autopush.api.datacommons.org).
 
-Note: the `autopush mixer` contains the latest data and mixer code change. It
+Note: the `autopush mixer` contains the latest data and mixer code changes. It
 could be necessary to update the mixer submodule if compatibility is required
 between website and mixer changes.
 
@@ -87,7 +87,7 @@ The following example will start localhost on port 8081. The default is 8080.
 Please note the strict syntax requirements for the script, and leave a space
 after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
 
-## Deploy local instance to GCP (dev insance)
+## Deploy local changes to dev insance in GCP
 
 Commit all changes locally, so the local change is identified by a git hash.
 Then run
@@ -99,8 +99,8 @@ gcloud auth configure-docker
 ./scripts/deploy_gke.sh dev us-central1
 ```
 
-The script builds docker image locally and tag it with the local git commit
-hash at HEAD, then deploy to dev instance in GKE.
+The script builds docker image locally and tags it with the local git commit
+hash at HEAD, then deploys to dev instance in GKE.
 
 View the deployoment at [link](https://dev.datacommons.org).
 
