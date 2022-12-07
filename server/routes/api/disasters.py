@@ -13,9 +13,8 @@
 # limitations under the License.
 """Endpoints for disaster dashboard"""
 
-from flask import Blueprint, request, current_app
+from flask import Blueprint
 import services.datacommons as dc
-from lib.gcs import list_blobs
 import json
 import os
 import flask
