@@ -44,270 +44,272 @@ propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
 
 def createMiddleWare(app, exporter):
-    # Configure a flask middleware that listens for each request and applies
-    # automatic tracing. This needs to be set up before the application starts.
-    middleware = FlaskMiddleware(app,
-                                 exporter=exporter,
-                                 propagator=propagator,
-                                 sampler=AlwaysOnSampler())
-    return middleware
+  # Configure a flask middleware that listens for each request and applies
+  # automatic tracing. This needs to be set up before the application starts.
+  middleware = FlaskMiddleware(app,
+                               exporter=exporter,
+                               propagator=propagator,
+                               sampler=AlwaysOnSampler())
+  return middleware
 
 
 def register_routes_base_dc(app):
-    # apply the blueprints for all apps
-    from routes import (
-        dev,
-        disease,
-        import_wizard,
-        placelist,
-        protein,
-        redirects,
-        special_announcement,
-        topic_page,
-    )
-    app.register_blueprint(dev.bp)
-    app.register_blueprint(disease.bp)
-    app.register_blueprint(placelist.bp)
-    app.register_blueprint(protein.bp)
-    app.register_blueprint(redirects.bp)
-    app.register_blueprint(special_announcement.bp)
-    app.register_blueprint(topic_page.bp)
+  # apply the blueprints for all apps
+  from routes import (
+      dev,
+      disease,
+      import_wizard,
+      placelist,
+      protein,
+      redirects,
+      special_announcement,
+      topic_page,
+  )
+  app.register_blueprint(dev.bp)
+  app.register_blueprint(disease.bp)
+  app.register_blueprint(placelist.bp)
+  app.register_blueprint(protein.bp)
+  app.register_blueprint(redirects.bp)
+  app.register_blueprint(special_announcement.bp)
+  app.register_blueprint(topic_page.bp)
 
-    from routes.api import (protein as protein_api)
-    from routes.api import (disease as disease_api)
-    from routes.api.import_detection import (detection as detection_api)
-    app.register_blueprint(detection_api.bp)
-    app.register_blueprint(disease_api.bp)
-    app.register_blueprint(import_wizard.bp)
-    app.register_blueprint(protein_api.bp)
+  from routes.api import (protein as protein_api)
+  from routes.api import (disease as disease_api)
+  from routes.api.import_detection import (detection as detection_api)
+  app.register_blueprint(detection_api.bp)
+  app.register_blueprint(disease_api.bp)
+  app.register_blueprint(import_wizard.bp)
+  app.register_blueprint(protein_api.bp)
 
 
 def register_routes_custom_dc(app):
-    ## apply the blueprints for custom dc instances
-    pass
+  ## apply the blueprints for custom dc instances
+  pass
+
 
 def register_routes_stanford_dc(app):
-    # Apply blueprints specific to Stanford DC
-    from routes.api import (disasters)
-    app.register_blueprint(disasters.bp)
+  # Apply blueprints specific to Stanford DC
+  from routes.api import (disasters)
+  app.register_blueprint(disasters.bp)
+
 
 def register_routes_admin(app):
-    from routes import (user)
-    app.register_blueprint(user.bp)
-    from routes.api import (user as user_api)
-    app.register_blueprint(user_api.bp)
+  from routes import (user)
+  app.register_blueprint(user.bp)
+  from routes.api import (user as user_api)
+  app.register_blueprint(user_api.bp)
 
 
 def register_routes_common(app):
-    # apply the blueprints for main app
-    from routes import (
-        browser,
-        factcheck,
-        place,
-        ranking,
-        search,
-        static,
-        tools,
-    )
-    app.register_blueprint(browser.bp)
-    app.register_blueprint(place.bp)
-    app.register_blueprint(ranking.bp)
-    app.register_blueprint(search.bp)
-    app.register_blueprint(static.bp)
-    app.register_blueprint(tools.bp)
-    # TODO: Extract more out to base_dc
-    from routes.api import (
-        browser as browser_api,
-        choropleth,
-        csv,
-        disaster_dashboard,
-        facets,
-        landing_page,
-        node,
-        observation_dates,
-        place as place_api,
-        point,
-        ranking as ranking_api,
-        series,
-        stats,
-        translator,
-        variable,
-        variable_group,
-    )
-    app.register_blueprint(browser_api.bp)
-    app.register_blueprint(choropleth.bp)
-    app.register_blueprint(csv.bp)
-    # app.register_blueprint(disasters.bp)
-    app.register_blueprint(disaster_dashboard.bp)
-    app.register_blueprint(facets.bp)
-    app.register_blueprint(factcheck.bp)
-    app.register_blueprint(landing_page.bp)
-    app.register_blueprint(node.bp)
-    app.register_blueprint(observation_dates.bp)
-    app.register_blueprint(place_api.bp)
-    app.register_blueprint(point.bp)
-    app.register_blueprint(ranking_api.bp)
-    app.register_blueprint(series.bp)
-    app.register_blueprint(stats.bp)
-    app.register_blueprint(translator.bp)
-    app.register_blueprint(variable.bp)
-    app.register_blueprint(variable_group.bp)
+  # apply the blueprints for main app
+  from routes import (
+      browser,
+      factcheck,
+      place,
+      ranking,
+      search,
+      static,
+      tools,
+  )
+  app.register_blueprint(browser.bp)
+  app.register_blueprint(place.bp)
+  app.register_blueprint(ranking.bp)
+  app.register_blueprint(search.bp)
+  app.register_blueprint(static.bp)
+  app.register_blueprint(tools.bp)
+  # TODO: Extract more out to base_dc
+  from routes.api import (
+      browser as browser_api,
+      choropleth,
+      csv,
+      disaster_dashboard,
+      facets,
+      landing_page,
+      node,
+      observation_dates,
+      place as place_api,
+      point,
+      ranking as ranking_api,
+      series,
+      stats,
+      translator,
+      variable,
+      variable_group,
+  )
+  app.register_blueprint(browser_api.bp)
+  app.register_blueprint(choropleth.bp)
+  app.register_blueprint(csv.bp)
+  # app.register_blueprint(disasters.bp)
+  app.register_blueprint(disaster_dashboard.bp)
+  app.register_blueprint(facets.bp)
+  app.register_blueprint(factcheck.bp)
+  app.register_blueprint(landing_page.bp)
+  app.register_blueprint(node.bp)
+  app.register_blueprint(observation_dates.bp)
+  app.register_blueprint(place_api.bp)
+  app.register_blueprint(point.bp)
+  app.register_blueprint(ranking_api.bp)
+  app.register_blueprint(series.bp)
+  app.register_blueprint(stats.bp)
+  app.register_blueprint(translator.bp)
+  app.register_blueprint(variable.bp)
+  app.register_blueprint(variable_group.bp)
 
 
 def create_app():
-    app = Flask(__name__, static_folder='dist', static_url_path='')
+  app = Flask(__name__, static_folder='dist', static_url_path='')
 
-    if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
-        createMiddleWare(app, StackdriverExporter())
-        import googlecloudprofiler
-        # Profiler initialization. It starts a daemon thread which continuously
-        # collects and uploads profiles. Best done as early as possible.
-        try:
-            # service and service_version can be automatically inferred when
-            # running on GCP.
-            googlecloudprofiler.start(verbose=3)
-        except (ValueError, NotImplementedError) as exc:
-            logging.error(exc)
+  if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
+    createMiddleWare(app, StackdriverExporter())
+    import googlecloudprofiler
+    # Profiler initialization. It starts a daemon thread which continuously
+    # collects and uploads profiles. Best done as early as possible.
+    try:
+      # service and service_version can be automatically inferred when
+      # running on GCP.
+      googlecloudprofiler.start(verbose=3)
+    except (ValueError, NotImplementedError) as exc:
+      logging.error(exc)
 
-    # Setup flask config
-    cfg = libconfig.get_config()
-    app.config.from_object(cfg)
+  # Setup flask config
+  cfg = libconfig.get_config()
+  app.config.from_object(cfg)
 
-    # Init extentions
-    from cache import cache
-    # For some instance with fast updated data, we may not want to use memcache.
-    if app.config['USE_MEMCACHE']:
-        cache.init_app(app)
-    else:
-        cache.init_app(app, {'CACHE_TYPE': 'null'})
+  # Init extentions
+  from cache import cache
+  # For some instance with fast updated data, we may not want to use memcache.
+  if app.config['USE_MEMCACHE']:
+    cache.init_app(app)
+  else:
+    cache.init_app(app, {'CACHE_TYPE': 'null'})
 
-    register_routes_common(app)
-    if cfg.CUSTOM:
-        register_routes_custom_dc(app)
-    if cfg.ENV_NAME == 'STANFORD':
-        register_routes_stanford_dc(app)
-    else:
-        register_routes_base_dc(app)
-    if cfg.ADMIN:
-        register_routes_admin(app)
-        cred = credentials.ApplicationDefault()
-        firebase_admin.initialize_app(cred)
-        user_db = firestore.client()
-        app.config['USER_DB'] = user_db
+  register_routes_common(app)
+  if cfg.CUSTOM:
+    register_routes_custom_dc(app)
+  if cfg.ENV_NAME == 'STANFORD':
+    register_routes_stanford_dc(app)
+  else:
+    register_routes_base_dc(app)
+  if cfg.ADMIN:
+    register_routes_admin(app)
+    cred = credentials.ApplicationDefault()
+    firebase_admin.initialize_app(cred)
+    user_db = firestore.client()
+    app.config['USER_DB'] = user_db
 
-    # Load topic page config
-    topic_page_configs = libutil.get_topic_page_config()
-    app.config['TOPIC_PAGE_CONFIG'] = topic_page_configs
-    app.config['TOPIC_PAGE_SUMMARY'] = libutil.get_topics_summary(
-        topic_page_configs)
+  # Load topic page config
+  topic_page_configs = libutil.get_topic_page_config()
+  app.config['TOPIC_PAGE_CONFIG'] = topic_page_configs
+  app.config['TOPIC_PAGE_SUMMARY'] = libutil.get_topics_summary(
+      topic_page_configs)
 
-    # Load chart config
-    chart_config = libutil.get_chart_config()
-    app.config['CHART_CONFIG'] = chart_config
-    ranked_statvars = set()
-    for chart in chart_config:
-        ranked_statvars = ranked_statvars.union(chart['statsVars'])
-        if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
-            ranked_statvars.add(chart['relatedChart']['denominator'])
-    app.config['RANKED_STAT_VARS'] = ranked_statvars
+  # Load chart config
+  chart_config = libutil.get_chart_config()
+  app.config['CHART_CONFIG'] = chart_config
+  ranked_statvars = set()
+  for chart in chart_config:
+    ranked_statvars = ranked_statvars.union(chart['statsVars'])
+    if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
+      ranked_statvars.add(chart['relatedChart']['denominator'])
+  app.config['RANKED_STAT_VARS'] = ranked_statvars
 
-    if not cfg.TEST and not cfg.LITE:
-        secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(
-            cfg.SECRET_PROJECT, 'maps-api-key', 'latest')
-        secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['MAPS_API_KEY'] = secret_response.payload.data.decode(
-            'UTF-8')
+  if not cfg.TEST and not cfg.LITE:
+    secret_client = secretmanager.SecretManagerServiceClient()
+    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                    'maps-api-key', 'latest')
+    secret_response = secret_client.access_secret_version(name=secret_name)
+    app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
-    if cfg.ADMIN:
-        secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(
-            cfg.SECRET_PROJECT, 'oauth-client', 'latest')
-        secret_response = secret_client.access_secret_version(name=secret_name)
-        oauth_string = secret_response.payload.data.decode('UTF-8')
-        oauth_json = json.loads(oauth_string)
-        app.config['GOOGLE_CLIENT_ID'] = oauth_json['web']['client_id']
-        tf = tempfile.NamedTemporaryFile()
-        with open(tf.name, 'w') as f:
-            f.write(oauth_string)
-        app.config['OAUTH_FLOW'] = Flow.from_client_secrets_file(
-            client_secrets_file=tf.name,
-            redirect_uri=oauth_json['web']['redirect_uris'][0],
-            scopes=[
-                'https://www.googleapis.com/auth/userinfo.profile',
-                'https://www.googleapis.com/auth/userinfo.email',
-                'openid',
-            ])
+  if cfg.ADMIN:
+    secret_client = secretmanager.SecretManagerServiceClient()
+    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                    'oauth-client', 'latest')
+    secret_response = secret_client.access_secret_version(name=secret_name)
+    oauth_string = secret_response.payload.data.decode('UTF-8')
+    oauth_json = json.loads(oauth_string)
+    app.config['GOOGLE_CLIENT_ID'] = oauth_json['web']['client_id']
+    tf = tempfile.NamedTemporaryFile()
+    with open(tf.name, 'w') as f:
+      f.write(oauth_string)
+    app.config['OAUTH_FLOW'] = Flow.from_client_secrets_file(
+        client_secrets_file=tf.name,
+        redirect_uri=oauth_json['web']['redirect_uris'][0],
+        scopes=[
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email',
+            'openid',
+        ])
 
-    if app.config['LOCAL']:
-        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+  if app.config['LOCAL']:
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-    if app.config['API_PROJECT']:
-        secret_client = secretmanager.SecretManagerServiceClient()
-        secret_name = secret_client.secret_version_path(
-            cfg.API_PROJECT, 'mixer-api-key', 'latest')
-        secret_response = secret_client.access_secret_version(name=secret_name)
-        app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  if app.config['API_PROJECT']:
+    secret_client = secretmanager.SecretManagerServiceClient()
+    secret_name = secret_client.secret_version_path(cfg.API_PROJECT,
+                                                    'mixer-api-key', 'latest')
+    secret_response = secret_client.access_secret_version(name=secret_name)
+    app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
-    # Initialize translations
-    babel = Babel(app, default_domain='all')
-    app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
-    app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
+  # Initialize translations
+  babel = Babel(app, default_domain='all')
+  app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
+  app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-    # load disaster dashboard data from GCS
-    if os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev', 'local-stanford']:
-        disaster_dashboard_data = get_disaster_dashboard_data(
-            app.config['GCS_BUCKET'])
-        app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+  # load disaster dashboard data from GCS
+  if os.environ.get('FLASK_ENV') in [
+      'autopush', 'local', 'dev', 'local-stanford'
+  ]:
+    disaster_dashboard_data = get_disaster_dashboard_data(
+        app.config['GCS_BUCKET'])
+    app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
-    # Initialize the AI module.
-    app.config['AI_CONTEXT'] = ai.Context()
+  # Initialize the AI module.
+  app.config['AI_CONTEXT'] = ai.Context()
 
-    if not cfg.TEST:
-        timeout = 5 * 60  # seconds
-        counter = 0
-        isOpen = False
-        while not isOpen:
-            try:
-                urllib.request.urlopen(cfg.API_ROOT + '/version')
-                break
-            except urllib.error.URLError:
-                time.sleep(10)
-                counter += 1
-            if counter > timeout:
-                raise RuntimeError('Mixer not ready after %s second' % timeout)
+  if not cfg.TEST:
+    timeout = 5 * 60  # seconds
+    counter = 0
+    isOpen = False
+    while not isOpen:
+      try:
+        urllib.request.urlopen(cfg.API_ROOT + '/version')
+        break
+      except urllib.error.URLError:
+        time.sleep(10)
+        counter += 1
+      if counter > timeout:
+        raise RuntimeError('Mixer not ready after %s second' % timeout)
 
-    # Add variables to the per-request global context.
-    @app.before_request
-    def before_request():
-        # Add the request locale.
-        requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
-        g.locale_choices = i18n.locale_choices(requested_locale)
-        g.locale = g.locale_choices[0]
+  # Add variables to the per-request global context.
+  @app.before_request
+  def before_request():
+    # Add the request locale.
+    requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
+    g.locale_choices = i18n.locale_choices(requested_locale)
+    g.locale = g.locale_choices[0]
 
-        # Add commonly used config flags.
-        g.env_name = app.config.get('ENV_NAME', None)
+    # Add commonly used config flags.
+    g.env_name = app.config.get('ENV_NAME', None)
 
-    @babel.localeselector
-    def get_locale():
-        return g.locale
+  @babel.localeselector
+  def get_locale():
+    return g.locale
 
-    # Propagate hl parameter to all links (if not 'en')
-    @app.url_defaults
-    def add_language_code(endpoint, values):
-        if 'hl' in values or g.locale == i18n.DEFAULT_LOCALE:
-            return
-        values['hl'] = g.locale
+  # Propagate hl parameter to all links (if not 'en')
+  @app.url_defaults
+  def add_language_code(endpoint, values):
+    if 'hl' in values or g.locale == i18n.DEFAULT_LOCALE:
+      return
+    values['hl'] = g.locale
 
-    # Provides locale parameter in all templates
-    @app.context_processor
-    def inject_locale():
-        return dict(locale=get_locale())
+  # Provides locale parameter in all templates
+  @app.context_processor
+  def inject_locale():
+    return dict(locale=get_locale())
 
-    @app.teardown_request
-    def log_unhandled(e):
-        if e is not None:
-            logging.error('Error thrown for request: %s, error: %s', request,
-                          e)
+  @app.teardown_request
+  def log_unhandled(e):
+    if e is not None:
+      logging.error('Error thrown for request: %s, error: %s', request, e)
 
-    return app
+  return app

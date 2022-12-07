@@ -21,15 +21,16 @@ import os
 import flask
 
 # Define blueprint
-bp = Blueprint("disasters",
-               __name__,
-               url_prefix='/disasters')
+bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 
 EARTH_DCID = "Earth"
 
+
 @bp.route('/')
 def disaster_dashboard():
-  if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev', 'local-stanford']:
+  if not os.environ.get('FLASK_ENV') in [
+      'autopush', 'local', 'dev', 'local-stanford'
+  ]:
     flask.abort(404)
   european_countries = json.dumps(
       dc.get_places_in(["europe"], "Country").get("europe", []))
