@@ -25,7 +25,7 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 EARTH_DCID = "Earth"
 
 
-@bp.route('/')
+@bp.route('/v0')
 def disaster_dashboard():
   if not os.environ.get('FLASK_ENV') in [
       'autopush', 'local', 'dev', 'local-stanford'
