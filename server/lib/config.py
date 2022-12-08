@@ -27,6 +27,7 @@ ENV = {
     'custom',
     'feedingamerica',
     'stanford',
+    'stanford-staging',
     'tidal',
     'iitm',
     # Dev
@@ -43,7 +44,8 @@ ENV = {
     'local-custom',
     'local-iitm',
     'local-feedingamerica',
-    'local-stanford'
+    'local-stanford',
+    'local-stanford-staging',
 }
 
 

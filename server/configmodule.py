@@ -81,6 +81,12 @@ class StanfordConfig(CustomConfig):
   ENABLE_BLOCKLIST = True
   BASE_HTML_PATH = 'custom_dc/stanford/base.html'
 
+class StanfordStagingConfig(CustomConfig):
+  NAME = "Google Stanford Data Commons (Staging)"
+  ENV_NAME = 'STANFORD-STAGING'
+  ENABLE_BLOCKLIST = True
+  BASE_HTML_PATH = 'custom_dc/stanford/base.html'
+
 
 class TidalConfig(CustomConfig):
   NAME = "Tidal"
@@ -157,6 +163,14 @@ class LocalStanfordConfig(LocalBaseConfig, StanfordConfig):
   API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
   API_PROJECT = 'datcom-mixer-statvar'
   SECRET_PROJECT = 'datcom-stanford'
+
+
+class LocalStanfordStagingConfig(LocalBaseConfig, StanfordConfig):
+  # This needs to talk to local mixer that is setup as a custom mixer, which
+  # loads csv + tmcf files from GCS
+  API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+  API_PROJECT = 'datcom-mixer-statvar'
+  SECRET_PROJECT = 'datcom-stanford-staging'
 
 
 class WebdriverConfig(Config):
