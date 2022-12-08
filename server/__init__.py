@@ -139,7 +139,6 @@ def register_routes_common(app):
   app.register_blueprint(browser_api.bp)
   app.register_blueprint(choropleth.bp)
   app.register_blueprint(csv.bp)
-  # app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_dashboard.bp)
   app.register_blueprint(facets.bp)
   app.register_blueprint(factcheck.bp)
