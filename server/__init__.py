@@ -89,7 +89,7 @@ def register_routes_custom_dc(app):
 
 
 def register_routes_stanford_dc(app):
-  # Apply blueprints specific to Stanford DC
+  # Install blueprints specific to Stanford DC
   from routes import (disasters)
   app.register_blueprint(disasters.bp)
 
