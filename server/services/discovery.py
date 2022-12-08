@@ -11,7 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Discovery module discoveres hosts based on API names."""
+"""Discovery module discoveres hosts based on API paths.
+
+This module is intended to handle cases where Mixer services live
+on multiple hosts where each host has a collection of API paths.
+
+If the target Mixer is on a single host, such as is the case for
+local development, then API_ROOT will handle all endpoints.
+
+Usage:
+  get_service_url(<API path>) will return a callable url.
+
+Default behaviour:
+  API_ROOT from app config will be used for all APIs.
+"""
 
 import itertools
 from typing import Dict, List, Union
@@ -40,6 +53,7 @@ class Endpoints:
   def __init__(self, endpoint_paths: List[str]):
     self.endpoint_paths = set(endpoint_paths)
     self.endpoint_path_to_host = dict()  # unconfigured.
+    self.is_configured = False
 
   def configure(self, ingress_rules: Dict[str, List[str]]):
     """Sets endpoint name to host mapping from ingress rules."""
@@ -52,9 +66,11 @@ class Endpoints:
       host = self.find_host(endpoint_path, ingress_rules)
       self.endpoint_path_to_host[endpoint_path] = host
 
+    self.is_configured = True
+
   def get_all_hosts(self) -> List[str]:
     """Returns a list of all hosts."""
-    return sorted(self.endpoint_path_to_host.values())
+    return sorted(set(self.endpoint_path_to_host.values()))
 
   def find_host(self, path: str, ingress_rules: Dict[str, List[str]]) -> str:
     """Returns host with the pattern closest to a given path.
@@ -107,7 +123,8 @@ class Endpoints:
     host = self.endpoint_path_to_host[endpoint_path]
     if host.startswith('http'):
       return f'{host}{endpoint_path}'
-    return f"https://{host}{endpoint_path}"
+    # Assumes GKE internal addresses and must be http, not https.
+    return f"http://{host}{endpoint_path}"
 
 
 # Source of truth for all mixer endpoints.
@@ -159,6 +176,11 @@ def configure_endpoints_from_ingress(
   endpoints.configure(ingress_rules_or_path)
 
 
+# Map all APIs to a single host if no ingress config is supplied.
+if not endpoints.is_configured:
+  configure_endpoints_from_ingress(DEFAULT_INGRESS_RULES)
+
+
 def get_all_endpoint_paths():
   """Returns all endpoint paths in sorted order."""
   return sorted(endpoints.endpoint_paths)
@@ -180,4 +202,10 @@ def get_service_url(endpoint_path: str) -> str:
 
 def get_health_check_urls():
   """Return healthcheck urls for all set of hosts."""
-  return [f'{host}/version' for host in sorted(endpoints.get_all_hosts())]
+  urls = []
+  for host in sorted(endpoints.get_all_hosts()):
+    if host.startswith('http'):
+      urls.append(f'{host}/version')
+      continue
+    urls.append(f'http://{host}/version')
+  return urls

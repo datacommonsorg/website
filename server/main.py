@@ -28,7 +28,6 @@ from flask import request
 
 import services.datacommons as dc
 from services.discovery import configure_endpoints_from_ingress
-from services.discovery import DEFAULT_INGRESS_RULES
 
 from __init__ import create_app
 
@@ -38,7 +37,8 @@ logging.basicConfig(level=logging.INFO,
 # Needs to be called before create_app.
 ingress_config_path = os.environ.get(
     'INGRESS_CONFIG_PATH')  # See deployment yamls.
-configure_endpoints_from_ingress(ingress_config_path or DEFAULT_INGRESS_RULES)
+if ingress_config_path:
+  configure_endpoints_from_ingress(ingress_config_path)
 
 app = create_app()
 app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
