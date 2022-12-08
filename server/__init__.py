@@ -257,7 +257,7 @@ def create_app():
 
   # load disaster dashboard data from GCS
   if os.environ.get('FLASK_ENV') in [
-      'autopush', 'local', 'dev', 'local-stanford'
+      'autopush', 'local', 'dev', 'local-stanford', 'stanford'
   ]:
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
