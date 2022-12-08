@@ -73,4 +73,7 @@ def event_node(dcid):
     properties = node_api.triples('out', dcid)
   except Exception as e:
     logging.info(e)
-  return render_template('dev/event.html', dcid=dcid, node_name=node_name, properties=properties)
+  return render_template('dev/event.html',
+                         dcid=dcid,
+                         node_name=node_name,
+                         properties=properties)

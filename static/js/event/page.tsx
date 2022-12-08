@@ -48,7 +48,7 @@ export function EventPage(props: EventPagePropsType): JSX.Element {
             <ul>
               {property.values.map((value) => {
                 return (
-                  <li key={JSON.stringify(value)}>
+                  <li key={`${property.dcid}-${value.dcid}`}>
                     {Object.prototype.hasOwnProperty.call(value, "value")
                       ? value.value
                       : value.dcid}
