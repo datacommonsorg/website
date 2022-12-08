@@ -232,12 +232,9 @@ def statsvars_route(dcid):
   Returns:
     A list of statistical variable dcids.
   """
-  return Response(json.dumps(stat_vars(dcid)), 200, mimetype='application/json')
-
-
-def stat_vars(dcid):
-  """Get all the statistical variable dcids for a place."""
-  return dc.get(f'/v1/variables/{dcid}').get('variables', [])
+  return Response(json.dumps(dc.get_stat_vars(dcid)),
+                  200,
+                  mimetype='application/json')
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
@@ -310,7 +307,7 @@ def child_fetch(dcid):
   places = places + overlaps_response[dcid].get('in', [])
 
   place_dcids = map(lambda x: x['dcid'], places)
-  pop = dc.point(place_dcids, ['Count_Person'])
+  pop = dc.obs_point(place_dcids, ['Count_Person'])
 
   place_type = get_place_type(dcid)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
@@ -791,8 +788,8 @@ def api_ranking_chart(dcid):
   # Make sure POPULATION_DCID is included in stat vars.
   if POPULATION_DCID not in stat_vars:
     stat_vars.add(POPULATION_DCID)
-  points_response_best = dc.point_within(parent_place_dcid, place_type,
-                                         list(stat_vars), "", False)
+  points_response_best = dc.obs_point_within(parent_place_dcid, place_type,
+                                             list(stat_vars), "", False)
   sv_data = points_response_best.get("observationsByVariable")
   sv_facets = points_response_best.get("facets")
   if not points_response_best or not sv_data:

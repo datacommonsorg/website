@@ -196,7 +196,7 @@ class TestApiSeriesWithin(unittest.TestCase):
     }
 
     def side_effect(url, data):
-      if url == '/v1/bulk/observations/series/linked' and data == {
+      if url.endswith('/v1/bulk/observations/series/linked') and data == {
           'linked_entity': 'country/USA',
           'linked_property': 'containedInPlace',
           'entity_type': 'State',
