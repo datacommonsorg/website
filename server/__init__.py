@@ -39,6 +39,7 @@ import lib.i18n as i18n
 import lib.util as libutil
 from lib.disaster_dashboard import get_disaster_dashboard_data
 import services.ai as ai
+from services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
@@ -266,18 +267,36 @@ def create_app():
   # Initialize the AI module.
   app.config['AI_CONTEXT'] = ai.Context()
 
+  def is_up(url: str):
+    if not url.lower().startswith('http'):
+      raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
+
+    try:
+      # Disable Bandit security check 310. http scheme is already checked above.
+      # Codacity still calls out the error so disable the check.
+      # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
+      urllib.request.urlopen(url)  # nosec B310
+      return True
+    except urllib.error.URLError:
+      return False
+
   if not cfg.TEST:
     timeout = 5 * 60  # seconds
-    counter = 0
-    isOpen = False
-    while not isOpen:
-      try:
-        urllib.request.urlopen(cfg.API_ROOT + '/version')
+    sleep_seconds = 10
+    total_sleep_seconds = 0
+    urls = get_health_check_urls()
+    up_status = {url: False for url in urls}
+    while not all(up_status.values()):
+      for url in urls:
+        if up_status[url]:
+          continue
+        up_status[url] = is_up(url)
+
+      if all(up_status.values()):
         break
-      except urllib.error.URLError:
-        time.sleep(10)
-        counter += 1
-      if counter > timeout:
+      time.sleep(sleep_seconds)
+      total_sleep_seconds += sleep_seconds
+      if total_sleep_seconds > timeout:
         raise RuntimeError('Mixer not ready after %s second' % timeout)
 
   # Add variables to the per-request global context.

@@ -426,7 +426,7 @@ class TestApiGetPlacesIn(unittest.TestCase):
                     compress=False,
                     post=True,
                     has_payload=True):
-      if req_url == dc.API_ROOT + "/node/places-in" and req_json == {
+      if req_url.endswith("/node/places-in") and req_json == {
           'dcids': ['geoId/10', 'geoId/56'],
           'place_type': 'County'
       } and not post:
@@ -538,7 +538,7 @@ class TestApiGetPlacesInNames(unittest.TestCase):
                                  compress=False,
                                  post=True,
                                  has_payload=True):
-      if req_url == dc.API_ROOT + "/node/places-in" and req_json == {
+      if req_url.endswith("/node/places-in") and req_json == {
           'dcids': ['geoId/10'],
           'place_type': 'County'
       } and not post:
@@ -589,11 +589,11 @@ class TestApiGetStatVarsUnion(unittest.TestCase):
                     compress=False,
                     post=True,
                     has_payload=True):
-      if (req_url == dc.API_ROOT + "/v1/place/stat-vars/union" and
-          req_json == req and post and not has_payload):
+      if (req_url.endswith("/v1/place/stat-vars/union") and req_json == req and
+          post and not has_payload):
         return {'statVars': result}
-      if (req_url == dc.API_ROOT + "/v1/place/stat-vars/union" and
-          req_json == req2 and post and not has_payload):
+      if (req_url.endswith("/v1/place/stat-vars/union") and req_json == req2 and
+          post and not has_payload):
         return {}
 
     send_request.side_effect = side_effect
@@ -640,7 +640,7 @@ class TestApiRankingChart(unittest.TestCase):
   @patch('routes.api.place.get_ranking_chart_configs')
   @patch('routes.api.place.get_place_type')
   @patch('routes.api.place.parent_places')
-  @patch('routes.api.place.dc.point_within')
+  @patch('routes.api.place.dc.obs_point_within')
   def test_api_ranking_chart_not_earth(
       self,
       mock_point_within,
@@ -886,7 +886,7 @@ class TestApiRankingChart(unittest.TestCase):
 
   @patch('routes.api.place.get_i18n_name')
   @patch('routes.api.place.get_ranking_chart_configs')
-  @patch('routes.api.place.dc.point_within')
+  @patch('routes.api.place.dc.obs_point_within')
   def test_api_ranking_chart_earth(
       self,
       mock_point_within,
