@@ -36,10 +36,7 @@ def get_variable_group_info():
   """
   dcid = request.args.get("dcid")
   entities = request.args.getlist("entities")
-  url = "/v1/info/variable-group/{}".format(dcid)
-  if entities:
-    url += "?constrained_entities=" + "&constrained_entities=".join(entities)
-  result = dc.get(url).get("info", {})
+  result = dc.get_variable_group_info(dcid, entities)
   if current_app.config["ENABLE_BLOCKLIST"]:
     childSVG = result.get("childStatVarGroups", [])
     filteredChildSVG = []
