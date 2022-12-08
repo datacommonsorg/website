@@ -19,9 +19,7 @@ from lib.gcs import list_blobs
 import json
 
 # Define blueprint
-bp = Blueprint("disaster-dashboard",
-               __name__,
-               url_prefix='/api/disaster-dashboard')
+bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')
 
 EARTH_DCID = "Earth"
 

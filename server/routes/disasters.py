@@ -31,6 +31,5 @@ def disaster_dashboard():
     flask.abort(404)
   european_countries = json.dumps(
       dc.get_places_in(["europe"], "Country").get("europe", []))
-  return flask.render_template(
-      'custom_dc/stanford/disaster_dashboard.html',
-      european_countries=european_countries)
+  return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
+                               european_countries=european_countries)

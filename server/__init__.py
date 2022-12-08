@@ -90,7 +90,7 @@ def register_routes_custom_dc(app):
 
 def register_routes_stanford_dc(app):
   # Apply blueprints specific to Stanford DC
-  from routes.api import (disasters)
+  from routes import (disasters)
   app.register_blueprint(disasters.bp)
 
 
@@ -123,7 +123,7 @@ def register_routes_common(app):
       browser as browser_api,
       choropleth,
       csv,
-      disaster_dashboard,
+      disaster_api,
       facets,
       landing_page,
       node,
@@ -140,7 +140,7 @@ def register_routes_common(app):
   app.register_blueprint(browser_api.bp)
   app.register_blueprint(choropleth.bp)
   app.register_blueprint(csv.bp)
-  app.register_blueprint(disaster_dashboard.bp)
+  app.register_blueprint(disaster_api.bp)
   app.register_blueprint(facets.bp)
   app.register_blueprint(factcheck.bp)
   app.register_blueprint(landing_page.bp)
