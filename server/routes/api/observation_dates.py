@@ -33,10 +33,4 @@ def observation_dates():
   variable = request.args.get('variable')
   if not variable:
     return 'error: must provide a variable field', 400
-  return dc.post(
-      '/v1/bulk/observation-dates/linked', {
-          'linked_property': "containedInPlace",
-          'linked_entity': parent_entity,
-          'entity_type': child_type,
-          'variables': [variable],
-      })
+  return dc.get_series_dates(parent_entity, child_type, [variable])

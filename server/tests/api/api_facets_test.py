@@ -44,7 +44,7 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
                                          })
     assert no_stat_vars.status_code == 400
 
-  @mock.patch('routes.api.facets.dc.point_within')
+  @mock.patch('routes.api.facets.dc.obs_point_within')
   def test_single_date(self, mock_point_within):
     expected_parent_place = "country/USA"
     expected_child_type = "State"
@@ -86,7 +86,7 @@ class TestGetFacetsWithinPlace(unittest.TestCase):
     assert single_date.status_code == 200
     assert single_date.data == b'{"Count_Person":{"2176550201":{"importName":"USCensusPEP_Annual_Population","measurementMethod":"CensusPEPSurvey","observationPeriod":"P1Y","provenanceUrl":"https://www2.census.gov/programs-surveys/popest/tables"},"2517965213":{"importName":"CensusPEP","measurementMethod":"CensusPEPSurvey","provenanceUrl":"https://www.census.gov/programs-surveys/popest.html"}},"UnemploymentRate_Person":{"2978659163":{"importName":"BLS_LAUS","measurementMethod":"BLSSeasonallyUnadjusted","observationPeriod":"P1Y","provenanceUrl":"https://www.bls.gov/lau/"}}}\n'
 
-  @mock.patch('routes.api.facets.dc.series_within')
+  @mock.patch('routes.api.facets.dc.obs_series_within')
   def test_date_range(self, mock_series_within):
     expected_parent_place = "country/USA"
     expected_child_type = "State"
