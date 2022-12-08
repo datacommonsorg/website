@@ -26,10 +26,11 @@ bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 @bp.route('/v0')
 def disaster_dashboard():
   if not os.environ.get('FLASK_ENV') in [
-      'autopush', 'local', 'dev', 'local-stanford'
+      'autopush', 'local', 'dev', 'local-stanford', 'stanford'
   ]:
     flask.abort(404)
   european_countries = json.dumps(
       dc.get_places_in(["europe"], "Country").get("europe", []))
-  return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
-                               european_countries=european_countries)
+  return flask.render_template(
+      'custom_dc/stanford/disaster_dashboard.html',
+      european_countries=european_countries)
