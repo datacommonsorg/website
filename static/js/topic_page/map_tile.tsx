@@ -282,7 +282,7 @@ function draw(
       // shows upto 4 decimal points for very low values
       if (chartData.dataValues[place.dcid] < 0.01) {
         const val = Number(chartData.dataValues[place.dcid]);
-        value = formatNumber(Number(val.toFixed(4)), props.statVarSpec.unit);
+        value = formatNumber(Number(val.toPrecision(2)), props.statVarSpec.unit);
       } else {
         value = formatNumber(
           Math.round(
