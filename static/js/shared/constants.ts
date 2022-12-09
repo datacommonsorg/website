@@ -37,7 +37,7 @@ export const EARTH_NAMED_TYPED_PLACE: NamedTypedPlace = {
   name: "Earth",
   types: ["Planet"],
 };
-export const USA: NamedTypedPlace = {
+export const USA_NAMED_TYPED_PLACE: NamedTypedPlace = {
   dcid: "country/USA",
   name: "United States of America",
   types: ["Country"],

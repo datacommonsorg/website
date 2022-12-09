@@ -37,7 +37,7 @@ import {
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
 import { DrugTreatmentTable } from "./drug_table";
-import { USA } from "../../shared/constants";
+import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 
 export interface PagePropType {
   dcid: string;
@@ -92,15 +92,16 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       { id: "name", name: "Compound Name" },
       { id: "drugSource", name: "Drug Source" },
     ];
-    const diseasePrevalenceStatVarValue =
+    const diseasePrevalenceStatVarDcid =
       "Count_MedicalConditionIncident_Condition" + this.props.dcid;
-    const statVarDisease = {} as StatVarSpec;
-    statVarDisease.statVar = diseasePrevalenceStatVarValue;
-    statVarDisease.denom = "";
-    statVarDisease.unit = "";
-    statVarDisease.scaling = 1;
-    statVarDisease.log = false;
-    statVarDisease.name = "diseaseData";
+    const statVarDisease = {
+      statVar:diseasePrevalenceStatVarDcid,
+      denom:"Count_Person",
+      unit:"%",
+      scaling:100,
+      log:false,
+      name:"diseaseData"
+    }
     return (
       <>
         <h2>{diseaseName}</h2>
@@ -159,11 +160,11 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             the Centers for Disease Control and Prevention (CDC).
           </p>
           <br></br>
-          <div id={diseasePrevalenceStatVarValue}></div>
+          <div id={diseasePrevalenceStatVarDcid}></div>
           <MapTile
-            id={diseasePrevalenceStatVarValue}
+            id={diseasePrevalenceStatVarDcid}
             title={""}
-            place={USA}
+            place={USA_NAMED_TYPED_PLACE}
             enclosedPlaceType={"State"}
             statVarSpec={statVarDisease}
           />
