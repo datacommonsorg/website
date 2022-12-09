@@ -28,7 +28,7 @@ import { NamedPlace, StatVarHierarchyType } from "../../shared/types";
 import { getPlaceNames } from "../../utils/place_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { ChartRegion } from "./chart_region";
-import { Info } from "./info";
+import { MemoizedInfo } from "./info";
 import {
   addToken,
   getTokensFromUrl,
@@ -207,7 +207,7 @@ class Page extends Component<unknown, PageStateType> {
                 </Col>
               </Row>
             </Card>
-            {numPlaces === 0 && <Info />}
+            {numPlaces === 0 && <MemoizedInfo />}
             {numPlaces !== 0 && numStatVarInfo !== 0 && (
               <div id="chart-region">
                 <ChartRegion

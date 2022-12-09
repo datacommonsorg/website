@@ -497,7 +497,7 @@ export function getPlaceChartData(
     const placePopData =
       placeDcid in populationData ? populationData[placeDcid] : null;
     if (_.isNull(placePopData) || _.isEmpty(placePopData.series)) {
-      metadata.errorMessage = "Population Data Missing";
+      metadata.errorMessage = "Population Data Unavailable";
       return { metadata, sources, date: placeStatDate, value };
     }
     const popFacetId = placePopData.facet;
@@ -506,7 +506,7 @@ export function getPlaceChartData(
     metadata.popSource = popSource;
     const popObs = getMatchingObservation(popSeries, stat.date);
     if (!popObs) {
-      metadata.errorMessage = "Population Data Missing";
+      metadata.errorMessage = "Population Data Unavailable";
       return { metadata, sources, date: placeStatDate, value };
     }
     metadata.popDate = popObs.date;

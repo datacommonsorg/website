@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css?family=Public+Sans&display=swap");
+
+:root {
+  --iitm-red: #f54f60;
+  --iitm-link: #fc9090;
+  --iitm-link-dark: #f86e6e;
+  --iitm-orange: #fc9090;
+  --iitm-btn-bg: #c13ea6;
+  --iitm-section-text: #0d0952;
+  --dc-primary: #80296e;
+  --link-color: #80296e;
+  --footer-bg: #0b1434;
+}
+
+header.masthead {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-position: 50%;
+  background-size: cover;
+}
+header.masthead hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+header.masthead h1 {
+  font-size: 2rem;
+}
+header.masthead p {
+  font-weight: 300;
+}
+@media (min-width: 768px) {
+  header.masthead p {
+    font-size: 1.15rem;
+  }
+}
+@media (min-width: 992px) {
+  header.masthead {
+    height: 100vh;
+    min-height: 650px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  header.masthead h1 {
+    font-size: 3rem;
+  }
+}
+@media (min-width: 1200px) {
+  header.masthead h1 {
+    font-size: 4rem;
+  }
+}
+
+body {
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+a.linked-text {
+  color: var(--iitm-orange);
+  cursor: pointer;
+}
+
+a.linked-text:hover {
+  color: var(--iitm-red);
+  text-underline-offset: 0.2em;
+}
+
+.btn.btn-primary {
+  background-color: var(--iitm-btn-bg);
+}
+
+#hero h1 {
+  margin: 0;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 56px;
+  color: #fff;
+}
+
+/*
+ * Get Know More Button
+ */
+.btn-know-more {
+  background: var(--iitm-btn-bg);
+  color: #fff;
+  border-radius: 7px;
+  padding: 10px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+  display: none;
+}
+.btn-know-more:hover {
+  background: var(--red);
+  color: #fff;
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .btn-know-more {
+    margin: 0 15px 0 0;
+    padding: 6px 18px;
+  }
+}
+
+.pre-line {
+  border-left: 3px solid #fff;
+  padding-left: 20px;
+}
+
+.pre-line-6C63FF {
+  border-left: 3px solid #6c63ff;
+  padding-left: 20px;
+}
+
+.pre-line-6C63FF h4,
+.pre-line h4 {
+  line-height: 0.8cm;
+}
+
+.bg-E8F2F5 {
+  background-color: #e8f2f5;
+}
+
+.bg-navy {
+  background-color: #0b1434 !important;
+}
+
+.homepage-section {
+  padding: 5rem 0 !important;
+}
+
+.bg-E8F2F5 h2 {
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--iitm-section-text);
+}
+
+.bg-E8F2F5 h4 {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--iitm-section-text);
+}
+
+.bg-E8F2F5 .position-relative span a {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  right: 0;
+  left: 0;
+  font-size: 16px;
+  text-decoration: underline;
+  color: #80296e;
+}
+
+.bg-E8F2F5 .position-relative span a:hover {
+  transition: 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text-info {
+  color: #9cabe0 !important;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 0.5em;
+}
+
+.footer-links {
+  color: hsl(0, 0%, 85%);
+  font-weight: 500;
+}
+
+footer ul a:hover {
+  text-decoration: none;
+}
+
+hr {
+  max-width: 100% !important;
+  border-width: 1px !important;
+  border-color: #9cabe0 !important;
+}
+
+div.footer-links {
+  font-size: 14px;
+}
+
+.no-decoration {
+  text-decoration: none;
+}
+
+.logo-section {
+  background-image: url("./iitm-bg-logo.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0px;
+  min-height: 80px;
+  min-width: 270px;
+}
+
+/* #main-header{
+  background-color:#80296E!important;
+} */
+
+#iitm-india #main-footer #sub-footer {
+  padding-top: 0.5rem;
+  line-height: 2.5rem;
+  border-top: none !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0.5rem !important;
+}
+
+#main-nav .nav-link {
+  text-transform: uppercase !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+/*
+#particles-js{
+  width: 100%;
+  height: 100%;
+  background-color: #b61924;
+  background-image: url('');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+} */
+
+#particles-js {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  /* background-color: rgb(167, 10, 10); */
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+.img-container {
+  width: 450px;
+  height: 450px;
+  overflow: hidden;
+}
+
+.clipped-img {
+  clip-path: url("#header-clip-svg");
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 500px) {
+  .india-network {
+    display: none;
+  }
+}
+
+#mainNav.navbar-shrink {
+  border-bottom: 1px solid rgba(33, 37, 41, 0.1);
+  background-color: #fff;
+}

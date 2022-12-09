@@ -24,7 +24,7 @@ resources:
 configMapGenerator:
   - behavior: create
     literals:
-      - flaskEnv=private
+      - flaskEnv=custom
       - secretProject=datcom-karnataka
     name: website-configmap
   - behavior: create

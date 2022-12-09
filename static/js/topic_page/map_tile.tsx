@@ -23,7 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { drawD3Map } from "../chart/draw_d3_map";
+import { drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { getColorScale } from "../chart/draw_map_utils";
 import { GeoJsonData } from "../chart/types";
 import { formatNumber } from "../i18n/i18n";
@@ -184,6 +184,7 @@ function fetchData(
       let population = {};
       if (
         !_.isEmpty(populationData.data) &&
+        denomStatVar &&
         denomStatVar in populationData.data
       ) {
         population = populationData.data[denomStatVar];
@@ -272,7 +273,7 @@ function draw(
     d3.max(dataValues)
   );
   const getTooltipHtml = (place: NamedPlace) => {
-    let value = "Data Missing";
+    let value = "Data Unavailable";
     if (place.dcid in chartData.dataValues) {
       value = formatNumber(
         Math.round((chartData.dataValues[place.dcid] + Number.EPSILON) * 100) /
@@ -283,6 +284,12 @@ function draw(
     return place.name + ": " + value;
   };
   document.getElementById(props.id).innerHTML = "";
+  const projection = getProjection(
+    chartData.isUsaPlace,
+    props.place.dcid,
+    width,
+    CHART_HEIGHT
+  );
   drawD3Map(
     props.id,
     chartData.geoJson,
@@ -296,7 +303,7 @@ function draw(
     () => false,
     true,
     chartData.showMapBoundaries,
-    chartData.isUsaPlace,
+    projection,
     props.place.dcid
   );
 }

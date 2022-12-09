@@ -23,7 +23,7 @@ ENV=local
 
 function help {
   echo "Usage: $0 -ep"
-  echo "-e       Run with a specified environment. Options are: lite private or any configured env. Default: local"
+  echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   exit 1
 }
@@ -45,8 +45,8 @@ done
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 if [[ $ENV == "lite" ]]; then
   export FLASK_ENV=local-lite
-elif [[ $ENV == "private" ]]; then
-  export FLASK_ENV=local-private
+elif [[ $ENV == "custom" ]]; then
+  export FLASK_ENV=local-custom
 elif [[ $ENV == "iitm" ]]; then
   export FLASK_ENV=local-iitm
 elif [[ $ENV == "feedingamerica" ]]; then

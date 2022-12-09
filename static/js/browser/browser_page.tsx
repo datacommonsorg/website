@@ -180,11 +180,14 @@ export class BrowserPage extends React.Component<
     const provenancePromise = axios
       .get("/api/browser/provenance")
       .then((resp) => resp.data);
-    const labelsPromise = axios
-      .get("/api/browser/proplabels/" + this.getArcDcid())
+    const outLabelsPromise = axios
+      .get(`/api/node/properties/out/${this.getArcDcid()}`)
       .then((resp) => resp.data);
-    Promise.all([labelsPromise, provenancePromise])
-      .then(([labelsData, provenanceData]) => {
+    const inLabelsPromise = axios
+      .get(`/api/node/properties/in/${this.getArcDcid()}`)
+      .then((resp) => resp.data);
+    Promise.all([outLabelsPromise, inLabelsPromise, provenancePromise])
+      .then(([outLabels, inLabels, provenanceData]) => {
         const provDomain = {};
         for (const provId in provenanceData) {
           const url = provenanceData[provId];
@@ -196,8 +199,8 @@ export class BrowserPage extends React.Component<
         }
         this.setState({
           dataFetched: true,
-          inLabels: labelsData["inLabels"],
-          outLabels: labelsData["outLabels"],
+          inLabels,
+          outLabels,
           provDomain,
         });
       })

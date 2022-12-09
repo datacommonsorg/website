@@ -25,16 +25,16 @@ bp = Blueprint('protein', __name__, url_prefix='/bio/protein')
 
 @bp.route('/')
 def main():
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-    return render_template('/protein/landing.html')
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  return render_template('/protein/landing.html')
 
 
 @bp.route('/<path:dcid>')
 def node(dcid):
-    if os.environ.get('FLASK_ENV') == 'production':
-        flask.abort(404)
-    node_name = shared_api.cached_name(dcid).get(dcid)
-    if not node_name:
-        node_name = dcid
-    return render_template('/protein/node.html', dcid=dcid, node_name=node_name)
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  node_name = shared_api.names([dcid]).get(dcid)
+  if not node_name:
+    node_name = dcid
+  return render_template('/protein/node.html', dcid=dcid, node_name=node_name)

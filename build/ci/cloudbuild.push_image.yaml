@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,13 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# mixer tmcf+csv args
-- op: add
-  path: /spec/template/spec/containers/1/args/0
-  value: --use_tmcf_csv_data=true
-- op: add
-  path: /spec/template/spec/containers/1/args/0
-  value: --tmcf_csv_bucket=datcom-stanford-resources
-- op: add
-  path: /spec/template/spec/containers/1/args/0
-  value: --tmcf_csv_folder=stanford
+steps:
+  # Push website image to container registry
+  - id: push-image
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag ${_IMAGE}:${_TAG} .
+        docker push ${_IMAGE}:${_TAG}
+
+substitutions:
+  _IMAGE: gcr.io/datcom-ci/datacommons-website
+
+timeout: 3600s
+options:
+  dynamic_substitutions: true

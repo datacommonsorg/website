@@ -93,6 +93,14 @@ const config = {
       __dirname + "/css/import_wizard2.scss",
     ],
     user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
+    disaster_dashboard: [
+      __dirname + "/js/disaster_dashboard/disaster_dashboard.ts",
+      __dirname + "/css/disaster_dashboard.scss",
+    ],
+    event: [
+      __dirname + "/js/event/event.ts",
+      __dirname + "/css/event.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -144,6 +152,7 @@ const config = {
         { from: "fonts/*" },
         { from: "data/**/*" },
         { from: "sitemap/*.txt" },
+        { from: "custom_dc/**/*" },
         { from: "*favicon.ico" },
         { from: "robots.txt" },
       ],

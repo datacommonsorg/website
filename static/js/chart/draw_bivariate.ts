@@ -19,7 +19,7 @@ import React from "react";
 
 import { NamedPlace } from "../shared/types";
 import { getStringOrNA } from "../utils/number_utils";
-import { drawD3Map } from "./draw_d3_map";
+import { drawD3Map, getProjection } from "./draw_d3_map";
 import { Point } from "./draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "./types";
 
@@ -323,6 +323,12 @@ export function drawBivariate(
     properties.xUnit,
     properties.yUnit
   );
+  const projection = getProjection(
+    properties.isUsaPlace,
+    properties.placeDcid,
+    properties.width,
+    properties.height
+  );
   drawD3Map(
     containerId,
     geoJson,
@@ -336,7 +342,7 @@ export function drawBivariate(
     () => true,
     false,
     properties.showMapBoundaries,
-    properties.isUsaPlace,
+    projection,
     properties.placeDcid
   );
 }

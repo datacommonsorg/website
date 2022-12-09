@@ -30,7 +30,7 @@ import {
   drawLineChart,
   drawStackBarChart,
 } from "../chart/draw";
-import { drawD3Map } from "../chart/draw_d3_map";
+import { drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { getColorScale } from "../chart/draw_map_utils";
 import {
   CachedChoroplethData,
@@ -496,7 +496,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         window.open(redirectLink, "_blank");
       };
       const getTooltipHtml = (place: NamedPlace) => {
-        let value = "Data Missing";
+        let value = "Data Unavailable";
         if (this.state.choroplethDataGroup.data[place.dcid]) {
           value = formatNumber(
             Math.round(
@@ -516,6 +516,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         d3.mean(dataValues),
         d3.max(dataValues)
       );
+      const projection = getProjection(
+        this.props.isUsaPlace,
+        this.props.dcid,
+        elem.offsetWidth,
+        CHART_HEIGHT
+      );
       drawD3Map(
         this.props.id,
         this.state.geoJson,
@@ -529,7 +535,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         () => true,
         true,
         true,
-        this.props.isUsaPlace,
+        projection,
         this.props.dcid
       );
     }

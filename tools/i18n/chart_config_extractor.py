@@ -27,74 +27,73 @@ MESSAGES_POT_RELATIVE_PATH = '../../server/i18n/all.pot'
 
 
 def extract_message_from_chart(config):
-    id = config['titleId']
-    message = config['title']
-    description = config.get('description', '')
-    return (id, {
-        'message': message,
-        'description': f'Title of a place chart: {description}'
-    })
+  id = config['titleId']
+  message = config['title']
+  description = config.get('description', '')
+  return (id, {
+      'message': message,
+      'description': f'Title of a place chart: {description}'
+  })
 
 
 def maybe_add_message(messages, id, message):
-    if not id is None and not message is None:
-        if id in messages and \
-            messages[id]['message'] != message['message']:
-            raise ValueError(
-                f'Adding duplicate id with different message: {id}')
-        messages[id] = message
+  if not id is None and not message is None:
+    if id in messages and \
+        messages[id]['message'] != message['message']:
+      raise ValueError(f'Adding duplicate id with different message: {id}')
+    messages[id] = message
 
 
 def main():
-    basepath = os.path.dirname(__file__)
-    chart_config_dir = os.path.abspath(
-        os.path.join(basepath, CHART_CONFIG_RELATIVE_PATH))
-    chart_config = []
-    for filename in os.listdir(chart_config_dir):
-        if filename.endswith(".json"):
-            with open(os.path.join(chart_config_dir, filename),
-                      encoding='utf-8') as f:
-                chart_config.extend(json.load(f))
+  basepath = os.path.dirname(__file__)
+  chart_config_dir = os.path.abspath(
+      os.path.join(basepath, CHART_CONFIG_RELATIVE_PATH))
+  chart_config = []
+  for filename in os.listdir(chart_config_dir):
+    if filename.endswith(".json"):
+      with open(os.path.join(chart_config_dir, filename),
+                encoding='utf-8') as f:
+        chart_config.extend(json.load(f))
 
-    messages = {}
-    categories = set()
-    categories.add("Overview")
+  messages = {}
+  categories = set()
+  categories.add("Overview")
 
-    # Extract strings from each chart
-    for conf in chart_config:
-        categories.add(conf['category'])
-        (id, message) = extract_message_from_chart(conf)
-        maybe_add_message(messages, id, message)
-        if conf.get('relatedChart', {}).get('scale', False):
-            (id, message) = extract_message_from_chart(conf['relatedChart'])
-            maybe_add_message(messages, id, message)
+  # Extract strings from each chart
+  for conf in chart_config:
+    categories.add(conf['category'])
+    (id, message) = extract_message_from_chart(conf)
+    maybe_add_message(messages, id, message)
+    if conf.get('relatedChart', {}).get('scale', False):
+      (id, message) = extract_message_from_chart(conf['relatedChart'])
+      maybe_add_message(messages, id, message)
 
-    # Add chart categories to the message catalog
-    for category in categories:
-        id = f'CHART_TITLE-CHART_CATEGORY-{category}'
-        message = {
-            'message': category,
-            'description': 'The category for a group of statistical charts.',
-        }
-        maybe_add_message(messages, id, message)
+  # Add chart categories to the message catalog
+  for category in categories:
+    id = f'CHART_TITLE-CHART_CATEGORY-{category}'
+    message = {
+        'message': category,
+        'description': 'The category for a group of statistical charts.',
+    }
+    maybe_add_message(messages, id, message)
 
-    chart_pot_path = os.path.abspath(
-        os.path.join(basepath, MESSAGES_POT_RELATIVE_PATH))
-    with open(chart_pot_path, 'a+') as f:
-        cnt = 0
-        for id in sorted(messages.keys()):
-            msg = messages[id]
-            f.write(
-              f"\n" \
-              f"#. {msg['description']}\n" \
-              f"msgid \"{id}\"\n" \
-              f"msgstr \"{msg['message']}\"\n"
-            )
-            cnt += 1
-    print(f"Wrote {cnt} messages.")
+  chart_pot_path = os.path.abspath(
+      os.path.join(basepath, MESSAGES_POT_RELATIVE_PATH))
+  with open(chart_pot_path, 'a+') as f:
+    cnt = 0
+    for id in sorted(messages.keys()):
+      msg = messages[id]
+      f.write(
+        f"\n" \
+        f"#. {msg['description']}\n" \
+        f"msgid \"{id}\"\n" \
+        f"msgstr \"{msg['message']}\"\n"
+      )
+      cnt += 1
+  print(f"Wrote {cnt} messages.")
 
-    return
+  return
 
 
 if __name__ == "__main__":
-    main()
+  main()

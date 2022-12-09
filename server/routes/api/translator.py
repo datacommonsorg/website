@@ -22,6 +22,6 @@ bp = Blueprint("misc", __name__)
 
 @bp.route('/api/translate', methods=['POST'])
 def translate():
-    sparql = request.json['sparql']
-    mapping = request.json['mapping']
-    return dc.translate(sparql, mapping)
+  sparql = request.json['sparql']
+  mapping = request.json['mapping']
+  return dc.translate(sparql, mapping)

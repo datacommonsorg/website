@@ -14,7 +14,9 @@
 """Data Commons Knowledge Graph Browser routes
 """
 
-from flask import Blueprint, render_template
+import logging
+
+from flask import Blueprint, g, render_template
 import routes.api.shared as shared_api
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
@@ -22,12 +24,18 @@ bp = Blueprint('browser', __name__, url_prefix='/browser')
 
 @bp.route('/')
 def browser_main():
-    return render_template('/browser/landing.html')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/browser_landing.html')
+  return render_template('/browser/landing.html')
 
 
 @bp.route('/<path:dcid>')
 def browser_node(dcid):
-    node_name = shared_api.cached_name(dcid).get(dcid)
-    if not node_name:
-        node_name = dcid
-    return render_template('/browser/node.html', dcid=dcid, node_name=node_name)
+  node_name = dcid
+  try:
+    api_name = shared_api.names([dcid]).get(dcid)
+    if api_name:
+      node_name = api_name
+  except Exception as e:
+    logging.info(e)
+  return render_template('/browser/node.html', dcid=dcid, node_name=node_name)
