@@ -76,7 +76,7 @@ class FeedingamericaConfig(CustomConfig):
 
 
 class StanfordConfig(CustomConfig):
-  NAME: Literal['Google Stanford Data Commons'] = "Google Stanford Data Commons"
+  NAME = "Google Stanford Data Commons"
   ENV_NAME = 'STANFORD'
   ENABLE_BLOCKLIST = True
   BASE_HTML_PATH = 'custom_dc/stanford/base.html'
