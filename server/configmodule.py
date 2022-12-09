@@ -81,6 +81,7 @@ class StanfordConfig(CustomConfig):
   ENABLE_BLOCKLIST = True
   BASE_HTML_PATH = 'custom_dc/stanford/base.html'
 
+
 class StanfordStagingConfig(CustomConfig):
   NAME = "Google Stanford Data Commons (Staging)"
   ENV_NAME = 'STANFORD-STAGING'
