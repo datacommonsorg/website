@@ -44,7 +44,9 @@ export interface BlockPropType {
 }
 
 export function Block(props: BlockPropType): JSX.Element {
-  const columnWidth = props.columns ? `${(100 / props.columns.length).toFixed(2)}%` : "0";
+  const columnWidth = props.columns
+    ? `${(100 / props.columns.length).toFixed(2)}%`
+    : "0";
   return (
     <section
       className={`block subtopic ${props.title ? "" : "notitle"}`}
@@ -53,11 +55,18 @@ export function Block(props: BlockPropType): JSX.Element {
       {props.title && <h3>{props.title}</h3>}
       {props.description && <p className="block-desc">{props.description}</p>}
       <div className="block-body row">
-        {props.columns && props.columns.map((column) => {
-          return (<div className="block-column" style={{width: columnWidth}}>
-            {renderTiles(column.tiles, props)}
-          </div>)
-        })}
+        {props.columns &&
+          props.columns.map((column, idx) => {
+            return (
+              <div
+                key={`${props.id}-col-${idx}`}
+                className="block-column"
+                style={{ width: columnWidth }}
+              >
+                {renderTiles(column.tiles, props)}
+              </div>
+            );
+          })}
       </div>
     </section>
   );
