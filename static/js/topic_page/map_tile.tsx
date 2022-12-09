@@ -197,20 +197,6 @@ function fetchData(
         parentPlaces,
       });
     })
-    // .then(([geoJson, placeStat, population, parentPlaces]) => {
-    //   setRawData({
-    //     geoJson,
-    //     placeStat: placeStat.data[mainStatVar],
-    //     metadataMap,
-    //     population,
-    //     // metadataMap: {
-    //     //   ...placeStat.facets,
-    //     //   ...population.facets,
-    //     // },
-    //     // population: population.data[denomStatVar],
-    //     parentPlaces,
-    //   });
-    // })
     .catch(() => {
       // TODO: add error message
       setRawData(null);
