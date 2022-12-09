@@ -97,21 +97,6 @@ categories {
   blocks {
     title: "Uninsured, by sex"
     description: "Of those without insurance, how many are male or female?"
-    # TODO(beets): This isn't available at the country level
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Female_WithHealthInsurance"
-    #   denom: "Count_Person_Female"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Female, insured"
-    # }
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Male_WithHealthInsurance"
-    #   denom: "Count_Person_Male"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Male, insured"
-    # }
     right_tiles {
       type: LINE
       title: "Uninsured, by sex"
@@ -136,21 +121,6 @@ categories {
   blocks {
     title: "With disabilities, by sex"
     description: "Percentage of the population of each sex with disabilities"
-    # TODO(beets): This isn"t available at the country level
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Female_WithHealthInsurance"
-    #   denom: "Count_Person_Female"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Female, insured"
-    # }
-    # stat_var_spec {
-    #   stat_var: "Count_Person_Male_WithHealthInsurance"
-    #   denom: "Count_Person_Male"
-    #   unit: "%"
-    #   scaling: 100
-    #   name: "Male, insured"
-    # }
     left_tiles {
       type: LINE
       title: "With disability, by sex in ${place}"
@@ -392,50 +362,6 @@ categories {
 categories {
   title: "Equity between races"
   description: "The US Census Bureau measures race and ethnicity based on self-identification and may choose to identify with more than one race. The races are White, Black or African American, American Indian or Alaska Native, Asian and Native Hawaiian or Other Pacific Islander. As well, two ethnicities are included: Hispanic or Latino, and Not Hispanic or Latino. For more information, see https://www.census.gov/topics/population/race/about.html and https://www.census.gov/topics/population/hispanic-origin/about.html"
-
-  # TODO: Not available at the country level
-  # blocks {
-  #   title: "Median income, by race"
-  #   description: "Median incomes of households, broken down by race"
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceAsianAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
-  #     unit: "$"
-  #   }
-  #   stat_var_spec {
-  #     stat_var: "Median_Income_Household_HouseholderRaceWhiteAlone"
-  #     unit: "$"
-  #   }
-  #   left_tiles {
-  #     type: LINE
-  #     title: "Median household income by race"
-  #   }
-  #   right_tiles {
-  #     type: RANKING
-  #     ranking_metadata {
-  #       show_highest: true
-  #     }
-  #   }
-  # }
 
   blocks {
     title: "Median household income by race"
