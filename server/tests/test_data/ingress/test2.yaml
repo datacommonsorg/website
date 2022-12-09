@@ -1,0 +1,13 @@
+observations-api:5000:
+  - /v1/bulk/observations/*
+  - /v1/bulk/observation-dates/linked
+bq-service:
+  - /query
+v0-node-service:8888:
+  - /node/*
+stat-var-svc:
+  - /v1/variables/*
+  - /v1/variables
+  - /v1/bulk/*
+default:
+  - /*
