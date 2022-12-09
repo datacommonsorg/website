@@ -332,10 +332,10 @@ def protein_protein_interaction():
   for depth in range(1, max_depth + 2):
     # retrieve interactor dict of form {'bio/P53_HUMAN': ['bio/CBP_HUMAN', ...], 'bio/FGFR1_HUMAN': [...], ...}
     layer_interactors = dc.property_values(last_layer_node_dcids,
-                                           "interactingProtein", "in")
+                                           "interactingProtein", False)
     # retrieve score dict of form {'bio/P53_HUMAN_CBP_HUMAN': ['IntactMiScore0.97', 'AuthorScore3.0'], ...}
     layer_score_lists = dc.property_values(_flatten(layer_interactors.values()),
-                                           "confidenceScore", "out")
+                                           "confidenceScore")
 
     # convert score dict to form {'P53_HUMAN_CBP_HUMAN': 0.97} (keep only IntactMi scores)
     layer_scores = {}
