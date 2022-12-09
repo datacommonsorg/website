@@ -2,11 +2,12 @@
 
 The DC website can be installed into a GKE cluster using [helm](https://helm.sh/).
 
-## How to install the DC website on a live GKE cluster.
+## How to install the DC website on a live GKE cluster
 
 ### Prerequisites
 
-- A live GKE cluster with [workload identiy](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) enabled. This is a one time setup.
+- A GKE cluster. If you do not already have one, please follow [instructions](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-regional-cluster) to create a regional GKE cluster.
+- GKE cluster should have [workload identiy](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) enabled. This is a one time setup.
 - [A global static IP reserved](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address).
 - Domain from your choice of DNS provider, and have the a [DNS type A record](https://en.wikipedia.org/wiki/List_of_DNS_record_types) which points from the domain to the IP from above.
 - Certificate for the domain provided. For example, from [Cloudflare](https://www.cloudflare.com/ssl/).
@@ -28,7 +29,7 @@ kubectl config current-context
 
 2. Paste the template below into a new file called instance-values.yaml.
 
-```
+```yaml
 website:
   gcpProjectID: <GCP project>
   domain: <Your domain>
@@ -50,7 +51,6 @@ ingress:
       kubernetes.io/ingress.global-static-ip-name: <Your GCP global static IP>,
       ingress.gcp.kubernetes.io/pre-shared-cert: <Your self managed certificate name from GCP>,
     }
-
 ```
 
 3. Fill out all the instance specific variables from above.
