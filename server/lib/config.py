@@ -45,7 +45,6 @@ ENV = {
     'local-iitm',
     'local-feedingamerica',
     'local-stanford',
-    'local-stanford-staging',
 }
 
 
