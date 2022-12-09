@@ -2,9 +2,9 @@
 
 The DC website can be installed into a GKE cluster using [helm](https://helm.sh/).
 
-# How to install the DC website on a live GKE cluster.
+## How to install the DC website on a live GKE cluster.
 
-## Prerequisites
+### Prerequisites
 
 - A live GKE cluster with [workload identiy](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) enabled. This is a one time setup.
 - [A global static IP reserved](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address).
@@ -14,7 +14,7 @@ The DC website can be installed into a GKE cluster using [helm](https://helm.sh/
 Note: DNS record takes up to 72 hours to propagate. While the helm chart
 can still be installed before it is completed, the load balancer that is created by the chart may not be ready until then.
 
-## Installation
+### Installation
 
 1. Make sure that the k8s credentials are configured. You can visit the GCP UI and click "CONNECT" on your cluster's page to get the command to configure the credentials.
 
@@ -22,7 +22,7 @@ can still be installed before it is completed, the load balancer that is created
 
 The command below should point to your cluster.
 
-```
+```sh
 kubectl config current-context
 ```
 
@@ -55,17 +55,17 @@ ingress:
 
 3. Fill out all the instance specific variables from above.
 
-**GCP project**
+#### GCP project
 
 The GCP project id where the website is to be deployed.
 
 Same value will apply for website.gcpProjectID, website.secretGCPProjectID, mixer.gcpProjectID.
 
-**website.domain**
+#### website.domain
 
 Website domain that you own.
 
-**serviceAccount.name**
+#### serviceAccount.name
 
 Name of the k8s service account to be used as the GCP identity of the DC website.
 
@@ -73,23 +73,29 @@ This assumes that the [workload identity setup process](https://cloud.google.com
 
 Confirm the SA exists by calling `kubectl -n website get serviceaccount` in termimal.
 
-**ingress.annotations[Global static ip]**
+#### ingress.annotations - Global static ip
 
-The name of the [global static ip](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address) from GCP.
+The name of the [global static ip](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address) that was reserved from GCP.
 
-**ingress.annotations[Preshared certificate]**
+Note that this needs to be in the same GCP project as the GCP project specified elsewhere in your DC helm config.
+
+#### ingress.annotations - Preshared certificate
 
 The name of the [self managed certificate](https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs) from GCP.
 
+Please follow the [offical doc](https://cloud.google.com/load-balancing/docs/ssl-certificates/self-managed-certs#createresource) to create one from your cert and key from your ssl provider.
+
 4. Run the [helm install](https://helm.sh/docs/helm/helm_install/) command from the root directory of Website repo.
 
-```
+```sh
+git submodule foreach git pull origin master
+git submodule update --init --recursive
+
 TAG=$(git rev-parse --short=7 HEAD)
 
 cd mixer
 MIXER_TAG=$(git rev-parse --short=7 HEAD)
 cd ..
-
 
 helm upgrade --install \
   dc-website deploy/helm_charts/dc_website \
