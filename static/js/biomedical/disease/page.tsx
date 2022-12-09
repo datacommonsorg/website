@@ -21,8 +21,8 @@
 import axios from "axios";
 import React from "react";
 
+import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { GraphNodes } from "../../shared/types";
-import { StatVarSpec } from "../../shared/types";
 import { MapTile } from "../../topic_page/map_tile";
 import { getEntityLink } from "../bio_charts_utils";
 import {
@@ -37,7 +37,6 @@ import {
   getDiseaseSymptomAssociation,
 } from "./data_processing_utils";
 import { DrugTreatmentTable } from "./drug_table";
-import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 
 export interface PagePropType {
   dcid: string;
@@ -95,13 +94,13 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     const diseasePrevalenceStatVarDcid =
       "Count_MedicalConditionIncident_Condition" + this.props.dcid;
     const statVarDisease = {
-      statVar:diseasePrevalenceStatVarDcid,
-      denom:"Count_Person",
-      unit:"%",
-      scaling:100,
-      log:false,
-      name:"diseaseData"
-    }
+      statVar: diseasePrevalenceStatVarDcid,
+      denom: "Count_Person",
+      unit: "%",
+      scaling: 100,
+      log: false,
+      name: "diseaseData",
+    };
     return (
       <>
         <h2>{diseaseName}</h2>
