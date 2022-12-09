@@ -60,10 +60,12 @@ $chart-container-top-margin: 20px;
   display: flex;
 }
 
-.left-tiles,
-.right-tiles {
+.block-column {
   display: flex;
   flex-direction: column;
+  padding: 0.5rem;
+  min-width: 25rem;
+  flex-grow: 1;
 }
 
 section.subtopic {

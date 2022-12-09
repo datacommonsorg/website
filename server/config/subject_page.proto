@@ -45,7 +45,7 @@ message StatVarSpec {
 }
 
 
-message RankingMetadata {
+message RankingTileSpec {
   bool show_highest = 1;
   bool show_lowest = 2;
   bool show_increase = 3;
@@ -60,6 +60,8 @@ message RankingMetadata {
 }
 
 message Tile {
+  // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
+  // with any required fields for your new TileType.
   enum TileType {
     TYPE_NONE = 0;
     LINE = 1;
@@ -78,16 +80,21 @@ message Tile {
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
-  RankingMetadata ranking_metadata = 5;
-  // Overrides the contained_place_types for the page.
-  map<string, string> contained_place_types = 7;
+
+  // specs for specific tile types
+  oneof tile_type_spec {
+    RankingTileSpec ranking_tile_spec = 5;
+  }
 }
 
 message Block {
   string title = 1;
   string description = 2;
-  repeated Tile left_tiles = 3;
-  repeated Tile right_tiles = 4;
+
+  message Column {
+    repeated Tile tiles = 1;
+  }
+  repeated Column columns = 3;
 }
 
 message Category {
@@ -97,7 +104,7 @@ message Category {
   repeated Block blocks = 3;
 }
 
-message TopicPageConfig {
+message SubjectPageConfig {
   PageMetadata metadata = 1;
   repeated Category categories = 2;
 }

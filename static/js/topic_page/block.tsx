@@ -31,7 +31,7 @@ import { MapTile } from "./map_tile";
 import { RankingTile } from "./ranking_tile";
 import { ScatterTile } from "./scatter_tile";
 import { StatVarProvider } from "./stat_var_provider";
-import { TileConfig } from "./topic_config";
+import { ColumnConfig, TileConfig } from "./topic_config";
 
 export interface BlockPropType {
   id: string;
@@ -39,12 +39,12 @@ export interface BlockPropType {
   enclosedPlaceType: string;
   title?: string;
   description: string;
-  leftTiles: TileConfig[];
-  rightTiles: TileConfig[];
+  columns: ColumnConfig[];
   statVarProvider: StatVarProvider;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
+  const columnWidth = props.columns ? `${(100 / props.columns.length).toFixed(2)}%` : "0";
   return (
     <section
       className={`block subtopic ${props.title ? "" : "notitle"}`}
@@ -53,16 +53,11 @@ export function Block(props: BlockPropType): JSX.Element {
       {props.title && <h3>{props.title}</h3>}
       {props.description && <p className="block-desc">{props.description}</p>}
       <div className="block-body row">
-        {props.leftTiles && (
-          <div className="left-tiles col-6">
-            {renderTiles(props.leftTiles, props)}
-          </div>
-        )}
-        {props.rightTiles && (
-          <div className="right-tiles col-6">
-            {renderTiles(props.rightTiles, props)}
-          </div>
-        )}
+        {props.columns && props.columns.map((column) => {
+          return (<div className="block-column" style={{width: columnWidth}}>
+            {renderTiles(column.tiles, props)}
+          </div>)
+        })}
       </div>
     </section>
   );
@@ -119,7 +114,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
-            rankingMetadata={tile.rankingMetadata}
+            rankingMetadata={tile.rankingTileSpec}
           />
         );
       case "BAR":
