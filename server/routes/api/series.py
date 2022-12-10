@@ -49,12 +49,12 @@ def compact_series(series_resp, all_facets):
 
 
 def series_core(entities, variables, all_facets):
-  resp = dc.series(entities, variables, all_facets)
+  resp = dc.obs_series(entities, variables, all_facets)
   return compact_series(resp, all_facets)
 
 
 def series_within_core(parent_entity, child_type, variables, all_facets):
-  resp = dc.series_within(parent_entity, child_type, variables, all_facets)
+  resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
   return compact_series(resp, all_facets)
 
 

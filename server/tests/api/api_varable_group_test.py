@@ -38,7 +38,8 @@ class TestGetVariableGroupInfo(unittest.TestCase):
     }
 
     def side_effect(url):
-      if url == "/v1/info/variable-group/dc/g/Root?constrained_entities=geoId/06":
+      if url.endswith(
+          "/v1/info/variable-group/dc/g/Root?constrained_entities=geoId/06"):
         return {"info": expected_result}
       else:
         return {}

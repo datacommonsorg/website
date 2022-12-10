@@ -26,6 +26,10 @@ def homepage():
     return render_template('custom_dc/feedingamerica/homepage.html')
   if g.env_name == 'IITM':
     return render_template('custom_dc/iitm/homepage.html')
+  if g.env_name == 'STANFORD':
+    return render_template('custom_dc/stanford/homepage.html')
+  if g.env_name == 'STANFORD-STAGING':
+    return render_template('custom_dc/stanford/homepage.html')
   if g.env_name == 'CUSTOM':
     return render_template('custom_dc/default/homepage.html')
   blog_date = babel_dates.format_date(date(2021, 7, 26),
