@@ -294,7 +294,6 @@ function draw(
     }
     return place.name + ": " + value;
   };
-  document.getElementById(props.id).innerHTML = "";
   const projection = getProjection(
     chartData.isUsaPlace,
     props.place.dcid,
