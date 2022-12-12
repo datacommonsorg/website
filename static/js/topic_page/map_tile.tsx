@@ -280,7 +280,10 @@ function draw(
     let value = "Data Unavailable";
     if (place.dcid in chartData.dataValues) {
       // shows upto 2 precision digits for very low values
-      if (Math.abs(chartData.dataValues[place.dcid]) < 0.01) {
+      if (
+        Math.abs(chartData.dataValues[place.dcid]) < 1 &&
+        Math.abs(chartData.dataValues[place.dcid]) > 0
+      ) {
         const chartDatavalue = chartData.dataValues[place.dcid];
         value = formatNumber(
           Number(chartDatavalue.toPrecision(2)),
