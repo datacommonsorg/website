@@ -28,7 +28,7 @@ import { stringifyFn } from "../utils/axios";
 import { getPlaceNames } from "../utils/place_utils";
 import { Point, RankingUnit } from "./ranking_unit";
 import { formatString, getStatVarName } from "./string_utils";
-import { RankingMetadataConfig } from "./topic_config";
+import { RankingTileSpec } from "./topic_config";
 
 const RANKING_COUNT = 5;
 
@@ -48,7 +48,7 @@ interface RankingTilePropType {
   enclosedPlaceType: string;
   title: string;
   statVarSpec: StatVarSpec[];
-  rankingMetadata: RankingMetadataConfig;
+  rankingMetadata: RankingTileSpec;
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {

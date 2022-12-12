@@ -29,92 +29,108 @@ categories {
 
   blocks {
     description: "In the US, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. (US Census)"
-    left_tiles: {
-      type: HIGHLIGHT
-      description: "of Americans lived under the poverty line (${date})"
-      stat_var_key: 'poverty_rate'
+    columns {
+      tiles: {
+        type: HIGHLIGHT
+        description: "of Americans lived under the poverty line (${date})"
+        stat_var_key: 'poverty_rate'
+      }
     }
-    right_tiles: {
-      type: LINE
-      title: "Poverty rate in ${place}"
-      stat_var_key: 'poverty_rate'
+    columns {
+      tiles: {
+        type: LINE
+        title: "Poverty rate in ${place}"
+        stat_var_key: 'poverty_rate'
+      }
     }
   }
 
   blocks {
     title: "Poverty across states"
     description: "Poverty thresholds are uniform across the country. There is a big range in terms of the percentage of the population who live in poverty (9 - 44%). Looking at the total number of people in poverty though, the rankings closely match state populations."
-    left_tiles {
-      type: MAP
-      title: "Poverty rate across states (${date})"
-      stat_var_key: 'poverty_rate'
-    }
-    right_tiles {
-      type: RANKING
-      stat_var_key: 'poverty_rate'
-      ranking_metadata {
-        show_highest: true
-        highest_title: "Highest by poverty rate"
-        show_lowest: true
-        lowest_title: "Lowest by poverty rate"
+    columns {
+      tiles {
+        type: MAP
+        title: "Poverty rate across states (${date})"
+        stat_var_key: 'poverty_rate'
       }
     }
-    right_tiles {
-      type: RANKING
-      stat_var_key: 'poverty_count'
-      ranking_metadata {
-        show_highest: true
-        highest_title: "Most ${statVar}"
-        show_lowest: true
-        lowest_title: "Fewest ${statVar}"
+    columns {
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate'
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest by poverty rate"
+          show_lowest: true
+          lowest_title: "Lowest by poverty rate"
+        }
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_count'
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Most ${statVar}"
+          show_lowest: true
+          lowest_title: "Fewest ${statVar}"
+        }
       }
     }
   }
 
   blocks {
     title: "Poverty rate by sex"
-    left_tiles {
-      type: LINE
-      title: "Poverty rate by sex in ${place}"
-      stat_var_key: 'poverty_rate_female'
-      stat_var_key: 'poverty_rate_male'
+    columns {
+      tiles {
+        type: LINE
+        title: "Poverty rate by sex in ${place}"
+        stat_var_key: 'poverty_rate_female'
+        stat_var_key: 'poverty_rate_male'
+      }
     }
-    right_tiles {
-      type: RANKING
-      stat_var_key: 'poverty_rate_female'
-      stat_var_key: 'poverty_rate_male'
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
-        highest_title: "Most ${statVar} in poverty"
-        lowest_title: "Least ${statVar} in poverty"
+    columns {
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate_female'
+        stat_var_key: 'poverty_rate_male'
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+          highest_title: "Most ${statVar} in poverty"
+          lowest_title: "Least ${statVar} in poverty"
+        }
       }
     }
   }
 
   blocks {
     title: "Poverty rate by race"
-    left_tiles {
-      type: LINE
-      title: "Poverty rate by race in ${place}"
-      stat_var_key: 'povery_rate_american_indian'
-      stat_var_key: 'poverty_rate_asian'
-      stat_var_key: 'poverty_rate_african_american'
-      stat_var_key: 'poverty_rate_hispanic'
-      stat_var_key: 'poverty_rate_native_hawaiian'
-      stat_var_key: 'poverty_rate_white'
+    columns {
+      tiles {
+        type: LINE
+        title: "Poverty rate by race in ${place}"
+        stat_var_key: 'povery_rate_american_indian'
+        stat_var_key: 'poverty_rate_asian'
+        stat_var_key: 'poverty_rate_african_american'
+        stat_var_key: 'poverty_rate_hispanic'
+        stat_var_key: 'poverty_rate_native_hawaiian'
+        stat_var_key: 'poverty_rate_white'
+      }
     }
-    right_tiles {
-      type: RANKING
-      stat_var_key: 'povery_rate_american_indian'
-      stat_var_key: 'poverty_rate_asian'
-      stat_var_key: 'poverty_rate_african_american'
-      stat_var_key: 'poverty_rate_hispanic'
-      stat_var_key: 'poverty_rate_native_hawaiian'
-      stat_var_key: 'poverty_rate_white'
-      ranking_metadata {
-        show_highest: true
-        highest_title: "Highest among ${statVar}"
+    columns {
+      tiles {
+        type: RANKING
+        stat_var_key: 'povery_rate_american_indian'
+        stat_var_key: 'poverty_rate_asian'
+        stat_var_key: 'poverty_rate_african_american'
+        stat_var_key: 'poverty_rate_hispanic'
+        stat_var_key: 'poverty_rate_native_hawaiian'
+        stat_var_key: 'poverty_rate_white'
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest among ${statVar}"
+        }
       }
     }
   }
@@ -217,60 +233,72 @@ categories {
 
   blocks {
     title: "Families in poverty"
-    left_tiles: {
-      type: HIGHLIGHT
-      description: "of American families lived under the poverty line (${date})"
-      stat_var_key: 'poverty_rate'
+    columns {
+      tiles: {
+        type: HIGHLIGHT
+        description: "of American families lived under the poverty line (${date})"
+        stat_var_key: 'poverty_rate'
+      }
+      tiles {
+        type: MAP
+        title: "Poverty rate in ${place}"
+        stat_var_key: 'poverty_rate'
+      }
     }
-    left_tiles {
-      type: MAP
-      title: "Poverty rate in ${place}"
-      stat_var_key: 'poverty_rate'
-    }
-    right_tiles: {
-      type: LINE
-      title: "Poverty rate in ${place}"
-      stat_var_key: 'poverty_rate'
+    columns {
+      tiles: {
+        type: LINE
+        title: "Poverty rate in ${place}"
+        stat_var_key: 'poverty_rate'
+      }
     }
   }
 
   blocks {
     title: "Households in poverty by work status"
-    left_tiles {
-      title: "Percentage of households in poverty with full time year round workers (${date})"
-      type: MAP
-      stat_var_key: 'worker_poverty_rate'
+    columns {
+      tiles {
+        title: "Percentage of households in poverty with full time year round workers (${date})"
+        type: MAP
+        stat_var_key: 'worker_poverty_rate'
+      }
     }
-    right_tiles {
-      title: "Percentage of households in poverty with full time year round workers"
-      type: LINE
-      stat_var_key: 'worker_poverty_rate'
-      stat_var_key: 'married_worker_poverty_rate'
-      stat_var_key: 'single_mom_worker_poverty_rate'
+    columns {
+      tiles {
+        title: "Percentage of households in poverty with full time year round workers"
+        type: LINE
+        stat_var_key: 'worker_poverty_rate'
+        stat_var_key: 'married_worker_poverty_rate'
+        stat_var_key: 'single_mom_worker_poverty_rate'
+      }
     }
   }
 
   blocks {
     title: "Households in poverty by number of children"
-    left_tiles {
-      type: LINE
-      title: "Number of households in poverty by number of children"
-      stat_var_key: 'no_children_poverty_rate'
-      stat_var_key: '1_child_poverty_rate'
-      stat_var_key: '3_children_poverty_rate'
-      stat_var_key: '5_children_poverty_rate'
-    }
-    right_tiles {
-      title: ""
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        highest_title: "Highest: ${statVar}"
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of households in poverty by number of children"
+        stat_var_key: 'no_children_poverty_rate'
+        stat_var_key: '1_child_poverty_rate'
+        stat_var_key: '3_children_poverty_rate'
+        stat_var_key: '5_children_poverty_rate'
       }
-      stat_var_key: 'no_children_poverty_rate'
-      stat_var_key: '1_child_poverty_rate'
-      stat_var_key: '3_children_poverty_rate'
-      stat_var_key: '5_children_poverty_rate'
+    }
+    columns {
+      tiles {
+        title: ""
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest: ${statVar}"
+        }
+        stat_var_key: 'no_children_poverty_rate'
+        stat_var_key: '1_child_poverty_rate'
+        stat_var_key: '3_children_poverty_rate'
+        stat_var_key: '5_children_poverty_rate'
+      }
     }
   }
 
@@ -278,69 +306,85 @@ categories {
   blocks {
     title: "Food assistance for households below poverty"
     description: "Number of households living under the poverty level and receiving food stamps in the last 12 months."
-    left_tiles {
-      type: MAP
-      title: "Number of households in poverty receiving food stamps (${date})"
-      stat_var_key: 'food_stamps'
+    columns {
+      tiles {
+        type: MAP
+        title: "Number of households in poverty receiving food stamps (${date})"
+        stat_var_key: 'food_stamps'
+      }
     }
-    right_tiles {
-      type: MAP
-      title: "Number of households in poverty without food stamps (${date})"
-      stat_var_key: 'no_food_stamps'
+    columns {
+      tiles {
+        type: MAP
+        title: "Number of households in poverty without food stamps (${date})"
+        stat_var_key: 'no_food_stamps'
+      }
     }
   }
 
   blocks {
     title: "Social security income for households below poverty"
     description: "Number of households living under the poverty level and receiving social security income in the last 12 months. Social Security taxes pays benefits to those who are currently retired, to people with disabilities and to the surviving spouses and children of workers who have died."
-    left_tiles {
-      type: MAP
-      title: "Number of households in poverty with social security income (${date})"
-      stat_var_key: 'ssi_all'
+    columns {
+      tiles {
+        type: MAP
+        title: "Number of households in poverty with social security income (${date})"
+        stat_var_key: 'ssi_all'
+      }
     }
-    right_tiles {
-      type: LINE
-      title: "Number of households in poverty with social security income"
-      stat_var_key: 'ssi_all'
-      stat_var_key: 'ssi_married'
-      stat_var_key: 'ssi_singlemother'
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of households in poverty with social security income"
+        stat_var_key: 'ssi_all'
+        stat_var_key: 'ssi_married'
+        stat_var_key: 'ssi_singlemother'
+      }
     }
   }
 
   blocks {
     title: "Supplemental social security income for households below poverty"
     description: "Received supplemental social security income (SSI) and/or public cash assistance in the past 12 months. The Supplemental Security Income (SSI) program provides monthly payments to adults and children with a disability or blindness who have income and resources below specific financial limits. SSI payments are also made to people aged 65 and older without disabilities who meet the financial qualifications."
-    left_tiles {
-      type: MAP
-      title: "Percentage of households in poverty with supplemental social security income (${date})"
-      stat_var_key: 'assist_all'
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of households in poverty with supplemental social security income (${date})"
+        stat_var_key: 'assist_all'
+      }
     }
-    right_tiles {
-      type: LINE
-      title: "Percentage of households in poverty with supplemental social security income"
-      stat_var_key: 'assist_all'
-      stat_var_key: 'assist_married'
-      stat_var_key: 'assist_singlemother'
+    columns {
+      tiles {
+        type: LINE
+        title: "Percentage of households in poverty with supplemental social security income"
+        stat_var_key: 'assist_all'
+        stat_var_key: 'assist_married'
+        stat_var_key: 'assist_singlemother'
+      }
     }
   }
 
   blocks {
     title: "Education attainment"
-    left_tiles {
-      type: LINE
-      title: "Education attainment for households in poverty"
-      stat_var_key: 'less_highschool'
-      stat_var_key: 'highschool'
-      stat_var_key: 'associates'
-      stat_var_key: 'bachelors'
+    columns {
+      tiles {
+        type: LINE
+        title: "Education attainment for households in poverty"
+        stat_var_key: 'less_highschool'
+        stat_var_key: 'highschool'
+        stat_var_key: 'associates'
+        stat_var_key: 'bachelors'
+      }
     }
-    right_tiles {
-      type: BAR
-      title: "Education attainment for households in poverty"
-      stat_var_key: 'less_highschool'
-      stat_var_key: 'highschool'
-      stat_var_key: 'associates'
-      stat_var_key: 'bachelors'
+    columns {
+      tiles {
+        type: BAR
+        title: "Education attainment for households in poverty"
+        stat_var_key: 'less_highschool'
+        stat_var_key: 'highschool'
+        stat_var_key: 'associates'
+        stat_var_key: 'bachelors'
+      }
     }
   }
 
@@ -531,29 +575,33 @@ categories {
   blocks {
     title: "Poverty and health"
     description: "Studies from CDC  and others have shown a correlation between obesity and poverty. Unfortunately, many other medical conditions are inversely correlated with economic well being."
-    left_tiles {
-      type: SCATTER
-      title: "Poverty rate vs. Uninsurance rate"
-      stat_var_key: 'poverty_rate'
-      stat_var_key: 'uninsurance_rate'
+    columns {
+      tiles {
+        type: SCATTER
+        title: "Poverty rate vs. Uninsurance rate"
+        stat_var_key: 'poverty_rate'
+        stat_var_key: 'uninsurance_rate'
+      }
+      tiles {
+        type: SCATTER
+        title: "Poverty rate vs. Death from diseases of the digestive system"
+        stat_var_key: 'poverty_rate'
+        stat_var_key: 'deaths_digestive'
+      }
     }
-    right_tiles {
-      type: SCATTER
-      title: "Inflation adjusted GDP vs. Death from Covid-19"
-      stat_var_key: 'gdp'
-      stat_var_key: 'covid_deaths'
-    }
-    right_tiles {
-      type: SCATTER
-      title: "Poverty rate vs. Death from diseases of the circulatory system"
-      stat_var_key: 'poverty_rate'
-      stat_var_key: 'deaths_circulatory'
-    }
-    left_tiles {
-      type: SCATTER
-      title: "Poverty rate vs. Death from diseases of the digestive system"
-      stat_var_key: 'poverty_rate'
-      stat_var_key: 'deaths_digestive'
+    columns {
+      tiles {
+        type: SCATTER
+        title: "Inflation adjusted GDP vs. Death from Covid-19"
+        stat_var_key: 'gdp'
+        stat_var_key: 'covid_deaths'
+      }
+      tiles {
+        type: SCATTER
+        title: "Poverty rate vs. Death from diseases of the circulatory system"
+        stat_var_key: 'poverty_rate'
+        stat_var_key: 'deaths_circulatory'
+      }
     }
   }
 

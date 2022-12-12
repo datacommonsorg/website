@@ -27,116 +27,140 @@ metadata {
 categories {
   title: "Individual poverty"
   blocks {
-    left_tiles {
-      type: HIGHLIGHT
-      description: "of Indians lived under the poverty line (${date})"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "of Indians lived under the poverty line (${date})"
+        stat_var_key: "poverty_rate"
+      }
     }
-    right_tiles {
-      type: LINE
-      title: "Poverty rate in ${place}"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        type: LINE
+        title: "Poverty rate in ${place}"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
   blocks {
     title: "Poverty across states"
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "poverty_rate"
       }
-      stat_var_key: "poverty_rate"
-    }
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
-        highest_title: "Most ${statVar}"
-        lowest_title: "Fewest ${statVar}"
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+          highest_title: "Most ${statVar}"
+          lowest_title: "Fewest ${statVar}"
+        }
+        stat_var_key: "poverty_count"
       }
-      stat_var_key: "poverty_count"
     }
-    right_tiles {
-      type: MAP
-      title: "Poverty rate across states (${date})"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        type: MAP
+        title: "Poverty rate across states (${date})"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
   blocks {
     title: "Wages"
     description: "Mean monthly wages"
-    left_tiles {
-      title: "Mean monthly wages in ${place}"
-      type: LINE
-      stat_var_key: "monthly_wages"
-    }
-    right_tiles {
-      type: HIGHLIGHT
-      description: "Mean monthly wages across India (${date})"
-      stat_var_key: "monthly_wages"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        title: "Mean monthly wages in ${place}"
+        type: LINE
+        stat_var_key: "monthly_wages"
       }
-      stat_var_key: "monthly_wages"
+    }
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Mean monthly wages across India (${date})"
+        stat_var_key: "monthly_wages"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "monthly_wages"
+      }
     }
   }
 
   blocks {
     title: "Urban vs. Rural"
     description: "Percentage of those below poverty who live in urban vs. rural areas"
-    left_tiles: {
-      title: "Urban vs. Rural among those below poverty in ${place}"
-      type: LINE
-      stat_var_key: "poverty_rate_urban"
-      stat_var_key: "poverty_rate_rural"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
+    columns {
+      tiles: {
+        title: "Urban vs. Rural among those below poverty in ${place}"
+        type: LINE
+        stat_var_key: "poverty_rate_urban"
+        stat_var_key: "poverty_rate_rural"
       }
-      stat_var_key: "poverty_rate_urban"
-      stat_var_key: "poverty_rate_rural"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "poverty_rate_urban"
+        stat_var_key: "poverty_rate_rural"
+      }
     }
   }
 
   blocks {
     title: "Literacy and poverty"
-    left_tiles {
-      title: "Poverty rate vs. Illiteracy rate"
-      type: SCATTER
-      stat_var_key: "poverty_rate"
-      stat_var_key: "illiteracy_rate"
+    columns {
+      tiles {
+        title: "Poverty rate vs. Illiteracy rate"
+        type: SCATTER
+        stat_var_key: "poverty_rate"
+        stat_var_key: "illiteracy_rate"
+      }
     }
-    right_tiles {
-      title: "Poverty rate vs. Illiteracy rate"
-      type: BIVARIATE
-      stat_var_key: "poverty_rate"
-      stat_var_key: "illiteracy_rate"
+    columns {
+      tiles {
+        title: "Poverty rate vs. Illiteracy rate"
+        type: BIVARIATE
+        stat_var_key: "poverty_rate"
+        stat_var_key: "illiteracy_rate"
+      }
     }
   }
 
   blocks {
     title: "Temperature rise and poverty"
-    left_tiles {
-      title: "Max temp relative to 2015 (RCP 8.5, SSP 5) vs. Poverty rate"
-      type: SCATTER
-      stat_var_key: "max_temp_diff"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Max temp relative to 2015 (RCP 8.5, SSP 5) vs. Poverty rate"
+        type: SCATTER
+        stat_var_key: "max_temp_diff"
+        stat_var_key: "poverty_rate"
+      }
     }
-    right_tiles {
-      title: "Max temp relative to 2015 (RCP 8.5, SSP 5) vs. Poverty rate"
-      type: BIVARIATE
-      stat_var_key: "max_temp_diff"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Max temp relative to 2015 (RCP 8.5, SSP 5) vs. Poverty rate"
+        type: BIVARIATE
+        stat_var_key: "max_temp_diff"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
@@ -207,70 +231,86 @@ categories {
 
   blocks {
     title: "Schools per capita"
-    left_tiles {
-      title: "Schools per capita vs. Poverty rate"
-      type: SCATTER
-      stat_var_key: "school_pc"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Schools per capita vs. Poverty rate"
+        type: SCATTER
+        stat_var_key: "school_pc"
+        stat_var_key: "poverty_rate"
+      }
     }
-    right_tiles {
-      title: "Schools per capita vs. Poverty rate"
-      type: BIVARIATE
-      stat_var_key: "school_pc"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Schools per capita vs. Poverty rate"
+        type: BIVARIATE
+        stat_var_key: "school_pc"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
   blocks {
     title: "School amenities"
-    left_tiles {
-      title: "Schools with computers vs. Poverty rate"
-      type: SCATTER
-      stat_var_key: "school_computer"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Schools with computers vs. Poverty rate"
+        type: SCATTER
+        stat_var_key: "school_computer"
+        stat_var_key: "poverty_rate"
+      }
     }
-    right_tiles {
-      title: "Schools with computers vs. Poverty rate"
-      type: BIVARIATE
-      stat_var_key: "school_computer"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Schools with computers vs. Poverty rate"
+        type: BIVARIATE
+        stat_var_key: "school_computer"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
   blocks {
-    left_tiles {
-      title: "Schools with toilets vs. Poverty rate"
-      type: SCATTER
-      stat_var_key: "school_toilet"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Schools with toilets vs. Poverty rate"
+        type: SCATTER
+        stat_var_key: "school_toilet"
+        stat_var_key: "poverty_rate"
+      }
     }
-    right_tiles {
-      title: "Schools with toilets vs. Poverty rate"
-      type: BIVARIATE
-      stat_var_key: "school_toilet"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Schools with toilets vs. Poverty rate"
+        type: BIVARIATE
+        stat_var_key: "school_toilet"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
   blocks {
     title: "School dropout rates"
     description: "Percentage of students no longer enrolled at each level of school"
-    left_tiles {
-      title: "School dropout rates"
-      type: BAR
-      stat_var_key: "dropout_primary"
-      stat_var_key: "dropout_middle"
-      stat_var_key: "dropout_secondary"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        title: "School dropout rates"
+        type: BAR
+        stat_var_key: "dropout_primary"
+        stat_var_key: "dropout_middle"
+        stat_var_key: "dropout_secondary"
       }
-      stat_var_key: "dropout_primary"
-      stat_var_key: "dropout_middle"
-      stat_var_key: "dropout_secondary"
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "dropout_primary"
+        stat_var_key: "dropout_middle"
+        stat_var_key: "dropout_secondary"
+      }
     }
   }
 
@@ -338,17 +378,21 @@ categories {
   title: "Health and poverty"
 
   blocks {
-    left_tiles {
-      title: "Cumulative COVID-19 cases per capita vs. Poverty rate"
-      type: SCATTER
-      stat_var_key: "covid_tests_pc"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Cumulative COVID-19 cases per capita vs. Poverty rate"
+        type: SCATTER
+        stat_var_key: "covid_tests_pc"
+        stat_var_key: "poverty_rate"
+      }
     }
-    right_tiles {
-      title: "Cumulative COVID-19 deaths per capita vs. Poverty rate"
-      type: SCATTER
-      stat_var_key: "covid_deaths_pc"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        title: "Cumulative COVID-19 deaths per capita vs. Poverty rate"
+        type: SCATTER
+        stat_var_key: "covid_deaths_pc"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
@@ -386,69 +430,77 @@ categories {
   title: "Houselessness"
 
   blocks {
-    left_tiles {
-      type: HIGHLIGHT
-      description: "people in India were houseless (${date})"
-      stat_var_key: "houseless_count"
-    }
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "people in India were houseless (${date})"
+        stat_var_key: "houseless_count"
       }
-      stat_var_key: "houseless_rate"
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "houseless_rate"
+      }
+      tiles {
+        title: "Houseless rate vs. Poverty rate"
+        type: SCATTER
+        stat_var_key: "houseless_rate"
+        stat_var_key: "poverty_rate"
+      }
     }
-    right_tiles {
-      type: MAP
-      title: "Houseless rate in ${place} (${date})"
-      stat_var_key: "houseless_rate"
-    }
-    left_tiles {
-      title: "Houseless rate vs. Poverty rate"
-      type: SCATTER
-      stat_var_key: "houseless_rate"
-      stat_var_key: "poverty_rate"
-    }
-    right_tiles {
-      title: "Houseless rate vs. Poverty rate"
-      type: BIVARIATE
-      stat_var_key: "houseless_rate"
-      stat_var_key: "poverty_rate"
+    columns {
+      tiles {
+        type: MAP
+        title: "Houseless rate in ${place} (${date})"
+        stat_var_key: "houseless_rate"
+      }
+      tiles {
+        title: "Houseless rate vs. Poverty rate"
+        type: BIVARIATE
+        stat_var_key: "houseless_rate"
+        stat_var_key: "poverty_rate"
+      }
     }
   }
 
   blocks {
     title: "Houseless by sex"
     description: "Percentage of the houseless population by sex"
-    left_tiles {
-      type: MAP
-      title: "Percentage of the houseless population who are male (${date})"
-      stat_var_key: "houseless_rate_male"
-    }
-    right_tiles {
-      type: MAP
-      title: "Percentage of the houseless population who are female (${date})"
-      stat_var_key: "houseless_rate_female"
-    }
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the houseless population who are male (${date})"
+        stat_var_key: "houseless_rate_male"
       }
-      stat_var_key: "houseless_rate_male"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
-        show_lowest: true
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "houseless_rate_male"
       }
-      stat_var_key: "houseless_rate_female"
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the houseless population who are female (${date})"
+        stat_var_key: "houseless_rate_female"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "houseless_rate_female"
+      }
     }
     # TODO: Rank by Count_Person_Houseless
-    # right_tiles {
+    # tiles {
     #   type: BAR
     # }
   }
@@ -456,31 +508,35 @@ categories {
   blocks {
     title: "Houseless by literacy"
     description: "Percentage of the houseless population by literacy"
-    left_tiles {
-      type: MAP
-      title: "Percentage of the houseless population who are literate (${date})"
-      stat_var_key: "houseless_literacy_rate"
-    }
-    right_tiles {
-      type: MAP
-      title: "Percentage of the houseless population who are illiterate (${date})"
-      stat_var_key: "houseless_illiteracy_rate"
-    }
-    left_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the houseless population who are literate (${date})"
+        stat_var_key: "houseless_literacy_rate"
       }
-      stat_var_key: "houseless_literacy_rate"
-      stat_var_key: "houseless_illiteracy_rate"
-    }
-    right_tiles {
-      type: RANKING
-      ranking_metadata {
-        show_highest: true
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "houseless_literacy_rate"
+        stat_var_key: "houseless_illiteracy_rate"
       }
-      stat_var_key: "houseless_illiteracy_rate_male"
-      stat_var_key: "houseless_illiteracy_rate_female"
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the houseless population who are illiterate (${date})"
+        stat_var_key: "houseless_illiteracy_rate"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "houseless_illiteracy_rate_male"
+        stat_var_key: "houseless_illiteracy_rate_female"
+      }
     }
   }
 
