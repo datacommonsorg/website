@@ -13,34 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+variable "resource_suffix" {
+  type        = string
+  description = "This is the resource_suffix generated from the setup step."
+}
 
 variable "project_id" {
   type        = string
-  description = "Project id of the GCP project where the website is to be set up."
+  description = "This is the same GCP project id from the setup step."
 }
 
-variable "website_domain" {
+variable "dc_website_domain" {
   type        = string
-  description = "Domain name that you own that will be used for the Data Commons website."
+  description = "This is the domain registered from the setup step."
 }
 
-variable "storage_project_id" {
+variable "web_robot_sa_email" {
   type        = string
-  description = "Project id of the GCP project id of an existing data storage project."
-}
-
-variable "brand_support_email" {
-  type        = string
-  description = "Branch support email."
+  description = "Robot SA used for workload identity."
   default     = null
 }
 
-variable "web_user_members" {
-  type        =  list(string)
-  description = "List of users that are allowed to be authenticated in IAP."
+variable "cluster_name_prefix" {
+  type        = string
+  description = "Prefix used for GKE clusters to be created to host DC apps."
+  default     = "datacommons"
 }
 
 variable "region" {
   type        =  string
   description = "GCP region where the cluster will be created in."
+  default     = "us-central1"
+}
+
+variable "global_static_ip_name" {
+  type        =  string
+  description = "Name of the global static IP that exposes DC web service."
+  default     = null
 }

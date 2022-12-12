@@ -19,7 +19,12 @@ variable "project_id" {
   description = "GCP project id where the API keys will be created."
 }
 
-variable "website_domain" {
+variable "dc_website_domain" {
   type        = string
   description = "Domain name that you own that will be used for the Data Commons website."
+}
+
+variable "resource_suffix" {
+  type        = string
+  description = "This string is added to all resources created in this moudle for uniqueness."
 }

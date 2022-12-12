@@ -14,7 +14,7 @@
 
 locals {
     # Example cluster name: datacommons-us-central1
-    cluster_name = format("%s-%s",var.cluster_name_prefix,var.region)
+    cluster_name = format("%s-%s-%s",var.cluster_name_prefix,var.region, var.resource_suffix)
 }
 
 resource "null_resource" "gke_cluster" {
@@ -38,9 +38,10 @@ resource "null_resource" "gke_cluster_configuration" {
     working_dir = path.module
 
     environment = {
-      PROJECT_ID   = var.project_id
-      CLUSTER_NAME = local.cluster_name
-      REGION       = var.region
+      PROJECT_ID         = var.project_id
+      CLUSTER_NAME       = local.cluster_name
+      REGION             = var.region
+      WEB_ROBOT_SA_EMAIL = var.web_robot_sa_email
     }
   }
 
