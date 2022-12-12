@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
+/**
+ * A container for any tile containing a chart.
+ */
+
 import React from "react";
 
-import { urlToDomain } from "../shared/util";
-import { formatString, ReplacementStrings } from "./string_utils";
+import { urlToDomain } from "../../shared/util";
+import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 
 interface ChartTileContainerProp {
   title: string;
@@ -28,9 +32,6 @@ interface ChartTileContainerProp {
   className?: string;
 }
 
-/**
- * A container for any tile containing a chart.
- */
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const title = props.title
     ? formatString(props.title, props.replacementStrings)

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Point } from "../topic_page/ranking_unit";
+import { Point } from "../types/ranking_unit_types";
 
 export const chartTypeEnum = {
   LINE: "LINE",

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * util functions used by tile components.
+ */
+
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 
@@ -23,6 +27,11 @@ export interface ReplacementStrings {
   statVar?: string;
 }
 
+/**
+ * Formats a string with replacement strings.
+ * @param s The string to format
+ * @param rs The replacement strings to use
+ */
 export function formatString(s: string, rs: ReplacementStrings): string {
   let formattedString = s;
   for (const key in rs) {
@@ -32,6 +41,12 @@ export function formatString(s: string, rs: ReplacementStrings): string {
   return formattedString;
 }
 
+/**
+ * Gets the stat var name to display
+ * @param statVarDcid dcid of the stat var to get the name for
+ * @param statVarSpecs list of available stat var specs
+ * @param isPerCapita whether or not the name is for a per capita stat var
+ */
 export function getStatVarName(
   statVarDcid: string,
   statVarSpecs: StatVarSpec[],
@@ -50,8 +65,4 @@ export function getStatVarName(
     return `${label} Per Capita`;
   }
   return label;
-}
-
-export function getRelLink(title: string) {
-  return title.replace(/ /g, "-");
 }

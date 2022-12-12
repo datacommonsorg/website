@@ -22,16 +22,16 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { DataGroup, DataPoint } from "../chart/base";
-import { drawGroupBarChart } from "../chart/draw";
-import { PointApiResponse } from "../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { stringifyFn } from "../utils/axios";
-import { getPlaceNames } from "../utils/place_utils";
+import { DataGroup, DataPoint } from "../../chart/base";
+import { drawGroupBarChart } from "../../chart/draw";
+import { CHART_HEIGHT } from "../../constants/tile_constants";
+import { PointApiResponse } from "../../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { Point } from "../../types/ranking_unit_types";
+import { stringifyFn } from "../../utils/axios";
+import { getPlaceNames } from "../../utils/place_utils";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
-import { CHART_HEIGHT } from "./constants";
-import { Point } from "./ranking_unit";
-import { getStatVarName, ReplacementStrings } from "./string_utils";
 
 const NUM_PLACES = 6;
 

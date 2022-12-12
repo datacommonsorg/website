@@ -27,16 +27,16 @@ import {
   Point,
   ScatterPlotOptions,
   ScatterPlotProperties,
-} from "../chart/draw_scatter";
-import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { getStatWithinPlace } from "../tools/scatter/util";
-import { stringifyFn } from "../utils/axios";
-import { getStringOrNA } from "../utils/number_utils";
-import { getPlaceScatterData } from "../utils/scatter_data_utils";
+} from "../../chart/draw_scatter";
+import { CHART_HEIGHT } from "../../constants/tile_constants";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { getStatWithinPlace } from "../../tools/scatter/util";
+import { stringifyFn } from "../../utils/axios";
+import { getStringOrNA } from "../../utils/number_utils";
+import { getPlaceScatterData } from "../../utils/scatter_data_utils";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
-import { CHART_HEIGHT } from "./constants";
-import { getStatVarName, ReplacementStrings } from "./string_utils";
 
 interface ScatterTilePropType {
   id: string;

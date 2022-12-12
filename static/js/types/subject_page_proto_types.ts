@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-// Typing for topic_page.proto
+/**
+ * Types for subject_page.proto
+ */
 
 import { StatVarSpec } from "../shared/types";
 
@@ -52,6 +54,7 @@ export interface TileConfig {
 export interface ColumnConfig {
   tiles: TileConfig[];
 }
+
 export interface BlockConfig {
   title?: string;
   description: string;
@@ -67,7 +70,7 @@ export interface CategoryConfig {
   blocks: BlockConfig[];
 }
 
-export interface TopicPageConfig {
+export interface SubjectPageConfig {
   metadata: PageMetadataConfig;
   categories: CategoryConfig[];
 }

@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * Component for rendering the main pane of a subject page.
+ */
+
 import _ from "lodash";
 import React from "react";
 
-import { ErrorBoundary } from "../shared/error_boundary";
-import { NamedTypedPlace } from "../shared/types";
-import { randDomId } from "../shared/util";
+import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
+import { NamedTypedPlace } from "../../shared/types";
+import { randDomId } from "../../shared/util";
+import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { SubjectPageConfigSummary } from "../../types/subject_page_types";
+import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
-import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
 import { PageSelector } from "./page_selector";
-import { TopicPageConfig } from "./topic_config";
-import { TopicsSummary } from "./topic_page";
 
 interface MainPanePropType {
   /**
@@ -37,11 +42,11 @@ interface MainPanePropType {
   /**
    * Config of the page
    */
-  pageConfig: TopicPageConfig;
+  pageConfig: SubjectPageConfig;
   /**
-   * Summary for all topic page configs
+   * Summary of all available page configs
    */
-  topicsSummary: TopicsSummary;
+  allConfigsSummary: SubjectPageConfigSummary;
 }
 
 export function MainPane(props: MainPanePropType): JSX.Element {
@@ -55,7 +60,7 @@ export function MainPane(props: MainPanePropType): JSX.Element {
       <PageSelector
         selectedPlace={props.place}
         selectedTopic={props.topic}
-        topicsSummary={props.topicsSummary}
+        allConfigsSummary={props.allConfigsSummary}
       />
       {!_.isEmpty(props.pageConfig) &&
         props.pageConfig.categories.map((category) => {

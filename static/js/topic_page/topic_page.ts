@@ -16,16 +16,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { SubjectPage } from "../components/subject_page/subject_page";
+import { DEFAULT_PAGE_PLACE_TYPE } from "../constants/subject_page_constants";
 import { loadLocaleData } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
-import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
-import { MainPane } from "./main_pane";
-import { Sidebar } from "./sidebar";
-
-export interface TopicsSummary {
-  topicPlaceMap: Record<string, string[]>;
-  topicNameMap: Record<string, string>;
-}
+import { SubjectPageConfigSummary } from "../types/subject_page_types";
 
 window.onload = () => {
   renderPage();
@@ -42,7 +37,7 @@ function renderPage(): void {
   const pageConfig = JSON.parse(
     document.getElementById("topic-config").dataset.config
   );
-  const topicsSummary: TopicsSummary = JSON.parse(
+  const allConfigsSummary: SubjectPageConfigSummary = JSON.parse(
     document.getElementById("topic-config").dataset.topicsSummary
   );
 
@@ -61,19 +56,12 @@ function renderPage(): void {
   };
 
   ReactDOM.render(
-    React.createElement(Sidebar, {
-      categories: pageConfig.categories,
-    }),
-    document.getElementById("sidebar")
-  );
-
-  ReactDOM.render(
-    React.createElement(MainPane, {
+    React.createElement(SubjectPage, {
       place,
       topic,
       pageConfig,
-      topicsSummary,
+      allConfigsSummary,
     }),
-    document.getElementById("main-pane")
+    document.getElementById("body")
   );
 }

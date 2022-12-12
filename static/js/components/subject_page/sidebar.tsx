@@ -13,12 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * Component for rendering the side bar of a subject page.
+ */
+
 import _ from "lodash";
 import React from "react";
 
-import { randDomId } from "../shared/util";
-import { getRelLink } from "./string_utils";
-import { CategoryConfig } from "./topic_config";
+import { randDomId } from "../../shared/util";
+import { CategoryConfig } from "../../types/subject_page_proto_types";
+import { getRelLink } from "../../utils/subject_page_utils";
 
 interface SidebarPropsType {
   /**

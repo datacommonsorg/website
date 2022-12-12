@@ -20,18 +20,18 @@
 
 import React from "react";
 
-import { NamedTypedPlace } from "../shared/types";
-import { randDomId } from "../shared/util";
-import { BarTile } from "./bar_tile";
-import { BivariateTile } from "./bivariate_tile";
-import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
-import { HighlightTile } from "./highlight_tile";
-import { LineTile } from "./line_tile";
-import { MapTile } from "./map_tile";
-import { RankingTile } from "./ranking_tile";
-import { ScatterTile } from "./scatter_tile";
+import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
+import { NamedTypedPlace } from "../../shared/types";
+import { randDomId } from "../../shared/util";
+import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
+import { BarTile } from "../tiles/bar_tile";
+import { BivariateTile } from "../tiles/bivariate_tile";
+import { HighlightTile } from "../tiles/highlight_tile";
+import { LineTile } from "../tiles/line_tile";
+import { MapTile } from "../tiles/map_tile";
+import { RankingTile } from "../tiles/ranking_tile";
+import { ScatterTile } from "../tiles/scatter_tile";
 import { StatVarProvider } from "./stat_var_provider";
-import { ColumnConfig, TileConfig } from "./topic_config";
 
 export interface BlockPropType {
   id: string;

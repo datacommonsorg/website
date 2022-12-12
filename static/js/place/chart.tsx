@@ -43,6 +43,7 @@ import {
   SnapshotData,
   TrendData,
 } from "../chart/types";
+import { RankingUnit } from "../components/ranking_unit";
 import {
   formatNumber,
   intl,
@@ -60,7 +61,7 @@ import {
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
-import { Point, RankingUnit } from "../topic_page/ranking_unit";
+import { Point } from "../types/ranking_unit_types";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
 

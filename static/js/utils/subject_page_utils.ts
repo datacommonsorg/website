@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2022 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-export const CHART_HEIGHT = 200;
+/**
+ * Util functions used by subject page components.
+ */
 
-// Default place type to use for the featured place of the page.
-export const DEFAULT_PAGE_PLACE_TYPE = "Place";
+/**
+ * Gets the relative link using the title of a section on the subject page
+ * @param title title of the section to get the relative link for
+ */
+export function getRelLink(title: string) {
+  return title.replace(/ /g, "-");
+}
