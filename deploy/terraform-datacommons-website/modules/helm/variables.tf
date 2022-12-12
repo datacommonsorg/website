@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
  variable "cluster_name" {
   type        = string
   description = "Name of the GKE cluster to deploy the helm chart to."

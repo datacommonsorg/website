@@ -51,11 +51,6 @@ resource "helm_release" "datcom_website" {
   }
 
   set {
-    name  = "website.gcpProjectID"
-    value = var.project_id
-  }
-
-  set {
     name  = "website.domain"
     value = var.dc_website_domain
   }
