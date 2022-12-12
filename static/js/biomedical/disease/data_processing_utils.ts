@@ -261,7 +261,6 @@ export function getCompoundDiseaseTreatment(
       clinicalPhaseNumber: Number(element.clinicalPhaseNumber),
     }));
   processedData.sort((a, b) => b.clinicalPhaseNumber - a.clinicalPhaseNumber);
-  console.log(processedData);
   return processedData;
 }
 
@@ -286,7 +285,6 @@ export function getCompoundDiseaseContraindication(
       drugSource: element.drugSource.toLowerCase(),
     }));
   processedData.sort((a, b) => (a.drugSource > b.drugSource ? 1 : -1));
-  console.log(processedData);
   return processedData;
 }
 
