@@ -53,8 +53,7 @@ export function Category(props: CategoryPropType): JSX.Element {
               enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
               description={block.description}
-              leftTiles={block.leftTiles}
-              rightTiles={block.rightTiles}
+              columns={block.columns}
               statVarProvider={svProvider}
             />
           </ErrorBoundary>
