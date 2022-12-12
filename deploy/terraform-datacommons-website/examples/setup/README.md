@@ -24,11 +24,11 @@ This step will do the following.
 terraform init && terraform apply --var-file="variables.tf" -auto-approve
 ```
 
-Please email support@datacommons.org if you see any errors.
+Please email custom-datacommons-support@google.com if you see any errors.
 
 ### 3. Click on the activation link that is sent to the contact email
 
-### 4. Please send an email to support@datacommons.org using the following template
+### 4. Please send an email to custom-datacommons-support@google.com using the following template
 
     replace <project_id> with your GCP project id.
 
