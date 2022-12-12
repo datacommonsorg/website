@@ -25,7 +25,7 @@ export interface PageMetadataConfig {
   containedPlaceTypes: Record<string, string>;
 }
 
-export interface RankingMetadataConfig {
+export interface RankingTileSpec {
   showHighest: boolean;
   showLowest: boolean;
   showIncrease: boolean;
@@ -44,16 +44,18 @@ export interface TileConfig {
   description: string;
   type: string;
   statVarKey: string[];
-  rankingMetadata?: RankingMetadataConfig;
+  rankingTileSpec?: RankingTileSpec;
   // Map of parent type to child place type - overrides the page-level setting.
   containedPlaceTypes: Record<string, string>;
 }
 
+export interface ColumnConfig {
+  tiles: TileConfig[];
+}
 export interface BlockConfig {
   title?: string;
   description: string;
-  leftTiles: TileConfig[];
-  rightTiles: TileConfig[];
+  columns: ColumnConfig[];
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;

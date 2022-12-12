@@ -15,14 +15,14 @@
 import unittest
 
 from google.protobuf import text_format
-from config import topic_page_pb2
+from config import subject_page_pb2
 
 import lib.util as libutil
 
-TileType = topic_page_pb2.Tile.TileType
+TileType = subject_page_pb2.Tile.TileType
 
 
-class TestTopicConfig(unittest.TestCase):
+class TestSubjectPageConfigs(unittest.TestCase):
 
   def verify_statvars(self, category, msg):
     defined_svs = {}
@@ -42,7 +42,7 @@ class TestTopicConfig(unittest.TestCase):
       self.assertNotEqual(tile.title, '', msg)
 
     if tile.type == TileType.RANKING:
-      self.assertIsNotNone(tile.ranking_metadata, msg)
+      self.assertIsNotNone(tile.ranking_tile_spec, msg)
 
     if (tile.type == TileType.HIGHLIGHT or tile.type == TileType.DESCRIPTION):
       self.assertNotEqual(tile.description, '', msg)
@@ -52,7 +52,8 @@ class TestTopicConfig(unittest.TestCase):
 
   def test_required_fields(self):
     """Tests all configs loaded at server start"""
-    all_configs = libutil.get_topic_page_config()
+    all_configs = []
+    all_configs.append(libutil.get_topic_page_config())
     for id, configs in all_configs.items():
       for page_i, page in enumerate(configs):
         page_msg = f"{id}[config={page_i}]"
@@ -71,10 +72,7 @@ class TestTopicConfig(unittest.TestCase):
           for block_i, block in enumerate(cat.blocks):
             block_msg = f"{cat_msg}[block={block_i}]"
 
-            for t_i, tile in enumerate(block.left_tiles):
-              tile_msg = f"{block_msg}[left={t_i}]"
-              self.verify_tile(tile, stat_vars, tile_msg)
-
-            for t_i, tile in enumerate(block.right_tiles):
-              tile_msg = f"{block_msg}[right={t_i}]"
-              self.verify_tile(tile, stat_vars, tile_msg)
+            for col_i, col in enumerate(block.columns):
+              for t_i, tile in enumerate(col.tiles):
+                tile_msg = f"{block_msg}[col={col_i};tile={t_i}]"
+                self.verify_tile(tile, stat_vars, tile_msg)
