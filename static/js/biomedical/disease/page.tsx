@@ -166,7 +166,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           <div id={diseasePrevalenceStatVarDcid}></div>
           <MapTile
             id={diseasePrevalenceStatVarDcid}
-            title={""}
+            title={"(${date})"}
             place={USA_NAMED_TYPED_PLACE}
             enclosedPlaceType={"State"}
             statVarSpec={statVarDisease}
