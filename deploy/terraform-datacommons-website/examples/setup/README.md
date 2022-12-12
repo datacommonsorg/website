@@ -30,11 +30,13 @@ Please email custom-datacommons-support@google.com if you see any errors.
 
 ### 4. Please send an email to custom-datacommons-support@google.com using the following template
 
-    replace <project_id> with your GCP project id.
+```text
+replace <project_id> with your GCP project id.
 
-    Subject: [Custom Datacommons setup] <project_id> requires data access.
+Subject: [Custom Datacommons setup] <project_id> requires data access.
 
-    Message:
+Message:
 
-    We are setting up a new custom Datacommons instance and would like to access
-    the base layer of BT and BQ cache.
+We are setting up a new custom Datacommons instance and would like to access
+the base layer of BT and BQ cache.
+```
