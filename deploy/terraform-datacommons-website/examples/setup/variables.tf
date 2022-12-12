@@ -13,9 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-# https://support.google.com/business/answer/6397478?utm_source=cloud.google.com&utm_medium=referral
-
 variable "project_id" {
   type        = string
   description = "GCP project id where the DC website will be installed in."

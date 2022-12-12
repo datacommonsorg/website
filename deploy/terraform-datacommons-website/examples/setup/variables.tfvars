@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
- # The follow fields must be filled out before running the setup script.
+# The following fields must be filled out before running the setup script.
 
 # GCP project id where you wish to set up the Data Commons instance in.
 # Ideally this is a new GCP project dedicated to Data Commons.
@@ -28,4 +27,3 @@ project_id="Replace me"
 # you must click on the activation link sent to this email after
 # running this script.
 contact_email="Replace me"
-

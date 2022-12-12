@@ -20,7 +20,9 @@ This step will do the following.
 
 ### 2. Run the following command from this directory
 
-    terraform init && terraform apply --var-file="variables.tf" -auto-approve
+```sh
+terraform init && terraform apply --var-file="variables.tf" -auto-approve
+```
 
 Please email support@datacommons.org if you see any errors.
 

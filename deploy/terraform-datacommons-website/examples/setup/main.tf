@@ -108,6 +108,8 @@ locals {
     )
 }
 
+# null_resource isn't a cloud resource.
+# It is used for running the script to represent "create" method.
 resource "null_resource" "cloud_domain" {
   provisioner "local-exec" {
     command = "sh register_dc_website_domain.sh"
