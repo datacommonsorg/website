@@ -102,7 +102,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       name: "diseaseData",
     };
     // Render the graphs only when the data is not null
-    if(this.state.data === null) {
+    if (this.state.data === null) {
       return null;
     }
     return (

@@ -279,10 +279,13 @@ function draw(
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Unavailable";
     if (place.dcid in chartData.dataValues) {
-      // shows upto 4 decimal points for very low values
-      if (chartData.dataValues[place.dcid] < 0.01) {
-        const val = Number(chartData.dataValues[place.dcid]);
-        value = formatNumber(Number(val.toPrecision(2)), props.statVarSpec.unit);
+      // shows upto 2 precision digits for very low values
+      if (Math.abs(chartData.dataValues[place.dcid]) < 0.01) {
+        const chartDatavalue = chartData.dataValues[place.dcid];
+        value = formatNumber(
+          Number(chartDatavalue.toPrecision(2)),
+          props.statVarSpec.unit
+        );
       } else {
         value = formatNumber(
           Math.round(
