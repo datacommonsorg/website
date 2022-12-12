@@ -13,15 +13,16 @@ This step will do the following.
 
 ## Steps
 
-### 1. Change the value of project_id and contact_email in variables.tfvars.
+### 1. Change the value of project_id and contact_email in variables.tfvars
 
 1. GCP project id where the Data Commons web application will be located.
-
 2. A working email that can be used to verify the new domain to be created.
 
-### 2. Run the following command from this directory.
+### 2. Run the following command from this directory
 
     terraform init && terraform apply --var-file="variables.tf" -auto-approve
+
+Please email support@datacommons.org if you see any errors.
 
 ### 3. Click on the activation link that is sent to the contact email
 
