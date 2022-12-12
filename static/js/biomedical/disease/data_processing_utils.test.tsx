@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
 import { GraphNodes } from "../../shared/types";
-import dataDOID2403 from "./data_DOID_2403.json";
+import dataDOID2403 from "./data_DOID_8622.json";
 import {
   getCompoundDiseaseContraindication,
   getCompoundDiseaseTreatment,
@@ -28,28 +28,22 @@ test("getDiseaseGeneAssociation", () => {
       data: dataDOID2403 as GraphNodes,
       wantArray: [
         {
-          lowerInterval: 1.5154999999999998,
+          lowerInterval: 2.0119999999999996,
           name: "pRNA",
-          score: 2.021,
-          upperInterval: 2.5265,
+          score: 2.683,
+          upperInterval: 3.354,
         },
         {
-          lowerInterval: 1.2605,
-          name: "hsa_circ_002125",
-          score: 1.681,
-          upperInterval: 2.1015,
+          lowerInterval: 1.5404999999999998,
+          name: "hsa-miR-7704",
+          score: 2.054,
+          upperInterval: 2.5675,
         },
         {
-          lowerInterval: 0.9390000000000001,
-          name: "hsa_circ_002059",
-          score: 1.252,
-          upperInterval: 1.565,
-        },
-        {
-          lowerInterval: 2.238,
+          lowerInterval: 1.24,
           name: "18S_rRNA",
-          score: 2.984,
-          upperInterval: 3.73,
+          score: 1.653,
+          upperInterval: 2.066,
         },
       ],
     },
@@ -76,16 +70,16 @@ test("getDiseaseSymptomAssociation", () => {
       data: dataDOID2403 as GraphNodes,
       wantArray: [
         {
-          name: "Schoenlein-Henoch",
-          oddsRatio: 3.7132,
+          name: "Prodromal Symptoms",
+          oddsRatio: 17.8491,
         },
         {
-          name: "Intellectual Disability",
-          oddsRatio: 20.4461,
+          name: "Deafness",
+          oddsRatio: 4.6819,
         },
         {
-          name: "Fasciculation",
-          oddsRatio: 16.1094,
+          name: "Travel-Related Illness",
+          oddsRatio: 67.0496,
         },
       ],
     },
@@ -112,16 +106,22 @@ test("getCompoundDiseaseTreatment", () => {
       data: dataDOID2403 as GraphNodes,
       wantArray: [
         {
-          clinicalPhaseNumber: 4,
-          id: "CHEMBL141",
-          name: "lamivudine",
-          node: "bio/CTD_CHEMBL141_DOID_2043",
+          clinicalPhaseNumber: 2,
+          id: "CHEMBL2109225",
+          name: "rubella virus vaccine live",
+          node: "bio/CTD_CHEMBL2109225_DOID_8622",
         },
         {
-          clinicalPhaseNumber: 4,
-          id: "CHEMBL1201560",
-          name: "peginterferon alfa-2a",
-          node: "bio/CTD_CHEMBL1201560_DOID_2043",
+          clinicalPhaseNumber: 2,
+          id: "CHEMBL2109211",
+          name: "measles virus vaccine live",
+          node: "bio/CTD_CHEMBL2109211_DOID_8622",
+        },
+        {
+          clinicalPhaseNumber: 2,
+          id: "CHEMBL2109201",
+          name: "mumps virus vaccine live",
+          node: "bio/CTD_CHEMBL2109201_DOID_8622",
         },
       ],
     },
@@ -148,16 +148,22 @@ test("getCompoundDiseaseContraindication", () => {
       data: dataDOID2403 as GraphNodes,
       wantArray: [
         {
-          node: "bio/CCiD_CHEMBL1200733_DOID_2043",
-          id: "CHEMBL1200733",
-          name: "desflurane",
+          node: "bio/CCiD_CHEMBL1091_DOID_8622",
+          id: "CHEMBL1091",
+          name: "hydrocortisone acetate",
           drugSource: "chembl",
         },
         {
-          node: "bio/CCiD_CHEMBL960_DOID_2043",
-          id: "CHEMBL960",
-          name: "leflunomide",
-          drugSource: "drug matrix",
+          drugSource: "chembl",
+          id: "CHEMBL977",
+          name: "hydrocortisone hemisuccinate",
+          node: "bio/CCiD_CHEMBL977_DOID_8622",
+        },
+        {
+          node: "bio/CCiD_CHEMBL1200637_DOID_8622",
+          id: "CHEMBL1200637",
+          name: "dexamethasone sodium phosphate",
+          drugSource: "wombat-pk",
         },
       ],
     },
@@ -184,7 +190,7 @@ test("getDiseaseCommonName", () => {
   }[] = [
     {
       data: dataDOID2403 as GraphNodes,
-      wantName: "Hepatitis B",
+      wantName: undefined,
     },
   ];
   for (const c of cases) {
