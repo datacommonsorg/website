@@ -29,6 +29,8 @@ locals {
   # <<<<< END Important note >>>>>
   dc_website_domain = coalesce(
     var.dc_website_domain, format("%s-datacommons.com", var.project_id))
+
+  resource_suffx = var.use_resource_suffix ? format("-%s", random_id.rnd.hex) : ""
 }
 
 module "enabled_google_apis" {
@@ -63,14 +65,14 @@ resource "google_service_account" "web_robot" {
 }
 
 resource "google_compute_global_address" "dc_website_ingress_ip" {
-  name         = format("dc-website-ip-%s", random_id.rnd.hex)
+  name         = format("dc-website-ip%s", local.resource_suffx)
   project      = var.project_id
 
   depends_on   = [module.enabled_google_apis]
 }
 
 resource "google_dns_managed_zone" "datacommons_zone" {
-  name          = format("datacommons-%s", random_id.rnd.hex)
+  name          = format("datacommons%s", local.resource_suffx)
   dns_name      = format("%s.", local.dc_website_domain)
   project       = var.project_id
   dynamic "dnssec_config" {

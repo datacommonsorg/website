@@ -104,3 +104,9 @@ Ex2: 'Jane Done','John Doe'
 EOF
   default = "'Datacommons Team'"
 }
+
+variable "use_resource_suffix" {
+  type        = bool
+  description = "If true then add a random suffix to the ending of GCP resource names to avoid name collision."
+  default     = false
+}
