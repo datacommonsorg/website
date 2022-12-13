@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 locals {
-  resource_suffix = var.use_resource_suffix ? format("-%s", var.resource_suffix) : ""
+  resource_suffix    = var.use_resource_suffix ? format("-%s", var.resource_suffix) : ""
+  web_robot_sa_email = (
+    var.web_robot_sa_email ?
+    var.web_robot_sa_email :
+    format("website-robot@%s.iam.gserviceaccount.com", var.project_id)
 }
 
 resource "google_project_iam_member" "web_robot_iam" {
@@ -30,7 +34,7 @@ resource "google_project_iam_member" "web_robot_iam" {
     "roles/secretmanager.secretAccessor"
   ])
   role    = each.key
-  member  = "serviceAccount:${var.web_robot_sa_email}"
+  member  = "serviceAccount:${local.web_robot_sa_email}"
   project = var.project_id
 }
 
@@ -52,7 +56,7 @@ module "cluster" {
   project_id               = var.project_id
   region                   = var.region
   cluster_name_prefix      = var.cluster_name_prefix
-  web_robot_sa_email       = var.web_robot_sa_email
+  web_robot_sa_email       = local.web_robot_sa_email
 
   resource_suffix          = local.resource_suffix
 
