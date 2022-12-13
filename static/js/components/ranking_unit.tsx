@@ -21,23 +21,13 @@
 import React from "react";
 
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
+import { RankingPoint } from "../types/ranking_unit_types";
 
 const NUM_FRACTION_DIGITS = 2;
 
-// TODO: move this as a general data type.
-export interface Point {
-  placeDcid: string;
-  placeName?: string;
-  value: number;
-  /**
-   * If not provided, the component will calculate the rank based on the order of the input points.
-   */
-  rank?: number;
-}
-
 interface RankingUnitPropType {
   title: string;
-  points: Point[];
+  points: RankingPoint[];
   /**
    * If true, rows are ordered from highest ranks to lowest, e.g., 1,2,3...
    * Otherwise, from lowest to highest, e.g., n,n-1,n-2,...

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { StatVarSpec } from "../shared/types";
-import { StatVarSpecMap } from "./topic_config";
+import { StatVarSpec } from "../../shared/types";
+import { StatVarSpecMap } from "../../types/subject_page_proto_types";
 
 // Provider for stat var spec in a category.
 // TODO: move data fetching from individual tiles here.

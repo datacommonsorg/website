@@ -15,18 +15,18 @@
  */
 
 /**
- * Component for rendering a section (a container for blocks).
+ * Component for rendering a category (a container for blocks).
  */
 
 import React from "react";
 
-import { ErrorBoundary } from "../shared/error_boundary";
-import { NamedTypedPlace } from "../shared/types";
-import { randDomId } from "../shared/util";
+import { NamedTypedPlace } from "../../shared/types";
+import { randDomId } from "../../shared/util";
+import { CategoryConfig } from "../../types/subject_page_proto_types";
+import { getRelLink } from "../../utils/subject_page_utils";
+import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
 import { StatVarProvider } from "./stat_var_provider";
-import { getRelLink } from "./string_utils";
-import { CategoryConfig } from "./topic_config";
 
 export interface CategoryPropType {
   config: CategoryConfig;

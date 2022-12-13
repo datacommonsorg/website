@@ -16,16 +16,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { DEFAULT_PAGE_PLACE_TYPE } from "../constants/subject_page_constants";
 import { loadLocaleData } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
-import { DEFAULT_PAGE_PLACE_TYPE } from "./constants";
-import { MainPane } from "./main_pane";
-import { Sidebar } from "./sidebar";
-
-export interface TopicsSummary {
-  topicPlaceMap: Record<string, string[]>;
-  topicNameMap: Record<string, string>;
-}
+import { TopicsSummary } from "../types/app/topic_page_types";
+import { App } from "./app";
 
 window.onload = () => {
   renderPage();
@@ -61,19 +56,12 @@ function renderPage(): void {
   };
 
   ReactDOM.render(
-    React.createElement(Sidebar, {
-      categories: pageConfig.categories,
-    }),
-    document.getElementById("sidebar")
-  );
-
-  ReactDOM.render(
-    React.createElement(MainPane, {
+    React.createElement(App, {
       place,
       topic,
       pageConfig,
       topicsSummary,
     }),
-    document.getElementById("main-pane")
+    document.getElementById("body")
   );
 }

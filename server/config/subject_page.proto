@@ -18,7 +18,7 @@ package datacommons;
 
 // When a new placeholder is added in any topic page config, add that
 // placeholder as a field in the ReplacementStrings interface in
-// static/js/topic_page/string_utils.ts.
+// static/js/types/tile_types.ts.
 
 message PageMetadata {
   string topic_id = 1;

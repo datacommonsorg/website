@@ -22,15 +22,15 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
-import { drawLineChart } from "../chart/draw";
-import { SeriesApiResponse } from "../shared/stat_types";
-import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { computeRatio } from "../tools/shared_util";
-import { stringifyFn } from "../utils/axios";
+import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
+import { drawLineChart } from "../../chart/draw";
+import { CHART_HEIGHT } from "../../constants/tile_constants";
+import { SeriesApiResponse } from "../../shared/stat_types";
+import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { computeRatio } from "../../tools/shared_util";
+import { stringifyFn } from "../../utils/axios";
+import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
-import { CHART_HEIGHT } from "./constants";
-import { getStatVarName, ReplacementStrings } from "./string_utils";
 
 interface LineTilePropType {
   id: string;

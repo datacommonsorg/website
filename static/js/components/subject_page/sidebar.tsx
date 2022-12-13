@@ -13,36 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * Component for rendering the side bar of a subject page.
+ */
+
 import _ from "lodash";
 import React from "react";
 
-import { randDomId } from "../shared/util";
-import { getRelLink } from "./string_utils";
-import { CategoryConfig } from "./topic_config";
+import { randDomId } from "../../shared/util";
+import { CategoryConfig } from "../../types/subject_page_proto_types";
+import { getRelLink } from "../../utils/subject_page_utils";
 
-interface SidebarPropsType {
+interface SubjectPageSidebarPropType {
   /**
    * Categories from the page config.
    */
   categories: CategoryConfig[];
 }
 
-export function Sidebar(props: SidebarPropsType): JSX.Element {
+export function SubjectPageSidebar(
+  props: SubjectPageSidebarPropType
+): JSX.Element {
   return (
-    <ul id="nav-topics" className="nav flex-column accordion">
-      {!_.isEmpty(props.categories) &&
-        props.categories.map((category) => {
-          // Add the category
-          const elements = [renderItem(category.title, true)];
-          // Add all child blocks
-          category.blocks.forEach((block) => {
-            if (block.title) {
-              elements.push(renderItem(block.title, false));
-            }
-          });
-          return elements;
-        })}
-    </ul>
+    <div id="sidebar" className="col-md-3x col-lg-2 order-last order-lg-0">
+      <ul id="nav-topics" className="nav flex-column accordion">
+        {!_.isEmpty(props.categories) &&
+          props.categories.map((category) => {
+            // Add the category
+            const elements = [renderItem(category.title, true)];
+            // Add all child blocks
+            category.blocks.forEach((block) => {
+              if (block.title) {
+                elements.push(renderItem(block.title, false));
+              }
+            });
+            return elements;
+          })}
+      </ul>
+    </div>
   );
 }
 
