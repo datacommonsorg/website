@@ -35,3 +35,14 @@ variable "num_nodes" {
   description = "Number of nodes to create in GKE cluster."
   default     = 1
 }
+
+variable "web_robot_sa_email" {
+  type        = string
+  description = "Full service account used for workload identity."
+}
+
+
+variable "resource_suffix" {
+  type        = string
+  description = "Resource suffix unique defines a terraform actuation instance."
+}

@@ -70,4 +70,3 @@ variable "mixer_githash" {
   description = "Mixer githash"
   default     = "0515f78"
 }
-
