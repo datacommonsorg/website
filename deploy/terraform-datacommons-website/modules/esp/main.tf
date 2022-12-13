@@ -45,3 +45,13 @@ resource "google_endpoints_service" "mixer_endpoint" {
     data.local_file.mixer_grpc_latest_pb
   ]
 }
+
+# Service deployed to Cloud Endpoints must first be enabled before usage.
+resource "google_project_service" "project" {
+  project = var.project_id
+  service = "website-esp.endpoints.${var.project_id}.cloud.goog"
+
+  depends_on = [
+    google_endpoints_service.mixer_endpoint
+  ]
+}
