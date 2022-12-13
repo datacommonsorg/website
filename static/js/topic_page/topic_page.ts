@@ -16,11 +16,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { SubjectPage } from "../components/subject_page/subject_page";
 import { DEFAULT_PAGE_PLACE_TYPE } from "../constants/subject_page_constants";
 import { loadLocaleData } from "../i18n/i18n";
 import { NamedTypedPlace } from "../shared/types";
-import { SubjectPageConfigSummary } from "../types/subject_page_types";
+import { TopicsSummary } from "../types/app/topic_page_types";
+import { App } from "./app";
 
 window.onload = () => {
   renderPage();
@@ -37,7 +37,7 @@ function renderPage(): void {
   const pageConfig = JSON.parse(
     document.getElementById("topic-config").dataset.config
   );
-  const allConfigsSummary: SubjectPageConfigSummary = JSON.parse(
+  const topicsSummary: TopicsSummary = JSON.parse(
     document.getElementById("topic-config").dataset.topicsSummary
   );
 
@@ -56,11 +56,11 @@ function renderPage(): void {
   };
 
   ReactDOM.render(
-    React.createElement(SubjectPage, {
+    React.createElement(App, {
       place,
       topic,
       pageConfig,
-      allConfigsSummary,
+      topicsSummary,
     }),
     document.getElementById("body")
   );

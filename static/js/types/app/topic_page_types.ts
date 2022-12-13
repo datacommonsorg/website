@@ -15,10 +15,13 @@
  */
 
 /**
- * Types used by subject page components.
+ * Types used by topic pages app.
  */
 
-export interface SubjectPageConfigSummary {
+/**
+ * Used by the PageSelector to create links to all known topic pages.
+ */
+export interface TopicsSummary {
   topicPlaceMap: Record<string, string[]>;
   topicNameMap: Record<string, string>;
 }

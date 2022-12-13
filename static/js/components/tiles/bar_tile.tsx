@@ -27,7 +27,7 @@ import { drawGroupBarChart } from "../../chart/draw";
 import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { Point } from "../../types/ranking_unit_types";
+import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
@@ -132,7 +132,7 @@ function processData(
   // TODO(beets): Fill in source URLs.
 
   // Find the most populated places.
-  let popPoints: Point[] = [];
+  let popPoints: RankingPoint[] = [];
   for (const place in raw.data[FILTER_STAT_VAR]) {
     popPoints.push({
       placeDcid: place,

@@ -21,13 +21,13 @@
 import React from "react";
 
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
-import { Point } from "../types/ranking_unit_types";
+import { RankingPoint } from "../types/ranking_unit_types";
 
 const NUM_FRACTION_DIGITS = 2;
 
 interface RankingUnitPropType {
   title: string;
-  points: Point[];
+  points: RankingPoint[];
   /**
    * If true, rows are ordered from highest ranks to lowest, e.g., 1,2,3...
    * Otherwise, from lowest to highest, e.g., n,n-1,n-2,...

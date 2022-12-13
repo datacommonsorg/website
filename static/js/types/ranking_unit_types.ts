@@ -19,7 +19,7 @@
  */
 
 // TODO: move this as a general data type.
-export interface Point {
+export interface RankingPoint {
   placeDcid: string;
   placeName?: string;
   value: number;

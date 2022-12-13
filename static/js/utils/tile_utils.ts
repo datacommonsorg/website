@@ -15,7 +15,7 @@
  */
 
 /**
- * util functions used by tile components.
+ * Util functions used by tile components.
  */
 
 import { getStatsVarLabel } from "../shared/stats_var_labels";

@@ -25,31 +25,23 @@ import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants"
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
-import { SubjectPageConfigSummary } from "../../types/subject_page_types";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
-import { PageSelector } from "./page_selector";
 
-interface MainPanePropType {
+interface SubjectPageMainPanePropType {
   /**
    * The place to show the page for.
    */
   place: NamedTypedPlace;
   /**
-   * The topic of the current page.
-   */
-  topic: string;
-  /**
    * Config of the page
    */
   pageConfig: SubjectPageConfig;
-  /**
-   * Summary of all available page configs
-   */
-  allConfigsSummary: SubjectPageConfigSummary;
 }
 
-export function MainPane(props: MainPanePropType): JSX.Element {
+export function SubjectPageMainPane(
+  props: SubjectPageMainPanePropType
+): JSX.Element {
   const placeType = props.place.types
     ? props.place.types[0]
     : DEFAULT_PAGE_PLACE_TYPE;
@@ -57,11 +49,6 @@ export function MainPane(props: MainPanePropType): JSX.Element {
     props.pageConfig.metadata.containedPlaceTypes[placeType];
   return (
     <>
-      <PageSelector
-        selectedPlace={props.place}
-        selectedTopic={props.topic}
-        allConfigsSummary={props.allConfigsSummary}
-      />
       {!_.isEmpty(props.pageConfig) &&
         props.pageConfig.categories.map((category) => {
           const id = randDomId();

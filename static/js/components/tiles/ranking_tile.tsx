@@ -24,7 +24,7 @@ import React, { useEffect, useState } from "react";
 
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { Point } from "../../types/ranking_unit_types";
+import { RankingPoint } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { getPlaceNames } from "../../utils/place_utils";
@@ -34,7 +34,7 @@ import { RankingUnit } from "../ranking_unit";
 const RANKING_COUNT = 5;
 
 interface RankingGroup {
-  points: Point[];
+  points: RankingPoint[];
   unit: string;
   scaling: number;
   numDataPoints?: number;

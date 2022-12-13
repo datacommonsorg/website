@@ -15,18 +15,20 @@
  */
 
 /**
- * Component for rendering a subject page.
+ * Component for rendering the main pane of a subject page.
  */
 
+import _ from "lodash";
 import React from "react";
 
-import { NamedTypedPlace } from "../../shared/types";
-import { SubjectPageConfig } from "../../types/subject_page_proto_types";
-import { SubjectPageConfigSummary } from "../../types/subject_page_types";
-import { MainPane } from "./main_pane";
-import { Sidebar } from "./sidebar";
+import { SubjectPageMainPane } from "../components/subject_page/main_pane";
+import { SubjectPageSidebar } from "../components/subject_page/sidebar";
+import { NamedTypedPlace } from "../shared/types";
+import { TopicsSummary } from "../types/app/topic_page_types";
+import { SubjectPageConfig } from "../types/subject_page_proto_types";
+import { PageSelector } from "./page_selector";
 
-export interface SubjectPagePropType {
+interface AppPropType {
   /**
    * The place to show the page for.
    */
@@ -40,27 +42,28 @@ export interface SubjectPagePropType {
    */
   pageConfig: SubjectPageConfig;
   /**
-   * Summary for all available page configs
+   * Summary of all available page configs
    */
-  allConfigsSummary: SubjectPageConfigSummary;
+  topicsSummary: TopicsSummary;
 }
 
-export function SubjectPage(props: SubjectPagePropType): JSX.Element {
+export function App(props: AppPropType): JSX.Element {
   return (
-    <div id="subject-page" className="row">
-      <div id="sidebar" className="col-md-3x col-lg-2 order-last order-lg-0">
-        <Sidebar categories={props.pageConfig.categories} />
-      </div>
-      <div className="col-md-9x col-lg-10">
-        <div id="main-pane" className="row">
-          <MainPane
+    <>
+      <div className="row">
+        <SubjectPageSidebar categories={props.pageConfig.categories} />
+        <div className="row col-md-9x col-lg-10">
+          <PageSelector
+            selectedPlace={props.place}
+            selectedTopic={props.topic}
+            topicsSummary={props.topicsSummary}
+          />
+          <SubjectPageMainPane
             place={props.place}
-            topic={props.topic}
             pageConfig={props.pageConfig}
-            allConfigsSummary={props.allConfigsSummary}
           />
         </div>
       </div>
-    </div>
+    </>
   );
 }

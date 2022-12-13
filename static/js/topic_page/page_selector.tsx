@@ -23,14 +23,14 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { CustomInput } from "reactstrap";
 
-import { NamedTypedPlace } from "../../shared/types";
-import { SubjectPageConfigSummary } from "../../types/subject_page_types";
-import { getPlaceNames } from "../../utils/place_utils";
+import { NamedTypedPlace } from "../shared/types";
+import { TopicsSummary } from "../types/app/topic_page_types";
+import { getPlaceNames } from "../utils/place_utils";
 
 interface PageSelectorPropType {
   selectedPlace: NamedTypedPlace;
   selectedTopic: string;
-  allConfigsSummary: SubjectPageConfigSummary;
+  topicsSummary: TopicsSummary;
 }
 
 export function PageSelector(props: PageSelectorPropType): JSX.Element {
@@ -39,15 +39,11 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
   >({});
 
   useEffect(() => {
-    getPlaceOptions(
-      props.selectedTopic,
-      props.allConfigsSummary,
-      setPlaceOptions
-    );
+    getPlaceOptions(props.selectedTopic, props.topicsSummary, setPlaceOptions);
   }, [props]);
 
   const topicName =
-    props.allConfigsSummary.topicNameMap[props.selectedTopic] ||
+    props.topicsSummary.topicNameMap[props.selectedTopic] ||
     props.selectedTopic;
 
   return (
@@ -115,10 +111,10 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
 
 function getPlaceOptions(
   selectedTopic: string,
-  allConfigsSummary: SubjectPageConfigSummary,
+  topicsSummary: TopicsSummary,
   setPlaceOptions: (placeOptions: Record<string, string>) => void
 ): void {
-  const placeOptionDcids = allConfigsSummary.topicPlaceMap[selectedTopic] || [];
+  const placeOptionDcids = topicsSummary.topicPlaceMap[selectedTopic] || [];
   // TODO: make this call in flask and pass it down with the topicsSummary
   getPlaceNames(placeOptionDcids)
     .then((placeNames) => {
@@ -141,11 +137,11 @@ function selectPlace(
 
 function selectTopic(
   currentPlace: string,
-  allConfigsSummary: SubjectPageConfigSummary,
+  topicsSummary: TopicsSummary,
   event: React.ChangeEvent<HTMLInputElement>
 ): void {
   const topic = event.target.value;
-  const possiblePlaces = allConfigsSummary.topicPlaceMap[topic];
+  const possiblePlaces = topicsSummary.topicPlaceMap[topic];
   if (
     _.isEmpty(currentPlace) ||
     !possiblePlaces.find((place) => place === currentPlace)
