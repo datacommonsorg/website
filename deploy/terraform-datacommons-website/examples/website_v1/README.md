@@ -6,10 +6,9 @@ This is the installation step for custom Datacommons web application. This step 
 - The email activation link for the newly registered domain has been clicked.
 - custom-datacommons-support@google.com has replied back stating that data access is granted.
 
-# Steps
+## Steps
 
 1. Please fill in the fields in `variables.tfvars`.
-
 2. Run the following script.
 
 ```sh

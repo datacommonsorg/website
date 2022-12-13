@@ -14,7 +14,7 @@
 
 locals {
     # Example cluster name: datacommons-us-central1
-    cluster_name = format("%s-%s-%s",var.cluster_name_prefix,var.region, var.resource_suffix)
+    cluster_name = format("%s-%s%s",var.cluster_name_prefix,var.region, var.resource_suffix)
 }
 
 resource "null_resource" "gke_cluster" {

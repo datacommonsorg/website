@@ -13,11 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-variable "resource_suffix" {
-  type        = string
-  description = "This is the resource_suffix generated from the setup step."
-}
-
 variable "project_id" {
   type        = string
   description = "This is the same GCP project id from the setup step."
@@ -50,4 +45,16 @@ variable "global_static_ip_name" {
   type        =  string
   description = "Name of the global static IP that exposes DC web service."
   default     = null
+}
+
+variable "resource_suffix" {
+  type        = string
+  description = "This is the resource_suffix generated from the setup step, if previous step used resource suffix."
+  default     = null
+}
+
+variable "use_resource_suffix" {
+  type        = bool
+  description = "If true then add a random suffix to the ending of GCP resource names to avoid name collision."
+  default     = false
 }

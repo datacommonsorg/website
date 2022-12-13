@@ -13,6 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+locals {
+  resource_suffix = var.use_resource_suffix ? format("-%s", var.resource_suffix) : ""
+}
+
 resource "google_project_iam_member" "web_robot_iam" {
   for_each = toset([
     "roles/endpoints.serviceAgent", # service control report for endpoints.
@@ -35,7 +39,7 @@ module "apikeys" {
   project_id               = var.project_id
   dc_website_domain        = var.dc_website_domain
 
-  resource_suffix          = var.resource_suffix
+  resource_suffix          = local.resource_suffix
 }
 
 module "esp" {
@@ -50,7 +54,7 @@ module "cluster" {
   cluster_name_prefix      = var.cluster_name_prefix
   web_robot_sa_email       = var.web_robot_sa_email
 
-  resource_suffix          = var.resource_suffix
+  resource_suffix          = local.resource_suffix
 
   depends_on = [
     module.apikeys,
@@ -60,7 +64,7 @@ module "cluster" {
 }
 
 resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
-  name    = format("dc-website-cert-%s", var.resource_suffix)
+  name    = format("dc-website-cert%s", local.resource_suffix)
   project = var.project_id
 
   managed {
@@ -110,7 +114,7 @@ module "k8s_resources" {
   cluster_name             = module.cluster.name
   cluster_region           = var.region
   dc_website_domain        = var.dc_website_domain
-  global_static_ip_name    = format("dc-website-ip-%s", var.resource_suffix)
+  global_static_ip_name    = format("dc-website-ip%s", local.resource_suffix)
   managed_cert_name        = google_compute_managed_ssl_certificate.dc_website_cert.name
 
   depends_on = [
