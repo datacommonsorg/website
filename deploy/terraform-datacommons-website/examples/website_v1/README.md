@@ -9,7 +9,14 @@ This is the installation step for custom Datacommons web application. This step 
 ## Steps
 
 1. Please fill in the fields in `variables.tfvars`.
-2. Run the following script.
+2. PLease run the following commands.
+
+```sh
+git submodule foreach git pull origin master
+git submodule update --init --recursive
+```
+
+3. Run the following script.
 
 ```sh
 terraform init && terraform apply --var-file="variables.tfvars" -auto-approve
