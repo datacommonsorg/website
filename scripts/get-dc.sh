@@ -14,6 +14,26 @@
 # limitations under the License.
 set -e
 
+TERRAFORM_PATH=$(which terraform)
+if [[ -n "$TERRAFORM_PATH" ]]; then
+    echo "Found Terraform: ${TERRAFORM_PATH}"
+else
+    echo "Error: Terraform command not found."
+    echo "Please follow the official guide on how to install it."
+    echo "https://developer.hashicorp.com/terraform/downloads"
+    exit 1
+fi
+
+GCLOUD_PATH=$(which gcloud)
+if [[ -n "$GCLOUD_PATH" ]]; then
+    echo "Found gcloud: ${GCLOUD_PATH}"
+else
+    echo "Error: gcloud command not found."
+    echo "Please follow the official guide on how to install it."
+    echo "https://cloud.google.com/sdk/docs/install"
+    exit 1
+fi
+
 if [[ -z "$PROJECT_ID" ]]; then
     echo "Error: environment variable PROJECT_ID is required but not set." 1>&2
     echo "Please set PROJECT_ID by running the following command." 1>&2
@@ -41,7 +61,9 @@ cd website
 git submodule foreach git pull origin master
 git submodule update --init --recursive
 
-cd deploy/terraform-datacommons-website/examples/setup
+WEBSITE_ROOT=$PWD
+
+cd $WEBSITE_ROOT/deploy/terraform-datacommons-website/examples/setup
 
 terraform init && terraform apply \
   -var="project_id=$PROJECT_ID" \
@@ -49,7 +71,7 @@ terraform init && terraform apply \
   ${CUSTOM_DC_DOMAIN:+-var="dc_website_domain=$CUSTOM_DC_DOMAIN"} \
   -auto-approve
 
-cd ../website_V1
+cd $WEBSITE_ROOT/deploy/terraform-datacommons-website/examples/website_v1
 
 DOMAIN="$PROJECT_ID-datacommons.com"
 if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
