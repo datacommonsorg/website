@@ -14,39 +14,52 @@
 # limitations under the License.
 set -e
 
-if [[ -z "${PROJECT_ID}" ]]; then
+if [[ -z "$PROJECT_ID" ]]; then
     echo "Error: environment variable PROJECT_ID is required but not set." 1>&2
     echo "Please set PROJECT_ID by running the following command." 1>&2
     echo "export PROJECT_ID=<GCP project id to install the DC web application in>" 1>&2
     exit 1
 fi
 
-if [[ -z "${CONTACT_EMAIL}" ]]; then
+if [[ -z "$CONTACT_EMAIL" ]]; then
     echo "Error: environment variable CONTACT_EMAIL is required but not set." 1>&2
     echo "Please set CONTACT_EMAIL by running the following command." 1>&2
     echo "export CONTACT_EMAIL=<Email that you have access to in order to activate the domain.>" 1>&2
     exit 1
 fi
 
+if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
+  echo "Custom domain name detected through the variable CUSTOM_DC_DOMAIN"
+  echo "Will register $CUSTOM_DC_DOMAIN."
+fi
+
 echo "Installing Custom Datacommons web application in $PROJECT_ID."
 
 # Clone DC website repo and mixer submodule.
 git clone https://github.com/datacommonsorg/website
+cd website
 git submodule foreach git pull origin master
 git submodule update --init --recursive
 
-cd website/deploy/terraform-datacommons-website/examples/setup
+cd deploy/terraform-datacommons-website/examples/setup
 
 terraform init && terraform apply \
   -var="project_id=$PROJECT_ID" \
-  -var="contact_email=$CONTACT_EMAIL" -auto-approve
+  -var="contact_email=$CONTACT_EMAIL" \
+  ${CUSTOM_DC_DOMAIN:+-var="dc_website_domain=$CUSTOM_DC_DOMAIN"} \
+  -auto-approve
 
 cd ../website_V1
+
+DOMAIN="$PROJECT_ID-datacommons.com"
+if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
+  DOMAIN=$CUSTOM_DC_DOMAIN
+fi
 
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
 terraform init && terraform apply \
   -var="project_id=$PROJECT_ID" \
-  -var="dc_website_domain=$PROJECT_ID-datacommons.com" -auto-approve
+  -var="dc_website_domain=$DOMAIN" -auto-approve
 
 echo "Successfully launched the installer in $PROJECT_ID."
 echo "Please don't forget to email custom-datacommons-support@google.com for data access."
