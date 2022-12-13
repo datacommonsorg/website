@@ -48,6 +48,8 @@ terraform init && terraform apply \
   -var="project_id=$PROJECT_ID" \
   -var="dc_website_domain=$PROJECT_ID-datacommons.com" -auto-approve
 
-echo "The setup step has completed successfully."
+echo "Successfully launched the installer in $PROJECT_ID."
 echo "Please don't forget to email custom-datacommons-support@google.com for data access."
 echo "Please also make sure to click on the activation email for the newly created domain."
+echo "You should expect the instance to be accessible via https://$PROJECT_ID-datacommons.com"
+echo "within 30 minutes or so after custom-datacommons-support@google.com responds."
