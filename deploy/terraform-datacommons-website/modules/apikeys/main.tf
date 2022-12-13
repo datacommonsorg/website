@@ -25,7 +25,7 @@
 #   1. Uncomment the resource below.
 #   2. Delete null_resource.maps_api_key block.
 #   3. Delete local_file.website_api_key block.
-#   4. Replace all references of null_resource.maps_api_key 
+#   4. Replace all references of null_resource.maps_api_key
 #      with "google_apikeys_key.maps_api_key".
 #   5. Replace data.local_file.website_api_key.content
 #      with "google_apikeys_key.maps_api_key.key_string".
@@ -57,14 +57,14 @@ resource "null_resource" "maps_api_key" {
     command = <<EOT
 gcloud alpha services api-keys create \
 --project=${var.project_id} \
---display-name=maps-api-key \
---allowed-referrers=https://${var.website_domain}/* \
+--display-name=maps-api-key${var.resource_suffix} \
+--allowed-referrers=https://${var.dc_website_domain}/* \
 --api-target=service=maps-backend.googleapis.com \
 --api-target=service=places-backend.googleapis.com
-   
+
 touch /tmp/dc-website-api-key
 
-API_KEY_NAME=$(gcloud alpha services api-keys list --filter='displayName=maps-api-key' --format='value(name)')
+API_KEY_NAME=$(gcloud alpha services api-keys list --project=${var.project_id} --filter='displayName=maps-api-key${var.resource_suffix}' --format='value(name)' | head -n 1)
 gcloud alpha services api-keys get-key-string $API_KEY_NAME --format='value(keyString)' >> /tmp/dc-website-api-key
 
 EOT
@@ -79,7 +79,7 @@ data "local_file" "website_api_key" {
 }
 
 resource "google_secret_manager_secret" "maps_api_key_secret" {
-  secret_id    = "maps-api-key"
+  secret_id    = format("maps-api-key%s", var.resource_suffix)
   project      =  var.project_id
 
   replication {

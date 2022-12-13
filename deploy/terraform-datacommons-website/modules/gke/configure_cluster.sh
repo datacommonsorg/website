@@ -12,23 +12,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+gcloud container clusters get-credentials $CLUSTER_NAME \
+  --region $REGION --project=$PROJECT_ID
 
-gcloud container clusters get-credentials $CLUSTER_NAME --region $REGION
+# Create namespace if it does not exist.
+kubectl create namespace website \
+  --dry-run=client -o yaml | kubectl apply -f -
 
-# Create namespace
-kubectl create namespace website
-
-# Create service account which is mapped to the GCP service account for Workload Identity.
-kubectl create serviceaccount --namespace website website-ksa
+# Create service account which is mapped to the GCP service account for Workload Identity
+# if one does not exist.
+kubectl create serviceaccount --namespace website website-ksa \
+  --dry-run=client -o yaml | kubectl apply -f -
 
 # Allow the Kubernetes service account to impersonate the Google service account
 gcloud iam service-accounts add-iam-policy-binding \
+  --project $PROJECT_ID \
   --role roles/iam.workloadIdentityUser \
   --member "serviceAccount:$PROJECT_ID.svc.id.goog[website/website-ksa]" \
-  website-robot@$PROJECT_ID.iam.gserviceaccount.com
+  $WEB_ROBOT_SA_EMAIL
 
-# Annotate service account
+# Annotate service account.
 kubectl annotate serviceaccount \
   --namespace website \
+  --overwrite \
   website-ksa \
-  iam.gke.io/gcp-service-account=website-robot@$PROJECT_ID.iam.gserviceaccount.com
+  iam.gke.io/gcp-service-account=$WEB_ROBOT_SA_EMAIL
