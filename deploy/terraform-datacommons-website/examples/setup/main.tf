@@ -49,6 +49,8 @@ module "enabled_google_apis" {
     "iam.googleapis.com",
     "iap.googleapis.com",
     "logging.googleapis.com",
+    "maps-backend.googleapis.com", # Maps Javascript API
+    "places-backend.googleapis.com", # Google maps places API
     "monitoring.googleapis.com",
     "secretmanager.googleapis.com",
     "servicenetworking.googleapis.com",
