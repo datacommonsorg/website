@@ -18,9 +18,11 @@
  * Styling for subject page components.
  */
 
- @forward "tiles";
+@forward "tiles";
 
-// main pane
+/**
+ * main pane
+ */
 
 #subject-page-main-pane {
   .block .row {
@@ -31,7 +33,7 @@
   .col-12 {
     padding: 1em 0 2em 0;
   }
-} 
+}
 
 article.category > h2 {
   color: var(--dc-gray);
@@ -68,7 +70,9 @@ article.category > h2 {
   flex-grow: 1;
 }
 
-// sidebar
+/**
+ * sidebar
+ */
 
 #subject-page-sidebar {
   padding-top: 100px;

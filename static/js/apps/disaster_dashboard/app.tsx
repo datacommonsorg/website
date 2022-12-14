@@ -18,7 +18,6 @@
  * Main component for the disaster dashboard.
  */
 
-import _ from "lodash";
 import React from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";

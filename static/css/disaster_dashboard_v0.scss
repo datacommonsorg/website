@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
- @import "base";
+@import "base";
 
- $border: 1px solid rgba(0, 0, 0, 0.125);
- $border-radius: 0.5rem;
+$border: 1px solid rgba(0, 0, 0, 0.125);
+$border-radius: 0.5rem;
 
 .all-disasters-legend-entry {
   display: flex;
@@ -52,7 +52,7 @@
 .disaster-dashboard-tab-selected,
 .disaster-dashboard-tab:hover {
   border-bottom: 1px solid var(--dc-primary);
-  color: var(--dc-primary)
+  color: var(--dc-primary);
 }
 
 #main-disaster-dashboard {

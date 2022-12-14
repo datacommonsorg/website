@@ -57,7 +57,9 @@ $highlight-font-family: base.$headings-font-family;
   width: 100%;
 }
 
-// highlight tile
+/**
+ * highlight tile
+ */
 
 .highlight-tile {
   display: flex;
@@ -78,7 +80,9 @@ $highlight-font-family: base.$headings-font-family;
   }
 }
 
-// scatter tile
+/**
+ * scatter tile
+ */
 
 .scatter-svg-container {
   font-size: 0.75rem;
@@ -93,7 +97,9 @@ $highlight-font-family: base.$headings-font-family;
   }
 }
 
-// ranking tile
+/**
+ * ranking tile
+ */
 
 .ranking-tile {
   display: grid;
