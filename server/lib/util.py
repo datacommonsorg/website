@@ -17,7 +17,7 @@ import hashlib
 import json
 import os
 from google.protobuf import text_format
-from config import topic_page_pb2
+from config import subject_page_pb2
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
@@ -49,8 +49,8 @@ def get_chart_config():
   return chart_config
 
 
-# Returns topic pages loaded as TopicPageConfig protos:
-# { topic_id: [TopicPageConfig,...] }
+# Returns topic pages loaded as SubjectPageConfig protos:
+# { topic_id: [SubjectPageConfig,...] }
 def get_topic_page_config():
   topic_configs = {}
   for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
@@ -60,7 +60,7 @@ def get_topic_page_config():
           os.path.join('config', 'topic_page', topic_id,
                        filename + '.textproto'), 'r') as f:
         data = f.read()
-        topic_page_config = topic_page_pb2.TopicPageConfig()
+        topic_page_config = subject_page_pb2.SubjectPageConfig()
         text_format.Parse(data, topic_page_config)
         configs.append(topic_page_config)
     topic_configs[topic_id] = configs

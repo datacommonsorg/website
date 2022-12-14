@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- output "map_api_key_secret_id" {
+output "map_api_key_secret_id" {
   description = "Secret id of maps api key that can be referenced."
   value       = google_secret_manager_secret.maps_api_key_secret.secret_id
 }

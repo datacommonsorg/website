@@ -24,8 +24,8 @@ import React, { useEffect, useState } from "react";
 import { CustomInput } from "reactstrap";
 
 import { NamedTypedPlace } from "../shared/types";
+import { TopicsSummary } from "../types/app/topic_page_types";
 import { getPlaceNames } from "../utils/place_utils";
-import { TopicsSummary } from "./topic_page";
 
 interface PageSelectorPropType {
   selectedPlace: NamedTypedPlace;
