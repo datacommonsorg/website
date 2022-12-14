@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * Entrypoint for topic pages.
+ */
+
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { DEFAULT_PAGE_PLACE_TYPE } from "../constants/subject_page_constants";
-import { loadLocaleData } from "../i18n/i18n";
-import { NamedTypedPlace } from "../shared/types";
-import { TopicsSummary } from "../types/app/topic_page_types";
+import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
+import { loadLocaleData } from "../../i18n/i18n";
+import { NamedTypedPlace } from "../../shared/types";
+import { TopicsSummary } from "../../types/app/topic_page_types";
 import { App } from "./app";
 
 window.onload = () => {
@@ -44,10 +49,10 @@ function renderPage(): void {
   // TODO(beets): use locale from URL
   const locale = "en";
   loadLocaleData(locale, [
-    import(`../i18n/compiled-lang/${locale}/place.json`),
+    import(`../../i18n/compiled-lang/${locale}/place.json`),
     // TODO(beets): Figure out how to place this where it's used so dependencies can be automatically resolved.
-    import(`../i18n/compiled-lang/${locale}/stats_var_labels.json`),
-    import(`../i18n/compiled-lang/${locale}/units.json`),
+    import(`../../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+    import(`../../i18n/compiled-lang/${locale}/units.json`),
   ]);
   const place: NamedTypedPlace = {
     dcid,
