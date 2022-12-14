@@ -88,7 +88,7 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_stanford_dc(app):
+def register_routes_stanford_dc(app, is_test):
   # Install blueprints specific to Stanford DC
   from routes import (disasters)
   from routes.api import (disaster_api)
@@ -96,9 +96,7 @@ def register_routes_stanford_dc(app):
   app.register_blueprint(disaster_api.bp)
 
   # load disaster dashboard data from GCS
-  if os.environ.get('FLASK_ENV') in [
-      'autopush', 'local', 'dev', 'local-stanford', 'stanford'
-  ]:
+  if not is_test:
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
@@ -194,12 +192,12 @@ def create_app():
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
-  if cfg.ENV_NAME == 'STANFORD':
-    register_routes_stanford_dc(app)
+  if cfg.ENV_NAME == 'STANFORD' or os.environ.get('FLASK_ENV') == 'autopush':
+    register_routes_stanford_dc(app, cfg.TEST)
   if cfg.TEST:
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_base_dc(app)
-    register_routes_stanford_dc(app)
+    register_routes_stanford_dc(app, cfg.TEST)
   else:
     register_routes_base_dc(app)
   if cfg.ADMIN:
