@@ -14,20 +14,10 @@
  * limitations under the License.
  */
 
+import { PropertyValue } from "../shared/types";
 /**
  * Types specific to event pages
  */
-
-export interface PropertyValue {
-  // Stores a single property value.
-  // You can think of this as representing a single node in the KG.
-  // Parameters match output of "nodes" from the triples API.
-  provenanceId: string;
-  dcid?: string;
-  name?: string;
-  value?: string;
-  types?: Array<string>;
-}
 export interface Property {
   // Stores all values of a single property of an event.
   // You can think of this as representing edges to other nodes (values)
