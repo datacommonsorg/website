@@ -90,10 +90,8 @@ def register_routes_custom_dc(app):
 
 def register_routes_stanford_dc(app):
   # Install blueprints specific to Stanford DC
-  from routes import (
-      disasters,
-      disaster_api,
-  )
+  from routes import (disasters)
+  from routes.api import (disaster_api)
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
 
@@ -197,6 +195,10 @@ def create_app():
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
   if cfg.ENV_NAME == 'STANFORD':
+    register_routes_stanford_dc(app)
+  if cfg.TEST:
+    # disaster dashboard tests require stanford's routes to be registered.
+    register_routes_base_dc(app)
     register_routes_stanford_dc(app)
   else:
     register_routes_base_dc(app)
