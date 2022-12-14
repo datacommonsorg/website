@@ -82,6 +82,12 @@ class StanfordConfig(CustomConfig):
   BASE_HTML_PATH = 'custom_dc/stanford/base.html'
 
 
+class StanfordStagingConfig(StanfordConfig):
+  NAME = "Google Stanford Data Commons (Staging)"
+  API_PROJECT = 'datcom-mixer-statvar'
+  SECRET_PROJECT = 'datcom-stanford-staging'
+
+
 class TidalConfig(CustomConfig):
   NAME = "Tidal"
 

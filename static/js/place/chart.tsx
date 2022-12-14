@@ -43,6 +43,7 @@ import {
   SnapshotData,
   TrendData,
 } from "../chart/types";
+import { RankingUnit } from "../components/ranking_unit";
 import {
   formatNumber,
   intl,
@@ -60,7 +61,7 @@ import {
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
-import { Point, RankingUnit } from "../topic_page/ranking_unit";
+import { RankingPoint } from "../types/ranking_unit_types";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
 
@@ -713,8 +714,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   private getRankingChartData(data: RankingChartDataGroup): {
-    lowest: Point[];
-    highest: Point[];
+    lowest: RankingPoint[];
+    highest: RankingPoint[];
   } {
     const lowestAndHighestDataPoints = { lowest: [], highest: [] };
     if (
