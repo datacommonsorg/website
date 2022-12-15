@@ -22,28 +22,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { EventPage } from "./page";
-import { Property } from "./types";
-
-/**
- * Parses response from triples API for later rendering.
- */
-function parseTriplesApiResponse(resp: string): Array<Property> {
-  const respJson = JSON.parse(resp.replaceAll("'", '"')); //JSON.parse requires double quotes
-  const parsedResponse = [];
-  for (const [property, connectedNodes] of Object.entries(respJson)) {
-    if (Object.prototype.hasOwnProperty.call(connectedNodes, "nodes")) {
-      parsedResponse.push({ dcid: property, values: connectedNodes["nodes"] });
-    }
-  }
-  return parsedResponse;
-}
 
 window.onload = () => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
-  const properties = parseTriplesApiResponse(
-    document.getElementById("node").dataset.pv
-  );
+  const properties = JSON.parse(document.getElementById("node").dataset.pv);
   ReactDOM.render(
     React.createElement(EventPage, {
       dcid: dcid,

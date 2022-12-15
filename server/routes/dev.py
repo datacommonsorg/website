@@ -45,14 +45,37 @@ def screenshot(folder):
 
 @bp.route('/event')
 def event():
-  if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+  if not os.environ.get('FLASK_ENV') in [
+      'autopush', 'local', 'dev', 'stanford', 'local-stanford',
+      'stanford-staging'
+  ]:
     flask.abort(404)
   return flask.render_template('dev/event.html')
 
 
+def parseTriplesResponse(response):
+  """Parses response from triples API.
+  
+  Returns a list of properties and their values in the form of:
+     {dcid: property_dcid, value: <nodes>}
+  where <nodes> map to the "nodes" key in the triples API response.
+  
+  The returned list is used to render property values in the event pages.
+  """
+  parsed = []
+  for key, value in response.items():
+    parsed.append({"dcid": key, "values": value["nodes"]})
+  parsed = str(parsed).replace(
+      "'", '"')  # JSON.parse on client side requires double quotes
+  return parsed
+
+
 @bp.route('/event/<path:dcid>')
 def event_node(dcid):
-  if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
+  if not os.environ.get('FLASK_ENV') in [
+      'autopush', 'local', 'dev', 'stanford', 'local-stanford',
+      'stanford-staging'
+  ]:
     flask.abort(404)
   node_name = dcid
   properties = "{}"
@@ -61,9 +84,10 @@ def event_node(dcid):
     if dcid in name_results.keys():
       node_name = name_results.get(dcid)
     properties = node_api.triples('out', dcid)
+    parsed_properties = parseTriplesResponse(properties)
   except Exception as e:
     logging.info(e)
   return render_template('dev/event.html',
                          dcid=dcid,
                          node_name=node_name,
-                         properties=properties)
+                         properties=parsed_properties)
