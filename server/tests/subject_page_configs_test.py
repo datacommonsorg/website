@@ -52,8 +52,10 @@ class TestSubjectPageConfigs(unittest.TestCase):
 
   def test_required_fields(self):
     """Tests all configs loaded at server start"""
-    all_configs = []
-    all_configs.append(libutil.get_topic_page_config())
+    all_configs = {}
+    all_configs.update(libutil.get_topic_page_config())
+    all_configs.update(
+        {"disaster_dashboard": libutil.get_disaster_dashboard_configs()})
     for id, configs in all_configs.items():
       for page_i, page in enumerate(configs):
         page_msg = f"{id}[config={page_i}]"
