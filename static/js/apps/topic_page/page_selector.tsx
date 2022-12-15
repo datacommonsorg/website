@@ -23,9 +23,9 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { CustomInput } from "reactstrap";
 
-import { NamedTypedPlace } from "../shared/types";
-import { TopicsSummary } from "../types/app/topic_page_types";
-import { getPlaceNames } from "../utils/place_utils";
+import { NamedTypedPlace } from "../../shared/types";
+import { TopicsSummary } from "../../types/app/topic_page_types";
+import { getPlaceNames } from "../../utils/place_utils";
 
 interface PageSelectorPropType {
   selectedPlace: NamedTypedPlace;

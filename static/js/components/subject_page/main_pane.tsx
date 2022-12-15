@@ -48,7 +48,7 @@ export function SubjectPageMainPane(
   const enclosedPlaceType =
     props.pageConfig.metadata.containedPlaceTypes[placeType];
   return (
-    <>
+    <div id="subject-page-main-pane">
       {!_.isEmpty(props.pageConfig) &&
         props.pageConfig.categories.map((category) => {
           const id = randDomId();
@@ -62,6 +62,6 @@ export function SubjectPageMainPane(
             </ErrorBoundary>
           );
         })}
-    </>
+    </div>
   );
 }

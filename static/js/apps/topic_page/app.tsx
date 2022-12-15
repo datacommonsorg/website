@@ -15,17 +15,17 @@
  */
 
 /**
- * Component for rendering the main pane of a subject page.
+ * Main component for topic pages.
  */
 
 import _ from "lodash";
 import React from "react";
 
-import { SubjectPageMainPane } from "../components/subject_page/main_pane";
-import { SubjectPageSidebar } from "../components/subject_page/sidebar";
-import { NamedTypedPlace } from "../shared/types";
-import { TopicsSummary } from "../types/app/topic_page_types";
-import { SubjectPageConfig } from "../types/subject_page_proto_types";
+import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
+import { NamedTypedPlace } from "../../shared/types";
+import { TopicsSummary } from "../../types/app/topic_page_types";
+import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { PageSelector } from "./page_selector";
 
 interface AppPropType {

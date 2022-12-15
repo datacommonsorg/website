@@ -20,6 +20,9 @@ package datacommons;
 // placeholder as a field in the ReplacementStrings interface in
 // static/js/types/tile_types.ts.
 
+// When adding a new config, make sure to add it to the list of configs that
+// are tested by test_required_fields() in subject_page_configs_test.py
+
 message PageMetadata {
   string topic_id = 1;
   string topic_name = 2;

@@ -95,11 +95,14 @@ def register_routes_stanford_dc(app, is_test):
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
 
-  # load disaster dashboard data from GCS
   if not is_test:
+    # load disaster dashboard data from GCS
     disaster_dashboard_data = get_disaster_dashboard_data(
         app.config['GCS_BUCKET'])
     app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+    # load disaster dashboard configs
+    disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
+    app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
 
 
 def register_routes_admin(app):

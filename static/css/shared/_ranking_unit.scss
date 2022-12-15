@@ -15,8 +15,30 @@
  */
 
 /**
- * Styling for disaster dashboard.
+ * Styling for ranking unit component.
  */
 
-@use "base";
-@use "./shared/subject_page";
+.ranking-list {
+  width: 100%;
+
+  td {
+    font-size: .9rem;
+    vertical-align: top;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  td.rank {
+    width: 10%;
+  }
+
+  td.stat {
+    width: 25%;
+  }
+  
+  .bold {
+    font-weight: 600;
+  }
+}
