@@ -22,6 +22,7 @@ EVENT_TYPES = [
     "HurricaneTyphoonEvent", "HurricaneEvent", "TornadoEvent", "FloodEvent",
     "DroughtEvent"
 ]
+DISASTER_DATA_FOLDER = "disaster_dashboard/"
 
 
 def get_disaster_dashboard_data(gcs_bucket):
@@ -57,7 +58,7 @@ def get_disaster_dashboard_data(gcs_bucket):
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(gcs_bucket)
     file_name = re.sub('(?!^)([A-Z]+)', r'_\1', event_type).lower() + ".json"
-    blob = bucket.get_blob(file_name)
+    blob = bucket.get_blob(DISASTER_DATA_FOLDER + file_name)
     if not blob:
       continue
     events_data = json.loads(blob.download_as_bytes())
