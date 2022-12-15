@@ -43,16 +43,6 @@ def screenshot(folder):
   return flask.render_template('dev/screenshot.html', images=images)
 
 
-@bp.route('/disaster-dashboard')
-def disaster_dashboard():
-  if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
-    flask.abort(404)
-  european_countries = json.dumps(
-      dc.get_places_in(["europe"], "Country").get("europe", []))
-  return flask.render_template('dev/disaster_dashboard.html',
-                               european_countries=european_countries)
-
-
 @bp.route('/event')
 def event():
   if not os.environ.get('FLASK_ENV') in ['autopush', 'local', 'dev']:
