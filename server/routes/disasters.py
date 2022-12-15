@@ -13,7 +13,7 @@
 # limitations under the License.
 """Endpoints for disaster dashboard"""
 
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, escape
 import services.datacommons as dc
 import json
 import os
@@ -55,7 +55,8 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   place_type = DEFAULT_PLACE_TYPE
   if place_dcid != DEFAULT_PLACE_DCID:
     place_type = place_api.get_place_type(place_dcid)
-  place_name = place_api.get_i18n_name([place_dcid]).get(place_dcid, place_dcid)
+  place_name = place_api.get_i18n_name([place_dcid
+                                       ]).get(place_dcid, escape(place_dcid))
 
   return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
                                place_type=place_type,
