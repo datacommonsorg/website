@@ -40,7 +40,7 @@ locals {
 # The resource bucket will hold
 # 1) Custom DC raw data (csv, tmcf)
 # 2) Compact cache (in csv) that will feed into BT tables.
-# 3) Various artifacts such as dataflow temp artifacts, state file.s
+# 3) Various artifacts such as dataflow temp artifacts, state files.
 resource "google_storage_bucket" "dc_resources" {
   name          = local.resource_bucket_name
   location      = var.resource_bucket_location
