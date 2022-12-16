@@ -17,7 +17,7 @@
 # Copy this file to `config.yaml` and use that.
 project: datcom-stanford
 ip: 34.111.26.86
-domain: stanford.datacommons.org
+domain: datacommons.stanford.edu
 region:
   primary: us-central1
 nodes: 1
