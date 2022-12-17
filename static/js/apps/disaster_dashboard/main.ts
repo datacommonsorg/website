@@ -1,0 +1,46 @@
+/**
+ * Copyright 2021 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Entrypoint file for disaster dashboard.
+ */
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { App } from "./app";
+
+window.onload = () => {
+  renderPage();
+};
+
+function renderPage(): void {
+  const placeDcid = document.getElementById("place").dataset.dcid;
+  const placeName = document.getElementById("place").dataset.name || placeDcid;
+  const placeType = document.getElementById("place").dataset.type;
+  const dashboardConfig = JSON.parse(
+    document.getElementById("dashboard-config").dataset.config
+  );
+  const place = { dcid: placeDcid, name: placeName, types: [placeType] };
+
+  ReactDOM.render(
+    React.createElement(App, {
+      place,
+      dashboardConfig,
+    }),
+    document.getElementById("body")
+  );
+}

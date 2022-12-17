@@ -17,7 +17,7 @@ import hashlib
 import json
 import os
 from google.protobuf import text_format
-from config import topic_page_pb2
+from config import subject_page_pb2
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
@@ -49,22 +49,37 @@ def get_chart_config():
   return chart_config
 
 
-# Returns topic pages loaded as TopicPageConfig protos:
-# { topic_id: [TopicPageConfig,...] }
+# Get the SubjectPageConfig of the textproto at the given filepath
+def get_subject_page_config(filepath):
+  with open(filepath, 'r') as f:
+    data = f.read()
+    subject_page_config = subject_page_pb2.SubjectPageConfig()
+    text_format.Parse(data, subject_page_config)
+    return subject_page_config
+
+
+# Returns topic pages loaded as SubjectPageConfig protos:
+# { topic_id: [SubjectPageConfig,...] }
 def get_topic_page_config():
   topic_configs = {}
   for topic_id, filenames in TOPIC_PAGE_CONFIGS.items():
     configs = []
     for filename in filenames:
-      with open(
-          os.path.join('config', 'topic_page', topic_id,
-                       filename + '.textproto'), 'r') as f:
-        data = f.read()
-        topic_page_config = topic_page_pb2.TopicPageConfig()
-        text_format.Parse(data, topic_page_config)
-        configs.append(topic_page_config)
+      filepath = os.path.join('config', 'topic_page', topic_id,
+                              filename + '.textproto')
+      configs.append(get_subject_page_config(filepath))
     topic_configs[topic_id] = configs
   return topic_configs
+
+
+# Returns list of disaster dashboard configs loaded as SubjectPageConfig protos
+def get_disaster_dashboard_configs():
+  dashboard_configs = []
+  dashboard_configs_dir = os.path.join("config", "disaster_dashboard")
+  for filename in os.listdir(dashboard_configs_dir):
+    filepath = os.path.join(dashboard_configs_dir, filename)
+    dashboard_configs.append(get_subject_page_config(filepath))
+  return dashboard_configs
 
 
 # Returns a summary of the available topic page summaries as an object:

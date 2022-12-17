@@ -80,10 +80,15 @@ class StanfordConfig(CustomConfig):
   ENV_NAME = 'STANFORD'
   ENABLE_BLOCKLIST = True
   BASE_HTML_PATH = 'custom_dc/stanford/base.html'
+  GCS_BUCKET = 'datcom-stanford-resources'
 
 
-class StanfordStagingConfig(StanfordConfig):
+class StanfordStagingConfig(CustomConfig):
   NAME = "Google Stanford Data Commons (Staging)"
+  ENV_NAME = 'STANFORD'
+  ENABLE_BLOCKLIST = True
+  BASE_HTML_PATH = 'custom_dc/stanford/base.html'
+  GCS_BUCKET = 'datcom-stanford-staging-resources'
   API_PROJECT = 'datcom-mixer-statvar'
   SECRET_PROJECT = 'datcom-stanford-staging'
 
@@ -119,7 +124,6 @@ class LocalBaseConfig(Config):
   AI_CONFIG_PATH = os.path.abspath(
       os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
   SCHEME = 'http'
-  GCS_BUCKET = 'datcom-website-autopush-resources'
 
 
 class LocalConfig(LocalBaseConfig):
