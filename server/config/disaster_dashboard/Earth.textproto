@@ -28,6 +28,7 @@ metadata {
       id: "earthquake"
       name: "Earthquake"
       event_type_dcids: "EarthquakeEvent"
+      color: "#930000"
     }
   }
   event_type_spec {
@@ -36,6 +37,7 @@ metadata {
       id: "flood"
       name: "Flood"
       event_type_dcids: "FloodEvent"
+      color: "#f46d43"
     }
   }
   event_type_spec {
@@ -45,6 +47,7 @@ metadata {
       name: "Fire"
       event_type_dcids: "WildlandFireEvent"
       event_type_dcids: "WildfireEvent"
+      color: "#fee08b"
     }
   }
   event_type_spec {
@@ -56,6 +59,7 @@ metadata {
       event_type_dcids: "TornadoEvent"
       event_type_dcids: "HurricaneEvent"
       event_type_dcids: "HurricaneTyphoonEvent"
+      color: "#3288bd"
     }
   }
   event_type_spec {
@@ -64,6 +68,7 @@ metadata {
       id: "drought"
       name: "Drought"
       event_type_dcids: "DroughtEvent"
+      color: "#5e4fa2"
     }
   }
 }

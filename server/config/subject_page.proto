@@ -31,6 +31,8 @@ message EventTypeSpec {
   string name = 2;
   // List of event type dcids to include for this event type.
   repeated string event_type_dcids = 3;
+  // Hex code for the color to use for this event type.
+  string color = 4;
 }
 
 message PageMetadata {

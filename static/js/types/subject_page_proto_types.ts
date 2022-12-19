@@ -24,6 +24,7 @@ export interface EventTypeSpec {
   id: string;
   name: string;
   eventTypeDcids: string[];
+  color: string;
 }
 export interface PageMetadataConfig {
   topicId: string;

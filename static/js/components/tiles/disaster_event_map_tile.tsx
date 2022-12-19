@@ -59,15 +59,6 @@ import { DisasterEventMapSelectors } from "./disaster_event_map_selectors";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
-const COLOR_LIST = [
-  "#930000",
-  "#f46d43",
-  "#fdae61",
-  "#fee08b",
-  "#66c2a5",
-  "#3288bd",
-  "#5e4fa2",
-];
 const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
 
@@ -95,7 +86,6 @@ export function DisasterEventMapTile(
 ): JSX.Element {
   const svgContainerRef = useRef(null);
   const infoCardRef = useRef(null);
-  const eventTypeColors = useRef(getEventTypeColors(props.eventTypeSpec));
   const europeanPlaces = useRef([]);
   const [dateList, setDateList] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
@@ -199,7 +189,7 @@ export function DisasterEventMapTile(
                     <div
                       className={`${CSS_SELECTOR_PREFIX}-legend-color`}
                       style={{
-                        backgroundColor: eventTypeColors.current(spec.id),
+                        backgroundColor: spec.color,
                       }}
                     ></div>
                     <span>{spec.name}</span>
@@ -380,7 +370,7 @@ export function DisasterEventMapTile(
       pointValues,
       projection,
       (point: DisasterEventPoint) => {
-        return eventTypeColors.current(point.disasterType);
+        return props.eventTypeSpec[point.disasterType].color;
       }
     );
     pointsLayer
@@ -396,15 +386,4 @@ export function DisasterEventMapTile(
         d3.select(infoCardRef.current).style("visibility", "hidden");
       });
   }
-}
-
-/**
- * Gets a function that returns a color for each event type for a given eventTypeSpec
- */
-function getEventTypeColors(
-  eventTypeSpec: Record<string, EventTypeSpec>
-): d3.ScaleOrdinal<string, string> {
-  const domain = Object.values(eventTypeSpec).map((spec) => spec.id);
-  const range = d3.quantize(d3.interpolateRgbBasis(COLOR_LIST), domain.length);
-  return d3.scaleOrdinal<string, string>().domain(domain).range(range);
 }
