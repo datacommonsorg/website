@@ -83,8 +83,12 @@ class StanfordConfig(CustomConfig):
   GCS_BUCKET = 'datcom-stanford-resources'
 
 
-class StanfordStagingConfig(StanfordConfig):
+class StanfordStagingConfig(CustomConfig):
   NAME = "Google Stanford Data Commons (Staging)"
+  ENV_NAME = 'STANFORD'
+  ENABLE_BLOCKLIST = True
+  BASE_HTML_PATH = 'custom_dc/stanford/base.html'
+  GCS_BUCKET = 'datcom-stanford-staging-resources'
   API_PROJECT = 'datcom-mixer-statvar'
   SECRET_PROJECT = 'datcom-stanford-staging'
 

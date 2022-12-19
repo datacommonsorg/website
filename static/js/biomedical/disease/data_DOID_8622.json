@@ -23,7 +23,7 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "2.021"
+                                            "value": "2.683"
                                         }
                                     ],
                                     "property": "associationScore"
@@ -32,13 +32,13 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "1.011"
+                                            "value": "1.342"
                                         }
                                     ],
                                     "property": "associationConfidenceInterval"
                                 }
                             ],
-                            "value": "bio/DGA_DOID_2043_pRNA_textmining"
+                            "value": "bio/DGA_DOID_8622_pRNA_textmining"
                         },
                         {
                             "neighbors": [
@@ -46,10 +46,10 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "bio/hg38_hsa_circ_002125"
+                                            "value": "bio/hg38_hsa-miR-7704"
                                         },
                                         {
-                                            "value": "bio/hg19_hsa_circ_002125"
+                                            "value": "bio/hg19_hsa-miR-7704"
                                         }
                                     ],
                                     "property": "geneID"
@@ -58,7 +58,7 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "1.681"
+                                            "value": "2.054"
                                         }
                                     ],
                                     "property": "associationScore"
@@ -67,48 +67,13 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "0.841"
+                                            "value": "1.027"
                                         }
                                     ],
                                     "property": "associationConfidenceInterval"
                                 }
                             ],
-                            "value": "bio/DGA_DOID_2043_hsa_circ_002125_textmining"
-                        },
-                        {
-                            "neighbors": [
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "value": "bio/hg38_hsa_circ_002059"
-                                        },
-                                        {
-                                            "value": "bio/hg19_hsa_circ_002059"
-                                        }
-                                    ],
-                                    "property": "geneID"
-                                },
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "value": "1.252"
-                                        }
-                                    ],
-                                    "property": "associationScore"
-                                },
-                                {
-                                    "direction": "DIRECTION_OUT",
-                                    "nodes": [
-                                        {
-                                            "value": "0.626"
-                                        }
-                                    ],
-                                    "property": "associationConfidenceInterval"
-                                }
-                            ],
-                            "value": "bio/DGA_DOID_2043_hsa_circ_002059_textmining"
+                            "value": "bio/DGA_DOID_8622_hsa-miR-7704_textmining"
                         },
                         {
                             "neighbors": [
@@ -128,7 +93,7 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "2.984"
+                                            "value": "1.653"
                                         }
                                     ],
                                     "property": "associationScore"
@@ -137,13 +102,13 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "1.492"
+                                            "value": "0.826"
                                         }
                                     ],
                                     "property": "associationConfidenceInterval"
                                 }
                             ],
-                            "value": "bio/DGA_DOID_2043_18S_rRNA_textmining"
+                            "value": "bio/DGA_DOID_8622_18S_rRNA_textmining"
                         }
                     ],
                     "property": "diseaseOntologyID"
@@ -162,16 +127,13 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "Schoenlein-Henoch"
-                                                        },
-                                                        {
-                                                            "value": "Purpura"
+                                                            "value": "Prodromal Symptoms"
                                                         }
                                                     ],
-                                                    "property": "descriptorName"
+                                                    "property": "name"
                                                 }
                                             ],
-                                            "value": "bio/D011695"
+                                            "value": "bio/D062706"
                                         }
                                     ],
                                     "property": "medicalSubjectHeadingID"
@@ -180,13 +142,13 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "3.7132"
+                                            "value": "17.8491"
                                         }
                                     ],
                                     "property": "associationOddsRatio"
                                 }
                             ],
-                            "value": "bio/DOID_2043_D011695_cooccurrence"
+                            "value": "bio/DOID_8622_D062706_cooccurrence"
                         },
                         {
                             "neighbors": [
@@ -199,13 +161,13 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "Intellectual Disability"
+                                                            "value": "Deafness"
                                                         }
                                                     ],
-                                                    "property": "descriptorName"
+                                                    "property": "name"
                                                 }
                                             ],
-                                            "value": "bio/D008607"
+                                            "value": "bio/D003638"
                                         }
                                     ],
                                     "property": "medicalSubjectHeadingID"
@@ -214,13 +176,13 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "20.4461"
+                                            "value": "4.6819"
                                         }
                                     ],
                                     "property": "associationOddsRatio"
                                 }
                             ],
-                            "value": "bio/DOID_2043_D008607_cooccurrence"
+                            "value": "bio/DOID_8622_D003638_cooccurrence"
                         },
                         {
                             "neighbors": [
@@ -233,13 +195,13 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "Fasciculation"
+                                                            "value": "Travel-Related Illness"
                                                         }
                                                     ],
-                                                    "property": "descriptorName"
+                                                    "property": "name"
                                                 }
                                             ],
-                                            "value": "bio/D005207"
+                                            "value": "bio/D000076082"
                                         }
                                     ],
                                     "property": "medicalSubjectHeadingID"
@@ -248,13 +210,13 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "16.1094"
+                                            "value": "67.0496"
                                         }
                                     ],
                                     "property": "associationOddsRatio"
                                 }
                             ],
-                            "value": "bio/DOID_2043_D005207_cooccurrence"
+                            "value": "bio/DOID_8622_D000076082_cooccurrence"
                         }
                     ],
                     "property": "diseaseOntologyID"
@@ -277,7 +239,7 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "4"
+                                            "value": "2"
                                         }
                                     ],
                                     "property": "fdaClinicalTrialPhase"
@@ -291,22 +253,19 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "lamivudine"
-                                                        },
-                                                        {
-                                                            "value": "LAMIVUDINE"
+                                                            "value": "RUBELLA VIRUS VACCINE LIVE"
                                                         }
                                                     ],
                                                     "property": "commonName"
                                                 }
                                             ],
-                                            "value": "bio/CHEMBL141"
+                                            "value": "bio/CHEMBL2109225"
                                         }
                                     ],
                                     "property": "compoundID"
                                 }
                             ],
-                            "value": "bio/CTD_CHEMBL141_DOID_2043"
+                            "value": "bio/CTD_CHEMBL2109225_DOID_8622"
                         },
                         {
                             "neighbors": [
@@ -323,7 +282,7 @@
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
                                         {
-                                            "value": "4"
+                                            "value": "2"
                                         }
                                     ],
                                     "property": "fdaClinicalTrialPhase"
@@ -337,19 +296,62 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "PEGINTERFERON ALFA-2A"
+                                                            "value": "MEASLES VIRUS VACCINE LIVE"
                                                         }
                                                     ],
                                                     "property": "commonName"
                                                 }
                                             ],
-                                            "value": "bio/CHEMBL1201560"
+                                            "value": "bio/CHEMBL2109211"
                                         }
                                     ],
                                     "property": "compoundID"
                                 }
                             ],
-                            "value": "bio/CTD_CHEMBL1201560_DOID_2043"
+                            "value": "bio/CTD_CHEMBL2109211_DOID_8622"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseTreatment"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "2"
+                                        }
+                                    ],
+                                    "property": "fdaClinicalTrialPhase"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "MUMPS VIRUS VACCINE LIVE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL2109201"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CTD_CHEMBL2109201_DOID_8622"
                         }
                     ],
                     "property": "diseaseID"
@@ -371,6 +373,58 @@
                                 {
                                     "direction": "DIRECTION_OUT",
                                     "nodes": [
+                                        {
+                                            "value": "CHEMBL"
+                                        }
+                                    ],
+                                    "property": "drugCentralSource"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "HYDROCORTISONE HEMISUCCINATE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL977"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CCiD_CHEMBL977_DOID_8622"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseContraindication"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "WOMBAT-PK"
+                                        },
+                                        {
+                                            "value": "PDSP"
+                                        },
+                                        {
+                                            "value": "IUPHAR"
+                                        },
                                         {
                                             "value": "DRUG MATRIX"
                                         },
@@ -389,22 +443,19 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "leflunomide"
-                                                        },
-                                                        {
-                                                            "value": "LEFLUNOMIDE"
+                                                            "value": "DEXAMETHASONE SODIUM PHOSPHATE"
                                                         }
                                                     ],
                                                     "property": "commonName"
                                                 }
                                             ],
-                                            "value": "bio/CHEMBL960"
+                                            "value": "bio/CHEMBL1200637"
                                         }
                                     ],
                                     "property": "compoundID"
                                 }
                             ],
-                            "value": "bio/CCiD_CHEMBL960_DOID_2043"
+                            "value": "bio/CCiD_CHEMBL1200637_DOID_8622"
                         },
                         {
                             "neighbors": [
@@ -435,22 +486,19 @@
                                                     "direction": "DIRECTION_OUT",
                                                     "nodes": [
                                                         {
-                                                            "value": "desflurane"
-                                                        },
-                                                        {
-                                                            "value": "DESFLURANE"
+                                                            "value": "HYDROCORTISONE ACETATE"
                                                         }
                                                     ],
                                                     "property": "commonName"
                                                 }
                                             ],
-                                            "value": "bio/CHEMBL1200733"
+                                            "value": "bio/CHEMBL1091"
                                         }
                                     ],
                                     "property": "compoundID"
                                 }
                             ],
-                            "value": "bio/CCiD_CHEMBL1200733_DOID_2043"
+                            "value": "bio/CCiD_CHEMBL1091_DOID_8622"
                         }
                     ],
                     "property": "diseaseID"
@@ -459,58 +507,13 @@
                     "direction": "DIRECTION_OUT",
                     "nodes": [
                         {
-                            "value": "which is transmitted by sexual contact"
-                        },
-                        {
-                            "value": "vomiting"
-                        },
-                        {
-                            "value": "or fomites like needles or syringes. The infection has symptom fever"
-                        },
-                        {
-                            "value": "nausea"
-                        },
-                        {
-                            "value": "loss of appetite"
-                        },
-                        {
-                            "value": "joint pain"
-                        },
-                        {
-                            "value": "has material basis in Hepatitis B virus"
-                        },
-                        {
-                            "value": "fatigue"
-                        },
-                        {
-                            "value": "clay-colored bowel movements"
-                        },
-                        {
-                            "value": "blood transfusions"
-                        },
-                        {
-                            "value": "and jaundice."
-                        },
-                        {
-                            "value": "abdominal pain"
-                        },
-                        {
-                            "value": "A viral infectious disease that results in inflammation located in liver"
+                            "value": "A viral infectious disease that results in infection located in skin, has material basis in Measles virus, which is transmitted by contact with oronasal secretions, or semen of an infected person. The infection has symptom fever, has symptom cough, has symptom coryza, has symptom conjunctivitis, and has symptom maculopapular, erythematous rash."
                         }
                     ],
                     "property": "description"
-                },
-                {
-                    "direction": "DIRECTION_OUT",
-                    "nodes": [
-                        {
-                            "value": "\"hepatitis B\""
-                        }
-                    ],
-                    "property": "commonName"
                 }
             ],
-            "value": "bio/DOID_2043"
+            "value": "bio/DOID_8622"
         }
     ]
 }
