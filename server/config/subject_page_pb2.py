@@ -14,14 +14,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12subject_page.proto\x12\x0b\x64\x61tacommons\"\xd7\x01\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"h\n\x0bStatVarSpec\x12\x10\n\x08stat_var\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\x12\x0b\n\x03log\x18\x05 \x01(\x08\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xdf\x01\n\x0fRankingTileSpec\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\x12\x15\n\rhighest_title\x18\x06 \x01(\t\x12\x14\n\x0clowest_title\x18\x07 \x01(\t\x12\x16\n\x0eincrease_title\x18\x08 \x01(\t\x12\x16\n\x0e\x64\x65\x63rease_title\x18\t \x01(\t\"\xb7\x02\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x14\n\x0cstat_var_key\x18\x04 \x03(\t\x12\x39\n\x11ranking_tile_spec\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingTileSpecH\x00\"~\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\x12\x0f\n\x0b\x44\x45SCRIPTION\x10\x08\x42\x10\n\x0etile_type_spec\"\x83\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12*\n\x07\x63olumns\x18\x03 \x03(\x0b\x32\x19.datacommons.Block.Column\x1a*\n\x06\x43olumn\x12 \n\x05tiles\x18\x01 \x03(\x0b\x32\x11.datacommons.Tile\"\xdf\x01\n\x08\x43\x61tegory\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12=\n\rstat_var_spec\x18\x04 \x03(\x0b\x32&.datacommons.Category.StatVarSpecEntry\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Block\x1aL\n\x10StatVarSpecEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.datacommons.StatVarSpec:\x02\x38\x01\"k\n\x11SubjectPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12)\n\ncategories\x18\x02 \x03(\x0b\x32\x15.datacommons.Categoryb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12subject_page.proto\x12\x0b\x64\x61tacommons\"C\n\rEventTypeSpec\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x10\x65vent_type_dcids\x18\x03 \x03(\t\"\xf0\x02\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x12\x45\n\x0f\x65vent_type_spec\x18\x05 \x03(\x0b\x32,.datacommons.PageMetadata.EventTypeSpecEntry\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1aP\n\x12\x45ventTypeSpecEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12)\n\x05value\x18\x02 \x01(\x0b\x32\x1a.datacommons.EventTypeSpec:\x02\x38\x01\"h\n\x0bStatVarSpec\x12\x10\n\x08stat_var\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\x12\x0b\n\x03log\x18\x05 \x01(\x08\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xdf\x01\n\x0fRankingTileSpec\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x15\n\rshow_increase\x18\x03 \x01(\x08\x12\x15\n\rshow_decrease\x18\x04 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\x12\x15\n\rhighest_title\x18\x06 \x01(\t\x12\x14\n\x0clowest_title\x18\x07 \x01(\t\x12\x16\n\x0eincrease_title\x18\x08 \x01(\t\x12\x16\n\x0e\x64\x65\x63rease_title\x18\t \x01(\t\"3\n\x18\x44isasterEventMapTileSpec\x12\x17\n\x0f\x65vent_type_keys\x18\x01 \x03(\t\"\x9f\x03\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x14\n\x0cstat_var_key\x18\x04 \x03(\t\x12\x39\n\x11ranking_tile_spec\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingTileSpecH\x00\x12M\n\x1c\x64isaster_event_map_tile_spec\x18\x06 \x01(\x0b\x32%.datacommons.DisasterEventMapTileSpecH\x00\"\x96\x01\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\x12\x0f\n\x0b\x44\x45SCRIPTION\x10\x08\x12\x16\n\x12\x44ISASTER_EVENT_MAP\x10\tB\x10\n\x0etile_type_spec\"\x83\x01\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12*\n\x07\x63olumns\x18\x03 \x03(\x0b\x32\x19.datacommons.Block.Column\x1a*\n\x06\x43olumn\x12 \n\x05tiles\x18\x01 \x03(\x0b\x32\x11.datacommons.Tile\"\xdf\x01\n\x08\x43\x61tegory\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12=\n\rstat_var_spec\x18\x04 \x03(\x0b\x32&.datacommons.Category.StatVarSpecEntry\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Block\x1aL\n\x10StatVarSpecEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.datacommons.StatVarSpec:\x02\x38\x01\"k\n\x11SubjectPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12)\n\ncategories\x18\x02 \x03(\x0b\x32\x15.datacommons.Categoryb\x06proto3')
 
 
 
+_EVENTTYPESPEC = DESCRIPTOR.message_types_by_name['EventTypeSpec']
 _PAGEMETADATA = DESCRIPTOR.message_types_by_name['PageMetadata']
 _PAGEMETADATA_CONTAINEDPLACETYPESENTRY = _PAGEMETADATA.nested_types_by_name['ContainedPlaceTypesEntry']
+_PAGEMETADATA_EVENTTYPESPECENTRY = _PAGEMETADATA.nested_types_by_name['EventTypeSpecEntry']
 _STATVARSPEC = DESCRIPTOR.message_types_by_name['StatVarSpec']
 _RANKINGTILESPEC = DESCRIPTOR.message_types_by_name['RankingTileSpec']
+_DISASTEREVENTMAPTILESPEC = DESCRIPTOR.message_types_by_name['DisasterEventMapTileSpec']
 _TILE = DESCRIPTOR.message_types_by_name['Tile']
 _BLOCK = DESCRIPTOR.message_types_by_name['Block']
 _BLOCK_COLUMN = _BLOCK.nested_types_by_name['Column']
@@ -29,6 +32,13 @@ _CATEGORY = DESCRIPTOR.message_types_by_name['Category']
 _CATEGORY_STATVARSPECENTRY = _CATEGORY.nested_types_by_name['StatVarSpecEntry']
 _SUBJECTPAGECONFIG = DESCRIPTOR.message_types_by_name['SubjectPageConfig']
 _TILE_TILETYPE = _TILE.enum_types_by_name['TileType']
+EventTypeSpec = _reflection.GeneratedProtocolMessageType('EventTypeSpec', (_message.Message,), {
+  'DESCRIPTOR' : _EVENTTYPESPEC,
+  '__module__' : 'subject_page_pb2'
+  # @@protoc_insertion_point(class_scope:datacommons.EventTypeSpec)
+  })
+_sym_db.RegisterMessage(EventTypeSpec)
+
 PageMetadata = _reflection.GeneratedProtocolMessageType('PageMetadata', (_message.Message,), {
 
   'ContainedPlaceTypesEntry' : _reflection.GeneratedProtocolMessageType('ContainedPlaceTypesEntry', (_message.Message,), {
@@ -37,12 +47,20 @@ PageMetadata = _reflection.GeneratedProtocolMessageType('PageMetadata', (_messag
     # @@protoc_insertion_point(class_scope:datacommons.PageMetadata.ContainedPlaceTypesEntry)
     })
   ,
+
+  'EventTypeSpecEntry' : _reflection.GeneratedProtocolMessageType('EventTypeSpecEntry', (_message.Message,), {
+    'DESCRIPTOR' : _PAGEMETADATA_EVENTTYPESPECENTRY,
+    '__module__' : 'subject_page_pb2'
+    # @@protoc_insertion_point(class_scope:datacommons.PageMetadata.EventTypeSpecEntry)
+    })
+  ,
   'DESCRIPTOR' : _PAGEMETADATA,
   '__module__' : 'subject_page_pb2'
   # @@protoc_insertion_point(class_scope:datacommons.PageMetadata)
   })
 _sym_db.RegisterMessage(PageMetadata)
 _sym_db.RegisterMessage(PageMetadata.ContainedPlaceTypesEntry)
+_sym_db.RegisterMessage(PageMetadata.EventTypeSpecEntry)
 
 StatVarSpec = _reflection.GeneratedProtocolMessageType('StatVarSpec', (_message.Message,), {
   'DESCRIPTOR' : _STATVARSPEC,
@@ -57,6 +75,13 @@ RankingTileSpec = _reflection.GeneratedProtocolMessageType('RankingTileSpec', (_
   # @@protoc_insertion_point(class_scope:datacommons.RankingTileSpec)
   })
 _sym_db.RegisterMessage(RankingTileSpec)
+
+DisasterEventMapTileSpec = _reflection.GeneratedProtocolMessageType('DisasterEventMapTileSpec', (_message.Message,), {
+  'DESCRIPTOR' : _DISASTEREVENTMAPTILESPEC,
+  '__module__' : 'subject_page_pb2'
+  # @@protoc_insertion_point(class_scope:datacommons.DisasterEventMapTileSpec)
+  })
+_sym_db.RegisterMessage(DisasterEventMapTileSpec)
 
 Tile = _reflection.GeneratedProtocolMessageType('Tile', (_message.Message,), {
   'DESCRIPTOR' : _TILE,
@@ -107,28 +132,36 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _PAGEMETADATA_CONTAINEDPLACETYPESENTRY._options = None
   _PAGEMETADATA_CONTAINEDPLACETYPESENTRY._serialized_options = b'8\001'
+  _PAGEMETADATA_EVENTTYPESPECENTRY._options = None
+  _PAGEMETADATA_EVENTTYPESPECENTRY._serialized_options = b'8\001'
   _CATEGORY_STATVARSPECENTRY._options = None
   _CATEGORY_STATVARSPECENTRY._serialized_options = b'8\001'
-  _PAGEMETADATA._serialized_start=36
-  _PAGEMETADATA._serialized_end=251
-  _PAGEMETADATA_CONTAINEDPLACETYPESENTRY._serialized_start=193
-  _PAGEMETADATA_CONTAINEDPLACETYPESENTRY._serialized_end=251
-  _STATVARSPEC._serialized_start=253
-  _STATVARSPEC._serialized_end=357
-  _RANKINGTILESPEC._serialized_start=360
-  _RANKINGTILESPEC._serialized_end=583
-  _TILE._serialized_start=586
-  _TILE._serialized_end=897
-  _TILE_TILETYPE._serialized_start=753
-  _TILE_TILETYPE._serialized_end=879
-  _BLOCK._serialized_start=900
-  _BLOCK._serialized_end=1031
-  _BLOCK_COLUMN._serialized_start=989
-  _BLOCK_COLUMN._serialized_end=1031
-  _CATEGORY._serialized_start=1034
-  _CATEGORY._serialized_end=1257
-  _CATEGORY_STATVARSPECENTRY._serialized_start=1181
-  _CATEGORY_STATVARSPECENTRY._serialized_end=1257
-  _SUBJECTPAGECONFIG._serialized_start=1259
-  _SUBJECTPAGECONFIG._serialized_end=1366
+  _EVENTTYPESPEC._serialized_start=35
+  _EVENTTYPESPEC._serialized_end=102
+  _PAGEMETADATA._serialized_start=105
+  _PAGEMETADATA._serialized_end=473
+  _PAGEMETADATA_CONTAINEDPLACETYPESENTRY._serialized_start=333
+  _PAGEMETADATA_CONTAINEDPLACETYPESENTRY._serialized_end=391
+  _PAGEMETADATA_EVENTTYPESPECENTRY._serialized_start=393
+  _PAGEMETADATA_EVENTTYPESPECENTRY._serialized_end=473
+  _STATVARSPEC._serialized_start=475
+  _STATVARSPEC._serialized_end=579
+  _RANKINGTILESPEC._serialized_start=582
+  _RANKINGTILESPEC._serialized_end=805
+  _DISASTEREVENTMAPTILESPEC._serialized_start=807
+  _DISASTEREVENTMAPTILESPEC._serialized_end=858
+  _TILE._serialized_start=861
+  _TILE._serialized_end=1276
+  _TILE_TILETYPE._serialized_start=1108
+  _TILE_TILETYPE._serialized_end=1258
+  _BLOCK._serialized_start=1279
+  _BLOCK._serialized_end=1410
+  _BLOCK_COLUMN._serialized_start=1368
+  _BLOCK_COLUMN._serialized_end=1410
+  _CATEGORY._serialized_start=1413
+  _CATEGORY._serialized_end=1636
+  _CATEGORY_STATVARSPECENTRY._serialized_start=1560
+  _CATEGORY_STATVARSPECENTRY._serialized_end=1636
+  _SUBJECTPAGECONFIG._serialized_start=1638
+  _SUBJECTPAGECONFIG._serialized_end=1745
 # @@protoc_insertion_point(module_scope)

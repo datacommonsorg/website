@@ -58,6 +58,7 @@ export function SubjectPageMainPane(
                 place={props.place}
                 enclosedPlaceType={enclosedPlaceType}
                 config={category}
+                eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
               />
             </ErrorBoundary>
           );

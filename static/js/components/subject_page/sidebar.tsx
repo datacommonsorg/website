@@ -59,6 +59,9 @@ export function SubjectPageSidebar(
 }
 
 function renderItem(title: string, isCategory: boolean): JSX.Element {
+  if (!title) {
+    return null;
+  }
   return (
     <li
       key={randDomId()}
