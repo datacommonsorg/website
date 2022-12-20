@@ -36,6 +36,10 @@ const DISASTER_EVENT_TYPES = {
 const DISASTER_EVENT_INTENSITIES = {
   [EARTHQUAKE_DISASTER_TYPE_ID]: ["magnitude"],
 };
+const DISASTER_EVENT_COLORS = {
+  [EARTHQUAKE_DISASTER_TYPE_ID]: "red",
+  [STORM_DISASTER_TYPE_ID]: "blue",
+};
 
 const EARTHQUAKE_EVENT_1_API = {
   eventId: "earthquake1",
@@ -372,6 +376,7 @@ test("fetch data for all disasters with date as YYYY-MM", () => {
       id: disasterType,
       name: disasterType,
       eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
+      color: DISASTER_EVENT_COLORS[disasterType],
     };
   });
   return fetchDisasterEventPoints(
@@ -397,6 +402,7 @@ test("fetch data for all disasters with date as YYYY", () => {
       id: disasterType,
       name: disasterType,
       eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
+      color: DISASTER_EVENT_COLORS[disasterType],
     };
   });
   return fetchDisasterEventPoints(
@@ -423,6 +429,7 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     id: STORM_DISASTER_TYPE_ID,
     name: "storm",
     eventTypeDcids: DISASTER_EVENT_TYPES[STORM_DISASTER_TYPE_ID],
+    color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints(
     [eventSpec],
@@ -444,6 +451,7 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     id: STORM_DISASTER_TYPE_ID,
     name: "storm",
     eventTypeDcids: DISASTER_EVENT_TYPES[STORM_DISASTER_TYPE_ID],
+    color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints(
     [eventSpec],
@@ -466,6 +474,7 @@ test("fetch data for single event with date as YYYY-MM", () => {
     id: EARTHQUAKE_DISASTER_TYPE_ID,
     name: "earthquake",
     eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
+    color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints(
     [eventSpec],
@@ -487,6 +496,7 @@ test("fetch data for single event with date as YYYY", () => {
     id: EARTHQUAKE_DISASTER_TYPE_ID,
     name: "earthquake",
     eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
+    color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints(
     [eventSpec],
