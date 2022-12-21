@@ -42,7 +42,7 @@ class Model:
       logging.info('Loading build {}'.format(build))
       ds = load_dataset('csv',
                         data_files=os.path.join(TEMP_DIR,
-                                                'embeddings_{build}.csv'))
+                                                f'embeddings_{build}.csv'))
       df = ds["train"].to_pandas()
       self.dcid_maps[build] = df['dcid'].values.tolist()
       df = df.drop('dcid', axis=1)
