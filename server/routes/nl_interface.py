@@ -30,12 +30,8 @@ def page(dcid):
     flask.abort(404)
   model = current_app.config['NL_MODEL']
   scores, svs = model.search('people who cannot see')
-  print(scores)
-  print(svs)
   place_page_data = dc.get_landing_page_data(dcid, 'Overview', [])
   svg_info = dc.get_variable_group_info("Count_Person", [])
   # Process data as needed
-  print(place_page_data)
-  print(svg_info)
   # Fetch other data using dc.xxxx
   return render_template('/nl.html')

@@ -24,36 +24,38 @@ import logging
 
 BUILDS = ['demographics300', 'uncurated3000']
 BUILD = 'uncurated3000'  #@param ['demographics300', 'uncurated3000']
-QUERY = "people who cannot see"  #@param {type:"string"}
 GCS_BUCKET = 'datcom-csv'
 EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
+MODEL_NAME = 'all-MiniLM-L6-v2'
 
 
 class Model:
   """Holds clients for the language model"""
 
   def __init__(self):
-    self.model = SentenceTransformer('all-MiniLM-L6-v2')
+    self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings_maps = {}
-    self.download_embeddings()
+    self._download_embeddings()
     self.dcid_maps = {}
     for build in BUILDS:
       logging.info('Loading build {}'.format(build))
-      ds = load_dataset('csv', data_files=f'/tmp/embeddings_{build}.csv')
+      ds = load_dataset('csv',
+                        data_files=os.path.join(TEMP_DIR,
+                                                'embeddings_{build}.csv'))
       df = ds["train"].to_pandas()
       self.dcid_maps[build] = df['dcid'].values.tolist()
       df = df.drop('dcid', axis=1)
       self.dataset_embeddings_maps[build] = torch.from_numpy(df.to_numpy()).to(
           torch.float)
 
-  def download_embeddings(self):
+  def _download_embeddings(self):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
     blobs = bucket.list_blobs(prefix=EMBEDDINGS)  # Get list of files
     for blob in blobs:
       _, filename = os.path.split(blob.name)
-      blob.download_to_filename(TEMP_DIR + filename)  # Download
+      blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
 
   def search(self, query):
     query_embeddings = self.model.encode([query])
