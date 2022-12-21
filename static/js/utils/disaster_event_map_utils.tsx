@@ -39,7 +39,7 @@ import {
 import { EventTypeSpec } from "../types/subject_page_proto_types";
 
 const MAX_YEARS = 20;
-const iNFO_CARD_OFFSET = 5;
+const INFO_CARD_OFFSET = 5;
 
 /**
  * Get promise for geojson data
@@ -293,9 +293,9 @@ export function onPointClicked(
   } else {
     infoCard.style("width", "fit-content");
   }
-  let top = event.offsetY - infoCardHeight - iNFO_CARD_OFFSET;
+  let top = event.offsetY - infoCardHeight - INFO_CARD_OFFSET;
   if (top < 0) {
-    top = event.offsetY + iNFO_CARD_OFFSET;
+    top = event.offsetY + INFO_CARD_OFFSET;
   }
   // set info card position and make it visible
   infoCard

@@ -43,7 +43,8 @@ message PageMetadata {
   // Contained places to load for each parent place type.
   // This can be overwritten by tiles.
   map<string, string> contained_place_types = 4;
-  // Event type information to be used by this config.
+  // Event type information to be used by this config. The key is the event
+  // type id and the value is the spec for that event type.
   map<string, EventTypeSpec> event_type_spec = 5;
 }
 
