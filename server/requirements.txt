@@ -1,4 +1,5 @@
 CacheControl==0.12.11
+datasets==2.8.0
 Flask==1.1.4
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1
@@ -24,8 +25,10 @@ pytest-xdist==2.4.0
 redis==3.5.3
 requests==2.26.0
 selenium==3.141.0
+sentence_transformers==2.2.2
 six==1.16.0
 typing_extensions==3.10.0.0
+torch==1.13.1
 Werkzeug==1.0.1
 wheel==0.36.2
 yapf==0.31.0
