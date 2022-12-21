@@ -20,11 +20,19 @@
 
 import { StatVarSpec } from "../shared/types";
 
+export interface EventTypeSpec {
+  id: string;
+  name: string;
+  eventTypeDcids: string[];
+  color: string;
+}
 export interface PageMetadataConfig {
   topicId: string;
   topicName: string;
   // Map of parent type to child place type.
   containedPlaceTypes: Record<string, string>;
+  // Map of event type id to event type spec.
+  eventTypeSpec: Record<string, EventTypeSpec>;
 }
 
 export interface RankingTileSpec {
@@ -41,14 +49,17 @@ export interface RankingTileSpec {
   decreaseTitle?: string;
 }
 
+export interface DisasterEventMapTileSpec {
+  eventTypeKeys: string[];
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
   type: string;
   statVarKey: string[];
   rankingTileSpec?: RankingTileSpec;
-  // Map of parent type to child place type - overrides the page-level setting.
-  containedPlaceTypes: Record<string, string>;
+  disasterEventMapTileSpec?: DisasterEventMapTileSpec;
 }
 
 export interface ColumnConfig {

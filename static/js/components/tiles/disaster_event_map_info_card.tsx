@@ -19,25 +19,29 @@
  */
 import React from "react";
 
-import { DisasterEventPoint } from "./types";
+import { DisasterEventPoint } from "../../types/disaster_event_map_types";
 
-interface InfoCardPropType {
+interface DisasterEventMapInfoCardPropType {
+  // The event data to show info about
   eventData: DisasterEventPoint;
+  // Callback function when info card is closed
   onClose: () => void;
 }
 
-export function InfoCard(props: InfoCardPropType): JSX.Element {
+export function DisasterEventMapInfoCard(
+  props: DisasterEventMapInfoCardPropType
+): JSX.Element {
   return (
-    <div className="disaster-dashboard-info-card-content">
-      <div className="disaster-dashboard-info-card-header">
-        <div className="disaster-dashboard-info-card-title">
+    <div className="disaster-event-map-info-card-content">
+      <div className="disaster-event-map-info-card-header">
+        <div className="disaster-event-map-info-card-title">
           {props.eventData.placeName}
         </div>
-        <i className="material-icons-outlined" onClick={props.onClose}>
+        <i className="material-icons" onClick={props.onClose}>
           close
         </i>
       </div>
-      <div className="disaster-dashboard-info-card-info">
+      <div className="disaster-event-map-info-card-info">
         <span>Start Date: {props.eventData.startDate}</span>
         {props.eventData.endDate && (
           <span>End Date: {props.eventData.endDate}</span>
