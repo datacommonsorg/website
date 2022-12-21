@@ -22,4 +22,70 @@ metadata {
     key: "Planet"
     value: "Country"
   }
+  event_type_spec {
+    key: 'earthquake'
+    value: {
+      id: "earthquake"
+      name: "Earthquake"
+      event_type_dcids: "EarthquakeEvent"
+      color: "#930000"
+    }
+  }
+  event_type_spec {
+    key: 'flood'
+    value: {
+      id: "flood"
+      name: "Flood"
+      event_type_dcids: "FloodEvent"
+      color: "#f46d43"
+    }
+  }
+  event_type_spec {
+    key: 'fire'
+    value: {
+      id: "fire"
+      name: "Fire"
+      event_type_dcids: "WildlandFireEvent"
+      event_type_dcids: "WildfireEvent"
+      color: "#fee08b"
+    }
+  }
+  event_type_spec {
+    key: 'storm'
+    value: {
+      id: "storm"
+      name: "Storm"
+      event_type_dcids: "CycloneEvent"
+      event_type_dcids: "TornadoEvent"
+      event_type_dcids: "HurricaneEvent"
+      event_type_dcids: "HurricaneTyphoonEvent"
+      color: "#3288bd"
+    }
+  }
+  event_type_spec {
+    key: 'drought'
+    value: {
+      id: "drought"
+      name: "Drought"
+      event_type_dcids: "DroughtEvent"
+      color: "#5e4fa2"
+    }
+  }
+}
+
+categories {
+  blocks {
+    columns {
+      tiles: {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: 'earthquake'
+          event_type_keys: 'flood'
+          event_type_keys: 'fire'
+          event_type_keys: 'storm'
+          event_type_keys: 'drought'
+        }
+      }
+    }
+  }
 }

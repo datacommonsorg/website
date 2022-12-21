@@ -16,19 +16,19 @@
 
 import { MapPoint } from "../chart/types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
-import { DisasterType } from "./constants";
 
 /**
- * Types specific to Disaster Dashboard
+ * Types used for disaster event maps
  */
 
-export interface PlaceInfo {
-  place: NamedTypedPlace;
-  placeType: string;
+export interface DisasterEventMapPlaceInfo {
+  selectedPlace: NamedTypedPlace;
+  enclosedPlaceType: string;
   parentPlaces: NamedPlace[];
 }
+
 export interface DisasterEventPoint extends MapPoint {
-  disasterType: DisasterType;
+  disasterType: string;
   startDate: string;
   intensity: { [prop: string]: number };
   endDate?: string;

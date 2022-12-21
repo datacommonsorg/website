@@ -21,12 +21,12 @@
 import _ from "lodash";
 import React from "react";
 
+import { DisasterEventPoint } from "../types/disaster_event_map_types";
 import {
   DISASTER_EVENT_INTENSITIES,
   DISASTER_EVENT_TYPES,
   DisasterType,
 } from "./constants";
-import { DisasterEventPoint } from "./types";
 
 const RANKING_ITEMS_COUNT = 5;
 
