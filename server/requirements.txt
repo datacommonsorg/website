@@ -35,3 +35,4 @@ yapf==0.31.0
 geojson_rewind==1.0.1
 markupsafe==2.0.1
 python-dateutil==2.8.2
+pandas>=1.3.5

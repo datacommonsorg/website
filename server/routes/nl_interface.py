@@ -29,9 +29,6 @@ def page(dcid):
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   model = current_app.config['NL_MODEL']
-  scores, svs = model.search('people who cannot see')
-  place_page_data = dc.get_landing_page_data(dcid, 'Overview', [])
-  svg_info = dc.get_variable_group_info("Count_Person", [])
-  # Process data as needed
-  # Fetch other data using dc.xxxx
+  
+  charts_config = model.search('people who cannot see', dcid)
   return render_template('/nl.html')
