@@ -23,6 +23,8 @@
 
 $chart-container-top-margin: 20px;
 $highlight-font-family: base.$headings-font-family;
+$border: 1px solid rgba(0, 0, 0, 0.125);
+$border-radius: 0.5rem;
 
 .chart-container {
   margin-top: $chart-container-top-margin;
@@ -42,7 +44,8 @@ $highlight-font-family: base.$headings-font-family;
 .chart-container.scatter-chart,
 .chart-container.bivariate-chart,
 .chart-container.line-chart,
-.chart-container.bar-chart {
+.chart-container.bar-chart,
+.chart-container.disaster-event-map-tile {
   border: 0.5px solid #dee2e6;
   border-radius: 3px;
   padding: 15px;
@@ -107,3 +110,151 @@ $highlight-font-family: base.$headings-font-family;
   grid-column-gap: $chart-container-top-margin;
   grid-row-gap: $chart-container-top-margin;
 }
+
+/**
+ * disaster event map tile
+ */
+
+.disaster-event-map-tile {
+
+  .disaster-event-map-selectors-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .disaster-event-map-date-selector {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1rem 0;
+  }
+  
+  #disaster-event-map-date-selector-input {
+    width: 12rem;
+    margin-left: 0.5rem;
+  }
+  
+  .disaster-event-map-breadcrumbs,
+  .disaster-event-map-breadcrumb-entry,
+  .disaster-event-map-breadcrumb-entry-selected {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    cursor: default;
+  }
+  
+  .disaster-event-map-breadcrumb-entry-selected,
+  .disaster-event-map-breadcrumb-entry:hover {
+    color: var(--dc-primary);
+  }
+  
+  .disaster-event-map-breadcrumbs {
+    margin-top: 1rem;
+  }
+
+  .disaster-event-map-container {
+    position: relative;
+  }
+
+  .disaster-event-map-error-message {
+    padding: 1rem 0;
+  }
+  
+  .disaster-event-map-legend-entry {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+  }
+ 
+  .disaster-event-map-legend-color {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+  }
+ 
+  .disaster-event-map-legend {
+    display: flex;
+    padding: 1rem;
+  }
+ 
+  .disaster-event-map-zoom-button-section {
+    width: fit-content;
+    position: absolute;
+    top: 0;
+    border: $border;
+    margin: 1rem;
+    z-index: 2;
+  }
+ 
+  .disaster-event-map-zoom-button {
+    cursor: pointer;
+    border: $border;
+    padding: 0.1rem;
+    display: flex;
+    width: fit-content;
+    background-color: white;
+  }
+ 
+  .disaster-event-map-zoom-button:hover {
+    background-color: var(--dc-gray-lite);
+  }
+ 
+  #disaster-event-map-info-card {
+    position: absolute;
+    border: $border;
+    background-color: white;
+    max-width: 15rem;
+    max-height: 15rem;
+    overflow-y: auto;
+  }
+  
+  .disaster-event-map-info-card-content {
+    padding: 0.5rem;
+    word-break: break-word;
+    font-size: 0.9rem;
+  }
+ 
+  .disaster-event-map-info-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .disaster-event-map-info-card-title {
+    font-weight: 500;
+  }
+  
+  .disaster-event-map-info-card-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .disaster-event-map-info-card-header i {
+    margin-left: 0.5rem;
+    cursor: default;
+  }
+  
+  path.region-highlighted,
+  path.region-highlighted-no-click {
+    cursor: default;
+  }
+  
+  path.region-highlighted {
+    stroke: var(--dark);
+    stroke-width: 2px;
+  }
+  
+  .dot {
+    stroke: white;
+    stroke-width: 0.3px;
+  }
+  
+  .dot:hover,
+  .dot:focus {
+    stroke: black;
+    stroke-width: 2px;
+  }
+ }

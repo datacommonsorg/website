@@ -21,28 +21,27 @@
 import * as d3 from "d3";
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
 
 import { addMapPoints, drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../chart/types";
-import {
-  EUROPE_NAMED_TYPED_PLACE,
-  IPCC_PLACE_50_TYPE_DCID,
-  USA_PLACE_DCID,
-} from "../shared/constants";
+import { USA_PLACE_DCID } from "../shared/constants";
 import { NamedPlace } from "../shared/types";
 import { removeSpinner } from "../shared/util";
-import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import { isChildPlaceOf } from "../tools/shared_util";
+import {
+  DisasterEventMapPlaceInfo,
+  DisasterEventPoint,
+} from "../types/disaster_event_map_types";
+import {
+  canClickRegion,
+  onPointClicked,
+} from "../utils/disaster_event_map_utils";
 import { CONTENT_SPINNER_ID, DisasterType } from "./constants";
-import { InfoCard } from "./info_card";
-import { DisasterEventPoint, PlaceInfo } from "./types";
 
 const MAP_ID = "disaster-dashboard-map";
 const LEGEND_CONTAINER_ID = "disaster-dashboard-legend";
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
-const iNFO_CARD_OFFSET = 5;
 
 const DISASTER_COLORS = {
   [DisasterType.EARTHQUAKE]: "red",
@@ -60,7 +59,7 @@ interface MapSectionPropType {
   // disaster type shown
   selectedDisaster: DisasterType;
   // info about the places to be shown on the map
-  selectedPlaceInfo: PlaceInfo;
+  selectedPlaceInfo: DisasterEventMapPlaceInfo;
   // prop to use for the intensity of each event
   selectedIntensityProp: string;
   // callback function when a new place has been selected
@@ -77,7 +76,7 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     if (
       _.isEmpty(props.geoJson) ||
       props.geoJson.properties.current_geo !==
-        props.selectedPlaceInfo.place.dcid
+        props.selectedPlaceInfo.selectedPlace.dcid
     ) {
       return;
     }
@@ -86,7 +85,7 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
   }, [
     props.disasterEventPoints,
     props.geoJson,
-    props.selectedPlaceInfo.place.dcid,
+    props.selectedPlaceInfo.selectedPlace.dcid,
   ]);
 
   if (_.isEmpty(props.geoJson)) {
@@ -132,78 +131,6 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     </div>
   );
 
-  function onPointClicked(
-    point: DisasterEventPoint,
-    event: PointerEvent
-  ): void {
-    const infoCard = d3.select(infoCardRef.current);
-    ReactDOM.render(
-      <InfoCard
-        onClose={() =>
-          d3.select(infoCardRef.current).style("visibility", "hidden")
-        }
-        eventData={point}
-      />,
-      infoCardRef.current
-    );
-    // get info card dimensions
-    const infoCardRect = (
-      infoCard.node() as HTMLDivElement
-    ).getBoundingClientRect();
-    const infoCardHeight = infoCardRect.height;
-    const infoCardWidth = infoCardRect.width;
-    const containerWidth = (
-      d3.select(svgContainer.current).node() as HTMLDivElement
-    ).getBoundingClientRect().width;
-    // calculate left and top position to show the info card
-    let left = Math.min(event.offsetX, containerWidth - infoCardWidth);
-    if (left < 0) {
-      left = 0;
-      infoCard.style("width", containerWidth + "px");
-    } else {
-      infoCard.style("width", "fit-content");
-    }
-    let top = event.offsetY - infoCardHeight - iNFO_CARD_OFFSET;
-    if (top < 0) {
-      top = event.offsetY + iNFO_CARD_OFFSET;
-    }
-    // set info card position and make it visible
-    infoCard
-      .style("left", left + "px")
-      .style("top", top + "px")
-      .style("visibility", "visible");
-  }
-
-  function canClickRegion(placeDcid: string): boolean {
-    // If a country is a European country, we want to add Europe to its list
-    // of parents when calling getParentPlaces. This is important for
-    // getAllChildPlaceTypes because it will handle European countries
-    // differently than regular countries.
-    const enclosingPlace =
-      props.fetchedEuropeanPlaces.findIndex(
-        (country) => country.dcid === placeDcid
-      ) > -1
-        ? EUROPE_NAMED_TYPED_PLACE
-        : props.selectedPlaceInfo.place;
-    const parentPlaces = getParentPlaces(
-      props.selectedPlaceInfo.place,
-      enclosingPlace,
-      props.selectedPlaceInfo.parentPlaces
-    );
-    const newPlaceAsNamedTypedPlace = {
-      dcid: placeDcid,
-      name: placeDcid,
-      types: [props.selectedPlaceInfo.placeType],
-    };
-    return !_.isEmpty(
-      getAllChildPlaceTypes(newPlaceAsNamedTypedPlace, parentPlaces).filter(
-        (placeType) =>
-          placeType !== IPCC_PLACE_50_TYPE_DCID &&
-          placeType !== props.selectedPlaceInfo.placeType
-      )
-    );
-  }
-
   function draw(): void {
     const width = svgContainer.current.offsetWidth;
     const height = (width * 2) / 5;
@@ -213,11 +140,24 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     };
     document.getElementById(MAP_ID).innerHTML = "";
     const isUsaPlace = isChildPlaceOf(
-      props.selectedPlaceInfo.place.dcid,
+      props.selectedPlaceInfo.selectedPlace.dcid,
       USA_PLACE_DCID,
       props.selectedPlaceInfo.parentPlaces
     );
     const projection = getProjection(isUsaPlace, "", width, height);
+    const canClickRegionCb = (placeDcid: string) => {
+      const newPlace = {
+        dcid: placeDcid,
+        name: placeDcid,
+        types: [props.selectedPlaceInfo.enclosedPlaceType],
+      };
+      return canClickRegion(
+        newPlace,
+        props.selectedPlaceInfo.selectedPlace,
+        props.selectedPlaceInfo.parentPlaces,
+        props.fetchedEuropeanPlaces
+      );
+    };
     drawD3Map(
       MAP_ID,
       props.geoJson,
@@ -235,11 +175,11 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
       } /* redirectAction */,
       () =>
         "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
-      canClickRegion,
+      canClickRegionCb,
       false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
       projection,
-      props.selectedPlaceInfo.place.dcid,
+      props.selectedPlaceInfo.selectedPlace.dcid,
       "" /* zoomDcid: no dcid to zoom in on */,
       zoomParams
     );
@@ -261,7 +201,12 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     );
     pointsLayer
       .on("click", (point: DisasterEventPoint) =>
-        onPointClicked(point, d3.event)
+        onPointClicked(
+          infoCardRef.current,
+          svgContainer.current,
+          point,
+          d3.event
+        )
       )
       .on("blur", () => {
         d3.select(infoCardRef.current).style("visibility", "hidden");

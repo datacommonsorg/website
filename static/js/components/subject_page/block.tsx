@@ -20,12 +20,16 @@
 
 import React from "react";
 
-import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
-import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
+import {
+  ColumnConfig,
+  EventTypeSpec,
+  TileConfig,
+} from "../../types/subject_page_proto_types";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
+import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
@@ -41,6 +45,7 @@ export interface BlockPropType {
   description: string;
   columns: ColumnConfig[];
   statVarProvider: StatVarProvider;
+  eventTypeSpec: Record<string, EventTypeSpec>;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -75,14 +80,7 @@ export function Block(props: BlockPropType): JSX.Element {
 function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
   const tilesJsx = tiles.map((tile) => {
     const id = randDomId();
-    const placeType =
-      props.place && props.place.types
-        ? props.place.types[0]
-        : DEFAULT_PAGE_PLACE_TYPE;
-    const enclosedPlaceType =
-      tile.containedPlaceTypes && tile.containedPlaceTypes[placeType]
-        ? tile.containedPlaceTypes[placeType]
-        : props.enclosedPlaceType;
+    const enclosedPlaceType = props.enclosedPlaceType;
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
@@ -165,6 +163,23 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             {tile.description}
           </p>
         );
+      case "DISASTER_EVENT_MAP": {
+        const eventTypeSpec = {};
+        tile.disasterEventMapTileSpec.eventTypeKeys.forEach(
+          (eventKey) =>
+            (eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey])
+        );
+        return (
+          <DisasterEventMapTile
+            key={id}
+            id={id}
+            title={tile.title}
+            place={props.place}
+            enclosedPlaceType={enclosedPlaceType}
+            eventTypeSpec={eventTypeSpec}
+          />
+        );
+      }
       default:
         console.log("Tile type not supported:" + tile.type);
     }

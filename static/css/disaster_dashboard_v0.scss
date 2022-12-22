@@ -159,29 +159,29 @@ $border-radius: 0.5rem;
   background-color: var(--dc-gray-lite);
 }
 
-.disaster-dashboard-info-card-content {
+.disaster-event-map-info-card-content {
   padding: 0.5rem;
   word-break: break-word;
   font-size: 0.9rem;
 }
 
-.disaster-dashboard-info-card-header {
+.disaster-event-map-info-card-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
 
-.disaster-dashboard-info-card-title {
+.disaster-event-map-info-card-title {
   font-weight: 500;
 }
 
-.disaster-dashboard-info-card-info {
+.disaster-event-map-info-card-info {
   display: flex;
   flex-direction: column;
 }
 
-.disaster-dashboard-info-card-header i {
+.disaster-event-map-info-card-header i {
   margin-left: 0.5rem;
   cursor: default;
 }

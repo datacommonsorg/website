@@ -16,7 +16,6 @@
 
 import { DisasterType } from "./constants";
 import { getRankedDisasterCounts, getRankingUnits } from "./ranking_section";
-import { DisasterEventPoint } from "./types";
 
 const EARTHQUAKE_EVENT_1 = {
   placeDcid: "earthquake1",

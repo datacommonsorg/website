@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  type        = string
-  description = "GCP project id where the GCP service account for the workload is defined."
-}
+@use "./shared/subject_page";
+@import "./base";
+@import "./draw";
+@import "./draw_choropleth";
+@import "./draw_scatter";
+@import "./shared/story_block";
+@import "./shared/story_chart";
 
-variable "storage_project_id" {
-  type        = string
-  description = "GCP project id where the BQ and BT data stores will be located in."
-}
+#dc-nl-interface {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 
-variable "website_robot_account_id" {
-  type        = string
-  description = "The prefix of the GCP service account to be created."
-  default     = "website-robot"
+  @include media-breakpoint-up(md) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
 }

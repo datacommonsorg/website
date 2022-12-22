@@ -132,7 +132,7 @@ export function getDiseaseSymptomAssociation(
               continue;
             }
             for (const n2 of n1.neighbors) {
-              if (n2.property !== "descriptorName") {
+              if (n2.property !== "name") {
                 continue;
               }
               // check if the list is empty or not
