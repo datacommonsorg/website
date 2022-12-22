@@ -17,9 +17,9 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
-import json
 import os
-import services.datacommons as dc
+from requests.structures import CaseInsensitiveDict
+import spacy
 import torch
 from datasets import load_dataset
 import logging
@@ -35,8 +35,9 @@ MODEL_NAME = 'all-MiniLM-L6-v2'
 class Model:
   """Holds clients for the language model"""
 
-  def __init__(self):
+  def __init__(self, ner_model):
     self.model = SentenceTransformer(MODEL_NAME)
+    self.ner_model = ner_model
     self.dataset_embeddings_maps = {}
     self._download_embeddings()
     self.dcid_maps = {}
@@ -86,5 +87,10 @@ class Model:
     return {'SV': svs, 'CosineScore': scores}
 
   def detect_place(self, query):
-    # TODO(jehangiramjad): implement this.
-    pass
+    doc = self.ner_model(query)
+    places_found = []
+    for e in doc.ents:
+      if e.label_ in ["GPE", "LOC"]:
+        places_found.append(str(e))
+    
+    return places_found
