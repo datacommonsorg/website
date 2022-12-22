@@ -29,6 +29,7 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { getAllChildPlaceTypes } from "../tools/map/util";
+import { DisasterEventPointData } from "../types/disaster_event_map_types";
 import {
   fetchDateList,
   fetchDisasterEventPoints,
@@ -58,7 +59,8 @@ export function Page(props: PagePropType): JSX.Element {
     parentPlaces: [],
   });
   const [geoJsonData, setGeoJsonData] = useState(null);
-  const [disasterData, setDisasterData] = useState(null);
+  const [disasterData, setDisasterData] =
+    useState<DisasterEventPointData>(null);
   const [dateList, setDateList] = useState([]);
   const [breadcumbs, setBreadcrumbs] = useState([EARTH_NAMED_TYPED_PLACE]);
   const [selectedIntensityProp, setSelectedIntensityProp] = useState("");
@@ -77,7 +79,9 @@ export function Page(props: PagePropType): JSX.Element {
         eventTypeDcids.push(eventType)
       );
     }
-    fetchDateList(eventTypeDcids)
+    // Always get date list for Earth so that the list of dates stays the same
+    // when user clicks through different places.
+    fetchDateList(eventTypeDcids, EARTH_NAMED_TYPED_PLACE.dcid)
       .then((dateList) => {
         setDateList(dateList);
         if (!_.isEmpty(dateList)) {
@@ -140,7 +144,7 @@ export function Page(props: PagePropType): JSX.Element {
         setDisasterData(data);
       })
       .catch(() => {
-        setDisasterData([]);
+        setDisasterData({ eventPoints: [], provenanceInfo: {} });
         window.alert(
           "Error fetching geojson data. Please try refreshing the page"
         );
@@ -216,7 +220,7 @@ export function Page(props: PagePropType): JSX.Element {
       </div>
       <div className="disaster-dashboard-content-section">
         <RankingSection
-          disasterEventPoints={disasterData}
+          disasterEventPoints={disasterData.eventPoints}
           selectedDisaster={selectedDisaster}
           selectedIntensityProp={selectedIntensityProp}
           onIntensityPropSelected={(prop: string) =>
@@ -224,7 +228,7 @@ export function Page(props: PagePropType): JSX.Element {
           }
         />
         <MapSection
-          disasterEventPoints={disasterData}
+          disasterEventPoints={disasterData.eventPoints}
           geoJson={geoJsonData}
           selectedDisaster={selectedDisaster}
           onPlaceUpdated={(place) =>

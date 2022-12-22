@@ -468,7 +468,8 @@ export function addMapPoints(
 ): d3.Selection<SVGCircleElement, MapPoint, SVGGElement, unknown> {
   // get the smallest diagonal length of a region on the d3 map.
   let minRegionDiagonal = Number.MAX_VALUE;
-  d3.select(`#${MAP_GEO_REGIONS_ID}`)
+  d3.select(`#${domContainerId}`)
+    .select(`#${MAP_GEO_REGIONS_ID}`)
     .selectAll("path")
     .each((_, idx, paths) => {
       const pathClientRect = (
