@@ -15,14 +15,15 @@
 
 import os
 
-from flask import current_app
 import flask
-from flask import Blueprint, render_template
-
+from flask import Blueprint, current_app, render_template, request
+from google.protobuf.json_format import MessageToJson, ParseDict
 import pandas as pd
 import re
 import requests
+
 import services.datacommons as dc
+from config import subject_page_pb2
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -52,6 +53,8 @@ def _filtered_svs_list(sv_df):
 
 
 def _sv_definition_name_maps(svgs_info, svs_list):
+  print(svgs_info)
+  print("------ssxxxxx-----")
   sv2definition = {}
   sv2name = {}
   for svgi in svgs_info:
@@ -147,10 +150,9 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
   }
 
   if child_places_type:
-    chart_config['metadata']['contained_in_places'] = [{
-        'key': main_place_type,
-        'value': child_places_type
-    }]
+    chart_config['metadata']['contained_place_types'] = {
+        main_place_type: child_places_type
+    }
 
   added_buckets = set()
   sv4spec = set()
@@ -221,9 +223,9 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
     sv4spec.update(list(svs))
     # TODO: add CLUSTERED_BAR when supported
 
-  sv_specs = []
+  sv_specs = {}
   for sv in sv4spec:
-    sv_specs.append({'key': sv, 'value': {'stat_var': sv, 'name': sv2name[sv]}})
+    sv_specs[sv] = {'stat_var': sv, 'name': sv2name[sv]}
 
   chart_config['categories'] = [{
       'title': 'Search Results',
@@ -326,15 +328,14 @@ def _dc_recon(place_ids):
 
   return d_return
 
-@bp.route('/<path:dcid>')
-def page(dcid):
+@bp.route('/')
+def page():
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   model = current_app.config['NL_MODEL']
-  query = "people who cannot see in new hampshire"
+  query = request.args.get('q', 'people who cannot see')
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  # TODO(jehangiramjad): for now, using tmp_place_dcid. Replace with place detection.
   places_found = model.detect_place(query)
   place_str = ""
   if places_found:
@@ -388,12 +389,17 @@ def page(dcid):
     sv2name = sv_maps["sv2name"]
     sv2definition = sv_maps["sv2definition"]
 
-    # Step 7: Get SVGs into peer buckets.
+     # Step 7: Get SVGs into peer buckets.
     peer_buckets = _peer_buckets(sv2definition, relevant_svs)
 
     # Step 8: Produce Chart Config JSON.
     chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
-                                child_places_type, highlight_svs, sv2name,
-                                peer_buckets)
+                               child_places_type, highlight_svs, sv2name,
+                               peer_buckets)
 
-  return render_template('/nl.html')
+    message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
+    return render_template('/nl_interface.html',
+                          place_type=main_place_type,
+                          place_name=main_place_name,
+                          place_dcid=place_dcid,
+                          config=MessageToJson(message))

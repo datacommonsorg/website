@@ -81,10 +81,6 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
   const tilesJsx = tiles.map((tile) => {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
-    const eventTypeSpec = {};
-    tile.disasterEventMapTileSpec.eventTypeKeys.forEach(
-      (eventKey) => (eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey])
-    );
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
@@ -167,7 +163,12 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             {tile.description}
           </p>
         );
-      case "DISASTER_EVENT_MAP":
+      case "DISASTER_EVENT_MAP": {
+        const eventTypeSpec = {};
+        tile.disasterEventMapTileSpec.eventTypeKeys.forEach(
+          (eventKey) =>
+            (eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey])
+        );
         return (
           <DisasterEventMapTile
             key={id}
@@ -178,6 +179,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             eventTypeSpec={eventTypeSpec}
           />
         );
+      }
       default:
         console.log("Tile type not supported:" + tile.type);
     }
