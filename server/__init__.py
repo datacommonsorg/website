@@ -266,8 +266,9 @@ def create_app():
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
   # Initialize the AI module.
-  app.config['AI_CONTEXT'] = ai.Context()
-  app.config['NL_MODEL'] = nl.Model()
+  if os.environ.get('ENABLE_MODEL') == 'true':
+    app.config['AI_CONTEXT'] = ai.Context()
+    app.config['NL_MODEL'] = nl.Model()
 
   def is_up(url: str):
     if not url.lower().startswith('http'):
