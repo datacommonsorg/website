@@ -368,7 +368,8 @@ def _infer_place_dcid(places_found):
 
 @bp.route('/')
 def page():
-  if os.environ.get('FLASK_ENV') == 'production':
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['NL_MODEL']):
     flask.abort(404)
   model = current_app.config['NL_MODEL']
   query = request.args.get('q', 'people who cannot see')
