@@ -16,7 +16,7 @@
 import os
 
 import flask
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, current_app, render_template, request
 from google.protobuf.json_format import MessageToJson, ParseDict
 import pandas as pd
 
@@ -297,15 +297,14 @@ def _peer_buckets(sv2definition, svs_list):
   return peer_buckets
 
 
-@bp.route('/<path:dcid>')
-def page(dcid):
+@bp.route('/<path:place_dcid>')
+def page(place_dcid):
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
   # TODO(jehangiramjad): for now, using tmp_place_dcid. Replace with place detection.
-  place_dcid = dcid
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
@@ -319,7 +318,7 @@ def page(dcid):
 
   # Step 2: replace the places in the query sentence with "".
   # TODO(jehangiramjad): implement this. For now, using a temp query without a place.
-  query = "people who cannot see"
+  query = request.args.get('q', 'people who cannot see')
 
   # Step 3: Identify the SV matched based on the query.
   svs_df = pd.DataFrame(model.detect_svs(query))
@@ -347,5 +346,5 @@ def page(dcid):
   return render_template('/nl_interface.html',
                          place_type=main_place_type,
                          place_name=main_place_name,
-                         place_dcid=dcid,
+                         place_dcid=place_dcid,
                          config=MessageToJson(message))

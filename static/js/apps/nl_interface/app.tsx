@@ -38,7 +38,7 @@ interface AppPropType {
 export function App(props: AppPropType): JSX.Element {
   return (
     <div id="dc-nl-interface">
-      <h1>Data Commons NL Interface</h1>
+      <h1>Ask Data Commons</h1>
       <div className="row">
         <SubjectPageMainPane
           place={props.place}
