@@ -53,8 +53,6 @@ def _filtered_svs_list(sv_df):
 
 
 def _sv_definition_name_maps(svgs_info, svs_list):
-  print(svgs_info)
-  print("------ssxxxxx-----")
   sv2definition = {}
   sv2name = {}
   for svgi in svgs_info:
@@ -315,6 +313,7 @@ def _maps_place(place_str):
         return res
   return {}
 
+
 def _dc_recon(place_ids):
   resp = dc.resolve_id(place_ids, "placeId", "dcid")
   if "entities" not in resp:
@@ -328,21 +327,33 @@ def _dc_recon(place_ids):
 
   return d_return
 
-@bp.route('/')
-def page():
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
-  model = current_app.config['NL_MODEL']
-  query = request.args.get('q', 'people who cannot see')
 
-  # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(query)
+def _remove_places(query, places_found):
+  for p_str in places_found:
+    # See if the word "in" precedes the place. If so, best to remove it too.
+    needle = "in " + p_str
+    if needle not in query:
+      needle = p_str
+    query = query.replace(needle, "")
+
+  # Remove all punctuation.
+  query = re.sub(r'[^\w\s]', '', query)
+
+  # Remove any extra spaces and return.
+  return ' '.join(query.split())
+
+
+def _infer_place_dcid(places_found):
   place_str = ""
-  if places_found:
-    place_str = places_found[0]
-  
-  place = _maps_place(place_str)
+  if not places_found:
+    return render_template('/nl_interface.html',
+                           place_type="",
+                           place_name="",
+                           place_dcid="",
+                           config={})
+
   place_dcid = ""
+  place = _maps_place(places_found[0])
   # If maps API returned a valid place, use the place_id to
   # get the dcid.
   if place:
@@ -352,54 +363,72 @@ def page():
     if place_id in place_ids_map:
       place_dcid = place_ids_map[place_id]
 
-  # If a valid DCID was found, proceed.
-  if place_dcid:
-    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
-    main_place_type = _get_preferred_type(place_types)
-    main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
+  return place_dcid
 
-    related_places = _related_places(place_dcid)
-    child_places_type = related_places['childPlacesType']
-    all_relevant_places = list(
-        set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
-            related_places['similarPlaces']))
 
-    # Step 2: replace the places in the query sentence with "".
-    for p_str in places_found:
-      # See if the word "in" precedes the place. If so, best to remove it too.
-      needle = "in " + p_str
-      if needle not in query:
-        needle = p_str
-      query = query.replace(needle, "")
-    
-    query = re.sub(r'[^\w\s]', '', query)
+@bp.route('/')
+def page():
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  model = current_app.config['NL_MODEL']
+  query = request.args.get('q', 'people who cannot see')
+  # In case a place_dcid is provided, use that.
+  place_dcid = request.args.get('place_dcid', '')
 
-    # Step 3: Identify the SV matched based on the query.
-    svs_df = pd.DataFrame(model.detect_svs(query))
+  # Step 1: find all relevant places and the name/type of the main place found.
+  places_found = model.detect_place(query)
 
-    # Step 4: filter SVs based on scores.
-    highlight_svs = _highlight_svs(svs_df)
-    relevant_svs = _filtered_svs_list(svs_df)
+  # If place_dcid was already set by the url, skip inferring it.
+  if not place_dcid:
+    place_dcid = _infer_place_dcid(places_found)
 
-    # Step 5: get related SVGs and all info.
-    svgs_info = _related_svgs(relevant_svs, all_relevant_places)
+  # If a valid DCID was was not found or provided, do not proceed.
+  if not place_dcid:
+    return render_template('/nl_interface.html',
+                           place_type="",
+                           place_name="",
+                           place_dcid="",
+                           config={})
 
-    # Step 6: get useful sv2name and sv2definitions.
-    sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
-    sv2name = sv_maps["sv2name"]
-    sv2definition = sv_maps["sv2definition"]
+  place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
+  main_place_type = _get_preferred_type(place_types)
+  main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
-     # Step 7: Get SVGs into peer buckets.
-    peer_buckets = _peer_buckets(sv2definition, relevant_svs)
+  related_places = _related_places(place_dcid)
+  child_places_type = related_places['childPlacesType']
+  all_relevant_places = list(
+      set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
+          related_places['similarPlaces']))
 
-    # Step 8: Produce Chart Config JSON.
-    chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
+  # Step 2: replace the places in the query sentence with "".
+  query = _remove_places(query, places_found)
+
+  # Step 3: Identify the SV matched based on the query.
+  svs_df = pd.DataFrame(model.detect_svs(query))
+
+  # Step 4: filter SVs based on scores.
+  highlight_svs = _highlight_svs(svs_df)
+  relevant_svs = _filtered_svs_list(svs_df)
+
+  # Step 5: get related SVGs and all info.
+  svgs_info = _related_svgs(relevant_svs, all_relevant_places)
+
+  # Step 6: get useful sv2name and sv2definitions.
+  sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
+  sv2name = sv_maps["sv2name"]
+  sv2definition = sv_maps["sv2definition"]
+
+  # Step 7: Get SVGs into peer buckets.
+  peer_buckets = _peer_buckets(sv2definition, relevant_svs)
+
+  # Step 8: Produce Chart Config JSON.
+  chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
                                child_places_type, highlight_svs, sv2name,
                                peer_buckets)
 
-    message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-    return render_template('/nl_interface.html',
-                          place_type=main_place_type,
-                          place_name=main_place_name,
-                          place_dcid=place_dcid,
-                          config=MessageToJson(message))
+  message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
+  return render_template('/nl_interface.html',
+                         place_type=main_place_type,
+                         place_name=main_place_name,
+                         place_dcid=place_dcid,
+                         config=MessageToJson(message))

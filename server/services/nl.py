@@ -92,5 +92,5 @@ class Model:
     for e in doc.ents:
       if e.label_ in ["GPE", "LOC"]:
         places_found.append(str(e))
-    
+
     return places_found
