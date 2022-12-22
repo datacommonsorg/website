@@ -17,7 +17,9 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
+import json
 import os
+import services.datacommons as dc
 import torch
 from datasets import load_dataset
 import logging
@@ -57,7 +59,7 @@ class Model:
       _, filename = os.path.split(blob.name)
       blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
 
-  def search(self, query):
+  def detect_svs(self, query):
     query_embeddings = self.model.encode([query])
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings_maps[BUILD],
@@ -81,4 +83,8 @@ class Model:
     # Sort by scores
     scores = [s for s in sorted(score2svs.keys(), reverse=True)]
     svs = [' : '.join(score2svs[s]) for s in scores]
-    return scores, svs
+    return {'SV': svs, 'CosineScore': scores}
+
+  def detect_place(self, query):
+    # TODO(jehangiramjad): implement this.
+    pass
