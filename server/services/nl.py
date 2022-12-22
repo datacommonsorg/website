@@ -59,7 +59,6 @@ class Model:
       _, filename = os.path.split(blob.name)
       blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
 
-
   def detect_svs(self, query):
     query_embeddings = self.model.encode([query])
     hits = semantic_search(query_embeddings,
@@ -85,7 +84,6 @@ class Model:
     scores = [s for s in sorted(score2svs.keys(), reverse=True)]
     svs = [' : '.join(score2svs[s]) for s in scores]
     return {'SV': svs, 'CosineScore': scores}
-
 
   def detect_place(self, query):
     # TODO(jehangiramjad): implement this.

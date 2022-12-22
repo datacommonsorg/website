@@ -27,20 +27,26 @@ bp = Blueprint('nl', __name__, url_prefix='/nl')
 FIXED_PREFIXES = ['md=', 'mq=', 'st=', 'mp=', 'pt=']
 FIXED_PROPS = set([p[:-1] for p in FIXED_PREFIXES])
 
+
 def _is_vertical_svg(svg):
   return '_' not in svg
 
+
 def _get_preferred_type(types):
   for t in ['Country', 'State', 'County', 'City']:
-    if t in types: return t
+    if t in types:
+      return t
   return sorted(types)[0]
+
 
 def _highlight_svs(sv_df):
   return sv_df[sv_df['CosineScore'] > 0.4]['SV'].values.tolist()
 
+
 def _filtered_svs_list(sv_df):
   sv_df = sv_df.drop(sv_df[sv_df['CosineScore'] < 0.3].index)
   return sv_df['SV'].values.tolist()
+
 
 def _sv_definition_name_maps(svgs_info, svs_list):
   sv2definition = {}
@@ -54,18 +60,21 @@ def _sv_definition_name_maps(svgs_info, svs_list):
     for svi in child_svs:
       sv2definition[svi['id']] = svi['definition']
       sv2name[svi['id']] = svi['displayName']
-  
+
   # Get any missing SV Names
   sv_names_api = dc.property_values(svs_list, 'name')
   sv2name.update({p: v[0] for p, v in sv_names_api.items()})
 
   return {"sv2definition": sv2definition, "sv2name": sv2name}
 
+
 def _caps(e):
   return e[0].upper() + e[1:]
 
+
 def _caps_list(list):
   return [_caps(e) for e in list]
+
 
 def _bucket_to_name(key):
   parts = key.split(',')
@@ -75,7 +84,8 @@ def _bucket_to_name(key):
   end_parts = []
   prefix = ""
   for p, v in pv.items():
-    if p in FIXED_PROPS: continue
+    if p in FIXED_PROPS:
+      continue
     if not v:
       prefix = "Drilldown by " + _caps(p) + " for '"
     else:
@@ -93,6 +103,7 @@ def _bucket_to_name(key):
 
   # Some fixups
   return result.replace('Person Count', 'Population')
+
 
 # Returns a map of buckets.  The key is SV definition without V, and value is
 # the missing V.
@@ -123,18 +134,19 @@ def _get_buckets(defn):
     buckets[','.join(parts)] = v_only
   return buckets
 
-def _chart_config(place_dcid, main_place_type, main_place_name, child_places_type, 
-                  highlight_svs, sv2name, peer_buckets):
+
+def _chart_config(place_dcid, main_place_type, main_place_name,
+                  child_places_type, highlight_svs, sv2name, peer_buckets):
   #@title
   chart_config = {}
   chart_config['metadata'] = {
-    'place_dcid': [place_dcid],
+      'place_dcid': [place_dcid],
   }
 
   if child_places_type:
     chart_config['metadata']['contained_in_places'] = [{
-      'key': main_place_type,
-      'value': child_places_type
+        'key': main_place_type,
+        'value': child_places_type
     }]
 
   added_buckets = set()
@@ -147,13 +159,15 @@ def _chart_config(place_dcid, main_place_type, main_place_name, child_places_typ
     tiles.append({
         'title': sv2name[sv] + ': historical',
         'type': 'LINE',
-        'stat_var_key': [sv]})
+        'stat_var_key': [sv]
+    })
 
     if child_places_type:
       tiles.append({
           'title': sv2name[sv] + ': places within ' + main_place_name,
           'type': 'MAP',
-          'stat_var_key': [sv]})
+          'stat_var_key': [sv]
+      })
 
       tiles.append({
           'title': sv2name[sv] + ': rankings within ' + main_place_name,
@@ -167,34 +181,32 @@ def _chart_config(place_dcid, main_place_type, main_place_name, child_places_typ
 
     # If the highlight SV is part of an SV peer-group, add it ahead of others.
     for key, svs in peer_buckets.items():
-      if sv not in svs: continue
-      if key in added_buckets: continue
+      if sv not in svs:
+        continue
+      if key in added_buckets:
+        continue
 
       sv_list = list(svs)
       # Consider if this should be bar or time-series?
       tiles.append({
-            'title': _bucket_to_name(key),
-            'type': 'LINE',
-            'stat_var_key': sv_list
+          'title': _bucket_to_name(key),
+          'type': 'LINE',
+          'stat_var_key': sv_list
       })
       added_buckets.add(key)
       sv4spec.update(sv_list)
       # TODO: add CLUSTERED_BAR
 
-    blocks.append({
-        'title': sv2name[sv],
-        'columns': [{
-            'tiles': tiles
-        }]
-    })
+    blocks.append({'title': sv2name[sv], 'columns': [{'tiles': tiles}]})
     sv4spec.add(sv)
 
   for key, svs in peer_buckets.items():
-    if key in added_buckets: continue
+    if key in added_buckets:
+      continue
     tile = {
-      'title': _bucket_to_name(key),
-      'type': 'BAR',
-      'stat_var_key': list(svs)
+        'title': _bucket_to_name(key),
+        'type': 'BAR',
+        'stat_var_key': list(svs)
     }
     blocks.append({
         'title': _bucket_to_name(key) + ' in ' + main_place_name,
@@ -208,13 +220,7 @@ def _chart_config(place_dcid, main_place_type, main_place_name, child_places_typ
 
   sv_specs = []
   for sv in sv4spec:
-    sv_specs.append({
-        'key': sv,
-        'value': {
-            'stat_var': sv,
-            'name': sv2name[sv]
-        }
-    })
+    sv_specs.append({'key': sv, 'value': {'stat_var': sv, 'name': sv2name[sv]}})
 
   chart_config['categories'] = [{
       'title': 'Search Results',
@@ -224,17 +230,20 @@ def _chart_config(place_dcid, main_place_type, main_place_name, child_places_typ
 
   return chart_config
 
+
 def _get_related_places(place_dcid):
   place_page_data = dc.get_landing_page_data(place_dcid, 'Overview', [])
   if isinstance(place_page_data, dict):
     return place_page_data
   return {}
 
+
 def _get_svg_info(entities, svg_dcids):
   result = dc.get_variable_group_info_bulk(svg_dcids, entities)
   if isinstance(result, dict):
     return result
   return {}
+
 
 def _related_svgs(svs_list, relevant_places):
   # Using PropertyValues (memberOf) and VariableGroupInfo APIs
@@ -253,7 +262,7 @@ def _related_svgs(svs_list, relevant_places):
     if not has_svg:
       # This is top-level SV, so we will try getting child SVGs
       sv_under_verticals.add(sv)
-    
+
   # Get SVG info for all relevant places
   svgs_info = _get_svg_info(relevant_places, list(svgs))['data']
   return svgs_info
@@ -266,12 +275,14 @@ def _related_places(dcid):
   related_places['similarPlaces'] += [dcid]
   return related_places
 
+
 def _peer_buckets(sv2definition, svs_list):
   peer_buckets = {}
   for sv, defn in sv2definition.items():
     keys = _get_buckets(defn)
     for key, cval in keys.items():
-      if key not in peer_buckets: peer_buckets[key] = {}
+      if key not in peer_buckets:
+        peer_buckets[key] = {}
       peer_buckets[key][sv] = cval
 
   # Remove single SV keys and remove groups with result SV
@@ -282,15 +293,16 @@ def _peer_buckets(sv2definition, svs_list):
     elif not any([sv in peer_buckets[bucket_id] for sv in svs_list]):
       # this bucket has no useful SV
       del peer_buckets[bucket_id]
-    
+
   return peer_buckets
+
 
 @bp.route('/<path:dcid>')
 def page(dcid):
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   model = current_app.config['NL_MODEL']
-  
+
   # Step 1: find all relevant places and the name/type of the main place found.
   # TODO(jehangiramjad): for now, using tmp_place_dcid. Replace with place detection.
   place_dcid = dcid
@@ -301,9 +313,9 @@ def page(dcid):
 
   related_places = _related_places(place_dcid)
   child_places_type = related_places['childPlacesType']
-  all_relevant_places = list(set(related_places['parentPlaces'] + 
-                                            related_places['nearbyPlaces'] + 
-                                            related_places['similarPlaces']))
+  all_relevant_places = list(
+      set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
+          related_places['similarPlaces']))
 
   # Step 2: replace the places in the query sentence with "".
   # TODO(jehangiramjad): implement this. For now, using a temp query without a place.
@@ -329,7 +341,8 @@ def page(dcid):
 
   # Step 8: Produce Chart Config JSON.
   chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
-                          child_places_type, highlight_svs, sv2name, peer_buckets)
+                               child_places_type, highlight_svs, sv2name,
+                               peer_buckets)
 
   print(chart_config)
 
