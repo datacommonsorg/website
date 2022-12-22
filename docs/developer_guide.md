@@ -65,7 +65,7 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
-If you don't have access to DataCommons maps API, can brings up website without
+If you don't have access to DataCommons maps API, can bring up website without
 place search functionality
 
 ```bash
