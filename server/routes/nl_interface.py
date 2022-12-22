@@ -15,12 +15,13 @@
 
 import os
 
-from flask import current_app
 import flask
-from flask import Blueprint, render_template
-
+from flask import Blueprint, render_template, current_app
+from google.protobuf.json_format import MessageToJson, ParseDict
 import pandas as pd
+
 import services.datacommons as dc
+from config import subject_page_pb2
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -144,10 +145,9 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
   }
 
   if child_places_type:
-    chart_config['metadata']['contained_in_places'] = [{
-        'key': main_place_type,
-        'value': child_places_type
-    }]
+    chart_config['metadata']['contained_place_types'] = {
+        main_place_type: child_places_type
+    }
 
   added_buckets = set()
   sv4spec = set()
@@ -218,9 +218,9 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
     sv4spec.update(list(svs))
     # TODO: add CLUSTERED_BAR when supported
 
-  sv_specs = []
+  sv_specs = {}
   for sv in sv4spec:
-    sv_specs.append({'key': sv, 'value': {'stat_var': sv, 'name': sv2name[sv]}})
+    sv_specs[sv] = {'stat_var': sv, 'name': sv2name[sv]}
 
   chart_config['categories'] = [{
       'title': 'Search Results',
@@ -343,7 +343,9 @@ def page(dcid):
   chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
                                child_places_type, highlight_svs, sv2name,
                                peer_buckets)
-
-  print(chart_config)
-
-  return render_template('/nl.html')
+  message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
+  return render_template('/nl_interface.html',
+                         place_type=main_place_type,
+                         place_name=main_place_name,
+                         place_dcid=dcid,
+                         config=MessageToJson(message))
