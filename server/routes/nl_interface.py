@@ -299,7 +299,8 @@ def _peer_buckets(sv2definition, svs_list):
 
 @bp.route('/<path:place_dcid>')
 def page(place_dcid):
-  if os.environ.get('FLASK_ENV') == 'production':
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['NL_MODEL']):
     flask.abort(404)
   model = current_app.config['NL_MODEL']
 
