@@ -18,33 +18,81 @@
  * Main component for NL interface.
  */
 
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { TextSearchBar } from "../../components/text_search_bar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
-interface AppPropType {
-  /**
-   * The place to show the page for.
-   */
+interface SearchResult {
   place: NamedTypedPlace;
-  /**
-   * Config of the page
-   */
-  pageConfig: SubjectPageConfig;
+  config: SubjectPageConfig;
 }
 
-export function App(props: AppPropType): JSX.Element {
+export function App(): JSX.Element {
+  const [chartsData, setChartsData] = useState<SearchResult | undefined>();
+  const [paramsStr, setParamsStr] = useState<string>();
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const paramsStr = params.toString();
+    if (paramsStr.length > 0) {
+      fetchData(paramsStr);
+    }
+  }, [paramsStr]);
+
+  function fetchData(paramsStr: string): void {
+    setLoading(true);
+    setParamsStr(paramsStr);
+    axios.get(`/nl/data?q=${paramsStr}`).then((resp) => {
+      setChartsData({
+        place: {
+          types: [resp.data["place_type"]],
+          name: resp.data["place_name"],
+          dcid: resp.data["place_dcid"],
+        },
+        config: JSON.parse(resp.data.config),
+      });
+      setLoading(false);
+    });
+  }
+
   return (
     <div id="dc-nl-interface">
-      <h1>Ask Data Commons</h1>
-      <div className="row">
-        <SubjectPageMainPane
-          place={props.place}
-          pageConfig={props.pageConfig}
-        />
-      </div>
+      <Container fluid={true}>
+        <Row>
+          <div className="place-options-card">
+            <Container className="place-options" fluid={true}>
+              <div className="place-options-section">
+                <TextSearchBar
+                  onSearch={(q) => {
+                    history.pushState({}, null, `/nl?q=${q}`);
+                    fetchData(q);
+                  }}
+                  initialValue={""}
+                  placeholder='For example "doctorate degrees in the USA"'
+                />
+              </div>
+            </Container>
+          </div>
+        </Row>
+        {chartsData && chartsData.config && (
+          <Row>
+            <SubjectPageMainPane
+              place={chartsData.place}
+              pageConfig={chartsData.config}
+            />
+          </Row>
+        )}
+        <div id="screen" style={{ display: loading ? "block" : "none" }}>
+          <div id="spinner"></div>
+        </div>
+      </Container>
     </div>
   );
 }

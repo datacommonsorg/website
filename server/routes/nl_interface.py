@@ -14,6 +14,7 @@
 """Data Commons NL Interface routes"""
 
 import os
+import json
 
 import flask
 from flask import Blueprint, current_app, render_template, request
@@ -361,11 +362,7 @@ def _remove_places(query, places_found):
 def _infer_place_dcid(places_found):
   place_str = ""
   if not places_found:
-    return render_template('/nl_interface.html',
-                           place_type="",
-                           place_name="",
-                           place_dcid="",
-                           config={})
+    return ""
 
   place_dcid = ""
   place = _maps_place(places_found[0])
@@ -381,13 +378,25 @@ def _infer_place_dcid(places_found):
   return place_dcid
 
 
-@bp.route('/')
+@bp.route('/', strict_slashes=False)
 def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  return render_template('/nl_interface.html',
+                         place_type="",
+                         place_name="",
+                         place_dcid="",
+                         config={})
+
+
+@bp.route('/data')
+def data():
+  query = request.args.get('q')
   model = current_app.config['NL_MODEL']
-  query = request.args.get('q', 'people who cannot see')
+  res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
+  if not query:
+    return res
   # In case a place_dcid is provided, use that.
   place_dcid = request.args.get('place_dcid', '')
 
@@ -400,11 +409,7 @@ def page():
 
   # If a valid DCID was was not found or provided, do not proceed.
   if not place_dcid:
-    return render_template('/nl_interface.html',
-                           place_type="",
-                           place_name="",
-                           place_dcid="",
-                           config={})
+    return res
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
@@ -447,8 +452,9 @@ def page():
   print(chart_config)
   print(query, main_place_name, place_dcid)
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-  return render_template('/nl_interface.html',
-                         place_type=main_place_type,
-                         place_name=main_place_name,
-                         place_dcid=place_dcid,
-                         config=MessageToJson(message))
+  return json.dumps({
+      'place_type': main_place_type,
+      'place_name': main_place_name,
+      'place_dcid': place_dcid,
+      'config': MessageToJson(message)
+  })
