@@ -31,3 +31,27 @@
     margin-right: 3rem;
   }
 }
+
+.place-options {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
+
+.place-options-card {
+  flex-grow: 1;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.place-options-section {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  padding: 0.5rem 0.5rem;
+  overflow: hidden;
+}
+
+.input-query {
+  flex-grow: 1;
+}
