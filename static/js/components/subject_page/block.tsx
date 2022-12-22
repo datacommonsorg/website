@@ -82,7 +82,6 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
     const eventTypeSpec = {};
-
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
