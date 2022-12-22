@@ -1,0 +1,419 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+    topic_id: "disasters"
+    topic_name: "Disasters"
+    place_dcid: "geoId/02"
+    contained_place_types {
+      key: "State"
+      value: "County"
+    }
+  }
+  
+categories {
+  title: "Disasters"
+  description: "Oh no!"
+  blocks {
+    title: "Earthquakes"
+    description: "The ground is shaking!"
+    columns {
+      tiles {
+        type: HISTOGRAM
+        title: "Number of Earthquakes over Time"
+        stat_var_key: "count_earthquakes"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "count_earthquakes"
+    value {
+        stat_var: "Count_EarthquakeEvent"
+        name: "Count of Earthquakes"
+    }
+  }
+}
+  
+
+
+categories {
+  title: "Equity between sexes"
+  description: "Gender is often confused with the concept of sex. Gender is a social construct, whereas sex is based on the biological attributes of men and women. The US Census intends to capture a person's biological sex and not gender. For more information, see https://www.census.gov/topics/population/age-and-sex/about.html"
+  blocks {
+    title: "Income inequality between sexes"
+    description: "Income inequality is computed as the ratio of the difference between median income for each sex, with the combined median incomes. A value of 0 means complete equality of median income."
+    columns {
+      tiles {
+        type: MAP
+        title: "Income inequality between sexes (${date})"
+        stat_var_key: "income_inequality"
+      }
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "income_inequality"
+      }
+    }
+  }
+
+  blocks {
+    title: "Income and employment, by sex"
+    description: "Median incomes of individuals, broken down by sex"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "median_income_female"
+        stat_var_key: "median_income_male"
+      }
+    }
+    columns {
+      tiles {
+        title: "Median income by sex"
+        type: LINE
+        stat_var_key: "median_income_female"
+        stat_var_key: "median_income_male"
+      }
+    }
+  }
+
+  blocks {
+    title: "Poverty rate, by sex"
+    description: "Percentage of the population of each sex living below the poverty level."
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the female population in poverty (${date})"
+        stat_var_key: "poverty_rate_female"
+      }
+      tiles {
+        type: LINE
+        title: "Poverty rate, by sex"
+        stat_var_key: "poverty_rate_female"
+        stat_var_key: "poverty_rate_male"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of the male population in poverty (${date})"
+        stat_var_key: "poverty_rate_male"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "poverty_rate_female"
+        stat_var_key: "poverty_rate_male"
+      }
+    }
+  }
+
+  blocks {
+    title: "Uninsured, by sex"
+    description: "Of those without insurance, how many are male or female?"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Americans have no health insurance (${date})"
+        stat_var_key: "uninsured_count"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "uninsured_rate_female"
+        stat_var_key: "uninsured_rate_male"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Uninsured, by sex"
+        stat_var_key: "uninsured_rate_female"
+        stat_var_key: "uninsured_rate_male"
+      }
+    }
+  }
+
+  blocks {
+    title: "With disabilities, by sex"
+    description: "Percentage of the population of each sex with disabilities"
+    columns {
+      tiles {
+        type: LINE
+        title: "With disability, by sex in ${place}"
+        stat_var_key: "disability_rate_female"
+        stat_var_key: "disability_rate_male"
+      }
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+        }
+        stat_var_key: "disability_rate_female"
+        stat_var_key: "disability_rate_male"
+      }
+    }
+  }
+
+  # Note: This data is not available by race.
+  blocks {
+    title: "Education attainment by sex"
+    description: "Percentage of the population of each sex with an associate's degree"
+    columns {
+      tiles {
+        type: LINE
+        title: "Associate's degree holders by sex"
+        stat_var_key: "associates_female"
+        stat_var_key: "associates_male"
+      }
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "associates_female"
+        stat_var_key: "associates_male"
+      }
+    }
+  }
+
+  blocks {
+    # Note: title intentionally left out
+    description: "Percentage of the population of each sex with an bachelors's degree"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "bachelors_female"
+        stat_var_key: "bachelors_male"
+      }
+    }
+    columns {
+      tiles {
+        title: "Bachelor's degree holders by sex"
+        type: LINE
+        stat_var_key: "bachelors_female"
+        stat_var_key: "bachelors_male"
+      }
+    }
+  }
+
+  blocks {
+    # Note: title intentionally left out
+    description: "Percentage of the population of each sex with a graduate or professional degree"
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of females who are graduate or professional degree holders"
+        stat_var_key: "graduate_female"
+      }
+      tiles {
+        type: LINE
+        title: "Graduate or professional degree holders by sex"
+        stat_var_key: "graduate_female"
+        stat_var_key: "graduate_male"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Percentage of males who are graduate or professional degree holders"
+        stat_var_key: "graduate_male"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "graduate_female"
+        stat_var_key: "graduate_male"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "income_inequality"
+    value {
+      stat_var: "GenderIncomeInequality_Person_15OrMoreYears_WithIncome"
+      name: "Income inequality between sexes"
+    }
+  }
+  stat_var_spec {
+    key: "median_income_female"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      unit: "$"
+      name: "Female"
+    }
+  }
+  stat_var_spec {
+    key: "median_income_male"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+      unit: "$"
+      name: "Male"
+    }
+  }
+  stat_var_spec {
+    key: "poverty_rate_female"
+    value {
+      stat_var: "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_Female"
+      scaling: 100
+      unit: "%"
+      name: "Female"
+    }
+  }
+  stat_var_spec {
+    key: "poverty_rate_male"
+    value {
+      stat_var: "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person_Male"
+      scaling: 100
+      unit: "%"
+      name: "Male"
+    }
+  }
+  stat_var_spec {
+    key: "uninsured_rate_female"
+    value {
+      stat_var: "Count_Person_Female_NoHealthInsurance"
+      denom: "Count_Person_NoHealthInsurance"
+      unit: "%"
+      scaling: 100
+      name: "Female, uninsured"
+    }
+  }
+  stat_var_spec {
+    key: "uninsured_rate_male"
+    value {
+      stat_var: "Count_Person_Male_NoHealthInsurance"
+      denom: "Count_Person_NoHealthInsurance"
+      unit: "%"
+      scaling: 100
+      name: "Male, uninsured"
+    }
+  }
+  stat_var_spec {
+    key: "uninsured_count"
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+    }
+  }
+  stat_var_spec {
+    key: "disability_rate_female"
+    value {
+      stat_var: "Count_Person_WithDisability_Female"
+      denom: "Count_Person_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female, with disability"
+    }
+  }
+  stat_var_spec {
+    key: "disability_rate_male"
+    value {
+      stat_var: "Count_Person_WithDisability_Male"
+      denom: "Count_Person_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male, with disability"
+    }
+  }
+  stat_var_spec {
+    key: "associates_female"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+  }
+  stat_var_spec {
+    key: "associates_male"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentAssociatesDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+  }
+  stat_var_spec {
+    key: "bachelors_female"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+  }
+  stat_var_spec {
+    key: "bachelors_male"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+  }
+  stat_var_spec {
+    key: "graduate_female"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Female"
+      denom: "Count_Person_25To34Years_Female"
+      unit: "%"
+      scaling: 100
+      name: "Female"
+    }
+  }
+  stat_var_spec {
+    key: "graduate_male"
+    value {
+      stat_var: "Count_Person_25To34Years_EducationalAttainmentGraduateOrProfessionalDegree_Male"
+      denom: "Count_Person_25To34Years_Male"
+      unit: "%"
+      scaling: 100
+      name: "Male"
+    }
+  }
+}
+  
