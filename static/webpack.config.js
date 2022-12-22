@@ -55,6 +55,10 @@ const config = {
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
     ],
+    nl_interface: [
+      __dirname + "/js/apps/nl_interface/main.ts",
+      __dirname + "/css/nl_interface.scss",
+    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",
@@ -97,10 +101,7 @@ const config = {
       __dirname + "/js/disaster_dashboard_v0/disaster_dashboard.ts",
       __dirname + "/css/disaster_dashboard_v0.scss",
     ],
-    event: [
-      __dirname + "/js/event/event.ts",
-      __dirname + "/css/event.scss",
-    ],
+    event: [__dirname + "/js/event/event.ts", __dirname + "/css/event.scss"],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",
