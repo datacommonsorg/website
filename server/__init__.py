@@ -23,6 +23,7 @@ import urllib.error
 from flask import Flask, request, g
 from flask_babel import Babel
 
+import en_core_web_lg
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -271,8 +272,9 @@ def create_app():
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
   # Initialize the AI module.
-  app.config['AI_CONTEXT'] = ai.Context()
-  app.config['NL_MODEL'] = nl.Model()
+  if os.environ.get('ENABLE_MODEL') == 'true':
+    app.config['AI_CONTEXT'] = ai.Context()
+    app.config['NL_MODEL'] = nl.Model(en_core_web_lg.load())
 
   def is_up(url: str):
     if not url.lower().startswith('http'):
