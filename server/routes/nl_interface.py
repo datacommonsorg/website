@@ -247,7 +247,7 @@ def _get_related_places(place_dcid):
   if "parentPlaces" not in place_page_data:
     place_page_data["parentPlaces"] = []
   if "childPlacesType" not in place_page_data:
-    place_page_data["childPlacesType"] = []
+    place_page_data["childPlacesType"] = ""
   if "nearbyPlaces" not in place_page_data:
     place_page_data["nearbyPlaces"] = []
   if "similarPlaces" not in place_page_data:
