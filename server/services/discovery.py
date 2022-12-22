@@ -132,6 +132,7 @@ endpoints = Endpoints([
     '/query',
     '/translate',
     '/search',
+    '/v1/bulk/info/variable-group',
     '/v1/bulk/observations/point',
     '/v1/bulk/observations/point/linked',
     '/v1/bulk/observations/series',
