@@ -82,9 +82,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
     const eventTypeSpec = {};
-    tile.disasterEventMapTileSpec.eventTypeKeys.forEach(
-      (eventKey) => (eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey])
-    );
+
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
@@ -168,6 +166,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
           </p>
         );
       case "DISASTER_EVENT_MAP":
+        tile.disasterEventMapTileSpec.eventTypeKeys.forEach(
+          (eventKey) =>
+            (eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey])
+        );
         return (
           <DisasterEventMapTile
             key={id}
