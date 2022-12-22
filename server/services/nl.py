@@ -18,8 +18,6 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
 import os
-from requests.structures import CaseInsensitiveDict
-import spacy
 import torch
 from datasets import load_dataset
 import logging
