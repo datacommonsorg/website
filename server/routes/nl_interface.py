@@ -360,7 +360,6 @@ def _remove_places(query, places_found):
 
 
 def _infer_place_dcid(places_found):
-  place_str = ""
   if not places_found:
     return ""
 
