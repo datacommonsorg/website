@@ -14,6 +14,7 @@
 """Data Commons NL Interface routes"""
 
 import os
+import json
 
 import flask
 from flask import Blueprint, current_app, render_template, request
@@ -62,8 +63,12 @@ def _sv_definition_name_maps(svgs_info, svs_list):
       continue
     child_svs = svgi['info']['childStatVars']
     for svi in child_svs:
-      sv2definition[svi['id']] = svi['definition']
-      sv2name[svi['id']] = svi['displayName']
+      if 'id' not in svi:
+        continue
+      if 'definition' in svi:
+        sv2definition[svi['id']] = svi['definition']
+      if 'displayName' in svi:
+        sv2name[svi['id']] = svi['displayName']
 
   # Get any missing SV Names
   sv_names_api = dc.property_values(svs_list, 'name')
@@ -147,7 +152,8 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
       'place_dcid': [place_dcid],
   }
 
-  if child_places_type:
+  if (child_places_type and ('metadata' in chart_config) and
+      ('contained_place_types' in chart_config['metadata'])):
     chart_config['metadata']['contained_place_types'] = {
         main_place_type: child_places_type
     }
@@ -236,9 +242,19 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
 
 def _get_related_places(place_dcid):
   place_page_data = dc.get_landing_page_data(place_dcid, 'Overview', [])
-  if isinstance(place_page_data, dict):
-    return place_page_data
-  return {}
+  if not place_page_data:
+    place_page_data = {}
+
+  if "parentPlaces" not in place_page_data:
+    place_page_data["parentPlaces"] = []
+  if "childPlacesType" not in place_page_data:
+    place_page_data["childPlacesType"] = ""
+  if "nearbyPlaces" not in place_page_data:
+    place_page_data["nearbyPlaces"] = []
+  if "similarPlaces" not in place_page_data:
+    place_page_data["similarPlaces"] = []
+
+  return place_page_data
 
 
 def _get_svg_info(entities, svg_dcids):
@@ -346,17 +362,13 @@ def _remove_places(query, places_found):
 def _infer_place_dcid(places_found):
   place_str = ""
   if not places_found:
-    return render_template('/nl_interface.html',
-                           place_type="",
-                           place_name="",
-                           place_dcid="",
-                           config={})
+    return ""
 
   place_dcid = ""
   place = _maps_place(places_found[0])
   # If maps API returned a valid place, use the place_id to
   # get the dcid.
-  if place:
+  if place and ("place_id" in place):
     place_id = place["place_id"]
     place_ids_map = _dc_recon([place_id])
 
@@ -366,13 +378,25 @@ def _infer_place_dcid(places_found):
   return place_dcid
 
 
-@bp.route('/')
+@bp.route('/', strict_slashes=False)
 def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  return render_template('/nl_interface.html',
+                         place_type="",
+                         place_name="",
+                         place_dcid="",
+                         config={})
+
+
+@bp.route('/data')
+def data():
+  query = request.args.get('q')
   model = current_app.config['NL_MODEL']
-  query = request.args.get('q', 'people who cannot see')
+  res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
+  if not query:
+    return res
   # In case a place_dcid is provided, use that.
   place_dcid = request.args.get('place_dcid', '')
 
@@ -385,18 +409,16 @@ def page():
 
   # If a valid DCID was was not found or provided, do not proceed.
   if not place_dcid:
-    return render_template('/nl_interface.html',
-                           place_type="",
-                           place_name="",
-                           place_dcid="",
-                           config={})
+    return res
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
   main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
   related_places = _related_places(place_dcid)
-  child_places_type = related_places['childPlacesType']
+  child_places_type = ""
+  if 'childPlacesType' in related_places:
+    child_places_type = related_places['childPlacesType']
   all_relevant_places = list(
       set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
           related_places['similarPlaces']))
@@ -427,9 +449,12 @@ def page():
                                child_places_type, highlight_svs, sv2name,
                                peer_buckets)
 
+  print(chart_config)
+  print(query, main_place_name, place_dcid)
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-  return render_template('/nl_interface.html',
-                         place_type=main_place_type,
-                         place_name=main_place_name,
-                         place_dcid=place_dcid,
-                         config=MessageToJson(message))
+  return json.dumps({
+      'place_type': main_place_type,
+      'place_name': main_place_name,
+      'place_dcid': place_dcid,
+      'config': MessageToJson(message)
+  })
