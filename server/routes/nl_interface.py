@@ -42,7 +42,7 @@ def _filtered_svs_list(sv_df):
   sv_df = sv_df.drop(sv_df[sv_df['CosineScore'] < 0.3].index)
   return sv_df['SV'].values.tolist()
 
-def sv_definition_name_maps(svgs_info, svs_list):
+def _sv_definition_name_maps(svgs_info, svs_list):
   sv2definition = {}
   sv2name = {}
   for svgi in svgs_info:
@@ -320,7 +320,7 @@ def page(dcid):
   svgs_info = _related_svgs(relevant_svs, all_relevant_places)
 
   # Step 6: get useful sv2name and sv2definitions.
-  sv_maps = sv_definition_name_maps(svgs_info, relevant_svs)
+  sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
   sv2name = sv_maps["sv2name"]
   sv2definition = sv_maps["sv2definition"]
 
