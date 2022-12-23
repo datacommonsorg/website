@@ -49,7 +49,7 @@ export function App(): JSX.Element {
   function fetchData(paramsStr: string): void {
     setLoading(true);
     setParamsStr(paramsStr);
-    axios.get(`/nl/data?q=${paramsStr}`).then((resp) => {
+    axios.get(`/nl/data?${paramsStr}`).then((resp) => {
       setChartsData({
         place: {
           types: [resp.data["place_type"]],
@@ -71,7 +71,7 @@ export function App(): JSX.Element {
               <div className="place-options-section">
                 <TextSearchBar
                   onSearch={(q) => {
-                    history.pushState({}, null, `/nl?q=${q}`);
+                    history.pushState({}, null, `/nl?${q}`);
                     fetchData(q);
                   }}
                   initialValue={""}
