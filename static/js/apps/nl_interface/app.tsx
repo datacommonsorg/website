@@ -49,14 +49,14 @@ export function App(): JSX.Element {
   function fetchData(paramsStr: string): void {
     setLoading(true);
     setParamsStr(paramsStr);
-    axios.get(`/nl/data?${paramsStr}`).then((resp) => {
+    axios.get(`/nl/data?q=${paramsStr}`).then((resp) => {
       setChartsData({
         place: {
           types: [resp.data["place_type"]],
           name: resp.data["place_name"],
           dcid: resp.data["place_dcid"],
         },
-        config: JSON.parse(resp.data.config),
+        config: resp.data.config,
       });
       setLoading(false);
     });
@@ -71,8 +71,8 @@ export function App(): JSX.Element {
               <div className="place-options-section">
                 <TextSearchBar
                   onSearch={(q) => {
-                    history.pushState({}, null, `/nl?${q}`);
-                    fetchData(q);
+                    history.pushState({}, null, `/nl?q=${q}`);
+                    fetchData(`q=${q}`);
                   }}
                   initialValue={""}
                   placeholder='For example "doctorate degrees in the USA"'

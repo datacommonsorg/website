@@ -447,12 +447,10 @@ def data():
                                child_places_type, highlight_svs, sv2name,
                                peer_buckets)
 
-  print(chart_config)
-  print(query, main_place_name, place_dcid)
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
   return json.dumps({
       'place_type': main_place_type,
       'place_name': main_place_name,
       'place_dcid': place_dcid,
-      'config': MessageToJson(message)
+      'config': json.loads(MessageToJson(message))
   })
