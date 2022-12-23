@@ -452,5 +452,9 @@ def data():
       'place_type': main_place_type,
       'place_name': main_place_name,
       'place_dcid': place_dcid,
-      'config': json.loads(MessageToJson(message))
+      'config': json.loads(MessageToJson(message)),
+      'debug': {
+        'original_query': request.args.get('q'),
+        'places_detected': places_found,
+      }
   })

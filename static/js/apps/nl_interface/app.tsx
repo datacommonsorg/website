@@ -32,9 +32,15 @@ interface SearchResult {
   config: SubjectPageConfig;
 }
 
+interface DebugParams {
+  originalQuery: string;
+  placesDetected: Array<string>;
+}
+
 export function App(): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [paramsStr, setParamsStr] = useState<string>();
+  const [debugParams, setDebugParams] = useState<DebugParams | undefined>();
 
   const [loading, setLoading] = useState(false);
 
@@ -57,6 +63,10 @@ export function App(): JSX.Element {
           dcid: resp.data["place_dcid"],
         },
         config: resp.data.config,
+      });
+      setDebugParams({
+        originalQuery: resp.data["debug"]["original_query"],
+        placesDetected: resp.data["debug"]["places_detected"]
       });
       setLoading(false);
     });
@@ -81,6 +91,12 @@ export function App(): JSX.Element {
             </Container>
           </div>
         </Row>
+        {debugParams && (
+          <Row>Original Query: {debugParams.originalQuery}</Row>
+        )}
+        {debugParams && (
+          <Row>Places Detected: {debugParams.placesDetected}</Row>
+        )}
         {chartsData && chartsData.config && (
           <Row>
             <SubjectPageMainPane
