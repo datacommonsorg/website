@@ -365,11 +365,11 @@ def _infer_place_dcid(places_found):
 
   place_dcid = ""
   place = _maps_place(places_found[0])
-  logging.info(f"MAPS API found place: {place}")
   # If maps API returned a valid place, use the place_id to
   # get the dcid.
   if place and ("place_id" in place):
     place_id = place["place_id"]
+    logging.info(f"MAPS API found place with place_id: {place_id}")
     place_ids_map = _dc_recon([place_id])
 
     if place_id in place_ids_map:
@@ -418,7 +418,6 @@ def data():
                                  "CosineScore": []
                              })
     res.update(debug_info)
-    logging.info(debug_info)
     return res
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -442,7 +441,6 @@ def data():
                                  "CosineScore": []
                              })
     res.update(debug_info)
-    logging.info(debug_info)
     return res
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
@@ -494,4 +492,4 @@ def data():
   d.update(
       _debug_dict("Successful.", original_query, places_found, place_dcid,
                   original_query, svs_df.to_dict()))
-  return json.dumps(d)
+  return d

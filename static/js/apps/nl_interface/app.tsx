@@ -37,7 +37,7 @@ interface SVScores {
   CosineScore: Map<number, number>;
 }
 
-interface DebugParams {
+interface DebugInfo {
   status: string;
   originalQuery: string;
   placesDetected: Array<string>;
@@ -48,8 +48,8 @@ interface DebugParams {
 
 export function App(): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [paramsStr, setParamsStr] = useState<string>();
-  const [debugParams, setDebugParams] = useState<DebugParams | undefined>();
+  const [urlParams, setUrlParams] = useState<string>();
+  const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
 
   const [loading, setLoading] = useState(false);
 
@@ -59,12 +59,12 @@ export function App(): JSX.Element {
     if (paramsStr.length > 0) {
       fetchData(paramsStr);
     }
-  }, [paramsStr]);
+  }, [urlParams]);
 
   function fetchData(paramsStr: string): void {
     setLoading(true);
-    setParamsStr(paramsStr);
-    axios.get(`/nl/data?${paramsStr}`).then((resp) => {
+    setUrlParams(urlParams);
+    axios.get(`/nl/data?${urlParams}`).then((resp) => {
       setChartsData({
         place: {
           types: [resp.data["place_type"]],
@@ -73,7 +73,7 @@ export function App(): JSX.Element {
         },
         config: resp.data["config"],
       });
-      setDebugParams({
+      setDebugInfo({
         status: resp.data["debug"]["status"],
         originalQuery: resp.data["debug"]["original_query"],
         placesDetected: resp.data["debug"]["places_detected"],
@@ -127,42 +127,43 @@ export function App(): JSX.Element {
             </Container>
           </div>
         </Row>
-        {debugParams && (
+        {debugInfo && (
           <Row>
-            <b>DEBUGGING INFO: </b><br></br>
+            <b>DEBUGGING INFO: </b>
+            <br></br>
           </Row>
         )}
-        {debugParams && (
+        {debugInfo && (
           <Row>
-            <b>Execution Status: </b> {debugParams.status}
+            <b>Execution Status: </b> {debugInfo.status}
           </Row>
         )}
-        {debugParams && (
+        {debugInfo && (
           <Row>
-            <b>Original Query: </b> {debugParams.originalQuery}
+            <b>Original Query: </b> {debugInfo.originalQuery}
           </Row>
         )}
-        {debugParams && (
+        {debugInfo && (
           <Row>
-            <b>Places Detected: </b> {debugParams.placesDetected.join(", ")}
+            <b>Places Detected: </b> {debugInfo.placesDetected.join(", ")}
           </Row>
         )}
-        {debugParams && (
+        {debugInfo && (
           <Row>
             <b>Main Place DCID Inferred: </b>
-            {debugParams.placeDCID}
+            {debugInfo.placeDCID}
           </Row>
         )}
-        {debugParams && (
+        {debugInfo && (
           <Row>
             <b>Query used for SV detection: </b>
-            {debugParams.queryWithoutPlaces}
+            {debugInfo.queryWithoutPlaces}
           </Row>
         )}
-        {debugParams && (
+        {debugInfo && (
           <Row>
             <b>SVs Matched (with scores):</b>
-            {displaySVMatchScores(debugParams.svScores)}
+            {displaySVMatchScores(debugInfo.svScores)}
           </Row>
         )}
         <div id="sv-scores-list"></div>
