@@ -318,7 +318,6 @@ def _peer_buckets(sv2definition, svs_list):
 
 def _maps_place(place_str):
   api_key = current_app.config["MAPS_API_KEY"]
-  logging.info(f"MAPS API Key: {api_key}")
   url_formatted = f"{MAPS_API}input={place_str}&key={api_key}"
   r = requests.get(url_formatted)
   resp = r.json()
