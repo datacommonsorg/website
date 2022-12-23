@@ -49,7 +49,7 @@ export function App(): JSX.Element {
   function fetchData(paramsStr: string): void {
     setLoading(true);
     setParamsStr(paramsStr);
-    axios.get(`/nl/data?q=${paramsStr}`).then((resp) => {
+    axios.get(`/nl/data?${paramsStr}`).then((resp) => {
       setChartsData({
         place: {
           types: [resp.data["place_type"]],

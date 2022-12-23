@@ -282,8 +282,10 @@ def _related_svgs(svs_list, relevant_places):
       sv_under_verticals.add(sv)
 
   # Get SVG info for all relevant places
-  svgs_info = _get_svg_info(relevant_places, list(svgs))['data']
-  return svgs_info
+  svgs_info =  _get_svg_info(relevant_places, list(svgs))
+  if "data" in svgs_info:
+    return _get_svg_info(relevant_places, list(svgs))['data']
+  return {}
 
 
 def _related_places(dcid):
