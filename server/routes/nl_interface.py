@@ -14,6 +14,7 @@
 """Data Commons NL Interface routes"""
 
 import os
+import logging
 import json
 
 import flask
@@ -395,13 +396,13 @@ def data():
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
     return res
-  # In case a place_dcid is provided, use that.
-  place_dcid = request.args.get('place_dcid', '')
 
   # Step 1: find all relevant places and the name/type of the main place found.
   places_found = model.detect_place(query)
+  logging.info(places_found)
 
   # If place_dcid was already set by the url, skip inferring it.
+  place_dcid = request.args.get('place_dcid', '')
   if not place_dcid:
     place_dcid = _infer_place_dcid(places_found)
 
@@ -426,6 +427,7 @@ def data():
 
   # Step 3: Identify the SV matched based on the query.
   svs_df = pd.DataFrame(model.detect_svs(query))
+  logging.info(svs_df)
 
   # Step 4: filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
