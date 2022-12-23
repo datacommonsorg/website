@@ -72,7 +72,7 @@ export function App(): JSX.Element {
                 <TextSearchBar
                   onSearch={(q) => {
                     history.pushState({}, null, `/nl?q=${q}`);
-                    fetchData(q);
+                    fetchData(`q=${q}`);
                   }}
                   initialValue={""}
                   placeholder='For example "doctorate degrees in the USA"'

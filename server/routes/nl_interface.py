@@ -152,7 +152,7 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
       'place_dcid': [place_dcid],
   }
 
-  if (child_places_type and ('metadata' in chart_config)):
+  if child_places_type and ('metadata' in chart_config):
     chart_config['metadata']['contained_place_types'] = {
         main_place_type: child_places_type
     }
@@ -282,8 +282,8 @@ def _related_svgs(svs_list, relevant_places):
       sv_under_verticals.add(sv)
 
   # Get SVG info for all relevant places
-  svgs_info = _get_svg_info(relevant_places, list(svgs))['data']
-  return svgs_info
+  svgs_info = _get_svg_info(relevant_places, list(svgs))
+  return svgs_info.get('data', {})
 
 
 def _related_places(dcid):
@@ -359,7 +359,6 @@ def _remove_places(query, places_found):
 
 
 def _infer_place_dcid(places_found):
-  place_str = ""
   if not places_found:
     return ""
 
