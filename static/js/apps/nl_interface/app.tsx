@@ -121,7 +121,7 @@ export function App(): JSX.Element {
                     fetchData(`q=${q}`);
                   }}
                   initialValue={""}
-                  placeholder='For example "doctorate degrees in the USA"'
+                  placeholder='For example "family earnings in california"'
                 />
               </div>
             </Container>
