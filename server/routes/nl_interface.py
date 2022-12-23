@@ -282,7 +282,7 @@ def _related_svgs(svs_list, relevant_places):
       sv_under_verticals.add(sv)
 
   # Get SVG info for all relevant places
-  svgs_info =  _get_svg_info(relevant_places, list(svgs))
+  svgs_info = _get_svg_info(relevant_places, list(svgs))
   return svgs_info.get('data', {})
 
 
