@@ -396,14 +396,14 @@ def data():
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
     return res
-  # In case a place_dcid is provided, use that.
-  place_dcid = request.args.get('place_dcid', '')
 
   # Step 1: find all relevant places and the name/type of the main place found.
+  places_found = model.detect_place(query)
+  logging.info(places_found)
+
   # If place_dcid was already set by the url, skip inferring it.
+  place_dcid = request.args.get('place_dcid', '')
   if not place_dcid:
-    places_found = model.detect_place(query)
-    logging.info(places_found)
     place_dcid = _infer_place_dcid(places_found)
 
   # If a valid DCID was was not found or provided, do not proceed.
