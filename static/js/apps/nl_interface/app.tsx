@@ -55,13 +55,13 @@ export function App(): JSX.Element {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const paramsStr = params.toString();
-    if (paramsStr.length > 0) {
-      fetchData(paramsStr);
+    const urlParams = params.toString();
+    if (urlParams.length > 0) {
+      fetchData(urlParams);
     }
   }, [urlParams]);
 
-  function fetchData(paramsStr: string): void {
+  function fetchData(urlParams: string): void {
     setLoading(true);
     setUrlParams(urlParams);
     axios.get(`/nl/data?${urlParams}`).then((resp) => {
@@ -128,43 +128,33 @@ export function App(): JSX.Element {
           </div>
         </Row>
         {debugInfo && (
-          <Row>
-            <b>DEBUGGING INFO: </b>
-            <br></br>
-          </Row>
-        )}
-        {debugInfo && (
-          <Row>
-            <b>Execution Status: </b> {debugInfo.status}
-          </Row>
-        )}
-        {debugInfo && (
-          <Row>
-            <b>Original Query: </b> {debugInfo.originalQuery}
-          </Row>
-        )}
-        {debugInfo && (
-          <Row>
-            <b>Places Detected: </b> {debugInfo.placesDetected.join(", ")}
-          </Row>
-        )}
-        {debugInfo && (
-          <Row>
-            <b>Main Place DCID Inferred: </b>
-            {debugInfo.placeDCID}
-          </Row>
-        )}
-        {debugInfo && (
-          <Row>
-            <b>Query used for SV detection: </b>
-            {debugInfo.queryWithoutPlaces}
-          </Row>
-        )}
-        {debugInfo && (
-          <Row>
-            <b>SVs Matched (with scores):</b>
-            {displaySVMatchScores(debugInfo.svScores)}
-          </Row>
+          <>
+            <Row>
+              <b>DEBUGGING INFO: </b>
+              <br></br>
+            </Row>
+            <Row>
+              <b>Execution Status: </b> {debugInfo.status}
+            </Row>
+            <Row>
+              <b>Original Query: </b> {debugInfo.originalQuery}
+            </Row>
+            <Row>
+              <b>Places Detected: </b> {debugInfo.placesDetected.join(", ")}
+            </Row>
+            <Row>
+              <b>Main Place DCID Inferred: </b>
+              {debugInfo.placeDCID}
+            </Row>
+            <Row>
+              <b>Query used for SV detection: </b>
+              {debugInfo.queryWithoutPlaces}
+            </Row>
+            <Row>
+              <b>SVs Matched (with scores):</b>
+              {displaySVMatchScores(debugInfo.svScores)}
+            </Row>
+          </>
         )}
         <div id="sv-scores-list"></div>
         {chartsData && chartsData.config && (
