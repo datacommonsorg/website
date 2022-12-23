@@ -49,14 +49,14 @@ export function App(): JSX.Element {
   function fetchData(paramsStr: string): void {
     setLoading(true);
     setParamsStr(paramsStr);
-    axios.get(`/nl/data?q=${paramsStr}`).then((resp) => {
+    axios.get(`/nl/data?${paramsStr}`).then((resp) => {
       setChartsData({
         place: {
           types: [resp.data["place_type"]],
           name: resp.data["place_name"],
           dcid: resp.data["place_dcid"],
         },
-        config: JSON.parse(resp.data.config),
+        config: resp.data.config,
       });
       setLoading(false);
     });

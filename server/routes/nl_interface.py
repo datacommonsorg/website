@@ -152,8 +152,7 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
       'place_dcid': [place_dcid],
   }
 
-  if (child_places_type and ('metadata' in chart_config) and
-      ('contained_place_types' in chart_config['metadata'])):
+  if (child_places_type and ('metadata' in chart_config)):
     chart_config['metadata']['contained_place_types'] = {
         main_place_type: child_places_type
     }
@@ -449,12 +448,10 @@ def data():
                                child_places_type, highlight_svs, sv2name,
                                peer_buckets)
 
-  print(chart_config)
-  print(query, main_place_name, place_dcid)
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
   return json.dumps({
       'place_type': main_place_type,
       'place_name': main_place_name,
       'place_dcid': place_dcid,
-      'config': MessageToJson(message)
+      'config': json.loads(MessageToJson(message))
   })
