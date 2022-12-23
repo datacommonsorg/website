@@ -369,12 +369,28 @@ def _infer_place_dcid(places_found):
   # get the dcid.
   if place and ("place_id" in place):
     place_id = place["place_id"]
+    logging.info(f"MAPS API found place with place_id: {place_id}")
     place_ids_map = _dc_recon([place_id])
 
     if place_id in place_ids_map:
       place_dcid = place_ids_map[place_id]
 
+  logging.info(f"DC API found DCID: {place_dcid}")
   return place_dcid
+
+
+def _debug_dict(status, original_query, places_found, place_dcid, query,
+                svs_dict):
+  return {
+      "debug": {
+          'status': status,
+          'original_query': original_query,
+          'places_detected': places_found,
+          'place_dcid': place_dcid,
+          'query_with_places_removed': query,
+          'sv_matching': svs_dict,
+      }
+  }
 
 
 @bp.route('/', strict_slashes=False)
@@ -391,15 +407,25 @@ def page():
 
 @bp.route('/data')
 def data():
-  query = request.args.get('q')
+  original_query = request.args.get('q')
   model = current_app.config['NL_MODEL']
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
-  if not query:
+  if not original_query:
+    logging.info("Query was empty.")
+    debug_info = _debug_dict("Aborted: Query was Empty.", original_query, [],
+                             "", "", {
+                                 "SV": [],
+                                 "CosineScore": []
+                             })
+    res.update(debug_info)
     return res
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(query)
+  places_found = model.detect_place(original_query)
   logging.info(places_found)
+
+  if not places_found:
+    logging.info("Place detection failed.")
 
   # If place_dcid was already set by the url, skip inferring it.
   place_dcid = request.args.get('place_dcid', '')
@@ -408,6 +434,13 @@ def data():
 
   # If a valid DCID was was not found or provided, do not proceed.
   if not place_dcid:
+    logging.info("Could not find a place dcid.")
+    debug_info = _debug_dict("Aborted: No Place DCID found.", original_query,
+                             places_found, place_dcid, original_query, {
+                                 "SV": [],
+                                 "CosineScore": []
+                             })
+    res.update(debug_info)
     return res
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
@@ -423,7 +456,7 @@ def data():
           related_places['similarPlaces']))
 
   # Step 2: replace the places in the query sentence with "".
-  query = _remove_places(query, places_found)
+  query = _remove_places(original_query, places_found)
 
   # Step 3: Identify the SV matched based on the query.
   svs_df = pd.DataFrame(model.detect_svs(query))
@@ -450,9 +483,13 @@ def data():
                                peer_buckets)
 
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-  return json.dumps({
+  d = {
       'place_type': main_place_type,
       'place_name': main_place_name,
       'place_dcid': place_dcid,
-      'config': json.loads(MessageToJson(message))
-  })
+      'config': json.loads(MessageToJson(message)),
+  }
+  d.update(
+      _debug_dict("Successful.", original_query, places_found, place_dcid,
+                  original_query, svs_df.to_dict()))
+  return d
