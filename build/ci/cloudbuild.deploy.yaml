@@ -49,4 +49,4 @@ steps:
 timeout: 3600s
 
 options:
-  machineType: "E2_HIGHCPU_32"
+  machineType: "E2_HIGHCPU_8"

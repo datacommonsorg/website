@@ -20,7 +20,9 @@ ENV ENV=${ENV}
 WORKDIR /workspace
 
 COPY server/requirements.txt /workspace/server/requirements.txt
-RUN pip3 install -r /workspace/server/requirements.txt
+# --no-cache-dir removes ~/.cache files, which can be a few GB.
+RUN pip3 install --no-cache-dir \
+    -r /workspace/server/requirements.txt
 
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
