@@ -156,6 +156,7 @@ $border-radius: 0.5rem;
 
   .disaster-event-map-container {
     position: relative;
+    display: flex;
   }
 
   .disaster-event-map-error-message {
@@ -258,3 +259,52 @@ $border-radius: 0.5rem;
     stroke-width: 2px;
   }
  }
+
+.disaster-event-map-chart-section {
+  flex-grow: 1;
+}
+
+.disaster-event-map-severity-filters {
+  padding: 1rem 1.5rem;
+  overflow-y: auto;
+
+  .disaster-type-filters {
+    padding: 0.5rem 0;
+  }
+
+  .disaster-type-name {
+    width: 100%;
+    font-weight: 500;
+    opacity: 0.75;
+  }
+
+  .prop-filter {
+    padding-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .prop-filter-input {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+  
+    span {
+      width: 2.5rem;
+    }
+  
+    input {
+      margin-left: 0.5rem;
+      width: 5rem;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
