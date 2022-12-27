@@ -49,4 +49,4 @@ steps:
 timeout: 3600s
 
 options:
-  diskSizeGb: "300" # Default is 100
+  machineType: "E2_HIGHCPU_8"

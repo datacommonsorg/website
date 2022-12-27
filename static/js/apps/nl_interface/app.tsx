@@ -18,33 +18,157 @@
  * Main component for NL interface.
  */
 
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { TextSearchBar } from "../../components/text_search_bar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
-interface AppPropType {
-  /**
-   * The place to show the page for.
-   */
+interface SearchResult {
   place: NamedTypedPlace;
-  /**
-   * Config of the page
-   */
-  pageConfig: SubjectPageConfig;
+  config: SubjectPageConfig;
 }
 
-export function App(props: AppPropType): JSX.Element {
+interface SVScores {
+  SV: Map<number, string>;
+  CosineScore: Map<number, number>;
+}
+
+interface DebugInfo {
+  status: string;
+  originalQuery: string;
+  placesDetected: Array<string>;
+  placeDCID: string;
+  queryWithoutPlaces: string;
+  svScores: SVScores;
+}
+
+export function App(): JSX.Element {
+  const [chartsData, setChartsData] = useState<SearchResult | undefined>();
+  const [urlParams, setUrlParams] = useState<string>();
+  const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlParams = params.toString();
+    if (urlParams.length > 0) {
+      fetchData(urlParams);
+    }
+  }, [urlParams]);
+
+  function fetchData(urlParams: string): void {
+    setLoading(true);
+    setUrlParams(urlParams);
+    axios.get(`/nl/data?${urlParams}`).then((resp) => {
+      setChartsData({
+        place: {
+          types: [resp.data["place_type"]],
+          name: resp.data["place_name"],
+          dcid: resp.data["place_dcid"],
+        },
+        config: resp.data["config"],
+      });
+      setDebugInfo({
+        status: resp.data["debug"]["status"],
+        originalQuery: resp.data["debug"]["original_query"],
+        placesDetected: resp.data["debug"]["places_detected"],
+        placeDCID: resp.data["debug"]["place_dcid"],
+        queryWithoutPlaces: resp.data["debug"]["query_with_places_removed"],
+        svScores: resp.data["debug"]["sv_matching"],
+      });
+      setLoading(false);
+    });
+  }
+
+  function displaySVMatchScores(svScores: SVScores) {
+    const svs = new Array<string>();
+    Object.keys(svScores.SV).forEach((key) => {
+      svs.push(svScores.SV[key]);
+    });
+
+    const scores = new Array<number>();
+    Object.keys(svScores.CosineScore).forEach((key) => {
+      scores.push(svScores.CosineScore[key]);
+    });
+    let table = '<table border="1">';
+    table += `<tr><th>SV</th><th>Cosine Score [0, 1]</th></tr>`;
+    if (svs.length == scores.length) {
+      for (let i = 0; i < svs.length; i++) {
+        table = table + `<tr>`;
+        table = table + `<td>${svs[i]}</td>`;
+        table = table + `<td>${scores[i]}</td>`;
+      }
+    }
+    table += "</table>";
+    document.getElementById("sv-scores-list").innerHTML = table;
+  }
+
   return (
     <div id="dc-nl-interface">
-      <h1>Ask Data Commons</h1>
-      <div className="row">
-        <SubjectPageMainPane
-          place={props.place}
-          pageConfig={props.pageConfig}
-        />
-      </div>
+      <Container fluid={true}>
+        <Row>
+          <div className="place-options-card">
+            <Container className="place-options" fluid={true}>
+              <div className="place-options-section">
+                <TextSearchBar
+                  onSearch={(q) => {
+                    history.pushState({}, null, `/nl?q=${q}`);
+                    fetchData(`q=${q}`);
+                  }}
+                  initialValue={""}
+                  placeholder='For example "family earnings in california"'
+                />
+              </div>
+            </Container>
+          </div>
+        </Row>
+        {debugInfo && (
+          <>
+            <Row>
+              <b>DEBUGGING INFO: </b>
+              <br></br>
+            </Row>
+            <Row>
+              <b>Execution Status: </b> {debugInfo.status}
+            </Row>
+            <Row>
+              <b>Original Query: </b> {debugInfo.originalQuery}
+            </Row>
+            <Row>
+              <b>Places Detected: </b> {debugInfo.placesDetected.join(", ")}
+            </Row>
+            <Row>
+              <b>Main Place DCID Inferred: </b>
+              {debugInfo.placeDCID}
+            </Row>
+            <Row>
+              <b>Query used for SV detection: </b>
+              {debugInfo.queryWithoutPlaces}
+            </Row>
+            <Row>
+              <b>SVs Matched (with scores):</b>
+              {displaySVMatchScores(debugInfo.svScores)}
+            </Row>
+          </>
+        )}
+        <div id="sv-scores-list"></div>
+        {chartsData && chartsData.config && (
+          <Row>
+            <SubjectPageMainPane
+              place={chartsData.place}
+              pageConfig={chartsData.config}
+            />
+          </Row>
+        )}
+        <div id="screen" style={{ display: loading ? "block" : "none" }}>
+          <div id="spinner"></div>
+        </div>
+      </Container>
     </div>
   );
 }
