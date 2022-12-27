@@ -24,9 +24,9 @@ bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')
 EARTH_DCID = "Earth"
 
 
-@bp.route('/date-range')
-def date_range():
-  """Gets the date range for a specific event type
+@bp.route('/event-date-range')
+def event_date_range():
+  """Gets the date range of event data for a specific event type
 
   Returns: an object with minDate and maxDate
       {
@@ -35,19 +35,23 @@ def date_range():
       }
   """
   event_type = request.args.get('eventType', '')
-  result = {"minDate": "", "maxDate": ""}
-  disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
-  if event_type in disaster_data:
-    dates = list(disaster_data.get(event_type).keys())
-    if dates:
-      dates = sorted(dates)
-      result = {"minDate": dates[0], "maxDate": dates[-1]}
+  if not event_type:
+    return "error: must provide a eventType field", 400
+  place = request.args.get('place', '')
+  if not place:
+    return "error: must provide a place field", 400
+  date_list = dc.get_event_collection_date(event_type,
+                                           place).get('eventCollectionDate',
+                                                      {}).get('dates', [])
+  result = {'minDate': "", 'maxDate': ""}
+  if len(date_list) > 0:
+    result = {'minDate': date_list[0], 'maxDate': date_list[-1]}
   return json.dumps(result), 200
 
 
-@bp.route('/data')
-def data():
-  """Gets the data for a given eventType, date, and place
+@bp.route('/event-data')
+def event_data():
+  """Gets the event data for a given eventType, date, and place
 
   Returns: a list of events of the following form
       {
@@ -62,12 +66,13 @@ def data():
       }
   """
   event_type = request.args.get('eventType', '')
+  if not event_type:
+    return "error: must provide a eventType field", 400
   date = request.args.get('date', '')
+  if not date:
+    return "error: must provide a date field", 400
   place = request.args.get('place', '')
-  result = []
-  disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
-  for event in disaster_data.get(event_type, {}).get(date, []):
-    if place != EARTH_DCID and not place in event.get("affectedPlaces", []):
-      continue
-    result.append(event)
+  if not place:
+    return "error: must provide a place field", 400
+  result = dc.get_event_collection(event_type, place, date)
   return json.dumps(result), 200
