@@ -26,6 +26,7 @@ const EARTHQUAKE_EVENT_1 = {
   startDate: "2022-01-01",
   intensity: { magnitude: 5 },
   endDate: undefined,
+  provenanceId: "",
 };
 const EARTHQUAKE_EVENT_2 = {
   placeDcid: "earthquake2",
@@ -36,6 +37,7 @@ const EARTHQUAKE_EVENT_2 = {
   startDate: "2022-01-02",
   intensity: { magnitude: 3 },
   endDate: undefined,
+  provenanceId: "",
 };
 
 const EARTHQUAKE_EVENT_3 = {
@@ -47,6 +49,7 @@ const EARTHQUAKE_EVENT_3 = {
   startDate: "2022-02-01",
   intensity: { magnitude: 7 },
   endDate: undefined,
+  provenanceId: "",
 };
 
 const EARTHQUAKE_EVENT_4 = {
@@ -58,6 +61,7 @@ const EARTHQUAKE_EVENT_4 = {
   startDate: "2022-02-06",
   intensity: {},
   endDate: undefined,
+  provenanceId: "",
 };
 
 const TORNADO_EVENT_1 = {
@@ -69,6 +73,7 @@ const TORNADO_EVENT_1 = {
   startDate: "2022-01-01",
   intensity: {},
   endDate: undefined,
+  provenanceId: "",
 };
 
 const TORNADO_EVENT_2 = {
@@ -80,6 +85,7 @@ const TORNADO_EVENT_2 = {
   startDate: "2022-03-03",
   intensity: {},
   endDate: undefined,
+  provenanceId: "",
 };
 
 const CYCLONE_EVENT_1 = {
@@ -91,6 +97,7 @@ const CYCLONE_EVENT_1 = {
   startDate: "2022-01-01",
   intensity: {},
   endDate: undefined,
+  provenanceId: "",
 };
 
 const DROUGHT_EVENT_1 = {
@@ -105,6 +112,7 @@ const DROUGHT_EVENT_1 = {
     directInjuries: 2,
   },
   endDate: undefined,
+  provenanceId: "",
 };
 
 const DROUGHT_EVENT_2 = {
@@ -119,6 +127,7 @@ const DROUGHT_EVENT_2 = {
     directInjuries: 1,
   },
   endDate: undefined,
+  provenanceId: "",
 };
 
 const FIRE_EVENT_1 = {
@@ -130,6 +139,7 @@ const FIRE_EVENT_1 = {
   startDate: "2022-01-01",
   intensity: {},
   endDate: undefined,
+  provenanceId: "",
 };
 
 test("getRankedDisasterCounts", () => {

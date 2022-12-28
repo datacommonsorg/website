@@ -20,21 +20,26 @@ source .env/bin/activate
 
 PORT=8080
 ENV=local
+ENABLE_MODEL=false
 
 function help {
-  echo "Usage: $0 -ep"
+  echo "Usage: $0 -epm"
   echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
+  echo "-m       Enable language models"
   exit 1
 }
 
-while getopts ":e:p:" OPTION; do
+while getopts ":e:p:m" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
       ;;
     p)
       PORT=$OPTARG
+      ;;
+    m)
+      export ENABLE_MODEL=true
       ;;
     *)
       help

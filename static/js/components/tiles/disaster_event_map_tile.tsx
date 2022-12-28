@@ -77,7 +77,7 @@ interface DisasterEventMapTilePropType {
 
 interface MapChartData {
   geoJson: GeoJsonData;
-  disasterEventData: DisasterEventPoint[];
+  disasterEventPoints: DisasterEventPoint[];
   sources: Set<string>;
 }
 
@@ -107,7 +107,7 @@ export function DisasterEventMapTile(
 
   useEffect(() => {
     // When props change, update date and place info
-    updateDateInfo(props.eventTypeSpec);
+    updateDateInfo(props.eventTypeSpec, props.place.dcid);
     updatePlaceInfo(props.place, props.enclosedPlaceType);
   }, [props]);
 
@@ -249,11 +249,14 @@ export function DisasterEventMapTile(
   /**
    * Updates date info given an event type spec
    */
-  function updateDateInfo(eventTypeSpec: Record<string, EventTypeSpec>): void {
+  function updateDateInfo(
+    eventTypeSpec: Record<string, EventTypeSpec>,
+    selectedPlace: string
+  ): void {
     const eventTypeDcids = Object.values(eventTypeSpec).flatMap(
       (spec) => spec.eventTypeDcids
     );
-    fetchDateList(eventTypeDcids)
+    fetchDateList(eventTypeDcids, selectedPlace)
       .then((dateList) => {
         setDateList(dateList);
         if (!_.isEmpty(dateList)) {
@@ -292,10 +295,14 @@ export function DisasterEventMapTile(
     );
     Promise.all([geoJsonPromise, disasterEventDataPromise])
       .then(([geoJson, disasterEventData]) => {
+        const sources = new Set<string>();
+        Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
+          sources.add(provInfo.provenanceUrl);
+        });
         setMapChartData({
           geoJson,
-          disasterEventData,
-          sources: new Set(),
+          disasterEventPoints: disasterEventData.eventPoints,
+          sources,
         });
       })
       .catch(() => {
@@ -366,7 +373,7 @@ export function DisasterEventMapTile(
     const pointValues = {};
     const pointsLayer = addMapPoints(
       props.id,
-      mapChartData.disasterEventData,
+      mapChartData.disasterEventPoints,
       pointValues,
       projection,
       (point: DisasterEventPoint) => {

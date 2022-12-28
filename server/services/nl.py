@@ -33,8 +33,9 @@ MODEL_NAME = 'all-MiniLM-L6-v2'
 class Model:
   """Holds clients for the language model"""
 
-  def __init__(self):
+  def __init__(self, ner_model):
     self.model = SentenceTransformer(MODEL_NAME)
+    self.ner_model = ner_model
     self.dataset_embeddings_maps = {}
     self._download_embeddings()
     self.dcid_maps = {}
@@ -57,7 +58,7 @@ class Model:
       _, filename = os.path.split(blob.name)
       blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
 
-  def search(self, query):
+  def detect_svs(self, query):
     query_embeddings = self.model.encode([query])
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings_maps[BUILD],
@@ -81,4 +82,13 @@ class Model:
     # Sort by scores
     scores = [s for s in sorted(score2svs.keys(), reverse=True)]
     svs = [' : '.join(score2svs[s]) for s in scores]
-    return scores, svs
+    return {'SV': svs, 'CosineScore': scores}
+
+  def detect_place(self, query):
+    doc = self.ner_model(query)
+    places_found = []
+    for e in doc.ents:
+      if e.label_ in ["GPE", "LOC"]:
+        places_found.append(str(e))
+
+    return places_found

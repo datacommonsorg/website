@@ -132,6 +132,7 @@ endpoints = Endpoints([
     '/query',
     '/translate',
     '/search',
+    '/v1/bulk/info/variable-group',
     '/v1/bulk/observations/point',
     '/v1/bulk/observations/point/linked',
     '/v1/bulk/observations/series',
@@ -159,6 +160,8 @@ endpoints = Endpoints([
     '/internal/bio',
     # Misc
     '/v1/internal/page/place',
+    '/v1/events',
+    '/v1/events/dates',
 ])
 
 
