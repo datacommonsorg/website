@@ -379,9 +379,15 @@ def _infer_place_dcid(places_found):
   return place_dcid
 
 
-def _debug_dict(status, original_query, places_found, place_dcid, query,
-                svs_dict):
-  return {
+def _empty_svs_score_dict():
+  return {"SV": [], "CosineScore": []}
+
+
+def _result_with_debug_info(data_dict, status, original_query, places_found,
+                            place_dcid, query, svs_dict, embeddings_build):
+  if svs_dict is None or not svs_dict:
+    svs_dict = _empty_svs_score_dict()
+  debug_info = {
       "debug": {
           'status': status,
           'original_query': original_query,
@@ -389,8 +395,11 @@ def _debug_dict(status, original_query, places_found, place_dcid, query,
           'place_dcid': place_dcid,
           'query_with_places_removed': query,
           'sv_matching': svs_dict,
+          'embeddings_build': embeddings_build,
       }
   }
+  data_dict.update(debug_info)
+  return data_dict
 
 
 @bp.route('/', strict_slashes=False)
@@ -408,17 +417,14 @@ def page():
 @bp.route('/data')
 def data():
   original_query = request.args.get('q')
+  embeddings_build = request.args.get('build', "combined_all")
   model = current_app.config['NL_MODEL']
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not original_query:
     logging.info("Query was empty.")
-    debug_info = _debug_dict("Aborted: Query was Empty.", original_query, [],
-                             "", "", {
-                                 "SV": [],
-                                 "CosineScore": []
-                             })
-    res.update(debug_info)
-    return res
+    return _result_with_debug_info(res, "Aborted: Query was Empty.",
+                                   original_query, [], "", "", None,
+                                   embeddings_build)
 
   # Step 1: find all relevant places and the name/type of the main place found.
   places_found = model.detect_place(original_query)
@@ -435,13 +441,9 @@ def data():
   # If a valid DCID was was not found or provided, do not proceed.
   if not place_dcid:
     logging.info("Could not find a place dcid.")
-    debug_info = _debug_dict("Aborted: No Place DCID found.", original_query,
-                             places_found, place_dcid, original_query, {
-                                 "SV": [],
-                                 "CosineScore": []
-                             })
-    res.update(debug_info)
-    return res
+    return _result_with_debug_info(res, "Aborted: No Place DCID found.",
+                                   original_query, places_found, place_dcid,
+                                   original_query, None, embeddings_build)
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
@@ -459,8 +461,21 @@ def data():
   query = _remove_places(original_query, places_found)
 
   # Step 3: Identify the SV matched based on the query.
-  svs_df = pd.DataFrame(model.detect_svs(query))
+  svs_scores_dict = {}
+  try:
+    svs_scores_dict = model.detect_svs(query, embeddings_build)
+  except ValueError as e:
+    logging.info(e)
+    return _result_with_debug_info(res, f'ValueError: {e}', original_query,
+                                   places_found, place_dcid, query, None,
+                                   embeddings_build)
+
+  svs_df = pd.DataFrame(svs_scores_dict)
   logging.info(svs_df)
+  if svs_df.empty:
+    return _result_with_debug_info(res, f'No SVs detected.', original_query,
+                                   places_found, place_dcid, query,
+                                   svs_scores_dict, embeddings_build)
 
   # Step 4: filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
@@ -489,7 +504,6 @@ def data():
       'place_dcid': place_dcid,
       'config': json.loads(MessageToJson(message)),
   }
-  d.update(
-      _debug_dict("Successful.", original_query, places_found, place_dcid,
-                  original_query, svs_df.to_dict()))
-  return d
+  return _result_with_debug_info(d, "Successful.", original_query,
+                                 places_found, place_dcid, query,
+                                 svs_df.to_dict(), embeddings_build)
