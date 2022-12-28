@@ -90,17 +90,22 @@ export function App(): JSX.Element {
         },
         config: resp.data["config"],
       });
-      const debug_data = resp.data["debug"];
+      if (resp.data["debug"] === undefined) {
+        console.log("No debug data was found.");
+        setLoading(false);
+        return;
+      }
+      const debugData = resp.data["debug"];
       setDebugInfo({
-        status: debug_data["status"],
-        originalQuery: debug_data["original_query"],
-        placesDetected: debug_data["places_detected"],
-        placeDCID: debug_data["place_dcid"],
-        queryWithoutPlaces: debug_data["query_with_places_removed"],
-        svScores: debug_data["sv_matching"],
-        embeddingsBuild: debug_data["embeddings_build"],
+        status: debugData["status"],
+        originalQuery: debugData["original_query"],
+        placesDetected: debugData["places_detected"],
+        placeDCID: debugData["place_dcid"],
+        queryWithoutPlaces: debugData["query_with_places_removed"],
+        svScores: debugData["sv_matching"],
+        embeddingsBuild: debugData["embeddings_build"],
       });
-      setSelectedBuild(debug_data["embeddings_build"]);
+      setSelectedBuild(debugData["embeddings_build"]);
       setLoading(false);
     });
   }
@@ -128,7 +133,9 @@ export function App(): JSX.Element {
     document.getElementById("sv-scores-list").innerHTML = table;
   }
 
-  function handleEmbeddingsBuildChange(event) {
+  function handleEmbeddingsBuildChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) {
     setSelectedBuild(event.target.value);
   }
 

@@ -63,7 +63,7 @@ class Model:
   def detect_svs(self, query, embeddings_build):
     query_embeddings = self.model.encode([query])
     if embeddings_build not in self.dataset_embeddings_maps:
-      return {'SV': [], 'CosineScore': []}
+      return ValueError(f'Embeddings Build: {embeddings_build} was not found.')
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings_maps[embeddings_build],
                            top_k=10)
@@ -79,9 +79,9 @@ class Model:
           sv2score[d] = s
 
     # Sort by scores
-    sv2score_sorted = [(k, v) for (
-        k,
-        v) in sorted(sv2score.items(), key=lambda item: item[1], reverse=True)]
+    sv2score_sorted = sorted(sv2score.items(),
+                             key=lambda item: item[1],
+                             reverse=True)
     svs_sorted = [k for (k, _) in sv2score_sorted]
     scores_sorted = [v for (_, v) in sv2score_sorted]
 
