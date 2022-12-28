@@ -380,7 +380,7 @@ def _infer_place_dcid(places_found):
 
 
 def _debug_dict(status, original_query, places_found, place_dcid, query,
-                svs_dict):
+                svs_dict, embeddings_build):
   return {
       "debug": {
           'status': status,
@@ -389,6 +389,7 @@ def _debug_dict(status, original_query, places_found, place_dcid, query,
           'place_dcid': place_dcid,
           'query_with_places_removed': query,
           'sv_matching': svs_dict,
+          'embeddings_build': embeddings_build,
       }
   }
 
@@ -408,6 +409,7 @@ def page():
 @bp.route('/data')
 def data():
   original_query = request.args.get('q')
+  embeddings_build = request.args.get('build', "combined_all")
   model = current_app.config['NL_MODEL']
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not original_query:
@@ -416,7 +418,7 @@ def data():
                              "", "", {
                                  "SV": [],
                                  "CosineScore": []
-                             })
+                             }, embeddings_build)
     res.update(debug_info)
     return res
 
@@ -439,7 +441,7 @@ def data():
                              places_found, place_dcid, original_query, {
                                  "SV": [],
                                  "CosineScore": []
-                             })
+                             }, embeddings_build)
     res.update(debug_info)
     return res
 
@@ -459,8 +461,16 @@ def data():
   query = _remove_places(original_query, places_found)
 
   # Step 3: Identify the SV matched based on the query.
-  svs_df = pd.DataFrame(model.detect_svs(query))
+  svs_df = pd.DataFrame(model.detect_svs(query, embeddings_build))
   logging.info(svs_df)
+  if svs_df.empty:
+    res.update(
+        _debug_dict("Aborted: No StatVars found.", original_query, places_found,
+                    place_dcid, query, {
+                        "SV": [],
+                        "CosineScore": []
+                    }, embeddings_build))
+    return res
 
   # Step 4: filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
@@ -491,5 +501,5 @@ def data():
   }
   d.update(
       _debug_dict("Successful.", original_query, places_found, place_dcid,
-                  original_query, svs_df.to_dict()))
+                  query, svs_df.to_dict(), embeddings_build))
   return d
