@@ -94,6 +94,7 @@ message Tile {
     HIGHLIGHT = 7;
     DESCRIPTION = 8;
     DISASTER_EVENT_MAP = 9;
+    HISTOGRAM = 10;
   }
   // Must be specified for all visual tiles
   string title = 1;
