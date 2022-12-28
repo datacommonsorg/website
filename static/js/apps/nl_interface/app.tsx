@@ -91,7 +91,6 @@ export function App(): JSX.Element {
         config: resp.data["config"],
       });
       if (resp.data["debug"] === undefined) {
-        console.log("No debug data was found.");
         setLoading(false);
         return;
       }
