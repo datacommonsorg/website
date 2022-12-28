@@ -26,7 +26,6 @@ BUILDS = [
     'demographics300', 'uncurated3000', 'demographics300-withpalmalternatives',
     'combined_all'
 ]
-# BUILD = 'uncurated3000'  #@param ['demographics300', 'uncurated3000']
 GCS_BUCKET = 'datcom-csv'
 EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
