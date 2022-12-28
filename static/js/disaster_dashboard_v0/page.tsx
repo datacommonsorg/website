@@ -86,11 +86,14 @@ export function Page(props: PagePropType): JSX.Element {
         setDateList(dateList);
         if (!_.isEmpty(dateList)) {
           setSelectedDate(dateList[0]);
+        } else {
+          setDisasterData({ eventPoints: [], provenanceInfo: {} });
         }
       })
       .catch(() => {
         setDateList([]);
         setSelectedDate("");
+        setDisasterData({ eventPoints: [], provenanceInfo: {} });
       });
   }, [selectedDisaster]);
 
@@ -132,13 +135,13 @@ export function Page(props: PagePropType): JSX.Element {
         id: disasterType,
         name: disasterType,
         eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
+        severityProps: DISASTER_EVENT_INTENSITIES[disasterType],
       });
     }
     fetchDisasterEventPoints(
       eventSpecs,
       selectedPlaceInfo.selectedPlace.dcid,
-      selectedDate,
-      DISASTER_EVENT_INTENSITIES
+      selectedDate
     )
       .then((data) => {
         setDisasterData(data);

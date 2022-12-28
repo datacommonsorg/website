@@ -133,14 +133,14 @@ export function fetchDateList(
  * @param place place to get data for
  * @param date date to get data for (YYYY-MM)
  * @param disasterType the disaster type that the event type belongs to
- * @param disasterEventIntensities map of disasterTypeId to list of intensity props to use for that disaster type
+ * @param severityProps list of severity props to get data about
  */
 function fetchEventPoints(
   eventType: string,
   place: string,
   date: string,
   disasterType: string,
-  disasterEventIntensities?: Record<string, string[]>
+  severityProps?: string[]
 ): Promise<DisasterEventPointData> {
   return axios
     .get<DisasterEventDataApiResponse>("/api/disaster-dashboard/event-data", {
@@ -167,12 +167,9 @@ function fetchEventPoints(
         ) {
           return;
         }
-        const intensity = {};
-        if (
-          disasterEventIntensities &&
-          disasterType in disasterEventIntensities
-        ) {
-          for (const prop of disasterEventIntensities[disasterType]) {
+        const severity = {};
+        if (severityProps) {
+          for (const prop of severityProps) {
             if (
               !(prop in eventData.propVals) ||
               _.isEmpty(eventData.propVals[prop].vals)
@@ -181,7 +178,7 @@ function fetchEventPoints(
             }
             const val = Number(eventData.propVals[prop].vals[0]);
             if (!isNaN(val)) {
-              intensity[prop] = val;
+              severity[prop] = val;
             }
           }
         }
@@ -202,7 +199,7 @@ function fetchEventPoints(
           longitude: eventData.geoLocations[0].point.longitude,
           disasterType,
           startDate: !_.isEmpty(eventData.dates) ? eventData.dates[0] : "",
-          intensity,
+          severity,
           endDate,
           provenanceId: eventData.provenanceId,
         });
@@ -216,13 +213,11 @@ function fetchEventPoints(
  * @param eventSpecs list of eventSpecs to get data for
  * @param place containing place to get data for
  * @param date date with format YYYY or YYYY-MM to get data for
- * @param disasterEventIntensities map of disasterTypeId to list of intensity props to use for that disaster type
  */
 export function fetchDisasterEventPoints(
   eventSpecs: EventTypeSpec[],
   place: string,
-  date: string,
-  disasterEventIntensities?: Record<string, string[]>
+  date: string
 ): Promise<DisasterEventPointData> {
   // Dates to fetch data for. If date argument is a year, we want to fetch data
   // for every month in that year.
@@ -244,7 +239,7 @@ export function fetchDisasterEventPoints(
             place,
             date,
             eventSpec.id,
-            disasterEventIntensities
+            eventSpec.severityProps
           )
         );
       }

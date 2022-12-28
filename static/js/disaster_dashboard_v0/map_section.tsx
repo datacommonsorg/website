@@ -185,9 +185,9 @@ export function MapSection(props: MapSectionPropType): JSX.Element {
     );
     const pointValues = {};
     props.disasterEventPoints.forEach((eventPoint) => {
-      if (props.selectedIntensityProp in eventPoint.intensity) {
+      if (props.selectedIntensityProp in eventPoint.severity) {
         pointValues[eventPoint.placeDcid] =
-          eventPoint.intensity[props.selectedIntensityProp];
+          eventPoint.severity[props.selectedIntensityProp];
       }
     });
     const pointsLayer = addMapPoints(

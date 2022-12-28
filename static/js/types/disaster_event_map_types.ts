@@ -66,7 +66,7 @@ export interface DisasterEventDataApiResponse {
 export interface DisasterEventPoint extends MapPoint {
   disasterType: string;
   startDate: string;
-  intensity: { [prop: string]: number };
+  severity: { [prop: string]: number };
   provenanceId: string;
   endDate?: string;
 }
@@ -75,4 +75,10 @@ export interface DisasterEventPoint extends MapPoint {
 export interface DisasterEventPointData {
   eventPoints: DisasterEventPoint[];
   provenanceInfo: Record<string, EventApiProvenanceInfo>;
+}
+
+// Filter values for a severity property for disaster events.
+export interface SeverityFilter {
+  min: number;
+  max: number;
 }
