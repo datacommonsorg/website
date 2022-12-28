@@ -21,28 +21,64 @@ import { NamedPlace, NamedTypedPlace } from "../shared/types";
  * Types used for disaster event maps
  */
 
+// Information about the places rendered on a disaster event map.
 export interface DisasterEventMapPlaceInfo {
   selectedPlace: NamedTypedPlace;
   enclosedPlaceType: string;
   parentPlaces: NamedPlace[];
 }
 
+// Information about a provenance as represented in the event API response.
+interface EventApiProvenanceInfo {
+  domain: string;
+  importName: string;
+  provenanceUrl: string;
+}
+
+// GeoLocation for an event as represented in the event API response.
+interface EventApiGeoLocation {
+  point?: {
+    longitude: number;
+    latitude: number;
+  };
+  polygon?: { geoJson: string };
+}
+
+// Information about an event as represented in the event API response.
+interface EventApiEventInfo {
+  dcid: string;
+  dates: string[];
+  places: string[];
+  geoLocations: EventApiGeoLocation[];
+  provenanceId: string;
+  propVals: { [prop: string]: { vals: string[] } };
+}
+
+// Response when /api/event-data is called.
+export interface DisasterEventDataApiResponse {
+  eventCollection: {
+    events: EventApiEventInfo[];
+    provenanceInfo: Record<string, EventApiProvenanceInfo>;
+  };
+}
+
+// Information about a disaster event used to render a map point.
 export interface DisasterEventPoint extends MapPoint {
   disasterType: string;
   startDate: string;
-  intensity: { [prop: string]: number };
+  severity: { [prop: string]: number };
+  provenanceId: string;
   endDate?: string;
 }
 
-export interface DisasterApiEventPoint {
-  eventId: string;
-  name: string;
-  startDate: string;
-  affectedPlaces: string[];
-  longitude: number;
-  latitude: number;
-  endDate?: string;
-  magnitude?: number;
-  directDeaths?: number;
-  directInjuries?: number;
+// Data about the event points for a set of disasters.
+export interface DisasterEventPointData {
+  eventPoints: DisasterEventPoint[];
+  provenanceInfo: Record<string, EventApiProvenanceInfo>;
+}
+
+// Filter values for a severity property for disaster events.
+export interface SeverityFilter {
+  min: number;
+  max: number;
 }

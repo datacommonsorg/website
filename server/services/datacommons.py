@@ -280,6 +280,35 @@ def resolve_id(in_ids, in_prop, out_prop):
   })
 
 
+def get_event_collection(event_type, affected_place, date):
+  """Gets all the events for a specified event type, affected place, and date
+  
+  Args:
+      event_type: type of events to get
+      affected_place: affected place of events to get
+      date: date of events to get
+  """
+  return post(
+      get_service_url('/v1/events'), {
+          'event_type': event_type,
+          'affected_place_dcid': affected_place,
+          'date': date,
+      })
+
+
+def get_event_collection_date(event_type, affected_place):
+  """Gets all the dates of events for a specified event type and affected place
+
+  Args:
+      event_type: type of event to get the dates for
+      affected_place: affected place of events to include dates of
+  """
+  return post(get_service_url('/v1/events/dates'), {
+      'event_type': event_type,
+      'affected_place_dcid': affected_place,
+  })
+
+
 # =======================   V0 V0 V0 ================================
 def search(query_text, max_results):
   url = get_service_url('/search')

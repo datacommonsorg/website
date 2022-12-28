@@ -98,7 +98,7 @@ export function RankingSection(props: RankingSectionPropType): JSX.Element {
                         key={`${rankingUnit.prop}-${event.placeDcid}`}
                         className="ranking-unit-item"
                       >
-                        {event.placeName}: {event.intensity[rankingUnit.prop]}
+                        {event.placeName}: {event.severity[rankingUnit.prop]}
                       </div>
                     );
                   })}
@@ -162,8 +162,8 @@ export function getRankingUnits(
   }
   for (const prop of props) {
     const sortedEvents = _.clone(disasterEventData).sort((a, b) => {
-      const eventDataAVal = a.intensity[prop];
-      const eventDataBVal = b.intensity[prop];
+      const eventDataAVal = a.severity[prop];
+      const eventDataBVal = b.severity[prop];
       if (eventDataAVal && eventDataBVal) {
         return eventDataBVal - eventDataAVal;
       } else if (eventDataAVal) {
