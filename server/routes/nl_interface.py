@@ -18,7 +18,7 @@ import logging
 import json
 
 import flask
-from flask import Blueprint, current_app, render_template, request
+from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
 import pandas as pd
 import re
@@ -46,12 +46,15 @@ def _get_preferred_type(types):
 
 
 def _highlight_svs(sv_df):
+  if sv_df.empty:
+    return []
   return sv_df[sv_df['CosineScore'] > 0.4]['SV'].values.tolist()
 
 
-def _filtered_svs_list(sv_df):
-  sv_df = sv_df.drop(sv_df[sv_df['CosineScore'] < 0.3].index)
-  return sv_df['SV'].values.tolist()
+def _filtered_svs_df(sv_df):
+  if sv_df.empty:
+    return pd.DataFrame.from_dict(_empty_svs_score_dict())
+  return sv_df.drop(sv_df[sv_df['CosineScore'] < 0.3].index)
 
 
 def _sv_definition_name_maps(svgs_info, svs_list):
@@ -416,9 +419,11 @@ def page():
 
 @bp.route('/data')
 def data():
-  original_query = request.args.get('q')
-  embeddings_build = request.args.get('build', "combined_all")
+  original_query = str(escape(request.args.get('q')))
+  embeddings_build = str(escape(request.args.get('build', "combined_all")))
   model = current_app.config['NL_MODEL']
+  default_place = "United States"
+  using_default_place = False
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not original_query:
     logging.info("Query was empty.")
@@ -440,10 +445,11 @@ def data():
 
   # If a valid DCID was was not found or provided, do not proceed.
   if not place_dcid:
-    logging.info("Could not find a place dcid.")
-    return _result_with_debug_info(res, "Aborted: No Place DCID found.",
-                                   original_query, places_found, place_dcid,
-                                   original_query, None, embeddings_build)
+    logging.info(
+        f'Could not find a place dcid. Using the default place: {default_place}.'
+    )
+    place_dcid = _infer_place_dcid([default_place])
+    using_default_place = True
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
@@ -472,14 +478,11 @@ def data():
 
   svs_df = pd.DataFrame(svs_scores_dict)
   logging.info(svs_df)
-  if svs_df.empty:
-    return _result_with_debug_info(res, f'No SVs detected.', original_query,
-                                   places_found, place_dcid, query,
-                                   svs_scores_dict, embeddings_build)
 
   # Step 4: filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
-  relevant_svs = _filtered_svs_list(svs_df)
+  relevant_svs_df = _filtered_svs_df(svs_df)
+  relevant_svs = relevant_svs_df['SV'].values.tolist()
 
   # Step 5: get related SVGs and all info.
   svgs_info = _related_svgs(relevant_svs, all_relevant_places)
@@ -504,6 +507,16 @@ def data():
       'place_dcid': place_dcid,
       'config': json.loads(MessageToJson(message)),
   }
-  return _result_with_debug_info(d, "Successful.", original_query,
+  status_str = "Successful"
+  if using_default_place or relevant_svs_df.empty:
+    status_str = ""
+
+  if using_default_place:
+    places_found = [f'{default_place} (default)']
+    status_str += f'**No Place Found** (using default: {default_place}). '
+  if relevant_svs_df.empty:
+    status_str += '**No SVs Found**.'
+
+  return _result_with_debug_info(d, status_str, original_query,
                                  places_found, place_dcid, query,
-                                 svs_df.to_dict(), embeddings_build)
+                                 relevant_svs_df.to_dict(), embeddings_build)

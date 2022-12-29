@@ -89,9 +89,18 @@ class Model:
 
   def detect_place(self, query):
     doc = self.ner_model(query)
-    places_found = []
+    places_found_loc_gpe = []
+    places_found_fac = []
     for e in doc.ents:
+      # Preference is given to LOC and GPE types over FAC.
+      # List of entity types recognized by the spaCy library
+      # is here: https://towardsdatascience.com/explorations-in-named-entity-recognition-and-was-eleanor-roosevelt-right-671271117218
+      # We only use the location/place types.
       if e.label_ in ["GPE", "LOC"]:
-        places_found.append(str(e))
+        places_found_loc_gpe.append(str(e))
+      if e.label_ in ["FAC"]:
+        places_found_fac.append(str(e))
 
-    return places_found
+    if places_found_loc_gpe:
+      return places_found_loc_gpe
+    return places_found_fac
