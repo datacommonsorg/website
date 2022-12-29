@@ -29,13 +29,17 @@ import {
 } from "../../chart/draw_d3_map";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import {
+  DATE_OPTION_6M_KEY,
+  DATE_OPTION_30D_KEY,
+} from "../../constants/disaster_event_map_constants";
+import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import { getAllChildPlaceTypes } from "../../tools/map/util";
+import { getAllChildPlaceTypes, getDate } from "../../tools/map/util";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
@@ -63,6 +67,7 @@ const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
+const DATE_SUBSTRING_IDX = 10;
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -90,8 +95,9 @@ export function DisasterEventMapTile(
   const svgContainerRef = useRef(null);
   const infoCardRef = useRef(null);
   const europeanPlaces = useRef([]);
+  const dateRanges = useRef(getDateRanges());
   const [dateList, setDateList] = useState([]);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(DATE_OPTION_30D_KEY);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
   const [breadcrumbs, setBreadcrumbs] = useState([props.place]);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
@@ -129,7 +135,7 @@ export function DisasterEventMapTile(
 
   useEffect(() => {
     // When props change, update date and place info
-    updateDateInfo(props.eventTypeSpec, props.place.dcid);
+    updateDateList(props.eventTypeSpec, props.place.dcid);
     updatePlaceInfo(props.place, props.enclosedPlaceType);
   }, [props]);
 
@@ -170,7 +176,7 @@ export function DisasterEventMapTile(
       <DisasterEventMapSelectors
         breadcrumbPlaces={breadcrumbs}
         selectedDate={selectedDate}
-        dateList={dateList}
+        dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, ...dateList]}
         onPlaceSelected={(place: NamedTypedPlace) => updatePlaceInfo(place)}
         onDateSelected={(date: string) => {
           loadSpinner(CONTENT_SPINNER_ID);
@@ -293,7 +299,7 @@ export function DisasterEventMapTile(
   /**
    * Updates date info given an event type spec
    */
-  function updateDateInfo(
+  function updateDateList(
     eventTypeSpec: Record<string, EventTypeSpec>,
     selectedPlace: string
   ): void {
@@ -303,13 +309,9 @@ export function DisasterEventMapTile(
     fetchDateList(eventTypeDcids, selectedPlace)
       .then((dateList) => {
         setDateList(dateList);
-        if (!_.isEmpty(dateList)) {
-          setSelectedDate(dateList[0]);
-        }
       })
       .catch(() => {
         setDateList([]);
-        setSelectedDate("");
       });
   }
 
@@ -332,10 +334,14 @@ export function DisasterEventMapTile(
             placeInfo.selectedPlace.dcid,
             placeInfo.enclosedPlaceType
           );
+    const dateRange: [string, string] =
+      selectedDate in dateRanges.current
+        ? dateRanges.current[selectedDate]
+        : [selectedDate, selectedDate];
     const disasterEventDataPromise = fetchDisasterEventPoints(
       Object.values(eventTypeSpec),
       placeInfo.selectedPlace.dcid,
-      selectedDate
+      dateRange
     );
     Promise.all([geoJsonPromise, disasterEventDataPromise])
       .then(([geoJson, disasterEventData]) => {
@@ -494,5 +500,28 @@ export function DisasterEventMapTile(
       .on("blur", () => {
         d3.select(infoCardRef.current).style("visibility", "hidden");
       });
+  }
+
+  /**
+   * Gets special date ranges that are based off the current date.
+   */
+  function getDateRanges(): { [dateKey: string]: [string, string] } {
+    const currentDate = new Date();
+    const minus30Days = new Date(
+      new Date().setDate(currentDate.getDate() - 30)
+    );
+    const minus6Months = new Date(
+      new Date().setMonth(currentDate.getMonth() - 6)
+    );
+    return {
+      [DATE_OPTION_30D_KEY]: [
+        minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
+        currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      ],
+      [DATE_OPTION_6M_KEY]: [
+        minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
+        currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      ],
+    };
   }
 }
