@@ -14,6 +14,8 @@
 """Data Commons NL Interface routes"""
 
 import os
+import logging
+import json
 
 import flask
 from flask import Blueprint, current_app, render_template, request
@@ -62,8 +64,12 @@ def _sv_definition_name_maps(svgs_info, svs_list):
       continue
     child_svs = svgi['info']['childStatVars']
     for svi in child_svs:
-      sv2definition[svi['id']] = svi['definition']
-      sv2name[svi['id']] = svi['displayName']
+      if 'id' not in svi:
+        continue
+      if 'definition' in svi:
+        sv2definition[svi['id']] = svi['definition']
+      if 'displayName' in svi:
+        sv2name[svi['id']] = svi['displayName']
 
   # Get any missing SV Names
   sv_names_api = dc.property_values(svs_list, 'name')
@@ -147,7 +153,7 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
       'place_dcid': [place_dcid],
   }
 
-  if child_places_type:
+  if child_places_type and ('metadata' in chart_config):
     chart_config['metadata']['contained_place_types'] = {
         main_place_type: child_places_type
     }
@@ -236,9 +242,19 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
 
 def _get_related_places(place_dcid):
   place_page_data = dc.get_landing_page_data(place_dcid, 'Overview', [])
-  if isinstance(place_page_data, dict):
-    return place_page_data
-  return {}
+  if not place_page_data:
+    place_page_data = {}
+
+  if "parentPlaces" not in place_page_data:
+    place_page_data["parentPlaces"] = []
+  if "childPlacesType" not in place_page_data:
+    place_page_data["childPlacesType"] = ""
+  if "nearbyPlaces" not in place_page_data:
+    place_page_data["nearbyPlaces"] = []
+  if "similarPlaces" not in place_page_data:
+    place_page_data["similarPlaces"] = []
+
+  return place_page_data
 
 
 def _get_svg_info(entities, svg_dcids):
@@ -267,8 +283,8 @@ def _related_svgs(svs_list, relevant_places):
       sv_under_verticals.add(sv)
 
   # Get SVG info for all relevant places
-  svgs_info = _get_svg_info(relevant_places, list(svgs))['data']
-  return svgs_info
+  svgs_info = _get_svg_info(relevant_places, list(svgs))
+  return svgs_info.get('data', {})
 
 
 def _related_places(dcid):
@@ -344,68 +360,122 @@ def _remove_places(query, places_found):
 
 
 def _infer_place_dcid(places_found):
-  place_str = ""
   if not places_found:
-    return render_template('/nl_interface.html',
-                           place_type="",
-                           place_name="",
-                           place_dcid="",
-                           config={})
+    return ""
 
   place_dcid = ""
   place = _maps_place(places_found[0])
   # If maps API returned a valid place, use the place_id to
   # get the dcid.
-  if place:
+  if place and ("place_id" in place):
     place_id = place["place_id"]
+    logging.info(f"MAPS API found place with place_id: {place_id}")
     place_ids_map = _dc_recon([place_id])
 
     if place_id in place_ids_map:
       place_dcid = place_ids_map[place_id]
 
+  logging.info(f"DC API found DCID: {place_dcid}")
   return place_dcid
 
 
-@bp.route('/')
+def _empty_svs_score_dict():
+  return {"SV": [], "CosineScore": []}
+
+
+def _result_with_debug_info(data_dict, status, original_query, places_found,
+                            place_dcid, query, svs_dict, embeddings_build):
+  if svs_dict is None or not svs_dict:
+    svs_dict = _empty_svs_score_dict()
+  debug_info = {
+      "debug": {
+          'status': status,
+          'original_query': original_query,
+          'places_detected': places_found,
+          'place_dcid': place_dcid,
+          'query_with_places_removed': query,
+          'sv_matching': svs_dict,
+          'embeddings_build': embeddings_build,
+      }
+  }
+  data_dict.update(debug_info)
+  return data_dict
+
+
+@bp.route('/', strict_slashes=False)
 def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  return render_template('/nl_interface.html',
+                         place_type="",
+                         place_name="",
+                         place_dcid="",
+                         config={})
+
+
+@bp.route('/data')
+def data():
+  original_query = request.args.get('q')
+  embeddings_build = request.args.get('build', "combined_all")
   model = current_app.config['NL_MODEL']
-  query = request.args.get('q', 'people who cannot see')
-  # In case a place_dcid is provided, use that.
-  place_dcid = request.args.get('place_dcid', '')
+  res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
+  if not original_query:
+    logging.info("Query was empty.")
+    return _result_with_debug_info(res, "Aborted: Query was Empty.",
+                                   original_query, [], "", "", None,
+                                   embeddings_build)
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(query)
+  places_found = model.detect_place(original_query)
+  logging.info(places_found)
+
+  if not places_found:
+    logging.info("Place detection failed.")
 
   # If place_dcid was already set by the url, skip inferring it.
+  place_dcid = request.args.get('place_dcid', '')
   if not place_dcid:
     place_dcid = _infer_place_dcid(places_found)
 
   # If a valid DCID was was not found or provided, do not proceed.
   if not place_dcid:
-    return render_template('/nl_interface.html',
-                           place_type="",
-                           place_name="",
-                           place_dcid="",
-                           config={})
+    logging.info("Could not find a place dcid.")
+    return _result_with_debug_info(res, "Aborted: No Place DCID found.",
+                                   original_query, places_found, place_dcid,
+                                   original_query, None, embeddings_build)
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
   main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
   related_places = _related_places(place_dcid)
-  child_places_type = related_places['childPlacesType']
+  child_places_type = ""
+  if 'childPlacesType' in related_places:
+    child_places_type = related_places['childPlacesType']
   all_relevant_places = list(
       set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
           related_places['similarPlaces']))
 
   # Step 2: replace the places in the query sentence with "".
-  query = _remove_places(query, places_found)
+  query = _remove_places(original_query, places_found)
 
   # Step 3: Identify the SV matched based on the query.
-  svs_df = pd.DataFrame(model.detect_svs(query))
+  svs_scores_dict = {}
+  try:
+    svs_scores_dict = model.detect_svs(query, embeddings_build)
+  except ValueError as e:
+    logging.info(e)
+    return _result_with_debug_info(res, f'ValueError: {e}', original_query,
+                                   places_found, place_dcid, query, None,
+                                   embeddings_build)
+
+  svs_df = pd.DataFrame(svs_scores_dict)
+  logging.info(svs_df)
+  if svs_df.empty:
+    return _result_with_debug_info(res, f'No SVs detected.', original_query,
+                                   places_found, place_dcid, query,
+                                   svs_scores_dict, embeddings_build)
 
   # Step 4: filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
@@ -428,8 +498,12 @@ def page():
                                peer_buckets)
 
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-  return render_template('/nl_interface.html',
-                         place_type=main_place_type,
-                         place_name=main_place_name,
-                         place_dcid=place_dcid,
-                         config=MessageToJson(message))
+  d = {
+      'place_type': main_place_type,
+      'place_name': main_place_name,
+      'place_dcid': place_dcid,
+      'config': json.loads(MessageToJson(message)),
+  }
+  return _result_with_debug_info(d, "Successful.", original_query,
+                                 places_found, place_dcid, query,
+                                 svs_df.to_dict(), embeddings_build)

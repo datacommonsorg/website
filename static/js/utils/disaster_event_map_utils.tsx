@@ -33,8 +33,9 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import {
-  DisasterApiEventPoint,
+  DisasterEventDataApiResponse,
   DisasterEventPoint,
+  DisasterEventPointData,
 } from "../types/disaster_event_map_types";
 import { EventTypeSpec } from "../types/subject_page_proto_types";
 
@@ -61,17 +62,25 @@ export function fetchGeoJsonData(
 }
 
 /**
- * Get a list of dates that encompass all events for a given list of event types
+ * Get a list of dates that encompass all events for a place and a given list of event types
  * @param eventTypeDcids the list of event types to get dates for
+ * @param place the dcid of the affected place to get event dates for
  */
-export function fetchDateList(eventTypeDcids: string[]): Promise<string[]> {
+export function fetchDateList(
+  eventTypeDcids: string[],
+  place: string
+): Promise<string[]> {
+  if (_.isEmpty(place)) {
+    return Promise.resolve([]);
+  }
   const promises = eventTypeDcids.map((eventType) => {
     return axios
       .get<{ minDate: string; maxDate: string }>(
-        "/api/disaster-dashboard/date-range",
+        "/api/disaster-dashboard/event-date-range",
         {
           params: {
             eventType,
+            place,
           },
         }
       )
@@ -124,17 +133,17 @@ export function fetchDateList(eventTypeDcids: string[]): Promise<string[]> {
  * @param place place to get data for
  * @param date date to get data for (YYYY-MM)
  * @param disasterType the disaster type that the event type belongs to
- * @param disasterEventIntensities map of disasterTypeId to list of intensity props to use for that disaster type
+ * @param severityProps list of severity props to get data about
  */
-function fetchEventTypeData(
+function fetchEventPoints(
   eventType: string,
   place: string,
   date: string,
   disasterType: string,
-  disasterEventIntensities?: Record<string, string[]>
-): Promise<DisasterEventPoint[]> {
+  severityProps?: string[]
+): Promise<DisasterEventPointData> {
   return axios
-    .get<DisasterApiEventPoint[]>("/api/disaster-dashboard/data", {
+    .get<DisasterEventDataApiResponse>("/api/disaster-dashboard/event-data", {
       params: {
         eventType: eventType,
         place: place,
@@ -142,28 +151,57 @@ function fetchEventTypeData(
       },
     })
     .then((resp) => {
-      const result = [];
-      resp.data.forEach((eventData) => {
-        const intensity = {};
+      const result = {
+        eventPoints: [],
+        provenanceInfo: {},
+      };
+      const eventCollection = resp.data.eventCollection;
+      if (_.isEmpty(eventCollection) || _.isEmpty(eventCollection.events)) {
+        return result;
+      }
+      result.provenanceInfo = eventCollection.provenanceInfo;
+      eventCollection.events.forEach((eventData) => {
         if (
-          disasterEventIntensities &&
-          disasterType in disasterEventIntensities
+          _.isEmpty(eventData.geoLocations) ||
+          _.isEmpty(eventData.geoLocations[0].point)
         ) {
-          for (const prop of disasterEventIntensities[disasterType]) {
-            if (prop in eventData) {
-              intensity[prop] = eventData[prop];
+          return;
+        }
+        const severity = {};
+        if (severityProps) {
+          for (const prop of severityProps) {
+            if (
+              !(prop in eventData.propVals) ||
+              _.isEmpty(eventData.propVals[prop].vals)
+            ) {
+              continue;
+            }
+            const val = Number(eventData.propVals[prop].vals[0]);
+            if (!isNaN(val)) {
+              severity[prop] = val;
             }
           }
         }
-        result.push({
-          placeDcid: eventData.eventId,
-          placeName: eventData.name || eventData.eventId,
-          latitude: eventData.latitude,
-          longitude: eventData.longitude,
+        const name =
+          !_.isEmpty(eventData.propVals.name) &&
+          !_.isEmpty(eventData.propVals.name.vals)
+            ? eventData.propVals.name.vals[0]
+            : eventData.dcid;
+        const endDate =
+          !_.isEmpty(eventData.propVals.endDate) &&
+          !_.isEmpty(eventData.propVals.endDate.vals)
+            ? eventData.propVals.endDate.vals[0]
+            : "";
+        result.eventPoints.push({
+          placeDcid: eventData.dcid,
+          placeName: name,
+          latitude: eventData.geoLocations[0].point.latitude,
+          longitude: eventData.geoLocations[0].point.longitude,
           disasterType,
-          startDate: eventData.startDate,
-          intensity,
-          endDate: eventData.endDate,
+          startDate: !_.isEmpty(eventData.dates) ? eventData.dates[0] : "",
+          severity,
+          endDate,
+          provenanceId: eventData.provenanceId,
         });
       });
       return result;
@@ -175,14 +213,12 @@ function fetchEventTypeData(
  * @param eventSpecs list of eventSpecs to get data for
  * @param place containing place to get data for
  * @param date date with format YYYY or YYYY-MM to get data for
- * @param disasterEventIntensities map of disasterTypeId to list of intensity props to use for that disaster type
  */
 export function fetchDisasterEventPoints(
   eventSpecs: EventTypeSpec[],
   place: string,
-  date: string,
-  disasterEventIntensities?: Record<string, string[]>
-): Promise<DisasterEventPoint[]> {
+  date: string
+): Promise<DisasterEventPointData> {
   // Dates to fetch data for. If date argument is a year, we want to fetch data
   // for every month in that year.
   const dates = [];
@@ -198,23 +234,25 @@ export function fetchDisasterEventPoints(
     for (const eventType of eventSpec.eventTypeDcids) {
       for (const date of dates) {
         promises.push(
-          fetchEventTypeData(
+          fetchEventPoints(
             eventType,
             place,
             date,
             eventSpec.id,
-            disasterEventIntensities
+            eventSpec.severityProps
           )
         );
       }
     }
   }
   return Promise.all(promises).then((resp) => {
-    let result = [];
+    const eventPoints = [];
+    const provenanceInfo = {};
     resp.forEach((eventTypeResp) => {
-      result = result.concat(eventTypeResp);
+      eventPoints.push(...eventTypeResp.eventPoints);
+      Object.assign(provenanceInfo, eventTypeResp.provenanceInfo);
     });
-    return result;
+    return { eventPoints, provenanceInfo };
   });
 }
 
