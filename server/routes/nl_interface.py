@@ -515,7 +515,7 @@ def data():
     places_found = [f'{default_place} (default)']
     status_str += f'**No Place Found** (using default: {default_place}). '
   if relevant_svs_df.empty:
-    status_str += f'**No SVs Found**.'
+    status_str += '**No SVs Found**.'
 
   return _result_with_debug_info(d, status_str, original_query,
                                  places_found, place_dcid, query,
