@@ -393,12 +393,12 @@ def _result_with_debug_info(data_dict, status, original_query, places_found,
   debug_info = {
       "debug": {
           'status': status,
-          'original_query': escape(original_query),
+          'original_query': original_query,
           'places_detected': places_found,
           'place_dcid': place_dcid,
           'query_with_places_removed': query,
           'sv_matching': svs_dict,
-          'embeddings_build': escape(embeddings_build),
+          'embeddings_build': embeddings_build,
       }
   }
   data_dict.update(debug_info)
@@ -419,8 +419,8 @@ def page():
 
 @bp.route('/data')
 def data():
-  original_query = request.args.get('q')
-  embeddings_build = request.args.get('build', "combined_all")
+  original_query = str(escape(request.args.get('q')))
+  embeddings_build = str(escape(request.args.get('build', "combined_all")))
   model = current_app.config['NL_MODEL']
   default_place = "United States"
   using_default_place = False
