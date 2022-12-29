@@ -18,7 +18,7 @@ import logging
 import json
 
 import flask
-from flask import Blueprint, current_app, render_template, request
+from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
 import pandas as pd
 import re
@@ -53,7 +53,7 @@ def _highlight_svs(sv_df):
 
 def _filtered_svs_df(sv_df):
   if sv_df.empty:
-    return _empty_svs_score_dict()
+    return pd.DataFrame.from_dict(_empty_svs_score_dict())
   return sv_df.drop(sv_df[sv_df['CosineScore'] < 0.3].index)
 
 
@@ -393,12 +393,12 @@ def _result_with_debug_info(data_dict, status, original_query, places_found,
   debug_info = {
       "debug": {
           'status': status,
-          'original_query': original_query,
+          'original_query': escape(original_query),
           'places_detected': places_found,
           'place_dcid': place_dcid,
           'query_with_places_removed': query,
           'sv_matching': svs_dict,
-          'embeddings_build': embeddings_build,
+          'embeddings_build': escape(embeddings_build),
       }
   }
   data_dict.update(debug_info)
