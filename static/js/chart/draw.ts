@@ -418,8 +418,10 @@ function addXAxis(
     }
   }
 
+  let heightFromBottom = MARGIN.bottom;
+
   axis
-    .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
+    .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
     .call(d3Axis)
     .call((g) =>
       g
@@ -443,8 +445,9 @@ function addXAxis(
   }
 
   if (shouldRotate) {
+    heightFromBottom = ROTATE_MARGIN_BOTTOM;
     axis
-      .attr("transform", `translate(0, ${chartHeight - ROTATE_MARGIN_BOTTOM})`)
+      .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
       .selectAll("text")
       .style("text-anchor", "end")
       .style("text-rendering", "optimizedLegibility")
@@ -473,7 +476,7 @@ function addXAxis(
   }
 
   let axisHeight = axis.node().getBBox().height;
-  if (axisHeight > MARGIN.bottom) {
+  if (heightFromBottom > MARGIN.bottom) {
     axis.attr("transform", `translate(0, ${chartHeight - axisHeight})`);
   } else {
     axisHeight = MARGIN.bottom;
@@ -583,75 +586,6 @@ function addYAxis(
  * @param unit
  */
 function drawHistogram(
-  id: string,
-  chartWidth: number,
-  chartHeight: number,
-  dataPoints: DataPoint[],
-  unit?: string
-): void {
-  const textList = dataPoints.map((dataPoint) => dataPoint.label);
-  const values = dataPoints.map((dataPoint) => dataPoint.value);
-
-  const svg = d3
-    .select("#" + id)
-    .append("svg")
-    .attr("xmlns", SVGNS)
-    .attr("xmlns:xlink", XLINKNS)
-    .attr("width", chartWidth)
-    .attr("height", chartHeight);
-
-  const yAxis = svg.append("g").attr("class", "y axis");
-  const chart = svg.append("g").attr("class", "chart-area");
-  const xAxis = svg.append("g").attr("class", "x axis");
-  const tempYAxis = svg.append("g");
-
-  const yExtent = d3.extent(values);
-  const y = d3
-    .scaleLinear()
-    .domain([Math.min(0, yExtent[0]), yExtent[1]])
-    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
-
-  const leftWidth = addYAxis(tempYAxis, chartWidth, y, unit);
-
-  const x = d3
-    .scaleBand()
-    .domain(textList)
-    .rangeRound([leftWidth, chartWidth - MARGIN.right])
-    .paddingInner(0.1)
-    .paddingOuter(0.1);
-
-  const bottomHeight = addXAxis(xAxis, chartHeight, x, true);
-
-  // Update and redraw the y-axis based on the new x-axis height.
-  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
-  tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, unit);
-  updateXAxis(xAxis, bottomHeight, chartHeight, y);
-
-  const color = getColorFn(["A"])("A"); // we only need one color
-
-  chart
-    .append("g")
-    .selectAll("rect")
-    .data(dataPoints)
-    .join("rect")
-    .attr("x", (d) => x(d.label))
-    .attr("y", (d) => y(Math.max(0, d.value)))
-    .attr("width", x.bandwidth())
-    .attr("height", (d) => Math.abs(y(0) - y(d.value)))
-    .attr("fill", color);
-}
-
-/**
- * Draw histogram. Used for histogram tiles, separate from rendering of ranking charts.
- * This function does not bin before rendering. Datapoints passed in are expected to be post-binning.
- * @param id
- * @param chartWidth
- * @param chartHeight
- * @param dataPoints
- * @param unit
- */
-function drawHistogramOverTime(
   id: string,
   chartWidth: number,
   chartHeight: number,
@@ -1423,7 +1357,6 @@ export {
   drawGroupBarChart,
   drawGroupLineChart,
   drawHistogram,
-  drawHistogramOverTime,
   drawLineChart,
   drawStackBarChart,
   wrap,

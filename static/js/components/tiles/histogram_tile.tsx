@@ -22,8 +22,8 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { DataPoint, expandDataPoints } from "../../chart/base";
-import { drawHistogram, drawHistogramOverTime } from "../../chart/draw";
+import { DataPoint } from "../../chart/base";
+import { drawHistogram } from "../../chart/draw";
 import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -122,7 +122,7 @@ function fetchData(
 }
 
 /**
- * Convert
+ * Process and set histogram data
  */
 function processData(
   props: HistogramTilePropType,
