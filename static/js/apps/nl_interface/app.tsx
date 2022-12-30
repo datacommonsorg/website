@@ -234,7 +234,8 @@ export function App(): JSX.Element {
                 </Row>
                 <Row>
                   <Col>
-                    ContainedIn classification: {debugInfo.containedInClassification}
+                    ContainedIn classification:{" "}
+                    {debugInfo.containedInClassification}
                   </Col>
                 </Row>
 
