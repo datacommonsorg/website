@@ -419,7 +419,6 @@ function addXAxis(
   }
 
   let heightFromBottom = MARGIN.bottom;
-
   axis
     .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
     .call(d3Axis)
