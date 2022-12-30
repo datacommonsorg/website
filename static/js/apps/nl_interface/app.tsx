@@ -45,6 +45,9 @@ interface DebugInfo {
   queryWithoutPlaces: string;
   svScores: SVScores;
   embeddingsBuild: string;
+  rankingClassification: string;
+  temporalClassification: string;
+  containedInClassification: string;
 }
 
 const buildOptions = [
@@ -103,6 +106,9 @@ export function App(): JSX.Element {
         queryWithoutPlaces: debugData["query_with_places_removed"],
         svScores: debugData["sv_matching"],
         embeddingsBuild: debugData["embeddings_build"],
+        rankingClassification: debugData["ranking_classification"],
+        temporalClassification: debugData["temporal_classification"],
+        containedInClassification: debugData["contained_in_classification"],
       });
       setSelectedBuild(debugData["embeddings_build"]);
       setLoading(false);
@@ -199,6 +205,18 @@ export function App(): JSX.Element {
                 <Row>
                   <b>Main Place DCID Inferred: </b>
                   {debugInfo.placeDCID}
+                </Row>
+                <Row>
+                  <b>Ranking Query Classification: </b>
+                  {debugInfo.rankingClassification}
+                </Row>
+                <Row>
+                  <b>Temporal Query Classification: </b>
+                  {debugInfo.temporalClassification}
+                </Row>
+                <Row>
+                  <b>ContainedIn Query Classification: </b>
+                  {debugInfo.containedInClassification}
                 </Row>
                 <Row>
                   <b>Query used for SV detection: </b>

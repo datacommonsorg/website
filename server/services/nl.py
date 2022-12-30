@@ -17,7 +17,10 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
+from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel, NLQueryClassificationType
+from typing import Dict, List
 import os
+import pandas as pd
 import torch
 from datasets import load_dataset
 import logging
@@ -32,10 +35,31 @@ TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
 
+def pick_best(probs):
+  """Whether to pick the most probable label or not."""
+  sorted_probs = sorted(probs, reverse=True)
+
+  # If the top two labels only differ by about 10%, we cannot be sure.
+  if (sorted_probs[0] - sorted_probs[1]) > 0.1 * sorted_probs[0]:
+    return True
+  return False
+
+
+def pick_option(class_model, q, categories):
+  """Return the assigned label or Inconclusive."""
+  probs = class_model.predict_proba([q])[0]
+  if pick_best(probs):
+    return categories[class_model.predict([q])[0]]
+  else:
+    return "Inconclusive."
+
+
 class Model:
   """Holds clients for the language model"""
 
-  def __init__(self, ner_model):
+  def __init__(self, ner_model,
+               query_classification_data: Dict[str, NLQueryClassificationData],
+               classification_types_supported: List[str]):
     self.model = SentenceTransformer(MODEL_NAME)
     self.ner_model = ner_model
     self.dataset_embeddings_maps = {}
@@ -52,6 +76,11 @@ class Model:
       self.dataset_embeddings_maps[build] = torch.from_numpy(df.to_numpy()).to(
           torch.float)
 
+    # Classification models and training.
+    self.classification_models: Dict[str, NLQueryClassificationModel] = {}
+    self._classification_data_to_models(query_classification_data,
+                                        classification_types_supported)
+
   def _download_embeddings(self):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
@@ -59,6 +88,62 @@ class Model:
     for blob in blobs:
       _, filename = os.path.split(blob.name)
       blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
+
+  def _train_classifier(self, categories, input_sentences):
+    """Encode each sentence to get "features" and associated "labels"."""
+    sentences = []
+    labels = []
+    for cat in categories:
+      for s in input_sentences[cat]:
+        sentences.append(s)
+        labels.append(str(cat))
+
+    embeddings = self.model.encode(sentences, show_progress_bar=True)
+    embeddings = pd.DataFrame(embeddings)
+    features = embeddings.values
+
+    return (features, labels)
+
+  def _classification_data_to_models(
+      self, query_classification_data: Dict[str, NLQueryClassificationData],
+      supported_types: List[str]):
+    """Train the classification models and retain info for predictions."""
+    for key in query_classification_data:
+      if key not in supported_types:
+        continue
+      data = query_classification_data[key]
+      model = NLQueryClassificationModel(
+          classification_type=data.classification_type)
+      try:
+        (features,
+         labels) = self._train_classifier(model.classification_type.categories,
+                                          data.training_sentences)
+        model.classification_model.fit(features, labels)
+        self.classification_models.update({key: model})
+        logging.info(f'Classification Model {key} trained.')
+      except Exception as e:
+        logging.info(
+            f'Classification Model {key} could not be trained. Error: {e}')
+
+  def query_classification(self, type_string: str, query: str) -> str:
+    """Check if query can be classified according to 'type_string' model.
+    
+    Args:
+      type_string: (str) This is the sentence classification type, e.g. 
+        "ranking", "temporal", "contained_in". Full list is in lib.nl_training.py
+      query: (str) The query string supplied.
+    
+    Returns:
+      The classification string, e.g. "Rankings-High", "No Ranking" etc. Fill set
+      of options is in lib.nl_training.py
+    """
+    if not f'{type_string}' in self.classification_models:
+      return f'{type_string} Classifier not built.'
+    query_encoded = self.model.encode(query)
+    classification_model: NLQueryClassificationModel = self.classification_models[
+        type_string]
+    return pick_option(classification_model.classification_model, query_encoded,
+                       classification_model.classification_type.categories)
 
   def detect_svs(self, query, embeddings_build):
     query_embeddings = self.model.encode([query])
