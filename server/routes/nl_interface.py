@@ -387,8 +387,9 @@ def _empty_svs_score_dict():
 
 
 def _result_with_debug_info(data_dict, status, original_query, places_found,
-                            place_dcid, query, svs_dict, embeddings_build,
-                            ranking_classification, temporal_classification,
+                            main_place_dcid, main_place_name, query, svs_dict,
+                            embeddings_build, ranking_classification,
+                            temporal_classification,
                             contained_in_classification):
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
@@ -403,7 +404,8 @@ def _result_with_debug_info(data_dict, status, original_query, places_found,
           'status': status,
           'original_query': original_query,
           'places_detected': places_found,
-          'place_dcid': place_dcid,
+          'main_place_dcid': main_place_dcid,
+          'main_place_name': main_place_name,
           'query_with_places_removed': query,
           'sv_matching': svs_dict,
           'embeddings_build': embeddings_build,
@@ -439,7 +441,7 @@ def data():
   if not original_query:
     logging.info("Query was empty.")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   original_query, [], "", "", None,
+                                   original_query, [], "", "", "", None,
                                    embeddings_build, "", "", "")
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -493,8 +495,9 @@ def data():
   except ValueError as e:
     logging.info(e)
     return _result_with_debug_info(res, f'ValueError: {e}', original_query,
-                                   places_found, place_dcid, query, None,
-                                   embeddings_build, ranking_classification,
+                                   places_found, place_dcid, main_place_name,
+                                   query, None, embeddings_build,
+                                   ranking_classification,
                                    temporal_classification,
                                    contained_in_classification)
 
@@ -539,8 +542,8 @@ def data():
   if relevant_svs_df.empty:
     status_str += '**No SVs Found**.'
 
-  return _result_with_debug_info(d, status_str, original_query,
-                                 places_found, place_dcid, query,
+  return _result_with_debug_info(d, status_str, original_query, places_found,
+                                 place_dcid, main_place_name, query,
                                  relevant_svs_df.to_dict(), embeddings_build,
                                  ranking_classification,
                                  temporal_classification,

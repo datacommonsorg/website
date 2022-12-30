@@ -17,7 +17,7 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
-from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel, NLQueryClassificationType
+from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel
 from typing import Dict, List
 import os
 import pandas as pd
@@ -112,15 +112,18 @@ class Model:
       if key not in supported_types:
         continue
       data = query_classification_data[key]
-      model = NLQueryClassificationModel(
+      classification_model = NLQueryClassificationModel(
           classification_type=data.classification_type)
       try:
         (features,
-         labels) = self._train_classifier(model.classification_type.categories,
+         labels) = self._train_classifier(data.classification_type.categories,
                                           data.training_sentences)
-        model.classification_model.fit(features, labels)
-        self.classification_models.update({key: model})
+        classification_model.classification_model.fit(features, labels)
+        self.classification_models.update({key: classification_model})
         logging.info(f'Classification Model {key} trained.')
+        logging.info(self.classification_models[key].classification_type.name)
+        logging.info(
+            self.classification_models[key].classification_type.categories)
       except Exception as e:
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
@@ -142,6 +145,12 @@ class Model:
     query_encoded = self.model.encode(query)
     classification_model: NLQueryClassificationModel = self.classification_models[
         type_string]
+    logging.info(
+        f'Getting predictions from model: {classification_model.classification_type.name}'
+    )
+    logging.info(
+        f'Getting predictions from model: {classification_model.classification_type.categories}'
+    )
     return pick_option(classification_model.classification_model, query_encoded,
                        classification_model.classification_type.categories)
 

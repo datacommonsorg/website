@@ -271,7 +271,7 @@ def create_app():
   if os.environ.get('ENABLE_MODEL') == 'true':
     app.config['AI_CONTEXT'] = ai.Context()
     # For the classification types available, check lib.nl_training (libnl).
-    classification_types = ["ranking", "temporal", "contained_in"]
+    classification_types = ['ranking', 'temporal', 'contained_in']
     app.config['NL_MODEL'] = nl.Model(en_core_web_md.load(),
                                       libnl.CLASSIFICATION_INFO,
                                       classification_types)

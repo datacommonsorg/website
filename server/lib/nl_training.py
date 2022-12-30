@@ -2,7 +2,7 @@
 # the path server.services.nl and also invoked from the server/__init__.py
 from dataclasses import dataclass
 from sklearn.linear_model import LogisticRegression
-from typing import Dict, List
+from typing import Any, Dict, List
 
 
 @dataclass
@@ -23,9 +23,12 @@ class NLQueryClassificationData:
 class NLQueryClassificationModel:
   """Type and training data for NL Query classification."""
   classification_type: NLQueryClassificationType
+  classification_model: Any
 
-  # Instantiating a new classifier object.
-  classification_model = LogisticRegression(max_iter=1000, random_state=123)
+  def __init__(self, classification_type: NLQueryClassificationType):
+    self.classification_type = classification_type
+    self.classification_model = LogisticRegression(max_iter=1000,
+                                                   random_state=123)
 
 
 # Query Sentence Classification Types and associated training data.
@@ -142,7 +145,7 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                 name="temporal",
                 categories={
                     "1": "Temporal",
-                    "2": "No Temporal",
+                    "2": "Not Temporal",
                 },
             ),
             training_sentences={
@@ -154,15 +157,15 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                     "How has the population of New York CIty changed over the past century?",
                     "Towns and cities affected by forest fires in North America since 2000",
                     "What events happened on June 15, 2022?",
-                    "How has the rate of violent crime in the United States changed over the past decade?",
-                    "Population growth rate in China over the 20th century",
+                    "How has violent crime in the United States changed over the past decade?",
+                    "Population growth in China over the 20th century",
                     "How has the level of carbon dioxide in the atmosphere changed over the past century?",
                     "Which countries have experienced the most extreme weather events in the past decade?",
                     "Countries with the most economic growth in the past five years",
                     "Cities with the highest number of tourist arrivals in the past year",
                     "States with the most significant increase in population in the past decade",
-                    "Countries with the highest rate of technological advancement in the past 20 years",
-                    "Cities with the highest rate of housing price appreciation in the past year",
+                    "Countries with echnological advancement in the past 20 years",
+                    "Cities with housing price appreciation in the past year",
                     "What was the average life expectancy in the United States in the year 1900?",
                     "How has the population of Tokyo changed over the past 200 years?",
                     "What was the average rainfall in the Amazon rainforest since 2000?",
@@ -172,7 +175,7 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                     "How has the number of wildfires in California changed over the past 50 years?",
                     "What was the most popular tourist destination in Europe in the year 2010?",
                     "What events took place in Rome on July 4th, 2023?",
-                    "How has the crime rate in Chicago changed over the past two decades?",
+                    "How has the crime in Chicago changed over the past two decades?",
                     "What was the average lifespan of a person in ancient Egypt?",
                     "How has the population of Paris changed over the past 500 years?",
                     "What was the average cost of a gallon of gas in the United States in the year 1995?",
@@ -180,7 +183,7 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                     "What was the average life expectancy in Japan in the year 2050?",
                     "What was the average annual rainfall in the Amazon rainforest after the year 1975?",
                     "What was the most popular sport in the United States in the year 2000?",
-                    "How has the rate of unemployment in Germany changed over the past 20 years?",
+                    "How has unemployment in Germany changed over the past 20 years?",
                     "What was the average salary in the United States in the year 1980?",
                     "What was the most popular movie in the United States in the year 2010?",
                     "How has the population of London changed over the past 300 years?",
@@ -199,15 +202,15 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                     "How has the population of New York CIty changed?",
                     "Towns and cities affected by forest fires in North America",
                     "What events happened?",
-                    "How has the rate of violent crime in the United States changed?",
-                    "Population growth rate in China",
+                    "How has violent crime in the United States changed?",
+                    "Population growth in China",
                     "How has the level of carbon dioxide in the atmosphere changed?",
                     "Which countries have experienced weather events?",
                     "Countries with some economic growth",
                     "Cities with large number of tourist arrivals",
                     "States with increase in population",
-                    "Countries with the good rate of technological advancement",
-                    "Cities had a positive rate of housing price appreciation",
+                    "Countries with the good technological advancement",
+                    "Cities had a positive pace of housing price appreciation",
                     "What was the average life expectancy in the United States?",
                     "How has the population of Tokyo changed?",
                     "What was the average rainfall in the Amazon rainforest",
@@ -217,14 +220,14 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                     "How has the number of wildfires in California changed?",
                     "popular tourist destination in Europe?",
                     "What events took place in Rome?",
-                    "How has the crime rate in Chicago evolved?",
+                    "How has the crime in Chicago evolved?",
                     "What was the average lifespan of a person in ancient Egypt?",
                     "What was the average cost of a gallon of gas in the United States?",
                     "common cause of death in the United States?",
                     "What was the average life expectancy in Japan?",
                     "What was the average annual rainfall in the Amazon rainforest?",
                     "What was the national sport in the United States?",
-                    "How has the rate of unemployment in Germany changed?",
+                    "How has unemployment in Germany changed?",
                     "What was the average salary in the United States?",
                     "What was a popular movie in the United States?",
                     "What was the average cost of a house in the United States?",
@@ -245,7 +248,7 @@ CLASSIFICATION_INFO: Dict[str, NLQueryClassificationData] = {
                 name="contained_in",
                 categories={
                     "1": "Contained In",
-                    "2": "No Contained In",
+                    "2": "Not Contained In",
                 },
             ),
             training_sentences={
