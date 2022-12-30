@@ -387,18 +387,31 @@ def _empty_svs_score_dict():
 
 
 def _result_with_debug_info(data_dict, status, original_query, places_found,
-                            place_dcid, query, svs_dict, embeddings_build):
+                            main_place_dcid, main_place_name, query, svs_dict,
+                            embeddings_build, ranking_classification,
+                            temporal_classification,
+                            contained_in_classification):
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
+  if not ranking_classification:
+    ranking_classification = "<None>"
+  if not temporal_classification:
+    temporal_classification = "<None>"
+  if not contained_in_classification:
+    contained_in_classification = "<None>"
   debug_info = {
       "debug": {
           'status': status,
           'original_query': original_query,
           'places_detected': places_found,
-          'place_dcid': place_dcid,
+          'main_place_dcid': main_place_dcid,
+          'main_place_name': main_place_name,
           'query_with_places_removed': query,
           'sv_matching': svs_dict,
           'embeddings_build': embeddings_build,
+          'ranking_classification': ranking_classification,
+          'temporal_classification': temporal_classification,
+          'contained_in_classification': contained_in_classification,
       }
   }
   data_dict.update(debug_info)
@@ -428,8 +441,8 @@ def data():
   if not original_query:
     logging.info("Query was empty.")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   original_query, [], "", "", None,
-                                   embeddings_build)
+                                   original_query, [], "", "", "", None,
+                                   embeddings_build, "", "", "")
 
   # Step 1: find all relevant places and the name/type of the main place found.
   places_found = model.detect_place(original_query)
@@ -466,36 +479,48 @@ def data():
   # Step 2: replace the places in the query sentence with "".
   query = _remove_places(original_query, places_found)
 
-  # Step 3: Identify the SV matched based on the query.
+  # Step 3: find query classifiers.
+  ranking_classification = model.query_classification("ranking", query)
+  temporal_classification = model.query_classification("temporal", query)
+  contained_in_classification = model.query_classification(
+      "contained_in", query)
+  logging.info(f'Ranking classification: {ranking_classification}')
+  logging.info(f'Temporal classification: {temporal_classification}')
+  logging.info(f'ContainedIn classification: {contained_in_classification}')
+
+  # Step 4: Identify the SV matched based on the query.
   svs_scores_dict = {}
   try:
     svs_scores_dict = model.detect_svs(query, embeddings_build)
   except ValueError as e:
     logging.info(e)
     return _result_with_debug_info(res, f'ValueError: {e}', original_query,
-                                   places_found, place_dcid, query, None,
-                                   embeddings_build)
+                                   places_found, place_dcid, main_place_name,
+                                   query, None, embeddings_build,
+                                   ranking_classification,
+                                   temporal_classification,
+                                   contained_in_classification)
 
   svs_df = pd.DataFrame(svs_scores_dict)
   logging.info(svs_df)
 
-  # Step 4: filter SVs based on scores.
+  # Step 5: filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
   relevant_svs_df = _filtered_svs_df(svs_df)
   relevant_svs = relevant_svs_df['SV'].values.tolist()
 
-  # Step 5: get related SVGs and all info.
+  # Step 6: get related SVGs and all info.
   svgs_info = _related_svgs(relevant_svs, all_relevant_places)
 
-  # Step 6: get useful sv2name and sv2definitions.
+  # Step 7: get useful sv2name and sv2definitions.
   sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
   sv2name = sv_maps["sv2name"]
   sv2definition = sv_maps["sv2definition"]
 
-  # Step 7: Get SVGs into peer buckets.
+  # Step 8: Get SVGs into peer buckets.
   peer_buckets = _peer_buckets(sv2definition, relevant_svs)
 
-  # Step 8: Produce Chart Config JSON.
+  # Step 9: Produce Chart Config JSON.
   chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
                                child_places_type, highlight_svs, sv2name,
                                peer_buckets)
@@ -517,6 +542,9 @@ def data():
   if relevant_svs_df.empty:
     status_str += '**No SVs Found**.'
 
-  return _result_with_debug_info(d, status_str, original_query,
-                                 places_found, place_dcid, query,
-                                 relevant_svs_df.to_dict(), embeddings_build)
+  return _result_with_debug_info(d, status_str, original_query, places_found,
+                                 place_dcid, main_place_name, query,
+                                 relevant_svs_df.to_dict(), embeddings_build,
+                                 ranking_classification,
+                                 temporal_classification,
+                                 contained_in_classification)
