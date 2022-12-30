@@ -20,9 +20,9 @@
 
 import React from "react";
 
-import { Property } from "./types";
+import { Property } from "../../types/event_types";
 
-interface EventPagePropsType {
+interface AppPropsType {
   // Stores information about the particular event node
   // the event page should render.
   dcid: string;
@@ -34,7 +34,7 @@ interface EventPagePropsType {
  * Main component for rendering an event page.
  * Displays the properties and property values of the event described.
  */
-export function EventPage(props: EventPagePropsType): JSX.Element {
+export function App(props: AppPropsType): JSX.Element {
   return (
     <div>
       <h1>{props.name}</h1>

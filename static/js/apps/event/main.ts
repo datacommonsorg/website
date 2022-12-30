@@ -21,18 +21,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { EventPage } from "./page";
+import { App } from "./app";
 
 window.onload = () => {
+  renderPage();
+};
+
+function renderPage(): void {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const properties = JSON.parse(document.getElementById("node").dataset.pv);
   ReactDOM.render(
-    React.createElement(EventPage, {
+    React.createElement(App, {
       dcid: dcid,
       name: nodeName,
       properties: properties,
     }),
-    document.getElementById("node")
+    document.getElementById("body")
   );
-};
+}

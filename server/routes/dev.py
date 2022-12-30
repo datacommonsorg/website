@@ -53,7 +53,7 @@ def event():
   return flask.render_template('dev/event.html')
 
 
-def parseTriplesResponse(response):
+def parse_triples_response(response):
   """Parses response from triples API.
   
   Returns a list of properties and their values in the form of:
@@ -62,6 +62,22 @@ def parseTriplesResponse(response):
   
   The returned list is used to render property values in the event pages.
   """
+
+
+def get_properties(dcid):
+  """Get and parse response from triples API.
+  
+  Args:
+    dcid: DCID of the node to get properties for
+  
+  Returns:
+    A list of properties and their values in the form of:
+      {dcid: property_dcid, value: <nodes>}
+    where <nodes> map to the "nodes" key in the triples API response.
+  
+  The returned list is used to render property values in the event pages.
+  """
+  response = node_api.triples('out', dcid)
   parsed = []
   for key, value in response.items():
     parsed.append({"dcid": key, "values": value["nodes"]})
@@ -83,11 +99,10 @@ def event_node(dcid):
     name_results = shared_api.names([dcid])
     if dcid in name_results.keys():
       node_name = name_results.get(dcid)
-    properties = node_api.triples('out', dcid)
-    parsed_properties = parseTriplesResponse(properties)
+    properties = get_properties(dcid)
   except Exception as e:
     logging.info(e)
   return render_template('dev/event.html',
                          dcid=dcid,
                          node_name=node_name,
-                         properties=parsed_properties)
+                         properties=properties)
