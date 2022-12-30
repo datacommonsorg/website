@@ -40,6 +40,7 @@ import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
+  SeverityFilter,
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
@@ -55,6 +56,7 @@ import {
 } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { DisasterEventMapFilters } from "./disaster_event_map_filters";
 import { DisasterEventMapSelectors } from "./disaster_event_map_selectors";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
@@ -79,6 +81,7 @@ interface MapChartData {
   geoJson: GeoJsonData;
   disasterEventPoints: DisasterEventPoint[];
   sources: Set<string>;
+  severityFilters: Record<string, Record<string, SeverityFilter>>;
 }
 
 export function DisasterEventMapTile(
@@ -94,6 +97,25 @@ export function DisasterEventMapTile(
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
+  const [svgContainerHeight, setSvgContainerHeight] = useState(null);
+
+  function handleResize(): void {
+    // Update svgContainerHeight if svgContainerRef height has changed so that
+    // severity filters section is the same height as the map.
+    if (svgContainerRef.current) {
+      const height = svgContainerRef.current.offsetHeight;
+      if (height !== svgContainerHeight) {
+        setSvgContainerHeight(height);
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     // On initial loading of the component, get list of all European countries
@@ -122,7 +144,9 @@ export function DisasterEventMapTile(
   useEffect(() => {
     // When mapChartData has changed and geoJson is not empty, re-draw the map.
     if (mapChartData && !_.isEmpty(mapChartData.geoJson)) {
-      draw(mapChartData, placeInfo);
+      const chartHeight = (svgContainerRef.current.offsetWidth * 2) / 5;
+      setSvgContainerHeight(chartHeight);
+      draw(mapChartData, placeInfo, chartHeight);
     }
     removeSpinner(CONTENT_SPINNER_ID);
   }, [mapChartData]);
@@ -160,49 +184,69 @@ export function DisasterEventMapTile(
           </div>
         ) : (
           <>
-            <div className={`${CSS_SELECTOR_PREFIX}-zoom-button-section`}>
-              <div
-                id={ZOOM_IN_BUTTON_ID}
-                className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
-              >
-                <i className="material-icons">add</i>
+            <div className={`${CSS_SELECTOR_PREFIX}-chart-section`}>
+              <div className={`${CSS_SELECTOR_PREFIX}-zoom-button-section`}>
+                <div
+                  id={ZOOM_IN_BUTTON_ID}
+                  className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
+                >
+                  <i className="material-icons">add</i>
+                </div>
+                <div
+                  id={ZOOM_OUT_BUTTON_ID}
+                  className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
+                >
+                  <i className="material-icons">remove</i>
+                </div>
               </div>
               <div
-                id={ZOOM_OUT_BUTTON_ID}
-                className={`${CSS_SELECTOR_PREFIX}-zoom-button`}
-              >
-                <i className="material-icons">remove</i>
-              </div>
-            </div>
-            <div
-              id={props.id}
-              className="svg-container"
-              ref={svgContainerRef}
-            ></div>
-            <div className={`${CSS_SELECTOR_PREFIX}-legend`}>
-              {Object.values(props.eventTypeSpec).map((spec) => {
-                return (
-                  <div
-                    className={`${CSS_SELECTOR_PREFIX}-legend-entry`}
-                    key={`${props.id}-legend-${spec.id}`}
-                  >
+                id={props.id}
+                className="svg-container"
+                ref={svgContainerRef}
+              ></div>
+              <div className={`${CSS_SELECTOR_PREFIX}-legend`}>
+                {Object.values(props.eventTypeSpec).map((spec) => {
+                  return (
                     <div
-                      className={`${CSS_SELECTOR_PREFIX}-legend-color`}
-                      style={{
-                        backgroundColor: spec.color,
-                      }}
-                    ></div>
-                    <span>{spec.name}</span>
+                      className={`${CSS_SELECTOR_PREFIX}-legend-entry`}
+                      key={`${props.id}-legend-${spec.id}`}
+                    >
+                      <div
+                        className={`${CSS_SELECTOR_PREFIX}-legend-color`}
+                        style={{
+                          backgroundColor: spec.color,
+                        }}
+                      ></div>
+                      <span>{spec.name}</span>
+                    </div>
+                  );
+                })}
+                <div
+                  id={`${CSS_SELECTOR_PREFIX}-info-card`}
+                  ref={infoCardRef}
+                />
+                <div id={CONTENT_SPINNER_ID}>
+                  <div className="screen">
+                    <div id="spinner"></div>
                   </div>
-                );
-              })}
-            </div>
-            <div id={`${CSS_SELECTOR_PREFIX}-info-card`} ref={infoCardRef} />
-            <div id={CONTENT_SPINNER_ID}>
-              <div className="screen">
-                <div id="spinner"></div>
+                </div>
               </div>
             </div>
+            <DisasterEventMapFilters
+              severityFilters={mapChartData.severityFilters}
+              eventTypeSpec={props.eventTypeSpec}
+              onSeverityFiltersUpdated={(
+                severityFilters: Record<string, Record<string, SeverityFilter>>
+              ) => {
+                loadSpinner(CONTENT_SPINNER_ID);
+                setMapChartData((prev) => {
+                  const newMapChartData = _.cloneDeep(prev);
+                  newMapChartData.severityFilters = severityFilters;
+                  return newMapChartData;
+                });
+              }}
+              height={svgContainerHeight}
+            />
           </>
         )}
       </div>
@@ -299,10 +343,43 @@ export function DisasterEventMapTile(
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
+        const severityFilters = {};
+        disasterEventData.eventPoints.forEach((eventPoint) => {
+          if (!props.eventTypeSpec[eventPoint.disasterType].severityProps) {
+            return;
+          }
+          props.eventTypeSpec[eventPoint.disasterType].severityProps.forEach(
+            (prop) => {
+              if (!(prop in eventPoint.severity)) {
+                return;
+              }
+              const disasterSeverityFilters =
+                severityFilters[eventPoint.disasterType] || {};
+              if (prop in disasterSeverityFilters) {
+                disasterSeverityFilters[prop].min = Math.min(
+                  disasterSeverityFilters[prop].min,
+                  eventPoint.severity[prop]
+                );
+                disasterSeverityFilters[prop].max = Math.max(
+                  disasterSeverityFilters[prop].max,
+                  eventPoint.severity[prop]
+                );
+              } else {
+                disasterSeverityFilters[prop] = {
+                  min: eventPoint.severity[prop],
+                  max: eventPoint.severity[prop],
+                };
+              }
+              severityFilters[eventPoint.disasterType] =
+                disasterSeverityFilters;
+            }
+          );
+        });
         setMapChartData({
           geoJson,
           disasterEventPoints: disasterEventData.eventPoints,
           sources,
+          severityFilters,
         });
       })
       .catch(() => {
@@ -316,10 +393,10 @@ export function DisasterEventMapTile(
    */
   function draw(
     mapChartData: MapChartData,
-    placeInfo: DisasterEventMapPlaceInfo
+    placeInfo: DisasterEventMapPlaceInfo,
+    height: number
   ): void {
     const width = svgContainerRef.current.offsetWidth;
-    const height = (width * 2) / 5;
     const zoomParams = {
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
@@ -371,9 +448,34 @@ export function DisasterEventMapTile(
       zoomParams
     );
     const pointValues = {};
+    const filteredEventPoints = mapChartData.disasterEventPoints.filter(
+      (eventPoint) => {
+        if (!(eventPoint.disasterType in mapChartData.severityFilters)) {
+          return true;
+        }
+        const eventTypeFilters =
+          mapChartData.severityFilters[eventPoint.disasterType];
+        const severityProps =
+          props.eventTypeSpec[eventPoint.disasterType].severityProps;
+        for (const severityProp of severityProps) {
+          if (!(severityProp in eventPoint.severity)) {
+            return false;
+          }
+          if (
+            eventPoint.severity[severityProp] <
+              eventTypeFilters[severityProp].min ||
+            eventPoint.severity[severityProp] >
+              eventTypeFilters[severityProp].max
+          ) {
+            return false;
+          }
+        }
+        return true;
+      }
+    );
     const pointsLayer = addMapPoints(
       props.id,
-      mapChartData.disasterEventPoints,
+      filteredEventPoints,
       pointValues,
       projection,
       (point: DisasterEventPoint) => {
