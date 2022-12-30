@@ -65,13 +65,12 @@ Start the flask webserver locally at localhost:8080
 ./run_server.sh
 ```
 
-If you don't have access to DataCommons maps API, run
+If you don't have access to DataCommons maps API, can bring up website without
+place search functionality
 
 ```bash
 ./run_server.sh -e lite
 ```
-
-This brings up website without place search functionality.
 
 There are multiple environments for the server, specified by `-e` options.
 For example, `custom` is for custom data commons and `iitm` is
@@ -86,6 +85,12 @@ The following example will start localhost on port 8081. The default is 8080.
 
 Please note the strict syntax requirements for the script, and leave a space
 after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
+
+To enable language models
+
+```bash
+./run_server.sh -m
+```
 
 ## Deploy local changes to dev insance in GCP
 

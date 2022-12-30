@@ -47,3 +47,6 @@ steps:
         git push origin master
 
 timeout: 3600s
+
+options:
+  machineType: "E2_HIGHCPU_8"

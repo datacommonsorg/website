@@ -52,6 +52,9 @@ export function formatDate(strDate: string): string {
  *  Given a list of dates as strings, returns the date range as a string
  */
 export function getDateRange(dates: string[]): string {
+  if (dates.length === 0) {
+    return "";
+  }
   const minDate = formatDate(_.min(dates));
   const maxDate = formatDate(_.max(dates));
   return minDate === maxDate ? `${minDate}` : `${minDate} to ${maxDate}`;

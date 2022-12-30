@@ -29,17 +29,19 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { getAllChildPlaceTypes } from "../tools/map/util";
+import { DisasterEventPointData } from "../types/disaster_event_map_types";
+import {
+  fetchDateList,
+  fetchDisasterEventPoints,
+  fetchGeoJsonData,
+} from "../utils/disaster_event_map_utils";
 import { getParentPlacesPromise } from "../utils/place_utils";
 import {
   CONTENT_SPINNER_ID,
   DISASTER_EVENT_INTENSITIES,
+  DISASTER_EVENT_TYPES,
   DisasterType,
 } from "./constants";
-import {
-  fetchDateList,
-  fetchDisasterData,
-  fetchGeoJsonData,
-} from "./data_fetcher";
 import { MapSection } from "./map_section";
 import { RankingSection } from "./ranking_section";
 
@@ -52,34 +54,55 @@ export function Page(props: PagePropType): JSX.Element {
   const [selectedDisaster, setSelectedDisaster] = useState(DisasterType.ALL);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedPlaceInfo, setSelectedPlaceInfo] = useState({
-    place: EARTH_NAMED_TYPED_PLACE,
-    placeType: "Country",
+    selectedPlace: EARTH_NAMED_TYPED_PLACE,
+    enclosedPlaceType: "Country",
     parentPlaces: [],
   });
   const [geoJsonData, setGeoJsonData] = useState(null);
-  const [disasterData, setDisasterData] = useState(null);
+  const [disasterData, setDisasterData] =
+    useState<DisasterEventPointData>(null);
   const [dateList, setDateList] = useState([]);
   const [breadcumbs, setBreadcrumbs] = useState([EARTH_NAMED_TYPED_PLACE]);
   const [selectedIntensityProp, setSelectedIntensityProp] = useState("");
 
   useEffect(() => {
     // fetch date list everytime disaster type changes
-    fetchDateList(selectedDisaster)
+    const eventTypeDcids = [];
+    for (const disasterType in DISASTER_EVENT_TYPES) {
+      if (
+        selectedDisaster !== DisasterType.ALL &&
+        selectedDisaster !== disasterType
+      ) {
+        continue;
+      }
+      DISASTER_EVENT_TYPES[disasterType].forEach((eventType) =>
+        eventTypeDcids.push(eventType)
+      );
+    }
+    // Always get date list for Earth so that the list of dates stays the same
+    // when user clicks through different places.
+    fetchDateList(eventTypeDcids, EARTH_NAMED_TYPED_PLACE.dcid)
       .then((dateList) => {
         setDateList(dateList);
         if (!_.isEmpty(dateList)) {
           setSelectedDate(dateList[0]);
+        } else {
+          setDisasterData({ eventPoints: [], provenanceInfo: {} });
         }
       })
       .catch(() => {
         setDateList([]);
         setSelectedDate("");
+        setDisasterData({ eventPoints: [], provenanceInfo: {} });
       });
   }, [selectedDisaster]);
 
   useEffect(() => {
     // fetch geojson when selected place changes
-    fetchGeoJsonData(selectedPlaceInfo.place.dcid, selectedPlaceInfo.placeType)
+    fetchGeoJsonData(
+      selectedPlaceInfo.selectedPlace.dcid,
+      selectedPlaceInfo.enclosedPlaceType
+    )
       .then((geoJsonData) => {
         setGeoJsonData(geoJsonData);
       })
@@ -93,19 +116,38 @@ export function Page(props: PagePropType): JSX.Element {
 
   useEffect(() => {
     // fetch disaster data when date or place or disaster type changes
-    if (!selectedDate || !selectedPlaceInfo.place.dcid || !selectedDisaster) {
+    if (
+      !selectedDate ||
+      !selectedPlaceInfo.selectedPlace.dcid ||
+      !selectedDisaster
+    ) {
       return;
     }
-    fetchDisasterData(
-      selectedDisaster,
-      selectedPlaceInfo.place.dcid,
+    const eventSpecs = [];
+    for (const disasterType in DISASTER_EVENT_TYPES) {
+      if (
+        selectedDisaster !== DisasterType.ALL &&
+        selectedDisaster !== disasterType
+      ) {
+        continue;
+      }
+      eventSpecs.push({
+        id: disasterType,
+        name: disasterType,
+        eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
+        severityProps: DISASTER_EVENT_INTENSITIES[disasterType],
+      });
+    }
+    fetchDisasterEventPoints(
+      eventSpecs,
+      selectedPlaceInfo.selectedPlace.dcid,
       selectedDate
     )
       .then((data) => {
         setDisasterData(data);
       })
       .catch(() => {
-        setDisasterData([]);
+        setDisasterData({ eventPoints: [], provenanceInfo: {} });
         window.alert(
           "Error fetching geojson data. Please try refreshing the page"
         );
@@ -181,7 +223,7 @@ export function Page(props: PagePropType): JSX.Element {
       </div>
       <div className="disaster-dashboard-content-section">
         <RankingSection
-          disasterEventPoints={disasterData}
+          disasterEventPoints={disasterData.eventPoints}
           selectedDisaster={selectedDisaster}
           selectedIntensityProp={selectedIntensityProp}
           onIntensityPropSelected={(prop: string) =>
@@ -189,11 +231,14 @@ export function Page(props: PagePropType): JSX.Element {
           }
         />
         <MapSection
-          disasterEventPoints={disasterData}
+          disasterEventPoints={disasterData.eventPoints}
           geoJson={geoJsonData}
           selectedDisaster={selectedDisaster}
           onPlaceUpdated={(place) =>
-            onPlaceUpdated({ ...place, types: [selectedPlaceInfo.placeType] })
+            onPlaceUpdated({
+              ...place,
+              types: [selectedPlaceInfo.enclosedPlaceType],
+            })
           }
           selectedPlaceInfo={selectedPlaceInfo}
           fetchedEuropeanPlaces={props.europeanCountries}
@@ -209,7 +254,7 @@ export function Page(props: PagePropType): JSX.Element {
   );
 
   function onPlaceUpdated(place: NamedTypedPlace): void {
-    if (place.dcid === selectedPlaceInfo.place.dcid) {
+    if (place.dcid === selectedPlaceInfo.selectedPlace.dcid) {
       return;
     }
     loadSpinner(CONTENT_SPINNER_ID);
@@ -219,8 +264,8 @@ export function Page(props: PagePropType): JSX.Element {
       );
       if (!_.isEmpty(allChildPlaces)) {
         setSelectedPlaceInfo({
-          place: place,
-          placeType: allChildPlaces[0],
+          selectedPlace: place,
+          enclosedPlaceType: allChildPlaces[0],
           parentPlaces,
         });
         const breadcrumbIdx = breadcumbs.findIndex(

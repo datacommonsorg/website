@@ -23,6 +23,20 @@ package datacommons;
 // When adding a new config, make sure to add it to the list of configs that
 // are tested by test_required_fields() in subject_page_configs_test.py
 
+
+message EventTypeSpec {
+  // The key used for this event type.
+  string id = 1;
+  // The name to display for the event type.
+  string name = 2;
+  // List of event type dcids to include for this event type.
+  repeated string event_type_dcids = 3;
+  // Hex code for the color to use for this event type.
+  string color = 4;
+  // List of properties used to show the severity of this event type.
+  repeated string severity_props = 5;
+}
+
 message PageMetadata {
   string topic_id = 1;
   string topic_name = 2;
@@ -31,8 +45,10 @@ message PageMetadata {
   // Contained places to load for each parent place type.
   // This can be overwritten by tiles.
   map<string, string> contained_place_types = 4;
+  // Event type information to be used by this config. The key is the event
+  // type id and the value is the spec for that event type.
+  map<string, EventTypeSpec> event_type_spec = 5;
 }
-
 
 message StatVarSpec {
   // The main stat var.
@@ -46,7 +62,6 @@ message StatVarSpec {
   // The name to use for the stat var in labels and titles.
   string name = 6;
 }
-
 
 message RankingTileSpec {
   bool show_highest = 1;
@@ -62,6 +77,11 @@ message RankingTileSpec {
   string decrease_title = 9;
 }
 
+message DisasterEventMapTileSpec {
+  // Keys for event type specs defined in the PageMetadata that should be displayed
+  repeated string event_type_keys = 1;
+}
+
 message Tile {
   // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
   // with any required fields for your new TileType.
@@ -75,6 +95,7 @@ message Tile {
     RANKING = 6;
     HIGHLIGHT = 7;
     DESCRIPTION = 8;
+    DISASTER_EVENT_MAP = 9;
   }
   // Must be specified for all visual tiles
   string title = 1;
@@ -87,6 +108,7 @@ message Tile {
   // specs for specific tile types
   oneof tile_type_spec {
     RankingTileSpec ranking_tile_spec = 5;
+    DisasterEventMapTileSpec disaster_event_map_tile_spec = 6;
   }
 }
 

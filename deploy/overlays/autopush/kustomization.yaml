@@ -32,6 +32,7 @@ configMapGenerator:
     literals:
       - flaskEnv=autopush
       - secretProject=datcom-website-autopush
+      - enableModel=true
   - name: mixer-configmap
     behavior: create
     literals:

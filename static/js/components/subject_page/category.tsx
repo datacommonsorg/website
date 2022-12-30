@@ -22,7 +22,10 @@ import React from "react";
 
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
-import { CategoryConfig } from "../../types/subject_page_proto_types";
+import {
+  CategoryConfig,
+  EventTypeSpec,
+} from "../../types/subject_page_proto_types";
 import { getRelLink } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
@@ -35,12 +38,16 @@ export interface CategoryPropType {
    */
   place: NamedTypedPlace;
   enclosedPlaceType: string;
+  eventTypeSpec: Record<string, EventTypeSpec>;
 }
 
 export function Category(props: CategoryPropType): JSX.Element {
   const svProvider = new StatVarProvider(props.config.statVarSpec);
   return (
-    <article className="category col-12" id={getRelLink(props.config.title)}>
+    <article
+      className="category col-12"
+      id={props.config.title ? getRelLink(props.config.title) : randDomId()}
+    >
       <h2 className="block-title">{props.config.title}</h2>
       {props.config.description && <p>{props.config.description}</p>}
       {props.config.blocks.map((block) => {
@@ -55,6 +62,7 @@ export function Category(props: CategoryPropType): JSX.Element {
               description={block.description}
               columns={block.columns}
               statVarProvider={svProvider}
+              eventTypeSpec={props.eventTypeSpec}
             />
           </ErrorBoundary>
         );

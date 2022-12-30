@@ -32,7 +32,17 @@ class TestSubjectPageConfigs(unittest.TestCase):
       defined_svs[svm_id] = svm
     return defined_svs
 
-  def verify_tile(self, tile, stat_vars, msg):
+  def verify_event_type_specs(self, page, msg):
+    defined_events = {}
+    for i, {event_type_id,
+            event_type_spec} in enumerate(page.event_type_spec.items()):
+      event_message = f"{msg}[event={i},{event_type_id}]"
+      self.assertFalse(event_type_id in defined_events, event_message)
+      self.assertEqual(event_type_id, event_type_spec.id, msg)
+      defined_events[event_type_id] = event_type_spec
+    return defined_events
+
+  def verify_tile(self, tile, stat_vars, msg, event_type_specs):
     """Verifies a single tile"""
     self.assertNotEqual(tile.type, TileType.TYPE_NONE, msg)
 
@@ -43,6 +53,13 @@ class TestSubjectPageConfigs(unittest.TestCase):
 
     if tile.type == TileType.RANKING:
       self.assertIsNotNone(tile.ranking_tile_spec, msg)
+
+    if tile.type == TileType.DISASTER_EVENT_MAP:
+      self.assertIsNotNone(tile.disaster_event_map_tile_spec, msg)
+      for i, event_type_id in enumerate(
+          tile.disaster_event_map_tile_spec.event_type_keys):
+        self.assertTrue(event_type_id in event_type_specs,
+                        f"{msg}[event={i},{event_type_id}]")
 
     if (tile.type == TileType.HIGHLIGHT or tile.type == TileType.DESCRIPTION):
       self.assertNotEqual(tile.description, '', msg)
@@ -64,6 +81,7 @@ class TestSubjectPageConfigs(unittest.TestCase):
         self.assertGreater(len(page.metadata.place_dcid), 0, page_msg)
         self.assertGreater(len(page.metadata.contained_place_types), 0,
                            page_msg)
+        event_type_specs = self.verify_event_type_specs(page, page_msg)
 
         for cat_i, cat in enumerate(page.categories):
           cat_msg = f"{page_msg}[category={cat_i}]"
@@ -77,4 +95,4 @@ class TestSubjectPageConfigs(unittest.TestCase):
             for col_i, col in enumerate(block.columns):
               for t_i, tile in enumerate(col.tiles):
                 tile_msg = f"{block_msg}[col={col_i};tile={t_i}]"
-                self.verify_tile(tile, stat_vars, tile_msg)
+                self.verify_tile(tile, stat_vars, tile_msg, events)
