@@ -130,9 +130,9 @@ class Model:
 
   def query_classification(self, type_string: str, query: str) -> str:
     """Check if query can be classified according to 'type_string' model.
-    
+
     Args:
-      type_string: (str) This is the sentence classification type, e.g. 
+      type_string: (str) This is the sentence classification type, e.g.
         "ranking", "temporal", "contained_in". Full list is in lib.nl_training.py
       query: (str) The query string supplied.
     
