@@ -45,8 +45,9 @@ export function SubjectPageMainPane(
   const placeType = props.place.types
     ? props.place.types[0]
     : DEFAULT_PAGE_PLACE_TYPE;
-  const enclosedPlaceType =
-    props.pageConfig.metadata.containedPlaceTypes[placeType];
+  const enclosedPlaceType = props.pageConfig.metadata.containedPlaceTypes
+    ? props.pageConfig.metadata.containedPlaceTypes[placeType]
+    : "";
   return (
     <div id="subject-page-main-pane">
       {!_.isEmpty(props.pageConfig) &&
