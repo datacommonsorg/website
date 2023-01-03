@@ -20,6 +20,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import { Col, Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
@@ -71,9 +72,10 @@ export function App(): JSX.Element {
   const [searchText, setSearchText] = useState<string>();
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
   const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
-  const showDebugInfo = true;
-
   const [loading, setLoading] = useState(false);
+  const [cookies, setCookie] = useCookies();
+
+  const showDebugInfo = true;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -170,6 +172,9 @@ export function App(): JSX.Element {
                       null,
                       `/nl?q=${q}&build=${selectedBuild}`
                     );
+                    const queries: string[] = cookies["q"] || [];
+                    queries.push(q);
+                    setCookie("q", queries);
                     fetchData(`q=${q}`);
                   }}
                   initialValue={searchText}
