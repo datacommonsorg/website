@@ -88,19 +88,27 @@ export function App(): JSX.Element {
     setLoading(true);
     setUrlParams(urlParams);
     axios.get(`/nl/data?${urlParams}`).then((resp) => {
-      setChartsData({
-        place: {
-          types: [resp.data["place_type"]],
-          name: resp.data["place_name"],
-          dcid: resp.data["place_dcid"],
-        },
-        config: resp.data["config"],
-      });
-      if (resp.data["debug"] === undefined) {
+      if (
+        resp.data["context"] === undefined ||
+        resp.data["config"] === undefined
+      ) {
         setLoading(false);
         return;
       }
-      const debugData = resp.data["debug"];
+      const context = resp.data["context"];
+      setChartsData({
+        place: {
+          types: [context["place_type"]],
+          name: context["place_name"],
+          dcid: context["place_dcid"],
+        },
+        config: resp.data["config"],
+      });
+      if (context["debug"] === undefined) {
+        setLoading(false);
+        return;
+      }
+      const debugData = context["debug"];
       setDebugInfo({
         status: debugData["status"],
         originalQuery: debugData["original_query"],
