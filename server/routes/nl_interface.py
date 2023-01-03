@@ -420,11 +420,7 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
-  return render_template('/nl_interface.html',
-                         place_type="",
-                         place_name="",
-                         place_dcid="",
-                         config={})
+  return render_template('/nl_interface.html')
 
 
 @bp.route('/data')
