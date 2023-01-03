@@ -131,16 +131,22 @@ export function fetchDateList(
  * Get event points for a specific event type, place, and date
  * @param eventType event type to get data for
  * @param place place to get data for
- * @param date date to get data for (YYYY-MM)
+ * @param date date used for data retrieval (YYYY-MM)
  * @param disasterType the disaster type that the event type belongs to
  * @param severityProps list of severity props to get data about
+ * @param minDate a finer granularity date (than the date used for data retrieval)
+ *                to use as a min date of returned event points.
+ * @param maxDate a finer granularity date (than the date used for data retrieval)
+ *                to use as a max date of returned event points.
  */
 function fetchEventPoints(
   eventType: string,
   place: string,
   date: string,
   disasterType: string,
-  severityProps?: string[]
+  severityProps?: string[],
+  minDate?: string,
+  maxDate?: string
 ): Promise<DisasterEventPointData> {
   return axios
     .get<DisasterEventDataApiResponse>("/api/disaster-dashboard/event-data", {
@@ -164,6 +170,12 @@ function fetchEventPoints(
         if (
           _.isEmpty(eventData.geoLocations) ||
           _.isEmpty(eventData.geoLocations[0].point)
+        ) {
+          return;
+        }
+        if (
+          eventData.dates[0] < minDate ||
+          eventData.dates[0].substring(0, maxDate.length) > maxDate
         ) {
           return;
         }
@@ -209,25 +221,43 @@ function fetchEventPoints(
 }
 
 /**
- * Get all event points for a place, date, and list of event specs. Only dates of type YYYY or YYYY-MM are supported.
+ * Get all event points for a place, date range, and list of event specs. Only dates of type YYYY, YYYY-MM, or YYYY-MM-DD are supported.
  * @param eventSpecs list of eventSpecs to get data for
  * @param place containing place to get data for
- * @param date date with format YYYY or YYYY-MM to get data for
+ * @param dateRange list of [minDate, maxDate] where minDate and maxDate are the
+ *                  same length and of the format YYYY, YYYY-MM, or YYYY-MM-DD
  */
 export function fetchDisasterEventPoints(
   eventSpecs: EventTypeSpec[],
   place: string,
-  date: string
+  dateRange: [string, string]
 ): Promise<DisasterEventPointData> {
-  // Dates to fetch data for. If date argument is a year, we want to fetch data
-  // for every month in that year.
+  // Dates to fetch data for.
   const dates = [];
-  if (date.length === 4) {
-    for (let i = 1; i <= 12; i++) {
-      dates.push(`${date}-${i.toString().padStart(2, "0")}`);
+  const minYear = dateRange[0].substring(0, 4);
+  const maxYear = dateRange[1].substring(0, 4);
+  // The minimum length of a date string from dates in the dateRange and dates
+  // used for data retrieval. Dates used for data retrieval are YYYY-MM.
+  const minDateLength = Math.min(dateRange[0].length, 7);
+  // Loop through every YYYY-MM date between minYear-01 and maxYear-12 and add
+  // all dates that are within the dateRange.
+  for (let year = Number(minYear); year <= Number(maxYear); year++) {
+    for (let month = 1; month <= 12; month++) {
+      const date = `${year.toString()}-${month.toString().padStart(2, "0")}`;
+      if (
+        date.substring(0, minDateLength) <
+        dateRange[0].substring(0, minDateLength)
+      ) {
+        continue;
+      }
+      if (
+        date.substring(0, minDateLength) >
+        dateRange[1].substring(0, minDateLength)
+      ) {
+        break;
+      }
+      dates.push(date);
     }
-  } else if (date.length === 7) {
-    dates.push(date);
   }
   const promises = [];
   for (const eventSpec of eventSpecs) {
@@ -239,7 +269,9 @@ export function fetchDisasterEventPoints(
             place,
             date,
             eventSpec.id,
-            eventSpec.severityProps
+            eventSpec.severityProps,
+            dateRange[0].length > 7 ? dateRange[0] : "",
+            dateRange[1].length > 7 ? dateRange[1] : ""
           )
         );
       }

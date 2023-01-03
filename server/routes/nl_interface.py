@@ -151,12 +151,9 @@ def _get_buckets(defn):
 def _chart_config(place_dcid, main_place_type, main_place_name,
                   child_places_type, highlight_svs, sv2name, peer_buckets):
   #@title
-  chart_config = {}
-  chart_config['metadata'] = {
-      'place_dcid': [place_dcid],
-  }
+  chart_config = {'metadata': {'place_dcid': [place_dcid],}}
 
-  if child_places_type and ('metadata' in chart_config):
+  if child_places_type:
     chart_config['metadata']['contained_place_types'] = {
         main_place_type: child_places_type
     }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, InputGroup } from "reactstrap";
 
 interface TextSearchBarPropType {
@@ -33,8 +33,11 @@ export function TextSearchBar({
   placeholder,
 }: TextSearchBarPropType): JSX.Element {
   const [invalid, setInvalid] = useState(false);
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState<string>("");
   const callback = () => (value ? onSearch(value) : setInvalid(true));
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
   return (
     <div className="input-query">
       <InputGroup>

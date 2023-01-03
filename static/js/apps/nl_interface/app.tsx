@@ -68,6 +68,7 @@ const buildOptions = [
 export function App(): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [urlParams, setUrlParams] = useState<string>();
+  const [searchText, setSearchText] = useState<string>();
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
   const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
   const showDebugInfo = true;
@@ -78,6 +79,7 @@ export function App(): JSX.Element {
     const params = new URLSearchParams(window.location.search);
     const urlParams = params.toString();
     if (urlParams.length > 0) {
+      setSearchText(params.get("q"));
       fetchData(urlParams);
     }
   }, [urlParams]);
@@ -162,7 +164,7 @@ export function App(): JSX.Element {
                     );
                     fetchData(`q=${q}`);
                   }}
-                  initialValue={""}
+                  initialValue={searchText}
                   placeholder='For example "family earnings in california"'
                 />
               </div>
@@ -183,8 +185,8 @@ export function App(): JSX.Element {
                 value={selectedBuild}
                 onChange={handleEmbeddingsBuildChange}
               >
-                {buildOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
+                {buildOptions.map((option, idx) => (
+                  <option key={idx} value={option.value}>
                     {option.text}
                   </option>
                 ))}
