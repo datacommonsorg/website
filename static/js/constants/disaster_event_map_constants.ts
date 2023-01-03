@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,10 @@
  */
 
 /**
- * Entrypoint for NL interface.
+ * Constants used by disaster event map components.
  */
 
-import React from "react";
-import { CookiesProvider } from "react-cookie";
-import ReactDOM from "react-dom";
-
-import { App } from "./app";
-
-window.onload = () => {
-  renderPage();
-};
-
-function renderPage(): void {
-  ReactDOM.render(
-    React.createElement(CookiesProvider, {}, React.createElement(App)),
-    document.getElementById("body")
-  );
-}
+// The key to use for date option of last 30 days.
+export const DATE_OPTION_30D_KEY = "lastThirtyDays";
+// The key to use for date option of last 6 months.
+export const DATE_OPTION_6M_KEY = "lastSixMonths";
