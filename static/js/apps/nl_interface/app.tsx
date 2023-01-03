@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
@@ -41,15 +41,37 @@ interface DebugInfo {
   status: string;
   originalQuery: string;
   placesDetected: Array<string>;
-  placeDCID: string;
+  mainPlaceDCID: string;
+  mainPlaceName: string;
   queryWithoutPlaces: string;
   svScores: SVScores;
+  embeddingsBuild: string;
+  rankingClassification: string;
+  temporalClassification: string;
+  containedInClassification: string;
 }
+
+const buildOptions = [
+  {
+    value: "combined_all",
+    text: "---- Choose an Embeddings Build option (default: Combined All) -------",
+  },
+  { value: "demographics300", text: "Demographics only (300 SVs)" },
+  {
+    value: "demographics300-withpalmalternatives",
+    text: "Demographics only (300 SVs) with PaLM Alternatives",
+  },
+  { value: "uncurated3000", text: "Uncurated 3000 SVs" },
+  { value: "combined_all", text: "Combined All of the Above (Default)" },
+];
 
 export function App(): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [urlParams, setUrlParams] = useState<string>();
+  const [searchText, setSearchText] = useState<string>();
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
+  const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
+  const showDebugInfo = true;
 
   const [loading, setLoading] = useState(false);
 
@@ -57,6 +79,7 @@ export function App(): JSX.Element {
     const params = new URLSearchParams(window.location.search);
     const urlParams = params.toString();
     if (urlParams.length > 0) {
+      setSearchText(params.get("q"));
       fetchData(urlParams);
     }
   }, [urlParams]);
@@ -73,14 +96,25 @@ export function App(): JSX.Element {
         },
         config: resp.data["config"],
       });
+      if (resp.data["debug"] === undefined) {
+        setLoading(false);
+        return;
+      }
+      const debugData = resp.data["debug"];
       setDebugInfo({
-        status: resp.data["debug"]["status"],
-        originalQuery: resp.data["debug"]["original_query"],
-        placesDetected: resp.data["debug"]["places_detected"],
-        placeDCID: resp.data["debug"]["place_dcid"],
-        queryWithoutPlaces: resp.data["debug"]["query_with_places_removed"],
-        svScores: resp.data["debug"]["sv_matching"],
+        status: debugData["status"],
+        originalQuery: debugData["original_query"],
+        placesDetected: debugData["places_detected"],
+        mainPlaceDCID: debugData["main_place_dcid"],
+        mainPlaceName: debugData["main_place_name"],
+        queryWithoutPlaces: debugData["query_with_places_removed"],
+        svScores: debugData["sv_matching"],
+        embeddingsBuild: debugData["embeddings_build"],
+        rankingClassification: debugData["ranking_classification"],
+        temporalClassification: debugData["temporal_classification"],
+        containedInClassification: debugData["contained_in_classification"],
       });
+      setSelectedBuild(debugData["embeddings_build"]);
       setLoading(false);
     });
   }
@@ -108,6 +142,12 @@ export function App(): JSX.Element {
     document.getElementById("sv-scores-list").innerHTML = table;
   }
 
+  function handleEmbeddingsBuildChange(
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) {
+    setSelectedBuild(event.target.value);
+  }
+
   return (
     <div id="dc-nl-interface">
       <Container fluid={true}>
@@ -117,43 +157,96 @@ export function App(): JSX.Element {
               <div className="place-options-section">
                 <TextSearchBar
                   onSearch={(q) => {
-                    history.pushState({}, null, `/nl?q=${q}`);
+                    history.pushState(
+                      {},
+                      null,
+                      `/nl?q=${q}&build=${selectedBuild}`
+                    );
                     fetchData(`q=${q}`);
                   }}
-                  initialValue={""}
+                  initialValue={searchText}
                   placeholder='For example "family earnings in california"'
                 />
               </div>
             </Container>
           </div>
         </Row>
-        {debugInfo && (
+        {showDebugInfo && (
           <>
             <Row>
-              <b>DEBUGGING INFO: </b>
+              <b>DEBUGGING OPTIONS/INFO: </b>
               <br></br>
             </Row>
             <Row>
-              <b>Execution Status: </b> {debugInfo.status}
+              <label>Embeddings build:</label>
             </Row>
-            <Row>
-              <b>Original Query: </b> {debugInfo.originalQuery}
-            </Row>
-            <Row>
-              <b>Places Detected: </b> {debugInfo.placesDetected.join(", ")}
-            </Row>
-            <Row>
-              <b>Main Place DCID Inferred: </b>
-              {debugInfo.placeDCID}
-            </Row>
-            <Row>
-              <b>Query used for SV detection: </b>
-              {debugInfo.queryWithoutPlaces}
-            </Row>
-            <Row>
-              <b>SVs Matched (with scores):</b>
-              {displaySVMatchScores(debugInfo.svScores)}
-            </Row>
+            <div id="embeddings-build-options">
+              <select
+                value={selectedBuild}
+                onChange={handleEmbeddingsBuildChange}
+              >
+                {buildOptions.map((option, idx) => (
+                  <option key={idx} value={option.value}>
+                    {option.text}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {debugInfo && (
+              <>
+                <Row>
+                  <b>Execution Status: </b> {debugInfo.status}
+                </Row>
+                <Row>
+                  <b>Embeddings Build: </b> {debugInfo.embeddingsBuild}
+                </Row>
+                <Row>
+                  <b>Original Query: </b> {debugInfo.originalQuery}
+                </Row>
+                <Row>
+                  <b>Query used for SV detection: </b>
+                  {debugInfo.queryWithoutPlaces}
+                </Row>
+                <Row>
+                  <b>Place Detection:</b>
+                </Row>
+                <Row>
+                  <Col>
+                    Places Detected: {debugInfo.placesDetected.join(", ")}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    Main Place Inferred: {debugInfo.mainPlaceName} (dcid:{" "}
+                    {debugInfo.mainPlaceDCID})
+                  </Col>
+                </Row>
+                <Row>
+                  <b>Query Type Detection:</b>
+                </Row>
+                <Row>
+                  <Col>
+                    Ranking classification: {debugInfo.rankingClassification}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    Temporal classification: {debugInfo.temporalClassification}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    ContainedIn classification:{" "}
+                    {debugInfo.containedInClassification}
+                  </Col>
+                </Row>
+
+                <Row>
+                  <b>SVs Matched (with scores):</b>
+                  {displaySVMatchScores(debugInfo.svScores)}
+                </Row>
+              </>
+            )}
           </>
         )}
         <div id="sv-scores-list"></div>
