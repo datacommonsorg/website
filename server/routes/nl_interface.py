@@ -446,7 +446,7 @@ def data():
                                    embeddings_build, "", "", "")
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(re.sub(r'[^\w\s]', '', query))
+  places_found = model.detect_place(query)
   logging.info(places_found)
 
   if not places_found:
