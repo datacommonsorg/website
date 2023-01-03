@@ -23,7 +23,6 @@ from google.protobuf.json_format import MessageToJson, ParseDict
 import pandas as pd
 import re
 import requests
-import string
 
 import services.datacommons as dc
 from config import subject_page_pb2
