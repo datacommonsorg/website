@@ -21,7 +21,16 @@
 import React from "react";
 import { CustomInput } from "reactstrap";
 
+import {
+  DATE_OPTION_6M_KEY,
+  DATE_OPTION_30D_KEY,
+} from "../../constants/disaster_event_map_constants";
 import { NamedTypedPlace } from "../../shared/types";
+
+const DATE_OPTION_DISPLAY_NAMES = {
+  [DATE_OPTION_30D_KEY]: "Last 30 days",
+  [DATE_OPTION_6M_KEY]: "Last 6 months",
+};
 
 interface DisasterEventMapSelectorsPropType {
   // List of places to show in the breadcrumbs
@@ -29,7 +38,7 @@ interface DisasterEventMapSelectorsPropType {
   // Selected date
   selectedDate: string;
   // List of available date options
-  dateList: string[];
+  dateOptions: string[];
   // Callback when new place is selected
   onPlaceSelected: (place: NamedTypedPlace) => void;
   // Callback when new date is selected
@@ -69,10 +78,10 @@ export function DisasterEventMapSelectors(
             props.onDateSelected(e.target.value);
           }}
         >
-          {props.dateList.map((date) => {
+          {props.dateOptions.map((date) => {
             return (
               <option value={date} key={date}>
-                {date}
+                {DATE_OPTION_DISPLAY_NAMES[date] || date}
               </option>
             );
           })}
