@@ -34,6 +34,7 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
+import lib.nl_training as libnl
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
@@ -269,7 +270,11 @@ def create_app():
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
     app.config['AI_CONTEXT'] = ai.Context()
-    app.config['NL_MODEL'] = nl.Model(en_core_web_md.load())
+    # For the classification types available, check lib.nl_training (libnl).
+    classification_types = ['ranking', 'temporal', 'contained_in']
+    app.config['NL_MODEL'] = nl.Model(en_core_web_md.load(),
+                                      libnl.CLASSIFICATION_INFO,
+                                      classification_types)
 
   def is_up(url: str):
     if not url.lower().startswith('http'):

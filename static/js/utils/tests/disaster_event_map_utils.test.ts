@@ -126,6 +126,56 @@ const EARTHQUAKE_EVENT_3_PROCESSED = {
   provenanceId: "earthquakeProv",
 };
 
+const EARTHQUAKE_EVENT_4_API = {
+  dcid: "earthquake4",
+  dates: ["2023-01-01"],
+  places: ["country/USA"],
+  geoLocations: [{ point: { longitude: 1, latitude: 1 } }],
+  provenanceId: "earthquakeProv",
+  propVals: {
+    magnitude: {
+      vals: ["5"],
+    },
+  },
+};
+
+const EARTHQUAKE_EVENT_4_PROCESSED = {
+  placeDcid: "earthquake4",
+  placeName: "earthquake4",
+  latitude: 1,
+  longitude: 1,
+  disasterType: "earthquake",
+  startDate: "2023-01-01",
+  severity: { magnitude: 5 },
+  endDate: "",
+  provenanceId: "earthquakeProv",
+};
+
+const EARTHQUAKE_EVENT_5_API = {
+  dcid: "earthquake5",
+  dates: ["2023-02-01"],
+  places: ["country/USA"],
+  geoLocations: [{ point: { longitude: 1, latitude: 1 } }],
+  provenanceId: "earthquakeProv",
+  propVals: {
+    magnitude: {
+      vals: ["5"],
+    },
+  },
+};
+
+const EARTHQUAKE_EVENT_5_PROCESSED = {
+  placeDcid: "earthquake5",
+  placeName: "earthquake5",
+  latitude: 1,
+  longitude: 1,
+  disasterType: "earthquake",
+  startDate: "2023-02-01",
+  severity: { magnitude: 5 },
+  endDate: "",
+  provenanceId: "earthquakeProv",
+};
+
 const TORNADO_EVENT_1_API = {
   dcid: "tornado1",
   name: "tornado1",
@@ -226,6 +276,22 @@ const EVENT_DATA = {
         },
       },
     },
+    "2023-01": {
+      Earth: {
+        eventCollection: {
+          events: [EARTHQUAKE_EVENT_4_API],
+          provenanceInfo: { [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO },
+        },
+      },
+    },
+    "2023-02": {
+      Earth: {
+        eventCollection: {
+          events: [EARTHQUAKE_EVENT_5_API],
+          provenanceInfo: { [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO },
+        },
+      },
+    },
   },
   TornadoEvent: {
     "2022-01": {
@@ -259,6 +325,8 @@ const EVENT_DATA = {
 
 const YYYY_DATE = "2022";
 const YYYY_MM_DATE = "2022-01";
+const YYYY_DATE_2 = "2023";
+const YYYY_MM_DATE_2 = "2023-01";
 const TEST_PLACE = "Earth";
 
 const DATE_RANGES = {
@@ -297,23 +365,25 @@ function axios_mock(): void {
 
   for (const eventList of Object.values(DISASTER_EVENT_TYPES)) {
     for (const eventType of eventList) {
-      for (let i = 1; i < 13; i++) {
-        const date = `${YYYY_DATE}-${i < 10 ? "0" : ""}${i}`;
-        let result = { events: [], provenanceInfo: {} };
-        if (eventType in EVENT_DATA && date in EVENT_DATA[eventType]) {
-          result = EVENT_DATA[eventType][date][TEST_PLACE];
+      for (const year of [YYYY_DATE, YYYY_DATE_2]) {
+        for (let i = 1; i < 13; i++) {
+          const date = `${year}-${i < 10 ? "0" : ""}${i}`;
+          let result = { events: [], provenanceInfo: {} };
+          if (eventType in EVENT_DATA && date in EVENT_DATA[eventType]) {
+            result = EVENT_DATA[eventType][date][TEST_PLACE];
+          }
+          when(axios.get)
+            .calledWith("/api/disaster-dashboard/event-data", {
+              params: {
+                eventType,
+                date,
+                place: TEST_PLACE,
+              },
+            })
+            .mockResolvedValue({
+              data: result,
+            });
         }
-        when(axios.get)
-          .calledWith("/api/disaster-dashboard/event-data", {
-            params: {
-              eventType,
-              date,
-              place: TEST_PLACE,
-            },
-          })
-          .mockResolvedValue({
-            data: result,
-          });
       }
     }
   }
@@ -453,24 +523,25 @@ test("fetch data for all disasters with date as YYYY-MM", () => {
       severityProps: DISASTER_EVENT_INTENSITIES[disasterType],
     };
   });
-  return fetchDisasterEventPoints(eventSpecs, TEST_PLACE, YYYY_MM_DATE).then(
-    (result) => {
-      const expectedEventPoints = [
-        EARTHQUAKE_EVENT_1_PROCESSED,
-        EARTHQUAKE_EVENT_2_PROCESSED,
-        TORNADO_EVENT_1_PROCESSED,
-        CYCLONE_EVENT_1_PROCESSED,
-      ];
-      expect(result.eventPoints).toEqual(
-        expect.arrayContaining(expectedEventPoints)
-      );
-      expect(result.provenanceInfo).toEqual({
-        [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
-        [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
-        [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
-      });
-    }
-  );
+  return fetchDisasterEventPoints(eventSpecs, TEST_PLACE, [
+    YYYY_MM_DATE,
+    YYYY_MM_DATE,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      EARTHQUAKE_EVENT_1_PROCESSED,
+      EARTHQUAKE_EVENT_2_PROCESSED,
+      TORNADO_EVENT_1_PROCESSED,
+      CYCLONE_EVENT_1_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
+      [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
+      [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
+    });
+  });
 });
 
 test("fetch data for all disasters with date as YYYY", () => {
@@ -484,26 +555,27 @@ test("fetch data for all disasters with date as YYYY", () => {
       severityProps: DISASTER_EVENT_INTENSITIES[disasterType],
     };
   });
-  return fetchDisasterEventPoints(eventSpecs, TEST_PLACE, YYYY_DATE).then(
-    (result) => {
-      const expectedEventPoints = [
-        EARTHQUAKE_EVENT_1_PROCESSED,
-        EARTHQUAKE_EVENT_2_PROCESSED,
-        EARTHQUAKE_EVENT_3_PROCESSED,
-        TORNADO_EVENT_1_PROCESSED,
-        TORNADO_EVENT_2_PROCESSED,
-        CYCLONE_EVENT_1_PROCESSED,
-      ];
-      expect(result.eventPoints).toEqual(
-        expect.arrayContaining(expectedEventPoints)
-      );
-      expect(result.provenanceInfo).toEqual({
-        [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
-        [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
-        [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
-      });
-    }
-  );
+  return fetchDisasterEventPoints(eventSpecs, TEST_PLACE, [
+    YYYY_DATE,
+    YYYY_DATE,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      EARTHQUAKE_EVENT_1_PROCESSED,
+      EARTHQUAKE_EVENT_2_PROCESSED,
+      EARTHQUAKE_EVENT_3_PROCESSED,
+      TORNADO_EVENT_1_PROCESSED,
+      TORNADO_EVENT_2_PROCESSED,
+      CYCLONE_EVENT_1_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
+      [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
+      [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
+    });
+  });
 });
 
 test("fetch data for single disaster multiple events with date as YYYY-MM", () => {
@@ -515,21 +587,22 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
     severityProps: DISASTER_EVENT_INTENSITIES[STORM_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, YYYY_MM_DATE).then(
-    (result) => {
-      const expectedEventPoints = [
-        TORNADO_EVENT_1_PROCESSED,
-        CYCLONE_EVENT_1_PROCESSED,
-      ];
-      expect(result.eventPoints).toEqual(
-        expect.arrayContaining(expectedEventPoints)
-      );
-      expect(result.provenanceInfo).toEqual({
-        [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
-        [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
-      });
-    }
-  );
+  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
+    YYYY_MM_DATE,
+    YYYY_MM_DATE,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      TORNADO_EVENT_1_PROCESSED,
+      CYCLONE_EVENT_1_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
+      [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
+    });
+  });
 });
 
 test("fetch data for single disaster multiple events with date as YYYY", () => {
@@ -541,22 +614,23 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
     severityProps: DISASTER_EVENT_INTENSITIES[STORM_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, YYYY_DATE).then(
-    (result) => {
-      const expectedEventPoints = [
-        TORNADO_EVENT_1_PROCESSED,
-        TORNADO_EVENT_2_PROCESSED,
-        CYCLONE_EVENT_1_PROCESSED,
-      ];
-      expect(result.eventPoints).toEqual(
-        expect.arrayContaining(expectedEventPoints)
-      );
-      expect(result.provenanceInfo).toEqual({
-        [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
-        [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
-      });
-    }
-  );
+  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
+    YYYY_DATE,
+    YYYY_DATE,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      TORNADO_EVENT_1_PROCESSED,
+      TORNADO_EVENT_2_PROCESSED,
+      CYCLONE_EVENT_1_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [TORNADO_PROV_ID]: TORNADO_PROV_INFO,
+      [CYCLONE_PROV_ID]: CYCLONE_PROV_INFO,
+    });
+  });
 });
 
 test("fetch data for single event with date as YYYY-MM", () => {
@@ -568,20 +642,21 @@ test("fetch data for single event with date as YYYY-MM", () => {
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
     severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, YYYY_MM_DATE).then(
-    (result) => {
-      const expectedEventPoints = [
-        EARTHQUAKE_EVENT_1_PROCESSED,
-        EARTHQUAKE_EVENT_2_PROCESSED,
-      ];
-      expect(result.eventPoints).toEqual(
-        expect.arrayContaining(expectedEventPoints)
-      );
-      expect(result.provenanceInfo).toEqual({
-        [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
-      });
-    }
-  );
+  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
+    YYYY_MM_DATE,
+    YYYY_MM_DATE,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      EARTHQUAKE_EVENT_1_PROCESSED,
+      EARTHQUAKE_EVENT_2_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
+    });
+  });
 });
 
 test("fetch data for single event with date as YYYY", () => {
@@ -593,19 +668,103 @@ test("fetch data for single event with date as YYYY", () => {
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
     severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, YYYY_DATE).then(
-    (result) => {
-      const expectedEventPoints = [
-        EARTHQUAKE_EVENT_1_PROCESSED,
-        EARTHQUAKE_EVENT_2_PROCESSED,
-        EARTHQUAKE_EVENT_3_PROCESSED,
-      ];
-      expect(result.eventPoints).toEqual(
-        expect.arrayContaining(expectedEventPoints)
-      );
-      expect(result.provenanceInfo).toEqual({
-        [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
-      });
-    }
-  );
+  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
+    YYYY_DATE,
+    YYYY_DATE,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      EARTHQUAKE_EVENT_1_PROCESSED,
+      EARTHQUAKE_EVENT_2_PROCESSED,
+      EARTHQUAKE_EVENT_3_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
+    });
+  });
+});
+
+test("fetch data for single event with date range as YYYY", () => {
+  axios_mock();
+  const eventSpec = {
+    id: EARTHQUAKE_DISASTER_TYPE_ID,
+    name: "earthquake",
+    eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
+    color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
+    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+  };
+  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
+    YYYY_DATE,
+    YYYY_DATE_2,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      EARTHQUAKE_EVENT_1_PROCESSED,
+      EARTHQUAKE_EVENT_2_PROCESSED,
+      EARTHQUAKE_EVENT_3_PROCESSED,
+      EARTHQUAKE_EVENT_4_PROCESSED,
+      EARTHQUAKE_EVENT_5_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
+    });
+  });
+});
+
+test("fetch data for single event with date range as YYYY-MM", () => {
+  axios_mock();
+  const eventSpec = {
+    id: EARTHQUAKE_DISASTER_TYPE_ID,
+    name: "earthquake",
+    eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
+    color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
+    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+  };
+  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
+    YYYY_MM_DATE,
+    YYYY_MM_DATE_2,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      EARTHQUAKE_EVENT_1_PROCESSED,
+      EARTHQUAKE_EVENT_2_PROCESSED,
+      EARTHQUAKE_EVENT_3_PROCESSED,
+      EARTHQUAKE_EVENT_4_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
+    });
+  });
+});
+
+test("fetch data for single event with date range as YYYY-MM-DD", () => {
+  axios_mock();
+  const eventSpec = {
+    id: EARTHQUAKE_DISASTER_TYPE_ID,
+    name: "earthquake",
+    eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
+    color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
+    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+  };
+  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
+    `${YYYY_MM_DATE}-02`,
+    `${YYYY_MM_DATE_2}-02`,
+  ]).then((result) => {
+    const expectedEventPoints = [
+      EARTHQUAKE_EVENT_2_PROCESSED,
+      EARTHQUAKE_EVENT_3_PROCESSED,
+    ];
+    expect(result.eventPoints).toEqual(
+      expect.arrayContaining(expectedEventPoints)
+    );
+    expect(result.provenanceInfo).toEqual({
+      [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
+    });
+  });
 });

@@ -138,11 +138,10 @@ export function Page(props: PagePropType): JSX.Element {
         severityProps: DISASTER_EVENT_INTENSITIES[disasterType],
       });
     }
-    fetchDisasterEventPoints(
-      eventSpecs,
-      selectedPlaceInfo.selectedPlace.dcid,
-      selectedDate
-    )
+    fetchDisasterEventPoints(eventSpecs, selectedPlaceInfo.selectedPlace.dcid, [
+      selectedDate,
+      selectedDate,
+    ])
       .then((data) => {
         setDisasterData(data);
       })

@@ -20,7 +20,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
@@ -41,10 +41,14 @@ interface DebugInfo {
   status: string;
   originalQuery: string;
   placesDetected: Array<string>;
-  placeDCID: string;
+  mainPlaceDCID: string;
+  mainPlaceName: string;
   queryWithoutPlaces: string;
   svScores: SVScores;
   embeddingsBuild: string;
+  rankingClassification: string;
+  temporalClassification: string;
+  containedInClassification: string;
 }
 
 const buildOptions = [
@@ -64,6 +68,7 @@ const buildOptions = [
 export function App(): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [urlParams, setUrlParams] = useState<string>();
+  const [searchText, setSearchText] = useState<string>();
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
   const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
   const showDebugInfo = true;
@@ -74,6 +79,7 @@ export function App(): JSX.Element {
     const params = new URLSearchParams(window.location.search);
     const urlParams = params.toString();
     if (urlParams.length > 0) {
+      setSearchText(params.get("q"));
       fetchData(urlParams);
     }
   }, [urlParams]);
@@ -99,10 +105,14 @@ export function App(): JSX.Element {
         status: debugData["status"],
         originalQuery: debugData["original_query"],
         placesDetected: debugData["places_detected"],
-        placeDCID: debugData["place_dcid"],
+        mainPlaceDCID: debugData["main_place_dcid"],
+        mainPlaceName: debugData["main_place_name"],
         queryWithoutPlaces: debugData["query_with_places_removed"],
         svScores: debugData["sv_matching"],
         embeddingsBuild: debugData["embeddings_build"],
+        rankingClassification: debugData["ranking_classification"],
+        temporalClassification: debugData["temporal_classification"],
+        containedInClassification: debugData["contained_in_classification"],
       });
       setSelectedBuild(debugData["embeddings_build"]);
       setLoading(false);
@@ -154,7 +164,7 @@ export function App(): JSX.Element {
                     );
                     fetchData(`q=${q}`);
                   }}
-                  initialValue={""}
+                  initialValue={searchText}
                   placeholder='For example "family earnings in california"'
                 />
               </div>
@@ -175,8 +185,8 @@ export function App(): JSX.Element {
                 value={selectedBuild}
                 onChange={handleEmbeddingsBuildChange}
               >
-                {buildOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
+                {buildOptions.map((option, idx) => (
+                  <option key={idx} value={option.value}>
                     {option.text}
                   </option>
                 ))}
@@ -194,16 +204,43 @@ export function App(): JSX.Element {
                   <b>Original Query: </b> {debugInfo.originalQuery}
                 </Row>
                 <Row>
-                  <b>Places Detected: </b> {debugInfo.placesDetected.join(", ")}
-                </Row>
-                <Row>
-                  <b>Main Place DCID Inferred: </b>
-                  {debugInfo.placeDCID}
-                </Row>
-                <Row>
                   <b>Query used for SV detection: </b>
                   {debugInfo.queryWithoutPlaces}
                 </Row>
+                <Row>
+                  <b>Place Detection:</b>
+                </Row>
+                <Row>
+                  <Col>
+                    Places Detected: {debugInfo.placesDetected.join(", ")}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    Main Place Inferred: {debugInfo.mainPlaceName} (dcid:{" "}
+                    {debugInfo.mainPlaceDCID})
+                  </Col>
+                </Row>
+                <Row>
+                  <b>Query Type Detection:</b>
+                </Row>
+                <Row>
+                  <Col>
+                    Ranking classification: {debugInfo.rankingClassification}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    Temporal classification: {debugInfo.temporalClassification}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    ContainedIn classification:{" "}
+                    {debugInfo.containedInClassification}
+                  </Col>
+                </Row>
+
                 <Row>
                   <b>SVs Matched (with scores):</b>
                   {displaySVMatchScores(debugInfo.svScores)}
