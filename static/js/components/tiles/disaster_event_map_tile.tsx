@@ -39,7 +39,7 @@ import {
 } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import { getAllChildPlaceTypes, getDate } from "../../tools/map/util";
+import { getAllChildPlaceTypes } from "../../tools/map/util";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
@@ -97,7 +97,7 @@ export function DisasterEventMapTile(
   const europeanPlaces = useRef([]);
   const dateRanges = useRef(getDateRanges());
   const [dateList, setDateList] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(DATE_OPTION_30D_KEY);
+  const [selectedDate, setSelectedDate] = useState(DATE_OPTION_6M_KEY);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
   const [breadcrumbs, setBreadcrumbs] = useState([props.place]);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
