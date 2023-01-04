@@ -431,7 +431,7 @@ def page():
 @bp.route('/data')
 def data():
   original_query = request.args.get('q')
-  query = escape(_remove_punctuations(original_query))
+  query = str(escape(_remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   model = current_app.config['NL_MODEL']
   default_place = "United States"
