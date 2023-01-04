@@ -23,7 +23,6 @@ import urllib.error
 from flask import Flask, request, g
 from flask_babel import Babel
 
-import en_core_web_md
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -37,8 +36,6 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import lib.config as libconfig
 import lib.i18n as i18n
 import lib.util as libutil
-import services.ai as ai
-import services.nl as nl
 from services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
@@ -268,8 +265,17 @@ def create_app():
 
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
-    app.config['AI_CONTEXT'] = ai.Context()
-    app.config['NL_MODEL'] = nl.Model(en_core_web_md.load())
+    # Some specific imports for the NL Interface.
+    import en_core_web_md
+    import lib.nl_training as libnl
+    import services.ai as ai
+    import services.nl as nl
+    # app.config['AI_CONTEXT'] = ai.Context()
+    # For the classification types available, check lib.nl_training (libnl).
+    classification_types = ['ranking', 'temporal', 'contained_in']
+    app.config['NL_MODEL'] = nl.Model(en_core_web_md.load(),
+                                      libnl.CLASSIFICATION_INFO,
+                                      classification_types)
 
   def is_up(url: str):
     if not url.lower().startswith('http'):

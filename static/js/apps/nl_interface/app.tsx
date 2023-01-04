@@ -20,7 +20,8 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Container, Row } from "reactstrap";
+import { useCookies } from "react-cookie";
+import { Col, Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
@@ -41,10 +42,14 @@ interface DebugInfo {
   status: string;
   originalQuery: string;
   placesDetected: Array<string>;
-  placeDCID: string;
+  mainPlaceDCID: string;
+  mainPlaceName: string;
   queryWithoutPlaces: string;
   svScores: SVScores;
   embeddingsBuild: string;
+  rankingClassification: string;
+  temporalClassification: string;
+  containedInClassification: string;
 }
 
 const buildOptions = [
@@ -64,16 +69,19 @@ const buildOptions = [
 export function App(): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [urlParams, setUrlParams] = useState<string>();
+  const [searchText, setSearchText] = useState<string>();
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
   const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
-  const showDebugInfo = true;
-
   const [loading, setLoading] = useState(false);
+  const [cookies, setCookie] = useCookies();
+
+  const showDebugInfo = true;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlParams = params.toString();
     if (urlParams.length > 0) {
+      setSearchText(params.get("q"));
       fetchData(urlParams);
     }
   }, [urlParams]);
@@ -81,55 +89,75 @@ export function App(): JSX.Element {
   function fetchData(urlParams: string): void {
     setLoading(true);
     setUrlParams(urlParams);
-    axios.get(`/nl/data?${urlParams}`).then((resp) => {
-      setChartsData({
-        place: {
-          types: [resp.data["place_type"]],
-          name: resp.data["place_name"],
-          dcid: resp.data["place_dcid"],
-        },
-        config: resp.data["config"],
-      });
-      if (resp.data["debug"] === undefined) {
+    axios
+      .post(`/nl/data?${urlParams}`, {
+        contextHistory: cookies["context_history"],
+      })
+      .then((resp) => {
+        if (
+          resp.data["context"] === undefined ||
+          resp.data["config"] === undefined
+        ) {
+          setLoading(false);
+          return;
+        }
+        const context: any = resp.data["context"];
+        const contextHistory: any[] = cookies["context_history"] || [];
+        contextHistory.push(context);
+        setCookie("context_history", contextHistory, { maxAge: 3600 });
+        setChartsData({
+          place: {
+            types: [context["place_type"]],
+            name: context["place_name"],
+            dcid: context["place_dcid"],
+          },
+          config: resp.data["config"],
+        });
+        if (context["debug"] === undefined) {
+          setLoading(false);
+          return;
+        }
+        const debugData = context["debug"];
+        setDebugInfo({
+          status: debugData["status"],
+          originalQuery: debugData["original_query"],
+          placesDetected: debugData["places_detected"],
+          mainPlaceDCID: debugData["main_place_dcid"],
+          mainPlaceName: debugData["main_place_name"],
+          queryWithoutPlaces: debugData["query_with_places_removed"],
+          svScores: debugData["sv_matching"],
+          embeddingsBuild: debugData["embeddings_build"],
+          rankingClassification: debugData["ranking_classification"],
+          temporalClassification: debugData["temporal_classification"],
+          containedInClassification: debugData["contained_in_classification"],
+        });
+        setSelectedBuild(debugData["embeddings_build"]);
         setLoading(false);
-        return;
-      }
-      const debugData = resp.data["debug"];
-      setDebugInfo({
-        status: debugData["status"],
-        originalQuery: debugData["original_query"],
-        placesDetected: debugData["places_detected"],
-        placeDCID: debugData["place_dcid"],
-        queryWithoutPlaces: debugData["query_with_places_removed"],
-        svScores: debugData["sv_matching"],
-        embeddingsBuild: debugData["embeddings_build"],
       });
-      setSelectedBuild(debugData["embeddings_build"]);
-      setLoading(false);
-    });
   }
 
-  function displaySVMatchScores(svScores: SVScores) {
-    const svs = new Array<string>();
-    Object.keys(svScores.SV).forEach((key) => {
-      svs.push(svScores.SV[key]);
-    });
-
-    const scores = new Array<number>();
-    Object.keys(svScores.CosineScore).forEach((key) => {
-      scores.push(svScores.CosineScore[key]);
-    });
-    let table = '<table border="1">';
-    table += `<tr><th>SV</th><th>Cosine Score [0, 1]</th></tr>`;
-    if (svs.length == scores.length) {
-      for (let i = 0; i < svs.length; i++) {
-        table = table + `<tr>`;
-        table = table + `<td>${svs[i]}</td>`;
-        table = table + `<td>${scores[i]}</td>`;
-      }
-    }
-    table += "</table>";
-    document.getElementById("sv-scores-list").innerHTML = table;
+  function matchScores(svScores: SVScores): JSX.Element {
+    const svs = Object.values(svScores.SV);
+    const scores = Object.values(svScores.CosineScore);
+    return (
+      <div id="sv-scores-list">
+        <table>
+          <tr>
+            <th>SV</th>
+            <th>Cosine Score [0, 1]</th>
+          </tr>
+          {svs.length === scores.length &&
+            svs.map((sv, i) => {
+              return (
+                <tr key={i}>
+                  <td>{sv}</td>
+                  <td>{scores[i]}</td>
+                </tr>
+              );
+            })}
+        </table>
+      </div>
+    );
   }
 
   function handleEmbeddingsBuildChange(
@@ -154,7 +182,7 @@ export function App(): JSX.Element {
                     );
                     fetchData(`q=${q}`);
                   }}
-                  initialValue={""}
+                  initialValue={searchText}
                   placeholder='For example "family earnings in california"'
                 />
               </div>
@@ -175,8 +203,8 @@ export function App(): JSX.Element {
                 value={selectedBuild}
                 onChange={handleEmbeddingsBuildChange}
               >
-                {buildOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
+                {buildOptions.map((option, idx) => (
+                  <option key={idx} value={option.value}>
                     {option.text}
                   </option>
                 ))}
@@ -194,25 +222,50 @@ export function App(): JSX.Element {
                   <b>Original Query: </b> {debugInfo.originalQuery}
                 </Row>
                 <Row>
-                  <b>Places Detected: </b> {debugInfo.placesDetected.join(", ")}
-                </Row>
-                <Row>
-                  <b>Main Place DCID Inferred: </b>
-                  {debugInfo.placeDCID}
-                </Row>
-                <Row>
                   <b>Query used for SV detection: </b>
                   {debugInfo.queryWithoutPlaces}
                 </Row>
                 <Row>
-                  <b>SVs Matched (with scores):</b>
-                  {displaySVMatchScores(debugInfo.svScores)}
+                  <b>Place Detection:</b>
                 </Row>
+                <Row>
+                  <Col>
+                    Places Detected: {debugInfo.placesDetected.join(", ")}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    Main Place Inferred: {debugInfo.mainPlaceName} (dcid:{" "}
+                    {debugInfo.mainPlaceDCID})
+                  </Col>
+                </Row>
+                <Row>
+                  <b>Query Type Detection:</b>
+                </Row>
+                <Row>
+                  <Col>
+                    Ranking classification: {debugInfo.rankingClassification}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    Temporal classification: {debugInfo.temporalClassification}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    ContainedIn classification:{" "}
+                    {debugInfo.containedInClassification}
+                  </Col>
+                </Row>
+                <Row>
+                  <b>SVs Matched (with scores):</b>
+                </Row>
+                {matchScores(debugInfo.svScores)}
               </>
             )}
           </>
         )}
-        <div id="sv-scores-list"></div>
         {chartsData && chartsData.config && (
           <Row>
             <SubjectPageMainPane

@@ -48,6 +48,7 @@ metadata {
       name: "Fire"
       event_type_dcids: "WildlandFireEvent"
       event_type_dcids: "WildfireEvent"
+      event_type_dcids: "FireEvent"
       color: "#fee08b"
     }
   }
