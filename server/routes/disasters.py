@@ -43,6 +43,10 @@ def disaster_dashboard_v0():
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
+  if place_dcid == "event":
+    # Access '/event' route instead
+    event_node()
+    return
   all_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
   if len(all_configs) < 1:
     return "Error: no config found"
@@ -92,7 +96,7 @@ def get_properties(dcid):
 
 
 @bp.route('/event')
-@bp.route('/event/<path:dcid>')
+@bp.route('/event/<path:dcid>', strict_slashes=False)
 def event_node(dcid=DEFAULT_EVENT_DCID):
   if not os.environ.get('FLASK_ENV') in [
       'autopush', 'local', 'dev', 'stanford', 'local-stanford',
@@ -109,6 +113,6 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
   except Exception as e:
     logging.info(e)
   return flask.render_template('custom_dc/stanford/event.html',
-                               dcid=dcid,
+                               dcid=escape(dcid),
                                node_name=node_name,
                                properties=properties)
