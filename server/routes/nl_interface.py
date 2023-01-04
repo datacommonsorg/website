@@ -428,9 +428,11 @@ def page():
   return render_template('/nl_interface.html')
 
 
-@bp.route('/data')
+@bp.route('/data', methods=['GET', 'POST'])
 def data():
   original_query = request.args.get('q')
+  context_history = request.get_json().get('contextHistory')
+  logging.info(context_history)
   query = str(escape(_remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   model = current_app.config['NL_MODEL']
