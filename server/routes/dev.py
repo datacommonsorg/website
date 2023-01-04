@@ -14,18 +14,12 @@
 
 import os
 import flask
-import services.datacommons as dc
-from flask import Blueprint, render_template
-import json
-import logging
 from lib.gcs import list_png
-import routes.api.shared as shared_api
-import routes.api.node as node_api
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 
 # Define blueprint
-bp = Blueprint("dev", __name__, url_prefix='/dev')
+bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
 
 
 @bp.route('/')
@@ -41,68 +35,3 @@ def screenshot(folder):
     flask.abort(404)
   images = list_png(SCREENSHOT_BUCKET, folder)
   return flask.render_template('dev/screenshot.html', images=images)
-
-
-@bp.route('/event')
-def event():
-  if not os.environ.get('FLASK_ENV') in [
-      'autopush', 'local', 'dev', 'stanford', 'local-stanford',
-      'stanford-staging'
-  ]:
-    flask.abort(404)
-  return flask.render_template('dev/event.html')
-
-
-def parse_triples_response(response):
-  """Parses response from triples API.
-  
-  Returns a list of properties and their values in the form of:
-     {dcid: property_dcid, value: <nodes>}
-  where <nodes> map to the "nodes" key in the triples API response.
-  
-  The returned list is used to render property values in the event pages.
-  """
-
-
-def get_properties(dcid):
-  """Get and parse response from triples API.
-  
-  Args:
-    dcid: DCID of the node to get properties for
-  
-  Returns:
-    A list of properties and their values in the form of:
-      {dcid: property_dcid, value: <nodes>}
-    where <nodes> map to the "nodes" key in the triples API response.
-  
-  The returned list is used to render property values in the event pages.
-  """
-  response = node_api.triples('out', dcid)
-  parsed = []
-  for key, value in response.items():
-    parsed.append({"dcid": key, "values": value["nodes"]})
-  parsed = str(parsed).replace(
-      "'", '"')  # JSON.parse on client side requires double quotes
-  return parsed
-
-
-@bp.route('/event/<path:dcid>')
-def event_node(dcid):
-  if not os.environ.get('FLASK_ENV') in [
-      'autopush', 'local', 'dev', 'stanford', 'local-stanford',
-      'stanford-staging'
-  ]:
-    flask.abort(404)
-  node_name = dcid
-  properties = "{}"
-  try:
-    name_results = shared_api.names([dcid])
-    if dcid in name_results.keys():
-      node_name = name_results.get(dcid)
-    properties = get_properties(dcid)
-  except Exception as e:
-    logging.info(e)
-  return render_template('dev/event.html',
-                         dcid=dcid,
-                         node_name=node_name,
-                         properties=properties)

@@ -18,11 +18,15 @@ import services.datacommons as dc
 import json
 import os
 import flask
+import logging
+import routes.api.shared as shared_api
 import routes.api.place as place_api
+import routes.api.node as node_api
 from google.protobuf.json_format import MessageToJson
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
+DEFAULT_EVENT_DCID = ""
 
 # Define blueprint
 bp = Blueprint("disasters", __name__, url_prefix='/disasters')
@@ -63,3 +67,48 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
                                place_name=place_name,
                                place_dcid=place_dcid,
                                config=MessageToJson(dashboard_config))
+
+
+def get_properties(dcid):
+  """Get and parse response from triples API.
+  
+  Args:
+    dcid: DCID of the node to get properties for
+  
+  Returns:
+    A list of properties and their values in the form of:
+      {dcid: property_dcid, value: <nodes>}
+    where <nodes> map to the "nodes" key in the triples API response.
+  
+  The returned list is used to render property values in the event pages.
+  """
+  response = node_api.triples('out', dcid)
+  parsed = []
+  for key, value in response.items():
+    parsed.append({"dcid": key, "values": value["nodes"]})
+  parsed = str(parsed).replace(
+      "'", '"')  # JSON.parse on client side requires double quotes
+  return parsed
+
+
+@bp.route('/event')
+@bp.route('/event/<path:dcid>')
+def event_node(dcid=''):
+  if not os.environ.get('FLASK_ENV') in [
+      'autopush', 'local', 'dev', 'stanford', 'local-stanford',
+      'stanford-staging'
+  ]:
+    flask.abort(404)
+  node_name = dcid
+  properties = "{}"
+  try:
+    name_results = shared_api.names([dcid])
+    if dcid in name_results.keys():
+      node_name = name_results.get(dcid)
+    properties = get_properties(dcid)
+  except Exception as e:
+    logging.info(e)
+  return flask.render_template('custom_dc/stanford/event.html',
+                               dcid=dcid,
+                               node_name=node_name,
+                               properties=properties)
