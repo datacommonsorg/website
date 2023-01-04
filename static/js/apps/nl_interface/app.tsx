@@ -89,67 +89,75 @@ export function App(): JSX.Element {
   function fetchData(urlParams: string): void {
     setLoading(true);
     setUrlParams(urlParams);
-    axios.get(`/nl/data?${urlParams}`).then((resp) => {
-      if (
-        resp.data["context"] === undefined ||
-        resp.data["config"] === undefined
-      ) {
+    axios
+      .post(`/nl/data?${urlParams}`, {
+        contextHistory: cookies["context_history"],
+      })
+      .then((resp) => {
+        if (
+          resp.data["context"] === undefined ||
+          resp.data["config"] === undefined
+        ) {
+          setLoading(false);
+          return;
+        }
+        const context: any = resp.data["context"];
+        const contextHistory: any[] = cookies["context_history"] || [];
+        contextHistory.push(context);
+        setCookie("context_history", contextHistory, { maxAge: 3600 });
+        setChartsData({
+          place: {
+            types: [context["place_type"]],
+            name: context["place_name"],
+            dcid: context["place_dcid"],
+          },
+          config: resp.data["config"],
+        });
+        if (context["debug"] === undefined) {
+          setLoading(false);
+          return;
+        }
+        const debugData = context["debug"];
+        setDebugInfo({
+          status: debugData["status"],
+          originalQuery: debugData["original_query"],
+          placesDetected: debugData["places_detected"],
+          mainPlaceDCID: debugData["main_place_dcid"],
+          mainPlaceName: debugData["main_place_name"],
+          queryWithoutPlaces: debugData["query_with_places_removed"],
+          svScores: debugData["sv_matching"],
+          embeddingsBuild: debugData["embeddings_build"],
+          rankingClassification: debugData["ranking_classification"],
+          temporalClassification: debugData["temporal_classification"],
+          containedInClassification: debugData["contained_in_classification"],
+        });
+        setSelectedBuild(debugData["embeddings_build"]);
         setLoading(false);
-        return;
-      }
-      const context = resp.data["context"];
-      setChartsData({
-        place: {
-          types: [context["place_type"]],
-          name: context["place_name"],
-          dcid: context["place_dcid"],
-        },
-        config: resp.data["config"],
       });
-      if (context["debug"] === undefined) {
-        setLoading(false);
-        return;
-      }
-      const debugData = context["debug"];
-      setDebugInfo({
-        status: debugData["status"],
-        originalQuery: debugData["original_query"],
-        placesDetected: debugData["places_detected"],
-        mainPlaceDCID: debugData["main_place_dcid"],
-        mainPlaceName: debugData["main_place_name"],
-        queryWithoutPlaces: debugData["query_with_places_removed"],
-        svScores: debugData["sv_matching"],
-        embeddingsBuild: debugData["embeddings_build"],
-        rankingClassification: debugData["ranking_classification"],
-        temporalClassification: debugData["temporal_classification"],
-        containedInClassification: debugData["contained_in_classification"],
-      });
-      setSelectedBuild(debugData["embeddings_build"]);
-      setLoading(false);
-    });
   }
 
-  function displaySVMatchScores(svScores: SVScores) {
-    const svs = new Array<string>();
-    Object.keys(svScores.SV).forEach((key) => {
-      svs.push(svScores.SV[key]);
-    });
-
-    const scores = new Array<number>();
-    Object.keys(svScores.CosineScore).forEach((key) => {
-      scores.push(svScores.CosineScore[key]);
-    });
-    let table = '<table border="1">';
-    table += `<tr><th>SV</th><th>Cosine Score [0, 1]</th></tr>`;
-    if (svs.length == scores.length) {
-      for (let i = 0; i < svs.length; i++) {
-        table = table + `<tr>`;
-        table = table + `<td>${svs[i]}</td>`;
-        table = table + `<td>${scores[i]}</td>`;
-      }
-    }
-    table += "</table>";
-    document.getElementById("sv-scores-list").innerHTML = table;
+  function matchScores(svScores: SVScores): JSX.Element {
+    const svs = Object.values(svScores.SV);
+    const scores = Object.values(svScores.CosineScore);
+    return (
+      <div id="sv-scores-list">
+        <table>
+          <tr>
+            <th>SV</th>
+            <th>Cosine Score [0, 1]</th>
+          </tr>
+          {svs.length === scores.length &&
+            svs.map((sv, i) => {
+              return (
+                <tr key={i}>
+                  <td>{sv}</td>
+                  <td>{scores[i]}</td>
+                </tr>
+              );
+            })}
+        </table>
+      </div>
+    );
   }
 
   function handleEmbeddingsBuildChange(
@@ -172,9 +180,6 @@ export function App(): JSX.Element {
                       null,
                       `/nl?q=${q}&build=${selectedBuild}`
                     );
-                    const queries: string[] = cookies["q"] || [];
-                    queries.push(q);
-                    setCookie("q", queries);
                     fetchData(`q=${q}`);
                   }}
                   initialValue={searchText}
@@ -253,16 +258,14 @@ export function App(): JSX.Element {
                     {debugInfo.containedInClassification}
                   </Col>
                 </Row>
-
                 <Row>
                   <b>SVs Matched (with scores):</b>
-                  {displaySVMatchScores(debugInfo.svScores)}
                 </Row>
+                {matchScores(debugInfo.svScores)}
               </>
             )}
           </>
         )}
-        <div id="sv-scores-list"></div>
         {chartsData && chartsData.config && (
           <Row>
             <SubjectPageMainPane
