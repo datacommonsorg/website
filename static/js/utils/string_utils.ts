@@ -89,8 +89,7 @@ export function getCommonPrefix(words: string[]): string {
  * Given a date string, check that it is in the form YYYY-MM-DD or YYYY-MM or YYYY
  */
 export function isValidDate(date: string): boolean {
-  const dateObj = new Date(date);
-  if (dateObj.toString() === "Invalid Date") {
+  if (Number.isNaN(Date.parse(date))) {
     return false;
   }
   const dateRegex = /^(\d\d\d\d)(-\d\d)?(-\d\d)?$/;
