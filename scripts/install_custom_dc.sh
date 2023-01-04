@@ -55,6 +55,8 @@ fi
 
 echo "Installing Custom Datacommons web application in $PROJECT_ID."
 
+ROOT=$PWD
+
 # Clone DC website repo and mixer submodule.
 git clone https://github.com/datacommonsorg/website
 cd website
@@ -82,6 +84,25 @@ fi
 terraform init && terraform apply \
   -var="project_id=$PROJECT_ID" \
   -var="dc_website_domain=$DOMAIN" -auto-approve
+
+# Run the BT automation Terraform script to set up BT loader.
+cd $ROOT
+git clone https://github.com/datacommonsorg/tools
+
+# TODO(alex): support custom robot SA and resource bucket name.
+WEBSITE_ROBOT="website-robot@$PROJECT_ID.google.com.iam.gserviceaccount.com"
+RESOURCE_BUCKET="$PROJECT_ID-resources"
+
+cd tools/bigtable_automation/terraform
+terraform init && terraform apply \
+  -var="project_id=$PROJECT_ID" \
+  -var="service_account_email=$WEBSITE_ROBOT" \
+  -var="dc_resource_bucket=$RESOURCE_BUCKET"
+
+# Copy over sample tmcfs/csvs from reference resource bucket.
+gsutil cp -r \
+  gs://datcom-public/reference/tmcf_csv \
+  gs://$RESOURCE_BUCKET/reference/tmcf_csv
 
 _success_msg="
 ###############################################################################
