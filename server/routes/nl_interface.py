@@ -344,6 +344,12 @@ def _dc_recon(place_ids):
   return d_return
 
 
+def _remove_punctuations(s):
+  s = s.replace('\'s', '')
+  s = re.sub(r'[^\w\s]', '', s)
+  return s
+
+
 def _remove_places(query, places_found):
   for p_str in places_found:
     # See if the word "in" precedes the place. If so, best to remove it too.
@@ -351,9 +357,6 @@ def _remove_places(query, places_found):
     if needle not in query:
       needle = p_str
     query = query.replace(needle, "")
-
-  # Remove all punctuation.
-  query = re.sub(r'[^\w\s]', '', query)
 
   # Remove any extra spaces and return.
   return ' '.join(query.split())
@@ -409,10 +412,12 @@ def _result_with_debug_info(data_dict, status, original_query, places_found,
           'ranking_classification': ranking_classification,
           'temporal_classification': temporal_classification,
           'contained_in_classification': contained_in_classification,
-      }
+      },
   }
+  # Set the context which contains everything except the charts config.
   data_dict.update(debug_info)
-  return data_dict
+  charts_config = data_dict.pop('config', {})
+  return {'context': data_dict, 'config': charts_config}
 
 
 @bp.route('/', strict_slashes=False)
@@ -425,20 +430,21 @@ def page():
 
 @bp.route('/data')
 def data():
-  original_query = str(escape(request.args.get('q')))
+  original_query = request.args.get('q')
+  query = escape(_remove_punctuations(original_query))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   model = current_app.config['NL_MODEL']
   default_place = "United States"
   using_default_place = False
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
-  if not original_query:
+  if not query:
     logging.info("Query was empty.")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
                                    original_query, [], "", "", "", None,
                                    embeddings_build, "", "", "")
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(original_query)
+  places_found = model.detect_place(query)
   logging.info(places_found)
 
   if not places_found:
@@ -470,7 +476,7 @@ def data():
           related_places['similarPlaces']))
 
   # Step 2: replace the places in the query sentence with "".
-  query = _remove_places(original_query, places_found)
+  query = _remove_places(query, places_found)
 
   # Step 3: find query classifiers.
   ranking_classification = model.query_classification("ranking", query)
