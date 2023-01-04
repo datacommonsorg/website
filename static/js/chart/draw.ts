@@ -418,8 +418,9 @@ function addXAxis(
     }
   }
 
+  let heightFromBottom = MARGIN.bottom;
   axis
-    .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
+    .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
     .call(d3Axis)
     .call((g) =>
       g
@@ -443,8 +444,9 @@ function addXAxis(
   }
 
   if (shouldRotate) {
+    heightFromBottom = ROTATE_MARGIN_BOTTOM;
     axis
-      .attr("transform", `translate(0, ${chartHeight - ROTATE_MARGIN_BOTTOM})`)
+      .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
       .selectAll("text")
       .style("text-anchor", "end")
       .style("text-rendering", "optimizedLegibility")
@@ -473,7 +475,7 @@ function addXAxis(
   }
 
   let axisHeight = axis.node().getBBox().height;
-  if (axisHeight > MARGIN.bottom) {
+  if (heightFromBottom > MARGIN.bottom) {
     axis.attr("transform", `translate(0, ${chartHeight - axisHeight})`);
   } else {
     axisHeight = MARGIN.bottom;
