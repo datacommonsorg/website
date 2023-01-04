@@ -38,6 +38,7 @@ import {
   DisasterEventPointData,
 } from "../types/disaster_event_map_types";
 import { EventTypeSpec } from "../types/subject_page_proto_types";
+import { isValidDate } from "./string_utils";
 
 const MAX_YEARS = 20;
 const INFO_CARD_OFFSET = 5;
@@ -94,10 +95,16 @@ export function fetchDateList(
     let maxDate = "";
     resp.forEach((dateRange) => {
       // dateRange is the min and max dates for a single eventType.
-      if (dateRange.minDate && (!minDate || dateRange.minDate < minDate)) {
+      if (
+        isValidDate(dateRange.minDate) &&
+        (!minDate || dateRange.minDate < minDate)
+      ) {
         minDate = dateRange.minDate;
       }
-      if (dateRange.maxDate && (!maxDate || dateRange.maxDate > maxDate)) {
+      if (
+        isValidDate(dateRange.maxDate) &&
+        (!maxDate || dateRange.maxDate > maxDate)
+      ) {
         maxDate = dateRange.maxDate;
       }
     });

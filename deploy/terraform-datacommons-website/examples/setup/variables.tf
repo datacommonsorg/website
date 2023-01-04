@@ -110,3 +110,9 @@ variable "use_resource_suffix" {
   description = "If true then add a random suffix to the ending of GCP resource names to avoid name collision."
   default     = false
 }
+
+variable "resource_bucket_location" {
+  type        = string
+  description = "The location of the resource buckets. Can either be regional or multi-regional."
+  default     = "us"
+}
