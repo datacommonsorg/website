@@ -99,7 +99,7 @@ def event_node(dcid=''):
       'stanford-staging'
   ]:
     flask.abort(404)
-  node_name = dcid
+  node_name = escape(dcid)
   properties = "{}"
   try:
     name_results = shared_api.names([dcid])
