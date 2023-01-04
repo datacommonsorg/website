@@ -97,7 +97,8 @@ cd tools/bigtable_automation/terraform
 terraform init && terraform apply \
   -var="project_id=$PROJECT_ID" \
   -var="service_account_email=$WEBSITE_ROBOT" \
-  -var="dc_resource_bucket=$RESOURCE_BUCKET"
+  -var="dc_resource_bucket=$RESOURCE_BUCKET" \
+  -auto-approve
 
 # Copy over sample tmcfs/csvs from reference resource bucket.
 gsutil cp -r \
