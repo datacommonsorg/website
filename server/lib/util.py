@@ -37,7 +37,6 @@ PLACE_EXPLORER_CATEGORIES = [
 TOPIC_PAGE_CONFIGS = {
     'equity': ['USA', 'CA'],
     'poverty': ['USA', 'India'],
-    'disasters': ['AK']
 }
 
 
