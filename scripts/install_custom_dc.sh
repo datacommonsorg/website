@@ -90,7 +90,7 @@ cd $ROOT
 git clone https://github.com/datacommonsorg/tools
 
 # TODO(alex): support custom robot SA and resource bucket name.
-WEBSITE_ROBOT="website-robot@$PROJECT_ID.google.com.iam.gserviceaccount.com"
+WEBSITE_ROBOT="website-robot@$PROJECT_ID.iam.gserviceaccount.com"
 RESOURCE_BUCKET="$PROJECT_ID-resources"
 
 cd tools/bigtable_automation/terraform

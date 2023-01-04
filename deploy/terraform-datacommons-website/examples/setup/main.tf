@@ -44,6 +44,7 @@ module "enabled_google_apis" {
   activate_apis = [
     "apikeys.googleapis.com",
     "binaryauthorization.googleapis.com",
+    "cloudfunctions.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
     "containerregistry.googleapis.com",
