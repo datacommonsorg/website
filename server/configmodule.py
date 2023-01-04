@@ -164,8 +164,10 @@ class LocalFeedingamericaConfig(LocalBaseConfig, CustomConfig):
 class LocalStanfordConfig(LocalBaseConfig, StanfordConfig):
   # This needs to talk to local mixer that is setup as a custom mixer, which
   # loads csv + tmcf files from GCS
-  API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
-  API_PROJECT = 'datcom-mixer-statvar'
+  # API_ROOT = 'https://mixer.endpoints.datcom-mixer-statvar.cloud.goog'
+  # API_PROJECT = 'datcom-mixer-statvar'
+  API_ROOT = 'https://autopush.api.datacommons.org'
+  API_PROJECT = 'datcom-mixer-autopush'
   SECRET_PROJECT = 'datcom-stanford'
 
 

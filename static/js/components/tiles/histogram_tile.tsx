@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -156,31 +156,30 @@ function rawToChart(
   rawData: SeriesApiResponse,
   props: HistogramTilePropType
 ): HistogramData {
-  // (TODO): We assume the index of numerator and denominator matches.
+  // TODO: We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
   // together.
-  const raw = _.cloneDeep(rawData);
   const dataPoints: DataPoint[] = [];
   const sources = new Set<string>();
-  const allDates = new Set<string>();
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
-    const series = raw.data[spec.statVar][props.place.dcid];
-    let obsList = series.series;
-    if (spec.denom) {
-      const denomSeries = raw.data[spec.denom][props.place.dcid];
-      obsList = computeRatio(obsList, denomSeries.series);
-    }
-    if (obsList.length > 0) {
-      for (const obs of obsList) {
-        dataPoints.push({
-          label: obs.date,
-          time: new Date(obs.date).getTime(),
-          value: spec.scaling ? obs.value * spec.scaling : obs.value,
-        });
-        allDates.add(obs.date);
+    if (spec.statVar in rawData.data) {
+      const obsSeries = rawData.data[spec.statVar][props.place.dcid];
+      let obsList = obsSeries.series;
+      if (spec.denom in rawData.data) {
+        const denomSeries = rawData.data[spec.denom][props.place.dcid];
+        obsList = computeRatio(obsList, denomSeries.series);
       }
-      sources.add(raw.facets[series.facet].provenanceUrl);
+      if (obsList.length > 0) {
+        for (const obs of obsList) {
+          dataPoints.push({
+            label: obs.date,
+            time: new Date(obs.date).getTime(),
+            value: spec.scaling ? obs.value * spec.scaling : obs.value,
+          });
+        }
+        sources.add(rawData.facets[obsSeries.facet].provenanceUrl);
+      }
     }
   }
   return {
