@@ -416,9 +416,7 @@ def _result_with_debug_info(data_dict, status, original_query, places_found,
   }
   # Set the context which contains everything except the charts config.
   data_dict.update(debug_info)
-  charts_config = data_dict.get('config', {})
-  data_dict.pop('config')
-
+  charts_config = data_dict.pop('config', {})
   return {'context': data_dict, 'config': charts_config}
 
 
