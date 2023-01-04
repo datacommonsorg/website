@@ -31,6 +31,7 @@ import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
+import { HistogramTile } from "../tiles/histogram_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
 import { RankingTile } from "../tiles/ranking_tile";
@@ -180,6 +181,16 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
           />
         );
       }
+      case "HISTOGRAM":
+        return (
+          <HistogramTile
+            key={id}
+            id={id}
+            title={tile.title}
+            place={props.place}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+          />
+        );
       default:
         console.log("Tile type not supported:" + tile.type);
     }

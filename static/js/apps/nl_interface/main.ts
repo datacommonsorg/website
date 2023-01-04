@@ -19,9 +19,9 @@
  */
 
 import React from "react";
+import { CookiesProvider } from "react-cookie";
 import ReactDOM from "react-dom";
 
-import { NamedTypedPlace } from "../../shared/types";
 import { App } from "./app";
 
 window.onload = () => {
@@ -29,24 +29,8 @@ window.onload = () => {
 };
 
 function renderPage(): void {
-  const dcid = document.getElementById("metadata").dataset.placeDcid;
-  const placeName = document.getElementById("place-name").dataset.pn;
-  const placeType = document.getElementById("place-type").dataset.pt;
-  const pageConfig = JSON.parse(
-    document.getElementById("config").dataset.config
-  );
-
-  const place: NamedTypedPlace = {
-    dcid,
-    name: placeName || dcid,
-    types: [placeType],
-  };
-
   ReactDOM.render(
-    React.createElement(App, {
-      place,
-      pageConfig,
-    }),
+    React.createElement(CookiesProvider, {}, React.createElement(App)),
     document.getElementById("body")
   );
 }

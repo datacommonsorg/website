@@ -54,6 +54,7 @@
     "qs": "^6.11.0",
     "react": "^16.13.1",
     "react-collapsible": "2.8.3",
+    "react-cookie": "^4.1.1",
     "react-csv": "^2.2.2",
     "react-dom": "^16.13.1",
     "react-intl": "^6.0.4",
