@@ -20,6 +20,8 @@ import os
 import flask
 import routes.api.place as place_api
 from google.protobuf.json_format import MessageToJson
+import os
+import lib.util
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -40,17 +42,27 @@ def disaster_dashboard_v0():
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   all_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    # TODO: Delete this when we are close to launch
+    all_configs = lib.util.get_disaster_dashboard_configs()
+
   if len(all_configs) < 1:
-    return "Error: no config found"
+    return "Error: no config installed"
 
   # Find the config for the topic & place.
   dashboard_config = None
+  default_config = None
   for config in all_configs:
     if place_dcid in config.metadata.place_dcid:
       dashboard_config = config
       break
+    if DEFAULT_PLACE_DCID in config.metadata.place_dcid:
+      # TODO: Add a better way to find the default config.
+      default_config = config
   if not dashboard_config:
-    return "Error: no config found"
+    # Use the default config instead
+    dashboard_config = default_config
 
   place_type = DEFAULT_PLACE_TYPE
   if place_dcid != DEFAULT_PLACE_DCID:
