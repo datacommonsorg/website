@@ -48,7 +48,7 @@ while getopts ":e:p:m" OPTION; do
   esac
 done
 
-if [[ "$(protoc --version)" != ${PROTOC_VERSION} ]]; then
+if [[ "$(protoc --version)" != "libprotoc ${PROTOC_VERSION}" ]]; then
   echo "ERROR: Please use protoc version: ${PROTOC_VERSION}" 1>&2
   exit 1
 fi
