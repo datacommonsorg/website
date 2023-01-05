@@ -71,6 +71,7 @@ message RankingTileSpec {
 
   string diff_base_date = 5; // For comparisons
 
+  // Titles can include the ${statVar} placeholder.
   string highest_title = 6;
   string lowest_title = 7;
   string increase_title = 8;
