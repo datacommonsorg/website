@@ -58,6 +58,7 @@ import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
+import { getPlaceNames } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { DisasterEventMapFilters } from "./disaster_event_map_filters";
@@ -68,6 +69,9 @@ const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
+const BREADCRUMB_PARAM_KEY = "bc";
+const PARAM_SEPARATOR = "__";
+const REDIRECT_URL_PREFIX = "/disasters/";
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -99,7 +103,7 @@ export function DisasterEventMapTile(
   const [dateList, setDateList] = useState([]);
   const [selectedDate, setSelectedDate] = useState(DATE_OPTION_6M_KEY);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
-  const [breadcrumbs, setBreadcrumbs] = useState([props.place]);
+  const [breadcrumbs, setBreadcrumbs] = useState<NamedPlace[]>([]);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
@@ -137,6 +141,7 @@ export function DisasterEventMapTile(
     // When props change, update date and place info
     updateDateList(props.eventTypeSpec, props.place.dcid);
     updatePlaceInfo(props.place, props.enclosedPlaceType);
+    updateBreadcrumbs(props.place);
   }, [props]);
 
   useEffect(() => {
@@ -177,7 +182,7 @@ export function DisasterEventMapTile(
         breadcrumbPlaces={breadcrumbs}
         selectedDate={selectedDate}
         dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, ...dateList]}
-        onPlaceSelected={(place: NamedTypedPlace) => updatePlaceInfo(place)}
+        onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
         onDateSelected={(date: string) => {
           loadSpinner(CONTENT_SPINNER_ID);
           setSelectedDate(date);
@@ -281,14 +286,6 @@ export function DisasterEventMapTile(
           enclosedPlaceType: enclosedPlaceType || allChildPlaces[0],
           parentPlaces,
         });
-        const breadcrumbIdx = breadcrumbs.findIndex(
-          (crumb) => crumb.dcid === selectedPlace.dcid
-        );
-        if (breadcrumbIdx > -1) {
-          setBreadcrumbs(breadcrumbs.slice(0, breadcrumbIdx + 1));
-        } else {
-          setBreadcrumbs([...breadcrumbs, selectedPlace]);
-        }
       } else {
         removeSpinner(CONTENT_SPINNER_ID);
         window.alert("Sorry, we do not have maps for this place");
@@ -312,6 +309,41 @@ export function DisasterEventMapTile(
       })
       .catch(() => {
         setDateList([]);
+      });
+  }
+
+  /**
+   * Updates breadcrumbs using URL params and current place.
+   */
+  function updateBreadcrumbs(selectedPlace: NamedTypedPlace): void {
+    const searchParams = new URLSearchParams(window.location.search);
+    const breadcrumbParam = searchParams.get(BREADCRUMB_PARAM_KEY);
+    // If no breadcrumbs passed in the param, just show current place
+    if (!breadcrumbParam) {
+      setBreadcrumbs([selectedPlace]);
+      return;
+    }
+    const placeDcids = breadcrumbParam.split(PARAM_SEPARATOR);
+    getPlaceNames(placeDcids)
+      .then((names) => {
+        const breadcrumbs = placeDcids.map((dcid) => {
+          return {
+            dcid,
+            name: names[dcid],
+          };
+        });
+        breadcrumbs.push(selectedPlace);
+        setBreadcrumbs(breadcrumbs);
+      })
+      .catch(() => {
+        const breadcrumbs = placeDcids.map((dcid) => {
+          return {
+            dcid,
+            name: dcid,
+          };
+        });
+        breadcrumbs.push(selectedPlace);
+        setBreadcrumbs(breadcrumbs);
       });
   }
 
@@ -435,14 +467,8 @@ export function DisasterEventMapTile(
       {} /* dataValues: no data values to show on the base map */,
       "" /* units: no units to show */,
       null /* colorScale: no color scale since no data shown on the base map */,
-      (geoDcid: GeoJsonFeatureProperties) => {
-        const namedTypedPlace = {
-          name: geoDcid.name,
-          dcid: geoDcid.geoDcid,
-          types: [placeInfo.enclosedPlaceType],
-        };
-        updatePlaceInfo(namedTypedPlace);
-      } /* redirectAction */,
+      (geoDcid: GeoJsonFeatureProperties) =>
+        redirectAction(geoDcid.geoDcid) /* redirectAction */,
       () =>
         "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
       canClickRegionCb,
@@ -523,5 +549,27 @@ export function DisasterEventMapTile(
         currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
       ],
     };
+  }
+
+  /**
+   * Handles redirecting to the disaster page for a different placeDcid
+   */
+  function redirectAction(placeDcid: string): void {
+    const breadcrumbIdx = breadcrumbs.findIndex(
+      (crumb) => crumb.dcid === placeDcid
+    );
+    let redirectBreadcrumbs = breadcrumbs;
+    if (breadcrumbIdx > -1) {
+      redirectBreadcrumbs = breadcrumbs.slice(0, breadcrumbIdx);
+    }
+    let breadcrumbParam = "";
+    if (!_.isEmpty(redirectBreadcrumbs)) {
+      const breadcrumbDcids = redirectBreadcrumbs.map((bc) => bc.dcid);
+      breadcrumbParam = `?bc=${breadcrumbDcids.join(PARAM_SEPARATOR)}`;
+    }
+    window.open(
+      `${REDIRECT_URL_PREFIX}${placeDcid}${breadcrumbParam}`,
+      "_self"
+    );
   }
 }
