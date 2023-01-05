@@ -147,7 +147,7 @@ categories {
     columns {
       tiles {
         type: HISTOGRAM
-        title: "Number of earthquakes over Time"
+        title: "Number of earthquakes over time"
         stat_var_key: "earthquake_all"
       }
       tiles {
@@ -205,49 +205,49 @@ categories {
     key: "earthquake_mag_3"
     value {
       stat_var: "Count_EarthquakeEvent_M3To4"
-      name: "Magnitude 3 to 4"
+      name: "magnitude 3 to 4"
     }
   }
   stat_var_spec {
     key: "earthquake_mag_4"
     value {
       stat_var: "Count_EarthquakeEvent_M4To5"
-      name: "Magnitude 4 to 5"
+      name: "magnitude 4 to 5"
     }
   }
   stat_var_spec {
     key: "earthquake_mag_5"
     value {
       stat_var: "Count_EarthquakeEvent_M5To6"
-      name: "Magnitude 5 to 6"
+      name: "magnitude 5 to 6"
     }
   }
   stat_var_spec {
     key: "earthquake_mag_6"
     value {
       stat_var: "Count_EarthquakeEvent_M6To7"
-      name: "Magnitude 6 to 7"
+      name: "magnitude 6 to 7"
     }
   }
   stat_var_spec {
     key: "earthquake_mag_7"
     value {
       stat_var: "Count_EarthquakeEvent_M7To8"
-      name: "Magnitude 7 to 8"
+      name: "magnitude 7 to 8"
     }
   }
   stat_var_spec {
     key: "earthquake_mag_8"
     value {
       stat_var: "Count_EarthquakeEvent_M9To9"
-      name: "Magnitude 8 to 9"
+      name: "magnitude 8 to 9"
     }
   }
   stat_var_spec {
     key: "earthquake_mag_9"
     value {
       stat_var: "Count_EarthquakeEvent_M9Onwards"
-      name: "Magnitude 9+"
+      name: "magnitude 9+"
     }
   }
 }
@@ -258,7 +258,7 @@ categories {
     columns {
       tiles {
         type: HISTOGRAM
-        title: "Number of cyclones over Time"
+        title: "Number of cyclones over time"
         stat_var_key: "cyclone_all"
       }
     }
@@ -384,13 +384,13 @@ categories {
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of floods over Time"
+        title: "Number of floods over time"
         stat_var_key: "flood_count"
       }
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Total area affected by floods over Time"
+        title: "Total area affected by floods over time"
         stat_var_key: "flood_area"
       }
     }
@@ -431,13 +431,13 @@ categories {
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of fires over Time"
+        title: "Number of fires over time"
         stat_var_key: "fire_count"
       }
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Total area affected by fires over Time"
+        title: "Total area affected by fires over time"
         stat_var_key: "fire_area"
       }
     }
