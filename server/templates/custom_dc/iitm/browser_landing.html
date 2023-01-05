@@ -1,0 +1,98 @@
+{#
+Copyright 2022 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+#}
+
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'browser_landing' %}
+{% set page_id = 'page-browser_landing' %}
+{% set title = 'Graph Browser' %}
+{% set subpage_title = 'Graph Browser' %}
+{% set subpage_url = url_for('browser.browser_main') %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['VERSION'])}} >
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mb-4">Graph Browser</h1>
+    <p>
+        The Data Commons Graph is constructed by synthesizing a single
+        database from many different data sources.
+        This graph browser can be used both to explore what data is available and to understand the graph structure.
+    </p>
+    <p>
+        You can use the search box above or start looking around from some well known starting points:
+    </p>
+
+    <ul>
+      <li class="type-list">
+        <strong>Cities</strong>:
+        <a href="/browser/wikidataId/Q1353">Delhi</a>,
+        <a href="/browser/wikidataId/Q43433">Chandigarh</a>,
+        <a href="/browser/City"> More ...</a>
+      </li>
+      <li class="type-list">
+        <strong>Districts</strong>:
+        <a href="/browser/wikidataId/Q1797336">Pune, Maharashtra</a>,
+        <a href="/browser/wikidataId/Q15341">Guntur, Andhra Pradesh</a>,
+        <a href="/browser/wikidataId/Q1920789">Jaintia Hills, Meghalaya</a>,
+        <a href="/browser/AdministrativeArea2">More ...</a>
+      </li>
+      <li class="type-list">
+        <strong>Administrative Capitals</strong>:
+        <a href="/browser/wikidataId/Q1352">Chennai</a>,
+        <a href="/browser/wikidataId/Q1156">Mumbai</a>,
+        <a href="/browser/wikidataId/Q987">New Delhi</a>,
+      </li>
+      <li class="type-list">
+        <strong>States</strong>:
+        <a href="/browser/wikidataId/Q1445">Tamil Nadu</a>,
+        <a href="/browser/wikidataId/Q1061">Gujarat</a>,
+        <a href="/browser/wikidataId/Q1177">Himachal Pradesh</a>,
+        <a href="/browser/State">More ...</a>
+      </li>
+      <li class="type-list">
+        <strong>Countries</strong>:
+        <a href="/browser/country/IND">India</a>,
+        <a href="/browser/country/USA">United States</a>,
+        <a href="/browser/country/DEU">Germany</a>,
+        <a href="/browser/Country">More ...</a>
+      </li>
+      <li class="type-list">
+        <strong>Census Estimates </strong>:
+        <a href="/browser/wikidataId/Q1164?statVar=Count_Person_PerArea">Population Density in Assam</a>,
+        <a href="/browser/wikidataId/Q677037?statVar=Count_Person">Population in Telangana</a>
+      </li>
+      <li class="type-list">
+        <strong>Labor Statistics </strong>:
+        <a href="/browser/wikidataId/Q1445?statVar=Mean_WagesMonthly_Worker">Mean Monthly Wages in Tamil Nadu</a>,
+        <a href="/browser/wikidataId/Q1188?statVar=Count_Person_Workers">Worker Population in Madhya Pradesh</a>
+      </li>
+      <li class="type-list">
+        <strong>Cyclones</strong>:
+        <a href="/browser/cyclone/ibtracs_2010137N10090">Laila</a>,
+        <a href="/browser/cyclone/ibtracs_2020138N10086">Amphan</a>
+      </li>
+      <li class="type-list">
+        <strong>Botanical Specimens found in India</strong>:
+        <a href="/browser/dc/2wwhtp9gr4n4">Amaranthus tricolor L.</a>,
+        <a href="/browser/dc/ltez2t9jsfvs7">Solanum insanum L.</a>,
+        <a href="/browser/BiologicalSpecimen">More ...</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}

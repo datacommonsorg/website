@@ -138,7 +138,12 @@ export function axios_mock(): void {
 
   // get place names, geoId/05
   when(axios.get)
-    .calledWith("/api/place/name?dcid=geoId/05")
+    .calledWith("/api/place/name", {
+      params: {
+        dcids: ["geoId/05"],
+      },
+      paramsSerializer: stringifyFn,
+    })
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // get data, geoId/05,Count_Person
@@ -338,7 +343,7 @@ export function axios_mock(): void {
       },
     });
   when(axios.get)
-    .calledWith("/api/stats/stat-var-group?stat_var_group=dc/g/Root")
+    .calledWith("/api/variable-group/info?dcid=dc/g/Root")
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -359,7 +364,7 @@ export function axios_mock(): void {
     });
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/05"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/05"
     )
     .mockResolvedValue({
       data: {
@@ -394,9 +399,7 @@ export function axios_mock(): void {
       },
     });
   when(axios.get)
-    .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/05"
-    )
+    .calledWith("/api/variable-group/info?dcid=dc/g/Root&entities=geoId/05")
     .mockResolvedValue({
       data: {
         childStatVarGroups: [
@@ -417,27 +420,21 @@ export function axios_mock(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=Count_Person")
+    .calledWith("/api/variable/path?dcid=Count_Person")
     .mockResolvedValue({
-      data: {
-        path: ["Count_Person", "dc/g/Demographics"],
-      },
+      data: ["Count_Person", "dc/g/Demographics"],
     });
 
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=Median_Age_Person")
+    .calledWith("/api/variable/path?dcid=Median_Age_Person")
     .mockResolvedValue({
-      data: {
-        path: ["Median_Age_Person", "dc/g/Demographics"],
-      },
+      data: ["Median_Age_Person", "dc/g/Demographics"],
     });
 
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=NotInTheTree")
+    .calledWith("/api/variable/path?dcid=NotInTheTree")
     .mockResolvedValue({
-      data: {
-        path: ["NotInTheTree"],
-      },
+      data: ["NotInTheTree"],
     });
 
   when(axios.post)

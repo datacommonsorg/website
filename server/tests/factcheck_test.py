@@ -21,20 +21,20 @@ from main import app
 
 class TestRoute(unittest.TestCase):
 
-    def test_homepage(self):
-        response = app.test_client().get('/factcheck')
-        assert response.status_code == 308  # redirect to /factcheck/
+  def test_homepage(self):
+    response = app.test_client().get('/factcheck')
+    assert response.status_code == 308  # redirect to /factcheck/
 
-    def test_faq(self):
-        response = app.test_client().get('/factcheck/faq')
-        assert response.status_code == 200
+  def test_faq(self):
+    response = app.test_client().get('/factcheck/faq')
+    assert response.status_code == 200
 
-    def test_blog(self):
-        response = app.test_client().get('/factcheck/blog')
-        assert response.status_code == 200
+  def test_blog(self):
+    response = app.test_client().get('/factcheck/blog')
+    assert response.status_code == 200
 
-    @patch('routes.factcheck.list_blobs')
-    def test_download(self, mock_list_blobs):
-        mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])
-        response = app.test_client().get('/factcheck/download')
-        assert response.status_code == 200
+  @patch('routes.factcheck.list_blobs')
+  def test_download(self, mock_list_blobs):
+    mock_list_blobs.side_effect = (lambda bucket, max_blobs: [])
+    response = app.test_client().get('/factcheck/download')
+    assert response.status_code == 200

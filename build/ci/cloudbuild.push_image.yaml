@@ -30,3 +30,4 @@ substitutions:
 timeout: 3600s
 options:
   dynamic_substitutions: true
+  machineType: "E2_HIGHCPU_8"

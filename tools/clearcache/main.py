@@ -19,6 +19,6 @@ redis_port = 6379
 
 
 def clear_cache(request):
-    for host in redis_hosts:
-        redis_client = redis.StrictRedis(host=host, port=redis_port)
-        redis_client.flushall(asynchronous=True)
+  for host in redis_hosts:
+    redis_client = redis.StrictRedis(host=host, port=redis_port)
+    redis_client.flushall(asynchronous=True)

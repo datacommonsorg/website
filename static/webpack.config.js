@@ -52,8 +52,12 @@ const config = {
       __dirname + "/css/rich_search.scss",
     ],
     topic_page: [
-      __dirname + "/js/topic_page/topic_page.ts",
+      __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
+    ],
+    nl_interface: [
+      __dirname + "/js/apps/nl_interface/main.ts",
+      __dirname + "/css/nl_interface.scss",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
@@ -93,6 +97,18 @@ const config = {
       __dirname + "/css/import_wizard2.scss",
     ],
     user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
+    disaster_dashboard_v0: [
+      __dirname + "/js/disaster_dashboard_v0/disaster_dashboard.ts",
+      __dirname + "/css/disaster_dashboard_v0.scss",
+    ],
+    event: [
+      __dirname + "/js/apps/event/main.ts",
+      __dirname + "/css/event.scss",
+    ],
+    disaster_dashboard: [
+      __dirname + "/js/apps/disaster_dashboard/main.ts",
+      __dirname + "/css/disaster_dashboard.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
@@ -144,6 +160,7 @@ const config = {
         { from: "fonts/*" },
         { from: "data/**/*" },
         { from: "sitemap/*.txt" },
+        { from: "custom_dc/**/*" },
         { from: "*favicon.ico" },
         { from: "robots.txt" },
       ],

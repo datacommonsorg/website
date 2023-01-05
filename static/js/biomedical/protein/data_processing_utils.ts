@@ -218,7 +218,7 @@ export function getDiseaseGeneAssoc(
     for (const node of neighbour.nodes) {
       let diseaseID = null;
       let score = null;
-      let disease = null;
+      let diseaseName = null;
       // check for null or non-existent property values
       if (_.isEmpty(node.neighbors)) {
         continue;
@@ -236,14 +236,14 @@ export function getDiseaseGeneAssoc(
                 }
                 diseaseID = n3.value;
                 for (const n4 of n3.neighbors) {
-                  if (n4.property !== "commonName") {
+                  if (n4.property !== "name") {
                     continue;
                   }
                   // check if the list is empty or not
                   if (_.isEmpty(n4.nodes) || _.isEmpty(n4.nodes[0].value)) {
                     continue;
                   }
-                  disease = n4.nodes[0].value;
+                  diseaseName = n4.nodes[0].value;
                 }
               }
             } else if (n2.property === "associationConfidenceInterval") {
@@ -253,10 +253,14 @@ export function getDiseaseGeneAssoc(
               score = Number(n2.nodes[0].value);
             }
           }
-          if (!seen.has(disease) && !!score) {
-            returnData.push({ id: diseaseID, name: disease, value: score });
+          if (!seen.has(diseaseID) && !!score) {
+            returnData.push({
+              id: diseaseID,
+              name: diseaseName || diseaseID,
+              value: score,
+            });
           }
-          seen.add(disease);
+          seen.add(diseaseID);
         }
       }
     }

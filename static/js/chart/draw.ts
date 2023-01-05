@@ -418,8 +418,9 @@ function addXAxis(
     }
   }
 
+  let heightFromBottom = MARGIN.bottom;
   axis
-    .attr("transform", `translate(0, ${chartHeight - MARGIN.bottom})`)
+    .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
     .call(d3Axis)
     .call((g) =>
       g
@@ -443,8 +444,9 @@ function addXAxis(
   }
 
   if (shouldRotate) {
+    heightFromBottom = ROTATE_MARGIN_BOTTOM;
     axis
-      .attr("transform", `translate(0, ${chartHeight - ROTATE_MARGIN_BOTTOM})`)
+      .attr("transform", `translate(0, ${chartHeight - heightFromBottom})`)
       .selectAll("text")
       .style("text-anchor", "end")
       .style("text-rendering", "optimizedLegibility")
@@ -473,7 +475,7 @@ function addXAxis(
   }
 
   let axisHeight = axis.node().getBBox().height;
-  if (axisHeight > MARGIN.bottom) {
+  if (heightFromBottom > MARGIN.bottom) {
     axis.attr("transform", `translate(0, ${chartHeight - axisHeight})`);
   } else {
     axisHeight = MARGIN.bottom;
@@ -1102,7 +1104,6 @@ function drawGroupLineChart(
   if (_.isEmpty(dataGroupsAll)) {
     return;
   }
-  const dataGroups = dataGroupsAll[0];
   const legendTextWidth = Math.max(width * LEGEND.ratio, LEGEND.minTextWidth);
   let legendWidth =
     Object.keys(dataGroupsDict).length > 1 &&
@@ -1142,14 +1143,18 @@ function drawGroupLineChart(
   const leftWidth = addYAxis(tempYAxis, width - legendWidth, yScale, unit);
 
   const chartWidth = width - MARGIN.right - legendWidth;
+  const allDataPoints = dataGroupsAll
+    .flat()
+    .map((x) => x.value)
+    .flat();
   const xScale = d3
     .scaleTime()
-    .domain(d3.extent(dataGroups[0].value, (d) => d.time))
+    .domain(d3.extent(allDataPoints, (d) => d.time))
     .range([leftWidth, chartWidth]);
 
   let singlePointLabel = null;
-  if (dataGroups[0].value.length === 1) {
-    singlePointLabel = dataGroups[0].value[0].label;
+  if (allDataPoints.length === 1) {
+    singlePointLabel = allDataPoints[0].label;
   }
 
   const bottomHeight = addXAxis(

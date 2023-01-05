@@ -26,11 +26,11 @@ bp = Blueprint('special_announcement',
 
 @bp.route('', strict_slashes=False)
 def special_announcement():
-    recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
-    return render_template('static/special_announcement.html',
-                           recent_blobs=recent_blobs)
+  recent_blobs = list_blobs(_SA_FEED_BUCKET, _MAX_BLOBS)
+  return render_template('static/special_announcement.html',
+                         recent_blobs=recent_blobs)
 
 
 @bp.route('/faq')
 def special_announcement_faq():
-    return render_template('static/special_announcement_faq.html')
+  return render_template('static/special_announcement_faq.html')

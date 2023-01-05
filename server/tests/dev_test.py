@@ -20,12 +20,12 @@ from main import app
 
 class TestRoute(unittest.TestCase):
 
-    def test_dev(self):
-        response = app.test_client().get('/dev/')
-        assert response.status_code == 200
+  def test_dev(self):
+    response = app.test_client().get('/dev/')
+    assert response.status_code == 200
 
-    @patch('routes.dev.list_png')
-    def test_screenshot(self, mock_list_png):
-        mock_list_png.side_effect = (lambda bucket, prefix: [])
-        response = app.test_client().get('/dev/screenshot/folder')
-        assert response.status_code == 200
+  @patch('routes.dev.list_png')
+  def test_screenshot(self, mock_list_png):
+    mock_list_png.side_effect = (lambda bucket, prefix: [])
+    response = app.test_client().get('/dev/screenshot/folder')
+    assert response.status_code == 200

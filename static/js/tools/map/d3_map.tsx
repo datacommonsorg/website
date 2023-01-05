@@ -28,7 +28,11 @@ import React, {
   useState,
 } from "react";
 
-import { drawD3Map } from "../../chart/draw_d3_map";
+import {
+  addMapPoints,
+  drawD3Map,
+  getProjection,
+} from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import {
   GeoJsonData,
@@ -69,15 +73,11 @@ const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const LEGEND_MARGIN_LEFT = 30;
 const LEGEND_HEIGHT_SCALING = 0.6;
 const DEBOUNCE_INTERVAL_MS = 30;
-const DEFAULT_ZOOM_TRANSFORMATION = d3.zoomIdentity.scale(1).translate(0, 0);
 
 export function D3Map(props: D3MapProps): JSX.Element {
   const { placeInfo, statVar, display } = useContext(Context);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [zoomTransformation, setZoomTransformation] = useState(
-    DEFAULT_ZOOM_TRANSFORMATION
-  );
   const chartContainerRef = useRef<HTMLDivElement>();
 
   const draw = useCallback(() => {
@@ -134,12 +134,20 @@ export function D3Map(props: D3MapProps): JSX.Element {
       LEGEND_MARGIN_LEFT
     );
     const zoomParams = {
-      startingTransformation: zoomTransformation,
-      onZoomEnd: (zoomTransformation: d3.ZoomTransform) =>
-        setZoomTransformation(zoomTransformation),
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
       zoomOutButtonId: ZOOM_OUT_BUTTON_ID,
     };
+    const isUSAPlace = isChildPlaceOf(
+      placeInfo.value.selectedPlace.dcid,
+      USA_PLACE_DCID,
+      placeInfo.value.parentPlaces
+    );
+    const projection = getProjection(
+      isUSAPlace,
+      placeInfo.value.enclosingPlace.dcid,
+      width - legendWidth,
+      height
+    );
     document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
     drawD3Map(
       MAP_CONTAINER_ID,
@@ -152,9 +160,8 @@ export function D3Map(props: D3MapProps): JSX.Element {
       redirectAction,
       getTooltipHtml(
         props.metadata,
-        statVar.value,
         props.mapDataValues,
-        props.mapPointValues,
+        statVar.value.perCapita,
         props.unit
       ),
       canClickRegion(placeInfo.value, props.europeanCountries),
@@ -163,17 +170,36 @@ export function D3Map(props: D3MapProps): JSX.Element {
         placeInfo.value.selectedPlace,
         placeInfo.value.enclosedPlaceType
       ),
-      isChildPlaceOf(
-        placeInfo.value.selectedPlace.dcid,
-        USA_PLACE_DCID,
-        placeInfo.value.parentPlaces
-      ),
+      projection,
       placeInfo.value.enclosingPlace.dcid,
-      display.value.showMapPoints ? props.mapPoints : [],
-      props.mapPointValues,
       zoomDcid,
       zoomParams
     );
+    if (display.value.showMapPoints) {
+      let mapPointSvTitle = "";
+      if (statVar.value.mapPointSv !== statVar.value.dcid) {
+        mapPointSvTitle =
+          statVar.value.mapPointSv in statVar.value.info
+            ? statVar.value.info[statVar.value.mapPointSv].title
+            : "";
+      }
+      const filteredMapPoints = props.mapPoints.filter((point) => {
+        return point.placeDcid in props.mapPointValues;
+      });
+      addMapPoints(
+        MAP_CONTAINER_ID,
+        filteredMapPoints,
+        props.mapPointValues,
+        projection,
+        null,
+        getTooltipHtml(
+          props.metadata,
+          props.mapPointValues,
+          false,
+          mapPointSvTitle || statVar.value.mapPointSv
+        )
+      );
+    }
     removeSpinner(CHART_LOADER_SCREEN);
   }, [
     props.europeanCountries,
@@ -186,7 +212,6 @@ export function D3Map(props: D3MapProps): JSX.Element {
     statVar,
     display,
     placeInfo,
-    zoomTransformation,
   ]);
 
   // Replot when data changes.
@@ -277,36 +302,28 @@ const getMapRedirectAction =
 const getTooltipHtml =
   (
     metadataMapping: { [dcid: string]: DataPointMetadata },
-    statVar: StatVar,
     dataValues: { [dcid: string]: number },
-    mapPointValues: { [dcid: string]: number },
-    unit: string
+    isPerCapita: boolean,
+    unit: string,
+    statVarTitle?: string
   ) =>
   (place: NamedPlace) => {
     let titleHtml = `<b>${place.name || place.dcid}</b>`;
+    if (statVarTitle) {
+      titleHtml = `<b>${statVarTitle}</b><br />` + titleHtml;
+    }
     let hasValue = false;
-    let value = "Data Missing";
+    let value = "Data Unavailable";
     if (
       dataValues[place.dcid] !== null &&
       dataValues[place.dcid] !== undefined
     ) {
       value = formatNumber(dataValues[place.dcid], unit);
       hasValue = true;
-    } else if (mapPointValues && mapPointValues[place.dcid]) {
-      if (statVar.mapPointSv !== statVar.dcid) {
-        const mapPointSvTitle =
-          statVar.mapPointSv in statVar.info
-            ? statVar.info[statVar.mapPointSv].title
-            : "";
-        titleHtml =
-          `<b>${mapPointSvTitle || statVar.mapPointSv}</b><br />` + titleHtml;
-      }
-      value = formatNumber(mapPointValues[place.dcid], unit);
-      hasValue = true;
     }
     const metadata = metadataMapping[place.dcid];
     const showPopDateMessage =
-      statVar.perCapita &&
+      isPerCapita &&
       !_.isEmpty(metadata.popDate) &&
       !metadata.placeStatDate.includes(metadata.popDate) &&
       !metadata.popDate.includes(metadata.placeStatDate);

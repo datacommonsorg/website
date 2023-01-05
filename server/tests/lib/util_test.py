@@ -20,12 +20,12 @@ import lib.util as lib_util
 
 class TestParseDate(unittest.TestCase):
 
-    def test(self):
-        data = {
-            "2022": 1640995200,
-            "2021-10": 1633046400,
-            "2021-01-02": 1609545600,
-        }
-        for input in data:
-            assert lib_util.parse_date(input).replace(
-                tzinfo=datetime.timezone.utc).timestamp() == data[input]
+  def test(self):
+    data = {
+        "2022": 1640995200,
+        "2021-10": 1633046400,
+        "2021-01-02": 1609545600,
+    }
+    for input in data:
+      assert lib_util.parse_date(input).replace(
+          tzinfo=datetime.timezone.utc).timestamp() == data[input]

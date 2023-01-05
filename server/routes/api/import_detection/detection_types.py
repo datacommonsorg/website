@@ -21,71 +21,71 @@ from typing import List, Optional
 
 # Helper Enums and Data Classes for Detection.
 class MappingType(Enum):
-    """Supported types of column structure."""
-    COLUMN = c.M_COLUMN
-    COLUMN_HEADER = c.M_COLUMNHEADER
+  """Supported types of column structure."""
+  COLUMN = c.M_COLUMN
+  COLUMN_HEADER = c.M_COLUMNHEADER
 
 
 class MappedThing(Enum):
-    """Supported type of Thing being mapped."""
-    DATE = c.M_DATE
-    PLACE = c.M_PLACE
+  """Supported type of Thing being mapped."""
+  DATE = c.M_DATE
+  PLACE = c.M_PLACE
 
 
 @dataclass
 class Column:
-    """Data Type for a Column."""
-    # The Id of the column.
-    id: str
+  """Data Type for a Column."""
+  # The Id of the column.
+  id: str
 
-    # Column header name.
-    header: str
+  # Column header name.
+  header: str
 
-    # Column index (starting with 0).
-    column_idx: int
+  # Column index (starting with 0).
+  column_idx: int
 
 
 @dataclass
 class Entity:
-    """A DC Entity."""
-    dcid: str
-    display_name: str
+  """A DC Entity."""
+  dcid: str
+  display_name: str
 
 
 class DCType(Entity):
-    """A Data Commons entity type, e.g. Country (which is a type of Place)."""
+  """A Data Commons entity type, e.g. Country (which is a type of Place)."""
 
 
 class DCProperty(Entity):
-    """A Data Commons property, e.g. longitude."""
+  """A Data Commons property, e.g. longitude."""
 
 
 @dataclass
 class TypeProperty:
-    """A combination of the DC Type and associated Property."""
-    dc_type: DCType
-    dc_property: DCProperty
+  """A combination of the DC Type and associated Property."""
+  dc_type: DCType
+  dc_property: DCProperty
 
-    def __hash__(self) -> int:
-        return hash(repr(self))
+  def __hash__(self) -> int:
+    return hash(repr(self))
 
 
 @dataclass
 class MappingVal:
-    # The value of the MappingType enum (column or columnHeader)
-    type: str
+  # The value of the MappingType enum (column or columnHeader)
+  type: str
 
-    # Column that holds the mapping values. Should be set if type is MappingType.COLUMN
-    column: Optional[Column] = None
+  # Column that holds the mapping values. Should be set if type is MappingType.COLUMN
+  column: Optional[Column] = None
 
-    # The place property (in KG) associated with that
-    # column or column header. Should be set if MappedThing is PLACE.
-    place_property: Optional[DCProperty] = None
+  # The place property (in KG) associated with that
+  # column or column header. Should be set if MappedThing is PLACE.
+  place_property: Optional[DCProperty] = None
 
-    # The place type (in KG) associated with that
-    # column or column header. Should be set if MappedThing is PLACE.
-    place_type: Optional[DCType] = None
+  # The place type (in KG) associated with that
+  # column or column header. Should be set if MappedThing is PLACE.
+  place_type: Optional[DCType] = None
 
-    # List of column headers that act as the mapping values. Should be set if
-    # type is MappingType.COLUMN_HEADERS
-    headers: Optional[List[Column]] = None
+  # List of column headers that act as the mapping values. Should be set if
+  # type is MappingType.COLUMN_HEADERS
+  headers: Optional[List[Column]] = None

@@ -20,15 +20,15 @@ from main import app
 
 class TestStaticPage(unittest.TestCase):
 
-    def test_browser_static(self):
-        response = app.test_client().get('/browser/')
-        assert response.status_code == 200
-        assert b"The Data Commons Graph is constructed by" in response.data
+  def test_browser_static(self):
+    response = app.test_client().get('/browser/')
+    assert response.status_code == 200
+    assert b"The Data Commons Graph is constructed by" in response.data
 
-    @patch('routes.api.shared.names')
-    def test_browser_node(self, mock_names):
-        dcid = 'geoId/06'
-        mock_names.return_value = {dcid: 'California'}
-        response = app.test_client().get('/browser/' + dcid)
-        assert response.status_code == 200
-        assert b"geoId/06" in response.data
+  @patch('routes.api.shared.names')
+  def test_browser_node(self, mock_names):
+    dcid = 'geoId/06'
+    mock_names.return_value = {dcid: 'California'}
+    response = app.test_client().get('/browser/' + dcid)
+    assert response.status_code == 200
+    assert b"geoId/06" in response.data

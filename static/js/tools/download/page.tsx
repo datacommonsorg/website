@@ -28,7 +28,7 @@ import { stringifyFn } from "../../utils/axios";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { isValidDate } from "../../utils/string_utils";
 import { StatVarInfo } from "../timeline/chart_region";
-import { Info } from "./info";
+import { Info, InfoPlace } from "./info";
 import { Preview } from "./preview";
 import { StatVarChooser } from "./stat_var_chooser";
 
@@ -74,7 +74,12 @@ interface ValidationErrors {
   incompleteSelectionMessage: string;
 }
 
-export function Page(): JSX.Element {
+interface PagePropType {
+  // Example places to use in the info page
+  infoPlaces: [InfoPlace, InfoPlace];
+}
+
+export function Page(props: PagePropType): JSX.Element {
   const [selectedOptions, setSelectedOptions] = useState<DownloadOptions>(null);
   const [previewOptions, setPreviewOptions] = useState<DownloadOptions>(null);
   const [previewDisabled, setPreviewDisabled] = useState(false);
@@ -369,7 +374,7 @@ export function Page(): JSX.Element {
             isDisabled={previewDisabled}
           />
         )}
-        {showInfo && <Info />}
+        {showInfo && <Info infoPlaces={props.infoPlaces} />}
       </div>
     </>
   );

@@ -39,8 +39,6 @@ deploy/git/website_hash.txt
 build/helm/**/*.tgz
 
 # Terraform
-# Instance variables.
-*.tfvars
 # Local .terraform directories
 **/.terraform/*
 **/.terraform.lock.*

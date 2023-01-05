@@ -14,7 +14,7 @@
 """Data Commons static content routes."""
 
 from datetime import date
-from flask import Blueprint, render_template, g, current_app
+from flask import Blueprint, render_template, g
 import babel.dates as babel_dates
 
 bp = Blueprint('static', __name__)
@@ -22,43 +22,51 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-    env_name = current_app.config.get('ENV_NAME', None)
-    if env_name == 'FEEDINGAMERICA':
-        return render_template('private_dc/feedingamerica/homepage.html')
-    if env_name == 'IITM':
-        # TODO: Update to:
-        # return render_template('private_dc/iitm/homepage.html')
-        return render_template('static/iitm.html')
-    if env_name == 'PRIVATE':
-        return render_template('private_dc/default/homepage.html')
-    blog_date = babel_dates.format_date(date(2021, 7, 26),
-                                        format='long',
-                                        locale=g.locale)
-    return render_template('static/homepage.html', blog_date=blog_date)
+  if g.env_name == 'FEEDINGAMERICA':
+    return render_template('custom_dc/feedingamerica/homepage.html')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/homepage.html')
+  if g.env_name == 'STANFORD':
+    return render_template('custom_dc/stanford/homepage.html')
+  if g.env_name == 'STANFORD-STAGING':
+    return render_template('custom_dc/stanford/homepage.html')
+  if g.env_name == 'CUSTOM':
+    return render_template('custom_dc/default/homepage.html')
+  blog_date = babel_dates.format_date(date(2021, 7, 26),
+                                      format='long',
+                                      locale=g.locale)
+  return render_template('static/homepage.html', blog_date=blog_date)
 
 
 @bp.route('/about')
 def about():
-    env_name = current_app.config.get('ENV_NAME', None)
-    if env_name == 'FEEDINGAMERICA':
-        return render_template('private_dc/feedingamerica/about.html')
-    return render_template('static/about.html')
+  if g.env_name == 'FEEDINGAMERICA':
+    return render_template('custom_dc/feedingamerica/about.html')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/about.html')
+  return render_template('static/about.html')
 
 
 @bp.route('/faq')
 def faq():
-    current_date = date.today().strftime('%-d %b %Y')
-    current_year = date.today().strftime('%Y')
-    return render_template('static/faq.html',
+  current_date = date.today().strftime('%-d %b %Y')
+  current_year = date.today().strftime('%Y')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/faq.html',
                            current_date=current_date,
                            current_year=current_year)
+  return render_template('static/faq.html',
+                         current_date=current_date,
+                         current_year=current_year)
 
 
 @bp.route('/disclaimers')
 def disclaimers():
-    return render_template('static/disclaimers.html')
+  return render_template('static/disclaimers.html')
 
 
 @bp.route('/feedback')
 def feedback():
-    return render_template('static/feedback.html')
+  if g.env_name == 'IITM':
+    return render_template('custom_dc/iitm/feedback.html')
+  return render_template('static/feedback.html')

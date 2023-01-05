@@ -23,10 +23,11 @@ ENV = {
     'staging',
     # Autopush
     'autopush',
-    # Private
-    'private',
+    # Custom
+    'custom',
     'feedingamerica',
     'stanford',
+    'stanford-staging',
     'tidal',
     'iitm',
     # Dev
@@ -40,24 +41,24 @@ ENV = {
     # Local
     'local',
     'local-lite',
-    'local-private',
+    'local-custom',
     'local-iitm',
     'local-feedingamerica',
-    'local-stanford'
+    'local-stanford',
 }
 
 
 def map_config_string(env):
-    index = env.find('-')
-    env_list = list(env)
-    env_list[index + 1] = env[index + 1].upper()
-    env_list[0] = env[0].upper()
-    env_updated = "".join(env_list).replace('-', '')
-    return 'configmodule.{}Config'.format(env_updated)
+  index = env.find('-')
+  env_list = list(env)
+  env_list[index + 1] = env[index + 1].upper()
+  env_list[0] = env[0].upper()
+  env_updated = "".join(env_list).replace('-', '')
+  return 'configmodule.{}Config'.format(env_updated)
 
 
 def get_config():
-    env = os.environ.get('FLASK_ENV')
-    if env in ENV:
-        return import_string(map_config_string(env))()
-    raise ValueError("No valid FLASK_ENV is specified: %s" % env)
+  env = os.environ.get('FLASK_ENV')
+  if env in ENV:
+    return import_string(map_config_string(env))()
+  raise ValueError("No valid FLASK_ENV is specified: %s" % env)

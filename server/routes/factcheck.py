@@ -25,21 +25,21 @@ bp = Blueprint("factcheck", __name__, url_prefix='/factcheck')
 
 @bp.route('/')
 def homepage():
-    return render_template('factcheck/factcheck_homepage.html')
+  return render_template('factcheck/factcheck_homepage.html')
 
 
 @bp.route('/faq')
 def faq():
-    return render_template('factcheck/factcheck_faq.html')
+  return render_template('factcheck/factcheck_faq.html')
 
 
 @bp.route('/blog')
 def blog():
-    return render_template('factcheck/factcheck_blog.html')
+  return render_template('factcheck/factcheck_blog.html')
 
 
 @bp.route('/download')
 def download():
-    recent_blobs = list_blobs(_FC_FEEDS_BUCKET, _MAX_BLOBS)
-    return render_template('factcheck/factcheck_download.html',
-                           recent_blobs=recent_blobs)
+  recent_blobs = list_blobs(_FC_FEEDS_BUCKET, _MAX_BLOBS)
+  return render_template('factcheck/factcheck_download.html',
+                         recent_blobs=recent_blobs)

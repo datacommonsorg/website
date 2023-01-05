@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+@use "../shared/ranking_unit";
 @import "../base";
 @import "../draw";
 @import "../draw_choropleth";
@@ -363,21 +364,4 @@ h3 {
 .ranking-chart h4 {
   text-align: center;
   margin-top: 0rem;
-}
-
-.ranking-list td {
-  font-size: 0.9rem;
-  vertical-align: top;
-}
-
-.ranking-list td.rank {
-  width: 10%;
-}
-
-.ranking-list .num-value {
-  width: 25%;
-}
-
-.ranking-list .bold {
-  font-weight: 600;
 }

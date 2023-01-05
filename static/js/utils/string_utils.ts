@@ -52,6 +52,9 @@ export function formatDate(strDate: string): string {
  *  Given a list of dates as strings, returns the date range as a string
  */
 export function getDateRange(dates: string[]): string {
+  if (dates.length === 0) {
+    return "";
+  }
   const minDate = formatDate(_.min(dates));
   const maxDate = formatDate(_.max(dates));
   return minDate === maxDate ? `${minDate}` : `${minDate} to ${maxDate}`;
@@ -86,6 +89,9 @@ export function getCommonPrefix(words: string[]): string {
  * Given a date string, check that it is in the form YYYY-MM-DD or YYYY-MM or YYYY
  */
 export function isValidDate(date: string): boolean {
+  if (Number.isNaN(Date.parse(date))) {
+    return false;
+  }
   const dateRegex = /^(\d\d\d\d)(-\d\d)?(-\d\d)?$/;
   return dateRegex.test(date);
 }

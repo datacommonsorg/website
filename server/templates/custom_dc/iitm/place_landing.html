@@ -1,0 +1,124 @@
+{#
+    Copyright 2022 Google LLC
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+#}
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'dc-places-landing' %}
+{% set page_id = 'page-dc-places-landing' %}
+{% set title = _('Place Explorer') %}
+{% set subpage_title = _('Place Explorer') %}
+{% set subpage_url = url_for('place.place') %}
+
+{% macro place_url(dcid='') -%}
+{{ url_for('place.place', place_dcid=dcid) }}
+{%- endmacro %}
+
+{% macro ranking_url(sv='', type='', container='') -%}
+{{ url_for('ranking.ranking', stat_var=sv, place_type=type, place_dcid=container, **kwargs) }}
+{%- endmacro %}
+
+{% block head %}
+<link rel="stylesheet" href={{url_for('static', filename='css/place.min.css', t=config['VERSION'])}}>
+{% endblock %}
+
+{% block content %}
+  <div id="body" class="container">
+    <h1 class="mb-4">{% trans %}Place Explorer{% endtrans %}</h1>
+    <h3 id="locale" data-lc="{{ locale }}"></h3>
+
+    <div class="search border mb-4">
+      <div id="location-field">
+        <div id="search-icon"></div>
+        <input id="place-autocomplete"
+          placeholder="{% trans %}Enter a country, state, district or city{% endtrans %}" type="text" />
+      </div>
+    </div>
+
+    {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
+    {% trans %}PLACE_EXPLORER_INTRO{% endtrans %}
+
+    {# TRANSLATORS: Heading for a list of places #}
+    <h3>{% trans %}Places{% endtrans %}</h3>
+    <ul>
+      {# TRANSLATORS: Heading for a list of cities in India. See this message on https://datacommons.org/place #}
+      <li><strong>{% trans %}Cities, India{% endtrans %}</strong>
+        {% for dcid in [ 'wikidataId/Q1353', 'wikidataId/Q43433' ] %}
+        <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
+        {%- if not loop.last %},{% endif -%}
+        {% endfor %}
+      </li>
+      {# TRANSLATORS: Heading for a list of districts in India. See this message on https://datacommons.org/place #}
+      <li><strong>{% trans %}Districts, India{% endtrans %}</strong>
+        {% for dcid in ['wikidataId/Q1797336', 'wikidataId/Q15341', 'wikidataId/Q15446'] %}
+        <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
+        {%- if not loop.last %},{% endif -%}
+        {% endfor %}
+      </li>
+      {# TRANSLATORS: Heading for a list of states in India. See this message on https://datacommons.org/place #}
+      <li><strong>{% trans %}States, India{% endtrans %}</strong>
+        {% for dcid in ['wikidataId/Q1445', 'wikidataId/Q1061', 'wikidataId/Q1177'] %}
+        <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
+        {%- if not loop.last %},{% endif -%}
+        {% endfor %}
+      </li>
+      {# TRANSLATORS: Heading for a list of countries. #}
+      <li><strong>{% trans %}Countries{% endtrans %}</strong>
+        {% for dcid in ['country/IND', 'country/USA', 'country/CAN', 'country/MYS', 'country/DEU'] %}
+        <a class="landing-link" href="{{ place_url(dcid) }}">{{ place_names[dcid] }}</a>
+        {%- if not loop.last %},{% endif -%}
+        {% endfor %}
+      </li>
+    </ul>
+
+    {# TRANSLATORS: Heading for a list of place rankings. #}
+    <h3>{% trans %}Rankings{% endtrans %}</h3>
+    <ul>
+      {# TRANSLATORS: Heading for a list of links to rankings of places in the US, by their life expectancy. #}
+      <li><strong>{%- trans %}Life Expectancy{% endtrans -%}</strong>
+        <a class="landing-link" href="{{ ranking_url('LifeExpectancy_Person', 'Country') }}">
+          {# TRANSLATORS: Link to worldwide rankings for life expectancy by country. See this message on https://datacommons.org/place #}
+          {%- trans %}Worldwide{% endtrans -%}
+        </a>,
+      </li>
+      {# TRANSLATORS: Heading for a list of links to rankings of places worldwide, by their economic indicators. #}
+      <li><strong>{%- trans %}Economic Indicators, Worldwide{% endtrans -%}</strong>
+        <a class="landing-link" href="{{ ranking_url('GiniIndex_EconomicActivity', 'Country') }}">
+          {# TRANSLATORS: Link to worldwide rankings for Gini Index, by country. #}
+          {%- trans %}Gini Index{% endtrans -%}
+        </a>,
+        <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita', 'Country') }}">
+          {# TRANSLATORS: Link to worldwide rankings for Gross National Income, by country. #}
+          {%- trans %}Gross National Income{% endtrans -%}
+        </a>,
+        <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government', 'Country') }}">
+          {# TRANSLATORS: Link to worldwide rankings for Government Expenditures on Education, by country. #}
+          {%- trans %}Government Expenditures on Education{% endtrans -%}
+        </a>,
+        <a class="landing-link" href="{{ ranking_url('Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal', 'Country') }}">
+          {# TRANSLATORS: Link to worldwide rankings for Government Expenditures on Military, by country. #}
+          {%- trans %}Government Expenditures on Military{% endtrans -%}
+        </a>
+      </li>
+    </ul>
+  </div>
+  {% endblock %}
+
+  {% block footer %}
+  <script
+    src={{url_for('static', filename='place_landing.js', t=config['VERSION'])}}></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}"
+    async defer></script>
+  {% endblock %}

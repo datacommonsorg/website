@@ -31,28 +31,28 @@ FILES = [
 
 
 def req_url(url):
-    logging.info(url)
-    try:
-        urllib.request.urlopen(url)
-    except:
-        logging.error("Error for %s", url)
+  logging.info(url)
+  try:
+    urllib.request.urlopen(url)
+  except:
+    logging.error("Error for %s", url)
 
 
 def click_file(file_name):
-    logging.info(file_name)
-    pool = Pool(5)
-    with open(file_name, 'r') as f:
-        urls = [
-            url.replace('place', 'api/landingpage/data').strip()
-            for url in f.readlines()
-        ]
-        pool.map(req_url, urls)
+  logging.info(file_name)
+  pool = Pool(5)
+  with open(file_name, 'r') as f:
+    urls = [
+        url.replace('place', 'api/landingpage/data').strip()
+        for url in f.readlines()
+    ]
+    pool.map(req_url, urls)
 
 
 def main():
-    for file in FILES:
-        click_file(os.path.join(SITEMAP_PATH, file))
+  for file in FILES:
+    click_file(os.path.join(SITEMAP_PATH, file))
 
 
 if __name__ == "__main__":
-    main()
+  main()
