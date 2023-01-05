@@ -1,0 +1,519 @@
+{
+    "nodes": [
+        {
+            "neighbors": [
+                {
+                    "direction": "DIRECTION_IN",
+                    "nodes": [
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "bio/hg38_pRNA"
+                                        },
+                                        {
+                                            "value": "bio/hg19_pRNA"
+                                        }
+                                    ],
+                                    "property": "geneID"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "2.683"
+                                        }
+                                    ],
+                                    "property": "associationScore"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "1.342"
+                                        }
+                                    ],
+                                    "property": "associationConfidenceInterval"
+                                }
+                            ],
+                            "value": "bio/DGA_DOID_8622_pRNA_textmining"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "bio/hg38_hsa-miR-7704"
+                                        },
+                                        {
+                                            "value": "bio/hg19_hsa-miR-7704"
+                                        }
+                                    ],
+                                    "property": "geneID"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "2.054"
+                                        }
+                                    ],
+                                    "property": "associationScore"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "1.027"
+                                        }
+                                    ],
+                                    "property": "associationConfidenceInterval"
+                                }
+                            ],
+                            "value": "bio/DGA_DOID_8622_hsa-miR-7704_textmining"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "bio/hg38_18S_rRNA"
+                                        },
+                                        {
+                                            "value": "bio/hg19_18S_rRNA"
+                                        }
+                                    ],
+                                    "property": "geneID"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "1.653"
+                                        }
+                                    ],
+                                    "property": "associationScore"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "0.826"
+                                        }
+                                    ],
+                                    "property": "associationConfidenceInterval"
+                                }
+                            ],
+                            "value": "bio/DGA_DOID_8622_18S_rRNA_textmining"
+                        }
+                    ],
+                    "property": "diseaseOntologyID"
+                },
+                {
+                    "direction": "DIRECTION_IN",
+                    "nodes": [
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "Prodromal Symptoms"
+                                                        }
+                                                    ],
+                                                    "property": "name"
+                                                }
+                                            ],
+                                            "value": "bio/D062706"
+                                        }
+                                    ],
+                                    "property": "medicalSubjectHeadingID"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "17.8491"
+                                        }
+                                    ],
+                                    "property": "associationOddsRatio"
+                                }
+                            ],
+                            "value": "bio/DOID_8622_D062706_cooccurrence"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "Deafness"
+                                                        }
+                                                    ],
+                                                    "property": "name"
+                                                }
+                                            ],
+                                            "value": "bio/D003638"
+                                        }
+                                    ],
+                                    "property": "medicalSubjectHeadingID"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "4.6819"
+                                        }
+                                    ],
+                                    "property": "associationOddsRatio"
+                                }
+                            ],
+                            "value": "bio/DOID_8622_D003638_cooccurrence"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "Travel-Related Illness"
+                                                        }
+                                                    ],
+                                                    "property": "name"
+                                                }
+                                            ],
+                                            "value": "bio/D000076082"
+                                        }
+                                    ],
+                                    "property": "medicalSubjectHeadingID"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "67.0496"
+                                        }
+                                    ],
+                                    "property": "associationOddsRatio"
+                                }
+                            ],
+                            "value": "bio/DOID_8622_D000076082_cooccurrence"
+                        }
+                    ],
+                    "property": "diseaseOntologyID"
+                },
+                {
+                    "direction": "DIRECTION_IN",
+                    "nodes": [
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseTreatment"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "2"
+                                        }
+                                    ],
+                                    "property": "fdaClinicalTrialPhase"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "RUBELLA VIRUS VACCINE LIVE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL2109225"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CTD_CHEMBL2109225_DOID_8622"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseTreatment"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "2"
+                                        }
+                                    ],
+                                    "property": "fdaClinicalTrialPhase"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "MEASLES VIRUS VACCINE LIVE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL2109211"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CTD_CHEMBL2109211_DOID_8622"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseTreatment"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "2"
+                                        }
+                                    ],
+                                    "property": "fdaClinicalTrialPhase"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "MUMPS VIRUS VACCINE LIVE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL2109201"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CTD_CHEMBL2109201_DOID_8622"
+                        }
+                    ],
+                    "property": "diseaseID"
+                },
+                {
+                    "direction": "DIRECTION_IN",
+                    "nodes": [
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseContraindication"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "CHEMBL"
+                                        }
+                                    ],
+                                    "property": "drugCentralSource"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "HYDROCORTISONE HEMISUCCINATE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL977"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CCiD_CHEMBL977_DOID_8622"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseContraindication"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "WOMBAT-PK"
+                                        },
+                                        {
+                                            "value": "PDSP"
+                                        },
+                                        {
+                                            "value": "IUPHAR"
+                                        },
+                                        {
+                                            "value": "DRUG MATRIX"
+                                        },
+                                        {
+                                            "value": "CHEMBL"
+                                        }
+                                    ],
+                                    "property": "drugCentralSource"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "DEXAMETHASONE SODIUM PHOSPHATE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL1200637"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CCiD_CHEMBL1200637_DOID_8622"
+                        },
+                        {
+                            "neighbors": [
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "ChemicalCompoundDiseaseContraindication"
+                                        }
+                                    ],
+                                    "property": "typeOf"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "value": "CHEMBL"
+                                        }
+                                    ],
+                                    "property": "drugCentralSource"
+                                },
+                                {
+                                    "direction": "DIRECTION_OUT",
+                                    "nodes": [
+                                        {
+                                            "neighbors": [
+                                                {
+                                                    "direction": "DIRECTION_OUT",
+                                                    "nodes": [
+                                                        {
+                                                            "value": "HYDROCORTISONE ACETATE"
+                                                        }
+                                                    ],
+                                                    "property": "commonName"
+                                                }
+                                            ],
+                                            "value": "bio/CHEMBL1091"
+                                        }
+                                    ],
+                                    "property": "compoundID"
+                                }
+                            ],
+                            "value": "bio/CCiD_CHEMBL1091_DOID_8622"
+                        }
+                    ],
+                    "property": "diseaseID"
+                },
+                {
+                    "direction": "DIRECTION_OUT",
+                    "nodes": [
+                        {
+                            "value": "A viral infectious disease that results in infection located in skin, has material basis in Measles virus, which is transmitted by contact with oronasal secretions, or semen of an infected person. The infection has symptom fever, has symptom cough, has symptom coryza, has symptom conjunctivitis, and has symptom maculopapular, erythematous rash."
+                        }
+                    ],
+                    "property": "description"
+                }
+            ],
+            "value": "bio/DOID_8622"
+        }
+    ]
+}

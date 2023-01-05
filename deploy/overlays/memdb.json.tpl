@@ -1,5 +1,5 @@
 {
-  "importName": "Private_DC_Template",
+  "importName": "Custom_DC_Template",
   "provenanceUrl": "https://www.datacommons.org/",
   "dataDownloadUrl": "https://www.datacommons.org/",
   "rootSvg": "g/Template",

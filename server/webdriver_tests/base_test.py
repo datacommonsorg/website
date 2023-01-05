@@ -25,7 +25,7 @@ import multiprocessing
 # https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
 # This code must only be run once per execution.
 if sys.version_info >= (3, 8) and sys.platform == "darwin":
-    multiprocessing.set_start_method("fork")
+  multiprocessing.set_start_method("fork")
 
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
@@ -35,38 +35,38 @@ DEFAULT_WIDTH = 1200
 # Please refer to README.md to see the order of method execution during test.
 class WebdriverBaseTest(LiveServerTestCase):
 
-    def create_app(self):
-        """Returns the Flask Server running Data Commons."""
-        app_instance = app
-        # Each test will start its own Flask Server.
-        # Port 0 is used to let Flask pick any available port.
-        # If no port is specified, port 5000 will be used for all tests which
-        # may cause some racing issue when running tests.
-        app_instance.config['LIVESERVER_PORT'] = 0
-        return app_instance
+  def create_app(self):
+    """Returns the Flask Server running Data Commons."""
+    app_instance = app
+    # Each test will start its own Flask Server.
+    # Port 0 is used to let Flask pick any available port.
+    # If no port is specified, port 5000 will be used for all tests which
+    # may cause some racing issue when running tests.
+    app_instance.config['LIVESERVER_PORT'] = 0
+    return app_instance
 
-    def setUp(self, preferences=None):
-        """Runs at the beginning of every individual test."""
-        # These options are needed to run ChromeDriver inside a Docker without a UI.
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        if preferences:
-            chrome_options.add_experimental_option("prefs", preferences)
+  def setUp(self, preferences=None):
+    """Runs at the beginning of every individual test."""
+    # These options are needed to run ChromeDriver inside a Docker without a UI.
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    if preferences:
+      chrome_options.add_experimental_option("prefs", preferences)
 
-        # Maximum time, in seconds, before throwing a TimeoutException.
-        self.TIMEOUT_SEC = 60
-        self.driver = webdriver.Chrome(options=chrome_options)
+    # Maximum time, in seconds, before throwing a TimeoutException.
+    self.TIMEOUT_SEC = 60
+    self.driver = webdriver.Chrome(options=chrome_options)
 
-        # Set a reliable window size for all tests (can be overwritten though)
-        self.driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
+    # Set a reliable window size for all tests (can be overwritten though)
+    self.driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
 
-        # The URL of the Data Commons server.
-        self.url_ = self.get_server_url()
+    # The URL of the Data Commons server.
+    self.url_ = self.get_server_url()
 
-    def tearDown(self):
-        """Runs at the end of every individual test."""
-        # Quit the ChromeDriver instance.
-        # NOTE: Every individual test starts a new ChromeDriver instance.
-        self.driver.quit()
+  def tearDown(self):
+    """Runs at the end of every individual test."""
+    # Quit the ChromeDriver instance.
+    # NOTE: Every individual test starts a new ChromeDriver instance.
+    self.driver.quit()

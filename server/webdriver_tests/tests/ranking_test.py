@@ -19,134 +19,126 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestRanking(WebdriverBaseTest):
-    """Tests for Place Ranking pages."""
+  """Tests for Place Ranking pages."""
 
-    def test_northamerica_population(self):
-        """Test basic ranking page."""
+  def test_northamerica_population(self):
+    """Test basic ranking page."""
 
-        self.driver.get(self.url_ +
-                        '/ranking/Count_Person/Country/northamerica')
+    self.driver.get(self.url_ + '/ranking/Count_Person/Country/northamerica')
 
-        subtitle_present = EC.text_to_be_present_in_element(
-            (By.TAG_NAME, 'h3'), 'All Countries in North America')
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
+    subtitle_present = EC.text_to_be_present_in_element(
+        (By.TAG_NAME, 'h3'), 'All Countries in North America')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
 
-        self.assertEqual(
-            self.driver.find_element_by_tag_name('h1').text,
-            'Ranking by Population')
+    self.assertEqual(
+        self.driver.find_element_by_tag_name('h1').text,
+        'Ranking by Population')
 
-        table = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/div/table')
-        headers = table.find_elements_by_xpath('.//thead/tr/th')
-        self.assertEqual(headers[0].text, 'Rank')
-        self.assertEqual(headers[1].text, 'Country')
-        self.assertEqual(headers[2].text, 'Value')
-        row = table.find_elements_by_xpath('.//tbody/tr[1]/td')
-        self.assertEqual(row[0].text, '1')
-        self.assertEqual(row[1].text, 'United States of America')
+    table = self.driver.find_element_by_xpath('//*[@id="main-pane"]/div/table')
+    headers = table.find_elements_by_xpath('.//thead/tr/th')
+    self.assertEqual(headers[0].text, 'Rank')
+    self.assertEqual(headers[1].text, 'Country')
+    self.assertEqual(headers[2].text, 'Value')
+    row = table.find_elements_by_xpath('.//tbody/tr[1]/td')
+    self.assertEqual(row[0].text, '1')
+    self.assertEqual(row[1].text, 'United States of America')
 
-        chart = self.driver.find_element_by_id('ranking-chart')
-        y_text = chart.find_elements_by_class_name(
-            'y')[0].find_elements_by_tag_name('text')
-        self.assertEqual(y_text[0].text, '0')
-        self.assertEqual(y_text[-1].text, '300M')
+    chart = self.driver.find_element_by_id('ranking-chart')
+    y_text = chart.find_elements_by_class_name(
+        'y')[0].find_elements_by_tag_name('text')
+    self.assertEqual(y_text[0].text, '0')
+    self.assertEqual(y_text[-1].text, '300M')
 
-        x_text = chart.find_elements_by_class_name(
-            'x')[0].find_elements_by_tag_name('text')
-        self.assertEqual(x_text[0].text, 'United States of America')
-        self.assertEqual(x_text[-1].text, 'Montserrat')
+    x_text = chart.find_elements_by_class_name(
+        'x')[0].find_elements_by_tag_name('text')
+    self.assertEqual(x_text[0].text, 'United States of America')
+    self.assertEqual(x_text[-1].text, 'Montserrat')
 
-    def test_energy_consumption_bottom_ranking_hi(self):
-        """Test translations are displayed correctly in hindi, as well as bottom rankings rendered correctly."""
-        self.driver.get(
-            self.url_ +
-            '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FIND&unit=kg&hl=hi&bottom='
-        )
+  def test_energy_consumption_bottom_ranking_hi(self):
+    """Test translations are displayed correctly in hindi, as well as bottom rankings rendered correctly."""
+    self.driver.get(
+        self.url_ +
+        '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FIND&unit=kg&hl=hi&bottom='
+    )
 
-        self.assertEqual(
-            self.driver.find_elements_by_class_name('navbar-brand')[0].text,
-            'Data Commons\nप्लेस रैंकिंग')
+    self.assertEqual(
+        self.driver.find_elements_by_class_name('navbar-brand')[0].text,
+        'Data Commons\nप्लेस रैंकिंग')
 
-        subtitle_present = EC.text_to_be_present_in_element(
-            (By.TAG_NAME, 'h3'), 'the World से नीचे से 100 देश')
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
-        self.assertEqual(
-            self.driver.find_element_by_tag_name('h1').text,
-            'प्रति व्यक्ति ऊर्जा की खपत के हिसाब से रैंकिंग')
-        self.assertEqual(
-            self.driver.find_element_by_xpath(
-                '//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
-            self.url_ +
-            '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FIND&unit=kg&hl=hi'
-        )
+    subtitle_present = EC.text_to_be_present_in_element(
+        (By.TAG_NAME, 'h3'), 'the World से नीचे से 100 देश')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
+    self.assertEqual(
+        self.driver.find_element_by_tag_name('h1').text,
+        'प्रति व्यक्ति ऊर्जा की खपत के हिसाब से रैंकिंग')
+    self.assertEqual(
+        self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/div/h3/a').get_attribute('href'), self.url_ +
+        '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FIND&unit=kg&hl=hi'
+    )
 
-        table = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/div/table')
-        headers = table.find_elements_by_xpath('.//thead/tr/th')
-        self.assertEqual(headers[0].text, 'रैंक')
-        self.assertEqual(headers[1].text, 'देश')
-        self.assertEqual(headers[2].text, 'किलोग्राम')
-        row = table.find_elements_by_xpath('.//tbody/tr[1]/td')
-        self.assertEqual(row[0].text, '172')
-        self.assertEqual(row[1].text, 'लेसोथो')
-        self.assertEqual(
-            row[1].find_element_by_tag_name('a').get_attribute('href'),
-            self.url_ + '/place/country/LSO?hl=hi')
+    table = self.driver.find_element_by_xpath('//*[@id="main-pane"]/div/table')
+    headers = table.find_elements_by_xpath('.//thead/tr/th')
+    self.assertEqual(headers[0].text, 'रैंक')
+    self.assertEqual(headers[1].text, 'देश')
+    self.assertEqual(headers[2].text, 'किलोग्राम')
+    row = table.find_elements_by_xpath('.//tbody/tr[1]/td')
+    self.assertEqual(row[0].text, '172')
+    self.assertEqual(row[1].text, 'लेसोथो')
+    self.assertEqual(row[1].find_element_by_tag_name('a').get_attribute('href'),
+                     self.url_ + '/place/country/LSO?hl=hi')
 
-        chart = self.driver.find_element_by_id('ranking-chart')
-        y_text = chart.find_elements_by_class_name(
-            'y')[0].find_elements_by_tag_name('text')
-        self.assertEqual(y_text[0].text, '0 कि॰ग्रा॰')
-        self.assertEqual(y_text[-1].text, '1.5 हज़ार कि॰ग्रा॰')
+    chart = self.driver.find_element_by_id('ranking-chart')
+    y_text = chart.find_elements_by_class_name(
+        'y')[0].find_elements_by_tag_name('text')
+    self.assertEqual(y_text[0].text, '0 कि॰ग्रा॰')
+    self.assertEqual(y_text[-1].text, '1.5 हज़ार कि॰ग्रा॰')
 
-        x_text = chart.find_elements_by_class_name(
-            'x')[0].find_elements_by_tag_name('text')
-        self.assertEqual(x_text[0].text, 'साइप्रस')
-        self.assertEqual(x_text[-1].text, 'लेसोथो')
+    x_text = chart.find_elements_by_class_name(
+        'x')[0].find_elements_by_tag_name('text')
+    self.assertEqual(x_text[0].text, 'साइप्रस')
+    self.assertEqual(x_text[-1].text, 'लेसोथो')
 
-    def test_energy_consumption_top_ranking_ko(self):
-        """Test translations are displayed correctly in korean, as well as top rankings rendered correctly."""
-        self.driver.get(
-            self.url_ +
-            '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FKOR&unit=kg&hl=ko'
-        )
+  def test_energy_consumption_top_ranking_ko(self):
+    """Test translations are displayed correctly in korean, as well as top rankings rendered correctly."""
+    self.driver.get(
+        self.url_ +
+        '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FKOR&unit=kg&hl=ko'
+    )
 
-        self.assertEqual(
-            self.driver.find_elements_by_class_name('navbar-brand')[0].text,
-            'Data Commons\n장소 순위')
+    self.assertEqual(
+        self.driver.find_elements_by_class_name('navbar-brand')[0].text,
+        'Data Commons\n장소 순위')
 
-        subtitle_present = EC.text_to_be_present_in_element(
-            (By.TAG_NAME, 'h3'), 'the World 상위 국가 100개')
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
-        self.assertEqual(
-            self.driver.find_element_by_tag_name('h1').text, '1인당 에너지 소비량 순위')
-        self.assertEqual(
-            self.driver.find_element_by_xpath(
-                '//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
-            self.url_ +
-            '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FKOR&unit=kg&hl=ko&bottom='
-        )
+    subtitle_present = EC.text_to_be_present_in_element((By.TAG_NAME, 'h3'),
+                                                        'the World 상위 국가 100개')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
+    self.assertEqual(
+        self.driver.find_element_by_tag_name('h1').text, '1인당 에너지 소비량 순위')
+    self.assertEqual(
+        self.driver.find_element_by_xpath(
+            '//*[@id="main-pane"]/div/h3/a').get_attribute('href'), self.url_ +
+        '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FKOR&unit=kg&hl=ko&bottom='
+    )
 
-        table = self.driver.find_element_by_xpath(
-            '//*[@id="main-pane"]/div/table')
-        headers = table.find_elements_by_xpath('.//thead/tr/th')
-        self.assertEqual(headers[0].text, '순위')
-        self.assertEqual(headers[1].text, '국가')
-        self.assertEqual(headers[2].text, '킬로그램')
-        row = table.find_elements_by_xpath('.//tbody/tr[1]/td')
-        self.assertEqual(row[0].text, '1')
-        self.assertEqual(row[1].text, '카타르')
-        self.assertEqual(
-            row[1].find_element_by_tag_name('a').get_attribute('href'),
-            self.url_ + '/place/country/QAT?hl=ko')
+    table = self.driver.find_element_by_xpath('//*[@id="main-pane"]/div/table')
+    headers = table.find_elements_by_xpath('.//thead/tr/th')
+    self.assertEqual(headers[0].text, '순위')
+    self.assertEqual(headers[1].text, '국가')
+    self.assertEqual(headers[2].text, '킬로그램')
+    row = table.find_elements_by_xpath('.//tbody/tr[1]/td')
+    self.assertEqual(row[0].text, '1')
+    self.assertEqual(row[1].text, '카타르')
+    self.assertEqual(row[1].find_element_by_tag_name('a').get_attribute('href'),
+                     self.url_ + '/place/country/QAT?hl=ko')
 
-        chart = self.driver.find_element_by_id('ranking-chart')
-        y_text = chart.find_elements_by_class_name(
-            'y')[0].find_elements_by_tag_name('text')
-        self.assertEqual(y_text[0].text, '0kg')
-        self.assertEqual(y_text[-1].text, '1.5만kg')
+    chart = self.driver.find_element_by_id('ranking-chart')
+    y_text = chart.find_elements_by_class_name(
+        'y')[0].find_elements_by_tag_name('text')
+    self.assertEqual(y_text[0].text, '0kg')
+    self.assertEqual(y_text[-1].text, '1.5만kg')
 
-        x_text = chart.find_elements_by_class_name(
-            'x')[0].find_elements_by_tag_name('text')
-        self.assertEqual(x_text[0].text, '카타르')
-        self.assertEqual(x_text[-1].text, '에콰도르')
+    x_text = chart.find_elements_by_class_name(
+        'x')[0].find_elements_by_tag_name('text')
+    self.assertEqual(x_text[0].text, '카타르')
+    self.assertEqual(x_text[-1].text, '에콰도르')

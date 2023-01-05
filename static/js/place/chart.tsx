@@ -30,7 +30,7 @@ import {
   drawLineChart,
   drawStackBarChart,
 } from "../chart/draw";
-import { drawD3Map } from "../chart/draw_d3_map";
+import { drawD3Map, getProjection } from "../chart/draw_d3_map";
 import { getColorScale } from "../chart/draw_map_utils";
 import {
   CachedChoroplethData,
@@ -43,6 +43,7 @@ import {
   SnapshotData,
   TrendData,
 } from "../chart/types";
+import { RankingUnit } from "../components/ranking_unit";
 import {
   formatNumber,
   intl,
@@ -60,7 +61,7 @@ import {
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
-import { Point, RankingUnit } from "../topic_page/ranking_unit";
+import { RankingPoint } from "../types/ranking_unit_types";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
 
@@ -496,7 +497,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         window.open(redirectLink, "_blank");
       };
       const getTooltipHtml = (place: NamedPlace) => {
-        let value = "Data Missing";
+        let value = "Data Unavailable";
         if (this.state.choroplethDataGroup.data[place.dcid]) {
           value = formatNumber(
             Math.round(
@@ -516,6 +517,12 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         d3.mean(dataValues),
         d3.max(dataValues)
       );
+      const projection = getProjection(
+        this.props.isUsaPlace,
+        this.props.dcid,
+        elem.offsetWidth,
+        CHART_HEIGHT
+      );
       drawD3Map(
         this.props.id,
         this.state.geoJson,
@@ -529,7 +536,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         () => true,
         true,
         true,
-        this.props.isUsaPlace,
+        projection,
         this.props.dcid
       );
     }
@@ -707,8 +714,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   private getRankingChartData(data: RankingChartDataGroup): {
-    lowest: Point[];
-    highest: Point[];
+    lowest: RankingPoint[];
+    highest: RankingPoint[];
   } {
     const lowestAndHighestDataPoints = { lowest: [], highest: [] };
     if (

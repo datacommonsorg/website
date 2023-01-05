@@ -22,6 +22,7 @@ ROOT="$(dirname "$DIR")"
 
 cd $ROOT
 gcloud builds submit . \
+  --async \
   --project=datcom-ci \
   --config=build/ci/cloudbuild.push_image.yaml \
-  --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
+  --substitutions=_TAG=$1

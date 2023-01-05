@@ -30,6 +30,11 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const globalAny: any = global;
 
+beforeEach(() => {
+  // Mock the info config object that is used for the landing page.
+  window.infoConfig = [];
+});
+
 async function waitForComponentUpdates(wrapper: ReactWrapper) {
   // Wait for state updates
   await waitFor(() => {

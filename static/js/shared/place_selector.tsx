@@ -43,12 +43,19 @@ const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
 const USA_COUNTY_CHILD_TYPES = ["Town", "Village", ...USA_CITY_CHILD_TYPES];
 const USA_STATE_CHILD_TYPES = ["County", ...USA_COUNTY_CHILD_TYPES];
 const USA_COUNTRY_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
+const USA_CENSUS_DIV_CHILD_TYPES = ["State", ...USA_STATE_CHILD_TYPES];
+const USA_CENSUS_REGION_CHILD_TYPES = [
+  "CensusDivision",
+  ...USA_CENSUS_DIV_CHILD_TYPES,
+];
 
 const USA_CHILD_PLACE_TYPES = {
   City: USA_CITY_CHILD_TYPES,
   Country: USA_COUNTRY_CHILD_TYPES,
   County: USA_COUNTY_CHILD_TYPES,
   State: USA_STATE_CHILD_TYPES,
+  CensusDivision: USA_CENSUS_DIV_CHILD_TYPES,
+  CensusRegion: USA_CENSUS_REGION_CHILD_TYPES,
 };
 
 const AA4_CHILD_PLACE_TYPES = ["AdministrativeArea5"];

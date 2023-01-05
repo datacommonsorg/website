@@ -20,12 +20,12 @@ from main import app
 
 class TestStaticPage(unittest.TestCase):
 
-    def test_import_wizard_static(self):
-        response = app.test_client().get('/import/')
-        assert response.status_code == 200
-        assert b"Import Wizard - Data Commons" in response.data
+  def test_import_wizard_static(self):
+    response = app.test_client().get('/import/')
+    assert response.status_code == 200
+    assert b"Import Wizard - Data Commons" in response.data
 
-    def test_import_wizard_static_new(self):
-        response = app.test_client().get('/import/new')
-        assert response.status_code == 200
-        assert b"Import Wizard - Data Commons" in response.data
+  def test_import_wizard_static_new(self):
+    response = app.test_client().get('/import/new')
+    assert response.status_code == 200
+    assert b"Import Wizard - Data Commons" in response.data

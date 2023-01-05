@@ -220,7 +220,7 @@ export class OutArcSection extends React.Component<
   private fetchDataFromTriples(): void {
     loadSpinner(LOADING_CONTAINER_ID);
     axios
-      .get("/api/browser/triples/out/" + this.props.dcid)
+      .get("/api/node/triples/out/" + this.props.dcid)
       .then((resp) => {
         const triplesData = resp.data;
         const outArcsByPredProv: OutArcData = {};

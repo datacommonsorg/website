@@ -31,40 +31,40 @@ bp = Blueprint(
 @bp.route('/placelist')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def index():
-    response = fetch_data('/node/property-values', {
-        'dcids': ['Country'],
-        'property': 'typeOf',
-        'direction': 'in'
-    },
-                          compress=False,
-                          post=True)
-    countries = {'Country': []}
-    for place in response['Country']['in']:
-        countries['Country'].append({
-            'dcid': place['dcid'],
-            'name': place.get('name', place['dcid'])
-        })
-        countries['Country'].sort(key=lambda x: x['name'])
-    return render_template('placelist.html', place_by_type=countries)
+  response = fetch_data('/node/property-values', {
+      'dcids': ['Country'],
+      'property': 'typeOf',
+      'direction': 'in'
+  },
+                        compress=False,
+                        post=True)
+  countries = {'Country': []}
+  for place in response['Country']['in']:
+    countries['Country'].append({
+        'dcid': place['dcid'],
+        'name': place.get('name', place['dcid'])
+    })
+    countries['Country'].sort(key=lambda x: x['name'])
+  return render_template('placelist.html', place_by_type=countries)
 
 
 @bp.route('/placelist/<path:dcid>')
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def node(dcid):
-    child_places = child_fetch(dcid)
-    place_by_type = collections.defaultdict(list)
-    for place_type, childs in child_places.items():
-        for child in childs:
-            for place_type in child.get('types', [""]):
-                if not place_type.startswith('AdministrativeArea'):
-                    place_by_type[place_type].append({
-                        'dcid': child['dcid'],
-                        'name': child['name']
-                    })
-                    break
-    for place_type in place_by_type:
-        place_by_type[place_type].sort(key=lambda x: x['name'])
+  child_places = child_fetch(dcid)
+  place_by_type = collections.defaultdict(list)
+  for place_type, childs in child_places.items():
+    for child in childs:
+      for place_type in child.get('types', [""]):
+        if not place_type.startswith('AdministrativeArea'):
+          place_by_type[place_type].append({
+              'dcid': child['dcid'],
+              'name': child['name']
+          })
+          break
+  for place_type in place_by_type:
+    place_by_type[place_type].sort(key=lambda x: x['name'])
 
-    return render_template('placelist.html',
-                           place_by_type=place_by_type,
-                           dcid=dcid)
+  return render_template('placelist.html',
+                         place_by_type=place_by_type,
+                         dcid=dcid)

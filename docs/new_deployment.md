@@ -65,7 +65,7 @@ if current_app.config.get(<instance>, None):
 
 -- Add a new home page `<instance>.html` under [static](../server/templates/static).
 
-## [Private Instance] Setup Pub/Sub
+## [Custom Instance] Setup Pub/Sub
 
 Create a pub/sub topic for mixer to listen to data changes:
 
@@ -92,7 +92,7 @@ If everything works, try to access the website from the configured domain.
 
 Follow the [IAP setup](./iap.md) to use Cloud IAP to restrict access to the new instance.
 
-## [Private Instance] Adding Data
+## [Custom Instance] Adding Data
 
 Each data import should be contained within a top-level folder in the GCS bucket associated with the instance. Within each folder, there should be exactly one TMCF file, and one or more CSV files.
 
@@ -102,7 +102,7 @@ CSV files should be structured so that each Statistical Variable has its own col
 
 See the template CSV and TMCF files provided under the deploy/ path. They are called: `sample_data.csv.tp` and `sample_tmcf.tmcf.tpl`.
 
-Additionally, each private instance should also contain a `memdb.json` file. A template file is provided under the `deploy/` path with the name `memdb.json.tpl`. It contains important data import metadata and information about the hierarchical organization of the Statistical Variables (SVs) and Statistical Variable Groups (SVGs). Copy the `memdb.json.tpl` file to the private instance folder and rename to `memdb.json`. Then make appropriate edits to the file.
+Additionally, each custom instance should also contain a `memdb.json` file. A template file is provided under the `deploy/` path with the name `memdb.json.tpl`. It contains important data import metadata and information about the hierarchical organization of the Statistical Variables (SVs) and Statistical Variable Groups (SVGs). Copy the `memdb.json.tpl` file to the custom instance folder and rename to `memdb.json`. Then make appropriate edits to the file.
 
 The `memdb.json` file must have the following fields:
 

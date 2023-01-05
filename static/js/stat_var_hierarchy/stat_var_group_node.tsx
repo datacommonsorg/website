@@ -240,7 +240,7 @@ export class StatVarGroupNode extends React.Component<
   private fetchData(): void {
     // stat var (group) dcid can contain [/_-.&], need to encode here.
     // Example: dc/g/Person_Citizenship-NotAUSCitizen_CorrectionalFacilityOperator-StateOperated&FederallyOperated&PrivatelyOperated
-    let url = `/api/stats/stat-var-group?stat_var_group=${encodeURIComponent(
+    let url = `/api/variable-group/info?dcid=${encodeURIComponent(
       this.props.data.id
     )}`;
     const entityList = this.props.entities;

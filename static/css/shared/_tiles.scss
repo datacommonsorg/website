@@ -1,0 +1,311 @@
+/**
+ * Copyright 2022 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Styling for tile components.
+ */
+
+@forward "ranking_unit";
+@use "../base";
+
+$chart-container-top-margin: 20px;
+$highlight-font-family: base.$headings-font-family;
+$border: 1px solid rgba(0, 0, 0, 0.125);
+$border-radius: 0.5rem;
+
+.chart-container {
+  margin-top: $chart-container-top-margin;
+  position: relative;
+  width: 100%;
+
+  h4 {
+    text-align: center;
+  }
+
+  footer {
+    margin-left: inherit !important;
+  }
+}
+
+.chart-container.map-chart,
+.chart-container.scatter-chart,
+.chart-container.bivariate-chart,
+.chart-container.line-chart,
+.chart-container.bar-chart,
+.chart-container.histogram-chart,
+.chart-container.disaster-event-map-tile {
+  border: 0.5px solid #dee2e6;
+  border-radius: 3px;
+  padding: 15px;
+}
+
+.chart-container.ranking-tile {
+  padding-top: 15.5px;
+}
+
+.svg-container {
+  min-height: 200px;
+  width: 100%;
+}
+
+/**
+ * highlight tile
+ */
+
+.highlight-tile {
+  display: flex;
+  padding: 1rem;
+  font-family: $highlight-font-family;
+  margin-bottom: 1rem;
+  background: var(--dc-red-fade);
+  border-radius: 5px;
+
+  .stat {
+    font-size: 4rem;
+    line-height: 1;
+  }
+
+  .desc {
+    padding-left: 1em;
+    font-size: 1.2rem;
+  }
+}
+
+/**
+ * scatter tile
+ */
+
+.scatter-svg-container {
+  font-size: 0.75rem;
+
+  circle:hover {
+    stroke: var(--dc-gray);
+    stroke-width: 1.5;
+  }
+
+  circle {
+    r: 3.5;
+  }
+}
+
+/**
+ * ranking tile
+ */
+
+.ranking-tile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: $chart-container-top-margin;
+  grid-row-gap: $chart-container-top-margin;
+}
+
+/**
+ * disaster event map tile
+ */
+
+.disaster-event-map-tile {
+
+  .disaster-event-map-selectors-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .disaster-event-map-date-selector {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1rem 0;
+  }
+  
+  #disaster-event-map-date-selector-input {
+    width: 12rem;
+    margin-left: 0.5rem;
+  }
+  
+  .disaster-event-map-breadcrumbs,
+  .disaster-event-map-breadcrumb-entry,
+  .disaster-event-map-breadcrumb-entry-selected {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    cursor: default;
+  }
+  
+  .disaster-event-map-breadcrumb-entry-selected,
+  .disaster-event-map-breadcrumb-entry:hover {
+    color: var(--dc-primary);
+  }
+  
+  .disaster-event-map-breadcrumbs {
+    margin-top: 1rem;
+  }
+
+  .disaster-event-map-container {
+    position: relative;
+    display: flex;
+  }
+
+  .disaster-event-map-error-message {
+    padding: 1rem 0;
+  }
+  
+  .disaster-event-map-legend-entry {
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+  }
+ 
+  .disaster-event-map-legend-color {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+  }
+ 
+  .disaster-event-map-legend {
+    display: flex;
+    padding: 1rem;
+  }
+ 
+  .disaster-event-map-zoom-button-section {
+    width: fit-content;
+    position: absolute;
+    top: 0;
+    border: $border;
+    margin: 1rem;
+    z-index: 2;
+  }
+ 
+  .disaster-event-map-zoom-button {
+    cursor: pointer;
+    border: $border;
+    padding: 0.1rem;
+    display: flex;
+    width: fit-content;
+    background-color: white;
+  }
+ 
+  .disaster-event-map-zoom-button:hover {
+    background-color: var(--dc-gray-lite);
+  }
+ 
+  #disaster-event-map-info-card {
+    position: absolute;
+    border: $border;
+    background-color: white;
+    max-width: 15rem;
+    max-height: 15rem;
+    overflow-y: auto;
+  }
+  
+  .disaster-event-map-info-card-content {
+    padding: 0.5rem;
+    word-break: break-word;
+    font-size: 0.9rem;
+  }
+ 
+  .disaster-event-map-info-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .disaster-event-map-info-card-title {
+    font-weight: 500;
+  }
+  
+  .disaster-event-map-info-card-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .disaster-event-map-info-card-header i {
+    margin-left: 0.5rem;
+    cursor: default;
+  }
+  
+  path.region-highlighted,
+  path.region-highlighted-no-click {
+    cursor: default;
+  }
+  
+  path.region-highlighted {
+    stroke: var(--dark);
+    stroke-width: 2px;
+  }
+  
+  .dot {
+    stroke: white;
+    stroke-width: 0.3px;
+  }
+  
+  .dot:hover,
+  .dot:focus {
+    stroke: black;
+    stroke-width: 2px;
+  }
+ }
+
+.disaster-event-map-chart-section {
+  flex-grow: 1;
+}
+
+.disaster-event-map-severity-filters {
+  padding: 1rem 1.5rem;
+  overflow-y: auto;
+
+  .disaster-type-filters {
+    padding: 0.5rem 0;
+  }
+
+  .disaster-type-name {
+    width: 100%;
+    font-weight: 500;
+    opacity: 0.75;
+  }
+
+  .prop-filter {
+    padding-top: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .prop-filter-input {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+  
+    span {
+      width: 2.5rem;
+    }
+  
+    input {
+      margin-left: 0.5rem;
+      width: 5rem;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+

@@ -25,61 +25,61 @@ bp = Blueprint(
 
 @bp.route('/kg')
 def kg():
-    dcid = request.args.get('dcid', '')
-    if dcid:
-        url = url_for('browser.browser_node', dcid=dcid)
-    else:
-        url = url_for('browser.browser_main')
-    return redirect('https://datacommons.org' + url, code=302)
+  dcid = request.args.get('dcid', '')
+  if dcid:
+    url = url_for('browser.browser_node', dcid=dcid)
+  else:
+    url = url_for('browser.browser_main')
+  return redirect('https://datacommons.org' + url, code=302)
 
 
 @bp.route('/gni')
 def gni():
-    return redirect(
-        url_for('tools.timeline',
-                _external=True,
-                _scheme=current_app.config.get('SCHEME', 'https'),
-                code=302))
+  return redirect(
+      url_for('tools.timeline',
+              _external=True,
+              _scheme=current_app.config.get('SCHEME', 'https'),
+              code=302))
 
 
 @bp.route('/scatter')
 def scatter():
-    return redirect(
-        url_for('tools.scatter',
-                _external=True,
-                _scheme=current_app.config.get('SCHEME', 'https'),
-                code=302))
+  return redirect(
+      url_for('tools.scatter',
+              _external=True,
+              _scheme=current_app.config.get('SCHEME', 'https'),
+              code=302))
 
 
 @bp.route('/datasets')
 def datasets():
-    return redirect('https://docs.datacommons.org/datasets/', code=302)
+  return redirect('https://docs.datacommons.org/datasets/', code=302)
 
 
 @bp.route('/documentation')
 def documentation():
-    return redirect('https://docs.datacommons.org/', code=302)
+  return redirect('https://docs.datacommons.org/', code=302)
 
 
 @bp.route('/colab')
 def colab():
-    return redirect('https://docs.datacommons.org/tutorials', code=302)
+  return redirect('https://docs.datacommons.org/tutorials', code=302)
 
 
 @bp.route('/getinvolved')
 def get_involved():
-    return redirect('https://docs.datacommons.org/contributing/', code=302)
+  return redirect('https://docs.datacommons.org/contributing/', code=302)
 
 
 @bp.route('/tools/stat-var')
 def stat_var():
-    return redirect('https://datacommons.org/tools/statvar', code=302)
+  return redirect('https://datacommons.org/tools/statvar', code=302)
 
 
 # This is used to handle explore more link from Google search. Do not remove.
 # arg params from search: mprop, dcid, popt
 @bp.route('/explore/place')
 def explore():
-    return redirect('https://datacommons.org' +
-                    url_for('place.place', place_dcid=request.args.get('dcid')),
-                    code=302)
+  return redirect('https://datacommons.org' +
+                  url_for('place.place', place_dcid=request.args.get('dcid')),
+                  code=302)

@@ -49,6 +49,11 @@ function TestApp(): JSX.Element {
   );
 }
 
+beforeEach(() => {
+  // Mock the info config object that is used for the landing page.
+  window.infoConfig = [];
+});
+
 function mockAxios(): void {
   axios.get = jest.fn();
   axios.post = jest.fn();
@@ -308,78 +313,78 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/stats/stat-var-group?stat_var_group=dc/g/Root")
+    .calledWith("/api/variable-group/info?dcid=dc/g/Root")
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003"
     )
     .mockResolvedValue(rootGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10003&entities=geoId/10005"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10001&entities=geoId/10005&entities=geoId/10003"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10001&entities=geoId/10005"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10003&entities=geoId/10005&entities=geoId/10001"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10003&entities=geoId/10001"
     )
     .mockResolvedValue(demographicsGroupsData);
 
   when(axios.get)
     .calledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003"
+      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/10005&entities=geoId/10001&entities=geoId/10003"
     )
     .mockResolvedValue(demographicsGroupsData);
 
@@ -396,15 +401,15 @@ function mockAxios(): void {
     .mockResolvedValue(statVarInfoData);
 
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=Count_Establishment")
+    .calledWith("/api/variable/path?dcid=Count_Establishment")
     .mockResolvedValue({ data: pathsData.Count_Establishment });
 
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=Count_HousingUnit")
+    .calledWith("/api/variable/path?dcid=Count_HousingUnit")
     .mockResolvedValue({ data: pathsData.Count_HousingUnit });
 
   when(axios.get)
-    .calledWith("/api/stats/stat-var-path?id=Count_Person_Employed")
+    .calledWith("/api/variable/path?dcid=Count_Person_Employed")
     .mockResolvedValue({ data: pathsData.Count_Person_Employed });
 
   when(axios.post)
@@ -457,7 +462,7 @@ test("all functionalities", async () => {
   const app = mount(<TestApp />);
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/stats/stat-var-group?stat_var_group=dc/g/Root"
+      "/api/variable-group/info?dcid=dc/g/Root"
     );
   });
   return Promise.resolve(app)

@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 #}
-{%- extends 'base.html' -%}
+{%- extends BASE_HTML -%}
 
 {% set main_id = 'dc-topic-page' %}
 {% set page_id = 'page-dc-topic-page' %}
@@ -29,14 +29,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="body" class="container-fluid">
-  <div id="body-row" class="row">
-    <div id="sidebar" class="col-md-3x col-lg-2 order-last order-lg-0"></div>
-    <main class="col-md-9x col-lg-10">
-      <div id="main-pane" class="row"></div>
-    </main>
-  </div>
-</div>
+<div id="body" class="container-fluid"></div>
 <div id="metadata" class="d-none" data-place-dcid="{{ place_dcid }}" data-topic-id="{{ topic_id }}">
   <div id="place-name" data-pn="{{ place_name }}"></div>
   <div id="place-type" data-pt="{{ place_type }}"></div>
