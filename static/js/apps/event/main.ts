@@ -15,5 +15,28 @@
  */
 
 /**
- * Types specific to event pages
+ * Disaster events
  */
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { App } from "./app";
+
+window.onload = () => {
+  renderPage();
+};
+
+function renderPage(): void {
+  const dcid = document.getElementById("node").dataset.dcid;
+  const nodeName = document.getElementById("node").dataset.nn;
+  const properties = JSON.parse(document.getElementById("node").dataset.pv);
+  ReactDOM.render(
+    React.createElement(App, {
+      dcid: dcid,
+      name: nodeName,
+      properties: properties,
+    }),
+    document.getElementById("node")
+  );
+}
