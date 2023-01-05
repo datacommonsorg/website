@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+import { PropertyValue } from "../shared/types";
 /**
- * Main component for event pages.
+ * Types specific to event pages
  */
-
-import React from "react";
-
-export function Page(): JSX.Element {
-  return <div></div>;
+export interface Property {
+  // Stores all values of a single property of an event.
+  // You can think of this as representing edges to other nodes (values)
+  // with the same label (dcid).
+  dcid: string;
+  values: Array<PropertyValue>;
 }

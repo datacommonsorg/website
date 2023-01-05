@@ -33,7 +33,7 @@ locals {
   dc_website_domain = coalesce(
     var.dc_website_domain, format("%s-datacommons.com", var.project_id))
 
-  resource_suffx = var.use_resource_suffix ? format("-%s", random_id.rnd.hex) : ""
+  resource_suffix = var.use_resource_suffix ? format("-%s", random_id.rnd.hex) : ""
 }
 
 module "enabled_google_apis" {
@@ -44,6 +44,7 @@ module "enabled_google_apis" {
   activate_apis = [
     "apikeys.googleapis.com",
     "binaryauthorization.googleapis.com",
+    "cloudfunctions.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
     "containerregistry.googleapis.com",
@@ -70,14 +71,14 @@ resource "google_service_account" "web_robot" {
 }
 
 resource "google_compute_global_address" "dc_website_ingress_ip" {
-  name         = format("dc-website-ip%s", local.resource_suffx)
+  name         = format("dc-website-ip%s", local.resource_suffix)
   project      = var.project_id
 
   depends_on   = [module.enabled_google_apis]
 }
 
 resource "google_dns_managed_zone" "datacommons_zone" {
-  name          = format("datacommons%s", local.resource_suffx)
+  name          = format("datacommons%s", local.resource_suffix)
   dns_name      = format("%s.", local.dc_website_domain)
   project       = var.project_id
   dynamic "dnssec_config" {
@@ -141,4 +142,27 @@ resource "null_resource" "cloud_domain" {
   depends_on = [
     google_dns_managed_zone.datacommons_zone
   ]
+}
+
+locals {
+  resource_bucket_name = local.resource_suffix != "" ? format(
+    "%s-%s-resources", var.project_id, local.resource_suffix) : format("%s-resources", var.project_id)
+}
+
+# The resource bucket will hold
+# 1) Custom DC raw data (csv, tmcf)
+# 2) Compact cache (in csv) that will feed into BT tables.
+# 3) Various artifacts such as dataflow temp artifacts, state files.
+resource "google_storage_bucket" "dc_resource_bucket" {
+  name          = local.resource_bucket_name
+  location      = var.resource_bucket_location
+  project       = var.project_id
+
+  # Bucket cannot be deleted while objects are still in it.
+  force_destroy = false
+
+  uniform_bucket_level_access = true
+
+  # Do not expose any object to the internet.
+  public_access_prevention = "enforced"
 }

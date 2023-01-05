@@ -48,6 +48,7 @@ metadata {
       name: "Fire"
       event_type_dcids: "WildlandFireEvent"
       event_type_dcids: "WildfireEvent"
+      event_type_dcids: "FireEvent"
       color: "#fee08b"
     }
   }
@@ -87,6 +88,29 @@ categories {
           event_type_keys: 'drought'
         }
       }
+    }
+  }
+}
+
+categories {
+  title: "Earthquakes"
+  description: "An earthquake (also known as a quake, tremor or temblor) is the shaking of the surface of the Earth resulting from a sudden release of energy in the Earth's lithosphere that creates seismic waves. Earthquakes can range in intensity, from those that are so weak that they cannot be felt, to those violent enough to propel objects and people into the air, damage critical infrastructure, and wreak destruction across entire cities."
+  blocks {
+    title: "Number of Earthquakes over Time"
+    columns {
+      tiles {
+        type: HISTOGRAM
+        title: "Number of Earthquakes over Time"
+        stat_var_key: "count_earthquakes"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "count_earthquakes"
+    value {
+        stat_var: "Count_EarthquakeEvent"
+        name: "Count of Earthquakes"
     }
   }
 }

@@ -39,6 +39,17 @@ resource "google_project_iam_member" "web_robot_iam" {
   project = var.project_id
 }
 
+# For controller to communicate with and write data to resource bucket.
+resource "google_project_iam_member" "datcom_iam" {
+  for_each = toset([
+    "roles/pubsub.subscriber",
+    "roles/storage.admin"
+  ])
+  role    = each.key
+  member  = "serviceAccount:datcom@system.gserviceaccount.com"
+  project = var.project_id
+}
+
 module "apikeys" {
   source                   =  "../../modules/apikeys"
   project_id               = var.project_id
