@@ -41,16 +41,21 @@ def disaster_dashboard_v0():
 def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   all_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
   if len(all_configs) < 1:
-    return "Error: no config found"
+    return "Error: no config installed"
 
   # Find the config for the topic & place.
   dashboard_config = None
+  default_config = None
   for config in all_configs:
     if place_dcid in config.metadata.place_dcid:
       dashboard_config = config
       break
+    if DEFAULT_PLACE_DCID in config.metadata.place_dcid:
+      # TODO: Add a better way to find the default config.
+      default_config = config
   if not dashboard_config:
-    return "Error: no config found"
+    # Use the default config instead
+    dashboard_config = default_config
 
   place_type = DEFAULT_PLACE_TYPE
   if place_dcid != DEFAULT_PLACE_DCID:
