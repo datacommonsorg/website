@@ -87,10 +87,11 @@ def register_routes_custom_dc(app):
 
 def register_routes_stanford_dc(app, is_test):
   # Install blueprints specific to Stanford DC
-  from routes import (disasters)
+  from routes import (disasters, event)
   from routes.api import (disaster_api)
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
+  app.register_blueprint(event.bp)
 
   if not is_test:
     # load disaster dashboard configs
