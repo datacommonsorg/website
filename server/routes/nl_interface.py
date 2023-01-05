@@ -150,6 +150,10 @@ def _get_buckets(defn):
 
 def _chart_config(place_dcid, main_place_type, main_place_name,
                   child_places_type, highlight_svs, sv2name, peer_buckets):
+  # TODO: temporarility disable child places charts before they can be handled
+  # gracefully. Right now each query incurs hundreds of single place API call,
+  # which should be replaced by "withInPlace" API call. This spams the logs and
+  # makes the loading slow.
   child_places_type = ""
   #@title
   chart_config = {'metadata': {'place_dcid': [place_dcid]}}

@@ -28,7 +28,7 @@ import { TextSearchBar } from "../../components/text_search_bar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
-const contextHistoryAge = 60; // Seconds
+const contextHistoryAge = 3600; // Seconds
 const maxContextHistoryEntry = 10;
 
 interface SearchResult {
