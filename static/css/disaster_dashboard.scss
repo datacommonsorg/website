@@ -20,3 +20,8 @@
 
 @use "base";
 @use "./shared/subject_page";
+@import "./draw";
+@import "./draw_choropleth";
+@import "./draw_scatter";
+@import "./shared/story_block";
+@import "./shared/story_chart";
