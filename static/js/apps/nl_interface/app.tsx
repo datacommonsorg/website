@@ -28,6 +28,9 @@ import { TextSearchBar } from "../../components/text_search_bar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
+const contextHistoryAge = 3600; // Seconds
+const maxContextHistoryEntry = 10;
+
 interface SearchResult {
   place: NamedTypedPlace;
   config: SubjectPageConfig;
@@ -68,7 +71,6 @@ const buildOptions = [
 
 export function App(): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [urlParams, setUrlParams] = useState<string>();
   const [searchText, setSearchText] = useState<string>();
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
   const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
@@ -79,16 +81,15 @@ export function App(): JSX.Element {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const urlParams = params.toString();
-    if (urlParams.length > 0) {
+    const s = params.toString();
+    if (s.length > 0) {
       setSearchText(params.get("q"));
-      fetchData(urlParams);
+      fetchData(s);
     }
-  }, [urlParams]);
+  }, []);
 
   function fetchData(urlParams: string): void {
     setLoading(true);
-    setUrlParams(urlParams);
     axios
       .post(`/nl/data?${urlParams}`, {
         contextHistory: cookies["context_history"],
@@ -102,9 +103,16 @@ export function App(): JSX.Element {
           return;
         }
         const context: any = resp.data["context"];
+        // Set cookies with the new context.
         const contextHistory: any[] = cookies["context_history"] || [];
+        if (contextHistory.length === maxContextHistoryEntry) {
+          contextHistory.shift();
+        }
         contextHistory.push(context);
-        setCookie("context_history", contextHistory, { maxAge: 3600 });
+        setCookie("context_history", contextHistory, {
+          maxAge: contextHistoryAge,
+          path: "/nl",
+        });
         setChartsData({
           place: {
             types: [context["place_type"]],
@@ -136,7 +144,7 @@ export function App(): JSX.Element {
       });
   }
 
-  function matchScores(svScores: SVScores): JSX.Element {
+  const matchScoresElement = (svScores: SVScores): JSX.Element => {
     const svs = Object.values(svScores.SV);
     const scores = Object.values(svScores.CosineScore);
     return (
@@ -158,13 +166,19 @@ export function App(): JSX.Element {
         </table>
       </div>
     );
-  }
+  };
 
-  function handleEmbeddingsBuildChange(
+  const handleEmbeddingsBuildChange = (
     event: React.ChangeEvent<HTMLSelectElement>
-  ) {
-    setSelectedBuild(event.target.value);
-  }
+  ) => {
+    const build = event.target.value;
+    setSelectedBuild(build);
+    const params = new URLSearchParams(window.location.search);
+    params.set("build", build);
+    const paramsString = params.toString();
+    history.pushState({}, null, "/nl?" + paramsString);
+    fetchData(paramsString);
+  };
 
   return (
     <div id="dc-nl-interface">
@@ -175,12 +189,9 @@ export function App(): JSX.Element {
               <div className="place-options-section">
                 <TextSearchBar
                   onSearch={(q) => {
-                    history.pushState(
-                      {},
-                      null,
-                      `/nl?q=${q}&build=${selectedBuild}`
-                    );
-                    fetchData(`q=${q}`);
+                    const urlParamsString = `q=${q}&build=${selectedBuild}`;
+                    history.pushState({}, null, "/nl?" + urlParamsString);
+                    fetchData(urlParamsString);
                   }}
                   initialValue={searchText}
                   placeholder='For example "family earnings in california"'
@@ -261,7 +272,7 @@ export function App(): JSX.Element {
                 <Row>
                   <b>SVs Matched (with scores):</b>
                 </Row>
-                {matchScores(debugInfo.svScores)}
+                {matchScoresElement(debugInfo.svScores)}
               </>
             )}
           </>
