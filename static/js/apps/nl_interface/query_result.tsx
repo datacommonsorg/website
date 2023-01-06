@@ -56,29 +56,14 @@ interface DebugInfo {
   containedInClassification: string;
 }
 
-const buildOptions = [
-  {
-    value: "combined_all",
-    text: "---- Choose an Embeddings Build option (default: Combined All) -------",
-  },
-  { value: "demographics300", text: "Demographics only (300 SVs)" },
-  {
-    value: "demographics300-withpalmalternatives",
-    text: "Demographics only (300 SVs) with PaLM Alternatives",
-  },
-  { value: "uncurated3000", text: "Uncurated 3000 SVs" },
-  { value: "combined_all", text: "Combined All of the Above (Default)" },
-];
-
 export interface QueryResultProps {
   query: string;
+  build_option: string;
 }
 
 export function QueryResult(props: QueryResultProps): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [searchText, setSearchText] = useState<string>();
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
-  const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies();
 
@@ -87,18 +72,13 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
   const showDebugInfo = true;
 
   useEffect(() => {
-    // const params = new URLSearchParams(window.location.search);
-    // const s = params.toString();
-    // if (s.length > 0) {
-    //   setSearchText(params.get("q"));
-    // }
     fetchData(props.query);
   }, []);
 
   function fetchData(query: string): void {
     setLoading(true);
     axios
-      .post(`/nl/data?q=${query}`, {
+      .post(`/nl/data?q=${query}&build=${props.build_option}`, {
         contextHistory: cookies["context_history"],
       })
       .then((resp) => {
@@ -110,6 +90,7 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
           return;
         }
         const context: any = resp.data["context"];
+        // TODO: Move this logic out to app.tsx
         // Set cookies with the new context.
         const contextHistory: any[] = cookies["context_history"] || [];
         if (contextHistory.length === maxContextHistoryEntry) {
@@ -146,7 +127,6 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
           temporalClassification: debugData["temporal_classification"],
           containedInClassification: debugData["contained_in_classification"],
         });
-        setSelectedBuild(debugData["embeddings_build"]);
         setLoading(false);
       });
   }
@@ -175,18 +155,6 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
     );
   };
 
-  const handleEmbeddingsBuildChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const build = event.target.value;
-    setSelectedBuild(build);
-    const params = new URLSearchParams(window.location.search);
-    params.set("build", build);
-    const paramsString = params.toString();
-    history.pushState({}, null, "/nl?" + paramsString);
-    fetchData(paramsString);
-  };
-
   return (
     <div className="nl-query-result">
       <Container fluid={true}>
@@ -201,21 +169,6 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
               <b>DEBUGGING OPTIONS/INFO: </b>
               <br></br>
             </Row>
-            <Row>
-              <label>Embeddings build:</label>
-            </Row>
-            <div id="embeddings-build-options">
-              <select
-                value={selectedBuild}
-                onChange={handleEmbeddingsBuildChange}
-              >
-                {buildOptions.map((option, idx) => (
-                  <option key={idx} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
-            </div>
             {debugInfo && (
               <>
                 <Row>
@@ -274,7 +227,6 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
         )}
         {chartsData && chartsData.config && (
           <Row>
-            {/* <SubjectPageSidebar categories={chartsData.config.categories} /> */}
             <div className="row col-md-9x col-lg-10">
               <SubjectPageMainPane
                 place={chartsData.place}

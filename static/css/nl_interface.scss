@@ -28,7 +28,6 @@
 }
 
 #nl-interface {
-  // height: calc(100vh - 72px); // 72px is height of header
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -37,13 +36,6 @@
 }
 
 #dc-nl-interface {
-  // margin-left: 1.5rem;
-  // margin-right: 1.5rem;
-
-  // @include media-breakpoint-up(md) {
-  //   margin-left: 3rem;
-  //   margin-right: 3rem;
-  // }
   padding: 2rem 0;
 }
 
@@ -93,4 +85,10 @@ td {
 h2,
 h3 {
   color: white;
+}
+
+#build-selector {
+  position: fixed;
+  top: 2em;
+  right: 2em;
 }
