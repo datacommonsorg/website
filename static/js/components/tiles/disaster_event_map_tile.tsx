@@ -514,18 +514,14 @@ export function DisasterEventMapTile(
         return props.eventTypeSpec[point.disasterType].color;
       }
     );
-    pointsLayer
-      .on("click", (point: DisasterEventPoint) =>
-        onPointClicked(
-          infoCardRef.current,
-          svgContainerRef.current,
-          point,
-          d3.event
-        )
+    pointsLayer.on("click", (point: DisasterEventPoint) =>
+      onPointClicked(
+        infoCardRef.current,
+        svgContainerRef.current,
+        point,
+        d3.event
       )
-      .on("blur", () => {
-        d3.select(infoCardRef.current).style("visibility", "hidden");
-      });
+    );
   }
 
   /**
