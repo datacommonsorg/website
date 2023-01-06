@@ -81,7 +81,7 @@ function run_py_test {
   setup_python
   cd server
   export FLASK_ENV=test
-  python3 -m pytest tests/page_config_test.py -s --ignore=sustainability -vv
+  python3 -m pytest tests/**/*.py -s --ignore=sustainability
   # TODO(beets): add tests for other private dc instances
   # export FLASK_ENV=test-sustainability
   # python3 -m pytest tests/sustainability/**.py
