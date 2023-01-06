@@ -22,20 +22,37 @@
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
-#dc-nl-interface {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-
-  @include media-breakpoint-up(md) {
-    margin-left: 3rem;
-    margin-right: 3rem;
-  }
+#main-header,
+#main-footer {
+  display: none;
 }
 
-.place-options {
+#nl-interface {
+  // height: calc(100vh - 72px); // 72px is height of header
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #1d1c1d;
+  overflow-y: scroll;
+}
+
+#dc-nl-interface {
+  // margin-left: 1.5rem;
+  // margin-right: 1.5rem;
+
+  // @include media-breakpoint-up(md) {
+  //   margin-left: 3rem;
+  //   margin-right: 3rem;
+  // }
+  padding: 2rem 0;
+}
+
+#query-container {
   display: flex;
   flex-wrap: wrap;
   font-size: 0.9rem;
+  position: fixed;
+  bottom: 0;
 }
 
 .place-options-card {
