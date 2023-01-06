@@ -24,8 +24,6 @@ import { useCookies } from "react-cookie";
 import { Col, Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
-import { TextSearchBar } from "../../components/text_search_bar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 
@@ -66,8 +64,6 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies();
-
-  console.log(`hello again: ${props.query}`);
 
   const showDebugInfo = true;
 

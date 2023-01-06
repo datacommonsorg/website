@@ -52,15 +52,14 @@ export function App(): JSX.Element {
     params.set("build", build);
   };
 
-  const queryResults = queries.map((q, i) => <QueryResult key={i} query={q} build_option={selectedBuild}></QueryResult>);
+  const queryResults = queries.map((q, i) => (
+    <QueryResult key={i} query={q} build_option={selectedBuild}></QueryResult>
+  ));
   return (
     <div id="dc-nl-interface">
       <div id="build-selector">
         <div id="embeddings-build-options">
-          <select
-            value={selectedBuild}
-            onChange={handleEmbeddingsBuildChange}
-          >
+          <select value={selectedBuild} onChange={handleEmbeddingsBuildChange}>
             {buildOptions.map((option, idx) => (
               <option key={idx} value={option.value}>
                 {option.text}
@@ -71,7 +70,7 @@ export function App(): JSX.Element {
       </div>
 
       <Container id="results-thread-container" fluid={true}>
-        { queryResults }
+        {queryResults}
       </Container>
 
       <Container id="query-container" fluid={true}>
