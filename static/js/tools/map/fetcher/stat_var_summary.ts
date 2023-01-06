@@ -23,6 +23,7 @@ import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
 import { StatVarSummary } from "../../../shared/types";
+import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -45,8 +46,11 @@ export function useFetchStatVarSummary(
       },
     };
     axios
-      .post("/api/stats/stat-var-summary", {
-        statVars: [statVar.value.dcid],
+      .get("/api/variable/info", {
+        params: {
+          dcids: [statVar.value.dcid],
+        },
+        paramsSerializer: stringifyFn,
       })
       .then((resp) => {
         if (_.isEmpty(resp.data)) {

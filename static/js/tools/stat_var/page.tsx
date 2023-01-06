@@ -27,6 +27,7 @@ import {
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
+import { stringifyFn } from "../../utils/axios";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
@@ -314,7 +315,12 @@ class Page extends Component<unknown, PageStateType> {
       .get(`/api/stats/propvals/name/${sv}`)
       .then((resp) => resp.data);
     const summaryPromise = axios
-      .post("/api/stats/stat-var-summary", { statVars: [sv] })
+      .get("/api/variable/info", {
+        params: {
+          dcids: [sv],
+        },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
       .then(([descriptionResult, displayNameResult, summaryResult]) => {
