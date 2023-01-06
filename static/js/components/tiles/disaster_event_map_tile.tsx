@@ -71,6 +71,7 @@ const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
 const BREADCRUMB_PARAM_KEY = "bc";
 const PARAM_SEPARATOR = "__";
+// TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
 
 interface DisasterEventMapTilePropType {
@@ -316,6 +317,7 @@ export function DisasterEventMapTile(
    * Updates breadcrumbs using URL params and current place.
    */
   function updateBreadcrumbs(selectedPlace: NamedTypedPlace): void {
+    // TODO: compute breadcrumbs from parent places instead of a URL param.
     const searchParams = new URLSearchParams(window.location.search);
     const breadcrumbParam = searchParams.get(BREADCRUMB_PARAM_KEY);
     // If no breadcrumbs passed in the param, just show current place
