@@ -14,7 +14,6 @@
 
 import unittest
 
-from google.protobuf import text_format
 from config import subject_page_pb2
 
 import lib.util as libutil

@@ -252,13 +252,23 @@ def get_variable_ancestors(dcid: str):
 
 def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
+  url = get_service_url('/v1/bulk/observation-dates/linked')
   return post(
-      '/v1/bulk/observation-dates/linked', {
+      url, {
           'linked_property': "containedInPlace",
           'linked_entity': parent_entity,
           'entity_type': child_type,
           'variables': variables,
       })
+
+
+def observation_existence(variables, entities):
+  """Check if observation exist for <entity, variable> pairs"""
+  url = get_service_url('/v1/bulk/observation-existence')
+  return post(url, {
+      'entities': entities,
+      'variables': variables,
+  })
 
 
 def resolve_id(in_ids, in_prop, out_prop):
