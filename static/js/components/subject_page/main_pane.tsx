@@ -21,7 +21,6 @@
 import _ from "lodash";
 import React from "react";
 
-import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
@@ -42,9 +41,7 @@ interface SubjectPageMainPanePropType {
 export function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
 ): JSX.Element {
-  const placeType = props.place.types
-    ? props.place.types[0]
-    : DEFAULT_PAGE_PLACE_TYPE;
+  const placeType = props.place.types[0];
   const enclosedPlaceType = props.pageConfig.metadata.containedPlaceTypes
     ? props.pageConfig.metadata.containedPlaceTypes[placeType]
     : "";

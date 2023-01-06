@@ -16,12 +16,13 @@
 from flask import Blueprint, current_app, escape
 import services.datacommons as dc
 import json
-import os
 import flask
 import routes.api.place as place_api
 from google.protobuf.json_format import MessageToJson
-import os
+
+from config import subject_page_pb2
 import lib.util
+import lib.page_config as lib_page_config
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -67,8 +68,24 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   place_type = DEFAULT_PLACE_TYPE
   if place_dcid != DEFAULT_PLACE_DCID:
     place_type = place_api.get_place_type(place_dcid)
+    if not place_type:
+      place_type = "Place"
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
+
+  all_stat_vars = lib_page_config.get_all_variables(dashboard_config)
+  stat_vars_existence = dc.observation_existence(all_stat_vars, [place_dcid])
+
+  for stat_var in stat_vars_existence['variable']:
+    if not stat_vars_existence['variable'][stat_var]['entity'][place_dcid]:
+      # This is for the main place, only remove the tile type for single place.
+      for tile_type in [
+          subject_page_pb2.Tile.TileType.HISTOGRAM,
+          subject_page_pb2.Tile.TileType.LINE,
+          subject_page_pb2.Tile.TileType.BAR,
+      ]:
+        dashboard_config = lib_page_config.trim_config(dashboard_config,
+                                                       stat_var, tile_type)
 
   return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
                                place_type=place_type,
