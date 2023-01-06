@@ -90,16 +90,6 @@ def stats_var_property_wrapper(dcids):
   return result
 
 
-@bp.route('/stat-var-summary', methods=["POST"])
-def get_statvar_summary():
-  """Gets the summaries for a list of stat vars."""
-  stat_vars = request.json.get("statVars")
-  result = dc.get_statvar_summary(stat_vars)
-  return Response(json.dumps(result.get("statVarSummary", {})),
-                  200,
-                  mimetype='application/json')
-
-
 @bp.route('/propvals/<string:prop>/<path:dcids>')
 def get_property_value(dcids, prop):
   """Returns the property values for given node dcids and property label."""
