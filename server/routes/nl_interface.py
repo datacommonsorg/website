@@ -436,6 +436,7 @@ def page():
 @bp.route('/data', methods=['GET', 'POST'])
 def data():
   original_query = request.args.get('q')
+  print(request.args)
   context_history = request.get_json().get('contextHistory')
   logging.info(context_history)
   query = str(escape(_remove_punctuations(original_query)))

@@ -18,35 +18,31 @@
  * Main component for NL interface.
  */
 
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Col, Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 
-import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { TextSearchBar } from "../../components/text_search_bar";
-import { NamedTypedPlace } from "../../shared/types";
-import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { QueryResult } from "./query_result";
 
 export function App(): JSX.Element {
+  const [queries, setQueries] = useState<string[]>([]);
+
+  const queryResults = queries.map((q, i) => <QueryResult key={i} query={q}></QueryResult>);
   return (
     <div id="dc-nl-interface">
 
       <Container id="results-thread-container" fluid={true}>
+        { queryResults }
       </Container>
 
       <Container id="query-container" fluid={true}>
         <div className="place-options-section">
           <TextSearchBar
-          onSearch={(q) => {}}
-          initialValue="search here"
-            // onSearch={(q) => {
-            //   const urlParamsString = `q=${q}&build=${selectedBuild}`;
-            //   history.pushState({}, null, "/nl?" + urlParamsString);
-            //   fetchData(urlParamsString);
-            // }}
-            // initialValue={searchText}
+            onSearch={(q) => {
+              setQueries([...queries, q]);
+            }}
+            initialValue=""
             placeholder='For example "family earnings in california"'
           />
         </div>
