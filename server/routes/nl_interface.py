@@ -263,7 +263,7 @@ def _get_related_places(place_dcid):
 
 
 def _get_svg_info(entities, svg_dcids):
-  result = dc.get_variable_group_info_bulk(svg_dcids, entities)
+  result = dc.get_variable_group_info(svg_dcids, entities)
   if isinstance(result, dict):
     return result
   return {}

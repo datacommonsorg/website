@@ -21,12 +21,12 @@ from main import app
 
 class TestVariablePath(unittest.TestCase):
 
-  @mock.patch('routes.api.variable.dc.get')
+  @mock.patch('routes.api.variable.dc.get_variable_ancestors')
   def test_variable_path(self, mock_result):
 
-    def side_effect(url):
-      if url.endswith("/v1/variable/ancestors/Count_Person"):
-        return {"ancestors": ["dc/g/Demographics"]}
+    def side_effect(dcid):
+      if dcid == "Count_Person":
+        return ["dc/g/Demographics"]
       else:
         return {}
 

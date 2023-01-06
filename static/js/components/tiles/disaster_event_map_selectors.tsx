@@ -25,7 +25,7 @@ import {
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
 } from "../../constants/disaster_event_map_constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace } from "../../shared/types";
 
 const DATE_OPTION_DISPLAY_NAMES = {
   [DATE_OPTION_30D_KEY]: "Last 30 days",
@@ -34,13 +34,13 @@ const DATE_OPTION_DISPLAY_NAMES = {
 
 interface DisasterEventMapSelectorsPropType {
   // List of places to show in the breadcrumbs
-  breadcrumbPlaces: NamedTypedPlace[];
+  breadcrumbPlaces: NamedPlace[];
   // Selected date
   selectedDate: string;
   // List of available date options
   dateOptions: string[];
   // Callback when new place is selected
-  onPlaceSelected: (place: NamedTypedPlace) => void;
+  onPlaceSelected: (place: NamedPlace) => void;
   // Callback when new date is selected
   onDateSelected: (date: string) => void;
 }
