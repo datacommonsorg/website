@@ -22,17 +22,19 @@ import _ from "lodash";
 import React from "react";
 import { Input } from "reactstrap";
 
-import { SeverityFilter } from "../../types/disaster_event_map_types";
-import { EventTypeSpec } from "../../types/subject_page_proto_types";
+import {
+  EventTypeSpec,
+  SeverityFilter,
+} from "../../types/subject_page_proto_types";
 
 interface DisasterEventMapFiltersPropType {
-  // map of disaster type to map of severity prop to filter for that prop
-  severityFilters: Record<string, Record<string, SeverityFilter>>;
+  // map of disaster type to severity filter for that disaster type
+  severityFilters: Record<string, SeverityFilter>;
   // map of disaster type to information about that event type
   eventTypeSpec: Record<string, EventTypeSpec>;
   // callback function when severity filters are updated.
   onSeverityFiltersUpdated: (
-    severityFilters: Record<string, Record<string, SeverityFilter>>
+    severityFilters: Record<string, SeverityFilter>
   ) => void;
   // height to set this component to.
   height: number;
@@ -43,11 +45,15 @@ export function DisasterEventMapFilters(
 ): JSX.Element {
   function onFilterInputChanged(
     disasterType: string,
-    prop: string,
-    newVal: number
+    newVal: number,
+    isUpperLimit: boolean
   ): void {
     const updatedSeverityFilters = _.cloneDeep(props.severityFilters);
-    updatedSeverityFilters[disasterType][prop].min = newVal;
+    if (isUpperLimit) {
+      updatedSeverityFilters[disasterType].upperLimit = newVal;
+    } else {
+      updatedSeverityFilters[disasterType].lowerLimit = newVal;
+    }
     props.onSeverityFiltersUpdated(updatedSeverityFilters);
   }
 
@@ -59,50 +65,47 @@ export function DisasterEventMapFilters(
       <h6>Severity Filters</h6>
       {Object.keys(props.severityFilters).map((disasterType) => {
         const disasterTypeName = props.eventTypeSpec[disasterType].name;
+        const severityFilter = props.severityFilters[disasterType];
         return (
           <div
             className="disaster-type-filters"
             key={`${disasterType}-filters`}
           >
             <div className="disaster-type-name">{disasterTypeName}</div>
-            {Object.keys(props.severityFilters[disasterType]).map((prop) => {
-              return (
-                <div
-                  className="prop-filter"
-                  key={`${disasterType}-${prop}-filter`}
-                >
-                  <span>{prop}</span>
-                  <div className="prop-filter-input">
-                    <span>min: </span>
-                    <Input
-                      type="number"
-                      onChange={(e) =>
-                        onFilterInputChanged(
-                          disasterType,
-                          prop,
-                          Number(e.target.value)
-                        )
-                      }
-                      value={props.severityFilters[disasterType][prop].min}
-                    />
-                  </div>
-                  <div className="prop-filter-input">
-                    <span>max: </span>
-                    <Input
-                      type="number"
-                      onChange={(e) =>
-                        onFilterInputChanged(
-                          disasterType,
-                          prop,
-                          Number(e.target.value)
-                        )
-                      }
-                      value={props.severityFilters[disasterType][prop].max}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+            <div
+              className="prop-filter"
+              key={`${disasterType}-${severityFilter.prop}-filter`}
+            >
+              <span>{severityFilter.prop}</span>
+              <div className="prop-filter-input">
+                <span>min: </span>
+                <Input
+                  type="number"
+                  onChange={(e) =>
+                    onFilterInputChanged(
+                      disasterType,
+                      Number(e.target.value),
+                      false /* isUpperLimit */
+                    )
+                  }
+                  value={severityFilter.lowerLimit}
+                />
+              </div>
+              <div className="prop-filter-input">
+                <span>max: </span>
+                <Input
+                  type="number"
+                  onChange={(e) =>
+                    onFilterInputChanged(
+                      disasterType,
+                      Number(e.target.value),
+                      true /* isUpperLimit */
+                    )
+                  }
+                  value={severityFilter.upperLimit}
+                />
+              </div>
+            </div>
           </div>
         );
       })}

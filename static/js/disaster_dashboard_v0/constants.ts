@@ -45,8 +45,6 @@ export const DISASTER_EVENT_TYPES = {
   [DisasterType.DROUGHT]: ["DroughtEvent"],
 };
 
-// Map of Disaster type to intensity props used for each disaster type
-export const DISASTER_EVENT_INTENSITIES = {
-  [DisasterType.EARTHQUAKE]: ["magnitude"],
-  [DisasterType.DROUGHT]: ["directDeaths", "directInjuries"],
-};
+// Map of Disaster type to severity filter. Empty for now because this is for an
+// old version of disaster dashboard that is not currently used.
+export const DISASTER_EVENT_INTENSITIES = {};
