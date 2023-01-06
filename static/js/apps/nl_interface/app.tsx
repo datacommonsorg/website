@@ -24,6 +24,7 @@ import { useCookies } from "react-cookie";
 import { Col, Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
@@ -279,10 +280,13 @@ export function App(): JSX.Element {
         )}
         {chartsData && chartsData.config && (
           <Row>
-            <SubjectPageMainPane
-              place={chartsData.place}
-              pageConfig={chartsData.config}
-            />
+            <SubjectPageSidebar categories={chartsData.config.categories} />
+            <div className="row col-md-9x col-lg-10">
+              <SubjectPageMainPane
+                place={chartsData.place}
+                pageConfig={chartsData.config}
+              />
+            </div>
           </Row>
         )}
         <div id="screen" style={{ display: loading ? "block" : "none" }}>
