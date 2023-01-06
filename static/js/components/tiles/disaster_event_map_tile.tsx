@@ -34,12 +34,10 @@ import {
 } from "../../constants/disaster_event_map_constants";
 import {
   EUROPE_NAMED_TYPED_PLACE,
-  IPCC_PLACE_50_TYPE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import { getAllChildPlaceTypes } from "../../tools/map/util";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
@@ -48,7 +46,6 @@ import {
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
-  canClickRegion,
   fetchDateList,
   fetchDisasterEventPoints,
   fetchGeoJsonData,
@@ -266,31 +263,21 @@ export function DisasterEventMapTile(
   );
 
   /**
-   * Updates place info given a selectedPlace and optionally an enclosedPlaceType
+   * Updates place info given a selectedPlace and enclosedPlaceType
    */
   function updatePlaceInfo(
     selectedPlace: NamedTypedPlace,
-    enclosedPlaceType?: string
+    enclosedPlaceType: string
   ): void {
-    loadSpinner(CONTENT_SPINNER_ID);
     if (placeInfo && selectedPlace.dcid === placeInfo.selectedPlace.dcid) {
       return;
     }
     getParentPlacesPromise(selectedPlace.dcid).then((parentPlaces) => {
-      const allChildPlaces = getAllChildPlaceTypes(
+      setPlaceInfo({
         selectedPlace,
-        parentPlaces
-      ).filter((placeType) => placeType !== IPCC_PLACE_50_TYPE_DCID);
-      if (!_.isEmpty(allChildPlaces)) {
-        setPlaceInfo({
-          selectedPlace,
-          enclosedPlaceType: enclosedPlaceType || allChildPlaces[0],
-          parentPlaces,
-        });
-      } else {
-        removeSpinner(CONTENT_SPINNER_ID);
-        window.alert("Sorry, we do not have maps for this place");
-      }
+        enclosedPlaceType,
+        parentPlaces,
+      });
     });
   }
 
@@ -447,19 +434,6 @@ export function DisasterEventMapTile(
       USA_PLACE_DCID,
       placeInfo.parentPlaces
     );
-    const canClickRegionCb = (placeDcid: string) => {
-      const newPlace = {
-        dcid: placeDcid,
-        name: placeDcid,
-        types: [placeInfo.enclosedPlaceType],
-      };
-      return canClickRegion(
-        newPlace,
-        placeInfo.selectedPlace,
-        placeInfo.parentPlaces,
-        europeanPlaces.current
-      );
-    };
     const projection = getProjection(isUsaPlace, "", width, height);
     drawD3Map(
       props.id,
@@ -473,7 +447,7 @@ export function DisasterEventMapTile(
         redirectAction(geoDcid.geoDcid) /* redirectAction */,
       () =>
         "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
-      canClickRegionCb,
+      () => true /* canClickRegion: allow all regions to be clickable */,
       false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
       projection,
