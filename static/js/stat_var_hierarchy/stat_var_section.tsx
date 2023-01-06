@@ -27,6 +27,7 @@ import { StatVarCharts } from "../browser/stat_var_charts";
 import { Context } from "../shared/context";
 import { NamedNode, StatVarHierarchyType } from "../shared/types";
 import { StatVarInfo, StatVarSummary } from "../shared/types";
+import { stringifyFn } from "../utils/axios";
 import { getCommonPrefix } from "../utils/string_utils";
 import { StatVarSectionInput } from "./stat_var_section_input";
 
@@ -125,7 +126,12 @@ export class StatVarSection extends React.Component<
     const statVarList = this.props.data.map((sv) => sv.id);
     this.svSummaryFetching = statVarList;
     axios
-      .post("/api/stats/stat-var-summary", { statVars: statVarList })
+      .get("/api/variable/info", {
+        params: {
+          dcids: statVarList,
+        },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => {
         const data = resp.data;
         this.svSummaryFetching = null;
