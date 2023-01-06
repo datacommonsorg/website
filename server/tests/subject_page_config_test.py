@@ -16,7 +16,7 @@ import unittest
 from google.protobuf import text_format
 
 from config import subject_page_pb2
-import lib.page_config as lib_page_config
+import lib.subject_page_config as lib_subject_page_config
 import lib.util as lib_util
 
 
@@ -38,7 +38,7 @@ class TestGetAllVariables(unittest.TestCase):
     ]
     config = lib_util.get_subject_page_config(
         "tests/test_data/disaster.textproto")
-    assert sorted(lib_page_config.get_all_variables(config)) == expected
+    assert sorted(lib_subject_page_config.get_all_variables(config)) == expected
 
 
 class TestTrimConfig(unittest.TestCase):
@@ -46,10 +46,10 @@ class TestTrimConfig(unittest.TestCase):
   def test_trim_tiles(self):
     config = lib_util.get_subject_page_config(
         "tests/test_data/disaster.textproto")
-    config = lib_page_config.trim_config(
+    config = lib_subject_page_config.trim_config(
         config, "Count_fireEvent", subject_page_pb2.Tile.TileType.HISTOGRAM)
-    config = lib_page_config.trim_config(config, "Count_fireEvent",
-                                         subject_page_pb2.Tile.TileType.MAP)
+    config = lib_subject_page_config.trim_config(
+        config, "Count_fireEvent", subject_page_pb2.Tile.TileType.MAP)
     result = text_format.MessageToString(config.categories[-1])
 
     category = subject_page_pb2.Category()
@@ -91,8 +91,8 @@ class TestTrimConfig(unittest.TestCase):
     assert result == expect
 
     # Remove two more tiles, then the entire Fire category should be removed.
-    config = lib_page_config.trim_config(
+    config = lib_subject_page_config.trim_config(
         config, "Area_fireEvent", subject_page_pb2.Tile.TileType.HISTOGRAM)
-    config = lib_page_config.trim_config(config, "Area_fireEvent",
-                                         subject_page_pb2.Tile.TileType.MAP)
+    config = lib_subject_page_config.trim_config(
+        config, "Area_fireEvent", subject_page_pb2.Tile.TileType.MAP)
     assert config.categories[-1].title == "Floods"
