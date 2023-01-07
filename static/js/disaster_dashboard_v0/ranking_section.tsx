@@ -156,29 +156,27 @@ export function getRankingUnits(
   selectedDisaster: DisasterType
 ): RankingUnitInfo[] {
   const rankings = [];
-  const props = DISASTER_EVENT_INTENSITIES[selectedDisaster] || [];
-  if (_.isEmpty(disasterEventData)) {
+  const severityFilter = DISASTER_EVENT_INTENSITIES[selectedDisaster] || null;
+  if (_.isEmpty(disasterEventData) || !severityFilter) {
     return rankings;
   }
-  for (const prop of props) {
-    const sortedEvents = _.clone(disasterEventData).sort((a, b) => {
-      const eventDataAVal = a.severity[prop];
-      const eventDataBVal = b.severity[prop];
-      if (eventDataAVal && eventDataBVal) {
-        return eventDataBVal - eventDataAVal;
-      } else if (eventDataAVal) {
-        return -1;
-      } else if (eventDataBVal) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    rankings.push({
-      title: prop,
-      prop,
-      ranking: sortedEvents,
-    });
-  }
+  const sortedEvents = _.clone(disasterEventData).sort((a, b) => {
+    const eventDataAVal = a.severity[severityFilter.prop];
+    const eventDataBVal = b.severity[severityFilter.prop];
+    if (eventDataAVal && eventDataBVal) {
+      return eventDataBVal - eventDataAVal;
+    } else if (eventDataAVal) {
+      return -1;
+    } else if (eventDataBVal) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  rankings.push({
+    title: severityFilter.prop,
+    prop: severityFilter.prop,
+    ranking: sortedEvents,
+  });
   return rankings;
 }

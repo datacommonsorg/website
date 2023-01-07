@@ -47,4 +47,11 @@ export const DISASTER_EVENT_TYPES = {
 
 // Map of Disaster type to severity filter. Empty for now because this is for an
 // old version of disaster dashboard that is not currently used.
-export const DISASTER_EVENT_INTENSITIES = {};
+export const DISASTER_EVENT_INTENSITIES = {
+  [DisasterType.EARTHQUAKE]: {
+    prop: "magnitude",
+    unit: "",
+    upperLimit: 8,
+    lowerLimit: 1,
+  },
+};

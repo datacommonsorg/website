@@ -210,22 +210,3 @@ test("getRankingUnits - single severity prop", () => {
   const result = getRankingUnits(eventPoints, DisasterType.EARTHQUAKE);
   expect(result).toEqual(expectedRankingUnits);
 });
-
-test("getRankingUnits - multiple severity props", () => {
-  const eventPoints = [DROUGHT_EVENT_1, DROUGHT_EVENT_2];
-  const expectedRankingUnits = [
-    {
-      title: "directDeaths",
-      prop: "directDeaths",
-      ranking: [DROUGHT_EVENT_2, DROUGHT_EVENT_1],
-    },
-    {
-      title: "directInjuries",
-      prop: "directInjuries",
-      ranking: [DROUGHT_EVENT_1, DROUGHT_EVENT_2],
-    },
-  ];
-  const result = getRankingUnits(eventPoints, DisasterType.DROUGHT);
-
-  expect(result).toEqual(expectedRankingUnits);
-});
