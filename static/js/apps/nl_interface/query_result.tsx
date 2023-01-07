@@ -87,7 +87,6 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
 
   function fetchData(query: string, build: string): void {
     setLoading(true);
-    console.log(`/nl/data?q=${query}&build=${build}`);
     axios
       .post(`/nl/data?q=${query}&build=${build}`, {
         contextHistory: cookies["context_history"],
