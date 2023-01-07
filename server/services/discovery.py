@@ -139,6 +139,7 @@ endpoints = Endpoints([
     '/v1/bulk/observations/series',
     '/v1/bulk/observations/series/linked',
     '/v1/bulk/observation-dates/linked',
+    '/v1/bulk/observation-existence',
     '/v1/triples',
     '/v1/variables',
     '/v1/variable/ancestors',
