@@ -29,6 +29,7 @@ import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
+import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -85,6 +86,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       sources={barChartData.sources}
       replacementStrings={rs}
       className="bar-chart"
+      allowEmbed={true}
+      getDataCsv={() => dataGroupsToCsv(barChartData.dataGroup)}
     >
       <div id={props.id} className="svg-container"></div>
     </ChartTileContainer>

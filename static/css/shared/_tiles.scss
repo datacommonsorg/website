@@ -19,6 +19,7 @@
  */
 
 @forward "ranking_unit";
+@forward "chart_embed";
 @use "../base";
 
 $chart-container-top-margin: 20px;
@@ -37,6 +38,9 @@ $border-radius: 0.5rem;
 
   footer {
     margin-left: inherit !important;
+    margin-right: 0 !important;
+    display: flex;
+    justify-content: space-between;
   }
 }
 

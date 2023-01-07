@@ -29,6 +29,7 @@ import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
+import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
@@ -83,6 +84,8 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       sources={histogramData.sources}
       replacementStrings={rs}
       className="histogram-chart"
+      allowEmbed={true}
+      getDataCsv={() => dataPointsToCsv(histogramData.dataPoints)}
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
