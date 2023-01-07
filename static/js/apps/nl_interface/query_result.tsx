@@ -192,7 +192,10 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
               <label>Embeddings build:</label>
             </Row>
             <div className="embeddings-build-options">
-              <select value={selectedBuild} onChange={handleEmbeddingsBuildChange}>
+              <select
+                value={selectedBuild}
+                onChange={handleEmbeddingsBuildChange}
+              >
                 {buildOptions.map((option, idx) => (
                   <option key={idx} value={option.value}>
                     {option.text}

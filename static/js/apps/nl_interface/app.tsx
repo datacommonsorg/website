@@ -33,7 +33,6 @@ export function App(): JSX.Element {
   ));
   return (
     <div id="dc-nl-interface">
-
       <Container id="results-thread-container" fluid={true}>
         {queryResults}
       </Container>
