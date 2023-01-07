@@ -40,6 +40,10 @@ from services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
+nl_model_cache_key = 'nl_model'
+nl_model_cache_path = '~/.datacommons/'
+nl_model_cache_expire = 3600 * 24  # Cache for 1 day
+
 
 def createMiddleWare(app, exporter):
   # Configure a flask middleware that listens for each request and applies
@@ -267,19 +271,39 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  # Initialize the AI module.
-  if os.environ.get('ENABLE_MODEL') == 'true':
+  def load_model():
+    # import services.ai as ai
+    # app.config['AI_CONTEXT'] = ai.Context()
+
+    # In local dev, cache the model in disk so each hot reload won't download
+    # the model again.
+    if app.config['LOCAL']:
+      from diskcache import Cache
+      cache = Cache(nl_model_cache_path)
+      cache.expire()
+      nl_model = cache.get(nl_model_cache_key)
+      app.config['NL_MODEL'] = nl_model
+      if nl_model:
+        logging.info("Use cached model in: " + nl_model_cache_path)
+        return
     # Some specific imports for the NL Interface.
     import en_core_web_md
     import lib.nl_training as libnl
-    import services.ai as ai
     import services.nl as nl
-    # app.config['AI_CONTEXT'] = ai.Context()
     # For the classification types available, check lib.nl_training (libnl).
     classification_types = ['ranking', 'temporal', 'contained_in']
-    app.config['NL_MODEL'] = nl.Model(en_core_web_md.load(),
-                                      libnl.CLASSIFICATION_INFO,
-                                      classification_types)
+    nl_model = nl.Model(en_core_web_md.load(), libnl.CLASSIFICATION_INFO,
+                        classification_types)
+    app.config['NL_MODEL'] = nl_model
+    if app.config['LOCAL']:
+      with Cache(cache.directory) as reference:
+        reference.set(nl_model_cache_key,
+                      nl_model,
+                      expire=nl_model_cache_expire)
+
+  # Initialize the AI module.
+  if os.environ.get('ENABLE_MODEL') == 'true':
+    load_model()
 
   def is_up(url: str):
     if not url.lower().startswith('http'):
