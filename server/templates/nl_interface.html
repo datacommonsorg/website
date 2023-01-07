@@ -15,17 +15,19 @@
 #}
 {%- extends BASE_HTML -%}
 
+{% set is_hide_full_footer = true %}
+{% set is_hide_sub_footer = true %}
 {% set main_id = 'nl-interface' %}
 {% set page_id = 'nl-interface-page' %}
 {% set title = 'NL Explorer' %}
+{% set subpage_title = 'NL Explorer' %}
+{% set subpage_url = url_for('nl.page') %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/nl_interface.min.css', t=config['VERSION'])}} >
 {% endblock %}
 
 {% block content %}
-<div id="body" class="container-fluid">
-</div>
 {% endblock %}
 
 {% block footer %}
