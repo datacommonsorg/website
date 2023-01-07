@@ -54,13 +54,27 @@ interface DebugInfo {
   containedInClassification: string;
 }
 
+const buildOptions = [
+  {
+    value: "combined_all",
+    text: "---- Choose an Embeddings Build option (default: Combined All) -------",
+  },
+  { value: "demographics300", text: "Demographics only (300 SVs)" },
+  {
+    value: "demographics300-withpalmalternatives",
+    text: "Demographics only (300 SVs) with PaLM Alternatives",
+  },
+  { value: "uncurated3000", text: "Uncurated 3000 SVs" },
+  { value: "combined_all", text: "Combined All of the Above (Default)" },
+];
+
 export interface QueryResultProps {
   query: string;
-  build_option: string;
 }
 
 export function QueryResult(props: QueryResultProps): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
+  const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
   const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies();
@@ -68,13 +82,14 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
   const showDebugInfo = true;
 
   useEffect(() => {
-    fetchData(props.query);
+    fetchData(props.query, selectedBuild);
   }, []);
 
-  function fetchData(query: string): void {
+  function fetchData(query: string, build: string): void {
     setLoading(true);
+    console.log(`/nl/data?q=${query}&build=${build}`);
     axios
-      .post(`/nl/data?q=${query}&build=${props.build_option}`, {
+      .post(`/nl/data?q=${query}&build=${build}`, {
         contextHistory: cookies["context_history"],
       })
       .then((resp) => {
@@ -123,6 +138,7 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
           temporalClassification: debugData["temporal_classification"],
           containedInClassification: debugData["contained_in_classification"],
         });
+        setSelectedBuild(debugData["embeddings_build"]);
         setLoading(false);
       });
   }
@@ -151,6 +167,14 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
     );
   };
 
+  const handleEmbeddingsBuildChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const build = event.target.value;
+    setSelectedBuild(build);
+    fetchData(props.query, build);
+  };
+
   return (
     <div className="nl-query-result">
       <Container fluid={true}>
@@ -165,6 +189,18 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
               <b>DEBUGGING OPTIONS/INFO: </b>
               <br></br>
             </Row>
+            <Row>
+              <label>Embeddings build:</label>
+            </Row>
+            <div className="embeddings-build-options">
+              <select value={selectedBuild} onChange={handleEmbeddingsBuildChange}>
+                {buildOptions.map((option, idx) => (
+                  <option key={idx} value={option.value}>
+                    {option.text}
+                  </option>
+                ))}
+              </select>
+            </div>
             {debugInfo && (
               <>
                 <Row>
