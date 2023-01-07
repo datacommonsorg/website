@@ -134,6 +134,7 @@ def register_routes_common(app):
       landing_page,
       node,
       observation_dates,
+      observation_existence,
       place as place_api,
       point,
       ranking as ranking_api,
@@ -151,6 +152,7 @@ def register_routes_common(app):
   app.register_blueprint(landing_page.bp)
   app.register_blueprint(node.bp)
   app.register_blueprint(observation_dates.bp)
+  app.register_blueprint(observation_existence.bp)
   app.register_blueprint(place_api.bp)
   app.register_blueprint(point.bp)
   app.register_blueprint(ranking_api.bp)
