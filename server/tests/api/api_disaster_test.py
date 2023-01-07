@@ -136,8 +136,14 @@ class TestGetData(unittest.TestCase):
   def test_has_data(self, mock_event_collection):
     with app.app_context():
 
-      def event_side_effect(event_type, affected_place, date):
-        if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID and date == TEST_DATE:
+      def event_side_effect(event_type, affected_place, date, filter_prop,
+                            filter_unit, filter_upper_limit,
+                            filter_lower_limit):
+        if (event_type == TEST_EVENT_TYPE and
+            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+            filter_prop == "" and filter_unit == "" and
+            filter_upper_limit == float("0") and
+            filter_lower_limit == float("0")):
           return EVENT_DATA
         else:
           return None
@@ -154,8 +160,14 @@ class TestGetData(unittest.TestCase):
   def test_no_data(self, mock_event_collection):
     with app.app_context():
 
-      def event_side_effect(event_type, affected_place, date):
-        if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID and date == TEST_DATE:
+      def event_side_effect(event_type, affected_place, date, filter_prop,
+                            filter_unit, filter_upper_limit,
+                            filter_lower_limit):
+        if (event_type == TEST_EVENT_TYPE and
+            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+            filter_prop == "" and filter_unit == "" and
+            filter_upper_limit == float("0") and
+            filter_lower_limit == float("0")):
           return {}
         else:
           return None
