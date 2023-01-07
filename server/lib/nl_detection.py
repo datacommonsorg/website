@@ -1,7 +1,7 @@
 # The following classes are used for the NL Detection.
 from abc import ABC
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Dict, List
 
 
 @dataclass
