@@ -99,26 +99,20 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     props.setSelectedBuild(build);
   };
 
+  const toggleShowDebug = () => {
+    setShowDebug(!showDebug);
+  };
+
   return (
     <>
       {!showDebug && (
-        <a
-          className="debug-info-toggle show"
-          onClick={() => {
-            setShowDebug(true);
-          }}
-        >
+        <a className="debug-info-toggle show" onClick={toggleShowDebug}>
           Show debug info
         </a>
       )}
       {showDebug && (
         <div className="nl-query-result-debug-info">
-          <a
-            className="debug-info-toggle hide"
-            onClick={() => {
-              setShowDebug(false);
-            }}
-          >
+          <a className="debug-info-toggle hide" onClick={toggleShowDebug}>
             X
           </a>
           <Row>
