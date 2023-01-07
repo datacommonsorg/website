@@ -40,6 +40,10 @@ from services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
+nl_model_cache_key = 'nl_model'
+nl_model_cache_path = '~/.datacommons/'
+nl_model_cache_expire = 3600 * 24  # Cache for 1 day
+
 
 def createMiddleWare(app, exporter):
   # Configure a flask middleware that listens for each request and applies
@@ -87,10 +91,11 @@ def register_routes_custom_dc(app):
 
 def register_routes_stanford_dc(app, is_test):
   # Install blueprints specific to Stanford DC
-  from routes import (disasters)
+  from routes import (disasters, event)
   from routes.api import (disaster_api)
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
+  app.register_blueprint(event.bp)
 
   if not is_test:
     # load disaster dashboard configs
@@ -133,6 +138,7 @@ def register_routes_common(app):
       landing_page,
       node,
       observation_dates,
+      observation_existence,
       place as place_api,
       point,
       ranking as ranking_api,
@@ -150,6 +156,7 @@ def register_routes_common(app):
   app.register_blueprint(landing_page.bp)
   app.register_blueprint(node.bp)
   app.register_blueprint(observation_dates.bp)
+  app.register_blueprint(observation_existence.bp)
   app.register_blueprint(place_api.bp)
   app.register_blueprint(point.bp)
   app.register_blueprint(ranking_api.bp)
@@ -190,7 +197,8 @@ def create_app():
   register_routes_common(app)
   if cfg.CUSTOM:
     register_routes_custom_dc(app)
-  if cfg.ENV_NAME == 'STANFORD' or os.environ.get('FLASK_ENV') == 'autopush':
+  if cfg.ENV_NAME == 'STANFORD' or os.environ.get(
+      'FLASK_ENV') == 'autopush' or cfg.LOCAL:
     register_routes_stanford_dc(app, cfg.TEST)
   if cfg.TEST:
     # disaster dashboard tests require stanford's routes to be registered.
@@ -263,19 +271,39 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  # Initialize the AI module.
-  if os.environ.get('ENABLE_MODEL') == 'true':
+  def load_model():
+    # import services.ai as ai
+    # app.config['AI_CONTEXT'] = ai.Context()
+
+    # In local dev, cache the model in disk so each hot reload won't download
+    # the model again.
+    if app.config['LOCAL']:
+      from diskcache import Cache
+      cache = Cache(nl_model_cache_path)
+      cache.expire()
+      nl_model = cache.get(nl_model_cache_key)
+      app.config['NL_MODEL'] = nl_model
+      if nl_model:
+        logging.info("Use cached model in: " + nl_model_cache_path)
+        return
     # Some specific imports for the NL Interface.
     import en_core_web_md
     import lib.nl_training as libnl
-    import services.ai as ai
     import services.nl as nl
-    # app.config['AI_CONTEXT'] = ai.Context()
     # For the classification types available, check lib.nl_training (libnl).
     classification_types = ['ranking', 'temporal', 'contained_in']
-    app.config['NL_MODEL'] = nl.Model(en_core_web_md.load(),
-                                      libnl.CLASSIFICATION_INFO,
-                                      classification_types)
+    nl_model = nl.Model(en_core_web_md.load(), libnl.CLASSIFICATION_INFO,
+                        classification_types)
+    app.config['NL_MODEL'] = nl_model
+    if app.config['LOCAL']:
+      with Cache(cache.directory) as reference:
+        reference.set(nl_model_cache_key,
+                      nl_model,
+                      expire=nl_model_cache_expire)
+
+  # Initialize the AI module.
+  if os.environ.get('ENABLE_MODEL') == 'true':
+    load_model()
 
   def is_up(url: str):
     if not url.lower().startswith('http'):

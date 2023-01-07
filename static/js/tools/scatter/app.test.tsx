@@ -412,39 +412,40 @@ function mockAxios(): void {
     .calledWith("/api/variable/path?dcid=Count_Person_Employed")
     .mockResolvedValue({ data: pathsData.Count_Person_Employed });
 
-  when(axios.post)
-    .calledWith("/api/stats/stat-var-summary", {
-      statVars: [
-        "Count_Person_Employed",
-        "Count_HousingUnit",
-        "Count_Establishment",
-      ],
+  when(axios.get)
+    .calledWith("/api/variable/info", {
+      params: {
+        nodes: [
+          "Count_Person_Employed",
+          "Count_HousingUnit",
+          "Count_Establishment",
+        ],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        statVarSummary: {
-          Count_Person_Employed: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        Count_Person_Employed: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
-          Count_HousingUnit: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        },
+        Count_HousingUnit: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
-          Count_Establishment: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        },
+        Count_Establishment: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
         },

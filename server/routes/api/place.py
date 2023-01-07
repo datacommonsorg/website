@@ -232,7 +232,7 @@ def statsvars_route(dcid):
   Returns:
     A list of statistical variable dcids.
   """
-  return Response(json.dumps(dc.get_stat_vars(dcid)),
+  return Response(json.dumps(dc.get_variables(dcid)),
                   200,
                   mimetype='application/json')
 

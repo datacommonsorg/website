@@ -21,7 +21,7 @@ from main import app
 
 class TestGetVariableGroupInfo(unittest.TestCase):
 
-  @mock.patch('routes.api.variable_group.dc.get')
+  @mock.patch('routes.api.variable_group.dc.get_variable_group_info')
   def test_statvar_path(self, mock_result):
     expected_result = {
         "absoluteName":
@@ -37,16 +37,15 @@ class TestGetVariableGroupInfo(unittest.TestCase):
         }]
     }
 
-    def side_effect(url):
-      if url.endswith(
-          "/v1/info/variable-group/dc/g/Root?constrained_entities=geoId/06"):
-        return {"info": expected_result}
+    def side_effect(dcids, entities):
+      if dcids == ["dc/g/Root"] and entities == ["geoId/06"]:
+        return {"data": [{"node": "dc/g/Root", "info": expected_result}]}
       else:
         return {}
 
     mock_result.side_effect = side_effect
     response = app.test_client().get(
-        'api/variable-group/info?dcid=dc/g/Root&entities=geoId/06')
+        '/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06')
     assert response.status_code == 200
     result = json.loads(response.data)
     assert result == expected_result

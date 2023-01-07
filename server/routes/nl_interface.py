@@ -150,8 +150,13 @@ def _get_buckets(defn):
 
 def _chart_config(place_dcid, main_place_type, main_place_name,
                   child_places_type, highlight_svs, sv2name, peer_buckets):
+  # TODO: temporarility disable child places charts before they can be handled
+  # gracefully. Right now each query incurs hundreds of single place API call,
+  # which should be replaced by "withInPlace" API call. This spams the logs and
+  # makes the loading slow.
+  child_places_type = ""
   #@title
-  chart_config = {'metadata': {'place_dcid': [place_dcid],}}
+  chart_config = {'metadata': {'place_dcid': [place_dcid]}}
 
   if child_places_type:
     chart_config['metadata']['contained_place_types'] = {
@@ -258,7 +263,7 @@ def _get_related_places(place_dcid):
 
 
 def _get_svg_info(entities, svg_dcids):
-  result = dc.get_variable_group_info_bulk(svg_dcids, entities)
+  result = dc.get_variable_group_info(svg_dcids, entities)
   if isinstance(result, dict):
     return result
   return {}
@@ -440,18 +445,18 @@ def data():
   using_default_place = False
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
-    logging.info("Query was empty.")
+    logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
                                    original_query, [], "", "", "", None,
                                    embeddings_build, "", "", "")
 
   # Step 1: find all relevant places and the name/type of the main place found.
   places_found = model.detect_place(query)
-  logging.info(places_found)
 
   if not places_found:
     logging.info("Place detection failed.")
 
+  logging.info("Found places: {}".format(places_found))
   # If place_dcid was already set by the url, skip inferring it.
   place_dcid = request.args.get('place_dcid', '')
   if not place_dcid:

@@ -16,7 +16,7 @@ from flask import Blueprint, request
 import services.datacommons as dc
 
 # Define blueprint
-bp = Blueprint("observation-dates", __name__)
+bp = Blueprint("observation_dates", __name__)
 
 
 @bp.route('/api/observation-dates')

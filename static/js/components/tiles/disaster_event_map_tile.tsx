@@ -34,12 +34,10 @@ import {
 } from "../../constants/disaster_event_map_constants";
 import {
   EUROPE_NAMED_TYPED_PLACE,
-  IPCC_PLACE_50_TYPE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import { getAllChildPlaceTypes } from "../../tools/map/util";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
@@ -48,7 +46,6 @@ import {
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
-  canClickRegion,
   fetchDateList,
   fetchDisasterEventPoints,
   fetchGeoJsonData,
@@ -58,6 +55,7 @@ import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
+import { getPlaceNames } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { DisasterEventMapFilters } from "./disaster_event_map_filters";
@@ -68,6 +66,10 @@ const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
+const BREADCRUMB_PARAM_KEY = "bc";
+const PARAM_SEPARATOR = "__";
+// TODO: make this config driven
+const REDIRECT_URL_PREFIX = "/disasters/";
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -99,7 +101,7 @@ export function DisasterEventMapTile(
   const [dateList, setDateList] = useState([]);
   const [selectedDate, setSelectedDate] = useState(DATE_OPTION_6M_KEY);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
-  const [breadcrumbs, setBreadcrumbs] = useState([props.place]);
+  const [breadcrumbs, setBreadcrumbs] = useState<NamedPlace[]>([]);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
@@ -137,6 +139,7 @@ export function DisasterEventMapTile(
     // When props change, update date and place info
     updateDateList(props.eventTypeSpec, props.place.dcid);
     updatePlaceInfo(props.place, props.enclosedPlaceType);
+    updateBreadcrumbs(props.place);
   }, [props]);
 
   useEffect(() => {
@@ -177,7 +180,7 @@ export function DisasterEventMapTile(
         breadcrumbPlaces={breadcrumbs}
         selectedDate={selectedDate}
         dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, ...dateList]}
-        onPlaceSelected={(place: NamedTypedPlace) => updatePlaceInfo(place)}
+        onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
         onDateSelected={(date: string) => {
           loadSpinner(CONTENT_SPINNER_ID);
           setSelectedDate(date);
@@ -260,39 +263,21 @@ export function DisasterEventMapTile(
   );
 
   /**
-   * Updates place info given a selectedPlace and optionally an enclosedPlaceType
+   * Updates place info given a selectedPlace and enclosedPlaceType
    */
   function updatePlaceInfo(
     selectedPlace: NamedTypedPlace,
-    enclosedPlaceType?: string
+    enclosedPlaceType: string
   ): void {
-    loadSpinner(CONTENT_SPINNER_ID);
     if (placeInfo && selectedPlace.dcid === placeInfo.selectedPlace.dcid) {
       return;
     }
     getParentPlacesPromise(selectedPlace.dcid).then((parentPlaces) => {
-      const allChildPlaces = getAllChildPlaceTypes(
+      setPlaceInfo({
         selectedPlace,
-        parentPlaces
-      ).filter((placeType) => placeType !== IPCC_PLACE_50_TYPE_DCID);
-      if (!_.isEmpty(allChildPlaces)) {
-        setPlaceInfo({
-          selectedPlace,
-          enclosedPlaceType: enclosedPlaceType || allChildPlaces[0],
-          parentPlaces,
-        });
-        const breadcrumbIdx = breadcrumbs.findIndex(
-          (crumb) => crumb.dcid === selectedPlace.dcid
-        );
-        if (breadcrumbIdx > -1) {
-          setBreadcrumbs(breadcrumbs.slice(0, breadcrumbIdx + 1));
-        } else {
-          setBreadcrumbs([...breadcrumbs, selectedPlace]);
-        }
-      } else {
-        removeSpinner(CONTENT_SPINNER_ID);
-        window.alert("Sorry, we do not have maps for this place");
-      }
+        enclosedPlaceType,
+        parentPlaces,
+      });
     });
   }
 
@@ -312,6 +297,42 @@ export function DisasterEventMapTile(
       })
       .catch(() => {
         setDateList([]);
+      });
+  }
+
+  /**
+   * Updates breadcrumbs using URL params and current place.
+   */
+  function updateBreadcrumbs(selectedPlace: NamedTypedPlace): void {
+    // TODO: compute breadcrumbs from parent places instead of a URL param.
+    const searchParams = new URLSearchParams(window.location.search);
+    const breadcrumbParam = searchParams.get(BREADCRUMB_PARAM_KEY);
+    // If no breadcrumbs passed in the param, just show current place
+    if (!breadcrumbParam) {
+      setBreadcrumbs([selectedPlace]);
+      return;
+    }
+    const placeDcids = breadcrumbParam.split(PARAM_SEPARATOR);
+    getPlaceNames(placeDcids)
+      .then((names) => {
+        const breadcrumbs = placeDcids.map((dcid) => {
+          return {
+            dcid,
+            name: names[dcid],
+          };
+        });
+        breadcrumbs.push(selectedPlace);
+        setBreadcrumbs(breadcrumbs);
+      })
+      .catch(() => {
+        const breadcrumbs = placeDcids.map((dcid) => {
+          return {
+            dcid,
+            name: dcid,
+          };
+        });
+        breadcrumbs.push(selectedPlace);
+        setBreadcrumbs(breadcrumbs);
       });
   }
 
@@ -413,19 +434,6 @@ export function DisasterEventMapTile(
       USA_PLACE_DCID,
       placeInfo.parentPlaces
     );
-    const canClickRegionCb = (placeDcid: string) => {
-      const newPlace = {
-        dcid: placeDcid,
-        name: placeDcid,
-        types: [placeInfo.enclosedPlaceType],
-      };
-      return canClickRegion(
-        newPlace,
-        placeInfo.selectedPlace,
-        placeInfo.parentPlaces,
-        europeanPlaces.current
-      );
-    };
     const projection = getProjection(isUsaPlace, "", width, height);
     drawD3Map(
       props.id,
@@ -435,17 +443,11 @@ export function DisasterEventMapTile(
       {} /* dataValues: no data values to show on the base map */,
       "" /* units: no units to show */,
       null /* colorScale: no color scale since no data shown on the base map */,
-      (geoDcid: GeoJsonFeatureProperties) => {
-        const namedTypedPlace = {
-          name: geoDcid.name,
-          dcid: geoDcid.geoDcid,
-          types: [placeInfo.enclosedPlaceType],
-        };
-        updatePlaceInfo(namedTypedPlace);
-      } /* redirectAction */,
+      (geoDcid: GeoJsonFeatureProperties) =>
+        redirectAction(geoDcid.geoDcid) /* redirectAction */,
       () =>
         "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
-      canClickRegionCb,
+      () => true /* canClickRegion: allow all regions to be clickable */,
       false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
       projection,
@@ -488,18 +490,14 @@ export function DisasterEventMapTile(
         return props.eventTypeSpec[point.disasterType].color;
       }
     );
-    pointsLayer
-      .on("click", (point: DisasterEventPoint) =>
-        onPointClicked(
-          infoCardRef.current,
-          svgContainerRef.current,
-          point,
-          d3.event
-        )
+    pointsLayer.on("click", (point: DisasterEventPoint) =>
+      onPointClicked(
+        infoCardRef.current,
+        svgContainerRef.current,
+        point,
+        d3.event
       )
-      .on("blur", () => {
-        d3.select(infoCardRef.current).style("visibility", "hidden");
-      });
+    );
   }
 
   /**
@@ -523,5 +521,27 @@ export function DisasterEventMapTile(
         currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
       ],
     };
+  }
+
+  /**
+   * Handles redirecting to the disaster page for a different placeDcid
+   */
+  function redirectAction(placeDcid: string): void {
+    const breadcrumbIdx = breadcrumbs.findIndex(
+      (crumb) => crumb.dcid === placeDcid
+    );
+    let redirectBreadcrumbs = breadcrumbs;
+    if (breadcrumbIdx > -1) {
+      redirectBreadcrumbs = breadcrumbs.slice(0, breadcrumbIdx);
+    }
+    let breadcrumbParam = "";
+    if (!_.isEmpty(redirectBreadcrumbs)) {
+      const breadcrumbDcids = redirectBreadcrumbs.map((bc) => bc.dcid);
+      breadcrumbParam = `?bc=${breadcrumbDcids.join(PARAM_SEPARATOR)}`;
+    }
+    window.open(
+      `${REDIRECT_URL_PREFIX}${placeDcid}${breadcrumbParam}`,
+      "_self"
+    );
   }
 }

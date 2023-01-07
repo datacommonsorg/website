@@ -31,6 +31,6 @@ window.onload = () => {
 function renderPage(): void {
   ReactDOM.render(
     React.createElement(CookiesProvider, {}, React.createElement(App)),
-    document.getElementById("body")
+    document.getElementById("nl-interface")
   );
 }
