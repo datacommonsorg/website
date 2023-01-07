@@ -255,7 +255,7 @@ the same region.
 
 NL models are large and take time to load. They are intialized once in
 production but would reload in local environment every time the code changes. We
-cache the model object in a disk cache for N(hour) to make things faster.
+cache the model object in a disk cache for 1 day to make things faster.
 
 If you need to reload new embeddings, can manually remove the cache by
 

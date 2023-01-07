@@ -42,7 +42,7 @@ propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
 nl_model_cache_key = 'nl_model'
 nl_model_cache_path = '~/.datacommons/'
-nl_model_cache_expire = 3600  # Cache for 1 hour
+nl_model_cache_expire = 3600 * 24  # Cache for 1 day
 
 
 def createMiddleWare(app, exporter):
