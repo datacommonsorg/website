@@ -284,7 +284,7 @@ def create_app():
       nl_model = cache.get(nl_model_cache_key)
       app.config['NL_MODEL'] = nl_model
       if nl_model:
-        logging.info("Use cached model in: " + nl_model_cache_path)
+        logging.info("Use cached model in: " + cache.directory)
         return
     # Some specific imports for the NL Interface.
     import en_core_web_md
