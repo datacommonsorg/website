@@ -229,7 +229,7 @@ def get_variable_group_info(nodes: List[str], entities: List[str]) -> Dict:
   return post(url, req_dict)
 
 
-def get_variable_info(nodes: List[str]) -> Dict:
+def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
   url = get_service_url('/v1/bulk/info/variable')
   req_dict = {"nodes": nodes}
