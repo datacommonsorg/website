@@ -19,7 +19,6 @@
  */
 
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
 import { Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
