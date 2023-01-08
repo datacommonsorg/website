@@ -19,7 +19,6 @@
  */
 
 import React, { useState } from "react";
-import { useCookies } from "react-cookie";
 import { Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
@@ -33,11 +32,12 @@ export function App(): JSX.Element {
   ));
   return (
     <div id="dc-nl-interface">
-      <Container id="results-thread-container" fluid={true}>
+      <div id="results-thread-container">
         {queryResults}
-      </Container>
+      </div>
 
-      <Container id="query-container" fluid={true}>
+      <div id="search-container">
+        <Container>
         <div className="place-options-section">
           <TextSearchBar
             onSearch={(q) => {
@@ -47,7 +47,8 @@ export function App(): JSX.Element {
             placeholder='For example "family earnings in california"'
           />
         </div>
-      </Container>
+        </Container>
+      </div>
     </div>
   );
 }
