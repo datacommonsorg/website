@@ -50,6 +50,7 @@ class SVDetection:
   query: str
   sv2scores: Dict[str, float]
 
+
 class RankingType(Enum):
   """RankingType indicates the type of rankning specified."""
   NONE = 0
@@ -66,6 +67,7 @@ class RankingType(Enum):
   # "least amount of ..."
   LOW = 2
 
+
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
   # PLACE is the most generic type.
@@ -75,7 +77,7 @@ class ContainedInPlaceType(Enum):
   PROVINCE = 3
   COUNTY = 4
   CITY = 5
-  
+
 
 class PeriodType(Enum):
   """PeriodType indicates the type of date range specified."""
@@ -94,6 +96,7 @@ class SimpleClassificationAttributes(ClassificationAttributes):
   """Simple classification attributes."""
   pass
 
+
 @dataclass
 class RankingClassificationAttributes(ClassificationAttributes):
   """Ranking classification attributes."""
@@ -101,7 +104,7 @@ class RankingClassificationAttributes(ClassificationAttributes):
 
   # List of words which made this a ranking query:
   # e.g. "top", "most", "least", "highest" etc
-  # TODO for @juliawu: 
+  # TODO for @juliawu:
   # we should have translator which returns specific
   # types of tirgger words and not just strings.
   ranking_trigger_words: List[str]
@@ -135,8 +138,8 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
   # "correlation between ...", "related to .."
   correlation_trigger_words: str
 
-  cluster_1_svs : List[SV]
-  cluster_2_svs : List[SV]
+  cluster_1_svs: List[SV]
+  cluster_2_svs: List[SV]
 
 
 @dataclass
