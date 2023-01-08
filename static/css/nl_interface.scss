@@ -86,3 +86,17 @@ h2,
 h3 {
   color: white;
 }
+
+.debug-info-toggle {
+  cursor: pointer;
+}
+
+.debug-info-toggle.show {
+  color: #ccc;
+  font-size: .8rem;
+}
+
+.debug-info-toggle.hide {
+  float: right;
+  font-weight: bold;
+}
