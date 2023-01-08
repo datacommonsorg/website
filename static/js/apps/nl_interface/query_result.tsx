@@ -95,24 +95,24 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
         </Container>
       </div>
       <div className="nl-result">
-          <Container>
-        {debugData && (
-          <DebugInfo
-            debugData={debugData}
-            selectedBuild={selectedBuild}
-            setSelectedBuild={setSelectedBuild}
-          ></DebugInfo>
-        )}
-        {chartsData && chartsData.config && (
-              <SubjectPageMainPane
-                place={chartsData.place}
-                pageConfig={chartsData.config}
-              />
-        )}
-        <div id="screen" style={{ display: loading ? "block" : "none" }}>
-          <div id="spinner"></div>
-        </div>
-          </Container>
+        <Container>
+          {debugData && (
+            <DebugInfo
+              debugData={debugData}
+              selectedBuild={selectedBuild}
+              setSelectedBuild={setSelectedBuild}
+            ></DebugInfo>
+          )}
+          {chartsData && chartsData.config && (
+            <SubjectPageMainPane
+              place={chartsData.place}
+              pageConfig={chartsData.config}
+            />
+          )}
+          <div id="screen" style={{ display: loading ? "block" : "none" }}>
+            <div id="spinner"></div>
+          </div>
+        </Container>
       </div>
     </>
   );

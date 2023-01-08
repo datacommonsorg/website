@@ -32,21 +32,19 @@ export function App(): JSX.Element {
   ));
   return (
     <div id="dc-nl-interface">
-      <div id="results-thread-container">
-        {queryResults}
-      </div>
+      <div id="results-thread-container">{queryResults}</div>
 
       <div id="search-container">
         <Container>
-        <div className="place-options-section">
-          <TextSearchBar
-            onSearch={(q) => {
-              setQueries([...queries, q]);
-            }}
-            initialValue=""
-            placeholder='For example "family earnings in california"'
-          />
-        </div>
+          <div className="place-options-section">
+            <TextSearchBar
+              onSearch={(q) => {
+                setQueries([...queries, q]);
+              }}
+              initialValue=""
+              placeholder='For example "family earnings in california"'
+            />
+          </div>
         </Container>
       </div>
     </div>
