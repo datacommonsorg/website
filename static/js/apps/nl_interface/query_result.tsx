@@ -64,7 +64,8 @@ const buildOptions = [
     value: "demographics300-withpalmalternatives",
     text: "Demographics only (300 SVs) with PaLM Alternatives",
   },
-  { value: "uncurated3000", text: "Uncurated 3000 SVs" },
+  // { value: "uncurated3000", text: "Uncurated 3000 SVs" },
+  { value: "curatedJan2022", text: "Curated 3.5k+ SVs (Jan2022)" },
   { value: "combined_all", text: "Combined All of the Above (Default)" },
 ];
 
