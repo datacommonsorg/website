@@ -50,16 +50,32 @@ class SVDetection:
   query: str
   sv2scores: Dict[str, float]
 
+class RankingType(Enum):
+  """RankingType indicates the type of rankning specified."""
+  NONE = 0
+
+  # HIGH is for queries like:
+  # "most populous cities ..."
+  # "top five best places ..."
+  # "highest amount of in ..."
+  HIGH = 1
+
+  # LOW is for queries like:
+  # "least populous cities ..."
+  # "worst five best places ..."
+  # "least amount of ..."
+  LOW = 2
 
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
+  # PLACE is the most generic type.
+  PLACE = 0
   COUNTRY = 1
   STATE = 2
   PROVINCE = 3
   COUNTY = 4
   CITY = 5
-  # PLACE is the most generic type.
-  PLACE = 6
+  
 
 class PeriodType(Enum):
   """PeriodType indicates the type of date range specified."""
@@ -81,17 +97,7 @@ class SimpleClassificationAttributes(ClassificationAttributes):
 @dataclass
 class RankingClassificationAttributes(ClassificationAttributes):
   """Ranking classification attributes."""
-  # ranking_high is for queries like:
-  # "most populous cities ..."
-  # "top five best places ..."
-  # "highest amount of in ..."
-  ranking_high: bool
-
-  # ranking_low is for queries like:
-  # "least populous cities ..."
-  # "worst five best places ..."
-  # "least amount of ..."
-  ranking_low: bool
+  ranking_type: RankingType
 
   # List of words which made this a ranking query:
   # e.g. "top", "most", "least", "highest" etc
