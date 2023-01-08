@@ -40,8 +40,10 @@ const FILTER_STAT_VAR = "Count_Person";
 interface BarTilePropType {
   id: string;
   title: string;
+  // The primary place of the page (disaster, topic, nl)
   place: NamedTypedPlace;
-  places: string[];
+  // A list of related places to show comparison with the main place.
+  comparisonPlaces: string[];
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
 }
@@ -107,10 +109,10 @@ function fetchData(
   statVars.push(FILTER_STAT_VAR);
   let url: string;
   let params;
-  if (props.places) {
+  if (props.comparisonPlaces) {
     url = "/api/observations/point";
     params = {
-      entities: props.places,
+      entities: props.comparisonPlaces,
       variables: statVars,
     };
   } else {

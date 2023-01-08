@@ -48,8 +48,8 @@ def build_page_config(spec: ChartSpec, sv2name: Dict[str, str]):
     for sv, places in spec.nearby.sv2places.items():
       tile = column.tiles.add()
       tile.type = subject_page_pb2.Tile.TileType.BAR
-      tile.title = sv2name[sv] + ': latest'
-      tile.places[:] = places
+      tile.title = sv2name[sv] + ' ${date}'
+      tile.comparison_places[:] = places
       tile.stat_var_key.append(sv)
       category.stat_var_spec[sv].stat_var = sv
       category.stat_var_spec[sv].name = sv2name[sv]

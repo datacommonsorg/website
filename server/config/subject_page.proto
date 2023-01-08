@@ -114,7 +114,7 @@ message Tile {
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
   // [optional] a list of place dcids used for this tile.
-  repeated string places = 7;
+  repeated string comparison_places = 7;
 
   // specs for specific tile types
   oneof tile_type_spec {

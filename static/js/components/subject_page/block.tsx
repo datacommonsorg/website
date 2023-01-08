@@ -136,7 +136,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
-            places={tile.places}
+            comparisonPlaces={tile.comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
           />
