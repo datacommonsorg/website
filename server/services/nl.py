@@ -17,8 +17,13 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
+from lib.nl_detection import NLClassifier, ClassificationType
+from lib.nl_detection import CorrelationClassificationAttributes
+from lib.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
+from lib.nl_detection import RankingClassificationAttributes, RankingType
+from lib.nl_detection import PeriodType, TemporalClassificationAttributes
 from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel
-from typing import Dict, List
+from typing import Dict, List, Union
 import os
 import pandas as pd
 import torch
@@ -130,7 +135,59 @@ class Model:
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
 
-  def query_classification(self, type_string: str, query: str) -> str:
+  def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
+    ranking_type = RankingType.NONE
+    if prediction == "Rankings-High":
+      ranking_type = RankingType.HIGH
+    elif prediction == "Rankings-Low":
+      RankingType.LOW
+
+    if ranking_type == RankingType.NONE:
+      return None
+
+    # TODO: need to detect trigger words.
+    attributes = RankingClassificationAttributes(ranking_type=ranking_type,
+                                                 ranking_trigger_words=[])
+    return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
+
+  def _temporal_classification(self, prediction) -> Union[NLClassifier, None]:
+    if prediction != "Temporal":
+      return None
+
+    # TODO: need to detect the date and type.
+    attributes = TemporalClassificationAttributes(date_str="",
+                                                  date_type=PeriodType.NONE)
+    return NLClassifier(type=ClassificationType.TEMPORAL, attributes=attributes)
+
+  def _containedin_classification(self,
+                                  prediction) -> Union[NLClassifier, None]:
+    if prediction != "Contained In":
+      return None
+
+    # TODO: need to detect the type of place for this contained in.
+    attributes = ContainedInClassificationAttributes(
+        contained_in_place_type=ContainedInPlaceType.PLACE)
+    return NLClassifier(type=ClassificationType.CONTAINED_IN,
+                        attributes=attributes)
+
+  def _correlation_classification(
+      self, clusters: List[Dict[str, float]]) -> Union[NLClassifier, None]:
+    if not clusters:
+      return None
+
+    # TODO: need to fill in the details.
+    attributes = CorrelationClassificationAttributes(
+        sv_dcid_1="",
+        sv_dcid_2="",
+        is_using_clusters=False,
+        correlation_trigger_words="",
+        cluster_1_svs=[],
+        cluster_2_svs=[])
+    return NLClassifier(type=ClassificationType.CONTAINED_IN,
+                        attributes=attributes)
+
+  def query_classification(self, type_string: str,
+                           query: str) -> Union[NLClassifier, None]:
     """Check if query can be classified according to 'type_string' model.
 
     Args:
@@ -139,22 +196,37 @@ class Model:
       query: (str) The query string supplied.
     
     Returns:
-      The classification string, e.g. "Rankings-High", "No Ranking" etc. Fill set
-      of options is in lib.nl_training.py
+      The NLClassifier object or None.
     """
     if not f'{type_string}' in self.classification_models:
-      return f'{type_string} Classifier not built.'
+      logging.info(f'{type_string} Classifier not built.')
+      return None
     query_encoded = self.model.encode(query)
-    classification_model: NLQueryClassificationModel = self.classification_models[
-        type_string]
-    logging.info(
-        f'Getting predictions from model: {classification_model.classification_type.name}'
-    )
-    logging.info(
-        f'Getting predictions from model: {classification_model.classification_type.categories}'
-    )
-    return pick_option(classification_model.classification_model, query_encoded,
-                       classification_model.classification_type.categories)
+    # TODO: when the correlation classifier is ready, remove this following conditional.
+    if type_string in ["ranking", "temporal", "contained_in"]:
+      classification_model: NLQueryClassificationModel = self.classification_models[
+          type_string]
+      logging.info(
+          f'Getting predictions from model: {classification_model.classification_type.name}'
+      )
+      logging.info(
+          f'Getting predictions from model: {classification_model.classification_type.categories}'
+      )
+      prediction = pick_option(
+          classification_model.classification_model, query_encoded,
+          classification_model.classification_type.categories)
+
+      if type_string == "ranking":
+        return self._ranking_classification(prediction)
+      elif type_string == "temporal":
+        return self._temporal_classification(prediction)
+      elif type_string == "contained_in":
+        return self._containedin_classification(prediction)
+
+    if type_string == "correlation":
+      # TODO: implement.
+      return self._correlation_classification([])
+    return None
 
   def detect_svs(self, query, embeddings_build):
     query_embeddings = self.model.encode([query])
