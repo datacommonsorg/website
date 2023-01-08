@@ -573,7 +573,6 @@ def data():
   place_dcid = places_detected.main_place.dcid
   main_place_name = places_detected.main_place.name
   main_place_type = places_detected.main_place.place_type
-  places_found = places_detected.places_found
   using_default_place = places_detected.using_default_place
 
   svs_detected = query_detection.svs_detected
