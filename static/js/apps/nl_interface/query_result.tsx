@@ -21,7 +21,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Col, Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
@@ -88,34 +88,32 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
       });
   }
   return (
-    <div className="nl-query-result">
-      <Container fluid={true}>
-        <Row>
-          <Col>
-            <h2>Q: {props.query}</h2>
-          </Col>
-        </Row>
-        {debugData && (
-          <DebugInfo
-            debugData={debugData}
-            selectedBuild={selectedBuild}
-            setSelectedBuild={setSelectedBuild}
-          ></DebugInfo>
-        )}
-        {chartsData && chartsData.config && (
-          <Row>
-            <div className="row col-md-9x col-lg-10">
-              <SubjectPageMainPane
-                place={chartsData.place}
-                pageConfig={chartsData.config}
-              />
-            </div>
-          </Row>
-        )}
-        <div id="screen" style={{ display: loading ? "block" : "none" }}>
-          <div id="spinner"></div>
-        </div>
-      </Container>
-    </div>
+    <>
+      <div className="nl-query">
+        <Container>
+          <h2>Q: {props.query}</h2>
+        </Container>
+      </div>
+      <div className="nl-result">
+        <Container>
+          {debugData && (
+            <DebugInfo
+              debugData={debugData}
+              selectedBuild={selectedBuild}
+              setSelectedBuild={setSelectedBuild}
+            ></DebugInfo>
+          )}
+          {chartsData && chartsData.config && (
+            <SubjectPageMainPane
+              place={chartsData.place}
+              pageConfig={chartsData.config}
+            />
+          )}
+          <div id="screen" style={{ display: loading ? "block" : "none" }}>
+            <div id="spinner"></div>
+          </div>
+        </Container>
+      </div>
+    </>
   );
 }
