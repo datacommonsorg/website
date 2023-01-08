@@ -28,27 +28,22 @@ class Place:
 
 
 @dataclass
-class SV:
-  """Statistical Variable attributes."""
-  dcid: str
-  name: str
-
-
-@dataclass
 class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
-  query_place_substr: str
   query_without_place_substr: str
   places_found: List[str]
   main_place: Place
+  using_default_place: bool
 
 
 @dataclass
 class SVDetection:
   """Various attributes of SV detection."""
   query: str
-  sv2scores: Dict[str, float]
+  # The two lists below are assumed to be ordered.
+  sv_dcids: List[str]
+  sv_scores: List[float]
 
 
 class RankingType(Enum):
@@ -81,6 +76,7 @@ class ContainedInPlaceType(Enum):
 
 class PeriodType(Enum):
   """PeriodType indicates the type of date range specified."""
+  NONE = 0
   EXACT = 1
   UNTIL = 2
   FROM = 3
@@ -126,8 +122,8 @@ class ContainedInClassificationAttributes(ClassificationAttributes):
 @dataclass
 class CorrelationClassificationAttributes(ClassificationAttributes):
   """Correlation classification attributes."""
-  sv_1: SV
-  sv_2: SV
+  sv_dcid_1: str
+  sv_dcid_2: str
 
   # If is_using_clusters is True, that means sv_1 is coming from
   # cluster_1_svs and sv_2 is coming from cluster_2_svs.
@@ -138,14 +134,23 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
   # "correlation between ...", "related to .."
   correlation_trigger_words: str
 
-  cluster_1_svs: List[SV]
-  cluster_2_svs: List[SV]
+  cluster_1_svs: List[str]
+  cluster_2_svs: List[str]
+
+
+class ClassificationType(Enum):
+  OTHER = 0
+  SIMPLE = 1
+  RANKING = 2
+  TEMPORAL = 3
+  CONTAINED_IN = 4
+  CORRELATION = 5
 
 
 @dataclass
-class Classifier:
+class NLClassifier:
   """Classifier."""
-  type: str
+  type: ClassificationType
   attributes: List[ClassificationAttributes]
 
 
@@ -153,6 +158,7 @@ class Classifier:
 class Detection:
   """Detection attributes."""
   original_query: str
+  cleaned_query: str
   places_detected: PlaceDetection
   svs_detected: SVDetection
-  classifications: List[Classifier]
+  classifications: List[NLClassifier]
