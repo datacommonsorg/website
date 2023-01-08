@@ -26,6 +26,8 @@ import re
 import requests
 
 import services.datacommons as dc
+import lib.nl_chart_spec as nl_chart_spec
+import lib.nl_page_config as nl_page_config
 from config import subject_page_pb2
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
@@ -33,10 +35,6 @@ bp = Blueprint('nl', __name__, url_prefix='/nl')
 MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 FIXED_PREFIXES = ['md=', 'mq=', 'st=', 'mp=', 'pt=']
 FIXED_PROPS = set([p[:-1] for p in FIXED_PREFIXES])
-
-
-def _is_vertical_svg(svg):
-  return '_' not in svg
 
 
 def _get_preferred_type(types):
@@ -613,11 +611,20 @@ def data():
                                peer_buckets)
 
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
+
+  # Get Chart Spec
+  chart_spec = nl_chart_spec.compute(place_dcid, main_place_name,
+                                     main_place_type,
+                                     related_places['nearbyPlaces'],
+                                     child_places_type,
+                                     svs_df['SV'].values.tolist())
+  pagae_config_new = nl_page_config.build_page_config(chart_spec, sv2name)
+
   d = {
       'place_type': main_place_type,
       'place_name': main_place_name,
       'place_dcid': place_dcid,
-      'config': json.loads(MessageToJson(message)),
+      'config': json.loads(MessageToJson(pagae_config_new)),
   }
   status_str = "Successful"
   if using_default_place or relevant_svs_df.empty:

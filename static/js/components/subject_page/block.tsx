@@ -38,6 +38,7 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { StatVarProvider } from "./stat_var_provider";
 
+// Either provide (place, enclosedPlaceType) or provide (places)
 export interface BlockPropType {
   id: string;
   place: NamedTypedPlace;
@@ -79,6 +80,9 @@ export function Block(props: BlockPropType): JSX.Element {
 }
 
 function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
+  if (!tiles) {
+    return <></>;
+  }
   const tilesJsx = tiles.map((tile) => {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
@@ -132,6 +136,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
+            places={tile.places}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
           />

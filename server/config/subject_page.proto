@@ -28,7 +28,7 @@ message SeverityFilter {
   string prop = 1;
   string unit = 2;
   double lower_limit = 3;
-  double upper_limit = 4; 
+  double upper_limit = 4;
 }
 
 message EventTypeSpec {
@@ -113,6 +113,8 @@ message Tile {
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
+  // [optional] a list of place dcids used for this tile.
+  repeated string places = 7;
 
   // specs for specific tile types
   oneof tile_type_spec {

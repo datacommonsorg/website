@@ -67,6 +67,7 @@ export interface TileConfig {
   description: string;
   type: string;
   statVarKey: string[];
+  places: string[];
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
 }

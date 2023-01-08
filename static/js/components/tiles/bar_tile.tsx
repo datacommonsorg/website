@@ -41,6 +41,7 @@ interface BarTilePropType {
   id: string;
   title: string;
   place: NamedTypedPlace;
+  places: string[];
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
 }
@@ -76,7 +77,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     return null;
   }
   const rs: ReplacementStrings = {
-    place: props.place.name,
+    place: props.place ? props.place.name : "",
     date: "",
   };
   return (
@@ -104,13 +105,25 @@ function fetchData(
   }
   // Fetch populations.
   statVars.push(FILTER_STAT_VAR);
+  let url: string;
+  let params;
+  if (props.places) {
+    url = "/api/observations/point";
+    params = {
+      entities: props.places,
+      variables: statVars,
+    };
+  } else {
+    url = "/api/observations/point/within";
+    params = {
+      parent_entity: props.place.dcid,
+      child_type: props.enclosedPlaceType,
+      variables: statVars,
+    };
+  }
   axios
-    .get<PointApiResponse>("/api/observations/point/within", {
-      params: {
-        parent_entity: props.place.dcid,
-        child_type: props.enclosedPlaceType,
-        variables: statVars,
-      },
+    .get<PointApiResponse>(url, {
+      params: params,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
