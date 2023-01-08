@@ -1,5 +1,6 @@
 CacheControl==0.12.11
 datasets==2.8.0
+diskcache==5.4.0
 Flask==1.1.4
 Flask-Babel==2.0.0
 Flask-Caching==2.0.1

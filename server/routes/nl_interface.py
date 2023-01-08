@@ -20,6 +20,7 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
+from lib.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 import pandas as pd
 import re
 import requests
@@ -391,32 +392,53 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": []}
 
 
-def _result_with_debug_info(data_dict, status, original_query, places_found,
-                            main_place_dcid, main_place_name, query, svs_dict,
-                            embeddings_build, ranking_classification,
-                            temporal_classification,
-                            contained_in_classification):
+def _result_with_debug_info(data_dict, status, embeddings_build,
+                            query_detection: Detection):
+  """Using data_dict and query_detection, format the dictionary response."""
+  svs_dict = {
+      'SV': query_detection.svs_detected.sv_dcids,
+      'CosineScore': query_detection.svs_detected.sv_scores
+  }
+
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
-  if not ranking_classification:
-    ranking_classification = "<None>"
-  if not temporal_classification:
-    temporal_classification = "<None>"
-  if not contained_in_classification:
-    contained_in_classification = "<None>"
+
+  ranking_classification = "<None>"
+  temporal_classification = "<None>"
+  contained_in_classification = "<None>"
+
+  for classification in query_detection.classifications:
+    if classification.type == ClassificationType.RANKING:
+      ranking_classification = str(classification.attributes.ranking_type)
+    elif classification.type == ClassificationType.TEMPORAL:
+      temporal_classification = str(classification.type)
+    elif classification.type == ClassificationType.CONTAINED_IN:
+      contained_in_classification = str(classification.type)
+
   debug_info = {
       "debug": {
-          'status': status,
-          'original_query': original_query,
-          'places_detected': places_found,
-          'main_place_dcid': main_place_dcid,
-          'main_place_name': main_place_name,
-          'query_with_places_removed': query,
-          'sv_matching': svs_dict,
-          'embeddings_build': embeddings_build,
-          'ranking_classification': ranking_classification,
-          'temporal_classification': temporal_classification,
-          'contained_in_classification': contained_in_classification,
+          'status':
+              status,
+          'original_query':
+              query_detection.original_query,
+          'places_detected':
+              query_detection.places_detected.places_found,
+          'main_place_dcid':
+              query_detection.places_detected.main_place.dcid,
+          'main_place_name':
+              query_detection.places_detected.main_place.name,
+          'query_with_places_removed':
+              query_detection.places_detected.query_without_place_substr,
+          'sv_matching':
+              svs_dict,
+          'embeddings_build':
+              embeddings_build,
+          'ranking_classification':
+              ranking_classification,
+          'temporal_classification':
+              temporal_classification,
+          'contained_in_classification':
+              contained_in_classification,
       },
   }
   # Set the context which contains everything except the charts config.
@@ -425,33 +447,14 @@ def _result_with_debug_info(data_dict, status, original_query, places_found,
   return {'context': data_dict, 'config': charts_config}
 
 
-@bp.route('/', strict_slashes=False)
-def page():
-  if (os.environ.get('FLASK_ENV') == 'production' or
-      not current_app.config['NL_MODEL']):
-    flask.abort(404)
-  return render_template('/nl_interface.html')
-
-
-@bp.route('/data', methods=['GET', 'POST'])
-def data():
-  original_query = request.args.get('q')
-  context_history = request.get_json().get('contextHistory')
-  logging.info(context_history)
-  query = str(escape(_remove_punctuations(original_query)))
-  embeddings_build = str(escape(request.args.get('build', "combined_all")))
-  model = current_app.config['NL_MODEL']
+def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   default_place = "United States"
   using_default_place = False
-  res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
-  if not query:
-    logging.info("Query was empty")
-    return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   original_query, [], "", "", "", None,
-                                   embeddings_build, "", "", "")
+
+  model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
-  places_found = model.detect_place(query)
+  places_found = model.detect_place(cleaned_query)
 
   if not places_found:
     logging.info("Place detection failed.")
@@ -474,6 +477,112 @@ def data():
   main_place_type = _get_preferred_type(place_types)
   main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
+  # Step 2: replace the places in the query sentence with "".
+  query = _remove_places(cleaned_query, places_found)
+
+  # Set PlaceDetection.
+  place_detection = PlaceDetection(query_original=orig_query,
+                                   query_without_place_substr=query,
+                                   places_found=places_found,
+                                   main_place=Place(dcid=place_dcid,
+                                                    name=main_place_name,
+                                                    place_type=main_place_type),
+                                   using_default_place=using_default_place)
+
+  # Step 3: find query classifiers.
+  ranking_classification = model.query_classification("ranking", query)
+  temporal_classification = model.query_classification("temporal", query)
+  contained_in_classification = model.query_classification(
+      "contained_in", query)
+  correlation_in_classification = model.query_classification(
+      "correlation", query)
+  logging.info(f'Ranking classification: {ranking_classification}')
+  logging.info(f'Temporal classification: {temporal_classification}')
+  logging.info(f'ContainedIn classification: {contained_in_classification}')
+
+  # Set the Classifications list.
+  classifications = []
+  if ranking_classification is not None:
+    classifications.append(ranking_classification)
+  if temporal_classification is not None:
+    classifications.append(temporal_classification)
+  if contained_in_classification is not None:
+    classifications.append(contained_in_classification)
+  if correlation_in_classification is not None:
+    classifications.append(correlation_in_classification)
+
+  if not classifications:
+    # Simple Classification simply means:
+    # Use the main place and matched SVs. There are no
+    # rankings, temporal, contained_in or correlations.
+    classifications.append(
+        NLClassifier(type=ClassificationType.SIMPLE,
+                     attributes=SimpleClassificationAttributes()))
+
+  # Step 4: Identify the SV matched based on the query.
+  svs_scores_dict = _empty_svs_score_dict()
+  try:
+    svs_scores_dict = model.detect_svs(query, embeddings_build)
+  except ValueError as e:
+    logging.info(e)
+    logging.info("Using an empty svs_scores_dict")
+
+  # Set the SVDetection.
+  sv_detection = SVDetection(query=query,
+                             sv_dcids=svs_scores_dict['SV'],
+                             sv_scores=svs_scores_dict['CosineScore'])
+
+  return Detection(original_query=orig_query,
+                   cleaned_query=cleaned_query,
+                   places_detected=place_detection,
+                   svs_detected=sv_detection,
+                   classifications=classifications)
+
+
+@bp.route('/', strict_slashes=False)
+def page():
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['NL_MODEL']):
+    flask.abort(404)
+  return render_template('/nl_interface.html')
+
+
+@bp.route('/data', methods=['GET', 'POST'])
+def data():
+  original_query = request.args.get('q')
+  context_history = request.get_json().get('contextHistory')
+  logging.info(context_history)
+  query = str(escape(_remove_punctuations(original_query)))
+  embeddings_build = str(escape(request.args.get('build', "combined_all")))
+  default_place = "United States"
+  using_default_place = False
+  res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
+  if not query:
+    logging.info("Query was empty")
+    return _result_with_debug_info(res, "Aborted: Query was Empty.",
+                                   embeddings_build,
+                                   _detection("", "", embeddings_build))
+
+  # Query detection routine:
+  # Returns detection for Place, SVs and Query Classifications.
+  query_detection = _detection(str(escape(original_query)), query,
+                               embeddings_build)
+
+  # Extract info from query_detection.
+  places_detected = query_detection.places_detected
+  place_dcid = places_detected.main_place.dcid
+  main_place_name = places_detected.main_place.name
+  main_place_type = places_detected.main_place.place_type
+  using_default_place = places_detected.using_default_place
+
+  svs_detected = query_detection.svs_detected
+  svs_df = pd.DataFrame({
+      'SV': svs_detected.sv_dcids,
+      'CosineScore': svs_detected.sv_scores
+  })
+  logging.info(svs_df)
+
+  # Use SVs and Places to get relevant data/stats/chart configs.
   related_places = _related_places(place_dcid)
   child_places_type = ""
   if 'childPlacesType' in related_places:
@@ -482,51 +591,23 @@ def data():
       set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
           related_places['similarPlaces']))
 
-  # Step 2: replace the places in the query sentence with "".
-  query = _remove_places(query, places_found)
-
-  # Step 3: find query classifiers.
-  ranking_classification = model.query_classification("ranking", query)
-  temporal_classification = model.query_classification("temporal", query)
-  contained_in_classification = model.query_classification(
-      "contained_in", query)
-  logging.info(f'Ranking classification: {ranking_classification}')
-  logging.info(f'Temporal classification: {temporal_classification}')
-  logging.info(f'ContainedIn classification: {contained_in_classification}')
-
-  # Step 4: Identify the SV matched based on the query.
-  svs_scores_dict = {}
-  try:
-    svs_scores_dict = model.detect_svs(query, embeddings_build)
-  except ValueError as e:
-    logging.info(e)
-    return _result_with_debug_info(res, f'ValueError: {e}', original_query,
-                                   places_found, place_dcid, main_place_name,
-                                   query, None, embeddings_build,
-                                   ranking_classification,
-                                   temporal_classification,
-                                   contained_in_classification)
-
-  svs_df = pd.DataFrame(svs_scores_dict)
-  logging.info(svs_df)
-
-  # Step 5: filter SVs based on scores.
+  # Filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
   relevant_svs_df = _filtered_svs_df(svs_df)
   relevant_svs = relevant_svs_df['SV'].values.tolist()
 
-  # Step 6: get related SVGs and all info.
+  # Get related SVGs and all info.
   svgs_info = _related_svgs(relevant_svs, all_relevant_places)
 
-  # Step 7: get useful sv2name and sv2definitions.
+  # Get useful sv2name and sv2definitions.
   sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
   sv2name = sv_maps["sv2name"]
   sv2definition = sv_maps["sv2definition"]
 
-  # Step 8: Get SVGs into peer buckets.
+  # Get SVGs into peer buckets.
   peer_buckets = _peer_buckets(sv2definition, relevant_svs)
 
-  # Step 9: Produce Chart Config JSON.
+  # Produce Chart Config JSON.
   chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
                                child_places_type, highlight_svs, sv2name,
                                peer_buckets)
@@ -548,9 +629,5 @@ def data():
   if relevant_svs_df.empty:
     status_str += '**No SVs Found**.'
 
-  return _result_with_debug_info(d, status_str, original_query, places_found,
-                                 place_dcid, main_place_name, query,
-                                 relevant_svs_df.to_dict(), embeddings_build,
-                                 ranking_classification,
-                                 temporal_classification,
-                                 contained_in_classification)
+  return _result_with_debug_info(d, status_str, embeddings_build,
+                                 query_detection)

@@ -16,6 +16,7 @@
 
 import axios from "axios";
 import { when } from "jest-when";
+import _ from "lodash";
 
 import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import {
@@ -34,8 +35,13 @@ const DISASTER_EVENT_TYPES = {
     "TornadoEvent",
   ],
 };
-const DISASTER_EVENT_INTENSITIES = {
-  [EARTHQUAKE_DISASTER_TYPE_ID]: ["magnitude"],
+const DISASTER_EVENT_SEVERITY_FILTERS = {
+  [EARTHQUAKE_DISASTER_TYPE_ID]: {
+    prop: "magnitude",
+    unit: "",
+    lowerLimit: 3,
+    upperLimit: 6,
+  },
 };
 const DISASTER_EVENT_COLORS = {
   [EARTHQUAKE_DISASTER_TYPE_ID]: "red",
@@ -363,7 +369,9 @@ function axios_mock(): void {
     }
   }
 
-  for (const eventList of Object.values(DISASTER_EVENT_TYPES)) {
+  for (const eventType of Object.keys(DISASTER_EVENT_TYPES)) {
+    const severityFilter = DISASTER_EVENT_SEVERITY_FILTERS[eventType];
+    const eventList = DISASTER_EVENT_TYPES[eventType];
     for (const eventType of eventList) {
       for (const year of [YYYY_DATE, YYYY_DATE_2]) {
         for (let i = 1; i < 13; i++) {
@@ -372,13 +380,20 @@ function axios_mock(): void {
           if (eventType in EVENT_DATA && date in EVENT_DATA[eventType]) {
             result = EVENT_DATA[eventType][date][TEST_PLACE];
           }
+          const params = {
+            eventType,
+            date,
+            place: TEST_PLACE,
+          };
+          if (!_.isEmpty(severityFilter)) {
+            params["filterProp"] = severityFilter.prop;
+            params["filterUnit"] = severityFilter.unit;
+            params["filterUpperLimit"] = severityFilter.upperLimit;
+            params["filterLowerLimit"] = severityFilter.lowerLimit;
+          }
           when(axios.get)
             .calledWith("/api/disaster-dashboard/event-data", {
-              params: {
-                eventType,
-                date,
-                place: TEST_PLACE,
-              },
+              params,
             })
             .mockResolvedValue({
               data: result,
@@ -520,13 +535,15 @@ test("fetch data for all disasters with date as YYYY-MM", () => {
       name: disasterType,
       eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
       color: DISASTER_EVENT_COLORS[disasterType],
-      severityProps: DISASTER_EVENT_INTENSITIES[disasterType],
+      defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
     };
   });
-  return fetchDisasterEventPoints(eventSpecs, TEST_PLACE, [
-    YYYY_MM_DATE,
-    YYYY_MM_DATE,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    eventSpecs,
+    TEST_PLACE,
+    [YYYY_MM_DATE, YYYY_MM_DATE],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -552,13 +569,15 @@ test("fetch data for all disasters with date as YYYY", () => {
       name: disasterType,
       eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
       color: DISASTER_EVENT_COLORS[disasterType],
-      severityProps: DISASTER_EVENT_INTENSITIES[disasterType],
+      defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
     };
   });
-  return fetchDisasterEventPoints(eventSpecs, TEST_PLACE, [
-    YYYY_DATE,
-    YYYY_DATE,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    eventSpecs,
+    TEST_PLACE,
+    [YYYY_DATE, YYYY_DATE],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -585,12 +604,15 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     name: "storm",
     eventTypeDcids: DISASTER_EVENT_TYPES[STORM_DISASTER_TYPE_ID],
     color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
-    severityProps: DISASTER_EVENT_INTENSITIES[STORM_DISASTER_TYPE_ID],
+    defaultSeverityFilter:
+      DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
-    YYYY_MM_DATE,
-    YYYY_MM_DATE,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    [eventSpec],
+    TEST_PLACE,
+    [YYYY_MM_DATE, YYYY_MM_DATE],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       TORNADO_EVENT_1_PROCESSED,
       CYCLONE_EVENT_1_PROCESSED,
@@ -612,12 +634,15 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     name: "storm",
     eventTypeDcids: DISASTER_EVENT_TYPES[STORM_DISASTER_TYPE_ID],
     color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
-    severityProps: DISASTER_EVENT_INTENSITIES[STORM_DISASTER_TYPE_ID],
+    defaultSeverityFilter:
+      DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
-    YYYY_DATE,
-    YYYY_DATE,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    [eventSpec],
+    TEST_PLACE,
+    [YYYY_DATE, YYYY_DATE],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       TORNADO_EVENT_1_PROCESSED,
       TORNADO_EVENT_2_PROCESSED,
@@ -640,12 +665,15 @@ test("fetch data for single event with date as YYYY-MM", () => {
     name: "earthquake",
     eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
-    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+    defaultSeverityFilter:
+      DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
-    YYYY_MM_DATE,
-    YYYY_MM_DATE,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    [eventSpec],
+    TEST_PLACE,
+    [YYYY_MM_DATE, YYYY_MM_DATE],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -666,12 +694,15 @@ test("fetch data for single event with date as YYYY", () => {
     name: "earthquake",
     eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
-    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+    defaultSeverityFilter:
+      DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
-    YYYY_DATE,
-    YYYY_DATE,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    [eventSpec],
+    TEST_PLACE,
+    [YYYY_DATE, YYYY_DATE],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -693,12 +724,15 @@ test("fetch data for single event with date range as YYYY", () => {
     name: "earthquake",
     eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
-    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+    defaultSeverityFilter:
+      DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
-    YYYY_DATE,
-    YYYY_DATE_2,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    [eventSpec],
+    TEST_PLACE,
+    [YYYY_DATE, YYYY_DATE_2],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -722,12 +756,15 @@ test("fetch data for single event with date range as YYYY-MM", () => {
     name: "earthquake",
     eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
-    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+    defaultSeverityFilter:
+      DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
-    YYYY_MM_DATE,
-    YYYY_MM_DATE_2,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    [eventSpec],
+    TEST_PLACE,
+    [YYYY_MM_DATE, YYYY_MM_DATE_2],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -750,12 +787,15 @@ test("fetch data for single event with date range as YYYY-MM-DD", () => {
     name: "earthquake",
     eventTypeDcids: DISASTER_EVENT_TYPES[EARTHQUAKE_DISASTER_TYPE_ID],
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
-    severityProps: DISASTER_EVENT_INTENSITIES[EARTHQUAKE_DISASTER_TYPE_ID],
+    defaultSeverityFilter:
+      DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints([eventSpec], TEST_PLACE, [
-    `${YYYY_MM_DATE}-02`,
-    `${YYYY_MM_DATE_2}-02`,
-  ]).then((result) => {
+  return fetchDisasterEventPoints(
+    [eventSpec],
+    TEST_PLACE,
+    [`${YYYY_MM_DATE}-02`, `${YYYY_MM_DATE_2}-02`],
+    DISASTER_EVENT_SEVERITY_FILTERS
+  ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_2_PROCESSED,
       EARTHQUAKE_EVENT_3_PROCESSED,
