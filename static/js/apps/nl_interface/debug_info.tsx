@@ -18,12 +18,13 @@
  * Debug info for a single query for the NL interface
  */
 
+import _ from "lodash";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
-export const buildOptions = [
+export const BUILD_OPTIONS = [
   {
     value: "combined_all",
     text: "---- Choose an Embeddings Build option (default: Combined All) -------",
@@ -33,7 +34,8 @@ export const buildOptions = [
     value: "demographics300-withpalmalternatives",
     text: "Demographics only (300 SVs) with PaLM Alternatives",
   },
-  { value: "uncurated3000", text: "Uncurated 3000 SVs" },
+  // { value: "uncurated3000", text: "Uncurated 3000 SVs" },
+  { value: "curatedJan2022", text: "Curated 3.5k+ SVs (Jan2022)" },
   { value: "combined_all", text: "Combined All of the Above (Default)" },
 ];
 
@@ -74,7 +76,7 @@ export interface DebugInfoProps {
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
   const [showDebug, setShowDebug] = useState(false);
 
-  if (!props.debugData) {
+  if (_.isEmpty(props.debugData)) {
     return <></>;
   }
 
@@ -127,7 +129,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
               value={props.selectedBuild}
               onChange={handleEmbeddingsBuildChange}
             >
-              {buildOptions.map((option, idx) => (
+              {BUILD_OPTIONS.map((option, idx) => (
                 <option key={idx} value={option.value}>
                   {option.text}
                 </option>

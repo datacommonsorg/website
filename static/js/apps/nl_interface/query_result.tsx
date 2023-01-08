@@ -25,7 +25,7 @@ import { Col, Container, Row } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
-import { buildOptions, DebugInfo } from "./debug_info";
+import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
 
 const contextHistoryAge = 3600; // Seconds
 const maxContextHistoryEntry = 10;
@@ -36,7 +36,7 @@ export interface QueryResultProps {
 
 export function QueryResult(props: QueryResultProps): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
+  const [selectedBuild, setSelectedBuild] = useState(BUILD_OPTIONS[0].value);
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies();
   const [debugData, setDebugData] = useState<any>();
