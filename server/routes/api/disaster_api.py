@@ -51,7 +51,8 @@ def event_date_range():
 
 @bp.route('/event-data')
 def event_data():
-  """Gets the event data for a given eventType, date, and place
+  """Gets the event data for a given eventType, date, place, and
+      filter information (filter prop, unit, lower limit, and upper limit).
 
   Returns: a list of events of the following form
       {
@@ -74,5 +75,11 @@ def event_data():
   place = request.args.get('place', '')
   if not place:
     return "error: must provide a place field", 400
-  result = dc.get_event_collection(event_type, place, date)
+  filter_prop = request.args.get('filterProp', '')
+  filter_unit = request.args.get('filterUnit', '')
+  filter_upper_limit = float(request.args.get('filterUpperLimit', '0'))
+  filter_lower_limit = float(request.args.get('filterLowerLimit', '0'))
+  result = dc.get_event_collection(event_type, place, date, filter_prop,
+                                   filter_unit, filter_upper_limit,
+                                   filter_lower_limit)
   return json.dumps(result), 200

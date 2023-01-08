@@ -76,9 +76,3 @@ export interface DisasterEventPointData {
   eventPoints: DisasterEventPoint[];
   provenanceInfo: Record<string, EventApiProvenanceInfo>;
 }
-
-// Filter values for a severity property for disaster events.
-export interface SeverityFilter {
-  min: number;
-  max: number;
-}

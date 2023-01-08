@@ -37,7 +37,10 @@ import {
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../types/disaster_event_map_types";
-import { EventTypeSpec } from "../types/subject_page_proto_types";
+import {
+  EventTypeSpec,
+  SeverityFilter,
+} from "../types/subject_page_proto_types";
 import { isValidDate } from "./string_utils";
 
 const MAX_YEARS = 20;
@@ -151,17 +154,24 @@ function fetchEventPoints(
   place: string,
   date: string,
   disasterType: string,
-  severityProps?: string[],
+  severityFilter?: SeverityFilter,
   minDate?: string,
   maxDate?: string
 ): Promise<DisasterEventPointData> {
+  const reqParams = {
+    eventType: eventType,
+    place: place,
+    date: date,
+  };
+  if (severityFilter) {
+    reqParams["filterProp"] = severityFilter.prop;
+    reqParams["filterUnit"] = severityFilter.unit;
+    reqParams["filterUpperLimit"] = severityFilter.upperLimit;
+    reqParams["filterLowerLimit"] = severityFilter.lowerLimit;
+  }
   return axios
     .get<DisasterEventDataApiResponse>("/api/disaster-dashboard/event-data", {
-      params: {
-        eventType: eventType,
-        place: place,
-        date: date,
-      },
+      params: reqParams,
     })
     .then((resp) => {
       const result = {
@@ -187,17 +197,15 @@ function fetchEventPoints(
           return;
         }
         const severity = {};
-        if (severityProps) {
-          for (const prop of severityProps) {
-            if (
-              !(prop in eventData.propVals) ||
-              _.isEmpty(eventData.propVals[prop].vals)
-            ) {
-              continue;
-            }
-            const val = Number(eventData.propVals[prop].vals[0]);
+        if (severityFilter && severityFilter.prop in eventData.propVals) {
+          const severityVals = eventData.propVals[severityFilter.prop].vals;
+          if (!_.isEmpty(severityVals)) {
+            // Get value by taking the first severity val, trimming the unit
+            // from the string, and converting it into a number.
+            const unit = severityFilter.unit || "";
+            const val = Number(severityVals[0].substring(unit.length));
             if (!isNaN(val)) {
-              severity[prop] = val;
+              severity[severityFilter.prop] = val;
             }
           }
         }
@@ -233,11 +241,14 @@ function fetchEventPoints(
  * @param place containing place to get data for
  * @param dateRange list of [minDate, maxDate] where minDate and maxDate are the
  *                  same length and of the format YYYY, YYYY-MM, or YYYY-MM-DD
+ * @param severityFilters map of event spec id to severity filter to use for
+ *                        that event type
  */
 export function fetchDisasterEventPoints(
   eventSpecs: EventTypeSpec[],
   place: string,
-  dateRange: [string, string]
+  dateRange: [string, string],
+  severityFilters: Record<string, SeverityFilter>
 ): Promise<DisasterEventPointData> {
   // Dates to fetch data for.
   const dates = [];
@@ -276,7 +287,7 @@ export function fetchDisasterEventPoints(
             place,
             date,
             eventSpec.id,
-            eventSpec.severityProps,
+            severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
             dateRange[1].length > 7 ? dateRange[1] : ""
           )

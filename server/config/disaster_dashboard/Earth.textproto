@@ -37,7 +37,12 @@ metadata {
       name: "Earthquake"
       event_type_dcids: "EarthquakeEvent"
       color: "#930000"
-      severity_props: "magnitude"
+      default_severity_filter: {
+        prop: "magnitude",
+        unit: "",
+        upper_limit: 8,
+        lower_limit: 1
+      }
     }
   }
   event_type_spec {
@@ -58,6 +63,12 @@ metadata {
       event_type_dcids: "WildfireEvent"
       event_type_dcids: "FireEvent"
       color: "#fee08b"
+      default_severity_filter: {
+        prop: "area",
+        unit: "SquareKilometer",
+        upper_limit: 8,
+        lower_limit: 1
+      }
     }
   }
   event_type_spec {
