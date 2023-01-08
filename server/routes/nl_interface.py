@@ -28,6 +28,7 @@ import requests
 import services.datacommons as dc
 import lib.nl_chart_spec as nl_chart_spec
 import lib.nl_page_config as nl_page_config
+import lib.nl_variable as nl_variable
 from config import subject_page_pb2
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
@@ -612,12 +613,18 @@ def data():
 
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
 
+  # This is a new try to extend svs to siblingins. This is to extend the
+  # stat vars "a little bit"
+  # Get expanded stat var list
+  extended_svs = nl_variable.expand(relevant_svs)
+  sv2name_raw = dc.property_values(extended_svs, 'name')
+  sv2name = {sv: names[0] for sv, names in sv2name_raw.items()}
+
   # Get Chart Spec
   chart_spec = nl_chart_spec.compute(place_dcid, main_place_name,
                                      main_place_type,
                                      related_places['nearbyPlaces'],
-                                     child_places_type,
-                                     svs_df['SV'].values.tolist())
+                                     child_places_type, extended_svs)
   pagae_config_new = nl_page_config.build_page_config(chart_spec, sv2name)
 
   d = {
