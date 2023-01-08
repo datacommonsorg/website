@@ -15,6 +15,7 @@
 # The following classes are used for the NL Detection.
 from abc import ABC
 from dataclasses import dataclass
+from enum import Enum
 from typing import Dict, List
 
 
@@ -50,6 +51,41 @@ class SVDetection:
   sv2scores: Dict[str, float]
 
 
+class RankingType(Enum):
+  """RankingType indicates the type of rankning specified."""
+  NONE = 0
+
+  # HIGH is for queries like:
+  # "most populous cities ..."
+  # "top five best places ..."
+  # "highest amount of in ..."
+  HIGH = 1
+
+  # LOW is for queries like:
+  # "least populous cities ..."
+  # "worst five best places ..."
+  # "least amount of ..."
+  LOW = 2
+
+
+class ContainedInPlaceType(Enum):
+  """ContainedInPlaceType indicates the type of places."""
+  # PLACE is the most generic type.
+  PLACE = 0
+  COUNTRY = 1
+  STATE = 2
+  PROVINCE = 3
+  COUNTY = 4
+  CITY = 5
+
+
+class PeriodType(Enum):
+  """PeriodType indicates the type of date range specified."""
+  EXACT = 1
+  UNTIL = 2
+  FROM = 3
+
+
 class ClassificationAttributes(ABC):
   """Abctract class to hold classification attributes."""
   pass
@@ -58,8 +94,52 @@ class ClassificationAttributes(ABC):
 @dataclass
 class SimpleClassificationAttributes(ClassificationAttributes):
   """Simple classification attributes."""
-  place_detected: Place
-  sv_detected: SV
+  pass
+
+
+@dataclass
+class RankingClassificationAttributes(ClassificationAttributes):
+  """Ranking classification attributes."""
+  ranking_type: RankingType
+
+  # List of words which made this a ranking query:
+  # e.g. "top", "most", "least", "highest" etc
+  # TODO for @juliawu:
+  # we should have translator which returns specific
+  # types of tirgger words and not just strings.
+  ranking_trigger_words: List[str]
+
+
+@dataclass
+class TemporalClassificationAttributes(ClassificationAttributes):
+  """Temporal classification attributes."""
+  date_str: str
+  date_type: PeriodType
+
+
+@dataclass
+class ContainedInClassificationAttributes(ClassificationAttributes):
+  """ContainedIn classification attributes."""
+  contained_in_place_type: ContainedInPlaceType
+
+
+@dataclass
+class CorrelationClassificationAttributes(ClassificationAttributes):
+  """Correlation classification attributes."""
+  sv_1: SV
+  sv_2: SV
+
+  # If is_using_clusters is True, that means sv_1 is coming from
+  # cluster_1_svs and sv_2 is coming from cluster_2_svs.
+  # Otherwise, the two SVs could have come from the same cluster.
+  is_using_clusters: bool
+
+  # Words that may have implied clustering, e.g.
+  # "correlation between ...", "related to .."
+  correlation_trigger_words: str
+
+  cluster_1_svs: List[SV]
+  cluster_2_svs: List[SV]
 
 
 @dataclass
