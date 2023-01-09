@@ -20,8 +20,8 @@
 
 import axios from "axios";
 import React from "react";
-import { MapTile } from "../../components/tiles/map_tile";
 
+import { MapTile } from "../../components/tiles/map_tile";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { GraphNodes } from "../../shared/types";
 import { getEntityLink } from "../bio_charts_utils";
@@ -170,6 +170,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
             place={USA_NAMED_TYPED_PLACE}
             enclosedPlaceType={"State"}
             statVarSpec={statVarDisease}
+            svgChartHeight={200}
           />
         </div>
       </>
