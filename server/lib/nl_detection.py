@@ -72,6 +72,9 @@ class ContainedInPlaceType(Enum):
   PROVINCE = 3
   COUNTY = 4
   CITY = 5
+  DISTRICT = 6
+  TOWN = 7
+  ZIP = 8
 
 
 class PeriodType(Enum):
