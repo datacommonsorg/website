@@ -92,6 +92,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     rankingClassification: props.debugData["ranking_classification"],
     temporalClassification: props.debugData["temporal_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
+    correlationClassification: props.debugData["correlation_classification"],
     chartSpec: props.debugData["chart_spec"],
   };
 
@@ -176,6 +177,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <Col>
               ContainedIn classification: {debugInfo.containedInClassification}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              Correlation classification: {debugInfo.correlationClassification}
             </Col>
           </Row>
           <Row>

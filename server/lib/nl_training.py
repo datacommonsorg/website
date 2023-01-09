@@ -15,6 +15,7 @@
 # The following dictionaries are used by the NL query classification under
 # the path server.services.nl and also invoked from the server/__init__.py
 from dataclasses import dataclass
+from sklearn.cluster import AgglomerativeClustering
 from sklearn.linear_model import LogisticRegression
 from typing import Any, Dict, List
 
@@ -43,6 +44,18 @@ class NLQueryClassificationModel:
     self.classification_type = classification_type
     self.classification_model = LogisticRegression(max_iter=1000,
                                                    random_state=123)
+
+
+@dataclass
+class NLQueryCorrelationDetectionModel:
+  """Attributes for the NL Query Correlation classification."""
+  clustering_model: Any
+  cosine_similarity_cutoff: float
+
+  def __init__(self):
+    self.clustering_model = AgglomerativeClustering(n_clusters=2,
+                                                    affinity='cosine',
+                                                    linkage='average')
 
 
 # Query Sentence Classification Types and associated training data.

@@ -37,6 +37,8 @@ MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 FIXED_PREFIXES = ['md=', 'mq=', 'st=', 'mp=', 'pt=']
 FIXED_PROPS = set([p[:-1] for p in FIXED_PREFIXES])
 
+COSINE_SIMILARITY_CUTOFF = 0.4
+
 
 def _get_preferred_type(types):
   for t in ['Country', 'State', 'County', 'City']:
@@ -408,6 +410,7 @@ def _result_with_debug_info(data_dict,
   ranking_classification = "<None>"
   temporal_classification = "<None>"
   contained_in_classification = "<None>"
+  correlation_classification = "<None>"
 
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
@@ -415,8 +418,15 @@ def _result_with_debug_info(data_dict,
     elif classification.type == ClassificationType.TEMPORAL:
       temporal_classification = str(classification.type)
     elif classification.type == ClassificationType.CONTAINED_IN:
+      contained_in_classification = str(classification.type)
       contained_in_classification = \
           str(classification.attributes.contained_in_place_type)
+    elif classification.type == ClassificationType.CORRELATION:
+      correlation_classification = str(classification.type)
+      correlation_classification += f". Top two SVs: "
+      correlation_classification += f"{classification.attributes.sv_dcid_1, classification.attributes.sv_dcid_2,}. "
+      correlation_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
+      correlation_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
 
   debug_info = {
       "debug": {
@@ -442,8 +452,10 @@ def _result_with_debug_info(data_dict,
               temporal_classification,
           'contained_in_classification':
               contained_in_classification,
+          'correlation_classification':
+              correlation_classification,
           'chart_spec':
-              chart_spec
+              chart_spec,
       },
   }
   # Set the context which contains everything except the charts config.
@@ -494,13 +506,24 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
                                                     place_type=main_place_type),
                                    using_default_place=using_default_place)
 
-  # Step 3: find query classifiers.
+  # Step 3: Identify the SV matched based on the query.
+  svs_scores_dict = _empty_svs_score_dict()
+  try:
+    svs_scores_dict = model.detect_svs(query, embeddings_build)
+  except ValueError as e:
+    logging.info(e)
+    logging.info("Using an empty svs_scores_dict")
+
+  # Set the SVDetection.
+  sv_detection = SVDetection(query=query,
+                             sv_dcids=svs_scores_dict['SV'],
+                             sv_scores=svs_scores_dict['CosineScore'])
+
+  # Step 4: find query classifiers.
   ranking_classification = model.query_classification("ranking", query)
   temporal_classification = model.query_classification("temporal", query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
-  correlation_in_classification = model.query_classification(
-      "correlation", query)
   logging.info(f'Ranking classification: {ranking_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
@@ -513,8 +536,21 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     classifications.append(temporal_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
-  if correlation_in_classification is not None:
-    classifications.append(correlation_in_classification)
+
+  if svs_scores_dict:
+    # Embeddings Indices.
+    sv_index_sorted = []
+    if 'EmbeddingIndex' in svs_scores_dict:
+      sv_index_sorted = svs_scores_dict['EmbeddingIndex']
+
+    # Correlation classification step (needs the SV Detection first.)
+    correlation_classification = model.query_correlation_detection(
+        embeddings_build, query, svs_scores_dict['SV'],
+        svs_scores_dict['CosineScore'], sv_index_sorted,
+        COSINE_SIMILARITY_CUTOFF)
+    logging.info(f'Correlation classification: {correlation_classification}')
+    if correlation_classification is not None:
+      classifications.append(correlation_classification)
 
   if not classifications:
     # Simple Classification simply means:
@@ -523,19 +559,6 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     classifications.append(
         NLClassifier(type=ClassificationType.SIMPLE,
                      attributes=SimpleClassificationAttributes()))
-
-  # Step 4: Identify the SV matched based on the query.
-  svs_scores_dict = _empty_svs_score_dict()
-  try:
-    svs_scores_dict = model.detect_svs(query, embeddings_build)
-  except ValueError as e:
-    logging.info(e)
-    logging.info("Using an empty svs_scores_dict")
-
-  # Set the SVDetection.
-  sv_detection = SVDetection(query=query,
-                             sv_dcids=svs_scores_dict['SV'],
-                             sv_scores=svs_scores_dict['CosineScore'])
 
   return Detection(original_query=orig_query,
                    cleaned_query=cleaned_query,
@@ -585,6 +608,7 @@ def data():
       'SV': svs_detected.sv_dcids,
       'CosineScore': svs_detected.sv_scores
   })
+  logging.info(svs_df)
 
   # Use SVs and Places to get relevant data/stats/chart configs.
   related_places = _related_places(place_dcid)
@@ -632,7 +656,6 @@ def data():
                                      child_places_type, extended_svs)
   page_config_pb = nl_page_config.build_page_config(chart_spec, sv2name)
   page_config = json.loads(MessageToJson(page_config_pb))
-
   d = {
       'place_type': main_place_type,
       'place_name': main_place_name,
