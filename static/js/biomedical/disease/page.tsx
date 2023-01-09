@@ -21,6 +21,8 @@
 import axios from "axios";
 import React from "react";
 
+import { MapTile } from "../../components/tiles/map_tile";
+import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { GraphNodes } from "../../shared/types";
 import { getEntityLink } from "../bio_charts_utils";
 import {
@@ -44,6 +46,7 @@ export interface PagePropType {
 export interface PageStateType {
   data: GraphNodes;
 }
+
 export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
@@ -53,6 +56,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   componentDidMount(): void {
     this.fetchData();
   }
+
   componentDidUpdate(): void {
     const diseaseGeneAssociation = getDiseaseGeneAssociation(this.state.data);
     const diseaseSymptomAssociation = getDiseaseSymptomAssociation(
@@ -87,7 +91,20 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       { id: "name", name: "Compound Name" },
       { id: "drugSource", name: "Drug Source" },
     ];
-
+    const diseasePrevalenceStatVarDcid =
+      "Count_MedicalConditionIncident_Condition" + this.props.dcid;
+    const statVarDisease = {
+      statVar: diseasePrevalenceStatVarDcid,
+      denom: "Count_Person",
+      unit: "%",
+      scaling: 100,
+      log: false,
+      name: "diseaseData",
+    };
+    // Render the graphs only when the data is not null
+    if (this.state.data === null) {
+      return null;
+    }
     return (
       <>
         <h2>{diseaseName}</h2>
@@ -137,6 +154,23 @@ export class Page extends React.Component<PagePropType, PageStateType> {
           <DrugTreatmentTable
             columns={diseaseContraindicationColumns}
             data={chemicalCompoundDiseaseContraindication}
+          />
+        </div>
+        <div>
+          <h5>Disease Prevalance Data</h5>
+          <p>
+            The U.S. state-wise prevalence rates of {diseaseName} as reported by
+            the Centers for Disease Control and Prevention (CDC).
+          </p>
+          <br></br>
+          <div id={diseasePrevalenceStatVarDcid}></div>
+          <MapTile
+            id={diseasePrevalenceStatVarDcid}
+            title={"(${date})"}
+            place={USA_NAMED_TYPED_PLACE}
+            enclosedPlaceType={"State"}
+            statVarSpec={statVarDisease}
+            svgChartHeight={200}
           />
         </div>
       </>
