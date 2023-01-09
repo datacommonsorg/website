@@ -21,41 +21,50 @@ interface TextSearchBarPropType {
   onSearch: (string) => void;
   initialValue: string;
   placeholder: string;
+  shouldAutoFocus?: boolean;
+  clearValueOnSearch?: boolean;
 }
 
 /**
  * Component for the search box in the rich search interface. The value of the
  * is not controlled to prevent constantly updating the hash URL.
  */
-export function TextSearchBar({
-  onSearch,
-  initialValue,
-  placeholder,
-}: TextSearchBarPropType): JSX.Element {
+export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
   const [invalid, setInvalid] = useState(false);
   const [value, setValue] = useState<string>("");
-  const callback = () => (value ? onSearch(value) : setInvalid(true));
   useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
+    setValue(props.initialValue);
+  }, [props.initialValue]);
   return (
     <div className="input-query">
       <InputGroup>
         <Input
           invalid={invalid}
-          placeholder={placeholder}
+          placeholder={props.placeholder}
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
             setInvalid(false);
           }}
-          onKeyPress={(e) => e.key === "Enter" && callback()}
+          onKeyPress={(e) => e.key === "Enter" && handleSearch()}
           className="pac-target-input"
+          autoFocus={props.shouldAutoFocus}
         />
-        <Button onClick={callback} className="rich-search-button">
+        <Button onClick={handleSearch} className="rich-search-button">
           <span className="material-icons search rich-search-icon">search</span>
         </Button>
       </InputGroup>
     </div>
   );
+
+  function handleSearch(): void {
+    if (value) {
+      props.onSearch(value);
+      if (props.clearValueOnSearch) {
+        setValue("");
+      }
+    } else {
+      setInvalid(true);
+    }
+  }
 }
