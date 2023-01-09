@@ -24,7 +24,6 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
@@ -47,6 +46,8 @@ interface BarTilePropType {
   comparisonPlaces: string[];
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface BarChartData {
@@ -208,7 +209,7 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
   drawGroupBarChart(
     props.id,
     elem.offsetWidth,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     chartData.dataGroup,
     props.statVarSpec[0].unit
   );

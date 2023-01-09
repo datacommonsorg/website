@@ -26,7 +26,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
 import { getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import {
@@ -60,6 +59,8 @@ interface MapTilePropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec;
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface RawData {
@@ -295,12 +296,12 @@ function draw(
     chartData.isUsaPlace,
     props.place.dcid,
     width,
-    CHART_HEIGHT
+    props.svgChartHeight
   );
   drawD3Map(
     props.id,
     chartData.geoJson,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     width,
     chartData.dataValues,
     props.statVarSpec.unit,
