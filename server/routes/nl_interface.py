@@ -562,8 +562,9 @@ def data():
   chart_spec, highlight_svs, extended_svs = nl_chart_spec.compute(
       query_detection)
 
-  page_config_pb = nl_page_config.build_page_config(chart_spec, highlight_svs,
-                                                    extended_svs)
+  page_config_pb = nl_page_config.build_page_config(
+      query_detection.classifications[0], chart_spec, highlight_svs,
+      extended_svs)
   page_config = json.loads(MessageToJson(page_config_pb))
 
   d = {

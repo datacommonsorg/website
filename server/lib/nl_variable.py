@@ -18,7 +18,32 @@ from typing import List
 import services.datacommons as dc
 
 
-def extend(svs: List[str]):
+def expand_svg(svgs: List[str]):
+  """Expand svg"""
+  result = {}
+  svg2svs = dc.property_values(svgs, "memberOf", False)
+  # svgs_l2 is to search one more level
+  svgs_l2 = []
+  for svg, svs in svg2svs.items():
+    if not svs:
+      svgs_l2.append(svg)
+      result[svg] = []
+    else:
+      result[svg] = svs
+  if svgs_l2:
+    child_svgs = []
+    svg2childsvgs = dc.property_values(svgs_l2, "specializationOf", False)
+    all_child_svgs = []
+    for svg, child_svgs in svg2childsvgs.items():
+      all_child_svgs.extend(child_svgs)
+    childsvg2svs = dc.property_values(all_child_svgs, "memberOf", False)
+    for svg, child_svgs in svg2childsvgs.items():
+      for child_svg in child_svgs:
+        result[svg].extend(childsvg2svs[child_svg])
+  return result
+
+
+def extend_svs(svs: List[str]):
   """Extend all svs with siblings svs under the same svg.
   """
   svgs = dc.property_values(svs, "memberOf", True).values()
