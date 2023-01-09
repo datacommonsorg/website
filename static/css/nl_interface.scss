@@ -44,15 +44,12 @@ $answer-min-height: 100vh;
 #dc-nl-interface {
   height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 #results-thread-container {
   overflow: hidden;
-  flex: 1 1 0%;
   padding: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
   margin-bottom: 7rem;  // approx height of #search-container
 }
 
@@ -62,6 +59,7 @@ $answer-min-height: 100vh;
   bottom: 0;
   width: 100vw;
   padding-top: $page-vertical-margin;
+  background-image: linear-gradient(180deg, #ffffff00, $page-background-color 65%);
 
   .place-options-section {
     align-items: center;
