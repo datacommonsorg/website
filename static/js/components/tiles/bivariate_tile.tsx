@@ -26,7 +26,6 @@ import ReactDOMServer from "react-dom/server";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -48,6 +47,7 @@ interface BivariateTilePropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
+  svgChartHeight: number;
 }
 
 interface RawData {
@@ -314,7 +314,7 @@ function draw(
   );
   const properties: BivariateProperties = {
     width,
-    height: CHART_HEIGHT,
+    height: props.svgChartHeight,
     xLabel,
     yLabel,
     xUnit: chartData.xStatVar.unit,

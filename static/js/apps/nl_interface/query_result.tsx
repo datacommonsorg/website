@@ -29,6 +29,7 @@ import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
 
 const contextHistoryAge = 3600; // Seconds
 const maxContextHistoryEntry = 10;
+const SVG_CHART_HEIGHT = 160;
 
 export interface QueryResultProps {
   query: string;
@@ -107,6 +108,7 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
             <SubjectPageMainPane
               place={chartsData.place}
               pageConfig={chartsData.config}
+              svgChartHeight={SVG_CHART_HEIGHT}
             />
           )}
           <div id="screen" style={{ display: loading ? "block" : "none" }}>

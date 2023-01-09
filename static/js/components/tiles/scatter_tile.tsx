@@ -28,7 +28,6 @@ import {
   ScatterPlotOptions,
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
@@ -44,6 +43,8 @@ interface ScatterTilePropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface RawData {
@@ -84,7 +85,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   useEffect(() => {
     if (scatterChartData) {
-      draw(scatterChartData, svgContainer, tooltip);
+      draw(scatterChartData, svgContainer, props.svgChartHeight, tooltip);
     }
   }, [scatterChartData]);
 
@@ -242,6 +243,7 @@ function getTooltipElement(
 function draw(
   chartData: ScatterChartData,
   svgContainer: React.RefObject<HTMLDivElement>,
+  svgChartHeight: number,
   tooltip: React.RefObject<HTMLDivElement>
 ): void {
   const width = svgContainer.current.offsetWidth;
@@ -267,7 +269,7 @@ function draw(
   );
   const plotProperties: ScatterPlotProperties = {
     width,
-    height: CHART_HEIGHT,
+    height: svgChartHeight,
     xLabel,
     yLabel,
     xUnit: chartData.xStatVar.unit,

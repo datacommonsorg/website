@@ -39,6 +39,8 @@ export interface CategoryPropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   eventTypeSpec: Record<string, EventTypeSpec>;
+  // Height, in px, for the tile SVG charts.
+  svgChartHeight: number;
 }
 
 export function Category(props: CategoryPropType): JSX.Element {
@@ -63,6 +65,7 @@ export function Category(props: CategoryPropType): JSX.Element {
               columns={block.columns}
               statVarProvider={svProvider}
               eventTypeSpec={props.eventTypeSpec}
+              svgChartHeight={props.svgChartHeight}
             />
           </ErrorBoundary>
         );
