@@ -18,16 +18,15 @@ from typing import List
 import services.datacommons as dc
 
 
-def expand(svs: List[str]):
-  """Expand all svs with siblings svs under the same svg.
+def extend(svs: List[str]):
+  """Extend all svs with siblings svs under the same svg.
   """
   svgs = dc.property_values(svs, "memberOf", True).values()
   svg2children = dc.property_values(svgs, "memberOf", False)
-  used = set(svs)
-  result = svs
+  original = set(svs)
+  result = []
   for _, children in svg2children.items():
     for sv in children:
-      if sv not in used:
+      if sv not in original:
         result.append(sv)
-        used.add(sv)
   return result
