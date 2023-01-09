@@ -81,93 +81,100 @@ def _highlight_svs(sv_df):
 
 
 def compute(query_detection: Detection):
-  if query_detection.classifications[0].type == ClassificationType.SIMPLE:
+  if query_detection.classifications[0].type == ClassificationType.CONTAINED_IN:
+    pass
+  if query_detection.classifications[0].type == ClassificationType.CORRELATION:
+    pass
+  if query_detection.classifications[0].type == ClassificationType.TEMPORAL:
+    pass
+  if query_detection.classifications[0].type == ClassificationType.RANKING:
+    pass
 
-    # Extract info from query_detection.
-    places_detected = query_detection.places_detected
-    main_place_dcid = places_detected.main_place.dcid
-    main_place_name = places_detected.main_place.name
-    main_place_type = places_detected.main_place.place_type
+  # SIMPLE and OTHER
+  # Extract info from query_detection.
+  places_detected = query_detection.places_detected
+  main_place_dcid = places_detected.main_place.dcid
+  main_place_name = places_detected.main_place.name
+  main_place_type = places_detected.main_place.place_type
 
-    svs_detected = query_detection.svs_detected
-    svs_df = pd.DataFrame({
-        'SV': svs_detected.sv_dcids,
-        'CosineScore': svs_detected.sv_scores
-    })
+  svs_detected = query_detection.svs_detected
+  svs_df = pd.DataFrame({
+      'SV': svs_detected.sv_dcids,
+      'CosineScore': svs_detected.sv_scores
+  })
 
-    # Use SVs and Places to get relevant data/stats/chart configs.
-    related_places = _related_places(main_place_dcid)
-    contained_place_type = ""
-    if 'childPlacesType' in related_places:
-      contained_place_type = related_places['childPlacesType']
-    # all_relevant_places = list(
-    #     set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
-    #         related_places['similarPlaces']))
+  # Use SVs and Places to get relevant data/stats/chart configs.
+  related_places = _related_places(main_place_dcid)
+  contained_place_type = ""
+  if 'childPlacesType' in related_places:
+    contained_place_type = related_places['childPlacesType']
+  # all_relevant_places = list(
+  #     set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
+  #         related_places['similarPlaces']))
 
-    # Filter SVs based on scores.
-    highlight_svs = _highlight_svs(svs_df)
-    # relevant_svs_df = _filtered_svs_df(svs_df)
-    # relevant_svs = relevant_svs_df['SV'].values.tolist()
+  # Filter SVs based on scores.
+  highlight_svs = _highlight_svs(svs_df)
+  # relevant_svs_df = _filtered_svs_df(svs_df)
+  # relevant_svs = relevant_svs_df['SV'].values.tolist()
 
-    # Get related SVGs and all info.
-    # svgs_info = _related_svgs(relevant_svs, all_relevant_places)
+  # Get related SVGs and all info.
+  # svgs_info = _related_svgs(relevant_svs, all_relevant_places)
 
-    # Get useful sv2name and sv2definitions.
-    # sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
-    # sv2name = sv_maps["sv2name"]
-    # sv2definition = sv_maps["sv2definition"]
+  # Get useful sv2name and sv2definitions.
+  # sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
+  # sv2name = sv_maps["sv2name"]
+  # sv2definition = sv_maps["sv2definition"]
 
-    # Get SVGs into peer buckets.
-    # peer_buckets = _peer_buckets(sv2definition, relevant_svs)
+  # Get SVGs into peer buckets.
+  # peer_buckets = _peer_buckets(sv2definition, relevant_svs)
 
-    # Produce Chart Config JSON.
-    # chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
-    #                              child_places_type, highlight_svs, sv2name,
-    #                              peer_buckets)
+  # Produce Chart Config JSON.
+  # chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
+  #                              child_places_type, highlight_svs, sv2name,
+  #                              peer_buckets)
 
-    # message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
+  # message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
 
-    # This is a new try to extend svs to siblingins. This is to extend the
-    # stat vars "a little bit"
-    # Get expanded stat var list
-    extended_svs = nl_variable.extend(highlight_svs)
+  # This is a new try to extend svs to siblingins. This is to extend the
+  # stat vars "a little bit"
+  # Get expanded stat var list
+  extended_svs = nl_variable.extend(highlight_svs)
 
-    all_svs = highlight_svs + extended_svs
+  all_svs = highlight_svs + extended_svs
 
-    chart_spec = ChartSpec(main=MainPlaceSpec(place=main_place_dcid,
-                                              name=main_place_name,
-                                              type=main_place_type,
-                                              svs=[]),
-                           nearby=NearbyPlaceSpec(sv2places={}),
-                           contained=ContainedPlaceSpec(
-                               containing_place=main_place_dcid,
-                               contained_place_type=contained_place_type,
-                               svs=[]))
-    sample_child_place = None
-    all_places = related_places['nearbyPlaces'] + [main_place_dcid]
-    triples = dc.triples(main_place_dcid, 'in').get('triples')
-    if triples:
-      for prop, nodes in triples.items():
-        if prop != 'containedInPlace' and prop != 'geoOverlaps':
-          continue
-        for node in nodes['nodes']:
-          if contained_place_type in node['types']:
-            all_places.append(node['dcid'])
-            sample_child_place = node['dcid']
-            break
+  chart_spec = ChartSpec(main=MainPlaceSpec(place=main_place_dcid,
+                                            name=main_place_name,
+                                            type=main_place_type,
+                                            svs=[]),
+                         nearby=NearbyPlaceSpec(sv2places={}),
+                         contained=ContainedPlaceSpec(
+                             containing_place=main_place_dcid,
+                             contained_place_type=contained_place_type,
+                             svs=[]))
+  sample_child_place = None
+  all_places = related_places['nearbyPlaces'] + [main_place_dcid]
+  triples = dc.triples(main_place_dcid, 'in').get('triples')
+  if triples:
+    for prop, nodes in triples.items():
+      if prop != 'containedInPlace' and prop != 'geoOverlaps':
+        continue
+      for node in nodes['nodes']:
+        if contained_place_type in node['types']:
+          all_places.append(node['dcid'])
+          sample_child_place = node['dcid']
+          break
 
-    sv_existence = dc.observation_existence(all_svs, all_places)
-    for sv in all_svs:
-      for place, exist in sv_existence['variable'][sv]['entity'].items():
-        if not exist:
-          continue
-        if place == main_place_dcid:
-          chart_spec.main.svs.append(sv)
-        elif place == sample_child_place:
-          chart_spec.contained.svs.append(sv)
-        else:
-          if sv not in chart_spec.nearby.sv2places:
-            chart_spec.nearby.sv2places[sv] = []
-          chart_spec.nearby.sv2places[sv].append(place)
-
-    return chart_spec, highlight_svs, extended_svs
+  sv_existence = dc.observation_existence(all_svs, all_places)
+  for sv in all_svs:
+    for place, exist in sv_existence['variable'][sv]['entity'].items():
+      if not exist:
+        continue
+      if place == main_place_dcid:
+        chart_spec.main.svs.append(sv)
+      elif place == sample_child_place:
+        chart_spec.contained.svs.append(sv)
+      else:
+        if sv not in chart_spec.nearby.sv2places:
+          chart_spec.nearby.sv2places[sv] = []
+        chart_spec.nearby.sv2places[sv].append(place)
+  return chart_spec, highlight_svs, extended_svs
