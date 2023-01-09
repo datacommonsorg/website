@@ -16,7 +16,7 @@
 from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
-from typing import List
+from typing import Dict, List
 
 
 @dataclass
@@ -44,6 +44,9 @@ class SVDetection:
   # The two lists below are assumed to be ordered.
   sv_dcids: List[str]
   sv_scores: List[float]
+
+  # Helpful to have all svs to sentences.
+  svs_to_sentences: Dict[str, List[str]]
 
 
 class RankingType(Enum):

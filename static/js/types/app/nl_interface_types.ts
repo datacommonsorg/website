@@ -39,6 +39,7 @@ export interface DebugInfo {
   mainPlaceName: string;
   queryWithoutPlaces: string;
   svScores: SVScores;
+  svSentences: Map<string, Array<string>>;
   embeddingsBuild: string;
   rankingClassification: string;
   temporalClassification: string;

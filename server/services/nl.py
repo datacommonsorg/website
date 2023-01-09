@@ -38,7 +38,7 @@ BUILDS = [
     'demographics300',  #'uncurated3000', 
     'demographics300-withpalmalternatives',
     'curatedJan2022',
-    'combined_all'
+    'us_filtered',
 ]
 GCS_BUCKET = 'datcom-csv'
 EMBEDDINGS = 'embeddings/'
@@ -89,6 +89,7 @@ class Model:
     self.dataset_embeddings_maps_to_df = {}
     self._download_embeddings()
     self.dcid_maps = {}
+    self.sentence_maps = {}
     for build in BUILDS:
       logging.info('Loading build {}'.format(build))
       ds = load_dataset('csv',
@@ -97,6 +98,12 @@ class Model:
       df = ds["train"].to_pandas()
       self.dcid_maps[build] = df['dcid'].values.tolist()
       df = df.drop('dcid', axis=1)
+      # Also get the sentence mappings.
+      self.sentence_maps[build] = []
+      if 'sentence' in df:
+        self.sentence_maps[build] = df['sentence'].values.tolist()
+        df = df.drop('sentence', axis=1)
+
       self.dataset_embeddings_maps[build] = torch.from_numpy(df.to_numpy()).to(
           torch.float)
       self.dataset_embeddings_maps_to_df[build] = df
@@ -114,8 +121,11 @@ class Model:
     bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
     blobs = bucket.list_blobs(prefix=EMBEDDINGS)  # Get list of files
     for blob in blobs:
-      _, filename = os.path.split(blob.name)
-      blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
+      try:
+        _, filename = os.path.split(blob.name)
+        blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
+      except Exception as e:
+        logging.info(e)
 
   def _train_classifier(self, categories, input_sentences):
     """Encode each sentence to get "features" and associated "labels"."""
@@ -368,13 +378,31 @@ class Model:
     sv2score = {}
     # Also track the sv to index so that embeddings can later be retrieved.
     sv2index = {}
+    # Also add the full list of SVs and sentences that matched (for debugging).
+    all_svs_sentences: Dict[str, List[str]] = {}
     for e in hits[0]:
       for d in self.dcid_maps[embeddings_build][e['corpus_id']].split(','):
         s = e['score']
+        ind = e['corpus_id']
+        sentence = ""
+        try:
+          sentence = self.sentence_maps[embeddings_build][
+              e['corpus_id']] + f" ({s})"
+        except Exception as exp:
+          logging.info(exp)
         # Prefer the top score.
         if d not in sv2score:
           sv2score[d] = s
-          sv2index[d] = e['corpus_id']
+          sv2index[d] = ind
+
+        # Add to the debug map anyway.
+        existing_sentences = []
+        if d in all_svs_sentences:
+          existing_sentences = all_svs_sentences[d]
+
+        if sentence not in existing_sentences:
+          existing_sentences.append(sentence)
+        all_svs_sentences[d] = existing_sentences
 
     # Sort by scores
     sv2score_sorted = sorted(sv2score.items(),
@@ -388,7 +416,8 @@ class Model:
     return {
         'SV': svs_sorted,
         'CosineScore': scores_sorted,
-        'EmbeddingIndex': sv_index_sorted
+        'EmbeddingIndex': sv_index_sorted,
+        'SV_to_Sentences': all_svs_sentences,
     }
 
   def detect_place(self, query):

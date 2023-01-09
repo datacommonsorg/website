@@ -366,6 +366,7 @@ def _result_with_debug_info(data_dict,
       'SV': query_detection.svs_detected.sv_dcids,
       'CosineScore': query_detection.svs_detected.sv_scores
   }
+  svs_to_sentences = query_detection.svs_detected.svs_to_sentences
 
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
@@ -407,6 +408,8 @@ def _result_with_debug_info(data_dict,
               query_detection.places_detected.query_without_place_substr,
           'sv_matching':
               svs_dict,
+          'svs_to_sentences':
+              svs_to_sentences,
           'embeddings_build':
               embeddings_build,
           'ranking_classification':
@@ -478,9 +481,11 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     logging.info("Using an empty svs_scores_dict")
 
   # Set the SVDetection.
-  sv_detection = SVDetection(query=query,
-                             sv_dcids=svs_scores_dict['SV'],
-                             sv_scores=svs_scores_dict['CosineScore'])
+  sv_detection = SVDetection(
+      query=query,
+      sv_dcids=svs_scores_dict['SV'],
+      sv_scores=svs_scores_dict['CosineScore'],
+      svs_to_sentences=svs_scores_dict['SV_to_Sentences'])
 
   # Step 4: find query classifiers.
   ranking_classification = model.query_classification("ranking", query)
