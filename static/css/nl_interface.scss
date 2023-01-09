@@ -93,7 +93,12 @@ $answer-min-height: 100vh;
   .chart-container {
     background: white;
     margin-top: 0;
+    padding: 10px;
     width: 30%;
+
+    h4 {
+      margin-bottom: 0;
+    }
 
     .svg-container {
       min-height: $chart-svg-height;
@@ -102,6 +107,12 @@ $answer-min-height: 100vh;
     .legend {
       margin-left: 0 !important;
     }
+
+  }
+
+  .bar-chart .legend,
+  .line-chart .legend {
+    display: none;
   }
 
   .block-title {

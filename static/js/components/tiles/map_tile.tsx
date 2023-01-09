@@ -296,7 +296,7 @@ function draw(
     chartData.isUsaPlace,
     props.place.dcid,
     width,
-    props.svgChartHeight,
+    props.svgChartHeight
   );
   drawD3Map(
     props.id,

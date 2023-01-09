@@ -20,8 +20,8 @@
 
 import _ from "lodash";
 import React from "react";
-import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 
+import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
@@ -59,7 +59,9 @@ export function SubjectPageMainPane(
                 enclosedPlaceType={enclosedPlaceType}
                 config={category}
                 eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
-                svgChartHeight={props.svgChartHeight ? props.svgChartHeight : SVG_CHART_HEIGHT}
+                svgChartHeight={
+                  props.svgChartHeight ? props.svgChartHeight : SVG_CHART_HEIGHT
+                }
               />
             </ErrorBoundary>
           );
