@@ -31,6 +31,7 @@ import pandas as pd
 import torch
 from datasets import load_dataset
 import logging
+from collections import OrderedDict
 
 BUILDS = [
     'demographics300',  #'uncurated3000', 
@@ -62,15 +63,16 @@ def pick_option(class_model, q, categories):
   else:
     return "Inconclusive."
 
+
 def _prefix_length(s1, s2):
-    if not s1 or not s2:
-        return 0
-    short_str = min([s1, s2],key=len)
-    for i, char in enumerate(short_str):
-        for other in [s1, s2]:
-            if other[i] != char:
-                return i+1
-    return len(short_str) 
+  if not s1 or not s2:
+    return 0
+  short_str = min([s1, s2], key=len)
+  for i, char in enumerate(short_str):
+    for other in [s1, s2]:
+      if other[i] != char:
+        return i + 1
+  return len(short_str)
 
 
 class Model:
@@ -177,14 +179,30 @@ class Model:
                                                   date_type=PeriodType.NONE)
     return NLClassifier(type=ClassificationType.TEMPORAL, attributes=attributes)
 
-  def _containedin_classification(self,
-                                  prediction) -> Union[NLClassifier, None]:
+  def _containedin_classification(self, prediction,
+                                  query: str) -> Union[NLClassifier, None]:
     if prediction != "Contained In":
       return None
 
+    contained_in_place_type = ContainedInPlaceType.PLACE
+    place_type_to_enum = OrderedDict({
+        "county": ContainedInPlaceType.COUNTY,
+        "state": ContainedInPlaceType.STATE,
+        "country": ContainedInPlaceType.COUNTRY,
+        "city": ContainedInPlaceType.CITY,
+        "district": ContainedInPlaceType.DISTRICT,
+        "province": ContainedInPlaceType.PROVINCE,
+        "town": ContainedInPlaceType.TOWN,
+        "zip": ContainedInPlaceType.ZIP
+    })
+    for place_type, place_enum in place_type_to_enum.items():
+      if place_type in query:
+        contained_in_place_type = place_enum
+        break
+
     # TODO: need to detect the type of place for this contained in.
     attributes = ContainedInClassificationAttributes(
-        contained_in_place_type=ContainedInPlaceType.PLACE)
+        contained_in_place_type=contained_in_place_type)
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
@@ -205,8 +223,14 @@ class Model:
                         attributes=attributes)
 
   def query_correlation_detection(
-      self, embeddings_build, query, svs_list, svs_scores,
-      sv_embedding_indices, cosine_similarity_cutoff=0.4, prefix_length_cutoff=8) -> Union[NLClassifier, None]:
+      self,
+      embeddings_build,
+      query,
+      svs_list,
+      svs_scores,
+      sv_embedding_indices,
+      cosine_similarity_cutoff=0.4,
+      prefix_length_cutoff=8) -> Union[NLClassifier, None]:
     """Correlation detection based on clustering. Assumes all input lists are ordered and same length."""
 
     embedding_vectors = []
@@ -258,7 +282,7 @@ class Model:
       # Check in case the two SVs have long prefix matching.
       if _prefix_length(sv_dcid_1, sv_dcid_2) >= prefix_length_cutoff:
         logging.info(
-          f"Best SVs ({sv_dcid_1, sv_dcid_2}) have prefix match > {prefix_length_cutoff}. Not a Correlation Query."
+            f"Best SVs ({sv_dcid_1, sv_dcid_2}) have prefix match > {prefix_length_cutoff}. Not a Correlation Query."
         )
         return None
 
@@ -317,7 +341,7 @@ class Model:
       elif type_string == "temporal":
         return self._temporal_classification(prediction)
       elif type_string == "contained_in":
-        return self._containedin_classification(prediction)
+        return self._containedin_classification(prediction, query)
 
     if type_string == "correlation":
       # TODO: implement.

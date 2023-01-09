@@ -393,7 +393,6 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": []}
 
 
-
 def _result_with_debug_info(data_dict,
                             status,
                             embeddings_build,
@@ -420,6 +419,8 @@ def _result_with_debug_info(data_dict,
       temporal_classification = str(classification.type)
     elif classification.type == ClassificationType.CONTAINED_IN:
       contained_in_classification = str(classification.type)
+      contained_in_classification = \
+          str(classification.attributes.contained_in_place_type)
     elif classification.type == ClassificationType.CORRELATION:
       correlation_classification = str(classification.type)
       correlation_classification += f". Top two SVs: "
@@ -545,7 +546,8 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     # Correlation classification step (needs the SV Detection first.)
     correlation_classification = model.query_correlation_detection(
         embeddings_build, query, svs_scores_dict['SV'],
-        svs_scores_dict['CosineScore'], sv_index_sorted, COSINE_SIMILARITY_CUTOFF)
+        svs_scores_dict['CosineScore'], sv_index_sorted,
+        COSINE_SIMILARITY_CUTOFF)
     logging.info(f'Correlation classification: {correlation_classification}')
     if correlation_classification is not None:
       classifications.append(correlation_classification)
