@@ -25,16 +25,53 @@ import { Col, Row } from "reactstrap";
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
 export const BUILD_OPTIONS = [
-  { value: "curatedJan2022", text: "Curated 3.5k+ SVs (Jan2022) - Default" },
+  {
+    value: "curatedJan2022",
+    text: "Curated 3.5k+ SVs PaLM(Jan2022) - Default",
+  },
+  { value: "us_filtered", text: "Filtered US SVs (PaLM)" },
   { value: "demographics300", text: "Demographics only (300 SVs)" },
   {
     value: "demographics300-withpalmalternatives",
     text: "Demographics only (300 SVs) with PaLM Alternatives",
   },
   // { value: "uncurated3000", text: "Uncurated 3000 SVs" },
-
-  { value: "combined_all", text: "Combined All of the Above" },
+  // { value: "combined_all", text: "Combined All of the Above" },
 ];
+
+const svToSentences = (
+  svScores: SVScores,
+  svSentences: Map<string, Array<string>>
+): JSX.Element => {
+  const svs = Object.values(svScores.SV);
+  return (
+    <div id="sv-sentences-list">
+      <table>
+        <thead>
+          <tr>
+            <th>SV_DCID</th>
+            <th>Sentences</th>
+          </tr>
+        </thead>
+        <tbody>
+          {svs.length === Object.keys(svSentences).length &&
+            svs.map((sv) => {
+              return (
+                <tr key={sv}>
+                  <td>{sv}</td>
+                  <td>
+                    {svSentences[sv].map((sentence) => {
+                      return <tr key={sentence}>{sentence}</tr>;
+                    })}
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 const matchScoresElement = (svScores: SVScores): JSX.Element => {
   const svs = Object.values(svScores.SV);
@@ -45,7 +82,7 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
         <thead>
           <tr>
             <th>SV</th>
-            <th>Cosine Score [0, 1]</th>
+            <th>Cosine Score (Best/Max) [0, 1]</th>
           </tr>
         </thead>
         <tbody>
@@ -85,6 +122,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     mainPlaceName: props.debugData["main_place_name"],
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
     svScores: props.debugData["sv_matching"],
+    svSentences: props.debugData["svs_to_sentences"],
     embeddingsBuild: props.debugData["embeddings_build"],
     rankingClassification: props.debugData["ranking_classification"],
     temporalClassification: props.debugData["temporal_classification"],
@@ -186,6 +224,14 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>{matchScoresElement(debugInfo.svScores)}</Col>
+          </Row>
+          <Row>
+            <b>SV Sentences Matched (with scores):</b>
+          </Row>
+          <Row>
+            <Col>
+              {svToSentences(debugInfo.svScores, debugInfo.svSentences)}
+            </Col>
           </Row>
           <Row>
             <b>Chart Spec</b>
