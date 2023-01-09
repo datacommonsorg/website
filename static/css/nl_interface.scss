@@ -43,13 +43,11 @@ $answer-min-height: 100vh;
 
 #dc-nl-interface {
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #results-thread-container {
-  overflow: hidden;
   padding: 0;
-  overflow-y: scroll;
   margin-bottom: 7rem;  // approx height of #search-container
 }
 
@@ -81,6 +79,12 @@ $answer-min-height: 100vh;
 .nl-result {
   background: $answer-background-color;
   min-height: $answer-min-height;
+
+  .block-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
   .block-column {
     flex-direction: row !important;
