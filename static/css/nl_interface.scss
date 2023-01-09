@@ -26,6 +26,7 @@ $page-vertical-margin: 2rem;
 $query-vertical-margin: 2rem;
 $page-background-color: #26272c;
 $answer-background-color: #3e414c;
+$chart-svg-height: 160px;
 
 #main-header,
 #main-footer {
@@ -81,8 +82,24 @@ $answer-background-color: #3e414c;
 .nl-result {
   background: $answer-background-color;
 
+  .block-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
   .chart-container {
     background: white;
+    margin-top: 0;
+    width: 30%;
+
+    .svg-container {
+      min-height: $chart-svg-height;
+    }
+
+    .legend {
+      margin-left: 0 !important;
+    }
   }
 
   .block-title {

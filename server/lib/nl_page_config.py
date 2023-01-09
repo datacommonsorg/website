@@ -43,7 +43,7 @@ def build_page_config(spec: ChartSpec, sv2name: Dict[str, str]):
   # Nearby place
   if spec.nearby.sv2places:
     block = category.blocks.add()
-    block.title = "Near by {} of {}".format(spec.main.type, spec.main.name)
+    block.title = "Near {} of {}".format(spec.main.type, spec.main.name)
     column = block.columns.add()
     for sv, places in spec.nearby.sv2places.items():
       tile = column.tiles.add()
