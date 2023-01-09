@@ -23,6 +23,8 @@ from lib.nl_detection import ContainedInClassificationAttributes, ContainedInPla
 from lib.nl_detection import RankingClassificationAttributes, RankingType
 from lib.nl_detection import PeriodType, TemporalClassificationAttributes
 from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel
+from lib.nl_training import NLQueryCorrelationDetectionModel
+from lib.nl_page_config import PLACE_TYPE_TO_PLURALS
 from typing import Dict, List, Union
 import os
 import pandas as pd
@@ -176,8 +178,14 @@ class Model:
         "town": ContainedInPlaceType.TOWN,
         "zip": ContainedInPlaceType.ZIP
     })
+    query = query.lower()
     for place_type, place_enum in place_type_to_enum.items():
       if place_type in query:
+        contained_in_place_type = place_enum
+        break
+
+      if place_type in PLACE_TYPE_TO_PLURALS and \
+        PLACE_TYPE_TO_PLURALS[place_type] in query:
         contained_in_place_type = place_enum
         break
 
