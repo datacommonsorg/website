@@ -18,8 +18,10 @@
  * A container for any tile containing a chart.
  */
 
-import React from "react";
+import _ from "lodash";
+import React, { useRef } from "react";
 
+import { ChartEmbed } from "../../place/chart_embed";
 import { urlToDomain } from "../../shared/util";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 
@@ -28,29 +30,78 @@ interface ChartTileContainerProp {
   sources: Set<string>;
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
+  // Whether or not to allow chart embedding action.
+  allowEmbed: boolean;
+  // callback function for getting the chart data as a csv. Only used for
+  // embedding.
+  getDataCsv?: () => string;
   // Extra classes to add to the container.
   className?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
+  const containerRef = useRef(null);
+  const embedModalElement = useRef<ChartEmbed>(null);
   const title = props.title
     ? formatString(props.title, props.replacementStrings)
     : "";
   return (
     <div
       className={`chart-container ${props.className ? props.className : ""}`}
+      ref={containerRef}
     >
-      <h4>{title}</h4>
+      {title && <h4>{title}</h4>}
       {props.children}
-      {props.sources && (
-        <footer>
+      <footer id="chart-container-footer">
+        {!_.isEmpty(props.sources) && (
           <div className="sources">
             Data from {getSourcesJsx(props.sources)}
           </div>
-        </footer>
-      )}
+        )}
+        <div className="outlinks">
+          {props.allowEmbed && (
+            <a
+              href="#"
+              onClick={(event) => {
+                event.preventDefault();
+                handleEmbed();
+              }}
+            >
+              Export
+            </a>
+          )}
+        </div>
+      </footer>
+      <ChartEmbed ref={embedModalElement} />
     </div>
   );
+
+  // Handle when chart embed is clicked .
+  function handleEmbed(): void {
+    const chartTitle = props.title
+      ? formatString(props.title, props.replacementStrings)
+      : "";
+    const svgElemList = containerRef.current.getElementsByTagName("svg");
+    const svgElem = svgElemList.length ? svgElemList.item(0) : null;
+    let svgXml = "";
+    let svgWidth = 0;
+    let svgHeight = 0;
+    if (svgElem) {
+      svgXml = svgElem.outerHTML;
+      const svgBBox = svgElem.getBBox();
+      svgWidth = svgBBox.width;
+      svgHeight = svgBBox.height;
+    }
+    embedModalElement.current.show(
+      svgXml,
+      props.getDataCsv ? props.getDataCsv() : "",
+      svgWidth,
+      svgHeight,
+      chartTitle,
+      "",
+      Array.from(props.sources)
+    );
+  }
 }
 
 function getSourcesJsx(sources: Set<string>): JSX.Element[] {
