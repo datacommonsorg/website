@@ -88,6 +88,12 @@ $answer-min-height: 100vh;
     gap: 16px;
   }
 
+  .block-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
   .chart-container {
     background: white;
     margin-top: 0;
