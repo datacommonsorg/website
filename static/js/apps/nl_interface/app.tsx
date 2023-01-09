@@ -61,6 +61,8 @@ export function App(): JSX.Element {
               }}
               initialValue=""
               placeholder='For example "family earnings in california"'
+              shouldAutoFocus={true}
+              clearValueOnSearch={true}
             />
           </div>
         </Container>
