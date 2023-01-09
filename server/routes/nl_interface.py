@@ -47,18 +47,6 @@ def _get_preferred_type(types):
   return sorted(types)[0]
 
 
-def _highlight_svs(sv_df):
-  if sv_df.empty:
-    return []
-  return sv_df[sv_df['CosineScore'] > 0.4]['SV'].values.tolist()
-
-
-def _filtered_svs_df(sv_df):
-  if sv_df.empty:
-    return pd.DataFrame.from_dict(_empty_svs_score_dict())
-  return sv_df.drop(sv_df[sv_df['CosineScore'] < 0.3].index)
-
-
 def _sv_definition_name_maps(svgs_info, svs_list):
   sv2definition = {}
   sv2name = {}
@@ -247,23 +235,6 @@ def _chart_config(place_dcid, main_place_type, main_place_name,
   return chart_config
 
 
-def _get_related_places(place_dcid):
-  place_page_data = dc.get_landing_page_data(place_dcid, 'Overview', [])
-  if not place_page_data:
-    place_page_data = {}
-
-  if "parentPlaces" not in place_page_data:
-    place_page_data["parentPlaces"] = []
-  if "childPlacesType" not in place_page_data:
-    place_page_data["childPlacesType"] = ""
-  if "nearbyPlaces" not in place_page_data:
-    place_page_data["nearbyPlaces"] = []
-  if "similarPlaces" not in place_page_data:
-    place_page_data["similarPlaces"] = []
-
-  return place_page_data
-
-
 def _get_svg_info(entities, svg_dcids):
   result = dc.get_variable_group_info(svg_dcids, entities)
   if isinstance(result, dict):
@@ -292,14 +263,6 @@ def _related_svgs(svs_list, relevant_places):
   # Get SVG info for all relevant places
   svgs_info = _get_svg_info(relevant_places, list(svgs))
   return svgs_info.get('data', {})
-
-
-def _related_places(dcid):
-  # Get related places using Place API
-  related_places = _get_related_places(dcid)
-  related_places['nearbyPlaces'] += [dcid]
-  related_places['similarPlaces'] += [dcid]
-  return related_places
 
 
 def _peer_buckets(sv2definition, svs_list):
@@ -583,7 +546,6 @@ def data():
   query = str(escape(_remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   default_place = "United States"
-  using_default_place = False
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
     logging.info("Query was empty")
@@ -596,80 +558,28 @@ def data():
   query_detection = _detection(str(escape(original_query)), query,
                                embeddings_build)
 
-  # Extract info from query_detection.
-  places_detected = query_detection.places_detected
-  place_dcid = places_detected.main_place.dcid
-  main_place_name = places_detected.main_place.name
-  main_place_type = places_detected.main_place.place_type
-  using_default_place = places_detected.using_default_place
-
-  svs_detected = query_detection.svs_detected
-  svs_df = pd.DataFrame({
-      'SV': svs_detected.sv_dcids,
-      'CosineScore': svs_detected.sv_scores
-  })
-  logging.info(svs_df)
-
-  # Use SVs and Places to get relevant data/stats/chart configs.
-  related_places = _related_places(place_dcid)
-  child_places_type = ""
-  if 'childPlacesType' in related_places:
-    child_places_type = related_places['childPlacesType']
-  all_relevant_places = list(
-      set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
-          related_places['similarPlaces']))
-
-  # Filter SVs based on scores.
-  highlight_svs = _highlight_svs(svs_df)
-  relevant_svs_df = _filtered_svs_df(svs_df)
-  relevant_svs = relevant_svs_df['SV'].values.tolist()
-
-  # Get related SVGs and all info.
-  svgs_info = _related_svgs(relevant_svs, all_relevant_places)
-
-  # Get useful sv2name and sv2definitions.
-  sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
-  sv2name = sv_maps["sv2name"]
-  sv2definition = sv_maps["sv2definition"]
-
-  # Get SVGs into peer buckets.
-  peer_buckets = _peer_buckets(sv2definition, relevant_svs)
-
-  # Produce Chart Config JSON.
-  chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
-                               child_places_type, highlight_svs, sv2name,
-                               peer_buckets)
-
-  message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-
-  # This is a new try to extend svs to siblingins. This is to extend the
-  # stat vars "a little bit"
-  # Get expanded stat var list
-  extended_svs = nl_variable.expand(relevant_svs)
-  sv2name_raw = dc.property_values(extended_svs, 'name')
-  sv2name = {sv: names[0] for sv, names in sv2name_raw.items()}
-
   # Get Chart Spec
-  chart_spec = nl_chart_spec.compute(place_dcid, main_place_name,
-                                     main_place_type,
-                                     related_places['nearbyPlaces'],
-                                     child_places_type, extended_svs)
-  page_config_pb = nl_page_config.build_page_config(chart_spec, sv2name)
+  chart_spec, highlight_svs, extended_svs = nl_chart_spec.compute(
+      query_detection)
+
+  page_config_pb = nl_page_config.build_page_config(chart_spec, highlight_svs,
+                                                    extended_svs)
   page_config = json.loads(MessageToJson(page_config_pb))
+
   d = {
-      'place_type': main_place_type,
-      'place_name': main_place_name,
-      'place_dcid': place_dcid,
+      'place_type': query_detection.places_detected.main_place.place_type,
+      'place_name': query_detection.places_detected.main_place.name,
+      'place_dcid': query_detection.places_detected.main_place.dcid,
       'config': page_config,
   }
   status_str = "Successful"
-  if using_default_place or relevant_svs_df.empty:
+  if query_detection.places_detected.using_default_place or not highlight_svs:
     status_str = ""
 
-  if using_default_place:
+  if query_detection.places_detected.using_default_place:
     places_found = [f'{default_place} (default)']
     status_str += f'**No Place Found** (using default: {default_place}). '
-  if relevant_svs_df.empty:
+  if not highlight_svs:
     status_str += '**No SVs Found**.'
 
   return _result_with_debug_info(d, status_str, embeddings_build,

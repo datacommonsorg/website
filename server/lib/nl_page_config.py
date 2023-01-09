@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict
+from typing import List
 
 from lib.nl_chart_spec import ChartSpec
 from config import subject_page_pb2
+import services.datacommons as dc
 
 PLACE_TYPE_TO_PLURALS = {
     "place": "places",
@@ -46,7 +47,15 @@ def pluralize_place_type(place_type: str) -> str:
                                    PLACE_TYPE_TO_PLURALS["place"])
 
 
-def build_page_config(spec: ChartSpec, sv2name: Dict[str, str]):
+def get_sv_name(svs):
+  sv2name_raw = dc.property_values(svs, 'name')
+  return {sv: names[0] for sv, names in sv2name_raw.items()}
+
+
+def build_page_config(spec: ChartSpec, relevant_svs: List[str],
+                      extended_svs: List[str]):
+
+  sv2name = get_sv_name(relevant_svs + extended_svs)
   # Init
   page_config = subject_page_pb2.SubjectPageConfig()
   # Set metadata
