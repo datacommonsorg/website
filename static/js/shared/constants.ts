@@ -37,6 +37,11 @@ export const EARTH_NAMED_TYPED_PLACE: NamedTypedPlace = {
   name: "Earth",
   types: ["Planet"],
 };
+export const USA_NAMED_TYPED_PLACE: NamedTypedPlace = {
+  dcid: "country/USA",
+  name: "United States of America",
+  types: ["Country"],
+};
 export const IPCC_PLACE_50_TYPE_DCID = "IPCCPlace_50";
 
 export const MAX_YEAR = "2050";
