@@ -32,6 +32,7 @@ import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { stringifyFn } from "../../utils/axios";
+import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
@@ -103,6 +104,16 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       sources={scatterChartData.sources}
       replacementStrings={rs}
       className="scatter-chart"
+      allowEmbed={true}
+      getDataCsv={() =>
+        scatterDataToCsv(
+          scatterChartData.xStatVar.statVar,
+          scatterChartData.xStatVar.denom,
+          scatterChartData.yStatVar.statVar,
+          scatterChartData.yStatVar.denom,
+          scatterChartData.points
+        )
+      }
     >
       <div id={props.id} className="scatter-svg-container" ref={svgContainer} />
       <div id="scatter-tooltip" ref={tooltip} />

@@ -28,6 +28,7 @@ import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
+import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
@@ -81,6 +82,8 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       sources={lineChartData.sources}
       replacementStrings={rs}
       className="line-chart"
+      allowEmbed={true}
+      getDataCsv={() => dataGroupsToCsv(lineChartData.dataGroup)}
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>

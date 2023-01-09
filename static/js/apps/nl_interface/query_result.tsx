@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { createRef, memo, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Container } from "reactstrap";
 
@@ -35,19 +35,36 @@ export interface QueryResultProps {
   query: string;
 }
 
-export function QueryResult(props: QueryResultProps): JSX.Element {
+export const QueryResult = memo(function QueryResult(
+  props: QueryResultProps
+): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [selectedBuild, setSelectedBuild] = useState(BUILD_OPTIONS[0].value);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [cookies, setCookie] = useCookies();
   const [debugData, setDebugData] = useState<any>();
+  const scrollRef = createRef<HTMLDivElement>();
+
+  useEffect(() => {
+    // Scroll to the top (assuming this is the last query to render, and other queries are memoized).
+    // HACK: use a longer timeout to correct scroll errors after charts have rendered.
+    const timer = setTimeout(() => {
+      console.log(`self-scrolling to top: ${props.query}`);
+      scrollRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "start",
+      });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [isLoading]);
 
   useEffect(() => {
     fetchData(props.query, selectedBuild);
   }, [props.query, selectedBuild]);
 
   function fetchData(query: string, build: string): void {
-    setLoading(true);
+    setIsLoading(true);
     axios
       .post(`/nl/data?q=${query}&build=${build}`, {
         contextHistory: cookies["context_history"],
@@ -57,7 +74,7 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
           resp.data["context"] === undefined ||
           resp.data["config"] === undefined
         ) {
-          setLoading(false);
+          setIsLoading(false);
           return;
         }
         const context: any = resp.data["context"];
@@ -81,16 +98,16 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
           config: resp.data["config"],
         });
         if (context["debug"] === undefined) {
-          setLoading(false);
+          setIsLoading(false);
           return;
         }
         setDebugData(context["debug"]);
-        setLoading(false);
+        setIsLoading(false);
       });
   }
   return (
     <>
-      <div className="nl-query">
+      <div className="nl-query" ref={scrollRef}>
         <Container>
           <h2>Q: {props.query}</h2>
         </Container>
@@ -111,11 +128,13 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
               svgChartHeight={SVG_CHART_HEIGHT}
             />
           )}
-          <div id="screen" style={{ display: loading ? "block" : "none" }}>
-            <div id="spinner"></div>
-          </div>
+          {isLoading && (
+            <div className="dot-loading-stage">
+              <div className="dot-flashing"></div>
+            </div>
+          )}
         </Container>
       </div>
     </>
   );
-}
+});

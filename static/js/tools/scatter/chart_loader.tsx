@@ -29,7 +29,6 @@ import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
   EntityObservation,
   EntityObservationList,
-  Observation,
   PointAllApiResponse,
   PointApiResponse,
   SeriesApiResponse,
@@ -37,6 +36,7 @@ import {
 } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
 import { stringifyFn } from "../../utils/axios";
+import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
@@ -449,30 +449,17 @@ function downloadData(
   place: PlaceInfo,
   points: { [placeDcid: string]: Point }
 ): void {
-  const xStatVar = x.statVarDcid;
-  const yStatVar = y.statVarDcid;
-  const xPopStatVar = DEFAULT_POPULATION_DCID;
-  const yPopStatVar = DEFAULT_POPULATION_DCID;
-
-  // Headers
-  let csv =
-    "placeName," +
-    "placeDCID," +
-    "xDate," +
-    `xValue-${xStatVar},` +
-    "yDate," +
-    `yValue-${yStatVar},` +
-    `xPopulation-${xPopStatVar},` +
-    `yPopulation-${yPopStatVar}\n`;
-  // Data
-  for (const place of Object.keys(points)) {
-    const point = points[place];
-    csv += `${point.place.name},${point.place.dcid},${point.xDate},${point.xVal},${point.yDate},${point.yVal},${point.xPop},${point.yPop}\n`;
-  }
+  const csv = scatterDataToCsv(
+    x.statVarDcid,
+    DEFAULT_POPULATION_DCID,
+    y.statVarDcid,
+    DEFAULT_POPULATION_DCID,
+    points
+  );
 
   saveToFile(
-    `${xStatVar}+` +
-      `${yStatVar}+` +
+    `${x.statVarDcid}+` +
+      `${y.statVarDcid}+` +
       `${place.enclosingPlace.name}+` +
       `${place.enclosedPlaceType}.csv`,
     csv

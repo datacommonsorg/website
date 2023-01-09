@@ -15,6 +15,7 @@
  */
 
 @use "../shared/ranking_unit";
+@use "../shared/chart_embed";
 @import "../base";
 @import "../draw";
 @import "../draw_choropleth";
@@ -27,6 +28,14 @@ $vertical-section-border: 1px solid var(--dc-gray-lite);
 $vertical-section-margin: 2rem;
 $sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
 $chart-border: 0.5px solid #dee2e6;
+
+// TODO (chejennifer): move this back to shared modal stylesheet
+.modal-dialog {
+  @include media-breakpoint-down(md) {
+    max-width: calc(100% - 30px);
+    margin: auto;
+  }
+}
 
 #dc-places {
   margin-left: 1.5rem;
@@ -292,32 +301,6 @@ h3 {
 
 .chart-block {
   margin-bottom: 15px;
-}
-
-.modal .modal-chart-container {
-  display: flex;
-  justify-content: center;
-}
-
-.modal .chart-container {
-  display: inline-block;
-}
-
-.modal .outlinks {
-  display: none;
-}
-
-.modal .modal-chart-container>svg {
-  visibility: hidden;
-}
-
-.modal .modal-chart-container img {
-  border-radius: 3px;
-  border: $chart-border;
-}
-
-.modal textarea {
-  height: 8rem;
 }
 
 .landing-link {

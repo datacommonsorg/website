@@ -36,6 +36,7 @@ import {
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
+import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
@@ -116,6 +117,16 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       sources={bivariateChartData.sources}
       replacementStrings={rs}
       className="bivariate-chart"
+      allowEmbed={true}
+      getDataCsv={() =>
+        scatterDataToCsv(
+          bivariateChartData.xStatVar.statVar,
+          bivariateChartData.xStatVar.denom,
+          bivariateChartData.yStatVar.statVar,
+          bivariateChartData.yStatVar.denom,
+          bivariateChartData.points
+        )
+      }
     >
       <div
         id={props.id}
@@ -146,7 +157,7 @@ function getPopulationPromise(
         params: {
           parent_entity: placeDcid,
           child_type: enclosedPlaceType,
-          variable: variables,
+          variables: variables,
         },
         paramsSerializer: stringifyFn,
       })

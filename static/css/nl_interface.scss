@@ -27,6 +27,7 @@ $query-vertical-margin: 2rem;
 $page-background-color: #26272c;
 $answer-background-color: #3e414c;
 $chart-svg-height: 160px;
+$answer-min-height: 100vh;
 
 #main-header,
 #main-footer {
@@ -81,6 +82,7 @@ $chart-svg-height: 160px;
 
 .nl-result {
   background: $answer-background-color;
+  min-height: $answer-min-height;
 
   .block-column {
     flex-direction: row !important;
@@ -137,5 +139,60 @@ h3 {
   tr,
   td {
     border: 1px solid black;
+  }
+}
+
+// From https://codepen.io/nzbin/pen/GGrXbp
+$loading-dot-color: #fff;
+.dot-loading-stage {
+  width: 100%;
+  height: $answer-min-height;
+  padding: 20%;
+
+  .dot-flashing {
+    margin: auto;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
+  .dot-flashing::before, .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  .dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+  .dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+
+  @keyframes dot-flashing {
+    0% {
+      background-color: $loading-dot-color;
+    }
+    50%, 100% {
+      background-color: rgba(193, 193, 193, 0.2);
+    }
   }
 }

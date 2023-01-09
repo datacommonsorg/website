@@ -48,6 +48,7 @@ import {
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
+import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -129,6 +130,10 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       sources={mapChartData.sources}
       replacementStrings={rs}
       className="map-chart"
+      allowEmbed={true}
+      getDataCsv={() =>
+        mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
+      }
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
