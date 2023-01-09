@@ -21,52 +21,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Col, Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { NamedTypedPlace } from "../../shared/types";
-import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { SearchResult } from "../../types/app/nl_interface_types";
+import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
 
 const contextHistoryAge = 3600; // Seconds
 const maxContextHistoryEntry = 10;
-
-interface SearchResult {
-  place: NamedTypedPlace;
-  config: SubjectPageConfig;
-}
-
-interface SVScores {
-  SV: Map<number, string>;
-  CosineScore: Map<number, number>;
-}
-
-interface DebugInfo {
-  status: string;
-  originalQuery: string;
-  placesDetected: Array<string>;
-  mainPlaceDCID: string;
-  mainPlaceName: string;
-  queryWithoutPlaces: string;
-  svScores: SVScores;
-  embeddingsBuild: string;
-  rankingClassification: string;
-  temporalClassification: string;
-  containedInClassification: string;
-}
-
-const buildOptions = [
-  {
-    value: "combined_all",
-    text: "---- Choose an Embeddings Build option (default: Combined All) -------",
-  },
-  { value: "demographics300", text: "Demographics only (300 SVs)" },
-  {
-    value: "demographics300-withpalmalternatives",
-    text: "Demographics only (300 SVs) with PaLM Alternatives",
-  },
-  { value: "uncurated3000", text: "Uncurated 3000 SVs" },
-  { value: "combined_all", text: "Combined All of the Above (Default)" },
-];
 
 export interface QueryResultProps {
   query: string;
@@ -74,16 +36,14 @@ export interface QueryResultProps {
 
 export function QueryResult(props: QueryResultProps): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [selectedBuild, setSelectedBuild] = useState(buildOptions[0].value);
-  const [debugInfo, setDebugInfo] = useState<DebugInfo | undefined>();
+  const [selectedBuild, setSelectedBuild] = useState(BUILD_OPTIONS[0].value);
   const [loading, setLoading] = useState(false);
   const [cookies, setCookie] = useCookies();
-
-  const showDebugInfo = true;
+  const [debugData, setDebugData] = useState<any>();
 
   useEffect(() => {
     fetchData(props.query, selectedBuild);
-  }, []);
+  }, [props.query, selectedBuild]);
 
   function fetchData(query: string, build: string): void {
     setLoading(true);
@@ -123,156 +83,37 @@ export function QueryResult(props: QueryResultProps): JSX.Element {
           setLoading(false);
           return;
         }
-        const debugData = context["debug"];
-        setDebugInfo({
-          status: debugData["status"],
-          originalQuery: debugData["original_query"],
-          placesDetected: debugData["places_detected"],
-          mainPlaceDCID: debugData["main_place_dcid"],
-          mainPlaceName: debugData["main_place_name"],
-          queryWithoutPlaces: debugData["query_with_places_removed"],
-          svScores: debugData["sv_matching"],
-          embeddingsBuild: debugData["embeddings_build"],
-          rankingClassification: debugData["ranking_classification"],
-          temporalClassification: debugData["temporal_classification"],
-          containedInClassification: debugData["contained_in_classification"],
-        });
-        setSelectedBuild(debugData["embeddings_build"]);
+        setDebugData(context["debug"]);
         setLoading(false);
       });
   }
-
-  const matchScoresElement = (svScores: SVScores): JSX.Element => {
-    const svs = Object.values(svScores.SV);
-    const scores = Object.values(svScores.CosineScore);
-    return (
-      <div id="sv-scores-list">
-        <table>
-          <tr>
-            <th>SV</th>
-            <th>Cosine Score [0, 1]</th>
-          </tr>
-          {svs.length === scores.length &&
-            svs.map((sv, i) => {
-              return (
-                <tr key={i}>
-                  <td>{sv}</td>
-                  <td>{scores[i]}</td>
-                </tr>
-              );
-            })}
-        </table>
-      </div>
-    );
-  };
-
-  const handleEmbeddingsBuildChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const build = event.target.value;
-    setSelectedBuild(build);
-    fetchData(props.query, build);
-  };
-
   return (
-    <div className="nl-query-result">
-      <Container fluid={true}>
-        <Row>
-          <Col>
-            <h2>Q: {props.query}</h2>
-          </Col>
-        </Row>
-        {showDebugInfo && (
-          <div className="nl-query-result-debug-info">
-            <Row>
-              <b>DEBUGGING OPTIONS/INFO: </b>
-              <br></br>
-            </Row>
-            <Row>
-              <label>Embeddings build:</label>
-            </Row>
-            <div className="embeddings-build-options">
-              <select
-                value={selectedBuild}
-                onChange={handleEmbeddingsBuildChange}
-              >
-                {buildOptions.map((option, idx) => (
-                  <option key={idx} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {debugInfo && (
-              <>
-                <Row>
-                  <b>Execution Status: </b> {debugInfo.status}
-                </Row>
-                <Row>
-                  <b>Embeddings Build: </b> {debugInfo.embeddingsBuild}
-                </Row>
-                <Row>
-                  <b>Original Query: </b> {debugInfo.originalQuery}
-                </Row>
-                <Row>
-                  <b>Query used for SV detection: </b>
-                  {debugInfo.queryWithoutPlaces}
-                </Row>
-                <Row>
-                  <b>Place Detection:</b>
-                </Row>
-                <Row>
-                  <Col>
-                    Places Detected: {debugInfo.placesDetected.join(", ")}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    Main Place Inferred: {debugInfo.mainPlaceName} (dcid:{" "}
-                    {debugInfo.mainPlaceDCID})
-                  </Col>
-                </Row>
-                <Row>
-                  <b>Query Type Detection:</b>
-                </Row>
-                <Row>
-                  <Col>
-                    Ranking classification: {debugInfo.rankingClassification}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    Temporal classification: {debugInfo.temporalClassification}
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    ContainedIn classification:{" "}
-                    {debugInfo.containedInClassification}
-                  </Col>
-                </Row>
-                <Row>
-                  <b>SVs Matched (with scores):</b>
-                </Row>
-                {matchScoresElement(debugInfo.svScores)}
-              </>
-            )}
+    <>
+      <div className="nl-query">
+        <Container>
+          <h2>Q: {props.query}</h2>
+        </Container>
+      </div>
+      <div className="nl-result">
+        <Container>
+          {debugData && (
+            <DebugInfo
+              debugData={debugData}
+              selectedBuild={selectedBuild}
+              setSelectedBuild={setSelectedBuild}
+            ></DebugInfo>
+          )}
+          {chartsData && chartsData.config && (
+            <SubjectPageMainPane
+              place={chartsData.place}
+              pageConfig={chartsData.config}
+            />
+          )}
+          <div id="screen" style={{ display: loading ? "block" : "none" }}>
+            <div id="spinner"></div>
           </div>
-        )}
-        {chartsData && chartsData.config && (
-          <Row>
-            <div className="row col-md-9x col-lg-10">
-              <SubjectPageMainPane
-                place={chartsData.place}
-                pageConfig={chartsData.config}
-              />
-            </div>
-          </Row>
-        )}
-        <div id="screen" style={{ display: loading ? "block" : "none" }}>
-          <div id="spinner"></div>
-        </div>
-      </Container>
-    </div>
+        </Container>
+      </div>
+    </>
   );
 }

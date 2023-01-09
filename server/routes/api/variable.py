@@ -28,10 +28,10 @@ def get_variable_path():
 
 
 @bp.route('/info')
-def get_variable_info():
+def variable_info():
   """Gets the info of a list of stat var."""
   dcids = request.args.getlist("dcids")
-  data = dc.get_variable_info(dcids).get("data", [])
+  data = dc.variable_info(dcids).get("data", [])
   result = {}
   for item in data:
     result[item["node"]] = item["info"]

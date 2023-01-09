@@ -229,7 +229,7 @@ def get_variable_group_info(nodes: List[str], entities: List[str]) -> Dict:
   return post(url, req_dict)
 
 
-def get_variable_info(nodes: List[str]) -> Dict:
+def variable_info(nodes: List[str]) -> Dict:
   """Gets the stat var node information."""
   url = get_service_url('/v1/bulk/info/variable')
   req_dict = {"nodes": nodes}
@@ -287,8 +287,15 @@ def resolve_id(in_ids, in_prop, out_prop):
   })
 
 
-def get_event_collection(event_type, affected_place, date):
-  """Gets all the events for a specified event type, affected place, and date
+def get_event_collection(event_type,
+                         affected_place,
+                         date,
+                         filter_prop=None,
+                         filter_unit=None,
+                         filter_upper_limit=None,
+                         filter_lower_limit=None):
+  """Gets all the events for a specified event type, affected place, date, and
+      filter information (filter prop, unit, lower limit, and upper limit).
 
   Args:
       event_type: type of events to get
@@ -300,6 +307,10 @@ def get_event_collection(event_type, affected_place, date):
           'event_type': event_type,
           'affected_place_dcid': affected_place,
           'date': date,
+          'filter_prop': filter_prop,
+          'filter_unit': filter_unit,
+          'filter_upper_limit': filter_upper_limit,
+          'filter_lower_limit': filter_lower_limit
       })
 
 

@@ -42,9 +42,11 @@ import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
-  SeverityFilter,
 } from "../../types/disaster_event_map_types";
-import { EventTypeSpec } from "../../types/subject_page_proto_types";
+import {
+  EventTypeSpec,
+  SeverityFilter,
+} from "../../types/subject_page_proto_types";
 import {
   fetchDateList,
   fetchDisasterEventPoints,
@@ -88,7 +90,6 @@ interface MapChartData {
   geoJson: GeoJsonData;
   disasterEventPoints: DisasterEventPoint[];
   sources: Set<string>;
-  severityFilters: Record<string, Record<string, SeverityFilter>>;
 }
 
 export function DisasterEventMapTile(
@@ -106,6 +107,9 @@ export function DisasterEventMapTile(
     null
   );
   const [svgContainerHeight, setSvgContainerHeight] = useState(null);
+  const [severityFilters, setSeverityFilters] = useState(
+    getDefaultSeverityFilters(props.eventTypeSpec)
+  );
 
   function handleResize(): void {
     // Update svgContainerHeight if svgContainerRef height has changed so that
@@ -143,12 +147,17 @@ export function DisasterEventMapTile(
   }, [props]);
 
   useEffect(() => {
-    // When selectedDate or placeInfo changes, re-fetch the map chart data.
+    // When selectedDate, placeInfo, or severity filters change, re-fetch the map chart data.
     if (!selectedDate || !placeInfo) {
       return;
     }
-    fetchMapChartData(selectedDate, placeInfo, props.eventTypeSpec);
-  }, [selectedDate, placeInfo, props.eventTypeSpec]);
+    fetchMapChartData(
+      selectedDate,
+      placeInfo,
+      props.eventTypeSpec,
+      severityFilters
+    );
+  }, [selectedDate, placeInfo, props.eventTypeSpec, severityFilters]);
 
   useEffect(() => {
     // When mapChartData has changed and geoJson is not empty, re-draw the map.
@@ -243,17 +252,13 @@ export function DisasterEventMapTile(
               </div>
             </div>
             <DisasterEventMapFilters
-              severityFilters={mapChartData.severityFilters}
+              severityFilters={severityFilters}
               eventTypeSpec={props.eventTypeSpec}
               onSeverityFiltersUpdated={(
-                severityFilters: Record<string, Record<string, SeverityFilter>>
+                severityFilters: Record<string, SeverityFilter>
               ) => {
                 loadSpinner(CONTENT_SPINNER_ID);
-                setMapChartData((prev) => {
-                  const newMapChartData = _.cloneDeep(prev);
-                  newMapChartData.severityFilters = severityFilters;
-                  return newMapChartData;
-                });
+                setSeverityFilters(severityFilters);
               }}
               height={svgContainerHeight}
             />
@@ -343,7 +348,8 @@ export function DisasterEventMapTile(
   function fetchMapChartData(
     selectedDate: string,
     placeInfo: DisasterEventMapPlaceInfo,
-    eventTypeSpec: Record<string, EventTypeSpec>
+    eventTypeSpec: Record<string, EventTypeSpec>,
+    severityFilters: Record<string, SeverityFilter>
   ): void {
     // Only re-fetch geojson data if place selection has changed
     const geoJsonPromise =
@@ -363,7 +369,8 @@ export function DisasterEventMapTile(
     const disasterEventDataPromise = fetchDisasterEventPoints(
       Object.values(eventTypeSpec),
       placeInfo.selectedPlace.dcid,
-      dateRange
+      dateRange,
+      severityFilters
     );
     Promise.all([geoJsonPromise, disasterEventDataPromise])
       .then(([geoJson, disasterEventData]) => {
@@ -371,43 +378,10 @@ export function DisasterEventMapTile(
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
-        const severityFilters = {};
-        disasterEventData.eventPoints.forEach((eventPoint) => {
-          if (!props.eventTypeSpec[eventPoint.disasterType].severityProps) {
-            return;
-          }
-          props.eventTypeSpec[eventPoint.disasterType].severityProps.forEach(
-            (prop) => {
-              if (!(prop in eventPoint.severity)) {
-                return;
-              }
-              const disasterSeverityFilters =
-                severityFilters[eventPoint.disasterType] || {};
-              if (prop in disasterSeverityFilters) {
-                disasterSeverityFilters[prop].min = Math.min(
-                  disasterSeverityFilters[prop].min,
-                  eventPoint.severity[prop]
-                );
-                disasterSeverityFilters[prop].max = Math.max(
-                  disasterSeverityFilters[prop].max,
-                  eventPoint.severity[prop]
-                );
-              } else {
-                disasterSeverityFilters[prop] = {
-                  min: eventPoint.severity[prop],
-                  max: eventPoint.severity[prop],
-                };
-              }
-              severityFilters[eventPoint.disasterType] =
-                disasterSeverityFilters;
-            }
-          );
-        });
         setMapChartData({
           geoJson,
           disasterEventPoints: disasterEventData.eventPoints,
           sources,
-          severityFilters,
         });
       })
       .catch(() => {
@@ -457,34 +431,9 @@ export function DisasterEventMapTile(
       zoomParams
     );
     const pointValues = {};
-    const filteredEventPoints = mapChartData.disasterEventPoints.filter(
-      (eventPoint) => {
-        if (!(eventPoint.disasterType in mapChartData.severityFilters)) {
-          return true;
-        }
-        const eventTypeFilters =
-          mapChartData.severityFilters[eventPoint.disasterType];
-        const severityProps =
-          props.eventTypeSpec[eventPoint.disasterType].severityProps;
-        for (const severityProp of severityProps) {
-          if (!(severityProp in eventPoint.severity)) {
-            return false;
-          }
-          if (
-            eventPoint.severity[severityProp] <
-              eventTypeFilters[severityProp].min ||
-            eventPoint.severity[severityProp] >
-              eventTypeFilters[severityProp].max
-          ) {
-            return false;
-          }
-        }
-        return true;
-      }
-    );
     const pointsLayer = addMapPoints(
       props.id,
-      filteredEventPoints,
+      mapChartData.disasterEventPoints,
       pointValues,
       projection,
       (point: DisasterEventPoint) => {
@@ -544,5 +493,21 @@ export function DisasterEventMapTile(
       `${REDIRECT_URL_PREFIX}${placeDcid}${breadcrumbParam}`,
       "_self"
     );
+  }
+
+  /**
+   * Get default severity filters based off a event type spec.
+   */
+  function getDefaultSeverityFilters(
+    eventTypeSpec: Record<string, EventTypeSpec>
+  ): Record<string, SeverityFilter> {
+    const severityFilters = {};
+    for (const spec of Object.values(eventTypeSpec)) {
+      if (_.isEmpty(spec.defaultSeverityFilter)) {
+        continue;
+      }
+      severityFilters[spec.id] = spec.defaultSeverityFilter;
+    }
+    return severityFilters;
   }
 }

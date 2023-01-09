@@ -24,6 +24,13 @@ package datacommons;
 // are tested by test_required_fields() in subject_page_configs_test.py
 
 
+message SeverityFilter {
+  string prop = 1;
+  string unit = 2;
+  double lower_limit = 3;
+  double upper_limit = 4;
+}
+
 message EventTypeSpec {
   // The key used for this event type.
   string id = 1;
@@ -33,8 +40,8 @@ message EventTypeSpec {
   repeated string event_type_dcids = 3;
   // Hex code for the color to use for this event type.
   string color = 4;
-  // List of properties used to show the severity of this event type.
-  repeated string severity_props = 5;
+  // Default severity filter to use for this event type.
+  SeverityFilter default_severity_filter = 5;
 }
 
 message PageMetadata {
@@ -106,6 +113,8 @@ message Tile {
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
+  // [optional] a list of place dcids used for this tile.
+  repeated string comparison_places = 7;
 
   // specs for specific tile types
   oneof tile_type_spec {

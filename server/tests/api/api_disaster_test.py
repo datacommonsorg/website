@@ -22,6 +22,10 @@ from main import app
 TEST_PLACE_DCID = "Earth"
 TEST_EVENT_TYPE = "EarthquakeEvent"
 TEST_DATE = "2020-01"
+TEST_FILTER_PROP = "filter_prop"
+TEST_FILTER_UNIT = "filter_unit"
+TEST_FILTER_UPPER_LIMIT = "8"
+TEST_FILTER_LOWER_LIMIT = "1"
 DATE_LIST = [
     "1990",
     "1991",
@@ -132,8 +136,14 @@ class TestGetData(unittest.TestCase):
   def test_has_data(self, mock_event_collection):
     with app.app_context():
 
-      def event_side_effect(event_type, affected_place, date):
-        if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID and date == TEST_DATE:
+      def event_side_effect(event_type, affected_place, date, filter_prop,
+                            filter_unit, filter_upper_limit,
+                            filter_lower_limit):
+        if (event_type == TEST_EVENT_TYPE and
+            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+            filter_prop == "" and filter_unit == "" and
+            filter_upper_limit == float("0") and
+            filter_lower_limit == float("0")):
           return EVENT_DATA
         else:
           return None
@@ -150,8 +160,14 @@ class TestGetData(unittest.TestCase):
   def test_no_data(self, mock_event_collection):
     with app.app_context():
 
-      def event_side_effect(event_type, affected_place, date):
-        if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID and date == TEST_DATE:
+      def event_side_effect(event_type, affected_place, date, filter_prop,
+                            filter_unit, filter_upper_limit,
+                            filter_lower_limit):
+        if (event_type == TEST_EVENT_TYPE and
+            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+            filter_prop == "" and filter_unit == "" and
+            filter_upper_limit == float("0") and
+            filter_lower_limit == float("0")):
           return {}
         else:
           return None
@@ -163,3 +179,30 @@ class TestGetData(unittest.TestCase):
           format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID))
       assert response.status_code == 200
       assert json.loads(response.data) == {}
+
+  @mock.patch('routes.api.disaster_api.dc.get_event_collection')
+  def test_with_filter(self, mock_event_collection):
+    with app.app_context():
+
+      def event_side_effect(event_type, affected_place, date, filter_prop,
+                            filter_unit, filter_upper_limit,
+                            filter_lower_limit):
+        if (event_type == TEST_EVENT_TYPE and
+            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+            filter_prop == TEST_FILTER_PROP and
+            filter_unit == TEST_FILTER_UNIT and
+            filter_upper_limit == float(TEST_FILTER_UPPER_LIMIT) and
+            filter_lower_limit == float(TEST_FILTER_LOWER_LIMIT)):
+          return EVENT_DATA
+        else:
+          return None
+
+      mock_event_collection.side_effect = event_side_effect
+
+      response = app.test_client().get(
+          '/api/disaster-dashboard/event-data?eventType={}&date={}&place={}&filterProp={}&filterUnit={}&filterUpperLimit={}&filterLowerLimit={}'
+          .format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID, TEST_FILTER_PROP,
+                  TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT,
+                  TEST_FILTER_LOWER_LIMIT))
+      assert response.status_code == 200
+      assert json.loads(response.data) == EVENT_DATA

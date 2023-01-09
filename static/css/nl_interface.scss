@@ -22,6 +22,11 @@
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
+$page-vertical-margin: 2rem;
+$query-vertical-margin: 2rem;
+$page-background-color: #26272c;
+$answer-background-color: #3e414c;
+
 #main-header,
 #main-footer {
   display: none;
@@ -31,58 +36,89 @@
   height: 100vh;
   margin: 0;
   padding: 0;
-  background: #1d1c1d;
-  overflow-y: scroll;
+  background: $page-background-color;
 }
 
 #dc-nl-interface {
-  padding: 2rem 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-#query-container {
-  display: flex;
-  flex-wrap: wrap;
+#results-thread-container {
+  overflow: hidden;
+  flex: 1 1 0%;
+  padding: 0;
+  overflow-y: auto;
+  margin-bottom: 7rem;  // approx height of #search-container
+}
+
+#search-container {
   font-size: 0.9rem;
   position: fixed;
   bottom: 0;
+  width: 100vw;
+  padding-top: $page-vertical-margin;
+
+  .place-options-section {
+    align-items: center;
+    padding-bottom: $page-vertical-margin;
+    // HACK: account for scrollbar differences
+    margin-left: -7px;
+    padding-right: 7px;
+  }
+
+  .input-query {
+    flex-grow: 1;
+  }
 }
 
-.place-options-card {
-  flex-grow: 1;
-  padding-right: 0;
-  padding-left: 0;
+.nl-query {
+  padding: $query-vertical-margin 0;
 }
 
-.place-options-section {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  padding: 0.5rem 0.5rem;
-  overflow: hidden;
-}
+.nl-result {
+  background: $answer-background-color;
 
-.input-query {
-  flex-grow: 1;
-}
+  .chart-container {
+    background: white;
+  }
 
-table,
-th,
-tr,
-td {
-  border: 1px solid black;
-}
-
-.nl-query-result-debug-info {
-  background: white;
-  padding: 2em;
-  font-size: .8em;
-}
-
-.chart-container {
-  background: white;
+  .block-title {
+    display: none;
+  }
 }
 
 h2,
 h3 {
   color: white;
+}
+
+.debug-info-toggle {
+  cursor: pointer;
+}
+
+.debug-info-toggle.show {
+  color: #ccc;
+  font-size: .8rem;
+}
+
+.debug-info-toggle.hide {
+  float: right;
+  font-weight: bold;
+}
+
+
+.nl-query-result-debug-info {
+  background: white;
+  padding: 2em;
+  font-size: .8em;
+
+  table,
+  th,
+  tr,
+  td {
+    border: 1px solid black;
+  }
 }
