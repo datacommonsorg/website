@@ -19,12 +19,7 @@ import _ from "lodash";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-import {
-  DataGroup,
-  dataGroupsToCsv,
-  DataPoint,
-  expandDataPoints,
-} from "../chart/base";
+import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
 import {
   drawGroupBarChart,
   drawLineChart,
@@ -62,6 +57,11 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDomain } from "../shared/util";
 import { RankingPoint } from "../types/ranking_unit_types";
+import {
+  dataGroupsToCsv,
+  mapDataToCsv,
+  rankingPointsToCsv,
+} from "../utils/chart_csv_utils";
 import { ChartEmbed } from "./chart_embed";
 import { updatePageLayoutState } from "./place";
 
@@ -408,23 +408,14 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       return;
     }
     if (this.state.choroplethDataGroup && this.state.geoJson) {
-      const data = this.state.choroplethDataGroup;
-      const geo = this.state.geoJson;
-      const rows: string[] = ["place,data"];
-      for (const g of geo["features"]) {
-        const v = g.id in data.data ? data.data[g.id] : "N/A";
-        rows.push(`${g.properties.name},${v}`);
-      }
-      return rows.join("\n");
+      return mapDataToCsv(
+        this.state.geoJson,
+        this.state.choroplethDataGroup.data
+      );
     }
     if (this.state.rankingChartDataGroup) {
       const data = this.state.rankingChartDataGroup.data;
-      const rows = ["rank,place,data"];
-      for (const dp of data) {
-        const placeName = dp.placeName ? dp.placeName : dp.placeDcid;
-        rows.push(`${dp.rank}, ${placeName}, ${dp.value}`);
-      }
-      return rows.join("\n");
+      return rankingPointsToCsv(data);
     }
     return dataGroupsToCsv(this.state.dataGroups);
   }

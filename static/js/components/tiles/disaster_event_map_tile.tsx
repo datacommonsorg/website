@@ -184,6 +184,7 @@ export function DisasterEventMapTile(
       sources={mapChartData.sources}
       replacementStrings={rs}
       className={`${CSS_SELECTOR_PREFIX}-tile`}
+      allowEmbed={false}
     >
       <DisasterEventMapSelectors
         breadcrumbPlaces={breadcrumbs}

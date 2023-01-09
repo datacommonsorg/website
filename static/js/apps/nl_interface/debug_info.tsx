@@ -92,6 +92,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     rankingClassification: props.debugData["ranking_classification"],
     temporalClassification: props.debugData["temporal_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
+    chartSpec: props.debugData["chart_spec"],
   };
 
   const handleEmbeddingsBuildChange = (
@@ -180,7 +181,17 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <b>SVs Matched (with scores):</b>
           </Row>
-          {matchScoresElement(debugInfo.svScores)}
+          <Row>
+            <Col>{matchScoresElement(debugInfo.svScores)}</Col>
+          </Row>
+          <Row>
+            <b>Chart Spec</b>
+          </Row>
+          <Row>
+            <Col>
+              <pre>{JSON.stringify(debugInfo.chartSpec, null, 2)}</pre>
+            </Col>
+          </Row>
         </div>
       )}
     </>
