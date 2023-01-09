@@ -43,4 +43,5 @@ export interface DebugInfo {
   rankingClassification: string;
   temporalClassification: string;
   containedInClassification: string;
+  correlationClassification: string;
 }

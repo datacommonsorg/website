@@ -27,6 +27,7 @@ from lib.nl_training import NLQueryCorrelationDetectionModel
 from lib.nl_page_config import PLACE_TYPE_TO_PLURALS
 from typing import Dict, List, Union
 import os
+import numpy as np
 import pandas as pd
 import torch
 from datasets import load_dataset
@@ -34,7 +35,7 @@ import logging
 from collections import OrderedDict
 
 BUILDS = [
-    'demographics300',  #'uncurated3000',
+    'demographics300',  #'uncurated3000', 
     'demographics300-withpalmalternatives',
     'curatedJan2022',
     'combined_all'
@@ -64,6 +65,17 @@ def pick_option(class_model, q, categories):
     return "Inconclusive."
 
 
+def _prefix_length(s1, s2):
+  if not s1 or not s2:
+    return 0
+  short_str = min([s1, s2], key=len)
+  for i, char in enumerate(short_str):
+    for other in [s1, s2]:
+      if other[i] != char:
+        return i + 1
+  return len(short_str)
+
+
 class Model:
   """Holds clients for the language model"""
 
@@ -73,6 +85,8 @@ class Model:
     self.model = SentenceTransformer(MODEL_NAME)
     self.ner_model = ner_model
     self.dataset_embeddings_maps = {}
+    # For clustering, need the DataFrame objects.
+    self.dataset_embeddings_maps_to_df = {}
     self._download_embeddings()
     self.dcid_maps = {}
     for build in BUILDS:
@@ -85,11 +99,15 @@ class Model:
       df = df.drop('dcid', axis=1)
       self.dataset_embeddings_maps[build] = torch.from_numpy(df.to_numpy()).to(
           torch.float)
+      self.dataset_embeddings_maps_to_df[build] = df
 
     # Classification models and training.
     self.classification_models: Dict[str, NLQueryClassificationModel] = {}
     self._classification_data_to_models(query_classification_data,
                                         classification_types_supported)
+
+    # Set the Correlations Detection Model.
+    self._correlation_detection = NLQueryCorrelationDetectionModel()
 
   def _download_embeddings(self):
     storage_client = storage.Client()
@@ -211,6 +229,90 @@ class Model:
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
+  def query_correlation_detection(
+      self,
+      embeddings_build,
+      query,
+      svs_list,
+      svs_scores,
+      sv_embedding_indices,
+      cosine_similarity_cutoff=0.4,
+      prefix_length_cutoff=8) -> Union[NLClassifier, None]:
+    """Correlation detection based on clustering. Assumes all input lists are ordered and same length."""
+
+    embedding_vectors = []
+    for i in range(0, len(svs_list)):
+      vec_index = sv_embedding_indices[i]
+      vec = self.dataset_embeddings_maps_to_df[embeddings_build].iloc[
+          vec_index].values
+
+      embedding_vectors.append(np.array(vec))
+
+    # Cluster the embedding vectors.
+    self._correlation_detection.clustering_model.fit(embedding_vectors)
+    labels = self._correlation_detection.clustering_model.labels_
+    logging.info("Clustering in to two clusters done.")
+
+    cluster_zero_indices = [ind for ind, x in enumerate(labels) if x == 0]
+    cluster_one_indices = [ind for ind, x in enumerate(labels) if x == 1]
+
+    # Pick the highest scoring SVs in the two clusters.
+    def _index_with_max_score(cluster_indices):
+      max_s = -1.0
+      max_index = -1
+      for ci in cluster_indices:
+        if svs_scores[ci] > max_s:
+          max_s = svs_scores[ci]
+          max_index = ci
+      return max_index
+
+    cluster_zero_best_sv_index = _index_with_max_score(cluster_zero_indices)
+    cluster_one_best_sv_index = _index_with_max_score(cluster_one_indices)
+
+    # Cosine Score between the two.
+    def cos_sim(a, b):
+      return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+    # If this score is high, it means that the two highest scored (matched) SVs
+    # are similar and we cannot be sure that this is a correlation query based
+    # on how different the two clusters are.
+    sim_score = cos_sim(embedding_vectors[cluster_zero_best_sv_index],
+                        embedding_vectors[cluster_one_best_sv_index])
+
+    if sim_score < cosine_similarity_cutoff:
+      logging.info(
+          f"Best SVs in the two clusters were far apart. Cosine Score = {sim_score}"
+      )
+      sv_dcid_1 = svs_list[cluster_zero_best_sv_index]
+      sv_dcid_2 = svs_list[cluster_one_best_sv_index]
+
+      # Check in case the two SVs have long prefix matching.
+      if _prefix_length(sv_dcid_1, sv_dcid_2) >= prefix_length_cutoff:
+        logging.info(
+            f"Best SVs ({sv_dcid_1, sv_dcid_2}) have prefix match > {prefix_length_cutoff}. Not a Correlation Query."
+        )
+        return None
+
+      logging.info(
+          f"Treating as a Correlation Query. Cosine Score and Prefix Match Length are both LOW."
+      )
+      attributes = CorrelationClassificationAttributes(
+          sv_dcid_1=sv_dcid_1,
+          sv_dcid_2=sv_dcid_2,
+          is_using_clusters=True,
+          # TODO: also look at trigger words.
+          correlation_trigger_words="",
+          cluster_1_svs=[svs_list[i] for i in cluster_zero_indices],
+          cluster_2_svs=[svs_list[i] for i in cluster_one_indices],
+      )
+      return NLClassifier(type=ClassificationType.CORRELATION,
+                          attributes=attributes)
+    else:
+      logging.info(
+          f"Not Correlation Query. Best SVs in the two clusters were too similar. Cosine Score > {sim_score}"
+      )
+    return None
+
   def query_classification(self, type_string: str,
                            query: str) -> Union[NLClassifier, None]:
     """Check if query can be classified according to 'type_string' model.
@@ -219,7 +321,7 @@ class Model:
       type_string: (str) This is the sentence classification type, e.g.
         "ranking", "temporal", "contained_in". Full list is in lib.nl_training.py
       query: (str) The query string supplied.
-
+    
     Returns:
       The NLClassifier object or None.
     """
@@ -259,17 +361,20 @@ class Model:
       return ValueError(f'Embeddings Build: {embeddings_build} was not found.')
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings_maps[embeddings_build],
-                           top_k=10)
+                           top_k=20)
 
     # Note: multiple results may map to the same DCID. As well, the same string may
     # map to multiple DCIDs with the same score.
     sv2score = {}
+    # Also track the sv to index so that embeddings can later be retrieved.
+    sv2index = {}
     for e in hits[0]:
       for d in self.dcid_maps[embeddings_build][e['corpus_id']].split(','):
         s = e['score']
         # Prefer the top score.
         if d not in sv2score:
           sv2score[d] = s
+          sv2index[d] = e['corpus_id']
 
     # Sort by scores
     sv2score_sorted = sorted(sv2score.items(),
@@ -278,7 +383,13 @@ class Model:
     svs_sorted = [k for (k, _) in sv2score_sorted]
     scores_sorted = [v for (_, v) in sv2score_sorted]
 
-    return {'SV': svs_sorted, 'CosineScore': scores_sorted}
+    sv_index_sorted = [sv2index[k] for (k, _) in sv2score_sorted]
+
+    return {
+        'SV': svs_sorted,
+        'CosineScore': scores_sorted,
+        'EmbeddingIndex': sv_index_sorted
+    }
 
   def detect_place(self, query):
     doc = self.ner_model(query)
