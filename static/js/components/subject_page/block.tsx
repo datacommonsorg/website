@@ -48,6 +48,8 @@ export interface BlockPropType {
   columns: ColumnConfig[];
   statVarProvider: StatVarProvider;
   eventTypeSpec: Record<string, EventTypeSpec>;
+  // Height, in px, for the tile SVG charts.
+  svgChartHeight: number;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -105,6 +107,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "LINE":
@@ -115,6 +118,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "RANKING":
@@ -139,6 +143,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             comparisonPlaces={tile.comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "SCATTER":
@@ -150,6 +155,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "BIVARIATE":
@@ -161,6 +167,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "DESCRIPTION":
@@ -194,6 +201,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       default:

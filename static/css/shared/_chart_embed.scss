@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,36 +14,42 @@
  * limitations under the License.
  */
 
-/* Styles for <BqModal> */
+/**
+ * Styling for chart embed component.
+ */
 
-@import "shared/modal.scss";
+@use "./modal.scss" as modal;
 
-// TODO (chejennifer): move this back to shared modal scss file.
-.modal-dialog {
-  @include media-breakpoint-down(md) {
-    max-width: calc(100% - 30px);
-    margin: auto;
-  }
+.modal .modal-chart-container {
+  display: flex;
+  justify-content: center;
 }
 
-.big-query-modal .modal-content {
-  height: 90vh;
+.modal .chart-container {
+  display: inline-block;
 }
 
-.modal-body {
+.modal .outlinks {
+  display: none;
+}
+
+.modal .modal-chart-container>svg {
+  visibility: hidden;
+}
+
+.modal .modal-chart-container img {
+  border-radius: 3px;
+  border: modal.$border;
+  max-width: 100%;
+}
+
+.modal textarea {
+  height: 8rem;
+  max-width: 100%;
+}
+
+.modal .modal-body {
   display: flex;
   flex-direction: column;
-}
-
-.big-query-modal textarea {
-  width: 100%;
-  height: 100%;
-  flex: 1 1 auto;
-  font-size: .8rem;
-}
-
-.big-query-sql-instructions {
-  word-wrap: break-word;
-  white-space: normal;
-  flex: 0 0 auto;
+  align-items: center;
 }

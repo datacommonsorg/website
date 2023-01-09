@@ -24,11 +24,11 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
+import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -46,6 +46,8 @@ interface BarTilePropType {
   comparisonPlaces: string[];
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface BarChartData {
@@ -88,6 +90,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       sources={barChartData.sources}
       replacementStrings={rs}
       className="bar-chart"
+      allowEmbed={true}
+      getDataCsv={() => dataGroupsToCsv(barChartData.dataGroup)}
     >
       <div id={props.id} className="svg-container"></div>
     </ChartTileContainer>
@@ -205,7 +209,7 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
   drawGroupBarChart(
     props.id,
     elem.offsetWidth,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     chartData.dataGroup,
     props.statVarSpec[0].unit
   );

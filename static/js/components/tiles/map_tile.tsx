@@ -26,7 +26,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { drawD3Map, getProjection } from "../../chart/draw_d3_map";
 import { getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import {
@@ -49,6 +48,7 @@ import {
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
+import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -59,6 +59,8 @@ interface MapTilePropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec;
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface RawData {
@@ -128,6 +130,10 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       sources={mapChartData.sources}
       replacementStrings={rs}
       className="map-chart"
+      allowEmbed={true}
+      getDataCsv={() =>
+        mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)
+      }
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
@@ -290,12 +296,12 @@ function draw(
     chartData.isUsaPlace,
     props.place.dcid,
     width,
-    CHART_HEIGHT
+    props.svgChartHeight
   );
   drawD3Map(
     props.id,
     chartData.geoJson,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     width,
     chartData.dataValues,
     props.statVarSpec.unit,

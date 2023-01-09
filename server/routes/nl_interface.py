@@ -391,8 +391,11 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": []}
 
 
-def _result_with_debug_info(data_dict, status, embeddings_build,
-                            query_detection: Detection):
+def _result_with_debug_info(data_dict,
+                            status,
+                            embeddings_build,
+                            query_detection: Detection,
+                            chart_spec=None):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -439,6 +442,8 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
               temporal_classification,
           'contained_in_classification':
               contained_in_classification,
+          'chart_spec':
+              chart_spec
       },
   }
   # Set the context which contains everything except the charts config.
@@ -580,7 +585,6 @@ def data():
       'SV': svs_detected.sv_dcids,
       'CosineScore': svs_detected.sv_scores
   })
-  logging.info(svs_df)
 
   # Use SVs and Places to get relevant data/stats/chart configs.
   related_places = _related_places(place_dcid)
@@ -626,13 +630,14 @@ def data():
                                      main_place_type,
                                      related_places['nearbyPlaces'],
                                      child_places_type, extended_svs)
-  pagae_config_new = nl_page_config.build_page_config(chart_spec, sv2name)
+  page_config_pb = nl_page_config.build_page_config(chart_spec, sv2name)
+  page_config = json.loads(MessageToJson(page_config_pb))
 
   d = {
       'place_type': main_place_type,
       'place_name': main_place_name,
       'place_dcid': place_dcid,
-      'config': json.loads(MessageToJson(pagae_config_new)),
+      'config': page_config,
   }
   status_str = "Successful"
   if using_default_place or relevant_svs_df.empty:
@@ -645,4 +650,4 @@ def data():
     status_str += '**No SVs Found**.'
 
   return _result_with_debug_info(d, status_str, embeddings_build,
-                                 query_detection)
+                                 query_detection, chart_spec)

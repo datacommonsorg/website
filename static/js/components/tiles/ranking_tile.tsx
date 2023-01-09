@@ -20,13 +20,15 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
+import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatString, getStatVarName } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
@@ -54,13 +56,15 @@ interface RankingTilePropType {
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
+  const embedModalElement = useRef<ChartEmbed>(null);
+  const chartContainer = useRef(null);
 
   useEffect(() => {
     fetchData(props, setRankingData);
   }, [props]);
 
   return (
-    <div className="chart-container ranking-tile">
+    <div className="chart-container ranking-tile" ref={chartContainer}>
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
           const points = rankingData[statVar].points;
@@ -71,51 +75,91 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
-                <RankingUnit
-                  key={`${statVar}-highest`}
-                  unit={unit}
-                  scaling={scaling}
-                  title={formatString(
-                    props.rankingMetadata.highestTitle
-                      ? props.rankingMetadata.highestTitle
-                      : "Highest ${statVar}",
-                    {
-                      date: "",
-                      place: "",
-                      statVar: svName,
-                    }
-                  )}
-                  points={points.slice(-RANKING_COUNT).reverse()}
-                  isHighest={true}
-                />
+                <div>
+                  <RankingUnit
+                    key={`${statVar}-highest`}
+                    unit={unit}
+                    scaling={scaling}
+                    title={formatString(
+                      props.rankingMetadata.highestTitle
+                        ? props.rankingMetadata.highestTitle
+                        : "Highest ${statVar}",
+                      {
+                        date: "",
+                        place: "",
+                        statVar: svName,
+                      }
+                    )}
+                    points={points.slice(-RANKING_COUNT).reverse()}
+                    isHighest={true}
+                  />
+                  <footer>
+                    <a
+                      href="#"
+                      onClick={(event) => {
+                        handleEmbed(event, points);
+                      }}
+                    >
+                      Export
+                    </a>
+                  </footer>
+                </div>
               )}
               {props.rankingMetadata.showLowest && (
-                <RankingUnit
-                  key={`${statVar}-lowest`}
-                  unit={unit}
-                  scaling={scaling}
-                  title={formatString(
-                    props.rankingMetadata.lowestTitle
-                      ? props.rankingMetadata.lowestTitle
-                      : "Lowest ${statVar}",
-                    {
-                      date: "",
-                      place: "",
-                      statVar: svName,
-                    }
-                  )}
-                  numDataPoints={numDataPoints}
-                  points={points.slice(0, RANKING_COUNT)}
-                  isHighest={false}
-                />
+                <div>
+                  <RankingUnit
+                    key={`${statVar}-lowest`}
+                    unit={unit}
+                    scaling={scaling}
+                    title={formatString(
+                      props.rankingMetadata.lowestTitle
+                        ? props.rankingMetadata.lowestTitle
+                        : "Lowest ${statVar}",
+                      {
+                        date: "",
+                        place: "",
+                        statVar: svName,
+                      }
+                    )}
+                    numDataPoints={numDataPoints}
+                    points={points.slice(0, RANKING_COUNT)}
+                    isHighest={false}
+                  />
+                  <footer>
+                    <a
+                      href="#"
+                      onClick={(event) => {
+                        handleEmbed(event, points);
+                      }}
+                    >
+                      Export
+                    </a>
+                  </footer>
+                </div>
               )}
             </React.Fragment>
           );
         })}
+      <ChartEmbed ref={embedModalElement} />
     </div>
   );
-}
 
+  function handleEmbed(
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    rankingPoints: RankingPoint[]
+  ): void {
+    e.preventDefault();
+    embedModalElement.current.show(
+      "",
+      rankingPointsToCsv(rankingPoints),
+      chartContainer.current.offsetWidth,
+      0,
+      "",
+      "",
+      []
+    );
+  }
+}
 function fetchData(
   props: RankingTilePropType,
   setRankingData: (data: RankingData) => void
@@ -144,7 +188,7 @@ function fetchData(
         if (!(spec.statVar in statData.data)) {
           continue;
         }
-        let arr = [];
+        const arr = [];
         for (const place in statData.data[spec.statVar]) {
           const rankingPoint = {
             placeDcid: place,
@@ -168,9 +212,6 @@ function fetchData(
           return a.stat - b.stat;
         });
         const numDataPoints = arr.length;
-        if (arr.length > RANKING_COUNT * 2) {
-          arr = arr.slice(0, RANKING_COUNT).concat(arr.slice(-RANKING_COUNT));
-        }
         rankingData[spec.statVar] = {
           points: arr,
           unit: spec.unit,

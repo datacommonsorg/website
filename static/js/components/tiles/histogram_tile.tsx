@@ -23,11 +23,11 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
+import { dataPointsToCsv } from "../../utils/chart_csv_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 
@@ -36,6 +36,8 @@ interface HistogramTilePropType {
   title: string;
   place: NamedTypedPlace;
   statVarSpec: StatVarSpec[];
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface HistogramData {
@@ -82,6 +84,8 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       sources={histogramData.sources}
       replacementStrings={rs}
       className="histogram-chart"
+      allowEmbed={true}
+      getDataCsv={() => dataPointsToCsv(histogramData.dataPoints)}
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>
@@ -142,7 +146,7 @@ function draw(props: HistogramTilePropType, histogramData: DataPoint[]): void {
   drawHistogram(
     props.id,
     elem.offsetWidth,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     histogramData,
     props.statVarSpec[0].unit
   );

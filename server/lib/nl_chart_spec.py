@@ -60,14 +60,15 @@ def compute(main_place, main_place_name, main_place_type, nearby_places,
   sample_child_place = None
   all_places = nearby_places + [main_place]
   triples = dc.triples(main_place, 'in').get('triples')
-  for prop, nodes in triples.items():
-    if prop != 'containedInPlace' and prop != 'geoOverlaps':
-      continue
-    for node in nodes['nodes']:
-      if contained_place_type in node['types']:
-        all_places.append(node['dcid'])
-        sample_child_place = node['dcid']
-        break
+  if triples:
+    for prop, nodes in triples.items():
+      if prop != 'containedInPlace' and prop != 'geoOverlaps':
+        continue
+      for node in nodes['nodes']:
+        if contained_place_type in node['types']:
+          all_places.append(node['dcid'])
+          sample_child_place = node['dcid']
+          break
 
   sv_existence = dc.observation_existence(svs, all_places)
   for sv in svs:

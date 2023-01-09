@@ -26,6 +26,8 @@ $page-vertical-margin: 2rem;
 $query-vertical-margin: 2rem;
 $page-background-color: #26272c;
 $answer-background-color: #3e414c;
+$chart-svg-height: 160px;
+$answer-min-height: 100vh;
 
 #main-header,
 #main-footer {
@@ -42,15 +44,12 @@ $answer-background-color: #3e414c;
 #dc-nl-interface {
   height: 100%;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 #results-thread-container {
   overflow: hidden;
-  flex: 1 1 0%;
   padding: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
   margin-bottom: 7rem;  // approx height of #search-container
 }
 
@@ -60,6 +59,7 @@ $answer-background-color: #3e414c;
   bottom: 0;
   width: 100vw;
   padding-top: $page-vertical-margin;
+  background-image: linear-gradient(180deg, #ffffff00, $page-background-color 65%);
 
   .place-options-section {
     align-items: center;
@@ -80,9 +80,37 @@ $answer-background-color: #3e414c;
 
 .nl-result {
   background: $answer-background-color;
+  min-height: $answer-min-height;
+
+  .block-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
   .chart-container {
     background: white;
+    margin-top: 0;
+    padding: 10px;
+    width: 30%;
+
+    h4 {
+      margin-bottom: 0;
+    }
+
+    .svg-container {
+      min-height: $chart-svg-height;
+    }
+
+    .legend {
+      margin-left: 0 !important;
+    }
+
+  }
+
+  .bar-chart .legend,
+  .line-chart .legend {
+    display: none;
   }
 
   .block-title {
@@ -120,5 +148,60 @@ h3 {
   tr,
   td {
     border: 1px solid black;
+  }
+}
+
+// From https://codepen.io/nzbin/pen/GGrXbp
+$loading-dot-color: #fff;
+.dot-loading-stage {
+  width: 100%;
+  height: $answer-min-height;
+  padding: 20%;
+
+  .dot-flashing {
+    margin: auto;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
+  .dot-flashing::before, .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  .dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+  .dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+
+  @keyframes dot-flashing {
+    0% {
+      background-color: $loading-dot-color;
+    }
+    50%, 100% {
+      background-color: rgba(193, 193, 193, 0.2);
+    }
   }
 }
