@@ -19,6 +19,7 @@
  */
 
 @forward "ranking_unit";
+@forward "chart_embed";
 @use "../base";
 
 $chart-container-top-margin: 20px;
@@ -37,6 +38,9 @@ $border-radius: 0.5rem;
 
   footer {
     margin-left: inherit !important;
+    margin-right: 0 !important;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
@@ -45,6 +49,7 @@ $border-radius: 0.5rem;
 .chart-container.bivariate-chart,
 .chart-container.line-chart,
 .chart-container.bar-chart,
+.chart-container.histogram-chart,
 .chart-container.disaster-event-map-tile {
   border: 0.5px solid #dee2e6;
   border-radius: 3px;

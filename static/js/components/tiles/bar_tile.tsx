@@ -24,11 +24,11 @@ import React, { useEffect, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawGroupBarChart } from "../../chart/draw";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
+import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -40,9 +40,14 @@ const FILTER_STAT_VAR = "Count_Person";
 interface BarTilePropType {
   id: string;
   title: string;
+  // The primary place of the page (disaster, topic, nl)
   place: NamedTypedPlace;
+  // A list of related places to show comparison with the main place.
+  comparisonPlaces: string[];
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface BarChartData {
@@ -76,7 +81,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     return null;
   }
   const rs: ReplacementStrings = {
-    place: props.place.name,
+    place: props.place ? props.place.name : "",
     date: "",
   };
   return (
@@ -85,6 +90,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       sources={barChartData.sources}
       replacementStrings={rs}
       className="bar-chart"
+      allowEmbed={true}
+      getDataCsv={() => dataGroupsToCsv(barChartData.dataGroup)}
     >
       <div id={props.id} className="svg-container"></div>
     </ChartTileContainer>
@@ -104,13 +111,25 @@ function fetchData(
   }
   // Fetch populations.
   statVars.push(FILTER_STAT_VAR);
+  let url: string;
+  let params;
+  if (props.comparisonPlaces) {
+    url = "/api/observations/point";
+    params = {
+      entities: props.comparisonPlaces,
+      variables: statVars,
+    };
+  } else {
+    url = "/api/observations/point/within";
+    params = {
+      parent_entity: props.place.dcid,
+      child_type: props.enclosedPlaceType,
+      variables: statVars,
+    };
+  }
   axios
-    .get<PointApiResponse>("/api/observations/point/within", {
-      params: {
-        parent_entity: props.place.dcid,
-        child_type: props.enclosedPlaceType,
-        variables: statVars,
-      },
+    .get<PointApiResponse>(url, {
+      params: params,
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
@@ -190,7 +209,7 @@ function draw(props: BarTilePropType, chartData: BarChartData): void {
   drawGroupBarChart(
     props.id,
     elem.offsetWidth,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     chartData.dataGroup,
     props.statVarSpec[0].unit
   );

@@ -20,13 +20,21 @@
 
 import { StatVarSpec } from "../shared/types";
 
+export interface SeverityFilter {
+  prop: string;
+  unit: string;
+  upperLimit: number;
+  lowerLimit: number;
+}
+
 export interface EventTypeSpec {
   id: string;
   name: string;
   eventTypeDcids: string[];
   color: string;
-  severityProps: string[];
+  defaultSeverityFilter: SeverityFilter;
 }
+
 export interface PageMetadataConfig {
   topicId: string;
   topicName: string;
@@ -59,6 +67,7 @@ export interface TileConfig {
   description: string;
   type: string;
   statVarKey: string[];
+  comparisonPlaces?: string[];
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
 }

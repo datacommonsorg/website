@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,41 @@
  */
 
 /**
- * Main component for event pages.
+ * Styling for chart embed component.
  */
 
-import React from "react";
+@use "./modal.scss" as modal;
 
-export function Page(): JSX.Element {
-  return <div></div>;
+.modal .modal-chart-container {
+  display: flex;
+  justify-content: center;
+}
+
+.modal .chart-container {
+  display: inline-block;
+}
+
+.modal .outlinks {
+  display: none;
+}
+
+.modal .modal-chart-container>svg {
+  visibility: hidden;
+}
+
+.modal .modal-chart-container img {
+  border-radius: 3px;
+  border: modal.$border;
+  max-width: 100%;
+}
+
+.modal textarea {
+  height: 8rem;
+  max-width: 100%;
+}
+
+.modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

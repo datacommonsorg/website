@@ -34,21 +34,20 @@ import {
 } from "../../constants/disaster_event_map_constants";
 import {
   EUROPE_NAMED_TYPED_PLACE,
-  IPCC_PLACE_50_TYPE_DCID,
   USA_PLACE_DCID,
 } from "../../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import { getAllChildPlaceTypes } from "../../tools/map/util";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
-  SeverityFilter,
 } from "../../types/disaster_event_map_types";
-import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
-  canClickRegion,
+  EventTypeSpec,
+  SeverityFilter,
+} from "../../types/subject_page_proto_types";
+import {
   fetchDateList,
   fetchDisasterEventPoints,
   fetchGeoJsonData,
@@ -58,6 +57,7 @@ import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
+import { getPlaceNames } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { DisasterEventMapFilters } from "./disaster_event_map_filters";
@@ -68,6 +68,10 @@ const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
+const BREADCRUMB_PARAM_KEY = "bc";
+const PARAM_SEPARATOR = "__";
+// TODO: make this config driven
+const REDIRECT_URL_PREFIX = "/disasters/";
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -86,7 +90,6 @@ interface MapChartData {
   geoJson: GeoJsonData;
   disasterEventPoints: DisasterEventPoint[];
   sources: Set<string>;
-  severityFilters: Record<string, Record<string, SeverityFilter>>;
 }
 
 export function DisasterEventMapTile(
@@ -99,11 +102,14 @@ export function DisasterEventMapTile(
   const [dateList, setDateList] = useState([]);
   const [selectedDate, setSelectedDate] = useState(DATE_OPTION_6M_KEY);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
-  const [breadcrumbs, setBreadcrumbs] = useState([props.place]);
+  const [breadcrumbs, setBreadcrumbs] = useState<NamedPlace[]>([]);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
   const [svgContainerHeight, setSvgContainerHeight] = useState(null);
+  const [severityFilters, setSeverityFilters] = useState(
+    getDefaultSeverityFilters(props.eventTypeSpec)
+  );
 
   function handleResize(): void {
     // Update svgContainerHeight if svgContainerRef height has changed so that
@@ -137,15 +143,21 @@ export function DisasterEventMapTile(
     // When props change, update date and place info
     updateDateList(props.eventTypeSpec, props.place.dcid);
     updatePlaceInfo(props.place, props.enclosedPlaceType);
+    updateBreadcrumbs(props.place);
   }, [props]);
 
   useEffect(() => {
-    // When selectedDate or placeInfo changes, re-fetch the map chart data.
+    // When selectedDate, placeInfo, or severity filters change, re-fetch the map chart data.
     if (!selectedDate || !placeInfo) {
       return;
     }
-    fetchMapChartData(selectedDate, placeInfo, props.eventTypeSpec);
-  }, [selectedDate, placeInfo, props.eventTypeSpec]);
+    fetchMapChartData(
+      selectedDate,
+      placeInfo,
+      props.eventTypeSpec,
+      severityFilters
+    );
+  }, [selectedDate, placeInfo, props.eventTypeSpec, severityFilters]);
 
   useEffect(() => {
     // When mapChartData has changed and geoJson is not empty, re-draw the map.
@@ -172,12 +184,13 @@ export function DisasterEventMapTile(
       sources={mapChartData.sources}
       replacementStrings={rs}
       className={`${CSS_SELECTOR_PREFIX}-tile`}
+      allowEmbed={false}
     >
       <DisasterEventMapSelectors
         breadcrumbPlaces={breadcrumbs}
         selectedDate={selectedDate}
         dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, ...dateList]}
-        onPlaceSelected={(place: NamedTypedPlace) => updatePlaceInfo(place)}
+        onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
         onDateSelected={(date: string) => {
           loadSpinner(CONTENT_SPINNER_ID);
           setSelectedDate(date);
@@ -239,17 +252,13 @@ export function DisasterEventMapTile(
               </div>
             </div>
             <DisasterEventMapFilters
-              severityFilters={mapChartData.severityFilters}
+              severityFilters={severityFilters}
               eventTypeSpec={props.eventTypeSpec}
               onSeverityFiltersUpdated={(
-                severityFilters: Record<string, Record<string, SeverityFilter>>
+                severityFilters: Record<string, SeverityFilter>
               ) => {
                 loadSpinner(CONTENT_SPINNER_ID);
-                setMapChartData((prev) => {
-                  const newMapChartData = _.cloneDeep(prev);
-                  newMapChartData.severityFilters = severityFilters;
-                  return newMapChartData;
-                });
+                setSeverityFilters(severityFilters);
               }}
               height={svgContainerHeight}
             />
@@ -260,39 +269,21 @@ export function DisasterEventMapTile(
   );
 
   /**
-   * Updates place info given a selectedPlace and optionally an enclosedPlaceType
+   * Updates place info given a selectedPlace and enclosedPlaceType
    */
   function updatePlaceInfo(
     selectedPlace: NamedTypedPlace,
-    enclosedPlaceType?: string
+    enclosedPlaceType: string
   ): void {
-    loadSpinner(CONTENT_SPINNER_ID);
     if (placeInfo && selectedPlace.dcid === placeInfo.selectedPlace.dcid) {
       return;
     }
     getParentPlacesPromise(selectedPlace.dcid).then((parentPlaces) => {
-      const allChildPlaces = getAllChildPlaceTypes(
+      setPlaceInfo({
         selectedPlace,
-        parentPlaces
-      ).filter((placeType) => placeType !== IPCC_PLACE_50_TYPE_DCID);
-      if (!_.isEmpty(allChildPlaces)) {
-        setPlaceInfo({
-          selectedPlace,
-          enclosedPlaceType: enclosedPlaceType || allChildPlaces[0],
-          parentPlaces,
-        });
-        const breadcrumbIdx = breadcrumbs.findIndex(
-          (crumb) => crumb.dcid === selectedPlace.dcid
-        );
-        if (breadcrumbIdx > -1) {
-          setBreadcrumbs(breadcrumbs.slice(0, breadcrumbIdx + 1));
-        } else {
-          setBreadcrumbs([...breadcrumbs, selectedPlace]);
-        }
-      } else {
-        removeSpinner(CONTENT_SPINNER_ID);
-        window.alert("Sorry, we do not have maps for this place");
-      }
+        enclosedPlaceType,
+        parentPlaces,
+      });
     });
   }
 
@@ -316,12 +307,49 @@ export function DisasterEventMapTile(
   }
 
   /**
+   * Updates breadcrumbs using URL params and current place.
+   */
+  function updateBreadcrumbs(selectedPlace: NamedTypedPlace): void {
+    // TODO: compute breadcrumbs from parent places instead of a URL param.
+    const searchParams = new URLSearchParams(window.location.search);
+    const breadcrumbParam = searchParams.get(BREADCRUMB_PARAM_KEY);
+    // If no breadcrumbs passed in the param, just show current place
+    if (!breadcrumbParam) {
+      setBreadcrumbs([selectedPlace]);
+      return;
+    }
+    const placeDcids = breadcrumbParam.split(PARAM_SEPARATOR);
+    getPlaceNames(placeDcids)
+      .then((names) => {
+        const breadcrumbs = placeDcids.map((dcid) => {
+          return {
+            dcid,
+            name: names[dcid],
+          };
+        });
+        breadcrumbs.push(selectedPlace);
+        setBreadcrumbs(breadcrumbs);
+      })
+      .catch(() => {
+        const breadcrumbs = placeDcids.map((dcid) => {
+          return {
+            dcid,
+            name: dcid,
+          };
+        });
+        breadcrumbs.push(selectedPlace);
+        setBreadcrumbs(breadcrumbs);
+      });
+  }
+
+  /**
    * Fetches the chart data needed for drawing the map
    */
   function fetchMapChartData(
     selectedDate: string,
     placeInfo: DisasterEventMapPlaceInfo,
-    eventTypeSpec: Record<string, EventTypeSpec>
+    eventTypeSpec: Record<string, EventTypeSpec>,
+    severityFilters: Record<string, SeverityFilter>
   ): void {
     // Only re-fetch geojson data if place selection has changed
     const geoJsonPromise =
@@ -341,7 +369,8 @@ export function DisasterEventMapTile(
     const disasterEventDataPromise = fetchDisasterEventPoints(
       Object.values(eventTypeSpec),
       placeInfo.selectedPlace.dcid,
-      dateRange
+      dateRange,
+      severityFilters
     );
     Promise.all([geoJsonPromise, disasterEventDataPromise])
       .then(([geoJson, disasterEventData]) => {
@@ -349,43 +378,10 @@ export function DisasterEventMapTile(
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
-        const severityFilters = {};
-        disasterEventData.eventPoints.forEach((eventPoint) => {
-          if (!props.eventTypeSpec[eventPoint.disasterType].severityProps) {
-            return;
-          }
-          props.eventTypeSpec[eventPoint.disasterType].severityProps.forEach(
-            (prop) => {
-              if (!(prop in eventPoint.severity)) {
-                return;
-              }
-              const disasterSeverityFilters =
-                severityFilters[eventPoint.disasterType] || {};
-              if (prop in disasterSeverityFilters) {
-                disasterSeverityFilters[prop].min = Math.min(
-                  disasterSeverityFilters[prop].min,
-                  eventPoint.severity[prop]
-                );
-                disasterSeverityFilters[prop].max = Math.max(
-                  disasterSeverityFilters[prop].max,
-                  eventPoint.severity[prop]
-                );
-              } else {
-                disasterSeverityFilters[prop] = {
-                  min: eventPoint.severity[prop],
-                  max: eventPoint.severity[prop],
-                };
-              }
-              severityFilters[eventPoint.disasterType] =
-                disasterSeverityFilters;
-            }
-          );
-        });
         setMapChartData({
           geoJson,
           disasterEventPoints: disasterEventData.eventPoints,
           sources,
-          severityFilters,
         });
       })
       .catch(() => {
@@ -413,19 +409,6 @@ export function DisasterEventMapTile(
       USA_PLACE_DCID,
       placeInfo.parentPlaces
     );
-    const canClickRegionCb = (placeDcid: string) => {
-      const newPlace = {
-        dcid: placeDcid,
-        name: placeDcid,
-        types: [placeInfo.enclosedPlaceType],
-      };
-      return canClickRegion(
-        newPlace,
-        placeInfo.selectedPlace,
-        placeInfo.parentPlaces,
-        europeanPlaces.current
-      );
-    };
     const projection = getProjection(isUsaPlace, "", width, height);
     drawD3Map(
       props.id,
@@ -435,17 +418,11 @@ export function DisasterEventMapTile(
       {} /* dataValues: no data values to show on the base map */,
       "" /* units: no units to show */,
       null /* colorScale: no color scale since no data shown on the base map */,
-      (geoDcid: GeoJsonFeatureProperties) => {
-        const namedTypedPlace = {
-          name: geoDcid.name,
-          dcid: geoDcid.geoDcid,
-          types: [placeInfo.enclosedPlaceType],
-        };
-        updatePlaceInfo(namedTypedPlace);
-      } /* redirectAction */,
+      (geoDcid: GeoJsonFeatureProperties) =>
+        redirectAction(geoDcid.geoDcid) /* redirectAction */,
       () =>
         "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
-      canClickRegionCb,
+      () => true /* canClickRegion: allow all regions to be clickable */,
       false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
       projection,
@@ -454,52 +431,23 @@ export function DisasterEventMapTile(
       zoomParams
     );
     const pointValues = {};
-    const filteredEventPoints = mapChartData.disasterEventPoints.filter(
-      (eventPoint) => {
-        if (!(eventPoint.disasterType in mapChartData.severityFilters)) {
-          return true;
-        }
-        const eventTypeFilters =
-          mapChartData.severityFilters[eventPoint.disasterType];
-        const severityProps =
-          props.eventTypeSpec[eventPoint.disasterType].severityProps;
-        for (const severityProp of severityProps) {
-          if (!(severityProp in eventPoint.severity)) {
-            return false;
-          }
-          if (
-            eventPoint.severity[severityProp] <
-              eventTypeFilters[severityProp].min ||
-            eventPoint.severity[severityProp] >
-              eventTypeFilters[severityProp].max
-          ) {
-            return false;
-          }
-        }
-        return true;
-      }
-    );
     const pointsLayer = addMapPoints(
       props.id,
-      filteredEventPoints,
+      mapChartData.disasterEventPoints,
       pointValues,
       projection,
       (point: DisasterEventPoint) => {
         return props.eventTypeSpec[point.disasterType].color;
       }
     );
-    pointsLayer
-      .on("click", (point: DisasterEventPoint) =>
-        onPointClicked(
-          infoCardRef.current,
-          svgContainerRef.current,
-          point,
-          d3.event
-        )
+    pointsLayer.on("click", (point: DisasterEventPoint) =>
+      onPointClicked(
+        infoCardRef.current,
+        svgContainerRef.current,
+        point,
+        d3.event
       )
-      .on("blur", () => {
-        d3.select(infoCardRef.current).style("visibility", "hidden");
-      });
+    );
   }
 
   /**
@@ -523,5 +471,43 @@ export function DisasterEventMapTile(
         currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
       ],
     };
+  }
+
+  /**
+   * Handles redirecting to the disaster page for a different placeDcid
+   */
+  function redirectAction(placeDcid: string): void {
+    const breadcrumbIdx = breadcrumbs.findIndex(
+      (crumb) => crumb.dcid === placeDcid
+    );
+    let redirectBreadcrumbs = breadcrumbs;
+    if (breadcrumbIdx > -1) {
+      redirectBreadcrumbs = breadcrumbs.slice(0, breadcrumbIdx);
+    }
+    let breadcrumbParam = "";
+    if (!_.isEmpty(redirectBreadcrumbs)) {
+      const breadcrumbDcids = redirectBreadcrumbs.map((bc) => bc.dcid);
+      breadcrumbParam = `?bc=${breadcrumbDcids.join(PARAM_SEPARATOR)}`;
+    }
+    window.open(
+      `${REDIRECT_URL_PREFIX}${placeDcid}${breadcrumbParam}`,
+      "_self"
+    );
+  }
+
+  /**
+   * Get default severity filters based off a event type spec.
+   */
+  function getDefaultSeverityFilters(
+    eventTypeSpec: Record<string, EventTypeSpec>
+  ): Record<string, SeverityFilter> {
+    const severityFilters = {};
+    for (const spec of Object.values(eventTypeSpec)) {
+      if (_.isEmpty(spec.defaultSeverityFilter)) {
+        continue;
+      }
+      severityFilters[spec.id] = spec.defaultSeverityFilter;
+    }
+    return severityFilters;
   }
 }

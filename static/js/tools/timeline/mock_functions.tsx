@@ -437,27 +437,28 @@ export function axios_mock(): void {
       data: ["NotInTheTree"],
     });
 
-  when(axios.post)
-    .calledWith("/api/stats/stat-var-summary", {
-      statVars: ["Count_Person", "Median_Age_Person"],
+  when(axios.get)
+    .calledWith("/api/variable/info", {
+      params: {
+        dcids: ["Count_Person", "Median_Age_Person"],
+      },
+      paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        statVarSummary: {
-          Count_Person: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        Count_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
-          Median_Age_Person: {
-            placeTypeSummary: {
-              type1: {
-                numPlaces: 0,
-                topPlaces: [],
-              },
+        },
+        Median_Age_Person: {
+          placeTypeSummary: {
+            type1: {
+              numPlaces: 0,
+              topPlaces: [],
             },
           },
         },

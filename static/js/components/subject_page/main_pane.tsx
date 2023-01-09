@@ -21,7 +21,7 @@
 import _ from "lodash";
 import React from "react";
 
-import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
+import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
@@ -29,22 +29,21 @@ import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
 
 interface SubjectPageMainPanePropType {
-  /**
-   * The place to show the page for.
-   */
+  // The place to show the page for.
   place: NamedTypedPlace;
-  /**
-   * Config of the page
-   */
+  // Config of the page
   pageConfig: SubjectPageConfig;
+  // Height, in px, for the tile SVG charts.
+  svgChartHeight?: number;
 }
 
 export function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
 ): JSX.Element {
-  const placeType = props.place.types
-    ? props.place.types[0]
-    : DEFAULT_PAGE_PLACE_TYPE;
+  // TODO(shifucun): Further clean up default place type, child place type etc
+  // from subject page client components. The component should respect whatever
+  // the input prop is.
+  const placeType = props.place.types[0];
   const enclosedPlaceType = props.pageConfig.metadata.containedPlaceTypes
     ? props.pageConfig.metadata.containedPlaceTypes[placeType]
     : "";
@@ -60,6 +59,9 @@ export function SubjectPageMainPane(
                 enclosedPlaceType={enclosedPlaceType}
                 config={category}
                 eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
+                svgChartHeight={
+                  props.svgChartHeight ? props.svgChartHeight : SVG_CHART_HEIGHT
+                }
               />
             </ErrorBoundary>
           );

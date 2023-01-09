@@ -121,4 +121,4 @@ def get_observation_id():
 @bp.route('/num_stat_vars/<path:dcid>')
 def get_num_stat_vars(dcid):
   """Returns number of stat vars for a dcid"""
-  return json.dumps(len(dc.get_stat_vars(dcid)))
+  return json.dumps(len(dc.get_variables(dcid)))

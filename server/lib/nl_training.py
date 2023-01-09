@@ -1,6 +1,21 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # The following dictionaries are used by the NL query classification under
 # the path server.services.nl and also invoked from the server/__init__.py
 from dataclasses import dataclass
+from sklearn.cluster import AgglomerativeClustering
 from sklearn.linear_model import LogisticRegression
 from typing import Any, Dict, List
 
@@ -29,6 +44,18 @@ class NLQueryClassificationModel:
     self.classification_type = classification_type
     self.classification_model = LogisticRegression(max_iter=1000,
                                                    random_state=123)
+
+
+@dataclass
+class NLQueryCorrelationDetectionModel:
+  """Attributes for the NL Query Correlation classification."""
+  clustering_model: Any
+  cosine_similarity_cutoff: float
+
+  def __init__(self):
+    self.clustering_model = AgglomerativeClustering(n_clusters=2,
+                                                    affinity='cosine',
+                                                    linkage='average')
 
 
 # Query Sentence Classification Types and associated training data.

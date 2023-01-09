@@ -31,12 +31,14 @@ import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
+import { HistogramTile } from "../tiles/histogram_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
 import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { StatVarProvider } from "./stat_var_provider";
 
+// Either provide (place, enclosedPlaceType) or provide (places)
 export interface BlockPropType {
   id: string;
   place: NamedTypedPlace;
@@ -46,6 +48,8 @@ export interface BlockPropType {
   columns: ColumnConfig[];
   statVarProvider: StatVarProvider;
   eventTypeSpec: Record<string, EventTypeSpec>;
+  // Height, in px, for the tile SVG charts.
+  svgChartHeight: number;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -78,6 +82,9 @@ export function Block(props: BlockPropType): JSX.Element {
 }
 
 function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
+  if (!tiles) {
+    return <></>;
+  }
   const tilesJsx = tiles.map((tile) => {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
@@ -100,6 +107,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "LINE":
@@ -110,6 +118,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "RANKING":
@@ -131,8 +140,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
+            comparisonPlaces={tile.comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "SCATTER":
@@ -144,6 +155,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "BIVARIATE":
@@ -155,6 +167,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
           />
         );
       case "DESCRIPTION":
@@ -180,6 +193,17 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
           />
         );
       }
+      case "HISTOGRAM":
+        return (
+          <HistogramTile
+            key={id}
+            id={id}
+            title={tile.title}
+            place={props.place}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            svgChartHeight={props.svgChartHeight}
+          />
+        );
       default:
         console.log("Tile type not supported:" + tile.type);
     }

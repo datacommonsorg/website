@@ -16,10 +16,13 @@
 from flask import Blueprint, current_app, escape
 import services.datacommons as dc
 import json
-import os
 import flask
 import routes.api.place as place_api
 from google.protobuf.json_format import MessageToJson
+
+from config import subject_page_pb2
+import lib.util
+import lib.subject_page_config as lib_subject_page_config
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
@@ -40,23 +43,49 @@ def disaster_dashboard_v0():
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
   all_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    # TODO: Delete this when we are close to launch
+    all_configs = lib.util.get_disaster_dashboard_configs()
+
   if len(all_configs) < 1:
-    return "Error: no config found"
+    return "Error: no config installed"
 
   # Find the config for the topic & place.
   dashboard_config = None
+  default_config = None
   for config in all_configs:
     if place_dcid in config.metadata.place_dcid:
       dashboard_config = config
       break
+    if DEFAULT_PLACE_DCID in config.metadata.place_dcid:
+      # TODO: Add a better way to find the default config.
+      default_config = config
   if not dashboard_config:
-    return "Error: no config found"
+    # Use the default config instead
+    dashboard_config = default_config
 
   place_type = DEFAULT_PLACE_TYPE
   if place_dcid != DEFAULT_PLACE_DCID:
     place_type = place_api.get_place_type(place_dcid)
+    if not place_type:
+      place_type = "Place"
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
+
+  all_stat_vars = lib_subject_page_config.get_all_variables(dashboard_config)
+  stat_vars_existence = dc.observation_existence(all_stat_vars, [place_dcid])
+
+  for stat_var in stat_vars_existence['variable']:
+    if not stat_vars_existence['variable'][stat_var]['entity'][place_dcid]:
+      # This is for the main place, only remove the tile type for single place.
+      for tile_type in [
+          subject_page_pb2.Tile.TileType.HISTOGRAM,
+          subject_page_pb2.Tile.TileType.LINE,
+          subject_page_pb2.Tile.TileType.BAR,
+      ]:
+        dashboard_config = lib_subject_page_config.trim_config(
+            dashboard_config, stat_var, tile_type)
 
   return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
                                place_type=place_type,

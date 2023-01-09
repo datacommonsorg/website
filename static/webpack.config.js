@@ -101,7 +101,10 @@ const config = {
       __dirname + "/js/disaster_dashboard_v0/disaster_dashboard.ts",
       __dirname + "/css/disaster_dashboard_v0.scss",
     ],
-    event: [__dirname + "/js/event/event.ts", __dirname + "/css/event.scss"],
+    event: [
+      __dirname + "/js/apps/event/main.ts",
+      __dirname + "/css/event.scss",
+    ],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",

@@ -22,43 +22,190 @@
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
-#dc-nl-interface {
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+$page-vertical-margin: 2rem;
+$query-vertical-margin: 2rem;
+$page-background-color: #26272c;
+$answer-background-color: #3e414c;
+$chart-svg-height: 160px;
+$answer-min-height: 100vh;
 
-  @include media-breakpoint-up(md) {
-    margin-left: 3rem;
-    margin-right: 3rem;
+#main-header,
+#main-footer {
+  display: none;
+}
+
+#nl-interface {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: $page-background-color;
+}
+
+#dc-nl-interface {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+#results-thread-container {
+  padding: 0;
+  margin-bottom: 7rem;  // approx height of #search-container
+}
+
+#search-container {
+  font-size: 0.9rem;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  padding-top: $page-vertical-margin;
+  background-image: linear-gradient(180deg, #ffffff00, $page-background-color 65%);
+
+  .place-options-section {
+    align-items: center;
+    padding-bottom: $page-vertical-margin;
+    // HACK: account for scrollbar differences
+    margin-left: -7px;
+    padding-right: 7px;
+  }
+
+  .input-query {
+    flex-grow: 1;
   }
 }
 
-.place-options {
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 0.9rem;
+.nl-query {
+  padding: $query-vertical-margin 0;
 }
 
-.place-options-card {
-  flex-grow: 1;
-  padding-right: 0;
-  padding-left: 0;
+.nl-result {
+  background: $answer-background-color;
+  min-height: $answer-min-height;
+
+  .block-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .block-column {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .chart-container {
+    background: white;
+    margin-top: 0;
+    padding: 10px;
+    width: 30%;
+
+    h4 {
+      margin-bottom: 0;
+    }
+
+    .svg-container {
+      min-height: $chart-svg-height;
+    }
+
+    .legend {
+      margin-left: 0 !important;
+    }
+
+  }
+
+  .bar-chart .legend,
+  .line-chart .legend {
+    display: none;
+  }
+
+  .block-title {
+    display: none;
+  }
 }
 
-.place-options-section {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-  padding: 0.5rem 0.5rem;
-  overflow: hidden;
+h2,
+h3 {
+  color: white;
 }
 
-.input-query {
-  flex-grow: 1;
+.debug-info-toggle {
+  cursor: pointer;
 }
 
-table,
-th,
-tr,
-td {
-  border: 1px solid black;
+.debug-info-toggle.show {
+  color: #ccc;
+  font-size: .8rem;
+}
+
+.debug-info-toggle.hide {
+  float: right;
+  font-weight: bold;
+}
+
+
+.nl-query-result-debug-info {
+  background: white;
+  padding: 2em;
+  font-size: .8em;
+
+  table,
+  th,
+  tr,
+  td {
+    border: 1px solid black;
+  }
+}
+
+// From https://codepen.io/nzbin/pen/GGrXbp
+$loading-dot-color: #fff;
+.dot-loading-stage {
+  width: 100%;
+  height: $answer-min-height;
+  padding: 20%;
+
+  .dot-flashing {
+    margin: auto;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite linear alternate;
+    animation-delay: 0.5s;
+  }
+  .dot-flashing::before, .dot-flashing::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+  }
+  .dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 0s;
+  }
+  .dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: $loading-dot-color;
+    color: $loading-dot-color;
+    animation: dot-flashing 1s infinite alternate;
+    animation-delay: 1s;
+  }
+
+  @keyframes dot-flashing {
+    0% {
+      background-color: $loading-dot-color;
+    }
+    50%, 100% {
+      background-color: rgba(193, 193, 193, 0.2);
+    }
+  }
 }

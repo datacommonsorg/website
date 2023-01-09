@@ -26,7 +26,6 @@ import ReactDOMServer from "react-dom/server";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
@@ -37,6 +36,7 @@ import {
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
 import { stringifyFn } from "../../utils/axios";
+import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
@@ -48,6 +48,7 @@ interface BivariateTilePropType {
   place: NamedTypedPlace;
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
+  svgChartHeight: number;
 }
 
 interface RawData {
@@ -116,6 +117,16 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       sources={bivariateChartData.sources}
       replacementStrings={rs}
       className="bivariate-chart"
+      allowEmbed={true}
+      getDataCsv={() =>
+        scatterDataToCsv(
+          bivariateChartData.xStatVar.statVar,
+          bivariateChartData.xStatVar.denom,
+          bivariateChartData.yStatVar.statVar,
+          bivariateChartData.yStatVar.denom,
+          bivariateChartData.points
+        )
+      }
     >
       <div
         id={props.id}
@@ -146,7 +157,7 @@ function getPopulationPromise(
         params: {
           parent_entity: placeDcid,
           child_type: enclosedPlaceType,
-          variable: variables,
+          variables: variables,
         },
         paramsSerializer: stringifyFn,
       })
@@ -314,7 +325,7 @@ function draw(
   );
   const properties: BivariateProperties = {
     width,
-    height: CHART_HEIGHT,
+    height: props.svgChartHeight,
     xLabel,
     yLabel,
     xUnit: chartData.xStatVar.unit,

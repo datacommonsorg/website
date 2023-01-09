@@ -17,16 +17,27 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
+from lib.nl_detection import NLClassifier, ClassificationType
+from lib.nl_detection import CorrelationClassificationAttributes
+from lib.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
+from lib.nl_detection import RankingClassificationAttributes, RankingType
+from lib.nl_detection import PeriodType, TemporalClassificationAttributes
 from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel
-from typing import Dict, List
+from lib.nl_training import NLQueryCorrelationDetectionModel
+from lib.nl_page_config import PLACE_TYPE_TO_PLURALS
+from typing import Dict, List, Union
 import os
+import numpy as np
 import pandas as pd
 import torch
 from datasets import load_dataset
 import logging
+from collections import OrderedDict
 
 BUILDS = [
-    'demographics300', 'uncurated3000', 'demographics300-withpalmalternatives',
+    'demographics300',  #'uncurated3000', 
+    'demographics300-withpalmalternatives',
+    'curatedJan2022',
     'combined_all'
 ]
 GCS_BUCKET = 'datcom-csv'
@@ -54,6 +65,17 @@ def pick_option(class_model, q, categories):
     return "Inconclusive."
 
 
+def _prefix_length(s1, s2):
+  if not s1 or not s2:
+    return 0
+  short_str = min([s1, s2], key=len)
+  for i, char in enumerate(short_str):
+    for other in [s1, s2]:
+      if other[i] != char:
+        return i + 1
+  return len(short_str)
+
+
 class Model:
   """Holds clients for the language model"""
 
@@ -63,6 +85,8 @@ class Model:
     self.model = SentenceTransformer(MODEL_NAME)
     self.ner_model = ner_model
     self.dataset_embeddings_maps = {}
+    # For clustering, need the DataFrame objects.
+    self.dataset_embeddings_maps_to_df = {}
     self._download_embeddings()
     self.dcid_maps = {}
     for build in BUILDS:
@@ -75,11 +99,15 @@ class Model:
       df = df.drop('dcid', axis=1)
       self.dataset_embeddings_maps[build] = torch.from_numpy(df.to_numpy()).to(
           torch.float)
+      self.dataset_embeddings_maps_to_df[build] = df
 
     # Classification models and training.
     self.classification_models: Dict[str, NLQueryClassificationModel] = {}
     self._classification_data_to_models(query_classification_data,
                                         classification_types_supported)
+
+    # Set the Correlations Detection Model.
+    self._correlation_detection = NLQueryCorrelationDetectionModel()
 
   def _download_embeddings(self):
     storage_client = storage.Client()
@@ -128,7 +156,165 @@ class Model:
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
 
-  def query_classification(self, type_string: str, query: str) -> str:
+  def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
+    ranking_type = RankingType.NONE
+    if prediction == "Rankings-High":
+      ranking_type = RankingType.HIGH
+    elif prediction == "Rankings-Low":
+      RankingType.LOW
+
+    if ranking_type == RankingType.NONE:
+      return None
+
+    # TODO: need to detect trigger words.
+    attributes = RankingClassificationAttributes(ranking_type=ranking_type,
+                                                 ranking_trigger_words=[])
+    return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
+
+  def _temporal_classification(self, prediction) -> Union[NLClassifier, None]:
+    if prediction != "Temporal":
+      return None
+
+    # TODO: need to detect the date and type.
+    attributes = TemporalClassificationAttributes(date_str="",
+                                                  date_type=PeriodType.NONE)
+    return NLClassifier(type=ClassificationType.TEMPORAL, attributes=attributes)
+
+  def _containedin_classification(self, prediction,
+                                  query: str) -> Union[NLClassifier, None]:
+    if prediction != "Contained In":
+      return None
+
+    contained_in_place_type = ContainedInPlaceType.PLACE
+    place_type_to_enum = OrderedDict({
+        "county": ContainedInPlaceType.COUNTY,
+        "state": ContainedInPlaceType.STATE,
+        "country": ContainedInPlaceType.COUNTRY,
+        "city": ContainedInPlaceType.CITY,
+        "district": ContainedInPlaceType.DISTRICT,
+        "province": ContainedInPlaceType.PROVINCE,
+        "town": ContainedInPlaceType.TOWN,
+        "zip": ContainedInPlaceType.ZIP
+    })
+    query = query.lower()
+    for place_type, place_enum in place_type_to_enum.items():
+      if place_type in query:
+        contained_in_place_type = place_enum
+        break
+
+      if place_type in PLACE_TYPE_TO_PLURALS and \
+        PLACE_TYPE_TO_PLURALS[place_type] in query:
+        contained_in_place_type = place_enum
+        break
+
+    # TODO: need to detect the type of place for this contained in.
+    attributes = ContainedInClassificationAttributes(
+        contained_in_place_type=contained_in_place_type)
+    return NLClassifier(type=ClassificationType.CONTAINED_IN,
+                        attributes=attributes)
+
+  def _correlation_classification(
+      self, clusters: List[Dict[str, float]]) -> Union[NLClassifier, None]:
+    if not clusters:
+      return None
+
+    # TODO: need to fill in the details.
+    attributes = CorrelationClassificationAttributes(
+        sv_dcid_1="",
+        sv_dcid_2="",
+        is_using_clusters=False,
+        correlation_trigger_words="",
+        cluster_1_svs=[],
+        cluster_2_svs=[])
+    return NLClassifier(type=ClassificationType.CONTAINED_IN,
+                        attributes=attributes)
+
+  def query_correlation_detection(
+      self,
+      embeddings_build,
+      query,
+      svs_list,
+      svs_scores,
+      sv_embedding_indices,
+      cosine_similarity_cutoff=0.4,
+      prefix_length_cutoff=8) -> Union[NLClassifier, None]:
+    """Correlation detection based on clustering. Assumes all input lists are ordered and same length."""
+
+    embedding_vectors = []
+    for i in range(0, len(svs_list)):
+      vec_index = sv_embedding_indices[i]
+      vec = self.dataset_embeddings_maps_to_df[embeddings_build].iloc[
+          vec_index].values
+
+      embedding_vectors.append(np.array(vec))
+
+    # Cluster the embedding vectors.
+    self._correlation_detection.clustering_model.fit(embedding_vectors)
+    labels = self._correlation_detection.clustering_model.labels_
+    logging.info("Clustering in to two clusters done.")
+
+    cluster_zero_indices = [ind for ind, x in enumerate(labels) if x == 0]
+    cluster_one_indices = [ind for ind, x in enumerate(labels) if x == 1]
+
+    # Pick the highest scoring SVs in the two clusters.
+    def _index_with_max_score(cluster_indices):
+      max_s = -1.0
+      max_index = -1
+      for ci in cluster_indices:
+        if svs_scores[ci] > max_s:
+          max_s = svs_scores[ci]
+          max_index = ci
+      return max_index
+
+    cluster_zero_best_sv_index = _index_with_max_score(cluster_zero_indices)
+    cluster_one_best_sv_index = _index_with_max_score(cluster_one_indices)
+
+    # Cosine Score between the two.
+    def cos_sim(a, b):
+      return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+    # If this score is high, it means that the two highest scored (matched) SVs
+    # are similar and we cannot be sure that this is a correlation query based
+    # on how different the two clusters are.
+    sim_score = cos_sim(embedding_vectors[cluster_zero_best_sv_index],
+                        embedding_vectors[cluster_one_best_sv_index])
+
+    if sim_score < cosine_similarity_cutoff:
+      logging.info(
+          f"Best SVs in the two clusters were far apart. Cosine Score = {sim_score}"
+      )
+      sv_dcid_1 = svs_list[cluster_zero_best_sv_index]
+      sv_dcid_2 = svs_list[cluster_one_best_sv_index]
+
+      # Check in case the two SVs have long prefix matching.
+      if _prefix_length(sv_dcid_1, sv_dcid_2) >= prefix_length_cutoff:
+        logging.info(
+            f"Best SVs ({sv_dcid_1, sv_dcid_2}) have prefix match > {prefix_length_cutoff}. Not a Correlation Query."
+        )
+        return None
+
+      logging.info(
+          f"Treating as a Correlation Query. Cosine Score and Prefix Match Length are both LOW."
+      )
+      attributes = CorrelationClassificationAttributes(
+          sv_dcid_1=sv_dcid_1,
+          sv_dcid_2=sv_dcid_2,
+          is_using_clusters=True,
+          # TODO: also look at trigger words.
+          correlation_trigger_words="",
+          cluster_1_svs=[svs_list[i] for i in cluster_zero_indices],
+          cluster_2_svs=[svs_list[i] for i in cluster_one_indices],
+      )
+      return NLClassifier(type=ClassificationType.CORRELATION,
+                          attributes=attributes)
+    else:
+      logging.info(
+          f"Not Correlation Query. Best SVs in the two clusters were too similar. Cosine Score > {sim_score}"
+      )
+    return None
+
+  def query_classification(self, type_string: str,
+                           query: str) -> Union[NLClassifier, None]:
     """Check if query can be classified according to 'type_string' model.
 
     Args:
@@ -137,22 +323,37 @@ class Model:
       query: (str) The query string supplied.
     
     Returns:
-      The classification string, e.g. "Rankings-High", "No Ranking" etc. Fill set
-      of options is in lib.nl_training.py
+      The NLClassifier object or None.
     """
     if not f'{type_string}' in self.classification_models:
-      return f'{type_string} Classifier not built.'
+      logging.info(f'{type_string} Classifier not built.')
+      return None
     query_encoded = self.model.encode(query)
-    classification_model: NLQueryClassificationModel = self.classification_models[
-        type_string]
-    logging.info(
-        f'Getting predictions from model: {classification_model.classification_type.name}'
-    )
-    logging.info(
-        f'Getting predictions from model: {classification_model.classification_type.categories}'
-    )
-    return pick_option(classification_model.classification_model, query_encoded,
-                       classification_model.classification_type.categories)
+    # TODO: when the correlation classifier is ready, remove this following conditional.
+    if type_string in ["ranking", "temporal", "contained_in"]:
+      classification_model: NLQueryClassificationModel = self.classification_models[
+          type_string]
+      logging.info(
+          f'Getting predictions from model: {classification_model.classification_type.name}'
+      )
+      logging.info(
+          f'Getting predictions from model: {classification_model.classification_type.categories}'
+      )
+      prediction = pick_option(
+          classification_model.classification_model, query_encoded,
+          classification_model.classification_type.categories)
+
+      if type_string == "ranking":
+        return self._ranking_classification(prediction)
+      elif type_string == "temporal":
+        return self._temporal_classification(prediction)
+      elif type_string == "contained_in":
+        return self._containedin_classification(prediction, query)
+
+    if type_string == "correlation":
+      # TODO: implement.
+      return self._correlation_classification([])
+    return None
 
   def detect_svs(self, query, embeddings_build):
     query_embeddings = self.model.encode([query])
@@ -160,17 +361,20 @@ class Model:
       return ValueError(f'Embeddings Build: {embeddings_build} was not found.')
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings_maps[embeddings_build],
-                           top_k=10)
+                           top_k=20)
 
     # Note: multiple results may map to the same DCID. As well, the same string may
     # map to multiple DCIDs with the same score.
     sv2score = {}
+    # Also track the sv to index so that embeddings can later be retrieved.
+    sv2index = {}
     for e in hits[0]:
       for d in self.dcid_maps[embeddings_build][e['corpus_id']].split(','):
         s = e['score']
         # Prefer the top score.
         if d not in sv2score:
           sv2score[d] = s
+          sv2index[d] = e['corpus_id']
 
     # Sort by scores
     sv2score_sorted = sorted(sv2score.items(),
@@ -179,7 +383,13 @@ class Model:
     svs_sorted = [k for (k, _) in sv2score_sorted]
     scores_sorted = [v for (_, v) in sv2score_sorted]
 
-    return {'SV': svs_sorted, 'CosineScore': scores_sorted}
+    sv_index_sorted = [sv2index[k] for (k, _) in sv2score_sorted]
+
+    return {
+        'SV': svs_sorted,
+        'CosineScore': scores_sorted,
+        'EmbeddingIndex': sv_index_sorted
+    }
 
   def detect_place(self, query):
     doc = self.ner_model(query)

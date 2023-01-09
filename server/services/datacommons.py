@@ -222,31 +222,28 @@ def property_values(nodes, prop, out=True):
   return result
 
 
-def get_variable_group_info(dcid: List[str], entities: List[str]) -> Dict:
-  """Gets the stat var group node information."""
-  url = get_service_url('/v1/info/variable-group')
-  url = f'{url}/{dcid}'
-  if entities:
-    url += "?constrained_entities=" + "&constrained_entities=".join(entities)
-  return get(url).get("info", {})
-
-
-def get_variable_group_info_bulk(dcids: List[str], entities: List[str]) -> Dict:
+def get_variable_group_info(nodes: List[str], entities: List[str]) -> Dict:
   """Gets the stat var group node information."""
   url = get_service_url('/v1/bulk/info/variable-group')
-
-  req_dict = {"constrained_entities": entities, "nodes": dcids}
+  req_dict = {"constrained_entities": entities, "nodes": nodes}
   return post(url, req_dict)
 
 
-def get_stat_vars(dcid: str):
+def variable_info(nodes: List[str]) -> Dict:
+  """Gets the stat var node information."""
+  url = get_service_url('/v1/bulk/info/variable')
+  req_dict = {"nodes": nodes}
+  return post(url, req_dict)
+
+
+def get_variables(dcid: str):
   """Get all the statistical variable dcids for a place."""
   url = get_service_url('/v1/variables')
   url = f'{url}/{dcid}'
   return get(url).get('variables', [])
 
 
-def get_stat_var_ancestors(dcid: str):
+def get_variable_ancestors(dcid: str):
   """Gets the path of a stat var to the root of the stat var hierarchy."""
   url = get_service_url('/v1/variable/ancestors')
   url = f'{url}/{dcid}'
@@ -255,13 +252,23 @@ def get_stat_var_ancestors(dcid: str):
 
 def get_series_dates(parent_entity, child_type, variables):
   """Get series dates."""
+  url = get_service_url('/v1/bulk/observation-dates/linked')
   return post(
-      '/v1/bulk/observation-dates/linked', {
+      url, {
           'linked_property': "containedInPlace",
           'linked_entity': parent_entity,
           'entity_type': child_type,
           'variables': variables,
       })
+
+
+def observation_existence(variables, entities):
+  """Check if observation exist for <entity, variable> pairs"""
+  url = get_service_url('/v1/bulk/observation-existence')
+  return post(url, {
+      'entities': entities,
+      'variables': variables,
+  })
 
 
 def resolve_id(in_ids, in_prop, out_prop):
@@ -280,9 +287,16 @@ def resolve_id(in_ids, in_prop, out_prop):
   })
 
 
-def get_event_collection(event_type, affected_place, date):
-  """Gets all the events for a specified event type, affected place, and date
-  
+def get_event_collection(event_type,
+                         affected_place,
+                         date,
+                         filter_prop=None,
+                         filter_unit=None,
+                         filter_upper_limit=None,
+                         filter_lower_limit=None):
+  """Gets all the events for a specified event type, affected place, date, and
+      filter information (filter prop, unit, lower limit, and upper limit).
+
   Args:
       event_type: type of events to get
       affected_place: affected place of events to get
@@ -293,6 +307,10 @@ def get_event_collection(event_type, affected_place, date):
           'event_type': event_type,
           'affected_place_dcid': affected_place,
           'date': date,
+          'filter_prop': filter_prop,
+          'filter_unit': filter_unit,
+          'filter_upper_limit': filter_upper_limit,
+          'filter_lower_limit': filter_lower_limit
       })
 
 
@@ -409,14 +427,6 @@ def match_statvar(query: str, limit: int, debug: bool):
       'query': query,
       'limit': limit,
       'debug': debug,
-  }
-  return send_request(url, req_json, has_payload=False)
-
-
-def get_statvar_summary(dcids):
-  url = get_service_url('/stat-var/summary')
-  req_json = {
-      'stat_vars': dcids,
   }
   return send_request(url, req_json, has_payload=False)
 
