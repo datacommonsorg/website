@@ -202,7 +202,8 @@ class Model:
     embedding_vectors = []
     for i in range(0, len(svs_list)):
       vec_index = sv_embedding_indices[i]
-      vec = self.dataset_embeddings_maps_to_df[embeddings_build].iloc[vec_index].values
+      vec = self.dataset_embeddings_maps_to_df[embeddings_build].iloc[
+          vec_index].values
 
       embedding_vectors.append(np.array(vec))
 
