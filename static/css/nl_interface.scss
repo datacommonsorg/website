@@ -43,13 +43,11 @@ $answer-min-height: 100vh;
 
 #dc-nl-interface {
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #results-thread-container {
-  overflow: hidden;
   padding: 0;
-  overflow-y: scroll;
   margin-bottom: 7rem;  // approx height of #search-container
 }
 
