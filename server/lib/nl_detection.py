@@ -66,15 +66,15 @@ class RankingType(Enum):
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
   # PLACE is the most generic type.
-  PLACE = 0
-  COUNTRY = 1
-  STATE = 2
-  PROVINCE = 3
-  COUNTY = 4
-  CITY = 5
-  DISTRICT = 6
-  TOWN = 7
-  ZIP = 8
+  PLACE = "Place"
+  COUNTRY = "Country"
+  STATE = "State"
+  PROVINCE = "Province"
+  COUNTY = "County"
+  CITY = "City"
+  DISTRICT = "District"
+  TOWN = "Town"
+  ZIP = "CensusZipCodeTabulationArea"
 
 
 class PeriodType(Enum):

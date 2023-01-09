@@ -193,7 +193,7 @@ function fetchData(
       let population = {};
       if (
         !_.isEmpty(populationData.data) &&
-        denomStatVar &&
+        !_.isEmpty(denomStatVar) &&
         denomStatVar in populationData.data
       ) {
         population = populationData.data[denomStatVar];
@@ -252,6 +252,10 @@ function processData(
       }
     });
   }
+  // check for empty data values
+  if (_.isEmpty(dataValues)) {
+    return;
+  }
   setChartData({
     dataValues,
     metadata,
@@ -284,11 +288,24 @@ function draw(
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Unavailable";
     if (place.dcid in chartData.dataValues) {
-      value = formatNumber(
-        Math.round((chartData.dataValues[place.dcid] + Number.EPSILON) * 100) /
-          100,
-        props.statVarSpec.unit
-      );
+      // shows upto 2 precision digits for very low values
+      if (
+        Math.abs(chartData.dataValues[place.dcid]) < 1 &&
+        Math.abs(chartData.dataValues[place.dcid]) > 0
+      ) {
+        const chartDatavalue = chartData.dataValues[place.dcid];
+        value = formatNumber(
+          Number(chartDatavalue.toPrecision(2)),
+          props.statVarSpec.unit
+        );
+      } else {
+        value = formatNumber(
+          Math.round(
+            (chartData.dataValues[place.dcid] + Number.EPSILON) * 100
+          ) / 100,
+          props.statVarSpec.unit
+        );
+      }
     }
     return place.name + ": " + value;
   };

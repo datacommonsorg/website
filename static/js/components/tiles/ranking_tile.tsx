@@ -209,7 +209,7 @@ function fetchData(
           arr.push(rankingPoint);
         }
         arr.sort((a, b) => {
-          return a.stat - b.stat;
+          return a.value - b.value;
         });
         const numDataPoints = arr.length;
         rankingData[spec.statVar] = {
