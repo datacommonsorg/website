@@ -62,6 +62,16 @@ def pick_option(class_model, q, categories):
   else:
     return "Inconclusive."
 
+def _prefix_length(s1, s2):
+    if not s1 or not s2:
+        return 0
+    short_str = min([s1, s2],key=len)
+    for i, char in enumerate(short_str):
+        for other in [s1, s2]:
+            if other[i] != char:
+                return i+1
+    return len(short_str) 
+
 
 class Model:
   """Holds clients for the language model"""
@@ -196,7 +206,7 @@ class Model:
 
   def query_correlation_detection(
       self, embeddings_build, query, svs_list, svs_scores,
-      sv_embedding_indices, cosine_similarity_cutoff=0.4) -> Union[NLClassifier, None]:
+      sv_embedding_indices, cosine_similarity_cutoff=0.4, prefix_length_cutoff=8) -> Union[NLClassifier, None]:
     """Correlation detection based on clustering. Assumes all input lists are ordered and same length."""
 
     embedding_vectors = []
@@ -240,11 +250,24 @@ class Model:
 
     if sim_score < cosine_similarity_cutoff:
       logging.info(
-          f"Correlation Query. Best SVs in the two clusters were far apart. Cosine Score = {sim_score}"
+          f"Best SVs in the two clusters were far apart. Cosine Score = {sim_score}"
+      )
+      sv_dcid_1 = svs_list[cluster_zero_best_sv_index]
+      sv_dcid_2 = svs_list[cluster_one_best_sv_index]
+
+      # Check in case the two SVs have long prefix matching.
+      if _prefix_length(sv_dcid_1, sv_dcid_2) >= prefix_length_cutoff:
+        logging.info(
+          f"Best SVs ({sv_dcid_1, sv_dcid_2}) have prefix match > {prefix_length_cutoff}. Not a Correlation Query."
+        )
+        return None
+
+      logging.info(
+          f"Treating as a Correlation Query. Cosine Score and Prefix Match Length are both LOW."
       )
       attributes = CorrelationClassificationAttributes(
-          sv_dcid_1=svs_list[cluster_zero_best_sv_index],
-          sv_dcid_2=svs_list[cluster_one_best_sv_index],
+          sv_dcid_1=sv_dcid_1,
+          sv_dcid_2=sv_dcid_2,
           is_using_clusters=True,
           # TODO: also look at trigger words.
           correlation_trigger_words="",
