@@ -160,20 +160,21 @@ class Model:
                                                   date_type=PeriodType.NONE)
     return NLClassifier(type=ClassificationType.TEMPORAL, attributes=attributes)
 
-  def _containedin_classification(self,
-                                  prediction, query: str) -> Union[NLClassifier, None]:
+  def _containedin_classification(self, prediction,
+                                  query: str) -> Union[NLClassifier, None]:
     if prediction != "Contained In":
       return None
 
     contained_in_place_type = ContainedInPlaceType.PLACE
     place_type_to_enum = OrderedDict({
-      "county": ContainedInPlaceType.COUNTY,
-      "city": ContainedInPlaceType.CITY,
-      "state": ContainedInPlaceType.STATE,
-      "district": ContainedInPlaceType.DISTRICT,
-      "province": ContainedInPlaceType.PROVINCE,
-      "town": ContainedInPlaceType.TOWN,
-      "zip": ContainedInPlaceType.ZIP
+        "county": ContainedInPlaceType.COUNTY,
+        "state": ContainedInPlaceType.STATE,
+        "country": ContainedInPlaceTypeCOUNTRY,
+        "city": ContainedInPlaceType.CITY,
+        "district": ContainedInPlaceType.DISTRICT,
+        "province": ContainedInPlaceType.PROVINCE,
+        "town": ContainedInPlaceType.TOWN,
+        "zip": ContainedInPlaceType.ZIP
     })
     for place_type, place_enum in place_type_to_enum.items():
       if place_type in query:
