@@ -19,4 +19,4 @@
  */
 
 // Default height to use for charts in tile components
-export const CHART_HEIGHT = 200;
+export const SVG_CHART_HEIGHT = 200;

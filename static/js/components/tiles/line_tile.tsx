@@ -24,7 +24,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
@@ -38,6 +37,8 @@ interface LineTilePropType {
   title: string;
   place: NamedTypedPlace;
   statVarSpec: StatVarSpec[];
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface LineChartData {
@@ -138,7 +139,7 @@ function draw(
   const isCompleteLine = drawLineChart(
     props.id,
     elem.offsetWidth,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     chartData,
     false,
     false,

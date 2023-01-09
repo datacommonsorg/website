@@ -17,6 +17,34 @@ from typing import Dict
 from lib.nl_chart_spec import ChartSpec
 from config import subject_page_pb2
 
+PLACE_TYPE_TO_PLURALS = {
+    "place": "places",
+    "continent": "continents",
+    "country": "countries",
+    "state": "states",
+    "province": "provinces",
+    "county": "counties",
+    "city": "cities",
+    "censuszipcodetabulationarea": "census zip code tabulation areas",
+    "town": "towns",
+    "village": "villages",
+    "censusdivision": "census divisions",
+    "borough": "boroughs",
+    "eurostatnuts1": "Eurostat NUTS 1 places",
+    "eurostatnuts2": "Eurostat NUTS 2 places",
+    "eurostatnuts3": "Eurostat NUTS 3 places",
+    "administrativearea1": "administrative area 1 places",
+    "administrativearea2": "administrative area 2 places",
+    "administrativearea3": "administrative area 3 places",
+    "administrativearea4": "administrative area 4 places",
+    "administrativearea5": "administrative area 5 places",
+}
+
+
+def pluralize_place_type(place_type: str) -> str:
+  return PLACE_TYPE_TO_PLURALS.get(place_type.lower(),
+                                   PLACE_TYPE_TO_PLURALS["place"])
+
 
 def build_page_config(spec: ChartSpec, sv2name: Dict[str, str]):
   # Init
@@ -35,7 +63,7 @@ def build_page_config(spec: ChartSpec, sv2name: Dict[str, str]):
   for sv in spec.main.svs:
     tile = column.tiles.add()
     tile.type = subject_page_pb2.Tile.TileType.LINE
-    tile.title = sv2name[sv] + ': historical'
+    tile.title = sv2name[sv]
     tile.stat_var_key.append(sv)
     category.stat_var_spec[sv].stat_var = sv
     category.stat_var_spec[sv].name = sv2name[sv]
@@ -43,12 +71,13 @@ def build_page_config(spec: ChartSpec, sv2name: Dict[str, str]):
   # Nearby place
   if spec.nearby.sv2places:
     block = category.blocks.add()
-    block.title = "Near by {} of {}".format(spec.main.type, spec.main.name)
+    block.title = "{} near {}".format(
+        pluralize_place_type(spec.main.type).capitalize(), spec.main.name)
     column = block.columns.add()
     for sv, places in spec.nearby.sv2places.items():
       tile = column.tiles.add()
       tile.type = subject_page_pb2.Tile.TileType.BAR
-      tile.title = sv2name[sv] + ' ${date}'
+      tile.title = sv2name[sv]
       tile.comparison_places[:] = places
       tile.stat_var_key.append(sv)
       category.stat_var_spec[sv].stat_var = sv
@@ -57,14 +86,15 @@ def build_page_config(spec: ChartSpec, sv2name: Dict[str, str]):
   # Contained place
   if spec.contained.svs:
     block = category.blocks.add()
-    block.title = "{} in {}".format(spec.contained.contained_place_type,
-                                    spec.main.name)
+    block.title = "{} in {}".format(
+        pluralize_place_type(spec.contained.contained_place_type).capitalize(),
+        spec.main.name)
     column = block.columns.add()
     tile = column
     for sv in spec.contained.svs:
       tile = column.tiles.add()
       tile.type = subject_page_pb2.Tile.TileType.MAP
-      tile.title = sv2name[sv] + ': latest'
+      tile.title = sv2name[sv] + ' (${date})'
       tile.stat_var_key.append(sv)
       category.stat_var_spec[sv].stat_var = sv
       category.stat_var_spec[sv].name = sv2name[sv]

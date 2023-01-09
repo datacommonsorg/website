@@ -23,7 +23,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
-import { CHART_HEIGHT } from "../../constants/tile_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { computeRatio } from "../../tools/shared_util";
@@ -37,6 +36,8 @@ interface HistogramTilePropType {
   title: string;
   place: NamedTypedPlace;
   statVarSpec: StatVarSpec[];
+  // Height, in px, for the SVG chart.
+  svgChartHeight: number;
 }
 
 interface HistogramData {
@@ -145,7 +146,7 @@ function draw(props: HistogramTilePropType, histogramData: DataPoint[]): void {
   drawHistogram(
     props.id,
     elem.offsetWidth,
-    CHART_HEIGHT,
+    props.svgChartHeight,
     histogramData,
     props.statVarSpec[0].unit
   );
