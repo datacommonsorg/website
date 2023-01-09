@@ -415,7 +415,8 @@ def _result_with_debug_info(data_dict,
     elif classification.type == ClassificationType.TEMPORAL:
       temporal_classification = str(classification.type)
     elif classification.type == ClassificationType.CONTAINED_IN:
-      contained_in_classification = str(classification.type)
+      contained_in_classification = \
+          str(classification.attributes.contained_in_place_type)
 
   debug_info = {
       "debug": {

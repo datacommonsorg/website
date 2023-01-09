@@ -29,6 +29,7 @@ import pandas as pd
 import torch
 from datasets import load_dataset
 import logging
+from collections import OrderedDict
 
 BUILDS = [
     'demographics300',  #'uncurated3000',
@@ -159,14 +160,30 @@ class Model:
                                                   date_type=PeriodType.NONE)
     return NLClassifier(type=ClassificationType.TEMPORAL, attributes=attributes)
 
-  def _containedin_classification(self,
-                                  prediction) -> Union[NLClassifier, None]:
+  def _containedin_classification(self, prediction,
+                                  query: str) -> Union[NLClassifier, None]:
     if prediction != "Contained In":
       return None
 
+    contained_in_place_type = ContainedInPlaceType.PLACE
+    place_type_to_enum = OrderedDict({
+        "county": ContainedInPlaceType.COUNTY,
+        "state": ContainedInPlaceType.STATE,
+        "country": ContainedInPlaceType.COUNTRY,
+        "city": ContainedInPlaceType.CITY,
+        "district": ContainedInPlaceType.DISTRICT,
+        "province": ContainedInPlaceType.PROVINCE,
+        "town": ContainedInPlaceType.TOWN,
+        "zip": ContainedInPlaceType.ZIP
+    })
+    for place_type, place_enum in place_type_to_enum.items():
+      if place_type in query:
+        contained_in_place_type = place_enum
+        break
+
     # TODO: need to detect the type of place for this contained in.
     attributes = ContainedInClassificationAttributes(
-        contained_in_place_type=ContainedInPlaceType.PLACE)
+        contained_in_place_type=contained_in_place_type)
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
@@ -221,7 +238,7 @@ class Model:
       elif type_string == "temporal":
         return self._temporal_classification(prediction)
       elif type_string == "contained_in":
-        return self._containedin_classification(prediction)
+        return self._containedin_classification(prediction, query)
 
     if type_string == "correlation":
       # TODO: implement.
