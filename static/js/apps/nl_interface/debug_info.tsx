@@ -32,7 +32,7 @@ export const BUILD_OPTIONS = [
     text: "Demographics only (300 SVs) with PaLM Alternatives",
   },
   // { value: "uncurated3000", text: "Uncurated 3000 SVs" },
-  
+
   { value: "combined_all", text: "Combined All of the Above" },
 ];
 
