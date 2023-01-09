@@ -200,7 +200,7 @@ function processData(
   }
   const points = {};
   const sources: Set<string> = new Set();
-  for (const place in xPlacePointStat.stat) {
+  for (const place in xPlacePointStat) {
     const namedPlace = {
       dcid: place,
       name: rawData.placeNames[place] || place,
