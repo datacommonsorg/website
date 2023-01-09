@@ -14,9 +14,10 @@
 
 from typing import List
 
-from lib.nl_chart_spec import ChartSpec
 from config import subject_page_pb2
-import services.datacommons as dc
+from lib.nl_chart_spec import ChartSpec
+from lib.nl_detection import ClassificationType, NLClassifier, RankingType
+from services import datacommons as dc
 
 PLACE_TYPE_TO_PLURALS = {
     "place": "places",
@@ -52,8 +53,8 @@ def get_sv_name(svs):
   return {sv: names[0] for sv, names in sv2name_raw.items()}
 
 
-def build_page_config(spec: ChartSpec, relevant_svs: List[str],
-                      extended_svs: List[str]):
+def build_page_config(classifier: NLClassifier, spec: ChartSpec,
+                      relevant_svs: List[str], extended_svs: List[str]):
 
   sv2name = get_sv_name(relevant_svs + extended_svs)
   # Init
@@ -66,16 +67,17 @@ def build_page_config(spec: ChartSpec, relevant_svs: List[str],
   category = page_config.categories.add()
 
   # Main place
-  block = category.blocks.add()
-  block.title = spec.main.name
-  column = block.columns.add()
-  for sv in spec.main.svs:
-    tile = column.tiles.add()
-    tile.type = subject_page_pb2.Tile.TileType.LINE
-    tile.title = sv2name[sv]
-    tile.stat_var_key.append(sv)
-    category.stat_var_spec[sv].stat_var = sv
-    category.stat_var_spec[sv].name = sv2name[sv]
+  if spec.main.svs:
+    block = category.blocks.add()
+    block.title = spec.main.name
+    column = block.columns.add()
+    for sv in spec.main.svs:
+      tile = column.tiles.add()
+      tile.type = subject_page_pb2.Tile.TileType.LINE
+      tile.title = sv2name[sv]
+      tile.stat_var_key.append(sv)
+      category.stat_var_spec[sv].stat_var = sv
+      category.stat_var_spec[sv].name = sv2name[sv]
 
   # Nearby place
   if spec.nearby.sv2places:
@@ -102,9 +104,18 @@ def build_page_config(spec: ChartSpec, relevant_svs: List[str],
     tile = column
     for sv in spec.contained.svs:
       tile = column.tiles.add()
-      tile.type = subject_page_pb2.Tile.TileType.MAP
-      tile.title = sv2name[sv] + ' (${date})'
       tile.stat_var_key.append(sv)
+      if classifier.type == ClassificationType.RANKING:
+        tile.type = subject_page_pb2.Tile.TileType.RANKING
+        if classifier.attributes.ranking_type == RankingType.HIGH:
+          tile.ranking_tile_spec.show_highest = True
+        if classifier.attributes.ranking_type == RankingType.LOW:
+          tile.ranking_tile_spec.show_lowest = True
+
+        tile.title = sv2name[sv] + ': rankings within ' + spec.main.name
+      else:
+        tile.type = subject_page_pb2.Tile.TileType.MAP
+        tile.title = sv2name[sv] + ' (${date})'
       category.stat_var_spec[sv].stat_var = sv
       category.stat_var_spec[sv].name = sv2name[sv]
 

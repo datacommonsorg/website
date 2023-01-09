@@ -80,40 +80,62 @@ def _highlight_svs(sv_df):
   return sv_df[sv_df['CosineScore'] > 0.4]['SV'].values.tolist()
 
 
-def compute(query_detection: Detection):
-  if query_detection.classifications[0].type == ClassificationType.CONTAINED_IN:
-    pass
-  if query_detection.classifications[0].type == ClassificationType.CORRELATION:
-    pass
-  if query_detection.classifications[0].type == ClassificationType.TEMPORAL:
-    pass
-  if query_detection.classifications[0].type == ClassificationType.RANKING:
-    pass
+def _sample_child_place(main_place_dcid, contained_place_type):
+  # Find child place, this is
+  sample_child_place = None
+  child_places = dc.get_places_in([main_place_dcid], contained_place_type)
+  if child_places.get(main_place_dcid):
+    return child_places[main_place_dcid][0]
+  else:
+    triples = dc.triples(main_place_dcid, 'in').get('triples')
+    if triples:
+      for prop, nodes in triples.items():
+        if prop != 'containedInPlace' and prop != 'geoOverlaps':
+          continue
+        for node in nodes['nodes']:
+          if contained_place_type in node['types']:
+            return node['dcid']
 
-  # SIMPLE and OTHER
+
+def compute(query_detection: Detection):
+  # ========    Get Place Info
   # Extract info from query_detection.
   places_detected = query_detection.places_detected
   main_place_dcid = places_detected.main_place.dcid
   main_place_name = places_detected.main_place.name
   main_place_type = places_detected.main_place.place_type
 
+  # ========    Get SV info
   svs_detected = query_detection.svs_detected
   svs_df = pd.DataFrame({
       'SV': svs_detected.sv_dcids,
       'CosineScore': svs_detected.sv_scores
   })
-
   # Use SVs and Places to get relevant data/stats/chart configs.
   related_places = _related_places(main_place_dcid)
+
   contained_place_type = ""
-  if 'childPlacesType' in related_places:
-    contained_place_type = related_places['childPlacesType']
+  for classifier in query_detection.classifications:
+    if classifier.type == ClassificationType.CONTAINED_IN:
+      contained_place_type = classifier.attributes.contained_in_place_type.value
+  if not contained_place_type:
+    if 'childPlacesType' in related_places:
+      contained_place_type = related_places['childPlacesType']
   # all_relevant_places = list(
   #     set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
   #         related_places['similarPlaces']))
 
   # Filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
+  expanded_svgs = nl_variable.expand_svg(
+      [x for x in highlight_svs if x.startswith("dc/g")])
+  selected_svs = []
+  for sv in highlight_svs:
+    if sv.startswith("dc/g"):
+      if expanded_svgs[sv]:
+        selected_svs.extend(expanded_svgs[sv])
+    else:
+      selected_svs.append(sv)
   # relevant_svs_df = _filtered_svs_df(svs_df)
   # relevant_svs = relevant_svs_df['SV'].values.tolist()
 
@@ -138,9 +160,8 @@ def compute(query_detection: Detection):
   # This is a new try to extend svs to siblingins. This is to extend the
   # stat vars "a little bit"
   # Get expanded stat var list
-  extended_svs = nl_variable.extend(highlight_svs)
-
-  all_svs = highlight_svs + extended_svs
+  extended_svs = nl_variable.extend_svs(selected_svs)
+  all_svs = selected_svs + extended_svs
 
   chart_spec = ChartSpec(main=MainPlaceSpec(place=main_place_dcid,
                                             name=main_place_name,
@@ -151,18 +172,28 @@ def compute(query_detection: Detection):
                              containing_place=main_place_dcid,
                              contained_place_type=contained_place_type,
                              svs=[]))
+
+  all_places = []
   sample_child_place = None
-  all_places = related_places['nearbyPlaces'] + [main_place_dcid]
-  triples = dc.triples(main_place_dcid, 'in').get('triples')
-  if triples:
-    for prop, nodes in triples.items():
-      if prop != 'containedInPlace' and prop != 'geoOverlaps':
-        continue
-      for node in nodes['nodes']:
-        if contained_place_type in node['types']:
-          all_places.append(node['dcid'])
-          sample_child_place = node['dcid']
-          break
+  claff_type = query_detection.classifications[0].type
+  if claff_type == ClassificationType.CONTAINED_IN:
+    sample_child_place = _sample_child_place(main_place_dcid,
+                                             contained_place_type)
+  elif claff_type == ClassificationType.CORRELATION:
+    pass
+  elif claff_type == ClassificationType.TEMPORAL:
+    pass
+  elif claff_type == ClassificationType.RANKING:
+    sample_child_place = _sample_child_place(main_place_dcid,
+                                             contained_place_type)
+  else:
+    # Fallback to SIMPLE and OTHER
+    sample_child_place = _sample_child_place(main_place_dcid,
+                                             contained_place_type)
+    all_places = related_places['nearbyPlaces'] + [main_place_dcid]
+
+  if sample_child_place:
+    all_places.append(sample_child_place)
 
   sv_existence = dc.observation_existence(all_svs, all_places)
   for sv in all_svs:
@@ -177,4 +208,5 @@ def compute(query_detection: Detection):
         if sv not in chart_spec.nearby.sv2places:
           chart_spec.nearby.sv2places[sv] = []
         chart_spec.nearby.sv2places[sv].append(place)
-  return chart_spec, highlight_svs, extended_svs
+
+  return chart_spec, selected_svs, extended_svs
