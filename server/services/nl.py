@@ -169,7 +169,7 @@ class Model:
     place_type_to_enum = OrderedDict({
         "county": ContainedInPlaceType.COUNTY,
         "state": ContainedInPlaceType.STATE,
-        "country": ContainedInPlaceTypeCOUNTRY,
+        "country": ContainedInPlaceType.COUNTRY,
         "city": ContainedInPlaceType.CITY,
         "district": ContainedInPlaceType.DISTRICT,
         "province": ContainedInPlaceType.PROVINCE,
