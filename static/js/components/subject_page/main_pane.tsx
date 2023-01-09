@@ -20,7 +20,6 @@
 
 import _ from "lodash";
 import React from "react";
-import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedTypedPlace } from "../../shared/types";
