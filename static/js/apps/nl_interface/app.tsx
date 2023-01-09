@@ -18,7 +18,7 @@
  * Main component for NL interface.
  */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
@@ -27,9 +27,27 @@ import { QueryResult } from "./query_result";
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
 
+  useEffect(() => {
+    // Scroll to the last query.
+    // HACK: use refs / callback to the last element.
+    const timer = setTimeout(() => {
+      console.log(`scrolling to top: ${queries[queries.length - 1]}`);
+      const queryDivs = document.getElementsByClassName("nl-query");
+      if (queryDivs.length > 1) {
+        queryDivs[queryDivs.length - 1].scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "start",
+        });
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [queries]);
+
   const queryResults = queries.map((q, i) => (
     <QueryResult key={i} query={q}></QueryResult>
   ));
+
   return (
     <div id="dc-nl-interface">
       <div id="results-thread-container">{queryResults}</div>
