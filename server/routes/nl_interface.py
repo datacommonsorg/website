@@ -26,6 +26,9 @@ import re
 import requests
 
 import services.datacommons as dc
+import lib.nl_chart_spec as nl_chart_spec
+import lib.nl_page_config as nl_page_config
+import lib.nl_variable as nl_variable
 from config import subject_page_pb2
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
@@ -393,8 +396,12 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": []}
 
 
-def _result_with_debug_info(data_dict, status, embeddings_build,
-                            query_detection: Detection):
+
+def _result_with_debug_info(data_dict,
+                            status,
+                            embeddings_build,
+                            query_detection: Detection,
+                            chart_spec=None):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -449,6 +456,8 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
               contained_in_classification,
           'correlation_classification':
               correlation_classification,
+          'chart_spec':
+              chart_spec,
       },
   }
   # Set the context which contains everything except the charts config.
@@ -633,11 +642,26 @@ def data():
                                peer_buckets)
 
   message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
+
+  # This is a new try to extend svs to siblingins. This is to extend the
+  # stat vars "a little bit"
+  # Get expanded stat var list
+  extended_svs = nl_variable.expand(relevant_svs)
+  sv2name_raw = dc.property_values(extended_svs, 'name')
+  sv2name = {sv: names[0] for sv, names in sv2name_raw.items()}
+
+  # Get Chart Spec
+  chart_spec = nl_chart_spec.compute(place_dcid, main_place_name,
+                                     main_place_type,
+                                     related_places['nearbyPlaces'],
+                                     child_places_type, extended_svs)
+  page_config_pb = nl_page_config.build_page_config(chart_spec, sv2name)
+  page_config = json.loads(MessageToJson(page_config_pb))
   d = {
       'place_type': main_place_type,
       'place_name': main_place_name,
       'place_dcid': place_dcid,
-      'config': json.loads(MessageToJson(message)),
+      'config': page_config,
   }
   status_str = "Successful"
   if using_default_place or relevant_svs_df.empty:
@@ -650,4 +674,4 @@ def data():
     status_str += '**No SVs Found**.'
 
   return _result_with_debug_info(d, status_str, embeddings_build,
-                                 query_detection)
+                                 query_detection, chart_spec)
