@@ -25,18 +25,15 @@ import { Col, Row } from "reactstrap";
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
 export const BUILD_OPTIONS = [
-  {
-    value: "combined_all",
-    text: "---- Choose an Embeddings Build option (default: Combined All) -------",
-  },
+  { value: "curatedJan2022", text: "Curated 3.5k+ SVs (Jan2022) - Default" },
   { value: "demographics300", text: "Demographics only (300 SVs)" },
   {
     value: "demographics300-withpalmalternatives",
     text: "Demographics only (300 SVs) with PaLM Alternatives",
   },
   // { value: "uncurated3000", text: "Uncurated 3000 SVs" },
-  { value: "curatedJan2022", text: "Curated 3.5k+ SVs (Jan2022)" },
-  { value: "combined_all", text: "Combined All of the Above (Default)" },
+  
+  { value: "combined_all", text: "Combined All of the Above" },
 ];
 
 const matchScoresElement = (svScores: SVScores): JSX.Element => {
