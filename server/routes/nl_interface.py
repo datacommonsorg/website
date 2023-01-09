@@ -39,9 +39,6 @@ FIXED_PROPS = set([p[:-1] for p in FIXED_PREFIXES])
 
 COSINE_SIMILARITY_CUTOFF = 0.4
 
-def _is_vertical_svg(svg):
-  return '_' not in svg
-
 
 def _get_preferred_type(types):
   for t in ['Country', 'State', 'County', 'City']:
