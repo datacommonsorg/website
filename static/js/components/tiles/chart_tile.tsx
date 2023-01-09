@@ -72,7 +72,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
           )}
         </div>
       </footer>
-      <ChartEmbed ref={embedModalElement} />
+      {props.allowEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
   );
 
