@@ -34,6 +34,7 @@ MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 FIXED_PREFIXES = ['md=', 'mq=', 'st=', 'mp=', 'pt=']
 FIXED_PROPS = set([p[:-1] for p in FIXED_PREFIXES])
 
+COSINE_SIMILARITY_CUTOFF = 0.4
 
 def _is_vertical_svg(svg):
   return '_' not in svg
@@ -538,7 +539,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     # Correlation classification step (needs the SV Detection first.)
     correlation_classification = model.query_correlation_detection(
         embeddings_build, query, svs_scores_dict['SV'],
-        svs_scores_dict['CosineScore'], sv_index_sorted)
+        svs_scores_dict['CosineScore'], sv_index_sorted, COSINE_SIMILARITY_CUTOFF)
     logging.info(f'Correlation classification: {correlation_classification}')
     if correlation_classification is not None:
       classifications.append(correlation_classification)

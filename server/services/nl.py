@@ -196,7 +196,7 @@ class Model:
 
   def query_correlation_detection(
       self, embeddings_build, query, svs_list, svs_scores,
-      sv_embedding_indices) -> Union[NLClassifier, None]:
+      sv_embedding_indices, cosine_similarity_cutoff=0.4) -> Union[NLClassifier, None]:
     """Correlation detection based on clustering. Assumes all input lists are ordered and same length."""
 
     embedding_vectors = []
@@ -238,7 +238,7 @@ class Model:
     sim_score = cos_sim(embedding_vectors[cluster_zero_best_sv_index],
                         embedding_vectors[cluster_one_best_sv_index])
 
-    if sim_score < self._correlation_detection.cosine_similarity_cutoff:
+    if sim_score < cosine_similarity_cutoff:
       logging.info(
           f"Correlation Query. Best SVs in the two clusters were far apart. Cosine Score = {sim_score}"
       )

@@ -56,7 +56,6 @@ class NLQueryCorrelationDetectionModel:
     self.clustering_model = AgglomerativeClustering(n_clusters=2,
                                                     affinity='cosine',
                                                     linkage='average')
-    self.cosine_similarity_cutoff = 0.4
 
 
 # Query Sentence Classification Types and associated training data.
