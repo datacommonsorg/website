@@ -102,7 +102,7 @@ class SimpleClassificationAttributes(ClassificationAttributes):
 @dataclass
 class RankingClassificationAttributes(ClassificationAttributes):
   """Ranking classification attributes."""
-  ranking_type: List[RankingType]
+  ranking_type: RankingType
 
   # List of words which made this a ranking query:
   # e.g. "top", "most", "least", "highest" etc
@@ -143,10 +143,6 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
   cluster_1_svs: List[str]
   cluster_2_svs: List[str]
 
-@dataclass
-class RelatedSVClassificationAttributes(ClassificationAttributes):
-  sv_dcid_1: str
-  sv_dcid_2: str
 
 class ClassificationType(Enum):
   OTHER = 0
