@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from typing import Dict, List
+import logging
 
 from config import subject_page_pb2
 from lib.nl_data_spec import DataSpec
@@ -58,23 +59,28 @@ def _single_place_single_var_timeline_block(sv_dcid, sv2name):
   block = subject_page_pb2.Block()
   block.title = sv2name[sv_dcid]
   column = block.columns.add()
+  stat_var_spec_map = {}
   # Line chart for the stat var
   tile = column.tiles.add()
   tile.type = subject_page_pb2.Tile.TileType.LINE
   tile.title = "Total"
   tile.stat_var_key.append(sv_dcid)
-  tile.stat_var_spec[sv_dcid].stat_var = sv_dcid
-  tile.stat_var_spec[sv_dcid].name = sv2name[sv_dcid]
+  sv_spec = subject_page_pb2.StatVarSpec()
+  sv_spec.stat_var = sv_dcid
+  sv_spec.name = sv2name[sv_dcid]
+  stat_var_spec_map[sv_dcid] = sv_spec
   # Line chart for the stat var per capita
   tile = column.tiles.add()
   tile.type = subject_page_pb2.Tile.TileType.LINE
   tile.title = "Per Capita"
+  sv_spec = subject_page_pb2.StatVarSpec()
   sv_key = sv_dcid + '_pc'
   tile.stat_var_key.append(sv_key)
-  tile.stat_var_spec[sv_key].stat_var = sv_dcid
-  tile.stat_var_spec[sv_key].name = sv2name[sv_dcid]
-  tile.stat_var_spec[sv_key].denom = "Count_Person"
-  return block
+  sv_spec.stat_var = sv_dcid
+  sv_spec.name = sv2name[sv_dcid]
+  sv_spec.denom = "Count_Person"
+  stat_var_spec_map[sv_key] = sv_spec
+  return block, stat_var_spec_map
 
 
 def _single_place_multiple_var_timeline_block(svs, sv2name):
@@ -82,25 +88,30 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
   block = subject_page_pb2.Block()
   block.title = ""
   column = block.columns.add()
+  stat_var_spec_map = {}
   # Line chart for the stat var
   tile = column.tiles.add()
   tile.type = subject_page_pb2.Tile.TileType.LINE
   tile.title = "Total"
   tile.stat_var_key.extend(svs)
   for sv in svs:
-    tile.stat_var_spec[sv].stat_var = sv
-    tile.stat_var_spec[sv].name = sv2name[sv]
+    sv_spec = subject_page_pb2.StatVarSpec()
+    sv_spec.stat_var = sv
+    sv_spec.name = sv2name[sv]
+    stat_var_spec_map[sv] = sv_spec
   # Line chart for the stat var per capita
   tile = column.tiles.add()
   tile.type = subject_page_pb2.Tile.TileType.LINE
   tile.title = "Per Capita"
-  tile.stat_var_key.extend(svs)
   for sv in svs:
+    sv_spec = subject_page_pb2.StatVarSpec()
     sv_key = sv + '_pc'
-    tile.stat_var_spec[sv_key].stat_var = sv
-    tile.stat_var_spec[sv_key].name = sv2name[sv]
-    tile.stat_var_spec[sv_key].denom = "Count_Person"
-  return block
+    sv_spec.stat_var = sv
+    sv_spec.name = sv2name[sv]
+    sv_spec.denom = "Count_Person"
+    tile.stat_var_key.append(sv_key)
+    stat_var_spec_map[sv_key] = sv_spec
+  return block, stat_var_spec_map
 
 
 def build_page_config(detection: Detection, data_spec: DataSpec,
@@ -131,8 +142,11 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   ]:
     # The primary stat var
     primary_sv = data_spec.selected_svs[0]
-    category.blocks.append(
-        _single_place_single_var_timeline_block(primary_sv, sv2name))
+    block, stat_var_spec_map = _single_place_single_var_timeline_block(
+        primary_sv, sv2name)
+    category.blocks.append(block)
+    for sv_key, spec in stat_var_spec_map.items():
+      category.stat_var_spec[sv_key].CopyFrom(spec)
 
     # The siblings for the primary stat var
     usable_sibiling_svs = [
@@ -140,9 +154,11 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
         if x in data_spec.main.svs
     ]
     if usable_sibiling_svs:
-      category.blocks.append(
-          _single_place_multiple_var_timeline_block(usable_sibiling_svs,
-                                                    sv2name))
+      block, stat_var_spec_map = _single_place_multiple_var_timeline_block(
+          usable_sibiling_svs, sv2name)
+      category.blocks.append(block)
+      for sv_key, spec in stat_var_spec_map.items():
+        category.stat_var_spec[sv_key].CopyFrom(spec)
 
   elif classificationType in [
       ClassificationType.RANKING, ClassificationType.CONTAINED_IN
