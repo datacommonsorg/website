@@ -39,6 +39,8 @@ interface LineTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 interface LineChartData {
@@ -81,7 +83,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       title={props.title}
       sources={lineChartData.sources}
       replacementStrings={rs}
-      className="line-chart"
+      className={`${props.className} line-chart`}
       allowEmbed={true}
       getDataCsv={() => dataGroupsToCsv(lineChartData.dataGroup)}
     >

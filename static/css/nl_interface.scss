@@ -113,20 +113,29 @@ $answer-min-height: 100vh;
   }
 
   .bar-chart .legend,
-  .line-chart .legend {
-    display: none;
-  }
-
+  .line-chart .legend,
   .block-title {
     display: none;
   }
+
+  .tile-hidden {
+    position: absolute;
+    top: -1000px;
+  }
 }
 
+.expando,
+.expando:hover,
 h2,
 h3 {
   color: white;
 }
 
+.expando {
+  font-size: .9rem;
+}
+
+.expando,
 .debug-info-toggle {
   cursor: pointer;
 }

@@ -50,7 +50,9 @@ export function Category(props: CategoryPropType): JSX.Element {
       className="category col-12"
       id={props.config.title ? getRelLink(props.config.title) : randDomId()}
     >
-      <h2 className="block-title">{props.config.title}</h2>
+      {props.config.title && (
+        <h2 className="block-title">{props.config.title}</h2>
+      )}
       {props.config.description && <p>{props.config.description}</p>}
       {props.config.blocks.map((block) => {
         const id = randDomId();
