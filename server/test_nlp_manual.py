@@ -20,21 +20,22 @@ FLASK_ENV=local python test_nlp_manual.py
 import urllib.parse
 from main import app
 
+
 def _print_success(msg: str):
   print('=' * 80)
   print(msg)
   print('=' * 80)
 
+
 def _encoded_q(query: str, embedding: str = 'us_filtered'):
-   return urllib.parse.urlencode({'q': query, 'build': embedding})
+  return urllib.parse.urlencode({'q': query, 'build': embedding})
+
 
 def test_palo_alto_flow():
   query = "tell me about Palo Alto"
-  response = app.test_client().post(
-    f'/nl/data?{_encoded_q(query)}',
-    json={'contextHistory': []},
-    content_type='application/json'
-  )
+  response = app.test_client().post(f'/nl/data?{_encoded_q(query)}',
+                                    json={'contextHistory': []},
+                                    content_type='application/json')
 
   assert response.status_code == 200
   assert 'config' in response.json
@@ -45,9 +46,11 @@ def test_palo_alto_flow():
   place_dcid = config['metadata']['placeDcid']
   assert place_dcid and place_dcid[0] == 'geoId/0655282'
 
+
 def main():
   test_palo_alto_flow()
   _print_success('Palo Alto flow is succsesful.')
+
 
 if __name__ == '__main__':
   main()
