@@ -13,6 +13,7 @@
 # limitations under the License.
 """Module for NL page variable"""
 
+from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
 from typing import List
@@ -20,20 +21,21 @@ from typing import List
 import services.datacommons as dc
 
 
-class EntryType(Enum):
-  SINGLE = 1
-  PEER = 2
+class Entry(ABC):
+  """Abctract class to hold an entry in VariableStore."""
+  pass
 
 
 @dataclass
-class Entry:
-  # Only one of single and peers should be set.
-  type: EntryType
-  # If this is an entry stat var from model, then source has one item.
-  # If this is entry is derived, the source contains topic node or the original
-  # stat vars from the model.
-  source: List[str]
-  # peers are computed from the original stat vars from model.
+class SimpleEntry(Entry):
+  dcid: str
+
+
+@dataclass
+class PeerEntry(Entry):
+  # sources contains the sv/svg from the model. They are used to deduce peer
+  sources: List[str]
+  # peers are computed from the stat vars in sources.
   peers: List[str]
 
 
