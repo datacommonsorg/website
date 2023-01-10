@@ -32,7 +32,7 @@ export interface QueryResultProps {
   query: string;
   queryIdx: number;
   contextHistory: any[];
-  addContextCallback: Function;
+  addContextCallback: (any, number) => void;
 }
 
 export const QueryResult = memo(function QueryResult(
