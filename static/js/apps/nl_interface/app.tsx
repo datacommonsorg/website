@@ -26,6 +26,7 @@ import { QueryResult } from "./query_result";
 
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
+  const [contextList, setContextList] = useState<any[]>([]);
 
   useEffect(() => {
     // Scroll to the last query.
@@ -44,8 +45,29 @@ export function App(): JSX.Element {
     return () => clearTimeout(timer);
   }, [queries]);
 
+  function addContext(context: any, idx: number) {
+    // Always assume we are appending context for the latest query.
+    if (idx !== queries.length - 1) {
+      console.error(
+        "setting context for wrong length: idx:%i != queries:%i",
+        idx,
+        queries.length
+      );
+      return;
+    }
+    const newList = [...contextList];
+    newList.push(context);
+    setContextList(newList);
+  }
+
   const queryResults = queries.map((q, i) => (
-    <QueryResult key={i} query={q}></QueryResult>
+    <QueryResult
+      key={i}
+      queryIdx={i}
+      query={q}
+      contextHistory={contextList.slice(0, i)}
+      addContextCallback={addContext}
+    ></QueryResult>
   ));
 
   return (

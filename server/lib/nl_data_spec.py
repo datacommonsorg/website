@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Module for NL page chart spec"""
+"""Module for NL page data spec"""
 
 from dataclasses import dataclass
 from typing import Dict, List
@@ -44,10 +44,15 @@ class ContainedPlaceSpec:
 
 
 @dataclass
-class ChartSpec:
-  main: MainPlaceSpec
-  nearby: NearbyPlaceSpec
-  contained: ContainedPlaceSpec
+class DataSpec:
+  main_place_spec: MainPlaceSpec
+  nearby_place_spec: NearbyPlaceSpec
+  contained_place_spec: ContainedPlaceSpec
+  selected_svs: List[str]
+  expanded_svs: List[str]
+  extended_sv_map: Dict[str, List[str]]
+  primary_sv: str
+  primary_sv_siblings: List[str]
 
 
 def _get_related_places(place_dcid):
@@ -83,7 +88,6 @@ def _highlight_svs(sv_df):
 
 def _sample_child_place(main_place_dcid, contained_place_type):
   # Find child place, this is
-  sample_child_place = None
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
     return child_places[main_place_dcid][0]
@@ -131,10 +135,11 @@ def compute(query_detection: Detection):
   expanded_svgs = nl_variable.expand_svg(
       [x for x in highlight_svs if x.startswith("dc/g")])
   selected_svs = []
+  expanded_svs = []
   for sv in highlight_svs:
     if sv.startswith("dc/g"):
       if expanded_svgs[sv]:
-        selected_svs.extend(expanded_svgs[sv])
+        expanded_svs.extend(expanded_svgs[sv])
     else:
       selected_svs.append(sv)
   # relevant_svs_df = _filtered_svs_df(svs_df)
@@ -160,45 +165,37 @@ def compute(query_detection: Detection):
 
   # This is a new try to extend svs to siblingins. This is to extend the
   # stat vars "a little bit"
-  # Get expanded stat var list
-  extended_svs = nl_variable.extend_svs(selected_svs)
-  all_svs = selected_svs + extended_svs
 
-  chart_spec = ChartSpec(main=MainPlaceSpec(place=main_place_dcid,
-                                            name=main_place_name,
-                                            type=main_place_type,
-                                            svs=[]),
-                         nearby=NearbyPlaceSpec(sv2places={}),
-                         contained=ContainedPlaceSpec(
-                             containing_place=main_place_dcid,
-                             contained_place_type=contained_place_type,
-                             svs=[]))
+  # Get extended stat var list
+  extended_sv_map = nl_variable.extend_svs(selected_svs)
+  all_svs = selected_svs + expanded_svs
+  for sv, svs in extended_sv_map.items():
+    all_svs.extend(svs)
 
-  all_places = []
-  sample_child_place = None
-  claff_type = query_detection.classifications[0].type
-  if claff_type == ClassificationType.CONTAINED_IN:
-    sample_child_place = _sample_child_place(main_place_dcid,
-                                             contained_place_type)
-  elif claff_type == ClassificationType.CORRELATION:
-    pass
-  elif claff_type == ClassificationType.TEMPORAL:
-    pass
-  elif claff_type == ClassificationType.RANKING:
-    sample_child_place = _sample_child_place(main_place_dcid,
-                                             contained_place_type)
-  else:
-    # Fallback to SIMPLE and OTHER
-    sample_child_place = _sample_child_place(main_place_dcid,
-                                             contained_place_type)
-    all_places = related_places['nearbyPlaces'] + [main_place_dcid]
-
-  if sample_child_place:
-    all_places.append(sample_child_place)
+  data_spec = DataSpec(main_place_spec=MainPlaceSpec(place=main_place_dcid,
+                                                     name=main_place_name,
+                                                     type=main_place_type,
+                                                     svs=[]),
+                       nearby_place_spec=NearbyPlaceSpec(sv2places={}),
+                       contained_place_spec=ContainedPlaceSpec(
+                           containing_place=main_place_dcid,
+                           contained_place_type=contained_place_type,
+                           svs=[]),
+                       selected_svs=selected_svs,
+                       expanded_svs=expanded_svs,
+                       extended_sv_map=extended_sv_map,
+                       primary_sv="",
+                       primary_sv_siblings=[])
 
   if not all_svs:
     logging.info("No SVs to use for existence.")
-    return chart_spec, selected_svs, extended_svs
+    return data_spec
+
+  all_places = related_places['nearbyPlaces'] + [main_place_dcid]
+  sample_child_place = _sample_child_place(main_place_dcid,
+                                           contained_place_type)
+  if sample_child_place:
+    all_places.append(sample_child_place)
 
   sv_existence = dc.observation_existence(all_svs, all_places)
   for sv in all_svs:
@@ -206,12 +203,17 @@ def compute(query_detection: Detection):
       if not exist:
         continue
       if place == main_place_dcid:
-        chart_spec.main.svs.append(sv)
+        data_spec.main_place_spec.svs.append(sv)
       elif place == sample_child_place:
-        chart_spec.contained.svs.append(sv)
+        data_spec.contained_place_spec.svs.append(sv)
       else:
-        if sv not in chart_spec.nearby.sv2places:
-          chart_spec.nearby.sv2places[sv] = []
-        chart_spec.nearby.sv2places[sv].append(place)
+        if sv not in data_spec.nearby_place_spec.sv2places:
+          data_spec.nearby_place_spec.sv2places[sv] = []
+        data_spec.nearby_place_spec.sv2places[sv].append(place)
 
-  return chart_spec, selected_svs, extended_svs
+  # Find the first sv, it may not have data for main place
+  # But this logic might change.
+  data_spec.primary_sv = data_spec.selected_svs[0]
+  data_spec.primary_sv_siblings = data_spec.extended_sv_map[selected_svs[0]]
+
+  return data_spec

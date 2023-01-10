@@ -238,7 +238,7 @@ class Model:
 
     trigger_words = high_matches + low_matches
     if len(trigger_words) == 0:
-      ranking_type = [RankingType.NONE]
+      return None
 
     attributes = RankingClassificationAttributes(
         ranking_type=ranking_type, ranking_trigger_words=trigger_words)
@@ -294,6 +294,10 @@ class Model:
         PLACE_TYPE_TO_PLURALS[place_type] in query:
         contained_in_place_type = place_enum
         break
+
+    # If place_type is just PLACE, that means no actual type was detected.
+    if contained_in_place_type == ContainedInPlaceType.PLACE:
+      return None
 
     # TODO: need to detect the type of place for this contained in.
     attributes = ContainedInClassificationAttributes(

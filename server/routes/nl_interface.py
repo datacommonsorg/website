@@ -20,13 +20,13 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
-from lib.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
+from lib.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 import pandas as pd
 import re
 import requests
 
 import services.datacommons as dc
-import lib.nl_chart_spec as nl_chart_spec
+import lib.nl_data_spec as nl_data_spec
 import lib.nl_page_config as nl_page_config
 import lib.nl_variable as nl_variable
 from config import subject_page_pb2
@@ -360,7 +360,7 @@ def _result_with_debug_info(data_dict,
                             status,
                             embeddings_build,
                             query_detection: Detection,
-                            chart_spec=None):
+                            data_spec=None):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -420,8 +420,10 @@ def _result_with_debug_info(data_dict,
               contained_in_classification,
           'correlation_classification':
               correlation_classification,
-          'chart_spec':
-              chart_spec,
+          'primary_sv':
+              data_spec.primary_sv,
+          'primary_sv_siblings':
+              data_spec.primary_sv_siblings
       },
   }
   # Set the context which contains everything except the charts config.
@@ -505,7 +507,22 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
 
-  if svs_scores_dict:
+    # Check if the contained in referred to COUNTRY type. If so,
+    # and the default location was chosen, then set it to Earth.
+    if (place_detection.using_default_place and
+        (contained_in_classification.attributes.contained_in_place_type
+         == ContainedInPlaceType.COUNTRY)):
+      logging.info(
+          "Changing detected place to Earth because no place was detected and contained in is about countries."
+      )
+      place_detection.main_place.dcid = "Earth"
+      place_detection.main_place.name = "Earth"
+      place_detection.main_place.place_type = "Place"
+      place_detection.using_default_place = False
+
+  # Clustering-based different SV detection is only enabled in LOCAL.
+  correlation_classification = None
+  if os.environ.get('FLASK_ENV') == 'local' and svs_scores_dict:
     # Embeddings Indices.
     sv_index_sorted = []
     if 'EmbeddingIndex' in svs_scores_dict:
@@ -517,8 +534,9 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
         svs_scores_dict['CosineScore'], sv_index_sorted,
         COSINE_SIMILARITY_CUTOFF)
     logging.info(f'Correlation classification: {correlation_classification}')
-    if correlation_classification is not None:
-      classifications.append(correlation_classification)
+    logging.info(f'Correlation Classification is currently disabled.')
+    # if correlation_classification is not None:
+    #   classifications.append(correlation_classification)
 
   if not classifications:
     # Simple Classification simply means:
@@ -564,13 +582,10 @@ def data():
   query_detection = _detection(str(escape(original_query)), query,
                                embeddings_build)
 
-  # Get Chart Spec
-  chart_spec, highlight_svs, extended_svs = nl_chart_spec.compute(
-      query_detection)
-
-  page_config_pb = nl_page_config.build_page_config(
-      query_detection.classifications[0], chart_spec, highlight_svs,
-      extended_svs)
+  # Get Data Spec
+  data_spec = nl_data_spec.compute(query_detection)
+  page_config_pb = nl_page_config.build_page_config(query_detection, data_spec,
+                                                    context_history)
   page_config = json.loads(MessageToJson(page_config_pb))
 
   d = {
@@ -580,14 +595,14 @@ def data():
       'config': page_config,
   }
   status_str = "Successful"
-  if query_detection.places_detected.using_default_place or not highlight_svs:
+  if query_detection.places_detected.using_default_place or not data_spec.selected_svs:
     status_str = ""
 
   if query_detection.places_detected.using_default_place:
     places_found = [f'{default_place} (default)']
     status_str += f'**No Place Found** (using default: {default_place}). '
-  if not highlight_svs:
+  if not data_spec.selected_svs:
     status_str += '**No SVs Found**.'
 
   return _result_with_debug_info(d, status_str, embeddings_build,
-                                 query_detection, chart_spec)
+                                 query_detection, data_spec)
