@@ -89,7 +89,7 @@ class PeriodType(Enum):
 
 
 class ClassificationAttributes(ABC):
-  """Abctract class to hold classification attributes."""
+  """Abstract class to hold classification attributes."""
   pass
 
 
@@ -127,7 +127,7 @@ class ContainedInClassificationAttributes(ClassificationAttributes):
 
 @dataclass
 class ClusteringClassificationAttributes(ClassificationAttributes):
-  """Correlation classification attributes."""
+  """Clustering-based Correlation classification attributes."""
   sv_dcid_1: str
   sv_dcid_2: str
 
@@ -142,6 +142,15 @@ class ClusteringClassificationAttributes(ClassificationAttributes):
 
   cluster_1_svs: List[str]
   cluster_2_svs: List[str]
+
+
+@dataclass
+class CorrelationClassificationAttributes(ClassificationAttributes):
+  """Heuristic-based Correlation classification attributes"""
+
+  # Words that may have implied clustering, e.g.
+  # "correlation between ...", "related to .."
+  correlation_trigger_words: str
 
 
 class ClassificationType(Enum):

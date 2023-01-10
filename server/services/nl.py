@@ -20,6 +20,7 @@ from sentence_transformers.util import semantic_search
 from lib.nl_detection import NLClassifier, ClassificationType
 from lib.nl_detection import ClusteringClassificationAttributes
 from lib.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
+from lib.nl_detection import CorrelationClassificationAttributes
 from lib.nl_detection import RankingClassificationAttributes, RankingType
 from lib.nl_detection import PeriodType, TemporalClassificationAttributes
 from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel
@@ -34,7 +35,6 @@ from datasets import load_dataset
 import logging
 from collections import OrderedDict
 import re
-import string
 
 BUILDS = [
     'demographics300',  #'uncurated3000', 
@@ -316,6 +316,20 @@ class Model:
         cluster_2_svs=[])
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
+
+  def correlation_classification(self, query: str) -> Union[NLClassifier, None]:
+    """Determine if query is asking for a correlation.
+    
+    Uses heuristics instead of ML-model for classification.
+
+    Args:
+      query: user's input, given as a string
+    
+    Returns:
+      NLClassifier with CorrelationClassificationAttributes
+    """
+    attributes = CorrelationClassificationAttributes(correlation_trigger_words=[])
+    return NLClassifier(type=ClassificationType.CORRELATION, attributes=attributes)
 
   def query_clustering_detection(
       self,

@@ -515,6 +515,12 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
       sv_index_sorted = svs_scores_dict['EmbeddingIndex']
 
     # Correlation classification step (needs the SV Detection first.)
+    correlations_classification = model.correlation_classification(query)
+    logging.info(f'Clustering classification: {correlations_classification}')
+    if correlations_classification is not None:
+      classifications.append(correlations_classification)
+
+    # Clustering classification, currently disabled.
     clustering_classification = model.query_clustering_detection(
         embeddings_build, query, svs_scores_dict['SV'],
         svs_scores_dict['CosineScore'], sv_index_sorted,
