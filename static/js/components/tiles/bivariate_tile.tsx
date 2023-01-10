@@ -49,6 +49,8 @@ interface BivariateTilePropType {
   enclosedPlaceType: string;
   statVarSpec: StatVarSpec[];
   svgChartHeight: number;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 interface RawData {
@@ -116,7 +118,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       title={props.title}
       sources={bivariateChartData.sources}
       replacementStrings={rs}
-      className="bivariate-chart"
+      className={`${props.className} bivariate-chart`}
       allowEmbed={true}
       getDataCsv={() =>
         scatterDataToCsv(

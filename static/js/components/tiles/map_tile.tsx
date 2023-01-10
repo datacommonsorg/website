@@ -61,6 +61,8 @@ interface MapTilePropType {
   statVarSpec: StatVarSpec;
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 interface RawData {
@@ -129,7 +131,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       title={props.title}
       sources={mapChartData.sources}
       replacementStrings={rs}
-      className="map-chart"
+      className={`${props.className} map-chart`}
       allowEmbed={true}
       getDataCsv={() =>
         mapDataToCsv(mapChartData.geoJson, mapChartData.dataValues)

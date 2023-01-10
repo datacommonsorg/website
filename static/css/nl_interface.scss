@@ -122,13 +122,26 @@ $answer-min-height: 100vh;
   .block-title {
     display: none;
   }
+
+  .tile-hidden {
+    position: absolute;
+    top: -10000px;
+    visibility: hidden;
+  }
 }
 
+.expando,
+.expando:hover,
 h2,
 h3 {
   color: white;
 }
 
+.expando {
+  font-size: .9rem;
+}
+
+.expando,
 .debug-info-toggle {
   cursor: pointer;
 }
