@@ -376,6 +376,7 @@ def _result_with_debug_info(data_dict,
   temporal_classification = "<None>"
   contained_in_classification = "<None>"
   correlation_classification = "<None>"
+  clustering_classification = "<None>"
 
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
@@ -388,10 +389,12 @@ def _result_with_debug_info(data_dict,
           str(classification.attributes.contained_in_place_type)
     elif classification.type == ClassificationType.CORRELATION:
       correlation_classification = str(classification.type)
-      correlation_classification += f". Top two SVs: "
-      correlation_classification += f"{classification.attributes.sv_dcid_1, classification.attributes.sv_dcid_2,}. "
-      correlation_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
-      correlation_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
+    elif classification.type == ClassificationType.CLUSTERING:
+      clustering_classification = str(classification.type)
+      clustering_classification += f". Top two SVs: "
+      clustering_classification += f"{classification.attributes.sv_dcid_1, classification.attributes.sv_dcid_2,}. "
+      clustering_classification += f"Cluster # 0: {str(classification.attributes.cluster_1_svs)}. "
+      clustering_classification += f"Cluster # 1: {str(classification.attributes.cluster_2_svs)}."
 
   debug_info = {
       "debug": {
@@ -419,12 +422,16 @@ def _result_with_debug_info(data_dict,
               temporal_classification,
           'contained_in_classification':
               contained_in_classification,
+          'clustering_classification':
+              clustering_classification,
           'correlation_classification':
               correlation_classification,
           'primary_sv':
               data_spec.primary_sv,
           'primary_sv_siblings':
-              data_spec.primary_sv_siblings
+              data_spec.primary_sv_siblings,
+          'data_spec':
+              data_spec,
       },
   }
   # Set the context which contains everything except the charts config.
@@ -537,23 +544,28 @@ def _detection(orig_query, cleaned_query, embeddings_build,
       place_detection.main_place.place_type = "Place"
       place_detection.using_default_place = False
 
+  # Correlation classification
+  correlation_classification = model.heuristic_correlation_classification(query)
+  logging.info(f'Correlation classification: {correlation_classification}')
+  if correlation_classification is not None:
+    classifications.append(correlation_classification)
+
   # Clustering-based different SV detection is only enabled in LOCAL.
-  correlation_classification = None
   if os.environ.get('FLASK_ENV') == 'local' and svs_scores_dict:
     # Embeddings Indices.
     sv_index_sorted = []
     if 'EmbeddingIndex' in svs_scores_dict:
       sv_index_sorted = svs_scores_dict['EmbeddingIndex']
 
-    # Correlation classification step (needs the SV Detection first.)
-    correlation_classification = model.query_correlation_detection(
-        embeddings_build, query, svs_scores_dict['SV'],
-        svs_scores_dict['CosineScore'], sv_index_sorted,
-        COSINE_SIMILARITY_CUTOFF)
-    logging.info(f'Correlation classification: {correlation_classification}')
-    logging.info(f'Correlation Classification is currently disabled.')
-    # if correlation_classification is not None:
-    #   classifications.append(correlation_classification)
+    # Clustering classification, currently disabled.
+    # clustering_classification = model.query_clustering_detection(
+    #     embeddings_build, query, svs_scores_dict['SV'],
+    #     svs_scores_dict['CosineScore'], sv_index_sorted,
+    #     COSINE_SIMILARITY_CUTOFF)
+    # logging.info(f'Clustering classification: {clustering_classification}')
+    # logging.info(f'Clustering Classification is currently disabled.')
+    # if clustering_classification is not None:
+    #   classifications.append(clustering_classification)
 
   if not classifications:
     # Simple Classification simply means:
@@ -575,7 +587,8 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
-  return render_template('/nl_interface.html')
+  return render_template('/nl_interface.html',
+                         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/data', methods=['GET', 'POST'])

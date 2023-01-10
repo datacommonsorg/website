@@ -43,6 +43,7 @@ export const QueryResult = memo(function QueryResult(
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
   const scrollRef = createRef<HTMLDivElement>();
+  const [errorMsg, setErrorMsg] = useState<string | undefined>();
 
   useEffect(() => {
     // Scroll to the top (assuming this is the last query to render, and other queries are memoized).
@@ -95,6 +96,14 @@ export const QueryResult = memo(function QueryResult(
         }
         setDebugData(context["debug"]);
         setIsLoading(false);
+      })
+      .catch((error) => {
+        props.addContextCallback(undefined, props.queryIdx);
+        console.error("Error fetching data for", props.query, error);
+        setIsLoading(false);
+        setErrorMsg(
+          "Sorry, we didn’t understand your question. Could you try again?"
+        );
       });
   }
   return (
@@ -119,6 +128,11 @@ export const QueryResult = memo(function QueryResult(
               pageConfig={chartsData.config}
               svgChartHeight={SVG_CHART_HEIGHT}
             />
+          )}
+          {errorMsg && (
+            <div className="nl-query-error">
+              <p>{errorMsg}</p>
+            </div>
           )}
           {isLoading && (
             <div className="dot-loading-stage">
