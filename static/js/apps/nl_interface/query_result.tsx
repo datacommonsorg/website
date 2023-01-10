@@ -101,7 +101,7 @@ export const QueryResult = memo(function QueryResult(
         props.addContextCallback(undefined, props.queryIdx);
         console.error("Error fetching data for", props.query, error);
         setIsLoading(false);
-        setErrorMsg("Sorry, I can't answer your question. Please try another.");
+        setErrorMsg("Sorry, we didn’t understand your question. Could you try again?");
       });
   }
   return (
