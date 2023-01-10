@@ -128,7 +128,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     temporalClassification: props.debugData["temporal_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
-    chartSpec: props.debugData["data_spec"],
+    dataSpec: props.debugData["data_spec"],
   };
 
   const handleEmbeddingsBuildChange = (
@@ -237,11 +237,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Chart Spec</b>
+            <b>Data Spec</b>
           </Row>
           <Row>
             <Col>
-              <pre>{JSON.stringify(debugInfo.chartSpec, null, 2)}</pre>
+              <pre>{JSON.stringify(debugInfo.dataSpec, null, 2)}</pre>
             </Col>
           </Row>
         </div>
