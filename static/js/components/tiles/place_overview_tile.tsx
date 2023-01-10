@@ -69,7 +69,8 @@ export function PlaceOverviewTile(
                   key={subTopic}
                   href={`/place/${props.place.dcid}?category=${subTopic}`}
                 >
-                  {subTopic}{i === subtopics.length - 1 ? "" : ","}
+                  {subTopic}
+                  {i === subtopics.length - 1 ? "" : ","}
                 </a>
               );
             })}
