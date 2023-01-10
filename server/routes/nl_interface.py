@@ -26,7 +26,7 @@ import re
 import requests
 
 import services.datacommons as dc
-import lib.nl_chart_spec as nl_chart_spec
+import lib.nl_data_spec as nl_data_spec
 import lib.nl_page_config as nl_page_config
 import lib.nl_variable as nl_variable
 from config import subject_page_pb2
@@ -360,7 +360,7 @@ def _result_with_debug_info(data_dict,
                             status,
                             embeddings_build,
                             query_detection: Detection,
-                            chart_spec=None):
+                            data_spec=None):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -420,8 +420,8 @@ def _result_with_debug_info(data_dict,
               contained_in_classification,
           'correlation_classification':
               correlation_classification,
-          'chart_spec':
-              chart_spec,
+          'data_spec':
+              data_spec,
       },
   }
   # Set the context which contains everything except the charts config.
@@ -563,13 +563,10 @@ def data():
   query_detection = _detection(str(escape(original_query)), query,
                                embeddings_build)
 
-  # Get Chart Spec
-  chart_spec, highlight_svs, extended_svs = nl_chart_spec.compute(
-      query_detection)
-
-  page_config_pb = nl_page_config.build_page_config(
-      query_detection.classifications[0], chart_spec, highlight_svs,
-      extended_svs)
+  # Get Data Spec
+  data_spec = nl_data_spec.compute(query_detection)
+  page_config_pb = nl_page_config.build_page_config(query_detection, data_spec,
+                                                    context_history)
   page_config = json.loads(MessageToJson(page_config_pb))
 
   d = {
@@ -579,14 +576,14 @@ def data():
       'config': page_config,
   }
   status_str = "Successful"
-  if query_detection.places_detected.using_default_place or not highlight_svs:
+  if query_detection.places_detected.using_default_place or not data_spec.selected_svs:
     status_str = ""
 
   if query_detection.places_detected.using_default_place:
     places_found = [f'{default_place} (default)']
     status_str += f'**No Place Found** (using default: {default_place}). '
-  if not highlight_svs:
+  if not data_spec.selected_svs:
     status_str += '**No SVs Found**.'
 
   return _result_with_debug_info(d, status_str, embeddings_build,
-                                 query_detection, chart_spec)
+                                 query_detection, data_spec)
