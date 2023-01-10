@@ -12,12 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
-import logging
+from typing import List
 
 from config import subject_page_pb2
 from lib.nl_data_spec import DataSpec
-from lib.nl_detection import ClassificationType, Detection, NLClassifier, RankingType
+from lib.nl_detection import ClassificationType, Detection, Place, RankingType
 from services import datacommons as dc
 
 PLACE_TYPE_TO_PLURALS = {
@@ -105,6 +104,36 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
   return block, stat_var_spec_map
 
 
+def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
+  """A column with two charts, main stat var and per capita"""
+  block = subject_page_pb2.Block(title="")
+  column = block.columns.add()
+  stat_var_spec_map = {}
+  # Total
+  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.BAR,
+                               title="Total",
+                               comparison_places=[x.dcid for x in places])
+  for sv in svs:
+    sv_key = sv + "_multiple_place_bar_block"
+    tile.stat_var_key.append(sv_key)
+    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(stat_var=sv,
+                                                             name=sv2name[sv])
+
+  column.tiles.append(tile)
+  # Per Capita
+  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.BAR,
+                               title="Per Capita",
+                               comparison_places=[x.dcid for x in places])
+  for sv in svs:
+    sv_key = sv + "_multiple_place_bar_block_pc"
+    tile.stat_var_key.append(sv_key)
+    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+        stat_var=sv, denom="Count_Person", name=sv2name[sv])
+
+  column.tiles.append(tile)
+  return block, stat_var_spec_map
+
+
 def build_page_config(detection: Detection, data_spec: DataSpec,
                       context_history):
 
@@ -126,11 +155,17 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   # No stat vars found
   primary_sv = data_spec.primary_sv
   primary_sv_siblings = data_spec.primary_sv_siblings
+  use_context_sv = False
+  context_place = None
   if not primary_sv:
-    for context in context_history:
+    for context in reversed(context_history):
       if context and context['debug'] and context['debug']['primary_sv']:
         primary_sv = context['debug']['primary_sv']
         primary_sv_siblings = context['debug']['primary_sv_siblings']
+        use_context_sv = True
+        context_place = Place(dcid=context['place_dcid'],
+                              name=context['place_name'],
+                              place_type=context['place_type'])
         break
 
   if not primary_sv:
@@ -150,20 +185,37 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   if classificationType in [
       ClassificationType.SIMPLE, ClassificationType.OTHER
   ]:
-    # The primary stat var
-    block, stat_var_spec_map = _single_place_single_var_timeline_block(
-        primary_sv, sv2name)
-    category.blocks.append(block)
-    for sv_key, spec in stat_var_spec_map.items():
-      category.stat_var_spec[sv_key].CopyFrom(spec)
-
-    # The siblings for the primary stat var
-    if primary_sv_siblings:
-      block, stat_var_spec_map = _single_place_multiple_var_timeline_block(
+    if use_context_sv:
+      # Only place is asked, draw comparison between two places
+      block, stat_var_spec_map = _multiple_place_bar_block(
+          [context_place, detection.places_detected.main_place], [primary_sv],
+          sv2name)
+      category.blocks.append(block)
+      for sv_key, spec in stat_var_spec_map.items():
+        category.stat_var_spec[sv_key].CopyFrom(spec)
+      # Draw for all stat vars
+      block, stat_var_spec_map = _multiple_place_bar_block(
+          [context_place, detection.places_detected.main_place],
           primary_sv_siblings, sv2name)
       category.blocks.append(block)
       for sv_key, spec in stat_var_spec_map.items():
         category.stat_var_spec[sv_key].CopyFrom(spec)
+    else:
+      # Query for place and sv, draw simple charts
+      # The primary stat var
+      block, stat_var_spec_map = _single_place_single_var_timeline_block(
+          primary_sv, sv2name)
+      category.blocks.append(block)
+      for sv_key, spec in stat_var_spec_map.items():
+        category.stat_var_spec[sv_key].CopyFrom(spec)
+
+      # The siblings for the primary stat var
+      if primary_sv_siblings:
+        block, stat_var_spec_map = _single_place_multiple_var_timeline_block(
+            primary_sv_siblings, sv2name)
+        category.blocks.append(block)
+        for sv_key, spec in stat_var_spec_map.items():
+          category.stat_var_spec[sv_key].CopyFrom(spec)
 
   elif classificationType in [
       ClassificationType.RANKING, ClassificationType.CONTAINED_IN
