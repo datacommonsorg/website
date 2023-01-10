@@ -348,6 +348,7 @@ class Model:
     Returns:
       NLClassifier with CorrelationClassificationAttributes
     """
+    query = query.lower()
     matches = []
     for keyword in QUERY_CLASSIFICATION_HEURISTICS["Correlation"]:
       regex = r"(?:^|\W)" + keyword + r"(?:$|\W)"

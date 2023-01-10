@@ -513,7 +513,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     classifications.append(temporal_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
-    
+
     # Check if the contained in referred to COUNTRY type. If so,
     # and the default location was chosen, then set it to Earth.
     if (place_detection.using_default_place and
