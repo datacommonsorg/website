@@ -18,7 +18,9 @@
  * Component for rendering a place overview tile.
  */
 
-import React from "react";
+import axios from "axios";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
 import { intl } from "../../i18n/i18n";
@@ -32,11 +34,48 @@ interface PlaceOverviewTilePropType {
 export function PlaceOverviewTile(
   props: PlaceOverviewTilePropType
 ): JSX.Element {
+  const [subtopics, setSubtopics] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`/api/landingpage/data/${props.place.dcid}?category=Overview&hl=en`)
+      .then((resp) => {
+        const categories = Object.keys(resp.data.categories);
+        const subtopics = categories.filter(
+          (category) => category !== "Overview"
+        );
+        setSubtopics(subtopics);
+      });
+  }, []);
+
+  if (subtopics === null) {
+    return null;
+  }
+
   return (
-    <div className="chart-container place-overview-tile">
-      <RawIntlProvider value={intl}>
-        <Overview dcid={props.place.dcid} locale="en" />
-      </RawIntlProvider>
-    </div>
+    <>
+      <div className="chart-container place-overview-tile">
+        <RawIntlProvider value={intl}>
+          <Overview dcid={props.place.dcid} locale="en" />
+        </RawIntlProvider>
+      </div>
+      {!_.isEmpty(subtopics) && (
+        <div className="subtopics-section">
+          <h3>See more about:</h3>
+          <div className="subtopic-links-container">
+            {subtopics.map((subTopic) => {
+              return (
+                <a
+                  key={subTopic}
+                  href={`/place/${props.place.dcid}?category=${subTopic}`}
+                >
+                  {subTopic}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
