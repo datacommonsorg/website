@@ -526,8 +526,9 @@ def _detection(orig_query, cleaned_query, embeddings_build,
   classifications = []
   if ranking_classification is not None:
     classifications.append(ranking_classification)
-  if temporal_classification is not None:
-    classifications.append(temporal_classification)
+  # TODO: reintroduce temporal classification at some point.
+  # if temporal_classification is not None:
+  #   classifications.append(temporal_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
 
