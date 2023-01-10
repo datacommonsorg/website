@@ -65,7 +65,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   }, [props]);
 
   return (
-    <div className={`chart-container ranking-tile ${props.className}`} ref={chartContainer}>
+    <div
+      className={`chart-container ranking-tile ${props.className}`}
+      ref={chartContainer}
+    >
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
           const points = rankingData[statVar].points;
