@@ -25,7 +25,7 @@ import { Col, Row } from "reactstrap";
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
 export const BUILD_OPTIONS = [
-  { value: "us_filtered", text: "Filtered US SVs (PaLM)" },
+  { value: "us_filtered", text: "Filtered US SVs" },
   {
     value: "curatedJan2022",
     text: "Curated 3.5k+ SVs PaLM(Jan2022) - Default",
