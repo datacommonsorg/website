@@ -47,6 +47,8 @@ EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
+# Note: These heuristics should be revisited if we change
+# query preprocessing (e.g. stopwords, stemming)
 QUERY_CLASSIFICATION_HEURISTICS = {
     "Ranking": {
         "High": [
@@ -78,7 +80,21 @@ QUERY_CLASSIFICATION_HEURISTICS = {
             "bottom to top",
             "lowest to highest",
         ],
-    }
+    },
+
+    "Correlation": [
+        "correlate",
+        "correlated",
+        "correlation",
+        "relationship to",
+        "relationship with",
+        "relationship between",
+        "related to",
+        "related with",
+        "related between",
+        "vs",
+        "versus",
+    ],
 }
 
 
@@ -317,7 +333,7 @@ class Model:
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
-  def correlation_classification(self, query: str) -> Union[NLClassifier, None]:
+  def heuristic_correlation_classification(self, query: str) -> Union[NLClassifier, None]:
     """Determine if query is asking for a correlation.
     
     Uses heuristics instead of ML-model for classification.
@@ -328,7 +344,13 @@ class Model:
     Returns:
       NLClassifier with CorrelationClassificationAttributes
     """
-    attributes = CorrelationClassificationAttributes(correlation_trigger_words=[])
+    matches = []
+    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Correlation"]:
+      regex = r"(?:^|\W)" + keyword + r"(?:$|\W)"
+      matches += [w.group() for w in re.finditer(regex, query)]
+    if len(matches) == 0:
+      return None
+    attributes = CorrelationClassificationAttributes(correlation_trigger_words=matches)
     return NLClassifier(type=ClassificationType.CORRELATION, attributes=attributes)
 
   def query_clustering_detection(
@@ -464,7 +486,7 @@ class Model:
       elif type_string == "contained_in":
         return self._containedin_classification(prediction, query)
 
-    if type_string == "correlation":
+    if type_string == "clustering":
       # TODO: implement.
       return self._clustering_classification([])
     return None
