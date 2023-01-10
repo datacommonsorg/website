@@ -34,6 +34,7 @@ import { HighlightTile } from "../tiles/highlight_tile";
 import { HistogramTile } from "../tiles/histogram_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
+import { PlaceOverviewTile } from "../tiles/place_overview_tile";
 import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { StatVarProvider } from "./stat_var_provider";
@@ -204,6 +205,8 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             svgChartHeight={props.svgChartHeight}
           />
         );
+      case "PLACE_OVERVIEW":
+        return <PlaceOverviewTile key={id} place={props.place} />;
       default:
         console.log("Tile type not supported:" + tile.type);
     }

@@ -78,6 +78,12 @@ def build_page_config(classifier: NLClassifier, spec: ChartSpec,
       tile.stat_var_key.append(sv)
       category.stat_var_spec[sv].stat_var = sv
       category.stat_var_spec[sv].name = sv2name[sv]
+  else if spec.main.place:
+    block = category.blocks.add()
+    block.title = spec.main.name
+    column = block.columns.add()
+    tile = column.tiles.add()
+    tile.type = subject_page_pb2.Tile.TileType.PLACE_OVERVIEW
 
   # Nearby place
   if spec.nearby.sv2places:

@@ -195,10 +195,15 @@ def compute(query_detection: Detection):
   if sample_child_place:
     all_places.append(sample_child_place)
 
-  sv_existence = dc.observation_existence(all_svs, all_places)
+  sv_existence = None
+  if all_svs and all_places:
+    sv_existence = dc.observation_existence(all_svs, all_places)
   for sv in all_svs:
-    for place, exist in sv_existence['variable'][sv]['entity'].items():
-      if not exist:
+    for place in all_places:
+      exists = True
+      if sv_existence:
+        exists = sv_existence['variable'][sv]['entity'].get(place, False)
+      if not exists:
         continue
       if place == main_place_dcid:
         chart_spec.main.svs.append(sv)
