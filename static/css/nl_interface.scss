@@ -120,7 +120,8 @@ $answer-min-height: 100vh;
 
   .tile-hidden {
     position: absolute;
-    top: -1000px;
+    top: -10000px;
+    visibility: hidden;
   }
 }
 

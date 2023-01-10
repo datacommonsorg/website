@@ -62,7 +62,7 @@ export function Block(props: BlockPropType): JSX.Element {
     : "0";
   // HACK for NL. Assumes all charts are in a single column.
   const showExpando = isNlInterface();
-  const hideIfIndexGreater = showExpando ? NUM_TILES_SHOWN : -1;
+  const minIdxToHide = showExpando ? NUM_TILES_SHOWN : -1;
   return (
     <section
       className={`block subtopic ${props.title ? "" : "notitle"}`}
@@ -81,7 +81,7 @@ export function Block(props: BlockPropType): JSX.Element {
                 className="block-column"
                 style={{ width: columnWidth }}
               >
-                {renderTiles(column.tiles, props, hideIfIndexGreater)}
+                {renderTiles(column.tiles, props, minIdxToHide)}
                 {showExpando && column.tiles.length > NUM_TILES_SHOWN && (
                   <a className="expando" onClick={expandoCallback}>
                     Show more
@@ -107,13 +107,13 @@ const expandoCallback = function (e) {
     tiles[i].classList.remove(HIDE_TILE_CLASS);
   }
   selfEl.hidden = true;
-  e.preventDefault;
+  e.preventDefault();
 };
 
 function renderTiles(
   tiles: TileConfig[],
   props: BlockPropType,
-  hideIfIndexGreater: number
+  minIdxToHide: number
 ): JSX.Element {
   if (!tiles) {
     return <></>;
@@ -121,7 +121,7 @@ function renderTiles(
   const tilesJsx = tiles.map((tile, i) => {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
-    const className = i >= hideIfIndexGreater ? HIDE_TILE_CLASS : "";
+    const className = i >= minIdxToHide ? HIDE_TILE_CLASS : "";
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
