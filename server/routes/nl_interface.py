@@ -386,6 +386,8 @@ def _result_with_debug_info(data_dict,
       contained_in_classification = str(classification.type)
       contained_in_classification = \
           str(classification.attributes.contained_in_place_type)
+    elif classification.type == ClassificationType.CORRELATION:
+      correlation_classification = str(classification.type)
     elif classification.type == ClassificationType.CLUSTERING:
       clustering_classification = str(classification.type)
       clustering_classification += f". Top two SVs: "

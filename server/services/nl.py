@@ -81,7 +81,6 @@ QUERY_CLASSIFICATION_HEURISTICS = {
             "lowest to highest",
         ],
     },
-
     "Correlation": [
         "correlate",
         "correlated",
@@ -333,7 +332,8 @@ class Model:
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
-  def heuristic_correlation_classification(self, query: str) -> Union[NLClassifier, None]:
+  def heuristic_correlation_classification(
+      self, query: str) -> Union[NLClassifier, None]:
     """Determine if query is asking for a correlation.
     
     Uses heuristics instead of ML-model for classification.
@@ -350,8 +350,10 @@ class Model:
       matches += [w.group() for w in re.finditer(regex, query)]
     if len(matches) == 0:
       return None
-    attributes = CorrelationClassificationAttributes(correlation_trigger_words=matches)
-    return NLClassifier(type=ClassificationType.CORRELATION, attributes=attributes)
+    attributes = CorrelationClassificationAttributes(
+        correlation_trigger_words=matches)
+    return NLClassifier(type=ClassificationType.CORRELATION,
+                        attributes=attributes)
 
   def query_clustering_detection(
       self,
