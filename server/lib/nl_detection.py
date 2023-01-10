@@ -143,6 +143,10 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
   cluster_1_svs: List[str]
   cluster_2_svs: List[str]
 
+@dataclass
+class RelatedSVClassificationAttributes(ClassificationAttributes):
+  sv_dcid_1: str
+  sv_dcid_2: str
 
 class ClassificationType(Enum):
   OTHER = 0
