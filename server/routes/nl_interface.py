@@ -420,6 +420,10 @@ def _result_with_debug_info(data_dict,
               contained_in_classification,
           'correlation_classification':
               correlation_classification,
+          'chart_spec':
+              data_dict.get('config', {}),
+          'data_spec':
+              data_spec,
           'primary_sv':
               data_spec.primary_sv,
           'primary_sv_siblings':
