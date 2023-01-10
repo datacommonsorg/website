@@ -316,7 +316,7 @@ def _dc_recon(place_ids):
 
 def _remove_punctuations(s):
   s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', '', s)
+  s = re.sub(r'[^\w\s]', ' ', s)
   return s
 
 
@@ -488,7 +488,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
       svs_to_sentences=svs_scores_dict['SV_to_Sentences'])
 
   # Step 4: find query classifiers.
-  ranking_classification = model.query_classification("ranking", query)
+  ranking_classification = model.heuristic_ranking_classification(query)
   temporal_classification = model.query_classification("temporal", query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
