@@ -128,7 +128,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   primary_sv_siblings = data_spec.primary_sv_siblings
   if not primary_sv:
     for context in context_history:
-      if context['debug']['primary_sv']:
+      if context and context['debug'] and context['debug']['primary_sv']:
         primary_sv = context['debug']['primary_sv']
         primary_sv_siblings = context['debug']['primary_sv_siblings']
         break
@@ -142,7 +142,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       tile.type = subject_page_pb2.Tile.TileType.PLACE_OVERVIEW
     return page_config
 
-  all_svs = [primary_sv] + primary_sv_siblings
+  all_svs = [primary_sv] + primary_sv_siblings + contained_place_spec.svs
   sv2name = get_sv_name(all_svs)
 
   if classificationType in [
@@ -183,12 +183,12 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
           if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
 
-          tile.title = sv2name[sv] + ': rankings within ' + data_spec.main.name
+          tile.title = sv2name.get(sv, sv) + ': rankings within ' + main_place_spec.name
         else:
           tile.type = subject_page_pb2.Tile.TileType.MAP
-          tile.title = sv2name[sv] + ' (${date})'
+          tile.title = sv2name.get(sv, sv) + ' (${date})'
         category.stat_var_spec[sv].stat_var = sv
-        category.stat_var_spec[sv].name = sv2name[sv]
+        category.stat_var_spec[sv].name = sv2name.get(sv, sv)
   # # Main place
   # if spec.main.svs:
   #   block = category.blocks.add()
