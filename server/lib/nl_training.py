@@ -47,8 +47,8 @@ class NLQueryClassificationModel:
 
 
 @dataclass
-class NLQueryCorrelationDetectionModel:
-  """Attributes for the NL Query Correlation classification."""
+class NLQueryClusteringDetectionModel:
+  """Attributes for the NL Query Correlation classification using clustering."""
   clustering_model: Any
   cosine_similarity_cutoff: float
 

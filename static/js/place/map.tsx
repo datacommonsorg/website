@@ -38,6 +38,9 @@ class Map extends React.Component<MapPropType> {
   componentDidMount(): void {
     axios.get(`/api/place/mapinfo/${this.props.dcid}`).then(
       function (resp) {
+        if (!this.div.current) {
+          return;
+        }
         const mapInfo = resp.data;
         if (!mapInfo || Object.keys(mapInfo).length === 0) return;
         const mapOptions = {

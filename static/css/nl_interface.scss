@@ -115,6 +115,7 @@ $answer-min-height: 100vh;
   }
 }
 
+.nl-query-error,
 .nl-query {
   padding: $query-vertical-margin 0;
 }
@@ -154,6 +155,12 @@ $answer-min-height: 100vh;
     }
   }
 
+  .chart-container.place-overview-tile {
+    width: 100%;
+  }
+
+  .bar-chart .legend,
+  .line-chart .legend
   .bar-chart .legend {
     display: none;
   }
@@ -172,7 +179,8 @@ $answer-min-height: 100vh;
 .expando,
 .expando:hover,
 h2,
-h3 {
+h3,
+.nl-query-error p {
   color: white;
 }
 
