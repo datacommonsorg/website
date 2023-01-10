@@ -33,6 +33,8 @@ import torch
 from datasets import load_dataset
 import logging
 from collections import OrderedDict
+import re
+import string
 
 BUILDS = [
     'demographics300',  #'uncurated3000', 
@@ -44,6 +46,40 @@ GCS_BUCKET = 'datcom-csv'
 EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
+
+QUERY_CLASSIFICATION_HEURISTICS = {
+    "Ranking": {
+        "High": [
+          "most",
+          "top",
+          "best",
+          "highest",
+          "smallest",
+          "tallest",
+          "strongest",
+          "oldest",
+          "furthest",
+          "descending",
+          "top to bottom",
+          "highest to lowest",
+        ],
+
+        "Low": [
+            "least",
+            "bottom",
+            "worst",
+            "lowest",
+            "largest",
+            "shortest",
+            "weakest",
+            "youngest",
+            "closest",
+            "ascending",
+            "bottom to top",
+            "lowest to highest",
+        ],
+    }
+}
 
 
 def pick_best(probs):
@@ -165,6 +201,48 @@ class Model:
       except Exception as e:
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
+
+  def heuristic_ranking_classification(self, query) -> Union[NLClassifier, None]:
+    """Determine if query is a ranking type.
+
+    Uses heuristics instead of ML-based classification.
+
+    Args:
+      query - the user's input as a string
+
+    Returns:
+      NLClassifier with RankingClassificationAttributes
+    """
+    # remove punctuation and make query lowercase
+    translator = str.maketrans('', '', string.punctuation)
+    query = query.translate(translator)
+    query = query.lower()
+
+    ranking_type = []
+
+    # Scan for keywords in high
+    high_matches = []
+    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["High"]:
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      high_matches += [w.group() for w in re.finditer(regex, query)]
+    if len(high_matches) > 0:
+      ranking_type.append(RankingType.HIGH)
+
+    # Scan for keywords in low
+    low_matches = []
+    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["Low"]:
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      low_matches += [w.group() for w in re.finditer(regex, query)]
+    if len(low_matches) > 0:
+      ranking_type.append(RankingType.LOW)
+
+    trigger_words = high_matches + low_matches
+    if len(trigger_words) == 0:
+      ranking_type = [RankingType.NONE]
+    
+    attributes = RankingClassificationAttributes(ranking_type=ranking_type,
+                                                 ranking_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
     ranking_type = RankingType.NONE

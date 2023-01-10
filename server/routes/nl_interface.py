@@ -428,7 +428,7 @@ def _result_with_debug_info(data_dict,
   data_dict.update(debug_info)
   charts_config = data_dict.pop('config', {})
   return {'context': data_dict, 'config': charts_config}
-
+  
 
 def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   default_place = "United States"
@@ -488,7 +488,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
       svs_to_sentences=svs_scores_dict['SV_to_Sentences'])
 
   # Step 4: find query classifiers.
-  ranking_classification = model.query_classification("ranking", query)
+  ranking_classification = model.heuristic_ranking_classification(query)
   temporal_classification = model.query_classification("temporal", query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
