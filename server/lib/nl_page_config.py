@@ -128,7 +128,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   primary_sv_siblings = data_spec.primary_sv_siblings
   if not primary_sv:
     for context in context_history:
-      if context['debug']['primary_sv']:
+      if context and context['debug'] and context['debug']['primary_sv']:
         primary_sv = context['debug']['primary_sv']
         primary_sv_siblings = context['debug']['primary_sv_siblings']
         break
@@ -185,7 +185,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
           if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
 
-          tile.title = sv2name[sv] + ': rankings within ' + data_spec.main.name
+          tile.title = sv2name[sv] + ': rankings within ' + main_place_spec.name
         else:
           tile.type = subject_page_pb2.Tile.TileType.MAP
           tile.title = sv2name[sv] + ' (${date})'
