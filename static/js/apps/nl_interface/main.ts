@@ -19,7 +19,6 @@
  */
 
 import React from "react";
-import { CookiesProvider } from "react-cookie";
 import ReactDOM from "react-dom";
 
 import { App } from "./app";
@@ -30,7 +29,7 @@ window.onload = () => {
 
 function renderPage(): void {
   ReactDOM.render(
-    React.createElement(CookiesProvider, {}, React.createElement(App)),
+    React.createElement(App),
     document.getElementById("nl-interface")
   );
 }
