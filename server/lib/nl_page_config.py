@@ -244,7 +244,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
             tile.ranking_tile_spec.show_lowest = True
 
         tile.title = ''.join(
-            [sv2name[primary_sv], ': rankings within ', main_place_spec.name])
+            [sv2name[primary_sv], 'in ', main_place_spec.name])
       else:
         tile.type = subject_page_pb2.Tile.TileType.MAP
         tile.title = sv2name[primary_sv] + ' (${date})'
@@ -269,7 +269,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
             tile.ranking_tile_spec.show_lowest = True
 
         tile.title = ''.join([
-            'Per Capita ', sv2name[primary_sv], ': rankings within ',
+            'Per Capita ', sv2name[primary_sv], ' in ',
             main_place_spec.name
         ])
       else:
