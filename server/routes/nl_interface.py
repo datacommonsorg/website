@@ -20,7 +20,7 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
-from lib.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
+from lib.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 import pandas as pd
 import re
 import requests
@@ -504,6 +504,16 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     classifications.append(temporal_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
+
+    # Check if the contained in referred to COUNTRY type. If so,
+    # and the default location was chosen, then set it to Earth.
+    if (place_detection.using_default_place &
+    (contained_in_classification.attributes.contained_in_place_type == ContainedInPlaceType.COUNTRY)):
+      logging.info("Changing detected place to Earth because no place was detected and contained in is about countries.")
+      place_detection.main_place.dcid = "Earth"
+      place_detection.main_place.name = "Earth"
+      place_detection.main_place.place_type = "Place"
+      place_detection.using_default_place = False
 
   # Clustering-based different SV detection is only enabled in LOCAL.
   correlation_classification = None
