@@ -207,7 +207,7 @@ def property_values(nodes, prop, out=True):
   direction = 'out' if out else 'in'
   url = get_service_url('/v1/bulk/property/values')
   resp = post(f'{url}/{direction}', {
-      'nodes': sorted(nodes),
+      'nodes': sorted(set(nodes)),
       'property': prop,
   })
   result = {}

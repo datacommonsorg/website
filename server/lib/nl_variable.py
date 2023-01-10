@@ -46,12 +46,10 @@ def expand_svg(svgs: List[str]):
 def extend_svs(svs: List[str]):
   """Extend all svs with siblings svs under the same svg.
   """
-  svgs = dc.property_values(svs, "memberOf", True).values()
-  svg2children = dc.property_values(svgs, "memberOf", False)
-  original = set(svs)
-  result = []
-  for _, children in svg2children.items():
-    for sv in children:
-      if sv not in original:
-        result.append(sv)
+  sv2svgs = dc.property_values(svs, "memberOf", True)
+  sv2svg = {sv: svg[0] for sv, svg in sv2svgs.items()}
+  svg2children = dc.property_values(sv2svg.values(), "memberOf", False)
+  result = {}
+  for sv, svg in sv2svg.items():
+    result[sv] = svg2children.get(svg, [])
   return result

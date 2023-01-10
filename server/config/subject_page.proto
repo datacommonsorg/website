@@ -115,12 +115,15 @@ message Tile {
   repeated string stat_var_key = 4;
   // [optional] a list of place dcids used for this tile.
   repeated string comparison_places = 7;
-
   // specs for specific tile types
   oneof tile_type_spec {
     RankingTileSpec ranking_tile_spec = 5;
     DisasterEventMapTileSpec disaster_event_map_tile_spec = 6;
   }
+  // [optional] The StatVarSpec for this tile. If this is not present, then
+  // use the StatVarSpec in the Category.
+  map<string, StatVarSpec> stat_var_spec = 8;
+
 }
 
 message Block {

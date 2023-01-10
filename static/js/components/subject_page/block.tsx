@@ -95,7 +95,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             key={id}
             description={tile.description}
             place={props.place}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile,
+              tile.statVarKey[0]
+            )}
           />
         );
       case "MAP":
@@ -106,7 +109,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile,
+              tile.statVarKey[0]
+            )}
             svgChartHeight={props.svgChartHeight}
           />
         );
@@ -117,7 +123,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile,
+              tile.statVarKey
+            )}
             svgChartHeight={props.svgChartHeight}
           />
         );
@@ -129,7 +138,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile,
+              tile.statVarKey
+            )}
             rankingMetadata={tile.rankingTileSpec}
           />
         );
@@ -142,7 +154,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             comparisonPlaces={tile.comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile,
+              tile.statVarKey
+            )}
             svgChartHeight={props.svgChartHeight}
           />
         );
@@ -154,7 +169,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile,
+              tile.statVarKey
+            )}
             svgChartHeight={props.svgChartHeight}
           />
         );
@@ -166,7 +184,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile,
+              tile.statVarKey
+            )}
             svgChartHeight={props.svgChartHeight}
           />
         );
@@ -200,7 +221,10 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             id={id}
             title={tile.title}
             place={props.place}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile,
+              tile.statVarKey
+            )}
             svgChartHeight={props.svgChartHeight}
           />
         );

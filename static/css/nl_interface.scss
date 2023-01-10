@@ -48,7 +48,7 @@ $answer-min-height: 100vh;
 
 #results-thread-container {
   padding: 0;
-  margin-bottom: 7rem;  // approx height of #search-container
+  margin-bottom: 7rem; // approx height of #search-container
 }
 
 #search-container {
@@ -57,7 +57,11 @@ $answer-min-height: 100vh;
   bottom: 0;
   width: 100vw;
   padding-top: $page-vertical-margin;
-  background-image: linear-gradient(180deg, #ffffff00, $page-background-color 65%);
+  background-image: linear-gradient(
+    180deg,
+    #ffffff00,
+    $page-background-color 65%
+  );
 
   .place-options-section {
     align-items: center;
@@ -109,11 +113,9 @@ $answer-min-height: 100vh;
     .legend {
       margin-left: 0 !important;
     }
-
   }
 
-  .bar-chart .legend,
-  .line-chart .legend {
+  .bar-chart .legend {
     display: none;
   }
 
@@ -133,7 +135,7 @@ h3 {
 
 .debug-info-toggle.show {
   color: #ccc;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 .debug-info-toggle.hide {
@@ -141,11 +143,10 @@ h3 {
   font-weight: bold;
 }
 
-
 .nl-query-result-debug-info {
   background: white;
   padding: 2em;
-  font-size: .8em;
+  font-size: 0.8em;
 
   table,
   th,
@@ -173,7 +174,8 @@ $loading-dot-color: #fff;
     animation: dot-flashing 1s infinite linear alternate;
     animation-delay: 0.5s;
   }
-  .dot-flashing::before, .dot-flashing::after {
+  .dot-flashing::before,
+  .dot-flashing::after {
     content: "";
     display: inline-block;
     position: absolute;
@@ -204,7 +206,8 @@ $loading-dot-color: #fff;
     0% {
       background-color: $loading-dot-color;
     }
-    50%, 100% {
+    50%,
+    100% {
       background-color: rgba(193, 193, 193, 0.2);
     }
   }
