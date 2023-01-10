@@ -19,10 +19,9 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Container } from "reactstrap";
 
-import { TextSearchBar } from "../../components/text_search_bar";
 import { QueryResult } from "./query_result";
+import { QuerySearch } from "./query_search";
 
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
@@ -32,7 +31,6 @@ export function App(): JSX.Element {
     // Scroll to the last query.
     // HACK: use refs / callback to the last element.
     const timer = setTimeout(() => {
-      console.log(`scrolling to top: ${queries[queries.length - 1]}`);
       const queryDivs = document.getElementsByClassName("nl-query");
       if (queryDivs.length > 1) {
         queryDivs[queryDivs.length - 1].scrollIntoView({
@@ -74,21 +72,12 @@ export function App(): JSX.Element {
     <div id="dc-nl-interface">
       <div id="results-thread-container">{queryResults}</div>
 
-      <div id="search-container">
-        <Container>
-          <div className="place-options-section">
-            <TextSearchBar
-              onSearch={(q) => {
-                setQueries([...queries, q]);
-              }}
-              initialValue=""
-              placeholder='For example "family earnings in california"'
-              shouldAutoFocus={true}
-              clearValueOnSearch={true}
-            />
-          </div>
-        </Container>
-      </div>
+      <QuerySearch
+        queries={queries}
+        onQuerySearched={(q) => {
+          setQueries([...queries, q]);
+        }}
+      />
     </div>
   );
 }

@@ -19,5 +19,6 @@
  */
 export function isNlInterface() {
   // Returns true if currently on the NL page.
-  return window.location.pathname === "/nl";
+  const path = window.location.pathname;
+  return path === "/nl" || path === "/nl/";
 }
