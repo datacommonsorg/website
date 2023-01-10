@@ -13,9 +13,34 @@
 # limitations under the License.
 """Module for NL page variable"""
 
+from abc import ABC
+from dataclasses import dataclass
+from enum import Enum
 from typing import List
 
 import services.datacommons as dc
+
+
+class Entry(ABC):
+  """Abctract class to hold an entry in VariableStore."""
+  pass
+
+
+@dataclass
+class SimpleEntry(Entry):
+  dcid: str
+
+
+@dataclass
+class PeerEntry(Entry):
+  # sources contains the sv/svg from the model. They are used to deduce peer
+  sources: List[str]
+  # peers are computed from the stat vars in sources.
+  peers: List[str]
+
+
+class VariableStore:
+  entries: List[Entry]
 
 
 def expand_svg(svgs: List[str]):
