@@ -558,7 +558,8 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
-  return render_template('/nl_interface.html')
+  return render_template('/nl_interface.html',
+                         maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
 @bp.route('/data', methods=['GET', 'POST'])
