@@ -15,6 +15,7 @@
 
 from dataclasses import dataclass
 from typing import Dict, List
+import logging
 import pandas as pd
 
 from lib.nl_detection import ClassificationType, Detection
@@ -194,6 +195,10 @@ def compute(query_detection: Detection):
 
   if sample_child_place:
     all_places.append(sample_child_place)
+
+  if not all_svs:
+    logging.info("No SVs to use for existence.")
+    return chart_spec, selected_svs, extended_svs
 
   sv_existence = dc.observation_existence(all_svs, all_places)
   for sv in all_svs:

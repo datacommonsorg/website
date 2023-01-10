@@ -247,11 +247,23 @@ class Model:
       svs_scores,
       sv_embedding_indices,
       cosine_similarity_cutoff=0.4,
+      sv_matching_score_cutoff=0.35,
       prefix_length_cutoff=8) -> Union[NLClassifier, None]:
     """Correlation detection based on clustering. Assumes all input lists are ordered and same length."""
+    # Figure out the score cutoff so that clustering only considers high scoring SV matches.
+    cutoff_index = 0
+    for i in range(len(svs_scores)):
+      if svs_scores[i] > sv_matching_score_cutoff:
+        cutoff_index = i
+
+    if cutoff_index == 0:
+      logging.info(
+          f"Not clustering. No SV matching score was > {sv_matching_score_cutoff}"
+      )
+      return None
 
     embedding_vectors = []
-    for i in range(0, len(svs_list)):
+    for i in range(0, cutoff_index):
       vec_index = sv_embedding_indices[i]
       vec = self.dataset_embeddings_maps_to_df[embeddings_build].iloc[
           vec_index].values
