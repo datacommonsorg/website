@@ -505,7 +505,9 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
 
-  if svs_scores_dict:
+  # Clustering-based different SV detection is only enabled in LOCAL.
+  correlation_classification = None
+  if os.environ.get('FLASK_ENV') == 'local' and svs_scores_dict:
     # Embeddings Indices.
     sv_index_sorted = []
     if 'EmbeddingIndex' in svs_scores_dict:
@@ -517,8 +519,9 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
         svs_scores_dict['CosineScore'], sv_index_sorted,
         COSINE_SIMILARITY_CUTOFF)
     logging.info(f'Correlation classification: {correlation_classification}')
-    if correlation_classification is not None:
-      classifications.append(correlation_classification)
+    logging.info(f'Correlation Classification is currently disabled.')
+    # if correlation_classification is not None:
+    #   classifications.append(correlation_classification)
 
   if not classifications:
     # Simple Classification simply means:
