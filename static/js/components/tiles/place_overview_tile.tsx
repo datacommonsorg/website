@@ -61,15 +61,15 @@ export function PlaceOverviewTile(
       </div>
       {!_.isEmpty(subtopics) && (
         <div className="subtopics-section">
-          <h3>Learn more about:</h3>
+          <h3>Learn more about {props.place.name}:</h3>
           <div className="subtopic-links-container">
-            {subtopics.map((subTopic) => {
+            {subtopics.map((subTopic, i) => {
               return (
                 <a
                   key={subTopic}
                   href={`/place/${props.place.dcid}?category=${subTopic}`}
                 >
-                  {subTopic}
+                  {subTopic}{i === subtopics.length - 1 ? "" : ","}
                 </a>
               );
             })}
