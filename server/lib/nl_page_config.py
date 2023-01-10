@@ -56,61 +56,52 @@ def get_sv_name(svs):
 
 def _single_place_single_var_timeline_block(sv_dcid, sv2name):
   """A column with two charts, main stat var and per capita"""
-  block = subject_page_pb2.Block()
-  block.title = sv2name[sv_dcid]
-  column = block.columns.add()
+  block = subject_page_pb2.Block(title=sv2name[sv_dcid],
+                                 columns=[subject_page_pb2.Block.Column()])
   stat_var_spec_map = {}
   # Line chart for the stat var
-  tile = column.tiles.add()
-  tile.type = subject_page_pb2.Tile.TileType.LINE
-  tile.title = "Total"
-  tile.stat_var_key.append(sv_dcid)
-  sv_spec = subject_page_pb2.StatVarSpec()
-  sv_spec.stat_var = sv_dcid
-  sv_spec.name = sv2name[sv_dcid]
-  stat_var_spec_map[sv_dcid] = sv_spec
+  sv_key = sv_dcid
+  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                               title="Total",
+                               stat_var_key=[sv_key])
+  stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+      stat_var=sv_dcid, name=sv2name[sv_dcid])
+  block.columns[0].tiles.append(tile)
   # Line chart for the stat var per capita
-  tile = column.tiles.add()
-  tile.type = subject_page_pb2.Tile.TileType.LINE
-  tile.title = "Per Capita"
-  sv_spec = subject_page_pb2.StatVarSpec()
   sv_key = sv_dcid + '_pc'
-  tile.stat_var_key.append(sv_key)
-  sv_spec.stat_var = sv_dcid
-  sv_spec.name = sv2name[sv_dcid]
-  sv_spec.denom = "Count_Person"
-  stat_var_spec_map[sv_key] = sv_spec
+  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                               title="Per Capita",
+                               stat_var_key=[sv_key])
+  stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+      stat_var=sv_dcid, name=sv2name[sv_dcid], denom="Count_Person")
+  block.columns[0].tiles.append(tile)
   return block, stat_var_spec_map
 
 
 def _single_place_multiple_var_timeline_block(svs, sv2name):
   """A column with two chart, all stat vars and per capita"""
-  block = subject_page_pb2.Block()
-  block.title = ""
-  column = block.columns.add()
+  block = subject_page_pb2.Block(columns=[subject_page_pb2.Block.Column()])
   stat_var_spec_map = {}
   # Line chart for the stat var
-  tile = column.tiles.add()
-  tile.type = subject_page_pb2.Tile.TileType.LINE
-  tile.title = "Total"
-  tile.stat_var_key.extend(svs)
+  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                               title="Total",
+                               stat_var_key=[])
   for sv in svs:
-    sv_spec = subject_page_pb2.StatVarSpec()
-    sv_spec.stat_var = sv
-    sv_spec.name = sv2name[sv]
-    stat_var_spec_map[sv] = sv_spec
-  # Line chart for the stat var per capita
-  tile = column.tiles.add()
-  tile.type = subject_page_pb2.Tile.TileType.LINE
-  tile.title = "Per Capita"
-  for sv in svs:
-    sv_spec = subject_page_pb2.StatVarSpec()
-    sv_key = sv + '_pc'
-    sv_spec.stat_var = sv
-    sv_spec.name = sv2name[sv]
-    sv_spec.denom = "Count_Person"
+    sv_key = sv
     tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = sv_spec
+    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(stat_var=sv,
+                                                             name=sv2name[sv])
+  block.columns[0].tiles.append(tile)
+  # Line chart for the stat var per capita
+  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                               title="Per Capita")
+  for sv in svs:
+    sv_key = sv + '_pc'
+    tile.stat_var_key.append(sv_key)
+    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+        stat_var=sv, name=sv2name[sv], denom="Count_Person")
+  block.columns[0].tiles.append(tile)
+
   return block, stat_var_spec_map
 
 
@@ -170,7 +161,6 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
               data_spec.contained.contained_place_type).capitalize(),
           data_spec.main.name)
       column = block.columns.add()
-      tile = column
       for sv in data_spec.contained.svs:
         tile = column.tiles.add()
         tile.stat_var_key.append(sv)
