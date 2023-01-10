@@ -37,7 +37,7 @@ from collections import OrderedDict
 import re
 
 BUILDS = [
-    'demographics300',  #'uncurated3000', 
+    'demographics300',  #'uncurated3000',
     'demographics300-withpalmalternatives',
     'curatedJan2022',
     'us_filtered',
@@ -498,7 +498,7 @@ class Model:
       type_string: (str) This is the sentence classification type, e.g.
         "ranking", "temporal", "contained_in". Full list is in lib.nl_training.py
       query: (str) The query string supplied.
-    
+
     Returns:
       The NLClassifier object or None.
     """
@@ -535,7 +535,7 @@ class Model:
   def detect_svs(self, query, embeddings_build):
     query_embeddings = self.model.encode([query])
     if embeddings_build not in self.dataset_embeddings_maps:
-      return ValueError(f'Embeddings Build: {embeddings_build} was not found.')
+      raise ValueError(f'Embeddings Build: {embeddings_build} was not found.')
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings_maps[embeddings_build],
                            top_k=20)
