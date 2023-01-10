@@ -172,9 +172,9 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
         tile.stat_var_key.append(sv)
         if classifier.type == ClassificationType.RANKING:
           tile.type = subject_page_pb2.Tile.TileType.RANKING
-          if classifier.attributes.ranking_type == RankingType.HIGH:
+          if RankingType.HIGH in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_highest = True
-          if classifier.attributes.ranking_type == RankingType.LOW:
+          if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
 
           tile.title = sv2name[sv] + ': rankings within ' + data_spec.main.name
