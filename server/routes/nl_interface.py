@@ -534,11 +534,6 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     classifications.append(correlation_classification)
 
   # Clustering-based different SV detection is only enabled in LOCAL.
-  clustering_classification = None
-
-
-  # Clustering-based different SV detection is only enabled in LOCAL.
-  correlation_classification = None
   if os.environ.get('FLASK_ENV') == 'local' and svs_scores_dict:
     # Embeddings Indices.
     sv_index_sorted = []
@@ -546,12 +541,12 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
       sv_index_sorted = svs_scores_dict['EmbeddingIndex']
 
     # Clustering classification, currently disabled.
-    clustering_classification = model.query_clustering_detection(
-        embeddings_build, query, svs_scores_dict['SV'],
-        svs_scores_dict['CosineScore'], sv_index_sorted,
-        COSINE_SIMILARITY_CUTOFF)
-    logging.info(f'Clustering classification: {clustering_classification}')
-    logging.info(f'Clustering Classification is currently disabled.')
+    # clustering_classification = model.query_clustering_detection(
+    #     embeddings_build, query, svs_scores_dict['SV'],
+    #     svs_scores_dict['CosineScore'], sv_index_sorted,
+    #     COSINE_SIMILARITY_CUTOFF)
+    # logging.info(f'Clustering classification: {clustering_classification}')
+    # logging.info(f'Clustering Classification is currently disabled.')
     # if clustering_classification is not None:
     #   classifications.append(clustering_classification)
 
