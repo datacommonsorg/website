@@ -102,7 +102,7 @@ class SimpleClassificationAttributes(ClassificationAttributes):
 @dataclass
 class RankingClassificationAttributes(ClassificationAttributes):
   """Ranking classification attributes."""
-  ranking_type: RankingType
+  ranking_type: List[RankingType]
 
   # List of words which made this a ranking query:
   # e.g. "top", "most", "least", "highest" etc

@@ -33,6 +33,8 @@ import torch
 from datasets import load_dataset
 import logging
 from collections import OrderedDict
+import re
+import string
 
 BUILDS = [
     'demographics300',  #'uncurated3000', 
@@ -44,6 +46,40 @@ GCS_BUCKET = 'datcom-csv'
 EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
+
+QUERY_CLASSIFICATION_HEURISTICS = {
+    "Ranking": {
+        "High": [
+            "most",
+            "top",
+            "best",
+            "highest",
+            "high",
+            "smallest",
+            "strongest",
+            "richest",
+            "sickest",
+            "illest",
+            "descending",
+            "top to bottom",
+            "highest to lowest",
+        ],
+        "Low": [
+            "least",
+            "bottom",
+            "worst",
+            "lowest",
+            "low",
+            "largest",
+            "weakest",
+            "youngest",
+            "poorest",
+            "ascending",
+            "bottom to top",
+            "lowest to highest",
+        ],
+    }
+}
 
 
 def pick_best(probs):
@@ -166,6 +202,48 @@ class Model:
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
 
+  # TODO (juliawu): Add unit-testing
+  def heuristic_ranking_classification(self,
+                                       query) -> Union[NLClassifier, None]:
+    """Determine if query is a ranking type.
+
+    Uses heuristics instead of ML-based classification.
+
+    Args:
+      query - the user's input as a string
+
+    Returns:
+      NLClassifier with RankingClassificationAttributes
+    """
+    # make query lowercase for str matching
+    query = query.lower()
+
+    ranking_type = []
+
+    # Scan for keywords in high
+    high_matches = []
+    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["High"]:
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      high_matches += [w.group() for w in re.finditer(regex, query)]
+    if len(high_matches) > 0:
+      ranking_type.append(RankingType.HIGH)
+
+    # Scan for keywords in low
+    low_matches = []
+    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["Low"]:
+      regex = r"(^|\W)" + keyword + r"($|\W)"
+      low_matches += [w.group() for w in re.finditer(regex, query)]
+    if len(low_matches) > 0:
+      ranking_type.append(RankingType.LOW)
+
+    trigger_words = high_matches + low_matches
+    if len(trigger_words) == 0:
+      return None
+
+    attributes = RankingClassificationAttributes(
+        ranking_type=ranking_type, ranking_trigger_words=trigger_words)
+    return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
+
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
     ranking_type = RankingType.NONE
     if prediction == "Rankings-High":
@@ -247,11 +325,23 @@ class Model:
       svs_scores,
       sv_embedding_indices,
       cosine_similarity_cutoff=0.4,
+      sv_matching_score_cutoff=0.35,
       prefix_length_cutoff=8) -> Union[NLClassifier, None]:
     """Correlation detection based on clustering. Assumes all input lists are ordered and same length."""
+    # Figure out the score cutoff so that clustering only considers high scoring SV matches.
+    cutoff_index = 0
+    for i in range(len(svs_scores)):
+      if svs_scores[i] > sv_matching_score_cutoff:
+        cutoff_index = i
+
+    if cutoff_index == 0:
+      logging.info(
+          f"Not clustering. No SV matching score was > {sv_matching_score_cutoff}"
+      )
+      return None
 
     embedding_vectors = []
-    for i in range(0, len(svs_list)):
+    for i in range(0, cutoff_index):
       vec_index = sv_embedding_indices[i]
       vec = self.dataset_embeddings_maps_to_df[embeddings_build].iloc[
           vec_index].values
