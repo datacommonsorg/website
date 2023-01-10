@@ -433,7 +433,8 @@ def _result_with_debug_info(data_dict,
   return {'context': data_dict, 'config': charts_config}
 
 
-def _detection(orig_query, cleaned_query, embeddings_build, recent_context: Union[Dict, None]) -> Detection:
+def _detection(orig_query, cleaned_query, embeddings_build,
+               recent_context: Union[Dict, None]) -> Detection:
   default_place = "United States"
   using_default_place = False
   using_from_context = False
@@ -452,13 +453,14 @@ def _detection(orig_query, cleaned_query, embeddings_build, recent_context: Unio
   if not place_dcid:
     place_dcid = _infer_place_dcid(places_found)
 
+  # TODO: move this logic away from detection and to the context inheritance.
   # If a valid DCID was was not found or provided, do not proceed.
   # Use the default place only if there was no previous context.
   if not place_dcid:
     place_name_to_use = default_place
     if recent_context:
       place_name_to_use = recent_context.get('place_name')
-    
+
     place_dcid = _infer_place_dcid([place_name_to_use])
     if place_name_to_use == default_place:
       using_default_place = True
@@ -471,7 +473,6 @@ def _detection(orig_query, cleaned_query, embeddings_build, recent_context: Unio
           f'Could not find a place dcid but there was previous context. Using: {place_name_to_use}.'
       )
       using_from_context = True
-      
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
@@ -479,15 +480,16 @@ def _detection(orig_query, cleaned_query, embeddings_build, recent_context: Unio
 
   # Step 2: replace the places in the query sentence with "".
   query = _remove_places(cleaned_query, places_found)
-  
+
   # Set PlaceDetection.
   place_detection = PlaceDetection(query_original=orig_query,
-                                    query_without_place_substr=query,
-                                    places_found=places_found,
-                                    main_place=Place(dcid=place_dcid, name=main_place_name, place_type=main_place_type),
-                                    using_default_place=using_default_place,
-                                    using_from_context=using_from_context)
-
+                                   query_without_place_substr=query,
+                                   places_found=places_found,
+                                   main_place=Place(dcid=place_dcid,
+                                                    name=main_place_name,
+                                                    place_type=main_place_type),
+                                   using_default_place=using_default_place,
+                                   using_from_context=using_from_context)
 
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
@@ -600,7 +602,7 @@ def data():
   if context_history:
     recent_context = context_history[-1]
   query_detection = _detection(str(escape(original_query)), query,
-                                    embeddings_build, recent_context)
+                               embeddings_build, recent_context)
 
   # Get Data Spec
   data_spec = nl_data_spec.compute(query_detection)
