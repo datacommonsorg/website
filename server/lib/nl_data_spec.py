@@ -217,5 +217,4 @@ def compute(query_detection: Detection):
   data_spec.primary_sv_siblings = data_spec.extended_sv_map[
       data_spec.primary_sv]
 
-
   return data_spec
