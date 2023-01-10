@@ -15,10 +15,7 @@
  */
 
 import { StatVarSpec } from "../../shared/types";
-import {
-  StatVarSpecMap,
-  TileConfig,
-} from "../../types/subject_page_proto_types";
+import { StatVarSpecMap } from "../../types/subject_page_proto_types";
 
 // Provider for stat var spec in a category.
 // TODO: move data fetching from individual tiles here.
@@ -30,13 +27,11 @@ export class StatVarProvider {
     this._statVarSpecMap = svsMap;
   }
 
-  getSpec(tileConfig: TileConfig, key: string): StatVarSpec {
-    const svSpecMap = tileConfig.statVarSpec || this._statVarSpecMap;
-    return svSpecMap[key] || null;
+  getSpec(key: string): StatVarSpec {
+    return this._statVarSpecMap[key] || null;
   }
 
-  getSpecList(tileConfig: TileConfig, keys: string[]): StatVarSpec[] {
-    const svSpecMap = tileConfig.statVarSpec || this._statVarSpecMap;
-    return keys.map((k) => svSpecMap[k]);
+  getSpecList(keys: string[]): StatVarSpec[] {
+    return keys.map((k) => this._statVarSpecMap[k]);
   }
 }

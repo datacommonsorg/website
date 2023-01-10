@@ -69,10 +69,11 @@ def _single_place_single_var_timeline_block(sv_dcid, sv2name):
   tile = column.tiles.add()
   tile.type = subject_page_pb2.Tile.TileType.LINE
   tile.title = "Per Capita"
-  tile.stat_var_key.append(sv_dcid)
-  tile.stat_var_spec[sv_dcid].stat_var = sv_dcid
-  tile.stat_var_spec[sv_dcid].name = sv2name[sv_dcid]
-  tile.stat_var_spec[sv_dcid].denom = "Count_Person"
+  sv_key = sv_dcid + '_pc'
+  tile.stat_var_key.append(sv_key)
+  tile.stat_var_spec[sv_key].stat_var = sv_dcid
+  tile.stat_var_spec[sv_key].name = sv2name[sv_dcid]
+  tile.stat_var_spec[sv_key].denom = "Count_Person"
   return block
 
 
@@ -95,9 +96,10 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
   tile.title = "Per Capita"
   tile.stat_var_key.extend(svs)
   for sv in svs:
-    tile.stat_var_spec[sv].stat_var = sv
-    tile.stat_var_spec[sv].name = sv2name[sv]
-    tile.stat_var_spec[sv].denom = "Count_Person"
+    sv_key = sv + '_pc'
+    tile.stat_var_spec[sv_key].stat_var = sv
+    tile.stat_var_spec[sv_key].name = sv2name[sv]
+    tile.stat_var_spec[sv_key].denom = "Count_Person"
   return block
 
 
