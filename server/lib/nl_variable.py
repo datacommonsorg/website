@@ -13,9 +13,32 @@
 # limitations under the License.
 """Module for NL page variable"""
 
+from dataclasses import dataclass
+from enum import Enum
 from typing import List
 
 import services.datacommons as dc
+
+
+class EntryType(Enum):
+  SINGLE = 1
+  PEER = 2
+
+
+@dataclass
+class Entry:
+  # Only one of single and peers should be set.
+  type: EntryType
+  # If this is an entry stat var from model, then source has one item.
+  # If this is entry is derived, the source contains topic node or the original
+  # stat vars from the model.
+  source: List[str]
+  # peers are computed from the original stat vars from model.
+  peers: List[str]
+
+
+class VariableStore:
+  entries: List[Entry]
 
 
 def expand_svg(svgs: List[str]):
