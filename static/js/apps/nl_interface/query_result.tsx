@@ -83,8 +83,8 @@ export const QueryResult = memo(function QueryResult(
         props.addContextCallback(context, props.queryIdx);
 
         // Filter out empty categories.
-        let categories = _.get(resp, ["data", "config", "categories"], []);
-        _.remove(categories, c => _.isEmpty(c));
+        const categories = _.get(resp, ["data", "config", "categories"], []);
+        _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
           setChartsData({
             place: {
@@ -129,15 +129,13 @@ export const QueryResult = memo(function QueryResult(
               setSelectedBuild={setSelectedBuild}
             ></DebugInfo>
           )}
-          {chartsData &&
-            chartsData.config &&
-            chartsData.config.categories.length > 0 && (
-              <SubjectPageMainPane
-                place={chartsData.place}
-                pageConfig={chartsData.config}
-                svgChartHeight={SVG_CHART_HEIGHT}
-              />
-            )}
+          {chartsData && chartsData.config && (
+            <SubjectPageMainPane
+              place={chartsData.place}
+              pageConfig={chartsData.config}
+              svgChartHeight={SVG_CHART_HEIGHT}
+            />
+          )}
           {errorMsg && (
             <div className="nl-query-error">
               <p>{errorMsg}</p>

@@ -183,12 +183,12 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
           if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
 
-          tile.title = sv2name.get(sv, sv) + ': rankings within ' + main_place_spec.name
+          tile.title = sv2name[sv] + ': rankings within ' + main_place_spec.name
         else:
           tile.type = subject_page_pb2.Tile.TileType.MAP
-          tile.title = sv2name.get(sv, sv) + ' (${date})'
+          tile.title = sv2name[sv] + ' (${date})'
         category.stat_var_spec[sv].stat_var = sv
-        category.stat_var_spec[sv].name = sv2name.get(sv, sv)
+        category.stat_var_spec[sv].name = sv2name[sv]
   # # Main place
   # if spec.main.svs:
   #   block = category.blocks.add()
