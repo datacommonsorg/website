@@ -128,7 +128,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     temporalClassification: props.debugData["temporal_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
-    chartSpec: props.debugData["chart_spec"],
+    chartSpec: props.debugData["data_spec"],
   };
 
   const handleEmbeddingsBuildChange = (
