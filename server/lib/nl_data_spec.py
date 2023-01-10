@@ -198,6 +198,10 @@ def compute(query_detection: Detection):
     all_places.append(sample_child_place)
 
   sv_existence = dc.observation_existence(all_svs, all_places)
+  if not sv_existence:
+    logging.info("Existence checks for SVs failed.")
+    return data_spec
+
   for sv in all_svs:
     for place, exist in sv_existence['variable'][sv]['entity'].items():
       if not exist:
