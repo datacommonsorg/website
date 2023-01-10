@@ -326,3 +326,28 @@ $border-radius: 0.5rem;
   height: 100%;
   min-height: 200px;
 }
+
+.subtopics-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.subtopics-section h3 {
+  color: white;
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+}
+
+.subtopic-links-container {
+  display: flex;
+
+  a {
+    color: white;
+    margin-right: 0.5rem;
+  }
+
+  a:hover {
+    color: white;
+  }
+}
