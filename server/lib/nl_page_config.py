@@ -220,29 +220,63 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   elif classificationType in [
       ClassificationType.RANKING, ClassificationType.CONTAINED_IN
   ]:
-    if contained_place_spec.svs:
+    if primary_sv in contained_place_spec.svs:
       block = category.blocks.add()
       block.title = "{} in {}".format(
           pluralize_place_type(
               contained_place_spec.contained_place_type).capitalize(),
           main_place_spec.name)
       column = block.columns.add()
-      for sv in contained_place_spec.svs:
-        tile = column.tiles.add()
-        tile.stat_var_key.append(sv)
-        if classifier.type == ClassificationType.RANKING:
-          tile.type = subject_page_pb2.Tile.TileType.RANKING
+      # The main tile
+      tile = column.tiles.add()
+      tile.stat_var_key.append(primary_sv)
+      if classifier.type == ClassificationType.RANKING:
+        tile.type = subject_page_pb2.Tile.TileType.RANKING
+        if "CriminalActivities" in primary_sv:
+          if RankingType.HIGH in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_lowest = True
+          if RankingType.LOW in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_highest = True
+        else:
           if RankingType.HIGH in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_highest = True
           if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
 
-          tile.title = sv2name[sv] + ': rankings within ' + main_place_spec.name
+        tile.title = sv2name[
+            primary_sv] + ': rankings within ' + main_place_spec.name
+      else:
+        tile.type = subject_page_pb2.Tile.TileType.MAP
+        tile.title = sv2name[primary_sv] + ' (${date})'
+      category.stat_var_spec[primary_sv].stat_var = primary_sv
+      category.stat_var_spec[primary_sv].name = sv2name[primary_sv]
+
+      # The per capita tile
+      tile = column.tiles.add()
+      sv_key = primary_sv + "_pc"
+      tile.stat_var_key.append(sv_key)
+      if classifier.type == ClassificationType.RANKING:
+        tile.type = subject_page_pb2.Tile.TileType.RANKING
+        if "CriminalActivities" in primary_sv:
+          if RankingType.HIGH in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_lowest = True
+          if RankingType.LOW in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_highest = True
         else:
-          tile.type = subject_page_pb2.Tile.TileType.MAP
-          tile.title = sv2name[sv] + ' (${date})'
-        category.stat_var_spec[sv].stat_var = sv
-        category.stat_var_spec[sv].name = sv2name[sv]
+          if RankingType.HIGH in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_highest = True
+          if RankingType.LOW in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_lowest = True
+
+        tile.title = sv2name[
+            primary_sv] + ': rankings within ' + main_place_spec.name
+      else:
+        tile.type = subject_page_pb2.Tile.TileType.MAP
+        tile.title = "Per Capita " + sv2name[primary_sv] + ' (${date})'
+      category.stat_var_spec[sv_key].stat_var = primary_sv
+      category.stat_var_spec[sv_key].name = sv2name[primary_sv]
+      category.stat_var_spec[sv_key].denom = "Count_Person"
+
   # # Main place
   # if spec.main.svs:
   #   block = category.blocks.add()
