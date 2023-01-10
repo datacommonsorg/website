@@ -18,12 +18,12 @@ from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
 from lib.nl_detection import NLClassifier, ClassificationType
-from lib.nl_detection import CorrelationClassificationAttributes
+from lib.nl_detection import ClusteringClassificationAttributes
 from lib.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
 from lib.nl_detection import RankingClassificationAttributes, RankingType
 from lib.nl_detection import PeriodType, TemporalClassificationAttributes
 from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel
-from lib.nl_training import NLQueryCorrelationDetectionModel
+from lib.nl_training import NLQueryClusteringDetectionModel
 from lib.nl_page_config import PLACE_TYPE_TO_PLURALS
 from typing import Dict, List, Union
 import os
@@ -150,7 +150,7 @@ class Model:
                                         classification_types_supported)
 
     # Set the Correlations Detection Model.
-    self._correlation_detection = NLQueryCorrelationDetectionModel()
+    self._clustering_detection = NLQueryClusteringDetectionModel()
 
   def _download_embeddings(self):
     storage_client = storage.Client()
@@ -301,13 +301,13 @@ class Model:
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
-  def _correlation_classification(
+  def _clustering_classification(
       self, clusters: List[Dict[str, float]]) -> Union[NLClassifier, None]:
     if not clusters:
       return None
 
     # TODO: need to fill in the details.
-    attributes = CorrelationClassificationAttributes(
+    attributes = ClusteringClassificationAttributes(
         sv_dcid_1="",
         sv_dcid_2="",
         is_using_clusters=False,
@@ -317,7 +317,7 @@ class Model:
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
-  def query_correlation_detection(
+  def query_clustering_detection(
       self,
       embeddings_build,
       query,
@@ -349,8 +349,8 @@ class Model:
       embedding_vectors.append(np.array(vec))
 
     # Cluster the embedding vectors.
-    self._correlation_detection.clustering_model.fit(embedding_vectors)
-    labels = self._correlation_detection.clustering_model.labels_
+    self._clustering_detection.clustering_model.fit(embedding_vectors)
+    labels = self._clustering_detection.clustering_model.labels_
     logging.info("Clustering in to two clusters done.")
 
     cluster_zero_indices = [ind for ind, x in enumerate(labels) if x == 0]
@@ -396,7 +396,7 @@ class Model:
       logging.info(
           f"Treating as a Correlation Query. Cosine Score and Prefix Match Length are both LOW."
       )
-      attributes = CorrelationClassificationAttributes(
+      attributes = ClusteringClassificationAttributes(
           sv_dcid_1=sv_dcid_1,
           sv_dcid_2=sv_dcid_2,
           is_using_clusters=True,
@@ -405,7 +405,7 @@ class Model:
           cluster_1_svs=[svs_list[i] for i in cluster_zero_indices],
           cluster_2_svs=[svs_list[i] for i in cluster_one_indices],
       )
-      return NLClassifier(type=ClassificationType.CORRELATION,
+      return NLClassifier(type=ClassificationType.CLUSTERING,
                           attributes=attributes)
     else:
       logging.info(
@@ -452,7 +452,7 @@ class Model:
 
     if type_string == "correlation":
       # TODO: implement.
-      return self._correlation_classification([])
+      return self._clustering_classification([])
     return None
 
   def detect_svs(self, query, embeddings_build):

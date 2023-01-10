@@ -126,7 +126,7 @@ class ContainedInClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
-class CorrelationClassificationAttributes(ClassificationAttributes):
+class ClusteringClassificationAttributes(ClassificationAttributes):
   """Correlation classification attributes."""
   sv_dcid_1: str
   sv_dcid_2: str
@@ -151,6 +151,7 @@ class ClassificationType(Enum):
   TEMPORAL = 3
   CONTAINED_IN = 4
   CORRELATION = 5
+  CLUSTERING = 6
 
 
 @dataclass
