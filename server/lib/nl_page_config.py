@@ -159,7 +159,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   context_place = None
   if not primary_sv:
     for context in reversed(context_history):
-      if context and context['debug']['primary_sv']:
+      if context and context['debug'] and context['debug']['primary_sv']:
         primary_sv = context['debug']['primary_sv']
         primary_sv_siblings = context['debug']['primary_sv_siblings']
         use_context_sv = True
@@ -178,6 +178,8 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     return page_config
 
   all_svs = [primary_sv] + primary_sv_siblings
+  if contained_place_spec.svs:
+    all_svs += contained_place_spec.svs
   sv2name = get_sv_name(all_svs)
 
   if classificationType in [
@@ -235,7 +237,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
           if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
 
-          tile.title = sv2name[sv] + ': rankings within ' + data_spec.main.name
+          tile.title = sv2name[sv] + ': rankings within ' + main_place_spec.name
         else:
           tile.type = subject_page_pb2.Tile.TileType.MAP
           tile.title = sv2name[sv] + ' (${date})'

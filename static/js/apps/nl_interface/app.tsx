@@ -32,7 +32,6 @@ export function App(): JSX.Element {
     // Scroll to the last query.
     // HACK: use refs / callback to the last element.
     const timer = setTimeout(() => {
-      console.log(`scrolling to top: ${queries[queries.length - 1]}`);
       const queryDivs = document.getElementsByClassName("nl-query");
       if (queryDivs.length > 1) {
         queryDivs[queryDivs.length - 1].scrollIntoView({
