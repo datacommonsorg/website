@@ -52,6 +52,7 @@ interface RankingTilePropType {
   title: string;
   statVarSpec: StatVarSpec[];
   rankingMetadata: RankingTileSpec;
+  className?: string;
 }
 
 export function RankingTile(props: RankingTilePropType): JSX.Element {
@@ -64,7 +65,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   }, [props]);
 
   return (
-    <div className="chart-container ranking-tile" ref={chartContainer}>
+    <div
+      className={`chart-container ranking-tile ${props.className}`}
+      ref={chartContainer}
+    >
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
           const points = rankingData[statVar].points;

@@ -167,7 +167,7 @@ function renderTiles(
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
-            // className={className}
+            className={className}
           />
         );
       case "BAR":
