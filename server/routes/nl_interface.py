@@ -21,6 +21,7 @@ import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
 from lib.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
+from typing import Dict, Union
 import pandas as pd
 import re
 import requests
@@ -432,9 +433,10 @@ def _result_with_debug_info(data_dict,
   return {'context': data_dict, 'config': charts_config}
 
 
-def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
+def _detection(orig_query, cleaned_query, embeddings_build, recent_context: Union[Dict, None]) -> Detection:
   default_place = "United States"
   using_default_place = False
+  using_from_context = False
 
   model = current_app.config['NL_MODEL']
 
@@ -451,12 +453,25 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     place_dcid = _infer_place_dcid(places_found)
 
   # If a valid DCID was was not found or provided, do not proceed.
+  # Use the default place only if there was no previous context.
   if not place_dcid:
-    logging.info(
-        f'Could not find a place dcid. Using the default place: {default_place}.'
-    )
-    place_dcid = _infer_place_dcid([default_place])
-    using_default_place = True
+    place_name_to_use = default_place
+    if recent_context:
+      place_name_to_use = recent_context.get('place_name')
+    
+    place_dcid = _infer_place_dcid([place_name_to_use])
+    if place_name_to_use == default_place:
+      using_default_place = True
+      logging.info(
+          f'Could not find a place dcid and there is no previous context. Using the default place: {default_place}.'
+      )
+      using_default_place = True
+    else:
+      logging.info(
+          f'Could not find a place dcid but there was previous context. Using: {place_name_to_use}.'
+      )
+      using_from_context = True
+      
 
   place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
   main_place_type = _get_preferred_type(place_types)
@@ -464,15 +479,15 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
 
   # Step 2: replace the places in the query sentence with "".
   query = _remove_places(cleaned_query, places_found)
-
+  
   # Set PlaceDetection.
   place_detection = PlaceDetection(query_original=orig_query,
-                                   query_without_place_substr=query,
-                                   places_found=places_found,
-                                   main_place=Place(dcid=place_dcid,
-                                                    name=main_place_name,
-                                                    place_type=main_place_type),
-                                   using_default_place=using_default_place)
+                                    query_without_place_substr=query,
+                                    places_found=places_found,
+                                    main_place=Place(dcid=place_dcid, name=main_place_name, place_type=main_place_type),
+                                    using_default_place=using_default_place,
+                                    using_from_context=using_from_context)
+
 
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
@@ -564,7 +579,10 @@ def page():
 @bp.route('/data', methods=['GET', 'POST'])
 def data():
   original_query = request.args.get('q')
-  context_history = request.get_json().get('contextHistory')
+  context_history = request.get_json().get('contextHistory', [])
+  has_context = False
+  if context_history:
+    has_context = True
   logging.info(context_history)
   query = str(escape(_remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
@@ -578,8 +596,11 @@ def data():
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
+  recent_context = None
+  if context_history:
+    recent_context = context_history[-1]
   query_detection = _detection(str(escape(original_query)), query,
-                               embeddings_build)
+                                    embeddings_build, recent_context)
 
   # Get Data Spec
   data_spec = nl_data_spec.compute(query_detection)
@@ -598,8 +619,9 @@ def data():
     status_str = ""
 
   if query_detection.places_detected.using_default_place:
-    places_found = [f'{default_place} (default)']
     status_str += f'**No Place Found** (using default: {default_place}). '
+  elif query_detection.places_detected.using_from_context:
+    status_str += f'**No Place Found** (using context: {query_detection.places_detected.main_place.name}). '
   if not data_spec.selected_svs:
     status_str += '**No SVs Found**.'
 
