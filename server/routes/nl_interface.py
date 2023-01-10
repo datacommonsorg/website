@@ -508,8 +508,11 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     # Check if the contained in referred to COUNTRY type. If so,
     # and the default location was chosen, then set it to Earth.
     if (place_detection.using_default_place &
-    (contained_in_classification.attributes.contained_in_place_type == ContainedInPlaceType.COUNTRY)):
-      logging.info("Changing detected place to Earth because no place was detected and contained in is about countries.")
+        (contained_in_classification.attributes.contained_in_place_type
+         == ContainedInPlaceType.COUNTRY)):
+      logging.info(
+          "Changing detected place to Earth because no place was detected and contained in is about countries."
+      )
       place_detection.main_place.dcid = "Earth"
       place_detection.main_place.name = "Earth"
       place_detection.main_place.place_type = "Place"
