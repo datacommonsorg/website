@@ -94,8 +94,7 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
   block.columns[0].tiles.append(tile)
   # Line chart for the stat var per capita
   tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
-                               title="Per Capita",
-                               stat_var_key=[])
+                               title="Per Capita")
   for sv in svs:
     sv_key = sv + '_pc'
     tile.stat_var_key.append(sv_key)
