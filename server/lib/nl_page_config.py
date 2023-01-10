@@ -142,7 +142,9 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       tile.type = subject_page_pb2.Tile.TileType.PLACE_OVERVIEW
     return page_config
 
-  all_svs = [primary_sv] + primary_sv_siblings + contained_place_spec.svs
+  all_svs = [primary_sv] + primary_sv_siblings
+  if contained_place_spec.svs:
+    all_svs += contained_place_spec.svs
   sv2name = get_sv_name(all_svs)
 
   if classificationType in [

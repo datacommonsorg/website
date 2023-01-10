@@ -35,6 +35,7 @@ class PlaceDetection:
   places_found: List[str]
   main_place: Place
   using_default_place: bool
+  using_from_context: bool = False
 
 
 @dataclass
