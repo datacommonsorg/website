@@ -515,6 +515,8 @@ class Model:
     }
 
   def detect_place(self, query):
+    # Capitalize each word to improve results
+    query = query.title()
     doc = self.ner_model(query)
     places_found_loc_gpe = []
     places_found_fac = []
