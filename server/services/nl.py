@@ -238,7 +238,7 @@ class Model:
 
     trigger_words = high_matches + low_matches
     if len(trigger_words) == 0:
-      ranking_type = [RankingType.NONE]
+      return None
 
     attributes = RankingClassificationAttributes(
         ranking_type=ranking_type, ranking_trigger_words=trigger_words)
