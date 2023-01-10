@@ -26,7 +26,7 @@ import { QueryResult } from "./query_result";
 
 export function App(): JSX.Element {
   const [queries, setQueries] = useState<string[]>([]);
-  const [contextHistory, setContextList] = useState<any[]>([]);
+  const [contextList, setContextList] = useState<any[]>([]);
 
   useEffect(() => {
     // Scroll to the last query.
@@ -55,7 +55,7 @@ export function App(): JSX.Element {
       );
       return;
     }
-    const newList = [...contextHistory];
+    const newList = [...contextList];
     newList.push(context);
     setContextList(newList);
   }
@@ -65,7 +65,7 @@ export function App(): JSX.Element {
       key={i}
       queryIdx={i}
       query={q}
-      contextHistory={contextHistory.slice(0, i)}
+      contextHistory={contextList.slice(0, i)}
       addContextCallback={addContext}
     ></QueryResult>
   ));
