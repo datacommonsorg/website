@@ -72,7 +72,11 @@ export function QuerySearch(props: QuerySearchPropType): JSX.Element {
                 props.onQuerySearched(q);
               }}
               initialValue=""
-              placeholder='For example "family earnings in california"'
+              placeholder={
+                _.isEmpty(props.queries)
+                  ? 'For example "family earnings in california"'
+                  : ""
+              }
               shouldAutoFocus={true}
               clearValueOnSearch={true}
             />
