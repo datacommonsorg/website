@@ -48,6 +48,8 @@ interface BarTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 interface BarChartData {
@@ -89,7 +91,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       title={props.title}
       sources={barChartData.sources}
       replacementStrings={rs}
-      className="bar-chart"
+      className={`${props.className} bar-chart`}
       allowEmbed={true}
       getDataCsv={() => dataGroupsToCsv(barChartData.dataGroup)}
     >

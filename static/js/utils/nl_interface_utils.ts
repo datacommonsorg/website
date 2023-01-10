@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,9 @@
  */
 
 /**
- * Entrypoint for NL interface.
+ * Utils used for the nl interface
  */
-
-import React from "react";
-import ReactDOM from "react-dom";
-
-import { App } from "./app";
-
-window.onload = () => {
-  renderPage();
-};
-
-function renderPage(): void {
-  ReactDOM.render(
-    React.createElement(App),
-    document.getElementById("nl-interface")
-  );
+export function isNlInterface() {
+  // Returns true if currently on the NL page.
+  return window.location.pathname === "/nl";
 }

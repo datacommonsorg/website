@@ -20,7 +20,7 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
-from lib.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
+from lib.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 import pandas as pd
 import re
 import requests
@@ -425,8 +425,10 @@ def _result_with_debug_info(data_dict,
               clustering_classification,
           'correlation_classification':
               correlation_classification,
-          'data_spec':
-              data_spec,
+          'primary_sv':
+              data_spec.primary_sv,
+          'primary_sv_siblings':
+              data_spec.primary_sv_siblings
       },
   }
   # Set the context which contains everything except the charts config.
@@ -509,6 +511,19 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     classifications.append(temporal_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
+    
+    # Check if the contained in referred to COUNTRY type. If so,
+    # and the default location was chosen, then set it to Earth.
+    if (place_detection.using_default_place and
+        (contained_in_classification.attributes.contained_in_place_type
+         == ContainedInPlaceType.COUNTRY)):
+      logging.info(
+          "Changing detected place to Earth because no place was detected and contained in is about countries."
+      )
+      place_detection.main_place.dcid = "Earth"
+      place_detection.main_place.name = "Earth"
+      place_detection.main_place.place_type = "Place"
+      place_detection.using_default_place = False
 
   # Correlation classification
   correlation_classification = model.heuristic_correlation_classification(query)
@@ -518,6 +533,10 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
 
   # Clustering-based different SV detection is only enabled in LOCAL.
   clustering_classification = None
+
+
+  # Clustering-based different SV detection is only enabled in LOCAL.
+  correlation_classification = None
   if os.environ.get('FLASK_ENV') == 'local' and svs_scores_dict:
     # Embeddings Indices.
     sv_index_sorted = []

@@ -27,6 +27,7 @@ import {
   EventTypeSpec,
   TileConfig,
 } from "../../types/subject_page_proto_types";
+import { isNlInterface } from "../../utils/nl_interface_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
@@ -52,10 +53,16 @@ export interface BlockPropType {
   svgChartHeight: number;
 }
 
+const NUM_TILES_SHOWN = 6; // for NL: show 2 rows (3 tiles per row).
+const HIDE_TILE_CLASS = "tile-hidden";
+
 export function Block(props: BlockPropType): JSX.Element {
   const columnWidth = props.columns
     ? `${(100 / props.columns.length).toFixed(2)}%`
     : "0";
+  // HACK for NL. Assumes all charts are in a single column.
+  const showExpando = isNlInterface();
+  const minIdxToHide = showExpando ? NUM_TILES_SHOWN : -1;
   return (
     <section
       className={`block subtopic ${props.title ? "" : "notitle"}`}
@@ -66,13 +73,20 @@ export function Block(props: BlockPropType): JSX.Element {
       <div className="block-body row">
         {props.columns &&
           props.columns.map((column, idx) => {
+            const parentId = `${props.id}-col-${idx}`;
             return (
               <div
-                key={`${props.id}-col-${idx}`}
+                key={parentId}
+                id={parentId}
                 className="block-column"
                 style={{ width: columnWidth }}
               >
-                {renderTiles(column.tiles, props)}
+                {renderTiles(column.tiles, props, minIdxToHide)}
+                {showExpando && column.tiles.length > NUM_TILES_SHOWN && (
+                  <a className="expando" onClick={expandoCallback}>
+                    Show more
+                  </a>
+                )}
               </div>
             );
           })}
@@ -81,13 +95,33 @@ export function Block(props: BlockPropType): JSX.Element {
   );
 }
 
-function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
+const expandoCallback = function (e) {
+  // Callback to remove HIDE_TILE_CLASS from all sibling elements. Assumes
+  // target link is the child of the container with elements to toggle.
+  const selfEl = e.target as HTMLAnchorElement;
+  const parentEl = selfEl.parentElement;
+  const tiles = parentEl.getElementsByClassName(
+    HIDE_TILE_CLASS
+  ) as HTMLCollectionOf<HTMLElement>;
+  for (let i = 0; i < tiles.length; i++) {
+    tiles[i].classList.remove(HIDE_TILE_CLASS);
+  }
+  selfEl.hidden = true;
+  e.preventDefault();
+};
+
+function renderTiles(
+  tiles: TileConfig[],
+  props: BlockPropType,
+  minIdxToHide: number
+): JSX.Element {
   if (!tiles) {
     return <></>;
   }
-  const tilesJsx = tiles.map((tile) => {
+  const tilesJsx = tiles.map((tile, i) => {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
+    const className = i >= minIdxToHide ? HIDE_TILE_CLASS : "";
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
@@ -108,6 +142,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
             svgChartHeight={props.svgChartHeight}
+            className={className}
           />
         );
       case "LINE":
@@ -119,6 +154,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
+            className={className}
           />
         );
       case "RANKING":
@@ -131,6 +167,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
+            className={className}
           />
         );
       case "BAR":
@@ -144,6 +181,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
+            className={className}
           />
         );
       case "SCATTER":
@@ -156,6 +194,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
+            className={className}
           />
         );
       case "BIVARIATE":
@@ -168,6 +207,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
+            className={className}
           />
         );
       case "DESCRIPTION":
@@ -202,6 +242,7 @@ function renderTiles(tiles: TileConfig[], props: BlockPropType): JSX.Element {
             place={props.place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
+            className={className}
           />
         );
       default:
