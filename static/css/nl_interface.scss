@@ -76,6 +76,7 @@ $answer-min-height: 100vh;
   }
 }
 
+.nl-query-error,
 .nl-query {
   padding: $query-vertical-margin 0;
 }
@@ -139,7 +140,8 @@ $answer-min-height: 100vh;
 .expando,
 .expando:hover,
 h2,
-h3 {
+h3,
+.nl-query-error p {
   color: white;
 }
 
