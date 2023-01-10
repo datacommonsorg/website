@@ -45,12 +45,14 @@ class ContainedPlaceSpec:
 
 @dataclass
 class DataSpec:
-  main: MainPlaceSpec
-  nearby: NearbyPlaceSpec
-  contained: ContainedPlaceSpec
+  main_place_spec: MainPlaceSpec
+  nearby_place_spec: NearbyPlaceSpec
+  contained_place_spec: ContainedPlaceSpec
   selected_svs: List[str]
   expanded_svs: List[str]
   extended_sv_map: Dict[str, List[str]]
+  primary_sv: str
+  primary_sv_siblings: List[str]
 
 
 def _get_related_places(place_dcid):
@@ -170,18 +172,20 @@ def compute(query_detection: Detection):
   for sv, svs in extended_sv_map.items():
     all_svs.extend(svs)
 
-  data_spec = DataSpec(main=MainPlaceSpec(place=main_place_dcid,
-                                          name=main_place_name,
-                                          type=main_place_type,
-                                          svs=[]),
-                       nearby=NearbyPlaceSpec(sv2places={}),
-                       contained=ContainedPlaceSpec(
+  data_spec = DataSpec(main_place_spec=MainPlaceSpec(place=main_place_dcid,
+                                                     name=main_place_name,
+                                                     type=main_place_type,
+                                                     svs=[]),
+                       nearby_place_spec=NearbyPlaceSpec(sv2places={}),
+                       contained_place_spec=ContainedPlaceSpec(
                            containing_place=main_place_dcid,
                            contained_place_type=contained_place_type,
                            svs=[]),
                        selected_svs=selected_svs,
                        expanded_svs=expanded_svs,
-                       extended_sv_map=extended_sv_map)
+                       extended_sv_map=extended_sv_map,
+                       primary_sv="",
+                       primary_sv_siblings=[])
 
   if not all_svs:
     logging.info("No SVs to use for existence.")
@@ -199,12 +203,17 @@ def compute(query_detection: Detection):
       if not exist:
         continue
       if place == main_place_dcid:
-        data_spec.main.svs.append(sv)
+        data_spec.main_place_spec.svs.append(sv)
       elif place == sample_child_place:
-        data_spec.contained.svs.append(sv)
+        data_spec.contained_place_spec.svs.append(sv)
       else:
-        if sv not in data_spec.nearby.sv2places:
-          data_spec.nearby.sv2places[sv] = []
-        data_spec.nearby.sv2places[sv].append(place)
+        if sv not in data_spec.nearby_place_spec.sv2places:
+          data_spec.nearby_place_spec.sv2places[sv] = []
+        data_spec.nearby_place_spec.sv2places[sv].append(place)
+
+  # Find the first sv, it may not have data for main place
+  # But this logic might change.
+  data_spec.primary_sv = data_spec.selected_svs[0]
+  data_spec.primary_sv_siblings = data_spec.extended_sv_map[selected_svs[0]]
 
   return data_spec
