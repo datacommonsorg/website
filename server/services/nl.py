@@ -50,20 +50,19 @@ MODEL_NAME = 'all-MiniLM-L6-v2'
 QUERY_CLASSIFICATION_HEURISTICS = {
     "Ranking": {
         "High": [
-          "most",
-          "top",
-          "best",
-          "highest",
-          "smallest",
-          "tallest",
-          "strongest",
-          "oldest",
-          "furthest",
-          "descending",
-          "top to bottom",
-          "highest to lowest",
+            "most",
+            "top",
+            "best",
+            "highest",
+            "smallest",
+            "tallest",
+            "strongest",
+            "oldest",
+            "furthest",
+            "descending",
+            "top to bottom",
+            "highest to lowest",
         ],
-
         "Low": [
             "least",
             "bottom",
@@ -202,7 +201,8 @@ class Model:
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
 
-  def heuristic_ranking_classification(self, query) -> Union[NLClassifier, None]:
+  def heuristic_ranking_classification(self,
+                                       query) -> Union[NLClassifier, None]:
     """Determine if query is a ranking type.
 
     Uses heuristics instead of ML-based classification.
@@ -213,9 +213,7 @@ class Model:
     Returns:
       NLClassifier with RankingClassificationAttributes
     """
-    # remove punctuation and make query lowercase
-    translator = str.maketrans('', '', string.punctuation)
-    query = query.translate(translator)
+    # make query lowercase for str matching
     query = query.lower()
 
     ranking_type = []
@@ -239,9 +237,9 @@ class Model:
     trigger_words = high_matches + low_matches
     if len(trigger_words) == 0:
       ranking_type = [RankingType.NONE]
-    
-    attributes = RankingClassificationAttributes(ranking_type=ranking_type,
-                                                 ranking_trigger_words=trigger_words)
+
+    attributes = RankingClassificationAttributes(
+        ranking_type=ranking_type, ranking_trigger_words=trigger_words)
     return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:

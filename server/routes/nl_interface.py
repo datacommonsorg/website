@@ -316,7 +316,7 @@ def _dc_recon(place_ids):
 
 def _remove_punctuations(s):
   s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', '', s)
+  s = re.sub(r'[^\w\s]', ' ', s)
   return s
 
 
@@ -428,7 +428,7 @@ def _result_with_debug_info(data_dict,
   data_dict.update(debug_info)
   charts_config = data_dict.pop('config', {})
   return {'context': data_dict, 'config': charts_config}
-  
+
 
 def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   default_place = "United States"
