@@ -115,6 +115,12 @@ $answer-min-height: 100vh;
     }
   }
 
+  .chart-container.place-overview-tile {
+    width: 100%;
+  }
+
+  .bar-chart .legend,
+  .line-chart .legend
   .bar-chart .legend {
     display: none;
   }

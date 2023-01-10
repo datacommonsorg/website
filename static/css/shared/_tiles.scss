@@ -304,12 +304,25 @@ $border-radius: 0.5rem;
   }
 }
 
+/**
+ * place overview tile
+ */
 
+.chart-container.place-overview-tile {
+  font-size: 1rem;
+  background-color: white;
 
+  .factoid {
+    padding: 0 !important;
+  }
 
+  .row {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+  }
+}
 
-
-
-
-
-
+#map-container {
+  height: 100%;
+  min-height: 200px;
+}
