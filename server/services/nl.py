@@ -336,6 +336,7 @@ class Model:
     return NLClassifier(type=ClassificationType.CONTAINED_IN,
                         attributes=attributes)
 
+  # TODO (juliawu): add unit testing
   def heuristic_correlation_classification(
       self, query: str) -> Union[NLClassifier, None]:
     """Determine if query is asking for a correlation.
