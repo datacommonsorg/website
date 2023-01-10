@@ -20,19 +20,19 @@
 
 import axios from "axios";
 import React, { createRef, memo, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
 import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
 
-const contextHistoryAge = 3600; // Seconds
-const maxContextHistoryEntry = 10;
 const SVG_CHART_HEIGHT = 160;
 
 export interface QueryResultProps {
   query: string;
+  queryIdx: number;
+  contextHistory: any[];
+  addContextCallback: (any, number) => void;
 }
 
 export const QueryResult = memo(function QueryResult(
@@ -41,7 +41,6 @@ export const QueryResult = memo(function QueryResult(
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [selectedBuild, setSelectedBuild] = useState(BUILD_OPTIONS[0].value);
   const [isLoading, setIsLoading] = useState(true);
-  const [cookies, setCookie] = useCookies();
   const [debugData, setDebugData] = useState<any>();
   const scrollRef = createRef<HTMLDivElement>();
 
@@ -65,9 +64,10 @@ export const QueryResult = memo(function QueryResult(
 
   function fetchData(query: string, build: string): void {
     setIsLoading(true);
+    console.log("context:", props.query, props.contextHistory);
     axios
       .post(`/nl/data?q=${query}&build=${build}`, {
-        contextHistory: cookies["context_history"],
+        contextHistory: props.contextHistory,
       })
       .then((resp) => {
         if (
@@ -75,20 +75,12 @@ export const QueryResult = memo(function QueryResult(
           resp.data["config"] === undefined
         ) {
           setIsLoading(false);
+          props.addContextCallback(undefined, props.queryIdx);
           return;
         }
         const context: any = resp.data["context"];
-        // TODO: Move this logic out to app.tsx
-        // Set cookies with the new context.
-        const contextHistory: any[] = cookies["context_history"] || [];
-        if (contextHistory.length === maxContextHistoryEntry) {
-          contextHistory.shift();
-        }
-        contextHistory.push(context);
-        setCookie("context_history", contextHistory, {
-          maxAge: contextHistoryAge,
-          path: "/nl",
-        });
+        props.addContextCallback(context, props.queryIdx);
+
         setChartsData({
           place: {
             types: [context["place_type"]],
