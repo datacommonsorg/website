@@ -582,7 +582,7 @@ def _detection(orig_query, cleaned_query, embeddings_build,
                    classifications=classifications)
 
 
-@bp.route('/', strict_slashes=False)
+@bp.route('/', strict_slashes=True)
 def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
