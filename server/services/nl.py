@@ -54,11 +54,12 @@ QUERY_CLASSIFICATION_HEURISTICS = {
             "top",
             "best",
             "highest",
+            "high",
             "smallest",
-            "tallest",
             "strongest",
-            "oldest",
-            "furthest",
+            "richest",
+            "sickest",
+            "illest",
             "descending",
             "top to bottom",
             "highest to lowest",
@@ -68,11 +69,11 @@ QUERY_CLASSIFICATION_HEURISTICS = {
             "bottom",
             "worst",
             "lowest",
+            "low",
             "largest",
-            "shortest",
             "weakest",
             "youngest",
-            "closest",
+            "poorest",
             "ascending",
             "bottom to top",
             "lowest to highest",
@@ -201,6 +202,7 @@ class Model:
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
 
+  # TODO (juliawu): Add unit-testing
   def heuristic_ranking_classification(self,
                                        query) -> Union[NLClassifier, None]:
     """Determine if query is a ranking type.
