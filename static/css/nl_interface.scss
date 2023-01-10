@@ -120,12 +120,6 @@ $answer-min-height: 100vh;
     width: 100%;
   }
 
-  .bar-chart .legend,
-  .line-chart .legend
-  .bar-chart .legend {
-    display: none;
-  }
-
   .block-title {
     display: none;
   }
@@ -146,7 +140,7 @@ h3,
 }
 
 .expando {
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .expando,
