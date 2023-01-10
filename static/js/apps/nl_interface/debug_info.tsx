@@ -25,11 +25,11 @@ import { Col, Row } from "reactstrap";
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
 export const BUILD_OPTIONS = [
+  { value: "us_filtered", text: "Filtered US SVs (PaLM)" },
   {
     value: "curatedJan2022",
     text: "Curated 3.5k+ SVs PaLM(Jan2022) - Default",
   },
-  { value: "us_filtered", text: "Filtered US SVs (PaLM)" },
   { value: "demographics300", text: "Demographics only (300 SVs)" },
   {
     value: "demographics300-withpalmalternatives",
@@ -220,7 +220,10 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>SVs Matched (with scores):</b>
+            <b>All SVs Matched (with scores):</b>
+          </Row>
+          <Row>
+            Note: SVs with scores <b>less than 0.4</b> are not used.
           </Row>
           <Row>
             <Col>{matchScoresElement(debugInfo.svScores)}</Col>
