@@ -61,7 +61,7 @@ export function PlaceOverviewTile(
       </div>
       {!_.isEmpty(subtopics) && (
         <div className="subtopics-section">
-          <h3>See more about:</h3>
+          <h3>Learn more about:</h3>
           <div className="subtopic-links-container">
             {subtopics.map((subTopic) => {
               return (
