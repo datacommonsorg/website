@@ -38,6 +38,8 @@ interface HistogramTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 interface HistogramData {
@@ -83,7 +85,7 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
       title={props.title}
       sources={histogramData.sources}
       replacementStrings={rs}
-      className="histogram-chart"
+      className={`${props.className} histogram-chart`}
       allowEmbed={true}
       getDataCsv={() => dataPointsToCsv(histogramData.dataPoints)}
     >

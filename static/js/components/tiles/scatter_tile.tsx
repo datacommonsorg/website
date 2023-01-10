@@ -46,6 +46,8 @@ interface ScatterTilePropType {
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
+  // Extra classes to add to the container.
+  className?: string;
 }
 
 interface RawData {
@@ -103,7 +105,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       title={props.title}
       sources={scatterChartData.sources}
       replacementStrings={rs}
-      className="scatter-chart"
+      className={`${props.className} scatter-chart`}
       allowEmbed={true}
       getDataCsv={() =>
         scatterDataToCsv(
