@@ -222,7 +222,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <b>All SVs Matched (with scores):</b>
           </Row>
-          <Row>Note: SVs with scores <b>less than 0.4</b> are not used.</Row>
+          <Row>
+            Note: SVs with scores <b>less than 0.4</b> are not used.
+          </Row>
           <Row>
             <Col>{matchScoresElement(debugInfo.svScores)}</Col>
           </Row>

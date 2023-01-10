@@ -257,7 +257,9 @@ class Model:
         cutoff_index = i
 
     if cutoff_index == 0:
-      logging.info(f"Not clustering. No SV matching score was > {sv_matching_score_cutoff}")
+      logging.info(
+          f"Not clustering. No SV matching score was > {sv_matching_score_cutoff}"
+      )
       return None
 
     embedding_vectors = []
