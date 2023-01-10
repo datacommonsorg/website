@@ -47,21 +47,26 @@ EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
-STOP_WORDS = {'ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there', 'about', 'once', 
-              'during', 'out', 'very', 'having', 'with', 'they', 'own', 'an', 'be', 'some', 'for', 
-              'do', 'its', 'yours', 'such', 'into', 'of', 'most', 'itself', 'other', 'off', 'is', 
-              's', 'am', 'or', 'who', 'as', 'from', 'him', 'each', 'the', 'themselves', 'until', 
-              'below', 'are', 'we', 'these', 'your', 'his', 'through', 'don', 'nor', 'me', 'were', 
-              'her', 'more', 'himself', 'this', 'down', 'should', 'our', 'their', 'while', 'above', 
-              'both', 'up', 'to', 'ours', 'had', 'she', 'all', 'no', 'when', 'at', 'any', 'before', 
-              'them', 'same', 'and', 'been', 'have', 'in', 'will', 'on', 'does', 'yourselves', 'then', 
-              'that', 'because', 'what', 'over', 'why', 'so', 'can', 'did', 'not', 'now', 'under', 
-              'he', 'you', 'herself', 'has', 'just', 'where', 'too', 'only', 'myself', 'which', 
-              'those', 'i', 'after', 'few', 'whom', 't', 'being', 'if', 'theirs', 'my', 'against', 
-              'a', 'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than'}
+STOP_WORDS = {
+    'ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there',
+    'about', 'once', 'during', 'out', 'very', 'having', 'with', 'they', 'own',
+    'an', 'be', 'some', 'for', 'do', 'its', 'yours', 'such', 'into', 'of',
+    'most', 'itself', 'other', 'off', 'is', 's', 'am', 'or', 'who', 'as',
+    'from', 'him', 'each', 'the', 'themselves', 'until', 'below', 'are', 'we',
+    'these', 'your', 'his', 'through', 'don', 'nor', 'me', 'were', 'her',
+    'more', 'himself', 'this', 'down', 'should', 'our', 'their', 'while',
+    'above', 'both', 'up', 'to', 'ours', 'had', 'she', 'all', 'no', 'when',
+    'at', 'any', 'before', 'them', 'same', 'and', 'been', 'have', 'in', 'will',
+    'on', 'does', 'yourselves', 'then', 'that', 'because', 'what', 'over',
+    'why', 'so', 'can', 'did', 'not', 'now', 'under', 'he', 'you', 'herself',
+    'has', 'just', 'where', 'too', 'only', 'myself', 'which', 'those', 'i',
+    'after', 'few', 'whom', 't', 'being', 'if', 'theirs', 'my', 'against', 'a',
+    'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than'
+}
 
+# TODO: remove this special casing when a better NER model is identified which
+# can always detect these.
 SPECIAL_PLACES = {'cambridge', 'palo alto', 'mountain view'}
-
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
@@ -112,6 +117,7 @@ QUERY_CLASSIFICATION_HEURISTICS = {
     ],
 }
 
+
 def _remove_stop_words(input):
   res = input.lower().split()
   output = ''
@@ -122,6 +128,7 @@ def _remove_stop_words(input):
     return ''
   else:
     return output[:-1]
+
 
 def pick_best(probs):
   """Whether to pick the most probable label or not."""
@@ -609,15 +616,16 @@ class Model:
     for special_place in SPECIAL_PLACES:
       if special_place in query_without_stop_words:
         logging.info(f"Found one of the Special Places: {special_place}")
+        # Appending a ", USA" to help finding this place via Maps.
         return [special_place + ", USA"]
-    
+
     places_found = []
     # Now try all versions of the query.
-    for q in [query, query_without_stop_words, query_with_period, query_title_case]:
+    for q in [
+        query, query_without_stop_words, query_with_period, query_title_case
+    ]:
       places_found = self._detect_place_helper(q)
       if places_found:
         break
-    
+
     return places_found
-    
-    
