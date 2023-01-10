@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { createRef, memo, useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
@@ -43,12 +44,12 @@ export const QueryResult = memo(function QueryResult(
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
   const scrollRef = createRef<HTMLDivElement>();
+  const [errorMsg, setErrorMsg] = useState<string | undefined>();
 
   useEffect(() => {
     // Scroll to the top (assuming this is the last query to render, and other queries are memoized).
     // HACK: use a longer timeout to correct scroll errors after charts have rendered.
     const timer = setTimeout(() => {
-      console.log(`self-scrolling to top: ${props.query}`);
       scrollRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -81,20 +82,35 @@ export const QueryResult = memo(function QueryResult(
         const context: any = resp.data["context"];
         props.addContextCallback(context, props.queryIdx);
 
-        setChartsData({
-          place: {
-            types: [context["place_type"]],
-            name: context["place_name"],
-            dcid: context["place_dcid"],
-          },
-          config: resp.data["config"],
-        });
-        if (context["debug"] === undefined) {
-          setIsLoading(false);
-          return;
+        // Filter out empty categories.
+        const categories = _.get(resp, ["data", "config", "categories"], []);
+        _.remove(categories, (c) => _.isEmpty(c));
+        if (categories.length > 0) {
+          setChartsData({
+            place: {
+              types: [context["place_type"]],
+              name: context["place_name"],
+              dcid: context["place_dcid"],
+            },
+            config: resp.data["config"],
+          });
+        } else {
+          setErrorMsg(
+            "Sorry, we couldn't answer your question. Could you try again?"
+          );
         }
-        setDebugData(context["debug"]);
+        if (context["debug"] !== undefined) {
+          setDebugData(context["debug"]);
+        }
         setIsLoading(false);
+      })
+      .catch((error) => {
+        props.addContextCallback(undefined, props.queryIdx);
+        console.error("Error fetching data for", props.query, error);
+        setIsLoading(false);
+        setErrorMsg(
+          "Sorry, we didn’t understand your question. Could you try again?"
+        );
       });
   }
   return (
@@ -119,6 +135,11 @@ export const QueryResult = memo(function QueryResult(
               pageConfig={chartsData.config}
               svgChartHeight={SVG_CHART_HEIGHT}
             />
+          )}
+          {errorMsg && (
+            <div className="nl-query-error">
+              <p>{errorMsg}</p>
+            </div>
           )}
           {isLoading && (
             <div className="dot-loading-stage">

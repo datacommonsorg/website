@@ -63,7 +63,7 @@ export function Block(props: BlockPropType): JSX.Element {
     : "0";
   // HACK for NL. Assumes all charts are in a single column.
   const showExpando = isNlInterface();
-  const minIdxToHide = showExpando ? NUM_TILES_SHOWN : -1;
+  const minIdxToHide = showExpando ? NUM_TILES_SHOWN : Number.MAX_SAFE_INTEGER;
   return (
     <section
       className={`block subtopic ${props.title ? "" : "notitle"}`}

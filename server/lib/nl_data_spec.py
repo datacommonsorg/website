@@ -87,7 +87,9 @@ def _highlight_svs(sv_df):
 
 
 def _sample_child_place(main_place_dcid, contained_place_type):
-  # Find child place, this is
+  # Find a sampled child place
+  if contained_place_type == "City":
+    return "geoId/0667000"
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
     return child_places[main_place_dcid][0]
@@ -213,7 +215,8 @@ def compute(query_detection: Detection):
 
   # Find the first sv, it may not have data for main place
   # But this logic might change.
-  data_spec.primary_sv = data_spec.selected_svs[0]
-  data_spec.primary_sv_siblings = data_spec.extended_sv_map[selected_svs[0]]
+  data_spec.primary_sv = data_spec.main_place_spec.svs[0]
+  data_spec.primary_sv_siblings = data_spec.extended_sv_map[
+      data_spec.primary_sv]
 
   return data_spec
