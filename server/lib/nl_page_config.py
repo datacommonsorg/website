@@ -356,6 +356,8 @@ def build_page_config(detection: Detection, data_spec: DataSpec):
   # Also assumes that
   #    - previous context had a primary_sv that was not "".
   #    - data_spec.selected_svs is not empty
+  # TODO: Walk up history chain to find context_sv
+  # TODO: add check for data_spec.selected_svs 
   elif classificationType == ClassificationType.CORRELATION:
 
     # get first stat var from previous context
