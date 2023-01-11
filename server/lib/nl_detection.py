@@ -75,7 +75,8 @@ class RankingType(Enum):
   # Necessary for processing SVs wth negative intent
   # Ex: "Worst cities by crime" -> show HIGH crime cities
   WORST = 4
-  
+
+
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
   # PLACE is the most generic type.

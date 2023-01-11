@@ -90,7 +90,7 @@ QUERY_CLASSIFICATION_HEURISTICS = {
         "Low": [
             "least",
             "bottom",
-            "worst", # leaving here for backwards-compatibility
+            "worst",  # leaving here for backwards-compatibility
             "lowest",
             "low",
             "largest",
@@ -266,10 +266,10 @@ class Model:
       NLClassifier with RankingClassificationAttributes
     """
     subtype_map = {
-      "High": RankingType.HIGH,
-      "Low": RankingType.LOW,
-      "Best": RankingType.BEST,
-      "Worst": RankingType.WORST,
+        "High": RankingType.HIGH,
+        "Low": RankingType.LOW,
+        "Best": RankingType.BEST,
+        "Worst": RankingType.WORST,
     }
 
     # make query lowercase for string matching
@@ -284,7 +284,7 @@ class Model:
       for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"][subtype]:
         regex = r"(^|\W)" + keyword + r"($|\W)"
         type_trigger_words += [w.group() for w in re.finditer(regex, query)]
-      
+
       if len(type_trigger_words) > 0:
         ranking_types.append(subtype_map[subtype])
       all_trigger_words += type_trigger_words
