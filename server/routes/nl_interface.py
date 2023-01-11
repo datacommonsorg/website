@@ -354,7 +354,7 @@ def _infer_place_dcid(places_found):
 
 
 def _empty_svs_score_dict():
-  return {"SV": [], "CosineScore": []}
+  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
 def _result_with_debug_info(data_dict,
@@ -365,7 +365,8 @@ def _result_with_debug_info(data_dict,
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
-      'CosineScore': query_detection.svs_detected.sv_scores
+      'CosineScore': query_detection.svs_detected.sv_scores,
+      'SV_to_Sentences': query_detection.svs_detected.svs_to_sentences
   }
   svs_to_sentences = query_detection.svs_detected.svs_to_sentences
 
@@ -526,8 +527,9 @@ def _detection(orig_query, cleaned_query, embeddings_build,
   classifications = []
   if ranking_classification is not None:
     classifications.append(ranking_classification)
-  if temporal_classification is not None:
-    classifications.append(temporal_classification)
+  # TODO: reintroduce temporal classification at some point.
+  # if temporal_classification is not None:
+  #   classifications.append(temporal_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
 

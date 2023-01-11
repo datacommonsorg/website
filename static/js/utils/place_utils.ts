@@ -23,7 +23,6 @@ import {
 } from "../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
-import { stringifyFn } from "./axios";
 
 let ps: google.maps.places.PlacesService;
 
@@ -168,11 +167,8 @@ export function getPlaceNames(
     return Promise.resolve({});
   }
   return axios
-    .get("/api/place/name", {
-      params: {
-        dcids: dcids,
-      },
-      paramsSerializer: stringifyFn,
+    .post("/api/place/name", {
+      dcids: dcids,
     })
     .then((resp) => {
       return resp.data;

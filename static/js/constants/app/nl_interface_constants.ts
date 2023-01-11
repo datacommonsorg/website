@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,31 +15,9 @@
  */
 
 /**
- * Styling for ranking unit component.
+ * Constants used by nl_interface.
  */
 
-.ranking-list {
-  width: 100%;
-
-  td {
-    font-size: .9rem;
-    vertical-align: top;
-  }
-
-  table {
-    width: 100%;
-  }
-
-  td.rank {
-    width: 10%;
-  }
-
-  td.stat {
-    width: 25%;
-    text-align: right;
-  }
-  
-  .bold {
-    font-weight: 600;
-  }
-}
+export const NL_SMALL_TILE_CLASS = "tile-sm";
+export const NL_MED_TILE_CLASS = "tile-md";
+export const NL_LARGE_TILE_CLASS = "tile-lg";

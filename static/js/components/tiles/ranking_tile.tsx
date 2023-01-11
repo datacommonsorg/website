@@ -64,10 +64,18 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     fetchData(props, setRankingData);
   }, [props]);
 
+  const numRankingLists = getNumRankingLists(
+    props.rankingMetadata,
+    rankingData
+  );
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
       ref={chartContainer}
+      style={{
+        gridTemplateColumns:
+          numRankingLists > 1 ? "repeat(2, 1fr)" : "repeat(1, 1fr)",
+      }}
     >
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
@@ -79,21 +87,24 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           return (
             <React.Fragment key={statVar}>
               {props.rankingMetadata.showHighest && (
-                <div>
+                <div className="ranking-unit-container">
                   <RankingUnit
                     key={`${statVar}-highest`}
                     unit={unit}
                     scaling={scaling}
-                    title={formatString(
-                      props.rankingMetadata.highestTitle
-                        ? props.rankingMetadata.highestTitle
-                        : "Highest ${statVar}",
-                      {
-                        date: "",
-                        place: "",
-                        statVar: svName,
-                      }
-                    )}
+                    title={
+                      props.title ||
+                      formatString(
+                        props.rankingMetadata.highestTitle
+                          ? props.rankingMetadata.highestTitle
+                          : "Highest ${statVar}",
+                        {
+                          date: "",
+                          place: "",
+                          statVar: svName,
+                        }
+                      )
+                    }
                     points={points.slice(-RANKING_COUNT).reverse()}
                     isHighest={true}
                   />
@@ -115,16 +126,19 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     key={`${statVar}-lowest`}
                     unit={unit}
                     scaling={scaling}
-                    title={formatString(
-                      props.rankingMetadata.lowestTitle
-                        ? props.rankingMetadata.lowestTitle
-                        : "Lowest ${statVar}",
-                      {
-                        date: "",
-                        place: "",
-                        statVar: svName,
-                      }
-                    )}
+                    title={
+                      props.title ||
+                      formatString(
+                        props.rankingMetadata.lowestTitle
+                          ? props.rankingMetadata.lowestTitle
+                          : "Lowest ${statVar}",
+                        {
+                          date: "",
+                          place: "",
+                          statVar: svName,
+                        }
+                      )
+                    }
                     numDataPoints={numDataPoints}
                     points={points.slice(0, RANKING_COUNT)}
                     isHighest={false}
@@ -242,4 +256,23 @@ function fetchData(
         setRankingData(rankingData);
       });
     });
+}
+
+/**
+ * Gets the number of ranking lists that will be shown
+ * @param rankingTileSpec ranking tile specifications
+ * @param rankingData ranking data to be shown
+ */
+function getNumRankingLists(
+  rankingTileSpec: RankingTileSpec,
+  rankingData: { [sv: string]: RankingGroup }
+): number {
+  let numListsPerSv = 0;
+  if (rankingTileSpec.showHighest) {
+    numListsPerSv++;
+  }
+  if (rankingTileSpec.showLowest) {
+    numListsPerSv++;
+  }
+  return rankingData ? Object.keys(rankingData).length * numListsPerSv : 0;
 }

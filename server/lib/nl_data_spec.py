@@ -88,7 +88,9 @@ def _highlight_svs(sv_df):
 
 
 def _sample_child_place(main_place_dcid, contained_place_type):
-  # Find child place, this is
+  # Find a sampled child place
+  if contained_place_type == "City":
+    return "geoId/0667000"
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
     return child_places[main_place_dcid][0]
@@ -208,6 +210,10 @@ def compute(query_detection: Detection):
     all_places.append(sample_child_place)
 
   sv_existence = dc.observation_existence(all_svs, all_places)
+  if not sv_existence:
+    logging.info("Existence checks for SVs failed.")
+    return data_spec
+
   for sv in all_svs:
     for place, exist in sv_existence['variable'][sv]['entity'].items():
       if not exist:

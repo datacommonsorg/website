@@ -37,7 +37,7 @@ from collections import OrderedDict
 import re
 
 BUILDS = [
-    'demographics300',  #'uncurated3000', 
+    'demographics300',  #'uncurated3000',
     'demographics300-withpalmalternatives',
     'curatedJan2022',
     'us_filtered',
@@ -47,6 +47,27 @@ EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
+STOP_WORDS = {
+    'ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there',
+    'about', 'once', 'during', 'out', 'very', 'having', 'with', 'they', 'own',
+    'an', 'be', 'some', 'for', 'do', 'its', 'yours', 'such', 'into', 'of',
+    'most', 'itself', 'other', 'off', 'is', 's', 'am', 'or', 'who', 'as',
+    'from', 'him', 'each', 'the', 'themselves', 'until', 'below', 'are', 'we',
+    'these', 'your', 'his', 'through', 'don', 'nor', 'me', 'were', 'her',
+    'more', 'himself', 'this', 'down', 'should', 'our', 'their', 'while',
+    'above', 'both', 'up', 'to', 'ours', 'had', 'she', 'all', 'no', 'when',
+    'at', 'any', 'before', 'them', 'same', 'and', 'been', 'have', 'in', 'will',
+    'on', 'does', 'yourselves', 'then', 'that', 'because', 'what', 'over',
+    'why', 'so', 'can', 'did', 'not', 'now', 'under', 'he', 'you', 'herself',
+    'has', 'just', 'where', 'too', 'only', 'myself', 'which', 'those', 'i',
+    'after', 'few', 'whom', 't', 'being', 'if', 'theirs', 'my', 'against', 'a',
+    'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than'
+}
+
+# TODO: remove this special casing when a better NER model is identified which
+# can always detect these.
+SPECIAL_PLACES = {'cambridge', 'palo alto', 'mountain view'}
+
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
 QUERY_CLASSIFICATION_HEURISTICS = {
@@ -54,7 +75,7 @@ QUERY_CLASSIFICATION_HEURISTICS = {
         "High": [
             "most",
             "top",
-            "best",
+            "best",  # leaving here for backwards-compatibility
             "highest",
             "high",
             "smallest",
@@ -69,7 +90,7 @@ QUERY_CLASSIFICATION_HEURISTICS = {
         "Low": [
             "least",
             "bottom",
-            "worst",
+            "worst",  # leaving here for backwards-compatibility
             "lowest",
             "low",
             "largest",
@@ -80,6 +101,8 @@ QUERY_CLASSIFICATION_HEURISTICS = {
             "bottom to top",
             "lowest to highest",
         ],
+        "Best": ["best",],
+        "Worst": ["worst",],
     },
     "Correlation": [
         "correlate",
@@ -95,6 +118,18 @@ QUERY_CLASSIFICATION_HEURISTICS = {
         "versus",
     ],
 }
+
+
+def _remove_stop_words(input):
+  res = input.lower().split()
+  output = ''
+  for w in res:
+    if w not in STOP_WORDS:
+      output += w + " "
+  if not output:
+    return ''
+  else:
+    return output[:-1]
 
 
 def pick_best(probs):
@@ -230,33 +265,36 @@ class Model:
     Returns:
       NLClassifier with RankingClassificationAttributes
     """
-    # make query lowercase for str matching
+    subtype_map = {
+        "High": RankingType.HIGH,
+        "Low": RankingType.LOW,
+        "Best": RankingType.BEST,
+        "Worst": RankingType.WORST,
+    }
+
+    # make query lowercase for string matching
     query = query.lower()
 
-    ranking_type = []
+    ranking_types = []
+    all_trigger_words = []
 
-    # Scan for keywords in high
-    high_matches = []
-    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["High"]:
-      regex = r"(^|\W)" + keyword + r"($|\W)"
-      high_matches += [w.group() for w in re.finditer(regex, query)]
-    if len(high_matches) > 0:
-      ranking_type.append(RankingType.HIGH)
+    for subtype in QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys():
+      type_trigger_words = []
 
-    # Scan for keywords in low
-    low_matches = []
-    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["Low"]:
-      regex = r"(^|\W)" + keyword + r"($|\W)"
-      low_matches += [w.group() for w in re.finditer(regex, query)]
-    if len(low_matches) > 0:
-      ranking_type.append(RankingType.LOW)
+      for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"][subtype]:
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        type_trigger_words += [w.group() for w in re.finditer(regex, query)]
 
-    trigger_words = high_matches + low_matches
-    if len(trigger_words) == 0:
+      if len(type_trigger_words) > 0:
+        ranking_types.append(subtype_map[subtype])
+      all_trigger_words += type_trigger_words
+
+    # If no matches, this query is not a ranking query
+    if len(all_trigger_words) == 0:
       return None
 
     attributes = RankingClassificationAttributes(
-        ranking_type=ranking_type, ranking_trigger_words=trigger_words)
+        ranking_type=ranking_types, ranking_trigger_words=all_trigger_words)
     return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
@@ -465,7 +503,7 @@ class Model:
       type_string: (str) This is the sentence classification type, e.g.
         "ranking", "temporal", "contained_in". Full list is in lib.nl_training.py
       query: (str) The query string supplied.
-    
+
     Returns:
       The NLClassifier object or None.
     """
@@ -502,7 +540,7 @@ class Model:
   def detect_svs(self, query, embeddings_build):
     query_embeddings = self.model.encode([query])
     if embeddings_build not in self.dataset_embeddings_maps:
-      return ValueError(f'Embeddings Build: {embeddings_build} was not found.')
+      raise ValueError(f'Embeddings Build: {embeddings_build} was not found.')
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings_maps[embeddings_build],
                            top_k=20)
@@ -554,7 +592,7 @@ class Model:
         'SV_to_Sentences': all_svs_sentences,
     }
 
-  def detect_place(self, query):
+  def _detect_place_helper(self, query):
     doc = self.ner_model(query)
     places_found_loc_gpe = []
     places_found_fac = []
@@ -571,3 +609,28 @@ class Model:
     if places_found_loc_gpe:
       return places_found_loc_gpe
     return places_found_fac
+
+  def detect_place(self, query):
+    query_without_stop_words = _remove_stop_words(query)
+    query_with_period = query + "."
+    query_title_case = query.title()
+
+    # TODO: work on finding a better fix for important places which are
+    # not getting detected.
+    # First check in special places. If they are found, return those.
+    for special_place in SPECIAL_PLACES:
+      if special_place in query_without_stop_words:
+        logging.info(f"Found one of the Special Places: {special_place}")
+        # Appending a ", USA" to help finding this place via Maps.
+        return [special_place + ", USA"]
+
+    places_found = []
+    # Now try all versions of the query.
+    for q in [
+        query, query_without_stop_words, query_with_period, query_title_case
+    ]:
+      places_found = self._detect_place_helper(q)
+      if places_found:
+        break
+
+    return places_found

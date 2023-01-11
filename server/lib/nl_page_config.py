@@ -19,6 +19,8 @@ from lib.nl_data_spec import DataSpec
 from lib.nl_detection import ClassificationType, Detection, Place, RankingType
 from lib import nl_variable, nl_topic
 from services import datacommons as dc
+import json
+import os
 
 PLACE_TYPE_TO_PLURALS = {
     "place": "places",
@@ -43,6 +45,8 @@ PLACE_TYPE_TO_PLURALS = {
     "administrativearea5": "administrative area 5 places",
 }
 
+CHART_TITLE_CONFIG_RELATIVE_PATH = "../config/nl_page/chart_titles_by_sv.json"
+
 
 def pluralize_place_type(place_type: str) -> str:
   return PLACE_TYPE_TO_PLURALS.get(place_type.lower(),
@@ -51,7 +55,23 @@ def pluralize_place_type(place_type: str) -> str:
 
 def get_sv_name(svs):
   sv2name_raw = dc.property_values(svs, 'name')
-  return {sv: names[0] if names else sv for sv, names in sv2name_raw.items()}
+  uncurated_names = {sv: names[0] if names else sv for sv, names in sv2name_raw.items()}
+  basepath = os.path.dirname(__file__)
+  title_config_path = os.path.abspath(
+      os.path.join(basepath, CHART_TITLE_CONFIG_RELATIVE_PATH))
+  title_by_sv_dcid = {}
+  with open(title_config_path) as f:
+    title_by_sv_dcid = json.load(f)
+  sv_name_map = {}
+  # If a curated name is found return that,
+  # Else return the name property for SV.
+  for sv in svs:
+    if sv in title_by_sv_dcid:
+      sv_name_map[sv] = title_by_sv_dcid[sv]
+    else:
+      sv_name_map[sv] = uncurated_names[sv]
+
+  return sv_name_map
 
 
 def _single_place_single_var_timeline_block(sv_dcid, sv2name):
@@ -265,29 +285,70 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   elif classificationType in [
       ClassificationType.RANKING, ClassificationType.CONTAINED_IN
   ]:
-    if contained_place_spec.svs:
+    if primary_sv in contained_place_spec.svs:
       block = category.blocks.add()
       block.title = "{} in {}".format(
           pluralize_place_type(
               contained_place_spec.contained_place_type).capitalize(),
           main_place_spec.name)
       column = block.columns.add()
-      for sv in contained_place_spec.svs:
-        tile = column.tiles.add()
-        tile.stat_var_key.append(sv)
-        if classifier.type == ClassificationType.RANKING:
-          tile.type = subject_page_pb2.Tile.TileType.RANKING
+      # The main tile
+      tile = column.tiles.add()
+      tile.stat_var_key.append(primary_sv)
+      if classifier.type == ClassificationType.RANKING:
+        tile.type = subject_page_pb2.Tile.TileType.RANKING
+        if "CriminalActivities" in primary_sv:
+          # first check if "best" or "worst"
+          if RankingType.BEST in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_lowest = True
+          elif RankingType.WORST in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_highest = True
+          else:
+            # otherwise, render normally
+            if RankingType.HIGH in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_highest = True
+            if RankingType.LOW in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_lowest = True
+        else:
           if RankingType.HIGH in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_highest = True
           if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
 
-          tile.title = sv2name[sv] + ': rankings within ' + main_place_spec.name
+        tile.title = ''.join(
+            [sv2name[primary_sv], ' in ', main_place_spec.name])
+      else:
+        tile.type = subject_page_pb2.Tile.TileType.MAP
+        tile.title = sv2name[primary_sv] + ' (${date})'
+      category.stat_var_spec[primary_sv].stat_var = primary_sv
+      category.stat_var_spec[primary_sv].name = sv2name[primary_sv]
+
+      # The per capita tile
+      tile = column.tiles.add()
+      sv_key = primary_sv + "_pc"
+      tile.stat_var_key.append(sv_key)
+      if classifier.type == ClassificationType.RANKING:
+        tile.type = subject_page_pb2.Tile.TileType.RANKING
+        if "CriminalActivities" in primary_sv:
+          if RankingType.HIGH in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_lowest = True
+          if RankingType.LOW in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_highest = True
         else:
-          tile.type = subject_page_pb2.Tile.TileType.MAP
-          tile.title = sv2name[sv] + ' (${date})'
-        category.stat_var_spec[sv].stat_var = sv
-        category.stat_var_spec[sv].name = sv2name[sv]
+          if RankingType.HIGH in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_highest = True
+          if RankingType.LOW in classifier.attributes.ranking_type:
+            tile.ranking_tile_spec.show_lowest = True
+
+        tile.title = ''.join(
+            ['Per Capita ', sv2name[primary_sv], ' in ', main_place_spec.name])
+      else:
+        tile.type = subject_page_pb2.Tile.TileType.MAP
+        tile.title = "Per Capita " + sv2name[primary_sv] + ' (${date})'
+      category.stat_var_spec[sv_key].stat_var = primary_sv
+      category.stat_var_spec[sv_key].name = sv2name[primary_sv]
+      category.stat_var_spec[sv_key].denom = "Count_Person"
+
   # # Main place
   # if spec.main.svs:
   #   block = category.blocks.add()
