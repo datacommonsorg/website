@@ -122,9 +122,11 @@ def compute(query_detection: Detection):
   # Use SVs and Places to get relevant data/stats/chart configs.
   related_places = _related_places(main_place_dcid)
 
+  is_contained_in_query = False
   contained_place_type = ""
   for classifier in query_detection.classifications:
     if classifier.type == ClassificationType.CONTAINED_IN:
+      is_contained_in_query = True
       contained_place_type = classifier.attributes.contained_in_place_type.value
   if not contained_place_type:
     if 'childPlacesType' in related_places:
@@ -224,11 +226,13 @@ def compute(query_detection: Detection):
           data_spec.nearby_place_spec.sv2places[sv] = []
         data_spec.nearby_place_spec.sv2places[sv].append(place)
 
-  # Find the first sv, it may not have data for main place
-  # But this logic might change.
-  if data_spec.main_place_spec.svs:
-    data_spec.primary_sv = data_spec.main_place_spec.svs[0]
-    data_spec.primary_sv_siblings = data_spec.extended_sv_map.get(
-        data_spec.primary_sv, [])
+    if is_contained_in_query:
+      if data_spec.contained_place_spec.svs:
+        data_spec.primary_sv = data_spec.contained_place_spec.svs[0]
+    elif data_spec.main_place_spec.svs:
+      data_spec.primary_sv = data_spec.main_place_spec.svs[0]
+    if data_spec.primary_sv:
+      data_spec.primary_sv_siblings = data_spec.extended_sv_map.get(
+          data_spec.primary_sv, [])
 
   return data_spec
