@@ -281,10 +281,10 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   elif classificationType == ClassificationType.CORRELATION:
     block = category.blocks.add()
     column = block.columns.add()
-    sv_1 = primary_sv
-    for sv_2 in main_place_spec.svs:
-      tile = column.tiles.add()
-      tile.stat_var_key.append(sv_2)
+    sv_1 = "Count_Worker_NAICSAgricultureForestryFishingHunting"
+    sv_2 = ""
+    tile = column.tiles.add()
+    tile.stat_var_key.append(sv_2)
 
 
       
