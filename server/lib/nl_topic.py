@@ -90,9 +90,9 @@ _PEER_GROUP_TO_SV = {
 }
 
 _SVPG_NAMES = {
-  "dc/svpg/RealGDPByIndustry": "Breakdown of GDP by Industry",
-  "dc/svpg/AmountOfFarmInventoryByType": "Farm products",
-  "dc/svpg/CountOfFarmInventoryByType": "Poultry and Livestock",
+    "dc/svpg/RealGDPByIndustry": "Breakdown of GDP by Industry",
+    "dc/svpg/AmountOfFarmInventoryByType": "Farm products",
+    "dc/svpg/CountOfFarmInventoryByType": "Poultry and Livestock",
 }
 
 
@@ -111,6 +111,7 @@ def get_topic_peers(sv_dcids: List[str]):
   for sv in sv_dcids:
     ret[sv] = _PEER_GROUP_TO_SV.get(sv, [])
   return ret
+
 
 def svpg_name(sv: str):
   return _SVPG_NAMES.get(sv, sv)

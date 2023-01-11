@@ -114,7 +114,6 @@ def compute(query_detection: Detection):
   main_place_type = places_detected.main_place.place_type
 
   # ========    Get SV info
-  ## update me
   svs_detected = query_detection.svs_detected
   svs_df = pd.DataFrame({
       'SV': svs_detected.sv_dcids,
@@ -173,9 +172,7 @@ def compute(query_detection: Detection):
 
   # Get extended stat var list
   if topic_svs:
-    print(topic_svs)
     selected_svs = topic_svs.copy()
-    print(topic_svs)
     extended_sv_map = nl_topic.get_topic_peers(topic_svs)
   else:
     extended_sv_map = nl_variable.extend_svs(selected_svs)

@@ -55,7 +55,9 @@ def pluralize_place_type(place_type: str) -> str:
 
 def get_sv_name(svs):
   sv2name_raw = dc.property_values(svs, 'name')
-  uncurated_names = {sv: names[0] if names else sv for sv, names in sv2name_raw.items()}
+  uncurated_names = {
+      sv: names[0] if names else sv for sv, names in sv2name_raw.items()
+  }
   basepath = os.path.dirname(__file__)
   title_config_path = os.path.abspath(
       os.path.join(basepath, CHART_TITLE_CONFIG_RELATIVE_PATH))
@@ -155,7 +157,9 @@ def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
   return block, stat_var_spec_map
 
 
-def _topic_sv_blocks(category: subject_page_pb2.Category, topic_svs: List[str], extended_sv_map: Dict[str, List[str]], sv2name, sv_exists_list):
+def _topic_sv_blocks(category: subject_page_pb2.Category, topic_svs: List[str],
+                     extended_sv_map: Dict[str,
+                                           List[str]], sv2name, sv_exists_list):
   """Fill in category if there is a topic."""
   main_block = category.blocks.add()
   column = main_block.columns.add()
@@ -230,7 +234,8 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     for _, v in nl_topic.get_topic_peers(data_spec.topic_svs).items():
       all_svs += v
     sv2name = get_sv_name(all_svs)
-    _topic_sv_blocks(category, data_spec.topic_svs, data_spec.extended_sv_map, sv2name, data_spec.main_place_spec.svs)
+    _topic_sv_blocks(category, data_spec.topic_svs, data_spec.extended_sv_map,
+                     sv2name, data_spec.main_place_spec.svs)
     return page_config
 
   if not primary_sv:
