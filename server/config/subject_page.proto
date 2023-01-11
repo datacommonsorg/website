@@ -83,6 +83,9 @@ message RankingTileSpec {
   string lowest_title = 7;
   string increase_title = 8;
   string decrease_title = 9;
+  // Number of items to show in the ranking tile. If not set, 5 items will be
+  // shown.
+  int32 ranking_count = 10;
 }
 
 message DisasterEventMapTileSpec {
