@@ -373,6 +373,52 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       category.stat_var_spec[sv_key].name = sv2name[primary_sv]
       category.stat_var_spec[sv_key].denom = "Count_Person"
 
+  # Render scatter plot if query asks for a correlation
+  # IMPORTANT: assumes that data_spec.selected_svs is not empty
+  # This might be fragile
+  # TODO: add check for data_spec.selected_svs
+  elif classificationType == ClassificationType.CORRELATION:
+
+    # get first stat var from current data spec
+    sv_1 = data_spec.selected_svs[0]
+
+    # get second stat var from previous context
+    # search up context history for latest primary_sv
+    sv_2 = None
+    for context in reversed(context_history):
+      if context['debug']['primary_sv']:
+        sv_2 = context['debug']['primary_sv']
+        break
+    if not sv_2:
+      # if can't be found in context, see if there is a second selected sv
+      if len(data_spec.selected_svs) > 1:
+        sv_2 = data_spec.selected_svs[1]
+      else:
+        sv_2 = sv_1  # self-correlation as fail state.
+
+    #get names
+    sv_names = get_sv_name([sv_1, sv_2])
+    sv_1_name = sv_names[sv_1]
+    sv_2_name = sv_names[sv_2]
+
+    # set keys and specs of each stat var
+    sv_1_key = sv_1 + "_scatter"
+    category.stat_var_spec[sv_1_key].stat_var = sv_1
+    category.stat_var_spec[sv_1_key].name = sv_1_name
+
+    sv_2_key = sv_2 + "_scatter"
+    category.stat_var_spec[sv_2_key].stat_var = sv_2
+    category.stat_var_spec[sv_2_key].name = sv_2_name
+
+    # add a scatter config
+    block = category.blocks.add()
+    column = block.columns.add()
+    tile = column.tiles.add()
+    tile.stat_var_key.append(sv_1_key)
+    tile.stat_var_key.append(sv_2_key)
+    tile.type = subject_page_pb2.Tile.TileType.SCATTER
+    tile.title = f"{sv_1_name} vs. {sv_2_name}"
+
   # # Main place
   # if spec.main.svs:
   #   block = category.blocks.add()
