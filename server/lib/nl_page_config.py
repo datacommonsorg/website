@@ -18,6 +18,8 @@ from config import subject_page_pb2
 from lib.nl_data_spec import DataSpec
 from lib.nl_detection import ClassificationType, Detection, Place, RankingType
 from services import datacommons as dc
+import json
+import os
 
 PLACE_TYPE_TO_PLURALS = {
     "place": "places",
@@ -42,6 +44,8 @@ PLACE_TYPE_TO_PLURALS = {
     "administrativearea5": "administrative area 5 places",
 }
 
+CHART_TITLE_CONFIG_RELATIVE_PATH = "../config/nl_page/chart_titles_by_sv.json"
+
 
 def pluralize_place_type(place_type: str) -> str:
   return PLACE_TYPE_TO_PLURALS.get(place_type.lower(),
@@ -50,7 +54,22 @@ def pluralize_place_type(place_type: str) -> str:
 
 def get_sv_name(svs):
   sv2name_raw = dc.property_values(svs, 'name')
-  return {sv: names[0] for sv, names in sv2name_raw.items()}
+  uncurated_names = {sv: names[0] for sv, names in sv2name_raw.items()}
+  basepath = os.path.dirname(__file__)
+  title_config_path = os.path.abspath(
+      os.path.join(basepath, CHART_TITLE_CONFIG_RELATIVE_PATH))
+  title_by_sv_dcid = {}
+  with open(title_config_path) as f:
+    title_by_sv_dcid = json.load(f)
+  sv_name_map = {}
+  # If we have a curated name return that, else return the name property for SV.
+  for sv in svs:
+    if sv in title_by_sv_dcid:
+      sv_name_map[sv] = title_by_sv_dcid[sv]
+    else:
+      sv_name_map[sv] = uncurated_names[sv]
+
+  return sv_name_map
 
 
 def _single_place_single_var_timeline_block(sv_dcid, sv2name):
