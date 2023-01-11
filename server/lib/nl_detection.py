@@ -66,7 +66,16 @@ class RankingType(Enum):
   # "least amount of ..."
   LOW = 2
 
+  # BEST is for queries with the word "best"
+  # Necessary for processing SVs with negative intent
+  # Ex: "Best cities by crime" -> show LOW crime cities
+  BEST = 3
 
+  # WORST is for queries with the word "worst"
+  # Necessary for processing SVs wth negative intent
+  # Ex: "Worst cities by crime" -> show HIGH crime cities
+  WORST = 4
+  
 class ContainedInPlaceType(Enum):
   """ContainedInPlaceType indicates the type of places."""
   # PLACE is the most generic type.
