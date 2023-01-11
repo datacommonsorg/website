@@ -193,7 +193,8 @@ def _topic_sv_blocks(category: subject_page_pb2.Category, topic_svs: List[str],
       category.stat_var_spec[sv].name = sv2name[sv]
 
 
-def build_page_config(detection: Detection, data_spec: DataSpec):
+def build_page_config(detection: Detection, data_spec: DataSpec,
+                      context_history):
 
   main_place_spec = data_spec.main_place_spec
   contained_place_spec = data_spec.contained_place_spec
@@ -212,7 +213,20 @@ def build_page_config(detection: Detection, data_spec: DataSpec):
 
   primary_sv = data_spec.primary_sv
   primary_sv_siblings = data_spec.primary_sv_siblings
-  context_place = data_spec.context_place
+  use_context_sv = False
+
+  # No stat vars found
+  context_place = None
+  if not primary_sv:
+    for context in reversed(context_history):
+      if context and context['debug'] and context['debug']['primary_sv']:
+        primary_sv = context['debug']['primary_sv']
+        primary_sv_siblings = context['debug']['primary_sv_siblings']
+        use_context_sv = True
+        context_place = Place(dcid=context['place_dcid'],
+                              name=context['place_name'],
+                              place_type=context['place_type'])
+        break
 
   if data_spec.topic_svs and data_spec.main_place_spec.place:
     # Special boost for topics
@@ -233,18 +247,15 @@ def build_page_config(detection: Detection, data_spec: DataSpec):
       tile.type = subject_page_pb2.Tile.TileType.PLACE_OVERVIEW
     return page_config
 
-  all_svs = [data_spec.primary_sv] + data_spec.primary_sv_siblings
+  all_svs = [primary_sv] + primary_sv_siblings
   if contained_place_spec.svs:
     all_svs += contained_place_spec.svs
   sv2name = get_sv_name(all_svs)
 
-  primary_sv = data_spec.primary_sv
-  primary_sv_siblings = data_spec.primary_sv_siblings
-
   if classificationType in [
       ClassificationType.SIMPLE, ClassificationType.OTHER
   ]:
-    if data_spec.use_context_sv:
+    if use_context_sv:
       # Only place is asked, draw comparison between two places
       block, stat_var_spec_map = _multiple_place_bar_block(
           [context_place, detection.places_detected.main_place], [primary_sv],
@@ -324,17 +335,10 @@ def build_page_config(detection: Detection, data_spec: DataSpec):
       if classifier.type == ClassificationType.RANKING:
         tile.type = subject_page_pb2.Tile.TileType.RANKING
         if "CriminalActivities" in primary_sv:
-          # first check if "best" or "worst"
-          if RankingType.BEST in classifier.attributes.ranking_type:
+          if RankingType.HIGH in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
-          elif RankingType.WORST in classifier.attributes.ranking_type:
+          if RankingType.LOW in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_highest = True
-          else:
-            # otherwise, render normally
-            if RankingType.HIGH in classifier.attributes.ranking_type:
-              tile.ranking_tile_spec.show_highest = True
-            if RankingType.LOW in classifier.attributes.ranking_type:
-              tile.ranking_tile_spec.show_lowest = True
         else:
           if RankingType.HIGH in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_highest = True
