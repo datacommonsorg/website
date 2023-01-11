@@ -116,6 +116,7 @@ def test_palo_alto_flow():
   1. "tell me about Palo Alto"
   2. "what about auto theft"
   3. "what about Boston"
+  4. "what are the worst cities in California"
   """
   context_history = []
   test_cases = [
