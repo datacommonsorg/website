@@ -76,23 +76,15 @@ def get_sv_name(svs):
   return sv_name_map
 
 
-_SV_KEYWORDS_NO_PC = [
-    'Temperature',
-    'Precipitation',
-    "BarometricPressure",
-    "CloudCover",
-    "PrecipitableWater",
-    "Rainfall",
-    "Snowfall",
-    "Visibility",
-    "WindSpeed",
-    "ConsecutiveDryDays",
-    "Percent",
+_SV_PARTIAL_DCID_NO_PC = [
+    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
+    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
+    "ConsecutiveDryDays", "Percent", 'Area_'
 ]
 
 
 def _should_add_percapita(sv_dcid: str) -> bool:
-  for skip_phrase in _SV_KEYWORDS_NO_PC:
+  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
     if skip_phrase in sv_dcid:
       return False
   return True
@@ -127,7 +119,11 @@ def _single_place_single_var_timeline_block(sv_dcid, sv2name):
                                  title="Per Capita",
                                  stat_var_key=[sv_key])
     stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-        stat_var=sv_dcid, name=sv2name[sv_dcid], denom="Count_Person")
+        stat_var=sv_dcid,
+        name=sv2name[sv_dcid],
+        denom="Count_Person",
+        scaling=100,
+        unit="%")
     block.columns[0].tiles.append(tile)
   return block, stat_var_spec_map
 
@@ -157,7 +153,11 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
       sv_key = sv + '_pc'
       tile.stat_var_key.append(sv_key)
       stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-          stat_var=sv, name=sv2name[sv], denom="Count_Person")
+          stat_var=sv,
+          name=sv2name[sv],
+          denom="Count_Person",
+          scaling=100,
+          unit="%")
     block.columns[0].tiles.append(tile)
 
   return block, stat_var_spec_map
@@ -189,7 +189,11 @@ def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
       sv_key = sv + "_multiple_place_bar_block_pc"
       tile.stat_var_key.append(sv_key)
       stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-          stat_var=sv, denom="Count_Person", name=sv2name[sv])
+          stat_var=sv,
+          denom="Count_Person",
+          name=sv2name[sv],
+          scaling=100,
+          unit="%")
 
     column.tiles.append(tile)
   return block, stat_var_spec_map
@@ -352,6 +356,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       tile.stat_var_key.append(primary_sv)
       if classifier.type == ClassificationType.RANKING:
         tile.type = subject_page_pb2.Tile.TileType.RANKING
+        tile.ranking_tile_spec.ranking_count = 10
         if "CriminalActivities" in primary_sv:
           # first check if "best" or "worst"
           if RankingType.BEST in classifier.attributes.ranking_type:
@@ -385,6 +390,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
         tile.stat_var_key.append(sv_key)
         if classifier.type == ClassificationType.RANKING:
           tile.type = subject_page_pb2.Tile.TileType.RANKING
+          tile.ranking_tile_spec.ranking_count = 10
           if "CriminalActivities" in primary_sv:
             # first check if "best" or "worst"
             if RankingType.BEST in classifier.attributes.ranking_type:
@@ -412,6 +418,8 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
         category.stat_var_spec[sv_key].stat_var = primary_sv
         category.stat_var_spec[sv_key].name = sv2name[primary_sv]
         category.stat_var_spec[sv_key].denom = "Count_Person"
+        category.stat_var_spec[sv_key].unit = "%"
+        category.stat_var_spec[sv_key].scaling = 100
 
   # Render scatter plot if query asks for a correlation
   # IMPORTANT: assumes that data_spec.selected_svs is not empty
@@ -460,12 +468,16 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     category.stat_var_spec[sv_1_key].name = sv_1_name
     if change_sv_1_pc:
       category.stat_var_spec[sv_1_key].denom = "Count_Person"
+      category.stat_var_spec[sv_1_key].unit = "%"
+      category.stat_var_spec[sv_1_key].scaling = 100
 
     sv_2_key = sv_2 + "_scatter"
     category.stat_var_spec[sv_2_key].stat_var = sv_2
     category.stat_var_spec[sv_2_key].name = sv_2_name
     if change_sv_2_pc:
       category.stat_var_spec[sv_2_key].denom = "Count_Person"
+      category.stat_var_spec[sv_2_key].unit = "%"
+      category.stat_var_spec[sv_2_key].scaling = 100
 
     # add a scatter config
     block = category.blocks.add()

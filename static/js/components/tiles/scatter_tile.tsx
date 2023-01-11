@@ -70,6 +70,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   const [scatterChartData, setScatterChartData] = useState<
     ScatterChartData | undefined
   >(null);
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   useEffect(() => {
     fetchData(
@@ -78,19 +79,20 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       props.statVarSpec,
       setRawData
     );
+    setErrorMsg("");
   }, [props]);
 
   useEffect(() => {
     if (rawData) {
-      processData(rawData, props.statVarSpec, setScatterChartData);
+      processData(rawData, props.statVarSpec, setScatterChartData, setErrorMsg);
     }
   }, [props, rawData]);
 
   useEffect(() => {
-    if (scatterChartData) {
+    if (scatterChartData && !_.isEmpty(scatterChartData.points)) {
       draw(scatterChartData, svgContainer, props.svgChartHeight, tooltip);
     }
-  }, [scatterChartData]);
+  }, [props.svgChartHeight, scatterChartData]);
 
   if (!scatterChartData) {
     return null;
@@ -106,7 +108,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       sources={scatterChartData.sources}
       replacementStrings={rs}
       className={`${props.className} scatter-chart`}
-      allowEmbed={true}
+      allowEmbed={!errorMsg}
       getDataCsv={() =>
         scatterDataToCsv(
           scatterChartData.xStatVar.statVar,
@@ -117,8 +119,18 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
         )
       }
     >
-      <div id={props.id} className="scatter-svg-container" ref={svgContainer} />
-      <div id="scatter-tooltip" ref={tooltip} />
+      {errorMsg ? (
+        <div className="error-msg">{errorMsg}</div>
+      ) : (
+        <>
+          <div
+            id={props.id}
+            className="scatter-svg-container"
+            ref={svgContainer}
+          />
+          <div id="scatter-tooltip" ref={tooltip} />
+        </>
+      )}
     </ChartTileContainer>
   );
 }
@@ -191,7 +203,8 @@ function fetchData(
 function processData(
   rawData: RawData,
   statVarSpec: StatVarSpec[],
-  setChartdata: (data: ScatterChartData) => void
+  setChartdata: (data: ScatterChartData) => void,
+  setErrorMsg: (msg: string) => void
 ): void {
   const yStatVar = statVarSpec[0];
   const xStatVar = statVarSpec[1];
@@ -231,6 +244,9 @@ function processData(
       }
     });
     points[place] = placeChartData.point;
+  }
+  if (_.isEmpty(points)) {
+    setErrorMsg("Sorry, we don't have data for those variables");
   }
   setChartdata({ xStatVar, yStatVar, points, sources });
 }
