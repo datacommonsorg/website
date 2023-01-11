@@ -84,16 +84,19 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     key={`${statVar}-highest`}
                     unit={unit}
                     scaling={scaling}
-                    title={formatString(
-                      props.rankingMetadata.highestTitle
-                        ? props.rankingMetadata.highestTitle
-                        : "Highest ${statVar}",
-                      {
-                        date: "",
-                        place: "",
-                        statVar: svName,
-                      }
-                    )}
+                    title={
+                      props.title ||
+                      formatString(
+                        props.rankingMetadata.highestTitle
+                          ? props.rankingMetadata.highestTitle
+                          : "Highest ${statVar}",
+                        {
+                          date: "",
+                          place: "",
+                          statVar: svName,
+                        }
+                      )
+                    }
                     points={points.slice(-RANKING_COUNT).reverse()}
                     isHighest={true}
                   />
@@ -115,16 +118,19 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                     key={`${statVar}-lowest`}
                     unit={unit}
                     scaling={scaling}
-                    title={formatString(
-                      props.rankingMetadata.lowestTitle
-                        ? props.rankingMetadata.lowestTitle
-                        : "Lowest ${statVar}",
-                      {
-                        date: "",
-                        place: "",
-                        statVar: svName,
-                      }
-                    )}
+                    title={
+                      props.title ||
+                      formatString(
+                        props.rankingMetadata.lowestTitle
+                          ? props.rankingMetadata.lowestTitle
+                          : "Lowest ${statVar}",
+                        {
+                          date: "",
+                          place: "",
+                          statVar: svName,
+                        }
+                      )
+                    }
                     numDataPoints={numDataPoints}
                     points={points.slice(0, RANKING_COUNT)}
                     isHighest={false}

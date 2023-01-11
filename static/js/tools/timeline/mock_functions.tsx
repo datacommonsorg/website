@@ -137,12 +137,9 @@ export function axios_mock(): void {
     });
 
   // get place names, geoId/05
-  when(axios.get)
+  when(axios.post)
     .calledWith("/api/place/name", {
-      params: {
-        dcids: ["geoId/05"],
-      },
-      paramsSerializer: stringifyFn,
+      dcids: ["geoId/05"],
     })
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
