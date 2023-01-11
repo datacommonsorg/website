@@ -67,6 +67,7 @@ export function Block(props: BlockPropType): JSX.Element {
     ? `${(100 / props.columns.length).toFixed(2)}%`
     : "0";
   // HACK for NL. Assumes all charts are in a single column.
+  const isNl = isNlInterface();
   const showExpando = isNlInterface();
   const minIdxToHide = showExpando ? NUM_TILES_SHOWN : Number.MAX_SAFE_INTEGER;
   return (
@@ -220,7 +221,9 @@ function renderTiles(
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
-            svgChartHeight={props.svgChartHeight}
+            svgChartHeight={
+              isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
+            }
             className={className}
           />
         );
