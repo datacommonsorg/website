@@ -29,6 +29,7 @@ PALO_ALTO_DCID = 'geoId/0655282'
 BOSTON_DICD = 'geoId/2507000'
 CALIFORNIA_DCID = 'geoId/06'
 
+
 def _print_message(msg: str):
   print('=' * 80)
   print(msg)
@@ -38,8 +39,10 @@ def _print_message(msg: str):
 def _encoded_q(query: str, embedding: str = 'us_filtered'):
   return urllib.parse.urlencode({'q': query, 'build': embedding})
 
+
 # The following are compact representations of nl API result.
 # Feel free to add what is needed in order to verify the test flow.
+
 
 @dataclass
 class Categories:
@@ -47,14 +50,17 @@ class Categories:
   # Order is not tested.
   stat_var_keys: Optional[List[str]] = None
 
+
 @dataclass
 class Metadata:
   place_dcid: Optional[List[str]] = None
+
 
 @dataclass
 class Config:
   categories: Optional[Categories] = None
   metadata: Optional[Metadata] = None
+
 
 def _verify_categories(categories: Categories, got: Dict):
   if categories.stat_var_keys:
@@ -69,14 +75,16 @@ def _verify_metadata(metadata: Metadata, got: Dict):
   if metadata.place_dcid:
     assert got.get('placeDcid') == metadata.place_dcid
 
+
 def _verify_config(config: Config, got: Dict):
   if config.categories:
-      assert 'categories' in got
-      _verify_categories(config.categories, got['categories'])
+    assert 'categories' in got
+    _verify_categories(config.categories, got['categories'])
 
   if config.metadata:
-      assert 'metadata' in got
-      _verify_metadata(config.metadata, got['metadata'])
+    assert 'metadata' in got
+    _verify_metadata(config.metadata, got['metadata'])
+
 
 @dataclass
 class QueryTestCase:
@@ -92,8 +100,8 @@ class QueryTestCase:
     Modifies the context_history using API call result.
     """
     response = app.test_client().post(f'/nl/data?{_encoded_q(self.query)}',
-                                    json={'contextHistory': context_history},
-                                    content_type='application/json')
+                                      json={'contextHistory': context_history},
+                                      content_type='application/json')
 
     # Test NL data config matches.
     try:
@@ -106,9 +114,9 @@ class QueryTestCase:
       _print_message(f'Failed - {self.query}')
       sys.exit('Flow failed, please see context above.')
 
-
     context_history.append(response.json['context'])
     _print_message(f"SUCCESS - '{self.query}'")
+
 
 def test_palo_alto_flow():
   """Tests the following flow.
@@ -120,50 +128,39 @@ def test_palo_alto_flow():
   """
   context_history = []
   test_cases = [
-    # Q1.
-    QueryTestCase(
-      query='tell me about Palo Alto',
-      config_expected=Config(
-        metadata=Metadata(place_dcid=[PALO_ALTO_DCID])
-      )
-    ),
-    # Q2.
-    QueryTestCase(
-      query='what about auto theft',
-      config_expected=Config(
-        categories=Categories(
-          stat_var_keys=[
-            'Count_CriminalActivities_MotorVehicleTheft',
-            'Count_CriminalActivities_MotorVehicleTheft_pc'
-          ]
-        ),
-        # Check if the place is still Palo Alto.
-        metadata=Metadata(place_dcid=[PALO_ALTO_DCID])
-      )
-    ),
-    # Q3.
-    QueryTestCase(
-      query='what about Boston',
-      config_expected=Config(
-        # TODO: Fix vars below, currently it returns 2 random svs.
-        # categories=Categories(
-        #   stat_var_keys=[
-        #     'Count_CriminalActivities_MotorVehicleTheft',
-        #     'Count_CriminalActivities_MotorVehicleTheft_pc'
-        #   ]
-        # ),
-        # Check if the place is swtiched to Boston.
-        metadata=Metadata(place_dcid=[BOSTON_DICD])
-      )
-    ),
-    # Q4.
-    QueryTestCase(
-      query='what are the worst cities in California',
-      # TODO: add tests for cities ranking.
-      config_expected=Config(
-        metadata=Metadata(place_dcid=[CALIFORNIA_DCID])
-      )
-    ),
+      # Q1.
+      QueryTestCase(query='tell me about Palo Alto',
+                    config_expected=Config(metadata=Metadata(
+                        place_dcid=[PALO_ALTO_DCID]))),
+      # Q2.
+      QueryTestCase(
+          query='what about auto theft',
+          config_expected=Config(
+              categories=Categories(stat_var_keys=[
+                  'Count_CriminalActivities_MotorVehicleTheft',
+                  'Count_CriminalActivities_MotorVehicleTheft_pc'
+              ]),
+              # Check if the place is still Palo Alto.
+              metadata=Metadata(place_dcid=[PALO_ALTO_DCID]))),
+      # Q3.
+      QueryTestCase(
+          query='what about Boston',
+          config_expected=Config(
+              # TODO: Fix vars below, currently it returns 2 random svs.
+              # categories=Categories(
+              #   stat_var_keys=[
+              #     'Count_CriminalActivities_MotorVehicleTheft',
+              #     'Count_CriminalActivities_MotorVehicleTheft_pc'
+              #   ]
+              # ),
+              # Check if the place is swtiched to Boston.
+              metadata=Metadata(place_dcid=[BOSTON_DICD]))),
+      # Q4.
+      QueryTestCase(
+          query='what are the worst cities in California',
+          # TODO: add tests for cities ranking.
+          config_expected=Config(metadata=Metadata(
+              place_dcid=[CALIFORNIA_DCID]))),
   ]
 
   for test_case in test_cases:
