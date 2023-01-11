@@ -71,7 +71,7 @@ _PEER_GROUP_TO_SV = {
     ],
     "dc/svpg/AmountOfFarmInventoryByType": [
         "AmountFarmInventory_WinterWheatForGrain",
-        "Amount_FarmInventory_BarleForGrain",
+        "Amount_FarmInventory_BarleyForGrain",
         "Amount_FarmInventory_CornForSilageOrGreenchop",
         "Amount_FarmInventory_Cotton",
         "Amount_FarmInventory_DurumWheatForGrain",
