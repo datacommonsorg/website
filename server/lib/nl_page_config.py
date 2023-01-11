@@ -279,12 +279,17 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
 
   # Render scatter plot if query asks for a correlation
   elif classificationType == ClassificationType.CORRELATION:
+    logging.info("#####Trying to render scatterplot######")
     block = category.blocks.add()
     column = block.columns.add()
     sv_1 = "Count_Worker_NAICSAgricultureForestryFishingHunting"
-    sv_2 = ""
+    sv_2 = "Percent_Person_WithHighBloodPressure"
     tile = column.tiles.add()
+    tile.stat_var_key.append(sv_1)
     tile.stat_var_key.append(sv_2)
+    tile.type = subject_page_pb2.Tile.TileType.SCATTER
+    tile.title = f"{sv_2} vs. {sv_1}"
+
 
 
       
