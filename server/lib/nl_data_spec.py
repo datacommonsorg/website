@@ -120,7 +120,7 @@ def compute(query_detection: Detection, context):
   context_sv = None
   context_place = None
   if context and context['debug'] and context['debug']['data_spec']:
-    context_sv = context['debug']['data_spec']['primary_sv']
+    context_sv = context['debug']['data_spec'].get('primary_sv', None)
     context_place = Place(dcid=context['place_dcid'],
                           name=context['place_name'],
                           place_type=context['place_type'])
@@ -224,12 +224,11 @@ def compute(query_detection: Detection, context):
   # Get stat var from context
   if data_spec.use_context_sv:
     data_spec.primary_sv = context_sv
-  else:
+  elif data_spec.main_place_spec.svs:
+    # Find the first sv, it may not have data for main place
+    # But this logic might change.
     data_spec.primary_sv = data_spec.main_place_spec.svs[0]
-
-  # Find the first sv, it may not have data for main place
-  # But this logic might change.
-  data_spec.primary_sv_siblings = data_spec.extended_sv_map[
-      data_spec.primary_sv]
+    data_spec.primary_sv_siblings = data_spec.extended_sv_map[
+        data_spec.primary_sv]
 
   return data_spec
