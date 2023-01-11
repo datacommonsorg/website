@@ -32,7 +32,7 @@ import {
   EventTypeSpec,
   TileConfig,
 } from "../../types/subject_page_proto_types";
-import { isNlInterface } from "../../utils/nl_interface_utils";
+import { isNlInterface, isNlInterface } from "../../utils/nl_interface_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
@@ -67,6 +67,7 @@ export function Block(props: BlockPropType): JSX.Element {
     ? `${(100 / props.columns.length).toFixed(2)}%`
     : "0";
   // HACK for NL. Assumes all charts are in a single column.
+  const isNl = isNlInterface();
   const showExpando = isNlInterface();
   const minIdxToHide = showExpando ? NUM_TILES_SHOWN : Number.MAX_SAFE_INTEGER;
   return (
@@ -220,7 +221,9 @@ function renderTiles(
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
-            svgChartHeight={props.svgChartHeight}
+            svgChartHeight={
+              isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
+            }
             className={className}
           />
         );
