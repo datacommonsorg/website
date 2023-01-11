@@ -357,7 +357,8 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
 
   # Render scatter plot if query asks for a correlation
   # IMPORTANT: Right now this is fragile, as it will only
-  # use SVs from the most recent context.
+  # use SVs from the most recent context. Also assumes the
+  # previous context had a primary_sv set.
   # TODO: Fix stat var names
   elif classificationType == ClassificationType.CORRELATION:
 
@@ -368,7 +369,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     category.stat_var_spec[sv_1_key].stat_var = sv_1
     category.stat_var_spec[sv_1_key].name = sv_1
 
-    # second stat var
+    # get second stat var from current
     sv_2 = context['debug']['primary_sv']
     sv_2_key = sv_2 + "_scatter"
     category.stat_var_spec[sv_2_key].stat_var = sv_2
