@@ -77,18 +77,9 @@ def get_sv_name(svs):
 
 
 _SV_PARTIAL_DCID_NO_PC = [
-    'Temperature',
-    'Precipitation',
-    "BarometricPressure",
-    "CloudCover",
-    "PrecipitableWater",
-    "Rainfall",
-    "Snowfall",
-    "Visibility",
-    "WindSpeed",
-    "ConsecutiveDryDays",
-    "Percent",
-    'Area_'
+    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
+    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
+    "ConsecutiveDryDays", "Percent", 'Area_'
 ]
 
 
@@ -128,7 +119,11 @@ def _single_place_single_var_timeline_block(sv_dcid, sv2name):
                                  title="Per Capita",
                                  stat_var_key=[sv_key])
     stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-        stat_var=sv_dcid, name=sv2name[sv_dcid], denom="Count_Person", scaling=100, unit="%")
+        stat_var=sv_dcid,
+        name=sv2name[sv_dcid],
+        denom="Count_Person",
+        scaling=100,
+        unit="%")
     block.columns[0].tiles.append(tile)
   return block, stat_var_spec_map
 
@@ -158,7 +153,11 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
       sv_key = sv + '_pc'
       tile.stat_var_key.append(sv_key)
       stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-          stat_var=sv, name=sv2name[sv], denom="Count_Person", scaling=100, unit="%")
+          stat_var=sv,
+          name=sv2name[sv],
+          denom="Count_Person",
+          scaling=100,
+          unit="%")
     block.columns[0].tiles.append(tile)
 
   return block, stat_var_spec_map
@@ -190,7 +189,11 @@ def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
       sv_key = sv + "_multiple_place_bar_block_pc"
       tile.stat_var_key.append(sv_key)
       stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-          stat_var=sv, denom="Count_Person", name=sv2name[sv], scaling=100, unit="%")
+          stat_var=sv,
+          denom="Count_Person",
+          name=sv2name[sv],
+          scaling=100,
+          unit="%")
 
     column.tiles.append(tile)
   return block, stat_var_spec_map
