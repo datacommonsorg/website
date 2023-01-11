@@ -68,6 +68,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     props.rankingMetadata,
     rankingData
   );
+  const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
@@ -105,7 +106,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                         }
                       )
                     }
-                    points={points.slice(-RANKING_COUNT).reverse()}
+                    points={points.slice(-rankingCount).reverse()}
                     isHighest={true}
                   />
                   <footer>
@@ -140,7 +141,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
                       )
                     }
                     numDataPoints={numDataPoints}
-                    points={points.slice(0, RANKING_COUNT)}
+                    points={points.slice(0, rankingCount)}
                     isHighest={false}
                   />
                   <footer>

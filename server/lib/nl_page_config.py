@@ -344,6 +344,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       tile.stat_var_key.append(primary_sv)
       if classifier.type == ClassificationType.RANKING:
         tile.type = subject_page_pb2.Tile.TileType.RANKING
+        tile.ranking_tile_spec.ranking_count = 10
         if "CriminalActivities" in primary_sv:
           # first check if "best" or "worst"
           if RankingType.BEST in classifier.attributes.ranking_type:
@@ -377,6 +378,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
         tile.stat_var_key.append(sv_key)
         if classifier.type == ClassificationType.RANKING:
           tile.type = subject_page_pb2.Tile.TileType.RANKING
+          tile.ranking_tile_spec.ranking_count = 10
           if "CriminalActivities" in primary_sv:
             # first check if "best" or "worst"
             if RankingType.BEST in classifier.attributes.ranking_type:

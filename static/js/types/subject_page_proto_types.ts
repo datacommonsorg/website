@@ -56,6 +56,7 @@ export interface RankingTileSpec {
   lowestTitle?: string;
   increaseTitle?: string;
   decreaseTitle?: string;
+  rankingCount?: number;
 }
 
 export interface DisasterEventMapTileSpec {
