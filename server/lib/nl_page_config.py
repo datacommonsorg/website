@@ -76,11 +76,18 @@ def get_sv_name(svs):
   return sv_name_map
 
 
+def _should_add_percapita(sv_dcid: str) -> bool:
+  if 'Temperature' in sv_dcid or 'Precipitation' in sv_dcid:
+    return False
+  return True
+
+
 def _single_place_single_var_timeline_block(sv_dcid, sv2name):
   """A column with two charts, main stat var and per capita"""
   block = subject_page_pb2.Block(title=sv2name[sv_dcid],
                                  columns=[subject_page_pb2.Block.Column()])
   stat_var_spec_map = {}
+
   # Line chart for the stat var
   sv_key = sv_dcid
   tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
@@ -89,14 +96,16 @@ def _single_place_single_var_timeline_block(sv_dcid, sv2name):
   stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
       stat_var=sv_dcid, name=sv2name[sv_dcid])
   block.columns[0].tiles.append(tile)
+
   # Line chart for the stat var per capita
-  sv_key = sv_dcid + '_pc'
-  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
-                               title="Per Capita",
-                               stat_var_key=[sv_key])
-  stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-      stat_var=sv_dcid, name=sv2name[sv_dcid], denom="Count_Person")
-  block.columns[0].tiles.append(tile)
+  if _should_add_percapita(sv_dcid):
+    sv_key = sv_dcid + '_pc'
+    tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                                 title="Per Capita",
+                                 stat_var_key=[sv_key])
+    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+        stat_var=sv_dcid, name=sv2name[sv_dcid], denom="Count_Person")
+    block.columns[0].tiles.append(tile)
   return block, stat_var_spec_map
 
 
@@ -104,6 +113,7 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
   """A column with two chart, all stat vars and per capita"""
   block = subject_page_pb2.Block(columns=[subject_page_pb2.Block.Column()])
   stat_var_spec_map = {}
+
   # Line chart for the stat var
   tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
                                title="Total",
@@ -114,15 +124,18 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
     stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(stat_var=sv,
                                                              name=sv2name[sv])
   block.columns[0].tiles.append(tile)
+
   # Line chart for the stat var per capita
-  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
-                               title="Per Capita")
-  for sv in svs:
-    sv_key = sv + '_pc'
-    tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-        stat_var=sv, name=sv2name[sv], denom="Count_Person")
-  block.columns[0].tiles.append(tile)
+  svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
+  if len(svs_pc) > 0:
+    tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                                 title="Per Capita")
+    for sv in svs_pc:
+      sv_key = sv + '_pc'
+      tile.stat_var_key.append(sv_key)
+      stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+          stat_var=sv, name=sv2name[sv], denom="Count_Person")
+    block.columns[0].tiles.append(tile)
 
   return block, stat_var_spec_map
 
@@ -144,16 +157,18 @@ def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
 
   column.tiles.append(tile)
   # Per Capita
-  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.BAR,
-                               title="Per Capita",
-                               comparison_places=[x.dcid for x in places])
-  for sv in svs:
-    sv_key = sv + "_multiple_place_bar_block_pc"
-    tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-        stat_var=sv, denom="Count_Person", name=sv2name[sv])
+  svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
+  if len(svs_pc) > 0:
+    tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.BAR,
+                                 title="Per Capita",
+                                 comparison_places=[x.dcid for x in places])
+    for sv in svs_pc:
+      sv_key = sv + "_multiple_place_bar_block_pc"
+      tile.stat_var_key.append(sv_key)
+      stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+          stat_var=sv, denom="Count_Person", name=sv2name[sv])
 
-  column.tiles.append(tile)
+    column.tiles.append(tile)
   return block, stat_var_spec_map
 
 
@@ -169,8 +184,8 @@ def _topic_sv_blocks(category: subject_page_pb2.Category,
       sub_svs = extended_sv_map[sv]
       if not sub_svs:
         continue
-      sub_svs_exist = filter(lambda x: x in sv_exists_list, sub_svs)
-      if not sub_svs_exist:
+      sub_svs_exist = list(filter(lambda x: x in sv_exists_list, sub_svs))
+      if len(sub_svs_exist) == 0:
         continue
       # add a block for each peer group
       block = category.blocks.add()
@@ -341,30 +356,32 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       category.stat_var_spec[primary_sv].name = sv2name[primary_sv]
 
       # The per capita tile
-      tile = column.tiles.add()
-      sv_key = primary_sv + "_pc"
-      tile.stat_var_key.append(sv_key)
-      if classifier.type == ClassificationType.RANKING:
-        tile.type = subject_page_pb2.Tile.TileType.RANKING
-        if "CriminalActivities" in primary_sv:
-          if RankingType.HIGH in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_lowest = True
-          if RankingType.LOW in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_highest = True
-        else:
-          if RankingType.HIGH in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_highest = True
-          if RankingType.LOW in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_lowest = True
+      if _should_add_percapita(primary_sv):
+        tile = column.tiles.add()
+        sv_key = primary_sv + "_pc"
+        tile.stat_var_key.append(sv_key)
+        if classifier.type == ClassificationType.RANKING:
+          tile.type = subject_page_pb2.Tile.TileType.RANKING
+          if "CriminalActivities" in primary_sv:
+            if RankingType.HIGH in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_lowest = True
+            if RankingType.LOW in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_highest = True
+          else:
+            if RankingType.HIGH in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_highest = True
+            if RankingType.LOW in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_lowest = True
 
-        tile.title = ''.join(
-            ['Per Capita ', sv2name[primary_sv], ' in ', main_place_spec.name])
-      else:
-        tile.type = subject_page_pb2.Tile.TileType.MAP
-        tile.title = "Per Capita " + sv2name[primary_sv] + ' (${date})'
-      category.stat_var_spec[sv_key].stat_var = primary_sv
-      category.stat_var_spec[sv_key].name = sv2name[primary_sv]
-      category.stat_var_spec[sv_key].denom = "Count_Person"
+          tile.title = ''.join([
+              'Per Capita ', sv2name[primary_sv], ' in ', main_place_spec.name
+          ])
+        else:
+          tile.type = subject_page_pb2.Tile.TileType.MAP
+          tile.title = "Per Capita " + sv2name[primary_sv] + ' (${date})'
+        category.stat_var_spec[sv_key].stat_var = primary_sv
+        category.stat_var_spec[sv_key].name = sv2name[primary_sv]
+        category.stat_var_spec[sv_key].denom = "Count_Person"
 
   # # Main place
   # if spec.main.svs:
