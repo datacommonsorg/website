@@ -21,6 +21,7 @@ from lib import nl_variable, nl_topic
 from services import datacommons as dc
 import json
 import os
+import logging
 
 PLACE_TYPE_TO_PLURALS = {
     "place": "places",
@@ -356,14 +357,24 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
 
   # Render scatter plot if query asks for a correlation
   elif classificationType == ClassificationType.CORRELATION:
-    logging.info("#####Trying to render scatterplot######")
     block = category.blocks.add()
     column = block.columns.add()
+
+    # get first stat var
     sv_1 = "Count_Worker_NAICSAgricultureForestryFishingHunting"
+    sv_1_key = sv_1 + "_scatter"
+    category.stat_var_spec[sv_1_key].stat_var = sv_1
+    category.stat_var_spec[sv_1_key].name = sv_1
+
+    # second stat var
     sv_2 = "Percent_Person_WithHighBloodPressure"
+    sv_2_key = sv_2 + "_scatter"
+    category.stat_var_spec[sv_2_key].stat_var = sv_2
+    category.stat_var_spec[sv_2_key].name = sv_2
+
     tile = column.tiles.add()
-    tile.stat_var_key.append(sv_1)
-    tile.stat_var_key.append(sv_2)
+    tile.stat_var_key.append(sv_1_key)
+    tile.stat_var_key.append(sv_2_key)
     tile.type = subject_page_pb2.Tile.TileType.SCATTER
     tile.title = f"{sv_2} vs. {sv_1}"
 
