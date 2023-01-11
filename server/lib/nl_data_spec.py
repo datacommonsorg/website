@@ -190,20 +190,9 @@ def compute(query_detection: Detection, context):
                        extended_sv_map=extended_sv_map,
                        primary_sv="",
                        primary_sv_siblings=[],
-<<<<<<< HEAD
-                       use_context_sv=False,
-                       context_sv=context_sv,
-                       context_place=None)
-
-  if context:
-    data_spec.context_place = Place(dcid=context['place_dcid'],
-                                    name=context['place_name'],
-                                    place_type=context['place_type'])
-=======
                        use_context_sv=use_context_sv,
                        context_sv=context_sv,
                        context_place=context_place)
->>>>>>> a2c818f993f2e1ff3688f39a0a9c5b7b5223abdd
 
   if not all_svs:
     logging.info("No SVs to use for existence.")
