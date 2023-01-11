@@ -87,6 +87,7 @@ _SV_KEYWORDS_NO_PC = [
     "Visibili",
     "WindSpeed",
     "ConsecutiveDryDays",
+    "Percent",
 ]
 
 
@@ -95,6 +96,12 @@ def _should_add_percapita(sv_dcid: str) -> bool:
     if skip_phrase in sv_dcid:
       return False
   return True
+
+
+def _is_sv_percapita(sv_name: str) -> bool:
+  if "Percentage" in sv_name or "Prevalence" in sv_name:
+    return True
+  return False
 
 
 def _single_place_single_var_timeline_block(sv_dcid, sv2name):
@@ -433,14 +440,31 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     sv_1_name = sv_names[sv_1]
     sv_2_name = sv_names[sv_2]
 
+    # if the word "Percent" is in one, check that the other is similarly normalized
+    # use names since we sometimes get old hex dcid's
+    change_sv_1_pc = False
+    change_sv_2_pc = False
+    if _is_sv_percapita(sv_1_name):
+      if not _is_sv_percapita(sv_2_name):
+        change_sv_2_pc = True
+        sv_2_name += " Per Capita"
+    if _is_sv_percapita(sv_2_name):
+      if not _is_sv_percapita(sv_1_name):
+        change_sv_1_pc = True
+        sv_1_name += " Per Capita"
+
     # set keys and specs of each stat var
     sv_1_key = sv_1 + "_scatter"
     category.stat_var_spec[sv_1_key].stat_var = sv_1
     category.stat_var_spec[sv_1_key].name = sv_1_name
+    if change_sv_1_pc:
+      category.stat_var_spec[sv_1_key].denom = "Count_Person"
 
     sv_2_key = sv_2 + "_scatter"
     category.stat_var_spec[sv_2_key].stat_var = sv_2
     category.stat_var_spec[sv_2_key].name = sv_2_name
+    if change_sv_2_pc:
+      category.stat_var_spec[sv_2_key].denom = "Count_Person"
 
     # add a scatter config
     block = category.blocks.add()
