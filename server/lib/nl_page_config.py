@@ -355,20 +355,27 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       category.stat_var_spec[sv_key].denom = "Count_Person"
 
   # Render scatter plot if query asks for a correlation
-  # IMPORTANT: Right now this is fragile, as it will only
-  # use SVs from the most recent context.
-  # Also assumes that
-  #    - previous context had a primary_sv that was not "".
-  #    - data_spec.selected_svs is not empty
-  # TODO: Walk up history chain to find context_sv if not in previous context
+  # IMPORTANT: assumes that data_spec.selected_svs is not empty
+  # This might be fragile
   # TODO: add check for data_spec.selected_svs 
   elif classificationType == ClassificationType.CORRELATION:
 
-    # get first stat var from previous context
-    sv_1 = context_history[-1]['debug']['primary_sv']
+    # get first stat var from current data spec
+    sv_1 = data_spec.selected_svs[0]
 
-    # get second stat var from current data spec
-    sv_2 = data_spec.selected_svs[0]
+    # get second stat var from previous context
+    # search up context history for latest primary_sv
+    sv_2 = None
+    for context in reversed(context_history):
+      if context['debug']['primary_sv']:
+        sv_2 = context['debug']['primary_sv']
+        break
+    if not sv_2:
+      # if can't be found in context, see if there is a second selected sv
+      if len(data_spec.selected_svs) > 1:
+        sv_2 = data_spec.selected_svs[1]
+      else:
+        sv_2 = sv_1 # self-correlation as fail state. 
 
     #get names
     sv_names = get_sv_name([sv_1, sv_2])
