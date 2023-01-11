@@ -21,7 +21,6 @@ from lib import nl_variable, nl_topic
 from services import datacommons as dc
 import json
 import os
-import logging
 
 PLACE_TYPE_TO_PLURALS = {
     "place": "places",
