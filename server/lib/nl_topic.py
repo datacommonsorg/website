@@ -34,6 +34,18 @@ _TOPIC_DCID_TO_SV = {
         "dc/svpg/AmountOfFarmInventoryByType",
         "dc/svpg/CountOfFarmInventoryByType",
     ],
+    "dc/topic/AgriculturalProduction": [
+        "Income_Farm",
+        "Amount_FarmInventory_Cotton",
+        "Amount_FarmInventory_Rice",
+        "Amount_FarmInventory_WheatForGrain",
+        "Amout_FarmInventory_CornForGrain",
+        "Amount_FarmInventory_BarleyForGrain",
+        "Count_FarmInventory_BeefCows",
+        "Count_FarmInventory_Broilers",
+        "Count_FarmInventory_MilkCows",
+        "Count_FarmInventory_SheepAndLambs",
+    ]
 }
 
 _PEER_GROUP_TO_SV = {
