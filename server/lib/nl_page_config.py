@@ -62,7 +62,8 @@ def get_sv_name(svs):
   with open(title_config_path) as f:
     title_by_sv_dcid = json.load(f)
   sv_name_map = {}
-  # If we have a curated name return that, else return the name property for SV.
+  # If a curated name is found return that,
+  # Else return the name property for SV.
   for sv in svs:
     if sv in title_by_sv_dcid:
       sv_name_map[sv] = title_by_sv_dcid[sv]
