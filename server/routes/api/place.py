@@ -126,10 +126,12 @@ def get_place_type(place_dcid):
   return chosen_type
 
 
-@bp.route('/name')
+@bp.route('/name', methods=['GET', 'POST'])
 def api_name():
   """Get place names."""
   dcids = request.args.getlist('dcids')
+  if not dcids:
+    dcids = request.json['dcids']
   dcids = list(filter(lambda d: d != '', dcids))
   try:
     return names(dcids)
