@@ -199,7 +199,7 @@ def _topic_sv_blocks(category: subject_page_pb2.Category,
       if not sub_svs:
         continue
       sub_svs_exist = list(filter(lambda x: x in sv_exists_list, sub_svs))
-      if len(sub_svs_exist) == 0:
+      if not sub_svs_exist:
         continue
       # add a block for each peer group
       block = category.blocks.add()
