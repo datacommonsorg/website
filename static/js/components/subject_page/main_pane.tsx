@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { memo } from "react";
 
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedTypedPlace } from "../../shared/types";
@@ -37,7 +37,7 @@ interface SubjectPageMainPanePropType {
   svgChartHeight?: number;
 }
 
-export function SubjectPageMainPane(
+export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
 ): JSX.Element {
   // TODO(shifucun): Further clean up default place type, child place type etc
@@ -68,4 +68,4 @@ export function SubjectPageMainPane(
         })}
     </div>
   );
-}
+});
