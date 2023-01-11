@@ -226,8 +226,11 @@ def compute(query_detection: Detection):
 
   # Find the first sv, it may not have data for main place
   # But this logic might change.
-  data_spec.primary_sv = data_spec.main_place_spec.svs[0]
-  data_spec.primary_sv_siblings = data_spec.extended_sv_map[
-      data_spec.primary_sv]
+  if data_spec.main_place_spec.svs:
+    data_spec.primary_sv = data_spec.main_place_spec.svs[0]
+    data_spec.primary_sv_siblings = data_spec.extended_sv_map[
+        data_spec.primary_sv]
+  else:
+    logging.info('Main place does not have a perimary sv')
 
   return data_spec
