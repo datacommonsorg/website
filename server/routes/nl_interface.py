@@ -620,9 +620,8 @@ def data():
                                embeddings_build, recent_context)
 
   # Get Data Spec
-  data_spec = nl_data_spec.compute(query_detection)
-  page_config_pb = nl_page_config.build_page_config(query_detection, data_spec,
-                                                    context_history)
+  data_spec = nl_data_spec.compute(query_detection, recent_context)
+  page_config_pb = nl_page_config.build_page_config(query_detection, data_spec)
   page_config = json.loads(MessageToJson(page_config_pb))
 
   d = {

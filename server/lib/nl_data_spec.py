@@ -13,12 +13,13 @@
 # limitations under the License.
 """Module for NL page data spec"""
 
+import copy
 from dataclasses import dataclass
 from typing import Dict, List
 import logging
 import pandas as pd
 
-from lib.nl_detection import ClassificationType, Detection
+from lib.nl_detection import ClassificationType, Detection, Place
 from lib import nl_variable, nl_topic
 import services.datacommons as dc
 
@@ -54,6 +55,8 @@ class DataSpec:
   extended_sv_map: Dict[str, List[str]]
   primary_sv: str
   primary_sv_siblings: List[str]
+  use_context_sv: bool
+  context_place: Place
 
 
 def _get_related_places(place_dcid):
@@ -84,7 +87,7 @@ def _related_places(dcid):
 def _highlight_svs(sv_df):
   if sv_df.empty:
     return []
-  return sv_df[sv_df['CosineScore'] > 0.4]['SV'].values.tolist()
+  return sv_df[sv_df['CosineScore'] > 0.5]['SV'].values.tolist()
 
 
 def _sample_child_place(main_place_dcid, contained_place_type):
@@ -105,7 +108,7 @@ def _sample_child_place(main_place_dcid, contained_place_type):
             return node['dcid']
 
 
-def compute(query_detection: Detection):
+def compute(query_detection: Detection, context):
   # ========    Get Place Info
   # Extract info from query_detection.
   places_detected = query_detection.places_detected
@@ -170,12 +173,20 @@ def compute(query_detection: Detection):
   # This is a new try to extend svs to siblingins. This is to extend the
   # stat vars "a little bit"
 
+  context_sv = None
+  if context and context['debug'] and context['debug']['data_spec']:
+    context_sv = context['debug']['data_spec']['primary_sv']
+
   # Get extended stat var list
   if topic_svs:
     selected_svs = topic_svs.copy()
     extended_sv_map = nl_topic.get_topic_peers(topic_svs)
   else:
-    extended_sv_map = nl_variable.extend_svs(selected_svs)
+    extended_svs = copy.deepcopy(selected_svs)
+    if context_sv:
+      extended_svs.append(context_sv)
+    extended_sv_map = nl_variable.extend_svs(extended_svs)
+
   all_svs = selected_svs + expanded_svs
   for sv, svs in extended_sv_map.items():
     all_svs.extend(svs)
@@ -194,7 +205,14 @@ def compute(query_detection: Detection):
                        topic_svs=topic_svs,
                        extended_sv_map=extended_sv_map,
                        primary_sv="",
-                       primary_sv_siblings=[])
+                       primary_sv_siblings=[],
+                       use_context_sv=False,
+                       context_place=None)
+
+  if context:
+    data_spec.context_place = Place(dcid=context['place_dcid'],
+                                    name=context['place_name'],
+                                    place_type=context['place_type'])
 
   if not all_svs:
     logging.info("No SVs to use for existence.")
@@ -224,9 +242,16 @@ def compute(query_detection: Detection):
           data_spec.nearby_place_spec.sv2places[sv] = []
         data_spec.nearby_place_spec.sv2places[sv].append(place)
 
+  # Get stat var from context
+  if not selected_svs:
+    if context and context['debug'] and context['debug']['data_spec']:
+      data_spec.primary_sv = context['debug']['data_spec']['primary_sv']
+      data_spec.use_context_sv = True
+  else:
+    data_spec.primary_sv = selected_svs[0]
+
   # Find the first sv, it may not have data for main place
   # But this logic might change.
-  data_spec.primary_sv = data_spec.main_place_spec.svs[0]
   data_spec.primary_sv_siblings = data_spec.extended_sv_map[
       data_spec.primary_sv]
 
