@@ -19,7 +19,7 @@ import logging
 import pandas as pd
 
 from lib.nl_detection import ClassificationType, Detection
-from lib import nl_variable
+from lib import nl_variable, nl_topic
 import services.datacommons as dc
 
 
@@ -49,6 +49,7 @@ class DataSpec:
   nearby_place_spec: NearbyPlaceSpec
   contained_place_spec: ContainedPlaceSpec
   selected_svs: List[str]
+  topic_svs: List[str]  # Will still contain svpg's
   expanded_svs: List[str]
   extended_sv_map: Dict[str, List[str]]
   primary_sv: str
@@ -111,6 +112,7 @@ def compute(query_detection: Detection):
   main_place_type = places_detected.main_place.place_type
 
   # ========    Get SV info
+  ## update me
   svs_detected = query_detection.svs_detected
   svs_df = pd.DataFrame({
       'SV': svs_detected.sv_dcids,
@@ -132,6 +134,7 @@ def compute(query_detection: Detection):
 
   # Filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
+  topic_svs = nl_topic.get_topics(svs_detected.sv_dcids)
   expanded_svgs = nl_variable.expand_svg(
       [x for x in highlight_svs if x.startswith("dc/g")])
   selected_svs = []
@@ -167,7 +170,13 @@ def compute(query_detection: Detection):
   # stat vars "a little bit"
 
   # Get extended stat var list
-  extended_sv_map = nl_variable.extend_svs(selected_svs)
+  if topic_svs:
+    print(topic_svs)
+    selected_svs = topic_svs.copy()
+    print(topic_svs)
+    extended_sv_map = nl_topic.get_topic_peers(topic_svs)
+  else:
+    extended_sv_map = nl_variable.extend_svs(selected_svs)
   all_svs = selected_svs + expanded_svs
   for sv, svs in extended_sv_map.items():
     all_svs.extend(svs)
@@ -183,6 +192,7 @@ def compute(query_detection: Detection):
                            svs=[]),
                        selected_svs=selected_svs,
                        expanded_svs=expanded_svs,
+                       topic_svs=topic_svs,
                        extended_sv_map=extended_sv_map,
                        primary_sv="",
                        primary_sv_siblings=[])

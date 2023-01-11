@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
+from typing import List, Dict
 
 from config import subject_page_pb2
 from lib.nl_data_spec import DataSpec
 from lib.nl_detection import ClassificationType, Detection, Place, RankingType
+from lib import nl_variable, nl_topic
 from services import datacommons as dc
 
 PLACE_TYPE_TO_PLURALS = {
@@ -50,7 +51,7 @@ def pluralize_place_type(place_type: str) -> str:
 
 def get_sv_name(svs):
   sv2name_raw = dc.property_values(svs, 'name')
-  return {sv: names[0] for sv, names in sv2name_raw.items()}
+  return {sv: names[0] if names else sv for sv, names in sv2name_raw.items()}
 
 
 def _single_place_single_var_timeline_block(sv_dcid, sv2name):
@@ -134,6 +135,40 @@ def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
   return block, stat_var_spec_map
 
 
+def _topic_sv_blocks(category: subject_page_pb2.Category, topic_svs: List[str], extended_sv_map: Dict[str, List[str]], sv2name, sv_exists_list):
+  """Fill in category if there is a topic."""
+  main_block = category.blocks.add()
+  column = main_block.columns.add()
+  for sv in topic_svs:
+    if 'dc/svpg/' in sv:
+      sub_svs = extended_sv_map[sv]
+      if not sub_svs:
+        continue
+      sub_svs_exist = filter(lambda x: x in sv_exists_list, sub_svs)
+      if not sub_svs_exist:
+        continue
+      # add a block for each peer group
+      block = category.blocks.add()
+      column = block.columns.add()
+      for i, sub_sv in enumerate(sub_svs_exist):
+        # split up into several line charts
+        if i % 5 == 0:
+          tile = column.tiles.add()
+          tile.type = subject_page_pb2.Tile.TileType.LINE
+          tile.title = nl_topic.svpg_name(sv)
+        tile.stat_var_key.append(sub_sv)
+        category.stat_var_spec[sub_sv].stat_var = sub_sv
+        category.stat_var_spec[sub_sv].name = sv2name[sub_sv]
+    elif sv in sv_exists_list:
+      # add to main line chart
+      tile = column.tiles.add()
+      tile.type = subject_page_pb2.Tile.TileType.LINE
+      tile.title = sv2name[sv]
+      tile.stat_var_key.append(sv)
+      category.stat_var_spec[sv].stat_var = sv
+      category.stat_var_spec[sv].name = sv2name[sv]
+
+
 def build_page_config(detection: Detection, data_spec: DataSpec,
                       context_history):
 
@@ -152,10 +187,11 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   classifier = detection.classifications[0]
   classificationType = classifier.type
 
-  # No stat vars found
   primary_sv = data_spec.primary_sv
   primary_sv_siblings = data_spec.primary_sv_siblings
   use_context_sv = False
+
+  # No stat vars found
   context_place = None
   if not primary_sv:
     for context in reversed(context_history):
@@ -167,6 +203,15 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
                               name=context['place_name'],
                               place_type=context['place_type'])
         break
+
+  if data_spec.topic_svs and data_spec.main_place_spec.place:
+    # Special boost for topics
+    all_svs = data_spec.topic_svs.copy()
+    for _, v in nl_topic.get_topic_peers(data_spec.topic_svs).items():
+      all_svs += v
+    sv2name = get_sv_name(all_svs)
+    _topic_sv_blocks(category, data_spec.topic_svs, data_spec.extended_sv_map, sv2name, data_spec.main_place_spec.svs)
+    return page_config
 
   if not primary_sv:
     if main_place_spec.place:
