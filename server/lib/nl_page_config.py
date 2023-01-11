@@ -376,7 +376,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   # Render scatter plot if query asks for a correlation
   # IMPORTANT: assumes that data_spec.selected_svs is not empty
   # This might be fragile
-  # TODO: add check for data_spec.selected_svs 
+  # TODO: add check for data_spec.selected_svs
   elif classificationType == ClassificationType.CORRELATION:
 
     # get first stat var from current data spec
@@ -394,7 +394,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       if len(data_spec.selected_svs) > 1:
         sv_2 = data_spec.selected_svs[1]
       else:
-        sv_2 = sv_1 # self-correlation as fail state. 
+        sv_2 = sv_1  # self-correlation as fail state.
 
     #get names
     sv_names = get_sv_name([sv_1, sv_2])
