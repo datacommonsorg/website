@@ -29,7 +29,8 @@ _TOPIC_DCID_TO_SV = {
         "Area_Farm",
         "Count_Farm",
         "Income_Farm",
-        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        # Number of works in Crop production
+        "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
         "dc/svpg/CountOfFarmInventoryByType",
     ],
