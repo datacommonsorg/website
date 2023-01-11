@@ -356,7 +356,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec):
   # Also assumes that
   #    - previous context had a primary_sv that was not "".
   #    - data_spec.selected_svs is not empty
-  # TODO: Walk up history chain to find context_sv
+  # TODO: Walk up history chain to find context_sv if not in previous context
   # TODO: add check for data_spec.selected_svs 
   elif classificationType == ClassificationType.CORRELATION:
 
@@ -367,12 +367,10 @@ def build_page_config(detection: Detection, data_spec: DataSpec):
     sv_names = get_sv_name([sv_1, sv_2])
 
     sv_1_key = sv_1 + "_scatter"
-    sv_1_name = sv_names[sv_1]
     category.stat_var_spec[sv_1_key].stat_var = sv_1
-    category.stat_var_spec[sv_1_key].name = sv_1_name
+    category.stat_var_spec[sv_1_key].name = sv_names[sv_1]
 
     sv_2_key = sv_2 + "_scatter"
-    sv_2_name = get_sv_name([sv_2])[sv_2]
     category.stat_var_spec[sv_2_key].stat_var = sv_2
     category.stat_var_spec[sv_2_key].name = sv_names[sv_2]
 
