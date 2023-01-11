@@ -84,7 +84,7 @@ _SV_KEYWORDS_NO_PC = [
     "PrecipitableWater",
     "Rainfall",
     "Snowfall",
-    "Visibili",
+    "Visibility",
     "WindSpeed",
     "ConsecutiveDryDays",
     "Percent",
@@ -99,6 +99,7 @@ def _should_add_percapita(sv_dcid: str) -> bool:
 
 
 def _is_sv_percapita(sv_name: str) -> bool:
+  # Use names for these since some old prevalence dcid's do not use the new naming scheme.
   if "Percentage" in sv_name or "Prevalence" in sv_name:
     return True
   return False
