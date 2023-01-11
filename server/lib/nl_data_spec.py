@@ -138,7 +138,7 @@ def compute(query_detection: Detection, context):
 
   # Filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
-  topic_svs = nl_topic.get_topics(svs_detected.sv_dcids)
+  topic_svs = nl_topic.get_topics(highlight_svs)
   expanded_svgs = nl_variable.expand_svg(
       [x for x in highlight_svs if x.startswith("dc/g")])
   selected_svs = []
