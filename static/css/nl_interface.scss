@@ -130,17 +130,10 @@ $answer-min-height: 100vh;
     gap: 16px;
   }
 
-  .block-column {
-    flex-direction: row !important;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
   .chart-container {
     background: white;
     margin-top: 0;
     padding: 10px;
-    width: 30%;
 
     h4 {
       margin-bottom: 0;
@@ -155,10 +148,6 @@ $answer-min-height: 100vh;
     }
   }
 
-  .chart-container.place-overview-tile {
-    width: 100%;
-  }
-
   .block-title {
     display: none;
   }
@@ -167,6 +156,18 @@ $answer-min-height: 100vh;
     position: absolute;
     top: -10000px;
     visibility: hidden;
+  }
+
+  .tile-lg {
+    width: 100%;
+  }
+
+  .tile-md {
+    width: calc((100% - 16px)/2);
+  }
+
+  .tile-sm {
+    width: calc((100% - 32px)/3);
   }
 }
 
