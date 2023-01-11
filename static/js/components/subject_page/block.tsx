@@ -32,7 +32,7 @@ import {
   EventTypeSpec,
   TileConfig,
 } from "../../types/subject_page_proto_types";
-import { isNlInterface, isNlInterface } from "../../utils/nl_interface_utils";
+import { isNlInterface } from "../../utils/nl_interface_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
