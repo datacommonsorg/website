@@ -365,18 +365,24 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   elif classificationType == ClassificationType.CORRELATION:
 
     # get first stat var from previous context
-    sv_1 = data_spec.context_sv
-    # get second stat var from current
-    sv_2 = data_spec.selected_svs[0]
-    sv_names = get_sv_name([sv_1, sv_2])
+    sv_1 = context_history[-1]['debug']['primary_sv']
 
+    # get second stat var from current data spec
+    sv_2 = data_spec.selected_svs[0]
+
+    #get names
+    sv_names = get_sv_name([sv_1, sv_2])
+    sv_1_name = sv_names[sv_1]
+    sv_2_name = sv_names[sv_2]
+
+    # set keys and specs of each stat var
     sv_1_key = sv_1 + "_scatter"
     category.stat_var_spec[sv_1_key].stat_var = sv_1
-    category.stat_var_spec[sv_1_key].name = sv_names[sv_1]
+    category.stat_var_spec[sv_1_key].name = sv_1_name
 
     sv_2_key = sv_2 + "_scatter"
     category.stat_var_spec[sv_2_key].stat_var = sv_2
-    category.stat_var_spec[sv_2_key].name = sv_names[sv_2]
+    category.stat_var_spec[sv_2_key].name = sv_2_name
 
     # add a scatter config
     block = category.blocks.add()

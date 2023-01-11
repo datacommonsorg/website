@@ -54,13 +54,6 @@ class DataSpec:
   extended_sv_map: Dict[str, List[str]]
   primary_sv: str
   primary_sv_siblings: List[str]
-<<<<<<< HEAD
-  use_context_sv: bool
-  context_sv: str
-  context_place: Place
-  context_sv: str
-=======
->>>>>>> 9a83f9743cfaa2d1ea24acfa4bd9033da0ee5799
 
 
 def _get_related_places(place_dcid):
