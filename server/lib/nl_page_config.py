@@ -356,31 +356,33 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       category.stat_var_spec[sv_key].denom = "Count_Person"
 
   # Render scatter plot if query asks for a correlation
+  # IMPORTANT: Right now this is fragile, as it will only
+  # use SVs from the most recent context.
+  # TODO: Fix stat var names
   elif classificationType == ClassificationType.CORRELATION:
-    block = category.blocks.add()
-    column = block.columns.add()
 
-    # get first stat var
-    sv_1 = "Count_Worker_NAICSAgricultureForestryFishingHunting"
+    # get first stat var from context
+    latest_context = context_history[-1]
+    sv_1 = latest_context['debug']['primary_sv']
     sv_1_key = sv_1 + "_scatter"
     category.stat_var_spec[sv_1_key].stat_var = sv_1
     category.stat_var_spec[sv_1_key].name = sv_1
 
     # second stat var
-    sv_2 = "Percent_Person_WithHighBloodPressure"
+    sv_2 = context['debug']['primary_sv']
     sv_2_key = sv_2 + "_scatter"
     category.stat_var_spec[sv_2_key].stat_var = sv_2
     category.stat_var_spec[sv_2_key].name = sv_2
 
+    # add a scatter config
+    block = category.blocks.add()
+    column = block.columns.add()
     tile = column.tiles.add()
     tile.stat_var_key.append(sv_1_key)
     tile.stat_var_key.append(sv_2_key)
     tile.type = subject_page_pb2.Tile.TileType.SCATTER
     tile.title = f"{sv_2} vs. {sv_1}"
 
-
-
-      
   # # Main place
   # if spec.main.svs:
   #   block = category.blocks.add()
