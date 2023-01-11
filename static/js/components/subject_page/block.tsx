@@ -20,6 +20,11 @@
 
 import React from "react";
 
+import {
+  NL_LARGE_TILE_CLASS,
+  NL_MED_TILE_CLASS,
+  NL_SMALL_TILE_CLASS,
+} from "../../constants/app/nl_interface_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import {
@@ -75,6 +80,19 @@ export function Block(props: BlockPropType): JSX.Element {
         {props.columns &&
           props.columns.map((column, idx) => {
             const parentId = `${props.id}-col-${idx}`;
+            let tileClassName = "";
+            // HACK for NL tile layout. Regularly, tile size should depend on
+            // number of columns in config.
+            if (isNlInterface()) {
+              if (column.tiles.length > 2) {
+                tileClassName = NL_SMALL_TILE_CLASS;
+              } else {
+                tileClassName =
+                  column.tiles.length === 1
+                    ? NL_LARGE_TILE_CLASS
+                    : NL_MED_TILE_CLASS;
+              }
+            }
             return (
               <div
                 key={parentId}
@@ -82,7 +100,7 @@ export function Block(props: BlockPropType): JSX.Element {
                 className="block-column"
                 style={{ width: columnWidth }}
               >
-                {renderTiles(column.tiles, props, minIdxToHide)}
+                {renderTiles(column.tiles, props, minIdxToHide, tileClassName)}
                 {showExpando && column.tiles.length > NUM_TILES_SHOWN && (
                   <a className="expando" onClick={expandoCallback}>
                     Show more
@@ -114,7 +132,8 @@ const expandoCallback = function (e) {
 function renderTiles(
   tiles: TileConfig[],
   props: BlockPropType,
-  minIdxToHide: number
+  minIdxToHide: number,
+  tileClassName?: string
 ): JSX.Element {
   if (!tiles) {
     return <></>;
@@ -122,7 +141,14 @@ function renderTiles(
   const tilesJsx = tiles.map((tile, i) => {
     const id = randDomId();
     const enclosedPlaceType = props.enclosedPlaceType;
-    const className = i >= minIdxToHide ? HIDE_TILE_CLASS : "";
+    const classNameList = [];
+    if (tileClassName) {
+      classNameList.push(tileClassName);
+    }
+    if (i >= minIdxToHide) {
+      classNameList.push(HIDE_TILE_CLASS);
+    }
+    const className = classNameList.join(" ");
     switch (tile.type) {
       case "HIGHLIGHT":
         return (
