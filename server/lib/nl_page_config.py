@@ -357,23 +357,26 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
 
   # Render scatter plot if query asks for a correlation
   # IMPORTANT: Right now this is fragile, as it will only
-  # use SVs from the most recent context. Also assumes the
-  # previous context had a primary_sv set.
-  # TODO: Fix stat var names
+  # use SVs from the most recent context.
+  # Also assumes that
+  #    - previous context had a primary_sv that was not "".
+  #    - data_spec.selected_svs is not empty
   elif classificationType == ClassificationType.CORRELATION:
 
-    # get first stat var from context
+    # get first stat var from previous context
     latest_context = context_history[-1]
     sv_1 = latest_context['debug']['primary_sv']
     sv_1_key = sv_1 + "_scatter"
+    sv_1_name = get_sv_name([sv_1])[sv_1]
     category.stat_var_spec[sv_1_key].stat_var = sv_1
-    category.stat_var_spec[sv_1_key].name = sv_1
+    category.stat_var_spec[sv_1_key].name = sv_1_name
 
     # get second stat var from current
-    sv_2 = context['debug']['primary_sv']
+    sv_2 = data_spec.selected_svs[0]
     sv_2_key = sv_2 + "_scatter"
+    sv_2_name = get_sv_name([sv_2])[sv_2]
     category.stat_var_spec[sv_2_key].stat_var = sv_2
-    category.stat_var_spec[sv_2_key].name = sv_2
+    category.stat_var_spec[sv_2_key].name = get_sv_name([sv_2])[sv_2]
 
     # add a scatter config
     block = category.blocks.add()
@@ -382,7 +385,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     tile.stat_var_key.append(sv_1_key)
     tile.stat_var_key.append(sv_2_key)
     tile.type = subject_page_pb2.Tile.TileType.SCATTER
-    tile.title = f"{sv_2} vs. {sv_1}"
+    tile.title = f"{sv_1_name} vs. {sv_2_name}"
 
   # # Main place
   # if spec.main.svs:
