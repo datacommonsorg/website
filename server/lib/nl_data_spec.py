@@ -226,7 +226,7 @@ def compute(query_detection: Detection):
 
   # Find the first sv, it may not have data for main place
   # But this logic might change.
-  if len(data_spec.main_place_spec.svs) > 0:
+  if data_spec.main_place_spec.svs:
     data_spec.primary_sv = data_spec.main_place_spec.svs[0]
     data_spec.primary_sv_siblings = data_spec.extended_sv_map[
         data_spec.primary_sv]
