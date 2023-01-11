@@ -111,9 +111,12 @@ $border-radius: 0.5rem;
 
 .ranking-tile {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-column-gap: $chart-container-top-margin;
   grid-row-gap: $chart-container-top-margin;
+}
+
+.ranking-unit-container {
+  padding: 0 0.5rem;
 }
 
 /**
