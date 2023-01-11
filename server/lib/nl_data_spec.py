@@ -228,7 +228,7 @@ def compute(query_detection: Detection):
   # But this logic might change.
   if data_spec.main_place_spec.svs:
     data_spec.primary_sv = data_spec.main_place_spec.svs[0]
-    data_spec.primary_sv_siblings = data_spec.extended_sv_map[
-        data_spec.primary_sv]
+    data_spec.primary_sv_siblings = data_spec.extended_sv_map.get(
+        data_spec.primary_sv, [])
 
   return data_spec
