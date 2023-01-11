@@ -75,7 +75,7 @@ QUERY_CLASSIFICATION_HEURISTICS = {
         "High": [
             "most",
             "top",
-            "best",
+            "best",  # leaving here for backwards-compatibility
             "highest",
             "high",
             "smallest",
@@ -90,7 +90,7 @@ QUERY_CLASSIFICATION_HEURISTICS = {
         "Low": [
             "least",
             "bottom",
-            "worst",
+            "worst",  # leaving here for backwards-compatibility
             "lowest",
             "low",
             "largest",
@@ -101,6 +101,8 @@ QUERY_CLASSIFICATION_HEURISTICS = {
             "bottom to top",
             "lowest to highest",
         ],
+        "Best": ["best",],
+        "Worst": ["worst",],
     },
     "Correlation": [
         "correlate",
@@ -263,33 +265,36 @@ class Model:
     Returns:
       NLClassifier with RankingClassificationAttributes
     """
-    # make query lowercase for str matching
+    subtype_map = {
+        "High": RankingType.HIGH,
+        "Low": RankingType.LOW,
+        "Best": RankingType.BEST,
+        "Worst": RankingType.WORST,
+    }
+
+    # make query lowercase for string matching
     query = query.lower()
 
-    ranking_type = []
+    ranking_types = []
+    all_trigger_words = []
 
-    # Scan for keywords in high
-    high_matches = []
-    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["High"]:
-      regex = r"(^|\W)" + keyword + r"($|\W)"
-      high_matches += [w.group() for w in re.finditer(regex, query)]
-    if len(high_matches) > 0:
-      ranking_type.append(RankingType.HIGH)
+    for subtype in QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys():
+      type_trigger_words = []
 
-    # Scan for keywords in low
-    low_matches = []
-    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"]["Low"]:
-      regex = r"(^|\W)" + keyword + r"($|\W)"
-      low_matches += [w.group() for w in re.finditer(regex, query)]
-    if len(low_matches) > 0:
-      ranking_type.append(RankingType.LOW)
+      for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"][subtype]:
+        regex = r"(^|\W)" + keyword + r"($|\W)"
+        type_trigger_words += [w.group() for w in re.finditer(regex, query)]
 
-    trigger_words = high_matches + low_matches
-    if len(trigger_words) == 0:
+      if len(type_trigger_words) > 0:
+        ranking_types.append(subtype_map[subtype])
+      all_trigger_words += type_trigger_words
+
+    # If no matches, this query is not a ranking query
+    if len(all_trigger_words) == 0:
       return None
 
     attributes = RankingClassificationAttributes(
-        ranking_type=ranking_type, ranking_trigger_words=trigger_words)
+        ranking_type=ranking_types, ranking_trigger_words=all_trigger_words)
     return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:
