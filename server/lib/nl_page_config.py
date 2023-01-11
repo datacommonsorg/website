@@ -265,10 +265,17 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       if classifier.type == ClassificationType.RANKING:
         tile.type = subject_page_pb2.Tile.TileType.RANKING
         if "CriminalActivities" in primary_sv:
-          if RankingType.HIGH in classifier.attributes.ranking_type:
+          # first check if "best" or "worst"
+          if RankingType.BEST in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_lowest = True
-          if RankingType.LOW in classifier.attributes.ranking_type:
+          elif RankingType.WORST in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_highest = True
+          else:
+            # otherwise, render normally
+            if RankingType.HIGH in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_highest = True
+            if RankingType.LOW in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_lowest = True
         else:
           if RankingType.HIGH in classifier.attributes.ranking_type:
             tile.ranking_tile_spec.show_highest = True
