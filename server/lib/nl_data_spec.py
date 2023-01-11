@@ -58,6 +58,7 @@ class DataSpec:
   use_context_sv: bool
   context_sv: str
   context_place: Place
+  context_sv: str
 
 
 def _get_related_places(place_dcid):
@@ -117,6 +118,14 @@ def compute(query_detection: Detection, context):
   main_place_name = places_detected.main_place.name
   main_place_type = places_detected.main_place.place_type
 
+  context_sv = None
+  context_place = None
+  if context and context['debug'] and context['debug']['data_spec']:
+    context_sv = context['debug']['data_spec'].get('primary_sv', None)
+    context_place = Place(dcid=context['place_dcid'],
+                          name=context['place_name'],
+                          place_type=context['place_type'])
+
   # ========    Get SV info
   svs_detected = query_detection.svs_detected
   svs_df = pd.DataFrame({
@@ -150,43 +159,17 @@ def compute(query_detection: Detection, context):
         expanded_svs.extend(expanded_svgs[sv])
     else:
       selected_svs.append(sv)
-  # relevant_svs_df = _filtered_svs_df(svs_df)
-  # relevant_svs = relevant_svs_df['SV'].values.tolist()
 
-  # Get related SVGs and all info.
-  # svgs_info = _related_svgs(relevant_svs, all_relevant_places)
-
-  # Get useful sv2name and sv2definitions.
-  # sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
-  # sv2name = sv_maps["sv2name"]
-  # sv2definition = sv_maps["sv2definition"]
-
-  # Get SVGs into peer buckets.
-  # peer_buckets = _peer_buckets(sv2definition, relevant_svs)
-
-  # Produce Chart Config JSON.
-  # chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
-  #                              child_places_type, highlight_svs, sv2name,
-  #                              peer_buckets)
-
-  # message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-
-  # This is a new try to extend svs to siblingins. This is to extend the
-  # stat vars "a little bit"
-
-  context_sv = None
-  if context and context['debug'] and context['debug']['data_spec']:
-    context_sv = context['debug']['data_spec']['primary_sv']
+  use_context_sv = False
+  if not selected_svs and context_sv:
+    selected_svs = [context_sv]
+    use_context_sv = True
+  extended_sv_map = nl_variable.extend_svs(selected_svs)
 
   # Get extended stat var list
   if topic_svs:
     selected_svs = topic_svs.copy()
     extended_sv_map = nl_topic.get_topic_peers(topic_svs)
-  else:
-    extended_svs = copy.deepcopy(selected_svs)
-    if context_sv:
-      extended_svs.append(context_sv)
-    extended_sv_map = nl_variable.extend_svs(extended_svs)
 
   all_svs = selected_svs + expanded_svs
   for sv, svs in extended_sv_map.items():
@@ -207,6 +190,7 @@ def compute(query_detection: Detection, context):
                        extended_sv_map=extended_sv_map,
                        primary_sv="",
                        primary_sv_siblings=[],
+<<<<<<< HEAD
                        use_context_sv=False,
                        context_sv=context_sv,
                        context_place=None)
@@ -215,6 +199,11 @@ def compute(query_detection: Detection, context):
     data_spec.context_place = Place(dcid=context['place_dcid'],
                                     name=context['place_name'],
                                     place_type=context['place_type'])
+=======
+                       use_context_sv=use_context_sv,
+                       context_sv=context_sv,
+                       context_place=context_place)
+>>>>>>> a2c818f993f2e1ff3688f39a0a9c5b7b5223abdd
 
   if not all_svs:
     logging.info("No SVs to use for existence.")
@@ -245,16 +234,13 @@ def compute(query_detection: Detection, context):
         data_spec.nearby_place_spec.sv2places[sv].append(place)
 
   # Get stat var from context
-  if not selected_svs:
-    if context and context['debug'] and context['debug']['data_spec']:
-      data_spec.primary_sv = context['debug']['data_spec']['primary_sv']
-      data_spec.use_context_sv = True
-  else:
-    data_spec.primary_sv = selected_svs[0]
-
-  # Find the first sv, it may not have data for main place
-  # But this logic might change.
-  data_spec.primary_sv_siblings = data_spec.extended_sv_map[
-      data_spec.primary_sv]
+  if data_spec.use_context_sv:
+    data_spec.primary_sv = context_sv
+  elif data_spec.main_place_spec.svs:
+    # Find the first sv, it may not have data for main place
+    # But this logic might change.
+    data_spec.primary_sv = data_spec.main_place_spec.svs[0]
+    data_spec.primary_sv_siblings = data_spec.extended_sv_map[
+        data_spec.primary_sv]
 
   return data_spec
