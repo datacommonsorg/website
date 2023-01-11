@@ -86,6 +86,7 @@ _SV_KEYWORDS_NO_PC = [
     "Snowfall",
     "Visibili",
     "WindSpeed",
+    "ConsecutiveDryDays",
 ]
 
 
