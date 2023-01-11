@@ -18,6 +18,7 @@ How to run locally:
 FLASK_ENV=local python test_nlp_manual.py
 """
 from dataclasses import dataclass
+from enum import Enum
 import json
 from typing import Dict, List, Optional
 import sys
@@ -45,10 +46,16 @@ def _encoded_q(query: str, embedding: str = 'us_filtered'):
 
 
 @dataclass
+class Tile:
+  stat_var_key: Optional[str] = None
+  ranking: Optional[str] = None
+
+
+@dataclass
 class Categories:
   # Checks categories[0]['blocks'][0]['columns'][0]['tiles']
   # Order is not tested.
-  stat_var_keys: Optional[List[str]] = None
+  tiles: Optional[List[Tile]] = None
 
 
 @dataclass
@@ -63,12 +70,26 @@ class Config:
 
 
 def _verify_categories(categories: Categories, got: Dict):
-  if categories.stat_var_keys:
+  if categories.tiles:
+    # Check if all tile specs in this this has stat var keys
+    assert all(t.stat_var_key for t in categories.tiles)
+
     stat_var_keys_got = set()
     for tile in got[0]['blocks'][0]['columns'][0]['tiles']:
       stat_var_keys_got.update(tile['statVarKey'])
 
-    assert stat_var_keys_got == set(categories.stat_var_keys)
+    assert stat_var_keys_got == set([t.stat_var_key for t in categories.tiles])
+
+  sv_key_2_tile_dict = {}
+  for tile in got[0]['blocks'][0]['columns'][0]['tiles']:
+    for k in tile['statVarKey']:
+      sv_key_2_tile_dict[k] = tile
+
+  for tile in categories.tiles:
+    if tile.ranking:
+      tile_got = sv_key_2_tile_dict[tile.stat_var_key]
+      assert tile_got['type'] == "RANKING"
+      assert set([tile.ranking]) == set(tile_got['rankingTileSpec'].keys())
 
 
 def _verify_metadata(metadata: Metadata, got: Dict):
@@ -136,9 +157,11 @@ def test_palo_alto_flow():
       QueryTestCase(
           query='what about auto theft',
           config_expected=Config(
-              categories=Categories(stat_var_keys=[
-                  'Count_CriminalActivities_MotorVehicleTheft',
-                  'Count_CriminalActivities_MotorVehicleTheft_pc'
+              categories=Categories(tiles=[
+                  Tile(stat_var_key='Count_CriminalActivities_MotorVehicleTheft'
+                      ),
+                  Tile(stat_var_key=
+                       'Count_CriminalActivities_MotorVehicleTheft_pc')
               ]),
               # Check if the place is still Palo Alto.
               metadata=Metadata(place_dcid=[PALO_ALTO_DCID]))),
@@ -147,20 +170,24 @@ def test_palo_alto_flow():
           query='what about Boston',
           config_expected=Config(
               # TODO: Fix vars below, currently it returns 2 random svs.
-              # categories=Categories(
-              #   stat_var_keys=[
-              #     'Count_CriminalActivities_MotorVehicleTheft',
-              #     'Count_CriminalActivities_MotorVehicleTheft_pc'
-              #   ]
-              # ),
+              # categories=Categories(tiles=[
+              #     Tile(stat_var_key='Count_CriminalActivities_MotorVehicleTheft'),
+              #     Tile(stat_var_key='Count_CriminalActivities_MotorVehicleTheft_pc')
+              # ]),
               # Check if the place is swtiched to Boston.
               metadata=Metadata(place_dcid=[BOSTON_DICD]))),
       # Q4.
       QueryTestCase(
-          query='what are the worst cities in California',
+          query='which are the worst cities for auto theft in california',
           # TODO: add tests for cities ranking.
-          config_expected=Config(metadata=Metadata(
-              place_dcid=[CALIFORNIA_DCID]))),
+          config_expected=Config(categories=Categories(tiles=[
+              Tile(stat_var_key='Count_CriminalActivities_MotorVehicleTheft',
+                   ranking='showHighest'),
+              Tile(stat_var_key='Count_CriminalActivities_MotorVehicleTheft_pc',
+                   ranking='showHighest')
+          ]),
+                                 metadata=Metadata(
+                                     place_dcid=[CALIFORNIA_DCID])))
   ]
 
   for test_case in test_cases:
