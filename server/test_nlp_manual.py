@@ -18,11 +18,9 @@ How to run locally:
 FLASK_ENV=local python test_nlp_manual.py
 """
 from dataclasses import dataclass
-from enum import Enum
 import json
 from typing import Dict, List, Optional
 import sys
-from unicodedata import category
 import urllib.parse
 from main import app
 
