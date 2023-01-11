@@ -76,9 +76,23 @@ def get_sv_name(svs):
   return sv_name_map
 
 
+_SV_KEYWORDS_NO_PC = [
+    'Temperature',
+    'Precipitation',
+    "BarometricPressure",
+    "CloudCover",
+    "PrecipitableWater",
+    "Rainfall",
+    "Snowfall",
+    "Visibili",
+    "WindSpeed",
+]
+
+
 def _should_add_percapita(sv_dcid: str) -> bool:
-  if 'Temperature' in sv_dcid or 'Precipitation' in sv_dcid:
-    return False
+  for skip_phrase in _SV_KEYWORDS_NO_PC:
+    if skip_phrase in sv_dcid:
+      return False
   return True
 
 
