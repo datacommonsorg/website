@@ -277,6 +277,17 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       category.stat_var_spec[sv_key].name = sv2name[primary_sv]
       category.stat_var_spec[sv_key].denom = "Count_Person"
 
+  # Render scatter plot if query asks for a correlation
+  elif classificationType == ClassificationType.CORRELATION:
+    block = category.blocks.add()
+    column = block.columns.add()
+    sv_1 = primary_sv
+    for sv_2 in main_place_spec.svs:
+      tile = column.tiles.add()
+      tile.stat_var_key.append(sv_2)
+
+
+      
   # # Main place
   # if spec.main.svs:
   #   block = category.blocks.add()
