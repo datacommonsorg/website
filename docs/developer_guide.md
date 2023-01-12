@@ -165,14 +165,16 @@ npm test testfilename -- -u
 
 ### Debug Flask in Visual Studio Code
 
-1. Update variables in 'env' of 'Flask' configurations in .vscode/launch.json as
-   needed.
-1. In vscode left hand side menu, click on "Run and Debug".
-1. On top of the "Run and Debug" pane, select "DC Websie Flask" and click on the
-   green "Play" button.
+1. [Optional] Update variables in 'env' of 'Flask' configurations in
+   .vscode/launch.json as needed.
 
-This brings up Flask server from Debugger. Now you can set break point, inspect
-variables from the Debug pane.
+1. In the left hand side menu of VS Code, click on "Run and Debug".
+
+1. On top of the "Run and Debug" pane, select "DC Website Flask" and click on
+   the green "Play" button.
+
+This brings up Flask server from the debugger. Now you can set break point and
+inspect variables from the debugger pane.
 
 A full tutorial of debugging Flask app in Visual Studio Code is in
 [here](https://code.visualstudio.com/docs/python/tutorial-flask).
