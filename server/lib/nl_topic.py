@@ -29,10 +29,22 @@ _TOPIC_DCID_TO_SV = {
         "Area_Farm",
         "Count_Farm",
         "Income_Farm",
-        "Count_Worker_NAICSAgricultureForestryFishingHunting",
+        # Number of works in Crop production
+        "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
-        "dc/svpg/CountOfFarmInventoryByType",
     ],
+    "dc/topic/AgriculturalProduction": [
+        "Income_Farm",
+        "Amount_FarmInventory_Cotton",
+        "Amount_FarmInventory_Rice",
+        "Amount_FarmInventory_WheatForGrain",
+        "Amout_FarmInventory_CornForGrain",
+        "Amount_FarmInventory_BarleyForGrain",
+        "Count_FarmInventory_BeefCows",
+        "Count_FarmInventory_Broilers",
+        "Count_FarmInventory_MilkCows",
+        "Count_FarmInventory_SheepAndLambs",
+    ]
 }
 
 _PEER_GROUP_TO_SV = {
@@ -62,7 +74,6 @@ _PEER_GROUP_TO_SV = {
         "Amount_FarmInventory_BarleyForGrain",
         "Amount_FarmInventory_CornForSilageOrGreenchop",
         "Amount_FarmInventory_Cotton",
-        "Amount_FarmInventory_DryEdibleBeans",
         "Amount_FarmInventory_DurumWheatForGrain",
         "Amount_FarmInventory_Forage",
         "Amount_FarmInventory_OatsForGrain",
@@ -77,15 +88,6 @@ _PEER_GROUP_TO_SV = {
         "Amount_FarmInventory_UplandCotton",
         "Amount_FarmInventory_WheatForGrain",
         "Amout_FarmInventory_CornForGrain",
-    ],
-    "dc/svpg/CountOfFarmInventoryByType": [
-        "Count_FarmInventory_BeefCows",
-        "Count_FarmInventory_Broilers",
-        "Count_FarmInventory_CattleAndCalves",
-        "Count_FarmInventory_HogsAndPigs",
-        "Count_FarmInventory_Layers",
-        "Count_FarmInventory_MilkCows",
-        "Count_FarmInventory_SheepAndLambs",
     ]
 }
 

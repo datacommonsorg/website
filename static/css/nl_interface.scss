@@ -163,11 +163,39 @@ $answer-min-height: 100vh;
   }
 
   .tile-md {
-    width: calc((100% - 16px)/2);
+    width: calc((100% - 16px) / 2);
   }
 
   .tile-sm {
-    width: calc((100% - 32px)/3);
+    width: calc((100% - 32px) / 3);
+  }
+
+  .place-overview-tile {
+    .col-12 {
+      padding: .5em 0 !important;
+    }
+    .source {
+      color: var(--dc-gray);
+      font-size: 0.7rem;
+    }
+
+    .factoid a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .factoid .table thead th {
+      vertical-align: middle;
+    }
+
+    .factoid th,
+    .factoid td {
+      font-size: 0.9rem;
+      padding: 0.25rem;
+    }
+
+    #map-container {
+      margin-right: 15px;
+    }
   }
 }
 

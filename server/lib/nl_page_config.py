@@ -16,7 +16,7 @@ from typing import List, Dict
 
 from config import subject_page_pb2
 from lib.nl_data_spec import DataSpec
-from lib.nl_detection import ClassificationType, Detection, Place, RankingType
+from lib.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingType
 from lib import nl_variable, nl_topic
 from services import datacommons as dc
 import json
@@ -76,11 +76,33 @@ def get_sv_name(svs):
   return sv_name_map
 
 
+_SV_PARTIAL_DCID_NO_PC = [
+    'Temperature', 'Precipitation', "BarometricPressure", "CloudCover",
+    "PrecipitableWater", "Rainfall", "Snowfall", "Visibility", "WindSpeed",
+    "ConsecutiveDryDays", "Percent", 'Area_'
+]
+
+
+def _should_add_percapita(sv_dcid: str) -> bool:
+  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
+    if skip_phrase in sv_dcid:
+      return False
+  return True
+
+
+def _is_sv_percapita(sv_name: str) -> bool:
+  # Use names for these since some old prevalence dcid's do not use the new naming scheme.
+  if "Percentage" in sv_name or "Prevalence" in sv_name:
+    return True
+  return False
+
+
 def _single_place_single_var_timeline_block(sv_dcid, sv2name):
   """A column with two charts, main stat var and per capita"""
   block = subject_page_pb2.Block(title=sv2name[sv_dcid],
                                  columns=[subject_page_pb2.Block.Column()])
   stat_var_spec_map = {}
+
   # Line chart for the stat var
   sv_key = sv_dcid
   tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
@@ -89,14 +111,20 @@ def _single_place_single_var_timeline_block(sv_dcid, sv2name):
   stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
       stat_var=sv_dcid, name=sv2name[sv_dcid])
   block.columns[0].tiles.append(tile)
+
   # Line chart for the stat var per capita
-  sv_key = sv_dcid + '_pc'
-  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
-                               title="Per Capita",
-                               stat_var_key=[sv_key])
-  stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-      stat_var=sv_dcid, name=sv2name[sv_dcid], denom="Count_Person")
-  block.columns[0].tiles.append(tile)
+  if _should_add_percapita(sv_dcid):
+    sv_key = sv_dcid + '_pc'
+    tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                                 title="Per Capita",
+                                 stat_var_key=[sv_key])
+    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+        stat_var=sv_dcid,
+        name=sv2name[sv_dcid],
+        denom="Count_Person",
+        scaling=100,
+        unit="%")
+    block.columns[0].tiles.append(tile)
   return block, stat_var_spec_map
 
 
@@ -104,6 +132,7 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
   """A column with two chart, all stat vars and per capita"""
   block = subject_page_pb2.Block(columns=[subject_page_pb2.Block.Column()])
   stat_var_spec_map = {}
+
   # Line chart for the stat var
   tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
                                title="Total",
@@ -114,15 +143,22 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
     stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(stat_var=sv,
                                                              name=sv2name[sv])
   block.columns[0].tiles.append(tile)
+
   # Line chart for the stat var per capita
-  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
-                               title="Per Capita")
-  for sv in svs:
-    sv_key = sv + '_pc'
-    tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-        stat_var=sv, name=sv2name[sv], denom="Count_Person")
-  block.columns[0].tiles.append(tile)
+  svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
+  if len(svs_pc) > 0:
+    tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.LINE,
+                                 title="Per Capita")
+    for sv in svs_pc:
+      sv_key = sv + '_pc'
+      tile.stat_var_key.append(sv_key)
+      stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+          stat_var=sv,
+          name=sv2name[sv],
+          denom="Count_Person",
+          scaling=100,
+          unit="%")
+    block.columns[0].tiles.append(tile)
 
   return block, stat_var_spec_map
 
@@ -144,20 +180,27 @@ def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
 
   column.tiles.append(tile)
   # Per Capita
-  tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.BAR,
-                               title="Per Capita",
-                               comparison_places=[x.dcid for x in places])
-  for sv in svs:
-    sv_key = sv + "_multiple_place_bar_block_pc"
-    tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
-        stat_var=sv, denom="Count_Person", name=sv2name[sv])
+  svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
+  if len(svs_pc) > 0:
+    tile = subject_page_pb2.Tile(type=subject_page_pb2.Tile.TileType.BAR,
+                                 title="Per Capita",
+                                 comparison_places=[x.dcid for x in places])
+    for sv in svs_pc:
+      sv_key = sv + "_multiple_place_bar_block_pc"
+      tile.stat_var_key.append(sv_key)
+      stat_var_spec_map[sv_key] = subject_page_pb2.StatVarSpec(
+          stat_var=sv,
+          denom="Count_Person",
+          name=sv2name[sv],
+          scaling=100,
+          unit="%")
 
-  column.tiles.append(tile)
+    column.tiles.append(tile)
   return block, stat_var_spec_map
 
 
-def _topic_sv_blocks(category: subject_page_pb2.Category, topic_svs: List[str],
+def _topic_sv_blocks(category: subject_page_pb2.Category,
+                     classification_type: NLClassifier, topic_svs: List[str],
                      extended_sv_map: Dict[str,
                                            List[str]], sv2name, sv_exists_list):
   """Fill in category if there is a topic."""
@@ -168,25 +211,35 @@ def _topic_sv_blocks(category: subject_page_pb2.Category, topic_svs: List[str],
       sub_svs = extended_sv_map[sv]
       if not sub_svs:
         continue
-      sub_svs_exist = filter(lambda x: x in sv_exists_list, sub_svs)
+      sub_svs_exist = list(filter(lambda x: x in sv_exists_list, sub_svs))
       if not sub_svs_exist:
         continue
       # add a block for each peer group
       block = category.blocks.add()
       column = block.columns.add()
       for i, sub_sv in enumerate(sub_svs_exist):
-        # split up into several line charts
-        if i % 5 == 0:
+        if classification_type == ClassificationType.CONTAINED_IN:
+          # always maps for contained_in
           tile = column.tiles.add()
-          tile.type = subject_page_pb2.Tile.TileType.LINE
+          tile.type = subject_page_pb2.Tile.TileType.MAP
           tile.title = nl_topic.svpg_name(sv)
+        else:
+          # split up into several line charts
+          if i % 5 == 0:
+            tile = column.tiles.add()
+            tile.type = subject_page_pb2.Tile.TileType.LINE
+            tile.title = nl_topic.svpg_name(sv)
         tile.stat_var_key.append(sub_sv)
         category.stat_var_spec[sub_sv].stat_var = sub_sv
         category.stat_var_spec[sub_sv].name = sv2name[sub_sv]
     elif sv in sv_exists_list:
       # add to main line chart
       tile = column.tiles.add()
-      tile.type = subject_page_pb2.Tile.TileType.LINE
+      if classification_type == ClassificationType.CONTAINED_IN:
+        # always maps for contained_in
+        tile.type = subject_page_pb2.Tile.TileType.MAP
+      else:
+        tile.type = subject_page_pb2.Tile.TileType.LINE
       tile.title = sv2name[sv]
       tile.stat_var_key.append(sv)
       category.stat_var_spec[sv].stat_var = sv
@@ -234,8 +287,9 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     for _, v in nl_topic.get_topic_peers(data_spec.topic_svs).items():
       all_svs += v
     sv2name = get_sv_name(all_svs)
-    _topic_sv_blocks(category, data_spec.topic_svs, data_spec.extended_sv_map,
-                     sv2name, data_spec.main_place_spec.svs)
+    _topic_sv_blocks(category, classificationType, data_spec.topic_svs,
+                     data_spec.extended_sv_map, sv2name,
+                     data_spec.main_place_spec.svs)
     return page_config
 
   if not primary_sv:
@@ -302,6 +356,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       tile.stat_var_key.append(primary_sv)
       if classifier.type == ClassificationType.RANKING:
         tile.type = subject_page_pb2.Tile.TileType.RANKING
+        tile.ranking_tile_spec.ranking_count = 10
         if "CriminalActivities" in primary_sv:
           # first check if "best" or "worst"
           if RankingType.BEST in classifier.attributes.ranking_type:
@@ -329,30 +384,109 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       category.stat_var_spec[primary_sv].name = sv2name[primary_sv]
 
       # The per capita tile
-      tile = column.tiles.add()
-      sv_key = primary_sv + "_pc"
-      tile.stat_var_key.append(sv_key)
-      if classifier.type == ClassificationType.RANKING:
-        tile.type = subject_page_pb2.Tile.TileType.RANKING
-        if "CriminalActivities" in primary_sv:
-          if RankingType.HIGH in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_lowest = True
-          if RankingType.LOW in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_highest = True
-        else:
-          if RankingType.HIGH in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_highest = True
-          if RankingType.LOW in classifier.attributes.ranking_type:
-            tile.ranking_tile_spec.show_lowest = True
+      if _should_add_percapita(primary_sv):
+        tile = column.tiles.add()
+        sv_key = primary_sv + "_pc"
+        tile.stat_var_key.append(sv_key)
+        if classifier.type == ClassificationType.RANKING:
+          tile.type = subject_page_pb2.Tile.TileType.RANKING
+          tile.ranking_tile_spec.ranking_count = 10
+          if "CriminalActivities" in primary_sv:
+            # first check if "best" or "worst"
+            if RankingType.BEST in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_lowest = True
+            elif RankingType.WORST in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_highest = True
+            else:
+              # otherwise, render normally
+              if RankingType.HIGH in classifier.attributes.ranking_type:
+                tile.ranking_tile_spec.show_highest = True
+              if RankingType.LOW in classifier.attributes.ranking_type:
+                tile.ranking_tile_spec.show_lowest = True
+          else:
+            if RankingType.HIGH in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_highest = True
+            if RankingType.LOW in classifier.attributes.ranking_type:
+              tile.ranking_tile_spec.show_lowest = True
 
-        tile.title = ''.join(
-            ['Per Capita ', sv2name[primary_sv], ' in ', main_place_spec.name])
+          tile.title = ''.join([
+              'Per Capita ', sv2name[primary_sv], ' in ', main_place_spec.name
+          ])
+        else:
+          tile.type = subject_page_pb2.Tile.TileType.MAP
+          tile.title = "Per Capita " + sv2name[primary_sv] + ' (${date})'
+        category.stat_var_spec[sv_key].stat_var = primary_sv
+        category.stat_var_spec[sv_key].name = sv2name[primary_sv]
+        category.stat_var_spec[sv_key].denom = "Count_Person"
+        category.stat_var_spec[sv_key].unit = "%"
+        category.stat_var_spec[sv_key].scaling = 100
+
+  # Render scatter plot if query asks for a correlation
+  # IMPORTANT: assumes that data_spec.selected_svs is not empty
+  # This might be fragile
+  # TODO: add check for data_spec.selected_svs
+  elif classificationType == ClassificationType.CORRELATION:
+
+    # get first stat var from current data spec
+    sv_1 = data_spec.selected_svs[0]
+
+    # get second stat var from previous context
+    # search up context history for latest primary_sv
+    sv_2 = None
+    for context in reversed(context_history):
+      if context['debug']['primary_sv']:
+        sv_2 = context['debug']['primary_sv']
+        break
+    if not sv_2:
+      # if can't be found in context, see if there is a second selected sv
+      if len(data_spec.selected_svs) > 1:
+        sv_2 = data_spec.selected_svs[1]
       else:
-        tile.type = subject_page_pb2.Tile.TileType.MAP
-        tile.title = "Per Capita " + sv2name[primary_sv] + ' (${date})'
-      category.stat_var_spec[sv_key].stat_var = primary_sv
-      category.stat_var_spec[sv_key].name = sv2name[primary_sv]
-      category.stat_var_spec[sv_key].denom = "Count_Person"
+        sv_2 = sv_1  # self-correlation as fail state.
+
+    #get names
+    sv_names = get_sv_name([sv_1, sv_2])
+    sv_1_name = sv_names[sv_1]
+    sv_2_name = sv_names[sv_2]
+
+    # if the word "Percent" is in one, check that the other is similarly normalized
+    # use names since we sometimes get old hex dcid's
+    change_sv_1_pc = False
+    change_sv_2_pc = False
+    if _is_sv_percapita(sv_1_name):
+      if not _is_sv_percapita(sv_2_name):
+        change_sv_2_pc = True
+        sv_2_name += " Per Capita"
+    if _is_sv_percapita(sv_2_name):
+      if not _is_sv_percapita(sv_1_name):
+        change_sv_1_pc = True
+        sv_1_name += " Per Capita"
+
+    # set keys and specs of each stat var
+    sv_1_key = sv_1 + "_scatter"
+    category.stat_var_spec[sv_1_key].stat_var = sv_1
+    category.stat_var_spec[sv_1_key].name = sv_1_name
+    if change_sv_1_pc:
+      category.stat_var_spec[sv_1_key].denom = "Count_Person"
+      category.stat_var_spec[sv_1_key].unit = "%"
+      category.stat_var_spec[sv_1_key].scaling = 100
+
+    sv_2_key = sv_2 + "_scatter"
+    category.stat_var_spec[sv_2_key].stat_var = sv_2
+    category.stat_var_spec[sv_2_key].name = sv_2_name
+    if change_sv_2_pc:
+      category.stat_var_spec[sv_2_key].denom = "Count_Person"
+      category.stat_var_spec[sv_2_key].unit = "%"
+      category.stat_var_spec[sv_2_key].scaling = 100
+
+    # add a scatter config
+    block = category.blocks.add()
+    column = block.columns.add()
+    tile = column.tiles.add()
+    tile.stat_var_key.append(sv_1_key)
+    tile.stat_var_key.append(sv_2_key)
+    tile.type = subject_page_pb2.Tile.TileType.SCATTER
+    tile.title = f"{sv_1_name} vs. {sv_2_name}"
 
   # # Main place
   # if spec.main.svs:

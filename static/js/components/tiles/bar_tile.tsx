@@ -172,7 +172,7 @@ function processData(
         const dataPoints: DataPoint[] = [];
         for (const spec of props.statVarSpec) {
           const statVar = spec.statVar;
-          if (!raw.data[statVar] || !raw.data[statVar][placeDcid]) {
+          if (!raw.data[statVar] || _.isEmpty(raw.data[statVar][placeDcid])) {
             continue;
           }
           const stat = raw.data[statVar][placeDcid];
@@ -181,7 +181,9 @@ function processData(
             value: stat.value || 0,
             dcid: placeDcid,
           };
-          sources.add(raw.facets[stat.facet].provenanceUrl);
+          if (raw.facets[stat.facet]) {
+            sources.add(raw.facets[stat.facet].provenanceUrl);
+          }
           if (spec.denom && spec.denom in raw.data) {
             const denomStat = raw.data[spec.denom][placeDcid];
             dataPoint.value /= denomStat.value;
