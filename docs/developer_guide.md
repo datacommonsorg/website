@@ -173,8 +173,12 @@ npm test testfilename -- -u
 1. On top of the "Run and Debug" pane, select "DC Website Flask" and click on
    the green "Play" button.
 
+1. In "DEBUG CONSOLE" (not "TERMINAL"), check the server logs show up.
+
 This brings up Flask server from the debugger. Now you can set break point and
 inspect variables from the debugger pane.
+
+TIPS: you can inspect variable in the botton of "DEBUG CONSOLE" window.
 
 A full tutorial of debugging Flask app in Visual Studio Code is in
 [here](https://code.visualstudio.com/docs/python/tutorial-flask).

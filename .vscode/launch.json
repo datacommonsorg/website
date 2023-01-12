@@ -21,6 +21,7 @@
             "cwd": "${workspaceRoot}/server",
             "envFile": "${workspaceFolder}/.env",
             "jinja": true,
+            "console": "internalConsole",
         }
     ]
 }
