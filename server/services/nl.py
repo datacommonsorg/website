@@ -48,20 +48,134 @@ TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
 STOP_WORDS = {
-    'ourselves', 'hers', 'between', 'yourself', 'but', 'again', 'there',
-    'about', 'once', 'during', 'out', 'very', 'having', 'with', 'they', 'own',
-    'an', 'be', 'some', 'for', 'do', 'its', 'yours', 'such', 'into', 'of',
-    'most', 'itself', 'other', 'off', 'is', 's', 'am', 'or', 'who', 'as',
-    'from', 'him', 'each', 'the', 'themselves', 'until', 'below', 'are', 'we',
-    'these', 'your', 'his', 'through', 'don', 'nor', 'me', 'were', 'her',
-    'more', 'himself', 'this', 'down', 'should', 'our', 'their', 'while',
-    'above', 'both', 'up', 'to', 'ours', 'had', 'she', 'all', 'no', 'when',
-    'at', 'any', 'before', 'them', 'same', 'and', 'been', 'have', 'in', 'will',
-    'on', 'does', 'yourselves', 'then', 'that', 'because', 'what', 'over',
-    'why', 'so', 'can', 'did', 'not', 'now', 'under', 'he', 'you', 'herself',
-    'has', 'just', 'where', 'too', 'only', 'myself', 'which', 'those', 'i',
-    'after', 'few', 'whom', 't', 'being', 'if', 'theirs', 'my', 'against', 'a',
-    'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than', 'tell',
+    'ourselves',
+    'hers',
+    'between',
+    'yourself',
+    'but',
+    'again',
+    'there',
+    'about',
+    'once',
+    'during',
+    'out',
+    'very',
+    'having',
+    'with',
+    'they',
+    'own',
+    'an',
+    'be',
+    'some',
+    'for',
+    'do',
+    'its',
+    'yours',
+    'such',
+    'into',
+    'of',
+    'most',
+    'itself',
+    'other',
+    'off',
+    'is',
+    's',
+    'am',
+    'or',
+    'who',
+    'as',
+    'from',
+    'him',
+    'each',
+    'the',
+    'themselves',
+    'until',
+    'below',
+    'are',
+    'we',
+    'these',
+    'your',
+    'his',
+    'through',
+    'don',
+    'nor',
+    'me',
+    'were',
+    'her',
+    'more',
+    'himself',
+    'this',
+    'down',
+    'should',
+    'our',
+    'their',
+    'while',
+    'above',
+    'both',
+    'up',
+    'to',
+    'ours',
+    'had',
+    'she',
+    'all',
+    'no',
+    'when',
+    'at',
+    'any',
+    'before',
+    'them',
+    'same',
+    'and',
+    'been',
+    'have',
+    'in',
+    'will',
+    'on',
+    'does',
+    'yourselves',
+    'then',
+    'that',
+    'because',
+    'what',
+    'over',
+    'why',
+    'so',
+    'can',
+    'did',
+    'not',
+    'now',
+    'under',
+    'he',
+    'you',
+    'herself',
+    'has',
+    'just',
+    'where',
+    'too',
+    'only',
+    'myself',
+    'which',
+    'those',
+    'i',
+    'after',
+    'few',
+    'whom',
+    't',
+    'being',
+    'if',
+    'theirs',
+    'my',
+    'against',
+    'a',
+    'by',
+    'doing',
+    'it',
+    'how',
+    'further',
+    'was',
+    'here',
+    'than',
+    'tell',
 }
 
 # TODO: remove this special casing when a better NER model is identified which
@@ -119,11 +233,13 @@ QUERY_CLASSIFICATION_HEURISTICS = {
     ],
 }
 
+
 def _add_to_set_from_list(set_strings, list_string):
   for v_str in list_string:
     if type(v_str) == str:
       # Only add words which are strings.
       set_strings.add(v_str.lower())
+
 
 # Use QUERY_CLASSIFICATION_HEURISTICS to add all words to this dict.
 STOP_WORDS_QUERY_CLASSIFICATION = set()
@@ -133,11 +249,16 @@ for (_, v) in QUERY_CLASSIFICATION_HEURISTICS.items():
     _add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, v)
   elif isinstance(v, dict):
     # If 'v' is a dict, get the values from the dict and add those.
-    [_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, val_list) for (_, val_list) in v.items()]
+    [
+        _add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, val_list)
+        for (_, val_list) in v.items()
+    ]
 
 # Also add from the place types and plurals.
-_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, PLACE_TYPE_TO_PLURALS.keys())
-_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, PLACE_TYPE_TO_PLURALS.values())
+_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION,
+                      PLACE_TYPE_TO_PLURALS.keys())
+_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION,
+                      PLACE_TYPE_TO_PLURALS.values())
 
 
 def _remove_stop_words(input):
