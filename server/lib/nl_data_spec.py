@@ -90,7 +90,7 @@ def _highlight_svs(sv_df):
 def _sample_child_place(main_place_dcid, contained_place_type):
   """Find a sampled child place"""
   if not contained_place_type:
-    return
+    return None
   if contained_place_type == "City":
     return "geoId/0667000"
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
@@ -105,6 +105,7 @@ def _sample_child_place(main_place_dcid, contained_place_type):
         for node in nodes['nodes']:
           if contained_place_type in node['types']:
             return node['dcid']
+  return None
 
 
 def compute(query_detection: Detection):
