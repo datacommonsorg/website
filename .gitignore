@@ -12,7 +12,6 @@ server/dist/**
 **/node_modules/**
 
 # Local env.
-.vscode
 *.swp
 
 # Mac
