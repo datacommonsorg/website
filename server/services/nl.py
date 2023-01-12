@@ -61,7 +61,7 @@ STOP_WORDS = {
     'why', 'so', 'can', 'did', 'not', 'now', 'under', 'he', 'you', 'herself',
     'has', 'just', 'where', 'too', 'only', 'myself', 'which', 'those', 'i',
     'after', 'few', 'whom', 't', 'being', 'if', 'theirs', 'my', 'against', 'a',
-    'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than'
+    'by', 'doing', 'it', 'how', 'further', 'was', 'here', 'than', 'tell',
 }
 
 # TODO: remove this special casing when a better NER model is identified which
@@ -119,12 +119,32 @@ QUERY_CLASSIFICATION_HEURISTICS = {
     ],
 }
 
+def _add_to_set_from_list(set_strings, list_string):
+  for v_str in list_string:
+    if type(v_str) == str:
+      # Only add words which are strings.
+      set_strings.add(v_str.lower())
+
+# Use QUERY_CLASSIFICATION_HEURISTICS to add all words to this dict.
+STOP_WORDS_QUERY_CLASSIFICATION = set()
+for (_, v) in QUERY_CLASSIFICATION_HEURISTICS.items():
+  if isinstance(v, list):
+    # If 'v' is a list, add all the words.
+    _add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, v)
+  elif isinstance(v, dict):
+    # If 'v' is a dict, get the values from the dict and add those.
+    [_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, val_list) for (_, val_list) in v.items()]
+
+# Also add from the place types and plurals.
+_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, PLACE_TYPE_TO_PLURALS.keys())
+_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, PLACE_TYPE_TO_PLURALS.values())
+
 
 def _remove_stop_words(input):
   res = input.lower().split()
   output = ''
   for w in res:
-    if w not in STOP_WORDS:
+    if (w not in STOP_WORDS) and (w not in STOP_WORDS_QUERY_CLASSIFICATION):
       output += w + " "
   if not output:
     return ''
@@ -538,6 +558,10 @@ class Model:
     return None
 
   def detect_svs(self, query, embeddings_build):
+    # Remove stop words.
+    logging.info(f"SV Detection: Query provided to SV Detection: {query}")
+    query = _remove_stop_words(query)
+    logging.info(f"SV Detection: Query used after removing stop words: {query}")
     query_embeddings = self.model.encode([query])
     if embeddings_build not in self.dataset_embeddings_maps:
       raise ValueError(f'Embeddings Build: {embeddings_build} was not found.')
