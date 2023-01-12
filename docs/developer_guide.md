@@ -163,23 +163,19 @@ npm test testfilename -- -u
 
 ## Other Developing Tips
 
-### GKE config
+### Debug Flask in Visual Studio Code
 
-The GKE configuration is stored [here](../deploy/overlays).
+1. Update variables in 'env' of 'Flask' configurations in .vscode/launch.json as
+   needed.
+1. In vscode left hand side menu, click on "Run and Debug".
+1. On top of the "Run and Debug" pane, select "DC Websie Flask" and click on the
+   green "Play" button.
 
-### Custom Instance
+This brings up Flask server from Debugger. Now you can set break point, inspect
+variables from the Debug pane.
 
-Create a pub/sub topic for mixer to listen to data change.
-
-```bash
-gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
-```
-
-### Redis memcache
-
-[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
-is used for production deployment. Each cluster has a Redis instance located in
-the same region.
+A full tutorial of debugging Flask app in Visual Studio Code is in
+[here](https://code.visualstudio.com/docs/python/tutorial-flask).
 
 ### Add new charts in Place Page
 
@@ -229,7 +225,7 @@ the same region.
    ./scripts/compile_messages.sh
    ```
 
-1. **IMPORTANT**: Manually restart the flask or minikube instance to reload the config and translations. Most likely, this means re-running `run_server.py`
+1. **IMPORTANT**: Manually restart Flask to reload the config and translations. Most likely, this means re-running `run_server.py`
 
 1. Test the data on a place page!
 
@@ -262,3 +258,21 @@ If you need to reload new embeddings, can manually remove the cache by
 ```bash
 rm -rf ~/.datacommons/cache.*
 ```
+
+### GKE config
+
+The GKE configuration is stored [here](../deploy/overlays).
+
+### Custom Instance
+
+Create a pub/sub topic for mixer to listen to data change.
+
+```bash
+gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
+```
+
+### Redis memcache
+
+[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
+is used for production deployment. Each cluster has a Redis instance located in
+the same region.
