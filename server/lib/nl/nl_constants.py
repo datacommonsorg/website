@@ -142,6 +142,11 @@ STOP_WORDS = {
     'here',
     'than',
     'tell',
+    'say',
+    'something',
+    'thing',
+    'among',
+    'across',
 }
 
 # TODO: remove this special casing when a better NER model is identified which

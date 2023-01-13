@@ -30,7 +30,7 @@ def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
       set_strings.add(word.lower())
 
 
-def add_to_set_from_nested_dict(
+def _add_to_set_from_nested_dict(
     set_strings: Set[str],
     nested_dict: Dict[str, Union[List[str], Dict[str, List[str]]]]) -> None:
   """Adds (in place) every word/string (in lower case) to a Set of strings.
@@ -73,8 +73,8 @@ def combine_stop_words() -> Set[str]:
   stop_words = copy.deepcopy(nl_constants.STOP_WORDS)
 
   # Now add the words in the classification heuristics.
-  add_to_set_from_nested_dict(stop_words,
-                              nl_constants.QUERY_CLASSIFICATION_HEURISTICS)
+  _add_to_set_from_nested_dict(stop_words,
+                               nl_constants.QUERY_CLASSIFICATION_HEURISTICS)
 
   # Also add the plurals.
   add_to_set_from_list(stop_words,
