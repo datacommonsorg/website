@@ -12,8 +12,9 @@ server/dist/**
 **/node_modules/**
 
 # Local env.
-.vscode
 *.swp
+.vscode
+!.vscode/launch.json
 
 # Mac
 .DS_Store

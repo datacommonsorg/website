@@ -163,23 +163,25 @@ npm test testfilename -- -u
 
 ## Other Developing Tips
 
-### GKE config
+### Debug Flask in Visual Studio Code
 
-The GKE configuration is stored [here](../deploy/overlays).
+1. [Optional] Update variables in 'env' of 'Flask' configurations in
+   .vscode/launch.json as needed.
 
-### Custom Instance
+1. In the left hand side menu of VS Code, click on "Run and Debug".
 
-Create a pub/sub topic for mixer to listen to data change.
+1. On top of the "Run and Debug" pane, select "DC Website Flask" and click on
+   the green "Play" button.
 
-```bash
-gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
-```
+1. In "DEBUG CONSOLE" (not "TERMINAL"), check the server logs show up.
 
-### Redis memcache
+This brings up Flask server from the debugger. Now you can set break point and
+inspect variables from the debugger pane.
 
-[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
-is used for production deployment. Each cluster has a Redis instance located in
-the same region.
+TIPS: you can inspect variable in the botton of "DEBUG CONSOLE" window.
+
+A full tutorial of debugging Flask app in Visual Studio Code is in
+[here](https://code.visualstudio.com/docs/python/tutorial-flask).
 
 ### Add new charts in Place Page
 
@@ -229,7 +231,7 @@ the same region.
    ./scripts/compile_messages.sh
    ```
 
-1. **IMPORTANT**: Manually restart the flask or minikube instance to reload the config and translations. Most likely, this means re-running `run_server.py`
+1. **IMPORTANT**: Manually restart Flask to reload the config and translations. Most likely, this means re-running `run_server.py`
 
 1. Test the data on a place page!
 
@@ -262,3 +264,21 @@ If you need to reload new embeddings, can manually remove the cache by
 ```bash
 rm -rf ~/.datacommons/cache.*
 ```
+
+### GKE config
+
+The GKE configuration is stored [here](../deploy/overlays).
+
+### Custom Instance
+
+Create a pub/sub topic for mixer to listen to data change.
+
+```bash
+gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
+```
+
+### Redis memcache
+
+[Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
+is used for production deployment. Each cluster has a Redis instance located in
+the same region.
