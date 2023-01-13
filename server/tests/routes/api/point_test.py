@@ -17,7 +17,7 @@ import unittest
 from unittest import mock
 
 from main import app
-import tests.api.mock_data as mock_data
+import tests.routes.api.mock_data as mock_data
 
 
 class TestApiPointWithin(unittest.TestCase):

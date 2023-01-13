@@ -27,28 +27,26 @@ class TestServiceDiscovery(unittest.TestCase):
     configure_endpoints_from_ingress(DEFAULT_INGRESS_RULES)
 
     for endpoint_path in get_all_endpoint_paths():
-      assert get_service_url(
-          endpoint_path) == f'https://api-root{endpoint_path}'
+      assert get_service_url(endpoint_path) == f'http://api-root{endpoint_path}'
 
   def test_configure_endpoints_from_ingress_1(self):
     """Tests simple ingress configuration."""
     configure_endpoints_from_ingress('tests/test_data/ingress/test1.yaml')
 
-    assert get_service_url('/query') == 'https://query-host:8080/query'
+    assert get_service_url('/query') == 'http://query-host:8080/query'
     assert get_service_url(
-        '/stat-var/match') == 'https://stat-var-host:8080/stat-var/match'
+        '/stat-var/match') == 'http://stat-var-host:8080/stat-var/match'
 
     assert get_service_url(
         '/v1/bulk/observations/series'
-    ) == 'https://bulk-observation-host:8080/v1/bulk/observations/series'
+    ) == 'http://bulk-observation-host:8080/v1/bulk/observations/series'
     # Test prefix match overriding wildcard.
     assert get_service_url(
         '/v1/bulk/observations/series/linked'
-    ) == 'https://observation-series-linked-host:8080/v1/bulk/observations/series/linked'
+    ) == 'http://observation-series-linked-host:8080/v1/bulk/observations/series/linked'
 
-    assert get_service_url(
-        '/node/related-locations'
-    ) == 'https://default-host:8080/node/related-locations'
+    assert get_service_url('/node/related-locations'
+                          ) == 'http://default-host:8080/node/related-locations'
 
   def test_configure_endpoints_from_ingress_2(self):
     """Tests ingress configuration."""
@@ -56,16 +54,16 @@ class TestServiceDiscovery(unittest.TestCase):
 
     assert get_service_url(
         '/v1/bulk/observation-dates/linked'
-    ) == 'https://observations-api:5000/v1/bulk/observation-dates/linked'
+    ) == 'http://observations-api:5000/v1/bulk/observation-dates/linked'
 
     assert get_service_url(
         '/v1/bulk/observations/series/linked'
-    ) == 'https://observations-api:5000/v1/bulk/observations/series/linked'
+    ) == 'http://observations-api:5000/v1/bulk/observations/series/linked'
 
     assert get_service_url(
-        '/v1/variables') == 'https://stat-var-svc/v1/variables'
+        '/v1/variables') == 'http://stat-var-svc/v1/variables'
 
     assert get_service_url('/v1/bulk/property/values'
-                          ) == 'https://stat-var-svc/v1/bulk/property/values'
+                          ) == 'http://stat-var-svc/v1/bulk/property/values'
 
-    assert get_service_url('/query') == 'https://bq-service/query'
+    assert get_service_url('/query') == 'http://bq-service/query'
