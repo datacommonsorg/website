@@ -597,12 +597,10 @@ def page():
 def data():
   original_query = request.args.get('q')
   context_history = []
-  try:
+  if request.method == 'POST':
     context_history = request.get_json().get('contextHistory', [])
     logging.info("contextHistory found:")
     logging.info(context_history)
-  except:
-    logging.info("No contextHistory found.")
 
   query = str(escape(_remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
