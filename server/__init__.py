@@ -288,7 +288,7 @@ def create_app():
         return
     # Some specific imports for the NL Interface.
     import en_core_web_md
-    import lib.nl_training as libnl
+    import lib.nl.nl_training as libnl
     import services.nl as nl
     # For the classification types available, check lib.nl_training (libnl).
     classification_types = [

@@ -17,16 +17,20 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
-from lib.nl_detection import NLClassifier, ClassificationType
-from lib.nl_detection import ClusteringClassificationAttributes
-from lib.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
-from lib.nl_detection import CorrelationClassificationAttributes
-from lib.nl_detection import RankingClassificationAttributes, RankingType
-from lib.nl_detection import PeriodType, TemporalClassificationAttributes
-from lib.nl_training import NLQueryClassificationData, NLQueryClassificationModel
-from lib.nl_training import NLQueryClusteringDetectionModel
-from lib.nl_page_config import PLACE_TYPE_TO_PLURALS
+from lib.nl.nl_detection import NLClassifier, ClassificationType
+from lib.nl.nl_detection import ClusteringClassificationAttributes
+from lib.nl.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
+from lib.nl.nl_detection import CorrelationClassificationAttributes
+from lib.nl.nl_detection import RankingClassificationAttributes, RankingType
+from lib.nl.nl_detection import PeriodType, TemporalClassificationAttributes
+from lib.nl.nl_training import NLQueryClassificationData, NLQueryClassificationModel
+from lib.nl.nl_training import NLQueryClusteringDetectionModel
+
+import lib.nl.nl_constants as nl_constants
+import lib.nl.nl_utils as nl_utils
+
 from typing import Dict, List, Union
+
 import os
 import numpy as np
 import pandas as pd
@@ -47,230 +51,7 @@ EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
-STOP_WORDS = {
-    'ourselves',
-    'hers',
-    'between',
-    'yourself',
-    'but',
-    'again',
-    'there',
-    'about',
-    'once',
-    'during',
-    'out',
-    'very',
-    'having',
-    'with',
-    'they',
-    'own',
-    'an',
-    'be',
-    'some',
-    'for',
-    'do',
-    'its',
-    'yours',
-    'such',
-    'into',
-    'of',
-    'most',
-    'itself',
-    'other',
-    'off',
-    'is',
-    's',
-    'am',
-    'or',
-    'who',
-    'as',
-    'from',
-    'him',
-    'each',
-    'the',
-    'themselves',
-    'until',
-    'below',
-    'are',
-    'we',
-    'these',
-    'your',
-    'his',
-    'through',
-    'don',
-    'nor',
-    'me',
-    'were',
-    'her',
-    'more',
-    'himself',
-    'this',
-    'down',
-    'should',
-    'our',
-    'their',
-    'while',
-    'above',
-    'both',
-    'up',
-    'to',
-    'ours',
-    'had',
-    'she',
-    'all',
-    'no',
-    'when',
-    'at',
-    'any',
-    'before',
-    'them',
-    'same',
-    'and',
-    'been',
-    'have',
-    'in',
-    'will',
-    'on',
-    'does',
-    'yourselves',
-    'then',
-    'that',
-    'because',
-    'what',
-    'over',
-    'why',
-    'so',
-    'can',
-    'did',
-    'not',
-    'now',
-    'under',
-    'he',
-    'you',
-    'herself',
-    'has',
-    'just',
-    'where',
-    'too',
-    'only',
-    'myself',
-    'which',
-    'those',
-    'i',
-    'after',
-    'few',
-    'whom',
-    't',
-    'being',
-    'if',
-    'theirs',
-    'my',
-    'against',
-    'a',
-    'by',
-    'doing',
-    'it',
-    'how',
-    'further',
-    'was',
-    'here',
-    'than',
-    'tell',
-}
-
-# TODO: remove this special casing when a better NER model is identified which
-# can always detect these.
-SPECIAL_PLACES = {'cambridge', 'palo alto', 'mountain view'}
-
-# Note: These heuristics should be revisited if we change
-# query preprocessing (e.g. stopwords, stemming)
-QUERY_CLASSIFICATION_HEURISTICS = {
-    "Ranking": {
-        "High": [
-            "most",
-            "top",
-            "best",  # leaving here for backwards-compatibility
-            "highest",
-            "high",
-            "smallest",
-            "strongest",
-            "richest",
-            "sickest",
-            "illest",
-            "descending",
-            "top to bottom",
-            "highest to lowest",
-        ],
-        "Low": [
-            "least",
-            "bottom",
-            "worst",  # leaving here for backwards-compatibility
-            "lowest",
-            "low",
-            "largest",
-            "weakest",
-            "youngest",
-            "poorest",
-            "ascending",
-            "bottom to top",
-            "lowest to highest",
-        ],
-        "Best": ["best",],
-        "Worst": ["worst",],
-    },
-    "Correlation": [
-        "correlate",
-        "correlated",
-        "correlation",
-        "relationship to",
-        "relationship with",
-        "relationship between",
-        "related to",
-        "related with",
-        "related between",
-        "vs",
-        "versus",
-    ],
-}
-
-
-def _add_to_set_from_list(set_strings, list_string):
-  for v_str in list_string:
-    if type(v_str) == str:
-      # Only add words which are strings.
-      set_strings.add(v_str.lower())
-
-
-# Use QUERY_CLASSIFICATION_HEURISTICS to add all words to this dict.
-STOP_WORDS_QUERY_CLASSIFICATION = set()
-for (_, v) in QUERY_CLASSIFICATION_HEURISTICS.items():
-  if isinstance(v, list):
-    # If 'v' is a list, add all the words.
-    _add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, v)
-  elif isinstance(v, dict):
-    # If 'v' is a dict, get the values from the dict and add those.
-    [
-        _add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION, val_list)
-        for (_, val_list) in v.items()
-    ]
-
-# Also add from the place types and plurals.
-_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION,
-                      PLACE_TYPE_TO_PLURALS.keys())
-_add_to_set_from_list(STOP_WORDS_QUERY_CLASSIFICATION,
-                      PLACE_TYPE_TO_PLURALS.values())
-
-
-def _remove_stop_words(input):
-  res = input.lower().split()
-  output = ''
-  for w in res:
-    if (w not in STOP_WORDS) and (w not in STOP_WORDS_QUERY_CLASSIFICATION):
-      output += w + " "
-  if not output:
-    return ''
-  else:
-    return output[:-1]
+ALL_STOP_WORDS = nl_utils.combine_stop_words()
 
 
 def pick_best(probs):
@@ -419,10 +200,12 @@ class Model:
     ranking_types = []
     all_trigger_words = []
 
-    for subtype in QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys():
+    for subtype in nl_constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys(
+    ):
       type_trigger_words = []
 
-      for keyword in QUERY_CLASSIFICATION_HEURISTICS["Ranking"][subtype]:
+      for keyword in nl_constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"][
+          subtype]:
         regex = r"(^|\W)" + keyword + r"($|\W)"
         type_trigger_words += [w.group() for w in re.finditer(regex, query)]
 
@@ -484,8 +267,8 @@ class Model:
         contained_in_place_type = place_enum
         break
 
-      if place_type in PLACE_TYPE_TO_PLURALS and \
-        PLACE_TYPE_TO_PLURALS[place_type] in query:
+      if place_type in nl_constants.PLACE_TYPE_TO_PLURALS and \
+        nl_constants.PLACE_TYPE_TO_PLURALS[place_type] in query:
         contained_in_place_type = place_enum
         break
 
@@ -530,7 +313,7 @@ class Model:
     """
     query = query.lower()
     matches = []
-    for keyword in QUERY_CLASSIFICATION_HEURISTICS["Correlation"]:
+    for keyword in nl_constants.QUERY_CLASSIFICATION_HEURISTICS["Correlation"]:
       regex = r"(?:^|\W)" + keyword + r"(?:$|\W)"
       matches += [w.group() for w in re.finditer(regex, query)]
     if len(matches) == 0:
@@ -681,7 +464,7 @@ class Model:
   def detect_svs(self, query, embeddings_build):
     # Remove stop words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
-    query = _remove_stop_words(query)
+    query = nl_utils.remove_stop_words(query, ALL_STOP_WORDS)
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
     query_embeddings = self.model.encode([query])
     if embeddings_build not in self.dataset_embeddings_maps:
@@ -756,14 +539,15 @@ class Model:
     return places_found_fac
 
   def detect_place(self, query):
-    query_without_stop_words = _remove_stop_words(query)
+    query_without_stop_words = nl_utils.remove_stop_words(
+        query, nl_constants.STOP_WORDS)
     query_with_period = query + "."
     query_title_case = query.title()
 
     # TODO: work on finding a better fix for important places which are
     # not getting detected.
     # First check in special places. If they are found, return those.
-    for special_place in SPECIAL_PLACES:
+    for special_place in nl_constants.SPECIAL_PLACES:
       if special_place in query_without_stop_words:
         logging.info(f"Found one of the Special Places: {special_place}")
         # Appending a ", USA" to help finding this place via Maps.
