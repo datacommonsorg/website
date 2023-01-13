@@ -21,12 +21,13 @@
 import _ from "lodash";
 import React from "react";
 import { Input } from "reactstrap";
-import { URL_HASH_PARAM_KEYS } from "../../constants/disaster_event_map_constants";
 
+import { URL_HASH_PARAM_KEYS } from "../../constants/disaster_event_map_constants";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
-  EventTypeSpec,
-} from "../../types/subject_page_proto_types";
-import { getSeverityFilters, setUrlHash } from "../../utils/disaster_event_map_utils";
+  getSeverityFilters,
+  setUrlHash,
+} from "../../utils/disaster_event_map_utils";
 
 interface DisasterEventMapFiltersPropType {
   // map of disaster type to information about that event type

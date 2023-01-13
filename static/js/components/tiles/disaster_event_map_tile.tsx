@@ -43,9 +43,7 @@ import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
 } from "../../types/disaster_event_map_types";
-import {
-  EventTypeSpec,
-} from "../../types/subject_page_proto_types";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
   fetchDateList,
   fetchDisasterEventPoints,
@@ -344,11 +342,11 @@ export function DisasterEventMapTile(
    */
   function fetchMapChartData(
     placeInfo: DisasterEventMapPlaceInfo,
-    eventTypeSpec: Record<string, EventTypeSpec>,
+    eventTypeSpec: Record<string, EventTypeSpec>
   ): void {
     // Only re-fetch geojson data if place selection has changed
     const selectedDate = getDate();
-    const severityFilters = getSeverityFilters(eventTypeSpec)
+    const severityFilters = getSeverityFilters(eventTypeSpec);
     const geoJsonPromise =
       mapChartData &&
       !_.isEmpty(mapChartData.geoJson) &&
