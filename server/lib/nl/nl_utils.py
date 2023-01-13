@@ -54,9 +54,9 @@ def _add_to_set_from_nested_dict(
       ]
 
 
-def remove_stop_words(input: str, stop_words: Set[str]) -> str:
+def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   """Remove stop words from a string and return the remaining in lower case."""
-  res = input.lower().split()
+  res = input_str.lower().split()
   output = ''
   for w in res:
     if (w not in stop_words):
