@@ -33,8 +33,8 @@ class TestSubjectPageConfigs(unittest.TestCase):
 
   def verify_event_type_specs(self, page, msg):
     defined_events = {}
-    for i, {event_type_id,
-            event_type_spec} in enumerate(page.event_type_spec.items()):
+    for i, (event_type_id, event_type_spec) in enumerate(
+        page.metadata.event_type_spec.items()):
       event_message = f"{msg}[event={i},{event_type_id}]"
       self.assertFalse(event_type_id in defined_events, event_message)
       self.assertEqual(event_type_id, event_type_spec.id, msg)
@@ -47,7 +47,8 @@ class TestSubjectPageConfigs(unittest.TestCase):
 
     # Non-chart tiles should have a title
     if not (tile.type == TileType.RANKING or tile.type == TileType.HIGHLIGHT or
-            tile.type == TileType.DESCRIPTION):
+            tile.type == TileType.DESCRIPTION or
+            tile.type == TileType.DISASTER_EVENT_MAP):
       self.assertNotEqual(tile.title, '', msg)
 
     if tile.type == TileType.RANKING:
@@ -94,4 +95,4 @@ class TestSubjectPageConfigs(unittest.TestCase):
             for col_i, col in enumerate(block.columns):
               for t_i, tile in enumerate(col.tiles):
                 tile_msg = f"{block_msg}[col={col_i};tile={t_i}]"
-                self.verify_tile(tile, stat_vars, tile_msg, events)
+                self.verify_tile(tile, stat_vars, tile_msg, event_type_specs)
