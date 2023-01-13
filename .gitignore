@@ -13,6 +13,8 @@ server/dist/**
 
 # Local env.
 *.swp
+.vscode
+!.vscode/launch.json
 
 # Mac
 .DS_Store
