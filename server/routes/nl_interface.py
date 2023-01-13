@@ -596,11 +596,12 @@ def page():
 @bp.route('/data', methods=['GET', 'POST'])
 def data():
   original_query = request.args.get('q')
-  context_history = request.get_json().get('contextHistory', [])
-  has_context = False
-  if context_history:
-    has_context = True
-  logging.info(context_history)
+  context_history = []
+  if request.method == 'POST':
+    context_history = request.get_json().get('contextHistory', [])
+    logging.info("contextHistory found:")
+    logging.info(context_history)
+
   query = str(escape(_remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   default_place = "United States"
