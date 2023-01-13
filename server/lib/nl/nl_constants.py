@@ -157,7 +157,7 @@ SPECIAL_PLACES: Set[str] = {'cambridge', 'palo alto', 'mountain view'}
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
-QUERY_CLASSIFICATION_HEURISTICS: dict[str, Union[List[str], Dict[
+QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
     str, List[str]]]] = {
         "Ranking": {
             "High": [
