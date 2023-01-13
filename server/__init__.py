@@ -116,6 +116,7 @@ def register_routes_common(app):
       browser,
       factcheck,
       nl_interface,
+      nl_interface_next,
       place,
       ranking,
       search,
@@ -124,6 +125,7 @@ def register_routes_common(app):
   )
   app.register_blueprint(browser.bp)
   app.register_blueprint(nl_interface.bp)
+  app.register_blueprint(nl_interface_next.bp)
   app.register_blueprint(place.bp)
   app.register_blueprint(ranking.bp)
   app.register_blueprint(search.bp)
