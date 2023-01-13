@@ -11,13 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import logging
 import json
 import unittest
 from unittest import mock
 
 from main import app
-import tests.api.mock_data as mock_data
+import tests.routes.api.mock_data as mock_data
 
 
 class TestApiSeriesWithin(unittest.TestCase):

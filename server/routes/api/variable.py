@@ -34,5 +34,6 @@ def variable_info():
   data = dc.variable_info(dcids).get("data", [])
   result = {}
   for item in data:
-    result[item["node"]] = item["info"]
+    if "info" in item and "node" in item:
+      result[item["node"]] = item["info"]
   return result

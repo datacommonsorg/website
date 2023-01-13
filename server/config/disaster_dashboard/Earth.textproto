@@ -127,7 +127,7 @@ categories {
     columns {
       tiles {
         type: MAP
-      title: "SPI - 1 month"
+        title: "SPI - 1 month"
         stat_var_key: "spi_1"
       }
     }
