@@ -13,7 +13,9 @@
 # limitations under the License.
 """Various constants for NL detection."""
 
-STOP_WORDS = {
+from typing import Dict, List, Set, Union
+
+STOP_WORDS: Set[str] = {
     'ourselves',
     'hers',
     'between',
@@ -151,60 +153,61 @@ STOP_WORDS = {
 
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
-SPECIAL_PLACES = {'cambridge', 'palo alto', 'mountain view'}
+SPECIAL_PLACES: Set[str] = {'cambridge', 'palo alto', 'mountain view'}
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
-QUERY_CLASSIFICATION_HEURISTICS = {
-    "Ranking": {
-        "High": [
-            "most",
-            "top",
-            "best",  # leaving here for backwards-compatibility
-            "highest",
-            "high",
-            "smallest",
-            "strongest",
-            "richest",
-            "sickest",
-            "illest",
-            "descending",
-            "top to bottom",
-            "highest to lowest",
+QUERY_CLASSIFICATION_HEURISTICS: dict[str, Union[List[str], Dict[
+    str, List[str]]]] = {
+        "Ranking": {
+            "High": [
+                "most",
+                "top",
+                "best",  # leaving here for backwards-compatibility
+                "highest",
+                "high",
+                "smallest",
+                "strongest",
+                "richest",
+                "sickest",
+                "illest",
+                "descending",
+                "top to bottom",
+                "highest to lowest",
+            ],
+            "Low": [
+                "least",
+                "bottom",
+                "worst",  # leaving here for backwards-compatibility
+                "lowest",
+                "low",
+                "largest",
+                "weakest",
+                "youngest",
+                "poorest",
+                "ascending",
+                "bottom to top",
+                "lowest to highest",
+            ],
+            "Best": ["best",],
+            "Worst": ["worst",],
+        },
+        "Correlation": [
+            "correlate",
+            "correlated",
+            "correlation",
+            "relationship to",
+            "relationship with",
+            "relationship between",
+            "related to",
+            "related with",
+            "related between",
+            "vs",
+            "versus",
         ],
-        "Low": [
-            "least",
-            "bottom",
-            "worst",  # leaving here for backwards-compatibility
-            "lowest",
-            "low",
-            "largest",
-            "weakest",
-            "youngest",
-            "poorest",
-            "ascending",
-            "bottom to top",
-            "lowest to highest",
-        ],
-        "Best": ["best",],
-        "Worst": ["worst",],
-    },
-    "Correlation": [
-        "correlate",
-        "correlated",
-        "correlation",
-        "relationship to",
-        "relationship with",
-        "relationship between",
-        "related to",
-        "related with",
-        "related between",
-        "vs",
-        "versus",
-    ],
-}
+    }
 
-PLACE_TYPE_TO_PLURALS: dict[str, str] = {
+PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "place": "places",
     "continent": "continents",
     "country": "countries",
