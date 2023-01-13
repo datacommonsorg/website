@@ -14,7 +14,6 @@
 
 import json
 import unittest
-from unittest.mock import patch
 from unittest import mock
 
 from main import app

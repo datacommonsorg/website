@@ -37,7 +37,9 @@ metadata {
       name: "Earthquake"
       event_type_dcids: "EarthquakeEvent"
       color: "#930000"
-      severity_props: "magnitude"
+      default_severity_filter {
+        prop: "magnitude"
+      }
     }
   }
   event_type_spec {
