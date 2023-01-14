@@ -4,13 +4,13 @@ Website is deployed in Kubernetes cluster. A deployment contains the following
 containers:
 
 - website: A Flask app with static files complied by Webpack.
-- mixer: The Data Commons API server.
-- esp: Google Extensive Service Proxy used for gRPC to Json transcoding.
+- mixer: A Data Commons API server.
+- esp: Google Extensive Service Proxy used for endpoints management.
 
-[Mixer](https://github.com/datacommonsorg/mixer) is a submodule of this Git
+[mixer](https://github.com/datacommonsorg/mixer) is a submodule of this Git
 repo. The exact commit of the submodule is deployed together with the website so
-it may not be the same API version as `https://api.datacommons.org/version`.
-Make sure to update and track the mixer change for a new deployment:
+it may not be the same version as in `https://api.datacommons.org/version`.
+Make sure to update and track the mixer changes for a new deployment:
 
 ```bash
 git submodule foreach git pull origin master
@@ -19,31 +19,51 @@ git submodule update --init --recursive
 
 ## Local Development with Flask
 
-For changes that do not test GCP deployment or involve mixer changes, can
-simply run in local environment (Mac or Linux machine). This way the local Flask
-App talks to the [autopush Mixer](https://autopush.api.datacommons.org).
+For changes that do not test GCP deployment or involve mixer changes, one can
+simply run in a local environment (Mac or Linux machine). This way the local
+Flask app talks to the [autopush mixer](https://autopush.api.datacommons.org).
 
 Note: the `autopush mixer` contains the latest data and mixer code changes. It
-could be necessary to update the mixer submodule if compatibility is required
-between website and mixer changes.
+is necessary to update the mixer submodule if compatibility is required between
+website and mixer changes.
 
 ### Prerequisites
 
-- Install [`nodejs`](https://nodejs.org/en/download/)
-- Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-- Install node 18.4.0: `nvm install 18.4.0`
-- Install [`protoc`](https://grpc.io/docs/protoc-installation/)
+**WARNING**: Make sure to go through each of the following steps.
 
-### [Optional] Place Search
+- Python 3.7
 
-Development that involves place search needs the following additional
-requirements:
+  Confirm the Python3 version is 3.7.x. Otherwise please try
+  [pyenv](https://github.com/pyenv/pyenv) to switch the Python3 versioin.
 
-- Contact Data Commons team to get dev maps api key.
+  ```bash
+  python3 --version
+  ```
 
-- Install [`gcloud`](https://cloud.google.com/sdk/docs/install)
+- Node.js 18.4.0
 
-- Get GCP authentication
+  Install [`nodejs`](https://nodejs.org/en/download/) and
+  [nvm](https://github.com/nvm-sh/nvm#installing-and-updating). Run the
+  following command to use Node.js 18.4.0:
+
+  ```bash
+  nvm install 18.4.0
+  nvm use 18.4.0
+  ```
+
+- Protoc 3.21.9
+
+  Install [`protoc`](https://grpc.io/docs/protoc-installation/) at version
+  3.21.9.
+
+- [Optional] gcloud
+
+  gcloud is required to make the place search working locallly. This requires
+  installation of [`gcloud`](https://cloud.google.com/sdk/docs/install).
+
+  Then ask Data Commons team to grant you permission for the maps api key access.
+
+  Finally authenticate locally with
 
   ```bash
   gcloud auth application-default login
