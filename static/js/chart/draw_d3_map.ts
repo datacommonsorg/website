@@ -258,6 +258,19 @@ export function getProjection(
   return projection;
 }
 
+function getValue(geo: GeoJsonFeature, 
+  dataValues: {
+    [placeDcid: string]: number;
+  }) {
+  // returns undefined if there is no value
+  if (geo.properties.geoDcid in dataValues &&
+        dataValues[geo.properties.geoDcid] !== undefined &&
+        dataValues[geo.properties.geoDcid] !== null) {
+    return dataValues[geo.properties.geoDcid];
+  }
+  return undefined;
+}
+
 /**
  * Draws the base d3 map
  * @param containerId id of the div to draw the choropleth in
@@ -373,14 +386,13 @@ export function drawD3Map(
       ) {
         return HIGHLIGHTED_CLASS_NAME;
       }
+      if (getValue(geo, dataValues) === undefined) {
+        return 'missing-data';
+      }
     })
     .attr("fill", (d: GeoJsonFeature) => {
-      if (
-        d.properties.geoDcid in dataValues &&
-        dataValues[d.properties.geoDcid] !== undefined &&
-        dataValues[d.properties.geoDcid] !== null
-      ) {
-        const value = dataValues[d.properties.geoDcid];
+      const value = getValue(d, dataValues);
+      if (value) {
         return colorScale(value);
       } else {
         return MISSING_DATA_COLOR;

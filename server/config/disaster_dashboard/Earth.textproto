@@ -40,8 +40,8 @@ metadata {
       default_severity_filter: {
         prop: "magnitude",
         unit: "",
-        upper_limit: 8,
-        lower_limit: 1
+        upper_limit: 9,
+        lower_limit: 5
       }
     }
   }
@@ -52,6 +52,12 @@ metadata {
       name: "Flood"
       event_type_dcids: "FloodEvent"
       color: "#f46d43"
+      default_severity_filter: {
+        prop: "area",
+        unit: "SquareKilometer",
+        upper_limit: 1000,
+        lower_limit: 5
+      }
     }
   }
   event_type_spec {
@@ -66,8 +72,8 @@ metadata {
       default_severity_filter: {
         prop: "area",
         unit: "SquareKilometer",
-        upper_limit: 8,
-        lower_limit: 1
+        upper_limit: 1000,
+        lower_limit: 10
       }
     }
   }
@@ -103,11 +109,11 @@ categories {
       tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
-          event_type_keys: "earthquake"
           event_type_keys: "flood"
           event_type_keys: "fire"
           event_type_keys: "storm"
           event_type_keys: "drought"
+          event_type_keys: "earthquake"
         }
       }
     }
