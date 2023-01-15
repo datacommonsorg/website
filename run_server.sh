@@ -71,6 +71,7 @@ else
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
+python3 -m pip install --upgrade pip
 pip3 install -r server/requirements.txt -q
 cd server
 protoc -I=./config/ --python_out=./config ./config/subject_page.proto
