@@ -153,7 +153,7 @@ STOP_WORDS: Set[str] = {
 
 # TODO: remove this special casing when a better NER model is identified which
 # can always detect these.
-SPECIAL_PLACES: Set[str] = {'cambridge', 'palo alto', 'mountain view'}
+SPECIAL_PLACES: Set[str] = {'palo alto', 'mountain view'}
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)

@@ -72,7 +72,7 @@ class TestNLUtilsAddToSet(unittest.TestCase):
             self.assertIn(word.lower(), got)
 
 
-class TestNLUtilsRemoveStopWords(unittest.TestCase):
+class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
 
   @parameterized.expand([
       [
@@ -92,6 +92,23 @@ class TestNLUtilsRemoveStopWords(unittest.TestCase):
           "interest rates people living poverty us"
       ],
   ])
-  def test_query(self, query, expected):
+  def test_query_remove_stop_words(self, query, expected):
     stop_words = nl_utils.combine_stop_words()
     self.assertEqual(nl_utils.remove_stop_words(query, stop_words), expected)
+
+  @parameterized.expand([
+      [
+          "this is a random query with no punctuation",
+          "this is a random query with no punctuation",
+      ],
+      [
+          "people of palo alto, mountain view and California!",
+          "people of palo alto mountain view and California"
+      ],
+      ["America's population.growth", "America population growth"],
+      ["Is this a question?", "Is this a question"],
+      ["what about Santa@Clara*&^%", "what about Santa Clara"],
+      ["'===()@#$%^&---`~:|][{}/?><,.,\"", ""],
+  ])
+  def test_query_remove_punctuation(self, query, expected):
+    self.assertEqual(nl_utils.remove_punctuations(query), expected)
