@@ -61,7 +61,8 @@ website and mixer changes.
   gcloud is required to make the place search working locallly. This requires
   installation of [`gcloud`](https://cloud.google.com/sdk/docs/install).
 
-  Then ask Data Commons team to grant you permission for the maps api key access.
+  Then ask Data Commons team to grant you permission for the Google Maps API key
+  access.
 
   Finally authenticate locally with
 
