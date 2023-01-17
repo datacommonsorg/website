@@ -431,9 +431,6 @@ export function DisasterEventMapTile(
    * Handles redirecting to the disaster page for a different placeDcid
    */
   function redirectAction(placeDcid: string): void {
-    window.open(
-      `${REDIRECT_URL_PREFIX}${placeDcid}`,
-      "_self"
-    );
+    window.open(`${REDIRECT_URL_PREFIX}${placeDcid}`, "_self");
   }
 }

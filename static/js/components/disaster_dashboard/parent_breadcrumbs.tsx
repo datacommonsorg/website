@@ -33,7 +33,9 @@ interface ParentBreadcrumbsPropType {
 export function ParentBreadcrumbs(
   props: ParentBreadcrumbsPropType
 ): JSX.Element {
-  const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[] | undefined>();
+  const [parentPlaces, setParentPlaces] = useState<
+    NamedTypedPlace[] | undefined
+  >();
   useEffect(() => {
     getParentPlacesPromise(props.place.dcid).then((parentPlaces) =>
       setParentPlaces(parentPlaces)
@@ -44,12 +46,13 @@ export function ParentBreadcrumbs(
   if (parentPlaces) {
     const num = parentPlaces.length;
     breadcrumbs = parentPlaces.map((place, index) => {
-      if (place.types[0] == 'Continent') return;
+      if (place.types[0] == "Continent") return;
       const name = place.name.split(",")[0];
       return (
         <React.Fragment key={place.dcid}>
-          <a className="place-links"
-            href={`/disasters/${place.dcid}`}>{name}</a>
+          <a className="place-links" href={`/disasters/${place.dcid}`}>
+            {name}
+          </a>
           {index < num - 1 && <span>, </span>}
         </React.Fragment>
       );
@@ -60,7 +63,8 @@ export function ParentBreadcrumbs(
     <>
       {props.place.types[0] != "Planet" && parentPlaces ? (
         <h3>
-          { props.place.types[0] } { props.place.types[0] == 'Country' ? 'on' : 'in' } { breadcrumbs }
+          {props.place.types[0]}{" "}
+          {props.place.types[0] == "Country" ? "on" : "in"} {breadcrumbs}
         </h3>
       ) : (
         <h3 className="invisible"></h3>
