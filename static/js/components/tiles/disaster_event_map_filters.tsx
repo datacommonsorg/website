@@ -73,12 +73,13 @@ export function DisasterEventMapFilters(
             className="disaster-type-filters"
             key={`${disasterType}-filters`}
           >
-            <div className="disaster-type-name">{disasterTypeName}</div>
+            <div className="disaster-type-name">
+              {disasterTypeName} ({severityFilter.prop})
+            </div>
             <div
               className="prop-filter"
               key={`${disasterType}-${severityFilter.prop}-filter`}
             >
-              <span>{severityFilter.prop}</span>
               <div className="prop-filter-input">
                 <span>min: </span>
                 <Input

@@ -250,6 +250,11 @@ $border-radius: 0.5rem;
   path.region-highlighted-no-click {
     cursor: default;
   }
+
+  path.missing-data {
+    fill: rgb(42, 42, 42) !important;
+    stroke: #666;
+  }
   
   path.region-highlighted {
     stroke: var(--dark);
@@ -257,8 +262,9 @@ $border-radius: 0.5rem;
   }
   
   .dot {
-    stroke: white;
     stroke-width: 0.3px;
+    r: 1.2px !important;
+    opacity: .7;
   }
   
   .dot:hover,
@@ -266,18 +272,19 @@ $border-radius: 0.5rem;
     stroke: black;
     stroke-width: 2px;
   }
- }
+}
 
 .disaster-event-map-chart-section {
   flex-grow: 1;
 }
 
 .disaster-event-map-severity-filters {
+  font-size: .9rem;
   padding: 1rem 1.5rem;
   overflow-y: auto;
 
   .disaster-type-filters {
-    padding: 0.5rem 0;
+    padding-bottom: 0.5rem;
   }
 
   .disaster-type-name {
@@ -287,22 +294,25 @@ $border-radius: 0.5rem;
   }
 
   .prop-filter {
-    padding-top: 0.75rem;
-    font-size: 1rem;
+    font-size: .9rem;
   }
 
   .prop-filter-input {
     display: flex;
     align-items: center;
     margin: 0.5rem 0;
-  
+
     span {
       width: 2.5rem;
     }
-  
+
     input {
+      font-size: .9rem;
       margin-left: 0.5rem;
       width: 5rem;
+      padding: .125rem .5rem;
+      line-height: 1;
+
     }
   }
 }
