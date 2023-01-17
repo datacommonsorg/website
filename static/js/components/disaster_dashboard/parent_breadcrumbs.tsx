@@ -15,13 +15,12 @@
  */
 
 /**
- * Main component for the disaster dashboard.
+ * Parent breadcrumbs for disaster dashboard.
  */
 
 import React, { useEffect, useState } from "react";
 
-import { ParentPlace } from "../../place/parent_breadcrumbs";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { NamedTypedPlace } from "../../shared/types";
 import { getParentPlacesPromise } from "../../utils/place_utils";
 
 interface ParentBreadcrumbsPropType {
