@@ -258,14 +258,18 @@ export function getProjection(
   return projection;
 }
 
-function getValue(geo: GeoJsonFeature, 
+function getValue(
+  geo: GeoJsonFeature,
   dataValues: {
     [placeDcid: string]: number;
-  }) {
+  }
+) {
   // returns undefined if there is no value
-  if (geo.properties.geoDcid in dataValues &&
-        dataValues[geo.properties.geoDcid] !== undefined &&
-        dataValues[geo.properties.geoDcid] !== null) {
+  if (
+    geo.properties.geoDcid in dataValues &&
+    dataValues[geo.properties.geoDcid] !== undefined &&
+    dataValues[geo.properties.geoDcid] !== null
+  ) {
     return dataValues[geo.properties.geoDcid];
   }
   return undefined;
@@ -387,7 +391,7 @@ export function drawD3Map(
         return HIGHLIGHTED_CLASS_NAME;
       }
       if (getValue(geo, dataValues) === undefined) {
-        return 'missing-data';
+        return "missing-data";
       }
     })
     .attr("fill", (d: GeoJsonFeature) => {

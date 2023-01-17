@@ -73,7 +73,9 @@ export function DisasterEventMapFilters(
             className="disaster-type-filters"
             key={`${disasterType}-filters`}
           >
-            <div className="disaster-type-name">{disasterTypeName} ({severityFilter.prop})</div>
+            <div className="disaster-type-name">
+              {disasterTypeName} ({severityFilter.prop})
+            </div>
             <div
               className="prop-filter"
               key={`${disasterType}-${severityFilter.prop}-filter`}
