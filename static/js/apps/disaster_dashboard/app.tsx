@@ -19,7 +19,7 @@
  */
 
 import React from "react";
-
+import { ParentBreadcrumbs } from "../../components/disaster_dashboard/parent_breadcrumbs";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { NamedTypedPlace } from "../../shared/types";
@@ -41,7 +41,9 @@ export function App(props: AppPropType): JSX.Element {
     <>
       <div className="row">
         <SubjectPageSidebar categories={props.dashboardConfig.categories} />
-        <div className="row col-md-9x col-lg-10">
+        <div className="col-md-9x col-lg-10">
+          <h1 id="place-name">{props.place.name}</h1>
+          <ParentBreadcrumbs place={props.place}></ParentBreadcrumbs>
           <SubjectPageMainPane
             place={props.place}
             pageConfig={props.dashboardConfig}
