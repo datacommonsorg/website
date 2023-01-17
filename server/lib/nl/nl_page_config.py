@@ -15,37 +15,15 @@
 from typing import List, Dict
 
 from config import subject_page_pb2
-from lib.nl_data_spec import DataSpec
-from lib.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingType
-from lib import nl_variable, nl_topic
+from lib.nl.nl_data_spec import DataSpec
+from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingType
+from lib.nl import nl_variable, nl_topic
+from lib.nl.nl_constants import PLACE_TYPE_TO_PLURALS
 from services import datacommons as dc
 import json
 import os
 
-PLACE_TYPE_TO_PLURALS = {
-    "place": "places",
-    "continent": "continents",
-    "country": "countries",
-    "state": "states",
-    "province": "provinces",
-    "county": "counties",
-    "city": "cities",
-    "censuszipcodetabulationarea": "census zip code tabulation areas",
-    "town": "towns",
-    "village": "villages",
-    "censusdivision": "census divisions",
-    "borough": "boroughs",
-    "eurostatnuts1": "Eurostat NUTS 1 places",
-    "eurostatnuts2": "Eurostat NUTS 2 places",
-    "eurostatnuts3": "Eurostat NUTS 3 places",
-    "administrativearea1": "administrative area 1 places",
-    "administrativearea2": "administrative area 2 places",
-    "administrativearea3": "administrative area 3 places",
-    "administrativearea4": "administrative area 4 places",
-    "administrativearea5": "administrative area 5 places",
-}
-
-CHART_TITLE_CONFIG_RELATIVE_PATH = "../config/nl_page/chart_titles_by_sv.json"
+CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 
 def pluralize_place_type(place_type: str) -> str:

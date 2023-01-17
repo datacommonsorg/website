@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,10 +29,8 @@ import requests
 import services.datacommons as dc
 import lib.nl.nl_data_spec as nl_data_spec
 import lib.nl.nl_page_config as nl_page_config
-import lib.nl.nl_variable as nl_variable
-from config import subject_page_pb2
 
-bp = Blueprint('nl', __name__, url_prefix='/nl')
+bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
 MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
 FIXED_PREFIXES = ['md=', 'mq=', 'st=', 'mp=', 'pt=']
@@ -595,13 +593,16 @@ def page():
 
 @bp.route('/data', methods=['GET', 'POST'])
 def data():
+  """Data handler."""
+  if (os.environ.get('FLASK_ENV') == 'production' or
+      not current_app.config['NL_MODEL']):
+    flask.abort(404)
   original_query = request.args.get('q')
-  context_history = []
-  if request.method == 'POST':
-    context_history = request.get_json().get('contextHistory', [])
-    logging.info("contextHistory found:")
-    logging.info(context_history)
-
+  context_history = request.get_json().get('contextHistory', [])
+  has_context = False
+  if context_history:
+    has_context = True
+  logging.info(context_history)
   query = str(escape(_remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   default_place = "United States"

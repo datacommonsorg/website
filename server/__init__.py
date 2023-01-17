@@ -116,6 +116,7 @@ def register_routes_common(app):
       browser,
       factcheck,
       nl_interface,
+      nl_interface_next,
       place,
       ranking,
       search,
@@ -124,6 +125,7 @@ def register_routes_common(app):
   )
   app.register_blueprint(browser.bp)
   app.register_blueprint(nl_interface.bp)
+  app.register_blueprint(nl_interface_next.bp)
   app.register_blueprint(place.bp)
   app.register_blueprint(ranking.bp)
   app.register_blueprint(search.bp)
@@ -288,7 +290,7 @@ def create_app():
         return
     # Some specific imports for the NL Interface.
     import en_core_web_md
-    import lib.nl_training as libnl
+    import lib.nl.nl_training as libnl
     import services.nl as nl
     # For the classification types available, check lib.nl_training (libnl).
     classification_types = [
