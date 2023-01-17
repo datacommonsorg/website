@@ -27,6 +27,10 @@ import ReactDOM from "react-dom";
 import { GeoJsonData } from "../chart/types";
 import { DisasterEventMapInfoCard } from "../components/tiles/disaster_event_map_info_card";
 import {
+  DATE_OPTION_6M_KEY,
+  URL_HASH_PARAM_KEYS,
+} from "../constants/disaster_event_map_constants";
+import {
   EUROPE_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../shared/constants";
@@ -390,4 +394,53 @@ export function onPointClicked(
     .style("left", left + "px")
     .style("top", top + "px")
     .style("visibility", "visible");
+}
+
+/**
+ * Sets the url hash with the given key and value
+ * @param paramKey the param key to update in the hash
+ * @param paramValue the value to use in the hash
+ */
+export function setUrlHash(paramKey: string, paramValue: string): void {
+  // TODO (chejennifer): Right now we are assuming each subject page only has
+  // one disaster event map tile. Find a way to handle the url hash for
+  // mulitple disaster event map tiles.
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  urlParams.set(paramKey, paramValue);
+  window.location.hash = urlParams.toString();
+}
+
+/**
+ * Gets the date for a disaster event map using url params.
+ */
+export function getDate(): string {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  return urlParams.get(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_6M_KEY;
+}
+
+/**
+ * Gets the severity filters for a disaster event map using url params.
+ * @param eventTypeSpec the event type spec for the disaster event map
+ */
+export function getSeverityFilters(
+  eventTypeSpec: Record<string, EventTypeSpec>
+): Record<string, SeverityFilter> {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  const urlSeverityFilterVal = urlParams.get(
+    URL_HASH_PARAM_KEYS.SEVERITY_FILTER
+  );
+  let severityFilters = {};
+  if (urlSeverityFilterVal) {
+    severityFilters = JSON.parse(urlSeverityFilterVal);
+  }
+  if (!_.isEmpty(severityFilters)) {
+    return severityFilters;
+  }
+  for (const spec of Object.values(eventTypeSpec)) {
+    if (_.isEmpty(spec.defaultSeverityFilter)) {
+      continue;
+    }
+    severityFilters[spec.id] = spec.defaultSeverityFilter;
+  }
+  return severityFilters;
 }

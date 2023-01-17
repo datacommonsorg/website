@@ -22,20 +22,16 @@ import _ from "lodash";
 import React from "react";
 import { Input } from "reactstrap";
 
+import { URL_HASH_PARAM_KEYS } from "../../constants/disaster_event_map_constants";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
-  EventTypeSpec,
-  SeverityFilter,
-} from "../../types/subject_page_proto_types";
+  getSeverityFilters,
+  setUrlHash,
+} from "../../utils/disaster_event_map_utils";
 
 interface DisasterEventMapFiltersPropType {
-  // map of disaster type to severity filter for that disaster type
-  severityFilters: Record<string, SeverityFilter>;
   // map of disaster type to information about that event type
   eventTypeSpec: Record<string, EventTypeSpec>;
-  // callback function when severity filters are updated.
-  onSeverityFiltersUpdated: (
-    severityFilters: Record<string, SeverityFilter>
-  ) => void;
   // height to set this component to.
   height: number;
 }
@@ -43,18 +39,24 @@ interface DisasterEventMapFiltersPropType {
 export function DisasterEventMapFilters(
   props: DisasterEventMapFiltersPropType
 ): JSX.Element {
+  const severityFilters = getSeverityFilters(props.eventTypeSpec);
+
   function onFilterInputChanged(
     disasterType: string,
     newVal: number,
     isUpperLimit: boolean
   ): void {
-    const updatedSeverityFilters = _.cloneDeep(props.severityFilters);
+    // TODO (chejennifer): putting the entire severity filter into the url
+    // makes a very long hash. Find a better way to save filter information
+    // in the url.
+    const updatedSeverityFilters = _.cloneDeep(severityFilters);
     if (isUpperLimit) {
       updatedSeverityFilters[disasterType].upperLimit = newVal;
     } else {
       updatedSeverityFilters[disasterType].lowerLimit = newVal;
     }
-    props.onSeverityFiltersUpdated(updatedSeverityFilters);
+    const severityFiltersString = JSON.stringify(updatedSeverityFilters);
+    setUrlHash(URL_HASH_PARAM_KEYS.SEVERITY_FILTER, severityFiltersString);
   }
 
   return (
@@ -63,9 +65,9 @@ export function DisasterEventMapFilters(
       style={props.height ? { height: props.height } : {}}
     >
       <h6>Severity Filters</h6>
-      {Object.keys(props.severityFilters).map((disasterType) => {
+      {Object.keys(severityFilters).map((disasterType) => {
         const disasterTypeName = props.eventTypeSpec[disasterType].name;
-        const severityFilter = props.severityFilters[disasterType];
+        const severityFilter = severityFilters[disasterType];
         return (
           <div
             className="disaster-type-filters"
