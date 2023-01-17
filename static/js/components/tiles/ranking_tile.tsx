@@ -218,7 +218,10 @@ function fetchData(
             continue;
           }
           if (spec.denom) {
-            if (spec.denom in statData.data) {
+            if (
+              spec.denom in statData.data &&
+              statData.data[spec.denom][place].value != 0
+            ) {
               rankingPoint.value /= statData.data[spec.denom][place].value;
             } else {
               console.log(`Skipping ${place}, missing ${spec.denom}`);
