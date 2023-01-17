@@ -67,8 +67,6 @@ const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
-const BREADCRUMB_PARAM_KEY = "bc";
-const PARAM_SEPARATOR = "__";
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
 
@@ -100,7 +98,6 @@ export function DisasterEventMapTile(
   const dateRanges = useRef(getDateRanges());
   const [dateList, setDateList] = useState([]);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
-  const [breadcrumbs, setBreadcrumbs] = useState<NamedPlace[]>([]);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
@@ -155,7 +152,6 @@ export function DisasterEventMapTile(
     // When props change, update date and place info
     updateDateList(props.eventTypeSpec, props.place.dcid);
     updatePlaceInfo(props.place, props.enclosedPlaceType);
-    updateBreadcrumbs(props.place);
   }, [props]);
 
   useEffect(() => {
@@ -194,7 +190,6 @@ export function DisasterEventMapTile(
       allowEmbed={false}
     >
       <DisasterEventMapSelectors
-        breadcrumbPlaces={breadcrumbs}
         dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, ...dateList]}
         onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
       />
@@ -298,42 +293,6 @@ export function DisasterEventMapTile(
       })
       .catch(() => {
         setDateList([]);
-      });
-  }
-
-  /**
-   * Updates breadcrumbs using URL params and current place.
-   */
-  function updateBreadcrumbs(selectedPlace: NamedTypedPlace): void {
-    // TODO: compute breadcrumbs from parent places instead of a URL param.
-    const searchParams = new URLSearchParams(window.location.search);
-    const breadcrumbParam = searchParams.get(BREADCRUMB_PARAM_KEY);
-    // If no breadcrumbs passed in the param, just show current place
-    if (!breadcrumbParam) {
-      setBreadcrumbs([selectedPlace]);
-      return;
-    }
-    const placeDcids = breadcrumbParam.split(PARAM_SEPARATOR);
-    getPlaceNames(placeDcids)
-      .then((names) => {
-        const breadcrumbs = placeDcids.map((dcid) => {
-          return {
-            dcid,
-            name: names[dcid],
-          };
-        });
-        breadcrumbs.push(selectedPlace);
-        setBreadcrumbs(breadcrumbs);
-      })
-      .catch(() => {
-        const breadcrumbs = placeDcids.map((dcid) => {
-          return {
-            dcid,
-            name: dcid,
-          };
-        });
-        breadcrumbs.push(selectedPlace);
-        setBreadcrumbs(breadcrumbs);
       });
   }
 
@@ -472,20 +431,8 @@ export function DisasterEventMapTile(
    * Handles redirecting to the disaster page for a different placeDcid
    */
   function redirectAction(placeDcid: string): void {
-    const breadcrumbIdx = breadcrumbs.findIndex(
-      (crumb) => crumb.dcid === placeDcid
-    );
-    let redirectBreadcrumbs = breadcrumbs;
-    if (breadcrumbIdx > -1) {
-      redirectBreadcrumbs = breadcrumbs.slice(0, breadcrumbIdx);
-    }
-    let breadcrumbParam = "";
-    if (!_.isEmpty(redirectBreadcrumbs)) {
-      const breadcrumbDcids = redirectBreadcrumbs.map((bc) => bc.dcid);
-      breadcrumbParam = `?bc=${breadcrumbDcids.join(PARAM_SEPARATOR)}`;
-    }
     window.open(
-      `${REDIRECT_URL_PREFIX}${placeDcid}${breadcrumbParam}`,
+      `${REDIRECT_URL_PREFIX}${placeDcid}`,
       "_self"
     );
   }
