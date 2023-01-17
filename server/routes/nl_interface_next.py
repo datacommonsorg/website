@@ -20,15 +20,15 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
-from lib.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
+from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 from typing import Dict, Union
 import pandas as pd
 import re
 import requests
 
 import services.datacommons as dc
-import lib.nl_data_spec as nl_data_spec
-import lib.nl_page_config as nl_page_config
+import lib.nl.nl_data_spec as nl_data_spec
+import lib.nl.nl_page_config as nl_page_config
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
