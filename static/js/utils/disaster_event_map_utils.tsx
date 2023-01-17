@@ -426,16 +426,16 @@ export function getSeverityFilters(
   eventTypeSpec: Record<string, EventTypeSpec>
 ): Record<string, SeverityFilter> {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  let urlSeverityFilters = {};
-  if (urlParams.get(URL_HASH_PARAM_KEYS.SEVERITY_FILTER)) {
-    urlSeverityFilters = JSON.parse(
-      urlParams.get(URL_HASH_PARAM_KEYS.SEVERITY_FILTER)
-    );
+  const urlSeverityFilterVal = urlParams.get(
+    URL_HASH_PARAM_KEYS.SEVERITY_FILTER
+  );
+  let severityFilters = {};
+  if (urlSeverityFilterVal) {
+    severityFilters = JSON.parse(urlSeverityFilterVal);
   }
-  if (!_.isEmpty(urlSeverityFilters)) {
-    return urlSeverityFilters;
+  if (!_.isEmpty(severityFilters)) {
+    return severityFilters;
   }
-  const severityFilters = {};
   for (const spec of Object.values(eventTypeSpec)) {
     if (_.isEmpty(spec.defaultSeverityFilter)) {
       continue;

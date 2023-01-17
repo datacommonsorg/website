@@ -52,12 +52,6 @@ metadata {
       name: "Flood"
       event_type_dcids: "FloodEvent"
       color: "#f46d43"
-      default_severity_filter: {
-        prop: "area",
-        unit: "SquareKilometer",
-        upper_limit: 8,
-        lower_limit: 2
-      }
     }
   }
   event_type_spec {
