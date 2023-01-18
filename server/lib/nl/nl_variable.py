@@ -148,6 +148,8 @@ def extend_svs(svs: Dict[str, List[str]]):
             continue
           if curr_sv_obj.pt != sv_obj.pt:
             continue
+          if curr_sv_obj.md != sv_obj.md:
+            continue
           if len(curr_sv_obj.pvs) != len(sv_obj.pvs):
             continue
           res[sv].append(sv_info['id'])
