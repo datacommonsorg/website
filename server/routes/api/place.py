@@ -34,7 +34,7 @@ WANTED_PLACE_TYPES = {
     'Country': [
         "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
     ],
-    'State': ["County"],
+    'State': ["County", "AdministrativeArea2"],
     'County': ["City", "Town", "Village", "Borough"],
 }
 ALL_WANTED_PLACE_TYPES = [
@@ -311,7 +311,7 @@ def child_fetch(dcid):
 
   # Fetch population of child places
   pop = {}
-  obs = dc.obs_point(wanted_dcids, ['Count_Person'])
+  obs = dc.obs_point(wanted_dcids, [POPULATION_DCID])
   obs = obs.get('observationsByVariable', [])
   if obs and obs[0]['variable'] == 'Count_Person':
     obs = obs[0].get('observationsByEntity', [])
@@ -327,8 +327,9 @@ def child_fetch(dcid):
     for place_type in place_types[place_dcid]:
       place_pop = pop.get(place_dcid, 0)
       if place_pop > 0:
+        place_name = place_names.get(place_dcid, place_dcid)
         result[place_type].append({
-            'name': place_names.get(place_dcid, place_dcid),
+            'name': place_name[0] if len(place_name) > 0 else place_name,
             'dcid': place_dcid,
             'pop': place_pop,
         })

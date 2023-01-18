@@ -18,6 +18,7 @@
  * Parent breadcrumbs for disaster dashboard.
  */
 
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { displayNameForPlaceType } from "../../place/util";
@@ -39,7 +40,7 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
     );
   }, []);
 
-  if (!childPlaces || !props.parentPlace) {
+  if (_.isEmpty(childPlaces) || !props.parentPlace) {
     return null;
   }
 
