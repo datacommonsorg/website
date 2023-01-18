@@ -118,7 +118,9 @@ export function getChildPlacesPromise(
     .then((resp) => {
       return resp.data;
     })
-    .catch(() => {});
+    .catch(() => {
+      return undefined;
+    });
 }
 
 /**
