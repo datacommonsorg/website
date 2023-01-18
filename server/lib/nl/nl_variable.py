@@ -70,7 +70,7 @@ def parse_sv(sv_definition: str) -> SV:
     elif k == "st":
       res.st = v
     elif k == "md":
-      res.mv = v
+      res.md = v
     else:
       res.pvs[k] = v
   return res
