@@ -24,26 +24,11 @@ metadata {
   }
   contained_place_types {
     key: "Country"
-    value: "State"
+    value: "AdministrativeArea1"
   }
   contained_place_types {
-    key: "State"
-    value: "County"
-  }
-  event_type_spec {
-    key: "earthquake"
-    value {
-      id: "earthquake"
-      name: "Earthquake"
-      event_type_dcids: "EarthquakeEvent"
-      color: "#930000"
-      default_severity_filter: {
-        prop: "magnitude",
-        unit: "",
-        upper_limit: 9,
-        lower_limit: 5
-      }
-    }
+    key: "AdministrativeArea1"
+    value: "AdministrativeArea2"
   }
   event_type_spec {
     key: "flood"
@@ -113,7 +98,6 @@ categories {
           event_type_keys: "fire"
           event_type_keys: "storm"
           event_type_keys: "drought"
-          event_type_keys: "earthquake"
         }
       }
     }
@@ -152,119 +136,6 @@ categories {
     value {
       stat_var: "StandardizedPrecipitationIndex_Atmosphere_3MonthPeriod"
       name: "SPI 3 month"
-    }
-  }
-}
-
-categories {
-  title: "Earthquakes"
-
-  blocks {
-    description: "An earthquake (also known as a quake, tremor or temblor) is the shaking of the surface of the Earth resulting from a sudden release of energy in the Earth's lithosphere that creates seismic waves. Earthquakes can range in intensity, from those that are so weak that they cannot be felt, to those violent enough to propel objects and people into the air, damage critical infrastructure, and wreak destruction across entire cities."
-    columns {
-      tiles {
-        type: HISTOGRAM
-        title: "Number of earthquakes over time"
-        stat_var_key: "earthquake_all"
-      }
-      tiles {
-        type: LINE
-        title: "Frequency of earthquakes by magnitude"
-        stat_var_key: "earthquake_mag_3"
-        stat_var_key: "earthquake_mag_4"
-        stat_var_key: "earthquake_mag_5"
-        stat_var_key: "earthquake_mag_6"
-        stat_var_key: "earthquake_mag_7"
-        stat_var_key: "earthquake_mag_8"
-        stat_var_key: "earthquake_mag_9"
-      }
-      tiles {
-        type: RANKING
-        title: "Places with most"
-        stat_var_key: "earthquake_mag_6"
-        stat_var_key: "earthquake_mag_7"
-        stat_var_key: "earthquake_mag_8"
-        stat_var_key: "earthquake_mag_9"
-        ranking_tile_spec {
-          show_highest: true
-          highest_title: "Most earthquakes with ${statVar}"
-        }
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Total number of earthquakes"
-        stat_var_key: "earthquake_all"
-      }
-      tiles {
-        type: BAR
-        title: "Frequency of earthquakes by magnitude"
-        stat_var_key: "earthquake_mag_3"
-        stat_var_key: "earthquake_mag_4"
-        stat_var_key: "earthquake_mag_5"
-        stat_var_key: "earthquake_mag_6"
-        stat_var_key: "earthquake_mag_7"
-        stat_var_key: "earthquake_mag_8"
-        stat_var_key: "earthquake_mag_9"
-      }
-    }
-  }
-
-  stat_var_spec {
-    key: "earthquake_all"
-    value {
-      stat_var: "Count_EarthquakeEvent"
-      name: "All magnitudes"
-    }
-  }
-  stat_var_spec {
-    key: "earthquake_mag_3"
-    value {
-      stat_var: "Count_EarthquakeEvent_M3To4"
-      name: "magnitude 3 to 4"
-    }
-  }
-  stat_var_spec {
-    key: "earthquake_mag_4"
-    value {
-      stat_var: "Count_EarthquakeEvent_M4To5"
-      name: "magnitude 4 to 5"
-    }
-  }
-  stat_var_spec {
-    key: "earthquake_mag_5"
-    value {
-      stat_var: "Count_EarthquakeEvent_M5To6"
-      name: "magnitude 5 to 6"
-    }
-  }
-  stat_var_spec {
-    key: "earthquake_mag_6"
-    value {
-      stat_var: "Count_EarthquakeEvent_M6To7"
-      name: "magnitude 6 to 7"
-    }
-  }
-  stat_var_spec {
-    key: "earthquake_mag_7"
-    value {
-      stat_var: "Count_EarthquakeEvent_M7To8"
-      name: "magnitude 7 to 8"
-    }
-  }
-  stat_var_spec {
-    key: "earthquake_mag_8"
-    value {
-      stat_var: "Count_EarthquakeEvent_M9To9"
-      name: "magnitude 8 to 9"
-    }
-  }
-  stat_var_spec {
-    key: "earthquake_mag_9"
-    value {
-      stat_var: "Count_EarthquakeEvent_M9Onwards"
-      name: "magnitude 9+"
     }
   }
 }

@@ -42,6 +42,16 @@ export function ParentBreadcrumbs(
     );
   }, []);
 
+  let placeType = props.place.types[0];
+  for (const type of props.place.types) {
+    // prefer to use specific type like "State" or "County" over
+    // of "AdministrativeArea"
+    if (!type.startsWith("AdministrativeArea") && type != "Place") {
+      placeType = type;
+      break;
+    }
+  }
+
   let breadcrumbs: JSX.Element[];
   if (parentPlaces) {
     const num = parentPlaces.length;
@@ -63,8 +73,7 @@ export function ParentBreadcrumbs(
     <>
       {props.place.types[0] != "Planet" && parentPlaces ? (
         <h3>
-          {props.place.types[0]}{" "}
-          {props.place.types[0] == "Country" ? "on" : "in"} {breadcrumbs}
+          {placeType} {placeType == "Country" ? "on" : "in"} {breadcrumbs}
         </h3>
       ) : (
         <h3 className="invisible"></h3>
