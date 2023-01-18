@@ -30,11 +30,12 @@ window.onload = () => {
 function renderPage(): void {
   const placeDcid = document.getElementById("place").dataset.dcid;
   const placeName = document.getElementById("place").dataset.name || placeDcid;
-  const placeType = document.getElementById("place").dataset.type;
+  const placeTypes =
+    JSON.parse(document.getElementById("place").dataset.type) || [];
   const dashboardConfig = JSON.parse(
     document.getElementById("dashboard-config").dataset.config
   );
-  const place = { dcid: placeDcid, name: placeName, types: [placeType] };
+  const place = { dcid: placeDcid, name: placeName, types: placeTypes };
 
   ReactDOM.render(
     React.createElement(App, {

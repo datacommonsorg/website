@@ -30,10 +30,6 @@ metadata {
     key: "AdministrativeArea1"
     value: "AdministrativeArea2"
   }
-  contained_place_types {
-    key: "State"
-    value: "County"
-  }
   event_type_spec {
     key: "flood"
     value {

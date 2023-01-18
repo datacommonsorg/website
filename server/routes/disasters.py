@@ -65,11 +65,11 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
     # Use the default config instead
     dashboard_config = default_config
 
-  place_type = DEFAULT_PLACE_TYPE
+  place_types = [DEFAULT_PLACE_TYPE]
   if place_dcid != DEFAULT_PLACE_DCID:
-    place_type = place_api.get_place_type(place_dcid)
-    if not place_type:
-      place_type = "Place"
+    place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
+    if not place_types:
+      place_types = ["Place"]
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
 
@@ -88,7 +88,7 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
             dashboard_config, stat_var, tile_type)
 
   return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
-                               place_type=place_type,
+                               place_type=json.dumps(place_types),
                                place_name=place_name,
                                place_dcid=place_dcid,
                                config=MessageToJson(dashboard_config))
