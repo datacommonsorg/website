@@ -42,7 +42,7 @@ export function ParentBreadcrumbs(
     );
   }, []);
 
-  let breadcrumbs;
+  let breadcrumbs:JSX.Element[];
   if (parentPlaces) {
     const num = parentPlaces.length;
     breadcrumbs = parentPlaces.map((place, index) => {
