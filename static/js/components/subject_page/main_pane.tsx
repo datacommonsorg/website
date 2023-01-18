@@ -43,10 +43,13 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   // TODO(shifucun): Further clean up default place type, child place type etc
   // from subject page client components. The component should respect whatever
   // the input prop is.
-  const placeType = props.place.types[0];
-  const enclosedPlaceType = props.pageConfig.metadata.containedPlaceTypes
-    ? props.pageConfig.metadata.containedPlaceTypes[placeType]
-    : "";
+  let enclosedPlaceType = "";
+  for (const placeType of props.place.types) {
+    if (placeType in props.pageConfig.metadata.containedPlaceTypes) {
+      enclosedPlaceType =
+        props.pageConfig.metadata.containedPlaceTypes[placeType];
+    }
+  }
   return (
     <div id="subject-page-main-pane">
       {!_.isEmpty(props.pageConfig) &&
