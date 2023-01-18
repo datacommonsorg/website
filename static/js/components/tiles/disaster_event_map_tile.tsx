@@ -43,6 +43,7 @@ import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
+  MapPointsData,
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
@@ -50,6 +51,7 @@ import {
   fetchDisasterEventPoints,
   fetchGeoJsonData,
   getDate,
+  getMapPointsData,
   getSeverityFilters,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
@@ -69,6 +71,7 @@ const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
+const MAP_POINTS_MIN_RADIUS = 0.8;
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -81,11 +84,6 @@ interface DisasterEventMapTilePropType {
   enclosedPlaceType: string;
   // Map of eventType id to EventTypeSpec
   eventTypeSpec: Record<string, EventTypeSpec>;
-}
-
-interface MapPointsData {
-  points: DisasterEventPoint[];
-  values: { [placeDcid: string]: number };
 }
 
 interface MapChartData {
@@ -344,23 +342,10 @@ export function DisasterEventMapTile(
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
-        const mapPointsData = {};
-        disasterEventData.eventPoints.forEach((point) => {
-          if (!(point.disasterType in mapPointsData)) {
-            mapPointsData[point.disasterType] = {
-              points: [],
-              values: {},
-            };
-          }
-          mapPointsData[point.disasterType].points.push(point);
-          const severityFilter =
-            props.eventTypeSpec[point.disasterType].defaultSeverityFilter;
-          if (!severityFilter || !(severityFilter.prop in point.severity)) {
-            return;
-          }
-          mapPointsData[point.disasterType].values[point.placeDcid] =
-            point.severity[severityFilter.prop];
-        });
+        const mapPointsData = getMapPointsData(
+          disasterEventData.eventPoints,
+          props.eventTypeSpec
+        );
         setMapChartData({
           geoJson,
           sources,
@@ -422,7 +407,7 @@ export function DisasterEventMapTile(
           return props.eventTypeSpec[point.disasterType].color;
         },
         undefined,
-        0.8
+        MAP_POINTS_MIN_RADIUS
       );
       pointsLayer.on("click", (point: DisasterEventPoint) =>
         onPointClicked(

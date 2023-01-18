@@ -22,10 +22,12 @@ import { EARTH_NAMED_TYPED_PLACE } from "../../shared/constants";
 import {
   fetchDateList,
   fetchDisasterEventPoints,
+  getMapPointsData,
 } from "../disaster_event_map_utils";
 
 const EARTHQUAKE_DISASTER_TYPE_ID = "earthquake";
 const STORM_DISASTER_TYPE_ID = "storm";
+const FIRE_DISASTER_TYPE_ID = "fire";
 const DISASTER_EVENT_TYPES = {
   [EARTHQUAKE_DISASTER_TYPE_ID]: ["EarthquakeEvent"],
   [STORM_DISASTER_TYPE_ID]: [
@@ -72,7 +74,7 @@ const EARTHQUAKE_EVENT_1_PROCESSED = {
   placeName: "earthquake1Name",
   latitude: 1,
   longitude: 1,
-  disasterType: "earthquake",
+  disasterType: EARTHQUAKE_DISASTER_TYPE_ID,
   startDate: "2022-01-01",
   severity: { magnitude: 5 },
   endDate: "",
@@ -100,7 +102,7 @@ const EARTHQUAKE_EVENT_2_PROCESSED = {
   placeName: "earthquake2Name",
   latitude: 1,
   longitude: 1,
-  disasterType: "earthquake",
+  disasterType: EARTHQUAKE_DISASTER_TYPE_ID,
   startDate: "2022-01-02",
   severity: { magnitude: 5 },
   endDate: "",
@@ -125,7 +127,7 @@ const EARTHQUAKE_EVENT_3_PROCESSED = {
   placeName: "earthquake3",
   latitude: 1,
   longitude: 1,
-  disasterType: "earthquake",
+  disasterType: EARTHQUAKE_DISASTER_TYPE_ID,
   startDate: "2022-02-01",
   severity: { magnitude: 5 },
   endDate: "",
@@ -150,7 +152,7 @@ const EARTHQUAKE_EVENT_4_PROCESSED = {
   placeName: "earthquake4",
   latitude: 1,
   longitude: 1,
-  disasterType: "earthquake",
+  disasterType: EARTHQUAKE_DISASTER_TYPE_ID,
   startDate: "2023-01-01",
   severity: { magnitude: 5 },
   endDate: "",
@@ -175,7 +177,7 @@ const EARTHQUAKE_EVENT_5_PROCESSED = {
   placeName: "earthquake5",
   latitude: 1,
   longitude: 1,
-  disasterType: "earthquake",
+  disasterType: EARTHQUAKE_DISASTER_TYPE_ID,
   startDate: "2023-02-01",
   severity: { magnitude: 5 },
   endDate: "",
@@ -197,7 +199,7 @@ const TORNADO_EVENT_1_PROCESSED = {
   placeName: "tornado1",
   latitude: 1,
   longitude: 1,
-  disasterType: "storm",
+  disasterType: STORM_DISASTER_TYPE_ID,
   startDate: "2022-01-01",
   severity: {},
   endDate: "",
@@ -218,7 +220,7 @@ const TORNADO_EVENT_2_PROCESSED = {
   placeName: "tornado2",
   latitude: 1,
   longitude: 1,
-  disasterType: "storm",
+  disasterType: STORM_DISASTER_TYPE_ID,
   startDate: "2022-03-03",
   severity: {},
   endDate: "",
@@ -239,11 +241,37 @@ const CYCLONE_EVENT_1_PROCESSED = {
   placeName: "cyclone1",
   latitude: 1,
   longitude: 1,
-  disasterType: "storm",
+  disasterType: STORM_DISASTER_TYPE_ID,
   startDate: "2022-01-01",
   severity: {},
   endDate: "",
   provenanceId: "cycloneProv",
+};
+
+const FIRE_EVENT_POINT_1 = {
+  placeDcid: "fire1",
+  placeName: "fire1",
+  latitude: 1,
+  longitude: 1,
+  disasterType: FIRE_DISASTER_TYPE_ID,
+  startDate: "2022-01-01",
+  severity: {},
+  endDate: "",
+  provenanceId: "fireProv",
+};
+
+const FIRE_EVENT_POINT_2 = {
+  placeDcid: "fire2",
+  placeName: "fire2",
+  latitude: 1,
+  longitude: 1,
+  disasterType: FIRE_DISASTER_TYPE_ID,
+  startDate: "2022-01-01",
+  severity: {
+    area: 2,
+  },
+  endDate: "",
+  provenanceId: "fireProv",
 };
 
 const EARTHQUAKE_PROV_INFO = {
@@ -807,4 +835,60 @@ test("fetch data for single event with date range as YYYY-MM-DD", () => {
       [EARTHQUAKE_PROV_ID]: EARTHQUAKE_PROV_INFO,
     });
   });
+});
+
+test("getMapPointsData", () => {
+  const eventPoints = [
+    FIRE_EVENT_POINT_1,
+    FIRE_EVENT_POINT_2,
+    EARTHQUAKE_EVENT_1_PROCESSED,
+    EARTHQUAKE_EVENT_2_PROCESSED,
+    TORNADO_EVENT_1_PROCESSED,
+  ];
+  const eventSpec = {
+    [STORM_DISASTER_TYPE_ID]: {
+      id: STORM_DISASTER_TYPE_ID,
+      name: "",
+      eventTypeDcids: [],
+      color: "",
+      defaultSeverityFilter: null,
+    },
+    [FIRE_DISASTER_TYPE_ID]: {
+      id: FIRE_DISASTER_TYPE_ID,
+      name: "",
+      eventTypeDcids: [],
+      color: "",
+      defaultSeverityFilter: {
+        prop: "area",
+        unit: "SquareKilometer",
+        lowerLimit: 1,
+        upperLimit: 10,
+      },
+    },
+    [EARTHQUAKE_DISASTER_TYPE_ID]: {
+      id: EARTHQUAKE_DISASTER_TYPE_ID,
+      name: "",
+      eventTypeDcids: [],
+      color: "",
+      defaultSeverityFilter: null,
+    },
+  };
+  const expectedMapPointsData = {
+    [STORM_DISASTER_TYPE_ID]: {
+      points: [TORNADO_EVENT_1_PROCESSED],
+      values: {},
+    },
+    [FIRE_DISASTER_TYPE_ID]: {
+      points: [FIRE_EVENT_POINT_1, FIRE_EVENT_POINT_2],
+      values: {
+        fire2: 2,
+      },
+    },
+    [EARTHQUAKE_DISASTER_TYPE_ID]: {
+      points: [EARTHQUAKE_EVENT_1_PROCESSED, EARTHQUAKE_EVENT_2_PROCESSED],
+      values: {},
+    },
+  };
+  const result = getMapPointsData(eventPoints, eventSpec);
+  expect(result).toEqual(expectedMapPointsData);
 });
