@@ -374,8 +374,7 @@ export function DisasterEventMapTile(
       null /* colorScale: no color scale since no data shown on the base map */,
       (geoDcid: GeoJsonFeatureProperties) =>
         redirectAction(geoDcid.geoDcid) /* redirectAction */,
-      () =>
-        "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
+      (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
       () => true /* canClickRegion: allow all regions to be clickable */,
       false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
