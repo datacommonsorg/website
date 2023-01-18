@@ -29,9 +29,9 @@ import {
 } from "../../chart/draw_d3_map";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import {
+  DATE_OPTION_1Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
-  DATE_OPTION_1Y_KEY,
 } from "../../constants/disaster_event_map_constants";
 import {
   EUROPE_NAMED_TYPED_PLACE,
@@ -191,7 +191,12 @@ export function DisasterEventMapTile(
       allowEmbed={false}
     >
       <DisasterEventMapSelectors
-        dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, DATE_OPTION_1Y_KEY, ...dateList]}
+        dateOptions={[
+          DATE_OPTION_30D_KEY,
+          DATE_OPTION_6M_KEY,
+          DATE_OPTION_1Y_KEY,
+          ...dateList,
+        ]}
         onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
       />
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
