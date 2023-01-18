@@ -24,7 +24,11 @@ metadata {
   }
   contained_place_types {
     key: "Country"
-    value: "State"
+    value: "AdministrativeArea1"
+  }
+  contained_place_types {
+    key: "AdministrativeArea1"
+    value: "AdministrativeArea2"
   }
   contained_place_types {
     key: "State"
