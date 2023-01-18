@@ -56,7 +56,6 @@ import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
-import { getPlaceNames } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { DisasterEventMapFilters } from "./disaster_event_map_filters";
@@ -83,10 +82,17 @@ interface DisasterEventMapTilePropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
 }
 
+interface MapPointsData {
+  points: DisasterEventPoint[];
+  values: { [placeDcid: string]: number };
+}
+
 interface MapChartData {
   geoJson: GeoJsonData;
-  disasterEventPoints: DisasterEventPoint[];
   sources: Set<string>;
+  // key is disaster type and value is the map points data for that disaster
+  // type
+  mapPointsData: Record<string, MapPointsData>;
 }
 
 export function DisasterEventMapTile(
@@ -332,10 +338,27 @@ export function DisasterEventMapTile(
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
+        const mapPointsData = {};
+        disasterEventData.eventPoints.forEach((point) => {
+          if (!(point.disasterType in mapPointsData)) {
+            mapPointsData[point.disasterType] = {
+              points: [],
+              values: {},
+            };
+          }
+          mapPointsData[point.disasterType].points.push(point);
+          const severityFilter =
+            props.eventTypeSpec[point.disasterType].defaultSeverityFilter;
+          if (!severityFilter || !(severityFilter.prop in point.severity)) {
+            return;
+          }
+          mapPointsData[point.disasterType].values[point.placeDcid] =
+            point.severity[severityFilter.prop];
+        });
         setMapChartData({
           geoJson,
-          disasterEventPoints: disasterEventData.eventPoints,
           sources,
+          mapPointsData,
         });
       })
       .catch(() => {
@@ -383,24 +406,27 @@ export function DisasterEventMapTile(
       "" /* zoomDcid: no dcid to zoom in on */,
       zoomParams
     );
-    const pointValues = {};
-    const pointsLayer = addMapPoints(
-      props.id,
-      mapChartData.disasterEventPoints,
-      pointValues,
-      projection,
-      (point: DisasterEventPoint) => {
-        return props.eventTypeSpec[point.disasterType].color;
-      }
-    );
-    pointsLayer.on("click", (point: DisasterEventPoint) =>
-      onPointClicked(
-        infoCardRef.current,
-        svgContainerRef.current,
-        point,
-        d3.event
-      )
-    );
+    for (const mapPointsData of Object.values(mapChartData.mapPointsData)) {
+      const pointsLayer = addMapPoints(
+        props.id,
+        mapPointsData.points,
+        mapPointsData.values,
+        projection,
+        (point: DisasterEventPoint) => {
+          return props.eventTypeSpec[point.disasterType].color;
+        },
+        undefined,
+        0.8
+      );
+      pointsLayer.on("click", (point: DisasterEventPoint) =>
+        onPointClicked(
+          infoCardRef.current,
+          svgContainerRef.current,
+          point,
+          d3.event
+        )
+      );
+    }
   }
 
   /**
