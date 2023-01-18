@@ -15,7 +15,7 @@
  */
 
 /**
- * Parent breadcrumbs for disaster dashboard.
+ * List of child places for navigation.
  */
 
 import _ from "lodash";

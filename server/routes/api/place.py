@@ -307,17 +307,17 @@ def child_fetch(dcid):
       if t in wanted_types:
         wanted_dcids.add(dcid)
         continue
-  wanted_types = list(wanted_types)
+  wanted_dcids = list(wanted_dcids)
 
   # Fetch population of child places
   pop = {}
   obs = dc.obs_point(wanted_dcids, [POPULATION_DCID])
   obs = obs.get('observationsByVariable', [])
-  if obs and obs[0]['variable'] == 'Count_Person':
+  if obs and obs[0]['variable'] == POPULATION_DCID:
     obs = obs[0].get('observationsByEntity', [])
     for p in obs:
       v = p.get('pointsByFacet', [])
-      if v and len(v) > 0:
+      if v:
         pop[p['entity']] = v[0]['value']
 
   # Build return object

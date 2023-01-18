@@ -107,7 +107,7 @@ export function getParentPlacesPromise(
 }
 
 /**
- * Used to get child places (filtered by wanted place type list.
+ * Used to get child places (filtered by wanted place type list).
  * Returns lists of NamedPopPlace keyed by place type.
  */
 export function getChildPlacesPromise(
@@ -119,7 +119,7 @@ export function getChildPlacesPromise(
       return resp.data;
     })
     .catch(() => {
-      return undefined;
+      return {};
     });
 }
 
