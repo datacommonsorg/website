@@ -32,11 +32,6 @@ class MainPlaceSpec:
 
 
 @dataclass
-class NearbyPlaceSpec:
-  sv2places: Dict[str, List[str]]
-
-
-@dataclass
 class ContainedPlaceSpec:
   containing_place: str
   contained_place_type: str
@@ -46,39 +41,10 @@ class ContainedPlaceSpec:
 @dataclass
 class DataSpec:
   main_place_spec: MainPlaceSpec
-  nearby_place_spec: NearbyPlaceSpec
   contained_place_spec: ContainedPlaceSpec
   selected_svs: List[str]
   topic_svs: List[str]  # Will still contain svpg's
-  expanded_svs: List[str]
   extended_sv_map: Dict[str, List[str]]
-  primary_sv: str
-  primary_sv_siblings: List[str]
-
-
-def _get_related_places(place_dcid):
-  place_page_data = dc.get_landing_page_data(place_dcid, 'Overview', [])
-  if not place_page_data:
-    place_page_data = {}
-
-  if "parentPlaces" not in place_page_data:
-    place_page_data["parentPlaces"] = []
-  if "childPlacesType" not in place_page_data:
-    place_page_data["childPlacesType"] = ""
-  if "nearbyPlaces" not in place_page_data:
-    place_page_data["nearbyPlaces"] = []
-  if "similarPlaces" not in place_page_data:
-    place_page_data["similarPlaces"] = []
-
-  return place_page_data
-
-
-def _related_places(dcid):
-  # Get related places using Place API
-  related_places = _get_related_places(dcid)
-  # related_places['nearbyPlaces'] += [dcid]
-  # related_places['similarPlaces'] += [dcid]
-  return related_places
 
 
 def _highlight_svs(sv_df):
@@ -108,7 +74,7 @@ def _sample_child_place(main_place_dcid, contained_place_type):
   return None
 
 
-def compute(query_detection: Detection):
+def compute(query_detection: Detection, context_history):
   # ========    Get Place Info
   # Extract info from query_detection.
   places_detected = query_detection.places_detected
@@ -122,66 +88,44 @@ def compute(query_detection: Detection):
       'SV': svs_detected.sv_dcids,
       'CosineScore': svs_detected.sv_scores
   })
-  # Use SVs and Places to get relevant data/stats/chart configs.
-  related_places = _related_places(main_place_dcid)
 
-  is_contained_in_query = False
+  # ========    Check contained place type
   contained_place_type = ""
   for classifier in query_detection.classifications:
     if classifier.type == ClassificationType.CONTAINED_IN:
-      is_contained_in_query = True
       contained_place_type = classifier.attributes.contained_in_place_type.value
-  if not contained_place_type:
-    if 'childPlacesType' in related_places:
-      contained_place_type = related_places['childPlacesType']
-  # all_relevant_places = list(
-  #     set(related_places['parentPlaces'] + related_places['nearbyPlaces'] +
-  #         related_places['similarPlaces']))
+
+  for classifier in query_detection.classifications:
+    if classifier.type == ClassificationType.CORRELATION:
+      if not contained_place_type:
+        # CORRELATION requires contained_place_type to be present.
+        for context in reversed(context_history):
+          if 'data_spec' not in context['debug']:
+            continue
+          ds = context['debug']['data_spec']
+          t = ds['contained_place_spec']['contained_place_type']
+          if t:
+            contained_place_type = t
+            break
 
   # Filter SVs based on scores.
   highlight_svs = _highlight_svs(svs_df)
-  topic_svs = nl_topic.get_topics(highlight_svs)
-  expanded_svgs = nl_variable.expand_svg(
-      [x for x in highlight_svs if x.startswith("dc/g")])
   selected_svs = []
-  expanded_svs = []
-  for sv in highlight_svs:
-    if sv.startswith("dc/g"):
-      if expanded_svgs[sv]:
-        expanded_svs.extend(expanded_svgs[sv])
-    else:
-      selected_svs.append(sv)
-  # relevant_svs_df = _filtered_svs_df(svs_df)
-  # relevant_svs = relevant_svs_df['SV'].values.tolist()
+  extended_sv_map = {}
 
-  # Get related SVGs and all info.
-  # svgs_info = _related_svgs(relevant_svs, all_relevant_places)
-
-  # Get useful sv2name and sv2definitions.
-  # sv_maps = _sv_definition_name_maps(svgs_info, relevant_svs)
-  # sv2name = sv_maps["sv2name"]
-  # sv2definition = sv_maps["sv2definition"]
-
-  # Get SVGs into peer buckets.
-  # peer_buckets = _peer_buckets(sv2definition, relevant_svs)
-
-  # Produce Chart Config JSON.
-  # chart_config = _chart_config(place_dcid, main_place_type, main_place_name,
-  #                              child_places_type, highlight_svs, sv2name,
-  #                              peer_buckets)
-
-  # message = ParseDict(chart_config, subject_page_pb2.SubjectPageConfig())
-
-  # This is a new try to extend svs to siblingins. This is to extend the
-  # stat vars "a little bit"
-
-  # Get extended stat var list
+  # Get selected stat vars and extended stat var map
+  topic_svs = nl_topic.get_topics(highlight_svs)
   if topic_svs:
     selected_svs = topic_svs.copy()
     extended_sv_map = nl_topic.get_topic_peers(topic_svs)
   else:
+    for sv in highlight_svs:
+      if sv.startswith("dc/g") or sv.startswith("dc/topic"):
+        continue
+      selected_svs.append(sv)
     extended_sv_map = nl_variable.extend_svs(selected_svs)
-  all_svs = selected_svs + expanded_svs
+
+  all_svs = selected_svs
   for sv, svs in extended_sv_map.items():
     all_svs.extend(svs)
 
@@ -189,23 +133,19 @@ def compute(query_detection: Detection):
                                                      name=main_place_name,
                                                      type=main_place_type,
                                                      svs=[]),
-                       nearby_place_spec=NearbyPlaceSpec(sv2places={}),
                        contained_place_spec=ContainedPlaceSpec(
                            containing_place=main_place_dcid,
                            contained_place_type=contained_place_type,
                            svs=[]),
                        selected_svs=selected_svs,
-                       expanded_svs=expanded_svs,
                        topic_svs=topic_svs,
-                       extended_sv_map=extended_sv_map,
-                       primary_sv="",
-                       primary_sv_siblings=[])
+                       extended_sv_map=extended_sv_map)
 
   if not all_svs:
     logging.info("No SVs to use for existence.")
     return data_spec
 
-  all_places = related_places['nearbyPlaces'] + [main_place_dcid]
+  all_places = [main_place_dcid]
   sample_child_place = _sample_child_place(main_place_dcid,
                                            contained_place_type)
   if sample_child_place:
@@ -224,18 +164,5 @@ def compute(query_detection: Detection):
         data_spec.main_place_spec.svs.append(sv)
       elif place == sample_child_place:
         data_spec.contained_place_spec.svs.append(sv)
-      else:
-        if sv not in data_spec.nearby_place_spec.sv2places:
-          data_spec.nearby_place_spec.sv2places[sv] = []
-        data_spec.nearby_place_spec.sv2places[sv].append(place)
-
-    if is_contained_in_query:
-      if data_spec.contained_place_spec.svs:
-        data_spec.primary_sv = data_spec.contained_place_spec.svs[0]
-    elif data_spec.main_place_spec.svs:
-      data_spec.primary_sv = data_spec.main_place_spec.svs[0]
-    if data_spec.primary_sv:
-      data_spec.primary_sv_siblings = data_spec.extended_sv_map.get(
-          data_spec.primary_sv, [])
 
   return data_spec
