@@ -19,8 +19,8 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { displayNameForPlaceType } from "../../place/util";
 
+import { displayNameForPlaceType } from "../../place/util";
 import { ChildPlacesByType, NamedTypedPlace } from "../../shared/types";
 import { getChildPlacesPromise } from "../../utils/place_utils";
 
@@ -52,10 +52,14 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
             {displayNameForPlaceType(placeType, true /* isPlural */)}
           </div>
           {childPlaces[placeType].map((place, i) => (
-              <a href={"/disasters/" + place.dcid} className="child-place-link"
-            key={`child-place-${i}`}>
-                {place.name || place.dcid}{i < childPlaces[placeType].length - 1 ? "," : ""}
-              </a>
+            <a
+              href={"/disasters/" + place.dcid}
+              className="child-place-link"
+              key={`child-place-${i}`}
+            >
+              {place.name || place.dcid}
+              {i < childPlaces[placeType].length - 1 ? "," : ""}
+            </a>
           ))}
         </div>
       ))}

@@ -21,7 +21,11 @@ import {
   EARTH_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
 } from "../shared/constants";
-import { ChildPlacesByType, NamedPlace, NamedTypedPlace } from "../shared/types";
+import {
+  ChildPlacesByType,
+  NamedPlace,
+  NamedTypedPlace,
+} from "../shared/types";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
 
 let ps: google.maps.places.PlacesService;
@@ -110,11 +114,11 @@ export function getChildPlacesPromise(
   placeDcid: string
 ): Promise<ChildPlacesByType> {
   return axios
-  .get(`/api/place/child/${placeDcid}`)
-  .then((resp) => {
-    return resp.data;
-  })
-  .catch(() => {});
+    .get(`/api/place/child/${placeDcid}`)
+    .then((resp) => {
+      return resp.data;
+    })
+    .catch(() => {});
 }
 
 /**
