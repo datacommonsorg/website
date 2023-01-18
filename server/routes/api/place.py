@@ -287,43 +287,49 @@ def child(dcid):
   return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
-# TODO(hanlu): get nameWithLanguage instead of using name.
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
 def child_fetch(dcid):
-  contained_response = fetch_data('/node/property-values', {
-      'dcids': [dcid],
-      'property': 'containedInPlace',
-      'direction': 'in'
-  },
-                                  compress=False,
-                                  post=True)
-  places = contained_response[dcid].get('in', [])
+  # Get contained places
+  contained_response = dc.property_values([dcid], 'containedInPlace', False)
+  place_dcids = contained_response.get(dcid, [])
 
-  overlaps_response = fetch_data('/node/property-values', {
-      'dcids': [dcid],
-      'property': 'geoOverlaps',
-      'direction': 'in'
-  },
-                                 compress=False,
-                                 post=True)
-  places = places + overlaps_response[dcid].get('in', [])
+  overlaps_response = dc.property_values([dcid], 'geoOverlaps', False)
+  place_dcids = place_dcids + overlaps_response.get(dcid, [])
 
-  place_dcids = map(lambda x: x['dcid'], places)
-  pop = dc.obs_point(place_dcids, ['Count_Person'])
-
+  # Filter by wanted place types
   place_type = get_place_type(dcid)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
-  result = collections.defaultdict(list)
-  for place in places:
-    for place_type in place['types']:
-      place_pop = pop.get(place['dcid'], 0)
-      # TODO(beets): Remove this when we push resolved places to prod.
-      if place['dcid'].startswith('geoNames'):
+
+  place_types = dc.property_values(place_dcids, 'typeOf', True)
+  wanted_dcids = set()
+  for dcid, types in place_types.items():
+    for t in types:
+      if t in wanted_types:
+        wanted_dcids.add(dcid)
         continue
-      if place_type in wanted_types and place_pop > 0:
+  wanted_types = list(wanted_types)
+
+  # Fetch population of child places
+  pop = {}
+  obs = dc.obs_point(wanted_dcids, ['Count_Person'])
+  obs = obs.get('observationsByVariable', [])
+  if obs and obs[0]['variable'] == 'Count_Person':
+    obs = obs[0].get('observationsByEntity', [])
+    for p in obs:
+      v = p.get('pointsByFacet', [])
+      if v and len(v) > 0:
+        pop[p['entity']] = v[0]['value']
+
+  # Build return object
+  place_names = dc.property_values(wanted_dcids, 'name', True)
+  result = collections.defaultdict(list)
+  for place_dcid in wanted_dcids:
+    for place_type in place_types[place_dcid]:
+      place_pop = pop.get(place_dcid, 0)
+      if place_pop > 0:
         result[place_type].append({
-            'name': place.get('name', place['dcid']),
-            'dcid': place['dcid'],
+            'name': place_names.get(place_dcid, place_dcid),
+            'dcid': place_dcid,
             'pop': place_pop,
         })
 
@@ -337,7 +343,7 @@ def child_fetch(dcid):
             break
 
   # Drop empty categories
-  result = dict(filter(lambda x: len(x) > 0, result.items()))
+  result = dict(filter(lambda x: len(x[1]) > 0, result.items()))
   return result
 
 
