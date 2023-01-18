@@ -22,7 +22,7 @@ resources:
   - ../../base
 
 configMapGenerator:
-  - behavior: create
+  - behavior: merge
     literals:
       - flaskEnv=custom
       - secretProject=datcom-karnataka
