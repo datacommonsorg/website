@@ -22,13 +22,12 @@ from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
 from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 from typing import Dict, Union
-import pandas as pd
-import re
 import requests
 
 import services.datacommons as dc
 import lib.nl.nl_data_spec as nl_data_spec
 import lib.nl.nl_page_config as nl_page_config
+import lib.nl.nl_utils as nl_utils
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
@@ -311,12 +310,6 @@ def _dc_recon(place_ids):
       break
 
   return d_return
-
-
-def _remove_punctuations(s):
-  s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
-  return s
 
 
 def _remove_places(query, places_found):
@@ -603,7 +596,7 @@ def data():
   if context_history:
     has_context = True
   logging.info(context_history)
-  query = str(escape(_remove_punctuations(original_query)))
+  query = str(escape(nl_utils.remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   default_place = "United States"
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}

@@ -17,6 +17,7 @@ from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
 
+from lib.nl.nl_place_detection import NLPlaceDetector
 from lib.nl.nl_detection import NLClassifier, ClassificationType
 from lib.nl.nl_detection import ClusteringClassificationAttributes
 from lib.nl.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
@@ -87,11 +88,12 @@ def _prefix_length(s1, s2):
 class Model:
   """Holds clients for the language model"""
 
-  def __init__(self, ner_model,
+  def __init__(self,
                query_classification_data: Dict[str, NLQueryClassificationData],
-               classification_types_supported: List[str]):
+               classification_types_supported: List[str],
+               ner_model=None):
     self.model = SentenceTransformer(MODEL_NAME)
-    self.ner_model = ner_model
+    self.place_detector: NLPlaceDetector = NLPlaceDetector(ner_model=ner_model)
     self.dataset_embeddings_maps = {}
     # For clustering, need the DataFrame objects.
     self.dataset_embeddings_maps_to_df = {}
@@ -520,46 +522,5 @@ class Model:
         'SV_to_Sentences': all_svs_sentences,
     }
 
-  def _detect_place_helper(self, query):
-    doc = self.ner_model(query)
-    places_found_loc_gpe = []
-    places_found_fac = []
-    for e in doc.ents:
-      # Preference is given to LOC and GPE types over FAC.
-      # List of entity types recognized by the spaCy library
-      # is here: https://towardsdatascience.com/explorations-in-named-entity-recognition-and-was-eleanor-roosevelt-right-671271117218
-      # We only use the location/place types.
-      if e.label_ in ["GPE", "LOC"]:
-        places_found_loc_gpe.append(str(e))
-      if e.label_ in ["FAC"]:
-        places_found_fac.append(str(e))
-
-    if places_found_loc_gpe:
-      return places_found_loc_gpe
-    return places_found_fac
-
   def detect_place(self, query):
-    query_without_stop_words = nl_utils.remove_stop_words(
-        query, nl_constants.STOP_WORDS)
-    query_with_period = query + "."
-    query_title_case = query.title()
-
-    # TODO: work on finding a better fix for important places which are
-    # not getting detected.
-    # First check in special places. If they are found, return those.
-    for special_place in nl_constants.SPECIAL_PLACES:
-      if special_place in query_without_stop_words:
-        logging.info(f"Found one of the Special Places: {special_place}")
-        # Appending a ", USA" to help finding this place via Maps.
-        return [special_place + ", USA"]
-
-    places_found = []
-    # Now try all versions of the query.
-    for q in [
-        query, query_without_stop_words, query_with_period, query_title_case
-    ]:
-      places_found = self._detect_place_helper(q)
-      if places_found:
-        break
-
-    return places_found
+    return self.place_detector.detect_places_heuristics(query)

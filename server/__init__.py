@@ -289,15 +289,15 @@ def create_app():
         logging.info("Use cached model in: " + cache.directory)
         return
     # Some specific imports for the NL Interface.
-    import en_core_web_md
     import lib.nl.nl_training as libnl
     import services.nl as nl
     # For the classification types available, check lib.nl_training (libnl).
     classification_types = [
         'ranking', 'temporal', 'contained_in', 'correlation'
     ]
-    nl_model = nl.Model(en_core_web_md.load(), libnl.CLASSIFICATION_INFO,
-                        classification_types)
+    nl_model = nl.Model(libnl.CLASSIFICATION_INFO,
+                        classification_types,
+                        ner_model=None)
     app.config['NL_MODEL'] = nl_model
     if app.config['LOCAL']:
       with Cache(cache.directory) as reference:
