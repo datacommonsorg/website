@@ -25,3 +25,15 @@
 @import "./draw_scatter";
 @import "./shared/story_block";
 @import "./shared/story_chart";
+
+h3 {
+  color: var(--secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4rem;
+}
+
+.place-links {
+  color: var(--secondary);
+  text-decoration: underline;
+}

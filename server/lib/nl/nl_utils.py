@@ -14,6 +14,7 @@
 """Utility functions for use by the NL modules."""
 
 import copy
+import re
 from typing import Dict, List, Union, Set
 
 import lib.nl.nl_constants as nl_constants
@@ -83,3 +84,9 @@ def combine_stop_words() -> Set[str]:
                        list(nl_constants.PLACE_TYPE_TO_PLURALS.values()))
 
   return stop_words
+
+
+def remove_punctuations(s):
+  s = s.replace('\'s', '')
+  s = re.sub(r'[^\w\s]', ' ', s)
+  return " ".join(s.split())

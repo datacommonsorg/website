@@ -35,8 +35,6 @@ const DATE_OPTION_DISPLAY_NAMES = {
 };
 
 interface DisasterEventMapSelectorsPropType {
-  // List of places to show in the breadcrumbs
-  breadcrumbPlaces: NamedPlace[];
   // List of available date options
   dateOptions: string[];
   // Callback when new place is selected
@@ -48,24 +46,6 @@ export function DisasterEventMapSelectors(
 ): JSX.Element {
   return (
     <div className="disaster-event-map-selectors-section">
-      <div className="disaster-event-map-breadcrumbs">
-        {props.breadcrumbPlaces.map((crumb, i) => {
-          return (
-            <div
-              key={crumb.dcid}
-              className={`disaster-event-map-breadcrumb-entry${
-                i === props.breadcrumbPlaces.length - 1 ? "-selected" : ""
-              }`}
-              onClick={() => props.onPlaceSelected(crumb)}
-            >
-              <span>{crumb.name}</span>
-              {i < props.breadcrumbPlaces.length - 1 && (
-                <i className="material-icons">chevron_right</i>
-              )}
-            </div>
-          );
-        })}
-      </div>
       <div className="disaster-event-map-date-selector">
         Date:
         <CustomInput
