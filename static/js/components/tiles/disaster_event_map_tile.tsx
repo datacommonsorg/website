@@ -29,6 +29,7 @@ import {
 } from "../../chart/draw_d3_map";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import {
+  DATE_OPTION_1Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
 } from "../../constants/disaster_event_map_constants";
@@ -190,7 +191,12 @@ export function DisasterEventMapTile(
       allowEmbed={false}
     >
       <DisasterEventMapSelectors
-        dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, ...dateList]}
+        dateOptions={[
+          DATE_OPTION_30D_KEY,
+          DATE_OPTION_6M_KEY,
+          DATE_OPTION_1Y_KEY,
+          ...dateList,
+        ]}
         onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
       />
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
@@ -415,6 +421,9 @@ export function DisasterEventMapTile(
     const minus6Months = new Date(
       new Date().setMonth(currentDate.getMonth() - 6)
     );
+    const minus1Year = new Date(
+      new Date().setFullYear(currentDate.getFullYear() - 1)
+    );
     return {
       [DATE_OPTION_30D_KEY]: [
         minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
@@ -422,6 +431,10 @@ export function DisasterEventMapTile(
       ],
       [DATE_OPTION_6M_KEY]: [
         minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
+        currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      ],
+      [DATE_OPTION_1Y_KEY]: [
+        minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
         currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
       ],
     };

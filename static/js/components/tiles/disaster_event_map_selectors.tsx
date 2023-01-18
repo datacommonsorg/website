@@ -22,6 +22,7 @@ import React from "react";
 import { CustomInput } from "reactstrap";
 
 import {
+  DATE_OPTION_1Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
   URL_HASH_PARAM_KEYS,
@@ -32,6 +33,7 @@ import { getDate, setUrlHash } from "../../utils/disaster_event_map_utils";
 const DATE_OPTION_DISPLAY_NAMES = {
   [DATE_OPTION_30D_KEY]: "Last 30 days",
   [DATE_OPTION_6M_KEY]: "Last 6 months",
+  [DATE_OPTION_1Y_KEY]: "Last year",
 };
 
 interface DisasterEventMapSelectorsPropType {

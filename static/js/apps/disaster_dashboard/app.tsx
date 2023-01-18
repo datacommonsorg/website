@@ -20,6 +20,7 @@
 
 import React from "react";
 
+import { ChildPlaces } from "../../components/disaster_dashboard/child_places";
 import { ParentBreadcrumbs } from "../../components/disaster_dashboard/parent_breadcrumbs";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
@@ -41,7 +42,10 @@ export function App(props: AppPropType): JSX.Element {
   return (
     <>
       <div className="row">
-        <SubjectPageSidebar categories={props.dashboardConfig.categories} />
+        <div className="col-md-3x col-lg-2 order-last order-lg-0">
+          <SubjectPageSidebar categories={props.dashboardConfig.categories} />
+          <ChildPlaces parentPlace={props.place}></ChildPlaces>
+        </div>
         <div className="col-md-9x col-lg-10">
           <h1 id="place-name">{props.place.name}</h1>
           <ParentBreadcrumbs place={props.place}></ParentBreadcrumbs>

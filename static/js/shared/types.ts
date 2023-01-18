@@ -37,6 +37,17 @@ export interface NamedTypedPlace {
 }
 
 /**
+ * Place with name and population.
+ */
+export interface NamedPopPlace {
+  dcid: string;
+  name: string;
+  pop: number;
+}
+
+export type ChildPlacesByType = Record<string, Array<NamedPopPlace>>;
+
+/**
  * Enum type of the stat var hierarchy wizard.
  */
 export const StatVarHierarchyType = {

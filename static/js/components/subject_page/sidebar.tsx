@@ -36,10 +36,7 @@ export function SubjectPageSidebar(
   props: SubjectPageSidebarPropType
 ): JSX.Element {
   return (
-    <div
-      id="subject-page-sidebar"
-      className="col-md-3x col-lg-2 order-last order-lg-0"
-    >
+    <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {!_.isEmpty(props.categories) &&
           props.categories.map((category) => {
