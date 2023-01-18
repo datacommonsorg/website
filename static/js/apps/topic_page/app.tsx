@@ -51,7 +51,9 @@ export function App(props: AppPropType): JSX.Element {
   return (
     <>
       <div className="row">
-        <SubjectPageSidebar categories={props.pageConfig.categories} />
+        <div className="col-md-3x col-lg-2 order-last order-lg-0">
+          <SubjectPageSidebar categories={props.pageConfig.categories} />
+        </div>
         <div className="row col-md-9x col-lg-10">
           <PageSelector
             selectedPlace={props.place}
