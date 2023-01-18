@@ -18,13 +18,23 @@
  * Styling for disaster dashboard.
  */
 
-@use "base";
 @use "./shared/subject_page";
+@import "base";
 @import "./draw";
 @import "./draw_choropleth";
 @import "./draw_scatter";
 @import "./shared/story_block";
 @import "./shared/story_chart";
+
+#disaster-dashboard {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
 
 h3 {
   color: var(--secondary);
