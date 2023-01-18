@@ -17,7 +17,7 @@ from typing import List, Dict
 from config import subject_page_pb2
 from lib.nl.nl_data_spec import DataSpec
 from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingType
-from lib.nl import nl_variable, nl_topic
+from lib.nl import nl_topic
 from lib.nl.nl_constants import PLACE_TYPE_TO_PLURALS
 from services import datacommons as dc
 import json
@@ -242,17 +242,18 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   classifier = detection.classifications[0]
   classificationType = classifier.type
 
-  primary_sv = data_spec.primary_sv
-  primary_sv_siblings = data_spec.primary_sv_siblings
+  selected_svs = data_spec.selected_svs
+  extended_sv_map = data_spec.extended_sv_map
   use_context_sv = False
 
   # No stat vars found
   context_place = None
-  if not primary_sv:
+  if not selected_svs:
     for context in reversed(context_history):
-      if context and context['debug'] and context['debug']['primary_sv']:
-        primary_sv = context['debug']['primary_sv']
-        primary_sv_siblings = context['debug']['primary_sv_siblings']
+      if context and context['debug'] and context['debug'][
+          'data_spec'] and context['debug']['data_spec']['selected_svs']:
+        selected_svs = context['debug']['data_spec']['selected_svs']
+        extended_sv_map = context['debug']['data_spec']['extended_sv_map']
         use_context_sv = True
         context_place = Place(dcid=context['place_dcid'],
                               name=context['place_name'],
@@ -270,7 +271,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
                      data_spec.main_place_spec.svs)
     return page_config
 
-  if not primary_sv:
+  if not selected_svs:
     if main_place_spec.place:
       block = category.blocks.add()
       block.title = main_place_spec.name
@@ -279,10 +280,14 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       tile.type = subject_page_pb2.Tile.TileType.PLACE_OVERVIEW
     return page_config
 
-  all_svs = [primary_sv] + primary_sv_siblings
-  if contained_place_spec.svs:
-    all_svs += contained_place_spec.svs
+  all_svs = selected_svs
+  for _, v in data_spec.extended_sv_map.items():
+    all_svs += v
   sv2name = get_sv_name(all_svs)
+
+  #  ONLY ONE sv from selected_svs is used
+  primary_sv = selected_svs[0]
+  extended_svs = extended_sv_map[primary_sv]
 
   if classificationType in [
       ClassificationType.SIMPLE, ClassificationType.OTHER
@@ -296,12 +301,13 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
       for sv_key, spec in stat_var_spec_map.items():
         category.stat_var_spec[sv_key].CopyFrom(spec)
       # Draw for all stat vars
-      block, stat_var_spec_map = _multiple_place_bar_block(
-          [context_place, detection.places_detected.main_place],
-          primary_sv_siblings, sv2name)
-      category.blocks.append(block)
-      for sv_key, spec in stat_var_spec_map.items():
-        category.stat_var_spec[sv_key].CopyFrom(spec)
+      if extended_svs:
+        block, stat_var_spec_map = _multiple_place_bar_block(
+            [context_place, detection.places_detected.main_place], extended_svs,
+            sv2name)
+        category.blocks.append(block)
+        for sv_key, spec in stat_var_spec_map.items():
+          category.stat_var_spec[sv_key].CopyFrom(spec)
     else:
       # Query for place and sv, draw simple charts
       # The primary stat var
@@ -312,9 +318,9 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
         category.stat_var_spec[sv_key].CopyFrom(spec)
 
       # The siblings for the primary stat var
-      if primary_sv_siblings:
+      if extended_svs:
         block, stat_var_spec_map = _single_place_multiple_var_timeline_block(
-            primary_sv_siblings, sv2name)
+            extended_svs, sv2name)
         category.blocks.append(block)
         for sv_key, spec in stat_var_spec_map.items():
           category.stat_var_spec[sv_key].CopyFrom(spec)
@@ -409,11 +415,11 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     sv_1 = data_spec.selected_svs[0]
 
     # get second stat var from previous context
-    # search up context history for latest primary_sv
+    # search up context history for latest selected_svs
     sv_2 = None
     for context in reversed(context_history):
-      if context['debug']['primary_sv']:
-        sv_2 = context['debug']['primary_sv']
+      if context['debug'].get('data_spec', {}).get('selected_svs'):
+        sv_2 = context['debug']['data_spec']['selected_svs'][0]
         break
     if not sv_2:
       # if can't be found in context, see if there is a second selected sv
@@ -465,34 +471,6 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
     tile.stat_var_key.append(sv_2_key)
     tile.type = subject_page_pb2.Tile.TileType.SCATTER
     tile.title = f"{sv_1_name} vs. {sv_2_name}"
-
-  # # Main place
-  # if spec.main.svs:
-  #   block = category.blocks.add()
-  #   block.title = spec.main.name
-  #   column = block.columns.add()
-  #   for sv in spec.main.svs:
-  #     tile = column.tiles.add()
-  #     tile.type = subject_page_pb2.Tile.TileType.LINE
-  #     tile.title = sv2name[sv]
-  #     tile.stat_var_key.append(sv)
-  #     category.stat_var_spec[sv].stat_var = sv
-  #     category.stat_var_spec[sv].name = sv2name[sv]
-
-  # # Nearby place
-  # if spec.nearby.sv2places:
-  #   block = category.blocks.add()
-  #   block.title = "{} near {}".format(
-  #       pluralize_place_type(spec.main.type).capitalize(), spec.main.name)
-  #   column = block.columns.add()
-  #   for sv, places in spec.nearby.sv2places.items():
-  #     tile = column.tiles.add()
-  #     tile.type = subject_page_pb2.Tile.TileType.BAR
-  #     tile.title = sv2name[sv]
-  #     tile.comparison_places[:] = places
-  #     tile.stat_var_key.append(sv)
-  #     category.stat_var_spec[sv].stat_var = sv
-  #     category.stat_var_spec[sv].name = sv2name[sv]
 
   # # Contained place
   return page_config

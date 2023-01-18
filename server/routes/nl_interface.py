@@ -19,7 +19,7 @@ import json
 
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
-from google.protobuf.json_format import MessageToJson, ParseDict
+from google.protobuf.json_format import MessageToJson
 from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 from typing import Dict, Union
 import pandas as pd
@@ -30,7 +30,6 @@ import services.datacommons as dc
 import lib.nl.nl_data_spec as nl_data_spec
 import lib.nl.nl_page_config as nl_page_config
 import lib.nl.nl_variable as nl_variable
-from config import subject_page_pb2
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -427,10 +426,6 @@ def _result_with_debug_info(data_dict,
               clustering_classification,
           'correlation_classification':
               correlation_classification,
-          'primary_sv':
-              data_spec.primary_sv,
-          'primary_sv_siblings':
-              data_spec.primary_sv_siblings,
           'data_spec':
               data_spec,
       },
@@ -621,7 +616,7 @@ def data():
                                embeddings_build, recent_context)
 
   # Get Data Spec
-  data_spec = nl_data_spec.compute(query_detection)
+  data_spec = nl_data_spec.compute(query_detection, context_history)
   page_config_pb = nl_page_config.build_page_config(query_detection, data_spec,
                                                     context_history)
   page_config = json.loads(MessageToJson(page_config_pb))
