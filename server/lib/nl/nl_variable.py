@@ -25,6 +25,7 @@ class SV:
   mp: str = ''
   st: str = ''
   pt: str = ''
+  md: str = ''
   pvs: Dict[str, str] = field(default_factory=dict)
 
 
@@ -68,6 +69,8 @@ def parse_sv(sv_definition: str) -> SV:
       res.mp = v
     elif k == "st":
       res.st = v
+    elif k == "md":
+      res.mv = v
     else:
       res.pvs[k] = v
   return res
@@ -91,7 +94,23 @@ def parse_svg(svg_dcid: str) -> SVG:
 
 
 def extend_svs(svs: Dict[str, List[str]]):
-  """Extend all svs with siblings svs.
+  """Extend stat vars by finding siblings.
+
+    Each SV has a parent SVG associated. Extending an SV would need to trace to
+    its parent SVG.
+
+    There are two types of SVGs:
+
+    1)
+    https://datacommons.org/browser/dc/g/Person_Gender-Female_Race-AsianAlone,
+    which has same set of PVs as its child SV. In this case, its child SVs are
+    not siblings as they differ by stat type or other properties. To find
+    siblings of a child SV, it's really a task to find this SVG's sibling
+    SVGs and get corresponding child SV from each of them.
+
+    2) https://datacommons.org/browser/dc/g/Person_Gender-Female_Race, which has
+    PVs and an EXTRA P, so this represents a set of SVs, its child SVs can be
+    directly used as siblings.
   """
   if not svs:
     return {}

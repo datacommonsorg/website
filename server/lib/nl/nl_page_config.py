@@ -32,6 +32,7 @@ def pluralize_place_type(place_type: str) -> str:
 
 
 def get_sv_name(svs):
+  svs = list(set(svs))
   sv2name_raw = dc.property_values(svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
@@ -108,7 +109,8 @@ def _single_place_single_var_timeline_block(sv_dcid, sv2name):
 
 def _single_place_multiple_var_timeline_block(svs, sv2name):
   """A column with two chart, all stat vars and per capita"""
-  block = subject_page_pb2.Block(columns=[subject_page_pb2.Block.Column()])
+  block = subject_page_pb2.Block(title="Compare with Other Variables",
+                                 columns=[subject_page_pb2.Block.Column()])
   stat_var_spec_map = {}
 
   # Line chart for the stat var
@@ -143,7 +145,7 @@ def _single_place_multiple_var_timeline_block(svs, sv2name):
 
 def _multiple_place_bar_block(places: List[Place], svs: List[str], sv2name):
   """A column with two charts, main stat var and per capita"""
-  block = subject_page_pb2.Block(title="")
+  block = subject_page_pb2.Block(title="Compare with Other Places")
   column = block.columns.add()
   stat_var_spec_map = {}
   # Total
