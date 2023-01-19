@@ -76,3 +76,9 @@ export interface DisasterEventPointData {
   eventPoints: DisasterEventPoint[];
   provenanceInfo: Record<string, EventApiProvenanceInfo>;
 }
+
+// Data about a set of map points to show on a map.
+export interface MapPointsData {
+  points: DisasterEventPoint[];
+  values: { [placeDcid: string]: number };
+}

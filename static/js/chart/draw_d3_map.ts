@@ -473,6 +473,7 @@ export function drawD3Map(
  * @param projection geo projection used by the map
  * @param getPointColor function to get the color for each map point
  * @param getTooltipHtml function to get the html content for the tooltip
+ * @param minDotRadius smallest radius to use for the map points
  */
 export function addMapPoints(
   domContainerId: string,
@@ -480,7 +481,8 @@ export function addMapPoints(
   mapPointValues: { [placeDcid: string]: number },
   projection: d3.GeoProjection,
   getPointColor?: (point: MapPoint) => string,
-  getTooltipHtml?: (place: NamedPlace) => string
+  getTooltipHtml?: (place: NamedPlace) => string,
+  minDotRadius?: number
 ): d3.Selection<SVGCircleElement, MapPoint, SVGGElement, unknown> {
   // get the smallest diagonal length of a region on the d3 map.
   let minRegionDiagonal = Number.MAX_VALUE;
@@ -495,7 +497,7 @@ export function addMapPoints(
         Math.pow(pathClientRect.height, 2) + Math.pow(pathClientRect.width, 2)
       );
     });
-  const minDotSize = Math.max(minRegionDiagonal * 0.02, 1.1);
+  const minDotSize = minDotRadius || Math.max(minRegionDiagonal * 0.02, 1.1);
   const filteredMapPoints = mapPoints.filter((point) => {
     return !_.isNull(projection([point.longitude, point.latitude]));
   });
@@ -533,7 +535,7 @@ export function addMapPoints(
     )
     .attr("r", (point: MapPoint) => {
       if (_.isEmpty(pointSizeScale) || !mapPointValues[point.placeDcid]) {
-        return minDotSize * 2;
+        return minDotSize;
       }
       return pointSizeScale(mapPointValues[point.placeDcid]);
     });
