@@ -27,7 +27,7 @@ import ReactDOM from "react-dom";
 import { GeoJsonData } from "../chart/types";
 import { DisasterEventMapInfoCard } from "../components/tiles/disaster_event_map_info_card";
 import {
-  DATE_OPTION_6M_KEY,
+  DATE_OPTION_1Y_KEY,
   URL_HASH_PARAM_KEYS,
 } from "../constants/disaster_event_map_constants";
 import {
@@ -427,7 +427,7 @@ export function getHashValue(paramKey: string): string {
  * Gets the date for a disaster event map using url params.
  */
 export function getDate(): string {
-  return getHashValue(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_6M_KEY;
+  return getHashValue(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_1Y_KEY;
 }
 
 /**
