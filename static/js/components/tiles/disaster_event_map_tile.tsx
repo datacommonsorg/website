@@ -420,7 +420,9 @@ export function DisasterEventMapTile(
           return props.eventTypeSpec[point.disasterType].color;
         },
         undefined,
-        placeInfo.selectedPlace.dcid == EARTH_NAMED_TYPED_PLACE.dcid ? MAP_POINTS_MIN_RADIUS_EARTH : MAP_POINTS_MIN_RADIUS
+        placeInfo.selectedPlace.dcid == EARTH_NAMED_TYPED_PLACE.dcid
+          ? MAP_POINTS_MIN_RADIUS_EARTH
+          : MAP_POINTS_MIN_RADIUS
       );
       pointsLayer.on("click", (point: DisasterEventPoint) =>
         onPointClicked(
