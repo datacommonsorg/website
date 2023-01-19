@@ -17,6 +17,7 @@ website:
 
   flaskEnv:
   secretGCPProjectID:
+  enableModel: "false"
 
   # IAP(Identity Aware Proxy) config.
   # iap can be enabled independently of ingress.
