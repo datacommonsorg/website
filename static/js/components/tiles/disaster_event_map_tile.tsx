@@ -107,6 +107,7 @@ export function DisasterEventMapTile(
     null
   );
   const [svgContainerHeight, setSvgContainerHeight] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
 
   function handleResize(): void {
     // Update svgContainerHeight if svgContainerRef height has changed so that
@@ -202,7 +203,15 @@ export function DisasterEventMapTile(
           ...dateList,
         ]}
         onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
-      />
+      >
+        <div
+          className="filter-toggle"
+          onClick={() => setShowFilters(!showFilters)}
+          title="Toggle filters"
+        >
+          <i className="material-icons">tune</i>
+        </div>
+      </DisasterEventMapSelectors>
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
         {_.isEmpty(mapChartData.geoJson) ? (
           <div className={`${CSS_SELECTOR_PREFIX}-error-message`}>
@@ -258,10 +267,12 @@ export function DisasterEventMapTile(
                 </div>
               </div>
             </div>
-            <DisasterEventMapFilters
-              eventTypeSpec={props.eventTypeSpec}
-              height={svgContainerHeight}
-            />
+            {showFilters && (
+              <DisasterEventMapFilters
+                eventTypeSpec={props.eventTypeSpec}
+                height={svgContainerHeight}
+              />
+            )}
           </>
         )}
       </div>
