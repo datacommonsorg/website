@@ -64,7 +64,7 @@ export function DisasterEventMapFilters(
       className={"disaster-event-map-severity-filters"}
       style={props.height ? { height: props.height } : {}}
     >
-      <h6>Severity Filters</h6>
+      <h3>Filters</h3>
       {Object.keys(severityFilters).map((disasterType) => {
         const disasterTypeName = props.eventTypeSpec[disasterType].name;
         const severityFilter = severityFilters[disasterType];

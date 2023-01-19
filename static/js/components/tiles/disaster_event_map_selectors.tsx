@@ -39,6 +39,7 @@ interface DisasterEventMapSelectorsPropType {
   dateOptions: string[];
   // Callback when new place is selected
   onPlaceSelected: (place: NamedPlace) => void;
+  children?: React.ReactNode;
 }
 
 export function DisasterEventMapSelectors(
@@ -65,6 +66,7 @@ export function DisasterEventMapSelectors(
           })}
         </CustomInput>
       </div>
+      {props.children}
     </div>
   );
 }

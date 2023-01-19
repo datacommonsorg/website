@@ -272,6 +272,18 @@ $border-radius: 0.5rem;
     stroke: black;
     stroke-width: 2px;
   }
+
+  .filter-toggle {
+    display: flex;
+    padding: 0.3rem;
+    margin-left: 0.3rem;
+    cursor: pointer;
+    border-radius: $border-radius;
+  }
+
+  .filter-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }
 
 .disaster-event-map-chart-section {
@@ -282,6 +294,7 @@ $border-radius: 0.5rem;
   font-size: .9rem;
   padding: 1rem 1.5rem;
   overflow-y: auto;
+  border-left: $border;
 
   .disaster-type-filters {
     padding-bottom: 0.5rem;
