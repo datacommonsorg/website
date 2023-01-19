@@ -27,7 +27,7 @@ import ReactDOM from "react-dom";
 import { GeoJsonData } from "../chart/types";
 import { DisasterEventMapInfoCard } from "../components/tiles/disaster_event_map_info_card";
 import {
-  DATE_OPTION_6M_KEY,
+  DATE_OPTION_1Y_KEY,
   URL_HASH_PARAM_KEYS,
 } from "../constants/disaster_event_map_constants";
 import {
@@ -416,7 +416,7 @@ export function setUrlHash(paramKey: string, paramValue: string): void {
  */
 export function getDate(): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  return urlParams.get(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_6M_KEY;
+  return urlParams.get(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_1Y_KEY;
 }
 
 /**

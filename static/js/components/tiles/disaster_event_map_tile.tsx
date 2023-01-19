@@ -34,6 +34,7 @@ import {
   DATE_OPTION_30D_KEY,
 } from "../../constants/disaster_event_map_constants";
 import {
+  EARTH_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
@@ -71,7 +72,8 @@ const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
-const MAP_POINTS_MIN_RADIUS = 0.8;
+const MAP_POINTS_MIN_RADIUS = 1.5;
+const MAP_POINTS_MIN_RADIUS_EARTH = 0.8;
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -418,7 +420,9 @@ export function DisasterEventMapTile(
           return props.eventTypeSpec[point.disasterType].color;
         },
         undefined,
-        MAP_POINTS_MIN_RADIUS
+        placeInfo.selectedPlace.dcid == EARTH_NAMED_TYPED_PLACE.dcid
+          ? MAP_POINTS_MIN_RADIUS_EARTH
+          : MAP_POINTS_MIN_RADIUS
       );
       pointsLayer.on("click", (point: DisasterEventPoint) =>
         onPointClicked(

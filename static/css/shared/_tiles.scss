@@ -174,18 +174,19 @@ $border-radius: 0.5rem;
   .disaster-event-map-legend-entry {
     display: flex;
     align-items: center;
-    padding: 0 0.5rem;
+    padding: 0 1rem 0 0;
   }
  
   .disaster-event-map-legend-color {
     width: 1rem;
     height: 1rem;
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
   }
  
   .disaster-event-map-legend {
     display: flex;
-    padding: 1rem;
+    padding: 1rem 0;
   }
  
   .disaster-event-map-zoom-button-section {
@@ -245,6 +246,10 @@ $border-radius: 0.5rem;
     margin-left: 0.5rem;
     cursor: default;
   }
+
+  svg {
+    background: #eee;
+  }
   
   path.region-highlighted,
   path.region-highlighted-no-click {
@@ -252,7 +257,7 @@ $border-radius: 0.5rem;
   }
 
   path.missing-data {
-    fill: rgb(42, 42, 42) !important;
+    fill: #fff !important;
     stroke: #666;
   }
   
