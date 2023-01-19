@@ -227,15 +227,15 @@ categories {
   stat_var_spec {
     key: "fire_count"
     value {
-      stat_var: "Count_FireEvent (${date})"
-      name: "Count of fires"
+      stat_var: "Count_FireEvent"
+      name: "Count of fires (${date})"
     }
   }
   stat_var_spec {
     key: "fire_area"
     value {
-      stat_var: "Area_FireEvent (${date})"
-      name: "Area affected by fires"
+      stat_var: "Area_FireEvent"
+      name: "Area affected by fires (${date})"
     }
   }
 }
