@@ -24,7 +24,7 @@ resources:
   - ../../base
 
 configMapGenerator:
-  - behavior: create
+  - behavior: merge
     literals:
       - flaskEnv=feedingamerica
       - secretProject=datcom-feedingamerica

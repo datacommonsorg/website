@@ -40,6 +40,7 @@ import {
   DisasterEventDataApiResponse,
   DisasterEventPoint,
   DisasterEventPointData,
+  MapPointsData,
 } from "../types/disaster_event_map_types";
 import {
   EventTypeSpec,
@@ -443,4 +444,48 @@ export function getSeverityFilters(
     severityFilters[spec.id] = spec.defaultSeverityFilter;
   }
   return severityFilters;
+}
+
+/**
+ * gets the severity value for a disaster event point
+ * @param eventPoint event point to get the severity value from
+ * @param eventTypeSpec event type spec used for the disaster event map
+ */
+function getSeverityValue(
+  eventPoint: DisasterEventPoint,
+  eventTypeSpec: Record<string, EventTypeSpec>
+): number {
+  const severityFilter =
+    eventTypeSpec[eventPoint.disasterType].defaultSeverityFilter;
+  if (!severityFilter || !(severityFilter.prop in eventPoint.severity)) {
+    return null;
+  }
+  return eventPoint.severity[severityFilter.prop];
+}
+
+/**
+ * Gets the map points data for each disaster type for a list of disaster event
+ * points.
+ * @param eventPoints event points to use for the map points data
+ * @param eventTypeSpec the event type spec for the disaster event map
+ */
+export function getMapPointsData(
+  eventPoints: DisasterEventPoint[],
+  eventTypeSpec: Record<string, EventTypeSpec>
+): Record<string, MapPointsData> {
+  const mapPointsData = {};
+  eventPoints.forEach((point) => {
+    if (!(point.disasterType in mapPointsData)) {
+      mapPointsData[point.disasterType] = {
+        points: [],
+        values: {},
+      };
+    }
+    mapPointsData[point.disasterType].points.push(point);
+    const severityValue = getSeverityValue(point, eventTypeSpec);
+    if (severityValue != null) {
+      mapPointsData[point.disasterType].values[point.placeDcid] = severityValue;
+    }
+  });
+  return mapPointsData;
 }

@@ -22,6 +22,8 @@
 export const DATE_OPTION_30D_KEY = "lastThirtyDays";
 // The key to use for date option of last 6 months.
 export const DATE_OPTION_6M_KEY = "lastSixMonths";
+// The key to use for date option of last 1 year.
+export const DATE_OPTION_1Y_KEY = "lastYear";
 export const URL_HASH_PARAM_KEYS = {
   SEVERITY_FILTER: "filter",
   DATE: "date",

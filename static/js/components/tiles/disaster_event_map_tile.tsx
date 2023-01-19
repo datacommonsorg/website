@@ -29,6 +29,7 @@ import {
 } from "../../chart/draw_d3_map";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
 import {
+  DATE_OPTION_1Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
 } from "../../constants/disaster_event_map_constants";
@@ -42,6 +43,7 @@ import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
+  MapPointsData,
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
@@ -49,6 +51,7 @@ import {
   fetchDisasterEventPoints,
   fetchGeoJsonData,
   getDate,
+  getMapPointsData,
   getSeverityFilters,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
@@ -56,7 +59,6 @@ import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
-import { getPlaceNames } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { DisasterEventMapFilters } from "./disaster_event_map_filters";
@@ -69,6 +71,7 @@ const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
+const MAP_POINTS_MIN_RADIUS = 0.8;
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -85,8 +88,10 @@ interface DisasterEventMapTilePropType {
 
 interface MapChartData {
   geoJson: GeoJsonData;
-  disasterEventPoints: DisasterEventPoint[];
   sources: Set<string>;
+  // key is disaster type and value is the map points data for that disaster
+  // type
+  mapPointsData: Record<string, MapPointsData>;
 }
 
 export function DisasterEventMapTile(
@@ -191,7 +196,12 @@ export function DisasterEventMapTile(
       allowEmbed={false}
     >
       <DisasterEventMapSelectors
-        dateOptions={[DATE_OPTION_30D_KEY, DATE_OPTION_6M_KEY, ...dateList]}
+        dateOptions={[
+          DATE_OPTION_30D_KEY,
+          DATE_OPTION_6M_KEY,
+          DATE_OPTION_1Y_KEY,
+          ...dateList,
+        ]}
         onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
       >
         <div
@@ -343,10 +353,14 @@ export function DisasterEventMapTile(
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
+        const mapPointsData = getMapPointsData(
+          disasterEventData.eventPoints,
+          props.eventTypeSpec
+        );
         setMapChartData({
           geoJson,
-          disasterEventPoints: disasterEventData.eventPoints,
           sources,
+          mapPointsData,
         });
       })
       .catch(() => {
@@ -385,8 +399,7 @@ export function DisasterEventMapTile(
       null /* colorScale: no color scale since no data shown on the base map */,
       (geoDcid: GeoJsonFeatureProperties) =>
         redirectAction(geoDcid.geoDcid) /* redirectAction */,
-      () =>
-        "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
+      (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
       () => true /* canClickRegion: allow all regions to be clickable */,
       false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
@@ -395,24 +408,27 @@ export function DisasterEventMapTile(
       "" /* zoomDcid: no dcid to zoom in on */,
       zoomParams
     );
-    const pointValues = {};
-    const pointsLayer = addMapPoints(
-      props.id,
-      mapChartData.disasterEventPoints,
-      pointValues,
-      projection,
-      (point: DisasterEventPoint) => {
-        return props.eventTypeSpec[point.disasterType].color;
-      }
-    );
-    pointsLayer.on("click", (point: DisasterEventPoint) =>
-      onPointClicked(
-        infoCardRef.current,
-        svgContainerRef.current,
-        point,
-        d3.event
-      )
-    );
+    for (const mapPointsData of Object.values(mapChartData.mapPointsData)) {
+      const pointsLayer = addMapPoints(
+        props.id,
+        mapPointsData.points,
+        mapPointsData.values,
+        projection,
+        (point: DisasterEventPoint) => {
+          return props.eventTypeSpec[point.disasterType].color;
+        },
+        undefined,
+        MAP_POINTS_MIN_RADIUS
+      );
+      pointsLayer.on("click", (point: DisasterEventPoint) =>
+        onPointClicked(
+          infoCardRef.current,
+          svgContainerRef.current,
+          point,
+          d3.event
+        )
+      );
+    }
   }
 
   /**
@@ -426,6 +442,9 @@ export function DisasterEventMapTile(
     const minus6Months = new Date(
       new Date().setMonth(currentDate.getMonth() - 6)
     );
+    const minus1Year = new Date(
+      new Date().setFullYear(currentDate.getFullYear() - 1)
+    );
     return {
       [DATE_OPTION_30D_KEY]: [
         minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
@@ -433,6 +452,10 @@ export function DisasterEventMapTile(
       ],
       [DATE_OPTION_6M_KEY]: [
         minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
+        currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      ],
+      [DATE_OPTION_1Y_KEY]: [
+        minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
         currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
       ],
     };
