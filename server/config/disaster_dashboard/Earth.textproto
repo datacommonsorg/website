@@ -36,7 +36,7 @@ metadata {
       id: "flood"
       name: "Flood"
       event_type_dcids: "FloodEvent"
-      color: "#f46d43"
+      color: "#3cbad1"
       default_severity_filter: {
         prop: "area",
         unit: "SquareKilometer",
@@ -53,7 +53,7 @@ metadata {
       event_type_dcids: "WildlandFireEvent"
       event_type_dcids: "WildfireEvent"
       event_type_dcids: "FireEvent"
-      color: "#fee08b"
+      color: "#f9c532"
       default_severity_filter: {
         prop: "area",
         unit: "SquareKilometer",
@@ -67,11 +67,30 @@ metadata {
     value {
       id: "storm"
       name: "Storm"
+      color: "#f01212"
       event_type_dcids: "CycloneEvent"
+      default_severity_filter: {
+        prop: "maxWindSpeed",
+        unit: "Knot",
+        upper_limit: 100000,
+        lower_limit: 64
+      }
+    }
+  }
+  event_type_spec {
+    # We should drop this eventually, but leaving this here if we want to plot some storms.
+    key: "tornado"
+    value {
+      id: "tornado"
+      name: "Tornado"
       event_type_dcids: "TornadoEvent"
-      event_type_dcids: "HurricaneEvent"
-      event_type_dcids: "HurricaneTyphoonEvent"
-      color: "#3288bd"
+      color: "#f01212"
+      default_severity_filter: {
+        prop: "maxClassification",
+        unit: "TornadoIntensityEF",
+        upper_limit: 5,
+        lower_limit: 3
+      }
     }
   }
   event_type_spec {
@@ -80,24 +99,30 @@ metadata {
       id: "drought"
       name: "Drought"
       event_type_dcids: "DroughtEvent"
-      color: "#5e4fa2"
+      color: "#f46d43"
+      default_severity_filter: {
+        prop: "area",
+        unit: "SquareKilometer",
+        upper_limit: 100000,
+        lower_limit: 10
+      }
     }
   }
 }
 
 categories {
-  title: "Combined disaster events"
+  title: "Severe Weather and Natural Disasters"
 
   blocks {
-    title: "Disaster map"
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
-          event_type_keys: "flood"
-          event_type_keys: "fire"
-          event_type_keys: "storm"
           event_type_keys: "drought"
+          event_type_keys: "fire"
+          event_type_keys: "flood"
+          # event_type_keys: "tornado"
+          event_type_keys: "storm"
         }
       }
     }
@@ -122,6 +147,20 @@ categories {
         stat_var_key: "spi_3"
       }
     }
+    columns {
+      tiles {
+        type: MAP
+        title: "SPI - 6 month"
+        stat_var_key: "spi_6"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "SPI - 9 month (${date})"
+        stat_var_key: "spi_9"
+      }
+    }
   }
 
   stat_var_spec {
@@ -138,128 +177,65 @@ categories {
       name: "SPI 3 month"
     }
   }
+  stat_var_spec {
+    key: "spi_6"
+    value {
+      stat_var: "StandardizedPrecipitationIndex_Atmosphere_6MonthPeriod"
+      name: "SPI 6 month"
+    }
+  }
+  stat_var_spec {
+    key: "spi_9"
+    value {
+      stat_var: "StandardizedPrecipitationIndex_Atmosphere_9MonthPeriod"
+      name: "SPI 9 month"
+    }
+  }
 }
 
 categories {
-  title: "Cyclones"
+  title: "Fires"
   blocks {
     columns {
       tiles {
+        # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of cyclones over time"
-        stat_var_key: "cyclone_all"
+        title: "Number of fires over time"
+        stat_var_key: "fire_count"
+      }
+      tiles {
+        # TODO: Need to specify P1Y
+        type: HISTOGRAM
+        title: "Total area affected by fires over time"
+        stat_var_key: "fire_area"
       }
     }
     columns {
       tiles {
         type: MAP
-        title: "Number of cyclones"
-        stat_var_key: "cyclone_all"
+        title: "Total number of fires"
+        stat_var_key: "fire_count"
       }
-    }
-  }
-  blocks {
-    title: "Tropical disturbance"
-    columns {
-      tiles {
-        type: HISTOGRAM
-        title: "Tropical disturbances over time"
-        stat_var_key: "cyclone_disturbance"
-      }
-    }
-    columns {
       tiles {
         type: MAP
-        title: "Tropical disturbances ${date}"
-        stat_var_key: "cyclone_disturbance"
-      }
-    }
-  }
-  blocks {
-    title: "Tropical storms"
-    columns {
-      tiles {
-        type: HISTOGRAM
-        title: "Tropical storms over time"
-        stat_var_key: "cyclone_tropical"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Tropical storms ${date}"
-        stat_var_key: "cyclone_tropical"
-      }
-    }
-  }
-  blocks {
-    title: "Subtropical storms"
-    columns {
-      tiles {
-        type: HISTOGRAM
-        title: "Subtropical storms over time"
-        stat_var_key: "cyclone_subtropical"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Subtropical storms ${date}"
-        stat_var_key: "cyclone_subtropical"
-      }
-    }
-  }
-  blocks {
-    title: "Extratropical cyclones"
-    columns {
-      tiles {
-        type: HISTOGRAM
-        title: "Extratropical cyclones over time"
-        stat_var_key: "cyclone_extratropical"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "Extratropical cyclones ${date}"
-        stat_var_key: "cyclone_extratropical"
+        title: "Total area affected by fires"
+        stat_var_key: "fire_area"
       }
     }
   }
 
   stat_var_spec {
-    key: "cyclone_all"
+    key: "fire_count"
     value {
-      stat_var: "Count_CycloneEvent"
-      name: "All cyclones"
+      stat_var: "Count_FireEvent"
+      name: "Count of fires"
     }
   }
   stat_var_spec {
-    key: "cyclone_tropical"
+    key: "fire_area"
     value {
-      stat_var: "Count_CycloneEvent_TropicalStorm"
-      name: "Tropical storms"
-    }
-  }
-  stat_var_spec {
-    key: "cyclone_subtropical"
-    value {
-      stat_var: "Count_CycloneEvent_SubtropicalStorm"
-      name: "Subtropical storms"
-    }
-  }
-  stat_var_spec {
-    key: "cyclone_disturbance"
-    value {
-      stat_var: "Count_CycloneEvent_TropicalDisturbance"
-      name: "Tropical disturbance"
-    }
-  }
-  stat_var_spec {
-    key: "cyclone_extratropical"
-    value {
-      stat_var: "Count_CycloneEvent_ExtratropicalCyclone"
-      name: "Extratropical Cyclone"
+      stat_var: "Area_FireEvent"
+      name: "Area affected by fires"
     }
   }
 }
@@ -313,48 +289,29 @@ categories {
 }
 
 categories {
-  title: "Fires"
+  title: "Storms"
   blocks {
     columns {
       tiles {
-        # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of fires over time"
-        stat_var_key: "fire_count"
-      }
-      tiles {
-        # TODO: Need to specify P1Y
-        type: HISTOGRAM
-        title: "Total area affected by fires over time"
-        stat_var_key: "fire_area"
+        title: "Number of cyclones over time"
+        stat_var_key: "cyclone_all"
       }
     }
     columns {
       tiles {
         type: MAP
-        title: "Total number of fires"
-        stat_var_key: "fire_count"
-      }
-      tiles {
-        type: MAP
-        title: "Total area affected by fires"
-        stat_var_key: "fire_area"
+        title: "Number of cyclones"
+        stat_var_key: "cyclone_all"
       }
     }
   }
 
   stat_var_spec {
-    key: "fire_count"
+    key: "cyclone_all"
     value {
-      stat_var: "Count_FireEvent"
-      name: "Count of fires"
-    }
-  }
-  stat_var_spec {
-    key: "fire_area"
-    value {
-      stat_var: "Area_FireEvent"
-      name: "Area affected by fires"
+      stat_var: "Count_CycloneEvent"
+      name: "All cyclones"
     }
   }
 }

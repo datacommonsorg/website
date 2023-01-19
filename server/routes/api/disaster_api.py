@@ -13,7 +13,7 @@
 # limitations under the License.
 """Endpoints for disaster dashboard"""
 
-from flask import Blueprint, request, current_app
+from flask import Blueprint, request, current_app, Response
 import services.datacommons as dc
 from lib.gcs import list_blobs
 import json
@@ -46,7 +46,7 @@ def event_date_range():
   result = {'minDate': "", 'maxDate': ""}
   if len(date_list) > 0:
     result = {'minDate': date_list[0], 'maxDate': date_list[-1]}
-  return json.dumps(result), 200
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @bp.route('/event-data')
@@ -82,4 +82,4 @@ def event_data():
   result = dc.get_event_collection(event_type, place, date, filter_prop,
                                    filter_unit, filter_upper_limit,
                                    filter_lower_limit)
-  return json.dumps(result), 200
+  return Response(json.dumps(result), 200, mimetype='application/json')

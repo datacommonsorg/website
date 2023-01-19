@@ -71,7 +71,7 @@ const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
-const MAP_POINTS_MIN_RADIUS = 0.8;
+const MAP_POINTS_MIN_RADIUS = 1.5;
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
