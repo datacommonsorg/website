@@ -136,21 +136,21 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "SPI - 1 month"
+        title: "SPI - 1 month (${date})"
         stat_var_key: "spi_1"
       }
     }
     columns {
       tiles {
         type: MAP
-        title: "SPI - 3 month"
+        title: "SPI - 3 month (${date})"
         stat_var_key: "spi_3"
       }
     }
     columns {
       tiles {
         type: MAP
-        title: "SPI - 6 month"
+        title: "SPI - 6 month (${date})"
         stat_var_key: "spi_6"
       }
     }
@@ -213,12 +213,12 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Total number of fires"
+        title: "Total number of fires (${date})"
         stat_var_key: "fire_count"
       }
       tiles {
         type: MAP
-        title: "Total area affected by fires"
+        title: "Total area affected by fires (${date})"
         stat_var_key: "fire_area"
       }
     }
@@ -227,14 +227,14 @@ categories {
   stat_var_spec {
     key: "fire_count"
     value {
-      stat_var: "Count_FireEvent"
+      stat_var: "Count_FireEvent (${date})"
       name: "Count of fires"
     }
   }
   stat_var_spec {
     key: "fire_area"
     value {
-      stat_var: "Area_FireEvent"
+      stat_var: "Area_FireEvent (${date})"
       name: "Area affected by fires"
     }
   }
@@ -261,12 +261,12 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Total number of floods"
+        title: "Total number of floods (${date})"
         stat_var_key: "flood_count"
       }
       tiles {
         type: MAP
-        title: "Total area affected by floods"
+        title: "Total area affected by floods (${date})"
         stat_var_key: "flood_area"
       }
     }
@@ -301,7 +301,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Number of cyclones"
+        title: "Number of cyclones (${date})"
         stat_var_key: "cyclone_all"
       }
     }
