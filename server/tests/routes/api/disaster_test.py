@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import json
 import unittest
 from unittest import mock
@@ -52,6 +53,9 @@ EVENT_1 = {
     "propVals": {
         "name": {
             "vals": ["event1Name"]
+        },
+        TEST_FILTER_PROP: {
+            "vals": [f'{TEST_FILTER_UNIT} 5']
         }
     }
 }
@@ -69,9 +73,35 @@ EVENT_2 = {
     "propVals": {
         "name": {
             "vals": ["event2Name"]
+        },
+        TEST_FILTER_PROP: {
+            "vals": [f'{TEST_FILTER_UNIT}10']
         }
     }
 }
+JSON_RESP_EVENT_1 = copy.deepcopy(EVENT_1)
+JSON_RESP_EVENT_1["provenanceId"] = ""
+JSON_RESP_EVENT_2 = copy.deepcopy(EVENT_2)
+JSON_RESP_EVENT_2["provenanceId"] = ""
+EVENT_1_JSON = {
+    "eventId": "event1",
+    "name": "event1Name",
+    "startDate": "2020-01-01",
+    "affectedPlaces": [TEST_PLACE_DCID],
+    "longitude": 1,
+    "latitude": 1,
+    TEST_FILTER_PROP: f'{TEST_FILTER_UNIT} 5'
+}
+EVENT_2_JSON = {
+    "eventId": "event2",
+    "name": "event2Name",
+    "startDate": "2020-01-01",
+    "affectedPlaces": [TEST_PLACE_DCID],
+    "longitude": 1,
+    "latitude": 1,
+    TEST_FILTER_PROP: f'{TEST_FILTER_UNIT}10'
+}
+TEST_JSON_DATA = {TEST_EVENT_TYPE: {TEST_DATE: [EVENT_1_JSON, EVENT_2_JSON]}}
 EVENT_DATA = {
     "eventCollection": {
         "events": [EVENT_1, EVENT_2],
@@ -205,3 +235,47 @@ class TestGetData(unittest.TestCase):
                   TEST_FILTER_LOWER_LIMIT))
       assert response.status_code == 200
       assert json.loads(response.data) == EVENT_DATA
+
+
+class TestGetDataJson(unittest.TestCase):
+
+  def test_has_data(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_JSON_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/json-event-data?eventType={}&date={}&place={}'
+          .format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID))
+      assert response.status_code == 200
+      expected = {
+          "eventCollection": {
+              "events": [JSON_RESP_EVENT_1, JSON_RESP_EVENT_2],
+              "provenanceInfo": {}
+          }
+      }
+      assert json.loads(response.data) == expected
+
+  def test_no_data(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_JSON_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/json-event-data?eventType={}&date={}&place={}'
+          .format(TEST_EVENT_TYPE, "2023-01", TEST_PLACE_DCID))
+      assert response.status_code == 200
+      assert json.loads(response.data) == {}
+
+  def test_with_filter(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_JSON_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/json-event-data?eventType={}&date={}&place={}&filterProp={}&filterUnit={}&filterUpperLimit={}&filterLowerLimit={}'
+          .format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID, TEST_FILTER_PROP,
+                  TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT,
+                  TEST_FILTER_LOWER_LIMIT))
+      assert response.status_code == 200
+      expected = {
+          "eventCollection": {
+              "events": [JSON_RESP_EVENT_1],
+              "provenanceInfo": {}
+          }
+      }
+      assert json.loads(response.data) == expected

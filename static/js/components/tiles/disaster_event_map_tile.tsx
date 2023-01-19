@@ -32,6 +32,7 @@ import {
   DATE_OPTION_1Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
+  URL_HASH_PARAM_KEYS,
 } from "../../constants/disaster_event_map_constants";
 import {
   EUROPE_NAMED_TYPED_PLACE,
@@ -51,6 +52,7 @@ import {
   fetchDisasterEventPoints,
   fetchGeoJsonData,
   getDate,
+  getHashValue,
   getMapPointsData,
   getSeverityFilters,
   onPointClicked,
@@ -327,6 +329,7 @@ export function DisasterEventMapTile(
     // Only re-fetch geojson data if place selection has changed
     const selectedDate = getDate();
     const severityFilters = getSeverityFilters(eventTypeSpec);
+    const useCache = getHashValue(URL_HASH_PARAM_KEYS.USE_CACHE) === "1";
     const geoJsonPromise =
       mapChartData &&
       !_.isEmpty(mapChartData.geoJson) &&
@@ -345,7 +348,8 @@ export function DisasterEventMapTile(
       Object.values(eventTypeSpec),
       placeInfo.selectedPlace.dcid,
       dateRange,
-      severityFilters
+      severityFilters,
+      useCache
     );
     Promise.all([geoJsonPromise, disasterEventDataPromise])
       .then(([geoJson, disasterEventData]) => {
