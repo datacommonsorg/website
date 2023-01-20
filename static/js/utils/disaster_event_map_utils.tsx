@@ -177,7 +177,7 @@ function fetchEventPoints(
   }
   const url = useCache
     ? "/api/disaster-dashboard/event-data"
-    : "/api/disaster-dashboard/event-data-json";
+    : "/api/disaster-dashboard/json-event-data";
   return axios
     .get<DisasterEventDataApiResponse>(url, { params: reqParams })
     .then((resp) => {
