@@ -123,7 +123,7 @@ metadata {
       event_type_dcids: "WetBulbTemperatureCelsius34Event"
       event_type_dcids: "WetBulbTemperatureCelsius35Event"
       event_type_dcids: "WetBulbTemperatureCelsius36Event"
-      color: "#66c2a5"
+      color: "#7700e6"
     }
   }
 }
