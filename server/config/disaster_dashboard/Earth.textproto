@@ -131,7 +131,12 @@ categories {
 
 categories {
   title: "Drought"
-
+  description: 
+    "Droughts are measured using the Standardized Precipitation Index (SPI), "
+    "which quantifies the precipitation deficit at a given location for a set "
+    "timescale. Places where the 9-month SPI was less than -1.5 are considered "
+    "to be experiencing drought. We source drought data from "
+    "[NOAA](https://www.drought.gov/data-maps-tools/global-precipitation-climatology-centre-gpcc-standardized-precipitation-index-spi)."
   blocks {
     columns {
       tiles {
@@ -195,6 +200,11 @@ categories {
 
 categories {
   title: "Fires"
+  description:
+    "Fire detection is based on both dispatcher reporting and VIIRS active "
+    "fire detection, which uses satellite imaging to identify fires based on "
+    "thermal readings. We source fire data from [NASA](https://lpdaac.usgs.gov/products/vnp14a1v001/) "
+    "and [WFIGS](https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about)."
   blocks {
     columns {
       tiles {
@@ -242,7 +252,10 @@ categories {
 
 categories {
   title: "Floods"
-
+  description:
+    "Flood detection is based on MODIS and Sentinel-2 L1C satellite imagery "
+    "from the [Global Flood Database](https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1) "
+    "and [Dynamic World](https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1) respectively."
   blocks {
     columns {
       tiles {
@@ -290,6 +303,11 @@ categories {
 
 categories {
   title: "Storms"
+  description:
+    "Cyclones, hurricanes, and typhoons are different names for the same "
+    "weather phenomenon: a rotating storm with extreme wind speeds and "
+    "torrential rain. We source our storm data from "
+    "[NOAA](https://www.ncei.noaa.gov/products/international-best-track-archive)."
   blocks {
     columns {
       tiles {
