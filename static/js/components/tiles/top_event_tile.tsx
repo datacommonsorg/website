@@ -123,7 +123,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       props.place.dcid,
       ["2022-01", "2022-12"], // TODO(beets): Use getDateRanges
       getSeverityFilters(eventTypeSpecs),
-      false /* useCache */
+      false /* useCache */  // TODO(beets): Use URL parameter
     )
       .then((disasterEventData) => {
         const sources = new Set<string>();
@@ -139,7 +139,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
 
   function rankEventData(disasterEventData: DisasterEventPointData) {
     disasterEventData.eventPoints.sort(
-      (a, b) => a.severity[severityProp] - b.severity[severityProp]
+      (a, b) => b.severity[severityProp] - a.severity[severityProp]
     );
     const topEvents = disasterEventData.eventPoints.slice(0, RANKING_COUNT);
     setTopEvents(topEvents);
