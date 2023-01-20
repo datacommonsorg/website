@@ -234,6 +234,8 @@ def addCharts(state: PopulateState, place: str, svs: List[str]) -> bool:
   for sv, extended_svs in sv2extensions.items():
     extended_svs = svsExistForPlaces([place_to_check], extended_svs)[place_to_check]
     if extended_svs:
+      if len(extended_svs) == 1 and extended_svs[0] == sv:
+        continue
       state.block_id += 1
       chart_vars = ChartVars(svs=extended_svs, block_id=state.block_id)
       if state.main_cb(state, chart_vars, place, ChartOriginType.SECONDARY_CHART):
@@ -327,11 +329,6 @@ def svgOrTopicToSVs(state: PopulateState, sv: str, rank: int) -> List[ChartVars]
       state.block_id += 1
       charts.append(ChartVars(svs=svpg, block_id=state.block_id, include_percapita=False, title=title))
     return charts
-  if isSVG(sv):
-    svg2sv = nl_variable.expand_svg(sv)
-    if sv in svg2sv:
-      state.block_id += 1
-      return [ChartVars(svs=svg2sv[sv], block_id=state.block_id)]
   return []
           
       

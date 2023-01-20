@@ -70,7 +70,7 @@ export const QueryResult = memo(function QueryResult(
     const is_nl_next = isNLInterfaceNext();
     const dataApi = is_nl_next ? "nlnext/data" : "nl/data";    
     axios
-      .post(`${dataApi}?q=${query}&build=${build}`, {
+      .post(`/${dataApi}?q=${query}&build=${build}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {

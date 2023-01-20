@@ -46,7 +46,7 @@ PLACE_TYPE_TO_PLURALS = {
     "administrativearea5": "administrative area 5 places",
 }
 
-CHART_TITLE_CONFIG_RELATIVE_PATH = "../config/nl_page/chart_titles_by_sv.json"
+CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 
 def pluralize_place_type(place_type: str) -> str:

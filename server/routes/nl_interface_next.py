@@ -30,6 +30,7 @@ import services.datacommons as dc
 import lib.nl.nl_data_spec_next as nl_data_spec
 import lib.nl.nl_page_config_next as nl_page_config
 import lib.nl.nl_utterance as nl_utterance
+import lib.nl.nl_utils as nl_utils
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
@@ -45,245 +46,6 @@ def _get_preferred_type(types):
     if t in types:
       return t
   return sorted(types)[0]
-
-
-def _sv_definition_name_maps(svgs_info, svs_list):
-  sv2definition = {}
-  sv2name = {}
-  for svgi in svgs_info:
-    if 'info' not in svgi:
-      continue
-    if 'childStatVars' not in svgi['info']:
-      continue
-    child_svs = svgi['info']['childStatVars']
-    for svi in child_svs:
-      if 'id' not in svi:
-        continue
-      if 'definition' in svi:
-        sv2definition[svi['id']] = svi['definition']
-      if 'displayName' in svi:
-        sv2name[svi['id']] = svi['displayName']
-
-  # Get any missing SV Names
-  sv_names_api = dc.property_values(svs_list, 'name')
-  sv2name.update({p: v[0] for p, v in sv_names_api.items()})
-
-  return {"sv2definition": sv2definition, "sv2name": sv2name}
-
-
-def _caps(e):
-  return e[0].upper() + e[1:]
-
-
-def _caps_list(list):
-  return [_caps(e) for e in list]
-
-
-def _bucket_to_name(key):
-  parts = key.split(',')
-  # Drilldown by <P> for <PopType> [<statType>] <MeasuredProp>: <V1>, <V2>, ...
-  pv = {part.split('=')[0]: part.split('=')[1] for part in parts}
-
-  end_parts = []
-  prefix = ""
-  for p, v in pv.items():
-    if p in FIXED_PROPS:
-      continue
-    if not v:
-      prefix = "Drilldown by " + _caps(p) + " for '"
-    else:
-      end_parts.append(v)
-
-  mid_parts = [pv['pt']]
-  if 'st' in pv:
-    mid_parts.append(pv['st'].replace('Value', ''))
-  mid_parts.append(pv['mp'])
-
-  result = prefix + " ".join(_caps_list(mid_parts))
-  if end_parts:
-    result += ': ' + ', '.join(sorted(_caps_list(end_parts)))
-  result += "'"
-
-  # Some fixups
-  return result.replace('Person Count', 'Population')
-
-
-# Returns a map of buckets.  The key is SV definition without V, and value is
-# the missing V.
-def _get_buckets(defn):
-  parts = defn.split(',')
-  fixed_parts = []
-  cpv_parts = []
-  for part in parts:
-    if any([part.startswith(p) for p in FIXED_PREFIXES]):
-      fixed_parts.append(part)
-    else:
-      cpv_parts.append(part)
-  fixed_prefix = ','.join(fixed_parts)
-  if not cpv_parts:
-    return {fixed_prefix: ""}
-
-  buckets = {}
-  for rpv in cpv_parts:
-    parts = [fixed_prefix]
-    v_only = ""
-    for opv in cpv_parts:
-      if rpv == opv:
-        # P only
-        p_only, v_only = rpv.split('=')
-        parts.append(p_only + '=')
-      else:
-        parts.append(opv)
-    buckets[','.join(parts)] = v_only
-  return buckets
-
-
-def _chart_config(place_dcid, main_place_type, main_place_name,
-                  child_places_type, highlight_svs, sv2name, peer_buckets):
-  # TODO: temporarility disable child places charts before they can be handled
-  # gracefully. Right now each query incurs hundreds of single place API call,
-  # which should be replaced by "withInPlace" API call. This spams the logs and
-  # makes the loading slow.
-  child_places_type = ""
-  #@title
-  chart_config = {'metadata': {'place_dcid': [place_dcid]}}
-
-  if child_places_type:
-    chart_config['metadata']['contained_place_types'] = {
-        main_place_type: child_places_type
-    }
-
-  added_buckets = set()
-  sv4spec = set()
-
-  blocks = []
-  for sv in highlight_svs:
-    tiles = []
-
-    tiles.append({
-        'title': sv2name[sv] + ': historical',
-        'type': 'LINE',
-        'stat_var_key': [sv]
-    })
-
-    if child_places_type:
-      tiles.append({
-          'title': sv2name[sv] + ': places within ' + main_place_name,
-          'type': 'MAP',
-          'stat_var_key': [sv]
-      })
-
-      tiles.append({
-          'title': sv2name[sv] + ': rankings within ' + main_place_name,
-          'type': 'RANKING',
-          'stat_var_key': [sv],
-          'ranking_tile_spec': {
-              'show_highest': True,
-              'show_lowest': True
-          }
-      })
-
-    # If the highlight SV is part of an SV peer-group, add it ahead of others.
-    for key, svs in peer_buckets.items():
-      if sv not in svs:
-        continue
-      if key in added_buckets:
-        continue
-
-      sv_list = list(svs)
-      # Consider if this should be bar or time-series?
-      tiles.append({
-          'title': _bucket_to_name(key),
-          'type': 'LINE',
-          'stat_var_key': sv_list
-      })
-      added_buckets.add(key)
-      sv4spec.update(sv_list)
-      # TODO: add CLUSTERED_BAR
-
-    blocks.append({'title': sv2name[sv], 'columns': [{'tiles': tiles}]})
-    sv4spec.add(sv)
-
-  for key, svs in peer_buckets.items():
-    if key in added_buckets:
-      continue
-    tile = {
-        'title': _bucket_to_name(key),
-        'type': 'BAR',
-        'stat_var_key': list(svs)
-    }
-    blocks.append({
-        'title': _bucket_to_name(key) + ' in ' + main_place_name,
-        'columns': [{
-            'tiles': [tile]
-        }]
-    })
-    added_buckets.add(key)
-    sv4spec.update(list(svs))
-    # TODO: add CLUSTERED_BAR when supported
-
-  sv_specs = {}
-  for sv in sv4spec:
-    sv_specs[sv] = {'stat_var': sv, 'name': sv2name[sv]}
-
-  chart_config['categories'] = [{
-      'title': 'Search Results',
-      'blocks': blocks,
-      'stat_var_spec': sv_specs
-  }]
-
-  return chart_config
-
-
-def _get_svg_info(entities, svg_dcids):
-  result = dc.get_variable_group_info(svg_dcids, entities)
-  if isinstance(result, dict):
-    return result
-  return {}
-
-
-def _related_svgs(svs_list, relevant_places):
-  # Using PropertyValues (memberOf) and VariableGroupInfo APIs
-  svs_to_svgs = dc.property_values(svs_list, 'memberOf')
-
-  # Get all distinct SVGs and SV under verticals.
-  svgs = set()
-  sv_under_verticals = set()
-
-  for sv, svg_list in svs_to_svgs.items():
-    has_svg = False
-    for svg in svg_list:
-      svgs.add(svg)
-      if '_' in svg:
-        has_svg = True
-    if not has_svg:
-      # This is top-level SV, so we will try getting child SVGs
-      sv_under_verticals.add(sv)
-
-  # Get SVG info for all relevant places
-  svgs_info = _get_svg_info(relevant_places, list(svgs))
-  return svgs_info.get('data', {})
-
-
-def _peer_buckets(sv2definition, svs_list):
-  peer_buckets = {}
-  for sv, defn in sv2definition.items():
-    keys = _get_buckets(defn)
-    for key, cval in keys.items():
-      if key not in peer_buckets:
-        peer_buckets[key] = {}
-      peer_buckets[key][sv] = cval
-
-  # Remove single SV keys and remove groups with result SV
-  for bucket_id in list(peer_buckets.keys()):
-    if len(peer_buckets[bucket_id]) == 1:
-      # With only 1 SV, no point having a bucket
-      del peer_buckets[bucket_id]
-    elif not any([sv in peer_buckets[bucket_id] for sv in svs_list]):
-      # this bucket has no useful SV
-      del peer_buckets[bucket_id]
-
-  return peer_buckets
 
 
 def _maps_place(place_str):
@@ -312,12 +74,6 @@ def _dc_recon(place_ids):
       break
 
   return d_return
-
-
-def _remove_punctuations(s):
-  s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
-  return s
 
 
 def _remove_places(query, places_found):
@@ -551,9 +307,8 @@ def data():
   context_history = request.get_json().get('contextHistory', [])
   logging.info(context_history)
 
-  query = str(escape(_remove_punctuations(original_query)))
+  query = str(escape(nl_utils._remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
-  default_place = "United States"
   res = {
     'place': {
       'dcid': '',
@@ -575,6 +330,7 @@ def data():
                                embeddings_build)
 
   # Generate new utterance.
+  logging.info(context_history)
   prev_utterance = nl_utterance.load_utterance(context_history)
   utterance = nl_data_spec.compute(query_detection, prev_utterance)
 
