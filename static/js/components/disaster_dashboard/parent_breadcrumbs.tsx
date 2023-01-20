@@ -56,7 +56,6 @@ export function ParentBreadcrumbs(
   if (parentPlaces) {
     const num = parentPlaces.length;
     breadcrumbs = parentPlaces.map((place, index) => {
-      if (place.types[0] == "Continent") return;
       const name = place.name.split(",")[0];
       return (
         <React.Fragment key={place.dcid}>
@@ -73,7 +72,7 @@ export function ParentBreadcrumbs(
     <>
       {props.place.types[0] != "Planet" && parentPlaces ? (
         <h3>
-          {placeType} {placeType == "Country" ? "on" : "in"} {breadcrumbs}
+          {placeType} {placeType == "Continent" ? "on" : "in"} {breadcrumbs}
         </h3>
       ) : (
         <h3 className="invisible"></h3>
