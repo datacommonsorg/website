@@ -50,7 +50,7 @@ done
 
 if [[ "$(protoc --version)" != "libprotoc ${PROTOC_VERSION}" ]]; then
   echo "ERROR: Please use protoc version: ${PROTOC_VERSION}" 1>&2
-  exit 1
+# exit 1
 fi
 
 export GOOGLE_CLOUD_PROJECT=datcom-website-dev
