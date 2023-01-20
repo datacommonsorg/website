@@ -18,7 +18,7 @@ from typing import List, Dict
 
 from dataclasses import dataclass
 from enum import IntEnum
-from lib.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingClassificationAttributes, ContainedInClassificationAttributes, SimpleClassificationAttributes, ContainedInPlaceType
+from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingClassificationAttributes, ContainedInClassificationAttributes, SimpleClassificationAttributes, ContainedInPlaceType
 
 # How far back do we do
 CNTXT_LOOKBACK_LIMIT = 3
