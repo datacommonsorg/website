@@ -57,7 +57,7 @@ metadata {
       event_type_dcids: "WildlandFireEvent"
       event_type_dcids: "WildfireEvent"
       event_type_dcids: "FireEvent"
-      color: "#f9c532"
+      color: "#f44336"
       default_severity_filter: {
         prop: "area",
         unit: "SquareKilometer",
@@ -71,8 +71,8 @@ metadata {
     value {
       id: "storm"
       name: "Storm"
-      color: "#f01212"
       event_type_dcids: "CycloneEvent"
+      color: "#ff5dd6"
       default_severity_filter: {
         prop: "maxWindSpeed",
         unit: "Knot",
@@ -88,7 +88,7 @@ metadata {
       id: "tornado"
       name: "Tornado"
       event_type_dcids: "TornadoEvent"
-      color: "#f01212"
+      color: "#ff5dd6"
       default_severity_filter: {
         prop: "maxClassification",
         unit: "TornadoIntensityEF",
@@ -103,7 +103,7 @@ metadata {
       id: "drought"
       name: "Drought"
       event_type_dcids: "DroughtEvent"
-      color: "#ff5dd6"
+      color: "#ffb300"
       default_severity_filter: {
         prop: "area",
         unit: "SquareKilometer",
