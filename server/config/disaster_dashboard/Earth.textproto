@@ -103,7 +103,7 @@ metadata {
       id: "drought"
       name: "Drought"
       event_type_dcids: "DroughtEvent"
-      color: "#f46d43"
+      color: "#ff5dd6"
       default_severity_filter: {
         prop: "area",
         unit: "SquareKilometer",
@@ -123,7 +123,7 @@ metadata {
       event_type_dcids: "WetBulbTemperatureCelsius34Event"
       event_type_dcids: "WetBulbTemperatureCelsius35Event"
       event_type_dcids: "WetBulbTemperatureCelsius36Event"
-      color: "#66c2a5"
+      color: "#7700e6"
     }
   }
 }
@@ -219,13 +219,13 @@ categories {
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of fires over time"
+        title: "Number of fires last year"
         stat_var_key: "fire_count"
       }
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Total area affected by fires over time"
+        title: "Total area affected by fires last year"
         stat_var_key: "fire_area"
       }
     }
@@ -267,13 +267,13 @@ categories {
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of floods over time"
+        title: "Number of floods last year"
         stat_var_key: "flood_count"
       }
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Total area affected by floods over time"
+        title: "Total area affected by floods last year"
         stat_var_key: "flood_area"
       }
     }
@@ -313,7 +313,7 @@ categories {
     columns {
       tiles {
         type: HISTOGRAM
-        title: "Number of cyclones over time"
+        title: "Number of cyclones last year"
         stat_var_key: "cyclone_all"
       }
     }
