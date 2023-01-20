@@ -149,7 +149,7 @@ def json_event_data():
   result = {}
   if event_points:
     result = {"eventCollection": {"events": event_points, "provenanceInfo": {}}}
-  return Response(json.dumps(result), 200, "application/json")
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @bp.route('/event-data')
