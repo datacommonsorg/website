@@ -59,9 +59,12 @@ def keep_event(event, place, filter_prop, filter_unit, filter_upper_limit,
   if place != EARTH_DCID and not place in event.get("affectedPlaces", []):
     # event does not affect the place of interest
     return False
-  if not filter_prop or not filter_prop in event:
-    # no props to filter by or event doesn't contain the prop information
+  if not filter_prop:
+    # no props to filter by
     return True
+  if not filter_prop in event:
+    # Event doesn't contain the prop
+    return False
   prop_val = event[filter_prop]
   if len(prop_val) < len(filter_unit):
     # value for the property to filter by is empty
