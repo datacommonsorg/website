@@ -110,6 +110,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "dc-website.fullname" . }}-store-config
                   key: bigquery.version
+            - name: ENABLE_MODEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "dc-website.fullname" . }}-website-config
+                  key: enableModel
             # - name: INGRESS_CONFIG_PATH
             #   value: /datacommons/ingress/rules
             # A dummy config used to bounce the server without any docker image

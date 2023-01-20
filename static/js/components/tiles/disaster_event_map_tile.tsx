@@ -34,6 +34,7 @@ import {
   DATE_OPTION_30D_KEY,
 } from "../../constants/disaster_event_map_constants";
 import {
+  EARTH_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
@@ -43,6 +44,7 @@ import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
+  MapPointsData,
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
@@ -50,6 +52,7 @@ import {
   fetchDisasterEventPoints,
   fetchGeoJsonData,
   getDate,
+  getMapPointsData,
   getSeverityFilters,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
@@ -57,7 +60,6 @@ import {
   getEnclosedPlacesPromise,
   getParentPlacesPromise,
 } from "../../utils/place_utils";
-import { getPlaceNames } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { DisasterEventMapFilters } from "./disaster_event_map_filters";
@@ -70,6 +72,8 @@ const CSS_SELECTOR_PREFIX = "disaster-event-map";
 const DATE_SUBSTRING_IDX = 10;
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
+const MAP_POINTS_MIN_RADIUS = 1.5;
+const MAP_POINTS_MIN_RADIUS_EARTH = 0.8;
 
 interface DisasterEventMapTilePropType {
   // Id for this tile
@@ -86,8 +90,10 @@ interface DisasterEventMapTilePropType {
 
 interface MapChartData {
   geoJson: GeoJsonData;
-  disasterEventPoints: DisasterEventPoint[];
   sources: Set<string>;
+  // key is disaster type and value is the map points data for that disaster
+  // type
+  mapPointsData: Record<string, MapPointsData>;
 }
 
 export function DisasterEventMapTile(
@@ -103,6 +109,7 @@ export function DisasterEventMapTile(
     null
   );
   const [svgContainerHeight, setSvgContainerHeight] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
 
   function handleResize(): void {
     // Update svgContainerHeight if svgContainerRef height has changed so that
@@ -198,7 +205,15 @@ export function DisasterEventMapTile(
           ...dateList,
         ]}
         onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
-      />
+      >
+        <div
+          className="filter-toggle"
+          onClick={() => setShowFilters(!showFilters)}
+          title="Toggle filters"
+        >
+          <i className="material-icons">tune</i>
+        </div>
+      </DisasterEventMapSelectors>
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
         {_.isEmpty(mapChartData.geoJson) ? (
           <div className={`${CSS_SELECTOR_PREFIX}-error-message`}>
@@ -254,10 +269,12 @@ export function DisasterEventMapTile(
                 </div>
               </div>
             </div>
-            <DisasterEventMapFilters
-              eventTypeSpec={props.eventTypeSpec}
-              height={svgContainerHeight}
-            />
+            {showFilters && (
+              <DisasterEventMapFilters
+                eventTypeSpec={props.eventTypeSpec}
+                height={svgContainerHeight}
+              />
+            )}
           </>
         )}
       </div>
@@ -338,10 +355,14 @@ export function DisasterEventMapTile(
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
+        const mapPointsData = getMapPointsData(
+          disasterEventData.eventPoints,
+          props.eventTypeSpec
+        );
         setMapChartData({
           geoJson,
-          disasterEventPoints: disasterEventData.eventPoints,
           sources,
+          mapPointsData,
         });
       })
       .catch(() => {
@@ -380,8 +401,7 @@ export function DisasterEventMapTile(
       null /* colorScale: no color scale since no data shown on the base map */,
       (geoDcid: GeoJsonFeatureProperties) =>
         redirectAction(geoDcid.geoDcid) /* redirectAction */,
-      () =>
-        "" /* getTooltipHtml: no tooltips to be shown on hover over a map region */,
+      (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
       () => true /* canClickRegion: allow all regions to be clickable */,
       false /* shouldGenerateLegend: no legend needs to be generated since no data for base map */,
       true /* shouldShowBoundaryLines */,
@@ -390,24 +410,29 @@ export function DisasterEventMapTile(
       "" /* zoomDcid: no dcid to zoom in on */,
       zoomParams
     );
-    const pointValues = {};
-    const pointsLayer = addMapPoints(
-      props.id,
-      mapChartData.disasterEventPoints,
-      pointValues,
-      projection,
-      (point: DisasterEventPoint) => {
-        return props.eventTypeSpec[point.disasterType].color;
-      }
-    );
-    pointsLayer.on("click", (point: DisasterEventPoint) =>
-      onPointClicked(
-        infoCardRef.current,
-        svgContainerRef.current,
-        point,
-        d3.event
-      )
-    );
+    for (const mapPointsData of Object.values(mapChartData.mapPointsData)) {
+      const pointsLayer = addMapPoints(
+        props.id,
+        mapPointsData.points,
+        mapPointsData.values,
+        projection,
+        (point: DisasterEventPoint) => {
+          return props.eventTypeSpec[point.disasterType].color;
+        },
+        undefined,
+        placeInfo.selectedPlace.dcid == EARTH_NAMED_TYPED_PLACE.dcid
+          ? MAP_POINTS_MIN_RADIUS_EARTH
+          : MAP_POINTS_MIN_RADIUS
+      );
+      pointsLayer.on("click", (point: DisasterEventPoint) =>
+        onPointClicked(
+          infoCardRef.current,
+          svgContainerRef.current,
+          point,
+          d3.event
+        )
+      );
+    }
   }
 
   /**

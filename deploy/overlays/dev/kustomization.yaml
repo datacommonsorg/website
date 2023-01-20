@@ -25,7 +25,7 @@ resources:
 
 configMapGenerator:
   - name: website-configmap
-    behavior: create
+    behavior: merge
     literals:
       - flaskEnv=dev
       - secretProject=datcom-website-dev
