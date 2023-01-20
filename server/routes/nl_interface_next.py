@@ -115,7 +115,8 @@ def _empty_svs_score_dict():
 def _result_with_debug_info(data_dict,
                             status,
                             embeddings_build,
-                            query_detection: Detection):
+                            query_detection: Detection,
+                            context_history: List[Dict]):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
       'SV': query_detection.svs_detected.sv_dcids,
@@ -163,7 +164,8 @@ def _result_with_debug_info(data_dict,
     'temporal_classification': temporal_classification,
     'contained_in_classification': contained_in_classification,
     'clustering_classification': clustering_classification,
-    'correlation_classification': correlation_classification
+    'correlation_classification': correlation_classification,
+    'data_spec': context_history,
   }
   if query_detection.places_detected:
     debug_info.update({
@@ -307,7 +309,7 @@ def data():
   context_history = request.get_json().get('contextHistory', [])
   logging.info(context_history)
 
-  query = str(escape(nl_utils._remove_punctuations(original_query)))
+  query = str(escape(nl_utils.remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   res = {
     'place': {
@@ -322,7 +324,8 @@ def data():
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
                                    embeddings_build,
-                                   _detection("", "", embeddings_build))
+                                   _detection("", "", embeddings_build),
+                                   context_history)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -365,5 +368,6 @@ def data():
       status_str += '**No SVs Found**.'
 
   data_dict = _result_with_debug_info(data_dict, status_str,
-                                      embeddings_build, query_detection)
+                                      embeddings_build, query_detection,
+                                      context_history)
   return data_dict

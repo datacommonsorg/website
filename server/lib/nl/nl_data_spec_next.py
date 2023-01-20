@@ -220,26 +220,36 @@ def addCharts(state: PopulateState, place: str, svs: List[str]) -> bool:
   if state.place_type:
     place_to_check = _sample_child_place(place.dcid, state.place_type)
 
+  sv2extensions = nl_variable.extend_svs(svs)
+  printed_sv_extensions = set()
+
   found = False
   for rank, sv in enumerate(svs):
+    # Main SV/Topic.
     chart_vars_list = svgOrTopicToSVs(state, sv, rank) 
     for chart_vars in chart_vars_list:
-      svs = svsExistForPlaces([place_to_check], chart_vars.svs)[place_to_check]
-      if svs:
-        chart_vars.svs = svs
+      exist_svs = svsExistForPlaces([place_to_check], chart_vars.svs)[place_to_check]
+      if exist_svs:
+        chart_vars.svs = exist_svs
         if state.main_cb(state, chart_vars, place, ChartOriginType.PRIMARY_CHART):
           found = True
 
-  sv2extensions = nl_variable.extend_svs(svs)
-  for sv, extended_svs in sv2extensions.items():
-    extended_svs = svsExistForPlaces([place_to_check], extended_svs)[place_to_check]
-    if extended_svs:
-      if len(extended_svs) == 1 and extended_svs[0] == sv:
+    # Comparison charts with extended SVs.
+    extended_svs = sv2extensions.get(sv, [])
+    if not extended_svs:
+      continue
+    exist_svs = svsExistForPlaces([place_to_check], extended_svs)[place_to_check]
+    if len(exist_svs) > 1:
+      exist_svs_key = ''.join(sorted(exist_svs))
+      if exist_svs_key in printed_sv_extensions:
         continue
+      printed_sv_extensions.add(exist_svs_key)
+
       state.block_id += 1
-      chart_vars = ChartVars(svs=extended_svs, block_id=state.block_id)
+      chart_vars = ChartVars(svs=exist_svs, block_id=state.block_id)
       if state.main_cb(state, chart_vars, place, ChartOriginType.SECONDARY_CHART):
         found = True
+
   return found
 
 
