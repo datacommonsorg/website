@@ -85,7 +85,6 @@ def get_binned_series(entities, variables, year):
   # Get raw series from mixer
   data = series_core(entities, variables, False)
 
-  
   for stat_var in variables:
     for location in data['data'][stat_var].keys():
 
@@ -97,17 +96,17 @@ def get_binned_series(entities, variables, year):
         if obs['date'][:4] == year:
           pruned_series.append(obs)
           dates_with_data.append(obs['date'])
-      
+
       if len(pruned_series) > 0:
         # fill in missing periods with 0s, from January to end of series
         last_month = int(dates_with_data[-1][-2:])
-        months_to_fill = [str(mm).zfill(2) for mm in range(1, last_month+1)]
+        months_to_fill = [str(mm).zfill(2) for mm in range(1, last_month + 1)]
         for month in months_to_fill:
           date = f"{year}-{month}"
           if date not in dates_with_data:
             pruned_series.append({'date': date, 'value': 0})
         pruned_series.sort(key=lambda x: x['date'])
-      
+
       data['data'][stat_var][location]['series'] = pruned_series
   return data
 
