@@ -570,7 +570,8 @@ test("fetch data for all disasters with date as YYYY-MM", () => {
     eventSpecs,
     TEST_PLACE,
     [YYYY_MM_DATE, YYYY_MM_DATE],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
@@ -604,7 +605,8 @@ test("fetch data for all disasters with date as YYYY", () => {
     eventSpecs,
     TEST_PLACE,
     [YYYY_DATE, YYYY_DATE],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
@@ -639,7 +641,8 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     [eventSpec],
     TEST_PLACE,
     [YYYY_MM_DATE, YYYY_MM_DATE],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       TORNADO_EVENT_1_PROCESSED,
@@ -669,7 +672,8 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     [eventSpec],
     TEST_PLACE,
     [YYYY_DATE, YYYY_DATE],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       TORNADO_EVENT_1_PROCESSED,
@@ -700,7 +704,8 @@ test("fetch data for single event with date as YYYY-MM", () => {
     [eventSpec],
     TEST_PLACE,
     [YYYY_MM_DATE, YYYY_MM_DATE],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
@@ -729,7 +734,8 @@ test("fetch data for single event with date as YYYY", () => {
     [eventSpec],
     TEST_PLACE,
     [YYYY_DATE, YYYY_DATE],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
@@ -759,7 +765,8 @@ test("fetch data for single event with date range as YYYY", () => {
     [eventSpec],
     TEST_PLACE,
     [YYYY_DATE, YYYY_DATE_2],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
@@ -791,7 +798,8 @@ test("fetch data for single event with date range as YYYY-MM", () => {
     [eventSpec],
     TEST_PLACE,
     [YYYY_MM_DATE, YYYY_MM_DATE_2],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
@@ -822,7 +830,8 @@ test("fetch data for single event with date range as YYYY-MM-DD", () => {
     [eventSpec],
     TEST_PLACE,
     [`${YYYY_MM_DATE}-02`, `${YYYY_MM_DATE_2}-02`],
-    DISASTER_EVENT_SEVERITY_FILTERS
+    DISASTER_EVENT_SEVERITY_FILTERS,
+    true
   ).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_2_PROCESSED,

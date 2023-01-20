@@ -124,6 +124,7 @@ class LocalBaseConfig(Config):
   AI_CONFIG_PATH = os.path.abspath(
       os.path.join(os.path.curdir, '..', 'deploy/overlays/local/ai.yaml'))
   SCHEME = 'http'
+  GCS_BUCKET = 'datcom-website-autopush-resources'
 
 
 class LocalConfig(LocalBaseConfig):
