@@ -395,7 +395,12 @@ export function DisasterEventMapTile(
       USA_PLACE_DCID,
       placeInfo.parentPlaces
     );
-    const projection = getProjection(isUsaPlace, "", width, height);
+    const projection = getProjection(
+      isUsaPlace,
+      placeInfo.selectedPlace.dcid,
+      width,
+      height
+    );
     drawD3Map(
       props.id,
       mapChartData.geoJson,

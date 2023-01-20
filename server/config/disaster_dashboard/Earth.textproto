@@ -23,6 +23,10 @@ metadata {
     value: "Country"
   }
   contained_place_types {
+    key: "Continent"
+    value: "Country"
+  }
+  contained_place_types {
     key: "Country"
     value: "AdministrativeArea1"
   }
