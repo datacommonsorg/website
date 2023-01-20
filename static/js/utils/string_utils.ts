@@ -95,3 +95,45 @@ export function isValidDate(date: string): boolean {
   const dateRegex = /^(\d\d\d\d)(-\d\d)?(-\d\d)?$/;
   return dateRegex.test(date);
 }
+
+/**
+ * Equivalent to i18n.formatNumber, but with a fixed locale.
+ */
+export function formatNumber(
+  value: number,
+  unit?: string,
+  useDefaultFormat?: boolean,
+  numFractionDigits?: number
+): string {
+  if (useDefaultFormat) {
+    return Intl.NumberFormat("en-US").format(value);
+  }
+  const formatOptions: any = {
+    /* any is used since not all available options are defined in NumberFormatOptions */
+    compactDisplay: "short",
+    maximumSignificantDigits: 3,
+    notation: "compact",
+    style: "decimal",
+  };
+
+  if (numFractionDigits !== undefined) {
+    formatOptions.maximumFractionDigits = numFractionDigits;
+    formatOptions.minimumFractionDigits = numFractionDigits;
+    delete formatOptions.maximumSignificantDigits;
+  }
+
+  let returnText = Intl.NumberFormat("en-US", formatOptions).format(value);
+  let displayUnit = unit;
+  switch (unit) {
+    case "SquareKilometer":
+      displayUnit = "km²";
+      break;
+    case "Knot":
+      displayUnit = "kn";
+      break;
+  }
+  if (displayUnit) {
+    returnText = `${returnText} ${displayUnit}`;
+  }
+  return returnText;
+}

@@ -16,6 +16,7 @@
 
 /**
  * Types for subject_page.proto
+ * TODO(beets): Generate this file automatically with ts-protoc-gen
  */
 
 import { StatVarSpec } from "../shared/types";
@@ -63,6 +64,11 @@ export interface DisasterEventMapTileSpec {
   eventTypeKeys: string[];
 }
 
+export interface TopEventTileSpec {
+  eventTypeKey: string;
+  displayProp: string[];
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -71,6 +77,7 @@ export interface TileConfig {
   comparisonPlaces?: string[];
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
+  topEventTileSpec?: TopEventTileSpec;
 }
 
 export interface ColumnConfig {

@@ -28,6 +28,8 @@ import { GeoJsonData } from "../chart/types";
 import { DisasterEventMapInfoCard } from "../components/tiles/disaster_event_map_info_card";
 import {
   DATE_OPTION_1Y_KEY,
+  DATE_OPTION_6M_KEY,
+  DATE_OPTION_30D_KEY,
   URL_HASH_PARAM_KEYS,
 } from "../constants/disaster_event_map_constants";
 import {
@@ -50,6 +52,7 @@ import { isValidDate } from "./string_utils";
 
 const MAX_YEARS = 20;
 const INFO_CARD_OFFSET = 5;
+const DATE_SUBSTRING_IDX = 10;
 
 /**
  * Get promise for geojson data
@@ -499,4 +502,32 @@ export function getMapPointsData(
     }
   });
   return mapPointsData;
+}
+
+/**
+ * Gets special date ranges that are based off the current date.
+ */
+export function getDateRanges(): { [dateKey: string]: [string, string] } {
+  const currentDate = new Date();
+  const minus30Days = new Date(new Date().setDate(currentDate.getDate() - 30));
+  const minus6Months = new Date(
+    new Date().setMonth(currentDate.getMonth() - 6)
+  );
+  const minus1Year = new Date(
+    new Date().setFullYear(currentDate.getFullYear() - 1)
+  );
+  return {
+    [DATE_OPTION_30D_KEY]: [
+      minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+    [DATE_OPTION_6M_KEY]: [
+      minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+    [DATE_OPTION_1Y_KEY]: [
+      minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+  };
 }
