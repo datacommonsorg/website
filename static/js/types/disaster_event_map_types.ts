@@ -45,7 +45,7 @@ interface EventApiGeoLocation {
 }
 
 // Information about an event as represented in the event API response.
-interface EventApiEventInfo {
+export interface EventApiEventInfo {
   dcid: string;
   dates: string[];
   places: string[];
