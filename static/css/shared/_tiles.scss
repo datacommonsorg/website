@@ -125,6 +125,13 @@ $border-radius: 0.5rem;
 
 .disaster-event-map-tile {
 
+  .disaster-event-map-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+
   .disaster-event-map-selectors-section {
     display: flex;
     justify-content: flex-end;
@@ -136,7 +143,6 @@ $border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin: 1rem 0;
   }
   
   #disaster-event-map-date-selector-input {
@@ -186,7 +192,6 @@ $border-radius: 0.5rem;
  
   .disaster-event-map-legend {
     display: flex;
-    padding: 1rem 0;
   }
  
   .disaster-event-map-zoom-button-section {

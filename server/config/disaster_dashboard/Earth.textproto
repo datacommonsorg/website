@@ -41,7 +41,7 @@ metadata {
         prop: "area",
         unit: "SquareKilometer",
         upper_limit: 1000,
-        lower_limit: 5
+        lower_limit: 25
       }
     }
   }
@@ -58,7 +58,7 @@ metadata {
         prop: "area",
         unit: "SquareKilometer",
         upper_limit: 1000,
-        lower_limit: 10
+        lower_limit: 25
       }
     }
   }
