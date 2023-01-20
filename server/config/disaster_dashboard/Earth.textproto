@@ -112,6 +112,20 @@ metadata {
       }
     }
   }
+  event_type_spec {
+    key: "wetbulb"
+    value {
+      id: "wetbulb"
+      name: "Wet Bulb"
+      event_type_dcids: "WetBulbTemperatureCelsius31Event"
+      event_type_dcids: "WetBulbTemperatureCelsius32Event"
+      event_type_dcids: "WetBulbTemperatureCelsius33Event"
+      event_type_dcids: "WetBulbTemperatureCelsius34Event"
+      event_type_dcids: "WetBulbTemperatureCelsius35Event"
+      event_type_dcids: "WetBulbTemperatureCelsius36Event"
+      color: "#66c2a5"
+    }
+  }
 }
 
 categories {
@@ -127,6 +141,7 @@ categories {
           event_type_keys: "flood"
           # event_type_keys: "tornado"
           event_type_keys: "storm"
+          event_type_keys: "wetbulb"
         }
       }
     }
