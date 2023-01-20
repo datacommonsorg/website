@@ -57,6 +57,7 @@
     "react-csv": "^2.2.2",
     "react-dom": "^16.13.1",
     "react-intl": "^6.0.4",
+    "react-markdown": "^8.0.5",
     "react-table": "^7.8.0",
     "reactstrap": "^8.6.0",
     "resize-observer-polyfill": "^1.5.1",

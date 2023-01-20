@@ -19,6 +19,7 @@
  */
 
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
@@ -53,7 +54,11 @@ export function Category(props: CategoryPropType): JSX.Element {
       {props.config.title && (
         <h2 className="block-title">{props.config.title}</h2>
       )}
-      {props.config.description && <p>{props.config.description}</p>}
+      {props.config.description && (
+        <p>
+          <ReactMarkdown>{props.config.description}</ReactMarkdown>
+        </p>
+      )}
       {props.config.blocks.map((block) => {
         const id = randDomId();
         return (

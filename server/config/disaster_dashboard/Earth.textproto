@@ -103,7 +103,7 @@ metadata {
       id: "drought"
       name: "Drought"
       event_type_dcids: "DroughtEvent"
-      color: "#f46d43"
+      color: "#ff5dd6"
       default_severity_filter: {
         prop: "area",
         unit: "SquareKilometer",
@@ -123,7 +123,7 @@ metadata {
       event_type_dcids: "WetBulbTemperatureCelsius34Event"
       event_type_dcids: "WetBulbTemperatureCelsius35Event"
       event_type_dcids: "WetBulbTemperatureCelsius36Event"
-      color: "#66c2a5"
+      color: "#7700e6"
     }
   }
 }
@@ -150,7 +150,12 @@ categories {
 
 categories {
   title: "Drought"
-
+  description: 
+    "Droughts are measured using the Standardized Precipitation Index (SPI), "
+    "which quantifies the precipitation deficit at a given location for a set "
+    "timescale. Places where the 9-month SPI was less than -1.5 are considered "
+    "to be experiencing drought. We source drought data from "
+    "[NOAA](https://www.drought.gov/data-maps-tools/global-precipitation-climatology-centre-gpcc-standardized-precipitation-index-spi)."
   blocks {
     columns {
       tiles {
@@ -214,18 +219,23 @@ categories {
 
 categories {
   title: "Fires"
+  description:
+    "Fire detection is based on both dispatcher reporting and VIIRS active "
+    "fire detection, which uses satellite imaging to identify fires based on "
+    "thermal readings. We source fire data from [NASA](https://lpdaac.usgs.gov/products/vnp14a1v001/) "
+    "and [WFIGS](https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about)."
   blocks {
     columns {
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of fires over time"
+        title: "Number of fires last year"
         stat_var_key: "fire_count"
       }
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Total area affected by fires over time"
+        title: "Total area affected by fires last year"
         stat_var_key: "fire_area"
       }
     }
@@ -261,19 +271,22 @@ categories {
 
 categories {
   title: "Floods"
-
+  description:
+    "Flood detection is based on MODIS and Sentinel-2 L1C satellite imagery "
+    "from the [Global Flood Database](https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1) "
+    "and [Dynamic World](https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1) respectively."
   blocks {
     columns {
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Number of floods over time"
+        title: "Number of floods last year"
         stat_var_key: "flood_count"
       }
       tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
-        title: "Total area affected by floods over time"
+        title: "Total area affected by floods last year"
         stat_var_key: "flood_area"
       }
     }
@@ -309,11 +322,16 @@ categories {
 
 categories {
   title: "Storms"
+  description:
+    "Cyclones, hurricanes, and typhoons are different names for the same "
+    "weather phenomenon: a rotating storm with extreme wind speeds and "
+    "torrential rain. We source our storm data from "
+    "[NOAA](https://www.ncei.noaa.gov/products/international-best-track-archive)."
   blocks {
     columns {
       tiles {
         type: HISTOGRAM
-        title: "Number of cyclones over time"
+        title: "Number of cyclones last year"
         stat_var_key: "cyclone_all"
       }
     }
