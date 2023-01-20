@@ -16,6 +16,7 @@
 from flask import Blueprint, request, current_app, Response
 import services.datacommons as dc
 import json
+import logging
 
 # Define blueprint
 bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')
@@ -71,6 +72,9 @@ def keep_event(event, place, filter_prop, filter_unit, filter_upper_limit,
     return val <= filter_upper_limit and val >= filter_lower_limit
   except:
     # can't parse the value to filter by into a float
+    logging.info(
+        f'Could not parse filter value for event: {event["eventId"]}, filter prop: {filter_prop}'
+    )
     return True
 
 
@@ -145,7 +149,7 @@ def json_event_data():
   result = {}
   if event_points:
     result = {"eventCollection": {"events": event_points, "provenanceInfo": {}}}
-  return json.dumps(result), 200
+  return Response(json.dumps(result), 200, "application/json")
 
 
 @bp.route('/event-data')

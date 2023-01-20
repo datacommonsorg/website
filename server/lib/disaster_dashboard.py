@@ -16,6 +16,7 @@
 from google.cloud import storage
 import json
 import re
+import logging
 
 EVENT_TYPES = [
     "FireEvent", "WildlandFireEvent", "WildfireEvent", "CycloneEvent",
@@ -58,6 +59,7 @@ def get_disaster_dashboard_data(gcs_bucket):
     file_name = re.sub('(?!^)([A-Z]+)', r'_\1', event_type).lower() + ".json"
     blob = bucket.get_blob(DISASTER_DATA_FOLDER + file_name)
     if not blob:
+      logging.info(f'file for {event_type} not found, skipping.')
       continue
     events_data = json.loads(blob.download_as_bytes())
     events_by_date = {}
