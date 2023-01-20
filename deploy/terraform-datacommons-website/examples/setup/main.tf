@@ -48,6 +48,7 @@ module "enabled_google_apis" {
     "compute.googleapis.com",
     "container.googleapis.com",
     "containerregistry.googleapis.com",
+    "dataflow.googleapis.com",
     "dns.googleapis.com",
     "domains.googleapis.com",
     "iam.googleapis.com",
