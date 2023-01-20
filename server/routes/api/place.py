@@ -31,6 +31,7 @@ CHILD_PLACE_LIMIT = 50
 
 # Place types to keep for list of child places, keyed by parent place type.
 WANTED_PLACE_TYPES = {
+    'Place': ["Continent"],
     'Country': [
         "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
     ],
@@ -38,14 +39,15 @@ WANTED_PLACE_TYPES = {
     'County': ["City", "Town", "Village", "Borough"],
 }
 ALL_WANTED_PLACE_TYPES = [
-    "Country", "State", "County", "City", "Town", "Village", "Borough",
-    "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
+    "Continent", "Country", "State", "County", "City", "Town", "Village",
+    "Borough", "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
     "EurostatNUTS3", "AdministrativeArea1", "AdministrativeArea2",
     "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
 ]
 
 # These place types are equivalent: prefer the key.
 EQUIVALENT_PLACE_TYPES = {
+    "Country": "AdministrativeArea1",
     "State": "AdministrativeArea1",
     "County": "AdministrativeArea2",
     "City": "AdministrativeArea3",
@@ -288,16 +290,18 @@ def child(dcid):
 
 
 @cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def child_fetch(dcid):
+def child_fetch(parent_dcid):
   # Get contained places
-  contained_response = dc.property_values([dcid], 'containedInPlace', False)
-  place_dcids = contained_response.get(dcid, [])
+  contained_response = dc.property_values([parent_dcid], 'containedInPlace',
+                                          False)
+  place_dcids = contained_response.get(parent_dcid, [])
 
-  overlaps_response = dc.property_values([dcid], 'geoOverlaps', False)
-  place_dcids = place_dcids + overlaps_response.get(dcid, [])
+  overlaps_response = dc.property_values([parent_dcid], 'geoOverlaps', False)
+  place_dcids = place_dcids + overlaps_response.get(parent_dcid, [])
 
   # Filter by wanted place types
-  place_type = get_place_type(dcid)
+  place_type = get_place_type(parent_dcid)
+  print(place_type)
   wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
 
   place_types = dc.property_values(place_dcids, 'typeOf', True)
@@ -326,7 +330,7 @@ def child_fetch(dcid):
   for place_dcid in wanted_dcids:
     for place_type in place_types[place_dcid]:
       place_pop = pop.get(place_dcid, 0)
-      if place_pop > 0:
+      if place_pop > 0 or parent_dcid == 'Earth':  # Continents do not have population
         place_name = place_names.get(place_dcid, place_dcid)
         result[place_type].append({
             'name': place_name[0] if len(place_name) > 0 else place_name,

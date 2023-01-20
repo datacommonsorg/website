@@ -23,6 +23,10 @@ metadata {
     value: "Country"
   }
   contained_place_types {
+    key: "Continent"
+    value: "Country"
+  }
+  contained_place_types {
     key: "Country"
     value: "AdministrativeArea1"
   }
@@ -41,7 +45,7 @@ metadata {
         prop: "area",
         unit: "SquareKilometer",
         upper_limit: 1000,
-        lower_limit: 5
+        lower_limit: 25
       }
     }
   }
@@ -58,7 +62,7 @@ metadata {
         prop: "area",
         unit: "SquareKilometer",
         upper_limit: 1000,
-        lower_limit: 10
+        lower_limit: 25
       }
     }
   }
