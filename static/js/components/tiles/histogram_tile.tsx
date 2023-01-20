@@ -109,7 +109,7 @@ function fetchData(
     }
   }
   axios
-    .get("/api/observations/series", {
+    .get("/api/observations/series/binned", {
       // Fetch both numerator stat vars and denominator stat vars
       params: {
         variables: statVars,
