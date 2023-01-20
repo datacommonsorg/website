@@ -161,7 +161,8 @@ function fetchEventPoints(
   disasterType: string,
   severityFilter?: SeverityFilter,
   minDate?: string,
-  maxDate?: string
+  maxDate?: string,
+  useCache?: boolean
 ): Promise<DisasterEventPointData> {
   const reqParams = {
     eventType: eventType,
@@ -174,10 +175,11 @@ function fetchEventPoints(
     reqParams["filterUpperLimit"] = severityFilter.upperLimit;
     reqParams["filterLowerLimit"] = severityFilter.lowerLimit;
   }
+  const url = useCache
+    ? "/api/disaster-dashboard/event-data"
+    : "/api/disaster-dashboard/json-event-data";
   return axios
-    .get<DisasterEventDataApiResponse>("/api/disaster-dashboard/event-data", {
-      params: reqParams,
-    })
+    .get<DisasterEventDataApiResponse>(url, { params: reqParams })
     .then((resp) => {
       const result = {
         eventPoints: [],
@@ -253,7 +255,8 @@ export function fetchDisasterEventPoints(
   eventSpecs: EventTypeSpec[],
   place: string,
   dateRange: [string, string],
-  severityFilters: Record<string, SeverityFilter>
+  severityFilters: Record<string, SeverityFilter>,
+  useCache?: boolean
 ): Promise<DisasterEventPointData> {
   // Dates to fetch data for.
   const dates = [];
@@ -294,7 +297,8 @@ export function fetchDisasterEventPoints(
             eventSpec.id,
             severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
-            dateRange[1].length > 7 ? dateRange[1] : ""
+            dateRange[1].length > 7 ? dateRange[1] : "",
+            useCache
           )
         );
       }
@@ -412,11 +416,18 @@ export function setUrlHash(paramKey: string, paramValue: string): void {
 }
 
 /**
+ * Gets the hash value for a url param key.
+ */
+export function getHashValue(paramKey: string): string {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  return urlParams.get(paramKey) || "";
+}
+
+/**
  * Gets the date for a disaster event map using url params.
  */
 export function getDate(): string {
-  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  return urlParams.get(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_1Y_KEY;
+  return getHashValue(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_1Y_KEY;
 }
 
 /**

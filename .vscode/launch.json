@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "DC Website Flask",
+            "name": "Flask",
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
@@ -13,6 +13,28 @@
                 "FLASK_ENV": "local",
                 "FLASK_DEBUG": "1",
                 "ENABLE_MODEL": "true"
+            },
+            "args": [
+                "8080",
+                "--no-debugger",
+            ],
+            "cwd": "${workspaceRoot}/server",
+            "envFile": "${workspaceFolder}/.env",
+            "jinja": true,
+            "console": "internalConsole",
+        },
+        {
+            "name": "Flask - without NL",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "python": "${command:python.interpreterPath}",
+            "program": "${workspaceRoot}/server/main.py",
+            "env": {
+                "FLASK_APP": "${workspaceRoot}/server/main.py",
+                "FLASK_ENV": "local",
+                "FLASK_DEBUG": "1",
+                "ENABLE_MODEL": "false"
             },
             "args": [
                 "8080",

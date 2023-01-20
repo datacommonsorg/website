@@ -32,6 +32,7 @@ import {
   DATE_OPTION_1Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
+  URL_HASH_PARAM_KEYS,
 } from "../../constants/disaster_event_map_constants";
 import {
   EARTH_NAMED_TYPED_PLACE,
@@ -52,6 +53,7 @@ import {
   fetchDisasterEventPoints,
   fetchGeoJsonData,
   getDate,
+  getHashValue,
   getMapPointsData,
   getSeverityFilters,
   onPointClicked,
@@ -197,23 +199,6 @@ export function DisasterEventMapTile(
       className={`${CSS_SELECTOR_PREFIX}-tile`}
       allowEmbed={false}
     >
-      <DisasterEventMapSelectors
-        dateOptions={[
-          DATE_OPTION_30D_KEY,
-          DATE_OPTION_6M_KEY,
-          DATE_OPTION_1Y_KEY,
-          ...dateList,
-        ]}
-        onPlaceSelected={(place: NamedPlace) => redirectAction(place.dcid)}
-      >
-        <div
-          className="filter-toggle"
-          onClick={() => setShowFilters(!showFilters)}
-          title="Toggle filters"
-        >
-          <i className="material-icons">tune</i>
-        </div>
-      </DisasterEventMapSelectors>
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
         {_.isEmpty(mapChartData.geoJson) ? (
           <div className={`${CSS_SELECTOR_PREFIX}-error-message`}>
@@ -241,31 +226,49 @@ export function DisasterEventMapTile(
                 className="svg-container"
                 ref={svgContainerRef}
               ></div>
-              <div className={`${CSS_SELECTOR_PREFIX}-legend`}>
-                {Object.values(props.eventTypeSpec).map((spec) => {
-                  return (
-                    <div
-                      className={`${CSS_SELECTOR_PREFIX}-legend-entry`}
-                      key={`${props.id}-legend-${spec.id}`}
-                    >
+              <div className={`${CSS_SELECTOR_PREFIX}-controls`}>
+                <div className={`${CSS_SELECTOR_PREFIX}-legend`}>
+                  {Object.values(props.eventTypeSpec).map((spec) => {
+                    return (
                       <div
-                        className={`${CSS_SELECTOR_PREFIX}-legend-color`}
-                        style={{
-                          backgroundColor: spec.color,
-                        }}
-                      ></div>
-                      <span>{spec.name}</span>
-                    </div>
-                  );
-                })}
-                <div
-                  id={`${CSS_SELECTOR_PREFIX}-info-card`}
-                  ref={infoCardRef}
-                />
-                <div id={CONTENT_SPINNER_ID}>
-                  <div className="screen">
-                    <div id="spinner"></div>
+                        className={`${CSS_SELECTOR_PREFIX}-legend-entry`}
+                        key={`${props.id}-legend-${spec.id}`}
+                      >
+                        <div
+                          className={`${CSS_SELECTOR_PREFIX}-legend-color`}
+                          style={{
+                            backgroundColor: spec.color,
+                          }}
+                        ></div>
+                        <span>{spec.name}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <DisasterEventMapSelectors
+                  dateOptions={[
+                    DATE_OPTION_30D_KEY,
+                    DATE_OPTION_6M_KEY,
+                    DATE_OPTION_1Y_KEY,
+                    ...dateList,
+                  ]}
+                  onPlaceSelected={(place: NamedPlace) =>
+                    redirectAction(place.dcid)
+                  }
+                >
+                  <div
+                    className="filter-toggle"
+                    onClick={() => setShowFilters(!showFilters)}
+                    title="Toggle filters"
+                  >
+                    <i className="material-icons">tune</i>
                   </div>
+                </DisasterEventMapSelectors>
+              </div>
+              <div id={`${CSS_SELECTOR_PREFIX}-info-card`} ref={infoCardRef} />
+              <div id={CONTENT_SPINNER_ID}>
+                <div className="screen">
+                  <div id="spinner"></div>
                 </div>
               </div>
             </div>
@@ -329,6 +332,7 @@ export function DisasterEventMapTile(
     // Only re-fetch geojson data if place selection has changed
     const selectedDate = getDate();
     const severityFilters = getSeverityFilters(eventTypeSpec);
+    const useCache = getHashValue(URL_HASH_PARAM_KEYS.USE_CACHE) === "1";
     const geoJsonPromise =
       mapChartData &&
       !_.isEmpty(mapChartData.geoJson) &&
@@ -347,7 +351,8 @@ export function DisasterEventMapTile(
       Object.values(eventTypeSpec),
       placeInfo.selectedPlace.dcid,
       dateRange,
-      severityFilters
+      severityFilters,
+      useCache
     );
     Promise.all([geoJsonPromise, disasterEventDataPromise])
       .then(([geoJson, disasterEventData]) => {
@@ -390,7 +395,12 @@ export function DisasterEventMapTile(
       USA_PLACE_DCID,
       placeInfo.parentPlaces
     );
-    const projection = getProjection(isUsaPlace, "", width, height);
+    const projection = getProjection(
+      isUsaPlace,
+      placeInfo.selectedPlace.dcid,
+      width,
+      height
+    );
     drawD3Map(
       props.id,
       mapChartData.geoJson,
