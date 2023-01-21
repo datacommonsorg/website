@@ -277,6 +277,47 @@ def _ranking_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
   return stat_var_spec_map
 
 
+def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name, attr):
+  assert len(sv_pair) == 2
+
+  sv_names = [sv2name[sv_pair[0]], sv2name[sv_pair[1]]]
+  sv_key_pair = [sv_pair[0] + '_scatter', sv_pair[1] + '_scatter']
+
+  change_to_pc = [False, False]
+  if _is_sv_percapita(sv_names[0]):
+    if not _is_sv_percapita(sv_names[1]):
+      change_to_pc[1] = True
+      sv_names[1] += " Per Capita"
+  if _is_sv_percapita(sv_names[1]):
+    if not _is_sv_percapita(sv_names[0]):
+      change_to_pc[0] = True
+      sv_names[0] += " Per Capita"
+
+  stat_var_spec_map = {}
+  for i in range(2):
+    if change_to_pc[i]:
+      stat_var_spec_map[sv_key_pair[i]] = subject_page_pb2.StatVarSpec(
+        stat_var=sv_pair[i],
+        name=sv_names[i],
+        denom='Count_Person',
+        unit='%',
+        scaling=100
+      )
+    else:
+      stat_var_spec_map[sv_key_pair[i]] = subject_page_pb2.StatVarSpec(
+        stat_var=sv_pair[i],
+        name=sv_names[i]
+      )
+
+  # add a scatter config
+  tile = column.tiles.add()
+  tile.stat_var_key.extend(sv_key_pair)
+  tile.type = subject_page_pb2.Tile.TileType.SCATTER
+  tile.title = f"{sv_names[0]} vs. {sv_names[1]}"
+
+  return stat_var_spec_map
+
+
 def _place_overview_block(column):
   tile = column.tiles.add()
   tile.type = subject_page_pb2.Tile.TileType.PLACE_OVERVIEW
@@ -302,7 +343,9 @@ def build_page_config(uttr: Utterance):
   first_chart = uttr.rankedCharts[0]
   main_place = first_chart.places[0]
   page_config.metadata.place_dcid.append(main_place.dcid)
-  if first_chart.chart_type == ChartType.MAP_CHART or first_chart.chart_type == ChartType.RANKING_CHART:
+  if (first_chart.chart_type == ChartType.MAP_CHART or
+      first_chart.chart_type == ChartType.RANKING_CHART or
+      first_chart.chart_type == ChartType.SCATTER_CHART):
     page_config.metadata.contained_place_types[main_place.place_type] = first_chart.attr['place_type']
 
   # Set category data
@@ -349,6 +392,8 @@ def build_page_config(uttr: Utterance):
         continue
       stat_var_spec_map = _ranking_chart_block(column, cspec.places[0], cspec.svs[0], sv2name, cspec.attr)
 
+    elif cspec.chart_type == ChartType.SCATTER_CHART:
+      stat_var_spec_map = _scatter_chart_block(column, cspec.places[0], cspec.svs, sv2name, cspec.attr)
     for sv_key, spec in stat_var_spec_map.items():
       category.stat_var_spec[sv_key].CopyFrom(spec)
 

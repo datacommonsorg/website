@@ -287,6 +287,8 @@ def classificationToInt(en):
     return 3
   elif (en == ClassificationType.RANKING):
     return 4
+  elif (en == ClassificationType.CORRELATION):
+    return 5
   else:
     return 0
 
@@ -333,9 +335,10 @@ def data():
                                embeddings_build)
 
   # Generate new utterance.
-  logging.info(context_history)
   prev_utterance = nl_utterance.load_utterance(context_history)
+  logging.info(prev_utterance)
   utterance = nl_data_spec.compute(query_detection, prev_utterance)
+  logging.info(nl_utterance.load_utterance(nl_utterance.save_utterance(utterance)))
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance)
@@ -347,7 +350,6 @@ def data():
     main_place = Place(dcid='', name='', place_type='')
 
   context_history = nl_utterance.save_utterance(utterance)
-  logging.info(context_history)
 
   data_dict = {
       'place': {

@@ -18,7 +18,7 @@ from typing import List, Dict
 
 from dataclasses import dataclass
 from enum import IntEnum
-from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingClassificationAttributes, ContainedInClassificationAttributes, SimpleClassificationAttributes, ContainedInPlaceType
+from lib.nl.nl_detection import RankingType, ClassificationType, Detection, NLClassifier, Place, RankingClassificationAttributes, ContainedInClassificationAttributes, SimpleClassificationAttributes, ContainedInPlaceType
 
 # How far back do we do
 CNTXT_LOOKBACK_LIMIT = 3
@@ -34,6 +34,7 @@ class ChartType(IntEnum):
   RANKING_CHART = 2
   BAR_CHART = 3
   PLACE_OVERVIEW = 4
+  SCATTER_CHART = 5
 
 class Utterance:
   pass
@@ -107,13 +108,13 @@ def _load_classifications(classifications_dict: List[Dict]) -> List[NLClassifier
     attributes = SimpleClassificationAttributes()
     if 'contained_in_place_type' in cdict:
       attributes = ContainedInClassificationAttributes(
-          contained_in_place_type=cdict['contained_in_place_type'])
+          contained_in_place_type=ContainedInPlaceType(cdict['contained_in_place_type']))
     elif 'ranking_type' in cdict:
       attributes = RankingClassificationAttributes(
-          ranking_type=cdict['ranking_type'],
+          ranking_type=[RankingType(r) for r in cdict['ranking_type']],
           ranking_trigger_words=[])
     classifications.append(NLClassifier(
-      type=cdict['type'],
+      type=ClassificationType(cdict['type']),
       attributes=attributes
     ))
   return classifications
@@ -134,7 +135,7 @@ def _save_charts(charts: List[ChartSpec]) -> List[Dict]:
 def _load_charts(charts_dict: List[Dict]) -> List[ChartSpec]:
   charts = []
   for cdict in charts_dict:
-    charts.append(ChartSpec(chart_type=cdict['chart_type'],
+    charts.append(ChartSpec(chart_type=ChartType(cdict['chart_type']),
                             places=_load_places(cdict['places']),
                             svs=cdict['svs'],
                             attr=cdict['attr'],
@@ -172,7 +173,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
     udict = uttr_dicts[len(uttr_dicts) - 1 - i]
     uttr = Utterance(prev_utterance=prev_uttr,
                      query=udict['query'],
-                     query_type=udict['query_type'],
+                     query_type=ClassificationType(udict['query_type']),
                      svs=udict['svs'],
                      places=_load_places(udict['places']),
                      classifications=_load_classifications(udict['classifications']),

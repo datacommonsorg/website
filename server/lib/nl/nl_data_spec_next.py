@@ -57,8 +57,8 @@ def compute(query_detection: Detection, currentUtterance: Utterance):
   # call on context routines to obtain missing arguments
   if (uttr.query_type == ClassificationType.SIMPLE):
     populateSimple(uttr)
-  elif (uttr.query_type == ClassificationType.COMPARE):
-    populateCompare(uttr)
+  elif (uttr.query_type == ClassificationType.CORRELATION):
+    populateCorrelation(uttr)
   elif (uttr.query_type == ClassificationType.CONTAINED_IN):
     populateContainedIn(uttr)
   elif (uttr.query_type == ClassificationType.RANKING):
@@ -187,6 +187,81 @@ def fallbackRankingCb(state, containing_place, chart_origin):
   return populateRankingCb(state, chart_vars, containing_place, chart_origin)
 
 
+# Handlers for correlation
+
+def populateCorrelation(uttr: Utterance):
+  classifications = classificationsOfTypeFromContext(uttr, ClassificationType.CONTAINED_IN)
+  for classification in classifications:
+    if not classification or not isinstance(classification.attributes, ContainedInClassificationAttributes):
+      continue
+    place_type = classification.attributes.contained_in_place_type
+    if populateCorrelationForPlaceType(PopulateState(uttr=uttr,
+                                                     main_cb=None,
+                                                     fallback_cb=None,
+                                                     place_type=place_type)):
+      return True
+  return False
+
+
+def populateCorrelationForPlaceType(state: PopulateState):
+  for pl in state.uttr.places:
+    if (populateCorrelationForPlace(state, pl)):
+        return True
+  for pl in placesFromContext(state.uttr):
+    if (populateCorrelationForPlace(state, pl)):
+        return True
+  return False
+
+
+def populateCorrelationForPlace(state: PopulateState, place):
+  # If there is a child place_type, use a child place sample.
+  place_to_check = _sample_child_place(place.dcid, state.place_type.value)
+
+  # For this case, we expect a variable to be detected in this `uttr`
+  # For this case, we expect a variable to be detected in this `uttr`
+  main_svs = _get_only_svs(state.uttr.svs)
+  main_svs = svsExistForPlaces([place_to_check], main_svs)[place_to_check]
+  if not main_svs:
+    logging.info('Correlation found no Main SV')
+    return False
+
+  # Next, walk up the chain to find all SVs.
+  context_svs = []
+  svs_set = set()
+  for c_svs in svsFromContext(state.uttr):
+    for sv in _get_only_svs(c_svs):
+      if sv in svs_set:
+        continue
+      svs_set.add(sv)
+      context_svs.append(sv)
+  context_svs = svsExistForPlaces([place_to_check], context_svs)[place_to_check]
+  if not context_svs:
+    logging.info('Correlation found no Context SV')
+    return False
+
+  logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
+  logging.info('Correslation Context SVs: %s', ', '.join(context_svs))
+  # Pick a single context SV for the results
+  # TODO: Maybe consider more.
+  for main_sv in main_svs:
+    populateCorrelationChart(state, place, main_sv, context_svs[0])
+  return True
+
+def populateCorrelationChart(state, place, sv_1, sv_2):
+  state.block_id += 1
+  chart_vars = ChartVars(svs=[sv_1, sv_2],
+                         block_id=state.block_id,
+                         include_percapita=False)
+  addChartToUtterance(ChartType.SCATTER_CHART, state, chart_vars, [place], ChartOriginType.PRIMARY_CHART)
+    
+
+def fallbackRankingCb(state, containing_place, chart_origin):
+  # TODO: Poor choice, do better.
+  sv = "Count_Person"
+  state.block_id += 1
+  chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
+  return populateRankingCb(state, chart_vars, containing_place, chart_origin)
+
 # Generic processors that invoke above callbacks
 
 def populateCharts(state: PopulateState) -> bool:
@@ -218,7 +293,7 @@ def addCharts(state: PopulateState, place: str, svs: List[str]) -> bool:
   # If there is a child place_type, use a child place sample.
   place_to_check = place.dcid
   if state.place_type:
-    place_to_check = _sample_child_place(place.dcid, state.place_type)
+    place_to_check = _sample_child_place(place.dcid, state.place_type.value)
 
   sv2extensions = nl_variable.extend_svs(svs)
   printed_sv_extensions = set()
@@ -296,7 +371,7 @@ def classificationsOfTypeFromContext(uttr, ctype):
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CNTXT_LOOKBACK_LIMIT):
-    for cl in uttr.classifications:
+    for cl in prev.classifications:
       if (cl.type == ctype):
         result.append(cl)
     prev = prev.prev_utterance
@@ -397,7 +472,7 @@ def addChartToUtterance(chart_type, state, chart_vars, places, primary_vs_second
     "include_percapita": chart_vars.include_percapita,
     "title": chart_vars.title,
   }
-  if len(chart_vars.svs) < 2:
+  if len(chart_vars.svs) < 2 or chart_type == ChartType.SCATTER_CHART:
     ch = ChartSpec(chart_type=chart_type, svs=chart_vars.svs, places=places, utterance=state.uttr, attr=attr)
     state.uttr.chartCandidates.append(ch)
     return True
@@ -430,15 +505,25 @@ def filterSVs (sv_list, sv_score):
   return ans
 
 
+def _get_only_svs(svs):
+  ret = []
+  for sv in svs:
+    if isSV(sv):
+      ret.append(sv)
+  return ret
+
+
 # TODO: dedupe with nl_data_spec.py
 def _sample_child_place(main_place_dcid, contained_place_type):
   """Find a sampled child place"""
+  logging.info('_sample_child_place: for %s - %s', main_place_dcid, contained_place_type)
   if not contained_place_type:
     return None
   if contained_place_type == "City":
     return "geoId/0667000"
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
+    logging.info('_sample_child_place returning %s', child_places[main_place_dcid][0])
     return child_places[main_place_dcid][0]
   else:
     triples = dc.triples(main_place_dcid, 'in').get('triples')
@@ -448,5 +533,7 @@ def _sample_child_place(main_place_dcid, contained_place_type):
           continue
         for node in nodes['nodes']:
           if contained_place_type in node['types']:
+            logging.info('_sample_child_place returning %s', node['dcid'])
             return node['dcid']
+  logging.info('_sample_child_place returning %s', main_place_dcid)
   return main_place_dcid
