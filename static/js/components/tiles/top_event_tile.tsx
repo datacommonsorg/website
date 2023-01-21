@@ -81,7 +81,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
                       <td className="place-name">
-                        <a href={`/event/${event.placeDcid}`}>
+                        <a href={`/browser/${event.placeDcid}`}>
                           {event.placeName}
                         </a>
                       </td>
