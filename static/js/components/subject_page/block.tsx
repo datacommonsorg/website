@@ -261,6 +261,7 @@ function renderTiles(
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
             eventTypeSpec={eventTypeSpec}
+            blockId={props.id}
           />
         );
       }
@@ -276,6 +277,7 @@ function renderTiles(
             topEventMetadata={tile.topEventTileSpec}
             className={className}
             eventTypeSpec={eventTypeSpec}
+            blockId={props.id}
           />
         );
       }

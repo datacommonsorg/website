@@ -31,9 +31,13 @@ import {
   EventTypeSpec,
   TopEventTileSpec,
 } from "../../types/subject_page_proto_types";
+import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import {
   fetchDisasterEventPoints,
+  getDate,
+  getDateRanges,
   getSeverityFilters,
+  getUseCache,
 } from "../../utils/disaster_event_map_utils";
 import { formatNumber } from "../../utils/string_utils";
 
@@ -46,6 +50,7 @@ interface TopEventTilePropType {
   place: NamedTypedPlace;
   topEventMetadata: TopEventTileSpec;
   eventTypeSpec: EventTypeSpec;
+  blockId: string;
   className?: string;
 }
 
@@ -53,7 +58,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const [topEvents, setTopEvents] = useState<
     DisasterEventPoint[] | undefined
   >();
-  // const embedModalElement = useRef<ChartEmbed>(null);
+  const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
   const eventTypeSpecs = {
     [props.eventTypeSpec.id]: props.eventTypeSpec,
@@ -100,30 +105,37 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
                 })}
               </tbody>
             </table>
-            {/* <footer>
-                    <a
-                      href="#"
-                      onClick={(event) => {
-                        handleEmbed(event, points);
-                      }}
-                    >
-                      Export
-                    </a>
-                  </footer> */}
+            <footer>
+              <a
+                href="#"
+                onClick={(event) => {
+                  handleEmbed(event, topEvents);
+                }}
+              >
+                Export
+              </a>
+            </footer>
           </div>
         </div>
       )}
-      {/* <ChartEmbed ref={embedModalElement} /> */}
+      <ChartEmbed ref={embedModalElement} />
     </div>
   );
 
   function fetchData() {
+    const selectedDate = getDate(props.blockId);
+    const customDateRanges = getDateRanges();
+    const dateRange: [string, string] =
+      selectedDate in customDateRanges
+        ? customDateRanges[selectedDate]
+        : [selectedDate, selectedDate];
+
     fetchDisasterEventPoints(
       [props.eventTypeSpec],
       props.place.dcid,
-      ["2022-01", "2022-12"], // TODO(beets): Use getDateRanges
-      getSeverityFilters(eventTypeSpecs),
-      false /* useCache */ // TODO(beets): Use URL parameter
+      dateRange,
+      getSeverityFilters(eventTypeSpecs, props.blockId),
+      getUseCache()
     )
       .then((disasterEventData) => {
         const sources = new Set<string>();
@@ -148,19 +160,26 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     setTopEvents(topEvents);
   }
 
-  // function handleEmbed(
-  //   e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-  //   rankingPoints: RankingPoint[]
-  // ): void {
-  //   e.preventDefault();
-  //   embedModalElement.current.show(
-  //     "",
-  //     rankingPointsToCsv(rankingPoints),
-  //     chartContainer.current.offsetWidth,
-  //     0,
-  //     "",
-  //     "",
-  //     []
-  //   );
-  // }
+  function handleEmbed(
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    topEvents: DisasterEventPoint[]
+  ): void {
+    e.preventDefault();
+    const rankingPoints = topEvents.map((point) => {
+      return {
+        placeDcid: point.placeDcid,
+        placename: point.placeName,
+        value: point.severity[severityProp],
+      };
+    });
+    embedModalElement.current.show(
+      "",
+      rankingPointsToCsv(rankingPoints),
+      chartContainer.current.offsetWidth,
+      0,
+      "",
+      "",
+      []
+    );
+  }
 }

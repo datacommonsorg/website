@@ -405,44 +405,62 @@ export function onPointClicked(
 }
 
 /**
- * Sets the url hash with the given key and value
+ * Sets the url hash with the given key, value, and block
  * @param paramKey the param key to update in the hash
  * @param paramValue the value to use in the hash
  */
-export function setUrlHash(paramKey: string, paramValue: string): void {
+export function setUrlHash(
+  paramKey: string,
+  paramValue: string,
+  blockId: string
+): void {
   // TODO (chejennifer): Right now we are assuming each subject page only has
   // one disaster event map tile. Find a way to handle the url hash for
   // mulitple disaster event map tiles.
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  urlParams.set(paramKey, paramValue);
+  const blockParamString = urlParams.get(blockId) || "";
+  let blockParamVal = {};
+  if (blockParamString) {
+    blockParamVal = JSON.parse(blockParamString);
+  }
+  blockParamVal[paramKey] = paramValue;
+  urlParams.set(blockId, JSON.stringify(blockParamVal));
   window.location.hash = urlParams.toString();
 }
 
 /**
- * Gets the hash value for a url param key.
+ * Gets the hash value for a url param key for a specific block.
+ *
  */
-export function getHashValue(paramKey: string): string {
+export function getHashValue(paramKey: string, blockId: string): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  return urlParams.get(paramKey) || "";
+  const blockParamString = urlParams.get(blockId) || "";
+  let blockParamVal = {};
+  if (blockParamString) {
+    blockParamVal = JSON.parse(blockParamString);
+  }
+  return blockParamVal[paramKey] || "";
 }
 
 /**
  * Gets the date for a disaster event map using url params.
  */
-export function getDate(): string {
-  return getHashValue(URL_HASH_PARAM_KEYS.DATE) || DATE_OPTION_1Y_KEY;
+export function getDate(blockId: string): string {
+  return getHashValue(URL_HASH_PARAM_KEYS.DATE, blockId) || DATE_OPTION_1Y_KEY;
 }
 
 /**
  * Gets the severity filters for a disaster event map using url params.
  * @param eventTypeSpec the event type spec for the disaster event map
+ * @param blockId the id of the block to get severity filters for
  */
 export function getSeverityFilters(
-  eventTypeSpec: Record<string, EventTypeSpec>
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  blockId: string
 ): Record<string, SeverityFilter> {
-  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  const urlSeverityFilterVal = urlParams.get(
-    URL_HASH_PARAM_KEYS.SEVERITY_FILTER
+  const urlSeverityFilterVal = getHashValue(
+    URL_HASH_PARAM_KEYS.SEVERITY_FILTER,
+    blockId
   );
   let severityFilters = {};
   if (urlSeverityFilterVal) {
@@ -458,6 +476,15 @@ export function getSeverityFilters(
     severityFilters[spec.id] = spec.defaultSeverityFilter;
   }
   return severityFilters;
+}
+
+/**
+ * Gets whether or not to use cache from url params.
+ */
+export function getUseCache(): boolean {
+  const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
+  const useCacheVal = urlParams.get(URL_HASH_PARAM_KEYS.USE_CACHE) || "";
+  return useCacheVal === "1";
 }
 
 /**
