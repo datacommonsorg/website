@@ -509,6 +509,7 @@ export function addMapPoints(
       .range([minDotSize, minDotSize * 3]);
   }
   const mapPointsLayer = d3
+    .select(`#${domContainerId}`)
     .select(`#${MAP_ITEMS_GROUP_ID}`)
     .append("g")
     .attr("class", "map-points-layer")

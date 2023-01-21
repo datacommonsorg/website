@@ -41,6 +41,8 @@ interface DisasterEventMapSelectorsPropType {
   dateOptions: string[];
   // Callback when new place is selected
   onPlaceSelected: (place: NamedPlace) => void;
+  // id of the block this component is in.
+  blockId: string;
   children?: React.ReactNode;
 }
 
@@ -54,9 +56,9 @@ export function DisasterEventMapSelectors(
         <CustomInput
           id="disaster-event-map-date-selector-input"
           type="select"
-          value={getDate()}
+          value={getDate(props.blockId)}
           onChange={(e) => {
-            setUrlHash(URL_HASH_PARAM_KEYS.DATE, e.target.value);
+            setUrlHash(URL_HASH_PARAM_KEYS.DATE, e.target.value, props.blockId);
           }}
         >
           {props.dateOptions.map((date) => {

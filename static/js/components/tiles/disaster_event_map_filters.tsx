@@ -34,12 +34,17 @@ interface DisasterEventMapFiltersPropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
   // height to set this component to.
   height: number;
+  // id of the block this component is in.
+  blockId: string;
 }
 
 export function DisasterEventMapFilters(
   props: DisasterEventMapFiltersPropType
 ): JSX.Element {
-  const severityFilters = getSeverityFilters(props.eventTypeSpec);
+  const severityFilters = getSeverityFilters(
+    props.eventTypeSpec,
+    props.blockId
+  );
 
   function onFilterInputChanged(
     disasterType: string,
@@ -56,7 +61,11 @@ export function DisasterEventMapFilters(
       updatedSeverityFilters[disasterType].lowerLimit = newVal;
     }
     const severityFiltersString = JSON.stringify(updatedSeverityFilters);
-    setUrlHash(URL_HASH_PARAM_KEYS.SEVERITY_FILTER, severityFiltersString);
+    setUrlHash(
+      URL_HASH_PARAM_KEYS.SEVERITY_FILTER,
+      severityFiltersString,
+      props.blockId
+    );
   }
 
   return (
