@@ -55,9 +55,7 @@ export function Category(props: CategoryPropType): JSX.Element {
         <h2 className="block-title">{props.config.title}</h2>
       )}
       {props.config.description && (
-        <p>
-          <ReactMarkdown>{props.config.description}</ReactMarkdown>
-        </p>
+        <ReactMarkdown>{props.config.description}</ReactMarkdown>
       )}
       {props.config.blocks.map((block) => {
         const id = randDomId();
