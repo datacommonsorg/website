@@ -21,7 +21,7 @@ from enum import IntEnum
 from lib.nl.nl_detection import RankingType, ClassificationType, Detection, NLClassifier, Place, RankingClassificationAttributes, ContainedInClassificationAttributes, SimpleClassificationAttributes, ContainedInPlaceType
 
 # How far back do we do
-CNTXT_LOOKBACK_LIMIT = 3
+CNTXT_LOOKBACK_LIMIT = 5
 
 class ChartOriginType(IntEnum):
   PRIMARY_CHART = 0

@@ -191,6 +191,7 @@ def fallbackRankingCb(state, containing_place, chart_origin):
 
 def populateCorrelation(uttr: Utterance):
   classifications = classificationsOfTypeFromContext(uttr, ClassificationType.CONTAINED_IN)
+  logging.info(classifications)
   for classification in classifications:
     if not classification or not isinstance(classification.attributes, ContainedInClassificationAttributes):
       continue
