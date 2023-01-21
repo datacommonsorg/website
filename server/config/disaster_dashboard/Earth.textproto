@@ -159,29 +159,17 @@ categories {
   blocks {
     columns {
       tiles {
-        type: MAP
-        title: "SPI - 1 month (${date})"
-        stat_var_key: "spi_1"
+        type: TOP_EVENT
+        title: "Most severe drought events in the last year"
+        top_event_tile_spec {
+          event_type_key: "drought"
+        }
       }
     }
     columns {
       tiles {
-        type: MAP
-        title: "SPI - 3 month (${date})"
-        stat_var_key: "spi_3"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "SPI - 6 month (${date})"
-        stat_var_key: "spi_6"
-      }
-    }
-    columns {
-      tiles {
-        type: MAP
-        title: "SPI - 9 month (${date})"
+        type: HISTOGRAM
+        title: "SPI - 9 month"
         stat_var_key: "spi_9"
       }
     }
@@ -241,14 +229,11 @@ categories {
     }
     columns {
       tiles {
-        type: MAP
-        title: "Total number of fires (${date})"
-        stat_var_key: "fire_count"
-      }
-      tiles {
-        type: MAP
-        title: "Total area affected by fires (${date})"
-        stat_var_key: "fire_area"
+        type: TOP_EVENT
+        title: "Most severe fires in the last year"
+        top_event_tile_spec {
+          event_type_key: "fire"
+        }
       }
     }
   }
@@ -292,14 +277,11 @@ categories {
     }
     columns {
       tiles {
-        type: MAP
-        title: "Total number of floods (${date})"
-        stat_var_key: "flood_count"
-      }
-      tiles {
-        type: MAP
-        title: "Total area affected by floods (${date})"
-        stat_var_key: "flood_area"
+        type: TOP_EVENT
+        title: "Most severe floods in the last year"
+        top_event_tile_spec {
+          event_type_key: "flood"
+        }
       }
     }
   }
@@ -337,9 +319,11 @@ categories {
     }
     columns {
       tiles {
-        type: MAP
-        title: "Number of cyclones (${date})"
-        stat_var_key: "cyclone_all"
+        type: TOP_EVENT
+        title: "Most severe cyclones in the last year"
+        top_event_tile_spec {
+          event_type_key: "storm"
+        }
       }
     }
   }

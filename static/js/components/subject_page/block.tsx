@@ -43,6 +43,7 @@ import { MapTile } from "../tiles/map_tile";
 import { PlaceOverviewTile } from "../tiles/place_overview_tile";
 import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
+import { TopEventTile } from "../tiles/top_event_tile";
 import { StatVarProvider } from "./stat_var_provider";
 
 // Either provide (place, enclosedPlaceType) or provide (places)
@@ -259,6 +260,21 @@ function renderTiles(
             title={tile.title}
             place={props.place}
             enclosedPlaceType={enclosedPlaceType}
+            eventTypeSpec={eventTypeSpec}
+          />
+        );
+      }
+      case "TOP_EVENT": {
+        const eventTypeSpec =
+          props.eventTypeSpec[tile.topEventTileSpec.eventTypeKey];
+        return (
+          <TopEventTile
+            key={id}
+            id={id}
+            title={tile.title}
+            place={props.place}
+            topEventMetadata={tile.topEventTileSpec}
+            className={className}
             eventTypeSpec={eventTypeSpec}
           />
         );
