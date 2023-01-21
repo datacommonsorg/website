@@ -159,18 +159,24 @@ categories {
   blocks {
     columns {
       tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "drought"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "SPI - 9 month"
+        stat_var_key: "spi_9"
+      }
+    }
+    columns {
+      tiles {
         type: TOP_EVENT
         title: "Most severe drought events in the last year"
         top_event_tile_spec {
           event_type_key: "drought"
         }
-      }
-    }
-    columns {
-      tiles {
-        type: HISTOGRAM
-        title: "SPI - 9 month"
-        stat_var_key: "spi_9"
       }
     }
   }
@@ -226,6 +232,12 @@ categories {
         title: "Total area affected by fires last year"
         stat_var_key: "fire_area"
       }
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "fire"
+        }
+      }
     }
     columns {
       tiles {
@@ -274,6 +286,12 @@ categories {
         title: "Total area affected by floods last year"
         stat_var_key: "flood_area"
       }
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "flood"
+        }
+      }
     }
     columns {
       tiles {
@@ -315,6 +333,12 @@ categories {
         type: HISTOGRAM
         title: "Number of cyclones last year"
         stat_var_key: "cyclone_all"
+      }
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "storm"
+        }
       }
     }
     columns {
