@@ -138,10 +138,13 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   }
 
   function rankEventData(disasterEventData: DisasterEventPointData) {
-    disasterEventData.eventPoints.sort(
+    let filteredPoints = disasterEventData.eventPoints.filter(
+      (a) => !_.isEmpty(a.severity)
+    );
+    filteredPoints.sort(
       (a, b) => b.severity[severityProp] - a.severity[severityProp]
     );
-    const topEvents = disasterEventData.eventPoints.slice(0, RANKING_COUNT);
+    const topEvents = filteredPoints.slice(0, RANKING_COUNT);
     setTopEvents(topEvents);
   }
 
