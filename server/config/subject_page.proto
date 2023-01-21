@@ -90,7 +90,15 @@ message RankingTileSpec {
 
 message DisasterEventMapTileSpec {
   // Keys for event type specs defined in the PageMetadata that should be displayed
+  // TODO: Rename this to be singular.
   repeated string event_type_keys = 1;
+}
+
+message TopEventTileSpec {
+  // Key for event type specs defined in the PageMetadata that should be displayed
+  // Ranked by severity prop.
+  string event_type_key = 1;
+  repeated string display_prop = 2;
 }
 
 message Tile {
@@ -109,6 +117,7 @@ message Tile {
     DISASTER_EVENT_MAP = 9;
     HISTOGRAM = 10;
     PLACE_OVERVIEW = 11;
+    TOP_EVENT = 12;
   }
   // Must be specified for all visual tiles
   string title = 1;
@@ -124,6 +133,7 @@ message Tile {
   oneof tile_type_spec {
     RankingTileSpec ranking_tile_spec = 5;
     DisasterEventMapTileSpec disaster_event_map_tile_spec = 6;
+    TopEventTileSpec top_event_tile_spec = 8;
   }
 }
 

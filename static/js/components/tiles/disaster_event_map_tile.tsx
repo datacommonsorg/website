@@ -53,6 +53,7 @@ import {
   fetchDisasterEventPoints,
   fetchGeoJsonData,
   getDate,
+  getDateRanges,
   getHashValue,
   getMapPointsData,
   getSeverityFilters,
@@ -71,7 +72,6 @@ const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 const CONTENT_SPINNER_ID = "content-spinner-screen";
 const CSS_SELECTOR_PREFIX = "disaster-event-map";
-const DATE_SUBSTRING_IDX = 10;
 // TODO: make this config driven
 const REDIRECT_URL_PREFIX = "/disasters/";
 const MAP_POINTS_MIN_RADIUS = 1.5;
@@ -443,36 +443,6 @@ export function DisasterEventMapTile(
         )
       );
     }
-  }
-
-  /**
-   * Gets special date ranges that are based off the current date.
-   */
-  function getDateRanges(): { [dateKey: string]: [string, string] } {
-    const currentDate = new Date();
-    const minus30Days = new Date(
-      new Date().setDate(currentDate.getDate() - 30)
-    );
-    const minus6Months = new Date(
-      new Date().setMonth(currentDate.getMonth() - 6)
-    );
-    const minus1Year = new Date(
-      new Date().setFullYear(currentDate.getFullYear() - 1)
-    );
-    return {
-      [DATE_OPTION_30D_KEY]: [
-        minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
-        currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      ],
-      [DATE_OPTION_6M_KEY]: [
-        minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
-        currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      ],
-      [DATE_OPTION_1Y_KEY]: [
-        minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
-        currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      ],
-    };
   }
 
   /**
