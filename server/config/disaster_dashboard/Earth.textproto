@@ -117,13 +117,14 @@ metadata {
     value {
       id: "wetbulb"
       name: "Wet Bulb"
-      event_type_dcids: "WetBulbTemperatureCelsius31Event"
-      event_type_dcids: "WetBulbTemperatureCelsius32Event"
-      event_type_dcids: "WetBulbTemperatureCelsius33Event"
-      event_type_dcids: "WetBulbTemperatureCelsius34Event"
-      event_type_dcids: "WetBulbTemperatureCelsius35Event"
-      event_type_dcids: "WetBulbTemperatureCelsius36Event"
+      event_type_dcids: "WetBulbTemperatureEvent"
       color: "#7700e6"
+      default_severity_filter: {
+        prop: "wetBulbTemperature",
+        unit: "Celsius",
+        upper_limit: 37,
+        lower_limit: 31
+      }
     }
   }
 }
