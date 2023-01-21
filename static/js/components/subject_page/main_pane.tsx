@@ -53,11 +53,12 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   return (
     <div id="subject-page-main-pane">
       {!_.isEmpty(props.pageConfig) &&
-        props.pageConfig.categories.map((category) => {
-          const id = randDomId();
+        props.pageConfig.categories.map((category, idx) => {
+          const id = `cat${idx}`;
           return (
             <ErrorBoundary key={id}>
               <Category
+                id={id}
                 place={props.place}
                 enclosedPlaceType={enclosedPlaceType}
                 config={category}

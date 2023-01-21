@@ -33,6 +33,7 @@ import { Block } from "./block";
 import { StatVarProvider } from "./stat_var_provider";
 
 export interface CategoryPropType {
+  id: string;
   config: CategoryConfig;
   /**
    * The place to show the page for.
@@ -57,12 +58,14 @@ export function Category(props: CategoryPropType): JSX.Element {
       {props.config.description && (
         <ReactMarkdown>{props.config.description}</ReactMarkdown>
       )}
-      {props.config.blocks.map((block) => {
-        const id = randDomId();
+      {props.config.blocks.map((block, idx) => {
+        const id = block.title
+          ? getRelLink(block.title)
+          : `${props.id}blk${idx}`;
         return (
           <ErrorBoundary key={id}>
             <Block
-              id={block.title ? getRelLink(block.title) : randDomId()}
+              id={id}
               place={props.place}
               enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
