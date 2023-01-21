@@ -43,7 +43,9 @@ module "enabled_google_apis" {
   disable_services_on_destroy = false
   activate_apis = [
     "apikeys.googleapis.com",
+    "bigtableadmin.googleapis.com",
     "binaryauthorization.googleapis.com",
+    "cloudbuild.googleapis.com",
     "cloudfunctions.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
