@@ -216,12 +216,12 @@ def populateCorrelationForPlaceType(state: PopulateState):
 
 def populateCorrelationForPlace(state: PopulateState, place):
   # If there is a child place_type, use a child place sample.
-  place_to_check = _sample_child_place(place.dcid, state.place_type.value)
+  places_to_check = _sample_child_places(place.dcid, state.place_type.value)
 
   # For this case, we expect a variable to be detected in this `uttr`
   # For this case, we expect a variable to be detected in this `uttr`
   main_svs = _get_only_svs(state.uttr.svs)
-  main_svs = svsExistForPlaces([place_to_check], main_svs)[place_to_check]
+  main_svs = svsExistForPlaces(places_to_check, main_svs)
   if not main_svs:
     logging.info('Correlation found no Main SV')
     return False
@@ -235,7 +235,7 @@ def populateCorrelationForPlace(state: PopulateState, place):
         continue
       svs_set.add(sv)
       context_svs.append(sv)
-  context_svs = svsExistForPlaces([place_to_check], context_svs)[place_to_check]
+  context_svs = svsExistForPlaces(places_to_check, context_svs)
   if not context_svs:
     logging.info('Correlation found no Context SV')
     return False
@@ -284,6 +284,8 @@ def populateChartsForPlace(state: PopulateState, place: str) -> bool:
     foundCharts = addCharts(state, place, svs)
     if foundCharts:
         return True
+  logging.info('Doing fallback for %s - %s',
+               place, ', '.join(state.uttr.svs))
   return state.fallback_cb(state, place, ChartOriginType.PRIMARY_CHART)
 
 
@@ -292,9 +294,9 @@ def addCharts(state: PopulateState, place: str, svs: List[str]) -> bool:
   print("Add chart %s %s" % (place.name, svs))
 
   # If there is a child place_type, use a child place sample.
-  place_to_check = place.dcid
+  places_to_check = [place.dcid]
   if state.place_type:
-    place_to_check = _sample_child_place(place.dcid, state.place_type.value)
+    places_to_check = _sample_child_places(place.dcid, state.place_type.value)
 
   sv2extensions = nl_variable.extend_svs(svs)
   printed_sv_extensions = set()
@@ -304,17 +306,19 @@ def addCharts(state: PopulateState, place: str, svs: List[str]) -> bool:
     # Main SV/Topic.
     chart_vars_list = svgOrTopicToSVs(state, sv, rank) 
     for chart_vars in chart_vars_list:
-      exist_svs = svsExistForPlaces([place_to_check], chart_vars.svs)[place_to_check]
+      exist_svs = svsExistForPlaces(places_to_check, chart_vars.svs)
       if exist_svs:
         chart_vars.svs = exist_svs
         if state.main_cb(state, chart_vars, place, ChartOriginType.PRIMARY_CHART):
           found = True
+      else:
+        logging.info('Existence check failed for %s - %s', ', '.join(places_to_check), ', '.join(chart_vars.svs))
 
     # Comparison charts with extended SVs.
     extended_svs = sv2extensions.get(sv, [])
     if not extended_svs:
       continue
-    exist_svs = svsExistForPlaces([place_to_check], extended_svs)[place_to_check]
+    exist_svs = svsExistForPlaces(places_to_check, extended_svs)
     if len(exist_svs) > 1:
       exist_svs_key = ''.join(sorted(exist_svs))
       if exist_svs_key in printed_sv_extensions:
@@ -325,6 +329,8 @@ def addCharts(state: PopulateState, place: str, svs: List[str]) -> bool:
       chart_vars = ChartVars(svs=exist_svs, block_id=state.block_id)
       if state.main_cb(state, chart_vars, place, ChartOriginType.SECONDARY_CHART):
         found = True
+    elif len(exist_svs) < len(extended_svs):
+      logging.info('Existence check failed for %s - %s', ', '.join(places_to_check), ', '.join(extended_svs))
 
   return found
 
@@ -424,7 +430,7 @@ def rankCharts (utterance):
   utterance.rankedCharts = utterance.chartCandidates
 
 
-# Returns a map of place DCID -> existing SVs.  The returned map always has keys for places.
+# Returns a map of existing SVs (as a union of places).  The returned map always has keys for places.
 def svsExistForPlaces(places, svs):
   # Initialize return value
   place2sv = {}
@@ -439,13 +445,14 @@ def svsExistForPlaces(places, svs):
     logging.error("Existence checks for SVs failed.")
     return place2sv
 
+  existing_svs = set()
   for sv in svs:
     for place, exist in sv_existence['variable'][sv]['entity'].items():
       if not exist:
         continue
-      place2sv[place].append(sv)
+      existing_svs.add(sv)
 
-  return place2sv
+  return list(existing_svs)
 
 
 def isTopic(sv):
@@ -513,9 +520,10 @@ def _get_only_svs(svs):
       ret.append(sv)
   return ret
 
+_NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
 # TODO: dedupe with nl_data_spec.py
-def _sample_child_place(main_place_dcid, contained_place_type):
+def _sample_child_places(main_place_dcid, contained_place_type):
   """Find a sampled child place"""
   logging.info('_sample_child_place: for %s - %s', main_place_dcid, contained_place_type)
   if not contained_place_type:
@@ -524,17 +532,22 @@ def _sample_child_place(main_place_dcid, contained_place_type):
     return "geoId/0667000"
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
-    logging.info('_sample_child_place returning %s', child_places[main_place_dcid][0])
-    return child_places[main_place_dcid][0]
+    logging.info('_sample_child_place returning %s',
+                 ', '.join(child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
+    return child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
     triples = dc.triples(main_place_dcid, 'in').get('triples')
     if triples:
       for prop, nodes in triples.items():
         if prop != 'containedInPlace' and prop != 'geoOverlaps':
           continue
+        child_places = []
         for node in nodes['nodes']:
           if contained_place_type in node['types']:
-            logging.info('_sample_child_place returning %s', node['dcid'])
-            return node['dcid']
+            child_places.append(node['dcid'])
+        if child_places:
+          logging.info('_sample_child_place returning %s',
+                       ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
+          return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
   logging.info('_sample_child_place returning %s', main_place_dcid)
-  return main_place_dcid
+  return [main_place_dcid]
