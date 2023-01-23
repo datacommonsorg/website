@@ -75,6 +75,15 @@ export function DisasterEventMapFilters(
     );
   }
 
+  function updateFilterHash(): void {
+    clearTimeout(delayTimer.current);
+    setUrlHash(
+      URL_HASH_PARAM_KEYS.SEVERITY_FILTER,
+      JSON.stringify(severityFilterInputs),
+      props.blockId
+    );
+  }
+
   return (
     <div
       className={"disaster-event-map-severity-filters"}
@@ -108,6 +117,8 @@ export function DisasterEventMapFilters(
                     )
                   }
                   value={severityFilter.lowerLimit}
+                  onBlur={() => updateFilterHash()}
+                  onKeyPress={() => updateFilterHash()}
                 />
               </div>
               <div className="prop-filter-input">
@@ -122,6 +133,8 @@ export function DisasterEventMapFilters(
                     )
                   }
                   value={severityFilter.upperLimit}
+                  onBlur={() => updateFilterHash()}
+                  onKeyPress={() => updateFilterHash()}
                 />
               </div>
             </div>
