@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
 import { DataPoint } from "../../chart/base";
@@ -68,12 +69,12 @@ export function HistogramTile(props: HistogramTilePropType): JSX.Element {
   }, [props, rawData]);
 
   useEffect(() => {
-    if (histogramData) {
+    if (histogramData && !_.isEmpty(histogramData.dataPoints)) {
       draw(props, histogramData.dataPoints);
     }
   }, [props, histogramData]);
 
-  if (!histogramData) {
+  if (!histogramData || _.isEmpty(histogramData.dataPoints)) {
     return null;
   }
   const rs: ReplacementStrings = {
@@ -168,7 +169,7 @@ function rawToChart(
   const sources = new Set<string>();
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
-    if (spec.statVar in rawData.data) {
+    if (rawData.data && spec.statVar in rawData.data) {
       const obsSeries = rawData.data[spec.statVar][props.place.dcid];
       let obsList = obsSeries.series;
       if (spec.denom in rawData.data) {

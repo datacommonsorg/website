@@ -59,19 +59,15 @@ def series_within_core(parent_entity, child_type, variables, all_facets):
   return compact_series(resp, all_facets)
 
 
-# TODO(juliawu): Handle case where dates are not "YYYY-MM"
 # TODO(juliawu): We should adjust how we bin based on the data,
-#                instead of cutting it off.
+#                instead of just cutting data off
 def get_binned_series(entities, variables, year):
   """Get observation series for entities and variables, for a given year.
   
   Bins observations from a series for plotting in the histogram tile.
-  Currently, binning is done by only returning observations for a given year.
-  This is done by assuming the dates of the series are in 'YYYY-MM' format,
-  filtering for observations from the given year, and then imputing 0 for
-  any months missing, up to the end of the series. 
-
-  Note: This assumes the dates of the series are in 'YYYY-MM' format.
+  Currently, binning is done by only returning observations for a given year,
+  grouped by month. For non-empty series to be returned, the dates of
+  observations must have at least monthly temporal granularity.
 
   Args:
     entities (list): DCIDs of entities to query
@@ -80,34 +76,55 @@ def get_binned_series(entities, variables, year):
   
   Returns:
     JSON response from server, with series containing only observations from 
-    the specified year.
+    the specified year, binned by month. The format of the JSON looks like:
+
+    {
+      'data': [
+        {
+          "date": "YYYY-MM",
+          "value": 1234
+        }, ...
+      ],
+      "facet": {
+        "importName": "Name",
+          "provenanceUrl": "https://provenance.url/",
+          "measurementMethod": "MeasurementMethod",
+          "unit": "unit"
+      }
+    }
   """
-  # Get raw series from mixer
+  # Get raw api response from mixer
   data = series_core(entities, variables, False)
 
   for stat_var in variables:
     for location in data['data'][stat_var].keys():
 
-      # filter series to just observations from the selected year
-      series = data['data'][stat_var][location]['series']
-      pruned_series = []
-      dates_with_data = []
+      series = data.get('data', {}).get(stat_var, {}).get(location, {}).get('series', [])
+      data_found = False
+
+      # Get the latest month we have data for
+      latest_date = series[-1].get('date', '')
+      latest_month = 12
+      if latest_date[:4] == year and len(latest_date) >= 7:
+        latest_month = int(latest_date[5:7])
+  
+      # initialize bins
+      months_to_fill = [f"{year}-{str(mm).zfill(2)}" for mm in range(1, latest_month+1)]
+      filtered_obs = { month: {'date': month, 'value': 0} for month in months_to_fill}
+
+      # aggregate data into bins
       for obs in series:
-        if obs['date'][:4] == year:
-          pruned_series.append(obs)
-          dates_with_data.append(obs['date'])
-
-      if len(pruned_series) > 0:
-        # fill in missing periods with 0s, from January to end of series
-        last_month = int(dates_with_data[-1][-2:])
-        months_to_fill = [str(mm).zfill(2) for mm in range(1, last_month + 1)]
-        for month in months_to_fill:
-          date = f"{year}-{month}"
-          if date not in dates_with_data:
-            pruned_series.append({'date': date, 'value': 0})
-        pruned_series.sort(key=lambda x: x['date'])
-
-      data['data'][stat_var][location]['series'] = pruned_series
+        date_prefix = obs.get('date', '')[:7]  # YYYY-MM prefix of the observation
+        if date_prefix in months_to_fill:
+          print(type(obs['value']))
+          filtered_obs[date_prefix]['value'] += obs['value']
+          data_found = True
+      
+      filtered_series = sorted(filtered_obs.values(), key=lambda x: x['date'])
+      data['data'][stat_var][location]['series'] = filtered_series
+      
+  if not data_found:
+    return {}
   return data
 
 
@@ -177,6 +194,8 @@ def series_within_all():
   return series_within_core(parent_entity, child_type, variables, True)
 
 
+# TODO(juliawu): Event Maps are using currentdate - 1 year for the last year
+#                filter. Support for this needs to be added.
 @bp.route('/binned')
 @bp.route('/binned/<path:year>')
 def series_binned(year='2022'):
