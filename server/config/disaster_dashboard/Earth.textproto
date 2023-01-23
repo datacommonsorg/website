@@ -344,10 +344,11 @@ categories {
 categories {
   title: "Wet bulb"
   description:
-    "Cyclones, hurricanes, and typhoons are different names for the same "
-    "weather phenomenon: a rotating storm with extreme wind speeds and "
-    "torrential rain. We source our storm data from "
-    "[NOAA](https://www.ncei.noaa.gov/products/international-best-track-archive)."
+    "Wet-bulb temperature is the lowest temperature to which an object can cool "
+    "down when moisture evaporates from it. It measures how well our bodies cool "
+    "down by sweating when it’s hot and humid. The theoretical limit to human "
+    "survival for more than a few hours in the shade, even with unlimited water, "
+    "is a wet-bulb temperature of 35 °C."
   blocks {
     columns {
       tiles {
