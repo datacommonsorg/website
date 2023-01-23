@@ -183,27 +183,6 @@ categories {
   }
 
   stat_var_spec {
-    key: "spi_1"
-    value {
-      stat_var: "StandardizedPrecipitationIndex_Atmosphere_1MonthPeriod"
-      name: "SPI 1 month"
-    }
-  }
-  stat_var_spec {
-    key: "spi_3"
-    value {
-      stat_var: "StandardizedPrecipitationIndex_Atmosphere_3MonthPeriod"
-      name: "SPI 3 month"
-    }
-  }
-  stat_var_spec {
-    key: "spi_6"
-    value {
-      stat_var: "StandardizedPrecipitationIndex_Atmosphere_6MonthPeriod"
-      name: "SPI 6 month"
-    }
-  }
-  stat_var_spec {
     key: "spi_9"
     value {
       stat_var: "StandardizedPrecipitationIndex_Atmosphere_9MonthPeriod"
@@ -222,6 +201,12 @@ categories {
   blocks {
     columns {
       tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "fire"
+        }
+      }
+      tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
         title: "Number of fires last year"
@@ -232,12 +217,6 @@ categories {
         type: HISTOGRAM
         title: "Total area affected by fires last year"
         stat_var_key: "fire_area"
-      }
-      tiles {
-        type: DISASTER_EVENT_MAP
-        disaster_event_map_tile_spec: {
-          event_type_keys: "fire"
-        }
       }
     }
     columns {
@@ -276,6 +255,12 @@ categories {
   blocks {
     columns {
       tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "flood"
+        }
+      }
+      tiles {
         # TODO: Need to specify P1Y
         type: HISTOGRAM
         title: "Number of floods last year"
@@ -286,12 +271,6 @@ categories {
         type: HISTOGRAM
         title: "Total area affected by floods last year"
         stat_var_key: "flood_area"
-      }
-      tiles {
-        type: DISASTER_EVENT_MAP
-        disaster_event_map_tile_spec: {
-          event_type_keys: "flood"
-        }
       }
     }
     columns {
@@ -331,15 +310,15 @@ categories {
   blocks {
     columns {
       tiles {
-        type: HISTOGRAM
-        title: "Number of cyclones last year"
-        stat_var_key: "cyclone_all"
-      }
-      tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
           event_type_keys: "storm"
         }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of cyclones last year"
+        stat_var_key: "cyclone_all"
       }
     }
     columns {
