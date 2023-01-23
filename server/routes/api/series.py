@@ -99,7 +99,8 @@ def get_binned_series(entities, variables, year):
   for stat_var in variables:
     for location in data['data'][stat_var].keys():
 
-      series = data.get('data', {}).get(stat_var, {}).get(location, {}).get('series', [])
+      series = data.get('data', {}).get(stat_var, {}).get(location,
+                                                          {}).get('series', [])
       data_found = False
 
       # Get the latest month we have data for
@@ -107,22 +108,30 @@ def get_binned_series(entities, variables, year):
       latest_month = 12
       if latest_date[:4] == year and len(latest_date) >= 7:
         latest_month = int(latest_date[5:7])
-  
+
       # initialize bins
-      months_to_fill = [f"{year}-{str(mm).zfill(2)}" for mm in range(1, latest_month+1)]
-      filtered_obs = { month: {'date': month, 'value': 0} for month in months_to_fill}
+      months_to_fill = [
+          f"{year}-{str(mm).zfill(2)}" for mm in range(1, latest_month + 1)
+      ]
+      filtered_obs = {
+          month: {
+              'date': month,
+              'value': 0
+          } for month in months_to_fill
+      }
 
       # aggregate data into bins
       for obs in series:
-        date_prefix = obs.get('date', '')[:7]  # YYYY-MM prefix of the observation
+        date_prefix = obs.get('date',
+                              '')[:7]  # YYYY-MM prefix of the observation
         if date_prefix in months_to_fill:
           print(type(obs['value']))
           filtered_obs[date_prefix]['value'] += obs['value']
           data_found = True
-      
+
       filtered_series = sorted(filtered_obs.values(), key=lambda x: x['date'])
       data['data'][stat_var][location]['series'] = filtered_series
-      
+
   if not data_found:
     return {}
   return data
