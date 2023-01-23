@@ -125,7 +125,6 @@ def get_binned_series(entities, variables, year):
         date_prefix = obs.get('date',
                               '')[:7]  # YYYY-MM prefix of the observation
         if date_prefix in months_to_fill:
-          print(type(obs['value']))
           filtered_obs[date_prefix]['value'] += obs['value']
           data_found = True
 
