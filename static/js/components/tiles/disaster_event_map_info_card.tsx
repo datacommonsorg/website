@@ -55,7 +55,7 @@ export function DisasterEventMapInfoCard(
             );
           })}
         <span>
-          <a href={`/event/${props.eventData.placeDcid}`}>More info</a>
+          <a href={`/browser/${props.eventData.placeDcid}`}>More info</a>
         </span>
       </div>
     </div>
