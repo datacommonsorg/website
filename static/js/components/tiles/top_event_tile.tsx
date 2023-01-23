@@ -69,12 +69,19 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     fetchData();
   }, [props]);
 
+  if (topEvents === undefined) {
+    return <></>;
+  }
+
   return (
     <div
       className={`chart-container ranking-tile ${props.className}`}
       ref={chartContainer}
     >
-      {!_.isEmpty(topEvents) && (
+      {_.isEmpty(topEvents) ? (
+        <p>There were no severe events in that time period.</p>
+      )
+      : (
         <div className="ranking-unit-container">
           <div className="ranking-list">
             <h4>{props.title}</h4>
