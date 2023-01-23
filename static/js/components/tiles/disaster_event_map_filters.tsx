@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "reactstrap";
 
 import { URL_HASH_PARAM_KEYS } from "../../constants/disaster_event_map_constants";
@@ -28,6 +28,8 @@ import {
   getSeverityFilters,
   setUrlHash,
 } from "../../utils/disaster_event_map_utils";
+
+const DELAY_MS = 700;
 
 interface DisasterEventMapFiltersPropType {
   // map of disaster type to information about that event type
@@ -41,9 +43,9 @@ interface DisasterEventMapFiltersPropType {
 export function DisasterEventMapFilters(
   props: DisasterEventMapFiltersPropType
 ): JSX.Element {
-  const severityFilters = getSeverityFilters(
-    props.eventTypeSpec,
-    props.blockId
+  const delayTimer = useRef(null);
+  const [severityFilterInputs, setSeverityFilterInputs] = useState(
+    getSeverityFilters(props.eventTypeSpec, props.blockId)
   );
 
   function onFilterInputChanged(
@@ -54,16 +56,30 @@ export function DisasterEventMapFilters(
     // TODO (chejennifer): putting the entire severity filter into the url
     // makes a very long hash. Find a better way to save filter information
     // in the url.
-    const updatedSeverityFilters = _.cloneDeep(severityFilters);
+    const updatedSeverityFilters = _.cloneDeep(severityFilterInputs);
     if (isUpperLimit) {
       updatedSeverityFilters[disasterType].upperLimit = newVal;
     } else {
       updatedSeverityFilters[disasterType].lowerLimit = newVal;
     }
-    const severityFiltersString = JSON.stringify(updatedSeverityFilters);
+    setSeverityFilterInputs(updatedSeverityFilters);
+    clearTimeout(delayTimer.current);
+    delayTimer.current = setTimeout(
+      () =>
+        setUrlHash(
+          URL_HASH_PARAM_KEYS.SEVERITY_FILTER,
+          JSON.stringify(updatedSeverityFilters),
+          props.blockId
+        ),
+      DELAY_MS
+    );
+  }
+
+  function updateFilterHash(): void {
+    clearTimeout(delayTimer.current);
     setUrlHash(
       URL_HASH_PARAM_KEYS.SEVERITY_FILTER,
-      severityFiltersString,
+      JSON.stringify(severityFilterInputs),
       props.blockId
     );
   }
@@ -74,9 +90,9 @@ export function DisasterEventMapFilters(
       style={props.height ? { height: props.height } : {}}
     >
       <h3>Filters</h3>
-      {Object.keys(severityFilters).map((disasterType) => {
+      {Object.keys(severityFilterInputs).map((disasterType) => {
         const disasterTypeName = props.eventTypeSpec[disasterType].name;
-        const severityFilter = severityFilters[disasterType];
+        const severityFilter = severityFilterInputs[disasterType];
         return (
           <div
             className="disaster-type-filters"
@@ -101,6 +117,8 @@ export function DisasterEventMapFilters(
                     )
                   }
                   value={severityFilter.lowerLimit}
+                  onBlur={() => updateFilterHash()}
+                  onKeyPress={() => updateFilterHash()}
                 />
               </div>
               <div className="prop-filter-input">
@@ -115,6 +133,8 @@ export function DisasterEventMapFilters(
                     )
                   }
                   value={severityFilter.upperLimit}
+                  onBlur={() => updateFilterHash()}
+                  onKeyPress={() => updateFilterHash()}
                 />
               </div>
             </div>
