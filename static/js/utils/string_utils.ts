@@ -131,6 +131,9 @@ export function formatNumber(
     case "Knot":
       displayUnit = "kn";
       break;
+    case "Celsius":
+      displayUnit = "°C";
+      break;
   }
   if (displayUnit) {
     returnText = `${returnText} ${displayUnit}`;
