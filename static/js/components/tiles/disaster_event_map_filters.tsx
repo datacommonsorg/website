@@ -118,7 +118,7 @@ export function DisasterEventMapFilters(
                   }
                   value={severityFilter.lowerLimit}
                   onBlur={() => updateFilterHash()}
-                  onKeyPress={() => updateFilterHash()}
+                  onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
                 />
               </div>
               <div className="prop-filter-input">
@@ -134,7 +134,7 @@ export function DisasterEventMapFilters(
                   }
                   value={severityFilter.upperLimit}
                   onBlur={() => updateFilterHash()}
-                  onKeyPress={() => updateFilterHash()}
+                  onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
                 />
               </div>
             </div>
