@@ -108,9 +108,7 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
-def _result_with_debug_info(data_dict,
-                            status,
-                            embeddings_build,
+def _result_with_debug_info(data_dict, status, embeddings_build,
                             query_detection: Detection,
                             context_history: List[Dict]):
   """Using data_dict and query_detection, format the dictionary response."""
@@ -151,35 +149,35 @@ def _result_with_debug_info(data_dict,
   # TODO: Revisit debug info to add places and variables in context
   # TODO: Add SVs that were actually used
   debug_info = {
-    'status': status,
-    'original_query': query_detection.original_query,
-    'sv_matching': svs_dict,
-    'svs_to_sentences': svs_to_sentences,
-    'embeddings_build': embeddings_build,
-    'ranking_classification': ranking_classification,
-    'temporal_classification': temporal_classification,
-    'contained_in_classification': contained_in_classification,
-    'clustering_classification': clustering_classification,
-    'correlation_classification': correlation_classification,
-    'data_spec': context_history,
+      'status': status,
+      'original_query': query_detection.original_query,
+      'sv_matching': svs_dict,
+      'svs_to_sentences': svs_to_sentences,
+      'embeddings_build': embeddings_build,
+      'ranking_classification': ranking_classification,
+      'temporal_classification': temporal_classification,
+      'contained_in_classification': contained_in_classification,
+      'clustering_classification': clustering_classification,
+      'correlation_classification': correlation_classification,
+      'data_spec': context_history,
   }
   if query_detection.places_detected:
     debug_info.update({
-          'places_detected':
-              query_detection.places_detected.places_found,
-          'main_place_dcid':
-              query_detection.places_detected.main_place.dcid,
-          'main_place_name':
-              query_detection.places_detected.main_place.name,
-          'query_with_places_removed':
-              query_detection.places_detected.query_without_place_substr,
+        'places_detected':
+            query_detection.places_detected.places_found,
+        'main_place_dcid':
+            query_detection.places_detected.main_place.dcid,
+        'main_place_name':
+            query_detection.places_detected.main_place.name,
+        'query_with_places_removed':
+            query_detection.places_detected.query_without_place_substr,
     })
   else:
     debug_info.update({
-          'places_detected': ["<None>"],
-          'main_place_dcid': "<None>",
-          'main_place_name': "<None>",
-          'query_with_places_removed': query_detection.original_query,
+        'places_detected': ["<None>"],
+        'main_place_dcid': "<None>",
+        'main_place_name': "<None>",
+        'query_with_places_removed': query_detection.original_query,
     })
   data_dict['debug'] = debug_info
   return data_dict
@@ -212,9 +210,10 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     place_detection = PlaceDetection(query_original=orig_query,
                                      query_without_place_substr=query,
                                      places_found=places_found,
-                                     main_place=Place(dcid=place_dcid,
-                                                      name=main_place_name,
-                                                      place_type=main_place_type))
+                                     main_place=Place(
+                                         dcid=place_dcid,
+                                         name=main_place_name,
+                                         place_type=main_place_type))
   else:
     query = cleaned_query
     place_detection = None
@@ -266,7 +265,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
                    cleaned_query=cleaned_query,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
-                   query_type = _query_type_from_classifications(classifications),
+                   query_type=_query_type_from_classifications(classifications),
                    classifications=classifications)
 
 
@@ -276,6 +275,7 @@ def _query_type_from_classifications(classifications):
     if (_classification_to_int(cl.type) > _classification_to_int(ans)):
       ans = cl.type
   return ans
+
 
 def _classification_to_int(en):
   if (en == ClassificationType.SIMPLE):
@@ -315,13 +315,13 @@ def data():
   query = str(escape(nl_utils.remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   res = {
-    'place': {
-      'dcid': '',
-      'name': '',
-      'place_type': '',
-    },
-    'config': {},
-    'context': context_history
+      'place': {
+          'dcid': '',
+          'name': '',
+          'place_type': '',
+      },
+      'config': {},
+      'context': context_history
   }
   if not query:
     logging.info("Query was empty")
@@ -339,7 +339,8 @@ def data():
   prev_utterance = nl_utterance.load_utterance(context_history)
   logging.info(prev_utterance)
   utterance = nl_data_spec.compute(query_detection, prev_utterance)
-  logging.info(nl_utterance.load_utterance(nl_utterance.save_utterance(utterance)))
+  logging.info(
+      nl_utterance.load_utterance(nl_utterance.save_utterance(utterance)))
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance)
@@ -354,9 +355,9 @@ def data():
 
   data_dict = {
       'place': {
-        'dcid': main_place.dcid,
-        'name': main_place.name,
-        'place_type': main_place.place_type,
+          'dcid': main_place.dcid,
+          'name': main_place.name,
+          'place_type': main_place.place_type,
       },
       'config': page_config,
       'context': context_history
@@ -370,7 +371,6 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  data_dict = _result_with_debug_info(data_dict, status_str,
-                                      embeddings_build, query_detection,
-                                      context_history)
+  data_dict = _result_with_debug_info(data_dict, status_str, embeddings_build,
+                                      query_detection, context_history)
   return data_dict

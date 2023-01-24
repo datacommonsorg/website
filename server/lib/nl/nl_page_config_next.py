@@ -81,25 +81,27 @@ def build_page_config(uttr: Utterance) -> SubjectPageConfig:
             column, cspec.svs[0], sv2name, cspec.attr)
 
     elif cspec.chart_type == ChartType.BAR_CHART:
-      stat_var_spec_map = _multiple_place_bar_block(
-          column, cspec.places, cspec.svs, sv2name, cspec.attr)
+      stat_var_spec_map = _multiple_place_bar_block(column, cspec.places,
+                                                    cspec.svs, sv2name,
+                                                    cspec.attr)
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not _is_map_or_ranking_compatible(cspec):
         continue
-      stat_var_spec_map = _map_chart_block(
-          column, cspec.places[0], cspec.svs[0], sv2name, cspec.attr)
+      stat_var_spec_map = _map_chart_block(column, cspec.places[0],
+                                           cspec.svs[0], sv2name, cspec.attr)
 
     elif cspec.chart_type == ChartType.RANKING_CHART:
       # TODO: Ranking chart block title.
       if not _is_map_or_ranking_compatible(cspec):
         continue
-      stat_var_spec_map = _ranking_chart_block(
-          column, cspec.places[0], cspec.svs[0], sv2name, cspec.attr)
+      stat_var_spec_map = _ranking_chart_block(column, cspec.places[0],
+                                               cspec.svs[0], sv2name,
+                                               cspec.attr)
 
     elif cspec.chart_type == ChartType.SCATTER_CHART:
-      stat_var_spec_map = _scatter_chart_block(
-          column, cspec.places[0], cspec.svs, sv2name, cspec.attr)
+      stat_var_spec_map = _scatter_chart_block(column, cspec.places[0],
+                                               cspec.svs, sv2name, cspec.attr)
 
     for sv_key, spec in stat_var_spec_map.items():
       category.stat_var_spec[sv_key].CopyFrom(spec)
@@ -119,24 +121,23 @@ def _single_place_single_var_timeline_block(column, sv_dcid, sv2name, attr):
   # Line chart for the stat var
   sv_key = sv_dcid
   tile = Tile(type=Tile.TileType.LINE,
-                               title=sv2name[sv_dcid],
-                               stat_var_key=[sv_key])
-  stat_var_spec_map[sv_key] = StatVarSpec(
-      stat_var=sv_dcid, name=sv2name[sv_dcid])
+              title=sv2name[sv_dcid],
+              stat_var_key=[sv_key])
+  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
+                                          name=sv2name[sv_dcid])
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
   if attr['include_percapita'] and _should_add_percapita(sv_dcid):
     sv_key = sv_dcid + '_pc'
     tile = Tile(type=Tile.TileType.LINE,
-                                 title=sv2name[sv_dcid] + " - Per Capita",
-                                 stat_var_key=[sv_key])
-    stat_var_spec_map[sv_key] = StatVarSpec(
-        stat_var=sv_dcid,
-        name=sv2name[sv_dcid],
-        denom="Count_Person",
-        scaling=100,
-        unit="%")
+                title=sv2name[sv_dcid] + " - Per Capita",
+                stat_var_key=[sv_key])
+    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv_dcid,
+                                            name=sv2name[sv_dcid],
+                                            denom="Count_Person",
+                                            scaling=100,
+                                            unit="%")
     column.tiles.append(tile)
   return stat_var_spec_map
 
@@ -148,65 +149,58 @@ def _single_place_multiple_var_timeline_block(column, svs, sv2name, attr):
   title = attr['title'] if attr['title'] else "Compare with Other Variables"
 
   # Line chart for the stat var
-  tile = Tile(type=Tile.TileType.LINE,
-                               title=title,
-                               stat_var_key=[])
+  tile = Tile(type=Tile.TileType.LINE, title=title, stat_var_key=[])
   for sv in svs:
     sv_key = sv
     tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
-                                                             name=sv2name[sv])
+    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv, name=sv2name[sv])
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
   svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
-    tile = Tile(type=Tile.TileType.LINE,
-                                 title=title + " - Per Capita")
+    tile = Tile(type=Tile.TileType.LINE, title=title + " - Per Capita")
     for sv in svs_pc:
       sv_key = sv + '_pc'
       tile.stat_var_key.append(sv_key)
-      stat_var_spec_map[sv_key] = StatVarSpec(
-          stat_var=sv,
-          name=sv2name[sv],
-          denom="Count_Person",
-          scaling=100,
-          unit="%")
+      stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
+                                              name=sv2name[sv],
+                                              denom="Count_Person",
+                                              scaling=100,
+                                              unit="%")
     column.tiles.append(tile)
 
   return stat_var_spec_map
 
 
-def _multiple_place_bar_block(column, places: List[Place],
-                              svs: List[str], sv2name, attr):
+def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
+                              sv2name, attr):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
   # Total
   tile = Tile(type=Tile.TileType.BAR,
-                               title="Total",
-                               comparison_places=[x.dcid for x in places])
+              title="Total",
+              comparison_places=[x.dcid for x in places])
   for sv in svs:
     sv_key = sv + "_multiple_place_bar_block"
     tile.stat_var_key.append(sv_key)
-    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
-                                                             name=sv2name[sv])
+    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv, name=sv2name[sv])
 
   column.tiles.append(tile)
   # Per Capita
   svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
     tile = Tile(type=Tile.TileType.BAR,
-                                 title="Per Capita",
-                                 comparison_places=[x.dcid for x in places])
+                title="Per Capita",
+                comparison_places=[x.dcid for x in places])
     for sv in svs_pc:
       sv_key = sv + "_multiple_place_bar_block_pc"
       tile.stat_var_key.append(sv_key)
-      stat_var_spec_map[sv_key] = StatVarSpec(
-          stat_var=sv,
-          denom="Count_Person",
-          name=sv2name[sv],
-          scaling=100,
-          unit="%")
+      stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
+                                              denom="Count_Person",
+                                              name=sv2name[sv],
+                                              scaling=100,
+                                              unit="%")
 
     column.tiles.append(tile)
   return stat_var_spec_map
@@ -222,23 +216,23 @@ def _map_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
 
-      # The per capita tile
+  # The per capita tile
   if attr['include_percapita'] and _should_add_percapita(pri_sv):
     tile = column.tiles.add()
     sv_key = pri_sv + "_pc"
     tile.stat_var_key.append(sv_key)
     tile.type = Tile.TileType.MAP
     tile.title = sv2name[pri_sv] + " - Per Capita"
-    stat_var_spec_map[sv_key] = StatVarSpec(
-      stat_var=pri_sv,
-      denom="Count_Person",
-      name=sv2name[pri_sv],
-      scaling=100,
-      unit="%")
+    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
+                                            denom="Count_Person",
+                                            name=sv2name[pri_sv],
+                                            scaling=100,
+                                            unit="%")
   return stat_var_spec_map
 
 
-def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str, ranking_tile_spec: RankingTileSpec):
+def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str,
+                           ranking_tile_spec: RankingTileSpec):
   ranking_tile_spec.ranking_count = 10
   if "CriminalActivities" in pri_sv:
     # first check if "best" or "worst"
@@ -270,24 +264,26 @@ def _ranking_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv, name=sv2name[pri_sv])
 
-      # The per capita tile
+  # The per capita tile
   if attr['include_percapita'] and _should_add_percapita(pri_sv):
     tile = column.tiles.add()
     sv_key = pri_sv + "_pc"
     tile.stat_var_key.append(sv_key)
     tile.type = Tile.TileType.RANKING
-    _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
-    tile.title = ''.join(['Per Capita ', sv2name[pri_sv], ' in ', pri_place.name])
-    stat_var_spec_map[sv_key] = StatVarSpec(
-      stat_var=pri_sv,
-      denom="Count_Person",
-      name=sv2name[pri_sv],
-      scaling=100,
-      unit="%")
+    _set_ranking_tile_spec(attr['ranking_types'], pri_sv,
+                           tile.ranking_tile_spec)
+    tile.title = ''.join(
+        ['Per Capita ', sv2name[pri_sv], ' in ', pri_place.name])
+    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
+                                            denom="Count_Person",
+                                            name=sv2name[pri_sv],
+                                            scaling=100,
+                                            unit="%")
   return stat_var_spec_map
 
 
-def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name, attr):
+def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
+                         attr):
   assert len(sv_pair) == 2
 
   sv_names = [sv2name[sv_pair[0]], sv2name[sv_pair[1]]]
@@ -306,18 +302,14 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name, 
   stat_var_spec_map = {}
   for i in range(2):
     if change_to_pc[i]:
-      stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(
-        stat_var=sv_pair[i],
-        name=sv_names[i],
-        denom='Count_Person',
-        unit='%',
-        scaling=100
-      )
+      stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(stat_var=sv_pair[i],
+                                                      name=sv_names[i],
+                                                      denom='Count_Person',
+                                                      unit='%',
+                                                      scaling=100)
     else:
-      stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(
-        stat_var=sv_pair[i],
-        name=sv_names[i]
-      )
+      stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(stat_var=sv_pair[i],
+                                                      name=sv_names[i])
 
   # add a scatter config
   tile = column.tiles.add()

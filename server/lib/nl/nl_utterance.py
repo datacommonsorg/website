@@ -29,15 +29,18 @@ from lib.nl.nl_detection import ContainedInPlaceType, ClassificationType, Rankin
 # How far back does the context go back.
 CNTXT_LOOKBACK_LIMIT = 5
 
+
 # Forward declaration since Utterance contains a pointer to itself.
 class Utterance:
   pass
+
 
 # Primary charts are about variables/places directly requested by the user.
 # Secondary charts are ones about expansions of the primary variables/places.
 class ChartOriginType(IntEnum):
   PRIMARY_CHART = 0
   SECONDARY_CHART = 1
+
 
 # Type of chart.
 class ChartType(IntEnum):
@@ -48,6 +51,7 @@ class ChartType(IntEnum):
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
 
+
 # Enough of a spec per chart to create the chart config proto.
 @dataclass
 class ChartSpec:
@@ -57,6 +61,7 @@ class ChartSpec:
   svs: List[str]
   # A list of key-value attributes interpreted per chart_type
   attr: Dict
+
 
 # The main Utterance data structure that represents all state
 # associated with a user issued query. The past utterances
@@ -73,10 +78,10 @@ class Utterance:
   query_type: ClassificationType
   # Primary places
   places: List[Place]
-  # Primary variables 
+  # Primary variables
   svs: List[str]
   # List of detected classifications
-  classifications: List[NLClassifier] 
+  classifications: List[NLClassifier]
   # Computed chart candidates.
   chartCandidates: List[ChartSpec]
   # Final ranked charts from which Chart Config proto is generated.
@@ -85,11 +90,12 @@ class Utterance:
   # (e.g., top earthquake prone CA counties)
   # TODO: Fill this up
   answerPlaces: List[str]
-  
+
 
 #
 # Helper functions for serializing/deserializing Utterance
 #
+
 
 def _save_places(places: List[Place]) -> List[Dict]:
   places_dict = []
@@ -105,9 +111,10 @@ def _save_places(places: List[Place]) -> List[Dict]:
 def _load_places(places_dict: List[Dict]) -> List[Place]:
   places = []
   for pdict in places_dict:
-    places.append(Place(dcid=pdict['dcid'],
-                        name=pdict['name'],
-                        place_type=pdict['place_type']))
+    places.append(
+        Place(dcid=pdict['dcid'],
+              name=pdict['name'],
+              place_type=pdict['place_type']))
   return places
 
 
@@ -130,21 +137,22 @@ def _save_classifications(classifications: List[NLClassifier]) -> List[Dict]:
   return classifications_dict
 
 
-def _load_classifications(classifications_dict: List[Dict]) -> List[NLClassifier]:
+def _load_classifications(
+    classifications_dict: List[Dict]) -> List[NLClassifier]:
   classifications = []
   for cdict in classifications_dict:
     attributes = SimpleClassificationAttributes()
     if 'contained_in_place_type' in cdict:
       attributes = ContainedInClassificationAttributes(
-          contained_in_place_type=ContainedInPlaceType(cdict['contained_in_place_type']))
+          contained_in_place_type=ContainedInPlaceType(
+              cdict['contained_in_place_type']))
     elif 'ranking_type' in cdict:
       attributes = RankingClassificationAttributes(
           ranking_type=[RankingType(r) for r in cdict['ranking_type']],
           ranking_trigger_words=[])
-    classifications.append(NLClassifier(
-      type=ClassificationType(cdict['type']),
-      attributes=attributes
-    ))
+    classifications.append(
+        NLClassifier(type=ClassificationType(cdict['type']),
+                     attributes=attributes))
   return classifications
 
 
@@ -163,11 +171,12 @@ def _save_charts(charts: List[ChartSpec]) -> List[Dict]:
 def _load_charts(charts_dict: List[Dict]) -> List[ChartSpec]:
   charts = []
   for cdict in charts_dict:
-    charts.append(ChartSpec(chart_type=ChartType(cdict['chart_type']),
-                            places=_load_places(cdict['places']),
-                            svs=cdict['svs'],
-                            attr=cdict['attr'],
-                            utterance=None))
+    charts.append(
+        ChartSpec(chart_type=ChartType(cdict['chart_type']),
+                  places=_load_places(cdict['places']),
+                  svs=cdict['svs'],
+                  attr=cdict['attr'],
+                  utterance=None))
   return charts
 
 
@@ -207,7 +216,8 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      query_type=ClassificationType(udict['query_type']),
                      svs=udict['svs'],
                      places=_load_places(udict['places']),
-                     classifications=_load_classifications(udict['classifications']),
+                     classifications=_load_classifications(
+                         udict['classifications']),
                      rankedCharts=_load_charts(udict['ranked_charts']),
                      detection=None,
                      chartCandidates=None,

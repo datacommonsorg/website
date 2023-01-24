@@ -19,8 +19,8 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 
+import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 

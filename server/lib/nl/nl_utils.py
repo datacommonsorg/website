@@ -131,6 +131,7 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
+
 #
 # Given a place DCID and a child place type, returns a sample list
 # of places of that child type.
@@ -148,8 +149,9 @@ def get_sample_child_places(main_place_dcid: str,
     return "geoId/0667000"
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
-    logging.info('_sample_child_place returning %s',
-                 ', '.join(child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
+    logging.info(
+        '_sample_child_place returning %s', ', '.join(
+            child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
     return child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
     triples = dc.triples(main_place_dcid, 'in').get('triples')
@@ -162,15 +164,16 @@ def get_sample_child_places(main_place_dcid: str,
           if contained_place_type in node['types']:
             child_places.append(node['dcid'])
         if child_places:
-          logging.info('_sample_child_place returning %s',
-                       ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
+          logging.info(
+              '_sample_child_place returning %s',
+              ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
           return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
   logging.info('_sample_child_place returning %s', main_place_dcid)
   return [main_place_dcid]
 
 
-
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
+
 
 def get_sv_name(all_svs: List[str]) -> Dict:
   sv2name_raw = dc.property_values(all_svs, 'name')

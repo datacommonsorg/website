@@ -25,8 +25,8 @@ import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
-import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
 import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
+import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
 
 const SVG_CHART_HEIGHT = 160;
 
@@ -70,7 +70,7 @@ export const QueryResult = memo(function QueryResult(
     const is_nl_next = isNLInterfaceNext();
 
     // The API endpoint is different NL Next version.
-    const dataApi = is_nl_next ? "nlnext/data" : "nl/data";    
+    const dataApi = is_nl_next ? "nlnext/data" : "nl/data";
 
     axios
       .post(`/${dataApi}?q=${query}&build=${build}`, {
@@ -92,17 +92,17 @@ export const QueryResult = memo(function QueryResult(
         const categories = _.get(resp, ["data", "config", "categories"], []);
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
-          var main_place = {};
+          let main_place = {};
           // For NL Next, context does not contain the "main place".
           if (is_nl_next) {
             main_place = resp.data["place"];
           } else {
             main_place = {
-              "place_type": context["place_type"],
-              "name": context["place_name"],
-              "dcid": context["place_dcid"],
+              place_type: context["place_type"],
+              name: context["place_name"],
+              dcid: context["place_dcid"],
             };
-          }          
+          }
           setChartsData({
             place: {
               types: [main_place["place_type"]],
@@ -119,7 +119,7 @@ export const QueryResult = memo(function QueryResult(
         // For NL Next, debug info is outside the context.
         const debugData = is_nl_next ? resp.data["debug"] : context["debug"];
         if (debugData !== undefined) {
-          setDebugData(debugData);        
+          setDebugData(debugData);
         }
         setIsLoading(false);
       })
