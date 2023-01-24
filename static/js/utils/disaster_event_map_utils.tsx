@@ -262,7 +262,7 @@ export function fetchDisasterEventPoints(
   place: string,
   dateRange: [string, string],
   severityFilters: Record<string, SeverityFilter>,
-  useCache?: boolean
+  useCacheParam?: string
 ): Promise<DisasterEventPointData> {
   // Dates to fetch data for.
   const dates = [];
@@ -304,7 +304,9 @@ export function fetchDisasterEventPoints(
             severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
             dateRange[1].length > 7 ? dateRange[1] : "",
-            useCache || eventSpec.defaultUseCache
+            !_.isEmpty(useCacheParam)
+              ? useCacheParam === "1"
+              : eventSpec.defaultUseCache
           )
         );
       }
@@ -484,10 +486,9 @@ export function getSeverityFilters(
 /**
  * Gets whether or not to use cache from url params.
  */
-export function getUseCache(): boolean {
+export function getUseCache(): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  const useCacheVal = urlParams.get(URL_HASH_PARAM_KEYS.USE_CACHE) || "";
-  return useCacheVal === "1";
+  return urlParams.get(URL_HASH_PARAM_KEYS.USE_CACHE) || "";
 }
 
 /**
