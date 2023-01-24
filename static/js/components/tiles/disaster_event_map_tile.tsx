@@ -106,8 +106,8 @@ interface MapChartData {
   selectedDate: string;
   // severity filters used for this map chart data
   severityFilters: Record<string, SeverityFilter>;
-  // whether this map chart data was from the cache
-  useCache: boolean;
+  // the useCacheParam when this data was fetched
+  useCacheParam: string;
 }
 
 export function DisasterEventMapTile(
@@ -346,7 +346,7 @@ export function DisasterEventMapTile(
     // Only re-fetch geojson data if place selection has changed
     const selectedDate = getDate(props.blockId);
     const severityFilters = getSeverityFilters(eventTypeSpec, props.blockId);
-    const useCache = getUseCache();
+    const useCacheParam = getUseCache();
     const shouldFetchGeoJson =
       !mapChartData ||
       _.isEmpty(mapChartData.geoJson) ||
@@ -355,7 +355,7 @@ export function DisasterEventMapTile(
     const shouldFetchDisasterPoints =
       !mapChartData ||
       selectedDate !== mapChartData.selectedDate ||
-      useCache !== mapChartData.useCache ||
+      useCacheParam !== mapChartData.useCacheParam ||
       !_.isEqual(severityFilters, mapChartData.severityFilters);
     if (!shouldFetchGeoJson && !shouldFetchDisasterPoints) {
       return;
@@ -376,7 +376,7 @@ export function DisasterEventMapTile(
       placeInfo.selectedPlace.dcid,
       dateRange,
       severityFilters,
-      useCache
+      useCacheParam
     );
     Promise.all([geoJsonPromise, disasterEventDataPromise])
       .then(([geoJson, disasterEventData]) => {
@@ -393,7 +393,7 @@ export function DisasterEventMapTile(
           sources,
           mapPointsData,
           selectedDate,
-          useCache,
+          useCacheParam,
           severityFilters,
         });
       })

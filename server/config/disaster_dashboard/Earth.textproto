@@ -47,6 +47,7 @@ metadata {
         upper_limit: 1000,
         lower_limit: 25
       }
+      default_use_cache: true
     }
   }
   event_type_spec {
@@ -64,6 +65,7 @@ metadata {
         upper_limit: 1000,
         lower_limit: 25
       }
+      default_use_cache: true
     }
   }
   event_type_spec {
@@ -79,6 +81,7 @@ metadata {
         upper_limit: 100000,
         lower_limit: 64
       }
+      default_use_cache: true
     }
   }
   event_type_spec {
@@ -95,6 +98,7 @@ metadata {
         upper_limit: 5,
         lower_limit: 3
       }
+      default_use_cache: true
     }
   }
   event_type_spec {
@@ -110,6 +114,7 @@ metadata {
         upper_limit: 100000,
         lower_limit: 10
       }
+      default_use_cache: true
     }
   }
   event_type_spec {
@@ -125,6 +130,7 @@ metadata {
         upper_limit: 37,
         lower_limit: 31
       }
+      default_use_cache: false
     }
   }
 }
