@@ -192,11 +192,13 @@ function fetchEventPoints(
       if (_.isEmpty(eventCollection) || _.isEmpty(eventCollection.events)) {
         return result;
       }
+      const seenEvents = new Set();
       result.provenanceInfo = eventCollection.provenanceInfo;
       eventCollection.events.forEach((eventData) => {
         if (
           _.isEmpty(eventData.geoLocations) ||
-          _.isEmpty(eventData.geoLocations[0].point)
+          _.isEmpty(eventData.geoLocations[0].point) ||
+          seenEvents.has(eventData.dcid)
         ) {
           return;
         }
@@ -240,6 +242,7 @@ function fetchEventPoints(
           endDate,
           provenanceId: eventData.provenanceId,
         });
+        seenEvents.add(eventData.dcid);
       });
       return result;
     });
