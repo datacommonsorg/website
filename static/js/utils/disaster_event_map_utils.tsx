@@ -304,7 +304,7 @@ export function fetchDisasterEventPoints(
             severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
             dateRange[1].length > 7 ? dateRange[1] : "",
-            useCache
+            useCache || eventSpec.defaultUseCache
           )
         );
       }

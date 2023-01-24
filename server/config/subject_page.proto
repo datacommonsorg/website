@@ -42,6 +42,8 @@ message EventTypeSpec {
   string color = 4;
   // Default severity filter to use for this event type.
   SeverityFilter default_severity_filter = 5;
+  // Whether or not to use cache for the data.
+  bool default_use_cache = 6;
 }
 
 message PageMetadata {

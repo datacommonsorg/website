@@ -34,6 +34,7 @@ export interface EventTypeSpec {
   eventTypeDcids: string[];
   color: string;
   defaultSeverityFilter: SeverityFilter;
+  defaultUseCache: boolean;
 }
 
 export interface PageMetadataConfig {
