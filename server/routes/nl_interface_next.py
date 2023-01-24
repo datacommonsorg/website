@@ -35,10 +35,6 @@ import lib.nl.nl_utils as nl_utils
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
 MAPS_API = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-FIXED_PREFIXES = ['md=', 'mq=', 'st=', 'mp=', 'pt=']
-FIXED_PROPS = set([p[:-1] for p in FIXED_PREFIXES])
-
-COSINE_SIMILARITY_CUTOFF = 0.4
 
 
 def _get_preferred_type(types):
@@ -270,17 +266,18 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
                    cleaned_query=cleaned_query,
                    places_detected=place_detection,
                    svs_detected=sv_detection,
-                   query_type = queryTypeFromClassifications(classifications),
+                   query_type = _query_type_from_classifications(classifications),
                    classifications=classifications)
 
-def queryTypeFromClassifications(classifications):
+
+def _query_type_from_classifications(classifications):
   ans = ClassificationType.SIMPLE
   for cl in classifications:
-    if (classificationToInt(cl.type) > classificationToInt(ans)):
+    if (_classification_to_int(cl.type) > _classification_to_int(ans)):
       ans = cl.type
   return ans
 
-def classificationToInt(en):
+def _classification_to_int(en):
   if (en == ClassificationType.SIMPLE):
     return 1
   elif (en == ClassificationType.CONTAINED_IN):
@@ -292,6 +289,7 @@ def classificationToInt(en):
   else:
     return 0
 
+
 @bp.route('/', strict_slashes=True)
 def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
@@ -301,6 +299,9 @@ def page():
                          maps_api_key=current_app.config['MAPS_API_KEY'])
 
 
+#
+# The main Data Handler function
+#
 @bp.route('/data', methods=['GET', 'POST'])
 def data():
   """Data handler."""

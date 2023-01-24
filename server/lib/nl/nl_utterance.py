@@ -12,22 +12,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#
+# Utterance data structure and associate libraries
+#
+
 import logging
 
 from typing import List, Dict
 
 from dataclasses import dataclass
 from enum import IntEnum
-from lib.nl.nl_detection import RankingType, ClassificationType, Detection, NLClassifier, Place, RankingClassificationAttributes, ContainedInClassificationAttributes, SimpleClassificationAttributes, ContainedInPlaceType
+from lib.nl.nl_detection import ContainedInPlaceType, ClassificationType, RankingType, \
+  Detection, NLClassifier, Place, RankingClassificationAttributes, \
+    ContainedInClassificationAttributes, SimpleClassificationAttributes
 
-# How far back do we do
+# How far back does the context go back.
 CNTXT_LOOKBACK_LIMIT = 5
 
+# Forward declaration since Utterance contains a pointer to itself.
+class Utterance:
+  pass
+
+# Primary charts are about variables/places directly requested by the user.
+# Secondary charts are ones about expansions of the primary variables/places.
 class ChartOriginType(IntEnum):
   PRIMARY_CHART = 0
   SECONDARY_CHART = 1
 
-# TODO: Distinguish between multi-place bar vs. multi-var bar?
+# Type of chart.
 class ChartType(IntEnum):
   TIMELINE_CHART = 0
   MAP_CHART = 1
@@ -36,32 +48,48 @@ class ChartType(IntEnum):
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
 
-class Utterance:
-  pass
-
+# Enough of a spec per chart to create the chart config proto.
 @dataclass
 class ChartSpec:
   chart_type: ChartType
   utterance: Utterance
-  # TODO: change this to be just the dcid
   places: List[Place]
   svs: List[str]
+  # A list of key-value attributes interpreted per chart_type
   attr: Dict
 
+# The main Utterance data structure that represents all state
+# associated with a user issued query. The past utterances
+# form the context saved in the client and shipped to the server.
 @dataclass
 class Utterance:
+  # Linked list of past utterances
   prev_utterance: Utterance
+  # Unmodified user-issued query
   query: str
+  # Result of classification
   detection: Detection
+  # A characterization of the query
   query_type: ClassificationType
-  # TODO: change this to be just the dcid
+  # Primary places
   places: List[Place]
+  # Primary variables 
   svs: List[str]
+  # List of detected classifications
   classifications: List[NLClassifier] 
+  # Computed chart candidates.
   chartCandidates: List[ChartSpec]
+  # Final ranked charts from which Chart Config proto is generated.
   rankedCharts: List[ChartSpec]
+  # This is a list of places in the answer
+  # (e.g., top earthquake prone CA counties)
+  # TODO: Fill this up
   answerPlaces: List[str]
   
+
+#
+# Helper functions for serializing/deserializing Utterance
+#
 
 def _save_places(places: List[Place]) -> List[Dict]:
   places_dict = []
@@ -143,7 +171,8 @@ def _load_charts(charts_dict: List[Dict]) -> List[ChartSpec]:
   return charts
 
 
-# Latest at the front.
+# Given the latest Utterance, saves the full list of utterances into a
+# dict.  The latest utterance is in the front.
 def save_utterance(uttr: Utterance) -> List[Dict]:
   uttr_dicts = []
   u = uttr
@@ -163,6 +192,8 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
   return uttr_dicts
 
 
+# Given a list of dicts previously saved by `save_utterance()`, loads
+# them into Utterance structures and returns the latest one.
 def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
   if len(uttr_dicts) > CNTXT_LOOKBACK_LIMIT:
     logging.error('Too many past utterances found: ', len(uttr_dicts))
