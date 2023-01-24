@@ -68,7 +68,10 @@ export const QueryResult = memo(function QueryResult(
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
     const is_nl_next = isNLInterfaceNext();
+
+    // The API endpoint is different NL Next version.
     const dataApi = is_nl_next ? "nlnext/data" : "nl/data";    
+
     axios
       .post(`/${dataApi}?q=${query}&build=${build}`, {
         contextHistory: props.contextHistory,
@@ -90,6 +93,7 @@ export const QueryResult = memo(function QueryResult(
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
           var main_place = {};
+          // For NL Next, context does not contain the "main place".
           if (is_nl_next) {
             main_place = resp.data["place"];
           } else {
@@ -112,6 +116,7 @@ export const QueryResult = memo(function QueryResult(
             "Sorry, we couldn't answer your question. Could you try again?"
           );
         }
+        // For NL Next, debug info is outside the context.
         const debugData = is_nl_next ? resp.data["debug"] : context["debug"];
         if (debugData !== undefined) {
           setDebugData(debugData);        

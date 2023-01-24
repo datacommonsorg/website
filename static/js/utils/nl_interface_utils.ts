@@ -24,6 +24,9 @@ export function isNlInterface() {
          path === "/nlnext" || path === "/nlnext/";
 }
 
+/**
+ * Identifies whether the URL represents the NL Next implementation.
+ */
 export function isNLInterfaceNext() {
   const path = window.location.pathname;
   return path === "/nlnext" || path === "/nlnext/";

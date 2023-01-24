@@ -64,7 +64,7 @@ export function App(): JSX.Element {
     setContextList(newList);
   }
 
-  function getContext(i: number) {
+  function getContextHistory(i: number) {
     if (isNLInterfaceNext()) {
       return contextList;
     } else {
@@ -77,7 +77,7 @@ export function App(): JSX.Element {
       key={i}
       queryIdx={i}
       query={q}
-      contextHistory={getContext(i)}
+      contextHistory={getContextHistory(i)}
       addContextCallback={addContext}
     ></QueryResult>
   ));
