@@ -20,6 +20,7 @@
 
 import React, { useEffect, useState } from "react";
 
+import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 
@@ -44,6 +45,11 @@ export function App(): JSX.Element {
   }, [queries]);
 
   function addContext(context: any, idx: number) {
+    if (isNLInterfaceNext()) {
+      // The context list is handled entirely by the server.
+      setContextList(context);
+      return;
+    }
     // Always assume we are appending context for the latest query.
     if (idx !== queries.length - 1) {
       console.error(
@@ -58,12 +64,20 @@ export function App(): JSX.Element {
     setContextList(newList);
   }
 
+  function getContextHistory(i: number) {
+    if (isNLInterfaceNext()) {
+      return contextList;
+    } else {
+      return contextList.slice(0, i);
+    }
+  }
+
   const queryResults = queries.map((q, i) => (
     <QueryResult
       key={i}
       queryIdx={i}
       query={q}
-      contextHistory={contextList.slice(0, i)}
+      contextHistory={getContextHistory(i)}
       addContextCallback={addContext}
     ></QueryResult>
   ));
