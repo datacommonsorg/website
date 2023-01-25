@@ -25,6 +25,7 @@ import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
+import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
 import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
 
 const SVG_CHART_HEIGHT = 160;
@@ -66,8 +67,13 @@ export const QueryResult = memo(function QueryResult(
   function fetchData(query: string, build: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
+    const is_nl_next = isNLInterfaceNext();
+
+    // The API endpoint is different for NL Next version.
+    const dataApi = is_nl_next ? "nlnext/data" : "nl/data";
+
     axios
-      .post(`/nl/data?q=${query}&build=${build}`, {
+      .post(`/${dataApi}?q=${query}&build=${build}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {
@@ -86,11 +92,22 @@ export const QueryResult = memo(function QueryResult(
         const categories = _.get(resp, ["data", "config", "categories"], []);
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
-          setChartsData({
-            place: {
-              types: [context["place_type"]],
+          let main_place = {};
+          // For NL Next, context does not contain the "main place".
+          if (is_nl_next) {
+            main_place = resp.data["place"];
+          } else {
+            main_place = {
+              place_type: context["place_type"],
               name: context["place_name"],
               dcid: context["place_dcid"],
+            };
+          }
+          setChartsData({
+            place: {
+              dcid: main_place["dcid"],
+              name: main_place["name"],
+              types: [main_place["place_type"]],
             },
             config: resp.data["config"],
           });
@@ -99,8 +116,10 @@ export const QueryResult = memo(function QueryResult(
             "Sorry, we couldn't answer your question. Could you try again?"
           );
         }
-        if (context["debug"] !== undefined) {
-          setDebugData(context["debug"]);
+        // For NL Next, debug info is outside the context.
+        const debugData = is_nl_next ? resp.data["debug"] : context["debug"];
+        if (debugData !== undefined) {
+          setDebugData(debugData);
         }
         setIsLoading(false);
       })
