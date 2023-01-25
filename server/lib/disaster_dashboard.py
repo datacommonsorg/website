@@ -21,7 +21,8 @@ import logging
 EVENT_TYPES = [
     "FireEvent", "WildlandFireEvent", "WildfireEvent", "CycloneEvent",
     "HurricaneTyphoonEvent", "HurricaneEvent", "TornadoEvent", "FloodEvent",
-    "DroughtEvent", "WetBulbTemperatureEvent", "ColdEvent", "HeatEvent"
+    "DroughtEvent", "WetBulbTemperatureEvent", "ColdTemperatureEvent",
+    "HeatTemperatureEvent"
 ]
 DISASTER_DATA_FOLDER = "disaster_dashboard/"
 
