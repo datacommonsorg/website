@@ -14,10 +14,17 @@
 """Utility functions for use by the NL modules."""
 
 import copy
+import json
+import logging
+import os
 import re
 from typing import Dict, List, Union, Set
-
+import services.datacommons as dc
 import lib.nl.nl_constants as nl_constants
+
+_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
+
+_NUM_CHILD_PLACES_FOR_EXISTENCE = 20
 
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
@@ -90,3 +97,100 @@ def remove_punctuations(s):
   s = s.replace('\'s', '')
   s = re.sub(r'[^\w\s]', ' ', s)
   return " ".join(s.split())
+
+
+def is_topic(sv):
+  return sv.startswith("dc/topic/")
+
+
+def is_svg(sv):
+  return sv.startswith("dc/g/")
+
+
+def is_sv(sv):
+  return not (is_topic(sv) or is_svg(sv))
+
+
+#
+# Returns a list of existing SVs (as a union across places).
+#
+def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
+  if not svs:
+    return []
+
+  sv_existence = dc.observation_existence(svs, places)
+  if not sv_existence:
+    logging.error("Existence checks for SVs failed.")
+    return []
+
+  existing_svs = set()
+  for sv in svs:
+    for _, exist in sv_existence['variable'][sv]['entity'].items():
+      if not exist:
+        continue
+      existing_svs.add(sv)
+
+  return list(existing_svs)
+
+
+#
+# Given a place DCID and a child place type, returns a sample list
+# of places of that child type.
+#
+# TODO: Maybe dedupe with nl_data_spec.py
+#
+def get_sample_child_places(main_place_dcid: str,
+                            contained_place_type: str) -> List[str]:
+  """Find a sampled child place"""
+  logging.info('_sample_child_place: for %s - %s', main_place_dcid,
+               contained_place_type)
+  if not contained_place_type:
+    return None
+  if contained_place_type == "City":
+    return "geoId/0667000"
+  child_places = dc.get_places_in([main_place_dcid], contained_place_type)
+  if child_places.get(main_place_dcid):
+    logging.info(
+        '_sample_child_place returning %s', ', '.join(
+            child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
+    return child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]
+  else:
+    triples = dc.triples(main_place_dcid, 'in').get('triples')
+    if triples:
+      for prop, nodes in triples.items():
+        if prop != 'containedInPlace' and prop != 'geoOverlaps':
+          continue
+        child_places = []
+        for node in nodes['nodes']:
+          if contained_place_type in node['types']:
+            child_places.append(node['dcid'])
+        if child_places:
+          logging.info(
+              '_sample_child_place returning %s',
+              ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
+          return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
+  logging.info('_sample_child_place returning %s', main_place_dcid)
+  return [main_place_dcid]
+
+
+def get_sv_name(all_svs: List[str]) -> Dict:
+  sv2name_raw = dc.property_values(all_svs, 'name')
+  uncurated_names = {
+      sv: names[0] if names else sv for sv, names in sv2name_raw.items()
+  }
+  basepath = os.path.dirname(__file__)
+  title_config_path = os.path.abspath(
+      os.path.join(basepath, _CHART_TITLE_CONFIG_RELATIVE_PATH))
+  title_by_sv_dcid = {}
+  with open(title_config_path) as f:
+    title_by_sv_dcid = json.load(f)
+  sv_name_map = {}
+  # If a curated name is found return that,
+  # Else return the name property for SV.
+  for sv in all_svs:
+    if sv in title_by_sv_dcid:
+      sv_name_map[sv] = title_by_sv_dcid[sv]
+    else:
+      sv_name_map[sv] = uncurated_names[sv]
+
+  return sv_name_map
