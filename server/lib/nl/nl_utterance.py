@@ -27,7 +27,7 @@ from lib.nl.nl_detection import ContainedInPlaceType, ClassificationType, Rankin
     ContainedInClassificationAttributes, SimpleClassificationAttributes
 
 # How far back does the context go back.
-CNTXT_LOOKBACK_LIMIT = 5
+CTX_LOOKBACK_LIMIT = 5
 
 
 # Forward declaration since Utterance contains a pointer to itself.
@@ -66,6 +66,8 @@ class ChartSpec:
 # The main Utterance data structure that represents all state
 # associated with a user issued query. The past utterances
 # form the context saved in the client and shipped to the server.
+# TODO: Make this a proper class with methods to convert to dict
+#       and load from dict.
 @dataclass
 class Utterance:
   # Linked list of past utterances
@@ -74,7 +76,7 @@ class Utterance:
   query: str
   # Result of classification
   detection: Detection
-  # A characterization of the query
+  # A characterization of the query.
   query_type: ClassificationType
   # Primary places
   places: List[Place]
@@ -94,10 +96,11 @@ class Utterance:
 
 #
 # Helper functions for serializing/deserializing Utterance
-#
+# 
 
 
-def _save_places(places: List[Place]) -> List[Dict]:
+
+def _place_to_dict(places: List[Place]) -> List[Dict]:
   places_dict = []
   for p in places:
     pdict = {}
@@ -108,7 +111,7 @@ def _save_places(places: List[Place]) -> List[Dict]:
   return places_dict
 
 
-def _load_places(places_dict: List[Dict]) -> List[Place]:
+def _dict_to_place(places_dict: List[Dict]) -> List[Place]:
   places = []
   for pdict in places_dict:
     places.append(
@@ -118,7 +121,7 @@ def _load_places(places_dict: List[Dict]) -> List[Place]:
   return places
 
 
-def _save_classifications(classifications: List[NLClassifier]) -> List[Dict]:
+def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
   classifications_dict = []
   for c in classifications:
     cdict = {}
@@ -129,6 +132,7 @@ def _save_classifications(classifications: List[NLClassifier]) -> List[Dict]:
       if isinstance(cip, ContainedInPlaceType):
         cdict['contained_in_place_type'] = cip.value
       else:
+        # This could also be a simple string (rather than string enum)
         cdict['contained_in_place_type'] = cip
     elif isinstance(c.attributes, RankingClassificationAttributes):
       cdict['ranking_type'] = c.attributes.ranking_type
@@ -137,7 +141,7 @@ def _save_classifications(classifications: List[NLClassifier]) -> List[Dict]:
   return classifications_dict
 
 
-def _load_classifications(
+def _dict_to_classification(
     classifications_dict: List[Dict]) -> List[NLClassifier]:
   classifications = []
   for cdict in classifications_dict:
@@ -156,24 +160,24 @@ def _load_classifications(
   return classifications
 
 
-def _save_charts(charts: List[ChartSpec]) -> List[Dict]:
+def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:
   charts_dict = []
   for c in charts:
     cdict = {}
     cdict['chart_type'] = c.chart_type
-    cdict['places'] = _save_places(c.places)
+    cdict['places'] = _place_to_dict(c.places)
     cdict['svs'] = c.svs
     cdict['attr'] = c.attr
     charts_dict.append(cdict)
   return charts_dict
 
 
-def _load_charts(charts_dict: List[Dict]) -> List[ChartSpec]:
+def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
   charts = []
   for cdict in charts_dict:
     charts.append(
         ChartSpec(chart_type=ChartType(cdict['chart_type']),
-                  places=_load_places(cdict['places']),
+                  places=_dict_to_place(cdict['places']),
                   svs=cdict['svs'],
                   attr=cdict['attr'],
                   utterance=None))
@@ -186,14 +190,14 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
   uttr_dicts = []
   u = uttr
   cnt = 0
-  while u and cnt < CNTXT_LOOKBACK_LIMIT:
+  while u and cnt < CTX_LOOKBACK_LIMIT:
     udict = {}
     udict['query'] = u.query
     udict['query_type'] = u.query_type
     udict['svs'] = u.svs
-    udict['places'] = _save_places(u.places)
-    udict['classifications'] = _save_classifications(u.classifications)
-    udict['ranked_charts'] = _save_charts(u.rankedCharts)
+    udict['places'] = _place_to_dict(u.places)
+    udict['classifications'] = _classification_to_dict(u.classifications)
+    udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -204,8 +208,8 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
 # Given a list of dicts previously saved by `save_utterance()`, loads
 # them into Utterance structures and returns the latest one.
 def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
-  if len(uttr_dicts) > CNTXT_LOOKBACK_LIMIT:
-    logging.error('Too many past utterances found: ', len(uttr_dicts))
+  if len(uttr_dicts) > CTX_LOOKBACK_LIMIT:
+    logging.error('Too many past utterances found: %d', len(uttr_dicts))
 
   uttr = None
   prev_uttr = None
@@ -215,10 +219,10 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
                      query=udict['query'],
                      query_type=ClassificationType(udict['query_type']),
                      svs=udict['svs'],
-                     places=_load_places(udict['places']),
-                     classifications=_load_classifications(
+                     places=_dict_to_place(udict['places']),
+                     classifications=_dict_to_classification(
                          udict['classifications']),
-                     rankedCharts=_load_charts(udict['ranked_charts']),
+                     rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
                      detection=None,
                      chartCandidates=None,
                      answerPlaces=None)
