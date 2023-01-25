@@ -129,8 +129,13 @@ export function fetchDateList(
       MAX_YEARS;
     const dateList = [];
     const dateStringCut = increaseByYear ? 4 : 7;
+    // When creating the Date object, need to specify that this date is in UTC
+    // (by adding "Z") because toISOString() gets the iso string of the date in
+    // UTC.
     const currDate = new Date(minDate + "Z");
     const endDate = new Date(maxDate + "Z");
+    // Need to generate the list of dates from min -> max because otherwise,
+    // dates may get skipped or duplicated.
     while (currDate <= endDate) {
       const dateString = currDate.toISOString().substring(0, dateStringCut);
       dateList.push(dateString);
