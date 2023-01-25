@@ -61,10 +61,10 @@ export function App(): JSX.Element {
 
   function getContextHistory(i: number): any {
     if (isNLInterfaceNext()) {
-      if (i == 0) {
-        return [];
-      } else {
+      if (i > 0 && i - 1 < contextList.length) {
         return contextList[i - 1];
+      } else {
+        return [];
       }
     } else {
       return contextList.slice(0, i);
