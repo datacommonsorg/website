@@ -145,9 +145,9 @@ def get_sample_child_places(main_place_dcid: str,
   logging.info('_sample_child_place: for %s - %s', main_place_dcid,
                contained_place_type)
   if not contained_place_type:
-    return None
+    return []
   if contained_place_type == "City":
-    return "geoId/0667000"
+    return ["geoId/0667000"]
   child_places = dc.get_places_in([main_place_dcid], contained_place_type)
   if child_places.get(main_place_dcid):
     logging.info(

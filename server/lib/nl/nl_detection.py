@@ -176,6 +176,13 @@ class ClassificationType(IntEnum):
   UNKNOWN = 8
 
 
+# The supported classifications in order. Later entry is preferred.
+RANKED_CLASSIFICATION_TYPES = [
+    ClassificationType.SIMPLE, ClassificationType.CONTAINED_IN,
+    ClassificationType.RANKING, ClassificationType.CORRELATION
+]
+
+
 @dataclass
 class NLClassifier:
   """Classifier."""

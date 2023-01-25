@@ -20,8 +20,8 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
-from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
-from typing import Dict, List, Union
+from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes, RANKED_CLASSIFICATION_TYPES
+from typing import Dict, List
 import pandas as pd
 import re
 import requests
@@ -272,20 +272,14 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
 def _query_type_from_classifications(classifications):
   ans = ClassificationType.SIMPLE
   for cl in classifications:
-    if (_classification_to_int(cl.type) > _classification_to_int(ans)):
+    if (_classification_rank_order(cl.type) > _classification_rank_order(ans)):
       ans = cl.type
   return ans
 
 
-def _classification_to_int(en):
-  if (en == ClassificationType.SIMPLE):
-    return 1
-  elif (en == ClassificationType.CONTAINED_IN):
-    return 3
-  elif (en == ClassificationType.RANKING):
-    return 4
-  elif (en == ClassificationType.CORRELATION):
-    return 5
+def _classification_rank_order(cl: ClassificationType) -> int:
+  if cl in RANKED_CLASSIFICATION_TYPES:
+    return RANKED_CLASSIFICATION_TYPES.index(cl) + 1
   else:
     return 0
 
@@ -310,6 +304,7 @@ def data():
     flask.abort(404)
   original_query = request.args.get('q')
   context_history = request.get_json().get('contextHistory', [])
+  escaped_context_history = escape(context_history)
   logging.info(context_history)
 
   query = str(escape(nl_utils.remove_punctuations(original_query)))
@@ -321,14 +316,14 @@ def data():
           'place_type': '',
       },
       'config': {},
-      'context': context_history
+      'context': escaped_context_history
   }
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
                                    embeddings_build,
                                    _detection("", "", embeddings_build),
-                                   context_history)
+                                   escaped_context_history)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -339,8 +334,6 @@ def data():
   prev_utterance = nl_utterance.load_utterance(context_history)
   logging.info(prev_utterance)
   utterance = nl_data_spec.compute(query_detection, prev_utterance)
-  logging.info(
-      nl_utterance.load_utterance(nl_utterance.save_utterance(utterance)))
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance)
@@ -350,6 +343,8 @@ def data():
   else:
     page_config = {}
     main_place = Place(dcid='', name='', place_type='')
+    logging.info('Found empty place for query "%s"',
+                 query_detection.original_query)
 
   context_history = nl_utterance.save_utterance(utterance)
 
