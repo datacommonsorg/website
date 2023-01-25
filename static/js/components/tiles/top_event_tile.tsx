@@ -165,13 +165,7 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
     }
     prevDataOptions.current = dataOptions;
     loadSpinner(spinnerId);
-    fetchDisasterEventPoints(
-      dataOptions.eventTypeSpecs,
-      dataOptions.place,
-      dataOptions.selectedDate,
-      dataOptions.severityFilters,
-      dataOptions.useCache
-    )
+    fetchDisasterEventPoints(dataOptions)
       .then((disasterEventData) => {
         const sources = new Set<string>();
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {

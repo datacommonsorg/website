@@ -39,6 +39,7 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import {
+  DisasterDataOptions,
   DisasterEventDataApiResponse,
   DisasterEventPoint,
   DisasterEventPointData,
@@ -289,23 +290,13 @@ function getDateRange(selectedDate: string): [string, string] {
 
 /**
  * Get all event points for a place, date range, and list of event specs. Only dates of type YYYY, YYYY-MM, or YYYY-MM-DD are supported.
- * @param eventSpecs list of eventSpecs to get data for
- * @param place containing place to get data for
- * @param date string for the date. This can be YYYY, YYYY-MM, YYYY-MM-DD or one
- *             a custom date range string.
- * @param severityFilters map of event spec id to severity filter to use for
- *                        that event type
- * @param useCache whether to get the data from the cache or not
+ * @param dataOptions the options to use for the data fetch
  */
 export function fetchDisasterEventPoints(
-  eventSpecs: EventTypeSpec[],
-  place: string,
-  date: string,
-  severityFilters: Record<string, SeverityFilter>,
-  useCache?: boolean
+  dataOptions: DisasterDataOptions
 ): Promise<DisasterEventPointData> {
   // Dates to fetch data for.
-  const dateRange = getDateRange(date);
+  const dateRange = getDateRange(dataOptions.selectedDate);
   const dates = [];
   const minYear = dateRange[0].substring(0, 4);
   const maxYear = dateRange[1].substring(0, 4);
@@ -333,19 +324,19 @@ export function fetchDisasterEventPoints(
     }
   }
   const promises = [];
-  for (const eventSpec of eventSpecs) {
+  for (const eventSpec of dataOptions.eventTypeSpecs) {
     for (const eventType of eventSpec.eventTypeDcids) {
       for (const date of dates) {
         promises.push(
           fetchEventPoints(
             eventType,
-            place,
+            dataOptions.place,
             date,
             eventSpec.id,
-            severityFilters[eventSpec.id],
+            dataOptions.severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
             dateRange[1].length > 7 ? dateRange[1] : "",
-            useCache
+            dataOptions.useCache
           )
         );
       }

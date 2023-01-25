@@ -541,13 +541,13 @@ test("fetch data for all disasters with date as YYYY-MM", () => {
       defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
     };
   });
-  return fetchDisasterEventPoints(
-    eventSpecs,
-    TEST_PLACE,
-    YYYY_MM_DATE,
-    DISASTER_EVENT_SEVERITY_FILTERS,
-    true
-  ).then((result) => {
+  return fetchDisasterEventPoints({
+    eventTypeSpecs: eventSpecs,
+    place: TEST_PLACE,
+    selectedDate: YYYY_MM_DATE,
+    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
+    useCache: true,
+  }).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -576,13 +576,13 @@ test("fetch data for all disasters with date as YYYY", () => {
       defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
     };
   });
-  return fetchDisasterEventPoints(
-    eventSpecs,
-    TEST_PLACE,
-    YYYY_DATE,
-    DISASTER_EVENT_SEVERITY_FILTERS,
-    true
-  ).then((result) => {
+  return fetchDisasterEventPoints({
+    eventTypeSpecs: eventSpecs,
+    place: TEST_PLACE,
+    selectedDate: YYYY_DATE,
+    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
+    useCache: true,
+  }).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -612,13 +612,13 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints(
-    [eventSpec],
-    TEST_PLACE,
-    YYYY_MM_DATE,
-    DISASTER_EVENT_SEVERITY_FILTERS,
-    true
-  ).then((result) => {
+  return fetchDisasterEventPoints({
+    eventTypeSpecs: [eventSpec],
+    place: TEST_PLACE,
+    selectedDate: YYYY_MM_DATE,
+    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
+    useCache: true,
+  }).then((result) => {
     const expectedEventPoints = [
       TORNADO_EVENT_1_PROCESSED,
       CYCLONE_EVENT_1_PROCESSED,
@@ -643,13 +643,13 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints(
-    [eventSpec],
-    TEST_PLACE,
-    YYYY_DATE,
-    DISASTER_EVENT_SEVERITY_FILTERS,
-    true
-  ).then((result) => {
+  return fetchDisasterEventPoints({
+    eventTypeSpecs: [eventSpec],
+    place: TEST_PLACE,
+    selectedDate: YYYY_DATE,
+    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
+    useCache: true,
+  }).then((result) => {
     const expectedEventPoints = [
       TORNADO_EVENT_1_PROCESSED,
       TORNADO_EVENT_2_PROCESSED,
@@ -675,13 +675,13 @@ test("fetch data for single event with date as YYYY-MM", () => {
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints(
-    [eventSpec],
-    TEST_PLACE,
-    YYYY_MM_DATE,
-    DISASTER_EVENT_SEVERITY_FILTERS,
-    true
-  ).then((result) => {
+  return fetchDisasterEventPoints({
+    eventTypeSpecs: [eventSpec],
+    place: TEST_PLACE,
+    selectedDate: YYYY_MM_DATE,
+    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
+    useCache: true,
+  }).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,
@@ -705,13 +705,13 @@ test("fetch data for single event with date as YYYY", () => {
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
   };
-  return fetchDisasterEventPoints(
-    [eventSpec],
-    TEST_PLACE,
-    YYYY_DATE,
-    DISASTER_EVENT_SEVERITY_FILTERS,
-    true
-  ).then((result) => {
+  return fetchDisasterEventPoints({
+    eventTypeSpecs: [eventSpec],
+    place: TEST_PLACE,
+    selectedDate: YYYY_DATE,
+    severityFilters: DISASTER_EVENT_SEVERITY_FILTERS,
+    useCache: true,
+  }).then((result) => {
     const expectedEventPoints = [
       EARTHQUAKE_EVENT_1_PROCESSED,
       EARTHQUAKE_EVENT_2_PROCESSED,

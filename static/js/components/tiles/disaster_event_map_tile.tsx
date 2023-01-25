@@ -357,14 +357,7 @@ export function DisasterEventMapTile(
           placeInfo.enclosedPlaceType
         )
       : Promise.resolve(mapChartData.geoJson);
-    const disasterEventDataPromise = fetchDisasterEventPoints(
-      dataOptions.eventTypeSpecs,
-      dataOptions.place,
-      dataOptions.selectedDate,
-      dataOptions.severityFilters,
-      dataOptions.useCache
-    );
-    Promise.all([geoJsonPromise, disasterEventDataPromise])
+    Promise.all([geoJsonPromise, fetchDisasterEventPoints(dataOptions)])
       .then(([geoJson, disasterEventData]) => {
         const sources = new Set<string>();
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
