@@ -20,8 +20,8 @@
 
 import React from "react";
 
-import { ChildPlaces } from "../../components/disaster_dashboard/child_places";
-import { ParentBreadcrumbs } from "../../components/disaster_dashboard/parent_breadcrumbs";
+import { ChildPlaces } from "./child_places";
+import { ParentBreadcrumbs } from "./parent_breadcrumbs";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { NamedTypedPlace } from "../../shared/types";
