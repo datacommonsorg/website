@@ -80,7 +80,8 @@ export function fetchGeoJsonData(
  */
 export function fetchDateList(
   eventTypeDcids: string[],
-  place: string
+  place: string,
+  useCache?: boolean
 ): Promise<string[]> {
   if (_.isEmpty(place)) {
     return Promise.resolve([]);
@@ -93,6 +94,7 @@ export function fetchDateList(
           params: {
             eventType,
             place,
+            useCache: useCache ? "1" : "0",
           },
         }
       )
