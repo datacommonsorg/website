@@ -22,7 +22,6 @@ from typing import Dict, List, Union, Set
 import services.datacommons as dc
 import lib.nl.nl_constants as nl_constants
 
-
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
