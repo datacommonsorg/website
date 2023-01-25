@@ -81,7 +81,8 @@ export function fetchGeoJsonData(
  */
 export function fetchDateList(
   eventTypeDcids: string[],
-  place: string
+  place: string,
+  useCache?: boolean
 ): Promise<string[]> {
   if (_.isEmpty(place)) {
     return Promise.resolve([]);
@@ -94,6 +95,7 @@ export function fetchDateList(
           params: {
             eventType,
             place,
+            useCache: useCache ? "1" : "0",
           },
         }
       )
@@ -123,26 +125,33 @@ export function fetchDateList(
     if (!minDate && !maxDate) {
       return [];
     }
-    const decrementByYear =
+    const increaseByYear =
       new Date(maxDate).getFullYear() - new Date(minDate).getFullYear() >
       MAX_YEARS;
     const dateList = [];
-    const currDate = new Date(maxDate);
-    const endDate = new Date(minDate);
-    const dateStringCut = decrementByYear ? 4 : 7;
-    while (currDate >= endDate) {
-      // currDate is in local time but toISOString will get the iso string of the
-      // date in UTC. So first we need to convert currDate to UTC date without
-      // changing the date.
-      const utcDate = new Date(currDate.toLocaleDateString() + " UTC");
-      dateList.push(utcDate.toISOString().substring(0, dateStringCut));
-      if (decrementByYear) {
-        currDate.setFullYear(currDate.getFullYear() - 1);
+    const dateStringCut = increaseByYear ? 4 : 7;
+    // When creating the Date object, need to specify that this date is in UTC
+    // (by adding "Z") because toISOString() gets the iso string of the date in
+    // UTC.
+    const currDate = new Date(minDate + "Z");
+    const endDate = new Date(maxDate + "Z");
+    // Need to generate the list of dates from min -> max because otherwise,
+    // dates may get skipped or duplicated.
+    while (currDate <= endDate) {
+      const dateString = currDate.toISOString().substring(0, dateStringCut);
+      dateList.push(dateString);
+      if (increaseByYear) {
+        currDate.setFullYear(currDate.getFullYear() + 1);
       } else {
-        currDate.setMonth(currDate.getMonth() - 1);
+        currDate.setMonth(currDate.getMonth() + 1);
       }
     }
-    return dateList;
+    // If end date wasn't added to the dateList, add it now
+    const endDateString = endDate.toISOString().substring(0, dateStringCut);
+    if (!_.isEmpty(dateList) && _.last(dateList) < endDateString) {
+      dateList.push(endDateString);
+    }
+    return dateList.reverse();
   });
 }
 

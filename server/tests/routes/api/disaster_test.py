@@ -22,6 +22,7 @@ from main import app
 TEST_PLACE_DCID = "Earth"
 TEST_EVENT_TYPE = "EarthquakeEvent"
 TEST_DATE = "2020-01"
+TEST_DATE_2 = "2022-12"
 TEST_FILTER_PROP = "filter_prop"
 TEST_FILTER_UNIT = "filter_unit"
 TEST_FILTER_UPPER_LIMIT = "8"
@@ -101,7 +102,12 @@ EVENT_2_JSON = {
     "latitude": 1,
     TEST_FILTER_PROP: f'{TEST_FILTER_UNIT}10'
 }
-TEST_JSON_DATA = {TEST_EVENT_TYPE: {TEST_DATE: [EVENT_1_JSON, EVENT_2_JSON]}}
+TEST_JSON_DATA = {
+    TEST_EVENT_TYPE: {
+        TEST_DATE: [EVENT_1_JSON, EVENT_2_JSON],
+        TEST_DATE_2: [EVENT_1_JSON]
+    }
+}
 EVENT_DATA = {
     "eventCollection": {
         "events": [EVENT_1, EVENT_2],
@@ -119,39 +125,61 @@ EVENT_DATA = {
 class TestGetDateRange(unittest.TestCase):
 
   @mock.patch('routes.api.disaster_api.dc.get_event_collection_date')
-  def test_has_data(self, mock_event_collection_date):
-    with app.app_context():
+  def test_has_dates(self, mock_event_collection_date):
 
-      def date_side_effect(event_type, affected_place):
-        if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID:
-          return {"eventCollectionDate": {"dates": DATE_LIST}}
-        else:
-          return None
+    def date_side_effect(event_type, affected_place):
+      if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID:
+        return {"eventCollectionDate": {"dates": DATE_LIST}}
+      else:
+        return None
 
-      mock_event_collection_date.side_effect = date_side_effect
+    mock_event_collection_date.side_effect = date_side_effect
 
-      response = app.test_client().get(
-          f"/api/disaster-dashboard/event-date-range?eventType={TEST_EVENT_TYPE}&place={TEST_PLACE_DCID}"
-      )
-      assert response.status_code == 200
-      response_data = json.loads(response.data)
-      assert (response_data.get("maxDate") == DATE_LIST[-1])
-      assert (response_data.get("minDate") == DATE_LIST[0])
+    response = app.test_client().get(
+        f"/api/disaster-dashboard/event-date-range?eventType={TEST_EVENT_TYPE}&place={TEST_PLACE_DCID}&useCache=1"
+    )
+    assert response.status_code == 200
+    response_data = json.loads(response.data)
+    assert (response_data.get("maxDate") == DATE_LIST[-1])
+    assert (response_data.get("minDate") == DATE_LIST[0])
 
   @mock.patch('routes.api.disaster_api.dc.get_event_collection_date')
   def test_no_dates(self, mock_event_collection_date):
+
+    def date_side_effect(event_type, affected_place):
+      if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID:
+        return {}
+      else:
+        return None
+
+    mock_event_collection_date.side_effect = date_side_effect
+
+    response = app.test_client().get(
+        f"/api/disaster-dashboard/event-date-range?eventType={TEST_EVENT_TYPE}&place={TEST_PLACE_DCID}&useCache=1"
+    )
+    assert response.status_code == 200
+    response_data = json.loads(response.data)
+    assert (response_data.get("maxDate") == "")
+    assert (response_data.get("minDate") == "")
+
+  def test_has_dates_json(self):
     with app.app_context():
-
-      def date_side_effect(event_type, affected_place):
-        if event_type == TEST_EVENT_TYPE and affected_place == TEST_PLACE_DCID:
-          return {}
-        else:
-          return None
-
-      mock_event_collection_date.side_effect = date_side_effect
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_JSON_DATA
 
       response = app.test_client().get(
-          f"/api/disaster-dashboard/event-date-range?eventType={TEST_EVENT_TYPE}&place={TEST_PLACE_DCID}"
+          f"/api/disaster-dashboard/event-date-range?eventType={TEST_EVENT_TYPE}&place={TEST_PLACE_DCID}&useCache=0"
+      )
+      assert response.status_code == 200
+      response_data = json.loads(response.data)
+      assert (response_data.get("maxDate") == TEST_DATE_2)
+      assert (response_data.get("minDate") == TEST_DATE)
+
+  def test_no_dates_json(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_JSON_DATA
+
+      response = app.test_client().get(
+          f"/api/disaster-dashboard/event-date-range?eventType=event&place={TEST_PLACE_DCID}&useCache=0"
       )
       assert response.status_code == 200
       response_data = json.loads(response.data)
@@ -163,78 +191,72 @@ class TestGetData(unittest.TestCase):
 
   @mock.patch('routes.api.disaster_api.dc.get_event_collection')
   def test_has_data(self, mock_event_collection):
-    with app.app_context():
 
-      def event_side_effect(event_type, affected_place, date, filter_prop,
-                            filter_unit, filter_upper_limit,
-                            filter_lower_limit):
-        if (event_type == TEST_EVENT_TYPE and
-            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
-            filter_prop == "" and filter_unit == "" and
-            filter_upper_limit == float("0") and
-            filter_lower_limit == float("0")):
-          return EVENT_DATA
-        else:
-          return None
+    def event_side_effect(event_type, affected_place, date, filter_prop,
+                          filter_unit, filter_upper_limit, filter_lower_limit):
+      if (event_type == TEST_EVENT_TYPE and
+          affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+          filter_prop == "" and filter_unit == "" and
+          filter_upper_limit == float("0") and
+          filter_lower_limit == float("0")):
+        return EVENT_DATA
+      else:
+        return None
 
-      mock_event_collection.side_effect = event_side_effect
+    mock_event_collection.side_effect = event_side_effect
 
-      response = app.test_client().get(
-          '/api/disaster-dashboard/event-data?eventType={}&date={}&place={}'.
-          format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID))
-      assert response.status_code == 200
-      assert json.loads(response.data) == EVENT_DATA
+    response = app.test_client().get(
+        '/api/disaster-dashboard/event-data?eventType={}&date={}&place={}'.
+        format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID))
+    assert response.status_code == 200
+    assert json.loads(response.data) == EVENT_DATA
 
   @mock.patch('routes.api.disaster_api.dc.get_event_collection')
   def test_no_data(self, mock_event_collection):
-    with app.app_context():
 
-      def event_side_effect(event_type, affected_place, date, filter_prop,
-                            filter_unit, filter_upper_limit,
-                            filter_lower_limit):
-        if (event_type == TEST_EVENT_TYPE and
-            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
-            filter_prop == "" and filter_unit == "" and
-            filter_upper_limit == float("0") and
-            filter_lower_limit == float("0")):
-          return {}
-        else:
-          return None
+    def event_side_effect(event_type, affected_place, date, filter_prop,
+                          filter_unit, filter_upper_limit, filter_lower_limit):
+      if (event_type == TEST_EVENT_TYPE and
+          affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+          filter_prop == "" and filter_unit == "" and
+          filter_upper_limit == float("0") and
+          filter_lower_limit == float("0")):
+        return {}
+      else:
+        return None
 
-      mock_event_collection.side_effect = event_side_effect
+    mock_event_collection.side_effect = event_side_effect
 
-      response = app.test_client().get(
-          '/api/disaster-dashboard/event-data?eventType={}&date={}&place={}'.
-          format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID))
-      assert response.status_code == 200
-      assert json.loads(response.data) == {}
+    response = app.test_client().get(
+        '/api/disaster-dashboard/event-data?eventType={}&date={}&place={}'.
+        format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID))
+    assert response.status_code == 200
+    assert json.loads(response.data) == {}
 
   @mock.patch('routes.api.disaster_api.dc.get_event_collection')
   def test_with_filter(self, mock_event_collection):
-    with app.app_context():
 
-      def event_side_effect(event_type, affected_place, date, filter_prop,
-                            filter_unit, filter_upper_limit,
-                            filter_lower_limit):
-        if (event_type == TEST_EVENT_TYPE and
-            affected_place == TEST_PLACE_DCID and date == TEST_DATE and
-            filter_prop == TEST_FILTER_PROP and
-            filter_unit == TEST_FILTER_UNIT and
-            filter_upper_limit == float(TEST_FILTER_UPPER_LIMIT) and
-            filter_lower_limit == float(TEST_FILTER_LOWER_LIMIT)):
-          return EVENT_DATA
-        else:
-          return None
+    def event_side_effect(event_type, affected_place, date, filter_prop,
+                          filter_unit, filter_upper_limit, filter_lower_limit):
+      if (event_type == TEST_EVENT_TYPE and
+          affected_place == TEST_PLACE_DCID and date == TEST_DATE and
+          filter_prop == TEST_FILTER_PROP and
+          filter_unit == TEST_FILTER_UNIT and
+          filter_upper_limit == float(TEST_FILTER_UPPER_LIMIT) and
+          filter_lower_limit == float(TEST_FILTER_LOWER_LIMIT)):
+        return EVENT_DATA
+      else:
+        return None
 
-      mock_event_collection.side_effect = event_side_effect
+    mock_event_collection.side_effect = event_side_effect
 
-      response = app.test_client().get(
-          '/api/disaster-dashboard/event-data?eventType={}&date={}&place={}&filterProp={}&filterUnit={}&filterUpperLimit={}&filterLowerLimit={}'
-          .format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID, TEST_FILTER_PROP,
-                  TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT,
-                  TEST_FILTER_LOWER_LIMIT))
-      assert response.status_code == 200
-      assert json.loads(response.data) == EVENT_DATA
+    response = app.test_client().get(
+        '/api/disaster-dashboard/event-data?eventType={}&date={}&place={}&filterProp={}&filterUnit={}&filterUpperLimit={}&filterLowerLimit={}'
+        .format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID, TEST_FILTER_PROP,
+                TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT,
+                TEST_FILTER_LOWER_LIMIT))
+    assert response.status_code == 200
+    assert json.loads(response.data) == EVENT_DATA
 
 
 class TestGetDataJson(unittest.TestCase):

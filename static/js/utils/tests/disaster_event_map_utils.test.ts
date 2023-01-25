@@ -364,6 +364,7 @@ function axios_mock(): void {
           params: {
             eventType,
             place: EARTH_NAMED_TYPED_PLACE.dcid,
+            useCache: "0",
           },
         })
         .mockResolvedValue({

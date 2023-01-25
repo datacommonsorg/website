@@ -57,6 +57,7 @@ import {
   getSeverityFilters,
   getUseCache,
   onPointClicked,
+  setUrlHash,
 } from "../../utils/disaster_event_map_utils";
 import {
   getEnclosedPlacesPromise,
@@ -143,6 +144,7 @@ export function DisasterEventMapTile(
 
     function handleHashChange(): void {
       fetchMapChartData(placeInfo, props.eventTypeSpec);
+      updateDateList(props.eventTypeSpec, placeInfo.selectedPlace.dcid);
     }
 
     window.addEventListener("hashchange", handleHashChange);
@@ -318,12 +320,28 @@ export function DisasterEventMapTile(
     const eventTypeDcids = Object.values(eventTypeSpec).flatMap(
       (spec) => spec.eventTypeDcids
     );
-    fetchDateList(eventTypeDcids, selectedPlace)
+    const useCache = getUseCache();
+    if (mapChartData && mapChartData.useCache === useCache) {
+      return;
+    }
+    const currDate = getDate(props.blockId);
+    fetchDateList(eventTypeDcids, selectedPlace, useCache)
       .then((dateList) => {
         setDateList(dateList);
+        // if current date is not in the new date list, set selected date to be
+        // default (1 year).
+        if (dateList.findIndex((date) => date == currDate) < 0) {
+          setUrlHash(
+            URL_HASH_PARAM_KEYS.DATE,
+            DATE_OPTION_1Y_KEY,
+            props.blockId
+          );
+        }
       })
       .catch(() => {
         setDateList([]);
+        // if empty date list, set selected date to be default (1 year).
+        setUrlHash(URL_HASH_PARAM_KEYS.DATE, DATE_OPTION_1Y_KEY, props.blockId);
       });
   }
 
