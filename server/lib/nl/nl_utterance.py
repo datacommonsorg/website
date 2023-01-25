@@ -96,8 +96,7 @@ class Utterance:
 
 #
 # Helper functions for serializing/deserializing Utterance
-# 
-
+#
 
 
 def _place_to_dict(places: List[Place]) -> List[Dict]:
