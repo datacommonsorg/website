@@ -42,10 +42,16 @@ def event_date_range():
   place = request.args.get('place', '')
   if not place:
     return "error: must provide a place field", 400
-  date_list = dc.get_event_collection_date(event_type,
-                                           place).get('eventCollectionDate',
-                                                      {}).get('dates', [])
+  use_cache = request.args.get('useCache', '')
   result = {'minDate': "", 'maxDate': ""}
+  date_list = []
+  if use_cache == '1':
+    date_list = dc.get_event_collection_date(event_type,
+                                             place).get('eventCollectionDate',
+                                                        {}).get('dates', [])
+  else:
+    disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
+    date_list = sorted(list(disaster_data.get(event_type, {}).keys()))
   if len(date_list) > 0:
     result = {'minDate': date_list[0], 'maxDate': date_list[-1]}
   return Response(json.dumps(result), 200, mimetype='application/json')
