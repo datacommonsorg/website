@@ -15,7 +15,7 @@
 # The following classes are used for the NL Detection.
 from abc import ABC
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, IntEnum
 from typing import Dict, List
 
 
@@ -34,7 +34,7 @@ class PlaceDetection:
   query_without_place_substr: str
   places_found: List[str]
   main_place: Place
-  using_default_place: bool
+  using_default_place: bool = False
   using_from_context: bool = False
 
 
@@ -50,7 +50,7 @@ class SVDetection:
   svs_to_sentences: Dict[str, List[str]]
 
 
-class RankingType(Enum):
+class RankingType(IntEnum):
   """RankingType indicates the type of rankning specified."""
   NONE = 0
 
@@ -164,7 +164,7 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
   correlation_trigger_words: str
 
 
-class ClassificationType(Enum):
+class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
   RANKING = 2
@@ -172,6 +172,8 @@ class ClassificationType(Enum):
   CONTAINED_IN = 4
   CORRELATION = 5
   CLUSTERING = 6
+  COMPARE = 7
+  UNKNOWN = 8
 
 
 @dataclass
@@ -189,3 +191,4 @@ class Detection:
   places_detected: PlaceDetection
   svs_detected: SVDetection
   classifications: List[NLClassifier]
+  query_type: ClassificationType = ClassificationType.UNKNOWN
