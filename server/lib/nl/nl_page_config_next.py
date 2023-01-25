@@ -234,6 +234,7 @@ def _map_chart_block(column, pri_place: Place, pri_sv: str, sv2name, attr):
 def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str,
                            ranking_tile_spec: RankingTileSpec):
   ranking_tile_spec.ranking_count = 10
+  # TODO: Add more robust checks.
   if "CriminalActivities" in pri_sv:
     # first check if "best" or "worst"
     if RankingType.BEST in ranking_types:
