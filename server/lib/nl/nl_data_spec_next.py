@@ -266,7 +266,8 @@ def _fallback_contained_in_cb(state: PopulateState, containing_place: Place,
   sv = "Count_Person"
   state.block_id += 1
   chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_contained_in_cb(state, containing_place, chart_origin)
+  return _populate_contained_in_cb(state, chart_vars, containing_place,
+                                   chart_origin)
 
 
 # Callback handlers for RANKING chart

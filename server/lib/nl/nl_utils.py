@@ -23,6 +23,11 @@ import services.datacommons as dc
 import lib.nl.nl_constants as nl_constants
 
 
+_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
+
+_NUM_CHILD_PLACES_FOR_EXISTENCE = 20
+
+
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
   """Adds (in place) every string (in lower case) to a Set of strings."""
   for v_str in list_string:
@@ -129,9 +134,6 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
   return list(existing_svs)
 
 
-_NUM_CHILD_PLACES_FOR_EXISTENCE = 20
-
-
 #
 # Given a place DCID and a child place type, returns a sample list
 # of places of that child type.
@@ -170,9 +172,6 @@ def get_sample_child_places(main_place_dcid: str,
           return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
   logging.info('_sample_child_place returning %s', main_place_dcid)
   return [main_place_dcid]
-
-
-_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 
 def get_sv_name(all_svs: List[str]) -> Dict:
