@@ -39,6 +39,7 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import {
+  DisasterDataOptions,
   DisasterEventDataApiResponse,
   DisasterEventPoint,
   DisasterEventPointData,
@@ -258,22 +259,53 @@ function fetchEventPoints(
 }
 
 /**
+ * Gets special date ranges that are based off the current date.
+ */
+function getCustomDateRanges(): { [dateKey: string]: [string, string] } {
+  const currentDate = new Date();
+  const minus30Days = new Date(new Date().setDate(currentDate.getDate() - 30));
+  const minus6Months = new Date(
+    new Date().setMonth(currentDate.getMonth() - 6)
+  );
+  const minus1Year = new Date(
+    new Date().setFullYear(currentDate.getFullYear() - 1)
+  );
+  return {
+    [DATE_OPTION_30D_KEY]: [
+      minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+    [DATE_OPTION_6M_KEY]: [
+      minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+    [DATE_OPTION_1Y_KEY]: [
+      minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+  };
+}
+
+/**
+ * Gets the date range to use for fetching disaster event data when given a
+ * selectedDate string.
+ */
+function getDateRange(selectedDate: string): [string, string] {
+  const customDateRanges = getCustomDateRanges();
+  return selectedDate in customDateRanges
+    ? customDateRanges[selectedDate]
+    : [selectedDate, selectedDate];
+}
+
+/**
  * Get all event points for a place, date range, and list of event specs. Only dates of type YYYY, YYYY-MM, or YYYY-MM-DD are supported.
- * @param eventSpecs list of eventSpecs to get data for
- * @param place containing place to get data for
- * @param dateRange list of [minDate, maxDate] where minDate and maxDate are the
- *                  same length and of the format YYYY, YYYY-MM, or YYYY-MM-DD
- * @param severityFilters map of event spec id to severity filter to use for
- *                        that event type
+ * @param dataOptions the options to use for the data fetch
  */
 export function fetchDisasterEventPoints(
-  eventSpecs: EventTypeSpec[],
-  place: string,
-  dateRange: [string, string],
-  severityFilters: Record<string, SeverityFilter>,
-  useCache?: boolean
+  dataOptions: DisasterDataOptions
 ): Promise<DisasterEventPointData> {
   // Dates to fetch data for.
+  const dateRange = getDateRange(dataOptions.selectedDate);
   const dates = [];
   const minYear = dateRange[0].substring(0, 4);
   const maxYear = dateRange[1].substring(0, 4);
@@ -301,19 +333,19 @@ export function fetchDisasterEventPoints(
     }
   }
   const promises = [];
-  for (const eventSpec of eventSpecs) {
+  for (const eventSpec of dataOptions.eventTypeSpecs) {
     for (const eventType of eventSpec.eventTypeDcids) {
       for (const date of dates) {
         promises.push(
           fetchEventPoints(
             eventType,
-            place,
+            dataOptions.place,
             date,
             eventSpec.id,
-            severityFilters[eventSpec.id],
+            dataOptions.severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
             dateRange[1].length > 7 ? dateRange[1] : "",
-            useCache
+            dataOptions.useCache
           )
         );
       }
@@ -541,32 +573,4 @@ export function getMapPointsData(
     }
   });
   return mapPointsData;
-}
-
-/**
- * Gets special date ranges that are based off the current date.
- */
-export function getDateRanges(): { [dateKey: string]: [string, string] } {
-  const currentDate = new Date();
-  const minus30Days = new Date(new Date().setDate(currentDate.getDate() - 30));
-  const minus6Months = new Date(
-    new Date().setMonth(currentDate.getMonth() - 6)
-  );
-  const minus1Year = new Date(
-    new Date().setFullYear(currentDate.getFullYear() - 1)
-  );
-  return {
-    [DATE_OPTION_30D_KEY]: [
-      minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-    ],
-    [DATE_OPTION_6M_KEY]: [
-      minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-    ],
-    [DATE_OPTION_1Y_KEY]: [
-      minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-    ],
-  };
 }
