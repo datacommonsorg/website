@@ -45,11 +45,6 @@ export function App(): JSX.Element {
   }, [queries]);
 
   function addContext(context: any, idx: number) {
-    if (isNLInterfaceNext()) {
-      // The context list is handled entirely by the server.
-      setContextList(context);
-      return;
-    }
     // Always assume we are appending context for the latest query.
     if (idx !== queries.length - 1) {
       console.error(
@@ -64,9 +59,13 @@ export function App(): JSX.Element {
     setContextList(newList);
   }
 
-  function getContextHistory(i: number) {
+  function getContextHistory(i: number): any {
     if (isNLInterfaceNext()) {
-      return contextList;
+      if (i == 0) {
+        return [];
+      } else {
+        return contextList[i - 1];
+      }
     } else {
       return contextList.slice(0, i);
     }

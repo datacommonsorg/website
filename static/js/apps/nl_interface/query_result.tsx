@@ -69,7 +69,7 @@ export const QueryResult = memo(function QueryResult(
     console.log("context:", props.query, props.contextHistory);
     const is_nl_next = isNLInterfaceNext();
 
-    // The API endpoint is different NL Next version.
+    // The API endpoint is different for NL Next version.
     const dataApi = is_nl_next ? "nlnext/data" : "nl/data";
 
     axios
@@ -105,9 +105,9 @@ export const QueryResult = memo(function QueryResult(
           }
           setChartsData({
             place: {
-              types: [main_place["place_type"]],
-              name: main_place["name"],
               dcid: main_place["dcid"],
+              name: main_place["name"],
+              types: [main_place["place_type"]],
             },
             config: resp.data["config"],
           });

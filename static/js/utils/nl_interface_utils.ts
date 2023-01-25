@@ -17,7 +17,7 @@
 /**
  * Utils used for the nl interface
  */
-export function isNlInterface() {
+export function isNlInterface(): boolean {
   // Returns true if currently on the NL page.
   const path = window.location.pathname;
   return (
@@ -31,7 +31,7 @@ export function isNlInterface() {
 /**
  * Identifies whether the URL represents the NL Next implementation.
  */
-export function isNLInterfaceNext() {
+export function isNLInterfaceNext(): boolean {
   const path = window.location.pathname;
   return path === "/nlnext" || path === "/nlnext/";
 }
