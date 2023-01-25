@@ -25,7 +25,7 @@ from lib.nl import nl_variable, nl_topic
 from lib.nl.nl_utils import is_sv, is_topic, \
   sv_existence_for_places, get_sample_child_places
 from lib.nl.nl_utterance import Utterance, ChartOriginType, ChartSpec, \
-  ChartType, CNTXT_LOOKBACK_LIMIT
+  ChartType, CTX_LOOKBACK_LIMIT
 
 # We will ignore SV detections that are below this threshold
 _SV_THRESHOLD = 0.5
@@ -430,7 +430,7 @@ def _svs_from_context(uttr: Utterance) -> List[str]:
   ans = []
   prev_uttr_count = 0
   prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CNTXT_LOOKBACK_LIMIT):
+  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
     ans.append(prev.svs)
     prev = prev.prev_utterance
     prev_uttr_count = prev_uttr_count + 1
@@ -441,7 +441,7 @@ def _places_from_context(uttr: Utterance) -> List[Place]:
   ans = []
   prev_uttr_count = 0
   prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CNTXT_LOOKBACK_LIMIT):
+  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
     for place in prev.places:
       ans.append(place)
     prev = prev.prev_utterance
@@ -453,7 +453,7 @@ def _query_type_from_context(uttr: Utterance) -> List[ClassificationType]:
   # this needs to be made a lot smarter ...
   prev_uttr_count = 0
   prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CNTXT_LOOKBACK_LIMIT):
+  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
     if (not (prev.query_type == ClassificationType.UNKNOWN)):
       return prev.query_type
     prev = prev.prev_utterance
@@ -470,7 +470,7 @@ def _classifications_of_type_from_context(
       result.append(cl)
   prev_uttr_count = 0
   prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CNTXT_LOOKBACK_LIMIT):
+  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
     for cl in prev.classifications:
       if (cl.type == ctype):
         result.append(cl)
