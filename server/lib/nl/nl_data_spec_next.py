@@ -401,7 +401,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
     return False
 
   logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
-  logging.info('Correslation Context SVs: %s', ', '.join(context_svs))
+  logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
 
   # Pick a single context SV for the results
   # TODO: Maybe consider more.

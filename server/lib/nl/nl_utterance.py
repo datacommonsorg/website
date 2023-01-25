@@ -70,8 +70,6 @@ class ChartSpec:
 #       and load from dict.
 @dataclass
 class Utterance:
-  # Linked list of past utterances
-  prev_utterance: Utterance
   # Unmodified user-issued query
   query: str
   # Result of classification
@@ -92,6 +90,8 @@ class Utterance:
   # (e.g., top earthquake prone CA counties)
   # TODO: Fill this up
   answerPlaces: List[str]
+  # Linked list of past utterances
+  prev_utterance: Utterance
 
 
 #

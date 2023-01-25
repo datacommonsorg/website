@@ -113,6 +113,7 @@ def is_sv(sv):
 
 #
 # Returns a list of existing SVs (as a union across places).
+# The order of the returned SVs matches the input order.
 #
 def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
   if not svs:
@@ -123,14 +124,18 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
     logging.error("Existence checks for SVs failed.")
     return []
 
-  existing_svs = set()
+  existing_svs = []
   for sv in svs:
-    for _, exist in sv_existence['variable'][sv]['entity'].items():
-      if not exist:
+    exists = False
+    for _, exist_bit in sv_existence['variable'][sv]['entity'].items():
+      if not exist_bit:
         continue
-      existing_svs.add(sv)
+      exists = True
+      break
+    if exists:
+      existing_svs.append(sv)
 
-  return list(existing_svs)
+  return existing_svs
 
 
 #
