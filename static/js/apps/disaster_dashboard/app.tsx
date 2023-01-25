@@ -20,12 +20,12 @@
 
 import React from "react";
 
-import { ChildPlaces } from "./child_places";
-import { ParentBreadcrumbs } from "./parent_breadcrumbs";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { ChildPlaces } from "./child_places";
+import { ParentBreadcrumbs } from "./parent_breadcrumbs";
 
 interface AppPropType {
   /**

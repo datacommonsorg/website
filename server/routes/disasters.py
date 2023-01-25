@@ -30,6 +30,7 @@ DEFAULT_PLACE_TYPE = "Planet"
 # Define blueprint
 bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 
+
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
