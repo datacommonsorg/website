@@ -32,6 +32,7 @@ import {
   DATE_OPTION_1Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
+  URL_HASH_PARAM_KEYS,
 } from "../../constants/disaster_event_map_constants";
 import {
   EARTH_NAMED_TYPED_PLACE,
@@ -321,7 +322,7 @@ export function DisasterEventMapTile(
       (spec) => spec.eventTypeDcids
     );
     const useCache = getUseCache();
-    if (mapChartData && mapChartData.useCache === useCache) {
+    if (mapChartData && mapChartData.dataOptions.useCache === useCache) {
       return;
     }
     const currDate = getDate(props.blockId);
