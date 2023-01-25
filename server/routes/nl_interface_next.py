@@ -22,8 +22,6 @@ from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson, ParseDict
 from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes, RANKED_CLASSIFICATION_TYPES
 from typing import Dict, List
-import pandas as pd
-import re
 import requests
 
 import services.datacommons as dc
@@ -362,7 +360,7 @@ def data():
     status_str = ""
   else:
     if not utterance.places:
-      status_str += f'**No Place Found**. '
+      status_str += '**No Place Found**.'
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
