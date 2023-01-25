@@ -141,7 +141,7 @@ export function Page(props: PagePropType): JSX.Element {
     fetchDisasterEventPoints(
       eventSpecs,
       selectedPlaceInfo.selectedPlace.dcid,
-      [selectedDate, selectedDate],
+      selectedDate,
       DISASTER_EVENT_INTENSITIES
     )
       .then((data) => {
