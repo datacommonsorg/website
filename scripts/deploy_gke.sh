@@ -56,6 +56,7 @@ cd $ROOT/deploy/overlays/$ENV
 
 # Deploy to GKE
 kustomize edit set image gcr.io/datcom-ci/datacommons-website=gcr.io/datcom-ci/datacommons-website:$WEBSITE_HASH
+kustomize edit set image gcr.io/datcom-ci/datacommons-nl=gcr.io/datcom-ci/datacommons-nl:$WEBSITE_HASH
 kustomize edit set image gcr.io/datcom-ci/datacommons-mixer=gcr.io/datcom-ci/datacommons-mixer:$MIXER_HASH
 kustomize build > kustomize-build.yaml
 cp kustomization.yaml kustomize-deployed.yaml

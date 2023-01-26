@@ -13,8 +13,7 @@
 # limitations under the License.
 
 steps:
-  # Push website image to container registry
-  - id: push-image
+  - id: push-web-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
     args:
@@ -28,12 +27,20 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
 
+  - id: push-nl-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
         docker build -f build/nl_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-nl:latest \
           .
         docker push gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-nl:latest
+    waitFor: ["-"]
 
   - id: update version
     name: "gcr.io/cloud-builders/git"
