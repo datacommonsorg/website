@@ -21,11 +21,14 @@ steps:
       - -c
       - |
         set -e
-        DOCKER_BUILDKIT=1 docker build -f build/Dockerfile --tag ${_IMAGE}:${_TAG} .
-        docker push ${_IMAGE}:${_TAG}
+        DOCKER_BUILDKIT=1 docker build -f build/web_server/Dockerfile --tag ${_WEB_IMAGE}:${_TAG} .
+        docker push ${_WEB_IMAGE}:${_TAG}
+        DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag ${_NL_IMAGE}:${_TAG} .
+        docker push ${_NL_IMAGE}:${_TAG}
 
 substitutions:
-  _IMAGE: gcr.io/datcom-ci/datacommons-website
+  _WEB_IMAGE: gcr.io/datcom-ci/datacommons-website
+  _NL_IMAGE: gcr.io/datcom-ci/datacommons-nl
 
 timeout: 3600s
 options:

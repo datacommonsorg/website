@@ -21,12 +21,19 @@ steps:
       - -c
       - |
         set -e
-        docker build -f build/Dockerfile \
+        docker build -f build/web_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-website:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-website:latest \
           .
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
+
+        docker build -f build/nl_server/Dockerfile \
+          -t gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA \
+          -t gcr.io/datcom-ci/datacommons-nl:latest \
+          .
+        docker push gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA
+        docker push gcr.io/datcom-ci/datacommons-nl:latest
 
   - id: update version
     name: "gcr.io/cloud-builders/git"
