@@ -184,6 +184,8 @@ function mouseOutAction(domContainerId: string, placeDcid: string): void {
     .select(`#${getPlacePathId(placeDcid)}`)
     .classed(HOVER_HIGHLIGHTED_CLASS_NAME, false)
     .classed(HOVER_HIGHLIGHTED_NO_CLICK_CLASS_NAME, false);
+  // bring original highlighted region back to the top
+  container.select("." + HIGHLIGHTED_CLASS_NAME).raise();
   container.select(`#${TOOLTIP_ID}`).style("display", "none");
 }
 

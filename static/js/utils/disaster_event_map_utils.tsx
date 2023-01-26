@@ -41,6 +41,7 @@ import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import {
   DisasterDataOptions,
   DisasterEventDataApiResponse,
+  DisasterEventMapPlaceInfo,
   DisasterEventPoint,
   DisasterEventPointData,
   MapPointsData,
@@ -61,14 +62,34 @@ const DATE_SUBSTRING_IDX = 10;
  * @param placeType the place type to get geojson data for
  */
 export function fetchGeoJsonData(
-  selectedPlace: string,
-  placeType: string
+  placeInfo: DisasterEventMapPlaceInfo
 ): Promise<GeoJsonData> {
+  let enclosingPlace = placeInfo.selectedPlace.dcid;
+  let enclosedPlaceType = placeInfo.enclosedPlaceType;
+  if (!enclosedPlaceType) {
+    if (
+      _.isEmpty(placeInfo.parentPlaces) ||
+      _.isEmpty(placeInfo.selectedPlace.types)
+    ) {
+      return Promise.resolve({
+        type: "FeatureCollection",
+        features: [],
+        properties: {
+          current_geo: enclosingPlace,
+        },
+      });
+    }
+    // set enclosing place to be the parent place and the enclosed place type to
+    // be the place type of the selected place.
+    enclosingPlace = placeInfo.parentPlaces[0].dcid;
+    enclosedPlaceType = placeInfo.selectedPlace.types[0];
+  }
+
   return axios
     .get<GeoJsonData>("/api/choropleth/geojson", {
       params: {
-        placeDcid: selectedPlace,
-        placeType: placeType,
+        placeDcid: enclosingPlace,
+        placeType: enclosedPlaceType,
       },
     })
     .then((resp) => resp.data as GeoJsonData);
