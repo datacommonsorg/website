@@ -16,6 +16,7 @@
 
 import { MapPoint } from "../chart/types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { EventTypeSpec, SeverityFilter } from "./subject_page_proto_types";
 
 /**
  * Types used for disaster event maps
@@ -81,4 +82,13 @@ export interface DisasterEventPointData {
 export interface MapPointsData {
   points: DisasterEventPoint[];
   values: { [placeDcid: string]: number };
+}
+
+// List of options used when getting disaster event data.
+export interface DisasterDataOptions {
+  eventTypeSpecs: EventTypeSpec[];
+  selectedDate: string;
+  severityFilters: Record<string, SeverityFilter>;
+  useCache: boolean;
+  place: string;
 }

@@ -43,24 +43,22 @@ import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
+  DisasterDataOptions,
   DisasterEventMapPlaceInfo,
   DisasterEventPoint,
   MapPointsData,
 } from "../../types/disaster_event_map_types";
-import {
-  EventTypeSpec,
-  SeverityFilter,
-} from "../../types/subject_page_proto_types";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
   fetchDateList,
   fetchDisasterEventPoints,
   fetchGeoJsonData,
   getDate,
-  getDateRanges,
   getMapPointsData,
   getSeverityFilters,
   getUseCache,
   onPointClicked,
+  setUrlHash,
 } from "../../utils/disaster_event_map_utils";
 import {
   getEnclosedPlacesPromise,
@@ -102,12 +100,8 @@ interface MapChartData {
   // key is disaster type and value is the map points data for that disaster
   // type
   mapPointsData: Record<string, MapPointsData>;
-  // date used for this map chart data
-  selectedDate: string;
-  // severity filters used for this map chart data
-  severityFilters: Record<string, SeverityFilter>;
-  // whether this map chart data was from the cache
-  useCache: boolean;
+  // options used when fetching the map chart data
+  dataOptions: DisasterDataOptions;
 }
 
 export function DisasterEventMapTile(
@@ -116,7 +110,6 @@ export function DisasterEventMapTile(
   const svgContainerRef = useRef(null);
   const infoCardRef = useRef(null);
   const europeanPlaces = useRef([]);
-  const dateRanges = useRef(getDateRanges());
   const [dateList, setDateList] = useState([]);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
@@ -152,6 +145,7 @@ export function DisasterEventMapTile(
 
     function handleHashChange(): void {
       fetchMapChartData(placeInfo, props.eventTypeSpec);
+      updateDateList(props.eventTypeSpec, placeInfo.selectedPlace.dcid);
     }
 
     window.addEventListener("hashchange", handleHashChange);
@@ -327,12 +321,28 @@ export function DisasterEventMapTile(
     const eventTypeDcids = Object.values(eventTypeSpec).flatMap(
       (spec) => spec.eventTypeDcids
     );
-    fetchDateList(eventTypeDcids, selectedPlace)
+    const useCache = getUseCache();
+    if (mapChartData && mapChartData.dataOptions.useCache === useCache) {
+      return;
+    }
+    const currDate = getDate(props.blockId);
+    fetchDateList(eventTypeDcids, selectedPlace, useCache)
       .then((dateList) => {
         setDateList(dateList);
+        // if current date is not in the new date list, set selected date to be
+        // default (1 year).
+        if (dateList.findIndex((date) => date == currDate) < 0) {
+          setUrlHash(
+            URL_HASH_PARAM_KEYS.DATE,
+            DATE_OPTION_1Y_KEY,
+            props.blockId
+          );
+        }
       })
       .catch(() => {
         setDateList([]);
+        // if empty date list, set selected date to be default (1 year).
+        setUrlHash(URL_HASH_PARAM_KEYS.DATE, DATE_OPTION_1Y_KEY, props.blockId);
       });
   }
 
@@ -343,42 +353,27 @@ export function DisasterEventMapTile(
     placeInfo: DisasterEventMapPlaceInfo,
     eventTypeSpec: Record<string, EventTypeSpec>
   ): void {
-    // Only re-fetch geojson data if place selection has changed
-    const selectedDate = getDate(props.blockId);
-    const severityFilters = getSeverityFilters(eventTypeSpec, props.blockId);
-    const useCache = getUseCache();
+    const dataOptions = {
+      eventTypeSpecs: Object.values(eventTypeSpec),
+      selectedDate: getDate(props.blockId),
+      severityFilters: getSeverityFilters(eventTypeSpec, props.blockId),
+      useCache: getUseCache(),
+      place: placeInfo.selectedPlace.dcid,
+    };
     const shouldFetchGeoJson =
       !mapChartData ||
       _.isEmpty(mapChartData.geoJson) ||
-      mapChartData.geoJson.properties.current_geo !==
-        placeInfo.selectedPlace.dcid;
+      mapChartData.geoJson.properties.current_geo !== dataOptions.place;
     const shouldFetchDisasterPoints =
-      !mapChartData ||
-      selectedDate !== mapChartData.selectedDate ||
-      useCache !== mapChartData.useCache ||
-      !_.isEqual(severityFilters, mapChartData.severityFilters);
+      !mapChartData || !_.isEqual(mapChartData.dataOptions, dataOptions);
     if (!shouldFetchGeoJson && !shouldFetchDisasterPoints) {
       return;
     }
     loadSpinner(spinnerId);
     const geoJsonPromise = shouldFetchGeoJson
-      ? fetchGeoJsonData(
-          placeInfo.selectedPlace.dcid,
-          placeInfo.enclosedPlaceType
-        )
+      ? fetchGeoJsonData(placeInfo)
       : Promise.resolve(mapChartData.geoJson);
-    const dateRange: [string, string] =
-      selectedDate in dateRanges.current
-        ? dateRanges.current[selectedDate]
-        : [selectedDate, selectedDate];
-    const disasterEventDataPromise = fetchDisasterEventPoints(
-      Object.values(eventTypeSpec),
-      placeInfo.selectedPlace.dcid,
-      dateRange,
-      severityFilters,
-      useCache
-    );
-    Promise.all([geoJsonPromise, disasterEventDataPromise])
+    Promise.all([geoJsonPromise, fetchDisasterEventPoints(dataOptions)])
       .then(([geoJson, disasterEventData]) => {
         const sources = new Set<string>();
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
@@ -392,9 +387,7 @@ export function DisasterEventMapTile(
           geoJson,
           sources,
           mapPointsData,
-          selectedDate,
-          useCache,
-          severityFilters,
+          dataOptions,
         });
       })
       .catch(() => {
@@ -444,7 +437,7 @@ export function DisasterEventMapTile(
       true /* shouldShowBoundaryLines */,
       projection,
       placeInfo.selectedPlace.dcid,
-      "" /* zoomDcid: no dcid to zoom in on */,
+      placeInfo.selectedPlace.dcid /* zoomDcid */,
       zoomParams
     );
     for (const mapPointsData of Object.values(mapChartData.mapPointsData)) {
