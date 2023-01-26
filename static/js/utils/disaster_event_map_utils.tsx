@@ -544,7 +544,8 @@ export function getSeverityFilters(
 }
 
 /**
- * Gets whether or not to use cache for data fetch.
+ * If true, gets data from EventCollectionCache. Otherwise, gets data from
+ * saved JSON files.
  */
 export function getUseCache(): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
