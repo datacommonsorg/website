@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { GoogleMap } from "../components/google_map";
 import { StatVarHierarchyType } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { ImageSection } from "./image_section";
@@ -113,6 +114,7 @@ export class BrowserPage extends React.Component<
             </h2>
           </>
         )}
+        <GoogleMap dcid={this.props.dcid}></GoogleMap>
         <div id="node-content">
           <div className="table-page-section">
             <h3>{outArcHeader}</h3>

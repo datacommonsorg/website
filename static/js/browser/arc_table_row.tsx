@@ -22,7 +22,7 @@
 import _ from "lodash";
 import React from "react";
 
-import { getLocationFromDcid, Map } from "./map";
+import { GoogleMap } from "../components/google_map";
 import { ArcValue } from "./types";
 
 const HREF_PREFIX = "/browser/";
@@ -63,7 +63,7 @@ export class ArcTableRow extends React.Component<
               <span className="dcid-text"> (dcid: {value.dcid})</span>
             )}
             {value.dcid.startsWith("latLong/") && (
-              <Map location={getLocationFromDcid(value.dcid)}></Map>
+              <GoogleMap dcid={value.dcid}></GoogleMap>
             )}
           </>
         ) : (
