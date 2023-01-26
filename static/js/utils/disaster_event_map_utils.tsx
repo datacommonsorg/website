@@ -523,12 +523,12 @@ export function getSeverityFilters(
 }
 
 /**
- * Gets whether or not to use cache from url params.
+ * Gets whether or not to use cache for data fetch.
  */
 export function getUseCache(): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  const useCacheVal = urlParams.get(URL_HASH_PARAM_KEYS.USE_CACHE) || "";
-  return useCacheVal === "1";
+  const useJsonVal = urlParams.get(URL_HASH_PARAM_KEYS.USE_JSON) || "";
+  return useJsonVal !== "1";
 }
 
 /**
