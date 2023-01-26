@@ -21,7 +21,7 @@ app = create_app()
 
 
 @app.route('/healthz')
-def translator_handler():
+def healthz():
   return ""
 
 
