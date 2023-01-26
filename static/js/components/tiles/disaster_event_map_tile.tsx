@@ -371,10 +371,7 @@ export function DisasterEventMapTile(
     }
     loadSpinner(spinnerId);
     const geoJsonPromise = shouldFetchGeoJson
-      ? fetchGeoJsonData(
-          placeInfo.selectedPlace.dcid,
-          placeInfo.enclosedPlaceType
-        )
+      ? fetchGeoJsonData(placeInfo)
       : Promise.resolve(mapChartData.geoJson);
     Promise.all([geoJsonPromise, fetchDisasterEventPoints(dataOptions)])
       .then(([geoJson, disasterEventData]) => {
@@ -440,7 +437,7 @@ export function DisasterEventMapTile(
       true /* shouldShowBoundaryLines */,
       projection,
       placeInfo.selectedPlace.dcid,
-      "" /* zoomDcid: no dcid to zoom in on */,
+      placeInfo.selectedPlace.dcid /* zoomDcid */,
       zoomParams
     );
     for (const mapPointsData of Object.values(mapChartData.mapPointsData)) {
