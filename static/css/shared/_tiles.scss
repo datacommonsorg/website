@@ -265,6 +265,11 @@ $border-radius: 0.5rem;
     fill: #fff !important;
     stroke: #666;
   }
+
+  path.highlighted {
+    fill: #fff;
+    stroke-width: 2px;
+  }
   
   path.region-highlighted {
     stroke: var(--dark);

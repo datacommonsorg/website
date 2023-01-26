@@ -103,7 +103,6 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
             <table>
               <tbody>
                 {topEvents.map((event, i) => {
-                  console.log(event);
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
