@@ -74,9 +74,9 @@ def post_wrapper(url, req_str: str):
   # Send the request and verify the request succeeded
   response = requests.post(url, json=req, headers=headers)
   if response.status_code != 200:
-    raise ValueError('An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
-        response.status_code, response.reason,
-        response.content))
+    raise ValueError(
+        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
+            response.status_code, response.reason, response.content))
   return response.json()
 
 

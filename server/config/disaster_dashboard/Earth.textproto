@@ -137,7 +137,7 @@ metadata {
       default_severity_filter: {
         prop: "differenceTemperature",
         unit: "Celsius"
-        upper_limit: 25,
+        upper_limit: 35,
         lower_limit: 18
       }
     }
@@ -152,7 +152,7 @@ metadata {
       default_severity_filter: {
         prop: "differenceTemperature",
         upper_limit: -18,
-        lower_limit: -25
+        lower_limit: -35
       }
     }
   }
@@ -428,6 +428,7 @@ categories {
 
 categories {
   title: "Extreme Heat"
+  description: "Heat events are defined by differences in maximum temperatures compared to historical monthly averages."
   blocks {
     columns {
       tiles {
@@ -450,7 +451,7 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe heat differences in the last year"
+        title: "Most severe heat events in the last year"
         top_event_tile_spec {
           event_type_key: "heat"
         }
@@ -476,6 +477,7 @@ categories {
 
 categories {
   title: "Extreme Cold"
+  description: "Cold events are defined by differences in maximum temperatures compared to historical monthly averages."
   blocks {
     columns {
       tiles {
@@ -498,7 +500,7 @@ categories {
     columns {
       tiles {
         type: TOP_EVENT
-        title: "Most severe cold differences in the last year"
+        title: "Most severe cold events in the last year"
         top_event_tile_spec {
           event_type_key: "cold"
         }
