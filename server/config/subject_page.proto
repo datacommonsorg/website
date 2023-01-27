@@ -103,20 +103,33 @@ message TopEventTileSpec {
 
 message Tile {
   // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
-  // with any required fields for your new TileType.
+  // with any required fields for your new TileType. Also, specify what block types can render
+  // the tiles.
   enum TileType {
     TYPE_NONE = 0;
+    // allowed in BlockTypes: TYPE_NONE
     LINE = 1;
+    // allowed in BlockTypes: TYPE_NONE
     BAR = 2;
+    // allowed in BlockTypes: TYPE_NONE
     MAP = 3;
+    // allowed in BlockTypes: TYPE_NONE
     SCATTER = 4;
+    // allowed in BlockTypes: TYPE_NONE
     BIVARIATE = 5;
+    // allowed in BlockTypes: TYPE_NONE
     RANKING = 6;
+    // allowed in BlockTypes: TYPE_NONE
     HIGHLIGHT = 7;
+    // allowed in BlockTypes: TYPE_NONE
     DESCRIPTION = 8;
+    // allowed in BlockTypes: DISASTER_EVENT
     DISASTER_EVENT_MAP = 9;
+    // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
+    // allowed in BlockTypes: TYPE_NONE
     PLACE_OVERVIEW = 11;
+    // allowed in BlockTypes: DISASTER_EVENT
     TOP_EVENT = 12;
   }
   // Must be specified for all visual tiles
@@ -145,6 +158,15 @@ message Block {
     repeated Tile tiles = 1;
   }
   repeated Column columns = 3;
+
+  // When adding a new BlockType, make sure to update BLOCK_TYPE_ALLOWED_TILES
+  // in subject_page_config_content_test.py with allowed TileTypes for the new
+  // BlockType.
+  enum BlockType {
+    TYPE_NONE = 0;
+    DISASTER_EVENT = 1;
+  }
+  BlockType type = 4;
 }
 
 message Category {
