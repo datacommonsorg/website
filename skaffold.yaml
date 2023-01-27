@@ -28,7 +28,7 @@ build:
     - image: datacommons/website
       context: .
       docker:
-        dockerfile: build/Dockerfile
+        dockerfile: build/web_server/Dockerfile
         buildArgs:
           ENV: local
       sync:
@@ -40,7 +40,7 @@ build:
     - image: datacommons/mixer
       context: mixer
       docker:
-        dockerfile: build/Dockerfile
+        dockerfile: build/web_server/Dockerfile
         target: server
     - image: datacommons/api-compiler
       context: mixer
