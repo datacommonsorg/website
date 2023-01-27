@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import logging
 
 from flask import Blueprint, current_app, escape, request
 from typing import Any, Dict
@@ -39,3 +40,21 @@ def search_sv():
   query = str(escape(request.args.get('q')))
   nl_embeddings = current_app.config['NL_EMBEDDINGS']
   return json.dumps(nl_embeddings.detect_svs(query))
+
+
+@bp.route('/api/search_places/', methods=['GET'])
+def search_places():
+  """Returns a dictionary with the following keys and values
+  
+  {
+    'places': List[str]
+  }
+  """
+  query = str(escape(request.args.get('q')))
+  nl_ner_places = current_app.config['NL_NER_PLACES']
+  try:
+    res = nl_ner_places.detect_place_ner(query)
+    return json.dumps({'places': res})
+  except Exception as e:
+    logging.info(f'NER place detection failed with error: {e}')
+    return json.dumps({'places': []})

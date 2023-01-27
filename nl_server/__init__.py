@@ -19,8 +19,9 @@ import os
 import routes
 
 nl_embeddings_cache_key = 'nl_embeddings'
-nl_embeddings_cache_path = '~/.datacommons/'
-nl_embeddings_cache_expire = 3600 * 24  # Cache for 1 day
+nl_ner_cache_key = 'nl_ner'
+nl_cache_path = '~/.datacommons/'
+nl_cache_expire = 3600 * 24  # Cache for 1 day
 
 
 def create_app():
@@ -32,23 +33,34 @@ def create_app():
     # the model again.
     if os.environ.get('FLASK_ENV') == 'local':
       from diskcache import Cache
-      cache = Cache(nl_embeddings_cache_path)
+      cache = Cache(nl_cache_path)
       cache.expire()
       nl_embeddings = cache.get(nl_embeddings_cache_key)
       app.config['NL_EMBEDDINGS'] = nl_embeddings
-      if nl_embeddings:
-        logging.info("Use cached model in: " + cache.directory)
+      nl_ner_places = cache.get(nl_ner_cache_key)
+      app.config['NL_NER_PLACES'] = nl_ner_places
+
+      if nl_embeddings and nl_ner_places:
+        logging.info("Use cached model for embeddings and NER in: " +
+                     cache.directory)
         return
 
-    # Some specific imports for the NL Interface.
+    # Some specific imports for the NL models server.
     from lib.nl_embeddings import Embeddings
+    from lib.nl_ner_place_model import NERPlaces
+
     nl_embeddings = Embeddings()
     app.config['NL_EMBEDDINGS'] = nl_embeddings
+
+    nl_ner_places = NERPlaces()
+    app.config["NL_NER_PLACES"] = nl_ner_places
+
     if os.environ.get('FLASK_ENV') == 'local':
       with Cache(cache.directory) as reference:
         reference.set(nl_embeddings_cache_key,
                       nl_embeddings,
-                      expire=nl_embeddings_cache_expire)
+                      expire=nl_cache_expire)
+        reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)
 
   # Initialize the NL module.
   load_model()

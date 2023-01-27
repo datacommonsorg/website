@@ -32,8 +32,12 @@ MODEL_NAME = 'all-MiniLM-L6-v2'
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self) -> None:
-    self.model: SentenceTransformer = SentenceTransformer(MODEL_NAME)
+  def __init__(self,
+               sentence_transformer_model: SentenceTransformer = None) -> None:
+    self.model = sentence_transformer_model
+    if self.model is None:
+      self.model = SentenceTransformer(MODEL_NAME)
+
     self.dataset_embeddings: torch.Tensor = None
     self._download_embeddings()
     self.dcids: List[str] = []
