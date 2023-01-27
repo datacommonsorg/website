@@ -71,7 +71,7 @@ metadata {
     value {
       id: "storm"
       name: "Storm"
-      color: "#f01212"
+      color: "#2e7d32"
       event_type_dcids: "CycloneEvent"
       default_severity_filter: {
         prop: "maxWindSpeed",
@@ -88,7 +88,7 @@ metadata {
       id: "tornado"
       name: "Tornado"
       event_type_dcids: "TornadoEvent"
-      color: "#f01212"
+      color: "#004d40"
       default_severity_filter: {
         prop: "maxClassification",
         unit: "TornadoIntensityEF",
@@ -127,6 +127,35 @@ metadata {
       }
     }
   }
+  event_type_spec {
+    key: "heat"
+    value {
+      id: "heat"
+      name: "Extreme Heat"
+      event_type_dcids: "HeatTemperatureEvent"
+      color: "#f01212"
+      default_severity_filter: {
+        prop: "differenceTemperature",
+        unit: "Celsius"
+        upper_limit: 25,
+        lower_limit: 18
+      }
+    }
+  }
+  event_type_spec {
+    key: "cold"
+    value {
+      id: "cold"
+      name: "Extreme Cold"
+      event_type_dcids: "ColdTemperatureEvent"
+      color: "#304ffe"
+      default_severity_filter: {
+        prop: "differenceTemperature",
+        upper_limit: -18,
+        lower_limit: -25
+      }
+    }
+  }
 }
 
 categories {
@@ -143,6 +172,8 @@ categories {
           # event_type_keys: "tornado"
           event_type_keys: "storm"
           event_type_keys: "wetbulb"
+          event_type_keys: "heat"
+          event_type_keys: "cold"
         }
       }
     }
@@ -391,6 +422,102 @@ categories {
     value {
       stat_var: "Area_WetBulbTemperatureEvent"
       name: "Area affected by wet bulb temperature events"
+    }
+  }
+}
+
+categories {
+  title: "Extreme Heat"
+  blocks {
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "heat"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Number of extreme heat events last year"
+      #   stat_var_key: "heat_count"
+      # }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by extreme heat events last year"
+      #   stat_var_key: "heat_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe heat differences in the last year"
+        top_event_tile_spec {
+          event_type_key: "heat"
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "heat_count"
+    value {
+      stat_var: "Count_HeatTemperatureEvent"
+      name: "Count of extreme heat events"
+    }
+  }
+  stat_var_spec {
+    key: "heat_area"
+    value {
+      stat_var: "Area_HeatTemperatureEvent"
+      name: "Area affected by extreme heat events"
+    }
+  }
+}
+
+categories {
+  title: "Extreme Cold"
+  blocks {
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "cold"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Number of extreme cold events last year"
+      #   stat_var_key: "cold_count"
+      # }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by extreme cold events last year"
+      #   stat_var_key: "cold_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe cold differences in the last year"
+        top_event_tile_spec {
+          event_type_key: "cold"
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "cold_count"
+    value {
+      stat_var: "Count_ColdTemperatureEvent"
+      name: "Count of extreme cold events"
+    }
+  }
+  stat_var_spec {
+    key: "cold_area"
+    value {
+      stat_var: "Area_ColdTemperatureEvent"
+      name: "Area affected by extreme cold events"
     }
   }
 }

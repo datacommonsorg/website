@@ -246,6 +246,8 @@ function fetchEventPoints(
             // Get value by taking the first severity val, trimming the unit
             // from the string, and converting it into a number.
             const unit = severityFilter.unit || "";
+            console.assert(severityVals[0].length > unit.length,
+              "severity values do not contain unit, please check filter config, %o", reqParams);
             const val = Number(severityVals[0].substring(unit.length));
             if (!isNaN(val)) {
               severity[severityFilter.prop] = val;
