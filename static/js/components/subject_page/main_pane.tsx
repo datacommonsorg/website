@@ -23,7 +23,6 @@ import React, { memo } from "react";
 
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
 import { NamedTypedPlace } from "../../shared/types";
-import { randDomId } from "../../shared/util";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";

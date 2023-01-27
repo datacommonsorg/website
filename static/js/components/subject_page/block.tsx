@@ -15,16 +15,12 @@
  */
 
 /**
- * Component for rendering a block.
+ * Component for rendering a default block (block with no type).
  */
 
 import React from "react";
 
-import {
-  NL_LARGE_TILE_CLASS,
-  NL_MED_TILE_CLASS,
-  NL_SMALL_TILE_CLASS,
-} from "../../constants/app/nl_interface_constants";
+import { HIDE_TILE_CLASS } from "../../constants/subject_page_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import {
@@ -33,9 +29,13 @@ import {
   TileConfig,
 } from "../../types/subject_page_proto_types";
 import { isNlInterface } from "../../utils/nl_interface_utils";
+import {
+  getColumnTileClassName,
+  getColumnWidth,
+  getMinTileIdxToHide,
+} from "../../utils/subject_page_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
-import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { HistogramTile } from "../tiles/histogram_tile";
 import { LineTile } from "../tiles/line_tile";
@@ -43,7 +43,8 @@ import { MapTile } from "../tiles/map_tile";
 import { PlaceOverviewTile } from "../tiles/place_overview_tile";
 import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
-import { TopEventTile } from "../tiles/top_event_tile";
+import { BlockContainer } from "./block_container";
+import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
 
 // Either provide (place, enclosedPlaceType) or provide (places)
@@ -60,76 +61,39 @@ export interface BlockPropType {
   svgChartHeight: number;
 }
 
-const NUM_TILES_SHOWN = 6; // for NL: show 2 rows (3 tiles per row).
-const HIDE_TILE_CLASS = "tile-hidden";
-
 export function Block(props: BlockPropType): JSX.Element {
-  const columnWidth = props.columns
-    ? `${(100 / props.columns.length).toFixed(2)}%`
-    : "0";
-  // HACK for NL. Assumes all charts are in a single column.
-  const isNl = isNlInterface();
-  const showExpando = isNlInterface();
-  const minIdxToHide = showExpando ? NUM_TILES_SHOWN : Number.MAX_SAFE_INTEGER;
+  const minIdxToHide = getMinTileIdxToHide();
+  const columnWidth = getColumnWidth(props.columns);
   return (
-    <section
-      className={`block subtopic ${props.title ? "" : "notitle"}`}
+    <BlockContainer
       id={props.id}
+      title={props.title}
+      description={props.description}
     >
-      {props.title && <h3>{props.title}</h3>}
-      {props.description && <p className="block-desc">{props.description}</p>}
       <div className="block-body row">
         {props.columns &&
           props.columns.map((column, idx) => {
-            const parentId = `${props.id}-col-${idx}`;
-            let tileClassName = "";
-            // HACK for NL tile layout. Regularly, tile size should depend on
-            // number of columns in config.
-            if (isNlInterface()) {
-              if (column.tiles.length > 2) {
-                tileClassName = NL_SMALL_TILE_CLASS;
-              } else {
-                tileClassName =
-                  column.tiles.length === 1
-                    ? NL_LARGE_TILE_CLASS
-                    : NL_MED_TILE_CLASS;
-              }
-            }
+            const id = `${props.id}col${idx}`;
+            const columnTileClassName = getColumnTileClassName(column);
             return (
-              <div
-                key={parentId}
-                id={parentId}
-                className="block-column"
-                style={{ width: columnWidth }}
-              >
-                {renderTiles(column.tiles, props, minIdxToHide, tileClassName)}
-                {showExpando && column.tiles.length > NUM_TILES_SHOWN && (
-                  <a className="expando" onClick={expandoCallback}>
-                    Show more
-                  </a>
+              <Column
+                key={id}
+                id={id}
+                config={column}
+                width={columnWidth}
+                tiles={renderTiles(
+                  column.tiles,
+                  props,
+                  minIdxToHide,
+                  columnTileClassName
                 )}
-              </div>
+              />
             );
           })}
       </div>
-    </section>
+    </BlockContainer>
   );
 }
-
-const expandoCallback = function (e) {
-  // Callback to remove HIDE_TILE_CLASS from all sibling elements. Assumes
-  // target link is the child of the container with elements to toggle.
-  const selfEl = e.target as HTMLAnchorElement;
-  const parentEl = selfEl.parentElement;
-  const tiles = parentEl.getElementsByClassName(
-    HIDE_TILE_CLASS
-  ) as HTMLCollectionOf<HTMLElement>;
-  for (let i = 0; i < tiles.length; i++) {
-    tiles[i].classList.remove(HIDE_TILE_CLASS);
-  }
-  selfEl.hidden = true;
-  e.preventDefault();
-};
 
 function renderTiles(
   tiles: TileConfig[],
@@ -247,40 +211,6 @@ function renderTiles(
             {tile.description}
           </p>
         );
-      case "DISASTER_EVENT_MAP": {
-        const eventTypeSpec = {};
-        tile.disasterEventMapTileSpec.eventTypeKeys.forEach(
-          (eventKey) =>
-            (eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey])
-        );
-        return (
-          <DisasterEventMapTile
-            key={id}
-            id={id}
-            title={tile.title}
-            place={props.place}
-            enclosedPlaceType={enclosedPlaceType}
-            eventTypeSpec={eventTypeSpec}
-            blockId={props.id}
-          />
-        );
-      }
-      case "TOP_EVENT": {
-        const eventTypeSpec =
-          props.eventTypeSpec[tile.topEventTileSpec.eventTypeKey];
-        return (
-          <TopEventTile
-            key={id}
-            id={id}
-            title={tile.title}
-            place={props.place}
-            topEventMetadata={tile.topEventTileSpec}
-            className={className}
-            eventTypeSpec={eventTypeSpec}
-            blockId={props.id}
-          />
-        );
-      }
       case "HISTOGRAM":
         return (
           <HistogramTile
