@@ -14,42 +14,10 @@
 
 from flask import Flask
 
-import json
-import logging
-from google.cloud import pubsub_v1
-from google.cloud import storage
-
 import routes
-
-model_bucket = 'datcom-nl-models'
-autopush_folder = 'autopush/'
-topic_name = 'projects/datcom-204919/topics/nl-models-update'
-subscription_name = 'projects/datcom-204919/subscriptions/nl-models-update-sub'
-
-
-def callback(message):
-  data = json.loads(message.data)
-  if data['bucket'] != model_bucket:
-    return
-  if data['name'].startswith(autopush_folder):
-    parts = data['name'].split('/')
-    object_id = parts[1]
-    if object_id:
-      storage_client = storage.Client()
-      bucket = storage_client.bucket(model_bucket)
-      blob = bucket.get_blob(data['name'])
-      if blob and blob.content_type == 'text/csv':
-        logging.info('TODO: load the embedding')
-  message.ack()
 
 
 def create_app():
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
-  with pubsub_v1.SubscriberClient() as subscriber:
-    future = subscriber.subscribe(subscription_name, callback)
-    try:
-      future.result()
-    except Exception as e:
-      logging.error('subscriber error %s', e)
   return app
