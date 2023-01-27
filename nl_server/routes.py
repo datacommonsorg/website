@@ -44,11 +44,11 @@ def search_sv():
   except Exception as e:
     logging.info(f'Embeddings-based SV detection failed with error: {e}')
     return json.dumps({
-      'SV': [], 
-      'CosineScore': [],
-      'EmbeddingIndex': [],
-      'SV_to_Sentences': {}}
-    )
+        'SV': [],
+        'CosineScore': [],
+        'EmbeddingIndex': [],
+        'SV_to_Sentences': {}
+    })
 
 
 @bp.route('/api/search_places/', methods=['GET'])
