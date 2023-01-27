@@ -1,5 +1,4 @@
-#!/bin/bash
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,16 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Build Docker image and push to Cloud Container Registry
+from flask import Flask
 
-set -e
+import routes
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-ROOT="$(dirname "$DIR")"
 
-cd $ROOT
-gcloud builds submit . \
-  --async \
-  --project=datcom-ci \
-  --config=build/ci/cloudbuild.push_image.yaml \
-  --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
+def create_app():
+  app = Flask(__name__)
+  app.register_blueprint(routes.bp)
+  return app

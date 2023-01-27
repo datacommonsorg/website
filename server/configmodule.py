@@ -14,6 +14,7 @@ class Config:
   VERSION = '{}-{}'.format(os.environ.get('WEBSITE_HASH'),
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
+  NL_ROOT = 'http://127.0.0.1:6060'  # Port for Kubernetes ESP.
   AI_CONFIG_PATH = '/datacommons/ai/ai.yaml'
   SECRET_PROJECT = os.environ.get('SECRET_PROJECT') or ''
   MAPS_API_KEY = os.environ.get('MAPS_API_KEY') or ''
