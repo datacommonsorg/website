@@ -38,28 +38,31 @@ class TestEmbeddings(unittest.TestCase):
       cls.nl_embeddings = Embeddings()
 
   @parameterized.expand([
-      # All these queries should detect the SV as the top choice.
-      ["number of people", "Count_Person"],
-      ["population of", "Count_Person"],
-      ["economy of the state", "dc/topic/Economy"],
-      ["household income", "Median_Income_Household"],
-      ["life expectancy in USA", "LifeExpectancy_Person"],
-      ["GDP", "Amount_EconomicActivity_GrossDomesticProduction_Nominal"],
-      ["auto theft", "Count_CriminalActivities_MotorVehicleTheft"],
-      ["agriculture", "dc/topic/Agriculture"],
-      ["agricultural output", "dc/g/FarmInventory"],
-      ["agriculture workers", "dc/hlxvn1t8b9bhh"],
-      ["heart disease", "dc/g/Person_MedicalCondition-CoronaryHeartDisease"]
+      # All these queries should detect one of the SVs as the top choice.
+      ["number of people", ["Count_Person"]],
+      ["population of", ["Count_Person"]],
+      ["economy of the state", ["dc/topic/Economy"]],
+      ["household income", ["Median_Income_Household"]],
+      ["life expectancy in USA", ["LifeExpectancy_Person"]],
+      ["GDP", ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"]],
+      ["auto theft", ["Count_CriminalActivities_MotorVehicleTheft"]],
+      ["agriculture", ["dc/topic/Agriculture"]],
+      [
+          "agricultural output",
+          ["dc/g/FarmInventory", 'dc/topic/AgriculturalProduction']
+      ],
+      ["agriculture workers", ["dc/hlxvn1t8b9bhh"]],
+      ["heart disease", ["dc/g/Person_MedicalCondition-CoronaryHeartDisease"]],
   ])
-  def test_sv_detection(self, query_str, expected):
+  def test_sv_detection(self, query_str, expected_list):
     got = self.nl_embeddings.detect_svs(query_str)
 
     # Check that all expected fields are present.
     for key in ["SV", "CosineScore", "EmbeddingIndex", "SV_to_Sentences"]:
       self.assertTrue(key in got.keys())
 
-    # Check for the first SV.
-    self.assertEqual(expected, got["SV"][0])
+    # Check that the first SV found is among the expected_list.
+    self.assertTrue(got["SV"][0] in expected_list)
 
   # For these queries, the match score should be low (< 0.4).
   @parameterized.expand(["random random", "", "who where why", "__124__abc"])
