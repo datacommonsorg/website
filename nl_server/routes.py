@@ -14,7 +14,8 @@
 
 import json
 
-from flask import Blueprint
+from flask import Blueprint, current_app, escape, request
+from typing import Any, Dict
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
@@ -22,3 +23,19 @@ bp = Blueprint('main', __name__, url_prefix='/')
 @bp.route('/')
 def helloworld():
   return json.dumps({"data": "hello data commons"})
+
+
+@bp.route('/api/search_sv/', methods=['GET'])
+def search_sv():
+  """Returns a dictionary with the following keys and values
+  
+  {
+    'SV': List[str]
+    'CosineScore': List[float],
+    'EmbeddingIndex': List[int],
+    'SV_to_Sentences': Dict[str, str]
+  }
+  """
+  query = str(escape(request.args.get('q')))
+  nl_embeddings = current_app.config['NL_EMBEDDINGS']
+  return json.dumps(nl_embeddings.detect_svs(query))
