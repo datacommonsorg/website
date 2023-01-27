@@ -84,9 +84,7 @@ function renderBlocks(
               title={block.title}
               description={block.description}
               columns={block.columns}
-              statVarProvider={svProvider}
               eventTypeSpec={props.eventTypeSpec}
-              svgChartHeight={props.svgChartHeight}
             />
           </ErrorBoundary>
         );
@@ -101,7 +99,6 @@ function renderBlocks(
               description={block.description}
               columns={block.columns}
               statVarProvider={svProvider}
-              eventTypeSpec={props.eventTypeSpec}
               svgChartHeight={props.svgChartHeight}
             />
           </ErrorBoundary>

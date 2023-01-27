@@ -56,7 +56,6 @@ export interface BlockPropType {
   description: string;
   columns: ColumnConfig[];
   statVarProvider: StatVarProvider;
-  eventTypeSpec: Record<string, EventTypeSpec>;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
 }

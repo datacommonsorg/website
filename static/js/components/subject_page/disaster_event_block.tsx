@@ -60,10 +60,7 @@ interface DisasterEventBlockPropType {
   title?: string;
   description: string;
   columns: ColumnConfig[];
-  statVarProvider: StatVarProvider;
   eventTypeSpec: Record<string, EventTypeSpec>;
-  // Height, in px, for the tile SVG charts.
-  svgChartHeight: number;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;
