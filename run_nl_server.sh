@@ -24,7 +24,7 @@ export FLASK_ENV=local
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 python3 -m pip install --upgrade pip
-pip3 install -r nl_server/requirements.txt
+pip3 install -r nl_server/requirements.txt -q
 cd nl_server/
 python3 main.py $PORT
 cd ..
