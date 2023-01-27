@@ -20,6 +20,7 @@ import logging
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
+DEFAULT_LAST_MONTH = 12  # December ends the year
 
 def compact_series(series_resp, all_facets):
   result = {
@@ -104,10 +105,11 @@ def get_binned_series(entities, variables, year):
       data_found = False
 
       # Get the latest month we have data for
-      latest_date = series[-1].get('date', '')
-      latest_month = 12
-      if latest_date[:4] == year and len(latest_date) >= 7:
-        latest_month = int(latest_date[5:7])
+      latest_month = DEFAULT_LAST_MONTH
+      if series:
+        latest_date = series[-1].get('date', '')
+        if latest_date[:len("YYYY")] == year and len(latest_date) >= len("YYYY-MM"):
+          latest_month = int(latest_date[len("YYYY-"):len("YYYY-MM")])
 
       # initialize bins
       months_to_fill = [
@@ -123,7 +125,7 @@ def get_binned_series(entities, variables, year):
       # aggregate data into bins
       for obs in series:
         date_prefix = obs.get('date',
-                              '')[:7]  # YYYY-MM prefix of the observation
+                              '')[:len("YYYY-MM")]  # YYYY-MM prefix of the observation
         if date_prefix in months_to_fill:
           filtered_obs[date_prefix]['value'] += obs['value']
           data_found = True
