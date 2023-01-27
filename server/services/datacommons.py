@@ -327,6 +327,13 @@ def get_event_collection_date(event_type, affected_place):
   })
 
 
+def nl_helloworld():
+  """fetch nl hello world data.
+  """
+  url = cfg.NL_ROOT
+  return get(url)
+
+
 # =======================   V0 V0 V0 ================================
 def search(query_text, max_results):
   url = get_service_url('/search')
