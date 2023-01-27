@@ -15,6 +15,7 @@
 
 from diskcache import Cache
 from lib.nl_ner_place_model import NERPlaces
+from nl_server import nl_cache_path, nl_ner_cache_key
 from parameterized import parameterized
 
 import unittest
@@ -26,8 +27,6 @@ class TestNERPlaces(unittest.TestCase):
   def setUpClass(cls) -> None:
 
     # Look for the Embeddings model in the cache if it exists.
-    nl_ner_cache_key = 'nl_ner'
-    nl_cache_path = '~/.datacommons/'
     cache = Cache(nl_cache_path)
     cache.expire()
     cls.nl_ner_model = cache.get(nl_ner_cache_key)

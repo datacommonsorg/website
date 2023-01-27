@@ -15,6 +15,7 @@
 
 from diskcache import Cache
 from lib.nl_embeddings import Embeddings
+from nl_server import nl_cache_path, nl_embeddings_cache_key
 from parameterized import parameterized
 
 import unittest
@@ -26,8 +27,6 @@ class TestEmbeddings(unittest.TestCase):
   def setUpClass(cls) -> None:
 
     # Look for the Embeddings model in the cache if it exists.
-    nl_embeddings_cache_key = 'nl_embeddings'
-    nl_cache_path = '~/.datacommons/'
     cache = Cache(nl_cache_path)
     cache.expire()
     cls.nl_embeddings = cache.get(nl_embeddings_cache_key)
