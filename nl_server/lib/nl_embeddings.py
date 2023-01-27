@@ -64,11 +64,11 @@ class Embeddings:
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
     try:
-        blob = bucket.get_blob(FOLDER + EMBEDDINGS_FILENAME)
-        # Download
-        blob.download_to_filename(os.path.join(TEMP_DIR, EMBEDDINGS_FILENAME))
+      blob = bucket.get_blob(FOLDER + EMBEDDINGS_FILENAME)
+      # Download
+      blob.download_to_filename(os.path.join(TEMP_DIR, EMBEDDINGS_FILENAME))
     except Exception as e:
-        logging.info(e)
+      logging.info(e)
 
   def detect_svs(self, query: str) -> Dict[str, Union[Dict, List]]:
     query_embeddings = self.model.encode([query])
