@@ -24,6 +24,9 @@ import React from "react";
 
 const DEFAULT_MAP_ZOOM = 4;
 
+// number of digits after decimal point in LatLong/<lat>_<long> dcids
+const LAT_LONG_PRECISION = 5;
+
 interface GoogleMapPropType {
   /**
    * DCID of the place/event to show a map for.
@@ -66,9 +69,14 @@ interface MapInfoResponse {
  */
 function convertLatLongDcid(dcid: string): GoogleMapCoordinates {
   if (dcid.startsWith("latLong/") && dcid.includes("_")) {
-    const coordinateStrings = dcid.slice(8).split("_");
+    const coordinateStrings = dcid.slice("latLong/".length).split("_");
     const coords = coordinateStrings.map((coordString) =>
-      parseFloat(coordString.slice(0, -5) + "." + coordString.slice(-5))
+      // Add decimal point to parsed latitude and longitude numbers
+      parseFloat(
+        coordString.slice(0, -LAT_LONG_PRECISION) +
+          "." +
+          coordString.slice(-LAT_LONG_PRECISION)
+      )
     );
     return { lat: coords[0], lng: coords[1] };
   }
@@ -79,7 +87,10 @@ function convertLatLongDcid(dcid: string): GoogleMapCoordinates {
  * Initialize a google map widget.
  * @param container the element to render the map in
  */
-function initMap(container: Element): google.maps.Map {
+function initMap(container: HTMLDivElement): google.maps.Map {
+  // set height for map to be visible
+  container.style.height = "100%";
+  container.style.minHeight = "160px";
   const mapOptions = {
     mapTypeControl: false,
     draggable: true,
@@ -174,12 +185,10 @@ export class GoogleMap extends React.Component<
 
   componentDidUpdate(): void {
     // Initialize map
-    this.div.current.style.height = "100%";
-    this.div.current.style.minHeight = "160px";
     const map = initMap(this.div.current);
 
     // plot KML Coordinates
-    if (this.state.mapInfo.up) {
+    if (Object.values(this.state.mapInfo).every((val) => val !== null)) {
       drawKmlCoordinates(this.state, map);
     }
     // plot marker
