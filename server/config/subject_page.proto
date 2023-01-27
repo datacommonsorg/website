@@ -123,14 +123,14 @@ message Tile {
     HIGHLIGHT = 7;
     // allowed in BlockTypes: TYPE_NONE
     DESCRIPTION = 8;
-    // allowed in BlockTypes: DISASTER_EVENT
-    DISASTER_EVENT_MAP = 9;
     // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
     // allowed in BlockTypes: TYPE_NONE
     PLACE_OVERVIEW = 11;
     // allowed in BlockTypes: DISASTER_EVENT
     TOP_EVENT = 12;
+    // allowed in BlockTypes: DISASTER_EVENT
+    DISASTER_EVENT_MAP = 9;
   }
   // Must be specified for all visual tiles
   string title = 1;
