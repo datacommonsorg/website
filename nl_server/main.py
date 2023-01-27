@@ -1,5 +1,4 @@
-#!/bin/bash
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""Main entry module for NL app."""
 
-# Build Docker image and push to Cloud Container Registry
+import logging
 
-set -e
+from __init__ import create_app
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-ROOT="$(dirname "$DIR")"
+app = create_app()
 
-cd $ROOT
-gcloud builds submit . \
-  --async \
-  --project=datcom-ci \
-  --config=build/ci/cloudbuild.push_image.yaml \
-  --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
+
+@app.route('/healthz')
+def healthz():
+  return ""
+
+
+if __name__ == '__main__':
+  # This is used when running locally only. When deploying to GKE,
+  # a webserver process such as Gunicorn will serve the app.
+  logging.info("Run nl server in local mode")
+  app.run(host='127.0.0.1', port=6060, debug=True)

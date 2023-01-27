@@ -39,7 +39,9 @@ import {
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
 import {
+  DisasterDataOptions,
   DisasterEventDataApiResponse,
+  DisasterEventMapPlaceInfo,
   DisasterEventPoint,
   DisasterEventPointData,
   MapPointsData,
@@ -60,14 +62,34 @@ const DATE_SUBSTRING_IDX = 10;
  * @param placeType the place type to get geojson data for
  */
 export function fetchGeoJsonData(
-  selectedPlace: string,
-  placeType: string
+  placeInfo: DisasterEventMapPlaceInfo
 ): Promise<GeoJsonData> {
+  let enclosingPlace = placeInfo.selectedPlace.dcid;
+  let enclosedPlaceType = placeInfo.enclosedPlaceType;
+  if (!enclosedPlaceType) {
+    if (
+      _.isEmpty(placeInfo.parentPlaces) ||
+      _.isEmpty(placeInfo.selectedPlace.types)
+    ) {
+      return Promise.resolve({
+        type: "FeatureCollection",
+        features: [],
+        properties: {
+          current_geo: enclosingPlace,
+        },
+      });
+    }
+    // set enclosing place to be the parent place and the enclosed place type to
+    // be the place type of the selected place.
+    enclosingPlace = placeInfo.parentPlaces[0].dcid;
+    enclosedPlaceType = placeInfo.selectedPlace.types[0];
+  }
+
   return axios
     .get<GeoJsonData>("/api/choropleth/geojson", {
       params: {
-        placeDcid: selectedPlace,
-        placeType: placeType,
+        placeDcid: enclosingPlace,
+        placeType: enclosedPlaceType,
       },
     })
     .then((resp) => resp.data as GeoJsonData);
@@ -80,7 +102,8 @@ export function fetchGeoJsonData(
  */
 export function fetchDateList(
   eventTypeDcids: string[],
-  place: string
+  place: string,
+  useCache?: boolean
 ): Promise<string[]> {
   if (_.isEmpty(place)) {
     return Promise.resolve([]);
@@ -93,6 +116,7 @@ export function fetchDateList(
           params: {
             eventType,
             place,
+            useCache: useCache ? "1" : "0",
           },
         }
       )
@@ -122,26 +146,33 @@ export function fetchDateList(
     if (!minDate && !maxDate) {
       return [];
     }
-    const decrementByYear =
+    const increaseByYear =
       new Date(maxDate).getFullYear() - new Date(minDate).getFullYear() >
       MAX_YEARS;
     const dateList = [];
-    const currDate = new Date(maxDate);
-    const endDate = new Date(minDate);
-    const dateStringCut = decrementByYear ? 4 : 7;
-    while (currDate >= endDate) {
-      // currDate is in local time but toISOString will get the iso string of the
-      // date in UTC. So first we need to convert currDate to UTC date without
-      // changing the date.
-      const utcDate = new Date(currDate.toLocaleDateString() + " UTC");
-      dateList.push(utcDate.toISOString().substring(0, dateStringCut));
-      if (decrementByYear) {
-        currDate.setFullYear(currDate.getFullYear() - 1);
+    const dateStringCut = increaseByYear ? 4 : 7;
+    // When creating the Date object, need to specify that this date is in UTC
+    // (by adding "Z") because toISOString() gets the iso string of the date in
+    // UTC.
+    const currDate = new Date(minDate + "Z");
+    const endDate = new Date(maxDate + "Z");
+    // Need to generate the list of dates from min -> max because otherwise,
+    // dates may get skipped or duplicated.
+    while (currDate <= endDate) {
+      const dateString = currDate.toISOString().substring(0, dateStringCut);
+      dateList.push(dateString);
+      if (increaseByYear) {
+        currDate.setFullYear(currDate.getFullYear() + 1);
       } else {
-        currDate.setMonth(currDate.getMonth() - 1);
+        currDate.setMonth(currDate.getMonth() + 1);
       }
     }
-    return dateList;
+    // If end date wasn't added to the dateList, add it now
+    const endDateString = endDate.toISOString().substring(0, dateStringCut);
+    if (!_.isEmpty(dateList) && _.last(dateList) < endDateString) {
+      dateList.push(endDateString);
+    }
+    return dateList.reverse();
   });
 }
 
@@ -192,11 +223,13 @@ function fetchEventPoints(
       if (_.isEmpty(eventCollection) || _.isEmpty(eventCollection.events)) {
         return result;
       }
+      const seenEvents = new Set();
       result.provenanceInfo = eventCollection.provenanceInfo;
       eventCollection.events.forEach((eventData) => {
         if (
           _.isEmpty(eventData.geoLocations) ||
-          _.isEmpty(eventData.geoLocations[0].point)
+          _.isEmpty(eventData.geoLocations[0].point) ||
+          seenEvents.has(eventData.dcid)
         ) {
           return;
         }
@@ -240,28 +273,60 @@ function fetchEventPoints(
           endDate,
           provenanceId: eventData.provenanceId,
         });
+        seenEvents.add(eventData.dcid);
       });
       return result;
     });
 }
 
 /**
+ * Gets special date ranges that are based off the current date.
+ */
+function getCustomDateRanges(): { [dateKey: string]: [string, string] } {
+  const currentDate = new Date();
+  const minus30Days = new Date(new Date().setDate(currentDate.getDate() - 30));
+  const minus6Months = new Date(
+    new Date().setMonth(currentDate.getMonth() - 6)
+  );
+  const minus1Year = new Date(
+    new Date().setFullYear(currentDate.getFullYear() - 1)
+  );
+  return {
+    [DATE_OPTION_30D_KEY]: [
+      minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+    [DATE_OPTION_6M_KEY]: [
+      minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+    [DATE_OPTION_1Y_KEY]: [
+      minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+  };
+}
+
+/**
+ * Gets the date range to use for fetching disaster event data when given a
+ * selectedDate string.
+ */
+function getDateRange(selectedDate: string): [string, string] {
+  const customDateRanges = getCustomDateRanges();
+  return selectedDate in customDateRanges
+    ? customDateRanges[selectedDate]
+    : [selectedDate, selectedDate];
+}
+
+/**
  * Get all event points for a place, date range, and list of event specs. Only dates of type YYYY, YYYY-MM, or YYYY-MM-DD are supported.
- * @param eventSpecs list of eventSpecs to get data for
- * @param place containing place to get data for
- * @param dateRange list of [minDate, maxDate] where minDate and maxDate are the
- *                  same length and of the format YYYY, YYYY-MM, or YYYY-MM-DD
- * @param severityFilters map of event spec id to severity filter to use for
- *                        that event type
+ * @param dataOptions the options to use for the data fetch
  */
 export function fetchDisasterEventPoints(
-  eventSpecs: EventTypeSpec[],
-  place: string,
-  dateRange: [string, string],
-  severityFilters: Record<string, SeverityFilter>,
-  useCache?: boolean
+  dataOptions: DisasterDataOptions
 ): Promise<DisasterEventPointData> {
   // Dates to fetch data for.
+  const dateRange = getDateRange(dataOptions.selectedDate);
   const dates = [];
   const minYear = dateRange[0].substring(0, 4);
   const maxYear = dateRange[1].substring(0, 4);
@@ -289,19 +354,19 @@ export function fetchDisasterEventPoints(
     }
   }
   const promises = [];
-  for (const eventSpec of eventSpecs) {
+  for (const eventSpec of dataOptions.eventTypeSpecs) {
     for (const eventType of eventSpec.eventTypeDcids) {
       for (const date of dates) {
         promises.push(
           fetchEventPoints(
             eventType,
-            place,
+            dataOptions.place,
             date,
             eventSpec.id,
-            severityFilters[eventSpec.id],
+            dataOptions.severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
             dateRange[1].length > 7 ? dateRange[1] : "",
-            useCache
+            dataOptions.useCache
           )
         );
       }
@@ -479,12 +544,12 @@ export function getSeverityFilters(
 }
 
 /**
- * Gets whether or not to use cache from url params.
+ * If true, use EventCollectionCache for data fetch. Otherwise, use saved JSON files.
  */
 export function getUseCache(): boolean {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
-  const useCacheVal = urlParams.get(URL_HASH_PARAM_KEYS.USE_CACHE) || "";
-  return useCacheVal === "1";
+  const useJsonVal = urlParams.get(URL_HASH_PARAM_KEYS.USE_JSON) || "";
+  return useJsonVal !== "1";
 }
 
 /**
@@ -529,32 +594,4 @@ export function getMapPointsData(
     }
   });
   return mapPointsData;
-}
-
-/**
- * Gets special date ranges that are based off the current date.
- */
-export function getDateRanges(): { [dateKey: string]: [string, string] } {
-  const currentDate = new Date();
-  const minus30Days = new Date(new Date().setDate(currentDate.getDate() - 30));
-  const minus6Months = new Date(
-    new Date().setMonth(currentDate.getMonth() - 6)
-  );
-  const minus1Year = new Date(
-    new Date().setFullYear(currentDate.getFullYear() - 1)
-  );
-  return {
-    [DATE_OPTION_30D_KEY]: [
-      minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-    ],
-    [DATE_OPTION_6M_KEY]: [
-      minus6Months.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-    ],
-    [DATE_OPTION_1Y_KEY]: [
-      minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
-      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
-    ],
-  };
 }

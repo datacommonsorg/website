@@ -31,14 +31,6 @@ DEFAULT_PLACE_TYPE = "Planet"
 bp = Blueprint("disasters", __name__, url_prefix='/disasters')
 
 
-@bp.route('/v0')
-def disaster_dashboard_v0():
-  european_countries = json.dumps(
-      dc.get_places_in(["europe"], "Country").get("europe", []))
-  return flask.render_template('custom_dc/stanford/disaster_dashboard_v0.html',
-                               european_countries=european_countries)
-
-
 @bp.route('/')
 @bp.route('/<path:place_dcid>', strict_slashes=False)
 def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):

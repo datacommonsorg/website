@@ -102,9 +102,14 @@ def get_topics(sv_dcids: List[str]):
   """Returns a list of SV's to use for the topic if the topic is ranked highly during detection."""
   topic_svs = []
   for i, sv in enumerate(sv_dcids):
-    if i < _MIN_TOPIC_RANK:
-      topic_svs += _TOPIC_DCID_TO_SV.get(sv, [])
+    topic_svs += get_topic_vars(sv, i)
   return topic_svs
+
+
+def get_topic_vars(topic: str, rank: int):
+  if rank < _MIN_TOPIC_RANK:
+    return _TOPIC_DCID_TO_SV.get(topic, [])
+  return []
 
 
 def get_topic_peers(sv_dcids: List[str]):

@@ -23,7 +23,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedTypedPlace } from "../../shared/types";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
+  DisasterDataOptions,
   DisasterEventPoint,
   DisasterEventPointData,
 } from "../../types/disaster_event_map_types";
@@ -35,7 +37,6 @@ import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import {
   fetchDisasterEventPoints,
   getDate,
-  getDateRanges,
   getSeverityFilters,
   getUseCache,
 } from "../../utils/disaster_event_map_utils";
@@ -58,16 +59,31 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const [topEvents, setTopEvents] = useState<
     DisasterEventPoint[] | undefined
   >();
+  // options used for the previous data fetch
+  const prevDataOptions = useRef<DisasterDataOptions>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
   const eventTypeSpecs = {
     [props.eventTypeSpec.id]: props.eventTypeSpec,
   };
   const severityProp = props.eventTypeSpec.defaultSeverityFilter.prop;
+  const spinnerId = `${props.id}-spinner`;
 
   useEffect(() => {
     fetchData();
   }, [props]);
+
+  useEffect(() => {
+    // watch for hash change and re-fetch data whenever hash changes.
+    function handleHashChange(): void {
+      fetchData();
+    }
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [props.place, props.eventTypeSpec]);
 
   if (topEvents === undefined) {
     return <></>;
@@ -87,7 +103,6 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
             <table>
               <tbody>
                 {topEvents.map((event, i) => {
-                  console.log(event);
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
@@ -125,33 +140,42 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
         </div>
       )}
       <ChartEmbed ref={embedModalElement} />
+      <div id={spinnerId}>
+        <div className="screen">
+          <div id="spinner"></div>
+        </div>
+      </div>
     </div>
   );
 
   function fetchData() {
-    const selectedDate = getDate(props.blockId);
-    const customDateRanges = getDateRanges();
-    const dateRange: [string, string] =
-      selectedDate in customDateRanges
-        ? customDateRanges[selectedDate]
-        : [selectedDate, selectedDate];
-
-    fetchDisasterEventPoints(
-      [props.eventTypeSpec],
-      props.place.dcid,
-      dateRange,
-      getSeverityFilters(eventTypeSpecs, props.blockId),
-      getUseCache()
-    )
+    const dataOptions = {
+      eventTypeSpecs: [props.eventTypeSpec],
+      selectedDate: getDate(props.blockId),
+      severityFilters: getSeverityFilters(eventTypeSpecs, props.blockId),
+      useCache: getUseCache(),
+      place: props.place.dcid,
+    };
+    if (
+      prevDataOptions.current &&
+      _.isEqual(prevDataOptions.current, dataOptions)
+    ) {
+      return;
+    }
+    prevDataOptions.current = dataOptions;
+    loadSpinner(spinnerId);
+    fetchDisasterEventPoints(dataOptions)
       .then((disasterEventData) => {
         const sources = new Set<string>();
         Object.values(disasterEventData.provenanceInfo).forEach((provInfo) => {
           sources.add(provInfo.provenanceUrl);
         });
         rankEventData(disasterEventData);
+        removeSpinner(spinnerId);
       })
       .catch(() => {
         setTopEvents(undefined);
+        removeSpinner(spinnerId);
       });
   }
 

@@ -27,5 +27,5 @@ export const DATE_OPTION_1Y_KEY = "lastYear";
 export const URL_HASH_PARAM_KEYS = {
   SEVERITY_FILTER: "filter",
   DATE: "date",
-  USE_CACHE: "cache",
+  USE_JSON: "json",
 };
