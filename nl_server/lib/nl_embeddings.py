@@ -23,7 +23,7 @@ import os
 import torch
 
 GCS_BUCKET = 'datcom-nl-models'
-EMBEDDINGS = 'prod/'
+FOLDER = 'prod/'
 EMBEDDINGS_FILENAME = "embeddings_us_filtered_2023_1_26_22_15_41.csv"
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
@@ -63,14 +63,11 @@ class Embeddings:
   def _download_embeddings(self):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
-    blobs = bucket.list_blobs(prefix=EMBEDDINGS)  # Get list of files
-    for blob in blobs:
-      try:
-        _, filename = os.path.split(blob.name)
-        if filename == EMBEDDINGS_FILENAME:
-          blob.download_to_filename(os.path.join(TEMP_DIR,
-                                                 filename))  # Download
-      except Exception as e:
+    try:
+        blob = bucket.get_blob(FOLDER + EMBEDDINGS_FILENAME)
+        # Download
+        blob.download_to_filename(os.path.join(TEMP_DIR, EMBEDDINGS_FILENAME))
+    except Exception as e:
         logging.info(e)
 
   def detect_svs(self, query: str) -> Dict[str, Union[Dict, List]]:
