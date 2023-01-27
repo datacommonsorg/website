@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import flask
+import os
+
 from lib.gcs import list_png
+import services.datacommons as dc
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 
@@ -27,6 +29,13 @@ def dev():
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   return flask.render_template('dev/dev.html')
+
+
+@bp.route('/nl')
+def dev_nl():
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+  return dc.nl_helloworld()
 
 
 @bp.route('/screenshot/<path:folder>')

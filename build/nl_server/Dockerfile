@@ -1,11 +1,10 @@
-#!/bin/bash
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,16 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Build Docker image and push to Cloud Container Registry
+FROM python:3.7.16
 
-set -e
+ARG ENV
+ENV ENV=${ENV}
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-ROOT="$(dirname "$DIR")"
+WORKDIR /workspace
 
-cd $ROOT
-gcloud builds submit . \
-  --async \
-  --project=datcom-ci \
-  --config=build/ci/cloudbuild.push_image.yaml \
-  --substitutions=_TAG=$(git rev-parse --short=7 HEAD)
+COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
+# --no-cache-dir removes ~/.cache files, which can be a few GB.
+RUN pip3 install --no-cache-dir \
+    -r /workspace/nl_server/requirements.txt
+# Flask
+COPY nl_server/. /workspace/nl_server/
+
+# Run server
+WORKDIR /workspace/nl_server
+CMD exec gunicorn --timeout 60 --bind :6060 main:app

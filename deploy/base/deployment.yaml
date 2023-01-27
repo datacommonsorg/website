@@ -171,6 +171,26 @@ spec:
               command: ["/bin/grpc_health_probe", "-addr=:12345"]
             periodSeconds: 10
             initialDelaySeconds: 10
+        - name: nl
+          image: gcr.io/datcom-ci/datacommons-nl:abcxyz
+          resources:
+            limits:
+              memory: "1G"
+            requests:
+              memory: "1G"
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+            periodSeconds: 5
+            initialDelaySeconds: 5
+          ports:
+            - containerPort: 6060
         - name: esp
           image: gcr.io/endpoints-release/endpoints-runtime:1
           args:
