@@ -62,7 +62,7 @@ def search_places():
   query = str(escape(request.args.get('q')))
   nl_ner_places = current_app.config['NL_NER_PLACES']
   try:
-    res = nl_ner_places.detect_place_ner(query)
+    res = nl_ner_places.detect_places_ner(query)
     return json.dumps({'places': res})
   except Exception as e:
     logging.info(f'NER place detection failed with error: {e}')

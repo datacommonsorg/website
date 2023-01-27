@@ -25,6 +25,13 @@ function setup_python {
   pip3 install -r server/requirements.txt -q
 }
 
+function setup_python_nl_server {
+  python3 -m venv .env
+  source .env/bin/activate
+  pip install --upgrade pip
+  pip3 install -r nl_server/requirements.txt -q
+}
+
 # Run test for client side code.
 function run_npm_test {
   cd static
@@ -80,14 +87,23 @@ function run_npm_build () {
 function run_py_test {
   setup_python
   cd server
-  export FLASK_ENV=test
-  python3 -m pytest tests/ -s --ignore=sustainability
+  # export FLASK_ENV=test
+  # python3 -m pytest tests/ -s --ignore=sustainability
+
   # TODO(beets): add tests for other private dc instances
   # export FLASK_ENV=test-sustainability
   # python3 -m pytest tests/sustainability/**.py
+
+  # Also test the nl_server/
+  cd ..
+  setup_python_nl_server
+  export FLASK_ENV=test
+  cd nl_server
+  python3 -m pytest tests/ -s --ignore=sustainability
+
   cd ..
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ tools/ -e=*pb2.py; then
+  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py; then
     echo "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
