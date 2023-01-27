@@ -15,7 +15,7 @@
 # k8s namespace. Please note that if the namespace already exists,
 # create flag should be false, or else the helm release will fail.
 
-{{- if .Values.namespace.create -}}
+{{- if .Values.namespace.create }}
 apiVersion: v1
 kind: Namespace
 metadata:
