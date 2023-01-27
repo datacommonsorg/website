@@ -17,6 +17,9 @@ import logging
 
 from __init__ import create_app
 
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
+
 app = create_app()
 
 

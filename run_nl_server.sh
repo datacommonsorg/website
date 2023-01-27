@@ -19,7 +19,7 @@ python3 -m venv .env
 source .env/bin/activate
 
 python3 -m pip install --upgrade pip
-pip3 install -r nl_server/requirements.txt
+pip3 install -r nl_server/requirements.txt -q
 cd nl_server/
 python3 main.py 6060
 cd ..
