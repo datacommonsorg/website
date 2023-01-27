@@ -20,7 +20,6 @@
 
 import React from "react";
 
-// Either provide (place, enclosedPlaceType) or provide (places)
 export interface BlockContainerPropType {
   id: string;
   title?: string;
