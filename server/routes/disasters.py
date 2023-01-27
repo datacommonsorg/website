@@ -66,18 +66,19 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
                                        ]).get(place_dcid, escape(place_dcid))
 
   all_stat_vars = lib_subject_page_config.get_all_variables(dashboard_config)
-  stat_vars_existence = dc.observation_existence(all_stat_vars, [place_dcid])
+  if all_stat_vars:
+    stat_vars_existence = dc.observation_existence(all_stat_vars, [place_dcid])
 
-  for stat_var in stat_vars_existence['variable']:
-    if not stat_vars_existence['variable'][stat_var]['entity'][place_dcid]:
-      # This is for the main place, only remove the tile type for single place.
-      for tile_type in [
-          subject_page_pb2.Tile.TileType.HISTOGRAM,
-          subject_page_pb2.Tile.TileType.LINE,
-          subject_page_pb2.Tile.TileType.BAR,
-      ]:
-        dashboard_config = lib_subject_page_config.trim_config(
-            dashboard_config, stat_var, tile_type)
+    for stat_var in stat_vars_existence['variable']:
+      if not stat_vars_existence['variable'][stat_var]['entity'][place_dcid]:
+        # This is for the main place, only remove the tile type for single place.
+        for tile_type in [
+            subject_page_pb2.Tile.TileType.HISTOGRAM,
+            subject_page_pb2.Tile.TileType.LINE,
+            subject_page_pb2.Tile.TileType.BAR,
+        ]:
+          dashboard_config = lib_subject_page_config.trim_config(
+              dashboard_config, stat_var, tile_type)
 
   return flask.render_template('custom_dc/stanford/disaster_dashboard.html',
                                place_type=json.dumps(place_types),
