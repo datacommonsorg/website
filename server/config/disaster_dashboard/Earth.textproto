@@ -162,6 +162,7 @@ categories {
   title: "Severe Weather and Natural Disasters"
 
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -189,6 +190,7 @@ categories {
     "to be experiencing drought. We source drought data from "
     "[NOAA](https://www.drought.gov/data-maps-tools/global-precipitation-climatology-centre-gpcc-standardized-precipitation-index-spi)."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -230,6 +232,7 @@ categories {
     "thermal readings. We source fire data from [NASA](https://lpdaac.usgs.gov/products/vnp14a1v001/) "
     "and [WFIGS](https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about)."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -284,6 +287,7 @@ categories {
     "from the [Global Flood Database](https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1) "
     "and [Dynamic World](https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1) respectively."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -339,6 +343,7 @@ categories {
     "torrential rain. We source our storm data from "
     "[NOAA](https://www.ncei.noaa.gov/products/international-best-track-archive)."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -381,6 +386,7 @@ categories {
     "survival for more than a few hours in the shade, even with unlimited water, "
     "is a wet-bulb temperature of 35 °C."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -430,6 +436,7 @@ categories {
   title: "Extreme Heat"
   description: "Heat events are defined by differences in maximum temperatures compared to historical monthly averages."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -479,6 +486,7 @@ categories {
   title: "Extreme Cold"
   description: "Cold events are defined by differences in maximum temperatures compared to historical monthly averages."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
