@@ -12,45 +12,51 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Flask
-
 import logging
 import os
-import routes
+import threading
+import yaml
 
-nl_embeddings_cache_key = 'nl_embeddings'
-nl_embeddings_cache_path = '~/.datacommons/'
-nl_embeddings_cache_expire = 3600 * 24  # Cache for 1 day
+from flask import Flask
+
+import pubsub
+import routes
+import loader
 
 
 def create_app():
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
 
-  def load_model():
-    # In local dev, cache the model in disk so each hot reload won't download
-    # the model again.
-    if os.environ.get('FLASK_ENV') == 'local':
-      from diskcache import Cache
-      cache = Cache(nl_embeddings_cache_path)
-      cache.expire()
-      nl_embeddings = cache.get(nl_embeddings_cache_key)
-      app.config['NL_EMBEDDINGS'] = nl_embeddings
-      if nl_embeddings:
-        logging.info("Use cached model in: " + cache.directory)
-        return
+  flask_env = os.environ.get('FLASK_ENV')
 
-    # Some specific imports for the NL Interface.
-    from lib.nl_embeddings import Embeddings
-    nl_embeddings = Embeddings()
-    app.config['NL_EMBEDDINGS'] = nl_embeddings
-    if os.environ.get('FLASK_ENV') == 'local':
-      with Cache(cache.directory) as reference:
-        reference.set(nl_embeddings_cache_key,
-                      nl_embeddings,
-                      expire=nl_embeddings_cache_expire)
+  # Set the embedding gcs folder
+  if flask_env == 'autopush' or flask_env == 'local':
+    app.config['GCS_FOLDER'] = 'autopush/'
+  elif flask_env == 'production':
+    app.config['GCS_FOLDER'] = 'prod/'
+  elif flask_env == 'staging':
+    app.config['GCS_FOLDER'] = 'staging/'
+  else:
+    app.config['GCS_FOLDER'] = 'prod/'
+
+  model_config_path = '/datacommons/model/model.yaml'
+  if flask_env == 'local':
+    model_config_path = os.path.abspath(
+        os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
+  app.config['MODEL_CONFIG_PATH'] = model_config_path
 
   # Initialize the NL module.
-  load_model()
+  with open(app.config['MODEL_CONFIG_PATH']) as f:
+    model = yaml.full_load(f)
+    if not model:
+      logging.error("No configuration found for model")
+      return
+    loader.load_model(app, model['file'])
+
+  # Auto update the model
+  if flask_env == 'local' or flask_env == 'autopush':
+    thread = threading.Thread(target=pubsub.subscribe, args=(app,))
+    thread.start()
 
   return app
