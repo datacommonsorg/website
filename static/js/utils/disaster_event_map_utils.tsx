@@ -92,7 +92,16 @@ export function fetchGeoJsonData(
         placeType: enclosedPlaceType,
       },
     })
-    .then((resp) => resp.data as GeoJsonData);
+    .then((resp) => resp.data as GeoJsonData)
+    .catch(() => {
+      return {
+        type: "FeatureCollection",
+        features: [],
+        properties: {
+          current_geo: enclosingPlace,
+        },
+      };
+    });
 }
 
 /**
@@ -246,6 +255,11 @@ function fetchEventPoints(
             // Get value by taking the first severity val, trimming the unit
             // from the string, and converting it into a number.
             const unit = severityFilter.unit || "";
+            console.assert(
+              severityVals[0].length > unit.length,
+              "severity values do not contain unit, please check filter config, %o",
+              reqParams
+            );
             const val = Number(severityVals[0].substring(unit.length));
             if (!isNaN(val)) {
               severity[severityFilter.prop] = val;
@@ -319,12 +333,12 @@ function getDateRange(selectedDate: string): [string, string] {
 }
 
 /**
- * Get all event points for a place, date range, and list of event specs. Only dates of type YYYY, YYYY-MM, or YYYY-MM-DD are supported.
+ * Get all event points for a set of data options. Only dates of type YYYY, YYYY-MM, or YYYY-MM-DD are supported.
  * @param dataOptions the options to use for the data fetch
  */
 export function fetchDisasterEventPoints(
   dataOptions: DisasterDataOptions
-): Promise<DisasterEventPointData> {
+): Promise<Record<string, DisasterEventPointData>> {
   // Dates to fetch data for.
   const dateRange = getDateRange(dataOptions.selectedDate);
   const dates = [];
@@ -354,9 +368,13 @@ export function fetchDisasterEventPoints(
     }
   }
   const promises = [];
+  // list of spec ids that correspond to the spec id used for the promise at
+  // that index in the list of promises.
+  const promiseSpecId = [];
   for (const eventSpec of dataOptions.eventTypeSpecs) {
     for (const eventType of eventSpec.eventTypeDcids) {
       for (const date of dates) {
+        promiseSpecId.push(eventSpec.id);
         promises.push(
           fetchEventPoints(
             eventType,
@@ -373,13 +391,22 @@ export function fetchDisasterEventPoints(
     }
   }
   return Promise.all(promises).then((resp) => {
-    const eventPoints = [];
-    const provenanceInfo = {};
-    resp.forEach((eventTypeResp) => {
-      eventPoints.push(...eventTypeResp.eventPoints);
-      Object.assign(provenanceInfo, eventTypeResp.provenanceInfo);
+    const result = {};
+    resp.forEach((eventTypeResp, i) => {
+      const eventSpecId = promiseSpecId[i];
+      if (!(eventSpecId in result)) {
+        result[eventSpecId] = {
+          eventPoints: [],
+          provenanceInfo: {},
+        };
+      }
+      result[eventSpecId].eventPoints.push(...eventTypeResp.eventPoints);
+      Object.assign(
+        result[eventSpecId].provenanceInfo,
+        eventTypeResp.provenanceInfo
+      );
     });
-    return { eventPoints, provenanceInfo };
+    return result;
   });
 }
 
