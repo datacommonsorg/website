@@ -14,8 +14,8 @@
 """Tests for NERPlaces (in nl_ner_place_model.py)."""
 
 from diskcache import Cache
-from lib.nl_ner_place_model import NERPlaces
-from nl_server import nl_cache_path, nl_ner_cache_key
+from ner_place_model import NERPlaces
+from loader import nl_cache_path, nl_ner_cache_key
 from parameterized import parameterized
 
 import unittest

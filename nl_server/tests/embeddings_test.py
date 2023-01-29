@@ -14,11 +14,25 @@
 """Tests for Embeddings (in nl_embeddings.py)."""
 
 from diskcache import Cache
-from lib.nl_embeddings import Embeddings
-from nl_server import nl_cache_path, nl_embeddings_cache_key
+from embeddings import Embeddings
+from loader import nl_cache_path, nl_embeddings_cache_key
 from parameterized import parameterized
 
+import os
 import unittest
+import yaml
+
+
+def _get_gcs_folder() -> str:
+  return "autopush/"
+
+
+def _get_embeddings_file_name() -> str:
+  model_config_path = os.path.abspath(
+      os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
+  with open(model_config_path) as f:
+    model = yaml.full_load(f)
+    return model['embeddings_file']
 
 
 class TestEmbeddings(unittest.TestCase):
@@ -35,7 +49,8 @@ class TestEmbeddings(unittest.TestCase):
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
       )
       # Using the default NER model.
-      cls.nl_embeddings = Embeddings()
+      cls.nl_embeddings = Embeddings(_get_gcs_folder(),
+                                     _get_embeddings_file_name())
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
