@@ -33,7 +33,7 @@ class Embeddings:
   """Manages the embeddings."""
 
   def __init__(self) -> None:
-    self.model: SentenceTransformer = SentenceTransformer(MODEL_NAME)
+    self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
     self._download_embeddings()
     self.dcids: List[str] = []
