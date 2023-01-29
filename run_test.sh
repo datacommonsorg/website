@@ -87,8 +87,8 @@ function run_npm_build () {
 function run_py_test {
   setup_python
   cd server
-  # export FLASK_ENV=test
-  # python3 -m pytest tests/ -s --ignore=sustainability
+  export FLASK_ENV=test
+  python3 -m pytest tests/ -s --ignore=sustainability
 
   # TODO(beets): add tests for other private dc instances
   # export FLASK_ENV=test-sustainability
@@ -97,9 +97,8 @@ function run_py_test {
   # Also test the nl_server/
   cd ..
   setup_python_nl_server
-  export FLASK_ENV=test
   cd nl_server
-  python3 -m pytest tests/ -s --ignore=sustainability
+  python3 -m pytest tests/ -s
 
   cd ..
   echo -e "#### Checking Python style"

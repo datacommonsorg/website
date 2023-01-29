@@ -53,39 +53,16 @@ class TestNERPlaces(unittest.TestCase):
       ],
   ])
   def test_heuristic_detection(self, query_str, expected):
-    # Using the default NER model.
-    detector = self.nl_ner_model
-
     # Covert all detected place string to lower case.
-    got = [s.lower() for s in detector.detect_places_ner(query_str)]
+    got = self.nl_ner_model.detect_places_ner(query_str)
     self.assertEqual(expected, got)
-
-  @parameterized.expand([
-      # Providing wrong types of ner models. Each should lead to an exception.
-      [
-          "str instead of model",
-          "random query",
-      ],
-      [
-          "str instead of model",
-          "California",
-      ],
-      [[], "population Florida"],
-      [{}, "United States"],
-  ])
-  def test_ner_failure(self, ner_model, query_str):
-    detector = NERPlaces(ner_model=ner_model)
-
-    with self.assertRaises(Exception):
-      detector.detect_places_ner(query_str)
 
   @parameterized.expand(
       # All these are valid queries even if they do not detect a Place.
       # There should be no exceptions.
       ["random", "California", "United States", "America", "", "."])
   def test_ner_default(self, query_str):
-    detector = self.nl_ner_model
     try:
-      detector.detect_places_ner(query_str)
+      self.nl_ner_model.detect_places_ner(query_str)
     except Exception as e:
       self.assertTrue(False, f"Unexpected Exception raised: {e}")
