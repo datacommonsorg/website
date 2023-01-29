@@ -16,7 +16,7 @@ import json
 from google.cloud import pubsub_v1
 from google.cloud import storage
 
-from lib import gcs
+import gcs
 import loader
 
 AUTOPUSH_FOLDER = 'autopush/'
