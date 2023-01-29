@@ -15,8 +15,8 @@
 import logging
 import os
 
-from lib.nl_embeddings import Embeddings
-from lib.nl_ner_place_model import NERPlaces
+from embeddings import Embeddings
+from ner_place_model import NERPlaces
 
 nl_embeddings_cache_key = 'nl_embeddings'
 nl_ner_cache_key = 'nl_ner'

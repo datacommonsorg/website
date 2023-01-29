@@ -22,7 +22,7 @@ import logging
 import os
 import torch
 
-from lib import gcs
+import gcs
 
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
