@@ -88,6 +88,7 @@ export interface BlockConfig {
   title?: string;
   description: string;
   columns: ColumnConfig[];
+  type?: string;
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;

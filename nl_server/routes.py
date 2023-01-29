@@ -42,7 +42,7 @@ def search_sv():
     nl_embeddings = current_app.config['NL_EMBEDDINGS']
     return json.dumps(nl_embeddings.detect_svs(query))
   except Exception as e:
-    logging.info(f'Embeddings-based SV detection failed with error: {e}')
+    logging.error(f'Embeddings-based SV detection failed with error: {e}')
     return json.dumps({
         'SV': [],
         'CosineScore': [],
@@ -65,5 +65,5 @@ def search_places():
     res = nl_ner_places.detect_places_ner(query)
     return json.dumps({'places': res})
   except Exception as e:
-    logging.info(f'NER place detection failed with error: {e}')
+    logging.error(f'NER place detection failed with error: {e}')
     return json.dumps({'places': []})

@@ -15,11 +15,27 @@
  */
 
 /**
- * Constants used by nl_interface.
+ * A container for blocks of all types.
  */
 
-export const NL_SMALL_TILE_CLASS = "tile-sm";
-export const NL_MED_TILE_CLASS = "tile-md";
-export const NL_LARGE_TILE_CLASS = "tile-lg";
-// Number of tiles to show.
-export const NL_NUM_TILES_SHOWN = 6;
+import React from "react";
+
+export interface BlockContainerPropType {
+  id: string;
+  title?: string;
+  description: string;
+  children?: React.ReactNode;
+}
+
+export function BlockContainer(props: BlockContainerPropType): JSX.Element {
+  return (
+    <section
+      className={`block subtopic ${props.title ? "" : "notitle"}`}
+      id={props.id}
+    >
+      {props.title && <h3>{props.title}</h3>}
+      {props.description && <p className="block-desc">{props.description}</p>}
+      {props.children}
+    </section>
+  );
+}

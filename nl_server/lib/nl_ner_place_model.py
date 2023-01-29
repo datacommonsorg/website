@@ -19,16 +19,14 @@ import en_core_web_md
 
 class NERPlaces:
 
-  def __init__(self, ner_model=None) -> None:
-    self.ner_model = ner_model
-    if self.ner_model is None:
-      self.ner_model = en_core_web_md.load()
+  def __init__(self) -> None:
+    self.ner_model = en_core_web_md.load()
 
   def detect_places_ner(self, query: str) -> List[str]:
     """Use the NER model to detect places in `query`.
         
-        Raises an Exception if the NER model fails on the query.
-        """
+    Raises an Exception if the NER model fails on the query.
+    """
     try:
       doc = self.ner_model(query)
     except Exception as e:
