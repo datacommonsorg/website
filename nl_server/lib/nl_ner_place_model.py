@@ -27,8 +27,8 @@ class NERPlaces:
   def detect_place_ner(self, query: str) -> List[str]:
     """Use the NER model to detect places in `query`.
         
-        Raises an Exception if the NER model fails on the query.
-        """
+    Raises an Exception if the NER model fails on the query.
+    """
     try:
       doc = self.ner_model(query)
     except Exception as e:
