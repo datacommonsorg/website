@@ -22,7 +22,7 @@ class NERPlaces:
   def __init__(self) -> None:
     self.ner_model = en_core_web_md.load()
 
-  def detect_place_ner(self, query: str) -> List[str]:
+  def detect_places_ner(self, query: str) -> List[str]:
     """Use the NER model to detect places in `query`.
         
     Raises an Exception if the NER model fails on the query.
@@ -40,9 +40,9 @@ class NERPlaces:
       # is here: https://towardsdatascience.com/explorations-in-named-entity-recognition-and-was-eleanor-roosevelt-right-671271117218
       # We only use the location/place types.
       if e.label_ in ["GPE", "LOC"]:
-        places_found_loc_gpe.append(str(e))
+        places_found_loc_gpe.append(str(e).lower())
       if e.label_ in ["FAC"]:
-        places_found_fac.append(str(e))
+        places_found_fac.append(str(e).lower())
 
     if places_found_loc_gpe:
       return places_found_loc_gpe

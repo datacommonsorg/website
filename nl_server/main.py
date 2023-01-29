@@ -19,9 +19,10 @@ from __init__ import create_app
 
 logging.basicConfig(
     level=logging.INFO,
-    format="\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+    format=
+    "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
     datefmt="%H:%M:%S",
-    )
+)
 
 app = create_app()
 
