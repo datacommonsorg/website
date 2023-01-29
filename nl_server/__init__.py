@@ -52,7 +52,7 @@ def create_app():
     if not model:
       logging.error("No configuration found for model")
       return
-    loader.load_model(app, model['file'])
+    loader.load_model(app, model['embeddings_file'])
 
   # Auto update the model
   if flask_env == 'local' or flask_env == 'autopush':

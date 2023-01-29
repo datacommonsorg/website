@@ -16,6 +16,7 @@ import json
 from google.cloud import pubsub_v1
 from google.cloud import storage
 
+from lib import gcs
 import loader
 
 AUTOPUSH_FOLDER = 'autopush/'
@@ -27,13 +28,13 @@ def subscribe(app):
 
   def callback(message):
     data = json.loads(message.data)
-    if data['bucket'] == loader.GCS_BUCKET:
+    if data['bucket'] == gcs.BUCKET:
       if data['name'].startswith(AUTOPUSH_FOLDER):
         parts = data['name'].split('/')
         object_id = parts[1]
         if object_id:
           storage_client = storage.Client()
-          bucket = storage_client.bucket(loader.GCS_BUCKET)
+          bucket = storage_client.bucket(gcs.BUCKET)
           blob = bucket.get_blob(data['name'])
           if blob and blob.content_type == 'text/csv':
             loader.load_model(app, object_id)

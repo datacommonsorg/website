@@ -22,7 +22,7 @@ import logging
 import os
 import torch
 
-from loader import GCS_BUCKET
+from lib import gcs
 
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
@@ -63,7 +63,7 @@ class Embeddings:
 
   def _download_embeddings(self):
     storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
+    bucket = storage_client.bucket(bucket_name=gcs.BUCKET)
     blob = bucket.get_blob(self.gcs_folder + self.embeddings_file)
     # Download
     blob.download_to_filename(os.path.join(TEMP_DIR, self.embeddings_file))

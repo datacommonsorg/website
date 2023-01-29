@@ -18,8 +18,6 @@ import os
 from lib.nl_embeddings import Embeddings
 from lib.nl_ner_place_model import NERPlaces
 
-GCS_BUCKET = 'datcom-nl-models'
-
 nl_embeddings_cache_key = 'nl_embeddings'
 nl_ner_cache_key = 'nl_ner'
 nl_cache_path = '~/.datacommons/'
