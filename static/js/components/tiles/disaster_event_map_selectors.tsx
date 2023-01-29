@@ -18,7 +18,7 @@
  * Component for rendering the selectors section for a disaster event map tile.
  */
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CustomInput } from "reactstrap";
 
 import {
@@ -27,8 +27,14 @@ import {
   DATE_OPTION_30D_KEY,
   URL_HASH_PARAM_KEYS,
 } from "../../constants/disaster_event_map_constants";
-import { NamedPlace } from "../../shared/types";
-import { getDate, setUrlHash } from "../../utils/disaster_event_map_utils";
+import { NamedTypedPlace } from "../../shared/types";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
+import {
+  fetchDateList,
+  getDate,
+  getUseCache,
+  setUrlHash,
+} from "../../utils/disaster_event_map_utils";
 
 const DATE_OPTION_DISPLAY_NAMES = {
   [DATE_OPTION_30D_KEY]: "Last 30 days",
@@ -37,18 +43,36 @@ const DATE_OPTION_DISPLAY_NAMES = {
 };
 
 interface DisasterEventMapSelectorsPropType {
-  // List of available date options
-  dateOptions: string[];
-  // Callback when new place is selected
-  onPlaceSelected: (place: NamedPlace) => void;
   // id of the block this component is in.
   blockId: string;
+  // Map of eventType id to EventTypeSpec
+  eventTypeSpec: Record<string, EventTypeSpec>;
+  // Place to show the event map for
+  place: NamedTypedPlace;
   children?: React.ReactNode;
 }
 
 export function DisasterEventMapSelectors(
   props: DisasterEventMapSelectorsPropType
 ): JSX.Element {
+  const [dateOptions, setDateOptions] = useState([]);
+  // Whether date options retrieved are from the cache or not.
+  const dateOptionsUseCache = useRef<boolean>(null);
+
+  useEffect(() => {
+    // When props change, update date options & update the hash change listener.
+    updateDateOptions(props.eventTypeSpec, props.place.dcid);
+
+    function handleHashChange(): void {
+      updateDateOptions(props.eventTypeSpec, props.place.dcid);
+    }
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [props]);
+
   return (
     <div className="disaster-event-map-selectors-section">
       <div className="disaster-event-map-date-selector">
@@ -61,7 +85,7 @@ export function DisasterEventMapSelectors(
             setUrlHash(URL_HASH_PARAM_KEYS.DATE, e.target.value, props.blockId);
           }}
         >
-          {props.dateOptions.map((date) => {
+          {dateOptions.map((date) => {
             return (
               <option value={date} key={date}>
                 {DATE_OPTION_DISPLAY_NAMES[date] || date}
@@ -73,4 +97,49 @@ export function DisasterEventMapSelectors(
       {props.children}
     </div>
   );
+
+  /**
+   * Updates date info given an event type spec
+   */
+  function updateDateOptions(
+    eventTypeSpec: Record<string, EventTypeSpec>,
+    selectedPlace: string
+  ): void {
+    const eventTypeDcids = Object.values(eventTypeSpec).flatMap(
+      (spec) => spec.eventTypeDcids
+    );
+    const useCache = getUseCache();
+    if (
+      dateOptionsUseCache.current &&
+      dateOptionsUseCache.current === useCache
+    ) {
+      return;
+    }
+    dateOptionsUseCache.current = useCache;
+    const customDateOptions = [
+      DATE_OPTION_30D_KEY,
+      DATE_OPTION_6M_KEY,
+      DATE_OPTION_1Y_KEY,
+    ];
+    fetchDateList(eventTypeDcids, selectedPlace, useCache)
+      .then((dateList) => {
+        const currDate = getDate(props.blockId);
+        const dateOptions = [...customDateOptions, ...dateList];
+        setDateOptions(dateOptions);
+        // if current date is not in the new date options, set selected date to be
+        // default (1 year).
+        if (dateOptions.findIndex((date) => date === currDate) < 0) {
+          setUrlHash(
+            URL_HASH_PARAM_KEYS.DATE,
+            DATE_OPTION_1Y_KEY,
+            props.blockId
+          );
+        }
+      })
+      .catch(() => {
+        setDateOptions(customDateOptions);
+        // if empty date list, set selected date to be default (1 year).
+        setUrlHash(URL_HASH_PARAM_KEYS.DATE, DATE_OPTION_1Y_KEY, props.blockId);
+      });
+  }
 }

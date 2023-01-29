@@ -19,6 +19,25 @@ from config import subject_page_pb2
 import lib.util as libutil
 
 TileType = subject_page_pb2.Tile.TileType
+BlockType = subject_page_pb2.Block.BlockType
+BLOCK_TYPE_ALLOWED_TILES = {
+    BlockType.TYPE_NONE: {
+        TileType.LINE: "",
+        TileType.BAR: "",
+        TileType.MAP: "",
+        TileType.SCATTER: "",
+        TileType.BIVARIATE: "",
+        TileType.RANKING: "",
+        TileType.HIGHLIGHT: "",
+        TileType.DESCRIPTION: "",
+        TileType.HISTOGRAM: "",
+        TileType.PLACE_OVERVIEW: "",
+    },
+    BlockType.DISASTER_EVENT: {
+        TileType.DISASTER_EVENT_MAP: "",
+        TileType.TOP_EVENT: ""
+    }
+}
 
 
 class TestSubjectPageConfigs(unittest.TestCase):
@@ -95,4 +114,6 @@ class TestSubjectPageConfigs(unittest.TestCase):
             for col_i, col in enumerate(block.columns):
               for t_i, tile in enumerate(col.tiles):
                 tile_msg = f"{block_msg}[col={col_i};tile={t_i}]"
+                self.assertTrue(
+                    tile.type in BLOCK_TYPE_ALLOWED_TILES[block.type], tile_msg)
                 self.verify_tile(tile, stat_vars, tile_msg, event_type_specs)

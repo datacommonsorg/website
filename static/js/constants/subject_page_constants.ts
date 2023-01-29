@@ -20,3 +20,5 @@
 
 // Default place type to use for the featured place of the page.
 export const DEFAULT_PAGE_PLACE_TYPE = "Place";
+// Class name for hidden tiles.
+export const HIDE_TILE_CLASS = "tile-hidden";

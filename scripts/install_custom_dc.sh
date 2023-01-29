@@ -55,19 +55,32 @@ fi
 
 echo "Installing Custom Datacommons web application in $PROJECT_ID."
 
+# Create a Terraform state bucket if it does not exist already
+TF_STATE_BUCKET=gs://$PROJECT_ID-terraform-state
+gsutil ls -b $TF_STATE_BUCKET || gsutil mb -l us-central1 -p $PROJECT_ID $TF_STATE_BUCKET
+
 ROOT=$PWD
 
 # Clone DC website repo and mixer submodule.
-git clone https://github.com/datacommonsorg/website
+if [[ ! -d "website" ]]; then
+  git clone https://github.com/datacommonsorg/website
+fi
+
 cd website
-git submodule foreach git pull origin master
-git submodule update --init --recursive
+if [[ ! -d "mixer" ]]; then
+  git submodule foreach git pull origin master
+  git submodule update --init --recursive
+fi
 
 WEBSITE_ROOT=$PWD
 
 cd $WEBSITE_ROOT/deploy/terraform-datacommons-website/examples/setup
 
-terraform init && terraform apply \
+terraform init \
+  -backend-config="bucket=$TF_STATE_BUCKET" \
+  -backend-config="prefix=setup"
+
+terraform apply \
   -var="project_id=$PROJECT_ID" \
   -var="contact_email=$CONTACT_EMAIL" \
   ${CUSTOM_DC_DOMAIN:+-var="dc_website_domain=$CUSTOM_DC_DOMAIN"} \
@@ -80,14 +93,21 @@ if [[ -n "$CUSTOM_DC_DOMAIN" ]]; then
   DOMAIN=$CUSTOM_DC_DOMAIN
 fi
 
+terraform init \
+  -backend-config="bucket=$TF_STATE_BUCKET" \
+  -backend-config="prefix=website_v1"
+
 # <project_id>-datacommons.com is the default domain name defined in setup/main.tf
-terraform init && terraform apply \
+terraform apply \
   -var="project_id=$PROJECT_ID" \
   -var="dc_website_domain=$DOMAIN" -auto-approve
 
 # Run the BT automation Terraform script to set up BT loader.
 cd $ROOT
-git clone https://github.com/datacommonsorg/tools
+if [[ ! -d "tools" ]]; then
+  git clone https://github.com/datacommonsorg/tools
+fi
+
 
 # TODO(alex): support custom robot SA and resource bucket name.
 WEBSITE_ROBOT="website-robot@$PROJECT_ID.iam.gserviceaccount.com"

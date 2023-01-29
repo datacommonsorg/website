@@ -34,7 +34,7 @@ class Embeddings:
   def __init__(self, gcs_folder: str, embeddings_file: str) -> None:
     self.gcs_folder = gcs_folder
     self.embeddings_file = embeddings_file
-    self.model: SentenceTransformer = SentenceTransformer(MODEL_NAME)
+    self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
     self._download_embeddings()
     self.dcids: List[str] = []
