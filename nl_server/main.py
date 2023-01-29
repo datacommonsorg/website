@@ -14,13 +14,14 @@
 """Main entry module for NL app."""
 
 import logging
-import threading
 
 from __init__ import create_app
-import pubsub
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format="\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+    datefmt="%H:%M:%S",
+    )
 
 app = create_app()
 
@@ -29,9 +30,6 @@ app = create_app()
 def healthz():
   return ""
 
-
-thread = threading.Thread(target=pubsub.subscribe)
-thread.start()
 
 if __name__ == '__main__':
   # This is used when running locally only. When deploying to GKE,
