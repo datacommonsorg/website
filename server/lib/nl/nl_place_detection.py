@@ -15,8 +15,6 @@
 from typing import List
 from services import datacommons as dc
 
-import en_core_web_md
-import json
 import logging
 
 import lib.nl.nl_constants as nl_constants
