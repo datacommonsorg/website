@@ -50,7 +50,6 @@ import { DisasterEventMapTile } from "../tiles/disaster_event_map_tile";
 import { TopEventTile } from "../tiles/top_event_tile";
 import { BlockContainer } from "./block_container";
 import { Column } from "./column";
-import { StatVarProvider } from "./stat_var_provider";
 
 // Either provide (place, enclosedPlaceType) or provide (places)
 interface DisasterEventBlockPropType {
@@ -119,7 +118,7 @@ export function DisasterEventBlock(
     >
       <DisasterEventMapSelectors
         blockId={props.id}
-        eventTypeSpec={props.eventTypeSpec}
+        eventTypeSpec={blockEventTypeSpecs.current}
         place={props.place}
       >
         <div
@@ -241,7 +240,7 @@ function renderTiles(
   disasterEventData: Record<string, DisasterEventPointData>,
   tileClassName?: string
 ): JSX.Element {
-  if (!tiles) {
+  if (!tiles || !disasterEventData) {
     return <></>;
   }
   const tilesJsx = tiles.map((tile, i) => {
@@ -263,6 +262,9 @@ function renderTiles(
           provenanceInfo: {},
         };
         tile.disasterEventMapTileSpec.eventTypeKeys.forEach((eventKey) => {
+          if (!(eventKey in disasterEventData)) {
+            return;
+          }
           eventTypeSpec[eventKey] = props.eventTypeSpec[eventKey];
           specEventData.eventPoints.push(
             ...disasterEventData[eventKey].eventPoints
@@ -298,7 +300,10 @@ function renderTiles(
             className={className}
             eventTypeSpec={eventTypeSpec}
             disasterEventData={
-              disasterEventData[tile.topEventTileSpec.eventTypeKey]
+              disasterEventData[tile.topEventTileSpec.eventTypeKey] || {
+                eventPoints: [],
+                provenanceInfo: {},
+              }
             }
           />
         );
