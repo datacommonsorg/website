@@ -151,6 +151,7 @@ metadata {
       color: "#304ffe"
       default_severity_filter: {
         prop: "differenceTemperature",
+        unit: "Celsius"
         upper_limit: -18,
         lower_limit: -35
       }

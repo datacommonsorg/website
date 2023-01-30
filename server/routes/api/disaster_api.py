@@ -204,8 +204,8 @@ def event_data():
     return "error: must provide a place field", 400
   filter_prop = request.args.get('filterProp', '')
   filter_unit = request.args.get('filterUnit', '')
-  filter_upper_limit = float(request.args.get('filterUpperLimit', '0'))
-  filter_lower_limit = float(request.args.get('filterLowerLimit', '0'))
+  filter_upper_limit = float(request.args.get('filterUpperLimit', None))
+  filter_lower_limit = float(request.args.get('filterLowerLimit', None))
   result = dc.get_event_collection(event_type, place, date, filter_prop,
                                    filter_unit, filter_upper_limit,
                                    filter_lower_limit)
