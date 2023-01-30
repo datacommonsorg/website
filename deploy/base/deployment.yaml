@@ -48,6 +48,9 @@ spec:
         - name: ai-config
           configMap:
             name: ai-config
+        - name: model-config
+          configMap:
+            name: model-config
         - name: memdb-config
           configMap:
             name: memdb-config
@@ -178,6 +181,15 @@ spec:
               memory: "1G"
             requests:
               memory: "1G"
+          env:
+            - name: FLASK_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: website-configmap
+                  key: flaskEnv
+          volumeMounts:
+            - name: model-config
+              mountPath: /datacommons/model
           readinessProbe:
             httpGet:
               path: /healthz

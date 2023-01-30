@@ -26,6 +26,7 @@ from lib.nl.nl_detection import RankingClassificationAttributes, RankingType
 from lib.nl.nl_detection import PeriodType, TemporalClassificationAttributes
 from lib.nl.nl_training import NLQueryClassificationData, NLQueryClassificationModel
 from lib.nl.nl_training import NLQueryClusteringDetectionModel
+from services import datacommons as dc
 
 import lib.nl.nl_constants as nl_constants
 import lib.nl.nl_utils as nl_utils
@@ -88,12 +89,11 @@ def _prefix_length(s1, s2):
 class Model:
   """Holds clients for the language model"""
 
-  def __init__(self,
-               query_classification_data: Dict[str, NLQueryClassificationData],
-               classification_types_supported: List[str],
-               ner_model=None):
+  def __init__(self, query_classification_data: Dict[str,
+                                                     NLQueryClassificationData],
+               classification_types_supported: List[str]):
     self.model = SentenceTransformer(MODEL_NAME)
-    self.place_detector: NLPlaceDetector = NLPlaceDetector(ner_model=ner_model)
+    self.place_detector: NLPlaceDetector = NLPlaceDetector()
     self.dataset_embeddings_maps = {}
     # For clustering, need the DataFrame objects.
     self.dataset_embeddings_maps_to_df = {}
@@ -304,12 +304,12 @@ class Model:
   def heuristic_correlation_classification(
       self, query: str) -> Union[NLClassifier, None]:
     """Determine if query is asking for a correlation.
-    
+
     Uses heuristics instead of ML-model for classification.
 
     Args:
       query: user's input, given as a string
-    
+
     Returns:
       NLClassifier with CorrelationClassificationAttributes
     """
@@ -463,64 +463,14 @@ class Model:
       return self._clustering_classification([])
     return None
 
-  def detect_svs(self, query, embeddings_build):
+  def detect_svs(self, query) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
     query = nl_utils.remove_stop_words(query, ALL_STOP_WORDS)
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
-    query_embeddings = self.model.encode([query])
-    if embeddings_build not in self.dataset_embeddings_maps:
-      raise ValueError(f'Embeddings Build: {embeddings_build} was not found.')
-    hits = semantic_search(query_embeddings,
-                           self.dataset_embeddings_maps[embeddings_build],
-                           top_k=20)
 
-    # Note: multiple results may map to the same DCID. As well, the same string may
-    # map to multiple DCIDs with the same score.
-    sv2score = {}
-    # Also track the sv to index so that embeddings can later be retrieved.
-    sv2index = {}
-    # Also add the full list of SVs and sentences that matched (for debugging).
-    all_svs_sentences: Dict[str, List[str]] = {}
-    for e in hits[0]:
-      for d in self.dcid_maps[embeddings_build][e['corpus_id']].split(','):
-        s = e['score']
-        ind = e['corpus_id']
-        sentence = ""
-        try:
-          sentence = self.sentence_maps[embeddings_build][
-              e['corpus_id']] + f" ({s})"
-        except Exception as exp:
-          logging.info(exp)
-        # Prefer the top score.
-        if d not in sv2score:
-          sv2score[d] = s
-          sv2index[d] = ind
-
-        # Add to the debug map anyway.
-        existing_sentences = []
-        if d in all_svs_sentences:
-          existing_sentences = all_svs_sentences[d]
-
-        if sentence not in existing_sentences:
-          existing_sentences.append(sentence)
-        all_svs_sentences[d] = existing_sentences
-
-    # Sort by scores
-    sv2score_sorted = sorted(sv2score.items(),
-                             key=lambda item: item[1],
-                             reverse=True)
-    svs_sorted = [k for (k, _) in sv2score_sorted]
-    scores_sorted = [v for (_, v) in sv2score_sorted]
-
-    sv_index_sorted = [sv2index[k] for (k, _) in sv2score_sorted]
-
-    return {
-        'SV': svs_sorted,
-        'CosineScore': scores_sorted,
-        'EmbeddingIndex': sv_index_sorted,
-        'SV_to_Sentences': all_svs_sentences,
-    }
+    # Make API call to the NL models/embeddings server.
+    return dc.nl_search_sv(query)
 
   def detect_place(self, query):
     return self.place_detector.detect_places_heuristics(query)

@@ -181,7 +181,7 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
   return data_dict
 
 
-def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
+def _detection(orig_query, cleaned_query) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -219,7 +219,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
   try:
-    svs_scores_dict = model.detect_svs(query, embeddings_build)
+    svs_scores_dict = model.detect_svs(query)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
@@ -319,14 +319,12 @@ def data():
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build,
-                                   _detection("", "", embeddings_build),
+                                   embeddings_build, _detection("", ""),
                                    escaped_context_history)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  query_detection = _detection(str(escape(original_query)), query,
-                               embeddings_build)
+  query_detection = _detection(str(escape(original_query)), query)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
