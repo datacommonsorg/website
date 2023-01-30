@@ -124,6 +124,12 @@ class RankingClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
+class CompareClassificationAttributes(ClassificationAttributes):
+  """Compare classification attributes."""
+  compare_trigger_words: List[str]
+
+
+@dataclass
 class TemporalClassificationAttributes(ClassificationAttributes):
   """Temporal classification attributes."""
   date_str: str
@@ -178,8 +184,11 @@ class ClassificationType(IntEnum):
 
 # The supported classifications in order. Later entry is preferred.
 RANKED_CLASSIFICATION_TYPES = [
-    ClassificationType.SIMPLE, ClassificationType.CONTAINED_IN,
-    ClassificationType.RANKING, ClassificationType.CORRELATION
+    ClassificationType.SIMPLE,
+    ClassificationType.COMPARE,
+    ClassificationType.CONTAINED_IN,
+    ClassificationType.RANKING,
+    ClassificationType.CORRELATION,
 ]
 
 
