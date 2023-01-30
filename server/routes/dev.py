@@ -31,13 +31,6 @@ def dev():
   return flask.render_template('dev/dev.html')
 
 
-@bp.route('/nl')
-def dev_nl():
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
-  return dc.nl_helloworld()
-
-
 @bp.route('/screenshot/<path:folder>')
 def screenshot(folder):
   if os.environ.get('FLASK_ENV') == 'production':
