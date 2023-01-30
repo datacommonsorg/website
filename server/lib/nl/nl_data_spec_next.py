@@ -65,7 +65,7 @@ def compute(query_detection: Detection,
   # Each query-type has its own handler. Each knows what arguments it needs and
   # will call on the *_from_context() routines to obtain missing arguments.
   #
-  # TODO: Support COMPARE type.
+  # TODO: Support COMPARISON type.
   if (uttr.query_type == ClassificationType.SIMPLE):
     populate_simple(uttr)
   elif (uttr.query_type == ClassificationType.CORRELATION):
