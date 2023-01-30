@@ -21,15 +21,10 @@ from typing import Any, Dict
 bp = Blueprint('main', __name__, url_prefix='/')
 
 
-@bp.route('/')
-def helloworld():
-  return json.dumps({"data": "hello data commons"})
-
-
 @bp.route('/api/search_sv/', methods=['GET'])
 def search_sv():
   """Returns a dictionary with the following keys and values
-  
+
   {
     'SV': List[str]
     'CosineScore': List[float],
@@ -54,7 +49,7 @@ def search_sv():
 @bp.route('/api/search_places/', methods=['GET'])
 def search_places():
   """Returns a dictionary with the following keys and values
-  
+
   {
     'places': List[str]
   }

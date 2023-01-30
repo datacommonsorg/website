@@ -31,8 +31,12 @@ from services.discovery import configure_endpoints_from_ingress
 
 from __init__ import create_app
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s %(lineno)d : %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format=
+    "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
+    datefmt="%H:%M:%S",
+)
 
 # Needs to be called before create_app.
 ingress_config_path = os.environ.get(
