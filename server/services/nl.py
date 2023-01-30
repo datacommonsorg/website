@@ -19,7 +19,7 @@ from sentence_transformers.util import semantic_search
 
 from lib.nl.nl_place_detection import NLPlaceDetector
 from lib.nl.nl_detection import NLClassifier, ClassificationType
-from lib.nl.nl_detection import ClusteringClassificationAttributes, CompareClassificationAttributes
+from lib.nl.nl_detection import ClusteringClassificationAttributes, ComparisonClassificationAttributes
 from lib.nl.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
 from lib.nl.nl_detection import CorrelationClassificationAttributes
 from lib.nl.nl_detection import RankingClassificationAttributes, RankingType
@@ -223,13 +223,13 @@ class Model:
         ranking_type=ranking_types, ranking_trigger_words=all_trigger_words)
     return NLClassifier(type=ClassificationType.RANKING, attributes=attributes)
 
-  def compare_classification(self, query) -> Union[NLClassifier, None]:
+  def comparison_classification(self, query) -> Union[NLClassifier, None]:
     # make query lowercase for string matching
     query = query.lower()
     if "compare" in query:
-      attributes = CompareClassificationAttributes(
-          compare_trigger_words=['compare'])
-      return NLClassifier(type=ClassificationType.COMPARE,
+      attributes = ComparisonClassificationAttributes(
+          comparison_trigger_words=['compare'])
+      return NLClassifier(type=ClassificationType.COMPARISON,
                           attributes=attributes)
 
   def _ranking_classification(self, prediction) -> Union[NLClassifier, None]:

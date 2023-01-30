@@ -233,12 +233,12 @@ def _detection(orig_query, cleaned_query) -> Detection:
 
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)
-  compare_classification = model.compare_classification(query)
+  comparison_classification = model.comparison_classification(query)
   temporal_classification = model.query_classification("temporal", query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
   logging.info(f'Ranking classification: {ranking_classification}')
-  logging.info(f'Compare classification: {compare_classification}')
+  logging.info(f'Comparison classification: {comparison_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
 
@@ -246,8 +246,8 @@ def _detection(orig_query, cleaned_query) -> Detection:
   classifications = []
   if ranking_classification is not None:
     classifications.append(ranking_classification)
-  if compare_classification is not None:
-    classifications.append(compare_classification)
+  if comparison_classification is not None:
+    classifications.append(comparison_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
 
