@@ -137,6 +137,7 @@ metadata {
       default_severity_filter: {
         prop: "differenceTemperature",
         unit: "Celsius"
+        # If updating the lower_limit, also update the Extreme Heat event description (below, in this file).
         upper_limit: 35,
         lower_limit: 18
       }
@@ -151,6 +152,7 @@ metadata {
       color: "#304ffe"
       default_severity_filter: {
         prop: "differenceTemperature",
+        # If updating the upper_limit, also update the Extreme Cold event description (below, in this file).
         upper_limit: -18,
         lower_limit: -35
       }
