@@ -41,7 +41,7 @@ def load_model(app, embeddings_file):
                    cache.directory)
       return
 
-    nl_embeddings = Embeddings(app.config['GCS_FOLDER'], embeddings_file)
+    nl_embeddings = Embeddings(embeddings_file)
     app.config['NL_EMBEDDINGS'] = nl_embeddings
 
     nl_ner_places = NERPlaces()

@@ -30,18 +30,8 @@ def create_app():
 
   flask_env = os.environ.get('FLASK_ENV')
 
-  # Set the embedding gcs folder
-  if flask_env == 'autopush' or flask_env == 'local':
-    app.config['GCS_FOLDER'] = 'autopush/'
-  elif flask_env == 'production':
-    app.config['GCS_FOLDER'] = 'prod/'
-  elif flask_env == 'staging':
-    app.config['GCS_FOLDER'] = 'staging/'
-  else:
-    app.config['GCS_FOLDER'] = 'prod/'
-
   model_config_path = '/datacommons/model/model.yaml'
-  if flask_env == 'local':
+  if flask_env == 'local' or flask_env == 'test':
     model_config_path = os.path.abspath(
         os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
   app.config['MODEL_CONFIG_PATH'] = model_config_path
