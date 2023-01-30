@@ -304,12 +304,12 @@ class Model:
   def heuristic_correlation_classification(
       self, query: str) -> Union[NLClassifier, None]:
     """Determine if query is asking for a correlation.
-    
+
     Uses heuristics instead of ML-model for classification.
 
     Args:
       query: user's input, given as a string
-    
+
     Returns:
       NLClassifier with CorrelationClassificationAttributes
     """
