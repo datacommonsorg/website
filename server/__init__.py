@@ -299,9 +299,7 @@ def create_app():
     classification_types = [
         'ranking', 'temporal', 'contained_in', 'correlation'
     ]
-    nl_model = nl.Model(libnl.CLASSIFICATION_INFO,
-                        classification_types,
-                        ner_model=None)
+    nl_model = nl.Model(libnl.CLASSIFICATION_INFO, classification_types)
     app.config['NL_MODEL'] = nl_model
     if app.config['LOCAL']:
       with Cache(cache.directory) as reference:
