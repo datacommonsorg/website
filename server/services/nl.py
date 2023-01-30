@@ -29,7 +29,6 @@ from lib.nl.nl_training import NLQueryClusteringDetectionModel
 
 import lib.nl.nl_constants as nl_constants
 import lib.nl.nl_utils as nl_utils
-import services.datacommons as dc
 
 from typing import Dict, List, Union
 

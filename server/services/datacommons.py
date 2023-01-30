@@ -334,7 +334,7 @@ def nl_search_sv(query):
 
 
 def nl_detect_place_ner(query):
-  """Detec places from NL server."""
+  """Detect places from NL server."""
   url = f'{cfg.NL_ROOT}/api/search_places?q={query}'
   return get(url).get('places', [])
 
