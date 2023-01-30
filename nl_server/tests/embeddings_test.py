@@ -23,10 +23,6 @@ import unittest
 import yaml
 
 
-def _get_gcs_folder() -> str:
-  return "autopush/"
-
-
 def _get_embeddings_file_name() -> str:
   model_config_path = os.path.abspath(
       os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
@@ -49,8 +45,7 @@ class TestEmbeddings(unittest.TestCase):
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
       )
       # Using the default NER model.
-      cls.nl_embeddings = Embeddings(_get_gcs_folder(),
-                                     _get_embeddings_file_name())
+      cls.nl_embeddings = Embeddings(_get_embeddings_file_name())
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.

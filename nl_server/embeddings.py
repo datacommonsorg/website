@@ -31,8 +31,7 @@ MODEL_NAME = 'all-MiniLM-L6-v2'
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self, gcs_folder: str, embeddings_file: str) -> None:
-    self.gcs_folder = gcs_folder
+  def __init__(self, embeddings_file: str) -> None:
     self.embeddings_file = embeddings_file
     self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
@@ -64,7 +63,7 @@ class Embeddings:
   def _download_embeddings(self):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name=gcs.BUCKET)
-    blob = bucket.get_blob(self.gcs_folder + self.embeddings_file)
+    blob = bucket.get_blob(self.embeddings_file)
     # Download
     blob.download_to_filename(os.path.join(TEMP_DIR, self.embeddings_file))
 
