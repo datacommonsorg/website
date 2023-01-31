@@ -293,5 +293,5 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
   prev_uttr = None
   if uttr_dict:
     prev_uttr = utterance.load_utterance(uttr_dict)
-  return utterance.save_utterance(
-      fulfillment_next.fulfill(detection, prev_uttr))[0]
+  return utterance.save_utterance(fulfillment_next.fulfill(
+      detection, prev_uttr))[0]

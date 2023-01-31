@@ -167,8 +167,7 @@ class Model:
     ranking_types = []
     all_trigger_words = []
 
-    for subtype in constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys(
-    ):
+    for subtype in constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys():
       type_trigger_words = []
 
       for keyword in constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"][

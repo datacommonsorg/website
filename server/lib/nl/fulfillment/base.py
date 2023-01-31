@@ -113,7 +113,7 @@ def _add_charts(state: PopulateState, places: List[Place],
   if state.place_type:
     # REQUIRES: len(places) == 1
     places_to_check = utils.get_sample_child_places(places[0].dcid,
-                                                       state.place_type.value)
+                                                    state.place_type.value)
 
   # Map of main SV -> peer SVs
   sv2extensions = variable.extend_svs(utils.get_only_svs(svs))
@@ -129,8 +129,7 @@ def _add_charts(state: PopulateState, places: List[Place],
     # Infer charts for the main SV/Topic.
     chart_vars_list = _svg_or_topic_to_svs(state, sv, rank)
     for chart_vars in chart_vars_list:
-      exist_svs = utils.sv_existence_for_places(places_to_check,
-                                                   chart_vars.svs)
+      exist_svs = utils.sv_existence_for_places(places_to_check, chart_vars.svs)
       if exist_svs:
         chart_vars.svs = exist_svs
         # Now that we've found existing vars, call the per-chart-type callback.

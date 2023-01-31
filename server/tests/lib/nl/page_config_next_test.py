@@ -451,7 +451,7 @@ RANKING_CONFIG = """
 """
 
 
-# This has a set of similar tests to the ones in nl_data_spec_next_test.py.
+# This has a set of similar tests to the ones in fulfillment_next_test.py.
 class TestPageConfigNext(unittest.TestCase):
 
   @parameterized.expand([
@@ -483,5 +483,4 @@ def _textproto(s):
 
 def _run(uttr_dict: Dict) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
-  return text_format.MessageToString(
-      page_config_next.build_page_config(uttr))
+  return text_format.MessageToString(page_config_next.build_page_config(uttr))

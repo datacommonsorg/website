@@ -18,7 +18,7 @@ from config.subject_page_pb2 import Block, RankingTileSpec, StatVarSpec, \
   SubjectPageConfig, Tile
 from lib.nl.utterance import Utterance, ChartType, ChartSpec
 from lib.nl.detection import Place, RankingType
-from lib.nl import nl_utils
+from lib.nl import utils
 import logging
 
 
@@ -46,7 +46,7 @@ def build_page_config(uttr: Utterance) -> SubjectPageConfig:
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
   all_svs = list(all_svs)
-  sv2name = nl_utils.get_sv_name(all_svs)
+  sv2name = utils.get_sv_name(all_svs)
 
   prev_block_id = -1
   block = None

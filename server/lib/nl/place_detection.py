@@ -33,8 +33,8 @@ class NLPlaceDetector:
 
     # Run through all heuristics (various query string transforms).
     query = utils.remove_punctuations(query)
-    query_without_stop_words = utils.remove_stop_words(
-        query, constants.STOP_WORDS)
+    query_without_stop_words = utils.remove_stop_words(query,
+                                                       constants.STOP_WORDS)
     query_with_period = query + "."
     query_title_case = query.title()
 

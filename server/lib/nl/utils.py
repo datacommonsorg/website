@@ -85,8 +85,7 @@ def combine_stop_words() -> Set[str]:
                                constants.QUERY_CLASSIFICATION_HEURISTICS)
 
   # Also add the plurals.
-  add_to_set_from_list(stop_words,
-                       list(constants.PLACE_TYPE_TO_PLURALS.keys()))
+  add_to_set_from_list(stop_words, list(constants.PLACE_TYPE_TO_PLURALS.keys()))
   add_to_set_from_list(stop_words,
                        list(constants.PLACE_TYPE_TO_PLURALS.values()))
 
@@ -142,7 +141,7 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 # Given a place DCID and a child place type, returns a sample list
 # of places of that child type.
 #
-# TODO: Maybe dedupe with nl_data_spec.py
+# TODO: Maybe dedupe with data_spec.py
 #
 def get_sample_child_places(main_place_dcid: str,
                             contained_place_type: str) -> List[str]:

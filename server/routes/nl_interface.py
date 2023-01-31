@@ -611,7 +611,7 @@ def data():
   # Get Data Spec
   data_spec = data_spec.compute(query_detection, context_history)
   page_config_pb = page_config.build_page_config(query_detection, data_spec,
-                                                    context_history)
+                                                 context_history)
   page_config = json.loads(MessageToJson(page_config_pb))
 
   d = {
