@@ -474,7 +474,7 @@ def _detection(orig_query, cleaned_query: str,
   main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
   # Step 2: replace the places in the query sentence with "".
-  query = _remove_places(cleaned_query, places_found)
+  query = _remove_places(cleaned_query.lower(), places_found)
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(query_original=orig_query,
