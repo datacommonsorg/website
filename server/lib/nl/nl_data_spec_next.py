@@ -209,8 +209,12 @@ def populate_simple(uttr: Utterance) -> bool:
 def _populate_simple_cb(state: PopulateState, chart_vars: ChartVars,
                         places: List[Place],
                         chart_origin: ChartOriginType) -> bool:
-  return _add_chart_to_utterance(ChartType.TIMELINE_CHART, state, chart_vars,
-                                 places, chart_origin)
+  if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
+    _add_chart_to_utterance(ChartType.TIMELINE_CHART, state, chart_vars,
+                            places, chart_origin)
+  else:
+    _add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
+                            places, chart_origin)
 
 
 def _fallback_simple_cb(state: PopulateState, places: List[Place],
@@ -638,25 +642,12 @@ def _add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "include_percapita": chart_vars.include_percapita,
       "title": chart_vars.title,
   }
-  if len(chart_vars.svs) < 2 or chart_type == ChartType.SCATTER_CHART:
-    ch = ChartSpec(chart_type=chart_type,
-                   svs=chart_vars.svs,
-                   places=places,
-                   utterance=state.uttr,
-                   attr=attr)
-    state.uttr.chartCandidates.append(ch)
-    return True
-
-  start_index = 0
-  while start_index < len(chart_vars.svs):
-    l = min(len(chart_vars.svs) - start_index, _MAX_VARS_PER_CHART)
-    ch = ChartSpec(chart_type=chart_type,
-                   svs=chart_vars.svs[start_index:start_index + l],
-                   places=places,
-                   utterance=state.uttr,
-                   attr=attr)
-    start_index += l
-    state.uttr.chartCandidates.append(ch)
+  ch = ChartSpec(chart_type=chart_type,
+                 svs=chart_vars.svs,
+                 places=places,
+                 utterance=state.uttr,
+                 attr=attr)
+  state.uttr.chartCandidates.append(ch)
   return True
 
 
