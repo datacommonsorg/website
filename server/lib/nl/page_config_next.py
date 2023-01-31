@@ -16,8 +16,8 @@ from typing import List, Dict
 
 from config.subject_page_pb2 import Block, RankingTileSpec, StatVarSpec, \
   SubjectPageConfig, Tile
-from lib.nl.nl_utterance import Utterance, ChartType, ChartSpec
-from lib.nl.nl_detection import Place, RankingType
+from lib.nl.utterance import Utterance, ChartType, ChartSpec
+from lib.nl.detection import Place, RankingType
 from lib.nl import nl_utils
 import logging
 

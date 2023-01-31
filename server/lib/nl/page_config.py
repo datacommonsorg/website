@@ -15,10 +15,10 @@
 from typing import List, Dict
 
 from config import subject_page_pb2
-from lib.nl.nl_data_spec import DataSpec
-from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, RankingType
+from lib.nl.data_spec import DataSpec
+from lib.nl.detection import ClassificationType, Detection, NLClassifier, Place, RankingType
 from lib.nl import nl_topic
-from lib.nl.nl_constants import PLACE_TYPE_TO_PLURALS
+from lib.nl.constants import PLACE_TYPE_TO_PLURALS
 from services import datacommons as dc
 import json
 import os

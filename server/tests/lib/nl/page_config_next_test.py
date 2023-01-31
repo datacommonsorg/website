@@ -19,7 +19,7 @@ from parameterized import parameterized
 from typing import Dict
 from unittest.mock import patch
 
-from lib.nl import nl_utils, nl_utterance, nl_page_config_next
+from lib.nl import utils, utterance, page_config_next
 from config.subject_page_pb2 import SubjectPageConfig
 from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR, SIMPLE_UTTR, SIMPLE_WITH_SV_EXT_UTTR, \
   SIMPLE_WITH_TOPIC_UTTR, COMPARISON_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR, RANKING_UTTR
@@ -467,7 +467,7 @@ class TestPageConfigNext(unittest.TestCase):
       ["Correlation", CORRELATION_UTTR, CORRELATION_CONFIG],
       ["Ranking", RANKING_UTTR, RANKING_CONFIG],
   ])
-  @patch.object(nl_utils, 'get_sv_name')
+  @patch.object(utils, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name):
     mock_sv_name.side_effect = (lambda svs: {sv: sv for sv in svs})
     got = _run(uttr_dict)
@@ -482,6 +482,6 @@ def _textproto(s):
 
 
 def _run(uttr_dict: Dict) -> SubjectPageConfig:
-  uttr = nl_utterance.load_utterance([uttr_dict])
+  uttr = utterance.load_utterance([uttr_dict])
   return text_format.MessageToString(
-      nl_page_config_next.build_page_config(uttr))
+      page_config_next.build_page_config(uttr))
