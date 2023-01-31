@@ -29,7 +29,7 @@ def _query_embedding(query: str) -> Tuple[List[float], str]:
     return [], f'Could not generate an embeddings vector. Failed with error: {e}'
 
 
-def _index_embedding(index: int) -> tuple[List[float], str]:
+def _index_embedding(index: int) -> Tuple[List[float], str]:
   try:
     nl_embeddings = current_app.config['NL_EMBEDDINGS']
     return nl_embeddings.get_embedding_at_index(index), ''
