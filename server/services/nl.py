@@ -11,11 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Language Model client."""
-
-from google.cloud import storage
-from sentence_transformers import SentenceTransformer
-from sentence_transformers.util import semantic_search
+"""NL Model manager client."""
 
 from lib.nl.nl_place_detection import NLPlaceDetector
 from lib.nl.nl_detection import NLClassifier, ClassificationType
@@ -41,17 +37,6 @@ from datasets import load_dataset
 import logging
 from collections import OrderedDict
 import re
-
-BUILDS = [
-    'demographics300',  #'uncurated3000',
-    'demographics300-withpalmalternatives',
-    'curatedJan2022',
-    'us_filtered',
-]
-GCS_BUCKET = 'datcom-csv'
-EMBEDDINGS = 'embeddings/'
-TEMP_DIR = '/tmp/'
-MODEL_NAME = 'all-MiniLM-L6-v2'
 
 ALL_STOP_WORDS = nl_utils.combine_stop_words()
 
@@ -92,50 +77,26 @@ class Model:
   def __init__(self, query_classification_data: Dict[str,
                                                      NLQueryClassificationData],
                classification_types_supported: List[str]):
-    self.model = SentenceTransformer(MODEL_NAME)
     self.place_detector: NLPlaceDetector = NLPlaceDetector()
-    self.dataset_embeddings_maps = {}
-    # For clustering, need the DataFrame objects.
-    self.dataset_embeddings_maps_to_df = {}
-    self._download_embeddings()
-    self.dcid_maps = {}
-    self.sentence_maps = {}
-    for build in BUILDS:
-      logging.info('Loading build {}'.format(build))
-      ds = load_dataset('csv',
-                        data_files=os.path.join(TEMP_DIR,
-                                                f'embeddings_{build}.csv'))
-      df = ds["train"].to_pandas()
-      self.dcid_maps[build] = df['dcid'].values.tolist()
-      df = df.drop('dcid', axis=1)
-      # Also get the sentence mappings.
-      self.sentence_maps[build] = []
-      if 'sentence' in df:
-        self.sentence_maps[build] = df['sentence'].values.tolist()
-        df = df.drop('sentence', axis=1)
+    self.query_classification_data = query_classification_data
+    self.classification_types_supported = classification_types_supported
 
-      self.dataset_embeddings_maps[build] = torch.from_numpy(df.to_numpy()).to(
-          torch.float)
-      self.dataset_embeddings_maps_to_df[build] = df
-
-    # Classification models and training.
+    # Classification models.
+    self.classification_models_trained = False
     self.classification_models: Dict[str, NLQueryClassificationModel] = {}
-    self._classification_data_to_models(query_classification_data,
-                                        classification_types_supported)
 
     # Set the Correlations Detection Model.
     self._clustering_detection = NLQueryClusteringDetectionModel()
 
-  def _download_embeddings(self):
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
-    blobs = bucket.list_blobs(prefix=EMBEDDINGS)  # Get list of files
-    for blob in blobs:
-      try:
-        _, filename = os.path.split(blob.name)
-        blob.download_to_filename(os.path.join(TEMP_DIR, filename))  # Download
-      except Exception as e:
-        logging.info(e)
+  def train_classifiers(self):
+    # Classification models and training. This cannot happen as part of __init__() because
+    # Model() is initialized before the app context is created and dc API calls fail without
+    # getting the app context.
+    if not self.classification_models_trained:
+      logging.info("Training classification models.")
+      self._classification_data_to_models(self.query_classification_data,
+                                          self.classification_types_supported)
+      self.classification_models_trained = True
 
   def _train_classifier(self, categories, input_sentences):
     """Encode each sentence to get "features" and associated "labels"."""
@@ -146,7 +107,11 @@ class Model:
         sentences.append(s)
         labels.append(str(cat))
 
-    embeddings = self.model.encode(sentences, show_progress_bar=True)
+    embeddings = []
+    for s in sentences:
+      # Making an API call to the NL models server for the sentence string.
+      embeddings.append(dc.nl_embeddings_vector(s))
+
     embeddings = pd.DataFrame(embeddings)
     features = embeddings.values
 
@@ -360,9 +325,14 @@ class Model:
     embedding_vectors = []
     for i in range(0, cutoff_index):
       vec_index = sv_embedding_indices[i]
-      vec = self.dataset_embeddings_maps_to_df[embeddings_build].iloc[
-          vec_index].values
+      # Making an API call to the NL models server to get the embedding at index i.
+      vec = dc.nl_embeddings_vector_at_index(vec_index)
 
+      if not vec:
+        logging.info(
+            f"Clustering could not proceed. No embeddings vector found at index = {vec_index}"
+        )
+        return None
       embedding_vectors.append(np.array(vec))
 
     # Cluster the embedding vectors.
@@ -445,7 +415,9 @@ class Model:
     if not f'{type_string}' in self.classification_models:
       logging.info(f'{type_string} Classifier not built.')
       return None
-    query_encoded = self.model.encode(query)
+
+    # Making an API call to the NL models server for get the embedding for the query.
+    query_encoded = dc.nl_embeddings_vector(query)
     # TODO: when the correlation classifier is ready, remove this following conditional.
     if type_string in ["ranking", "temporal", "contained_in"]:
       classification_model: NLQueryClassificationModel = self.classification_models[
