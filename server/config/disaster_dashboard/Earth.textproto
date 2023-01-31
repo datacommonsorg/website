@@ -42,9 +42,9 @@ metadata {
       event_type_dcids: "FloodEvent"
       color: "#3cbad1"
       default_severity_filter: {
-        prop: "area",
-        unit: "SquareKilometer",
-        upper_limit: 1000,
+        prop: "area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
         lower_limit: 25
       }
     }
@@ -59,9 +59,9 @@ metadata {
       event_type_dcids: "FireEvent"
       color: "#f9c532"
       default_severity_filter: {
-        prop: "area",
-        unit: "SquareKilometer",
-        upper_limit: 1000,
+        prop: "area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
         lower_limit: 25
       }
     }
@@ -74,9 +74,9 @@ metadata {
       color: "#2e7d32"
       event_type_dcids: "CycloneEvent"
       default_severity_filter: {
-        prop: "maxWindSpeed",
-        unit: "Knot",
-        upper_limit: 100000,
+        prop: "maxWindSpeed"
+        unit: "Knot"
+        upper_limit: 100000
         lower_limit: 64
       }
     }
@@ -90,9 +90,9 @@ metadata {
       event_type_dcids: "TornadoEvent"
       color: "#004d40"
       default_severity_filter: {
-        prop: "maxClassification",
-        unit: "TornadoIntensityEF",
-        upper_limit: 5,
+        prop: "maxClassification"
+        unit: "TornadoIntensityEF"
+        upper_limit: 5
         lower_limit: 3
       }
     }
@@ -106,7 +106,7 @@ metadata {
       color: "#ff5dd6"
       default_severity_filter: {
         prop: "area",
-        unit: "SquareKilometer",
+        unit: "SquareKilometer"
         upper_limit: 100000,
         lower_limit: 10
       }
@@ -120,7 +120,7 @@ metadata {
       event_type_dcids: "WetBulbTemperatureEvent"
       color: "#7700e6"
       default_severity_filter: {
-        prop: "wetBulbTemperature",
+        prop: "wetBulbTemperature"
         unit: "Celsius",
         upper_limit: 37,
         lower_limit: 31
@@ -135,10 +135,10 @@ metadata {
       event_type_dcids: "HeatTemperatureEvent"
       color: "#f01212"
       default_severity_filter: {
-        prop: "differenceTemperature",
+        prop: "differenceTemperature"
         unit: "Celsius"
         # If updating the lower_limit, also update the Extreme Heat event description (below, in this file).
-        upper_limit: 35,
+        upper_limit: 35
         lower_limit: 18
       }
     }
@@ -151,10 +151,10 @@ metadata {
       event_type_dcids: "ColdTemperatureEvent"
       color: "#304ffe"
       default_severity_filter: {
-        prop: "differenceTemperature",
+        prop: "differenceTemperature"
         unit: "Celsius"
         # If updating the upper_limit, also update the Extreme Cold event description (below, in this file).
-        upper_limit: -18,
+        upper_limit: -18
         lower_limit: -35
       }
     }
