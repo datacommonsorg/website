@@ -14,8 +14,6 @@
 """Language Model client."""
 
 from google.cloud import storage
-from sentence_transformers import SentenceTransformer
-from sentence_transformers.util import semantic_search
 
 from lib.nl.nl_place_detection import NLPlaceDetector
 from lib.nl.nl_detection import NLClassifier, ClassificationType
@@ -51,7 +49,6 @@ BUILDS = [
 GCS_BUCKET = 'datcom-csv'
 EMBEDDINGS = 'embeddings/'
 TEMP_DIR = '/tmp/'
-MODEL_NAME = 'all-MiniLM-L6-v2'
 
 ALL_STOP_WORDS = nl_utils.combine_stop_words()
 
@@ -92,26 +89,20 @@ class Model:
   def __init__(self, query_classification_data: Dict[str,
                                                      NLQueryClassificationData],
                classification_types_supported: List[str]):
-    self.model = SentenceTransformer(MODEL_NAME)
     self.place_detector: NLPlaceDetector = NLPlaceDetector()
     self.dataset_embeddings_maps = {}
     # For clustering, need the DataFrame objects.
     self.dataset_embeddings_maps_to_df = {}
     self._download_embeddings()
-    self.dcid_maps = {}
-    self.sentence_maps = {}
     for build in BUILDS:
       logging.info('Loading build {}'.format(build))
       ds = load_dataset('csv',
                         data_files=os.path.join(TEMP_DIR,
                                                 f'embeddings_{build}.csv'))
       df = ds["train"].to_pandas()
-      self.dcid_maps[build] = df['dcid'].values.tolist()
       df = df.drop('dcid', axis=1)
-      # Also get the sentence mappings.
-      self.sentence_maps[build] = []
+
       if 'sentence' in df:
-        self.sentence_maps[build] = df['sentence'].values.tolist()
         df = df.drop('sentence', axis=1)
 
       self.dataset_embeddings_maps[build] = torch.from_numpy(df.to_numpy()).to(
@@ -146,8 +137,13 @@ class Model:
         sentences.append(s)
         labels.append(str(cat))
 
-    embeddings = self.model.encode(sentences, show_progress_bar=True)
+    embeddings = []
+    for s in sentences:
+      embeddings.append(dc.nl_embeddings_vector(s))
+
+    print(embeddings)
     embeddings = pd.DataFrame(embeddings)
+    print(embeddings.head())
     features = embeddings.values
 
     return (features, labels)
@@ -445,7 +441,7 @@ class Model:
     if not f'{type_string}' in self.classification_models:
       logging.info(f'{type_string} Classifier not built.')
       return None
-    query_encoded = self.model.encode(query)
+    query_encoded = dc.nl_embeddings_vector(query)
     # TODO: when the correlation classifier is ready, remove this following conditional.
     if type_string in ["ranking", "temporal", "contained_in"]:
       classification_model: NLQueryClassificationModel = self.classification_models[

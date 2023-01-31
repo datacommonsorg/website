@@ -67,6 +67,9 @@ class Embeddings:
     # Download
     blob.download_to_filename(os.path.join(TEMP_DIR, self.embeddings_file))
 
+  def get_embedding(self, query: str) -> List[float]:
+    return self.model.encode(query).tolist()
+
   def detect_svs(self, query: str) -> Dict[str, Union[Dict, List]]:
     query_embeddings = self.model.encode([query])
     hits = semantic_search(query_embeddings, self.dataset_embeddings, top_k=20)
