@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Tests for nl_place_detection."""
+"""Integration tests for NL Next fulfillment."""
 
 from parameterized import parameterized
 
@@ -28,11 +28,13 @@ from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR, SIMPLE_UTTR, SIMPLE_WIT
   SIMPLE_WITH_TOPIC_UTTR, COMPARISON_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR, RANKING_UTTR
 
 
-# External interfaces:
+#
+# External interfaces that need mocking:
 # - nl_variable.extend_svs
 # - nl_utils.sv_existence_for_places
 # - nl_utils.get_sample_child_places
 # - svg_or_topic_to_svs
+#
 class TestDataSpecNext(unittest.TestCase):
 
   def test_place_only(self):
@@ -143,6 +145,7 @@ class TestDataSpecNext(unittest.TestCase):
     self.assertEqual(got, RANKING_UTTR)
 
   # This follows up on test_simple()
+  # Example: [how does that compare with nevada?]
   @patch.object(nl_variable, 'extend_svs')
   @patch.object(nl_utils, 'sv_existence_for_places')
   def test_comparison(self, mock_sv_existence, mock_extend_svs):
@@ -162,6 +165,7 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, COMPARISON_UTTR)
 
+  # This exercises SV expansion to peers.
   @patch.object(nl_variable, 'extend_svs')
   @patch.object(nl_utils, 'sv_existence_for_places')
   def test_simple_with_sv_extension(self, mock_sv_existence, mock_extend_svs):
@@ -185,6 +189,7 @@ class TestDataSpecNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, SIMPLE_WITH_SV_EXT_UTTR)
 
+  # This exercises Topic expansion.
   @patch.object(nl_variable, 'extend_svs')
   @patch.object(base, '_svg_or_topic_to_svs')
   @patch.object(nl_utils, 'sv_existence_for_places')
@@ -231,6 +236,7 @@ class TestDataSpecNext(unittest.TestCase):
     self.assertEqual(got, SIMPLE_WITH_TOPIC_UTTR)
 
 
+# Helper to construct Detection() class.
 def _detection(place: str,
                svs: List[str],
                scores: List[float],

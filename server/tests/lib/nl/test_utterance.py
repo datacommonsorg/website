@@ -16,6 +16,7 @@
 from lib.nl.nl_detection import ClassificationType, RankingType
 from lib.nl.nl_utterance import ChartOriginType, ChartType
 
+# Utterance for Place Overview.
 PLACE_ONLY_UTTR = {
     'classifications': [],
     'places': [{
@@ -45,6 +46,7 @@ PLACE_ONLY_UTTR = {
     'svs': [],
 }
 
+# Utterance for a couple of simple SVs for a place.
 SIMPLE_UTTR = {
     'classifications': [],
     'places': [{
@@ -90,6 +92,7 @@ SIMPLE_UTTR = {
     'svs': ['Count_Person_Male', 'Count_Person_Female']
 }
 
+# Utterance for a simple SV with peer SV extensions.
 SIMPLE_WITH_SV_EXT_UTTR = {
     'classifications': [],
     'places': [{
@@ -135,6 +138,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
     'svs': ['Count_Person_Male']
 }
 
+# Utterance for a simple topic expansion.
 SIMPLE_WITH_TOPIC_UTTR = {
     'classifications': [],
     'places': [{
@@ -196,6 +200,8 @@ SIMPLE_WITH_TOPIC_UTTR = {
     'svs': ['dc/topic/Agriculture']
 }
 
+# Utterance for comparison across places.
+# Depends on SIMPLE_UTTR.
 COMPARISON_UTTR = {
     'classifications': [{
         'type': ClassificationType.COMPARISON
@@ -251,6 +257,8 @@ COMPARISON_UTTR = {
     'svs': []
 }
 
+# Utterance for county contained-in place.
+# Depends on SIMPLE_UTTR (for parent place)
 CONTAINED_IN_UTTR = {
     'classifications': [{
         'contained_in_place_type': 'County',
@@ -279,6 +287,8 @@ CONTAINED_IN_UTTR = {
     'svs': ['Count_Farm']
 }
 
+# Utterance for correlation wrt previous SV.
+# Depends on CONTAINED_IN_UTTR (for previous SV, parent place, child place type)
 CORRELATION_UTTR = {
     'classifications': [{
         'type': ClassificationType.CORRELATION
@@ -306,6 +316,8 @@ CORRELATION_UTTR = {
     'svs': ['Mean_Precipitation']
 }
 
+# Utterance for highest for an SV.
+# Depends on CORRELATION_UTTR (for parent place, child place type)
 RANKING_UTTR = {
     'classifications': [{
         'ranking_type': [RankingType.HIGH],
