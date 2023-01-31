@@ -19,8 +19,8 @@ import logging
 
 from lib.nl.nl_detection import ClassificationType, Detection, \
   ContainedInPlaceType, ContainedInClassificationAttributes, \
-    RankingType, RankingClassificationAttributes, Place, \
-      ClassificationAttributes
+    RankingType, RankingClassificationAttributes, ComparisonClassificationAttributes, \
+    Place, ClassificationAttributes
 from lib.nl import nl_variable, nl_topic
 from lib.nl.nl_utils import is_sv, is_topic, \
   sv_existence_for_places, get_sample_child_places
@@ -74,7 +74,8 @@ def compute(query_detection: Detection,
     populate_contained_in(uttr)
   elif (uttr.query_type == ClassificationType.RANKING):
     populate_ranking(uttr)
-
+  elif (uttr.query_type == ClassificationType.COMPARISON):
+    populate_comparison(uttr)
   rank_charts(uttr)
   return uttr
 
@@ -107,41 +108,45 @@ class ChartVars:
 # Populate chart specs in state.uttr and return True if something was added.
 def populate_charts(state: PopulateState) -> bool:
   for pl in state.uttr.places:
-    if (_populate_charts_for_place(state, pl)):
+    if (_populate_charts_for_places(state, [pl])):
       return True
   for pl in _places_from_context(state.uttr):
-    if (_populate_charts_for_place(state, pl)):
+    if (_populate_charts_for_places(state, [pl])):
       return True
   return False
 
 
 # Populate charts given a place.
-def _populate_charts_for_place(state: PopulateState, place: str) -> bool:
+def _populate_charts_for_places(state: PopulateState,
+                                places: List[Place]) -> bool:
   if (len(state.uttr.svs) > 0):
-    foundCharts = _add_charts(state, place, state.uttr.svs)
+    foundCharts = _add_charts(state, places, state.uttr.svs)
     if foundCharts:
       return True
   for svs in _svs_from_context(state.uttr):
-    foundCharts = _add_charts(state, place, svs)
+    foundCharts = _add_charts(state, places, svs)
     if foundCharts:
       return True
-  logging.info('Doing fallback for %s - %s', place, ', '.join(state.uttr.svs))
-  return state.fallback_cb(state, place, ChartOriginType.PRIMARY_CHART)
+  logging.info('Doing fallback for %s - %s',
+               ', '.join(_get_place_names(places)), ', '.join(state.uttr.svs))
+  return state.fallback_cb(state, places, ChartOriginType.PRIMARY_CHART)
 
 
 # Add charts given a place and a list of stat-vars.
 # TODO: Batch existence check calls
-def _add_charts(state: PopulateState, place: Place, svs: List[str]) -> bool:
-  print("Add chart %s %s" % (place.name, svs))
+def _add_charts(state: PopulateState, places: List[Place],
+                svs: List[str]) -> bool:
+  print("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
 
   # If there is a child place_type, get child place samples for existence check.
-  places_to_check = [place.dcid]
+  places_to_check = _get_place_dcids(places)
   if state.place_type:
-    places_to_check = get_sample_child_places(place.dcid,
+    # REQUIRES: len(places) == 1
+    places_to_check = get_sample_child_places(places[0].dcid,
                                               state.place_type.value)
 
   # Map of main SV -> peer SVs
-  sv2extensions = nl_variable.extend_svs(svs)
+  sv2extensions = nl_variable.extend_svs(_get_only_svs(svs))
 
   # A set used to ensure that a set of SVs are constructed into charts
   # only once. For example SV1 and SV2 may both be main SVs, and part of
@@ -158,7 +163,7 @@ def _add_charts(state: PopulateState, place: Place, svs: List[str]) -> bool:
       if exist_svs:
         chart_vars.svs = exist_svs
         # Now that we've found existing vars, call the per-chart-type callback.
-        if state.main_cb(state, chart_vars, place,
+        if state.main_cb(state, chart_vars, places,
                          ChartOriginType.PRIMARY_CHART):
           found = True
       else:
@@ -181,7 +186,7 @@ def _add_charts(state: PopulateState, place: Place, svs: List[str]) -> bool:
       chart_vars = ChartVars(svs=exist_svs, block_id=state.block_id)
 
       # Add this as a secondary chart.
-      if state.main_cb(state, chart_vars, place,
+      if state.main_cb(state, chart_vars, places,
                        ChartOriginType.SECONDARY_CHART):
         found = True
     elif len(exist_svs) < len(extended_svs):
@@ -202,12 +207,20 @@ def populate_simple(uttr: Utterance) -> bool:
 
 
 def _populate_simple_cb(state: PopulateState, chart_vars: ChartVars,
-                        place: Place, chart_origin: ChartOriginType) -> bool:
-  return _add_chart_to_utterance(ChartType.TIMELINE_CHART, state, chart_vars,
-                                 [place], chart_origin)
+                        places: List[Place],
+                        chart_origin: ChartOriginType) -> bool:
+  if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
+    # For fewer SVs, comparing trends over time is nicer.
+    chart_type = ChartType.TIMELINE_CHART
+  else:
+    # When there are too many, comparing latest values is better
+    # (than, say, breaking it into multiple timeline charts)
+    chart_type = ChartType.BAR_CHART
+  return _add_chart_to_utterance(chart_type, state, chart_vars, places,
+                                 chart_origin)
 
 
-def _fallback_simple_cb(state: PopulateState, place: Place,
+def _fallback_simple_cb(state: PopulateState, places: List[Place],
                         chart_origin: ChartOriginType) -> bool:
   # If NO SVs were found, then this is a OVERVIEW chart, added to a new block.
   state.block_id += 1
@@ -215,7 +228,7 @@ def _fallback_simple_cb(state: PopulateState, place: Place,
                          block_id=state.block_id,
                          include_percapita=False)
   return _add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
-                                 [place], chart_origin)
+                                 places, chart_origin)
 
 
 # Callback handlers for CONTAINED_IN chart
@@ -246,27 +259,30 @@ def populate_contained_in(uttr: Utterance) -> bool:
 
 
 def _populate_contained_in_cb(state: PopulateState, chart_vars: ChartVars,
-                              containing_place: Place,
+                              contained_places: List[Place],
                               chart_origin: ChartOriginType) -> bool:
   if not state.place_type:
     return False
   if not chart_vars:
     return False
+  if len(contained_places) > 1:
+    return False
   if len(chart_vars.svs) > 1:
     # We don't handle peer group SVs
     return False
   _add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,
-                          [containing_place], chart_origin)
+                          contained_places, chart_origin)
   return True
 
 
-def _fallback_contained_in_cb(state: PopulateState, containing_place: Place,
+def _fallback_contained_in_cb(state: PopulateState,
+                              containing_places: List[Place],
                               chart_origin: ChartOriginType) -> bool:
   # TODO: Poor choice, do better.
   sv = "Count_Person"
   state.block_id += 1
   chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_contained_in_cb(state, chart_vars, containing_place,
+  return _populate_contained_in_cb(state, chart_vars, containing_places,
                                    chart_origin)
 
 
@@ -317,26 +333,64 @@ def populate_ranking(uttr: Utterance):
 
 
 def _populate_ranking_cb(state: PopulateState, chart_vars: ChartVars,
-                         containing_place: Place,
+                         containing_places: List[Place],
                          chart_origin: ChartOriginType) -> bool:
   if not state.place_type or not state.ranking_types:
     return False
-
+  if len(containing_places) > 1:
+    return False
   if len(chart_vars.svs) > 1:
     # We don't handle peer group SVs
     return False
   _add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
-                          [containing_place], chart_origin)
+                          containing_places, chart_origin)
   return True
 
 
-def _fallback_ranking_cb(state: PopulateState, containing_place: Place,
+def _fallback_ranking_cb(state: PopulateState, containing_places: List[Place],
                          chart_origin: ChartOriginType) -> bool:
   # TODO: Poor choice, do better.
   sv = "Count_Person"
   state.block_id += 1
   chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_ranking_cb(state, chart_vars, containing_place, chart_origin)
+  return _populate_ranking_cb(state, chart_vars, containing_places,
+                              chart_origin)
+
+
+#
+# Handler for COMPARISON chart.
+#
+
+
+def populate_comparison(uttr: Utterance) -> bool:
+  # NOTE: The COMPARISON attribute has no additional parameters.  So start
+  # by directly inferring the list of places to compare.
+  state = PopulateState(uttr=uttr,
+                        main_cb=_populate_comparison_cb,
+                        fallback_cb=_fallback_comparison_cb)
+  for places_to_compare in _places_for_comparison_from_context(uttr):
+    if _populate_charts_for_places(state, places_to_compare):
+      return True
+  return False
+
+
+def _populate_comparison_cb(state: PopulateState, chart_vars: ChartVars,
+                            places: List[Place],
+                            chart_origin: ChartOriginType) -> bool:
+  if len(places) < 2:
+    return False
+  _add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
+                          chart_origin)
+  return True
+
+
+def _fallback_comparison_cb(state: PopulateState, places: List[Place],
+                            chart_origin: ChartOriginType) -> bool:
+  # TODO: Poor choice, do better.
+  sv = "Count_Person"
+  state.block_id += 1
+  chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
+  return _populate_comparison_cb(state, chart_vars, places, chart_origin)
 
 
 #
@@ -423,6 +477,8 @@ def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,
 
 #
 # General utilities for retrieving stuff from past context.
+# TODO: convert all implementations to consistently loop from passed `uttr`
+#       instead of `uttr.prev_utterance`
 #
 
 
@@ -446,6 +502,50 @@ def _places_from_context(uttr: Utterance) -> List[Place]:
       ans.append(place)
     prev = prev.prev_utterance
     prev_uttr_count = prev_uttr_count + 1
+  return ans
+
+
+# Computes a list of place lists, where each inner list is a candidate for place
+# comparison.  The outer list is ordered from most prefered candidates to least.
+#
+# The logic for determining a single place comparison candidate is as follows:
+# 1. If an utterance has multiple places, then that is a candidate list.
+# 2. If an utterance has a single place, then we walk up prior utterances until
+#    we find an utterance with at least one place.  The candidate list is
+#    the former single place plus the latter from prior utterance.
+#
+# For example, suppose the query sequence is as follows:
+#   [tell me about san jose] -> [how is auto theft in fremont] -> [compare with palo alto]
+#
+# In this case, the ordered candidates will be:
+#   [[palo alto, fremont], [palo alto, san jose], [fremont, san jose]]
+#
+# If instead of the last query, we had:
+#  [compare among palo alto, sunnyvale and san jose]
+# Then, the ordered candidates will be:
+#  [[palo alto, sunnyvale, san jose], [fremont, san jose]]
+#
+def _places_for_comparison_from_context(uttr: Utterance) -> List[List[Place]]:
+  ans = []
+  first_uttr_count = 0
+  first = uttr
+  while (first and first_uttr_count < CTX_LOOKBACK_LIMIT + 1):
+    if len(first.places) == 1:
+      # Found only one place.  Try to find related place by looping up
+      # the utterance chain.
+      second = first.prev_utterance
+      second_uttr_count = first_uttr_count + 1
+      while (second and second_uttr_count < CTX_LOOKBACK_LIMIT + 1):
+        # For the first place, add all combinations of the second.
+        if second.places:
+          ans.append(second.places + first.places)
+        second = second.prev_utterance
+        second_uttr_count = second_uttr_count + 1
+    elif len(first.places) > 1:
+      # Found multiple places in a single utterance.  Use this.
+      ans.append(first.places)
+    first = first.prev_utterance
+    first_uttr_count = first_uttr_count + 1
   return ans
 
 
@@ -545,28 +645,12 @@ def _add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
       "include_percapita": chart_vars.include_percapita,
       "title": chart_vars.title,
   }
-  if len(chart_vars.svs) < 2 or chart_type == ChartType.SCATTER_CHART:
-    ch = ChartSpec(chart_type=chart_type,
-                   svs=chart_vars.svs,
-                   places=places,
-                   utterance=state.uttr,
-                   attr=attr)
-    state.uttr.chartCandidates.append(ch)
-    return True
-
-  # This is now only supported in time-line
-  assert chart_type == ChartType.TIMELINE_CHART
-
-  start_index = 0
-  while start_index < len(chart_vars.svs):
-    l = min(len(chart_vars.svs) - start_index, _MAX_VARS_PER_CHART)
-    ch = ChartSpec(chart_type=chart_type,
-                   svs=chart_vars.svs[start_index:start_index + l],
-                   places=places,
-                   utterance=state.uttr,
-                   attr=attr)
-    start_index += l
-    state.uttr.chartCandidates.append(ch)
+  ch = ChartSpec(chart_type=chart_type,
+                 svs=chart_vars.svs,
+                 places=places,
+                 utterance=state.uttr,
+                 attr=attr)
+  state.uttr.chartCandidates.append(ch)
   return True
 
 
@@ -600,3 +684,17 @@ def _get_only_svs(svs: List[str]) -> List[str]:
     if is_sv(sv):
       ret.append(sv)
   return ret
+
+
+def _get_place_dcids(places: List[Place]) -> List[str]:
+  dcids = []
+  for p in places:
+    dcids.append(p.dcid)
+  return dcids
+
+
+def _get_place_names(places: List[Place]) -> List[str]:
+  names = []
+  for p in places:
+    names.append(p.name)
+  return names
