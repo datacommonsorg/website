@@ -98,9 +98,10 @@ def register_routes_stanford_dc(app, is_test):
     # load disaster dashboard configs
     disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
     app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
-    disaster_dashboard_data = get_disaster_dashboard_data(
-        app.config['GCS_BUCKET'])
-    app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+    if os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+      disaster_dashboard_data = get_disaster_dashboard_data(
+          app.config['GCS_BUCKET'])
+      app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
 
 def register_routes_admin(app):

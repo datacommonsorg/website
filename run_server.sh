@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
+set -ex
 
 python3 -m venv .env
 source .env/bin/activate
@@ -28,10 +28,11 @@ function help {
   echo "-e       Run with a specified environment. Options are: lite custom or any configured env. Default: local"
   echo "-p       Run on a specified port. Default: 8080"
   echo "-m       Enable language models"
+  echo "-d       Enable disaster JSON cache"
   exit 1
 }
 
-while getopts ":e:p:m" OPTION; do
+while getopts ":e:p:m:d" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
@@ -41,6 +42,9 @@ while getopts ":e:p:m" OPTION; do
       ;;
     m)
       export ENABLE_MODEL=true
+      ;;
+    d)
+      export ENABLE_DISASTER_JSON=true
       ;;
     *)
       help
