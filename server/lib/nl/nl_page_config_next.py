@@ -178,11 +178,15 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
-  title = 'Total'
   if attr['title']:
+    # This happens in the case of Topics
     title = attr['title']
   elif len(svs) > 1:
+    # This suggests we are comparing against SV peers from SV extension
     title = 'Compare with Other Variables'
+  else:
+    # This is the case of multiple places for a single SV
+    title = 'Total'
 
   # Total
   tile = Tile(type=Tile.TileType.BAR,
