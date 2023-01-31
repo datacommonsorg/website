@@ -462,10 +462,10 @@ class TestPageConfigNext(unittest.TestCase):
           SIMPLE_WITH_SV_EXT_CONFIG
       ],
       ["Simple with topic", SIMPLE_WITH_TOPIC_UTTR, SIMPLE_WITH_TOPIC_CONFIG],
-      ["Simple with comparison", COMPARISON_UTTR, COMPARISON_CONFIG],
-      ["Simple with contained-in", CONTAINED_IN_UTTR, CONTAINED_IN_CONFIG],
-      ["Simple with correlation", CORRELATION_UTTR, CORRELATION_CONFIG],
-      ["Simple with ranking", RANKING_UTTR, RANKING_CONFIG],
+      ["Comparison", COMPARISON_UTTR, COMPARISON_CONFIG],
+      ["Contained-in", CONTAINED_IN_UTTR, CONTAINED_IN_CONFIG],
+      ["Correlation", CORRELATION_UTTR, CORRELATION_CONFIG],
+      ["Ranking", RANKING_UTTR, RANKING_CONFIG],
   ])
   @patch.object(nl_utils, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name):
