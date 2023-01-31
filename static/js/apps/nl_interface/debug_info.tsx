@@ -24,21 +24,6 @@ import { Col, Row } from "reactstrap";
 
 import { DebugInfo, SVScores } from "../../types/app/nl_interface_types";
 
-export const BUILD_OPTIONS = [
-  { value: "us_filtered", text: "Filtered US SVs" },
-  {
-    value: "curatedJan2022",
-    text: "Curated 3.5k+ SVs PaLM(Jan2022) - Default",
-  },
-  { value: "demographics300", text: "Demographics only (300 SVs)" },
-  {
-    value: "demographics300-withpalmalternatives",
-    text: "Demographics only (300 SVs) with PaLM Alternatives",
-  },
-  // { value: "uncurated3000", text: "Uncurated 3000 SVs" },
-  // { value: "combined_all", text: "Combined All of the Above" },
-];
-
 const svToSentences = (
   svScores: SVScores,
   svSentences: Map<string, Array<string>>
@@ -103,8 +88,6 @@ const matchScoresElement = (svScores: SVScores): JSX.Element => {
 
 export interface DebugInfoProps {
   debugData: any; // from the server response
-  selectedBuild: string;
-  setSelectedBuild: (string) => void;
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
@@ -123,19 +106,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
     svScores: props.debugData["sv_matching"],
     svSentences: props.debugData["svs_to_sentences"],
-    embeddingsBuild: props.debugData["embeddings_build"],
     rankingClassification: props.debugData["ranking_classification"],
     temporalClassification: props.debugData["temporal_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
     dataSpec: props.debugData["data_spec"],
-  };
-
-  const handleEmbeddingsBuildChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const build = event.target.value;
-    props.setSelectedBuild(build);
   };
 
   const toggleShowDebug = () => {
@@ -159,25 +134,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <br></br>
           </Row>
           <Row>
-            <label>Embeddings build:</label>
-          </Row>
-          <div className="embeddings-build-options">
-            <select
-              value={props.selectedBuild}
-              onChange={handleEmbeddingsBuildChange}
-            >
-              {BUILD_OPTIONS.map((option, idx) => (
-                <option key={idx} value={option.value}>
-                  {option.text}
-                </option>
-              ))}
-            </select>
-          </div>
-          <Row>
             <b>Execution Status: </b> {debugInfo.status}
-          </Row>
-          <Row>
-            <b>Embeddings Build: </b> {debugInfo.embeddingsBuild}
           </Row>
           <Row>
             <b>Original Query: </b> {debugInfo.originalQuery}
