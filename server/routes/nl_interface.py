@@ -350,7 +350,6 @@ def _empty_svs_score_dict():
 
 def _result_with_debug_info(data_dict,
                             status,
-                            embeddings_build,
                             query_detection: Detection,
                             data_spec=None):
   """Using data_dict and query_detection, format the dictionary response."""
@@ -406,8 +405,6 @@ def _result_with_debug_info(data_dict,
               svs_dict,
           'svs_to_sentences':
               svs_to_sentences,
-          'embeddings_build':
-              embeddings_build,
           'ranking_classification':
               ranking_classification,
           'temporal_classification':
@@ -599,13 +596,11 @@ def data():
     recent_context = context_history[-1]
 
   query = str(escape(nl_utils.remove_punctuations(original_query)))
-  embeddings_build = str(escape(request.args.get('build', "combined_all")))
   default_place = "United States"
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build,
                                    _detection("", "", recent_context))
 
   # Query detection routine:
@@ -636,5 +631,4 @@ def data():
   if not data_spec.selected_svs:
     status_str += '**No SVs Found**.'
 
-  return _result_with_debug_info(d, status_str, embeddings_build,
-                                 query_detection, data_spec)
+  return _result_with_debug_info(d, status_str, query_detection, data_spec)

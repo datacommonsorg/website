@@ -106,8 +106,7 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
-def _result_with_debug_info(data_dict, status, embeddings_build,
-                            query_detection: Detection,
+def _result_with_debug_info(data_dict, status, query_detection: Detection,
                             context_history: List[Dict]):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
@@ -151,7 +150,6 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
       'original_query': query_detection.original_query,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
-      'embeddings_build': embeddings_build,
       'ranking_classification': ranking_classification,
       'temporal_classification': temporal_classification,
       'contained_in_classification': contained_in_classification,
@@ -315,7 +313,6 @@ def data():
   logging.info(context_history)
 
   query = str(escape(nl_utils.remove_punctuations(original_query)))
-  embeddings_build = str(escape(request.args.get('build', "combined_all")))
   res = {
       'place': {
           'dcid': '',
@@ -328,8 +325,7 @@ def data():
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build, _detection("", ""),
-                                   escaped_context_history)
+                                   _detection("", ""), escaped_context_history)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -371,6 +367,6 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  data_dict = _result_with_debug_info(data_dict, status_str, embeddings_build,
-                                      query_detection, context_history)
+  data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
+                                      context_history)
   return data_dict

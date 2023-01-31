@@ -26,7 +26,7 @@ import { Container } from "reactstrap";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SearchResult } from "../../types/app/nl_interface_types";
 import { isNLInterfaceNext } from "../../utils/nl_interface_utils";
-import { BUILD_OPTIONS, DebugInfo } from "./debug_info";
+import { DebugInfo } from "./debug_info";
 
 const SVG_CHART_HEIGHT = 160;
 
@@ -41,7 +41,6 @@ export const QueryResult = memo(function QueryResult(
   props: QueryResultProps
 ): JSX.Element {
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [selectedBuild, setSelectedBuild] = useState(BUILD_OPTIONS[0].value);
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
   const scrollRef = createRef<HTMLDivElement>();
@@ -61,10 +60,10 @@ export const QueryResult = memo(function QueryResult(
   }, [isLoading]);
 
   useEffect(() => {
-    fetchData(props.query, selectedBuild);
-  }, [props.query, selectedBuild]);
+    fetchData(props.query);
+  }, [props.query]);
 
-  function fetchData(query: string, build: string): void {
+  function fetchData(query: string): void {
     setIsLoading(true);
     console.log("context:", props.query, props.contextHistory);
     const is_nl_next = isNLInterfaceNext();
@@ -73,7 +72,7 @@ export const QueryResult = memo(function QueryResult(
     const dataApi = is_nl_next ? "nlnext/data" : "nl/data";
 
     axios
-      .post(`/${dataApi}?q=${query}&build=${build}`, {
+      .post(`/${dataApi}?q=${query}`, {
         contextHistory: props.contextHistory,
       })
       .then((resp) => {
@@ -141,13 +140,7 @@ export const QueryResult = memo(function QueryResult(
       </div>
       <div className="nl-result">
         <Container>
-          {debugData && (
-            <DebugInfo
-              debugData={debugData}
-              selectedBuild={selectedBuild}
-              setSelectedBuild={setSelectedBuild}
-            ></DebugInfo>
-          )}
+          {debugData && <DebugInfo debugData={debugData}></DebugInfo>}
           {chartsData && chartsData.config && (
             <SubjectPageMainPane
               place={chartsData.place}
