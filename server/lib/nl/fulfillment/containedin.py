@@ -14,12 +14,13 @@
 
 from typing import List
 
-from lib.nl.detection import ClassificationType, \
-  ContainedInPlaceType, ContainedInClassificationAttributes, Place
-from lib.nl.utterance import Utterance, ChartOriginType, ChartType
-from lib.nl.fulfillment.base import populate_charts, PopulateState, ChartVars, \
-  add_chart_to_utterance
+from lib.nl.detection import (ClassificationType,
+                              ContainedInClassificationAttributes,
+                              ContainedInPlaceType, Place)
+from lib.nl.fulfillment.base import (ChartVars, PopulateState,
+                                     add_chart_to_utterance, populate_charts)
 from lib.nl.fulfillment.context import classifications_of_type_from_context
+from lib.nl.utterance import ChartOriginType, ChartType, Utterance
 
 
 def populate(uttr: Utterance) -> bool:

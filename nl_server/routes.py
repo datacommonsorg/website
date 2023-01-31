@@ -14,9 +14,9 @@
 
 import json
 import logging
+from typing import List, Tuple
 
 from flask import Blueprint, current_app, escape, request
-from typing import List, Tuple
 
 bp = Blueprint('main', __name__, url_prefix='/')
 

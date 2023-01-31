@@ -14,9 +14,8 @@
 """Disease browser related handlers."""
 
 import flask
-
-from cache import cache
 import services.datacommons as dc_service
+from cache import cache
 
 bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')
 

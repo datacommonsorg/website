@@ -17,15 +17,14 @@ import json
 import logging
 import urllib.parse
 
-from flask import Blueprint, request, Response, url_for, g, current_app
-from flask_babel import gettext
-
-from cache import cache
+import lib.i18n as i18n
 import routes.api.shared as shared_api
 import services.datacommons as dc
-from services.datacommons import fetch_data
+from cache import cache
+from flask import Blueprint, Response, current_app, g, request, url_for
+from flask_babel import gettext
 from routes.api.shared import names
-import lib.i18n as i18n
+from services.datacommons import fetch_data
 
 CHILD_PLACE_LIMIT = 50
 

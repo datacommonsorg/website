@@ -19,14 +19,13 @@ import json
 import logging
 import urllib.parse
 import zlib
-from cache import cache
-from flask import current_app
 from typing import Dict, List
 
 import lib.config as libconfig
-from services.discovery import get_service_url
-from services.discovery import get_health_check_urls
 import requests
+from cache import cache
+from flask import current_app
+from services.discovery import get_health_check_urls, get_service_url
 
 cfg = libconfig.get_config()
 

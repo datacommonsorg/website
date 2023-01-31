@@ -13,21 +13,22 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
-import os
-import logging
 import json
+import logging
+import os
+from typing import Dict, Union
 
 import flask
-from flask import Blueprint, current_app, render_template, escape, request
-from google.protobuf.json_format import MessageToJson
-from lib.nl.detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
-from typing import Dict, Union
-import requests
-
-import services.datacommons as dc
 import lib.nl.data_spec as nl_data_spec
 import lib.nl.page_config as nl_page_config
 import lib.nl.utils as utils
+import requests
+import services.datacommons as dc
+from flask import Blueprint, current_app, escape, render_template, request
+from google.protobuf.json_format import MessageToJson
+from lib.nl.detection import (ClassificationType, ContainedInPlaceType,
+                              Detection, NLClassifier, Place, PlaceDetection,
+                              SimpleClassificationAttributes, SVDetection)
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 

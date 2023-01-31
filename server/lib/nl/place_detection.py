@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
-from services import datacommons as dc
-
 import logging
+from typing import List
 
 import lib.nl.constants as constants
 import lib.nl.utils as utils
+from services import datacommons as dc
 
 
 class NLPlaceDetector:

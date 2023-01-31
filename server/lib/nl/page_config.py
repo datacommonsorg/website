@@ -12,16 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Dict
-
-from config import subject_page_pb2
-from lib.nl.data_spec import DataSpec
-from lib.nl.detection import ClassificationType, Detection, NLClassifier, Place, RankingType
-from lib.nl import topic
-from lib.nl.constants import PLACE_TYPE_TO_PLURALS
-from services import datacommons as dc
 import json
 import os
+from typing import Dict, List
+
+from config import subject_page_pb2
+from lib.nl import topic
+from lib.nl.constants import PLACE_TYPE_TO_PLURALS
+from lib.nl.data_spec import DataSpec
+from lib.nl.detection import (ClassificationType, Detection, NLClassifier,
+                              Place, RankingType)
+from services import datacommons as dc
 
 CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 

@@ -13,18 +13,17 @@
 # limitations under the License.
 
 import json
-import requests
-
-from flask import Blueprint, current_app, session, abort, redirect, request, render_template
-from google.oauth2 import id_token
-from cachecontrol import CacheControl
-import google.auth.transport.requests
-from google.cloud import exceptions
-from google.cloud import storage
 from typing import Dict
 
+import google.auth.transport.requests
 import lib.util as libutil
+import requests
 import routes.api.user as user_api
+from cachecontrol import CacheControl
+from flask import (Blueprint, abort, current_app, redirect, render_template,
+                   request, session)
+from google.cloud import exceptions, storage
+from google.oauth2 import id_token
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 

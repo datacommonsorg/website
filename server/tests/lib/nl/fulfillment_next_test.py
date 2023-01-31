@@ -17,13 +17,17 @@ import unittest
 from typing import Dict, List
 from unittest.mock import patch
 
-from lib.nl import fulfillment_next, utils, variable, utterance
 import lib.nl.detection as nl_detection
-from lib.nl.detection import ClassificationType, ContainedInPlaceType, Detection, \
-  NLClassifier, Place, PlaceDetection, RankingType, SVDetection
+from lib.nl import fulfillment_next, utils, utterance, variable
+from lib.nl.detection import (ClassificationType, ContainedInPlaceType,
+                              Detection, NLClassifier, Place, PlaceDetection,
+                              RankingType, SVDetection)
 from lib.nl.fulfillment import base
-from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR, SIMPLE_UTTR, SIMPLE_WITH_SV_EXT_UTTR, \
-  SIMPLE_WITH_TOPIC_UTTR, COMPARISON_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR, RANKING_UTTR
+from tests.lib.nl.test_utterance import (COMPARISON_UTTR, CONTAINED_IN_UTTR,
+                                         CORRELATION_UTTR, PLACE_ONLY_UTTR,
+                                         RANKING_UTTR, SIMPLE_UTTR,
+                                         SIMPLE_WITH_SV_EXT_UTTR,
+                                         SIMPLE_WITH_TOPIC_UTTR)
 
 
 #

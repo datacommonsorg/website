@@ -14,10 +14,11 @@
 
 import json
 
-from flask import Blueprint, current_app, request, Response
-from cache import cache
 import services.ai as ai
 import services.datacommons as dc
+from cache import cache
+from flask import Blueprint, Response, current_app, request
+
 # TODO(shifucun): add unittest for this module
 
 # Define blueprint

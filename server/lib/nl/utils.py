@@ -18,9 +18,10 @@ import json
 import logging
 import os
 import re
-from typing import Dict, List, Union, Set
-import services.datacommons as dc
+from typing import Dict, List, Set, Union
+
 import lib.nl.constants as constants
+import services.datacommons as dc
 
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 

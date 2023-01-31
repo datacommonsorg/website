@@ -13,13 +13,12 @@
 # limitations under the License.
 """Graph browser related handlers."""
 
-import flask
 import json
 
-from cache import cache
+import flask
 import services.datacommons as dc
-from flask import Response
-from flask import request
+from cache import cache
+from flask import Response, request
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 

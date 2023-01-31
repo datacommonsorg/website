@@ -15,13 +15,12 @@
 import logging
 import os
 import threading
-import yaml
 
-from flask import Flask
-
+import loader
 import pubsub
 import routes
-import loader
+import yaml
+from flask import Flask
 
 
 def create_app():

@@ -13,10 +13,13 @@
 # limitations under the License.
 """Country or State Detector."""
 
-from routes.api.import_detection.detection_types import DCType, DCProperty, TypeProperty
-from routes.api.import_detection.place_detector_abstract import PlaceDetectorInterface
-import routes.api.import_detection.utils as utils
 from typing import Dict, List, Optional, Set
+
+import routes.api.import_detection.utils as utils
+from routes.api.import_detection.detection_types import (DCProperty, DCType,
+                                                         TypeProperty)
+from routes.api.import_detection.place_detector_abstract import \
+    PlaceDetectorInterface
 
 
 class CountryStateDetector(PlaceDetectorInterface):

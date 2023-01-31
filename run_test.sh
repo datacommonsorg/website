@@ -57,9 +57,10 @@ function run_lint_fix {
   source .env/bin/activate
   if ! command -v yapf &> /dev/null
   then
-    pip3 install yapf -q
+    pip3 install yapf isort -q
   fi
   yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ tools/ -e=*pb2.py
+  isort server/ nl_server/ tools/  -sg *pb2.py
   deactivate
 }
 
@@ -99,6 +100,12 @@ function run_py_test {
     echo "Fix lint errors by running ./run_test.sh -f"
     exit 1
   fi
+
+  if ! isort server/ nl_server/ tools/ -c -sg *pb2.py; then
+    echo "Fix lint errors by running ./run_test.sh -f"
+    exit 1
+  fi
+
 }
 
 # Run test for webdriver automation test codes.

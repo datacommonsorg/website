@@ -14,10 +14,9 @@
 
 import unittest
 
-from services.discovery import configure_endpoints_from_ingress
-from services.discovery import DEFAULT_INGRESS_RULES
-from services.discovery import get_all_endpoint_paths
-from services.discovery import get_service_url
+from services.discovery import (DEFAULT_INGRESS_RULES,
+                                configure_endpoints_from_ingress,
+                                get_all_endpoint_paths, get_service_url)
 
 
 class TestServiceDiscovery(unittest.TestCase):

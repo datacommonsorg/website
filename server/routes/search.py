@@ -14,11 +14,11 @@
 """Data Commons search related routes."""
 
 import os
-from flask import Blueprint, current_app, request
+
 import flask
-import os
-import services.datacommons as dc
 import services.ai as ai
+import services.datacommons as dc
+from flask import Blueprint, current_app, request
 
 bp = Blueprint('search', __name__)
 

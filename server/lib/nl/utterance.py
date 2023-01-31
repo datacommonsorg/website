@@ -17,14 +17,15 @@
 #
 
 import logging
-
-from typing import List, Dict
-
 from dataclasses import dataclass
 from enum import IntEnum
-from lib.nl.detection import ContainedInPlaceType, ClassificationType, RankingType, \
-  Detection, NLClassifier, Place, RankingClassificationAttributes, \
-    ContainedInClassificationAttributes, SimpleClassificationAttributes
+from typing import Dict, List
+
+from lib.nl.detection import (ClassificationType,
+                              ContainedInClassificationAttributes,
+                              ContainedInPlaceType, Detection, NLClassifier,
+                              Place, RankingClassificationAttributes,
+                              RankingType, SimpleClassificationAttributes)
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 5

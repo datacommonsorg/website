@@ -13,13 +13,14 @@
 # limitations under the License.
 """Topic page related handlers."""
 
-from flask import current_app
-import flask
-import os
 import json
-import routes.api.place as place_api
-from google.protobuf.json_format import MessageToJson
+import os
+
+import flask
 import lib.util as libutil
+import routes.api.place as place_api
+from flask import current_app
+from google.protobuf.json_format import MessageToJson
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 

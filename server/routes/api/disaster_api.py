@@ -13,10 +13,11 @@
 # limitations under the License.
 """Endpoints for disaster dashboard"""
 
-from flask import Blueprint, request, current_app, Response
-import services.datacommons as dc
 import json
 import logging
+
+import services.datacommons as dc
+from flask import Blueprint, Response, current_app, request
 
 # Define blueprint
 bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')

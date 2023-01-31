@@ -16,8 +16,8 @@
 
 import logging
 
-from flask import Blueprint, g, render_template
 import routes.api.shared as shared_api
+from flask import Blueprint, g, render_template
 
 bp = Blueprint('browser', __name__, url_prefix='/browser')
 

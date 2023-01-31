@@ -14,8 +14,8 @@
 
 import unittest
 from unittest.mock import patch
-from flask import request
 
+from flask import request
 from main import app
 
 

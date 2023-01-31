@@ -15,10 +15,10 @@
 
 import json
 import logging
-from flask import Blueprint, escape, request, Response
 
-from cache import cache
 import services.datacommons as dc
+from cache import cache
+from flask import Blueprint, Response, escape, request
 
 BIO_DCID_PREFIX = 'bio/'
 LOGGING_PREFIX_PPI = 'Protein browser PPI'

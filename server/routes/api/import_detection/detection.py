@@ -13,14 +13,17 @@
 # limitations under the License.
 """Functions that manage all column detection."""
 
-from flask import Blueprint, request, Response
-from routes.api.import_detection.detection_types import Column, MappingVal, MappedThing, MappingType, TypeProperty
+import json
 from typing import Dict, List, Optional
 
-import json
-import routes.api.import_detection.place_detection as place_detector
 import routes.api.import_detection.date_detection as date_detector
+import routes.api.import_detection.place_detection as place_detector
 import routes.api.import_detection.utils as utils
+from flask import Blueprint, Response, request
+from routes.api.import_detection.detection_types import (Column, MappedThing,
+                                                         MappingType,
+                                                         MappingVal,
+                                                         TypeProperty)
 
 SUCCESS_CODE: int = 200
 BAD_REQUEST_CODE: int = 400

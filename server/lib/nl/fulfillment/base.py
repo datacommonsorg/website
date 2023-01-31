@@ -13,14 +13,13 @@
 # limitations under the License.
 
 import logging
-
 from dataclasses import dataclass, field
 from typing import List
 
-from lib.nl import variable, topic, utils
-from lib.nl.utterance import ChartType, ChartOriginType, ChartSpec, Utterance
+from lib.nl import topic, utils, variable
 from lib.nl.detection import ContainedInPlaceType, Place, RankingType
 from lib.nl.fulfillment import context
+from lib.nl.utterance import ChartOriginType, ChartSpec, ChartType, Utterance
 
 
 # Data structure to store state for a single "populate" call.

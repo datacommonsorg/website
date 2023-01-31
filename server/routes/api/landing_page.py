@@ -20,15 +20,15 @@ in chart.py and place.py
 import copy
 import json
 import logging
+import time
 import urllib.parse
 from collections import defaultdict
-import time
 
 import lib.range as lib_range
 import routes.api.place as place_api
 import services.datacommons as dc
 from cache import cache
-from flask import Blueprint, Response, current_app, g, url_for, request
+from flask import Blueprint, Response, current_app, g, request, url_for
 from flask_babel import gettext
 
 # Define blueprint

@@ -17,11 +17,12 @@ Script to test flow of nlp features.
 How to run locally:
 FLASK_ENV=local python test_nlp_manual.py
 """
-from dataclasses import dataclass
 import json
-from typing import Dict, List, Optional
 import sys
 import urllib.parse
+from dataclasses import dataclass
+from typing import Dict, List, Optional
+
 from main import app
 
 PALO_ALTO_DCID = 'geoId/0655282'

@@ -14,10 +14,10 @@
 import copy
 import json
 import unittest
-
 from dataclasses import dataclass
-from main import app
 from typing import Any, List
+
+from main import app
 
 
 class TestDetection(unittest.TestCase):

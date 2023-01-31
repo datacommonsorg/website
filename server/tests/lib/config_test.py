@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from parameterized import parameterized
 import os
 import unittest
 from unittest.mock import patch
+
 import lib.config as libconfig
+from parameterized import parameterized
 from werkzeug.utils import import_string
 
 

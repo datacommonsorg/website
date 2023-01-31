@@ -12,12 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import datetime
 import hashlib
 import json
 import os
-from google.protobuf import text_format
+from datetime import datetime
+
 from config import subject_page_pb2
+from google.protobuf import text_format
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [

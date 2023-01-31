@@ -15,10 +15,11 @@
 from typing import List
 
 from lib.nl.detection import Place
-from lib.nl.utterance import Utterance, ChartOriginType, ChartType
-from lib.nl.fulfillment.base import populate_charts_for_places, PopulateState, ChartVars, \
-  add_chart_to_utterance
+from lib.nl.fulfillment.base import (ChartVars, PopulateState,
+                                     add_chart_to_utterance,
+                                     populate_charts_for_places)
 from lib.nl.fulfillment.context import places_for_comparison_from_context
+from lib.nl.utterance import ChartOriginType, ChartType, Utterance
 
 
 def populate(uttr: Utterance) -> bool:

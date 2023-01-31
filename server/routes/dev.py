@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import flask
 import os
 
-from lib.gcs import list_png
+import flask
 import services.datacommons as dc
+from lib.gcs import list_png
 
 SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
 

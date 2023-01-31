@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flask import Blueprint, request
 import services.datacommons as dc
+from flask import Blueprint, request
 
 # Define blueprint
 bp = Blueprint("observation_dates", __name__)

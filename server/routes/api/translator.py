@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from flask import Blueprint, request
-
 from services import datacommons as dc
 
 # Define blueprint

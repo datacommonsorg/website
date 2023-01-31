@@ -12,17 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Managing the embeddings."""
+import logging
+import os
+from typing import Dict, List, Union
+
+import gcs
+import torch
 from datasets import load_dataset
 from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
-from typing import Dict, List, Union
-
-import logging
-import os
-import torch
-
-import gcs
 
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'

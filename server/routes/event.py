@@ -13,11 +13,12 @@
 # limitations under the License.
 """Endpoints for event pages"""
 
-import os
 import logging
-from flask import Blueprint, escape, abort, render_template
-import routes.api.shared as shared_api
+import os
+
 import routes.api.node as node_api
+import routes.api.shared as shared_api
+from flask import Blueprint, abort, escape, render_template
 
 DEFAULT_EVENT_DCID = ""
 

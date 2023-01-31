@@ -13,27 +13,29 @@
 # limitations under the License.
 """NL Model manager client."""
 
-from lib.nl.place_detection import NLPlaceDetector
-from lib.nl.detection import NLClassifier, ClassificationType
-from lib.nl.detection import ClusteringClassificationAttributes, ComparisonClassificationAttributes
-from lib.nl.detection import ContainedInClassificationAttributes, ContainedInPlaceType
-from lib.nl.detection import CorrelationClassificationAttributes
-from lib.nl.detection import RankingClassificationAttributes, RankingType
-from lib.nl.detection import PeriodType, TemporalClassificationAttributes
-from lib.nl.training import NLQueryClassificationData, NLQueryClassificationModel
-from lib.nl.training import NLQueryClusteringDetectionModel
-from services import datacommons as dc
+import logging
+import re
+from collections import OrderedDict
+from typing import Dict, List, Union
 
 import lib.nl.constants as constants
 import lib.nl.utils as utils
-
-from typing import Dict, List, Union
-
 import numpy as np
 import pandas as pd
-import logging
-from collections import OrderedDict
-import re
+from lib.nl.detection import (ClassificationType,
+                              ClusteringClassificationAttributes,
+                              ComparisonClassificationAttributes,
+                              ContainedInClassificationAttributes,
+                              ContainedInPlaceType,
+                              CorrelationClassificationAttributes,
+                              NLClassifier, PeriodType,
+                              RankingClassificationAttributes, RankingType,
+                              TemporalClassificationAttributes)
+from lib.nl.place_detection import NLPlaceDetector
+from lib.nl.training import (NLQueryClassificationData,
+                             NLQueryClassificationModel,
+                             NLQueryClusteringDetectionModel)
+from services import datacommons as dc
 
 ALL_STOP_WORDS = utils.combine_stop_words()
 

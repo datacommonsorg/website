@@ -15,8 +15,8 @@ import json
 import unittest
 from unittest import mock
 
-from main import app
 import tests.routes.api.mock_data as mock_data
+from main import app
 
 
 class TestApiSeriesWithin(unittest.TestCase):

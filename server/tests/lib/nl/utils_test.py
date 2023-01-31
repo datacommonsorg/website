@@ -13,11 +13,11 @@
 # limitations under the License.
 """Tests for utils functions."""
 
-from parameterized import parameterized
 import unittest
 
 import lib.nl.constants as constants
 import lib.nl.utils as utils
+from parameterized import parameterized
 
 
 class TestNLUtilsAddToSet(unittest.TestCase):

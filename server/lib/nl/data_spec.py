@@ -13,14 +13,14 @@
 # limitations under the License.
 """Module for NL page data spec"""
 
+import logging
 from dataclasses import dataclass
 from typing import Dict, List
-import logging
-import pandas as pd
 
-from lib.nl.detection import ClassificationType, Detection
-from lib.nl import variable, topic
+import pandas as pd
 import services.datacommons as dc
+from lib.nl import topic, variable
+from lib.nl.detection import ClassificationType, Detection
 
 
 @dataclass

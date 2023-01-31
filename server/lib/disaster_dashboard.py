@@ -13,10 +13,11 @@
 # limitations under the License.
 """Helper functions for getting disaster dashboard data for the app config"""
 
-from google.cloud import storage
 import json
-import re
 import logging
+import re
+
+from google.cloud import storage
 
 EVENT_TYPES = [
     "FireEvent", "WildlandFireEvent", "WildfireEvent", "CycloneEvent",
