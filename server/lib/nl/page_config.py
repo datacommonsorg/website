@@ -17,7 +17,7 @@ from typing import List, Dict
 from config import subject_page_pb2
 from lib.nl.data_spec import DataSpec
 from lib.nl.detection import ClassificationType, Detection, NLClassifier, Place, RankingType
-from lib.nl import nl_topic
+from lib.nl import topic
 from lib.nl.constants import PLACE_TYPE_TO_PLURALS
 from services import datacommons as dc
 import json
@@ -202,13 +202,13 @@ def _topic_sv_blocks(category: subject_page_pb2.Category,
           # always maps for contained_in
           tile = column.tiles.add()
           tile.type = subject_page_pb2.Tile.TileType.MAP
-          tile.title = nl_topic.svpg_name(sv)
+          tile.title = topic.svpg_name(sv)
         else:
           # split up into several line charts
           if i % 5 == 0:
             tile = column.tiles.add()
             tile.type = subject_page_pb2.Tile.TileType.LINE
-            tile.title = nl_topic.svpg_name(sv)
+            tile.title = topic.svpg_name(sv)
         tile.stat_var_key.append(sub_sv)
         category.stat_var_spec[sub_sv].stat_var = sub_sv
         category.stat_var_spec[sub_sv].name = sv2name[sub_sv]
@@ -265,7 +265,7 @@ def build_page_config(detection: Detection, data_spec: DataSpec,
   if data_spec.topic_svs and data_spec.main_place_spec.place:
     # Special boost for topics
     all_svs = data_spec.topic_svs.copy()
-    for _, v in nl_topic.get_topic_peers(data_spec.topic_svs).items():
+    for _, v in topic.get_topic_peers(data_spec.topic_svs).items():
       all_svs += v
     sv2name = get_sv_name(all_svs)
     _topic_sv_blocks(category, classificationType, data_spec.topic_svs,

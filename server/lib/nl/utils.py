@@ -20,7 +20,7 @@ import os
 import re
 from typing import Dict, List, Union, Set
 import services.datacommons as dc
-import lib.nl.nl_constants as nl_constants
+import lib.nl.constants as constants
 
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
@@ -78,17 +78,17 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
 def combine_stop_words() -> Set[str]:
   """Returns all the combined stop words from the various constants."""
   # Make a copy.
-  stop_words = copy.deepcopy(nl_constants.STOP_WORDS)
+  stop_words = copy.deepcopy(constants.STOP_WORDS)
 
   # Now add the words in the classification heuristics.
   _add_to_set_from_nested_dict(stop_words,
-                               nl_constants.QUERY_CLASSIFICATION_HEURISTICS)
+                               constants.QUERY_CLASSIFICATION_HEURISTICS)
 
   # Also add the plurals.
   add_to_set_from_list(stop_words,
-                       list(nl_constants.PLACE_TYPE_TO_PLURALS.keys()))
+                       list(constants.PLACE_TYPE_TO_PLURALS.keys()))
   add_to_set_from_list(stop_words,
-                       list(nl_constants.PLACE_TYPE_TO_PLURALS.values()))
+                       list(constants.PLACE_TYPE_TO_PLURALS.values()))
 
   return stop_words
 

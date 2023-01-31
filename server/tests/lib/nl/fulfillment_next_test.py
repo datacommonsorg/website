@@ -17,7 +17,8 @@ import unittest
 from typing import Dict, List
 from unittest.mock import patch
 
-from lib.nl import fulfillment_next, detection, utils, variable, utterance
+from lib.nl import fulfillment_next, utils, variable, utterance
+import lib.nl.detection as nl_detection
 from lib.nl.detection import ClassificationType, ContainedInPlaceType, Detection, \
   NLClassifier, Place, PlaceDetection, RankingType, SVDetection
 from lib.nl.fulfillment import base
@@ -260,27 +261,27 @@ def _detection(place: str,
     # Set comparison classifier
     detection.classifications = [
         NLClassifier(type=ClassificationType.COMPARISON,
-                     attributes=detection.ComparisonClassificationAttributes(
+                     attributes=nl_detection.ComparisonClassificationAttributes(
                          comparison_trigger_words=['compare']))
     ]
   elif query_type == ClassificationType.CONTAINED_IN:
     detection.classifications = [
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
-            attributes=detection.ContainedInClassificationAttributes(
+            attributes=nl_detection.ContainedInClassificationAttributes(
                 contained_in_place_type=ContainedInPlaceType.COUNTY))
     ]
   elif query_type == ClassificationType.CORRELATION:
     detection.classifications = [
         NLClassifier(
             type=ClassificationType.CORRELATION,
-            attributes=detection.CorrelationClassificationAttributes(
+            attributes=nl_detection.CorrelationClassificationAttributes(
                 correlation_trigger_words=['correlate']))
     ]
   elif query_type == ClassificationType.RANKING:
     detection.classifications = [
         NLClassifier(type=ClassificationType.RANKING,
-                     attributes=detection.RankingClassificationAttributes(
+                     attributes=nl_detection.RankingClassificationAttributes(
                          ranking_type=[RankingType.HIGH],
                          ranking_trigger_words=['most', 'highest']))
     ]

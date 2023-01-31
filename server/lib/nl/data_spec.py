@@ -18,7 +18,7 @@ from typing import Dict, List
 import logging
 import pandas as pd
 
-from lib.nl.nl_detection import ClassificationType, Detection
+from lib.nl.detection import ClassificationType, Detection
 from lib.nl import nl_variable, nl_topic
 import services.datacommons as dc
 

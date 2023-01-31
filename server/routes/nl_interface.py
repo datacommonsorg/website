@@ -20,14 +20,14 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson
-from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
+from lib.nl.detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 from typing import Dict, Union
 import requests
 
 import services.datacommons as dc
-import lib.nl.nl_data_spec as nl_data_spec
-import lib.nl.nl_page_config as nl_page_config
-import lib.nl.nl_utils as nl_utils
+import lib.nl.data_spec as data_spec
+import lib.nl.page_config as page_config
+import lib.nl.utils as utils
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -595,7 +595,7 @@ def data():
   if context_history:
     recent_context = context_history[-1]
 
-  query = str(escape(nl_utils.remove_punctuations(original_query)))
+  query = str(escape(utils.remove_punctuations(original_query)))
   default_place = "United States"
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
@@ -609,8 +609,8 @@ def data():
                                recent_context)
 
   # Get Data Spec
-  data_spec = nl_data_spec.compute(query_detection, context_history)
-  page_config_pb = nl_page_config.build_page_config(query_detection, data_spec,
+  data_spec = data_spec.compute(query_detection, context_history)
+  page_config_pb = page_config.build_page_config(query_detection, data_spec,
                                                     context_history)
   page_config = json.loads(MessageToJson(page_config_pb))
 

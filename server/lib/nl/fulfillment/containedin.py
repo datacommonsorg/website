@@ -14,9 +14,9 @@
 
 from typing import List
 
-from lib.nl.nl_detection import ClassificationType, \
+from lib.nl.detection import ClassificationType, \
   ContainedInPlaceType, ContainedInClassificationAttributes, Place
-from lib.nl.nl_utterance import Utterance, ChartOriginType, ChartType
+from lib.nl.utterance import Utterance, ChartOriginType, ChartType
 from lib.nl.fulfillment.base import populate_charts, PopulateState, ChartVars, \
   add_chart_to_utterance
 from lib.nl.fulfillment.context import classifications_of_type_from_context
