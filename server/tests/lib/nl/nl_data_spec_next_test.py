@@ -24,324 +24,8 @@ from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detect
   NLClassifier, Place, PlaceDetection, RankingType, SVDetection
 from lib.nl.nl_utterance import ChartType, ChartOriginType
 from lib.nl.fulfillment import base
-
-_PLACE_UTTR = {
-    'classifications': [],
-    'places': [{
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.PLACE_OVERVIEW,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': []
-    }],
-    'svs': [],
-}
-
-_SIMPLE_UTTR = {
-    'classifications': [],
-    'places': [{
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Person_Male']
-    }, {
-        'attr': {
-            'block_id': 2,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Person_Female']
-    }],
-    'svs': ['Count_Person_Male', 'Count_Person_Female']
-}
-
-_SIMPLE_WITH_SV_EXT_UTTR = {
-    'classifications': [],
-    'places': [{
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Person_Male']
-    }, {
-        'attr': {
-            'block_id': 2,
-            'class': ChartOriginType.SECONDARY_CHART,
-            'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Person_Male', 'Count_Person_Female']
-    }],
-    'svs': ['Count_Person_Male']
-}
-
-_SIMPLE_WITH_TOPIC_UTTR = {
-    'classifications': [],
-    'places': [{
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.SIMPLE,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Farm']
-    }, {
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Area_Farm']
-    }, {
-        'attr': {
-            'block_id': 2,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.TIMELINE_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['FarmInventory_Rice', 'FarmInventory_Barley']
-    }],
-    'svs': ['dc/topic/Agriculture']
-}
-
-_COMPARISON_UTTR = {
-    'classifications': [{
-        'type': ClassificationType.COMPARISON
-    }],
-    'places': [{
-        'dcid': 'geoId/32',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.COMPARISON,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.BAR_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }, {
-            'dcid': 'geoId/32',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Person_Male']
-    }, {
-        'attr': {
-            'block_id': 2,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.BAR_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }, {
-            'dcid': 'geoId/32',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Person_Female']
-    }],
-    'svs': []
-}
-
-_CONTAINED_IN_UTTR = {
-    'classifications': [{
-        'contained_in_place_type': 'County',
-        'type': ClassificationType.CONTAINED_IN
-    }],
-    'places': [],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.CONTAINED_IN,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': True,
-            'place_type': 'County',
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': 1,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Farm']
-    }],
-    'svs': ['Count_Farm']
-}
-
-_CORRELATION_UTTR = {
-    'classifications': [{
-        'type': ClassificationType.CORRELATION
-    }],
-    'places': [],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.CORRELATION,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': False,
-            'place_type': 'County',
-            'ranking_types': [],
-            'title': ''
-        },
-        'chart_type': ChartType.SCATTER_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Farm', 'Mean_Precipitation']
-    }],
-    'svs': ['Mean_Precipitation']
-}
-
-_RANKING_UTTR = {
-    'classifications': [{
-        'ranking_type': [RankingType.HIGH],
-        'type': ClassificationType.RANKING
-    }],
-    'places': [],
-    'query': 'foo sv in place',
-    'query_type': ClassificationType.RANKING,
-    'ranked_charts': [{
-        'attr': {
-            'block_id': 1,
-            'class': ChartOriginType.PRIMARY_CHART,
-            'include_percapita': True,
-            'place_type': 'County',
-            'ranking_types': [1],
-            'title': ''
-        },
-        'chart_type': ChartType.RANKING_CHART,
-        'places': [{
-            'dcid': 'geoId/06',
-            'name': 'Foo Place',
-            'place_type': 'State'
-        }],
-        'svs': ['Count_Agricultural_Workers']
-    }],
-    'svs': ['Count_Agricultural_Workers']
-}
+from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR, SIMPLE_UTTR, SIMPLE_WITH_SV_EXT_UTTR, \
+  SIMPLE_WITH_TOPIC_UTTR, COMPARISON_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR, RANKING_UTTR
 
 
 # External interfaces:
@@ -361,7 +45,7 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [])
 
     self.maxDiff = None
-    self.assertEqual(got, _PLACE_UTTR)
+    self.assertEqual(got, PLACE_ONLY_UTTR)
 
   # Example: [male population in california]
   @patch.object(nl_variable, 'extend_svs')
@@ -383,7 +67,7 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [])
 
     self.maxDiff = None
-    self.assertEqual(got, _SIMPLE_UTTR)
+    self.assertEqual(got, SIMPLE_UTTR)
 
   # This follows up on test_simple()
   # Example: [how many farms in its counties]
@@ -404,10 +88,10 @@ class TestDataSpecNext(unittest.TestCase):
     # - Make SVs exist
     mock_sv_existence.side_effect = [['Count_Farm']]
 
-    got = _run(detection, [_SIMPLE_UTTR])
+    got = _run(detection, [SIMPLE_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, _CONTAINED_IN_UTTR)
+    self.assertEqual(got, CONTAINED_IN_UTTR)
 
   # This follows up on test_contained_in()
   # Example: [how does that correlate with rainfall]
@@ -429,10 +113,10 @@ class TestDataSpecNext(unittest.TestCase):
     mock_sv_existence.side_effect = [['Count_Farm'], ['Mean_Precipitation']]
 
     # Pass in both simple and contained-in utterances.
-    got = _run(detection, [_SIMPLE_UTTR, _CONTAINED_IN_UTTR])
+    got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, _CORRELATION_UTTR)
+    self.assertEqual(got, CORRELATION_UTTR)
 
   # This follows up on test_correlation()
   # Example: [which ones have the most agricultural workers]
@@ -453,10 +137,10 @@ class TestDataSpecNext(unittest.TestCase):
     mock_sv_existence.side_effect = [['Count_Agricultural_Workers']]
 
     # Pass in both simple and contained-in utterances.
-    got = _run(detection, [_SIMPLE_UTTR, _CONTAINED_IN_UTTR, _CORRELATION_UTTR])
+    got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, _RANKING_UTTR)
+    self.assertEqual(got, RANKING_UTTR)
 
   # This follows up on test_simple()
   @patch.object(nl_variable, 'extend_svs')
@@ -473,10 +157,10 @@ class TestDataSpecNext(unittest.TestCase):
                                      ['Count_Person_Female']]
 
     # Pass in the simple SV utterance as context
-    got = _run(detection, [_SIMPLE_UTTR])
+    got = _run(detection, [SIMPLE_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, _COMPARISON_UTTR)
+    self.assertEqual(got, COMPARISON_UTTR)
 
   @patch.object(nl_variable, 'extend_svs')
   @patch.object(nl_utils, 'sv_existence_for_places')
@@ -499,7 +183,7 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [])
 
     self.maxDiff = None
-    self.assertEqual(got, _SIMPLE_WITH_SV_EXT_UTTR)
+    self.assertEqual(got, SIMPLE_WITH_SV_EXT_UTTR)
 
   @patch.object(nl_variable, 'extend_svs')
   @patch.object(base, '_svg_or_topic_to_svs')
@@ -544,7 +228,7 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [])
 
     self.maxDiff = None
-    self.assertEqual(got, _SIMPLE_WITH_TOPIC_UTTR)
+    self.assertEqual(got, SIMPLE_WITH_TOPIC_UTTR)
 
 
 def _detection(place: str,
