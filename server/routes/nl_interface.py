@@ -428,7 +428,7 @@ def _result_with_debug_info(data_dict,
   return {'context': data_dict, 'config': charts_config}
 
 
-def _detection(orig_query, cleaned_query, embeddings_build,
+def _detection(orig_query, cleaned_query: str,
                recent_context: Union[Dict, None]) -> Detection:
   default_place = "United States"
   using_default_place = False
@@ -489,7 +489,7 @@ def _detection(orig_query, cleaned_query, embeddings_build,
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
   try:
-    svs_scores_dict = model.detect_svs(query, embeddings_build)
+    svs_scores_dict = model.detect_svs(query)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
@@ -589,6 +589,10 @@ def data():
     logging.info("contextHistory found:")
     logging.info(context_history)
 
+  recent_context = None
+  if context_history:
+    recent_context = context_history[-1]
+
   query = str(escape(nl_utils.remove_punctuations(original_query)))
   embeddings_build = str(escape(request.args.get('build', "combined_all")))
   default_place = "United States"
@@ -597,15 +601,12 @@ def data():
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
                                    embeddings_build,
-                                   _detection("", "", embeddings_build))
+                                   _detection("", "", recent_context))
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  recent_context = None
-  if context_history:
-    recent_context = context_history[-1]
   query_detection = _detection(str(escape(original_query)), query,
-                               embeddings_build, recent_context)
+                               recent_context)
 
   # Get Data Spec
   data_spec = nl_data_spec.compute(query_detection, context_history)

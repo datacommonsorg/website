@@ -41,14 +41,14 @@ def load_model(app, embeddings_file):
                    cache.directory)
       return
 
-    nl_embeddings = Embeddings(embeddings_file)
-    app.config['NL_EMBEDDINGS'] = nl_embeddings
+  nl_embeddings = Embeddings(embeddings_file)
+  app.config['NL_EMBEDDINGS'] = nl_embeddings
+  nl_ner_places = NERPlaces()
+  app.config["NL_NER_PLACES"] = nl_ner_places
 
-    nl_ner_places = NERPlaces()
-    app.config["NL_NER_PLACES"] = nl_ner_places
-    if flask_env == 'local':
-      with Cache(cache.directory) as reference:
-        reference.set(nl_embeddings_cache_key,
-                      nl_embeddings,
-                      expire=nl_cache_expire)
-        reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)
+  if flask_env == 'local':
+    with Cache(cache.directory) as reference:
+      reference.set(nl_embeddings_cache_key,
+                    nl_embeddings,
+                    expire=nl_cache_expire)
+      reference.set(nl_ner_cache_key, nl_ner_places, expire=nl_cache_expire)

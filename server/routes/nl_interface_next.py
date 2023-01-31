@@ -181,7 +181,7 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
   return data_dict
 
 
-def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
+def _detection(orig_query, cleaned_query) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -219,7 +219,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
   try:
-    svs_scores_dict = model.detect_svs(query, embeddings_build)
+    svs_scores_dict = model.detect_svs(query)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
@@ -233,10 +233,12 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
 
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)
+  comparison_classification = model.comparison_classification(query)
   temporal_classification = model.query_classification("temporal", query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
   logging.info(f'Ranking classification: {ranking_classification}')
+  logging.info(f'Comparison classification: {comparison_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
 
@@ -244,6 +246,8 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   classifications = []
   if ranking_classification is not None:
     classifications.append(ranking_classification)
+  if comparison_classification is not None:
+    classifications.append(comparison_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
 
@@ -319,14 +323,12 @@ def data():
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build,
-                                   _detection("", "", embeddings_build),
+                                   embeddings_build, _detection("", ""),
                                    escaped_context_history)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  query_detection = _detection(str(escape(original_query)), query,
-                               embeddings_build)
+  query_detection = _detection(str(escape(original_query)), query)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)

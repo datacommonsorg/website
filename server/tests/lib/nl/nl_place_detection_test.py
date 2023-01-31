@@ -16,6 +16,7 @@
 from parameterized import parameterized
 
 import unittest
+from unittest.mock import patch
 
 from lib.nl.nl_place_detection import NLPlaceDetector
 
@@ -23,26 +24,36 @@ from lib.nl.nl_place_detection import NLPlaceDetector
 class TestPlaceDetector(unittest.TestCase):
 
   @parameterized.expand([
-      # All these queries should detect places.
-      ["tell me about chicago", ["chicago"]],
-      ["what about new delhi", ["new delhi"]],
-      ["California's economy and and florida's", ["california", "florida"]],
+      # All these queries should detect places (with the API response mock).
+      # Note that the API response is tested separately in the API code under nl_server/
+      ["tell me about chicago", ["chicago"], ["chicago"]],
+      ["what about new delhi", ["new delhi"], ["new delhi"]],
       [
           "the place to live is singapore or hong kong",
-          ["singapore", "hong kong"]
+          ["singapore", "hong kong"], ["singapore", "hong kong"]
       ],
-      ["life expectancy in australia and canada", ["australia", "canada"]],
-      ["why is it always raining in seattle and london", ["seattle", "london"]],
       # Order of detection matters.
-      ["cambridge's economy and Berkeley's", ["cambridge", "berkeley"]],
-      ["berkeley's economy and cambridge's", ["berkeley", "cambridge"]],
-      # Special places.
-      ["tell me about palo alto", ["palo alto"]],
-      ["what about mountain view", ["mountain view"]],
+      [
+          "cambridge's economy and Berkeley's", ["cambridge", "berkeley"],
+          ["cambridge", "berkeley"]
+      ],
+      [
+          "berkeley's economy and cambridge's", ["berkeley", "cambridge"],
+          ["berkeley", "cambridge"]
+      ],
+      # Special places (do not need an API response).
+      ["tell me about palo alto", ["palo alto"], []],
+      ["what about mountain view", ["mountain view"], []],
       # Special places are always detected first.
-      ["berkeley's economy and mountain view's", ["mountain view", "berkeley"]],
+      [
+          "berkeley's economy and mountain view's",
+          ["mountain view", "berkeley"], ["berkeley"]
+      ],
   ])
-  def test_heuristic_detection(self, query_str, expected):
+  @patch.object(NLPlaceDetector, 'detect_place_ner')
+  def test_heuristic_detection(self, query_str, expected, api_response,
+                               mock_detect_place_ner):
+    mock_detect_place_ner.return_value = api_response
     # Using the default NER model.
     detector = NLPlaceDetector()
 
@@ -50,42 +61,13 @@ class TestPlaceDetector(unittest.TestCase):
     got = [s.lower() for s in detector.detect_places_heuristics(query_str)]
     self.assertEqual(expected, got)
 
-  @parameterized.expand([
-      # Providing wrong types of ner models. Each should lead to an exception.
-      [
-          "str instead of model",
-          "random query",
-      ],
-      [
-          "str instead of model",
-          "California",
-      ],
-      [[], "population Florida"],
-      [{}, "United States"],
-  ])
-  def test_ner_failure(self, ner_model, query_str):
-    detector = NLPlaceDetector(ner_model=ner_model)
-
-    with self.assertRaises(Exception):
-      detector.detect_place_ner(query_str)
-
   @parameterized.expand(
       # All these are valid queries even if they do not detect a Place.
       # There should be no exceptions.
-      ["random", "California", "United States", "America", "", "."])
-  def test_ner_default(self, query_str):
-    # Not setting the NER model should produce a valid default.
-    detector = NLPlaceDetector()
-    try:
-      detector.detect_place_ner(query_str)
-    except Exception as e:
-      self.assertTrue(False, f"Unexpected Exception raised: {e}")
-
-  @parameterized.expand(
-      # All these are valid queries even if they do not detect a Place.
-      # There should be no exceptions.
-      ["random", "California", "United States", "America", "", "."])
-  def test_ner_default_no_exceptions(self, query_str):
+      ["random", "California", "United States", "Mountain View", "", "."])
+  @patch.object(NLPlaceDetector, 'detect_place_ner')
+  def test_ner_default(self, query_str, mock_detect_place_ner):
+    mock_detect_place_ner.return_value = []
     # Not setting the NER model should produce a valid default.
     detector = NLPlaceDetector()
     try:
