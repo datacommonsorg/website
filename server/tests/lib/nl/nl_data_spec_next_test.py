@@ -30,7 +30,7 @@ from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR, SIMPLE_UTTR, SIMPLE_WIT
 # - nl_variable.extend_svs
 # - nl_utils.sv_existence_for_places
 # - nl_utils.get_sample_child_places
-# - svg_or_topic_to_svs
+# - fulfillment.base._svg_or_topic_to_svs
 #
 class TestDataSpecNext(unittest.TestCase):
 
