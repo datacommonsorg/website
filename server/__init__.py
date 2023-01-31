@@ -95,7 +95,7 @@ def register_routes_stanford_dc(app, is_test):
   app.register_blueprint(event.bp)
 
   if not is_test:
-# load disaster dashboard configs
+    # load disaster dashboard configs
     disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
     app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
     disaster_dashboard_data = get_disaster_dashboard_data(
