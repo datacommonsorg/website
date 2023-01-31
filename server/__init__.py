@@ -282,7 +282,7 @@ def create_app():
     classification_types = [
         'ranking', 'temporal', 'contained_in', 'correlation'
     ]
-    nl_model = nl.Model(libnl.CLASSIFICATION_INFO, classification_types)
+    nl_model = nl.Model(app, libnl.CLASSIFICATION_INFO, classification_types)
     app.config['NL_MODEL'] = nl_model
 
   def is_up(url: str):

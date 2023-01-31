@@ -29,11 +29,8 @@ import lib.nl.utils as utils
 
 from typing import Dict, List, Union
 
-import os
 import numpy as np
 import pandas as pd
-import torch
-from datasets import load_dataset
 import logging
 from collections import OrderedDict
 import re
@@ -74,8 +71,8 @@ def _prefix_length(s1, s2):
 class Model:
   """Holds clients for the language model"""
 
-  def __init__(self, query_classification_data: Dict[str,
-                                                     NLQueryClassificationData],
+  def __init__(self, app,
+               query_classification_data: Dict[str, NLQueryClassificationData],
                classification_types_supported: List[str]):
     self.place_detector: NLPlaceDetector = NLPlaceDetector()
     self.query_classification_data = query_classification_data
@@ -87,8 +84,10 @@ class Model:
 
     # Set the Correlations Detection Model.
     self._clustering_detection = NLQueryClusteringDetectionModel()
+    with app.app_context():
+      self._train_classifiers()
 
-  def train_classifiers(self):
+  def _train_classifiers(self):
     # Classification models and training. This cannot happen as part of __init__() because
     # Model() is initialized before the app context is created and dc API calls fail without
     # getting the app context.
