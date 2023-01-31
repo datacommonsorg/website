@@ -199,3 +199,11 @@ def get_sv_name(all_svs: List[str]) -> Dict:
       sv_name_map[sv] = uncurated_names[sv]
 
   return sv_name_map
+
+
+def get_only_svs(svs: List[str]) -> List[str]:
+  ret = []
+  for sv in svs:
+    if is_sv(sv):
+      ret.append(sv)
+  return ret
