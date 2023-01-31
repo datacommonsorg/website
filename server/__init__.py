@@ -86,7 +86,7 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_stanford_dc(app, is_test):
+def register_routes_stanford_dc(app, is_test, is_local):
   # Install blueprints specific to Stanford DC
   from routes import (disasters, event)
   from routes.api import (disaster_api)
@@ -98,7 +98,7 @@ def register_routes_stanford_dc(app, is_test):
     # load disaster dashboard configs
     disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
     app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
-    if os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+    if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
       disaster_dashboard_data = get_disaster_dashboard_data(
           app.config['GCS_BUCKET'])
       app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
@@ -202,11 +202,11 @@ def create_app():
     register_routes_custom_dc(app)
   if cfg.ENV_NAME == 'STANFORD' or os.environ.get(
       'FLASK_ENV') == 'autopush' or cfg.LOCAL and not cfg.LITE:
-    register_routes_stanford_dc(app, cfg.TEST)
+    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
   if cfg.TEST:
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_base_dc(app)
-    register_routes_stanford_dc(app, cfg.TEST)
+    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
   else:
     register_routes_base_dc(app)
   if cfg.ADMIN:
