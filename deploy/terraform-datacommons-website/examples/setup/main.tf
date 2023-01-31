@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+terraform {
+  backend "gcs" {}
+}
 
 resource "random_id" "rnd" {
   byte_length = 4

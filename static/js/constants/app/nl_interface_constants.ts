@@ -21,3 +21,5 @@
 export const NL_SMALL_TILE_CLASS = "tile-sm";
 export const NL_MED_TILE_CLASS = "tile-md";
 export const NL_LARGE_TILE_CLASS = "tile-lg";
+// Number of tiles to show.
+export const NL_NUM_TILES_SHOWN = 6;

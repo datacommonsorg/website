@@ -18,7 +18,7 @@ from config.subject_page_pb2 import Block, RankingTileSpec, StatVarSpec, \
   SubjectPageConfig, Tile
 from lib.nl.nl_utterance import Utterance, ChartType, ChartSpec
 from lib.nl.nl_detection import Place, RankingType
-from lib.nl.nl_utils import get_sv_name
+from lib.nl import nl_utils
 import logging
 
 
@@ -46,7 +46,7 @@ def build_page_config(uttr: Utterance) -> SubjectPageConfig:
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
   all_svs = list(all_svs)
-  sv2name = get_sv_name(all_svs)
+  sv2name = nl_utils.get_sv_name(all_svs)
 
   prev_block_id = -1
   block = None
@@ -177,9 +177,20 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
                               sv2name, attr):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
+
+  if attr['title']:
+    # This happens in the case of Topics
+    title = attr['title']
+  elif len(svs) > 1:
+    # This suggests we are comparing against SV peers from SV extension
+    title = 'Compare with Other Variables'
+  else:
+    # This is the case of multiple places for a single SV
+    title = 'Total'
+
   # Total
   tile = Tile(type=Tile.TileType.BAR,
-              title="Total",
+              title=title,
               comparison_places=[x.dcid for x in places])
   for sv in svs:
     sv_key = sv + "_multiple_place_bar_block"
@@ -190,8 +201,9 @@ def _multiple_place_bar_block(column, places: List[Place], svs: List[str],
   # Per Capita
   svs_pc = list(filter(lambda x: _should_add_percapita(x), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
+    pc_title = title + ' - Per Capita' if title != 'Total' else 'Per Capita'
     tile = Tile(type=Tile.TileType.BAR,
-                title="Per Capita",
+                title=pc_title,
                 comparison_places=[x.dcid for x in places])
     for sv in svs_pc:
       sv_key = sv + "_multiple_place_bar_block_pc"

@@ -327,11 +327,28 @@ def get_event_collection_date(event_type, affected_place):
   })
 
 
-def nl_helloworld():
-  """fetch nl hello world data.
-  """
-  url = cfg.NL_ROOT
+def nl_embeddings_vector_at_index(index: int):
+  """Embedding vector at index from the NL server."""
+  url = f'{cfg.NL_ROOT}/api/embedding?i={index}'
+  return get(url).get('embeddings_vector', [])
+
+
+def nl_embeddings_vector(query):
+  """Embedding vector from the NL server."""
+  url = f'{cfg.NL_ROOT}/api/embedding?q={query}'
+  return get(url).get('embeddings_vector', [])
+
+
+def nl_search_sv(query):
+  """Search sv from NL server."""
+  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}'
   return get(url)
+
+
+def nl_detect_place_ner(query):
+  """Detect places from NL server."""
+  url = f'{cfg.NL_ROOT}/api/search_places?q={query}'
+  return get(url).get('places', [])
 
 
 # =======================   V0 V0 V0 ================================

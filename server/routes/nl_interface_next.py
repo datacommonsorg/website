@@ -106,8 +106,7 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
-def _result_with_debug_info(data_dict, status, embeddings_build,
-                            query_detection: Detection,
+def _result_with_debug_info(data_dict, status, query_detection: Detection,
                             context_history: List[Dict]):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
@@ -151,7 +150,6 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
       'original_query': query_detection.original_query,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
-      'embeddings_build': embeddings_build,
       'ranking_classification': ranking_classification,
       'temporal_classification': temporal_classification,
       'contained_in_classification': contained_in_classification,
@@ -181,7 +179,7 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
   return data_dict
 
 
-def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
+def _detection(orig_query, cleaned_query) -> Detection:
   model = current_app.config['NL_MODEL']
 
   # Step 1: find all relevant places and the name/type of the main place found.
@@ -202,7 +200,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
     main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
     # Step 2: replace the places in the query sentence with "".
-    query = _remove_places(cleaned_query, places_found)
+    query = _remove_places(cleaned_query.lower(), places_found)
 
     # Set PlaceDetection.
     place_detection = PlaceDetection(query_original=orig_query,
@@ -219,7 +217,7 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
   try:
-    svs_scores_dict = model.detect_svs(query, embeddings_build)
+    svs_scores_dict = model.detect_svs(query)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
@@ -233,10 +231,12 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
 
   # Step 4: find query classifiers.
   ranking_classification = model.heuristic_ranking_classification(query)
+  comparison_classification = model.comparison_classification(query)
   temporal_classification = model.query_classification("temporal", query)
   contained_in_classification = model.query_classification(
       "contained_in", query)
   logging.info(f'Ranking classification: {ranking_classification}')
+  logging.info(f'Comparison classification: {comparison_classification}')
   logging.info(f'Temporal classification: {temporal_classification}')
   logging.info(f'ContainedIn classification: {contained_in_classification}')
 
@@ -244,6 +244,8 @@ def _detection(orig_query, cleaned_query, embeddings_build) -> Detection:
   classifications = []
   if ranking_classification is not None:
     classifications.append(ranking_classification)
+  if comparison_classification is not None:
+    classifications.append(comparison_classification)
   if contained_in_classification is not None:
     classifications.append(contained_in_classification)
 
@@ -287,6 +289,10 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  # For the NL module, launch classifier training. This needs to happen here
+  # because the classifiers make use of the services.datacommons API which
+  # needs the app context to be ready.
+  # If the classifiers have already been trained, this call will simply return.
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'])
 
@@ -306,7 +312,6 @@ def data():
   logging.info(context_history)
 
   query = str(escape(nl_utils.remove_punctuations(original_query)))
-  embeddings_build = str(escape(request.args.get('build', "combined_all")))
   res = {
       'place': {
           'dcid': '',
@@ -319,14 +324,11 @@ def data():
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build,
-                                   _detection("", "", embeddings_build),
-                                   escaped_context_history)
+                                   _detection("", ""), escaped_context_history)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  query_detection = _detection(str(escape(original_query)), query,
-                               embeddings_build)
+  query_detection = _detection(str(escape(original_query)), query)
 
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
@@ -364,6 +366,6 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  data_dict = _result_with_debug_info(data_dict, status_str, embeddings_build,
-                                      query_detection, context_history)
+  data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
+                                      context_history)
   return data_dict

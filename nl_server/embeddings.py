@@ -22,9 +22,8 @@ import logging
 import os
 import torch
 
-GCS_BUCKET = 'datcom-nl-models'
-FOLDER = 'prod/'
-EMBEDDINGS_FILENAME = "embeddings_us_filtered_2023_1_26_22_15_41.csv"
+import gcs
+
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
 
@@ -32,8 +31,9 @@ MODEL_NAME = 'all-MiniLM-L6-v2'
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self) -> None:
-    self.model: SentenceTransformer = SentenceTransformer(MODEL_NAME)
+  def __init__(self, embeddings_file: str) -> None:
+    self.embeddings_file = embeddings_file
+    self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
     self._download_embeddings()
     self.dcids: List[str] = []
@@ -43,32 +43,42 @@ class Embeddings:
     try:
       ds = load_dataset('csv',
                         data_files=os.path.join(TEMP_DIR,
-                                                f'{EMBEDDINGS_FILENAME}'))
+                                                f'{self.embeddings_file}'))
     except:
       error_str = "No embedding could be loaded."
       logging.error(error_str)
       raise Exception("No embedding could be loaded.")
 
-    df = ds["train"].to_pandas()
-    self.dcids = df['dcid'].values.tolist()
-    df = df.drop('dcid', axis=1)
+    self.df = ds["train"].to_pandas()
+    self.dcids = self.df['dcid'].values.tolist()
+    self.df = self.df.drop('dcid', axis=1)
     # Also get the sentence mappings.
     self.sentences = []
-    if 'sentence' in df:
-      self.sentences = df['sentence'].values.tolist()
-      df = df.drop('sentence', axis=1)
+    if 'sentence' in self.df:
+      self.sentences = self.df['sentence'].values.tolist()
+      self.df = self.df.drop('sentence', axis=1)
 
-    self.dataset_embeddings = torch.from_numpy(df.to_numpy()).to(torch.float)
+    self.dataset_embeddings = torch.from_numpy(self.df.to_numpy()).to(
+        torch.float)
 
   def _download_embeddings(self):
     storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name=GCS_BUCKET)
-    try:
-      blob = bucket.get_blob(FOLDER + EMBEDDINGS_FILENAME)
-      # Download
-      blob.download_to_filename(os.path.join(TEMP_DIR, EMBEDDINGS_FILENAME))
-    except Exception as e:
-      logging.info(e)
+    bucket = storage_client.bucket(bucket_name=gcs.BUCKET)
+    blob = bucket.get_blob(self.embeddings_file)
+    # Download
+    blob.download_to_filename(os.path.join(TEMP_DIR, self.embeddings_file))
+
+  def get_embedding_at_index(self, index: int) -> List[float]:
+    if index < 0 or index >= len(self.df):
+      logging.error(
+          f"get_embedding_at_index() got an index out of range. index = {index}. len(df) = {len(self.df)}"
+      )
+      return []
+
+    return self.df.iloc[index].values.tolist()
+
+  def get_embedding(self, query: str) -> List[float]:
+    return self.model.encode(query).tolist()
 
   def detect_svs(self, query: str) -> Dict[str, Union[Dict, List]]:
     query_embeddings = self.model.encode([query])

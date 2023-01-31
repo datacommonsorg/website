@@ -30,6 +30,7 @@ import {
 import { getRelLink } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
+import { DisasterEventBlock } from "./disaster_event_block";
 import { StatVarProvider } from "./stat_var_provider";
 
 export interface CategoryPropType {
@@ -58,10 +59,36 @@ export function Category(props: CategoryPropType): JSX.Element {
       {props.config.description && (
         <ReactMarkdown>{props.config.description}</ReactMarkdown>
       )}
-      {props.config.blocks.map((block, idx) => {
-        const id = block.title
-          ? getRelLink(block.title)
-          : `${props.id}blk${idx}`;
+      {renderBlocks(props, svProvider)}
+    </article>
+  );
+}
+
+function renderBlocks(
+  props: CategoryPropType,
+  svProvider: StatVarProvider
+): JSX.Element {
+  if (!props.config.blocks) {
+    return <></>;
+  }
+  const blocksJsx = props.config.blocks.map((block, i) => {
+    const id = block.title ? getRelLink(block.title) : `${props.id}blk${i}`;
+    switch (block.type) {
+      case "DISASTER_EVENT":
+        return (
+          <ErrorBoundary key={id}>
+            <DisasterEventBlock
+              id={id}
+              place={props.place}
+              enclosedPlaceType={props.enclosedPlaceType}
+              title={block.title}
+              description={block.description}
+              columns={block.columns}
+              eventTypeSpec={props.eventTypeSpec}
+            />
+          </ErrorBoundary>
+        );
+      default:
         return (
           <ErrorBoundary key={id}>
             <Block
@@ -72,12 +99,11 @@ export function Category(props: CategoryPropType): JSX.Element {
               description={block.description}
               columns={block.columns}
               statVarProvider={svProvider}
-              eventTypeSpec={props.eventTypeSpec}
               svgChartHeight={props.svgChartHeight}
             />
           </ErrorBoundary>
         );
-      })}
-    </article>
-  );
+    }
+  });
+  return <>{blocksJsx}</>;
 }
