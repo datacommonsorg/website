@@ -210,11 +210,14 @@ def _populate_simple_cb(state: PopulateState, chart_vars: ChartVars,
                         places: List[Place],
                         chart_origin: ChartOriginType) -> bool:
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
-    _add_chart_to_utterance(ChartType.TIMELINE_CHART, state, chart_vars, places,
-                            chart_origin)
+    # For fewer SVs, comparing trends over time is nicer.
+    chart_type = ChartType.TIMELINE_CHART
   else:
-    _add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
-                            chart_origin)
+    # When there are too many, comparing latest values is better
+    # (than, say, breaking it into multiple timeline charts)
+    chart_type = ChartType.BAR_CHART
+  return _add_chart_to_utterance(chart_type, state, chart_vars, places,
+                                 chart_origin)
 
 
 def _fallback_simple_cb(state: PopulateState, places: List[Place],
