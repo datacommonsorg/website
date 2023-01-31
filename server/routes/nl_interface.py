@@ -436,6 +436,9 @@ def _detection(orig_query, cleaned_query: str,
 
   model = current_app.config['NL_MODEL']
 
+  # In case the classifiers have not yet been trained, train them.
+  model.train_classifiers()
+
   # Step 1: find all relevant places and the name/type of the main place found.
   places_found = model.detect_place(cleaned_query)
 

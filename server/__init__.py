@@ -309,6 +309,8 @@ def create_app():
 
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
+    print("hehrehrhehrhehrher\n\n\n\n\n")
+    print(cfg.NL_ROOT)
     load_model()
 
   def is_up(url: str):

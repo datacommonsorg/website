@@ -184,6 +184,9 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
 def _detection(orig_query, cleaned_query) -> Detection:
   model = current_app.config['NL_MODEL']
 
+  # In case the classifiers have not yet been trained, train them.
+  model.train_classifiers()
+
   # Step 1: find all relevant places and the name/type of the main place found.
   places_found = model.detect_place(cleaned_query)
 

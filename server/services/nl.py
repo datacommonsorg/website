@@ -90,6 +90,8 @@ class Model:
                                                      NLQueryClassificationData],
                classification_types_supported: List[str]):
     self.place_detector: NLPlaceDetector = NLPlaceDetector()
+    self.query_classification_data = query_classification_data
+    self.classification_types_supported = classification_types_supported
     self.dataset_embeddings_maps = {}
     # For clustering, need the DataFrame objects.
     self.dataset_embeddings_maps_to_df = {}
@@ -109,13 +111,22 @@ class Model:
           torch.float)
       self.dataset_embeddings_maps_to_df[build] = df
 
-    # Classification models and training.
+    # Classification models.
+    self.classification_models_trained = False
     self.classification_models: Dict[str, NLQueryClassificationModel] = {}
-    self._classification_data_to_models(query_classification_data,
-                                        classification_types_supported)
 
     # Set the Correlations Detection Model.
     self._clustering_detection = NLQueryClusteringDetectionModel()
+
+  def train_classifiers(self):
+    # Classification models and training. This cannot happen as part of __init__() because
+    # Model() is initialized before the app context is created and dc API calls fail without
+    # getting the app context.
+    if not self.classification_models_trained:
+      logging.info("Training classification models.")
+      self._classification_data_to_models(self.query_classification_data,
+                                          self.classification_types_supported)
+      self.classification_models_trained = True
 
   def _download_embeddings(self):
     storage_client = storage.Client()
@@ -141,9 +152,7 @@ class Model:
     for s in sentences:
       embeddings.append(dc.nl_embeddings_vector(s))
 
-    print(embeddings)
     embeddings = pd.DataFrame(embeddings)
-    print(embeddings.head())
     features = embeddings.values
 
     return (features, labels)
