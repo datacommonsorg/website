@@ -95,7 +95,7 @@ def register_routes_stanford_dc(app, is_test):
   app.register_blueprint(event.bp)
 
   if not is_test:
-    # load disaster dashboard configs
+# load disaster dashboard configs
     disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
     app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
     disaster_dashboard_data = get_disaster_dashboard_data(
@@ -276,9 +276,9 @@ def create_app():
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
     # Some specific imports for the NL Interface.
-    import lib.nl.nl_training as libnl
+    import lib.nl.training as libnl
     import services.nl as nl
-    # For the classification types available, check lib.nl_training (libnl).
+    # For the classification types available, check lib.training (libnl).
     classification_types = [
         'ranking', 'temporal', 'contained_in', 'correlation'
     ]

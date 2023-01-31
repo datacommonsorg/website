@@ -25,8 +25,8 @@ from typing import Dict, Union
 import requests
 
 import services.datacommons as dc
-import lib.nl.data_spec as data_spec
-import lib.nl.page_config as page_config
+import lib.nl.data_spec as nl_data_spec
+import lib.nl.page_config as nl_page_config
 import lib.nl.utils as utils
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
@@ -609,8 +609,8 @@ def data():
                                recent_context)
 
   # Get Data Spec
-  data_spec = data_spec.compute(query_detection, context_history)
-  page_config_pb = page_config.build_page_config(query_detection, data_spec,
+  data_spec = nl_data_spec.compute(query_detection, context_history)
+  page_config_pb = nl_page_config.build_page_config(query_detection, data_spec,
                                                  context_history)
   page_config = json.loads(MessageToJson(page_config_pb))
 

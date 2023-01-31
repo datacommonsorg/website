@@ -19,15 +19,15 @@ import json
 
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
-from google.protobuf.json_format import MessageToJson, ParseDict
+from google.protobuf.json_format import MessageToJson
 from lib.nl.detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes, RANKED_CLASSIFICATION_TYPES
 from typing import Dict, List
 import requests
 
 import services.datacommons as dc
 import lib.nl.fulfillment_next as fulfillment
-import lib.nl.page_config_next as page_config
-import lib.nl.utterance as utterance
+import lib.nl.page_config_next as nl_page_config
+import lib.nl.utterance as nl_utterance
 import lib.nl.utils as utils
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
@@ -332,12 +332,12 @@ def data():
   query_detection = _detection(str(escape(original_query)), query)
 
   # Generate new utterance.
-  prev_utterance = utterance.load_utterance(context_history)
+  prev_utterance = nl_utterance.load_utterance(context_history)
   logging.info(prev_utterance)
   utterance = fulfillment.fulfill(query_detection, prev_utterance)
 
   if utterance.rankedCharts:
-    page_config_pb = page_config.build_page_config(utterance)
+    page_config_pb = nl_page_config.build_page_config(utterance)
     page_config = json.loads(MessageToJson(page_config_pb))
     # Use the first chart's place as main place.
     main_place = utterance.rankedCharts[0].places[0]
@@ -347,7 +347,7 @@ def data():
     logging.info('Found empty place for query "%s"',
                  query_detection.original_query)
 
-  context_history = utterance.save_utterance(utterance)
+  context_history = nl_utterance.save_utterance(utterance)
 
   data_dict = {
       'place': {
