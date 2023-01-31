@@ -17,12 +17,10 @@ import logging
 from dataclasses import dataclass, field
 from typing import List
 
-from lib.nl import nl_variable, nl_topic
+from lib.nl import nl_variable, nl_topic, nl_utils
 from lib.nl.nl_utterance import ChartType, ChartOriginType, ChartSpec, Utterance
 from lib.nl.nl_detection import ContainedInPlaceType, Place, RankingType
 from lib.nl.fulfillment import context
-from lib.nl.nl_utils import sv_existence_for_places, get_sample_child_places, \
-  get_only_svs, is_sv, is_topic
 
 
 # Data structure to store state for a single "populate" call.
@@ -114,11 +112,11 @@ def _add_charts(state: PopulateState, places: List[Place],
   places_to_check = _get_place_dcids(places)
   if state.place_type:
     # REQUIRES: len(places) == 1
-    places_to_check = get_sample_child_places(places[0].dcid,
-                                              state.place_type.value)
+    places_to_check = nl_utils.get_sample_child_places(places[0].dcid,
+                                                       state.place_type.value)
 
   # Map of main SV -> peer SVs
-  sv2extensions = nl_variable.extend_svs(get_only_svs(svs))
+  sv2extensions = nl_variable.extend_svs(nl_utils.get_only_svs(svs))
 
   # A set used to ensure that a set of SVs are constructed into charts
   # only once. For example SV1 and SV2 may both be main SVs, and part of
@@ -131,7 +129,8 @@ def _add_charts(state: PopulateState, places: List[Place],
     # Infer charts for the main SV/Topic.
     chart_vars_list = _svg_or_topic_to_svs(state, sv, rank)
     for chart_vars in chart_vars_list:
-      exist_svs = sv_existence_for_places(places_to_check, chart_vars.svs)
+      exist_svs = nl_utils.sv_existence_for_places(places_to_check,
+                                                   chart_vars.svs)
       if exist_svs:
         chart_vars.svs = exist_svs
         # Now that we've found existing vars, call the per-chart-type callback.
@@ -146,7 +145,7 @@ def _add_charts(state: PopulateState, places: List[Place],
     extended_svs = sv2extensions.get(sv, [])
     if not extended_svs:
       continue
-    exist_svs = sv_existence_for_places(places_to_check, extended_svs)
+    exist_svs = nl_utils.sv_existence_for_places(places_to_check, extended_svs)
     if len(exist_svs) > 1:
       exist_svs_key = ''.join(sorted(exist_svs))
       if exist_svs_key in printed_sv_extensions:
@@ -188,10 +187,10 @@ def _get_place_names(places: List[Place]) -> List[str]:
 #
 def _svg_or_topic_to_svs(state: PopulateState, sv: str,
                          rank: int) -> List[ChartVars]:
-  if is_sv(sv):
+  if nl_utils.is_sv(sv):
     state.block_id += 1
     return [ChartVars(svs=[sv], block_id=state.block_id)]
-  if is_topic(sv):
+  if nl_utils.is_topic(sv):
     topic_vars = nl_topic.get_topic_vars(sv, rank)
     peer_groups = nl_topic.get_topic_peers(topic_vars)
 

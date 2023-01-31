@@ -14,7 +14,7 @@
 
 import logging
 
-from lib.nl.nl_utils import sv_existence_for_places, get_sample_child_places, get_only_svs
+from lib.nl import nl_utils
 from lib.nl.nl_detection import ClassificationType, \
   ContainedInClassificationAttributes, Place
 from lib.nl.nl_utterance import Utterance, ChartOriginType, ChartType
@@ -59,12 +59,13 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   # Get child place samples for existence check.
-  places_to_check = get_sample_child_places(place.dcid, state.place_type.value)
+  places_to_check = nl_utils.get_sample_child_places(place.dcid,
+                                                     state.place_type.value)
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = get_only_svs(state.uttr.svs)
-  main_svs = sv_existence_for_places(places_to_check, main_svs)
+  main_svs = nl_utils.get_only_svs(state.uttr.svs)
+  main_svs = nl_utils.sv_existence_for_places(places_to_check, main_svs)
   if not main_svs:
     logging.info('Correlation found no Main SV')
     return False
@@ -73,12 +74,12 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   context_svs = []
   svs_set = set()
   for c_svs in svs_from_context(state.uttr):
-    for sv in get_only_svs(c_svs):
+    for sv in nl_utils.get_only_svs(c_svs):
       if sv in svs_set:
         continue
       svs_set.add(sv)
       context_svs.append(sv)
-  context_svs = sv_existence_for_places(places_to_check, context_svs)
+  context_svs = nl_utils.sv_existence_for_places(places_to_check, context_svs)
   if not context_svs:
     logging.info('Correlation found no Context SV')
     return False
