@@ -498,6 +498,8 @@ def _places_from_context(uttr: Utterance) -> List[Place]:
   return ans
 
 
+# Returns a list of place lists.  Each inner list is a candidate for place comparison.
+# The outer list is ordered from most prefered candidates to least.
 def _places_for_comparison_from_context(uttr: Utterance) -> List[List[Place]]:
   ans = []
   first_uttr_count = 0
