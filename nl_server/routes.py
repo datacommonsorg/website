@@ -16,12 +16,12 @@ import json
 import logging
 
 from flask import Blueprint, current_app, escape, request
-from typing import List
+from typing import List, Tuple
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
 
-def _query_embedding(query: str) -> tuple[List[float], str]:
+def _query_embedding(query: str) -> Tuple[List[float], str]:
   try:
     nl_embeddings = current_app.config['NL_EMBEDDINGS']
     return nl_embeddings.get_embedding(query), ''
