@@ -25,6 +25,7 @@ class NLPlaceDetector:
   """Performs all place detection for the NL modules."""
 
   def detect_place_ner(self, query: str) -> List[str]:
+    # Making an API call to the NL models server.
     return dc.nl_detect_place_ner(query)
 
   def detect_places_heuristics(self, query: str) -> List[str]:

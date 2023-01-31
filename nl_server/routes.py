@@ -21,6 +21,24 @@ from typing import Any, Dict
 bp = Blueprint('main', __name__, url_prefix='/')
 
 
+@bp.route('/api/embedding/index/', methods=['GET'])
+def embedding_from_index():
+  """Returns a dictionary with the following structure:
+  {
+    'embeddings_vector': List[float]
+  }
+  """
+  try:
+    index = int(escape(request.args.get('i')))
+    nl_embeddings = current_app.config['NL_EMBEDDINGS']
+    return json.dumps(
+        {'embeddings_vector': nl_embeddings.get_embedding_at_index(index)})
+  except Exception as e:
+    logging.error(
+        f'Could not retreve an embeddings vector. Failed with error: {e}')
+    return json.dumps({'embeddings_vector': []})
+
+
 @bp.route('/api/embedding/', methods=['GET'])
 def embedding():
   """Returns a dictionary with the following structure:

@@ -41,10 +41,6 @@ from services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
-nl_model_cache_key = 'nl_model'
-nl_model_cache_path = '~/.datacommons/'
-nl_model_cache_expire = 3600 * 24  # Cache for 1 day
-
 
 def createMiddleWare(app, exporter):
   # Configure a flask middleware that listens for each request and applies
@@ -278,20 +274,6 @@ def create_app():
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
   def load_model():
-    # import services.ai as ai
-    # app.config['AI_CONTEXT'] = ai.Context()
-
-    # In local dev, cache the model in disk so each hot reload won't download
-    # the model again.
-    if app.config['LOCAL']:
-      from diskcache import Cache
-      cache = Cache(nl_model_cache_path)
-      cache.expire()
-      nl_model = cache.get(nl_model_cache_key)
-      app.config['NL_MODEL'] = nl_model
-      if nl_model:
-        logging.info("Use cached model in: " + cache.directory)
-        return
     # Some specific imports for the NL Interface.
     import lib.nl.nl_training as libnl
     import services.nl as nl
@@ -301,16 +283,9 @@ def create_app():
     ]
     nl_model = nl.Model(libnl.CLASSIFICATION_INFO, classification_types)
     app.config['NL_MODEL'] = nl_model
-    if app.config['LOCAL']:
-      with Cache(cache.directory) as reference:
-        reference.set(nl_model_cache_key,
-                      nl_model,
-                      expire=nl_model_cache_expire)
 
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
-    print("hehrehrhehrhehrher\n\n\n\n\n")
-    print(cfg.NL_ROOT)
     load_model()
 
   def is_up(url: str):

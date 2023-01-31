@@ -327,6 +327,12 @@ def get_event_collection_date(event_type, affected_place):
   })
 
 
+def nl_embeddings_vector_at_index(index: int):
+  """Embedding vector at index from the NL server."""
+  url = f'{cfg.NL_ROOT}/api/embedding/index/?i={index}'
+  return get(url).get('embeddings_vector', [])
+
+
 def nl_embeddings_vector(query):
   """Embedding vector from the NL server."""
   url = f'{cfg.NL_ROOT}/api/embedding?q={query}'
