@@ -33,22 +33,22 @@ def populate(uttr: Utterance) -> bool:
     place_type = classification.attributes.contained_in_place_type
     if populate_charts(
         PopulateState(uttr=uttr,
-                      main_cb=_populate_contained_in_cb,
-                      fallback_cb=_fallback_contained_in_cb,
+                      main_cb=_populate_cb,
+                      fallback_cb=_fallback_cb,
                       place_type=place_type)):
       return True
   # TODO: poor default; should do this based on main place
   place_type = ContainedInPlaceType.COUNTY
   return populate_charts(
       PopulateState(uttr=uttr,
-                    main_cb=_populate_contained_in_cb,
-                    fallback_cb=_fallback_contained_in_cb,
+                    main_cb=_populate_cb,
+                    fallback_cb=_fallback_cb,
                     place_type=place_type))
 
 
-def _populate_contained_in_cb(state: PopulateState, chart_vars: ChartVars,
-                              contained_places: List[Place],
-                              chart_origin: ChartOriginType) -> bool:
+def _populate_cb(state: PopulateState, chart_vars: ChartVars,
+                 contained_places: List[Place],
+                 chart_origin: ChartOriginType) -> bool:
   if not state.place_type:
     return False
   if not chart_vars:
@@ -63,12 +63,10 @@ def _populate_contained_in_cb(state: PopulateState, chart_vars: ChartVars,
   return True
 
 
-def _fallback_contained_in_cb(state: PopulateState,
-                              containing_places: List[Place],
-                              chart_origin: ChartOriginType) -> bool:
+def _fallback_cb(state: PopulateState, containing_places: List[Place],
+                 chart_origin: ChartOriginType) -> bool:
   # TODO: Poor choice, do better.
   sv = "Count_Person"
   state.block_id += 1
   chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_contained_in_cb(state, chart_vars, containing_places,
-                                   chart_origin)
+  return _populate_cb(state, chart_vars, containing_places, chart_origin)

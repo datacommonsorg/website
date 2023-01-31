@@ -26,14 +26,11 @@ _MAX_VARS_PER_CHART = 5
 
 def populate(uttr: Utterance) -> bool:
   return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_simple_cb,
-                    fallback_cb=_fallback_simple_cb))
+      PopulateState(uttr=uttr, main_cb=_populate_cb, fallback_cb=_fallback_cb))
 
 
-def _populate_simple_cb(state: PopulateState, chart_vars: ChartVars,
-                        places: List[Place],
-                        chart_origin: ChartOriginType) -> bool:
+def _populate_cb(state: PopulateState, chart_vars: ChartVars,
+                 places: List[Place], chart_origin: ChartOriginType) -> bool:
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.
     chart_type = ChartType.TIMELINE_CHART
@@ -45,8 +42,8 @@ def _populate_simple_cb(state: PopulateState, chart_vars: ChartVars,
                                 chart_origin)
 
 
-def _fallback_simple_cb(state: PopulateState, places: List[Place],
-                        chart_origin: ChartOriginType) -> bool:
+def _fallback_cb(state: PopulateState, places: List[Place],
+                 chart_origin: ChartOriginType) -> bool:
   # If NO SVs were found, then this is a OVERVIEW chart, added to a new block.
   state.block_id += 1
   chart_vars = ChartVars(svs=[],

@@ -14,35 +14,27 @@
 
 from typing import List
 
-from lib.nl.nl_detection import ClassificationType, Detection, \
-  ContainedInPlaceType, ContainedInClassificationAttributes, \
-    RankingType, RankingClassificationAttributes, ComparisonClassificationAttributes, \
-    Place, ClassificationAttributes
-
-from lib.nl.nl_utterance import Utterance, ChartOriginType, ChartSpec, \
-  ChartType, CTX_LOOKBACK_LIMIT
-
+from lib.nl.nl_detection import Place
+from lib.nl.nl_utterance import Utterance, ChartOriginType, ChartType
 from lib.nl.fulfillment.base import populate_charts_for_places, PopulateState, ChartVars, \
   add_chart_to_utterance
-
-from lib.nl.fulfillment import context
+from lib.nl.fulfillment.context import places_for_comparison_from_context
 
 
 def populate(uttr: Utterance) -> bool:
   # NOTE: The COMPARISON attribute has no additional parameters.  So start
   # by directly inferring the list of places to compare.
   state = PopulateState(uttr=uttr,
-                        main_cb=_populate_comparison_cb,
-                        fallback_cb=_fallback_comparison_cb)
-  for places_to_compare in context.places_for_comparison_from_context(uttr):
+                        main_cb=_populate_cb,
+                        fallback_cb=_fallback_cb)
+  for places_to_compare in places_for_comparison_from_context(uttr):
     if populate_charts_for_places(state, places_to_compare):
       return True
   return False
 
 
-def _populate_comparison_cb(state: PopulateState, chart_vars: ChartVars,
-                            places: List[Place],
-                            chart_origin: ChartOriginType) -> bool:
+def _populate_cb(state: PopulateState, chart_vars: ChartVars,
+                 places: List[Place], chart_origin: ChartOriginType) -> bool:
   if len(places) < 2:
     return False
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
@@ -50,10 +42,10 @@ def _populate_comparison_cb(state: PopulateState, chart_vars: ChartVars,
   return True
 
 
-def _fallback_comparison_cb(state: PopulateState, places: List[Place],
-                            chart_origin: ChartOriginType) -> bool:
+def _fallback_cb(state: PopulateState, places: List[Place],
+                 chart_origin: ChartOriginType) -> bool:
   # TODO: Poor choice, do better.
   sv = "Count_Person"
   state.block_id += 1
   chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_comparison_cb(state, chart_vars, places, chart_origin)
+  return _populate_cb(state, chart_vars, places, chart_origin)

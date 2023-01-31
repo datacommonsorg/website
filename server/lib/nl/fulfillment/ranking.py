@@ -52,8 +52,8 @@ def populate(uttr: Utterance):
       place_type = contained_classification.attributes.contained_in_place_type
       if populate_charts(
           PopulateState(uttr=uttr,
-                        main_cb=_populate_ranking_cb,
-                        fallback_cb=_fallback_ranking_cb,
+                        main_cb=_populate_cb,
+                        fallback_cb=_fallback_cb,
                         place_type=place_type,
                         ranking_types=ranking_types)):
         return True
@@ -63,15 +63,15 @@ def populate(uttr: Utterance):
   place_type = ContainedInPlaceType.COUNTY
   return populate_charts(
       PopulateState(uttr=uttr,
-                    main_cb=_populate_ranking_cb,
-                    fallback_cb=_fallback_ranking_cb,
+                    main_cb=_populate_cb,
+                    fallback_cb=_fallback_cb,
                     place_type=place_type,
                     ranking_types=ranking_types))
 
 
-def _populate_ranking_cb(state: PopulateState, chart_vars: ChartVars,
-                         containing_places: List[Place],
-                         chart_origin: ChartOriginType) -> bool:
+def _populate_cb(state: PopulateState, chart_vars: ChartVars,
+                 containing_places: List[Place],
+                 chart_origin: ChartOriginType) -> bool:
   if not state.place_type or not state.ranking_types:
     return False
   if len(containing_places) > 1:
@@ -84,11 +84,10 @@ def _populate_ranking_cb(state: PopulateState, chart_vars: ChartVars,
   return True
 
 
-def _fallback_ranking_cb(state: PopulateState, containing_places: List[Place],
-                         chart_origin: ChartOriginType) -> bool:
+def _fallback_cb(state: PopulateState, containing_places: List[Place],
+                 chart_origin: ChartOriginType) -> bool:
   # TODO: Poor choice, do better.
   sv = "Count_Person"
   state.block_id += 1
   chart_vars = ChartVars(svs=[sv], block_id=state.block_id)
-  return _populate_ranking_cb(state, chart_vars, containing_places,
-                              chart_origin)
+  return _populate_cb(state, chart_vars, containing_places, chart_origin)
