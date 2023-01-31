@@ -273,7 +273,8 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  def load_model():
+  # Initialize the AI module.
+  if os.environ.get('ENABLE_MODEL') == 'true':
     # Some specific imports for the NL Interface.
     import lib.nl.nl_training as libnl
     import services.nl as nl
@@ -283,10 +284,6 @@ def create_app():
     ]
     nl_model = nl.Model(libnl.CLASSIFICATION_INFO, classification_types)
     app.config['NL_MODEL'] = nl_model
-
-  # Initialize the AI module.
-  if os.environ.get('ENABLE_MODEL') == 'true':
-    load_model()
 
   def is_up(url: str):
     if not url.lower().startswith('http'):
