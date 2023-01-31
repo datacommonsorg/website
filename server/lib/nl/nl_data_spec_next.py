@@ -146,7 +146,7 @@ def _add_charts(state: PopulateState, places: List[Place],
                                               state.place_type.value)
 
   # Map of main SV -> peer SVs
-  sv2extensions = nl_variable.extend_svs(svs)
+  sv2extensions = nl_variable.extend_svs(_get_only_svs(svs))
 
   # A set used to ensure that a set of SVs are constructed into charts
   # only once. For example SV1 and SV2 may both be main SVs, and part of
