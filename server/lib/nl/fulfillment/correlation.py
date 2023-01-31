@@ -14,10 +14,10 @@
 
 import logging
 
-from lib.nl import nl_utils
-from lib.nl.nl_detection import ClassificationType, \
+from lib.nl import utils
+from lib.nl.detection import ClassificationType, \
   ContainedInClassificationAttributes, Place
-from lib.nl.nl_utterance import Utterance, ChartOriginType, ChartType
+from lib.nl.utterance import Utterance, ChartOriginType, ChartType
 from lib.nl.fulfillment.base import PopulateState, ChartVars, add_chart_to_utterance
 from lib.nl.fulfillment.context import classifications_of_type_from_context, \
   places_from_context, svs_from_context
@@ -59,13 +59,13 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   # Get child place samples for existence check.
-  places_to_check = nl_utils.get_sample_child_places(place.dcid,
-                                                     state.place_type.value)
+  places_to_check = utils.get_sample_child_places(place.dcid,
+                                                  state.place_type.value)
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = nl_utils.get_only_svs(state.uttr.svs)
-  main_svs = nl_utils.sv_existence_for_places(places_to_check, main_svs)
+  main_svs = utils.get_only_svs(state.uttr.svs)
+  main_svs = utils.sv_existence_for_places(places_to_check, main_svs)
   if not main_svs:
     logging.info('Correlation found no Main SV')
     return False
@@ -74,12 +74,12 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   context_svs = []
   svs_set = set()
   for c_svs in svs_from_context(state.uttr):
-    for sv in nl_utils.get_only_svs(c_svs):
+    for sv in utils.get_only_svs(c_svs):
       if sv in svs_set:
         continue
       svs_set.add(sv)
       context_svs.append(sv)
-  context_svs = nl_utils.sv_existence_for_places(places_to_check, context_svs)
+  context_svs = utils.sv_existence_for_places(places_to_check, context_svs)
   if not context_svs:
     logging.info('Correlation found no Context SV')
     return False

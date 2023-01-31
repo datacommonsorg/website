@@ -16,8 +16,8 @@
 from typing import List
 import logging
 
-from lib.nl.nl_detection import ClassificationType, Detection
-from lib.nl.nl_utterance import Utterance
+from lib.nl.detection import ClassificationType, Detection
+from lib.nl.utterance import Utterance
 
 from lib.nl.fulfillment import comparison, context, correlation, ranking, \
   containedin, simple
@@ -30,7 +30,7 @@ _SV_THRESHOLD = 0.5
 # Compute a new Utterance given the classifications for a user query
 # and past utterances.
 #
-def compute(query_detection: Detection,
+def fulfill(query_detection: Detection,
             currentUtterance: Utterance) -> Utterance:
   # Construct Utterance datastructure.
   uttr = Utterance(prev_utterance=currentUtterance,

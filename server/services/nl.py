@@ -13,19 +13,19 @@
 # limitations under the License.
 """NL Model manager client."""
 
-from lib.nl.nl_place_detection import NLPlaceDetector
-from lib.nl.nl_detection import NLClassifier, ClassificationType
-from lib.nl.nl_detection import ClusteringClassificationAttributes, ComparisonClassificationAttributes
-from lib.nl.nl_detection import ContainedInClassificationAttributes, ContainedInPlaceType
-from lib.nl.nl_detection import CorrelationClassificationAttributes
-from lib.nl.nl_detection import RankingClassificationAttributes, RankingType
-from lib.nl.nl_detection import PeriodType, TemporalClassificationAttributes
-from lib.nl.nl_training import NLQueryClassificationData, NLQueryClassificationModel
-from lib.nl.nl_training import NLQueryClusteringDetectionModel
+from lib.nl.place_detection import NLPlaceDetector
+from lib.nl.detection import NLClassifier, ClassificationType
+from lib.nl.detection import ClusteringClassificationAttributes, ComparisonClassificationAttributes
+from lib.nl.detection import ContainedInClassificationAttributes, ContainedInPlaceType
+from lib.nl.detection import CorrelationClassificationAttributes
+from lib.nl.detection import RankingClassificationAttributes, RankingType
+from lib.nl.detection import PeriodType, TemporalClassificationAttributes
+from lib.nl.training import NLQueryClassificationData, NLQueryClassificationModel
+from lib.nl.training import NLQueryClusteringDetectionModel
 from services import datacommons as dc
 
-import lib.nl.nl_constants as nl_constants
-import lib.nl.nl_utils as nl_utils
+import lib.nl.constants as constants
+import lib.nl.utils as utils
 
 from typing import Dict, List, Union
 
@@ -35,7 +35,7 @@ import logging
 from collections import OrderedDict
 import re
 
-ALL_STOP_WORDS = nl_utils.combine_stop_words()
+ALL_STOP_WORDS = utils.combine_stop_words()
 
 
 def pick_best(probs):
@@ -166,11 +166,10 @@ class Model:
     ranking_types = []
     all_trigger_words = []
 
-    for subtype in nl_constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys(
-    ):
+    for subtype in constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"].keys():
       type_trigger_words = []
 
-      for keyword in nl_constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"][
+      for keyword in constants.QUERY_CLASSIFICATION_HEURISTICS["Ranking"][
           subtype]:
         regex = r"(^|\W)" + keyword + r"($|\W)"
         type_trigger_words += [w.group() for w in re.finditer(regex, query)]
@@ -242,8 +241,8 @@ class Model:
         contained_in_place_type = place_enum
         break
 
-      if place_type in nl_constants.PLACE_TYPE_TO_PLURALS and \
-        nl_constants.PLACE_TYPE_TO_PLURALS[place_type] in query:
+      if place_type in constants.PLACE_TYPE_TO_PLURALS and \
+        constants.PLACE_TYPE_TO_PLURALS[place_type] in query:
         contained_in_place_type = place_enum
         break
 
@@ -288,7 +287,7 @@ class Model:
     """
     query = query.lower()
     matches = []
-    for keyword in nl_constants.QUERY_CLASSIFICATION_HEURISTICS["Correlation"]:
+    for keyword in constants.QUERY_CLASSIFICATION_HEURISTICS["Correlation"]:
       regex = r"(?:^|\W)" + keyword + r"(?:$|\W)"
       matches += [w.group() for w in re.finditer(regex, query)]
     if len(matches) == 0:
@@ -446,7 +445,7 @@ class Model:
   def detect_svs(self, query) -> Dict[str, Union[Dict, List]]:
     # Remove stop words.
     logging.info(f"SV Detection: Query provided to SV Detection: {query}")
-    query = nl_utils.remove_stop_words(query, ALL_STOP_WORDS)
+    query = utils.remove_stop_words(query, ALL_STOP_WORDS)
     logging.info(f"SV Detection: Query used after removing stop words: {query}")
 
     # Make API call to the NL models/embeddings server.

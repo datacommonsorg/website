@@ -276,9 +276,9 @@ def create_app():
   # Initialize the AI module.
   if os.environ.get('ENABLE_MODEL') == 'true':
     # Some specific imports for the NL Interface.
-    import lib.nl.nl_training as libnl
+    import lib.nl.training as libnl
     import services.nl as nl
-    # For the classification types available, check lib.nl_training (libnl).
+    # For the classification types available, check lib.training (libnl).
     classification_types = [
         'ranking', 'temporal', 'contained_in', 'correlation'
     ]

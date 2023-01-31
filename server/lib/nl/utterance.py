@@ -22,7 +22,7 @@ from typing import List, Dict
 
 from dataclasses import dataclass
 from enum import IntEnum
-from lib.nl.nl_detection import ContainedInPlaceType, ClassificationType, RankingType, \
+from lib.nl.detection import ContainedInPlaceType, ClassificationType, RankingType, \
   Detection, NLClassifier, Place, RankingClassificationAttributes, \
     ContainedInClassificationAttributes, SimpleClassificationAttributes
 

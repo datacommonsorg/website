@@ -14,8 +14,8 @@
 
 from typing import List
 
-from lib.nl.nl_utterance import Utterance, CTX_LOOKBACK_LIMIT
-from lib.nl.nl_detection import ClassificationAttributes, ClassificationType, Place
+from lib.nl.utterance import Utterance, CTX_LOOKBACK_LIMIT
+from lib.nl.detection import ClassificationAttributes, ClassificationType, Place
 
 #
 # General utilities for retrieving stuff from past context.
