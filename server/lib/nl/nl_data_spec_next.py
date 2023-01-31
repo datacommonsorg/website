@@ -498,8 +498,26 @@ def _places_from_context(uttr: Utterance) -> List[Place]:
   return ans
 
 
-# Returns a list of place lists.  Each inner list is a candidate for place comparison.
-# The outer list is ordered from most prefered candidates to least.
+# Computes a list of place lists, where each inner list is a candidate for place
+# comparison.  The outer list is ordered from most prefered candidates to least.
+#
+# The logic for determining a single place comparison candidate is as follows:
+# 1. If an utterance has multiple places, then that is a candidate list.
+# 2. If an utterance has a single place, then we walk up prior utterances until
+#    we find an utterance with at least one place.  The candidate list is
+#    the former single place plus the latter from prior utterance.
+#
+# For example, suppose the query sequence is as follows:
+#   [tell me about san jose] -> [how is auto theft in fremont] -> [compare with palo alto]
+#
+# In this case, the ordered candidates will be:
+#   [[palo alto, fremont], [palo alto, san jose], [fremont, san jose]]
+#
+# If instead of the last query, we had:
+#  [compare among palo alto, sunnyvale and san jose]
+# Then, the ordered candidates will be:
+#  [[palo alto, sunnyvale, san jose], [fremont, san jose]]
+#
 def _places_for_comparison_from_context(uttr: Utterance) -> List[List[Place]]:
   ans = []
   first_uttr_count = 0
