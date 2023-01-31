@@ -197,8 +197,7 @@ class TestGetData(unittest.TestCase):
       if (event_type == TEST_EVENT_TYPE and
           affected_place == TEST_PLACE_DCID and date == TEST_DATE and
           filter_prop == "" and filter_unit == "" and
-          filter_upper_limit == None and
-          filter_lower_limit == None):
+          filter_upper_limit == None and filter_lower_limit == None):
         return EVENT_DATA
       else:
         return None
@@ -219,8 +218,7 @@ class TestGetData(unittest.TestCase):
       if (event_type == TEST_EVENT_TYPE and
           affected_place == TEST_PLACE_DCID and date == TEST_DATE and
           filter_prop == "" and filter_unit == "" and
-          filter_upper_limit == None and
-          filter_lower_limit == None):
+          filter_upper_limit == None and filter_lower_limit == None):
         return {}
       else:
         return None

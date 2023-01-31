@@ -131,7 +131,8 @@ def json_event_data():
   filter_prop = request.args.get('filterProp', '')
   filter_unit = request.args.get('filterUnit', '')
   filter_upper_limit = float(request.args.get('filterUpperLimit', float("inf")))
-  filter_lower_limit = float(request.args.get('filterLowerLimit', -float("inf")))
+  filter_lower_limit = float(request.args.get('filterLowerLimit',
+                                              -float("inf")))
   event_points = []
   disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
   for event in disaster_data.get(event_type, {}).get(date, []):
