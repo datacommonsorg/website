@@ -13,8 +13,6 @@
 # limitations under the License.
 """Integration tests for NL Next fulfillment."""
 
-from parameterized import parameterized
-
 import unittest
 from typing import Dict, List
 from unittest.mock import patch
@@ -22,7 +20,6 @@ from unittest.mock import patch
 from lib.nl import nl_data_spec_next, nl_detection, nl_utils, nl_variable, nl_utterance
 from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, \
   NLClassifier, Place, PlaceDetection, RankingType, SVDetection
-from lib.nl.nl_utterance import ChartType, ChartOriginType
 from lib.nl.fulfillment import base
 from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR, SIMPLE_UTTR, SIMPLE_WITH_SV_EXT_UTTR, \
   SIMPLE_WITH_TOPIC_UTTR, COMPARISON_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR, RANKING_UTTR
