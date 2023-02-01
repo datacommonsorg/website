@@ -35,7 +35,6 @@ import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { formatNumber } from "../../utils/string_utils";
 
 const RANKING_COUNT = 10;
-const NUM_FRACTION_DIGITS = 0;
 
 interface TopEventTilePropType {
   id: string;
@@ -50,8 +49,27 @@ interface TopEventTilePropType {
 export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
-  const severityProp = props.eventTypeSpec.defaultSeverityFilter.prop;
-  const topEvents = rankEventData(props.disasterEventData);
+  const severityFilter = props.eventTypeSpec.defaultSeverityFilter;
+  const severityProp = severityFilter.prop;
+  const severityDisplay = severityFilter.displayName || severityFilter.prop;
+  const topEvents = rankEventData(
+    props.disasterEventData,
+    props.topEventMetadata.reverseSort
+  );
+
+  const displayPropNames = {};
+  const displayPropUnits = {};
+  if (props.topEventMetadata.displayProp) {
+    for (const dp of props.topEventMetadata.displayProp) {
+      for (const edp of props.eventTypeSpec.displayProp) {
+        if (edp.prop == dp) {
+          displayPropNames[dp] = edp.displayName;
+          displayPropUnits[dp] = edp.unit;
+          break;
+        }
+      }
+    }
+  }
 
   if (topEvents === undefined) {
     return <></>;
@@ -69,23 +87,62 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
           <div className="ranking-list">
             <h4>{props.title}</h4>
             <table>
+              <thead>
+                <tr>
+                  <td></td>
+                  <td>Name</td>
+                  {(props.topEventMetadata.showStartDate ||
+                    props.topEventMetadata.showEndDate) && <td>Date</td>}
+                  {props.topEventMetadata.displayProp &&
+                    props.topEventMetadata.displayProp.map((dp, i) => (
+                      <td key={i} className="stat">
+                        {displayPropNames[dp]}
+                      </td>
+                    ))}
+                  <td className="stat">{severityDisplay}</td>
+                </tr>
+              </thead>
               <tbody>
                 {topEvents.map((event, i) => {
                   return (
                     <tr key={i}>
                       <td className="rank">{i + 1}</td>
-                      <td className="place-name">
+                      <td>
                         <a href={`/browser/${event.placeDcid}`}>
-                          {event.placeName}
+                          {isUnnamedEvent(event.placeName)
+                            ? "Unnamed event"
+                            : event.placeName}
                         </a>
                       </td>
+                      {(props.topEventMetadata.showStartDate ||
+                        props.topEventMetadata.showEndDate) && (
+                        <td>
+                          {props.topEventMetadata.showStartDate &&
+                            event.startDate}
+                          {props.topEventMetadata.showStartDate &&
+                            props.topEventMetadata.showEndDate &&
+                            "-"}
+                          {props.topEventMetadata.showEndDate && event.endDate}
+                        </td>
+                      )}
+                      {props.topEventMetadata.displayProp &&
+                        props.topEventMetadata.displayProp.map((dp, i) => {
+                          return (
+                            <td key={i} className="stat">
+                              {formatNumber(
+                                event.displayProps[dp],
+                                displayPropUnits[dp],
+                                false
+                              )}
+                            </td>
+                          );
+                        })}
                       <td className="stat">
                         <span className="num-value">
                           {formatNumber(
                             event.severity[severityProp],
                             props.eventTypeSpec.defaultSeverityFilter.unit,
-                            false,
-                            NUM_FRACTION_DIGITS
+                            false
                           )}
                         </span>
                       </td>
@@ -112,14 +169,19 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   );
 
   function rankEventData(
-    disasterEventData: DisasterEventPointData
+    disasterEventData: DisasterEventPointData,
+    isReverse: boolean
   ): DisasterEventPoint[] {
     const filteredPoints = disasterEventData.eventPoints.filter(
       (a) => !_.isEmpty(a.severity)
     );
-    filteredPoints.sort(
-      (a, b) => b.severity[severityProp] - a.severity[severityProp]
-    );
+    filteredPoints.sort((a, b) => {
+      if (isReverse) {
+        return a.severity[severityProp] - b.severity[severityProp];
+      } else {
+        return b.severity[severityProp] - a.severity[severityProp];
+      }
+    });
     return filteredPoints.slice(0, RANKING_COUNT);
   }
 
@@ -145,4 +207,11 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
       []
     );
   }
+}
+
+function isUnnamedEvent(name: string) {
+  return (
+    name.indexOf("started on") > 0 ||
+    (name.indexOf("Event at") > 0 && name.indexOf(" on ") > 0)
+  );
 }
