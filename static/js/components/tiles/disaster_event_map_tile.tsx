@@ -20,7 +20,7 @@
 
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import {
   addMapPoints,
@@ -42,7 +42,6 @@ import {
 } from "../../types/disaster_event_map_types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
-  fetchGeoJsonData,
   getMapPointsData,
   onPointClicked,
 } from "../../utils/disaster_event_map_utils";
@@ -51,6 +50,7 @@ import {
   getParentPlacesPromise,
 } from "../../utils/place_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
+import { DataContext } from "../subject_page/data_context";
 import { ChartTileContainer } from "./chart_tile";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
@@ -84,7 +84,7 @@ export function DisasterEventMapTile(
   const europeanPlaces = useRef([]);
   const prevDisasterEventData = useRef(null);
   const [placeInfo, setPlaceInfo] = useState<DisasterEventMapPlaceInfo>(null);
-  const [geoJsonData, setGeoJsonData] = useState<GeoJsonData>(null);
+  const { geoJsonData } = useContext(DataContext);
 
   useEffect(() => {
     // On initial loading of the component, get list of all European countries
@@ -102,22 +102,9 @@ export function DisasterEventMapTile(
   }, [props]);
 
   useEffect(() => {
-    // re-fetch geojson data when placeInfo changes
+    // re-draw map if placeInfo, geoJsonData, or disasterEventData changes
     if (
-      !placeInfo ||
-      (!_.isEmpty(geoJsonData) &&
-        geoJsonData.properties.current_geo === placeInfo.selectedPlace.dcid)
-    ) {
-      return;
-    }
-    fetchGeoJsonData(placeInfo).then((geoJsonData) => {
-      setGeoJsonData(geoJsonData);
-    });
-  }, [placeInfo]);
-
-  useEffect(() => {
-    // re-draw map if placeInfo, geoJson, or disasterEventData changes
-    if (
+      placeInfo &&
       !_.isEmpty(geoJsonData) &&
       !_.isEqual(props.disasterEventData, prevDisasterEventData.current)
     ) {

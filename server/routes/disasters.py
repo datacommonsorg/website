@@ -60,10 +60,12 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
     dashboard_config = default_config
 
   place_types = [DEFAULT_PLACE_TYPE]
+  parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
     place_types = dc.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
       place_types = ["Place"]
+    parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
 
@@ -86,4 +88,5 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
                                place_type=json.dumps(place_types),
                                place_name=place_name,
                                place_dcid=place_dcid,
-                               config=MessageToJson(dashboard_config))
+                               config=MessageToJson(dashboard_config),
+                               parent_places=json.dumps(parent_places))
