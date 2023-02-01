@@ -56,8 +56,8 @@ fi
 echo "Installing Custom Datacommons web application in $PROJECT_ID."
 
 # Create a Terraform state bucket if it does not exist already
-TF_STATE_BUCKET=gs://$PROJECT_ID-terraform-state
-gsutil ls -b $TF_STATE_BUCKET || gsutil mb -l us-central1 -p $PROJECT_ID $TF_STATE_BUCKET
+TF_STATE_BUCKET=$PROJECT_ID-terraform-state
+gsutil ls -b -p $PROJECT_ID gs://$TF_STATE_BUCKET || gsutil mb -l us-central1 -p $PROJECT_ID gs://$TF_STATE_BUCKET
 
 ROOT=$PWD
 
