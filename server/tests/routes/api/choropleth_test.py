@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 import json
+import unittest
 from unittest.mock import patch
 
 from main import app
-import routes.api.shared as shared_api
 import routes.api.choropleth as choropleth_api
+import routes.api.shared as shared_api
 
 
 class TestChoroplethPlaces(unittest.TestCase):

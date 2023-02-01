@@ -13,21 +13,31 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
-import os
-import logging
 import json
+import logging
+import os
+from typing import Dict, Union
 
 import flask
-from flask import Blueprint, current_app, render_template, escape, request
+from flask import Blueprint
+from flask import current_app
+from flask import escape
+from flask import render_template
+from flask import request
 from google.protobuf.json_format import MessageToJson
-from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
-from typing import Dict, Union
+import lib.nl.data_spec as nl_data_spec
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import PlaceDetection
+from lib.nl.detection import SimpleClassificationAttributes
+from lib.nl.detection import SVDetection
+import lib.nl.page_config as nl_page_config
+import lib.nl.utils as utils
 import requests
-
 import services.datacommons as dc
-import lib.nl.nl_data_spec as nl_data_spec
-import lib.nl.nl_page_config as nl_page_config
-import lib.nl.nl_utils as nl_utils
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -350,7 +360,6 @@ def _empty_svs_score_dict():
 
 def _result_with_debug_info(data_dict,
                             status,
-                            embeddings_build,
                             query_detection: Detection,
                             data_spec=None):
   """Using data_dict and query_detection, format the dictionary response."""
@@ -406,8 +415,6 @@ def _result_with_debug_info(data_dict,
               svs_dict,
           'svs_to_sentences':
               svs_to_sentences,
-          'embeddings_build':
-              embeddings_build,
           'ranking_classification':
               ranking_classification,
           'temporal_classification':
@@ -576,6 +583,10 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  # For the NL module, launch classifier training. This needs to happen here
+  # because the classifiers make use of the services.datacommons API which
+  # needs the app context to be ready.
+  # If the classifiers have already been trained, this call will simply return.
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'])
 
@@ -593,14 +604,12 @@ def data():
   if context_history:
     recent_context = context_history[-1]
 
-  query = str(escape(nl_utils.remove_punctuations(original_query)))
-  embeddings_build = str(escape(request.args.get('build', "combined_all")))
+  query = str(escape(utils.remove_punctuations(original_query)))
   default_place = "United States"
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build,
                                    _detection("", "", recent_context))
 
   # Query detection routine:
@@ -631,5 +640,4 @@ def data():
   if not data_spec.selected_svs:
     status_str += '**No SVs Found**.'
 
-  return _result_with_debug_info(d, status_str, embeddings_build,
-                                 query_detection, data_spec)
+  return _result_with_debug_info(d, status_str, query_detection, data_spec)

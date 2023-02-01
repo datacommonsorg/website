@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 import json
-import routes.api.landing_page as landing_page
-import lib.util as libutil
+import unittest
+from unittest.mock import patch
 
 from flask import Flask
 from flask_babel import Babel
+import lib.util as libutil
 from main import app
-from unittest.mock import patch
+import routes.api.landing_page as landing_page
 
 # TODO(shifucun): add test for api endpoint.
 

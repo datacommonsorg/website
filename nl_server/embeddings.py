@@ -12,17 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """Managing the embeddings."""
+import logging
+import os
+from typing import Dict, List, Union
+
 from datasets import load_dataset
+import gcs
 from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import semantic_search
-from typing import Dict, List, Union
-
-import logging
-import os
 import torch
-
-import gcs
 
 TEMP_DIR = '/tmp/'
 MODEL_NAME = 'all-MiniLM-L6-v2'
@@ -49,16 +48,17 @@ class Embeddings:
       logging.error(error_str)
       raise Exception("No embedding could be loaded.")
 
-    df = ds["train"].to_pandas()
-    self.dcids = df['dcid'].values.tolist()
-    df = df.drop('dcid', axis=1)
+    self.df = ds["train"].to_pandas()
+    self.dcids = self.df['dcid'].values.tolist()
+    self.df = self.df.drop('dcid', axis=1)
     # Also get the sentence mappings.
     self.sentences = []
-    if 'sentence' in df:
-      self.sentences = df['sentence'].values.tolist()
-      df = df.drop('sentence', axis=1)
+    if 'sentence' in self.df:
+      self.sentences = self.df['sentence'].values.tolist()
+      self.df = self.df.drop('sentence', axis=1)
 
-    self.dataset_embeddings = torch.from_numpy(df.to_numpy()).to(torch.float)
+    self.dataset_embeddings = torch.from_numpy(self.df.to_numpy()).to(
+        torch.float)
 
   def _download_embeddings(self):
     storage_client = storage.Client()
@@ -66,6 +66,18 @@ class Embeddings:
     blob = bucket.get_blob(self.embeddings_file)
     # Download
     blob.download_to_filename(os.path.join(TEMP_DIR, self.embeddings_file))
+
+  def get_embedding_at_index(self, index: int) -> List[float]:
+    if index < 0 or index >= len(self.df):
+      logging.error(
+          f"get_embedding_at_index() got an index out of range. index = {index}. len(df) = {len(self.df)}"
+      )
+      return []
+
+    return self.df.iloc[index].values.tolist()
+
+  def get_embedding(self, query: str) -> List[float]:
+    return self.model.encode(query).tolist()
 
   def detect_svs(self, query: str) -> Dict[str, Union[Dict, List]]:
     query_embeddings = self.model.encode([query])

@@ -13,16 +13,18 @@
 # limitations under the License.
 """Endpoints for disaster dashboard"""
 
-from flask import Blueprint, current_app, escape
-import services.datacommons as dc
 import json
-import flask
-import routes.api.place as place_api
-from google.protobuf.json_format import MessageToJson
 
 from config import subject_page_pb2
-import lib.util
+import flask
+from flask import Blueprint
+from flask import current_app
+from flask import escape
+from google.protobuf.json_format import MessageToJson
 import lib.subject_page_config as lib_subject_page_config
+import lib.util
+import routes.api.place as place_api
+import services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"

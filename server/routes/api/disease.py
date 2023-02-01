@@ -13,9 +13,8 @@
 # limitations under the License.
 """Disease browser related handlers."""
 
-import flask
-
 from cache import cache
+import flask
 import services.datacommons as dc_service
 
 bp = flask.Blueprint('api.disease', __name__, url_prefix='/api/disease')

@@ -14,10 +14,11 @@
 
 import urllib
 import urllib.request
-from webdriver_tests.base_test import WebdriverBaseTest
-from selenium.webdriver.support.ui import WebDriverWait
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_tests.base_test import WebdriverBaseTest
 import webdriver_tests.shared as shared
 
 MAP_URL = '/tools/map'

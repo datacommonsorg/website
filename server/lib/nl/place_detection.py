@@ -12,28 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
-from services import datacommons as dc
-
 import logging
+from typing import List
 
-import lib.nl.nl_constants as nl_constants
-import lib.nl.nl_utils as nl_utils
+import lib.nl.constants as constants
+import lib.nl.utils as utils
+from services import datacommons as dc
 
 
 class NLPlaceDetector:
   """Performs all place detection for the NL modules."""
 
   def detect_place_ner(self, query: str) -> List[str]:
+    # Making an API call to the NL models server.
     return dc.nl_detect_place_ner(query)
 
   def detect_places_heuristics(self, query: str) -> List[str]:
     """Returns all strings in the `query` detectd as places."""
 
     # Run through all heuristics (various query string transforms).
-    query = nl_utils.remove_punctuations(query)
-    query_without_stop_words = nl_utils.remove_stop_words(
-        query, nl_constants.STOP_WORDS)
+    query = utils.remove_punctuations(query)
+    query_without_stop_words = utils.remove_stop_words(query,
+                                                       constants.STOP_WORDS)
     query_with_period = query + "."
     query_title_case = query.title()
 
@@ -41,7 +41,7 @@ class NLPlaceDetector:
     # not getting detected.
     # First check in special places. If they are found, add those first.
     places_found = []
-    for special_place in nl_constants.SPECIAL_PLACES:
+    for special_place in constants.SPECIAL_PLACES:
       if special_place in query_without_stop_words:
         logging.info(f"Found one of the Special Places: {special_place}")
         places_found.append(special_place)

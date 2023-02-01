@@ -14,9 +14,9 @@
 
 from dataclasses import dataclass
 from typing import Any, List
+import unittest
 
 import routes.api.import_detection.date_detection as dd
-import unittest
 
 
 class TestDateDetection(unittest.TestCase):

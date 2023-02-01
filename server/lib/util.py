@@ -16,8 +16,9 @@ from datetime import datetime
 import hashlib
 import json
 import os
-from google.protobuf import text_format
+
 from config import subject_page_pb2
+from google.protobuf import text_format
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [

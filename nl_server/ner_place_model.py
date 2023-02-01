@@ -14,6 +14,7 @@
 """Managing the NER model for place detection."""
 
 from typing import List
+
 import en_core_web_md
 
 

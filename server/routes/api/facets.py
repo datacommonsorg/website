@@ -14,7 +14,8 @@
 
 import re
 
-from flask import Blueprint, request
+from flask import Blueprint
+from flask import request
 import services.datacommons as dc
 
 bp = Blueprint("facets", __name__, url_prefix='/api/facets')
