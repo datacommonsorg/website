@@ -47,6 +47,7 @@ import {
   MapPointsData,
 } from "../types/disaster_event_map_types";
 import {
+  EventDisplayProp,
   EventTypeSpec,
   SeverityFilter,
 } from "../types/subject_page_proto_types";
@@ -185,6 +186,20 @@ export function fetchDateList(
   });
 }
 
+function parseEventPropVal(propVal, unit: string, reqParams?: any): number {
+  if (!_.isEmpty(propVal)) {
+    // Get value by taking the first severity val, trimming the unit
+    // from the string, and converting it into a number.
+    console.assert(
+      propVal[0].length > unit.length,
+      "severity values do not contain unit, please check filter config, %o",
+      reqParams
+    );
+    return Number(propVal[0].substring(unit.length));
+  }
+  return Number.NaN;
+}
+
 /**
  * Get event points for a specific event type, place, and date
  * @param eventType event type to get data for
@@ -205,7 +220,8 @@ function fetchEventPoints(
   severityFilter?: SeverityFilter,
   minDate?: string,
   maxDate?: string,
-  useCache?: boolean
+  useCache?: boolean,
+  eventDisplayProps?: EventDisplayProp[]
 ): Promise<DisasterEventPointData> {
   const reqParams = {
     eventType: eventType,
@@ -251,18 +267,26 @@ function fetchEventPoints(
         const severity = {};
         if (severityFilter && severityFilter.prop in eventData.propVals) {
           const severityVals = eventData.propVals[severityFilter.prop].vals;
-          if (!_.isEmpty(severityVals)) {
-            // Get value by taking the first severity val, trimming the unit
-            // from the string, and converting it into a number.
-            const unit = severityFilter.unit || "";
-            console.assert(
-              severityVals[0].length > unit.length,
-              "severity values do not contain unit, please check filter config, %o",
-              reqParams
-            );
-            const val = Number(severityVals[0].substring(unit.length));
-            if (!isNaN(val)) {
-              severity[severityFilter.prop] = val;
+          const val = parseEventPropVal(
+            severityVals,
+            severityFilter.unit || ""
+          );
+          if (!isNaN(val)) {
+            severity[severityFilter.prop] = val;
+          }
+        }
+        const displayProps = {};
+        if (eventDisplayProps) {
+          for (let dp of eventDisplayProps) {
+            if (dp.prop in eventData.propVals) {
+              const val = parseEventPropVal(
+                eventData.propVals[dp.prop].vals,
+                dp.unit,
+                reqParams
+              );
+              if (!isNaN(val)) {
+                displayProps[dp.prop] = val;
+              }
             }
           }
         }
@@ -284,6 +308,7 @@ function fetchEventPoints(
           disasterType,
           startDate: !_.isEmpty(eventData.dates) ? eventData.dates[0] : "",
           severity,
+          displayProps,
           endDate,
           provenanceId: eventData.provenanceId,
         });
@@ -384,7 +409,8 @@ export function fetchDisasterEventPoints(
             dataOptions.severityFilters[eventSpec.id],
             dateRange[0].length > 7 ? dateRange[0] : "",
             dateRange[1].length > 7 ? dateRange[1] : "",
-            dataOptions.useCache
+            dataOptions.useCache,
+            eventSpec.displayProp
           )
         );
       }
