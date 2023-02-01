@@ -299,10 +299,6 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
-  # For the NL module, launch classifier training. This needs to happen here
-  # because the classifiers make use of the services.datacommons API which
-  # needs the app context to be ready.
-  # If the classifiers have already been trained, this call will simply return.
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'])
 
