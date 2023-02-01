@@ -112,6 +112,7 @@ export function formatNumber(
     /* any is used since not all available options are defined in NumberFormatOptions */
     compactDisplay: "short",
     maximumSignificantDigits: 3,
+    minimumSignificantDigits: 3,
     notation: "compact",
     style: "decimal",
   };
@@ -133,6 +134,9 @@ export function formatNumber(
       break;
     case "Celsius":
       displayUnit = "°C";
+      break;
+    case "Percent":
+      displayUnit = "%";
       break;
   }
   if (displayUnit) {

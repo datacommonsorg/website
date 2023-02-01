@@ -19,6 +19,7 @@ import os
 
 from config import subject_page_pb2
 from google.protobuf import text_format
+import services.datacommons as dc
 
 # This has to be in sync with static/js/shared/util.ts
 PLACE_EXPLORER_CATEGORIES = [
@@ -120,3 +121,41 @@ def parse_date(date_string):
     return datetime.strptime(date_string, "%Y-%m-%d")
   else:
     raise ValueError("Invalid date: %s", date_string)
+
+
+def point_core(entities, variables, date, all_facets):
+  resp = dc.obs_point(entities, variables, date, all_facets)
+  return _compact_point(resp, all_facets)
+
+
+def point_within_core(parent_entity, child_type, variables, date, all_facets):
+  resp = dc.obs_point_within(parent_entity, child_type, variables, date,
+                             all_facets)
+  return _compact_point(resp, all_facets)
+
+
+# Returns a compact version of observation point API results
+def _compact_point(point_resp, all_facets):
+  result = {
+      'facets': point_resp.get('facets', {}),
+  }
+  data = {}
+  for obs_by_variable in point_resp.get('observationsByVariable', []):
+    var = obs_by_variable['variable']
+    data[var] = {}
+    for obs_by_entity in obs_by_variable['observationsByEntity']:
+      entity = obs_by_entity['entity']
+      data[var][entity] = None
+      if 'pointsByFacet' in obs_by_entity:
+        if all_facets:
+          data[var][entity] = obs_by_entity['pointsByFacet']
+        else:
+          # There should be only one point.
+          data[var][entity] = obs_by_entity['pointsByFacet'][0]
+      else:
+        if all_facets:
+          data[var][entity] = []
+        else:
+          data[var][entity] = {}
+  result['data'] = data
+  return result

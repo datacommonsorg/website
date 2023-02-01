@@ -27,7 +27,8 @@ from tests.lib.nl.test_utterance import COMPARISON_UTTR
 from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from tests.lib.nl.test_utterance import CORRELATION_UTTR
 from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
-from tests.lib.nl.test_utterance import RANKING_UTTR
+from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
+from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
@@ -407,7 +408,7 @@ CORRELATION_CONFIG = """
  }
 """
 
-RANKING_CONFIG = """
+RANKING_ACROSS_PLACES_CONFIG = """
  metadata {
    place_dcid: "geoId/06"
    contained_place_types {
@@ -458,6 +459,47 @@ RANKING_CONFIG = """
  }
 """
 
+RANKING_ACROSS_SVS_CONFIG = """
+ metadata {
+   place_dcid: "geoId/06"
+ }
+ categories {
+   blocks {
+     columns {
+       tiles {
+         title: "Compare with Other Variables"
+         type: BAR
+         stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
+         stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
+         stat_var_key: "FarmInventory_Wheat_multiple_place_bar_block"
+         comparison_places: "geoId/06"
+       }
+     }
+   }
+   stat_var_spec {
+     key: "FarmInventory_Barley_multiple_place_bar_block"
+     value {
+       stat_var: "FarmInventory_Barley"
+       name: "FarmInventory_Barley"
+     }
+   }
+   stat_var_spec {
+     key: "FarmInventory_Rice_multiple_place_bar_block"
+     value {
+       stat_var: "FarmInventory_Rice"
+       name: "FarmInventory_Rice"
+     }
+   }
+   stat_var_spec {
+     key: "FarmInventory_Wheat_multiple_place_bar_block"
+     value {
+       stat_var: "FarmInventory_Wheat"
+       name: "FarmInventory_Wheat"
+     }
+   }
+ }
+"""
+
 
 # This has a set of similar tests to the ones in fulfillment_next_test.py.
 class TestPageConfigNext(unittest.TestCase):
@@ -473,7 +515,11 @@ class TestPageConfigNext(unittest.TestCase):
       ["Comparison", COMPARISON_UTTR, COMPARISON_CONFIG],
       ["Contained-in", CONTAINED_IN_UTTR, CONTAINED_IN_CONFIG],
       ["Correlation", CORRELATION_UTTR, CORRELATION_CONFIG],
-      ["Ranking", RANKING_UTTR, RANKING_CONFIG],
+      [
+          "RankingAcrossPlaces", RANKING_ACROSS_PLACES_UTTR,
+          RANKING_ACROSS_PLACES_CONFIG
+      ],
+      ["RankingAcrossSVs", RANKING_ACROSS_SVS_UTTR, RANKING_ACROSS_SVS_CONFIG],
   ])
   @patch.object(utils, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name):

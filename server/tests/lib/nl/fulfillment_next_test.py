@@ -35,7 +35,8 @@ from tests.lib.nl.test_utterance import COMPARISON_UTTR
 from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from tests.lib.nl.test_utterance import CORRELATION_UTTR
 from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
-from tests.lib.nl.test_utterance import RANKING_UTTR
+from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
+from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
@@ -134,14 +135,20 @@ class TestDataSpecNext(unittest.TestCase):
     self.assertEqual(got, CORRELATION_UTTR)
 
   # This follows up on test_correlation()
-  # Example: [which ones have the most agricultural workers]
+  # Example: [which counties have the most agricultural workers]
   @patch.object(variable, 'extend_svs')
   @patch.object(utils, 'get_sample_child_places')
   @patch.object(utils, 'sv_existence_for_places')
-  def test_ranking(self, mock_sv_existence, mock_child_places, mock_extend_svs):
-    # Detect a single SV for rainfall, with NO place.
+  def test_ranking_across_places(self, mock_sv_existence, mock_child_places,
+                                 mock_extend_svs):
+    # Ranking, no place and county too.
     detection = _detection(None, ['Count_Agricultural_Workers'], [0.6],
                            ClassificationType.RANKING)
+    detection.classifications.append(
+        NLClassifier(
+            type=ClassificationType.CONTAINED_IN,
+            attributes=nl_detection.ContainedInClassificationAttributes(
+                contained_in_place_type=ContainedInPlaceType.COUNTY)))
 
     # MOCK:
     # - Do no SV extensions
@@ -155,7 +162,7 @@ class TestDataSpecNext(unittest.TestCase):
     got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR])
 
     self.maxDiff = None
-    self.assertEqual(got, RANKING_UTTR)
+    self.assertEqual(got, RANKING_ACROSS_PLACES_UTTR)
 
   # This follows up on test_simple()
   # Example: [how does that compare with nevada?]
@@ -226,14 +233,12 @@ class TestDataSpecNext(unittest.TestCase):
             block_id=1,
             include_percapita=False,
         ),
-        base.ChartVars(
-            svs=[
-                'FarmInventory_Rice', 'FarmInventory_Wheat',
-                'FarmInventory_Barley'
-            ],
-            block_id=2,
-            include_percapita=False,
-        )
+        base.ChartVars(svs=[
+            'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
+        ],
+                       block_id=2,
+                       include_percapita=False,
+                       is_topic_peer_group=True)
     ]
     # - Make SVs exist. Importantly, in the order in which the ChartVars were set.
     #   Make Wheat inventory fail existence check.
@@ -247,6 +252,51 @@ class TestDataSpecNext(unittest.TestCase):
 
     self.maxDiff = None
     self.assertEqual(got, SIMPLE_WITH_TOPIC_UTTR)
+
+  # This follows up on test_simple().  It relies on topic as well.
+  # Example: [what are the most grown agricultural things?]
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'ranked_svs_for_place')
+  @patch.object(base, '_svg_or_topic_to_svs')
+  @patch.object(utils, 'sv_existence_for_places')
+  def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
+                              mock_ranked_svs, mock_extend_svs):
+    # Ranking, no place.
+    detection = _detection(None, ['dc/topic/Agriculture'], [0.6],
+                           ClassificationType.RANKING)
+
+    # MOCK:
+    # - Do no SV extensions
+    mock_extend_svs.return_value = {}
+    mock_topic_to_svs.return_value = [
+        base.ChartVars(
+            svs=['Count_Farm'],
+            block_id=1,
+            include_percapita=False,
+        ),
+        base.ChartVars(svs=[
+            'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
+        ],
+                       block_id=2,
+                       include_percapita=False,
+                       is_topic_peer_group=True)
+    ]
+    # - Make SVs exist
+    mock_sv_existence.side_effect = [[
+        'Count_Farm'
+    ], ['FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley']]
+    # Differently order result
+    mock_ranked_svs.return_value = [
+        'FarmInventory_Barley',
+        'FarmInventory_Rice',
+        'FarmInventory_Wheat',
+    ]
+
+    # Pass in just simple utterance
+    got = _run(detection, [SIMPLE_UTTR])
+
+    self.maxDiff = None
+    self.assertEqual(got, RANKING_ACROSS_SVS_UTTR)
 
 
 # Helper to construct Detection() class.

@@ -26,6 +26,8 @@ package datacommons;
 
 message SeverityFilter {
   string prop = 1;
+  // Display string to use for the prop.
+  string display_name = 5;
   string unit = 2;
   double lower_limit = 3;
   double upper_limit = 4;
@@ -42,6 +44,13 @@ message EventTypeSpec {
   string color = 4;
   // Default severity filter to use for this event type.
   SeverityFilter default_severity_filter = 5;
+  // Properties to display from the propVals object of an event (in tooltips, ranking, etc).
+  message DisplayProp {
+    string prop = 1;
+    string display_name = 2;
+    string unit = 3;
+  }
+  repeated DisplayProp display_prop = 6;
 }
 
 message PageMetadata {
@@ -98,7 +107,11 @@ message TopEventTileSpec {
   // Key for event type specs defined in the PageMetadata that should be displayed
   // Ranked by severity prop.
   string event_type_key = 1;
+  // Event properties to display. Uses the display string from EventTypeSpec.
   repeated string display_prop = 2;
+  bool show_start_date = 3;
+  bool show_end_date = 4;
+  bool reverse_sort = 5;
 }
 
 message Tile {

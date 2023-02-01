@@ -68,6 +68,7 @@ export interface DisasterEventPoint extends MapPoint {
   disasterType: string;
   startDate: string;
   severity: { [prop: string]: number };
+  displayProps?: { [prop: string]: number };
   provenanceId: string;
   endDate?: string;
 }

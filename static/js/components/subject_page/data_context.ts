@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,31 +14,18 @@
  * limitations under the License.
  */
 
+import { createContext } from "react";
+
+import { GeoJsonData } from "../../chart/types";
+
 /**
- * Styling for ranking unit component.
+ * Data context to hold data that is used across multiple components for the
+ * whole page.
  */
 
-.ranking-list {
-  width: 100%;
-
-  td {
-    font-size: .9rem;
-    vertical-align: top;
-  }
-
-  table {
-    width: 100%;
-  }
-
-  td.rank {
-    width: 10%;
-  }
-
-  td.stat {
-    text-align: right;
-  }
-
-  .bold {
-    font-weight: 600;
-  }
+export interface DataContextType {
+  // TODO (chejennifer): use this in map tile
+  geoJsonData: GeoJsonData;
 }
+
+export const DataContext = createContext({} as DataContextType);
