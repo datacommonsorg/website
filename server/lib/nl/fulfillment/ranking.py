@@ -42,6 +42,8 @@ from lib.nl.utterance import Utterance
 #   check that the SVs are part of a peer group (only those are comparable!).
 #   For example, [most grown agricultural things], again assuming california
 #   is in the context.
+#   TODO: consider checking for common units, especially when we rely on
+#         auto-expanded peer groups of SVs.
 #
 def populate(uttr: Utterance):
   # Get the RANKING classifications from the current utterance. That is what

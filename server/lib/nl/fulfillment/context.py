@@ -123,8 +123,4 @@ def classifications_of_type_from_context(
 def classifications_of_type_from_utterance(
     uttr: Utterance,
     ctype: ClassificationType) -> List[ClassificationAttributes]:
-  result = []
-  for cl in uttr.classifications:
-    if cl.type == ctype:
-      result.append(cl)
-  return result
+  return [cl for cl in uttr.classifications if cl.type == ctype]
