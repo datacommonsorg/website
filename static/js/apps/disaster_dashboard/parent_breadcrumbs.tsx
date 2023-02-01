@@ -18,30 +18,24 @@
  * Parent breadcrumbs for disaster dashboard.
  */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { NamedTypedPlace } from "../../shared/types";
-import { getParentPlacesPromise } from "../../utils/place_utils";
 
 interface ParentBreadcrumbsPropType {
   /**
    * The place to show parent places for.
    */
   place: NamedTypedPlace;
+  /**
+   * List of parent places.
+   */
+  parentPlaces: NamedTypedPlace[];
 }
 
 export function ParentBreadcrumbs(
   props: ParentBreadcrumbsPropType
 ): JSX.Element {
-  const [parentPlaces, setParentPlaces] = useState<
-    NamedTypedPlace[] | undefined
-  >();
-  useEffect(() => {
-    getParentPlacesPromise(props.place.dcid).then((parentPlaces) =>
-      setParentPlaces(parentPlaces)
-    );
-  }, []);
-
   let placeType = props.place.types[0];
   for (const type of props.place.types) {
     // prefer to use specific type like "State" or "County" over
@@ -52,25 +46,22 @@ export function ParentBreadcrumbs(
     }
   }
 
-  let breadcrumbs: JSX.Element[];
-  if (parentPlaces) {
-    const num = parentPlaces.length;
-    breadcrumbs = parentPlaces.map((place, index) => {
-      const name = place.name.split(",")[0];
-      return (
-        <React.Fragment key={place.dcid}>
-          <a className="place-links" href={`/disasters/${place.dcid}`}>
-            {name}
-          </a>
-          {index < num - 1 && <span>, </span>}
-        </React.Fragment>
-      );
-    });
-  }
+  const num = props.parentPlaces.length;
+  const breadcrumbs = props.parentPlaces.map((place, index) => {
+    const name = place.name.split(",")[0];
+    return (
+      <React.Fragment key={place.dcid}>
+        <a className="place-links" href={`/disasters/${place.dcid}`}>
+          {name}
+        </a>
+        {index < num - 1 && <span>, </span>}
+      </React.Fragment>
+    );
+  });
 
   return (
     <>
-      {props.place.types[0] != "Planet" && parentPlaces ? (
+      {props.place.types[0] != "Planet" && props.parentPlaces ? (
         <h3>
           {placeType} {placeType == "Continent" ? "on" : "in"} {breadcrumbs}
         </h3>
