@@ -230,7 +230,7 @@ class Model:
         subtypes_matched.append(subtype_map[subtype])
       trigger_words += type_trigger_words
 
-    # If no matches, this query is not a ranking query
+    # If no matches, this query is not a time-delta query
     if len(trigger_words) == 0:
       return None
 
