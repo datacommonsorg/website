@@ -198,7 +198,7 @@ function parseEventPropVal(values: string[], unit: string, reqParams?: any): num
     // converting it into a number.
     console.assert(
       values[0].length > unit.length,
-      "severity values do not contain unit, please check filter config, %o",
+      "event values do not contain unit, please check filter config, %o",
       reqParams
     );
     return Number(values[0].substring(unit.length));
