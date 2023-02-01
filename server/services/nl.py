@@ -142,7 +142,7 @@ class Model:
             self.classification_models[key].classification_type.categories)
       except Exception as e:
         # Log the exception and raise it.
-        logging.info(
+        logging.error(
             f'Classification Model {key} could not be trained. Error: {e}')
         raise Exception(e)
 
