@@ -108,6 +108,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     svSentences: props.debugData["svs_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
     temporalClassification: props.debugData["temporal_classification"],
+    timeDeltaClassification: props.debugData["time_delta_classification"],
     containedInClassification: props.debugData["contained_in_classification"],
     correlationClassification: props.debugData["correlation_classification"],
     dataSpec: props.debugData["data_spec"],
@@ -164,6 +165,11 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <Col>
               Temporal classification: {debugInfo.temporalClassification}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              TimeDelta classification: {debugInfo.timeDeltaClassification}
             </Col>
           </Row>
           <Row>
