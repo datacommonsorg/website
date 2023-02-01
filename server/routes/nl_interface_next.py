@@ -13,22 +13,32 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
-import os
-import logging
 import json
+import logging
+import os
+from typing import Dict, List
 
 import flask
-from flask import Blueprint, current_app, render_template, escape, request
+from flask import Blueprint
+from flask import current_app
+from flask import escape
+from flask import render_template
+from flask import request
 from google.protobuf.json_format import MessageToJson
-from lib.nl.detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes, RANKED_CLASSIFICATION_TYPES
-from typing import Dict, List
-import requests
-
-import services.datacommons as dc
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import PlaceDetection
+from lib.nl.detection import RANKED_CLASSIFICATION_TYPES
+from lib.nl.detection import SimpleClassificationAttributes
+from lib.nl.detection import SVDetection
 import lib.nl.fulfillment_next as fulfillment
 import lib.nl.page_config_next as nl_page_config
-import lib.nl.utterance as nl_utterance
 import lib.nl.utils as utils
+import lib.nl.utterance as nl_utterance
+import requests
+import services.datacommons as dc
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 

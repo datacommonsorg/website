@@ -19,9 +19,10 @@ FLASK_ENV=local python test_nlp_manual.py
 """
 from dataclasses import dataclass
 import json
-from typing import Dict, List, Optional
 import sys
+from typing import Dict, List, Optional
 import urllib.parse
+
 from main import app
 
 PALO_ALTO_DCID = 'geoId/0655282'

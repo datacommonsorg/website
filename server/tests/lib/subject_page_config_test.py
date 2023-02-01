@@ -13,9 +13,9 @@
 # limitations under the License.
 
 import unittest
-from google.protobuf import text_format
 
 from config import subject_page_pb2
+from google.protobuf import text_format
 import lib.subject_page_config as lib_subject_page_config
 import lib.util as lib_util
 

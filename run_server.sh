@@ -32,7 +32,7 @@ function help {
   exit 1
 }
 
-while getopts ":e:p:m:d" OPTION; do
+while getopts ":e:p?m?d" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG

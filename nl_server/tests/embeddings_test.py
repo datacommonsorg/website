@@ -13,14 +13,15 @@
 # limitations under the License.
 """Tests for Embeddings (in nl_embeddings.py)."""
 
-from diskcache import Cache
-from embeddings import Embeddings
-from loader import nl_cache_path, nl_embeddings_cache_key
-from parameterized import parameterized
-from sklearn.metrics.pairwise import cosine_similarity
-
 import os
 import unittest
+
+from diskcache import Cache
+from embeddings import Embeddings
+from loader import nl_cache_path
+from loader import nl_embeddings_cache_key
+from parameterized import parameterized
+from sklearn.metrics.pairwise import cosine_similarity
 import yaml
 
 

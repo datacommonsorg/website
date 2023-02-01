@@ -15,7 +15,8 @@
 # The following classes are used for the NL Detection.
 from abc import ABC
 from dataclasses import dataclass
-from enum import Enum, IntEnum
+from enum import Enum
+from enum import IntEnum
 from typing import Dict, List
 
 

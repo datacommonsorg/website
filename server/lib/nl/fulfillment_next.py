@@ -13,14 +13,18 @@
 # limitations under the License.
 """Module for NL page data spec"""
 
-from typing import List
 import logging
+from typing import List
 
-from lib.nl.detection import ClassificationType, Detection
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import Detection
+from lib.nl.fulfillment import comparison
+from lib.nl.fulfillment import containedin
+from lib.nl.fulfillment import context
+from lib.nl.fulfillment import correlation
+from lib.nl.fulfillment import ranking
+from lib.nl.fulfillment import simple
 from lib.nl.utterance import Utterance
-
-from lib.nl.fulfillment import comparison, context, correlation, ranking, \
-  containedin, simple
 
 # We will ignore SV detections that are below this threshold
 _SV_THRESHOLD = 0.5

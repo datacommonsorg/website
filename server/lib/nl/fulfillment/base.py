@@ -12,15 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
+from dataclasses import field
 import logging
-
-from dataclasses import dataclass, field
 from typing import List
 
-from lib.nl import variable, topic, utils
-from lib.nl.utterance import ChartType, ChartOriginType, ChartSpec, Utterance
-from lib.nl.detection import ContainedInPlaceType, Place, RankingType
+from lib.nl import topic
+from lib.nl import utils
+from lib.nl import variable
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import Place
+from lib.nl.detection import RankingType
 from lib.nl.fulfillment import context
+from lib.nl.utterance import ChartOriginType
+from lib.nl.utterance import ChartSpec
+from lib.nl.utterance import ChartType
+from lib.nl.utterance import Utterance
 
 
 # Data structure to store state for a single "populate" call.

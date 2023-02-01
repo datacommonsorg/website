@@ -12,14 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Dict
-
-from config.subject_page_pb2 import Block, RankingTileSpec, StatVarSpec, \
-  SubjectPageConfig, Tile
-from lib.nl.utterance import Utterance, ChartType, ChartSpec
-from lib.nl.detection import Place, RankingType
-from lib.nl import utils
 import logging
+from typing import Dict, List
+
+from config.subject_page_pb2 import Block
+from config.subject_page_pb2 import RankingTileSpec
+from config.subject_page_pb2 import StatVarSpec
+from config.subject_page_pb2 import SubjectPageConfig
+from config.subject_page_pb2 import Tile
+from lib.nl import utils
+from lib.nl.detection import Place
+from lib.nl.detection import RankingType
+from lib.nl.utterance import ChartSpec
+from lib.nl.utterance import ChartType
+from lib.nl.utterance import Utterance
 
 
 #

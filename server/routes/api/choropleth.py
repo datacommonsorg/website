@@ -16,19 +16,26 @@
 import json
 import urllib.parse
 
+from cache import cache
+from flask import Blueprint
+from flask import current_app
+from flask import g
+from flask import make_response
+from flask import request
+from flask import Response
+from flask import send_file
+from flask import url_for
+from geojson_rewind import rewind
+import lib.util as lib_util
+import routes.api.landing_page as landing_page_api
+from routes.api.place import EQUIVALENT_PLACE_TYPES
+import routes.api.place as place_api
+import routes.api.point as point_api
+import routes.api.series as series_api
+from routes.api.shared import is_float
 import routes.api.shared as shared_api
 import services.datacommons as dc
-import lib.util as lib_util
-import routes.api.place as place_api
-import routes.api.series as series_api
-import routes.api.point as point_api
-import routes.api.landing_page as landing_page_api
 
-from routes.api.shared import is_float
-from geojson_rewind import rewind
-from cache import cache
-from flask import Blueprint, current_app, request, Response, g, url_for, send_file, make_response
-from routes.api.place import EQUIVALENT_PLACE_TYPES
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
 
