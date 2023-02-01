@@ -141,8 +141,10 @@ class Model:
         logging.info(
             self.classification_models[key].classification_type.categories)
       except Exception as e:
+        # Log the exception and raise it.
         logging.info(
             f'Classification Model {key} could not be trained. Error: {e}')
+        raise Exception(e)
 
   # TODO (juliawu): Add unit-testing
   def heuristic_ranking_classification(self,
