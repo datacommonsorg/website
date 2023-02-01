@@ -109,6 +109,10 @@ def is_svg(sv):
   return sv.startswith("dc/g/")
 
 
+def is_svpg(sv):
+  return sv.startswith("dc/svpg/")
+
+
 def is_sv(sv):
   return not (is_topic(sv) or is_svg(sv))
 

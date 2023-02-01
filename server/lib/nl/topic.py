@@ -15,16 +15,12 @@
 
 from typing import List
 
+from lib.nl import utils
+import services.datacommons as dc
+
 _MIN_TOPIC_RANK = 2
 
-_TOPIC_DCID_TO_SV = {
-    "dc/topic/Economy": [
-        "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
-        "UnemploymentRate_Person",
-        "Median_Income_Person",
-        "GiniIndex_EconomicActivity",
-        "dc/svpg/RealGDPByIndustry",
-    ],
+_TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/Agriculture": [
         "Area_Farm",
         "Count_Farm",
@@ -33,42 +29,9 @@ _TOPIC_DCID_TO_SV = {
         "dc/15lrzqkb6n0y7",
         "dc/svpg/AmountOfFarmInventoryByType",
     ],
-    "dc/topic/AgriculturalProduction": [
-        "Income_Farm",
-        "Amount_FarmInventory_Cotton",
-        "Amount_FarmInventory_Rice",
-        "Amount_FarmInventory_WheatForGrain",
-        "Amout_FarmInventory_CornForGrain",
-        "Amount_FarmInventory_BarleyForGrain",
-        "Count_FarmInventory_BeefCows",
-        "Count_FarmInventory_Broilers",
-        "Count_FarmInventory_MilkCows",
-        "Count_FarmInventory_SheepAndLambs",
-    ]
 }
 
-_PEER_GROUP_TO_SV = {
-    "dc/svpg/RealGDPByIndustry": [
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
-        "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue",
-        "dc/62n3z7mvfpjx1",
-        "dc/qt7ewllmt3826",
-        "dc/zz6gwv838v9w",
-    ],
+_PEER_GROUP_TO_OVERRIDE = {
     "dc/svpg/AmountOfFarmInventoryByType": [
         "AmountFarmInventory_WinterWheatForGrain",
         "Amount_FarmInventory_BarleyForGrain",
@@ -91,11 +54,7 @@ _PEER_GROUP_TO_SV = {
     ]
 }
 
-_SVPG_NAMES = {
-    "dc/svpg/RealGDPByIndustry": "Breakdown of GDP by Industry",
-    "dc/svpg/AmountOfFarmInventoryByType": "Farm products",
-    "dc/svpg/CountOfFarmInventoryByType": "Poultry and Livestock",
-}
+_SVPG_NAMES_OVERRIDE = {}
 
 
 def get_topics(sv_dcids: List[str]):
@@ -107,18 +66,35 @@ def get_topics(sv_dcids: List[str]):
 
 
 def get_topic_vars(topic: str, rank: int):
-  if rank < _MIN_TOPIC_RANK:
-    return _TOPIC_DCID_TO_SV.get(topic, [])
-  return []
+  if not utils.is_topic(topic) or rank >= _MIN_TOPIC_RANK:
+    return []
+  vars = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
+  if not vars:
+    # Lookup KG
+    vars = dc.property_values(nodes=[topic], prop='relevantVariable')[topic]
+  return vars
 
 
 def get_topic_peers(sv_dcids: List[str]):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
-    ret[sv] = _PEER_GROUP_TO_SV.get(sv, [])
+    if utils.is_svpg(sv):
+      ret[sv] = _get_svpg_vars(sv)
+    else:
+      ret[sv] = []
   return ret
 
 
 def svpg_name(sv: str):
-  return _SVPG_NAMES.get(sv, sv)
+  name = _SVPG_NAMES_OVERRIDE.get(sv, '')
+  if not name:
+    name = dc.property_values(nodes=[sv], prop='name')[sv][0]
+  return name
+
+
+def _get_svpg_vars(svpg: str) -> List[str]:
+  vars = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
+  if not vars:
+    vars = dc.property_values(nodes=[svpg], prop='member')[svpg]
+  return vars
