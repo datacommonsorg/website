@@ -114,7 +114,9 @@ export class BrowserPage extends React.Component<
             </h2>
           </>
         )}
-        <GoogleMap dcid={this.props.dcid}></GoogleMap>
+        <div id="overview-map">
+          <GoogleMap dcid={this.props.dcid}></GoogleMap>
+        </div>
         <div id="node-content">
           <div className="table-page-section">
             <h3>{outArcHeader}</h3>
