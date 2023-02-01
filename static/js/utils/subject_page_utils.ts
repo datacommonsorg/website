@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
+import axios from "axios";
+import _ from "lodash";
+
+import { GeoJsonData } from "../chart/types";
 import {
   NL_LARGE_TILE_CLASS,
   NL_MED_TILE_CLASS,
   NL_NUM_TILES_SHOWN,
   NL_SMALL_TILE_CLASS,
 } from "../constants/app/nl_interface_constants";
+import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { ColumnConfig } from "../types/subject_page_proto_types";
 import { isNlInterface } from "./nl_interface_utils";
 
@@ -70,4 +75,46 @@ export function getColumnTileClassName(column: ColumnConfig): string {
     }
   }
   return tileClassName;
+}
+
+/**
+ * Get promise for geojson data
+ * @param selectedPlace the enclosing place to get geojson data for
+ * @param placeType the place type to get geojson data for
+ * @param parentPlaces parent places of the selected place
+ */
+export function fetchGeoJsonData(
+  selectedPlace: NamedTypedPlace,
+  placeType: string,
+  parentPlaces?: NamedPlace[]
+): Promise<GeoJsonData> {
+  let enclosingPlace = selectedPlace.dcid;
+  let enclosedPlaceType = placeType;
+  if (
+    !enclosedPlaceType &&
+    !_.isEmpty(parentPlaces) &&
+    !_.isEmpty(selectedPlace.types)
+  ) {
+    // set enclosing place to be the parent place and the enclosed place type to
+    // be the place type of the selected place.
+    enclosingPlace = parentPlaces[0].dcid;
+    enclosedPlaceType = selectedPlace.types[0];
+  }
+  return axios
+    .get<GeoJsonData>("/api/choropleth/geojson", {
+      params: {
+        placeDcid: enclosingPlace,
+        placeType: enclosedPlaceType,
+      },
+    })
+    .then((resp) => resp.data as GeoJsonData)
+    .catch(() => {
+      return {
+        type: "FeatureCollection",
+        features: [],
+        properties: {
+          current_geo: enclosingPlace,
+        },
+      };
+    });
 }

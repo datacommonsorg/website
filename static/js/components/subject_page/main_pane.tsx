@@ -19,13 +19,15 @@
  */
 
 import _ from "lodash";
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { fetchGeoJsonData } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
+import { DataContext } from "./data_context";
 
 interface SubjectPageMainPanePropType {
   // The place to show the page for.
@@ -34,6 +36,8 @@ interface SubjectPageMainPanePropType {
   pageConfig: SubjectPageConfig;
   // Height, in px, for the tile SVG charts.
   svgChartHeight?: number;
+  // parent places of the place to show the page for.
+  parentPlaces?: NamedPlace[];
 }
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
@@ -52,24 +56,39 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         props.pageConfig.metadata.containedPlaceTypes[placeType];
     }
   }
+  const [geoJsonData, setGeoJsonData] = useState(null);
+
+  useEffect(() => {
+    // re-fetch geojson data if props change
+    fetchGeoJsonData(props.place, enclosedPlaceType, props.parentPlaces).then(
+      (geoJsonData) => {
+        setGeoJsonData(geoJsonData);
+      }
+    );
+  }, [props]);
+
   return (
     <div id="subject-page-main-pane">
       {!_.isEmpty(props.pageConfig) &&
         props.pageConfig.categories.map((category, idx) => {
           const id = `cat${idx}`;
           return (
-            <ErrorBoundary key={id}>
-              <Category
-                id={id}
-                place={props.place}
-                enclosedPlaceType={enclosedPlaceType}
-                config={category}
-                eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
-                svgChartHeight={
-                  props.svgChartHeight ? props.svgChartHeight : SVG_CHART_HEIGHT
-                }
-              />
-            </ErrorBoundary>
+            <DataContext.Provider key={id} value={{ geoJsonData }}>
+              <ErrorBoundary>
+                <Category
+                  id={id}
+                  place={props.place}
+                  enclosedPlaceType={enclosedPlaceType}
+                  config={category}
+                  eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
+                  svgChartHeight={
+                    props.svgChartHeight
+                      ? props.svgChartHeight
+                      : SVG_CHART_HEIGHT
+                  }
+                />
+              </ErrorBoundary>
+            </DataContext.Provider>
           );
         })}
     </div>
