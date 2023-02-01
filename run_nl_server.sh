@@ -24,7 +24,12 @@ export FLASK_ENV=local
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
 python3 -m pip install --upgrade pip
-pip3 install -r nl_server/requirements.txt -q
+
+# For the local server, filter out the en_code_web* packages which are simply
+# the NER models bundled as packages. They are conditionally installed below.
+V=`cat nl_server/requirements.txt | grep -v en_core_web > requirements_filtered.txt`
+pip3 install -r requirements_filtered.txt -q
+rm requirements_filtered.txt
 
 # Downloading the named-entity recognition (NER) library spacy and the large EN model
 # using the guidelines here: https://spacy.io/usage/models#production
