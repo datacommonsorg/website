@@ -318,12 +318,15 @@ CORRELATION_UTTR = {
     'svs': ['Mean_Precipitation']
 }
 
-# Utterance for highest for an SV.
+# Utterance for highest for an SV among places.
 # Depends on CORRELATION_UTTR (for parent place, child place type)
-RANKING_UTTR = {
+RANKING_ACROSS_PLACES_UTTR = {
     'classifications': [{
         'ranking_type': [RankingType.HIGH],
         'type': ClassificationType.RANKING
+    }, {
+        'contained_in_place_type': 'County',
+        'type': ClassificationType.CONTAINED_IN,
     }],
     'places': [],
     'query': 'foo sv in place',
@@ -346,4 +349,36 @@ RANKING_UTTR = {
         'svs': ['Count_Agricultural_Workers']
     }],
     'svs': ['Count_Agricultural_Workers']
+}
+
+# Utterance for ranking among SVs.
+RANKING_ACROSS_SVS_UTTR = {
+    'classifications': [{
+        'ranking_type': [RankingType.HIGH],
+        'type': ClassificationType.RANKING
+    }],
+    'places': [],
+    'query': 'foo sv in place',
+    'query_type': ClassificationType.RANKING,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [RankingType.HIGH],
+            'title': ''
+        },
+        'chart_type':
+            ChartType.BAR_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': [
+            'FarmInventory_Barley', 'FarmInventory_Rice', 'FarmInventory_Wheat'
+        ]
+    }],
+    'svs': ['dc/topic/Agriculture']
 }
