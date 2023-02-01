@@ -35,10 +35,10 @@ from lib.nl.utterance import Utterance
 # This handles both ranking across places and ranking across SVS.
 #
 # * For ranking across places, we should detect a ranking and contained-in
-#   classification in the current utterance.  For example, [counties with most rainfall]
-#   california is in the context.
+#   classification in the current utterance.  For example, [counties with most rainfall],
+#   assuming california is in the context.
 # * For ranking across SVS, we should detect a ranking, but not contained-in
-#   classification in the current utterance.  In the callback, e will also
+#   classification in the current utterance.  In the callback, we will also
 #   check that the SVs are part of a peer group (only those are comparable!).
 #   For example, [most grown agricultural things], again assuming california
 #   is in the context.
@@ -55,14 +55,12 @@ def populate(uttr: Utterance):
       current_ranking_classification[0].attributes.ranking_type):
     ranking_types = current_ranking_classification[0].attributes.ranking_type
 
-    # If there is a contained-in classifier, then we treat it as a ranking among
-    # places query.  If there isn't, then we would treat it as a ranking among
-    # SV query (provided there is a peer-group of SVs we identified).
     current_contained_classification = context.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if (current_contained_classification and
         isinstance(current_contained_classification[0].attributes,
                    ContainedInClassificationAttributes)):
+      # Ranking among places.
       place_type = current_contained_classification[
           0].attributes.contained_in_place_type
       if populate_charts(
@@ -73,6 +71,7 @@ def populate(uttr: Utterance):
                         ranking_types=ranking_types)):
         return True
     else:
+      # Ranking among stat-vars.
       if populate_charts(
           PopulateState(uttr=uttr,
                         main_cb=_populate_cb,
