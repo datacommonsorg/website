@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import flask
 import json
 
-from flask import current_app, g, request
+import flask
+from flask import current_app
+from flask import g
+from flask import request
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 

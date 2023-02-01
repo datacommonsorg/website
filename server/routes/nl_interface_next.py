@@ -13,22 +13,32 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
-import os
-import logging
 import json
+import logging
+import os
+from typing import Dict, List
 
 import flask
-from flask import Blueprint, current_app, render_template, escape, request
-from google.protobuf.json_format import MessageToJson, ParseDict
-from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes, RANKED_CLASSIFICATION_TYPES
-from typing import Dict, List
+from flask import Blueprint
+from flask import current_app
+from flask import escape
+from flask import render_template
+from flask import request
+from google.protobuf.json_format import MessageToJson
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import PlaceDetection
+from lib.nl.detection import RANKED_CLASSIFICATION_TYPES
+from lib.nl.detection import SimpleClassificationAttributes
+from lib.nl.detection import SVDetection
+import lib.nl.fulfillment_next as fulfillment
+import lib.nl.page_config_next as nl_page_config
+import lib.nl.utils as utils
+import lib.nl.utterance as nl_utterance
 import requests
-
 import services.datacommons as dc
-import lib.nl.nl_data_spec_next as nl_data_spec
-import lib.nl.nl_page_config_next as nl_page_config
-import lib.nl.nl_utterance as nl_utterance
-import lib.nl.nl_utils as nl_utils
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
@@ -311,7 +321,7 @@ def data():
   escaped_context_history = escape(context_history)
   logging.info(context_history)
 
-  query = str(escape(nl_utils.remove_punctuations(original_query)))
+  query = str(escape(utils.remove_punctuations(original_query)))
   res = {
       'place': {
           'dcid': '',
@@ -333,7 +343,7 @@ def data():
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
   logging.info(prev_utterance)
-  utterance = nl_data_spec.compute(query_detection, prev_utterance)
+  utterance = fulfillment.fulfill(query_detection, prev_utterance)
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance)

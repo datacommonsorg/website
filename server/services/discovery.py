@@ -28,9 +28,9 @@ Default behaviour:
 
 import itertools
 from typing import Dict, List, Union
-import yaml
 
 import lib.config as libconfig
+import yaml
 
 cfg = libconfig.get_config()
 

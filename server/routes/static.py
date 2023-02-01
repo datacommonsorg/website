@@ -14,8 +14,11 @@
 """Data Commons static content routes."""
 
 from datetime import date
-from flask import Blueprint, render_template, g
+
 import babel.dates as babel_dates
+from flask import Blueprint
+from flask import g
+from flask import render_template
 
 bp = Blueprint('static', __name__)
 

@@ -14,8 +14,8 @@
 
 import functools
 import math
-import re
 from operator import mul
+import re
 
 AGE = {
     'regex': re.compile('Count_Person_(.*)Years'),

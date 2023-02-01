@@ -13,8 +13,9 @@
 # limitations under the License.
 """Date Detection."""
 
-from dateutil import parser
 from typing import List
+
+from dateutil import parser
 
 _MIN_HIGH_CONF_DETECT: float = 0.9
 

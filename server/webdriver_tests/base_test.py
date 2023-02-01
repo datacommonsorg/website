@@ -12,13 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import multiprocessing
+import sys
+
 from flask_testing import LiveServerTestCase
+from main import app
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from main import app
-
-import sys
-import multiprocessing
 
 # Explicitly set multiprocessing start method to 'fork' so tests work with
 # python3.8+ on MacOS.

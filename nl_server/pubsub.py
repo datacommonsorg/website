@@ -13,10 +13,10 @@
 # limitations under the License.
 
 import json
-from google.cloud import pubsub_v1
-from google.cloud import storage
 
 import gcs
+from google.cloud import pubsub_v1
+from google.cloud import storage
 import loader
 
 AUTOPUSH_FOLDER = 'autopush/'

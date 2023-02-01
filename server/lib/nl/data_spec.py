@@ -14,12 +14,14 @@
 """Module for NL page data spec"""
 
 from dataclasses import dataclass
-from typing import Dict, List
 import logging
-import pandas as pd
+from typing import Dict, List
 
-from lib.nl.nl_detection import ClassificationType, Detection
-from lib.nl import nl_variable, nl_topic
+from lib.nl import topic
+from lib.nl import variable
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import Detection
+import pandas as pd
 import services.datacommons as dc
 
 
@@ -114,16 +116,16 @@ def compute(query_detection: Detection, context_history):
   extended_sv_map = {}
 
   # Get selected stat vars and extended stat var map
-  topic_svs = nl_topic.get_topics(highlight_svs)
+  topic_svs = topic.get_topics(highlight_svs)
   if topic_svs:
     selected_svs = topic_svs.copy()
-    extended_sv_map = nl_topic.get_topic_peers(topic_svs)
+    extended_sv_map = topic.get_topic_peers(topic_svs)
   else:
     for sv in highlight_svs:
       if sv.startswith("dc/g") or sv.startswith("dc/topic"):
         continue
       selected_svs.append(sv)
-    extended_sv_map = nl_variable.extend_svs(selected_svs)
+    extended_sv_map = variable.extend_svs(selected_svs)
 
   all_svs = selected_svs
   for sv, svs in extended_sv_map.items():

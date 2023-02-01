@@ -13,9 +13,9 @@
 # limitations under the License.
 """Node data endpoints."""
 
-import flask
 import json
 
+import flask
 import services.datacommons as dc
 
 bp = flask.Blueprint('api.node', __name__, url_prefix='/api/node')

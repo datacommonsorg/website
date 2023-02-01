@@ -14,7 +14,8 @@
 
 import json
 
-from flask import Blueprint, request
+from flask import Blueprint
+from flask import request
 import services.datacommons as dc
 
 # Define blueprint

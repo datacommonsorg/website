@@ -13,7 +13,8 @@
 # limitations under the License.
 """Data Commons special_announcement content routes -- only for BASE_DC."""
 
-from flask import Blueprint, render_template
+from flask import Blueprint
+from flask import render_template
 from lib.gcs import list_blobs
 
 _SA_FEED_BUCKET = 'datacommons-frog-feed'

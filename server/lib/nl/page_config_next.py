@@ -12,14 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Dict
-
-from config.subject_page_pb2 import Block, RankingTileSpec, StatVarSpec, \
-  SubjectPageConfig, Tile
-from lib.nl.nl_utterance import Utterance, ChartType, ChartSpec
-from lib.nl.nl_detection import Place, RankingType
-from lib.nl import nl_utils
 import logging
+from typing import Dict, List
+
+from config.subject_page_pb2 import Block
+from config.subject_page_pb2 import RankingTileSpec
+from config.subject_page_pb2 import StatVarSpec
+from config.subject_page_pb2 import SubjectPageConfig
+from config.subject_page_pb2 import Tile
+from lib.nl import utils
+from lib.nl.detection import Place
+from lib.nl.detection import RankingType
+from lib.nl.utterance import ChartSpec
+from lib.nl.utterance import ChartType
+from lib.nl.utterance import Utterance
 
 
 #
@@ -46,7 +52,7 @@ def build_page_config(uttr: Utterance) -> SubjectPageConfig:
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
   all_svs = list(all_svs)
-  sv2name = nl_utils.get_sv_name(all_svs)
+  sv2name = utils.get_sv_name(all_svs)
 
   prev_block_id = -1
   block = None
