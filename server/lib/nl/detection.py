@@ -180,7 +180,7 @@ class CorrelationClassificationAttributes(ClassificationAttributes):
 @dataclass
 class TimeDeltaClassificationAttributes(ClassificationAttributes):
   """Time Delta classification attributes."""
-  time_delta_type: List[TimeDeltaType]
+  time_delta_types: List[TimeDeltaType]
 
   # List of words which made this a time-delta query:
   # e.g. "increase", "decrease", "growth", etc

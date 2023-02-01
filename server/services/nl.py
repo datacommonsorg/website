@@ -213,16 +213,17 @@ class Model:
         "Increase": TimeDeltaType.INCREASE,
         "Decrease": TimeDeltaType.DECREASE,
     }
-
+    time_delta_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[
+        "TimeDelta"]
+    time_delta_subtypes = time_delta_heuristics.keys()
     query = query.lower()
     subtypes_matched = []
     trigger_words = []
-    for subtype in constants.QUERY_CLASSIFICATION_HEURISTICS["TimeDelta"].keys(
-    ):
+    for subtype in time_delta_subtypes:
       type_trigger_words = []
 
-      for keyword in constants.QUERY_CLASSIFICATION_HEURISTICS["TimeDelta"][
-          subtype]:
+      for keyword in time_delta_heuristics[subtype]:
+        # look for keyword surrounded by spaces or start/end delimiters
         regex = r"(^|\W)" + keyword + r"($|\W)"
         type_trigger_words += [w.group() for w in re.finditer(regex, query)]
 
@@ -235,7 +236,7 @@ class Model:
       return None
 
     attributes = TimeDeltaClassificationAttributes(
-        time_delta_type=subtypes_matched,
+        time_delta_types=subtypes_matched,
         time_delta_trigger_words=trigger_words)
     return NLClassifier(type=ClassificationType.TIME_DELTA,
                         attributes=attributes)
