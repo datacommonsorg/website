@@ -41,10 +41,6 @@ from services.discovery import get_health_check_urls
 
 propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
-nl_model_cache_key = 'nl_model'
-nl_model_cache_path = '~/.datacommons/'
-nl_model_cache_expire = 3600 * 24  # Cache for 1 day
-
 
 def createMiddleWare(app, exporter):
   # Configure a flask middleware that listens for each request and applies
@@ -90,7 +86,7 @@ def register_routes_custom_dc(app):
   pass
 
 
-def register_routes_stanford_dc(app, is_test):
+def register_routes_stanford_dc(app, is_test, is_local):
   # Install blueprints specific to Stanford DC
   from routes import (disasters, event)
   from routes.api import (disaster_api)
@@ -102,9 +98,10 @@ def register_routes_stanford_dc(app, is_test):
     # load disaster dashboard configs
     disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
     app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
-    disaster_dashboard_data = get_disaster_dashboard_data(
-        app.config['GCS_BUCKET'])
-    app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+    if not is_local or os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+      disaster_dashboard_data = get_disaster_dashboard_data(
+          app.config['GCS_BUCKET'])
+      app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
 
 
 def register_routes_admin(app):
@@ -205,11 +202,11 @@ def create_app():
     register_routes_custom_dc(app)
   if cfg.ENV_NAME == 'STANFORD' or os.environ.get(
       'FLASK_ENV') == 'autopush' or cfg.LOCAL and not cfg.LITE:
-    register_routes_stanford_dc(app, cfg.TEST)
+    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
   if cfg.TEST:
     # disaster dashboard tests require stanford's routes to be registered.
     register_routes_base_dc(app)
-    register_routes_stanford_dc(app, cfg.TEST)
+    register_routes_stanford_dc(app, cfg.TEST, cfg.LOCAL)
   else:
     register_routes_base_dc(app)
   if cfg.ADMIN:
@@ -277,39 +274,17 @@ def create_app():
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  def load_model():
-    # import services.ai as ai
-    # app.config['AI_CONTEXT'] = ai.Context()
-
-    # In local dev, cache the model in disk so each hot reload won't download
-    # the model again.
-    if app.config['LOCAL']:
-      from diskcache import Cache
-      cache = Cache(nl_model_cache_path)
-      cache.expire()
-      nl_model = cache.get(nl_model_cache_key)
-      app.config['NL_MODEL'] = nl_model
-      if nl_model:
-        logging.info("Use cached model in: " + cache.directory)
-        return
+  # Initialize the AI module.
+  if os.environ.get('ENABLE_MODEL') == 'true':
     # Some specific imports for the NL Interface.
-    import lib.nl.nl_training as libnl
+    import lib.nl.training as libnl
     import services.nl as nl
-    # For the classification types available, check lib.nl_training (libnl).
+    # For the classification types available, check lib.training (libnl).
     classification_types = [
         'ranking', 'temporal', 'contained_in', 'correlation'
     ]
-    nl_model = nl.Model(libnl.CLASSIFICATION_INFO, classification_types)
+    nl_model = nl.Model(app, libnl.CLASSIFICATION_INFO, classification_types)
     app.config['NL_MODEL'] = nl_model
-    if app.config['LOCAL']:
-      with Cache(cache.directory) as reference:
-        reference.set(nl_model_cache_key,
-                      nl_model,
-                      expire=nl_model_cache_expire)
-
-  # Initialize the AI module.
-  if os.environ.get('ENABLE_MODEL') == 'true':
-    load_model()
 
   def is_up(url: str):
     if not url.lower().startswith('http'):

@@ -279,8 +279,7 @@ class TestGetData(unittest.TestCase):
       if (event_type == TEST_EVENT_TYPE and
           affected_place == TEST_PLACE_DCID and date == TEST_DATE_1 and
           filter_prop == "" and filter_unit == "" and
-          filter_upper_limit == float("0") and
-          filter_lower_limit == float("0")):
+          filter_upper_limit == None and filter_lower_limit == None):
         return EVENT_DATA
       else:
         return None
@@ -300,7 +299,7 @@ class TestGetData(unittest.TestCase):
                           filter_unit, filter_upper_limit, filter_lower_limit):
       if (event_type != TEST_EVENT_TYPE or affected_place != TEST_PLACE_DCID or
           filter_prop != "" or filter_unit != "" or
-          filter_upper_limit != float("0") or filter_lower_limit != float("0")):
+          filter_upper_limit != None or filter_lower_limit != None):
         return None
       return {}
 
@@ -440,6 +439,22 @@ class TestGetDataJson(unittest.TestCase):
           .format(TEST_EVENT_TYPE, TEST_DATE_1, TEST_DATE_2, TEST_PLACE_DCID,
                   TEST_FILTER_PROP, TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT,
                   TEST_FILTER_LOWER_LIMIT))
+      assert response.status_code == 200
+      expected = {
+          "eventCollection": {
+              "events": [JSON_RESP_EVENT_1],
+              "provenanceInfo": {}
+          }
+      }
+      assert json.loads(response.data) == expected
+
+  def test_with_filter_no_upper_limit(self):
+    with app.app_context():
+      app.config['DISASTER_DASHBOARD_DATA'] = TEST_JSON_DATA
+      response = app.test_client().get(
+          '/api/disaster-dashboard/json-event-data?eventType={}&date={}&place={}&filterProp={}&filterUnit={}&filterUpperLimit={}'
+          .format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID, TEST_FILTER_PROP,
+                  TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT))
       assert response.status_code == 200
       expected = {
           "eventCollection": {

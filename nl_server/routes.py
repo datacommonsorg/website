@@ -16,9 +16,55 @@ import json
 import logging
 
 from flask import Blueprint, current_app, escape, request
-from typing import Any, Dict
+from typing import List, Tuple
 
 bp = Blueprint('main', __name__, url_prefix='/')
+
+
+def _query_embedding(query: str) -> Tuple[List[float], str]:
+  try:
+    nl_embeddings = current_app.config['NL_EMBEDDINGS']
+    return nl_embeddings.get_embedding(query), ''
+  except Exception as e:
+    return [], f'Could not generate an embeddings vector. Failed with error: {e}'
+
+
+def _index_embedding(index: int) -> Tuple[List[float], str]:
+  try:
+    nl_embeddings = current_app.config['NL_EMBEDDINGS']
+    return nl_embeddings.get_embedding_at_index(index), ''
+  except Exception as e:
+    return [], f'Could not retrieve an embeddings vector. Failed with error: {e}'
+
+
+@bp.route('/api/embedding/', methods=['GET'])
+def embedding():
+  """Returns a dictionary with the following structure:
+  {
+    'embeddings_vector': List[float]
+  }
+
+  The query can have the following params:
+    'q': this is expected to be any string, e.g. a sentence. The embedding
+      returned is the query string's embedding vector.
+    'i': this is an index. If the index lies within the range of the
+      embeddings currently loaded, then the return value is the embedding
+      vector at that index. Otherwise, an empty array is returned.
+  """
+  query = str(escape(request.args.get('q', '')))
+  index: int = int(escape(request.args.get('i', -1)))
+
+  vector, err = [], ''
+  # If query string is present, then it is given preference.
+  if query:
+    vector, err = _query_embedding(query)
+  elif index:
+    vector, err = _index_embedding(index)
+
+  if err:
+    logging.error(err)
+
+  return json.dumps({'embeddings_vector': vector})
 
 
 @bp.route('/api/search_sv/', methods=['GET'])

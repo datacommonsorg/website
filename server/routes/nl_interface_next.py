@@ -19,16 +19,16 @@ import json
 
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
-from google.protobuf.json_format import MessageToJson, ParseDict
-from lib.nl.nl_detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes, RANKED_CLASSIFICATION_TYPES
+from google.protobuf.json_format import MessageToJson
+from lib.nl.detection import ClassificationType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes, RANKED_CLASSIFICATION_TYPES
 from typing import Dict, List
 import requests
 
 import services.datacommons as dc
-import lib.nl.nl_data_spec_next as nl_data_spec
-import lib.nl.nl_page_config_next as nl_page_config
-import lib.nl.nl_utterance as nl_utterance
-import lib.nl.nl_utils as nl_utils
+import lib.nl.fulfillment_next as fulfillment
+import lib.nl.page_config_next as nl_page_config
+import lib.nl.utterance as nl_utterance
+import lib.nl.utils as utils
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 
@@ -106,8 +106,7 @@ def _empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
 
 
-def _result_with_debug_info(data_dict, status, embeddings_build,
-                            query_detection: Detection,
+def _result_with_debug_info(data_dict, status, query_detection: Detection,
                             context_history: List[Dict]):
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
@@ -151,7 +150,6 @@ def _result_with_debug_info(data_dict, status, embeddings_build,
       'original_query': query_detection.original_query,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
-      'embeddings_build': embeddings_build,
       'ranking_classification': ranking_classification,
       'temporal_classification': temporal_classification,
       'contained_in_classification': contained_in_classification,
@@ -202,7 +200,7 @@ def _detection(orig_query, cleaned_query) -> Detection:
     main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
     # Step 2: replace the places in the query sentence with "".
-    query = _remove_places(cleaned_query, places_found)
+    query = _remove_places(cleaned_query.lower(), places_found)
 
     # Set PlaceDetection.
     place_detection = PlaceDetection(query_original=orig_query,
@@ -291,6 +289,10 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  # For the NL module, launch classifier training. This needs to happen here
+  # because the classifiers make use of the services.datacommons API which
+  # needs the app context to be ready.
+  # If the classifiers have already been trained, this call will simply return.
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'])
 
@@ -309,8 +311,7 @@ def data():
   escaped_context_history = escape(context_history)
   logging.info(context_history)
 
-  query = str(escape(nl_utils.remove_punctuations(original_query)))
-  embeddings_build = str(escape(request.args.get('build', "combined_all")))
+  query = str(escape(utils.remove_punctuations(original_query)))
   res = {
       'place': {
           'dcid': '',
@@ -323,8 +324,7 @@ def data():
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build, _detection("", ""),
-                                   escaped_context_history)
+                                   _detection("", ""), escaped_context_history)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -333,7 +333,7 @@ def data():
   # Generate new utterance.
   prev_utterance = nl_utterance.load_utterance(context_history)
   logging.info(prev_utterance)
-  utterance = nl_data_spec.compute(query_detection, prev_utterance)
+  utterance = fulfillment.fulfill(query_detection, prev_utterance)
 
   if utterance.rankedCharts:
     page_config_pb = nl_page_config.build_page_config(utterance)
@@ -366,6 +366,6 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  data_dict = _result_with_debug_info(data_dict, status_str, embeddings_build,
-                                      query_detection, context_history)
+  data_dict = _result_with_debug_info(data_dict, status_str, query_detection,
+                                      context_history)
   return data_dict
