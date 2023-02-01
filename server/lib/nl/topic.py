@@ -89,7 +89,9 @@ def get_topic_peers(sv_dcids: List[str]):
 def svpg_name(sv: str):
   name = _SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
-    name = dc.property_values(nodes=[sv], prop='name')[sv][0]
+    resp = dc.property_values(nodes=[sv], prop='name')[sv]
+    if resp:
+      name = resp[0]
   return name
 
 
