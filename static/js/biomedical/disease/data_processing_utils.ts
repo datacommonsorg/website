@@ -326,3 +326,30 @@ export function getDiseaseCommonName(data: GraphNodes): string {
     return formattedDiseaseName;
   }
 }
+/**
+ * Checks whether the stat var for medical condition of disease exists
+ * @param data
+ * @returns boolean indicating if desired stat var exists
+ */
+export function getDiseasePrevalenceID(data: GraphNodes): boolean {
+  // sets the default value of the boolean as false
+  let diseasePrevalenceExists = false;
+  let medicalCondition = "";
+  if (!data) {
+    return false;
+  }
+  for (const neighbour of data.nodes[0].neighbors) {
+    if (neighbour.property !== "medicalCondition") {
+      continue;
+    }
+    // check for null or non-existent property values
+    if (_.isEmpty(neighbour.nodes)) {
+      continue;
+    }
+    medicalCondition = neighbour.nodes[0].value;
+    if (!_.isEmpty(medicalCondition)) {
+      diseasePrevalenceExists = true;
+    }
+    return diseasePrevalenceExists;
+  }
+}
