@@ -45,6 +45,15 @@ const DISASTER_EVENT_SEVERITY_FILTERS = {
     upperLimit: 6,
   },
 };
+const DISASTER_DISPLAY_PROP = {
+  [EARTHQUAKE_DISASTER_TYPE_ID]: [
+    {
+      prop: "keep",
+      displayName: "KeepName",
+      unit: "Unit",
+    },
+  ],
+};
 const DISASTER_EVENT_COLORS = {
   [EARTHQUAKE_DISASTER_TYPE_ID]: "red",
   [STORM_DISASTER_TYPE_ID]: "blue",
@@ -66,6 +75,12 @@ const EARTHQUAKE_EVENT_1_API = {
     magnitude: {
       vals: ["5"],
     },
+    keep: {
+      vals: ["Unit 132"],
+    },
+    discard: {
+      vals: ["98"],
+    },
   },
 };
 
@@ -77,6 +92,7 @@ const EARTHQUAKE_EVENT_1_PROCESSED = {
   disasterType: EARTHQUAKE_DISASTER_TYPE_ID,
   startDate: "2022-01-01",
   severity: { magnitude: 5 },
+  displayProps: { keep: 132 },
   endDate: "",
   provenanceId: "earthquakeProv",
 };
@@ -107,6 +123,7 @@ const EARTHQUAKE_EVENT_2_PROCESSED = {
   severity: { magnitude: 5 },
   endDate: "",
   provenanceId: "earthquakeProv",
+  displayProps: {},
 };
 
 const EARTHQUAKE_EVENT_3_API = {
@@ -132,6 +149,7 @@ const EARTHQUAKE_EVENT_3_PROCESSED = {
   severity: { magnitude: 5 },
   endDate: "",
   provenanceId: "earthquakeProv",
+  displayProps: {},
 };
 
 const EARTHQUAKE_EVENT_4_API = {
@@ -180,6 +198,7 @@ const TORNADO_EVENT_1_PROCESSED = {
   severity: {},
   endDate: "",
   provenanceId: "tornadoProv",
+  displayProps: {},
 };
 
 const TORNADO_EVENT_2_API = {
@@ -201,6 +220,7 @@ const TORNADO_EVENT_2_PROCESSED = {
   severity: {},
   endDate: "",
   provenanceId: "tornadoProv",
+  displayProps: {},
 };
 
 const CYCLONE_EVENT_1_API = {
@@ -222,6 +242,7 @@ const CYCLONE_EVENT_1_PROCESSED = {
   severity: {},
   endDate: "",
   provenanceId: "cycloneProv",
+  displayProps: {},
 };
 
 const FIRE_EVENT_POINT_1 = {
@@ -234,6 +255,7 @@ const FIRE_EVENT_POINT_1 = {
   severity: {},
   endDate: "",
   provenanceId: "fireProv",
+  displayProps: {},
 };
 
 const FIRE_EVENT_POINT_2 = {
@@ -248,6 +270,7 @@ const FIRE_EVENT_POINT_2 = {
   },
   endDate: "",
   provenanceId: "fireProv",
+  displayProps: {},
 };
 
 const EARTHQUAKE_PROV_INFO = {
@@ -540,6 +563,7 @@ test("fetch data for all disasters with date as YYYY-MM", () => {
       eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
       color: DISASTER_EVENT_COLORS[disasterType],
       defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
+      displayProp: DISASTER_DISPLAY_PROP[disasterType],
     };
   });
   return fetchDisasterEventPoints({
@@ -580,6 +604,7 @@ test("fetch data for all disasters with date as YYYY", () => {
       eventTypeDcids: DISASTER_EVENT_TYPES[disasterType],
       color: DISASTER_EVENT_COLORS[disasterType],
       defaultSeverityFilter: DISASTER_EVENT_SEVERITY_FILTERS[disasterType],
+      displayProp: DISASTER_DISPLAY_PROP[disasterType],
     };
   });
   return fetchDisasterEventPoints({
@@ -622,6 +647,7 @@ test("fetch data for single disaster multiple events with date as YYYY-MM", () =
     color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
+    displayProp: DISASTER_DISPLAY_PROP[STORM_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -653,6 +679,7 @@ test("fetch data for single disaster multiple events with date as YYYY", () => {
     color: DISASTER_EVENT_COLORS[STORM_DISASTER_TYPE_ID],
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[STORM_DISASTER_TYPE_ID],
+    displayProp: DISASTER_DISPLAY_PROP[STORM_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -685,6 +712,7 @@ test("fetch data for single event with date as YYYY-MM", () => {
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
+    displayProp: DISASTER_DISPLAY_PROP[EARTHQUAKE_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -715,6 +743,7 @@ test("fetch data for single event with date as YYYY", () => {
     color: DISASTER_EVENT_COLORS[EARTHQUAKE_DISASTER_TYPE_ID],
     defaultSeverityFilter:
       DISASTER_EVENT_SEVERITY_FILTERS[EARTHQUAKE_DISASTER_TYPE_ID],
+    displayProp: DISASTER_DISPLAY_PROP[EARTHQUAKE_DISASTER_TYPE_ID],
   };
   return fetchDisasterEventPoints({
     eventTypeSpecs: [eventSpec],
@@ -752,6 +781,7 @@ test("getMapPointsData", () => {
       eventTypeDcids: [],
       color: "",
       defaultSeverityFilter: null,
+      displayProp: [],
     },
     [FIRE_DISASTER_TYPE_ID]: {
       id: FIRE_DISASTER_TYPE_ID,
@@ -764,6 +794,7 @@ test("getMapPointsData", () => {
         lowerLimit: 1,
         upperLimit: 10,
       },
+      displayProp: [],
     },
     [EARTHQUAKE_DISASTER_TYPE_ID]: {
       id: EARTHQUAKE_DISASTER_TYPE_ID,
@@ -771,6 +802,7 @@ test("getMapPointsData", () => {
       eventTypeDcids: [],
       color: "",
       defaultSeverityFilter: null,
+      displayProp: [],
     },
   };
   const expectedMapPointsData = {

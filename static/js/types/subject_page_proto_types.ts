@@ -30,9 +30,9 @@ export interface SeverityFilter {
 }
 
 export interface EventDisplayProp {
-    prop: string;
-    displayName: string;
-    unit?: string;
+  prop: string;
+  displayName: string;
+  unit?: string;
 }
 
 export interface EventTypeSpec {
