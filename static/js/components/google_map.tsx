@@ -57,11 +57,11 @@ interface GoogleMapPropType {
 }
 
 interface GoogleMapStateType {
-  // parsed response of propvals api
+  // coordinates where marker should be drawn on the map.
   markerLocation: GoogleMapCoordinates;
-  // parsed response of mapinfo api
+  // response of mapinfo api with KML coordinates to draw.
   mapInfo: MapInfoResponse;
-  // Whether there is data for map to render
+  // Whether there is data for map to render.
   shouldShowMap: boolean;
 }
 
