@@ -13,10 +13,10 @@
 # limitations under the License.
 
 import logging
+from multiprocessing import Pool
 import os
 import time
 import urllib.request
-from multiprocessing import Pool
 
 logging.getLogger().setLevel(logging.INFO)
 

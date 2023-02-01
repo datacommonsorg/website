@@ -16,8 +16,11 @@
 import json
 import logging
 
+from flask import Blueprint
+from flask import current_app
+from flask import request
+from flask import Response
 import services.datacommons as dc
-from flask import Blueprint, Response, current_app, request
 
 # Define blueprint
 bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')

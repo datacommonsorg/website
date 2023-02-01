@@ -17,10 +17,10 @@ import json
 import os
 
 import flask
-import lib.util as libutil
-import routes.api.place as place_api
 from flask import current_app
 from google.protobuf.json_format import MessageToJson
+import lib.util as libutil
+import routes.api.place as place_api
 
 bp = flask.Blueprint('topic_page', __name__, url_prefix='/topic')
 

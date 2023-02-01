@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import collections
 from base64 import b64encode
+import collections
 
 from google.cloud import storage
 

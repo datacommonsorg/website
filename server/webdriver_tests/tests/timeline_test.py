@@ -16,11 +16,11 @@ import time
 import urllib
 import urllib.request
 
-import webdriver_tests.shared as shared
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_tests.base_test import WebdriverBaseTest
+import webdriver_tests.shared as shared
 
 TIMELINE_URL = '/tools/timeline'
 URL_HASH_1 = '#&statsVar=Median_Age_Person__Median_Income_Person__Count_Person_Upto5Years'\

@@ -16,14 +16,17 @@
 import json
 from typing import Dict, List, Optional
 
+from flask import Blueprint
+from flask import request
+from flask import Response
 import routes.api.import_detection.date_detection as date_detector
+from routes.api.import_detection.detection_types import Column
+from routes.api.import_detection.detection_types import MappedThing
+from routes.api.import_detection.detection_types import MappingType
+from routes.api.import_detection.detection_types import MappingVal
+from routes.api.import_detection.detection_types import TypeProperty
 import routes.api.import_detection.place_detection as place_detector
 import routes.api.import_detection.utils as utils
-from flask import Blueprint, Response, request
-from routes.api.import_detection.detection_types import (Column, MappedThing,
-                                                         MappingType,
-                                                         MappingVal,
-                                                         TypeProperty)
 
 SUCCESS_CODE: int = 200
 BAD_REQUEST_CODE: int = 400

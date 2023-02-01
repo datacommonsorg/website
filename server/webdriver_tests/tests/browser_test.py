@@ -15,11 +15,11 @@
 import urllib
 import urllib.request
 
-import webdriver_tests.shared as shared
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_tests.base_test import WebdriverBaseTest
+import webdriver_tests.shared as shared
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'

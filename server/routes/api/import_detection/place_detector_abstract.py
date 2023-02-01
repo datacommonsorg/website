@@ -13,12 +13,14 @@
 # limitations under the License.
 """Place Detector Abstract Class."""
 
-from abc import ABC, abstractmethod
+from abc import ABC
+from abc import abstractmethod
 from typing import List, Optional, Set
 
+from routes.api.import_detection.detection_types import DCProperty
+from routes.api.import_detection.detection_types import DCType
+from routes.api.import_detection.detection_types import TypeProperty
 import routes.api.import_detection.utils as utils
-from routes.api.import_detection.detection_types import (DCProperty, DCType,
-                                                         TypeProperty)
 
 
 class PlaceDetectorInterface(ABC):

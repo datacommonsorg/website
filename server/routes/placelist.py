@@ -15,7 +15,8 @@
 import collections
 
 from cache import cache
-from flask import Blueprint, render_template
+from flask import Blueprint
+from flask import render_template
 from routes.api.place import child_fetch
 from services.datacommons import fetch_data
 

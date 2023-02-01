@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 from dataclasses import dataclass
 from typing import Any, List
+import unittest
 
 import routes.api.import_detection.date_detection as dd
 

@@ -13,11 +13,11 @@
 # limitations under the License.
 """Utility functions."""
 
+from dataclasses import dataclass
 import json
 import os
 import pathlib
 import re
-from dataclasses import dataclass
 from typing import Any, Dict, List
 
 import frozendict

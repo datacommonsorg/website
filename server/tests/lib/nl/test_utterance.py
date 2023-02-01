@@ -13,8 +13,10 @@
 # limitations under the License.
 """Utterance JSONs for tests."""
 
-from lib.nl.detection import ClassificationType, RankingType
-from lib.nl.utterance import ChartOriginType, ChartType
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import RankingType
+from lib.nl.utterance import ChartOriginType
+from lib.nl.utterance import ChartType
 
 # Utterance for Place Overview.
 PLACE_ONLY_UTTR = {

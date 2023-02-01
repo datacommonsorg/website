@@ -15,13 +15,18 @@
 import logging
 
 from lib.nl import utils
-from lib.nl.detection import (ClassificationType,
-                              ContainedInClassificationAttributes, Place)
-from lib.nl.fulfillment.base import (ChartVars, PopulateState,
-                                     add_chart_to_utterance)
-from lib.nl.fulfillment.context import (classifications_of_type_from_context,
-                                        places_from_context, svs_from_context)
-from lib.nl.utterance import ChartOriginType, ChartType, Utterance
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import Place
+from lib.nl.fulfillment.base import add_chart_to_utterance
+from lib.nl.fulfillment.base import ChartVars
+from lib.nl.fulfillment.base import PopulateState
+from lib.nl.fulfillment.context import classifications_of_type_from_context
+from lib.nl.fulfillment.context import places_from_context
+from lib.nl.fulfillment.context import svs_from_context
+from lib.nl.utterance import ChartOriginType
+from lib.nl.utterance import ChartType
+from lib.nl.utterance import Utterance
 
 #
 # Handler for CORRELATION chart.  This does not use the populate_charts() logic

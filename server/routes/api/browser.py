@@ -15,10 +15,11 @@
 
 import json
 
-import flask
-import services.datacommons as dc
 from cache import cache
-from flask import Response, request
+import flask
+from flask import request
+from flask import Response
+import services.datacommons as dc
 
 bp = flask.Blueprint('api.browser', __name__, url_prefix='/api/browser')
 

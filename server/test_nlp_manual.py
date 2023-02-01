@@ -17,11 +17,11 @@ Script to test flow of nlp features.
 How to run locally:
 FLASK_ENV=local python test_nlp_manual.py
 """
+from dataclasses import dataclass
 import json
 import sys
-import urllib.parse
-from dataclasses import dataclass
 from typing import Dict, List, Optional
+import urllib.parse
 
 from main import app
 

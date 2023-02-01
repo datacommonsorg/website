@@ -17,11 +17,12 @@ import tempfile
 import urllib
 import urllib.request
 
-import webdriver_tests.shared as shared
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_tests.base_test import WebdriverBaseTest
+import webdriver_tests.shared as shared
 
 DOWNLOAD_URL = '/tools/download'
 PLACE_SEARCH_CA = 'California'

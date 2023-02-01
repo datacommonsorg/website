@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
-import unittest
 from dataclasses import dataclass
+import json
 from typing import Dict, List, Optional
+import unittest
 
 import routes.api.import_detection.detection as detection
-from routes.api.import_detection.detection_types import Column, DCProperty
+from routes.api.import_detection.detection_types import Column
+from routes.api.import_detection.detection_types import DCProperty
 
 
 class TestDetection(unittest.TestCase):

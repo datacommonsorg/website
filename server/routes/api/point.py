@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import services.datacommons as dc
 from cache import cache
-from flask import Blueprint, request
+from flask import Blueprint
+from flask import request
+import services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')

@@ -22,11 +22,11 @@ import sys
 import threading
 import time
 
+from __init__ import create_app
 import flask
+from flask import request
 import requests
 import services.datacommons as dc
-from __init__ import create_app
-from flask import request
 from services.discovery import configure_endpoints_from_ingress
 
 logging.basicConfig(

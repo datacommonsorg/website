@@ -16,9 +16,9 @@ import json
 import unittest
 from unittest.mock import patch
 
+from main import app
 import routes.api.choropleth as choropleth_api
 import routes.api.shared as shared_api
-from main import app
 
 
 class TestChoroplethPlaces(unittest.TestCase):

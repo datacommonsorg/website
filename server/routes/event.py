@@ -16,9 +16,12 @@
 import logging
 import os
 
+from flask import abort
+from flask import Blueprint
+from flask import escape
+from flask import render_template
 import routes.api.node as node_api
 import routes.api.shared as shared_api
-from flask import Blueprint, abort, escape, render_template
 
 DEFAULT_EVENT_DCID = ""
 

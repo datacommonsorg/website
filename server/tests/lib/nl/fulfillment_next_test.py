@@ -13,21 +13,32 @@
 # limitations under the License.
 """Integration tests for NL Next fulfillment."""
 
-import unittest
 from typing import Dict, List
+import unittest
 from unittest.mock import patch
 
+from lib.nl import fulfillment_next
+from lib.nl import utils
+from lib.nl import utterance
+from lib.nl import variable
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import PlaceDetection
+from lib.nl.detection import RankingType
+from lib.nl.detection import SVDetection
 import lib.nl.detection as nl_detection
-from lib.nl import fulfillment_next, utils, utterance, variable
-from lib.nl.detection import (ClassificationType, ContainedInPlaceType,
-                              Detection, NLClassifier, Place, PlaceDetection,
-                              RankingType, SVDetection)
 from lib.nl.fulfillment import base
-from tests.lib.nl.test_utterance import (COMPARISON_UTTR, CONTAINED_IN_UTTR,
-                                         CORRELATION_UTTR, PLACE_ONLY_UTTR,
-                                         RANKING_UTTR, SIMPLE_UTTR,
-                                         SIMPLE_WITH_SV_EXT_UTTR,
-                                         SIMPLE_WITH_TOPIC_UTTR)
+from tests.lib.nl.test_utterance import COMPARISON_UTTR
+from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
+from tests.lib.nl.test_utterance import CORRELATION_UTTR
+from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
+from tests.lib.nl.test_utterance import RANKING_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 
 
 #

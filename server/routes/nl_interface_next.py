@@ -19,17 +19,26 @@ import os
 from typing import Dict, List
 
 import flask
+from flask import Blueprint
+from flask import current_app
+from flask import escape
+from flask import render_template
+from flask import request
+from google.protobuf.json_format import MessageToJson
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import PlaceDetection
+from lib.nl.detection import RANKED_CLASSIFICATION_TYPES
+from lib.nl.detection import SimpleClassificationAttributes
+from lib.nl.detection import SVDetection
 import lib.nl.fulfillment_next as fulfillment
 import lib.nl.page_config_next as nl_page_config
 import lib.nl.utils as utils
 import lib.nl.utterance as nl_utterance
 import requests
 import services.datacommons as dc
-from flask import Blueprint, current_app, escape, render_template, request
-from google.protobuf.json_format import MessageToJson
-from lib.nl.detection import (RANKED_CLASSIFICATION_TYPES, ClassificationType,
-                              Detection, NLClassifier, Place, PlaceDetection,
-                              SimpleClassificationAttributes, SVDetection)
 
 bp = Blueprint('nl_next', __name__, url_prefix='/nlnext')
 

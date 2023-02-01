@@ -15,8 +15,8 @@
 import unittest
 from unittest import mock
 
-import tests.routes.api.mock_data as mock_data
 from main import app
+import tests.routes.api.mock_data as mock_data
 
 
 class TestGetStatsWithinPlaceCsv(unittest.TestCase):

@@ -15,8 +15,9 @@
 import json
 
 import gcs
+from google.cloud import pubsub_v1
+from google.cloud import storage
 import loader
-from google.cloud import pubsub_v1, storage
 
 AUTOPUSH_FOLDER = 'autopush/'
 TOPIC_NAME = 'projects/datcom-204919/topics/nl-models-update'

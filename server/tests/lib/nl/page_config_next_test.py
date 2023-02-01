@@ -13,19 +13,24 @@
 # limitations under the License.
 """Integration tests for NL Next chart generation."""
 
-import unittest
 from typing import Dict
+import unittest
 from unittest.mock import patch
 
 from config.subject_page_pb2 import SubjectPageConfig
 from google.protobuf import text_format
-from lib.nl import page_config_next, utils, utterance
+from lib.nl import page_config_next
+from lib.nl import utils
+from lib.nl import utterance
 from parameterized import parameterized
-from tests.lib.nl.test_utterance import (COMPARISON_UTTR, CONTAINED_IN_UTTR,
-                                         CORRELATION_UTTR, PLACE_ONLY_UTTR,
-                                         RANKING_UTTR, SIMPLE_UTTR,
-                                         SIMPLE_WITH_SV_EXT_UTTR,
-                                         SIMPLE_WITH_TOPIC_UTTR)
+from tests.lib.nl.test_utterance import COMPARISON_UTTR
+from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
+from tests.lib.nl.test_utterance import CORRELATION_UTTR
+from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
+from tests.lib.nl.test_utterance import RANKING_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 
 PLACE_ONLY_CONFIG = """
  metadata {

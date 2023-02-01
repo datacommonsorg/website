@@ -16,16 +16,20 @@
 # Utterance data structure and associate libraries
 #
 
-import logging
 from dataclasses import dataclass
 from enum import IntEnum
+import logging
 from typing import Dict, List
 
-from lib.nl.detection import (ClassificationType,
-                              ContainedInClassificationAttributes,
-                              ContainedInPlaceType, Detection, NLClassifier,
-                              Place, RankingClassificationAttributes,
-                              RankingType, SimpleClassificationAttributes)
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import RankingClassificationAttributes
+from lib.nl.detection import RankingType
+from lib.nl.detection import SimpleClassificationAttributes
 
 # How far back does the context go back.
 CTX_LOOKBACK_LIMIT = 5

@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from datetime import datetime
 import hashlib
 import json
 import os
-from datetime import datetime
 
 from config import subject_page_pb2
 from google.protobuf import text_format

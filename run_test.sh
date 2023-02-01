@@ -59,8 +59,12 @@ function run_lint_fix {
   then
     pip3 install yapf isort -q
   fi
+  if ! command -v isort &> /dev/null
+  then
+    pip3 install isort -q
+  fi
   yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ tools/ -e=*pb2.py
-  isort server/ nl_server/ tools/  -sg *pb2.py
+  isort server/ nl_server/ tools/  -sg *pb2.py  --profile google
   deactivate
 }
 
@@ -97,12 +101,12 @@ function run_py_test {
 
   echo -e "#### Checking Python style"
   if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py; then
-    echo "Fix lint errors by running ./run_test.sh -f"
+    echo "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
-  if ! isort server/ nl_server/ tools/ -c -sg *pb2.py; then
-    echo "Fix lint errors by running ./run_test.sh -f"
+  if ! isort server/ nl_server/ tools/ -c -sg *pb2.py --profile google; then
+    echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
 

@@ -20,11 +20,11 @@ import re
 from typing import Any, Iterator, Mapping, Optional, Sequence, Tuple
 
 import google.auth
+from google.cloud import language_v1
 import lib.config as libconfig
 import requests
 import services.datacommons as dc
 import yaml
-from google.cloud import language_v1
 
 cfg = libconfig.get_config()
 

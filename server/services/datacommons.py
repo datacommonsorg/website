@@ -17,15 +17,16 @@ import base64
 import collections
 import json
 import logging
+from typing import Dict, List
 import urllib.parse
 import zlib
-from typing import Dict, List
 
-import lib.config as libconfig
-import requests
 from cache import cache
 from flask import current_app
-from services.discovery import get_health_check_urls, get_service_url
+import lib.config as libconfig
+import requests
+from services.discovery import get_health_check_urls
+from services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 

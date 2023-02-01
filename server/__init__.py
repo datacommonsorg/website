@@ -21,15 +21,18 @@ import urllib.error
 import urllib.request
 
 import firebase_admin
-import lib.config as libconfig
-import lib.i18n as i18n
-import lib.util as libutil
-from firebase_admin import credentials, firestore
-from flask import Flask, g, request
+from firebase_admin import credentials
+from firebase_admin import firestore
+from flask import Flask
+from flask import g
+from flask import request
 from flask_babel import Babel
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
+import lib.config as libconfig
 from lib.disaster_dashboard import get_disaster_dashboard_data
+import lib.i18n as i18n
+import lib.util as libutil
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
@@ -51,8 +54,14 @@ def createMiddleWare(app, exporter):
 
 def register_routes_base_dc(app):
   # apply the blueprints for all apps
-  from routes import (dev, disease, import_wizard, placelist, protein,
-                      redirects, special_announcement, topic_page)
+  from routes import dev
+  from routes import disease
+  from routes import import_wizard
+  from routes import placelist
+  from routes import protein
+  from routes import redirects
+  from routes import special_announcement
+  from routes import topic_page
   app.register_blueprint(dev.bp)
   app.register_blueprint(disease.bp)
   app.register_blueprint(placelist.bp)
@@ -77,7 +86,8 @@ def register_routes_custom_dc(app):
 
 def register_routes_stanford_dc(app, is_test, is_local):
   # Install blueprints specific to Stanford DC
-  from routes import disasters, event
+  from routes import disasters
+  from routes import event
   from routes.api import disaster_api
   app.register_blueprint(disasters.bp)
   app.register_blueprint(disaster_api.bp)
@@ -102,8 +112,15 @@ def register_routes_admin(app):
 
 def register_routes_common(app):
   # apply the blueprints for main app
-  from routes import (browser, factcheck, nl_interface, nl_interface_next,
-                      place, ranking, search, static, tools)
+  from routes import browser
+  from routes import factcheck
+  from routes import nl_interface
+  from routes import nl_interface_next
+  from routes import place
+  from routes import ranking
+  from routes import search
+  from routes import static
+  from routes import tools
   app.register_blueprint(browser.bp)
   app.register_blueprint(nl_interface.bp)
   app.register_blueprint(nl_interface_next.bp)
@@ -114,12 +131,21 @@ def register_routes_common(app):
   app.register_blueprint(tools.bp)
   # TODO: Extract more out to base_dc
   from routes.api import browser as browser_api
-  from routes.api import (choropleth, csv, facets, landing_page, node,
-                          observation_dates, observation_existence)
+  from routes.api import choropleth
+  from routes.api import csv
+  from routes.api import facets
+  from routes.api import landing_page
+  from routes.api import node
+  from routes.api import observation_dates
+  from routes.api import observation_existence
   from routes.api import place as place_api
   from routes.api import point
   from routes.api import ranking as ranking_api
-  from routes.api import series, stats, translator, variable, variable_group
+  from routes.api import series
+  from routes.api import stats
+  from routes.api import translator
+  from routes.api import variable
+  from routes.api import variable_group
   app.register_blueprint(browser_api.bp)
   app.register_blueprint(choropleth.bp)
   app.register_blueprint(csv.bp)

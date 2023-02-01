@@ -13,28 +13,30 @@
 # limitations under the License.
 """NL Model manager client."""
 
+from collections import OrderedDict
 import logging
 import re
-from collections import OrderedDict
 from typing import Dict, List, Union
 
 import lib.nl.constants as constants
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ClusteringClassificationAttributes
+from lib.nl.detection import ComparisonClassificationAttributes
+from lib.nl.detection import ContainedInClassificationAttributes
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import CorrelationClassificationAttributes
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import PeriodType
+from lib.nl.detection import RankingClassificationAttributes
+from lib.nl.detection import RankingType
+from lib.nl.detection import TemporalClassificationAttributes
+from lib.nl.place_detection import NLPlaceDetector
+from lib.nl.training import NLQueryClassificationData
+from lib.nl.training import NLQueryClassificationModel
+from lib.nl.training import NLQueryClusteringDetectionModel
 import lib.nl.utils as utils
 import numpy as np
 import pandas as pd
-from lib.nl.detection import (ClassificationType,
-                              ClusteringClassificationAttributes,
-                              ComparisonClassificationAttributes,
-                              ContainedInClassificationAttributes,
-                              ContainedInPlaceType,
-                              CorrelationClassificationAttributes,
-                              NLClassifier, PeriodType,
-                              RankingClassificationAttributes, RankingType,
-                              TemporalClassificationAttributes)
-from lib.nl.place_detection import NLPlaceDetector
-from lib.nl.training import (NLQueryClassificationData,
-                             NLQueryClassificationModel,
-                             NLQueryClusteringDetectionModel)
 from services import datacommons as dc
 
 ALL_STOP_WORDS = utils.combine_stop_words()

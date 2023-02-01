@@ -17,19 +17,24 @@ TODO(shifucun): once this is well tested, can deprecate corresponding code
 in chart.py and place.py
 """
 
+from collections import defaultdict
 import copy
 import json
 import logging
 import time
 import urllib.parse
-from collections import defaultdict
 
+from cache import cache
+from flask import Blueprint
+from flask import current_app
+from flask import g
+from flask import request
+from flask import Response
+from flask import url_for
+from flask_babel import gettext
 import lib.range as lib_range
 import routes.api.place as place_api
 import services.datacommons as dc
-from cache import cache
-from flask import Blueprint, Response, current_app, g, request, url_for
-from flask_babel import gettext
 
 # Define blueprint
 bp = Blueprint("api.landing_page", __name__, url_prefix='/api/landingpage')

@@ -16,9 +16,11 @@
 import os
 
 import flask
+from flask import Blueprint
+from flask import current_app
+from flask import request
 import services.ai as ai
 import services.datacommons as dc
-from flask import Blueprint, current_app, request
 
 bp = Blueprint('search', __name__)
 

@@ -15,7 +15,11 @@
 browser.datacommons.org with datacommons.org
 """
 
-from flask import Blueprint, current_app, redirect, request, url_for
+from flask import Blueprint
+from flask import current_app
+from flask import redirect
+from flask import request
+from flask import url_for
 
 bp = Blueprint(
     "redirects",

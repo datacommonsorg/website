@@ -15,15 +15,21 @@
 import json
 from typing import Dict
 
+from cachecontrol import CacheControl
+from flask import abort
+from flask import Blueprint
+from flask import current_app
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import session
 import google.auth.transport.requests
+from google.cloud import exceptions
+from google.cloud import storage
+from google.oauth2 import id_token
 import lib.util as libutil
 import requests
 import routes.api.user as user_api
-from cachecontrol import CacheControl
-from flask import (Blueprint, abort, current_app, redirect, render_template,
-                   request, session)
-from google.cloud import exceptions, storage
-from google.oauth2 import id_token
 
 bp = Blueprint('user', __name__, url_prefix='/user')
 

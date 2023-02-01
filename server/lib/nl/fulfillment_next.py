@@ -16,9 +16,14 @@
 import logging
 from typing import List
 
-from lib.nl.detection import ClassificationType, Detection
-from lib.nl.fulfillment import (comparison, containedin, context, correlation,
-                                ranking, simple)
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import Detection
+from lib.nl.fulfillment import comparison
+from lib.nl.fulfillment import containedin
+from lib.nl.fulfillment import context
+from lib.nl.fulfillment import correlation
+from lib.nl.fulfillment import ranking
+from lib.nl.fulfillment import simple
 from lib.nl.utterance import Utterance
 
 # We will ignore SV detections that are below this threshold

@@ -13,9 +13,10 @@
 # limitations under the License.
 """User related handlers."""
 
-import time
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
+from dataclasses import dataclass
 from enum import Enum
+import time
 from typing import Dict, List
 
 import flask

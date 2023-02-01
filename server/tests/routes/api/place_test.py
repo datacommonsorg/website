@@ -16,8 +16,8 @@ import json
 import unittest
 from unittest.mock import patch
 
-import routes.api.place as place_api
 from main import app
+import routes.api.place as place_api
 from services import datacommons as dc
 
 

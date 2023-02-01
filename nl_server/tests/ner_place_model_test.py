@@ -16,7 +16,8 @@
 import unittest
 
 from diskcache import Cache
-from loader import nl_cache_path, nl_ner_cache_key
+from loader import nl_cache_path
+from loader import nl_ner_cache_key
 from ner_place_model import NERPlaces
 from parameterized import parameterized
 

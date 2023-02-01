@@ -16,7 +16,8 @@
 import os
 
 import flask
-from flask import Blueprint, render_template
+from flask import Blueprint
+from flask import render_template
 
 bp = Blueprint('import_wizard', __name__, url_prefix='/import')
 

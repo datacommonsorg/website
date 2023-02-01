@@ -16,11 +16,11 @@ import json
 import unittest
 from unittest.mock import patch
 
-import lib.util as libutil
-import routes.api.landing_page as landing_page
 from flask import Flask
 from flask_babel import Babel
+import lib.util as libutil
 from main import app
+import routes.api.landing_page as landing_page
 
 # TODO(shifucun): add test for api endpoint.
 

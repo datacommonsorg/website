@@ -16,12 +16,13 @@
 import os
 import unittest
 
-import yaml
 from diskcache import Cache
 from embeddings import Embeddings
-from loader import nl_cache_path, nl_embeddings_cache_key
+from loader import nl_cache_path
+from loader import nl_embeddings_cache_key
 from parameterized import parameterized
 from sklearn.metrics.pairwise import cosine_similarity
+import yaml
 
 
 def _get_embeddings_file_name() -> str:

@@ -15,7 +15,9 @@
 import json
 
 import flask
-from flask import current_app, g, request
+from flask import current_app
+from flask import g
+from flask import request
 
 bp = flask.Blueprint("tools", __name__, url_prefix='/tools')
 

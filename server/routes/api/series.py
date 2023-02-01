@@ -14,9 +14,10 @@
 
 import logging
 
-import services.datacommons as dc
 from cache import cache
-from flask import Blueprint, request
+from flask import Blueprint
+from flask import request
+import services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
