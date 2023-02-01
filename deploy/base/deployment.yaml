@@ -66,7 +66,6 @@ spec:
               path: /healthz
               port: 8080
             failureThreshold: 30
-
           readinessProbe:
             httpGet:
               path: /healthz
@@ -177,9 +176,9 @@ spec:
           image: gcr.io/datcom-ci/datacommons-nl:abcxyz
           resources:
             limits:
-              memory: "1G"
+              memory: "2G"
             requests:
-              memory: "1G"
+              memory: "2G"
           env:
             - name: FLASK_ENV
               valueFrom:
