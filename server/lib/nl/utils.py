@@ -21,6 +21,8 @@ import re
 from typing import Dict, List, Set, Union
 
 import lib.nl.constants as constants
+import lib.nl.detection as detection
+import lib.util as util
 import services.datacommons as dc
 
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
@@ -136,6 +138,27 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
       existing_svs.append(sv)
 
   return existing_svs
+
+
+# Given a place and a list of existing SVs, this API ranks the SVs
+# per the ranking order.
+def ranked_svs_for_place(place: str, svs: List[str],
+                         order: detection.RankingType) -> List[str]:
+  points_data = dc.obs_point(entities=[place], variables=svs)
+  points_data = util.compact_point(points_data, all_facets=False)
+
+  svs_with_vals = []
+  for sv, place_data in points_data['data'].items():
+    if place not in place_data:
+      continue
+    point = place_data[place]
+    svs_with_vals.append((sv, point['value']))
+
+  reverse = False if order == detection.RankingType.LOW else True
+  svs_with_vals = sorted(svs_with_vals,
+                         key=lambda pair: pair[1],
+                         reverse=reverse)
+  return [sv for sv, _ in svs_with_vals]
 
 
 #

@@ -49,6 +49,8 @@ class ChartVars:
   block_id: int
   include_percapita: bool = True
   title: str = ""
+  # Represents a peer-group of SVs from a Topic.
+  is_topic_peer_group: bool = False
 
 
 #
@@ -227,7 +229,8 @@ def _svg_or_topic_to_svs(state: PopulateState, sv: str,
           ChartVars(svs=svpg,
                     block_id=state.block_id,
                     include_percapita=False,
-                    title=title))
+                    title=title,
+                    is_topic_peer_group=True))
     return charts
 
   return []

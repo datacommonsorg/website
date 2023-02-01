@@ -110,15 +110,21 @@ def classifications_of_type_from_context(
     uttr: Utterance,
     ctype: ClassificationType) -> List[ClassificationAttributes]:
   result = []
-  for cl in uttr.classifications:
-    if (cl.type == ctype):
-      result.append(cl)
+  result.extend(classifications_of_type_from_utterance(uttr, ctype))
   prev_uttr_count = 0
   prev = uttr.prev_utterance
   while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    for cl in prev.classifications:
-      if (cl.type == ctype):
-        result.append(cl)
+    result.extend(classifications_of_type_from_utterance(prev, ctype))
     prev = prev.prev_utterance
     prev_uttr_count = prev_uttr_count + 1
+  return result
+
+
+def classifications_of_type_from_utterance(
+    uttr: Utterance,
+    ctype: ClassificationType) -> List[ClassificationAttributes]:
+  result = []
+  for cl in uttr.classifications:
+    if cl.type == ctype:
+      result.append(cl)
   return result
