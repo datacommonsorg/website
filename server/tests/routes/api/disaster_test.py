@@ -229,7 +229,7 @@ class TestGetData(unittest.TestCase):
                           filter_unit, filter_upper_limit, filter_lower_limit):
       if (event_type != TEST_EVENT_TYPE or affected_place != TEST_PLACE_DCID or
           filter_prop != "" or filter_unit != "" or
-          filter_upper_limit != float("0") or filter_lower_limit != float("0")):
+          filter_upper_limit != None or filter_lower_limit != None):
         return None
       if date == TEST_DATE_1:
         return EVENT_DATA
@@ -258,7 +258,7 @@ class TestGetData(unittest.TestCase):
                           filter_unit, filter_upper_limit, filter_lower_limit):
       if (event_type != TEST_EVENT_TYPE or affected_place != TEST_PLACE_DCID or
           filter_prop != "" or filter_unit != "" or
-          filter_upper_limit != float("0") or filter_lower_limit != float("0")):
+          filter_upper_limit != None or filter_lower_limit != None):
         return None
       return {}
 
@@ -318,7 +318,7 @@ class TestGetData(unittest.TestCase):
                           filter_unit, filter_upper_limit, filter_lower_limit):
       if (event_type != TEST_EVENT_TYPE or affected_place != TEST_PLACE_DCID or
           filter_prop != "" or filter_unit != "" or
-          filter_upper_limit != float("0") or filter_lower_limit != float("0")):
+          filter_upper_limit != None or filter_lower_limit != None):
         return None
       if date == TEST_DATE_1:
         return EVENT_DATA
@@ -452,9 +452,9 @@ class TestGetDataJson(unittest.TestCase):
     with app.app_context():
       app.config['DISASTER_DASHBOARD_DATA'] = TEST_JSON_DATA
       response = app.test_client().get(
-          '/api/disaster-dashboard/json-event-data?eventType={}&date={}&place={}&filterProp={}&filterUnit={}&filterUpperLimit={}'
-          .format(TEST_EVENT_TYPE, TEST_DATE, TEST_PLACE_DCID, TEST_FILTER_PROP,
-                  TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT))
+          '/api/disaster-dashboard/json-event-data?eventType={}&minDate={}&maxDate={}&place={}&filterProp={}&filterUnit={}&filterUpperLimit={}'
+          .format(TEST_EVENT_TYPE, TEST_DATE_1, TEST_DATE_1, TEST_PLACE_DCID,
+                  TEST_FILTER_PROP, TEST_FILTER_UNIT, TEST_FILTER_UPPER_LIMIT))
       assert response.status_code == 200
       expected = {
           "eventCollection": {

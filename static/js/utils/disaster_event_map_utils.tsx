@@ -192,10 +192,6 @@ export function fetchDateList(
  * @param date date used for data retrieval (YYYY-MM)
  * @param disasterType the disaster type that the event type belongs to
  * @param severityProps list of severity props to get data about
- * @param minDate a finer granularity date (than the date used for data retrieval)
- *                to use as a min date of returned event points.
- * @param maxDate a finer granularity date (than the date used for data retrieval)
- *                to use as a max date of returned event points.
  */
 function fetchEventPoints(
   eventType: string,
@@ -203,8 +199,6 @@ function fetchEventPoints(
   dateRange: [string, string],
   disasterType: string,
   severityFilter?: SeverityFilter,
-  minDate?: string,
-  maxDate?: string,
   useCache?: boolean
 ): Promise<DisasterEventPointData> {
   const reqParams = {
@@ -240,12 +234,6 @@ function fetchEventPoints(
           _.isEmpty(eventData.geoLocations) ||
           _.isEmpty(eventData.geoLocations[0].point) ||
           seenEvents.has(eventData.dcid)
-        ) {
-          return;
-        }
-        if (
-          eventData.dates[0] < minDate ||
-          eventData.dates[0].substring(0, maxDate.length) > maxDate
         ) {
           return;
         }
@@ -362,8 +350,6 @@ export function fetchDisasterEventPoints(
           dateRange,
           eventSpec.id,
           dataOptions.severityFilters[eventSpec.id],
-          dateRange[0].length > 7 ? dateRange[0] : "",
-          dateRange[1].length > 7 ? dateRange[1] : "",
           dataOptions.useCache
         )
       );

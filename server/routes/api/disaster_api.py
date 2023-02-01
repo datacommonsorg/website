@@ -24,6 +24,7 @@ bp = Blueprint("disaster_api", __name__, url_prefix='/api/disaster-dashboard')
 EARTH_DCID = "Earth"
 EVENT_POINT_KEYS = set(
     ["affectedPlaces", "latitude", "longitude", "startDate", "eventId"])
+# Mixer event api takes a date of the format YYYY-MM (length of 7)
 DATA_RETRIEVAL_DATE_LENGTH = 7
 
 
@@ -88,8 +89,7 @@ def keep_event(event, place, filter_prop, filter_unit, filter_upper_limit,
 def get_date_list(min_date: str, max_date: str):
   """
   Given a date range, gets the list of dates to retrieve data for.
-  min_date and max_date must have the same date format of YYYY or YYYY-MM or
-  YYYY-MM-DD.
+  min_date and max_date must have the same date format of YYYY or YYYY-MM.
   """
   date_list = []
   min_year = min_date[0:4]
@@ -114,6 +114,7 @@ def get_date_list(min_date: str, max_date: str):
 def json_event_data():
   """Gets the event data from saved jsons for a given eventType, date, place,
      andfilter information (filter prop, unit, lower limit, and upper limit).
+     The date format must be YYYY or YYYY-MM
 
   Returns: an object of the following form
     {
@@ -157,11 +158,13 @@ def json_event_data():
   filter_prop = request.args.get('filterProp', '')
   filter_unit = request.args.get('filterUnit', '')
   filter_upper_limit = float(request.args.get('filterUpperLimit', float("inf")))
+  print("after upper_limit")
   filter_lower_limit = float(request.args.get('filterLowerLimit',
                                               -float("inf")))
   event_points = []
   disaster_data = current_app.config['DISASTER_DASHBOARD_DATA']
   date_list = get_date_list(min_date, max_date)
+  print("after datelist")
   for date in date_list:
     for event in disaster_data.get(event_type, {}).get(date, []):
       if (keep_event(event, place, filter_prop, filter_unit, filter_upper_limit,
@@ -184,6 +187,7 @@ def json_event_data():
             continue
           event_formatted["propVals"][eventKey] = {"vals": [event[eventKey]]}
         event_points.append(event_formatted)
+  print("after getting data")
   result = {}
   if event_points:
     result = {"eventCollection": {"events": event_points, "provenanceInfo": {}}}
@@ -192,8 +196,9 @@ def json_event_data():
 
 @bp.route('/event-data')
 def event_data():
-  """Gets the event data for a given eventType, date, place, and
+  """Gets the event data for a given eventType, date range, place, and
       filter information (filter prop, unit, lower limit, and upper limit).
+      The date format must be YYYY or YYYY-MM
 
   Returns: an object of the following form
     {
