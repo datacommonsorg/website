@@ -16,12 +16,12 @@
 
 /**
  * Component for embedding a map from Google Maps
- * 
+ *
  * Used for plotting a place or location on a map via Google Maps, given that
  * place, location, or event's DCID. This component can plot either KML
  * coordinates from the /api/places/mapinfo api as polygons, or a lat/long
  * marker pin using the node's latitude and longitude properties.
- * 
+ *
  * Note: If a node has both KML coordinates and lat/long properties, the KML
  * coordinates are preferred.
  */
