@@ -13,9 +13,9 @@
 # limitations under the License.
 
 import unittest
-from flask import g
 from unittest.mock import patch
 
+from flask import g
 from main import app
 
 

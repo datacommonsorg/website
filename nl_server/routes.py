@@ -14,9 +14,12 @@
 
 import json
 import logging
-
-from flask import Blueprint, current_app, escape, request
 from typing import List, Tuple
+
+from flask import Blueprint
+from flask import current_app
+from flask import escape
+from flask import request
 
 bp = Blueprint('main', __name__, url_prefix='/')
 

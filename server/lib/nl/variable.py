@@ -14,7 +14,8 @@
 """Module for NL page variable"""
 
 from abc import ABC
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from dataclasses import field
 from typing import Dict, List
 
 import services.datacommons as dc

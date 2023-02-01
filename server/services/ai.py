@@ -23,9 +23,8 @@ import google.auth
 from google.cloud import language_v1
 import lib.config as libconfig
 import requests
-import yaml
-
 import services.datacommons as dc
+import yaml
 
 cfg = libconfig.get_config()
 

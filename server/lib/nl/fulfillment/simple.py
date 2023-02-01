@@ -14,11 +14,14 @@
 
 from typing import List
 
-from lib.nl.nl_detection import Place
-from lib.nl.nl_utterance import Utterance, ChartOriginType, ChartType
-
-from lib.nl.fulfillment.base import populate_charts, PopulateState, ChartVars, \
-  add_chart_to_utterance
+from lib.nl.detection import Place
+from lib.nl.fulfillment.base import add_chart_to_utterance
+from lib.nl.fulfillment.base import ChartVars
+from lib.nl.fulfillment.base import populate_charts
+from lib.nl.fulfillment.base import PopulateState
+from lib.nl.utterance import ChartOriginType
+from lib.nl.utterance import ChartType
+from lib.nl.utterance import Utterance
 
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5

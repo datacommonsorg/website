@@ -13,23 +13,39 @@
 # limitations under the License.
 """Integration tests for NL Next fulfillment."""
 
-import unittest
 from typing import Dict, List
+import unittest
 from unittest.mock import patch
 
-from lib.nl import nl_data_spec_next, nl_detection, nl_utils, nl_variable, nl_utterance
-from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, \
-  NLClassifier, Place, PlaceDetection, RankingType, SVDetection
+from lib.nl import fulfillment_next
+from lib.nl import utils
+from lib.nl import utterance
+from lib.nl import variable
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import PlaceDetection
+from lib.nl.detection import RankingType
+from lib.nl.detection import SVDetection
+import lib.nl.detection as nl_detection
 from lib.nl.fulfillment import base
-from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR, SIMPLE_UTTR, SIMPLE_WITH_SV_EXT_UTTR, \
-  SIMPLE_WITH_TOPIC_UTTR, COMPARISON_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR, RANKING_UTTR
+from tests.lib.nl.test_utterance import COMPARISON_UTTR
+from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
+from tests.lib.nl.test_utterance import CORRELATION_UTTR
+from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
+from tests.lib.nl.test_utterance import RANKING_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
+from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 
 
 #
 # External interfaces that need mocking:
-# - nl_variable.extend_svs
-# - nl_utils.sv_existence_for_places
-# - nl_utils.get_sample_child_places
+# - variable.extend_svs
+# - utils.sv_existence_for_places
+# - utils.get_sample_child_places
 # - fulfillment.base._svg_or_topic_to_svs
 #
 class TestDataSpecNext(unittest.TestCase):
@@ -47,8 +63,8 @@ class TestDataSpecNext(unittest.TestCase):
     self.assertEqual(got, PLACE_ONLY_UTTR)
 
   # Example: [male population in california]
-  @patch.object(nl_variable, 'extend_svs')
-  @patch.object(nl_utils, 'sv_existence_for_places')
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'sv_existence_for_places')
   def test_simple(self, mock_sv_existence, mock_extend_svs):
     # First 2 SVs should be considered, and 3rd one dropped.
     detection = _detection(
@@ -70,9 +86,9 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This follows up on test_simple()
   # Example: [how many farms in its counties]
-  @patch.object(nl_variable, 'extend_svs')
-  @patch.object(nl_utils, 'get_sample_child_places')
-  @patch.object(nl_utils, 'sv_existence_for_places')
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'get_sample_child_places')
+  @patch.object(utils, 'sv_existence_for_places')
   def test_contained_in(self, mock_sv_existence, mock_child_places,
                         mock_extend_svs):
     # Detect a single SV for farms, with NO place.
@@ -94,9 +110,9 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This follows up on test_contained_in()
   # Example: [how does that correlate with rainfall]
-  @patch.object(nl_variable, 'extend_svs')
-  @patch.object(nl_utils, 'get_sample_child_places')
-  @patch.object(nl_utils, 'sv_existence_for_places')
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'get_sample_child_places')
+  @patch.object(utils, 'sv_existence_for_places')
   def test_correlation(self, mock_sv_existence, mock_child_places,
                        mock_extend_svs):
     # Detect a single SV for rainfall, with NO place.
@@ -119,9 +135,9 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This follows up on test_correlation()
   # Example: [which ones have the most agricultural workers]
-  @patch.object(nl_variable, 'extend_svs')
-  @patch.object(nl_utils, 'get_sample_child_places')
-  @patch.object(nl_utils, 'sv_existence_for_places')
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'get_sample_child_places')
+  @patch.object(utils, 'sv_existence_for_places')
   def test_ranking(self, mock_sv_existence, mock_child_places, mock_extend_svs):
     # Detect a single SV for rainfall, with NO place.
     detection = _detection(None, ['Count_Agricultural_Workers'], [0.6],
@@ -143,8 +159,8 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This follows up on test_simple()
   # Example: [how does that compare with nevada?]
-  @patch.object(nl_variable, 'extend_svs')
-  @patch.object(nl_utils, 'sv_existence_for_places')
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'sv_existence_for_places')
   def test_comparison(self, mock_sv_existence, mock_extend_svs):
     # No SVs are detected.
     detection = _detection('geoId/32', [], [], ClassificationType.COMPARISON)
@@ -163,8 +179,8 @@ class TestDataSpecNext(unittest.TestCase):
     self.assertEqual(got, COMPARISON_UTTR)
 
   # This exercises SV expansion to peers.
-  @patch.object(nl_variable, 'extend_svs')
-  @patch.object(nl_utils, 'sv_existence_for_places')
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'sv_existence_for_places')
   def test_simple_with_sv_extension(self, mock_sv_existence, mock_extend_svs):
     # Detect a single SV.
     detection = _detection('geoId/06', ['Count_Person_Male'], [0.6])
@@ -187,9 +203,9 @@ class TestDataSpecNext(unittest.TestCase):
     self.assertEqual(got, SIMPLE_WITH_SV_EXT_UTTR)
 
   # This exercises Topic expansion.
-  @patch.object(nl_variable, 'extend_svs')
+  @patch.object(variable, 'extend_svs')
   @patch.object(base, '_svg_or_topic_to_svs')
-  @patch.object(nl_utils, 'sv_existence_for_places')
+  @patch.object(utils, 'sv_existence_for_places')
   def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
                              mock_extend_svs):
     # Detect a topic.
@@ -291,6 +307,6 @@ def _detection(place: str,
 def _run(detection: Detection, uttr_dict: List[Dict]):
   prev_uttr = None
   if uttr_dict:
-    prev_uttr = nl_utterance.load_utterance(uttr_dict)
-  return nl_utterance.save_utterance(
-      nl_data_spec_next.compute(detection, prev_uttr))[0]
+    prev_uttr = utterance.load_utterance(uttr_dict)
+  return utterance.save_utterance(fulfillment_next.fulfill(
+      detection, prev_uttr))[0]

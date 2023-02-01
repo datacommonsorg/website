@@ -207,26 +207,21 @@ function parseEventPropVal(propVal, unit: string, reqParams?: any): number {
  * @param date date used for data retrieval (YYYY-MM)
  * @param disasterType the disaster type that the event type belongs to
  * @param severityProps list of severity props to get data about
- * @param minDate a finer granularity date (than the date used for data retrieval)
- *                to use as a min date of returned event points.
- * @param maxDate a finer granularity date (than the date used for data retrieval)
- *                to use as a max date of returned event points.
  */
 function fetchEventPoints(
   eventType: string,
   place: string,
-  date: string,
+  dateRange: [string, string],
   disasterType: string,
   severityFilter?: SeverityFilter,
-  minDate?: string,
-  maxDate?: string,
   useCache?: boolean,
   eventDisplayProps?: EventDisplayProp[]
 ): Promise<DisasterEventPointData> {
   const reqParams = {
     eventType: eventType,
     place: place,
-    date: date,
+    minDate: dateRange[0],
+    maxDate: dateRange[1],
   };
   if (severityFilter) {
     reqParams["filterProp"] = severityFilter.prop;
@@ -255,12 +250,6 @@ function fetchEventPoints(
           _.isEmpty(eventData.geoLocations) ||
           _.isEmpty(eventData.geoLocations[0].point) ||
           seenEvents.has(eventData.dcid)
-        ) {
-          return;
-        }
-        if (
-          eventData.dates[0] < minDate ||
-          eventData.dates[0].substring(0, maxDate.length) > maxDate
         ) {
           return;
         }
@@ -315,6 +304,12 @@ function fetchEventPoints(
         seenEvents.add(eventData.dcid);
       });
       return result;
+    })
+    .catch(() => {
+      return {
+        eventPoints: [],
+        provenanceInfo: {},
+      };
     });
 }
 
@@ -364,56 +359,26 @@ function getDateRange(selectedDate: string): [string, string] {
 export function fetchDisasterEventPoints(
   dataOptions: DisasterDataOptions
 ): Promise<Record<string, DisasterEventPointData>> {
-  // Dates to fetch data for.
+  // Date range to fetch data for.
   const dateRange = getDateRange(dataOptions.selectedDate);
-  const dates = [];
-  const minYear = dateRange[0].substring(0, 4);
-  const maxYear = dateRange[1].substring(0, 4);
-  // The minimum length of a date string from dates in the dateRange and dates
-  // used for data retrieval. Dates used for data retrieval are YYYY-MM.
-  const minDateLength = Math.min(dateRange[0].length, 7);
-  // Loop through every YYYY-MM date between minYear-01 and maxYear-12 and add
-  // all dates that are within the dateRange.
-  for (let year = Number(minYear); year <= Number(maxYear); year++) {
-    for (let month = 1; month <= 12; month++) {
-      const date = `${year.toString()}-${month.toString().padStart(2, "0")}`;
-      if (
-        date.substring(0, minDateLength) <
-        dateRange[0].substring(0, minDateLength)
-      ) {
-        continue;
-      }
-      if (
-        date.substring(0, minDateLength) >
-        dateRange[1].substring(0, minDateLength)
-      ) {
-        break;
-      }
-      dates.push(date);
-    }
-  }
   const promises = [];
   // list of spec ids that correspond to the spec id used for the promise at
   // that index in the list of promises.
   const promiseSpecId = [];
   for (const eventSpec of dataOptions.eventTypeSpecs) {
     for (const eventType of eventSpec.eventTypeDcids) {
-      for (const date of dates) {
-        promiseSpecId.push(eventSpec.id);
-        promises.push(
-          fetchEventPoints(
-            eventType,
-            dataOptions.place,
-            date,
-            eventSpec.id,
-            dataOptions.severityFilters[eventSpec.id],
-            dateRange[0].length > 7 ? dateRange[0] : "",
-            dateRange[1].length > 7 ? dateRange[1] : "",
-            dataOptions.useCache,
-            eventSpec.displayProp
-          )
-        );
-      }
+      promiseSpecId.push(eventSpec.id);
+      promises.push(
+        fetchEventPoints(
+          eventType,
+          dataOptions.place,
+          dateRange,
+          eventSpec.id,
+          dataOptions.severityFilters[eventSpec.id],
+          dataOptions.useCache,
+          eventSpec.displayProp
+        )
+      );
     }
   }
   return Promise.all(promises).then((resp) => {

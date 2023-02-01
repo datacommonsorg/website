@@ -15,9 +15,10 @@
 # The following dictionaries are used by the NL query classification under
 # the path server.services.nl and also invoked from the server/__init__.py
 from dataclasses import dataclass
+from typing import Any, Dict, List
+
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.linear_model import LogisticRegression
-from typing import Any, Dict, List
 
 
 @dataclass

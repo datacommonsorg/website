@@ -15,9 +15,12 @@
 
 import json
 import logging
-from flask import Blueprint, escape, request, Response
 
 from cache import cache
+from flask import Blueprint
+from flask import escape
+from flask import request
+from flask import Response
 import services.datacommons as dc
 
 BIO_DCID_PREFIX = 'bio/'

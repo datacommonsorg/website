@@ -13,21 +13,31 @@
 # limitations under the License.
 """Data Commons NL Interface routes"""
 
-import os
-import logging
 import json
+import logging
+import os
+from typing import Dict, Union
 
 import flask
-from flask import Blueprint, current_app, render_template, escape, request
+from flask import Blueprint
+from flask import current_app
+from flask import escape
+from flask import render_template
+from flask import request
 from google.protobuf.json_format import MessageToJson
-from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
-from typing import Dict, Union
+import lib.nl.data_spec as nl_data_spec
+from lib.nl.detection import ClassificationType
+from lib.nl.detection import ContainedInPlaceType
+from lib.nl.detection import Detection
+from lib.nl.detection import NLClassifier
+from lib.nl.detection import Place
+from lib.nl.detection import PlaceDetection
+from lib.nl.detection import SimpleClassificationAttributes
+from lib.nl.detection import SVDetection
+import lib.nl.page_config as nl_page_config
+import lib.nl.utils as utils
 import requests
-
 import services.datacommons as dc
-import lib.nl.nl_data_spec as nl_data_spec
-import lib.nl.nl_page_config as nl_page_config
-import lib.nl.nl_utils as nl_utils
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -594,7 +604,7 @@ def data():
   if context_history:
     recent_context = context_history[-1]
 
-  query = str(escape(nl_utils.remove_punctuations(original_query)))
+  query = str(escape(utils.remove_punctuations(original_query)))
   default_place = "United States"
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
