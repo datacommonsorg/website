@@ -38,6 +38,7 @@ import {
 } from "../shared/constants";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { getAllChildPlaceTypes, getParentPlaces } from "../tools/map/util";
+import { EventApiEventInfo } from "../types/disaster_event_map_types";
 import {
   DisasterDataOptions,
   DisasterEventDataApiResponse,
@@ -186,6 +187,36 @@ export function fetchDateList(
 }
 
 /**
+ * Get a user-friendly info card title to use for each event.
+ *
+ * Titles follow the format `<EventType>: <Name>`.
+ *            Ex: "Storm: Ian"
+ * This also converts names that are "<EventType> that started on <Date> at
+ * <S2Cell>" into "Unnamed" for the title.
+ *            Ex: "Fire: Unnamed"
+ * @param eventData properties of the event
+ * @param disasterType the disaster type that the event belongs to
+ */
+function getDisasterEventTitle(
+  eventData: EventApiEventInfo,
+  disasterType: string
+): string {
+  let eventName =
+    !_.isEmpty(eventData.propVals.name) &&
+    !_.isEmpty(eventData.propVals.name.vals)
+      ? eventData.propVals.name.vals[0]
+      : eventData.dcid;
+  const eventType = `${disasterType
+    .charAt(0)
+    .toUpperCase()}${disasterType.slice(1)}`;
+  if (eventName.includes("that started on")) {
+    // don't use names that are "<EventType> that started on <Date> at <S2Cell>"
+    eventName = "Unnamed";
+  }
+  return `${eventType}: ${eventName}`;
+}
+
+/**
  * Get event points for a specific event type, place, and date
  * @param eventType event type to get data for
  * @param place place to get data for
@@ -266,11 +297,7 @@ function fetchEventPoints(
             }
           }
         }
-        const name =
-          !_.isEmpty(eventData.propVals.name) &&
-          !_.isEmpty(eventData.propVals.name.vals)
-            ? eventData.propVals.name.vals[0]
-            : eventData.dcid;
+        const name = getDisasterEventTitle(eventData, disasterType);
         const endDate =
           !_.isEmpty(eventData.propVals.endDate) &&
           !_.isEmpty(eventData.propVals.endDate.vals)
