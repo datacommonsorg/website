@@ -211,7 +211,7 @@ class Model:
         "Increase": TimeDeltaType.INCREASE,
         "Decrease": TimeDeltaType.DECREASE,
     }
-    
+
     query = query.lower()
     subtypes_matched = []
     trigger_words = []
