@@ -20,14 +20,14 @@ import json
 import flask
 from flask import Blueprint, current_app, render_template, escape, request
 from google.protobuf.json_format import MessageToJson
-from lib.nl.nl_detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
+from lib.nl.detection import ClassificationType, ContainedInPlaceType, Detection, NLClassifier, Place, PlaceDetection, SVDetection, SimpleClassificationAttributes
 from typing import Dict, Union
 import requests
 
 import services.datacommons as dc
-import lib.nl.nl_data_spec as nl_data_spec
-import lib.nl.nl_page_config as nl_page_config
-import lib.nl.nl_utils as nl_utils
+import lib.nl.data_spec as nl_data_spec
+import lib.nl.page_config as nl_page_config
+import lib.nl.utils as utils
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
 
@@ -350,7 +350,6 @@ def _empty_svs_score_dict():
 
 def _result_with_debug_info(data_dict,
                             status,
-                            embeddings_build,
                             query_detection: Detection,
                             data_spec=None):
   """Using data_dict and query_detection, format the dictionary response."""
@@ -406,8 +405,6 @@ def _result_with_debug_info(data_dict,
               svs_dict,
           'svs_to_sentences':
               svs_to_sentences,
-          'embeddings_build':
-              embeddings_build,
           'ranking_classification':
               ranking_classification,
           'temporal_classification':
@@ -428,7 +425,7 @@ def _result_with_debug_info(data_dict,
   return {'context': data_dict, 'config': charts_config}
 
 
-def _detection(orig_query, cleaned_query, embeddings_build,
+def _detection(orig_query, cleaned_query: str,
                recent_context: Union[Dict, None]) -> Detection:
   default_place = "United States"
   using_default_place = False
@@ -474,7 +471,7 @@ def _detection(orig_query, cleaned_query, embeddings_build,
   main_place_name = dc.property_values([place_dcid], 'name')[place_dcid][0]
 
   # Step 2: replace the places in the query sentence with "".
-  query = _remove_places(cleaned_query, places_found)
+  query = _remove_places(cleaned_query.lower(), places_found)
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(query_original=orig_query,
@@ -489,7 +486,7 @@ def _detection(orig_query, cleaned_query, embeddings_build,
   # Step 3: Identify the SV matched based on the query.
   svs_scores_dict = _empty_svs_score_dict()
   try:
-    svs_scores_dict = model.detect_svs(query, embeddings_build)
+    svs_scores_dict = model.detect_svs(query)
   except ValueError as e:
     logging.info(e)
     logging.info("Using an empty svs_scores_dict")
@@ -576,6 +573,10 @@ def page():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+  # For the NL module, launch classifier training. This needs to happen here
+  # because the classifiers make use of the services.datacommons API which
+  # needs the app context to be ready.
+  # If the classifiers have already been trained, this call will simply return.
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'])
 
@@ -589,23 +590,22 @@ def data():
     logging.info("contextHistory found:")
     logging.info(context_history)
 
-  query = str(escape(nl_utils.remove_punctuations(original_query)))
-  embeddings_build = str(escape(request.args.get('build', "combined_all")))
+  recent_context = None
+  if context_history:
+    recent_context = context_history[-1]
+
+  query = str(escape(utils.remove_punctuations(original_query)))
   default_place = "United States"
   res = {'place_type': '', 'place_name': '', 'place_dcid': '', 'config': {}}
   if not query:
     logging.info("Query was empty")
     return _result_with_debug_info(res, "Aborted: Query was Empty.",
-                                   embeddings_build,
-                                   _detection("", "", embeddings_build))
+                                   _detection("", "", recent_context))
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
-  recent_context = None
-  if context_history:
-    recent_context = context_history[-1]
   query_detection = _detection(str(escape(original_query)), query,
-                               embeddings_build, recent_context)
+                               recent_context)
 
   # Get Data Spec
   data_spec = nl_data_spec.compute(query_detection, context_history)
@@ -630,5 +630,4 @@ def data():
   if not data_spec.selected_svs:
     status_str += '**No SVs Found**.'
 
-  return _result_with_debug_info(d, status_str, embeddings_build,
-                                 query_detection, data_spec)
+  return _result_with_debug_info(d, status_str, query_detection, data_spec)

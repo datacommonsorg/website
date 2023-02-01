@@ -42,9 +42,9 @@ metadata {
       event_type_dcids: "FloodEvent"
       color: "#3cbad1"
       default_severity_filter: {
-        prop: "area",
-        unit: "SquareKilometer",
-        upper_limit: 1000,
+        prop: "area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
         lower_limit: 25
       }
     }
@@ -59,9 +59,9 @@ metadata {
       event_type_dcids: "FireEvent"
       color: "#f9c532"
       default_severity_filter: {
-        prop: "area",
-        unit: "SquareKilometer",
-        upper_limit: 1000,
+        prop: "area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
         lower_limit: 25
       }
     }
@@ -71,12 +71,12 @@ metadata {
     value {
       id: "storm"
       name: "Storm"
-      color: "#f01212"
+      color: "#2e7d32"
       event_type_dcids: "CycloneEvent"
       default_severity_filter: {
-        prop: "maxWindSpeed",
-        unit: "Knot",
-        upper_limit: 100000,
+        prop: "maxWindSpeed"
+        unit: "Knot"
+        upper_limit: 100000
         lower_limit: 64
       }
     }
@@ -88,11 +88,11 @@ metadata {
       id: "tornado"
       name: "Tornado"
       event_type_dcids: "TornadoEvent"
-      color: "#f01212"
+      color: "#004d40"
       default_severity_filter: {
-        prop: "maxClassification",
-        unit: "TornadoIntensityEF",
-        upper_limit: 5,
+        prop: "maxClassification"
+        unit: "TornadoIntensityEF"
+        upper_limit: 5
         lower_limit: 3
       }
     }
@@ -106,7 +106,7 @@ metadata {
       color: "#ff5dd6"
       default_severity_filter: {
         prop: "area",
-        unit: "SquareKilometer",
+        unit: "SquareKilometer"
         upper_limit: 100000,
         lower_limit: 10
       }
@@ -120,10 +120,42 @@ metadata {
       event_type_dcids: "WetBulbTemperatureEvent"
       color: "#7700e6"
       default_severity_filter: {
-        prop: "wetBulbTemperature",
+        prop: "wetBulbTemperature"
         unit: "Celsius",
         upper_limit: 37,
         lower_limit: 31
+      }
+    }
+  }
+  event_type_spec {
+    key: "heat"
+    value {
+      id: "heat"
+      name: "Extreme Heat"
+      event_type_dcids: "HeatTemperatureEvent"
+      color: "#f01212"
+      default_severity_filter: {
+        prop: "differenceTemperature"
+        unit: "Celsius"
+        # If updating the lower_limit, also update the Extreme Heat event description (below, in this file).
+        upper_limit: 35
+        lower_limit: 18
+      }
+    }
+  }
+  event_type_spec {
+    key: "cold"
+    value {
+      id: "cold"
+      name: "Extreme Cold"
+      event_type_dcids: "ColdTemperatureEvent"
+      color: "#304ffe"
+      default_severity_filter: {
+        prop: "differenceTemperature"
+        unit: "Celsius"
+        # If updating the upper_limit, also update the Extreme Cold event description (below, in this file).
+        upper_limit: -18
+        lower_limit: -35
       }
     }
   }
@@ -133,6 +165,7 @@ categories {
   title: "Severe Weather and Natural Disasters"
 
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -143,6 +176,8 @@ categories {
           # event_type_keys: "tornado"
           event_type_keys: "storm"
           event_type_keys: "wetbulb"
+          event_type_keys: "heat"
+          event_type_keys: "cold"
         }
       }
     }
@@ -158,6 +193,7 @@ categories {
     "to be experiencing drought. We source drought data from "
     "[NOAA](https://www.drought.gov/data-maps-tools/global-precipitation-climatology-centre-gpcc-standardized-precipitation-index-spi)."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -199,6 +235,7 @@ categories {
     "thermal readings. We source fire data from [NASA](https://lpdaac.usgs.gov/products/vnp14a1v001/) "
     "and [WFIGS](https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about)."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -253,6 +290,7 @@ categories {
     "from the [Global Flood Database](https://developers.google.com/earth-engine/datasets/catalog/GLOBAL_FLOOD_DB_MODIS_EVENTS_V1) "
     "and [Dynamic World](https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1) respectively."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -308,6 +346,7 @@ categories {
     "torrential rain. We source our storm data from "
     "[NOAA](https://www.ncei.noaa.gov/products/international-best-track-archive)."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -350,6 +389,7 @@ categories {
     "survival for more than a few hours in the shade, even with unlimited water, "
     "is a wet-bulb temperature of 35 °C."
   blocks {
+    type: DISASTER_EVENT
     columns {
       tiles {
         type: DISASTER_EVENT_MAP
@@ -391,6 +431,106 @@ categories {
     value {
       stat_var: "Area_WetBulbTemperatureEvent"
       name: "Area affected by wet bulb temperature events"
+    }
+  }
+}
+
+categories {
+  title: "Extreme Heat"
+  description: "Heat events for a place are defined by a large ( > 18 degree Celsius) difference between maximum temperatures and the average of monthly maximum temperatures over 1980-2010."
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "heat"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Number of extreme heat events last year"
+      #   stat_var_key: "heat_count"
+      # }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by extreme heat events last year"
+      #   stat_var_key: "heat_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe heat events in the last year"
+        top_event_tile_spec {
+          event_type_key: "heat"
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "heat_count"
+    value {
+      stat_var: "Count_HeatTemperatureEvent"
+      name: "Count of extreme heat events"
+    }
+  }
+  stat_var_spec {
+    key: "heat_area"
+    value {
+      stat_var: "Area_HeatTemperatureEvent"
+      name: "Area affected by extreme heat events"
+    }
+  }
+}
+
+categories {
+  title: "Extreme Cold"
+  description: "Cold events for a place are defined by a large ( < -18 degree Celsius) difference between minimum temperatures and the average of monthly minimum temperatures over 1980-2010."
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "cold"
+        }
+      }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Number of extreme cold events last year"
+      #   stat_var_key: "cold_count"
+      # }
+      # tiles {
+      #   type: HISTOGRAM
+      #   title: "Total area affected by extreme cold events last year"
+      #   stat_var_key: "cold_area"
+      # }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe cold events in the last year"
+        top_event_tile_spec {
+          event_type_key: "cold"
+        }
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "cold_count"
+    value {
+      stat_var: "Count_ColdTemperatureEvent"
+      name: "Count of extreme cold events"
+    }
+  }
+  stat_var_spec {
+    key: "cold_area"
+    value {
+      stat_var: "Area_ColdTemperatureEvent"
+      name: "Area affected by extreme cold events"
     }
   }
 }

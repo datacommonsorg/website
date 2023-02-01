@@ -100,15 +100,6 @@ for iitm data commons.
 To start multiple instances, bind each server instance to a different port.
 The following example will start localhost on port 8081. The default is 8080.
 
-### Start NL Server
-
-Natural language models are hosted on a separate server. For features that
-depend on it, need to bring it up locally:
-
-```bash
-./run_server.sh -p 6060
-```
-
 Please note the strict syntax requirements for the script, and leave a space
 after the flag. So: `./run_server.sh -p 8081` but not `./run_server.sh -p=8081`.
 
@@ -117,6 +108,17 @@ To enable language models
 ```bash
 ./run_server.sh -m
 ```
+
+### Start NL Server
+
+Natural language models are hosted on a separate server. For features that
+depend on it (all NL-based interfaces and endpoints), the NL server needs
+to be brought up locally (in a separate process):
+
+```bash
+./run_nl_server.sh -p 6060
+```
+By default the NL server runs on port 6060. 
 
 ## Deploy local changes to dev insance in GCP
 

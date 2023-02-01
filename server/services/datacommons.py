@@ -74,9 +74,9 @@ def post_wrapper(url, req_str: str):
   # Send the request and verify the request succeeded
   response = requests.post(url, json=req, headers=headers)
   if response.status_code != 200:
-    raise ValueError('An HTTP {} code ({}) was returned by the mixer:{}'.format(
-        response.status_code, response.reason,
-        response.json()['message']))
+    raise ValueError(
+        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
+            response.status_code, response.reason, response.content))
   return response.json()
 
 
@@ -327,11 +327,28 @@ def get_event_collection_date(event_type, affected_place):
   })
 
 
-def nl_helloworld():
-  """fetch nl hello world data.
-  """
-  url = cfg.NL_ROOT
+def nl_embeddings_vector_at_index(index: int):
+  """Embedding vector at index from the NL server."""
+  url = f'{cfg.NL_ROOT}/api/embedding?i={index}'
+  return get(url).get('embeddings_vector', [])
+
+
+def nl_embeddings_vector(query):
+  """Embedding vector from the NL server."""
+  url = f'{cfg.NL_ROOT}/api/embedding?q={query}'
+  return get(url).get('embeddings_vector', [])
+
+
+def nl_search_sv(query):
+  """Search sv from NL server."""
+  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}'
   return get(url)
+
+
+def nl_detect_place_ner(query):
+  """Detect places from NL server."""
+  url = f'{cfg.NL_ROOT}/api/search_places?q={query}'
+  return get(url).get('places', [])
 
 
 # =======================   V0 V0 V0 ================================

@@ -131,24 +131,6 @@ $border-radius: 0.5rem;
     align-items: center;
     margin-top: 15px;
   }
-
-  .disaster-event-map-selectors-section {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .disaster-event-map-date-selector {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  
-  #disaster-event-map-date-selector-input {
-    width: 12rem;
-    margin-left: 0.5rem;
-  }
   
   .disaster-event-map-breadcrumbs,
   .disaster-event-map-breadcrumb-entry,
@@ -263,7 +245,7 @@ $border-radius: 0.5rem;
 
   path.missing-data {
     fill: #fff !important;
-    stroke: #666;
+    stroke: #ccc;
   }
 
   path.highlighted {
@@ -286,62 +268,10 @@ $border-radius: 0.5rem;
     stroke: black;
     stroke-width: 2px;
   }
-
-  .filter-toggle {
-    display: flex;
-    padding: 0.3rem;
-    margin-left: 0.3rem;
-    cursor: pointer;
-    border-radius: $border-radius;
-  }
-
-  .filter-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
 }
 
 .disaster-event-map-chart-section {
   flex-grow: 1;
-}
-
-.disaster-event-map-severity-filters {
-  font-size: .9rem;
-  padding: 1rem 1.5rem;
-  overflow-y: auto;
-  border-left: $border;
-
-  .disaster-type-filters {
-    padding-bottom: 0.5rem;
-  }
-
-  .disaster-type-name {
-    width: 100%;
-    font-weight: 500;
-    opacity: 0.75;
-  }
-
-  .prop-filter {
-    font-size: .9rem;
-  }
-
-  .prop-filter-input {
-    display: flex;
-    align-items: center;
-    margin: 0.5rem 0;
-
-    span {
-      width: 2.5rem;
-    }
-
-    input {
-      font-size: .9rem;
-      margin-left: 0.5rem;
-      width: 5rem;
-      padding: .125rem .5rem;
-      line-height: 1;
-
-    }
-  }
 }
 
 /**

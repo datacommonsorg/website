@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Tests for nl_utils functions."""
+"""Tests for utils functions."""
 
 from parameterized import parameterized
 import unittest
 
-import lib.nl.nl_constants as nl_constants
-import lib.nl.nl_utils as nl_utils
+import lib.nl.constants as constants
+import lib.nl.utils as utils
 
 
 class TestNLUtilsAddToSet(unittest.TestCase):
@@ -32,33 +32,33 @@ class TestNLUtilsAddToSet(unittest.TestCase):
     }
 
     # Add some words
-    nl_utils.add_to_set_from_list(words_set, list_with_words)
+    utils.add_to_set_from_list(words_set, list_with_words)
     self.assertCountEqual(words_set, expected)
 
   def test_combine_stop_words(self):
     # Tests that the call to combine_stop_words() is successful.
     try:
-      got = nl_utils.combine_stop_words()
+      got = utils.combine_stop_words()
     except Exception as e:
       self.fail(
-          f"Call to nl_utils.combine_stop_words() failed with Exception: {e}")
+          f"Call to utils.combine_stop_words() failed with Exception: {e}")
 
     # Check that all possible words constants are in the combined list.
-    for word in nl_constants.STOP_WORDS:
+    for word in constants.STOP_WORDS:
       self.assertIn(word.lower(), got)
 
-    for key in nl_constants.PLACE_TYPE_TO_PLURALS.keys():
+    for key in constants.PLACE_TYPE_TO_PLURALS.keys():
       for word in key.split():
         self.assertIn(word.lower(), got)
 
-    for val in nl_constants.PLACE_TYPE_TO_PLURALS.values():
+    for val in constants.PLACE_TYPE_TO_PLURALS.values():
       for word in val.split():
         self.assertIn(word.lower(), got)
 
     # This is the most complex because the values could we lists or
     # dictionary (of lists). The strings themselves are also sentences
     # which need to be split in to words.
-    for d_vals in nl_constants.QUERY_CLASSIFICATION_HEURISTICS.values():
+    for d_vals in constants.QUERY_CLASSIFICATION_HEURISTICS.values():
       vals_list = []
       if type(d_vals) == list:
         vals_list = [d_vals]
@@ -93,8 +93,8 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ],
   ])
   def test_query_remove_stop_words(self, query, expected):
-    stop_words = nl_utils.combine_stop_words()
-    self.assertEqual(nl_utils.remove_stop_words(query, stop_words), expected)
+    stop_words = utils.combine_stop_words()
+    self.assertEqual(utils.remove_stop_words(query, stop_words), expected)
 
   @parameterized.expand([
       [
@@ -111,4 +111,4 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["'===()@#$%^&---`~:|][{}/?><,.,\"", ""],
   ])
   def test_query_remove_punctuation(self, query, expected):
-    self.assertEqual(nl_utils.remove_punctuations(query), expected)
+    self.assertEqual(utils.remove_punctuations(query), expected)

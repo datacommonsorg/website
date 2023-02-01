@@ -12,12 +12,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+import os
+import threading
+import yaml
+
 from flask import Flask
 
+import pubsub
 import routes
+import loader
 
 
 def create_app():
   app = Flask(__name__)
   app.register_blueprint(routes.bp)
+
+  flask_env = os.environ.get('FLASK_ENV')
+
+  model_config_path = '/datacommons/model/model.yaml'
+  if flask_env == 'local' or flask_env == 'test':
+    model_config_path = os.path.abspath(
+        os.path.join(os.path.curdir, '..', 'deploy/base/model.yaml'))
+  app.config['MODEL_CONFIG_PATH'] = model_config_path
+
+  # Initialize the NL module.
+  with open(app.config['MODEL_CONFIG_PATH']) as f:
+    model = yaml.full_load(f)
+    if not model:
+      logging.error("No configuration found for model")
+      return
+    loader.load_model(app, model['embeddings_file'])
+
+  # Auto update the model
+  if flask_env == 'local' or flask_env == 'autopush':
+    thread = threading.Thread(target=pubsub.subscribe, args=(app,))
+    thread.start()
+
   return app
