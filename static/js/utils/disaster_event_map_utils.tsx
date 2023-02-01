@@ -192,7 +192,11 @@ export function fetchDateList(
  * @param unit Unit to parse out.
  * @param reqParams Object to use for logging if there is an error.
  */
-function parseEventPropVal(values: string[], unit: string, reqParams?: any): number {
+function parseEventPropVal(
+  values: string[],
+  unit: string,
+  reqParams?: any
+): number {
   if (!_.isEmpty(values)) {
     // Get value by taking the first val, trimming the unit from the string, and
     // converting it into a number.
