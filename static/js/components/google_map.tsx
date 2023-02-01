@@ -16,6 +16,14 @@
 
 /**
  * Component for embedding a map from Google Maps
+ * 
+ * Used for plotting a place or location on a map via Google Maps, given that
+ * place, location, or event's DCID. This component can plot either KML
+ * coordinates from the /api/places/mapinfo api as polygons, or a lat/long
+ * marker pin using the node's latitude and longitude properties.
+ * 
+ * Note: If a node has both KML coordinates and lat/long properties, the KML
+ * coordinates are preferred.
  */
 
 import axios from "axios";
@@ -164,12 +172,14 @@ export class GoogleMap extends React.Component<
       // initialize Map
       const map = initMap(this.div.current);
 
-      // plot KML Coordinates
       if (Object.values(this.state.mapInfo).every((val) => val !== null)) {
+        // default to drawing polygons via KML coordinates if available
         drawKmlCoordinates(this.state.mapInfo, map);
-      }
-      // plot marker
-      else if (this.state.markerLocation.lat && this.state.markerLocation.lng) {
+      } else if (
+        this.state.markerLocation.lat &&
+        this.state.markerLocation.lng
+      ) {
+        // only draw marker pin if KML coordinates were not found
         drawMarker(this.state.markerLocation, map);
       }
     }
@@ -209,7 +219,7 @@ export class GoogleMap extends React.Component<
           !_.isEmpty(latitudes.values.out) &&
           !_.isEmpty(longitudes.values.out)
         ) {
-          //TODO (juliawu): Update logic to use highest precision lat/long if
+          // TODO (juliawu): Update logic to use highest precision lat/long if
           //                multiple values are provided
           const coordinates = {
             lat: parseFloat(latitudes.values.out[0].value),
