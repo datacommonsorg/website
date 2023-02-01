@@ -74,7 +74,6 @@ export function TopEventTile(props: TopEventTilePropType): JSX.Element {
   if (topEvents === undefined) {
     return <></>;
   }
-  console.log(topEvents);
 
   return (
     <div

@@ -186,27 +186,36 @@ export function fetchDateList(
   });
 }
 
-function parseEventPropVal(propVal, unit: string, reqParams?: any): number {
-  if (!_.isEmpty(propVal)) {
-    // Get value by taking the first severity val, trimming the unit
-    // from the string, and converting it into a number.
+/**
+ * Parses the first value of returned values from the event API, parsed as a number.
+ * @param values Values to extract.
+ * @param unit Unit to parse out.
+ * @param reqParams Object to use for logging if there is an error.
+ */
+function parseEventPropVal(values: string[], unit: string, reqParams?: any): number {
+  if (!_.isEmpty(values)) {
+    // Get value by taking the first val, trimming the unit from the string, and
+    // converting it into a number.
     console.assert(
-      propVal[0].length > unit.length,
+      values[0].length > unit.length,
       "severity values do not contain unit, please check filter config, %o",
       reqParams
     );
-    return Number(propVal[0].substring(unit.length));
+    return Number(values[0].substring(unit.length));
   }
   return Number.NaN;
 }
 
 /**
- * Get event points for a specific event type, place, and date
+ * Get event points for a specific event type, place, and date. Events are
+ * processed to only include required data based on the config.
  * @param eventType event type to get data for
  * @param place place to get data for
- * @param date date used for data retrieval (YYYY-MM)
- * @param disasterType the disaster type that the event type belongs to
- * @param severityProps list of severity props to get data about
+ * @param dateRange Dates to use for data retrieval (YYYY-MM), [start,end]
+ * @param disasterType The disaster type that the event type belongs to
+ * @param severityFilter Severity props to get data about
+ * @param useCache If true, uses data from the event cache (otherwise uses JSON cache).
+ * @param eventDisplayProps Other event properties to extract.
  */
 function fetchEventPoints(
   eventType: string,
@@ -258,7 +267,8 @@ function fetchEventPoints(
           const severityVals = eventData.propVals[severityFilter.prop].vals;
           const val = parseEventPropVal(
             severityVals,
-            severityFilter.unit || ""
+            severityFilter.unit || "",
+            reqParams
           );
           if (!isNaN(val)) {
             severity[severityFilter.prop] = val;

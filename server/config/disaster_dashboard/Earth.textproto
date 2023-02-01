@@ -188,28 +188,28 @@ metadata {
   }
 }
 
-# categories {
-#   title: "Severe Weather and Natural Disasters"
+categories {
+  title: "Severe Weather and Natural Disasters"
 
-#   blocks {
-#     type: DISASTER_EVENT
-#     columns {
-#       tiles {
-#         type: DISASTER_EVENT_MAP
-#         disaster_event_map_tile_spec: {
-#           event_type_keys: "drought"
-#           event_type_keys: "fire"
-#           event_type_keys: "flood"
-#           # event_type_keys: "tornado"
-#           event_type_keys: "storm"
-#           event_type_keys: "wetbulb"
-#           event_type_keys: "heat"
-#           event_type_keys: "cold"
-#         }
-#       }
-#     }
-#   }
-# }
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "drought"
+          event_type_keys: "fire"
+          event_type_keys: "flood"
+          # event_type_keys: "tornado"
+          event_type_keys: "storm"
+          event_type_keys: "wetbulb"
+          event_type_keys: "heat"
+          event_type_keys: "cold"
+        }
+      }
+    }
+  }
+}
 
 categories {
   title: "Drought"
