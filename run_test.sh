@@ -112,17 +112,11 @@ function run_py_test {
   # export FLASK_ENV=test-sustainability
   # python3 -m pytest tests/sustainability/**.py
 
-  # Also test the nl_server/
-  # Downloading the named-entity recognition (NER) library spacy and the large EN model
-  # using the guidelines here: https://spacy.io/usage/models#production
-  if python3 -c "import en_core_web_lg" &> /dev/null; then
-      echo 'NER model (en_core_web_lg) already installed.'
-  else
-      echo 'Installing the NER model: en_core_web_lg'
-      pip3 install $(spacy info en_core_web_lg --url)
-  fi
-
   cd nl_server
+  # Custom packages installation for nl_server.
+  echo "nl_server custom requirements installation: starting."
+  ./requirements_install.sh
+  echo "nl_server custom requirements installation: done."
   python3 -m pytest tests/ -s
   cd ..
   
