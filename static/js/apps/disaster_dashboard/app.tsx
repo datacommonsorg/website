@@ -36,6 +36,10 @@ interface AppPropType {
    * Config of the page
    */
   dashboardConfig: SubjectPageConfig;
+  /**
+   * parent places of the place we are showing the dashboard for.
+   */
+  parentPlaces: NamedTypedPlace[];
 }
 
 export function App(props: AppPropType): JSX.Element {
@@ -48,10 +52,14 @@ export function App(props: AppPropType): JSX.Element {
         </div>
         <div className="col-md-9x col-lg-10">
           <h1 id="place-name">{props.place.name}</h1>
-          <ParentBreadcrumbs place={props.place}></ParentBreadcrumbs>
+          <ParentBreadcrumbs
+            place={props.place}
+            parentPlaces={props.parentPlaces}
+          ></ParentBreadcrumbs>
           <SubjectPageMainPane
             place={props.place}
             pageConfig={props.dashboardConfig}
+            parentPlaces={props.parentPlaces}
           />
         </div>
       </div>
