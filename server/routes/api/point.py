@@ -22,17 +22,6 @@ import services.datacommons as dc
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
 
 
-def point_core(entities, variables, date, all_facets):
-  resp = dc.obs_point(entities, variables, date, all_facets)
-  return util.compact_point(resp, all_facets)
-
-
-def point_within_core(parent_entity, child_type, variables, date, all_facets):
-  resp = dc.obs_point_within(parent_entity, child_type, variables, date,
-                             all_facets)
-  return util.compact_point(resp, all_facets)
-
-
 @bp.route('', strict_slashes=False)
 @cache.cached(timeout=3600 * 24, query_string=True)
 def point():
@@ -44,7 +33,7 @@ def point():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_core(entities, variables, date, False)
+  return util.point_core(entities, variables, date, False)
 
 
 @bp.route('/all')
@@ -58,7 +47,7 @@ def point_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_core(entities, variables, date, True)
+  return util.point_core(entities, variables, date, True)
 
 
 @bp.route('/within')
@@ -80,7 +69,8 @@ def point_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_within_core(parent_entity, child_type, variables, date, False)
+  return util.point_within_core(parent_entity, child_type, variables, date,
+                                False)
 
 
 @bp.route('/within/all')
@@ -102,4 +92,5 @@ def point_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date', '')
-  return point_within_core(parent_entity, child_type, variables, date, True)
+  return util.point_within_core(parent_entity, child_type, variables, date,
+                                True)

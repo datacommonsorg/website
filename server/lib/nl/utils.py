@@ -144,8 +144,10 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 # per the ranking order.
 def ranked_svs_for_place(place: str, svs: List[str],
                          order: detection.RankingType) -> List[str]:
-  points_data = dc.obs_point(entities=[place], variables=svs)
-  points_data = util.compact_point(points_data, all_facets=False)
+  points_data = util.point_core(entities=[place],
+                                variables=svs,
+                                date='',
+                                all_facets=False)
 
   svs_with_vals = []
   for sv, place_data in points_data['data'].items():
