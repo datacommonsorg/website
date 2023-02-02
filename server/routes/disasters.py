@@ -28,6 +28,14 @@ import services.datacommons as dc
 
 DEFAULT_PLACE_DCID = "Earth"
 DEFAULT_PLACE_TYPE = "Planet"
+EUROPE_DCID = "europe"
+EUROPE_CONTAINED_PLACE_TYPES = {
+    "Continent": "EurostatNUTS1",
+    "Country": "EurostatNUTS1",
+    "EurostatNUTS1": "EurostatNUTS2",
+    "EurostatNUTS2": "EurostatNUTS3",
+    "EurostatNUTS3": "EurostatNUTS3",
+}
 
 # Define blueprint
 bp = Blueprint("disasters", __name__, url_prefix='/disasters')
@@ -68,6 +76,14 @@ def disaster_dashboard(place_dcid=DEFAULT_PLACE_DCID):
     parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
   place_name = place_api.get_i18n_name([place_dcid
                                        ]).get(place_dcid, escape(place_dcid))
+  # If this is a European place, update the contained_place_types in the page
+  # metadata to use a custom dict instead.
+  # TODO: Find a better way to handle this
+  parent_dcids = map(lambda place: place.get("dcid", ""), parent_places)
+  if place_dcid == EUROPE_DCID or EUROPE_DCID in parent_dcids:
+    dashboard_config.metadata.contained_place_types.clear()
+    dashboard_config.metadata.contained_place_types.update(
+        EUROPE_CONTAINED_PLACE_TYPES)
 
   all_stat_vars = lib_subject_page_config.get_all_variables(dashboard_config)
   if all_stat_vars:
