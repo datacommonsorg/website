@@ -178,6 +178,8 @@ def _add_charts(state: PopulateState, places: List[Place],
       logging.info('Existence check failed for %s - %s',
                    ', '.join(places_to_check), ', '.join(extended_svs))
 
+  logging.info("Add chart %s %s returning %r" %
+               (', '.join(_get_place_names(places)), svs, found))
   return found
 
 

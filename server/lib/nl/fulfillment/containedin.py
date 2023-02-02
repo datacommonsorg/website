@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 from typing import List
 
 from lib.nl.detection import ClassificationType
@@ -56,6 +57,8 @@ def populate(uttr: Utterance) -> bool:
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  contained_places: List[Place],
                  chart_origin: ChartOriginType) -> bool:
+  logging.info('populate_cb for contained-in')
+
   if not state.place_type:
     return False
   if not chart_vars:

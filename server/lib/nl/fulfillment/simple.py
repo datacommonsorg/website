@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 from typing import List
 
 from lib.nl import utils
@@ -35,6 +36,7 @@ def populate(uttr: Utterance) -> bool:
 
 def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                  places: List[Place], chart_origin: ChartOriginType) -> bool:
+  logging.info('populate_cb for simple')
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.
     chart_type = ChartType.TIMELINE_CHART

@@ -29,7 +29,6 @@ from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
 
-
 _MAX_CONTEXT_SVS = 3
 _MAX_MAIN_SVS = 5
 
@@ -102,7 +101,8 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
   found = False
   for main_sv in main_svs:
     for context_sv in context_svs:
-      if main_sv == context_sv: continue
+      if main_sv == context_sv:
+        continue
       found |= _populate_correlation_chart(state, place, main_sv, context_sv)
   return found
 
