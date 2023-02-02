@@ -14,7 +14,6 @@
 
 from typing import List
 
-from lib.nl import utils
 from lib.nl.detection import ClassificationType
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
