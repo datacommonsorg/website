@@ -335,16 +335,17 @@ def data():
       not current_app.config['NL_MODEL']):
     flask.abort(404)
 
+  # TODO: Switch to NL-specific event configs instead of relying
+  # on disaster dashboard's.
   disaster_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
-    # TODO: Delete this when we are close to launch
     disaster_configs = get_disaster_dashboard_configs()
-
-  # TODO: validate this.
   disaster_config = None
   if disaster_configs:
     disaster_config = disaster_configs[0]
+  else:
+    logging.error('Unable to load event configs!')
 
   original_query = request.args.get('q')
   context_history = request.get_json().get('contextHistory', [])
