@@ -29,6 +29,10 @@ from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartType
 from lib.nl.utterance import Utterance
 
+
+_MAX_CONTEXT_SVS = 3
+_MAX_MAIN_SVS = 5
+
 #
 # Handler for CORRELATION chart.  This does not use the populate_charts() logic
 # because it is sufficiently different, requiring identifying pairs of SVs.
@@ -73,7 +77,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
-  main_svs = open_topics_ordered(state)
+  main_svs = open_topics_ordered(state.uttr.svs)
   main_svs = utils.sv_existence_for_places(places_to_check, main_svs)
   if not main_svs:
     logging.info('Correlation found no Main SV')
@@ -90,14 +94,16 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
     logging.info('Correlation found no Context SV')
     return False
 
+  main_svs = main_svs[:_MAX_MAIN_SVS]
+  context_svs = context_svs[:_MAX_CONTEXT_SVS]
   logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
   logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
 
-  # Pick a single context SV for the results
-  # TODO: Maybe consider more.
   found = False
   for main_sv in main_svs:
-    found |= _populate_correlation_chart(state, place, main_sv, context_svs[0])
+    for context_sv in context_svs:
+      if main_sv == context_sv: continue
+      found |= _populate_correlation_chart(state, place, main_sv, context_sv)
   return found
 
 

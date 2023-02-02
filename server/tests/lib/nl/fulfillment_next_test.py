@@ -303,7 +303,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(utils, 'rank_svs_by_growth_rate')
-  @patch.object(base, '_svg_or_topic_to_svs')
+  @patch.object(base, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
                       mock_extend_svs):

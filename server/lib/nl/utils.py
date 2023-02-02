@@ -306,7 +306,6 @@ def _datestr_to_date(datestr: str) -> datetime.date:
   elif len(parts) == 3:
     return datetime.date(int(parts[0]), int(parts[1]), int(parts[2]))
   raise ValueError(f'Unable to parse date {datestr}')
->>>>>>> 3e1bf14f374d6450265fb5f6c09c5bf1472e13f4
 
 
 #
