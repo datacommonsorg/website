@@ -37,6 +37,7 @@ import lib.nl.fulfillment_next as fulfillment
 import lib.nl.page_config_next as nl_page_config
 import lib.nl.utils as utils
 import lib.nl.utterance as nl_utterance
+from lib.util import get_disaster_dashboard_configs
 import requests
 import services.datacommons as dc
 
@@ -333,6 +334,18 @@ def data():
   if (os.environ.get('FLASK_ENV') == 'production' or
       not current_app.config['NL_MODEL']):
     flask.abort(404)
+
+  disaster_configs = current_app.config['DISASTER_DASHBOARD_CONFIGS']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    # TODO: Delete this when we are close to launch
+    disaster_configs = get_disaster_dashboard_configs()
+
+  # TODO: validate this.
+  disaster_config = None
+  if disaster_configs:
+    disaster_config = disaster_configs[0]
+
   original_query = request.args.get('q')
   context_history = request.get_json().get('contextHistory', [])
   escaped_context_history = escape(context_history)
@@ -363,7 +376,8 @@ def data():
   utterance = fulfillment.fulfill(query_detection, prev_utterance)
 
   if utterance.rankedCharts:
-    page_config_pb = nl_page_config.build_page_config(utterance)
+    page_config_pb = nl_page_config.build_page_config(utterance,
+                                                      disaster_config)
     page_config = json.loads(MessageToJson(page_config_pb))
     # Use the first chart's place as main place.
     main_place = utterance.rankedCharts[0].places[0]

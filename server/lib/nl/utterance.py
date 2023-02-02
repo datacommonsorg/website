@@ -25,6 +25,8 @@ from lib.nl.detection import ClassificationType
 from lib.nl.detection import ContainedInClassificationAttributes
 from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import Detection
+from lib.nl.detection import EventClassificationAttributes
+from lib.nl.detection import EventType
 from lib.nl.detection import NLClassifier
 from lib.nl.detection import Place
 from lib.nl.detection import RankingClassificationAttributes
@@ -57,6 +59,7 @@ class ChartType(IntEnum):
   BAR_CHART = 3
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
+  EVENT_CHART = 6
 
 
 # Enough of a spec per chart to create the chart config proto.
@@ -144,6 +147,8 @@ def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['ranking_type'] = c.attributes.ranking_type
     elif isinstance(c.attributes, TimeDeltaClassificationAttributes):
       cdict['time_delta_type'] = c.attributes.time_delta_types
+    elif isinstance(c.attributes, EventClassificationAttributes):
+      cdict['event_types'] = c.attributes.event_types
 
     classifications_dict.append(cdict)
   return classifications_dict
@@ -166,6 +171,10 @@ def _dict_to_classification(
       attributes = TimeDeltaClassificationAttributes(
           time_delta_types=[TimeDeltaType(t) for t in cdict['time_delta_type']],
           time_delta_trigger_words=[])
+    elif 'event_types' in cdict:
+      attributes = EventClassificationAttributes(
+          event_types=[EventType(t) for t in cdict['event_types']],
+          event_trigger_words=[])
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
                      attributes=attributes))

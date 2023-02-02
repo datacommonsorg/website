@@ -31,7 +31,9 @@ from lib.nl.utterance import Utterance
 #
 # Given an Utterance, build the final Chart config proto.
 #
-def build_page_config(uttr: Utterance) -> SubjectPageConfig:
+def build_page_config(
+    uttr: Utterance,
+    event_config: SubjectPageConfig = None) -> SubjectPageConfig:
   # Init
   page_config = SubjectPageConfig()
   # Set metadata
@@ -108,6 +110,10 @@ def build_page_config(uttr: Utterance) -> SubjectPageConfig:
     elif cspec.chart_type == ChartType.SCATTER_CHART:
       stat_var_spec_map = _scatter_chart_block(column, cspec.places[0],
                                                cspec.svs, sv2name, cspec.attr)
+
+    elif cspec.chart_type == ChartType.EVENT_CHART and event_config:
+      _event_chart_block(page_config.metadata, block, column, cspec.places[0],
+                         cspec.svs[0], cspec.attr, event_config)
 
     for sv_key, spec in stat_var_spec_map.items():
       category.stat_var_spec[sv_key].CopyFrom(spec)
@@ -342,6 +348,62 @@ def _scatter_chart_block(column, pri_place: Place, sv_pair: List[str], sv2name,
 def _place_overview_block(column):
   tile = column.tiles.add()
   tile.type = Tile.TileType.PLACE_OVERVIEW
+
+
+def _event_chart_block(metadata, block, column, place: Place, event_id: str,
+                       attr, event_config):
+
+  if event_id == 'earthquake':
+    eq_val = metadata.event_type_spec[event_id]
+    eq_val.id = event_id
+    eq_val.name = 'Earthquake'
+    eq_val.event_type_dcids.append('EarthquakeEvent')
+    eq_val.color = '#930000'
+    filter = eq_val.default_severity_filter
+    filter.prop = 'magnitude'
+    filter.display_name = 'Magnitude'
+    filter.upper_limit = 10
+    filter.lower_limit = 6
+  elif event_id in event_config.metadata.event_type_spec:
+    for k, v in event_config.metadata.event_type_spec.items():
+      metadata.event_type_spec[k].CopyFrom(v)
+  else:
+    logging.error('ID not found in event_type_spec: %s', event_id)
+    return
+
+  event_name = metadata.event_type_spec[event_id].name
+  block.title = event_name + ' in ' + place.name
+  block.type = Block.DISASTER_EVENT
+
+  tile = column.tiles.add()
+  rank_high = RankingType.HIGH in attr['ranking_types']
+  if rank_high:
+    # TODO: Handle top event for earthquakes
+    if not _maybe_copy_top_event(event_id, block, tile, event_config):
+      tile.type = Tile.TOP_EVENT
+      top_event = tile.top_event_tile_spec
+      top_event.event_type_key = event_id
+      top_event.display_prop.append('name')
+      top_event.show_start_date = True
+  else:
+    tile.type = Tile.DISASTER_EVENT_MAP
+    tile.disaster_event_map_tile_spec.event_type_keys.append(event_id)
+
+
+def _maybe_copy_top_event(event_id, block, tile, event_config):
+  # Find a TOP_EVENT tile with given key, because it has
+  # additional curated content.
+  for c in event_config.categories:
+    for b in c.blocks:
+      for col in b.columns:
+        for t in col.tiles:
+          if t.type == Tile.TOP_EVENT and t.top_event_tile_spec.event_type_key == event_id:
+            tile.CopyFrom(t)
+            block.title = b.title
+            block.description = b.description
+            return True
+
+  return False
 
 
 def _is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
