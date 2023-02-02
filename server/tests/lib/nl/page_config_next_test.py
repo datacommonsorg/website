@@ -26,6 +26,7 @@ from parameterized import parameterized
 from tests.lib.nl.test_utterance import COMPARISON_UTTR
 from tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from tests.lib.nl.test_utterance import CORRELATION_UTTR
+from tests.lib.nl.test_utterance import EVENT_UTTR
 from tests.lib.nl.test_utterance import PLACE_ONLY_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_PLACES_UTTR
 from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
@@ -548,6 +549,93 @@ RANKING_ACROSS_SVS_CONFIG = """
  }
 """
 
+EVENT_CONFIG = """
+ metadata {
+   place_dcid: "geoId/06"
+   event_type_spec {
+     key: "fire"
+     value {
+       id: "fire"
+       name: "Fire"
+       event_type_dcids: "WildlandFireEvent"
+       event_type_dcids: "WildfireEvent"
+       event_type_dcids: "FireEvent"
+       color: "#f9c532"
+       default_severity_filter {
+         prop: "area"
+         unit: "SquareKilometer"
+         lower_limit: 25.0
+         upper_limit: 1000.0
+         display_name: "Area"
+       }
+     }
+   }
+ }
+ categories {
+   blocks {
+     columns {
+       tiles {
+         title: "Most severe fires"
+         type: TOP_EVENT
+         top_event_tile_spec {
+           event_type_key: "fire"
+           show_start_date: true
+         }
+       }
+     }
+     type: DISASTER_EVENT
+   }
+ }
+"""
+
+# Includes just fire related stuff from Earth.textproto
+DISASTER_TEST_CONFIG = """
+metadata {
+  event_type_spec {
+    key: "fire"
+    value {
+      id: "fire"
+      name: "Fire"
+      event_type_dcids: "WildlandFireEvent"
+      event_type_dcids: "WildfireEvent"
+      event_type_dcids: "FireEvent"
+      color: "#f9c532"
+      default_severity_filter: {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
+        lower_limit: 25
+      }
+    }
+  }
+}
+categories {
+  title: "Fires"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          event_type_keys: "fire"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe fires"
+        top_event_tile_spec {
+          event_type_key: "fire"
+          show_start_date: true
+        }
+      }
+    }
+  }
+}
+"""
+
 
 # This has a set of similar tests to the ones in fulfillment_next_test.py.
 class TestPageConfigNext(unittest.TestCase):
@@ -576,6 +664,17 @@ class TestPageConfigNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')
 
+  @patch.object(utils, 'get_sv_name')
+  def test_event(self, mock_sv_name):
+    mock_sv_name.side_effect = (lambda svs: {sv: sv for sv in svs})
+
+    disaster_config = SubjectPageConfig()
+    text_format.Parse(DISASTER_TEST_CONFIG, disaster_config)
+    got = _run(EVENT_UTTR, disaster_config)
+
+    self.maxDiff = None
+    self.assertEqual(got, _textproto(EVENT_CONFIG))
+
 
 def _textproto(s):
   config = SubjectPageConfig()
@@ -583,6 +682,8 @@ def _textproto(s):
   return text_format.MessageToString(config)
 
 
-def _run(uttr_dict: Dict) -> SubjectPageConfig:
+def _run(uttr_dict: Dict,
+         config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
-  return text_format.MessageToString(page_config_next.build_page_config(uttr))
+  return text_format.MessageToString(
+      page_config_next.build_page_config(uttr, config))

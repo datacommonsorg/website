@@ -21,7 +21,6 @@ from lib.nl import topic
 from lib.nl import utils
 from lib.nl import variable
 from lib.nl.detection import ContainedInPlaceType
-from lib.nl.detection import EventType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
 from lib.nl.detection import TimeDeltaType
