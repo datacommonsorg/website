@@ -200,21 +200,31 @@ def rank_svs_by_growth_rate(place: str, svs: List[str],
 
     svs_with_vals.append((sv, net_growth_rate))
 
-  if not rank_order:
-    reverse = True if growth_direction == detection.TimeDeltaType.INCREASE else False
-  else:
-    reverse = True  # Descending order
-    if growth_direction == detection.TimeDeltaType.INCREASE and rank_order == detection.RankingType.LOW:
-      # lowest growing
-      reverse = False
-    elif growth_direction == detection.TimeDeltaType.DECREASE and rank_order == detection.RankingType.HIGH:
-      # highest shrinking
-      reverse = False
+  # (growth_direction, rank_order) -> reverse
+  sort_map = {
+      # Jobs that grew
+      (detection.TimeDeltaType.INCREASE, None):
+          True,
+      # Jobs that shrunk
+      (detection.TimeDeltaType.DECREASE, None):
+          False,
+      # Highest growing jobs
+      (detection.TimeDeltaType.INCREASE, detection.RankingType.HIGH):
+          True,
+      # Lowest growing jobs
+      (detection.TimeDeltaType.INCREASE, detection.RankingType.LOW):
+          False,
+      # Highest shrinking jobs
+      (detection.TimeDeltaType.DECREASE, detection.RankingType.HIGH):
+          False,
+      # Lowest shrinking jobs
+      (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
+          True,
+  }
 
-  logging.info(f'Rank order: {reverse}')
   svs_with_vals = sorted(svs_with_vals,
                          key=lambda pair: pair[1],
-                         reverse=reverse)
+                         reverse=sort_map[(growth_direction, rank_order)])
   logging.info(svs_with_vals)
   return [sv for sv, _ in svs_with_vals]
 
@@ -223,6 +233,7 @@ def rank_svs_by_growth_rate(place: str, svs: List[str],
 def compute_growth_rate(series: List[Dict]) -> float:
   latest = None
   earliest = None
+  # TODO: Apparently series is ordered, so simplify.
   for s in series:
     if s['date'] < _THRESHOLD_DATE_FOR_GROWTH_RATE:
       continue
@@ -231,6 +242,8 @@ def compute_growth_rate(series: List[Dict]) -> float:
     if not earliest or s['date'] < earliest['date']:
       earliest = s
 
+  if not latest or not earliest:
+    raise ValueError('Could not find valid points')
   if latest == earliest:
     raise ValueError('Dates are the same!')
   if len(latest['date']) != len(earliest['date']):
