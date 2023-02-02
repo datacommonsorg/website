@@ -286,5 +286,6 @@ def _open_topic_in_var(sv: str, rank: int) -> List[str]:
     svs = just_svs
     for (title, svpg) in svpgs:
       svs.extend(svpg)
+    return svs
 
   return []
