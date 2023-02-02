@@ -159,3 +159,41 @@ def _compact_point(point_resp, all_facets):
           data[var][entity] = {}
   result['data'] = data
   return result
+
+
+def series_core(entities, variables, all_facets):
+  resp = dc.obs_series(entities, variables, all_facets)
+  return _compact_series(resp, all_facets)
+
+
+def series_within_core(parent_entity, child_type, variables, all_facets):
+  resp = dc.obs_series_within(parent_entity, child_type, variables, all_facets)
+  return _compact_series(resp, all_facets)
+
+
+def _compact_series(series_resp, all_facets):
+  result = {
+      'facets': series_resp.get('facets', {}),
+  }
+  data = {}
+  for obs_by_variable in series_resp.get('observationsByVariable', []):
+    var = obs_by_variable['variable']
+    data[var] = {}
+    for obs_by_entity in obs_by_variable['observationsByEntity']:
+      entity = obs_by_entity['entity']
+      data[var][entity] = None
+      if 'seriesByFacet' in obs_by_entity:
+        if all_facets:
+          data[var][entity] = obs_by_entity['seriesByFacet']
+        else:
+          # There should be only one series
+          data[var][entity] = obs_by_entity['seriesByFacet'][0]
+      else:
+        if all_facets:
+          data[var][entity] = []
+        else:
+          data[var][entity] = {
+              'series': [],
+          }
+  result['data'] = data
+  return result

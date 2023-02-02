@@ -23,6 +23,7 @@ from lib.nl import variable
 from lib.nl.detection import ContainedInPlaceType
 from lib.nl.detection import Place
 from lib.nl.detection import RankingType
+from lib.nl.detection import TimeDeltaType
 from lib.nl.fulfillment import context
 from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartSpec
@@ -38,6 +39,7 @@ class PopulateState:
   fallback_cb: any
   place_type: ContainedInPlaceType = None
   ranking_types: List[RankingType] = field(default_factory=list)
+  time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   block_id: int = 0
 
 

@@ -14,6 +14,7 @@
 """Utility functions for use by the NL modules."""
 
 import copy
+import datetime
 import json
 import logging
 import os
@@ -23,12 +24,13 @@ from typing import Dict, List, Set, Union
 import lib.nl.constants as constants
 import lib.nl.detection as detection
 import lib.util as util
-from routes.api.series import series_core
 import services.datacommons as dc
 
 _CHART_TITLE_CONFIG_RELATIVE_PATH = "../../config/nl_page/chart_titles_by_sv.json"
 
 _NUM_CHILD_PLACES_FOR_EXISTENCE = 20
+
+_THRESHOLD_DATE_FOR_GROWTH_RATE = '2012'
 
 
 def add_to_set_from_list(set_strings: Set[str], list_string: List[str]) -> None:
@@ -147,8 +149,8 @@ def sv_existence_for_places(places: List[str], svs: List[str]) -> List[str]:
 
 # Given a place and a list of existing SVs, this API ranks the SVs
 # per the ranking order.
-def ranked_svs_for_place(place: str, svs: List[str],
-                         order: detection.RankingType) -> List[str]:
+def rank_svs_by_latest_value(place: str, svs: List[str],
+                             order: detection.RankingType) -> List[str]:
   points_data = util.point_core(entities=[place],
                                 variables=svs,
                                 date='',
@@ -169,7 +171,9 @@ def ranked_svs_for_place(place: str, svs: List[str],
 
 
 def has_series_with_single_datapoint(place: str, svs: List[str]):
-  series_data = series_core(entities=[place], variables=svs, all_facets=False)
+  series_data = util.series_core(entities=[place],
+                                 variables=svs,
+                                 all_facets=False)
   for _, place_data in series_data['data'].items():
     if place not in place_data:
       continue
@@ -179,6 +183,130 @@ def has_series_with_single_datapoint(place: str, svs: List[str]):
                    ', '.join(svs))
       return True
   return False
+
+
+# Given a place and a list of existing SVs, this API ranks the SVs
+# per the growth rate of the time-series.
+def rank_svs_by_growth_rate(place: str, svs: List[str],
+                            growth_direction: detection.TimeDeltaType,
+                            rank_order: detection.RankingType) -> List[str]:
+  series_data = util.series_core(entities=[place],
+                                 variables=svs,
+                                 all_facets=False)
+
+  svs_with_vals = []
+  for sv, place_data in series_data['data'].items():
+    if place not in place_data:
+      continue
+    series = place_data[place]['series']
+    if len(series) < 2:
+      continue
+
+    try:
+      net_growth_rate = compute_growth_rate(series)
+    except Exception as e:
+      logging.error('Growth rate computation failed: %s', str(e))
+      continue
+
+    if net_growth_rate > 0 and growth_direction != detection.TimeDeltaType.INCREASE:
+      continue
+    if net_growth_rate < 0 and growth_direction != detection.TimeDeltaType.DECREASE:
+      continue
+
+    svs_with_vals.append((sv, net_growth_rate))
+
+  # (growth_direction, rank_order) -> reverse
+  sort_map = {
+      # Jobs that grew
+      (detection.TimeDeltaType.INCREASE, None):
+          True,
+      # Jobs that shrunk
+      (detection.TimeDeltaType.DECREASE, None):
+          False,
+      # Highest growing jobs
+      (detection.TimeDeltaType.INCREASE, detection.RankingType.HIGH):
+          True,
+      # Lowest growing jobs
+      (detection.TimeDeltaType.INCREASE, detection.RankingType.LOW):
+          False,
+      # Highest shrinking jobs
+      (detection.TimeDeltaType.DECREASE, detection.RankingType.HIGH):
+          False,
+      # Lowest shrinking jobs
+      (detection.TimeDeltaType.DECREASE, detection.RankingType.LOW):
+          True,
+  }
+
+  svs_with_vals = sorted(svs_with_vals,
+                         key=lambda pair: pair[1],
+                         reverse=sort_map[(growth_direction, rank_order)])
+  logging.info(svs_with_vals)
+  return [sv for sv, _ in svs_with_vals]
+
+
+# Computes net growth-rate for a time-series including only recent (since 2012) observations.
+def compute_growth_rate(series: List[Dict]) -> float:
+  latest = None
+  earliest = None
+  # TODO: Apparently series is ordered, so simplify.
+  for s in series:
+    if s['date'] < _THRESHOLD_DATE_FOR_GROWTH_RATE:
+      continue
+    if not latest or s['date'] > latest['date']:
+      latest = s
+    if not earliest or s['date'] < earliest['date']:
+      earliest = s
+
+  if not latest or not earliest:
+    raise ValueError('Could not find valid points')
+  if latest == earliest:
+    raise ValueError('Dates are the same!')
+  if len(latest['date']) != len(earliest['date']):
+    raise ValueError('Dates have different granularity')
+
+  return _compute_growth(earliest, latest, series)
+
+
+def _compute_growth(earliest: Dict, latest: Dict,
+                    series: List[Dict]) -> datetime.date:
+  eparts = earliest['date'].split('-')
+  lparts = latest['date'].split('-')
+
+  if len(eparts) == 2 and eparts[1] != lparts[1]:
+    # Monthly data often has seasonal effects. So try to pick the earliest date
+    # in the same month as the latest date.
+    new_earliest_date = eparts[0] + '-' + lparts[1]
+    new_earliest = None
+    for v in series:
+      if v['date'] == new_earliest_date:
+        new_earliest = v
+        break
+    if new_earliest and new_earliest_date != latest['date']:
+      logging.info('Changing start month from %s to %s to match %s',
+                   earliest['date'], new_earliest_date, latest['date'])
+      earliest = new_earliest
+    else:
+      logging.info('First and last months diverge: %s vs. %s', earliest['date'],
+                   latest['date'])
+
+  val_delta = latest['value'] - earliest['value']
+  date_delta = _datestr_to_date(latest['date']) - _datestr_to_date(
+      earliest['date'])
+  # Compute % growth per day
+  start = 0.000001 if earliest['value'] == 0 else earliest['value']
+  return float(val_delta) / (float(date_delta.days) * start)
+
+
+def _datestr_to_date(datestr: str) -> datetime.date:
+  parts = datestr.split('-')
+  if len(parts) == 1:
+    return datetime.date(int(parts[0]), 1, 1)
+  elif len(parts) == 2:
+    return datetime.date(int(parts[0]), int(parts[1]), 1)
+  elif len(parts) == 3:
+    return datetime.date(int(parts[0]), int(parts[1]), int(parts[2]))
+  raise ValueError(f'Unable to parse date {datestr}')
+>>>>>>> 3e1bf14f374d6450265fb5f6c09c5bf1472e13f4
 
 
 #

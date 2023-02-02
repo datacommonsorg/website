@@ -40,6 +40,7 @@ from tests.lib.nl.test_utterance import RANKING_ACROSS_SVS_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
+from tests.lib.nl.test_utterance import TIME_DELTA_UTTR
 
 
 #
@@ -256,11 +257,11 @@ class TestDataSpecNext(unittest.TestCase):
   # This follows up on test_simple().  It relies on topic as well.
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
-  @patch.object(utils, 'ranked_svs_for_place')
+  @patch.object(utils, 'rank_svs_by_latest_value')
   @patch.object(base, '_build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
-                              mock_ranked_svs, mock_extend_svs):
+                              mock_rank_svs, mock_extend_svs):
     # Ranking, no place.
     detection = _detection(None, ['dc/topic/Agriculture'], [0.6],
                            ClassificationType.RANKING)
@@ -286,7 +287,7 @@ class TestDataSpecNext(unittest.TestCase):
         'Count_Farm'
     ], ['FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley']]
     # Differently order result
-    mock_ranked_svs.return_value = [
+    mock_rank_svs.return_value = [
         'FarmInventory_Barley',
         'FarmInventory_Rice',
         'FarmInventory_Wheat',
@@ -297,6 +298,46 @@ class TestDataSpecNext(unittest.TestCase):
 
     self.maxDiff = None
     self.assertEqual(got, RANKING_ACROSS_SVS_UTTR)
+
+  # This follows up on test_simple().  It relies on topic as well.
+  # Example: [what are the most grown agricultural things?]
+  @patch.object(variable, 'extend_svs')
+  @patch.object(utils, 'rank_svs_by_growth_rate')
+  @patch.object(base, '_svg_or_topic_to_svs')
+  @patch.object(utils, 'sv_existence_for_places')
+  def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
+                      mock_extend_svs):
+    # Ranking, no place.
+    detection = _detection(None, ['dc/topic/AgricultureProduction'], [0.6],
+                           ClassificationType.TIME_DELTA)
+
+    # MOCK:
+    # - Do no SV extensions
+    mock_extend_svs.return_value = {}
+    mock_topic_to_svs.return_value = [
+        base.ChartVars(svs=[
+            'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
+        ],
+                       block_id=2,
+                       include_percapita=False,
+                       is_topic_peer_group=True)
+    ]
+    # - Make SVs exist
+    mock_sv_existence.side_effect = [[
+        'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
+    ]]
+    # Differently order result
+    mock_rank_svs.return_value = [
+        'FarmInventory_Barley',
+        'FarmInventory_Rice',
+        'FarmInventory_Wheat',
+    ]
+
+    # Pass in just simple utterance
+    got = _run(detection, [SIMPLE_UTTR])
+
+    self.maxDiff = None
+    self.assertEqual(got, TIME_DELTA_UTTR)
 
 
 # Helper to construct Detection() class.
@@ -349,6 +390,13 @@ def _detection(place: str,
                      attributes=nl_detection.RankingClassificationAttributes(
                          ranking_type=[RankingType.HIGH],
                          ranking_trigger_words=['most', 'highest']))
+    ]
+  elif query_type == ClassificationType.TIME_DELTA:
+    detection.classifications = [
+        NLClassifier(type=ClassificationType.TIME_DELTA,
+                     attributes=nl_detection.TimeDeltaClassificationAttributes(
+                         time_delta_types=[nl_detection.TimeDeltaType.INCREASE],
+                         time_delta_trigger_words=['growth']))
     ]
 
   return detection

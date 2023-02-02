@@ -18,7 +18,7 @@
  * Component for rendering a category (a container for blocks).
  */
 
-import React from "react";
+import React, { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { NamedTypedPlace } from "../../shared/types";
@@ -46,7 +46,9 @@ export interface CategoryPropType {
   svgChartHeight: number;
 }
 
-export function Category(props: CategoryPropType): JSX.Element {
+export const Category = memo(function Category(
+  props: CategoryPropType
+): JSX.Element {
   const svProvider = new StatVarProvider(props.config.statVarSpec);
   return (
     <article
@@ -62,7 +64,7 @@ export function Category(props: CategoryPropType): JSX.Element {
       {renderBlocks(props, svProvider)}
     </article>
   );
-}
+});
 
 function renderBlocks(
   props: CategoryPropType,
