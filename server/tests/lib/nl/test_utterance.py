@@ -17,6 +17,7 @@ from lib.nl.detection import ClassificationType
 from lib.nl.detection import RankingType
 from lib.nl.utterance import ChartOriginType
 from lib.nl.utterance import ChartType
+from lib.nl.utterance import TimeDeltaType
 
 # Utterance for Place Overview.
 PLACE_ONLY_UTTR = {
@@ -381,4 +382,65 @@ RANKING_ACROSS_SVS_UTTR = {
         ]
     }],
     'svs': ['dc/topic/Agriculture']
+}
+
+# Utterance for time-delta query
+TIME_DELTA_UTTR = {
+    'classifications': [{
+        'time_delta_type': [TimeDeltaType.INCREASE],
+        'type': ClassificationType.TIME_DELTA
+    }],
+    'places': [],
+    'query': 'foo sv in place',
+    'query_type': ClassificationType.TIME_DELTA,
+    'ranked_charts': [{
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Barley']
+    }, {
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Rice']
+    }, {
+        'attr': {
+            'block_id': 2,
+            'class': ChartOriginType.PRIMARY_CHART,
+            'include_percapita': False,
+            'place_type': None,
+            'ranking_types': [],
+            'title': ''
+        },
+        'chart_type': ChartType.TIMELINE_CHART,
+        'places': [{
+            'dcid': 'geoId/06',
+            'name': 'Foo Place',
+            'place_type': 'State'
+        }],
+        'svs': ['FarmInventory_Wheat']
+    }],
+    'svs': ['dc/topic/AgricultureProduction']
 }

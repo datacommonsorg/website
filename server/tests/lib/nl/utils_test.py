@@ -112,3 +112,105 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
   ])
   def test_query_remove_punctuation(self, query, expected):
     self.assertEqual(utils.remove_punctuations(query), expected)
+
+
+class TestComputeGrowthRate(unittest.TestCase):
+
+  def test_year(self):
+    s = [
+        {
+            'date': '2019',
+            'value': 20
+        },
+        {
+            'date': '2018',
+            'value': 10
+        },
+        {
+            'date': '2017',
+            'value': 10
+        },
+        {
+            'date': '2009',
+            'value': 30
+        },  # should be ignored
+    ]
+    # 20 - 10 / (2 * 365)
+    self.assertEqual(0.0136986301369863, utils.compute_growth_rate(s))
+
+    s = [
+        {
+            'date': '2019',
+            'value': 10
+        },
+        {
+            'date': '2018',
+            'value': 20
+        },
+        {
+            'date': '2017',
+            'value': 10
+        },
+        {
+            'date': '2009',
+            'value': 30
+        },  # should be ignored
+    ]
+    # !0 - 20 / (2 years)
+    self.assertEqual(0, utils.compute_growth_rate(s))
+
+  def test_month(self):
+    s = [
+        {
+            'date': '2019-12',
+            'value': 20
+        },
+        {
+            'date': '2019-08',
+            'value': 10
+        },
+        {
+            'date': '2019-04',
+            'value': 10
+        },
+    ]
+    # 20 - 10 / (8 months)
+    self.assertEqual(0.040983606557377046, utils.compute_growth_rate(s))
+
+  def test_day(self):
+    s = [
+        {
+            'date': '2019-12-01',
+            'value': 20
+        },
+        {
+            'date': '2019-11-29',
+            'value': 10
+        },
+        {
+            'date': '2019-10-25',
+            'value': 10
+        },
+    ]
+    # 20 - 10 / (35)
+    self.assertEqual(0.2702702702702703, utils.compute_growth_rate(s))
+
+  def test_error(self):
+    s = [
+        {
+            'date': '2019-12-01',
+            'value': 20
+        },
+        {
+            'date': '2018-11',
+            'value': 10
+        },
+        {
+            'date': '2017',
+            'value': 10
+        },
+    ]
+    with self.assertRaises(ValueError) as context:
+      utils.compute_growth_rate(s)
+    self.assertTrue(
+        'Dates have different granularity' in str(context.exception))
